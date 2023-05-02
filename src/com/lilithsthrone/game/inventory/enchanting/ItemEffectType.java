@@ -719,6 +719,9 @@ public class ItemEffectType {
 			List<AbstractFetish> fetishesToAdd = new ArrayList<>();
 			List<AbstractFetish> fetishesToRemove = new ArrayList<>();
 			for(AbstractFetish f : Fetish.getAllFetishes()) {
+				if(!f.isContentEnabled()) {
+					continue;
+				}
 				if(f.getFetishesForAutomaticUnlock().isEmpty()) {
 					if(target.hasFetish(f)) {
 						fetishesToRemove.add(f);
@@ -729,42 +732,6 @@ public class ItemEffectType {
 				}
 			}
 			
-			// Remove possible fetish modifications based on user content settings:
-			if(!Main.game.isAnalContentEnabled()) {
-				fetishesToAdd.remove(Fetish.FETISH_ANAL_GIVING);
-				fetishesToAdd.remove(Fetish.FETISH_ANAL_RECEIVING);
-				fetishesToRemove.remove(Fetish.FETISH_ANAL_GIVING);
-				fetishesToRemove.remove(Fetish.FETISH_ANAL_RECEIVING);
-			}
-			if(!Main.game.isLactationContentEnabled()) {
-				fetishesToAdd.remove(Fetish.FETISH_LACTATION_OTHERS);
-				fetishesToAdd.remove(Fetish.FETISH_LACTATION_SELF);
-				fetishesToRemove.remove(Fetish.FETISH_LACTATION_OTHERS);
-				fetishesToRemove.remove(Fetish.FETISH_LACTATION_SELF);
-			}
-			if(!Main.game.isFootContentEnabled()) {
-				fetishesToAdd.remove(Fetish.FETISH_FOOT_GIVING);
-				fetishesToAdd.remove(Fetish.FETISH_FOOT_RECEIVING);
-				fetishesToRemove.remove(Fetish.FETISH_FOOT_GIVING);
-				fetishesToRemove.remove(Fetish.FETISH_FOOT_RECEIVING);
-			}
-			if(!Main.game.isArmpitContentEnabled()) {
-				fetishesToAdd.remove(Fetish.FETISH_ARMPIT_GIVING);
-				fetishesToAdd.remove(Fetish.FETISH_ARMPIT_RECEIVING);
-				fetishesToRemove.remove(Fetish.FETISH_ARMPIT_GIVING);
-				fetishesToRemove.remove(Fetish.FETISH_ARMPIT_RECEIVING);
-			}
-			if(!Main.game.isIncestEnabled()) {
-				fetishesToAdd.remove(Fetish.FETISH_INCEST);
-				fetishesToRemove.remove(Fetish.FETISH_INCEST);
-			}
-			if(!Main.game.isNonConEnabled()) {
-				fetishesToAdd.remove(Fetish.FETISH_NON_CON_DOM);
-				fetishesToRemove.remove(Fetish.FETISH_NON_CON_DOM);
-				fetishesToAdd.remove(Fetish.FETISH_NON_CON_SUB);
-				fetishesToRemove.remove(Fetish.FETISH_NON_CON_SUB);
-			}
-
 			if((Math.random()>0.33f && !fetishesToAdd.isEmpty()) || fetishesToRemove.isEmpty()) {
 				AbstractFetish f = fetishesToAdd.get(Util.random.nextInt(fetishesToAdd.size()));
 				target.addFetish(f);

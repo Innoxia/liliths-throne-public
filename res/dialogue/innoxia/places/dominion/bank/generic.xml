@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<scene id="exterior">
+		<content folderPath="txt/places/dominion/bank/generic">EXTERIOR</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[Enter the bank.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_dominion_bank_exit"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_dominion_bank, PLACE_TYPE_innoxia_dominion_bank_exit)]
+					[#game.moveBankInventory()]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/bank/generic', 'ENTER'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+    <!-- Place type id: innoxia_dominion_bank_foyer -->
+	<scene id="foyer">
+		<content folderPath="txt/places/dominion/bank/generic">FOYER</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_dominion_bank_exit -->
+	<scene id="exit">
+		<content folderPath="txt/places/dominion/bank/generic">EXIT</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Exit the bank and head back out into the streets of Dominion.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="DOMINION_BANK"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_BANK)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/bank/generic', 'EXIT_LEAVE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_dominion_bank_counter -->
+	<scene id="counter">
+		<content folderPath="txt/places/dominion/bank/generic">COUNTER</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<!-- Open account: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!pc.hasItemType(ITEM_innoxia_quest_bank_card)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Open account]]></responseTitle>
+				<responseTooltip><![CDATA[Approach one of the bank clerks and ask her if you can open an account.]]></responseTooltip>
+				<nextDialogue>innoxia_places_dominion_bank_generic_counter_open_account</nextDialogue>
+				<effects/>
+			</response>
+			<!-- Have an account: -->
+			<response>
+				<availabilityConditional><![CDATA[[#pc.hasItemType(ITEM_innoxia_quest_bank_card)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Take out loan]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Approach one of the bank clerks and ask her about taking out a loan.
+					<br/>[style.italicsMinorBad(This will be added when the bounty hunter lodge content is added!)]
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="counter_open_account">
+		<content folderPath="txt/places/dominion/bank/generic">COUNTER_OPEN_ACCOUNT</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Wait]]></responseTitle>
+				<responseTooltip><![CDATA[It looks like you're going to have to wait here until confirmation of your address can be established.]]></responseTooltip>
+				<nextDialogue>innoxia_places_dominion_bank_generic_counter_open_account_wait</nextDialogue>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="counter_open_account_wait">
+		<content folderPath="txt/places/dominion/bank/generic">COUNTER_OPEN_ACCOUNT_WAIT</content>
+		<secondsPassed minutes="true"><![CDATA[35]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Take card]]></responseTitle>
+				<responseTooltip><![CDATA[Having been granted a platinum account, you're now free leave and to access the bank's deposit boxes.]]></responseTooltip>
+				<nextDialogue stripContent="true">innoxia_places_dominion_bank_generic_foyer</nextDialogue>
+				<effects><![CDATA[
+					[#pc.setNearestLocation(PLACE_TYPE_innoxia_dominion_bank_foyer)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/bank/generic', 'COUNTER_OPEN_ACCOUNT_END'))]
+					[#game.appendToTextEndStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_quest_bank_card), false, true))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_dominion_bank_vip_door -->
+	<scene id="vip_door">
+		<content folderPath="txt/places/dominion/bank/generic">VIP_DOOR</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled><![CDATA[[#!pc.hasItemType(ITEM_innoxia_quest_bank_card)]]]></travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#!pc.hasItemType(ITEM_innoxia_quest_bank_card)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[[pc.Step] back]]></responseTitle>
+				<responseTooltip><![CDATA[As you don't have permission to access the bank's deposit boxes, you're not allowed through the door...]]></responseTooltip>
+				<nextDialogue>innoxia_places_dominion_bank_generic_foyer</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/bank/generic', 'VIP_DOOR_STEP_BACK'))]
+					[#pc.setLocation(pc.getLastCell())]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_dominion_bank_deposit_box -->
+	<scene id="deposit_box">
+		<content folderPath="txt/places/dominion/bank/generic">DEPOSIT_BOX</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#game.getDialogueFlags().getSavedLong('bank_interest')<=0]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[
+					Interest ([style.moneyFormatUncoloured(0, span)])
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					You do not have any interest to collect...
+					<br/>Interest is calculated on your savings at 12% APR, and is added up every midnight.
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+				<effects/>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.getDialogueFlags().getSavedLong('bank_interest')>0]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[
+					Interest ([style.moneyFormat([#game.getDialogueFlags().getSavedLong('bank_interest')], span)])
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Collect the interest which has accumulated on your savings...
+					<br/>Interest is calculated on your savings at 12% APR, and is added up every midnight.
+				]]></responseTooltip>
+				<nextDialogue>innoxia_places_dominion_bank_generic_deposit_box_interest_collected</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder([pc.incrementMoney(game.getDialogueFlags().getSavedLong('bank_interest'))])]
+					[#game.getDialogueFlags().setSavedLong('bank_interest', 0)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="deposit_box_interest_collected">
+		<content folderPath="txt/places/dominion/bank/generic">DEPOSIT_BOX_INTEREST_COLLECTED</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_bank_generic_deposit_box"/>
+	</scene>
+
+</dialogueNodes>

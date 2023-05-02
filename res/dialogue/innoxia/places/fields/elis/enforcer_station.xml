@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+    <!-- Place type id: innoxia_fields_elis_enforcer_station_corridor -->
+	<scene id="corridor">
+		<content folderPath="txt/places/fields/elis/enforcer_station">CORRIDOR</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_enforcer_station_exit -->
+	<scene id="exit">
+		<content folderPath="txt/places/fields/elis/enforcer_station">EXIT</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Exit the Enforcer station and head back out into the streets of Elis.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_town_enforcers"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_enforcers)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'EXIT_LEAVE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="exit_initial_entry">
+		<content folderPath="txt/places/fields/elis/enforcer_station">EXIT_INITIAL_ENTRY</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_enforcer_station_exit"/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_enforcer_station_reception -->
+	<scene id="reception">
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_work, false)]
+			[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_career, false)]
+			[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_lunette, false)]
+			#IF(!flags.hasFlag(FLAG_innoxia_elis_enforcers_sterope_met))
+				[#sterope.guaranteePregnancyOnNextRoll()]
+				[#sterope.rollForPregnancy(SUBSPECIES_CENTAUR, SUBSPECIES_CENTAUR, 500, true)]
+				[#sterope.useItem(game.getItemGen().generateItem(ITEM_MOTHERS_MILK), sterope, false, true)]
+				[#sterope.useItem(game.getItemGen().generateItem(ITEM_MOTHERS_MILK), sterope, false, true)]
+				[#sterope.useItem(game.getItemGen().generateItem(ITEM_MOTHERS_MILK), sterope, false, true)]
+			#ENDIF
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'RECEPTION'))]
+			[#flags.setFlag(FLAG_innoxia_elis_enforcers_sterope_met, true)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled><![CDATA[[#!flags.hasFlag(FLAG_innoxia_elis_enforcers_access_granted)]]]></travelDisabled>
+		<responses>
+			<!-- Talk: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Work]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_elis_enforcers_talk_work))
+						You're already talking to Sterope about the work that the Enforcers do here in Elis...
+					#ELSE
+						Ask Sterope about the work that the Enforcers do here in Elis.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_elis_enforcers_talk_work))
+						null
+					#ELSE
+						innoxia_places_fields_elis_enforcer_station_reception_talk
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'RECEPTION_TALK_WORK'))]
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_work, true)]
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_career, false)]
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_lunette, false)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Career]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_elis_enforcers_talk_career))
+						You're already talking to Sterope about her career in the Enforcers...
+					#ELSE
+						Ask Sterope about her career in the Enforcers.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_elis_enforcers_talk_career))
+						null
+					#ELSE
+						innoxia_places_fields_elis_enforcer_station_reception_talk
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'RECEPTION_TALK_CAREER'))]
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_work, false)]
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_career, true)]
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_lunette, false)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Lunette]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_elis_enforcers_talk_lunette))
+						You're already talking to Sterope about what she thinks of Lunette...
+					#ELSE
+						Ask Sterope about what she thinks of Lunette.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_elis_enforcers_talk_lunette))
+						null
+					#ELSE
+						innoxia_places_fields_elis_enforcer_station_reception_talk
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'RECEPTION_TALK_LUNETTE'))]
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_work, false)]
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_career, false)]
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_lunette, true)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_elis_enforcers_talk_lunette) && !flags.hasFlag(FLAG_innoxia_sterope_unlocked)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Flirt]]></responseTitle>
+				<responseTooltip><![CDATA[Push Sterope on what she's just said and ask her if she thinks of being turned into a succutaur's cock-sleeve often.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_enforcer_station_reception_talk]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'RECEPTION_FLIRT'))]
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_work, false)]
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_career, false)]
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_lunette, false)]
+					[#flags.setFlag(FLAG_innoxia_sterope_unlocked, true)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_elis_enforcers_access_granted) && pc.getQuest(QUEST_LINE_MAIN)==QUEST_MAIN_3_F_PREPARING_ELIS]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[SWORD Enforcers]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Sterope that you've been sent here by Minotallys and that you need to speak with the group of SWORD Enforcers who are stationed here.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_enforcer_station_reception_sword]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_work, false)]
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_career, false)]
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_lunette, false)]
+				]]></effects>
+			</response>
+			<!-- Back: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_elis_enforcers_access_granted)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[[pc.Step] back]]></responseTitle>
+				<responseTooltip><![CDATA[As you haven't been given permission to proceed any further, all you can do is [pc.step] back and return to the entrance...]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_enforcer_station_exit</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'RECEPTION_STEP_BACK'))]
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_enforcer_station, PLACE_TYPE_innoxia_fields_elis_enforcer_station_exit)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="reception_talk">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled><![CDATA[[#!flags.hasFlag(FLAG_innoxia_elis_enforcers_access_granted)]]]></travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_enforcer_station_reception"/>
+	</scene>
+	
+	<scene id="reception_sword">
+		<content folderPath="txt/places/fields/elis/enforcer_station">RECEPTION_SWORD</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Proceed past the reception desk and enter the interior of the Enforcer station.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_enforcer_station_corridor</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'RECEPTION_SWORD_CONTINUE'))]
+					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_enforcer_station_corridor)]
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_access_granted, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_enforcer_station_locked_door -->
+	<scene id="locked_door">
+		<content folderPath="txt/places/fields/elis/enforcer_station">LOCKED_DOOR</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[[pc.Step] back]]></responseTitle>
+				<responseTooltip><![CDATA[As the door is locked, you can't go any further...]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_enforcer_station_corridor</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'LOCKED_DOOR_STEP_BACK'))]
+					[#pc.setLocation(pc.getLastCell())]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_enforcer_station_cells -->
+	<scene id="cells">
+		<content folderPath="txt/places/fields/elis/enforcer_station">CELLS</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_enforcer_station_office -->
+	<scene id="office">
+		<content folderPath="txt/places/fields/elis/enforcer_station">OFFICE</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_enforcer_station_sword -->
+	<scene id="sword">
+		<content folderPath="txt/places/fields/elis/enforcer_station">SWORD</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+
+</dialogueNodes>

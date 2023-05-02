@@ -35,6 +35,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.AffectionLevelBasic;
+import com.lilithsthrone.game.character.attributes.AlcoholLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
@@ -105,6 +106,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
+import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
@@ -792,12 +794,6 @@ public class UtilText {
 		} else {
 			return "a";
 		}
-	}
-	
-	private static String[] femaleCumNames = new String[] { "juices" };
-
-	public static String getFemaleCumName() {
-		return femaleCumNames[Util.random.nextInt(femaleCumNames.length)];
 	}
 
 	/**
@@ -9945,6 +9941,9 @@ public class UtilText {
 		for(OrificePlasticity plasticity : OrificePlasticity.values()) {
 			engine.put("PLASTICITY_"+plasticity.toString(), plasticity);
 		}
+		for(EyeShape eyeShape : EyeShape.values()) {
+			engine.put("EYE_SHAPE_"+eyeShape.toString(), eyeShape);
+		}
 		// Types:
 		for(AbstractFluidType fluidType : FluidType.getAllFluidTypes()) {
 			engine.put("FLUID_TYPE_"+FluidType.getIdFromFluidType(fluidType), fluidType);
@@ -10051,6 +10050,9 @@ public class UtilText {
 		}
 		for(CorruptionLevel corruption : CorruptionLevel.values()) {
 			engine.put("CORRUPTION_LEVEL_"+corruption.toString(), corruption);
+		}
+		for(AlcoholLevel alcoholLevel : AlcoholLevel.values()) {
+			engine.put("ALCOHOL_LEVEL_"+alcoholLevel.toString(), alcoholLevel);
 		}
 		
 		

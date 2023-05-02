@@ -301,9 +301,9 @@ public class Oglix extends NPC {
 	}
 	
 	@Override
-	public void hourlyUpdate() {
+	public void hourlyUpdate(int hour) {
 		// beer bitch sex every hour
-		if(!Main.game.isHourBetween(5, 14)) {
+		if(!(hour>=5 && hour<14)) {
 			for(NPC npc : getBeerBitches()) {
 				if((npc.hasVagina() || Main.game.isAnalContentEnabled()) && Math.random()<0.8f) {
 					Gender gender = Gender.getGenderFromUserPreferences(false, true);

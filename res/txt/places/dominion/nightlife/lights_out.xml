@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	
+	<!-- Entrance: -->
+	
+	<htmlContent tag="EXIT"><![CDATA[
+	<p>
+		You once again find yourself standing at the main entrance to the bar. From here you could either take your leave and head back out into Dominion, or turn around and return to the bar.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT_INITIAL_ENTRY"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_lights_out_visited))
+		<p>
+			[pc.Walking] down the steep set of stairs which lead down to 'Lights Out', you arrive at the bottom to find your way being blocked by a burly dog-boy bouncer. Recognising you from before, he grunts, [style.speechMasculineHeavy(Hey, you're Hannah's friend, right? Go on in...)]
+		</p>
+	#ELSE
+		<p>
+			[pc.Walking] down the steep set of stairs which lead down to 'Lights Out', you arrive at the bottom to find your way being blocked by a burly dog-boy bouncer. In a rough voice, he grunts, [style.speechMasculineHeavy(I haven't seen you around before. This bar's invite-only, so you're not getting in.)]
+		</p>
+		<p>
+			Remembering what it is that Hannah told you, you tell the bouncer that a [hannah.race] named Hannah has sent you. Raising his eyebrows in surprise, the bouncer exclaims, [style.speechMasculineHeavy(<i>Hannah</i> sent you?! Well, shit, you'd better go on in then.)]
+		</p>
+	#ENDIF
+	<p>
+		Uncrossing his muscular arms, the bouncer steps aside, allowing you to push open the door and enter the basement bar. Concrete flooring, dim lights protected by wire cages, and metal tables and chairs all combine to give the place a rough, industrial vibe. Looking around, you see that boxing gloves, pictures of fights, and other types of boxing memorabilia have been hung up on the walls.
+	</p>
+	<p>
+		Although not a very big place, the bar has enough of a floor area to house a dozen tables, around which people of all races are sitting. Although they vary in species, the vast majority of the bar's patrons look to be incredibly strong, and you realise that most of them must be fighters of one sort or another. While a few of them turn their heads as you enter, most don't give you any notice.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT_LEAVE"><![CDATA[
+	<p>
+		Having had enough of the bar, you push open the door and climb the steep set of stairs beyond...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Tables: -->
+	
+	<htmlContent tag="TABLES"><![CDATA[
+	<p>
+		You find yourself [pc.walking] through the main floor area of the bar, which is filled with about a dozen large, metal tables. Hung up on the walls are boxing gloves, pictures of fights, and other types of boxing memorabilia. The dim, caged lights and concrete flooring combine with the metal furniture to give this place a rough, industrial vibe.
+	</p>
+	<p>
+		Seated around the tables are people of all races, who seem to all be engaged in either talking or drinking. Although they vary in species, the vast majority of them look to be very strong, and you realise that most of them must be fighters of one sort or another. While a few of them turn their heads as you pass, most don't give you any notice.
+	</p>
+	<p>
+		In one corner of the room there's the main bar area, while in the opposite corner there's a sign pointing the way to the toilets. There doesn't seem to be much room at any of the tables, so the bar, the toilets, or the exit should be your next port of call...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Toilets: -->
+	
+	<htmlContent tag="TOILETS"><![CDATA[
+	<p>
+		As is to be expected of a bar of this sort, the toilet facilities are very primitive, and not exactly the most hygienic of places. What's more, due to the quantity of drink consumed on these premises, they're in constant use, and it looks like most of the stalls are currently occupied.
+	</p>
+	<p>
+		Looking into a couple of these empty stalls, you see that glory holes have been cut into the walls. Looking down at the dirty floor, you can't help but
+		#IF(pc.hasFetish(FETISH_MASOCHIST))
+			 feel turned on as you imagine how degrading it would be to service one of these holes.
+		#ELSE
+			 shudder as you imagine how degrading it would be for someone to service one of these holes.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_USE"><![CDATA[
+	<p>
+		After heading over to a free stall, you [pc.step] into it and lock the door behind you, before making use of the toilet. After you've finished, you flush the toilet before making your way over to one of the sinks and washing your [pc.hands]. Grabbing a paper towel from the nearby dispenser, you quickly dry yourself off, before turning to face the room and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOILETS_WASH"><![CDATA[
+	<p>
+		Feeling like you could do with having a quick clean, you step over to the sinks and thoroughly wash your [pc.hands], before splashing some water on your [pc.face]. Grabbing a paper towel from the nearby dispenser, you quickly dry yourself off, before turning to face the room and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Bar: -->
+	
+	<htmlContent tag="BAR"><![CDATA[
+	<p>
+		A full two dozen seats have been lined up in front of the long, metal-topped bar before you. Behind the bar, rows upon rows of spirits have been lined up on shelves, but there's no sign of beer, wine, or non-alcoholic drinks. Most of the seats are occupied by large, muscular morphs of all different races.
+	</p>
+	<p>
+		Taking pride of place on the wall behind the bar, a dozen golden trophy cups have been placed upon a metal shelf. Engraved into their gleaming surfaces are masterfully detailed depictions of boxers delivering knock-out blows to their opponents. You can't help but notice that upon three of these cups the depiction of the victorious boxer is none other than Hannah.
+	</p>
+	<p>
+		A burly, grumpy-looking bear-boy is standing behind the bar. Giving the briefest of grunts in response to his patrons' orders, he mutely pours out shots of vodka, rum, or whiskey, which are more often than not immediately downed.
+	</p>
+	#IF(game.getCharactersPresent().contains(hannah))
+		<p>
+			Looking down the row of seats, you see the familiar figure of Hannah sitting at the bar. Instead of the usual sports bra and shorts which she wears while at the gym, she's now wearing a black leather jacket that's unzipped to reveal a dark purple cropped tank top. Navy blue distressed jeans are covering her legs, while on her feet she's wearing a pair of dark purple skater shoes. She never wears jewellery to the gym, but here you notice that the dim lights of the bar are glinting off of silver ball studs that are fixed into her ears and nose.
+		</p>
+		<p>
+			Clearly having felt your gaze upon her back, Hannah turns and notices that you're here. After giving you a silent nod, she turns back to face the bar and then downs the shot that's placed before her. It looks like she's not bothered if you're here to see her or not, so you could either go and sit down next to her and say hello, or take a seat somewhere else and do your own thing...
+		</p>
+	#ELSE
+		<p>
+			Looking down the row of seats, you see that Hannah isn't here at the moment. As such, you could either sit down at an empty seat and order a drink, or turn around and head off to another part of the bar...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_SIT"><![CDATA[
+	<p>
+		#IF(game.getCharactersPresent().contains(hannah))
+			Knowing that Hannah isn't the sort of person to care about being left to drink alone, you decide to sit at the other end of the bar to her and spend some time alone.
+		#ELSE
+			Deciding that you'd like to spend some time at the bar, you head on over to a free seat and sit down.
+		#ENDIF
+		 The grumpy-looking bartender looks over to you as you take your place at the bar, and as you catch his eye, he gives you the briefest of nods to acknowledge your presence.
+	</p>
+	<p>
+		Looking over the many bottles of spirits that are lined up on the shelves before you, you wonder whether to order a drink right away, or perhaps to spend a moment sitting and relaxing here first.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_SIT_LEAVE"><![CDATA[
+	<p>
+		Having had enough of sitting at the bar, you stand up and [pc.step] back, before wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_SIT_DRINK"><![CDATA[
+	<p>
+		Deciding that you'd like to order a drink, you manage to get the attention of the bear-boy bartender, who slowly ambles over to stand before you. Silently crossing his muscular, furry arms, he waits to hear what it is you want with an impatient frown on his face. Deciding that you'd better not waste his time, you quickly tell him that you want a shot of [#SPECIAL_PARSE_0].
+	</p>
+	<p>
+		Producing a shot glass from under the counter, the bartender places it down on the metal bar-top, before grabbing a bottle of [#SPECIAL_PARSE_0] from off the shelves and filling it to the brim. After handing over your flames to the bear-boy, you pick up the shot glass and down the spirit in one swift gulp.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- One night stand: -->
+	
+	<htmlContent tag="BAR_SIT_RELAX"><![CDATA[
+	<p>
+		Wanting to take some time to simply sit and relax at the bar, you lean against the metal counter and listen to whatever snippets of conversation you can catch. After about ten minutes spent in this manner, you're suddenly aware of a muscled figure sitting down next to you.
+	</p>
+	<p>
+		[partner.speech([style.random(If being sexy was a crime, then I'd be calling the Enforcers right now,|What does it feel like to be the hottest [pc.girl] in here?|I had a pickup line, but you're so hot that it made me forget,|You know, I'm a boxer, but the only knockout I'm interested in right now is you,|I was only here for a drink, but you keep on distracting me,)])] a [partner.feminine] voice says, causing you to look over to the person who's just sat down next to you. Sure enough, that cheesy pickup line was meant for you, as the [partner.raceFull(true)] who delivered it is looking straight into your eyes. Before you can respond, [partner.she] introduces [partner.herself] by saying, [partner.speech(I'm [partner.name]. Now it's your turn.)]
+	</p>
+	<p>
+		Taking a good look at [partner.name], you wonder whether to give [partner.herHim] your name and flirt back with [partner.herHim], or to instead reject [partner.herHim]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_SIT_RELAX_REJECT"><![CDATA[
+	<p>
+		You really aren't interested in this [partner.race], and so you bluntly tell [partner.herHim] to find someone else to bother. Letting out a defeated sigh, [partner.she] stands up and walks off, leaving you alone at the bar once again.
+	</p>
+	<p>
+		Looking over the bottles of spirits that line the shelves, you wonder whether to order a drink or to instead spend some more time relaxing at the bar...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_SIT_RELAX_FLIRT"><![CDATA[
+	<p>
+		Liking the look of [partner.name], you give [partner.herHim] your name, to which [partner.she] replies, [partner.speech(I don't think I've had a one night stand with #IF(game.isVowel(pc.getName().charAt(0)))an#ELSEa#ENDIF '[pc.name]' before. Oh well, there's always a first for everything.)]
+	</p>
+	<p>
+		Rolling your eyes, you ask [partner.name] how [partner.sheIs] so sure that this evening is going to end in a one night stand, to which [partner.she] states, [partner.speech(Well, you haven't told me to get lost yet, so that's always a good sign. Anyway, tell me more about yourself; I'd like to know more about the cute [pc.race] I'll be fucking later tonight.)]
+	</p>
+	<p>
+		Laughing at [partner.namePos] confidence, you do as [partner.she] asks and start telling [partner.herHim] about yourself. From there the two of you continue flirting back and forth for a while, before eventually the [partner.race] asks, [partner.speech(So, are you ready to show me back to your place, or are we going to do it in an alleyway?)]
+	</p>
+	<p>
+		Having been given this ultimatum, you wonder whether to invite [partner.name] back to your room, or perhaps instead you should flat-out reject [partner.herHim]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_SIT_RELAX_FLIRT_REJECT"><![CDATA[
+	<p>
+		Although you enjoyed flirting with this [partner.race], you aren't interested in a one night stand, and so you bluntly tell [partner.herHim] that the fun's over. Letting out a defeated sigh, [partner.name] stands up and walks off, leaving you alone at the bar once again.
+	</p>
+	<p>
+		Looking over the bottles of spirits that line the shelves, you wonder whether to order a drink or to instead spend some more time relaxing at the bar...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_SIT_RELAX_FLIRT_SEX_START_ALLEYWAY"><![CDATA[
+	<p>
+		Not wanting to take the time to make the journey back to your room at Lilaya's mansion, you tell [partner.name] that an alleyway suits you fine. Encouraged by this, [partner.she] takes you by the [pc.hand(true)] and leads you out of the bar. Passing through the neon-lit streets of nightlife, you soon find yourself being led into a quiet, dark alley.
+	</p>
+	<p>
+		[partner.speech(This is as good a place as any other,)] [partner.name] says, before pulling you into [partner.him] and planting a deep, passionate kiss on your [pc.lips]. As [partner.her] [partner.hands] roam all over your body, you find yourself letting out a horny [pc.moan] and willingly submitting to [partner.herHim]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_SIT_RELAX_FLIRT_SEX_START_BEDROOM"><![CDATA[
+	<p>
+		Telling [partner.name] that one night stands in dark alleyways aren't your thing, you suggest that the bed in your room would be far more comfortable. Grinning as [partner.she] hears you say this, [partner.name] takes you by the [pc.hand(true)] and leads you out of the bar. 
+	</p>
+	<p>
+		Soon enough you're arriving back at Lilaya's mansion, and the a minute later the two of you are bursting into your bedroom. Grabbing hold of you, [partner.name] pulls you into [partner.her] body and plants a deep, passionate kiss on your [pc.lips]. As [partner.her] [partner.hands] roam all over your body, you find yourself letting out a horny [pc.moan] and willingly submitting to [partner.herHim]...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ONE_NIGHT_STAND_AFTER_SEX_ALLEYWAY"><![CDATA[
+	<p>
+		With the two of you having had your fun, and the one night stand now at an end, both you and [partner.name] move away from one another and start getting your clothing in order.
+	</p>
+	<p>
+		[partner.speech(I knew you'd be a good fuck as soon as I saw you sitting there at the bar,)] the [partner.race] teases, before turning [partner.her] back on you and [partner.walking] off down the alley. As [partner.she] disappears from sight, you're left alone in the dark alleyway, wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ONE_NIGHT_STAND_AFTER_SEX_BEDROOM"><![CDATA[
+	<p>
+		With the two of you having had your fun, and the one night stand now at an end, both you and [partner.name] move away from one another and start getting your clothing in order.
+	</p>
+	<p>
+		[partner.speech(I knew you'd be a good fuck as soon as I saw you sitting there at the bar,)] the [partner.race] teases, before making a quick excuse to leave, [partner.speech(I need to be on the other side of the city first thing tomorrow, so I've got to go.)]
+	</p>
+	<p>
+		Saying goodbye to the [partner.race], you use the bell pull in your room to summon Rose so that she can escort [partner.herHim] out of the house. As your partner [partner.steps] out of your room and disappears from sight, you're left wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Hannah interactions: -->
+	
+	<htmlContent tag="BAR_HANNAH"><![CDATA[
+	<p>
+		Wanting to spend some time with Hannah, you approach the [hannah.race] and take the vacant seat next to her. As you sit down, she looks across at you and briefly grunts, [hannah.speech(Hey, [pc.name]. I was wondering if you'd be here tonight.)]
+	</p>
+	<p>
+		Returning her greeting, you sit down beside the [hannah.race] and briefly look over the many bottles of spirits that are lined up on the shelves before you. Swatting an empty shot glass back and forth over the bar-top between her paw-like hands, Hannah offers, [hannah.speech(Let me get you your first drink. It's my way of thanks for persisting with my lessons until the end.)]
+	</p>
+	<p>
+		Thanking her for the offer, you wonder whether to order a drink right away, or to spend some time talking with Hannah first...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_HANNAH_DRINK"><![CDATA[
+	<p>
+		Deciding that you'd like to order a drink, you manage to get the attention of the bear-boy bartender, who slowly ambles over to stand before you. Silently crossing his muscular, furry arms, he waits to hear what it is you want with an impatient frown on his face. Deciding that you'd better not waste his time, you quickly tell him that you want a shot of [#SPECIAL_PARSE_0].
+	</p>
+	<p>
+		Producing a shot glass from under the counter, the bartender places it down on the metal bar-top, before grabbing a bottle of [#SPECIAL_PARSE_0] from off the shelves and filling it to the brim.
+		#IF(flags.hasFlag(FLAG_innoxia_lights_out_free_drink))
+				 Keeping her promise, Hannah leans forwards and says to the bear-boy, [hannah.speech(Put this one on my tab, would you?)]
+			</p>
+			<p>
+				Silently nodding, the bartender walks off to serve another customer. After thanking Hannah for the drink, you pick up the shot glass and down the spirit in one swift gulp.
+		#ELSE
+			 After handing over your flames to the bear-boy, you pick up the shot glass and down the spirit in one swift gulp.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_HANNAH_DRINK_WARNING"><![CDATA[
+	<p style='text-align:center;'>
+		[style.italicsMinorBad(You've had far too much alcohol and are at your limit!)]
+		<br/>
+		[style.italicsBad(Who knows what could happen if you drink any more...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_HANNAH_LEAVE"><![CDATA[
+	<p>
+		Feeling like you need to get some space, you stand up and tell Hannah that you've got to be going.
+	</p>
+	<p>
+		[hannah.speech(I guess I should be leaving now too,)] she grunts, before ordering and downing one last shot of whiskey. Giving you a sly look, she teases, [hannah.speech(Next time you're here, you should stick around for a while... Who knows where things might lead?)]
+	</p>
+	<p>
+		Letting out one of her half-hyena, half-human laughs, she strides over to the exit and pulls open the door, before disappearing into the neon-lit night beyond. Looking around, you wonder whether to follow in her footsteps, or to instead spend a little more time in the bar...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_HANNAH_TALK"><![CDATA[
+	<p>
+		Wanting to relax and chat with Hannah for a little while, and knowing that she likes boxing more than anything, you begin by asking her how her training at the gym went today. Sure enough, this is the key to getting her talking, and soon enough the two of you are discussing different training techniques, the quality of her students, and how many challengers she's defeated this week.
+	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_lights_out_hannah_had_initial_talk))
+		<p>
+			[hannah.speech(Speaking of challengers, you know why they keep coming to me?)] she asks. Before you can respond to remind her that she has indeed told you of this before, Hannah points to three of the dozen trophy cups that are lined up behind the bar. As you see that these three have engravings of her likeness on them, she continues, [hannah.speech(I was champion three years running. Back then the sport was still all about the fight, but after my second victory, the organisers started cheapening it by focusing more on the promotions and showmanship.)]
+		</p>
+		<p>
+			Clearly disgusted by this turn of events in her past, the [hannah.race] angrily slams her shot glass down onto the counter. As if possessing prescience, the bartender appears at that exact moment to pour another shot of whiskey into Hannah's glass. Instantly downing it, she continues her story by grumbling, [hannah.speech(After my third victory, I told the organisers that they were sell-outs. We exchanged some words, at the end of which I quit their championship. I'm still classed as being undefeated, so that's why challengers come seeking me out.)]
+		</p>
+		<p>
+			Remembering what she told you before, you remark upon that being the point when she decided to go and work for Pix. Letting out one of her half-hyena, half-human laughs as you say this, she exclaims, [hannah.speech(That's right! She must have known where things were going, because when I got back to my apartment I found her waiting there. In the morning she offered me the job again, and I accepted.)]
+		</p>
+		<p>
+			Knowing from your previous discussion that she and Pix aren't in a relationship, you ask the [hannah.race] if that's still the case.
+		</p>
+		<p>
+			[hannah.speech(Yeah, we've never really been a couple, we just spend the night together every now and then,)] Hannah replies. Downing yet another shot that the bartender has poured for her, she flashes you a grin and somewhat-clumsily teases, [hannah.speech(But you knwo that there's someone else I've got my eye on at the moment... Someone who's pretty hot and knows the way to please me...)]
+		</p>
+		<p>
+			Although Hannah's sober state is to be a little prude, the several shots she's recently downed are making her show her true feelings, and you wonder whether or not to flirt back with her...
+		</p>
+	#ELSE
+		<p>
+			[hannah.speech(Speaking of challengers, you know why they keep coming to me?)] she asks. Before you can respond, she points to three of the dozen trophy cups that are lined up behind the bar. As you see that these three have engravings of Hannah's likeness on them, she continues, [hannah.speech(I was champion three years running. Back then the sport was still all about the fight, but after my second victory, the organisers started cheapening it by focusing more on the promotions and showmanship.)]
+		</p>
+		<p>
+			Clearly disgusted by this turn of events in her past, the [hannah.race] angrily slams her shot glass down onto the counter. As if possessing prescience, the bartender appears at that exact moment to pour another shot of whiskey into Hannah's glass. Instantly downing it, she continues her story by grumbling, [hannah.speech(After my third victory, I told the organisers that they were sell-outs. We exchanged some words, at the end of which I quit their championship. I'm still classed as being undefeated, so that's why challengers come seeking me out.)]
+		</p>
+		<p>
+			You ask her if that's when she decided to go and work for Pix, to which Hannah lets out one of her half-hyena, half-human laughs and exclaims, [hannah.speech(That's right! She must have known where things were going, because when I got back to my apartment I found her waiting there. In the morning she offered me the job again, and I accepted.)]
+		</p>
+		<p>
+			Picking up on the meaning of Pix still being around to offer Hannah the job in the morning, you ask the [hannah.race] if she and Pix are still seeing one another.
+		</p>
+		<p>
+			[hannah.speech(We've never really been a couple, we just spend the night together every now and then,)] Hannah reveals. Downing yet another shot that the bartender has poured for her, she flashes you a grin and somewhat-clumsily teases, [hannah.speech(But there's someone else I've got my eye on at the moment... Someone who's pretty hot...)]
+		</p>
+		<p>
+			Although you can tell that she's genuinely into you, it seems as though Hannah's sober state is to be a little prude. Thanks to the several shots she's recently downed, she's starting to show her true feelings, and you wonder whether or not to flirt back with her...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_HANNAH_FLIRT"><![CDATA[
+	<p>
+		Deciding to take things a little further, you start to flirt back with Hannah. Teasing her by pretending not to know that she's talking about you, you get her to reveal more of her feelings for you.
+	</p>
+	<p>
+		#IF(hannah.getTotalTimesHadSex(pc)>0)
+			[hannah.speech(Stop playing with me, [pc.name],)] she finally moans. Downing another shot to give herself some more courage, she laments, [hannah.speech(Eugh! It's so easy to deal with people in the ring. We've already had sex as well, so why is it so hard to do this sort of stuff?)]
+		#ELSE
+			[hannah.speech(You know, I really do like you, [pc.name],)] she finally says. Downing another shot to give herself some more courage, she laments, [hannah.speech(Eugh! It's so easy to deal with people in the ring. Why is it so hard to do this sort of stuff?)]
+		#ENDIF
+	</p>
+	<p>
+		Pushing her a little further, you tell Hannah to relax and just show you her true feelings. Although you're the one who suggested it, you're still taken a little aback by the forcefulness of Hannah's next move. Dragging her chair so that she's sitting right next to you, she grabs you and pulls you into her [hannah.breasts+].
+	</p>
+	<p>
+		[hannah.speech(You mean like this?)] she asks. As she rubs her muscular body up against yours, it seems like she wants you to make the next move...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_HANNAH_KISS"><![CDATA[
+	<p>
+		Giving the [hannah.race] what she wants, you lean into her and press your [pc.lips+] against hers. Letting out a deep, satisfied moan, she parts her lips and sloppily returns your gesture. What her kiss lacks in finesse it more than makes up for in passion, for she happily spends the next couple of minutes grinding into you and greedily exploring the inside of your mouth with her large, flat tongue.
+	</p>
+	<p>
+		Finally breaking off the kiss with a lewd, wet smacking noise, your partner moans, [hannah.speech(That's what I wanted... You're so hot, [pc.name]...)]
+	</p>
+	<p>
+		#IF(hannah.getTotalTimesHadSex(pc)>0)
+			After downing yet another shot, the [hannah.race] leans forwards and locks her [hannah.eyeColour] eyes onto yours. Running her paw-like hands up your [pc.legs], she breathlessly moans, [hannah.speech(I want more... I want to fuck you again, [pc.name]... Just like last time...)]
+		#ELSE
+			After downing yet another shot, the [hannah.race] leans forwards and locks her [hannah.eyeColour] eyes onto yours. Running her paw-like hands up your [pc.legs], she breathlessly moans, [hannah.speech(I want more... I want to fuck you, [pc.name]...)]
+		#ENDIF
+	</p>
+	<p>
+		With the alcohol in her system having broken down all of her inhibitions, Hannah continues to hungrily stare at you as she awaits your answer...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_HANNAH_SEX_START_ALLEYWAY"><![CDATA[
+	<p>
+		Wanting it as much as she does, you ask Hannah if she'd like to get out of here and find somewhere a little more private.
+	</p>
+	<p>
+		[hannah.speech(Come on, [pc.name], let's go!)] the impatient [hannah.race] exclaims in response to your suggestion. Grabbing you by the [pc.hand(true)], she drags you through the bar and out into the neon-lit streets of Nightlife.
+	</p>
+	<p>
+		As the two of you search for a private place in which to continue your evening, you suddenly spot a dark, quiet alleyway nestled between two buildings. Taking charge, you pull Hannah along as you make a beeline for it. A moment later and the two of you are deep within the gloomy alley, with the lights and sounds of Nightlife having been left far behind.
+	</p>
+	<p>
+		Impassioned and desperate to fuck one another, the two of you pay your seedy surroundings no heed as you share yet another clumsy, sloppy kiss. Pulling back, the [hannah.race] desperately moans, [hannah.speech(Fuck me, [pc.name]!)]
+	</p>
+	<p>
+		More than happy to do as she asks, you prepare to get started...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_HANNAH_SEX_START_BEDROOM"><![CDATA[
+	<p>
+		Wanting it as much as she does, you ask Hannah if she'd like to get out of here and find somewhere a little more private.
+	</p>
+	<p>
+		[hannah.speech(Come on, [pc.name], let's go!)] the impatient [hannah.race] exclaims in response to your suggestion. Grabbing you by the [pc.hand(true)], she drags you through the bar and out into the neon-lit streets of Nightlife.
+	</p>
+	<p>
+		Although you're a fair distance from Lilaya's house, you know that it won't take more than half an hour to get there. As such, you tell your drunk, horny companion that you want to take her back to your place.
+	</p>
+	<p>
+		[hannah.speech(Can't we just do it down an alleyway?)] she slurs, but after hearing you say that it'd be far more comfortable to have a bed, she relents, [hannah.speech(Fine, but let's hurry!)]
+	</p>
+	<p>
+		Pulling her along beside you, the two of you soon find yourself at Lilaya's mansion. Too drunk to notice, or perhaps too horny to care, Hannah doesn't comment on the size of the place, and in fact doesn't say much at all until you're finally staggering into your bedroom.
+	</p>
+	<p>
+		[hannah.speech(Yeah, this is a better place to fuck than an alley,)] she declares, before pulling you into another clumsy, sloppy kiss. Pulling back, the [hannah.race] desperately moans, [hannah.speech(Now fuck me, [pc.name]!)]
+	</p>
+	<p>
+		More than happy to do as she asks, you prepare to get started...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_ALLEYWAY"><![CDATA[
+	<p>
+		Having satisfied your carnal desires with one another, you and Hannah step back and start getting your clothing back in order. For the first time since entering this dark, narrow alleyway, the two of you begin to become aware that you might be in danger of being set upon by muggers. As the two of you are proficient fighters, you see the possibility of being set upon as more of an inconvenience than a real threat, but you'd still like to avoid it if at all possible.
+	</p>
+	<p>
+		[hannah.speech(I guess we shouldn't hang around here any longer,)] Hannah states, clearly thinking the same thing that you are. After giving you one last, sloppy kiss, she steps back and says, [hannah.speech(I'd better get back home to sleep... See you around, [pc.name]...)]
+	</p>
+	<p>
+		With that, the [hannah.race] staggers off, leaving you alone and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_ALLEYWAY_CONTINUE"><![CDATA[
+	<p>
+		With Hannah having departed, and the pleasant memory of your encounter still fresh in your mind, you get your things in order and continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_BEDROOM"><![CDATA[
+	<p>
+		Having satisfied your carnal desires with one another, you and Hannah break off and collapse down onto your bed. After a couple of minutes spent panting as you try to get your breath back, you're the first to break the happy silence by asking Hannah if she's going to spend the rest of the night here.
+	</p>
+	<p>
+		[hannah.speech(Yeah, there's no way I'm walking all the back home now,)] she replies, before throwing back the covers and dragging you into bed with her. Wrapping her muscular, furry arms around you, she tightly embraces you as she presses her lips against yours and once again gives you a clumsy, sloppy kiss. Pulling back a moment later, she sleepily sighs, [hannah.speech(Good night, [pc.name]...)]
+	</p>
+	<p>
+		Before you've even finished saying good night back to her, the [hannah.race] is loudly snoring. Her arms are still tightly wrapped around you, and as you try to move, she mumbles in her sleep and pulls you even tighter in against her [hannah.breasts+]. Realising that you're going to have to spend the night acting as Hannah's teddy bear, you relax and allow yourself to drift off to sleep beside her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_BEDROOM_MORNING"><![CDATA[
+	<p>
+		The next thing you know, you're waking up as Hannah pulls her arms out from under you and then rolls out of bed. Looking across to the gap in the curtains, you see that it's only just first light.
+	</p>
+	<p>
+		[hannah.speech(Thanks for last night, [pc.name],)] the [hannah.race] sighs, before clutching her head and groaning, [hannah.speech(Eugh... I drank too much again... See you at the gym or the bar again...)]
+	</p>
+	<p>
+		As she staggers out of the room, you call after Hannah to tell her to use one of the bell pulls to summon Rose, who'll give her a drink and let her out. Raising her paw-like hand to show that she's got the message, Hannah departs, leaving you with both the fond memory of last night, as well as with a noticeable smell of alcohol and sex...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_BEDROOM_MORNING_CONTINUE"><![CDATA[
+	<p>
+		Lying back in bed, you wonder whether to get up and get moving yourself, or whether to get a little more sleep first...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_HANNAH_WASTED"><![CDATA[
+	<p>
+		As the burning spirit washes down your throat, you feel your head spinning, and before you know what's happening you've completely lost track of what's going on around you...
+	</p>
+	<p>
+		The next thing you know, you're breathing in the relatively fresh air of Dominion. Looking around as you stumble forwards, you see that Hannah's leading you down a dark, narrow alleyway. After turning a corner, and leaving the lights and sounds of Nightlife behind, the [hannah.race] stops and turns to face you.
+	</p>
+	<p>
+		[hannah.speech(This spot'll do,)] she slurs, before pulling you into a clumsy, sloppy kiss. Breaking it off a moment later, she moans, [hannah.speech(Now let's fuck!)]
+	</p>
+	<p>
+		Having taken charge, Hannah grabs you and prepares to get what she wants. In a moment of relative clarity, you realise that you only have this one moment in which to put a stop to this. Then again, perhaps this is what you wanted all along...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_HANNAH_WASTED_LEAVE"><![CDATA[
+	<p>
+		Not wanting to have sex in such a seedy, potentially-dangerous place, you push Hannah away and mumble something about needing to go.
+	</p>
+	<p>
+		[hannah.speech(I guess I came on too strongly,)] Hannah states, before stepping back and continuing, [hannah.speech(I'd better get back home to sleep... See you around, [pc.name]...)]
+	</p>
+	<p>
+		With that, the [hannah.race] staggers off, leaving you alone and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAR_HANNAH_WASTED_SEX_START"><![CDATA[
+	<p>
+		Impassioned and desperate to fuck Hannah as much as she is to fuck you, you pay your seedy surroundings no heed as you tell her to get started. Happily moaning, the [hannah.race] pulls you into her [hannah.breasts+] and desperately moans, [hannah.speech(Yes, [pc.name], I'll fuck you so good!)]
+	</p>
+	<p>
+		With the [hannah.race] having taken charge, you submit to her and prepare to get started...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

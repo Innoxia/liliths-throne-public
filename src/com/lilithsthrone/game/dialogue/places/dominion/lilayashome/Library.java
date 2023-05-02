@@ -16,14 +16,12 @@ import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
-import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
@@ -252,16 +250,7 @@ public class Library {
 	
 				} else if(index>=8 && index-8<charactersPresent.size()) {
 					NPC slave = charactersPresent.get(index-8);
-					return new Response(UtilText.parse(slave, "[npc.Name]"), UtilText.parse(slave, "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
-						@Override
-						public Colour getHighlightColour() {
-							return slave.getFemininity().getColour();
-						}
-						@Override
-						public void effects() {
-							SlaveDialogue.initDialogue(slave, false);
-						}
-					};
+					return LilayaHomeGeneric.interactWithNPC(slave);
 				}
 				
 			} else if(responseTab==1) {

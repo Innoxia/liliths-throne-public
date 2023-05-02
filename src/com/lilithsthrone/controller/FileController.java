@@ -66,7 +66,10 @@ public class FileController {
 			MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(
 					"Add custom artwork",
 					"Browse your own images and add them to the character."
-							+" Please note that GIF animation files are limited to a <b>maximum of 10MB</b> in size, and if over 1MB, <b>may</b> cause [style.italicsBad(significant lag)], depending on your system."));
+							+" Please note that GIF animation files are limited to a <b>maximum of 10MB</b> in size, and if over 1MB, <b>may</b> cause [style.italicsBad(significant lag)], depending on your system."
+							+ "<br/>Custom images for the currently played game are located in folder: <b>'data/images/"+Main.game.getId()+"'</b>"
+							+ "<br/>This character's ID is <b>'"+character.getId()+"'</b>",
+					130));
 		}
 		
 		if (character.hasArtwork()) {

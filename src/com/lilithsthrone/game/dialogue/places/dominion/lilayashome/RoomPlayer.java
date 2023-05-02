@@ -28,9 +28,7 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
-import com.lilithsthrone.game.dialogue.companions.OccupantDialogue;
 import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
-import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.nightlife.NightlifeDistrict;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -53,7 +51,6 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
-import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.utils.time.DateAndTime;
 import com.lilithsthrone.utils.time.SolarElevationAngle;
@@ -238,25 +235,7 @@ public class RoomPlayer {
 			int indexPresentStart = 11;
 			if(index-indexPresentStart<charactersPresent.size() && index-indexPresentStart>=0) {
 				NPC character = charactersPresent.get(index-indexPresentStart);
-				return new Response(
-						UtilText.parse(character, "[npc.Name]"),
-						UtilText.parse(character, "Interact with [npc.name]."),
-						character.isSlave()
-							?SlaveDialogue.SLAVE_START
-							:OccupantDialogue.OCCUPANT_START) {
-					@Override
-					public Colour getHighlightColour() {
-						return character.getFemininity().getColour();
-					}
-					@Override
-					public void effects() {
-						if(character.isSlave()) {
-							SlaveDialogue.initDialogue(character, false);
-						} else {
-							OccupantDialogue.initDialogue(character, false, false);
-						}
-					}
-				};
+				return LilayaHomeGeneric.interactWithNPC(character);
 			}
 			
 		} else if(responseTab==2) {

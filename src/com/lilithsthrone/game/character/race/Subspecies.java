@@ -14,6 +14,7 @@ import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.body.Body;
+import com.lilithsthrone.game.character.body.LegConfigurationAffinity;
 import com.lilithsthrone.game.character.body.Wing;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
@@ -440,8 +441,8 @@ public class Subspecies {
 			if(body!=null) {
 				AbstractRace r = body.getLegType().getRace();
 				LegConfiguration legConfiguration = body.getLegConfiguration();
-				
-				switch(body.getLegConfiguration()) {
+
+				switch(legConfiguration) {
 					case BIPEDAL:
 						return "demon";
 					case ARACHNID:
@@ -452,7 +453,7 @@ public class Subspecies {
 					case AVIAN:
 					case WINGED_BIPED:
 						return r==Race.HUMAN || r==Race.DEMON
-								?Race.DEMON.getFeralName(legConfiguration, false)
+								?Race.DEMON.getFeralName(new LegConfigurationAffinity(legConfiguration, getAffinity()), false)
 								:"demonic-"+r.getName(body, true);
 				}
 			}
@@ -822,7 +823,7 @@ public class Subspecies {
 					new Value<>(PerkCategory.ARCANE, 1)),
 			PresetColour.RACE_IMP,
 			SubspeciesPreference.ONE_LOW,
-			"A more powerful form of imp, standing at over 3'6\" tall.",
+			"A more powerful form of imp, standing at over [style.sizes(107)] tall.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.TEN)),
 			Util.newHashMapOfValues(), null, Util.newArrayListOfValues(

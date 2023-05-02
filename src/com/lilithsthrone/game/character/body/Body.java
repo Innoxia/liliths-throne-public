@@ -6344,7 +6344,7 @@ public class Body implements XMLSaving {
 				null,
 				this,
 				this.getGender(),
-				subspecies,
+				subspecies==null?this.getSubspecies():subspecies,
 				RaceStage.GREATER,
 				false);
 		

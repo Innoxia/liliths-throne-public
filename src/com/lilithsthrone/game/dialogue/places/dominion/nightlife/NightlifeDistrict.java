@@ -27,6 +27,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
@@ -471,20 +472,28 @@ public class NightlifeDistrict {
 		
 		@Override
 		public String getContent() {
+			StringBuilder sb = new StringBuilder();
+			
 			if(!isClubOpen(0)) {
 				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-					return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "OUTSIDE_DAY_STORM");
+					sb.append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "OUTSIDE_DAY_STORM"));
 				} else {
-					return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "OUTSIDE_DAY");
+					sb.append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "OUTSIDE_DAY"));
 				}
 				
 			} else {
 				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-					return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "OUTSIDE_NIGHT_STORM");
+					sb.append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "OUTSIDE_NIGHT_STORM"));
 				} else {
-					return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "OUTSIDE_NIGHT");
+					sb.append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "OUTSIDE_NIGHT"));
 				}
 			}
+			
+			if(Main.game.getDialogueFlags().hasFlag("innoxia_hannah_training_complete")) {
+				sb.append(UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "OUTSIDE_LIGHTS_OUT"));
+			}
+			
+			return sb.toString();
 		}
 
 		@Override
@@ -502,9 +511,17 @@ public class NightlifeDistrict {
 					};
 				}
 				
-			} else {
-				return null;
+			} else if(index==2 && Main.game.getDialogueFlags().hasFlag("innoxia_hannah_training_complete")) {
+				if(!Main.game.isHourBetween(18, 4)) {
+					return new Response("Lights Out", UtilText.parse("The bar, 'Lights Out', is currently closed. A sign by the entrance informs you that it's open from [unit.time(18)]-[unit.time(04)] every night."), null);
+					
+				} else {
+					return new Response("Lights Out",
+							"The bar, 'Lights Out', is currently open. You could enter if you wanted to.",
+							DialogueManager.getDialogueFromId("innoxia_places_dominion_nightlife_lights_out_exit_initial_entry"));
+				}
 			}
+			return null;
 		}
 	};
 

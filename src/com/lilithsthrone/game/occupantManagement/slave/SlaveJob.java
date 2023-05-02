@@ -54,7 +54,7 @@ public enum SlaveJob {
 			-0,
 			"Idle",
 			"Idle",
-			"Do not assign any job to this slave.",
+			"Do not assign any job to this character.",
 			0, 0,
 			0,
 			0, 0,
@@ -64,7 +64,8 @@ public enum SlaveJob {
 			null,
 			Util.newArrayListOfValues(
 					SlaveJobFlag.INTERACTION_SEX,
-					SlaveJobFlag.INTERACTION_BONDING),
+					SlaveJobFlag.INTERACTION_BONDING,
+					SlaveJobFlag.GUEST_CAN_WORK),
 			null, null) {
 		@Override
 		public boolean isAvailable(int hour, GameCharacter character) {
@@ -130,7 +131,7 @@ public enum SlaveJob {
 			2f,
 			"maid",
 			"manservant",
-			"Assign this slave to help Rose keep the house clean, deal with visitors, and perform all sorts of menial housework.",
+			"Assign this character to help Rose keep the house clean, deal with visitors, and perform all sorts of menial housework.",
 			0, 0.5f,
 			80,
 			0f, 0.1f,
@@ -141,7 +142,8 @@ public enum SlaveJob {
 			Util.newArrayListOfValues(
 					SlaveJobFlag.EXPERIENCE_GAINS,
 					SlaveJobFlag.INTERACTION_SEX,
-					SlaveJobFlag.INTERACTION_BONDING),
+					SlaveJobFlag.INTERACTION_BONDING,
+					SlaveJobFlag.GUEST_CAN_WORK),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_CORRIDOR) {
 		
 		@Override
@@ -167,7 +169,7 @@ public enum SlaveJob {
 			2f,
 			"security guard",
 			"security guard",
-			"Assign this slave to act as a security guard. A guard will always be posted at the entrance, with other guards patrolling the corridors.",
+			"Assign this character to act as a security guard. A guard will always be posted at the entrance, with other guards patrolling the corridors.",
 			0, 0.5f,
 			80,
 			0f, 0.1f,
@@ -181,7 +183,8 @@ public enum SlaveJob {
 			Util.newArrayListOfValues(
 					SlaveJobFlag.EXPERIENCE_GAINS,
 					SlaveJobFlag.INTERACTION_SEX,
-					SlaveJobFlag.INTERACTION_BONDING),
+					SlaveJobFlag.INTERACTION_BONDING,
+					SlaveJobFlag.GUEST_CAN_WORK),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL) {
 		private void moveToCorridor(GameCharacter slave) {
 			if(slave.getLocationPlace().getPlaceType().equals(PlaceType.LILAYA_HOME_CORRIDOR)) {
@@ -223,7 +226,7 @@ public enum SlaveJob {
 			1.5f,
 			"librarian",
 			"librarian",
-			"Assign this slave to work in Lilaya's library.",
+			"Assign this character to work in Lilaya's library.",
 			0, 0.25f, 
 			80,
 			0, 0.1f,
@@ -234,7 +237,8 @@ public enum SlaveJob {
 			Util.newArrayListOfValues(
 					SlaveJobFlag.EXPERIENCE_GAINS,
 					SlaveJobFlag.INTERACTION_SEX,
-					SlaveJobFlag.INTERACTION_BONDING),
+					SlaveJobFlag.INTERACTION_BONDING,
+					SlaveJobFlag.GUEST_CAN_WORK),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LIBRARY),
 	
 	KITCHEN(PresetColour.BASE_TAN,
@@ -243,7 +247,7 @@ public enum SlaveJob {
 			2,
 			"cook",
 			"cook",
-			"Assign this slave to work in Lilaya's kitchen as a cook.",
+			"Assign this character to work in Lilaya's kitchen as a cook.",
 			0, 0.25f,
 			80,
 			0, 0.05f,
@@ -254,7 +258,8 @@ public enum SlaveJob {
 			Util.newArrayListOfValues(
 					SlaveJobFlag.EXPERIENCE_GAINS,
 					SlaveJobFlag.INTERACTION_SEX,
-					SlaveJobFlag.INTERACTION_BONDING),
+					SlaveJobFlag.INTERACTION_BONDING,
+					SlaveJobFlag.GUEST_CAN_WORK),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_KITCHEN),
 
 	GARDEN(PresetColour.BASE_GREEN,
@@ -263,7 +268,7 @@ public enum SlaveJob {
 			2,
 			"gardener",
 			"gardener",
-			"Assign this slave to work as a gardener in Lilaya's courtyard garden.",
+			"Assign this character to work as a gardener in Lilaya's courtyard garden.",
 			0, 0.25f,
 			80,
 			0, 0.05f,
@@ -274,7 +279,8 @@ public enum SlaveJob {
 			Util.newArrayListOfValues(
 					SlaveJobFlag.EXPERIENCE_GAINS,
 					SlaveJobFlag.INTERACTION_SEX,
-					SlaveJobFlag.INTERACTION_BONDING),
+					SlaveJobFlag.INTERACTION_BONDING,
+					SlaveJobFlag.GUEST_CAN_WORK),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_GARDEN),
 	
 	LAB_ASSISTANT(PresetColour.BASE_GREEN_LIME,
@@ -283,7 +289,7 @@ public enum SlaveJob {
 			1.5f,
 			"lab assistant",
 			"lab assistant",
-			"Assign this slave to help Lilaya in her lab.",
+			"Assign this character to help Lilaya in her lab.",
 			0, 0.25f,
 			100,
 			0, 0.2f,
@@ -293,7 +299,8 @@ public enum SlaveJob {
 			null,
 			Util.newArrayListOfValues(
 					SlaveJobFlag.EXPERIENCE_GAINS,
-					SlaveJobFlag.INTERACTION_BONDING),
+					SlaveJobFlag.INTERACTION_BONDING,
+					SlaveJobFlag.GUEST_CAN_WORK),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB) {
 		@Override
 		public boolean isAvailable(int hour, GameCharacter character) {
@@ -305,7 +312,7 @@ public enum SlaveJob {
 		@Override
 		public String getAvailabilityText(int hour, GameCharacter character) {
 			if(hour<6 || hour>=22) {
-				return "Slaves cannot work in Lilaya's lab while she is sleeping!";
+				return "No-one can work in Lilaya's lab while she is sleeping!";
 			}
 			return super.getAvailabilityText(hour, character);
 		}
@@ -348,7 +355,7 @@ public enum SlaveJob {
 		@Override
 		public String getAvailabilityText(int hour, GameCharacter character) {
 			if(hour<6 || hour>=22) {
-				return "Slaves cannot work in Lilaya's lab while she is sleeping!";
+				return "No-one can work in Lilaya's lab while she is sleeping!";
 			}
 			return super.getAvailabilityText(hour, character);
 		}
@@ -436,7 +443,7 @@ public enum SlaveJob {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.prostitutionLicenseObtained)) {
 				return "You do not have permission from Angel to send your slaves to work in her brothel!";
 				
-			} else if(character.getOwner().getSlavesWorkingJob(hour, this)>=this.getSlaveLimit()) {
+			} else if(Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, this)>=this.getSlaveLimit()) {
 				return "You have already assigned the maximum number of slaves to this job!";
 				
 			} else if(character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION)) {
@@ -502,7 +509,7 @@ public enum SlaveJob {
 		}
 		@Override
 		public boolean isAvailable(int hour, GameCharacter character) {
-			return !character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) && Main.game.getPlayer().getSlavesWorkingJob(hour, SlaveJob.MILKING)<getSlaveLimit();
+			return !character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) && Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, SlaveJob.MILKING)<getSlaveLimit();
 		}
 		@Override
 		public String getAvailabilityText(int hour, GameCharacter character) {
@@ -694,7 +701,7 @@ public enum SlaveJob {
 			2f,
 			"office worker",
 			"office worker",
-			"Assign this slave to work in the office which you've had outfitted here in Lilaya's house.",
+			"Assign this character to work in the office which you've had outfitted here in Lilaya's house.",
 			0, 0,
 			100,
 			0, 1f,
@@ -705,7 +712,8 @@ public enum SlaveJob {
 			Util.newArrayListOfValues(
 					SlaveJobFlag.EXPERIENCE_GAINS,
 					SlaveJobFlag.INTERACTION_SEX,
-					SlaveJobFlag.INTERACTION_BONDING),
+					SlaveJobFlag.INTERACTION_BONDING,
+					SlaveJobFlag.GUEST_CAN_WORK),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR) {
 		
 		private Cell getOfficeCell() {
@@ -730,7 +738,7 @@ public enum SlaveJob {
 		
 		@Override
 		public boolean isAvailable(int hour, GameCharacter character) {
-			return !character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) && Main.game.getPlayer().getSlavesWorkingJob(hour, SlaveJob.OFFICE) < getSlaveLimit();
+			return !character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) && Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, SlaveJob.OFFICE) < getSlaveLimit();
 		}
 	
 		public String getAvailabilityText(int hour, GameCharacter character) {
@@ -949,7 +957,7 @@ public enum SlaveJob {
 			2f,
 			"waitress",
 			"waiter",
-			"Assign this slave to serve food in a dining hall.",
+			"Assign this character to serve food in a dining hall.",
 			0, 0,
 			50,
 			0, 0.05f,
@@ -960,7 +968,8 @@ public enum SlaveJob {
 			Util.newArrayListOfValues(
 					SlaveJobFlag.EXPERIENCE_GAINS,
 					SlaveJobFlag.INTERACTION_SEX,
-					SlaveJobFlag.INTERACTION_BONDING),
+					SlaveJobFlag.INTERACTION_BONDING,
+					SlaveJobFlag.GUEST_CAN_WORK),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR) {
 		@Override
 		public int getSlaveLimit() {
@@ -1009,6 +1018,20 @@ public enum SlaveJob {
 			} else {
 				slave.returnToHome();
 			}
+		}
+		@Override
+		public boolean isAvailable(int hour, GameCharacter character) {
+			if(getDiningHallCell()==null) {
+				return false;
+			}
+			return super.isAvailable(hour, character);
+		}
+		@Override
+		public String getAvailabilityText(int hour, GameCharacter character) {
+			if(getDiningHallCell()==null) {
+				return "The dining hall upgrade must be constructed before this job is available!";
+			}
+			return super.getAvailabilityText(hour, character);
 		}
 	},
 
@@ -1266,12 +1289,12 @@ public enum SlaveJob {
 	
 	public boolean isAvailable(int hour, GameCharacter character) {
 		return character.getSlaveJob(hour)==this
-				|| (!character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) && character.getOwner().getSlavesWorkingJob(hour, this)<this.getSlaveLimit());
+				|| (!character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) && Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, this)<this.getSlaveLimit());
 	}
 	
 	public String getAvailabilityText(int hour, GameCharacter character) {
-		if(character.getOwner().getSlavesWorkingJob(hour, this)>=this.getSlaveLimit()) {
-			return "You have already assigned the maximum number of slaves to this job!";
+		if(Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, this)>=this.getSlaveLimit()) {
+			return "You have already assigned the maximum number of people to this job!";
 			
 		} else if(character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION)) {
 			return "Slaves cannot work out of the cells at slavery administration. Move them into a room first!";
@@ -1287,13 +1310,13 @@ public enum SlaveJob {
 	}
 	
 	/**
-	 * Called immediately before the slave is moved to their new job.
+	 * Called immediately before the character is moved to their new job.
 	 */
 	public void applyJobStartEffects(GameCharacter slave) {
 	}
 
 	/**
-	 * Called immediately after the slave is moved to their new job.
+	 * Called immediately after the character is moved to their new job.
 	 */
 	public void applyJobEndEffects(GameCharacter slave) {
 	}
