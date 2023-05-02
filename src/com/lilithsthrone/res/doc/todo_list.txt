@@ -4171,7 +4171,7 @@ color-able bell-collar bell with the metallic colors.
 
 	I don't know if it always does it as I only had the one, but spraying Scarlett with "Diana's Perfume" gives - "A deep groan escapes from between Scarlett's lips, and she suddenly finds "command_unknown" thinking of how much she wants to dominate the next person she meets!"
 
-	There is something different with the permissions for the slaves. Before they had sex with each other. But now the only ones who have sex are the ones display for public use. The permissions doesn´t make sense now.
+	There is something different with the permissions for the slaves. Before they had sex with each other. But now the only ones who have sex are the ones display for public use. The permissions doesn't make sense now.
 
 	Was being spitroasted. Someone was doing an anal penetrative action, and all lines said they were fucking my ass, but when I went to respond to the dick in my ass, it said "eagerly hotdogged" and "eagerly anal fingered". It fixed itself later but I found it odd
 
@@ -4189,7 +4189,7 @@ color-able bell-collar bell with the metallic colors.
 
 	: It looks like the damage types for fetish special attacks/effects just need to be switched and maybe a few other things (taking aura damage when lust is 0)
 
-	I have it fullly expanded yet it looks like the xp bar is going outside it's boundries when nearly full (29/30) causing a scrollbar to appear at the bottom
+	I have it fullly expanded yet it looks like the xp bar is going outside it's boundaries when nearly full (29/30) causing a scrollbar to appear at the bottom
 
 	The numbers match the effects, it seems: III = +3, X = +10, etc. Confused me at first too.
 
@@ -7957,7 +7957,7 @@ When it should be an indication that I'm gaining testicles, and the three messag
 
 	Yeah I've noticed that as well, any item in the bottom row in the last 3 slots on the right don't have to tool tips pop up like there is something blocking them.
 
-	Lilaya's pull out dialogue cna be skipped somehow
+	Lilaya's pull out dialogue can be skipped somehow
 
 	Dom anal
 
@@ -7966,7 +7966,7 @@ When it should be an indication that I'm gaining testicles, and the three messag
 	Save NPCs
 
 	possible bug with buying and selling, the rounding occurs after tallying all the item values
-		so for certain percentages, you could essentially get like 1 each if sold independantly, but, say, 5 for 4 items if sold as a group
+		so for certain percentages, you could essentially get like 1 each if sold independently, but, say, 5 for 4 items if sold as a group
 
 	Expand TFs
 		nail polish, lipstick, makeup (generalise it, I don't think I should go too in-depth here)
@@ -7978,7 +7978,7 @@ When it should be an indication that I'm gaining testicles, and the three messag
 
 	platinum
 
-	With the preview release, in the clothing section of the encyclopedia, the colour list wraps, but the fields do not extend to accomodate it, so it clips into the next entry's list.
+	With the preview release, in the clothing section of the encyclopedia, the colour list wraps, but the fields do not extend to accommodate it, so it clips into the next entry's list.
 
 	Lilaya's LAB_EXIT is unsuitable for pregnancy text
 
