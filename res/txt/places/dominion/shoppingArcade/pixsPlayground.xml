@@ -1,197 +1,439 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogue>
-
+	
+	<!-- Exterior hard-coded to PixsPlayground.GYM_EXTERIOR: -->
+	
 	<htmlContent tag="GYM_EXTERIOR"><![CDATA[
 	<p>
 		You find yourself standing before one of the largest frontages in the Shopping Arcade. The words 'Pix's Playground' are emblazoned in bright red lettering above the entrance, and beneath, you read the words 'Dominions #1 Gym!'.
 	</p>
-		#IF(game.isExtendedWorkTime())
-		<p>
-			Most of the gym's frontage is made up of large glass panels, allowing you to take a good look inside. From what you can see, the interior consists of a wide open space, filled with an impressive variety of gym equipment.
-			#IF(game.getDialogueFlags().hasFlag(FLAG_gymIntroduced))
-				 Moving your gaze over to look through the main entrance's glass doors, you see Pix sitting behind the lobby's front desk.
+	<p>
+		Most of the gym's frontage is made up of large glass panels, allowing you to take a good look inside. From what you can see, the interior consists of a wide open space, filled with an impressive variety of gym equipment.
+		#IF(pix.getWorldLocation()==WORLD_TYPE_innoxia_dominion_shopping_arcade_gym)
+			#IF(game.getDialogueFlags().hasFlag(FLAG_innoxia_pix_introduced))
+				 Moving your gaze over to look through the main entrance's glass doors, you see Pix sitting behind the reception desk.
 			#ELSE
-				 Moving your gaze over to look through the main entrance's glass doors, you see a border collie-girl sitting behind the lobby's front desk.
+				 Moving your gaze over to look through the main entrance's glass doors, you see a [pix.race] sitting behind the reception desk.
+			#ENDIF
+		#ELSE
+			 Moving your gaze over to look through the main entrance's glass doors, you see a rabbit-girl sitting behind the reception desk.
+		#ENDIF
+	</p>
+	<p>
+		Although obvious from the fact that all the lights are on and the front desk is staffed, there's a sign hanging on the glass doors which confirms that the gym is currently [style.colourGood(open)], and remains so [style.colourMinorGood(24 hours a day, 7 days of the week)].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Entrance/exit: -->
+	
+	<htmlContent tag="EXIT"><![CDATA[
+	<p>
+		You find yourself standing before the glass doors which serve as the gym's main entrance. From here you could proceed forwards to the reception desk, or turn around and head back into the Shopping Arcade...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT_INITIAL_ENTRY"><![CDATA[
+	<p>
+		Pushing open the glass doors, you [pc.step] into the gym and take a quick look around. A short way in front of you stands the reception desk, behind which
+		#IF(pix.getWorldLocation()==WORLD_TYPE_innoxia_dominion_shopping_arcade_gym)
+			#IF(!flags.hasFlag(FLAG_innoxia_pix_introduced))
+				 the excitable [pix.race], Pix, is standing.
+			#ELSE
+				 a very excitable-looking [pix.race] is standing.
+			#ENDIF
+		#ELSE
+			 a pretty greater rabbit-girl is standing.
+		#ENDIF
+		 Looking past her, you see that the building's cavernous interior is home to dozens of exercise machines, several of which are currently in use by members of this gym. 
+	</p>
+	<p>
+		From here you could proceed forwards to the reception desk, or turn around and head back into the Shopping Arcade...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT_LEAVE"><![CDATA[
+	<p>
+		Deciding that you've had enough of the gym, you push open the glass doors and head back out into the Shopping Arcade...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Reception: -->
+	
+	<htmlContent tag="RECEPTION"><![CDATA[
+	#IF(game.getCharactersPresent().contains(pix))
+		#IF(!flags.hasFlag(FLAG_innoxia_pix_introduced))
+			<p>
+				Proceeding forwards into the gym, you approach the reception desk, where you're enthusiastically greeted by an extremely energetic dog-girl. Her fur is black with white markings, which, in combination with her folded ears, gives her the appearance of an anthropomorphised border-collie.
+			</p>
+			<p>
+				[pix.speech(Heya! Hi! How're ya doin'!)] she exclaims, reaching forwards to give your [pc.hand(true)] an enthusiastic shake with both of her paw-like hands.
+			</p>
+			<p>
+				You start to offer this friendly dog-girl a hello, but in her excitement she quickly cuts you off and starts to speak over you.
+			</p>
+			<p>
+				[pix.speech(Wohoo! So, you've decided to come get fit, huh, huh, huh?)] she asks. Still not giving you a moment in which to reply, she immediately continues, [pix.speech(So don't just stand there! Oh, I'm Pix by the way! Come on, I'll give you a tour!)]
+			</p>
+			<p>
+				Pix releases your [pc.hand(true)], which she's been violently shaking this entire time, before starting to bound away into the gym, motioning for you to follow her. You notice that her tail hasn't stopped wagging this entire time, and you can't help but think to yourself that she's quite possibly the most energetic person you've ever met.
+			</p>
+		#ELSE
+			#IF(flags.hasFlag(FLAG_innoxia_pix_session_started))
+				<p>
+					Returning to the reception desk, you see that the energetic owner of this gym, Pix, is still standing here. As she catches sight of you, she greets you in her typical, enthusiastic manner.
+				</p>
+				<p>
+					[pix.speech(Heya, [pc.name]! How's it goin'?! Havin' a good workout?!)] she exclaims, before pausing to flash you a huge grin.
+				</p>
+				<p>
+					#IF(!pc.hasItemType(ITEM_innoxia_quest_gym_membership_card))
+						As you start to return her greeting, the hyperactive dog-girl cuts you off, [pix.speech(The eight-thousand flames deal is still on y'know! Only for you! So, you ready to sign up?!)]
+					#ELSE
+						#IF(pc.isVisiblyPregnant())
+							As you start to return her greeting, the hyperactive dog-girl pointedly looks down at your pregnant belly and cuts you off, [pix.speech(Sorry, but I'm not going to put you through any kind of strenuous activity while you're pregnant, so no personal training for you!)]
+						#ELSE
+							As you start to return her greeting, the hyperactive dog-girl cuts you off,
+							#IF(flags.hasFlag(FLAG_innoxia_pix_workout_pix_completed))
+								 [pix.speech(I had a lot of fun giving you that personal training earlier! Come back for some more once you've recovered!)]
+							#ELSE
+								 [pix.speech(You gonna want some personal training?! I'm ready for it whenever you are!)]
+							#ENDIF
+						#ENDIF
+					#ENDIF
+				</p>
+			#ELSE
+				<p>
+					Proceeding forwards into the gym, you once again find yourself approaching the reception desk. The energetic owner of this gym, Pix, is here to greet you, and she does so in her typical, enthusiastic manner.
+				</p>
+				<p>
+					[pix.speech(Heya, great to see you again, [pc.name]! How're ya doin'!)] she exclaims, before pausing to flash you a huge grin.
+				</p>
+				#IF(pix.isVisiblyPregnant())
+					#IF(!pix.isCharacterReactedToPregnancy(pc))
+						<p>
+							As you start to return her greeting, you notice that the hyperactive dog-girl is clutching what's clearly her [style.colourSex(pregnant belly)]. Letting out a laugh as she sees what it is you're looking at, Pix exclaims, [pix.speech(That's right, you knocked me up! Come here and have a feel!)]
+						</p>
+						<p>
+							Doing as the mother of your children says, you [pc.step] forwards and run [pc.a_hand(true)] over her swollen, furry tummy. As you do so, she sighs, [pix.speech(It kind of feels good... But I can't do any proper exercise while I'm like this...)]
+						</p>
+					#ELSE
+						<p>
+							As you start to return her greeting, you notice that the hyperactive dog-girl is still clutching what's clearly her [style.colourSex(pregnant belly)]. Letting out a laugh as she sees what it is you're looking at, Pix exclaims, [pix.speech(That's right, I'm still pregnant, thanks to you! Come here and have another feel!)]
+						</p>
+						<p>
+							Doing as the mother of your children says, you [pc.step] forwards and run [pc.a_hand(true)] over her swollen, furry tummy. As you do so, she sighs, [pix.speech(It kind of feels good... But I can't do any proper exercise while I'm like this...)]
+						</p>
+					#ENDIF
+					#IF(pc.isVisiblyPregnant())
+						<p>
+							As you withdraw your [pc.hand(true)], the hyperactive dog-girl pointedly looks down at your pregnant belly and states, [pix.speech(Sorry, but I'm not going to put you through any kind of strenuous activity while you're pregnant, so no personal training for you!)]
+						</p>
+					#ELSE
+						<p>
+							Withdrawing your [pc.hand(true)], you smile at Pix and wonder what to do next...
+						</p>
+					#ENDIF
+				#ELSE
+					<p>
+						As you start to return her greeting, the hyperactive dog-girl quickly starts to speak over you.
+					</p>
+					#IF(!flags.hasFlag(FLAG_innoxia_pix_had_tour))
+						<p>
+							[pix.speech(Wohoo! So, you've decided to come have that tour, huh, huh, huh?)] she asks, but before you can reply, she continues speaking, [pix.speech(So don't just stand there! Come on, follow me!)]
+						</p>
+						<p>
+							Pix happily laughs and turns away before starting to bound into the gym, motioning for you to follow her.
+						</p>
+					#ELSEIF(!pc.hasItemType(ITEM_innoxia_quest_gym_membership_card))
+						<p>
+							You start to greet the energetic dog-girl, but, once again, she immediately cuts you off, [pix.speech(The eight-thousand flames deal is still on y'know! Only for you! So, you ready to sign up?!)]
+						</p>
+					#ELSE
+						<p>
+							You start to greet the energetic dog-girl, but, once again, she immediately cuts you off,
+							#IF(flags.hasFlag(FLAG_innoxia_pix_workout_pix_completed))
+								 [pix.speech(I had a lot of fun giving you that personal training earlier! Come back for some more once you've recovered!)]
+							#ELSEIF(pc.isVisiblyPregnant())
+								 [pix.speech(Sorry, but I'm not going to put you through any kind of strenuous activity while you're pregnant, so no personal training for you!)]
+							#ELSE
+								 [pix.speech(You gonna want some personal training?! I'm ready for it whenever you are!)]
+							#ENDIF
+						</p>
+					#ENDIF
+				#ENDIF
+			#ENDIF
+		#ENDIF
+	#ELSE
+		<p>
+			Proceeding forwards into the gym, you approach the reception desk, where you're greeted by a pretty rabbit-girl, [style.speechFeminine(Hello! Pix isn't here at the moment, but she'll be back at six o'clock.)]
+		</p>
+		<p>
+			#IF(!pc.hasItemType(ITEM_innoxia_quest_gym_membership_card))
+				Showing the receptionist your membership card, the rabbit-girl smiles and waves you through, saying, [style.speechFeminine(Enjoy your session!)]
+			#ELSE
+				As she realises that you don't have a membership card to show her, the rabbit-girl says, [style.speechFeminine(It's one-hundred flames per session. Pix handles the memberships, so if you wanted to sign up to become a member of our gym, then please come back during the day.)]
 			#ENDIF
 		</p>
-		<p>
-			Although obvious from the fact that all the lights are on and the front desk is staffed, there's a sign hanging on the glass doors which confirms that the gym is currently [style.colourGood(open)], and remains so between the hours of [style.colourMinorGood([unit.time(6)] and [unit.time(22)])].
-		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_TALK_GYM"><![CDATA[
+	<p>
+		Wanting to know more Pix's history, you ask her about this gym and how she came to own it. 
+	</p>
+	<p>
+		[pix.speech(Well, y'know, I've always been on the go, right from when I was born, so I kinda always knew that I wanted to be a fitness instructor!)] she happily exclaims, before continuing, [pix.speech(So I worked really hard at getting fit and strong, and so managed to get this place!)]
+	</p>
+	<p>
+		Thinking that there are a few gaps in Pix's story, you ask her how she managed to afford this gym just by 'working hard to get fit and strong'.
+	</p>
+	<p>
+		[pix.speech(Oh, I didn't need to afford this place; my dad bought it for me!)] she reveals, [pix.speech(My mum and dad would always tease me by saying that I was 'driving them crazy' or that they 'couldn't take any more', and so to continue the joke my dad bought this gym and told me that I could have it, just so long as I don't go back to visit them more than once a month!)]
+	</p>
+	<p>
+		Realising that Pix has clearly been born into an extremely wealthy family, you ask her where she goes to visit her parents.
+	</p>
+	<p>
+		[pix.speech(Oh, well I usually visit mum and dad at their mansion over in Demon Home, but sometimes I go to their place in Thinis, and last month I surprised them by turning up at their estate! You should have seen the looks on their faces!)] she laughs, before loudly asking, [pix.speech(So, is there anything else you wanted to know?)]
+	</p>
+	<p>
+		Having heard enough, you thank Pix for the information and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_TALK_BOXING"><![CDATA[
+	<p>
+		Curious to hear more about Hannah, you ask Pix how the spotted hyena-girl came to work here as a boxing instructor.
+	</p>
+	<p>
+		[pix.speech(Oh, well I've known Hannah forever, and after I opened this gym I asked her if she'd like to work here,)] Pix reveals, [pix.speech(She refused the first few times, but persistence pays off, and she eventually agreed to taking the job!)]
+	</p>
+	<p>
+		Wanting to know a little more, you ask Pix how she met Hannah.
+	</p>
+	<p>
+		[pix.speech(Well, it was over ten years ago now, but I can remember it like it was yesterday! I was taking a shortcut through some alleyways to get home in time for my nineteenth birthday party, when a group of muggers ambushed me!)] she exclaims. You notice that Pix's tail is excitedly wagging behind her as she continues, [pix.speech(Hannah turned up at that exact moment and beat them all up! I dragged her along to my party and we've been best friends ever since!)]
+	</p>
+	<p>
+		Happily hopping up and down on the spot, the [pix.race] impatiently waits to hear what it is you'll ask of her next... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_TALK_YOGA"><![CDATA[
+	<p>
+		Wanting to know more about Brahman, you ask Pix what she can tell you about the bull-boy.
+	</p>
+	<p>
+		[pix.speech(There's not really much to tell, really,)] she replies after thinking for a moment. Shrugging at you, she continues, [pix.speech(He turned up soon after I opened this gym and offered to work here as a yoga instructor. I accepted, and that was that.)]
+	</p>
+	<p>
+		Pushing Pix a little further, you ask her if she knows anything about Brahman's history.
+	</p>
+	<p>
+		[pix.speech(Well, if you've spoken with him, then you know how he is!)] she loudly replies with a laugh, [pix.speech(I can barely understand him at the best of times, and so I gave up trying to find out more about him a long time ago!)]
+	</p>
+	<p>
+		Flashing you a big smile, Pix waits to see what you'll do next... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_LEAVE"><![CDATA[
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_pix_had_tour))
+			You quickly tell Pix that you need a moment to think about her offer, but you might come back later. She doesn't seem fazed at all by your reluctant response, and calls out after you as you leave, [pix.speech(No worries! Come back at any time, I'll be waiting to see you again!)]
 		#ELSE
-		<p>
-			Most of the gym's frontage is made up of large glass panels, allowing you to take a good look inside. From what you can see, the interior consists of a wide open space, filled with an impressive variety of gym equipment. Just like the lobby's front desk, however, the entire place seems to be deserted.
-		</p>
-		<p>
-			A sign hanging on the glass doors reveals that the gym is currently [style.colourBad(closed)], and is only [style.colourMinorBad(open between [unit.time(6)] and [unit.time(22)])]. You'll have to come back then if you wanted to work out here.
-		</p>
+			You quickly tell Pix that you don't have time for her tour right now, but you might come back later. She doesn't seem fazed at all by your reluctant response, and calls out after you as you leave, [pix.speech(No worries! Come back at any time, I'll be waiting to see you again!)]
 		#ENDIF
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="GYM_EXTERIOR_REPEAT"><![CDATA[
-	<p>
-		You find yourself standing before one of the largest frontages in the Shopping Arcade. The words 'Pix's Playground' are emblazoned in bright red lettering above the entrance, and beneath, you read the words 'Dominions #1 Gym!'.
-	</p>
-	<p>
-		Most of the gym's frontage is made up of large glass panels, allowing you to take a good look inside. From what you can see, the interior consists of a wide open space, filled with an impressive variety of gym equipment. Looking through the glass doors of the entrance, you see Pix sitting behind the lobby's front desk.
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GYM_ENTRY"><![CDATA[
+	<htmlContent tag="RECEPTION_TOUR"><![CDATA[
 	<p>
-		Pushing open the door, you step into the gym's lobby, where you're immediately greeted by an extremely energetic dog-girl. Her fur is black with white markings, which, in combination with her folded ears, makes her look very much like an anthropomorphised border collie.
+		You decide to follow the excitable dog-girl, and hurry to catch up with her as she sets off. Following Pix into the cavernous interior of the building, you come to an abrupt halt as the [pix.race] stops in her tracks and turns to face you.
 	</p>
 	<p>
-		[pix.speech(Heya! Hi! How're ya doin'!)] she exclaims, reaching forwards to give your hand an enthusiastic shake with both of her paw-like hands.
+		[pix.speech(Right, so to begin with, there on your left are all the cardio machines!)] she loudly exclaims. Looking over to where she's pointing, you see a vast array of running, cycling, and rowing machines neatly lined up beside one another. There are a couple of gym members using these machines, but the vast majority of them are vacant. Keeping her voice raised, Pix happily declares, [pix.speech(It's usually not much busier than this, so when you sign up, you'll find that you never have to wait for any of the equipment! And our yoga studio right here always has space! Our instructor, Brahman, isn't here right now, but he holds regular sessions for gym members!)]
 	</p>
 	<p>
-		[pc.speech(Hello-)] you start to say, but the dog-girl quickly starts to speak over you.
+		As you're wondering if Pix is even capable of speaking at a normal volume, you look to your right to see a modern-looking, glass-walled studio. Looking into this sound-proofed room, you see that the far wall bears images of lotus flowers and silhouettes of different yoga poses, while about a dozen rolled up mats are stacked up in the corner. The studio is currently deserted, which, along with seeing how few people are in the gym, makes you wonder if Pix's overbearing, hyperactive personality has put people off from coming here.
 	</p>
 	<p>
-		[pix.speech(Wohoo! So, you've decided to come get fit, huh, huh, huh?)] she asks, but before you can reply, she continues speaking, 
-		[pix.speech(So don't just stand there! Oh, I'm Pix by the way! Come on, I'll give you a tour!)]
+		Not giving you much time to dwell on this, Pix bounces up and down on the spot and declares, [pix.speech(Come on, there's more to see!)]
 	</p>
 	<p>
-		Pix releases your hand, which she's been enthusiastically shaking this entire time, before starting to bound away into the gym, motioning for you to follow her. You notice that this entire time, her tail hasn't stopped wagging, and she's quite possibly the most energetic person you've ever met.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="GYM_ENTRY_REPEAT"><![CDATA[
-	<p>
-		Pushing open the door, you step into the gym's lobby, where you're immediately greeted by Pix, who's looking as energetic as ever.
-	</p>
-	<p>
-		[pix.speech(Heya, great to see you again! How're ya doin'!)] she exclaims, bounding over to you with a huge grin on her face.
-	</p>
-	<p>
-		[pc.speech(Hello aga-)] you start to say, but the hyperactive dog-girl quickly starts to speak over you.
-	</p>
-	<p>
-		[pix.speech(Wohoo! So, you've decided to come have that tour, huh, huh, huh?)] she asks, but before you can reply, she continues speaking, [pix.speech(So don't just stand there! Come on, follow me!)]
-	</p>
-	<p>
-		Pix happily laughs and turns away before starting to bound into the gym, motioning for you to follow her.
+		Following Pix down the path which leads through the high-ceilinged building, you quickly arrive at your next stop, where the [pix.race] shouts, [pix.speech(Here's where we have all the resistance machines and free weights! Oh, and right here's the changing rooms and showers, which lead on through to our saunas and indoor pool! Now follow me! Follow me! Let's go see the boxing rings!)]
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GYM_EXIT"><![CDATA[
+	<htmlContent tag="RECEPTION_TOUR_NEXT"><![CDATA[
 	<p>
-		You quickly shout to Pix that you don't have time for her tour right now, but you might come back later. She doesn't seem fazed at all by your reluctant response, and calls out after you as you leave, [pix.speech(No worries! Come back at any time, I'll be waiting to see you again!)]
+		Making a ninety-degree turn, Pix skips along through the gym, leaving you to hurry along behind her. Passing all of the resistance machines, and noting how there are once again only a couple of people using them, you soon arrive at your destination. 
+	</p>
+	<p>
+		[pix.speech(Oh, great! Hannah's giving a lesson!)] Pix shouts as she comes to a halt in front of you.
+	</p>
+	<p>
+		Looking past the [pix.race], you see that the area in front of you holds two full-sized boxing rings, while lined up around them are dozens of punching bags, bench presses, and free weights. There are about a dozen people here, making it far more popular than the rest of the gym, and you see that they're all currently standing around one of the rings. In the arena, a huge, muscular stag-boy is engaged in a bout of bare-knuckle boxing with a greater spotted hyena-girl, who you assume to be Hannah.
+	</p>
+	<p>
+		[pix.speech(After you've signed up to be a member, then you can go to Hannah to get boxing lessons!)] Pix exclaims.
+	</p>
+	<p>
+		As you continue to watch the pair of pugilists, you can't help but think that Hannah is vastly outmatched. Although the hyena-girl's furry stomach is formed into a rock-hard six-pack, and her muscular arms and legs look to be extremely strong, the stag-boy is both taller and bulkier than she is, and looks to be quite agile as he dances around in front of his opponent. You almost can't bear to watch as he suddenly throws a mighty punch at Hannah, but the hyena-girl ducks to one side at the last moment, before darting forwards and delivering a trio of lightning-fast punches to his torso.
+	</p>
+	<p>
+		[pix.speech(Oh, wait, this doesn't look like a lesson...)] Pix sighs, and you find yourself more surprised at the fact that she isn't shouting for once than by her words. Shaking her head, she tuts and says, [pix.speech(I'd better stop this.)]
+	</p>
+	<p>
+		As the [pix.race] strides towards the ring, you see the stag-boy staggering to one side as he tries to recover from the blows he's just received. Before Pix can bring an end to the fight, the stag-boy briefly drops one hand to clutch his bruised ribs, giving Hannah the opening she needs. Her left fist shoots out with such speed that her opponent has no time in which to react, and a moment later the stag-boy is tumbling to the ground, unconscious.
+	</p>
+	<p>
+		[pix.speech(Ok, that's enough!)] Pix shouts, [pix.speech(Hannah, I told you to stop accepting challenges!)]
+	</p>
+	<p>
+		[hannah.speech(Yeah, yeah, it won't happen again,)] the hyena-girl grunts, before spitting on the floor and leaping down out of the ring. Seeing that the stag-boy's friends are gathering around to help him out, Pix leaves matters to them and returns to where you're standing.
+	</p>
+	<p>
+		[pix.speech(Sorry about that!)] she exclaims, [pix.speech(Hannah's got a bit of a reputation, so we sometimes get people coming here just to challenge her! It doesn't end well for them... Anyway, let's head back to the front desk!)]
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GYM_FOLLOW"><![CDATA[
+	<htmlContent tag="RECEPTION_TOUR_END"><![CDATA[
 	<p>
-		You decide to follow the excitable dog-girl, and hurry to catch up with her as she sets off. Following Pix through a large glass door, you find yourself standing in the gym proper.
+		Leaving Hannah and the boxing rings behind, you follow Pix as she leads you back to the reception area. Taking her place behind the desk, she flashes you a huge smile and shouts, [pix.speech(So, what'ya think?! Pretty awesome, huh?!)]
 	</p>
 	<p>
-		[pix.speech(So, like, here's all the weights and machines and stuff!)] she shouts, bouncing happily around the room as you follow in her footsteps. [pix.speech(It's usually not much busier than this, so when you sign up, you'll find that you never have to wait for any of the equipment!)]
+		You only manage to get out a few words in response before the excitable [pix.race] cuts you off. Moving onto the business-side of things, she exclaims, [pix.speech(Now, life-time membership is ten-thousand flames, or you can just pay each time you come here, which is one-hundred flames per entry! So, what'll be?! If you get the life-time membership, that includes personal workout sessions with none other than your new friend, Pix!)]
 	</p>
 	<p>
-		As you're wondering if Pix is even capable of speaking at a normal volume, you look around at your surroundings. The gym's main area, which you're currently standing in, is large and spacious, and is filled with all sorts of exercise machines, yoga mats, and free weight sections. Despite its impressive size and array of arcane-powered machinery, there doesn't seem to be more than a handful of people in here. You wonder if Pix's overbearing hyperactive personality has put people off from signing up.
-	</p>
-	<p>
-		[pix.speech(Follow me! Follow me!)] she shouts, interrupting your thoughts as she continues her tour.
-	</p>
-	<p>
-		Pix continues to show you around the gym, and you're surprised to find that there's an indoor olympic-sized swimming pool in the back. Outside, situated behind the Shopping Arcade, there's a large running track and football field, which Pix happily states are exclusively for use by the gym's members. She then shows you some other miscellaneous facilities, such as the changing rooms, showers and lockers. Before long, you find yourself stepping back into the gym's lobby, and Pix turns around and beams at you as she finishes her tour.
-	</p>
-	<p>
-		[pix.speech(So, what'ya think?! Pretty awesome, huh?!)] she shouts, before moving onto the business-side of things. [pix.speech(Now, life-time membership is ten-thousand flames, or you can just pay each time you come here, which is one-hundred flames per entry! So, what'll be?! If you get the life-time membership, that includes personal workout sessions with none other than your new friend, Pix! You know, I don't do this often, but I can see that you're kinda special and I'd really like to get the chance to work with that body of yours, so just for you, I'll say life-time membership is only eight-thousand flames! Pretty good, huh? So, what'ya want?!)]
+		Although it's a life-time membership, you can't help but think that ten thousand flames seems a little steep. Clearly sensing your hesitation, Pix quickly offers you a deal, [pix.speech(You know, I don't do this often, but I can see that you're kinda special and I'd really like to get the chance to work with that body of yours, so just for you, I'll say life-time membership is only eight-thousand flames! Pretty good, huh? So, what'll it be?!)]
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GYM_RETURNING"><![CDATA[
-	<p>
-		You make your way over to where the city gym is located. Pushing open the door, you step into the lobby, where you're immediately greeted by the familiar bouncing figure of Pix.
-	</p>
-	<p>
-		[pix.speech(Heya, [pc.name]! How're ya doin'?!)] She asks, beaming at you.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="GYM_RETURNING_MEMBER"><![CDATA[
-	<p>
-		You start to greet the energetic dog-girl, but, once again, she immediately cuts you off. [pix.speech(You gonna want some personal training today?! I'm ready for it whenever you are! You go ahead and get changed, I'll see you in there!)]
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="GYM_RETURNING_NOT_MEMBER"><![CDATA[
-	<p>
-		You start to greet the energetic dog-girl, but, once again, she immediately cuts you off. [pix.speech(The eight-thousand flames deal is still on y'know! Only for you! So, you ready to sign up?!)]
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="GYM_SINGLE_PAYMENT"><![CDATA[
-	<p>
-		You tell Pix that you just want to pay for a single entry today, and, handing over one-hundred flames, she smiles at you and lets you enter.
-	</p>
-	<p>
-		[pix.speech(Remember, if you get a life-time membership, I can help you train!)] she shouts after you while bouncing up and down on the spot.
-	</p>
-	<p>
-		You head over to the changing rooms, where you discover that the gym provides clean exercise clothes for people who haven't brought any. Quickly getting changed, you head out into the gym and decide what to do.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="GYM_LIFETIME_PAYMENT"><![CDATA[
+	<htmlContent tag="RECEPTION_MEMBERSHIP"><![CDATA[
 	<p>
 		You tell Pix that you want to sign up for a lifetime membership. A huge smile spreads over her face, and she leaps up, punching the air and letting out a triumphant shout.
 	</p>
 	<p>
-		[pix.speech(Wohoo! That's, like, so amazing! Now I can help you train and stuff, and you can, like, come and go anytime without paying anything extra!)] she explains, and without warning, she leaps forwards and gives you a hug.
+		[pix.speech(Wohoo! That's fantastic! Now I can help you train and stuff, and you can come and go any time you want without paying anything extra!)] she explains, and without warning, she leaps forwards and gives you a hug.
 	</p>
 	<p>
-		You're somewhat taken aback by her sudden move, but before you can react, she releases you and runs off to fetch a contract from behind the front desk. After grabbing the piece of paper and a pen, she practically sprints back over to you and thrusts them into your hands.
+		You're somewhat taken aback by her sudden move, but before you can react, she releases you and ducks down to fetch a contract from beneath her desk. After grabbing the piece of paper and a pen, she slams them down onto the counter and excitedly booms, [pix.speech(Ok! So, sign here, here, and here!)]
 	</p>
 	<p>
-		[pix.speech(Ok! So, like, sign here, here, and here!)] She points to different places on the page, and you do as she says before handing over eight-thousand flames, completing the contract.
+		 After signing your name at three different places on the page, you hand over the eight thousand flame fee, thereby completing the contract. Handing you a rather disappointingly-flimsy cardboard membership card, the [pix.race] cheers, [pix.speech(Awesome! So, that's all done! Congratulations! Just call me over whenever you're ready for some personal training! Oh, and you can now take boxing lessons with Hannah, or attend yoga sessions with Brahman!)]
 	</p>
 	<p>
-		[pix.speech(Awesome! So, that's all done! Congratulations! You can go ahead and get changed and stuff, just call me over whenever you're ready for some personal training!)] she exclaims, before running off to fill in her side of the paperwork.
-	</p>
-	<p>
-		You head over to the changing rooms, where you see that the gym provides clean exercise clothes for people who haven't brought any. Quickly getting changed, you head out into the gym and decide what to do.
+		Having now gained access to all that the gym has to offer, you wonder where to go first...
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GYM_MEMBER_ENTER"><![CDATA[
+	<htmlContent tag="RECEPTION_SESSION"><![CDATA[
+	#IF(pix.getWorldLocation()==WORLD_TYPE_innoxia_dominion_shopping_arcade_gym)
+		<p>
+			You tell Pix that you just want to pay for a single session in the gym, before handing over the one hundred flame fee.
+		</p>
+		<p>
+			[pix.speech(Thanks, [pc.name]! You've now got full access to the gym, but that's lost when you decide to leave, so if you go and come back later, you'll have to pay again!)] the [pix.race] happily shouts as you pass by the reception desk. Bouncing up and down on the spot, she calls after you, [pix.speech(Remember, if you get a life-time membership, I can help you to train!)]
+		</p>
+		<p>
+			Having now gained access to the gym, you wonder where to go first...
+		</p>
+	#ELSE
+		<p>
+			You tell the rabbit-girl that you want to pay for a single session in the gym, before handing over the one hundred flame fee.
+		</p>
+		<p>
+			[pix.speech(Thank you! You've now got full access to the gym, but that's lost when you decide to leave, so if you go and come back later, you'll have to pay again,)] the receptionist explains as you pass by her desk.
+		</p>
+		<p>
+			Having now gained access to the gym, you wonder where to go first...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_PIX_WORKOUT"><![CDATA[
 	<p>
-		You make your way over to where the city gym is located. Pushing open the door, you step into the lobby, where you're immediately greeted by the familiar bouncing figure of Pix.
+		Deciding that you'll take Pix up on her offer, you start to say that you'd like to have a personal workout session with her, but before you're even halfway through your first sentence, she hastily interrupts you in her eagerness to respond, [pix.speech(Wohoo! So, like, you want to have a good workout, huh?! Come on! Let's start over here!)]
 	</p>
 	<p>
-		[pix.speech(Heya, [pc.name]! How're ya doin'?! Gonna have a personal session today?!)] she asks, beaming at you.
+		Doing as she says, you follow Pix as she skips over to the area of the gym which houses the free weights. Directing you to pick up a pair of dumbbells, she begins to show you her special routine, and directs you as you work your way through every set of muscles on your body.
 	</p>
 	<p>
-		You start to reply to the energetic dog-girl, but, once again, she immediately cuts you off.
-		[pix.speech(Y'know, just any time you want it, call me over and we can get started! You go ahead and get changed, I'll see you in there!)]
+		[pix.speech(C'mon! You can do better than that, can'tcha?!)] Pix exclaims, energetically jumping up and down on the spot.
 	</p>
 	<p>
-		You do as Pix says and head over to the changing rooms, where you quickly get changed. Heading out into the gym, you decide what to do.
+		You feel as though you're already working quite hard, and if you were to push yourself any further, you'd quickly get very fatigued. Then again, you <i>are</i> trying to get fitter, and Pix is a professional... Maybe you should give it your all?
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GYM_CARDIO"><![CDATA[
+	<htmlContent tag="RECEPTION_PIX_WORKOUT_FULL_EFFORT"><![CDATA[
 	<p>
-		You head over to the cardio section of the gym and spend some time warming up before using the running and cycling machines. After an hour of intense workout, you're left panting and covered in sweat. You feel like you've definitely improved your level of fitness, even if only by a tiny amount.
+		Deciding that it'd be best to give Pix one hundred percent of your effort, you fully commit to the exercise. Following the [pix.race]'s instructions, you work your way through several sets of weights, before moving on to the resistance machines and continuing your workout there. By the time you're done, you're left panting and feeling thoroughly worn out.
+	</p>
+	<p>
+		The routine isn't over just yet, however, for as soon as you're done with the weights, Pix excitably shouts, [pix.speech(Great job, [pc.name]! Now let's go get some cardio work in!)]
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GYM_WEIGHTS"><![CDATA[
+	<htmlContent tag="RECEPTION_PIX_WORKOUT_HELD_BACK"><![CDATA[
 	<p>
-		You head over to the free weights section of the gym and spend some time warming up before using the equipment. After an hour of intense workout, you're left feeling very pleased with yourself. You feel like you've definitely improved your strength, even if only by a tiny amount.
+		Not wanting to exhaust yourself, you decide to hold back a little. Following Pix's instructions, you work your way through several sets of weights, before moving on to the resistance machines and continuing your workout there. Although you maintain the impression that you're putting all of your effort into it, you don't fully commit yourself to the exercise routine.
+	</p>
+	<p>
+		Pix doesn't seem to pick up on the fact that you're holding back, for as soon as you're done with the weights, she excitably shouts, [pix.speech(Great job, [pc.name]! Now let's go get some cardio work in!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_PIX_WORKOUT_CARDIO"><![CDATA[
+	<p>
+		[pix.speech(Come on now! No slacking!)] Pix shouts as she bounces over towards the running machines.
+	</p>
+	<p>
+		You can't help but let out a groan as you see what Pix has got in store for you. The dog-girl's tail, which up until now hasn't stopped wagging, flicks upright for a second, before continuing its seemingly uncontrollable motion.
+	</p>
+	<p>
+		[pix.speech(Hey! I heard that! Come on now, if you give me thirty more minutes, I'll make it worth your while!)] she teases, before giving you a wink and then pushing you onto one of the running machines.
+	</p>
+	<p>
+		With her excitable manner of talking over you, combined with the fact that you've been breathing heavily throughout Pix's exercise routine, you've been completely unable to get out a single sentence. You wonder what she means by making it 'worth your while', but as the [pix.race] turns the machine on and gets you to start running, you're given a clear idea of what's on her mind. As you run, Pix moves around behind you, and you can almost feel her lustful gaze resting on your rear end.
+	</p>
+	<p>
+		[pix.speech(Mmm! Y'know, you've got one hot ass!)] she giggles, [pix.speech(Now show me what you're made of!)]
+	</p>
+	<p>
+		Once again, you find yourself with a choice to make. Should you put in your full amount of effort, or hold back and conserve your energy?
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_PIX_WORKOUT_CARDIO_FULL_EFFORT"><![CDATA[
+	<p>
+		Wanting to show Pix what you can do, you decide to set the machine for a steady run. Pix lets out an impressed hum as she sees what speed you're setting the machine to, [pix.speech(Mmm... You're eager to show off for me, aren't ya?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_PIX_WORKOUT_CARDIO_HELD_BACK"><![CDATA[
+	<p>
+		Unwilling to completely exhaust yourself on the running machine, you decide to settle for a slow jog. Pix lets out a mildly annoyed huff as she sees what speed you're setting the machine to, [pix.speech(Huh... You're more exhausted than I thought! You're gonna need to get fitter, aren't ya?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -215,117 +457,150 @@
 	]]>
 	</htmlContent>
 	
-	
-	<htmlContent tag="GYM_PIX_TRAINING"><![CDATA[
+	<htmlContent tag="RECEPTION_PIX_WORKOUT_END"><![CDATA[
 	<p>
-		You look over to where Pix is trying, very badly, to act nonchalant as she watches you. Beckoning her over, she immediately breaks her composure, smiling happily as she bounces her way over to you.
-	</p>
-	<p>
-		[pix.speech(Heya! How're ya doin'?!)] she squeals, obviously extremely pleased that you've asked her to come over.
-	</p>
-	<p>
-		You start to say that you'd like her to show you a good routine to follow, but before you're even halfway through your first sentence, she hastily interrupts you in her eagerness to respond, 
-		[pix.speech(Wohoo! So, like, you want to have a good workout, huh?! Let's start over here!)]
-	</p>
-	<p>
-		You follow Pix over to the free weights section, where she begins to show you her special routine. She gets you to do several sets of weights, working your way through every set of muscles on your body.
-	</p>
-	<p>
-		[pix.speech(C'mon! You can do better than that, can'tcha?!)] Pix exclaims, energetically jumping up and down on the spot.
-	</p>
-	<p>
-		You feel as though you're already working quite hard, and if you were to push yourself any further, you'd quickly get very fatigued. Then again, you <i>are</i> trying to get fitter, and Pix is a professional... Maybe you should give it your all?
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="GYM_PIX_TRAINING_CARDIO"><![CDATA[
-	<p>
-		[pix.speech(Come on now! No slacking!)] she exclaims as she leads you over towards the running machines.
-	</p>
-	<p>
-		You let out a groan as you see what Pix has got in store for you. The dog-girl's tail, which up until now hasn't stopped wagging, flicks upright for a second, before continuing its seemingly uncontrollable motion.
-	</p>
-	<p>
-		[pix.speech(Hey! I heard that! Come on now, if you give me thirty more minutes, I'll make it worth your while!)] She winks, pushing you onto one of the machines and turning it on.
-	</p>
-	<p>
-		With her excitable manner of talking over you, combined with the fact that you've been breathing heavily throughout Pix's exercise routine, you've been completely unable to get out a single sentence. You wonder what she means by making it 'worth your while', but as you start running, you're given a clear idea of what she means. Pix moves around behind you as you run, and you can almost feel her lustful gaze resting on your rear end.
-	</p>
-	<p>
-		[pix.speech(Mmm! Y'know, you've got one hot ass!)] She giggles. [pix.speech(Now show me what you're made of!)]
-	</p>
-	<p>
-		Once again, you find yourself with a choice to make. Should you put in your full amount of effort, or hold back and conserve your energy?
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="GYM_PIX_TRAINING_FINISH"><![CDATA[
-	<p>
-		As you exercise, Pix uses the opportunity to check you out, making inappropriate comments every now and then about the state of your body. [pix.speech(That's right, keep working that ass for me... Mmm, yeah, that's good...)]
+		As you exercise, Pix uses the opportunity to check you out, making inappropriate comments every now and then about the state of your body, [pix.speech(That's right, keep working that ass for me... Mmm, yeah, that's good...)]
 	</p>
 	<p>
 		As focused as you are on having to keep up with the treadmill's movement, you're unable to respond to the pervy comments, and just focus on what you're doing instead.
 	</p>
 	<p>
-		After what feels like an eternity, the dog-girl trainer finally leans over and dials the difficulty back, instructing you to take a few minutes to do a cooldown walk. As you pant from exertion, Pix leans over and uses a towel to wipe the sweat from your forehead. She brushes her hand over your body as she retracts, and reminds you of what she promised earlier, [pix.speech(You're like, my star pupil, y'know! I said I'd make it worth your while, remember?! So come meet me in the showers if you want a little one-to-one cooldown exercise...)]
+		After what feels like an eternity, the [pix.race] finally leans over and dials the difficulty back, instructing you to take a few minutes to do a cooldown walk. As you pant from exertion, she leans over and uses a towel to wipe the sweat from your forehead. She brushes her hand over your body as she retracts, and reminds you of what she promised earlier, [pix.speech(You're like, my star pupil, y'know! I said I'd make it worth your while, remember?! How about we head on over to the showers so that I can give you a special one-to-one cooldown exercise?)]
 	</p>
 	<p>
-		Enticingly sliding her paw-like hands over her breasts, Pix lets out one final giggle before bouncing away towards the showers...
+		Enticingly sliding her paw-like hands over her breasts, Pix bites her lip and waits to hear your response...
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GYM_PIX_ASSAULT"><![CDATA[
+	<htmlContent tag="RECEPTION_PIX_WORKOUT_END_NO_REWARD"><![CDATA[
 	<p>
-		Heading off into the changing rooms, a wave of exhaustion suddenly crashes over you. Pix's exercise routine seems to have been designed specifically to completely wear you out, and you quickly decide that you should turn down the energetic dog-girl's offer of a 'one-to-one cooldown exercise'. After all, in your current state, you barely even have the energy required to stay standing, and you wouldn't want to let her down with a sub-par performance.
+		You don't like the sound of Pix's 'special one-to-one cooldown exercise', so you tell her that you'll give it a miss this time.
 	</p>
-
 	<p>
-		Quickly stripping out of your clothes, you head over to the showers, scanning around for any sign of your over-enthusiastic personal trainer. The place looks to be completely deserted, and, assuming that Pix must have got distracted elsewhere, you step into the shower and start to clean yourself off.
+		[pix.speech(Aww... That's too bad!)] she exclaims, before pouting and laughing, [pix.speech(Well, once you've recovered, come back to see me again and we can do another workout session!)]
 	</p>
-
+	<p>
+		With that, the [pix.race] skips off to the reception desk, leaving you wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Consensual shower assault sex: -->
+	
+	<htmlContent tag="RECEPTION_PIX_WORKOUT_END_REWARD"><![CDATA[
+	<p>
+		Deciding that you don't want to let Pix down, you tell her that you'll join her in the showers. Joyously bouncing up and down as she hears your response, the [pix.race] exclaims, [pix.speech(Wohoo! See you there!)]
+	</p>
+	<p>
+		With that, she leaves you behind as she sprints off full-pelt in the direction of the showers. As you watch her go, a wave of exhaustion suddenly crashes over you. Pix's exercise routine seems to have been designed specifically to completely wear you out, and you wonder if you've even got the energy for the 'special one-to-one cooldown exercise' that you've accepted.
+	</p>
+	<p>
+		Heading over to the showers, you quickly strip out of your clothes, before scanning around for any sign of your over-enthusiastic personal trainer. The place looks to be completely deserted, and, assuming that Pix will show up once you've got the taps running, you step into the shower and start to clean yourself off.
+	</p>
+	<p>
+		Over the crashing noise of the falling water, you're unable to hear the dog-girl as she sneaks up on you. Facing the wall, you don't even have the chance to spot her approach, or to see the predatory grin that she fails to conceal upon sighting your naked body. In fact, you're completely oblivious to Pix's presence, right up until the moment she pounces forwards and pins you up against the wall.
+	</p>
+	<p>
+		You start to let out a yell in surprise, but the dog-girl quickly clasps a paw-like hand over your mouth as she leans in, pressing her naked body against yours as she growls in your ear, [pix.speech(Haha! So, like, you ready for your special cooldown?! Y'know, I'm like, super into punishments, orgasm denial, and all that good stuff, so if you aren't interested in that kinda thing, now's your chance to let me know!)]
+	</p>
+	<p>
+		As she lifts her hand from over your mouth, you're given a chance to respond...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_PIX_WORKOUT_END_REWARD_START"><![CDATA[
+	<p>
+		As tired as you are, Pix's offer seems too good to turn down, and so you turn your head to one side and eagerly tell her to get started. Although you can't see her reaction, you feel her grip on your wrists tighten as you try to turn to face her. Leaning into your back, Pix growls into your ear once more, [pix.speech(That's the spirit! This is gonna be, like, super fun!)]
+	</p>
+	<p>
+		As she speaks, she releases the grip on one of your wrists, and as she crushes you up against the wall of the shower, you feel her hand slip around and down #IF(pc.hasLegs())between your legs#ELSEto your groin#ENDIF. You let out a gasp as she starts stroking your crotch, and as her naked breasts squish into your back, her growls soften down a little, [pix.speech(You're gonna be a good [pc.girl] for Pix now, aren't ya?!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_PIX_WORKOUT_END_REWARD_DECLINED"><![CDATA[
+	<p>
+		You're far too tired for any more physical exercise right now, and so tell Pix as such. As she hears this, the [pix.race]'s grip on your wrists instantly loosens, and she steps back, letting out a disappointed whine, [pix.speech(Aww, that's, like too bad! Well, maybe we can have some fun the next time you're here!)]
+	</p>
+	<p>
+		Throwing you a mischievous grin, she bolts off towards the exit, calling out behind her as she goes, [pix.speech(Please do come back soon! You're, like, my star pupil!)]
+	</p>
+	<p>
+		Smiling to yourself, you continue with your shower, wondering if you'll take up Pix's offer in the future. After you're done, you head back into the changing rooms, and without further incident, dry yourself off, get changed, and wonder where to go next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_PIX_WORKOUT_END_REWARD_AFTER_SEX"><![CDATA[
+	<p>
+		Pix hooks her arms under yours and helps you to stagger out from the showers. Leaving you standing in the locker room, she quickly darts of to fetch a towel, before rushing back and starting to gently dry your body off.
+	</p>
+	<p>
+		[pix.speech(You're, like, the best, y'know! Thanks for letting me have some fun, I hope you enjoyed it too!)]
+	</p>
+	<p>
+		You're far too tired to respond, and instead simply let out a satisfied groan as the dog-girl quickly helps to dress you. After making sure that you're sitting down comfortably on one of the benches, she gives you one last passionate kiss before giggling and running off, her tail happily wagging behind her as she leaves.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_PIX_WORKOUT_END_REWARD_AFTER_SEX_LEAVE"><![CDATA[
+	<p>
+		It takes some time before you finally recover enough energy to get up. Letting out a weary sigh, you push yourself up off the bench and wonder where to go next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Non-con shower assault sex: -->
+	
+	<htmlContent tag="RECEPTION_PIX_WORKOUT_END_REWARD_NON_CON"><![CDATA[
+	<p>
+		Deciding that you don't want to let Pix down, you tell her that you'll join her in the showers. Joyously bouncing up and down as she hears your response, the [pix.race] exclaims, [pix.speech(Wohoo! See you there!)]
+	</p>
+	<p>
+		With that, she leaves you behind as she sprints off full-pelt in the direction of the showers. As you watch her go, a wave of exhaustion suddenly crashes over you. Pix's exercise routine seems to have been designed specifically to completely wear you out, and you wonder if you've even got the energy for the 'special one-to-one cooldown exercise' that you've accepted.
+	</p>
+	<p>
+		Heading over to the showers, you quickly strip out of your clothes, before scanning around for any sign of your over-enthusiastic personal trainer. The place looks to be completely deserted, and, assuming that Pix will show up once you've got the taps running, you step into the shower and start to clean yourself off.
+	</p>
 	<p>
 		Over the crashing noise of the shower, you're unable to hear the dog-girl as she sneaks up on you. Facing the wall, you don't even have the chance to spot her approach, or to see the predatory grin that she fails to conceal upon sighting your naked body. In fact, you're completely oblivious to Pix's presence, right up until the moment she pounces forwards and pins you up against the wall.
 	</p>
-		
 	<p>
-		You start to let out a yell in surprise, but the dog-girl quickly clasps a paw-like hand over your mouth as she leans in, pressing her naked body against yours as she growls in your ear, [pix.speech(Haha! So, like, were you trying to avoid me or something?! 'Cause that kinda makes me sad! And y'know, it also kinda makes me think that you need a little punishment! So, whattya got to say for yourself, huh, huh, huh?!)] As she lifts her hand from over your mouth, you're given a chance to respond.
+		You start to let out a yell in surprise, but the dog-girl quickly clasps a paw-like hand over your mouth as she leans in, pressing her naked body against yours as she growls in your ear, [pix.speech(Haha! So, like, were you trying to avoid me or something?! 'Cause that kinda makes me sad! And y'know, it also kinda makes me think that you need a little punishment! So, whattya got to say for yourself, huh, huh, huh?!)]
+	</p>
+	<p>
+		 As she lifts her hand from over your mouth, you're given a chance to respond...
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GYM_PIX_ASSAULT_EXHAUSTED"><![CDATA[
+	<htmlContent tag="RECEPTION_PIX_WORKOUT_END_REWARD_NON_CON_EXHAUSTED"><![CDATA[
 	<p>
 		[style.italicsBad(You are completely exhausted from Pix's exercise routine, which, looking back at it, might have been exactly what she was after all this time...)]
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GYM_PIX_ASSAULT_WEAKER"><![CDATA[
+	<htmlContent tag="RECEPTION_PIX_WORKOUT_END_REWARD_NON_CON_WEAKER"><![CDATA[
 	<p>
-		[style.italicsGood(As you decided to hold back a little, you think you have enough energy to break free, but, seeing as Pix is stronger and fitter than you, you don't think you could turn the tables on her...)]
+		[style.italicsGood(As you decided to hold back a little, you think you have enough energy to break free, but seeing as Pix is stronger and fitter than you, you don't think you could turn the tables on her...)]
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GYM_PIX_ASSAULT_STRONGER"><![CDATA[
+	<htmlContent tag="RECEPTION_PIX_WORKOUT_END_REWARD_NON_CON_STRONGER"><![CDATA[
 	<p>
-		[style.italicsExcellent(As you decided to hold back a little, you think you have enough energy to break free, and, seeing as you're stronger and fitter than Pix, you think you could even turn the tables on her...)]
+		[style.italicsExcellent(As you decided to hold back a little, you think you have enough energy to break free, and seeing as you're both stronger and fitter than Pix, you think you could even turn the tables on her...)]
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GYM_PIX_ASSAULT_TOO_TIRED"><![CDATA[
+	<htmlContent tag="RECEPTION_PIX_WORKOUT_END_REWARD_NON_CON_TOO_TIRED"><![CDATA[
 	<p>
-		You're far too tired to do any more physical exercise right now, and tell Pix as such, [pc.speech(I wasn't avoiding you, I'm just too tired for this right now. Maybe we can carry on in about half an hour or something?)]
-	</p>
-	<p>
-		Although you can't see her reaction, you feel her grip on your wrists tighten as you try to make an excuse. As Pix leans into your back, she growls into your ear once more, sending a shiver down your spine as you hear the icy tone in her voice.
-	</p>
-	<p>
-		[pix.speech(Y'know, that's not what I wanted to hear. Not what I wanted to hear at all.)]
+		You're far too tired to do any more physical exercise right now, and so tell Pix as such. Although you can't see her reaction, you feel her grip on your wrists tighten as you try to make this excuse. Leaning into your back, the [pix.race] growls into your ear once more, sending a shiver down your spine as you hear the icy tone in her voice, [pix.speech(Y'know, that's not what I wanted to hear. Not what I wanted to hear at all.)]
 	</p>
 	<p>
 		As she speaks, she releases the grip on one of your wrists, and as she crushes you up against the wall of the shower, you feel her hand slip around and down #IF(pc.hasLegs())between your legs#ELSEto your groin#ENDIF. You let out a gasp as she starts stroking your crotch, and as her three pairs of naked breasts squish into your back, her growls start to soften down a little.
@@ -336,15 +611,9 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GYM_PIX_ASSAULT_OFFER_SEX"><![CDATA[
+	<htmlContent tag="RECEPTION_PIX_WORKOUT_END_REWARD_NON_CON_OFFER_SEX"><![CDATA[
 	<p>
-		As tired as you are, Pix turns you on far too much to refuse her advances, and you turn your head to one side as you eagerly respond, [pc.speech(Perhaps you'll let me make it up to you?)]
-	</p>
-	<p>
-		Although you can't see her reaction, you feel her grip on your wrists tighten as you try to turn to face her. Leaning into your back, Pix growls into your ear once more, sending a shiver down your spine as you hear the icy tone in her voice.
-	</p>
-	<p>
-		[pix.speech(Y'know, I don't think you're in any position to take charge here.)]
+		As tired as you are, Pix turns you on far too much to refuse her advances, and so you turn your head to one side as you eagerly tell her to get started. Although you can't see her reaction, you feel her grip on your wrists tighten as you try to turn to face her. Leaning into your back, Pix growls into your ear once more, sending a shiver down your spine as you hear the icy tone in her voice, [pix.speech(Y'know, you didn't exactly have a choice here.)]
 	</p>
 	<p>
 		As she speaks, she releases the grip on one of your wrists, and as she crushes you up against the wall of the shower, you feel her hand slip around and down #IF(pc.hasLegs())between your legs#ELSEto your groin#ENDIF. You let out a gasp as she starts stroking your crotch, and as her three pairs of naked breasts squish into your back, her growls start to soften down a little.
@@ -355,15 +624,9 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GYM_PIX_ASSAULT_ACCEPT_PUNISHMENT"><![CDATA[
+	<htmlContent tag="RECEPTION_PIX_WORKOUT_END_REWARD_NON_CON_ACCEPT_PUNISHMENT"><![CDATA[
 	<p>
-		You don't want Pix to think that you've been avoiding her, and you turn your head to one side as you apologise, [pc.speech(Sorry, Pix, I wasn't trying to avoid you, I just didn't see you anywhere nearby!)]
-	</p>
-	<p>
-		Although you can't see her reaction, you feel her grip on your wrists tighten as you say you're sorry. Leaning into your back, Pix growls into your ear once more, sending a shiver down your spine as you hear the icy tone in her voice.
-	</p>
-	<p>
-		[pix.speech(Y'know, that ain't gonna cut it! No, I think you still need a little punishment.)]
+		You don't want Pix to think that you've been avoiding her, and so you turn your head to one side as you offer her an apology. Although you can't see her reaction, you feel her grip on your wrists tighten as you say you're sorry. Leaning into your back, Pix growls into your ear once more, sending a shiver down your spine as you hear the icy tone in her voice, [pix.speech(Y'know, that ain't gonna cut it! No, I think you still need a little punishment.)]
 	</p>
 	<p>
 		As she speaks, she releases the grip on one of your wrists, and as she crushes you up against the wall of the shower, you feel her hand slip around and down #IF(pc.hasLegs())between your legs#ELSEto your groin#ENDIF. You let out a gasp as she starts stroking your crotch, and as her three pairs of naked breasts squish into your back, her growls start to soften down a little.
@@ -374,20 +637,20 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="GYM_PIX_ASSAULT_TURN_TABLES"><![CDATA[
+	<htmlContent tag="RECEPTION_PIX_WORKOUT_END_REWARD_NON_CON_TURN_TABLES"><![CDATA[
 	<p>
 		Summoning the energy that you've saved by holding back during Pix's exercise, you push yourself off from the shower wall, causing Pix to stumble backwards. Twisting to one side, you break free of her grip, before spinning around and grabbing the startled dog-girl. In one swift move, you're behind her, and, locking her arms behind her back, you completely turn the tables as you end up pinning the dog-girl up against the shower wall.
 	</p>
 	<p>
-		[pix.speech(Aaah!)] Pix cries, with more than a little excitement in her voice. [pix.speech(Like, nobody's ever managed to do <i>this</i> before!)]
+		[pix.speech(~Aah!~)] Pix cries, with more than a little excitement in her voice. [pix.speech(Like, nobody's ever managed to do <i>this</i> before!)]
 	</p>
 	<p>
-		Leaning in over her shoulder, you can't help but grin as you growl into Pix's ear, [pc.speech(It looks <i>you're</i> who's the one in need of some punishment...)]
+		Leaning in over her shoulder, you can't help but grin as you growl into Pix's ear and tell her that <i>she's</i> the one who's in need of some punishment...
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="PIX_BREAK_FREE"><![CDATA[
+	<htmlContent tag="RECEPTION_PIX_WORKOUT_END_REWARD_NON_CON_BREAK_FREE"><![CDATA[
 	<p>
 		Summoning the energy that you've saved by holding back during Pix's exercise, you push yourself off from the shower wall, causing Pix to stumble backwards. Twisting to one side, you break free of her grip, before spinning around to face the naked dog-girl.
 	</p>
@@ -398,98 +661,647 @@
 		Throwing you a mischievous grin, she bolts off towards the exit, calling out behind her as she goes, [pix.speech(Come back soon! You're, like, still my star pupil!)]
 	</p>
 	<p>
-		Shaking your head, you continue with your shower, making sure to keep an eye on the entrance. After you're done, you head back into the changing rooms, and without further incident, dry yourself off, get changed, and leave the gym.
+		Shaking your head, you continue with your shower, making sure to keep an eye on the entrance. After you're done, you head back into the changing rooms, and without further incident, dry yourself off, get changed, and wonder where to go next...
 	</p>
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="PIX_POST_SEX_TABLES_TURNED"><![CDATA[
+	<htmlContent tag="RECEPTION_PIX_WORKOUT_END_REWARD_AFTER_SEX_AS_DOM"><![CDATA[
 	<p>
 		Hooking your arms under Pix's, you drag the exhausted dog-girl out from the showers, and into the changing rooms. Lying her down on one of the wooden benches, you grab a nearby towel, before quickly drying her body off. You can't help but grin as she sighs, [pix.speech(Ahh... Thanks, [pc.name]... That sure was fun, y'know...)]
 	</p>
 	<p>
-		You let out a satisfied sigh of your own in response, and, as the dog-girl lies back on the bench, you dry yourself off and get changed. Knowing that she's going to need some time to recover from her special 'one-to-one cooldown exercise', you pat the dog-girl on the head, before setting off out of the gym.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="PIX_POST_SEX"><![CDATA[
-	<p>
-		Pix hooks her arms under yours and drags your almost-comatose body out from the showers. You worry for a moment that she's going to continue with her 'fun', but instead, she quickly darts of to fetch a towel, before starting to gently dry your body off.
-	</p>
-	<p>
-		[pix.speech(You're, like, the best, y'know! Thanks for letting me have some fun, I hope you enjoyed it too!)]
-	</p>
-	<p>
-		You're far too tired to respond, and instead simply let out a satisfied groan as the dog-girl quickly dresses you. After making sure that you're lying down comfortably on one of the benches, she gives you one last passionate kiss before giggling and running off.
-	</p>
-	<p>
-		It takes some time before you finally recover enough energy to get up and leave the gym. Unusually, Pix is nowhere to be seen, and you wonder if she's avoiding you until you've had some time to fully recover from her 'one-to-one cooldown exercise'...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="GYM_PIX_ASSAULT_CONSENSUAL"><![CDATA[
-	<p>
-		Heading off into the changing rooms, a wave of exhaustion suddenly crashes over you. Pix's exercise routine seems to have been designed specifically to completely wear you out, and you wonder if you've even got the energy for her offer of a 'one-to-one cooldown exercise' right now.
-	</p>
-	<p>
-		As you head over to the showers, you decide that you don't want to let Pix down, and quickly strip out of your clothes, before scanning around for any sign of your over-enthusiastic personal trainer. The place looks to be completely deserted, and, assuming that Pix will show up once you've got the taps running, you step into the shower and start to clean yourself off.
-	</p>
-	<p>
-		Over the crashing noise of the falling water, you're unable to hear the dog-girl as she sneaks up on you. Facing the wall, you don't even have the chance to spot her approach, or to see the predatory grin that she fails to conceal upon sighting your naked body. In fact, you're completely oblivious to Pix's presence, right up until the moment she pounces forwards and pins you up against the wall.
-	</p>
-	<p>
-		You start to let out a yell in surprise, but the dog-girl quickly clasps a paw-like hand over your mouth as she leans in, pressing her naked body against yours as she growls in your ear, [pix.speech(Haha! So, like, you ready for your special cooldown?! Y'know, I'm like, super into punishments, orgasm denial, and all that good stuff, so if you aren't interested in that kinda thing, now's your chance to let me know!)] As she lifts her hand from over your mouth, you're given a chance to respond.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="GYM_PIX_ASSAULT_CONSENSUAL_START"><![CDATA[
-	<p>
-		As tired as you are, Pix's offer seems too good to turn down, and you turn your head to one side as you eagerly respond, [pc.speech(That sounds good to me! Don't hold back!)]
-	</p>
-	<p>
-		Although you can't see her reaction, you feel her grip on your wrists tighten as you try to turn to face her. Leaning into your back, Pix growls into your ear once more, [pix.speech(That's the spirit! This is gonna be, like, super fun!)]
-	</p>
-	<p>
-		As she speaks, she releases the grip on one of your wrists, and as she crushes you up against the wall of the shower, you feel her hand slip around and down #IF(pc.hasLegs())between your legs#ELSEto your groin#ENDIF. You let out a gasp as she starts stroking your crotch, and as her naked breasts squish into your back, her growls soften down a little, [pix.speech(You're gonna be a good [pc.girl] for Pix now, aren't ya?!)]
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="GYM_PIX_ASSAULT_CONSENSUAL_DECLINED"><![CDATA[
-	<p>
-		You're far too tired for any more physical exercise right now, and tell Pix as such, [pc.speech(Sorry, Pix, I'm too tired for this right now. Maybe next time?)]
-	</p>
-	<p>
-		Pix's grip on your wrists instantly loosens, and she steps back, letting out a disappointed whine, [pix.speech(Aww, that's, like too bad! Well, maybe we can have some fun the next time you're here!)]
-	</p>
-	<p>
-		Throwing you a mischievous grin, she bolts off towards the exit, calling out behind her as she goes, [pix.speech(Please do come back soon! You're, like, my star pupil!)]
-	</p>
-	<p>
-		Smiling to yourself, you continue with your shower, wondering if you'll take up Pix's offer in the future. After you're done, you head back into the changing rooms, and without further incident, dry yourself off, get changed, and leave the gym.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="PIX_POST_SEX_CONSENSUAL"><![CDATA[
-	<p>
-		Pix hooks her arms under yours and helps you to stagger out from the showers. Leaving you standing in the locker room, she quickly darts of to fetch a towel, before rushing back and starting to gently dry your body off.
-	</p>
-	<p>
-		[pix.speech(You're, like, the best, y'know! Thanks for letting me have some fun, I hope you enjoyed it too!)]
-	</p>
-	<p>
-		You're far too tired to respond, and instead simply let out a satisfied groan as the dog-girl quickly helps to dress you. After making sure that you're sitting down comfortably on one of the benches, she gives you one last passionate kiss before giggling and running off.
-	</p>
-	<p>
-		It takes some time before you finally recover enough energy to get up and leave the gym. As you make your exit, Pix bounds out of her office to double-check that you're ok, and, after reassuring her that you are, she gives you a playful kiss and runs off, her tail happily wagging behind her as she leaves.
+		You let out a satisfied sigh of your own in response, and, as the dog-girl lies back on the bench, you dry yourself off and get changed. Knowing that she's going to need some time to recover from her special 'one-to-one cooldown exercise', you pat the dog-girl on the head, before wondering where to go next...
 	</p>
 	]]>
 	</htmlContent>
 	
 	
+	<!-- Gym interior: -->
+	
+	<htmlContent tag="PATH"><![CDATA[
+	<p>
+		A path leading through the gym's cavernous interior has been kept clear of exercise machines and other equipment, allowing you to travel through the entire length of the building without encountering any obstacles. Your surroundings are brightly lit in a cool, white light that's being emitted by the dozens of arcane lamps that hang down from the ceiling high up overhead.
+	</p>
+	<p>
+		As you [pc.walk] over the rubbing matting which covers the gym's entire floor, you look around at the cardio and resistance machines that are lined up in their respective areas. Behind these machines, huge posters of all sorts of exercising animal-morphs have been hung up on the walls, with some of them having been enchanted into being moving pictures. Motivational slogans such as 'Do you best!' and 'No pain, no gain!' are displayed alongside these posters, but nobody seems to pay any attention to them.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Cardio: -->
+	
+	<htmlContent tag="CARDIO"><![CDATA[
+	<p>
+		Several dozen running, cycling, and rowing machines have been lined up next to one another in this section of the gym. Although there a couple of people exercising here, the vast majority of the machines are vacant.
+	</p>
+	<p>
+		#IF(pc.hasStatusEffect(SE_GYM_FATIGUE))
+			Having recently done some exercise, you feel far too tired to do any more right now...
+		#ELSE
+			Looking over the machines, you wonder whether to make use of them. Doing so would surely result in losing some body weight...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CARDIO_WORKOUT_RUNNING"><![CDATA[
+	<p>
+		Deciding that you could do with a cardio workout, you hop on to one of the running machines. Setting it to a slow speed so that you can get warmed up, you spend the first five minutes of your exercise jogging at a leisurely pace.
+	</p>
+	#IF(pix.getSexCount(pc).getTotalTimesHadSex()>0 && pix.getWorldLocation()==WORLD_TYPE_innoxia_dominion_shopping_arcade_gym)
+		<p>
+			After that, you increase the speed and start your workout. As you begin to run, a very familiar voice calls out from behind you, [pix.speech(~Mmm!~ Nice ass!)]
+		</p>
+		<p>
+			A second later, and the excitable [pix.race] skips around to stand in front of your machine. Flashing you a lustful look, she leans forwards and increases the speed, before teasing, [pix.speech(Sprint at that pace for sixty seconds and I'll give you a reward!)]
+		</p>
+		<p>
+			Pix's increase in the running machine's speed is so severe that you immediately find yourself sprinting at full tilt. With all of your effort and balance now concentrated on trying to keep up with the zooming surface beneath your [pc.feet], you find yourself unable to slow the machine down even if you wanted to. As such, you're forced to complete the sixty second sprint which Pix has demanded of you, after which she leans forwards and thankfully slows it back down to jogging pace.
+		</p>
+		<p>
+			[pix.speech(Nice work, [pc.name]!)] she exclaims, before hooking her thumbs under the band of her sports bra and pulling it up. As her [pix.breasts+] bounce free, she giggles and moans, [pix.speech(~Mmm!~ That's it, get a good look!)]
+		</p>
+		<p>
+			Leaving her chest completely exposed, Pix stands before you and watches as you continue to jog for ten minutes, before again leaning forwards and increasing the speed. Finding yourself once more at the mercy of the whirring belt, you sprint for another sixty seconds, after which the [pix.race] mercifully turns it back down.
+		</p>
+		<p>
+			[pix.speech(Great job! Now you get the full package!)] she declares, before shamelessly dropping her shorts and presenting you with her [pix.pussy+]. After playfully teasing her furry fingers over her [pix.labia+] for a couple of minutes, she licks her lips and moans, [pix.speech(~Ooh!~ This was fun, wasn't it, [pc.name]?)]
+		</p>
+		<p>
+			Before you can answer, she returns her bra and shorts to their proper positions, and with one final giggle, she sprints off to return to the reception desk. With the image of Pix's tits and pussy fresh in your mind, you complete the remaining hour of your workout, at the end of which you find yourself panting and covered in sweat. You feel like you've definitely lost some weight, even if it's only a small amount.
+		</p>
+	#ELSE
+		<p>
+			After that, you increase the speed and start your workout.
+			#IF(pix.getWorldLocation()==WORLD_TYPE_innoxia_dominion_shopping_arcade_gym)
+				 Although you catch Pix looking your way a few times throughout your exercise, it seems like she's unwilling to approach you. Maybe she'll have something to say after she gets to know you better.
+			#ENDIF
+			 After an hour of running, with a few sprints mixed in, you're left panting and covered in sweat. You feel like you've definitely lost some weight, even if it's only a small amount.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CARDIO_WORKOUT_CYCLING"><![CDATA[
+	<p>
+		Deciding that you could do with a cardio workout, you hop on to one of the cycling machines. Setting it to a slow speed so that you can get warmed up, you spend the first five minutes of your exercise cycling at a leisurely pace.
+	</p>
+	#IF(pix.getSexCount(pc).getTotalTimesHadSex()>0 && pix.getWorldLocation()==WORLD_TYPE_innoxia_dominion_shopping_arcade_gym)
+		<p>
+			After that, you increase the speed and start your workout. As you begin to put some real effort into turning the pedals, you catch sight of Pix approaching you from out of the corner of your eye. Skipping up to come to a halt right beside you, she exclaims, [pix.speech(Oh wow, you're really going for it, huh, [pc.name]?!)]
+		</p>
+		<p>
+			As you're putting so much effort into your workout, you don't have much breath with which to respond. Letting out a mischievous giggle as she realises the state you're in, the excitable [pix.race] moves around behind you to stare at your ass and moan, [pix.speech(~Mmm!~ Now this is a view that I'd never get tired of!)]
+		</p>
+		<p>
+			Suddenly, Pix's paw-like hands grab hold of your shoulders, and she applies gentle, yet firm, pressure on you as she instructs, [pix.speech(Your posture is all wrong, but if you just lean down a little then it'll be much better, y'know?)]
+		</p>
+		<p>
+			Doing as Pix says, you bend down over the bars of the exercise bike. Unable to help herself, the [pix.race] keeps her paws pressed firmly against your shoulders, and as you continue to cycle, she moves them down and around your torso to
+			#IF(pc.hasBreasts())
+				 greedily grope and squeeze your [pc.breasts+].
+			#ELSE
+				 hungrily grope and stroke your pecs.
+			#ENDIF
+			 Before you can react, she then suddenly drops one hand down between your [pc.legs], and after giving your
+			#IF(pc.hasPenisIgnoreDildo())
+				 [pc.cock+]
+				#IF(pc.hasVagina())
+					 and [pc.pussy+]
+				#ENDIF
+			#ELSEIF(pc.hasVagina())
+				 [pc.pussy+]
+			#ELSE
+				 groin
+			#ENDIF
+			 a good feel, she giggles and exclaims, [pix.speech(Keep up the good work, [pc.name]! ~Mmm!~ You're, like, one of my favourites!)]
+		</p>
+		<p>
+			With that, Pix happily skips off to return to the reception desk, leaving you to complete the remaining hour of your workout without being subjected to any further harassment. By the time your exercise is at an end, you find yourself panting and covered in sweat. You feel like you've definitely lost some weight, even if it's only a small amount.
+		</p>
+	#ELSE
+		<p>
+			After that, you increase the speed and start your workout.
+			#IF(pix.getWorldLocation()==WORLD_TYPE_innoxia_dominion_shopping_arcade_gym)
+				 Although you catch Pix looking your way a few times throughout your exercise, it seems like she's unwilling to approach you. Maybe she'll have something to say after she gets to know you better.
+			#ENDIF
+			 After an hour of cycling, with a few sprints mixed in, you're left panting and covered in sweat. You feel like you've definitely lost some weight, even if it's only a small amount.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CARDIO_WORKOUT_ROWING"><![CDATA[
+	<p>
+		Deciding that you could do with a cardio workout, you hop on to one of the rowing machines. Deciding that you should spend some time warming up before anything else, you go at leisurely pace for the first five minutes of your exercise.
+	</p>
+	#IF(pix.getSexCount(pc).getTotalTimesHadSex()>0 && pix.getWorldLocation()==WORLD_TYPE_innoxia_dominion_shopping_arcade_gym)
+		<p>
+			After that, you get started on your workout and begin to row at a faster speed. Just as you start to get into a good flow, Pix suddenly skips up to come to a halt right in front of your machine. Covered in sweat, it looks like she's just been doing some exercise of her own, and she confirms this as she pants, [pix.speech(Hey, [pc.name]... I need to cool down for a bit... I'm going to use your machine's fan, ok?)]
+		</p>
+		<p>
+			Gesturing to the large fan at the front of your rowing machine that's being powered by your strokes, Pix grins and then suddenly hooks her thumbs into the band of her shorts and pulls them down around her feet. With her pussy and ass now completely exposed, she turns around and backs up over the top of your machine's fan. Lowering herself down, and lifting her tail to shamelessly present you with her [pix.pussy+] and [pix.asshole+], she lets out a giggle and sighs, [pix.speech(~Ooh!~ That feels great! Keep on rowing, [pc.name]!)]
+		</p>
+		<p>
+			Continuing with your exercise, you can't help but stare at Pix's pussy and ass as you slide forwards and backwards on the machine's seat. As if the sight of her genitals wasn't enough, the heady scent of her sweat is soon being blown all over you by your machine's fan. Giggling as she raises her hips and shakes her ass at you, Pix teases, [pix.speech(~Mmm!~ Thinking back to our time together in the shower? I know I am!)]
+		</p>
+		<p>
+			After continuing to tease you in this manner for another minute or two, Pix suddenly stands back up and pulls her shorts back on. Winking at you, she skips off to return to the reception desk, leaving you to complete the remaining hour of your workout alone. By the time your exercise is at an end, you find yourself panting and covered in sweat. You feel like you've definitely lost some weight, even if it's only a small amount.
+		</p>
+	#ELSE
+		<p>
+			After that, you increase the speed and start your workout.
+			#IF(pix.getWorldLocation()==WORLD_TYPE_innoxia_dominion_shopping_arcade_gym)
+				 Although you catch Pix looking your way a few times throughout your exercise, it seems like she's unwilling to approach you. Maybe she'll have something to say after she gets to know you better.
+			#ENDIF
+			 After an hour of rowing, with a few sprints mixed in, you're left panting and covered in sweat. You feel like you've definitely lost some weight, even if it's only a small amount.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- Weights: -->
+	
+	<htmlContent tag="WEIGHTS"><![CDATA[
+	<p>
+		Sets of free weights and many different types of resistance machines have been lined up next to one another in this section of the gym. Although there a couple of people exercising here, the vast majority of the machines and weights are vacant.
+	</p>
+	<p>
+		#IF(pc.hasStatusEffect(SE_GYM_FATIGUE))
+			Having recently done some exercise, you feel far too tired to do any more right now...
+		#ELSE
+			Looking over the machines, you wonder whether to make use of them. Doing so would surely result in gaining some muscle...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WEIGHTS_WORKOUT_WEIGHTS"><![CDATA[
+	<p>
+		Deciding that you'd like to build up some more muscle, you head on over to where the free weights are stacked up. Looking at yourself in the wall-length mirror as you select the weights that are suitable for your level, you get started on your routine.
+	</p>
+	#IF(pix.getSexCount(pc).getTotalTimesHadSex()>0 && pix.getWorldLocation()==WORLD_TYPE_innoxia_dominion_shopping_arcade_gym)
+		<p>
+			Your session gets off to a good start, and you manage to work your way through some dumbbell curls and squats before deciding upon doing some bench presses.
+			#IF(pc.isTaur())
+				 Although your [pc.legRace]'s lower body would give you some difficulty on a normal bench, there are a couple that are designed to accommodate taurs, and so you choose one of these and load up the weights.
+			#ELSE
+				 Heading on over to a free bench, you load up the weights and prepare to get started.
+			#ENDIF
+			 Lying down, you grab hold of the bar and lift it up, but as you do this, the familiar figure of Pix suddenly fills your vision. Standing over you, she grins down and declares, [pix.speech(I saw you had nobody to spot for you, [pc.name], so here I am!)]
+		</p>
+		<p>
+			As the excitable [pix.race] hovers her hands beneath the bar, ready to help you push it back up if you find it to be too heavy, you suddenly realise that there's something very wrong. Although she's wearing her sports bra, Pix's shorts have vanished, leaving her pussy and ass completely exposed. Giggling as you complete your first rep, she teases, [pix.speech(I thought you could do with some motivation, so for each rep you complete, I'll let you kiss my pussy!)]
+		</p>
+		<p>
+			With all of your effort put into controlling the weight, you're not able to reply to this, and so after you've completed eight bench presses and lowered the bar onto the supports, you suddenly find Pix's [pix.pussy+] being dropped down over your face. As you open your mouth to say something, her [pix.labia+] smother your [pc.lips+], forcing you to kiss her pussy. Standing back up, Pix giggles and repeats the process, moaning as she does so, [pix.speech(That's one... Now two... ~Mmm!~ Three... Four... ~Aah!~ That's it, use your tongue a little if you want... Five... Six.. Seven... ~Ooh!~ And... Eight!)]
+		</p>
+		<p>
+			Having been practically forced to kiss Pix's pussy eight times, you let out a sigh and move on to your next two sets. Repeating the whole process again, Pix makes you kiss her pussy a total of twenty-four times, after which she grabs her shorts and pulls them back on. Grinning down at you, she exclaims, [pix.speech(Great job, [pc.name]! You're, like, super great at that!)]
+		</p>
+		<p>
+			Leaving you wondering whether she's referring to your bench presses or kissing skills, the [pix.race] skips off to return to the reception desk. Finishing your routine, and completely exhausting yourself by the end of it, you're left feeling very pleased with yourself, for your muscles will have definitely have grown, even if only by a small amount.
+		</p>
+	#ELSE
+		<p>
+			For the next hour you work your way through sets of dumbbell curls, bench presses, squats, and many others. Although you're completely exhausted by the end of it, you're left feeling very pleased with yourself, for your muscles will have definitely have grown, even if only by a small amount.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WEIGHTS_WORKOUT_MACHINES"><![CDATA[
+	<p>
+		Deciding that you'd like to build up some more muscle, you head on over to where the resistance machines are located. Consulting a couple of posters that show what muscle groups are affected by each machine, you decide upon a routine and set to work.
+	</p>
+	#IF(pix.getSexCount(pc).getTotalTimesHadSex()>0 && pix.getWorldLocation()==WORLD_TYPE_innoxia_dominion_shopping_arcade_gym)
+		<p>
+			Your session gets off to a good start, and you manage to work your way through some dumbbell curls and lat pulldowns before deciding upon doing some leg presses.
+			#IF(pc.isTaur())
+				 Although your [pc.legRace]'s lower body would make it impossible for you to complete these exercises on a regular leg press machine, there's a variant of it that's designed to accommodate taurs, and so you [pc.step] into it and prepare to get started.
+			#ELSE
+				 Heading on over to a free leg press machine, you seat yourself in it and prepare to get started.
+			#ENDIF
+			 Setting the correct weight, you extend your legs and complete your first rep. At that exact moment, Pix suddenly skips forwards and skids to a halt beside you. Flashing you a huge grin, she exclaims, [pix.speech(Make sure not to lock your legs, y'know! Do a good job, and I'll give you a reward!)]
+		</p>
+		<p>
+			As you focus on completing your set of leg presses, you hope that Pix's reward isn't going to be too extreme. With the excitable [pix.race] impatiently bouncing up and down on the spot beside your machine, you complete your eight reps and wonder what's going to happen.
+		</p>
+		<p>
+			[pix.speech(Great job, [pc.name]!)] Pix exclaims, before reaching up with one of her paw-like hands to pat your head. As she does this, she uses her free hand to grab one of yours, and smiles happily at you as she declares, [pix.speech(Here's your reward! Head pats and hand holding!)]
+		</p>
+		<p>
+			Surprised to discover that her reward doesn't involve anything lewd being forced upon you, you relax and enjoy the feeling of Pix's furry, paw-like hand clutching tightly onto your own. Letting out a soft sigh, she gives your head a few more pats and strokes, before skipping back and loudly shouting, [pix.speech(That's enough for now! Do another set and I'll give you some more!)] 
+		</p>
+		<p>
+			Doing as Pix says, you complete another set of leg presses, and then after that another. Rewarding you with more hand holding and head pats after both of these sets, Pix finally grins and states, [pix.speech(Good work, [pc.name]! Keep it up and, like, you might even be as fit as me one day!)]
+		</p>
+		<p>
+			Giggling to herself, the [pix.race] skips off to return to the reception desk. Finishing your routine, and completely exhausting yourself by the end of it, you're left feeling very pleased with yourself, for your muscles will have definitely have grown, even if only by a small amount.
+		</p>
+	#ELSE
+		<p>
+			For the next hour you make use of over a dozen different types of resistance machine. Although you're completely exhausted by the end of it, you're left feeling very pleased with yourself, for your muscles will have definitely have grown, even if only by a small amount.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WEIGHTS_WORKOUT_BODY_WEIGHT"><![CDATA[
+	<p>
+		Deciding that you'd like to build up some more muscle, you head on over to where the pull-up bars and gym mats are located. Consulting a couple of posters that show what muscle groups are affected by different body weight exercises, you decide upon a routine and set to work.
+	</p>
+	#IF(pix.getSexCount(pc).getTotalTimesHadSex()>0 && pix.getWorldLocation()==WORLD_TYPE_innoxia_dominion_shopping_arcade_gym)
+		<p>
+			Your session gets off to a good start, and you manage to work your way through some push ups and squats before deciding upon doing some sit ups.
+			#IF(pc.isTaur())
+				 As you have the lower body of [pc.a_legRace], you can't complete sit ups in the regular fashion, but by first lying down and then leaning back with your upper body, you can approximate it well enough.
+			#ELSE
+				 Lying down on a free mat, you get into position and prepare to start your set.
+			#ENDIF
+			 Using your stomach muscles to pull yourself up, you curl into your first rep, before leaning back and resetting for the next one. You have a surprise as you sit up for a second time, for as you reach the top of your rep, you see Pix skipping forwards and skidding to a halt in front of you.
+		</p>
+		<p>
+			[pix.speech(Heya, [pc.name]!)] she loudly shouts, [pix.speech(You're doing a great job! Hey, I know what, how about for every eight sit ups you complete, you can get a kiss as a reward?!)]
+		</p>
+		<p>
+			With that, the excitable [pix.race] kneels down before you. With a big grin on her face, she counts down as she watches you complete your reps, [pix.speech(Six... Five... Four... Come on, [pc.name]! Three... Two... One... Kiss time!)]
+		</p>
+		<p>
+			As you complete your sit up, Pix giggles and leans forwards, and before you can say or do anything, she's pressing her lips against yours and giving you a big, wet kiss. Dropping back to continue with your set, you can feel Pix's saliva on your [pc.lips+] as she begins the countdown again. By the time you've finished your exercise, you've been kissed half a dozen times, and when you finally lie back at the end, the excitable [pix.race] pounces on you and gives you one final, passionate smooch.
+		</p>
+		<p>
+			[pix.speech(Nice work, [pc.name]!)] she laughs as she pulls back from the kiss. Licking her lips, she winks at you and shouts, [pix.speech(See you around!)]
+		</p>
+		<p>
+			With that, the [pix.race] skips off to return to the reception desk. Finishing your routine, and completely exhausting yourself by the end of it, you're left feeling very pleased with yourself, for your muscles will have definitely have grown, even if only by a small amount.
+		</p>
+	#ELSE
+		<p>
+			For the next hour you work your way through many different types of body weight exercise. Although you're completely exhausted by the end of it, you're left feeling very pleased with yourself, for your muscles will have definitely have grown, even if only by a small amount.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POST_WORKOUT_FATIGUE"><![CDATA[
+	<p style='text-align:center;'><i>
+		You feel completely exhausted from your workout, and will be unable to do any more exercise until you've had time to recover.
+	</i></p>
+	]]>
+	</htmlContent>
+	
+	<!-- Yoga: -->
+	
+	<htmlContent tag="YOGA"><![CDATA[
+	<p>
+		Before you is the modern-looking, glass-walled studio in which yoga lessons are held. Looking into this sound-proofed room, you see that the far wall bears images of lotus flowers and silhouettes of different yoga poses, while about a dozen rolled up mats are stacked up in the corner.
+	</p>
+	<p>
+		The studio is currently deserted, although a handwritten note stuck to the door says that 'Brahman will be resuming yoga lessons soon'...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SHOWERS"><![CDATA[
+	<p>
+		Finding yourself standing in the gym's changing rooms, you see that a dozen cubicles offer privacy to anyone who wants to use them. Adjoining this room there are two sets of showers, which are marked as being for use by either feminine or masculine members of the gym. Arcane washing machines have been positioned near to the entrances of these showers, and bear signs declaring that they're free to use, allowing you to clean your clothes while washing your body.
+	</p>
+	<p>
+		There's nobody in here at the moment, and you wonder whether to make use of the showers or instead continue on to either the main area of the gym or to the saunas and pool...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SHOWERS_QUICK"><![CDATA[
+	<p>
+		Thinking that it would be a good idea to clean yourself, you disrobe and put your clothing into a nearby arcane washing machine. [pc.Stepping] into the shower, you turn on the tap and let out a relaxed sigh as you feel the warm water flowing down over your naked body. Not wanting to spend too much time in here, you focus on quickly cleaning yourself.
+	</p>
+	<p>
+		After a short while spent cleaning your body under the flowing water, you feel as though you've spent enough time in the shower, and so turn off the tap and dry yourself with a fluffy towel. Retrieving your now-clean clothing from the arcane washing machine, you get dressed and [pc.step] back into the changing room...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SHOWERS_THOROUGH"><![CDATA[
+	<p>
+		Thinking that it would be a good idea to clean yourself, you disrobe and put your clothing into a nearby arcane washing machine. [pc.Stepping] into the shower, you turn on the tap and let out a relaxed sigh as you feel the warm water flowing down over your naked body. Deciding that it wouldn't be so bad to take some time out in order to relax, you set about thoroughly cleaning yourself.
+	</p>
+	<p>
+		After a while spent cleaning your body under the flowing water, you feel as though you've spent enough time in the shower, and so turn off the tap and dry yourself with a fluffy towel. Retrieving your now-clean clothing from the arcane washing machine, you get dressed and [pc.step] back into the changing room...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SAUNA"><![CDATA[
+	<p>
+		A couple of saunas are located on both sides of the corridor which connects the showers to the pool. A couple of gym members are using one, but the other three are currently vacant.
+	</p>
+	<p>
+		If you wanted to, you could enter one of these saunas and spend some time in the heat...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POOL"><![CDATA[
+	<p>
+		Standing on the edge of the gym's large, deep pool, you see that it's been split into multiple lanes by a series of floats. A couple of gym members are using two of the lanes, but all of the rest are free.
+	</p>
+	<p>
+		If you wanted to, you could slip into the pool and spend some time swimming...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Hannah boxing content: -->
+	
+	<htmlContent tag="BOXING"><![CDATA[
+	<p>
+		The area in front of you holds two full-sized boxing rings, while lined up around them are dozens of punching bags, bench presses, and free weights. A couple of people are using the equipment here, but there's so much of it that there's plenty left for you to use.
+	</p>
+	<p>
+		A poster has been stuck to the side of one of the boxing rings, and upon closer inspection you see that it declares that Hannah, the greater [hannah.race] who works here, is available to give boxing lessons to gym members from
+		#IF(game.getCharactersPresent().contains(hannah))
+			 [style.italicsMinorGood([units.time(8)]-[units.time(20)])]. Sure enough, you can see that she's over in one corner of this area,
+			#IF(hannah.isVisiblyPregnant())
+				 and looks to be organising and cleaning down some of the equipment.
+			#ELSE
+				 and is energetically striking one of the punching bags over and over again.
+			#ENDIF
+			#IF(!pc.hasItemType(ITEM_innoxia_quest_gym_membership_card))
+				 As you're not a member of the gym, you can't get lessons from her, and so there's nothing for you to do here...
+			#ELSE
+				#IF(pc.hasStatusEffect(SE_GYM_FATIGUE))
+					 Although you're a member of the gym, you're too tired at the moment to ask Hannah for boxing lessons...
+				#ELSE
+					 As you're a member of the gym, you could ask Hannah for boxing lessons...
+				#ENDIF
+			#ENDIF
+		#ELSE
+			 [style.italicsMinorBad([units.time(8)]-[units.time(20)])].
+			#IF(!pc.hasItemType(ITEM_innoxia_quest_gym_membership_card))
+				 Although you're a member of the gym, you can't get lessons at the moment as Hannah isn't here...
+			#ELSE
+				 Even if Hannah were here, which she's not, you wouldn't be able to get boxing lessons from her as you're not a member of the gym...
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BOXING_HANNAH_INTRO"><![CDATA[
+	<p>
+		Thinking that you might like to receive boxing lessons at some point, you decide to head on over and introduce yourself to Hannah. As you approach the [hannah.race], who's energetically striking the punching bag in front of her, you take this opportunity to get a good look at her.
+	</p>
+	<p>
+		Standing at [hannah.heightValue] tall, she's wearing a similar outfit to Pix, which consists of a black sports bra, black shorts, and a dark red sweatband
+		#IF(game.isFurryHairEnabled())
+			 that's restraining her black, slicked-back hair.
+		#ELSE
+			 that's positioned around her forehead.
+		#ENDIF
+		 Thanks to her revealing clothing, you're able to see that her furry stomach is formed into a rock-hard six-pack, while her arms and legs look to be extremely muscular and strong. As you get closer, you see that she's got numerous scars all over her body, letting you know that she's seen a lot of violence in her time. Giving the target in front of her one final punch, she turns to face you.
+	</p>
+	<p>
+		[hannah.speech(Fresh meat, huh?)] she asks in a deep, rumbling voice as she grabs a nearby drink bottle. Opening her mouth as she starts to drink, Hannah reveals the pointed, crushing teeth within her hyena-like muzzle. Listening as you introduce yourself to her, she gazes at you with her big, [hannah.eyeColour] eyes, before lowering the bottle and stating, [hannah.speech(I'm guessing Pix already told you who I am, but the name's Hannah. If you want to learn how to fight then I'm your gal.)]
+	</p>
+	<p>
+		Although she looks intimidating, and is quite clearly a force to be reckoned with, there's a soft, caring undertone to Hannah's deep voice which makes you instinctively think that you can trust her. As if to confirm what it is that's going through your mind, she lets out a wild, barking laugh, which sounds like it's about half-way between a hyena's and a human's, before exclaiming,
+		#IF(pc.isVisiblyPregnant())
+			 [hannah.speech(Don't worry, I don't bite! I'm not going to give you boxing lessons while you're pregnant, but once you've given birth then come back for a lesson!)]
+		#ELSE
+			 [hannah.speech(Don't worry, I don't bite! Just let me know when you want a lesson and we can start right away!)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.isVisiblyPregnant())
+			Picking up a nearby towel, she starts to wipe the sweat from her body as she waits to hear what it is you want...
+		#ELSE
+			Picking up a nearby towel, she starts to wipe the sweat from her body as she waits to hear whether or not you want a boxing lesson...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BOXING_HANNAH"><![CDATA[
+	<p>
+		Deciding that you'd like to speak with Hannah again, you [pc.walk] over to her and say hello.
+		#IF(hannah.isVisiblyPregnant())
+			 Putting down the spray bottle and cloth which she was using to clean the equipment,
+		#ELSE
+			 Striking the punching bag in front of her one final time,
+		#ENDIF
+		#IF(flags.hasFlag(FLAG_innoxia_lights_out_hannah_last_night_sex))
+			 she turns to face you with a sheepish grin on her face. Rubbing her head, she says, [hannah.speech(Hey, [pc.name]. I had a great time with you last night... Although I'm kind of paying for it with this hangover. Anyway, let's keep business and personal stuff separate... What's up?)]
+		#ELSEIF(flags.hasFlag(FLAG_innoxia_lights_out_hannah_last_night_met))
+			 she turns to face you with a slight smile on her face. Rubbing her head, she says, [hannah.speech(Hey, [pc.name]. I had fun last night, but I'm kind of paying for it with this hangover... Anyway, let's keep business and personal stuff separate... What's up?)]
+		#ELSE
+			 she turns to face you and says in a deep voice, [hannah.speech(Hi, [pc.name]. What's up?)]
+		#ENDIF
+	</p>
+	#IF(hannah.isVisiblyPregnant())
+		#IF(!hannah.isCharacterReactedToPregnancy(pc))
+			<p>
+				You thought that it was odd to see Hannah cleaning instead of working out, but as she turns to face you the reason for this immediately becomes clear. Her toned six-pack has vanished, and in its place she's now sporting a swollen, [style.colourSex(pregnant belly)]. Seeing what it is you're looking at, the [hannah.race] reveals, [hannah.speech(Yeah, you got me pregnant. I guess it's kind of my fault for getting drunk and horny... Anyway, I'm not going to be able to train until after I've given birth. Want a feel?)]
+			</p>
+			<p>
+				Replying in the affirmative, you [pc.step] forwards and place your [pc.hands] on her furry tummy. Giving her swollen bump a few loving strokes, you ask Hannah if there's anything you can do for her, to which she waves you off and lets out another of her bark-like laughs, [hannah.speech(I'm fine, don't worry about me! So, what is it you're here for?)]
+			</p>
+		#ELSE
+			<p>
+				Having seen that Hannah was cleaning instead of working out, you assumed that she must still be pregnant, and as she turns to face you this assumption is confirmed. Her toned six-pack has vanished, and in its place she's sporting a swollen, [style.colourSex(pregnant belly)]. Seeing what it is you're looking at, the [hannah.race] says, [hannah.speech(Yeah, I'm still pregnant, thanks to you. I guess it's kind of my fault for getting drunk and horny... Anyway, I'm not going to be able to train until after I've given birth. Want to have another feel?)]
+			</p>
+			<p>
+				Replying in the affirmative, you [pc.step] forwards and place your [pc.hands] on her furry tummy. Giving her swollen bump a few loving strokes, you ask Hannah if there's anything you can do for her, to which she waves you off and lets out another of her bark-like laughs, [hannah.speech(I'm fine, don't worry about me! So, what is it you're here for?)]
+			</p>
+		#ENDIF
+	#ENDIF
+	#IF(pc.isVisiblyPregnant())
+		<p>
+			Pointing towards your pregnant belly, the [hannah.race] shakes her head and states, [hannah.speech(I'm not going to give you boxing lessons while you're pregnant, so don't even ask.)]
+		</p>
+	#ENDIF
+	<p>
+		As the [hannah.race] expectantly stares at you with her big, [hannah.eyeColour] eyes, you wonder what to say to her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BOXING_HANNAH_LEAVE"><![CDATA[
+	<p>
+		Thanking Hannah for her time, you say that you've got to be going now and so say goodbye to her. Giving you a brief nod, she says, [hannah.speech(See you around, [pc.name].)]
+	</p>
+	<p>
+		Turning your back on the [hannah.race], you head back into the main area of the gym and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BOXING_TALK_HISTORY"><![CDATA[
+	<p>
+		Curious to hear Hannah's account of how she came to work here, you ask her what led to her giving boxing lessons in this gym.
+	</p>
+	<p>
+		[hannah.speech(Well, it was mostly due to Pix's persistence,)] she replies, [hannah.speech(She kept on asking me to come and work for her, and eventually I just said yes.)]
+	</p>
+	<p>
+		Thinking that there must be more to it than that, you ask Hannah what she was doing before coming to work here.
+	</p>
+	<p>
+		[hannah.speech(I was a professional boxer, and was pretty good at it. That's why people sometimes come here to 'challenge' me,)] she reveals, [hannah.speech(I decided that I didn't want to do it any more, and accepted Pix's offer to work here instead.)]
+	</p>
+	<p>
+		It doesn't sound like Hannah wants to share any more details on this matter, so you decide to ask something else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BOXING_TALK_PIX"><![CDATA[
+	<p>
+		Wanting to know about Hannah's relationship with Pix, you ask her how the two of them met.
+	</p>
+	<p>
+		[hannah.speech(It was about ten years ago now. I was taking a shortcut back home through some alleyways and ran into a gang of muggers who'd just ambushed Pix,)] she states, before flexing her muscles and laughing, [hannah.speech(I wasn't as strong back then as I am now, but I was still more than they could handle. After I'd knocked them all out, Pix grabbed me and dragged me along to her birthday party.)]
+	</p>
+	<p>
+		Although she has the habit of letting out her odd, bark-like laugh now and again, Hannah doesn't smile very often, but as she thinks back to that day a big grin spreads across her face. As she lets out a happy sigh at the memory of her first encounter with Pix, you ask Hannah if there's any more she can tell you about the excitable [pix.race].
+	</p>
+	<p>
+		[hannah.speech(Well, you've met her, so you already know what she's like,)] she replies, [hannah.speech(The only thing I'd say is to be careful with her if she takes a liking to you. She doesn't care much for boundaries, and doesn't take 'no' for an answer.)]
+	</p>
+	<p>
+		Crossing her arms, the [hannah.race] waits to hear if you're going to ask her anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BOXING_TALK_YOGA"><![CDATA[
+	<p>
+		Wondering if Hannah knows much about the bull-boy, Brahman, who runs yoga classes here in the gym, you ask her if she's ever had any lessons from him.
+	</p>
+	<p>
+		[hannah.speech(No, and I'm not interested,)] she bluntly replies, [hannah.speech(There's something odd about that guy, and the less I have to do with him, the better.)]
+	</p>
+	<p>
+		It sounds like Hannah doesn't want to talk about Brahman any more, and so you wonder what to ask her next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BOXING_LESSON"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_hannah_training_complete))
+		<p>
+			Although you've already learned everything there is to know from Hannah, you ask her if you could have a boxing lesson to keep your skills sharp. 
+		</p>
+		<p>
+			[hannah.speech(Sure thing, [pc.name],)] she replies as she leads you over to a nearby punching bag. Gesturing towards it, she steps back and states, [hannah.speech(Let's work on your form first. You punch, and I'll correct you.)]
+		</p>
+	#ELSE
+		<p>
+			Wanting to improve your skills at unarmed fighting, you tell Hannah that you'd like to have a boxing lesson from her. 
+		</p>
+		<p>
+			[hannah.speech(Great, I only teach boxing league rules here, so that means only using your fists, no gloves allowed, and no spells,)] she states as she leads you over to a nearby punching bag. Gesturing towards it, she steps back and states, [hannah.speech(Let's work on your form first. You punch, and I'll correct you.)]
+		</p>
+	#ENDIF
+	<p>
+		Doing as you're told, you start striking the target in front of you. Hannah interrupts to provide some pointers on how to position yourself and how to deliver different types of punches. After you're done there, she gets you to use the gym's equipment to work on your agility, speed, and reflexes. Finally, after a total of one hour spent practising in this manner, Hannah declares, [hannah.speech(Good work, [pc.name]! Now it's time for some sparring.)]
+	</p>
+	#IF(hannah.isVisiblyPregnant())
+		<p>
+			After gesturing to her swollen, pregnant belly to excuse herself from being your sparring partner, Hannah calls out to one of the other gym members who are working out nearby, [hannah.speech(Hey, [style.random(Toby|Rob|Jack|Dan|Mike)]! [pc.Name] needs a sparring partner, you up for it?!)]
+		</p>
+		<p>
+			Returning a response in the affirmative, your new sparring partner walks over to where you're standing and says hello. Getting into the ring with him, you spend the next thirty minutes sparring under the supervision of Hannah. Finally, as you start to feel worn out and your movements become sluggish, she declares that you've done enough and thanks your partner for their time.
+		</p>
+	#ELSE
+		<p>
+			Following Hannah into the ring, you listen to her instructions before starting to trade blows with one another. You can tell that she's holding back a lot, but even so you struggle to keep up with her footwork, and only manage to land one blow for every four or five of hers. After thirty minutes of sparring with her, you start to feel really worn out and your movements become sluggish. Calling an end to the session, Hannah declares that you've done enough and it's time to rest.
+		</p>
+	#ENDIF
+	#IF(flags.hasFlag(FLAG_innoxia_hannah_training_complete))
+		<p>
+			Getting out of the ring, you sit down on a nearby bench to get your breath back. Patting you on the shoulder, the [hannah.race] lets out another of her half-hyena, half-human laughs and declares, [hannah.speech(You really are a natural at this! There's nothing more I can teach you!)]
+		</p>
+		<p>
+			Thanking Hannah for her time, you stand up and wonder what to do next...
+		</p>
+	#ELSE
+		<p>
+			Getting out of the ring, you sit down on a nearby bench to get your breath back. Patting you on the shoulder, the [hannah.race] lets out another of her half-hyena, half-human laughs and declares, [hannah.speech(I don't say this to everyone, but you're a natural! Keep working hard and you'll be a formidable boxer in no time!)]
+		</p>
+		<p>
+			Thanking Hannah for her tutelage, you stand up and wonder what to do next...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BOXING_LESSON_FINAL"><![CDATA[
+	<p>
+		Although you've already learned a great deal from Hannah, you're sure that there's still more she can teach you, and so ask her for another boxing lesson.
+	</p>
+	<p>
+		[hannah.speech(Sure thing, [pc.name],)] she replies as she leads you over to a nearby punching bag. Gesturing towards it, she steps back and states, [hannah.speech(Same routine as usual. You punch, and I'll correct your form.)]
+	</p>
+	<p>
+		Doing as you're told, you start striking the target in front of you. Hannah interrupts to provide some pointers on how to position yourself and how to deliver different types of punches. After you're done there, she gets you to use the gym's equipment to work on your agility, speed, and reflexes. Finally, after a total of one hour spent practising in this manner, Hannah declares, [hannah.speech(Good work, [pc.name]! Now it's time for some sparring.)]
+	</p>
+	#IF(hannah.isVisiblyPregnant())
+		<p>
+			After gesturing to her swollen, pregnant belly to excuse herself from being your sparring partner, Hannah calls out to one of the other gym members who are working out nearby, [hannah.speech(Hey, [style.random(Toby|Rob|Jack|Dan|Mike)]! [pc.Name] needs a sparring partner, you up for it?!)]
+		</p>
+		<p>
+			Returning a response in the affirmative, your new sparring partner walks over to where you're standing and says hello. Getting into the ring with him, you spend the next thirty minutes sparring under the supervision of Hannah. Finally, as you start to feel worn out and your movements become sluggish, she declares that you've done enough and thanks your partner for their time.
+		</p>
+	#ELSE
+		<p>
+			Following Hannah into the ring, you listen to her instructions before starting to trade blows with one another. You can tell that she's holding back a lot, but even so you struggle to keep up with her footwork, and only manage to land one blow for every four or five of hers. After thirty minutes of sparring with her, you start to feel really worn out and your movements become sluggish. Calling an end to the session, Hannah declares that you've done enough and it's time to rest.
+		</p>
+	#ENDIF
+	<p>
+		Getting out of the ring, you sit down on a nearby bench to get your breath back. Patting you on the shoulder, the [hannah.race] lets out another of her half-hyena, half-human laughs and declares, [hannah.speech(You really are a natural at this! There's nothing more I can teach you!)]
+	</p>
+	<p>
+		As you think back over all of the techniques that you've learned, you realise that the [hannah.race] is right, and that you no longer need any lessons from her. As you take a moment to appreciate your satisfaction at becoming a formidable martial artist, Hannah sits down next to you and asks, [hannah.speech(Hey, [pc.name], you ever heard of the bar, 'Lights Out'?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BOXING_LESSON_FINAL_END"><![CDATA[
+	<p>
+		Telling her that you haven't, you ask her what made her ask that question. Flashing you a grin, she answers your question by stating, [hannah.speech(It's where I go after work, and I was hoping that I'd see you there one evening. It's in the nightlife district, near to that popular place, 'The Watering Hole'. Just mention my name to the bouncer to get in.)]
+	</p>
+	<p>
+		After you've told Hannah that you'll try to meet her there one evening, she reveals, [hannah.speech(I don't offer this to every student I get, you know. You're a natural at boxing, and saw my training through to the end, which is more than I can say for most of the people who come here. That's why I've invited you... That, and I've kind of grown to like you.)]
+	</p>
+	<p>
+		Before you can reply to this, Hannah stands up and turns to face you, before stating, [hannah.speech(I like to keep my work and private life separate, so let's leave it at that for now. If you're interested, meet me at 'Lights Out'; I'm there every evening between nine and midnight. Now, is there anything else I can do for you while you're here?)]
+	</p>
+	<p>
+		Wondering whether or not to pay Hannah a visit at this bar, you stand up and prepare to make your next move...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BOXING_PERK_PROGRESS_COMPLETE"><![CDATA[
+	<p style='text-align:center;'><i>
+		You feel completely exhausted from your boxing lesson, and will be unable to do any more exercise until you've had time to recover.
+		<br/>
+		You've [style.colourExcellent(completed your progress)] towards gaining a [style.colourPhysique(unique perk)]!
+	</i></p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BOXING_PERK_PROGRESS"><![CDATA[
+	<p style='text-align:center;'><i>
+		You feel completely exhausted from your boxing lesson, and will be unable to do any more exercise until you've had time to recover.
+		<br/>
+		You've [style.colourMinorGood(gained [#SPECIAL_PARSE_0]% progress)] towards gaining a [style.colourPhysique(unique perk)]!
+		<br/><b>Total progress: [#SPECIAL_PARSE_1]%</b>
+	</i></p>
+	]]>
+	</htmlContent>
 	
 </dialogue>

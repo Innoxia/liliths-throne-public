@@ -13,6 +13,44 @@
 			<flag dailyReset="false">alleyway_submission_tattooed_ass</flag>
 			<flag dailyReset="false">alleyway_transformations_applied</flag>
 	
+	<!-- Dominion:-->
+		<!-- Gym:-->
+			<flag dailyReset="false">pix_introduced</flag>
+			<flag dailyReset="false">pix_had_tour</flag>
+			<flag dailyReset="false">pix_session_started</flag>
+			<flag dailyReset="false">pix_workout_weights_saved_energy</flag>
+			<flag dailyReset="false">pix_workout_cardio_saved_energy</flag>
+			<flag dailyReset="false">pix_workout_pix_completed</flag>
+			<flag dailyReset="false">pix_talk_gym</flag>
+			<flag dailyReset="false">pix_talk_boxing</flag>
+			<flag dailyReset="false">pix_talk_yoga</flag>
+			
+			<flag dailyReset="false">hannah_introduced</flag>
+			<flag dailyReset="false">hannah_talk_history</flag>
+			<flag dailyReset="false">hannah_talk_pix</flag>
+			<flag dailyReset="false">hannah_talk_yoga</flag>
+			<flag dailyReset="false">hannah_training_complete</flag>
+			
+		<!-- Vicky:-->
+			<flag dailyReset="false">vicky_claimed</flag>
+			<flag dailyReset="true">vicky_fed</flag>
+			<flag dailyReset="true">vicky_helped</flag>
+			<flag dailyReset="true">vicky_apartment</flag>
+			<flag dailyReset="true">vicky_daily_sex</flag>
+			
+		<!-- Nightlife: -->
+			<flag dailyReset="false">lights_out_visited</flag>
+			<flag dailyReset="false">lights_out_free_drink</flag>
+			<flag resetHour="6">lights_out_hannah_left</flag>
+			<flag dailyReset="false">lights_out_hannah_alcohol_warning</flag>
+			<flag dailyReset="false">lights_out_hannah_talk</flag>
+			<flag dailyReset="false">lights_out_hannah_had_initial_talk</flag>
+			<flag dailyReset="false">lights_out_hannah_flirt</flag>
+			<flag dailyReset="false">lights_out_hannah_kiss</flag>
+			<flag dailyReset="false">lights_out_hannah_sex</flag>
+			<flag resetHour="20">lights_out_hannah_last_night_met</flag>
+			<flag resetHour="20">lights_out_hannah_last_night_sex</flag>
+	
 	<!-- Submission:-->
 		<flag dailyReset="false">elizabeth_routine_started</flag>
 	
@@ -279,8 +317,20 @@
 			<flag dailyReset="false">amazon_camp_lunexis_obeyed</flag>
 			<flag dailyReset="false">amazon_camp_lunexis_surrendered</flag>
 			
+		<!-- Enforcer station -->
+		<flag dailyReset="false">elis_enforcers_sterope_met</flag>
+		<flag dailyReset="false">elis_enforcers_access_granted</flag>
+		<flag dailyReset="false">elis_enforcers_talk_work</flag>
+		<flag dailyReset="false">elis_enforcers_talk_career</flag>
+		<flag dailyReset="false">elis_enforcers_talk_lunette</flag>
+		<!-- Sterope: -->
+			<flag dailyReset="false">sterope_unlocked</flag>
+			<flag resetHour="12">sterope_sex</flag>
+			<flag resetHour="12">sterope_with_centaur</flag>
+			<flag dailyReset="false">sterope_fully_furry</flag>
+			
 		
-	
+		
 	
 	
 	<!-- You can ignore this section, I just use it to track the ids of saved long values (using [flags.setSavedLong(id, value)] calls)
@@ -294,6 +344,9 @@
 	
 	headless_horseman_year_warning (The year in which the headless horseman warning was encountered, used so that the warning is given each year)
 	headless_horseman_attack_minutes (The game.getMinutesPassed() at which the headless horseman was last encountered)
+	
+	gym_perk_progress (Progress towards the perk unlock in Pix's gym)
+	boxing_perk_progress (Progress towards the boxing perk unlock in Pix's gym)
 	-->
 	
 </dialogueFlags>

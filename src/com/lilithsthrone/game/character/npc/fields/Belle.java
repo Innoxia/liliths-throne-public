@@ -78,7 +78,7 @@ public class Belle extends NPC {
 				WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE,
 				true);
 		if(!isImported) {
-			this.hourlyUpdate();
+			this.hourlyUpdate(0);
 		}
 	}
 	
@@ -249,7 +249,7 @@ public class Belle extends NPC {
 	}
 
 	@Override
-	public void hourlyUpdate() {
+	public void hourlyUpdate(int hour) {
 		if(!Main.game.isInSex()) {
 			this.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"), this, false);
 		}

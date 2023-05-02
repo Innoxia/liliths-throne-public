@@ -1068,6 +1068,7 @@
 	</htmlContent>
 	
 	
+	<!-- Misc.: -->
 	
 	<htmlContent tag="STAIRS"><![CDATA[
 	<p>
@@ -1086,6 +1087,30 @@
 		#ELSE
 			As it's currently the quiet time of the day, the tavern is almost completely empty. There are however a few taurs who are sitting at a couple of the tables, and you watch for a moment as they happily drink and talk with one another.
 		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LOCKED_DOOR"><![CDATA[
+	<p>
+		Finding yourself at the end of the corridor, you're confronted by a locked door. A sign beside this door declares that it leads to the tavern's stable, with the word 'Private' written beneath that.
+	</p>
+	<p>
+		As you don't have the key to this door, there's little else for you to do except turn around and head back into the tavern...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LOCKED_DOOR_STEP_BACK"><![CDATA[
+	<p>
+		You [pc.step] back from the locked door and wonder where to go next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STABLE"><![CDATA[
+	<p>
+		<i>You're not supposed to be able to get here! >:(</i>
 	</p>
 	]]>
 	</htmlContent>
@@ -1139,5 +1164,16 @@
 	</p>
 	]]>
 	</htmlContent>
+	
+	
+	<!-- Sterope: -->
+	
+	<htmlContent tag="STEROPE"><![CDATA[
+	<p>
+		TODO
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 </dialogue>

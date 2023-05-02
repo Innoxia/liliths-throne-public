@@ -46,6 +46,7 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.main.Main;
@@ -57,10 +58,12 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.6?
- * @version 0.2.11
+ * @version 0.4.7.8
  * @author Innoxia
  */
 public class Pix extends NPC {
+	
+	private static String PERK_PROGRESS_ID = "gym_perk_progress";
 
 	public Pix() {
 		this(false);
@@ -71,7 +74,9 @@ public class Pix extends NPC {
 				"An extremely energetic border collie-girl, who is the owner and manager of the Shopping Arcade's gym; 'Pix's Playground'.",
 				29, Month.FEBRUARY, 21, 
 				10, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH_BORDER_COLLIE, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_PIXS_GYM, true);
+				new CharacterInventory(10),
+				WorldType.getWorldTypeFromId("innoxia_dominion_shopping_arcade_gym"), PlaceType.getPlaceTypeFromId("innoxia_dominion_shopping_arcade_gym_reception"),
+				true);
 		
 	}
 	
@@ -238,14 +243,44 @@ public class Pix extends NPC {
 	
 	@Override
 	public void turnUpdate() {
-		if(!Main.game.getCharactersPresent().contains(this)) {
+		if(Main.game.getPlayer().getWorldLocation()!=WorldType.getWorldTypeFromId("innoxia_dominion_shopping_arcade_gym")
+				&& Main.game.getDialogueFlags().hasFlag("innoxia_pix_had_tour")
+				&& !Main.game.getCharactersPresent().contains(this)) {
 			if(Main.game.isExtendedWorkTime()) {
-				this.returnToHome();
+				this.setLocation(WorldType.getWorldTypeFromId("innoxia_dominion_shopping_arcade_gym"), PlaceType.getPlaceTypeFromId("innoxia_dominion_shopping_arcade_gym_reception"), true);
 			} else {
 				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
 			}
 		}
 	}
-
+	
+	
+	// Methods for her special workout in the gym:
+	
+	private int getWorkoutIncrement() {
+		return 10
+			+ (Main.game.getDialogueFlags().hasFlag("innoxia_pix_workout_weights_saved_energy")?0:5)
+			+ (Main.game.getDialogueFlags().hasFlag("innoxia_pix_workout_cardio_saved_energy")?0:5);
+	}
+	
+	public void incrementPerkProgress() {
+		int increment = getWorkoutIncrement();
+		
+		if(!Main.game.getDialogueFlags().hasSavedLong(PERK_PROGRESS_ID) || Main.game.getDialogueFlags().getSavedLong(PERK_PROGRESS_ID)<0) {
+			Main.game.getDialogueFlags().setSavedLong(PERK_PROGRESS_ID, 0);
+		}
+		Main.game.getDialogueFlags().incrementSavedLong(PERK_PROGRESS_ID, increment);
+	}
+	
+	public String getPerkProgressString() {
+		int increment = getWorkoutIncrement();
+		
+		if(!Main.game.getPlayer().hasPerkAnywhereInTree(Perk.PIX_TRAINING) && Main.game.getDialogueFlags().getSavedLong(PERK_PROGRESS_ID)<100) {
+			UtilText.addSpecialParsingString(String.valueOf(increment), true);
+			UtilText.addSpecialParsingString(String.valueOf(Main.game.getDialogueFlags().getSavedLong(PERK_PROGRESS_ID)), false);
+			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/pixsPlayground", "PERK_PROGRESS");
+		}
+		return "";
+	}
 
 }

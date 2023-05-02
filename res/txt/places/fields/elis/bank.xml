@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="EXTERIOR"><![CDATA[
+	<p>
+		Excluding the town hall, the building before you can confidently make the claim that it's the largest and most impressive building within the entire town. In stark contrast to the medieval aesthetic of the surrounding timber-framed structures, this structure is made out of large blocks of pale stone. With a frontage consisting of huge columns holding up a steepled roof, it's a perfect example of neoclassical architecture. Looking up, you see that the words the words 'Bank of Elis' have been carved into its stone frieze.
+	</p>
+	<p>
+		Whether due to a lawful requirement, or simply to display their loyalty to the public, a pair of identical flags hang down on either side of the bank's entrance, each of which carries the black pentagram of Lilith. Looking between these flags, 
+		#IF(game.getDayOfWeek()==DOW_SUNDAY)
+			#IF((game.getHourOfDay()<10 || game.getHourOfDay()>15))
+				 you see that the bank's large metal doors are firmly shut, and a sign hanging on them explains that the business is usually open between [units.time(9)]-[units.time(17)], but on Sundays they operate reduced hours, and are only open between [style.colourMinorBad([units.time(10)]-[units.time(16)])].
+			#ELSE
+				 you see that the bank's large metal doors are fully open, and a sign hanging on them explains that the business is usually open between [units.time(9)]-[units.time(17)], but on Sundays they operate reduced hours, and are only open between [style.colourMinorGood([units.time(10)]-[units.time(16)])].
+			#ENDIF
+		#ELSE
+			#IF(game.getHourOfDay()<9 || game.getHourOfDay()>16)
+				 you see that the bank's large metal doors are firmly shut, and a sign hanging on them explains that the business is usually open between [style.colourMinorBad([units.time(9)]-[units.time(17)])], but on Sundays they operate reduced hours, and are only open between [units.time(10)]-[units.time(16)].
+			#ELSE
+				 you see that the bank's large metal doors are fully open, and a sign hanging on them explains that the business is usually open between [style.colourMinorGood([units.time(9)]-[units.time(17)])], but on Sundays they operate reduced hours, and are only open between [units.time(10)]-[units.time(16)].
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		#IF((game.getDayOfWeek()==DOW_SUNDAY && (game.getHourOfDay()<10 || game.getHourOfDay()>15)) || (game.getDayOfWeek()!=DOW_SUNDAY && (game.getHourOfDay()<9 || game.getHourOfDay()>16)))
+			As the bank is currently [style.colourBad(closed)], there's nothing more for you to do here...
+		#ELSE
+			As the bank is currently [style.colourGood(open)], you could head inside and take a look around...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENTER"><![CDATA[
+	<p>
+		You decide to enter the bank, and so after [pc.walking] up to the large metal doors which serve as the main entrance, you push one open and [pc.step] inside...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FOYER"><![CDATA[
+	<p>
+		#IF(pc.hasItemType(ITEM_innoxia_quest_bank_card))
+			The bank's cavernous main foyer strikes you as being remarkably similar to the one in the Bank of Dominion, although you notice that it's not quite as large. A vaulted stone ceiling towers above your head, while underfoot polished marble stretches out before you. Arcane chandeliers hang down from above, flooding the interior with cool, bright light.
+		#ELSE
+			The bank's cavernous main foyer is every bit as large and impressive as its entrance hall. A vaulted stone ceiling towers above your head, while underfoot polished marble stretches out before you. Arcane chandeliers hang down from above, flooding the interior with cool, bright light.
+		#ENDIF
+	</p>
+	<p>
+		Looking around, you see clients of all races queuing up before counters, walking about, or waiting upon the provided seating. There are also a few of the bank's clerks walking to and fro here, and you notice that every one of them without exception is a demon. There are also a couple of security guards keeping watch over this area, and you can't help but notice that they're not only equipped with the expected batons and tasers, but are also carrying pepperball rifles.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="EXIT"><![CDATA[
+	<p>
+		#IF(pc.hasItemType(ITEM_innoxia_quest_bank_card))
+			The entrance hall to the bank strikes you as being remarkably similar to the one in the Bank of Dominion, although you notice that it's not quite as large. A vaulted stone ceiling towers above your head, while underfoot polished marble stretches out before you. Arcane chandeliers hang down from above, flooding the interior with cool, bright light.
+		#ELSE
+			The entrance hall to the bank is every bit as large and impressive as you'd expect from the building's outward appearance. A vaulted stone ceiling towers above your head, while underfoot polished marble stretches out before you. Arcane chandeliers hang down from above, flooding the interior with cool, bright light. 
+		#ENDIF
+	</p>
+	<p>
+		Before you lies the cavernous space of the bank's main foyer, in which clients of all races can be seen queuing up before counters, walking about, or waiting upon the provided seating. The large, metal doors behind you will take you back out into Elis, should you wish to leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT_LEAVE"><![CDATA[
+	<p>
+		Having concluded your business with the bank, you push open one of the large metal doors and [pc.step] back out into Elis...
+	</p>
+	]]>
+	</htmlContent>
+
+	<!-- Counter, opening account: -->
+	
+	<htmlContent tag="COUNTER"><![CDATA[
+	<p>
+		Approaching the far side of the bank's cavernous foyer, you find yourself standing near a long line of counters, each of which is staffed by a demonic bank clerk. As with the main foyer, heavily armed security guards are never too far away, and are keeping a close watch over everyone in the area.
+	</p>
+	#IF(pc.hasItemType(ITEM_innoxia_quest_bank_card))
+		<p>
+			Having already obtained a platinum account, there's little for you to discuss with the clerks behind the counters. Instead, if you have business here, all you need to do is head on over to the VIP deposit boxes and manage your funds and stored items directly there.
+		</p>
+	#ELSE
+		<p>
+			Identical signs have been fixed to brass poles in front of each of the counters, and as you approach you see that they read: '[style.italicsMinorBad(New account creation is currently unavailable. We apologise for the inconvenience.)]'
+		</p>
+		<p>
+			Noticing that you're looking at one of these signs, one of the bank clerks steps over to you and explains, [style.speechFeminineHeavy(I'm sorry, [pc.miss], but due to the current situation in the Foloi Fields, headquarters have told us that the perceived risk of account holders being rendered unable to repay their loans is too high. As such, we can't open any new accounts here, but if you were to go to our main branch in Dominion, you'll be able to open an account there.)]
+		</p>
+		<p>
+			Thanking the succubus for the information, you wonder whether it'd be worth travelling back to Dominion to open an account...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- Deposit boxes: -->
+	
+	<htmlContent tag="VIP_DOOR"><![CDATA[
+	#IF(pc.getLastCell().getPlace().getPlaceType()==PLACE_TYPE_innoxia_fields_elis_bank_foyer)
+		<p>
+			The door before you is quite clearly signposted as leading to 'VIP deposit boxes'. A succubi clerk is standing beside this door, and as she sees you approach she smiles and asks, [style.speechFeminineHeavy(Please may I see your platinum account card, [pc.miss]?)]
+		</p>
+		#IF(pc.hasItemType(ITEM_innoxia_quest_bank_card))
+			<p>
+				Producing your platinum account card, you show it to the clerk, who upon seeing the glowing stamps on its front, immediately stands aside and gestures towards the door, saying, [style.speechFeminineHeavy(The presence of your card will automatically unlock the door. If you require any assistance, please don't hesitate to contact one of my colleagues who you'll find nearby.)]
+			</p>
+			<p>
+				Thanking the clerk, you prepare to pass through the door and enter the VIP area beyond...
+			</p>
+		#ELSE
+			<p>
+				As you tell the succubus that you don't have a 'platinum account card', she frowns and states in a firm voice, [style.speechFeminineHeavy(I'm sorry, [pc.miss], but only platinum account holders are granted access to the deposit boxes. Please step back.)]
+			</p>
+			<p>
+				There doesn't seem to be any chance of persuading this succubus to let you through, and as there are dozens of security guards nearby, using force is completely out of the question. It looks like you have no choice but to [pc.step] back into the foyer...
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			Having concluded your business with your deposit box, you pass through the door to head back out into the foyer. As you pass her, the demonic clerk bows a little and says, [style.speechFeminineHeavy(Thank you for visiting us today, [pc.miss].)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VIP_DOOR_STEP_BACK"><![CDATA[
+	<p>
+		With little option other that to do as the clerk says, you [pc.step] back and return to the bank's foyer...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="DEPOSIT_BOX"><![CDATA[
+	<p>
+		Although large, the circular room you find yourself standing in is a lot smaller than the bank's foyer. With polished marble flooring underfoot, and sculptures and paintings lining the walls, it's no less grand that the other areas of the bank. As you [pc.walk] forwards, you see that a pair of clerks, both succubi, are standing behind a long marble desk in the middle of the room.
+	</p>
+	<p>
+		[style.speechFeminineHeavy(Please let us know if you require any assistance, [pc.miss],)] they say in unison as you approach. Clearly having been made aware of who you are via some kind of detection spell placed upon your platinum account card, they direct you towards one of several alcoves set into the room's curving wall.
+	</p>
+	<p>
+		[pc.Stepping] into the alcove, you pull shut a curtain behind you, before turning your attention to the large deposit boxes lining the wall before you. Detecting your card, one of them swings open for you, granting you access to your private stash of items and flames. An arcane enchantment projects a series of purple letters into the air above your deposit box, which lets you know that you have
+		#IF(game.getDialogueFlags().getSavedLong('bank_interest')<=0)
+			 [style.moneyFormatUncoloured(0, b)]
+		#ELSE
+			 [style.moneyFormat([#game.getDialogueFlags().getSavedLong('bank_interest')], b)]
+		#ENDIF
+		 in interest to collect.
+	</p>
+	<p style='text-align:center'>
+		[style.italicsMinorGood(Any items or flames stored in this area can be accessed at any of the bank's branches.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DEPOSIT_BOX_INTEREST_COLLECTED"><![CDATA[
+	<p>
+		Deciding that now is as good a time as any to collect your interest, you retrieve your flames and wonder whether to add them to your deposit box, or to hold on to them for now...
+	</p>
+	]]>
+	</htmlContent>
+
+</dialogue>

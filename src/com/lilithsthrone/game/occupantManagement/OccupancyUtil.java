@@ -193,6 +193,9 @@ public class OccupancyUtil implements XMLSaving {
 	}
 	
 	public void handleSlaveRemoval(GameCharacter character) {
+		// First end the job to apply any effects
+		character.getSlaveJob(Main.game.getHourOfDay()).applyJobEndEffects(character);
+		
 		charactersAtJob.values().forEach(list->list.remove(character.getId()));
 		charactersResting.remove(character);
 	}
