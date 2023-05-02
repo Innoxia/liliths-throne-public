@@ -17,7 +17,7 @@
 	It's usually best to fill out this section with each slot that can be fitted with an item of this set's clothing.
 	As this set only has 1 item in it, this section does nothing (as an item set can only ever be activated with at least 1 item of clothing/weapon equipped), and is just for demonstrative purposes.
 	For  afully-functioning example, please refer to 'res/setBonuses/innoxia/enforcer.xml'
-	Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
+	Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
 	<blockedSlotsCountingTowardsFullSet>
 		<slot>SOCK</slot>
 	</blockedSlotsCountingTowardsFullSet>

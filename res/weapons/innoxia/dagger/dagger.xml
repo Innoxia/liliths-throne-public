@@ -59,10 +59,11 @@
 		<!-- The rarity of this weapon.
 			You should likely leave this as COMMON, as the game automatically varies the rarity of COMMON items based on their enchantments and whether or not they're part of a set.
 			If you define a rarity other than COMMON, then your defined rarity will always be the same for this weapon no matter what enchantments it has.
-			Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
+			Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/Rarity.java -->
 		<rarity>COMMON</rarity>
 		
-		<!-- What set this weapon is a part of. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java -->
+		<!-- For an annotated example on how custom sets are defined, please see the 'res/mods/innoxia/setBonuses/template.xml' file.
+		Alternatively, existing sets can be found in the 'res/setBonuses' folder. -->
 		<weaponSet/> 
 		
 		<!-- The description that's used when equipping this weapon. The description should be generic, able to be used by both the player and NPCs. Just make sure to use the tag "[npc.verb()]" whenever using a verb, which will then, for example, parse like this:
@@ -127,7 +128,7 @@
 		...
 		Note that the damageType does not have to correspond to the spell's school (so FIRE can unlock ICE_SHARD, etc.).
 		
-		Values for spells can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/combat/Spell.java -->
+		Values for spells can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/combat/spells/Spell.java -->
 		<spells/>
 		
 		<!-- The combat moves that are unlocked when equipping this weapon. IF you want to add any, use the format:
@@ -145,8 +146,8 @@
 			<move damageType="FIRE">EXAMPLE_MOVE_4</move>
 		...
 		
-		Values for combat moves can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/combat/CMWeaponSpecials.java
-		There will be a way to add modded combat moves soon! -->
+		Values for combat moves can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/combat/moves/CMWeaponSpecials.java
+		For an annotated example on how custom combat moves are defined, please see the 'res/mods/innoxia/combatMove/hyena_bone_crush.xml' file. -->
 		<combatMoves/>
 		
 		<!-- The effects that this weapon spawns in with. Remember that the player can remove/change/add effects. To know what to put in here, it would probably be easiest to enchant a weapon in your game, save the game, then copy over that weapon's 'effects' in your save file.

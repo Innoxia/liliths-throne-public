@@ -38,7 +38,7 @@
 		<!-- 'true' if this item is consumed on use. Most items have this set to 'true'. -->
 		<consumedOnUse>true</consumedOnUse>
 		
-		<!-- The rarity of this item. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
+		<!-- The rarity of this item. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/Rarity.java -->
 		<rarity>COMMON</rarity> 
 		
 		<!-- The file name of this item's image when in the character's inventory. The only supported file type is .svg. I use the free program "Inkscape" to make .svg images for the game.
@@ -137,7 +137,7 @@
 			</p>
 		]]></applyEffects>
 		
-		<!-- Special item tags that apply to this item. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
+		<!-- Special item tags that apply to this item. Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 		<itemTags>
 			<tag>ALL_AREAS_SPAWN</tag>
 			<tag>ATTRIBUTE_TF_ITEM</tag>

@@ -43,19 +43,19 @@
 			- Example: Normal socks could be worn by both males and females without issue, so I set this to "ANDROGYNOUS". -->
 		<femininity>ANDROGYNOUS</femininity> 
 		
-		<!-- The slots that this clothing is able to be fit into. The game only supports up to 4 unique slots, so if you define more than 4, the rest of them won't show up in-game. These definitions preserve ordering, so use the top one for the most common slot to be fitted into. This is especially important for NPCs, as they will use the top slot for determining which slot this clothing should fit into.  Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java 
+		<!-- The slots that this clothing is able to be fit into. The game only supports up to 4 unique slots, so if you define more than 4, the rest of them won't show up in-game. These definitions preserve ordering, so use the top one for the most common slot to be fitted into. This is especially important for NPCs, as they will use the top slot for determining which slot this clothing should fit into.  Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/InventorySlot.java 
 			- Example: I defined "SOCK" as the top slot, as this is the intended slot for socks. As I also want the player to be able to equip socks onto their hands, I defined "HAND" as a secondary slot.-->
 		<equipSlots>
 			<slot>SOCK</slot>
 			<slot>HAND</slot>
 		</equipSlots>
 		
-		<!-- The rarity of this item. Anything less than EPIC may end up being modified in the code. Possible rarities are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java 
+		<!-- The rarity of this item. Anything less than EPIC may end up being modified in the code. Possible rarities are found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/Rarity.java 
 			- Example: Socks are most definitely "COMMON", but I've defined these as "LEGENDARY" so as to prevent them from naturally spawning in the game.-->
 		<rarity>LEGENDARY</rarity> 
 		
-		<!-- The set that this clothing belongs to. I will add a way to define your own sets, but for now, existing sets can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingSet.java
-			- Example: These socks have no set. If you want to define one, just use the name of the set like: <clothingSet>BUTLER</clothingSet> -->
+		<!-- For an annotated example on how custom sets are defined, please see the 'res/mods/innoxia/setBonuses/template.xml' file.
+		Alternatively, existing sets can be found in the 'res/setBonuses' folder. -->
 		<clothingSet>innoxia_template</clothingSet>
 		
 		<!-- The file paths for this clothing's image. All images MUST BE .svg format. Colours to be used are described below, above the 'primaryColours' element. I use the free program 'InkScape' to make my .svg images. .svg images scale perfectly up and down to any size, so, while it should be a square, it doesn't really matter what size your canvas is (although I use 256x256 as a personal preference).
@@ -87,24 +87,24 @@
 			<blockedParts>
 			
 				<!-- If this clothing is displaced in the following way (in this case, by being removed), then the 'blockedBodyParts', 'clothingAccessBlocked', and 'concealedSlots' will all be revealed. If multiple 'blockedParts' block or conceal the same slot, only one 'blockedParts' needs to be displaced to reveal it. (e.g. If a pair of trousers has 'UNZIPS' and 'PULLS_DOWN' displacementTypes, and both of these contain the 'concealedSlots' 'slot' 'PENIS', then the penis will be revealed if either UNZIPS or PULLS_DOWN is activated.)
-				A full list of displacementTypes can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
+				A full list of displacementTypes can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 				<displacementType>REMOVE_OR_EQUIP</displacementType> 
 				
-				<!-- The access required to perform this displacementType. clothingAccess values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingAccess.java -->
+				<!-- The access required to perform this displacementType. clothingAccess values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/clothing/ClothingAccess.java -->
 				<clothingAccessRequired> 
 					<clothingAccess>FEET</clothingAccess>
 				</clothingAccessRequired>
 				
-				<!-- The body parts that are blocked by this 'displacementType'. bodyPart values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/body/CoverableArea.java -->
+				<!-- The body parts that are blocked by this 'displacementType'. bodyPart values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/CoverableArea.java -->
 				<blockedBodyParts>
 					<bodyPart>FEET</bodyPart>
 				</blockedBodyParts>
 				
-				<!-- The access that this 'displacementType' blocks. Again, clothingAccess values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingAccess.java -->
+				<!-- The access that this 'displacementType' blocks. Again, clothingAccess values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/clothing/ClothingAccess.java -->
 				<clothingAccessBlocked/> <!-- Use the tag 'clothingAccess' for values inserted here. -->
 				
-				<!-- The slots that this 'displacementType' conceals. Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
-				<!-- You can also use a preset list by adding an attribute named "values" to this element (an example - "CS Example" - is in the blockedParts section below this one). The preset lists that you can use are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/PresetConcealmentLists.java -->
+				<!-- The slots that this 'displacementType' conceals. Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
+				<!-- You can also use a preset list by adding an attribute named "values" to this element (an example - "CS Example" - is in the blockedParts section below this one). The preset lists that you can use are found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/clothing/PresetConcealmentLists.java -->
 				<concealedSlots/> <!-- Use the tag 'slot' for values inserted here. -->
 			</blockedParts>
 		</blockedPartsList>
@@ -123,7 +123,7 @@
 			</blockedParts>
 		</blockedPartsList>
 		
-		<!-- Inventory slots that are incompatible with this clothing. The game's swimsuit makes use of this, and, while fitting into the 'CHEST' slot, also blocks 'GROIN' and 'STOMACH'. Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java 
+		<!-- Inventory slots that are incompatible with this clothing. The game's swimsuit makes use of this, and, while fitting into the 'CHEST' slot, also blocks 'GROIN' and 'STOMACH'. Possible slots are found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/InventorySlot.java 
 			- Example: You need to define an "incompatibleSlots" element for each slot that the clothing can be equipped into, so here, I've defined an empty one for "SOCK", and another empty one for "HAND".
 			- Example 2: If you want to add slots, then use the element like so (which would block the FINGER slot when equipped into the WRIST slot): 
 				<incompatibleSlots slot="WRIST">
@@ -232,7 +232,7 @@
 		
 		<!-- These tags determine where in the world your clothing can be found, and what special attributes your clothing should have.
 			There are several ItemTags which start with 'FITS', which are used to check for whether clothing is suitable for certain body parts (such as hoof or wing compatibility).
-			Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
+			Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 		<itemTags> <!-- itemTags without a 'slot' defined will have these tags added to every equippable slot. Should only be used for generic tags like those related to which vendors sell it. -->
 			<tag>NOT_FOR_SALE</tag>
 		</itemTags>
@@ -274,7 +274,7 @@
 	<sexAttributesOther/> <!-- These are the sex attributes applicable to someone who is interacting with the wearer (i.e. the penetration/orifice which is available for people other than the wearer. Mainly used for strap-on dildos.) -->
 	
 	
-	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
+	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 	<!-- - Example: This is the equip text for when socks are equipped to the "SOCK" slot:-->
 	<replacementText slot="SOCK" type="REMOVE_OR_EQUIP">
 		<self>

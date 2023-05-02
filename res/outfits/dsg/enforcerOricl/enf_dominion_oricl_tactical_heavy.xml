@@ -14,7 +14,7 @@
 		
 		<worldTypes/>
 		
-		<!-- Outfit types that this outfit can be used in. For a list of acceptable OutfitTypes, consult: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/clothing/OutfitType.java -->
+		<!-- Outfit types that this outfit can be used in. For a list of acceptable OutfitTypes, consult: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/outfit/OutfitType.java -->
 		<outfitTypes>
 		  <type>JOB_LABOUR</type> <!-- At the time of creation (v0.3.0.6), only the MUGGER outfitType is used in the game. All outfit types will be added eventually. -->
 		</outfitTypes>
@@ -25,9 +25,9 @@
 		</acceptableLegConfigurations>
 		
 		<!-- The condition that needs to be satisfied for someone to generate this outfit. "npc.hasFetish(FETISH_EXHIBITIONIST)" should probably always be taken into account. This conditional instance does NOT support the "clothingConditionalX" elements.
-		Accepted method calls for the "npc" can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/GameCharacter.java 
-		Accepted method calls for the main game (using the "game" tag) can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/Game.java
-		And also here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/dialogue/utils/UtilText.java 
+		Accepted method calls for the "npc" can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/GameCharacter.java 
+		Accepted method calls for the main game (using the "game" tag) can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/Game.java
+		And also here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/dialogue/utils/UtilText.java 
 		The method "initScriptEngine()" in UtiLText.java shows you what you can get a handle on.-->
 		<conditional><![CDATA[npc.hasOccupationTag(OCCUPATION_TAG_ENFORCER_ORICL)]]></conditional>
 		
