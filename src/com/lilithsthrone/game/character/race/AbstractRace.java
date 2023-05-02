@@ -119,8 +119,8 @@ public abstract class AbstractRace {
                         boolean ableToSelfTransform) {
 		this(name,
 				namePlural,
-				Util.newHashMapOfValues(new Value<>(LegConfiguration.BIPEDAL, nameFeral)),
-				Util.newHashMapOfValues(new Value<>(LegConfiguration.BIPEDAL, nameFeralPlural)),
+				LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.BIPEDAL, nameFeral),
+				LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.BIPEDAL, nameFeralPlural),
 				defaultTransformName,
 				colour,
 				disposition,
