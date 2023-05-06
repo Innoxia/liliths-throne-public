@@ -10,6 +10,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed issue where player-summoned elementals were not considered part of the player's team for damage calculations, meaning for harder difficulty settings their damage was scaled the same as that of enemies. (by TractorsAttic)
 		Fixed parsing bug in Natalya's meeting scene during Helena's romance quest, and fixed a potential NullPointerException related to accessing character present IDs. (by Cognitive Mist)
 		Improved getSubspeciesFromBody() method, which makes loading save files significantly faster, especially for large saves in games with many modded subspecies. (PR#1754 by SightglassCat)
+		Added 'light red' and changed 'light pink' to 'pink' for salamander scale colours, added missing equip text for the nursing bra, and fixed some inconsistencies in Natayla's new content. (PR#1757 by MintyChip)
 	
 	Image & Character Imports:
 		PLEASE NOTE: All imported images for your player character will no longer work, due to the image folder location being changed.
