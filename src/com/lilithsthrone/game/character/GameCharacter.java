@@ -796,7 +796,7 @@ public abstract class GameCharacter implements XMLSaving {
 		properties.appendChild(characterCoreInfo);
 		
 		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "id", this.getId());
-		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "pathName", this.getClass().getCanonicalName());
+		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "pathName", this.getClass().isAnonymousClass() ? this.getClass().getSuperclass().getCanonicalName() : this.getClass().getCanonicalName());
 		
 		Element name = doc.createElement("name");
 		characterCoreInfo.appendChild(name);

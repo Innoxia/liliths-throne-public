@@ -12,6 +12,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Improved getSubspeciesFromBody() method, which makes loading save files significantly faster, especially for large saves in games with many modded subspecies. (PR#1754 by SightglassCat)
 		Added 'light red' and changed 'light pink' to 'pink' for salamander scale colours, added missing equip text for the nursing bra, and fixed some inconsistencies in Natayla's new content. (PR#1757 by MintyChip)
 		Added pattern support to both micro bikini clothing items. (PR#1759 by DSG)
+		Added two new clothing items; 'fedora' (head slot, androgynous, sold by Nyan); and 'trenchcoat' (over-torso slot, androgynous, sold by Nyan). (PR#1761 by DSG)
+		Fixed missing IDs and paths for anonymous-classed NPCs. (PR#1762 by SightglassCat)
 	
 	Image & Character Imports:
 		PLEASE NOTE: All imported images for your player character will no longer work, due to the image folder location being changed.
