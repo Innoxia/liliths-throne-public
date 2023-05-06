@@ -423,6 +423,14 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 */
 	public void dailyUpdate() {
 	}
+
+
+	/**
+	 * Calls hourlyUpdate(int hour) using the current hourOfDay as the hour argument.
+	 */
+	public void hourlyUpdate() {
+		hourlyUpdate(Main.game.getHourOfDay());
+	}
 	
 	/**
 	 * Applies an hourly update to this NPC.

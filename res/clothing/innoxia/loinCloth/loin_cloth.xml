@@ -67,59 +67,28 @@
 		</itemTags>
 	</coreAttributes>
 
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You take off your loincloth.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You pull off [npc.name]'s loincloth.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You grab hold of [npc.name]'s loincloth and roughly pull it off.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] takes [npc.her] loincloth off.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] pulls your loincloth off.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] grabs hold of your loincloth and roughly pulls it off.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] pulls [npc2.name]'s loincloth off.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] grabs hold of [npc2.name]'s loincloth and roughly pulls it off.
-		]]></NPCOtherNPCRough>
-	</displacementText>
-
-	<!-- 'replacementText' is used for equipping and replacements. -->
 	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You pull on the loincloth.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You get [npc.name] to wear the loincloth.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You hold [npc.name] still as you roughly force [npc.herHim] to wear the loincloth.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] pulls on the loincloth.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] gets you to wear the loincloth.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] holds you still as [npc.she] roughly forces you to wear the loincloth.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] gets [npc2.name] to wear the loincloth.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] holds [npc2.name] still as [npc1.she] roughly forces [npc2.herHim] to wear the loincloth.
-		]]></NPCOtherNPCRough>
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(step)] into the loincloth, before pulling it up to cover [npc.her] private parts.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the loincloth up [npc2.namePos] [npc2.legs] to cover [npc2.her] private parts.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(pull)] the loincloth up [npc2.namePos] [npc2.legs] to cover [npc2.her] private parts.]]>
+	  </otherRough>
 	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] loincloth down and [npc.verb(kick)] them off [npc.her] [npc.feet].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(slide)] down [npc2.namePos] loincloth and [npc.verb(pull)] them off [npc2.her] [npc2.feet].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(pull)] down [npc2.namePos] loincloth and [npc.verb(yank)] them off [npc2.her] [npc2.feet].]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

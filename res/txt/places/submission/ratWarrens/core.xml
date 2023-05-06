@@ -2895,7 +2895,7 @@
 		#IF(pc.hasCompanions())
 			Unwilling to give in to Vengar's outrageous request, you push yourself up onto your feet and tell your [npc.companion] to do the same, before turning to face the rat-boy and saying, [pc.speech(We've done as you asked, but that's going too far.)]
 		#ELSE
-			Unwilling to give in to Vengar's outrageous request, you push yourself up onto your feet, before turning to face the rat-boy and saying, [pc.speech(We've done as you asked, but that's going too far.)]
+			Unwilling to give in to Vengar's outrageous request, you push yourself up onto your feet, before turning to face the rat-boy and saying, [pc.speech(I've done as you asked, but that's going too far.)]
 		#ENDIF
 	</p>
 	<p>

@@ -164,7 +164,7 @@ public class DebugDialogue {
 				} else if (index == 4) {
 					return new Response("Reveal bodies: ",
 							"When toggled on, clothing does not conceal inventory slots, and you'll know what all character's genitals look like without first having to see them."
-									+ " This also reveals unique NPCs' naked & underewear images.",
+									+ " This also reveals unique NPCs' naked & underwear images.",
 							DEBUG_MENU){
 						@Override
 						public String getTitle() {

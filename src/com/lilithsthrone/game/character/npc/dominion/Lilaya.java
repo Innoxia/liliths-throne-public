@@ -23,6 +23,7 @@ import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
@@ -438,7 +439,8 @@ public class Lilaya extends NPC {
 	
 	@Override
 	public void endSex() {
-		setPenisType(PenisType.NONE);
+		this.setPenisType(PenisType.NONE);
+		this.setVaginaType(VaginaType.DEMON_COMMON);
 	}
 	
 	@Override

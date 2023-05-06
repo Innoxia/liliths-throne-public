@@ -66,60 +66,29 @@
 			<tag>FITS_NON_BIPED_BODY_HUMANOID</tag>
 		</itemTags>
 	</coreAttributes>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(step)] into the ragged skirt and [npc.verb(pull)] it up to fit around [npc.her] waist.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(get)] [npc2.name] to step into the ragged skirt, before pulling it up around [npc2.her] waist.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(force)] [npc2.name] to step into the ragged skirt, before yanking it up around [npc2.her] waist.]]>
+		</otherRough>
+	</replacementText>
 
 	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You take off your skirt.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You pull off [npc.name]'s skirt.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You grab hold of [npc.name]'s skirt and roughly pull it off.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] takes [npc.her] skirt off.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] pulls your skirt off.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] grabs hold of your skirt and roughly pulls it off.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] pulls [npc2.name]'s skirt off.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] grabs hold of [npc2.name]'s skirt and roughly pulls it off.
-		]]></NPCOtherNPCRough>
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] down [npc.her] ragged skirt, before slipping it off.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] down [npc2.namePos] ragged skirt, before slipping it off.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(pull)] down [npc2.namePos] ragged skirt, before yanking it off.]]>
+		</otherRough>
 	</displacementText>
-
-	<!-- 'replacementText' is used for equipping and replacements. -->
-	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You pull on the skirt.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You get [npc.name] to wear the skirt.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You hold [npc.name] still as you roughly force [npc.herHim] to wear the skirt.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] pulls on the skirt.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] gets you to wear the skirt.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] holds you still as [npc.she] roughly forces you to wear the skirt.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] gets [npc2.name] to wear the skirt.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] holds [npc2.name] still as [npc1.she] roughly forces [npc2.herHim] to wear the skirt.
-		]]></NPCOtherNPCRough>
-	</replacementText>
 	
 </clothing>

@@ -339,7 +339,7 @@
 		<content/>
 		<secondsPassed><![CDATA[120]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
-		<travelDisabled>false</travelDisabled>
+		<travelDisabled><![CDATA[[#!pc.hasItemType(ITEM_innoxia_quest_gym_membership_card) && !flags.hasFlag(FLAG_innoxia_pix_session_started)]]]></travelDisabled>
 		<responses copyFromDialogueId="innoxia_places_dominion_shopping_arcade_gym_reception"/>
 	</scene>
 	

@@ -3417,7 +3417,7 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 
 		if(!folder.isEmpty()) {
-			if(!this.isUnique()) {
+			if(!this.isUnique() || this.isPlayer()) {
 				File f = new File("data/images/"+Main.game.getId()+"/characters/" + folder);
 				if(f.exists() && f.isDirectory()) {
 					Artwork art = new Artwork(this, f, Artwork.customArtist);
@@ -3459,7 +3459,7 @@ public abstract class GameCharacter implements XMLSaving {
 		try {
 			// Copy files to the character's custom image folder
 			Path destination;
-			if(this.isUnique()) {
+			if(this.isUnique() && !this.isPlayer()) {
 				destination = Paths.get("res", "images", "characters", getArtworkFolderName(), "custom");
 			} else {
 				destination = Paths.get("data", "images", String.valueOf(Main.game.getId()), "characters", getArtworkFolderName());
@@ -25258,6 +25258,9 @@ public abstract class GameCharacter implements XMLSaving {
 	public List<AbstractRace> getSelfTransformationRaces(boolean includeNoneRace) {
 		List<AbstractRace> races = new ArrayList<>();
 		
+		if(this instanceof Elemental) {
+			races.addAll(Race.allRaces);
+		}
 		if(this.getSubspeciesOverrideRace()==Race.DEMON) {
 			races.add(Race.NONE);
 			races.add(Race.DEMON);

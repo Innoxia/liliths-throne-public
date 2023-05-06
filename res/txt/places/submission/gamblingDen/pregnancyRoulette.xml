@@ -641,6 +641,16 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="MURK_BACK"><![CDATA[
+	<p>
+		Having second thoughts about it, you decide that you don't want to pay Murk a visit after all. Turning away from the door to the storage room, you return to Epona and tell her that you've changed your mind.
+	</p>
+	<p>
+		[epona.speech(I don't blame you, that piece of work isn't worth anybody's time,)] she says as she lifts up the counter-top. [pc.Stepping] past her to return to the other side of the counter, you turn to face the smiling horse-girl as she continues, [epona.speech(So, what can I do for you, [pc.name]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	<!-- MURK_ALONE -->
 	
