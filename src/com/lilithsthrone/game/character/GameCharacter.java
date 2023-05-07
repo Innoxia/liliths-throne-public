@@ -6904,7 +6904,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean hasFetish(AbstractFetish fetish, boolean includeFetishesFromClothing) {
-		return fetish.isContentEnabled() && (fetishes.contains(fetish) || includeFetishesFromClothing?fetishesFromClothing.contains(fetish):false);
+		return fetish.isContentEnabled() && (fetishes.contains(fetish) || (includeFetishesFromClothing?fetishesFromClothing.contains(fetish):false));
 	}
 	
 	/**
