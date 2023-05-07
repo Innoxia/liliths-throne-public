@@ -14,6 +14,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added pattern support to both micro bikini clothing items. (PR#1759 by DSG)
 		Added two new clothing items; 'fedora' (head slot, androgynous, sold by Nyan); and 'trenchcoat' (over-torso slot, androgynous, sold by Nyan). (PR#1761 by DSG)
 		Fixed missing IDs and paths for anonymous-classed NPCs. (PR#1762 by SightglassCat)
+		Fixed incorrect references to horns in the antenna.xml race mod example file. (by MintyChip)
 	
 	Image & Character Imports:
 		PLEASE NOTE: All imported images for your player character will no longer work, due to the image folder location being changed.
@@ -25,12 +26,17 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Sex:
 		Moved foot-to-mouth sex actions from the reverse cowgirl position to the cowgirl position.
+		Using an ovipositor to lay eggs in someone no longer requires the ovipositor-equipped character to have a vagina (this should only affect slimes, as they're the only race that can get pregnant without having a vagina).
 	
 	Other:
 		Added text to make it more obvious that a slave is losing 1 affection towards you due to being woken up at the start of interacting with them while they're sleeping.
 		Elementals are now able to use the save/load transformation menu correctly.
 		When loading a TF preset the dialogue scene now moves back to the 'core' TF dialogue, so as to give an indication that the TF has been applied.
 		Made the layout of multi-breast option buttons slightly more logical.
+		If you've equipped sealed clothing with the 'servitude' enchantment, Lilaya's 'Sealed problem' action will no longer remove all the seals on your clothing, and will instead only remove the 'servitude' enchantments.
+		Compacted the layout of the 'subspecies knowledge' perks when viewing a character's perk tree.
+		The 'Dungeon Cell' tiles in Lilaya's basement no longer have an upkeep cost (they used to be 10 flames/day).
+		In 'Murk's Milker' bad end, the player's tattoos are now removed at the start of the bad end, so as to avoid unexpected transformations occurring during the bad end content.
 	
 	Bugs:
 		Typo & parsing fixes and minor dialogue alterations.
@@ -43,9 +49,19 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed bug where you could bypass the entry fee for Pix's gym if you talked to her and then simply moved forwards into the gym.
 		Saving a transformation preset for an elemental will no longer make the save/load transformation menu inaccessible.
 		Lilaya will now correctly transform her genitalia back to having a pussy and no cock after sex.
+		Fixed issue in Penelope's 'Posters' dialogue where you'd always tell her that you hadn't visited Pix's gym, even if you had.
+		Fixed bug where you could assign jobs to guests which were meant to be limited to slaves (which was done by selecting a job category while managing a slave's job, then managing a guest's job and assigning the still-selected job to them).
+		Natalya's sex scene in the park is no longer treated as being a public sex scene (as you're behind the bushes and so out of sight).
+		Fixed bug where slaves who had sex while working in the kitchen would generate the 'gardener' sex event description.
+		When/If you give Scarlett back to Helena, her tattoos are now removed. (This will retroactively apply when loading into this version.)
+		Astrapi's pregnancy reaction scene now correctly plays when encountering her at the Elis depot.
+		You can no longer teleport into the Crossed Blades tavern (to prevent the player from entering it outside of opening hours).
+		Natalya's post-anal-sex dialogue no longer references rimjobs.
+		Fixed bug where if you had a fetish temporarily granted via enchanted clothing, the fetish would be permanently applied to the wearer after saving & then loading the game.
+		You can no longer pay to have your 'penis' pierced if you have no penis but are wearing a strapon.
 	
 	
-	[] bugs
+	[x] bugs
 		[x] Test Hannah repeats
 		[x] Tail long length can be changed, but it's not saved so reverts to 500% on load
 			Saves do not work properly with lamia bodies over 60’ long and will reset to 60’ long upon loading despite there being a hard cap of 1000% of your bipedal height
@@ -104,10 +120,102 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				- or -
 				src/com/lilithsthrone/world/Cell.java line 297
 				never return null
+		[x] Error when equipping over-torso item on an NPC. It says "pull the rest of it over YOUR shoulders."​ as if you were putting it on yourself.
+		[x] Also the bank just calls you Mr. or Ms. without a surname
+		[x] I can't seem to talk to Pix's sister in Elis about her anymore.
+		[x] Separate race-damage perks out from special perks
+		[x] is there anyway you can make it so slimes can put eggs in people without needing a vagina?
+			Currently, you have to grow a vagina to put eggs in people even if you are already slime pregnant
+		
+	[] finish bug reports
+		[x] parsing issue
+		[-] item in inventory NPE
+			Clicking on an item in inventory throws a NullPointerException making it non-interactable when the following conditions are met:
+				1. Player is currently in a sex scene
+				2. Player has compatible body parts to equip item
+				3. The item can be equipped during sex
+				4. It isn't a special sex scene with disabled clothing equip
+				5. The item can be equipped to at least one slot that is currently not in use
+				6. The slot also needs to already have a clothing item equipped
+				7. The same slot also needs to be free on the partner
+				8. The item is in sex partners inventory
+			Fast way to reproduce the error:
+				1. Start a new game
+				2. Spawn two butt plugs using 'buggy'
+				3. Equip one yourself
+				4. Either spawn or find an attacker and defeat them
+				5. Give them the other butt plug
+				6. Start sex, open inventory, and click on the butt plug in partners inventory
+		[x] Slave lounge might be causing the slave job error
+			java.lang.NullPointerException
+				at com.lilithsthrone.game.occupantManagement.slave.SlaveJob$1.lambda$2(SlaveJob.java:102)
+				at java.util.TimSort.countRunAndMakeAscending(Unknown Source)
+				at java.util.TimSort.sort(Unknown Source)
+				at java.util.Arrays.sort(Unknown Source)
+				at java.util.ArrayList.sort(Unknown Source)
+				at com.lilithsthrone.game.occupantManagement.slave.SlaveJob$1.getSlaveLoungeCell(SlaveJob.java:102)
+				at com.lilithsthrone.game.occupantManagement.slave.SlaveJob$1.getWorkDestinationCell(SlaveJob.java:119)
+				at com.lilithsthrone.game.occupantManagement.slave.SlaveJob.getAffectionGain(SlaveJob.java:1172)
+				at com.lilithsthrone.game.dialogue.companions.CompanionManagement$2.getContent(CompanionManagement.java:991)
+				at com.lilithsthrone.game.Game.setContent(Game.java:3296)
+				at com.lilithsthrone.controller.eventListeners.SetContentEventListener.handleEvent(SetContentEventListener.java:36)
+				at com.sun.webkit.dom.EventListenerImpl.fwkHandleEvent(EventListenerImpl.java:129)
+				at com.sun.webkit.WebPage.twkProcessMouseEvent(Native Method)
+				
+		[x] Despite going behind bushes, the natalya park encounter still registers as a public sex scene
+		[x] consider reducing the base upkeep of Lilaya's Basement Cells to 0 flames at their default state, rather than keep is at 10 flames
+		[x] slaves set to cook with permissions to fuck each other find a bush to do their business, which should be restricted to gardeners I believe
+		[-] It is no longer possible to overwork slaves by setting times that go over their daily fatigue. Doing that by using one of the buttons, such as 24h, causes all options to become locked and the slave's job can no longer be altered.
+			 Which means they're stuck working those hours forever
+		[x] when you give Scarlett back, Helena doesn't remove her tattoos
+			The 'Boost (10 essences)' option for Scarlett grows her breasts but doesn't interact with her cock?
+			Scarlett here has a 1cm cock and a vagina. In dialogue she thinks herself male, but options say female
+			Scarlett TF: "it's expanded from being ... to being a thin and 1 centimetre."
+		[x] They don't remove your tattoos in Murk's Milker dead end either, so pretty sure you can bug out the game by removing your vag every hour there
+		[-] if you wear a piercing that can be in nipples or ears - you can't wear them in both slots equipping stalls out and closing inventory causes the second item you're trying to equip to be deleted/vanish! on 4.7.5 
+		[x] Astrapi Preg Reaction scene doesn't play if starting from Elis
+		[x] You can TP inside the Crossed Blades tavern outside working hours
+		[x] Natalya's post-you railing her dialogue is mixed with post-rimjob
+		[x] I would like to report there is a bug where if you have a fetish granted via clothing it will make the fetish permeant after taking off the item
+			Only happens if saving/loading while clothing equipped
+		[-] You can meet the shady dealer twice during an arcane storm, but she’s hella broken the first encounter
+		[x] In virginity loss text, references incorrect character in "If this X_RACE doesn't knock me up, I hope..." in stocks scene
+		[x] You can keep piercing strapon for 100f untill you run out of money
+		
+		[] a weird interaction with Astrapi and gendering. If you've set "masculine if in unisex clothing" in options you will get Astrapi referred as "he" during sex, but "she" in regular conversations with them
+		[] If you have 1 or 2 arcane firebombs you can still throw 3 in 1 turn,
+		[] Spell tooltips are bugged in combat. Instead of range they show you a randomly rolled number in a pop-up, a different roll in the projected turn sequence and rolling third time for actual damage
+			Tease also doesn't show a range
+		[] Using an upgraded vacuum spell while dueling meraxis in elis strips her clothing for the player to take and doesn't replace it after the encounter
+		[] in 4.7 you can set your slave parts to Angel when purchasing from Helena if you have a Spider tail with Spinnerette by modifying the Spinnerette and going back to other tabs; allowing you to Purchase a Custom Angel Slave
+			the process involves swapping to Spinner tab then to the part you want to alter, select the Forbidden option, then go back to Spinner to refresh the tabs
+		[] On 0.4.7, I'm not able to crit any of the marauder succutaurs you encounter in the overworld with any of the fetish teases I have (except for the submissive tease), despite the fact they they have several fetishes that should allow them to crit.
+			 This only happens with these enemies, everyone else I've encountered works fine
+		[] you can still self milk yourself to orgasm in a milking room with the orgasm denial enchantment equipped
+		[] Jhortrax scene after showcasing him your might and fighting him anyways for some reason has text from him coming back as if you'd fought him before
+			"Why did you come back? I told you to stay away from here!"
+		[] multiple pregnancies (breast eggs,stomach eggs,and womb eggs) being completed at the same time due to mother's milk only calls the main pregnancy for birth and clearing of effects.
+			You are not given a chance after to birth the rest of the eggs from the other two instances of egg-nancy, leaving a state of permanent incubation
+		[] You can freely transform imps and half-demons into demons and demons into imps by loading preset to transform into
+		[] after having an encounter with the fox prostitute Jess, even if you manage to push their fertility over 0% you get the line about how there is no chance of being impregnated
+		[] random item gen for Sunflower and Rose series of piercings spawn with incorrect colours on NPCs
+		[] when you are domming at the Glory hole you can give instructions on the position but only have actions to use on oral
+		[] Your demonic children can spawn with 2 heavily enchanted weapons (demonstone and feather) and being lvl 1 they only have 13 enchantment capacity, so they get a debuff.
+		
+		[] the victim used to sometimes respond with a Resisting (sexual act here) But now not a single time has it procced. Now only the Base Default Resist or beg to stop now procs
+		[] For some reason, a sealed strapon on an NPC seems to make them keep start trying to hotdog or do intercrural, then stop, then start, then stop
+			but I've noticed that they never seem to actually autonomously start anal or vaginal penetration? Is it just because the dildo is too big for their partner's orifice
+		[] you cant suckle one's crotch nipples or top nipples when they are abnormally taller than you.
+			Whether it be missionary (I should be able to suck on her crotch tits), sitting down (how tf can I kiss one when they are sitting down, but I cant suckle either of their nipples),
+			 mating press (this is practically strange cause if it was true size difference, you'd be able to suckle nipples and unable to kiss), and just about all the others.
+			  I find it strange that any of the positions where you should be able to do it, you can't.
+			No position allows you to suck on someone's top breasts if they are twice your height
+		
+		
+	[] If rape-play content is 'on at start', then make it so that NPCs with the unwilling fuck toy fetish present you with the 'rape' action even if they're attracted to you
 	
-	[] SS messages
-	
-	[] PRs
+	[] prioritise res races over mod folder - or mod folder different ids
+		
 	
 	
 	[] Minotaur-boy yoga instructor
@@ -129,11 +237,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 						[] beg to be impregnated
 							[] He fucks player and creampies
 		
-	[] prioritise res races over mod folder - or mod folder different ids
 		
-	[] is there anyway you can make it so slimes can put eggs in people without needing a vagina?
-		Currently, you have to grow a vagina to put eggs in people even if you are already slime pregnant
-	
 	[] Add Wolfgang & Karl art
 	
 	[] main quest

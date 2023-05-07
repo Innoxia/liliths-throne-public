@@ -893,10 +893,13 @@
 		As she hears you explaining your dilemma, your [lilaya.relation(pc)] crosses her arms and tuts in disapproval. Shaking her head as you finish talking, she asks, [lilaya.speech(How did you end up in such a ridiculous situation? Were you just going around Dominion putting on any old piece of clothing you found lying on the ground? No, wait, don't answer. I feel as though I'd regret finding out.)]
 	</p>
 	<p>
-		Asking Lilaya if she can help, you're pleased to see the annoyed expression on her face quickly soften as she replies, [lilaya.speech(Yes, I can help. Ordinarily, I'd refuse to unseal any of your clothing to teach you a lesson about being so careless, but seeing as you're completely unable to get yourself out of this mess, I'll remove the seals from all of your clothing. Just come and stand over here, please.)]
+		Asking Lilaya if she can help, you're pleased to see the annoyed expression on her face quickly soften as she replies, [lilaya.speech(Yes, I can help. Ordinarily, I'd refuse to help so as to teach you a lesson about being so careless, but seeing as you're completely unable to get yourself out of this mess, I'll remove the servitude enchantments from all of your clothing. Just come and stand over here, please.)]
 	</p>
 	<p>
-		Moving up next to Lilaya, you hold still as she unseals your clothing. After just a few moments she's done, and after you've thanked her and stepped back, she asks you if there was anything else you needed.
+		Moving up next to Lilaya, you hold still as she removes the servitude enchantments your clothing. After just a few moments she's done, but as you thank her and then try to remove your clothing, you realise that it's still sealed.
+	</p>
+	<p>
+		[lilaya.speech(Did you think that I'd waste my essences on unsealing your clothing?)] the [lilaya.race] asks in a disapproving tone. Crossing her arms, she tuts, [lilaya.speech(You can unseal your clothing yourself. Just be grateful that I spent some essences on removing those other enchantments. Now, is there anything else you need from me?)]
 	</p>
 	]]>
 	</htmlContent>

@@ -1087,7 +1087,7 @@ public abstract class GameCharacter implements XMLSaving {
 			Element element = doc.createElement("f");
 			characterFetishes.appendChild(element);
 			element.setTextContent(Fetish.getIdFromFetish(f));
-			if(this.hasFetish(f)) {
+			if(this.hasFetish(f, false)) {
 				XMLUtil.addAttribute(doc, element, "o", Boolean.TRUE.toString());
 			}
 			if(this.getFetishDesireMap().containsKey(f)) {
@@ -4257,6 +4257,10 @@ public abstract class GameCharacter implements XMLSaving {
 		this.surname = surname;
 	}
 	
+	public boolean hasSurname() {
+		return this.surname!=null && this.surname.length()>0;
+	}
+	
 	/**
 	 * @return The name to be used when the player doesn't know this character's name. Leave blank for generic subspecies name.
 	 */
@@ -6896,7 +6900,11 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean hasFetish(AbstractFetish fetish) {
-		return fetish.isContentEnabled() && (fetishes.contains(fetish) || fetishesFromClothing.contains(fetish));
+		return hasFetish(fetish, true);
+	}
+	
+	public boolean hasFetish(AbstractFetish fetish, boolean includeFetishesFromClothing) {
+		return fetish.isContentEnabled() && (fetishes.contains(fetish) || includeFetishesFromClothing?fetishesFromClothing.contains(fetish):false);
 	}
 	
 	/**
@@ -25551,6 +25559,16 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	// Tattoos, scars, and lipstick markings:
+	
+	public void clearTattoos() {
+		for(InventorySlot slot : InventorySlot.values()) {
+			Tattoo tattoo = tattoos.get(slot);
+			if(tattoo!=null) {
+				applyUnequipTattooEffects(tattoo);
+				tattoos.remove(slot);
+			}
+		}
+	}
 	
 	public void clearTattoosAndScars() {
 		for(InventorySlot slot : InventorySlot.values()) {

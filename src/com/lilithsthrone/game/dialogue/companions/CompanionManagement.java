@@ -82,6 +82,13 @@ public class CompanionManagement {
 		CompanionManagement.coreNode = coreNode;
 		CompanionManagement.defaultResponseTab = defaultResponseTab;
 		Main.game.getDialogueFlags().setManagementCompanion(targetedCharacter);
+		
+		// If job is not available for guests, change it to IDLE:
+		if(targetedCharacter!=null
+				&& !targetedCharacter.isSlave()
+				&& !Main.game.getDialogueFlags().getSlaveryManagerJobSelected().hasFlag(SlaveJobFlag.GUEST_CAN_WORK)) {
+			Main.game.getDialogueFlags().setSlaveryManagerJobSelected(SlaveJob.IDLE);
+		}
 	}
 
 	public static DialogueNode getSlaveryManagementInspectSlaveDialogue(NPC slave) {
@@ -882,16 +889,16 @@ public class CompanionManagement {
 			UtilText.nodeContentSB.append(
 							"<div class='container-full-width inner' style='text-align:center;'>"
 							+ "<div style='width:100%;margin-top:8px;'><b>Available Jobs</b></div>");
-								for(SlaveJob job : SlaveJob.values()) {
-									if(character.isSlave() || job.hasFlag(SlaveJobFlag.GUEST_CAN_WORK)) {
-										UtilText.nodeContentSB.append(
-												"<div class='normal-button' id='"+job+"_ASSIGN' style='width:16%; margin:2px;color:"
-														+job.getColour().toWebHexString()+";"+(Main.game.getDialogueFlags().getSlaveryManagerJobSelected()==job?"border-color:"+job.getColour().toWebHexString()+";":"")+"'>"
-														+Util.capitaliseSentence(job.getName(character))
-														+"</div>");
-									}
-								}
-								
+			for(SlaveJob job : SlaveJob.values()) {
+				if(character.isSlave() || job.hasFlag(SlaveJobFlag.GUEST_CAN_WORK)) {
+					UtilText.nodeContentSB.append(
+							"<div class='normal-button' id='"+job+"_ASSIGN' style='width:16%; margin:2px;color:"
+									+job.getColour().toWebHexString()+";"+(Main.game.getDialogueFlags().getSlaveryManagerJobSelected()==job?"border-color:"+job.getColour().toWebHexString()+";":"")+"'>"
+									+Util.capitaliseSentence(job.getName(character))
+									+"</div>");
+				}
+			}
+			
 			UtilText.nodeContentSB.append("<div style='width:100%;margin-top:8px;'><b>Time Slots</b></div>");
 			float stamina = character.getDailySlaveJobStamina();
 			SlaveJob jobSelected = Main.game.getDialogueFlags().getSlaveryManagerJobSelected();
