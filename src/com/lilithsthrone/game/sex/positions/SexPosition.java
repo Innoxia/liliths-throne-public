@@ -37,6 +37,7 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlotTag;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionPresets;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PlayerTalk;
 import com.lilithsthrone.game.sex.sexActions.dominion.MasturbationPanties;
@@ -3979,6 +3980,7 @@ public class SexPosition {
 		public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
 			List<SexActionInterface> blockedActions = Util.newArrayListOfValues(
 					GenericOrgasms.GENERIC_PREPARATION_DENIAL,
+					GenericActions.GENERIC_DENY,
 					PlayerTalk.PLAYER_OFFER_ANAL,
 					PlayerTalk.PLAYER_OFFER_NAIZURI,
 					PlayerTalk.PLAYER_OFFER_NIPPLE,
@@ -4073,6 +4075,16 @@ public class SexPosition {
 			true,
 			null, Util.newArrayListOfValues(GloryHole.class)) {
 		@Override
+		public boolean isActionBlocked(GameCharacter performer, GameCharacter target, SexActionInterface action) {
+			List<SexActionInterface> blockedActions = Util.newArrayListOfValues(
+					GenericOrgasms.GENERIC_PREPARATION_DENIAL,
+					GenericActions.GENERIC_DENY);
+			if(blockedActions.contains(action)) {
+				return true;
+			}
+			return super.isActionBlocked(performer, target, action);
+		}
+		@Override
 		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			List<GameCharacter> characters = new ArrayList<>();
 			
@@ -4141,10 +4153,28 @@ public class SexPosition {
 	static {
 		allSexPositions = new ArrayList<>();
 		
-		// Hard-coded status effects (all those up above):
-		
+		// Hard-coded status effects:
+		// SexPosition:
 		Field[] fields = SexPosition.class.getFields();
-		
+		for(Field f : fields){
+			if (AbstractSexPosition.class.isAssignableFrom(f.getType())) {
+				
+				AbstractSexPosition sexPosition;
+				
+				try {
+					sexPosition = ((AbstractSexPosition) f.get(null));
+
+					sexPositionToIdMap.put(sexPosition, f.getName());
+					idToSexPositionMap.put(f.getName(), sexPosition);
+					allSexPositions.add(sexPosition);
+					
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		// SexPositionUnique:
+		fields = SexPositionUnique.class.getFields();
 		for(Field f : fields){
 			if (AbstractSexPosition.class.isAssignableFrom(f.getType())) {
 				

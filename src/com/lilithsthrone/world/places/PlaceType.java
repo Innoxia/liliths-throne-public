@@ -616,6 +616,22 @@ public class PlaceType {
 			return DOMINION_STREET.getPopulation();
 		}
 	};
+
+	public static final AbstractPlaceType DOMINION_BANK = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Bank of Dominion",
+			"The Realm's only bank, the 'Bank of Dominion' has its main branch here in Dominion.",
+			"dominion/bankIcon",
+			PresetColour.BASE_GOLD,
+			DialogueManager.getDialogueFromId("innoxia_places_dominion_bank_generic_exterior"),
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the streets of Dominion") {
+		@Override
+		public List<Population> getPopulation() {
+			return DOMINION_PLAZA.getPopulation();
+		}
+	};
 	
 	public static final AbstractPlaceType DOMINION_AUNTS_HOME = new AbstractPlaceType(
 			WorldRegion.DOMINION,
@@ -2936,7 +2952,7 @@ public class PlaceType {
 			PresetColour.BASE_GOLD,
 			PixsPlayground.GYM_EXTERIOR,
 			Darkness.ALWAYS_LIGHT,
-			null, "in her gym"
+			null, "in the gym, 'Pix's Playground'"
 			).initWeatherImmune();
 
 	public static final AbstractPlaceType SHOPPING_ARCADE_ENTRANCE = new AbstractPlaceType(

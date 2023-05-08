@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaSpa;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -357,6 +358,26 @@ public class OccupantDialogue {
 					} else {
 						return new Response("Pettings", UtilText.parse(occupant(), "You've already given [npc.name] some pettings today."), null);
 					}
+					
+				} else if(index==8 && Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(PlaceType.LILAYA_HOME_SPA)!=null) {
+					if(!LilayaSpa.isGuestAbleToEquipSwimwear(occupant())) {
+						return new Response("Invite to spa",
+								UtilText.parse(occupant(), "As [npc.name] is unable to equip swimwear, [npc.she] cannot go to the spa..."
+									+ "<br/><i>Unsealing [npc.her] clothing would fix this...</i>"),
+								null);
+					}
+					return new Response("Invite to spa",
+							UtilText.parse(occupant(),
+									"Ask [npc.name] if [npc.she] would like to accompany you to the spa that you've had built here in Lilaya's mansion."
+									+ "<br/>[style.italicsBlueLight(You'll remain in the clothes you're currently wearing, so if you want to wear suitable swimwear, now's the time to change!)]"),
+							LilayaSpa.SPA_GUEST_INVITE) {
+						@Override
+						public void effects() {
+							applyReactionReset();
+							LilayaSpa.initGuestAtSpa(occupant());
+							Main.game.getDialogueFlags().setManagementCompanion(null);
+						}
+					};
 					
 				} else if (index == 10) {
 					if(hasJob()) {

@@ -13,7 +13,7 @@
 	<globalMapLocation>WORLD_MAP_FIELDS_CITY</globalMapLocation>
 	<standardPlace>innoxia_fields_elis_tavern_alley_tables</standardPlace>
 	<entryFromGlobalMapLocation>innoxia_fields_elis_tavern_alley_exit</entryFromGlobalMapLocation>
-	<teleportPermissions>BOTH</teleportPermissions>
+	<teleportPermissions>OUTGOING_ONLY</teleportPermissions>
 	<places>
 		<place colour="#ffffff">GENERIC_IMPASSABLE</place>
 		

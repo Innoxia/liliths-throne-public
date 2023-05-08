@@ -823,7 +823,7 @@ public class Subspecies {
 					new Value<>(PerkCategory.ARCANE, 1)),
 			PresetColour.RACE_IMP,
 			SubspeciesPreference.ONE_LOW,
-			"A more powerful form of imp, standing at over 3'6\" tall.",
+			"A more powerful form of imp, standing at over [style.sizes(107)] tall.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.TEN)),
 			Util.newHashMapOfValues(), null, Util.newArrayListOfValues(
@@ -5407,7 +5407,10 @@ public class Subspecies {
 		}
 		@Override
 		public String getSVGString(GameCharacter character) {
-			if(character!=null && !((Elemental)character).getSummoner().isElementalActive()) {
+			if(character!=null
+					&& character instanceof Elemental
+					&& ((Elemental)character).getSummoner() != null
+					&& !((Elemental)character).getSummoner().isElementalActive()) {
 				if(((Elemental)character).getPassiveForm()==null) {
 					String wispSVG = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(ELEMENTAL_WATER),
 									this.getColour(character),

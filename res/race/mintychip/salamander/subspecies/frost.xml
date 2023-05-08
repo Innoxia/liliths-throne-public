@@ -57,6 +57,7 @@
 	[#targetedBody.setTailType(TAIL_TYPE_mintychip_salamander_tailFrost)]
 	
 	#IF(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_scales, true).getPrimaryColour().isOneOf(
+		COLOUR_COVERING_RED_LIGHT,
 		COLOUR_COVERING_RED,
 		COLOUR_COVERING_PINK,
 		COLOUR_COVERING_RED_DARK,
@@ -73,6 +74,7 @@
 	#ENDIF
 
 	#IF(targetedBody.getCovering(BODY_COVERING_TYPE_mintychip_salamander_hair, true).getPrimaryColour().isOneOf(
+		COLOUR_COVERING_RED_LIGHT,
 		COLOUR_COVERING_RED,
 		COLOUR_COVERING_PINK,
 		COLOUR_COVERING_RED_DARK,

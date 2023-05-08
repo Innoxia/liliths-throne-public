@@ -830,7 +830,7 @@ public class CharacterCreation {
 					+ "<p>"
 						+ "Finally, you see his finger trace over your name, and with a smile, he steps to one side and beckons you forwards."
 						+ " [npcMale.speech(Have a good evening, "+(Main.game.getPlayer().getSurname().length()!=0
-								?(Main.game.getPlayer().isFeminine()?"Ms.":"Mr.")+" [pc.surname]"
+								?(Main.game.getPlayer().isFeminine()?"Miss":"Mr.")+" [pc.surname]"
 								:(Main.game.getPlayer().isFeminine()?"Miss":"Sir"))+".)]"
 					+ "</p>"
 					+ "<p>"

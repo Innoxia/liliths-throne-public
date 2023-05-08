@@ -1341,13 +1341,15 @@ public class CharacterUtils {
 			body.updateCoverings(true, true, true, true);
 		}
 		
-		// Set breast rows based on preferences:
-		if(Main.getProperties().multiBreasts==0) {
-			body.getBreast().setRows(null, 1);
-			
-		} else if(Main.getProperties().multiBreasts==1) {
-			if(body.getTorsoType()==TorsoType.HUMAN) {
+		if(linkedCharacter==null || !linkedCharacter.isUnique()) { // Unique characters should always have the default number of breast rows
+			// Set breast rows based on preferences:
+			if(Main.getProperties().multiBreasts==0 || Main.getProperties().multiBreasts==1) {
 				body.getBreast().setRows(null, 1);
+				
+			} else if(Main.getProperties().multiBreasts==2) {
+				if(body.getTorsoType()==TorsoType.HUMAN) {
+					body.getBreast().setRows(null, 1);
+				}
 			}
 		}
 
@@ -2608,6 +2610,12 @@ public class CharacterUtils {
 	public void addFetishes(GameCharacter character, AbstractFetish... exclusions) {
 		
 		List<AbstractFetish> availableFetishes = getAllowedFetishes(character);
+		// If player preference for a fetish is set to 'always', then always allow it to be added:
+		for(AbstractFetish fetish : Fetish.getAllFetishes()) {
+			if(Main.getProperties().fetishPreferencesMap.get(fetish)==FetishPreference.SIX_ALWAYS.getValue()) {
+				availableFetishes.add(fetish);
+			}
+		}
 		
 		// Remove existing fetishes and exclusions:
 		availableFetishes.removeAll(character.getFetishes(false));
@@ -2794,6 +2802,10 @@ public class CharacterUtils {
 
 	public void equipClothingFromOutfitType(GameCharacter character, OutfitType outfitType, List<EquipClothingSetting> settings) {
 		equipClothingFromOutfits(character, OutfitType.getAllOutfits(), outfitType, settings);
+	}
+
+	public void equipClothingFromOutfitType(GameCharacter character, OutfitType outfitType) {
+		equipClothingFromOutfits(character, OutfitType.getAllOutfits(), outfitType, EquipClothingSetting.getAllClothingSettings());
 	}
 
 	private void equipClothingFromOutfits(GameCharacter character, List<AbstractOutfit> availableOutfits, OutfitType outfitType, List<EquipClothingSetting> settings) {

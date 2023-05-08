@@ -129,12 +129,16 @@ public class RatWarrensCaptive extends NPC {
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
 		PerkManager.initialisePerks(this,
+				autoSelectPerks,
 				Util.newArrayListOfValues(
 						Perk.AHEGAO),
 				Util.newHashMapOfValues(
 						new Value<>(PerkCategory.PHYSICAL, 0),
 						new Value<>(PerkCategory.LUST, 1),
 						new Value<>(PerkCategory.ARCANE, 0)));
+		if(this.isSlave() && this.getOwner().isPlayer()) {
+			this.setHistory(Occupation.NPC_SLAVE);
+		}
 	}
 	
 	@Override
@@ -288,7 +292,7 @@ public class RatWarrensCaptive extends NPC {
 	}
 	
 	@Override
-	public void hourlyUpdate() {
+	public void hourlyUpdate(int hour) {
 		if(this.getHomeWorldLocation()==WorldType.RAT_WARRENS) {
 			// If the player is not a captive, and Murk has not been enslaved, then keep rolling for sex effects:
 			if(!Main.game.getPlayer().isCaptive() && !Main.game.getNpc(Murk.class).isSlave()) {

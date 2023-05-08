@@ -93,7 +93,7 @@
 	<p>
 		[penelope.speech(That's right,)] she says, [penelope.speech(I'd always wanted to have my own spa, and thanks to the money I'd made from being a top model, I was able to purchase this building and have it converted into 'Woolly Heaven'. I'd actually always planned to open this place in the middle of Dominion, but I felt like I had to leave the city to get away from my twin sister, Pix. I don't know if you've ever had the pleasure of meeting her; she runs a gym in Dominion's Shopping Arcade.)]
 	</p>
-	#IF(flags.hasFlag(FLAG_gymIntroduced))
+	#IF(flags.hasFlag(FLAG_innoxia_pix_introduced))
 		<p>
 			Having visited Pix's gym, you tell Penelope that you have indeed met her, but you don't recall her mentioning that she had a twin sister.
 		</p>

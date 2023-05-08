@@ -7324,13 +7324,13 @@ public class GenericOrgasms {
 				return "Encourage deepthroat";
 
 			} else if(Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, SexAreaOrifice.BREAST).contains(getCharacterBeingFucked())) {
-				return "Encourage cum on [npc.breasts]";
+				return UtilText.parse(getCharacterBeingFucked(), "Encourage cum on [npc.breasts]");
 				
 			} else if(Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, SexAreaPenetration.FOOT).contains(getCharacterBeingFucked())) {
-				return "Encourage cum on [npc.feet]";
+				return UtilText.parse(getCharacterBeingFucked(), "Encourage cum on [npc.feet]");
 				
 			} else if(Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, SexAreaOrifice.ARMPITS).contains(getCharacterBeingFucked())) {
-				return "Encourage cum on [npc.armpit]";
+				return UtilText.parse(getCharacterBeingFucked(), "Encourage cum on [npc.armpit]");
 				
 			} else {
 				return "Encourage creampie";

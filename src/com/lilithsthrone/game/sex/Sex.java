@@ -34,6 +34,7 @@ import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
@@ -386,9 +387,11 @@ public class Sex {
 		creampieLockedBy = null;
 		
 		charactersBannedFromRapePlay = new HashSet<>();
-		for(GameCharacter character : sexManager.getSubmissives().keySet()) { // All characters start banned from rape-play, as otherwise it's very jarring to start consensual sex and the partner is immediately resisting with no explanation
-			if(sexManager.isRapePlayBannedAtStart(character)) {
-				charactersBannedFromRapePlay.add(character);
+		if(!Main.getProperties().hasValue(PropertyValue.rapePlayAtSexStart)) {
+			for(GameCharacter character : sexManager.getSubmissives().keySet()) { // All characters start banned from rape-play, as otherwise it's very jarring to start consensual sex and the partner is immediately resisting with no explanation
+				if(sexManager.isRapePlayBannedAtStart(character)) {
+					charactersBannedFromRapePlay.add(character);
+				}
 			}
 		}
 		
@@ -3042,6 +3045,8 @@ public class Sex {
 		StringBuilder dirtiedSlotsSB = new StringBuilder();
 		List<InventorySlot> slotsEncountered = new ArrayList<>();
 		List<AbstractClothing> clothingEncountered = new ArrayList<>();
+		boolean nonClothingAreaDirtied = false;
+		
 		if(applyFormatting) {
 			dirtiedSlotsSB.append("<p style='text-align:center;'>[style.italicsCum(");
 		}
@@ -3057,9 +3062,7 @@ public class Sex {
 						cumTarget.addDirtySlot(slot);
 						slotsDirtied.add(slot.getNameOfAssociatedPart(cumTarget));
 					}
-					if(
-//							!cumTarget.isCoverableAreaExposed(area) && 
-							!dirtyClothing.isEmpty()) {
+					if(!dirtyClothing.isEmpty()) {
 						for(AbstractClothing c : dirtyClothing) {
 							if(!clothingEncountered.contains(c)) {
 								c.setDirty(cumTarget, true);
@@ -3071,12 +3074,17 @@ public class Sex {
 					} else if(slot!=InventorySlot.TORSO_OVER) { // Do not dirty over-torso slot, as it doesn't really make much sense...
 						cumTarget.addDirtySlot(slot);
 						slotsDirtied.add(slot.getNameOfAssociatedPart(cumTarget));
+						nonClothingAreaDirtied = true;
 					}
 					slotsEncountered.add(slot);
 				}
 			}
 		}
 		dirtiedSlotsSB.append(getDirtyingAreasString(cumProvider, cumTarget, slotsDirtied, clothingDirtied));
+		if(Main.game.isMuskContentEnabled() && nonClothingAreaDirtied && cumProvider.hasCumModifier(FluidModifier.MUSKY)) {
+			cumTarget.setMuskMarker(cumProvider.getId());
+			dirtiedSlotsSB.append("<br/>[npc2.NameIsFull] marked by the musky scent of [npc.namePos] cum!");
+		}
 		if(applyFormatting) {
 			dirtiedSlotsSB.append(")]</p>");
 		}
@@ -3096,6 +3104,7 @@ public class Sex {
 		StringBuilder dirtiedSlotsSB = new StringBuilder();
 		List<InventorySlot> slotsEncountered = new ArrayList<>();
 		List<AbstractClothing> clothingEncountered = new ArrayList<>();
+		boolean nonClothingAreaDirtied = false;
 		
 		for(InventorySlot slot : squirterSlots) {
 			if(slot.isPhysicallyAvailable(squirtTarget) && !slotsEncountered.contains(slot)) {
@@ -3117,14 +3126,20 @@ public class Sex {
 							clothingEncountered.add(c);
 						}
 					}
+					
 				} else {
 					squirtTarget.addDirtySlot(slot);
 					slotsDirtied.add(slot.getNameOfAssociatedPart(squirtTarget));
+					nonClothingAreaDirtied = true;
 				}
 				slotsEncountered.add(slot);
 			}
 		}
 		dirtiedSlotsSB.append(getDirtyingAreasString(squirtProvider, squirtTarget, slotsDirtied, clothingDirtied));
+		if(Main.game.isMuskContentEnabled() && nonClothingAreaDirtied && squirtProvider.hasCumModifier(FluidModifier.MUSKY)) {
+			squirtTarget.setMuskMarker(squirtProvider.getId());
+			dirtiedSlotsSB.append("<br/>[npc2.NameIsFull] marked by the musky scent of [npc.namePos] cum!");
+		}
 		return UtilText.parse(squirtProvider, squirtTarget, dirtiedSlotsSB.toString());
 	}
 	

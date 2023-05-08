@@ -97,8 +97,8 @@ public class ItemType {
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
 					ItemTag.BAT_CAVERNS_SPAWN,
 					ItemTag.MISC_TF_ITEM,
-					ItemTag.SOLD_BY_RALPH)) {
-
+					ItemTag.SOLD_BY_RALPH,
+					ItemTag.DRINK)) {
 		@Override
 		public boolean isFetishGiving() {
 			return true;
@@ -143,7 +143,7 @@ public class ItemType {
 			null,
 			Rarity.EPIC,
 			null,
-			null) {
+			Util.newArrayListOfValues(ItemTag.DRINK)) {
 		@Override
 		public boolean isFetishGiving() {
 			return true;
@@ -180,7 +180,8 @@ public class ItemType {
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
 					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.SOLD_BY_RALPH)) {
+					ItemTag.SOLD_BY_RALPH,
+					ItemTag.DRINK_QUALITY)) {
 		@Override
 		public String getUseName() {
 			return "drink";
@@ -217,7 +218,7 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			null) {
+			Util.newArrayListOfValues(ItemTag.DRINK_QUALITY)) {
 		@Override
 		public String getUseName() {
 			return "drink";
@@ -420,7 +421,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BIMBO_LOLLIPOP)),
 			Util.newArrayListOfValues(
 					ItemTag.RACIAL_TF_ITEM,
-					ItemTag.NOT_FOR_SALE)) {
+					ItemTag.NOT_FOR_SALE,
+					ItemTag.FOOD)) {
 
 		
 		@Override
@@ -465,7 +467,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.NYMPHO_LOLLIPOP)),
 			Util.newArrayListOfValues(
 					ItemTag.RACIAL_TF_ITEM,
-					ItemTag.NOT_FOR_SALE)) {
+					ItemTag.NOT_FOR_SALE,
+					ItemTag.FOOD)) {
 
 		
 		@Override
@@ -1067,7 +1070,8 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.SOLD_BY_RALPH)) {
+					ItemTag.SOLD_BY_RALPH,
+					ItemTag.DRINK)) {
 
 
 		@Override
@@ -1101,7 +1105,8 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.SOLD_BY_RALPH)) {
+					ItemTag.SOLD_BY_RALPH,
+					ItemTag.DRINK)) {
 		@Override
 		public String getUseName() {
 			return "drink";
@@ -1337,7 +1342,9 @@ public class ItemType {
 			PresetColour.BASE_YELLOW,
 			Rarity.UNCOMMON,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.GIFT_CHOCOLATES)),
-			Util.newArrayListOfValues(ItemTag.GIFT)) {
+			Util.newArrayListOfValues(
+					ItemTag.GIFT,
+					ItemTag.FOOD_QUALITY)) {
 
 
 		@Override
@@ -1467,9 +1474,7 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.EGGPLANT)),
-			null) {
-
-		
+			Util.newArrayListOfValues(ItemTag.FOOD)) {
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1509,7 +1514,7 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			null) {
+			Util.newArrayListOfValues(ItemTag.DRINK)) {
 		@Override
 		public boolean isTransformative() {
 			return true;

@@ -76,28 +76,28 @@
 		</itemTags>
 	</coreAttributes>
 
-  <replacementText type="REMOVE_OR_EQUIP">
-    <self>
-      <![CDATA[[npc.Name] [npc.verb(step)] into the trousers, before pulling them up and fastening the button at [npc.her] waist.]]>
-    </self>
-    <other>
-      <![CDATA[[npc.Name] [npc.verb(get)] [npc2.name] to step into the trousers, before pulling them up and fastening the button at [npc2.her] waist.]]>
-    </other>
-    <otherRough>
-      <![CDATA[[npc.Name] [npc.verb(force)] [npc2.name] to step into the trousers, before yanking them up and fastening the button at [npc2.her] waist.]]>
-    </otherRough>
-  </replacementText>
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(step)] into the trousers, before pulling them up and fastening the button at [npc.her] waist.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(get)] [npc2.name] to step into the trousers, before pulling them up and fastening the button at [npc2.her] waist.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(force)] [npc2.name] to step into the trousers, before yanking them up and fastening the button at [npc2.her] waist.]]>
+		</otherRough>
+	</replacementText>
 
-  <displacementText type="REMOVE_OR_EQUIP">
-    <self>
-      <![CDATA[[npc.Name] [npc.verb(unfasten)] the button on [npc.her] trousers, before slipping them off.]]>
-    </self>
-    <other>
-      <![CDATA[[npc.Name] [npc.verb(unfasten)] the button on [npc2.namePos] trousers, before slipping them off.]]>
-    </other>
-    <otherRough>
-      <![CDATA[[npc.Name] [npc.verb(unfasten)] the button on [npc2.namePos] trousers, before yanking them off.]]>
-    </otherRough>
-  </displacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(unfasten)] the button on [npc.her] trousers, before slipping them off.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(unfasten)] the button on [npc2.namePos] trousers, before slipping them off.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(unfasten)] the button on [npc2.namePos] trousers, before yanking them off.]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

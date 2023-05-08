@@ -405,6 +405,23 @@
 						I have nothing more to say to you, hacker
 					</availabilityText>
 				</sticker>
+				<sticker id="name_sterope" priority="12" defaultSticker="false" zLayer="2" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BROWN">
+					<stickerName><![CDATA[Sterope]]></stickerName>
+					<namePrefix priority="1"><![CDATA[Sterope's ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="2"><![CDATA[<i> This one in particular belongs to Sterope.</i>]]></descriptionModification>
+					<imageName>enfdjacket_st_name_sterope.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+						#IF(true)
+							You can't use Sterope's name plate!
+						#ENDIF
+					]]></unavailabilityText>
+					<availabilityText>
+						UwU
+					</availabilityText>
+				</sticker>
 			</category>
 			<category id="ribbon" priority="3">
 				<categoryName><![CDATA[Ribbon Rack]]></categoryName>
@@ -518,6 +535,23 @@
 					]]></unavailabilityText>
 					<availabilityText>
 						I have nothing more to say to you, hacker
+					</availabilityText>
+				</sticker>
+				<sticker id="ribbon_nysa" priority="7" defaultSticker="false" zLayer="3" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BROWN">
+					<stickerName><![CDATA[Sterope]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>enfdjacket_st_ribbon_sterope.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+						#IF(true)
+							You can't use Sterope's ribbons, you didn't earn them!
+						#ENDIF
+					]]></unavailabilityText>
+					<availabilityText>
+						OwO
 					</availabilityText>
 				</sticker>
 			</category>

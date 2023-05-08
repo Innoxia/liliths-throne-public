@@ -70,6 +70,7 @@ public class LilayaHomeGeneric {
 					OccupantDialogue.initDialogue((NPC) slave, false, false);
 				}
 				if(slave.isSleepingAtHour(Main.game.getHourOfDay())) {
+					Main.game.appendToTextEndStringBuilder("<p style='text-align:center;'>[style.italicsMinorBad([npc.Name] doesn't appreciate being woken up...)]</p>");
 					Main.game.appendToTextEndStringBuilder(slave.incrementAffection(Main.game.getPlayer(), -1));
 				}
 			}
