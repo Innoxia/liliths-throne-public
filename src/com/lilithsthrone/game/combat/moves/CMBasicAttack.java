@@ -491,7 +491,7 @@ public class CMBasicAttack {
     	@Override
         public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
         	float weight = super.getWeight(source, enemies, allies);
-        	if(!source.hasPerkAnywhereInTree(Perk.UNARMED_TRAINING)
+        	if(!source.hasPerkAnywhereInTree(Perk.MARTIAL_ARTIST)
         			&& source.getEquippedMoves().contains(CombatMove.getCombatMoveFromId("strike"))
         			&& source.getMainWeapon(0)!=null
         			&& source.getOffhandWeapon(0)==null) {

@@ -2724,7 +2724,7 @@ public class OptionsDialogue {
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("SEXUAL_UDDERS",
 					PresetColour.BASE_ORANGE_LIGHT,
-					"Crotch-boob & Udder Content",
+					"Crotch-boob & udder content",
 					"This enables crotch-boob & udder-related sex actions and allows crotch-boob & udder transformations to be inflicted upon the player.",
 					Main.getProperties().hasValue(PropertyValue.udderContent)));
 			
@@ -2736,19 +2736,19 @@ public class OptionsDialogue {
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("NIPPLE_PEN",
 					PresetColour.BASE_PINK_DEEP,
-					"Nipple Penetrations",
+					"Nipple penetrations",
 					"This enables nipple-penetration transformations and sex actions.",
 					Main.getProperties().hasValue(PropertyValue.nipplePenContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("ANAL",
 					PresetColour.BASE_ORANGE,
-					"Anal Content",
+					"Anal content",
 					"When disabled, removes all anal-related actions from being available during sex.",
 					Main.getProperties().hasValue(PropertyValue.analContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("GAPE",
 					PresetColour.BASE_PINK_DEEP,
-					"Gape Content",
+					"Gape content",
 					"When disabled, changes descriptions of gaping orifices to simply be 'loose', and also hides any special gape-related content.",
 					Main.getProperties().hasValue(PropertyValue.gapeContent)));
 			
@@ -2767,15 +2767,21 @@ public class OptionsDialogue {
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("FOOT",
 					PresetColour.BASE_TAN,
-					"Foot Content",
+					"Foot content",
 					"When disabled, removes all foot-related actions from being available during sex.",
 					Main.getProperties().hasValue(PropertyValue.footContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("ARMPIT",
 					PresetColour.BASE_PINK_LIGHT,
-					"Armpit Content",
+					"Armpit content",
 					"When disabled, removes all armpit-related actions from being available during sex.",
 					Main.getProperties().hasValue(PropertyValue.armpitContent)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv("MUSK",
+					PresetColour.BASE_YELLOW_LIGHT,
+					"Musk content",
+					"When disabled, some scenes will either have reduced musk content or be omitted entirely, and the 'marked by musk' status effect will be disabled.",
+					Main.getProperties().hasValue(PropertyValue.muskContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("FURRY_TAIL_PENETRATION",
 					PresetColour.BASE_MAGENTA,
@@ -2785,7 +2791,7 @@ public class OptionsDialogue {
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("INFLATION_CONTENT",
 					PresetColour.CUM,
-					"Cum Inflation",
+					"Cum inflation",
 					"This enables cum inflation mechanics.",
 					Main.getProperties().hasValue(PropertyValue.inflationContent)));
 			
@@ -2800,6 +2806,12 @@ public class OptionsDialogue {
 					"Automatic stripping",
 					"When enabled, all non-spectating characters which you are allowed to strip during sex (including yourself) will start sex naked.",
 					Main.getProperties().hasValue(PropertyValue.autoSexStrip)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv("RAPE_PLAY_BY_DEFAULT",
+					PresetColour.BASE_CRIMSON,
+					"Rape-play allowed by default",
+					"When enabled, submissive characters in sex who have the 'unwilling fuck-toy' fetish will be able to engage in rape-play without first being given permission to do so.",
+					Main.getProperties().hasValue(PropertyValue.rapePlayAtSexStart)));
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -2862,17 +2874,22 @@ public class OptionsDialogue {
 			
 			
 			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.NIPPLES, "Multi-breasts", "Choose whether randomly-generated furry characters should be given multiple rows of breasts."));
-			for (int i = 2; i>=0; i--) {
+			int[] buttonOrder = new int[] {2, 1, 0, 3}; // Order buttons in this manner so that they appear to be a little more logical
+			for (int i : buttonOrder) {
 				UtilText.nodeContentSB.append("<div id='MULTI_BREAST_PREFERENCE_"+i+"' class='normal-button"+(Main.getProperties().multiBreasts == i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
 						+(Main.getProperties().multiBreasts == i
-						?(i == 0?"[style.boldBad(":"[style.boldGood(")
-						:"[style.colourDisabled(")
+							?(i == 0
+								?"[style.boldTerrible("
+								:(i == 1
+									?"[style.boldBad("
+									:"[style.boldGood("))
+							:"[style.colourDisabled(")
 						+com.lilithsthrone.game.Properties.multiBreastsLabels[i]+")]</div>");
 			}
 			UtilText.nodeContentSB.append("</div></div>");
 			
 			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.NIPPLES_CROTCH, "Crotch-boobs & Udders", "Choose whether randomly-generated taurs and furry characters should be given udders or crotch-boobs."));
-			for (int i = 2; i>=0; i--) {
+			for (int i = com.lilithsthrone.game.Properties.uddersLabels.length-1; i>=0; i--) {
 				UtilText.nodeContentSB.append("<div id='UDDER_PREFERENCE_"+i+"' class='normal-button"+(Main.getProperties().getUddersLevel() == i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
 						+(Main.getProperties().getUddersLevel() == i
 						?(i == 0?"[style.boldBad(":"[style.boldGood(")

@@ -1975,6 +1975,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		this.getEffects().removeIf(e -> (e.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE || e.getPrimaryModifier() == TFModifier.CLOTHING_MAJOR_ATTRIBUTE) && e.getPotency().isNegative());
 	}
 
+	public void removeServitudeEnchantment() {
+		this.getEffects().removeIf(e -> (e.getSecondaryModifier() == TFModifier.CLOTHING_SERVITUDE));
+	}
+	
 	public boolean isSealed() {
 		if(this.isUnlocked()) {
 			return false;

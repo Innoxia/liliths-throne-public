@@ -52,7 +52,7 @@ public class Scar implements XMLSaving {
 	
 	public static Scar loadFromXML(Element parentElement, Document doc) {
 		try {
-			return new Scar(ScarType.valueOf(parentElement.getAttribute("type")), Boolean.valueOf(parentElement.getAttribute("plural")));
+			return new Scar(ScarType.getScarTypeFromString(parentElement.getAttribute("type")), Boolean.valueOf(parentElement.getAttribute("plural")));
 			
 		} catch(Exception ex) {
 			System.err.println("Warning: An instance of Scar was unable to be imported!");

@@ -1,115 +1,83 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 
 <clothing>
-  <coreAttributes>
-    <clothingAuthorTag><![CDATA[Small engraved lettering informs you that this piercing was made by 'Norin'.]]></clothingAuthorTag>
-    <value>500</value> <!--10 flames = £1 ~ $1.5-->
-    <determiner><![CDATA[a]]></determiner>
-    <name><![CDATA[pentagram piercing]]></name>
-    <namePlural pluralByDefault="false"><![CDATA[pentagram piercings]]></namePlural>
-    <description><![CDATA[A navel piercing with a pentagram at its base.]]></description>
-    
-    <physicalResistance>0</physicalResistance>
-    <femininity>ANDROGYNOUS</femininity> <!-- FEMININE, MASCULINE ANDROGYNOUS -->
-    <slot>PIERCING_STOMACH</slot> <!-- slot values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
-    <rarity>COMMON</rarity> <!-- rarity values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
-    
-    <imageName>piercing_pentagram_navel.svg</imageName>
-    
-    <clothingSet/> <!-- No way to define custom sets yet -->
-    <imageEquippedName/> <!-- The file path for this clothing's image while equipped -->
-    <effects/> <!-- Default enchantments -->
+	<coreAttributes>
+		<clothingAuthorTag><![CDATA[Small engraved lettering informs you that this piercing was made by 'Norin'.]]></clothingAuthorTag>
+		<value>500</value> <!--10 flames = £1 ~ $1.5-->
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[pentagram piercing]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[pentagram piercings]]></namePlural>
+		<description><![CDATA[A navel piercing with a pentagram at its base.]]></description>
+		
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity> <!-- FEMININE, MASCULINE ANDROGYNOUS -->
+		<slot>PIERCING_STOMACH</slot> <!-- slot values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
+		<rarity>COMMON</rarity> <!-- rarity values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
+		
+		<imageName>piercing_pentagram_navel.svg</imageName>
+		
+		<clothingSet/> <!-- No way to define custom sets yet -->
+		<imageEquippedName/> <!-- The file path for this clothing's image while equipped -->
+		<effects/> <!-- Default enchantments -->
 
-    <blockedPartsList>
-      <blockedParts>
-        
-        <displacementType>REMOVE_OR_EQUIP</displacementType> <!-- displacementType values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
-        
-        <clothingAccessRequired> <!-- clothingAccess values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingAccess.java -->
-          <clothingAccess>WAIST</clothingAccess>
-        </clothingAccessRequired>
-        
-        <blockedBodyParts/> <!--bodyPart values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/body/CoverableArea.java -->
-        <clothingAccessBlocked/> <!-- clothingAccess -->
-        <concealedSlots/> <!-- slot -->
-        
-      </blockedParts>
-    </blockedPartsList>
-    
-    <incompatibleSlots/> <!-- slot(s) not compatible -->
+		<blockedPartsList>
+		  <blockedParts>
+			
+			<displacementType>REMOVE_OR_EQUIP</displacementType> <!-- displacementType values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
+			
+			<clothingAccessRequired> <!-- clothingAccess values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingAccess.java -->
+			  <clothingAccess>WAIST</clothingAccess>
+			</clothingAccessRequired>
+			
+			<blockedBodyParts/> <!--bodyPart values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/body/CoverableArea.java -->
+			<clothingAccessBlocked/> <!-- clothingAccess -->
+			<concealedSlots/> <!-- slot -->
+			
+		  </blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> <!-- slot(s) not compatible -->
 
-    <!-- colourList presets: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
-    <!-- Colour values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->
-    <primaryColours>
-      <colour>CLOTHING_BLACK_STEEL</colour>
-    </primaryColours>
-    <primaryColoursDye values="ALL_METAL"/>
-    <secondaryColours>
-      <colour>CLOTHING_RED_DARK</colour>
-    </secondaryColours>
-    <secondaryColoursDye values="ALL"/>
-    <tertiaryColours/>
-    <tertiaryColoursDye/>
-    
-    <itemTags> <!-- tag values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
-      <tag>SOLD_BY_KATE</tag>
-    </itemTags>
-    
-  </coreAttributes>
+		<!-- colourList presets: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
+		<!-- Colour values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->
+		<primaryColours>
+		  <colour>CLOTHING_BLACK_STEEL</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL_METAL"/>
+		<secondaryColours>
+		  <colour>CLOTHING_RED_DARK</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> <!-- tag values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
+		  <tag>SOLD_BY_KATE</tag>
+		</itemTags>
+		
+	</coreAttributes>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slide)] the pentagram piercing into [npc.her] navel.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(slide)] the pentagram piercing into [npc2.namePos] navel.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(slide)] the pentagram piercing into [npc2.namePos] navel.]]>
+		</otherRough>
+	</replacementText>
 
-  <displacementText type="REMOVE_OR_EQUIP">
-    <playerSelf>
-      <![CDATA[You slide out the pentagram piercing.]]>
-    </playerSelf>
-    <playerNPC>
-      <![CDATA[You slide out [npc.name]'s pentagram piercing.]]>
-    </playerNPC>
-    <playerNPCRough>
-      <![CDATA[You give [npc.name]'s pentagram piercing a tug before sliding it out.]]>
-    </playerNPCRough>
-    <NPCSelf>
-      <![CDATA[[npc.Name] slides out [npc.herHis] pentagram piercing.]]>
-    </NPCSelf>
-    <NPCPlayer>
-      <![CDATA[[npc.Name] slides the pentagram piercing from your nipples.]]>
-    </NPCPlayer>
-    <NPCPlayerRough>
-      <![CDATA[[npc.Name] gives your pentagram piercing a tug before sliding it out.]]>
-    </NPCPlayerRough>
-    <NPCOtherNPC>
-      <![CDATA[[npc1.Name] slides out [npc2.name]'s pentagram piercing.]]>
-    </NPCOtherNPC>
-    <NPCOtherNPCRough>
-      <![CDATA[[npc1.Name] gives [npc2.name]'s pentagram piercing a tug before sliding it out.]]>
-    </NPCOtherNPCRough>
-  </displacementText>
-
-  <replacementText type="REMOVE_OR_EQUIP">
-    <playerSelf>
-      <![CDATA[You slide the pentagram piercing into place.]]>
-    </playerSelf>
-    <playerNPC>
-      <![CDATA[You slide the pentagram piercing into [npc.name]'s navel.]]>
-    </playerNPC>
-    <playerNPCRough>
-      <![CDATA[You roughly push the pentagram piercing into [npc.name]'s navel.]]>
-    </playerNPCRough>
-    <NPCSelf>
-      <![CDATA[[npc.Name] slides the pentagram piercing into place.]]>
-    </NPCSelf>
-    <NPCPlayer>
-      <![CDATA[[npc.Name] slides the pentagram piercing into your navel.]]>
-    </NPCPlayer>
-    <NPCPlayerRough>
-      <![CDATA[[npc.Name] roughly pushes the pentagram piercing into your navel.]]>
-    </NPCPlayerRough>
-    <NPCOtherNPC>
-      <![CDATA[[npc1.Name] slides the pentagram piercing into [npc2.Name]'s navel.]]>
-    </NPCOtherNPC>
-    <NPCOtherNPCRough>
-      <![CDATA[[npc1.Name] roughly pushes the pentagram piercing into [npc2.Name]'s navel.]]>
-    </NPCOtherNPCRough>
-  </replacementText>
-  
-  
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slide)] [npc.her] pentagram piercing out of [npc.her] navel.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(slide)] [npc2.namePos] pentagram piercing out of [npc2.her] navel.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] pentagram piercing out of [npc2.her] navel.]]>
+		</otherRough>
+	</displacementText>
 </clothing>

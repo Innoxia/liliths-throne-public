@@ -86,7 +86,18 @@
 				e.g. The status effect ID for Amazonian's Secret is 'innoxia_amazons_secret' (from res/statusEffects/innoxia/amazons_secret.xml)
 				Hard coded effects are here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/effects/StatusEffect.java -->
 		<statusEffects>
-			<effect seconds="86400">VIXENS_VIRILITY</effect> <!-- 'seconds' defines how long the status effect should be applied for. -->
+			<!-- You can define multiple 'effect' elements within this section.
+				'seconds' defines how long the status effect should be applied for.
+				'conditional' defines what conditions must be met for the effect to be applied.
+					You can omit 'conditional' entirely for it to always be true. 
+					Conditional statements are run through the parsing engine with 'npc' as the character who's using this item on the target, and 'npc2' as the character who's being targeted by this item.
+					Statements should be in the format: "[#conditional_expressions]"
+					e.g.
+						conditional="[#npc2.isFeminine()]" - This will only apply the effect if the target is feminine.
+						conditional="[#npc.getHeightValue() > npc2.getHeightValue()]" - This will only apply the effect if the user is taller than the target.
+						conditional="[#!npc.getNocturnality().isActiveAtDay() && game.isDayTime()]" - This will only apply if the user is nocturnal and it's currently daytime.
+						-->
+			<effect seconds="86400" conditional="[#true]">VIXENS_VIRILITY</effect>
 		</statusEffects>
 		
 		<!-- You can use this section to describe any extra features of this item.

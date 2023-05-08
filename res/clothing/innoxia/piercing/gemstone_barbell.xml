@@ -52,52 +52,52 @@
 		</itemTags>
 	</coreAttributes>
 
-  <replacementText slot="PIERCING_STOMACH" type="REMOVE_OR_EQUIP">
-    <self>
-      <![CDATA[[npc.Name] [npc.verb(slide)] the gemstone barbell into [npc.her] navel piercing.]]>
-    </self>
-    <other>
-      <![CDATA[[npc.Name] [npc.verb(slide)] the gemstone barbell into [npc2.namePos] navel piercing.]]>
-    </other>
-    <otherRough>
-      <![CDATA[[npc.Name] roughly [npc.verb(slide)] the gemstone barbell into [npc2.namePos] navel piercing.]]>
-    </otherRough>
-  </replacementText>
+	<replacementText slot="PIERCING_STOMACH" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slide)] the gemstone barbell into [npc.her] navel piercing.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(slide)] the gemstone barbell into [npc2.namePos] navel piercing.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(slide)] the gemstone barbell into [npc2.namePos] navel piercing.]]>
+		</otherRough>
+	</replacementText>
 
-  <displacementText slot="PIERCING_STOMACH" type="REMOVE_OR_EQUIP">
-    <self>
-      <![CDATA[[npc.Name] [npc.verb(slide)] [npc.her] gemstone barbell out of [npc.her] navel piercing.]]>
-    </self>
-    <other>
-      <![CDATA[[npc.Name] [npc.verb(slide)] [npc2.namePos] gemstone barbell out of [npc2.her] navel piercing.]]>
-    </other>
-    <otherRough>
-      <![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] gemstone barbell out of [npc2.her] navel piercing.]]>
-    </otherRough>
-  </displacementText>
+	<displacementText slot="PIERCING_STOMACH" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slide)] [npc.her] gemstone barbell out of [npc.her] navel piercing.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(slide)] [npc2.namePos] gemstone barbell out of [npc2.her] navel piercing.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] gemstone barbell out of [npc2.her] navel piercing.]]>
+		</otherRough>
+	</displacementText>
 
-  <replacementText slot="PIERCING_VAGINA" type="REMOVE_OR_EQUIP">
-    <self>
-      <![CDATA[[npc.Name] [npc.verb(slide)] the gemstone barbell into [npc.her] vaginal piercing.]]>
-    </self>
-    <other>
-      <![CDATA[[npc.Name] [npc.verb(slide)] the gemstone barbell into [npc2.namePos] vaginal piercing.]]>
-    </other>
-    <otherRough>
-      <![CDATA[[npc.Name] roughly [npc.verb(slide)] the gemstone barbell into [npc2.namePos] vaginal piercing.]]>
-    </otherRough>
-  </replacementText>
+	<replacementText slot="PIERCING_VAGINA" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slide)] the gemstone barbell into [npc.her] vaginal piercing.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(slide)] the gemstone barbell into [npc2.namePos] vaginal piercing.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(slide)] the gemstone barbell into [npc2.namePos] vaginal piercing.]]>
+		</otherRough>
+	</replacementText>
 
-  <displacementText slot="PIERCING_VAGINA" type="REMOVE_OR_EQUIP">
-    <self>
-      <![CDATA[[npc.Name] [npc.verb(slide)] [npc.her] gemstone barbell out of [npc.her] vaginal piercing.]]>
-    </self>
-    <other>
-      <![CDATA[[npc.Name] [npc.verb(slide)] [npc2.namePos] gemstone barbell out of [npc2.her] vaginal piercing.]]>
-    </other>
-    <otherRough>
-      <![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] gemstone barbell out of [npc2.her] vaginal piercing.]]>
-    </otherRough>
-  </displacementText>
+	<displacementText slot="PIERCING_VAGINA" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slide)] [npc.her] gemstone barbell out of [npc.her] vaginal piercing.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(slide)] [npc2.namePos] gemstone barbell out of [npc2.her] vaginal piercing.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] gemstone barbell out of [npc2.her] vaginal piercing.]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

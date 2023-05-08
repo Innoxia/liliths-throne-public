@@ -45,7 +45,7 @@ public enum PenetrationModifier {
 	PREHENSILE("prehensile", ""),
 	
 	OVIPOSITOR("ovipositor",
-			"Grants ability to lay eggs in the currently-penetrated orifice at the moment of orgasm. (Requires an egg-laying vagina and for the eggs to already be fertilised. Eggs cannot be laid in an already-pregnant target's vagina.)",
+			"Grants ability to lay eggs in the currently-penetrated orifice. (Requires the eggs to already be fertilised. Eggs cannot be laid in an already-pregnant target's vagina.)",
 			Util.newArrayListOfValues(
 					SexAreaPenetration.PENIS,
 					SexAreaPenetration.CLIT));

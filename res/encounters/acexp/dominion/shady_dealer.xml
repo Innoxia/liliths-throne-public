@@ -4,7 +4,7 @@
     <additionalPlaceTypeTriggers>
         <placeType>DOMINION_BACK_ALLEYS</placeType>
     </additionalPlaceTypeTriggers>
-    <!--Not during loading, only once per day, no one present and player does not look like an Enforcer-->
+    <!-- Not during loading, only once per day, no one present and player does not look like an Enforcer -->
     <possibleEncounters>
         <encounter>
             <name><![CDATA[Shady Dealer]]></name>
@@ -12,7 +12,7 @@
    				#IF(!game.isStarted() || flags.hasFlag(FLAG_acexp_shady_dealer_daily_interaction))
 	        		0
         		#ELSE
-        		    #IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM || game.getNonCompanionCharactersPresent().length > 0 || game.getPlayer().hasAnyEnforcerStatusEffect())
+        		    #IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM || game.getNonCompanionCharactersPresent().size() > 0 || pc.hasAnyEnforcerStatusEffect())
         		        0
         		    #ELSE
                         5

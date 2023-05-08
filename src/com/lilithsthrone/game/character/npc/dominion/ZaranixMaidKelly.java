@@ -257,7 +257,7 @@ public class ZaranixMaidKelly extends NPC {
 	}
 	
 	@Override
-	public void hourlyUpdate() {
+	public void hourlyUpdate(int hour) {
 		if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
 			this.moveToAdjacentMatchingCellType(true, PlaceType.ZARANIX_FF_CORRIDOR, PlaceType.ZARANIX_FF_STAIRS, PlaceType.ZARANIX_FF_MAID);
 		}

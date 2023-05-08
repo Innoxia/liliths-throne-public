@@ -49,7 +49,7 @@
 		]]></applyEffects>
 		
 		<itemTags>
-			<tag>FOOD</tag>
+			<tag>FOOD_POOR</tag>
 			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
 			<tag>ELIS_ALLEYWAY_SPAWN</tag>
 			<tag>RACIAL_TF_ITEM</tag>

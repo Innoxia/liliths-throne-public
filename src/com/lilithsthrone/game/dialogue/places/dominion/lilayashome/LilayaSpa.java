@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevelBasic;
 import com.lilithsthrone.game.character.attributes.ObedienceLevelBasic;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Arthur;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
@@ -24,6 +25,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -70,6 +72,8 @@ public class LilayaSpa {
 
 	private static GameCharacter drinksCharacter = null;
 	private static GameCharacter massageSlave = null;
+	private static GameCharacter guest = null;
+	private static boolean playerStripped = false;
 	
 	private static boolean massageSlaveSex = false;
 	
@@ -93,6 +97,29 @@ public class LilayaSpa {
 		List<GameCharacter> charactersPresent = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
 		charactersPresent.removeIf(character -> !character.isSlave());
 		return charactersPresent;
+	}
+	
+	public static void initGuestAtSpa(GameCharacter guest) {
+		LilayaSpa.guest = guest;
+		drinksCharacter = null;
+	}
+	
+	public static boolean isGuestAbleToEquipSwimwear(GameCharacter guest) {
+		if(guest.isFeminine()) {
+			AbstractClothing swimsuit = Main.game.getItemGen().generateClothing("innoxia_chest_swimsuit", PresetColour.CLOTHING_PINK, false);
+			AbstractClothing bikiniTop = Main.game.getItemGen().generateClothing("innoxia_chest_bikini", PresetColour.CLOTHING_PINK, false); // innoxia_chest_micro_bikini
+			AbstractClothing bikiniBottom = Main.game.getItemGen().generateClothing("innoxia_groin_bikini", PresetColour.CLOTHING_PINK, false); // innoxia_groin_micro_bikini
+			
+			return guest.isAbleToEquip(swimsuit, true, guest) || (guest.isAbleToEquip(bikiniTop, true, guest) && guest.isAbleToEquip(bikiniBottom, true, guest));
+			
+		} else {
+			AbstractClothing swimShorts = Main.game.getItemGen().generateClothing("innoxia_groin_swim_shorts", PresetColour.CLOTHING_BLUE, false);
+			return guest.isAbleToEquip(swimShorts, true, guest);
+		}
+	}
+	
+	private static boolean isGuestPresent() {
+		return guest!=null;
 	}
 	
 	// Reception slave dialogues:
@@ -1285,6 +1312,10 @@ public class LilayaSpa {
 	
 	public static final DialogueNode SPA_CORE = new DialogueNode("", "", false) {
 		@Override
+		public boolean isTravelDisabled() {
+			return isGuestPresent();
+		}
+		@Override
 		public void applyPreParsingEffects() {
 			try {
 				Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCells(PlaceUpgrade.LILAYA_SPA).get(0).getInventory().cleanAllClothing(true);
@@ -1317,12 +1348,18 @@ public class LilayaSpa {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(isGuestPresent() && index==0) {
+				return new Response("Leave",
+						UtilText.parse(guest, "Tell [npc.name] that you've got to leave now and accompany [npc.herHim] out of the spa."),
+						SPA_GUEST_END);
+			}
+			
 			if(responseTab==1) {
 				if(index==0) {
 					return null;
 				}
 				GameCharacter target = 
-						drinksCharacter==null || !getSlaves().contains(drinksCharacter)
+						drinksCharacter==null || (!getSlaves().contains(drinksCharacter) && !isGuestPresent())
 							?Main.game.getPlayer()
 							:drinksCharacter;
 							
@@ -1333,9 +1370,13 @@ public class LilayaSpa {
 						@Override
 						public void effects() {
 							List<GameCharacter> characters = Util.newArrayListOfValues(Main.game.getPlayer());
-							characters.addAll(getSlaves());
+							if(isGuestPresent()) {
+								characters.add(guest);
+							} else {
+								characters.addAll(getSlaves());
+							}
 							for(int i=0; i<characters.size();i++) {
-								if(characters.get(i).equals(drinksCharacter)) {
+								if(characters.get(i).equals(target)) {
 									if(i==characters.size()-1) {
 										drinksCharacter = characters.get(0);
 									} else {
@@ -1373,73 +1414,101 @@ public class LilayaSpa {
 				
 				return null;
 			}
-			List<GameCharacter> slaves = new ArrayList<>(getSlaves());
-			if(index==1) {
-				return new Response("Use pool",
-						"Slip into one of the pools and take some time to relax..."
-							+ "<br/>[style.italicsExcellent(This will clean <b>all</b> fluids out of all your orifices.)]"
-							+ (Main.game.getPlayer().hasCompanions()
-								?"<br/>[style.italicsMinorGood(This <b>does</b> clean companions.)]"
-								:""),
-						SPA_CORE_BATHING){
-					@Override
-					public void effects() {
-						bathingStripped = new ArrayList<>();
-						slavesWashing = slaves.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.SPA, SlaveJobSetting.SPA_BATHING)).collect(Collectors.toList());
-						for(GameCharacter npc : slavesWashing) {
-							npc.applyWash(true, false, StatusEffect.CLEANED_SPA, 240+60);
+			
+			if(isGuestPresent()) {
+				if(index==1) {
+					return new Response("Use pool",
+							UtilText.parse(guest, "Slip into one of the pools with [npc.name] and take some time to relax...")
+								+ "<br/>[style.italicsExcellent(This will clean <b>all</b> fluids out of all your orifices.)]",
+							SPA_GUEST_CORE_BATHING){
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(guest.applyWash(true, false, StatusEffect.CLEANED_SPA, 240+60));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, StatusEffect.CLEANED_SPA, 240+60));
 						}
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, StatusEffect.CLEANED_SPA, 240+60));
-					}
-				};
-				
-			} else if(index==2) {
-				return new Response("Use pool (strip)",
-						"Strip naked, then slip into one of the pools and take some time to relax..."
-							+ "<br/>[style.italicsExcellent(This will clean <b>all</b> fluids out of all your orifices.)]"
-							+ (Main.game.getPlayer().hasCompanions()
-								?"<br/>[style.italicsMinorGood(This <b>does</b> clean companions.)]"
-								:""),
-						SPA_CORE_BATHING){
-					@Override
-					public void effects() {
-						bathingStripped = new ArrayList<>();
-						bathingStripped.add(Main.game.getPlayer());
-						Main.game.getPlayer().unequipAllClothingIntoHoldingInventory(Main.game.getPlayer(), false, false);
-						slavesWashing = slaves.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.SPA, SlaveJobSetting.SPA_BATHING)).collect(Collectors.toList());
-						for(GameCharacter npc : slavesWashing) {
-							npc.applyWash(true, false, StatusEffect.CLEANED_SPA, 240+60);
-						}
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, StatusEffect.CLEANED_SPA, 240+60));
-					}
-				};
-				
-			} else if(index==3) {
-				if(!slaves.stream().anyMatch(npc -> npc.hasSlaveJobSetting(SlaveJob.SPA, SlaveJobSetting.SPA_MASSAGE))) {
-					return new Response("Massage",
-							"There are no available slaves to give you a massage!"
-									+ "<br/><i>You need to assign slaves to work in the spa and give them the '"+SlaveJobSetting.SPA_MASSAGE.getName()+"' permission.</i>",
-							null);
+					};
 				}
-				return new Response("Massage",
-						"Have one of your slaves give you a massage.<br/>[style.italics(Proceed to the slave selection screen, where you can choose which slave you want to massage you.)]",
-						SPA_MASSAGE_SELECTION);
+				if(index==2) {
+					return new Response("Give massage",
+							UtilText.parse(guest, "Get [npc.name] to lie down on one of the loungers and give [npc.herHim] a massage."),
+							SPA_GUEST_CORE_MASSAGE_GIVE);
+				}
+				if(index==3) {
+					return new Response("Receive massage",
+							UtilText.parse(guest,
+									"Lie down on one of the loungers and have [npc.name] give you a massage."),
+							SPA_GUEST_CORE_MASSAGE_RECEIVE);
+				}
 				
-			} else if(index==4) {
-//				return new Response("Relax", "Lie down on one of the loungers and just relax for a while...", null); //TODO Slave use player
-				return null;
-				
-			} else if(index==5) { //TODO All slimes turn the pool into slime and massage you. Requires unique sex scene with special actions as they fuck you from everywhere at once
-//				if(!slaves.stream().anyMatch(npc -> npc.getRace()==Race.SLIME && npc.hasSlaveJobSetting(SlaveJob.SPA, SlaveJobSetting.SPA_BATHING))) {
+			} else {
+				List<GameCharacter> slaves = new ArrayList<>(getSlaves());
+				if(index==1) {
+					return new Response("Use pool",
+							"Slip into one of the pools and take some time to relax..."
+								+ "<br/>[style.italicsExcellent(This will clean <b>all</b> fluids out of all your orifices.)]"
+								+ (Main.game.getPlayer().hasCompanions()
+									?"<br/>[style.italicsMinorGood(This <b>does</b> clean companions.)]"
+									:""),
+							SPA_CORE_BATHING){
+						@Override
+						public void effects() {
+							bathingStripped = new ArrayList<>();
+							slavesWashing = slaves.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.SPA, SlaveJobSetting.SPA_BATHING)).collect(Collectors.toList());
+							for(GameCharacter npc : slavesWashing) {
+								npc.applyWash(true, false, StatusEffect.CLEANED_SPA, 240+60);
+							}
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, StatusEffect.CLEANED_SPA, 240+60));
+						}
+					};
+					
+				} else if(index==2) {
+					return new Response("Use pool (strip)",
+							"Strip naked, then slip into one of the pools and take some time to relax..."
+								+ "<br/>[style.italicsExcellent(This will clean <b>all</b> fluids out of all your orifices.)]"
+								+ (Main.game.getPlayer().hasCompanions()
+									?"<br/>[style.italicsMinorGood(This <b>does</b> clean companions.)]"
+									:""),
+							SPA_CORE_BATHING){
+						@Override
+						public void effects() {
+							bathingStripped = new ArrayList<>();
+							bathingStripped.add(Main.game.getPlayer());
+							Main.game.getPlayer().unequipAllClothingIntoHoldingInventory(Main.game.getPlayer(), false, false);
+							slavesWashing = slaves.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.SPA, SlaveJobSetting.SPA_BATHING)).collect(Collectors.toList());
+							for(GameCharacter npc : slavesWashing) {
+								npc.applyWash(true, false, StatusEffect.CLEANED_SPA, 240+60);
+							}
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().applyWash(true, false, StatusEffect.CLEANED_SPA, 240+60));
+						}
+					};
+					
+				} else if(index==3) {
+					if(!slaves.stream().anyMatch(npc -> npc.hasSlaveJobSetting(SlaveJob.SPA, SlaveJobSetting.SPA_MASSAGE))) {
+						return new Response("Massage",
+								"There are no available slaves to give you a massage!"
+										+ "<br/><i>You need to assign slaves to work in the spa and give them the '"+SlaveJobSetting.SPA_MASSAGE.getName()+"' permission.</i>",
+								null);
+					}
+					return new Response("Massage",
+							"Have one of your slaves give you a massage.<br/>[style.italics(Proceed to the slave selection screen, where you can choose which slave you want to massage you.)]",
+							SPA_MASSAGE_SELECTION);
+					
+				} else if(index==4) {
+//					return new Response("Relax", "Lie down on one of the loungers and just relax for a while...", null); //TODO Slave use player
+					return null;
+					
+				} else if(index==5) { //TODO All slimes turn the pool into slime and massage you. Requires unique sex scene with special actions as they fuck you from everywhere at once
+//					if(!slaves.stream().anyMatch(npc -> npc.getRace()==Race.SLIME && npc.hasSlaveJobSetting(SlaveJob.SPA, SlaveJobSetting.SPA_BATHING))) {
+//						return new Response("Slime soak", "TODO", null);
+//					}
 //					return new Response("Slime soak", "TODO", null);
-//				}
-//				return new Response("Slime soak", "TODO", null);
-				return null;
-			}
-			int indexPresentStart = 6;
-			if(index>0 && index-indexPresentStart<getSlaves().size()) {
-				NPC character = (NPC) getSlaves().get(index-indexPresentStart);
-				return LilayaHomeGeneric.interactWithNPC(character);
+					return null;
+				}
+				int indexPresentStart = 6;
+				if(index>0 && index-indexPresentStart<getSlaves().size()) {
+					NPC character = (NPC) getSlaves().get(index-indexPresentStart);
+					return LilayaHomeGeneric.interactWithNPC(character);
+				}
 			}
 			
 			return null;
@@ -1939,6 +2008,510 @@ public class LilayaSpa {
 			return null;
 		}
 	};
+	
+	
+	// Guest content:
+	
+	public static final DialogueNode SPA_GUEST_INVITE = new DialogueNode("", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getTextEndStringBuilder().append(guest.incrementAffection(Main.game.getPlayer(), 5));
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_INVITE", guest);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("To the spa", UtilText.parse(guest, "Accompany [npc.name] to the spa."), SPA_GUEST_ARRIVE) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_SPA);
+						guest.setLocation(Main.game.getPlayer());
+					}
+				};
+			}
+			return null;
+		}
+	};
+
+	public static final DialogueNode SPA_GUEST_ARRIVE = new DialogueNode("", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getTextEndStringBuilder().append(guest.incrementAffection(Main.game.getPlayer(), 5));
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_ARRIVE", guest);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+
+			if(guest.isFeminine()) {
+				AbstractClothing swimsuit = Main.game.getItemGen().generateClothing("innoxia_chest_swimsuit", PresetColour.CLOTHING_PINK, false);
+				AbstractClothing bikiniTop = Main.game.getItemGen().generateClothing("innoxia_chest_bikini", PresetColour.CLOTHING_PINK_LIGHT, false);
+				AbstractClothing bikiniBottom = Main.game.getItemGen().generateClothing("innoxia_groin_bikini", PresetColour.CLOTHING_PINK_LIGHT, false);
+				AbstractClothing microBikiniTop = Main.game.getItemGen().generateClothing("innoxia_chest_micro_bikini", PresetColour.CLOTHING_PINK_HOT, false);
+				AbstractClothing microBikiniBottom = Main.game.getItemGen().generateClothing("innoxia_groin_micro_bikini", PresetColour.CLOTHING_PINK_HOT, false);
+				
+				if(index==1) {
+					if(guest.isAbleToEquip(swimsuit, true, guest)) {
+						return new Response("Swimsuit", UtilText.parse(guest, "Tell [npc.name] to wear a modest swimsuit."), SPA_GUEST_PLAYER_CLOTHING) {
+							@Override
+							public void effects() {
+								guest.unequipAllClothingIntoHoldingInventory(guest, false, false);
+								guest.equipClothingFromNowhere(swimsuit, true, guest);
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_ARRIVE_SWIMSUIT", guest));
+							}
+						};
+					} else {
+						return new Response("Swimsuit", UtilText.parse(guest, "[npc.Name] cannot wear a swimsuit, as some of [npc.her] sealed clothing is blocking [npc.herHim] from doing so..."), null);
+					}
+				}
+				if(index==2) {
+					if(guest.isAbleToEquip(bikiniTop, true, guest) && guest.isAbleToEquip(bikiniBottom, true, guest)) {
+						return new Response("Bikni", UtilText.parse(guest, "Tell [npc.name] to wear a bikini."), SPA_GUEST_PLAYER_CLOTHING) {
+							@Override
+							public void effects() {
+								guest.unequipAllClothingIntoHoldingInventory(guest, false, false);
+								guest.equipClothingFromNowhere(bikiniTop, true, guest);
+								guest.equipClothingFromNowhere(bikiniBottom, true, guest);
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_ARRIVE_BIKINI", guest));
+							}
+						};
+					} else {
+						return new Response("Bikni", UtilText.parse(guest, "[npc.Name] cannot wear a bikini, as some of [npc.her] sealed clothing is blocking [npc.herHim] from doing so..."), null);
+					}
+				}
+				if(index==3) {
+					if(guest.isAbleToEquip(microBikiniTop, true, guest) && guest.isAbleToEquip(microBikiniBottom, true, guest)) {
+						return new Response(
+								guest.getFetishDesire(Fetish.FETISH_EXHIBITIONIST).isNegative()
+									?"[style.colourBad(Micro bikini)]"
+									:"Micro bikini",
+								UtilText.parse(guest, "Tell [npc.name] to wear a highly revealing micro bikini."
+										+ (guest.getFetishDesire(Fetish.FETISH_EXHIBITIONIST).isNegative()
+											?"[style.italicsBad(As [npc.name] has a negative desire towards the '"+Fetish.FETISH_EXHIBITIONIST.getName(guest)+"' fetish, [npc.she] will not like this!)]"
+											:"")),
+								SPA_GUEST_PLAYER_CLOTHING) {
+							@Override
+							public void effects() {
+								guest.unequipAllClothingIntoHoldingInventory(guest, false, false);
+								guest.equipClothingFromNowhere(microBikiniTop, true, guest);
+								guest.equipClothingFromNowhere(microBikiniBottom, true, guest);
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_ARRIVE_MICRO_BIKINI", guest));
+								if(guest.getFetishDesire(Fetish.FETISH_EXHIBITIONIST).isNegative()) {
+									Main.game.getTextStartStringBuilder().append(guest.incrementAffection(Main.game.getPlayer(), -5));
+								}
+							}
+						};
+					} else {
+						return new Response("Micro bikini", UtilText.parse(guest, "[npc.Name] cannot wear a micro bikini, as some of [npc.her] sealed clothing is blocking [npc.herHim] from doing so..."), null);
+					}
+				}
+				if(index==4) {
+					return new Response(
+							guest.getFetishDesire(Fetish.FETISH_EXHIBITIONIST).isNegative()
+								?"[style.colourBad(Naked)]"
+								:"Naked",
+							UtilText.parse(guest, "Tell [npc.name] to strip out of all of [npc.her] clothes and head into the spa naked."
+								+ (guest.getFetishDesire(Fetish.FETISH_EXHIBITIONIST).isNegative()
+									?"[style.italicsBad(As [npc.name] has a negative desire towards the '"+Fetish.FETISH_EXHIBITIONIST.getName(guest)+"' fetish, [npc.she] will not like this!)]"
+									:"")),
+							SPA_GUEST_PLAYER_CLOTHING) {
+						@Override
+						public void effects() {
+							guest.unequipAllClothingIntoHoldingInventory(guest, false, false);
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_ARRIVE_NAKED", guest));
+							if(guest.getFetishDesire(Fetish.FETISH_EXHIBITIONIST).isNegative()) {
+								Main.game.getTextStartStringBuilder().append(guest.incrementAffection(Main.game.getPlayer(), -5));
+							}
+						}
+					};
+				}
+				
+			} else {
+				AbstractClothing swimShorts = Main.game.getItemGen().generateClothing("innoxia_groin_swim_shorts", PresetColour.CLOTHING_BLUE, false);
+				if(index==1) {
+					if(guest.isAbleToEquip(swimShorts, true, guest)) {
+						return new Response("Swimming shorts", UtilText.parse(guest, "Tell [npc.name] to wear swimming shorts."), SPA_GUEST_PLAYER_CLOTHING) {
+							@Override
+							public void effects() {
+								guest.unequipAllClothingIntoHoldingInventory(guest, false, false);
+								guest.equipClothingFromNowhere(swimShorts, true, guest);
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_ARRIVE_SWIM_SHORTS", guest));
+							}
+						};
+					} else {
+						return new Response("Swimming shorts", UtilText.parse(guest, "[npc.Name] cannot wear swimming shorts, as some of [npc.her] sealed clothing is blocking [npc.herHim] from doing so..."), null);
+					}
+				}
+				if(index==2) {
+					return new Response(
+							guest.getFetishDesire(Fetish.FETISH_EXHIBITIONIST).isNegative()
+								?"[style.colourBad(Naked)]"
+								:"Naked",
+							UtilText.parse(guest, "Tell [npc.name] to strip out of all of [npc.her] clothes and head into the spa naked."
+								+ (guest.getFetishDesire(Fetish.FETISH_EXHIBITIONIST).isNegative()
+									?"[style.italicsBad(As [npc.name] has a negative desire towards the '"+Fetish.FETISH_EXHIBITIONIST.getName(guest)+"' fetish, [npc.she] will not like this!)]"
+									:"")),
+							SPA_GUEST_PLAYER_CLOTHING) {
+						@Override
+						public void effects() {
+							guest.unequipAllClothingIntoHoldingInventory(guest, false, false);
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_ARRIVE_NAKED", guest));
+							if(guest.getFetishDesire(Fetish.FETISH_EXHIBITIONIST).isNegative()) {
+								Main.game.getTextStartStringBuilder().append(guest.incrementAffection(Main.game.getPlayer(), -5));
+							}
+						}
+					};
+				}
+			}
+			return null;
+		}
+	};
+
+	public static final DialogueNode SPA_GUEST_PLAYER_CLOTHING = new DialogueNode("", "", true, true) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_PLAYER_CLOTHING", guest);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Don't strip", "Decide against going naked and continue on into the spa as you are.", SPA_GUEST_PLAYER_CLOTHING_REVEAL) {
+					@Override
+					public void effects() {
+						playerStripped = false;
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_PLAYER_CLOTHING_CONTINUE", guest));
+					}
+				};
+			}
+			if(index==2) {
+				return new Response("Go naked",
+						"Strip out of all of your clothes and head into the spa naked.",
+						SPA_GUEST_PLAYER_CLOTHING_REVEAL) {
+					@Override
+					public void effects() {
+						playerStripped = true;
+						Main.game.getPlayer().unequipAllClothingIntoHoldingInventory(Main.game.getPlayer(), false, false);
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_PLAYER_CLOTHING_NAKED", guest));
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode SPA_GUEST_PLAYER_CLOTHING_REVEAL = new DialogueNode("", "", true, true) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_PLAYER_CLOTHING_REVEAL", guest);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Pools", UtilText.parse(guest, "Lead [npc.name] through into the pools."), SPA_GUEST_CORE) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_PLAYER_CLOTHING_REVEAL_POOLS", guest));
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode SPA_GUEST_CORE = new DialogueNode("", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_CORE", guest);
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return SPA_CORE.getResponseTabTitle(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return SPA_CORE.getResponse(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNode SPA_GUEST_CORE_BATHING = new DialogueNode("", "", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 30*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_CORE_BATHING", guest);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Finish", "Finish with your bathing session and get out of the pool.", SPA_GUEST_CORE) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_CORE_BATHING_END", guest));
+					}
+				};
+				
+			} else if(index==2) {
+				if(!guest.isAttractedTo(Main.game.getPlayer())) {
+					return new Response("Sex",
+							UtilText.parse(guest, "[npc.Name] is not attracted to you, and so [npc.she] isn't willing to let you have sex with [npc.herHim]..."),
+							null);
+				}
+				return new ResponseSex("Sex",
+						UtilText.parse(guest, "Have dominant sex with [npc.name]."),
+						true, false,
+						new SMBath(SexPosition.SITTING,
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING)),
+								Util.newHashMapOfValues(new Value<>(guest, SexSlotSitting.SITTING_IN_LAP))) {
+							@Override
+							public boolean isCharacterStartNaked(GameCharacter character) {
+								return false;
+							}
+						},
+						null,
+						null,
+						SPA_GUEST_CORE_BATHING_AFTER_SEX,
+						UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_CORE_BATHING_SEX_START", guest));
+				
+			} else if(index==3) {
+				if(!guest.isAttractedTo(Main.game.getPlayer())) {
+					return new Response("Submissive sex",
+							UtilText.parse(guest, "[npc.Name] is not attracted to you, and so [npc.she] isn't willing to let you have sex with [npc.herHim]..."),
+							null);
+				}
+				return new ResponseSex("Submissive sex",
+						UtilText.parse(guest, "Let [npc.name] take charge and fuck you right here in the pool."),
+						true, true,
+						new SMBath(SexPosition.SITTING,
+								Util.newHashMapOfValues(new Value<>(guest, SexSlotSitting.SITTING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING_IN_LAP))) {
+							@Override
+							public boolean isCharacterStartNaked(GameCharacter character) {
+								return false;
+							}
+						},
+						null,
+						null,
+						SPA_GUEST_CORE_BATHING_AFTER_SEX,
+						UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_CORE_BATHING_SUBMISSIVE_SEX_START", guest));
+			}
+			return null;
+		}
+	};
+
+	public static final DialogueNode SPA_GUEST_CORE_BATHING_AFTER_SEX = new DialogueNode("Finished", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			guest.applyWash(true, true, StatusEffect.CLEANED_SPA, 240+30);
+			Main.game.getPlayer().applyWash(true, true, StatusEffect.CLEANED_SPA, 240+30);
+		}
+		@Override
+		public String getDescription() {
+			return UtilText.parse(guest, "Having had [npc.her] fun, [npc.name] asks if you'd like to do something else...");
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_CORE_BATHING_AFTER_SEX", guest);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Continue", "Finish with your bathing session and get out of the pool.", SPA_GUEST_CORE) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_CORE_BATHING_AFTER_SEX_END", guest));
+					}
+				};
+			}
+			return null;
+		}
+	};
+
+	public static final DialogueNode SPA_GUEST_CORE_MASSAGE_GIVE = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			guest.addStatusEffect(StatusEffect.CLEANED_MASSAGED, (240+30)*60);
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 30*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_CORE_MASSAGE_GIVE", guest);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Continue", UtilText.parse(guest, "Now that you've given [npc.name] a nice relaxing massage, you wonder what to do next..."), SPA_GUEST_CORE) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_CORE_MASSAGE_GIVE_END", guest));
+					}
+				};
+				
+			} else if(index==2) {
+				if(!guest.isAttractedTo(Main.game.getPlayer())) {
+					return new Response(UtilText.parse(guest, "Fuck [npc.herHim]"),
+							UtilText.parse(guest, "As [npc.name] is not attracted to you, [npc.she] is not willing to have sex with you..."),
+							null);
+				}
+				return new ResponseSex(
+						UtilText.parse(guest, "Fuck [npc.herHim]"),
+						UtilText.parse(guest, "Give [npc.name] what it is that [npc.she] so clearly wants from you..."),
+						true,
+						false,
+						new SexManagerDefault(guest.isTaur()?SexPosition.ALL_FOURS:SexPosition.LYING_DOWN,
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), guest.isTaur()?SexSlotAllFours.BEHIND:SexSlotLyingDown.MISSIONARY)),
+								Util.newHashMapOfValues(new Value<>(guest, guest.isTaur()?SexSlotAllFours.ALL_FOURS:SexSlotLyingDown.LYING_DOWN))) {
+							@Override
+							public String getDeskName() {
+								return "massage table";
+							}
+						},
+						null,
+						null,
+						SPA_GUEST_CORE_MASSAGE_AFTER_SEX,
+						UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_CORE_MASSAGE_GIVE_SEX_START", guest));
+			}
+			return null;
+		}
+	};
+
+	public static final DialogueNode SPA_GUEST_CORE_MASSAGE_RECEIVE = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getPlayer().addStatusEffect(StatusEffect.CLEANED_MASSAGED, (240+30)*60);
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 30*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_CORE_MASSAGE_RECEIVE", guest);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Continue", "Now that you've had a nice relaxing massage, you wonder what to do next...", SPA_CORE) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_CORE_MASSAGE_RECEIVE_END", massageSlave));
+					}
+				};
+				
+			}
+			if(index==2) {
+				if(!guest.isAttractedTo(Main.game.getPlayer())) {
+					return new Response("Fucked",
+							UtilText.parse(guest, "As [npc.name] is not attracted to you, [npc.she] is not willing to have sex with you..."),
+							null);
+				}
+				return new ResponseSex(
+						"Fucked",
+						UtilText.parse(guest, "Tell [npc.name] that [npc.she] can fuck you..."),
+						true,
+						false,
+						new SexManagerDefault(Main.game.getPlayer().isTaur()?SexPosition.ALL_FOURS:SexPosition.LYING_DOWN,
+								Util.newHashMapOfValues(new Value<>(guest, Main.game.getPlayer().isTaur()?SexSlotAllFours.BEHIND:SexSlotLyingDown.MISSIONARY)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Main.game.getPlayer().isTaur()?SexSlotAllFours.ALL_FOURS:SexSlotLyingDown.LYING_DOWN))) {
+							@Override
+							public String getDeskName() {
+								return "massage table";
+							}
+						},
+						null,
+						null,
+						SPA_GUEST_CORE_MASSAGE_AFTER_SEX,
+						UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_CORE_MASSAGE_RECEIVE_SEX_START", guest));
+			}
+			return null;
+		}
+	};
+
+	public static final DialogueNode SPA_GUEST_CORE_MASSAGE_AFTER_SEX = new DialogueNode("Finished", "", true) {
+		@Override
+		public String getDescription() {
+			return UtilText.parse(guest, "Having had [npc.her] fun, [npc.name] asks if you'd like to do something else...");
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_CORE_MASSAGE_AFTER_SEX", guest);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Continue", "Now that you've had an unexpectedly fun massage, you wonder what to do next...", SPA_GUEST_CORE) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_CORE_MASSAGE_AFTER_SEX_FINISHED", guest));
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode SPA_GUEST_END = new DialogueNode("", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			guest.equipAllClothingFromHoldingInventory();
+			guest.returnToHome();
+			if(playerStripped) {
+				Main.game.getPlayer().equipAllClothingFromHoldingInventory();
+			}
+			Main.game.getPlayer().setNearestLocation(PlaceType.LILAYA_HOME_CORRIDOR);
+
+			Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_END", guest));
+			
+			LilayaSpa.guest = null;
+			drinksCharacter = null;
+		}
+		@Override
+		public int getSecondsPassed() {
+			return 10*60;
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Continue", "Now that you've had an unexpectedly fun massage, you wonder what to do next...", PlaceType.LILAYA_HOME_CORRIDOR.getDialogue(false));
+			}
+			return null;
+		}
+	};
+	
+	
 	
 	
 	//TODO

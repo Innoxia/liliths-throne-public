@@ -66,59 +66,28 @@
 		</itemTags>
 	</coreAttributes>
 
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You take off your shoes.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You pull off [npc.name]'s shoes.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You grab hold of [npc.name]'s shoes and roughly pull them off.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] takes [npc.her] shoes off.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] pulls your shoes off.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] grabs hold of your shoes and roughly pulls them off.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] pulls [npc2.name]'s shoes off.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] grabs hold of [npc2.name]'s shoes and roughly pulls them off.
-		]]></NPCOtherNPCRough>
-	</displacementText>
-
-	<!-- 'replacementText' is used for equipping and replacements. -->
 	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You pull on the shoes.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You guide [npc.name]'s [npc.feet] into the shoes.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You hold [npc.name] still as you roughly force the shoes onto [npc.her] [npc.feet].
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] pulls on the shoes.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] guides your [pc.feet] into the shoes.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] holds you still as [npc.she] roughly forces the shoes onto your [pc.feet].
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] guides [npc2.name]'s [npc2.feet] into the shoes.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] holds [npc2.name] still as [npc1.she] roughly forces the shoes onto [npc2.her] [npc2.feet].
-		]]></NPCOtherNPCRough>
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slip)] [npc.her] [npc.feet] into the shoes and [npc.verb(tie)] up the laces.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(slip)] [npc2.namePos] [npc2.feet] into the shoes and [npc.verb(tie)] up the laces.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(push)] [npc2.namePos] [npc2.feet] into the shoes and [npc.verb(tie)] up the laces.]]>
+		</otherRough>
 	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(untie)] the laces of [npc.her] shoes, before slipping them off.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(untie)] the laces of [npc2.namePos] shoes, before slipping them off.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(untie)] the laces of [npc2.namePos] shoes, before tugging them off.]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

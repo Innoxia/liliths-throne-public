@@ -111,7 +111,7 @@ public class FortressMalesLeader extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
 			this.setTesticleCount(2);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.7.2")) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.7.11")) {
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 		}
 	}
@@ -257,13 +257,18 @@ public class FortressMalesLeader extends NPC {
 
 			AbstractWeapon wakizashi = Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_japaneseSwords_wakizashi"), DamageType.FIRE);
 			wakizashi.setColours(Util.newArrayListOfValues(PresetColour.CLOTHING_RED_VERY_DARK, PresetColour.CLOTHING_YELLOW, PresetColour.CLOTHING_RED_VERY_DARK, PresetColour.CLOTHING_YELLOW));
-			this.equipMainWeaponFromNowhere(wakizashi);
+			this.equipOffhandWeaponFromNowhere(wakizashi);
 		}
 	}
 	
 	@Override
 	public boolean isUnique() {
 		return true;
+	}
+
+	@Override
+	public String getArtworkFolderName() {
+		return "Jhortrax";
 	}
 
 	@Override

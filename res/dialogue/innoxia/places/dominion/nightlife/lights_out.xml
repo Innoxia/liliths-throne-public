@@ -1,0 +1,860 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+	
+	<!-- Place type id: innoxia_dominion_nightlife_lights_out_exit -->
+	<scene id="exit">
+		<content folderPath="txt/places/dominion/nightlife/lights_out">EXIT</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Exit the bar and head back into the district of Dominion known as 'Nightlife'.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="DOMINION_NIGHTLIFE_DISTRICT"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_NIGHTLIFE_DISTRICT)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'EXIT_LEAVE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="exit_initial_entry">
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_innoxia_dominion_nightlife_lights_out, PLACE_TYPE_innoxia_dominion_nightlife_lights_out_exit)]
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'EXIT_INITIAL_ENTRY'))]
+			[#flags.setFlag(FLAG_innoxia_lights_out_visited, true)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_nightlife_lights_out_exit"/>
+	</scene>
+
+    <!-- Place type id: innoxia_dominion_nightlife_lights_out_tables -->
+	<scene id="tables">
+		<content folderPath="txt/places/dominion/nightlife/lights_out">TABLES</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+    <!-- Place type id: innoxia_dominion_nightlife_lights_out_toilets -->
+	<scene id="toilets">
+		<content folderPath="txt/places/dominion/nightlife/lights_out">TOILETS</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_misc_glory_hole_start"> <!-- Copies index 3 & 4 for glory hole actions -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Toilet]]></responseTitle>
+				<responseTooltip><![CDATA[Use the toilet.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_nightlife_lights_out_toilets_use]]></nextDialogue>
+				<effects/>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Wash]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Use the sinks to wash your hands and face.
+					<br/>[style.italicsGood(This will clean your head, eyes, mouth, neck, hair, fingers, hands, and wrists, as well as any clothing worn in these slots.)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_nightlife_lights_out_toilets_wash]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.applyLimitedWash(IS_HEAD, IS_EYES, IS_MOUTH, IS_NECK, IS_HAIR, IS_FINGER, IS_HAND, IS_WRIST)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="toilets_use">
+		<content folderPath="txt/places/dominion/nightlife/lights_out">TOILETS_USE</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_nightlife_lights_out_toilets"/>
+	</scene>
+	
+	<scene id="toilets_wash">
+		<content folderPath="txt/places/dominion/nightlife/lights_out">TOILETS_WASH</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_nightlife_lights_out_toilets"/>
+	</scene>
+	
+    <!-- Place type id: innoxia_dominion_nightlife_lights_out_bar -->
+	<scene id="bar">
+		<content folderPath="txt/places/dominion/nightlife/lights_out">BAR</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Sit down]]></responseTitle>
+				<responseTooltip><![CDATA[Head over to an empty seat and sit down at the bar.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_nightlife_lights_out_bar_sit]]></nextDialogue>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Hannah]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.getCharactersPresent().contains(hannah))
+						Sit down next to Hannah and say hello.
+					#ELSE
+						Hannah isn't here at the moment. She said that she'd be here between [units.time(21)]-[units.time(00)]...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.getCharactersPresent().contains(hannah))
+						innoxia_places_dominion_nightlife_lights_out_bar_hannah
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#hannah.setAlcoholLevel(0.18)]
+					[#flags.setFlag(FLAG_innoxia_lights_out_free_drink, true)]
+					[#flags.setFlag(FLAG_innoxia_lights_out_hannah_alcohol_warning, false)]
+					[#flags.setFlag(FLAG_innoxia_lights_out_hannah_talk, false)]
+					[#flags.setFlag(FLAG_innoxia_lights_out_hannah_flirt, false)]
+					[#flags.setFlag(FLAG_innoxia_lights_out_hannah_kiss, false)]
+					[#flags.setFlag(FLAG_innoxia_lights_out_hannah_sex, false)]
+					[#flags.setFlag(FLAG_innoxia_lights_out_hannah_last_night_met, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="bar_sit">
+		<content folderPath="txt/places/dominion/nightlife/lights_out">BAR_SIT</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Leave: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Stand up and leave the bar.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_dominion_nightlife_lights_out_bar]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_SIT_LEAVE'))]
+				]]></effects>
+			</response>
+			<!-- Relax: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Relax]]></responseTitle>
+				<responseTooltip><![CDATA[Relax and enjoy your time at the bar.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_nightlife_lights_out_bar_sit_relax]]></nextDialogue>
+			</response>
+			<!-- Drink: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Vodka (#IF(pc.getMoney()>=100)[style.moneyFormat(100, span)]#ELSE[style.moneyFormatUncoloured(100, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=100) Order a shot of vodka. #ELSE You can't afford a shot of vodka... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=100)innoxia_places_dominion_nightlife_lights_out_bar_sit#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('vodka', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_SIT_DRINK'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-100))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('dsg_race_bear_vodka').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+				<responseTitle><![CDATA[Rum (#IF(pc.getMoney()>=120)[style.moneyFormat(120, span)]#ELSE[style.moneyFormatUncoloured(120, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=120) Order a shot of rum. #ELSE You can't afford a shot of rum... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=120)innoxia_places_dominion_nightlife_lights_out_bar_sit#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('rum', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_SIT_DRINK'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-120))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_rat_black_rats_rum').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[8]]></index>
+				<responseTitle><![CDATA[Whiskey (#IF(pc.getMoney()>=120)[style.moneyFormat(120, span)]#ELSE[style.moneyFormatUncoloured(120, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=120) Order a shot of whiskey. #ELSE You can't afford a shot of whiskey... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=120)innoxia_places_dominion_nightlife_lights_out_bar_sit#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('whiskey', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_SIT_DRINK'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-120))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_wolf_wolf_whiskey').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[9]]></index>
+				<responseTitle><![CDATA[Arrack (#IF(pc.getMoney()>=180)[style.moneyFormat(180, span)]#ELSE[style.moneyFormatUncoloured(180, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=180) Order a shot of arrack. #ELSE You can't afford a shot of whiskey... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=180)innoxia_places_dominion_nightlife_lights_out_bar_sit#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('arrack', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_SIT_DRINK'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-180))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_panther_deep_roar').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[10]]></index>
+				<responseTitle><![CDATA[Grog (#IF(pc.getMoney()>=180)[style.moneyFormat(180, span)]#ELSE[style.moneyFormatUncoloured(180, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=180) Order a shot of grog. #ELSE You can't afford a shot of grog... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=180)innoxia_places_dominion_nightlife_lights_out_bar_sit#ELSEnull#ENDIF]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('grog', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_SIT_DRINK'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-180))]
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('dsg_race_shark_grog').applyEffect(pc, pc))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="bar_sit_relax">
+		<preParsingEffects><![CDATA[
+			[#game.addNPC('misc.GenericSexualPartner', 'partner')]
+			[#partner.resetBodyToGenderPreferences(false, false)]
+			[#partner.setLocation(pc, false)]
+			[#partner.setPlayerKnowsName(true)]
+			[#partner.setSexualOrientation(ORIENTATION_AMBIPHILIC)]
+			[#partner.removePersonalityTrait(PERSONALITY_TRAIT_MUTE)]
+			[#partner.removePersonalityTrait(PERSONALITY_TRAIT_SHY)]
+			#IF(partner.getMuscleValue()<75)
+				[#partner.setMuscle(75)]
+			#ENDIF
+			[#game.getCharacterUtils().equipClothingFromOutfitType(partner, OUTFIT_TYPE_CLUBBING)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/nightlife/lights_out">BAR_SIT_RELAX</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Reject]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell [partner.name] that you're not interested.
+					<br/>[style.italicsMinorBad(This will remove [partner.name] from the game.)]
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_dominion_nightlife_lights_out_bar_sit]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_SIT_RELAX_REJECT'))]
+					[#game.banishNPC(partner)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Flirt]]></responseTitle>
+				<responseTooltip><![CDATA[Flirt back with [partner.name].]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_nightlife_lights_out_bar_sit_relax_flirt]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="bar_sit_relax_flirt">
+		<content folderPath="txt/places/dominion/nightlife/lights_out">BAR_SIT_RELAX_FLIRT</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Reject]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell [partner.name] that you're not interested in a one night stand.
+					<br/>[style.italicsMinorBad(This will remove [partner.name] from the game.)]
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_dominion_nightlife_lights_out_bar_sit]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_SIT_RELAX_FLIRT_REJECT'))]
+					[#game.banishNPC(partner)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Sex (alleyway)]]></responseTitle>
+				<responseTooltip><![CDATA[Leave the bar with [partner.name] and have sex down a nearby alleyway.]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_NIGHTLIFE_DISTRICT)]
+					[#pc.setNearestLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_BACK_ALLEYS)]
+					[#partner.setLocation(pc)]
+				]]></effects>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[true]]></consensual>
+					<subHasEqualControl><![CDATA[true]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[partner]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[pc]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_nightlife_lights_out_one_night_stand_after_sex_alleyway]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/nightlife/lights_out">BAR_SIT_RELAX_FLIRT_SEX_START_ALLEYWAY</sexStartContent>
+					<tags/>
+					<ongoingActionsAtStart/>
+				</sexVariables>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Sex (bedroom)]]></responseTitle>
+				<responseTooltip><![CDATA[Leave the bar with [partner.name] and take [partner.herHim] back home, before having sex with [partner.herHim] in your bedroom.]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_LILAYAS_HOUSE_FIRST_FLOOR, PLACE_TYPE_LILAYA_HOME_ROOM_PLAYER)]
+					[#partner.setLocation(pc)]
+				]]></effects>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[true]]></consensual>
+					<subHasEqualControl><![CDATA[true]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[partner]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[pc]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_nightlife_lights_out_one_night_stand_after_sex_bedroom]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/nightlife/lights_out">BAR_SIT_RELAX_FLIRT_SEX_START_BEDROOM</sexStartContent>
+					<tags/>
+					<ongoingActionsAtStart/>
+				</sexVariables>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id ="one_night_stand_after_sex_alleyway">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[[partner.name] has had [partner.her] fun and brings an end to the sex...]]></tooltip>
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'ONE_NIGHT_STAND_AFTER_SEX_ALLEYWAY'))]
+			[#game.banishNPC(partner)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[As your partner has now left, you wonder what to do next...]]></responseTooltip>
+				<nextDialogue ><![CDATA[default]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+
+	<scene id ="one_night_stand_after_sex_bedroom">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[[partner.name] has had [partner.her] fun and brings an end to the sex...]]></tooltip>
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'ONE_NIGHT_STAND_AFTER_SEX_BEDROOM'))]
+			[#game.banishNPC(partner)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[As your partner has now left, you wonder what to do next...]]></responseTooltip>
+				<nextDialogue ><![CDATA[default]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Hannah's scenes: -->
+	
+	<scene id="bar_hannah">
+		<content folderPath="txt/places/dominion/nightlife/lights_out">BAR_HANNAH</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Leave: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Hannah that you've got to be going now.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_dominion_nightlife_lights_out_bar]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_lights_out_hannah_left, true)]
+					[#hannah.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_HANNAH_LEAVE'))]
+				]]></effects>
+			</response>
+			<!-- Talk/Flirt/Kiss/Bathroom/Invite home: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Talk]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_lights_out_hannah_talk))
+						You've already spent some time talking with Hannah, and it seems like now she's only interested in other things... 
+					#ELSE
+						Talk with Hannah for a while.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_lights_out_hannah_talk))
+						null
+					#ELSE
+						innoxia_places_dominion_nightlife_lights_out_bar_hannah
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_lights_out_hannah_talk, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_HANNAH_TALK'))]
+					[#flags.setFlag(FLAG_innoxia_lights_out_hannah_had_initial_talk, true)]
+					[#game.appendToTextEndStringBuilder(hannah.incrementAlcoholLevel(0.25))]
+					[#game.appendToTextEndStringBuilder(hannah.incrementAffection(pc, 5))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Flirt]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_lights_out_hannah_flirt))
+						You've already flirted with Hannah, and now she's only interested in physical contact... 
+					#ELSEIF(!flags.hasFlag(FLAG_innoxia_lights_out_hannah_talk))
+						You can tell from the stoic look on her face that Hannah won't be receptive to flirting at the moment...
+					#ELSE
+						Flirt back with Hannah, letting her know that you like her.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_lights_out_hannah_flirt) || !flags.hasFlag(FLAG_innoxia_lights_out_hannah_talk))
+						null
+					#ELSE
+						innoxia_places_dominion_nightlife_lights_out_bar_hannah
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_lights_out_hannah_flirt, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_HANNAH_FLIRT'))]
+					[#game.appendToTextEndStringBuilder(hannah.incrementAlcoholLevel(0.25))]
+					[#game.appendToTextEndStringBuilder(hannah.incrementAffection(pc, 5))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Kiss]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_lights_out_hannah_kiss))
+						You've already kissed Hannah, and now she wants nothing less than sex... 
+					#ELSEIF(!flags.hasFlag(FLAG_innoxia_lights_out_hannah_flirt))
+						It's clear from Hannah's body language that she'd reject any attempt to kiss her...
+					#ELSE
+						Lean into Hannah and give her a kiss.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_lights_out_hannah_kiss) || !flags.hasFlag(FLAG_innoxia_lights_out_hannah_flirt))
+						null
+					#ELSE
+						innoxia_places_dominion_nightlife_lights_out_bar_hannah
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_lights_out_hannah_kiss, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_HANNAH_KISS'))]
+					[#game.appendToTextEndStringBuilder(hannah.incrementAlcoholLevel(0.25))]
+					[#game.appendToTextEndStringBuilder(hannah.incrementAffection(pc, 5))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_lights_out_hannah_kiss)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Sex (alleyway)]]></responseTitle>
+				<responseTooltip><![CDATA[Leave the bar with Hannah and have sex down a nearby alleyway.]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_NIGHTLIFE_DISTRICT)]
+					[#pc.setNearestLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_BACK_ALLEYS)]
+					[#hannah.setLocation(pc)]
+					[#flags.setFlag(FLAG_innoxia_lights_out_hannah_sex, true)]
+				]]></effects>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[true]]></consensual>
+					<subHasEqualControl><![CDATA[true]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[pc]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[hannah]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_nightlife_lights_out_after_sex_alleyway]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/nightlife/lights_out">BAR_HANNAH_SEX_START_ALLEYWAY</sexStartContent>
+					<tags/>
+					<ongoingActionsAtStart/>
+				</sexVariables>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_lights_out_hannah_kiss)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Sex (bedroom)]]></responseTitle>
+				<responseTooltip><![CDATA[Leave the bar with Hannah and take her back home, before having sex with her in your bedroom.]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_LILAYAS_HOUSE_FIRST_FLOOR, PLACE_TYPE_LILAYA_HOME_ROOM_PLAYER)]
+					[#hannah.setLocation(pc)]
+					[#flags.setFlag(FLAG_innoxia_lights_out_hannah_sex, true)]
+				]]></effects>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[true]]></consensual>
+					<subHasEqualControl><![CDATA[true]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[pc]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[hannah]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_nightlife_lights_out_after_sex_bedroom]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/nightlife/lights_out">BAR_HANNAH_SEX_START_BEDROOM</sexStartContent>
+					<tags/>
+					<ongoingActionsAtStart/>
+				</sexVariables>
+			</response>
+			<!-- Drink: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Vodka (#IF(flags.hasFlag(FLAG_innoxia_lights_out_free_drink))Free#ELSEIF(pc.getMoney()>=100)[style.moneyFormat(100, span)]#ELSE[style.moneyFormatUncoloured(100, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=100 || flags.hasFlag(FLAG_innoxia_lights_out_free_drink)) Order a shot of vodka. #ELSE You can't afford a shot of vodka... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_lights_out_hannah_alcohol_warning))
+						innoxia_places_dominion_nightlife_lights_out_bar_hannah_wasted
+					#ELSEIF(pc.getMoney()>=100 || flags.hasFlag(FLAG_innoxia_lights_out_free_drink))
+						innoxia_places_dominion_nightlife_lights_out_bar_hannah
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('vodka', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_HANNAH_DRINK'))]
+					#IF(!flags.hasFlag(FLAG_innoxia_lights_out_free_drink))
+						[#game.appendToTextStartStringBuilder(pc.incrementMoney(-100))]
+					#ELSE
+						[#flags.setFlag(FLAG_innoxia_lights_out_free_drink, false)]
+					#ENDIF
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('dsg_race_bear_vodka').applyEffect(pc, pc))]
+					#IF(pc.getAlcoholLevel()==ALCOHOL_LEVEL_FIVE_WASTED && !flags.hasFlag(FLAG_innoxia_lights_out_hannah_alcohol_warning))
+						[#flags.setFlag(FLAG_innoxia_lights_out_hannah_alcohol_warning, true)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_HANNAH_DRINK_WARNING'))]
+					#ENDIF
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+				<responseTitle><![CDATA[Rum (#IF(flags.hasFlag(FLAG_innoxia_lights_out_free_drink))Free#ELSEIF(pc.getMoney()>=120)[style.moneyFormat(120, span)]#ELSE[style.moneyFormatUncoloured(120, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=120 || flags.hasFlag(FLAG_innoxia_lights_out_free_drink)) Order a shot of rum. #ELSE You can't afford a shot of rum... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_lights_out_hannah_alcohol_warning))
+						innoxia_places_dominion_nightlife_lights_out_bar_hannah_wasted
+					#ELSEIF(pc.getMoney()>=120 || flags.hasFlag(FLAG_innoxia_lights_out_free_drink))
+						innoxia_places_dominion_nightlife_lights_out_bar_hannah
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('rum', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_HANNAH_DRINK'))]
+					#IF(!flags.hasFlag(FLAG_innoxia_lights_out_free_drink))
+						[#game.appendToTextStartStringBuilder(pc.incrementMoney(-120))]
+					#ELSE
+						[#flags.setFlag(FLAG_innoxia_lights_out_free_drink, false)]
+					#ENDIF
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_rat_black_rats_rum').applyEffect(pc, pc))]
+					#IF(pc.getAlcoholLevel()==ALCOHOL_LEVEL_FIVE_WASTED && !flags.hasFlag(FLAG_innoxia_lights_out_hannah_alcohol_warning))
+						[#flags.setFlag(FLAG_innoxia_lights_out_hannah_alcohol_warning, true)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_HANNAH_DRINK_WARNING'))]
+					#ENDIF
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[8]]></index>
+				<responseTitle><![CDATA[Whiskey (#IF(flags.hasFlag(FLAG_innoxia_lights_out_free_drink))Free#ELSEIF(pc.getMoney()>=120)[style.moneyFormat(120, span)]#ELSE[style.moneyFormatUncoloured(120, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=120 || flags.hasFlag(FLAG_innoxia_lights_out_free_drink)) Order a shot of whiskey. #ELSE You can't afford a shot of whiskey... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_lights_out_hannah_alcohol_warning))
+						innoxia_places_dominion_nightlife_lights_out_bar_hannah_wasted
+					#ELSEIF(pc.getMoney()>=120 || flags.hasFlag(FLAG_innoxia_lights_out_free_drink))
+						innoxia_places_dominion_nightlife_lights_out_bar_hannah
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('whiskey', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_HANNAH_DRINK'))]
+					#IF(!flags.hasFlag(FLAG_innoxia_lights_out_free_drink))
+						[#game.appendToTextStartStringBuilder(pc.incrementMoney(-120))]
+					#ELSE
+						[#flags.setFlag(FLAG_innoxia_lights_out_free_drink, false)]
+					#ENDIF
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_wolf_wolf_whiskey').applyEffect(pc, pc))]
+					#IF(pc.getAlcoholLevel()==ALCOHOL_LEVEL_FIVE_WASTED && !flags.hasFlag(FLAG_innoxia_lights_out_hannah_alcohol_warning))
+						[#flags.setFlag(FLAG_innoxia_lights_out_hannah_alcohol_warning, true)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_HANNAH_DRINK_WARNING'))]
+					#ENDIF
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[9]]></index>
+				<responseTitle><![CDATA[Arrack (#IF(flags.hasFlag(FLAG_innoxia_lights_out_free_drink))Free#ELSEIF(pc.getMoney()>=180)[style.moneyFormat(180, span)]#ELSE[style.moneyFormatUncoloured(180, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=180 || flags.hasFlag(FLAG_innoxia_lights_out_free_drink)) Order a shot of arrack. #ELSE You can't afford a shot of arrack... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_lights_out_hannah_alcohol_warning))
+						innoxia_places_dominion_nightlife_lights_out_bar_hannah_wasted
+					#ELSEIF(pc.getMoney()>=180 || flags.hasFlag(FLAG_innoxia_lights_out_free_drink))
+						innoxia_places_dominion_nightlife_lights_out_bar_hannah
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('arrack', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_HANNAH_DRINK'))]
+					#IF(!flags.hasFlag(FLAG_innoxia_lights_out_free_drink))
+						[#game.appendToTextStartStringBuilder(pc.incrementMoney(-180))]
+					#ELSE
+						[#flags.setFlag(FLAG_innoxia_lights_out_free_drink, false)]
+					#ENDIF
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_panther_deep_roar').applyEffect(pc, pc))]
+					#IF(pc.getAlcoholLevel()==ALCOHOL_LEVEL_FIVE_WASTED && !flags.hasFlag(FLAG_innoxia_lights_out_hannah_alcohol_warning))
+						[#flags.setFlag(FLAG_innoxia_lights_out_hannah_alcohol_warning, true)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_HANNAH_DRINK_WARNING'))]
+					#ENDIF
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[10]]></index>
+				<responseTitle><![CDATA[Grog (#IF(flags.hasFlag(FLAG_innoxia_lights_out_free_drink))Free#ELSEIF(pc.getMoney()>=180)[style.moneyFormat(180, span)]#ELSE[style.moneyFormatUncoloured(180, span)]#ENDIF)]]></responseTitle>
+				<responseTooltip><![CDATA[#IF(pc.getMoney()>=180 || flags.hasFlag(FLAG_innoxia_lights_out_free_drink)) Order a shot of grog. #ELSE You can't afford a shot of grog... #ENDIF]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_lights_out_hannah_alcohol_warning))
+						innoxia_places_dominion_nightlife_lights_out_bar_hannah_wasted
+					#ELSEIF(pc.getMoney()>=180 || flags.hasFlag(FLAG_innoxia_lights_out_free_drink))
+						innoxia_places_dominion_nightlife_lights_out_bar_hannah
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.addSpecialParsingString('grog', true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_HANNAH_DRINK'))]
+					#IF(!flags.hasFlag(FLAG_innoxia_lights_out_free_drink))
+						[#game.appendToTextStartStringBuilder(pc.incrementMoney(-180))]
+					#ELSE
+						[#flags.setFlag(FLAG_innoxia_lights_out_free_drink, false)]
+					#ENDIF
+					[#game.appendToTextStartStringBuilder(itemGen.generateItem('dsg_race_shark_grog').applyEffect(pc, pc))]
+					#IF(pc.getAlcoholLevel()==ALCOHOL_LEVEL_FIVE_WASTED && !flags.hasFlag(FLAG_innoxia_lights_out_hannah_alcohol_warning))
+						[#flags.setFlag(FLAG_innoxia_lights_out_hannah_alcohol_warning, true)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_HANNAH_DRINK_WARNING'))]
+					#ENDIF
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="bar_hannah_wasted">
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_NIGHTLIFE_DISTRICT)]
+			[#pc.setNearestLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_BACK_ALLEYS)]
+			#IF(hannah.getAlcoholLevelValue()<0.75)
+				[#hannah.setAlcoholLevel(0.75)]
+			#ENDIF
+			[#hannah.setLocation(pc)]
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_HANNAH_WASTED'))]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fucked]]></responseTitle>
+				<responseTooltip><![CDATA[Let Hannah fuck you right here in the alleyway.]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_lights_out_hannah_sex, true)]
+				]]></effects>
+				<sexVariables enabled="true">
+					<consensual><![CDATA[true]]></consensual>
+					<subHasEqualControl><![CDATA[true]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[hannah]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[pc]]></character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_nightlife_lights_out_after_sex_alleyway]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/nightlife/lights_out">BAR_HANNAH_WASTED_SEX_START</sexStartContent>
+					<tags/>
+					<ongoingActionsAtStart/>
+				</sexVariables>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Push Hannah away and tell her that you need to go.]]></responseTooltip>
+				<nextDialogue ><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_lights_out_hannah_left, true)]
+					[#hannah.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_HANNAH_WASTED_LEAVE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id ="after_sex_alleyway">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Hannah has had her fun and brings an end to the sex...]]></tooltip>
+		<preParsingEffects><![CDATA[
+			[#hannah.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/nightlife/lights_out">AFTER_SEX_ALLEYWAY</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[As Hannah has now left, you wonder what to do next...]]></responseTooltip>
+				<nextDialogue ><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'AFTER_SEX_ALLEYWAY_CONTINUE'))]
+					[#hannah.setAlcoholLevel(0)]
+					[#flags.setFlag(FLAG_innoxia_lights_out_hannah_last_night_sex, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+
+	<scene id ="after_sex_bedroom">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Hannah has had her fun and brings an end to the sex...]]></tooltip>
+		<content folderPath="txt/places/dominion/nightlife/lights_out">AFTER_SEX_BEDROOM</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Sleep]]></responseTitle>
+				<responseTooltip><![CDATA[With Hannah tightly hugging you, it seems like you're going to have to spend the night with her, whether you want to or not...]]></responseTooltip>
+				<nextDialogue ><![CDATA[innoxia_places_dominion_nightlife_lights_out_after_sex_bedroom_morning]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[
+					[#~~(game.getMinutesUntilNextMorningOrEvening() + 5)]
+				]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.applySleep(~~(game.getMinutesUntilNextMorningOrEvening() + 5))]
+					[#hannah.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
+					[#hannah.setAlcoholLevel(0)]
+					[#pc.setAlcoholLevel(0)]
+					[#flags.setFlag(FLAG_innoxia_lights_out_hannah_last_night_sex, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id ="after_sex_bedroom_morning">
+		<content folderPath="txt/places/dominion/nightlife/lights_out">AFTER_SEX_BEDROOM_MORNING</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[As Hannah has now left, you wonder what to do next...]]></responseTooltip>
+				<nextDialogue ><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'AFTER_SEX_BEDROOM_MORNING_CONTINUE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

@@ -8,7 +8,7 @@
 		<namePlural pluralByDefault="false"><![CDATA[chest sarashis]]></namePlural>
 		<description><![CDATA[A long strip of thick cotton, wrapped around the chest as an added layer of protection, or to flatten the wearer's breasts.]]></description>
 		<physicalResistance>0</physicalResistance> 
-		<femininity>FEMININE</femininity>
+		<femininity>ANDROGYNOUS</femininity>
 		<slot>CHEST</slot> 
 		<rarity>COMMON</rarity>
 		<clothingSet/>

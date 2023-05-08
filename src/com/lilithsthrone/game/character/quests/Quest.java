@@ -153,7 +153,7 @@ public enum Quest {
 		@Override
 		public String getDescription() {
 			return "After finding Scarlett in Slaver Alley, you discovered that she's no longer in possession of Arthur."
-					+ " Before she'll tell you anything about it, she wants you to go the Harpy Nests and report to her matriarch, Helena, that her business is a complete failure";
+					+ " Before she'll tell you anything about it, she wants you to go to the Harpy Nests and report to her matriarch, Helena, that her business is a complete failure";
 		}
 		@Override
 		public String getCompletedDescription() {
@@ -1621,7 +1621,7 @@ public enum Quest {
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "You pulled the handle against your better judement.";
+			return "You pulled the handle against your better judgement.";
 		}
 	},
 
@@ -2070,7 +2070,7 @@ public enum Quest {
 
 		@Override
 		public String getCompletedDescription() {
-			return "You returned to Helena's store to discover that everything is set up and ready for the harpy matriarch to start accepting customers. Before that, however, you need to help her with a couple mroe things...";
+			return "You returned to Helena's store to discover that everything is set up and ready for the harpy matriarch to start accepting customers. Before that, however, you need to help her with a couple more things...";
 		}
 	},
 

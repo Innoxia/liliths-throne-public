@@ -22,7 +22,7 @@ import com.lilithsthrone.utils.Util.Value;
  * @author Innoxia
  */
 public class FingerBreasts {
-
+	
 	public static final SexAction FEEL_BREASTS = new SexAction(
 			SexActionType.REQUIRES_NO_PENETRATION,
 			ArousalIncrease.TWO_LOW,

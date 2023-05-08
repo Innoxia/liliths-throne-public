@@ -16,12 +16,6 @@ import com.lilithsthrone.utils.colours.PresetColour;
  */
 public enum FluidModifier {
 	
-	MUSKY(PresetColour.BASE_TAN,
-			false,
-			"musky",
-			"It has a strong, musky smell.",
-			"Makes this fluid give off a heady, musky scent."),
-	
 	VISCOUS(PresetColour.BASE_PURPLE_DARK,
 			false,
 			"viscous",
@@ -47,6 +41,13 @@ public enum FluidModifier {
 			"Makes this fluid bubble like a carbonated drink."),
 	
 	// SPECIAL EFFECTS:
+
+	MUSKY(PresetColour.BASE_TAN,
+			true,
+			"musky",
+			"It has a strong, musky smell.",
+			"Musky cum and girlcum will apply 'marked by musk' to anyone who is covered in it during sex."),
+	
 	
 	MINERAL_OIL(PresetColour.BASE_BLACK,
 			true,

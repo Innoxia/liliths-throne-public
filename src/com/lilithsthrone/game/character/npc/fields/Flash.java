@@ -251,8 +251,8 @@ public class Flash extends NPC {
 	}
 	
 	@Override
-	public void hourlyUpdate() {
-		if(Main.game.getHourOfDay()>=8 && Main.game.getHourOfDay()<=23 && !Main.game.getCharactersPresent().contains(this)) {
+	public void hourlyUpdate(int hour) {
+		if(hour>=8 && hour<=23 && !Main.game.getCharactersPresent().contains(this)) {
 			this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f0"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f0_bar"));
 		} else {
 			this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f1_room_owner"), true);

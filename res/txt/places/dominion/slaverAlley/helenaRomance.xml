@@ -694,7 +694,7 @@
 			 In another contrast to her naked slaves, this [natalya.race] is dressed to impress, as on the upper, humanoid part of her body, a very smart feminine blazer and shirt are restraining her round, [natalya.cupSize]-cup breasts, while a large, black skirt conceals whatever genitalia she might have at the rear of her feral horse's body. Her silken, black hair is tied up into a smart bun, which is being held in place by a pair of royal-purple hair sticks. Perched on the bridge of her cute feminine nose, she's wearing a pair of black, thick-rimmed glasses, and as she realises that the store in front of her is closed, she rolls her grey-green eyes and tuts, [natalya.speech(This is most unsatisfactory. I was assured that there'd be somebody here to receive me...)]
 		</p>
 		<p>
-			#IF(pc.hasFlag(FLAG_natalyaParkEncounter))
+			#IF(flags.hasFlag(FLAG_natalyaParkEncounter))
 				Although you recognise this [natalya.race] from the time you saw her in the park, you doubt that she'll remember you, and so as she turns away from the locked door, you realise that now's the moment to introduce yourself...
 			#ELSE
 				As the events in front of you have unfolded so quickly, you haven't had the opportunity to attract this small [natalya.race]'s attention, but as she turns away from the locked door, you realise that now's the moment to introduce yourself...
