@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256">
+    <defs>
+        <linearGradient id="innoGrad3">
+            <stop offset="0" stop-color="#ff7f2a" stop-opacity=".502"/>
+            <stop offset=".5" stop-color="#ff7f2a" stop-opacity="0"/>
+            <stop offset="1" stop-color="#ff7f2a" stop-opacity=".502"/>
+        </linearGradient>
+        <linearGradient id="innoGrad2">
+            <stop offset="0" stop-color="#ff2a2a" stop-opacity=".502"/>
+            <stop offset=".5" stop-color="#ff2a2a" stop-opacity="0"/>
+            <stop offset="1" stop-color="#ff2a2a" stop-opacity=".502"/>
+        </linearGradient>
+        <linearGradient id="innoGrad1">
+            <stop offset="0" stop-color="#ff2a2a" stop-opacity=".502"/>
+            <stop offset="1" stop-color="#ff2a2a" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="linearGradient852" x1="128.777" x2="138.082" y1="102.241" y2="181.629" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad1"/>
+        <linearGradient id="linearGradient875" x1="55.56" x2="198.008" y1="107.991" y2="107.991" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad2"/>
+        <linearGradient id="linearGradient906" x1="55.56" x2="198.008" y1="132.359" y2="132.359" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad3"/>
+        <linearGradient id="linearGradient935" x1="127.558" x2="126.139" y1="61.914" y2="56.219" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad1"/>
+    </defs>
+    <path fill="#ff8080" d="M69 109.5c-70.5 19.75-98.25 87.25-23.25 87.75s216.206-57.457 208.5-82.5c-1-3.25-51.25-12.432-79.51-12.407-36.5.032-78.063-.596-105.74 7.157z"/>
+    <path fill="url(#linearGradient852)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M69 109.5c-70.5 19.75-98.25 87.25-23.25 87.75s216.206-57.457 208.5-82.5c-1-3.25-51.25-12.432-79.51-12.407-36.5.032-78.063-.596-105.74 7.157z"/>
+    <path fill="none" stroke="#000" stroke-miterlimit="10" stroke-width=".5" d="M58 116.5c-71.75 26-67.25 84.75 2.75 76.5S250.96 135.546 251 118.5c.018-7.5-47.5-12.344-64-14.25s-88.517-2.42-129 12.25z"/>
+    <path fill="#ff8080" d="M58.75 158c-5.155-9.467-2.101-59.312 2.469-77.852C63.224 72.016 75.054 61.07 84 55.66c16.012-9.682 85.749-10.573 90.25-.41 7.75 17.5 24.076 62.583 23.224 71.958-2.5 27.501-124.712 56.524-138.724 30.792z"/>
+    <path fill="url(#linearGradient875)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M58.75 158c-5.155-9.467-2.101-59.312 2.469-77.852C63.224 72.016 75.054 61.07 84 55.66c16.012-9.682 85.749-10.573 90.25-.41 7.75 17.5 24.076 62.583 23.224 71.958-2.5 27.501-124.712 56.524-138.724 30.792z"/>
+    <path fill="#ffb380" d="M190.225 97.683c4.385 13.296 7.643 25.204 7.249 29.526-2.5 27.5-124.712 56.524-138.724 30.792-2.276-4.182-2.952-16.241-2.603-30 8.103 25.5 127.8-4.894 134.076-30.322l.002.004z"/>
+    <path fill="url(#linearGradient906)" stroke="#000" stroke-miterlimit="10" d="M190.225 97.683c4.385 13.296 7.643 25.204 7.249 29.526-2.5 27.5-124.712 56.524-138.724 30.792-2.276-4.182-2.952-16.241-2.603-30 8.103 25.5 127.8-4.894 134.076-30.322z"/>
+    <path fill="#ff8080" d="M145.464 58.063c-6.366 1.271-13.611 2.747-20.964 4.438-10.361 2.383-20.723 7.299-29.589 11.583C107 64.938 123.75 50 145.464 58.063z"/>
+    <path fill="url(#linearGradient935)" stroke="#000" stroke-miterlimit="10" d="M145.464 58.063c-6.366 1.271-13.611 2.747-20.964 4.438-10.361 2.383-20.723 7.299-29.589 11.583C107 64.938 123.75 50 145.464 58.063z"/>
+    <path d="M70.5 79.5c.479.742.917 1.381 1.754 1.758 1.217.549 2.634.433 3.912.188 2.855-.547 5.571-1.814 8.194-3.026 5.498-2.54 10.823-5.439 16.287-8.05 5.679-2.713 11.46-5.247 17.468-7.147 5.985-1.893 12.209-3.009 18.355-4.232 5.46-1.07 10.938-2.044 16.419-2.994 2.645-.471 5.295-.908 7.935-1.406.985-.186 1.97-.381 2.947-.606.853-.196 2.512-.347 3.105-1.059.283-.294-1.199-.638-1.377-.676.258.03 1.965.238 1.519.766-.586.833-2.219 1.113-3.134 1.388-1.163.35-2.336.669-3.511.975-2.825.735-5.671 1.387-8.519 2.03-6.004 1.356-12.025 2.632-18.03 3.98-6.33 1.421-12.632 2.787-18.758 4.96-5.983 2.123-11.783 4.74-17.542 7.399-4.882 2.254-9.742 4.64-14.797 6.49-2.408.881-4.977 1.743-7.562 1.824-2.182.069-3.663-.651-4.665-2.562z"/>
+</svg>

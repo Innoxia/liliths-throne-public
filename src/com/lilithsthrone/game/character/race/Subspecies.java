@@ -5552,7 +5552,10 @@ public class Subspecies {
 		}
 		@Override
 		public String getSVGString(GameCharacter character) {
-			if(character!=null && !((Elemental)character).getSummoner().isElementalActive()) {
+			if(character!=null
+					&& character instanceof Elemental
+					&& ((Elemental)character).getSummoner() != null
+					&& !((Elemental)character).getSummoner().isElementalActive()) {
 				if(((Elemental)character).getPassiveForm()==null) {
 					String wispSVG = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(ELEMENTAL_WATER),
 									this.getColour(character),

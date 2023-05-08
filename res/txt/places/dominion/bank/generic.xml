@@ -73,7 +73,7 @@
 		Deciding that you'd like to open an account with this bank, you [pc.step] up to one of the available counters and inform the clerk of your decision.
 	</p>
 	<p>
-		[style.speechFeminineHeavy(Oh, a new customer? Excellent!)] the succubus happily declares. Producing a form from under the counter, she places it down before you and explains the process, [style.speechFeminineHeavy(If you could start by giving me your name and address, we'll then check your criminal record and employment status. Most of our clients are given a bronze account, but if you have a particularly important profession, then you might quality for silver.)]
+		[style.speechFeminineHeavy(Oh, a new customer? Excellent!)] the succubus happily declares. Producing a form from under the counter, she places it down before you and explains the process, [style.speechFeminineHeavy(If you could start by giving me your name and address, we'll then check your criminal record and employment status. Most of our clients are given a bronze account, but if you have a particularly important profession, then you might qualify for silver.)]
 	</p>
 	<p>
 		After giving the clerk your name, you proceed to give her the address of Lilaya's mansion as your own. As she writes this down on the form, you see a concerned look flash over the succubus's face. Turning her head, she raises her arm and makes a beckoning gesture. As you turn to see who it is she's calling over, you see a pair of the heavily armed security guards striding towards you.
@@ -101,7 +101,7 @@
 		Unlocking a safe beneath the counter, the clerk produces a small, plastic card. After writing the name of Lilaya's mother, Lyssieth, onto a dotted line which asks for the bearer's lilin lineage, she strikes a line through the expiry date, explaining, [style.speechFeminineHeavy(Platinum cards no longer expire; we stopped requiring renewals after several of Lunette's daughters registered a rather forceful complaint...)]
 	</p>
 	<p>
-		Producing a glowing purple stamp from out of the unlocked safe, the clerk asks you to place its pentagram mark onto the card three times. After doing so, you return the stamp to the clerk as she explains, [style.speechFeminineHeavy(Show this card to the clerk at the door to the VIP area, and you'll be given access to the deposit boxes. Any items which you place into the box will be automatically teleported to any of our other branches when your card's presence is detected there. We have branches in Elis, Thinis, Itza'aak, and Lyonesse. Your flames, as well as any interest earned, can also be deposited or retrieved from any branch. Thank you for opening an account with us today, [pc.miss] [pc.surname].)]
+		Producing a glowing purple stamp from out of the unlocked safe, the clerk asks you to place its pentagram mark onto the card three times. After doing so, you return the stamp to the clerk as she explains, [style.speechFeminineHeavy(Show this card to the clerk at the door to the VIP area, and you'll be given access to the deposit boxes. Any items which you place into the box will be automatically teleported to any of our other branches when your card's presence is detected there. We have branches in Elis, Thinis, Itza'aak, and Lyonesse. Your flames, as well as any interest earned, can also be deposited or retrieved from any branch. Thank you for opening an account with us today, #IF(pc.hasSurname())[pc.miss] [pc.surname]#ELSE[pc.sir]#ENDIF.)]
 	</p>
 	<p>
 		With that, the clerk hands you your card, apologising once again for making you wait as she does so.

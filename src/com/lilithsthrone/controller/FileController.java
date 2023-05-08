@@ -41,7 +41,12 @@ public class FileController {
 	private static File lastOpened = null;
 	
 	public static void initArtworkListeners() {
-		GameCharacter character = Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CHARACTER_APPEARANCE)?Main.game.getPlayer():(Main.game.getCurrentDialogueNode().equals(CompanionManagement.SLAVE_MANAGEMENT_INSPECT)?Main.game.getDialogueFlags().getManagementCompanion():CharactersPresentDialogue.characterViewed);
+		GameCharacter character = Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CHARACTER_APPEARANCE)
+				?Main.game.getPlayer()
+				:(Main.game.getCurrentDialogueNode().equals(CompanionManagement.SLAVE_MANAGEMENT_INSPECT)
+					?Main.game.getDialogueFlags().getManagementCompanion()
+					:CharactersPresentDialogue.characterViewed);
+		
 		String id = "ARTWORK_ADD";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
@@ -49,8 +54,9 @@ public class FileController {
 				FileChooser chooser = new FileChooser();
 				chooser.setTitle("Add Images");
 				chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png", "*.gif"));
-				if (lastOpened != null)
+				if (lastOpened != null) {
 					chooser.setInitialDirectory(lastOpened);
+				}
 				
 				List<File> files = chooser.showOpenMultipleDialog(Main.primaryStage);
 				if (files != null && !files.isEmpty()) {
@@ -58,8 +64,9 @@ public class FileController {
 					
 					character.importImages(files);
 					
-					if (!character.isPlayer())
+					if (!character.isPlayer()) {
 						CharactersPresentDialogue.resetContent(character);
+					}
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}
 			}, false);
@@ -490,7 +497,7 @@ public class FileController {
 						BodyChanging.loadConfirmationName = "";
 						Body loadedBody = BodyChanging.loadBody(fileName);
 						BodyChanging.applyLoadedBody(loadedBody);
-						Main.game.setContent(new Response("Save/Load", "Open the save/load transformation window.", BodyChanging.BODY_CHANGING_SAVE_LOAD));
+						Main.game.setContent(new Response("Save/Load", "Open the save/load transformation window.", BodyChanging.BODY_CHANGING_CORE));
 					} else {
 						BodyChanging.overwriteConfirmationName = "";
 						BodyChanging.loadConfirmationName = f.getName();

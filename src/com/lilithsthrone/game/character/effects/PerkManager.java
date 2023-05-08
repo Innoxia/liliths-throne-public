@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.effects;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -708,14 +709,33 @@ public enum PerkManager {
 		}
 		
 		if(character.getSpecialPerks().size()>0) {
+			List<AbstractPerk> subspeciesKnowledgePerks = new ArrayList<>();
+			// Non-subspecies knowledge perks:
 			treeSB.append("<div class='container-full-width' style='width:100%; padding:0; margin:0;'>");
 				for(AbstractPerk hiddenPerk : Perk.getHiddenPerks()) {
 					if(character.hasPerkAnywhereInTree(hiddenPerk)) {
-						treeSB.append(
-								"<div id='HIDDEN_PERK_" + Perk.getIdFromPerk(hiddenPerk) + "' class='square-button round small' style='width:6%; display:inline-block; float:none; border-color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+";'>"
-								+ "<div class='square-button-content'>"+hiddenPerk.getSVGString(character)+"</div>"
-								+ "</div>");
+						if(Perk.getSubspeciesKnowledgePerks().contains(hiddenPerk)) {
+							subspeciesKnowledgePerks.add(hiddenPerk);
+						} else {
+							treeSB.append(
+									"<div id='HIDDEN_PERK_" + Perk.getIdFromPerk(hiddenPerk) + "' class='square-button round small'"
+											+ " style='width:6%; display:inline-block; float:none; border-color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+"; cursor:default;'>"
+									+ "<div class='square-button-content'>"+hiddenPerk.getSVGString(character)+"</div>"
+									+ "</div>");
+						}
 					}
+				}
+			treeSB.append("</div>");
+			
+			// Subspecies knowledge perks:
+			Collections.sort(subspeciesKnowledgePerks, (p1, p2)->p1.getName(character).compareTo(p2.getName(character)));
+			treeSB.append("<div class='container-full-width' style='width:100%; padding:0; margin:0;'>");
+				for(AbstractPerk hiddenPerk : subspeciesKnowledgePerks) {
+					treeSB.append(
+							"<div id='HIDDEN_PERK_" + Perk.getIdFromPerk(hiddenPerk) + "' class='square-button round small'"
+									+ " style='width:6%; padding:0; left:12px; margin:0 0 0 -24px; display:inline-block; float:none; border-color:"+hiddenPerk.getColour().toWebHexString()+"; cursor:default;'>"
+							+ "<div class='square-button-content'>"+hiddenPerk.getSVGString(character)+"</div>"
+							+ "</div>");
 				}
 			treeSB.append("</div>");
 		}

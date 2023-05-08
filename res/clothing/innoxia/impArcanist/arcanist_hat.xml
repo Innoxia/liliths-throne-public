@@ -67,59 +67,28 @@
 		<itemTags/>
 	</coreAttributes>
 
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You take off your arcanist's hat.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You pull off [npc.name]'s arcanist's hat.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You grab hold of [npc.name]'s arcanist's hat and roughly pull it off.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] takes [npc.her] arcanist's hat off.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] pulls your arcanist's hat off.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] grabs hold of your arcanist's hat and roughly pulls it off.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] pulls [npc2.name]'s arcanist's hat off.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] grabs hold of [npc2.name]'s arcanist's hat and roughly pulls it off.
-		]]></NPCOtherNPCRough>
-	</displacementText>
-
-	<!-- 'replacementText' is used for equipping and replacements. -->
 	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You pull on the arcanist's hat.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You get [npc.name] to wear the arcanist's hat.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You hold [npc.name] still as you roughly force [npc.herHim] to wear the arcanist's hat.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] pulls on the arcanist's hat.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] gets you to wear the arcanist's hat.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] holds you still as [npc.she] roughly forces you to wear the arcanist's hat.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] gets [npc2.name] to wear the arcanist's hat.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] holds [npc2.name] still as [npc1.she] roughly forces [npc2.herHim] to wear the arcanist's hat.
-		]]></NPCOtherNPCRough>
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(place)] the arcanist's hat onto [npc.her] head.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(place)] the arcanist's hat onto [npc2.namePos] head.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(push)] the arcanist's hat onto [npc2.namePos] head.]]>
+		</otherRough>
 	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(take)] off [npc.her] arcanist's hat.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(take)] off [npc2.namePos] arcanist's hat.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(snatch)] off [npc2.namePos] arcanist's hat.]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

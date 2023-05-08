@@ -2874,7 +2874,8 @@ public class OptionsDialogue {
 			
 			
 			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.NIPPLES, "Multi-breasts", "Choose whether randomly-generated furry characters should be given multiple rows of breasts."));
-			for (int i = com.lilithsthrone.game.Properties.multiBreastsLabels.length-1; i>=0; i--) {
+			int[] buttonOrder = new int[] {2, 1, 0, 3}; // Order buttons in this manner so that they appear to be a little more logical
+			for (int i : buttonOrder) {
 				UtilText.nodeContentSB.append("<div id='MULTI_BREAST_PREFERENCE_"+i+"' class='normal-button"+(Main.getProperties().multiBreasts == i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
 						+(Main.getProperties().multiBreasts == i
 							?(i == 0

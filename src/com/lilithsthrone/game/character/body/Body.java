@@ -706,6 +706,7 @@ public class Body implements XMLSaving {
 			XMLUtil.addAttribute(doc, bodyLeg, "type", LegType.getIdFromLegType(this.leg.type));
 			XMLUtil.addAttribute(doc, bodyLeg, "footStructure", this.leg.footStructure.toString());
 			XMLUtil.addAttribute(doc, bodyLeg, "configuration", this.leg.legConfiguration.toString());
+			XMLUtil.addAttribute(doc, bodyLeg, "tailLength", String.valueOf(this.leg.lengthAsPercentageOfHeight));
 		
 		// Penis:
 		Element bodyPenis = doc.createElement("penis");
@@ -1331,8 +1332,13 @@ public class Body implements XMLSaving {
 			footStructure = FootStructure.valueOf(leg.getAttribute("footStructure"));
 		} catch(Exception ex) {}
 		
+		
 		Leg importedLeg = new Leg(legType, configuration);
 		importedLeg.setFootStructure(null, footStructure);
+		try {
+			float tailLength = Float.valueOf(leg.getAttribute("tailLength"));
+			importedLeg.setLengthAsPercentageOfHeight(null, tailLength);
+		} catch(Exception ex) {}
 		
 		Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Leg: "
 				+ "<br/>type: "+importedLeg.getType());

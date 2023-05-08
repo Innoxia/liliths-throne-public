@@ -823,6 +823,14 @@ public class RatWarrensCaptiveDialogue {
 
 	public static final DialogueNode CAPTIVE_DAY_1_TF_CHOICE = new DialogueNode("", "", true, true) {
 		@Override
+		public void applyPreParsingEffects() {
+			if(!Main.game.getPlayer().getTattoos().isEmpty()) {
+				Main.game.getPlayer().clearTattoos();
+				Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_END_CLEAR_TATTOOS"));
+			}
+			Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_END"));
+		}
+		@Override
 		public int getSecondsPassed() {
 			return 15*60;
 		}

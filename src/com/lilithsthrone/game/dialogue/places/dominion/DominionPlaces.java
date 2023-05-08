@@ -355,6 +355,7 @@ public class DominionPlaces {
 					public void effects() {
 						OccupantDialogue.initDialogue(npc, true, false);
 						if(npc.isSleepingAtHour(Main.game.getHourOfDay())) {
+							Main.game.appendToTextEndStringBuilder("<p style='text-align:center;'>[style.italicsMinorBad([npc.Name] doesn't appreciate being woken up...)]</p>");
 							Main.game.appendToTextEndStringBuilder(npc.incrementAffection(Main.game.getPlayer(), -1));
 						}
 					}

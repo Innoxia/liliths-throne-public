@@ -795,9 +795,6 @@
 	
 	<htmlContent tag="SPA_GUEST_ARRIVE"><![CDATA[
 	<p>
-		The two of you go to the spa and stop outside the showers. [npc.Name] says that [npc.she] will need to change...
-	</p>
-	<p>
 		[pc.Walking] down the corridor with [npc.name] at your side, you soon arrive at the door to the spa. Heading inside, you pass through the reception and arrive at the door to the changing rooms.
 	</p>
 	<p>
@@ -1003,9 +1000,9 @@
 			 you cast your gaze over [npc.her] naked body so as to take in the sight of [npc.her]
 			#IF(npc.hasVagina())
 				#IF(npc.hasPenis())
-					[npc.breasts+], [npc.cock+], and [npc.pussy+].
+					 [npc.breasts+], [npc.cock+], and [npc.pussy+].
 				#ELSE
-					[npc.breasts+] and [npc.pussy+].
+					 [npc.breasts+] and [npc.pussy+].
 				#ENDIF
 			#ELSEIF(npc.hasPenis())
 				 [npc.breasts+] and [npc.cock+].

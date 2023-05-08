@@ -6192,6 +6192,7 @@ public class Perk {
 
 	public static List<AbstractPerk> hiddenPerks;
 	public static List<AbstractPerk> allPerks;
+	public static List<AbstractPerk> subspeciesKnowledgePerks;
 	
 	public static Map<AbstractPerk, String> perkToIdMap = new HashMap<>();
 	public static Map<String, AbstractPerk> idToPerkMap = new HashMap<>();
@@ -6245,6 +6246,7 @@ public class Perk {
 	static {
 		hiddenPerks = new ArrayList<>();
 		allPerks = new ArrayList<>();
+		subspeciesKnowledgePerks = new ArrayList<>();
 		
 		Field[] fields = Perk.class.getFields();
 		
@@ -6289,7 +6291,7 @@ public class Perk {
 						Util.capitaliseSentence(mainSubspecies?sub.getRace().getName(false):subToUse.getName(null))+" knowledge",
 						PerkCategory.LUST,
 						null,
-						PresetColour.BASE_WHITE,
+						sub.getColour(null),
 						Util.newHashMapOfValues(
 								new Value<>(subToUse.getDamageMultiplier(), 10)),
 						null) {
@@ -6315,6 +6317,7 @@ public class Perk {
 				idToPerkMap.put(Subspecies.getIdFromSubspecies(subToUse), racePerk);
 				allPerks.add(racePerk);
 				hiddenPerks.add(racePerk);
+				subspeciesKnowledgePerks.add(racePerk);
 			}
 		}
 		subspeciesPerksGenerated = true;
@@ -6346,5 +6349,12 @@ public class Perk {
 			generateSubspeciesPerks();
 		}
 		return hiddenPerks;
+	}
+
+	public static List<AbstractPerk> getSubspeciesKnowledgePerks() {
+		if(!subspeciesPerksGenerated) {
+			generateSubspeciesPerks();
+		}
+		return subspeciesKnowledgePerks;
 	}
 }
