@@ -5049,7 +5049,7 @@ public class Game implements XMLSaving {
 				npc.setId(getUniqueNPCId(npc.getClass()));
 			} else {
 				int id = npcTally.incrementAndGet();
-				npc.setId(id+","+(npc.getClass().getSimpleName()));
+				npc.setId(id+","+(npc.getClass().isAnonymousClass() ? npc.getClass().getSuperclass().getSimpleName() : npc.getClass().getSimpleName()));
 			}
 		}
 		
