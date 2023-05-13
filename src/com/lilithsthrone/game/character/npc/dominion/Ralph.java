@@ -1,7 +1,10 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -70,7 +73,11 @@ import com.lilithsthrone.world.places.PlaceType;
 public class Ralph extends NPC {
 	
 	public static final String RALPH_DISCOUNT_TIMER_ID = "ralph_discount_timer";
-	
+
+	private List<AbstractItem> foodItems;
+	private List<AbstractItem> drinkItems;
+	private List<AbstractItem> otherItems;
+
 	public Ralph() {
 		this(false);
 	}
@@ -81,14 +88,38 @@ public class Ralph extends NPC {
 				34, Month.MAY, 17,
 				10, Gender.M_P_MALE, Subspecies.HORSE_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_RALPHS_SHOP, true);
-		
+
+		foodItems = new ArrayList<>();
+		drinkItems = new ArrayList<>();
+		otherItems = new ArrayList<>();
+
 		if(!isImported) {
 			dailyUpdate();
 			
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 35);
 		}
 	}
-	
+
+	private Map<String, List<AbstractItem>> getAllItemListsMap() {
+		return Util.newHashMapOfValues(
+				new Value<>("foodItems", foodItems),
+				new Value<>("drinkItems", drinkItems),
+				new Value<>("otherItems", otherItems));
+	}
+
+	public List<AbstractItem> getFoodItems() {
+		Collections.shuffle(foodItems);
+		return foodItems;
+	}
+	public List<AbstractItem> getDrinkItems() {
+		Collections.shuffle(drinkItems);
+		return drinkItems;
+	}
+	public List<AbstractItem> getOtherItems() {
+		Collections.shuffle(otherItems);
+		return otherItems;
+	}
+
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
@@ -249,44 +280,27 @@ public class Ralph extends NPC {
 	@Override
 	public void dailyUpdate() {
 		clearNonEquippedInventory(false);
-		
-		this.addItem(Main.game.getItemGen().generateItem(ItemType.DYE_BRUSH), 25, false, false);
-		this.addItem(Main.game.getItemGen().generateItem(ItemType.REFORGE_HAMMER), 10, false, false);
-		
-		for(AbstractItemType item : ItemType.getAllItems()) {
-			if(item.getItemTags().contains(ItemTag.SOLD_BY_RALPH)
-					&& (!item.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
-				this.addItem(Main.game.getItemGen().generateItem(item), !item.isConsumedOnUse()?1:(6+Util.random.nextInt(12)), false, false);
-			}
-		}
 
-		for(AbstractWeaponType weapon : WeaponType.getAllWeapons()) {
-			if(weapon.getItemTags().contains(ItemTag.SOLD_BY_RALPH)
-					&& (!weapon.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
-				this.addWeapon(Main.game.getItemGen().generateWeapon(weapon), 1+Util.random.nextInt(5), false, false);
-			}
-		}
-		
-		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
-			if(clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_RALPH)
-					&& (!clothing.getDefaultItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
-				if(clothing.isDefaultSlotCondom()) {
-					Colour condomColour = clothing.getColourReplacement(0).getRandomOfDefaultColours();
-					Colour condomColourSec = PresetColour.CLOTHING_BLACK;
-					Colour condomColourTer = PresetColour.CLOTHING_BLACK;
-					
-					if(clothing.getColourReplacement(1)!=null) {
-						condomColourSec = clothing.getColourReplacement(1).getRandomOfDefaultColours();
-					}
-					if(clothing.getColourReplacement(2)!=null) {
-						condomColourTer = clothing.getColourReplacement(2).getRandomOfDefaultColours();
-					}
-					for (int i = 0; i < (3+(Util.random.nextInt(4)))*(clothing.getRarity()==Rarity.COMMON?3:(clothing.getRarity()==Rarity.UNCOMMON?2:1)); i++) {
-						this.addClothing(Main.game.getItemGen().generateClothing(clothing, condomColour, condomColourSec, condomColourTer, false), false);
-					}
-					
-				} else {
-					this.addClothing(Main.game.getItemGen().generateClothing(clothing), false);
+		foodItems.clear();
+		drinkItems.clear();
+		otherItems.clear();
+
+		for(AbstractItemType item : ItemType.getAllItems()) {
+			AbstractItem generatedItem = Main.game.getItemGen().generateItem(item);
+			if(generatedItem.getItemTags().contains(ItemTag.SOLD_BY_RALPH)
+					&& (!generatedItem.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
+				if (generatedItem.getItemTags().contains(ItemTag.FOOD) ||
+					generatedItem.getItemTags().contains(ItemTag.FOOD_QUALITY) ||
+						generatedItem.getItemTags().contains(ItemTag.FOOD_POOR)) {
+					foodItems.add(generatedItem);
+				}
+				else if (generatedItem.getItemTags().contains(ItemTag.DRINK) ||
+						generatedItem.getItemTags().contains(ItemTag.DRINK_QUALITY) ||
+						generatedItem.getItemTags().contains(ItemTag.DRINK_POOR)) {
+					drinkItems.add(generatedItem);
+				}
+				else {
+					otherItems.add(generatedItem);
 				}
 			}
 		}

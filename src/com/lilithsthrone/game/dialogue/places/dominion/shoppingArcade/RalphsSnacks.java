@@ -8,6 +8,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.npc.dominion.Nyan;
 import com.lilithsthrone.game.character.npc.dominion.Ralph;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -17,7 +18,15 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.ItemTag;
+import com.lilithsthrone.game.inventory.Rarity;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
+import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexControl;
@@ -32,6 +41,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
@@ -47,7 +57,11 @@ public class RalphsSnacks {
 			Main.game.getDialogueFlags().ralphDiscount=0;
 		}
 	}
-	
+
+	private static Ralph getRalph() {
+		return ((Ralph)Main.game.getNpc(Ralph.class));
+	}
+
 	public static final DialogueNode EXTERIOR = new DialogueNode("Ralph's Snacks (Exterior)", "-", false) {
 
 		@Override
@@ -131,15 +145,93 @@ public class RalphsSnacks {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseTrade("Trade with Ralph", "Go and ask Ralph about the special consumables on display.", Main.game.getNpc(Ralph.class)){
+				return new ResponseTrade("Trade with Ralph (food)", "Go and ask Ralph about the special consumable food items on display.", getRalph()) {
 					@Override
 					public void effects() {
+						getRalph().clearNonEquippedInventory(false);
+
+						for (AbstractItem i : getRalph().getFoodItems()) {
+							if (getRalph().isInventoryFull()) {
+								break;
+							}
+							getRalph().addItem(i, !i.isConsumedOnUse()?1:(6+Util.random.nextInt(12)), false, false);
+						}
+
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphIntroduced);
 						resetDiscountCheck();
 					}
 				};
-				
+
 			} else if (index == 2) {
+					return new ResponseTrade("Trade with Ralph (drink)", "Go and ask Ralph about the special consumable drink items on display.", getRalph()){
+						@Override
+						public void effects() {
+							getRalph().clearNonEquippedInventory(false);
+
+							for (AbstractItem i : getRalph().getDrinkItems()) {
+								if(getRalph().isInventoryFull()) {
+									break;
+								}
+								getRalph().addItem(i, !i.isConsumedOnUse()?1:(6+Util.random.nextInt(12)), false, false);
+							}
+
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphIntroduced);
+							resetDiscountCheck();
+						}
+					};
+
+			} else if (index == 3) {
+					return new ResponseTrade("Trade with Ralph (other)", "Go and ask Ralph about the other special items on display.", getRalph()){
+						@Override
+						public void effects() {
+							getRalph().clearNonEquippedInventory(false);
+
+							getRalph().addItem(Main.game.getItemGen().generateItem(ItemType.DYE_BRUSH), 25, false, false);
+							getRalph().addItem(Main.game.getItemGen().generateItem(ItemType.REFORGE_HAMMER), 10, false, false);
+							for (AbstractItem i : getRalph().getOtherItems()) {
+								if(getRalph().isInventoryFull()) {
+									break;
+								}
+								getRalph().addItem(i, !i.isConsumedOnUse()?1:(6+Util.random.nextInt(12)), false, false);
+							}
+
+							for(AbstractWeaponType weapon : WeaponType.getAllWeapons()) {
+								if(weapon.getItemTags().contains(ItemTag.SOLD_BY_RALPH)
+										&& (!weapon.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
+									getRalph().addWeapon(Main.game.getItemGen().generateWeapon(weapon), 1+Util.random.nextInt(5), false, false);
+								}
+							}
+
+							for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
+								if(clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_RALPH)
+										&& (!clothing.getDefaultItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
+									if(clothing.isDefaultSlotCondom()) {
+										Colour condomColour = clothing.getColourReplacement(0).getRandomOfDefaultColours();
+										Colour condomColourSec = PresetColour.CLOTHING_BLACK;
+										Colour condomColourTer = PresetColour.CLOTHING_BLACK;
+
+										if(clothing.getColourReplacement(1)!=null) {
+											condomColourSec = clothing.getColourReplacement(1).getRandomOfDefaultColours();
+										}
+										if(clothing.getColourReplacement(2)!=null) {
+											condomColourTer = clothing.getColourReplacement(2).getRandomOfDefaultColours();
+										}
+										for (int i = 0; i < (3+(Util.random.nextInt(4)))*(clothing.getRarity()== Rarity.COMMON?3:(clothing.getRarity()==Rarity.UNCOMMON?2:1)); i++) {
+											getRalph().addClothing(Main.game.getItemGen().generateClothing(clothing, condomColour, condomColourSec, condomColourTer, false), false);
+										}
+
+									} else {
+										getRalph().addClothing(Main.game.getItemGen().generateClothing(clothing), false);
+									}
+								}
+							}
+
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphIntroduced);
+							resetDiscountCheck();
+						}
+					};
+
+			} else if (index == 4) {
 				if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
 					return new Response("Discount", "Ask Ralph if there's anything you can do to get a discount.", INTERIOR_ASK_FOR_DISCOUNT){
 						@Override
@@ -154,7 +246,7 @@ public class RalphsSnacks {
 					
 				}
 
-			} else if (index == 3
+			} else if (index == 5
 					&& Main.game.getPlayer().hasQuest(QuestLine.SIDE_BUYING_BRAX)
 					&& Main.game.getPlayer().getQuest(QuestLine.SIDE_BUYING_BRAX)==Quest.BUYING_BRAX_LIPSTICK
 					&& !Main.game.getPlayer().hasItemType(ItemType.CANDI_HUNDRED_KISSES)) {
