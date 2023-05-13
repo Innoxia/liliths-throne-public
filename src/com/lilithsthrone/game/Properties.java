@@ -1667,4 +1667,18 @@ public class Properties {
 	public void setUddersLevel(int udders) {
 		this.udders = udders;
 	}
+
+	public void setIntByRef(String str, int val) {
+		try {
+			this.getClass().getField(str).setInt(this, val);
+		} catch (IllegalAccessException | NoSuchFieldException e) { e.printStackTrace(); } // #Mandatory
+	}
+
+	public int getIntByRef(String str) {
+		try {
+			return this.getClass().getField(str).getInt(this);
+		} catch (IllegalAccessException | NoSuchFieldException e) { e.printStackTrace(); } // #Mandatory
+		return -1;
+	}
+
 }
