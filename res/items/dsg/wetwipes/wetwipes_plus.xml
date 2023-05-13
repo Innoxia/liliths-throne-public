@@ -26,6 +26,7 @@
 		
 		<effectTooltipLines>
 			<line><![CDATA[[style.boldGood(Cleans all inventory slots)]]]></line>
+			<line><![CDATA[[style.boldGood(Cleans all equipped clothing)]]]></line>
 			<line><![CDATA[
 				#IF(game.isMuskContentEnabled())
 					[style.boldGood(Removes 'marked by musk')]
@@ -34,6 +35,7 @@
 		</effectTooltipLines>
 		
 		<applyEffects><![CDATA[
+			[##npc.cleanAllClothing(false, false)]
 			[##npc.cleanAllDirtySlots(true)]
 			[##npc.setMuskMarker(null)]
 			<p style='text-align:center; margin-top:0; padding-top:0;'>

@@ -1248,6 +1248,9 @@ public class StandardSexActionInteractions {
 									SexActionPresets.kissing,
 									SexActionPresets.breastsToMouth,
 									SexActionPresets.mouthToBreasts,
+									performer.isSizeDifferenceShorterThan(target)
+										?SexActionPresets.mouthToCrotchBoobs
+										:null,
 									SexActionPresets.groinToAss,
 									SexActionPresets.groinToGroin,
 									SexActionPresets.tailToLowerHalf,
@@ -1297,13 +1300,16 @@ public class StandardSexActionInteractions {
 	public static VariableInteractions matingPress = new VariableInteractions() {
 			@Override
 			public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
+				GameCharacter performer = getCharacter(performerSlot);
 				GameCharacter target = getCharacter(targetSlot);
 				
 				if(!target.isTaur()) {
 					return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
 							new SexActionInteractions(
 							Util.mergeMaps(
-									SexActionPresets.kissing,
+									performer.isSizeDifferenceShorterThan(target)
+										?SexActionPresets.mouthToBreasts
+										:SexActionPresets.kissing,
 									SexActionPresets.groinToAss,
 									SexActionPresets.groinToGroin,
 									SexActionPresets.tailToLowerHalf,

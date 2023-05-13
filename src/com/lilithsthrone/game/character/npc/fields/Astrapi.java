@@ -347,6 +347,11 @@ public class Astrapi extends NPC {
 	}
 	
 	@Override
+	public boolean isFeminine() {
+		return true;
+	}
+	
+	@Override
 	public void changeFurryLevel(){
 	}
 	

@@ -2835,7 +2835,7 @@ public class CharacterUtils {
 				return;
 			} catch (XMLLoadException e) {
 				System.err.println("Outfit '"+outfit.getName()+"' could not be applied in CharacterUtils equipClothing(). Proceeding to randomly generate outfit...");
-//				e.printStackTrace();
+				e.printStackTrace();
 			}
 		}
 		

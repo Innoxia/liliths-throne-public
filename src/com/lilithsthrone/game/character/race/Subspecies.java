@@ -467,6 +467,9 @@ public class Subspecies {
 			if(Math.random()<0.2f && body.getPenis().getType()!=PenisType.NONE) {
 				body.getPenis().getTesticle().setTesticleCount(null, 4);
 			}
+			if(body.getLegConfiguration()==LegConfiguration.BIPEDAL && body.getTailType()==TailType.DEMON_HORSE) {
+				body.setTailType(TailType.DEMON_COMMON);
+			}
 		}
 		
 		@Override
@@ -617,6 +620,9 @@ public class Subspecies {
 		}
 		@Override
 		public void applySpeciesChanges(Body body) {
+			if(body.getLegConfiguration()==LegConfiguration.BIPEDAL && body.getTailType()==TailType.DEMON_HORSE) {
+				body.setTailType(TailType.DEMON_COMMON);
+			}
 		}
 
 		@Override
@@ -764,6 +770,9 @@ public class Subspecies {
 			body.setHeight(Height.NEGATIVE_TWO_MINIMUM.getRandomValue());
 			body.getPenis().setPenisLength(null, 8+Util.random.nextInt(8)); // 3-7 inches
 			body.getWing().setSize(null,  WingSize.THREE_LARGE.getValue());
+			if(body.getLegConfiguration()==LegConfiguration.BIPEDAL && body.getTailType()==TailType.DEMON_HORSE) {
+				body.setTailType(TailType.DEMON_COMMON);
+			}
 		}
 		@Override
 		public boolean isShortStature() {
@@ -837,6 +846,9 @@ public class Subspecies {
 			body.setHeight(Height.NEGATIVE_ONE_TINY.getRandomValue());
 			body.getPenis().setPenisLength(null, 8+Util.random.nextInt(12)); // 3-8 inches
 			body.getWing().setSize(null,  WingSize.THREE_LARGE.getValue());
+			if(body.getLegConfiguration()==LegConfiguration.BIPEDAL && body.getTailType()==TailType.DEMON_HORSE) {
+				body.setTailType(TailType.DEMON_COMMON);
+			}
 		}
 		@Override
 		public boolean isShortStature() {
@@ -5250,7 +5262,7 @@ public class Subspecies {
 		}
 		@Override
 		public String getSVGString(GameCharacter character) {
-			if(character!=null && (((Elemental)character).getSummoner()!=null && !((Elemental)character).getSummoner().isElementalActive())) {
+			if(character!=null && (character instanceof Elemental) && ((Elemental)character).getSummoner()!=null && !((Elemental)character).getSummoner().isElementalActive()) {
 				if(((Elemental)character).getPassiveForm()==null) {
 					String wispSVG = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(ELEMENTAL_FIRE),
 									this.getColour(character),
@@ -5328,7 +5340,7 @@ public class Subspecies {
 		}
 		@Override
 		public String getSVGString(GameCharacter character) {
-			if(character!=null && !((Elemental)character).getSummoner().isElementalActive()) {
+			if(character!=null && (character instanceof Elemental) && ((Elemental)character).getSummoner()!=null && !((Elemental)character).getSummoner().isElementalActive()) {
 				if(((Elemental)character).getPassiveForm()==null) {
 					String wispSVG = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(ELEMENTAL_EARTH),
 							this.getColour(character),
@@ -5407,10 +5419,7 @@ public class Subspecies {
 		}
 		@Override
 		public String getSVGString(GameCharacter character) {
-			if(character!=null
-					&& character instanceof Elemental
-					&& ((Elemental)character).getSummoner() != null
-					&& !((Elemental)character).getSummoner().isElementalActive()) {
+			if(character!=null && (character instanceof Elemental) && ((Elemental)character).getSummoner()!=null && !((Elemental)character).getSummoner().isElementalActive()) {
 				if(((Elemental)character).getPassiveForm()==null) {
 					String wispSVG = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(ELEMENTAL_WATER),
 									this.getColour(character),
@@ -5488,7 +5497,7 @@ public class Subspecies {
 		}
 		@Override
 		public String getSVGString(GameCharacter character) {
-			if(character!=null && !((Elemental)character).getSummoner().isElementalActive()) {
+			if(character!=null && (character instanceof Elemental) && ((Elemental)character).getSummoner()!=null && !((Elemental)character).getSummoner().isElementalActive()) {
 				if(((Elemental)character).getPassiveForm()==null) {
 					String wispSVG = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(ELEMENTAL_AIR),
 									this.getColour(character),
