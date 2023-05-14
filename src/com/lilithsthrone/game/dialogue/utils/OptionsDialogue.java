@@ -2210,50 +2210,29 @@ public class OptionsDialogue {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			UtilText.nodeContentSB.append(NON_CON.getDiv());
-			
 			UtilText.nodeContentSB.append(SADISTIC_SEX.getDiv());
-			
 			UtilText.nodeContentSB.append(LIPSTICK_MARKING.getDiv());
 			
-			
 			UtilText.nodeContentSB.append(VOLUNTARY_NTR.getDiv());
-			
 			UtilText.nodeContentSB.append(INVOLUNTARY_NTR.getDiv());
-			
 			UtilText.nodeContentSB.append(INCEST.getDiv());
-			
 			UtilText.nodeContentSB.append(LACTATION.getDiv());
-			
 			UtilText.nodeContentSB.append(SEXUAL_UDDERS.getDiv());
-			
 			UtilText.nodeContentSB.append(URETHRAL.getDiv());
-			
 			UtilText.nodeContentSB.append(NIPPLE_PEN.getDiv());
-			
 			UtilText.nodeContentSB.append(ANAL.getDiv());
-			
 			UtilText.nodeContentSB.append(GAPE.getDiv());
-			
 			UtilText.nodeContentSB.append(PENETRATION_LIMITATION.getDiv());
-			
 			UtilText.nodeContentSB.append(PENETRATION_LIMITATION_DYNAMIC.getDiv());
-			
 			UtilText.nodeContentSB.append(FOOT.getDiv());
-			
 			UtilText.nodeContentSB.append(ARMPIT.getDiv());
-			
 			UtilText.nodeContentSB.append(MUSK.getDiv());
-			
 			UtilText.nodeContentSB.append(FURRY_TAIL_PENETRATION.getDiv());
-			
 			UtilText.nodeContentSB.append(INFLATION_CONTENT.getDiv());
-			
 			UtilText.nodeContentSB.append(AUTO_SEX_CLOTHING_MANAGEMENT.getDiv());
-			
 			UtilText.nodeContentSB.append(AUTO_SEX_CLOTHING_STRIP.getDiv());
-			
 			UtilText.nodeContentSB.append(RAPE_PLAY_BY_DEFAULT.getDiv());
 			
 			return UtilText.nodeContentSB.toString();
@@ -2274,20 +2253,14 @@ public class OptionsDialogue {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			
+
 			UtilText.nodeContentSB.append(AGE.getDiv());
-			
 			UtilText.nodeContentSB.append(FERAL.getDiv());
-			
 			UtilText.nodeContentSB.append(CUM_REGENERATION.getDiv());
-			
 			UtilText.nodeContentSB.append(FUTA_BALLS.getDiv());
-			
 			UtilText.nodeContentSB.append(CLOACA.getDiv());
-			
 			UtilText.nodeContentSB.append(VESTIGIAL_MULTI_BREAST.getDiv());
-			
-			
+
 			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.NIPPLES, "Multi-breasts", "Choose whether randomly-generated furry characters should be given multiple rows of breasts."));
 			int[] buttonOrder = new int[] {2, 1, 0, 3}; // Order buttons in this manner so that they appear to be a little more logical
 			for (int i : buttonOrder) {
@@ -2312,19 +2285,13 @@ public class OptionsDialogue {
 						+com.lilithsthrone.game.Properties.uddersLabels[i]+")]</div>");
 			}
 			UtilText.nodeContentSB.append("</div></div>");
-			
+
 			UtilText.nodeContentSB.append(HAIR_FACIAL.getDiv());
-			
 			UtilText.nodeContentSB.append(HAIR_PUBIC.getDiv());
-			
 			UtilText.nodeContentSB.append(HAIR_BODY.getDiv());
-			
 			UtilText.nodeContentSB.append(HAIR_ASS.getDiv());
-			
 			UtilText.nodeContentSB.append(FEMININE_BEARD.getDiv());
-			
 			UtilText.nodeContentSB.append(FURRY_HAIR.getDiv());
-			
 			UtilText.nodeContentSB.append(SCALY_HAIR.getDiv());
 			
 			UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(
