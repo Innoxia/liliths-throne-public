@@ -10,7 +10,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
  */
 public enum Disposition {
 
-	CIVILIZED("civilized", PresetColour.CLOTHING_GREEN, 1.0f),
+	CIVILIZED("civilised", PresetColour.CLOTHING_GREEN, 1.0f),
 	
 	NEUTRAL("neutral", PresetColour.CLOTHING_BLUE, 1.5f),
 	

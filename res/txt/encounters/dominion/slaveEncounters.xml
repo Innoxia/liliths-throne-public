@@ -283,7 +283,7 @@
 	</p>
 	<p>
 		#IF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_NEGATIVE_TWO_DISLIKE) || (!npc2.isAttractedTo(npc) && game.isNonConEnabled()))
-			Despite obviously not liking the situation [npc2.she] finds [npc2.herself] in, the prospect of getting off in accordance with your rules seems to have [npc2.name] surprisingly eager to get started. With moments before this little hate-fuck session begins, you realize it's time to choose between interrupting and getting in on the action, or hanging back and watching as they go at it.
+			Despite obviously not liking the situation [npc2.she] finds [npc2.herself] in, the prospect of getting off in accordance with your rules seems to have [npc2.name] surprisingly eager to get started. With moments before this little hate-fuck session begins, you realise it's time to choose between interrupting and getting in on the action, or hanging back and watching as they go at it.
 		#ELSEIF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
 			[npc2.Name] clearly isn't thrilled at being forced into this situation, but [npc2.she] seems horny enough that [npc2.sheIs] willing to put [npc2.her] ambivalence towards [npc.name] aside in return for a few orgasms. With the impromptu rendezvous about to get underway, you have the option to announce your presence and join them, or watch as the two use each other.
 		#ELSEIF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_POSITIVE_FOUR_LOVE))
@@ -487,7 +487,7 @@
 	</p>
 	<p>
 		#IF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_NEGATIVE_TWO_DISLIKE) || (!npc2.isAttractedTo(npc) && game.isNonConEnabled()))
-			Despite obviously not liking the situation [npc2.she] finds [npc2.herself] in, the prospect of getting off in accordance with your rules seems to have [npc2.name] surprisingly eager to get started. With moments before this little hate-fuck session begins, you realize it's time to choose between interrupting and getting in on the action, or hanging back and watching as they go at it.
+			Despite obviously not liking the situation [npc2.she] finds [npc2.herself] in, the prospect of getting off in accordance with your rules seems to have [npc2.name] surprisingly eager to get started. With moments before this little hate-fuck session begins, you realise it's time to choose between interrupting and getting in on the action, or hanging back and watching as they go at it.
 		#ELSEIF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
 			[npc2.Name] clearly isn't thrilled at being forced into this situation, but [npc2.she] seems horny enough that [npc2.sheIs] willing to put [npc2.her] ambivalence towards [npc.name] aside in return for a few orgasms. With the impromptu rendezvous about to get underway, you have the option to announce your presence and join them, or watch as the two use each other.
 		#ELSEIF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_POSITIVE_FOUR_LOVE))

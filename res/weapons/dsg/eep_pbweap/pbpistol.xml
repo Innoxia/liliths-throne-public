@@ -16,7 +16,7 @@
 		
 		<namePlural pluralByDefault="false"><![CDATA[pepperball pistols]]></namePlural> 
 		
-		<description><![CDATA[A miniaturized version of the Pepperball Rifle with a weaker air spell enchantment, this weapon uses the same pepper oil ammunition but has less range and does less damage. Enforcers favor it as a hold-out or secondary weapon.]]></description> 
+		<description><![CDATA[A miniaturized version of the Pepperball Rifle with a weaker air spell enchantment, this weapon uses the same pepper oil ammunition but has less range and does less damage. Enforcers favour it as a hold-out or secondary weapon.]]></description> 
 		
 		<attackDescriptor>shoot</attackDescriptor>
 		

@@ -59,7 +59,7 @@
 		[npc.Name] [npc.verb(remove)] the glass cover and [npc.verb(savor)] the scent of the bread and its sugar frosting. Unable to resist the delicious looking confectionery inside, [npc.she] [npc.verb(start)] shoving pieces into [npc.her] mouth until the entire plate has been emptied.
 		]]></selfUse>
 		<otherUse><![CDATA[
-		[npc.Name] [npc.verb(remove)] glass cover from the plate and [npc.verb(hold)] it out to [npc2.name], allowing [npc2.herHim] to savor the scent of the bread and its sugar frosting. Unable to resist the delicious-looking confectionery inside, [npc2.she] [npc2.verb(start)] shoving pieces into [npc2.her] mouth until the entire plate has been emptied.
+		[npc.Name] [npc.verb(remove)] glass cover from the plate and [npc.verb(hold)] it out to [npc2.name], allowing [npc2.herHim] to savour the scent of the bread and its sugar frosting. Unable to resist the delicious-looking confectionery inside, [npc2.she] [npc2.verb(start)] shoving pieces into [npc2.her] mouth until the entire plate has been emptied.
 		]]></otherUse>
 	</useDescriptions>
 

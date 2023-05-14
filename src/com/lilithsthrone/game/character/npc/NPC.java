@@ -2339,7 +2339,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 	public FetishPotion generateFetishPotion(GameCharacter target, Boolean pairedFetishesOnly) {
 		ItemEffect selectedEffect = null; // this will be the ultimately selected effect, or null if none available
-		String selectedEffectString ; // this will be a flavor text string paired with the effect
+		String selectedEffectString ; // this will be a flavour text string paired with the effect
 		
 		List<PossibleItemEffect> possibleEffects = new ArrayList<>();
 		
@@ -2831,7 +2831,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_ARMPIT_GIVING, "Armpits are far better than ass, pussy, or cock. At least, that's what you're going to think.");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_ARMPIT_GIVING, "You don't need to be so obsessed with armpits.");
 		
-		// Behavioral
+		// Behavioural
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_DOMINANT, "Don't you think you deserve to be the one in charge?");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_DOMINANT, "You're really not as intimidating as you think.");
 		
@@ -2892,7 +2892,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_BONDAGE_VICTIM, "You're going to want nothing more than to be locked up and have the key thrown away.");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_BONDAGE_VICTIM, "Things are a lot more fun if you're able to move.");
 		
-		// Behavioral unpaired
+		// Behavioural unpaired
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_BIMBO, "I think it's time you embraced your inner braindead slut.");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_BIMBO, "Maybe have just a little self respect?");
 		
@@ -2905,7 +2905,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_INCEST, "You know it wouldn't be a taboo if it wasn't at least a little bit fun.");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_INCEST, "You what? Gross.");
 		
-		// Behavioral transformative
+		// Behavioural transformative
 		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_TRANSFORMATION_GIVING, "You strike me as someone who should be an agent of change.");
 		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_TRANSFORMATION_GIVING, "You should really just let people be who they are.");
 		

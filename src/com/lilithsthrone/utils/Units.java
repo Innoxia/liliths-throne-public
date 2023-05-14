@@ -42,7 +42,7 @@ public enum Units {
         defaultLocale = Locale.getDefault();
 
         if (Main.getProperties() == null) {
-            new NullPointerException("Unit formatters initialized before properties. Assuming auto locale.").printStackTrace();
+            new NullPointerException("Unit formatters initialised before properties. Assuming auto locale.").printStackTrace();
             updateFormats(true);
         } else {
             updateSettings();
@@ -115,7 +115,7 @@ public enum Units {
     /**
      * Formats a number with the current number formatter.
      * @param amount The floating point number to format
-     * @return A string containing the localized number
+     * @return A string containing the localised number
      */
     public static String number(double amount) {
         return FORMATTER.number.format(amount);
@@ -168,7 +168,7 @@ public enum Units {
      * Formats a point in time with the current date and time formatter, separated with ", ".
      * @param timePoint The point in time to convert
      * @param type The style of the date, see {@link DateType} for details
-     * @return A string containing the localized date and time
+     * @return A string containing the localised date and time
      */
     public static String dateTime(TemporalAccessor timePoint, DateType type) {
         return date(timePoint, type) + ", " + time(timePoint);
@@ -240,7 +240,7 @@ public enum Units {
      * @param cm Amount of centimetres to convert
      * @param vType The format of the value, see {@link ValueType}
      * @param uType The format of the units, see {@link UnitType}
-     * @return A string containing the localized, wrapped, converted size and its associated unit
+     * @return A string containing the localised, wrapped, converted size and its associated unit
      */
     public static String size(double cm, ValueType vType, UnitType uType) {
         if (Main.getProperties().hasValue(PropertyValue.metricSizes)) {
@@ -366,7 +366,7 @@ public enum Units {
      * @param ml Amount of millilitres to convert
      * @param vType The format of the value, see {@link ValueType}
      * @param uType The format of the units, see {@link UnitType}
-     * @return A string containing the localized, wrapped, converted volume and its associated unit
+     * @return A string containing the localised, wrapped, converted volume and its associated unit
      */
     public static String fluid(double ml, ValueType vType, UnitType uType) {
         if (Main.getProperties().hasValue(PropertyValue.metricFluids))
@@ -426,7 +426,7 @@ public enum Units {
      * @param grams Amount of grams to convert
      * @param vType The format of the value, see {@link ValueType}
      * @param uType The format of the units, see {@link UnitType}
-     * @return A string containing the localized, wrapped, converted weight and its associated unit
+     * @return A string containing the localised, wrapped, converted weight and its associated unit
      */
     public static String weight(double grams, ValueType vType, UnitType uType) {
         if (Main.getProperties().hasValue(PropertyValue.metricWeights))

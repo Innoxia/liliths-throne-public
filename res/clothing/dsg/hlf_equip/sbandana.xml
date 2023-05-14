@@ -7,7 +7,7 @@
 		<determiner><![CDATA[a]]></determiner>
 		<name><![CDATA[skull-patterned bandana]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[skull-patterned bandanas]]></namePlural>
-		<description><![CDATA[A square piece of cloth with a stylized canine skull printed on it. Folded and tied just right, it can be made into an intimidating face mask.]]></description>
+		<description><![CDATA[A square piece of cloth with a stylised canine skull printed on it. Folded and tied just right, it can be made into an intimidating face mask.]]></description>
 		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
 		<slot>MOUTH</slot>

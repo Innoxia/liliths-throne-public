@@ -8,7 +8,7 @@
 		<determiner><![CDATA[a]]></determiner>
 		<name><![CDATA[kitty bra]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[kitty bras]]></namePlural>
-		<description><![CDATA[A crop-top style bra with tie-up spaghetti straps and a cutout in the shape of a stylized cat.]]></description>
+		<description><![CDATA[A crop-top style bra with tie-up spaghetti straps and a cutout in the shape of a stylised cat.]]></description>
 		<physicalResistance>0</physicalResistance>
 		<femininity>FEMININE</femininity>
 		<slot>CHEST</slot>

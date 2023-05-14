@@ -855,7 +855,7 @@ public class Race {
 	 * 
 	 * "<p>Centaurs are an unpredictable monster race that is rarely seen in Dominion."
 	 * +
-	 * " Centaurs are usually quite civilized, but they can get extremely territorial, and as a result they don't feel comfortable living in Dominion."
+	 * " Centaurs are usually quite civilised, but they can get extremely territorial, and as a result they don't feel comfortable living in Dominion."
 	 * +
 	 * " Outside of Dominion, centaurs group up to form herds of up to fifty individuals, although they are rarely all together at once,"
 	 * + " instead wandering their territory in search of intruders.</p>"
@@ -870,7 +870,7 @@ public class Race {
 	 * +
 	 * "<p>Centaurs are very aggressive towards intruders, and will attack anyone they consider to be encroaching on their territory."
 	 * +
-	 * " When outside of their territory, they are quite civilized, and will prefer to avoid conflict where possible.</p>"
+	 * " When outside of their territory, they are quite civilised, and will prefer to avoid conflict where possible.</p>"
 	 * 
 	 * +
 	 * "<p>Male centaurs will try and impregnate anything they can catch on their territory, while the females will only want to breed with their herd's leaders."
