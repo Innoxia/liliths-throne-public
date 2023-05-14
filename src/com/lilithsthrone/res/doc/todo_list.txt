@@ -6,39 +6,125 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
+	Contributors:
+		Fixed bug where vaginal, lactation, and virginity fetishes had incorrect sorting (based on left-aligned fetishes being active/giving and right-aligned being passive/receiving) in the fetish menu. (by Maxis010)
+	
+	Combat:
+		The two final upgrades to the Vacuum spell no longer strip clothing from unique NPCs. (As stripping clothing from quest-critical NPCs was resulting in issues with their content.)
+	
+	Sex:
+		The 'GenericSexualPartner' NPC class no longer spawns with addictive fluids, so as to prevent issues with their partners getting addicted (which was happening with Jess).
+		For size-difference characters, the smaller character can now kiss crotch-boobs in the missionary position, and can now kiss breasts instead of kissing mouth in the mating press position.
+	
+	Other:
+		Both types of wet wipes now additionally clean all equipped clothing.
+		You can no longer assign work hours to friendly occupants if they want to sleep during that hour.
+		Improved method of calculating sleep hours for slaves and friendly occupants so that they prefer to sleep as close to the mid-point of their natural sleep hours as they can.
+		Jess can now be impregnated, and you can pay her (5000 flames) to take a breeder pill before having sex with her. She also no longer has the barren perk nor a hatred of the pregnancy fetish, and also she now refuses to consume items during sex.
+		Demons, half-demons, and imps will no longer spawn with demonic horse tails if they're bipedal.
+	
 	Bugs:
-		Fixed bug where fetishes were not being detected as being owned.
+		Typo and parsing fixes.
+		Compacted the compatible slot names in the tooltips for piercing items, so that it doesn't run over into another line and cause the tooltip to overflow.
+		Fixed issue where there'd be no slaves in the stocks nor in any of the shops if you entered Slaver Alley before midnight after starting a new game.
+		Fixed issue where the Rental Mommy encounter would throw a background (harmless?) error every time it was triggered.
+		Fixed bug where the slaves in the stocks and shops in Slaver Alley would sometimes not be saved correctly.
+		Fixed bug where exported transformation presets for Elementals which were not bound to arcane or water would cause the transformation preset menu to break.
+		Fixed bug where stopping a sex scene in which you were a spectator (such as spying on Rose and Lilaya in Lilaya's lab) would cause the description for that scene to be displayed the next time you used the 'Quick sex' action.
+		Astrapi is now always considered to be feminine, ignoring your 'androgynous bodies' setting (as it fits her content for her to always be treated as a 'she').
+		Spell tooltips and predictive text in combat now show their potential damage range instead of a random value from within that range.
+		Fixed the Vacuum spell's first upgrade downgrading the health shielding debuff from -10 to -5, and also fixed the second and third upgrade tooltips to show their full effects.
+		Fixed bug in Helena's custom slave menu where you could customise a slave to be an angel by swapping back and forth between the spinneret tab.
+		Lunette's marauders and raiders in the Foloi Fields now have several of their fetish desires set to 'like' instead of 'love', as the 'love' setting was making it look like they had the associated fetish even though they didn't.
+		Characters (including the player) can no longer be milked of their cum or girlcum in a milking room if they're wearing any clothing which prevents them from orgasming.
+		Removed ability to fight Jhortrax after besting him in the 'Tameshigiri' scene, due to numerous inconsistencies with the resulting post-combat scenes.
+		Fixed background error being thrown when completing an incubation pregnancy of a single egg/offspring.
+		Fixed bug where transformation presets didn't take into account whether or not the target or preset were of 'short stature', which inadvertently allowed you to transform demons into imps and vice versa by using transformation presets.
+		Fixed bug where the greyed-out 'load' button for incompatible transformation presets would still work if you clicked on it.
+		Jess will no longer have random fluid addictions (and all of her fluid addictions will be cleared upon loading into this version).
+		Fixed bug where if none of the colours defined for an item of clothing within an outfit file were available for that clothing, the clothing would spawn with broken colourings. (This was mostly affecting jewellery on randomly-spawned NPCs.)
+		Fixed some inconsistent availabilities of 'offer/request orifice' actions in the breeding stall & glory hole positions.
+		Your demonic offspring will no longer spawn with heavily enchanted weapons which would push them over their enchantment capacity.
 	
 	
-	[] finish bug reports
-		[] a weird interaction with Astrapi and gendering. If you've set "masculine if in unisex clothing" in options you will get Astrapi referred as "he" during sex, but "she" in regular conversations with them
-		[] If you have 1 or 2 arcane firebombs you can still throw 3 in 1 turn,
-		[] Spell tooltips are bugged in combat. Instead of range they show you a randomly rolled number in a pop-up, a different roll in the projected turn sequence and rolling third time for actual damage
-			Tease also doesn't show a range
-		[] Using an upgraded vacuum spell while dueling meraxis in elis strips her clothing for the player to take and doesn't replace it after the encounter
-		[] in 4.7 you can set your slave parts to Angel when purchasing from Helena if you have a Spider tail with Spinnerette by modifying the Spinnerette and going back to other tabs; allowing you to Purchase a Custom Angel Slave
+	
+	[x] new bug reports
+		[x] Necklaces don't appear to be cleaned by either types of wet wipes while equipped or when in inventory
+		[x] "require any assistance, Mr.," last name missing at bank
+		[x] This person is not asleep - slaves losing 1 affection even when at work and such
+			[x] friendly occupants should not accept work when sleeping
+		[x] Friendly occupant referred to as slave
+		[x] Tongue piercing/Ear piercing - tooltip overflows and causes bottom cutoff
+		[x] the fetish window is clearly sorted "left active/giving and right passive/recieving" yet two fetishes disregard this rule. "lactation" and "pussy" are swapped the other way around. edit: figured "virginity and deflowering may are swapped as well"
+			The menu is generated and sorted starting here
+			com/lilithsthrone/game/dialogue/utils/PhoneDialogue.java:3791
+			It's checking for fetish pairing and then putting the top fetish first based on the first fetish in the list and checking isTopFetish which unless overridden is false
+			Add 
+			@Override
+			public boolean isTopFetish() { return true; }
+			 to the top fetishes in com/lilithsthrone/game/character/fetishes/Fetish.java to fix it
+		[x] Slaver Alley's public use stocks are bugged, and the first time entering on a new save all the slaves will have already been freed
+			(plus the dialogue option to talk with Constable Hughes about whether or not you'll get in trouble for freeing them)
+			they do come back spawn for the first time (wording) after two or three in-game days, though
+		[x] Whenever I save this preset for my elemental it breaks the save/load menu and nothing happens when I click the save/load button. Problem disappears when I delete the file
+			Wind.xml on desktop
+		[-] the Martial Artist perk is missing and still required for one of the forts when doing the quest Into the Depths. Want to bypass the fight in that fort and unable to without afore mentioned perk
+		[-] a nipple/ear piercing can be enchanted to give +5 resting lust and +0.5 arousal/turn (vibration) but an ear piercing only cannot be, even if the nipple/ear piercing were put into the ear slot it would still provide the vibration bonus
+		[x] i went to have quick sex with one of my slaves in my milking room and for some reason the game though i was watching lilaya and rose
+	[x] finish bug reports
+		[x] a weird interaction with Astrapi and gendering. If you've set "masculine if in unisex clothing" in options you will get Astrapi referred as "he" during sex, but "she" in regular conversations with them
+		[-] If you have 1 or 2 arcane firebombs you can still throw 3 in 1 turn,
+		[x] Spell tooltips are bugged in combat. Instead of range they show you a randomly rolled number in a pop-up, a different roll in the projected turn sequence and rolling third time for actual damage
+		[x] Using an upgraded vacuum spell while dueling meraxis in elis strips her clothing for the player to take and doesn't replace it after the encounter
+		[x] in 4.7 you can set your slave parts to Angel when purchasing from Helena if you have a Spider tail with Spinnerette by modifying the Spinnerette and going back to other tabs; allowing you to Purchase a Custom Angel Slave
 			the process involves swapping to Spinner tab then to the part you want to alter, select the Forbidden option, then go back to Spinner to refresh the tabs
-		[] On 0.4.7, I'm not able to crit any of the marauder succutaurs you encounter in the overworld with any of the fetish teases I have (except for the submissive tease), despite the fact they they have several fetishes that should allow them to crit.
+		[x] On 0.4.7, I'm not able to crit any of the marauder succutaurs you encounter in the overworld with any of the fetish teases I have (except for the submissive tease), despite the fact they they have several fetishes that should allow them to crit.
 			 This only happens with these enemies, everyone else I've encountered works fine
-		[] you can still self milk yourself to orgasm in a milking room with the orgasm denial enchantment equipped
-		[] Jhortrax scene after showcasing him your might and fighting him anyways for some reason has text from him coming back as if you'd fought him before
-			"Why did you come back? I told you to stay away from here!"
-		[] multiple pregnancies (breast eggs,stomach eggs,and womb eggs) being completed at the same time due to mother's milk only calls the main pregnancy for birth and clearing of effects.
+		[x] you can still self milk yourself to orgasm in a milking room with the orgasm denial enchantment equipped
+		[x] Jhortrax scene after showcasing him your might and fighting him anyways for some reason has text from him coming back as if you'd fought him before -> "Why did you come back? I told you to stay away from here!"
+		[-] multiple pregnancies (breast eggs,stomach eggs,and womb eggs) being completed at the same time due to mother's milk only calls the main pregnancy for birth and clearing of effects.
 			You are not given a chance after to birth the rest of the eggs from the other two instances of egg-nancy, leaving a state of permanent incubation
-		[] You can freely transform imps and half-demons into demons and demons into imps by loading preset to transform into
-		[] after having an encounter with the fox prostitute Jess, even if you manage to push their fertility over 0% you get the line about how there is no chance of being impregnated
-		[] random item gen for Sunflower and Rose series of piercings spawn with incorrect colours on NPCs
-		[] when you are domming at the Glory hole you can give instructions on the position but only have actions to use on oral
-		[] Your demonic children can spawn with 2 heavily enchanted weapons (demonstone and feather) and being lvl 1 they only have 13 enchantment capacity, so they get a debuff.
-		
-		[] the victim used to sometimes respond with a Resisting (sexual act here) But now not a single time has it procced. Now only the Base Default Resist or beg to stop now procs
-		[] For some reason, a sealed strapon on an NPC seems to make them keep start trying to hotdog or do intercrural, then stop, then start, then stop
+			[#nyan.guaranteePregnancyOnNextRoll()] [#nyan.rollForPregnancy(pc, 500, true)] [#nyan.implantPregnantLitter(pc, ORIFICE_VAGINA)]
+		[x] You can freely transform imps and half-demons into demons and demons into imps by loading preset to transform into
+		[x] after having an encounter with the fox prostitute Jess, even if you manage to push their fertility over 0% you get the line about how there is no chance of being impregnated
+			[x] get option for risky sex
+			[x] she should refuse pills (and all items)
+			[x] pregnancy reaction
+		[x] Jess can end up with random cum addictions
+			[x] check other random-sex characters for this too (perhaps remove addictive fluids from the generic sex partners?)
+		[x] random item gen for Sunflower and Rose series of piercings spawn with incorrect colours on NPCs
+			[x] if no available colours are in defined outfit colours, it breaks
+		[x] when you are domming at the Glory hole you can give instructions on the position but only have actions to use on oral
+		[x] Your demonic children can spawn with 2 heavily enchanted weapons (demonstone and feather) and being lvl 1 they only have 13 enchantment capacity, so they get a debuff.
+		[-] the victim used to sometimes respond with a Resisting (sexual act here) But now not a single time has it procced. Now only the Base Default Resist or beg to stop now procs
+		[-] For some reason, a sealed strapon on an NPC seems to make them keep start trying to hotdog or do intercrural, then stop, then start, then stop
 			but I've noticed that they never seem to actually autonomously start anal or vaginal penetration? Is it just because the dildo is too big for their partner's orifice
-		[] you cant suckle one's crotch nipples or top nipples when they are abnormally taller than you.
-			Whether it be missionary (I should be able to suck on her crotch tits), sitting down (how tf can I kiss one when they are sitting down, but I cant suckle either of their nipples),
-			 mating press (this is practically strange cause if it was true size difference, you'd be able to suckle nipples and unable to kiss), and just about all the others.
-			  I find it strange that any of the positions where you should be able to do it, you can't.
+		[x] you cant suckle one's crotch nipples or top nipples when they are abnormally taller than you.
+			Whether it be
+				[x] missionary (I should be able to suck on her crotch tits) 
+				[-] sitting down (how tf can I kiss one when they are sitting down, but I cant suckle either of their nipples),
+				[x] mating press (this is practically strange cause if it was true size difference, you'd be able to suckle nipples and unable to kiss)
+			and just about all the others.
+			I find it strange that any of the positions where you should be able to do it, you can't.
 			No position allows you to suck on someone's top breasts if they are twice your height
+		[-] in the lower left corner of the dominion map you can see a Rat icon
+		[x] demons can spawn with demonic horse tail???
+		
+	[] autofellatio
+	[] add some references to going east to leave Dominion for new land
+		[] posters
+			[] nightclub toilets
+			[] slaver alley
+		[] NPC references
+			[] prostitute pay-off variation
+	[] add speech variation for creampie in resisting partner
+	[] Hannah to reference arcane protecting child from alcohol when pregnant
+		
+	[] Small PRs
+	
+	[] Eisek
+		[] Read through content
+		
 		
 	[] Maxis DMs
 	[] A Fox submission
@@ -48,7 +134,17 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] prioritise res races over mod folder - or mod folder different ids
 		
+	[] copy-paste slave settings
 	
+	[] With a high enough Affection, the PC can walk into Meraxis' room while she's sleeping and she won't get mad.
+	 PC would slip under the covers and spoon the little thing, forcing her to let out a soft, content coo and almost immediately start to fall back asleep
+	
+	[] Subjective Appearance
+		Trait
+		+5% Lust damage
+		Androphilic NPCs always think you are masculine
+		Gynephilic NPCs always think you are feminine
+		You cloak yourself with subtle illusions, allowing others to interpret your appearance differently according to their own desires.
 	
 	[] Minotaur-boy yoga instructor
 		[] Brahman
@@ -228,8 +324,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 					[] Also lewds
 	
 	[] Felicia
-	
-	[] Eisek
 	
 	[] Elemental spell side quest
 		[] Start with Arcane in Dominion

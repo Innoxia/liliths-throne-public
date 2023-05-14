@@ -1236,18 +1236,39 @@ public class TooltipInventoryEventListener implements EventListener {
 
 		// Core info:
 		tooltipSB.append("<div class='container-half-width titular'>");
-			for(int i=0; i<absClothing.getClothingType().getEquipSlots().size(); i++) {
-				InventorySlot slot = absClothing.getClothingType().getEquipSlots().get(i);
+			boolean nonPiercingSlots = absClothing.getClothingType().getEquipSlots().stream().anyMatch(is->!is.isJewellery());
+			List<InventorySlot> possibleSlots = new ArrayList<>(absClothing.getClothingType().getEquipSlots());
+			if(nonPiercingSlots) {
+				possibleSlots.sort((is1, is2)->absClothing.getSlotEquippedTo()==is1?1:(absClothing.getSlotEquippedTo()==is2?-1:0));
+			}
+			for(int i=0; i<possibleSlots.size(); i++) {
+				InventorySlot slot = possibleSlots.get(i);
 				boolean equipped = absClothing.getSlotEquippedTo() == slot;
-				tooltipSB.append(
-						(equipped || absClothing.getSlotEquippedTo()==null
-							?Util.capitaliseSentence(slot.getName())
-							:"[style.colourDisabled("+Util.capitaliseSentence(slot.getName())+")]")
-						+(i==absClothing.getClothingType().getEquipSlots().size()-1
-							?""
-							:(absClothing.getSlotEquippedTo()!=null
-								?"[style.colourDisabled(/)]"
-								:"/")));
+				if(nonPiercingSlots) { // Slots contain non-piercing slots
+					tooltipSB.append(
+							(equipped || absClothing.getSlotEquippedTo()==null
+								?Util.capitaliseSentence(slot.getName())
+								:"[style.colourDisabled("+Util.capitaliseSentence(slot.getName())+")]")
+							+(i==possibleSlots.size()-1
+								?""
+								:(absClothing.getSlotEquippedTo()!=null
+									?"[style.colourDisabled(/)]"
+									:"/")));
+				} else { // Slots are all piercings, so to abbreviate the slot names, the ' piercing' parts can all be removed, then a final ' piercing' can be appended at the end
+					String slotName = slot.getName().replace(" piercing", "");
+					tooltipSB.append(
+							(equipped || absClothing.getSlotEquippedTo()==null
+								?Util.capitaliseSentence(slotName)
+								:"[style.colourDisabled("+Util.capitaliseSentence(slotName)+")]")
+							+(i==possibleSlots.size()-1
+								?""
+								:(absClothing.getSlotEquippedTo()!=null
+									?"[style.colourDisabled(/)]"
+									:"/")));
+					if(i==possibleSlots.size()-1) {
+						tooltipSB.append(" piercing");
+					}
+				}
 			}
 		tooltipSB.append("</div>");
 		tooltipSB.append("<div class='container-half-width titular'>"

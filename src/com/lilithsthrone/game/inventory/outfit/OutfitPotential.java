@@ -34,7 +34,7 @@ public class OutfitPotential {
 
 	public List<Colour> getColoursForClothingGeneration() {
 		List<Colour> coloursForGeneration = new ArrayList<>();
-		for(List<Colour> c : colours) {
+		for(List<Colour> c : getColourLists()) {
 			coloursForGeneration.add(Util.randomItemFrom(c));
 		}
 		return coloursForGeneration;
@@ -46,7 +46,7 @@ public class OutfitPotential {
 
 	public List<Colour> getColours(int index) {
 		try {
-			return colours.get(index);
+			return getColourLists().get(index);
 		} catch(Exception ex) {
 			return new ArrayList<>();
 		}

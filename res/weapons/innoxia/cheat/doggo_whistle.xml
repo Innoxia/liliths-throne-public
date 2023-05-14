@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		<value>50</value> 
+		<melee>false</melee>
+		<twoHanded>false</twoHanded>
+		<determiner><![CDATA[]]></determiner>
+		<name><![CDATA[suspicious dog whistle]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[suspicious dog whistles]]></namePlural>
+		<description><![CDATA[Although it looks like an ordinary dog-whistle, you can't help but get the feeling that it's been enchanted, and is likely to have a devastating effect on greater dog-morphs...]]></description>
+		<attackDescriptor>blow</attackDescriptor>
+		<attackTooltipDescription><![CDATA[Blow the whistle at [npc.name]!]]></attackTooltipDescription>
+		<rarity>LEGENDARY</rarity>
+		<weaponSet/>
+		<equipText><![CDATA[[npc.Name] [npc.verb(ready)] [npc.her] suspicious dog whistle.]]></equipText>
+		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] [npc.her] suspicious dog whistle away.]]></unequipText>
+		<imageName>doggo_whistle.svg</imageName> 
+		<imageEquippedName/> 
+		<damage>0</damage> 
+		<arcaneCost>0</arcaneCost> 
+		<damageVariance>LOW</damageVariance> 
+		<availableDamageTypes>
+			<damageType>PHYSICAL</damageType>
+		</availableDamageTypes>
+		
+		<spells/>
+		
+		<effects/>
+		<extraEffects>
+			<effect><![CDATA[[style.colourExcellent(Subdues)] [style.colourTfGreater(greater)] [style.colourDog(dog-morphs)]]]></effect>
+		</extraEffects>
+		
+		<onHitEffect><![CDATA[
+		#IF(npc2.getRace()==RACE_DOG_MORPH && npc2.getRaceStage()==RACE_STAGE_GREATER)
+			<i>[npc2.Name] [npc2.verb(stand)] to attention as [npc2.she] [npc2.verb(hear)] the arcane whistle. With [npc2.her] tail uncontrollably wagging in excitement, [npc2.she] [npc2.verb(stand)] to attention and [style.italicsExcellent(completely submits to [npc.herHim])]!</i>
+			[##npc2.setHealth(0)]
+		#ENDIF
+		]]></onHitEffect>
+		
+		<primaryColours>
+			<colour>CLOTHING_RED</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_STEEL</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SILLY_MODE</tag>
+		</itemTags>
+		
+	</coreAttributes>
+	
+	<hitDescriptions>
+		<hitText><![CDATA[
+		Bringing the dog whistle up to [npc.her] [npc.lips], [npc.name] [npc.verb(give)] it a short, sharp blow. There's a faint, unnatural shrill within the high-pitched noise that's produced...
+		]]></hitText>
+	</hitDescriptions>
+
+	<missDescriptions>
+		<missText><![CDATA[
+		Bringing the dog whistle up to [npc.her] [npc.lips], [npc.name] [npc.verb(give)] it a short, sharp blow. There's a faint, unnatural shrill within the high-pitched noise that's produced...
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

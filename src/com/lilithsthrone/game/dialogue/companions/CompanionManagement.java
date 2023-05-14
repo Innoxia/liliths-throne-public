@@ -914,9 +914,9 @@ public class CompanionManagement {
 ////					String c2 = PresetColour.BASE_PURPLE_LIGHT.getShades()[0];
 ////					background = "background: repeating-linear-gradient(135deg, "+c1+", "+c1+" 10px, "+c2+" 10px, "+c2+" 20px);";
 //				}
-				if(!jobSelected.isAvailable(i, character)
-						|| (!character.isSlave()
-						&& stamina-jobSelected.getHourlyStaminaDrain()+character.getSlaveJob(i).getHourlyStaminaDrain()<0f)
+				if((!jobSelected.isAvailable(i, character)
+							|| (!character.isSlave() && stamina-jobSelected.getHourlyStaminaDrain()+character.getSlaveJob(i).getHourlyStaminaDrain()<0f)
+							|| (!character.isSlave() && character.isSleepingAtHour(i)))
 						&& !jobSelected.equals(SlaveJob.IDLE)) { // Always allow idle job
 					UtilText.nodeContentSB.append(
 							"<div class='normal-button hour disabled' style='"+background+"border-color:"+borderColour.toWebHexString()+";color:"+colour.getShades()[4]+";' id='"+i+"_WORK_DISABLED'>");
@@ -943,6 +943,7 @@ public class CompanionManagement {
 								for(SlaveJobHours preset : SlaveJobHours.values()) {
 									boolean jobDisabled = false;
 									boolean resetI = false;
+									boolean nonSlaveSleeping = false;
 									for (int i = preset.getStartHour(); i<preset.getStartHour()+preset.getLength(); i++) {
 										if (i>23) {
 											i = i-24; // Wrap around to 0
@@ -952,11 +953,14 @@ public class CompanionManagement {
 											jobDisabled = true;
 											break;
 										}
+										if(!nonSlaveSleeping) {
+											nonSlaveSleeping = !character.isSlave() && character.isSleepingAtHour(i);
+										}
 										if (resetI) {
 											i = i+24; // Reset i to maintain the loop
 										}
 									}
-									if ((!character.isSlave() && jobSelected.getHourlyStaminaDrain()*preset.getLength()>stamina) || jobDisabled) {
+									if ((!character.isSlave() && jobSelected.getHourlyStaminaDrain()*preset.getLength()>stamina) || nonSlaveSleeping || jobDisabled) {
 										UtilText.nodeContentSB.append("<div class='normal-button disabled' id='"+preset+"_TIME_DISABLED' style='width:16%; margin:2px;'>"+preset.getName()+"</div>");
 									} else {
 										UtilText.nodeContentSB.append("<div class='normal-button' id='"+preset+"_TIME' style='width:16%; margin:2px;'>"+preset.getName()+"</div>");

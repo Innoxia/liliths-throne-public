@@ -3956,6 +3956,19 @@ public class SexPosition {
 						&& action.getParticipantType()!=SexParticipantType.SELF)) {
 				return true;
 			}
+			List<SexActionInterface> blockedActions = Util.newArrayListOfValues(
+					PlayerTalk.PLAYER_OFFER_ANAL,
+					PlayerTalk.PLAYER_OFFER_NAIZURI,
+					PlayerTalk.PLAYER_OFFER_NIPPLE,
+					PlayerTalk.PLAYER_OFFER_ORAL,
+					PlayerTalk.PLAYER_OFFER_PAIZURI,
+					!Main.sex.isDom(performer)?null:PlayerTalk.PLAYER_OFFER_VAGINAL,
+					PlayerTalk.PLAYER_REQUEST_ANAL,
+					PlayerTalk.PLAYER_REQUEST_ORAL,
+					Main.sex.isDom(performer)?null:PlayerTalk.PLAYER_REQUEST_VAGINAL);
+			if(blockedActions.contains(action)) {
+				return true;
+			}
 			
 			return super.isActionBlocked(performer, target, action);
 		}
@@ -3984,11 +3997,11 @@ public class SexPosition {
 					PlayerTalk.PLAYER_OFFER_ANAL,
 					PlayerTalk.PLAYER_OFFER_NAIZURI,
 					PlayerTalk.PLAYER_OFFER_NIPPLE,
-					PlayerTalk.PLAYER_OFFER_ORAL,
+					!Main.sex.isDom(performer)?null:PlayerTalk.PLAYER_OFFER_ORAL,
 					PlayerTalk.PLAYER_OFFER_PAIZURI,
 					PlayerTalk.PLAYER_OFFER_VAGINAL,
 					PlayerTalk.PLAYER_REQUEST_ANAL,
-					PlayerTalk.PLAYER_REQUEST_ORAL,
+					Main.sex.isDom(performer)?null:PlayerTalk.PLAYER_REQUEST_ORAL,
 					PlayerTalk.PLAYER_REQUEST_VAGINAL);
 			if(blockedActions.contains(action)) {
 				return true;

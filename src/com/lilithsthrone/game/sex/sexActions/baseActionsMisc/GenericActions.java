@@ -2549,8 +2549,9 @@ public class GenericActions {
 		}
 		@Override
 		public String applyEndEffects(){
-			if(Main.sex.isSpectator(Main.game.getPlayer()) && Main.sex.getInitialSexManager().isHidden(Main.game.getPlayer())) { // Generate effects when ending sex as hidden spectator
-				quickSexDescription = generateQuickSexDescription();
+			 // Generate effects when ending sex as hidden spectator, but do not assign it to the 'quickSexDescription' variable, as that's only used for display in PLAYER_QUICK_SEX
+			if(Main.sex.isSpectator(Main.game.getPlayer()) && Main.sex.getInitialSexManager().isHidden(Main.game.getPlayer())) {
+				generateQuickSexDescription();
 			}
 			return "";
 		}

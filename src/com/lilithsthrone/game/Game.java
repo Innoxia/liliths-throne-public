@@ -2687,7 +2687,8 @@ public class Game implements XMLSaving {
 			VengarCaptiveDialogue.applyDailyReset();
 			calculateBankInterest();
 		}
-		if (WorldType.SLAVER_ALLEY.getPlacesMap().values().contains(Main.game.getPlayer().getLocationPlaceType())) {
+		// v0.4.8.4: Only generating slaves when the player enters slaver alley is marginally better performance-wise, but creates the issue of the newly-generated slaves not being saved, so I removed this check.
+//		if (WorldType.SLAVER_ALLEY.getPlacesMap().values().contains(Main.game.getPlayer().getLocationPlaceType())) {
 			if (pendingSlaveShopsReset
 					&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_STALL_ANAL)
 					&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_STALL_FEMALES)
@@ -2701,8 +2702,7 @@ public class Game implements XMLSaving {
 				SlaverAlleyDialogue.stocksReset();
 				pendingSlaveInStocksReset = false;
 			}
-//			getDialogueFlags().dailyReset();
-		}
+//		}
 		
 		// Angels Kiss update
 		for(int i=1; i <= hoursPassed; i++) {
@@ -2829,7 +2829,7 @@ public class Game implements XMLSaving {
 						&& npc.getHistory()==Occupation.NPC_PROSTITUTE
 						&& !npc.hasStatusEffect(StatusEffect.PROMISCUITY_PILL)
 						&& !npc.getLocation().equals(Main.game.getPlayer().getLocation()))
-						|| (npc.isSlave() && npc.getSlavePermissionSettings().get(SlavePermission.PILLS).contains(SlavePermissionSetting.PILLS_PROMISCUITY_PILLS))) {
+					|| (npc.isSlave() && npc.getSlavePermissionSettings().get(SlavePermission.PILLS).contains(SlavePermissionSetting.PILLS_PROMISCUITY_PILLS))) {
 					npc.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"), npc, false);
 				}
 				

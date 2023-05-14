@@ -3083,7 +3083,7 @@ public class Sex {
 		dirtiedSlotsSB.append(getDirtyingAreasString(cumProvider, cumTarget, slotsDirtied, clothingDirtied));
 		if(Main.game.isMuskContentEnabled() && nonClothingAreaDirtied && cumProvider.hasCumModifier(FluidModifier.MUSKY)) {
 			cumTarget.setMuskMarker(cumProvider.getId());
-			dirtiedSlotsSB.append("<br/>[npc2.NameIsFull] marked by the musky scent of [npc.namePos] cum!");
+			dirtiedSlotsSB.append("<br/>[style.colourDirty([npc2.NameIsFull] marked by the musky scent of [npc.namePos] cum!)]");
 		}
 		if(applyFormatting) {
 			dirtiedSlotsSB.append(")]</p>");
@@ -3138,7 +3138,7 @@ public class Sex {
 		dirtiedSlotsSB.append(getDirtyingAreasString(squirtProvider, squirtTarget, slotsDirtied, clothingDirtied));
 		if(Main.game.isMuskContentEnabled() && nonClothingAreaDirtied && squirtProvider.hasCumModifier(FluidModifier.MUSKY)) {
 			squirtTarget.setMuskMarker(squirtProvider.getId());
-			dirtiedSlotsSB.append("<br/>[npc2.NameIsFull] marked by the musky scent of [npc.namePos] cum!");
+			dirtiedSlotsSB.append("<br/>[style.colourDirty([npc2.NameIsFull] marked by the musky scent of [npc.namePos] cum!)]");
 		}
 		return UtilText.parse(squirtProvider, squirtTarget, dirtiedSlotsSB.toString());
 	}
