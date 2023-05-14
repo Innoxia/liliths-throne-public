@@ -9,6 +9,22 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.PresetColour;
 
 public class Options {
+    /* Multi-Slider Options */
+    public static MultiSliderOption PREGNANCY_LACTATION = new MultiSliderOption(
+            "PREGNANCY_LACTATION",
+            PresetColour.BASE_YELLOW,
+            "Average Pregnancy Lactation",
+            "Breasts",
+            "Udders",
+            "Set the <b>average</b> increase in lactation that characters will gain as a result of each pregnancy. Actual lactation increase will be within " + Units.fluid(Main.getProperties().pregnancyLactationIncreaseVariance) + " of this value.",
+            "%UNIT_VOLUME",
+            0,
+            20,
+            50,
+            "pregnancyLactationIncrease",
+            "pregnancyUdderLactationIncrease"
+    );
+
     /* SLIDER OPTIONS */
     public static SliderOption PREGNANCY_DURATION = new SliderOption(
             "PREGNANCY_DURATION",

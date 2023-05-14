@@ -2350,21 +2350,8 @@ public class OptionsDialogue {
 					Main.getProperties().pregnancyBreastGrowthLimit, 0, 100,
 					CupSize.getCupSizeFromInt(Main.getProperties().pregnancyUdderGrowthLimit).getCupSizeName()+"-cup",
 					Main.getProperties().pregnancyUdderGrowthLimit, 0, 100));
-			
-			UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(
-					"PREGNANCY_LACTATION",
-					PresetColour.BASE_YELLOW,
-					"Average Pregnancy Lactation",
-					"Set the <b>average</b> increase in lactation that characters will gain as a result of each pregnancy. Actual lactation increase will be within "
-							+Units.fluid(Main.getProperties().pregnancyLactationIncreaseVariance)+" of this value.",
-					Main.getProperties().pregnancyLactationIncrease == 0
-							?"[style.boldDisabled(Disabled)]"
-							:Units.fluid(Main.getProperties().pregnancyLactationIncrease),
-					Main.getProperties().pregnancyLactationIncrease, 0, 1000,
-					Main.getProperties().pregnancyUdderLactationIncrease == 0
-							?"[style.boldDisabled(Disabled)]"
-							:Units.fluid(Main.getProperties().pregnancyUdderLactationIncrease),
-					Main.getProperties().pregnancyUdderLactationIncrease, 0, 1000));
+
+			UtilText.nodeContentSB.append(PREGNANCY_LACTATION.getDiv());
 			
 			UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(
 					"PREGNANCY_LACTATION_LIMIT",
@@ -2381,31 +2368,13 @@ public class OptionsDialogue {
 					PresetColour.NIPPLES,
 					"Cup Size Preference",
 					"Affects randomly-generated NPCs' cup sizes (will not be reduced to below AA-cup).",
-					(Main.getProperties().breastSizePreference>=0?"+":"")+Main.getProperties().breastSizePreference,
+					(Main.getProperties().breastSizePreference >= 0 ? "+" : "") + Main.getProperties().breastSizePreference,
 					Main.getProperties().breastSizePreference, -20, 20,
 					(Main.getProperties().udderSizePreference>=0?"+":"")+Main.getProperties().udderSizePreference,
 					Main.getProperties().udderSizePreference, -20, 20));
 			
-			/*UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
-					"PENIS_SIZE_PREFERENCE",
-					PresetColour.PENIS,
-					"Penis Size Preference",
-					"Affects randomly-generated NPCs' penis sizes (will not be reduced to below "+Units.size(8)+").",
-					(Main.getProperties().penisSizePreference>=0?"+":"")+Units.size(Main.getProperties().penisSizePreference, Units.ValueType.PRECISE, Units.UnitType.SHORT),
-					Main.getProperties().penisSizePreference,
-					-20,
-					20));*/
 			UtilText.nodeContentSB.append(PENIS_SIZE_PREFERENCE.getDiv());
 			
-			/*UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
-					"TRAP_PENIS_SIZE_PREFERENCE",
-					PresetColour.BASE_PINK_LIGHT,
-					Util.capitaliseSentence(Gender.N_P_TRAP.getName())+" penis size",
-					"The penis size of randomly-generated "+Gender.N_P_TRAP.getName()+"s. 100% represents an unaltered size. Testicle size and cum production will also be altered in proportion to this setting.",
-					(100+Main.getProperties().trapPenisSizePreference)+"%",
-					Main.getProperties().trapPenisSizePreference,
-					-90,
-					100));*/
 			UtilText.nodeContentSB.append(TRAP_PENIS_SIZE_PREFERENCE.getDiv());
 			
 			UtilText.nodeContentSB.append(getSkinColourContentPreferenceVariableDiv(

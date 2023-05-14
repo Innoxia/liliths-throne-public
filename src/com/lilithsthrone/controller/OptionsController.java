@@ -20,10 +20,7 @@ import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.character.race.SubspeciesPreference;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.settings.ContentPreferenceValue;
-import com.lilithsthrone.game.settings.ForcedFetishTendency;
-import com.lilithsthrone.game.settings.ForcedTFTendency;
-import com.lilithsthrone.game.settings.KeyboardAction;
+import com.lilithsthrone.game.settings.*;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Artist;
 import com.lilithsthrone.rendering.Artwork;
@@ -706,38 +703,7 @@ public class OptionsController {
             }, false);
         }
 
-        id = "PREGNANCY_LACTATION_ON";
-        if (MainController.document.getElementById(id) != null) {
-            ((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-                Main.getProperties().pregnancyLactationIncrease = Math.min(1000, Main.getProperties().pregnancyLactationIncrease + 50);
-                Main.saveProperties();
-                Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-            }, false);
-        }
-        id = "PREGNANCY_LACTATION_OFF";
-        if (MainController.document.getElementById(id) != null) {
-            ((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-                Main.getProperties().pregnancyLactationIncrease = Math.max(0, Main.getProperties().pregnancyLactationIncrease - 50);
-                Main.saveProperties();
-                Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-            }, false);
-        }
-        id = "PREGNANCY_LACTATION_UDDERS_ON";
-        if (MainController.document.getElementById(id) != null) {
-            ((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-                Main.getProperties().pregnancyUdderLactationIncrease = Math.min(1000, Main.getProperties().pregnancyUdderLactationIncrease + 50);
-                Main.saveProperties();
-                Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-            }, false);
-        }
-        id = "PREGNANCY_LACTATION_UDDERS_OFF";
-        if (MainController.document.getElementById(id) != null) {
-            ((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-                Main.getProperties().pregnancyUdderLactationIncrease = Math.max(0, Main.getProperties().pregnancyUdderLactationIncrease - 50);
-                Main.saveProperties();
-                Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-            }, false);
-        }
+        Options.PREGNANCY_LACTATION.addListeners();
 
         id = "PREGNANCY_LACTATION_LIMIT_ON";
         if (MainController.document.getElementById(id) != null) {
@@ -772,7 +738,6 @@ public class OptionsController {
             }, false);
         }
 
-
         id = "BREAST_SIZE_PREFERENCE_ON";
         if (MainController.document.getElementById(id) != null) {
             ((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
@@ -806,42 +771,8 @@ public class OptionsController {
             }, false);
         }
 
-
-        /*id = "PENIS_SIZE_PREFERENCE_ON";
-        if (MainController.document.getElementById(id) != null) {
-            ((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-                Main.getProperties().penisSizePreference = Math.min(20, Main.getProperties().penisSizePreference + 1);
-                Main.saveProperties();
-                Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-            }, false);
-        }
-        id = "PENIS_SIZE_PREFERENCE_OFF";
-        if (MainController.document.getElementById(id) != null) {
-            ((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-                Main.getProperties().penisSizePreference = Math.max(-20, Main.getProperties().penisSizePreference - 1);
-                Main.saveProperties();
-                Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-            }, false);
-        }*/
         PENIS_SIZE_PREFERENCE.addListener();
 
-
-        /*id = "TRAP_PENIS_SIZE_PREFERENCE_ON";
-        if (MainController.document.getElementById(id) != null) {
-            ((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-                Main.getProperties().trapPenisSizePreference = Math.min(100, Main.getProperties().trapPenisSizePreference + 10);
-                Main.saveProperties();
-                Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-            }, false);
-        }
-        id = "TRAP_PENIS_SIZE_PREFERENCE_OFF";
-        if (MainController.document.getElementById(id) != null) {
-            ((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-                Main.getProperties().trapPenisSizePreference = Math.max(-90, Main.getProperties().trapPenisSizePreference - 10);
-                Main.saveProperties();
-                Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-            }, false);
-        }*/
         TRAP_PENIS_SIZE_PREFERENCE.addListener();
 
 
