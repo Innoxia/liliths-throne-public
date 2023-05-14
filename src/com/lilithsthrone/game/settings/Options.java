@@ -10,7 +10,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 public class Options {
     /* Multi-Slider Options */
-    public static MultiSliderOption PREGNANCY_LACTATION = new MultiSliderOption(
+    public static final MultiSliderOption PREGNANCY_LACTATION = new MultiSliderOption(
             "PREGNANCY_LACTATION",
             PresetColour.BASE_YELLOW,
             "Average Pregnancy Lactation",
@@ -26,7 +26,7 @@ public class Options {
     );
 
     /* SLIDER OPTIONS */
-    public static SliderOption PREGNANCY_DURATION = new SliderOption(
+    public static final SliderOption PREGNANCY_DURATION = new SliderOption(
             "PREGNANCY_DURATION",
             PresetColour.BASE_PINK_DEEP,
             "Pregnancy duration",
@@ -37,7 +37,7 @@ public class Options {
             1,
             "pregnancyDuration");
 
-    public static SliderOption FORCED_FETISH = new SliderOption(
+    public static final SliderOption FORCED_FETISH = new SliderOption(
             "FORCED_FETISH",
             PresetColour.FETISH,
             "Forced Fetishes",
@@ -49,7 +49,7 @@ public class Options {
             "forcedFetishPercentage"
     );
 
-    public static SliderOption FORCED_TF = new SliderOption(
+    public static final SliderOption FORCED_TF = new SliderOption(
             "FORCED_TF",
             PresetColour.TRANSFORMATION_GENERIC,
             "Forced TF",
@@ -60,7 +60,7 @@ public class Options {
             5,
             "forcedTFPercentage");
 
-    public static SliderOption PENIS_SIZE_PREFERENCE = new SliderOption(
+    public static final SliderOption PENIS_SIZE_PREFERENCE = new SliderOption(
             "PENIS_SIZE_PREFERENCE",
             PresetColour.PENIS,
             "Penis Size Preference",
@@ -73,7 +73,7 @@ public class Options {
             "penisSizePreference"
     );
 
-    public static SliderOption TRAP_PENIS_SIZE_PREFERENCE = new SliderOption(
+    public static final SliderOption TRAP_PENIS_SIZE_PREFERENCE = new SliderOption(
             "TRAP_PENIS_SIZE_PREFERENCE",
             PresetColour.BASE_PINK_LIGHT,
             Util.capitaliseSentence(Gender.N_P_TRAP.getName()) + " penis size",
@@ -87,7 +87,7 @@ public class Options {
     );
 
     /* TOGGLE OPTIONS */
-    public static ToggleOption AUTO_LOCALE = new ToggleOption(
+    public static final ToggleOption AUTO_LOCALE = new ToggleOption(
             "AUTO_LOCALE",
             PresetColour.BASE_BLUE_LIGHT,
             "Automatic",
@@ -95,7 +95,7 @@ public class Options {
             PropertyValue.autoLocale
     );
 
-    public static ToggleOption METRIC_SIZES = new ToggleOption(
+    public static final ToggleOption METRIC_SIZES = new ToggleOption(
             "METRIC_SIZES",
             PresetColour.BASE_BLUE_STEEL,
             "Metric sizes",
@@ -103,7 +103,7 @@ public class Options {
             PropertyValue.metricSizes
     );
 
-    public static ToggleOption METRIC_FLUIDS = new ToggleOption(
+    public static final ToggleOption METRIC_FLUIDS = new ToggleOption(
             "METRIC_FLUIDS",
             PresetColour.BASE_BLUE_STEEL,
             "Metric fluids",
@@ -111,7 +111,7 @@ public class Options {
             PropertyValue.metricFluids
     );
 
-    public static ToggleOption METRIC_WEIGHTS = new ToggleOption(
+    public static final ToggleOption METRIC_WEIGHTS = new ToggleOption(
             "METRIC_WEIGHTS",
             PresetColour.BASE_BLUE_STEEL,
             "Metric weights",
@@ -119,7 +119,7 @@ public class Options {
             PropertyValue.metricWeights
     );
 
-    public static ToggleOption TWENTYFOUR_HOUR_TIME = new ToggleOption(
+    public static final ToggleOption TWENTYFOUR_HOUR_TIME = new ToggleOption(
             "TWENTYFOUR_HOUR_TIME",
             PresetColour.BASE_LILAC_LIGHT,
             "24 hour time",
@@ -127,7 +127,7 @@ public class Options {
             PropertyValue.twentyFourHourTime
     );
 
-    public static ToggleOption INTERNATIONAL_DATE = new ToggleOption(
+    public static final ToggleOption INTERNATIONAL_DATE = new ToggleOption(
             "INTERNATIONAL_DATE",
             PresetColour.BASE_LILAC_LIGHT,
             "International date",
@@ -135,7 +135,7 @@ public class Options {
             PropertyValue.internationalDate
     );
 
-    public static ToggleOption ARTWORK = new ToggleOption(
+    public static final ToggleOption ARTWORK = new ToggleOption(
             "ARTWORK",
             PresetColour.BASE_BLUE_LIGHT,
             "Artwork",
@@ -143,7 +143,7 @@ public class Options {
             PropertyValue.artwork
     );
 
-    public static ToggleOption THUMBNAIL = new ToggleOption(
+    public static final ToggleOption THUMBNAIL = new ToggleOption(
             "THUMBNAIL",
             PresetColour.BASE_BLUE_STEEL,
             "Thumbnails",
@@ -151,7 +151,7 @@ public class Options {
             PropertyValue.thumbnail
     );
 
-    public static ToggleOption SHARED_ENCYCLOPEDIA = new ToggleOption(
+    public static final ToggleOption SHARED_ENCYCLOPEDIA = new ToggleOption(
             "SHARED_ENCYCLOPEDIA",
             PresetColour.GENERIC_EXCELLENT,
             "Shared Encyclopedia",
@@ -159,7 +159,7 @@ public class Options {
             PropertyValue.sharedEncyclopedia
     );
 
-    public static ToggleOption WEATHER_INTERRUPTION = new ToggleOption(
+    public static final ToggleOption WEATHER_INTERRUPTION = new ToggleOption(
             "WEATHER_INTERRUPTION",
             PresetColour.GENERIC_ARCANE,
             "Storm interruptions",
@@ -167,7 +167,7 @@ public class Options {
             PropertyValue.weatherInterruptions
     );
 
-    public static ToggleOption DIALOGUE_COPY = new ToggleOption(
+    public static final ToggleOption DIALOGUE_COPY = new ToggleOption(
             "DIALOGUE_COPY",
             PresetColour.BASE_BLUE_STEEL,
             "Automatic text copying",
@@ -175,7 +175,7 @@ public class Options {
             PropertyValue.automaticDialogueCopy
     );
 
-    public static ToggleOption SILLY = new ToggleOption(
+    public static final ToggleOption SILLY = new ToggleOption(
             "SILLY",
             PresetColour.GENERIC_GOOD,
             "Silly mode",
@@ -183,7 +183,7 @@ public class Options {
             PropertyValue.sillyMode
     );
 
-    public static ToggleOption ENCHANTMENT_LIMITS = new ToggleOption(
+    public static final ToggleOption ENCHANTMENT_LIMITS = new ToggleOption(
             "ENCHANTMENT_LIMITS",
             PresetColour.GENERIC_ARCANE,
             "Enchantment Capacity",
@@ -191,7 +191,7 @@ public class Options {
             PropertyValue.enchantmentLimits
     );
 
-    public static ToggleOption BAD_END = new ToggleOption(
+    public static final ToggleOption BAD_END = new ToggleOption(
             "BAD_END",
             PresetColour.GENERIC_TERRIBLE,
             "Bad Ends",
@@ -199,7 +199,7 @@ public class Options {
             PropertyValue.badEndContent
     );
 
-    public static ToggleOption LEVEL_DRAIN = new ToggleOption(
+    public static final ToggleOption LEVEL_DRAIN = new ToggleOption(
             "LEVEL_DRAIN",
             PresetColour.GENERIC_TERRIBLE,
             "Level Drain",
@@ -207,7 +207,7 @@ public class Options {
             PropertyValue.levelDrain
     );
 
-    public static ToggleOption OPPORTUNISTIC_ATTACKERS = new ToggleOption(
+    public static final ToggleOption OPPORTUNISTIC_ATTACKERS = new ToggleOption(
             "OPPORTUNISTIC_ATTACKERS",
             PresetColour.BASE_CRIMSON,
             "Opportunistic attackers",
@@ -215,7 +215,7 @@ public class Options {
             PropertyValue.opportunisticAttackers
     );
 
-    public static ToggleOption OFFSPRING_ENCOUNTERS = new ToggleOption(
+    public static final ToggleOption OFFSPRING_ENCOUNTERS = new ToggleOption(
             "OFFSPRING_ENCOUNTERS",
             PresetColour.BASE_INDIGO,
             "Offspring Encounters",
@@ -223,7 +223,7 @@ public class Options {
             PropertyValue.offspringEncounters
     );
 
-    public static ToggleOption SPITTING_ENABLED = new ToggleOption(
+    public static final ToggleOption SPITTING_ENABLED = new ToggleOption(
             "SPITTING_ENABLED",
             PresetColour.BASE_BLUE,
             "Rejecting TF potions",
@@ -231,7 +231,7 @@ public class Options {
             PropertyValue.spittingEnabled
     );
 
-    public static ToggleOption COMPANION = new ToggleOption(
+    public static final ToggleOption COMPANION = new ToggleOption(
             "COMPANION",
             PresetColour.BASE_GREEN_LIGHT,
             "Companions",
@@ -239,7 +239,7 @@ public class Options {
             PropertyValue.companionContent
     );
 
-    public static ToggleOption NON_CON = new ToggleOption(
+    public static final ToggleOption NON_CON = new ToggleOption(
             "NON_CON",
             PresetColour.BASE_CRIMSON,
             "Non-consent",
@@ -247,7 +247,7 @@ public class Options {
             PropertyValue.nonConContent
     );
 
-    public static ToggleOption SADISTIC_SEX = new ToggleOption(
+    public static final ToggleOption SADISTIC_SEX = new ToggleOption(
             "SADISTIC_SEX",
             PresetColour.BASE_RED,
             "Sadistic sex",
@@ -255,7 +255,7 @@ public class Options {
             PropertyValue.sadisticSexContent
     );
 
-    public static ToggleOption LIPSTICK_MARKING = new ToggleOption(
+    public static final ToggleOption LIPSTICK_MARKING = new ToggleOption(
             "LIPSTICK_MARKING",
             PresetColour.BASE_RED_DARK,
             "Lipstick marking",
@@ -263,7 +263,7 @@ public class Options {
             PropertyValue.lipstickMarkingContent
     );
 
-    public static ToggleOption VOLUNTARY_NTR = new ToggleOption(
+    public static final ToggleOption VOLUNTARY_NTR = new ToggleOption(
             "VOLUNTARY_NTR",
             PresetColour.GENERIC_MINOR_BAD,
             "Voluntary NTR",
@@ -271,7 +271,7 @@ public class Options {
             PropertyValue.voluntaryNTR
     );
 
-    public static ToggleOption INVOLUNTARY_NTR = new ToggleOption(
+    public static final ToggleOption INVOLUNTARY_NTR = new ToggleOption(
             "INVOLUNTARY_NTR",
             PresetColour.GENERIC_BAD,
             "Involuntary NTR",
@@ -279,7 +279,7 @@ public class Options {
             PropertyValue.involuntaryNTR
     );
 
-    public static ToggleOption INCEST = new ToggleOption(
+    public static final ToggleOption INCEST = new ToggleOption(
             "INCEST",
             PresetColour.BASE_ROSE,
             "Incest",
@@ -287,7 +287,7 @@ public class Options {
             PropertyValue.incestContent
     );
 
-    public static ToggleOption LACTATION = new ToggleOption(
+    public static final ToggleOption LACTATION = new ToggleOption(
             "LACTATION",
             PresetColour.BASE_YELLOW_LIGHT,
             "Lactation",
@@ -295,7 +295,7 @@ public class Options {
             PropertyValue.lactationContent
     );
 
-    public static ToggleOption SEXUAL_UDDERS = new ToggleOption(
+    public static final ToggleOption SEXUAL_UDDERS = new ToggleOption(
             "SEXUAL_UDDERS",
             PresetColour.BASE_ORANGE_LIGHT,
             "Crotch-boob & udder content",
@@ -303,7 +303,7 @@ public class Options {
             PropertyValue.udderContent
     );
 
-    public static ToggleOption URETHRAL = new ToggleOption(
+    public static final ToggleOption URETHRAL = new ToggleOption(
             "URETHRAL",
             PresetColour.BASE_PINK_DEEP,
             "Urethral content",
@@ -311,7 +311,7 @@ public class Options {
             PropertyValue.urethralContent
     );
 
-    public static ToggleOption NIPPLE_PEN = new ToggleOption(
+    public static final ToggleOption NIPPLE_PEN = new ToggleOption(
             "NIPPLE_PEN",
             PresetColour.BASE_PINK_DEEP,
             "Nipple penetrations",
@@ -319,7 +319,7 @@ public class Options {
             PropertyValue.nipplePenContent
     );
 
-    public static ToggleOption ANAL = new ToggleOption(
+    public static final ToggleOption ANAL = new ToggleOption(
             "ANAL",
             PresetColour.BASE_ORANGE,
             "Anal content",
@@ -327,7 +327,7 @@ public class Options {
             PropertyValue.analContent
     );
 
-    public static ToggleOption GAPE = new ToggleOption(
+    public static final ToggleOption GAPE = new ToggleOption(
             "GAPE",
             PresetColour.BASE_PINK_DEEP,
             "Gape content",
@@ -335,7 +335,7 @@ public class Options {
             PropertyValue.gapeContent
     );
 
-    public static ToggleOption PENETRATION_LIMITATION = new ToggleOption(
+    public static final ToggleOption PENETRATION_LIMITATION = new ToggleOption(
             "PENETRATION_LIMITATION",
             PresetColour.BASE_PINK_DEEP,
             "Penetrative size-difference",
@@ -343,7 +343,7 @@ public class Options {
             PropertyValue.penetrationLimitations
     );
 
-    public static ToggleOption PENETRATION_LIMITATION_DYNAMIC = new ToggleOption(
+    public static final ToggleOption PENETRATION_LIMITATION_DYNAMIC = new ToggleOption(
             "PENETRATION_LIMITATION_DYNAMIC",
             PresetColour.BASE_PINK_DEEP,
             "Elasticity depth effects",
@@ -351,7 +351,7 @@ public class Options {
             PropertyValue.elasticityAffectDepth
     );
 
-    public static ToggleOption FOOT = new ToggleOption(
+    public static final ToggleOption FOOT = new ToggleOption(
             "FOOT",
             PresetColour.BASE_TAN,
             "Foot content",
@@ -359,7 +359,7 @@ public class Options {
             PropertyValue.footContent
     );
 
-    public static ToggleOption ARMPIT = new ToggleOption(
+    public static final ToggleOption ARMPIT = new ToggleOption(
             "ARMPIT",
             PresetColour.BASE_PINK_LIGHT,
             "Armpit content",
@@ -367,7 +367,7 @@ public class Options {
             PropertyValue.armpitContent
     );
 
-    public static ToggleOption MUSK = new ToggleOption(
+    public static final ToggleOption MUSK = new ToggleOption(
             "MUSK",
             PresetColour.BASE_YELLOW_LIGHT,
             "Musk content",
@@ -375,7 +375,7 @@ public class Options {
             PropertyValue.muskContent
     );
 
-    public static ToggleOption FURRY_TAIL_PENETRATION = new ToggleOption(
+    public static final ToggleOption FURRY_TAIL_PENETRATION = new ToggleOption(
             "FURRY_TAIL_PENETRATION",
             PresetColour.BASE_MAGENTA,
             "Furry tail penetrations",
@@ -383,7 +383,7 @@ public class Options {
             PropertyValue.furryTailPenetrationContent
     );
 
-    public static ToggleOption INFLATION_CONTENT = new ToggleOption(
+    public static final ToggleOption INFLATION_CONTENT = new ToggleOption(
             "INFLATION_CONTENT",
             PresetColour.CUM,
             "Cum inflation",
@@ -391,7 +391,7 @@ public class Options {
             PropertyValue.inflationContent
     );
 
-    public static ToggleOption AUTO_SEX_CLOTHING_MANAGEMENT = new ToggleOption(
+    public static final ToggleOption AUTO_SEX_CLOTHING_MANAGEMENT = new ToggleOption(
             "AUTO_SEX_CLOTHING_MANAGEMENT",
             PresetColour.BASE_BLUE_STEEL,
             "Post-sex clothing replacement",
@@ -399,7 +399,7 @@ public class Options {
             PropertyValue.autoSexClothingManagement
     );
 
-    public static ToggleOption AUTO_SEX_CLOTHING_STRIP = new ToggleOption(
+    public static final ToggleOption AUTO_SEX_CLOTHING_STRIP = new ToggleOption(
             "AUTO_SEX_CLOTHING_STRIP",
             PresetColour.BASE_PINK_LIGHT,
             "Automatic stripping",
@@ -407,7 +407,7 @@ public class Options {
             PropertyValue.autoSexStrip
     );
 
-    public static ToggleOption RAPE_PLAY_BY_DEFAULT = new ToggleOption(
+    public static final ToggleOption RAPE_PLAY_BY_DEFAULT = new ToggleOption(
             "RAPE_PLAY_BY_DEFAULT",
             PresetColour.BASE_CRIMSON,
             "Rape-play allowed by default",
@@ -415,7 +415,7 @@ public class Options {
             PropertyValue.rapePlayAtSexStart
     );
 
-    public static ToggleOption AGE = new ToggleOption(
+    public static final ToggleOption AGE = new ToggleOption(
             "AGE",
             PresetColour.AGE_TWENTIES,
             "Age",
@@ -423,7 +423,7 @@ public class Options {
             PropertyValue.ageContent
     );
 
-    public static ToggleOption FERAL = new ToggleOption(
+    public static final ToggleOption FERAL = new ToggleOption(
             "FERAL",
             PresetColour.BASE_TAN,
             "Feral",
@@ -431,7 +431,7 @@ public class Options {
             PropertyValue.feralContent
     );
 
-    public static ToggleOption CUM_REGENERATION = new ToggleOption(
+    public static final ToggleOption CUM_REGENERATION = new ToggleOption(
             "CUM_REGENERATION",
             PresetColour.CUM,
             "Cum Regeneration",
@@ -439,7 +439,7 @@ public class Options {
             PropertyValue.cumRegenerationContent
     );
 
-    public static ToggleOption FUTA_BALLS = new ToggleOption(
+    public static final ToggleOption FUTA_BALLS = new ToggleOption(
             "FUTA_BALLS",
             PresetColour.BASE_PINK,
             "Futanari Testicles",
@@ -447,7 +447,7 @@ public class Options {
             PropertyValue.futanariTesticles
     );
 
-    public static ToggleOption CLOACA = new ToggleOption(
+    public static final ToggleOption CLOACA = new ToggleOption(
             "CLOACA",
             PresetColour.BASE_PINK_LIGHT,
             "Bipedal Cloacas",
@@ -455,7 +455,7 @@ public class Options {
             PropertyValue.bipedalCloaca
     );
 
-    public static ToggleOption VESTIGIAL_MULTI_BREAST = new ToggleOption(
+    public static final ToggleOption VESTIGIAL_MULTI_BREAST = new ToggleOption(
             "VESTIGIAL_MULTI_BREAST",
             PresetColour.BASE_PURPLE_LIGHT,
             "Vestigial Multi-breasts",
@@ -463,7 +463,7 @@ public class Options {
             PropertyValue.vestigialMultiBreasts
     );
 
-    public static ToggleOption HAIR_FACIAL = new ToggleOption(
+    public static final ToggleOption HAIR_FACIAL = new ToggleOption(
             "HAIR_FACIAL",
             PresetColour.BASE_LILAC_LIGHT,
             "Facial hair",
@@ -471,7 +471,7 @@ public class Options {
             PropertyValue.facialHairContent
     );
 
-    public static ToggleOption HAIR_PUBIC = new ToggleOption(
+    public static final ToggleOption HAIR_PUBIC = new ToggleOption(
             "HAIR_PUBIC",
             PresetColour.BASE_LILAC,
             "Pubic hair",
@@ -479,7 +479,7 @@ public class Options {
             PropertyValue.pubicHairContent
     );
 
-    public static ToggleOption HAIR_BODY = new ToggleOption(
+    public static final ToggleOption HAIR_BODY = new ToggleOption(
             "HAIR_BODY",
             PresetColour.BASE_PURPLE,
             "Underarm hair",
@@ -487,7 +487,7 @@ public class Options {
             PropertyValue.bodyHairContent
     );
 
-    public static ToggleOption HAIR_ASS = new ToggleOption(
+    public static final ToggleOption HAIR_ASS = new ToggleOption(
             "HAIR_ASS",
             PresetColour.BASE_PURPLE_DARK,
             "Ass hair",
@@ -495,7 +495,7 @@ public class Options {
             PropertyValue.assHairContent
     );
 
-    public static ToggleOption FEMININE_BEARD = new ToggleOption(
+    public static final ToggleOption FEMININE_BEARD = new ToggleOption(
             "FEMININE_BEARD",
             PresetColour.BASE_BLUE_STEEL,
             "Feminine beards",
@@ -503,7 +503,7 @@ public class Options {
             PropertyValue.feminineBeardsContent
     );
 
-    public static ToggleOption FURRY_HAIR = new ToggleOption(
+    public static final ToggleOption FURRY_HAIR = new ToggleOption(
             "FURRY_HAIR",
             PresetColour.CLOTHING_DESATURATED_BROWN,
             "Furry hair",
@@ -511,7 +511,7 @@ public class Options {
             PropertyValue.furryHairContent
     );
 
-    public static ToggleOption SCALY_HAIR = new ToggleOption(
+    public static final ToggleOption SCALY_HAIR = new ToggleOption(
             "SCALY_HAIR",
             PresetColour.BASE_GREEN_DARK,
             "Scaly Hair",
