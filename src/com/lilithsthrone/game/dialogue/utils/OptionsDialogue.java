@@ -2170,16 +2170,7 @@ public class OptionsDialogue {
 			}
 			UtilText.nodeContentSB.append("</div></div>");
 			
-			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
-					"FORCED_FETISH",
-					PresetColour.FETISH,
-					"Forced Fetishes",
-					"This sets the amount of NPCs spawning with the '"+Fetish.FETISH_KINK_GIVING.getName(null)+"' fetish, which causes them to try and forcibly give you fetishes after beating you in combat.",
-					Main.getProperties().forcedFetishPercentage+"%",
-					Main.getProperties().forcedFetishPercentage,
-					0,
-					100));
-			
+			UtilText.nodeContentSB.append(FORCED_FETISH.getDiv());
 			
 			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.FETISH, "Forced Fetish Tendency",
 					"This allows you to override NPC tastes and control the tendency for forced fetishes to be for topping or bottoming."));
@@ -2395,7 +2386,7 @@ public class OptionsDialogue {
 					(Main.getProperties().udderSizePreference>=0?"+":"")+Main.getProperties().udderSizePreference,
 					Main.getProperties().udderSizePreference, -20, 20));
 			
-			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
+			/*UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
 					"PENIS_SIZE_PREFERENCE",
 					PresetColour.PENIS,
 					"Penis Size Preference",
@@ -2403,9 +2394,10 @@ public class OptionsDialogue {
 					(Main.getProperties().penisSizePreference>=0?"+":"")+Units.size(Main.getProperties().penisSizePreference, Units.ValueType.PRECISE, Units.UnitType.SHORT),
 					Main.getProperties().penisSizePreference,
 					-20,
-					20));
+					20));*/
+			UtilText.nodeContentSB.append(PENIS_SIZE_PREFERENCE.getDiv());
 			
-			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
+			/*UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
 					"TRAP_PENIS_SIZE_PREFERENCE",
 					PresetColour.BASE_PINK_LIGHT,
 					Util.capitaliseSentence(Gender.N_P_TRAP.getName())+" penis size",
@@ -2413,7 +2405,8 @@ public class OptionsDialogue {
 					(100+Main.getProperties().trapPenisSizePreference)+"%",
 					Main.getProperties().trapPenisSizePreference,
 					-90,
-					100));
+					100));*/
+			UtilText.nodeContentSB.append(TRAP_PENIS_SIZE_PREFERENCE.getDiv());
 			
 			UtilText.nodeContentSB.append(getSkinColourContentPreferenceVariableDiv(
 					"SKIN_COLOUR_PREFERENCE",

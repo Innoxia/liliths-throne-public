@@ -555,22 +555,7 @@ public class OptionsController {
                     ftt.getName(), ftt.getDescription()));
         }
 
-        id = "FORCED_FETISH_ON";
-        if (MainController.document.getElementById(id) != null) {
-            ((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-                Main.getProperties().forcedFetishPercentage = Math.min(100, Main.getProperties().forcedFetishPercentage + 10);
-                Main.saveProperties();
-                Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-            }, false);
-        }
-        id = "FORCED_FETISH_OFF";
-        if (MainController.document.getElementById(id) != null) {
-            ((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
-                Main.getProperties().forcedFetishPercentage = Math.max(0, Main.getProperties().forcedFetishPercentage - 10);
-                Main.saveProperties();
-                Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-            }, false);
-        }
+        FORCED_FETISH.addListener();
 
         // Forced Fetish Tendency setting events
         for (ForcedFetishTendency fft : ForcedFetishTendency.values()) {
@@ -822,7 +807,7 @@ public class OptionsController {
         }
 
 
-        id = "PENIS_SIZE_PREFERENCE_ON";
+        /*id = "PENIS_SIZE_PREFERENCE_ON";
         if (MainController.document.getElementById(id) != null) {
             ((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
                 Main.getProperties().penisSizePreference = Math.min(20, Main.getProperties().penisSizePreference + 1);
@@ -837,10 +822,11 @@ public class OptionsController {
                 Main.saveProperties();
                 Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
             }, false);
-        }
+        }*/
+        PENIS_SIZE_PREFERENCE.addListener();
 
 
-        id = "TRAP_PENIS_SIZE_PREFERENCE_ON";
+        /*id = "TRAP_PENIS_SIZE_PREFERENCE_ON";
         if (MainController.document.getElementById(id) != null) {
             ((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
                 Main.getProperties().trapPenisSizePreference = Math.min(100, Main.getProperties().trapPenisSizePreference + 10);
@@ -855,7 +841,8 @@ public class OptionsController {
                 Main.saveProperties();
                 Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
             }, false);
-        }
+        }*/
+        TRAP_PENIS_SIZE_PREFERENCE.addListener();
 
 
         for (Colour colour : PresetColour.getHumanSkinColours()) {

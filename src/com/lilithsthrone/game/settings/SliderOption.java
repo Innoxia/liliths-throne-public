@@ -2,6 +2,7 @@ package com.lilithsthrone.game.settings;
 
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.colours.Colour;
 import org.w3c.dom.events.EventTarget;
 
@@ -12,24 +13,30 @@ public class SliderOption {
     public final String OPTION_DESCRIPTION;
     public final String OPTION_DISPLAY;
     public final int OPTION_MIN_VALUE;
+    public final int OPTION_MIN_STEP;
     public final int OPTION_MAX_STEP;
     public final int OPTION_VALUE_PER_STEP;
     public final String OPTION_FIELD_NAME;
 
     public SliderOption(String id, Colour colour, String title, String description, String display, int minVal, int maxSteps, int valPerStep, String field) {
+        this(id, colour, title, description, display, minVal, 0, maxSteps, valPerStep, field);
+    }
+
+    public SliderOption(String id, Colour colour, String title, String description, String display, int minVal, int minStep, int maxSteps, int valPerStep, String field) {
         OPTION_ID = id;
         OPTION_COLOUR = colour;
         OPTION_TITLE = title;
         OPTION_DESCRIPTION = description;
         OPTION_DISPLAY = display;
         OPTION_MIN_VALUE = minVal;
+        OPTION_MIN_STEP = minStep;
         OPTION_MAX_STEP = maxSteps;
         OPTION_VALUE_PER_STEP = valPerStep;
         OPTION_FIELD_NAME = field;
     }
 
     public String getDiv() {
-        return getContentPreferenceSliderDiv(OPTION_ID, OPTION_COLOUR, OPTION_TITLE, OPTION_DESCRIPTION, OPTION_DISPLAY, OPTION_MAX_STEP, OPTION_VALUE_PER_STEP, Main.getProperties().getIntByRef(OPTION_FIELD_NAME));
+        return getContentPreferenceSliderDiv(OPTION_ID, OPTION_COLOUR, OPTION_TITLE, OPTION_DESCRIPTION, OPTION_DISPLAY, OPTION_MIN_STEP, OPTION_MAX_STEP, OPTION_VALUE_PER_STEP, Main.getProperties().getIntByRef(OPTION_FIELD_NAME));
     }
 
     public void addListener() {
@@ -38,7 +45,7 @@ public class SliderOption {
     /** Returns a slider Div with the specified parameters
      *
      * */
-    public static String getContentPreferenceSliderDiv(String id, Colour colour, String title, String description, String valueDisplay, int maxSteps, int valPerStep, int value) {
+    private static String getContentPreferenceSliderDiv(String id, Colour colour, String title, String description, String valueDisplay, int minStep, int maxSteps, int valPerStep, int value) {
         return "<div class='container-full-width' style='padding:0; margin:2px 0;'>" +
                     "<div class='container-half-width' style='width:calc(55% - 16px);'>" +
                         "<b style='text-align:center; color:" + colour.toWebHexString() + ";'>" + title + "</b><b>:</b> " + description +
@@ -46,17 +53,25 @@ public class SliderOption {
                     "<div class='container-half-width' style='width:calc(45% - 16px);'>" +
                         "<div id='" + id + "' class='container-full-width' style='text-align:center; float:right; width:55%; margin-bottom:-10; margin-top:-1%;'><b>" + getValueForDisplay(valueDisplay, value) + "</b></div>" +
                         "<div class='container-full-width' style='float:right;'>" +
-                            "<input style='float:right; width:55%; margin-bottom:-2%;' type=\"range\" min=0" + " max=" + maxSteps + " value=" + Math.round(value / (float) valPerStep) + " class=\"slider\" id=" + id + "_SLIDER>" +
+                            "<input style='float:right; width:55%; margin-bottom:-2%;' type=\"range\" min=" + minStep + " max=" + maxSteps + " value=" + Math.round(value / (float) valPerStep) + " class=\"slider\" id=" + id + "_SLIDER>" +
                         "</div>" +
                     "</div>" +
                 "</div>";
     }
 
     private static String getValueForDisplay(String display, int val) {
-//        int val = Main.getProperties().getIntByRef(OPTION_FIELD_NAME);
         String valD = display.replace("%VALUE", String.valueOf(val));
-        if (valD.contains("$")) {
-            return valD.replace("$", val > 1 ? "s" : "");
+        if (valD.contains("$s")) {
+            valD = valD.replace("$s", val > 1 ? "s" : "");
+        }
+        if (valD.contains("$+")) {
+            valD = valD.replace("$+", val > 0 ? "+" : "");
+        }
+        if (valD.contains("%UNIT_SIZE")) {
+            valD = valD.replace("%UNIT_SIZE", Units.size(val, Units.ValueType.PRECISE, Units.UnitType.SHORT));
+        }
+        if (valD.contains("%UNIT_VOLUME")) {
+            valD = valD.replace("%UNIT_VOLUME", Units.fluid(val, Units.ValueType.PRECISE, Units.UnitType.SHORT));
         }
         return valD;
     }

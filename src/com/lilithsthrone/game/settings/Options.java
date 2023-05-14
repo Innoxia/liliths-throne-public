@@ -2,7 +2,10 @@ package com.lilithsthrone.game.settings;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Units;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.PresetColour;
 
 public class Options {
@@ -18,6 +21,18 @@ public class Options {
             1,
             "pregnancyDuration");
 
+    public static SliderOption FORCED_FETISH = new SliderOption(
+            "FORCED_FETISH",
+            PresetColour.FETISH,
+            "Forced Fetishes",
+            "This sets the amount of NPCs spawning with the '"+Fetish.FETISH_KINK_GIVING.getName(null)+"' fetish, which causes them to try and forcibly give you fetishes after beating you in combat.",
+            "%VALUE%",
+            0,
+            10,
+            10,
+            "forcedFetishPercentage"
+    );
+
     public static SliderOption FORCED_TF = new SliderOption(
             "FORCED_TF",
             PresetColour.TRANSFORMATION_GENERIC,
@@ -28,6 +43,33 @@ public class Options {
             20,
             5,
             "forcedTFPercentage");
+
+    public static SliderOption PENIS_SIZE_PREFERENCE = new SliderOption(
+            "PENIS_SIZE_PREFERENCE",
+            PresetColour.PENIS,
+            "Penis Size Preference",
+            "Affects randomly-generated NPCs' penis sizes (will not be reduced to below " + Units.size(8) + ").",
+            "$+%UNIT_SIZE",
+            -20,
+            -20,
+            20,
+            1,
+            "penisSizePreference"
+    );
+
+    public static SliderOption TRAP_PENIS_SIZE_PREFERENCE = new SliderOption(
+            "TRAP_PENIS_SIZE_PREFERENCE",
+            PresetColour.BASE_PINK_LIGHT,
+            Util.capitaliseSentence(Gender.N_P_TRAP.getName()) + " penis size",
+            "The penis size of randomly-generated " + Gender.N_P_TRAP.getName() + "s. 100% represents an unaltered size. Testicle size and cum production will also be altered in proportion to this setting.",
+            "%VALUE%",
+            -90,
+            -9,
+            10,
+            10,
+            "trapPenisSizePreference"
+    );
+
     /* TOGGLE OPTIONS */
     public static ToggleOption AUTO_LOCALE = new ToggleOption(
             "AUTO_LOCALE",
