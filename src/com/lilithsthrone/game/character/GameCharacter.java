@@ -16078,7 +16078,7 @@ public abstract class GameCharacter implements XMLSaving {
 					
 			} else {
 				if(reactingPace!=SexPace.SUB_RESISTING && !characterBeingRevealed.getAppearsAsGender(true).getGenderName().isHasVagina() && !characterReacting.isKnowsCharacterArea(CoverableArea.VAGINA, characterBeingRevealed)) {
-					sb.append("[npc.Name] [npc.verb(look)] surprised, ");
+					sb.append("[npc.Name] [npc.verb(look)] surprised as [npc.she]  [npc.verb(exclaim)], ");
 					sb.append(UtilText.returnStringAtRandom(
 							"[npc.speech(Hey! I didn't realise you were [npc2.a_gender]! Well, whatever...)]",
 							"[npc.speech(Wait, you're [npc2.a_gender]?! Well, whatever...)]"));
