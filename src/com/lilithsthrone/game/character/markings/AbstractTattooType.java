@@ -415,7 +415,7 @@ public class AbstractTattooType extends AbstractCoreType {
 	}
 	
 	public String getSVGImage(GameCharacter character, Colour colour, Colour colourSecondary, Colour colourTertiary) {
-		if (!availablePrimaryColours.contains(colour) || svgPathInformation==null || svgPathInformation.isEmpty()) {
+		if (svgPathInformation==null || svgPathInformation.isEmpty()) {
 			return "";
 		}
 		
@@ -424,53 +424,51 @@ public class AbstractTattooType extends AbstractCoreType {
 			return stringFromMap;
 			
 		} else {
-			if (availablePrimaryColours.contains(colour)) {
-				try {
-					InputStream is;
-					String s;
-					if(isMod) {
-						Collections.sort(svgPathInformation, (i1, i2)->i1.getZLayer()-i2.getZLayer());
-						StringBuilder svgBuilder = new StringBuilder();
-						for(SvgInformation info : getSvgPathInformation()) {
-							List<String> lines = Files.readAllLines(Paths.get(info.getPathName()));
-							StringBuilder sb = new StringBuilder();
-							for(String line : lines) {
-								sb.append(line);
-							}
-							int sizeOffset = (100-info.getImageSize())/2;
-							svgBuilder.append("<div style='"
-									+ "width:"+info.getImageSize()+"%;"
-									+ "height:"+info.getImageSize()+"%;"
-									+ "transform:rotate("+info.getImageRotation()+"deg);"
-									+ "position:absolute;"
-									+ "left:"+sizeOffset+"%;"
-									+ "bottom:"+sizeOffset+"%;"
-									+ "padding:0;"
-									+ "margin:0;'>");
-							String finalSvg = sb.toString();
-							for(Entry<String, String> entry : info.getReplacements().entrySet()) {
-								finalSvg = finalSvg.replaceAll(entry.getKey(), entry.getValue());
-							}
-							svgBuilder.append(finalSvg);
-							svgBuilder.append("</div>");
+			try {
+				InputStream is;
+				String s;
+				if(isMod) {
+					Collections.sort(svgPathInformation, (i1, i2)->i1.getZLayer()-i2.getZLayer());
+					StringBuilder svgBuilder = new StringBuilder();
+					for(SvgInformation info : getSvgPathInformation()) {
+						List<String> lines = Files.readAllLines(Paths.get(info.getPathName()));
+						StringBuilder sb = new StringBuilder();
+						for(String line : lines) {
+							sb.append(line);
 						}
-
-						s = svgBuilder.toString();
-						
-					} else {
-						is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/tattoos/" + getPathName() + ".svg");
-						s = Util.inputStreamToString(is);
-						is.close();
+						int sizeOffset = (100-info.getImageSize())/2;
+						svgBuilder.append("<div style='"
+								+ "width:"+info.getImageSize()+"%;"
+								+ "height:"+info.getImageSize()+"%;"
+								+ "transform:rotate("+info.getImageRotation()+"deg);"
+								+ "position:absolute;"
+								+ "left:"+sizeOffset+"%;"
+								+ "bottom:"+sizeOffset+"%;"
+								+ "padding:0;"
+								+ "margin:0;'>");
+						String finalSvg = sb.toString();
+						for(Entry<String, String> entry : info.getReplacements().entrySet()) {
+							finalSvg = finalSvg.replaceAll(entry.getKey(), entry.getValue());
+						}
+						svgBuilder.append(finalSvg);
+						svgBuilder.append("</div>");
 					}
+
+					s = svgBuilder.toString();
 					
-					s = SvgUtil.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
-					
-					addSVGStringMapping(colour, colourSecondary, colourTertiary, s);
-					
-					return s;
-				} catch (IOException e) {
-					e.printStackTrace();
+				} else {
+					is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/tattoos/" + getPathName() + ".svg");
+					s = Util.inputStreamToString(is);
+					is.close();
 				}
+				
+				s = SvgUtil.colourReplacement(this.getId(), colour, colourSecondary, colourTertiary, s);
+				
+				addSVGStringMapping(colour, colourSecondary, colourTertiary, s);
+				
+				return s;
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
 	
