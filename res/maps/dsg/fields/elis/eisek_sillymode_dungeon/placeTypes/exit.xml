@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <placeType>
 	
-	<worldRegion>FIELD_CITY</worldRegion>
-	
+	<worldRegion>FIELD_CITY</worldRegion>	
 	<name><![CDATA[Exit]]></name>
-	
-	<!-- The information displayed to the player in the tooltip when hovering over this place type in the map UI. -->
 	<tooltipDescription><![CDATA[The air is not so foul near this door, it must be the way out.]]></tooltipDescription>
-	
-	<!-- The description which is used when describing a character's virginity loss within this place type.
-	It should follow the generic format of "in/at/on X", with no initial capitalisation or ending punctuation. -->
 	<virginityLossDescription><![CDATA[in the exit from a strange basement]]></virginityLossDescription>
 	
 	<sexBlockedFromCharacterPresent>false</sexBlockedFromCharacterPresent>
@@ -35,9 +29,6 @@
 	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->
 	<backgroundColour>BASE_GREEN_LIGHT</backgroundColour>
 	
-	<!-- The id of the Encounter which can be triggered on this place type.
-	You can omit this entirely or use the value 'null' if there is no associated Encounter.
-	Please note that if a place type has multiple different 'encounterTypes' associated with it (via being set in the encounter file itself), one of those lists will be chosen at random to have an encounter drawn from it. -->
 	<encounterType>null</encounterType>
 	
 	<!-- The id of the DialogueNode which is associated with this place type. -->
@@ -45,26 +36,13 @@
 
 	<loiteringEnabled>false</loiteringEnabled>
 	
-	<!-- Whether or not this place type is located on the world map - will usually be false unless you're planning on changing a world map's tile to this place type (via some kind of unique encounter).
-	Use either 'true' or 'false' as values. -->
-	<globalMapTile>false</globalMapTile>
-	
-	<dangerous><![CDATA[true]]></dangerous>
-	
+	<globalMapTile>false</globalMapTile>	
+	<dangerous><![CDATA[true]]></dangerous>	
 	<itemsDisappear><![CDATA[true]]></itemsDisappear>
-
 	<aquatic><![CDATA[LAND]]></aquatic>
-
 	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
-
 	<weatherImmunities immuneToAll="true"/>
 	
-	<!-- You can use this element to initialise the inventory of tiles created with this place type as their type.
-	The 'inventory' target corresponds to the tile's inventory.
-	An example of this in use (to set the tile's inventory as containing 5000 flames) would be:
-		<applyInventoryInit><![CDATA[
-			[#inventory.setMoney(5000)]
-		]]></applyInventoryInit>-->
 	<applyInventoryInit/>
 	
 </placeType>

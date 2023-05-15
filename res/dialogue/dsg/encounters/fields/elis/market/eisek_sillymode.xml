@@ -22,6 +22,7 @@
 				<effects><![CDATA[
 					[#game.appendToTextEndStringBuilder(pc.startQuest(QUEST_LINE_SIDE_EISEK_STALL))]
 					[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_mob_dispersed, true)]
+					[#game.getWorlds().get(WORLD_TYPE_innoxia_fields_elis_town).getCell(12, 11).getPlace().setPlaceType(PLACE_TYPE_innoxia_fields_elis_town_sillymode_dungeon_entrance)]
 				]]></effects>				
 			</response>
 			

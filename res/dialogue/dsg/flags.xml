@@ -41,5 +41,9 @@
 	<flag dailyReset="false">elis_eisek_small_talk_vengar</flag>
 	
 	<flag dailyReset="false">elis_eisek_sillymode_mob_dispersed</flag>
+	<flag dailyReset="false">elis_eisek_sillymode_dungeon_trap_north</flag>
+	<flag dailyReset="false">elis_eisek_sillymode_dungeon_trap_east</flag>
+	<flag dailyReset="false">elis_eisek_sillymode_dungeon_trap_south</flag>
+	<flag dailyReset="false">elis_eisek_sillymode_dungeon_trap_west</flag>
 	
 </dialogueFlags>

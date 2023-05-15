@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- ENTRANCE -->
+	
+	<htmlContent tag="ENTRANCE"><![CDATA[
+	You detect a faint odour emanating from the entrance to a nearby building's basement. It is unpleasant, but also familiar. This must be where that group of dragon-obsessed weirdos do their "LARP"ing.
+	]]>
+	</htmlContent>
+	
+</dialogue>

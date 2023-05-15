@@ -11,7 +11,13 @@
 	<!-- ENTRY -->
 	
 	<htmlContent tag="ENTRY"><![CDATA[
-	Behind this avalanche of junk was once the door to the outside world. The pile is now so high that you cannot even see the frame of the door. The junk itself is a boring mix of kitschy craft projects and worthless trash but the sheer mass would make digging your way out a filthy, dangerous affair. One wonders how the occupants of this "dungeon" reset this trap, or even if they bother resetting it at all. There is nowhere to go except deeper into the basement.
+	Behind this avalanche of junk was once the door to the outside world. The pile is now so high that you cannot even see the frame of the door. The junk itself is a boring mix of kitschy craft projects and worthless trash but the sheer mass would make digging your way out a filthy, dangerous affair 
+	#IF(pc.hasSpell(SPELL_TELEKENETIC_SHOWER))
+		, even with your telekinetic earth magic.
+	#ELSE
+		.
+	#ENDIF
+	 One wonders how the occupants of this "dungeon" reset this trap, or even if they bother resetting it at all. There is nowhere to go except deeper into the basement.
 	]]>
 	</htmlContent>
 	
@@ -19,6 +25,13 @@
 	
 	<htmlContent tag="EXIT"><![CDATA[
 	The air is noticeably fresher in front of this door. It must be the way out, or is at least substantially closer to it. How curious, a basement with two doors...
+	]]>
+	</htmlContent>
+	
+	<!-- EXIT_TAKEN -->
+	
+	<htmlContent tag="EXIT_TAKEN"><![CDATA[
+	You open the door and follow the stairs up back into the streets of Elis. Behind you, you hear a crashing noise. You turn around and try to open the door again, but it's blocked. Another junk avalanche probably... Eisek isn't going to believe this, nor anyone else for that matter.
 	]]>
 	</htmlContent>
 	
@@ -32,28 +45,64 @@
 	<!-- TRAP -->
 	
 	<htmlContent tag="TRAP"><![CDATA[
-	This area is noticeably wider than the passage behind and in front of it. In the middle, you see some lit candles and aerosol cans rigged into a primitive flamethrower trap, an incredibly brave thing to put in a dungeon that is not only made of cardboard but also has defenders clad in it. Although the trap mechanism is obvious, the web of tripwires connected to it are also dense. What do you do?
+	This area is noticeably wider than the passage behind and in front of it. In the middle, you see some lit candles and aerosol cans rigged into a primitive flamethrower trap, an incredibly brave thing to put in a dungeon that is not only made of cardboard but also has defenders clad in it. Although the trap mechanism is obvious, the web of tripwires connected to it is also dense.
+	]]>
+	</htmlContent>
+	
+	<!-- TRAP_SUCCESS -->
+	
+	<htmlContent tag="TRAP_SUCCESS"><![CDATA[
+	#IF(pc.hasSpell(SPELL_TELEKENETIC_SHOWER))
+	With your telekinetic earth magic, it's trivial for you to set off the tripwires from a safe distance. A huge gout of flame shoots into the room as the trap goes off, obliterating the candles. That's certainly one way to disarm a trap.
+	#ELSEIF(pc.hasSpell(SPELL_VACUUM))
+	You easily snuff out the candles with your vacuum spell, disarming the trap. To prove a point, you casually stroll into the room, setting off all the tripwires to no effect.
+	#ELSEIF(pc.hasSpell(SPELL_PROTECTIVE_GUSTS))
+	You easily blow out the candles with your wind magic, disarming the trap. To prove a point, you casually stroll into the room, setting off all the tripwires to no effect.
+	#ELSEIF(pc.hasSpell(SPELL_SOOTHING_WATERS)||pc.hasSpell(SPELL_RAIN_CLOUD))
+	You easily douse the candles with your ice magic, disarming the trap. To prove a point, you casually stroll into the room, setting off all the tripwires to no effect.
+	#ELSE
+	You manage to work your way through the tripwires without setting off the trap. You carefully blow out each candle, disarming the trap. 
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- TRAP_FAILURE -->
+	
+	<htmlContent tag="TRAP_FAILURE"><![CDATA[
+	You try to work your way through the tripwires but trigger one of them. A huge gout of flame shoots into the room, 
+	#IF(pc.isImmuneToDamageType(DAMAGE_TYPE_FIRE) || pc.getAttributeValue(ATTRIBUTE_RESISTANCE_FIRE) >= 30)
+	but your resistance to fire protects you! Looking down, you see that this sudden burst of heat also obliterated the candles. It should be safe to continue.
+	#ELSE
+	forcing you to make a hasty retreat! Looking back, you see that this sudden burst of heat also obliterated the candles. It should be safe to go back in now.
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<!-- TRAP_TRIGGERED -->
 	
 	<htmlContent tag="TRAP_TRIGGERED"><![CDATA[
-	This area is noticeably wider than the passage behind and in front of it. In the middle was once a flamethrower trap but its fuel has since been exhausted, rendering it harmless.
+	This area is noticeably wider than the passage behind and in front of it. In the middle was once a flamethrower trap but the candles serving as its sources of ignition have since been extinguished, rendering it harmless.
 	]]>
 	</htmlContent>
 	
 	<!-- TREASURE -->
 	
 	<htmlContent tag="TREASURE"><![CDATA[
-	A dead end room with walls on all three sides. There doesn't seem to be anything here except an antique chest, unclasped and unlocked. Surely no one would mind if you took a peek inside?
+	A dead end room with walls on all three sides. There doesn't seem to be anything here except an antique chest, unclasped and unlocked, with "Snack Fund" crudely scrawled on the lid. Surely no one would mind if you took a peek inside?
+	]]>
+	</htmlContent>
+	
+	<!-- TREASURE_TAKING -->
+	
+	<htmlContent tag="TREASURE_TAKING"><![CDATA[
+	You open the chest to find a pile of loose flames. Well...finders keepers.
 	]]>
 	</htmlContent>
 	
 	<!-- TREASURE_TAKEN -->
 	
 	<htmlContent tag="TREASURE_TAKEN"><![CDATA[
-	A dead end room with walls on all three sides. There isn't anything here except an antique chest which you've looted. This strange little groups is going without snacks for a while.
+	A dead end room with walls on all three sides. There isn't anything here except an antique chest which you've looted. This strange little group is going without snacks for a while.
 	]]>
 	</htmlContent>
 	
