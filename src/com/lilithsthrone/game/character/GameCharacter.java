@@ -3834,15 +3834,17 @@ public abstract class GameCharacter implements XMLSaving {
 			return getName(true);
 			
 		} else {
+			boolean showWinged = (hasWings() || isArmWings()) && !getFleshSubspecies().isWinged();
+			String nameText = (showWinged ? "winged " : "") + getName(true);
 			if(this.isUnique()) {
 				determiner = "the";
 			}
 			return (determiner.equalsIgnoreCase("a") || determiner.equalsIgnoreCase("an")
 						?(Character.isUpperCase(determiner.charAt(0))
-								?Util.capitaliseSentence(UtilText.generateSingularDeterminer(getName(true)))
-								:UtilText.generateSingularDeterminer(getName(true)))
+								?Util.capitaliseSentence(UtilText.generateSingularDeterminer(nameText))
+								:UtilText.generateSingularDeterminer(nameText))
 						:determiner)
-					+ " " + getName(true);
+					+ " " + nameText;
 		}
 	}
 
@@ -15765,7 +15767,7 @@ public abstract class GameCharacter implements XMLSaving {
 										"[npc.Name] [npc.verb(let)] out a derisive laugh as [npc.she] sees [npc2.namePos] [npc2.cockSize] [npc2.cock]"));
 								if(!characterReacting.isMute() && !characterReacting.isSpeechMuffled()) {
 									if(characterBeingRevealed.getPenisRawSizeValue()<PenisLength.ONE_TINY.getMaximumValue()) {
-										if(characterBeingRevealed.getAppearsAsGender(true)!=characterBeingRevealed.getGender()) {
+										if(!characterBeingRevealed.getAppearsAsGender(true).getGenderName().isHasPenis()) {
 											sb.append(UtilText.returnStringAtRandom(
 													", [npc.speech(I didn't realise you were [npc2.a_gender]! What a cute little clitty dick you've got!)]",
 													", [npc.speech(Wait, you're [npc2.a_gender]?! What a pathetic little clitty dick you've got!)]"));
@@ -15820,7 +15822,7 @@ public abstract class GameCharacter implements XMLSaving {
 										"[npc.Name] [npc.verb(let)] out an unamused grunt as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
 										"[npc.Name] [npc.verb(let)] out a derisive grunt as [npc.she] sees that [npc2.nameHas] got [npc2.a_cockSize] [npc2.cock]"));
 								if(!characterReacting.isMute() && !characterReacting.isSpeechMuffled()) {
-									if(characterBeingRevealed.getAppearsAsGender(true)!=characterBeingRevealed.getGender()) {
+									if(!characterBeingRevealed.getAppearsAsGender(true).getGenderName().isHasPenis()) {
 										sb.append(UtilText.returnStringAtRandom(
 												", [npc.speech(Is that pathetic little thing your cock?! I didn't realise you were [npc2.a_gender]!)]",
 												", [npc.speech(Wait, you're [npc2.a_gender]?! What a pathetic excuse for a cock you've got!)]"));
@@ -15858,7 +15860,7 @@ public abstract class GameCharacter implements XMLSaving {
 									"[npc.Name] [npc.verb(fail)] to suppress a flustered [npc.moan] as [npc.she] sees that [npc2.nameHas] got [npc2.a_cockSize] [npc2.cock]",
 									"[npc.Name] [npc.verb(let)] out a surprised [npc.moan] as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
 									"[npc.Name] [npc.verb(let)] out a startled [npc.moan] as [npc.she] sees [npc2.namePos] [npc2.cockSize] [npc2.cock]"));
-							if(characterBeingRevealed.getAppearsAsGender(true)!=characterBeingRevealed.getGender()) {
+							if(!characterBeingRevealed.getAppearsAsGender(true).getGenderName().isHasPenis()) {
 								sb.append(UtilText.returnStringAtRandom(
 										", [npc.speech(Hey! I didn't realise you were [npc2.a_gender]! Well, whatever...)]",
 										", [npc.speech(Wait, you're [npc2.a_gender]?! Well, whatever...)]"));
@@ -16075,6 +16077,13 @@ public abstract class GameCharacter implements XMLSaving {
 						"[npc.speech(I'm not touching that!)]"));
 					
 			} else {
+				if(reactingPace!=SexPace.SUB_RESISTING && !characterBeingRevealed.getAppearsAsGender(true).getGenderName().isHasVagina() && !characterReacting.isKnowsCharacterArea(CoverableArea.VAGINA, characterBeingRevealed)) {
+					sb.append("[npc.Name] [npc.verb(look)] surprised as [npc.she]  [npc.verb(exclaim)], ");
+					sb.append(UtilText.returnStringAtRandom(
+							"[npc.speech(Hey! I didn't realise you were [npc2.a_gender]! Well, whatever...)]",
+							"[npc.speech(Wait, you're [npc2.a_gender]?! Well, whatever...)]"));
+					sb.append("<br/>");
+				}
 				switch(reactingPace) {
 					case DOM_GENTLE:
 						sb.append("[npc.Name] [npc.verb(let)] out a soft [npc.moan] as [npc.she] [npc.verb(see)] ");
@@ -25237,6 +25246,14 @@ public abstract class GameCharacter implements XMLSaving {
 	 */
 	public AbstractSubspecies getSubspecies() {
 		return body.getSubspecies();
+	}
+
+	/**
+	 * Get the subspecies which this character appears to be if they were made of flesh.
+	 * @return The subspecies.
+	 */
+	public AbstractSubspecies getFleshSubspecies() {
+		return body.getFleshSubspecies();
 	}
 
 	/**

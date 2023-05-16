@@ -6354,7 +6354,6 @@ public class Body implements XMLSaving {
 	 * @param subspecies Pass in the AbstractSubspecies to which this character should be transformed into a feral version of. Pass in null to transform back from feral to a standard anthro.
 	 */
 	public void setFeral(AbstractSubspecies subspecies) {
-		this.feral = subspecies!=null;
 		
 		FeralAttributes attributes = subspecies==null?null:subspecies.getFeralAttributes(this);
 		if(attributes==null) {
@@ -6362,6 +6361,7 @@ public class Body implements XMLSaving {
 			return;
 		}
 		
+		this.feral = subspecies!=null;
 		// Set body to full subspecies:
 		Main.game.getCharacterUtils().reassignBody(
 				null,

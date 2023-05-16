@@ -8,6 +8,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Contributors:
 		Fixed bug where vaginal, lactation, and virginity fetishes had incorrect sorting (based on left-aligned fetishes being active/giving and right-aligned being passive/receiving) in the fetish menu. (by Maxis010)
+		Changed the Body.setFeral() method to not set the body as feral if the subspecies does not have feral attributes or is null. (PR#1771 by SightglassCat)
+		Fixed missing background textures in slime and half-demon race icons. (PR#1772 by SightglassCat)
+		Added 'winged' to NPC lists and tooltips for winged characters of a race that usually does not have wings. (PR#1724 by Stadler76)
+		Made NPCs react more logically to unexpected genitals being revealed in sex scenes, with genital reveals now based on whether the perceived gender of the subject normally has one. (PR#1741 by NoHornyOnMain)
+		Enabled tattoo rendering with non-standard colours (e.g. via save editing). (PR#1742 by NoHornyOnMain)
 	
 	Combat:
 		The two final upgrades to the Vacuum spell no longer strip clothing from unique NPCs. (As stripping clothing from quest-critical NPCs was resulting in issues with their content.)
