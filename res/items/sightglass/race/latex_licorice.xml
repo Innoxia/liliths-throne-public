@@ -14,7 +14,7 @@
 		<combatUseEnemies>false</combatUseEnemies>
 		<consumedOnUse>true</consumedOnUse>
 		
-		<rarity>RARE</rarity> 
+		<rarity>EPIC</rarity> 
 		
 		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
 		<imageName zLayer="1" imageRotation="0" imageSize="70" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/race/innoxia/slime/icon.svg</imageName>

@@ -2,7 +2,7 @@
 <item>
 	<coreAttributes>
 		<authorTag><![CDATA[The fine print reads 'S.G.C. Provisions']]></authorTag>
-		<value>100</value> 
+		<value>2500</value> 
 		<determiner><![CDATA[a]]></determiner>
 		<name><![CDATA[Vitality Seed]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[Vitality Seeds]]></namePlural>
@@ -12,7 +12,7 @@
 		<combatUseAllies>true</combatUseAllies>
 		<combatUseEnemies>false</combatUseEnemies>
 		<consumedOnUse>true</consumedOnUse>
-		<rarity>RARE</rarity> 
+		<rarity>EPIC</rarity> 
 		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
 		<imageName zLayer="2" imageRotation="0" imageSize="80">plant_seed.svg</imageName>
 		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>

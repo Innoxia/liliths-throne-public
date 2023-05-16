@@ -2,17 +2,17 @@
 <item>
 	<coreAttributes>
 		<authorTag><![CDATA[The fine print reads 'S.G.C. Provisions']]></authorTag>
-		<value>100</value> 
+		<value>2500</value> 
 		<determiner><![CDATA[a]]></determiner>
-		<name><![CDATA[Suspicious Truffle]]></name>
-		<namePlural pluralByDefault="false"><![CDATA[Suspicious Truffles]]></namePlural>
+		<name><![CDATA[Royal Truffle]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Royal Truffles]]></namePlural>
 		<description><![CDATA[A large black truffle. It has a rich, luxurious musk. Seems to shudder and shake on its own...]]></description> 
 		<useDescriptor>eat</useDescriptor>
 		<sexUse>true</sexUse>
 		<combatUseAllies>true</combatUseAllies>
 		<combatUseEnemies>false</combatUseEnemies>
 		<consumedOnUse>true</consumedOnUse>
-		<rarity>RARE</rarity> 
+		<rarity>EPIC</rarity> 
 		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
 		<imageName zLayer="2" imageRotation="0" imageSize="80">fungus_truffle.svg</imageName>
 		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
@@ -24,7 +24,7 @@
 		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
 		<enchantmentEffectId>RACE</enchantmentEffectId>
 		<effectTooltipLines>
-			<line><![CDATA[[style.boldGrey(Something's off with this truffle.)]]]></line>
+			<line><![CDATA[[style.boldGrey(Converts a person into a fungal creature.)]]]></line>
 		</effectTooltipLines>
 		<applyEffects><![CDATA[
 			#IF(npc.getBody().getBodyMaterial()==BODY_MATERIAL_FUNGUS)
