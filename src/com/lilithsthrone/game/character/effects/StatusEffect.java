@@ -8834,7 +8834,13 @@ public class StatusEffect {
                 
                 @Override
 		public boolean isConditionsMet(GameCharacter target) {
-                        return (target.getBodyMaterial() == BodyMaterial.FUNGUS);
+                        if (target.getBodyMaterial() == BodyMaterial.FUNGUS) { return true; }
+                        for (GameCharacter ally : Main.combat.getAllies(target)) {
+                                if (ally.getBodyMaterial() == BodyMaterial.FUNGUS) {
+                                    return true;
+                                }
+                        }
+                        return false;
 		}
                 
 		@Override

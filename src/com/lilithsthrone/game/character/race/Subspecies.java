@@ -4412,6 +4412,8 @@ public class Subspecies {
 			}
 			return 0;
 		}
+                
+                @Override
 		public FeralAttributes getFeralAttributes(Body body) {
 			if(body==null) {
 				return super.getFeralAttributes(body);
@@ -4574,6 +4576,8 @@ public class Subspecies {
 			}
 			return 0;
 		}
+                
+                @Override
 		public FeralAttributes getFeralAttributes(Body body) {
 			if(body==null) {
 				return super.getFeralAttributes(body);
@@ -4724,12 +4728,25 @@ public class Subspecies {
 			}
 			return 0;
 		}
+                
+                @Override
 		public FeralAttributes getFeralAttributes(Body body) {
 			if(body==null) {
 				return super.getFeralAttributes(body);
 			}
 			return body.getFleshSubspecies().getFeralAttributes(body);
 		}
+                
+                @Override
+                public void applySpeciesChanges(Body body) {
+                        super.applySpeciesChanges(body);
+                        if(body.hasPenisIgnoreDildo() && Math.random()<0.35) {
+                                body.getPenis().getTesticle().getCum().addFluidModifier(null, FluidModifier.HALLUCINOGENIC);
+                        }
+                        if(body.hasVagina() && Math.random()<0.35) {
+                                body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.HALLUCINOGENIC);
+                        }
+                }
 	};
         
 	// RODENTS:
