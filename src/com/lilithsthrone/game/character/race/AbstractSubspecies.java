@@ -117,7 +117,6 @@ public abstract class AbstractSubspecies {
 	
 	protected String SVGString;
 	protected String SVGStringUncoloured;
-        protected String SVGStringUncolouredNoBackground;
 	protected String SVGStringNoBackground;
         protected String SVGStringUncolouredNoBackground;
 	protected String SVGStringDesaturated;
