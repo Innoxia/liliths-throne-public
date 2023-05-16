@@ -2305,7 +2305,6 @@ public class Body implements XMLSaving {
 			case AIR:
 			case ARCANE:
 			case STONE:
-			case RUBBER:
 			case ICE:
 			case WATER:
 			case FIRE:
@@ -2314,6 +2313,26 @@ public class Body implements XMLSaving {
 								+ " <b style='color:"+this.getBodyMaterial().getColour().toWebHexString()+";'>"+this.getBodyMaterial().getName()+"</b>!"
 						+ "</p>");
 				break;
+                        case RUBBER:
+                                sb.append("<p>"
+                                        + "[npc.NamePos] entire body is made out of constantly roiling, semifluid"
+                                        + " <b style='color:"+this.getBodyMaterial().getColour().toWebHexString()+";'>"+this.getBodyMaterial().getName()+"</b>,"
+                                        + " enveloped by an elastic latex membrane."
+                                        + "</p>");
+                                break;
+                        case PLANT:
+                                sb.append("<p>"
+                                        + "[npc.NamePos] entire body is supported by a skeleton of wood-like lignified plant matter, and covered with a healthy layer of"
+                                        + " <b style='color:"+this.getBodyMaterial().getColour().toWebHexString()+";'>"+this.getBodyMaterial().getName()+"</b>!"
+                                        + " The leaves take on many forms in mimicry of fur, skin, scales or feathers."
+                                        + "</p>");
+                                break;
+                        case FUNGUS:
+                                sb.append("<p>"
+                                        + "[npc.NamePos] entire body is composed of spongy "
+                                        + " <b style='color:"+this.getBodyMaterial().getColour().toWebHexString()+";'>"+"fungal mycelia"+"</b>!"
+                                        + "</p>");
+                                break;                            
 		}
 		
 		// Describe face (ears, eyes & horns):
@@ -3379,14 +3398,12 @@ public class Body implements XMLSaving {
 //		}
 		
 		AbstractRace race = Race.HUMAN;
-		if(Race.racialBodyMaterialList.contains(this.bodyMaterial)) {
-			race = Race.getRaceFromBodyMaterial(this.bodyMaterial);
-			this.raceStage = RaceStage.GREATER;
-			
-		} else if(target!=null && target.isElemental()) {
+		if(target!=null && target.isElemental()) {
 			race = Race.ELEMENTAL;
 			this.raceStage = RaceStage.GREATER;
-			
+                } else if( Race.racialBodyMaterialList.contains(this.bodyMaterial)) {
+			race = Race.getRaceFromBodyMaterial(this.bodyMaterial);
+			this.raceStage = RaceStage.GREATER;
 		} else {
 			race = getRaceFromPartWeighting();
 			this.raceStage = getRaceStageFromPartWeighting();
@@ -6527,7 +6544,7 @@ public class Body implements XMLSaving {
 					for(BodyCoveringCategory cat : BodyCoveringCategory.values()) {
 						if(cat.isInfluencedByMaterialType()) {
 							AbstractBodyCoveringType slimeCovering = BodyCoveringType.getMaterialBodyCoveringType(mat, cat);
-							coverings.put(slimeCovering,
+                                                        coverings.put(slimeCovering,
 									new Covering(slimeCovering,
 											slimeCovering.getNaturalPatterns().entrySet().iterator().next().getKey(),
 											coverings.get(coreSlimeCovering).getPrimaryColour(),

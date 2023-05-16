@@ -4235,7 +4235,7 @@ public class Subspecies {
 		}
 	};
         
-        // SLIMES:
+        // LATEX CREATURE:
 	public static AbstractSubspecies LATEX_CREATURE = new AbstractSubspecies(true,
 			10000,
 			"sightglass_race_latex_liqueur",
@@ -4282,7 +4282,8 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.BAT_CAVERNS, SubspeciesSpawnRarity.TEN)), null, Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES),
-                        true, BodyMaterial.RUBBER
+                        true, BodyMaterial.RUBBER,
+                        true, "latex ", "corrupted latex ","latex "
         ) {
             
 		@Override
@@ -4295,21 +4296,7 @@ public class Subspecies {
 			return fleshSubspecies.getBodyMaterialSVGString(character, getSubspeciesBodyMaterial(), 
                                 "#ffffff", Util.newArrayListOfValues("#404040", "#202020", "#101010"));
 		}
-                
-		@Override
-		public String getName(Body body) {
-			if(body == null) {
-				return super.getName(body);
-			}
-			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
-			if(coreSubspecies==Subspecies.HUMAN) {
-				return super.getName(body);
-			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
-				return "corrupted latex "+coreSubspecies.getName(body);
-			}
-			return "latex "+coreSubspecies.getName(body);
-		}
-		
+                	
 		@Override
 		public String getNamePlural(Body body) {
 			if(body ==null) {
@@ -4322,20 +4309,6 @@ public class Subspecies {
 				return "corrupted latex "+coreSubspecies.getNamePlural(body);
 			}
 			return "latex "+coreSubspecies.getNamePlural(body);
-		}
-
-		@Override
-		public String getSingularMaleName(Body body) {
-			if(body ==null) {
-				return super.getSingularMaleName(body);
-			}
-			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
-			if(coreSubspecies==Subspecies.HUMAN) {
-				return super.getSingularMaleName(body);
-			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
-				return "corrupted latex "+coreSubspecies.getSingularMaleName(body);
-			}
-			return "latex "+coreSubspecies.getSingularMaleName(body);
 		}
 
 		@Override
@@ -4402,7 +4375,319 @@ public class Subspecies {
 			return body.getFleshSubspecies().getFeralAttributes(body);
 		}
 	};
+        
+        // PLANT CREATURE:
+	public static AbstractSubspecies PLANT_CREATURE = new AbstractSubspecies(true,
+			10000,
+			"sightglass_race_plant_water",
+			"sightglass_race_plant_seed",
+			"statusEffects/race/raceSlime",
+			"statusEffects/race/raceBackgroundSlime",
+			"plant-folk",
+			"plant-folk",
+			"treant",
+			"dryads",
+			"treants",
+			"dryads",
+			null,
+			Nocturnality.DIURNAL,
+			"[npc.NameIsFull] a plant creature, composed of magically-enhanced foliage given motion. [npc.She] [npc.has] a deep affinity for growing new life, and [npc.verb(benefit)] from bright light.",
+                        "[npc.NameIsFull] a plant creature, composed of magically-enhanced foliage given motion. [npc.She] [npc.has] a deep affinity for growing new life, and [npc.verb(benefit)] from bright light." 
+                            + "[npc.Her] demon core is visible wrapped in a leafy calyx, pulsing with potential.",
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 10f),
+					new Value<>(Attribute.MAJOR_ARCANE, 10f),
+                                        new Value<>(Attribute.DAMAGE_LUST, 10f),
+                                        new Value<>(Attribute.VIRILITY, 25f),
+                                        new Value<>(Attribute.FERTILITY, 25f)
+                                        ),
+			Util.newArrayListOfValues(),
+			"Green Vines",
+			"Green Vines",
+			"PLANT_BASIC",
+			"PLANT_ADVANCED",
+			Race.PLANT_CREATURE,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 2),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			PresetColour.BASE_GREEN,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"An animated plant-creature",
+			Util.newHashMapOfValues(
+                                new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.THREE),
+                                new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FIVE),
+                                new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.TWO),
+                                new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.SEVEN),
+                                new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FOUR),
+                                new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.SEVEN),
+                                new Value<>(WorldRegion.SAVANNAH, SubspeciesSpawnRarity.FOUR),
+                                new Value<>(WorldRegion.JUNGLE, SubspeciesSpawnRarity.SEVEN),
+                                new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.FIVE),
+                                new Value<>(WorldRegion.MOUNTAINS, SubspeciesSpawnRarity.TWO)
+                        ),
+			Util.newHashMapOfValues(
+                                new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO)
+                        ), null, 
+                        Util.newArrayListOfValues(SubspeciesFlag.HIDDEN_FROM_PREFERENCES),
+                        true, BodyMaterial.PLANT,
+                        true, "plantfolk "," mandragora ", "beast-plant "
+        ) {
+            
+                @Override
+                public Map<AbstractAttribute, Float> getStatusEffectAttributeModifiers(GameCharacter character) {
+                        if (character != null && character.isVisiblyPregnant()) {
+                            return Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 15f),
+					new Value<>(Attribute.MAJOR_ARCANE, 15f),
+                                        new Value<>(Attribute.DAMAGE_LUST, 20f),
+                                        new Value<>(Attribute.HEALTH_MAXIMUM, 50f),
+                                        new Value<>(Attribute.VIRILITY, 25f),
+                                        new Value<>(Attribute.FERTILITY, 25f)
+                                        );
+                        }
+                        return super.getStatusEffectAttributeModifiers(character);
+                }
+                
+                @Override
+                public String getStatusEffectDescription(GameCharacter character) {
+                        if (character != null && character.isVisiblyPregnant()) {
+                            return super.getStatusEffectDescription(character) 
+                                    + UtilText.parse(character, " [npc.Her] pregnancy gives [npc.him] a healthy glow!");
+                        }
+                        return super.getStatusEffectDescription(character);
+                }
+            
+		@Override
+		public String getSVGString(GameCharacter character) {
+			if(character==null) {
+				return Subspecies.HUMAN.getBodyMaterialSVGString(null, getSubspeciesBodyMaterial(), 
+                                        "#203603", Util.newArrayListOfValues("#5dd446", "#27912f", "#18a34b"));
+                        }
+                        AbstractSubspecies fleshSubspecies = character.getBody().getFleshSubspecies();
+			return fleshSubspecies.getBodyMaterialSVGString(character, getSubspeciesBodyMaterial(), 
+                                "#203603", Util.newArrayListOfValues("#5dd446", "#27912f", "#18a34b"));
+		}
+		
+		@Override
+		public String getNamePlural(Body body) {
+			if(body ==null) {
+				return super.getNamePlural(body);
+			}
+			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
+			if(coreSubspecies==Subspecies.HUMAN) {
+				return super.getNamePlural(body);
+			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
+				return "corrupted plant "+coreSubspecies.getNamePlural(body);
+			}
+			return "plant "+coreSubspecies.getNamePlural(body);
+		}
+
+		@Override
+		public String getSingularFemaleName(Body body) {
+			if(body ==null) {
+				return super.getSingularFemaleName(body);
+			}
+			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
+			if(coreSubspecies==Subspecies.HUMAN) {
+				return super.getSingularFemaleName(body);
+			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
+				return "corrupted plant "+coreSubspecies.getSingularFemaleName(body);
+			}
+			return "plant "+coreSubspecies.getSingularFemaleName(body);
+		}
+
+		@Override
+		public String getPluralFemaleName(Body body) {
+			if(body ==null) {
+				return super.getPluralFemaleName(body);
+			}
+			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
+			if(coreSubspecies==Subspecies.HUMAN) {
+				return super.getPluralFemaleName(body);
+			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
+				return "corrupted plant "+coreSubspecies.getPluralFemaleName(body);
+			}
+			return "plant "+coreSubspecies.getPluralFemaleName(body);
+		}
+
+
+		@Override
+		public String getSVGStringDesaturated(GameCharacter character) {
+			if(character==null) {
+				return Subspecies.HUMAN.getSVGStringDesaturated(null);
+			}
+			return character.getBody().getFleshSubspecies().getSVGStringDesaturated(character);
+		}
+		@Override
+		public int getSubspeciesWeighting(Body body, AbstractRace race) {
+			if(race==Race.PLANT_CREATURE) {
+				return 10_000;
+			}
+			return 0;
+		}
+		public FeralAttributes getFeralAttributes(Body body) {
+			if(body==null) {
+				return super.getFeralAttributes(body);
+			}
+			return body.getFleshSubspecies().getFeralAttributes(body);
+		}
+	};
 	
+        // FUNGUS CREATURE:
+	public static AbstractSubspecies FUNGUS_CREATURE = new AbstractSubspecies(true,
+			10000,
+			"sightglass_race_fungus_kombucha",
+			"sightglass_race_fungus_truffle",
+			"statusEffects/race/raceSlime",
+			"statusEffects/race/raceBackgroundSlime",
+			"mushroom creature",
+			"mushroom creatures",
+			"mushroom-boy",
+			"mushroom-girl",
+			"mushroom-boys",
+			"mushroom-girls",
+			null,
+			Nocturnality.NOCTURNAL,
+			"[npc.NameIsFull] a fungus creature, composed of a network of magically-enhanced fungal mycelia. [npc.She] gradually [npc.verb(sap)] the strength of opponents in battle.",
+                        "[npc.NameIsFull] a fungus creature, composed of a network of magically-enhanced fungal mycelia. [npc.She] gradually [npc.verb(sap)] the strength of opponents in battle." 
+                            + "The glow of [npc.her] demon core is visible embedded in [npc.her] chest, pulsing with potential.",
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 10f),
+					new Value<>(Attribute.MAJOR_ARCANE, 15f),
+                                        new Value<>(Attribute.DAMAGE_LUST, 12f),
+                                        new Value<>(Attribute.DAMAGE_POISON, 12f)
+                                        ),
+			Util.newArrayListOfValues(),
+			"Kingdom of Mushrooms",
+			"Kingdom of Mushrooms",
+			"FUNGUS_BASIC",
+			"FUNGUS_ADVANCED",
+			Race.FUNGUS_CREATURE,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 3),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 3),
+					new Value<>(PerkCategory.LUST, 5),
+					new Value<>(PerkCategory.ARCANE, 0)),
+			PresetColour.BASE_PINK_SALMON,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"An animated fungus-creature",
+			Util.newHashMapOfValues(
+                                new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO),
+                                new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR),
+                                new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.TWO),
+                                new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.SIX),
+                                new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE),
+                                new Value<>(WorldRegion.JUNGLE, SubspeciesSpawnRarity.SIX),
+                                new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.THREE),
+                                new Value<>(WorldRegion.MOUNTAINS, SubspeciesSpawnRarity.TWO),
+                                new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.SEVEN)
+                        ),
+			Util.newHashMapOfValues(
+                                new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO)
+                        ), null, 
+                        Util.newArrayListOfValues(SubspeciesFlag.HIDDEN_FROM_PREFERENCES),
+                        true, BodyMaterial.FUNGUS,
+                        true, "fungal ", "corrupted fungal ", "fungal "
+        ) {
+                                        
+		@Override
+		public String getSVGString(GameCharacter character) {
+			if(character==null) {
+				return Subspecies.HUMAN.getBodyMaterialSVGString(null, getSubspeciesBodyMaterial(), 
+                                        "#cf2b5c", Util.newArrayListOfValues("#fffbf2", "#e3b394", "#d96c7e"));
+                        }
+                        AbstractSubspecies fleshSubspecies = character.getBody().getFleshSubspecies();
+			return fleshSubspecies.getBodyMaterialSVGString(character, getSubspeciesBodyMaterial(), 
+                                "#cf2b5c", Util.newArrayListOfValues("#fffbf2", "#e3b394", "#d96c7e"));
+		}
+		
+		@Override
+		public String getNamePlural(Body body) {
+			if(body ==null) {
+				return super.getNamePlural(body);
+			}
+			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
+			if(coreSubspecies==Subspecies.HUMAN) {
+				return super.getNamePlural(body);
+			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
+				return "corrupted fungal "+coreSubspecies.getNamePlural(body);
+			}
+			return "fungal "+coreSubspecies.getNamePlural(body);
+		}
+
+		@Override
+		public String getSingularFemaleName(Body body) {
+			if(body ==null) {
+				return super.getSingularFemaleName(body);
+			}
+			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
+			if(coreSubspecies==Subspecies.HUMAN) {
+				return super.getSingularFemaleName(body);
+			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
+				return "corrupted fungal "+coreSubspecies.getSingularFemaleName(body);
+			}
+			return "fungal "+coreSubspecies.getSingularFemaleName(body);
+		}
+
+		@Override
+		public String getPluralMaleName(Body body) {
+			if(body ==null) {
+				return super.getPluralMaleName(body);
+			}
+			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
+			if(coreSubspecies==Subspecies.HUMAN) {
+				return super.getPluralMaleName(body);
+			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
+				return "corrupted fungal "+coreSubspecies.getPluralMaleName(body);
+			}
+			return "fungal "+coreSubspecies.getPluralMaleName(body);
+		}
+
+		@Override
+		public String getPluralFemaleName(Body body) {
+			if(body ==null) {
+				return super.getPluralFemaleName(body);
+			}
+			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
+			if(coreSubspecies==Subspecies.HUMAN) {
+				return super.getPluralFemaleName(body);
+			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
+				return "corrupted fungal "+coreSubspecies.getPluralFemaleName(body);
+			}
+			return "fungal "+coreSubspecies.getPluralFemaleName(body);
+		}
+
+
+		@Override
+		public String getSVGStringDesaturated(GameCharacter character) {
+			if(character==null) {
+				return Subspecies.HUMAN.getSVGStringDesaturated(null);
+			}
+			return character.getBody().getFleshSubspecies().getSVGStringDesaturated(character);
+		}
+		@Override
+		public int getSubspeciesWeighting(Body body, AbstractRace race) {
+			if(race==Race.FUNGUS_CREATURE) {
+				return 10_000;
+			}
+			return 0;
+		}
+		public FeralAttributes getFeralAttributes(Body body) {
+			if(body==null) {
+				return super.getFeralAttributes(body);
+			}
+			return body.getFleshSubspecies().getFeralAttributes(body);
+		}
+	};
+        
 	// RODENTS:
 	public static AbstractSubspecies SQUIRREL_MORPH = new AbstractSubspecies(true,
 			6000,

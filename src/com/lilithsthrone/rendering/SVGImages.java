@@ -63,6 +63,10 @@ public enum SVGImages {
 			raceDobermann,
 			raceDobermannDesaturated,
 			raceWisp,
+                
+                        raceBackgroundFungus,
+                        raceBackgroundPlant,
+                        raceBackgroundRubber,
 			
 			perkTreeArrow, spellOverlay,
 
@@ -348,7 +352,15 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceWisp.svg");
 			raceWisp = Util.inputStreamToString(is);
 			
-			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackgroundFungus.svg");
+			raceBackgroundFungus = Util.inputStreamToString(is);
+                        
+                        is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackgroundPlant.svg");
+			raceBackgroundPlant = Util.inputStreamToString(is);
+                        
+                        is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackgroundRubber.svg");
+			raceBackgroundRubber = Util.inputStreamToString(is);
+                        
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/perkTreeArrow.svg");
 			perkTreeArrow = Util.inputStreamToString(is);
 			
@@ -1533,6 +1545,18 @@ public enum SVGImages {
 
 	public String getRaceWisp() {
 		return raceWisp;
+	}
+        
+        public String getRaceBackgroundFungus() {
+		return raceBackgroundFungus;
+	}
+        
+        public String getRaceBackgroundPlant() {
+		return raceBackgroundPlant;
+	}
+        
+        public String getRaceBackgroundRubber() {
+		return raceBackgroundRubber;
 	}
 	
 	public String getCounterZero() {

@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="linearGradient1757">
+            <stop offset="0" stop-color="#5e1ca9"/>
+            <stop offset=".426" stop-color="#d787f0"/>
+            <stop offset="1" stop-color="#2f1257"/>
+        </linearGradient>
+        <linearGradient id="linearGradient2276">
+            <stop offset="0" stop-color="#dac9ee"/>
+            <stop offset=".426" stop-color="#fff"/>
+            <stop offset="1" stop-color="#ae7ccc"/>
+        </linearGradient>
+        <linearGradient id="linearGradient12686">
+            <stop offset="0" stop-color="#fff"/>
+            <stop offset=".448" stop-color="#fef9fc"/>
+            <stop offset="1" stop-color="#f4a8d5"/>
+        </linearGradient>
+        <linearGradient id="linearGradient10112">
+            <stop offset="0" stop-color="#9ca7b8"/>
+            <stop offset="1" stop-color="#fff"/>
+        </linearGradient>
+        <linearGradient id="linearGradient4379">
+            <stop offset="0" stop-color="#c34e00"/>
+            <stop offset=".074" stop-color="#f56603"/>
+            <stop offset=".292" stop-color="#f8740d"/>
+            <stop offset="1" stop-color="#fed790"/>
+        </linearGradient>
+        <linearGradient id="linearGradient15339">
+            <stop offset="0" stop-color="#2a2b51" stop-opacity="0"/>
+            <stop offset="1" stop-color="#29294f" stop-opacity=".472"/>
+        </linearGradient>
+        <linearGradient id="linearGradient10989">
+            <stop offset="0" stop-color="#bc984f"/>
+            <stop offset=".228" stop-color="#8c6d35"/>
+            <stop offset="1" stop-color="#ddba87"/>
+        </linearGradient>
+        <linearGradient id="linearGradient10350">
+            <stop offset="0" stop-color="#513200"/>
+            <stop offset="1" stop-color="#cc994d"/>
+        </linearGradient>
+        <linearGradient id="linearGradient9428">
+            <stop offset="0" stop-color="#fff"/>
+            <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="linearGradient4372">
+            <stop offset="0"/>
+            <stop offset="1" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="linearGradient3775">
+            <stop offset="0" stop-color="#433728"/>
+            <stop offset="1" stop-color="#d2b882"/>
+        </linearGradient>
+        <linearGradient id="linearGradient4381" x1="24.344" x2="34.193" y1="58.242" y2="15.84" gradientTransform="matrix(.96623 0 0 .96623 1.133 2.06)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient4379"/>
+        <linearGradient id="linearGradient10114" x1="26.225" x2="37.955" y1="6.945" y2="4.71" gradientTransform="matrix(.96623 0 0 .96623 1.079 2.06)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient10112"/>
+        <radialGradient id="radialGradient12688" cx="10.375" cy="39.446" r="6.182" fx="10.375" fy="39.446" gradientTransform="matrix(1.04982 0 0 1.61568 21.11 -35.348)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient12686"/>
+        <linearGradient id="linearGradient2012" x1="40.43" x2="23.436" y1="35.314" y2="35.314" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient1757"/>
+        <linearGradient id="linearGradient908" x1="40.43" x2="23.436" y1="35.314" y2="35.314" gradientTransform="translate(0 -1.157)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient2276"/>
+    </defs>
+    <path fill="#8bb0b3" fill-opacity=".551" d="M37.51 8.77l-11.093.061a2.92 2.92 0 00-2.915 2.86h-.064v47.833h.064a1.476 1.476 0 001.472 1.415h13.921a1.476 1.476 0 001.416-1.415h.119V11.692a2.92 2.92 0 00-2.92-2.921zm-.726 1.346a2.54 2.774 0 012.538 2.776v45.443h-.102a1.283 1.402 0 01-1.232 1.346H25.882a1.283 1.402 0 01-1.282-1.346h-.055V12.892h.055a2.54 2.774 0 012.536-2.72z"/>
+    <path fill="#8bb0b3" fill-opacity=".283" stroke="#000" stroke-linejoin="bevel" stroke-width=".483" d="M37.51 8.77l-11.093.061a2.92 2.92 0 00-2.915 2.86h-.064v47.833h.064c.032.79.681 1.414 1.472 1.415 4.64.588 9.28.456 13.921 0a1.476 1.476 0 001.416-1.415h.119V11.692a2.92 2.92 0 00-2.92-2.921z"/>
+    <path fill="url(#linearGradient4381)" stroke="#ea7901" stroke-linejoin="bevel" stroke-width=".25" d="M39.322 16.057c-4.588-2.343-10.765-1.27-14.777-3.165v45.443h.055c.029.75.594 1.343 1.282 1.344h12.106c.668-.029 1.205-.614 1.232-1.344h.102z"/>
+    <path fill="#fff" d="M35.877 9.832c3.818 3.363 2.284 10.31 3.204 15.66.439-7.397 1.668-16.334-3.204-15.66z"/>
+    <path fill="url(#linearGradient10114)" stroke="#000" stroke-linejoin="bevel" stroke-width=".483" d="M26.417 4.452l.688-.584h9.779l.626.584V8.77H26.417z"/>
+    <path fill="url(#radialGradient12688)" d="M32.002 18.683l-6.227 2.772h-2.34v13.86h2.34l6.227 2.772 6.228-2.773h2.2V21.455h-2.2z"/>
+    <path fill="url(#linearGradient2012)" stroke="#000" stroke-width=".25" d="M32.002 18.683l-6.227 2.772h-2.34v13.86h2.34l6.227 2.772 6.228-2.773h2.2V21.455h-2.2z"/>
+    <path fill="url(#linearGradient908)" stroke="#000" stroke-width=".25" d="M32.002 19.991l-6.227 2.772h-2.34v11.394h2.34l6.227 2.773 6.228-2.773h2.2V22.763h-2.2z"/>
+    <path style="font-variation-settings:normal" fill="#ffb600" stroke="#000" stroke-linejoin="bevel" stroke-width=".25" d="M33.204 32.908l-2.152-2.834-3.53-.446 2.834-2.152.447-3.53 2.151 2.834 3.53.446-2.833 2.152z"/>
+</svg>

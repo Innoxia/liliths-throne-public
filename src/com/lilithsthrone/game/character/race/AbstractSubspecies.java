@@ -117,6 +117,7 @@ public abstract class AbstractSubspecies {
 	protected String SVGString;
 	protected String SVGStringUncoloured;
 	protected String SVGStringNoBackground;
+        protected String SVGStringUncolouredNoBackground;
 	protected String SVGStringDesaturated;
 	protected String halfDemonSVGString;
 	protected String demonSVGString;
@@ -139,6 +140,11 @@ public abstract class AbstractSubspecies {
         private Map<BodyMaterial, String> bodyMaterialSVGStringMap;
         //private Map<String, String> materialSubspeciesSVGStringMap;
         private String statusEffectDescriptionDemonCore;
+        
+        protected boolean usingNameMaterialModifier;
+        protected String nameMaterialModifier;
+        protected String nameMaterialModifierDemon;
+        protected String nameMaterialModifierFeral;
 	
 	public static Map<LegConfiguration, String[]> demonLegConfigurationNames = Util.newHashMapOfValues(
 			new Value<>(LegConfiguration.ARACHNID,
@@ -391,7 +397,12 @@ public abstract class AbstractSubspecies {
                 this.bodyMaterialSVGStringMap = new HashMap<>();
                 
                 this.statusEffectDescriptionDemonCore = null;
-	}        
+                
+                this.usingNameMaterialModifier = false;
+                this.nameMaterialModifier = null;
+                this.nameMaterialModifierDemon = null;
+                this.nameMaterialModifierFeral = null;
+	} 
         
 	public AbstractSubspecies(
 			boolean mainSubspecies,
@@ -467,6 +478,96 @@ public abstract class AbstractSubspecies {
                 }
                 this.bodyMaterialSVGStringMap = new HashMap<>();
                 this.statusEffectDescriptionDemonCore = statusEffectDescriptionDemonCore;
+                
+                this.usingNameMaterialModifier = false;
+                this.nameMaterialModifier = null;
+                this.nameMaterialModifierDemon = null;
+                this.nameMaterialModifierFeral = null;
+	} 
+        
+	public AbstractSubspecies(
+			boolean mainSubspecies,
+			int baseSlaveValue,
+			String attributeItemId,
+			String transformativeItemId,
+			String pathName,
+			String backgroundPathName,
+			String name,
+			String namePlural,
+			String singularMaleName,
+			String singularFemaleName,
+			String pluralMaleName,
+			String pluralFemaleName,
+			FeralAttributes feralAttributes,
+			Nocturnality nocturnality,
+			String statusEffectDescription,
+                        String statusEffectDescriptionDemonCore,
+			Map<AbstractAttribute, Float> statusEffectAttributeModifiers,
+			List<String> extraEffects,
+			String bookName,
+			String bookNamePlural,
+			String basicDescription,
+			String advancedDescription,
+			AbstractRace race,
+			Map<PerkCategory, Integer> perkWeightingFeminine,
+			Map<PerkCategory, Integer> perkWeightingMasculine,
+			Colour colour,
+			SubspeciesPreference subspeciesPreferenceDefault,
+			String description,
+			Map<WorldRegion, SubspeciesSpawnRarity> regionLocations,
+			Map<AbstractWorldType, SubspeciesSpawnRarity> worldLocations,
+			Map<AbstractPlaceType, SubspeciesSpawnRarity> placeLocations, List<SubspeciesFlag> flags,
+                        
+                        boolean materialSubspecies, BodyMaterial subspeciesBodyMaterial,
+                        
+                        boolean usingNameMaterialModifier,
+                        String nameMaterialModifier, String nameMaterialModifierDemon, String nameMaterialModifierFeral
+        ) {
+		this(
+			mainSubspecies,
+			baseSlaveValue,
+			attributeItemId,
+			transformativeItemId,
+			pathName,
+			backgroundPathName,
+			name,
+			namePlural,
+			singularMaleName,
+			singularFemaleName,
+			pluralMaleName,
+			pluralFemaleName,
+			feralAttributes,
+			nocturnality,
+			statusEffectDescription,
+			statusEffectAttributeModifiers,
+			extraEffects,
+			bookName,
+			bookNamePlural,
+			basicDescription,
+			advancedDescription,
+			race,
+			perkWeightingFeminine,
+			perkWeightingMasculine,
+			colour,
+			subspeciesPreferenceDefault,
+			description,
+			regionLocations,
+			worldLocations, placeLocations,
+			flags);
+                
+                this.materialSubspecies = materialSubspecies;
+                if (this.materialSubspecies) { 
+                    this.subspeciesBodyMaterial = subspeciesBodyMaterial;
+                } else {
+                    this.subspeciesBodyMaterial = BodyMaterial.FLESH;
+                }
+                this.bodyMaterialSVGStringMap = new HashMap<>();
+                this.statusEffectDescriptionDemonCore = statusEffectDescriptionDemonCore;
+                
+                this.usingNameMaterialModifier = usingNameMaterialModifier;
+                this.nameMaterialModifier = nameMaterialModifier;
+                this.nameMaterialModifierDemon = nameMaterialModifierDemon;
+                this.nameMaterialModifierFeral = nameMaterialModifierFeral;
 	} 
         
 	public AbstractSubspecies(File XMLFile, String author, boolean mod) {
@@ -832,6 +933,11 @@ public abstract class AbstractSubspecies {
                                 else {
                                         this.statusEffectDescriptionDemonCore = statusEffectDescription;
                                 }
+                                // Modding for these not supported (used for material subspecies)
+                                this.usingNameMaterialModifier = false;
+                                this.nameMaterialModifier = null;
+                                this.nameMaterialModifierDemon = null;
+                                this.nameMaterialModifierFeral = null;
                                 
 				
 			} catch(Exception ex) {
@@ -1266,6 +1372,30 @@ public abstract class AbstractSubspecies {
 	 * @return  The singular name of this character's subspecies.
 	 */
 	public String getName(Body body) {
+                if (this.isMaterialSubspecies() && this.usingNameMaterialModifier) {
+                    if(body ==null) {
+                            // Get namePlural from map
+                            return getAnthroNamesMap().get(null)[0];
+                    }
+                    AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
+                    if(coreSubspecies==Subspecies.HUMAN) {
+                            // Get namePlural from map
+                            return getAnthroNamesMap().get(null)[0];
+                    }
+                    
+                    boolean isDemon = body.getSubspeciesOverride() != null && body.getSubspeciesOverride().getRace() == Race.DEMON;
+                    // start with name from flesh subspecies
+                    String coreSubspeciesName = coreSubspecies.getName(body);
+                    String prefix;
+                    if(isDemon) {
+                            prefix = this.nameMaterialModifierDemon;
+                    } else if (body.isFeral()) {
+                            prefix = this.nameMaterialModifierFeral;
+                    } else {
+                            prefix = this.nameMaterialModifier;
+                    }
+                    return prefix + coreSubspeciesName;
+                }
 		if(body !=null) {
 			if(this.isFeralConfigurationAvailable(body) && body.isFeral()) {
 				return getFeralAttributes(body).getFeralName();
@@ -1287,6 +1417,30 @@ public abstract class AbstractSubspecies {
 	 * @return  The plural name of this character's subspecies.
 	 */
 	public String getNamePlural(Body body) {
+                if (this.isMaterialSubspecies() && this.usingNameMaterialModifier) {
+                    if(body ==null) {
+                            // Get namePlural from map
+                            return getAnthroNamesMap().get(null)[1];
+                    }
+                    AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
+                    if(coreSubspecies==Subspecies.HUMAN) {
+                            // Get namePlural from map
+                            return getAnthroNamesMap().get(null)[1];
+                    }
+                    
+                    boolean isDemon = body.getSubspeciesOverride() != null && body.getSubspeciesOverride().getRace() == Race.DEMON;
+                    // start with name from flesh subspecies
+                    String coreSubspeciesName = coreSubspecies.getNamePlural(body);
+                    String prefix;
+                    if(isDemon) {
+                            prefix = this.nameMaterialModifierDemon;
+                    } else if (body.isFeral()) {
+                            prefix = this.nameMaterialModifierFeral;
+                    } else {
+                            prefix = this.nameMaterialModifier;
+                    }
+                    return prefix + coreSubspeciesName;
+                }
 		if(body !=null) {
 			if(this.isFeralConfigurationAvailable(body) && body.isFeral()) {
 				return getFeralAttributes(body).getFeralNamePlural();
@@ -1308,6 +1462,30 @@ public abstract class AbstractSubspecies {
 	 * @return  The singular male name of this character's subspecies.
 	 */
 	public String getSingularMaleName(Body body) {
+                if (this.isMaterialSubspecies() && this.usingNameMaterialModifier) {
+                    if(body ==null) {
+                            // Get namePlural from map
+                            return getAnthroNamesMap().get(null)[2];
+                    }
+                    AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
+                    if(coreSubspecies==Subspecies.HUMAN) {
+                            // Get namePlural from map
+                            return getAnthroNamesMap().get(null)[2];
+                    }
+                    
+                    boolean isDemon = body.getSubspeciesOverride() != null && body.getSubspeciesOverride().getRace() == Race.DEMON;
+                    // start with name from flesh subspecies
+                    String coreSubspeciesName = coreSubspecies.getSingularMaleName(body);
+                    String prefix;
+                    if(isDemon) {
+                            prefix = this.nameMaterialModifierDemon;
+                    } else if (body.isFeral()) {
+                            prefix = this.nameMaterialModifierFeral;
+                    } else {
+                            prefix = this.nameMaterialModifier;
+                    }
+                    return prefix + coreSubspeciesName;
+                }
 		if(body !=null) {
 			if(this.isFeralConfigurationAvailable(body) && body.isFeral()) {
 				return getFeralAttributes(body).getFeralSingularMaleName();
@@ -1329,6 +1507,30 @@ public abstract class AbstractSubspecies {
 	 * @return  The singular female name of this character's subspecies.
 	 */
 	public String getSingularFemaleName(Body body) {
+                if (this.isMaterialSubspecies() && this.usingNameMaterialModifier) {
+                    if(body ==null) {
+                            // Get namePlural from map
+                            return getAnthroNamesMap().get(null)[3];
+                    }
+                    AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
+                    if(coreSubspecies==Subspecies.HUMAN) {
+                            // Get namePlural from map
+                            return getAnthroNamesMap().get(null)[3];
+                    }
+                    
+                    boolean isDemon = body.getSubspeciesOverride() != null && body.getSubspeciesOverride().getRace() == Race.DEMON;
+                    // start with name from flesh subspecies
+                    String coreSubspeciesName = coreSubspecies.getSingularFemaleName(body);
+                    String prefix;
+                    if(isDemon) {
+                            prefix = this.nameMaterialModifierDemon;
+                    } else if (body.isFeral()) {
+                            prefix = this.nameMaterialModifierFeral;
+                    } else {
+                            prefix = this.nameMaterialModifier;
+                    }
+                    return prefix + coreSubspeciesName;
+                }
 		if(body !=null) {
 			if(this.isFeralConfigurationAvailable(body) && body.isFeral()) {
 				return getFeralAttributes(body).getFeralSingularFemaleName();
@@ -1350,6 +1552,30 @@ public abstract class AbstractSubspecies {
 	 * @return  The plural male name of this character's subspecies.
 	 */
 	public String getPluralMaleName(Body body) {
+                if (this.isMaterialSubspecies() && this.usingNameMaterialModifier) {
+                    if(body ==null) {
+                            // Get namePlural from map
+                            return getAnthroNamesMap().get(null)[4];
+                    }
+                    AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
+                    if(coreSubspecies==Subspecies.HUMAN) {
+                            // Get namePlural from map
+                            return getAnthroNamesMap().get(null)[4];
+                    }
+                    
+                    boolean isDemon = body.getSubspeciesOverride() != null && body.getSubspeciesOverride().getRace() == Race.DEMON;
+                    // start with name from flesh subspecies
+                    String coreSubspeciesName = coreSubspecies.getPluralMaleName(body);
+                    String prefix;
+                    if(isDemon) {
+                            prefix = this.nameMaterialModifierDemon;
+                    } else if (body.isFeral()) {
+                            prefix = this.nameMaterialModifierFeral;
+                    } else {
+                            prefix = this.nameMaterialModifier;
+                    }
+                    return prefix + coreSubspeciesName;
+                }
 		if(body !=null) {
 			if(this.isFeralConfigurationAvailable(body) && body.isFeral()) {
 				return getFeralAttributes(body).getFeralPluralMaleName();
@@ -1371,6 +1597,30 @@ public abstract class AbstractSubspecies {
 	 * @return  The plural female name of this character's subspecies.
 	 */
 	public String getPluralFemaleName(Body body) {
+                if (this.isMaterialSubspecies() && this.usingNameMaterialModifier) {
+                    if(body ==null) {
+                            // Get namePlural from map
+                            return getAnthroNamesMap().get(null)[5];
+                    }
+                    AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
+                    if(coreSubspecies==Subspecies.HUMAN) {
+                            // Get namePlural from map
+                            return getAnthroNamesMap().get(null)[5];
+                    }
+                    
+                    boolean isDemon = body.getSubspeciesOverride() != null && body.getSubspeciesOverride().getRace() == Race.DEMON;
+                    // start with name from flesh subspecies
+                    String coreSubspeciesName = coreSubspecies.getPluralFemaleName(body);
+                    String prefix;
+                    if(isDemon) {
+                            prefix = this.nameMaterialModifierDemon;
+                    } else if (body.isFeral()) {
+                            prefix = this.nameMaterialModifierFeral;
+                    } else {
+                            prefix = this.nameMaterialModifier;
+                    }
+                    return prefix + coreSubspeciesName;
+                }
 		if(body !=null) {
 			if(this.isFeralConfigurationAvailable(body) && body.isFeral()) {
 				return getFeralAttributes(body).getFeralPluralFemaleName();
@@ -1751,7 +2001,7 @@ public abstract class AbstractSubspecies {
 						getSecondaryColour(),
 						getTertiaryColour(),
 						"<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>");
-				
+				SVGStringUncolouredNoBackground = "<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>";
 				SVGStringUncoloured = SVGStringBackground + "<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>";
 
 				halfDemonSVGString = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
@@ -1873,20 +2123,38 @@ public abstract class AbstractSubspecies {
                 if ( !bodyMaterialSVGStringMap.containsKey(bMat) ) {
                         String fullDivStyle = "width:100%;height:100%;margin:0;padding:0;position:absolute;left:0;bottom:0;";
                         String newSVGString;
+                        String background;
+                        switch(bMat){
+                            case FUNGUS:
+                                background = SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundFungus();
+                                break;
+                            case PLANT:
+                                background = SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundPlant();
+                                break;
+                            case RUBBER:
+                                background = SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundRubber();
+                                break;
+                            case SLIME:
+                                background = SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundSlime();
+                                break;
+                            default:
+                                background = SVGImages.SVG_IMAGE_PROVIDER.getRaceBackground();
+                                break;
+                        }       
                         if (fillColours == null || fillColours.size() < 3) {
                                 newSVGString = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
                                         bMat.getColour(),
                                         bMat.getColour(),
                                         bMat.getColour(),
-                                        "<div style='"+fullDivStyle+"'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundSlime()+"</div>"
-                                        + "<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>");
+                                        "<div style='"+fullDivStyle+"'>" + background +"</div>"
+                                        + "<div style='"+fullDivStyle+"'>"+SVGStringUncolouredNoBackground+"</div>");
                         } else {
                                 newSVGString = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
                                         fillColours.get(0),
                                         fillColours.get(1),
                                         fillColours.get(2),
-                                        "<div style='"+fullDivStyle+"'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundSlime()+"</div>"
-                                        + "<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>");
+                                        "<div style='"+fullDivStyle+"'>" + background +"</div>"
+                                        + "<div style='"+fullDivStyle+"'>"+SVGStringUncolouredNoBackground+"</div>");
                         }
                         if (strokeColor != null) {
                                 //Colour srcColour = new Colour(Util.newColour("#000000"));

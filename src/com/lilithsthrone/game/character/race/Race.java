@@ -698,6 +698,48 @@ public class Race {
                         false) {
 	};
 
+        // PLANT CREATURE
+        public static AbstractRace PLANT_CREATURE = new AbstractRace("plant",
+			"plant-folk",
+			"plant beast",
+			"plant beasts",
+			"plant creature",
+			PresetColour.BASE_GREEN,
+			Disposition.CIVILIZED,
+			RacialClass.OTHER,
+			CombatBehaviour.BALANCED,
+			0.5f,
+			1,
+			6,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM,
+			false,
+                        true,
+                        new HashSet<BodyMaterial>(Arrays.asList(BodyMaterial.PLANT)),
+                        false) {
+	};     
+        
+        // FUNGUS CREATURE
+        public static AbstractRace FUNGUS_CREATURE = new AbstractRace("fungus",
+			"fungus creatures",
+			"fungus creature",
+			"fungus creatures",
+			"fungus creature",
+			PresetColour.BASE_PINK_SALMON,
+			Disposition.UNPREDICTABLE,
+			RacialClass.OTHER,
+			CombatBehaviour.BALANCED,
+			0.5f,
+			1,
+			2,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM,
+			false,
+                        true,
+                        new HashSet<BodyMaterial>(Arrays.asList(BodyMaterial.FUNGUS)),
+                        false) {
+	};   
+        
 	// AVIAN:
 	public static AbstractRace HARPY = new AbstractRace("harpy",
 			"harpies",

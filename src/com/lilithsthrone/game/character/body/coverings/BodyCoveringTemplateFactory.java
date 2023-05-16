@@ -123,6 +123,21 @@ public class BodyCoveringTemplateFactory {
 				naturalColours,
 				PresetColour.allCoveringColours);
 	}
+        
+	public static BodyCoveringTemplate createElemental(String name, List<CoveringModifier> naturalModifiers, List<CoveringModifier> extraModifiers, Map<CoveringPattern, Integer> naturalPatterns, Map<CoveringPattern, Integer> extraPatterns, List<Colour> naturalColours) {
+		return new BodyCoveringTemplate("",
+				false,
+				name,
+				name,
+				naturalModifiers,
+				extraModifiers,
+				naturalPatterns,
+				extraPatterns,
+				naturalColours,
+				PresetColour.allCoveringColours,
+				naturalColours,
+				PresetColour.allCoveringColours);
+	}
 	
 	public static BodyCoveringTemplate createOrificeSkin(CoveringPattern pattern) {
 		return new BodyCoveringTemplate("a layer of",

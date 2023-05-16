@@ -571,7 +571,7 @@
 	]]>
 	</htmlContent>
 
-	<!-- SLIMES -->
+	<!-- LATEX -->
 
 	<htmlContent tag="LATEX_BASIC"><![CDATA[
 	<p>
@@ -599,6 +599,47 @@
 	<p>
 		Despite their unusual biology, latex creature pregnancies work much the same as ordinary morphs. Typically, if the mother is a latex creature, the offspring will also be as well, while offspring fathered by a latex creature will resemble the mother instead.
 	</p>
+	]]>
+	</htmlContent>
+        
+	<!-- PLANT -->
+
+	<htmlContent tag="PLANT_BASIC"><![CDATA[
+	<p>
+		Plant creatures or plant-folk are found nearly everywhere in Lilith's Realm, especially in wooded areas. They usually take an anthropomorphic form, with leafy foliage and woody stems taking on the role of flesh and bone. Instead of fur or feathers, they may be covered in a coat of fine leaves or moss. They are also known referred to as "dryads", "treants" and "sylvans".
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="PLANT_ADVANCED"><![CDATA[
+	<p>
+		Being made of plant matter gives plant creatures some rather unique properties. Well-lit areas, they have a form of arcane photosynthesis, and can use the ambient light to fuel spells. In darkness, they become weaker and unfocused as they lose most of their energy. It seems that their photosynthesis also fuels the magic that allows them to move. 
+	</p>
+	<p>
+		Plant-folk are, obviously, most comfortable where other plant life can thrive. Woodlands and jungles have the highest concentration, though it is not always obvious since the plantfolk there live camouflaged among the dense foliage. Others live in plains and savannahs, where they often use their affinity for plant growth to assist in farming. Only a few hardy individuals live in cold icy mountains or deserts, as most find the lack of water and extreme temperatures unbearable. Like plant life itself, plant-folk take on many different forms to adapt to their environment. They often take the form of animal-morphs well-suited for living in the area. For example, a jungle plant-folk may live in the form of a pantherine-morph, with a covering of airy moss to rapidly absorb and shed moisture. A desert plant-folk may gain thorns like a combination of lizard and cactus, or live as a snake-morph with scales made of waxy water-retaining succulent leaves.
+	</p>
+	<p>
+		Plant-folk have a deep arcane affinity to life and growth. Their presence alone can encourage vibrant plant growth in an area, and in turn, thriving healthy plant life gives them vitality and comfort. They are often encourage to settle on the edges farmlands in gardens to promote growth, but being <i>inside</i> the area itself means their wild vigor extends indiscriminately to weeds as well. The plant-folk themselves have heightened fertility and virility. Pregnant plant-folk find themselves to be brimming with energy, and almost literally have healthy glow.
+	</p>
+	<p>
+		Despite their unusual biology, plant-folk pregnancies work much the same as ordinary morphs. Typically, if the mother is a plant creature, the offspring will also be as well, while offspring fathered by a plant creature will resemble the mother instead.
+	</p>
+	]]>
+	</htmlContent>
+        
+	<!-- FUNGUS -->
+
+	<htmlContent tag="FUNGUS_BASIC"><![CDATA[
+	<p>
+		TODO: Fungus Basic Lore
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="FUNGUS_ADVANCED"><![CDATA[
+	<p>
+                TODO: Fungus Advaned Lore
+        </p>
 	]]>
 	</htmlContent>
 

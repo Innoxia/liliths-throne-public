@@ -1039,10 +1039,8 @@ public class CharacterModificationUtils {
 			case SLIME:
 				materials.add(BodyMaterial.SLIME);
 				break;
-			case RUBBER:
 			case STONE:
 				materials.add(BodyMaterial.STONE);
-				materials.add(BodyMaterial.RUBBER);
 				break;
 		}
 		

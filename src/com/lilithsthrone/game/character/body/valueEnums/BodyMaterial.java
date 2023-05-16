@@ -11,6 +11,8 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.main.Main;
+import com.lilithsthrone.world.places.Darkness;
 
 /**
  * @since 0.1.83
@@ -52,7 +54,7 @@ public enum BodyMaterial {
 		}
 	},
 	
-	SLIME("slime", PresetColour.RACE_SLIME, DamageType.PHYSICAL, false, true, false) {
+	SLIME("slime", "slimy", PresetColour.RACE_SLIME, DamageType.PHYSICAL, false, true, false) {
 		@Override
 		public Map<AbstractAttribute, Float> getAttributeModifiers(GameCharacter target) {
 			return Util.newHashMapOfValues(
@@ -144,7 +146,7 @@ public enum BodyMaterial {
 		}
 	},
 	
-	RUBBER("rubber", PresetColour.BASE_BLACK, DamageType.PHYSICAL, true, false, true) {
+	RUBBER("rubber", PresetColour.BASE_BLACK, DamageType.PHYSICAL, true, false, true, true) {
 		@Override
 		public Map<AbstractAttribute, Float> getAttributeModifiers(GameCharacter target) {
 			return Util.newHashMapOfValues(
@@ -158,7 +160,7 @@ public enum BodyMaterial {
 	
 	// Arcane elementals:
 	
-	ARCANE("energy", PresetColour.GENERIC_ARCANE, DamageType.PHYSICAL, false, false, false) {
+	ARCANE("energy", PresetColour.GENERIC_ARCANE, DamageType.PHYSICAL, false, false, false, false) {
 		@Override
 		public Map<AbstractAttribute, Float> getAttributeModifiers(GameCharacter target) {
 			return Util.newHashMapOfValues(
@@ -172,8 +174,48 @@ public enum BodyMaterial {
 			return null;
 		}
 	},
+        
+        PLANT("foliage", "leafy", PresetColour.BASE_GREEN, DamageType.PHYSICAL, false, false, false) {
+		@Override
+		public Map<AbstractAttribute, Float> getAttributeModifiers(GameCharacter target) {
+                        if((Main.game.isDayTime() && target.getLocationPlaceType().getDarkness() == Darkness.DAYLIGHT)
+                                || target.getLocationPlaceType().getDarkness() == Darkness.ALWAYS_LIGHT){
+                            return Util.newHashMapOfValues(
+                                            new Value<>(Attribute.RESISTANCE_FIRE, -5f),
+                                            new Value<>(Attribute.RESISTANCE_ICE, -5f),
+                                            new Value<>(Attribute.SPELL_COST_MODIFIER, 25f),
+                                            new Value<>(Attribute.DAMAGE_SPELLS, 10f));
+                        } else {
+                            return Util.newHashMapOfValues(
+                                            new Value<>(Attribute.MAJOR_PHYSIQUE, -5f),
+                                            new Value<>(Attribute.MAJOR_ARCANE, -5f),
+                                            new Value<>(Attribute.RESISTANCE_FIRE, -10f),
+                                            new Value<>(Attribute.RESISTANCE_ICE, -10f));
+                        }
+		}
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			return Util.newArrayListOfValues(
+                                        "<b>[style.boldGood(Spells enhanced in well-lit environments!)]</b>",
+					"<b>[style.boldBad(Lowered stats in darkness!)]</b>");
+		}
+	},
+        
+        FUNGUS("fungus", "spongy", PresetColour.BASE_PINK_SALMON, DamageType.PHYSICAL, false, false, false) {
+		@Override
+		public Map<AbstractAttribute, Float> getAttributeModifiers(GameCharacter target) {
+                        return Util.newHashMapOfValues(
+                                            new Value<>(Attribute.RESISTANCE_FIRE, -10f),
+                                            new Value<>(Attribute.RESISTANCE_PHYSICAL, 25f),
+                                            new Value<>(Attribute.RESISTANCE_POISON, 25f));
+		}
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			return null;
+		}
+	},
 	;
-
+        
 	private String name;
 	private String skinNoun; private String skinAdj;
 	private String skinAltNoun; private String skinAltAdj;
@@ -196,6 +238,7 @@ public enum BodyMaterial {
 	private DamageType unarmedDamageType;
 	private boolean requiresPiercing;
 	private boolean orificesAlwaysMaximumWetness;
+        private boolean orificesAlwaysMaximumElasticity;
 	private boolean ableToWearMakeup;
 
 	private BodyMaterial(String name,
@@ -260,10 +303,11 @@ public enum BodyMaterial {
 		this.unarmedDamageType = unarmedDamageType;
 		this.requiresPiercing = requiresPiercing;
 		this.orificesAlwaysMaximumWetness = orificesAlwaysMaximumWetness;
+                this.orificesAlwaysMaximumElasticity = false;
 		this.ableToWearMakeup = ableToWearMakeup;
 	}
 
-	private BodyMaterial(String noun, String adjective, Colour colour, DamageType unarmedDamageType, boolean requiresPiercing, boolean orificesAlwaysMaximumWetness, boolean ableToWearMakeup) {
+	private BodyMaterial(String noun, String adjective, Colour colour, DamageType unarmedDamageType, boolean requiresPiercing, boolean orificesAlwaysMaximumWetnessm, boolean ableToWearMakeup) {
 		this.name = noun;
 		this.skinNoun = noun;
 		this.skinAdj = adjective;
@@ -303,10 +347,11 @@ public enum BodyMaterial {
 		this.unarmedDamageType = unarmedDamageType;
 		this.requiresPiercing = requiresPiercing;
 		this.orificesAlwaysMaximumWetness = orificesAlwaysMaximumWetness;
+                this.orificesAlwaysMaximumElasticity = false;
 		this.ableToWearMakeup = ableToWearMakeup;
 	}
 
-	private BodyMaterial(String noun, Colour colour, DamageType unarmedDamageType, boolean requiresPiercing, boolean orificesAlwaysMaximumWetness, boolean ableToWearMakeup) {
+	private BodyMaterial(String noun, Colour colour, DamageType unarmedDamageType, boolean requiresPiercing, boolean orificesAlwaysMaximumWetness, boolean orificesAlwaysMaximumElasticity, boolean ableToWearMakeup) {
 		this.name = noun;
 		this.skinNoun = noun;
 		this.skinAdj = noun;
@@ -346,6 +391,7 @@ public enum BodyMaterial {
 		this.unarmedDamageType = unarmedDamageType;
 		this.requiresPiercing = requiresPiercing;
 		this.orificesAlwaysMaximumWetness = orificesAlwaysMaximumWetness;
+                this.orificesAlwaysMaximumElasticity = orificesAlwaysMaximumElasticity;
 		this.ableToWearMakeup = ableToWearMakeup;
 	}
 	
@@ -509,6 +555,10 @@ public enum BodyMaterial {
 	public boolean isOrificesAlwaysMaximumWetness() {
 		return orificesAlwaysMaximumWetness;
 	}
+        
+        public boolean isOrificesAlwaysMaximumElasticity() {
+                return orificesAlwaysMaximumElasticity;
+        }
 
 	public boolean isAbleToWearMakeup() {
 		return ableToWearMakeup;

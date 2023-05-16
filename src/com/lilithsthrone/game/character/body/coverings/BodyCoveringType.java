@@ -1187,8 +1187,12 @@ public class BodyCoveringType {
 					
 				} else {
 					String name = "";
-					CoveringModifier modifier = CoveringModifier.SMOOTH;
 					List<Colour> naturalColours = new ArrayList<>();
+                                        List<CoveringModifier> naturalModifiers = new ArrayList();
+                                        List<CoveringModifier> extraModifiers = new ArrayList<>();
+                                        Map<CoveringPattern, Integer> naturalPatternsAvailable = new HashMap<>();
+                                        naturalPatternsAvailable.put(CoveringPattern.NONE, 1);
+                                        Map<CoveringPattern, Integer> extraPatternsAvailable = new HashMap<>();
 					
 					switch(mat) {
 						case FLESH:
@@ -1196,21 +1200,21 @@ public class BodyCoveringType {
 							break;
 						case AIR:
 							name = "vapours";
-							modifier = CoveringModifier.SWIRLING;
+							naturalModifiers.add(CoveringModifier.SWIRLING);
 							naturalColours.add(PresetColour.COVERING_BLUE_LIGHT);
 							naturalColours.add(PresetColour.COVERING_GREY);
 							naturalColours.add(PresetColour.COVERING_WHITE);
 							break;
 						case ARCANE:
 							name = "energy";
-							modifier = CoveringModifier.SWIRLING;
+							naturalModifiers.add(CoveringModifier.SWIRLING);
 							naturalColours.add(PresetColour.COVERING_PINK);
 							naturalColours.add(PresetColour.COVERING_PINK_DARK);
 							naturalColours.add(PresetColour.COVERING_PINK_LIGHT);
 							break;
 						case FIRE:
 							name = "flames";
-							modifier = CoveringModifier.BLAZING;
+							naturalModifiers.add(CoveringModifier.BLAZING);
 							naturalColours.add(PresetColour.COVERING_RED);
 							naturalColours.add(PresetColour.COVERING_ORANGE);
 							naturalColours.add(PresetColour.COVERING_YELLOW);
@@ -1218,32 +1222,71 @@ public class BodyCoveringType {
 							break;
 						case ICE:
 							name = "ice";
-							modifier = CoveringModifier.GLITTERING;
+							naturalModifiers.add(CoveringModifier.GLITTERING);
 							naturalColours.add(PresetColour.COVERING_BLUE_LIGHT);
 							naturalColours.add(PresetColour.COVERING_WHITE);
 							break;
 						case RUBBER:
 							name = "rubber";
-							modifier = CoveringModifier.GLOSSY;
+							naturalModifiers.add(CoveringModifier.GLOSSY);
 							naturalColours.add(PresetColour.COVERING_BLACK);
+                                                        extraPatternsAvailable.put(CoveringPattern.MARKED, 1);
+                                                        extraPatternsAvailable.put(CoveringPattern.STRIPED, 1);
+                                                        extraPatternsAvailable.put(CoveringPattern.OMBRE, 1);
 							break;
 						case STONE:
 							name = "stone";
-							modifier = CoveringModifier.MATTE;
+							naturalModifiers.add(CoveringModifier.MATTE);
 							naturalColours.add(PresetColour.COVERING_GREY);
 							naturalColours.add(PresetColour.COVERING_BLACK);
 							break;
 						case WATER:
 							name = "water";
-							modifier = CoveringModifier.SHIMMERING;
+							naturalModifiers.add(CoveringModifier.SHIMMERING);
 							naturalColours.add(PresetColour.COVERING_BLUE);
 							naturalColours.add(PresetColour.COVERING_BLUE_LIGHT);
 							naturalColours.add(PresetColour.COVERING_BLUE_DARK);
 							break;
+                                                case PLANT:
+                                                        name = "foliage";
+                                                        naturalModifiers.add(CoveringModifier.SMOOTH);
+                                                        naturalModifiers.add(CoveringModifier.GLOSSY);
+                                                        naturalColours.add(PresetColour.COVERING_GREEN);
+                                                        naturalColours.add(PresetColour.COVERING_GREEN_DARK);
+                                                        naturalColours.add(PresetColour.COVERING_GREEN_LIGHT);
+                                                        extraPatternsAvailable.put(CoveringPattern.MARKED, 1);
+                                                        extraPatternsAvailable.put(CoveringPattern.HIGHLIGHTS, 1);
+                                                        extraPatternsAvailable.put(CoveringPattern.OMBRE, 1);
+                                                        extraPatternsAvailable.put(CoveringPattern.MOTTLED, 1);
+                                                        break;
+                                                case FUNGUS:
+                                                        name = "fungus";
+                                                        naturalModifiers.add(CoveringModifier.SMOOTH);
+                                                        naturalModifiers.add(CoveringModifier.MATTE);
+                                                        naturalModifiers.add(CoveringModifier.GOOEY);
+                                                        naturalModifiers.add(CoveringModifier.LEATHERY);
+                                                        naturalModifiers.add(CoveringModifier.SHAGGY);
+                                                        naturalColours.add(PresetColour.COVERING_PINK_LIGHT);
+                                                        naturalColours.add(PresetColour.COVERING_WHITE);
+                                                        naturalColours.add(PresetColour.COVERING_BLACK);
+                                                        naturalColours.add(PresetColour.COVERING_BROWN);
+                                                        naturalColours.add(PresetColour.SKIN_ROSY);
+                                                        naturalColours.add(PresetColour.SKIN_PORCELAIN);
+                                                        naturalColours.add(PresetColour.COVERING_GREY);
+                                                        naturalPatternsAvailable.put(CoveringPattern.SPOTTED, 2);
+                                                        naturalPatternsAvailable.put(CoveringPattern.NONE, 1);
+                                                        extraPatternsAvailable.put(CoveringPattern.MARKED, 1);
+                                                        extraPatternsAvailable.put(CoveringPattern.HIGHLIGHTS, 1);
+                                                        extraPatternsAvailable.put(CoveringPattern.OMBRE, 1);
+                                                        extraPatternsAvailable.put(CoveringPattern.MOTTLED, 1);
+                                                        extraPatternsAvailable.put(CoveringPattern.SPOTTED, 2);
 					}
 					for(BodyCoveringCategory cat : BodyCoveringCategory.values()) {
 						if(cat.isInfluencedByMaterialType()) {
-							CoveringPattern pattern = CoveringPattern.NONE;
+                                                    
+                                                        CoveringPattern naturalPattern = CoveringPattern.NONE;                                                        
+                                                        boolean useAvailablePatterns = true;
+                                                        
 							switch(cat) {
 								case ANTENNAE:
 								case ANTLER:
@@ -1260,38 +1303,62 @@ public class BodyCoveringType {
 								case TONGUE:
 									break;
 								case EYE_IRIS:
-									pattern = CoveringPattern.EYE_IRISES;
+									naturalPattern = CoveringPattern.EYE_IRISES;
+                                                                        useAvailablePatterns = false;
 									break;
 								case EYE_PUPIL:
-									pattern = CoveringPattern.EYE_PUPILS;
+									naturalPattern = CoveringPattern.EYE_PUPILS;
+                                                                        useAvailablePatterns = false;
 									break;
 								case EYE_SCLERA:
-									pattern = CoveringPattern.EYE_SCLERA;
+									naturalPattern = CoveringPattern.EYE_SCLERA;
+                                                                        useAvailablePatterns = false;
 									break;
 								case ANUS:
-									pattern = CoveringPattern.ORIFICE_ANUS;
+									naturalPattern = CoveringPattern.ORIFICE_ANUS;
+                                                                        useAvailablePatterns = false;
 									break;
 								case MOUTH:
-									pattern = CoveringPattern.ORIFICE_MOUTH;
+									naturalPattern = CoveringPattern.ORIFICE_MOUTH;
+                                                                        useAvailablePatterns = false;
 									break;
 								case NIPPLE:
-									pattern = CoveringPattern.ORIFICE_NIPPLE;
+									naturalPattern = CoveringPattern.ORIFICE_NIPPLE;
+                                                                        useAvailablePatterns = false;
 									break;
 								case NIPPLE_CROTCH:
-									pattern = CoveringPattern.ORIFICE_NIPPLE_CROTCH;
+									naturalPattern = CoveringPattern.ORIFICE_NIPPLE_CROTCH;
+                                                                        useAvailablePatterns = false;
 									break;
 								case VAGINA:
-									pattern = CoveringPattern.ORIFICE_VAGINA;
+									naturalPattern = CoveringPattern.ORIFICE_VAGINA;
+                                                                        useAvailablePatterns = false;
 									break;
 								case SPINNERET:
-									pattern = CoveringPattern.ORIFICE_SPINNERET;
+									naturalPattern = CoveringPattern.ORIFICE_SPINNERET;
+                                                                        useAvailablePatterns = false;
 									break;
 								case ARTIFICIAL:
 								case FLUID:
 								case MAKEUP:
+                                                                        useAvailablePatterns = false;
 									break;
 							}
-							AbstractBodyCoveringType bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createElemental(name, modifier, pattern, naturalColours)) {};
+                                                        Map<CoveringPattern, Integer> naturalPatterns;
+                                                        Map<CoveringPattern, Integer> extraPatterns;
+                                                        if (useAvailablePatterns) {
+                                                                naturalPatterns = new HashMap<>(naturalPatternsAvailable);
+                                                                extraPatterns = new HashMap<>(extraPatternsAvailable);
+                                                        } else {
+                                                                naturalPatterns = new HashMap<>();
+                                                                extraPatterns = new HashMap<>();
+                                                                naturalPatterns.put(naturalPattern, 1);
+                                                        }
+                                                        
+                                                        
+                                                        
+							AbstractBodyCoveringType bct = new AbstractBodyCoveringType(cat, 
+                                                                BodyCoveringTemplateFactory.createElemental(name, naturalModifiers, extraModifiers, naturalPatterns, extraPatterns, naturalColours)) {};
 							
 							String id =  mat.toString()+"_"+cat.toString();
 							bodyCoveringTypesToIdMap.put(bct, id);

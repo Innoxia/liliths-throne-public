@@ -8750,7 +8750,99 @@ public class StatusEffect {
 			return true;
 		}
 	};
+        
+        public static AbstractStatusEffect FUNGUS_COMBAT_DEBUFF = new AbstractStatusEffect(
+                10,
+                "fungal spore bloom",
+                "fungusCombatDebuff",
+                PresetColour.BASE_PINK_SALMON,
+                false,
+                Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_PHYSICAL, -2f),
+					new Value<>(Attribute.RESISTANCE_LUST, -2f),
+					new Value<>(Attribute.RESISTANCE_FIRE, -2f),
+					new Value<>(Attribute.RESISTANCE_ICE, -2f),
+					new Value<>(Attribute.RESISTANCE_POISON, -2f)),
+                null
+        ) {
+                @Override
+                public Map<AbstractAttribute, Float> getAttributeModifiers(GameCharacter target) {
+                        if (target==null || !Main.game.isInCombat() ){ return super.getAttributeModifiers(target); }
+                        int t = Math.min(Main.combat.getTurn()+1,4);
+                        return Util.newHashMapOfValues(
+                                new Value<>(Attribute.RESISTANCE_PHYSICAL, -5f*t),
+                                new Value<>(Attribute.RESISTANCE_LUST, -10f*t),
+                                new Value<>(Attribute.RESISTANCE_FIRE, -3f*t),
+                                new Value<>(Attribute.RESISTANCE_ICE, -3f*t),
+                                new Value<>(Attribute.RESISTANCE_POISON, -10f*t),
+                                new Value<>(Attribute.MAJOR_PHYSIQUE, -3f*t),
+                                new Value<>(Attribute.MAJOR_ARCANE, -3f*t)
+                        );
+                }
+            
+                @Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "The air surrounding [npc.name] is filling with toxic fungal spores, gradually sapping [npc.her] strength and resistance!");
+		}
+                
+                @Override
+		public boolean isConditionsMet(GameCharacter target) {
+                        if (target.getBodyMaterial() == BodyMaterial.FUNGUS) { return false; }
+                        for (GameCharacter opponent : Main.combat.getEnemies(target)) {
+                                if (opponent.getBodyMaterial() == BodyMaterial.FUNGUS) {
+                                    return true;
+                                }
+                        }
+                        return false;
+		}
+                
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+        };
 
+        public static AbstractStatusEffect FUNGUS_COMBAT_BUFF = new AbstractStatusEffect(
+                10,
+                "fungal spore bloom",
+                "fungusCombatBuff",
+                PresetColour.BASE_PINK_SALMON,
+                true,
+                Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_PHYSICAL, 2f),
+					new Value<>(Attribute.DAMAGE_LUST, 2f),
+					new Value<>(Attribute.DAMAGE_FIRE, 2f),
+					new Value<>(Attribute.DAMAGE_ICE, 2f),
+					new Value<>(Attribute.DAMAGE_POISON, 2f)),
+                null
+        ) {
+                @Override
+                public Map<AbstractAttribute, Float> getAttributeModifiers(GameCharacter target) {
+                        if (target==null || !Main.game.isInCombat() ){ return super.getAttributeModifiers(target); }
+                        int t = Math.min(Main.combat.getTurn()+1,4);
+                        return Util.newHashMapOfValues(
+                                new Value<>(Attribute.DAMAGE_PHYSICAL, 5f*t),
+                                new Value<>(Attribute.DAMAGE_LUST, 10f*t),
+                                new Value<>(Attribute.DAMAGE_FIRE, 3f*t),
+                                new Value<>(Attribute.DAMAGE_ICE, 3f*t),
+                                new Value<>(Attribute.DAMAGE_POISON, 10f*t)
+                        );
+                }
+            
+                @Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "[npc.Name] [npc.is] filling the air with fungal spores, energizing [npc.him] and boosting [npc.her] damage!");
+		}
+                
+                @Override
+		public boolean isConditionsMet(GameCharacter target) {
+                        return (target.getBodyMaterial() == BodyMaterial.FUNGUS);
+		}
+                
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+        };
+        
 	// From spells or combat moves (still in combat):
 	
 	public static AbstractStatusEffect ARCANE_WEAKNESS = new AbstractStatusEffect(10,
@@ -14202,8 +14294,8 @@ public class StatusEffect {
 			return getOrificeSVGString(owner, SexAreaPenetration.FINGER, SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger(), Util.newArrayListOfValues(SexAreaPenetration.FINGER));
 		}
 	};
-	
-	
+        
+        
 	public static List<AbstractStatusEffect> allStatusEffects;
 	public static List<AbstractStatusEffect> allStatusEffectsRequiringApplicationCheck;
 	public static List<AbstractStatusEffect> allStatusEffectsRequiringApplicationCheckNonCombat;
