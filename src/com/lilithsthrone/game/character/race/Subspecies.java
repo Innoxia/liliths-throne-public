@@ -4342,63 +4342,6 @@ public class Subspecies {
 		}
                 	
 		@Override
-		public String getNamePlural(Body body) {
-			if(body ==null) {
-				return super.getNamePlural(body);
-			}
-			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
-			if(coreSubspecies==Subspecies.HUMAN) {
-				return super.getNamePlural(body);
-			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
-				return "corrupted latex "+coreSubspecies.getNamePlural(body);
-			}
-			return "latex "+coreSubspecies.getNamePlural(body);
-		}
-
-		@Override
-		public String getSingularFemaleName(Body body) {
-			if(body ==null) {
-				return super.getSingularFemaleName(body);
-			}
-			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
-			if(coreSubspecies==Subspecies.HUMAN) {
-				return super.getSingularFemaleName(body);
-			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
-				return "corrupted latex "+coreSubspecies.getSingularFemaleName(body);
-			}
-			return "latex "+coreSubspecies.getSingularFemaleName(body);
-		}
-
-		@Override
-		public String getPluralMaleName(Body body) {
-			if(body ==null) {
-				return super.getPluralMaleName(body);
-			}
-			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
-			if(coreSubspecies==Subspecies.HUMAN) {
-				return super.getPluralMaleName(body);
-			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
-				return "corrupted latex "+coreSubspecies.getPluralMaleName(body);
-			}
-			return "latex "+coreSubspecies.getPluralMaleName(body);
-		}
-
-		@Override
-		public String getPluralFemaleName(Body body) {
-			if(body ==null) {
-				return super.getPluralFemaleName(body);
-			}
-			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
-			if(coreSubspecies==Subspecies.HUMAN) {
-				return super.getPluralFemaleName(body);
-			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
-				return "corrupted latex "+coreSubspecies.getPluralFemaleName(body);
-			}
-			return "corrupted latex "+coreSubspecies.getPluralFemaleName(body);
-		}
-
-
-		@Override
 		public String getSVGStringDesaturated(GameCharacter character) {
 			if(character==null) {
 				return Subspecies.HUMAN.getSVGStringDesaturated(null);
@@ -4520,49 +4463,6 @@ public class Subspecies {
 		}
 		
 		@Override
-		public String getNamePlural(Body body) {
-			if(body ==null) {
-				return super.getNamePlural(body);
-			}
-			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
-			if(coreSubspecies==Subspecies.HUMAN) {
-				return super.getNamePlural(body);
-			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
-				return "corrupted plant "+coreSubspecies.getNamePlural(body);
-			}
-			return "plant "+coreSubspecies.getNamePlural(body);
-		}
-
-		@Override
-		public String getSingularFemaleName(Body body) {
-			if(body ==null) {
-				return super.getSingularFemaleName(body);
-			}
-			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
-			if(coreSubspecies==Subspecies.HUMAN) {
-				return super.getSingularFemaleName(body);
-			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
-				return "corrupted plant "+coreSubspecies.getSingularFemaleName(body);
-			}
-			return "plant "+coreSubspecies.getSingularFemaleName(body);
-		}
-
-		@Override
-		public String getPluralFemaleName(Body body) {
-			if(body ==null) {
-				return super.getPluralFemaleName(body);
-			}
-			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
-			if(coreSubspecies==Subspecies.HUMAN) {
-				return super.getPluralFemaleName(body);
-			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
-				return "corrupted plant "+coreSubspecies.getPluralFemaleName(body);
-			}
-			return "plant "+coreSubspecies.getPluralFemaleName(body);
-		}
-
-
-		@Override
 		public String getSVGStringDesaturated(GameCharacter character) {
 			if(character==null) {
 				return Subspecies.HUMAN.getSVGStringDesaturated(null);
@@ -4656,63 +4556,6 @@ public class Subspecies {
 			return fleshSubspecies.getBodyMaterialSVGString(character, getSubspeciesBodyMaterial(), 
                                 "#cf2b5c", Util.newArrayListOfValues("#fffbf2", "#e3b394", "#d96c7e"));
 		}
-		
-		@Override
-		public String getNamePlural(Body body) {
-			if(body ==null) {
-				return super.getNamePlural(body);
-			}
-			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
-			if(coreSubspecies==Subspecies.HUMAN) {
-				return super.getNamePlural(body);
-			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
-				return "corrupted fungal "+coreSubspecies.getNamePlural(body);
-			}
-			return "fungal "+coreSubspecies.getNamePlural(body);
-		}
-
-		@Override
-		public String getSingularFemaleName(Body body) {
-			if(body ==null) {
-				return super.getSingularFemaleName(body);
-			}
-			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
-			if(coreSubspecies==Subspecies.HUMAN) {
-				return super.getSingularFemaleName(body);
-			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
-				return "corrupted fungal "+coreSubspecies.getSingularFemaleName(body);
-			}
-			return "fungal "+coreSubspecies.getSingularFemaleName(body);
-		}
-
-		@Override
-		public String getPluralMaleName(Body body) {
-			if(body ==null) {
-				return super.getPluralMaleName(body);
-			}
-			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
-			if(coreSubspecies==Subspecies.HUMAN) {
-				return super.getPluralMaleName(body);
-			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
-				return "corrupted fungal "+coreSubspecies.getPluralMaleName(body);
-			}
-			return "fungal "+coreSubspecies.getPluralMaleName(body);
-		}
-
-		@Override
-		public String getPluralFemaleName(Body body) {
-			if(body ==null) {
-				return super.getPluralFemaleName(body);
-			}
-			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
-			if(coreSubspecies==Subspecies.HUMAN) {
-				return super.getPluralFemaleName(body);
-			} else if(coreSubspecies==Subspecies.DEMON && body.getSubspeciesOverride()==null) {
-				return "corrupted fungal "+coreSubspecies.getPluralFemaleName(body);
-			}
-			return "fungal "+coreSubspecies.getPluralFemaleName(body);
-		}
-
 
 		@Override
 		public String getSVGStringDesaturated(GameCharacter character) {
