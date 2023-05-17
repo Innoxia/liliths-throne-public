@@ -3,9 +3,9 @@
 	<category>SPECIAL</category>
 	<type>DEFEND</type>
 	<equipWeighting>10</equipWeighting>
-	<name><![CDATA[Latex Protection]]></name>
+	<name><![CDATA[Healing Bud]]></name>
 	<description><![CDATA[
-		Channel [npc.her] lust into [npc.her] latex body to create a healing film around the target. At very high lust, it also grants damage resistances.
+		Channel [npc.her] energy around a target, healing them. Stronger if [npc.she] [npc.is] pregnant.
 	]]></description>
 	<damageType><![CDATA[
 		PHYSICAL
@@ -26,18 +26,18 @@
 	<canTargetEnemies>false</canTargetEnemies>
 	<canTargetAllies>true</canTargetAllies>
 	<canTargetSelf>true</canTargetSelf>
-	<imageName>latex_protection.svg</imageName>
+	<imageName>plant_protection.svg</imageName>
 	<colourPrimary>BASE_GREEN</colourPrimary>
 	<colourSecondary/>
 	<colourTertiary/>
 	<statusEffects>
 	</statusEffects>
 	<availabilityCondition><![CDATA[
-		[#npc.getBodyMaterial() == BODY_MATERIAL_RUBBER]
+		[#npc.getBodyMaterial() == BODY_MATERIAL_PLANT]
 	]]>
 	</availabilityCondition>
 	<availabilityDescription><![CDATA[
-		Available to latex creatures. More effective at high lust.
+		Available to plant creatures. More effective if the user is visibly pregnant.
 	]]></availabilityDescription>
 	<weighting><![CDATA[
 		1
@@ -48,24 +48,24 @@
 	<criticalDescription><![CDATA[]]></criticalDescription>
 	<movePredictionDescriptionWithTarget><![CDATA[
 		Use [npc.her] lust to heal!
-		#IF(npc.getLust() > 75)
-			 [style.italicsGood(Grant a defensive buff due to high lust!)]
+		#IF(npc.isVisiblyPregnant())
+			 [style.italicsGood(Grant a defensive buff due to being pregnant!)]
 		#ENDIF
 	]]></movePredictionDescriptionWithTarget>
 	<movePredictionDescriptionNoTarget><![CDATA[
 		Use [npc.her] lust to heal!
-		#IF(npc.getLust() > 75)
-			 [style.italicsGood(Grants a defensive buff due to high lust!)]
+		#IF(npc.isVisiblyPregnant())
+			 [style.italicsGood(Grants a defensive buff due to being pregnant!)]
 		#ENDIF
 	]]></movePredictionDescriptionNoTarget>
 	<performMove>
 		<execute><![CDATA[
-			[npc.Name] [npc.verb(focus)] on [npc.her] arousal, releasing a rolling shudder as you release a wave of latex goo. The living rubber carries calming, rejuvenating energy that washes through [npc2.name]. 
-			[##npc2.setHealthPercentage(npc2.getHealthPercentage() + (0.5 * npc.getLust() / 100) + 0.15)]
-			#IF(npc.getLust() >= 75 && !npc2.hasStatusEffect(SE_sightglass_latex_shielding))
-				</br>[npc.Her] expelled lust transmutes into a thin living latex coating over [npc2.name], making [npc2.him] more resistant to further punishment. The lingering skintight rubber amplifies sensual teasing, leaving [npc2.name] more easily aroused! 
-				[##npc.addStatusEffect(SE_sightglass_latex_shielding, 10)]
-				[##npc2.addStatusEffect(SE_sightglass_latex_shielding, 10)]
+			[npc.Name] [npc.verb(focus)] on [npc.her] arousal, releasing a rolling shudder as you release shower of flower petals. The blossoms carries calming, rejuvenating energy that washes through [npc2.name]. 
+			[##npc2.setHealthPercentage(npc2.getHealthPercentage() + 0.25)]
+			#IF(npc.isVisiblyPregnant() && !npc2.hasStatusEffect(SE_sightglass_plant_shielding))
+				</br>The protective barrier surrounding [npc.her] womb extends over [npc2.name], making [npc2.him] more resistant to further punishment!
+				[##npc.addStatusEffect(SE_sightglass_plant_shielding, 10)]
+				[##npc2.addStatusEffect(SE_sightglass_plant_shielding, 10)]
 			#ENDIF
 		]]></execute>
 		<critDescription/>

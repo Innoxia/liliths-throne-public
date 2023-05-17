@@ -62,7 +62,7 @@
 	]]></movePredictionDescriptionNoTarget>
 	<performMove>
 		<execute><![CDATA[
-			[npc.Name] [npc.verb(focus)] on [npc.her] arousal, releasing a orgasmic shudder as a spray of liquid latex tendrils bursts from [npc.her] body! Rubbery tentacles wrap around [npc2.name] attempt to bind and group them into submission. 
+			[npc.Name] [npc.verb(focus)] on [npc.her] arousal, releasing a orgasmic shudder as a spray of liquid latex tendrils bursts from [npc.her] body! Rubbery tentacles wrap around [npc2.name] attempt to bind and grope them into submission. 
 			#IF(npc2.getLust() > 75 && RND.nextInt(100) < 50)
 				</br>[npc2.Name] [npc2.is] too aroused to resist at all! The tentacles pull [npc2.him] towards [npc.name] and into a squirming cocoon. The writhing tendrils keep [npc2.him] on the edge of orgasm and completely at your mercy!
 				[##npc2.setHealth(0)]

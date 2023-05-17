@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256">
+    <defs>
+        <linearGradient id="linearGradient4335" x1="141.964" x2="143.036" y1="225.464" y2="220.107" gradientTransform="matrix(.30625 -1.91788 2.85843 .41092 -530.58 295.498)" gradientUnits="userSpaceOnUse" xlink:href="#poisonVapours3"/>
+        <linearGradient id="poisonVapours3">
+            <stop offset="0" stop-color="#165016"/>
+            <stop offset="1" stop-color="#217821"/>
+        </linearGradient>
+        <linearGradient id="linearGradient4327" x1="138.393" x2="139.643" y1="214.929" y2="209.393" gradientTransform="matrix(0 -1.93977 -2.89105 0 752.38 386.126)" gradientUnits="userSpaceOnUse" xlink:href="#poisonVapours2"/>
+        <linearGradient id="poisonVapours2">
+            <stop offset="0" stop-color="#37c837"/>
+            <stop offset="1" stop-color="#5fd35f"/>
+        </linearGradient>
+        <linearGradient id="linearGradient4319" x1="139.286" x2="140.536" y1="203.321" y2="196.179" gradientTransform="matrix(-.7985 -1.7857 2.6614 -1.0714 -298.018 602.727)" gradientUnits="userSpaceOnUse" xlink:href="#poisonVapours1"/>
+        <linearGradient id="poisonVapours1">
+            <stop offset="0" stop-color="#80ff80"/>
+            <stop offset="1" stop-color="#afa"/>
+        </linearGradient>
+        <linearGradient id="linearGradient984" x1="141.964" x2="143.036" y1="225.464" y2="220.107" gradientTransform="matrix(-.30625 -1.91788 -2.85843 .41092 768.646 296.447)" gradientUnits="userSpaceOnUse" xlink:href="#poisonVapours3"/>
+    </defs>
+    <path fill="url(#linearGradient4319)" fill-rule="evenodd" d="M162.636 222.695c-22.511-3.165-47.549-15.466-59.595-41.93-16.369-35.962 12.346-46.039-.07-77.914-8.937-22.938-19.268-38.712-47.244-50.67 20.447-6.937 54.868 9.396 69.623 43.074 15.11 34.494-13.277 50.962-1.39 80.856 7.985 20.08 17.155 35.963 38.676 46.585z"/>
+    <path fill="url(#linearGradient4327)" fill-rule="evenodd" d="M153.242 238.641c14.224-11.28 21.92-21.092 22.063-49.98.194-39.257-34.362-62.869-35.966-112.924-.785-24.487 13.366-42.871 28.623-64.293-15.878 1.193-46.13 29.046-46.001 65.595.21 60.41 40.124 78.768 41.122 110.762.67 21.49 1.102 33.048-9.841 50.84z"/>
+    <path fill="url(#linearGradient4335)" fill-rule="evenodd" d="M99.086 237.317c-6.73-13.252-8.299-25.594-4.57-46.385 6.942-38.697 51.131-63.248 60.62-112.512 4.64-24.098-6.447-44.287-18.15-67.635 15.51 3.436 41.024 35.274 35.127 71.394-9.747 59.697-59.637 78.259-68.771 108.934-3.453 11.594-6.97 30.888-4.256 46.204z"/>
+    <path fill="url(#linearGradient984)" fill-rule="evenodd" d="M138.98 238.266c6.73-13.252 8.298-25.594 4.569-46.385-6.941-38.697-29.37-33.015-38.859-82.28-4.64-24.097 6.447-44.286 18.15-67.634-15.51 3.436-41.024 35.274-35.127 71.394 9.747 59.697 37.877 48.026 47.01 78.7 3.453 11.595 6.971 30.889 4.256 46.205z"/>
+</svg>
