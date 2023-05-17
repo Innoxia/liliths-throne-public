@@ -1192,6 +1192,9 @@ public class CharacterUtils {
 		boolean hasBreasts = startingGender.getGenderName().isHasBreasts();
 		boolean isSlime = species == null ? false : species.getRace().isMaterialRace();
 		boolean isHalfDemon = species == Subspecies.HALF_DEMON;
+                
+                AbstractSubspecies materialSubspecies = null;
+                if (isSlime) {materialSubspecies = species; }
 		
 		if(isSlime || isHalfDemon) {
 			if(linkedCharacter==null || !linkedCharacter.isUnique()) {
@@ -1383,7 +1386,11 @@ public class CharacterUtils {
 				Subspecies.SLIME.applySpeciesChanges(body);
 			}
 		}
-		
+                if (materialSubspecies != null) {
+                    materialSubspecies.getRace().applyRaceChanges(body);
+                    materialSubspecies.applySpeciesChanges(body);
+                }
+                        
 		body.setSubspeciesOverride(null); // Set override to null so that it can be recalculated based on the final body type.
 		body.calculateRace(linkedCharacter);
 		
