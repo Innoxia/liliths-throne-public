@@ -32,7 +32,7 @@
 	
 	<encounterType>null</encounterType>
 
-	<dialogue>dsg_places_fields_elis_eisek_sillymode_dungeon_dungeon_treasure_taken</dialogue>
+	<dialogue>dsg_places_fields_elis_eisek_sillymode_dungeon_treasure_taken</dialogue>
 
 	<loiteringEnabled>false</loiteringEnabled>
 	<globalMapTile>false</globalMapTile>	

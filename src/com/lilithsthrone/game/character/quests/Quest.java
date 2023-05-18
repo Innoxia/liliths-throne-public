@@ -1944,7 +1944,7 @@ public enum Quest {
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "You've located some sort of basement where they've gathered."; 			
+			return "You've entered some sort of basement where they've gathered."; 			
 		}
 	},
 	

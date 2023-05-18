@@ -214,13 +214,7 @@ public class SillyModeLARPAttacker extends NPC{
 	
 	@Override
 	public DialogueNode getEncounterDialogue() {
-		if(this.getHistory()==Occupation.NPC_PROSTITUTE) {
-			this.setPlayerKnowsName(true);
-			return DialogueManager.getDialogueFromId("innoxia_encounters_fields_elis_alleyway_prostitute_start");
-			
-		} else {
-			return DialogueManager.getDialogueFromId("innoxia_encounters_fields_elis_alleyway_start");
-		}
+		return DialogueManager.getDialogueFromId("dsg_encounters_fields_elis_eisek_sillymode_dungeon_combat");
 	}
 	
 	@Override
@@ -229,19 +223,10 @@ public class SillyModeLARPAttacker extends NPC{
 	
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
-		if(this.getHistory()==Occupation.NPC_PROSTITUTE) {
-			if (victory) {
-				return new Response("", "", DialogueManager.getDialogueFromId("innoxia_encounters_fields_elis_alleyway_prostitute_after_combat_victory"));
-			} else {
-				return new Response ("", "", DialogueManager.getDialogueFromId("innoxia_encounters_fields_elis_alleyway_prostitute_after_combat_defeat"));
-			}
-			
+		if (victory) {
+			return new Response("", "", DialogueManager.getDialogueFromId("dsg_encounters_fields_elis_eisek_sillymode_dungeon_combat_won"));
 		} else {
-			if (victory) {
-				return new Response("", "", DialogueManager.getDialogueFromId("innoxia_encounters_fields_elis_alleyway_after_combat_victory"));
-			} else {
-				return new Response ("", "", DialogueManager.getDialogueFromId("innoxia_encounters_fields_elis_alleyway_after_combat_defeat"));
-			}
+			return new Response ("", "", DialogueManager.getDialogueFromId("dsg_encounters_fields_elis_eisek_sillymode_dungeon_combat_won"));
 		}
 	}
 	

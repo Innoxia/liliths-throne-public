@@ -1,11 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogueNodes>
 	
+	<scene id="ambush">
+		<author><![CDATA[DSG]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">AMBUSH</content>
+		<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>			
+			<response>				
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[No telling what was in that dust, you'll probably want a long bath after this.]]></responseTooltip>
+				<colour><![CDATA[TEXT]]></colour>
+				<nextDialogue stripContent="false"><![CDATA[dsg_places_fields_elis_eisek_sillymode_dungeon_dungeon_entry]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_SILLYMODE, QUEST_SIDE_STAGE_TWO))]
+				]]></effects>			
+			</response>
+		</responses>
+	</scene>
+	
 	<scene id ="entry">
 		<author><![CDATA[DSG]]></author>
 		<title><![CDATA[Dungeon Entry]]></title>
 		<preParsingEffects/>
-		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode_dungeon">ENTRY</content>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">ENTRY</content>
 		<secondsPassed minutes="false"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue><![CDATA[false]]></continuesDialogue>
 		<travelDisabled><![CDATA[false]]></travelDisabled>
@@ -35,7 +60,7 @@
 				[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_dungeon_trap_west, true)]
 			#ENDIF
 		]]></preParsingEffects>
-		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode_dungeon">PASSAGE</content>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">PASSAGE</content>
 		<secondsPassed minutes="false"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue><![CDATA[false]]></continuesDialogue>
 		<travelDisabled><![CDATA[false]]></travelDisabled>
@@ -50,7 +75,7 @@
 		<author><![CDATA[DSG]]></author>
 		<title><![CDATA[Dungeon Boss Room]]></title>
 		<preParsingEffects/>
-		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode_dungeon">BOSS</content>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">BOSS</content>
 		<secondsPassed minutes="false"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue><![CDATA[false]]></continuesDialogue>
 		<travelDisabled><![CDATA[false]]></travelDisabled>
@@ -65,7 +90,7 @@
 		<author><![CDATA[DSG]]></author>
 		<title><![CDATA[Treasure Room]]></title>
 		<preParsingEffects/>
-		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode_dungeon">TREASURE</content>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">TREASURE</content>
 		<secondsPassed minutes="false"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue><![CDATA[false]]></continuesDialogue>
 		<travelDisabled><![CDATA[false]]></travelDisabled>
@@ -81,7 +106,7 @@
 					Open up the antique chest and take what's in it! Might as well take a chance and make this strange place worth your while.
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[
-					dsg_places_fields_elis_eisek_sillymode_dungeon_dungeon_treasure_taking
+					dsg_places_fields_elis_eisek_sillymode_dungeon_treasure_taking
 				]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextEndStringBuilder(pc.incrementMoney(500))]
@@ -95,7 +120,7 @@
 		<author><![CDATA[DSG]]></author>
 		<title><![CDATA[Treasure Room]]></title>
 		<preParsingEffects/>
-		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode_dungeon">TREASURE_TAKING</content>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">TREASURE_TAKING</content>
 		<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
 		<continuesDialogue><![CDATA[true]]></continuesDialogue>
 		<travelDisabled><![CDATA[true]]></travelDisabled>
@@ -111,7 +136,7 @@
 					A paltry sum, but at least the chest didn't try to eat you.
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[
-					dsg_places_fields_elis_eisek_sillymode_dungeon_dungeon_treasure_taken
+					dsg_places_fields_elis_eisek_sillymode_dungeon_treasure_taken
 				]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.getPlayerCell().getPlace().setPlaceType(PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_treasure_taken)]
@@ -126,7 +151,7 @@
 		<author><![CDATA[DSG]]></author>
 		<title><![CDATA[Treasure Room (Looted)]]></title>
 		<preParsingEffects/>
-		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode_dungeon">TREASURE_TAKEN</content>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">TREASURE_TAKEN</content>
 		<secondsPassed minutes="false"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue><![CDATA[false]]></continuesDialogue>
 		<travelDisabled><![CDATA[false]]></travelDisabled>
@@ -141,7 +166,7 @@
 		<author><![CDATA[DSG]]></author>
 		<title><![CDATA[It's A Trap!]]></title>
 		<preParsingEffects/>
-		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode_dungeon">TRAP</content>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">TRAP</content>
 		<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
 		<continuesDialogue><![CDATA[true]]></continuesDialogue>
 		<travelDisabled><![CDATA[true]]></travelDisabled>
@@ -158,24 +183,24 @@
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[
 					#IF(pc.hasSpell(SPELL_TELEKENETIC_SHOWER) || pc.hasSpell(SPELL_VACUUM) || pc.hasSpell(SPELL_PROTECTIVE_GUSTS) || pc.hasSpell(SPELL_SOOTHING_WATERS) || pc.hasSpell(SPELL_RAIN_CLOUD))
-						dsg_places_fields_elis_eisek_sillymode_dungeon_dungeon_trap_success
+						dsg_places_fields_elis_eisek_sillymode_dungeon_trap_success
 					#ELSEIF(pc.getBodyMaterial() == BODY_MATERIAL_SLIME))
 						#IF(RND.nextInt(50) < pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE) + 25)
-							dsg_places_fields_elis_eisek_sillymode_dungeon_dungeon_trap_success
+							dsg_places_fields_elis_eisek_sillymode_dungeon_trap_success
 						#ELSE
-							dsg_places_fields_elis_eisek_sillymode_dungeon_dungeon_trap_failure
+							dsg_places_fields_elis_eisek_sillymode_dungeon_trap_failure
 						#ENDIF
 					#ELSEIF(pc.isTaur())
 						#IF(RND.nextInt(50) < pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE) - 25)
-							dsg_places_fields_elis_eisek_sillymode_dungeon_dungeon_trap_success
+							dsg_places_fields_elis_eisek_sillymode_dungeon_trap_success
 						#ELSE
-							dsg_places_fields_elis_eisek_sillymode_dungeon_dungeon_trap_failure
+							dsg_places_fields_elis_eisek_sillymode_dungeon_trap_failure
 						#ENDIF
 					#ELSE
 						#IF(RND.nextInt(50) < pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE))
-							dsg_places_fields_elis_eisek_sillymode_dungeon_dungeon_trap_success
+							dsg_places_fields_elis_eisek_sillymode_dungeon_trap_success
 						#ELSE
-							dsg_places_fields_elis_eisek_sillymode_dungeon_dungeon_trap_failure
+							dsg_places_fields_elis_eisek_sillymode_dungeon_trap_failure
 						#ENDIF
 					#ENDIF
 				]]></nextDialogue>
@@ -183,7 +208,7 @@
 			</response>
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
+				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Step back]]></responseTitle>
 				<responseTooltip><![CDATA[
 					You're not in the mood to be set on fire or risk burning the whole place down right now.
@@ -211,7 +236,7 @@
 		<author><![CDATA[DSG]]></author>
 		<title><![CDATA[Trap Disarmed!]]></title>
 		<preParsingEffects/>
-		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode_dungeon">TRAP_SUCCESS</content>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">TRAP_SUCCESS</content>
 		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
 		<continuesDialogue><![CDATA[true]]></continuesDialogue>
 		<travelDisabled><![CDATA[true]]></travelDisabled>
@@ -227,7 +252,7 @@
 					Counterterrorists win.
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[
-					dsg_places_fields_elis_eisek_sillymode_dungeon_dungeon_trap_triggered
+					dsg_places_fields_elis_eisek_sillymode_dungeon_trap_triggered
 				]]></nextDialogue>
 				<effects/>
 			</response>
@@ -291,6 +316,5 @@
 		<responses/>
 			
 	</scene>
-	
 	
 </dialogueNodes>
