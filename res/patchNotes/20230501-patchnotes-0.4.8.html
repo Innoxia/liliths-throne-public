@@ -1,0 +1,93 @@
+<h2>v0.4.8</h2>
+
+<h3>FriendlyAlienFriend's Artwork (https://twitter.com/thealienfriend):</h3>
+<ul>
+	<li>Added Fyrsia, Jhortrax, and Hyorlyss artwork.</li>
+	<li>Added artwork variations for Vanessa/Ms. Cunningham without her shoes on.</li>
+</ul>
+
+<h3>Pusspuss's Artwork (https://twitter.com/PusspussARTZ):</h3>
+<ul>
+	<li>Added Silence & Shadow artwork, with variations for multi-boobs and pregnancy.</li>
+</ul>
+
+<h3>Contributors:</h3>
+<ul>
+	<li>Added ability to let friendly occupants take on some of the more mundane slave jobs (Maid, Security guard, Librarian, Cook, Lab assistant, Office worker, and Waitress). (PR#1560 by Maxis010)</li>
+	<li>Removed the need to add content checks to multiple locations when adding new content controlled fetishes. (PR#1600 by Maxis010)</li>
+	<li>Fixed bug during sex scenes where a background error could be thrown if an NPC who was not involved in the sex scene tried to equip clothing. (by AceXP)</li>
+	<li>Bugfixes for GuestJobs PR after merge. (PR#1755 by Maxis010)</li>
+	<li>Added support for separate naming for aquatic subspecies that aren't mer-tailed. (PR#1489 by Stadler76)</li>
+	<li>Fixed description of height in alpha-imp description ignoring imperial/metric setting. (by AceXP)</li>
+</ul>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Added 'SWIMWEAR' item tag, which is meant to be used on clothing to aid in item generation.</li>
+	<li>Added a new 'conditional' attribute to the new 'effect' element in items' status effect definition section, allowing you to limit effects to be applied via conditional statement. (See 'res/items/innoxia/pills/fertility.xml' for a commented example.)</li>
+	<li>Added FOOD_POOR, FOOD_QUALITY, DRINK_POOR, and DRINK_QUALITY as item tags to give finer control over how much of a buff food and drink items should give to the consumer.</li>
+	<li>Added 'EYE_SHAPE_' parsing command to access EyeShape enum values.</li>
+</ul>
+
+<h3>Image & Character Imports:</h3>
+<ul>
+	<li>PLEASE NOTE: All imported images for characters in your game will no longer work, due to a significant restructuring of the folders involved.</li>
+	<li>Images imported for characters in your game are now located in a folder that's named corresponding to the character's unique ID, instead of their name, so you can now have different images for different characters who share the same name.</li>
+	<li>Images imported for characters in your game are no longer stored in the 'res/images/characters/generic' folder, and are instead now stored within the 'data/images/game_id' folder. The 'game_id' is unique to each of your ongoing games (and takes the form of a large number). This change means that imported character images are now associated only with the game into which they were imported.</li>
+	<li>When exporting a character, any custom artwork which they have will be exported into a folder alongside the exported xml file (in 'data/characters').</li>
+	<li>When importing a character into a game (as a slave, a clubber, or a lodger), if there's a folder in the same directory as the imported character's xml file, which shares the same name as the imported character's xml file, then all images within that folder are automatically imported for that character.</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>You can now invite friendly occupants living in Lilaya's mansion to the spa.</li>
+	<li>Added banks to Dominion and Elis. You can create an account in the Dominion bank, and then use the deposit boxes to store and retrieve items and money, as well as generate interest on money stored there.</li>
+	<li>After having sex with Vicky three times, she will try to dominate you, and if you submit then it will unlock more content with her.</li>
+	<li>Added a new internal map for Pix's gym, added a few extra scenes for Pix, and added a new character (a spotted hyena-girl boxer named Hannah) to the gym.</li>
+	<li>Completing Hannah's boxing training unlocks a new bar map in Nightlife, in which you can have one night stands with randomly generated NPCs.</li>
+</ul>
+
+<h3>Items:</h3>
+<ul>
+	<li>Added 'swimming shorts' (masculine, groin slot, sold by Nyan).</li>
+	<li>Changed the quality levels for dragon, amazon, angel, and imp drinks, and for dragon, rat, and pig food.</li>
+	<li>Added the 'DRINK' tag to several items which should have had it.</li>
+	<li>Added 'arcane wet wipes' as an upgraded version of 'wet wipes', which are able to remove the 'marked by musk' effect.</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>Added 'Stroke belly' as a 'loving' sex action, requiring the target to be visibly pregnant and for positioning to allow the performer's hands to reach the target's stomach. (As it's a loving action, NPCs will only use this if they're not sadistic and their affection towards the target is over 50.)</li>
+	<li>NPCs in glory hole sex no longer have access to deny actions (as it's physically impossible for them to restrain their partners who are on the other side of the stall wall).</li>
+	<li>Added a 'Rape-play allowed by default' option in the 'Sex & Fetishes' content options, which allows submissive characters in sex who have the 'unwilling fuck-toy' fetish to engage in rape-play without first being given permission to do so. (Off by default.)</li>
+	<li>Added clit-to-nipple and clit-to-crotch-boob-nipple sex actions for characters with clits large enough to act as pseudo penises.</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>Reformatted how status effects to be applied upon consumption are displayed in item tooltips to reduce clutter.</li>
+	<li>Added a 'musk' content toggle in the 'Sex & Fetishes' page in the content options, allowing you to enable/disable musky cum/girlcum effects. (On by default.)</li>
+	<li>Musky cum and girlcum will now apply a 'marked by musk' status effect (applies +5 resting lust and -1 lust resistance) to anyone who is covered in it during sex.</li>
+	<li>Vicky's shop, 'Arcane Arts', is now open from 9:00-17:00 instead of 06:00-22:00.</li>
+	<li>Added a 'Never' option to the multi-boob content setting, which makes all randomly-generated and most unique NPCs have only one pair of breasts.</li>
+	<li>Changed the 'martial artist' perk to 'brawler', which now gives +5% unarmed damage and +10% physical damage. The 'martial artist' perk is now a unique perk which can be obtained via completing Hannah's training (in Pix's gym).</li>
+	<li>Nizhoni's content now has a couple of extra musk-related descriptions (which are only shown if musk content is turned on), and you now also have the option to cast the 'soothing waters' spell (if you know it) to clean her and temporarily remove her musk for the proceeding sex scenes.</li>
+	<li>The game's default start date is now 2019, instead of the year of your system's time (i.e. 2023). This is so that in-game events remain chronologically feasible, for example older Enforcers having been Enforcers at the time of the fifth human rebellion in 1988. The starting year can still be changed to whatever you want during the character creation process.</li>
+	<li>Pandas now spawn with vertical pupils.</li>
+	<li>Elementals can now take on the form of an octopus.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>The chest sarashi has been changed back from 'feminine' to 'androgynous'.</li>
+	<li>Fixed issue where all slaves in Slaver Alley's stocks and shops would be reset every time you loaded a game.</li>
+	<li>The 'vaginal virginity', 'pregnancy', 'pussy slut', 'impregnation', 'cum stud', 'cock stud', and 'breasts' fetishes are now correctly always given to randomly generated NPCs if your related fetish spawn preference is set to 'always'.</li>
+	<li>After getting them as slaves, resetting the perks of the four 'Murk's milkers' should now work correctly. (It will also reset their occupation trait from 'kidnapped' to the slave trait.)</li>
+	<li>Freeing slaves while they're working in a milking room now correctly handles their clothing resets before freeing them. (i.e. removing pumps and replacing their clothing)</li>
+	<li>You can no longer ask Claire for help with dealing with Vengar after you've already cleared out the Rat Warrens.</li>
+	<li>NPCs will no longer equip clothing onto spectators during sex.</li>
+	<li>Fixed issue where Jhortrax didn't have his katana equipped.</li>
+	<li>Fixed bug at the end of Natalya's filly training where she'd take your neck-equipped clothing and not return it to you when she put on your filly choker.</li>
+	<li>Fixed vaginal and anal clit tease actions, which were checking availability of the action based on the incorrect character's clit size.</li>
+	<li>Fixed an issue where characters would sometimes fail to load into a game when saving/loading.</li>
+</ul>

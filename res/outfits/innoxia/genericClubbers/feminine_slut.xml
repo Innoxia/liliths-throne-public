@@ -8,9 +8,7 @@
 		
 		<femininity>FEMININE</femininity>
 		
-		<worldTypes>
-			<world>NIGHTLIFE_CLUB</world>
-		</worldTypes>
+		<worldTypes/>
 		
 		<outfitTypes>
 		  <type>CLUBBING</type>

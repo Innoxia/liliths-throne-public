@@ -349,6 +349,10 @@ public class Lunexis extends NPC {
 		return true;
 	}
 	
+	@Override
+	public int getBreastRows() {
+		return body.getBreast().getRows(); // Should not be affected by settings
+	}
 	
 	// Utility classes for Themiscyra:
 	

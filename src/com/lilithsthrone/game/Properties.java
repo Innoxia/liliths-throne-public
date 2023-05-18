@@ -97,11 +97,19 @@ public class Properties {
 	public int halfDemonSpawnRate = 5;
 	
 	public int multiBreasts = 1;
-	public static String[] multiBreastsLabels = new String[] {"Off", "Furry-only", "On"};
+	public static String[] multiBreastsLabels = new String[] {"Never", "Off", "Furry-only", "On"};
 	public static String[] multiBreastsDescriptions = new String[] {
-			"Randomly-generated NPCs will never have multiple rows of breasts.",
-			"Randomly-generated NPCs will only have multiple rows of breasts if they have furry skin. (Default setting.)",
-			"Randomly-generated NPCs will have multiple rows of breasts if their breast type is furry (starts at 'Minor morph' level)."};
+			"Randomly-generated NPCs will never have multiple rows of breasts, and most unique NPCs will no longer have multi-boobs."
+				+"<br/><i>Characters will no longer gain additional breasts via transformations.</i>",
+				
+			"Randomly-generated NPCs will never have multiple rows of breasts."
+				+"<br/><i>Characters can always gain additional breasts via transformations after they've spawned.</i>",
+				
+			"Randomly-generated NPCs will only have multiple rows of breasts if they have furry skin. (Default setting.)"
+				+"<br/><i>Characters can always gain additional breasts via transformations after they've spawned.</i>",
+				
+			"Randomly-generated NPCs will have multiple rows of breasts if their breast type is furry (starts at 'Minor morph' level)."
+				+"<br/><i>Characters can always gain additional breasts via transformations after they've spawned.</i>"};
 	
 	/** 0=off, 1=taur-only, 2=on*/
 	private int udders = 1;
@@ -741,6 +749,9 @@ public class Properties {
 					if(Main.isVersionOlderThan(versionNumber, "0.4.6.9")) {
 						values.add(PropertyValue.offspringEncounters);
 					}
+					if(Main.isVersionOlderThan(versionNumber, "0.4.7.7")) {
+						values.add(PropertyValue.muskContent);
+					}
 					
 					
 				} else {
@@ -853,6 +864,12 @@ public class Properties {
 				
 				if(element.getElementsByTagName("multiBreasts").item(0)!=null) {
 					multiBreasts = Integer.valueOf(((Element)element.getElementsByTagName("multiBreasts").item(0)).getAttribute("value"));
+					if(Main.isVersionOlderThan(versionNumber, "0.4.7.10")) {
+						multiBreasts++; // TO account for the addition of 'Never' in 0.4.7.9
+						if(multiBreasts>=multiBreastsLabels.length) {
+							multiBreasts = multiBreastsLabels.length-1;
+						}
+					}
 				} else {
 					multiBreasts = 1;
 				}

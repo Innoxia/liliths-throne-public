@@ -12,7 +12,6 @@
 	<nocturnality>NOCTURNAL</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
-	<aquatic>false</aquatic>
 	<applySubspeciesChanges><![CDATA[
 		#IF(RND.nextInt(100)<75)
 			[#targetedBody.setCovering(BODY_COVERING_TYPE_innoxia_panther_fur, COVERING_PATTERN_STRIPED, COVERING_MODIFIER_SHORT, COLOUR_COVERING_ORANGE, false, COLOUR_COVERING_BLACK, false)]

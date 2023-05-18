@@ -23,6 +23,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
+import com.lilithsthrone.game.character.body.valueEnums.Affinity;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.effects.PerkCategory;
@@ -65,7 +66,7 @@ public abstract class AbstractSubspecies {
 	
 	private boolean shortStature;
 	private boolean bipedalSubspecies;
-	private boolean aquatic;
+	private boolean winged;
 
 	private Map<PersonalityTrait, Float> personalityChanceOverrides;
 	
@@ -96,6 +97,7 @@ public abstract class AbstractSubspecies {
 	private String advancedDescriptionId;
 	
 	private AbstractRace race;
+	private Affinity affinity;
 	private SubspeciesPreference subspeciesPreferenceDefault;
 	private String description;
 
@@ -111,6 +113,7 @@ public abstract class AbstractSubspecies {
 	
 	protected String SVGString;
 	protected String SVGStringUncoloured;
+        protected String SVGStringUncolouredNoBackground;
 	protected String SVGStringNoBackground;
 	protected String SVGStringDesaturated;
 	protected String slimeSVGString;
@@ -282,7 +285,7 @@ public abstract class AbstractSubspecies {
 		this.baseSlaveValue = baseSlaveValue;
 		this.subspeciesOverridePriority = 0;
 		
-		this.aquatic = false;
+		this.winged = false;
 		this.shortStature = false;
 		this.bipedalSubspecies = true;
 		
@@ -342,6 +345,7 @@ public abstract class AbstractSubspecies {
 		this.tertiaryColour = colour;
 		
 		this.race = race;
+		this.affinity = Affinity.AMPHIBIOUS;
 		this.subspeciesPreferenceDefault = subspeciesPreferenceDefault;
 		this.description = description;
 		
@@ -391,6 +395,7 @@ public abstract class AbstractSubspecies {
 				this.fromExternalFile = true;
 
 				this.race = Race.getRaceFromId(coreElement.getMandatoryFirstOf("race").getTextContent());
+				this.affinity = coreElement.getOptionalFirstOf("affinity").isPresent() ? Affinity.getAffinityFromId(coreElement.getMandatoryFirstOf("affinity").getTextContent()) : Affinity.AMPHIBIOUS;
 				
 				String secondaryColourText = coreElement.getMandatoryFirstOf("secondaryColour").getTextContent();
 				String tertiaryColourText = coreElement.getMandatoryFirstOf("tertiaryColour").getTextContent();
@@ -419,7 +424,7 @@ public abstract class AbstractSubspecies {
 				}
 				this.shortStature = Boolean.valueOf(coreElement.getMandatoryFirstOf("shortStature").getTextContent());
 				this.bipedalSubspecies = Boolean.valueOf(coreElement.getMandatoryFirstOf("bipedalSubspecies").getTextContent());
-				this.aquatic = Boolean.valueOf(coreElement.getMandatoryFirstOf("aquatic").getTextContent());
+				this.winged = coreElement.getOptionalFirstOf("winged").isPresent() ? Boolean.valueOf(coreElement.getMandatoryFirstOf("winged").getTextContent()) : false;
 				
 				personalityChanceOverrides = new HashMap<>();
 				if(coreElement.getOptionalFirstOf("personalityChances").isPresent()) {
@@ -828,12 +833,25 @@ public abstract class AbstractSubspecies {
 		
 		int highestWeighting = 0;
 		int newWeighting;
-		for(AbstractSubspecies sub : Subspecies.getAllSubspecies()) {
+		// Look for subspecies within race
+		for(AbstractSubspecies sub : Subspecies.getSubspeciesOfRace(race)) {
 			newWeighting = sub.getSubspeciesWeighting(body, race);
 			if(newWeighting>highestWeighting
 					&& (!body.isFeral() || sub.isFeralConfigurationAvailable(body))) {
 				subspecies = sub;
 				highestWeighting = newWeighting;
+			}
+		}
+		// If that fails, search through all subspecies
+		if(subspecies==null && Main.game.isStarted()) {
+			highestWeighting = 0;
+			for(AbstractSubspecies sub : Subspecies.getAllSubspecies()) {
+				newWeighting = sub.getSubspeciesWeighting(body, race);
+				if(newWeighting>highestWeighting
+						&& (!body.isFeral() || sub.isFeralConfigurationAvailable(body))) {
+					subspecies = sub;
+					highestWeighting = newWeighting;
+				}
 			}
 		}
 		if(subspecies==null) {
@@ -1403,6 +1421,38 @@ public abstract class AbstractSubspecies {
 		return race;
 	}
 
+	public Affinity getAffinity() {
+		return affinity;
+	}
+
+	public Affinity getAffinity(Body body) {
+		switch (body.getLegConfiguration()) {
+//			case ARACHNID:
+//				return Affinity.TERRESTRIAL;
+			case CEPHALOPOD:
+			case TAIL:
+				return Affinity.AQUATIC;
+			default:
+				return body.getHalfDemonSubspecies() != null
+					? body.getHalfDemonSubspecies().getAffinity()
+					: affinity;
+		}
+	}
+
+	public Affinity getAffinity(GameCharacter character) {
+		switch (character.getLegConfiguration()) {
+//			case ARACHNID:
+//				return Affinity.TERRESTRIAL;
+			case CEPHALOPOD:
+			case TAIL:
+				return Affinity.AQUATIC;
+			default:
+				return character.getHalfDemonSubspecies() != null
+					? character.getHalfDemonSubspecies().getAffinity()
+					: affinity;
+		}
+	}
+
 	public AbstractAttribute getDamageMultiplier() {
 		return getRace().getDefaultDamageMultiplier();
 	}
@@ -1427,15 +1477,27 @@ public abstract class AbstractSubspecies {
 		return description;
 	}
 	
+	public boolean isWinged() {
+		return winged;
+	}
+
+	public boolean isAquatic() {
+		return getAffinity() == Affinity.AQUATIC;
+	}
+
+	/**
+	 * @param body The body being checked
+	 * @return true if the supplied body has a LegConfiguration of type TAIL, or if its affinity is AQUATIC.
+	 */
+	public boolean isAquatic(Body body) {
+		return getAffinity(body) == Affinity.AQUATIC;
+	}
 	/**
 	 * @param character The character being checked
-	 * @return true if the supplied character has a LegConfiguration of type TAIL, or if the aquatic variable is set to true.
+	 * @return true if the supplied body has a LegConfiguration of type TAIL, or if its affinity is AQUATIC.
 	 */
 	public boolean isAquatic(GameCharacter character) {
-		if(character==null) {
-			return aquatic;
-		}
-		return aquatic || character.getLegConfiguration()==LegConfiguration.TAIL;
+		return getAffinity(character) == Affinity.AQUATIC;
 	}
 
 	public String getPathName() {
@@ -1583,6 +1645,7 @@ public abstract class AbstractSubspecies {
 						getTertiaryColour(),
 						"<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>");
 				
+                                SVGStringUncolouredNoBackground = "<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>";
 				SVGStringUncoloured = SVGStringBackground + "<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>";
 				
 				slimeSVGString = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
@@ -1590,21 +1653,21 @@ public abstract class AbstractSubspecies {
 						PresetColour.RACE_SLIME,
 						PresetColour.RACE_SLIME,
 						"<div style='"+fullDivStyle+"'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundSlime()+"</div>"
-						+ "<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>");
+						+ "<div style='"+fullDivStyle+"'>"+SVGStringUncolouredNoBackground+"</div>");
 
 				halfDemonSVGString = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
 						PresetColour.RACE_HALF_DEMON,
 						PresetColour.RACE_HALF_DEMON,
 						PresetColour.RACE_HALF_DEMON,
 						"<div style='"+fullDivStyle+"'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundDemon()+"</div>"
-						+ "<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>");
+						+ "<div style='"+fullDivStyle+"'>"+SVGStringUncolouredNoBackground+"</div>");
 
 				demonSVGString = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
 						PresetColour.RACE_DEMON,
 						PresetColour.RACE_DEMON,
 						PresetColour.RACE_DEMON,
 						"<div style='"+fullDivStyle+"'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundDemon()+"</div>"
-						+ "<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>");
+						+ "<div style='"+fullDivStyle+"'>"+SVGStringUncolouredNoBackground+"</div>");
 				
 				SVGStringDesaturated = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
 						PresetColour.BASE_GREY,

@@ -46,6 +46,26 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="OCCUPANT_WORKING"><![CDATA[
+	<p>
+		Wanting to see how [npc.name] is getting on with [npc.her] job, you approach [npc.herHim] and call out, [pc.speech(Hi, [npc.name].)]
+	</p>
+	#IF (npc.getAffection(pc) < AFFECTION_NEGATIVE_TWO_DISLIKE.getMaximumValue())
+		<p>
+			[npc.speech(Oh. It's you,)] [npc.name] replies, doing [npc.her] best to hide [npc.her] animosity towards you as [npc.she] stops what she is doing and crosses [npc.her] [npc.arms]. [npc.speech(Look, I'm really grateful for everything you've done for me, but can you make this quick? I'm busy.)]
+		</p>
+	#ELSEIF (npc.getAffection(pc) < AFFECTION_POSITIVE_ONE_FRIENDLY.getMaximumValue())
+		<p>
+			[npc.speech(Hi, [npc.pcName]!)] [npc.name] happily replies, [npc.she] sets aside what [npc.she] was working on to give you [npc.her] full attention. [npc.speech(Thank you so much for everything again! What can I do for you?)]
+		</p>
+	#ELSE
+		<p>
+			[npc.speech([npc.PcName]!)] [npc.name] happily shouts. Quickly finishing [npc.her] current task, [npc.she] bounds forwards with a huge grin on [npc.her] face, before wrapping [npc.her] [npc.arms] around you and giving you a big hug. After spending a moment together in one another's loving embrace, [npc.name] pulls back and joyously exclaims, [npc.speech(Thank you so much for everything again! If there's anything you ever need, just let me know! So, what did you want to talk about?)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="OCCUPANT_START_PREGNANCY_REVEAL"><![CDATA[
 	<p>
 		Before you can move on to the reason for your visit, you suddenly notice that something's a little off about [npc.namePos] gait. Looking down as [npc.she] moves to cradle [npc.her] stomach in both [npc.hands], you gasp as you see that [npc.sheIs] sporting a very obviously [style.colourSex(pregnant belly)].

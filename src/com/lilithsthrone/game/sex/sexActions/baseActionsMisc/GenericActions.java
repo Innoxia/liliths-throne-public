@@ -2549,8 +2549,9 @@ public class GenericActions {
 		}
 		@Override
 		public String applyEndEffects(){
-			if(Main.sex.isSpectator(Main.game.getPlayer()) && Main.sex.getInitialSexManager().isHidden(Main.game.getPlayer())) { // Generate effects when ending sex as hidden spectator
-				quickSexDescription = generateQuickSexDescription();
+			 // Generate effects when ending sex as hidden spectator, but do not assign it to the 'quickSexDescription' variable, as that's only used for display in PLAYER_QUICK_SEX
+			if(Main.sex.isSpectator(Main.game.getPlayer()) && Main.sex.getInitialSexManager().isHidden(Main.game.getPlayer())) {
+				generateQuickSexDescription();
 			}
 			return "";
 		}
@@ -3864,7 +3865,7 @@ public class GenericActions {
 			// To lay eggs, the orgasming character requires an ovipositor penis, an egg-laying vagina, and for the eggs to be fertilised
 			if(!Main.sex.getCharacterPerformingAction().hasPenisIgnoreDildo()
 					|| !Main.sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.OVIPOSITOR)
-					|| !Main.sex.getCharacterPerformingAction().hasVagina()
+//					|| !Main.sex.getCharacterPerformingAction().hasVagina()
 //					|| !Main.sex.getCharacterPerformingAction().isVaginaEggLayer()
 					|| !Main.sex.getCharacterPerformingAction().isPregnant()) {
 				return false;
@@ -4156,7 +4157,7 @@ public class GenericActions {
 			// To lay eggs, the orgasming character requires an ovipositor clit, an egg-laying vagina, and for the eggs to be fertilised
 			if(Main.sex.getCharacterPerformingAction().getVaginaClitorisSize()==ClitorisSize.ZERO_AVERAGE
 					|| !Main.sex.getCharacterPerformingAction().hasClitorisModifier(PenetrationModifier.OVIPOSITOR)
-					|| !Main.sex.getCharacterPerformingAction().hasVagina()
+//					|| !Main.sex.getCharacterPerformingAction().hasVagina()
 //					|| !Main.sex.getCharacterPerformingAction().isVaginaEggLayer()
 					|| !Main.sex.getCharacterPerformingAction().isPregnant()) {
 				return false;
@@ -4347,7 +4348,7 @@ public class GenericActions {
 		public boolean isBaseRequirementsMet() {
 			// To lay eggs, the orgasming character requires an ovipositor tail, an egg-laying vagina, and for the eggs to be fertilised
 			if(!Main.sex.getCharacterPerformingAction().getTailType().isOvipositor()
-					|| !Main.sex.getCharacterPerformingAction().hasVagina()
+//					|| !Main.sex.getCharacterPerformingAction().hasVagina()
 //					|| !Main.sex.getCharacterPerformingAction().isVaginaEggLayer()
 					|| !Main.sex.getCharacterPerformingAction().isPregnant()) {
 				return false;
@@ -4539,7 +4540,7 @@ public class GenericActions {
 		public boolean isBaseRequirementsMet() {
 			// To lay eggs, the orgasming character requires an ovipositor tail, an egg-laying vagina, and for the eggs to be fertilised
 			if(!Main.sex.getCharacterPerformingAction().getTailType().isOvipositor()
-					|| !Main.sex.getCharacterPerformingAction().hasVagina()
+//					|| !Main.sex.getCharacterPerformingAction().hasVagina()
 //					|| !Main.sex.getCharacterPerformingAction().isVaginaEggLayer()
 					|| !Main.sex.getCharacterPerformingAction().isPregnant()) {
 				return false;

@@ -208,13 +208,11 @@ public class DominionExpressCentaur extends NPC {
 	}
 
 	@Override
-	public void hourlyUpdate() {
-		if(Main.game.isExtendedWorkTime() && !Main.game.getCharactersPresent().contains(this)) {
-			if(Math.random()<0.8f) {
-				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
-			} else {
-				this.returnToHome();
-			}
+	public void hourlyUpdate(int hour) {
+		if((hour>=6 && hour<22) // extended work time
+				&& !Main.game.getCharactersPresent().contains(this)
+				&& Math.random()<0.8f) {
+			this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 		} else {
 			this.returnToHome();
 		}

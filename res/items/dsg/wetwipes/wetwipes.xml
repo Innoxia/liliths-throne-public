@@ -26,9 +26,11 @@
 		
 		<effectTooltipLines>
 			<line><![CDATA[[style.boldGood(Cleans all inventory slots)]]]></line>
+			<line><![CDATA[[style.boldGood(Cleans all equipped clothing)]]]></line>
 		</effectTooltipLines>
 		
 		<applyEffects><![CDATA[
+			[##npc.cleanAllClothing(false, false)]
 			[##npc.cleanAllDirtySlots(true)]
 			<p style='text-align:center; margin-top:0; padding-top:0;'>
 				Just as [npc.she] [npc.verb(start)] looking for a place to toss the soiled wipe, <b>it disappears, conveniently taking the absorbed filth with it</b>!

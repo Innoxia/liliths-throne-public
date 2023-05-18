@@ -333,23 +333,34 @@ public enum SpellUpgrade {
 			SpellSchool.AIR,
 			"vacuum_secondary_voids",
 			"Secondary Voids",
-			"The target of Vacuum additionally suffers -15 critical power, and -5 to "+Attribute.ENERGY_SHIELDING.getName()+" shielding.",
-			null, Util.newArrayListOfValues(
-					"Vacuum additionally applies <b>-15</b> "+Attribute.CRITICAL_DAMAGE.getColouredName("b"),
-					"Vacuum debuff increased to <b>-5</b> "+Attribute.ENERGY_SHIELDING.getColouredName("b"))),
+			"The Vacuum increases in strength, causing the target to stumble and struggle to land their attacks.",
+			null,
+			Util.newArrayListOfValues(
+					"Vacuum now applies:",
+					"<b>-15</b> "+Attribute.CRITICAL_DAMAGE.getColouredName("b"),
+					"<b>-10</b> "+Attribute.ENERGY_SHIELDING.getColouredName("b"))),
 	VACUUM_2(2,
 			SpellSchool.AIR,
 			"vacuum_suction",
 			"Suction",
-			"There is now a 10% chance each turn for the target of Vacuum to have a random outer layer of their clothing sucked off to the floor.",
-			null, Util.newArrayListOfValues(
+			"The Vacuum is now so powerful that there's a chance for the target to have a random outer layer of their clothing sucked off to the floor.<br/>"
+				+"[style.italicsMinorBad(Clothing stripping only affects non-unique NPCs.)]",
+			null,
+			Util.newArrayListOfValues(
+					"Vacuum now applies:",
+					"<b>-25</b> "+Attribute.CRITICAL_DAMAGE.getColouredName("b"),
+					"<b>-20</b> "+Attribute.ENERGY_SHIELDING.getColouredName("b"),
 					"<b>10%</b> chance per turn of [style.boldExcellent(stripping)] clothing")),
 	VACUUM_3(4,
 			SpellSchool.AIR,
 			"vacuum_total_void",
 			"Total Void",
-			"The strip chance from Suction is increased to 25%.",
+			"The Vacuum's strength is overwhelming, and there's now a good chance for the target to have a random outer layer of their clothing sucked off to the floor.<br/>"
+				+"[style.italicsMinorBad(Clothing stripping only affects non-unique NPCs.)]",
 			null, Util.newArrayListOfValues(
+					"Vacuum now applies:",
+					"<b>-25</b> "+Attribute.CRITICAL_DAMAGE.getColouredName("b"),
+					"<b>-20</b> "+Attribute.ENERGY_SHIELDING.getColouredName("b"),
 					"Suction's strip chance [style.boldExcellent(increased)] to <b>25%</b>")),
 
 	PROTECTIVE_GUSTS_1(true,

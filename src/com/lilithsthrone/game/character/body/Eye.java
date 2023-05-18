@@ -142,6 +142,10 @@ public class Eye implements BodyPartInterface {
 	}
 
 	public String setIrisShape(GameCharacter owner, EyeShape irisShape) {
+		if(owner==null) {
+			this.irisShape = irisShape;
+			return "";
+		}
 		if(owner.getIrisShape() == irisShape) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
@@ -160,6 +164,10 @@ public class Eye implements BodyPartInterface {
 	}
 
 	public String setPupilShape(GameCharacter owner, EyeShape pupilShape) {
+		if(owner==null) {
+			this.pupilShape = pupilShape;
+			return "";
+		}
 		if(owner.getPupilShape() == pupilShape) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}

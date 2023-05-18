@@ -42,28 +42,28 @@
 		</itemTags>
 	</coreAttributes>
 
-  <replacementText type="REMOVE_OR_EQUIP">
-    <self>
-      <![CDATA[[npc.Name] [npc.verb(place)] the cap onto [npc.her] head.]]>
-    </self>
-    <other>
-      <![CDATA[[npc.Name] [npc.verb(place)] the cap onto [npc2.namePos] head.]]>
-    </other>
-    <otherRough>
-      <![CDATA[[npc.Name] roughly [npc.verb(push)] the cap onto [npc2.namePos] head.]]>
-    </otherRough>
-  </replacementText>
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(place)] the cap onto [npc.her] head.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(place)] the cap onto [npc2.namePos] head.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(push)] the cap onto [npc2.namePos] head.]]>
+		</otherRough>
+	</replacementText>
 
-  <displacementText type="REMOVE_OR_EQUIP">
-    <self>
-      <![CDATA[[npc.Name] [npc.verb(take)] off [npc.her] cap.]]>
-    </self>
-    <other>
-      <![CDATA[[npc.Name] [npc.verb(take)] off [npc2.namePos] cap.]]>
-    </other>
-    <otherRough>
-      <![CDATA[[npc.Name] [npc.verb(snatch)] off [npc2.namePos] cap.]]>
-    </otherRough>
-  </displacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(take)] off [npc.her] cap.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(take)] off [npc2.namePos] cap.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(snatch)] off [npc2.namePos] cap.]]>
+		</otherRough>
+	</displacementText>
   
 </clothing>

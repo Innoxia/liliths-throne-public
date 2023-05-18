@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -34,6 +35,7 @@ import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
@@ -2166,7 +2168,51 @@ public class BodyChanging {
 		if(debugMenu) {
 			return "";
 		}
-		if(body.getBodyMaterial()!=BodyChanging.getTarget().getBodyMaterial()) {
+		
+		// Height limitation:
+		if(BodyChanging.getTarget().isShortStature()!=body.isShortStature()) {
+			if(BodyChanging.getTarget().isShortStature()) {
+				return UtilText.parse(BodyChanging.getTarget(), "[npc.NameIsFull] too short to be able to transform into this form!");
+			} else {
+				return UtilText.parse(BodyChanging.getTarget(), "[npc.NameIsFull] too tall to be able to transform into this form!");
+			}
+		}
+		
+		// Material limitations:
+		Set<BodyMaterial> materialsAllowed = Util.newHashSetOfValues(BodyChanging.getTarget().getBodyMaterial());
+		if(BodyChanging.getTarget() instanceof Elemental) {
+			switch(BodyChanging.getTarget().getBodyMaterial()) {
+				// Air:
+				case AIR:
+					break;
+				// Arcane:
+				case ARCANE:
+					break;
+				// Fire:
+				case FIRE:
+					break;
+				// Earth:
+				case RUBBER:
+					materialsAllowed.add(BodyMaterial.STONE);
+					break;
+				case STONE:
+					materialsAllowed.add(BodyMaterial.RUBBER);
+					break;
+				// Water:
+				case WATER:
+					materialsAllowed.add(BodyMaterial.ICE);
+					break;
+				case ICE:
+					materialsAllowed.add(BodyMaterial.WATER);
+					break;
+				// Non-elemental materials:
+				case FLESH:
+					break;
+				case SLIME:
+					break;
+			}
+		}
+		if(!materialsAllowed.contains(body.getBodyMaterial())) {
 			BodyMaterial matCurrent = BodyChanging.getTarget().getBodyMaterial();
 			BodyMaterial matTarget = body.getBodyMaterial();
 			return UtilText.parse(BodyChanging.getTarget(),
@@ -2174,13 +2220,17 @@ public class BodyChanging {
 					+ "<br/>Current material: <span style='color:"+matCurrent.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(matCurrent.getName())+"</span>"
 					+ "<br/>Transformation target's material: <span style='color:"+matTarget.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(matTarget.getName())+"</span>");
 		}
+				
+		// Feral limitations:
 		if(body.isFeral()!=BodyChanging.getTarget().isFeral()) {
 			if(body.isFeral()) {
 				return UtilText.parse(BodyChanging.getTarget(), "[npc.Name] cannot transform into a [style.colourFeral(feral body)] as [npc.her] current body isn't feral!");
 			}
 			return UtilText.parse(BodyChanging.getTarget(), "[npc.Name] cannot transform into a [style.colourHuman(non-feral body)] as [npc.her] current body is feral!");
 		}
-		if(isDemonTFMenu() || BodyChanging.getTarget().isYouko()) {
+
+		// Demon/Youko limitations:
+		if(isDemonTFMenu() || BodyChanging.getTarget().isYouko() || BodyChanging.getTarget() instanceof Elemental) {
 			StringBuilder sb = new StringBuilder();
 			List<String> partsList = new ArrayList<>();
 			for(BodyPartInterface part : body.getAllBodyParts()) {
@@ -2226,7 +2276,7 @@ public class BodyChanging {
 				}
 			}
 			
-		} else if(body.getBodyMaterial() != BodyMaterial.SLIME){
+		} else if(body.getBodyMaterial() != BodyMaterial.SLIME) {
 			StringBuilder sb = new StringBuilder();
 			List<String> partsList = new ArrayList<>();
 			for(BodyPartInterface part : body.getAllBodyParts()) {

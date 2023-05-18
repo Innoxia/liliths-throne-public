@@ -2552,7 +2552,7 @@
 		#IF(npc.isMute())
 			Gesturing back towards the window of the bistro, [npc.she] implies through [npc.hand(true)] signals that [npc.she] was watching you the whole time. Flashing you another smirk, [npc.she] dismisses you with a wave of [npc.her] [npc.hand(true)] and [npc.walks] off down the alleyway, leaving you with little else to do but continue on your way...
 		#ELSE
-				[npc.speech(Couldn't resist [stranger.her] cock, huh, [pc.name]?)] [npc.she] asks, [npc.speech(Me and the other people inside were watching you get fucked through the windows. You're a dirty, horny whore, aren't you?)]
+				[npc.speech(Couldn't resist getting fucked by that [stranger.race], huh, [pc.name]?)] [npc.she] asks, [npc.speech(Me and the other people inside were watching the two of you through the windows. You're a dirty, horny whore, aren't you?)]
 			</p>
 			<p>
 				Not giving you any time in which to respond, [npc.name] dismisses you with a wave of [npc.her] [npc.hand(true)], before [npc.walking] off down the alleyway, leaving you with little else to do but continue on your way...

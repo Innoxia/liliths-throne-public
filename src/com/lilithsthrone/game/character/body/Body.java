@@ -706,6 +706,7 @@ public class Body implements XMLSaving {
 			XMLUtil.addAttribute(doc, bodyLeg, "type", LegType.getIdFromLegType(this.leg.type));
 			XMLUtil.addAttribute(doc, bodyLeg, "footStructure", this.leg.footStructure.toString());
 			XMLUtil.addAttribute(doc, bodyLeg, "configuration", this.leg.legConfiguration.toString());
+			XMLUtil.addAttribute(doc, bodyLeg, "tailLength", String.valueOf(this.leg.lengthAsPercentageOfHeight));
 		
 		// Penis:
 		Element bodyPenis = doc.createElement("penis");
@@ -1331,8 +1332,13 @@ public class Body implements XMLSaving {
 			footStructure = FootStructure.valueOf(leg.getAttribute("footStructure"));
 		} catch(Exception ex) {}
 		
+		
 		Leg importedLeg = new Leg(legType, configuration);
 		importedLeg.setFootStructure(null, footStructure);
+		try {
+			float tailLength = Float.valueOf(leg.getAttribute("tailLength"));
+			importedLeg.setLengthAsPercentageOfHeight(null, tailLength);
+		} catch(Exception ex) {}
 		
 		Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Leg: "
 				+ "<br/>type: "+importedLeg.getType());
@@ -6331,7 +6337,6 @@ public class Body implements XMLSaving {
 	 * @param subspecies Pass in the AbstractSubspecies to which this character should be transformed into a feral version of. Pass in null to transform back from feral to a standard anthro.
 	 */
 	public void setFeral(AbstractSubspecies subspecies) {
-		this.feral = subspecies!=null;
 		
 		FeralAttributes attributes = subspecies==null?null:subspecies.getFeralAttributes(this);
 		if(attributes==null) {
@@ -6339,12 +6344,13 @@ public class Body implements XMLSaving {
 			return;
 		}
 		
+		this.feral = subspecies!=null;
 		// Set body to full subspecies:
 		Main.game.getCharacterUtils().reassignBody(
 				null,
 				this,
 				this.getGender(),
-				subspecies,
+				subspecies==null?this.getSubspecies():subspecies,
 				RaceStage.GREATER,
 				false);
 		

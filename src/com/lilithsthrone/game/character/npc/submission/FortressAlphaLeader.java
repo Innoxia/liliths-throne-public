@@ -339,6 +339,14 @@ public class FortressAlphaLeader extends NPC {
 	}
 
 	@Override
+	public String getArtworkFolderName() {
+		if(this.isVisiblyPregnant()) {
+			return "FyrsiaPregnant";
+		}
+		return "Fyrsia";
+	}
+	
+	@Override
 	public String getDescription() {
 		if(this.isSlave()) {
 			return (UtilText.parse(this,
