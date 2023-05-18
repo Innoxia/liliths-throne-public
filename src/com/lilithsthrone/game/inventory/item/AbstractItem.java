@@ -44,6 +44,18 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 		this.itemType = itemType;
 		this.itemEffects = itemType.getEffects();
 	}
+	public AbstractItem(AbstractItem item) {
+		super(item.getName(),
+				item.getNamePlural(),
+				item.getSVGString(),
+				item.colours.get(0),
+				item.getRarity(),
+				item.attributeModifiers,
+				item.getItemTags());
+
+		this.itemType = item.getItemType();
+		this.itemEffects = item.getEffects();
+	}
 	
 	@Override
 	public boolean equals(Object o) {

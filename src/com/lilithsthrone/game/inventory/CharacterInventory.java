@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import org.w3c.dom.Document;
@@ -546,24 +547,6 @@ public class CharacterInventory implements XMLSaving {
 		return extraBlockedParts;
 	}
 	
-	private void sortItemDuplicates() {
-		itemSubInventory.sort();
-	}
-
-	private void sortWeaponDuplicates() {
-		weaponSubInventory.sort();
-	}
-
-	private void sortClothingDuplicates() {
-		clothingSubInventory.sort();
-	}
-
-	public void sortInventory() {
-		sortItemDuplicates();
-		sortWeaponDuplicates();
-		sortClothingDuplicates();
-	}
-	
 	/**
 	 * @return The value of all non-equipped items, clothing, and weapons in this inventory.
 	 */
@@ -634,10 +617,6 @@ public class CharacterInventory implements XMLSaving {
 	 */
 	private void addItems(Map<AbstractItem, Integer> itemMap) {
 		itemSubInventory.addFromMap(itemMap);
-
-		if (Main.game.isStarted()) {
-			sortItemDuplicates();
-		}
 	}
 	
 	/**
@@ -652,10 +631,6 @@ public class CharacterInventory implements XMLSaving {
 		boolean canAddItem = canAddItem(item);
 		if (canAddItem) {
 			itemSubInventory.addItem(item, count);
-
-			if (Main.game.isStarted()) {
-				sortItemDuplicates();
-			}
 		}
 
 		return canAddItem;
@@ -765,11 +740,6 @@ public class CharacterInventory implements XMLSaving {
 		
 		if(canAddWeapon(weapon)) {
 			weaponSubInventory.addItem(weapon, count);
-
-			if(Main.game.isStarted()) {
-				sortWeaponDuplicates();
-			}
-			
 			return true;
 		}
 		
@@ -925,11 +895,6 @@ public class CharacterInventory implements XMLSaving {
 		
 		if(canAddClothing(clothing)) {
 			clothingSubInventory.addItem(clothing, count);
-
-			if(Main.game.isStarted()) {
-				sortClothingDuplicates();
-			}
-			
 			return true;
 		}
 		
@@ -1001,7 +966,7 @@ public class CharacterInventory implements XMLSaving {
 		
 		return false;
 	}
-	
+
 	public boolean isAnyClothingDirty() {
 		for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
 			if(c.isDirty()) {
@@ -2354,5 +2319,100 @@ public class CharacterInventory implements XMLSaving {
 	public void cleanAllDirtySlots() {
 		dirtySlots.clear();
 	}
-	
+
+
+	public AbstractClothing modifyClothing(AbstractClothing item, Consumer<AbstractClothing> modification){
+		return modify(item, 1, modification);
+	}
+
+	public AbstractClothing modifyClothing(AbstractClothing item, int count, Consumer<AbstractClothing> modification){
+		return modify(item, count, modification);
+	}
+
+	public AbstractItem modifyItem(AbstractItem item, Consumer<AbstractItem> modification){
+		return modify(item, 1, modification);
+	}
+
+	public AbstractItem modifyItem(AbstractItem item, int count, Consumer<AbstractItem> modification){
+		return modify(item, count, modification);
+	}
+
+	public AbstractWeapon modifyWeapon(AbstractWeapon item, Consumer<AbstractWeapon> modification){
+		return modify(item, 1, modification);
+	}
+
+	public AbstractWeapon modifyWeapon(AbstractWeapon item, int count, Consumer<AbstractWeapon> modification){
+		return modify(item, count, modification);
+	}
+
+	/**
+	 * creates a copy of the object and removes <i><b>count</b></i> from the inventory if present, unequipped and re-equips if not
+	 * @param item the object to be modified
+	 * @param count the amount of it to be modified, only matters if they are in an inventory, not equipped or freshly generated, set to -1 to affect all
+	 * @param modification the actions to be applied to the new object
+	 * @param <T>
+	 * @return the newly created, and modified item
+	 */
+	public <T extends AbstractCoreItem> T modify(AbstractCoreItem item, int count, Consumer<T> modification){
+
+		if(count == -1){
+			count = 999_999_999;
+		}
+
+		if(item instanceof AbstractClothing){
+			if(getClothingCurrentlyEquipped().contains((AbstractClothing) item)) {
+				//not a hash and not multiple, no need to do wild stuff
+				modification.accept((T) item);
+				return (T) item;
+
+			} else if(removeClothing((AbstractClothing) item, count)) {
+				AbstractClothing c = new AbstractClothing((AbstractClothing) item) {};
+				modification.accept((T) c);
+				addClothing(c, count);
+				return (T) c;
+
+			} else {
+				modification.accept((T) item);
+				return (T) item;
+			}
+		} else if (item instanceof AbstractWeapon){
+
+			modification.accept((T) item);
+			//currently equipped
+			for(int i = 0; i < getMainWeaponArray().length; i++){
+				if(item.equals(getMainWeaponArray()[i])){
+					modification.accept((T) getMainWeaponArray()[i]);
+					return (T) getMainWeaponArray()[i];
+				}
+			}
+			for(int i = 0; i < getOffhandWeaponArray().length; i++){
+				if(item.equals(getOffhandWeaponArray()[i])){
+					modification.accept((T) getOffhandWeaponArray()[i]);
+					return (T) getOffhandWeaponArray()[i];
+				}
+			}
+			if(removeWeapon((AbstractWeapon) item, count)) {
+				AbstractWeapon w = Main.game.getItemGen().generateWeapon((AbstractWeapon) item);
+				modification.accept((T) item);
+				addWeapon(w, count);
+				return (T) w;
+
+			} else {
+				modification.accept((T) item);
+				return (T) item;
+			}
+		} else if (item instanceof AbstractItem){
+			if(removeItem((AbstractItem) item, count)) {
+				AbstractItem w = Main.game.getItemGen().generateItem((AbstractItem) item);
+				modification.accept((T) item);
+				addItem(w, count);
+				return (T) w;
+
+			} else {
+				modification.accept((T) item);
+				return (T) item;
+			}
+		}
+		return null;
+	}
 }

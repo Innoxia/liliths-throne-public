@@ -344,8 +344,6 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			character.setGenderIdentity(character.getGender());
 		}
 		
-		character.sortInventory();
-		
 		boolean newGameImport = Arrays.asList(settings).contains(CharacterImportSetting.NEW_GAME_IMPORT);
 		
 		NodeList nodes = parentElement.getElementsByTagName("core");

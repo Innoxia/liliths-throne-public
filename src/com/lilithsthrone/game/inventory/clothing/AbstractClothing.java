@@ -2068,34 +2068,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			return;
 		}
 		if(owner!=null) {
-			if(owner.getClothingCurrentlyEquipped().contains(this)) {
-//				System.out.println("1");
-				AbstractClothing c = new AbstractClothing(this) {};
-				owner.forceUnequipClothingIntoVoid(owner, this);
-				c.dirty = dirty;
-				owner.equipClothingOverride(c, c.getSlotEquippedTo(), false, false);
-				
-			} else if(owner.removeClothing(this)) {
-//				System.out.println("2");
-				AbstractClothing c = new AbstractClothing(this) {};
-				c.dirty = dirty;
-				owner.addClothing(c, false);
-//				enchantmentRemovedClothing = c;
-				
-			} else {
-//				System.out.println("3");
-				this.dirty = dirty;
-			}
+			owner.modifyClothing(this, c -> c.dirty = dirty);
 		} else {
-//			System.out.println("4");
 			this.dirty = dirty;
 		}
-		
-//		if(Main.game.getPlayer()!=null) {
-//			if(Main.game.getPlayer().getClothingCurrentlyEquipped().contains(this)) {
-//				Main.game.getPlayer().updateInventoryListeners();
-//			}
-//		}
 	}
 
 	public List<DisplacementType> getDisplacedList() {
@@ -2113,16 +2089,9 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	public static AbstractClothing enchantmentRemovedClothing;
 	public String setEnchantmentKnown(GameCharacter owner, boolean enchantmentKnown) {
 		StringBuilder sb = new StringBuilder();
-		
+
 		if(owner!=null) {
-			if(owner.removeClothing(this)) {
-				AbstractClothing c = new AbstractClothing(this) {};
-				c.enchantmentKnown = enchantmentKnown;
-				owner.addClothing(c, false);
-				enchantmentRemovedClothing = c;
-			} else {
-				this.enchantmentKnown = enchantmentKnown;
-			}
+			enchantmentRemovedClothing = owner.modifyClothing(this, c -> c.enchantmentKnown = enchantmentKnown);
 		} else {
 			this.enchantmentKnown = enchantmentKnown;
 		}

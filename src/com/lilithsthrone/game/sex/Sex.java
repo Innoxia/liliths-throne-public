@@ -926,34 +926,29 @@ public class Sex {
 			for (Entry<InventorySlot, Map<AbstractClothing, List<DisplacementType>>> entry2 : entry.getValue().entrySet()) {
 				for (AbstractClothing c : entry2.getValue().keySet()) {
 					if(!c.isDiscardedOnUnequip(entry2.getKey()) || c.isMilkingEquipment()) { // Special case for pumps, which are normally discarded on unequip
+
 						AbstractClothing dirtyClone = new AbstractClothing(c) {};
 						dirtyClone.setDirty(null, true);
 						dirtyClone.setSlotEquippedTo(null);
 						AbstractClothing clothingEquipped = character.getClothingInSlot(entry2.getKey());
 						if(clothingEquipped==null) {
 							// Only re-equip if that slot is empty, as some endSex methods force clothing on the player:
-							if(character.getCell().getInventory().hasClothing(c) || character.hasClothing(c)) {
-								// Have to remove clothing manually before setting the unlocked state of the clothing, as unlock state alters the hashCode of the clothing,
-									// thereby making it so the clothing is not removed from the underlying inventory after its unlock state has changed
-								if(character.getCell().getInventory().hasClothing(c)) {
-									character.getCell().getInventory().removeClothing(c);
-								} else {
-									character.removeClothing(c);
-								}
+							if(character.hasClothing(c)){
+								character.getInventory().modifyClothing(c, clothing -> clothing.setUnlocked(false)); // Reset seal status
+
+							} else if(character.getCell().getInventory().hasClothing(c)) {
+								character.getCell().getInventory().removeClothing(c);
 								c.setUnlocked(false); // Reset seal status
 								character.equipClothingOverride(c, entry2.getKey(), false, false);
-								
-							} else if(character.getCell().getInventory().hasClothing(dirtyClone) || character.hasClothing(dirtyClone)) {
-								// Have to remove clothing manually before setting the unlocked state of the clothing, as unlock state alters the hashCode of the clothing,
-									// thereby making it so the clothing is not removed from the underlying inventory after its unlock state has changed
-								if(character.getCell().getInventory().hasClothing(dirtyClone)) {
-									character.getCell().getInventory().removeClothing(dirtyClone);
-								} else {
-									character.removeClothing(dirtyClone);
-								}
+
+							} else if(character.getCell().getInventory().hasClothing(dirtyClone)){
+								character.getInventory().modifyClothing(dirtyClone, clothing -> clothing.setUnlocked(false)); // Reset seal status
+
+							} else if(character.hasClothing(dirtyClone)) {
+								character.getCell().getInventory().removeClothing(dirtyClone);
 								dirtyClone.setUnlocked(false); // Reset seal status
 								character.equipClothingOverride(dirtyClone, entry2.getKey(), false, false);
-								
+
 							} else if(c.isMilkingEquipment()) {
 								c.setUnlocked(false); // Reset seal status
 								character.equipClothingOverride(c, entry2.getKey(), false, false);

@@ -29,6 +29,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.w3c.dom.Comment;
@@ -21692,10 +21694,6 @@ public abstract class GameCharacter implements XMLSaving {
 		this.inventory = new CharacterInventory(0);
 	}
 	
-	public void sortInventory() {
-		inventory.sortInventory();
-	}
-	
 	public int getEnchantmentPointsUsedFromWeapons() {
 		int count = 0;
 		for(AbstractWeapon weapon : inventory.getMainWeaponArray()) {
@@ -22182,20 +22180,21 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 
-	public void removeItem(AbstractItem item) {
-		removeItem(item, 1);
+	public boolean removeItem(AbstractItem item) {
+		return removeItem(item, 1);
 	}
 
-	public void removeItem(AbstractItem item, int count) {
-		removeItem(item, count, false);
+	public boolean removeItem(AbstractItem item, int count) {
+		return removeItem(item, count, false);
 	}
 
-	public void removeItem(AbstractItem item, int count, boolean appendTextToEventLog) {
+	public boolean removeItem(AbstractItem item, int count, boolean appendTextToEventLog) {
 		if(appendTextToEventLog) {
 			Main.game.addEvent(new EventLogEntry("Lost", count+"x <span style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+item.getName()+"</span>"), false);
 		}
-		inventory.removeItem(item, count);
+        boolean removed = inventory.removeItem(item, count);
 		updateInventoryListeners();
+        return removed;
 	}
 	
 	/**
@@ -23849,6 +23848,105 @@ public abstract class GameCharacter implements XMLSaving {
 		return inventory.getEquipDescription();
 	}
 
+    public AbstractClothing modifyClothing(AbstractClothing item, Consumer<AbstractClothing> modification){
+        return modify(item, 1, modification);
+    }
+
+    public AbstractClothing modifyClothing(AbstractClothing item, int count, Consumer<AbstractClothing> modification){
+        return modify(item, count, modification);
+    }
+
+    public AbstractItem modifyItem(AbstractClothing item, Consumer<AbstractItem> modification){
+        return modify(item, 1, modification);
+    }
+
+    public AbstractItem modifyItem(AbstractClothing item, int count, Consumer<AbstractItem> modification){
+        return modify(item, count, modification);
+    }
+
+    public AbstractWeapon modifyWeapon(AbstractClothing item, Consumer<AbstractWeapon> modification){
+        return modify(item, 1, modification);
+    }
+
+    public AbstractWeapon modifyWeapon(AbstractClothing item, int count, Consumer<AbstractWeapon> modification){
+        return modify(item, count, modification);
+    }
+
+    /**
+     * creates a copy of the object and removes <i><b>count</b></i> from the inventory if present, unequipped and re-equips if not
+     * @param item the object to be modified
+     * @param count the amount of it to be modified, only matters if they are in an inventory, not equipped or freshly generated, set to -1 to affect all
+     * @param modification the actions to be applied to the new object
+     * @param <T>
+     * @return the newly created, and modified item
+     */
+    public <T extends AbstractCoreItem> T modify(AbstractCoreItem item, int count, Consumer<T> modification){
+
+        if(count == -1){
+            count = 999_999_999;
+        }
+
+        if(item instanceof AbstractClothing){
+            AbstractClothing c = new AbstractClothing((AbstractClothing) item) {};
+            if(getClothingCurrentlyEquipped().contains((AbstractClothing) item)) {
+                forceUnequipClothingIntoVoid(this, (AbstractClothing) item);
+                modification.accept((T) c);
+                equipClothingOverride(c, c.getSlotEquippedTo(), false, false);
+                return (T) c;
+
+            } else if(removeClothing((AbstractClothing) item, count)) {
+                modification.accept((T) c);
+                addClothing(c, false);
+                return (T) c;
+
+            } else {
+                modification.accept((T) item);
+                return (T) item;
+            }
+        } else if (item instanceof AbstractWeapon){
+            AbstractWeapon w = Main.game.getItemGen().generateWeapon((AbstractWeapon) item);
+
+            modification.accept((T) item);
+            //currently equipped
+            for(int i = 0; i < getMainWeaponArray().length; i++){
+                if(item.equals(getMainWeaponArray()[i])){
+                    unequipMainWeaponIntoVoid(i, true);
+                    modification.accept((T) w);
+                    equipMainWeapon(w, i, false);
+                    return (T) w;
+                }
+            }
+            for(int i = 0; i < getOffhandWeaponArray().length; i++){
+                if(item.equals(getOffhandWeaponArray()[i])){
+                    unequipMainWeaponIntoVoid(i, true);
+                    modification.accept((T) w);
+                    equipMainWeapon(w, i, false);
+                    return (T) w;
+                }
+            }
+            if(removeWeapon((AbstractWeapon) item, count)) {
+                modification.accept((T) item);
+                addWeapon(w, false);
+                return (T) w;
+
+            } else {
+                modification.accept((T) item);
+                return (T) item;
+            }
+        } else if (item instanceof AbstractItem){
+            AbstractItem i = Main.game.getItemGen().generateItem((AbstractItem) item);
+            if(removeItem((AbstractItem) item, count)) {
+                modification.accept((T) item);
+                addItem(i, false);
+                return (T) i;
+
+            } else {
+                modification.accept((T) item);
+                return (T) item;
+            }
+        }
+        return null;
+    }
 
 	/**
 	 * <b>Warning:</b> Passing in a DisplacementType that isn't present for the passed in clothing *might* throw a null pointer exception...

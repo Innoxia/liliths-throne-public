@@ -1,12 +1,6 @@
 package com.lilithsthrone.game.inventory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 
 /**
@@ -18,18 +12,18 @@ import java.util.function.Function;
 class AbstractInventory<T extends AbstractCoreItem, U extends AbstractCoreType> {
 	private final Comparator<T> comparator;
 	private final Function<T, U> typeRetriever;
-	private Map<T, Integer> duplicateCounts;
+	private TreeMap<T, Integer> duplicateCounts;
 
 	AbstractInventory(Comparator<T> comparator, Function<T, U> typeRetriever) {
 		this.comparator = comparator;
 		this.typeRetriever = typeRetriever;
-		duplicateCounts = new LinkedHashMap<>();
+		duplicateCounts = new TreeMap<>(comparator);
 	}
 
 	AbstractInventory(AbstractInventory<T, U> inventoryToCopy) {
 		this.comparator = inventoryToCopy.comparator;
 		this.typeRetriever = inventoryToCopy.typeRetriever;
-		duplicateCounts = new LinkedHashMap<>(inventoryToCopy.duplicateCounts);
+		duplicateCounts = new TreeMap<>(inventoryToCopy.duplicateCounts);
 	}
 	
 	public void clear() {
@@ -40,22 +34,8 @@ class AbstractInventory<T extends AbstractCoreItem, U extends AbstractCoreType> 
 		return duplicateCounts.isEmpty();
 	}
 
-	public void sort() {
-		if (duplicateCounts.size() < 2) {
-			return;
-		}
-		List<T> itemsToSort = new ArrayList<>(duplicateCounts.keySet());
-		itemsToSort.sort(comparator);
-
-		Map<T, Integer> newlySortedMap = new LinkedHashMap<>();
-		for(T item : itemsToSort) {
-			newlySortedMap.put(item, duplicateCounts.get(item));
-		}
-		duplicateCounts = newlySortedMap;
-	}
-
 	public void transform(Function<T, T> transformFunction) {
-		Map<T, Integer> oldMap = new LinkedHashMap<>(duplicateCounts);
+		TreeMap<T, Integer> oldMap = new TreeMap<>(duplicateCounts);
 		duplicateCounts.clear();
 
 		for(Map.Entry<T, Integer> e : oldMap.entrySet()) {

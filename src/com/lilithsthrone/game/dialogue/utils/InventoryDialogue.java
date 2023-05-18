@@ -27,11 +27,7 @@ import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
-import com.lilithsthrone.game.inventory.ColourReplacement;
-import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.inventory.ItemTag;
-import com.lilithsthrone.game.inventory.Rarity;
-import com.lilithsthrone.game.inventory.ShopTransaction;
+import com.lilithsthrone.game.inventory.*;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.BlockedParts;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
@@ -6857,28 +6853,19 @@ public class InventoryDialogue {
 											+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to dye the " + clothing.getName() + " without needing to use a dye-brush!"
 										+ "</p>");
 						}
-						
-						if(owner!=null) {
-							owner.removeClothing(clothing);
-							AbstractClothing dyedClothing = new AbstractClothing(clothing) {};
-							dyedClothing.setColours(dyePreviews);
-							dyedClothing.setPattern(dyePreviewPattern);
-							dyedClothing.setPatternColours(dyePreviewPatterns);
-							dyedClothing.setStickersAsObjects(dyePreviewStickers);
-							owner.addClothing(dyedClothing, false);
-							Main.game.addEvent(new EventLogEntry("Dyed", dyedClothing.getDisplayName(true)), false);
 
-						} else {
-							Main.game.getPlayerCell().getInventory().removeClothing(clothing);
-							AbstractClothing dyedClothing = new AbstractClothing(clothing) {};
-							dyedClothing.setColours(dyePreviews);
-							dyedClothing.setPattern(dyePreviewPattern);
-							dyedClothing.setPatternColours(dyePreviewPatterns);
-							dyedClothing.setStickersAsObjects(dyePreviewStickers);
-							Main.game.getPlayerCell().getInventory().addClothing(dyedClothing);
-							Main.game.addEvent(new EventLogEntry("Dyed", dyedClothing.getDisplayName(true)), false);
-						}
-						
+						CharacterInventory inventory = (owner==null?Main.game.getPlayerCell().getInventory():owner.getInventory());
+						AbstractClothing dyedClothing = inventory.modifyClothing(clothing,
+								clothing -> {
+									clothing.setColours(dyePreviews);
+									clothing.setPattern(dyePreviewPattern);
+									clothing.setPatternColours(dyePreviewPatterns);
+									clothing.setStickersAsObjects(dyePreviewStickers);
+									clothing.setColours(dyePreviews);
+									clothing.setColours(dyePreviews);
+								});
+						Main.game.addEvent(new EventLogEntry("Dyed", dyedClothing.getDisplayName(true)), false);
+
 					}
 				};
 
@@ -6954,27 +6941,19 @@ public class InventoryDialogue {
 												+" of the " + clothing.getNamePlural() + " without needing to use a single dye-brush!"
 										+ "</p>");
 						}
-						
-						if(owner!=null) {
-							owner.removeClothing(clothing, finalCount);
-							AbstractClothing dyedClothing = new AbstractClothing(clothing) {};
-							dyedClothing.setColours(dyePreviews);
-							dyedClothing.setPattern(dyePreviewPattern);
-							dyedClothing.setPatternColours(dyePreviewPatterns);
-							dyedClothing.setStickersAsObjects(dyePreviewStickers);
-							owner.addClothing(dyedClothing, finalCount, false, false);
-							Main.game.addEvent(new EventLogEntry("Dyed", dyedClothing.getDisplayName(true)), false);
 
-						} else {
-							Main.game.getPlayerCell().getInventory().removeClothing(clothing, finalCount);
-							AbstractClothing dyedClothing = new AbstractClothing(clothing) {};
-							dyedClothing.setColours(dyePreviews);
-							dyedClothing.setPattern(dyePreviewPattern);
-							dyedClothing.setPatternColours(dyePreviewPatterns);
-							dyedClothing.setStickersAsObjects(dyePreviewStickers);
-							Main.game.getPlayerCell().getInventory().addClothing(dyedClothing, finalCount);
-							Main.game.addEvent(new EventLogEntry("Dyed", dyedClothing.getDisplayName(true)), false);
-						}
+						CharacterInventory inventory = (owner==null?Main.game.getPlayerCell().getInventory():owner.getInventory());
+						AbstractClothing dyedClothing = inventory.modifyClothing(clothing,
+								finalCount,
+								clothing ->{
+									clothing.setColours(dyePreviews);
+									clothing.setPattern(dyePreviewPattern);
+									clothing.setPatternColours(dyePreviewPatterns);
+									clothing.setStickersAsObjects(dyePreviewStickers);
+									clothing.setColours(dyePreviews);
+									clothing.setColours(dyePreviews);
+								});
+						Main.game.addEvent(new EventLogEntry("Dyed", dyedClothing.getDisplayName(true)), false);
 					}
 				};
 
@@ -7061,32 +7040,22 @@ public class InventoryDialogue {
 												+" of the " + clothing.getNamePlural() + " without needing to use a single dye-brush!"
 										+ "</p>");
 						}
-						
-						if(owner!=null) {
-							for(AbstractClothing c : clothingMatches) {
-								int clothingCount = owner.getAllClothingInInventory().get(c);
-								owner.removeClothing(c, clothingCount);
-								AbstractClothing dyedClothing = new AbstractClothing(c) {};
-								dyedClothing.setColours(dyePreviews);
-								dyedClothing.setPattern(dyePreviewPattern);
-								dyedClothing.setPatternColours(dyePreviewPatterns);
-								dyedClothing.setStickersAsObjects(dyePreviewStickers);
-								owner.addClothing(dyedClothing, clothingCount, false, false);
-								Main.game.addEvent(new EventLogEntry("Dyed", dyedClothing.getDisplayName(true)), false);
-							}
-							
-						} else {
-							for(AbstractClothing c : clothingMatches) {
-								int clothingCount = Main.game.getPlayerCell().getInventory().getAllClothingInInventory().get(c);
-								Main.game.getPlayerCell().getInventory().removeClothing(c, clothingCount);
-								AbstractClothing dyedClothing = new AbstractClothing(c) {};
-								dyedClothing.setColours(dyePreviews);
-								dyedClothing.setPattern(dyePreviewPattern);
-								dyedClothing.setPatternColours(dyePreviewPatterns);
-								dyedClothing.setStickersAsObjects(dyePreviewStickers);
-								Main.game.getPlayerCell().getInventory().addClothing(dyedClothing, clothingCount);
-								Main.game.addEvent(new EventLogEntry("Dyed", dyedClothing.getDisplayName(true)), false);
-							}
+
+						CharacterInventory inventory = (owner==null?Main.game.getPlayerCell().getInventory():owner.getInventory());
+						for(AbstractClothing c : clothingMatches) {
+							int clothingCount = owner.getAllClothingInInventory().get(c);
+							AbstractClothing dyedClothing = inventory.modifyClothing(clothing,
+									clothingCount,
+									clothing ->{
+										clothing.setColours(dyePreviews);
+										clothing.setPattern(dyePreviewPattern);
+										clothing.setPatternColours(dyePreviewPatterns);
+										clothing.setStickersAsObjects(dyePreviewStickers);
+										clothing.setColours(dyePreviews);
+										clothing.setColours(dyePreviews);
+									});
+							Main.game.addEvent(new EventLogEntry("Dyed", dyedClothing.getDisplayName(true)), false);
+
 						}
 					}
 				};
@@ -7202,14 +7171,15 @@ public class InventoryDialogue {
 						INVENTORY_MENU){
 					@Override
 					public void effects(){
-						Main.game.getPlayerCell().getInventory().removeClothing(clothing);
-						AbstractClothing dyedClothing = new AbstractClothing(clothing) {};
-						dyedClothing.setColours(dyePreviews);
-						dyedClothing.setPattern(dyePreviewPattern);
-						dyedClothing.setPatternColours(dyePreviewPatterns);
-						dyedClothing.setStickersAsObjects(dyePreviewStickers);
+						AbstractClothing dyedClothing = Main.game.getPlayerCell().getInventory().modifyClothing(clothing,
+								clothing ->{
+									clothing.setColours(dyePreviews);
+									clothing.setPattern(dyePreviewPattern);
+									clothing.setPatternColours(dyePreviewPatterns);
+									clothing.setStickersAsObjects(dyePreviewStickers);
+									clothing.setColours(dyePreviews);
+									clothing.setColours(dyePreviews);});
 						clothing = dyedClothing;
-						Main.game.getPlayerCell().getInventory().addClothing(dyedClothing);
 					}
 				};
 
@@ -7323,23 +7293,14 @@ public class InventoryDialogue {
 										+ "Thanks to your proficiency with [style.boldEarth(Earth spells)], you are able to dye the " + weapon.getName() + " without needing to use a dye-brush!"
 									+ "</p>");
 						}
-						 
-						if(owner!=null) {
-							owner.removeWeapon(weapon);
-							AbstractWeapon dyedWeapon = Main.game.getItemGen().generateWeapon(weapon);
-							dyedWeapon.setColours(dyePreviews);
-							owner.addWeapon(dyedWeapon, false);
-							Main.game.addEvent(new EventLogEntry("Dyed", dyedWeapon.getDisplayName(true)), false);
-							weapon = dyedWeapon;
 
-						} else {
-							Main.game.getPlayerCell().getInventory().removeWeapon(weapon);
-							AbstractWeapon dyedWeapon = Main.game.getItemGen().generateWeapon(weapon);
-							dyedWeapon.setColours(dyePreviews);
-							Main.game.getPlayerCell().getInventory().addWeapon(dyedWeapon);
-							Main.game.addEvent(new EventLogEntry("Dyed", dyedWeapon.getDisplayName(true)), false);
-							weapon = dyedWeapon;
-						}
+						CharacterInventory inventory = (owner==null?Main.game.getPlayerCell().getInventory():owner.getInventory());
+						AbstractWeapon dyedWeapon = inventory.modifyWeapon(weapon,
+								weapon -> {
+									weapon.setColours(dyePreviews);
+								});
+						Main.game.addEvent(new EventLogEntry("Dyed", dyedWeapon.getDisplayName(true)), false);
+						weapon = dyedWeapon;
 					}
 				};
 
@@ -7558,21 +7519,16 @@ public class InventoryDialogue {
 												+" of the " + weapon.getNamePlural() + " without needing to use a single dye-brush!"
 										+ "</p>");
 						}
-						
-						if(owner!=null) {
-							owner.removeWeapon(weapon, finalCount);
-							AbstractWeapon dyedWeapon = Main.game.getItemGen().generateWeapon(weapon);
-							dyedWeapon.setColours(dyePreviews);
-							owner.addWeapon(dyedWeapon, finalCount, false, false);
-							Main.game.addEvent(new EventLogEntry("Dyed", dyedWeapon.getDisplayName(true)), false);
 
-						} else {
-							Main.game.getPlayerCell().getInventory().removeWeapon(weapon, finalCount);
-							AbstractWeapon dyedWeapon = Main.game.getItemGen().generateWeapon(weapon);
-							dyedWeapon.setColours(dyePreviews);
-							Main.game.getPlayerCell().getInventory().addWeapon(dyedWeapon, finalCount);
-							Main.game.addEvent(new EventLogEntry("Dyed", dyedWeapon.getDisplayName(true)), false);
-						}
+						CharacterInventory inventory = (owner==null?Main.game.getPlayerCell().getInventory():owner.getInventory());
+						AbstractWeapon dyedWeapon = inventory.modifyWeapon(weapon,
+								finalCount,
+								weapon -> {
+									weapon.setColours(dyePreviews);
+								});
+						Main.game.addEvent(new EventLogEntry("Dyed", dyedWeapon.getDisplayName(true)), false);
+
+						Main.game.addEvent(new EventLogEntry("Dyed", dyedWeapon.getDisplayName(true)), false);
 					}
 				};
 
@@ -7855,27 +7811,17 @@ public class InventoryDialogue {
 												+" of the " + weapon.getNamePlural() + " without needing to use a single dye-brush!"
 										+ "</p>");
 						}
-						
 
-						if(owner!=null) {
-							for(AbstractWeapon w : weaponMatches) {
-								int weaponCount = owner.getAllWeaponsInInventory().get(w);
-								owner.removeWeapon(w, weaponCount);
-								AbstractWeapon dyedWeapon = Main.game.getItemGen().generateWeapon(w);
-								dyedWeapon.setColours(dyePreviews);
-								owner.addWeapon(dyedWeapon, weaponCount, false, false);
-								Main.game.addEvent(new EventLogEntry("Dyed", dyedWeapon.getDisplayName(true)), false);
-							}
-							
-						} else {
-							for(AbstractWeapon w : weaponMatches) {
-								int weaponCount = Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().get(w);
-								Main.game.getPlayerCell().getInventory().removeWeapon(w, weaponCount);
-								AbstractWeapon dyedWeapon = Main.game.getItemGen().generateWeapon(w);
-								dyedWeapon.setColours(dyePreviews);
-								Main.game.getPlayerCell().getInventory().addWeapon(dyedWeapon, weaponCount);
-								Main.game.addEvent(new EventLogEntry("Dyed", dyedWeapon.getDisplayName(true)), false);
-							}
+
+						CharacterInventory inventory = (owner==null?Main.game.getPlayerCell().getInventory():owner.getInventory());
+						for(AbstractWeapon w : weaponMatches) {
+							int weaponCount = owner.getAllWeaponsInInventory().get(w);
+							AbstractWeapon dyedWeapon = inventory.modifyWeapon(weapon,
+									weaponCount,
+									weapon -> {
+										weapon.setColours(dyePreviews);
+									});
+							Main.game.addEvent(new EventLogEntry("Dyed", dyedWeapon.getDisplayName(true)), false);
 						}
 					}
 				};
