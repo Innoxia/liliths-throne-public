@@ -47,14 +47,14 @@
 	]]></criticalCondition>
 	<criticalDescription><![CDATA[]]></criticalDescription>
 	<movePredictionDescriptionWithTarget><![CDATA[
-		Launch a spray of latex tendrils at [npc2.name]!
+		Launch entangling vines at [npc2.name]!
 		formattedDamageInflicted
 		#IF(npc.isVisiblyPregnant())
 			 [style.italicsGood(Deals heals some damage!)]
 		#ENDIF
 	]]></movePredictionDescriptionWithTarget>
 	<movePredictionDescriptionNoTarget><![CDATA[
-		Launch a spray of latex tendrils!
+		Launch entangling vines!
 		formattedDamageInflicted
 		#IF(npc.isVisiblyPregnant())
 			 [style.italicsGood(Absorbs some essence!)]
