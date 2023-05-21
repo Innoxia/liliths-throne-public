@@ -23,12 +23,11 @@ public class InventoryClothingComparator implements Comparator<AbstractClothing>
 		} else if(!first.isEnchantmentKnown() && second.isEnchantmentKnown()) {
 			return 1;
 		}
-
+		
 		int result = first.getRarity().compareTo(second.getRarity());
 
 		if (result != 0) {
 			return result;
-
 		} else {
 			// If rarity is equal, sort by set type:
 			int resultSet = first.getClothingType().getClothingSet()==second.getClothingType().getClothingSet()
@@ -50,15 +49,12 @@ public class InventoryClothingComparator implements Comparator<AbstractClothing>
 			} else {
 				if(first.getColour(0)!=null) {
 					if(second.getColour(0)!=null) {
-						result = first.getColour(0).getName().compareTo(second.getColour(0).getName());
-						if(result!=0){
-							return result;
-						}
+						return first.getColour(0).getName().compareTo(second.getColour(0).getName());
 					} else {
 						return 1;
 					}
 				}
-				return (int) Math.signum(first.hashCode());//0
+				return 0;
 			}
 		}
 	}
