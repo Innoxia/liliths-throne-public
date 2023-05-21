@@ -2068,7 +2068,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			return;
 		}
 		if(owner!=null) {
-			owner.modifyClothing(this, c -> c.dirty = dirty);
+			owner.getInventory().modifyClothing(this, c -> c.dirty = dirty);
 		} else {
 			this.dirty = dirty;
 		}
@@ -2091,7 +2091,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		StringBuilder sb = new StringBuilder();
 
 		if(owner!=null) {
-			enchantmentRemovedClothing = owner.modifyClothing(this, c -> c.enchantmentKnown = enchantmentKnown);
+			enchantmentRemovedClothing = owner.getInventory().modifyClothing(this, c -> c.enchantmentKnown = enchantmentKnown);
 		} else {
 			this.enchantmentKnown = enchantmentKnown;
 		}

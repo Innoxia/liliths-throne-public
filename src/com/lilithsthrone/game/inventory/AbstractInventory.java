@@ -49,7 +49,7 @@ class AbstractInventory<T extends AbstractCoreItem, U extends AbstractCoreType> 
 	}
 
 	public void transform(Function<T, T> transformFunction) {
-		TreeMap<T, Integer> oldMap = new TreeMap<>(duplicateCounts);
+		HashMap<T, Integer> oldMap = new HashMap<>(duplicateCounts);
 		duplicateCounts.clear();
 
 		for(Map.Entry<T, Integer> e : oldMap.entrySet()) {
