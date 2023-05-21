@@ -21693,6 +21693,10 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		this.inventory = new CharacterInventory(0);
 	}
+
+    public void sortInventory() {
+        inventory.sortInventory();
+    }
 	
 	public int getEnchantmentPointsUsedFromWeapons() {
 		int count = 0;

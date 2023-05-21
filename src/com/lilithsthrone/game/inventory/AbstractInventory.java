@@ -12,18 +12,18 @@ import java.util.function.Function;
 class AbstractInventory<T extends AbstractCoreItem, U extends AbstractCoreType> {
 	private final Comparator<T> comparator;
 	private final Function<T, U> typeRetriever;
-	private TreeMap<T, Integer> duplicateCounts;
+	private HashMap<T, Integer> duplicateCounts;
 
 	AbstractInventory(Comparator<T> comparator, Function<T, U> typeRetriever) {
 		this.comparator = comparator;
 		this.typeRetriever = typeRetriever;
-		duplicateCounts = new TreeMap<>(comparator);
+		duplicateCounts = new HashMap<>();
 	}
 
 	AbstractInventory(AbstractInventory<T, U> inventoryToCopy) {
 		this.comparator = inventoryToCopy.comparator;
 		this.typeRetriever = inventoryToCopy.typeRetriever;
-		duplicateCounts = new TreeMap<>(inventoryToCopy.duplicateCounts);
+		duplicateCounts = new HashMap<>();
 	}
 	
 	public void clear() {
@@ -32,6 +32,20 @@ class AbstractInventory<T extends AbstractCoreItem, U extends AbstractCoreType> 
 
 	boolean isEmpty() {
 		return duplicateCounts.isEmpty();
+	}
+
+	public void sort() {
+		if (duplicateCounts.size() < 2) {
+			return;
+		}
+		List<T> itemsToSort = new ArrayList<>(duplicateCounts.keySet());
+		itemsToSort.sort(comparator);
+
+		HashMap<T, Integer> newlySortedMap = new HashMap<>();
+		for(T item : itemsToSort) {
+			newlySortedMap.put(item, duplicateCounts.get(item));
+		}
+		duplicateCounts = newlySortedMap;
 	}
 
 	public void transform(Function<T, T> transformFunction) {

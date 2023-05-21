@@ -343,6 +343,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.6")) {
 			character.setGenderIdentity(character.getGender());
 		}
+
+		character.sortInventory();
 		
 		boolean newGameImport = Arrays.asList(settings).contains(CharacterImportSetting.NEW_GAME_IMPORT);
 		

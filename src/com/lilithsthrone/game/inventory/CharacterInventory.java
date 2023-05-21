@@ -546,7 +546,25 @@ public class CharacterInventory implements XMLSaving {
 	public BlockedParts getExtraBlockedParts() {
 		return extraBlockedParts;
 	}
-	
+
+	private void sortItemDuplicates() {
+		itemSubInventory.sort();
+	}
+
+	private void sortWeaponDuplicates() {
+		weaponSubInventory.sort();
+	}
+
+	public void sortClothingDuplicates() {
+		clothingSubInventory.sort();
+	}
+
+	public void sortInventory() {
+		sortItemDuplicates();
+		sortWeaponDuplicates();
+		sortClothingDuplicates();
+	}
+
 	/**
 	 * @return The value of all non-equipped items, clothing, and weapons in this inventory.
 	 */
@@ -893,12 +911,17 @@ public class CharacterInventory implements XMLSaving {
 		if(clothing==null) {
 			return false;
 		}
-		
+
 		if(canAddClothing(clothing)) {
 			clothingSubInventory.addItem(clothing, count);
+
+			if(Main.game.isStarted()) {
+				sortClothingDuplicates();
+			}
+
 			return true;
 		}
-		
+
 		return false;
 	}
 	
