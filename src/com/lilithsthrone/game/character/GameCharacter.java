@@ -1087,7 +1087,7 @@ public abstract class GameCharacter implements XMLSaving {
 			Element element = doc.createElement("f");
 			characterFetishes.appendChild(element);
 			element.setTextContent(Fetish.getIdFromFetish(f));
-			if(this.hasFetish(f)) {
+			if(this.hasFetish(f, false)) {
 				XMLUtil.addAttribute(doc, element, "o", Boolean.TRUE.toString());
 			}
 			if(this.getFetishDesireMap().containsKey(f)) {
@@ -3834,15 +3834,17 @@ public abstract class GameCharacter implements XMLSaving {
 			return getName(true);
 			
 		} else {
+			boolean showWinged = (hasWings() || isArmWings()) && !getFleshSubspecies().isWinged();
+			String nameText = (showWinged ? "winged " : "") + getName(true);
 			if(this.isUnique()) {
 				determiner = "the";
 			}
 			return (determiner.equalsIgnoreCase("a") || determiner.equalsIgnoreCase("an")
 						?(Character.isUpperCase(determiner.charAt(0))
-								?Util.capitaliseSentence(UtilText.generateSingularDeterminer(getName(true)))
-								:UtilText.generateSingularDeterminer(getName(true)))
+								?Util.capitaliseSentence(UtilText.generateSingularDeterminer(nameText))
+								:UtilText.generateSingularDeterminer(nameText))
 						:determiner)
-					+ " " + getName(true);
+					+ " " + nameText;
 		}
 	}
 
@@ -4255,6 +4257,10 @@ public abstract class GameCharacter implements XMLSaving {
 
 	public void setSurname(String surname) {
 		this.surname = surname;
+	}
+	
+	public boolean hasSurname() {
+		return this.surname!=null && this.surname.length()>0;
 	}
 	
 	/**
@@ -4823,35 +4829,29 @@ public abstract class GameCharacter implements XMLSaving {
 				&& ((this.getSubspecies().getNocturnality().isActiveAtNight() && !this.getSubspecies().getNocturnality().isActiveAtDay()) || forceDaySleep)) {
 			startSleepHourPreference = 9; // Go to bed at 9am
 		}
-		
-//		List<DayPeriod> sleepPeriods = this.getSubspecies().getNocturnality().getSleepPeriods();
-		
-		int hourIncrement = startSleepHourPreference;
-		int workBuffer = 0; // For non-slaves, add a buffer of 4 hours after work during which this character will not sleep
-		boolean worked = false;
-		do {
+
+		int middleHour = (startSleepHourPreference + (sleepNeeded/2)) % 24;
+
+		int hourIteration = -1; // Start at -1 to correctly offset middle hour
+		for(int i=0; i<24; i++) {
+			hourIteration += i * Math.pow(-1, i-1); // 0, 1, -1, 2, -2, 3, -3, etc.
+			int hourMark = middleHour + hourIteration;
+			hourMark = hourMark%24;
+			hourMark += hourMark<0?24:0;
 			boolean isAtWork = false;
-			if(this.isSlave()) {
-				isAtWork = workHours[hourIncrement]!=SlaveJob.IDLE;
+			if(this.isSlave() || !this.hasJob()) {
+				isAtWork = workHours[hourMark]!=SlaveJob.IDLE;
 			} else {
-				isAtWork = this.getOccupation().isAtWork(hourIncrement);
+				isAtWork = this.getOccupation().isAtWork(hourMark);
 			}
-			if(!isAtWork) { //  && sleepPeriods.contains(Main.game.getDayPeriodAtHour(hourIncrement))
-				if(this.isSlave() || !worked || workBuffer>4) {
-					sleepHours[hourIncrement] = true;
-					sleepNeeded--;
-				}
-				workBuffer++;
-				
-			} else {
-				worked = true;
+			if(!isAtWork) {
+				sleepHours[hourMark] = true;
+				sleepNeeded--;
 			}
-			hourIncrement++;
-			if(hourIncrement==24) {
-				hourIncrement = 0;
+			if(sleepNeeded<=0) {
+				break;
 			}
-			
-		} while (hourIncrement!=startSleepHourPreference && sleepNeeded>0);
+		}
 	}
 	
 	/**
@@ -6896,7 +6896,11 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean hasFetish(AbstractFetish fetish) {
-		return fetish.isContentEnabled() && (fetishes.contains(fetish) || fetishesFromClothing.contains(fetish));
+		return hasFetish(fetish, true);
+	}
+	
+	public boolean hasFetish(AbstractFetish fetish, boolean includeFetishesFromClothing) {
+		return fetish.isContentEnabled() && (fetishes.contains(fetish) || (includeFetishesFromClothing && fetishesFromClothing.contains(fetish)));
 	}
 	
 	/**
@@ -8876,7 +8880,7 @@ public abstract class GameCharacter implements XMLSaving {
 							ingestFluidSB.append(UtilText.parse(partner, this, "<p class='centre noPad'>[npc.Name] [style.colourCum(came on)] [npc2.namePos] "+Util.stringsToStringList(slotNames, false)+"!"));
 							if(Main.game.isMuskContentEnabled() && partner.hasCumModifier(FluidModifier.MUSKY)) {
 								this.setMuskMarker(partner.getId());
-								ingestFluidSB.append(UtilText.parse(partner, this, "<br/>[npc2.NameIsFull] marked by the musky scent of [npc.namePos] cum!"));
+								ingestFluidSB.append(UtilText.parse(partner, this, "<br/>[style.colourDirty([npc2.NameIsFull] marked by the musky scent of [npc.namePos] cum!)]"));
 							}
 							ingestFluidSB.append("</p>");
 						} else {
@@ -9378,7 +9382,7 @@ public abstract class GameCharacter implements XMLSaving {
 							ingestFluidSB.append(UtilText.parse(this, partner, "<p class='centre noPad'>[npc.Name] [style.colourCum(came on)] [npc2.namePos] "+Util.stringsToStringList(slotNames, false)+"!"));
 							if(Main.game.isMuskContentEnabled() && this.hasCumModifier(FluidModifier.MUSKY)) {
 								partner.setMuskMarker(this.getId());
-								ingestFluidSB.append(UtilText.parse(this, partner, "<br/>[npc2.NameIsFull] marked by the musky scent of [npc.namePos] cum!"));
+								ingestFluidSB.append(UtilText.parse(this, partner, "<br/>[style.colourDirty([npc2.NameIsFull] marked by the musky scent of [npc.namePos] cum!)]"));
 							}
 							ingestFluidSB.append("</p>");
 						}
@@ -15763,7 +15767,7 @@ public abstract class GameCharacter implements XMLSaving {
 										"[npc.Name] [npc.verb(let)] out a derisive laugh as [npc.she] sees [npc2.namePos] [npc2.cockSize] [npc2.cock]"));
 								if(!characterReacting.isMute() && !characterReacting.isSpeechMuffled()) {
 									if(characterBeingRevealed.getPenisRawSizeValue()<PenisLength.ONE_TINY.getMaximumValue()) {
-										if(characterBeingRevealed.getAppearsAsGender(true)!=characterBeingRevealed.getGender()) {
+										if(!characterBeingRevealed.getAppearsAsGender(true).getGenderName().isHasPenis()) {
 											sb.append(UtilText.returnStringAtRandom(
 													", [npc.speech(I didn't realise you were [npc2.a_gender]! What a cute little clitty dick you've got!)]",
 													", [npc.speech(Wait, you're [npc2.a_gender]?! What a pathetic little clitty dick you've got!)]"));
@@ -15818,7 +15822,7 @@ public abstract class GameCharacter implements XMLSaving {
 										"[npc.Name] [npc.verb(let)] out an unamused grunt as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
 										"[npc.Name] [npc.verb(let)] out a derisive grunt as [npc.she] sees that [npc2.nameHas] got [npc2.a_cockSize] [npc2.cock]"));
 								if(!characterReacting.isMute() && !characterReacting.isSpeechMuffled()) {
-									if(characterBeingRevealed.getAppearsAsGender(true)!=characterBeingRevealed.getGender()) {
+									if(!characterBeingRevealed.getAppearsAsGender(true).getGenderName().isHasPenis()) {
 										sb.append(UtilText.returnStringAtRandom(
 												", [npc.speech(Is that pathetic little thing your cock?! I didn't realise you were [npc2.a_gender]!)]",
 												", [npc.speech(Wait, you're [npc2.a_gender]?! What a pathetic excuse for a cock you've got!)]"));
@@ -15856,7 +15860,7 @@ public abstract class GameCharacter implements XMLSaving {
 									"[npc.Name] [npc.verb(fail)] to suppress a flustered [npc.moan] as [npc.she] sees that [npc2.nameHas] got [npc2.a_cockSize] [npc2.cock]",
 									"[npc.Name] [npc.verb(let)] out a surprised [npc.moan] as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
 									"[npc.Name] [npc.verb(let)] out a startled [npc.moan] as [npc.she] sees [npc2.namePos] [npc2.cockSize] [npc2.cock]"));
-							if(characterBeingRevealed.getAppearsAsGender(true)!=characterBeingRevealed.getGender()) {
+							if(!characterBeingRevealed.getAppearsAsGender(true).getGenderName().isHasPenis()) {
 								sb.append(UtilText.returnStringAtRandom(
 										", [npc.speech(Hey! I didn't realise you were [npc2.a_gender]! Well, whatever...)]",
 										", [npc.speech(Wait, you're [npc2.a_gender]?! Well, whatever...)]"));
@@ -16073,6 +16077,13 @@ public abstract class GameCharacter implements XMLSaving {
 						"[npc.speech(I'm not touching that!)]"));
 					
 			} else {
+				if(reactingPace!=SexPace.SUB_RESISTING && !characterBeingRevealed.getAppearsAsGender(true).getGenderName().isHasVagina() && !characterReacting.isKnowsCharacterArea(CoverableArea.VAGINA, characterBeingRevealed)) {
+					sb.append("[npc.Name] [npc.verb(look)] surprised as [npc.she]  [npc.verb(exclaim)], ");
+					sb.append(UtilText.returnStringAtRandom(
+							"[npc.speech(Hey! I didn't realise you were [npc2.a_gender]! Well, whatever...)]",
+							"[npc.speech(Wait, you're [npc2.a_gender]?! Well, whatever...)]"));
+					sb.append("<br/>");
+				}
 				switch(reactingPace) {
 					case DOM_GENTLE:
 						sb.append("[npc.Name] [npc.verb(let)] out a soft [npc.moan] as [npc.she] [npc.verb(see)] ");
@@ -21023,6 +21034,10 @@ public abstract class GameCharacter implements XMLSaving {
 		this.addStatusEffect(StatusEffect.THIRST_QUENCHED, 6*60*60 + (additionalMinutes*60)); // 6 hours
 	}
 	
+	/**
+	 * Only cleans inventory slots and clothing. Does not clean orifices, unlike the applyWash() method.
+	 * @param slotsToWash
+	 */
 	public void applyLimitedWash(InventorySlot... slotsToWash) {
 		for(InventorySlot slot : slotsToWash) {
 			this.removeDirtySlot(slot, true);
@@ -21034,13 +21049,15 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	/**
-	 * @param washAllOrifices
-	 * @param cleanAllClothing
+	 * Cleans dirty slots, equipped clothing, and washes orifices.
+	 * 
+	 * @param washAllOrifices Pass in true to completely drain all fluids from all orifices.
+	 * @param cleanNonEquippedClothing
 	 * @param effect Should be SHOWER, BATH, or BATH_BOOSTED
 	 * @param statusEffectMinutes Default value should probably be 8*60
 	 * @return A description of the wash.
 	 */
-	public String applyWash(boolean washAllOrifices, boolean cleanAllClothing, AbstractStatusEffect effect, int statusEffectMinutes) {
+	public String applyWash(boolean washAllOrifices, boolean cleanNonEquippedClothing, AbstractStatusEffect effect, int statusEffectMinutes) {
 		StringBuilder sb = new StringBuilder();
 		
 		this.setHealth(this.getAttributeValue(Attribute.HEALTH_MAXIMUM));
@@ -21049,7 +21066,7 @@ public abstract class GameCharacter implements XMLSaving {
 		sb.append(this.washAllOrifices(washAllOrifices));
 		this.calculateStatusEffects(0);
 		this.cleanAllDirtySlots(true);
-		sb.append(this.cleanAllClothing(cleanAllClothing, true));
+		sb.append(this.cleanAllClothing(cleanNonEquippedClothing, true));
 		
 		if(effect!=null) {
 			this.removeStatusEffect(StatusEffect.CLEANED_SHOWER);
@@ -25227,6 +25244,14 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	/**
+	 * Get the subspecies which this character appears to be if they were made of flesh.
+	 * @return The subspecies.
+	 */
+	public AbstractSubspecies getFleshSubspecies() {
+		return body.getFleshSubspecies();
+	}
+
+	/**
 	 * @return This character's true subspecies. If this character does not have a subspecies override, this will be the same as getSubspecies(). If they do have an override, however, it will return that override.
 	 */
 	public AbstractSubspecies getTrueSubspecies() {
@@ -25551,6 +25576,16 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	// Tattoos, scars, and lipstick markings:
+	
+	public void clearTattoos() {
+		for(InventorySlot slot : InventorySlot.values()) {
+			Tattoo tattoo = tattoos.get(slot);
+			if(tattoo!=null) {
+				applyUnequipTattooEffects(tattoo);
+				tattoos.remove(slot);
+			}
+		}
+	}
 	
 	public void clearTattoosAndScars() {
 		for(InventorySlot slot : InventorySlot.values()) {

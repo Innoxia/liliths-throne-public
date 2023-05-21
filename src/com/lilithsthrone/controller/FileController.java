@@ -493,16 +493,18 @@ public class FileController {
 			id = "LOAD_"+fileIdentifier;
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					if (!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || BodyChanging.loadConfirmationName.equals(f.getName())) {
-						BodyChanging.loadConfirmationName = "";
-						Body loadedBody = BodyChanging.loadBody(fileName);
-						BodyChanging.applyLoadedBody(loadedBody);
-						Main.game.setContent(new Response("Save/Load", "Open the save/load transformation window.", BodyChanging.BODY_CHANGING_CORE));
-					} else {
-						BodyChanging.overwriteConfirmationName = "";
-						BodyChanging.loadConfirmationName = f.getName();
-						BodyChanging.deleteConfirmationName = "";
-						Main.game.setContent(new Response("Save/Load", "Open the save/load transformation window.", BodyChanging.BODY_CHANGING_SAVE_LOAD));
+					Body loadedBody = BodyChanging.loadBody(fileName);
+					if(BodyChanging.isPresetTransformationAvailable(loadedBody)) {
+						if (!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || BodyChanging.loadConfirmationName.equals(f.getName())) {
+							BodyChanging.loadConfirmationName = "";
+							BodyChanging.applyLoadedBody(loadedBody);
+							Main.game.setContent(new Response("Save/Load", "Open the save/load transformation window.", BodyChanging.BODY_CHANGING_CORE));
+						} else {
+							BodyChanging.overwriteConfirmationName = "";
+							BodyChanging.loadConfirmationName = f.getName();
+							BodyChanging.deleteConfirmationName = "";
+							Main.game.setContent(new Response("Save/Load", "Open the save/load transformation window.", BodyChanging.BODY_CHANGING_SAVE_LOAD));
+						}
 					}
 				}, false);
 				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Load",

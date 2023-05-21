@@ -101,7 +101,7 @@
 		Unlocking a safe beneath the counter, the clerk produces a small, plastic card. After writing the name of Lilaya's mother, Lyssieth, onto a dotted line which asks for the bearer's lilin lineage, she strikes a line through the expiry date, explaining, [style.speechFeminineHeavy(Platinum cards no longer expire; we stopped requiring renewals after several of Lunette's daughters registered a rather forceful complaint...)]
 	</p>
 	<p>
-		Producing a glowing purple stamp from out of the unlocked safe, the clerk asks you to place its pentagram mark onto the card three times. After doing so, you return the stamp to the clerk as she explains, [style.speechFeminineHeavy(Show this card to the clerk at the door to the VIP area, and you'll be given access to the deposit boxes. Any items which you place into the box will be automatically teleported to any of our other branches when your card's presence is detected there. We have branches in Elis, Thinis, Itza'aak, and Lyonesse. Your flames, as well as any interest earned, can also be deposited or retrieved from any branch. Thank you for opening an account with us today, [pc.miss] [pc.surname].)]
+		Producing a glowing purple stamp from out of the unlocked safe, the clerk asks you to place its pentagram mark onto the card three times. After doing so, you return the stamp to the clerk as she explains, [style.speechFeminineHeavy(Show this card to the clerk at the door to the VIP area, and you'll be given access to the deposit boxes. Any items which you place into the box will be automatically teleported to any of our other branches when your card's presence is detected there. We have branches in Elis, Thinis, Itza'aak, and Lyonesse. Your flames, as well as any interest earned, can also be deposited or retrieved from any branch. Thank you for opening an account with us today, #IF(pc.hasSurname())[pc.miss] [pc.surname]#ELSE[pc.sir]#ENDIF.)]
 	</p>
 	<p>
 		With that, the clerk hands you your card, apologising once again for making you wait as she does so.
@@ -161,7 +161,7 @@
 		Although large, the circular room you find yourself standing in is a lot smaller than the bank's foyer. With polished marble flooring underfoot, and sculptures and paintings lining the walls, it's no less grand that the other areas of the bank. As you [pc.walk] forwards, you see that a pair of clerks, both succubi, are standing behind a long marble desk in the middle of the room.
 	</p>
 	<p>
-		[style.speechFeminineHeavy(Please let us know if you require any assistance, [pc.miss],)] they say in unison as you approach. Clearly having been made aware of who you are via some kind of detection spell placed upon your platinum account card, they direct you towards one of several alcoves set into the room's curving wall.
+		[style.speechFeminineHeavy(Please let us know if you require any assistance, [pc.sir],)] they say in unison as you approach. Clearly having been made aware of who you are via some kind of detection spell placed upon your platinum account card, they direct you towards one of several alcoves set into the room's curving wall.
 	</p>
 	<p>
 		[pc.Stepping] into the alcove, you pull shut a curtain behind you, before turning your attention to the large deposit boxes lining the wall before you. Detecting your card, one of them swings open for you, granting you access to your private stash of items and flames. An arcane enchantment projects a series of purple letters into the air above your deposit box, which lets you know that you have

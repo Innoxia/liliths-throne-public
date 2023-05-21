@@ -360,6 +360,10 @@ public class DominionPark {
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Natalya.class), SexSlotStanding.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.PERFORMING_ORAL))) {
 							@Override
+							public boolean isPublicSex() {
+								return false;
+							}
+							@Override
 							public SexControl getSexControl(GameCharacter character) {
 								if(character.isPlayer()) {
 									return SexControl.ONGOING_ONLY;

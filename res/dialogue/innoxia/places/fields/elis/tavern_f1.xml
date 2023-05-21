@@ -257,7 +257,7 @@
 				<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_f1', 'ROOM_PLAYER_BATH'))]
-					[#game.appendToTextStartStringBuilder(pc.applyWash(true, false, SE_CLEANED_BATH, 240+30))]
+					[#game.appendToTextStartStringBuilder(pc.applyWash(true, true, SE_CLEANED_BATH, 240+30))]
 				]]></effects>
 			</response>
 		</responses>

@@ -2848,8 +2848,8 @@ public class ImpFortressDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Stand aside",
-						UtilText.parse(getBoss(), "Stand aside to allow [npc.name] and [npc.her] imps to leave without a fight."),
+				return new Response("Let him leave",
+						UtilText.parse(getBoss(), "Allow [npc.name] and [npc.her] imps to leave without a fight."),
 						KEEP_MALES_TAMESHIGIRI_ALLOW_TO_LEAVE) {
 					@Override
 					public void effects() {
@@ -2857,11 +2857,6 @@ public class ImpFortressDialogue {
 						clearFortress();
 					}
 				};
-				
-			} else if(index==2) {
-				return new ResponseCombat("Fight", UtilText.parse(getBoss(), "Don't let [npc.name] and [npc.her] imps escape so easily!"),
-						(NPC) getBoss(),
-						getImpBossGroup(true), null);
 			}
 			return null;
 		}

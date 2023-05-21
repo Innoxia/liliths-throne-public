@@ -1622,6 +1622,7 @@ public class OccupancyUtil implements XMLSaving {
 								"While working in the kitchen, [npc1.name] saw [npc2.name] enter the pantry alone,"
 										+ " and couldn't resist following [npc2.herHim] inside, before locking the door and having some "+paceName+" sex with [npc2.herHim].")
 								+ "<br/>[style.italicsSex("+sexDescription+")]");
+				break;
 			case GARDEN:
 				descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
 								"[npc1.Name] pulled [npc2.name] behind one of the bushes in the garden, before having some "+paceName+" sex with [npc2.herHim].")

@@ -260,7 +260,7 @@
 		[npc.speech(Well, I was, until now. If I give you one of the keys needed to get inside that place, you'll agree to let me leave with my honour intact. Deal?)] [npc.name] offers, reaching into a hidden pocket of [npc.her] hakama and producing a thick steel key, which, despite its considerable girth, is no more than five inches in length. Throwing it to you, [npc.name] continues, [npc.speech(There's no need for us to fight. You've already proven you're a foe beyond my level.)]
 	</p>
 	<p>
-		You don't believe for one moment that [npc.name] intends to leave and never return, and you doubt that even beating [npc.herHim] in combat would change that...
+		You don't believe for one moment that [npc.name] intends to leave and never return, but you're also sure that beating [npc.herHim] in combat wouldn't achieve anything...
 	</p>
 	]]>
 	</htmlContent>
@@ -315,11 +315,6 @@
 	</p>
 	]]>
 	</htmlContent>
-	
-	
-	
-	
-	
 	
 	
 	
@@ -446,7 +441,7 @@
 	
 	<htmlContent tag="KEEP_AFTER_COMBAT_VICTORY_KEY"><![CDATA[
 	<p>
-		You let out a relived sigh as [npc.name] and [npc.her] guards slump down onto the floor before you, defeated. Stepping forwards, you look down at the [npc.race] and ask, [pc.speech(Why do you do this? Getting all those imps to attack people in Submission, I mean.)]
+		You let out a relieved sigh as [npc.name] and [npc.her] guards slump down onto the floor before you, defeated. Stepping forwards, you look down at the [npc.race] and ask, [pc.speech(Why do you do this? Getting all those imps to attack people in Submission, I mean.)]
 	</p>
 	<p>
 		[npc.speech(She told us to...)] [npc.name] pants. [npc.speech(Our leader, the Dark Siren... She said we need to assert dominance... You've probably already seen it, seeing as you're here... That citadel in the middle of Submission's tunnels. That's where she is...)]
@@ -462,7 +457,7 @@
 	
 	<htmlContent tag="KEEP_AFTER_COMBAT_VICTORY"><![CDATA[
 	<p>
-		You let out a relived sigh as [npc.name] and [npc.her] guards slump down onto the floor before you, defeated. Stepping forwards, you look down at the [npc.race] and ask, [pc.speech(Why did you come back? I told you to stay away from here!)]
+		You let out a relieved sigh as [npc.name] and [npc.her] guards slump down onto the floor before you, defeated. Stepping forwards, you look down at the [npc.race] and ask, [pc.speech(Why did you come back? I told you to stay away from here!)]
 	</p>
 	<p>
 		[npc.speech(The Dark Siren... )] [npc.name] pants. [npc.speech(She said I had to...)]
@@ -478,7 +473,7 @@
 	
 	<htmlContent tag="KEEP_AFTER_COMBAT_VICTORY_DS_DEFEATED"><![CDATA[
 	<p>
-		You let out a relived sigh as [npc.name] and [npc.her] guards slump down onto the floor before you, defeated. Stepping forwards, you look down at the [npc.race] and ask, [pc.speech(Why did you come back? I told you to stay away from here!)]
+		You let out a relieved sigh as [npc.name] and [npc.her] guards slump down onto the floor before you, defeated. Stepping forwards, you look down at the [npc.race] and ask, [pc.speech(Why did you come back? I told you to stay away from here!)]
 	</p>
 	<p>
 		[npc.speech(The Dark Siren will return... )] [npc.name] pants. [npc.speech(So I need to carry out her last orders...)]

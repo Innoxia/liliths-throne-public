@@ -119,6 +119,9 @@ public class Scarlett extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.20")) {
 			this.setSkinCovering(new Covering(BodyCoveringType.HARPY_SKIN, PresetColour.SKIN_EBONY), false);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.8.2") && (!this.isSlave() || !this.getOwner().isPlayer())) {
+			this.clearTattoosAndScars();
+		}
 	}
 
 	@Override
@@ -437,6 +440,7 @@ public class Scarlett extends NPC {
 		this.endPregnancy(true);
 		this.equipClothing();
 		this.getPetNameMap().remove(Main.game.getPlayer().getId());
+		this.clearTattoosAndScars();
 	}
 	
 	public void applyFeminisation() {

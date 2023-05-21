@@ -625,7 +625,7 @@
 					#ENDIF
 				</p>
 				<p>
-					[com.Name] smiles back at [npc.name], before confirming that [npc.sheIs] the one who got [com.herHim] pregnant. Stepping forwards, [npc.name] places one of [npc.her] [npc.hands] on [com.her] belly, smiling happily as [npc.she] tells [com.name] to take care of their children.
+					You smile back at [npc.name], before confirming that [npc.sheIs] the one who got you pregnant. Stepping forwards, [npc.name] places one of [npc.her] [npc.hands] on your belly, smiling happily as [npc.she] tells you to take care of your children.
 				</p>
 			#ELSE
 				<p>
