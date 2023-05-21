@@ -22,7 +22,6 @@
 	<aquatic><![CDATA[LAND]]></aquatic>
 	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
 	<weatherImmunities immuneToAll="true"/>
-
 	<applyInventoryInit/>
 	
 </placeType>

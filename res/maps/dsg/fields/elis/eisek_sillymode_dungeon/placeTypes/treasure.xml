@@ -4,19 +4,13 @@
 	<worldRegion>FIELD_CITY</worldRegion>	
 	<name><![CDATA[Treasure Room]]></name>
 	<tooltipDescription><![CDATA[An antique wooden chest lies in the middle of this room.]]></tooltipDescription>
-	<virginityLossDescription><![CDATA[in the treasure room of a strange basement]]></virginityLossDescription>
-	
+	<virginityLossDescription><![CDATA[in the treasure room of a strange basement]]></virginityLossDescription>	
 	<sexBlockedFromCharacterPresent>false</sexBlockedFromCharacterPresent>
 	
-	<!-- The file name of the svg image which should be used for this place type's icon.
-	If you leave this blank, or omit it entirely, then the game will look for an svg file of the same name as this file within the same folder (i.e. 'entry_east.svg').
-		Failing to find an svg image of that name, then this place type will not have an image associated with it.
-	This can be useful for if there are several types of place type which all want to use the same svg, but you don't want to copy+paste the same svg and rename it for each place type.
-	This place does not have an svg associated with it, but if you wanted to add one, then define it like so (*without* the '.svg' on the end):
-		<svgName>your_file_name</svgName> -->
-	<svgName/>
+	<svgName>chest</svgName>	
 	<colour>BASE_WHITE</colour>
 	<backgroundColour>BASE_BLUE</backgroundColour>
+	
 	<encounterType>null</encounterType>
 
 	<dialogue>dsg_places_fields_elis_eisek_sillymode_dungeon_treasure</dialogue>
@@ -28,7 +22,6 @@
 	<aquatic><![CDATA[LAND]]></aquatic>
 	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
 	<weatherImmunities immuneToAll="true"/>
-
 	<applyInventoryInit/>
 	
 </placeType>
