@@ -3,7 +3,6 @@ package com.lilithsthrone.utils.comparators;
 import java.util.Comparator;
 
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.66
@@ -14,20 +13,20 @@ public class InventoryClothingComparator implements Comparator<AbstractClothing>
 
 	@Override
 	public int compare(AbstractClothing first, AbstractClothing second) {
-
 		// Sort by enchantment known status above all else:
 		if(!first.isEnchantmentKnown() && !second.isEnchantmentKnown()) {
-			return 0;//0
+			return 0;
 		} else if(first.isEnchantmentKnown() && !second.isEnchantmentKnown()) {
 			return -1;
 		} else if(!first.isEnchantmentKnown() && second.isEnchantmentKnown()) {
 			return 1;
 		}
-		
+
 		int result = first.getRarity().compareTo(second.getRarity());
 
 		if (result != 0) {
 			return result;
+
 		} else {
 			// If rarity is equal, sort by set type:
 			int resultSet = first.getClothingType().getClothingSet()==second.getClothingType().getClothingSet()
