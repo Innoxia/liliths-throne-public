@@ -38,7 +38,7 @@
 	The cloaked human raises the orb and begins some kind of incantation. [test.speechMasculine(O Orb of Mystic Fate, scryer of all, burn a path through-)] [test.speechFeminine(Sweetie! I brought your retainer!)]
 </p>
 <p>
-	The unknown, mature, feminine voice emanates from above you, interrupting the incantation. A hatch in the ceiling opens, allowing a blinding light to flood the room. You can only see the faintest outline of a biped in the light. [test.speechFeminine(Tell your friends goodbye, you can play more tomorrow,)] the voice continues.
+	The unknown, mature, feminine voice emanates from above you, interrupting the incantation. A hatch in the ceiling opens, allowing a blinding light to flood the room. You can only see the faintest outline of a bipedal form in the light. [test.speechFeminine(Tell your friends goodbye, you can play more tomorrow,)] the voice continues.
 </p>
 <p>
 	The cloaked figure attempts to bargain, [test.speechMasculine(Aww, but Mum, we were just starting the boss battle.)] His attempt is immediately shut down. [test.speechMasculine(Don't you talk to your mother like that, young man! Get back up here this instant,)] the voice shoots back. [test.speechMasculine(Uuugh, fine. You never let me do anything fun,)] he says, placing the black orb back onto the pedestal and taking the ladder out of the basement. The hatch slams shut and you're left in darkness again.

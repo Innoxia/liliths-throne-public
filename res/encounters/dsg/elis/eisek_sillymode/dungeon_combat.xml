@@ -8,7 +8,7 @@
 		<encounter>
 			<name><![CDATA[A Cardboard Warrior]]></name>
 			<chanceToTrigger opportunisticEncounter="false"><![CDATA[
-				20
+				15
 			]]></chanceToTrigger>
 			<dialogueReturned><![CDATA[dsg_encounters_fields_elis_eisek_sillymode_dungeon_combat]]></dialogueReturned>
 		</encounter>

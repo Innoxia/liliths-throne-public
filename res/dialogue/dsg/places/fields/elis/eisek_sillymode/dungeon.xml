@@ -317,4 +317,65 @@
 			
 	</scene>
 	
+	<scene id ="exit">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Dungeon Exit]]></title>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">EXIT</content>
+		<secondsPassed minutes="false"><![CDATA[1]]></secondsPassed>
+		<continuesDialogue><![CDATA[false]]></continuesDialogue>
+		<travelDisabled><![CDATA[false]]></travelDisabled>
+		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+	
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Exit]]></responseTitle>
+				<responseTooltip><![CDATA[
+					You've had just about enough of this silly place.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					dsg_places_fields_elis_eisek_sillymode_dungeon_exit_taken
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_SILLYMODE, QUEST_SIDE_UTIL_COMPLETE))]
+				]]></effects>
+			</response>
+		</responses>
+			
+	</scene>
+	
+	<scene id ="exit">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Fresh Air]]></title>
+		<preParsingEffects><![CDATA[
+		[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_eisek_sillymode_dungeon_entrance)]
+		[#game.getPlayerCell().getPlace().setPlaceType(PLACE_TYPE_innoxia_fields_elis_town_street)]		[#game.getPlayerCell().getPlace().setName(PLACE_TYPE_innoxia_fields_elis_town_street.getName())]
+		]]></preParsingEffects>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">EXIT_TAKEN</content>
+		<secondsPassed minutes="false"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue><![CDATA[true]]></continuesDialogue>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
+		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+	
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Eisek isn't going to believe this, nor anyone else for that matter.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					default
+				]]></nextDialogue>
+				<effects/>
+			</response>
+		</responses>
+			
+	</scene>
+	
 </dialogueNodes>
