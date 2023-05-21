@@ -737,6 +737,7 @@ public class CharacterInventory implements XMLSaving {
 		if(weapon==null) {
 			return false;
 		}
+		System.err.println("weapon add: " + weapon.getName());
 		
 		if(canAddWeapon(weapon)) {
 			weaponSubInventory.addItem(weapon, count);
@@ -2358,6 +2359,7 @@ public class CharacterInventory implements XMLSaving {
 		if(count == -1){
 			count = 999_999_999;
 		}
+		System.err.println("removing " + count + " weapon(s)");
 
 		if(item instanceof AbstractClothing){
 			if(getClothingCurrentlyEquipped().contains((AbstractClothing) item)) {
@@ -2377,7 +2379,6 @@ public class CharacterInventory implements XMLSaving {
 			}
 		} else if (item instanceof AbstractWeapon){
 
-			modification.accept((T) item);
 			//currently equipped
 			for(int i = 0; i < getMainWeaponArray().length; i++){
 				if(item.equals(getMainWeaponArray()[i])){
@@ -2393,20 +2394,22 @@ public class CharacterInventory implements XMLSaving {
 			}
 			if(removeWeapon((AbstractWeapon) item, count)) {
 				AbstractWeapon w = Main.game.getItemGen().generateWeapon((AbstractWeapon) item);
-				modification.accept((T) item);
+				modification.accept((T) w);
+
 				addWeapon(w, count);
 				return (T) w;
 
 			} else {
+ 
 				modification.accept((T) item);
 				return (T) item;
 			}
 		} else if (item instanceof AbstractItem){
 			if(removeItem((AbstractItem) item, count)) {
-				AbstractItem w = Main.game.getItemGen().generateItem((AbstractItem) item);
-				modification.accept((T) item);
-				addItem(w, count);
-				return (T) w;
+				AbstractItem i = Main.game.getItemGen().generateItem((AbstractItem) item);
+				modification.accept((T) i);
+				addItem(i, count);
+				return (T) i;
 
 			} else {
 				modification.accept((T) item);

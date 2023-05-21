@@ -1,9 +1,11 @@
 package com.lilithsthrone.utils.comparators;
 
 import java.util.Comparator;
+import java.util.List;
 
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 
 /**
  * @since 0.1.66
@@ -77,7 +79,7 @@ public class InventoryClothingComparator implements Comparator<AbstractClothing>
 		}
 
 		//overhauled comparation:
-		//!enchant>z-layer>rarity>alphabetical
+		//!enchant->rarity->z-layer->alphabetical->type->color->enchants
 
 		if(first.isEnchantmentKnown() && !second.isEnchantmentKnown()) {
 			return 1;
@@ -86,11 +88,12 @@ public class InventoryClothingComparator implements Comparator<AbstractClothing>
 		}
 		//both are known/unknown
 
-		int result = (int) Math.signum(getClothingOrder(second.getClothingType().getEquipSlots().get(0)) - getClothingOrder(first.getClothingType().getEquipSlots().get(0)));
+		int result = -first.getRarity().compareTo(second.getRarity());
 
 		if(result == 0){
 
-			result = first.getRarity().compareTo(second.getRarity());
+			result =(int) Math.signum(getClothingOrder(second.getClothingType().getEquipSlots().get(0)) - getClothingOrder(first.getClothingType().getEquipSlots().get(0)));
+
 			if(result == 0){
 
 				result = first.getName().compareTo(second.getName());
@@ -104,17 +107,47 @@ public class InventoryClothingComparator implements Comparator<AbstractClothing>
 
 								result = first.getColour(0).getName().compareTo(second.getColour(0).getName());
 								if(result == 0){
-									//should be 0 but for the sake or brevity let's leave it at that
-									return (int) -Math.signum(first.hashCode()-second.hashCode());
-									//return 0;
+
+									if(!first.getEffects().isEmpty()) {
+										if(!second.getEffects().isEmpty()) {
+
+											if(second.getEffects().size()>first.getEffects().size()){
+												return 1;
+											} else if(first.getEffects().size()>second.getEffects().size()){
+												return -1;
+											}
+											result = 0;
+											int n = 0;
+											while(first.getEffects().size() < n && second.getEffects().size() < n){
+												result += first.getEffects().get(n).getSecondaryModifier().getName()
+														.compareTo(second.getEffects().get(n).getSecondaryModifier().getName());
+												n++;
+											}
+											result = Math.min(1,Math.max(-1, result));
+
+											if(result == 0){
+												//to be expanded when more variables are added
+												return 0;
+											} else {
+												return result;
+											}
+										} else {
+											return 1;
+										}
+									} else {
+										return -1;
+									}
+
 								} else {
 									return result;
 								}
 							} else {
 								return 1;
 							}
+						} else {
+							return -1;
 						}
-						return -1;
+
 					} else {
 						return result;
 					}
