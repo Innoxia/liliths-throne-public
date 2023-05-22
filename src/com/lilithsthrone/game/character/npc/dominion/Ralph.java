@@ -79,8 +79,8 @@ public class Ralph extends NPC {
 	private final List<AbstractItem> foodItems;
 	private final List<AbstractItem> drinkItems;
 	private final List<AbstractItem> otherItems;
-	private final List<AbstractClothing> otherClothing;
-	private final List<AbstractWeapon> otherWeapons;
+	private final List<AbstractClothing> clothingItems;
+	private final List<AbstractWeapon> weaponItems;
 
 	public Ralph() {
 		this(false);
@@ -96,8 +96,8 @@ public class Ralph extends NPC {
 		foodItems = new ArrayList<>();
 		drinkItems = new ArrayList<>();
 		otherItems = new ArrayList<>();
-		otherClothing = new ArrayList<>();
-		otherWeapons  = new ArrayList<>();
+		clothingItems = new ArrayList<>();
+		weaponItems = new ArrayList<>();
 
 		if(!isImported) {
 			dailyUpdate();
@@ -114,11 +114,11 @@ public class Ralph extends NPC {
 	}
 	private Map<String, List<AbstractClothing>> getAllClothingListsMap() {
 		return Util.newHashMapOfValues(
-				new Value<>("clothing", otherClothing));
+				new Value<>("clothingItems", clothingItems));
 	}
 	private Map<String, List<AbstractWeapon>> getAllWeaponListsMap() {
 		return Util.newHashMapOfValues(
-				new Value<>("clothing", otherWeapons));
+				new Value<>("weaponItems", weaponItems));
 	}
 
 	public List<AbstractItem> getFoodItems() {
@@ -133,13 +133,13 @@ public class Ralph extends NPC {
 		Collections.shuffle(otherItems);
 		return otherItems;
 	}
-	public List<AbstractClothing> getOtherClothing() {
-		Collections.shuffle(otherClothing);
-		return otherClothing;
+	public List<AbstractClothing> getClothingItems() {
+		Collections.shuffle(clothingItems);
+		return clothingItems;
 	}
-	public List<AbstractWeapon> getOtherWeapons() {
-		Collections.shuffle(otherWeapons);
-		return otherWeapons;
+	public List<AbstractWeapon> getWeaponItems() {
+		Collections.shuffle(weaponItems);
+		return weaponItems;
 	}
 	@Override
 	public Element saveAsXML(Element parentElement, Document doc) {
@@ -263,6 +263,9 @@ public class Ralph extends NPC {
 					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.SELFISH,
 					PersonalityTrait.LEWD);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.8.5")) {
+			dailyUpdate();
 		}
 	}
 
@@ -406,8 +409,8 @@ public class Ralph extends NPC {
 		foodItems.clear();
 		drinkItems.clear();
 		otherItems.clear();
-		otherClothing.clear();
-		otherWeapons.clear();
+		clothingItems.clear();
+		weaponItems.clear();
 
 		for (int i = 0; i < 25; i++) {
 			otherItems.add(Main.game.getItemGen().generateItem(ItemType.DYE_BRUSH));
@@ -433,11 +436,11 @@ public class Ralph extends NPC {
 					AbstractClothing generatedClothing = Main.game.getItemGen().generateClothing(clothing, condomColour, condomColourSec, condomColourTer, false);
 
 					for (int i = 0; i < (3+(Util.random.nextInt(4)))*(clothing.getRarity()== Rarity.COMMON?3:(clothing.getRarity()==Rarity.UNCOMMON?2:1)); i++) {
-						otherClothing.add(generatedClothing);
+						clothingItems.add(generatedClothing);
 					}
 				} else {
 					AbstractClothing generatedClothing = Main.game.getItemGen().generateClothing(clothing);
-					otherClothing.add(generatedClothing);
+					clothingItems.add(generatedClothing);
 				}
 			}
 		}
@@ -447,7 +450,7 @@ public class Ralph extends NPC {
 			if (generatedWeapon.getItemTags().contains(ItemTag.SOLD_BY_RALPH)
 					&& (!weapon.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
 				for (int i = 0; i < 1 + Util.random.nextInt(5); i++) {
-					otherWeapons.add(generatedWeapon);
+					weaponItems.add(generatedWeapon);
 				}
 			}
 		}
@@ -496,8 +499,8 @@ public class Ralph extends NPC {
 				foodItems.remove(itemSold);
 				drinkItems.remove(itemSold);
 				otherItems.remove(itemSold);
-				otherClothing.remove(itemSold);
-				otherWeapons.remove(itemSold);
+				clothingItems.remove(itemSold);
+				weaponItems.remove(itemSold);
 			}
 		}
 	}
