@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+	
+	<scene id="talk_menu">
+		<author><![CDATA[DSG]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/characters/eisek/stall">TALK_MENU</content>
+		<secondsPassed minutes="false"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Leave Eisek be, for now.]]></responseTooltip>
+				<nextDialogue><![CDATA[dsg_characters_eisek_stall_leave]]></nextDialogue>
+				<secondsPassed/>
+				<effects/>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Buy]]></responseTitle>
+				<responseTooltip><![CDATA[See what Eisek has for sale.]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed/>
+				<effects/>
+				<tradingVariables enabled="true">
+					<tradePartner><![CDATA[eisek]]></tradePartner>
+				</tradingVariables>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Himself]]></responseTitle>
+				<responseTooltip><![CDATA[Ask Eisek about himself.]]></responseTooltip>
+				<nextDialogue><![CDATA[dsg_characters_eisek_stall_talk_himself]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_dsg_elis_eisek_asked_himself_low, true)]
+					#IF(eisek.getAffection(pc) >= 15 && !flags.hasFlag(FLAG_dsg_elis_eisek_asked_himself))
+						[#flags.setFlag(FLAG_dsg_elis_eisek_asked_himself, true)]
+						[#flags.incrementSavedLong("elis_eisek_talk_score", 1)]
+					#ENDIF
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Business]]></responseTitle>
+				<responseTooltip><![CDATA[Ask Eisek about how his business is doing.]]></responseTooltip>
+				<nextDialogue><![CDATA[dsg_characters_eisek_stall_talk_business]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					#IF(eisek.getAffection(pc) >= 15 && !flags.hasFlag(FLAG_dsg_elis_eisek_asked_business))
+						[#flags.setFlag(FLAG_dsg_elis_eisek_asked_business, true)]
+						[#flags.incrementSavedLong("elis_eisek_talk_score", 1)]
+					#ENDIF
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#eisek.getAffection(pc) >= 15]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Other dragons]]></responseTitle>
+				<responseTooltip><![CDATA[Ask Eisek if he's ever met other dragons]]></responseTooltip>
+				<nextDialogue><![CDATA[dsg_characters_eisek_stall_talk_other_dragons]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_asked_other_dragons))
+						[#flags.setFlag(FLAG_dsg_elis_eisek_asked_other_dragons, true)]
+						[#flags.incrementSavedLong("elis_eisek_talk_score", 1)]
+					#ENDIF
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#(!pc.hasQuest(QUEST_LINE_SIDE_EISEK_MOB) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Mob]]></responseTitle>
+				<responseTooltip><![CDATA[Ask Eisek about the mob that was around his stall the first time you met him.]]></responseTooltip>
+				<nextDialogue><![CDATA[dsg_characters_eisek_stall_talk_ask_about_mob]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_asked_about_mob))
+						[#flags.setFlag(FLAG_dsg_elis_eisek_asked_about_mob, true)]
+					#ENDIF
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#(pc.hasQuest(QUEST_LINE_SIDE_EISEK_MOB) && pc.isQuestProgressLessThan(QUEST_LINE_SIDE_EISEK_MOB, QUEST_EISEK_MOB_QUEST_STAGE_TWO) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Mob]]></responseTitle>
+				<responseTooltip><![CDATA[Probably best to not bring this topic back up without some results to show.]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+				<secondsPassed/>
+				<effects/>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#(pc.hasQuestInLine(QUEST_LINE_SIDE_EISEK_MOB, QUEST_EISEK_MOB_QUEST_STAGE_TWO_FAILED) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[[style.boldBad(Mob)]]]></responseTitle>
+				<responseTooltip><![CDATA[Inform Eisek of your failure to handle the mob]]></responseTooltip>
+				<nextDialogue><![CDATA[dsg_characters_eisek_stall_mob_quest_complete]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.setQuestFailed(QUEST_LINE_SIDE_EISEK_MOB, QUEST_EISEK_MOB_QUEST_STAGE_TWO_FAILED))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#(pc.hasQuestInLine(QUEST_LINE_SIDE_EISEK_MOB, QUEST_EISEK_MOB_QUEST_STAGE_THREE) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[[style.boldGood(Mob)]]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Eisek that you've handled the mob]]></responseTooltip>
+				<nextDialogue><![CDATA[dsg_characters_eisek_stall_mob_quest_complete]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_MOB, QUEST_SIDE_UTIL_COMPLETE))]
+					#IF(flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_persuade))
+						[#game.appendToTextEndStringBuilder(pc.addItem(itemGen.generateItem(ITEM_dsg_race_dragon_dragonfruit_yellow), 3, false, true))]
+						[#game.appendToTextEndStringBuilder(eisek.incrementAffection(pc,15))]
+						[#flags.setSavedLong("elis_eisek_mob_quest_completion_date", game.getDayNumber())]
+					#ELSE
+						[#game.appendToTextEndStringBuilder(pc.incrementMoney(5000))]
+						[#game.appendToTextEndStringBuilder(eisek.incrementAffection(pc,-10))]
+					#ENDIF
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Mob]]></responseTitle>
+				<responseTooltip><![CDATA[You've handled the mob. It's all water under the bridge now.]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+				<secondsPassed/>
+				<effects/>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.isQuestFailed(QUEST_LINE_SIDE_EISEK_MOB)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Ask about mob]]></responseTitle>
+				<responseTooltip><![CDATA[You probably don't want to dig up reminders of your failure.]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+				<secondsPassed/>
+				<effects/>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#eisek.getAffection(pc) >= 15]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Why Elis?]]></responseTitle>
+				<responseTooltip><![CDATA[Ask Eisek why he chose to come to Elis]]></responseTooltip>
+				<nextDialogue><![CDATA[dsg_characters_eisek_stall_talk_why_elis]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_asked_why_elis))
+						[#flags.setFlag(FLAG_dsg_elis_eisek_asked_why_elis, true)]
+						[#flags.incrementSavedLong("elis_eisek_talk_score", 1)]
+					#ENDIF
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#(pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB) && 
+				!pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL) && 
+				!pc.hasQuest(QUEST_LINE_SIDE_EISEK_STALL) &&
+				flags.hasFlag(FLAG_dsg_elis_eisek_asked_business))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[8]]></index>
+				<responseTitle><![CDATA[Stall]]></responseTitle>
+				<responseTooltip><![CDATA[See if there's anything more you can do to help Eisek. Maybe about the state of his stall?]]></responseTooltip>
+				<nextDialogue><![CDATA[dsg_characters_eisek_stall_stall_quest_start]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.startQuest(QUEST_LINE_SIDE_EISEK_STALL))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#(pc.isQuestProgressLessThan(QUEST_LINE_SIDE_EISEK_STALL, QUEST_EISEK_STALL_QUEST_STAGE_FOUR) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[8]]></index>
+				<responseTitle><![CDATA[Stall]]></responseTitle>
+				<responseTooltip><![CDATA[You probably don't want to talk about this until you have everything you need.]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+				<secondsPassed/>
+				<effects/>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#(pc.hasQuestInLine(QUEST_LINE_SIDE_EISEK_STALL, QUEST_EISEK_STALL_QUEST_STAGE_FOUR) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[8]]></index>
+				<responseTitle><![CDATA[[style.boldGood(Stall)]]]></responseTitle>
+				<responseTooltip><![CDATA[You've gathered what you need to improve Eisek's stall. Time to show him.]]></responseTooltip>
+				<nextDialogue><![CDATA[dsg_characters_eisek_stall_stall_quest_complete]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_STALL, QUEST_SIDE_UTIL_COMPLETE))]
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(1000))]
+					[#game.appendToTextEndStringBuilder(eisek.incrementAffection(pc,20))]
+					[#eisek.setSellModifier(1)]
+					[#flags.setSavedLong("elis_eisek_stall_quest_completion_date", game.getDayNumber())]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[8]]></index>
+				<responseTitle><![CDATA[Stall]]></responseTitle>
+				<responseTooltip><![CDATA[You've built the stall of Eisek's dreams.]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+				<secondsPassed/>
+				<effects/>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#(eisek.getAffection(pc) >= 15 && flags.hasFlag(FLAG_dsg_elis_eisek_asked_himself))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[10]]></index>
+				<responseTitle><![CDATA[Family]]></responseTitle>
+				<responseTooltip><![CDATA[Ask Eisek about his family.]]></responseTooltip>
+				<nextDialogue><![CDATA[dsg_characters_eisek_stall_talk_family]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_asked_family))
+						[#flags.setFlag(FLAG_dsg_elis_eisek_asked_family, true)]
+						[#flags.incrementSavedLong("elis_eisek_talk_score", 1)]
+					#ENDIF
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#(flags.hasFlag(FLAG_dsg_elis_eisek_asked_about_mob) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[11]]></index>
+				<responseTitle><![CDATA[Dragonfall?]]></responseTitle>
+				<responseTooltip><![CDATA[Eisek mentioned something about 'the dragons of old' and a 'Dragonfall' when you asked him about the mob. What did he mean by that?]]></responseTooltip>
+				<nextDialogue><![CDATA[dsg_characters_eisek_stall_talk_ask_about_dragonfall_vague]]></nextDialogue>
+				<secondsPassed/>
+				<effects/>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[11]]></index>
+				<responseTitle><![CDATA[Dragonfall?]]></responseTitle>
+				<responseTooltip><![CDATA[You've earned the right to know the truth about the 'dragons of old'.]]></responseTooltip>
+				<nextDialogue><![CDATA[dsg_characters_eisek_stall_talk_ask_about_dragonfall_specific]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_asked_about_dragonfall_specific))
+						[#flags.setFlag(FLAG_dsg_elis_eisek_asked_about_dragonfall_specific, true)]
+					#ENDIF
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#(!flags.hasFlag(FLAG_dsg_elis_eisek_small_talk) && eisek.getAffection(pc) >= 30)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[12]]></index>
+				<responseTitle><![CDATA[Small talk]]></responseTitle>
+				<responseTooltip><![CDATA[Make small talk.]]></responseTooltip>
+				<nextDialogue><![CDATA[dsg_characters_eisek_stall_small_talk]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_small_talk))
+						[#flags.setFlag(FLAG_dsg_elis_eisek_small_talk, true)]
+					#ENDIF
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#(flags.hasFlag(FLAG_dsg_elis_eisek_small_talk) && eisek.getAffection(pc) >= 30)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[12]]></index>
+				<responseTitle><![CDATA[Small talk]]></responseTitle>
+				<responseTooltip><![CDATA[You've already done this today. Much as Eisek likes talking to you, he <i>does</i> have a stall to run.]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+				<secondsPassed/>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="leave">
+		<author><![CDATA[DSG]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/characters/eisek/stall">LEAVE</content>
+		<secondsPassed minutes="false"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="dsg_places_fields_elis_market_produce_stall"/>
+	</scene>
+	
+	<scene id="talk_himself">
+		<author><![CDATA[DSG]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/characters/eisek/stall">TALK_HIMSELF</content>
+		<secondsPassed minutes="false"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="dsg_characters_eisek_stall_talk_menu"/>
+	</scene>
+	
+	<scene id="talk_business">
+		<author><![CDATA[DSG]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/characters/eisek/stall">TALK_BUSINESS</content>
+		<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="dsg_characters_eisek_stall_talk_menu"/>
+	</scene>
+	
+	<scene id="talk_family">
+		<author><![CDATA[DSG]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/characters/eisek/stall">TALK_FAMILY</content>
+		<secondsPassed minutes="false"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="dsg_characters_eisek_stall_talk_menu"/>
+	</scene>
+	
+	<scene id="talk_why_elis">
+		<author><![CDATA[DSG]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/characters/eisek/stall">TALK_WHY_ELIS</content>
+		<secondsPassed minutes="false"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="dsg_characters_eisek_stall_talk_menu"/>
+	</scene>
+	
+	<scene id="talk_other_dragons">
+		<author><![CDATA[DSG]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/characters/eisek/stall">TALK_OTHER_DRAGONS</content>
+		<secondsPassed minutes="false"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="dsg_characters_eisek_stall_talk_menu"/>
+	</scene>
+	
+	<scene id="talk_ask_about_mob">
+		<author><![CDATA[DSG]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/characters/eisek/stall">TALK_ASK_ABOUT_MOB</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Focus on mob]]></responseTitle>
+				<responseTooltip><![CDATA[Come up with a solution to Eisek's problem.]]></responseTooltip>
+				<nextDialogue><![CDATA[dsg_characters_eisek_stall_mob_quest_start]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.startQuest(QUEST_LINE_SIDE_EISEK_MOB))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Dragonfall?]]></responseTitle>
+				<responseTooltip><![CDATA[Ask Eisek what he means by 'before the Dragonfall'.]]></responseTooltip>
+				<nextDialogue><![CDATA[dsg_characters_eisek_stall_talk_ask_about_dragonfall_vague]]></nextDialogue>
+				<secondsPassed/>
+				<effects/>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Change the subject]]></responseTitle>
+				<responseTooltip><![CDATA[Maybe this is getting too heavy.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[dsg_characters_eisek_stall_talk_menu]]></nextDialogue>
+				<secondsPassed/>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="talk_ask_about_dragonfall_vague">
+		<author><![CDATA[DSG]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/characters/eisek/stall">TALK_DRAGONFALL_VAGUE</content>
+		<secondsPassed minutes="false"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="dsg_characters_eisek_stall_talk_menu"/>
+	</scene>
+	
+	<scene id="talk_ask_about_dragonfall_specific">
+		<author><![CDATA[DSG]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/characters/eisek/stall">TALK_DRAGONFALL_SPECIFIC</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="dsg_characters_eisek_stall_talk_menu"/>
+	</scene>
+	
+	<scene id="mob_quest_start">
+		<author><![CDATA[DSG]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/characters/eisek/stall">MOB_QUEST_START</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="dsg_characters_eisek_stall_talk_menu"/>
+	</scene>
+	
+	<scene id="mob_quest_complete">
+		<author><![CDATA[DSG]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/characters/eisek/stall">MOB_QUEST_COMPLETE</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="dsg_characters_eisek_stall_talk_menu"/>
+	</scene>
+		
+	<scene id="stall_quest_start">
+		<author><![CDATA[DSG]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/characters/eisek/stall">STALL_QUEST_START</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="dsg_characters_eisek_stall_talk_menu"/>
+	</scene>
+	
+	<scene id="stall_quest_complete">
+		<author><![CDATA[DSG]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/characters/eisek/stall">STALL_QUEST_COMPLETE</content>
+		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="dsg_characters_eisek_stall_talk_menu"/>
+	</scene>
+	
+	<scene id="small_talk">
+		<author><![CDATA[DSG]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/characters/eisek/stall">SMALL_TALK</content>
+		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="dsg_characters_eisek_stall_talk_menu"/>
+	</scene>
+	
+</dialogueNodes>
