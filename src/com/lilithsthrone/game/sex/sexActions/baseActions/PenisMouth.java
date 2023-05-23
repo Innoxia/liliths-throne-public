@@ -1661,6 +1661,9 @@ public class PenisMouth {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
+			if(PenisMouth.getOngoingCharacters(Main.sex.getCharacterPerformingAction()).contains(Main.sex.getCharacterPerformingAction())) {
+				return false; // Do not allow additional blowjobs if the performing character is performing autofellatio
+			}
 			int size = PenisMouth.getOngoingCharacters(Main.sex.getCharacterPerformingAction()).size();
 			if(Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH).contains(Main.sex.getCharacterTargetedForSexAction(this))) {
 				size--;
@@ -1673,7 +1676,8 @@ public class PenisMouth {
 			Map<String, Boolean> map = new HashMap<>();
 
 			int size = getOngoingCharacters().size();
-			
+
+			map.put("[npc.nameIsFull] not performing autofellatio", !PenisMouth.getOngoingCharacters(Main.sex.getCharacterPerformingAction()).contains(Main.sex.getCharacterPerformingAction()));
 			map.put("one or two characters performing blowjob", size>0 && size<3);
 			map.put("only ongoing penis-actions are blowjobs", size==Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).size());
 			map.put("[npc2.namePos] mouth to be exposed", Main.sex.getCharacterTargetedForSexAction(this).isOrificeTypeExposed(SexAreaOrifice.MOUTH));
@@ -2622,6 +2626,9 @@ public class PenisMouth {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
+			if(PenisMouth.getOngoingCharacters(Main.sex.getCharacterTargetedForSexAction(this)).contains(Main.sex.getCharacterTargetedForSexAction(this))) {
+				return false; // Do not allow additional blowjobs if the targeted character is performing autofellatio
+			}
 			int size = getOngoingCharacters().size();
 			if(Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS).contains(Main.sex.getCharacterTargetedForSexAction(this))) {
 				size--;
@@ -2634,7 +2641,8 @@ public class PenisMouth {
 			Map<String, Boolean> map = new HashMap<>();
 
 			int size = getOngoingCharacters().size();
-			
+
+			map.put("[npc2.nameIsFull] not performing autofellatio", !PenisMouth.getOngoingCharacters(Main.sex.getCharacterTargetedForSexAction(this)).contains(Main.sex.getCharacterTargetedForSexAction(this)));
 			map.put("one or two characters performing blowjob", size>0 && size<3);
 			map.put("only ongoing penis-actions are blowjobs", size==Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS).size());
 			map.put("[npc.namePos] mouth to be exposed", Main.sex.getCharacterPerformingAction().isOrificeTypeExposed(SexAreaOrifice.MOUTH));

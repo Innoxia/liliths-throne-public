@@ -133,6 +133,10 @@
 					[#flags.setFlag(FLAG_innoxia_lights_out_hannah_kiss, false)]
 					[#flags.setFlag(FLAG_innoxia_lights_out_hannah_sex, false)]
 					[#flags.setFlag(FLAG_innoxia_lights_out_hannah_last_night_met, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_HANNAH'))]
+					#IF(hannah.isVisiblyPregnant())
+						[#hannah.setCharacterReactedToPregnancy(pc, true)]
+					#ENDIF
 				]]></effects>
 			</response>
 		</responses>
@@ -408,7 +412,7 @@
 	<!-- Hannah's scenes: -->
 	
 	<scene id="bar_hannah">
-		<content folderPath="txt/places/dominion/nightlife/lights_out">BAR_HANNAH</content>
+		<content/>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
 		<travelDisabled>true</travelDisabled>

@@ -1557,6 +1557,25 @@ public class Perk {
 			return UtilText.parse(owner, "[npc.NameHasFull] spent a good deal of time working on improving [npc.her] ability to counter physical attacks.");
 		}
 	};
+
+	public static AbstractPerk HYPERMOBILITY = new AbstractPerk(20,
+			false,
+			"hypermobility",
+			PerkCategory.PHYSICAL,
+			"perks/hypermobility",
+			PresetColour.BASE_WHITE,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.CRITICAL_DAMAGE, 15)),
+			Util.newArrayListOfValues(
+					"[style.colourExcellent(Unlocks)] autofellatio and autocunnilingus [style.colourSex(sex actions)] while in a non-taur form")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NameIsFull] exceptionally flexible, allowing [npc.herHim] to strike from completely unexpected angles."
+					+ " As [npc.sheIs] able to bend all the way down until [npc.her] head touches [npc.her] groin, [npc.sheIs] able to perform oral on [npc.herself].");
+		}
+	};
 	
 	public static AbstractPerk SPELL_DAMAGE = new AbstractPerk(20,
 			false,
@@ -2310,12 +2329,12 @@ public class Perk {
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.Name] [npc.verb(love)] a good brawl, and is a fearsome opponent in unarmed combat.");
+			return UtilText.parse(owner, "[npc.Name] [npc.verb(love)] a good brawl, and [npc.is] a fearsome opponent in unarmed combat.");
 		}
 	};
 
 	public static AbstractPerk FEMALE_ATTRACTION = new AbstractPerk(60,
-			true,
+			false,
 			"ladykiller",
 			PerkCategory.LUST,
 			"perks/fitness_female_attraction",
@@ -2340,7 +2359,7 @@ public class Perk {
 	};
 
 	public static AbstractPerk MALE_ATTRACTION = new AbstractPerk(60,
-			true,
+			false,
 			"minx",
 			PerkCategory.LUST,
 			"perks/fitness_male_attraction",

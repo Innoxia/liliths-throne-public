@@ -5554,7 +5554,9 @@ public class Sex {
 		}
 		
 		if(Main.sex.isMasturbation()
-				?action.getParticipantType()==SexParticipantType.SELF || action.getCategory()==SexActionCategory.POSITIONING
+				?action.getParticipantType()==SexParticipantType.SELF
+					|| action.getCategory()==SexActionCategory.POSITIONING
+					|| action==GenericOrgasms.GENERIC_ORGASM_CREAMPIE
 				:((Main.sex.getSexPositionSlot(character)!=SexSlotGeneric.MISC_WATCHING && Main.sex.getSexPositionSlot(target)!=SexSlotGeneric.MISC_WATCHING)
 						|| action.getParticipantType()==SexParticipantType.SELF
 						|| (character.isPlayer() && action==GenericActions.PLAYER_SKIP_SEX)

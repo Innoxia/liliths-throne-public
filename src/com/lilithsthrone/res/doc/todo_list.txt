@@ -20,6 +20,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Sex:
 		The 'GenericSexualPartner' NPC class no longer spawns with addictive fluids, so as to prevent issues with their partners getting addicted (which was happening with Jess).
 		For size-difference characters, the smaller character can now kiss crotch-boobs in the missionary position, and can now kiss breasts instead of kissing mouth in the mating press position.
+		You can now use the 'GENERIC_ORGASM_CREAMPIE' action in masturbation scenes (which is the same action that provides the 'Handjob Climax' orgasm action).
+		Added autofellatio and autocunnilingus sex actions, which require the new 'hpermobility' perk to unlock, are limited to non-taurs, and which work in most but not all sex positions.
+		Added a small speech variation to the creampie sex action.
 	
 	Other:
 		Both types of wet wipes now additionally clean all equipped clothing.
@@ -27,6 +30,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Improved method of calculating sleep hours for slaves and friendly occupants so that they prefer to sleep as close to the mid-point of their natural sleep hours as they can.
 		Jess can now be impregnated, and you can pay her (5000 flames) to take a breeder pill before having sex with her. She also no longer has the barren perk nor a hatred of the pregnancy fetish, and also she now refuses to consume items during sex.
 		Demons, half-demons, and imps will no longer spawn with demonic horse tails if they're bipedal.
+		The 'ladykiller' and 'minx' perks are no longer traits which require equipping to work.
+		Added 'hypermobility' perk in the physical perk tree, which unlocks autofellatio and autocunnilingus sex actions.
+		Added some dialogue referencing citizens of the Realm travelling over the Endless Sea to new lands (as posters in the nightclub, at the Slavery Administration building, and as a minor piece of dialogue when paying a prostitute's fine to remove them from the game).
+		Added Hannah pregnancy reactions to her encounter in 'Light's out'.
 	
 	Bugs:
 		Typo and parsing fixes.
@@ -50,7 +57,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed bug where if none of the colours defined for an item of clothing within an outfit file were available for that clothing, the clothing would spawn with broken colourings. (This was mostly affecting jewellery on randomly-spawned NPCs.)
 		Fixed some inconsistent availabilities of 'offer/request orifice' actions in the breeding stall & glory hole positions.
 		Your demonic offspring will no longer spawn with heavily enchanted weapons which would push them over their enchantment capacity.
-	
+		Characters in sex who are in the resisting pace and who are involved in finger-anus or finger-vagina sex actions will no longer be described as stimulating their orgasming partner's prostate.
+		Fixed bug where after taking a shower in the gym, the text was only shown after you moved away from the tile.
 	
 	
 	[x] new bug reports
@@ -114,64 +122,44 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			No position allows you to suck on someone's top breasts if they are twice your height
 		[-] in the lower left corner of the dominion map you can see a Rat icon
 		[x] demons can spawn with demonic horse tail???
-		
-	[] autofellatio
-	[] add some references to going east to leave Dominion for new land
-		[] posters
-			[] nightclub toilets
-			[] slaver alley
-		[] NPC references
-			[] prostitute pay-off variation
-	[] add speech variation for creampie in resisting partner
-	[] Hannah to reference arcane protecting child from alcohol when pregnant
-		
-	[] Small PRs
+	[x] Small PRs
+	[x] Eisek
+		[x] Read through content
+	[x] autofellatio/autocunnilingus
+		[x] requires perk - branch off physically fit 5
+			[x] hypermobility
+		[x] penis
+			[x] do not allow multiples
+			[x] actions
+			[x] descriptions
+			[x] need swallow orgasm action
+			[x] need positioning limitations
+		[x] vagina
+			[x] do not allow multiples
+			[x] actions
+			[x] descriptions
+	[x] add some references to going east to leave Dominion for new land
+		[x] nightclub toilets
+		[x] slaver alley
+		[x] prostitute pay-off variation
+	[x] add speech variation for creampie in resisting partner
+	[x] Hannah to reference arcane protecting child from alcohol when pregnant
+	[x] AceXP:
+		Some typos in the gym floor content: 
+		rubbing matting -> rubber matting; Do you best! -> Do your best!
+		Also, after you take a shower, it's text is only shown after you move away from the tile.
 	
-	[] Eisek
-		[] Read through content
-		
-		
 	[] Maxis DMs
 	[] A Fox submission
 	[] Dwight submission
 	
-	[] If rape-play content is 'on at start', then make it so that NPCs with the unwilling fuck toy fetish present you with the 'rape' action even if they're attracted to you
-	
-	[] prioritise res races over mod folder - or mod folder different ids
-		
-	[] copy-paste slave settings
-	
-	[] With a high enough Affection, the PC can walk into Meraxis' room while she's sleeping and she won't get mad.
-	 PC would slip under the covers and spoon the little thing, forcing her to let out a soft, content coo and almost immediately start to fall back asleep
-	
-	[] Subjective Appearance
-		Trait
-		+5% Lust damage
-		Androphilic NPCs always think you are masculine
-		Gynephilic NPCs always think you are feminine
-		You cloak yourself with subtle illusions, allowing others to interpret your appearance differently according to their own desires.
-	
-	[] Minotaur-boy yoga instructor
-		[] Brahman
-		[] Update Pix and Hannah talk about him (suspicious but he seems good at his job)
-		[] yoga sessions at 12:00 every day
-			[] a couple of female students join in too
-			[] if player is not female
-				[] gain 24-hour (questionable) buff from arcane yoga (+resistances, but weakness to cow-morphs)
-			[] if player is female, he suggests ever more lewd poses (over three sessions)
-				[] gain 24-hour (questionable) buff from arcane yoga (+resistances, but +fertility and weakness to cow-morphs)
-				[] 1 - positions seem to be focused a lot on bending over in front of him while he talks of the miracle of life
-				[] 2 - more bending over and spreading legs while talk of fertility (at end get sudden desire to be bred by him, warning that next time might be even further)
-				[] 3 - naked yoga with making player present herself and imagine being impregnated
-					[] at end, Brahman impregnates other two students
-					[] Brahman stands behind player and tells them to focus on the heat of his erect cock against their pussy
-						[] snap out of it
-							[] quickly leave, with Brahman saying to return whenever you want
-						[] beg to be impregnated
-							[] He fucks player and creampies
-		
-		
 	[] Add Wolfgang & Karl art
+		[x] preview also
+	[x] PussPuss poll!
+	
+	[] Eisek PR!
+		[] Get list to DSG by end of Tuesday:
+		
 	
 	[] main quest
 		[x] Add Enforcer station
@@ -216,36 +204,52 @@ Not everything in this file is up-to-date, and everything is subject to change a
 					[x] Writing
 				[x] Make sure she doesn't go to where Fae is
 				[] In tables area
-					[] 50/50 for her to be with centaur
+					[] 50/50 for her to be with centaur - not the first time though
 						[] centaur gropes Sterope and asks if you're a worthless slut like she is
 						[] join her (if feminine)
-							[] If either pregnant
-								[] double cock sucking
-							[] If not pregnant
-								[] She's keen to rent the stables (large room with high ceilings)
-								[] Before tied up, double TF potion option (into fully furry horse-girls)
-									[] If fully-furry from previous sex scene, she's paid for Kheiron to get a feral stone & can TF into feral
-										[] If she gets impregnated, she's stuck as feral for a while
-								[] You're both tied up
-									[] Get punished
-									[] Fucked
-						[] lose the centaur - dominant or confident
-							[] She's revealed to be super kinky when not on duty
 							[] She's keen to rent the stables (large room with high ceilings)
-							[] If pregnant
-								[] She sucks cock
-							[] If not pregnant
-								[] Before tied up, TF potion option (into fully furry horse-girl)
-									[] If fully-furry from previous sex scene, she's paid for Kheiron to get a feral stone & can TF into feral
-								[] You tie her up
-									[x] Sex: Fuck her
-									[x] BDSM punishments: spanking, whipping, degrading talk - sadist variations
-									[] Clothing: nipple clamps, ring gag, blindfold, dildo, butt plug
-										[] test that clothing equipped at start of sex
-								[] After sex, if TF'd her into fully furry horse-girl, can convince not to TF back
-						[] Decline
-							[] She leaves with centaur - move to stable
-							[] Going to the back door, you can faintly hear neighing and rhythmic thudding...
+							[] Before tied up, double TF potion option (into fully furry horse-girls)
+								[] If fully-furry from previous sex scene, she's paid for Kheiron to get a feral stone & can TF into feral
+							[] You're both tied up
+								[] Get punished
+									[] non-feral - spanking, whipping, oral dom
+									[] feral - bridle, saddle, tail wrap
+								[] Fucked
+									[] feral - reins
+							[] After sex, same end
+						[x] lose the centaur - dominant
+							[x] She's revealed to be super kinky when not on duty
+							[x] She's keen to rent the stables (large room with high ceilings)
+							[x] Before tied up, TF potion option (into fully furry horse-girl)
+								[x] If fully-furry from previous sex scene, she's paid for Kheiron to get a feral stone & can TF into feral
+							[x] You tie her up
+								[x] Sex: Fuck her
+								[x] BDSM punishments: spanking, whipping, degrading talk - sadist variations
+								[x] Clothing: nipple clamps, ring gag, blindfold, dildo, butt plug
+									[x] test that clothing equipped at start of sex
+							[x] After sex
+								[x] Untie her
+								[x] She uses pregnancy tester if chance of impreg
+									[x] If pregnant, she drinks mothers milk, saying she'll go to a clinic to give birth before work tomorrow
+									[x] make her end pregnancy before work every day
+								[x] If TF'd her into fully furry horse-girl, she picks up TF potion to change back
+									[x] can convince her not to TF back
+										[x] she says she's more comfortable in a mostly human form
+										[x] can tell her that she's now your mare
+										[x] she hesitates and submits to your command
+						[x] Decline
+							[x] She leaves with centaur - move to stable
+							[x] Going to the back door, you can faintly hear neighing and rhythmic thudding...
+					[] If submitted to three centaurs, spawn unique centaur
+						[] cannot lose him
+						[] have to horse TF for him
+						[] after sex, he leads the two of you through the tavern and makes you give a double blowjob while he drinks at the bar
+						[] next time, have to feral TF
+						[] repeat blowjob scene
+						[] next time, he says he'll keep you as his mares
+						[] after sex, taken back to his stables - floor is an enchanted beast stone to make sure you stay as ferals
+						[] Bad end
+				[] check ferals should have crotch boobs despite setting
 		[] SWORD group in room at end of corridor - just over a dozen of them
 			[] Two leaders who are in late 60's
 				[] Wolf-boy
@@ -309,6 +313,47 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] Enforcers say they'll draw up a plan of how to defend Elis
 	[] Report back to Arion
 		[] He says he'll come to hear their plan and to take him there whenever you're ready
+	
+	[] If rape-play content is 'on at start', then make it so that NPCs with the unwilling fuck toy fetish present you with the 'rape' action even if they're attracted to you
+	
+	[] prioritise res races over mod folder - or mod folder different ids
+	
+	[] reduce anal fingering frequency
+	
+	[] copy-paste slave settings
+	
+	[] With a high enough Affection, the PC can walk into Meraxis' room while she's sleeping and she won't get mad.
+	 PC would slip under the covers and spoon the little thing, forcing her to let out a soft, content coo and almost immediately start to fall back asleep
+	
+	[] Subjective Appearance
+		Trait
+		+5% Lust damage
+		Androphilic NPCs always think you are masculine
+		Gynephilic NPCs always think you are feminine
+		You cloak yourself with subtle illusions, allowing others to interpret your appearance differently according to their own desires.
+	
+	[] add an option for when Lyssieth asks what the player's plan is about Lilith "Marry her. T'was for a brief moment but gazing upon Lilith's beauty while she was escaping was love at first sight" 
+		and a silly mode "I can fix her. What others see as evil you know is just a damaged and hurting person and you've taken up the task nobody else is brave to do."
+	
+	[] Minotaur-boy yoga instructor
+		[] Brahman
+		[] Update Pix and Hannah talk about him (suspicious but he seems good at his job)
+		[] yoga sessions at 12:00 every day
+			[] a couple of female students join in too
+			[] if player is not female
+				[] gain 24-hour (questionable) buff from arcane yoga (+resistances, but weakness to cow-morphs)
+			[] if player is female, he suggests ever more lewd poses (over three sessions)
+				[] gain 24-hour (questionable) buff from arcane yoga (+resistances, but +fertility and weakness to cow-morphs)
+				[] 1 - positions seem to be focused a lot on bending over in front of him while he talks of the miracle of life
+				[] 2 - more bending over and spreading legs while talk of fertility (at end get sudden desire to be bred by him, warning that next time might be even further)
+				[] 3 - naked yoga with making player present herself and imagine being impregnated
+					[] at end, Brahman impregnates other two students
+					[] Brahman stands behind player and tells them to focus on the heat of his erect cock against their pussy
+						[] snap out of it
+							[] quickly leave, with Brahman saying to return whenever you want
+						[] beg to be impregnated
+							[] He fucks player and creampies
+		
 	
 	[] Shadow & Silence content
 	

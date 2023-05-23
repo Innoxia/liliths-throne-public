@@ -97,6 +97,7 @@ public enum PerkManager {
 		rightA = addPerkEntry(perkTree, PerkCategory.PHYSICAL, 5, Perk.UNARMED_DAMAGE, rightA, rightB);
 
 		connectorLeft = addPerkEntry(perkTree, PerkCategory.PHYSICAL, 6, Perk.PHYSIQUE_BOOST_MAJOR, leftA, rightA);
+		addPerkEntry(perkTree, PerkCategory.PHYSICAL, 6, Perk.HYPERMOBILITY, connectorLeft);
 
 		/* Physical Tree Section 2 */
 
