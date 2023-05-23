@@ -3,7 +3,7 @@
 	
 	<scene id="ambush">
 		<author><![CDATA[DSG]]></author>
-		<title/>
+		<title><![CDATA[Junk Avalanche!]]></title>
 		<tooltip/>
 		<preParsingEffects/>
 		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">AMBUSH</content>
@@ -17,7 +17,7 @@
 				<responseTitle><![CDATA[Continue]]></responseTitle>
 				<responseTooltip><![CDATA[No telling what was in that dust, you'll probably want a long bath after this.]]></responseTooltip>
 				<colour><![CDATA[TEXT]]></colour>
-				<nextDialogue stripContent="false"><![CDATA[dsg_places_fields_elis_eisek_sillymode_dungeon_dungeon_entry]]></nextDialogue>
+				<nextDialogue stripContent="false"><![CDATA[dsg_places_fields_elis_eisek_sillymode_dungeon_entry]]></nextDialogue>
 				<secondsPassed/>
 				<effects><![CDATA[
 					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_SILLYMODE, QUEST_SIDE_STAGE_TWO))]
@@ -50,13 +50,13 @@
 			[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_dungeon_trap_south, false)]
 			[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_dungeon_trap_west, false)]
 				
-			#IF(pc.getCellFromLocation(0, -1).getPlace().getPlaceType()==PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_trap)
+			#IF((pc.getCellFromLocation(0, -1) != null && pc.getCellFromLocation(0, -1).getPlace().getPlaceType()==PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_trap))
 				[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_dungeon_trap_north, true)]
-			#ELSEIF(pc.getCellFromLocation(-1, 0).getPlace().getPlaceType()==PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_trap)
+			#ELSEIF((pc.getCellFromLocation(-1, 0) != null && pc.getCellFromLocation(-1, 0).getPlace().getPlaceType()==PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_trap))
 				[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_dungeon_trap_east, true)]
-			#ELSEIF(pc.getCellFromLocation(0, 1).getPlace().getPlaceType()==PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_trap)
+			#ELSEIF((pc.getCellFromLocation(0, 1) != null && pc.getCellFromLocation(0, 1).getPlace().getPlaceType()==PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_trap))
 				[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_dungeon_trap_south, true)]
-			#ELSEIF(pc.getCellFromLocation(1, 0).getPlace().getPlaceType()==PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_trap)
+			#ELSEIF((pc.getCellFromLocation(1, 0) != null && pc.getCellFromLocation(1, 0).getPlace().getPlaceType()==PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_trap))
 				[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_dungeon_trap_west, true)]
 			#ENDIF
 		]]></preParsingEffects>
@@ -140,7 +140,7 @@
 				]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.getPlayerCell().getPlace().setPlaceType(PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_treasure_taken)]
-					[#game.getPlayerCell().getPlace().setName(PLACE_TYPE_PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_treasure_taken.getName())]
+					[#game.getPlayerCell().getPlace().setName(PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_treasure_taken.getName())]
 				]]></effects>
 			</response>
 		</responses>
@@ -168,7 +168,7 @@
 		<preParsingEffects/>
 		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">TRAP</content>
 		<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
-		<continuesDialogue><![CDATA[true]]></continuesDialogue>
+		<continuesDialogue><![CDATA[false]]></continuesDialogue>
 		<travelDisabled><![CDATA[true]]></travelDisabled>
 		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
 		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
@@ -214,7 +214,7 @@
 					You're not in the mood to be set on fire or risk burning the whole place down right now.
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[
-					default
+					dsg_places_fields_elis_eisek_sillymode_dungeon_passage
 				]]></nextDialogue>
 				<effects><![CDATA[
 					#IF(flags.hasFlag(FLAG_dsg_elis_eisek_sillymode_dungeon_trap_north))
@@ -254,7 +254,10 @@
 				<nextDialogue><![CDATA[
 					dsg_places_fields_elis_eisek_sillymode_dungeon_trap_triggered
 				]]></nextDialogue>
-				<effects/>
+				<effects><![CDATA[
+					[#game.getPlayerCell().getPlace().setPlaceType(PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_trap_triggered)]
+					[#game.getPlayerCell().getPlace().setName(PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_trap_triggered.getName())]
+				]]></effects>
 			</response>
 		</responses>
 			
@@ -278,7 +281,7 @@
 				#ENDIF
 			#ENDIF
 		]]></preParsingEffects>
-		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode_dungeon">TRAP_FAILURE</content>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">TRAP_FAILURE</content>
 		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
 		<continuesDialogue><![CDATA[true]]></continuesDialogue>
 		<travelDisabled><![CDATA[true]]></travelDisabled>
@@ -296,7 +299,10 @@
 				<nextDialogue><![CDATA[
 					default
 				]]></nextDialogue>
-				<effects/>
+				<effects><![CDATA[
+					[#game.getPlayerCell().getPlace().setPlaceType(PLACE_TYPE_dsg_fields_elis_eisek_sillymode_trap_triggered)]
+					[#game.getPlayerCell().getPlace().setName(PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_trap_triggered.getName())]
+				]]></effects>
 			</response>
 		</responses>
 			
@@ -306,7 +312,7 @@
 		<author><![CDATA[DSG]]></author>
 		<title><![CDATA[Trap (Disarmed)]]></title>
 		<preParsingEffects/>
-		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode_dungeon">TRAP_TRIGGERED</content>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">TRAP_TRIGGERED</content>
 		<secondsPassed minutes="false"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue><![CDATA[false]]></continuesDialogue>
 		<travelDisabled><![CDATA[false]]></travelDisabled>
@@ -347,7 +353,7 @@
 			
 	</scene>
 	
-	<scene id ="exit">
+	<scene id ="exit_taken">
 		<author><![CDATA[DSG]]></author>
 		<title><![CDATA[Fresh Air]]></title>
 		<preParsingEffects><![CDATA[

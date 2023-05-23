@@ -391,7 +391,7 @@
 			 You describe how you simply convinced the Slime Queen to give up her nefarious plot. [eisek.speech(I would have expected no less from someone with your guile,)] the [eisek.race] says, practically beaming, [eisek.speech(An interesting tale, thank you for sharing it with me.)]
 			#ENDIF
 			[##flags.setFlag(FLAG_dsg_elis_eisek_small_talk_slime_queen, true)]
-		#ELSEIF(pc.isQuestCompleted(QUEST_LINE_SIDE_SIDE_HARPY_PACIFICATION) && !flags.hasFlag(FLAG_dsg_elis_eisek_small_talk_harpy_pacification))
+		#ELSEIF(pc.isQuestCompleted(QUEST_LINE_SIDE_HARPY_PACIFICATION) && !flags.hasFlag(FLAG_dsg_elis_eisek_small_talk_harpy_pacification))
 			You eventually end up telling him about how you once found yourself in a nest of angry harpies in Dominion. [eisek.speech(Yes...harpies,)] Eisek says, eyes slightly narrowed, [eisek.speech(Their kin used to try and stop me on my flights here. I see they defend their territory as zealously in civilization as they do in the wilds. What did you do next? Escape?)] You reply that you decided
 			#IF(pc.hasPersonalityTrait(PERSONALITY_TRAIT_KIND))
 			 to do a public good 

@@ -274,7 +274,7 @@
 			<response>
 				<availabilityConditional><![CDATA[[#(flags.hasFlag(FLAG_dsg_elis_eisek_small_talk) && eisek.getAffection(pc) >= 30)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[11]]></index>
+				<index><![CDATA[12]]></index>
 				<responseTitle><![CDATA[Small talk]]></responseTitle>
 				<responseTooltip><![CDATA[You've already done this today. Much as Eisek likes talking to you, he <i>does</i> have a stall to run.]]></responseTooltip>
 				<nextDialogue><![CDATA[null]]></nextDialogue>

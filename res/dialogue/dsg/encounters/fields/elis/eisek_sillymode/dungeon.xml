@@ -17,9 +17,9 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Enter basement]]></responseTitle>
-				<responseTooltip><![CDATA[It's not like any of them were armed...at least that you could tell...<br/>style.bad(You will not be able to leave the basement until you reach the end.)]]></responseTooltip>
+				<responseTooltip><![CDATA[It's not like any of them were armed...at least that you could tell...<br/>[style.colourBad(You will not be able to leave the basement until you reach the end.)]]]></responseTooltip>
 				<colour><![CDATA[TEXT]]></colour>
-				<nextDialogue stripContent="false"><![CDATA[dsg_places_fields_elis_eisek_sillymode_dungeon_entrance_ambush]]></nextDialogue>
+				<nextDialogue stripContent="false"><![CDATA[dsg_places_fields_elis_eisek_sillymode_dungeon_ambush]]></nextDialogue>
 				<secondsPassed/>
 				<effects><![CDATA[
 				[#pc.setLocation(WORLD_TYPE_dsg_fields_elis_eisek_sillymode_dungeon, PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_entry)]
@@ -110,7 +110,9 @@
 				<nextDialogue><![CDATA[
 					default
 				]]></nextDialogue>
-				<effects/>
+				<effects><![CDATA[
+					[#game.banishNPC(dsg_larpattacker)]
+				]]></effects>
 			</response>
 		</responses>			
 	</scene>
@@ -137,7 +139,9 @@
 				<nextDialogue><![CDATA[
 					default
 				]]></nextDialogue>
-				<effects/>
+				<effects><![CDATA[
+					[#game.banishNPC(dsg_larpattacker)]
+				]]></effects>
 			</response>
 		</responses>			
 	</scene>
@@ -148,7 +152,30 @@
 		<tooltip/>
 		<preParsingEffects/>
 		<content folderPath="txt/dsg/encounters/fields/elis/eisek_sillymode/dungeon">BOSS</content>
-		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>			
+			<response>				
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Prepare yourself!]]></responseTitle>
+				<responseTooltip><![CDATA[There's no telling what that orb could do!]]></responseTooltip>
+				<colour><![CDATA[TEXT]]></colour>
+				<nextDialogue stripContent="false"><![CDATA[dsg_encounters_fields_elis_eisek_sillymode_dungeon_boss_battle_two]]></nextDialogue>
+				<secondsPassed/>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="boss_battle_two">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Boss "Battle"]]></title>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/encounters/fields/elis/eisek_sillymode/dungeon">BOSS_TWO</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
 		<responses>			

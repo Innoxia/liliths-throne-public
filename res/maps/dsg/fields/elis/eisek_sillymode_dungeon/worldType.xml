@@ -25,9 +25,9 @@
 
 	<globalMapLocation>WORLD_MAP_FIELDS_CITY</globalMapLocation>
 	
-	<standardPlace>dsg_fields_elis_eisek_sillymode_passage</standardPlace>
+	<standardPlace>dsg_fields_elis_eisek_sillymode_dungeon_passage</standardPlace>
 
-	<entryFromGlobalMapLocation>dsg_fields_elis_eisek_sillymode_entry</entryFromGlobalMapLocation>
+	<entryFromGlobalMapLocation>dsg_fields_elis_eisek_sillymode_dungeon_entry</entryFromGlobalMapLocation>
 
 	<teleportPermissions>NONE</teleportPermissions>
 

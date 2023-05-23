@@ -20,9 +20,8 @@
 				<nextDialogue stripContent="false"><![CDATA[dsg_encounters_fields_elis_market_eisek_sillymode_approach]]></nextDialogue>
 				<secondsPassed/>
 				<effects><![CDATA[
-					[#game.appendToTextEndStringBuilder(pc.startQuest(QUEST_LINE_SIDE_EISEK_STALL))]
+					[#game.appendToTextEndStringBuilder(pc.startQuest(QUEST_LINE_SIDE_EISEK_SILLYMODE))]
 					[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_mob_dispersed, true)]
-					[#game.getWorlds().get(WORLD_TYPE_innoxia_fields_elis_town).getCell(12, 11).getPlace().setPlaceType(PLACE_TYPE_innoxia_fields_elis_town_sillymode_dungeon_entrance)]
 				]]></effects>				
 			</response>
 			
@@ -34,7 +33,6 @@
 				<nextDialogue><![CDATA[dsg_encounters_fields_elis_market_eisek_sillymode_back_off]]></nextDialogue>
 				<secondsPassed/>
 				<effects><![CDATA[
-					[#game.appendToTextEndStringBuilder(pc.startQuest(QUEST_LINE_SIDE_EISEK_STALL))]
 					[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_mob_dispersed, true)]
 				]]></effects>
 			</response>			

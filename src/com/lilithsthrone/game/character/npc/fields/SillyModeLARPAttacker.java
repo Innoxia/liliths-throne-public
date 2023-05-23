@@ -226,7 +226,7 @@ public class SillyModeLARPAttacker extends NPC{
 		if (victory) {
 			return new Response("", "", DialogueManager.getDialogueFromId("dsg_encounters_fields_elis_eisek_sillymode_dungeon_combat_won"));
 		} else {
-			return new Response ("", "", DialogueManager.getDialogueFromId("dsg_encounters_fields_elis_eisek_sillymode_dungeon_combat_won"));
+			return new Response ("", "", DialogueManager.getDialogueFromId("dsg_encounters_fields_elis_eisek_sillymode_dungeon_combat_lost"));
 		}
 	}
 	

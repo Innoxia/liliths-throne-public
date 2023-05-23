@@ -6,11 +6,11 @@
 	<virginityLossDescription><![CDATA[in the streets of Elis near a smelly basement]]></virginityLossDescription>
 	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
-	<svgName>door</svgName>
+	<svgName>dungeon_door</svgName>
 	<colour>BASE_WHITE</colour>
 	<backgroundColour>BASE_GREEN_LIGHT</backgroundColour>
 	<encounterType>null</encounterType>
-	<dialogue>dsg_places_fields_elis_eisek_sillymode_dungeon_street</dialogue>
+	<dialogue>dsg_places_fields_elis_eisek_sillymode_dungeon_street_entrance</dialogue>
 	<populationPresent copyPlaceType="innoxia_fields_elis_town_street"/>
 	<furniturePresent>false</furniturePresent>
 	<loiteringEnabled>true</loiteringEnabled>

@@ -14,7 +14,7 @@
 	
 	<htmlContent tag="ENCOUNTER_BACK_OFF"><![CDATA[
 	<p>
-		You decide that Eisek can handle this on his own for now and step away. As you do, you see a bright blue flash between the press of bodies around the stall. The crowd bursts into...cheering? And then reverently haul away several vaguely bipedal lumps of ice like some sort of holy relics. When you turn back towards the [eisek.race], he only shrugs. [eisek.speech(They asked me for it. Some sort of rite of passage. I obliged. There are some very strange customs in this town.)]
+		You decide that Eisek can handle this on his own for now and step away. As you do, you see a bright blue flash between the press of bodies around the stall. The crowd bursts into...cheering? And then reverently haul away several vaguely bipedal lumps of ice like some sort of holy relics. When you turn back towards the [eisek.race], he only shrugs. [eisek.speech(They asked me for it. Some sort of rite of passage. I obliged ...There are some very strange customs in this town.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -53,7 +53,7 @@
 		Out of patience, the ringleader suddenly tries to push the stall over, to what end you're not sure. To goad him into accepting? Countering this, Eisek extends a single digit and presses down on the table. The ringleader strains for some time before giving up with a huff. [test.speechMasculine(Fine! Nobody wants a lame dragon as a final boss anyhow. Let's get out of here,)] he exclaims, turning around to leave.
 	</p>
 	<p>
-		You turn towards Eisek as the crowd shuffles away. The [eisek.race] only scratches his chin. [eisek.speech(Hmm,) he rumbles, [eisek.speech(there are some very strange people in this town.)]
+		You turn towards Eisek as the crowd shuffles away. The [eisek.race] only scratches his chin. [eisek.speech(Hmm,)] he rumbles, [eisek.speech(there are some very strange people in this town.)]
 	</p>
 	<p>
 		For some reason, you don't share his sense of ease.

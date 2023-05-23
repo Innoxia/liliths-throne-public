@@ -113,10 +113,10 @@
 
 	<displacementText type="REMOVE_OR_EQUIP">
 		<self>
-			<![CDATA[[npc.Name] [npc.verb(lift) the armour from [npc.her] shoulders.]]>
+			<![CDATA[[npc.Name] [npc.verb(lift)] the armour from [npc.her] shoulders.]]>
 		</self>
 		<other>
-			<![CDATA[[npc.Name] [npc.verb(lift) the armour from [npc2.namePos] shoulders.]]>
+			<![CDATA[[npc.Name] [npc.verb(lift)] the armour from [npc2.namePos] shoulders.]]>
 		</other>
 		<otherRough>
 			<![CDATA[[npc.Name] [npc.verb(toss)] the armour from [npc2.namePos] shoulders.]]>

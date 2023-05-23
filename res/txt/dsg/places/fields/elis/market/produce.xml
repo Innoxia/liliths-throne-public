@@ -11,7 +11,7 @@
 					Eisek's stall is constructed in much the same way as all the others lining the avenue although it does look comparatively dull and shabby. Stretched over the wooden counter is some sort of rough fabric, you guess burlap, stitched together into a crude cover and there's not even shade to keep the occupant out of the sun. The counter is split into a flat table area and an angled display area with a small chalkboard affixed to a post above it for displaying prices. The thin wooden placard hanging over the front is unpainted with the words "FRESH PRODUCE" simply burned into it.
 				</p>
 				#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB))
-					#IF((flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_intimidate) || flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_intimidate_arcane))
+					#IF(flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_intimidate) || flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_intimidate_arcane))
 						<p>
 							Although you drove off the mob that had been hounding Eisek, you notice what few shoppers happen to wander into the area giving the [eisek.race]'s stall a wider berth than before. Occasionally you see groups of them whispering to each other as they hurry out of the area.
 						</p>
@@ -54,7 +54,7 @@
 						</p>
 					#ENDIF
 				#ELSEIF(pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB))
-					#IF((flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_persuade) || flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_intimidate_seduce))
+					#IF(flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_persuade) || flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_intimidate_seduce))
 						#IF(RND.nextInt(100) <= 20)
 							<p>
 								At present he's busy with a customer, but he will probably make time for you if you should wish it.
