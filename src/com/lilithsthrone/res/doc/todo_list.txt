@@ -238,7 +238,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			
 	[] Test:
 		[x] Issue with 'SIDE_EISEK_STALL' quest progress: Can ask Monica, Silvia/Fae, Imsu/Hale about quest items even before starting quest.
-		[] Dialogue:
+		[x] Dialogue:
 			[x] When buying produce, multiply the 3 affection gain by items purchased
 			[x] Back off missing dialogue
 			[x] banish route
@@ -272,8 +272,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 					[x] Imsu/Hale
 					[x] Monica
 					[x] Eisek's stall tile: Does the tile's name change correctly based on quest progress?
-			[] Silly mode
-				[] change back to 30
+			[x] Silly mode
+				[x] change back to 30
 				[x] location placement repeats if repeatedly leave it
 				[x] trap disarming takes place after player move...
 				[x] Opening phone throws errors... - sexBlockedReason -> some kind of underlying error
