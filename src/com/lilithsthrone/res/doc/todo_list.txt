@@ -6,6 +6,13 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
+	DSG's Eisek Quest:
+		Added a new NPC merchant to Elis's Farmer's Market, who also serves to gate early access to the dragon TF behind a quest.
+		Added three side quests related to this NPC (with one of these quests being exclusive to silly mode).
+		Ralph no longer sells dragonfruit, as this new NPC is now the one who sells it (provided his quest is completed in the best way).
+		Added: 5 new clothing items for new NPC outfit; 1 new clothing item for silly mode; 1 new weapon for silly mode; 4 new Items for new NPC to sell; 3 new quests (1 exclusive to silly mode); 4 new quest items (1 exclusive to silly mode).
+		Full patch notes and details can be seen in the PR here: https://github.com/Innoxia/liliths-throne-public/pull/1718
+	
 	Contributors:
 		Fixed bug where vaginal, lactation, and virginity fetishes had incorrect sorting (based on left-aligned fetishes being active/giving and right-aligned being passive/receiving) in the fetish menu. (by Maxis010)
 		Changed the Body.setFeral() method to not set the body as feral if the subspecies does not have feral attributes or is null. (PR#1771 by SightglassCat)
