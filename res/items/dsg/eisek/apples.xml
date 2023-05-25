@@ -6,7 +6,7 @@
 		<determiner><![CDATA[some]]></determiner>
 		<name><![CDATA[apples]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[apples]]></namePlural>
-		<description><![CDATA[Fruit from a carefully cultivated highland apple tree. The peel has a glossy shine to it, as if it had been polished.]]></description>
+		<description><![CDATA[Fruit from a carefully cultivated highland apple tree. The peel has a glossy shine to it, as if it has been polished.]]></description>
 		<useDescriptor>eat</useDescriptor>
 		<sexUse>true</sexUse>
 		<combatUseAllies>true</combatUseAllies>
@@ -30,9 +30,8 @@
 		
 		<applyEffects><![CDATA[
 			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/5)]
-			#IF (!(npc.hasStatusEffect(SE_dsg_item_fruit_buff_plus) || (npc.hasStatusEffect(SE_dsg_item_fruit_buff))
-				[##npc.addStatusEffect(SE_dsg_item_fruit_buff_plus,3600)]
-			#ENDIF
+			[##npc.removeStatusEffect(SE_dsg_item_fruit_buff)]
+			[##npc.addStatusEffect(SE_dsg_item_fruit_buff_plus, 3600)]
 			<p style='margin-bottom:0; padding-bottom:0;'>
 				[npc.Name] [npc.verb(feel)] vaguely healthier...
 			</p>

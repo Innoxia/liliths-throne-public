@@ -20,7 +20,7 @@
 				<nextDialogue stripContent="false"><![CDATA[dsg_places_fields_elis_eisek_sillymode_dungeon_entry]]></nextDialogue>
 				<secondsPassed/>
 				<effects><![CDATA[
-					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_SILLYMODE, QUEST_SIDE_STAGE_TWO))]
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_SILLYMODE, QUEST_EISEK_SILLYMODE_QUEST_STAGE_TWO))]
 				]]></effects>			
 			</response>
 		</responses>
@@ -36,9 +36,7 @@
 		<travelDisabled><![CDATA[false]]></travelDisabled>
 		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
 		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
-	
 		<responses/>
-			
 	</scene>
 	
 	<scene id ="passage">
@@ -66,9 +64,7 @@
 		<travelDisabled><![CDATA[false]]></travelDisabled>
 		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
 		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
-	
 		<responses/>
-			
 	</scene>
 	
 	<scene id ="boss">
@@ -81,9 +77,7 @@
 		<travelDisabled><![CDATA[false]]></travelDisabled>
 		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
 		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
-	
 		<responses/>
-			
 	</scene>
 	
 	<scene id ="treasure">
@@ -96,7 +90,6 @@
 		<travelDisabled><![CDATA[false]]></travelDisabled>
 		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
 		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
-	
 		<responses>
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
@@ -113,7 +106,6 @@
 				]]></effects>
 			</response>
 		</responses>
-			
 	</scene>
 	
 	<scene id ="treasure_taking">
@@ -126,7 +118,6 @@
 		<travelDisabled><![CDATA[true]]></travelDisabled>
 		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
 		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
-	
 		<responses>
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
@@ -144,7 +135,6 @@
 				]]></effects>
 			</response>
 		</responses>
-			
 	</scene>
 	
 	<scene id ="treasure_taken">
@@ -157,9 +147,7 @@
 		<travelDisabled><![CDATA[false]]></travelDisabled>
 		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
 		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
-	
 		<responses/>
-			
 	</scene>
 	
 	<scene id ="trap">
@@ -172,7 +160,6 @@
 		<travelDisabled><![CDATA[true]]></travelDisabled>
 		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
 		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
-	
 		<responses>
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
@@ -229,7 +216,6 @@
 				]]></effects>
 			</response>
 		</responses>
-			
 	</scene>
 	
 	<scene id ="trap_success">
@@ -242,7 +228,6 @@
 		<travelDisabled><![CDATA[true]]></travelDisabled>
 		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
 		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
-	
 		<responses>
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
@@ -260,7 +245,6 @@
 				]]></effects>
 			</response>
 		</responses>
-			
 	</scene>
 	
 	<scene id ="trap_failure">
@@ -287,7 +271,6 @@
 		<travelDisabled><![CDATA[true]]></travelDisabled>
 		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
 		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
-	
 		<responses>
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
@@ -299,13 +282,9 @@
 				<nextDialogue><![CDATA[
 					default
 				]]></nextDialogue>
-				<effects><![CDATA[
-					[#game.getPlayerCell().getPlace().setPlaceType(PLACE_TYPE_dsg_fields_elis_eisek_sillymode_trap_triggered)]
-					[#game.getPlayerCell().getPlace().setName(PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_trap_triggered.getName())]
-				]]></effects>
+				<effects/>
 			</response>
 		</responses>
-			
 	</scene>
 	
 	<scene id ="trap_triggered">

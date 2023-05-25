@@ -163,7 +163,7 @@
 	
 	<htmlContent tag="INTIMIDATE_WON"><![CDATA[
 	<p>
-		As you stand triumphant above the crumpled form of [muscle.name], a murmur travels around the room. Your victory over what was apparently the mob's muscle seems to have had quite the effect and the donkey-boy for his part is visibly intimidated. [test.speechMasculine(V-very well. But I hope you understand that you've doomed this town and everyone in it!)]
+		As you stand triumphant above the crumpled form of [dsg_muscle.name], a murmur travels around the room. Your victory over what was apparently the mob's muscle seems to have had quite the effect and the donkey-boy for his part is visibly intimidated. [test.speechMasculine(V-very well. But I hope you understand that you've doomed this town and everyone in it!)]
 	</p>
 	<p>
 		Satisfied, you turn around to leave without another word. Somehow you doubt that the donkey-boy's prophecy of doom will come to pass.
@@ -173,7 +173,7 @@
 	
 	<htmlContent tag="INTIMIDATE_LOST"><![CDATA[
 	<p>
-		[muscle.NamePos] finishing blow sends stars across your vision and you collapse in a heap on the cellar floor.
+		[dsg_muscle.NamePos] finishing blow sends stars across your vision and you collapse in a heap on the cellar floor.
 	</p>
 	<p>
 		When you awake, you're alone in the cellar. Picking yourself up, you gingerly make your way back out into the street. You'd better tell Eisek the bad news...

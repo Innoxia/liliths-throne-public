@@ -23,11 +23,11 @@
 	
 	<htmlContent tag="ENTRY"><![CDATA[
 	<p>
-		Behind this avalanche of junk was once the door to the outside world. The pile is now so high that you cannot even see the frame of the door. The junk itself is a boring mix of kitschy craft projects and worthless trash but the sheer mass would make digging your way out a filthy, dangerous affair 
+		Behind this avalanche of junk was once the door to the outside world. The pile is now so high that you cannot even see the frame of the door. The junk itself is a boring mix of kitschy craft projects and worthless trash but the sheer mass would make digging your way out a filthy, dangerous
 		#IF(pc.hasSpell(SPELL_TELEKENETIC_SHOWER))
-			, even with your telekinetic earth magic.
+			 affair, even with your telekinetic earth magic.
 		#ELSE
-			.
+			 affair.
 		#ENDIF
 		 One wonders how the occupants of this "dungeon" reset this trap, or even if they bother resetting it at all. There is nowhere to go except deeper into the basement.
 	</p>

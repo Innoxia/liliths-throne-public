@@ -54,7 +54,7 @@
 						</p>
 					#ENDIF
 				#ELSEIF(pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB))
-					#IF(flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_persuade) || flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_intimidate_seduce))
+					#IF(flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_persuade) || flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_seduce))
 						#IF(RND.nextInt(100) <= 20)
 							<p>
 								At present he's busy with a customer, but he will probably make time for you if you should wish it.

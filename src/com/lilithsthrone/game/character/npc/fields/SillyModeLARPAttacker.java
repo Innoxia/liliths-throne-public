@@ -1,11 +1,5 @@
 package com.lilithsthrone.game.character.npc.fields;
 
-/**
- *
- * @author DSG
- * Cribbed from ElisAlleyAttacker
- */
-
 import java.time.Month;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -16,13 +10,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
-import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
-import com.lilithsthrone.game.character.body.valueEnums.Muscle;
-import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
@@ -45,11 +35,19 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
-public class SillyModeLARPAttacker extends NPC{
+/**
+ * Cribbed from ElisAlleyAttacker
+ * 
+ * @since 0.4.8.6
+ * @version 0.4.8.6
+ * @author DSG
+ */
+
+public class SillyModeLARPAttacker extends NPC {
+	
     public SillyModeLARPAttacker() {
 		this(Gender.getGenderFromUserPreferences(false, false), false);
 	}
@@ -163,9 +161,9 @@ public class SillyModeLARPAttacker extends NPC{
 	@Override
 	public float getMoveWeight(AbstractCombatMove move, List<GameCharacter> enemies, List<GameCharacter> allies) {
 	    if (move.getType() == CombatMoveType.TEASE || move.getType() == CombatMoveType.DEFEND) {
-		return 0;
+	    	return 0;
 	    } else {
-		return super.getMoveWeight(move, enemies, allies);
+	    	return super.getMoveWeight(move, enemies, allies);
 	    }
 	}
 
@@ -175,7 +173,7 @@ public class SillyModeLARPAttacker extends NPC{
 		this.clearNonEquippedInventory(false);
 		Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
 		
-		//Start out with a base laborer outfit
+		//Start out with a base labourer outfit
 		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.JOB_LABOUR, settings);
 		
 		//Equip cardboardium armor and weapon
@@ -184,7 +182,6 @@ public class SillyModeLARPAttacker extends NPC{
 		}
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_sm_cboard_cbarmor", false), InventorySlot.TORSO_OVER, true, this);
 		this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("dsg_sm_cboard_cbsword"));
-		
 	}
 	
 	@Override
@@ -194,7 +191,6 @@ public class SillyModeLARPAttacker extends NPC{
 	
 	@Override
 	public String getDescription() {
-		
 	    return (UtilText.parse(this, "[npc.Name] is a resident of Elis who has an affinity for live-action roleplay."));
 	}
 

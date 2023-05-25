@@ -5,8 +5,10 @@
 		<author><![CDATA[DSG]]></author>
 		<title><![CDATA[A Familiar Stench...]]></title>
 		<tooltip/>
-		<preParsingEffects><![CDATA[		[#game.getPlayerCell().getPlace().setPlaceType(PLACE_TYPE_innoxia_fields_elis_town_eisek_sillymode_dungeon_entrance)]		[#game.getPlayerCell().getPlace().setName(PLACE_TYPE_innoxia_fields_elis_town_eisek_sillymode_dungeon_entrance.getName())]
-		[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_basement_found, false)]
+		<preParsingEffects><![CDATA[
+			[#game.getPlayerCell().getPlace().setPlaceType(PLACE_TYPE_innoxia_fields_elis_town_eisek_sillymode_dungeon_entrance)]
+			[#game.getPlayerCell().getPlace().setName(PLACE_TYPE_innoxia_fields_elis_town_eisek_sillymode_dungeon_entrance.getName())]
+			[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_basement_found, true)]
 		]]></preParsingEffects>
 		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode_dungeon_street">STREET</content>
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
@@ -40,10 +42,8 @@
 
 
 	<scene id ="combat">
-				
 		<author><![CDATA[DSG]]></author>			
 		<title><![CDATA[Cardboard Warrior]]></title>
-		
 		<tooltip/>				
 		<preParsingEffects><![CDATA[
 			[#game.addNPC('fields.SillyModeLARPAttacker', 'dsg_larpattacker')]
@@ -51,17 +51,14 @@
 			[#npc.setHistory(OCCUPATION_NPC_UNEMPLOYED)]
 			[#npc.equipClothing()]
 			[#npc.setLocation(pc, true)]
-		]]></preParsingEffects>		
-		
+		]]></preParsingEffects>
 		<content folderPath="txt/dsg/encounters/fields/elis/eisek_sillymode/dungeon">COMBAT</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
-				
 		<continuesDialogue><![CDATA[false]]></continuesDialogue>	
 		<travelDisabled><![CDATA[true]]></travelDisabled>	
 		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>	
 		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
 		<responseTabs/>
-		
 		<responses>			
 			<response>				
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
@@ -98,7 +95,6 @@
 		<travelDisabled><![CDATA[true]]></travelDisabled>
 		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
 		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
-	
 		<responses>
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
@@ -127,7 +123,6 @@
 		<travelDisabled><![CDATA[true]]></travelDisabled>
 		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
 		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
-	
 		<responses>
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
@@ -188,9 +183,9 @@
 				<nextDialogue stripContent="false"><![CDATA[default]]></nextDialogue>
 				<secondsPassed/>
 				<effects><![CDATA[
-				[#game.appendToTextEndStringBuilder(pc.addItem(itemGen.generateItem(ITEM_dsg_quest_sm_magicorb), 1, false, true))]
-				[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_SILLYMODE, QUEST_EISEK_SILLYMODE_QUEST_STAGE_THREE))]
-				[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_boss_defeated, true)]
+					[#game.appendToTextEndStringBuilder(pc.addItem(itemGen.generateItem(ITEM_dsg_quest_sm_magicorb), 1, false, true))]
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_SILLYMODE, QUEST_EISEK_SILLYMODE_QUEST_STAGE_THREE))]
+					[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_boss_defeated, true)]
 				]]></effects>
 			</response>
 		</responses>

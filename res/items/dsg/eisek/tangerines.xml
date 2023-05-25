@@ -6,7 +6,7 @@
 		<determiner><![CDATA[some]]></determiner>
 		<name><![CDATA[tangerines]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[tangerines]]></namePlural>
-		<description><![CDATA[A winter citrus fruit that is less sour than many of its larger cousins. The peel has a glossy shine to it, as if it had been polished.]]></description>
+		<description><![CDATA[A winter citrus fruit that is less sour than many of its larger cousins. The peel has a glossy shine to it, as if it has been polished.]]></description>
 		<useDescriptor>eat</useDescriptor>
 		<sexUse>true</sexUse>
 		<combatUseAllies>true</combatUseAllies>
@@ -41,10 +41,10 @@
 				[##npc.setCumFlavour(FLUID_FLAVOUR_ORANGE)]
 			#ENDIF
 			#IF (npc.hasVagina())
-				[##npc.setGirlCumFlavour(FLUID_FLAVOUR_ORANGE)]
+				[##npc.setGirlcumFlavour(FLUID_FLAVOUR_ORANGE)]
 			#ENDIF
-			#IF (!(npc.hasStatusEffect(SE_dsg_item_fruit_buff_plus) || (npc.hasStatusEffect(SE_dsg_item_fruit_buff))
-				[##npc.addStatusEffect(SE_dsg_item_fruit_buff,5400)]
+			#IF (!npc.hasStatusEffect(SE_dsg_item_fruit_buff_plus))
+				[##npc.addStatusEffect(SE_dsg_item_fruit_buff, 5400)]
 			#ENDIF
 			<p style='margin-bottom:0; padding-bottom:0;'>
 				[npc.Name] [npc.verb(feel)] vaguely healthier...

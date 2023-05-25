@@ -22,7 +22,6 @@
 					[#flags.setFlag(FLAG_dsg_elis_eisek_introduced, true)]
 				]]></effects>				
 			</response>
-			
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
@@ -30,7 +29,9 @@
 				<responseTooltip><![CDATA[People are avoiding the area for a reason.]]></responseTooltip>
 				<nextDialogue><![CDATA[dsg_encounters_fields_elis_market_eisek_initial_back_off]]></nextDialogue>
 				<secondsPassed/>
-				<effects/>
+				<effects><![CDATA[
+					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_market_path)]
+				]]></effects>
 			</response>			
 		</responses>
 	</scene>
@@ -49,11 +50,11 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Continue]]></responseTitle>
-				<responseTooltip/>
+				<responseTooltip><![CDATA[Having backed off from the stall, you're now free to continue on your way...]]></responseTooltip>
 				<colour><![CDATA[TEXT]]></colour>
 				<nextDialogue stripContent="false"><![CDATA[default]]></nextDialogue>
 				<secondsPassed/>
-				<effects/>				
+				<effects/>
 			</response>
 		</responses>
 	</scene>
@@ -82,8 +83,7 @@
 					[#flags.setFlag(FLAG_dsg_elis_eisek_introduced, true)]
 					[#game.appendToTextEndStringBuilder(eisek.incrementAffection(pc, 3))]
 				]]></effects>				
-			</response>	
-			
+			</response>
 			<response>
 				<availabilityConditional><![CDATA[[#pc.getRace().equals(RACE_dsg_dragon)]]]></availabilityConditional>	
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
@@ -101,7 +101,6 @@
 					[#game.appendToTextEndStringBuilder(eisek.incrementAffection(pc, 3))]
 				]]></effects>				
 			</response>
-			
 			<response>
 				<availabilityConditional><![CDATA[[#!pc.getRace().equals(RACE_dsg_dragon)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
@@ -130,8 +129,8 @@
 		<travelDisabled><![CDATA[true]]></travelDisabled>	
 		<inventoryDisabled><![CDATA[true]]></inventoryDisabled>	
 		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>		
-		<responses>			
-			<response>					
+		<responses>
+			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Continue]]></responseTitle>
@@ -139,7 +138,7 @@
 				<colour><![CDATA[TEXT]]></colour>
 				<nextDialogue><![CDATA[dsg_places_fields_elis_market_produce_banished_stall]]></nextDialogue>
 				<secondsPassed/>
-				<effects/>				
+				<effects/>
 			</response>			
 		</responses>
 	</scene>

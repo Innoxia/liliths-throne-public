@@ -19,6 +19,24 @@
 	]]>
 	</htmlContent>
 	
+	<!-- Copy of 'TALK_MENU' in 'txt/dsg/characters/eisek/stall' with minor variations -->
+	<htmlContent tag="ENCOUNTER_END"><![CDATA[
+	#IF(eisek.getAffection(pc) >= 15)
+		<p>
+			With the odd group having now departed, a smile grows across Eisek's face as he asks, [eisek.speech(So, what can I do for my favourite customer?)]
+		</p>
+	#ELSEIF(eisek.getAffection(pc) >= 30)
+		<p>
+			With the odd group having now departed, a broad smile grows across Eisek's face, and you catch a glimpse of his tail twitching involuntarily as he asks, [eisek.speech(What can I do for my favourite customer? The day is brighter already.)]
+		</p>
+	#ELSE
+		<p>
+			With the odd group having now departed, a faint smile creeps across Eisek's face as he asks, [eisek.speech(So, what can I do for you?)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
 	<!-- ENCOUNTER_APPROACH -->
 	
 	<htmlContent tag="ENCOUNTER_APPROACH"><![CDATA[

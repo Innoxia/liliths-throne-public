@@ -1105,18 +1105,24 @@
 			</response>
 			<response>
 				<availabilityConditional><![CDATA[
-				[#(fae.isPlayerKnowsName() &&
-				pc.isQuestProgressLessThan(QUEST_LINE_SIDE_EISEK_STALL, QUEST_EISEK_STALL_QUEST_STAGE_TWO) && 
-				!pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL))
-				]]]></availabilityConditional>
+					[#fae.isPlayerKnowsName() && pc.hasQuest(QUEST_LINE_SIDE_EISEK_STALL) && pc.isQuestProgressLessThan(QUEST_LINE_SIDE_EISEK_STALL, QUEST_EISEK_STALL_QUEST_STAGE_TWO) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL)]
+				]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[14]]></index>
+				<index><![CDATA[5]]></index>
 				<responseTitle><![CDATA[Fabric?]]></responseTitle>
 				<responseTooltip><![CDATA[
-					Ask Fae and Silvia if they have any fabric to sell you.
+					#IF(game.getCurrentDialogueNode()==DN_innoxia_places_fields_elis_market_clothing_ask_fabric)
+						You're already asking Fae and Silvia if they have any fabric to sell you!
+					#ELSE
+						Ask Fae and Silvia if they have any fabric to sell you.
+					#ENDIF
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[
-					innoxia_places_fields_elis_market_clothing_ask_fabric
+					#IF(game.getCurrentDialogueNode()==DN_innoxia_places_fields_elis_market_clothing_ask_fabric)
+						null
+					#ELSE
+						innoxia_places_fields_elis_market_clothing_ask_fabric
+					#ENDIF
 				]]></nextDialogue>
 			</response>
 		</responses>

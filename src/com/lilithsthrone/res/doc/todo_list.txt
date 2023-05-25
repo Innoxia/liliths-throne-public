@@ -159,7 +159,129 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] Eisek PR!
 		[] Get list to DSG by end of Tuesday:
-		
+		Bugfixes:
+			- Bugfix: Regenerated Elis market map upon loading so as to add in Eisek's stall.
+			- Bugfix: Very minor fixes for some clothing formatting and typos.
+			- Bugfix: Replaced 'setGirlCumFlavour' with 'setGirlcumFlavour' for fruit flavouring effects, and fixed conditional error in fruits' status effect application.
+				(So apples apply the buffed effect and remove the standard effect, while the other three only apply the standard effect if the target doesn't have the buffed effect.)
+			- Bugfix: Super minor typo in farmer job description.
+		Misc.:
+			- I noticed some UK spellings ('civilised'), thank you for making an effort to maintain the game's spelling consistency. (Although I changed some US spellings I found >:D)
+		Clothing, Weapons, Items:
+			- Cardboard sword: Do the numbers on the PVC pipe mean anything? 'SCH 40 PVC 480 310' (I assume it's the PVC piping type from a google search)
+			- Cardboard cuirass: Nice details.
+			- Eisek's ring: Very cool. Nice use of the sticker system! (I bet those scales took a while.)
+			- Fruit items: All look very nice. Should I add an 'apple' fluids flavour? (As the other fruits apply fluid flavours but there's no flavour for apple - or was this balanced by the apple's better buff?)
+			- Quest items: As usual, all icons are very good.
+			- Mystical Orb of Fate: Nicely done (some of the random options are funny). Perhaps I could feature creep this at some point so that having it highlights a random action (or something).
+			- Eisek's clothing: They suit him very well, and the icons are great once again.
+		Status effects:
+			- Would you like me to add some icons for the two status effects? (As they both use the default effect icon.)
+		Perks:
+			- Crag child: Icon and description are cool, effects are nice.
+			- Farmer: Again, nice icon. The silly mode description made me laugh.
+		Quest:
+			- EISEK_MOB_QUEST_STAGE_TWO: Silly mode 'You destroyed the mob's arguments with FACTS and LOGIC.' made me laugh.
+		NPCs:
+			- Eisek's dailyUpdate(): I agree with your comment 'Probably could reduce this to only update on the first day, but that might get annoying when adding items in future updates or for modders'.
+			- SillyModeLARPAttacker's setStartingCombatMoves(): 'Do not add tease...just...don't do it.' Now I am curious...
+			- SillyModeLARPAttacker's's isLootingPlayerAfterCombat(): 'return false; // This is not high-stakes LARPing' made me laugh.
+		Lore:
+			- Dragon race: Half-demon name from zahhak to vritra looks ok, although I admittedly don't know much about either.
+			- New dragon lore: I like the change to Lisophia's method for getting more wealth, it really suits the greed theme she'll have and helps to reinforce the fact that the elder lilin are 'the bad guys'.
+		Maps:
+			- Sillymode dungeon exit: 'The  air is not so foul near this door, it must be the way out.' is this a LOTR reference?
+			- Sillymode dungeon: 'Getting off in a dungeon full of weirdos isn't a good idea.' Made me laugh.
+			- Eisek's stall tile: Good idea making the shoppers present increase in density based on quest completion.
+			- Eisek's stall tile: I changed the density of the crowd from 'ONE' ('A single crowd') to a newly-added density, 'SMALL' ('A small crowd').
+		Dialogue/Playthrough:
+			- Change: Moved action position from 14 to 5 for Fae's 'Fabric?' action.
+			- Bugfix: Fixed issue where you could ask Monica, Silvia/Fae, Imsu/Hale about stall quest items even before starting quest (due to a missing 'pc.hasQuest(QUEST_LINE_SIDE_EISEK_STALL)' check in the action conditionals).
+			- Change: When buying produce from Eisek, the 3 affection gain is now multiplied by items purchased (so buying 2 items at once gives +6 affection, for example). These gains are capped, so buying lots of items at once won't boost affection past 15.
+			- Change: Selecting the 'Back off' action now moves the player back a tile, so that when the dialogue ends they have the standard market path scene.
+			- Initial Eisek encounter: Interesting use of an encounter to display the correct dialogue for the tile. I normally use conditional checks within the same dialogue node to alter the content displayed (using the 'eisek_introduced' flag, for example).
+			- Eisek's banishment: I was going to remove the 'banishNPC(eisek)' call (as I don't want to remove unique NPCs from the game), but unique NPCs aren't deleted via that method, so I left it as it is.
+			- Bugfix: Fixed issue where the 'banished stall' text was always blank due to an '#ELSEIF' instead of an '#ELSE'.
+			- Minor fix: Added '<p>' tags to Eisek's post-trade speech to format it correctly.
+			- Eisek talk options: I've disabled the talk options if they're the currently active scene. Also I've greyed-out the affection-locked talk actions instead of hiding them to let players know that there's more to be discovered by increasing affection.
+			- Bugfix: In the mob talk, the 'Change the subject' action was set to index 1, so didn't show. (I moved it to index 3.)
+			- CHAD poster: It's brilliant.
+			- 'Confront mob' action: I altered the tooltip's logic a little to make it clearer that knowing Eisek is the best way to go.
+			- Bugfix: The 'Change the subject' action had no associated scene text.
+			- Change: The 'Dragonfall?' action now remains in the 'mob' scene with its associated actions instead of returning to the main talk scene.
+			- Mob quest: I like the way the player gets rewarded for having taken the time to get to know Eisek (via the persuade option).
+			- Eisek's smalltalk: I really like the variations based on what the player has accomplished (vengar, harpy nests, slime queen).
+			- Bugfix: Mob fight scene had 'muscle' instead of 'dsg_muscle' as a parser target.
+			- Mob confrontation: For the lust tooltip: 'Use your mastery of lust spells to make things interesting. [style.boldBad(NYI)]', what does NYI mean? (Also this content wasn't added so I added content for it.)
+			- Mob confrontation: I made victory conditions greyed-out if the requirements weren't met instead of hiding them, and also made the resolution scenes have 'continue dialogue'.
+			- Bugfix: When losing the fight against the mob, or failing to intimidate them, the quest conditional checks weren't quite working correctly, so I added another Quest, 'EISEK_MOB_QUEST_STAGE_THREE_FAILED', and set the progress using that.
+			- Bugfix: When reporting to Eisek that you failed to handle the mob, the dialogue displayed the player reporting their success.
+			- Bugfix: Changed the wording of 'EISEK_MOB_QUEST_STAGE_TWO' quest completion text so that it doesn't contradict the quest text if the player fails the mob quest.
+			- Change: Eisek's stall quest can now only be started if the player resolved the mob quest via persuasion.
+			- Fae/Silvia: I made it so that their 'Fabirc?' action is greyed out once clicked on.
+			- Imsu/Hale: I did some tinkering with conditionals and formatting to tidy it up a little.
+			- Monica: Similar editing of conditionals and formatting as I did with Imsu/Hale.
+			- Eisek's ring: Is the inscription change for future content?
+		Silly mode:
+			- Writing: Funny, it made me laugh several times.
+			- Change: I made the initial encounter flow into Eisek's standard interactions, instead of returning the player to the 'Approach' action.
+			- Bugfix: The 'FLAG_dsg_elis_eisek_sillymode_basement_found' wasn't being set to true when discovering the dungeon (it was being set to false instead, so I assume a copy paste error), allowing the dungeon tile to be repeatedly generated.
+			- Traps: Again, writing is funny (the disarm tooltip 'Counterterrorists win' made me laugh).
+			- Bugfix: Failing to disarm the trap set the place type to diarmed on both the trap tile and the tile the player was moved to.
+			- Bugfix: Fixed background error being thrown when opening the phone in the dungeon map (caused by my code, not your files).
+			- Writing: 'This strange little group is going without snacks for a while.​' ;_;
+		Writing:
+			- General: Style fits well with my style of writing, and has a good amount of dialogue.
+			- Bugfix: Changed 'FLAG_dsg_elis_eisek_mob_quest_intimidate_seduce' to 'FLAG_dsg_elis_eisek_mob_quest_seduce' at end of the 'STALL' text in produce.xml.
+			
+			
+			
+	[] Test:
+		[x] Issue with 'SIDE_EISEK_STALL' quest progress: Can ask Monica, Silvia/Fae, Imsu/Hale about quest items even before starting quest.
+		[] Dialogue:
+			[x] When buying produce, multiply the 3 affection gain by items purchased
+			[x] Back off missing dialogue
+			[x] banish route
+				[-] change banishNPC(eisek) to change home tile and use FLAG_dsg_elis_eisek_banished to prevent his movement
+				[x] No description for the banished Eisek tile
+			[x] real route
+				[x] trade
+					[x] speech is not in p tags
+				[x] talking
+					[x] make options greyed out if they're the active option
+					[x] test all talk options
+				[x] mob
+					[x] The 'Change the subject' action has no associated scene text
+					[x] The 'Dragonfall?' action should keep the mob options instead of returning to the main talk scene
+					[x] test after having talked with Eisek (elis_eisek_talk_score >= 4)
+					[x] test all victory conditions
+						[x] make victory conditions greyed-out if don't meet requirements instead of hiding them
+						[x] physique
+						[x] arcane
+						[x] test fight
+							[x] win
+							[x] lose
+								[x] cannot report back to Eisek if lose (and probably fail intimidate as well)
+						[-] arcane spell school
+							[-] add seduce content
+					[x] check quest log at each stage
+						[x] incorrect if lost fight
+				[x] stall quest
+					[x] disable unless persuasion route end for mob quest
+					[x] Fae/Silvia
+					[x] Imsu/Hale
+					[x] Monica
+					[x] Eisek's stall tile: Does the tile's name change correctly based on quest progress?
+			[] Silly mode
+				[] change back to 30
+				[x] location placement repeats if repeatedly leave it
+				[x] trap disarming takes place after player move...
+				[x] Opening phone throws errors... - sexBlockedReason -> some kind of underlying error
+		[] Add fruit status effect icons
+		[] Add apple flavour?
+	
+	
+	[] Remove <sexBlockedReason/> from lots of place types...
 	
 	[] main quest
 		[x] Add Enforcer station

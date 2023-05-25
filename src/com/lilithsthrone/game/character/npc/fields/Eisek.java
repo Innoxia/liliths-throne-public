@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.lilithsthrone.game.character.npc.fields;
 
 import com.lilithsthrone.game.PropertyValue;
@@ -68,7 +63,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- *
+ * @since 0.4.8.6
+ * @version 0.4.8.6
  * @author DSG
  */
 public class Eisek extends NPC {
@@ -78,28 +74,26 @@ public class Eisek extends NPC {
     }
     
     public Eisek(boolean isImported) {
-	super(isImported, new NameTriplet("Eisek","Emio","Eylean"), "Seawings",
-		"",
-		25, Month.FEBRUARY, 9,
-		20,
-		Gender.M_P_MALE, Subspecies.getSubspeciesFromId("dsg_dragon_subspecies_dragon"),
-		RaceStage.GREATER,
-		new CharacterInventory(10),
-		WorldType.getWorldTypeFromId("innoxia_fields_elis_market"),
-		PlaceType.getPlaceTypeFromId("dsg_fields_elis_market_produce"),
-		true);
-	if(!isImported) {
-	    this.setPlayerKnowsName(false);
-            this.dailyUpdate();
-	    
-	}
+		super(isImported, new NameTriplet("Eisek","Emio","Eylean"), "Seawings",
+			"",
+			25, Month.FEBRUARY, 9,
+			20,
+			Gender.M_P_MALE, Subspecies.getSubspeciesFromId("dsg_dragon_subspecies_dragon"), RaceStage.GREATER,
+			new CharacterInventory(10),
+			WorldType.getWorldTypeFromId("innoxia_fields_elis_market"),
+			PlaceType.getPlaceTypeFromId("dsg_fields_elis_market_produce"),
+			true);
+		if(!isImported) {
+		    this.setPlayerKnowsName(false);
+		    this.dailyUpdate();
+		}
     }
     
     @Override
     public void setupPerks(boolean autoSelectPerks) {
 	    this.addSpecialPerk(Perk.SPECIAL_CHILD_OF_THE_CRAG);
 	    this.setHistory(Occupation.NPC_FARMER);
-
+	    
 	    PerkManager.initialisePerks(this,
 			    Util.newArrayListOfValues(),
 			    Util.newHashMapOfValues(
@@ -110,94 +104,91 @@ public class Eisek extends NPC {
 
     @Override
     public void setStartingBody(boolean setPersona) {
+		
+		// Persona:
+		if(setPersona) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 	
-	// Persona:
-
-	if(setPersona) {
-	    
-		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-
-		this.setHistory(Occupation.NPC_FARMER);
-
-		this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
-		this.setFetishDesire(Fetish.FETISH_BREASTS_OTHERS, FetishDesire.THREE_LIKE);
-
-		this.setFetishDesire(Fetish.FETISH_SADIST, FetishDesire.ZERO_HATE);
-		this.setFetishDesire(Fetish.FETISH_DENIAL, FetishDesire.ZERO_HATE);
-	}
-
-	// Body:
-
-	// Core:
-	this.setHeight(211);
-	this.setFemininity(5);
-	this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
-	this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
-	this.setWingType(WingType.getWingTypeFromId("dsg_dragon_wing"));
-	this.setWingSize(WingSize.THREE_LARGE.getValue());
-
-	// Coverings:
-	this.setEyeCovering(new Covering("dsg_dragon_eye", PresetColour.EYE_ORANGE));
-	this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_LIGHT), true);
-	this.setSkinCovering(new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, CoveringModifier.SMOOTH, PresetColour.COVERING_BLUE_LIGHT, false, PresetColour.ORIFICE_INTERIOR, false), true);
-	this.setSkinCovering(new Covering(BodyCoveringType.ANUS, CoveringPattern.ORIFICE_ANUS, CoveringModifier.SMOOTH, PresetColour.COVERING_BLUE, false, PresetColour.COVERING_BLUE_LIGHT, false), true);
-	this.setSkinCovering(new Covering(BodyCoveringType.MOUTH, CoveringPattern.ORIFICE_MOUTH, CoveringModifier.SMOOTH, PresetColour.COVERING_BLUE, false, PresetColour.COVERING_BLUE_LIGHT, false), true);
-	this.setSkinCovering(new Covering(BodyCoveringType.NIPPLES, CoveringPattern.ORIFICE_NIPPLE, CoveringModifier.SMOOTH, PresetColour.COVERING_BLUE, false, PresetColour.COVERING_BLUE_LIGHT, false), true);
-	this.setSkinCovering(new Covering(BodyCoveringType.TONGUE, CoveringPattern.NONE, CoveringModifier.SMOOTH, PresetColour.COVERING_BLUE_LIGHT, false, PresetColour.ORIFICE_INTERIOR, false), true);
-	this.setSkinCovering(new Covering("dsg_dragon_scales", CoveringPattern.MARKED, CoveringModifier.SMOOTH, PresetColour.COVERING_BLUE, false, PresetColour.COVERING_WHITE, false), true);
-
-	this.setHairCovering(new Covering("dsg_dragon_hair", PresetColour.COVERING_WHITE, PresetColour.COVERING_WHITE), false);
-	this.setHairType(HairType.getHairTypeFromId("dsg_dragon_hairMane"));
-	this.setHairLength(HairLength.ZERO_BALD);
-	this.setHairStyle(HairStyle.NONE);
-
-	this.setHairCovering(new Covering("dsg_dragon_body_hair", PresetColour.COVERING_BLACK), false);
-	this.setUnderarmHair(BodyHair.FOUR_NATURAL);
-	this.setAssHair(BodyHair.FOUR_NATURAL);
-	this.setPubicHair(BodyHair.FOUR_NATURAL);
-	this.setFacialHair(BodyHair.ZERO_NONE);
-
-	// Face:
-	this.setFaceVirgin(true);
-	this.setLipSize(LipSize.ONE_AVERAGE);
-	this.setFaceCapacity(Capacity.ZERO_IMPENETRABLE, true);
-	// Throat settings and modifiers
-	this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
-	// Tongue modifiers
-
-	// Chest:
-	this.setNippleVirgin(true);
-	this.setBreastSize(CupSize.FLAT.getMeasurement());
-	this.setBreastShape(BreastShape.SIDE_SET);
-	this.setNippleSize(NippleSize.ZERO_TINY);
-	this.setAreolaeSize(AreolaeSize.ZERO_TINY);
-	// Nipple settings and modifiers
-
-	// Ass:
-	this.setAssVirgin(true);
-	this.setAssBleached(false);
-	this.setAssSize(AssSize.TWO_SMALL);
-	this.setHipSize(HipSize.TWO_NARROW);
-	this.setAssCapacity(Capacity.ZERO_IMPENETRABLE, true);
-	this.setAssWetness(Wetness.ZERO_DRY);
-	this.setAssElasticity(OrificeElasticity.ONE_RIGID.getValue());
-	this.setAssPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
-	// Anus modifiers
-
-	// Penis:
-	this.setPenisVirgin(false);
-	this.setPenisGirth(PenetrationGirth.FOUR_GIRTHY);
-	this.setPenisSize(28);
-	this.setTesticleSize(TesticleSize.THREE_LARGE);
-	this.setPenisCumStorage(120);
-	this.fillCumToMaxStorage();
-	// Leave cum as normal value
-
-	// Vagina:
-	// No vagina
-
-	// Feet:
-	this.setFootStructure(FootStructure.DIGITIGRADE);
+			this.setHistory(Occupation.NPC_FARMER);
+	
+			this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_BREASTS_OTHERS, FetishDesire.THREE_LIKE);
+	
+			this.setFetishDesire(Fetish.FETISH_SADIST, FetishDesire.ZERO_HATE);
+			this.setFetishDesire(Fetish.FETISH_DENIAL, FetishDesire.ZERO_HATE);
+		}
+	
+		// Body:
+		// Core:
+		this.setHeight(211);
+		this.setFemininity(5);
+		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
+		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
+		this.setWingType(WingType.getWingTypeFromId("dsg_dragon_wing"));
+		this.setWingSize(WingSize.THREE_LARGE.getValue());
+	
+		// Coverings:
+		this.setEyeCovering(new Covering("dsg_dragon_eye", PresetColour.EYE_ORANGE));
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_LIGHT), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, CoveringModifier.SMOOTH, PresetColour.COVERING_BLUE_LIGHT, false, PresetColour.ORIFICE_INTERIOR, false), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.ANUS, CoveringPattern.ORIFICE_ANUS, CoveringModifier.SMOOTH, PresetColour.COVERING_BLUE, false, PresetColour.COVERING_BLUE_LIGHT, false), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.MOUTH, CoveringPattern.ORIFICE_MOUTH, CoveringModifier.SMOOTH, PresetColour.COVERING_BLUE, false, PresetColour.COVERING_BLUE_LIGHT, false), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.NIPPLES, CoveringPattern.ORIFICE_NIPPLE, CoveringModifier.SMOOTH, PresetColour.COVERING_BLUE, false, PresetColour.COVERING_BLUE_LIGHT, false), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.TONGUE, CoveringPattern.NONE, CoveringModifier.SMOOTH, PresetColour.COVERING_BLUE_LIGHT, false, PresetColour.ORIFICE_INTERIOR, false), true);
+		this.setSkinCovering(new Covering("dsg_dragon_scales", CoveringPattern.MARKED, CoveringModifier.SMOOTH, PresetColour.COVERING_BLUE, false, PresetColour.COVERING_WHITE, false), true);
+	
+		this.setHairCovering(new Covering("dsg_dragon_hair", PresetColour.COVERING_WHITE, PresetColour.COVERING_WHITE), false);
+		this.setHairType(HairType.getHairTypeFromId("dsg_dragon_hairMane"));
+		this.setHairLength(HairLength.ZERO_BALD);
+		this.setHairStyle(HairStyle.NONE);
+	
+		this.setHairCovering(new Covering("dsg_dragon_body_hair", PresetColour.COVERING_BLACK), false);
+		this.setUnderarmHair(BodyHair.FOUR_NATURAL);
+		this.setAssHair(BodyHair.FOUR_NATURAL);
+		this.setPubicHair(BodyHair.FOUR_NATURAL);
+		this.setFacialHair(BodyHair.ZERO_NONE);
+	
+		// Face:
+		this.setFaceVirgin(true);
+		this.setLipSize(LipSize.ONE_AVERAGE);
+		this.setFaceCapacity(Capacity.ZERO_IMPENETRABLE, true);
+		// Throat settings and modifiers
+		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
+		// Tongue modifiers
+	
+		// Chest:
+		this.setNippleVirgin(true);
+		this.setBreastSize(CupSize.FLAT.getMeasurement());
+		this.setBreastShape(BreastShape.SIDE_SET);
+		this.setNippleSize(NippleSize.ZERO_TINY);
+		this.setAreolaeSize(AreolaeSize.ZERO_TINY);
+		// Nipple settings and modifiers
+	
+		// Ass:
+		this.setAssVirgin(true);
+		this.setAssBleached(false);
+		this.setAssSize(AssSize.TWO_SMALL);
+		this.setHipSize(HipSize.TWO_NARROW);
+		this.setAssCapacity(Capacity.ZERO_IMPENETRABLE, true);
+		this.setAssWetness(Wetness.ZERO_DRY);
+		this.setAssElasticity(OrificeElasticity.ONE_RIGID.getValue());
+		this.setAssPlasticity(OrificePlasticity.THREE_RESILIENT.getValue());
+		// Anus modifiers
+	
+		// Penis:
+		this.setPenisVirgin(false);
+		this.setPenisGirth(PenetrationGirth.FOUR_GIRTHY);
+		this.setPenisSize(28);
+		this.setTesticleSize(TesticleSize.THREE_LARGE);
+		this.setPenisCumStorage(120);
+		this.fillCumToMaxStorage();
+		// Leave cum as normal value
+	
+		// Vagina:
+		// No vagina
+	
+		// Feet:
+		this.setFootStructure(FootStructure.DIGITIGRADE);
     }
 
     @Override
@@ -233,17 +224,17 @@ public class Eisek extends NPC {
     public String getDescription() {
 	    if(this.isPlayerKnowsName() == false && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_banished"))) {
 		    return "You found this dragon-boy being harrassed by a mob while manning a stall at The Farmer's Market in Elis.";
-
+		    
 	    } else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_banished"))) {
 		    return "You found this dragon-boy being harrassed by a mob while manning a stall at The Farmer's Market in Elis. Intentionally or not, you sided with the mob and drove him off.";
-
+		    
 	    } else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_asked_himself"))) {
-		    return "Eisek is a produce merchant at The Farmer's Market in Elis. As a dragon, [npc.he] is often unwelcome in civilised areas, a fact that he is well aware of. He spends most of his time tending to his crops high up in the mountains and only visits Elis three days out of the month.";
-
+		    return "Eisek is a produce merchant at The Farmer's Market in Elis. As a dragon, [npc.he] is often unwelcome in civilised areas, a fact that he is well aware of."
+		    		+ " He spends most of his time tending to his crops high up in the mountains and only visits Elis three days out of the month.";
+		    
 	    } else {
 		    return "Eisek runs a produce stall in the Elis Farmer's Market. As a dragon, [npc.he] is often unwelcome in civilised areas, a fact that he is well aware of.";
 	    }
-	    
     }
     
     @Override
@@ -252,7 +243,7 @@ public class Eisek extends NPC {
 
     @Override
     public DialogueNode getEncounterDialogue() {
-	return null;
+    	return null;
     }
     
     @Override
@@ -267,12 +258,16 @@ public class Eisek extends NPC {
     
     @Override
     public void applyItemTransactionEffects(AbstractCoreItem itemSold, int quantity, int individualPrice, boolean soldToPlayer) {
-	if(soldToPlayer) {
-	    Main.game.appendToTextEndStringBuilder(UtilText.parse(this, "[eisek.speech([game.random(Thank you for your patronage.|I hope you enjoy it.|A handy snack, is it not?)])]"));
-	    if (this.getAffection(Main.game.getPlayer()) < 15 && !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_EISEK_MOB)) {
-		Main.game.appendToTextEndStringBuilder(this.incrementAffection(Main.game.getPlayer(), 3));
-	    }
-	}
+		if(soldToPlayer) {
+		    Main.game.appendToTextEndStringBuilder(UtilText.parse(this, "<p>[eisek.speech([game.random(Thank you for your patronage.|I hope you enjoy it.|A handy snack, is it not?)])]</p>"));
+		    if(this.getAffection(Main.game.getPlayer()) < 15 && !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_EISEK_MOB)) {
+		    	if(this.getAffection(Main.game.getPlayer()) + (quantity * 3) > 15) {
+			    	Main.game.appendToTextEndStringBuilder(this.setAffection(Main.game.getPlayer(), 15));
+		    	} else {
+			    	Main.game.appendToTextEndStringBuilder(this.incrementAffection(Main.game.getPlayer(), quantity * 3));
+		    	}
+		    }
+		}
     }
     
     @Override
@@ -282,42 +277,38 @@ public class Eisek extends NPC {
     
     @Override
     public void dailyUpdate() {
-	
-	if (!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_banished"))) {
-	    if (Main.game.getDateNow().getDayOfMonth() >= 1 && Main.game.getDateNow().getDayOfMonth() <= 3) {
-		//Probably could reduce this to only update on the first day, but that might get annoying when adding items in future updates or for modders
-		clearNonEquippedInventory(false);	
-		for(AbstractItemType item : ItemType.getAllItems()) {
-			if(item.getItemTags().contains(ItemTag.SOLD_BY_EISEK)
-					&& (!item.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
-				this.addItem(Main.game.getItemGen().generateItem(item), !item.isConsumedOnUse()?1:(2+Util.random.nextInt(2)), false, false);
-			}
+		if (!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_banished"))) {
+		    if (Main.game.getDateNow().getDayOfMonth() >= 1 && Main.game.getDateNow().getDayOfMonth() <= 3) {
+				// Probably could reduce this to only update on the first day, but that might get annoying when adding items in future updates or for modders
+				clearNonEquippedInventory(false);	
+				for(AbstractItemType item : ItemType.getAllItems()) {
+					if(item.getItemTags().contains(ItemTag.SOLD_BY_EISEK)
+							&& (!item.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
+						this.addItem(Main.game.getItemGen().generateItem(item), !item.isConsumedOnUse()?1:(2+Util.random.nextInt(2)), false, false);
+					}
+				}
+				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_mob_quest_persuade"))
+						&& Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_EISEK_MOB)) {
+				    this.addItem(Main.game.getItemGen().generateItem("dsg_race_dragon_dragonfruit_yellow"), 1+Util.random.nextInt(1), false, false);
+				    this.addItem(Main.game.getItemGen().generateItem("dsg_race_dragon_dragonfruit_red"), 1+Util.random.nextInt(1), false, false);
+				    this.addItem(Main.game.getItemGen().generateItem("dsg_race_dragon_dragonfruit_pink"), 1+Util.random.nextInt(1), false, false);
+				}
+				if(this.getLocationPlaceType()!=PlaceType.getPlaceTypeFromId("dsg_fields_elis_market_produce")) {
+				    this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_market"), PlaceType.getPlaceTypeFromId("dsg_fields_elis_market_produce"));
+				}
+				
+		    } else { //Shadow realm'd until his real home exists
+				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE);
+		    }
 		}
-		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_mob_quest_persuade")) &&
-			Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_EISEK_MOB)) {
-		    this.addItem(Main.game.getItemGen().generateItem("dsg_race_dragon_dragonfruit_yellow"), 1+Util.random.nextInt(1), false, false);
-		    this.addItem(Main.game.getItemGen().generateItem("dsg_race_dragon_dragonfruit_red"), 1+Util.random.nextInt(1), false, false);
-		    this.addItem(Main.game.getItemGen().generateItem("dsg_race_dragon_dragonfruit_pink"), 1+Util.random.nextInt(1), false, false);
-		}
-		if (this.getLocationPlaceType() != PlaceType.getPlaceTypeFromId("dsg_fields_elis_market_produce")) {
-		    this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_market"), PlaceType.getPlaceTypeFromId("dsg_fields_elis_market_produce"));
-		}
-			
-	    } else {
-		//Shadow realm'd until his real home exists
-		this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE);
-		
-	    }
-	}
-	
     }
     
     @Override
     public String getSpeechColour() {
-            if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
-                    return "#55a2d5";
-            }
-            return "#55a2d5";
+    	if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
+        	return "#55a2d5";
+        }
+        return "#55a2d5";
     }
     
 }

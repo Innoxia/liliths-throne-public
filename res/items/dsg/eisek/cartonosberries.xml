@@ -41,10 +41,10 @@
 				[##npc.setCumFlavour(FLUID_FLAVOUR_STRAWBERRY)]
 			#ENDIF
 			#IF (npc.hasVagina())
-				[##npc.setGirlCumFlavour(FLUID_FLAVOUR_STRAWBERRY)]
+				[##npc.setGirlcumFlavour(FLUID_FLAVOUR_STRAWBERRY)]
 			#ENDIF
-			#IF (!(npc.hasStatusEffect(SE_dsg_item_fruit_buff_plus) || (npc.hasStatusEffect(SE_dsg_item_fruit_buff))
-				[##npc.addStatusEffect(SE_dsg_item_fruit_buff,3600)]
+			#IF (!npc.hasStatusEffect(SE_dsg_item_fruit_buff_plus))
+				[##npc.addStatusEffect(SE_dsg_item_fruit_buff, 3600)]
 			#ENDIF
 			<p style='margin-bottom:0; padding-bottom:0;'>
 				[npc.Name] [npc.verb(feel)] vaguely healthier...

@@ -271,6 +271,8 @@ public class QuestTree {
 		node1.addChild(nodeBranchA);
 		nodeBranchB = new TreeNode<Quest>(Quest.EISEK_MOB_QUEST_STAGE_TWO_FAILED);
 		node1.addChild(nodeBranchB);
+		nodeBranchB.addChild(new TreeNode<Quest>(Quest.EISEK_MOB_QUEST_STAGE_THREE_FAILED));
+		
 		node1 = new TreeNode<Quest>(Quest.EISEK_MOB_QUEST_STAGE_THREE);
 		nodeBranchA.addChild(node1);
 		node2 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);

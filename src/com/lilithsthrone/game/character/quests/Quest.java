@@ -1793,7 +1793,7 @@ public enum Quest {
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "You've ordered a new sign and some bolts of cloth from Monica."; 			
+			return "You've ordered a new sign and some bolts of cloth from Monica.";
 		}
 	},
 	
@@ -1810,7 +1810,7 @@ public enum Quest {
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "You've placed an order with Imsu and Hale for some modified axe hafts."; 			
+			return "You've placed an order with Imsu and Hale for some modified axe hafts.";
 		}
 	},
 	
@@ -1827,7 +1827,7 @@ public enum Quest {
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "You've gathered all the materials."; 			
+			return "You've gathered all the materials.";
 		}
 	},
 	
@@ -1844,7 +1844,7 @@ public enum Quest {
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "As far as you could tell, Eisek was overjoyed at what you've done for him and his stall looks better than ever."; 			
+			return "As far as you could tell, Eisek was overjoyed at what you've done for him and his stall looks better than ever.";
 		}
 	},
 	
@@ -1857,7 +1857,8 @@ public enum Quest {
 		}
 		@Override
 		public String getDescription() {
-			return "Eisek explained why there was a mob hounding him, but he doesn't know much about them. If you want to make sure they don't come back, you'll have to find them and confront them.<br/>As they seemed to be comprised of locals, maybe a search around town will do the trick.";
+			return "Eisek explained why there was a mob hounding him, but he doesn't know much about them. If you want to make sure they don't come back, you'll have to find them and confront them."
+					+ "<br/>As they seemed to be comprised of locals, maybe a search around town will do the trick.";
 		}
 		@Override
 		public String getCompletedDescription() {
@@ -1879,21 +1880,20 @@ public enum Quest {
 		@Override
 		public String getCompletedDescription() {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_mob_quest_intimidate"))) {
-			    return "You convinced the mob to leave Eisek alone with your intimidating physique.";
+			    return "You decided to try and convince the mob to leave Eisek alone with your intimidating physique.";
 			} else if (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_mob_quest_intimidate_arcane"))) {
-			    return "You convinced the mob to leave Eisek alone with your arcane prowess.";
+			    return "You decided to try and convince the mob to leave Eisek alone with your arcane prowess.";
 			} else if (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_mob_quest_persuade"))) {
 			    if(!Main.game.isSillyModeEnabled()) {
-				return "You convinced the mob to leave Eisek alone with a heartfelt speech.";
+			    	return "You convinced the mob to leave Eisek alone with a heartfelt speech.";
 			    } else {
-				return "You destroyed the mob's arguments with FACTS and LOGIC.";
+			    	return "You destroyed the mob's arguments with FACTS and LOGIC.";
 			    }
 			} else if (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_mob_quest_seduce"))) {
 			    return "You convinced the mob to leave Eisek alone by using your mastery of lust magic to fuel an orgy.";
 			} else {
 			    return "You weren't able to convince the mob to leave Eisek alone.";
 			}
-			
 		}
 	},
 	
@@ -1906,11 +1906,28 @@ public enum Quest {
 		}
 		@Override
 		public String getDescription() {
-			return "You weren't able to convince the mob to leave Eisek alone.";
+			return "You weren't able to convince the mob to leave Eisek alone. You should return to him with the bad news now that you weren't able to handle the mob.";
 		}
 		@Override
 		public String getCompletedDescription() {
-			return getDescription(); 			
+			return "You weren't able to convince the mob to leave Eisek alone.";
+		}
+	},
+	
+	EISEK_MOB_QUEST_STAGE_THREE_FAILED(QuestType.SIDE,
+			10,
+			0) {
+		@Override
+		public String getName() {
+			return "Bad News";
+		}
+		@Override
+		public String getDescription() {
+			return "";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Although he tried to hide it, Eisek seemed upset that the mob is still somewhere out there plotting against him.";
 		}
 	},
 	
@@ -1927,7 +1944,7 @@ public enum Quest {
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "Although he tried to hide it, Eisek seemed pretty happy that the mob will now leave him alone. You even got some rare Dragonfruit."; 			
+			return "Although he tried to hide it, Eisek seemed pretty happy that the mob will now leave him alone. You even got some rare Dragonfruit.";
 		}
 	},
 	
@@ -1944,7 +1961,7 @@ public enum Quest {
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "You've entered some sort of basement where they've gathered."; 			
+			return "You've entered some sort of basement where they've gathered.";
 		}
 	},
 	
@@ -1961,7 +1978,7 @@ public enum Quest {
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "You're nearly at the exit, only one obstacle remains..."; 			
+			return "You're nearly at the exit, only one obstacle remains...";
 		}
 	},
 	
@@ -1978,7 +1995,7 @@ public enum Quest {
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "You've successfully escaped the dungeon and shown a bunch of nerds who is the boss."; 			
+			return "You've successfully escaped the dungeon and shown a bunch of nerds who is the boss.";
 		}
 	},
 	

@@ -202,6 +202,13 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="TALK_ASK_ABOUT_MOB_CHANGE_SUBJECT"><![CDATA[
+	<p>
+		Feeling as though this is getting a little too heavy, you change the subject and direct the conversation back to Eisek's business. Leaning against the counter, he asks, [eisek.speech(So, would you like to buy some of my produce?)]
+	</p>
+	]]>
+	</htmlContent>
+	
 	<!-- TALK_DRAGONFALL_VAGUE -->
 	
 	<htmlContent tag="TALK_DRAGONFALL_VAGUE"><![CDATA[
@@ -235,7 +242,14 @@
 	<!-- MOB_QUEST_COMPLETE -->
 	
 	<htmlContent tag="MOB_QUEST_COMPLETE"><![CDATA[
-	#IF(flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_persuade))
+	#IF(pc.isQuestFailed(QUEST_LINE_SIDE_EISEK_MOB))
+		<p>
+			You tell Eisek apologetically that you weren't able to convince the mob to leave him alone. A look of concern crosses his face. [eisek.race(Are you...were you...injured?)] 
+		</p>
+		<p>
+			The [eisek.race] relaxes slightly when you tell him your pride was more wounded than anything else but his face darkens. A small wisp of steam escapes from one side of his mouth. [eisek.speech(I see. At least we have that small comfort,)] he says simply, [eisek.speech(Regardless, you have my thanks for trying.)]
+		</p>
+	#ELSEIF(flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_persuade))
 		<p>
 			You tell Eisek that the mob won't be returning but he doesn't look convinced.
 		</p>
@@ -278,13 +292,6 @@
 		</p>
 		<p>
 			The [eisek.race]'s eyes narrow slightly. [eisek.speech(So...you convinced them that I was not in fact a violent beast with feats of arcane violence?)] he asks rhetorically. After pondering this for a moment, he continues flatly [eisek.speech(It seems I have misjudged the ways of civilized folk. Forgive me. I do not mean to sound ungrateful.)] And with that, he places a sack of flames on the counter. [eisek.speech(For your trouble.)]
-		</p>
-	#ELSEIF(flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_failed))
-		<p>
-			You tell Eisek apologetically that you weren't able to convince the mob to leave him alone. A look of concern crosses his face. [eisek.race(Are you...were you...injured?)] 
-		</p>
-		<p>
-			The [eisek.race] relaxes slightly when you tell him your pride was more wounded than anything else but his face darkens. A small wisp of steam escapes from one side of his mouth. [eisek.speech(I see. At least we have that small comfort,)] he says simply, [eisek.speech(Regardless, you have my thanks for trying.)]
 		</p>
 	#ENDIF
 	]]>
