@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		<authorTag><![CDATA["MFD DSG Plumbing Supply" is printed on the grip.]]></authorTag>
+		
+		<value>100</value> 
+		
+		<melee>true</melee>
+		
+		<twoHanded>false</twoHanded>
+		
+		<determiner><![CDATA[a]]></determiner>
+		
+		<name><![CDATA[cardboard sword]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[cardboard swords]]></namePlural> 
+		
+		<description><![CDATA[With a blade of cardboardium alloy folded a thousand times over and a hilt of finest PVC pipe, this sword is light and well-balanced. You'd be hard pressed to do any real damage with it though.]]></description> 
+		
+		<attackDescriptor>Swing</attackDescriptor>
+		
+		<attackTooltipDescription>Hit [npc2.name] with your cardboard sword.</attackTooltipDescription>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<equipText><![CDATA[[npc.Name] [npc.verb(draw)] [npc.her] cardboard sword.]]></equipText>
+		
+		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] [npc.her] cardboard sword away.]]></unequipText>
+		
+		<imageName>cbsword.svg</imageName> 
+		
+		<imageEquippedName>cbsword.svg</imageEquippedName>
+		
+		<damage>1</damage> 
+		
+		<arcaneCost>0</arcaneCost> 
+		
+		<damageVariance>HIGH</damageVariance> 
+		
+		<availableDamageTypes>
+			<damageType>PHYSICAL</damageType>
+		</availableDamageTypes>
+		
+		<spells/>
+		
+		<effects/>
+		
+		<extraEffects>
+			<effect><![CDATA[Makes the wielder look like a dork...]]></effect>
+		</extraEffects>
+		
+		<onHitEffect/>
+		
+		<onCriticalHitEffect/>
+		
+		<primaryColours>
+			<colour>CLOTHING_WHITE</colour>
+		</primaryColours> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_GREY</colour>
+		</secondaryColours> 
+		<secondaryColoursDye values="ALL"/>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+	
+	<hitDescriptions>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(swing)] [npc.her] sword at [npc2.name]! The edge of the mighty cardboardium blade makes contact with [npc2.namePos] aura, draining a miniscule amount of energy.
+		]]></hitText>
+	</hitDescriptions>
+
+	<missDescriptions>
+		<missText><![CDATA[
+		[npc.Name] [npc.verb(swing)] [npc.her] sword at [npc2.name] but an errant current of air causes [npc.her] to miss...
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

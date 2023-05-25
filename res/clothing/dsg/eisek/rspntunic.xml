@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+
+	<coreAtributes>
+	
+		<authorTag><![CDATA["Tailored by the DSG Textile Guild" is crudely sewn into the fabric near the side seam]]></authorTag>
+
+		<value>150</value> 
+
+		<determiner><![CDATA[a]]></determiner>
+
+		<name><![CDATA[roughspun tunic]]></name>
+
+		<namePlural pluralByDefault="false"><![CDATA[roughspun tunics]]></namePlural> 
+
+		<description><![CDATA[A tunic made from roughspun wool, cinched about the waist with a leather belt. Although it reaches down to the wearer's thighs, movement is not impeded thanks to partial slits cut into the sides. A small pouch is attached to the belt for handy storage. The fabric is threadbare despite still being whole.]]></description> 
+
+		<physicalResistance>0</physicalResistance> 
+
+		<femininity>MASCULINE</femininity> 
+
+		<slot>TORSO_OVER</slot> 
+
+		<rarity>COMMON</rarity> 
+
+		<clothingSet/> 
+
+		<imageName>rspntunic.svg</imageName> 
+
+		<imageEquippedName/> 
+
+		<effects/> 
+
+		<blockedPartsList> 
+
+			<blockedParts>
+
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired>
+
+				<blockedBodyParts>
+					<bodyPart>ARMPITS</bodyPart>
+				</blockedBodyParts>
+
+				<clothingAccessBlocked>
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessBlocked> 
+
+				<concealedSlots values="CONCEALED_FULL_TORSO"/> 
+			</blockedParts>
+
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+					<bodyPart>BACK</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+
+				<concealedSlots values="CONCEALED_FULL_TORSO"/>
+			</blockedParts>
+		</blockedPartsList>
+
+		<incompatibleSlots/> 
+
+		<primaryColours>
+			<colour>CLOTHING_BLACK</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_BROWN</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="JUST_STEEL"/>
+		<tertiaryColoursDye values="ALL_METAL"/>
+
+		<itemTags> 
+			<tag>NO_RANDOM_SPAWN</tag>
+		</itemTags>
+	</coreAtributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] on the tunic. [npc.She] then securely [npc.verb(fasten)] the belt around [npc.namePos] waist.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(help)] [npc2.name] [npc2.verb(put)] [npc2.her] arms through the tunic's sleeves as [npc.she] [npc.verb(pull)] the rest down over [npc2.her] torso. [npc.She] then securely [npc.verb(fasten)] the belt around [npc2.namePos] waist.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(stuff)] [npc2.name] [npc2.verb(put)] [npc2.her] arms into the tunic's sleeves as [npc.she] roughly [npc.verb(pull)] the rest down over [npc2.her] torso. [npc.She] then [npc.verb(yanks)] the belt around [npc2.namePos] waist and [npc.verb(cinch)] it up as tightly as possible.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(undo)] the belt around [npc.namePos] waist and [npc.verb(pull)] off [npc.her] tunic.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(undo)] the belt around [npc2.namePos] waist [npc.verb(pull)] off [npc2.her] tunic.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] hastily [npc.verb(undo)] the belt around [npc2.namePos] waist, then [npc.verb(grab)] hold of [npc2.namePos] tunic and roughly [npc.verb(pull)] it off over [npc2.her] head.]]>
+		</otherRough>
+	</displacementText>
+
+	<replacementText type="PULLS_DOWN">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] tunic back down over [npc.her] torso and securely [npc.verb(fasten)] the belt around [npc.namePos] waist.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc2.namePos] tunic back down over [npc2.her] torso and securely [npc2.verb(fasten)] the belt around [npc2.namePos] waist.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] tunic back down over [npc2.her] torso before yanking the belt around [npc2.namePos] waist and cinching it up as tightly as possible.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="PULLS_UP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(undo)] the belt around [npc.namePos] waist and [npc.verb(pull)] [npc.her] tunic up to just below [npc.her] chin.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(undo)] the belt around [npc2.namePos] waist and [npc.verb(pull)] [npc2.namePos] tunic up to just below [npc2.her] chin.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] hastily [npc.verb(undo)] the belt around [npc2.namePos] waist and roughly [npc.verb(pull)] [npc2.namePos] tunic up to just below [npc2.her] chin.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

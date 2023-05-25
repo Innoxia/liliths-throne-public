@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+
+	<coreAtributes>
+	
+		<authorTag><![CDATA["Tailored by the DSG Textile Guild" is crudely sewn into the fabric near the side seam.]]></authorTag>
+
+		<value>100</value> 
+
+		<determiner><![CDATA[a]]></determiner>
+
+		<name><![CDATA[linen shirt]]></name>
+
+		<namePlural pluralByDefault="false"><![CDATA[linen shirt]]></namePlural> 
+
+		<description><![CDATA[A simple short-sleeved shirt made from coarse linen. The sides are partially slitted to allow for good mobility despite the length. Although it's meant to be worn as an undershirt, it is opaque enough to be worn as an outer garment.]]></description> 
+
+		<physicalResistance>0</physicalResistance> 
+
+		<femininity>MASCULINE</femininity> 
+
+		<slot>TORSO_UNDER</slot> 
+
+		<rarity>COMMON</rarity> 
+
+		<clothingSet/>
+
+		<imageName>sundshirt.svg</imageName> 
+
+		<imageEquippedName/> 
+
+		<effects/> 
+
+		<blockedPartsList> 
+
+			<blockedParts>
+
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired>
+
+				<blockedBodyParts>
+					<bodyPart>ARMPITS</bodyPart>
+				</blockedBodyParts>
+
+				<clothingAccessBlocked/> 
+
+				<concealedSlots/> 
+			</blockedParts>
+
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+					<bodyPart>BACK</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+
+				<concealedSlots>
+					<slot>CHEST</slot>
+					<slot>NIPPLE</slot>
+					<slot>STOMACH</slot>
+					<slot>PIERCING_STOMACH</slot>
+					<slot>PIERCING_NIPPLE</slot>
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+
+		<incompatibleSlots/> 
+
+		<primaryColours values="JUST_WHITE"/> 
+		<primaryColoursDye values="ALL"/>
+
+		<itemTags> 
+			<tag>FITS_ARM_WINGS</tag>
+			<tag>NO_RANDOM_SPAWN</tag>
+		</itemTags>
+	</coreAtributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] on the linen shirt.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(help)] [npc2.name] [npc2.verb(put)] [npc2.her] arms through the linen shirt's sleeves as [npc.she] [npc.verb(pull)] the rest down over [npc2.her] torso.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(stuff)] [npc2.name] [npc2.verb(put)] [npc2.her] arms into the linen shirt's sleeves as [npc.she] roughly [npc.verb(pull)] the rest down over [npc2.her] torso.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] off [npc.her] linen shirt.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] off [npc2.namePos] linen shirt.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(grab)] hold of [npc2.namePos] combat shirt and roughly pull it off over [npc2.her] head.]]>
+		</otherRough>
+	</displacementText>
+
+	<replacementText type="PULLS_DOWN">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] linen shirt back down over [npc.her] torso.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc2.namePos] linen shirt back down over [npc2.her] torso.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] linen shirt back down over [npc2.her] torso.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="PULLS_UP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] linen shirt up to just below [npc.her] chin.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc2.namePos] linen shirt up to just below [npc2.her] chin.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] linen shirt up to just below [npc2.her] chin.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

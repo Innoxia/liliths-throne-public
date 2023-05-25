@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueFlags>
+	<!-- Additional dialogue flags for use in the game.
+	The 'dailyReset' value determines whether or not the flag gets reset to false at midnight every day.
+	Please note that the final id of the flags defined below will have the parent folder's name appended to the front of them.
+	 i.e. 'elis_berries_found' will be identified as 'innoxia_elis_berries_found' during the game's runtime. -->
+	
+	<!-- Eisek -->
+	<!-- additional numerical flags not stored here: 
+	elis_eisek_talk_score
+	elis_eisek_banished_date
+	elis_eisek_mob_quest_completion_date
+	elis_eisek_stall_quest_completion_date
+	elis_eisek_monica_order_date
+	elis_eisek_hale_order_date
+	-->
+	
+	<flag dailyReset="false">elis_eisek_introduced</flag>
+	<flag dailyReset="false">elis_eisek_introduced_as_dragon</flag>
+	<flag dailyReset="false">elis_eisek_banished</flag>
+	
+	<flag dailyReset="false">elis_eisek_asked_family</flag>
+	<flag dailyReset="false">elis_eisek_asked_why_elis</flag>
+	<flag dailyReset="false">elis_eisek_asked_other_dragons</flag>
+	<flag dailyReset="false">elis_eisek_asked_business</flag>
+	<flag dailyReset="false">elis_eisek_asked_himself_low</flag>
+	<flag dailyReset="false">elis_eisek_asked_himself</flag>
+	<flag dailyReset="false">elis_eisek_asked_about_mob</flag>
+	<flag dailyReset="false">elis_eisek_asked_about_dragonfall_specific</flag>
+	
+	<flag dailyReset="false">elis_eisek_mob_quest_intimidate</flag>
+	<flag dailyReset="false">elis_eisek_mob_quest_intimidate_arcane</flag>
+	<flag dailyReset="false">elis_eisek_mob_quest_persuade</flag>
+	<flag dailyReset="false">elis_eisek_mob_quest_seduce</flag>
+	
+	<flag dailyReset="false">elis_eisek_talk_post_mob_quest</flag>
+	
+	<flag dailyReset="true">elis_eisek_small_talk</flag>
+	<flag dailyReset="false">elis_eisek_small_talk_slime_queen</flag>
+	<flag dailyReset="false">elis_eisek_small_talk_harpy_pacification</flag>
+	<flag dailyReset="false">elis_eisek_small_talk_vengar</flag>
+	
+	<flag dailyReset="false">elis_eisek_sillymode_mob_dispersed</flag>
+	<flag dailyReset="false">elis_eisek_sillymode_basement_found</flag>
+	<flag dailyReset="false">elis_eisek_sillymode_boss_defeated</flag>
+	<flag dailyReset="false">elis_eisek_sillymode_dungeon_trap_north</flag>
+	<flag dailyReset="false">elis_eisek_sillymode_dungeon_trap_east</flag>
+	<flag dailyReset="false">elis_eisek_sillymode_dungeon_trap_south</flag>
+	<flag dailyReset="false">elis_eisek_sillymode_dungeon_trap_west</flag>
+	
+</dialogueFlags>

@@ -25,6 +25,8 @@ public enum PopulationDensity {
 	
 	DENSE("dense"),
 	
+	SMALL("a small"),
+	
 	HUNDREDS("hundreds of"),
 	
 	THOUSANDS("thousands of");

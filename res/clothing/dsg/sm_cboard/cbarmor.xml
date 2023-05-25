@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+
+	<coreAtributes>
+	
+		<authorTag><![CDATA["MFD by DSG Stationery Co. from 99% post-consumer material" is printed on the back.]]></authorTag>
+
+		<value>150</value> 
+
+		<determiner><![CDATA[a]]></determiner>
+
+		<name><![CDATA[cardboard cuirass]]></name>
+
+		<namePlural pluralByDefault="false"><![CDATA[cardboard cuirasses]]></namePlural> 
+
+		<description><![CDATA[An extended cuirass made from cardboardium alloy with ailettes added for additional protection. Light and relatively nimble thanks to its partial articulation, its actual protective qualities leave something to be desired.]]></description>
+
+		<physicalResistance>0</physicalResistance> 
+
+		<femininity>ANDROGYNOUS</femininity> 
+
+		<slot>TORSO_OVER</slot> 
+
+		<rarity>UNCOMMON</rarity> 
+
+		<clothingSet/>
+
+		<imageName>cbarmor.svg</imageName> 
+
+		<imageEquippedName/>
+
+		<effects/>
+
+		<blockedPartsList> 
+
+			<blockedParts>
+
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+
+				<clothingAccessRequired>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired>
+
+				<blockedBodyParts> 
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+					<bodyPart>BACK</bodyPart>
+				</blockedBodyParts>
+
+				<clothingAccessBlocked> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessBlocked>
+
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/> 
+
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>VAGINA</bodyPart>
+					<bodyPart>TESTICLES</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>MOUND</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+
+				<concealedSlots>
+					<slot>GROIN</slot>
+					<slot>VAGINA</slot>
+					<slot>PENIS</slot>
+					<slot>PIERCING_PENIS</slot>
+					<slot>PIERCING_VAGINA</slot>
+				</concealedSlots>
+			</blockedParts>
+
+		</blockedPartsList>
+
+		<incompatibleSlots/>
+
+		<primaryColours>
+			<colour>CLOTHING_DESATURATED_BROWN</colour>
+		</primaryColours> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_GREY</colour>
+		</secondaryColours> 
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="JUST_BLACK"/> 
+		<tertiaryColoursDye values="ALL"/>
+
+		<itemTags> 
+			<tag>RIGID_MATERIAL</tag>
+			<tag>FITS_ARM_WINGS</tag>
+		</itemTags>
+	</coreAtributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slide)] [npc.her] head between the cardboard plates and [npc.verb(let)] the armour sit on [npc.her] shoulders.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(slide)] [npc2.namePos] between the cardboard plates and [npc.verb(let)] the armour sit on [npc2.her] shoulders.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(shove)] [npc2.namePos] between the cardboard plates and [npc.verb(secure)] the armour sit on [npc2.her] shoulders.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(lift)] the armour from [npc.her] shoulders.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(lift)] the armour from [npc2.namePos] shoulders.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(toss)] the armour from [npc2.namePos] shoulders.]]>
+		</otherRough>
+	</displacementText>
+
+	<replacementText type="PULLS_DOWN">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(lower)] the lower section of [npc.her] cardboard cuirass back down.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(lower)] the lower section of [npc.her] cardboard cuirass back down.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(flip)] the lower section of [npc.her] cardboard cuirass back down.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="PULLS_UP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(lift)] the lower section of [npc.her] cardboard cuirass back down.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(lift)] the lower section of [npc2.namePos] cardboard cuirass back down.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(flip)] the lower section of [npc2.namePos] cardboard cuirass back down.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>
