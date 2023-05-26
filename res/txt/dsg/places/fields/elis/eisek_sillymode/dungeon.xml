@@ -5,7 +5,10 @@
 	
 	<htmlContent tag="AMBUSH"><![CDATA[
 	<p>
-		You cautiously walk down the stairs and open the door. It's surprisingly well lit for a basement. On either side of the entrance are intricately stacked piles of what you can only describe as trash. There's probably several lifetimes of weird craft projects and other kitsch in there. You don't get much time to think about it some more, however, since an unseen force slams the door shut behind you. This disturbance causes the junk towers to come crashing down, but you're able to get out of the way in time! As the dust settles, you see that your way out is blocked. There's nowhere to go except further into the basement...
+		You cautiously walk down the stairs and open the door. It's surprisingly well lit for a basement. On either side of the entrance are intricately stacked piles of what you can only describe as trash. There's probably several lifetimes of weird craft projects and other kitsch in there. You don't get much time to think about it some more, however, since an unseen force slams the door shut behind you. This disturbance causes the junk towers to come crashing down, but you're able to get out of the way in time!
+	</p>
+	<p>
+		As the dust settles, you see that your way out is blocked. There's nowhere to go except further into the basement...
 	</p>
 	]]>
 	</htmlContent>
@@ -14,7 +17,7 @@
 	
 	<htmlContent tag="BOSS"><![CDATA[
 	<p>
-		This "room" is better decorated and more ornate than all the others, but is also just as poorly lit. Skulls, cobweb covered tomes, and other appropriately macabre items are drawn upon the walls behind a sparse scattering of real props. The ladder in the corner is now known to lead up into the rest of the house. In the centre of the room is a marble pedestal where the Mystical Orb of Fate was once stored, but upon closer inspection it seems to be a bird-bath instead.
+		This "room" is better decorated and more ornate than all the others, but is also just as poorly lit. Skulls, cobweb-covered tomes, and other appropriately macabre items are drawn upon the walls behind a sparse scattering of real props. The ladder in the corner is now known to lead up into the rest of the house. In the centre of the room is a marble pedestal where the Mystical Orb of Fate was once stored, but upon closer inspection it seems to be just a bird-bath.
 	</p>
 	]]>
 	</htmlContent>
@@ -65,7 +68,7 @@
 	
 	<htmlContent tag="TRAP"><![CDATA[
 	<p>
-		This area is noticeably wider than the passage behind and in front of it. In the middle, you see some lit candles and aerosol cans rigged into a primitive flamethrower trap, an incredibly brave thing to put in a dungeon that is not only made of cardboard but also has defenders clad in it. Although the trap mechanism is obvious, the web of tripwires connected to it is also dense.
+		This area is noticeably wider than the passage behind and in front of it. In the middle, you see some lit candles and aerosol cans rigged into a primitive flamethrower trap; an incredibly brave thing to put in a dungeon that is not only made of cardboard but also has defenders clad in it. Although the trap mechanism is obvious, the web of tripwires connected to it is also dense.
 	</p>
 	]]>
 	</htmlContent>
@@ -75,15 +78,15 @@
 	<htmlContent tag="TRAP_SUCCESS"><![CDATA[
 	<p>
 		#IF(pc.hasSpell(SPELL_TELEKENETIC_SHOWER))
-		With your telekinetic earth magic, it's trivial for you to set off the tripwires from a safe distance. A huge gout of flame shoots into the room as the trap goes off, obliterating the candles. That's certainly one way to disarm a trap.
+			With your telekinetic earth magic, it's trivial for you to set off the tripwires from a safe distance. A huge gout of flame shoots into the room as the trap goes off, obliterating the candles. That's certainly one way to disarm a trap.
 		#ELSEIF(pc.hasSpell(SPELL_VACUUM))
-		You easily snuff out the candles with your vacuum spell, disarming the trap. To prove a point, you casually stroll into the room, setting off all the tripwires to no effect.
+			You easily snuff out the candles with your vacuum spell, disarming the trap. To prove a point, you casually stroll into the room, setting off all the tripwires to no effect.
 		#ELSEIF(pc.hasSpell(SPELL_PROTECTIVE_GUSTS))
-		You easily blow out the candles with your wind magic, disarming the trap. To prove a point, you casually stroll into the room, setting off all the tripwires to no effect.
+			You easily blow out the candles with your wind magic, disarming the trap. To prove a point, you casually stroll into the room, setting off all the tripwires to no effect.
 		#ELSEIF(pc.hasSpell(SPELL_SOOTHING_WATERS)||pc.hasSpell(SPELL_RAIN_CLOUD))
-		You easily douse the candles with your ice magic, disarming the trap. To prove a point, you casually stroll into the room, setting off all the tripwires to no effect.
+			You easily douse the candles with your ice magic, disarming the trap. To prove a point, you casually stroll into the room, setting off all the tripwires to no effect.
 		#ELSE
-		You manage to work your way through the tripwires without setting off the trap. You carefully blow out each candle, disarming the trap. 
+			You manage to work your way through the tripwires without setting off the trap. You carefully blow out each candle, disarming the trap. 
 		#ENDIF
 	</p>
 	]]>
@@ -93,11 +96,11 @@
 	
 	<htmlContent tag="TRAP_FAILURE"><![CDATA[
 	<p>
-		You try to work your way through the tripwires but trigger one of them. A huge gout of flame shoots into the room, 
+		You try to work your way through the tripwires but trigger one of them. A huge gout of flame shoots into the room,
 		#IF(pc.isImmuneToDamageType(DAMAGE_TYPE_FIRE) || pc.getAttributeValue(ATTRIBUTE_RESISTANCE_FIRE) >= 30)
-		but your resistance to fire protects you! Looking down, you see that this sudden burst of heat also obliterated the candles. It should be safe to continue.
+			 but your resistance to fire protects you! Looking down, you see that this sudden burst of heat also obliterated the candles. It should be safe to continue.
 		#ELSE
-		forcing you to make a hasty retreat! Looking back, you see that this sudden burst of heat also obliterated the candles. It should be safe to go back in now.
+			 forcing you to make a hasty retreat! Looking back, you see that this sudden burst of heat also obliterated the candles. It should be safe to go back in now.
 		#ENDIF
 	</p>
 	]]>
@@ -125,7 +128,7 @@
 	
 	<htmlContent tag="TREASURE_TAKING"><![CDATA[
 	<p>
-		You open the chest to find a pile of loose flames. Well...finders keepers.
+		You open the chest to find a pile of loose flames. Well... finders keepers.
 	</p>
 	]]>
 	</htmlContent>

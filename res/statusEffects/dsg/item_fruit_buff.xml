@@ -14,7 +14,7 @@
 	<description><![CDATA[
 		Consuming mountain-grown produce wards [npc.name] from poison!
 	]]></description>
-	<imageName>positiveCombatEffect.svg</imageName>
+	<imageName>fruit_buff_tangerine.svg</imageName>
 	<colourPrimary>GENERIC_GOOD</colourPrimary> 
 	<colourSecondary/> 
 	<colourTertiary/>

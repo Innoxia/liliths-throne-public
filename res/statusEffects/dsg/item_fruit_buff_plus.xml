@@ -14,7 +14,7 @@
 	<description><![CDATA[
 		An apple a day keeps the healer away!
 	]]></description>
-	<imageName>positiveCombatEffect.svg</imageName>
+	<imageName>fruit_buff_apple.svg</imageName>
 	<colourPrimary>GENERIC_EXCELLENT</colourPrimary> 
 	<colourSecondary/> 
 	<colourTertiary/>
