@@ -249,12 +249,33 @@
 	<p>
 		Wanting to spend some time with Hannah, you approach the [hannah.race] and take the vacant seat next to her. As you sit down, she looks across at you and briefly grunts, [hannah.speech(Hey, [pc.name]. I was wondering if you'd be here tonight.)]
 	</p>
-	<p>
-		Returning her greeting, you sit down beside the [hannah.race] and briefly look over the many bottles of spirits that are lined up on the shelves before you. Swatting an empty shot glass back and forth over the bar-top between her paw-like hands, Hannah offers, [hannah.speech(Let me get you your first drink. It's my way of thanks for persisting with my lessons until the end.)]
-	</p>
-	<p>
-		Thanking her for the offer, you wonder whether to order a drink right away, or to spend some time talking with Hannah first...
-	</p>
+	#IF(hannah.isVisiblyPregnant())
+		#IF(!hannah.isCharacterReactedToPregnancy(pc))
+			<p>
+				As you return her greeting and sit down beside the [hannah.race], you suddenly notice that's something's different. Hannah's toned six-pack has vanished, and in its place she's now sporting a swollen, [style.colourSex(pregnant belly)]. Seeing what it is you're looking at, the [hannah.race] reveals, [hannah.speech(Yeah, you got me pregnant. I guess it's kind of my fault for getting drunk and horny... Hey, want a feel?)]
+			</p>
+		#ELSE
+			<p>
+				As you return her greeting and sit down beside the [hannah.race], you see that her toned six-pack is still missing, and instead she's got a swollen, [style.colourSex(pregnant belly)]. Seeing what it is you're looking at, the [hannah.race] reveals, [hannah.speech(Yeah, I'm still pregnant, thanks to you. I guess it's kind of my fault for getting drunk and horny... Hey, want a feel?)]
+			</p>
+		#ENDIF
+		<p>
+			Replying in the affirmative, you place your [pc.hands] on her furry tummy. Giving her swollen bump a few loving strokes, you ask Hannah if there's anything you can do for her, to which she waves you off and lets out another of her bark-like laughs, [hannah.speech(I'm fine, don't worry about me! Anyway, let me get you your first drink. It's my way of thanks for persisting with my lessons until the end)]
+		</p>
+		<p>
+			With your instinct kicking in, you ask Hannah if it's wise to be drinking alcohol while pregnant. Giving you a questioning look, she replies with a question of her own, [hannah.speech(Why wouldn't it be? As far as I understand it, the arcane protects kids from all that stuff. Drinking, smoking, even heavy exercise is meant to be safe, but I personally don't like the idea of that last one. Anyway, come on, what can I get you?)]
+		</p>
+		<p>
+			Thanking her for the offer, you wonder whether to order a drink right away, or to spend some time talking with Hannah first...
+		</p>
+	#ELSE
+		<p>
+			Returning her greeting, you sit down beside the [hannah.race] and briefly look over the many bottles of spirits that are lined up on the shelves before you. Swatting an empty shot glass back and forth over the bar-top between her paw-like hands, Hannah offers, [hannah.speech(Let me get you your first drink. It's my way of thanks for persisting with my lessons until the end.)]
+		</p>
+		<p>
+			Thanking her for the offer, you wonder whether to order a drink right away, or to spend some time talking with Hannah first...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	

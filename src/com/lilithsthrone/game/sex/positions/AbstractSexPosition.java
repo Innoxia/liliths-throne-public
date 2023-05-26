@@ -300,4 +300,11 @@ public abstract class AbstractSexPosition {
 		}
 		return false;
 	}
+	
+	/**
+	 * Default is false, but can be overridden to allow characters to perform autofellatio or autocunnilingus.
+	 */
+	public boolean isSelfOralAvailable(GameCharacter autoOralCharacter) {
+		return false;
+	}
 }

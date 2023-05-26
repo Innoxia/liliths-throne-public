@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<encounterRoot>
+	<additionalPlaceTypeTriggers>
+		<placeType>innoxia_fields_elis_town_street</placeType>
+	</additionalPlaceTypeTriggers>
+	
+	<possibleEncounters>
+		<encounter>
+			<name><![CDATA[A Dragon Poster]]></name>
+			<chanceToTrigger opportunisticEncounter="false"><![CDATA[
+				#IF(pc.hasQuest(QUEST_LINE_SIDE_EISEK_MOB) && pc.isQuestProgressLessThan(QUEST_LINE_SIDE_EISEK_MOB, QUEST_EISEK_MOB_QUEST_STAGE_TWO))
+					#IF(pc.hasTraitActivated(PERK_OBSERVANT))
+						20
+					#ELSE
+						10
+					#ENDIF
+				#ELSE
+					0
+				#ENDIF
+			]]></chanceToTrigger>
+			<dialogueReturned><![CDATA[dsg_encounters_fields_elis_eisek_mob_hideout_poster]]></dialogueReturned>
+		</encounter>
+	</possibleEncounters>
+	
+</encounterRoot>
