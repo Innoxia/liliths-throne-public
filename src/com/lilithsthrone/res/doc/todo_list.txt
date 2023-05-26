@@ -164,8 +164,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] preview also
 	[x] PussPuss poll!
 	
-	[] Eisek PR!
-		[] Get list to DSG by end of Tuesday:
+	[] Add Oglix
+	[] Get Golix details to FAF
+	
+	[x] Eisek PR!
 		Bugfixes:
 			- Bugfix: Regenerated Elis market map upon loading so as to add in Eisek's stall.
 			- Bugfix: Very minor fixes for some clothing formatting and typos.
@@ -240,10 +242,18 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Writing:
 			- General: Style fits well with my style of writing, and has a good amount of dialogue.
 			- Bugfix: Changed 'FLAG_dsg_elis_eisek_mob_quest_intimidate_seduce' to 'FLAG_dsg_elis_eisek_mob_quest_seduce' at end of the 'STALL' text in produce.xml.
+			- Change: Minor grammatical fixes.
+			- Change: Added some preface text to some of Eisek's dialogues.
+			- Typo of note: Changed 'glassfromer' to 'glass-maker' in Eisek's dialogue about other dragons. Would you prefer this to be glassformer?
+			- Change: Added the 'VENDOR' dialogue which you'd written but not implemented in Eisek's class (you needed to override the getTraderDescription() method to use it).
+			- Comment: 'Imagine writing something you hate doing irl ha ha couldn't be me' I get that a lot too when writing.
+			- Initial Eisek scene when player is dragon: 'This is getting out of hand! Now there are two of them!' I didn't notice this before and it made me laugh.
+		Final full playthrough test:
+			- Bugfix: Added 'pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB)' to the silly mode mob conditional check, as it was triggering when encountering Eisek for the first time.
+			- Food status effects: Added unique icons for the two food-related status effects, using your apple and tangerine images for the icons.
 			
 			
-			
-	[] Test:
+	[x] Test:
 		[x] Issue with 'SIDE_EISEK_STALL' quest progress: Can ask Monica, Silvia/Fae, Imsu/Hale about quest items even before starting quest.
 		[x] Dialogue:
 			[x] When buying produce, multiply the 3 affection gain by items purchased
@@ -284,12 +294,41 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[x] location placement repeats if repeatedly leave it
 				[x] trap disarming takes place after player move...
 				[x] Opening phone throws errors... - sexBlockedReason -> some kind of underlying error
-		[] Add fruit status effect icons
-		[] Add apple flavour?
-	
+		[x] Proofreading
+			[x] txt file checks
+				[x] core
+					[x] stall
+					[x] eisek_initial
+					[x] eisek_mob_hideout
+					[x] produce
+					[x] produce_banished
+				[x] silly mode
+					[x] dungeon (encounter)
+					[x] eisek_sillymode
+					[x] dungeon (place)
+					[x] eisek_sillymode_dungeon_street
+				[x] Fae/Silvia
+				[x] Monica
+				[x] Imsu/Hale
+			[x] search for US spelling z
+			[x] full play test
+				[x] silly mode encounter triggering before main quest?
+				[x] Mob quest
+				[x] Stall quest
+					[x] Fae/Silvia
+				[x] Silly mode quest
+		[x] Add fruit status effect icons
+		[-] Add apple flavour?
 	
 	[] Remove <sexBlockedReason/> from lots of place types...
 	
+	[] Too many virgins spawning as one-night stands in Lights Out
+		dialogue/innoxia/places/dominion/nightlife/lights_out.xml:244
+		Go to this file, this line
+		[#partner.resetBodyToGenderPreferences(false, false)]
+		Delete this
+		[18:09]Maxis (Lvl 17 Code Monkey): if I'm right, that method call is restoring the virginities by regenerating the body
+		
 	[] main quest
 		[x] Add Enforcer station
 			[x] map

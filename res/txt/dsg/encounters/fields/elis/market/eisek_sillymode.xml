@@ -5,7 +5,7 @@
 	
 	<htmlContent tag="ENCOUNTER_START"><![CDATA[
 	<p>
-		Approaching Eisek's stall once more, you see...a small mob gathered around it. Exasperated that some of the townsfolk still do not understand, you quicken your pace. Yet as you get closer, you see that this crowd is not like the previous one. Diverse in species and ranging from scrawny to chubby, they are nonetheless uniform in their casual manner of dress and poor hygiene. You can't quite discern what they are talking about, but they don't seem to be an immediate threat. Perhaps this isn't the best time?
+		Approaching Eisek's stall once more, you see... a small mob gathered around it. Exasperated that some of the townsfolk still do not understand, you quicken your pace. Yet as you get closer, you see that this crowd is not like the previous one. Diverse in species and ranging from scrawny to chubby, they are nonetheless uniform in their casual manner of dress and poor hygiene. You can't quite discern what they are talking about, but they don't seem to be an immediate threat. Perhaps this isn't the best time?
 	</p>
 	]]>
 	</htmlContent>
@@ -14,7 +14,7 @@
 	
 	<htmlContent tag="ENCOUNTER_BACK_OFF"><![CDATA[
 	<p>
-		You decide that Eisek can handle this on his own for now and step away. As you do, you see a bright blue flash between the press of bodies around the stall. The crowd bursts into...cheering? And then reverently haul away several vaguely bipedal lumps of ice like some sort of holy relics. When you turn back towards the [eisek.race], he only shrugs. [eisek.speech(They asked me for it. Some sort of rite of passage. I obliged ...There are some very strange customs in this town.)]
+		You decide that Eisek can handle this on his own for now and step away. As you do, you see a bright blue flash between the press of bodies around the stall. The crowd bursts into... cheering? And then reverently haul away several vaguely bipedal lumps of ice like some sort of holy relics. When you turn back towards the [eisek.race], he only shrugs and states, [eisek.speech(They asked me for it. Some sort of rite of passage. I obliged... There are some very strange customs in this town.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -44,7 +44,7 @@
 		Even though the crowd isn't openly hostile, you still dread seeing what kind of trouble has found the draconic merchant this time as you work your way through the haze of body odour. When you break through, you see what appears to be the ringleader of this particular mob: a scrawny human, hooded and cloaked. Certainly, he's the loudest of the bunch.
 	</p>
 	<p>
-		[test.speechMasculine(I just can't believe that a real dragon has come to this stinking town! What's it like, raining fire and death from above? How many villages have you razed?)] he asks, almost giddy with excitement. These are not accusations, you realize. This crowd has some kind of unhealthy obsession with dragons.
+		[test.speechMasculine(I just can't believe that a real dragon has come to this stinking town! What's it like, raining fire and death from above? How many villages have you razed?)] he asks, almost giddy with excitement. These are not accusations, you realise. This crowd has some kind of unhealthy obsession with dragons.
 	</p>
 	<p>
 		[eisek.speech(I have razed no villages,)] Eisek replies flatly.
@@ -56,16 +56,16 @@
 		[eisek.speech(I do not.)]
 	</p>
 	<p>
-		[test.speechMasculine(So...you really do just farm?)]
+		[test.speechMasculine(So... you really do just farm?)]
 	</p>
 	<p>
 		[eisek.speech(Yes.)] Hearing this, the ringleader's demeanour changes instantly.
 	</p>
 	<p>
-		[test.speechMasculine(Ugh, even the dragons here are boring! What kind of dragon are you anyhow? You should be out there taking what you want but all you do is farm like some kind of...vegan cuck!)] To this insult, the [eisek.race]'s only response is a dismissive snort. Unsatisfied, the ringleader continues.
+		[test.speechMasculine(Ugh, even the dragons here are boring! What kind of dragon are you anyhow? You should be out there taking what you want but all you do is farm like some kind of... vegan cuck!)] To this insult, the [eisek.race]'s only response is a dismissive snort. Unsatisfied, the ringleader continues, [test.speechMasculine(Oh, I know! You just need some practice. I need a good final boss for my next LARP session! Haven't you ever wanted to own a dungeon?)]
 	</p>
 	<p>	
-		[test.speechMasculine(Oh, I know! You just need some practice. I need a good final boss for my next LARP session! Haven't you ever wanted to own a dungeon?)] His sentiments are echoed by some members of the crowd, while others make general noises of assent. To this Eisek gives an ice cold [eisek.speech(No.)]
+		His sentiments are echoed by some members of the crowd, while others make general noises of assent. To this Eisek gives an ice cold, [eisek.speech(No.)]
 	</p>
 	<p>
 		Out of patience, the ringleader suddenly tries to push the stall over, to what end you're not sure. To goad him into accepting? Countering this, Eisek extends a single digit and presses down on the table. The ringleader strains for some time before giving up with a huff. [test.speechMasculine(Fine! Nobody wants a lame dragon as a final boss anyhow. Let's get out of here,)] he exclaims, turning around to leave.

@@ -8,12 +8,12 @@
 		#IF(eisek.getLocationPlaceType() == PLACE_TYPE_dsg_fields_elis_market_produce)
 			#IF(!pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL))
 				<p>
-					Eisek's stall is constructed in much the same way as all the others lining the avenue although it does look comparatively dull and shabby. Stretched over the wooden counter is some sort of rough fabric, you guess burlap, stitched together into a crude cover and there's not even shade to keep the occupant out of the sun. The counter is split into a flat table area and an angled display area with a small chalkboard affixed to a post above it for displaying prices. The thin wooden placard hanging over the front is unpainted with the words "FRESH PRODUCE" simply burned into it.
+					Eisek's stall is constructed in much the same way as all the others lining the avenue although it does look comparatively dull and shabby. Stretched over the wooden counter is some sort of rough fabric, you guess burlap, that's been stitched together into a crude cover. Unfortunately for the occupant, there's no shade to keep them out of the sun. The counter is split into a flat table area and an angled display area with a small chalkboard affixed to a post above it for displaying prices. The thin wooden placard hanging over the front is unpainted with the words "FRESH PRODUCE" simply burned into it.
 				</p>
 				#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB))
 					#IF(flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_intimidate) || flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_intimidate_arcane))
 						<p>
-							Although you drove off the mob that had been hounding Eisek, you notice what few shoppers happen to wander into the area giving the [eisek.race]'s stall a wider berth than before. Occasionally you see groups of them whispering to each other as they hurry out of the area.
+							Although you drove off the mob that had been hounding Eisek, you notice what few shoppers happen to wander into the area are giving the [eisek.race]'s stall a wider berth than before. Occasionally you see groups of them whispering to each other as they hurry out of the area.
 						</p>
 					#ELSE
 						<p>
@@ -27,7 +27,7 @@
 				#ENDIF
 			#ELSE
 				<p>
-					Eisek's stall now looks much more colourful and inviting. The counter is now covered in dark green fabric much like the new awning it now sits under. Sewn to the front of the counter is the tapestry-like sign you had made, depicting a gust of wind descending from snow-capped mountains, carrying fruits and vegetables down the slopes while swirling blue letters proclaim "ALPINE PRODUCE". As before, the counter is split into a flat table area and an angled display area with a small chalkboard affixed to a post above it for displaying prices.
+					Eisek's stall now looks much more colourful and inviting. The counter is covered in dark green fabric, which is also the material which makes up the new awning it now sits under. Sewn to the front of the counter is the tapestry-like sign you had made, depicting a gust of wind descending from snow-capped mountains, carrying fruits and vegetables down the slopes while swirling blue letters proclaim "ALPINE PRODUCE". As before, the counter is split into a flat table area and an angled display area with a small chalkboard affixed to a post above it for displaying prices.
 				</p>
 			#ENDIF
 			#IF(game.getDateNow().getHour()<=9)
@@ -67,7 +67,7 @@
 			<p>
 				The space normally occupied by Eisek's stall is empty, he must not be around. 
 				#IF(flags.hasFlag(FLAG_dsg_elis_eisek_asked_himself_low))
-					You recall that he's only in town between the first and third of each month.
+					 You recall that he's only in town between the first and third of each month.
 				#ENDIF
 			</p>
 		#ENDIF

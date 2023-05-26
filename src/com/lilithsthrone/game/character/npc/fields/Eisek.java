@@ -255,7 +255,12 @@ public class Eisek extends NPC {
     public boolean willBuy(AbstractCoreItem item) {
 	    return false;
     }
-    
+
+	@Override
+	public String getTraderDescription() {
+		return UtilText.parseFromXMLFile("dsg/characters/eisek/stall", "VENDOR");
+	}
+	
     @Override
     public void applyItemTransactionEffects(AbstractCoreItem itemSold, int quantity, int individualPrice, boolean soldToPlayer) {
 		if(soldToPlayer) {

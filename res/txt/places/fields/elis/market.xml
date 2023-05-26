@@ -940,11 +940,16 @@
 	
 	<htmlContent tag="CLOTHING_ASK_FABRIC"><![CDATA[
 	<p>
-		It occurs to you that since the foxtauresses sell clothing, they might deal in fabric as well. Fae's shakes her head when you ask, however. [fae.speech(Sorry, we deal in finished clothing only. It'd be way too much stuff to keep around our little stall. But if you were wanting to make some clothing on your own, maybe it's already here at a great price,)] she says, emphasizing the last part with a wink.
+		It occurs to you that since the foxtauresses sell clothing, they might deal in fabric as well. You ask them if they could help you source some material for Eisek's stall.
+	</p>
+	<p>
+		Fae shakes her head when she hears what it is you're asking, before explaining, [fae.speech(Sorry, we deal in finished clothing only. It'd be way too much stuff to keep around our little stall.)]
+	</p>
+	<p>
+		[silvia.speech(Speaking of clothing, perhaps you'd like to buy something?)] Silvia asks, before letting out a playful giggle and asking, [silvia.speech(Or if you've got a ticket, then maybe you could roll to earn a kiss...)]
 	</p>
 	]]>
 	</htmlContent>
-	
 	
 	
 	<!-- Alcoholic drinks -->

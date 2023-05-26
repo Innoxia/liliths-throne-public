@@ -5,7 +5,7 @@
 	
 	<htmlContent tag="POSTER"><![CDATA[
 	<p>
-		As you walk down the street, you notice a poster plastered to a nearby building. Although it is evident someone put a lot of effort into it, it nonetheless comes across as crude. In bold letters, it proclaims
+		As you walk down the street, you notice a poster plastered to a nearby building. Although it is evident someone put a lot of effort into it, it nonetheless comes across as crude. In bold letters, it proclaims:
 	</p>
 	<div style='width:45.0%; margin:0 auto'>
 	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
@@ -51,7 +51,7 @@
 	</svg>
 	</div>
 	<p>
-		This must be from that group that's been harassing Eisek. At the bottom there are directions to the building's cellar and you note that the meeting started a few minutes ago. If you want to confront the mob now, you'll need to head into the cellar right away. On the other hand, if they are printing flyers they're probably holding these meetings regularly all over town. You could find another place and time.
+		This must be from that group which has been harassing Eisek. At the bottom there are directions to the building's cellar and you note that the meeting started a few minutes ago. If you want to confront the mob now, you'll need to head into the cellar right away. On the other hand, if they are printing flyers they're probably holding these meetings regularly all over town. You could find another place and time.
 	</p>
 	]]>
 	</htmlContent>
@@ -60,7 +60,7 @@
 	
 	<htmlContent tag="DISCARD_POSTER"><![CDATA[
 	<p>
-		You don't want to confront the mob right now, but you decide to rip the poster off and toss it in the nearest rubbish bin. Next time, you tell yourself.
+		You don't want to confront the mob right now, but you decide to rip the poster off and toss it into the nearest rubbish bin. Next time, you tell yourself.
 	</p>
 	]]>
 	</htmlContent>
@@ -69,23 +69,23 @@
 	
 	<htmlContent tag="CONFRONT"><![CDATA[
 	<p>
-		You descend the steps into the building's cellar, following the sound of voices. It is surprisingly well lit and spacious inside. Unmarked crates and barrels line the walls, providing most of the seating, but there are some chairs upon which you see some familiar faces. One of those familiar faces is the long-winded donkey-boy who takes notice of you the instant to you enter the room.
+		You descend the steps into the building's cellar, following the sound of voices. It is surprisingly well lit and spacious inside. Unmarked crates and barrels line the walls, providing most of the seating, but there are a handful of chairs upon which you see some familiar faces. One of these is the long-winded donkey-boy who takes notice of you the instant you enter the room.
 	</p>
 	<p>
-		[test.speechMasculine(You,)] he says, his face twisted in disgust as he extends an accusatory digit, 
-	#IF(flags.hasFlag(FLAG_dsg_elis_eisek_introduced_as_dragon) && pc.getRace().equals(RACE_dsg_dragon))
-		[test.speechMasculine(Come to settle the score? You may have the rest of the town fooled, but we know all about your kind! What they did for generations to us common folk before they fell from favour.)]
-	#ELSEIF(!flags.hasFlag(FLAG_dsg_elis_eisek_introduced_as_dragon) && pc.getRace().equals(RACE_dsg_dragon))
-		#IF(game.isSillyMode())
-			[test.speechMasculine(It's not enough that that [eisek.race] has to pollute our market with his presence but now our inaction has led to an invasion.)]
+		[test.speechMasculine(You!)] he exclaims, his face twisted in disgust as he extends an accusatory digit,
+		#IF(flags.hasFlag(FLAG_dsg_elis_eisek_introduced_as_dragon) && pc.getRace().equals(RACE_dsg_dragon))
+			 [test.speechMasculine(Come to settle the score? You may have the rest of the town fooled, but we know all about your kind! What they did for generations to us common folk before they fell from favour.)]
+		#ELSEIF(!flags.hasFlag(FLAG_dsg_elis_eisek_introduced_as_dragon) && pc.getRace().equals(RACE_dsg_dragon))
+			#IF(!game.isSillyMode())
+				 [test.speechMasculine(It's not enough that that [eisek.race] has to pollute our market with his presence but now our inaction has led to an invasion.)]
+			#ELSE
+				 [test.speechMasculine(It's not enough that one dragon pollutes our city with his presence but now... We should have acted! They're already here!)]
+			#ENDIF
+		#ELSEIF(flags.hasFlag(FLAG_dsg_elis_eisek_introduced_as_dragon) && !pc.getRace().equals(RACE_dsg_dragon))
+			 [test.speechMasculine(You can't fool us by wearing the guise of decent folk! We know who you really are.)]
 		#ELSE
-			[test.speechMasculine(It's not enough that one dragon pollutes our city with his presence but now...! We should have acted! They're already here!)]
+			 [test.speechMasculine(Come to settle the score? You don't know anything about that [eisek.race] and what his kind are really like, what they did for generations to us common folk before they fell from favour.)]
 		#ENDIF
-	#ELSEIF(flags.hasFlag(FLAG_dsg_elis_eisek_introduced_as_dragon) && !pc.getRace().equals(RACE_dsg_dragon))
-			[test.speechMasculine(You can't fool us by wearing the guise of decent folk! We know who you really are.)]
-	#ELSE
-		[test.speechMasculine(Come to settle the score? You don't know anything about that [eisek.race] and what his kind is really like, what they did for generations to us common folk before they fell from favour.)]
-	#ENDIF
 	<p>
 		You tell the donkey-boy, who you assume to be a leader of sorts, that you want them to leave Eisek alone. Your request is met by derisive laughter.
 	</p>
@@ -105,16 +105,16 @@
 	<htmlContent tag="INTIMIDATE"><![CDATA[
 	<p>
 		#IF(pc.hasPersonalityTrait(PERSONALITY_TRAIT_SHY))
-			With your superior physique providing a much needed confidence boost, y
+			With your superior physique providing a much needed confidence boost, you
 		#ELSE
-			Y
+			You
 		#ENDIF
 		#IF(pc.isFeral())
-			 ou bare your teeth
+			 bare your teeth
 		#ELSEIF(pc.getRace() == RACE_SLIME)
-			 ou increase your bulk by ingesting air
+			 increase your bulk by ingesting air
 		#ELSE
-			 ou crack your knuckles
+			 crack your knuckles
 		#ENDIF
 		 menacingly and explain that if they don't honour your request, the next time you see them anywhere near Eisek you'll give them a thrashing they'll never forget. And with their history with the Enforcers, somehow you don't think you're going to be the one getting arrested.
 	</p>
@@ -129,29 +129,29 @@
 	<htmlContent tag= "INTIMIDATE_ARCANE"><![CDATA[
 	<p>
 		#IF(pc.hasPersonalityTrait(PERSONALITY_TRAIT_SHY))
-			With your superior arcane ability providing a much needed confidence boost, y
+			With your superior arcane ability providing a much needed confidence boost, you
 		#ELSE
-			Y
+			You
 		#ENDIF
 		#IF(pc.hasSpell(SPELL_FIREBALL))
-			ou cast a ball of fire that flies right between the donkey-boy's legs and scorches the floor beneath his chair.
+			 cast a ball of fire that flies right between the donkey-boy's legs and scorches the floor beneath his chair.
 		#ELSEIF(pc.hasSpell(SPELL_SLAM))
 			#IF(game.isSillyMode())
-				ou punch the ground with a cry of [pc.speech(C'mon and slam!)], causing
+				 punch the ground with a cry of [pc.speech(C'mon and slam!)], causing
 			#ELSE
-				ou cause
+				 use your telekinesis to cause
 			#ENDIF
 			 a small earthquake in the cellar. Dust rains down from the ceiling.
 		#ELSEIF(pc.hasSpell(SPELL_TELEKENETIC_SHOWER))
-			ou lift a few small pebbles and make them orbit around the donkey-boy's head.
+			 lift a few small pebbles and make them orbit around the donkey-boy's head.
 		#ELSEIF(pc.hasSpell(SPELL_POISON_VAPOURS))
-			ou summon a few wisps of a poisonous vapour and swirl them around the room.
+			 summon a few wisps of a poisonous vapour and swirl them around the room.
 		#ELSEIF(pc.hasSpell(SPELL_ICE_SHARD))
-			ou cast a shard of ice that flies right between the donkey-boy's legs and freezes a patch of floor beneath his chair.
+			 cast a shard of ice that flies right between the donkey-boy's legs and freezes a patch of floor beneath his chair.
 		#ELSEIF(pc.hasSpell(SPELL_ARCANE_CHAIN_LIGHTNING) || pc.hasSpell(SPELL_ARCANE_LIGHTNING_SUPERBOLT))
-			ou send a thin bolt of arcane lightning right between the donkey-boy's legs that scorches the floor beneath his chair.
+			 send a thin bolt of arcane lightning right between the donkey-boy's legs that scorches the floor beneath his chair.
 		#ELSE
-			ou make your aura glow menacingly in a show of arcane prowess.
+			 make your aura glow menacingly in a show of arcane prowess.
 		#ENDIF
 		 You explain that if your request isn't honoured, the next time you see any of them anywhere near Eisek you won't miss. And with their history with the Enforcers, somehow you don't think you're going to be the one getting arrested.
 	</p>
@@ -186,14 +186,14 @@
 	<htmlContent tag="INTIMIDATE_FAIL"><![CDATA[
 	<p>
 		#IF(pc.hasPersonalityTrait(PERSONALITY_TRAIT_SHY))
-			Trying your best to put on a brave face, y
+			Trying your best to put on a brave face, you
 		#ELSE
-			Y
+			You
 		#ENDIF
-		ou explain that if they don't honour your request, the next time you see them anywhere near Eisek they'll be sorry.
+		 explain that if they don't honour your request, the next time you see them anywhere near Eisek they'll be sorry.
 	</p>
 	<p>
-		More derisve laughter meets your threat. [test.speechFeminine(We'll be sorry?)] says a tough-looking horse-girl as she walks up to you, [test.speechFeminine(No, I think <i>you'll</i> be sorry.)]
+		More derisive laughter meets your threat. [test.speechFeminine(We'll be sorry?)] says a tough-looking horse-girl as she walks up to you, [test.speechFeminine(No, I think <i>you'll</i> be sorry.)]
 	</p>
 	<p>
 		She grabs hold of you and starts shoving you towards the exit. Despite your struggling and protestations, you cannot overpower her iron grip before you find yourself back out on the street, slightly worse for wear.
@@ -213,18 +213,18 @@
 		#ELSEIF (pc.hasPersonalityTrait(PERSONALITY_TRAIT_CONFIDENT))
 			You confidently walk into the middle of the cellar as if you were lecturing a bunch of schoolyard bullies rather than metaphorical den of vipers.
 		#ENDIF
-		You explain that the mob's fears are baseless. Eisek isn't anything like his ancestors. If he really was going to burn and pillage the place, running a stall in the market is an awfully strange way to go about it. 
+		 You explain that the mob's fears are baseless. Eisek isn't anything like his ancestors. If he really was going to burn and pillage the place, running a stall in the market is an awfully strange way to go about it. 
 		#IF(pc.hasPersonalityTrait(PERSONALITY_TRAIT_SELFISH))
-			In fact, it's totally wrong. Even if he was just casing the town, there are easier and cheaper ways to do it. 
+			 In fact, it's totally wrong. Even if he was just casing the town, there are easier and cheaper ways to do it. 
 		#ENDIF
-		They have talked so much about what his kind is like and yet not one of them has tried to get to know him and find out what if that was true or not. You have. 
+		 They have talked so much about what his kind is like and yet not one of them has tried to get to know him and find out what if that was true or not. You have. 
 		#IF(pc.hasPersonalityTrait(PERSONALITY_TRAIT_CYNICAL))
-			And you're not even the trusting sort. 
+			 And you're not even the trusting sort. 
 		#ENDIF		
-		The Eisek you know is a humble produce farmer who took a big gamble in coming down from the mountains. If any member of this twisted little group had actually taken the time as you did, they would have found out the same thing.
+		 The Eisek you know is a humble produce farmer who took a big gamble in coming down from the mountains. If any member of this twisted little group had actually taken the time as you did, they would have found out the same thing.
 	</p>
 	<p>
-		The room is as silent as a tomb in response to your impassioned speech. After what seems like an eternity, the donkey-boy speaks again. [test.speechMasculine(Alright, you've made your point. Perhaps...we have been too quick to judge. Let us verify these claims.)]
+		The room is as silent as a tomb in response to your impassioned speech. After what seems like an eternity, the donkey-boy speaks again, [test.speechMasculine(Alright, you've made your point. Perhaps... we have been too quick to judge. Let us verify these claims.)]
 	</p>
 	<p>
 		Confident that they will come to the same conclusion as you have, you thank the townsfolk and turn around to leave without another word. 
@@ -245,7 +245,7 @@
 	
 	<htmlContent tag="SEDUCE_AFTERMATH"><![CDATA[
 	<p>
-		You shakily stand up, soaked through with the fluids of the past two hours but more conscious than everyone else. You promise the pile of limp bodies beneath you that if they leave Eisek alone, there's more where that came from. A groggy sea of vaguely affirmative noises replies to your offer. Of course, you don't intend to actually follow through. More likely when the spells wear off, this motley little crew will realize that nobody shut the cellar door during their magic-fueled orgy. They've just given every passerby a free show and will probably disband out of sheer embarrassment.
+		You shakily stand up, soaked through with the fluids of the past two hours but more conscious than everyone else. You promise the pile of limp bodies beneath you that if they leave Eisek alone, there's more where that came from. A groggy sea of vaguely affirmative noises replies to your offer. Of course, you don't intend to actually follow through. More likely when the spells wear off, this motley little crew will realise that nobody shut the cellar door during their magic-fueled orgy. They've just given every passerby a free show and will probably disband out of sheer embarrassment.
 	</p>
 	]]>
 	</htmlContent>
