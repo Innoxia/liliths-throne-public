@@ -65,7 +65,7 @@ import javax.xml.transform.TransformerFactory;
 
 /**
  * @since 0.1.0
- * @version 0.4.5.5
+ * @version 0.4.8.2
  * @author Innoxia
  */
 public class Main extends Application {
@@ -86,7 +86,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.4.6.6";
+	public static final String VERSION_NUMBER = "0.4.8.7"; // Remember to update pom.xml!
 	public static final String VERSION_DESCRIPTION = "Alpha";
 
 	public static boolean quickSaved = false;
@@ -98,7 +98,7 @@ public class Main extends Application {
 	 */
 	public final static boolean DEBUG = Boolean.valueOf(System.getProperty("debug", "false"));
 
-	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
+	public static Image WINDOW_IMAGE;
 	
 	private static Properties properties;
 	
@@ -180,6 +180,8 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("LemonMuffin", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("AuRah", "", 0, 0, 0, 0, Subspecies.DEMON));
 		credits.add(new CreditsSlot("shotgunlo", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("Polyfield", "", 0, 0, 0, 0, Subspecies.DEMON));
+		credits.add(new CreditsSlot("Homero L", "", 0, 0, 0, 0, Subspecies.DEMON));
 		
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));
@@ -461,6 +463,8 @@ public class Main extends Application {
 			}
 		});
 
+		WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
+
 		Main.primaryStage.getIcons().add(WINDOW_IMAGE);
 
 		Main.primaryStage.setTitle(GAME_NAME+" " + VERSION_NUMBER + " " + VERSION_DESCRIPTION+(DEBUG?" (Debug Mode)":""));
@@ -650,12 +654,12 @@ public class Main extends Application {
 		dir.mkdir();
 		dir = new File("data/characters");
 		dir.mkdir();
-
+		
+		
 		// Open error log
 		if(!DEBUG) {
 			System.out.println("Printing to error.log");
 			try {
-				@SuppressWarnings("resource")
 				PrintStream stream = new PrintStream("data/error.log");
 				System.setErr(stream);
 				System.err.println("Game Version: "+VERSION_NUMBER);
@@ -707,11 +711,12 @@ public class Main extends Application {
 		Main.game = new Game();
 		
 		// Generate world:
-		if (!(gen == null))
+		if (!(gen == null)) {
 			if (gen.isRunning()) {
 				gen.cancel();
 			}
-
+		}
+		
 		gen = new Generation();
 
 		gen.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
@@ -1044,7 +1049,8 @@ public class Main extends Application {
 						CharacterImportSetting.CLEAR_KEY_ITEMS,
 						CharacterImportSetting.CLEAR_COMBAT_HISTORY,
 						CharacterImportSetting.CLEAR_SEX_HISTORY,
-						CharacterImportSetting.REMOVE_RACE_CONCEALED));
+						CharacterImportSetting.REMOVE_RACE_CONCEALED,
+						CharacterImportSetting.CLEAR_FAMILY_ID));
 				
 				Main.game.getPlayer().getSlavesOwned().clear();
 				Main.game.getPlayer().endPregnancy(false);

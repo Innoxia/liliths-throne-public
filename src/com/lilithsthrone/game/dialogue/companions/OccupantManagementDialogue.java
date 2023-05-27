@@ -601,13 +601,16 @@ public class OccupantManagementDialogue {
 	
 	public static List<Cell> getImportantCells() {
 		if(importantCells.isEmpty()) {
-			AbstractWorldType[] importantWorlds = new AbstractWorldType[] {WorldType.LILAYAS_HOUSE_GROUND_FLOOR, WorldType.LILAYAS_HOUSE_FIRST_FLOOR};
+			AbstractWorldType[] importantWorlds = new AbstractWorldType[] {WorldType.LILAYAS_HOUSE_GROUND_FLOOR, WorldType.LILAYAS_HOUSE_FIRST_FLOOR, WorldType.getWorldTypeFromId("acexp_dungeon")};
 			for(AbstractWorldType wt : importantWorlds) {
 				Cell[][] cellGrid = Main.game.getWorlds().get(wt).getCellGrid();
 				for(int i = 0; i< cellGrid.length; i++) {
 					for(int j = 0; j < cellGrid[0].length; j++) {
 						if(!cellGrid[i][j].getPlace().getPlaceType().equals(PlaceType.LILAYA_HOME_CORRIDOR)
-								&& !cellGrid[i][j].getPlace().getPlaceType().equals(PlaceType.GENERIC_IMPASSABLE)) {
+								&& !cellGrid[i][j].getPlace().getPlaceType().equals(PlaceType.GENERIC_IMPASSABLE)
+								&& !cellGrid[i][j].getPlace().getPlaceType().equals(PlaceType.getPlaceTypeFromId("acexp_dungeon_corridor"))
+								&& !cellGrid[i][j].getPlace().getPlaceType().equals(PlaceType.getPlaceTypeFromId("acexp_dungeon_stairs"))
+								&& !cellGrid[i][j].getPlace().getPlaceType().equals(PlaceType.getPlaceTypeFromId("acexp_dungeon_stairs_garden"))) {
 							importantCells.add(cellGrid[i][j]);
 						}
 					}
@@ -1287,14 +1290,15 @@ public class OccupantManagementDialogue {
 	}
 	
 	private static String getSlaveryEntry(boolean slaveOwned, GenericPlace place, NPC slave, AffectionLevel affection, float affectionChange, ObedienceLevel obedience, float obedienceChange, boolean alternateBackground) {
-		miscDialogueSB.setLength(0);
+		boolean showWinged = (slave.hasWings() || slave.isArmWings()) && !slave.getFleshSubspecies().isWinged();
 		
+		miscDialogueSB.setLength(0);
 		miscDialogueSB.append(
 				"<div class='container-full-width inner' style='margin-bottom:0;"+(alternateBackground?"background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";'":"'")+"'>"
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
 							+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName(true)+"</b><br/>"
 							+ "<span style='color:"+slave.getRace().getColour().toWebHexString()+";'>"
-								+Util.capitaliseSentence((slave.isFeminine()?slave.getSubspecies().getSingularFemaleName(slave.getBody()):slave.getSubspecies().getSingularMaleName(slave.getBody())))+"</span><br/>"
+								+Util.capitaliseSentence((showWinged?"winged ":"")+(slave.isFeminine()?slave.getSubspecies().getSingularFemaleName(slave.getBody()):slave.getSubspecies().getSingularMaleName(slave.getBody())))+"</span><br/>"
 							+ "<span style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(slave.getGender().getName())+"</span>"
 						+ "</div>"
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
@@ -1384,14 +1388,15 @@ public class OccupantManagementDialogue {
 	}
 	
 	private static String getOccupantEntry(GenericPlace place, NPC occupant, AffectionLevel affection, float affectionChange, ObedienceLevel obedience, float obedienceChange, boolean alternateBackground) {
+		boolean showWinged = (occupant.hasWings() || occupant.isArmWings()) && !occupant.getFleshSubspecies().isWinged();
+
 		miscDialogueSB.setLength(0);
-		
 		miscDialogueSB.append(
 				"<div class='container-full-width inner' style='margin-bottom:0;"+(alternateBackground?"background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";'":"'")+"'>"
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
 							+ "<b style='color:"+occupant.getFemininity().getColour().toWebHexString()+";'>"+occupant.getName(true)+"</b><br/>"
 							+ "<span style='color:"+occupant.getRace().getColour().toWebHexString()+";'>"
-								+Util.capitaliseSentence((occupant.isFeminine()?occupant.getSubspecies().getSingularFemaleName(occupant.getBody()):occupant.getSubspecies().getSingularMaleName(occupant.getBody())))+"</span><br/>"
+								+Util.capitaliseSentence((showWinged?"winged ":"")+(occupant.isFeminine()?occupant.getSubspecies().getSingularFemaleName(occupant.getBody()):occupant.getSubspecies().getSingularMaleName(occupant.getBody())))+"</span><br/>"
 							+ "<span style='color:"+occupant.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(occupant.getGender().getName())+"</span>"
 						+ "</div>"
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
@@ -1426,7 +1431,9 @@ public class OccupantManagementDialogue {
 				
 				+ "<div id='"+occupant.getId()+"' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveInspect()+"</div></div>"
 
-				+ "<div id='"+occupant.getId()+"_JOB' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveJobDisabled()+"</div></div>"
+				+ (occupant.hasJob()
+						?"<div id='"+occupant.getId()+"_JOB' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveJobDisabled()+"</div></div>"
+						:"<div id='"+occupant.getId()+"_JOB' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveJob()+"</div></div>")
 
 				+ "<div id='"+occupant.getId()+"_PERMISSIONS' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlavePermissionsDisabled()+"</div></div>"
 				

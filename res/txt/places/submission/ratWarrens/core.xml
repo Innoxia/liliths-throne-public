@@ -227,7 +227,7 @@
 					Deciding that it would be easiest to pretend that you're a whore here to see Vengar, you lewdly tease, [pc.speech(The business I have with Vengar concerns his fat cock and how he's going to use it to give me a good pounding.)]
 				#ENDIF
 			#ELSE
-				Deciding that it would be easiest to pretend that you're a whore here to see Vengar, you coyly tease, [pc.speech(You could say that the business we have with Vengar is of a very <i>intimate</i> nature...)]
+				Deciding that it would be easiest to pretend that you're a whore here to see Vengar, you coyly tease, [pc.speech(You could say that the business I have with Vengar is of a very <i>intimate</i> nature...)]
 			#ENDIF
 		</p>
 		<p>
@@ -1794,7 +1794,7 @@
 		</p>
 		<p style='text-align:center;'><i>
 			Milker Rentin iz frum 
-			#IF(game.getHourOfDay()>=14 || game.getHourOfDay()<22)
+			#IF(game.isHourBetween(14, 22))
 				 [style.italicsMinorGood(2 til 10 pee-em)].
 			#ELSE
 				 [style.italicsMinorBad(2 til 10 pee-em)].
@@ -1804,7 +1804,7 @@
 		</i></p>
 		<p>
 			Taking a closer look at your surroundings, you see that the most striking feature of this area is the dozens of metal milk-pails stacked up on shelving units against the cave's far wall. In front of these shelving units, there's a curious collection of old, tatty-looking furniture arrayed next to a battered wooden door. While the stacks of rotting tables and broken chairs look as though they haven't seen use for many years, there are several crates and cabinets which appear to have been kept in relatively good condition. The most striking feature of this furniture dump is a faded red sofa, which catches your eye not only because of its splash of colour, but also due to there being
-			#IF(game.getHourOfDay()>=23 || game.getHourOfDay()<=7)
+			#IF(game.isHourBetween(23, 7))
 				 a sleeping greater rat-boy sprawled out on it.
 			#ELSE
 				 a greater rat-boy sitting in the middle of it.
@@ -1864,7 +1864,7 @@
 		</p>
 		<p style='text-align:center;'><i>
 			Milker Rentin iz frum 
-			#IF(game.getHourOfDay()>=14 || game.getHourOfDay()<22)
+			#IF(game.isHourBetween(14, 22))
 				 [style.italicsMinorGood(2 til 10 pee-em)].
 			#ELSE
 				 [style.italicsMinorBad(2 til 10 pee-em)].
@@ -1874,7 +1874,7 @@
 		</i></p>
 		<p>
 			Once again glancing around at your surroundings, you see that the most striking feature of this area is the dozens of metal milk-pails stacked up on shelving units against the cave's far wall. In front of these shelving units, there's a curious collection of old, tatty-looking furniture arrayed next to a battered wooden door. While the stacks of rotting tables and broken chairs look as though they haven't seen use for many years, there are several crates and cabinets which appear to have been kept in relatively good condition. The most striking feature of this furniture dump is a faded red sofa, which catches your eye not only because of its splash of colour, but also due to the fact that
-			#IF(game.getHourOfDay()>=23 || game.getHourOfDay()<=7)
+			#IF(game.isHourBetween(23, 7))
 				 Murk is sprawled out on it, fast asleep.
 			#ELSE
 				 Murk is sitting in the middle of it.
@@ -2895,7 +2895,7 @@
 		#IF(pc.hasCompanions())
 			Unwilling to give in to Vengar's outrageous request, you push yourself up onto your feet and tell your [npc.companion] to do the same, before turning to face the rat-boy and saying, [pc.speech(We've done as you asked, but that's going too far.)]
 		#ELSE
-			Unwilling to give in to Vengar's outrageous request, you push yourself up onto your feet, before turning to face the rat-boy and saying, [pc.speech(We've done as you asked, but that's going too far.)]
+			Unwilling to give in to Vengar's outrageous request, you push yourself up onto your feet, before turning to face the rat-boy and saying, [pc.speech(I've done as you asked, but that's going too far.)]
 		#ENDIF
 	</p>
 	<p>

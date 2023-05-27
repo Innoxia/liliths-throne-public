@@ -86,7 +86,7 @@ public enum Spell {
 		
 		@Override
 		public String getBasicEffectsString(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-			return "Deals "+AbstractCombatMove.getFormattedDamage(getDamageType(), Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, false), target, false, isTargetAtMaximumLust(target))+" damage.";
+			return getFormattedSpellDamageRange(caster, target, enemies, allies);
 		}
 		
 		@Override
@@ -494,7 +494,7 @@ public enum Spell {
 		
 		@Override
 		public String getBasicEffectsString(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-			return "Deals "+AbstractCombatMove.getFormattedDamage(getDamageType(), Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, false), target, false, isTargetAtMaximumLust(target))+" damage.";
+			return getFormattedSpellDamageRange(caster, target, enemies, allies);
 		}
 		
 		@Override
@@ -1012,8 +1012,8 @@ public enum Spell {
 					SpellUpgrade.VACUUM_1,
 					SpellUpgrade.VACUUM_2,
 					SpellUpgrade.VACUUM_3),
-			Util.newHashMapOfValues(
-					new Value<>(Attribute.ENERGY_SHIELDING, -5)), Util.newArrayListOfValues("Lasts for [style.colourGood(4 turns)]")) {
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, -5)),
+			Util.newArrayListOfValues("Lasts for [style.colourGood(4 turns)]")) {
 
 		@Override
 		public Map<AbstractStatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
@@ -1296,7 +1296,7 @@ public enum Spell {
 		
 		@Override
 		public String getBasicEffectsString(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-			return "Deals "+AbstractCombatMove.getFormattedDamage(getDamageType(), Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, false), target, false, isTargetAtMaximumLust(target))+" damage.";
+			return getFormattedSpellDamageRange(caster, target, enemies, allies);
 		}
 		
 		@Override
@@ -1654,7 +1654,7 @@ public enum Spell {
 		
 		@Override
 		public String getBasicEffectsString(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-			return "Deals "+AbstractCombatMove.getFormattedDamage(getDamageType(), Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, false), target, false, isTargetAtMaximumLust(target))+" damage.";
+			return getFormattedSpellDamageRange(caster, target, enemies, allies);
 		}
 		
 		@Override
@@ -2619,7 +2619,7 @@ public enum Spell {
 		
 		@Override
 		public String getBasicEffectsString(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-			return "Deals "+AbstractCombatMove.getFormattedDamage(getDamageType(), Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(caster), damageVariance, false), target, false, isTargetAtMaximumLust(target))+" damage.";
+			return getFormattedSpellDamageRange(caster, target, enemies, allies);
 		}
 		
 		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
@@ -2953,13 +2953,7 @@ public enum Spell {
 		}
 		@Override
 		public String getBasicEffectsString(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-			return "Deals [style.colourDmgLust("
-					+Attack.getMinimumSpellDamage(caster, target, getDamageType(), this.getDamage(caster), this.getDamageVariance())
-					+"-"
-					+Attack.getMaximumSpellDamage(caster, target, getDamageType(), this.getDamage(caster), this.getDamageVariance())
-					+ " " +damageType.getName()
-					+ ")]"
-					+ " damage.";
+			return getFormattedSpellDamageRange(caster, target, enemies, allies);
 		}
 		
 		public String applyEffect(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies, boolean isHit, boolean isCritical) {
@@ -3285,6 +3279,15 @@ public enum Spell {
 		}
 	}
 
+	protected String getFormattedSpellDamageRange(GameCharacter caster, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+		return "Deals <span style='color:"+getDamageType().getColour().toWebHexString()+";'>"
+				+Math.round(Attack.getMinimumSpellDamage(caster, target, getDamageType(), this.getDamage(caster), this.getDamageVariance()))
+				+"-"
+				+Math.round(Attack.getMaximumSpellDamage(caster, target, getDamageType(), this.getDamage(caster), this.getDamageVariance()))
+				+ " " +damageType.getName()
+				+ "</span> damage";
+	}
+	
 	protected String getDamageDescription(GameCharacter caster, GameCharacter target, float damage, boolean isHit, boolean isCritical) {
 		StringBuilder damageCostDescriptionSB = new StringBuilder();
 		
@@ -3534,7 +3537,7 @@ public enum Spell {
 									+ (!hasSpell
 										?(forbidden
 											?"<div class='overlay disabled-dark' style='cursor:default;'></div>"
-											:"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.8;'></div>")
+											:"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.8); '></div>")
 										:"")
 								+ "</div>");
 				
@@ -3623,9 +3626,9 @@ public enum Spell {
 							+ (!hasUpgrade && !isUpgradeAvailable
 								?(forbidden
 										?"<div class='overlay disabled-dark' style='border-radius:50%;'></div>"
-										:"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.8; border-radius:50%; cursor: default;'></div>")
+										:"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.8); border-radius:50%; cursor: default;'></div>")
 								:(!hasUpgrade
-									?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.6; border-radius:50%; cursor:pointer;'></div>"
+									?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.6); border-radius:50%; cursor:pointer;'></div>"
 									:""))
 						+ "</div>");
 		

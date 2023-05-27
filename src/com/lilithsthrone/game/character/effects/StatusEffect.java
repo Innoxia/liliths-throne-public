@@ -1588,7 +1588,7 @@ public class StatusEffect {
 					&& Main.game.isInNewWorld()
 					&& Main.game.isStarted()
 					&& target.isVulnerableToArcaneStorm()
-					&& !(target.isElemental() && ((Elemental)target).getSummoner()!=null?((Elemental)target).getSummoner().getLocationPlace():target.getLocationPlace()).isStormImmune()
+					&& (!(target.isElemental() && ((Elemental)target).getSummoner()!=null?((Elemental)target).getSummoner().getLocationPlace():target.getLocationPlace()).isStormImmune() && !target.isProtectedFromArcaneStorm())
 					&& (target.getWorldLocation().getWorldRegion()==WorldRegion.DOMINION || target.getWorldLocation().getWorldRegion()==WorldRegion.HARPY_NESTS);
 		}
 		@Override
@@ -1658,7 +1658,7 @@ public class StatusEffect {
 			return Main.game.getCurrentWeather()==Weather.MAGIC_STORM
 					&& Main.game.isInNewWorld()
 					&& Main.game.isStarted()
-					&& (target.isElemental() && ((Elemental)target).getSummoner()!=null?((Elemental)target).getSummoner().getLocationPlace():target.getLocationPlace()).isStormImmune()
+					&& ((target.isElemental() && ((Elemental)target).getSummoner()!=null?((Elemental)target).getSummoner().getLocationPlace():target.getLocationPlace()).isStormImmune() || target.isProtectedFromArcaneStorm())
 					&& (target.getWorldLocation().getWorldRegion()==WorldRegion.DOMINION || target.getWorldLocation().getWorldRegion()==WorldRegion.HARPY_NESTS);
 		}
 		@Override
@@ -2458,7 +2458,40 @@ public class StatusEffect {
 		}
 	};
 	
-
+	public static AbstractStatusEffect MARKED_BY_MUSK = new AbstractStatusEffect(80,
+			"marked by musk",
+			"marked_by_musk",
+			PresetColour.BASE_YELLOW_LIGHT,
+			PresetColour.BASE_ORANGE_LIGHT,
+			null,
+			false,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.RESTING_LUST, 5f),
+					new Value<>(Attribute.RESISTANCE_LUST, -1f)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			GameCharacter marker = target.getMuskMarkerCharacter();
+			if(marker==null) {
+				return UtilText.parse(target, marker,
+						"[npc.NameHasFull] been marked by a heady musk, and [npc.verb(find)] [npc.herself] getting turned on by the distinctive scent [npc.she] now [npc.verb(carry)]."
+						+ "<br/>Only a bath, a spa soak, or arcane wet wipes will remove this odour.");
+			} else {
+				return UtilText.parse(target, marker,
+						"[npc.NameHasFull] been marked by [npc2.namePos] musk, and [npc.verb(find)] [npc.herself] getting turned on by the distinctive scent [npc.she] now [npc.verb(carry)]."
+						+ "<br/>Only a bath, a spa soak, or arcane wet wipes will remove this odour.");
+			}
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return Main.game.isMuskContentEnabled() && target.getMuskMarker()!=null && !target.getMuskMarker().isEmpty();
+		}
+	};
+	
 	public static AbstractStatusEffect CLOTHING_ENCHANTMENT_OVER_LIMIT = new AbstractStatusEffect(80,
 			"unstable enchantments",
 			"unstable_enchantment_1",
@@ -2761,7 +2794,9 @@ public class StatusEffect {
 			false,
 			Util.newHashMapOfValues(new Value<>(Attribute.HEALTH_MAXIMUM, -10f),
 					new Value<>(Attribute.MANA_MAXIMUM, -10f)),
-			Util.newArrayListOfValues("While working:",
+			Util.newArrayListOfValues(
+					"[style.colourMinorBad(Less likely)] to use slave lounges",
+					"While working:",
 					"[style.boldBad(-50%)] [style.colourAffection(Affection gains)]",
 					"[style.boldBad(-0.5)] [style.colourAffection(Affection/hour)]",
 					"[style.boldBad(-25%)] [style.colourExperience(experience)] gain chance")) {
@@ -2790,7 +2825,9 @@ public class StatusEffect {
 			false,
 			Util.newHashMapOfValues(new Value<>(Attribute.HEALTH_MAXIMUM, -25f),
 					new Value<>(Attribute.MANA_MAXIMUM, -25f)),
-			Util.newArrayListOfValues("While working:",
+			Util.newArrayListOfValues(
+					"[style.colourBad(Unlikely)] to use slave lounges",
+					"While working:",
 					"[style.boldBad(-80%)] [style.colourAffection(Affection gains)]",
 					"[style.boldBad(-1)] [style.colourAffection(Affection/hour)]",
 					"[style.boldBad(-50%)] [style.colourExperience(experience)] gain chance")) {
@@ -2819,7 +2856,9 @@ public class StatusEffect {
 			false,
 			Util.newHashMapOfValues(new Value<>(Attribute.MAJOR_PHYSIQUE, -50f),
 					new Value<>(Attribute.MANA_MAXIMUM, -50f)),
-			Util.newArrayListOfValues("While working:",
+			Util.newArrayListOfValues(
+					"Will [style.colourTerrible(never)] use slave lounges",
+					"While working:",
 					"[style.boldBad(-100%)] [style.colourAffection(Affection gains)]",
 					"[style.boldBad(-2)] [style.colourAffection(Affection/hour)]",
 					"[style.boldBad(-75%)] [style.colourExperience(experience)] gain chance")) {
@@ -3078,6 +3117,11 @@ public class StatusEffect {
 			Util.newArrayListOfValues(
 					"[style.boldGood(Triples)] [style.colourHealth(health)] and [style.colourMana(aura)] regeneration rate")) {
 		@Override
+		public String applyAdditionEffect(GameCharacter target) {
+			target.setMuskMarker(null);
+			return "";
+		}
+		@Override
 		public String getDescription(GameCharacter target) {
 			return UtilText.parse(target,
 					"Having recently taken the time to relax in [npc.her] bath, [npc.name] [npc.verb(feel)] refreshed and rejuvenated.");
@@ -3097,6 +3141,11 @@ public class StatusEffect {
 					new Value<>(Attribute.DAMAGE_LUST, 15f)),
 			Util.newArrayListOfValues(
 					"[style.boldExcellent(Quadruples)] [style.colourHealth(health)] and [style.colourMana(aura)] regeneration rate")) {
+		@Override
+		public String applyAdditionEffect(GameCharacter target) {
+			target.setMuskMarker(null);
+			return "";
+		}
 		@Override
 		public String getDescription(GameCharacter target) {
 			return UtilText.parse(target,
@@ -3141,6 +3190,11 @@ public class StatusEffect {
 			return true;
 		}
 		@Override
+		public String applyAdditionEffect(GameCharacter target) {
+			target.removeStatusEffect(RECENTLY_SMOKED);
+			return "";
+		}
+		@Override
 		public String extraRemovalEffects(GameCharacter target) {
 			target.addStatusEffect(RECENTLY_SMOKED, 4 * 60 * 60);
 			return "";
@@ -3163,6 +3217,140 @@ public class StatusEffect {
 					"[npc.NameHasFull] recently smoked a cigarette, which is obvious to anyone who gets too near to [npc.herHim], as [npc.she] [npc.verb(smell)] strongly of burning plant matter.");
 		}
 	};
+
+	public static AbstractStatusEffect RECENTLY_EATEN = new AbstractStatusEffect(80,
+			"recently eaten",
+			"recentlyEaten",
+			PresetColour.BASE_GREEN,
+			PresetColour.BASE_GREEN_LIGHT,
+			PresetColour.CLOTHING_WHITE,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.HEALTH_MAXIMUM, 5f)),
+			null) {
+		@Override
+		public String applyAdditionEffect(GameCharacter target) {
+			target.removeStatusEffect(RECENTLY_EATEN_POOR);
+			target.removeStatusEffect(RECENTLY_EATEN_QUALITY);
+			return "";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"[npc.NameHasFull] recently had something to eat. With [npc.her] hunger temporarily satisfied, [npc.sheIs] feeling contented and full of energy.");
+		}
+	};
+
+	public static AbstractStatusEffect RECENTLY_EATEN_POOR = new AbstractStatusEffect(80,
+			"recently eaten (junk)",
+			"recentlyEaten",
+			PresetColour.BASE_GREEN_LIGHT,
+			PresetColour.BASE_YELLOW_PALE,
+			PresetColour.CLOTHING_WHITE,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.HEALTH_MAXIMUM, 1f)),
+			null) {
+		@Override
+		public String applyAdditionEffect(GameCharacter target) {
+			target.removeStatusEffect(RECENTLY_EATEN);
+			target.removeStatusEffect(RECENTLY_EATEN_QUALITY);
+			return "";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"[npc.NameHasFull] recently had something to eat which at best would be classified as junk food. With [npc.her] hunger temporarily satisfied, [npc.sheIs] feeling a little more energetic.");
+		}
+	};
+
+	public static AbstractStatusEffect RECENTLY_EATEN_QUALITY = new AbstractStatusEffect(80,
+			"recently eaten (quality)",
+			"recentlyEaten",
+			PresetColour.BASE_GREEN_DARK,
+			PresetColour.BASE_GREEN,
+			PresetColour.CLOTHING_WHITE,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.HEALTH_MAXIMUM, 10f)),
+			null) {
+		@Override
+		public String applyAdditionEffect(GameCharacter target) {
+			target.removeStatusEffect(RECENTLY_EATEN_POOR);
+			target.removeStatusEffect(RECENTLY_EATEN);
+			return "";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"[npc.NameHasFull] recently had something to eat which was of exceptional quality."
+					+ " With [npc.her] hunger temporarily satisfied, and with the memory of such a fine meal still fresh in [npc.her] mind, [npc.sheIs] feeling contented and full of energy.");
+		}
+	};
+
+	public static AbstractStatusEffect THIRST_QUENCHED = new AbstractStatusEffect(80,
+			"thirst quenched",
+			"recentlyDrank",
+			PresetColour.BASE_BLUE,
+			PresetColour.BASE_BLUE_LIGHT,
+			PresetColour.CLOTHING_WHITE,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.MANA_MAXIMUM, 5f)),
+			null) {
+		@Override
+		public String applyAdditionEffect(GameCharacter target) {
+			target.removeStatusEffect(THIRST_QUENCHED_POOR);
+			target.removeStatusEffect(THIRST_QUENCHED_QUALITY);
+			return "";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"[npc.NameHasFull] recently had something to drink. With [npc.her] thirst temporarily quenched, [npc.sheIs] able to focus and concentrate on the task at hand.");
+		}
+	};
+
+	public static AbstractStatusEffect THIRST_QUENCHED_POOR = new AbstractStatusEffect(80,
+			"thirst quenched (basic)",
+			"recentlyDrank",
+			PresetColour.BASE_BLUE_LIGHT,
+			PresetColour.BASE_YELLOW_PALE,
+			PresetColour.CLOTHING_WHITE,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.MANA_MAXIMUM, 1f)),
+			null) {
+		@Override
+		public String applyAdditionEffect(GameCharacter target) {
+			target.removeStatusEffect(THIRST_QUENCHED);
+			target.removeStatusEffect(THIRST_QUENCHED_QUALITY);
+			return "";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"[npc.NameHasFull] recently quenched [npc.her] thirst with something that barely passed as drinkable. With [npc.her] thirst temporarily quenched, [npc.sheIs] able to focus a little more on the task at hand.");
+		}
+	};
+
+	public static AbstractStatusEffect THIRST_QUENCHED_QUALITY = new AbstractStatusEffect(80,
+			"thirst quenched (quality)",
+			"recentlyDrank",
+			PresetColour.BASE_BLUE_DARK,
+			PresetColour.BASE_BLUE,
+			PresetColour.CLOTHING_WHITE,
+			true,
+			Util.newHashMapOfValues(new Value<>(Attribute.MANA_MAXIMUM, 10f)),
+			null) {
+		@Override
+		public String applyAdditionEffect(GameCharacter target) {
+			target.removeStatusEffect(THIRST_QUENCHED_POOR);
+			target.removeStatusEffect(THIRST_QUENCHED);
+			return "";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"[npc.NameHasFull] recently had something to drink which was of exceptional quality."
+					+ " With [npc.her] thirst temporarily quenched, and with the memory of such a fine beverage still fresh in [npc.her] mind, [npc.sheIs] able to focus and concentrate on the task at hand.");
+		}
+	};
 	
 	public static AbstractStatusEffect DRUNK_1 = new AbstractStatusEffect(80,
 			"Intoxicated I - Tipsy",
@@ -3183,8 +3371,8 @@ public class StatusEffect {
 		}
 		@Override
 		public String getDescription(GameCharacter target) {
-			return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.nameIsFull] feeling a little tipsy...<br/>"
-					+ "Intoxication: "+Units.round(target.getIntoxicationPercentage(), 1)+"%"));
+			return UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.nameIsFull] feeling a little tipsy..."
+					+ "<br/>Intoxication: [style.colourAlcohol("+Units.round(target.getIntoxicationPercentage(), 1)+")]%");
 		}
 		@Override
 		public boolean isSexEffect() {
@@ -3214,8 +3402,8 @@ public class StatusEffect {
 		}
 		@Override
 		public String getDescription(GameCharacter target) {
-			return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.nameIsFull] feeling quite merry...<br/>"
-					+ "Intoxication: "+Units.round(target.getIntoxicationPercentage(), 1)+"%"));
+			return UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.nameIsFull] feeling quite merry..."
+					+ "<br/>Intoxication: [style.colourAlcohol("+Units.round(target.getIntoxicationPercentage(), 1)+")]%");
 		}
 		@Override
 		public boolean isSexEffect() {
@@ -3244,8 +3432,8 @@ public class StatusEffect {
 		}
 		@Override
 		public String getDescription(GameCharacter target) {
-			return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.nameIsFull] feeling quite drunk...<br/>"
-					+ "Intoxication: "+Units.round(target.getIntoxicationPercentage(), 1)+"%"));
+			return UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.nameIsFull] feeling quite drunk..."
+					+ "<br/>Intoxication: [style.colourAlcohol("+Units.round(target.getIntoxicationPercentage(), 1)+")]%");
 		}
 		@Override
 		protected Value<Integer, String> getAdditionalDescription(GameCharacter target) {
@@ -3282,8 +3470,8 @@ public class StatusEffect {
 		}
 		@Override
 		public String getDescription(GameCharacter target) {
-			return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.nameIsFull] feeling absolutely hammered...<br/>"
-					+ "Intoxication: "+Units.round(target.getIntoxicationPercentage(), 1)+"%"));
+			return UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.nameIsFull] feeling absolutely hammered..."
+					+ "<br/>Intoxication: [style.colourAlcohol("+Units.round(target.getIntoxicationPercentage(), 1)+")]%");
 		}
 		@Override
 		protected Value<Integer, String> getAdditionalDescription(GameCharacter target) {
@@ -3320,8 +3508,8 @@ public class StatusEffect {
 		}
 		@Override
 		public String getDescription(GameCharacter target) {
-			return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.nameIsFull] feeling completely wasted...<br/>"
-					+ "Intoxication: "+Units.round(target.getIntoxicationPercentage(), 1)+"%"));
+			return UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.nameIsFull] feeling completely wasted..."
+					+ "<br/>Intoxication: [style.colourAlcohol("+Units.round(target.getIntoxicationPercentage(), 1)+")]%");
 		}
 		@Override
 		protected Value<Integer, String> getAdditionalDescription(GameCharacter target) {
@@ -3726,7 +3914,13 @@ public class StatusEffect {
 							?target.getAgeValue()>=52+Game.TIME_SKIP_YEARS
 							:target.getAgeValue()>=52)
 					&& (target.getSubspecies()==Subspecies.ANGEL || target.getSubspeciesOverride()==null) // Angels and demons are immune
-					&& !(target.isElemental());
+					&& !target.isElemental()
+					&& !target.hasStatusEffect(StatusEffect.VIXENS_VIRILITY)
+					&& !target.hasStatusEffect(StatusEffect.BROODMOTHER_PILL);
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
 		}
 	};
 	
@@ -4053,7 +4247,7 @@ public class StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			return UtilText.parse(target,
-						"[npc.NamePos] stomach has swollen considerably, making it clearly obvious to anyone who glances [npc.her] way that [npc.sheIs] expecting to give birth soon."
+						"[npc.NamePos] stomach has swollen considerably, making it obvious that [npc.sheIs] heavily pregnant."
 							+ (target.getBodyMaterial()==BodyMaterial.SLIME
 								?" Through the [npc.skinColour] [npc.skin] that makes up [npc.her] body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
 									+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of [npc.herHim]..."
@@ -4873,7 +5067,7 @@ public class StatusEffect {
 	};
 	
 	public static AbstractStatusEffect VIXENS_VIRILITY = new AbstractStatusEffect(80,
-			"Breeder pill's effects",
+			"pharmaceutical fertility",
 			"vixensVirility",
 			PresetColour.GENERIC_SEX,
 			true,
@@ -4891,7 +5085,7 @@ public class StatusEffect {
 	};
 
 	public static AbstractStatusEffect PROMISCUITY_PILL = new AbstractStatusEffect(80,
-			"Sterility pill's effects",
+			"pharmaceutical sterility",
 			"promiscuityPill",
 			PresetColour.GENERIC_SEX,
 			true,
@@ -4910,7 +5104,7 @@ public class StatusEffect {
 	};
 
 	public static AbstractStatusEffect BROODMOTHER_PILL = new AbstractStatusEffect(80,
-			"Broodmother pill's effects",
+			"pharmaceutical hyper-fertility",
 			"broodmother_pill",
 			PresetColour.CLOTHING_PINK,
 			true,
@@ -8620,7 +8814,9 @@ public class StatusEffect {
 			"negativeCombatEffect",
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
-			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_PHYSICAL, -2f)),
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, -10f),
+					new Value<>(Attribute.MAJOR_PHYSIQUE, -5f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -9961,7 +10157,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
-			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, -10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, -5f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -9982,7 +10178,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
-			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, -5f),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, -10f),
 					new Value<>(Attribute.CRITICAL_DAMAGE, -15f)),
 			null) {
 		@Override
@@ -10011,7 +10207,7 @@ public class StatusEffect {
 			Util.newArrayListOfValues("<b>10%</b> chance per turn of [style.boldExcellent(stripping)] clothing")) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
-			if(Math.random()<(target.isPlayer()?0.1f:0.166f)) { // I purposefully boost the chance in secret to make the player feel better about the RNG
+			if(!target.isUnique() && (Math.random()<(target.isPlayer()?0.1f:0.166f))) { // I purposefully boost the chance in secret to make the player feel better about the RNG
 				List<AbstractClothing> suitableClothing = new ArrayList<>();
 				for(AbstractClothing c : new ArrayList<>(target.getClothingCurrentlyEquipped())) {
 					if(target.isAbleToUnequip(c, false, target)
@@ -10057,7 +10253,7 @@ public class StatusEffect {
 			Util.newArrayListOfValues("<b>25%</b> chance per turn of [style.boldExcellent(stripping)] clothing")) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
-			if(Math.random()<(target.isPlayer()?0.25f:0.33f)) { // I purposefully boost the chance in secret to make the player feel better about the RNG
+			if(!target.isUnique() && (Math.random()<(target.isPlayer()?0.25f:0.33f))) { // I purposefully boost the chance in secret to make the player feel better about the RNG
 				List<AbstractClothing> suitableClothing = new ArrayList<>();
 				for(AbstractClothing c : new ArrayList<>(target.getClothingCurrentlyEquipped())) {
 					if(target.isAbleToUnequip(c, false, target)
@@ -11277,12 +11473,12 @@ public class StatusEffect {
 								:"Somehow, you're able to instinctively sense what [npc.namePos] sexual preferences are:")
 						+ "<br/>[style.italics"+(Main.sex.isInForeplay(target)?"PinkLight(<b>Foreplay</b>: ":"Disabled(Foreplay: ")
 							+ (foreplayPreference!=null
-									?"[npc.Her] "+foreplayPreference.getPerformingSexArea().getName(target)+" and [npc2.namePos] "+foreplayPreference.getTargetedSexArea().getName(targetedCharacter)+"."
+									?"[npc.Her] "+foreplayPreference.getPerformingSexArea().getName(target, true)+" and [npc2.namePos] "+foreplayPreference.getTargetedSexArea().getName(targetedCharacter, true)+"."
 									:"[npc.She] [npc.has] no preference...")
 							+ ")]"
 						+ "<br/>[style.italics"+(!Main.sex.isInForeplay(target)?"Pink(<b>Sex</b>: ":"Disabled(Sex: ")
 						+ (mainPreference!=null
-								?"[npc.Her] "+mainPreference.getPerformingSexArea().getName(target)+" and [npc2.namePos] "+mainPreference.getTargetedSexArea().getName(targetedCharacter)+"."
+								?"[npc.Her] "+mainPreference.getPerformingSexArea().getName(target, true)+" and [npc2.namePos] "+mainPreference.getTargetedSexArea().getName(targetedCharacter, true)+"."
 								:"[npc.She] [npc.has] no preference...")
 						+ ")]")
 						+ (Main.sex.isCharacterObeyingTarget(target, Main.game.getPlayer())
@@ -11849,7 +12045,7 @@ public class StatusEffect {
 				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 
-			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.asshole]"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.Her] [npc.asshole]"), descriptionSB);
 			
 			descriptionSB.append("</p>");
 			
@@ -11996,7 +12192,7 @@ public class StatusEffect {
 				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 
-			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.ass]"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.Her] [npc.ass]"), descriptionSB);
 			
 			descriptionSB.append("</p>");
 
@@ -12217,7 +12413,7 @@ public class StatusEffect {
 				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 
-			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] mouth"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.Her] mouth"), descriptionSB);
 			
 			descriptionSB.append("</p>");
 			
@@ -12371,7 +12567,7 @@ public class StatusEffect {
 				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
-			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.breasts]"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.Her] [npc.breasts]"), descriptionSB);
 			
 			descriptionSB.append("</p>");
 			
@@ -12531,7 +12727,7 @@ public class StatusEffect {
 				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 
-			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.nipples]"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.Her] [npc.nipples]"), descriptionSB);
 			
 			descriptionSB.append("</p>");
 			
@@ -12689,7 +12885,7 @@ public class StatusEffect {
 				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
-			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.crotchBoobs]"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.Her] [npc.crotchBoobs]"), descriptionSB);
 			
 			descriptionSB.append("</p>");
 			
@@ -12860,7 +13056,7 @@ public class StatusEffect {
 				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 
-			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.crotchNipples]"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.Her] [npc.crotchNipples]"), descriptionSB);
 			
 			descriptionSB.append("</p>");
 			
@@ -13010,7 +13206,7 @@ public class StatusEffect {
 				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
-			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.urethraPenis]"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.Her] [npc.urethraPenis]"), descriptionSB);
 			
 			descriptionSB.append("</p>");
 			
@@ -13158,7 +13354,7 @@ public class StatusEffect {
 				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
-			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.urethraVagina]"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.Her] [npc.urethraVagina]"), descriptionSB);
 			
 			descriptionSB.append("</p>");
 			
@@ -13362,7 +13558,7 @@ public class StatusEffect {
 				descriptionSB.append("[style.boldDisabled(No ongoing actions.)]");
 			}
 			
-			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.pussy]"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.Her] pussy"), descriptionSB);
 			
 			descriptionSB.append("</p>");
 			
@@ -13565,7 +13761,7 @@ public class StatusEffect {
 				descriptionSB.append("[style.boldDisabled(No ongoing actions.)]");
 			}
 			
-			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] spinneret"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.Her] spinneret"), descriptionSB);
 			
 			descriptionSB.append("</p>");
 			
@@ -13712,7 +13908,7 @@ public class StatusEffect {
 				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 
-			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] thighs"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.Her] thighs"), descriptionSB);
 			
 			descriptionSB.append("</p>");
 			
@@ -13869,7 +14065,7 @@ public class StatusEffect {
 				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 
-			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] armpits"), descriptionSB);
+			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.Her] armpits"), descriptionSB);
 			
 			descriptionSB.append("</p>");
 			

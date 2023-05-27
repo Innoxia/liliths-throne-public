@@ -156,10 +156,6 @@ public class FieldsBandit extends NPC {
 	}
 	
 	@Override
-	public void hourlyUpdate() {
-	}
-	
-	@Override
 	public String getDescription() {
 		if(this.isSlave()) {
 			return UtilText.parse(this,

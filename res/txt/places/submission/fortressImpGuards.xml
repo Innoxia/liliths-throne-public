@@ -5,10 +5,10 @@
 	
 	<htmlContent tag="ENTRANCE_PACIFIED"><![CDATA[
 	<p>
-		The crude wooden gates of the makeshift fortress are wide open, and as you draw near, you find yourself wondering if their shoddy construction would even allow them to be closed. The two alpha-imps on guard duty notice your approach, and gaze lustfully at your body as the leader calls out, [npc.speech(Ya can come an' go as yer please, but I can tell yer hungry for imp #IFnpc.hasPenis()#THENcock#ELSEpussy#ENDIF, so why don'cha get down on yer knees and put that mouth o' yours to use?)]
+		The crude wooden gates of the makeshift fortress are wide open, and as you draw near, you find yourself wondering if their shoddy construction would even allow them to be closed. The two alpha-imps on guard duty notice your approach, and gaze lustfully at your body as the leader calls out, [npc.speechNoEffects(Ya can come an' go as yer please, but I can tell yer hungry for imp #IFnpc.hasPenis()#THENcock#ELSEpussy#ENDIF, so why don'cha get down on yer knees and put that mouth o' yours to use?)]
 	</p>
 	<p>
-		The other alpha-imp giggles as [npc2.her] superior says this, and, thrusting [npc2.her] hips in your direction, [npc2.she] adds, [npc2.speech(Yeah, come on, slut! #IFnpc2.hasPenis()#THENSuck my fuckin' cock already!#ELSEGet yer tongue in my fuckin' cunt already!#ENDIF)]
+		The other alpha-imp giggles as [npc2.her] superior says this, and, thrusting [npc2.her] hips in your direction, [npc2.she] adds, [npc2.speechNoEffects(Yeah, come on, slut! #IF(npc2.hasPenis())Suck my fuckin' cock already!#ELSEGet yer tongue in my fuckin' cunt already!#ENDIF)]
 	</p>
 	<p>
 		Ignoring the imps' taunts, you hold your head up high as they reluctantly step aside to let you pass. Your way now unobstructed, you move to continue onwards, trying your best to filter out the imps' lewd taunts as you move past them...
@@ -18,10 +18,10 @@
 	
 	<htmlContent tag="ENTRANCE_PACIFIED_DEMON"><![CDATA[
 	<p>
-		The crude wooden gates of the makeshift fortress are wide open, and as you draw near, you find yourself wondering if their shoddy construction would even allow them to be closed. The two alpha-imps on guard duty notice your approach, and shuffle around nervously as the leader calls out, [npc.speech(Oh, 'ey, it's the [pc.race] again... Y-Yer can come an' go as yer please, ok? J-Just don' cause any trouble... Please...)]
+		The crude wooden gates of the makeshift fortress are wide open, and as you draw near, you find yourself wondering if their shoddy construction would even allow them to be closed. The two alpha-imps on guard duty notice your approach, and shuffle around nervously as the leader calls out, [npc.speechNoEffects(Oh, 'ey, it's the #IF(pc.isFeminine())succubus#ELSEincubus#ENDIF again... Y-Yer can come an' go as yer please, ok? J-Just don' cause any trouble... Please...)]
 	</p>
 	<p>
-		The other alpha-imp hastily steps behind [npc2.her] superior, using [npc.herHim] as a shield as [npc2.she] adds, [npc2.speech(W-We're just followin' orders, we didn't mean ta get in yer way!)]
+		The other alpha-imp hastily steps behind [npc2.her] superior, using [npc.herHim] as a shield as [npc2.she] adds, [npc2.speechNoEffects(W-We're just followin' orders, we didn't mean ta get in yer way!)]
 	</p>
 	<p>
 		Ignoring the imps' cowardly words, you hold your head up high as they hurriedly move aside to let you pass. Your way now unobstructed, you move to continue onwards, trying your best to filter out the imps' pathetic apologies as you stride past them...
@@ -31,10 +31,10 @@
 	
 	<htmlContent tag="ENTRANCE_PACIFIED_BY_SEX"><![CDATA[
 	<p>
-		The crude wooden gates of the makeshift fortress are wide open, and as you draw near, you find yourself wondering if their shoddy construction would even allow them to be closed. The two alpha-imps on guard duty notice your approach, and gaze lustfully at your body as the leader calls out, [npc.speech(Ya can come an' go as yer please, but I can tell yer still hungry for imp #IFnpc.hasPenis()#THENcock#ELSEpussy#ENDIF, so why don'cha get down on yer knees and put that mouth o' yours to use again?)]
+		The crude wooden gates of the makeshift fortress are wide open, and as you draw near, you find yourself wondering if their shoddy construction would even allow them to be closed. The two alpha-imps on guard duty notice your approach, and gaze lustfully at your body as the leader calls out, [npc.speechNoEffects(Ya can come an' go as yer please, but I can tell yer still hungry for imp #IFnpc.hasPenis()#THENcock#ELSEpussy#ENDIF, so why don'cha get down on yer knees and put that mouth o' yours to use again?)]
 	</p>
 	<p>
-		The other alpha-imp giggles as [npc2.her] superior says this, and, thrusting [npc2.her] hips in your direction, [npc2.she] adds, [npc2.speech(Yeah, come on, slut! #IFnpc2.hasPenis()#THENSuck my fuckin' cock already!#ELSEGet yer tongue in my fuckin' cunt already!#ENDIF We all know yer desperate for it!)]
+		The other alpha-imp giggles as [npc2.her] superior says this, and, thrusting [npc2.her] hips in your direction, [npc2.she] adds, [npc2.speechNoEffects(Yeah, come on, slut! #IFnpc2.hasPenis()#THENSuck my fuckin' cock already!#ELSEGet yer tongue in my fuckin' cunt already!#ENDIF We all know yer desperate for it!)]
 	</p>
 	<p>
 		Ignoring the imps' taunts, you hold your head up high as they reluctantly step aside to let you pass. Your way now unobstructed, you move to continue onwards, trying your best to filter out the imps' lewd taunts as you move past them...
@@ -44,10 +44,10 @@
 	
 	<htmlContent tag="ENTRANCE_PACIFIED_BY_SEX_DEMON"><![CDATA[
 	<p>
-		The crude wooden gates of the makeshift fortress are wide open, and as you draw near, you find yourself wondering if their shoddy construction would even allow them to be closed. The two alpha-imps on guard duty notice your approach, and gaze lustfully at your body as the leader calls out, [npc.speech(Ya can come an' go as yer please, [pc.race]. Yer still 'ungry fer imp #IFnpc.hasPenis()#THENcock#ELSEpussy#ENDIF? I bet'cha are! Go on, get down on yer knees and put that mouth o' yours to use again!)]
+		The crude wooden gates of the makeshift fortress are wide open, and as you draw near, you find yourself wondering if their shoddy construction would even allow them to be closed. The two alpha-imps on guard duty notice your approach, and gaze lustfully at your body as the leader calls out, [npc.speechNoEffects(Ya can come an' go as yer please, #IF(pc.isFeminine())succubus#ELSEincubus#ENDIF. Yer still 'ungry fer imp #IFnpc.hasPenis()#THENcock#ELSEpussy#ENDIF? I bet'cha are! Go on, get down on yer knees and put that mouth o' yours to use again!)]
 	</p>
 	<p>
-		The other alpha-imp giggles as [npc2.her] superior says this, and, thrusting [npc2.her] hips in your direction, [npc2.she] adds, [npc2.speech([pc.A_race] that goes down on imps, and not the other way round! Heh, so come on, demon. #IFnpc2.hasPenis()#THENSuck my fuckin' cock already!#ELSEGet yer tongue in my fuckin' cunt already!#ENDIF We all know yer desperate for it!)]
+		The other alpha-imp giggles as [npc2.her] superior says this, and, thrusting [npc2.her] hips in your direction, [npc2.she] adds, [npc2.speechNoEffects([pc.A_race] that goes down on imps, and not the other way round! Heh, so come on, demon. #IFnpc2.hasPenis()#THENSuck my fuckin' cock already!#ELSEGet yer tongue in my fuckin' cunt already!#ENDIF We all know yer desperate for it!)]
 	</p>
 	<p>
 		Ignoring the imps' taunts, you remark upon how quickly they lost their respect towards you as they reluctantly step aside to let you pass. Your way now unobstructed, you move to continue onwards, trying your best to filter out the imps' lewd taunts as you move past them...
@@ -71,13 +71,13 @@
 	
 	<htmlContent tag="ENTRANCE_DEMON"><![CDATA[
 	<p>
-		The crude wooden gates of the makeshift fortress are wide open, and as you draw near, you find yourself wondering if their shoddy construction would even allow them to be closed. The two alpha-imps on guard duty notice your approach, and shuffle around nervously as the leader calls out, [npc.speech('Ey! You! S-Stop right there! Y-You ain't comin' close to our base and gettin' away with it!)]
+		The crude wooden gates of the makeshift fortress are wide open, and as you draw near, you find yourself wondering if their shoddy construction would even allow them to be closed. The two alpha-imps on guard duty notice your approach, and shuffle around nervously as the leader calls out, [npc.speechNoEffects('Ey! You! S-Stop right there! Y-You ain't comin' close to our base and gettin' away with it!)]
 	</p>
 	<p>
-		Although you can tell that these imps are ready for a fight, they seem quite scared of you. To confirm what you suspected, the second imp turns to [npc2.her] leader and hisses, [npc2.speech(H-Hol' on! [pc.SheIs] [pc.a_race]! W-We can't be fighin' a demon! [pc.She]'ll beat us easy!)]
+		Although you can tell that these imps are ready for a fight, they seem quite scared of you. To confirm what you suspected, the second imp turns to [npc2.her] leader and hisses, [npc2.speechNoEffects(H-Hol' on! [pc.SheIs] [pc.a_race]! W-We can't be fighin' a demon! [pc.She]'ll beat us easy!)]
 	</p>
 	<p>
-		[npc.speech(An' we'll get beaten' fer sure if tha boss finds out we didn't do as we're told, ya idiot!)] the leader snaps back, before turning towards you again. [npc.speech(S-So ya gonna surrender nice an' easy, right?! D-Don't want us beatin' you down, do ya?!)]
+		[npc.speechNoEffects(An' we'll get beaten' fer sure if tha boss finds out we didn't do as we're told, ya idiot!)] the leader snaps back, before turning towards you again. [npc.speechNoEffects(S-So ya gonna surrender nice an' easy, right?! D-Don't want us beatin' you down, do ya?!)]
 	</p>
 	<p>
 		The imps are quite clearly terrified of standing against a demon, and you imagine that it wouldn't take much to intimidate them into surrendering to you. Then again, you could always just give them the fight they expect...
@@ -87,13 +87,13 @@
 	
 	<htmlContent tag="ENTRANCE_ELEMENTAL"><![CDATA[
 	<p>
-		The crude wooden gates of the makeshift fortress are wide open, and as you draw near, you find yourself wondering if their shoddy construction would even allow them to be closed. The two alpha-imps on guard duty notice your approach, and shuffle around nervously as the leader calls out, [npc2.speech('Ey! You two! S-Stop right there! Y-You ain't comin' close to our base and gettin' away with it!)]
+		The crude wooden gates of the makeshift fortress are wide open, and as you draw near, you find yourself wondering if their shoddy construction would even allow them to be closed. The two alpha-imps on guard duty notice your approach, and shuffle around nervously as the leader calls out, [npc2.speechNoEffects('Ey! You two! S-Stop right there! Y-You ain't comin' close to our base and gettin' away with it!)]
 	</p>
 	<p>
 		Although you can tell that these imps are ready for a fight, they seem quite scared of your elemental, [npc.name]. To confirm what you suspected, the second imp turns to [npc3.her] leader and hisses, [npc3.speech(H-Hol' on! [pc.SheHas] got one o' them arcane thingies! W-We can't be fighin' that!)]
 	</p>
 	<p>
-		[npc.speech(An' we'll get beaten' fer sure if tha boss finds out we didn't do as we're told, ya idiot!)] the leader snaps back, before turning towards you again. [npc.speech(S-So ya gonna surrender nice an' easy, right?! D-Don't want us beatin' you two down, do ya?!)]
+		[npc.speechNoEffects(An' we'll get beaten' fer sure if tha boss finds out we didn't do as we're told, ya idiot!)] the leader snaps back, before turning towards you again. [npc.speechNoEffects(S-So ya gonna surrender nice an' easy, right?! D-Don't want us beatin' you two down, do ya?!)]
 	</p>
 	<p>
 		The imps are quite clearly terrified of your summoned elemental, and you imagine that it wouldn't take much to intimidate them into surrendering to you. Then again, you could always just give them the fight they expect...
@@ -103,13 +103,14 @@
 	
 	<htmlContent tag="ENTRANCE"><![CDATA[
 	<p>
-		The crude wooden gates of the makeshift fortress are wide open, and as you draw near, you find yourself wondering if their shoddy construction would even allow them to be closed. The two alpha-imps on guard duty notice your approach, and, letting out a menacing snarl, the leader calls out, [npc.speech('Old it right there, ya scum! You ain't comin' close to our base and gettin' away with it!)]
+		The crude wooden gates of the makeshift fortress are wide open, and as you draw near, you find yourself wondering if their shoddy construction would even allow them to be closed. The two alpha-imps on guard duty notice your approach, and, letting out a menacing snarl, the leader calls out, [npc.speechNoEffects('Old it right there, ya scum! You ain't comin' close to our base and gettin' away with it!)]
 	</p>
 	<p>
 		The other alpha-imp spits on the ground as [npc2.her] superior says this, and, thrusting [npc2.her] hips in your direction, [npc2.she] adds,
-		#IF game.isNonConEnabled()
-		#THEN [npc2.speech(Yeah, once we've got yer down, you're gonna be gettin' a taste o' my fuckin' #IFnpc2.hasPenis()#THENcock#ELSEpussy#ENDIF!)]
-		#ELSE [npc2.speech(Yeah, we're gonna give yer a right proper beatin'!)]
+		#IF(game.isNonConEnabled())
+			 [npc2.speechNoEffects(Yeah, once we've got yer down, you're gonna be gettin' a taste o' my fuckin' #IF(npc2.hasPenis())cock#ELSEpussy#ENDIF!)]
+		#ELSE
+			 [npc2.speechNoEffects(Yeah, we're gonna give yer a right proper beatin'!)]
 		#ENDIF
 	</p>
 	<p>
@@ -130,20 +131,21 @@
 		Wanting to resolve this situation without resorting to violence, you hold up your [pc.hands] to show that you mean no harm, before smirking at the imps and asking, [pc.speech(Is there no way I can get in to speak to your boss? Surely there's <i>something</i> I could do to get on your good side...)]
 	</p>
 	<p>
-		The imps lower their weapons, and, [npc.her] snarl turning into a wicked grin, the leader responds, [npc.speech(What yer willin' ta do ta get in 'ere? Eh?)] 
+		The imps lower their weapons, and, [npc.her] snarl turning into a wicked grin, the leader responds, [npc.speechNoEffects(What yer willin' ta do ta get in 'ere? Eh?)] 
 	</p>
 	<p>
 		Licking your [pc.lips+], you step forwards and sink down onto your knees before the two guards. Winking at the leader, you put on your most seductive voice as you make your offer, [pc.speech(How about you let me use my mouth on the two of you?)]
 	</p>
 	<p>
-		[npc.speech(Hungry fer imp #IFnpc.hasPenis()#THENcock#ELSEpussy#ENDIF, huh, slut?)] the leader sneers, before stepping forwards and grabbing your chin. Pushing [npc.her] thumb into your mouth, [npc.she] giggles as you obediently suck on it and bat your eyelids at [npc.herHim].
-		#IF game.isNonConEnabled()
-		#THEN [npc.speech(If only everyone were this eager!)]
-		#ELSE [npc.speech(Nice 'an eager, ain't yer?)]
+		[npc.speechNoEffects(Hungry fer imp #IF(npc.hasPenis())cock#ELSEpussy#ENDIF, huh, slut?)] the leader sneers, before stepping forwards and grabbing your chin. Pushing [npc.her] thumb into your mouth, [npc.she] giggles as you obediently suck on it and bat your eyelids at [npc.herHim].
+		#IF(game.isNonConEnabled())
+			 [npc.speechNoEffects(If only everyone were this eager!)]
+		#ELSE
+			 [npc.speechNoEffects(Nice 'an eager, ain't yer?)]
 		#ENDIF
 	</p>
 	<p>
-		Withdrawing [npc.her] thumb from your mouth, the leader steps to one side, leaving enough room for [npc.her] partner to get in on the action. Immediately moving forwards into the vacant space, [npc2.name] giggles, [npc2.speech(Yer gonna be a good [pc.girl] an' #IFnpc2.hasPenis()#THENswallow all me yummy cum#ELSEget that tongue in deep#ENDIF, ain't yer?)]
+		Withdrawing [npc.her] thumb from your mouth, the leader steps to one side, leaving enough room for [npc.her] partner to get in on the action. Immediately moving forwards into the vacant space, [npc2.name] giggles, [npc2.speechNoEffects(Yer gonna be a good [pc.girl] an' #IF(npc2.hasPenis())swallow all me yummy cum#ELSEget that tongue in deep#ENDIF, ain't yer?)]
 	</p>
 	<p>
 		Answering in the affirmative, you prepare to earn your entry into the fortress...
@@ -156,14 +158,15 @@
 		Finding yourself unable to resist the opportunity to #IFnpc.hasPenis()#THENsuck imp cock#ELSEget a taste of imp pussy#ENDIF, you lick your [pc.lips+], before stepping forwards and sinking down onto your knees before the two guards. Winking at the leader, you put on your most seductive voice as you admit, [pc.speech(Yes... I can't stop thinking about your #IFnpc.hasPenis()#THENhard cocks#ELSEwet pussies#ENDIF... Please, I want to #IFnpc.hasPenis()#THENtaste your cum#ELSEeat you out#ENDIF again...)]
 	</p>
 	<p>
-		[npc.speech(I knew yer were desperate fer it, ya filthy slut!)] the leader sneers, before stepping forwards and grabbing your chin. Pushing [npc.her] thumb into your mouth, [npc.she] giggles as you obediently suck on it and bat your eyelids at [npc.herHim].
-		#IF game.isNonConEnabled()
-		#THEN [npc.speech(If only everyone were this eager!)]
-		#ELSE [npc.speech(Nice 'an eager, ain't yer?)]
+		[npc.speechNoEffects(I knew yer were desperate fer it, ya filthy slut!)] the leader sneers, before stepping forwards and grabbing your chin. Pushing [npc.her] thumb into your mouth, [npc.she] giggles as you obediently suck on it and bat your eyelids at [npc.herHim].
+		#IF(game.isNonConEnabled())
+			 [npc.speechNoEffects(If only everyone were this eager!)]
+		#ELSE
+			 [npc.speechNoEffects(Nice 'an eager, ain't yer?)]
 		#ENDIF
 	</p>
 	<p>
-		Withdrawing [npc.her] thumb from your mouth, the leader steps to one side, leaving enough room for [npc.her] partner to get in on the action. Immediately moving forwards into the vacant space, [npc2.name] giggles, [npc2.speech(Don' worry, whore, yer gonna be getting that imp #IFnpc2.hasPenis()#THENcum#ELSEpussy#ENDIF yer cravin' soon enough!)]
+		Withdrawing [npc.her] thumb from your mouth, the leader steps to one side, leaving enough room for [npc.her] partner to get in on the action. Immediately moving forwards into the vacant space, [npc2.name] giggles, [npc2.speechNoEffects(Don' worry, whore, yer gonna be getting that imp #IF(npc2.hasPenis())cum#ELSEpussy#ENDIF yer cravin' soon enough!)]
 	</p>
 	<p>
 		Letting out a desperate whine, you prepare to service the two imps before you...
@@ -185,7 +188,7 @@
 		[npc.speech(In that case, please stand aside, [pc.master]. I'll be no more than thirty seconds.)]
 	</p>
 	<p>
-		As the two of you hold this conversation, you notice that the imp guards are getting more and more visibly terrified. As your elemental steps forwards, they let out a synchronised scream, and, stumbling over their own feet, they rush to stand aside. Dropping [npc2.her] weapon, the leader pleads, [npc2.speech(P-Please, spare us! W-We'd make terrible slaves, honest! Y-You can come an' go as yer please, j-just don't hurt us!)]
+		As the two of you hold this conversation, you notice that the imp guards are getting more and more visibly terrified. As your elemental steps forwards, they let out a synchronised scream, and, stumbling over their own feet, they rush to stand aside. Dropping [npc2.her] weapon, the leader pleads, [npc2.speechNoEffects(P-Please, spare us! W-We'd make terrible slaves, honest! Y-You can come an' go as yer please, j-just don't hurt us!)]
 	</p>
 	<p>
 		[pc.speech(Hmm, I suppose I am feeling merciful today,)] you state, before turning towards [npc.name]. [pc.speech(Come along, these ones aren't worth your time.)]
@@ -201,14 +204,14 @@
 		Thinking that these imps look particularly cowardly, you think that simply summoning your elemental would be enough to intimidate them. Grinning down at the leader, you declare, [pc.speech(You really think you stand a chance against me?! Perhaps if you can defeat my elemental, you'll have earned the right to challenge me!)]
 	</p>
 	<p>
-		The colour instantly drains from [npc2.namePos] cheeks, and [npc2.she] hisses to [npc2.her] superior, [npc2.speech('Ey! A-An elemental?! Ain't that one o' those arcane thingies?! W-We can't fight that!)]
+		The colour instantly drains from [npc2.namePos] cheeks, and [npc2.she] hisses to [npc2.her] superior, [npc2.speechNoEffects('Ey! A-An elemental?! Ain't that one o' those arcane thingies?! W-We can't fight that!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="ENTRANCE_ELEMENTAL_SUMMON_END"><![CDATA[
 	<p>
-		As your elemental steps forwards, the two imps let out a synchronised scream, and, stumbling over their own feet, rush to stand aside. Dropping [npc2.her] weapon, the leader pleads, [npc2.speech(P-Please, spare us! W-We don't want no trouble with one o' those arcane thingies! J-Just, please don't hurt us!)]
+		As your elemental steps forwards, the two imps let out a synchronised scream, and, stumbling over their own feet, rush to stand aside. Dropping [npc2.her] weapon, the leader pleads, [npc2.speechNoEffects(P-Please, spare us! W-We don't want no trouble with one o' those arcane thingies! J-Just, please don't hurt us!)]
 	</p>
 	<p>
 		[pc.speech(Hmm, I suppose I am feeling merciful today,)] you state, before turning towards [npc.name]. [pc.speech(Come along, these ones aren't worth your time.)]
@@ -232,10 +235,10 @@
 	
 	<htmlContent tag="GUARDS_AFTER_ORAL_FOR_ENTRY"><![CDATA[
 	<p>
-		Stepping away from you, the two imps slip their tattered clothing back on, with the leader sneering as [npc.she] does so, [npc.speech(What a horny slut fer imp #IFnpc.hasPenis()#THENcock#ELSEpussy#ENDIF! Heh, the way ya were moanin' fer it! We won't be fergettin' that fer a long time!)]
+		Stepping away from you, the two imps slip their tattered clothing back on, with the leader sneering as [npc.she] does so, [npc.speechNoEffects(What a horny slut fer imp #IF(npc.hasPenis())cock#ELSEpussy#ENDIF! Heh, the way ya were moanin' fer it! We won't be fergettin' that fer a long time!)]
 	</p>
 	<p>
-		As you start to stand up, [npc2.name] suddenly grabs your shoulders and pushes you back down onto your knees. [npc2.speech('Ang on, yer missed some! Clean it off proper, slut!)]
+		As you start to stand up, [npc2.name] suddenly grabs your shoulders and pushes you back down onto your knees. [npc2.speechNoEffects('Ang on, yer missed some! Clean it off proper, slut!)]
 	</p>
 	<p>
 		#IFnpc2.hasPenis()
@@ -246,7 +249,7 @@
 		#ENDIF
 	</p>
 	<p>
-		[npc.speech(Ya can come an' go as yer please now, slut,)] the leader declares, [npc.speech(But when yer get 'ungry fer another taste o' imp #IFnpc.hasPenis()#THENcock#ELSEpussy#ENDIF, yer just come back an' get down on yer knees, yer understand?)]
+		[npc.speechNoEffects(Ya can come an' go as yer please now, slut,)] the leader declares, [npc.speechNoEffects(But when yer get 'ungry fer another taste o' imp #IF(npc.hasPenis())cock#ELSEpussy#ENDIF, yer just come back an' get down on yer knees, yer understand?)]
 	</p>
 	<p>
 		Replying in the affirmative, you smile at the imps as they stand aside, letting you pass into the fortress without a fight...
@@ -259,20 +262,29 @@
 	<!-- ENTRANCE_DEMONIC_COMMAND -->
 	
 	<htmlContent tag="ENTRANCE_DEMONIC_COMMAND"><![CDATA[
+	#IF(pc.getRace()!=RACE_DEMON)
+		<p>
+			Knowing exactly how to get these imps to back down, you quickly transform to take on your true, demonic appearance. As the imps' defiant expressions quickly shift into ones of terror, you use an icy, threatening tone to ask, [pc.speech(You <i>dare</i> speak to a demon in such a way? It's almost as though you <i>want</i> to spend the rest of your existence as the lowest of my slaves.)]
+		</p>
+		<p>
+			[npc.speechNoEffects(N-No! W-Wait, we didn't know you was a demon! W-We were just doin' as we were told!)] the leader stutters, stumbling backwards and lowering [npc.her] weapon. [npc.speechNoEffects(T-There's no need fer ya ta be doin' that...)]
+		</p>
+	#ELSE
+		<p>
+			[pc.speech(You <i>dare</i> speak to a demon in such a way?)] you ask, taking on an icy, threatening tone. [pc.speech(It's almost as though you <i>want</i> to spend the rest of your existence as the lowest of my slaves.)]
+		</p>
+		<p>
+			[npc.speechNoEffects(N-No! W-Wait, we were just doin' as we were told!)] the leader stutters, stumbling backwards and lowering [npc.her] weapon. [npc.speechNoEffects(T-There's no need fer ya ta be doin' that...)]
+		</p>
+	#ENDIF
 	<p>
-		[pc.speech(You <i>dare</i> speak to a demon in such a way?)] you ask, taking on an icy, threatening tone. [pc.speech(It's almost as though you <i>want</i> to spend the rest of your existence as the lowest of my slaves.)]
-	</p>
-	<p>
-		[npc.speech(N-No! W-Wait, we were just doin' as we were told!)] the leader stutters, stumbling backwards and lowering [npc.her] weapon. [npc.speech(T-There's no need fer ya ta be doin' that...)]
-	</p>
-	<p>
-		[npc2.Her] spirit instantly broken, [npc2.name] joins [npc2.her] superior in apologising as [npc2.she] hurriedly stands aside, [npc2.speech(That's right! W-We'd never normally be so rude! I-It's just that our boss told us ta say all that stuff!)]
+		[npc2.Her] spirit instantly broken, [npc2.name] joins [npc2.her] superior in apologising as [npc2.she] hurriedly stands aside, [npc2.speechNoEffects(That's right! W-We'd never normally be so rude! I-It's just that our boss told us ta say all that stuff!)]
 	</p>
 	<p>
 		[pc.speech(Move!)] you command, glaring down at the leader.
 	</p>
 	<p>
-		[npc.speech(S-Sorry!)] [npc.She] instantly cries, tripping over [npc.her] own feet as [npc.she] hurries to get out of your way. [npc.speech(Y-You can come an' go as yer please, of course! S-Sorry fer the trouble!)]
+		[npc.speechNoEffects(S-Sorry!)] [npc.She] instantly cries, tripping over [npc.her] own feet as [npc.she] hurries to get out of your way. [npc.speechNoEffects(Y-You can come an' go as yer please, of course! S-Sorry fer the trouble!)]
 	</p>
 	<p>
 		Ignoring the imps' cowardly words, you hold your head up high as they abandon the duty that was given to them. Your way now unobstructed, you move forwards through the gates, trying your best to filter out the imps' pathetic apologies as you stride past them...
@@ -293,7 +305,7 @@
 	
 	<htmlContent tag="GUARDS_AFTER_COMBAT_VICTORY"><![CDATA[
 	<p>
-		The two guards slump to the floor, their weapons falling from their hands to clatter harmlessly against the rocks underfoot. Looking up at you as [npc.she] gasps for breath, the leader pleads, [npc.speech(N-No more... Y-Ya got us...)]
+		The two guards slump to the floor, their weapons falling from their hands to clatter harmlessly against the rocks underfoot. Looking up at you as [npc.she] gasps for breath, the leader pleads, [npc.speechNoEffects(N-No more... Y-Ya got us...)]
 	</p>
 	<p>
 		Looking down at the defeated figures before you, you wonder if you should take advantage of them, or simply continue on into the fortress...
@@ -316,30 +328,30 @@
 	
 	<htmlContent tag="GUARDS_COMBAT_VICTORY_SEX"><![CDATA[
 	<p>
-		Wanting to have some fun with these once-insolent imps, you reach down and start moving them into position. The leader lets out an erotic moan as [npc.she] feels your hands on [npc.her] body, and sighs, [npc.speech(Mmm, yeah! Come on, babe, yer wanna give us a good fuck, right?)]
+		Wanting to have some fun with these once-insolent imps, you reach down and start moving them into position. The leader lets out an erotic moan as [npc.she] feels your hands on [npc.her] body, and sighs, [npc.speechNoEffects(Mmm, yeah! Come on, babe, yer wanna give us a good fuck, right?)]
 	</p>
 	<p>
-		[npc2.speech(Oh yeah, it's been fuckin' ages since I had a real good fuck!)] [npc2.Name] moans, happily pushing [npc2.herself] up beside her leader as the two of them prepare to have sex with you...
+		[npc2.speechNoEffects(Oh yeah, it's been fuckin' ages since I had a real good fuck!)] [npc2.Name] moans, happily pushing [npc2.herself] up beside her leader as the two of them prepare to have sex with you...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARDS_COMBAT_VICTORY_SEX_GENTLE"><![CDATA[
 	<p>
-		Wanting to have some fun with these once-insolent imps, you reach down and start gently moving them into position. The leader lets out an erotic moan as [npc.she] feels your soft touch on [npc.her] body, and sighs, [npc.speech(Mmm, yeah! Come on, babe, yer wanna give us a good fuck, right?)]
+		Wanting to have some fun with these once-insolent imps, you reach down and start gently moving them into position. The leader lets out an erotic moan as [npc.she] feels your soft touch on [npc.her] body, and sighs, [npc.speechNoEffects(Mmm, yeah! Come on, babe, yer wanna give us a good fuck, right?)]
 	</p>
 	<p>
-		[npc2.speech(Oh yeah, it's been fuckin' ages since I had a real good fuck!)] [npc2.Name] moans, happily pushing [npc2.herself] up beside her leader as the two of them prepare to have sex with you...
+		[npc2.speechNoEffects(Oh yeah, it's been fuckin' ages since I had a real good fuck!)] [npc2.Name] moans, happily pushing [npc2.herself] up beside her leader as the two of them prepare to have sex with you...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARDS_COMBAT_VICTORY_SEX_ROUGH"><![CDATA[
 	<p>
-		Wanting to have some fun with these once-insolent imps, you reach down and start roughly shoving them into position. The leader lets out an erotic moan as [npc.she] feels your harsh touch on [npc.her] body, and sighs, [npc.speech(Mmm, yeah! Come on, babe, yer wanna give us a good, hard fuck, right?)]
+		Wanting to have some fun with these once-insolent imps, you reach down and start roughly shoving them into position. The leader lets out an erotic moan as [npc.she] feels your harsh touch on [npc.her] body, and sighs, [npc.speechNoEffects(Mmm, yeah! Come on, babe, yer wanna give us a good, hard fuck, right?)]
 	</p>
 	<p>
-		[npc2.speech(Oh yeah, it's been fuckin' ages since I had a real rough poundin'!)] [npc2.Name] moans, happily pushing [npc2.herself] up beside her leader as the two of them prepare to get dominated by you...
+		[npc2.speechNoEffects(Oh yeah, it's been fuckin' ages since I had a real rough poundin'!)] [npc2.Name] moans, happily pushing [npc2.herself] up beside her leader as the two of them prepare to get dominated by you...
 	</p>
 	]]>
 	</htmlContent>
@@ -349,22 +361,22 @@
 		Seeing the two imps pathetically sprawled out on the floor before you makes you feel immensely guilty about what you've just done. Dropping down onto your knees beside them, you ask, [pc.speech(Are you ok? I didn't mean to... I think I went a little too far...)]
 	</p>
 	<p>
-		[npc.speech(Eh?!)] the imp leader exclaims, caught off-guard by your sudden change in attitude. [npc.speech(What yer sayin'?)]
+		[npc.speechNoEffects(Eh?!)] the imp leader exclaims, caught off-guard by your sudden change in attitude. [npc.speechNoEffects(What yer sayin'?)]
 	</p>
 	<p>
-		Sensing your weakness, [npc2.name] pushes [npc2.herself] up onto [npc2.her] feet, before stepping forwards and glaring at you. [npc2.speech(Damn right ya went too far! So, ya gonna say sorry, or what?)]
+		Sensing your weakness, [npc2.name] pushes [npc2.herself] up onto [npc2.her] feet, before stepping forwards and glaring at you. [npc2.speechNoEffects(Damn right ya went too far! So, ya gonna say sorry, or what?)]
 	</p>
 	<p>
 		[pc.speech(Ah, yes, sorry!)] you cry out. [pc.speech(What can I do to make it up to y-)]
 	</p>
 	<p>
-		Your question is cut short as the imp leader, who by now has stood up and stepped towards you, reaches forwards and grabs you by the chin. [npc.speech(Yer gonna #IFnpc.hasPenis()#THENtake our cocks#ELSEeat us out#ENDIF, like a good subby slut, ain't yer?)]
+		Your question is cut short as the imp leader, who by now has stood up and stepped towards you, reaches forwards and grabs you by the chin. [npc.speechNoEffects(Yer gonna #IF(npc.hasPenis())take our cocks#ELSEeat us out#ENDIF, like a good subby slut, ain't yer?)]
 	</p>
 	<p>
 		[pc.speech(Ooh, yesh, I can do that,)] you slur as the imp leader reaches up to squeeze your [pc.lips+] together.
 	</p>
 	<p>
-		[npc2.speech(Gonna #IFnpc2.hasPenis()#THENpump you full o' cum#ELSEgive yer a taste o' my cunt#ENDIF fer what yer did ta us!)] [npc2.Name] jeers, moving around behind you and grabbing your [pc.hips+].
+		[npc2.speechNoEffects(Gonna #IF(npc2.hasPenis())pump you full o' cum#ELSEgive yer a taste o' my cunt#ENDIF fer what yer did ta us!)] [npc2.Name] jeers, moving around behind you and grabbing your [pc.hips+].
 	</p>
 	<p>
 		Your submissive nature immediately takes over, and you find yourself making erotic [pc.moans] as you happily allow the imps to move you into position. Grinning at the guards that just a moment ago were at your mercy, you prepare for them to get their revenge by fucking you...
@@ -381,10 +393,10 @@
 		With the last of your strength depleted, you slump to the floor with a defeated sigh. Before you've even managed to take a breath, you feel them reach down and grab you under your [pc.arms]. As they start dragging you down the incline towards Submission's tunnels, the two imps start speaking to one another.
 	</p>
 	<p>
-		[npc2.speech(Why we can't we 'ave any fun?)] [npc2.Name] asks [npc2.her] superior.
+		[npc2.speechNoEffects(Why we can't we 'ave any fun?)] [npc2.Name] asks [npc2.her] superior.
 	</p>
 	<p>
-		[npc.speech('Cause if the boss catches us fuckin' instead of guardin', we'll be the ones who get fucked!)] the leader snaps in response. [npc.speech(We'll just dump [pc.herHim] down 'ere. Our roamin' gangs can have some fun when they catch [pc.herHim].)]
+		[npc.speechNoEffects('Cause if the boss catches us fuckin' instead of guardin', we'll be the ones who get fucked!)] the leader snaps in response. [npc.speechNoEffects(We'll just dump [pc.herHim] down 'ere. Our roamin' gangs can have some fun when they catch [pc.herHim].)]
 	</p>
 	<p>
 		Before you know it, you've been dragged far away from the fortress's gatehouse, and are being unceremoniously hurled to the floor. Threatening you never to return, the imps then return to their guard duty, leaving you alone to catch your breath...
@@ -397,10 +409,10 @@
 		With the last of your strength depleted, you slump to the floor with a defeated sigh. Before you've even managed to take a breath, you feel them reach down and start to grope and fondle your vulnerable body. As they start molesting you, the two imps start speaking to one another.
 	</p>
 	<p>
-		[npc2.speech(I wonder if [pc.sheIs] gonna turn out ta be another slut fer our #IFnpc.hasPenis()#THENcocks#ELSEcunts#ENDIF?)] the imp leader asks [npc.her] subordinate.
+		[npc.speech(I wonder if [pc.sheIs] gonna turn out ta be another slut fer our #IF(npc.hasPenis())cocks#ELSEcunts#ENDIF?)] the imp leader asks [npc.her] subordinate.
 	</p>
 	<p>
-		[npc.speech(Don't matter either way, I'm just dyin' ta #IFnpc2.hasPenis()#THENnut inside [pc.herHim]#ELSEget [pc.her] tongue in my pussy#ENDIF!)] [npc2.Name] replies. [npc2.speech(Anyway, they always get into it once they get a taste o' my #IFnpc2.hasPenis()#THENcock#ELSEjuicy snatch#ENDIF! Just like that last slut we caught. She was soon beggin' fer #IFnpc2.hasPenis()#THENmy cum#ELSEme ta sit on 'er face#ENDIF!)]
+		[npc2.speechNoEffects(Don't matter either way, I'm just dyin' ta #IF(npc2.hasPenis())nut inside [pc.herHim]#ELSEget [pc.her] tongue in my pussy#ENDIF!)] [npc2.Name] replies. [npc2.speechNoEffects(Anyway, they always get into it once they get a taste o' my #IF(npc2.hasPenis())cock#ELSEjuicy snatch#ENDIF! Just like that last slut we caught. She was soon beggin' fer #IF(npc2.hasPenis())my cum#ELSEme ta sit on 'er face#ENDIF!)]
 	</p>
 	<p>
 		Before you know it, the two imps have pushed you into position, and are getting ready to use your body...
@@ -413,23 +425,23 @@
 		Happy enough to let the imps have their fun, you [pc.moan], [pc.speech(Mmm, yes... I'll be good for you...)]
 	</p>
 	<p>
-		[npc.speech(Heh! So [pc.she] <i>is</i> a slut fer imp #IFnpc.hasPenis()#THENcocks#ELSEcunts#ENDIF!)] the imp leader sneers, drawing a wicked giggle from [npc.her] subordinate.
+		[npc.speechNoEffects(Heh! So [pc.she] <i>is</i> a slut fer imp #IF(npc.hasPenis())cocks#ELSEcunts#ENDIF!)] the imp leader sneers, drawing a wicked giggle from [npc.her] subordinate.
 	</p>
 	<p>
-		[npc2.speech(Gonna give ya a real good fuckin', whore!)] [npc2.Name] says, groping your body as both [npc2.she] and [npc2.her] superior prepare to get started...
+		[npc2.speechNoEffects(Gonna give ya a real good fuckin', whore!)] [npc2.Name] says, groping your body as both [npc2.she] and [npc2.her] superior prepare to get started...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="GUARDS_AFTER_COMBAT_DEFEAT_SEX_EAGER"><![CDATA[
 	<p>
-		Feeling incredibly aroused at the prospect of being used by your conquerors, you [pc.moan], [pc.speech(Oh, yes! Come on, fuck me! Give me that imp #IFnpc.hasPenis()#THENcock#ELSEpussy#ENDIF!)]
+		Feeling incredibly aroused at the prospect of being used by your conquerors, you [pc.moan], [pc.speech(Oh, yes! Come on, fuck me! Give me that imp #IF(npc.hasPenis())cock#ELSEpussy#ENDIF!)]
 	</p>
 	<p>
-		[npc.speech(Heh! So [pc.she] <i>is</i> a slut fer imp #IFnpc.hasPenis()#THENcocks#ELSEcunts#ENDIF! An' a really horny one at that!)] the imp leader sneers, drawing a wicked giggle from [npc.her] subordinate.
+		[npc.speechNoEffects(Heh! So [pc.she] <i>is</i> a slut fer imp #IF(npc.hasPenis())cocks#ELSEcunts#ENDIF! An' a really horny one at that!)] the imp leader sneers, drawing a wicked giggle from [npc.her] subordinate.
 	</p>
 	<p>
-		[npc2.speech(Gonna give ya a real good fuckin', whore! Moan fer me, ya slut!)] [npc2.Name] says, groping your body as both [npc2.she] and [npc2.her] superior prepare to get started...
+		[npc2.speechNoEffects(Gonna give ya a real good fuckin', whore! Moan fer me, ya slut!)] [npc2.Name] says, groping your body as both [npc2.she] and [npc2.her] superior prepare to get started...
 	</p>
 	]]>
 	</htmlContent>
@@ -439,10 +451,10 @@
 		Disgusted by the thought of these imps taking advantage of you, you scream, [pc.speech(No! Get away from me! Stop!)]
 	</p>
 	<p>
-		[npc.speech(Heh! So [pc.sheIs] one o' those playin' hard-ta-get, huh?!)] the imp leader sneers, drawing a wicked giggle from [npc.her] subordinate. [npc.speech(Yer gonna change yer tune once yer had a taste o' imp #IFnpc.hasPenis()#THENcock#ELSEpussy#ENDIF!)]
+		[npc.speechNoEffects(Heh! So [pc.sheIs] one o' those playin' hard-ta-get, huh?!)] the imp leader sneers, drawing a wicked giggle from [npc.her] subordinate. [npc.speechNoEffects(Yer gonna change yer tune once yer had a taste o' imp #IF(npc.hasPenis())cock#ELSEpussy#ENDIF!)]
 	</p>
 	<p>
-		[npc2.speech(Gonna give ya a real good fuckin'! I wanna hear yer moanin' for #IFnpc2.hasPenis()#THENmy cum#ELSEmy cunt#ENDIF before the end!)] [npc2.Name] says, groping your body as both [npc2.she] and [npc2.her] superior prepare to get started...
+		[npc2.speechNoEffects(Gonna give ya a real good fuckin'! I wanna hear yer moanin' for #IF(npc2.hasPenis())my cum#ELSEmy cunt#ENDIF before the end!)] [npc2.Name] says, groping your body as both [npc2.she] and [npc2.her] superior prepare to get started...
 	</p>
 	]]>
 	</htmlContent>
@@ -473,10 +485,10 @@
 		Having had their fun, the imps allow you slump to the floor with an exhausted sigh. Before you've even managed to catch your breath, you feel them reach down and grab you under your [pc.arms]. As they start dragging you down the incline towards Submission's tunnels, the two imps start speaking to one another.
 	</p>
 	<p>
-		[npc2.speech(This 'un was a good fuck,)] [npc2.name] says to [npc2.her] superior.
+		[npc2.speechNoEffects(This 'un was a good fuck,)] [npc2.name] says to [npc2.her] superior.
 	</p>
 	<p>
-		[npc.speech(Eh, [pc.sheIs] ok I guess. Got a decent future as some imp's cum-dump, I'd wager,)] the leader says dismissively in response. [npc.speech(We'll just throw [pc.herHim] down 'ere. Our roamin' gangs can 'ave a turn when they catch [pc.herHim].)]
+		[npc.speechNoEffects(Eh, [pc.sheIs] ok I guess. Got a decent future as some imp's cum-dump, I'd wager,)] the leader says dismissively in response. [npc.speechNoEffects(We'll just throw [pc.herHim] down 'ere. Our roamin' gangs can 'ave a turn when they catch [pc.herHim].)]
 	</p>
 	<p>
 		Before you know it, you've been dragged far away from the fortress's gatehouse, and are being unceremoniously hurled to the floor. Threatening you never to return, the imps then return to their guard duty, leaving you alone to catch your breath...

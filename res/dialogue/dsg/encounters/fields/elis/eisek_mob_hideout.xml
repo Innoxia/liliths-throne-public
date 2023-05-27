@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<scene id ="poster">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[A Dragon Poster...]]></title>
+		<tooltip/>	
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/encounters/fields/elis/eisek_mob_hideout">POSTER</content>		
+		<secondsPassed minutes="false"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue><![CDATA[false]]></continuesDialogue>	
+		<travelDisabled><![CDATA[true]]></travelDisabled>	
+		<inventoryDisabled><![CDATA[true]]></inventoryDisabled>	
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responseTabs/>
+		<responses>		
+			<response>	
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Confront mob]]></responseTitle>
+				<!-- TODO Add seduction route conditional check: && !pc.isSpellSchoolSpecialAbilityUnlocked(SPELL_SCHOOL_ARCANE) -->
+				<responseTooltip><![CDATA[
+					Follow the directions on the poster and confront the mob that has been harassing Eisek.
+					#IF(flags.getSavedLong("elis_eisek_talk_score") >= 4)
+						<br/>[style.colourGood(As you've spent some time getting to know Eisek, you think you'll have a shot at persuading the mob to leave him alone.)]
+					#ELSE
+						<br/>[style.colourBad(You don't know Eisek that well, so you'll likely have to use force. He may not appreciate the outcome as much.)]
+						#IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE) < 30
+							&& pc.getAttributeValue(ATTRIBUTE_MAJOR_ARCANE) < 30)
+							<br/>[style.colourTerrible(You probably won't fare very well in your current state...)]
+						#ENDIF
+					#ENDIF
+				]]></responseTooltip>
+				<colour><![CDATA[TEXT]]></colour>
+				<nextDialogue stripContent="false"><![CDATA[dsg_encounters_fields_elis_eisek_mob_hideout_confront]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_MOB, QUEST_EISEK_MOB_QUEST_STAGE_TWO))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Discard poster]]></responseTitle>
+				<responseTooltip><![CDATA[You don't want to confront the mob right now, but you can do a public service and rip the poster off the wall.]]></responseTooltip>
+				<nextDialogue><![CDATA[dsg_encounters_fields_elis_eisek_mob_hideout_discard_poster]]></nextDialogue>
+				<secondsPassed/>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id ="discard_poster">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Remove poster]]></title>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/encounters/fields/elis/eisek_mob_hideout">DISCARD_POSTER</content>		
+		<secondsPassed minutes="false"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue><![CDATA[true]]></continuesDialogue>	
+		<travelDisabled><![CDATA[true]]></travelDisabled>	
+		<inventoryDisabled><![CDATA[true]]></inventoryDisabled>	
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responseTabs/>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Be on your way.]]></responseTooltip>
+				<colour><![CDATA[TEXT]]></colour>
+				<nextDialogue stripContent="false"><![CDATA[default]]></nextDialogue>
+				<secondsPassed/>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id ="confront">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Confront the mob]]></title>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/encounters/fields/elis/eisek_mob_hideout">CONFRONT</content>		
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue><![CDATA[false]]></continuesDialogue>	
+		<travelDisabled><![CDATA[true]]></travelDisabled>	
+		<inventoryDisabled><![CDATA[true]]></inventoryDisabled>	
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responseTabs/>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Persuade]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.getSavedLong("elis_eisek_talk_score") >= 4)
+						You know Eisek. There is no danger to start with.<br/>[style.colourGood(Eisek would probably appreciate you solving this non-violently.)]
+					#ELSE
+						You don't know Eisek well enough to offer a convincing argument as to why he should be left alone.
+					#ENDIF
+				]]></responseTooltip>
+				<colour><![CDATA[
+					#IF(flags.getSavedLong("elis_eisek_talk_score") >= 4)
+						GENERIC_GOOD
+					#ELSE
+						TEXT
+					#ENDIF
+				]]></colour>
+				<nextDialogue><![CDATA[
+					#IF(flags.getSavedLong("elis_eisek_talk_score") >= 4)
+						dsg_encounters_fields_elis_eisek_mob_hideout_persuade
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_dsg_elis_eisek_mob_quest_persuade, true)]
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_MOB, QUEST_EISEK_MOB_QUEST_STAGE_THREE))]
+				]]></effects>
+			</response>
+			
+			<response>	
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Intimidate]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE) >= 30)
+						They will leave Eisek alone, or else.
+					#ELSE
+						You lack the physique to be able to pull this off...
+					#ENDIF
+				]]></responseTooltip>
+				<colour><![CDATA[
+					#IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE) >= 30)
+						ATTRIBUTE_PHYSIQUE
+					#ELSE
+						TEXT
+					#ENDIF
+				]]></colour>
+				<nextDialogue><![CDATA[
+					#IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE) >= 30)
+						dsg_encounters_fields_elis_eisek_mob_hideout_intimidate
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_dsg_elis_eisek_mob_quest_intimidate, true)]
+				]]></effects>
+			</response>
+			
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Intimidate (Arcane)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_ARCANE) >= 30)
+						They will get a taste of your arcane prowess if they do not leave Eisek alone.
+					#ELSE
+						You don't have enough arcane power to be able to do this...
+					#ENDIF
+				]]></responseTooltip>
+				<colour><![CDATA[
+					#IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_ARCANE) >= 30)
+						ATTRIBUTE_ARCANE
+					#ELSE
+						TEXT
+					#ENDIF
+				]]></colour>
+				<nextDialogue><![CDATA[
+					#IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_ARCANE) >= 30)
+						dsg_encounters_fields_elis_eisek_mob_hideout_intimidate_arcane
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_dsg_elis_eisek_mob_quest_intimidate_arcane, true)]
+				]]></effects>
+			</response>
+			<!-- TODO Add seduction route
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Seduce]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.isSpellSchoolSpecialAbilityUnlocked(SPELL_SCHOOL_ARCANE))
+						Use your mastery of lust spells to make things interesting. [style.boldBad(NYI)]
+					#ELSE
+						You haven't mastered the school of the arcane so you can't do this...
+					#ENDIF
+				]]></responseTooltip>
+				<colour><![CDATA[
+					#IF(pc.isSpellSchoolSpecialAbilityUnlocked(SPELL_SCHOOL_ARCANE))
+						SPELL_SCHOOL_ARCANE
+					#ELSE
+						TEXT
+					#ENDIF
+				]]></colour>
+				<nextDialogue><![CDATA[
+					#IF(pc.isSpellSchoolSpecialAbilityUnlocked(SPELL_SCHOOL_ARCANE))
+						null
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_dsg_elis_eisek_mob_quest_seduce, true)]
+				]]></effects>
+			</response>
+			-->
+			<response>
+				<!-- TODO Add seduction route conditional check: && !pc.isSpellSchoolSpecialAbilityUnlocked(SPELL_SCHOOL_ARCANE) -->
+				<availabilityConditional><![CDATA[
+					[#flags.getSavedLong("elis_eisek_talk_score") < 4
+					&& pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE) < 30
+					&& pc.getAttributeValue(ATTRIBUTE_MAJOR_ARCANE) < 30]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Intimidate?]]></responseTitle>
+				<responseTooltip><![CDATA[They will leave Eisek alone, or uh...]]></responseTooltip>
+				<colour><![CDATA[GENERIC_BAD]]></colour>
+				<nextDialogue><![CDATA[dsg_encounters_fields_elis_eisek_mob_hideout_intimidate_fail]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_MOB, QUEST_EISEK_MOB_QUEST_STAGE_TWO_FAILED))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id ="persuade">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Persuade the mob]]></title>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/encounters/fields/elis/eisek_mob_hideout">PERSUADE</content>		
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue><![CDATA[true]]></continuesDialogue>	
+		<travelDisabled><![CDATA[true]]></travelDisabled>	
+		<inventoryDisabled><![CDATA[true]]></inventoryDisabled>	
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responseTabs/>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Your work here is done. Head back out onto the street.]]></responseTooltip>
+				<colour><![CDATA[TEXT]]></colour>
+				<nextDialogue stripContent="false"><![CDATA[default]]></nextDialogue>
+				<secondsPassed/>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id ="intimidate">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Intimidate the mob]]></title>
+		<tooltip/>
+		<preParsingEffects><![CDATA[
+			[#game.addNPC('fields.ElisAlleywayAttacker', 'dsg_muscle')]
+			[#game.setActiveNPC(dsg_muscle)]
+			[#npc.setHistory(OCCUPATION_NPC_MUGGER)]
+			[#npc.equipClothing()]
+			[#npc.setLocation(pc, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/dsg/encounters/fields/elis/eisek_mob_hideout">INTIMIDATE</content>		
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue><![CDATA[true]]></continuesDialogue>	
+		<travelDisabled><![CDATA[true]]></travelDisabled>	
+		<inventoryDisabled><![CDATA[true]]></inventoryDisabled>	
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responseTabs/>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fight]]></responseTitle>
+				<responseTooltip><![CDATA[Looks like you're going to have to prove your point!]]></responseTooltip>
+				<colour><![CDATA[GENERIC_COMBAT]]></colour>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects/>
+				<combatVariables enabled="true">
+					<nextDialoguePlayerVictory><![CDATA[dsg_encounters_fields_elis_eisek_mob_hideout_intimidate_won]]></nextDialoguePlayerVictory>
+					<nextDialoguePlayerDefeat><![CDATA[dsg_encounters_fields_elis_eisek_mob_hideout_intimidate_lost]]></nextDialoguePlayerDefeat>
+					<allies/>
+					<enemies>
+						<enemy leader="true"><![CDATA[dsg_muscle]]></enemy>
+					</enemies>
+					<openingDescriptions>
+						<combatant id="dsg_muscle"><![CDATA[[dsg_muscle.speech(Let's see if you're as strong as you think you are!)] [dsg_muscle.name] shouts.]]></combatant>
+					</openingDescriptions>
+					<escapeBlocked><![CDATA[true]]></escapeBlocked>
+				</combatVariables>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id ="intimidate_arcane">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Intimidate the mob]]></title>
+		<tooltip/>
+		<preParsingEffects><![CDATA[
+			[#game.addNPC('fields.ElisAlleywayAttacker', 'dsg_muscle')]
+			[#game.setActiveNPC(dsg_muscle)]
+			[#npc.setHistory(OCCUPATION_NPC_MUGGER)]
+			[#npc.equipClothing()]
+			[#npc.setLocation(pc, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/dsg/encounters/fields/elis/eisek_mob_hideout">INTIMIDATE_ARCANE</content>		
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue><![CDATA[true]]></continuesDialogue>	
+		<travelDisabled><![CDATA[true]]></travelDisabled>	
+		<inventoryDisabled><![CDATA[true]]></inventoryDisabled>	
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responseTabs/>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fight]]></responseTitle>
+				<responseTooltip><![CDATA[Looks like you're going to have to prove your point!]]></responseTooltip>
+				<colour><![CDATA[GENERIC_COMBAT]]></colour>
+				<nextDialogue/>
+				<secondsPassed/>
+				<effects/>
+				<combatVariables enabled="true">
+					<nextDialoguePlayerVictory><![CDATA[dsg_encounters_fields_elis_eisek_mob_hideout_intimidate_won]]></nextDialoguePlayerVictory>
+					<nextDialoguePlayerDefeat><![CDATA[dsg_encounters_fields_elis_eisek_mob_hideout_intimidate_lost]]></nextDialoguePlayerDefeat>
+					<allies/>
+					<enemies>
+						<enemy leader="true"><![CDATA[dsg_muscle]]></enemy>
+					</enemies>
+					<openingDescriptions>
+						<combatant id="dsg_muscle"><![CDATA[[dsg_muscle.speech(Spell this, spell that. You won't even be able to spell your own name after I'm done with you!) [dsg_muscle.name] shouts.]]]></combatant>
+					</openingDescriptions>
+					<escapeBlocked><![CDATA[true]]></escapeBlocked>
+				</combatVariables>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id ="intimidate_won">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Intimidation successful]]></title>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/encounters/fields/elis/eisek_mob_hideout">INTIMIDATE_WON</content>		
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue><![CDATA[false]]></continuesDialogue>	
+		<travelDisabled><![CDATA[true]]></travelDisabled>	
+		<inventoryDisabled><![CDATA[true]]></inventoryDisabled>	
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responseTabs/>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Your work here is done. Head back out onto the street.]]></responseTooltip>
+				<colour><![CDATA[TEXT]]></colour>
+				<nextDialogue stripContent="false"><![CDATA[default]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_MOB, QUEST_EISEK_MOB_QUEST_STAGE_THREE))]
+					[#game.banishNPC(dsg_muscle)]
+				]]></effects>	
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id ="intimidate_lost">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Lost the fight]]></title>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/encounters/fields/elis/eisek_mob_hideout">INTIMIDATE_LOST</content>		
+		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue><![CDATA[false]]></continuesDialogue>	
+		<travelDisabled><![CDATA[true]]></travelDisabled>	
+		<inventoryDisabled><![CDATA[true]]></inventoryDisabled>	
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responseTabs/>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Your did what you could. Head back out onto the street.]]></responseTooltip>
+				<colour><![CDATA[TEXT]]></colour>
+				<nextDialogue stripContent="false"><![CDATA[default]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_MOB, QUEST_EISEK_MOB_QUEST_STAGE_TWO_FAILED))]
+					[#game.banishNPC(dsg_muscle)]
+				]]></effects>	
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id ="intimidate_fail">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Too weak...]]></title>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/encounters/fields/elis/eisek_mob_hideout">INTIMIDATE_FAIL</content>		
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue><![CDATA[true]]></continuesDialogue>	
+		<travelDisabled><![CDATA[true]]></travelDisabled>	
+		<inventoryDisabled><![CDATA[true]]></inventoryDisabled>	
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responseTabs/>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[You did what you could. Head back out onto the street.]]></responseTooltip>
+				<colour><![CDATA[TEXT]]></colour>
+				<nextDialogue stripContent="false"><![CDATA[default]]></nextDialogue>
+				<secondsPassed/>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

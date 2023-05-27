@@ -1,147 +1,147 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogueNodes>
 
-    <!-- Most of these scenes are copied from the original ones by Innoxia, with additions by AceXP. -->
+	<!-- Most of these scenes are copied from the original ones by Innoxia, with additions by AceXP. -->
 	
-    <!-- Updated harpy nests encounters: Nympho -->
+	<!-- Updated harpy nests encounters: Nympho -->
 
-    <scene id ="exterior">
-        <author><![CDATA[Innoxia]]></author>
-        <title><![CDATA[[harpyNympho.NamePos] nest]]></title>
-        <content folderPath="txt/places/dominion/harpyNests/nympho">HARPY_NEST_NYMPHO</content>
-        <secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
-        <continuesDialogue>false</continuesDialogue>
-        <travelDisabled>false</travelDisabled>
-        <responses>
-            <response>
-                <availabilityConditional><![CDATA[[#!game.isExtendedWorkTime()]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[1]]></index>
-                <responseTitle><![CDATA[
+	<scene id ="exterior">
+		<author><![CDATA[Innoxia]]></author>
+		<title><![CDATA[[harpyNympho.NamePos] nest]]></title>
+		<content folderPath="txt/places/dominion/harpyNests/nympho">HARPY_NEST_NYMPHO</content>
+		<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#!game.isExtendedWorkTime()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[
 					#IF(flags.hasFlag(FLAG_nymphoEncountered))
 						Approach [harpyNympho.name]
 					#ELSE
 						Approach matriarch
 					#ENDIF
 				]]></responseTitle>
-                <responseTooltip><![CDATA[
+				<responseTooltip><![CDATA[
 					#IF(flags.hasFlag(FLAG_nymphoEncountered))
 						Both [harpyNympho.name] and her flock are sleeping in the buildings below her nest. You'll have to come back during the day if you want to speak with her.
 					#ELSE
 						The matriarch and her flock are sleeping in the buildings below her nest. You'll have to come back during the day if you want to speak with her.
 					#ENDIF
 				]]></responseTooltip>
-                <nextDialogue><![CDATA[null]]></nextDialogue>
-            </response>
-            <response>
-                <availabilityConditional><![CDATA[[#game.getCurrentWeather()==WEATHER_MAGIC_STORM]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[1]]></index>
-                <responseTitle><![CDATA[
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.getCurrentWeather()==WEATHER_MAGIC_STORM]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[
 					#IF(flags.hasFlag(FLAG_nymphoEncountered))
 						Approach [harpyNympho.name]
 					#ELSE
 						Approach matriarch
 					#ENDIF
 				]]></responseTitle>
-                <responseTooltip><![CDATA[
+				<responseTooltip><![CDATA[
 					#IF(flags.hasFlag(FLAG_nymphoEncountered))
 						If you want to talk to [nymphoHarpy.name], you'll have to come back after the arcane storm has passed.
 					#ELSE
 						If you want to talk to the matriarch, you'll have to come back after the arcane storm has passed.
 					#ENDIF
 				]]></responseTooltip>
-                <nextDialogue><![CDATA[null]]></nextDialogue>
-            </response>
-            <response>
-                <availabilityConditional><![CDATA[[#!pc.hasQuest(QUEST_LINE_SIDE_HARPY_PACIFICATION)]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[1]]></index>
-                <responseTitle><![CDATA[Approach matriarch]]></responseTitle>
-                <responseTooltip><![CDATA[You have no need to talk to the matriarch of this nest.]]></responseTooltip>
-                <nextDialogue><![CDATA[null]]></nextDialogue>
-                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-                <effects/>
-            </response>
-            <response>
-                <availabilityConditional><![CDATA[[#game.isExtendedWorkTime() && game.getCurrentWeather()!=WEATHER_MAGIC_STORM && pc.hasQuest(QUEST_LINE_SIDE_HARPY_PACIFICATION)]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[1]]></index>
-                <responseTitle><![CDATA[
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!pc.hasQuest(QUEST_LINE_SIDE_HARPY_PACIFICATION)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Approach matriarch]]></responseTitle>
+				<responseTooltip><![CDATA[You have no need to talk to the matriarch of this nest.]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects/>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isExtendedWorkTime() && game.getCurrentWeather()!=WEATHER_MAGIC_STORM && pc.hasQuest(QUEST_LINE_SIDE_HARPY_PACIFICATION)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[
 					#IF(flags.hasFlag(FLAG_nymphoEncountered))
 						Approach [harpyNympho.name]
 					#ELSE
 						Approach matriarch
 					#ENDIF
 				]]></responseTitle>
-                <responseTooltip><![CDATA[
+				<responseTooltip><![CDATA[
 					#IF(flags.hasFlag(FLAG_nymphoEncountered))
 						[pc.Walk] to the centre of the nest and talk to [nymphoHarpy.name].
 					#ELSE
 						Walk to the centre of the nest and talk to the matriarch.
 					#ENDIF
 				]]></responseTooltip>
-                <nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_nympho_approach]]></nextDialogue>
-            </response>
-        </responses>
-    </scene>
+				<nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_nympho_approach]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
 
-    <scene id ="approach">
-        <author><![CDATA[AceXp]]></author>
-        <title><![CDATA[[harpyNympho.NamePos] nest]]></title>
-        <preParsingEffects><![CDATA[
+	<scene id ="approach">
+		<author><![CDATA[AceXp]]></author>
+		<title><![CDATA[[harpyNympho.NamePos] nest]]></title>
+		<preParsingEffects><![CDATA[
 			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/nympho', 'HARPY_NEST_NYMPHO_APPROACH'))]
-            [#harpyNymphoCompanion.setAreaKnownByCharacter(CA_PENIS, harpyNympho, true)]
+			[#harpyNymphoCompanion.setAreaKnownByCharacter(CA_PENIS, harpyNympho, true)]
 			[#nymphoHarpy.setCharacterReactedToPregnancy(pc, true)]
 			[#harpyNymphoCompanion.setCharacterReactedToPregnancy(pc, true)]
-        ]]></preParsingEffects>
-        <content/>
-        <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
-        <continuesDialogue>false</continuesDialogue>
-        <travelDisabled>true</travelDisabled>
-        <responses>
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
 			<!-- Angry nest responses: -->
-            <response>
-                <availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_nymphoPacified)]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[0]]></index>
-                <responseTitle><![CDATA[Leave]]></responseTitle>
-                <responseTooltip><![CDATA[Tell [nymphoHarpy.name] that you'll be back later.]]></responseTooltip>
-                <nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_nympho_exterior]]></nextDialogue>
-                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-                <effects><![CDATA[
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_nymphoPacified)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Tell [nymphoHarpy.name] that you'll be back later.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_nympho_exterior]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
 					[#flags.setFlag(FLAG_nymphoEncountered, true)]
-                    [#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/nympho', 'NYMPHO_LEAVE'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/nympho', 'NYMPHO_LEAVE'))]
 				]]></effects>
-            </response>
-            <response>
-                <availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_nymphoPacified)]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[1]]></index>
-                <responseTitle><![CDATA[Talk]]></responseTitle>
-                <responseTooltip><![CDATA[Try to convince [nymphoHarpy.name] to calm down.]]></responseTooltip>
-                <nextDialogue><![CDATA[HARPY_NEST_NYMPHO_TALK]]></nextDialogue>
-                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-                <effects><![CDATA[
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_nymphoPacified)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Talk]]></responseTitle>
+				<responseTooltip><![CDATA[Try to convince [nymphoHarpy.name] to calm down.]]></responseTooltip>
+				<nextDialogue><![CDATA[HARPY_NEST_NYMPHO_TALK]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
 					[#flags.setFlag(FLAG_nymphoEncountered, true)]
 				]]></effects>
-            </response>
-            <response>
-                <availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_nymphoPacified)]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[2]]></index>
-                <responseTitle><![CDATA[Nympho Queen]]></responseTitle>
-                <responseTooltip><![CDATA[You feel sorry for this matriarch, only getting to have sex with the same males over and over again. Tell her how a real nympho behaves!]]></responseTooltip>
-                <nextDialogue><![CDATA[HARPY_NEST_NYMPHO_QUEEN]]></nextDialogue>
-                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_nymphoPacified)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Nympho Queen]]></responseTitle>
+				<responseTooltip><![CDATA[You feel sorry for this matriarch, only getting to have sex with the same males over and over again. Tell her how a real nympho behaves!]]></responseTooltip>
+				<nextDialogue><![CDATA[HARPY_NEST_NYMPHO_QUEEN]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 				<requiredPerks>
 					<perk><![CDATA[NYMPHOMANIAC]]></perk>
 				</requiredPerks>
 				<requiredFemininity><![CDATA[FEMININE_STRONG]]></requiredFemininity>
-                <effects><![CDATA[
+				<effects><![CDATA[
 					[#flags.setFlag(FLAG_nymphoEncountered, true)]
 					[#flags.setFlag(FLAG_nymphoPacified, true)]
-                    [#game.appendToTextEndStringBuilder(pc.addItem(itemGen.generateItem(ITEM_HARPY_MATRIARCH_NYMPHO_LOLLIPOP), false, true))]
+					[#game.appendToTextEndStringBuilder(pc.addItem(itemGen.generateItem(ITEM_HARPY_MATRIARCH_NYMPHO_LOLLIPOP), false, true))]
 					
 					#IF(pc.getQuest(QUEST_LINE_SIDE_HARPY_PACIFICATION)==QUEST_HARPY_PACIFICATION_ONE)
 						[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_HARPY_PACIFICATION, QUEST_HARPY_PACIFICATION_TWO))]
@@ -151,120 +151,125 @@
 						[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_HARPY_PACIFICATION, QUEST_HARPY_PACIFICATION_REWARD))]
 					#ENDIF
 				]]></effects>
-            </response>
-            <response>
-                <availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_nymphoPacified)]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[3]]></index>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_nymphoPacified)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
 				<colour><![CDATA[GENERIC_COMBAT]]></colour>
-                <responseTitle><![CDATA[Call her ugly]]></responseTitle>
-                <responseTooltip><![CDATA[You know that this would be a terrible idea...]]></responseTooltip>
-                <nextDialogue><![CDATA[HARPY_NEST_NYMPHO_UGLY]]></nextDialogue>
-                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-                <effects><![CDATA[
+				<responseTitle><![CDATA[Call her ugly]]></responseTitle>
+				<responseTooltip><![CDATA[
+					You know that this would be a terrible idea...
+					#IF(game.isBadEndsEnabled() && pc.isAbleToHaveRaceTransformed())
+						<br/>[style.boldBadEnd(BAD END:)] If you lose this fight, the harpies won't ever let you leave!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[HARPY_NEST_NYMPHO_UGLY]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
 					[#flags.setFlag(FLAG_nymphoEncountered, true)]
 				]]></effects>
-            </response>
+			</response>
 		
 			<!-- Pacified nest responses: -->
-            <response>
-                <availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_nymphoPacified)]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[0]]></index>
-                <responseTitle><![CDATA[Leave]]></responseTitle>
-                <responseTooltip><![CDATA[Tell [nymphoHarpy.name] that you'll be back later.]]></responseTooltip>
-                <nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_nympho_exterior]]></nextDialogue>
-                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-                <effects><![CDATA[
-                    [#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/nympho', 'PACIFIED_NYMPHO_LEAVE'))]
-                ]]></effects>
-            </response>
-            <response>
-                <availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_nymphoPacified)]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[1]]></index>
-                <responseTitle><![CDATA[Sex]]></responseTitle>
-                <responseTooltip><![CDATA[Have nympho sex with [harpyNympho.name].]]></responseTooltip>
-                <nextDialogue/>
-                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-                <effects/>
-                <sexVariables enabled="true">
-                    <conditional><![CDATA[false]]></conditional>
-                    <consensual><![CDATA[true]]></consensual>
-                    <subHasEqualControl><![CDATA[false]]></subHasEqualControl>
-                    <dominants>
-                        <character><![CDATA[pc]]></character>
-                    </dominants>
-                    <submissives>
-                        <character><![CDATA[harpyNympho]]></character>
-                    </submissives>
-                    <nymphoSpectators/>
-                    <submissiveSpectators/>
-                    <postSexDialogue><![CDATA[innoxia_places_dominion_harpy_nests_nympho_after_sex]]></postSexDialogue>
-                    <sexStartContent folderPath="txt/places/dominion/harpyNests/nympho">PACIFIED_NYMPHO_SEX_START</sexStartContent>
-                </sexVariables>
-            </response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_nymphoPacified)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Tell [nymphoHarpy.name] that you'll be back later.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_nympho_exterior]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/nympho', 'PACIFIED_NYMPHO_LEAVE'))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_nymphoPacified)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Sex]]></responseTitle>
+				<responseTooltip><![CDATA[Have nympho sex with [harpyNympho.name].]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects/>
+				<sexVariables enabled="true">
+					<conditional><![CDATA[false]]></conditional>
+					<consensual><![CDATA[true]]></consensual>
+					<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[pc]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[harpyNympho]]></character>
+					</submissives>
+					<nymphoSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_harpy_nests_nympho_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/harpyNests/nympho">PACIFIED_NYMPHO_SEX_START</sexStartContent>
+				</sexVariables>
+			</response>
 			<!-- Threesome sex -->
-            <response>
-                <availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_nymphoPacified)]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[2]]></index>
-                <responseTitle><![CDATA[Threesome (oral)]]></responseTitle>
-                <responseTooltip><![CDATA[
-                    Have [harpyNympho.name] and [harpyNymphoCompanion.name] service you with their mouths.
-                ]]></responseTooltip>
-                <nextDialogue/>
-                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-                <effects/>
-                <sexVariables enabled="true">
-                    <conditional><![CDATA[false]]></conditional>
-                    <consensual><![CDATA[true]]></consensual>
-                    <subHasEqualControl><![CDATA[false]]></subHasEqualControl>
-                    <dominants>
-                        <character><![CDATA[pc]]></character>
-                    </dominants>
-                    <submissives>
-                        <character><![CDATA[harpyNympho]]></character>
-                        <character><![CDATA[harpyNymphoCompanion]]></character>
-                    </submissives>
-                    <nymphoSpectators/>
-                    <submissiveSpectators/>
-                    <postSexDialogue><![CDATA[innoxia_places_dominion_harpy_nests_nympho_after_sex]]></postSexDialogue>
-                    <sexStartContent folderPath="txt/places/dominion/harpyNests/nympho">NYMPHO_SEX_START_ORAL</sexStartContent>
-                    <tags>
-                        <tag>PREFER_ORAL</tag>
-                    </tags>
-                </sexVariables>
-            </response>
-            <response>
-                <availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_nymphoPacified)]]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[3]]></index>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_nymphoPacified)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Threesome (oral)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Have [harpyNympho.name] and [harpyNymphoCompanion.name] service you with their mouths.
+				]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects/>
+				<sexVariables enabled="true">
+					<conditional><![CDATA[false]]></conditional>
+					<consensual><![CDATA[true]]></consensual>
+					<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+					<dominants>
+						<character><![CDATA[pc]]></character>
+					</dominants>
+					<submissives>
+						<character><![CDATA[harpyNympho]]></character>
+						<character><![CDATA[harpyNymphoCompanion]]></character>
+					</submissives>
+					<nymphoSpectators/>
+					<submissiveSpectators/>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_harpy_nests_nympho_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/harpyNests/nympho">NYMPHO_SEX_START_ORAL</sexStartContent>
+					<tags>
+						<tag>PREFER_ORAL</tag>
+					</tags>
+				</sexVariables>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_nymphoPacified)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
 				<colour><![CDATA[GENERIC_SEX_AS_DOM]]></colour>
-                <responseTitle><![CDATA[Spitroast [harpyNympho.name]]]></responseTitle>
-                <responseTooltip><![CDATA[Have [harpyNymphoCompanion.name] join you in spitroasting [harpyNympho.name].]]></responseTooltip>
-                <nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_nympho_spitroast]]></nextDialogue>
-                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-            </response>
-        </responses>
-    </scene>
+				<responseTitle><![CDATA[Spitroast [harpyNympho.name]]]></responseTitle>
+				<responseTooltip><![CDATA[Have [harpyNymphoCompanion.name] join you in spitroasting [harpyNympho.name].]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_nympho_spitroast]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+			</response>
+		</responses>
+	</scene>
 
-    <scene id ="spitroast">
-        <content folderPath="txt/places/dominion/harpyNests/nympho">NYMPHO_SEX_START_SPITROAST</content>
-        <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
-        <continuesDialogue>true</continuesDialogue>
-        <travelDisabled>true</travelDisabled>
-        <responses>
-            <response>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[1]]></index>
-                <responseTitle><![CDATA[Behind]]></responseTitle>
-                <responseTooltip><![CDATA[Drop down behind [harpyNympho.name], allowing [harpyNymphoCompanion.name] to take her mouth.]]></responseTooltip>
-                <nextDialogue/>
-                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-                <effects/>
+	<scene id ="spitroast">
+		<content folderPath="txt/places/dominion/harpyNests/nympho">NYMPHO_SEX_START_SPITROAST</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Behind]]></responseTitle>
+				<responseTooltip><![CDATA[Drop down behind [harpyNympho.name], allowing [harpyNymphoCompanion.name] to take her mouth.]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_dominion_harpy_nympho_spitroast]]></id>
+					<id><![CDATA[innoxia_dominion_harpy_nests_nympho_spitroast]]></id>
 					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
 					<dominants>
 						<character>
@@ -286,17 +291,17 @@
 					<sexStartContent folderPath="txt/places/dominion/harpyNests/nympho">NYMPHO_SPITROAST_BEHIND_START</sexStartContent>
 					<ongoingActionsAtStart/>
 				</sexVariablesWithManager>
-            </response>
-            <response>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[2]]></index>
-                <responseTitle><![CDATA[In front]]></responseTitle>
-                <responseTooltip><![CDATA[Drop down in front of [harpyNympho.name], allowing [harpyNymphoCompanion.name] to take her rear.]]></responseTooltip>
-                <nextDialogue/>
-                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-                <effects/>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[In front]]></responseTitle>
+				<responseTooltip><![CDATA[Drop down in front of [harpyNympho.name], allowing [harpyNymphoCompanion.name] to take her rear.]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_dominion_harpy_nympho_spitroast]]></id>
+					<id><![CDATA[innoxia_dominion_harpy_nests_nympho_spitroast]]></id>
 					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
 					<dominants>
 						<character>
@@ -318,33 +323,346 @@
 					<sexStartContent folderPath="txt/places/dominion/harpyNests/nympho">NYMPHO_SPITROAST_IN_FRONT_START</sexStartContent>
 					<ongoingActionsAtStart/>
 				</sexVariablesWithManager>
-            </response>
-        </responses>
-    </scene>
+			</response>
+		</responses>
+	</scene>
 	
-    <scene id ="after_sex">
-        <author><![CDATA[Innoxia]]></author>
-        <title><![CDATA[Finished]]></title>
-        <tooltip><![CDATA[You've finished having your fun...]]></tooltip>
-        <preParsingEffects/>
-        <content folderPath="txt/places/dominion/harpyNests/nympho">NYMPHO_AFTER_SEX</content>
-        <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
-        <continuesDialogue>false</continuesDialogue>
-        <travelDisabled>true</travelDisabled>
-        <responses>
-            <response>
-                <availabilityConditional><![CDATA[true]]></availabilityConditional>
-                <responseTabIndex><![CDATA[0]]></responseTabIndex>
-                <index><![CDATA[0]]></index>
-                <responseTitle><![CDATA[Leave]]></responseTitle>
-                <responseTooltip><![CDATA[Having had your fun, you decide to leave.]]></responseTooltip>
-                <nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_nympho_exterior]]></nextDialogue>
-                <secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-                <effects><![CDATA[
-                    [#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/nympho', 'NYMPHO_LEAVE_AFTER_SEX'))]
-                ]]></effects>
-            </response>
-        </responses>
-    </scene>
-
+	<scene id ="after_sex">
+		<author><![CDATA[Innoxia]]></author>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[You've finished having your fun...]]></tooltip>
+		<preParsingEffects/>
+		<content folderPath="txt/places/dominion/harpyNests/nympho">NYMPHO_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[true]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Having had your fun, you decide to leave.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_nympho_exterior]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/nympho', 'NYMPHO_LEAVE_AFTER_SEX'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- After losing fight: -->
+	
+	<scene id="combat_lost">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/nympho', 'COMBAT_LOST'))]
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/nympho', 'COMBAT_LOST_END'))]
+			#IF(game.isBadEndsEnabled() && pc.isAbleToHaveRaceTransformed())
+				[#pc.unequipAllClothingIntoVoid(true, true)]
+				[#game.setBadEnd("Hen Party")]
+			#ENDIF
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Bad ends disabled: -->
+				<!-- Cannot access mouth: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!game.isBadEnd() && !pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Thrown out]]></responseTitle>
+					<responseTooltip><![CDATA[As you're unable to gain access to your mouth, [harpyNympho.name] cannot transform you, and so simply has you thrown out of her nest instead...]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_nympho_exterior]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/nympho', 'COMBAT_LOST_MOUTH_BLOCKED'))]
+					]]></effects>
+				</response>
+				<!-- Refusing TF: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!game.isBadEnd() && pc.isAbleToAccessCoverableArea(CA_MOUTH, true) && game.isSpittingDisabled()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Refuse]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Refuse to take the lollipop into your mouth.
+						<br/>[style.italicsBad(Rejection of TF potions is disabled in the gameplay options!)]
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#!game.isBadEnd() && pc.isAbleToAccessCoverableArea(CA_MOUTH, true) && !game.isSpittingDisabled()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Refuse]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Refuse to take the lollipop into your mouth.
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_nympho_combat_lost_punished]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/nympho', 'COMBAT_LOST_NO_TF'))]
+					]]></effects>
+				</response>
+				<!-- Accepting TF: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!game.isBadEnd() && pc.isAbleToAccessCoverableArea(CA_MOUTH, true) && !game.isSpittingDisabled()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Suck lollipop]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Allow [nymphoHarpy.Name] to push the lollipop into your mouth...
+						<br/>[style.italicsMinorBad(This is a unique transformation, and so bypasses your TF preferences!)]
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_nympho_combat_lost_punished]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/nympho', 'COMBAT_LOST_TF_START'))]
+						[#game.appendToTextStartStringBuilder(itemGen.generateItem(ITEM_HARPY_MATRIARCH_NYMPHO_LOLLIPOP).applyEffect(pc, pc))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/nympho', 'COMBAT_LOST_TF_END'))]
+					]]></effects>
+				</response>
+			<!-- bad ends enabled: -->
+				<response>
+					<availabilityConditional><![CDATA[[#game.isBadEnd()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Suck lollipops]]></responseTitle>
+					<responseTooltip><![CDATA[
+						Completely overpowered and at the mercy of these harpies, all you can do is suck on the lollipops that have been forced into your mouth...
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_nympho_bad_end]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/nympho', 'COMBAT_LOST_BAD_END_TF_START'))]
+						[#game.appendToTextStartStringBuilder(itemGen.generateItem(ITEM_HARPY_MATRIARCH_NYMPHO_LOLLIPOP).applyEffect(pc, pc))]
+						#IF(pc.hasVagina())
+							#IF(pc.hasPenisIgnoreDildo())
+								[#game.appendToTextStartStringBuilder(pc.setPenisType(PENIS_TYPE_NONE))]
+							#ENDIF
+						#ELSE
+							[#game.appendToTextStartStringBuilder(pc.setPenisType(PENIS_TYPE_HARPY))]
+						#ENDIF
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/nympho', 'COMBAT_LOST_BAD_END_TF_END'))]
+					]]></effects>
+				</response>
+		</responses>
+	</scene>
+	
+	<scene id="combat_lost_matriarch">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/nympho', 'COMBAT_LOST_MATRIARCH'))]
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/nympho', 'COMBAT_LOST_END'))]
+			#IF(game.isBadEndsEnabled() && pc.isAbleToHaveRaceTransformed())
+				[#pc.unequipAllClothingIntoVoid(true, true)]
+				[#game.setBadEnd("Hen Party")]
+			#ENDIF
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_harpy_nests_nympho_combat_lost"/>
+	</scene>
+	
+	<scene id="combat_lost_punished">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[true]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Thrown out]]></responseTitle>
+				<responseTooltip><![CDATA[Having had their fun, the harpies throw you out of their nest.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_nympho_exterior]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/harpyNests/nympho', 'COMBAT_LOST_THROWN_OUT'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="bad_end">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[true]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Beg for it]]></responseTitle>
+				<responseTooltip><![CDATA[You're feeling so incredibly dirty and turned on that you can't help but beg to be allowed to clean [harpyNympho.namePos] pussy!]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_harpy_nests_nympho_bad_end_beg]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="bad_end_beg">
+		<content folderPath="txt/places/dominion/harpyNests/nympho">COMBAT_LOST_BAD_END_BEG</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Player has vagina: -->
+			<response>
+				<availabilityConditional><![CDATA[[#pc.hasVagina()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Obey]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Eat [harpyNympho.name] out while [harpyNymphoCompanion.name] fucks your pussy.
+				]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_dominion_harpy_nests_nympho_bad_end_vagina]]></id>
+					<startingPosition><![CDATA[LYING_DOWN]]></startingPosition>
+					<dominants>
+						<character>
+							<id>harpyNympho</id>
+							<slot><![CDATA[LYING_DOWN_FACE_SITTING_REVERSE]]></slot>
+						</character>
+						<character>
+							<id>harpyNymphoCompanion</id>
+							<slot><![CDATA[LYING_DOWN_MISSIONARY]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[LYING_DOWN_LYING_DOWN]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_harpy_nests_nympho_bad_end_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/harpyNests/nympho">BAD_END_SEX_VAGINA_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[TongueVagina_RECEIVING_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[harpyNympho]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<id><![CDATA[TongueMouth_KISS_START]]></id>
+							<performer><![CDATA[harpyNympho]]></performer>
+							<target><![CDATA[harpyNymphoCompanion]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[harpyNymphoCompanion]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Player has penis: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!pc.hasVagina()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Obey]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Eat [harpyNympho.name] out while she bends down to suck your cock.
+				]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_dominion_harpy_nests_nympho_bad_end_penis]]></id>
+					<startingPosition><![CDATA[LYING_DOWN]]></startingPosition>
+					<dominants>
+						<character>
+							<id>harpyNympho</id>
+							<slot><![CDATA[LYING_DOWN_SIXTY_NINE]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[LYING_DOWN_LYING_DOWN]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_harpy_nests_nympho_bad_end_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/harpyNests/nympho">BAD_END_SEX_PENIS_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[TongueVagina_RECEIVING_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[harpyNympho]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<id><![CDATA[PenisMouth_GIVING_BLOWJOB_START]]></id>
+							<performer><![CDATA[harpyNympho]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id ="bad_end_after_sex">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[[harpyNympho.Name] has had her fun, and so brings an end to the sex...]]></tooltip>
+		<preParsingEffects/>
+		<content folderPath="txt/places/dominion/harpyNests/nympho">BAD_END_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Fed more lollipops until player becomes dumb nympho -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Never-ending orgy]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.hasVagina())
+						Suck on the lollipops as [harpyNymphoCompanion.name] continues fucking your pussy...
+					#ELSE
+						Suck on the lollipops as [harpyNympho.name] continues jerking you off...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>innoxia_places_dominion_harpy_nests_nympho_bad_end_final</nextDialogue>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id ="bad_end_final">
+		<preParsingEffects><![CDATA[
+			[#harpyNympho.applyBadEndClothing(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/harpyNests/nympho">BAD_END_FINAL</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[The End...]]></responseTitle>
+				<responseTooltip><![CDATA[[style.italicsBadEnd(With this end to your journey, the thread of prophecy is severed. Restore a saved game to restore the weave of fate, or persist in the doomed world you have created.)]]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
 </dialogueNodes>

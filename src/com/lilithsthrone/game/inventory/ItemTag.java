@@ -26,6 +26,7 @@ public enum ItemTag {
 	SOLD_BY_KATE, // Jewellery
 	SOLD_BY_FINCH, // BDSM and sex-related stuff
 	SOLD_BY_VICKY, // Weapons
+	SOLD_BY_EISEK, // Produce
 
 	// Items with these tags can randomly spawn in encounters in the commented area
 	// Please note that due to legacy issues, clothing and weapons only use the 'DOMINION_ALLEYWAY_SPAWN' tag to determine whether or not it can randomly spawn in any area.
@@ -44,6 +45,17 @@ public enum ItemTag {
 	MISC_TF_ITEM, // Fetish or non-racial body part transformations
 	BOOK,
 	GIFT,
+
+	// These three all remove 'thirst quenched', 'thirst quenched (junk food)', and 'thirst quenched (quality food)' and then apply their related status effect
+	DRINK, // Drink items apply the 'thirst quenched' status effect upon use
+	DRINK_POOR, // Basic drink items apply the 'thirst quenched (basic)' status effect upon use
+	DRINK_QUALITY, // Quality drink items apply the 'thirst quenched (quality)' status effect upon use
+	
+	// These three all remove 'recently eaten', 'recently eaten (junk food)', and 'recently eaten (quality food)' and then apply their related status effect
+	FOOD, // Food items apply the 'recently eaten' status effect upon use
+	FOOD_POOR, // Junk food items apply the 'recently eaten (junk)' status effect upon use
+	FOOD_QUALITY, // Quality food items apply the 'recently eaten (quality)' status effect upon use
+	
 	ALCOHOLIC, // For easy detection of alcoholic items in some scenes
 	
 	// To mark consumables as containing caffeine, with the number representing the equivalent alcoholic level to be applied to spider-morphs
@@ -118,6 +130,7 @@ public enum ItemTag {
 	WEAPON_UNARMED, // Should be added to all weapons that should use unarmed damage calculations instead of melee
 	
 	DRESS, // For helping to generate clothing in CharacterUtils
+	SWIMWEAR, // For helping to generate clothing in CharacterUtils
 
 	PROVIDES_KEY( // The person who equips this clothing will get an unlock key, making the unsealing cost 0
 			Util.newArrayListOfValues(

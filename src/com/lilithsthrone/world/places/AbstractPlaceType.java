@@ -561,7 +561,7 @@ public class AbstractPlaceType {
 	}
 	
 	public DialogueNode getDialogue(Cell cell, boolean withRandomEncounter, boolean forceEncounter) {
-		if(withRandomEncounter) {
+		if(withRandomEncounter && Main.game.isStarted()) {
 			AbstractEncounter encounterType = getEncounterType();
 			if(encounterType!=null) {
 				DialogueNode dn = encounterType.getRandomEncounter(forceEncounter);
@@ -738,7 +738,7 @@ public class AbstractPlaceType {
 	}
 	
 	public String getSexBlockedReason(GameCharacter character) {
-		if(this.isFromExternalFile()) {
+		if(this.isFromExternalFile() && sexBlockedReason!=null) {
 			return UtilText.parse(character, sexBlockedReason);
 		}
 		return sexBlockedReason;

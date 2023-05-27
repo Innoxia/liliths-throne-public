@@ -122,6 +122,8 @@ public class WorldType {
 					new Value<>(new Color(0xff80ff), PlaceType.DOMINION_DEMON_HOME),
 					new Value<>(new Color(0xff9100), PlaceType.DOMINION_DEMON_HOME_ARTHUR),
 					new Value<>(new Color(0x8000ff), PlaceType.DOMINION_CITY_HALL),
+					new Value<>(new Color(0x7f4040), PlaceType.DOMINION_BANK),
+					
 					new Value<>(new Color(0xff00ff), PlaceType.DOMINION_LILITHS_TOWER),
 					
 					new Value<>(new Color(0x8080ff), PlaceType.DOMINION_EXIT_WEST),
@@ -858,7 +860,7 @@ public class WorldType {
 			PresetColour.BASE_PURPLE,
 			false,
 			false,
-			TeleportPermissions.OUTGOING_ONLY,
+			TeleportPermissions.NONE,
 			"/com/lilithsthrone/res/map/submission/lyssiethsPalace/groundFloor.png", PlaceType.WORLD_MAP_DOMINION, PlaceType.LYSSIETH_PALACE_ENTRANCE, Util.newHashMapOfValues(
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.LYSSIETH_PALACE_CORRIDOR),
@@ -982,6 +984,7 @@ public class WorldType {
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 
 					new Value<>(new Color(0x00ff00), PlaceType.BAT_CAVERN_ENTRANCE),
+					new Value<>(new Color(0xffff00), PlaceType.BAT_CAVERN_SHAFT),
 					
 					new Value<>(new Color(0x008080), PlaceType.BAT_CAVERN_DARK),
 					new Value<>(new Color(0x808080), PlaceType.BAT_CAVERN_LIGHT),

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	
+	<!-- ENCOUNTER_START -->
+	
+	<htmlContent tag="ENCOUNTER_START"><![CDATA[
+	<p>
+		Approaching Eisek's stall once more, you see... a small mob gathered around it. Exasperated that some of the townsfolk still do not understand, you quicken your pace. Yet as you get closer, you see that this crowd is not like the previous one. Diverse in species and ranging from scrawny to chubby, they are nonetheless uniform in their casual manner of dress and poor hygiene. You can't quite discern what they are talking about, but they don't seem to be an immediate threat. Perhaps this isn't the best time?
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- ENCOUNTER_BACK_OFF -->
+	
+	<htmlContent tag="ENCOUNTER_BACK_OFF"><![CDATA[
+	<p>
+		You decide that Eisek can handle this on his own for now and step away. As you do, you see a bright blue flash between the press of bodies around the stall. The crowd bursts into... cheering? And then reverently haul away several vaguely bipedal lumps of ice like some sort of holy relics. When you turn back towards the [eisek.race], he only shrugs and states, [eisek.speech(They asked me for it. Some sort of rite of passage. I obliged... There are some very strange customs in this town.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Copy of 'TALK_MENU' in 'txt/dsg/characters/eisek/stall' with minor variations -->
+	<htmlContent tag="ENCOUNTER_END"><![CDATA[
+	#IF(eisek.getAffection(pc) >= 15)
+		<p>
+			With the odd group having now departed, a smile grows across Eisek's face as he asks, [eisek.speech(So, what can I do for my favourite customer?)]
+		</p>
+	#ELSEIF(eisek.getAffection(pc) >= 30)
+		<p>
+			With the odd group having now departed, a broad smile grows across Eisek's face, and you catch a glimpse of his tail twitching involuntarily as he asks, [eisek.speech(What can I do for my favourite customer? The day is brighter already.)]
+		</p>
+	#ELSE
+		<p>
+			With the odd group having now departed, a faint smile creeps across Eisek's face as he asks, [eisek.speech(So, what can I do for you?)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- ENCOUNTER_APPROACH -->
+	
+	<htmlContent tag="ENCOUNTER_APPROACH"><![CDATA[
+	<p>
+		Even though the crowd isn't openly hostile, you still dread seeing what kind of trouble has found the draconic merchant this time as you work your way through the haze of body odour. When you break through, you see what appears to be the ringleader of this particular mob: a scrawny human, hooded and cloaked. Certainly, he's the loudest of the bunch.
+	</p>
+	<p>
+		[test.speechMasculine(I just can't believe that a real dragon has come to this stinking town! What's it like, raining fire and death from above? How many villages have you razed?)] he asks, almost giddy with excitement. These are not accusations, you realise. This crowd has some kind of unhealthy obsession with dragons.
+	</p>
+	<p>
+		[eisek.speech(I have razed no villages,)] Eisek replies flatly.
+	</p>
+	<p>
+		[test.speechMasculine(You mean you've never razed a village? How did you get your hoard of treasure, then? You've got one of those, right?)]
+	</p>
+	<p>
+		[eisek.speech(I do not.)]
+	</p>
+	<p>
+		[test.speechMasculine(So... you really do just farm?)]
+	</p>
+	<p>
+		[eisek.speech(Yes.)] Hearing this, the ringleader's demeanour changes instantly.
+	</p>
+	<p>
+		[test.speechMasculine(Ugh, even the dragons here are boring! What kind of dragon are you anyhow? You should be out there taking what you want but all you do is farm like some kind of... vegan cuck!)] To this insult, the [eisek.race]'s only response is a dismissive snort. Unsatisfied, the ringleader continues, [test.speechMasculine(Oh, I know! You just need some practice. I need a good final boss for my next LARP session! Haven't you ever wanted to own a dungeon?)]
+	</p>
+	<p>	
+		His sentiments are echoed by some members of the crowd, while others make general noises of assent. To this Eisek gives an ice cold, [eisek.speech(No.)]
+	</p>
+	<p>
+		Out of patience, the ringleader suddenly tries to push the stall over, to what end you're not sure. To goad him into accepting? Countering this, Eisek extends a single digit and presses down on the table. The ringleader strains for some time before giving up with a huff. [test.speechMasculine(Fine! Nobody wants a lame dragon as a final boss anyhow. Let's get out of here,)] he exclaims, turning around to leave.
+	</p>
+	<p>
+		You turn towards Eisek as the crowd shuffles away. The [eisek.race] only scratches his chin. [eisek.speech(Hmm,)] he rumbles, [eisek.speech(there are some very strange people in this town.)]
+	</p>
+	<p>
+		For some reason, you don't share his sense of ease.
+		#IF(pc.getRace().equals(RACE_dsg_dragon))
+			 And you're a bit
+			#IF(pc.hasPersonalityTrait(PERSONALITY_TRAIT_SELFISH))
+				 annoyed
+			#ELSE
+				 confused
+			#ENDIF
+			 that they didn't seem to notice <i>your</i> draconic visage at all.
+		#ENDIF
+		 The dungeon that the ringleader mentioned might warrant a visit, just in case. They seemed local, it shouldn't be too hard to find them.
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

@@ -612,7 +612,10 @@
 		Not giving you much choice in the matter, the [npc.race] pushes the item into your [pc.hands], and you look down to see that it's <b>[#SPECIAL_PARSE_0]</b>! 
 	</p>
 	<p>
-		Thanking [npc.name], you tell [npc.herHim] not to let [npc.herself] get into such a bad position again. Flashing you one last smile, the [npc.race] turns away and swiftly exits [npc.her] apartment, before running off to go and pay [npc.her] fine. Satisfied that you've done a good deed, you hold your head up high as you prepare to follow in [npc.namePos] footsteps and continue on your journey...
+		Thanking [npc.name], you tell [npc.herHim] not to let [npc.herself] get into such a bad position again. Flashing you one last smile, the [npc.race] reveals, [npc.speech([style.random(Once I've paid off my fine I'm going to take the trip over the Endless Sea. I've had enough of this place!|I'm going to pay off my fine and then move out of this city. I've had enough of Dominion!|After I've paid off my fine, I'm going east to the port of Lyonesse. I'm leaving the Realm and never coming back!|I'm going to pay off my fine then get out of Dominion. I can't stand this city!)])]
+	</p>
+	<p>
+		With that, [npc.she] turns away and swiftly exits [npc.her] apartment, before running off to go and pay [npc.her] fine. Satisfied that you've done a good deed, you hold your head up high as you prepare to follow in [npc.namePos] footsteps and continue on your journey...
 	</p>
 	]]></htmlContent>
 	
@@ -633,7 +636,10 @@
 		Not giving you much choice in the matter, the [npc.race] pushes the item into your [pc.hands], and you look down to see that it's <b>[#SPECIAL_PARSE_0]</b>! 
 	</p>
 	<p>
-		Thanking [npc.name], you tell [npc.herHim] not to let [npc.herself] get into such a bad position again. Flashing you one last smile, the [npc.race] turns away and swiftly runs off to go and pay [npc.her] fine. Satisfied that you've done a good deed, you hold your head up high as you prepare to follow in [npc.namePos] footsteps and continue on your journey...
+		Thanking [npc.name], you tell [npc.herHim] not to let [npc.herself] get into such a bad position again. Flashing you one last smile, the [npc.race] reveals, [npc.speech([style.random(Once I've paid off my fine I'm going to take the trip over the Endless Sea. I've had enough of this place!|I'm going to pay off my fine and then move out of this city. I've had enough of Dominion!|After I've paid off my fine, I'm going east to the port of Lyonesse. I'm leaving the Realm and never coming back!|I'm going to pay off my fine then get out of Dominion. I can't stand this city!)])]
+	</p>
+	<p>
+		With that, [npc.she] turns away and runs off to go and pay [npc.her] fine. Satisfied that you've done a good deed, you hold your head up high as you prepare to follow in [npc.namePos] footsteps and continue on your journey...
 	</p>
 	]]></htmlContent>
 	

@@ -13,6 +13,7 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
@@ -45,6 +46,7 @@ import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityCategory;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.pregnancy.FertilisationType;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
@@ -321,9 +323,9 @@ public class Elemental extends NPC {
 	public DialogueNode getEncounterDialogue() {
 		return null;
 	}
-	
+
 	@Override
-	public String rollForPregnancy(GameCharacter partner, float cum, boolean directSexInsemination) {
+	public String rollForPregnancy(GameCharacter partner, float cumQuantity, boolean directSexInsemination, FertilisationType fertilisationType, AbstractAttribute virilityAttribute) {
 		return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner, directSexInsemination)
 				+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot get pregnant!)]"
 //				+ "<br/>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals soon!)]"

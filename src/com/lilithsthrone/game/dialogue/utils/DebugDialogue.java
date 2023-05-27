@@ -162,7 +162,10 @@ public class DebugDialogue {
 					};
 					
 				} else if (index == 4) {
-					return new Response("Reveal bodies: ", "When toggled on, clothing does not conceal inventory slots, and you'll know what all character's genitals look like without first having to see them.", DEBUG_MENU){
+					return new Response("Reveal bodies: ",
+							"When toggled on, clothing does not conceal inventory slots, and you'll know what all character's genitals look like without first having to see them."
+									+ " This also reveals unique NPCs' naked & underwear images.",
+							DEBUG_MENU){
 						@Override
 						public String getTitle() {
 							return "Reveal bodies: "+(Main.game.isConcealedSlotsReveal()?"[style.colourGood(ON)]":"[style.colourDisabled(OFF)]");
@@ -1172,9 +1175,14 @@ public class DebugDialogue {
 			
 			inventorySB.append("<div class='container-full-width'>");
 			
-			for(AbstractSetBonus sb : SetBonus.allSetBonuses) {
-				inventorySB.append("<div class='normal-button' id='SET_BONUS_"+SetBonus.getIdFromSetBonus(sb)+"' style='width:23%; margin:1%; padding:2px; font-size:0.9em; color:"+sb.getAssociatedStatusEffect().getColour().toWebHexString()+";'>");
+			List<AbstractSetBonus> bonuses = new ArrayList<>(SetBonus.allSetBonuses);
+			bonuses.sort((sb1, sb2) -> sb1.getName().compareTo(sb2.getName()));
+			
+			for(AbstractSetBonus sb : bonuses) {
+				inventorySB.append("<div class='normal-button' id='SET_BONUS_"+SetBonus.getIdFromSetBonus(sb)+"' style='text-align:center;width:23%; margin:1%; padding:2px; font-size:0.9em;'>");
+				inventorySB.append("<b style='color:"+sb.getAssociatedStatusEffect().getColour().toWebHexString()+";'>#</b>");
 				inventorySB.append(sb.getName());
+				inventorySB.append("<b style='color:"+sb.getAssociatedStatusEffect().getColour().toWebHexString()+";'>#</b>");
 				inventorySB.append("</div>");
 			}
 			
@@ -1691,11 +1699,14 @@ public class DebugDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Parse!", "Parse the text you've entered.", PARSER){
+				return new ResponseEffectsOnly("Parse!", "Parse the text you've entered."){
 					@Override
 					public void effects() {
 						rawText = (String) Main.mainController.getWebEngine().executeScript("document.getElementById('parseInput').value");
 						parsedText = UtilText.parse(rawText);
+						if(Main.game.getCurrentDialogueNode()==PARSER) {
+							Main.game.setContent(new Response("", "", PARSER));
+						}
 					}
 				};
 				

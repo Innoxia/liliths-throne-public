@@ -44,6 +44,7 @@
 		]]></applyEffects>
 		
 		<itemTags>
+			<tag>DRINK</tag>
 			<tag>ALCOHOLIC</tag>
 			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
 			<tag>ELIS_ALLEYWAY_SPAWN</tag>

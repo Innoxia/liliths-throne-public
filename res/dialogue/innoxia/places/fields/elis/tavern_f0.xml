@@ -1295,8 +1295,11 @@
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_f0', 'JESS_START'))]
 					[##game.appendToTextStartStringBuilder(pc.incrementMoney(-250))]
-					[#flags.setFlag(FLAG_innoxia_elis_jess_introduced, true)]
+					#IF(jess.isVisiblyPregnant())
+						[#jess.setCharacterReactedToPregnancy(pc, true)]
+					#ENDIF
 					
+					[#flags.setFlag(FLAG_innoxia_elis_jess_introduced, true)]
 					[#flags.setFlag(FLAG_innoxia_jess_talked, false)]
 					[#flags.setFlag(FLAG_innoxia_jess_talked_history, false)]
 					[#flags.setFlag(FLAG_innoxia_jess_tail_fluffed, false)]
@@ -1618,7 +1621,47 @@
 					<ongoingActionsAtStart/>
 				</sexVariables>
 			</response>
+			<!-- Risky sex: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[
+					Risky sex (#IF(pc.getMoney()>=5000 && !jess.hasStatusEffect(SE_VIXENS_VIRILITY) && !jess.isVisiblyPregnant())[style.moneyFormat(5000, span)]#ELSE[style.moneyFormatUncoloured(5000, span)]#ENDIF)
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(jess.isVisiblyPregnant())
+						Jess is already pregnant, so paying for her to take a breeder pill would be pointless...
+					#ELSEIF(jess.hasStatusEffect(SE_VIXENS_VIRILITY))
+						You've already paid Jess to take a breeder pill...
+					#ELSEIF(pc.getMoney()<5000)
+						You don't have the five thousand flames required to pay Jess for her to take a breeder pill...
+					#ELSE
+						Pay Jess five thousand flames for her to take a breeder pill, thereby making it possible for you to impregnate her during sex...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.getMoney()>=5000 && !jess.hasStatusEffect(SE_VIXENS_VIRILITY) && !jess.isVisiblyPregnant())
+						innoxia_places_fields_elis_tavern_f0_jess_room_risky_sex
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_f0', 'JESS_ROOM_RISKY_SEX'))]
+					[#game.appendToTextStartStringBuilder(jess.useItem(game.getItemGen().generateItem('innoxia_pills_fertility'), jess, false, true))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_f0', 'JESS_ROOM_RISKY_SEX_END'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementMoney(-5000))]
+				]]></effects>
+			</response>
 		</responses>
+	</scene>
+	
+	<scene id="jess_room_risky_sex">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_tavern_f0_jess_room"/>
 	</scene>
 	
 	<scene id="jess_after_sex">

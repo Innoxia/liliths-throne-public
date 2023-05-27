@@ -625,7 +625,7 @@
 					#ENDIF
 				</p>
 				<p>
-					[com.Name] smiles back at [npc.name], before confirming that [npc.sheIs] the one who got [com.herHim] pregnant. Stepping forwards, [npc.name] places one of [npc.her] [npc.hands] on [com.her] belly, smiling happily as [npc.she] tells [com.name] to take care of their children.
+					You smile back at [npc.name], before confirming that [npc.sheIs] the one who got you pregnant. Stepping forwards, [npc.name] places one of [npc.her] [npc.hands] on your belly, smiling happily as [npc.she] tells you to take care of your children.
 				</p>
 			#ELSE
 				<p>
@@ -1330,13 +1330,10 @@
 		[npc.Name] suddenly rocks forwards, pressing [npc.her] lips against yours as [npc.she] pulls you into a passionate kiss. [npc.Her] whining instantly stopped as you started to offer your body to [npc.herHim], and as [npc.she] grinds up against you, the only noises that come from [npc.her] mouth are deep, pleasurable moans.
 	</p>
 	<p>
-		Before you really know what's going on, [npc.sheIs] pulled you up to your feet, and as [npc.her] body presses up tightly against yours, you feel a strange bulge digging into your leg. Breaking off the kiss for a moment, you look down, and your eyes go wide as you see the distinctive shape of a massive erection between [npc.namePos] legs. You gulp as you remember what [npc.she] said just moments ago, and you realise that [npc.sheIs] growing [npc.herself] a cock to fuck you with.
+		Before you really know what's going on, the [npc.race] has pulled you up to your feet, and as [npc.her] body presses up tightly against yours, [npc.she] lets out a deep, erotic [npc.moan]. Breaking off the kiss for a moment, the [npc.race] lets out a playful laugh and teases, [npc.speech(A submissive little slut like you would never get to dominate me! If you didn't want to be my little fuck-toy, perhaps you should have just walked away!)]
 	</p>
 	<p>
-		Seeing what you're looking at, the [npc.race] lets out a playful laugh. [npc.speech(What? You didn't seriously think I'd let you fuck me, did you? You're the one who's offering to help here, remember?! If you didn't want to be my little fuck-toy, perhaps you should have just walked away!)]
-	</p>
-	<p>
-		Before you can respond, [npc.she] leans forwards and presses [npc.her] lips against yours once more, thrusting [npc.her] forked tongue into your mouth as [npc.she] lets out a happy moan. You're far too submissive to consider putting a stop to this, and you find yourself desperately kissing [npc.herHim] back as you resign yourself to your fate...
+		Before you can respond, [npc.she] leans forwards and presses [npc.her] lips against yours once more, thrusting [npc.her] [npc.tongue+] into your mouth as [npc.she] lets out another lewd, muffled [npc.moan]. You're far too submissive to consider putting a stop to this, and you find yourself desperately kissing [npc.herHim] back as you resign yourself to your fate...
 	</p>
 	]]>
 	</htmlContent>
@@ -2999,7 +2996,7 @@
 		#IF(npc.isMute())
 			Gesturing back towards the window of the bistro, [npc.she] implies through [npc.hand(true)] signals that [npc.she] was watching you the whole time. Flashing you another smirk, [npc.she] dismisses you with a wave of [npc.her] [npc.hand(true)] and [npc.walks] off down the alleyway, leaving you with little else to do but continue on your way...
 		#ELSE
-				[npc.speech(Couldn't resist [stranger.her] cock, huh, [pc.name]?)] [npc.she] asks, [npc.speech(Me and the other people inside were watching you get fucked through the windows. You're a dirty, horny whore, aren't you?)]
+				[npc.speech(Couldn't resist getting fucked by that [stranger.race], huh, [pc.name]?)] [npc.she] asks, [npc.speech(Me and the other people inside were watching the two of you through the windows. You're a dirty, horny whore, aren't you?)]
 			</p>
 			<p>
 				Not giving you any time in which to respond, [npc.name] dismisses you with a wave of [npc.her] [npc.hand(true)], before [npc.walking] off down the alleyway, leaving you with little else to do but continue on your way...

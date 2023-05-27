@@ -108,7 +108,8 @@ public class Natalya extends NPC {
 				true);
 		
 		if(!isImported) {
-			this.setGenericName("strict succubus");
+			this.setPlayerKnowsName(false);
+			this.setGenericName("strict succutaur");
 		}
 	}
 
@@ -281,6 +282,14 @@ public class Natalya extends NPC {
 		this.setPiercedEar(true);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_ball_studs", PresetColour.CLOTHING_SILVER, false), true, this);
 	}
+
+	@Override
+	public String getDescription() {
+		if(this.isPlayerKnowsName()) {
+			return super.getDescription();
+		}
+		return UtilText.parse(this, "This smartly dressed succutaur has an air of superiorty about her...");
+	}
 	
 	@Override
 	public boolean isUnique() {
@@ -313,7 +322,8 @@ public class Natalya extends NPC {
 	
 	@Override
 	public void endSex() {
-		if(this.getLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP) {
+		if(this.getLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP
+				|| this.getLocationPlace().getPlaceType()==PlaceType.DOMINION_PARK) {
 			if(this.getClothingInSlot(InventorySlot.ANUS)!=null) {
 				this.unequipClothingIntoVoid(this.getClothingInSlot(InventorySlot.ANUS), true, Main.game.getPlayer());
 			}
@@ -368,6 +378,37 @@ public class Natalya extends NPC {
 				
 			} else {
 				sb.append(UtilText.parseFromXMLFile("characters/dominion/natalya", "HELENA_ALLEYWAY_ORGASM_NO_FACIAL"));
+			}
+			
+			return new SexActionOrgasmOverride(true) {
+				@Override
+				public String getDescription() {
+					return sb.toString();
+				}
+				@Override
+				public void applyEffects() {
+					if(applyExtraEffects) {
+						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerReceivedNatalyaFacial)) {
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Natalya.class).incrementAffection(Main.game.getPlayer(), 10));
+							
+						} else {
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Natalya.class).incrementAffection(Main.game.getPlayer(), -10));
+						}
+					}
+				}
+			};
+			
+		} else if(this.getLocationPlace().getPlaceType()==PlaceType.DOMINION_PARK && !Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_NATALYA)) {
+			StringBuilder sb = new StringBuilder();
+//			sb.append(GenericOrgasms.getGenericOrgasmDescription(sexAction, this, target));
+			sb.append(UtilText.parseFromXMLFile("characters/dominion/natalya", "PARK_ORGASM"));
+			
+			// Natalya facial reactions:
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.playerReceivedNatalyaFacial)) {
+				sb.append(UtilText.parseFromXMLFile("characters/dominion/natalya", "PARK_ORGASM_FACIAL"));
+				
+			} else {
+				sb.append(UtilText.parseFromXMLFile("characters/dominion/natalya", "PARK_ORGASM_NO_FACIAL"));
 			}
 			
 			return new SexActionOrgasmOverride(true) {

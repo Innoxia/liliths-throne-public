@@ -173,7 +173,7 @@ public class Heather extends NPC {
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, PresetColour.EYE_GREY_GREEN));
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_LIGHT), true);
 		
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, CoveringPattern.NONE, CoveringModifier.FURRY, PresetColour.COVERING_BROWN, false, PresetColour.COVERING_BROWN, false), true);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, CoveringPattern.NONE, CoveringModifier.SMOOTH, PresetColour.COVERING_BROWN, false, PresetColour.COVERING_BROWN, false), true);
 		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
 		this.setHairStyle(HairStyle.WAVY);
 

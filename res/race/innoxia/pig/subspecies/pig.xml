@@ -9,9 +9,9 @@
 	<attributeItemId>innoxia_race_pig_porcine_pop</attributeItemId>
 	<transformativeItemId>innoxia_race_pig_oinkers_fries</transformativeItemId>
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<nocturnality>DIURNAL</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
-	<aquatic>false</aquatic>
 	<applySubspeciesChanges/>
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_innoxia_pig)

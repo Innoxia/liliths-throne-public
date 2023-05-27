@@ -372,12 +372,13 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Ignore]]></responseTitle>
-				<responseTooltip><![CDATA[Ignore Nizhoni's musky pussy and keep rummaging through the bins.]]></responseTooltip>
+				<responseTooltip><![CDATA[Ignore Nizhoni's #IF(nizhoni.hasGirlcumModifier(FLUID_MODIFIER_MUSKY))musky#ELSEclean#ENDIF pussy and keep rummaging through the bins.]]></responseTooltip>
 				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_path"/>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'NIZHONI_BINS_IGNORE'))]
 					[#nizhoni.setLocation(WORLD_TYPE_innoxia_fields_elis_market, PLACE_TYPE_innoxia_fields_elis_market_centre)]
 					[#game.appendToTextEndStringBuilder(nizhoni.incrementAffection(pc, -5))]
+					[#nizhoni.addGirlcumModifier(FLUID_MODIFIER_MUSKY)]
 				]]></effects>
 			</response>
 			<!-- Oral: -->
@@ -388,7 +389,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Eat her out]]></responseTitle>
-				<responseTooltip><![CDATA[As you're unable to access your mouth, you cannot perform oral on Nizhoni's musky pussy.]]></responseTooltip>
+				<responseTooltip><![CDATA[As you're unable to access your mouth, you cannot perform oral on Nizhoni's #IF(nizhoni.hasGirlcumModifier(FLUID_MODIFIER_MUSKY))musky#ELSEclean#ENDIF pussy.]]></responseTooltip>
 				<nextDialogue><![CDATA[null]]></nextDialogue>
 			</response>
 			<response>
@@ -398,8 +399,13 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Eat her out]]></responseTitle>
-				<responseTooltip><![CDATA[Drop down behind Nizhoni and start performing oral on her musky pussy.]]></responseTooltip>
+				<responseTooltip><![CDATA[Drop down behind Nizhoni and start performing oral on her #IF(nizhoni.hasGirlcumModifier(FLUID_MODIFIER_MUSKY))musky#ELSEclean#ENDIF pussy.]]></responseTooltip>
 				<nextDialogue/>
+				<effects><![CDATA[
+					#IF(nizhoni.hasGirlcumModifier(FLUID_MODIFIER_MUSKY))
+						[#pc.setMuskMarker(nizhoni.getId())]
+					#ENDIF
+				]]></effects>
 				<sexVariablesWithManager enabled="true">
 					<id><![CDATA[innoxia_nizhoni_oral]]></id>
 					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
@@ -438,9 +444,9 @@
 				<responseTitle><![CDATA[Fuck her]]></responseTitle>
 				<responseTooltip><![CDATA[
 					#IF(!pc.hasPenis())
-						As you don't have a penis, you cannot fuck Nizhoni's musky cunt.
+						As you don't have a penis, you cannot fuck Nizhoni's #IF(nizhoni.hasGirlcumModifier(FLUID_MODIFIER_MUSKY))musky#ELSEclean#ENDIF cunt.
 					#ELSE
-						As you're unable to access your mouth, you cannot fuck Nizhoni's musky cunt.
+						As you're unable to access your mouth, you cannot fuck Nizhoni's #IF(nizhoni.hasGirlcumModifier(FLUID_MODIFIER_MUSKY))musky#ELSEclean#ENDIF cunt.
 					#ENDIF
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[null]]></nextDialogue>
@@ -452,8 +458,13 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[3]]></index>
 				<responseTitle><![CDATA[Fuck her]]></responseTitle>
-				<responseTooltip><![CDATA[[pc.Step] up behind Nizhoni and fuck her musky cunt.]]></responseTooltip>
+				<responseTooltip><![CDATA[[pc.Step] up behind Nizhoni and fuck her #IF(nizhoni.hasGirlcumModifier(FLUID_MODIFIER_MUSKY))musky#ELSEclean#ENDIF cunt.]]></responseTooltip>
 				<nextDialogue/>
+				<effects><![CDATA[
+					#IF(nizhoni.hasGirlcumModifier(FLUID_MODIFIER_MUSKY))
+						[#pc.setMuskMarker(nizhoni.getId())]
+					#ENDIF
+				]]></effects>
 				<sexVariablesWithManager enabled="true">
 					<id><![CDATA[innoxia_nizhoni_vaginal]]></id>
 					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
@@ -536,14 +547,45 @@
 					</ongoingActionsAtStart>
 				</sexVariablesWithManager>
 			</response>
+			<!-- Clean her: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Clean her]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!nizhoni.hasGirlcumModifier(FLUID_MODIFIER_MUSKY))
+						You've already cleaned Nizhoni, and as such her pussy is temporarily free from musk!
+					#ELSEIF(!pc.hasSpell(SPELL_SOOTHING_WATERS, true))
+						You need to know the spell '[#SPELL_SOOTHING_WATERS.getName()]' in order to clean Nizhoni!
+					#ELSE
+						Cast the spell '[#SPELL_SOOTHING_WATERS.getName()]' to clean Nizhoni and temporarily remove her musk!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(!pc.hasSpell(SPELL_SOOTHING_WATERS, true))
+						null
+					#ELSE
+						innoxia_places_fields_elis_market_nizhoni_bins
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#nizhoni.removeGirlcumModifier(FLUID_MODIFIER_MUSKY)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'NIZHONI_BINS_CLEAN'))]
+				]]></effects>
+			</response>
 		</responses>
 	</scene>
 	
 	<scene id="nizhoni_after_sex">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'NIZHONI_AFTER_SEX'))]
+			[#nizhoni.setLocation(WORLD_TYPE_innoxia_fields_elis_market, PLACE_TYPE_innoxia_fields_elis_market_centre)]
+			[#nizhoni.addGirlcumModifier(FLUID_MODIFIER_MUSKY)]
+		]]></preParsingEffects>
 		<author><![CDATA[Innoxia]]></author>
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[Having had your fun with Nizhoni, it's time to bring an end to the sex...]]></tooltip>
-		<content folderPath="txt/places/fields/elis/market">NIZHONI_AFTER_SEX</content>
+		<content/>
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
@@ -554,9 +596,6 @@
 				<responseTitle><![CDATA[Continue]]></responseTitle>
 				<responseTooltip><![CDATA[Say goodbye to Nizhoni and watch her run off.]]></responseTooltip>
 				<nextDialogue defaultPlaceType="innoxia_fields_elis_market_path"/>
-				<effects><![CDATA[
-					[#nizhoni.setLocation(WORLD_TYPE_innoxia_fields_elis_market, PLACE_TYPE_innoxia_fields_elis_market_centre)]
-				]]></effects>
 			</response>
 		</responses>
 	</scene>
@@ -1064,6 +1103,28 @@
 					#ENDIF
 				]]></effects>
 			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#fae.isPlayerKnowsName() && pc.hasQuest(QUEST_LINE_SIDE_EISEK_STALL) && pc.isQuestProgressLessThan(QUEST_LINE_SIDE_EISEK_STALL, QUEST_EISEK_STALL_QUEST_STAGE_TWO) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Fabric?]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.getCurrentDialogueNode()==DN_innoxia_places_fields_elis_market_clothing_ask_fabric)
+						You're already asking Fae and Silvia if they have any fabric to sell you!
+					#ELSE
+						Ask Fae and Silvia if they have any fabric to sell you.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.getCurrentDialogueNode()==DN_innoxia_places_fields_elis_market_clothing_ask_fabric)
+						null
+					#ELSE
+						innoxia_places_fields_elis_market_clothing_ask_fabric
+					#ENDIF
+				]]></nextDialogue>
+			</response>
 		</responses>
 	</scene>
 	
@@ -1163,6 +1224,15 @@
 				]]></effects>
 			</response>
 		</responses>
+	</scene>
+	
+	<!-- Red herring for Eisek stall quest -->
+	<scene id="clothing_ask_fabric">
+		<author><![CDATA[DSG]]></author>
+		<content folderPath="txt/places/fields/elis/market">CLOTHING_ASK_FABRIC</content>
+		<secondsPassed minutes="false"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_market_clothing"/>
 	</scene>
 	
 	<!-- Place type id: innoxia_places_fields_elis_market_drinks_alcohol -->

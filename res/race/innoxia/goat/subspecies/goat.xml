@@ -9,9 +9,9 @@
 	<attributeItemId>innoxia_race_goat_pans_flute</attributeItemId>
 	<transformativeItemId>innoxia_race_goat_billys_best</transformativeItemId>
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<nocturnality>DIURNAL</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
-	<aquatic>false</aquatic>
 	<applySubspeciesChanges/>
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_innoxia_goat)

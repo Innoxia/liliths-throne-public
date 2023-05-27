@@ -1156,7 +1156,7 @@
 		[pc.speech(Yes, this is your room now. Is everything ok?)]
 	</p>
 	<p>
-		[npc.speech(It's more than ok... I don't know what to say... This is the best thing that's ever happened to me!)] [npc.name] replies, trying to hold back tears of joy. before you can reply, [npc.she] suddenly rushes forwards and throws [npc.her] [npc.arms] around you. [npc.speech(Thank you so, so much! You've changed my life!)]
+		[npc.speech(It's more than ok... I don't know what to say... This is the best thing that's ever happened to me!)] [npc.name] replies, trying to hold back tears of joy. Before you can reply, [npc.she] suddenly rushes forwards and throws [npc.her] [npc.arms] around you. [npc.speech(Thank you so, so much! You've changed my life!)]
 	</p>
 	<p>
 		You happily return [npc.namePos] hug for a moment, before [npc.she] pulls back and wipes the tears from [npc.her] [npc.eyes]. [npc.speech(I'll keep on looking for a job, and once I've got one, I'll start paying rent. I'll repay you for all of this, I promise!)]
@@ -3177,7 +3177,7 @@
 		#IF(npc.isMute())
 			Gesturing back towards the window of the bistro, [npc.she] implies through [npc.hand(true)] signals that [npc.she] was watching you the whole time. Flashing you another smirk, [npc.she] dismisses you with a wave of [npc.her] [npc.hand(true)] and [npc.walks] off down the alleyway, leaving you with little else to do but continue on your way...
 		#ELSE
-				[npc.speech(Couldn't resist [stranger.her] cock, huh, [pc.name]?)] [npc.she] asks, [npc.speech(Me and the other people inside were watching you get fucked through the windows. You're a dirty, horny whore, aren't you?)]
+				[npc.speech(Couldn't resist getting fucked by that [stranger.race], huh, [pc.name]?)] [npc.she] asks, [npc.speech(Me and the other people inside were watching the two of you through the windows. You're a dirty, horny whore, aren't you?)]
 			</p>
 			<p>
 				Not giving you any time in which to respond, [npc.name] dismisses you with a wave of [npc.her] [npc.hand(true)], before [npc.walking] off down the alleyway, leaving you with little else to do but continue on your way...

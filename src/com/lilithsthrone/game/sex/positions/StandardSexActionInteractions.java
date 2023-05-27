@@ -262,51 +262,47 @@ public class StandardSexActionInteractions {
 				GameCharacter performer = getCharacter(performerSlot);
 				GameCharacter target = getCharacter(targetSlot);
 				
-				if(performer.isSizeDifferenceShorterThan(target)) { // If significantly shorter, they're basically standing to perform oral.
+				if(performer.isSizeDifferenceShorterThan(target)) { // If significantly shorter, they're basically standing to perform oral on ass.
 					return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
 							new SexActionInteractions(
-							Util.mergeMaps(
-									SexActionPresets.mouthToAss,
-									SexActionPresets.mouthToVagina,
-									SexActionPresets.fingerToLowerHalf,
-									!target.isTaur()
-										?SexActionPresets.mouthToAppendages
-										:SexActionPresets.mouthToTailAndTentacle),
-							Util.newArrayListOfValues(
-									OrgasmCumTarget.LEGS,
-									OrgasmCumTarget.FEET,
-									OrgasmCumTarget.SELF_LEGS,
-									OrgasmCumTarget.SELF_GROIN,
-									OrgasmCumTarget.SELF_FEET,
-									OrgasmCumTarget.FLOOR),
-							Util.newArrayListOfValues(
-									OrgasmCumTarget.WALL,
-									OrgasmCumTarget.FLOOR)))));
+								Util.mergeMaps(
+										SexActionPresets.mouthToAss,
+										SexActionPresets.mouthToVagina,
+										SexActionPresets.appendagesToLowerHalf,
+										!target.isTaur()
+											?SexActionPresets.mouthToAppendages
+											:SexActionPresets.mouthToTailAndTentacle),
+								Util.newArrayListOfValues(
+										OrgasmCumTarget.LEGS,
+										OrgasmCumTarget.FEET,
+										OrgasmCumTarget.SELF_LEGS,
+										OrgasmCumTarget.SELF_GROIN,
+										OrgasmCumTarget.SELF_FEET,
+										OrgasmCumTarget.WALL,
+										OrgasmCumTarget.FLOOR),
+								Util.newArrayListOfValues(
+										OrgasmCumTarget.WALL,
+										OrgasmCumTarget.FLOOR)))));
 				}
-				if(target.isSizeDifferenceShorterThan(performer)) { // If significantly shorter, they're basically standing to perform oral.
+				if(target.isSizeDifferenceShorterThan(performer)) { // If significantly shorter, not much can be done...
 					return new Value<>(targetSlot, Util.newHashMapOfValues(new Value<>(performerSlot,
 							new SexActionInteractions(
-							Util.mergeMaps(
-									!performer.isTaur()
-										?SexActionPresets.mouthToPenis
-										:null,
-									!performer.isTaur()
-										?SexActionPresets.mouthToVagina
-										:null,
-									SexActionPresets.mouthToCrotchBoobs,
-									!performer.isTaur()
-										?SexActionPresets.fingerToLowerHalf
-										:null,
-									SexActionPresets.mouthToAppendages),
-							Util.newArrayListOfValues(
-									OrgasmCumTarget.WALL,
-									OrgasmCumTarget.FLOOR),
-							Util.newArrayListOfValues(
-									OrgasmCumTarget.ASS,
-									OrgasmCumTarget.GROIN,
-									OrgasmCumTarget.LEGS,
-									OrgasmCumTarget.WALL,
-									OrgasmCumTarget.FLOOR)))));
+								Util.mergeMaps(
+										!performer.isTaur()
+											?SexActionPresets.lowerHalfToAppendages
+											:null,
+										SexActionPresets.appendagesToUpperHalf),
+								Util.newArrayListOfValues(
+										OrgasmCumTarget.FACE,
+										OrgasmCumTarget.HAIR,
+										OrgasmCumTarget.BREASTS,
+										OrgasmCumTarget.ARMPITS,
+										OrgasmCumTarget.WALL,
+										OrgasmCumTarget.WALL,
+										OrgasmCumTarget.FLOOR),
+								Util.newArrayListOfValues(
+										OrgasmCumTarget.WALL,
+										OrgasmCumTarget.FLOOR)))));
 				}
 				
 				return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
@@ -659,7 +655,7 @@ public class StandardSexActionInteractions {
 									SexActionPresets.vaginaToVagina,
 									SexActionPresets.tailToLowerHalf,
 									SexActionPresets.tentacleToLowerHalf,
-									SexActionPresets.lowerHalfToAppendages,
+									SexActionPresets.lowerHalfToTailTentacle,
 									(!performer.isTaur()
 										?SexActionPresets.fingerToLowerHalf
 										:null),
@@ -1028,7 +1024,8 @@ public class StandardSexActionInteractions {
 								SexActionPresets.thighsToPenis,
 								SexActionPresets.vaginaToPenis,
 								SexActionPresets.assToGroin,
-								SexActionPresets.penisToBreasts),
+								SexActionPresets.penisToBreasts,
+								SexActionPresets.feetToMouth),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.LEGS,
 								OrgasmCumTarget.GROIN,
@@ -1081,8 +1078,7 @@ public class StandardSexActionInteractions {
 								SexActionPresets.allAreasToAppendages,
 								SexActionPresets.thighsToPenis,
 								SexActionPresets.vaginaToPenis,
-								SexActionPresets.assToGroin,
-								SexActionPresets.feetToMouth),
+								SexActionPresets.assToGroin),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.LEGS,
 								OrgasmCumTarget.GROIN,
@@ -1252,6 +1248,9 @@ public class StandardSexActionInteractions {
 									SexActionPresets.kissing,
 									SexActionPresets.breastsToMouth,
 									SexActionPresets.mouthToBreasts,
+									performer.isSizeDifferenceShorterThan(target)
+										?SexActionPresets.mouthToCrotchBoobs
+										:null,
 									SexActionPresets.groinToAss,
 									SexActionPresets.groinToGroin,
 									SexActionPresets.tailToLowerHalf,
@@ -1301,13 +1300,16 @@ public class StandardSexActionInteractions {
 	public static VariableInteractions matingPress = new VariableInteractions() {
 			@Override
 			public Value<SexSlot, Map<SexSlot, SexActionInteractions>> getSexActionInteractions(SexSlot performerSlot, SexSlot targetSlot) {
+				GameCharacter performer = getCharacter(performerSlot);
 				GameCharacter target = getCharacter(targetSlot);
 				
 				if(!target.isTaur()) {
 					return new Value<>(performerSlot, Util.newHashMapOfValues(new Value<>(targetSlot,
 							new SexActionInteractions(
 							Util.mergeMaps(
-									SexActionPresets.kissing,
+									performer.isSizeDifferenceShorterThan(target)
+										?SexActionPresets.mouthToBreasts
+										:SexActionPresets.kissing,
 									SexActionPresets.groinToAss,
 									SexActionPresets.groinToGroin,
 									SexActionPresets.tailToLowerHalf,

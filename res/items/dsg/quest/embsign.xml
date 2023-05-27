@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<authorTag><![CDATA['Woven by the DSG Textile Guild' in very small print is woven in one corner.]]></authorTag>
+		
+		<value>2480</value> 
+		<determiner><![CDATA[an]]></determiner>
+		<name><![CDATA[embroidered sign]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[embroidered signs]]></namePlural>
+		<description><![CDATA[A folded up piece of rectangular canvas fabric embroidered with a design that Monica had made for you based on your interpretation of the qualities that Eisek values most in his goods.]]></description> 
+		
+		<useDescriptor>examine</useDescriptor>
+		
+		<sexUse>false</sexUse>
+		<combatUseAllies>false</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>false</consumedOnUse>
+		
+		<rarity>QUEST</rarity> 
+		
+		<imageName>embsign.svg</imageName> 
+		
+		<colourPrimary>CLOTHING_TAN</colourPrimary>
+		<colourSecondary>CLOTHING_BLUE_LIGHT</colourSecondary>
+		<colourTertiary/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[One of [style.colourGood(three)] items that you need to fix up Eisek's stall.]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+		<p>
+			This sign is made from canvas, rolled at the edges for durability. Embroidered on its otherwise featureless surface is a stylized depiction of many different types of fruits and vegetables carried by an avalanche descending down the side of a mountain. In the upper right, the words "ALPINE PRODUCE" are similarly sewn in with metallic blue thread.
+		</p>
+		]]></applyEffects>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(unfold)] the sign to get a closer look...
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(unfold)] the sign to show it off to [npc2.name], who [npc.verb(lean)] in to get a closer look...
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

@@ -34,6 +34,8 @@
 	This is only used for demons, and should always be left as 0 unless you know what you're doing. -->
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
 	
+	<nocturnality>CREPUSCULAR</nocturnality>
+	
 	<!-- Whether this race is of a small stature or not.
 	If set to true, then this race is limited to the game's smallest height categories (as is the case for imps). -->
 	<shortStature>false</shortStature>
@@ -47,10 +49,14 @@
 
 	<!-- Which LegConfiguration should be used, when that NPC is set to spawn as a taur. Optional. Defaults to QUADRUPEDAL -->
 	<taurSpawnLegConfiguration>TAIL_LONG</taurSpawnLegConfiguration>
+	
+	<!-- The affinity of the subspecies. Optional. Defaults to AMPHIBIOUS. -->
+	<!--<affinity>AMPHIBIOUS</affinity>-->
+	
 
-	<!-- Whether or not this is a subspecies which prefers to live in an aquatic environment.
-	If set to true, then this subspecies will have the positive & negative aquatic status effects applied to it when in a tile with and without access to water, respectively. -->
-	<aquatic>false</aquatic>
+	<!-- Whether or not this is a subspecies with either arm or back wings (optional).
+	If set to false (the default) and the NPC or player is winged it will be displayed as winged subspecies (e. g. winged hyena-boy). -->
+	<winged>true</winged>
 	
 	<!-- Any special changes which should be applied to a newly-spawned character of this subspecies.
 	This is applied *after* the parent race's 'applyRaceChanges' method.
@@ -72,15 +78,24 @@
 		#IF(targetedBody.getWingType()!=WING_TYPE_dsg_dragon_wingFeathered)
 			[#targetedBody.setWingType(WING_TYPE_dsg_dragon_wingFeathered)]
 		#ENDIF
-		#IF(targetedBody.getWingSizeValue() < targetedBody.getLegConfiguration().getMinimumWingSizeForFlight(targetedBody).getValue())
-			[#targetedBody.setWingSize(targetedBody.getLegConfiguration().getMinimumWingSizeForFlight(targetedBody).getValue())]
+		#IF(targetedBody.getWingSizeValue() < targetedBody.getMinimumWingSizeValueForFlight())
+			[#targetedBody.setWingSizeToMinimumWingSizeForFlight()]
 		#ENDIF
 		#IF(targetedBody.getHornType()!=HORN_TYPE_NONE)
 			[#targetedBody.setHornType(HORN_TYPE_NONE)]
 		#ENDIF
-		#IF(targetedBody.getTailType()!=TAIL_TYPE_dsg_dragon_tailFeathered && !targetedBody.isFeral() && targetedBody.getLegConfiguration()!=LEG_CONFIGURATION_TAIL_LONG)
-			[#targetedBody.setTailType(TAIL_TYPE_dsg_dragon_tailFeathered)]
-		#ELSEIF(targetedBody.getTailType()!=TAIL_TYPE_NONE && (targetedBody.isFeral() || targetedBody.getLegConfiguration()==LEG_CONFIGURATION_TAIL_LONG))
+		#IF(!targetedBody.isFeral() && !targetedBody.getLegConfiguration().isOneOf(
+			LEG_CONFIGURATION_TAIL_LONG,
+			LEG_CONFIGURATION_BIPEDAL
+		))
+			[#targetedBody.applyLegConfigurationTransformation(LEG_TYPE_dsg_dragon_leg, LEG_CONFIGURATION_TAIL_LONG, true)]
+		#ENDIF
+		#IF(!targetedBody.isFeralOrHasLegConfiguration(LEG_CONFIGURATION_TAIL_LONG))
+			[#targetedBody.setTailType(targetedBody.randomTypeFrom(
+				TAIL_TYPE_dsg_dragon_tailFeathered,
+				TAIL_TYPE_dsg_dragon_tail
+			))]
+		#ELSE
 			[#targetedBody.setTailType(TAIL_TYPE_NONE)]
 		#ENDIF
 	]]></applySubspeciesChanges>
@@ -92,12 +107,20 @@
 	The race of the body that's being checked SHOULD NOT be accessed via targetedBody.getRace(), and should instead be accessed via using 'targetedRace'. -->
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_dsg_dragon && 
-		targetedBody.hasTongueModifier(TONGUE_MODIFIER_BIFURCATED) &&
-		targetedBody.getHairType()==HAIR_TYPE_dsg_dragon_hairFeathers &&
-		targetedBody.getHornType()==HORN_TYPE_NONE &&
-		(((targetedBody.getTailType()==TAIL_TYPE_dsg_dragon_tail || targetedBody.getTailType()==TAIL_TYPE_dsg_dragon_tailFeathered) && !targetedBody.isFeral() && targetedBody.getLegConfiguration()!=LEG_CONFIGURATION_TAIL_LONG) ||
-		(targetedBody.getTailType()==TAIL_TYPE_NONE && (targetedBody.isFeral() || targetedBody.getLegConfiguration()==LEG_CONFIGURATION_TAIL_LONG))) &&
-		targetedBody.getWingType()==WING_TYPE_dsg_dragon_wingFeathered)
+			targetedBody.hasTongueModifier(TONGUE_MODIFIER_BIFURCATED) &&
+			targetedBody.getHairType()==HAIR_TYPE_dsg_dragon_hairFeathers &&
+			targetedBody.getHornType()==HORN_TYPE_NONE &&
+			targetedBody.getWingType()==WING_TYPE_dsg_dragon_wingFeathered &&
+			(
+				(
+					targetedBody.getTailType().isOneOf(TAIL_TYPE_dsg_dragon_tail, TAIL_TYPE_dsg_dragon_tailFeathered) &&
+					!targetedBody.isFeralOrHasLegConfiguration(LEG_CONFIGURATION_TAIL_LONG)
+				) || (
+					targetedBody.getTailType()==TAIL_TYPE_NONE &&
+					targetedBody.isFeralOrHasLegConfiguration(LEG_CONFIGURATION_TAIL_LONG)
+				)
+			)
+		)
 			200
 		#ELSE
 			0
@@ -145,6 +168,14 @@
 			<pluralMaleName><![CDATA[coatl-boys]]></pluralMaleName>
 			<pluralFemaleName><![CDATA[coatl-girls]]></pluralFemaleName>
 		</namesDefault>
+		<names legConfiguration="TAIL_LONG">
+			<name><![CDATA[coatl-morph]]></name>
+			<namePlural><![CDATA[coatl-morphs]]></namePlural>
+			<singularMaleName><![CDATA[coatl-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[coatl-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[coatl-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[coatl-girls]]></pluralFemaleName>
+		</names>
 	</nameAnthro>
 	
 	<!-- A brief description and identification requirements of this subspecies. -->
@@ -159,6 +190,14 @@
 			<pluralMaleName><![CDATA[quetzalcoatls]]></pluralMaleName>
 			<pluralFemaleName><![CDATA[quetzalcoatls]]></pluralFemaleName>
 		</namesDefault>
+		<names legConfiguration="TAIL_LONG">
+			<name><![CDATA[quetzalcoatl]]></name>
+			<namePlural><![CDATA[quetzalcoatls]]></namePlural>
+			<singularMaleName><![CDATA[quetzalcoatl]]></singularMaleName>
+			<singularFemaleName><![CDATA[quetzalcoatl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[quetzalcoatls]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[quetzalcoatls]]></pluralFemaleName>
+		</names>
 	</nameHalfDemon>
 	
 	<!-- Attributes related to this subspecies when in a feral form. -->

@@ -47,6 +47,22 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="OUTSIDE_LIGHTS_OUT"><![CDATA[
+	<p>
+		[style.boldYellow(Lights Out)]
+		<br/>
+		A neon sign reading 'Lights Out' is positioned above a short, steep staircase that leads down to a basement bar. A second neon sign declares that the bar's opening hours are from
+		#IF(game.isHourBetween(18, 4))
+			 [style.colourMinorGood([unit.time(18)]-[unit.time(4)])], and as such the bar is currently [style.colourGood(open)].
+		#ELSE
+			 [style.colourMinorBad([unit.time(18)]-[unit.time(4)])], and as such the bar is currently [style.colourBad(closed)].
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Interior: -->
+	
 	<htmlContent tag="WATERING_HOLE_ENTRANCE"><![CDATA[
 	<p>
 		Walking up to the entrance of the club, you push the front door open and step inside. As it swings shut behind you, you find yourself standing in a large, well-lit entrance hall, and before you, a winding queue leads up to a pair of white doors. The walls have been decorated with savannah-themed murals, which, combined with the club's name 'The Watering Hole', as well as the pair of imposing zebra-boy bouncers standing guard at the front of the queue, gives the club an African theme.
@@ -1693,7 +1709,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_TOILETS"><![CDATA[
 	<p>
-		The club's toilets are far larger and cleaner than those of a typical nightclub, with at least twenty individual stalls running down one wall. Opposite the stalls, sinks and mirrors provide a place for the club's revellers to clean themselves.
+		The club's toilets are far larger and cleaner than those of a typical nightclub, with at least twenty individual stalls running down one wall. Opposite the stalls, sinks and mirrors provide a place for the club's revellers to clean themselves, while plastered over the far wall there are a few dozen posters.
 	</p>
 	<p>
 		As you walk past one of the open stalls, you see that someone's cut glory holes in the walls to either side, and obscene writing is scrawled beside each one. From the splatters of cum on the floor, you can tell that this stall sees regular use...
@@ -1937,6 +1953,28 @@
 	</p>
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_POSTERS"><![CDATA[
+	<p>
+		[pc.Walking] over to the far side of the room, you stop and take a look at the posters which are plastered all over the wall. Most of them are of a promotional nature, and display images of music bands, the newest cosmetic and clothing brands, or different types of food and drink.
+	</p>
+	<p>
+		A few of these posters have a more sinister nature, however, and you see that they're displaying mug shots of dangerous-looking criminals. Wanted for crimes ranging from robbery and #IF(game.isNonConEnabled())rape#ELSEassault#ENDIF to kidnapping and sedition, the posters promise that these criminals will be caught eventually, and anyone caught aiding them will join them in a punishment of lifetime enslavement.
+	</p>
+	<p>
+		The final poster of any note displays an idyllic scene of a happy family living in the countryside. The writing beneath promises a better life for anyone willing to leave Dominion and take the voyage over the 'Endless Sea' to the land beyond.
+		#IF(game.isPlotDiscovered())
+			 Knowing that this land must be mainland Europe, you can't help but doubt that the emigrating citizens of Dominion will have a life there similar to the one shown on the poster.
+		#ELSE
+			 Taking another look at the scene displayed upon the poster, you can't help but wonder what this promised land is like in reality.
+		#ENDIF
+	</p>
+	<p>
+		Having seen all there is, you [pc.step] away from the posters and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	<htmlContent tag="AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME"><![CDATA[
 	<p>
@@ -2261,6 +2299,67 @@
 	</p>
 	<p>
 		[pc.speech(Yeah, that sounds good,)] you reply, before spending the next few minutes talking with [npc.name], allowing [npc.herHim] to take the lead in conversation. It very quickly becomes apparent that [npc.she] wants to show you a good time this evening, and, leading [npc.herHim] on, you wonder where [npc.she]'ll take you first...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_LEAVES"><![CDATA[
+	<p>
+		Letting out a frustrated sigh, [npc.name] [npc.steps] away from you and says,
+		#IF(npc.isKind())
+			[npc.speech(This really isn't working out. I think I'm going to leave now...)]
+		#ELSE
+			#IF(npc.isSelfish())
+				[npc.speech(You're being a real cunt. Fuck this, I'm off.)]
+			#ELSE
+				[npc.speech(This isn't working out. I'm off.)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		As the [npc.race] turns and starts to head off into the club, you wonder how to respond...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_LEAVES_SAVE_CLUBBER"><![CDATA[
+	<p>
+		Not wanting this to be the end of your relation with [npc.name], you quickly say that despite how the evening has gone, you hope to see [npc.herHim] again.
+	</p>
+	<p>
+		#IF(npc.isKind())
+			[npc.speech(Fine... I guess I could meet up with you here again some other time... See you later,)] [npc.name] sighs, before continuing forwards and taking [npc.her] leave.
+		#ELSE
+			#IF(npc.isSelfish())
+				[npc.speech(Really? After all the shit you just pulled? You'd better not be such a drag the next time we're doing this,)] [npc.name] bluntly responds, before abruptly turning and taking [npc.her] leave.
+			#ELSE
+				[npc.speech(Really? Well, I guess we could give it another go. I'll catch you around some other time,)] [npc.name] responds, before continuing forwards and taking [npc.her] leave.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Now that you're alone once more, you wonder what you should do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_LEAVES_LOSE_COMPANY"><![CDATA[
+	<p>
+		Feeling as though you've had enough of [npc.namePos] company to last a lifetime, you call out after [npc.herHim] that you don't ever want to see [npc.herHim] again.
+	</p>
+	<p>
+		#IF(npc.isKind())
+			[npc.speech(That suits me. Bye, [pc.name],)] [npc.name] unhappily responds, before continuing forwards and taking [npc.her] leave.
+		#ELSE
+			#IF(npc.isSelfish())
+				[npc.speech(Yeah, fuck you too, [pc.bitch]. Have fun getting fucked by one of your other cunt friends,)] [npc.name] rudely responds, before storming off to another part of the club.
+			#ELSE
+				[npc.speech(The feeling's mutual,)] [npc.name] dismissively responds, before continuing forwards and taking [npc.her] leave.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Now that you're alone once more, you wonder what you should do next...
 	</p>
 	]]>
 	</htmlContent>

@@ -393,12 +393,14 @@ public class Lab {
 				&& Main.game.getPlayer().getClothingCurrentlyEquipped().stream().anyMatch(c -> c.isSealed())) {
 			generatedResponses.add(new Response("Sealed problem",
 					"Tell Lilaya that you have some enchanted clothing sealed onto you, and that due to another enchantment on some of your clothing, you cannot remove it."
-							+ "<br/>[style.italicsMinorGood(Lilaya will unseal all your clothing!)]",
+							+ "<br/>[style.italicsMinorGood(Lilaya will remove the 'servitude' enchantment from all of your clothing!)]",
 						LAB_JINX_REMOVAL){
 				@Override
 				public void effects() {
 					for(AbstractClothing clothing : new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped())) {
-						clothing.setSealed(false);
+						if(clothing.isSelfTransformationInhibiting()) {
+							clothing.removeServitudeEnchantment();
+						}
 					}
 				}
 			});
@@ -1299,8 +1301,9 @@ public class Lab {
 							Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_B_DEMON_HOME);
 							((Arthur) Main.game.getNpc(Arthur.class)).generateNewTile();
 						}
-						if (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.reactedToPregnancyLilaya))
+						if (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.reactedToPregnancyLilaya)) {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.reactedToPregnancyLilaya, true);
+						}
 					}
 				};
 
@@ -1329,8 +1332,9 @@ public class Lab {
 						AUNT_HOME_LABORATORY_TESTING_HORNY_LILAYA){
 					@Override
 					public void effects() {
-						if (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.reactedToPregnancyLilaya))
+						if (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.reactedToPregnancyLilaya)) {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.reactedToPregnancyLilaya, true);
+						}
 					}
 				};
 

@@ -13,6 +13,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -45,8 +46,10 @@ import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
+ * This NPC doesn't spawn with addictive fluids so as to prevent issues with randomly getting their partners addicted to fluids.
+ * 
  * @since 0.2.2
- * @version 0.4.1
+ * @version 0.4.8.4
  * @author Innoxia
  */
 public class GenericSexualPartner extends NPC {
@@ -126,6 +129,11 @@ public class GenericSexualPartner extends NPC {
 			// BODY RANDOMISATION:
 			
 			Main.game.getCharacterUtils().randomiseBody(this, true);
+			// Do not allow addictive fluids:
+			this.removeMilkCrotchModifier(FluidModifier.ADDICTIVE);
+			this.removeMilkModifier(FluidModifier.ADDICTIVE);
+			this.removeCumModifier(FluidModifier.ADDICTIVE);
+			this.removeGirlcumModifier(FluidModifier.ADDICTIVE);
 			
 			// INVENTORY:
 			
@@ -331,7 +339,8 @@ public class GenericSexualPartner extends NPC {
 	
 	@Override
 	public String getSpecialPlayerPureVirginityLoss(GameCharacter penetratingCharacter, SexAreaPenetration penetrating) {
-		return "<p style='text-align:center;'>"
+		return UtilText.parse(penetratingCharacter,
+				"<p style='text-align:center;'>"
 					+ "<b style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
 				+ "</p>"
 				+ "<p>"
@@ -343,22 +352,26 @@ public class GenericSexualPartner extends NPC {
 				+ "</p>"
 				+ "<p>"
 					+ "You don't know what's worse, losing the virginity that you prized so highly, or the fact that you're actually enjoying it."
-					+ " As your [pc.labia+] spread lewdly around the hot, thick [npc.cock] pumping in and out of you, you start convincing yourself that this is all you're good for."
+					+ " As your [pc.labia+] spread lewdly around the "
+					+ (penetrating==SexAreaPenetration.PENIS
+						?"hot, thick [npc.cock]"
+						:penetrating.getName(penetratingCharacter))
+					+ " that's pumping in and out of you, you start convincing yourself that this is all you're good for."
 				+ "</p>"
 				+ "<p style='text-align:center;'>"
 				+ UtilText.parsePlayerThought("If I'm not a virgin, that makes me a slut...<br/>"
-						+ "Just a slut to be fucked and pumped full of cum...<br/>"
-						+ "If this [npc.race] doesn't knock me up, I hope one of the other breeders makes me a Mommy...")
+						+ "Just a slut to be fucked by whoever wants to use me...<br/>"
+						+ "After this [npc.race] is done with me, I bet it won't be long before I'm fucked by someone else...")
 				+ "</p>"
 				+ "<p>"
-					+ "You're vaguely aware of [npc.namePos] taunts fading away as [npc.she] starts to focus [npc.her] attention on fucking you."
-					+ " With a desperate moan,"
+					+ "You're vaguely aware of [npc.name] [npc.moaning] in triumphant pleasure as [npc.she] realises that [npc.sheHas] just taken your virginity."
+					+ " With a desperate [pc.moan],"
 					+ (Main.game.getPlayer().hasLegs()
 						?" you spread your legs and"
 						:" you")
 					+ " resign yourself to the fact that you're now nothing more than a"
 					+ " <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
-				+ "</p>";
+				+ "</p>");
 	}
 	
 }

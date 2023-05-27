@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaSpa;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -33,6 +34,7 @@ import com.lilithsthrone.utils.time.DateAndTime;
 import com.lilithsthrone.utils.time.SolarElevationAngle;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
+import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.2.10
@@ -56,8 +58,7 @@ public class OccupantDialogue {
 		
 		if(isApartment) {
 			CompanionManagement.initManagement(OCCUPANT_APARTMENT, 2, targetedOccupant);
-			
-		} else if(targetedOccupant.isAtHome()) {
+		} else if(targetedOccupant.isAtWork() || targetedOccupant.isAtHome()) {
 			CompanionManagement.initManagement(OCCUPANT_START, 2, targetedOccupant);
 		}
 		
@@ -152,7 +153,11 @@ public class OccupantDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_START", occupant()));
+			if(Main.game.getPlayer().getLocationPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_GUEST_ROOM)) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_START", occupant()));
+			} else {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile(getTextFilePath(), "OCCUPANT_WORKING", occupant()));
+			}
 			
 			if(occupant().isVisiblyPregnant()) {
 				if(!occupant().isCharacterReactedToPregnancy(Main.game.getPlayer())) {
@@ -353,6 +358,26 @@ public class OccupantDialogue {
 					} else {
 						return new Response("Pettings", UtilText.parse(occupant(), "You've already given [npc.name] some pettings today."), null);
 					}
+					
+				} else if(index==8 && Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(PlaceType.LILAYA_HOME_SPA)!=null) {
+					if(!LilayaSpa.isGuestAbleToEquipSwimwear(occupant())) {
+						return new Response("Invite to spa",
+								UtilText.parse(occupant(), "As [npc.name] is unable to equip swimwear, [npc.she] cannot go to the spa..."
+									+ "<br/><i>Unsealing [npc.her] clothing would fix this...</i>"),
+								null);
+					}
+					return new Response("Invite to spa",
+							UtilText.parse(occupant(),
+									"Ask [npc.name] if [npc.she] would like to accompany you to the spa that you've had built here in Lilaya's mansion."
+									+ "<br/>[style.italicsBlueLight(You'll remain in the clothes you're currently wearing, so if you want to wear suitable swimwear, now's the time to change!)]"),
+							LilayaSpa.SPA_GUEST_INVITE) {
+						@Override
+						public void effects() {
+							applyReactionReset();
+							LilayaSpa.initGuestAtSpa(occupant());
+							Main.game.getDialogueFlags().setManagementCompanion(null);
+						}
+					};
 					
 				} else if (index == 10) {
 					if(hasJob()) {
@@ -1444,7 +1469,7 @@ public class OccupantDialogue {
 			if(responseTab == 0) {
 				if (index == 1) {
 					if(!occupant().NPCFlagValues.contains(NPCFlagValue.occupantTalkLife)) {
-						return new Response("Life", "Ask [npc.name] about [npc.her] past life.", OCCUPANT_APARTMENT_TALK_LIFE) {
+						return new Response("Life", UtilText.parse(occupant(), "Ask [npc.name] about [npc.her] past life."), OCCUPANT_APARTMENT_TALK_LIFE) {
 							@Override
 							public void effects() {
 								applyReactionReset();
@@ -1454,7 +1479,7 @@ public class OccupantDialogue {
 						};
 						
 					} else {
-						return new Response("Life", "You've already talked with [npc.name] about [npc.her] past life today.", null);
+						return new Response("Life", UtilText.parse(occupant(), "You've already talked with [npc.name] about [npc.her] past life today."), null);
 					}
 					
 				} else if (index == 2) {
@@ -1478,7 +1503,7 @@ public class OccupantDialogue {
 				}
 				else if (index == 3) {
 					return new Response("Rest",
-							"Ask [npc.name] if you can crash on [npc.her] sofa for four hours."
+							UtilText.parse(occupant(), "Ask [npc.name] if you can crash on [npc.her] sofa for four hours.")
 							+ " As well as replenishing your "+Attribute.HEALTH_MAXIMUM.getName()+" and "+Attribute.MANA_MAXIMUM.getName()+", you will also get the 'Well Rested' status effect.",
 							OCCUPANT_APARTMENT_SLEEP_OVER){
 						@Override
@@ -1492,7 +1517,8 @@ public class OccupantDialogue {
 					int timeUntilChange = Main.game.getMinutesUntilNextMorningOrEvening() + 5; // Add 5 minutes so that if the days are drawing in, you don't get stuck in a loop of always sleeping to sunset/sunrise
 					LocalDateTime[] sunriseSunset = DateAndTime.getTimeOfSolarElevationChange(Main.game.getDateNow(), SolarElevationAngle.SUN_ALTITUDE_SUNRISE_SUNSET, Game.DOMINION_LATITUDE, Game.DOMINION_LONGITUDE);
 					return new Response("Rest until " + (Main.game.isDayTime() ? "Sunset" : "Sunrise"),
-							"Ask [npc.name] if you can crash on [npc.her] sofa for " + (timeUntilChange >= 60 ?timeUntilChange / 60 + " hours " : " ")
+							UtilText.parse(occupant(), "Ask [npc.name] if you can crash on [npc.her] sofa for ")
+								+ (timeUntilChange >= 60 ?timeUntilChange / 60 + " hours " : " ")
 								+ (timeUntilChange % 60 != 0 ? timeUntilChange % 60 + " minutes" : "")
 								+ (Main.game.isDayTime()
 										? " until five minutes past sunset ("+Units.time(sunriseSunset[1].plusMinutes(5))+")."

@@ -79,6 +79,9 @@ public class OptionsDialogue {
 		@Override
 		public String getContent(){
 			return "<h1 class='special-text' style='font-size:48px; line-height:52px; text-align:center;'>"+Main.GAME_NAME+"</h1>"
+					+ (Main.game.isSillyMode()
+						?"<p class='special-text' style='text-align:center; margin:0 0; padding:0 0;'><i>Or, I can't believe I fell into a magic mirror and entered a world in which my aunt is a demon?!</i></p>"
+						:"")
 					+ "<h5 class='special-text' style='text-align:center;'>Created by "+Main.AUTHOR+"</h5>"
 					+ "<br/>"
 					+ "<p>"
@@ -86,6 +89,7 @@ public class OptionsDialogue {
 					+ "</p>"
 					+"<p>"
 						+ "You can visit my blog (https://lilithsthrone.blogspot.co.uk) to check on development progress (use the 'Blog' button below to open the blog in your default browser)."
+						+ " [style.italicsMinorBad(<b>Note:</b> Intrusive age verification is being rolled out on blogspot, so I will likely create a new blog soon.)]"
 					+ "</p>"
 					+ "<p style='text-align:center'>"
 						+ "<b>Please use either my blog or github to get the latest official version of Lilith's Throne!</b>"
@@ -1445,26 +1449,24 @@ public class OptionsDialogue {
 		
 		for(FetishPreference preference : FetishPreference.values()) {
 			String disabledMsg=null;
-			if(!Main.game.isPenetrationLimitationsEnabled() && fetish == Fetish.FETISH_SIZE_QUEEN) {
-				disabledMsg="Penetrative size-difference";
-			}
-			if(!Main.game.isNonConEnabled() && (fetish == Fetish.FETISH_NON_CON_DOM || fetish == Fetish.FETISH_NON_CON_SUB)) {
-				disabledMsg="Non-consent";
-			}
-			if(!Main.game.isIncestEnabled() && fetish == Fetish.FETISH_INCEST) {
-				disabledMsg="Incest";
-			}
-			if(!Main.game.isLactationContentEnabled() && (fetish == Fetish.FETISH_LACTATION_OTHERS || fetish == Fetish.FETISH_LACTATION_SELF)) {
-				disabledMsg="Lactation";
-			}
-			if(!Main.game.isAnalContentEnabled() && (fetish == Fetish.FETISH_ANAL_GIVING || fetish == Fetish.FETISH_ANAL_RECEIVING)) {
-				disabledMsg="Anal Content";
-			}
-			if(!Main.game.isFootContentEnabled() && (fetish == Fetish.FETISH_FOOT_GIVING || fetish == Fetish.FETISH_FOOT_RECEIVING)) {
-				disabledMsg="Foot Content";
-			}
-			if(!Main.game.isArmpitContentEnabled() && (fetish == Fetish.FETISH_ARMPIT_GIVING || fetish == Fetish.FETISH_ARMPIT_RECEIVING)) {
-				disabledMsg="Armpit Content";
+			if(!fetish.isContentEnabled()) {
+				if (Fetish.FETISH_SIZE_QUEEN.equals(fetish)) {
+					disabledMsg = "Penetrative size-difference";
+				} else if (Fetish.FETISH_NON_CON_DOM.equals(fetish) || Fetish.FETISH_NON_CON_SUB.equals(fetish)) {
+					disabledMsg = "Non-consent";
+				} else if (Fetish.FETISH_INCEST.equals(fetish)) {
+					disabledMsg = "Incest";
+				} else if (Fetish.FETISH_LACTATION_SELF.equals(fetish) || Fetish.FETISH_LACTATION_OTHERS.equals(fetish)) {
+					disabledMsg = "Lactation";
+				} else if (Fetish.FETISH_ANAL_RECEIVING.equals(fetish) || Fetish.FETISH_ANAL_GIVING.equals(fetish)) {
+					disabledMsg = "Anal Content";
+				} else if (Fetish.FETISH_FOOT_RECEIVING.equals(fetish) || Fetish.FETISH_FOOT_GIVING.equals(fetish)) {
+					disabledMsg = "Foot Content";
+				} else if (Fetish.FETISH_ARMPIT_RECEIVING.equals(fetish) || Fetish.FETISH_ARMPIT_GIVING.equals(fetish)) {
+					disabledMsg = "Armpit Content";
+				} else {
+					disabledMsg = "Unspecified Content";
+				}
 			}
 			if(disabledMsg!=null) {
 				// Disabled fetishes to default, the fetish won't be a valid option for the generator anyway
@@ -1472,7 +1474,9 @@ public class OptionsDialogue {
 				sb.append("<div style='display:inline-block;'><span class='option-disabled'>Fetish forcibly disabled due to "+disabledMsg+" setting!</span></div>");
 				break;
 			} else {
-				sb.append("<div id='"+preference+"_"+Fetish.getIdFromFetish(fetish)+"' class='preference-button"+(Main.getProperties().fetishPreferencesMap.get(fetish)==preference.getValue()?" selected":"")+"'>"
+				sb.append("<div id='"+preference+"_"+Fetish.getIdFromFetish(fetish)+"' class='preference-button"+(Main.getProperties().fetishPreferencesMap.get(fetish)==preference.getValue()?" selected":"")+"'"
+						+ " style='width:70px;'"
+						+ ">"
 							+Util.capitaliseSentence(preference.getName())
 						+"</div>");
 			}
@@ -2524,6 +2528,26 @@ public class OptionsDialogue {
 					"Opportunistic attackers",
 					"This makes random attacks more likely when you're high on lust, low on health, covered in fluids, exposed, or drunk.",
 					Main.game.isOpportunisticAttackersEnabled()));
+			UtilText.nodeContentSB.append(getContentPreferenceDiv("OFFSPRING_ENCOUNTERS",
+					PresetColour.BASE_INDIGO,
+					"Offspring Encounters",
+					"This enables you to randomly encounter your offspring throught the world."
+					+ "<br/><i>This setting has no effect on the Offspring Map, nor on offspring who you've already met.</i>",
+					Main.game.isOffspringEncountersEnabled()));
+			
+			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_BLUE_LIGHT, "Clothing Femininity", "This sets the limitations of clothings' femininity values."));
+			for (int i=Main.getProperties().clothingFemininityTitles.length-1; i>=0; i--) {
+				if (Main.getProperties().getClothingFemininityLevel() == i) {
+					UtilText.nodeContentSB.append("<div id='CLOTHING_FEMININITY_"+i
+							+"' class='normal-button selected' style='width:31%; margin:1%; text-align:center; float:right; color:"
+							+Main.getProperties().clothingFemininityColours[i].toWebHexString()+";'><b>"+Main.getProperties().clothingFemininityTitles[i]+"</b></div>");
+				} else {
+					UtilText.nodeContentSB.append("<div id='CLOTHING_FEMININITY_"+i
+							+"' class='normal-button' style='width:31%; margin:1%; text-align:center; float:right;'>"
+							+"[style.colourDisabled("+Main.getProperties().clothingFemininityTitles[i]+")]</div>");
+				}
+			}
+			UtilText.nodeContentSB.append("</div></div>");
 			
 			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_PINK, "Sex action bypass", "If this is enabled, sex action corruption requirements may be bypassed."));
 			for (int i = 2; i>=0; i--) {
@@ -2689,7 +2713,7 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("INCEST",
 					PresetColour.BASE_ROSE,
 					"Incest",
-					"This will enable sexual actions with all of your blood-relatives.",
+					"This will enable sexual actions between characters who are related to one another.",
 					Main.getProperties().hasValue(PropertyValue.incestContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("LACTATION",
@@ -2697,10 +2721,10 @@ public class OptionsDialogue {
 					"Lactation",
 					"This enables lactation content.",
 					Main.getProperties().hasValue(PropertyValue.lactationContent)));
-
+			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("SEXUAL_UDDERS",
 					PresetColour.BASE_ORANGE_LIGHT,
-					"Crotch-boob & Udder Content",
+					"Crotch-boob & udder content",
 					"This enables crotch-boob & udder-related sex actions and allows crotch-boob & udder transformations to be inflicted upon the player.",
 					Main.getProperties().hasValue(PropertyValue.udderContent)));
 			
@@ -2712,19 +2736,19 @@ public class OptionsDialogue {
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("NIPPLE_PEN",
 					PresetColour.BASE_PINK_DEEP,
-					"Nipple Penetrations",
+					"Nipple penetrations",
 					"This enables nipple-penetration transformations and sex actions.",
 					Main.getProperties().hasValue(PropertyValue.nipplePenContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("ANAL",
 					PresetColour.BASE_ORANGE,
-					"Anal Content",
+					"Anal content",
 					"When disabled, removes all anal-related actions from being available during sex.",
 					Main.getProperties().hasValue(PropertyValue.analContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("GAPE",
 					PresetColour.BASE_PINK_DEEP,
-					"Gape Content",
+					"Gape content",
 					"When disabled, changes descriptions of gaping orifices to simply be 'loose', and also hides any special gape-related content.",
 					Main.getProperties().hasValue(PropertyValue.gapeContent)));
 			
@@ -2743,15 +2767,21 @@ public class OptionsDialogue {
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("FOOT",
 					PresetColour.BASE_TAN,
-					"Foot Content",
+					"Foot content",
 					"When disabled, removes all foot-related actions from being available during sex.",
 					Main.getProperties().hasValue(PropertyValue.footContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("ARMPIT",
 					PresetColour.BASE_PINK_LIGHT,
-					"Armpit Content",
+					"Armpit content",
 					"When disabled, removes all armpit-related actions from being available during sex.",
 					Main.getProperties().hasValue(PropertyValue.armpitContent)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv("MUSK",
+					PresetColour.BASE_YELLOW_LIGHT,
+					"Musk content",
+					"When disabled, some scenes will either have reduced musk content or be omitted entirely, and the 'marked by musk' status effect will be disabled.",
+					Main.getProperties().hasValue(PropertyValue.muskContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("FURRY_TAIL_PENETRATION",
 					PresetColour.BASE_MAGENTA,
@@ -2761,7 +2791,7 @@ public class OptionsDialogue {
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("INFLATION_CONTENT",
 					PresetColour.CUM,
-					"Cum Inflation",
+					"Cum inflation",
 					"This enables cum inflation mechanics.",
 					Main.getProperties().hasValue(PropertyValue.inflationContent)));
 			
@@ -2774,8 +2804,14 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("AUTO_SEX_CLOTHING_STRIP",
 					PresetColour.BASE_PINK_LIGHT,
 					"Automatic stripping",
-					"When enabled, all characters which you are allowed to strip during sex (including yourself) will start sex naked.",
+					"When enabled, all non-spectating characters which you are allowed to strip during sex (including yourself) will start sex naked.",
 					Main.getProperties().hasValue(PropertyValue.autoSexStrip)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv("RAPE_PLAY_BY_DEFAULT",
+					PresetColour.BASE_CRIMSON,
+					"Rape-play allowed by default",
+					"When enabled, submissive characters in sex who have the 'unwilling fuck-toy' fetish will be able to engage in rape-play without first being given permission to do so.",
+					Main.getProperties().hasValue(PropertyValue.rapePlayAtSexStart)));
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -2838,17 +2874,22 @@ public class OptionsDialogue {
 			
 			
 			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.NIPPLES, "Multi-breasts", "Choose whether randomly-generated furry characters should be given multiple rows of breasts."));
-			for (int i = 2; i>=0; i--) {
+			int[] buttonOrder = new int[] {2, 1, 0, 3}; // Order buttons in this manner so that they appear to be a little more logical
+			for (int i : buttonOrder) {
 				UtilText.nodeContentSB.append("<div id='MULTI_BREAST_PREFERENCE_"+i+"' class='normal-button"+(Main.getProperties().multiBreasts == i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
 						+(Main.getProperties().multiBreasts == i
-						?(i == 0?"[style.boldBad(":"[style.boldGood(")
-						:"[style.colourDisabled(")
+							?(i == 0
+								?"[style.boldTerrible("
+								:(i == 1
+									?"[style.boldBad("
+									:"[style.boldGood("))
+							:"[style.colourDisabled(")
 						+com.lilithsthrone.game.Properties.multiBreastsLabels[i]+")]</div>");
 			}
 			UtilText.nodeContentSB.append("</div></div>");
 			
 			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.NIPPLES_CROTCH, "Crotch-boobs & Udders", "Choose whether randomly-generated taurs and furry characters should be given udders or crotch-boobs."));
-			for (int i = 2; i>=0; i--) {
+			for (int i = com.lilithsthrone.game.Properties.uddersLabels.length-1; i>=0; i--) {
 				UtilText.nodeContentSB.append("<div id='UDDER_PREFERENCE_"+i+"' class='normal-button"+(Main.getProperties().getUddersLevel() == i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
 						+(Main.getProperties().getUddersLevel() == i
 						?(i == 0?"[style.boldBad(":"[style.boldGood(")

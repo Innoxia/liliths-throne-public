@@ -59,7 +59,7 @@
 		#IF(nizhoni.isVisiblyPregnant())
 			#IF(!nizhoni.isCharacterReactedToPregnancy(pc))
 				<p>
-					Noticing your approach, Nizhoni turns to face you, and you see her hazel eyes light up as she recognises you. Pointedly rubbing her hands down over her visibly-swollen belly, she calls out, [nizhoni.speech(Heya, [pc.name]! Look! Stuffing my pussy has consequences, you know!)]
+					Noticing your approach, Nizhoni turns to face you, and you see her hazel eyes light up as she recognises you. Pointedly rubbing her hands down over her visibly-swollen [style.colourSex(pregnant belly)], she calls out, [nizhoni.speech(Heya, [pc.name]! Look! Stuffing my pussy has consequences, you know!)]
 				</p>
 				<p>
 					Looking down at the raccoon-girl's pregnant belly, you ask her if she's sure that it was you who got her pregnant. Letting out a good-natured laugh, she replies, [nizhoni.speech(It's not like I've got people queuing up to fuck me, you know? You're the only one I've had sex with recently.)]
@@ -69,7 +69,7 @@
 				</p>
 			#ELSE
 				<p>
-					Noticing your approach, Nizhoni turns to face you, and you see her hazel eyes light up as she recognises you. Pointedly rubbing her hands down over her visibly-swollen belly, she calls out, [nizhoni.speech(Heya, [pc.name]! Look; I'm still carrying our kids around!)]
+					Noticing your approach, Nizhoni turns to face you, and you see her hazel eyes light up as she recognises you. Pointedly rubbing her hands down over her visibly-swollen [style.colourSex(pregnant belly)], she calls out, [nizhoni.speech(Heya, [pc.name]! Look; I'm still carrying our kids around!)]
 				</p>
 				<p>
 					Looking down at the raccoon-girl's pregnant belly, you ask her if there's anything you can do to help her through her pregnancy. Letting out a good-natured laugh, she waves her hand and dismissively replies, [nizhoni.speech(Nah, I don't need anything. Now, what can I do for you today?)]
@@ -268,40 +268,97 @@
 	</htmlContent>
 	
 	<htmlContent tag="NIZHONI_BINS_ORAL_START"><![CDATA[
-	<p>
-		Unable to resist Nizhoni's musky, dark-lipped pussy, you [pc.step] forwards and drop down behind her, before leaning in and giving her hot cunt a big, wet kiss. Squealing in delight, the chubby raccoon-girl pushes her hips back into your face, completely drowning you in her heady, feminine musk as she squeals, [nizhoni.speech(Oh, [pc.name]! ~Mmm!~ How naughty... Please, keep going...)]
-	</p>
-	<p>
-		Doing as she asks, you reach up and take hold of Nizhoni's thighs, before pushing her legs apart and burying your face in her smelly, hot cunt. Planting kiss after kiss on her [nizhoni.labia+], you dart out your [pc.tongue+] and start greedily eating her out. With her upper-half still bent down into the big metal bin, Nizhoni's cries echo around a little as she moans, [nizhoni.speech(~Ooh!~ Yes! You really like the taste of my pussy? ~Mmm!~ Please, don't stop!)]
-	</p>
-	<p>
-		Despite the fact that her cunt tastes just as musky and sour as it smells, you find yourself unable to pull away from it, and with the raccoon-girl continuing to moan and squeal into the bin, you passionately eat her out...
-	</p>
+	#IF(nizhoni.hasGirlcumModifier(FLUID_MODIFIER_MUSKY))
+		<p>
+			Unable to resist Nizhoni's musky, dark-lipped pussy, you [pc.step] forwards and drop down behind her, before leaning in and giving her hot cunt a big, wet kiss. Squealing in delight, the chubby raccoon-girl pushes her hips back into your face, completely drowning you in her heady, feminine musk as she squeals, [nizhoni.speech(Oh, [pc.name]! ~Mmm!~ How naughty... Please, keep going...)]
+		</p>
+		<p>
+			Doing as she asks, you reach up and take hold of Nizhoni's thighs, before pushing her legs apart and burying your face in her smelly, hot cunt. Planting kiss after kiss on her [nizhoni.labia+], you dart out your [pc.tongue+] and start greedily eating her out. With her upper-half still bent down into the big metal bin, Nizhoni's cries echo around a little as she moans, [nizhoni.speech(~Ooh!~ Yes! You really like the taste of my pussy? ~Mmm!~ Please, don't stop!)]
+		</p>
+		<p>
+			#IF(game.isMuskContentEnabled())
+				As you continue to passionately thrust your tongue into the [nizhoni.race]'s cunt, you realise that your face is getting well and truly soaked by her musky juices. Although you know that this is sure to leave you smelling strongly of her scent by the time you're done, you can't bring yourself to pull away from Nizhoni's pungent pussy. Finding that her musky, sour taste is madly turning you on, you continue passionately eating her out as she moans and squeals into the bin...
+			#ELSE
+				Despite the fact that her cunt tastes just as musky and sour as it smells, you find yourself unable to pull away from it, and with the raccoon-girl continuing to moan and squeal into the bin, you passionately eat her out...
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Unable to resist Nizhoni's freshly-cleaned pussy, you [pc.step] forwards and drop down behind her, before leaning in and giving her hot cunt a big, wet kiss. Squealing in delight, the chubby raccoon-girl pushes her hips back into your face and happily squeals, [nizhoni.speech(Oh, [pc.name]! ~Mmm!~ How naughty... Please, keep going...)]
+		</p>
+		<p>
+			Doing as she asks, you reach up and take hold of Nizhoni's thighs, before pushing her legs apart and burying your face in her hot cunt. Planting kiss after kiss on her [nizhoni.labia+], you dart out your [pc.tongue+] and start greedily eating her out. With her upper-half still bent down into the big metal bin, Nizhoni's cries echo around a little as she moans, [nizhoni.speech(~Ooh!~ Yes! You really like the taste of my pussy? ~Mmm!~ Please, don't stop!)]
+		</p>
+		<p>
+			Thanks to the fact that your '[#SPELL_SOOTHING_WATERS.getName()]' spell has thoroughly cleaned her hot, sexy cunt, you find yourself unable to pull away from it, and with the raccoon-girl continuing to moan and squeal into the bin, you passionately eat her out...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="NIZHONI_BINS_FUCK_START"><![CDATA[
-	<p>
-		Unable to resist Nizhoni's musky, dark-lipped pussy, you [pc.step] forwards and expose your [pc.cock+], before lining it up to her hot cunt and pressing your [pc.cockHead+] against her [nizhoni.labia+]. Squealing in delight, the chubby raccoon-girl looks back over her shoulder, and as you start to drown in her heady, feminine musk, she squeals, [nizhoni.speech(Oh, [pc.name]! ~Mmm!~ How naughty... Go on, stick it in...)]
-	</p>
-	<p>
-		Doing as she asks, you start to thrust forwards, sinking your [pc.cock+] into her smelly, hot cunt and causing her wet lips to spread out and squeeze down around your hard shaft. With her upper-half still bent down into the big metal bin, Nizhoni's cries echo around a little as she moans, [nizhoni.speech(~Ooh!~ Yes! You really liked the look of my pussy? ~Mmm!~ Please, don't stop! Give it to me!)]
-	</p>
-	<p>
-		Despite the fact that her smelly cunt is filling the air around you with the overpowering odour of her feminine musk, you find yourself unable to pull away, and with the raccoon-girl continuing to moan and squeal into the bin, you start desperately fucking her...
-	</p>
+	#IF(nizhoni.hasGirlcumModifier(FLUID_MODIFIER_MUSKY))
+		<p>
+			Unable to resist Nizhoni's musky, dark-lipped pussy, you [pc.step] forwards and expose your [pc.cock+], before lining it up to her hot cunt and pressing your [pc.cockHead+] against her [nizhoni.labia+]. Squealing in delight, the chubby raccoon-girl looks back over her shoulder, and as you start to drown in her heady, feminine musk, she squeals, [nizhoni.speech(Oh, [pc.name]! ~Mmm!~ How naughty... Go on, stick it in...)]
+		</p>
+		<p>
+			Doing as she asks, you start to thrust forwards, sinking your [pc.cock+] into her smelly, hot cunt and causing her wet lips to spread out and squeeze down around your hard shaft. With her upper-half still bent down into the big metal bin, Nizhoni's cries echo around a little as she moans, [nizhoni.speech(~Ooh!~ Yes! You really liked the look of my pussy? ~Mmm!~ Please, don't stop! Give it to me!)]
+		</p>
+		<p>
+			#IF(game.isMuskContentEnabled())
+				As you stuff your [pc.cock+] into the [nizhoni.race]'s cunt, you realise that your genitals are getting well and truly soaked by her musky juices. Although you know that this is sure to leave you smelling strongly of her scent by the time you're done, you can't bring yourself to pull away from Nizhoni's pungent pussy. Finding that the overpowering odour of her feminine musk is madly turning you on, you start desperately fucking her as she moans and squeals into the bin...
+			#ELSE
+				Despite the fact that her smelly cunt is filling the air around you with the overpowering odour of her feminine musk, you find yourself unable to pull away, and with the raccoon-girl continuing to moan and squeal into the bin, you start desperately fucking her...
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Unable to resist Nizhoni's freshly-cleaned pussy, you [pc.step] forwards and expose your [pc.cock+], before lining it up to her hot cunt and pressing your [pc.cockHead+] against her [nizhoni.labia+]. Squealing in delight, the chubby raccoon-girl looks back over her shoulder and happily squeals, [nizhoni.speech(Oh, [pc.name]! ~Mmm!~ How naughty... Go on, stick it in...)]
+		</p>
+		<p>
+			Doing as she asks, you start to thrust forwards, sinking your [pc.cock+] into her hot cunt and causing her wet lips to spread out and squeeze down around your hard shaft. With her upper-half still bent down into the big metal bin, Nizhoni's cries echo around a little as she moans, [nizhoni.speech(~Ooh!~ Yes! You really liked the look of my pussy? ~Mmm!~ Please, don't stop! Give it to me!)]
+		</p>
+		<p>
+			Thanks to the fact that your '[#SPELL_SOOTHING_WATERS.getName()]' spell has thoroughly cleaned her hot, sexy cunt, you find yourself giving in to your lust, and with the raccoon-girl continuing to moan and squeal into the bin, you start desperately fucking her...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="NIZHONI_BINS_FUCK_ASS_START"><![CDATA[
+	#IF(nizhoni.hasGirlcumModifier(FLUID_MODIFIER_MUSKY))
+		<p>
+			Unable to resist Nizhoni's dark-rimmed asshole, you [pc.step] forwards and expose your [pc.cock+], before lining it up to her rear entrance and pressing your [pc.cockHead+] against it. Squealing in delight, the chubby raccoon-girl looks back over her shoulder, and as you start to drown in her heady, feminine musk, she squeals, [nizhoni.speech(Oh, [pc.name]! ~Mmm!~ How naughty... Go on, stick it in...)]
+		</p>
+		<p>
+			Doing as she asks, you start to thrust forwards, sinking your [pc.cock+] into her back door and causing her asshole to spread out and squeeze down around your hard shaft. With her upper-half still bent down into the big metal bin, Nizhoni's cries echo around a little as she moans, [nizhoni.speech(~Ooh!~ Yes! You really liked the look of my ass? ~Mmm!~ Please, don't stop! Give it to me!)]
+		</p>
+		<p>
+			Despite the fact that her smelly cunt is filling the air around you with the overpowering odour of her feminine musk, you find yourself unable to pull away, and with the raccoon-girl continuing to moan and squeal into the bin, you start desperately fucking her ass...
+		</p>
+	#ELSE
+		<p>
+			Unable to resist Nizhoni's dark-rimmed asshole, you [pc.step] forwards and expose your [pc.cock+], before lining it up to her rear entrance and pressing your [pc.cockHead+] against it. Squealing in delight, the chubby raccoon-girl looks back over her shoulder, before happily squealing, [nizhoni.speech(Oh, [pc.name]! ~Mmm!~ How naughty... Go on, stick it in...)]
+		</p>
+		<p>
+			Doing as she asks, you start to thrust forwards, sinking your [pc.cock+] into her back door and causing her asshole to spread out and squeeze down around your hard shaft. With her upper-half still bent down into the big metal bin, Nizhoni's cries echo around a little as she moans, [nizhoni.speech(~Ooh!~ Yes! You really liked the look of my ass? ~Mmm!~ Please, don't stop! Give it to me!)]
+		</p>
+		<p>
+			As you sink your [pc.cock+] into her [nizhoni.asshole+], you find yourself gripping her hips and letting out [pc.a_moan+]. With the raccoon-girl continuing to moan and squeal into the bin, you start desperately fucking her ass...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="NIZHONI_BINS_CLEAN"><![CDATA[
 	<p>
-		Unable to resist Nizhoni's dark-rimmed asshole, you [pc.step] forwards and expose your [pc.cock+], before lining it up to her rear entrance and pressing your [pc.cockHead+] against it. Squealing in delight, the chubby raccoon-girl looks back over her shoulder, and as you start to drown in her heady, feminine musk, she squeals, [nizhoni.speech(Oh, [pc.name]! ~Mmm!~ How naughty... Go on, stick it in...)]
+		Although you find Nizhoni's display of submission to be incredibly arousing, the overwhelming stench of her musky pussy is turning you off. Deciding to do something to remedy the situation, you harness your arcane energy and cast the spell '[#SPELL_SOOTHING_WATERS.getName()]'. Within a couple of seconds, you've summoned a floating orb of soothing, arcane-infused water. After gazing into its crystal-clear centre for a moment, you fire the cleansing fluid directly at Nizhoni's pussy.
 	</p>
 	<p>
-		Doing as she asks, you start to thrust forwards, sinking your [pc.cock+] into her back door and causing her asshole to spread out and squeeze down around your hard shaft. With her upper-half still bent down into the big metal bin, Nizhoni's cries echo around a little as she moans, [nizhoni.speech(~Ooh!~ Yes! You really liked the look of my ass? ~Mmm!~ Please, don't stop! Give it to me!)]
+		 [nizhoni.speech(Eep!)] the [nizhoni.race] exclaims in shock as the cool water splashes over her genitals. The arcane liquid quickly does its work, and as it runs down over her dark-lipped labia, you notice that the overpowering smell of her musk is rapidly dissipating. Remaining bend over in the bin before her, Nizhoni lifts her ass up and calls out, [nizhoni.speech(Stop teasing me! ~Mmm!~ Come on, you know you want this!)]
 	</p>
 	<p>
-		Despite the fact that her smelly cunt is filling the air around you with the overpowering odour of her feminine musk, you find yourself unable to pull away, and with the raccoon-girl continuing to moan and squeal into the bin, you start desperately fucking her ass...
+		Finally able to breathe in without smelling a hint of her musk, you gaze upon the chubby [nizhoni.race]'s exposed pussy and ass and wonder whether you should give her what she wants...
 	</p>
 	]]>
 	</htmlContent>
@@ -315,6 +372,18 @@
 			 Letting out a frustrated sigh in response, the raccoon-girl backs out of the bin and turns to face you, before pulling her skirt down to cover her dripping pussy and complaining, [nizhoni.speech(That was fun and all, but I'm really not satisfied, you know...)]
 		#ENDIF
 	</p>
+	#IF(game.isMuskContentEnabled() && pc.getMuskMarkerCharacter()==nizhoni)
+		<p>
+			After pulling down her skirt to cover her wet, dark-lipped cunt, Nizhoni suddenly steps forwards and leans into you, before sniffing three times in quick succession. Letting out a cheeky little laugh, she teases, [nizhoni.speech(You smell just like me now! ~Mmm!~ With the stink of my pussy all over you, everyone's going to know that you've fucked me...)]
+		</p>
+		<p>
+			Self-consciously smelling yourself, you realise that she's right. Although it's not as strong as at the source, the heady scent of Nizhoni's musk is all over you, serving as a constant, pungent reminder that the two of you have had sex.
+		</p>
+	#ELSEIF(!nizhoni.hasGirlcumModifier(FLUID_MODIFIER_MUSKY))
+		<p>
+			At that moment, you suddenly catch a whiff of the familiar, musky scent which you'd previously dispelled with your '[#SPELL_SOOTHING_WATERS.getName()]' spell. As her pussy starts to give off its natural smell once again, the chubby [nizhoni.race] breathes in and sighs, [nizhoni.speech(~Mmm!~ It's starting to smell like home around here...)]
+		</p>
+	#ENDIF
 	<p>
 		Getting your things back in order, the two of you agree to leave the rest of the bins untouched, before heading over to the exit together. Telling her that you'll see her again soon, you say goodbye to Nizhoni and watch as the raccoon-girl skips off in the direction of her stall. Letting out a contented sigh, you take a moment to think about the sex you've just had, before setting off through the Farmer's Market and continuing on your way...
 	</p>
@@ -583,18 +652,18 @@
 				#IF(fae.isVisiblyPregnant())
 					<p>
 						#IF(!fae.isCharacterReactedToPregnancy(pc))
-							You once again find yourself approaching the clothing stall, 'Rainbow's End'. Fae is the first to spot you as you draw near, and as you come to a halt in front of the counter, she points down to her swollen belly and declares, [fae.speech(Look, [pc.name], you got me knocked up!)]
+							You once again find yourself approaching the clothing stall, 'Rainbow's End'. Fae is the first to spot you as you draw near, and as you come to a halt in front of the counter, she points down to her swollen, [style.colourSex(pregnant belly)] and declares, [fae.speech(Look, [pc.name], you got me knocked up!)]
 						#ELSE
-							You once again find yourself approaching the clothing stall, 'Rainbow's End'. Fae is the first to spot you as you draw near, and as you come to a halt in front of the counter, she points down at her rounded belly and declares, [fae.speech(Look, [pc.name], I'm still pregnant with our kids!)]
+							You once again find yourself approaching the clothing stall, 'Rainbow's End'. Fae is the first to spot you as you draw near, and as you come to a halt in front of the counter, she points down at her rounded, [style.colourSex(pregnant belly)] and declares, [fae.speech(Look, [pc.name], I'm still pregnant with our kids!)]
 						#ENDIF
 					</p>
 				#ENDIF
 				#IF(silvia.isVisiblyPregnant())
 					<p>
 						#IF(fae.isVisiblyPregnant())
-							Hearing her sister greet you, Silvia looks over at you and flashes you a big grin, before pointing down at her own pregnant bump and teasing,
+							Hearing her sister greet you, Silvia looks over at you and flashes you a big grin, before pointing down at her own [style.colourSex(pregnant belly)] and teasing,
 						#ELSE
-							You once again find yourself approaching the clothing stall, 'Rainbow's End'. Silvia is the first to spot you as you draw near, and as you come to a halt in front of the counter, she runs her hands over her pregnant bump and teases,
+							You once again find yourself approaching the clothing stall, 'Rainbow's End'. Silvia is the first to spot you as you draw near, and as you come to a halt in front of the counter, she runs her hands over her [style.colourSex(pregnant belly)] and teases,
 						#ENDIF
 						#IF(!silvia.isCharacterReactedToPregnancy(pc))
 							 [silvia.speech(Look what you did, you naughty [pc.girl]... These are your kids in here...)]
@@ -709,7 +778,7 @@
 	
 	<htmlContent tag="CLOTHING_TRANSACTION_START"><![CDATA[
 	<p>
-		As you [pc.step] forwards and take a look at what Fae and Silvia have for sale, the green-eyed foxtauress flashes you a grin and asks, [fae.speech(So, what's caught your fancy? Remember, if you spend over five hundred flames, on an item, you get a 'Faire ticket'!)]
+		As you [pc.step] forwards and take a look at what Fae and Silvia have for sale, the green-eyed foxtauress flashes you a grin and asks, [fae.speech(So, what's caught your fancy? Remember, if you spend over five hundred flames on an item, you get a 'Faire ticket'!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -869,6 +938,18 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="CLOTHING_ASK_FABRIC"><![CDATA[
+	<p>
+		It occurs to you that since the foxtauresses sell clothing, they might deal in fabric as well. You ask them if they could help you source some material for Eisek's stall.
+	</p>
+	<p>
+		Fae shakes her head when she hears what it is you're asking, before explaining, [fae.speech(Sorry, we deal in finished clothing only. It'd be way too much stuff to keep around our little stall.)]
+	</p>
+	<p>
+		[silvia.speech(Speaking of clothing, perhaps you'd like to buy something?)] Silvia asks, before letting out a playful giggle and asking, [silvia.speech(Or if you've got a ticket, then maybe you could roll to earn a kiss...)]
+	</p>
+	]]>
+	</htmlContent>
 	
 	
 	<!-- Alcoholic drinks -->
@@ -1563,7 +1644,7 @@
 				</p>
 				#IF(ziva.isVisiblyPregnant())
 					<p>
-						[ziva.speech(You really do like getting my girls excited, don't you, [pc.name]?)] [ziva.name] calls out from off to one side of these cow-girls, and you look across to see the black-furred, greater goat-girl, who looks to be in her late forties, peering at you through her half-rim glasses. Her dark red plunge blouse strains to contain her huge, [ziva.cupSize]-cup breasts as she laboriously rises from her chair, and as she rubs her hands over her visibly-swollen belly, she teases, 
+						[ziva.speech(You really do like getting my girls excited, don't you, [pc.name]?)] [ziva.name] calls out from off to one side of these cow-girls, and you look across to see the black-furred, greater goat-girl, who looks to be in her late forties, peering at you through her half-rim glasses. Her dark red plunge blouse strains to contain her huge, [ziva.cupSize]-cup breasts as she laboriously rises from her chair, and as she rubs her hands over her visibly-swollen [style.colourSex(pregnant belly)], she teases, 
 						#IF(!ziva.isCharacterReactedToPregnancy(pc))
 							 [ziva.speech(I was first made a mother many years ago, but you've gone and given me that experience all over again... Yes, you were the one who got me pregnant, hun, and no, I don't need anything from you... Well, other than more of your flames, that is. You like mature goat-girls, so surely you like pregnant, mature goat-girls too, right?)]
 						#ELSE
@@ -1954,6 +2035,14 @@
 				Although it's very busy, with crowds of shoppers occupying large parts of the market, you can't help but notice that some of the stalls look to be quite low on goods for sale. Catching brief snippets of conversation as you [pc.walk] past, you soon get the impression that Lunette's raiding is having an effect on both the quantity and quality of produce which the vendors are able to acquire. Despite this, however, there are still a good deal of stalls which look to be offering something interesting, and you wonder whether you should take some time out of your day in which to do a spot of shopping...
 			#ENDIF
 		</p>
+		#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_banished) && 
+			eisek.getLocationPlaceType() == PLACE_TYPE_dsg_fields_elis_market_produce &&
+			!eisek.isPlayerKnowsName() &&
+			pc.getLocation().getDistanceToVector(game.getWorlds().get(WORLD_TYPE_innoxia_fields_elis_market).getCell(PLACE_TYPE_dsg_fields_elis_market_produce).getLocation()) < 3.3)
+			<p>
+				You hear some kind of commotion nearby. There seems to be a crowd gathered around something...or someone, and they don't sound very happy.
+			</p>
+		#ENDIF
 		#IF(game.getMinutesUntilTimeInMinutes(1080)<30)
 			<p style='text-align:center;'>
 				[style.italicsMinorBad(The market closes at [units.time(18)], so you should hurry up and finish your business here before all the stalls shut for the day...)]

@@ -102,11 +102,35 @@
 		<title/>
 		<tooltip/>
 		<preParsingEffects/>
-		<content folderPath="txt/places/fields/elis/generic">BANK</content>
+		<content folderPath="txt/places/fields/elis/bank">EXTERIOR</content>
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>false</travelDisabled>
-		<responses/>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#(game.getDayOfWeek()==DOW_SUNDAY && !game.isHourBetween(10, 16)) || (game.getDayOfWeek()!=DOW_SUNDAY && !game.isHourBetween(9, 17))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[The bank is currently closed...]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+				<effects/>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#(game.getDayOfWeek()==DOW_SUNDAY && game.isHourBetween(10, 16)) || (game.getDayOfWeek()!=DOW_SUNDAY && game.isHourBetween(9, 17))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[Enter the bank.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_bank_exit"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_bank, PLACE_TYPE_innoxia_fields_elis_bank_exit)]
+					[#game.moveBankInventory()]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/bank', 'ENTER'))]
+				]]></effects>
+			</response>
+		</responses>
 	</scene>
 	
 	<!-- Place type id: innoxia_fields_elis_town_cult -->
@@ -132,7 +156,30 @@
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>false</travelDisabled>
-		<responses/>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isHourBetween(8, 20))
+						Head inside the Enforcer station...
+					#ELSE
+						The enforcer station is currently closed to members of the public...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.isHourBetween(8, 20))
+						innoxia_places_fields_elis_enforcer_station_exit_initial_entry
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_enforcer_station, PLACE_TYPE_innoxia_fields_elis_enforcer_station_exit)]
+				]]></effects>
+			</response>
+		</responses>
 	</scene>
 	
 	<!-- Place type id: innoxia_fields_elis_town_fields -->

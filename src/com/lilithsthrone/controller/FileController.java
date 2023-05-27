@@ -41,7 +41,12 @@ public class FileController {
 	private static File lastOpened = null;
 	
 	public static void initArtworkListeners() {
-		GameCharacter character = Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CHARACTER_APPEARANCE)?Main.game.getPlayer():(Main.game.getCurrentDialogueNode().equals(CompanionManagement.SLAVE_MANAGEMENT_INSPECT)?Main.game.getDialogueFlags().getManagementCompanion():CharactersPresentDialogue.characterViewed);
+		GameCharacter character = Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CHARACTER_APPEARANCE)
+				?Main.game.getPlayer()
+				:(Main.game.getCurrentDialogueNode().equals(CompanionManagement.SLAVE_MANAGEMENT_INSPECT)
+					?Main.game.getDialogueFlags().getManagementCompanion()
+					:CharactersPresentDialogue.characterViewed);
+		
 		String id = "ARTWORK_ADD";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
@@ -49,8 +54,9 @@ public class FileController {
 				FileChooser chooser = new FileChooser();
 				chooser.setTitle("Add Images");
 				chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png", "*.gif"));
-				if (lastOpened != null)
+				if (lastOpened != null) {
 					chooser.setInitialDirectory(lastOpened);
+				}
 				
 				List<File> files = chooser.showOpenMultipleDialog(Main.primaryStage);
 				if (files != null && !files.isEmpty()) {
@@ -58,15 +64,19 @@ public class FileController {
 					
 					character.importImages(files);
 					
-					if (!character.isPlayer())
+					if (!character.isPlayer()) {
 						CharactersPresentDialogue.resetContent(character);
+					}
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}
 			}, false);
 			MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(
 					"Add custom artwork",
 					"Browse your own images and add them to the character."
-							+" Please note that GIF animation files are limited to a <b>maximum of 10MB</b> in size, and if over 1MB, <b>may</b> cause [style.italicsBad(significant lag)], depending on your system."));
+							+" Please note that GIF animation files are limited to a <b>maximum of 10MB</b> in size, and if over 1MB, <b>may</b> cause [style.italicsBad(significant lag)], depending on your system."
+							+ "<br/>Custom images for the currently played game are located in folder: <b>'data/images/"+Main.game.getId()+"'</b>"
+							+ "<br/>This character's ID is <b>'"+character.getId()+"'</b>",
+					130));
 		}
 		
 		if (character.hasArtwork()) {
@@ -483,16 +493,18 @@ public class FileController {
 			id = "LOAD_"+fileIdentifier;
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					if (!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || BodyChanging.loadConfirmationName.equals(f.getName())) {
-						BodyChanging.loadConfirmationName = "";
-						Body loadedBody = BodyChanging.loadBody(fileName);
-						BodyChanging.applyLoadedBody(loadedBody);
-						Main.game.setContent(new Response("Save/Load", "Open the save/load transformation window.", BodyChanging.BODY_CHANGING_SAVE_LOAD));
-					} else {
-						BodyChanging.overwriteConfirmationName = "";
-						BodyChanging.loadConfirmationName = f.getName();
-						BodyChanging.deleteConfirmationName = "";
-						Main.game.setContent(new Response("Save/Load", "Open the save/load transformation window.", BodyChanging.BODY_CHANGING_SAVE_LOAD));
+					Body loadedBody = BodyChanging.loadBody(fileName);
+					if(BodyChanging.isPresetTransformationAvailable(loadedBody)) {
+						if (!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || BodyChanging.loadConfirmationName.equals(f.getName())) {
+							BodyChanging.loadConfirmationName = "";
+							BodyChanging.applyLoadedBody(loadedBody);
+							Main.game.setContent(new Response("Save/Load", "Open the save/load transformation window.", BodyChanging.BODY_CHANGING_CORE));
+						} else {
+							BodyChanging.overwriteConfirmationName = "";
+							BodyChanging.loadConfirmationName = f.getName();
+							BodyChanging.deleteConfirmationName = "";
+							Main.game.setContent(new Response("Save/Load", "Open the save/load transformation window.", BodyChanging.BODY_CHANGING_SAVE_LOAD));
+						}
 					}
 				}, false);
 				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Load",

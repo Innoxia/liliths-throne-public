@@ -35,6 +35,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.AffectionLevelBasic;
+import com.lilithsthrone.game.character.attributes.AlcoholLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
@@ -105,6 +106,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
+import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
@@ -154,12 +156,14 @@ import com.lilithsthrone.game.character.persona.OccupationTag;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.pregnancy.FertilisationType;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.AbstractRacialBody;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.FurryPreference;
+import com.lilithsthrone.game.character.race.Nocturnality;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -223,6 +227,9 @@ import com.lilithsthrone.world.places.PlaceUpgrade;
 
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
+// Use the following imports when using the org.openjdk.nashorn dependency:
+//import org.openjdk.nashorn.api.scripting.NashornScriptEngine;
+//import org.openjdk.nashorn.api.scripting.NashornScriptEngineFactory;
 
 /**
  * @since 0.1.0
@@ -241,7 +248,7 @@ public class UtilText {
 	private static Body body;
 	private static AbstractRace race;
 	private static CharacterInventory inventory;
-	
+
 //	private static List<GameCharacter> specialNPCList = new ArrayList<>();
 	private static boolean parseCapitalise;
 	private static boolean parseAddPronoun;
@@ -787,12 +794,6 @@ public class UtilText {
 		} else {
 			return "a";
 		}
-	}
-	
-	private static String[] femaleCumNames = new String[] { "juices" };
-
-	public static String getFemaleCumName() {
-		return femaleCumNames[Util.random.nextInt(femaleCumNames.length)];
 	}
 
 	/**
@@ -3249,11 +3250,12 @@ public class UtilText {
 			@Override
 			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
 				Femininity fem =  Femininity.valueOf(character.getFemininityValue());
+				boolean pronoun = parseAddPronoun;
+				parseAddPronoun = false;
 				if(arguments!=null && Boolean.valueOf(arguments)) {
-					return "<span style='color:"+fem.getColour().toWebHexString()+";'>"+fem.getName(false)+"</span>";
-							
+					return "<span style='color:"+fem.getColour().toWebHexString()+";'>"+fem.getName(pronoun)+"</span>";
 				}
-				return fem.getName(false);
+				return fem.getName(pronoun);
 			}
 		});
 		
@@ -9854,6 +9856,12 @@ public class UtilText {
 		for(Gender gender : Gender.values()) {
 			engine.put("GENDER_"+gender.toString(), gender);
 		}
+		for(FertilisationType ft : FertilisationType.values()) {
+			engine.put("FERTILISATION_"+ft.toString(), ft);
+		}
+		for(Nocturnality noc : Nocturnality.values()) {
+			engine.put("NOCTURNALITY_"+noc.toString(), noc);
+		}
 		for(LegConfiguration legConf : LegConfiguration.values()) {
 			engine.put("LEG_CONFIGURATION_"+legConf.toString(), legConf);
 		}
@@ -9899,7 +9907,10 @@ public class UtilText {
 		// Spelling errors which were corrected in PR#1603 but which now need correct parser references for old mod version support:
 		engine.put("BODY_PART_TAG_TAIL_SUTABLE_FOR_PENETRATION", BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION);
 		engine.put("BODY_PART_TAG_TAIL_NEVER_SUTABLE_FOR_PENETRATION", BodyPartTag.TAIL_NEVER_SUITABLE_FOR_PENETRATION);
-		
+
+		for(PenetrationGirth girth : PenetrationGirth.values()) {
+			engine.put("PENETRATION_GIRTH_"+girth.toString(), girth);
+		}
 		for(PenetrationModifier penMod : PenetrationModifier.values()) {
 			engine.put("PENETRATION_MODIFIER_"+penMod.toString(), penMod);
 		}
@@ -9929,6 +9940,9 @@ public class UtilText {
 		}
 		for(OrificePlasticity plasticity : OrificePlasticity.values()) {
 			engine.put("PLASTICITY_"+plasticity.toString(), plasticity);
+		}
+		for(EyeShape eyeShape : EyeShape.values()) {
+			engine.put("EYE_SHAPE_"+eyeShape.toString(), eyeShape);
 		}
 		// Types:
 		for(AbstractFluidType fluidType : FluidType.getAllFluidTypes()) {
@@ -10036,6 +10050,9 @@ public class UtilText {
 		}
 		for(CorruptionLevel corruption : CorruptionLevel.values()) {
 			engine.put("CORRUPTION_LEVEL_"+corruption.toString(), corruption);
+		}
+		for(AlcoholLevel alcoholLevel : AlcoholLevel.values()) {
+			engine.put("ALCOHOL_LEVEL_"+alcoholLevel.toString(), alcoholLevel);
 		}
 		
 		

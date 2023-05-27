@@ -12,7 +12,7 @@
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
 	<taurSpawnLegConfiguration>AVIAN</taurSpawnLegConfiguration>
-	<aquatic>false</aquatic>
+	<winged>true</winged>
 	<applySubspeciesChanges><![CDATA[
 		#IF(targetedBody.getLegType().getRace()==RACE_innoxia_raptor)
 			[#targetedBody.setLegType(LEG_TYPE_innoxia_raptor_leg_large)]

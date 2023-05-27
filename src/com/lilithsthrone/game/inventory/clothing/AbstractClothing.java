@@ -1124,6 +1124,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	public String getName() {
 		String parsedName = this.getClothingType().getName();
 		
+		if(!name.isEmpty() && !name.equals(parsedName)) {
+			return name; // If name has been manually set, return it without running through prefixes and postfixes
+		}
+		
 		if(!this.getEffects().isEmpty() || !name.isEmpty()) {
 			parsedName = name;
 		}
@@ -1971,6 +1975,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		this.getEffects().removeIf(e -> (e.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE || e.getPrimaryModifier() == TFModifier.CLOTHING_MAJOR_ATTRIBUTE) && e.getPotency().isNegative());
 	}
 
+	public void removeServitudeEnchantment() {
+		this.getEffects().removeIf(e -> (e.getSecondaryModifier() == TFModifier.CLOTHING_SERVITUDE));
+	}
+	
 	public boolean isSealed() {
 		if(this.isUnlocked()) {
 			return false;
@@ -2229,6 +2237,18 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				return new Value<>(false, "Clothing with enslavement enchantments cannot be equipped during sex!");
 			}
 			return new Value<>(true, "");
+		}
+		return new Value<>(false, "This item of clothing cannot be equipped during sex!");
+	}
+	
+	public Value<Boolean, String> isAbleToBeEquippedDuringSexInAnySlot() {
+		for(InventorySlot slot : this.getClothingType().getEquipSlots()) {
+			if(getItemTags(slot).contains(ItemTag.ENABLE_SEX_EQUIP)) {
+				if(isEnslavementClothing()) {
+					return new Value<>(false, "Clothing with enslavement enchantments cannot be equipped during sex!");
+				}
+				return new Value<>(true, "");
+			}
 		}
 		return new Value<>(false, "This item of clothing cannot be equipped during sex!");
 	}

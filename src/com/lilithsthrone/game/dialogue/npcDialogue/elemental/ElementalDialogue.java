@@ -358,7 +358,8 @@ public class ElementalDialogue {
 			subspecies.addAll(Subspecies.getAllSubspecies());
 			subspecies.removeIf(s -> !s.getRace().isFeralPartsAvailable());
 			subspecies.removeIf(s -> s.getRace()==Race.DEMON || s.getRace()==Race.ELEMENTAL || s.getRace()==Race.SLIME);
-			subspecies.removeIf(s -> s.isNonBiped()); // Otherwise centaurs get added as well as horse-morphs
+//			subspecies.removeIf(s -> s.isNonBiped());
+			subspecies.removeIf(s -> s==Subspecies.CENTAUR || s==Subspecies.PEGATAUR || s==Subspecies.ALITAUR || s==Subspecies.UNITAUR); // Centaurs are a special case, as we don't want centaur ferals
 			
 			if(getElemental().getPassiveForm()==null) {
 				responses.add(new Response("Wisp", "[el.Name] is already assuming the passive form of an elemental wisp!", null));
@@ -373,21 +374,26 @@ public class ElementalDialogue {
 				});
 			}
 			
+			List<String> nameDuplicates = new ArrayList<>(); // Do not populate responses with duplicates. This should remove repeated instances of the same feral animal, e.g. "snake" 3 times from snake, lamia, and melusine
+			
 			for(AbstractSubspecies sub : subspecies) {
 				String feralName = sub.getFeralName(getElemental().getBody());
-				if(getElemental().getPassiveForm()==sub) {
-					responses.add(new Response(Util.capitaliseSentence(feralName), "[el.Name] is already assuming the passive form of a small, feral "+feralName+"!", null));
-					
-				} else {
-					responses.add(new Response(Util.capitaliseSentence(feralName), "Tell [el.name] to assume the passive form of a small, feral "+feralName+".", UTIL_NO_CONTENT) {
-						@Override
-						public void effects() {
-							UtilText.addSpecialParsingString(UtilText.generateSingularDeterminer(feralName)+" "+feralName, true);
-							UtilText.addSpecialParsingString(feralName, false);
-							getElemental().setPassiveForm(sub);
-							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/elemental", "ELEMENTAL_PASSIVE_FORM_CHANGE"));
-						}
-					});
+				if(!nameDuplicates.contains(feralName)) {
+					nameDuplicates.add(feralName);
+					if(getElemental().getPassiveForm()==sub) {
+						responses.add(new Response(Util.capitaliseSentence(feralName), "[el.Name] is already assuming the passive form of a small, feral "+feralName+"!", null));
+						
+					} else {
+						responses.add(new Response(Util.capitaliseSentence(feralName), "Tell [el.name] to assume the passive form of a small, feral "+feralName+".", UTIL_NO_CONTENT) {
+							@Override
+							public void effects() {
+								UtilText.addSpecialParsingString(UtilText.generateSingularDeterminer(feralName)+" "+feralName, true);
+								UtilText.addSpecialParsingString(feralName, false);
+								getElemental().setPassiveForm(sub);
+								Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/elemental", "ELEMENTAL_PASSIVE_FORM_CHANGE"));
+							}
+						});
+					}
 				}
 			}
 			
@@ -528,8 +534,8 @@ public class ElementalDialogue {
 							+ (Main.game.getPlayer().hasFetish(fetish) // Overlay to create disabled effect:
 									? ""
 									: (fetish.isAvailable(Main.game.getPlayer())
-											? "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.5; border-radius:5px;'></div>"
-											: "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.7; border-radius:5px;'></div>"))
+											? "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); border-radius:5px;'></div>"
+											: "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.7); border-radius:5px;'></div>"))
 							+ "</div>");
 				}
 			}

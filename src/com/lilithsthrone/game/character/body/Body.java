@@ -18,8 +18,6 @@ import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.Litter;
-import com.lilithsthrone.game.character.PregnancyPossibility;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractArmType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractAssType;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractBreastType;
@@ -99,6 +97,8 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.markings.TattooCounterType;
 import com.lilithsthrone.game.character.markings.TattooType;
+import com.lilithsthrone.game.character.pregnancy.Litter;
+import com.lilithsthrone.game.character.pregnancy.PregnancyPossibility;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.AbstractRacialBody;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
@@ -706,6 +706,7 @@ public class Body implements XMLSaving {
 			XMLUtil.addAttribute(doc, bodyLeg, "type", LegType.getIdFromLegType(this.leg.type));
 			XMLUtil.addAttribute(doc, bodyLeg, "footStructure", this.leg.footStructure.toString());
 			XMLUtil.addAttribute(doc, bodyLeg, "configuration", this.leg.legConfiguration.toString());
+			XMLUtil.addAttribute(doc, bodyLeg, "tailLength", String.valueOf(this.leg.lengthAsPercentageOfHeight));
 		
 		// Penis:
 		Element bodyPenis = doc.createElement("penis");
@@ -1331,8 +1332,13 @@ public class Body implements XMLSaving {
 			footStructure = FootStructure.valueOf(leg.getAttribute("footStructure"));
 		} catch(Exception ex) {}
 		
+		
 		Leg importedLeg = new Leg(legType, configuration);
 		importedLeg.setFootStructure(null, footStructure);
+		try {
+			float tailLength = Float.valueOf(leg.getAttribute("tailLength"));
+			importedLeg.setLengthAsPercentageOfHeight(null, tailLength);
+		} catch(Exception ex) {}
 		
 		Main.game.getCharacterUtils().appendToImportLog(log, "<br/><br/>Body: Leg: "
 				+ "<br/>type: "+importedLeg.getType());
@@ -2442,19 +2448,11 @@ public class Body implements XMLSaving {
 		}
 		
 		// Eyes:
-		
-		if(owner.isFeral()) {
-			sb.append(" [npc.SheHasFull] [npc.eyePairs] [npc.eyeRace] eyes, with [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.");
+
+		if(owner.isAreaKnownByCharacter(CoverableArea.EYES, Main.game.getPlayer())) {
+			sb.append(getEyeDescription(owner));
 		} else {
-			sb.append(" "+eye.getType().getBodyDescription(owner));
-		}
-		
-		// Eye makeup:
-		if(owner.getEyeLiner().getPrimaryColour()!=PresetColour.COVERING_NONE) {
-			sb.append(" Around [npc.her] [npc.eyes], [npc.sheHas] got a layer of "+owner.getEyeLiner().getColourDescriptor(owner, true, false)+" eye liner.");
-		}
-		if(owner.getEyeShadow().getPrimaryColour()!=PresetColour.COVERING_NONE) {
-			sb.append(" [npc.SheIs] wearing a tasteful amount of "+owner.getEyeShadow().getFullDescription(owner, true)+".");
+			sb.append(" [style.colourDisabled(You haven't seen [npc.her] eyes before, so you don't know what they look like.)]");
 		}
 		
 		// Ear:
@@ -3727,12 +3725,20 @@ public class Body implements XMLSaving {
 		return vagina.getType() != VaginaType.NONE;
 	}
 
+	public boolean hasVaginaIgnoreOnahole() {
+		return hasVagina() && vagina.getType() != VaginaType.ONAHOLE;
+	}
+	
 	public Wing getWing() {
 		return wing;
 	}
 
 	public int getWingSizeValue() {
 		return wing.getSizeValue();
+	}
+
+	public int getMinimumWingSizeValueForFlight() {
+		return leg.getLegConfiguration().getMinimumWingSizeForFlight(this).getValue();
 	}
 
 	public AbstractWingType getWingType() {
@@ -3939,6 +3945,14 @@ public class Body implements XMLSaving {
 		return this.wing.setSize(owner, size);
 	}
 
+	public String setWingSizeToMinimumWingSizeForFlight() {
+		return wing.setSize(null, getMinimumWingSizeValueForFlight());
+	}
+
+	public String setWingSizeToMinimumWingSizeForFlight(GameCharacter owner) {
+		return wing.setSize(owner, getMinimumWingSizeValueForFlight());
+	}
+
 	public String setWingType(AbstractWingType type) {
 		return this.wing.setType(null, type);
 	}
@@ -3979,6 +3993,26 @@ public class Body implements XMLSaving {
 	// Descriptions:
 	private StringBuilder descriptionSB;
 
+	public String getEyeDescription(GameCharacter owner) {
+		StringBuilder sb = new StringBuilder();
+		
+		if(owner.isFeral()) {
+			sb.append(" [npc.SheHasFull] [npc.eyePairs] [npc.eyeRace] eyes, with [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.");
+		} else {
+			sb.append(" "+eye.getType().getBodyDescription(owner));
+		}
+		
+		// Eye makeup:
+		if(owner.getEyeLiner().getPrimaryColour()!=PresetColour.COVERING_NONE) {
+			sb.append(" Around [npc.her] [npc.eyes], [npc.sheHas] got a layer of "+owner.getEyeLiner().getColourDescriptor(owner, true, false)+" eye liner.");
+		}
+		if(owner.getEyeShadow().getPrimaryColour()!=PresetColour.COVERING_NONE) {
+			sb.append(" [npc.SheIs] wearing a tasteful amount of "+owner.getEyeShadow().getFullDescription(owner, true)+".");
+		}
+		
+		return sb.toString();
+	}
+	
 	/**
 	 * @param owner The person whose ass is to be described.
 	 * @param locationSpecific Whether this description is specific to looking at the person's ass. If they have a cloaca, and you pass in true, it will say something along the lines of "there's no asshole here".
@@ -6000,8 +6034,8 @@ public class Body implements XMLSaving {
 		boolean hasPenis = penis.getType() != PenisType.NONE;
 		boolean hasVagina = vagina.getType() != VaginaType.NONE;
 		boolean hasBreasts = breast.hasBreasts();
-		if(this.isFeral() && this.getSubspecies().getFeralAttributes()!=null) {
-			hasBreasts = this.getSubspecies().getFeralAttributes().isBreastsPresent() || this.getBreastCrotch().hasBreasts();
+		if(this.isFeral() && this.getSubspecies().getFeralAttributes(this)!=null) {
+			hasBreasts = this.getSubspecies().getFeralAttributes(this).isBreastsPresent() || this.getBreastCrotch().hasBreasts();
 		}
 		
 		// Looks male:
@@ -6294,25 +6328,29 @@ public class Body implements XMLSaving {
 	public boolean isFeral() {
 		return feral;
 	}
-	
+
+	public boolean isFeralOrHasLegConfiguration(LegConfiguration... values) {
+		return feral || leg.getLegConfiguration().isOneOf(values);
+	}
+
 	/**
 	 * @param subspecies Pass in the AbstractSubspecies to which this character should be transformed into a feral version of. Pass in null to transform back from feral to a standard anthro.
 	 */
 	public void setFeral(AbstractSubspecies subspecies) {
-		this.feral = subspecies!=null;
 		
-		FeralAttributes attributes = subspecies==null?null:subspecies.getFeralAttributes();
+		FeralAttributes attributes = subspecies==null?null:subspecies.getFeralAttributes(this);
 		if(attributes==null) {
 			System.err.println("Error in Body.setFeral(): subspecies '"+Subspecies.getIdFromSubspecies(subspecies)+"' does not support FeralAttributes!");
 			return;
 		}
 		
+		this.feral = subspecies!=null;
 		// Set body to full subspecies:
 		Main.game.getCharacterUtils().reassignBody(
 				null,
 				this,
 				this.getGender(),
-				subspecies,
+				subspecies==null?this.getSubspecies():subspecies,
 				RaceStage.GREATER,
 				false);
 		

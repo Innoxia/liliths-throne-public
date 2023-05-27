@@ -3786,8 +3786,9 @@ public class CharacterModificationUtils {
 		contentSB.setLength(0);
 		
 		for(AbstractVaginaType vagina : VaginaType.getAllVaginaTypes()) {
-			if((vagina.getRace() !=null && availableRaces.contains(vagina.getRace()))
-					|| vagina==VaginaType.NONE) {
+			if(((vagina.getRace() !=null && availableRaces.contains(vagina.getRace()))
+					|| vagina==VaginaType.NONE)
+					&& vagina!=VaginaType.ONAHOLE) {
 				
 				Colour c = PresetColour.TEXT_GREY;
 				
@@ -6369,7 +6370,7 @@ public class CharacterModificationUtils {
 					isPierced = BodyChanging.getTarget().isPiercedNipple();
 					break;
 				case PENIS:
-					canPierce = BodyChanging.getTarget().hasPenis();
+					canPierce = BodyChanging.getTarget().hasPenisIgnoreDildo();
 					isPierced = BodyChanging.getTarget().isPiercedPenis();
 					break;
 				case VAGINA:

@@ -80,15 +80,32 @@
 		Again, for an example, see the 'human_bread_roll.xml' file. -->
 		<enchantmentEffectId/>
 		
+		<!-- If your item is going to apply any status effects to the target/consumer, then you should define them in here as doing so will automatically generate relevant tooltip text.
+			You can define any number of effects within this section.
+			Status Effect IDs are generated either from their hard-coded name, or from the xml folder structure that they're located in.
+				e.g. The status effect ID for Amazonian's Secret is 'innoxia_amazons_secret' (from res/statusEffects/innoxia/amazons_secret.xml)
+				Hard coded effects are here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/effects/StatusEffect.java -->
+		<statusEffects>
+			<!-- You can define multiple 'effect' elements within this section.
+				'seconds' defines how long the status effect should be applied for.
+				'conditional' defines what conditions must be met for the effect to be applied.
+					You can omit 'conditional' entirely for it to always be true. 
+					Conditional statements are run through the parsing engine with 'npc' as the character who's using this item on the target, and 'npc2' as the character who's being targeted by this item.
+					Statements should be in the format: "[#conditional_expressions]"
+					e.g.
+						conditional="[#npc2.isFeminine()]" - This will only apply the effect if the target is feminine.
+						conditional="[#npc.getHeightValue() > npc2.getHeightValue()]" - This will only apply the effect if the user is taller than the target.
+						conditional="[#!npc.getNocturnality().isActiveAtDay() && game.isDayTime()]" - This will only apply if the user is nocturnal and it's currently daytime.
+						-->
+			<effect seconds="86400" conditional="[#true]">VIXENS_VIRILITY</effect>
+		</statusEffects>
+		
 		<!-- You can use this section to describe any extra features of this item.
 		These effects are shown in the tooltip when the player hovers over the item icon, so try and keep them short (as they should fit on one line).
 		It should probably only be used to describe what happens in the <applyEffects> element.
 		No characters are passed in as parsing arguments, so you should NOT use any character-specific parsing elements (such as [npc.name]). -->
 		<effectTooltipLines>
-			<line><![CDATA[[#ATTRIBUTE_FERTILITY.getFormattedValue(50)] for 24 hours]]></line>
-			<line><![CDATA[[#ATTRIBUTE_VIRILITY.getFormattedValue(50)] for 24 hours]]></line>
-			<line><![CDATA[[style.boldBad(Removes status effect:)]]]></line>
-			<line><![CDATA['<i>[#SE_PROMISCUITY_PILL.getName(null)]</i>']]></line>
+			<line><![CDATA[[style.colourExcellent(Disables)] 'menopause' effect]]></line>
 		</effectTooltipLines>
 		
 		<!-- This is what is called and parsed every time this item is used on someone.
@@ -97,7 +114,6 @@
 		All of the returned text is displayed to the player. -->
 		<applyEffects><![CDATA[
 			[##npc.removeStatusEffect(SE_PROMISCUITY_PILL)]
-			[##npc.addStatusEffect(SE_VIXENS_VIRILITY, 60*24*60)]
 			<p style='margin-bottom:0; padding-bottom:0;'>
 				The small pill easily slides down [npc.her] throat, and within moments [npc.she] [npc.verb(feel)]
 				#IF(npc.hasVagina())
@@ -118,9 +134,6 @@
 				#IF(!npc.hasPenisIgnoreDildo() && !npc.hasVagina())
 					a desperate heat in [npc.her] genderless mound.
 				#ENDIF
-			</p>
-			<p style='text-align:center; margin-top:0; padding-top:0;'>
-				[style.colourPinkLight([npc.Name] [npc.is] now experiencing <i>'[#SE_VIXENS_VIRILITY.getName(npc)]'</i> for the next 24 hours!)]
 			</p>
 		]]></applyEffects>
 		

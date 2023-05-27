@@ -1309,7 +1309,7 @@ public class TongueVagina {
 				
 			} else {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-						"Eagerly driving [npc.her] [npc.tongue+] as deep as possible into [npc2.namePos] [npc2.labia+],"
+						"Eagerly driving [npc.her] [npc.tongue+] as deep as possible into [npc2.namePos] [npc2.pussy+],"
 								+ " [npc.name] [npc.verb(press)] [npc.her] [npc.lips+] up against [npc2.her] [npc2.labia+] and [npc.verb(let)] out a muffled [npc.moan].",
 						"Withdrawing [npc.her] [npc.tongue+] from [npc2.namePos] [npc2.pussy+], [npc.name] [npc.verb(start)] to eagerly kiss and lick [npc2.namePos] [npc2.labia+],"
 								+ " before pressing forwards and greedily sliding [npc.her] [npc.tongue] into [npc2.her] [npc2.pussy+] once more.",

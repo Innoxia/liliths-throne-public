@@ -30,7 +30,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.75
- * @version 0.2.6
+ * @version 0.3.6.9
  * @author Innoxia
  */
 public class EnchantingUtils {
@@ -46,8 +46,10 @@ public class EnchantingUtils {
 		effectsToBeAdded.addAll(effects);
 		
 		craftedItem.setItemEffects(effectsToBeAdded);
-		
-		craftedItem.setName(EnchantmentDialogue.getOutputName());
+
+		if(!EnchantmentDialogue.getOutputName().equals(ingredient.getName())) {
+			craftedItem.setName(EnchantmentDialogue.getOutputName());
+		}
 		craftedItem.setColour(0, ingredient.getEnchantmentEffect().getColour());
 		craftedItem.setSVGString(getSVGString(ingredient, effectsToBeAdded));
 		
@@ -67,7 +69,9 @@ public class EnchantingUtils {
 		craftedClothing.setPattern(((AbstractClothing)ingredient).getPattern());
 		craftedClothing.setPatternColours(((AbstractClothing)ingredient).getPatternColours());
 		
-		craftedClothing.setName(EnchantmentDialogue.getOutputName());
+		if(!EnchantmentDialogue.getOutputName().equals(ingredient.getName())) {
+			craftedClothing.setName(EnchantmentDialogue.getOutputName());
+		}
 		
 		craftedClothing.setEnchantmentKnown(null, true);
 		
@@ -93,8 +97,10 @@ public class EnchantingUtils {
 				((Tattoo)ingredient).getCounter());
 		
 		newTattoo.setEffects(effectsToBeAdded);
-		
-		newTattoo.setName(EnchantmentDialogue.getOutputName());
+
+		if(!EnchantmentDialogue.getOutputName().equals(ingredient.getName())) {
+			newTattoo.setName(EnchantmentDialogue.getOutputName());
+		}
 		
 		return newTattoo;
 	}
@@ -111,8 +117,10 @@ public class EnchantingUtils {
 				((AbstractWeapon)ingredient).getColours());
 		
 		craftedWeapon.setEffects(effectsToBeAdded);
-		
-		craftedWeapon.setName(EnchantmentDialogue.getOutputName());
+
+		if(!EnchantmentDialogue.getOutputName().equals(ingredient.getName())) {
+			craftedWeapon.setName(EnchantmentDialogue.getOutputName());
+		}
 		
 		return craftedWeapon;
 	}

@@ -183,8 +183,9 @@ public class DarkSiren extends NPC {
 		}
 		if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL)) {
 			this.setLocation(WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP, true);
-		} else if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_3_B_MEETING_MERAXIS)) {
-			this.setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_OFFICE, true);
+			
+		} else if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_3_ELIS)) {
+			this.setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_SIREN_OFFICE, true);
 		}
 	}
 
@@ -448,12 +449,12 @@ public class DarkSiren extends NPC {
 	}
 
 	@Override
-	public void hourlyUpdate() {
+	public void hourlyUpdate(int hour) {
 		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_3_B_MEETING_MERAXIS)
 				&& !Main.game.isBadEnd()
 				&& Main.game.getPlayer().getWorldLocation()!=WorldType.getWorldTypeFromId("innoxia_fields_themiscyra")) {
 			if(!Main.game.getCharactersPresent().contains(this)) {
-				if(Main.game.getHourOfDay()>=1 && Main.game.getHourOfDay()<=8) { // In room from 01:00 - 09:00
+				if(hour>=1 && hour<9) { // In room from 01:00 - 09:00
 					this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f1_room_meraxis"), true);
 				} else {
 					this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f0"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f0_meraxis"));
@@ -482,6 +483,11 @@ public class DarkSiren extends NPC {
 			return Util.newHashSetOfValues(Relationship.HalfSibling);
 		}
 		return super.getRelationshipsTo(character, excludedRelationships);
+	}
+
+	@Override
+	public int getBreastRows() {
+		return body.getBreast().getRows(); // Should not be affected by settings
 	}
 	
 	// Combat:

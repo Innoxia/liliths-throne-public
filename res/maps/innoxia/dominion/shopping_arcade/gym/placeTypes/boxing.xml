@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>DOMINION</worldRegion>
+	<name><![CDATA[boxing rings]]></name>
+	<tooltipDescription><![CDATA[Punch bags and free weights surround a couple of boxing rings.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in the gym, 'Pix's Playground']]></virginityLossDescription>
+	<sexBlockedReason/>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<colour>BASE_GREEN_DARK</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_dominion_shopping_arcade_gym_boxing</dialogue>
+	<populationPresent>
+		<population>
+			<conditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_pix_had_tour)]]]></conditional>
+			<populationType plural="true" density="MANY">PERSON</populationType>
+			<subspeciesPresent worldType="DOMINION"/>
+		</population>
+		<population>
+			<conditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_pix_had_tour)]]]></conditional>
+			<populationType plural="true" density="COUPLE">PERSON</populationType>
+			<subspeciesPresent worldType="DOMINION"/>
+		</population>
+	</populationPresent>
+	<furniturePresent>true</furniturePresent>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>OUTGOING_ONLY</teleportPermissions>
+	<weatherImmunities immuneToAll="true"/>
+	<applyInventoryInit/>
+</placeType>

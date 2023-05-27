@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.effects;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -96,6 +97,7 @@ public enum PerkManager {
 		rightA = addPerkEntry(perkTree, PerkCategory.PHYSICAL, 5, Perk.UNARMED_DAMAGE, rightA, rightB);
 
 		connectorLeft = addPerkEntry(perkTree, PerkCategory.PHYSICAL, 6, Perk.PHYSIQUE_BOOST_MAJOR, leftA, rightA);
+		addPerkEntry(perkTree, PerkCategory.PHYSICAL, 6, Perk.HYPERMOBILITY, connectorLeft);
 
 		/* Physical Tree Section 2 */
 
@@ -576,7 +578,7 @@ public enum PerkManager {
 				deniedPerks.add(Perk.CHUUNI);
 				deniedPerks.add(Perk.BARREN);
 				deniedPerks.add(Perk.FIRING_BLANKS);
-				deniedPerks.add(Perk.UNARMED_TRAINING);
+				deniedPerks.add(Perk.HYPERMOBILITY);
 				if(character.isUnique()) {
 					deniedPerks.add(Perk.AHEGAO);
 				}
@@ -708,14 +710,33 @@ public enum PerkManager {
 		}
 		
 		if(character.getSpecialPerks().size()>0) {
+			List<AbstractPerk> subspeciesKnowledgePerks = new ArrayList<>();
+			// Non-subspecies knowledge perks:
 			treeSB.append("<div class='container-full-width' style='width:100%; padding:0; margin:0;'>");
 				for(AbstractPerk hiddenPerk : Perk.getHiddenPerks()) {
 					if(character.hasPerkAnywhereInTree(hiddenPerk)) {
-						treeSB.append(
-								"<div id='HIDDEN_PERK_" + Perk.getIdFromPerk(hiddenPerk) + "' class='square-button round small' style='width:6%; display:inline-block; float:none; border-color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+";'>"
-								+ "<div class='square-button-content'>"+hiddenPerk.getSVGString(character)+"</div>"
-								+ "</div>");
+						if(Perk.getSubspeciesKnowledgePerks().contains(hiddenPerk)) {
+							subspeciesKnowledgePerks.add(hiddenPerk);
+						} else {
+							treeSB.append(
+									"<div id='HIDDEN_PERK_" + Perk.getIdFromPerk(hiddenPerk) + "' class='square-button round small'"
+											+ " style='width:6%; display:inline-block; float:none; border-color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+"; cursor:default;'>"
+									+ "<div class='square-button-content'>"+hiddenPerk.getSVGString(character)+"</div>"
+									+ "</div>");
+						}
 					}
+				}
+			treeSB.append("</div>");
+			
+			// Subspecies knowledge perks:
+			Collections.sort(subspeciesKnowledgePerks, (p1, p2)->p1.getName(character).compareTo(p2.getName(character)));
+			treeSB.append("<div class='container-full-width' style='width:100%; padding:0; margin:0;'>");
+				for(AbstractPerk hiddenPerk : subspeciesKnowledgePerks) {
+					treeSB.append(
+							"<div id='HIDDEN_PERK_" + Perk.getIdFromPerk(hiddenPerk) + "' class='square-button round small'"
+									+ " style='width:6%; padding:0; left:12px; margin:0 0 0 -24px; display:inline-block; float:none; border-color:"+hiddenPerk.getColour().toWebHexString()+"; cursor:default;'>"
+							+ "<div class='square-button-content'>"+hiddenPerk.getSVGString(character)+"</div>"
+							+ "</div>");
 				}
 			treeSB.append("</div>");
 		}
@@ -867,9 +888,9 @@ public enum PerkManager {
 									:"")+"' id='"+perkEntry.getRow()+"_"+perkEntry.getCategory()+"_"+Perk.getIdFromPerk(perkEntry.getEntry())+"'>"
 				+ "<div class='square-button-content'>"+perkEntry.getEntry().getSVGString(character)+"</div>"
 				+ (disabled
-					?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.8; "+(perkEntry.getEntry().isEquippableTrait()?"border-radius:5px;":" border-radius:50%;")+"'></div>"
+					?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.8); "+(perkEntry.getEntry().isEquippableTrait()?"border-radius:5px;":" border-radius:50%;")+"'></div>"
 					:!isPerkOwned(character, perkEntry)
-						?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.6; "+(perkEntry.getEntry().isEquippableTrait()?"border-radius:5px;":" border-radius:50%;")+"'></div>"
+						?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:rgba(0,0,0,0.6); "+(perkEntry.getEntry().isEquippableTrait()?"border-radius:5px;":" border-radius:50%;")+"'></div>"
 						:"")
 			+ "</div>");
 		

@@ -112,36 +112,6 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="BANK"><![CDATA[
-	<p>
-		Excluding the town hall, the Bank of Elis can confidently make the claim that it's housed in the largest and most impressive building within the entire town. In stark contrast to the medieval aesthetic of the surrounding timber-framed structures, the building before you is made out of large blocks of pale stone. With a frontage consisting of huge columns holding up a steepled roof, it's a perfect example of neoclassical architecture.
-	</p>
-	<p>
-		Whether due to a lawful requirement, or simply to display their loyalty to the public, a pair of identical flags hang down on either side of the bank's entrance, each of which carries the black pentagram of Lilith. Looking between these flags, 
-		#IF(game.getDayOfWeek()==DOW_SUNDAY)
-			#IF((game.getHourOfDay()<10 || game.getHourOfDay()>15))
-				 you see that the bank's large metal doors are firmly shut, and a sign hanging on them explains that the business is usually open between [units.time(9)]-[units.time(17)], but on Sundays they operate reduced hours, and are only open between [style.colourMinorBad([units.time(10)]-[units.time(16)])].
-			#ELSE
-				 you see that the bank's large metal doors are fully open, and a sign hanging on them explains that the business is usually open between [units.time(9)]-[units.time(17)], but on Sundays they operate reduced hours, and are only open between [style.colourMinorGood([units.time(10)]-[units.time(16)])].
-			#ENDIF
-		#ELSE
-			#IF(game.getHourOfDay()<9 || game.getHourOfDay()>16)
-				 you see that the bank's large metal doors are firmly shut, and a sign hanging on them explains that the business is usually open between [style.colourMinorBad([units.time(9)]-[units.time(17)])], but on Sundays they operate reduced hours, and are only open between [units.time(10)]-[units.time(16)].
-			#ELSE
-				 you see that the bank's large metal doors are fully open, and a sign hanging on them explains that the business is usually open between [style.colourMinorGood([units.time(9)]-[units.time(17)])], but on Sundays they operate reduced hours, and are only open between [units.time(10)]-[units.time(16)].
-			#ENDIF
-		#ENDIF
-	</p>
-	<p>
-		#IF((game.getDayOfWeek()==DOW_SUNDAY && (game.getHourOfDay()<10 || game.getHourOfDay()>15)) || (game.getDayOfWeek()!=DOW_SUNDAY && (game.getHourOfDay()<9 || game.getHourOfDay()>16)))
-			As the bank is currently [style.colourBad(closed)], there's nothing more for you to do here...
-		#ELSE
-			As the bank is currently [style.colourGood(open)], you could head inside and take a look around...
-		#ENDIF
-	</p>
-	]]>
-	</htmlContent>
-	
 	<htmlContent tag="CULT"><![CDATA[
 	<p>
 		Positioned on the western side of town, one otherwise-ordinary building stands out from those around it due to the copious amount of flags which hang from its windows. With each one bearing the black pentagram of Lilith, the fanatical loyalty of the building's occupants is apparent to anyone who so much as glances its way.
@@ -160,7 +130,12 @@
 		While nowhere near as huge or imposing as its Dominion counterpart, the building which houses the Elis Enforcers is nevertheless a suitably large and official-looking one. Although it's of the same timber-framed style as most of the other structures in the town, the Enforcer station differs from those around it by nature of the fact that it sits back from the road, and is separated from where you're standing by an attractive knot garden. If it wasn't for the large sign declaring this to be the Enforcer's Elis branch, as well as the Enforcers themselves occasionally coming and going from the main entrance, you could easily be mistaken for thinking that this building was simply a wealthy resident's manor.
 	</p>
 	<p>
-		Clearly not having to deal with anywhere near the same level of crime as the Realm's capital, the Enforcers which you see all have a relaxed, friendly look about them. Not having any business with the Enforcers at this time, you don't see any need to engage one in conversation and discover if that friendly appearance is simply skin deep, and so turn around and prepare to continue on your way...
+		Clearly not having to deal with anywhere near the same level of crime as the Realm's capital, the Enforcers which you see all have a relaxed, friendly look about them. A sign beside the main entrance to the station declares that non-emergency visiting hours for members of the public is between
+		#IF(game.isHourBetween(8, 20))
+			 [style.colourMinorGood([units.time(8)]-[units.time(20)])], and as such it's currently [style.colourGood(open)], allowing you to head on in and take a look inside if you wanted to...
+		#ELSE
+			 [style.colourMinorBad([units.time(8)]-[units.time(20)])], and as such it's currently [style.colourBad(closed)]. If you wanted to head inside, you'll have to come back later...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
