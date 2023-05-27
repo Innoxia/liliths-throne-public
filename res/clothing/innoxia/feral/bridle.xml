@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>1500</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[bridle]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[bridles]]></namePlural>
+		<description><![CDATA[A piece of equipment that's designed to fit around the head of a horse and used to direct the animal. Thanks to an arcane enchantment, the leather straps and headstall resize themselves to fit any muzzle-faced person or beast.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<equipSlots>
+			<slot>MOUTH</slot>
+		</equipSlots>
+		<rarity>EPIC</rarity>
+		<clothingSet>innoxia_submissive_steed</clothingSet>
+		<imageName>bridle.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		
+		<stickers>
+			<category id="reins" priority="1">
+				<categoryName><![CDATA[Reins]]></categoryName>
+				<sticker id="present" priority="1" defaultSticker="true" zLayer="1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[Present]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[This particular bridle is fitted with reins.]]></descriptionModification>
+					<imageName zLayer="-1">bridle_reins.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="removed" priority="2" defaultSticker="false" zLayer="1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[Removed]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[The reins have been removed from this bridle.]]></descriptionModification>
+					<imageName zLayer="-1">bridle_bit.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+			</category>
+		</stickers>
+		
+		<effects>
+			<effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="TF_MOD_FETISH_BEHAVIOUR" secondaryModifier="TF_MOD_FETISH_BONDAGE_VICTIM" timer="0"/>
+		</effects>
+		
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>MOUTH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+			
+		<incompatibleSlots/>
+			
+		<primaryColours>
+			<colour>CLOTHING_TAN</colour>
+			<colour>CLOTHING_DESATURATED_BROWN</colour>
+			<colour>CLOTHING_DESATURATED_BROWN_DARK</colour>
+			<colour>CLOTHING_BLACK</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_STEEL"/>
+		<secondaryColoursDye values="ALL_METAL"/>
+		<tertiaryColours values="JUST_WHITE"/>
+		<tertiaryColoursDye values="ALL"/>
+
+		<itemTags>
+			<tag>FITS_MUZZLES_EXCLUSIVE</tag>
+			<tag>SOLD_BY_FINCH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(open)] [npc.her] mouth wide and [npc.verb(slide)] the bridle's bit into it, before reaching back and fastening the buckles to keep the headstall in place.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(push)] the bridle's bit into [npc2.namePos] mouth, before reaching back and fastening the buckles to keep the headstall in place.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(force)] the bridle's bit into [npc2.namePos] mouth, before reaching back and tightly fastening the buckles to keep the headstall in place.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(unfasten)] the bridle's straps and [npc.verb(take)] it off.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(unfasten)] the bridle's straps and [npc.verb(take)] it off.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] impatiently [npc.verb(unfasten)] the bridle's straps and [npc.verb(yank)] it off.]]>
+		</otherRough>
+	</displacementText>
+</clothing>

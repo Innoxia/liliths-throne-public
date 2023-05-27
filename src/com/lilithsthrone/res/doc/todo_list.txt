@@ -21,6 +21,16 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Made NPCs react more logically to unexpected genitals being revealed in sex scenes, with genital reveals now based on whether the perceived gender of the subject normally has one. (PR#1741 by NoHornyOnMain)
 		Enabled tattoo rendering with non-standard colours (e.g. via save editing). (PR#1742 by NoHornyOnMain)
 	
+	Engine/Modding:
+		Added 'FITS_MUZZLES_EXCLUSIVE' and 'FITS_BEAKS_EXCLUSIVE' item tags for tagging clothing which can only be equipped on characters with muzzles or beaks.
+	
+	Clothing:
+		Added 'Submissive Steed' clothing set, which provides +5 physique and -5 lust shielding.
+		Added: 'Bridle' (androgynous, mouth slot, Submissive Steed set, only fits muzzles).
+		Added: 'Saddle' (androgynous, leg slot, Submissive Steed set, only fits quadrupedal bodies).
+		Added: 'Horseshoes' (androgynous, foot slot, Submissive Steed set, only fits hoofs, only fits quadrupedal bodies).
+		Added: 'Tail bandage' (androgynous, tail slot, Submissive Steed set).
+	
 	Combat:
 		The two final upgrades to the Vacuum spell no longer strip clothing from unique NPCs. (As stripping clothing from quest-critical NPCs was resulting in issues with their content.)
 	
@@ -155,18 +165,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Some typos in the gym floor content: 
 		rubbing matting -> rubber matting; Do you best! -> Do your best!
 		Also, after you take a shower, it's text is only shown after you move away from the tile.
-	
-	[] Maxis DMs
-	[] A Fox submission
-	[] Dwight submission
-	
-	[] Add Wolfgang & Karl art
-		[x] preview also
-	[x] PussPuss poll!
-	
-	[] Add Oglix
-	[] Get Golix details to FAF
-	
 	[x] Eisek PR!
 		Bugfixes:
 			- Bugfix: Regenerated Elis market map upon loading so as to add in Eisek's stall.
@@ -251,8 +249,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Final full playthrough test:
 			- Bugfix: Added 'pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB)' to the silly mode mob conditional check, as it was triggering when encountering Eisek for the first time.
 			- Food status effects: Added unique icons for the two food-related status effects, using your apple and tangerine images for the icons.
-			
-			
 	[x] Test:
 		[x] Issue with 'SIDE_EISEK_STALL' quest progress: Can ask Monica, Silvia/Fae, Imsu/Hale about quest items even before starting quest.
 		[x] Dialogue:
@@ -320,6 +316,21 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] Add fruit status effect icons
 		[-] Add apple flavour?
 	
+	[] Maxis DMs
+	[] A Fox submission
+	[] Dwight submission
+	
+	[] Add Wolfgang & Karl art
+		[x] preview also
+	[x] PussPuss poll!
+	
+	[] Pusspuss character
+	
+	[] Add Oglix
+	[] Get Golix details to FAF
+	
+	[] Platinum Bank of Dominion card states that it grants access to Elis's town hall's tower.
+	
 	[] Remove <sexBlockedReason/> from lots of place types...
 	
 	[] Too many virgins spawning as one-night stands in Lights Out
@@ -328,6 +339,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[#partner.resetBodyToGenderPreferences(false, false)]
 		Delete this
 		[18:09]Maxis (Lvl 17 Code Monkey): if I'm right, that method call is restoring the virginities by regenerating the body
+		
+	[] AceXP: Taking all items while on the second/third/etc page of the inventory screws up the rendering of the right side of the inventory page.
+		And the same happens on the left side if you store all while not on the first page.
+		This happens because the page stays the same but there are now no more items to display.
 		
 	[] main quest
 		[x] Add Enforcer station
@@ -381,7 +396,17 @@ Not everything in this file is up-to-date, and everything is subject to change a
 							[] You're both tied up
 								[] Get punished
 									[] non-feral - spanking, whipping, oral dom
-									[] feral - bridle, saddle, tail wrap
+									[] feral
+										[x] add clothing:
+											[x] bridle (muzzle only)
+												[x] need muzzle/beak/humanoid face limitations for tags
+											[x] saddle (taur only - slot?)
+												[x] quaternary colour not init correctly
+											[x] tail wrap (for any tail)
+											[x] horse shoes
+											[x] add submissive steed set
+												[x] add status effect icon
+										[] both get put into sub steed gear 
 								[] Fucked
 									[] feral - reins
 							[] After sex, same end
