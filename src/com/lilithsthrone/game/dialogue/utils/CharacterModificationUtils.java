@@ -815,30 +815,37 @@ public class CharacterModificationUtils {
 		int sexCount = BodyChanging.getTarget().getTotalSexCount(associatedSexType);
 		boolean decreaseDisabled = sexCount<=0;
 		boolean increaseDisabled = sexCount>=maxSexExperience;
-		int minorStep = 1;
-		int majorStep = 10;
+		int singleStep = 1;
+		int minorStep = 10;
+		int majorStep = 100;
 		
 		return "<div class='container-full-width inner'>"
 					+ "<div class='container-full-width inner' style='width:calc(30%);margin:0;padding:0;'>"
 						+ title
 					+ "</div>"
 					+ "<div class='container-full-width inner' style='width:calc(70%);margin:0;padding:0;'>"
-						+ "<div class='container-full-width' style='width:15%; text-align:center; float:left; position:relative; padding:0; margin:0;'>"
-							+ "<div id='"+id+"_DECREASE_LARGE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:48%; margin:1%; padding:0;'>"
+						+ "<div class='container-full-width' style='width:30%; text-align:center; float:left; position:relative; padding:0; margin:0;'>"
+							+ "<div id='"+id+"_DECREASE_LARGE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:30%; margin:1%; padding:0;'>"
 								+ (decreaseDisabled?"[style.boldDisabled(-"+majorStep+")]":"[style.boldBad(-"+majorStep+")]")
 							+ "</div>"
-							+ "<div id='"+id+"_DECREASE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:48%; margin:1%; padding:0;'>"
-								+ (decreaseDisabled?"[style.boldDisabled(-"+minorStep+")]":"[style.boldBadMinor(-"+minorStep+")]")
+							+ "<div id='"+id+"_DECREASE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:30%; margin:1%; padding:0;'>"
+								+ (decreaseDisabled?"[style.boldDisabled(-"+minorStep+")]":"[style.boldBad(-"+minorStep+")]")
+							+ "</div>"
+							+ "<div id='"+id+"_DECREASE_SMALL' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:30%; margin:1%; padding:0;'>"
+								+ (decreaseDisabled?"[style.boldDisabled(-"+singleStep+")]":"[style.boldBadMinor(-"+singleStep+")]")
 							+ "</div>"
 						+ "</div>"
 						+ "<div class='container-full-width' style='width:18%; margin:1%; padding:0; text-align:center; float:left; position:relative;'>"
 							+ sexCount
 						+ "</div>"
-						+ "<div class='container-full-width' style='width:15%; text-align:center; float:left; position:relative; padding:0; margin:0;'>"
-							+ "<div id='"+id+"_INCREASE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:48%; margin:1%; padding:0;'>"
+						+ "<div class='container-full-width' style='width:30%; text-align:center; float:left; position:relative; padding:0; margin:0;'>"
+							+ "<div id='"+id+"_INCREASE_SMALL' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:30%; margin:1%; padding:0;'>"
+								+ (increaseDisabled?"[style.boldDisabled(+"+singleStep+")]":"[style.boldGoodMinor(+"+singleStep+")]")
+							+ "</div>"
+							+ "<div id='"+id+"_INCREASE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:30%; margin:1%; padding:0;'>"
 								+ (increaseDisabled?"[style.boldDisabled(+"+minorStep+")]":"[style.boldGoodMinor(+"+minorStep+")]")
 							+ "</div>"
-							+ "<div id='"+id+"_INCREASE_LARGE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:48%; margin:1%; padding:0;'>"
+							+ "<div id='"+id+"_INCREASE_LARGE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:30%; margin:1%; padding:0;'>"
 								+ (increaseDisabled?"[style.boldDisabled(+"+majorStep+")]":"[style.boldGood(+"+majorStep+")]")
 							+ "</div>"
 						+ "</div>"

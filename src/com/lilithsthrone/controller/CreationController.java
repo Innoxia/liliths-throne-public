@@ -2802,126 +2802,39 @@ public class CreationController {
 	}
 	
 	public static void initSexExperienceListeners() {
+		Map<String, SexType> types = Util.newHashMapOfValues(
+				new Value<>("HANDJOBS_GIVEN", new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaPenetration.PENIS)),
+				new Value<>("FINGERINGS_GIVEN", new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
+				new Value<>("BLOWJOBS_GIVEN", new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS)),
+				new Value<>("CUNNILINGUS_GIVEN", new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA)),
+				new Value<>("ANILINGUS_GIVEN", new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS)),
+				new Value<>("VAGINAL_GIVEN", new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA)),
+				new Value<>("ANAL_GIVEN", new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS)),
+				new Value<>("HANDJOBS_TAKEN", new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FINGER)),
+				new Value<>("FINGERINGS_TAKEN", new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER)),
+				new Value<>("BLOWJOBS_TAKEN", new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH)),
+				new Value<>("CUNNILINGUS_TAKEN", new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE)),
+				new Value<>("ANILINGUS_TAKEN", new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE)),
+				new Value<>("VAGINAL_TAKEN", new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS)),
+				new Value<>("ANAL_TAKEN", new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS)),
+				new Value<>("BLOWJOBS_GIVEN", new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS)));
 		Map<String, Integer> mappings = Util.newHashMapOfValues(
-				new Value<>("DECREASE_LARGE", -10),
-				new Value<>("DECREASE", -1),
-				new Value<>("INCREASE", 1),
-				new Value<>("INCREASE_LARGE", 10));
-		for (Entry<String, Integer> entry : mappings.entrySet()) {
-			String i = entry.getKey();
-			int j = entry.getValue();
-			// Given:
-			String id = "HANDJOBS_GIVEN_"+i;
-			if (MainController.document.getElementById(id) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					CharacterModificationUtils.incrementSexExperience(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaPenetration.PENIS), j);
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			
-			id = "FINGERINGS_GIVEN_"+i;
-			if (MainController.document.getElementById(id) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					CharacterModificationUtils.incrementSexExperience(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA), j);
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			
-			id = "BLOWJOBS_GIVEN_"+i;
-			if (MainController.document.getElementById(id) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					CharacterModificationUtils.incrementSexExperience(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS), j);
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			
-			id = "CUNNILINGUS_GIVEN_"+i;
-			if (MainController.document.getElementById(id) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					CharacterModificationUtils.incrementSexExperience(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA), j);
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			
-			id = "ANILINGUS_GIVEN_"+i;
-			if (MainController.document.getElementById(id) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					CharacterModificationUtils.incrementSexExperience(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS), j);
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			
-			id = "VAGINAL_GIVEN_"+i;
-			if (MainController.document.getElementById(id) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					CharacterModificationUtils.incrementSexExperience(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA), j);
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			
-			id = "ANAL_GIVEN_"+i;
-			if (MainController.document.getElementById(id) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					CharacterModificationUtils.incrementSexExperience(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS), j);
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			
-			// Received:
-			id = "HANDJOBS_TAKEN_"+i;
-			if (MainController.document.getElementById(id) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					CharacterModificationUtils.incrementSexExperience(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FINGER), j);
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			
-			id = "FINGERINGS_TAKEN_"+i;
-			if (MainController.document.getElementById(id) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					CharacterModificationUtils.incrementSexExperience(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER), j);
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			
-			id = "BLOWJOBS_TAKEN_"+i;
-			if (MainController.document.getElementById(id) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					CharacterModificationUtils.incrementSexExperience(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH), j);
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			
-			id = "CUNNILINGUS_TAKEN_"+i;
-			if (MainController.document.getElementById(id) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					CharacterModificationUtils.incrementSexExperience(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE), j);
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			
-			id = "ANILINGUS_TAKEN_"+i;
-			if (MainController.document.getElementById(id) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					CharacterModificationUtils.incrementSexExperience(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE), j);
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			
-			id = "VAGINAL_TAKEN_"+i;
-			if (MainController.document.getElementById(id) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					CharacterModificationUtils.incrementSexExperience(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), j);
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-			
-			id = "ANAL_TAKEN_"+i;
-			if (MainController.document.getElementById(id) != null) {
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					CharacterModificationUtils.incrementSexExperience(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS), j);
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
+				new Value<>("DECREASE_LARGE", -100),
+				new Value<>("DECREASE", -10),
+				new Value<>("DECREASE_SMALL", -1),
+				new Value<>("INCREASE_SMALL", 1),
+				new Value<>("INCREASE", 10),
+				new Value<>("INCREASE_LARGE", 100));
+		for (Entry<String, SexType> typeEntry : types.entrySet()) {
+			for (Entry<String, Integer> entry : mappings.entrySet()) {
+				int i = entry.getValue();
+				String id = typeEntry.getKey() + "_" + entry.getKey();
+				if (MainController.document.getElementById(id) != null) {
+					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+						CharacterModificationUtils.incrementSexExperience(typeEntry.getValue(), i);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
 			}
 		}
 	}
