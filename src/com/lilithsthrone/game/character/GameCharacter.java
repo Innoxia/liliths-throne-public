@@ -6095,7 +6095,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public String incrementExperience(int increment, boolean withExtraModifiers) {
-		if (getLevel() == LEVEL_CAP) {
+		if (getLevel() >= LEVEL_CAP) {
 			experience = 0;
 			return "";
 		}
@@ -21647,6 +21647,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public void setLevel(int level) {
+		if (level > LEVEL_CAP) {
+			level = LEVEL_CAP;
+		}
 		this.level = level;
 	}
 
