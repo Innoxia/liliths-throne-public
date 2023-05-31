@@ -19,7 +19,8 @@ public class EnchantmentEventListener implements EventListener {
 	private AbstractCoreItem itemToEnchant;
 	private TFModifier primaryModifier, secondaryModifier;
 	private TFPotency potency;
-	private boolean effect;
+	private boolean remove;
+	private boolean removeAll;
 	private int effectIndex;
 	private int limit;
 
@@ -41,8 +42,11 @@ public class EnchantmentEventListener implements EventListener {
 		} else if(potency != null) {
 			EnchantmentDialogue.setPotency(potency);
 			
-		} else if(effect) {
+		} else if(remove) {
 			EnchantmentDialogue.removeEffect(effectIndex);
+			
+		} else if(removeAll) {
+			EnchantmentDialogue.removeMatchingEffect(effectIndex);
 			
 		} else if(limit != EnchantmentDialogue.getLimit()) {
 			EnchantmentDialogue.setLimit(limit);
@@ -94,7 +98,15 @@ public class EnchantmentEventListener implements EventListener {
 	
 	public EnchantmentEventListener removeEffect(int effectIndex) {
 		resetVariables();
-		effect = true;
+		remove = true;
+		this.effectIndex = effectIndex;
+
+		return this;
+	}
+	
+	public EnchantmentEventListener removeMatchingEffect(int effectIndex) {
+		resetVariables();
+		removeAll = true;
 		this.effectIndex = effectIndex;
 
 		return this;
@@ -108,7 +120,8 @@ public class EnchantmentEventListener implements EventListener {
 	}
 
 	private void resetVariables() {
-		effect = false;
+		remove = false;
+		removeAll = false;
 		effectIndex = 0;
 		itemToEnchant = null;
 		primaryModifier = null;
