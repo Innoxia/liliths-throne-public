@@ -454,7 +454,11 @@ public class CharacterInventory implements XMLSaving {
 	 * Does not allow money to fall below 0.
 	 */
 	public void incrementMoney(int increment) {
-		setMoney(money + increment);
+		try {
+			setMoney(Math.addExact(money, increment));
+		} catch (ArithmeticException ex) {
+			setMoney(Integer.MAX_VALUE);
+		}
 	}
 	
 	public int getEssenceCount() {
@@ -472,7 +476,11 @@ public class CharacterInventory implements XMLSaving {
 	 * Does not allow essence count to fall below 0.
 	 */
 	public void incrementEssenceCount(int increment) {
-		this.essenceCount = Math.max(0, this.essenceCount + increment);
+		try {
+			setEssenceCount(Math.addExact(essenceCount, increment));
+		} catch (ArithmeticException ex) {
+			setEssenceCount(Integer.MAX_VALUE);
+		}
 	}
 
 	/**
