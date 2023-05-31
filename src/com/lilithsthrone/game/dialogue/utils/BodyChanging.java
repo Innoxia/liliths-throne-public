@@ -334,8 +334,9 @@ public class BodyChanging {
 	
 	private static boolean isDemonTFMenu() {
 		return !debugMenu
-				&& BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.SLIME
-				&& (BodyChanging.getTarget().getRace()==Race.DEMON
+				&& (BodyChanging.getTarget().getSubspeciesOverride()==Subspecies.IMP
+					|| BodyChanging.getTarget().getSubspeciesOverride()==Subspecies.IMP_ALPHA
+					|| BodyChanging.getTarget().getSubspeciesOverride()==Subspecies.HALF_DEMON
 					|| BodyChanging.getTarget().getSubspeciesOverride()==Subspecies.DEMON
 					|| BodyChanging.getTarget().getSubspeciesOverride()==Subspecies.LILIN
 					|| BodyChanging.getTarget().getSubspeciesOverride()==Subspecies.ELDER_LILIN
@@ -2233,6 +2234,9 @@ public class BodyChanging {
 		if(isDemonTFMenu() || BodyChanging.getTarget().isYouko() || BodyChanging.getTarget() instanceof Elemental) {
 			StringBuilder sb = new StringBuilder();
 			List<String> partsList = new ArrayList<>();
+			if (isHalfDemon() && BodyChanging.getTarget().getHalfDemonSubspecies().getRace() == body.getHalfDemonSubspecies().getRace()) {
+				return "";
+			}
 			for(BodyPartInterface part : body.getAllBodyParts()) {
 				if(!BodyChanging.getTarget().getSelfTransformationRaces().contains(part.getType().getRace())) {
 					if(sb.length()==0) {
