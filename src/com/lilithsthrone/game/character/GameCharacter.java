@@ -10306,7 +10306,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public String applyLevelDrain(GameCharacter target) {
 		if(target.getTrueLevel()>1) {
-			int exp = target.getExperienceNeededForNextLevel();
+			int exp = target.getTrueLevel()*5;
 			return UtilText.parse(target, this,
 					"<p style='text-align:center; margin:0;'>"
 						+ this.getLevelDrainDescription(target)
