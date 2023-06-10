@@ -142,11 +142,11 @@ public class RalphsSnacks {
 					@Override
 					public void effects() {
 						getRalph().clearNonEquippedInventory(false);
-						for (AbstractItem i : getRalph().getFoodItems()) {
-							if (getRalph().isInventoryFull()) {
+						for (Map.Entry<AbstractItem, Integer> item : (getRalph()).getFoodItemsForSale().entrySet()) {
+							if(getRalph().isInventoryFull()) {
 								break;
 							}
-							getRalph().addItem(i, false, false);
+							getRalph().addItem(item.getKey(), item.getValue(), false, false);
 						}
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphIntroduced);
 						resetDiscountCheck();
@@ -158,11 +158,11 @@ public class RalphsSnacks {
 						@Override
 						public void effects() {
 							getRalph().clearNonEquippedInventory(false);
-							for (AbstractItem i : getRalph().getDrinkItems()) {
+							for (Map.Entry<AbstractItem, Integer> item : (getRalph()).getDrinkItemsForSale().entrySet())  {
 								if(getRalph().isInventoryFull()) {
 									break;
 								}
-								getRalph().addItem(i, false, false);
+								getRalph().addItem(item.getKey(), item.getValue(), false, false);
 							}
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphIntroduced);
 							resetDiscountCheck();
@@ -175,25 +175,25 @@ public class RalphsSnacks {
 						public void effects() {
 							getRalph().clearNonEquippedInventory(false);
 
-							for (AbstractItem i : getRalph().getOtherItems()) {
+							for (Map.Entry<AbstractItem, Integer> item : (getRalph()).getOtherItemsForSale().entrySet()) {
 								if(getRalph().isInventoryFull()) {
 									break;
 								}
-								getRalph().addItem(i, false, false);
+								getRalph().addItem(item.getKey(), item.getValue(), false, false);
 							}
 
-							for (AbstractClothing i : getRalph().getClothingItems()) {
+							for (Map.Entry<AbstractClothing, Integer> clothing : (getRalph()).getClothingForSale().entrySet()) {
 								if(getRalph().isInventoryFull()) {
 									break;
 								}
-								getRalph().addClothing(i, false);
+								getRalph().addClothing(clothing.getKey(), clothing.getValue(), false, false);
 							}
 
-							for (AbstractWeapon i : getRalph().getWeaponItems()) {
+							for (Map.Entry<AbstractWeapon, Integer> weapon : (getRalph()).getWeaponsForSale().entrySet()) {
 								if(getRalph().isInventoryFull()) {
 									break;
 								}
-								getRalph().addWeapon(i, false);
+								getRalph().addWeapon(weapon.getKey(), weapon.getValue(), false, false);
 							}
 
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphIntroduced);

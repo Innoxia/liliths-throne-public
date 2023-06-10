@@ -1,10 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import org.w3c.dom.Document;
@@ -76,11 +73,11 @@ public class Ralph extends NPC {
 	
 	public static final String RALPH_DISCOUNT_TIMER_ID = "ralph_discount_timer";
 
-	private final List<AbstractItem> foodItems;
-	private final List<AbstractItem> drinkItems;
-	private final List<AbstractItem> otherItems;
-	private final List<AbstractClothing> clothingItems;
-	private final List<AbstractWeapon> weaponItems;
+	private final Map<AbstractItem, Integer> foodItemsForSale;
+	private final Map<AbstractItem, Integer> drinkItemsForSale;
+	private final Map<AbstractItem, Integer> otherItemsForSale;
+	private final Map<AbstractClothing, Integer> clothingForSale;
+	private final Map<AbstractWeapon, Integer> weaponsForSale;
 
 	public Ralph() {
 		this(false);
@@ -93,11 +90,11 @@ public class Ralph extends NPC {
 				10, Gender.M_P_MALE, Subspecies.HORSE_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_RALPHS_SHOP, true);
 
-		foodItems = new ArrayList<>();
-		drinkItems = new ArrayList<>();
-		otherItems = new ArrayList<>();
-		clothingItems = new ArrayList<>();
-		weaponItems = new ArrayList<>();
+		foodItemsForSale = new HashMap<>();
+		drinkItemsForSale = new HashMap<>();
+		otherItemsForSale = new HashMap<>();
+		weaponsForSale = new HashMap<>();
+		clothingForSale = new HashMap<>();
 
 		if(!isImported) {
 			dailyUpdate();
@@ -106,73 +103,71 @@ public class Ralph extends NPC {
 		}
 	}
 
-	private Map<String, List<AbstractItem>> getAllItemListsMap() {
-		return Util.newHashMapOfValues(
-				new Value<>("foodItems", foodItems),
-				new Value<>("drinkItems", drinkItems),
-				new Value<>("otherItems", otherItems));
-	}
-	private Map<String, List<AbstractClothing>> getAllClothingListsMap() {
-		return Util.newHashMapOfValues(
-				new Value<>("clothingItems", clothingItems));
-	}
-	private Map<String, List<AbstractWeapon>> getAllWeaponListsMap() {
-		return Util.newHashMapOfValues(
-				new Value<>("weaponItems", weaponItems));
+	public Map<AbstractItem, Integer> getFoodItemsForSale() {return foodItemsForSale; }
+
+	public Map<AbstractItem, Integer> getDrinkItemsForSale() {return drinkItemsForSale; }
+
+	public Map<AbstractItem, Integer> getOtherItemsForSale() {return otherItemsForSale; }
+
+	public Map<AbstractClothing, Integer> getClothingForSale() {
+		return clothingForSale;
 	}
 
-	public List<AbstractItem> getFoodItems() {
-		Collections.shuffle(foodItems);
-		return foodItems;
+	public Map<AbstractWeapon, Integer> getWeaponsForSale() {
+		return weaponsForSale;
 	}
-	public List<AbstractItem> getDrinkItems() {
-		Collections.shuffle(drinkItems);
-		return drinkItems;
-	}
-	public List<AbstractItem> getOtherItems() {
-		Collections.shuffle(otherItems);
-		return otherItems;
-	}
-	public List<AbstractClothing> getClothingItems() {
-		Collections.shuffle(clothingItems);
-		return clothingItems;
-	}
-	public List<AbstractWeapon> getWeaponItems() {
-		Collections.shuffle(weaponItems);
-		return weaponItems;
-	}
+
 	@Override
 	public Element saveAsXML(Element parentElement, Document doc) {
 		Element properties = super.saveAsXML(parentElement, doc);
 
-		for(Map.Entry<String, List<AbstractItem>> entry : getAllItemListsMap().entrySet()) {
-			Element itemElement = doc.createElement(entry.getKey());
-			properties.appendChild(itemElement);
-			for(AbstractItem c : entry.getValue()) {
-				try {
-					c.saveAsXML(itemElement, doc);
-				} catch(Exception ex) {
-				}
+		Element foodItemsElement = doc.createElement("foodItemsForSale");
+		properties.appendChild(foodItemsElement);
+		for(Map.Entry<AbstractItem, Integer> item : foodItemsForSale.entrySet()) {
+			try {
+				Element e = item.getKey().saveAsXML(foodItemsElement, doc);
+				e.setAttribute("count", String.valueOf(item.getValue()));
+			} catch(Exception ex) {
 			}
 		}
-		for(Map.Entry<String, List<AbstractClothing>> entry : getAllClothingListsMap().entrySet()) {
-			Element clothingElement = doc.createElement(entry.getKey());
-			properties.appendChild(clothingElement);
-			for(AbstractClothing c : entry.getValue()) {
-				try {
-					c.saveAsXML(clothingElement, doc);
-				} catch(Exception ex) {
-				}
+
+		Element drinkItemsElement = doc.createElement("drinkItemsForSale");
+		properties.appendChild(drinkItemsElement);
+		for(Map.Entry<AbstractItem, Integer> item : drinkItemsForSale.entrySet()) {
+			try {
+				Element e = item.getKey().saveAsXML(drinkItemsElement, doc);
+				e.setAttribute("count", String.valueOf(item.getValue()));
+			} catch(Exception ex) {
 			}
 		}
-		for(Map.Entry<String, List<AbstractWeapon>> entry : getAllWeaponListsMap().entrySet()) {
-			Element weaponElement = doc.createElement(entry.getKey());
-			properties.appendChild(weaponElement);
-			for(AbstractWeapon c : entry.getValue()) {
-				try {
-					c.saveAsXML(weaponElement, doc);
-				} catch(Exception ex) {
-				}
+
+		Element otherItemsElement = doc.createElement("otherItemsForSale");
+		properties.appendChild(otherItemsElement);
+		for(Map.Entry<AbstractItem, Integer> item : otherItemsForSale.entrySet()) {
+			try {
+				Element e = item.getKey().saveAsXML(otherItemsElement, doc);
+				e.setAttribute("count", String.valueOf(item.getValue()));
+			} catch(Exception ex) {
+			}
+		}
+
+		Element clothingElement = doc.createElement("clothingForSale");
+		properties.appendChild(clothingElement);
+		for(Map.Entry<AbstractClothing, Integer> clothing : clothingForSale.entrySet()) {
+			try {
+				Element e = clothing.getKey().saveAsXML(clothingElement, doc);
+				e.setAttribute("count", String.valueOf(clothing.getValue()));
+			} catch(Exception ex) {
+			}
+		}
+
+		Element weaponsElement = doc.createElement("weaponsForSale");
+		properties.appendChild(weaponsElement);
+		for(Map.Entry<AbstractWeapon, Integer> weapon : weaponsForSale.entrySet()) {
+			try {
+				Element e = weapon.getKey().saveAsXML(weaponsElement, doc);
+				e.setAttribute("count", String.valueOf(weapon.getValue()));
+			} catch(Exception ex) {
 			}
 		}
 
@@ -183,65 +178,108 @@ public class Ralph extends NPC {
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 
-		for(Map.Entry<String, List<AbstractItem>> entry : this.getAllItemListsMap().entrySet()) {
-			Element npcSpecificElement = (Element) parentElement.getElementsByTagName(entry.getKey()).item(0);
-			if(npcSpecificElement!=null) {
-				entry.getValue().clear();
+		Element foodItemsElement = (Element) parentElement.getElementsByTagName("foodItemsForSale").item(0);
+		if(foodItemsElement!=null) {
+			foodItemsForSale.clear();
 
-				NodeList nodeList = npcSpecificElement.getElementsByTagName("item");
-				for(int i=0; i < nodeList.getLength(); i++){
-					Element e = (Element) nodeList.item(i);
+			NodeList nodeList = foodItemsElement.getElementsByTagName("item");
+			for(int i=0; i < nodeList.getLength(); i++){
+				Element e = (Element) nodeList.item(i);
+				try {
+					AbstractItem item = AbstractItem.loadFromXML(e, doc);
+					int count = 1;
 					try {
-						AbstractItem c = AbstractItem.loadFromXML(e, doc);
-						if(c!=null) {
-							entry.getValue().add(c);
-						} else {
-							System.err.println("Warning: loaded item is null in Ralph's loadFromXML() method!");
-						}
+						count = Integer.parseInt(e.getAttribute("count"));
 					} catch(Exception ex) {
+						foodItemsForSale.putIfAbsent(item, 0);
+						count = foodItemsForSale.get(item)+1;
 					}
+					foodItemsForSale.put(item, count);
+				} catch(Exception ex) {
 				}
 			}
 		}
+		Element drinkItemsElement = (Element) parentElement.getElementsByTagName("drinkItemsForSale").item(0);
+		if(drinkItemsElement!=null) {
+			drinkItemsForSale.clear();
 
-		for(Map.Entry<String, List<AbstractClothing>> entry : this.getAllClothingListsMap().entrySet()) {
-			Element npcSpecificElement = (Element) parentElement.getElementsByTagName(entry.getKey()).item(0);
-			if(npcSpecificElement!=null) {
-				entry.getValue().clear();
-
-				NodeList nodeList = npcSpecificElement.getElementsByTagName("clothing");
-				for(int i=0; i < nodeList.getLength(); i++){
-					Element e = (Element) nodeList.item(i);
+			NodeList nodeList = drinkItemsElement.getElementsByTagName("item");
+			for(int i=0; i < nodeList.getLength(); i++){
+				Element e = (Element) nodeList.item(i);
+				try {
+					AbstractItem item = AbstractItem.loadFromXML(e, doc);
+					int count = 1;
 					try {
-						AbstractClothing c = AbstractClothing.loadFromXML(e, doc);
-						if(c!=null) {
-							entry.getValue().add(c);
-						} else {
-							System.err.println("Warning: loaded clothing is null in Ralph's loadFromXML() method!");
-						}
+						count = Integer.parseInt(e.getAttribute("count"));
 					} catch(Exception ex) {
+						drinkItemsForSale.putIfAbsent(item, 0);
+						count = drinkItemsForSale.get(item)+1;
 					}
+					drinkItemsForSale.put(item, count);
+				} catch(Exception ex) {
 				}
 			}
 		}
+		Element otherItemsElement = (Element) parentElement.getElementsByTagName("otherItemsForSale").item(0);
+		if(otherItemsElement!=null) {
+			otherItemsForSale.clear();
 
-		for(Map.Entry<String, List<AbstractWeapon>> entry : this.getAllWeaponListsMap().entrySet()) {
-			Element npcSpecificElement = (Element) parentElement.getElementsByTagName(entry.getKey()).item(0);
-			if(npcSpecificElement!=null) {
-				entry.getValue().clear();
-
-				NodeList nodeList = npcSpecificElement.getElementsByTagName("weapon");
-				for(int i=0; i < nodeList.getLength(); i++){
-					Element e = (Element) nodeList.item(i);
+			NodeList nodeList = otherItemsElement.getElementsByTagName("item");
+			for(int i=0; i < nodeList.getLength(); i++){
+				Element e = (Element) nodeList.item(i);
+				try {
+					AbstractItem item = AbstractItem.loadFromXML(e, doc);
+					int count = 1;
 					try {
-						AbstractWeapon c = AbstractWeapon.loadFromXML(e, doc);
-						if(c!=null) {
-							entry.getValue().add(c);
-						} else {
-							System.err.println("Warning: loaded weapon is null in Ralph's loadFromXML() method!");
-						}
+						count = Integer.parseInt(e.getAttribute("count"));
 					} catch(Exception ex) {
+						otherItemsForSale.putIfAbsent(item, 0);
+						count = otherItemsForSale.get(item)+1;
 					}
+					otherItemsForSale.put(item, count);
+				} catch(Exception ex) {
+				}
+			}
+		}
+		Element weaponsElement = (Element) parentElement.getElementsByTagName("weaponsForSale").item(0);
+		if(weaponsElement!=null) {
+			weaponsForSale.clear();
+
+			NodeList nodeList = weaponsElement.getElementsByTagName("weapon");
+			for(int i=0; i < nodeList.getLength(); i++){
+				Element e = (Element) nodeList.item(i);
+				try {
+					AbstractWeapon weapon = AbstractWeapon.loadFromXML(e, doc);
+					int count = 1;
+					try {
+						count = Integer.parseInt(e.getAttribute("count"));
+					} catch(Exception ex) {
+						weaponsForSale.putIfAbsent(weapon, 0);
+						count = weaponsForSale.get(weapon)+1;
+					}
+					weaponsForSale.put(weapon, count);
+				} catch(Exception ex) {
+				}
+			}
+		}
+		Element clothingElement = (Element) parentElement.getElementsByTagName("clothingForSale").item(0);
+		if(clothingElement!=null) {
+			clothingForSale.clear();
+
+			NodeList nodeList = clothingElement.getElementsByTagName("clothing");
+			for(int i=0; i < nodeList.getLength(); i++){
+				Element e = (Element) nodeList.item(i);
+				try {
+					AbstractClothing clothing = AbstractClothing.loadFromXML(e, doc);
+					int count = 1;
+					try {
+						count = Integer.parseInt(e.getAttribute("count"));
+					} catch(Exception ex) {
+						clothingForSale.putIfAbsent(clothing, 0);
+						count = clothingForSale.get(clothing)+1;
+					}
+					clothingForSale.put(clothing, count);
+				} catch(Exception ex) {
 				}
 			}
 		}
@@ -406,18 +444,14 @@ public class Ralph extends NPC {
 	public void dailyUpdate() {
 		clearNonEquippedInventory(false);
 
-		foodItems.clear();
-		drinkItems.clear();
-		otherItems.clear();
-		clothingItems.clear();
-		weaponItems.clear();
+		foodItemsForSale.clear();
+		drinkItemsForSale.clear();
+		otherItemsForSale.clear();
+		clothingForSale.clear();
+		weaponsForSale.clear();
 
-		for (int i = 0; i < 25; i++) {
-			otherItems.add(Main.game.getItemGen().generateItem(ItemType.DYE_BRUSH));
-		}
-		for (int i = 0; i < 10; i++) {
-			otherItems.add(Main.game.getItemGen().generateItem(ItemType.REFORGE_HAMMER));
-		}
+		otherItemsForSale.put(Main.game.getItemGen().generateItem(ItemType.DYE_BRUSH), 25);
+		otherItemsForSale.put(Main.game.getItemGen().generateItem(ItemType.REFORGE_HAMMER), 10);
 
 		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
 			if(clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_RALPH)
@@ -435,12 +469,10 @@ public class Ralph extends NPC {
 					}
 					AbstractClothing generatedClothing = Main.game.getItemGen().generateClothing(clothing, condomColour, condomColourSec, condomColourTer, false);
 
-					for (int i = 0; i < (3+(Util.random.nextInt(4)))*(clothing.getRarity()== Rarity.COMMON?3:(clothing.getRarity()==Rarity.UNCOMMON?2:1)); i++) {
-						clothingItems.add(generatedClothing);
-					}
+					clothingForSale.put(generatedClothing, 3+(Util.random.nextInt(4))*(clothing.getRarity()== Rarity.COMMON?3:(clothing.getRarity()==Rarity.UNCOMMON?2:1)));
 				} else {
 					AbstractClothing generatedClothing = Main.game.getItemGen().generateClothing(clothing);
-					clothingItems.add(generatedClothing);
+					clothingForSale.put(generatedClothing, 1);
 				}
 			}
 		}
@@ -449,9 +481,7 @@ public class Ralph extends NPC {
 			AbstractWeapon generatedWeapon = Main.game.getItemGen().generateWeapon(weapon);
 			if (generatedWeapon.getItemTags().contains(ItemTag.SOLD_BY_RALPH)
 					&& (!weapon.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
-				for (int i = 0; i < 1 + Util.random.nextInt(5); i++) {
-					weaponItems.add(generatedWeapon);
-				}
+				weaponsForSale.put(generatedWeapon, 1 + Util.random.nextInt(5));
 			}
 		}
 
@@ -462,21 +492,15 @@ public class Ralph extends NPC {
 				if (generatedItem.getItemTags().contains(ItemTag.FOOD) ||
 					generatedItem.getItemTags().contains(ItemTag.FOOD_QUALITY) ||
 						generatedItem.getItemTags().contains(ItemTag.FOOD_POOR)) {
-					for (int i = 0; i < 6+Util.random.nextInt(12); i++) {
-						foodItems.add(generatedItem);
-					}
+					foodItemsForSale.put(generatedItem, 6+Util.random.nextInt(12));
 				}
 				else if (generatedItem.getItemTags().contains(ItemTag.DRINK) ||
 						generatedItem.getItemTags().contains(ItemTag.DRINK_QUALITY) ||
 						generatedItem.getItemTags().contains(ItemTag.DRINK_POOR)) {
-					for (int i = 0; i < 6+Util.random.nextInt(12); i++) {
-						drinkItems.add(generatedItem);
-					}
+					drinkItemsForSale.put(generatedItem, 6+Util.random.nextInt(12));
 				}
 				else {
-					for (int i = 0; i < 6+Util.random.nextInt(12); i++) {
-						otherItems.add(generatedItem);
-					}
+					otherItemsForSale.put(generatedItem, 6+Util.random.nextInt(12));
 				}
 			}
 		}
@@ -495,12 +519,46 @@ public class Ralph extends NPC {
 	@Override
 	public void applyItemTransactionEffects(AbstractCoreItem itemSold, int quantity, int individualPrice, boolean soldToPlayer) {
 		if(soldToPlayer) {
-			for(int i=0; i<quantity; i++) {
-				foodItems.remove(itemSold);
-				drinkItems.remove(itemSold);
-				otherItems.remove(itemSold);
-				clothingItems.remove(itemSold);
-				weaponItems.remove(itemSold);
+			int oldCount;
+			if(foodItemsForSale.containsKey(itemSold)) {
+				oldCount = foodItemsForSale.get(itemSold);
+				if(oldCount > quantity) {
+					foodItemsForSale.put((AbstractItem) itemSold, oldCount-quantity);
+				} else {
+					foodItemsForSale.remove((AbstractItem) itemSold);
+				}
+			}
+			if(drinkItemsForSale.containsKey(itemSold)) {
+				oldCount = drinkItemsForSale.get(itemSold);
+				if(oldCount > quantity) {
+					drinkItemsForSale.put((AbstractItem) itemSold, oldCount-quantity);
+				} else {
+					drinkItemsForSale.remove((AbstractItem) itemSold);
+				}
+			}
+			if(otherItemsForSale.containsKey(itemSold)) {
+				oldCount = otherItemsForSale.get(itemSold);
+				if(oldCount > quantity) {
+					otherItemsForSale.put((AbstractItem) itemSold, oldCount-quantity);
+				} else {
+					otherItemsForSale.remove((AbstractItem) itemSold);
+				}
+			}
+			if(clothingForSale.containsKey(itemSold)) {
+				oldCount = clothingForSale.get(itemSold);
+				if(oldCount > quantity) {
+					clothingForSale.put((AbstractClothing) itemSold, oldCount-quantity);
+				} else {
+					clothingForSale.remove((AbstractClothing) itemSold);
+				}
+			}
+			if(weaponsForSale.containsKey(itemSold)) {
+				oldCount = weaponsForSale.get(itemSold);
+				if(oldCount > quantity) {
+					weaponsForSale.put((AbstractWeapon) itemSold, oldCount-quantity);
+				} else {
+					weaponsForSale.remove((AbstractWeapon) itemSold);
+				}
 			}
 		}
 	}
