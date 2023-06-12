@@ -42,10 +42,10 @@
 	</coreAttributes>
 	<useDescriptions>
 		<selfUse><![CDATA[
-		[npc.Name] [npc.verb(open)] the lid of the cup and, upon discovering that the tea within is still at a nice temperature, [npc.verb(take)] a deep swig of the calming liquid.
+		[npc.Name] [npc.verb(open)] the lid of the cup and, upon discovering that the coffee within is still at a nice temperature, [npc.verb(take)] a deep swig of the calming liquid.
 		]]></selfUse>
 		<otherUse><![CDATA[
-		[npc.Name] [npc.verb(open)] the lid of the cup and, upon discovering that the tea within is still at a nice temperature, [npc.name] [npc.verb(bring)] it up to [npc2.namePos] waiting [npc2.lips] so [npc2.she] can take a deep swig of the calming liquid.
+		[npc.Name] [npc.verb(open)] the lid of the cup and, upon discovering that the coffee within is still at a nice temperature, [npc.name] [npc.verb(bring)] it up to [npc2.namePos] waiting [npc2.lips] so [npc2.she] can take a deep swig of the calming liquid.
 		]]></otherUse>
 	</useDescriptions>
 </item>
