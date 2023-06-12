@@ -26,6 +26,7 @@ public enum ItemTag {
 	SOLD_BY_KATE, // Jewellery
 	SOLD_BY_FINCH, // BDSM and sex-related stuff
 	SOLD_BY_VICKY, // Weapons
+	SOLD_BY_EISEK, // Produce
 
 	// Items with these tags can randomly spawn in encounters in the commented area
 	// Please note that due to legacy issues, clothing and weapons only use the 'DOMINION_ALLEYWAY_SPAWN' tag to determine whether or not it can randomly spawn in any area.
@@ -206,6 +207,17 @@ public enum ItemTag {
 			false),
 	
 	// These 'FITS' tags are used to check for whether clothing is suitable for certain body parts. They should be pretty self-explanatory.
+	// Mouths (mouth clothing fits all mouth types by default, which is why there's no need for 'FITS_MUZZLES' or 'FITS_BEAKS'):
+	FITS_MUZZLES_EXCLUSIVE(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Only fits muzzles)]"),
+			false),
+	FITS_BEAKS_EXCLUSIVE(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Only fits beaks)]"),
+			false),
+	
+	// legs:
 	FITS_HOOFS_EXCLUSIVE(
 			Util.newArrayListOfValues(
 					"[style.colourFeral(Only fits hoofs)]"),
@@ -224,6 +236,7 @@ public enum ItemTag {
 					"[style.colourFeral(Fits talons)]"),
 			false),
 	
+	// Arms:
 	FITS_FEATHERED_ARM_WINGS_EXCLUSIVE(
 			Util.newArrayListOfValues(
 					"[style.colourTfGeneric(Only fits feathered arm-wings)]"),
@@ -248,7 +261,8 @@ public enum ItemTag {
 			Util.newArrayListOfValues(
 					"[style.colourTfGeneric(Fits arm-wings)]"),
 			false),
-	
+
+	// Bodies:
 	FITS_NON_BIPED_BODY_HUMANOID(
 			Util.newArrayListOfValues(
 					"[style.colourHuman(Fits humanoid parts of non-biped bodies)]"),
@@ -272,7 +286,8 @@ public enum ItemTag {
 	FITS_AVIAN_BODY(
 			Util.newArrayListOfValues(
 					"[style.colourTfGeneric(Only fits avian bodies)]"),false), //bird-taurs
-	
+
+	// Feral status:
 	// These tags are non-exclusive, so clothing with them can additionally be equipped by non-ferals:
 	FITS_FERAL_ALL_BODY(
 			Util.newArrayListOfValues(

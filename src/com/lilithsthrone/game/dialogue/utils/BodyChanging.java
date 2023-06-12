@@ -2169,6 +2169,16 @@ public class BodyChanging {
 			return "";
 		}
 		
+		// Height limitation:
+		if(BodyChanging.getTarget().isShortStature()!=body.isShortStature()) {
+			if(BodyChanging.getTarget().isShortStature()) {
+				return UtilText.parse(BodyChanging.getTarget(), "[npc.NameIsFull] too short to be able to transform into this form!");
+			} else {
+				return UtilText.parse(BodyChanging.getTarget(), "[npc.NameIsFull] too tall to be able to transform into this form!");
+			}
+		}
+		
+		// Material limitations:
 		Set<BodyMaterial> materialsAllowed = Util.newHashSetOfValues(BodyChanging.getTarget().getBodyMaterial());
 		if(BodyChanging.getTarget() instanceof Elemental) {
 			switch(BodyChanging.getTarget().getBodyMaterial()) {
@@ -2202,8 +2212,6 @@ public class BodyChanging {
 					break;
 			}
 		}
-		
-		// Material limitations:
 		if(!materialsAllowed.contains(body.getBodyMaterial())) {
 			BodyMaterial matCurrent = BodyChanging.getTarget().getBodyMaterial();
 			BodyMaterial matTarget = body.getBodyMaterial();

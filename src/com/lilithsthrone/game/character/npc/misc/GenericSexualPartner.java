@@ -13,6 +13,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -45,8 +46,10 @@ import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
+ * This NPC doesn't spawn with addictive fluids so as to prevent issues with randomly getting their partners addicted to fluids.
+ * 
  * @since 0.2.2
- * @version 0.4.1
+ * @version 0.4.8.4
  * @author Innoxia
  */
 public class GenericSexualPartner extends NPC {
@@ -126,6 +129,11 @@ public class GenericSexualPartner extends NPC {
 			// BODY RANDOMISATION:
 			
 			Main.game.getCharacterUtils().randomiseBody(this, true);
+			// Do not allow addictive fluids:
+			this.removeMilkCrotchModifier(FluidModifier.ADDICTIVE);
+			this.removeMilkModifier(FluidModifier.ADDICTIVE);
+			this.removeCumModifier(FluidModifier.ADDICTIVE);
+			this.removeGirlcumModifier(FluidModifier.ADDICTIVE);
 			
 			// INVENTORY:
 			

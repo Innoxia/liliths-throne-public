@@ -8532,6 +8532,33 @@ public class StatusEffect {
 		}
 	};
 	
+	public static AbstractStatusEffect SET_SUBMISSIVE_STEED = new AbstractStatusEffect(70,
+			"Domesticated Beast",
+			"clothingSets/submissive_steed",
+			PresetColour.CLOTHING_STEEL,
+			true,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
+					new Value<>(Attribute.RESISTANCE_LUST, -5f)),
+			null) {
+		@Override
+		public StatusEffectCategory getCategory() {
+			return StatusEffectCategory.INVENTORY;
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				return UtilText.parse(target, "By wearing a full set of tack, [npc.name] [npc.verb(find)] [npc.herself] feeling like a loyal, submissive beast, and [npc.verb(want)] to work hard for [npc.her] owner!");
+			} else {
+				return "";
+			}
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return SetBonus.getSetBonusFromId("innoxia_submissive_steed").isCharacterWearingCompleteSet(target);
+		}
+	};
+	
 	public static AbstractStatusEffect CLOTHING_EFFECT = new AbstractStatusEffect(70,
 			"clothing effects",
 			"combatHidden",
@@ -10157,7 +10184,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
-			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, -10f)),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, -5f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
@@ -10178,7 +10205,7 @@ public class StatusEffect {
 			null,
 			PresetColour.DAMAGE_TYPE_PHYSICAL,
 			false,
-			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, -5f),
+			Util.newHashMapOfValues(new Value<>(Attribute.ENERGY_SHIELDING, -10f),
 					new Value<>(Attribute.CRITICAL_DAMAGE, -15f)),
 			null) {
 		@Override
@@ -10207,7 +10234,7 @@ public class StatusEffect {
 			Util.newArrayListOfValues("<b>10%</b> chance per turn of [style.boldExcellent(stripping)] clothing")) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
-			if(Math.random()<(target.isPlayer()?0.1f:0.166f)) { // I purposefully boost the chance in secret to make the player feel better about the RNG
+			if(!target.isUnique() && (Math.random()<(target.isPlayer()?0.1f:0.166f))) { // I purposefully boost the chance in secret to make the player feel better about the RNG
 				List<AbstractClothing> suitableClothing = new ArrayList<>();
 				for(AbstractClothing c : new ArrayList<>(target.getClothingCurrentlyEquipped())) {
 					if(target.isAbleToUnequip(c, false, target)
@@ -10253,7 +10280,7 @@ public class StatusEffect {
 			Util.newArrayListOfValues("<b>25%</b> chance per turn of [style.boldExcellent(stripping)] clothing")) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
-			if(Math.random()<(target.isPlayer()?0.25f:0.33f)) { // I purposefully boost the chance in secret to make the player feel better about the RNG
+			if(!target.isUnique() && (Math.random()<(target.isPlayer()?0.25f:0.33f))) { // I purposefully boost the chance in secret to make the player feel better about the RNG
 				List<AbstractClothing> suitableClothing = new ArrayList<>();
 				for(AbstractClothing c : new ArrayList<>(target.getClothingCurrentlyEquipped())) {
 					if(target.isAbleToUnequip(c, false, target)

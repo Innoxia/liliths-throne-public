@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<statusEffect>
+	
+	<renderingPriority>70</renderingPriority>
+	
+	<renderInEffectsPanel>true</renderInEffectsPanel>
+	
+	<category>DEFAULT</category>
+	<beneficial>BENEFICIAL</beneficial>
+	<combatEffect>false</combatEffect>
+	<sexEffect>false</sexEffect>
+	<tags/>
+	<name><![CDATA[Crag's Greater Bounty]]></name>
+	<description><![CDATA[
+		An apple a day keeps the healer away!
+	]]></description>
+	<imageName>fruit_buff_apple.svg</imageName>
+	<colourPrimary>GENERIC_EXCELLENT</colourPrimary> 
+	<colourSecondary/> 
+	<colourTertiary/>
+	<attributeModifiers>
+		<modifier value="5.0">RESISTANCE_POISON</modifier>
+		<modifier value="5.0">ENERGY_SHIELDING</modifier>
+	</attributeModifiers>
+	<combatMoves/>
+	<spells/>
+	<extraEffects/>
+
+	<applicationCondition><![CDATA[
+		false
+	]]></applicationCondition>
+	<applyEffect/>
+	<applyRemovalEffect/>
+	<applyPostRemovalEffect/>
+	
+</statusEffect>

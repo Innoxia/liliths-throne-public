@@ -256,6 +256,10 @@ public class Subspecies {
 			}
 			return 0;
 		}
+		@Override
+		public boolean isWinged() {
+			return true;
+		}
 	};
 
 	// DEMON:
@@ -319,6 +323,10 @@ public class Subspecies {
 		public AbstractAttribute getDamageMultiplier() {
 			return Attribute.DAMAGE_ELDER_LILIN;
 		}
+		@Override
+		public boolean isWinged() {
+			return true;
+		}
 	};
 	
 	public static AbstractSubspecies LILIN = new AbstractSubspecies(false,
@@ -380,6 +388,10 @@ public class Subspecies {
 		@Override
 		public AbstractAttribute getDamageMultiplier() {
 			return Attribute.DAMAGE_LILIN;
+		}
+		@Override
+		public boolean isWinged() {
+			return true;
 		}
 	};
 	
@@ -466,6 +478,9 @@ public class Subspecies {
 			}
 			if(Math.random()<0.2f && body.getPenis().getType()!=PenisType.NONE) {
 				body.getPenis().getTesticle().setTesticleCount(null, 4);
+			}
+			if(body.getLegConfiguration()==LegConfiguration.BIPEDAL && body.getTailType()==TailType.DEMON_HORSE) {
+				body.setTailType(TailType.DEMON_COMMON);
 			}
 		}
 		
@@ -558,6 +573,10 @@ public class Subspecies {
 			}
 			return 0;
 		}
+		@Override
+		public boolean isWinged() {
+			return true;
+		}
 	};
 	
 	public static AbstractSubspecies HALF_DEMON = new AbstractSubspecies(false,
@@ -617,6 +636,9 @@ public class Subspecies {
 		}
 		@Override
 		public void applySpeciesChanges(Body body) {
+			if(body.getLegConfiguration()==LegConfiguration.BIPEDAL && body.getTailType()==TailType.DEMON_HORSE) {
+				body.setTailType(TailType.DEMON_COMMON);
+			}
 		}
 
 		@Override
@@ -709,6 +731,10 @@ public class Subspecies {
 			}
 			return 0;
 		}
+		@Override
+		public boolean isWinged() {
+			return true;
+		}
 	};
 	
 	public static AbstractSubspecies IMP = new AbstractSubspecies(false,
@@ -764,6 +790,9 @@ public class Subspecies {
 			body.setHeight(Height.NEGATIVE_TWO_MINIMUM.getRandomValue());
 			body.getPenis().setPenisLength(null, 8+Util.random.nextInt(8)); // 3-7 inches
 			body.getWing().setSize(null,  WingSize.THREE_LARGE.getValue());
+			if(body.getLegConfiguration()==LegConfiguration.BIPEDAL && body.getTailType()==TailType.DEMON_HORSE) {
+				body.setTailType(TailType.DEMON_COMMON);
+			}
 		}
 		@Override
 		public boolean isShortStature() {
@@ -781,6 +810,10 @@ public class Subspecies {
 				}
 			}
 			return 0;
+		}
+		@Override
+		public boolean isWinged() {
+			return true;
 		}
 	};
 	
@@ -837,6 +870,9 @@ public class Subspecies {
 			body.setHeight(Height.NEGATIVE_ONE_TINY.getRandomValue());
 			body.getPenis().setPenisLength(null, 8+Util.random.nextInt(12)); // 3-8 inches
 			body.getWing().setSize(null,  WingSize.THREE_LARGE.getValue());
+			if(body.getLegConfiguration()==LegConfiguration.BIPEDAL && body.getTailType()==TailType.DEMON_HORSE) {
+				body.setTailType(TailType.DEMON_COMMON);
+			}
 		}
 		@Override
 		public boolean isShortStature() {
@@ -854,6 +890,10 @@ public class Subspecies {
 				}
 			}
 			return 0;
+		}
+		@Override
+		public boolean isWinged() {
+			return true;
 		}
 	};
 	
@@ -3250,6 +3290,10 @@ public class Subspecies {
 			}
 			return 0;
 		}
+		@Override
+		public boolean isWinged() {
+			return true;
+		}
 	};
 	public static AbstractSubspecies HORSE_MORPH_ALICORN = new AbstractSubspecies(false,
 			60000,
@@ -3353,6 +3397,10 @@ public class Subspecies {
 				}
 			}
 			return 0;
+		}
+		@Override
+		public boolean isWinged() {
+			return true;
 		}
 	};
 	
@@ -3515,6 +3563,10 @@ public class Subspecies {
 				}
 			}
 			return 0;
+		}
+		@Override
+		public boolean isWinged() {
+			return true;
 		}
 	};
 	public static AbstractSubspecies UNITAUR = new AbstractSubspecies(false,
@@ -3685,6 +3737,10 @@ public class Subspecies {
 				}
 			}
 			return 0;
+		}
+		@Override
+		public boolean isWinged() {
+			return true;
 		}
 	};
 	
@@ -4633,6 +4689,10 @@ public class Subspecies {
 			}
 			return 0;
 		}
+		@Override
+		public boolean isWinged() {
+			return true;
+		}
 	};
 	
 	// AVIAN:
@@ -4762,6 +4822,10 @@ public class Subspecies {
 			}
 			return 0;
 		}
+		@Override
+		public boolean isWinged() {
+			return true;
+		}
 	};
 	
 	public static AbstractSubspecies HARPY_RAVEN = new AbstractSubspecies(false,
@@ -4867,6 +4931,10 @@ public class Subspecies {
 			}
 			return 0;
 		}
+		@Override
+		public boolean isWinged() {
+			return true;
+		}
 	};
 	
 	public static AbstractSubspecies HARPY_SWAN = new AbstractSubspecies(false,
@@ -4969,6 +5037,10 @@ public class Subspecies {
 				}
 			}
 			return 0;
+		}
+		@Override
+		public boolean isWinged() {
+			return true;
 		}
 	};
 	
@@ -5195,6 +5267,10 @@ public class Subspecies {
 			}
 			return 0;
 		}
+		@Override
+		public boolean isWinged() {
+			return true;
+		}
 	};
 	
 	
@@ -5250,7 +5326,7 @@ public class Subspecies {
 		}
 		@Override
 		public String getSVGString(GameCharacter character) {
-			if(character!=null && (((Elemental)character).getSummoner()!=null && !((Elemental)character).getSummoner().isElementalActive())) {
+			if(character!=null && (character instanceof Elemental) && ((Elemental)character).getSummoner()!=null && !((Elemental)character).getSummoner().isElementalActive()) {
 				if(((Elemental)character).getPassiveForm()==null) {
 					String wispSVG = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(ELEMENTAL_FIRE),
 									this.getColour(character),
@@ -5278,6 +5354,10 @@ public class Subspecies {
 				return 100;
 			}
 			return 0;
+		}
+		@Override
+		public boolean isWinged() {
+			return true;
 		}
 	};
 	
@@ -5328,7 +5408,7 @@ public class Subspecies {
 		}
 		@Override
 		public String getSVGString(GameCharacter character) {
-			if(character!=null && !((Elemental)character).getSummoner().isElementalActive()) {
+			if(character!=null && (character instanceof Elemental) && ((Elemental)character).getSummoner()!=null && !((Elemental)character).getSummoner().isElementalActive()) {
 				if(((Elemental)character).getPassiveForm()==null) {
 					String wispSVG = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(ELEMENTAL_EARTH),
 							this.getColour(character),
@@ -5357,6 +5437,10 @@ public class Subspecies {
 				return 100;
 			}
 			return 0;
+		}
+		@Override
+		public boolean isWinged() {
+			return true;
 		}
 	};
 
@@ -5407,10 +5491,7 @@ public class Subspecies {
 		}
 		@Override
 		public String getSVGString(GameCharacter character) {
-			if(character!=null
-					&& character instanceof Elemental
-					&& ((Elemental)character).getSummoner() != null
-					&& !((Elemental)character).getSummoner().isElementalActive()) {
+			if(character!=null && (character instanceof Elemental) && ((Elemental)character).getSummoner()!=null && !((Elemental)character).getSummoner().isElementalActive()) {
 				if(((Elemental)character).getPassiveForm()==null) {
 					String wispSVG = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(ELEMENTAL_WATER),
 									this.getColour(character),
@@ -5438,6 +5519,10 @@ public class Subspecies {
 				return 100;
 			}
 			return 0;
+		}
+		@Override
+		public boolean isWinged() {
+			return true;
 		}
 	};
 
@@ -5488,7 +5573,7 @@ public class Subspecies {
 		}
 		@Override
 		public String getSVGString(GameCharacter character) {
-			if(character!=null && !((Elemental)character).getSummoner().isElementalActive()) {
+			if(character!=null && (character instanceof Elemental) && ((Elemental)character).getSummoner()!=null && !((Elemental)character).getSummoner().isElementalActive()) {
 				if(((Elemental)character).getPassiveForm()==null) {
 					String wispSVG = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(ELEMENTAL_AIR),
 									this.getColour(character),
@@ -5516,6 +5601,10 @@ public class Subspecies {
 				return 100;
 			}
 			return 0;
+		}
+		@Override
+		public boolean isWinged() {
+			return true;
 		}
 	};
 
@@ -5594,6 +5683,10 @@ public class Subspecies {
 				return 100;
 			}
 			return 0;
+		}
+		@Override
+		public boolean isWinged() {
+			return true;
 		}
 	};
 
