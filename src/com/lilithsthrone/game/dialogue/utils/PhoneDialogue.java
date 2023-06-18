@@ -296,7 +296,7 @@ public class PhoneDialogue {
 							"View your character page.", CHARACTER_PERK_TREE);
 					
 				} else if (index == 3) {
-					return new Response("Spells", "View your spells page.", SpellManagement.CHARACTER_SPELLS_EARTH) {
+					return new Response("Spells", "View your spells page.", SpellManagement.CHARACTER_SPELLS_WATER) {
 						@Override
 						public void effects() {
 							SpellManagement.setSpellOwner(Main.game.getPlayer(), MENU);
