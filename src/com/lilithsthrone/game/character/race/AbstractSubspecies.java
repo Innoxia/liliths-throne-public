@@ -686,7 +686,10 @@ public abstract class AbstractSubspecies {
 				
 				this.statusEffectAttributeModifiers = new LinkedHashMap<>();
 				for(Element e : coreElement.getMandatoryFirstOf("statusEffectAttributeModifiers").getAllOf("attribute")) {
-					statusEffectAttributeModifiers.put(Attribute.getAttributeFromId(e.getTextContent()), Float.valueOf(e.getAttribute("value")));
+					AbstractAttribute attribute = Attribute.getAttributeFromId(e.getTextContent());
+					if (attribute != null) {
+						statusEffectAttributeModifiers.put(attribute, Float.valueOf(e.getAttribute("value")));
+					}
 				}
 				this.statusEffectAttributeModifiers.entrySet().removeIf((entry) -> entry.getValue()==0);
 				
