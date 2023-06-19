@@ -513,6 +513,15 @@ public class Main extends Application {
 		
 	}
 	
+	public static boolean CheckNotUnpacked() {
+		File dir = new File("");
+		String currentDir = dir.getAbsolutePath();
+		String tempDir = System.getProperty("java.io.tmpdir");
+		System.err.println(currentDir);
+		System.err.println(tempDir);
+		return currentDir.contains(tempDir);
+	}
+	
 	protected static void CheckForDataDirectory() {
 		File dir = new File("data/");
 		if(!dir.exists()) {

@@ -78,41 +78,49 @@ public class OptionsDialogue {
 		
 		@Override
 		public String getContent(){
-			return "<h1 class='special-text' style='font-size:48px; line-height:52px; text-align:center;'>"+Main.GAME_NAME+"</h1>"
-					+ (Main.game.isSillyMode()
-						?"<p class='special-text' style='text-align:center; margin:0 0; padding:0 0;'><i>Or, I can't believe I fell into a magic mirror and entered a world in which my aunt is a demon?!</i></p>"
-						:"")
-					+ "<h5 class='special-text' style='text-align:center;'>Created by "+Main.AUTHOR+"</h5>"
-					+ "<br/>"
-					+ "<p>"
-						+ "This game is a text-based erotic RPG, and contains a lot of graphic sexual content. You must agree to the game's disclaimer before playing this game!"
-					+ "</p>"
-					+"<p>"
-						+ "You can visit my blog (https://lilithsthrone.blogspot.co.uk) to check on development progress (use the 'Blog' button below to open the blog in your default browser)."
-						+ " [style.italicsMinorBad(<b>Note:</b> Intrusive age verification is being rolled out on blogspot, so I will likely create a new blog soon.)]"
-					+ "</p>"
-					+ "<p style='text-align:center'>"
-						+ "<b>Please use either my blog or github to get the latest official version of Lilith's Throne!</b>"
-					+ "</p>"
-					+ getJavaVersionInformation()
-					+ (Toolkit.getDefaultToolkit().getScreenSize().getHeight()<800
-							?"<p style='text-align:center; color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>"
-								+ "If the game's resolution isn't fitting to your screen, press the keys: 'Windows' + 'Up Arrow' to maximise!"
-							+ "</p>"
-							:"")
-					+ "<br/>"
-					+ (Main.game.isStarted() || Main.getProperties().name.isEmpty()
-							?""
-							:"<h4 style='text-align:center;'>Last save:</h4>"
-								+ "<h5 style='color:" + Main.getProperties().nameColour + ";text-align:center;'>" + Main.getProperties().name + "</h5>"
-								+ "<p style='text-align:center;'><b>Level " + Main.getProperties().level + " " + Util.capitaliseSentence(Main.getProperties().race) + "</b></p>"
-								+ "<p style='text-align:center;'>" + UtilText.formatAsMoney(Main.getProperties().money, "b") + "</p>"
-								+ "<div style='text-align:center; display:block; margin:auto;'>" + UtilText.formatAsEssences(Main.getProperties().arcaneEssences, "b", false) + "</div>"
-								+ "<p style='text-align:center;'>Quest: " + Util.capitaliseSentence(Main.getProperties().quest) + "</p>");
+			StringBuilder sb = new StringBuilder();
+			sb.append("<h1 class='special-text' style='font-size:48px; line-height:52px; text-align:center;'>"+Main.GAME_NAME+"</h1>");
+			if(Main.game.isSillyMode()) {
+				sb.append("<p class='special-text' style='text-align:center; margin:0 0; padding:0 0;'><i>Or, I can't believe I fell into a magic mirror and entered a world in which my aunt is a demon?!</i></p>");
+			}
+			sb.append("<h5 class='special-text' style='text-align:center;'>Created by "+Main.AUTHOR+"</h5><br/>");
+			if (Main.CheckNotUnpacked()) {
+				sb.append("<h3 class='special-text' style='text-align:center;'>[style.italicsBad("+Main.GAME_NAME+" is currently running from a temporary directory!<br>Close the game and unpack the zip file to continue.)]</h3>");
+				return sb.toString();
+			}
+			sb.append("<p>This game is a text-based erotic RPG, and contains a lot of graphic sexual content. You must agree to the game's disclaimer before playing this game!</p>")
+					.append("<p>You can visit my blog (https://lilithsthrone.blogspot.co.uk) to check on development progress (use the 'Blog' button below to open the blog in your default browser).")
+					.append(" [style.italicsMinorBad(<b>Note:</b> Intrusive age verification is being rolled out on blogspot, so I will likely create a new blog soon.)]</p>")
+					.append("<p style='text-align:center'><b>Please use either my blog or github to get the latest official version of Lilith's Throne!</b></p>")
+					.append(getJavaVersionInformation());
+			if(Toolkit.getDefaultToolkit().getScreenSize().getHeight()<800) {
+				sb.append("<p style='text-align:center; color:")
+						.append(PresetColour.GENERIC_ARCANE.toWebHexString())
+						.append(";'>If the game's resolution isn't fitting to your screen, press the keys: 'Windows' + 'Up Arrow' to maximise!</p>");
+			}
+			if (Main.game.isStarted() && Main.getProperties().name.isEmpty()) {
+				sb.append("<br/><h4 style='text-align:center;'>Last save:</h4>"+"<h5 style='color:").append(Main.getProperties().nameColour)
+						.append(";text-align:center;'>").append(Main.getProperties().name).append("</h5>")
+						.append("<p style='text-align:center;'><b>Level ").append(Main.getProperties().level).append(" ").append(Util.capitaliseSentence(Main.getProperties().race)).append("</b></p>")
+						.append("<p style='text-align:center;'>").append(UtilText.formatAsMoney(Main.getProperties().money, "b")).append("</p>")
+						.append("<div style='text-align:center; display:block; margin:auto;'>").append(UtilText.formatAsEssences(Main.getProperties().arcaneEssences, "b", false)).append("</div>")
+						.append("<p style='text-align:center;'>Quest: ").append(Util.capitaliseSentence(Main.getProperties().quest)).append("</p>");
+			}
+			return sb.toString();
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if (Main.CheckNotUnpacked() && index<15) {
+				return new ResponseEffectsOnly("Quit", "Quits your current game and closes the program.<br/><br/><b>You must unpack the zip file to continue!</b>") {
+					@Override
+					public void effects() {
+						Main.primaryStage.close();
+						confirmNewGame = false;
+						System.exit(0);
+					}
+				};
+			}
 			 if (index == 1) {
 				 if(confirmNewGame || !Main.game.isStarted()) {
 					return new ResponseEffectsOnly(
