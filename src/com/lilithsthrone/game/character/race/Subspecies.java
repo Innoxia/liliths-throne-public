@@ -5649,6 +5649,16 @@ public class Subspecies {
 		public boolean isWinged() {
 			return true;
 		}
+                
+                @Override
+                public boolean isMaterialSubspecies() {
+                        return true;
+                }
+                
+                @Override
+                public BodyMaterial getSubspeciesBodyMaterial() {
+                        return BodyMaterial.FIRE;
+                }
 	};
 	
 	public static AbstractSubspecies ELEMENTAL_EARTH = new AbstractSubspecies(false,
@@ -5732,6 +5742,16 @@ public class Subspecies {
 		public boolean isWinged() {
 			return true;
 		}
+                
+                @Override
+                public boolean isMaterialSubspecies() {
+                        return true;
+                }
+                
+                @Override
+                public BodyMaterial getSubspeciesBodyMaterial() {
+                        return BodyMaterial.STONE;
+                }
 	};
 
 	public static AbstractSubspecies ELEMENTAL_WATER = new AbstractSubspecies(false,
@@ -5814,6 +5834,16 @@ public class Subspecies {
 		public boolean isWinged() {
 			return true;
 		}
+                
+                @Override
+                public boolean isMaterialSubspecies() {
+                        return true;
+                }
+                
+                @Override
+                public BodyMaterial getSubspeciesBodyMaterial() {
+                        return BodyMaterial.WATER;
+                }
 	};
 
 	public static AbstractSubspecies ELEMENTAL_AIR = new AbstractSubspecies(false,
@@ -5896,6 +5926,16 @@ public class Subspecies {
 		public boolean isWinged() {
 			return true;
 		}
+                
+                @Override
+                public boolean isMaterialSubspecies() {
+                        return true;
+                }
+                
+                @Override
+                public BodyMaterial getSubspeciesBodyMaterial() {
+                        return BodyMaterial.AIR;
+                }
 	};
 
 	public static AbstractSubspecies ELEMENTAL_ARCANE = new AbstractSubspecies(true,
@@ -5978,6 +6018,16 @@ public class Subspecies {
 		public boolean isWinged() {
 			return true;
 		}
+                
+                @Override
+                public boolean isMaterialSubspecies() {
+                        return true;
+                }
+                
+                @Override
+                public BodyMaterial getSubspeciesBodyMaterial() {
+                        return BodyMaterial.ARCANE;
+                }
 	};
 
 

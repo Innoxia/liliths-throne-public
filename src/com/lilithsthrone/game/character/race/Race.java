@@ -797,7 +797,16 @@ public class Race {
 				1,
 				FurryPreference.MAXIMUM,
 				FurryPreference.MAXIMUM,
-				false) {
+				false,
+                                true, 
+                                new HashSet<BodyMaterial>(Arrays.asList(
+                                        BodyMaterial.FIRE,
+                                        BodyMaterial.WATER,
+                                        BodyMaterial.ICE,
+                                        BodyMaterial.AIR,
+                                        BodyMaterial.STONE,
+                                        BodyMaterial.ARCANE)), 
+                true) {
 		@Override
 		public boolean isAbleToSelfTransform() {
 			return true;
