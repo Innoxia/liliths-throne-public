@@ -222,7 +222,10 @@
 							<outputFile>${project.build.directory}/${project.name} (${target.platform})/${project.name}-${project.version}.jar</outputFile>
 							<transformers>
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>com.lilithsthrone.Launcher</mainClass>
+									<manifestEntries>
+										<Built-By>REDACTED</Built-By>
+										<Main-Class>com.lilithsthrone.Launcher</Main-Class>
+									</manifestEntries>
 								</transformer>
 							</transformers>
 							<artifactSet>
