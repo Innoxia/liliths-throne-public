@@ -14,6 +14,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerFactory;
 
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.controller.TooltipUpdateThread;
@@ -42,7 +46,6 @@ import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Generation;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
-
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -57,11 +60,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerFactory;
 
 /**
  * @since 0.1.0
@@ -517,8 +515,6 @@ public class Main extends Application {
 		File dir = new File("");
 		String currentDir = dir.getAbsolutePath();
 		String tempDir = System.getProperty("java.io.tmpdir");
-		System.err.println(currentDir);
-		System.err.println(tempDir);
 		return currentDir.contains(tempDir);
 	}
 	

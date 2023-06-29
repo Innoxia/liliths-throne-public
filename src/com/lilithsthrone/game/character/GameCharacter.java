@@ -26015,7 +26015,7 @@ public abstract class GameCharacter implements XMLSaving {
 		if(this.isFeral()) {
 			return Math.min(Height.NEGATIVE_TWO_MINIMUM.getMinimumValue(), (int) (this.getFeralAttributes().getSize()*0.5f));
 		}
-		if (this.getSubspecies().isShortStature() || this.getSubspeciesOverride().isShortStature()) {
+		if (this.getSubspecies().isShortStature() || (this.getSubspeciesOverride() != null && this.getSubspeciesOverride().isShortStature())) {
 			return Height.NEGATIVE_TWO_MINIMUM.getMinimumValue();
 		}
 		return Height.getShortStatureCutOff();
@@ -26025,7 +26025,7 @@ public abstract class GameCharacter implements XMLSaving {
 //		if(this.isFeral()) {
 //			return Math.max(Height.SEVEN_COLOSSAL.getMaximumValue(), (int) (this.getFeralAttributes().getSize()*2f));
 //		}
-		if (this.getSubspecies().isShortStature() || this.getSubspeciesOverride().isShortStature()) {
+		if (this.getSubspecies().isShortStature() || (this.getSubspeciesOverride() != null && this.getSubspeciesOverride().isShortStature())) {
 			return Height.getShortStatureCutOff()-1;
 		}
 		return Height.SEVEN_COLOSSAL.getMaximumValue();
