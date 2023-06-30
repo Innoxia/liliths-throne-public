@@ -778,7 +778,7 @@
 	
 	<htmlContent tag="CLOTHING_TRANSACTION_START"><![CDATA[
 	<p>
-		As you [pc.step] forwards and take a look at what Fae and Silvia have for sale, the green-eyed foxtauress flashes you a grin and asks, [fae.speech(So, what's caught your fancy? Remember, if you spend over five hundred flames, on an item, you get a 'Faire ticket'!)]
+		As you [pc.step] forwards and take a look at what Fae and Silvia have for sale, the green-eyed foxtauress flashes you a grin and asks, [fae.speech(So, what's caught your fancy? Remember, if you spend over five hundred flames on an item, you get a 'Faire ticket'!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -938,6 +938,18 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="CLOTHING_ASK_FABRIC"><![CDATA[
+	<p>
+		It occurs to you that since the foxtauresses sell clothing, they might deal in fabric as well. You ask them if they could help you source some material for Eisek's stall.
+	</p>
+	<p>
+		Fae shakes her head when she hears what it is you're asking, before explaining, [fae.speech(Sorry, we deal in finished clothing only. It'd be way too much stuff to keep around our little stall.)]
+	</p>
+	<p>
+		[silvia.speech(Speaking of clothing, perhaps you'd like to buy something?)] Silvia asks, before letting out a playful giggle and asking, [silvia.speech(Or if you've got a ticket, then maybe you could roll to earn a kiss...)]
+	</p>
+	]]>
+	</htmlContent>
 	
 	
 	<!-- Alcoholic drinks -->
@@ -2023,6 +2035,14 @@
 				Although it's very busy, with crowds of shoppers occupying large parts of the market, you can't help but notice that some of the stalls look to be quite low on goods for sale. Catching brief snippets of conversation as you [pc.walk] past, you soon get the impression that Lunette's raiding is having an effect on both the quantity and quality of produce which the vendors are able to acquire. Despite this, however, there are still a good deal of stalls which look to be offering something interesting, and you wonder whether you should take some time out of your day in which to do a spot of shopping...
 			#ENDIF
 		</p>
+		#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_banished) && 
+			eisek.getLocationPlaceType() == PLACE_TYPE_dsg_fields_elis_market_produce &&
+			!eisek.isPlayerKnowsName() &&
+			pc.getLocation().getDistanceToVector(game.getWorlds().get(WORLD_TYPE_innoxia_fields_elis_market).getCell(PLACE_TYPE_dsg_fields_elis_market_produce).getLocation()) < 3.3)
+			<p>
+				You hear some kind of commotion nearby. There seems to be a crowd gathered around something...or someone, and they don't sound very happy.
+			</p>
+		#ENDIF
 		#IF(game.getMinutesUntilTimeInMinutes(1080)<30)
 			<p style='text-align:center;'>
 				[style.italicsMinorBad(The market closes at [units.time(18)], so you should hurry up and finish your business here before all the stalls shut for the day...)]

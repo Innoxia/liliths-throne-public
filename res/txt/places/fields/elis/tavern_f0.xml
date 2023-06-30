@@ -1102,9 +1102,24 @@
 	
 	<htmlContent tag="JESS_START"><![CDATA[
 	#IF(flags.hasFlag(FLAG_innoxia_elis_jess_introduced))
-		<p>
-			Wanting to spend some more time with Jess, you [pc.walk] over to her table and say hello. Flashing you a sly grin, she rubs her fingers together and teases, [jess.speech(My company's not free, you know...)]
-		</p>
+		#IF(jess.isVisiblyPregnant())
+			#IF(!jess.isCharacterReactedToPregnancy(pc))
+				<p>
+					Wanting to spend some more time with Jess, you [pc.walk] over to her table and say hello. As she pushes her chair back a little to turn to greet you, you suddenly notice that she's got one of her paw-like hands resting on her [style.colourSex(pregnant belly)]. Flashing you a sly grin as she sees you looking down at her swollen bump, the fox-girl teases, [jess.speech(Yeah, you're the one who knocked me up... I guess those five thousand flames paid off for you, huh?)]
+				</p>
+			#ELSE
+				<p>
+					Wanting to spend some more time with Jess, you [pc.walk] over to her table and say hello. As she pushes her chair back a little to turn to greet you, you see that she's once again got one of her paw-like hands resting on her [style.colourSex(pregnant belly)]. Flashing you a sly grin as she sees you looking down at her swollen bump, the fox-girl teases, [jess.speech(Yeah, I'm still pregnant, thanks to you...)]
+				</p>
+			#ENDIF
+			<p>
+				Grabbing hold of your hand, she pulls up her top and makes you stroke her rounded belly. After letting out a giggle as she feels you running your [pc.fingers] through her fluffy fur, Jess gets down to business by stating, [jess.speech(I may be carrying your kids, but my company's still not free, you know...)]
+			</p>
+		#ELSE
+			<p>
+				Wanting to spend some more time with Jess, you [pc.walk] over to her table and say hello. Flashing you a sly grin, she rubs her fingers together and teases, [jess.speech(My company's not free, you know...)]
+			</p>
+		#ENDIF
 	#ELSE
 		<p>
 			Liking the sound of what this pretty fox-girl is offering, you [pc.walk] over to her table and say hello. Flashing you a sly grin, she rubs her fingers together and teases, [jess.speech(Hey there, cutie! I already told you that my name's Jess, so it's only fair that you share yours.)]
@@ -1248,6 +1263,11 @@
 	<p>
 		Locking the door behind you, Jess strides over the wooden floor to pull the blinds half-closed, granting the two of you complete privacy. Turning to seductively bite her lip at you, the fox-girl curls her tail up and strokes it as she asks, [jess.speech(So, [pc.name], do you want to take the lead, or would you rather submit to me?)]
 	</p>
+	#IF(!jess.hasStatusEffect(SE_VIXENS_VIRILITY) && !jess.isVisiblyPregnant())
+		<p>
+			Not giving you any time in which to respond, she giggles and offers, [jess.speech(If risky sex is something you're interested in, I suppose I could be persuaded to take a breeder pill for five thousand flames... How about it? Want to try and knock me up?)]
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -1270,6 +1290,21 @@
 	</p>
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="JESS_ROOM_RISKY_SEX"><![CDATA[
+	<p>
+		Liking the sound of Jess being fertile and able to be impregnated, you pay her five thousand flames and tell her that she's soon going to be carrying your children. Playfully pouting at you, she produces a little pink pill from out of her bedside cabinet, and after popping it out of its packaging, she swallows it down in one quick gulp...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="JESS_ROOM_RISKY_SEX_END"><![CDATA[
+	<p>
+		Sliding her furry hand over her stomach, the fox-girl winks at you and moans, [jess.speech(~Mmm!~ Come on then, [pc.name]... Do you want to take charge, or should I?)]
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	<htmlContent tag="JESS_AFTER_SEX"><![CDATA[
 	<p>

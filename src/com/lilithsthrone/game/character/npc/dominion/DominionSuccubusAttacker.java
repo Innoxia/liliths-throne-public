@@ -97,7 +97,7 @@ public class DominionSuccubusAttacker extends NPC {
 			this.setNippleVirgin(false);
 			this.setPenisVirgin(false);
 			
-			setLevel(Util.random.nextInt(5) + 4);
+			setLevel(Util.random.nextInt(5) + 8);
 			
 			setName(Name.getRandomTriplet(Subspecies.DEMON));
 			this.setPlayerKnowsName(false);

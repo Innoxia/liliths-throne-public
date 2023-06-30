@@ -47,28 +47,28 @@
 		</itemTags>
 	</coreAttributes>
 	
-  <replacementText type="REMOVE_OR_EQUIP">
-    <self>
-      <![CDATA[[npc.Name] [npc.verb(step)] into the skirt and [npc.verb(pull)] it up to fit around [npc.her] waist.]]>
-    </self>
-    <other>
-      <![CDATA[[npc.Name] [npc.verb(get)] [npc2.name] to step into the skirt, before pulling it up around [npc2.her] waist.]]>
-    </other>
-    <otherRough>
-      <![CDATA[[npc.Name] [npc.verb(force)] [npc2.name] to step into the skirt, before yanking it up around [npc2.her] waist.]]>
-    </otherRough>
-  </replacementText>
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(step)] into the skirt and [npc.verb(pull)] it up to fit around [npc.her] waist.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(get)] [npc2.name] to step into the skirt, before pulling it up around [npc2.her] waist.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(force)] [npc2.name] to step into the skirt, before yanking it up around [npc2.her] waist.]]>
+		</otherRough>
+	</replacementText>
 
-  <displacementText type="REMOVE_OR_EQUIP">
-    <self>
-      <![CDATA[[npc.Name] [npc.verb(pull)] down [npc.her] skirt, before slipping it off.]]>
-    </self>
-    <other>
-      <![CDATA[[npc.Name] [npc.verb(pull)] down [npc2.namePos] skirt, before slipping it off.]]>
-    </other>
-    <otherRough>
-      <![CDATA[[npc.Name] roughly [npc.verb(pull)] down [npc2.namePos] skirt, before yanking it off.]]>
-    </otherRough>
-  </displacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] down [npc.her] skirt, before slipping it off.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] down [npc2.namePos] skirt, before slipping it off.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(pull)] down [npc2.namePos] skirt, before yanking it off.]]>
+		</otherRough>
+	</displacementText>
   
 </clothing>

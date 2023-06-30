@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<worldType>
+	
+	<worldRegion>FIELD_CITY</worldRegion>
+	
+	<name><![CDATA[Basement]]></name>
+	
+	<colour>BASE_GREY</colour>
+	
+	<sexBlockedReason><![CDATA[Getting off in a dungeon full of weirdos isn't a good idea.]]></sexBlockedReason> 
+	
+	<furniturePresent>false</furniturePresent>
+	
+	<wallsPresent>true</wallsPresent>
+
+	<majorAreaIndex>0</majorAreaIndex>
+
+	<loiteringEnabled>false</loiteringEnabled>
+
+	<flightEnabled>false</flightEnabled>
+
+	<visibleFromStart>false</visibleFromStart>
+
+	<fullyRevealedFromStart>false</fullyRevealedFromStart>
+
+	<globalMapLocation>WORLD_MAP_FIELDS_CITY</globalMapLocation>
+	
+	<standardPlace>dsg_fields_elis_eisek_sillymode_dungeon_passage</standardPlace>
+
+	<entryFromGlobalMapLocation>dsg_fields_elis_eisek_sillymode_dungeon_entry</entryFromGlobalMapLocation>
+
+	<teleportPermissions>NONE</teleportPermissions>
+
+	<places>
+		<place colour="#ffffff">GENERIC_IMPASSABLE</place>
+		
+		<place colour="#000000">dsg_fields_elis_eisek_sillymode_dungeon_passage</place>
+		<place colour="#a349a4">dsg_fields_elis_eisek_sillymode_dungeon_entry</place>
+		<place colour="#22b14c">dsg_fields_elis_eisek_sillymode_dungeon_exit</place>
+		<place colour="#ed1c24">dsg_fields_elis_eisek_sillymode_dungeon_trap</place>
+		<place colour="#ffc90e">dsg_fields_elis_eisek_sillymode_dungeon_boss</place>
+		<place colour="#00a2e8">dsg_fields_elis_eisek_sillymode_dungeon_treasure</place>
+	</places>
+	
+</worldType>

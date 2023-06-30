@@ -126,6 +126,7 @@ import com.lilithsthrone.game.character.npc.fields.Belle;
 import com.lilithsthrone.game.character.npc.fields.Ceridwen;
 import com.lilithsthrone.game.character.npc.fields.Dale;
 import com.lilithsthrone.game.character.npc.fields.Daphne;
+import com.lilithsthrone.game.character.npc.fields.Eisek;
 import com.lilithsthrone.game.character.npc.fields.Evelyx;
 import com.lilithsthrone.game.character.npc.fields.EvelyxMilker;
 import com.lilithsthrone.game.character.npc.fields.EvelyxSexualPartner;
@@ -1108,6 +1109,7 @@ public class Game implements XMLSaving {
 							&& (!worldType.equals("innoxia_fields_themiscyra") || !Main.isVersionOlderThan(loadingVersion, "0.4.4.5"))
 							&& (!worldType.equals("EMPTY") || !Main.isVersionOlderThan(loadingVersion, "0.4.5.7"))
 							&& (!worldType.equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(loadingVersion, "0.4.5.7"))
+							&& (!worldType.equals("innoxia_fields_elis_market") || !Main.isVersionOlderThan(loadingVersion, "0.4.8.7"))
 							&& !worldType.equals("SUPPLIER_DEN") // Removed
 							&& !worldType.equals("JUNGLE") // Removed
 //                          && !worldType.equals("REBEL_BASE")
@@ -2480,6 +2482,7 @@ public class Game implements XMLSaving {
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Moreno.class))) { addNPC(new Moreno(), false); addedNpcs.add(Moreno.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Heather.class))) { addNPC(new Heather(), false); addedNpcs.add(Heather.class); }
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Ziva.class))) { addNPC(new Ziva(), false); addedNpcs.add(Ziva.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Eisek.class))) { addNPC(new Eisek(), false); addedNpcs.add(Eisek.class); }
 
 			// Wall's End:
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Monica.class))) { addNPC(new Monica(), false); addedNpcs.add(Monica.class); }
@@ -2687,7 +2690,8 @@ public class Game implements XMLSaving {
 			VengarCaptiveDialogue.applyDailyReset();
 			calculateBankInterest();
 		}
-		if (WorldType.SLAVER_ALLEY.getPlacesMap().values().contains(Main.game.getPlayer().getLocationPlaceType())) {
+		// v0.4.8.4: Only generating slaves when the player enters slaver alley is marginally better performance-wise, but creates the issue of the newly-generated slaves not being saved, so I removed this check.
+//		if (WorldType.SLAVER_ALLEY.getPlacesMap().values().contains(Main.game.getPlayer().getLocationPlaceType())) {
 			if (pendingSlaveShopsReset
 					&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_STALL_ANAL)
 					&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_STALL_FEMALES)
@@ -2701,8 +2705,7 @@ public class Game implements XMLSaving {
 				SlaverAlleyDialogue.stocksReset();
 				pendingSlaveInStocksReset = false;
 			}
-//			getDialogueFlags().dailyReset();
-		}
+//		}
 		
 		// Angels Kiss update
 		for(int i=1; i <= hoursPassed; i++) {
@@ -2829,7 +2832,7 @@ public class Game implements XMLSaving {
 						&& npc.getHistory()==Occupation.NPC_PROSTITUTE
 						&& !npc.hasStatusEffect(StatusEffect.PROMISCUITY_PILL)
 						&& !npc.getLocation().equals(Main.game.getPlayer().getLocation()))
-						|| (npc.isSlave() && npc.getSlavePermissionSettings().get(SlavePermission.PILLS).contains(SlavePermissionSetting.PILLS_PROMISCUITY_PILLS))) {
+					|| (npc.isSlave() && npc.getSlavePermissionSettings().get(SlavePermission.PILLS).contains(SlavePermissionSetting.PILLS_PROMISCUITY_PILLS))) {
 					npc.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"), npc, false);
 				}
 				
@@ -3299,6 +3302,14 @@ public class Game implements XMLSaving {
 					content = "<p style='text-align:center;'>"
 								+ "[style.italicsBad(Error: getContent() method is throwing an exception in the node: '"+node.getLabel()+"')]"
 							+ "</p>";
+					
+					// Hopefully bug reports will include this ;_;
+					content += "<p style='font-size:0.75em;'>";
+						for(StackTraceElement ste : ex.getStackTrace()) {
+							content += "<br/>"+ste.toString();
+						}
+					content += "</p>";
+					
 					ex.printStackTrace();
 				}
 				if(content==null) {
@@ -3514,6 +3525,14 @@ public class Game implements XMLSaving {
 			content = "<p style='text-align:center;'>"
 						+ "[style.italicsBad(Error: getContent() method is throwing an exception in the node: '"+node.getLabel()+"')]"
 					+ "</p>";
+			
+			// Hopefully bug reports will include this ;_;
+			content += "<p style='font-size:0.75em;'>";
+				for(StackTraceElement ste : ex.getStackTrace()) {
+					content += "<br/>"+ste.toString();
+				}
+			content += "</p>";
+			
 			ex.printStackTrace();
 		}
 		if(content==null) {
@@ -4000,6 +4019,14 @@ public class Game implements XMLSaving {
 			content = "<p style='text-align:center;'>"
 						+ "[style.italicsBad(Error: getContent() method is throwing an exception in the node: '"+currentDialogueNode.getLabel()+"')]"
 					+ "</p>";
+			
+			// Hopefully bug reports will include this ;_;
+			content += "<p style='font-size:0.75em;'>";
+				for(StackTraceElement ste : ex.getStackTrace()) {
+					content += "<br/>"+ste.toString();
+				}
+			content += "</p>";
+			
 			ex.printStackTrace();
 		}
 		
@@ -4280,6 +4307,14 @@ public class Game implements XMLSaving {
 				content = "<p style='text-align:center;'>"
 							+ "[style.italicsBad(Error: getContent() method is throwing an exception in the node: '"+currentDialogueNode.getLabel()+"')]"
 						+ "</p>";
+				
+				// Hopefully bug reports will include this ;_;
+				content += "<p style='font-size:0.75em;'>";
+					for(StackTraceElement ste : ex.getStackTrace()) {
+						content += "<br/>"+ste.toString();
+					}
+				content += "</p>";
+				
 				ex.printStackTrace();
 			}
 			
@@ -5017,7 +5052,7 @@ public class Game implements XMLSaving {
 				npc.setId(getUniqueNPCId(npc.getClass()));
 			} else {
 				int id = npcTally.incrementAndGet();
-				npc.setId(id+","+(npc.getClass().getSimpleName()));
+				npc.setId(id+","+(npc.getClass().isAnonymousClass() ? npc.getClass().getSuperclass().getSimpleName() : npc.getClass().getSimpleName()));
 			}
 		}
 		

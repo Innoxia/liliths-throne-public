@@ -2228,7 +2228,7 @@ public class LilayaSpa {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Pools", "Lead [npc.name] through into the pools.", SPA_GUEST_CORE) {
+				return new Response("Pools", UtilText.parse(guest, "Lead [npc.name] through into the pools."), SPA_GUEST_CORE) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_GUEST_PLAYER_CLOTHING_REVEAL_POOLS", guest));

@@ -424,6 +424,7 @@ public class GenericOrgasms {
 			if(characterOrgasming.hasVagina()) {
 				ongoingProstateStimulators = new ArrayList<>(Main.sex.getOngoingCharactersUsingAreas(characterOrgasming, SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER));
 			}
+			ongoingProstateStimulators.removeIf(c->Main.sex.getSexPace(c)==SexPace.SUB_RESISTING);
 			if(!ongoingProstateStimulators.isEmpty()) {
 				if(ongoingProstateStimulators.get(0).equals(characterOrgasming)) {
 					genericOrgasmSB.append(UtilText.parse(ongoingProstateStimulators.get(0),
@@ -1120,11 +1121,7 @@ public class GenericOrgasms {
 			}
 		}
 
-		if(characterOrgasming.isPlayer()) {
-			genericOrgasmSB.append(" As your [npc.balls+] tense up, ");
-		} else {
-			genericOrgasmSB.append(" As [npc.her] [npc.balls+] tense up, ");
-		}
+		genericOrgasmSB.append(" As [npc.her] [npc.balls+] tense up, ");
 		genericOrgasmSB.append(getCumQuantityDescription(characterOrgasming));
 		if(characterOrgasming.getPenisRawOrgasmCumQuantity()>0) {
 			genericOrgasmSB.append(cumTargetDescription(sexAction, characterOrgasming, characterTargeted, cumTarget, condomFailure, isSecondaryCreampieTarget));
@@ -1132,6 +1129,45 @@ public class GenericOrgasms {
 //		if(sexAction==GENERIC_ORGASM_OVIPOSITOR_PENIS_EGG_LAYING && characterOrgasming.equals(Main.sex.getCharacterLayingEggs())) {
 //			genericOrgasmSB.append(eggLayingTargetDescription(SexAreaPenetration.PENIS, characterOrgasming, characterTargeted, condomFailure));
 //		}
+		
+		
+		if(cumTarget==OrgasmCumTarget.INSIDE || (cumTarget==OrgasmCumTarget.INSIDE_SWITCH_DOUBLE && isSecondaryCreampieTarget)
+				&& contactingArea.isOrifice()
+				&& ((SexAreaOrifice)contactingArea).isInternalOrifice()
+				&& characterOrgasming.getPenisRawOrgasmCumQuantity()>0
+				&& (!characterOrgasming.isWearingCondom() || condomFailure!=CondomFailure.NONE)) {
+			if(contactingArea==SexAreaOrifice.VAGINA
+					&& !characterTargeted.isPregnant()
+					&& characterTargeted.isAbleToBeImpregnated()
+					&& !characterOrgasming.getFetishDesire(Fetish.FETISH_IMPREGNATION).isNegative()) {
+				if(Main.sex.getSexPace(characterTargeted)==SexPace.SUB_RESISTING || characterTargeted.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
+					genericOrgasmSB.append("<br/>[npc2.Name] [npc2.verb(sob)] as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cum+] shooting deep inside [npc2.her] womb");
+				} else {
+					genericOrgasmSB.append("<br/>[npc2.Name] [npc2.moansVerb+] as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cum+] shooting deep inside [npc2.her] womb");
+				}
+				if(!characterOrgasming.isMute()) {
+					if(Main.sex.getSexPace(characterTargeted)==SexPace.SUB_RESISTING || characterTargeted.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
+						genericOrgasmSB.append(", and [npc2.verb(let)] out a distressed cry as [npc.name] [npc.verb(tease)], ");
+					} else {
+						genericOrgasmSB.append(", and [npc2.verb(let)] out a horny whine as [npc.name] [npc.verb(tease)], ");
+					}
+					genericOrgasmSB.append(UtilText.returnStringAtRandom(
+							"[npc.speechNoEffects(You're going to get pregnant from this...)]",
+							"[npc.speechNoEffects(You'll be carrying my kids soon enough...)]",
+							"[npc.speechNoEffects(I'll have knocked you up from this...)]",
+							"[npc.speechNoEffects(I'll have got you pregnant from this...)]"));
+				} else {
+					genericOrgasmSB.append(".");
+				}
+				
+			} else {
+				if(Main.sex.getSexPace(characterTargeted)==SexPace.SUB_RESISTING) {
+					genericOrgasmSB.append("<br/>[npc2.Name] [npc2.verb(sob)] as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cum+] shooting deep inside of [npc2.herHim].");
+				} else {
+					genericOrgasmSB.append("<br/>[npc2.Name] [npc2.moansVerb+] as [npc2.she] [npc2.verb(feel)] [npc.namePos] [npc.cum+] shooting deep inside of [npc2.herHim].");
+				}
+			}
+		}
 		
 		if(characterOrgasming.hasPenisModifier(PenetrationModifier.KNOTTED)
 				&& (cumTarget==OrgasmCumTarget.INSIDE || (cumTarget==OrgasmCumTarget.INSIDE_SWITCH_DOUBLE && isSecondaryCreampieTarget))
@@ -7324,13 +7360,13 @@ public class GenericOrgasms {
 				return "Encourage deepthroat";
 
 			} else if(Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, SexAreaOrifice.BREAST).contains(getCharacterBeingFucked())) {
-				return "Encourage cum on [npc.breasts]";
+				return UtilText.parse(getCharacterBeingFucked(), "Encourage cum on [npc.breasts]");
 				
 			} else if(Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, SexAreaPenetration.FOOT).contains(getCharacterBeingFucked())) {
-				return "Encourage cum on [npc.feet]";
+				return UtilText.parse(getCharacterBeingFucked(), "Encourage cum on [npc.feet]");
 				
 			} else if(Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, SexAreaOrifice.ARMPITS).contains(getCharacterBeingFucked())) {
-				return "Encourage cum on [npc.armpit]";
+				return UtilText.parse(getCharacterBeingFucked(), "Encourage cum on [npc.armpit]");
 				
 			} else {
 				return "Encourage creampie";

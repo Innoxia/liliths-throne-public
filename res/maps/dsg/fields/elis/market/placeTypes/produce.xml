@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	
+	<name><![CDATA[
+		#IF(eisek.isPlayerKnowsName() && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL))
+			Eisek's Produce Stall
+		#ELSEIF(pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL))
+			Eisek's Alpine Produce
+		#ELSE
+			Produce Stall
+		#ENDIF
+	]]></name>
+
+	<tooltipDescription><![CDATA[[eisek.A_race] runs this produce stall.]]></tooltipDescription>
+	
+	<virginityLossDescription><![CDATA[in the Farmer's Market in Elis]]></virginityLossDescription>
+	
+	<sexBlockedReason/>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	
+	<svgName>produce</svgName>
+	<colour>#55a2d5</colour>
+	
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	
+	<encounterType>null</encounterType>
+	
+	<dialogue>dsg_places_fields_elis_market_produce_stall</dialogue>
+	
+	<populationPresent>		
+			<population startMinutes="480" endMinutes="1139">
+			<conditional><![CDATA[
+				#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_introduced) && eisek.getLocationPlaceType() == PLACE_TYPE_dsg_fields_elis_market_produce)
+					true
+				#ENDIF
+			]]></conditional>
+			<populationType plural="false" density="SMALL">CROWD</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
+		
+		<population startMinutes="480" endMinutes="1139">
+			<conditional><![CDATA[
+				#IF((!flags.hasFlag(FLAG_dsg_elis_eisek_banished) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL))
+					|| eisek.getLocationPlaceType() != PLACE_TYPE_dsg_fields_elis_market_produce
+					|| (pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB) && !flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_persuade)))
+					true
+				#ENDIF
+			]]></conditional>
+			<populationType plural="true" density="OCCASIONAL">SHOPPER</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
+		
+		<population startMinutes="480" endMinutes="1139">
+			<conditional><![CDATA[
+				#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_banished) && pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB) && !pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL) && eisek.getLocationPlaceType() == PLACE_TYPE_dsg_fields_elis_market_produce)
+					true
+				#ENDIF
+			]]></conditional>
+			<populationType plural="true" density="COUPLE">SHOPPER</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
+		
+		<population day="true">
+			<conditional><![CDATA[
+				#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_banished) && pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB) && pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL) && eisek.getLocationPlaceType() == PLACE_TYPE_dsg_fields_elis_market_produce)
+					true
+				#ENDIF
+			]]></conditional>
+			<populationType plural="true" density="SEVERAL">SHOPPER</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
+	</populationPresent>
+	
+	<furniturePresent>false</furniturePresent>	
+	<wallsPresent>false</wallsPresent>	
+	<loiteringEnabled>false</loiteringEnabled>	
+	<globalMapTile>false</globalMapTile>	
+	<dangerous><![CDATA[false]]></dangerous>	
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>	
+	<aquatic><![CDATA[LAND]]></aquatic>	
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>	
+	<teleportPermissions>BOTH</teleportPermissions>	
+	<weatherImmunities/>
+	<applyInventoryInit/>
+	
+</placeType>

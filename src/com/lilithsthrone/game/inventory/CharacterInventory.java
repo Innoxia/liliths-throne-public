@@ -1838,7 +1838,8 @@ public class CharacterInventory implements XMLSaving {
 
 		// The supplied clothing cannot be displaced in this manner!
 		if (!displacementTypeFound) {
-			throw new IllegalArgumentException("The supplied clothing cannot be displaced in this manner!");
+			new IllegalArgumentException("The supplied clothing ("+clothing.getClothingType().getId()+") cannot be displaced in this manner ("+dt.getDescription()+")!").printStackTrace();
+			return false;
 		}
 
 		// Is able to be displaced!

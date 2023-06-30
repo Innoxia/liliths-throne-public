@@ -269,13 +269,15 @@ public class Hannah extends NPC {
 					this.equipClothing(); // Make sure to equip workout clothing when going to gym
 				}
 				this.returnToHome();
+				
 			} else if(Main.game.isHourBetween(21, 24)
 					&& !Main.game.getDialogueFlags().hasFlag("innoxia_lights_out_hannah_left")
-					&& !Main.game.getDialogueFlags().hasFlag("innoxia_lights_out_hannah_sex")) {
+					&& !Main.game.getDialogueFlags().hasFlag("innoxia_lights_out_hannah_last_night_sex")) {
 				if(this.getWorldLocation()!=WorldType.getWorldTypeFromId("innoxia_dominion_nightlife_lights_out")) {
 					this.equipBarClothing(); // Make sure to equip bar clothing when going to Lights Out
 				}
 				this.setLocation(WorldType.getWorldTypeFromId("innoxia_dominion_nightlife_lights_out"), PlaceType.getPlaceTypeFromId("innoxia_dominion_nightlife_lights_out_bar"));
+				
 			} else {
 				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 			}

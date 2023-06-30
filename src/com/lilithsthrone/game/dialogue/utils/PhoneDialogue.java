@@ -718,7 +718,9 @@ public class PhoneDialogue {
 			
 			if(incubationOffspringBirthed.size()==1) {
 				try {
-					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/misc", "INCUBATION_EGG_LAYING_FINISHED_END_SINGLE", Main.game.getNPCById(incubationOffspringBirthed.iterator().next())));
+					OffspringSeed offspring = Main.game.getOffspringSeedById(incubationOffspringBirthed.iterator().next());
+					UtilText.addSpecialParsingString(offspring.getSubspecies().getName(offspring.getBody()), true);
+					UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("misc/misc", "INCUBATION_EGG_LAYING_FINISHED_END_SINGLE"));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

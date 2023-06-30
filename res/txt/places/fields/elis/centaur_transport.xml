@@ -71,9 +71,22 @@
 		<p>
 			The familiar form of the muscular centauress, Astrapi, can be seen lying down and relaxing beside her carriage. As you enter the barn she sees you and stands up, before cheerfully calling out, [astrapi.speech(Hi, [pc.name]! I'm planning on setting off for Dominion in a few minutes, so if you want a ride just let me know!)]
 		</p>
-		<p>
-			As usual, Astrapi isn't wearing any clothing other than the sweatbands around her wrists and head, and as such her huge, [astrapi.cupSize]-cup breasts are fully on display. Completely unconcerned about her exhibitionism, she turns around and starts checking over her carriage to make sure it's in working condition, shamelessly flashing you her [astrapi.pussyColour] horse-pussy in the process. Turning her head back towards you, she calls out, [astrapi.speech(Remember, it's only two-hundred and fifty flames! You can't pass up a bargain like that, can you?!)] 
-		</p>
+		#IF(astrapi.isVisiblyPregnant())
+			<p>
+				#IF(!astrapi.isCharacterReactedToPregnancy(pc))
+					As usual, Astrapi isn't wearing any clothing other than the sweatbands around her wrists and head, and as such her huge, [astrapi.cupSize]-cup breasts are fully on display. However, it isn't the centauress's massive tits that draw your attention, but instead the fact that her lower horse's body is sporting a [style.colourSex(pregnant belly)]. Seeing what it is you're looking at, Astrapi absent-mindedly runs one of her hands through her [astrapi.hairColour] hair and laughs, [astrapi.speech(Hah! Yeah, you got me pregnant, but it's no big deal really. Sure, I might be a little slower on my routes and need more rest in the evenings, but I can handle it all just fine.)]
+				#ELSE
+					As usual, Astrapi isn't wearing any clothing other than the sweatbands around her wrists and head, and as such her huge, [astrapi.cupSize]-cup breasts are fully on display. However, it isn't the centauress's massive tits that draw your attention, but instead the fact that her lower horse's body is still sporting a [style.colourSex(pregnant belly)]. Seeing what it is you're looking at, Astrapi absent-mindedly runs one of her hands through her [astrapi.hairColour] hair and laughs, [astrapi.speech(Hah! Yeah, I'm still carrying our kids around, but it's no big deal. Sure, I might be a little slower on my routes and need more rest in the evenings, but I can handle it all just fine.)]
+				#ENDIF
+			</p>
+			<p>
+				Nonchalantly waving you off as you ask her if there's anything you can do to help, the muscular centauress turns around and starts checking over her carriage to make sure that it's in working condition. Turning her head back, she flashes you a playful grin, and with a quick flick of her tail, shamelessly flashes you her [astrapi.pussyColour] horse-pussy. Turning her attention back to her cart, she shouts out, [astrapi.speech(Remember, it's only two-hundred and fifty flames for a ride! You can't pass up a bargain like that, can you?! And hey, who knows, maybe you'll get to creampie me again? After all, we don't have to worry about you knocking me up anymore!)]
+			</p>
+		#ELSE
+			<p>
+				As usual, Astrapi isn't wearing any clothing other than the sweatbands around her wrists and head, and as such her huge, [astrapi.cupSize]-cup breasts are fully on display. Completely unconcerned about her exhibitionism, she turns around and starts checking over her carriage to make sure it's in working condition, shamelessly flashing you her [astrapi.pussyColour] horse-pussy in the process. Turning her head back towards you, she calls out, [astrapi.speech(Remember, it's only two-hundred and fifty flames! You can't pass up a bargain like that, can you?!)] 
+			</p>
+		#ENDIF
 	#ELSEIF(game.getCharactersPresent().contains(vronti))
 		<p>
 			[pc.Walking] up to the barn's half-open door, you peer inside to see that most of the straw-strewn interior is once again empty. As you [pc.step] through the doorway and enter the barn, you take note of the fact that it's a little smaller than its counterpart back at Dominion, and houses not only a large, four-wheeled wooden carriage, but also a few crates and a couple of workshop benches.

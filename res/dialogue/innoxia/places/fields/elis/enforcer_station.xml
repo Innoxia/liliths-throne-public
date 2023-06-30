@@ -46,13 +46,6 @@
 			[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_work, false)]
 			[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_career, false)]
 			[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_lunette, false)]
-			#IF(!flags.hasFlag(FLAG_innoxia_elis_enforcers_sterope_met))
-				[#sterope.guaranteePregnancyOnNextRoll()]
-				[#sterope.rollForPregnancy(SUBSPECIES_CENTAUR, SUBSPECIES_CENTAUR, 500, true)]
-				[#sterope.useItem(game.getItemGen().generateItem(ITEM_MOTHERS_MILK), sterope, false, true)]
-				[#sterope.useItem(game.getItemGen().generateItem(ITEM_MOTHERS_MILK), sterope, false, true)]
-				[#sterope.useItem(game.getItemGen().generateItem(ITEM_MOTHERS_MILK), sterope, false, true)]
-			#ENDIF
 			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'RECEPTION'))]
 			[#flags.setFlag(FLAG_innoxia_elis_enforcers_sterope_met, true)]
 		]]></preParsingEffects>

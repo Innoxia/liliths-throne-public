@@ -320,6 +320,72 @@
 					#ENDIF
 				]]></effects>
 			</response>
+			
+			<!-- Eisek stall quest: -->
+			<response>
+					<availabilityConditional><![CDATA[[#pc.hasQuest(QUEST_LINE_SIDE_EISEK_STALL) && pc.getQuest(QUEST_LINE_SIDE_EISEK_STALL) == QUEST_EISEK_STALL_QUEST_STAGE_ONE]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[1]]></responseTabIndex>
+				<index><![CDATA[10]]></index>
+				<responseTitle><![CDATA[Fabric?]]></responseTitle>
+				<responseTooltip><![CDATA[Ask Monica if she'd be willing to sell you some fabric for Eisek's stall.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_shops_clothing_talk_fabric]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_STALL, QUEST_EISEK_STALL_QUEST_STAGE_TWO))]
+					[#flags.setSavedLong("elis_eisek_monica_order_date", game.getDayNumber())]
+				]]></effects>
+			</response>
+			
+			<response>
+				<availabilityConditional><![CDATA[
+					[#flags.getSavedLong("elis_eisek_monica_order_date") + 3 > game.getDayNumber() && pc.getQuest(QUEST_LINE_SIDE_EISEK_STALL) == QUEST_EISEK_STALL_QUEST_STAGE_THREE]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[1]]></responseTabIndex>
+				<index><![CDATA[10]]></index>
+				<responseTitle><![CDATA[Pick up order]]></responseTitle>
+				<responseTooltip><![CDATA[It hasn't been three days since you placed your order yet.]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+				<effects/>
+			</response>
+			
+			<response>
+				<availabilityConditional><![CDATA[
+					[#flags.getSavedLong("elis_eisek_monica_order_date") + 3 <= game.getDayNumber()
+						&& (!pc.hasItemType(ITEM_dsg_quest_fabricbolt) || !pc.hasItemType(ITEM_dsg_quest_embsign))
+						&& pc.getQuest(QUEST_LINE_SIDE_EISEK_STALL) == QUEST_EISEK_STALL_QUEST_STAGE_THREE]
+				]]></availabilityConditional>	
+				<responseTabIndex><![CDATA[1]]></responseTabIndex>
+				<index><![CDATA[10]]></index>
+					<responseTitle><![CDATA[
+						#IF(pc.getMoney() < 2500)
+							Pick up order ([style.moneyFormatUncoloured(2500, span)])
+						#ELSE
+							Pick up order ([style.moneyFormat(2500, span)])
+						#ENDIF
+					]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getMoney() < 2500)
+						You need two thousand five hundred flames to pay for your order, and you don't have that much money!
+					#ELSE
+						Pick up your order from Monica.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.getMoney() < 2500)
+						null
+					#ELSE
+						innoxia_places_fields_elis_shops_clothing_pickup_order
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-2500))]
+					[#game.appendToTextEndStringBuilder(pc.addItem(itemGen.generateItem(ITEM_dsg_quest_fabricbolt), 1, false, true))]
+					[#game.appendToTextEndStringBuilder(pc.addItem(itemGen.generateItem(ITEM_dsg_quest_embsign), 1, false, true))]
+					#IF(pc.hasItem(itemGen.generateItem(ITEM_dsg_quest_awningpoles)))
+						[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_STALL, QUEST_EISEK_STALL_QUEST_STAGE_FOUR))]
+					#ENDIF					
+				]]></effects>
+			</response>
+			
 			<!-- Milker side quest: -->
 			<response>
 				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_monica_talk_history) && !flags.hasFlag(FLAG_innoxia_monica_talk_milker_unlocked)]]]></availabilityConditional>
@@ -596,6 +662,30 @@
 				]]></effects>
 			</response>
 		</responses>
+	</scene>
+	
+	<scene id="talk_fabric">
+		<author><![CDATA[DSG]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/shops/clothing">CLOTHING_TALK_FABRIC</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_shops_clothing_talk"/>
+	</scene>
+	
+	<scene id="pickup_order">
+		<author><![CDATA[DSG]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/places/fields/elis/shops/clothing">CLOTHING_TALK_PICKUP_ORDER</content>
+		<secondsPassed minutes="false"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_shops_clothing_talk"/>
 	</scene>
 	
 </dialogueNodes>

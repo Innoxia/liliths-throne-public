@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+
+<clothing>
+  <coreAttributes>
+    <value>2500</value>
+    <determiner><![CDATA[a]]></determiner>
+    <name><![CDATA[saddle]]></name>
+    <namePlural pluralByDefault="false"><![CDATA[saddles]]></namePlural>
+    <description><![CDATA[A supportive structure for a rider of an animal, which is fastened to the animal's back by a girth. It comes complete with stirrups, the height of which can be freely adjusted.]]></description>
+
+    <physicalResistance>0</physicalResistance>
+    <femininity>ANDROGYNOUS</femininity>
+    <slot>LEG</slot>
+    <rarity>EPIC</rarity>
+	<clothingSet>innoxia_submissive_steed</clothingSet>
+    <imageName>saddle.svg</imageName>
+    <imageEquippedName>saddle_equipped.svg</imageEquippedName>
+
+	
+	<effects>
+		<effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="TF_MOD_FETISH_BEHAVIOUR" secondaryModifier="TF_MOD_FETISH_SUBMISSIVE" timer="0"/>
+	</effects>
+
+    <blockedPartsList>
+      <blockedParts>
+        <displacementType>REMOVE_OR_EQUIP</displacementType>
+        <clothingAccessRequired/>
+		<blockedBodyParts/>
+		<clothingAccessBlocked/>
+        <concealedSlots/>
+      </blockedParts>
+    </blockedPartsList>
+
+    <incompatibleSlots/>
+
+	<primaryColours>
+		<colour>CLOTHING_TAN</colour>
+		<colour>CLOTHING_DESATURATED_BROWN</colour>
+		<colour>CLOTHING_DESATURATED_BROWN_DARK</colour>
+		<colour>CLOTHING_BLACK</colour>
+	</primaryColours>
+	<primaryColoursDye values="ALL"/>
+	<secondaryColours values="JUST_STEEL"/>
+	<secondaryColoursDye values="ALL_METAL"/>
+	<tertiaryColours>
+		<colour>CLOTHING_GREY_DARK</colour>
+	</tertiaryColours> 
+	<tertiaryColoursDye values="ALL"/>
+	<customColours>
+		<customColour c0="#ABC837" c1="#BCD35F" c2="#CDDE87" c3="#DDE9AF" c4="#EEF4D7">
+			<defaultColours>
+				<colour>CLOTHING_WHITE</colour>
+			</defaultColours>
+			<extraColours values="ALL"/>
+		</customColour>
+	</customColours>
+			
+    <itemTags>
+		<tag>FITS_TAUR_BODY</tag>
+		<tag>SOLD_BY_FINCH</tag>
+    </itemTags>
+
+  </coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(place)] the saddle on [npc.her] back, before reaching around and fastening the buckles to keep it in place and then lowering the stirrups.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(place)] the saddle on [npc2.namePos] back, before fastening the buckles to keep it in place and then lowering the stirrups.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(force)] the saddle on [npc2.namePos] back, before fastening the buckles to keep it in place and then lowering the stirrups.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(unfasten)] the saddle's straps and [npc.verb(take)] it off.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(unfasten)] the saddle's straps and [npc.verb(take)] it off.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] impatiently [npc.verb(unfasten)] the saddle's straps and [npc.verb(yank)] it off.]]>
+		</otherRough>
+	</displacementText>
+
+</clothing>

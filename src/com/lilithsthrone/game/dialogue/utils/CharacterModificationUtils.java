@@ -6370,7 +6370,7 @@ public class CharacterModificationUtils {
 					isPierced = BodyChanging.getTarget().isPiercedNipple();
 					break;
 				case PENIS:
-					canPierce = BodyChanging.getTarget().hasPenis();
+					canPierce = BodyChanging.getTarget().hasPenisIgnoreDildo();
 					isPierced = BodyChanging.getTarget().isPiercedPenis();
 					break;
 				case VAGINA:

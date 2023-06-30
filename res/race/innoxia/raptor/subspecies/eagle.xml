@@ -12,6 +12,7 @@
 	<nocturnality>DIURNAL</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
+	<winged>true</winged>
 	<applySubspeciesChanges><![CDATA[
 		#IF(targetedBody.getLegType().getRace()==RACE_innoxia_raptor)
 			[#targetedBody.setLegType(LEG_TYPE_innoxia_raptor_leg_large)]

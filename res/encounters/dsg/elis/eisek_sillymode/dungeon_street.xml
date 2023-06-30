@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<encounterRoot>
+	<additionalPlaceTypeTriggers>
+		<placeType>innoxia_fields_elis_town_street</placeType>
+	</additionalPlaceTypeTriggers>
+	
+	<possibleEncounters>
+		<encounter>
+			<name><![CDATA[A Foul Basement]]></name>
+			<chanceToTrigger opportunisticEncounter="false"><![CDATA[
+				#IF(pc.hasQuest(QUEST_LINE_SIDE_EISEK_SILLYMODE) && pc.isQuestProgressLessThan(QUEST_LINE_SIDE_EISEK_SILLYMODE, QUEST_EISEK_SILLYMODE_QUEST_STAGE_TWO) && !flags.hasFlag(FLAG_dsg_elis_eisek_sillymode_basement_found))
+					#IF(pc.hasTraitActivated(PERK_OBSERVANT))
+						15
+					#ELSE
+						10
+					#ENDIF
+				#ELSE
+					0
+				#ENDIF
+			]]></chanceToTrigger>
+			<dialogueReturned><![CDATA[dsg_encounters_fields_elis_eisek_sillymode_dungeon_street]]></dialogueReturned>
+		</encounter>
+	</possibleEncounters>
+	
+</encounterRoot>

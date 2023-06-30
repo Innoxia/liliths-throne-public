@@ -524,7 +524,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						mapToPutIn.put(DisplacementDescriptionType.byTagsPath(repositionDescListTag+" "+desc.getTagName()), desc.getTextContent()));
 					};
 					Consumer<String> toUniversalMap = putTagContentTo.apply(universalMap);
-					//TODO this is messing up
+					// Deprecated:
 					toUniversalMap.accept("playerNPC");
 					toUniversalMap.accept("playerNPCRough");
 					toUniversalMap.accept("playerSelf");

@@ -1,115 +1,83 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 
 <clothing>
-  <coreAttributes>
-    <value>300</value> <!--10 flames = £1 ~ $1.5-->
-    <determiner><![CDATA[a string of]]></determiner>
-    <name><![CDATA[anal beads]]></name>
-    <namePlural pluralByDefault="true"><![CDATA[anal beads]]></namePlural>
-    <description><![CDATA[A string of six large balls of arcane-cured silicone, which are meant to be inserted into the anus.]]></description>
-    
-    <physicalResistance>0</physicalResistance>
-    <femininity>ANDROGYNOUS</femininity> <!-- FEMININE, MASCULINE ANDROGYNOUS -->
-    <slot>ANUS</slot> <!-- slot values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
-    <rarity>COMMON</rarity> <!-- rarity values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
-    
-    <imageName>anal_beads.svg</imageName>
-    
-    <clothingSet/> <!-- No way to define custom sets yet -->
-    <imageEquippedName/> <!-- The file path for this clothing's image while equipped -->
-    <effects/> <!-- Default enchantments -->
+	<coreAttributes>
+		<value>300</value> <!--10 flames = £1 ~ $1.5-->
+		<determiner><![CDATA[a string of]]></determiner>
+		<name><![CDATA[anal beads]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[anal beads]]></namePlural>
+		<description><![CDATA[A string of six large balls of arcane-cured silicone, which are meant to be inserted into the anus.]]></description>
+		
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity> <!-- FEMININE, MASCULINE ANDROGYNOUS -->
+		<slot>ANUS</slot> <!-- slot values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
+		<rarity>COMMON</rarity> <!-- rarity values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
+		
+		<imageName>anal_beads.svg</imageName>
+		
+		<clothingSet/> <!-- No way to define custom sets yet -->
+		<imageEquippedName/> <!-- The file path for this clothing's image while equipped -->
+		<effects/> <!-- Default enchantments -->
 
-    <blockedPartsList>
-      <blockedParts>
-        
-        <displacementType>REMOVE_OR_EQUIP</displacementType> <!-- displacementType values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
-        
-        <clothingAccessRequired> <!-- clothingAccess values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingAccess.java -->
-          <clothingAccess>ANUS</clothingAccess>
-        </clothingAccessRequired>
-        
-        <blockedBodyParts> <!--bodyPart values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/body/CoverableArea.java -->
-          <bodyPart>ANUS</bodyPart>
-        </blockedBodyParts>
-        
-        <clothingAccessBlocked/> <!-- clothingAccess -->
-        <concealedSlots/> <!-- slot -->
-        
-      </blockedParts>
-    </blockedPartsList>
-    
-    <incompatibleSlots/> <!-- slot(s) not compatible -->
-    
-    <!-- Colour values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->
-    <primaryColours values="ALL"/>
-    <primaryColoursDye values="ALL"/>
-    <secondaryColours/>
-    <secondaryColoursDye/>
-    <tertiaryColours/>
-    <tertiaryColoursDye/>
-    
-    <itemTags> <!-- tag values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
-      <tag>SOLD_BY_FINCH</tag>
-      <tag>PLUGS_ANUS</tag>
-      <tag>ENABLE_SEX_EQUIP</tag>
-      <tag>TRANSPARENT</tag>
-    </itemTags>
-    
-  </coreAttributes>
+		<blockedPartsList>
+		  <blockedParts>
+			
+			<displacementType>REMOVE_OR_EQUIP</displacementType> <!-- displacementType values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
+			
+			<clothingAccessRequired> <!-- clothingAccess values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingAccess.java -->
+			  <clothingAccess>ANUS</clothingAccess>
+			</clothingAccessRequired>
+			
+			<blockedBodyParts> <!--bodyPart values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/body/CoverableArea.java -->
+			  <bodyPart>ANUS</bodyPart>
+			</blockedBodyParts>
+			
+			<clothingAccessBlocked/> <!-- clothingAccess -->
+			<concealedSlots/> <!-- slot -->
+			
+		  </blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> <!-- slot(s) not compatible -->
+		
+		<!-- Colour values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->
+		<primaryColours values="ALL"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> <!-- tag values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
+		  <tag>SOLD_BY_FINCH</tag>
+		  <tag>PLUGS_ANUS</tag>
+		  <tag>ENABLE_SEX_EQUIP</tag>
+		  <tag>TRANSPARENT</tag>
+		</itemTags>
+	</coreAttributes>
 
-  <displacementText type="REMOVE_OR_EQUIP">
-    <playerSelf>
-      <![CDATA[You pull out the anal beads from your [pc.ass+].]]>
-    </playerSelf>
-    <playerNPC>
-      <![CDATA[You pull out [npc.name]'s anal beads.]]>
-    </playerNPC>
-    <playerNPCRough>
-      <![CDATA[You firmly grab [npc.name]'s anal beads and yank it out of [npc.herHis] [npc.ass+].]]>
-    </playerNPCRough>
-    <NPCSelf>
-      <![CDATA[[npc.Name] pulls out [npc.herHis] anal beads.]]>
-    </NPCSelf>
-    <NPCPlayer>
-      <![CDATA[[npc.Name] pulls out the anal beads from your [pc.ass+].]]>
-    </NPCPlayer>
-    <NPCPlayerRough>
-      <![CDATA[[npc.Name] firmly grabs your anal beads and yanks them out of your [pc.ass+].]]>
-    </NPCPlayerRough>
-    <NPCOtherNPC>
-      <![CDATA[[npc1.Name] pulls out [npc2.name]'s anal beads.]]>
-    </NPCOtherNPC>
-    <NPCOtherNPCRough>
-      <![CDATA[[npc.Name] firmly grabs [npc2.name]'s anal beads and yanks them out of [npc2.herHis] [npc2.ass+].]]>
-    </NPCOtherNPCRough>
-  </displacementText>
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(push)] the anal beads into [npc.her] [npc.ass+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(push)] the anal beads into [npc2.namePos] [npc2.ass+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(hold)] [npc2.name] still as [npc.she] roughly [npc.verb(force)] the anal beads into [npc2.her] [npc2.ass+].]]>
+		</otherRough>
+	</replacementText>
 
-  <replacementText type="REMOVE_OR_EQUIP">
-    <playerSelf>
-      <![CDATA[You push the anal beads into your [pc.ass+].]]>
-    </playerSelf>
-    <playerNPC>
-      <![CDATA[You push the anal beads into [npc.name]'s [npc.ass+].]]>
-    </playerNPC>
-    <playerNPCRough>
-      <![CDATA[You hold [npc.name] still as you roughly force the anal beads into [npc.herHis] [npc.ass+].]]>
-    </playerNPCRough>
-    <NPCSelf>
-      <![CDATA[[npc.Name] pushes the anal beads into [npc.herHis] [npc.ass+].]]>
-    </NPCSelf>
-    <NPCPlayer>
-      <![CDATA[[npc.Name] push the anal beads into your [pc.ass+].]]>
-    </NPCPlayer>
-    <NPCPlayerRough>
-      <![CDATA[[npc.Name] holds you still as [npc.sheHe] roughly forces the anal beads into your [pc.ass+]]]>
-    </NPCPlayerRough>
-    <NPCOtherNPC>
-      <![CDATA[[npc1.Name] pushes the anal beads into [npc2.Name]'s [npc2.ass+].]]>
-    </NPCOtherNPC>
-    <NPCOtherNPCRough>
-      <![CDATA[[npc1.Name] holds [npc2.name] still as [npc1.sheHe] roughly forces the anal beads into [npc2.herHis] [npc2.ass+].]]>
-    </NPCOtherNPCRough>
-  </replacementText>
-  
-  
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] anal beads out of [npc.her] [npc.ass+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] [npc2.namePos] anal beads out of [npc2.her] [npc2.ass+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.namePos] anal beads and [npc.verb(yank)] them out of [npc2.her] [npc2.ass+].]]>
+		</otherRough>
+	</displacementText>
+	
 </clothing>

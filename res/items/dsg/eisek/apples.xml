@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<authorTag><![CDATA[A faint wax stamp on the peel reads "Grown by the dragons of the DSG Farmer's Guild."]]></authorTag>
+		<value>8</value>
+		<determiner><![CDATA[some]]></determiner>
+		<name><![CDATA[apples]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[apples]]></namePlural>
+		<description><![CDATA[Fruit from a carefully cultivated highland apple tree. The peel has a glossy shine to it, as if it has been polished.]]></description>
+		<useDescriptor>eat</useDescriptor>
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		<rarity>UNCOMMON</rarity>
+		
+		<imageName>apples.svg</imageName>
+		<colourPrimary>BASE_RED</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<associatedRace/>
+		<enchantmentItemTypeId/>
+		<enchantmentEffectId/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 5% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[style.boldGood(Increases)] [style.boldPoison([#ATTRIBUTE_RESISTANCE_POISON.getName()])] and [style.boldHealth([#ATTRIBUTE_ENERGY_SHIELDING.getName()])] by 5 for 1 hour.]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/5)]
+			[##npc.removeStatusEffect(SE_dsg_item_fruit_buff)]
+			[##npc.addStatusEffect(SE_dsg_item_fruit_buff_plus, 3600)]
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				[npc.Name] [npc.verb(feel)] vaguely healthier...
+			</p>
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>SOLD_BY_EISEK</tag>
+		</itemTags>
+		
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+			[npc.Name] [npc.verb(find)] the apple surprisingly easy to bite into and [npc.verb(start)] eating it eagerly. It doesn't take long to consume the whole thing.
+		]]></selfUse>
+		<otherUse><![CDATA[
+			[npc.Name] [npc.verb(find)] the tangerine surprisingly easy to bite into and [npc.verb(start)] feeding it to [npc2.name] eagerly. It doesn't take long to consume the whole thing.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>
