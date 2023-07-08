@@ -35,6 +35,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.PenisFoot;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisNippleCrotch;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisPenis;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisSpinneret;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisThighs;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisUrethraPenis;
@@ -231,6 +232,7 @@ public class SexActionManager {
 				new Value<>("PenisUrethraPenis", PenisUrethraPenis.class.getFields()),
 				new Value<>("PenisSpinneret", PenisSpinneret.class.getFields()),
 				new Value<>("PenisArmpit", PenisArmpit.class.getFields()),
+				new Value<>("PenisPenis", PenisPenis.class.getFields()),
 				
 				// Vagina/clit actions:
 				new Value<>("ClitClit", ClitClit.class.getFields()),
