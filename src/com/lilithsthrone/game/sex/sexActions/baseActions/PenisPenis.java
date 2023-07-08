@@ -14,9 +14,9 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
- * @since 0.3.3
- * @version 0.3.3
- * @author Innoxia
+ * @since 0.4.8.5
+ * @version 0.4.8.5
+ * @author Sightglass
  */
 public class PenisPenis {
 	
