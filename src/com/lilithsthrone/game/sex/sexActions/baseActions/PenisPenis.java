@@ -480,6 +480,58 @@ public class PenisPenis {
 					"With [npc.a_moan+], [npc.name] [npc.verb(focus)] on controlling [npc.her] prehensile [npc.cock], wrapping it around [npc2.namePos] [npc2.cock+], trapping and milking it in the coils of [npc.her] constricting [npc.cock].].");
 		}
 	};
+
+	public static final SexAction SHEATH_FROTTING = new SexAction(
+			SexActionType.ONGOING,
+			ArousalIncrease.FOUR_HIGH,
+			ArousalIncrease.FIVE_EXTREME,
+			CorruptionLevel.TWO_HORNY,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		
+		@Override
+		public String getActionTitle() {
+			return "Sheath docking";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Use your cock to tease and penetrate the sheath holding [npc2.namePos] [npc2.cock+].";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()).hasPenisModifier(PenetrationModifier.SHEATHED) && Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.DOM_ROUGH;
+		}
+
+		@Override
+		public String getDescription() {
+			String start = UtilText.returnStringAtRandom(
+					"Letting out [npc.a_moan+], [npc.name] [npc.verb(slip)] the tip of [npc.her] [npc.cock] into the sheath surrounding [npc2.namePos] [npc2.cock+], circling it and teasing the sensitive skin inside the sheath.",
+					"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] down to [npc2.namePos] [npc2.cock+]."
+							+ " Guiding it to [npc.namePos] [npc.cock+], [npc.name] [npc.verb(grin)] as [npc.she] then [npc.verb(slip)] it it past [npc2.her] [npc2.cock+] and into [npc2.her] sheath, causing [npc2.herHim] to let out [npc2.a_moan+].",
+					"[npc.Name] [npc.verb(grin)] in delight as [npc.she] [npc.verb(guide)] [npc.her] cock to the opening of [npc2.namePos] sheath before slipping it in. [npc.NamePos] [npc.cock] fits snuggly next to [npc2.hers], and [npc.name] [npc.verb(start)] to massage and stroke both cocks, tugging at the sheath with rhythmic undulations.",
+					"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(slip)] [npc.her] [npc.cock] into [npc2.namePos] shealth, teasing it with slow circles before slipping in further.");
+			String middle1 = UtilText.returnStringAtRandom(
+				"[npc.Name] slowly [npc.verb(work)] [npc.her] [npc.cock] deeper into the sheath, sliding it around the base of [npc2.her] [npc2.cock+].",
+				"Rather than thrust deeply into [npc2.her] sheath, [npc.name] instead circle [npc.her] cock around [npc2.hers].",
+				"Reaching down, [npc.name] firmly [npc.verb(grasp)] [npc2.her] sheath, before using it as a sleeve to jack [npc.herself] off.",
+				"Reaching down, [npc.name] firmly [npc.verb(grasp)] [npc2.her] sheath, before sliding it deeper over [npc.her] [npc.cock]. Holding still instead of thrusting, [npc.name] instead slowly rub and massage [npc2.namePos] cock."
+			);
+			String middle2 = UtilText.returnStringAtRandom(
+				"Overwhelmed by the stimulation from [npc2.her] sensitive sheath, all [npc2.name] [npc2.is] able to do is shudder and [npc2.moan].",
+				"The inner surface of [npc2.namePos] sheath is incredibly sensitive, and [npc.name] [npc.verb(feel)] every shudder and twitch as [npc2.her] [npc2.cock] twitches in response to the sensation.",
+				"With a lusty [npc2.moan], [npc2.name] [npc2.verb(press)] in closer to [npc.name], humping gently to try to get more of [npc.her] [npc.cock+] inside [npc2.her] sheath."
+			);
+			String end = UtilText.returnStringAtRandom(
+				"After a few last thrusts, [npc.name] carefully [npc.verb(pull)] out of [npc2.namePos] sheath, [npc.name] playfully [npc.verb(slap)] [npc.her] [npc.cock] against [npc2.hers] before starting to frot and thrust against it again.",
+				"With a sigh and a few more strokes inside [npc2.her] sheath, [npc.name] [npc.verb(pull)] out of [npc2.namePos] sheath and [npc.verb(resume)] frotting.",
+				"After a little while, the sensation gets too intense to handle. With a [npc.moan], [npc.name] [npc.verb(pull)] [npc.her] [npc.cock] back out of the sheath surrounding [npc2.namePos] [npc.cock+]. [npc.Name] [npc.verb(give)] it a few strokes before lining up [npc.hers] up to rub and hump against it.",
+				"Giving [npc2.namePos] sheath a few last stokes over [npc.her] [npc.cock], [npc.she] carefully [npc.verb(tug)] out of the snug sheath and [npc.verb(realign)] [npc.her] [npc.cock+] to resume frotting."
+			);
+			return String.join(" ",start, middle1, middle2,end);
+		}
+	};
 	
 	public static final SexAction PREHENSILE_FROTTING_DOUBLE = new SexAction(
 			SexActionType.ONGOING,
