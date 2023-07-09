@@ -1,5 +1,23 @@
 package com.lilithsthrone.game.sex.sexActions.baseActions;
 
+import java.util.List;
+import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.sex.SexAreaInterface;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
+import com.lilithsthrone.game.sex.managers.OrgasmBehaviour;
+import com.lilithsthrone.game.sex.managers.OrgasmEncourageBehaviour;
+import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
+import com.lilithsthrone.game.character.body.Arm;
+import com.lilithsthrone.game.character.body.BodyPartInterface;
+import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.Leg;
+import com.lilithsthrone.game.character.body.Tail;
+import com.lilithsthrone.game.character.body.Tentacle;
+import com.lilithsthrone.game.character.body.Torso;
+import com.lilithsthrone.game.character.body.Wing;
+import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.sex.OrgasmCumTarget;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -494,6 +512,207 @@ public class PenisPenis {
 							+ " Wrapping it around [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(grin)] as [npc.she] then [npc.verb(entice)] [npc2.namePos] [npc2.cock] by stroking and curling around it with [npc.her] own. [npc2.Name] eagerly [npc2.verb(wrap)] [npc2.her] own prehensile [npc2.cock] around [npc.hers], returning the favor with teasing squeezes of [npc2.her] own.",
 					"[npc.Name] [npc.verb(grin)] in delight as [npc.she] [npc.verb(use)] [npc.her] prehensile cock to massage and stroke [npc2.namePos] [npc2.cock+], and [npc2.name] [npc2.verb(use)] [npc2.hers] to wrap around [npc.hers]. Tugging at it with [npc.her] undulating [npc.cock], [npc.name] [npc.verb(settle)] on a comfortable rhythm with [npc2.name].",
 					"With [npc.a_moan+], [npc.name] [npc.verb(focus)] on controlling [npc.her] prehensile [npc.cock], wrapping it around [npc2.namePos] [npc2.cock+]. Both with prehensile penises, [npc.name] and [npc2.name] try to trap and envelope the other cock, squeezing and milking it in constricting coils.");
+		}
+	};
+	
+	public static final SexAction FROTTING_ORGASM = new SexAction(
+			SexActionType.ORGASM,
+			ArousalIncrease.FIVE_EXTREME,
+			ArousalIncrease.FIVE_EXTREME,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			SexParticipantType.NORMAL) {
+		private GameCharacter getCharacterToBeCreampied() {
+			GameCharacter characterPenetrated = Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
+			
+			if(Main.sex.getCreampieLockedBy().containsKey(Main.sex.getCharacterPerformingAction())) {
+				GameCharacter lockingCharacter = Main.sex.getCreampieLockedBy().get(Main.sex.getCharacterPerformingAction()).getKey();
+				if(Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).contains(lockingCharacter)) {
+					characterPenetrated = lockingCharacter;
+				}
+				
+			} else { // If not locked, can choose who to cum inside:
+				List<GameCharacter> charactersPenetrated = Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS);
+				if(charactersPenetrated.contains(Main.sex.getCharacterTargetedForSexAction(this))) {
+					characterPenetrated = Main.sex.getCharacterTargetedForSexAction(this);
+				}
+			}
+			
+			return characterPenetrated;
+		}
+		private SexAreaInterface getAreaToBeCreampied() {
+			return SexAreaPenetration.PENIS;
+		}
+		@Override
+		public boolean isBaseRequirementsMet() {
+			GameCharacter performer = Main.sex.getCharacterPerformingAction();
+			GameCharacter target = Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
+			if(!performer.hasPenisIgnoreDildo()) {
+				return false;
+			}
+			
+			if(Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).isEmpty()) {
+				return false;
+			}
+			
+			boolean dicksTouching = Main.sex.getCharacterOngoingSexArea(performer, SexAreaPenetration.PENIS).contains(target) 
+				&& Main.sex.getCharacterOngoingSexArea(target, SexAreaPenetration.PENIS).contains(performer);
+			if (!dicksTouching) {
+				return false;
+			}
+			
+			// Will not use if obeying pull out requests:
+			if((Main.sex.getSexManager().getCharacterOrgasmBehaviour(performer)!=OrgasmBehaviour.CREAMPIE
+					&& !performer.isPlayer()
+					&& !Main.sex.getCreampieLockedBy().containsKey(performer) // Only allow this action to be blocked if no forced creampie.
+					&& Main.sex.getRequestedPulloutWeighting(performer)>0)
+				|| Main.sex.getSexManager().getCharacterOrgasmBehaviour(performer)==OrgasmBehaviour.PULL_OUT) {
+				return false;
+			}
+			
+			return true;
+		}
+		@Override
+		public SexActionPriority getPriority() {
+			boolean knotRequestObeyed = false;
+			for(GameCharacter knotRequester : Main.sex.getCharactersRequestingKnot()) {
+				if(Main.sex.isCharacterObeyingTarget(Main.sex.getCharacterPerformingAction(), knotRequester)) {
+					knotRequestObeyed = true; // If there is a knot requester who they're listening to, give priority to knotting
+					break;
+				}
+			}
+			if(Main.sex.getSexManager().getCharacterOrgasmBehaviour(Main.sex.getCharacterPerformingAction())==OrgasmBehaviour.CREAMPIE) {
+				return SexActionPriority.UNIQUE_MAX;
+			}
+			if(Main.sex.getCreampieLockedBy().containsKey(Main.sex.getCharacterPerformingAction())) {
+				return SexActionPriority.UNIQUE_MAX;
+			}
+			if(getAreaToBeCreampied()==SexAreaOrifice.VAGINA
+					&& Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_IMPREGNATION).isNegative()
+					&& !Main.sex.getCharacterTargetedForSexAction(this).isVisiblyPregnant()) {
+				return SexActionPriority.LOW;
+			}
+			if((Math.random()<0.66f
+					|| Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_CUM_STUD).isPositive()
+					|| Main.sex.getRequestedPulloutWeighting(Main.sex.getCharacterPerformingAction())<0
+					|| (getAreaToBeCreampied()==SexAreaOrifice.VAGINA && Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_IMPREGNATION)))
+				&& !knotRequestObeyed) {
+				return SexActionPriority.HIGH;
+			}
+			return SexActionPriority.NORMAL;
+		}
+		@Override
+		public String getActionTitle() {
+			if(Main.sex.getCreampieLockedBy().containsKey(Main.sex.getCharacterPerformingAction())) {
+				Class<? extends BodyPartInterface> bodypart = Main.sex.getCreampieLockedBy().get(Main.sex.getCharacterPerformingAction()).getValue();
+				if(bodypart == Torso.class) {
+					return "Forced frotting!";
+					
+				} else if(bodypart == Arm.class) {
+					return "Hug-locked frotting!";
+					
+				} else if(bodypart == Leg.class) {
+					return "Leg-locked frotting!";
+					
+				} else if(bodypart == Tail.class) {
+					return "Tail-locked frotting!";
+					
+				} else if(bodypart == Wing.class) {
+					return "Wing-locked frotting!";
+					
+				} else if(bodypart == Tentacle.class) {
+					return "Tentacle-locked frotting!";
+				}
+			}
+			return "Frotting finish!";
+		}
+		@Override
+		public String getActionDescription() {
+			if(Main.sex.getCreampieLockedBy().containsKey(Main.sex.getCharacterPerformingAction())) {
+				GameCharacter character = Main.sex.getCreampieLockedBy().get(Main.sex.getCharacterPerformingAction()).getKey();
+				Class<? extends BodyPartInterface> bodypart = Main.sex.getCreampieLockedBy().get(Main.sex.getCharacterPerformingAction()).getValue();
+				if(bodypart == Torso.class) {
+					return UtilText.parse(character,
+							"[npc.NameIsFull] using [npc.her] advantageous position to force you to grind your penis against [npc.herHim] as your orgasm! As you're on the very brink of orgasm, you have no time to try and push [npc.herHim] away!");
+					
+				} else if(bodypart == Arm.class) {
+					return UtilText.parse(character,
+							"[npc.NameHasFull] tightly wrapped [npc.her] [npc.arms+] around your lower body, thereby forcing you to grind against [npc.herHim] as you orgasm!"
+							+ " As you're on the very brink of orgasm, you have no time to try and disentangle yourself from [npc.her] clutches!");
+					
+				} else if(bodypart == Leg.class) {
+					return UtilText.parse(character,
+							"[npc.NameHasFull] tightly wrapped [npc.her] [npc.legs+] around your lower body, forcing you to grind against [npc.herHim] as you orgasm!"
+							+ " As you're on the very brink of orgasm, you have no time to try and disentangle yourself from [npc.her] clutches!");
+					
+				} else if(bodypart == Tail.class) {
+					return UtilText.parse(character,
+							"[npc.NameHasFull] tightly wrapped [npc.her] "+(character.getTailCount()>1?"[npc.tails+]":"[npc.tail]")+" around your lower body, forcing you to grind against [npc.herHim] as you orgasm!"
+							+ " As you're on the very brink of orgasm, you have no time to try and disentangle yourself from [npc.her] clutches!");
+					
+				} else if(bodypart == Wing.class) {
+					return UtilText.parse(character,
+							"[npc.NameHasFull] tightly wrapped [npc.her] [npc.wingSize] [npc.wings] around your body, forcing you to grind against [npc.herHim] as you orgasm!"
+							+ " As you're on the very brink of orgasm, you have no time to try and disentangle yourself from [npc.her] clutches!");
+					
+				} else if(bodypart == Tentacle.class) {
+					return UtilText.parse(character,
+							"[npc.NameHasFull] tightly wrapped [npc.her] [npc.tentacles+] around your lower body, forcing you to grind against [npc.herHim] as you orgasm!"
+							+ " As you're on the very brink of orgasm, you have no time to try and disentangle yourself from [npc.her] clutches!");
+				}
+			}
+			
+			GameCharacter characterPenetrated = getCharacterToBeCreampied();
+			String returnString = "You've reached your climax, and can't hold back your orgasm any longer. Cum against [npc2.name], grinding your penis against [npc2.hers].";
+			return UtilText.parse(Main.sex.getCharacterPerformingAction(), characterPenetrated, returnString);
+		}
+
+		@Override
+		public String getDescription() {
+			return Main.sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, OrgasmCumTarget.GROIN, false).getDescription();
+		}
+		
+		@Override
+		public void applyEffects() {
+			Main.sex.setCreampieLockedBy(Main.sex.getCharacterPerformingAction(), null); // Need this before effects, as effects can set locking (such as in Lyssieth's demon TF scenes)
+			Main.sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, OrgasmCumTarget.GROIN, true).applyEffects();
+		}
+		
+		@Override
+		public String applyEndEffects(){
+			Main.sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, OrgasmCumTarget.GROIN, true).applyEndEffects();
+			return "";
+		}
+		
+		@Override
+		public List<SexAreaInterface> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			GameCharacter characterPenetrated = getCharacterToBeCreampied();
+			SexAreaInterface areaContacted = getAreaToBeCreampied();
+			
+			if(cumTarget.equals(characterPenetrated)) {
+				return Util.newArrayListOfValues(areaContacted);
+				
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(cumProvider.equals(Main.sex.getCharacterPerformingAction())
+					&& ((cumTarget.equals(Main.sex.getTargetedPartner(cumProvider)) && !Main.sex.getOngoingSexAreas(cumProvider, SexAreaPenetration.PENIS, cumTarget).isEmpty())
+						|| (cumTarget.equals(cumProvider) && !Main.sex.getOngoingSexAreas(cumProvider, SexAreaPenetration.PENIS, cumProvider).isEmpty()))) {
+
+				return Util.newArrayListOfValues(
+						CoverableArea.PENIS,
+						CoverableArea.VAGINA);
+			}
+			return null; 
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return Main.sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, OrgasmCumTarget.GROIN, true).isEndsSex();
 		}
 	};
 }
