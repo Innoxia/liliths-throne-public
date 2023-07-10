@@ -4,7 +4,6 @@
 	<name><![CDATA[Evelyx's Dairy]]></name>
 	<tooltipDescription><![CDATA[Located out in the Foloi Fields to the North-East of Elis, this dairy farm has somehow managed to avoid destruction at the hands and hoofs of Lunette's marauders.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[near Evelyx's Dairy]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>false</sexBlockedFromCharacterPresent>
 	<colour>BASE_YELLOW_LIGHT</colour>
 	<backgroundColour>MAP_BACKGROUND_GREEN</backgroundColour>

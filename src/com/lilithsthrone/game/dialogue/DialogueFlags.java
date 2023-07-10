@@ -1,7 +1,9 @@
 package com.lilithsthrone.game.dialogue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -345,15 +347,23 @@ public class DialogueFlags implements XMLSaving {
 		}
 	}
 
-	public void applyTimePassingResets(int startHour, int hoursPassed) {
+	/**
+	 * @return A list of which flags were reset.
+	 */
+	public List<AbstractDialogueFlagValue> applyTimePassingResets(int startHour, int hoursPassed) {
+		List<AbstractDialogueFlagValue> flagsReset = new ArrayList<>();
+		
 		for(AbstractDialogueFlagValue flag : new HashSet<>(values)) {
 			if(flag.getResetHour()>-1) {
 				if((startHour<flag.getResetHour() && startHour+hoursPassed>=flag.getResetHour())
 						|| ((startHour-24)+hoursPassed>=flag.getResetHour())) {
+					flagsReset.add(flag);
 					values.remove(flag);
 				}
 			}
 		}
+		
+		return flagsReset;
 	}
 
 	public boolean hasFlag(AbstractDialogueFlagValue flag) {

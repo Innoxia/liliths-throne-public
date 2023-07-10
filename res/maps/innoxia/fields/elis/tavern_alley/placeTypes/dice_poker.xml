@@ -4,7 +4,6 @@
 	<name><![CDATA[dice poker]]></name>
 	<tooltipDescription><![CDATA[In the middle of 'The Crossed Blades' tavern, several large tables are reserved for games of dice poker.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[at a dice poker table in 'The Crossed Blades' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_GOLD</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

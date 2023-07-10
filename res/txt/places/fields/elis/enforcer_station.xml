@@ -15,21 +15,54 @@
 	
 	<htmlContent tag="EXIT"><![CDATA[
 	<p>
-		TODO The entrance to the station...
+		You're currently standing in a modestly-sized reception area. Just like its exterior suggested, the inside of this building looks to be quite old, with dark wooden beams visible both overhead and set into the walls. Allowing your gaze to wander over the worn, drab-green carpet, you see that a long, free-standing desk has been positioned on the far side of this room. Behind this desk is standing
+		#IF(flags.hasFlag(FLAG_innoxia_elis_enforcers_sterope_met))
+			 the familiar horse-girl, Sterope.
+		#ELSE
+			 a lesser horse-girl.
+		#ENDIF
+		 About half a dozen cushioned chairs are lined up along the sides of this area, and although they look to be quite shabby and well used, they're all currently unoccupied.
+	</p>
+	<p>
+		From here, you could proceed forwards to greet
+		#IF(flags.hasFlag(FLAG_innoxia_elis_enforcers_sterope_met))
+			 Sterope,
+		#ELSE
+			 the horse-girl Enforcer,
+		#ENDIF
+		 or instead turn around and exit the building via the same way you entered it...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="EXIT_INITIAL_ENTRY"><![CDATA[
 	<p>
-		TODO You enter the station...
+		Deciding to enter the Enforcer station, you [pc.walk] down the wide path which runs through the knot garden and approach the entrance. The wooden doors have been propped open, allowing you to pass by a couple of friendly-looking Enforcers and enter the building without stopping.
+	</p>
+	<p>
+		Taking a look around as you [pc.step] inside, you see that you're standing in a modestly-sized reception area. Just like its exterior suggested, the inside of this building looks to be quite old, with dark wooden beams visible both overhead and set into the walls. Allowing your gaze to wander over the worn, drab-green carpet, you see that a long, free-standing desk has been positioned on the far side of this room. Behind this desk is standing
+		#IF(flags.hasFlag(FLAG_innoxia_elis_enforcers_sterope_met))
+			 the familiar horse-girl, Sterope.
+		#ELSE
+			 a lesser horse-girl.
+		#ENDIF
+		 About half a dozen cushioned chairs are lined up along the sides of this area, and although they look to be quite shabby and well used, they're all currently unoccupied.
+	</p>
+	<p>
+		From here, you could proceed forwards to greet
+		#IF(flags.hasFlag(FLAG_innoxia_elis_enforcers_sterope_met))
+			 Sterope,
+		#ELSE
+			 the horse-girl Enforcer,
+		#ENDIF
+		 or instead turn around and exit the building via the same way you entered it...
 	</p>
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="EXIT_LEAVE"><![CDATA[
 	<p>
-		TODO You exit and return to Elis...
+		Having concluded your business within the Enforcer station, you exit via the main entrance. After passing through the propped-open doors, you pass through the knot garden and quickly return to the street beyond.
 	</p>
 	]]>
 	</htmlContent>
@@ -39,62 +72,123 @@
 	
 	<htmlContent tag="RECEPTION"><![CDATA[
 	<p>
-		TODO Reception area. Desk, two chairs with their padding well worn.
+		#IF(flags.hasFlag(FLAG_innoxia_elis_enforcers_sterope_met))
+			Crossing through the reception area, you approach the desk and say hello to Sterope.
+		#ELSE
+			Crossing through the reception area, you approach the desk and introduce yourself to the receptionist.
+		#ENDIF
+		#IF(flags.hasFlag(FLAG_innoxia_sterope_fully_furry))
+			 Having convinced her to remain as a greater horse-girl, you see that Sterope is in the form of a fully anthropomorphised horse. Both the hair covering her body as well as the mane-like hair which is tied up into a bun is dark brown in colour, while her eyes are the same shade of green that they were when she was mostly human. Her Enforcer uniform is in immaculate condition, and as you finish your greeting, she brushes a speck of dust from her sleeve and fixes you with her stern gaze.
+		#ELSE
+			 From her dark brown, horse-like ears and tail, it's quite obvious that
+			#IF(flags.hasFlag(FLAG_innoxia_elis_enforcers_sterope_met))
+				 Sterope
+			#ELSE
+				 this receptionist
+			#ENDIF
+			 is a horse-girl, but apart from these animal features she's otherwise human in appearance. Her skin is olive in colour, while her dark brown hair is tied up into a bun. Her Enforcer uniform is in immaculate condition, and as you finish your greeting, she brushes a speck of dust from her sleeve and sternly gazes at you with her green eyes.
+		#ENDIF
 	</p>
-	#IF(flags.hasFlag(FLAG_innoxia_elis_enforcers_sterope_met))
-		<p>
-			Sterope says hello.
-		</p>
-		#IF(sterope.getTotalTimesHadSex(pc)>0)
+	#IF(pc.hasAnyEnforcerStatusEffect())
+		#IF(flags.hasFlag(FLAG_innoxia_elis_enforcers_sterope_met))
 			<p>
-				She sternly warns you not to mention her private life while she's at work.
+				[sterope.speech([pc.Name],)] the cold-mannered horse-girl greets you by simply stating your name. Suspiciously looking at your Enforcer uniform, she asks, [sterope.speech(Are you <i>really</i> an Enforcer?)]
+			</p>
+			<p>
+				You assure Sterope that you are, but that you're on a secret assignment from Dominion and so can't say too much to her. Before you can say anything else, Sterope gives you a slightly disdainful look, before
+				#IF(flags.hasFlag(FLAG_innoxia_sterope_met_in_tavern))
+					 flashing you an icy look and hissing under her breath, [sterope.speech(Don't you <i>dare</i> mention anything about my private life while I'm on duty.)]
+				#ELSE
+					 asking, [sterope.speech(So, what is it that I can help you with?)]
+				#ENDIF
+			</p>
+		#ELSE
+			<p>
+				[sterope.speech([pc.Name], is it?)] she replies in a flat tone. Her professional attitude borders on being cold and aloof, and after suspiciously looking at your Enforcer uniform, she taps the nameplate on her chest and reveals, [sterope.speech(I'm Constable Hippos, but as you're an Enforcer as well, I can be 'Sterope' to you... You <i>are</i> an Enforcer, aren't you?)]
+			</p>
+			<p>
+				You assure Sterope that you are, but that you're on a secret assignment from Dominion and so can't say too much to her. Before you can say anything else, Sterope gives you a slightly disdainful look, before asking, [sterope.speech(So, what is it that I can help you with?)]
 			</p>
 		#ENDIF
 	#ELSE
-		<p>
-			The receptionist says hello and introduces herself as Sterope.
-		</p>
+		#IF(flags.hasFlag(FLAG_innoxia_elis_enforcers_sterope_met))
+			<p>
+				[sterope.speech([pc.Name],)] the cold-mannered horse-girl greets you by simply stating your name. Before you can say anything else, she gives you a slightly disdainful look, before
+				#IF(flags.hasFlag(FLAG_innoxia_sterope_met_in_tavern))
+					 flashing you an icy look and hissing under her breath, [sterope.speech(Don't you <i>dare</i> mention anything about my private life while I'm on duty.)]
+				#ELSE
+					 asking, [sterope.speech(Do you have a crime to report? Or is there something else you're hoping that I can help you with?)]
+				#ENDIF
+			</p>
+		#ELSE
+			<p>
+				[sterope.speech([pc.Name], is it?)] she replies in a flat tone. Her professional attitude borders on being cold and aloof, and with a slightly disdainful look on her face, she taps the nameplate on her chest and reveals, [sterope.speech(I'm Constable Hippos, but the higher-ups have ruled that members of the public should call us by our first names, so that's 'Sterope' to you. Do you have a crime to report? Or is there something else you're hoping that I can help you with?)]
+			</p>
+			<p>
+				Impatiently tapping her fingernails on the desk a couple of times, Sterope waits to hear what it is that you're here for...
+			</p>
+		#ENDIF
 	#ENDIF
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="RECEPTION_STEP_BACK"><![CDATA[
 	<p>
-		TODO You tell Sterope that you've got to be going and [pc.step] back towards the exit...
+		Not having anything else to discuss with Sterope, you tell her that you've got to be going and [pc.step] away from her desk. Giving you the briefest of nods, the stern horse-girl simply says, [sterope.speech(Stay out of trouble.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="RECEPTION_TALK_WORK"><![CDATA[
 	<p>
-		TODO You ask Sterope about what sort of work the Enforcers do here in Elis...
+		Wanting to know more about what sort of work the Enforcers do here in Elis, you ask Sterope if there's much crime to be dealt with. 
 	</p>
 	<p>
-		Enforcers are managing with the huge influx of refugees, but after dark the alleyways are dangerous.
+		[sterope.speech(There's some crime, yes,)] she replies. Letting out an impatient sigh as she realises that you were hoping for more information than that, she continues in a flat tone, [sterope.speech(It used to be very peaceful here in Elis, but with the influx of refugees from the Foloi Fields, there's been an increase in criminal activity. We can easily manage it during daylight hours, but we don't have the manpower to keep the alleyways safe after dark, so don't go wandering through the northern part of town at night.)]
+	</p>
+	<p>
+		Thanking her for the information, you wonder what to ask of Sterope next...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="RECEPTION_TALK_CAREER"><![CDATA[
 	<p>
-		TODO You ask Sterope about her career...
+		Wanting to know more about Sterope's background, you ask her what led to her becoming an Enforcer.
 	</p>
 	<p>
-		She joined the Enforcers when she was nineteen, and has worked here ever since. She's turned down the offer of going to officer school before as she likes her job and isn't ambitious.
+		[sterope.speech(I don't see how that's any of your business,)] Sterope coldly replies, before sighing, [sterope.speech(You're lucky that the higher-ups have ordered us to be friendly with members of the public.)]
+	</p>
+	<p>
+		If this is her being friendly, you can't help but wonder what Sterope would be like normally as she prepares to reveal her past to you.
+	</p>
+	<p>
+		[sterope.speech(If you must know, I joined the Enforcers when I was just nineteen, and I've been stationed here in Elis for almost my entire career,)] she says, before going on to state, [sterope.speech(I've been offered a promotion several times, but I've no interest in going through officer school, and I like my job here. I think that's all you need to know.)]
+	</p>
+	<p>
+		Feeling like trying to push her to reveal any further information would be futile, you wonder what to ask Sterope next...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="RECEPTION_TALK_LUNETTE"><![CDATA[
 	<p>
-		TODO You ask Sterope about what she thinks of Lunette...
+		Curious to hear what an Enforcer has to say about Lunette, you ask Sterope what she thinks of the elder lilin and the chaos she's caused in the Foloi Fields.
 	</p>
 	<p>
-		She says that her daughters are causing a huge problem, but it's not for her to question an elder lilin's motives.
+		[sterope.speech(It's Lunette's daughters who are causing the problem, not her,)] Sterope tactfully responds, [sterope.speech(It's certainly not for me to question a daughter of Lilith herself.)]
+	</p>
+	<p>
+		Just as you think that Sterope has finished her response, she continues, [sterope.speech(Besides, it's really not so bad for those out in the Fields. There are far worse fates than being taken by a succutaur and turned into her submissive, worthless cock-sleeve...)]
+	</p>
+	<p>
+		Suddenly catching herself and realising what it is she's saying, Sterope clears her throat and says, [sterope.speech(Anyway, nevermind about that...)]
+	</p>
+	<p>
 		#IF(flags.hasFlag(FLAG_innoxia_sterope_unlocked))
-			 Remembering that she's previously said too much about succutaur's cock-sleeves, she stops herself from saying anything more.
+			Before you can tease her about what she's just said, Sterope flashes you a stern look and hisses, [sterope.speech(Don't say a word...)]
 		#ELSE
-			 Besides, there are worse fates than being turned into a succutaur's cock sleeve...
+			It seems as though the horse-girl has inadvertently revealed a secret desire of hers. Perhaps you could push her a little further and get her to admit this desire to you?
 		#ENDIF
 	</p>
 	]]>
@@ -102,7 +196,13 @@
 	
 	<htmlContent tag="RECEPTION_FLIRT"><![CDATA[
 	<p>
-		TODO You seize upon what Sterope has just said and ask her if she thinks about the fate of the victims of Lunette's daughters often. She blushes a little but retains her composure. Says that she's not going to flirt while on duty, but you can find her in the Centaur's sword after 21:00.
+		Seizing upon what Sterope has just said, you tease the horse-girl by asking her if she thinks about succutaurs turning people into submissive, worthless cock-sleeves often. Although she blushes a little as you say this, Sterope maintains her composure and looks down her nose at you as she prepares her response.
+	</p>
+	<p>
+		[sterope.speech(I'm on duty at the moment, so this sort of conversation is entirely unacceptable,)] she cooly states, before glancing around to make sure that no other Enforcers are nearby. Satisfied that nobody's going to overhear her, she says under her breath, [sterope.speech(If you like that sort of thing, then you can find me in 'The Centaur's Sword' after nine each evening...)]
+	</p>
+	<p>
+		Before you can ask her any more about this, the Enforcer clears her throat and asks in a stern tone, [sterope.speech(Is there anything else I can help you with?)]
 	</p>
 	]]>
 	</htmlContent>

@@ -4,7 +4,6 @@
 	<name><![CDATA[Sweets & Treats]]></name>
 	<tooltipDescription><![CDATA[A group of pretty sheep-girls run this snacks stall.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the Farmer's Market in Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<svgName>food</svgName>
 	<colour>BASE_GREEN_LIGHT</colour>

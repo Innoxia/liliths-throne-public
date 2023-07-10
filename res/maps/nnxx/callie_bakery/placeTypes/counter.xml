@@ -4,7 +4,6 @@
 	<name><![CDATA[Counter]]></name>
 	<tooltipDescription><![CDATA[Situated right in front of the entrance, this counter is where callie serves her customers.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[behind the counter in 'The Creamy Bakey']]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_BROWN</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

@@ -126,7 +126,7 @@ public enum RenderingEngine {
 	
 	public String getInventoryPanel(GameCharacter charactersInventoryToRender, boolean buyback) {
 		return "<div class='container-full-width' style='background:"+PresetColour.BACKGROUND_DARK.toWebHexString()+"'>"
-					+getInventoryDiv(Main.game.getPlayer(), false) + getInventoryDiv(charactersInventoryToRender, buyback)
+					+ getInventoryDiv(Main.game.getPlayer(), false) + getInventoryDiv(charactersInventoryToRender, buyback)
 				+"</div>";
 	}
 	
@@ -700,7 +700,12 @@ public enum RenderingEngine {
 					+ Main.game.getPlayerCell().getInventory().getUniqueClothingCount() - Main.game.getPlayerCell().getInventory().getUniqueQuestClothingCount()
 					+ Main.game.getPlayerCell().getInventory().getUniqueWeaponCount() - Main.game.getPlayerCell().getInventory().getUniqueQuestWeaponCount();
 			pageIdMod = "INV_PAGE_RIGHT_";
+			// Reset page index if the number of items is too low to be displayed on that index:
+			while(totalUniques<=pageRight*ITEMS_PER_PAGE && pageRight>0) {
+				pageRight--;
+			}
 			currentPage = pageRight;
+			
 		} else {
 //			renderQuestTab = charactersInventoryToRender.isPlayer();
 			hasQuestItems = charactersInventoryToRender.isCarryingQuestItems();
@@ -708,6 +713,16 @@ public enum RenderingEngine {
 					+ charactersInventoryToRender.getUniqueClothingCount() - charactersInventoryToRender.getUniqueQuestClothingCount()
 					+ charactersInventoryToRender.getUniqueWeaponCount() - charactersInventoryToRender.getUniqueQuestWeaponCount();
 			pageIdMod = (charactersInventoryToRender.isPlayer()?"INV_PAGE_LEFT_":"INV_PAGE_RIGHT_");
+			// Reset page index if the number of items is too low to be displayed on that index:
+			if(charactersInventoryToRender.isPlayer()) {
+				while(totalUniques<=pageLeft*ITEMS_PER_PAGE && pageLeft>0) {
+					pageLeft--;
+				}
+			} else {
+				while(totalUniques<=pageRight*ITEMS_PER_PAGE && pageRight>0) {
+					pageRight--;
+				}
+			}
 			currentPage = (charactersInventoryToRender.isPlayer()?pageLeft:pageRight);
 		}
 		

@@ -4,7 +4,6 @@
 	<name><![CDATA[raiding party]]></name>
 	<tooltipDescription><![CDATA[A group of demonic centaurs are looting buildings in this area.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the streets of Themiscyra]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>GENERIC_BAD</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

@@ -89,6 +89,9 @@ public class Hannah extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.7.11")) {
 			this.addSpecialPerk(Perk.MARTIAL_ARTIST);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.8.8")) {
+			this.setVaginaClitorisSize(0);
+		}
 	}
 
 	@Override
@@ -191,7 +194,6 @@ public class Hannah extends NPC {
 		
 		// Vagina:
 		this.setVaginaVirgin(false);
-//		this.setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE); // Leave as default spotted hyena big clit
 		this.setVaginaLabiaSize(LabiaSize.TWO_AVERAGE);
 		this.setVaginaSquirter(false);
 		this.setVaginaCapacity(Capacity.TWO_TIGHT, true);

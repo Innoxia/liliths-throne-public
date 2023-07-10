@@ -150,8 +150,11 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[5]]></index>
 				<responseTitle><![CDATA[SWORD Enforcers]]></responseTitle>
-				<responseTooltip><![CDATA[Tell Sterope that you've been sent here by Minotallys and that you need to speak with the group of SWORD Enforcers who are stationed here.]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_places_fields_elis_enforcer_station_reception_sword]]></nextDialogue>
+				<responseTooltip><![CDATA[
+					Tell Sterope that you've been sent here by Minotallys and that you need to speak with the group of SWORD Enforcers who are stationed here.
+					<br/>[style.italicsBad(This will be added soon!)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue> <!-- innoxia_places_fields_elis_enforcer_station_reception_sword -->
 				<effects><![CDATA[
 					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_work, false)]
 					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_career, false)]

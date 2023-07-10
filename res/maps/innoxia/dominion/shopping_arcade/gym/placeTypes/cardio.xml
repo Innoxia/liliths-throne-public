@@ -4,7 +4,6 @@
 	<name><![CDATA[cardio machines]]></name>
 	<tooltipDescription><![CDATA[Running, cycling, and rowing machines offer gym members multiple ways in which to get some cardio exercise.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the gym, 'Pix's Playground']]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_BLUE_LIGHT</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

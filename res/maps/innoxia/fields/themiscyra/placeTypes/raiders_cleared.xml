@@ -4,7 +4,6 @@
 	<name><![CDATA[Street]]></name>
 	<tooltipDescription><![CDATA[The streets of Themiscyra are strewn with debris, scorch marks, and other remnants of battle.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the streets of Themiscyra]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<svgName>raiders</svgName>
 	<colour>BASE_GREY</colour>

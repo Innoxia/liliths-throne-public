@@ -311,7 +311,7 @@
 	
 	<!-- Values from 0 to 100, with any value over 4 enabling the clit to be used as a penetrative object in sex (i.e. as a pseudo-penis).
 	Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/ClitorisSize.java -->
-	<clitSize>18</clitSize> <!-- As with all other values, this can be changed in the individual subspecies XML files, so striped hyenas will be given a 0-length clit from the adjustment in that file. -->
+	<clitSize>0</clitSize> <!-- As with all other values, this can be changed in the individual subspecies XML files, so striped hyenas will be given a 0-length clit from the adjustment in that file. -->
 	
 	<!-- Values from 0 to 6. Values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/PenetrationGirth.java -->
 	<clitGirth>3</clitGirth>

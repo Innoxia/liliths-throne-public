@@ -13,6 +13,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added: 5 new clothing items for new NPC outfit; 1 new clothing item for silly mode; 1 new weapon for silly mode; 4 new Items for new NPC to sell; 3 new quests (1 exclusive to silly mode); 4 new quest items (1 exclusive to silly mode).
 		Full patch notes and details can be seen in the PR here: https://github.com/Innoxia/liliths-throne-public/pull/1718
 	
+	Pusspuss's Artwork (https://twitter.com/PusspussARTZ):
+		Added artwork for both Wolfgang and Karl.
+		Added artwork for Jess, which includes pregnant and multi-boob variations.
+	
 	Contributors:
 		Fixed bug where vaginal, lactation, and virginity fetishes had incorrect sorting (based on left-aligned fetishes being active/giving and right-aligned being passive/receiving) in the fetish menu. (by Maxis010)
 		Changed the Body.setFeral() method to not set the body as feral if the subspecies does not have feral attributes or is null. (PR#1771 by SightglassCat)
@@ -20,16 +24,22 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added 'winged' to NPC lists and tooltips for winged characters of a race that usually does not have wings. (PR#1724 by Stadler76)
 		Made NPCs react more logically to unexpected genitals being revealed in sex scenes, with genital reveals now based on whether the perceived gender of the subject normally has one. (PR#1741 by NoHornyOnMain)
 		Enabled tattoo rendering with non-standard colours (e.g. via save editing). (PR#1742 by NoHornyOnMain)
+		Fixed issue where setting a character's feral subspecies to null wouldn't display the correct behaviour of reverting their feral status. (by Stadler76)
+		Updated the 'LTSuperGuide' which is included in the game's folder. (by C4MG1RL)
 	
 	Engine/Modding:
 		Added 'FITS_MUZZLES_EXCLUSIVE' and 'FITS_BEAKS_EXCLUSIVE' item tags for tagging clothing which can only be equipped on characters with muzzles or beaks.
+		Added hook to AbstractItemEffectType values via an 'ITEM_EFFECT_TYPE_' parsing prefix.
+	
+	Gameplay:
+		Added a new character, 'Sterope' to the Enforcer station in Elis, who has some BDSM and feral sex content.
 	
 	Clothing:
-		Added 'Submissive Steed' clothing set, which provides +5 physique and -5 lust shielding.
-		Added: 'Bridle' (androgynous, mouth slot, Submissive Steed set, only fits muzzles).
-		Added: 'Saddle' (androgynous, leg slot, Submissive Steed set, only fits quadrupedal bodies).
-		Added: 'Horseshoes' (androgynous, foot slot, Submissive Steed set, only fits hoofs, only fits quadrupedal bodies).
-		Added: 'Tail bandage' (androgynous, tail slot, Submissive Steed set).
+		Added 'Sturdy Steed' clothing set, which provides +5 physique and +25 max health.
+		Added: 'Bridle' (androgynous, mouth slot, Sturdy Steed set, only fits muzzles).
+		Added: 'Saddle' (androgynous, leg slot, Sturdy Steed set, only fits quadrupedal bodies).
+		Added: 'Horseshoes' (androgynous, foot slot, Sturdy Steed set, only fits hoofs, only fits quadrupedal bodies).
+		Added: 'Tail bandage' (androgynous, tail slot, Sturdy Steed set).
 	
 	Combat:
 		The two final upgrades to the Vacuum spell no longer strip clothing from unique NPCs. (As stripping clothing from quest-critical NPCs was resulting in issues with their content.)
@@ -50,10 +60,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		The 'ladykiller' and 'minx' perks are no longer traits which require equipping to work.
 		Added 'hypermobility' perk in the physical perk tree, which unlocks autofellatio and autocunnilingus sex actions.
 		Added some dialogue referencing citizens of the Realm travelling over the Endless Sea to new lands (as posters in the nightclub, at the Slavery Administration building, and as a minor piece of dialogue when paying a prostitute's fine to remove them from the game).
-		Added Hannah pregnancy reactions to her encounter in 'Light's out'.
+		Added Hannah pregnancy reactions to her encounter in 'Lights out'.
+		Added a couple of new talk options to Kheiron (one for Fae & Silvia and one for Sterope, both of which require them to have told you when they visit the tavern to be available), and his talk scenes now correctly grey out when they're active.
+		Made Fae and Silvia a little taller to better suit their fox-taur form.
+		Spotted hyena females no longer spawn in with big clits, and Hannah now has a normal sized clit. (I felt like having every spotted-hyena spawn with a huge clit was too much, but I'm planning on adding a tribe of spotted-hyena-girls with clit-dicks later on.)
 	
 	Bugs:
 		Typo and parsing fixes.
+		Fixed game-breaking bug where if you were unable to equip a sex toy which was in your partner's inventory during sex, then clicking on that sex toy would throw background errors and cause the inventory/game to become unresponsive.
 		Compacted the compatible slot names in the tooltips for piercing items, so that it doesn't run over into another line and cause the tooltip to overflow.
 		Fixed issue where there'd be no slaves in the stocks nor in any of the shops if you entered Slaver Alley before midnight after starting a new game.
 		Fixed issue where the Rental Mommy encounter would throw a background (harmless?) error every time it was triggered.
@@ -76,6 +90,15 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Your demonic offspring will no longer spawn with heavily enchanted weapons which would push them over their enchantment capacity.
 		Characters in sex who are in the resisting pace and who are involved in finger-anus or finger-vagina sex actions will no longer be described as stimulating their orgasming partner's prostate.
 		Fixed bug where after taking a shower in the gym, the text was only shown after you moved away from the tile.
+		Fixed incorrect description for the item 'platinum Bank of Dominion card'.
+		Fixed bug where you could masturbate in areas in which masturbation/sex was meant to be blocked (such as in the bank).
+		Fixed issue where the one-night-stand characters spawning 'Lights Out' would almost always be virgins.
+		Fixed minor UI issue with the inventory, where if you dropped or took all items while not on the first page of that inventory, the rendering would mess up.
+		Also fixed a related issue where if you took or dropped the last item in an inventory page, the UI would be left on the empty page instead of moving down to the next one.
+		Resetting your race via the debug menu no longer clears virginity loss information.
+		Filled in some missing virginity location text.
+		Fixed issue where use of NPC's hourlyUpdate() method would not handle flag resets correctly, resulting in rare instances of unexpected gameplay behaviour.
+		Fixed bug where changing a character's leg configuration would regrow their hymen.
 	
 	
 	[x] new bug reports
@@ -315,43 +338,30 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[x] Silly mode quest
 		[x] Add fruit status effect icons
 		[-] Add apple flavour?
-	
-	[] Maxis DMs
-	[] A Fox submission
-	[] Dwight submission
-	
-	[] Add Wolfgang & Karl art
+	[x] Add Wolfgang & Karl art
 		[x] preview also
 	[x] PussPuss poll!
-	
-	[] Pusspuss character
-	
-	[] Add Oglix
-	[] Get Golix details to FAF
-	
-	[] Platinum Bank of Dominion card states that it grants access to Elis's town hall's tower.
-	
-	[] Remove <sexBlockedReason/> from lots of place types...
-	
-	[] Too many virgins spawning as one-night stands in Lights Out
+	[x] Platinum Bank of Dominion card states that it grants access to Elis's town hall's tower.
+	[x] Remove <sexBlockedReason/> from lots of place types...
+	[x] Too many virgins spawning as one-night stands in Lights Out
 		dialogue/innoxia/places/dominion/nightlife/lights_out.xml:244
 		Go to this file, this line
 		[#partner.resetBodyToGenderPreferences(false, false)]
 		Delete this
 		[18:09]Maxis (Lvl 17 Code Monkey): if I'm right, that method call is restoring the virginities by regenerating the body
-		
-	[] AceXP: Taking all items while on the second/third/etc page of the inventory screws up the rendering of the right side of the inventory page.
+	[x] AceXP: Taking all items while on the second/third/etc page of the inventory screws up the rendering of the right side of the inventory page.
 		And the same happens on the left side if you store all while not on the first page.
 		This happens because the page stays the same but there are now no more items to display.
-		
-	[] main quest
-		[x] Add Enforcer station
+	[x] Pusspuss character details - Fae & Silvia
+	[x] Get Golix details to FAF
+	[x] add Jess
+	[x] Add Enforcer station
 			[x] map
 			[x] places
 			[x] dialogue
 			[x] txt
 		[x] Only open to public from 8:00-20:00
-		[] Receptionist
+		[x] Receptionist
 			[x] Human - Sterope Hippos
 				[x] Olive skin, emerald eyes, dark brown hair, beautiful face
 				[x] Aloof, derisive
@@ -380,23 +390,22 @@ Not everything in this file is up-to-date, and everything is subject to change a
 					[x] mother's milk 8:00
 			[x] hourlyUpdate needs hour passed in as argument
 				[x] refactor all hourly update methods
-			[] Need reference in initial encounter for if player is detected as an Enforcer
-			[] Centaur's Sword
+			[x] Centaur's Sword
 				[x] Map
 					[x] Add locked door and stable
 					[x] Writing
 				[x] Make sure she doesn't go to where Fae is
-				[] In tables area
-					[] 50/50 for her to be with centaur - not the first time though
-						[] centaur gropes Sterope and asks if you're a worthless slut like she is
-						[] join her (if feminine)
-							[] She's keen to rent the stables (large room with high ceilings)
-							[] Before tied up, double TF potion option (into fully furry horse-girls)
-								[] If fully-furry from previous sex scene, she's paid for Kheiron to get a feral stone & can TF into feral
-							[] You're both tied up
-								[] Get punished
+				[x] In tables area
+					[x] 50/50 for her to be with centaur - not the first time though
+						[x] centaur gropes Sterope and asks if you're a worthless slut like she is
+						[x] join her (if feminine)
+							[x] She's keen to rent the stables (large room with high ceilings)
+							[x] Before tied up, double TF potion option (into fully furry horse-girls)
+								[x] If fully-furry from previous sex scene, she's paid for Kheiron to get a feral stone & can TF into feral
+							[x] You're both tied up
+								[x] Get punished
 									[] non-feral - spanking, whipping, oral dom
-									[] feral
+									[x] feral
 										[x] add clothing:
 											[x] bridle (muzzle only)
 												[x] need muzzle/beak/humanoid face limitations for tags
@@ -406,10 +415,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 											[x] horse shoes
 											[x] add submissive steed set
 												[x] add status effect icon
-										[] both get put into sub steed gear 
-								[] Fucked
-									[] feral - reins
-							[] After sex, same end
+										[x] Make clothing set more generic and make Sterope/pc's set special submissive ones
+										[x] both get put into sub steed gear
+								[x] Fucked
+									[x] feral - reins
+							[x] After sex, same end
 						[x] lose the centaur - dominant
 							[x] She's revealed to be super kinky when not on duty
 							[x] She's keen to rent the stables (large room with high ceilings)
@@ -433,16 +443,119 @@ Not everything in this file is up-to-date, and everything is subject to change a
 						[x] Decline
 							[x] She leaves with centaur - move to stable
 							[x] Going to the back door, you can faintly hear neighing and rhythmic thudding...
-					[] If submitted to three centaurs, spawn unique centaur
-						[] cannot lose him
-						[] have to horse TF for him
-						[] after sex, he leads the two of you through the tavern and makes you give a double blowjob while he drinks at the bar
-						[] next time, have to feral TF
-						[] repeat blowjob scene
-						[] next time, he says he'll keep you as his mares
-						[] after sex, taken back to his stables - floor is an enchanted beast stone to make sure you stay as ferals
-						[] Bad end
-				[] check ferals should have crotch boobs despite setting
+				[x] check ferals should have crotch boobs despite setting
+				[x] Kheiron talk should grey-out when in that dialogue
+				[x] Add Kheiron talk about Fae/Silvia and Sterope
+				[x] Sterope tavern writing/test
+					[x] moving incorrectly
+					[x] centaur spawns on first encounter
+					[x] centaur fetishes/personality to fit
+					[x] add 'Attract a taur' action if submitted once
+					[x] remove feminine limitation
+					[x] centaur could be any race taur?
+					[x] write all scenes
+						[x] Sterope solo
+							[x] feral repeat dialogue variation
+							[x] non-feral
+							[x] feral
+								[x] non-double: change sex slots from table to standing or all fours
+							[x] limit punishment actions otherwise can go on forever
+							[x] improve repeat encounter after having previously had sex
+							[x] put a little more emphasis on her masochistic behaviour when first meeting her in tavern
+							[x] improve rope binding description
+							[x] table binding should be bench instead, leaving her tits hanging
+							[x] remove all jewellery?
+						[x] Test
+							[x] non-feral
+								[x] toys not disabled after applied
+								[x] claim her not working
+								[x] incorrect time passing
+								[x] allow sex toys being equipped during sex
+								[x] Stay transformed needs action colour highlight
+								[x] after shower text missing
+								[x] post-sex pregnancy talk doesn't trigger
+								[x] piercings break when TF into full horsie
+								[x] get dressed after sex
+							[x] feral
+								[x] feral nipple clamps don't work
+								[x] feral TF resets virginities
+								[x] bridle needs mouth displacement option
+								[x] after feral sex, loitering for 24 hours spawned a lot of centaurs
+									[x] is the hourlyUpdate hour argument not working? - try loitering at 23:00 again
+									[x] fix by adding innoxia_sterope_sex flag check in hourlyUpdate
+								[x] full test again
+									[x] post-sex stay transformed should have continue
+										[x] also post-sex for feral
+									[x] centaur removal error
+									[x] loitering for 24 hours does not apply flag resets
+										[#flags.hasFlag(FLAG_innoxia_sterope_sex)]
+									[x] feral TF resets Sterope's hymen
+									[x] mention tramp stamp tattoo
+							[x] double feral
+								[-] can move into spectator slot?
+								[x] leaving you to look yourself over and discover that you've been left in the body of a feminine feral mare
+						[x] Centaur threesome
+							[x] non-feral
+								[x] Submit needs corruption gain
+								[x] Need sex managers
+								[x] punishment randomisation
+								[x] no mother's milk reference
+									#IF(sterope.isPregnant())
+										[#sterope.useItem(game.getItemGen().generateItem(ITEM_MOTHERS_MILK), sterope, false, true)]
+										[#sterope.useItem(game.getItemGen().generateItem(ITEM_MOTHERS_MILK), sterope, false, true)]
+										[#sterope.useItem(game.getItemGen().generateItem(ITEM_MOTHERS_MILK), sterope, false, true)]
+									#ENDIF
+								[x] Sterope pregnancy check
+								[x] add shower
+								[x] full test
+									[x] punishments need to continue
+										[x] continue for non-centaur content?
+									[x] make sure centaur fetishes for vaginal/anal aren't negative
+									[x] stopping at 2
+									[x] preg test parsing missing
+									[x] TF into horse-girl resets player's virginities...
+										[x] test for sterope too
+									[x] centaur can spawn with chastity cage
+									[x] always player first for sex
+									[x] limit number of fetish likes?
+									[x] stables -> stable
+							[x] feral
+								[x] Need sex managers
+								[x] post-sex dialogue id error
+								[x] player not restrained in sex
+								[x] Sterope pregnancy check
+								[x] add shower
+								[x] full test
+						[x] writing
+							[x] when centaur wants to use mouth, they start/stop hotdogging over and over
+								[x] if no access to vagina or asshole, should be positioning to use mouth - need preferences in sex manager
+							[x] prevent oral preference
+							[x] Stuck in 'You next...' loop
+							[x] non-feral
+								[x] variation speech for centaur intro
+								[x] final speech about work
+								[x] test
+									[x] oral banning not working
+									[x] refuse shower incorrect ending
+									[x] shower ending continue dialogue
+							[x] feral
+								[x] test
+							[x] make it 50% to be a regular centaur
+								[x] test
+					[x] setFeral(null) not working
+					[x] Test feral reversion
+					[x] Make Fae and Silvia taller
+					[x] remove spotted hyena big clit
+					[x] Write Enforcer Station content
+						[x] writing
+						[x] access even without quest
+						[x] Need reference in initial encounter for if player is detected as an Enforcer
+						
+	[x] update super guide
+	[] developers chat
+		[] PR
+	
+	[] main quest
 		[] SWORD group in room at end of corridor - just over a dozen of them
 			[] Two leaders who are in late 60's
 				[] Wolf-boy
@@ -477,7 +590,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[] The gang meets at their headquarters every Tuesday night
 			[] Can't arrest succubus as that would bring too much heat down on them
 			[] Instead they're betting on the fact that she'll return to Dominion after her headquarters is raided
-	[] Two birds with one stone
+	[] Quest
 		[] Add balaclava for Enforcers
 			[] No markings on uniforms (they don't want to be recognised)
 		[] Add abandoned bakery
@@ -496,16 +609,52 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[] Gang member fight
 				[] Slaves here
 			[] Proceed upstairs and into more gang member fight
-			[] Upstairs to first floor
 			[] Wolf-boy and others enter through wall of adjacent building
-			[] Succubus fight
-			[] She teleports away and Enforcers leave before others show up
+			[] Depending on actions taken, either go upstairs alone or with Enforcers
+				[] Alone:
+					[] Succubus tries to seduce player
+						[] Resist -> fight & usual end
+						[] Submit -> She leaves and tells you to find her in Dominion
+				[] With Enforcers:
+					[] Succubus fight
+					[] She teleports away and Enforcers leave before others show up
 			[] Quickly exit as more gang members show up
 				[] Optional fight to beat all gang members and unlock basement - loot inside
 	[] Back at Enforcer station
 		[] Enforcers say they'll draw up a plan of how to defend Elis
 	[] Report back to Arion
 		[] He says he'll come to hear their plan and to take him there whenever you're ready
+	
+	[] wiki is broken
+	[] Add Oglix
+	
+	[] Add Fae & Siliva
+	
+	[] Maxis DMs
+	[] A Fox submission
+	[] Dwight submission
+	
+	[] Sterope expansion
+		[] If double feral sex once, spawn unique centaur as encounter when in taur tavern and Sterope is present
+		[] drags you over to Sterope and says that he's heard how the two of you like being fucked as mares
+		[] have to feral TF for him
+		[] after sex, he leads the two of you through the tavern and makes you give a double blowjob while he drinks at the bar
+			[] kheiron eventually asks to leave
+		[] next time, invited to his manor but have to feral TF for 24 hours
+			[] get 'trained' in his stable until the next evening
+		[] next time, he says he'll keep you as his mares
+			[] after sex, taken back to his stables - floor is an enchanted beast stone to make sure you stay as ferals
+		[] Bad end
+	
+	[] Ralph's player-orgasm sex action dirties Ralph's underwear
+	
+	[] Silence scream post-Shadow defeat is parsed to ...
+	
+	[] revisit desryth, reject him, stuck in his apartment
+	
+	[] penile virginity loss to Aurokaris apparently ended up being to Harely in Diana's nest
+	
+	[] Lyssieth image height too small
 	
 	[] If rape-play content is 'on at start', then make it so that NPCs with the unwilling fuck toy fetish present you with the 'rape' action even if they're attracted to you
 	

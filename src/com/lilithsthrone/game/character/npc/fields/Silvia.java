@@ -79,7 +79,7 @@ public class Silvia extends NPC {
 	public Silvia(boolean isImported) {
 		super(isImported, new NameTriplet("Silvia"), "Woodward",
 				"Silvia is the older sister of Fae, with whom she runs the clothing stall 'Rainbow's End' in the Farmer's Market at Elis."
-						+ " Being relatively shy and nervous around strangers, Silvia leaves her sister to handles most of the interactions with their stall's customers.",
+						+ " Being relatively shy and nervous around strangers, Silvia leaves her sister to handle most of the interactions with their stall's customers.",
 				31, Month.MAY, 1,
 				15,
 				Gender.F_P_V_B_FUTANARI, Subspecies.FOX_MORPH, RaceStage.GREATER,
@@ -140,7 +140,7 @@ public class Silvia extends NPC {
 		this.setTailGirth(PenetrationGirth.FIVE_THICK);
 		
 		// Core:
-		this.setHeight(175);
+		this.setHeight(195);
 		this.setFemininity(95);
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());

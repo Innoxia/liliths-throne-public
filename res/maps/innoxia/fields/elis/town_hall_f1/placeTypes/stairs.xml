@@ -4,7 +4,6 @@
 	<name><![CDATA[staircase]]></name>
 	<tooltipDescription><![CDATA[This staircase is guarded by two heavily-armed demonic enforcers, who are quite clearly prepared to use overwhelming force on any trespassers.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the staircase in Elis's town hall tower]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_RED_LIGHT</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

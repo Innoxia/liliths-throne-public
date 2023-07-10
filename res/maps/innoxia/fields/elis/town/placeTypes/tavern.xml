@@ -4,7 +4,6 @@
 	<name><![CDATA[The Red Dragon]]></name>
 	<tooltipDescription><![CDATA[Positioned close to the eastern entrance of Elis, the tavern 'The Red Dragon' is always busy.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[outside of 'The Red Dragon' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_RED</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

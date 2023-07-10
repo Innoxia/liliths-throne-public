@@ -4,7 +4,6 @@
 	<name><![CDATA[waiting room]]></name>
 	<tooltipDescription><![CDATA[One of two waiting rooms positioned near to the town hall's entrance, this is the place where members of the public have their patience put to the test.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in one of the waiting rooms in Elis's town hall]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_BROWN</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

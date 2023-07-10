@@ -4,7 +4,6 @@
 	<name><![CDATA[woodsman's hut]]></name>
 	<tooltipDescription><![CDATA[Managing the woodland surrounding Elis is a full time job for the occupant of this quaint hut.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[beside the woodsman's hut at Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_BROWN</colour>
 	<backgroundColour>MAP_BACKGROUND_GREEN</backgroundColour>

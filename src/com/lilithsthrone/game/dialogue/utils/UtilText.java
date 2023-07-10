@@ -188,6 +188,8 @@ import com.lilithsthrone.game.inventory.SetBonus;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
+import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.outfit.AbstractOutfit;
@@ -9816,6 +9818,9 @@ public class UtilText {
 		for(EquipClothingSetting ecs : EquipClothingSetting.values()) {
 			engine.put("EQUIP_CLOTHING_SETTING_"+ecs.toString(), ecs);
 			engine.put("ECS_"+ecs.toString(), ecs);
+		}
+		for(AbstractItemEffectType aiet : ItemEffectType.getAllEffectTypes()) {
+			engine.put("ITEM_EFFECT_TYPE_"+ItemEffectType.getIdFromItemEffectType(aiet), aiet);
 		}
 		
 		// Tattoos:

@@ -4,7 +4,6 @@
 	<name><![CDATA[pond]]></name>
 	<tooltipDescription><![CDATA[There is a large, brackish pond to the south of Elis, the murky waters of which could be hiding all sorts of monsters...]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the pond to the south of Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_TEAL</colour>
 	<backgroundColour>MAP_BACKGROUND_BLUE</backgroundColour>

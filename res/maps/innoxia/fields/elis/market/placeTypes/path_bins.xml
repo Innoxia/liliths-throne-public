@@ -4,7 +4,6 @@
 	<name><![CDATA[Farmer's Market]]></name>
 	<tooltipDescription><![CDATA[The surrounding stalls divide up the large cobblestone square, forming paths which the crowds of shoppers amble down.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in Elis's Farmer's Market]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_GREY</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

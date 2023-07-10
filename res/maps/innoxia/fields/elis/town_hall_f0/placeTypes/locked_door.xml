@@ -4,7 +4,6 @@
 	<name><![CDATA[locked door]]></name>
 	<tooltipDescription><![CDATA[A locked, staff-only door leads into the parts of town hall which aren't open to the public.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[beside the locked door in Elis's town hall]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_CRIMSON</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

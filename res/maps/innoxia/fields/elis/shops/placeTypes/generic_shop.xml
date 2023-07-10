@@ -4,7 +4,6 @@
 	<name><![CDATA[Shop]]></name>
 	<tooltipDescription><![CDATA[One of several generic shops in the 'Wall's End' shopping precinct, this store doesn't have sell anything which would be of interest to you.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in one of the shops at the 'Wall's End' shopping precinct]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_BLACK</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>
