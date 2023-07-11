@@ -29,6 +29,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.PenisArmpit;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisAss;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisBreasts;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisBreastsCrotch;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisCloacaPenis;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisFeet;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisFoot;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
@@ -480,6 +481,7 @@ public class SexActionPresets {
 		sexActions.add(PenisSpinneret.class);
 		sexActions.add(PenisArmpit.class);
 		sexActions.add(PenisPenis.class);
+		sexActions.add(PenisCloacaPenis.class);
 		
 		// Vagina/clit actions:
 		sexActions.add(ClitClit.class);

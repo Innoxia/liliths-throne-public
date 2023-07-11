@@ -223,7 +223,7 @@ public class PenisPenis {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Letting out [npc.a_moan+] with each eager thrust of [npc.her] [npc.hips], [npc.name] passionately [npc.verb(rub)] [npc.her] [npc.cock+] up and down over [npc2.namePos] [npc2.cock+].",
 					"[npc.Name] [npc.verb(let)] out a series of lewd [npc.moans] as [npc.she] desperately [npc.verb(grind)] [npc.her] [npc.cock+] up and down over [npc2.namePos] [npc2.cock+].",
-					"Eagerly grinding [npc.her] [npc.clit+] over [npc2.namePos] [npc2.vagina+], [npc.name] [npc.verb(let)] out [npc.a_moan+] with each frantic pump of [npc.her] [npc.hips]."));
+					"Eagerly grinding [npc.her] [npc.clit+] over [npc2.namePos] [npc2.cock+], [npc.name] [npc.verb(let)] out [npc.a_moan+] with each frantic pump of [npc.her] [npc.hips]."));
 
 			UtilText.nodeContentSB.append(getTargetedCharacterResponse(this));
 			
@@ -382,7 +382,7 @@ public class PenisPenis {
 									+ " but [npc.her] efforts prove to be in vain as [npc2.she] quickly [npc2.verb(buck)] [npc2.her] [npc2.hips] forwards, keeping [npc2.her] [npc2.cock+] pressed against [npc.her] [npc.cock+].",
 							"With [npc.a_sob+], [npc.name] [npc.verb(try)] to pull away from [npc2.name],"
 									+ " but [npc2.she] quickly [npc2.verb(buck)] [npc2.her] [npc2.hips] forwards, before continuing to eagerly rub [npc2.her] [npc2.cock+] against [npc.her] [npc.cock+].",
-							"Tears start to well up in [npc.namePos] [npc.eyes], and with [npc.a_sob+], [npc.she] [npc.verb(try)] to pull [npc.her] [npc.pussy] away from [npc2.nameHers],"
+							"Tears start to well up in [npc.namePos] [npc.eyes], and with [npc.a_sob+], [npc.she] [npc.verb(try)] to pull [npc.her] [npc.cock] away from [npc2.nameHers],"
 									+ " but [npc2.she] quickly [npc2.verb(shift)] position, ignoring [npc.her] protests as [npc2.she] enthusiastically [npc2.verb(rub)] [npc2.her] [npc2.cock+] up against [npc2.hers]."));
 					break;
 			}
@@ -431,8 +431,8 @@ public class PenisPenis {
 			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" Although happy to have [npc2.her] [npc2.pussy] released, [npc2.name] [npc2.verb(continue)] crying and weakly struggling against [npc.name] as [npc2.she] [npc2.verb(plead)] for [npc.herHim] to leave [npc2.herHim] alone.",
-							" With [npc2.a_sob+], [npc2.name] [npc2.verb(continue)] to struggle and protest, tears streaming down [npc2.her] [npc2.face] as [npc2.she] [npc2.verb(pull)] [npc2.her] [npc2.vagina+] away from [npc.name]."));
+							" Although happy to have [npc2.her] [npc2.cock] released, [npc2.name] [npc2.verb(continue)] crying and weakly struggling against [npc.name] as [npc2.she] [npc2.verb(plead)] for [npc.herHim] to leave [npc2.herHim] alone.",
+							" With [npc2.a_sob+], [npc2.name] [npc2.verb(continue)] to struggle and protest, tears streaming down [npc2.her] [npc2.face] as [npc2.she] [npc2.verb(pull)] [npc2.her] [npc2.cock+] away from [npc.name]."));
 					break;
 				default:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
@@ -637,15 +637,9 @@ public class PenisPenis {
 			if(Main.sex.getCreampieLockedBy().containsKey(Main.sex.getCharacterPerformingAction())) {
 				return SexActionPriority.UNIQUE_MAX;
 			}
-			if(getAreaToBeCreampied()==SexAreaOrifice.VAGINA
-					&& Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_IMPREGNATION).isNegative()
-					&& !Main.sex.getCharacterTargetedForSexAction(this).isVisiblyPregnant()) {
-				return SexActionPriority.LOW;
-			}
 			if((Math.random()<0.66f
 					|| Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_CUM_STUD).isPositive()
-					|| Main.sex.getRequestedPulloutWeighting(Main.sex.getCharacterPerformingAction())<0
-					|| (getAreaToBeCreampied()==SexAreaOrifice.VAGINA && Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_IMPREGNATION)))
+					|| Main.sex.getRequestedPulloutWeighting(Main.sex.getCharacterPerformingAction())<0)
 				&& !knotRequestObeyed) {
 				return SexActionPriority.HIGH;
 			}
