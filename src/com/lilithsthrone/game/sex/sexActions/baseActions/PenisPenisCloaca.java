@@ -35,7 +35,7 @@ import com.lilithsthrone.utils.Util.Value;
  * @version 0.4.8.5
  * @author Sightglass
  */
-public class PenisCloacaPenis {
+public class PenisPenisCloaca {
 	private static boolean hasCloaca(GameCharacter gc) {
 		return gc.getGenitalArrangement() == GenitalArrangement.CLOACA ||  gc.getGenitalArrangement() == GenitalArrangement.CLOACA_BEHIND;
 	}

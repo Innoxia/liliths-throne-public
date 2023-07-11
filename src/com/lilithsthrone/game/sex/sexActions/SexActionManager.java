@@ -30,7 +30,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActions.PenisArmpit;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisAss;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisBreasts;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisBreastsCrotch;
-import com.lilithsthrone.game.sex.sexActions.baseActions.PenisCloacaPenis;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisPenisCloaca;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisFeet;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisFoot;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
@@ -166,8 +166,7 @@ public class SexActionManager {
 
 		// Add in hard-coded sex actions:
 		
-		Map<String, Field[]> sexActionClassIdToFields = Util.newHashMapOfValues(
-				new Value<>("PositioningMenu", PositioningMenu.class.getFields()),
+		Map<String, Field[]> sexActionClassIdToFields = Util.newHashMapOfValues(new Value<>("PositioningMenu", PositioningMenu.class.getFields()),
 				new Value<>("GenericPositioning", GenericPositioning.class.getFields()),
 				
 				new Value<>("GenericActions", GenericActions.class.getFields()),
@@ -226,7 +225,6 @@ public class SexActionManager {
 				new Value<>("PenisVagina", PenisVagina.class.getFields()),
 				new Value<>("PenisBreasts", PenisBreasts.class.getFields()),
 				new Value<>("PenisBreastsCrotch", PenisBreastsCrotch.class.getFields()),
-				new Value<>("PenisBreastsCrotch", PenisCloacaPenis.class.getFields()),
 				new Value<>("PenisThighs", PenisThighs.class.getFields()),
 				new Value<>("PenisFoot", PenisFoot.class.getFields()),
 				new Value<>("PenisFeet", PenisFeet.class.getFields()),
@@ -235,6 +233,7 @@ public class SexActionManager {
 				new Value<>("PenisSpinneret", PenisSpinneret.class.getFields()),
 				new Value<>("PenisArmpit", PenisArmpit.class.getFields()),
 				new Value<>("PenisPenis", PenisPenis.class.getFields()),
+				new Value<>("PenisPenisCloaca", PenisPenisCloaca.class.getFields()),
 				
 				// Vagina/clit actions:
 				new Value<>("ClitClit", ClitClit.class.getFields()),
