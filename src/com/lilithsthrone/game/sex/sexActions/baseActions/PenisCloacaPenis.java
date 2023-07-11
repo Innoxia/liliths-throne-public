@@ -36,6 +36,9 @@ import com.lilithsthrone.utils.Util.Value;
  * @author Sightglass
  */
 public class PenisCloacaPenis {
+	private static boolean hasCloaca(GameCharacter gc) {
+		return gc.getGenitalArrangement() == GenitalArrangement.CLOACA ||  gc.getGenitalArrangement() == GenitalArrangement.CLOACA_BEHIND;
+	}
 	
 	public static final SexAction SLIT_PENETRATION_START = new SexAction(
 			SexActionType.START_ONGOING,
@@ -44,7 +47,7 @@ public class PenisCloacaPenis {
 			CorruptionLevel.ONE_VANILLA,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaPenetration.PENIS)),
 			SexParticipantType.NORMAL) {
-		
+					    
 		@Override
 		public String getActionTitle() {
 			return "Start slit penetration";
@@ -52,9 +55,8 @@ public class PenisCloacaPenis {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()).getGenitalArrangement() == GenitalArrangement.CLOACA
-				|| Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()).getGenitalArrangement() == GenitalArrangement.CLOACA_BEHIND)
-				&& Main.sex.getSexPace(Main.sex.getCharacterPerformingAction()).isDom();
+			return (hasCloaca(Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()))
+				&& Main.sex.getSexPace(Main.sex.getCharacterPerformingAction()).isDom());
 		}
 
 		@Override
@@ -150,9 +152,8 @@ public class PenisCloacaPenis {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()).getGenitalArrangement() == GenitalArrangement.CLOACA
-				|| Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()).getGenitalArrangement() == GenitalArrangement.CLOACA_BEHIND)
-				&& Main.sex.getSexPace(Main.sex.getCharacterPerformingAction()).isDom();
+			return (hasCloaca(Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()))
+				&& Main.sex.getSexPace(Main.sex.getCharacterPerformingAction()).isDom());
 		}
 		
 		@Override
@@ -191,9 +192,8 @@ public class PenisCloacaPenis {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()).getGenitalArrangement() == GenitalArrangement.CLOACA
-				|| Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()).getGenitalArrangement() == GenitalArrangement.CLOACA_BEHIND)
-				&& Main.sex.getSexPace(Main.sex.getCharacterPerformingAction()).isDom();
+			return (hasCloaca(Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()))
+				&& Main.sex.getSexPace(Main.sex.getCharacterPerformingAction()).isDom());
 		}
 		
 		@Override
@@ -232,9 +232,8 @@ public class PenisCloacaPenis {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()).getGenitalArrangement() == GenitalArrangement.CLOACA
-				|| Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()).getGenitalArrangement() == GenitalArrangement.CLOACA_BEHIND)
-				&& Main.sex.getSexPace(Main.sex.getCharacterPerformingAction()).isDom();
+			return (hasCloaca(Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()))
+				&& Main.sex.getSexPace(Main.sex.getCharacterPerformingAction()).isDom());
 		}
 
 		@Override
@@ -272,9 +271,8 @@ public class PenisCloacaPenis {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()).getGenitalArrangement() == GenitalArrangement.CLOACA
-				|| Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()).getGenitalArrangement() == GenitalArrangement.CLOACA_BEHIND)
-				&& Main.sex.getSexPace(Main.sex.getCharacterPerformingAction()).isDom();
+			return (hasCloaca(Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()))
+				&& Main.sex.getSexPace(Main.sex.getCharacterPerformingAction()).isDom());
 		}
 		
 		@Override
@@ -324,6 +322,7 @@ public class PenisCloacaPenis {
 			CorruptionLevel.ZERO_PURE,
 			null,
 			SexParticipantType.NORMAL) {
+		
 		private GameCharacter getCharacterToBeCreampied() {
 			GameCharacter characterPenetrated = Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).get(0);
 			
@@ -359,9 +358,7 @@ public class PenisCloacaPenis {
 			
 			boolean dicksTouching = Main.sex.getCharacterOngoingSexArea(performer, SexAreaPenetration.PENIS).contains(target) 
 				&& Main.sex.getCharacterOngoingSexArea(target, SexAreaPenetration.PENIS).contains(performer);
-			boolean targetHasCloaca = (Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()).getGenitalArrangement() == GenitalArrangement.CLOACA
-				|| Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()).getGenitalArrangement() == GenitalArrangement.CLOACA_BEHIND);
-			if (!(dicksTouching && targetHasCloaca)) {
+			if (!(dicksTouching && hasCloaca(target))) {
 				return false;
 			}
 			
@@ -512,6 +509,57 @@ public class PenisCloacaPenis {
 		@Override
 		public boolean endsSex() {
 			return Main.sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, OrgasmCumTarget.GROIN, true).isEndsSex();
+		}
+	};
+	
+	public static final SexAction MUTUAL_SLIT_PENETRATION = new SexAction(
+			SexActionType.ONGOING,
+			ArousalIncrease.FOUR_HIGH,
+			ArousalIncrease.FIVE_EXTREME,
+			CorruptionLevel.TWO_HORNY,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		
+		@Override
+		public String getActionTitle() {
+			return "Mutual slit penetration";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Slip [npc2.namePos] [npc2.cock+] into your genital slit while you fuck [npc2.hers].";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			GameCharacter performer = Main.sex.getCharacterPerformingAction();
+			GameCharacter target = Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction());
+			return hasCloaca(performer) && hasCloaca(target) && Main.sex.getSexPace(Main.sex.getCharacterPerformingAction()).isDom();
+		}
+
+		@Override
+		public String getDescription() {
+			String start = UtilText.returnStringAtRandom(
+					"Letting out [npc.a_moan+], [npc.name] [npc.verb(slip)] the tip of [npc2.her] [npc2.cock] into the slit surrounding [npc.namePos] [npc.cock+], circling it and teasing the sensitive skin inside.",
+					"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] down to [npc2.namePos] [npc2.cock+]."
+							+ " Guiding it to [npc.namePos] [npc.cock+], [npc.name] [npc.verb(grin)] as [npc.she] then [npc.verb(slip)] it it past [npc.her] [npc.cock+] and into [npc.her] genital slit, causing [npc2.herHim] to let out [npc2.a_moan+].",
+					"[npc.Name] [npc.verb(grin)] in delight as [npc.she] [npc.verb(guide)] [npc2.namePos] [npc2.cock] to the opening of [npc.namePos] cloaca before slipping it in. [npc2.NamePos] [npc2.cock] fits snuggly next to [npc.hers], and [npc.name] [npc.verb(start)] to slowly thrust with rhythmic undulations.",
+					"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(slip)] [npc2.her] [npc2.cock] into [npc.namePos] genital slit, teasing it with slow circles before slipping in further.");
+			String middle1 = UtilText.returnStringAtRandom(
+				"[npc.Name] slowly [npc.verb(work)] [npc2.her] [npc2.cock] deeper into [npc.her] slit, while [npc.she] also [npc.verb(slip)] deeper into [npc2.hers].",
+				"Rather than impaling [npc.himself] deeply onto [npc2.her] [npc.cock], [npc.name] instead circle [npc.her] hips, grinding both shafts against each other in their slits.",
+				"With both cocks nestled snugly against each other, each of [npc.her] thrusts drive both deeper along the base of the other."
+			);
+			String middle2 = UtilText.returnStringAtRandom(
+				"Overwhelmed by the stimulation from [npc2.her] [npc2.cock] in [npc.her] snug slit while [npc.name] [npc.verb(fuck)] [npc2.hers], all [npc2.name] [npc2.is] able to do is shudder and [npc2.moan].",
+				"The inner surface of [npc.namePos] cloaca is incredibly sensitive, and [npc.name] [npc.verb(feel)] every shudder and twitch as [npc2.her] [npc2.cock] twitches in response tight embrace. Since [npc.her] [npc.cock] is wedged against the base of [npc2.her] [npc2.cock+], [npc.name] [npc.verb(feel)] every shudder and twitch in response.",
+				"With a lusty [npc2.moan], [npc2.name] [npc2.verb(press)] in closer to [npc.name], humping gently to try to get more of [npc2.her] [npc2.cock+] inside [npc.her] slit, driving [npc.name] deeper into [npc2.hers] as well."
+			);
+			String end = UtilText.returnStringAtRandom(
+				"After a few last thrusts, [npc.name] carefully [npc.verb(pull)] [npc2.name] [npc2.namePos] out, [npc.name] playfully [npc.verb(slap)] [npc2.her] [npc2.cock] against [npc2.her] belly before starting to thrust against into [npc2.her] slit again.",
+				"With a sigh and a few more thrusts, [npc.name] [npc.verb(pull)] back so [npc2.namePos] [npc2.cock+] flops out of [npc.her] cloaca."
+			);
+			return String.join(" ",start, middle1, middle2,end);
 		}
 	};
 }
