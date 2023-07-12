@@ -960,12 +960,106 @@ public class PenisPenis {
 						"You're pretty big, but there's always someone better!",
 						"You're pretty big, but I'm bigger!",
 						"Not bad, but I've seen bigger.",
-						"Nice cock, "+(actor.isFeminine()?"filly":"colt")+", but you've got a ways to go."
+						"Nice cock, "+(target.isFeminine()?"filly":"colt")+", but you've got a ways to go."
 					);
 					break;
 			}
-			quote = "[npc.speech(" + quote + ")]";
+			quote = "[npc.speech(" + quote + ")].";
 			return String.join(" ", intro, mid, quote);
+		}
+	};
+	
+	public static final SexAction FROTTING_COMPLIMENT = new SexAction(
+			SexActionType.SPEECH,
+			ArousalIncrease.FOUR_HIGH,
+			ArousalIncrease.FIVE_EXTREME,
+			CorruptionLevel.ONE_VANILLA,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		
+		@Override
+		public String getActionTitle() {
+			return "Cock appreciation (frotting)";
+		}
+		
+		@Override
+		public String getActionDescription() {
+			return "Compliment [npc2.namePos] [npc2.cock] as you rub on it with your own.";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			GameCharacter actor = Main.sex.getCharacterPerformingAction();
+			GameCharacter target = Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction());
+			boolean dicksTouching = Main.sex.getCharacterOngoingSexArea(actor, SexAreaPenetration.PENIS).contains(target) 
+				&& Main.sex.getCharacterOngoingSexArea(target, SexAreaPenetration.PENIS).contains(actor);
+			return !hasSmallPenis(target) && !hasSmallPenis(actor) 
+				&& notDildoPenis(target) && dicksTouching;
+		}
+
+		@Override
+		public String getDescription() {
+			GameCharacter actor = Main.sex.getCharacterPerformingAction();
+			GameCharacter target = Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction());
+			String intro = UtilText.returnStringAtRandom(
+					"Lining up [npc.her] [npc.cock+] against [npc2.hers], [npc.name] [npc.verb(take)] a moment to admire both cocks.",
+					"[npc.Name] [npc.verb(pause)] to lay [npc.her] [npc.cock+] against [npc2.namePos] [npc2.cock], giving it a few appreciative strokes.",
+					"[npc.Name] [npc.verb(take)] the time to make an extra-long thrust rubbing the entire length of [npc.her] [npc.cock+] over [npc2.namePos] [npc2.cock+], savoring the slick pleasure."
+			);
+			String mid = UtilText.returnStringAtRandom(
+					"[npc.Name] [npc.verb(compliment)] [npc2.him] with a playful laugh, saying ",
+					"Continuing to rub [npc.her] [npc.cock] over [npc2.her] [npc2.cock], [npc.name] [npc.verb(decide)] to [npc.verb(butter)] [npc2.him] up, saying ",
+					"[npc.Name] [npc.verb(give)] [npc2.him] a chuckle, saying ",
+					"With a cheeky grin, [npc.name] [npc.verb(give)] [npc2.her] [npc2.cock+] an appreciative tap with [npc.her] own, saying "
+			);
+			String quote;
+			switch (target.getPenisSize()) {
+				case FIVE_ENORMOUS:
+				case SIX_GIGANTIC:
+				case SEVEN_STALLION:
+					quote = UtilText.returnStringAtRandom(
+						"Nice cock, "+(actor.isFeminine()?"miss":"bro")+"!",
+						"Wow! You're huge!",
+						"I just want to rub my whole body on this monster cock!",
+						"I love rubbing up against a giant cock!",
+						"I'm going to rub over every inch of this monster!"
+					);
+					break;
+				case THREE_LARGE:
+				case FOUR_HUGE:
+					quote =  UtilText.returnStringAtRandom(
+						"Nice cock, "+(actor.isFeminine()?"miss":"bro")+"!",
+						"Pretty big! Nice!",
+						"A nice meaty cock!",
+						"You've got a pretty big cock!",
+						"Nice!",
+						"I just love seeting a big cock!",
+						"I just love rubbing up against a big cock!"
+					);
+					break;
+				case TWO_AVERAGE:
+				default:
+					quote =  UtilText.returnStringAtRandom(
+						"Nice cock, "+(target.isFeminine()?"miss":"bro")+"!",
+						"That's a good size!",
+						"Just right!",
+						"Finally! A sanely-sized cock!",
+						"A perfectly-good cock!",
+						"This one is <i>juuuust</i> right!",
+						"Feels good rubbing on a nice cock!"
+					);
+					break;
+			}
+			quote = "[npc.speech(" + quote + ")].";
+			String response;
+			response =  UtilText.returnStringAtRandom(
+				"[npc2.Name] [npc2.verb(continue)] to thrust and grind against [npc.name], with a little extra vigor from [npc.her] encouragement.",
+				"Spurred by [npc.her] encouragement, [npc2.name] enthusiastically [npc2.verb(buck)] against [npc.her] [npc.cock+]",
+				"Encouraged by [npc.her] teasing compliment, [npc2.name] [npc2.verb(give)] [npc.him] a few extra-hard thrusts.",
+				"[npc2.Name] blushes a little at [npc.her] praise, and presses in closer to [npc.him].",
+				"[npc2.Name] [npc2.verb(answer)] [npc.her] praise with a [npc2.moan], pressing in closer to rub [npc2.her] cock against [npc.hers] a little harder."
+			);
+			return String.join(" ", intro, mid, quote, response);
 		}
 	};
 }
