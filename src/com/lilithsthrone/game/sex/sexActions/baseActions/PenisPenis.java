@@ -786,7 +786,8 @@ public class PenisPenis {
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.THREE_DIRTY,
 			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaPenetration.PENIS)),
-			SexParticipantType.NORMAL) {
+			SexParticipantType.NORMAL
+		) {
 		
 		@Override
 		public String getActionTitle() {
@@ -822,7 +823,7 @@ public class PenisPenis {
 			);
 			String mid = UtilText.returnStringAtRandom(
 					"Sneering at [npc2.her] pathetic [npc2.cock], [npc.name] [npc.verb(growl)], ",
-					"Continuing to rub [npc.her] [npc.cock] over [npc2.her] pathetic [npc2.cock], [npc.name] [npc.verb(decide)] to really  [npc.verb(rub)] it in, saying ",
+					"Continuing to rub [npc.her] [npc.cock] over [npc2.her] pathetic [npc2.cock], [npc.name] [npc.verb(decide)] to really [npc.verb(rub)] it in, saying ",
 					"[npc.Name] [npc.verb(give)] [npc2.him] a mocking chuckle, saying "
 			);
 			String quote;
@@ -854,4 +855,117 @@ public class PenisPenis {
 		}
 	};
 	
+	public static final SexAction FROTTING_SPH_NORMAL = new SexAction(
+			SexActionType.SPEECH,
+			ArousalIncrease.FOUR_HIGH,
+			ArousalIncrease.FIVE_EXTREME,
+			CorruptionLevel.THREE_DIRTY,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		
+		@Override
+		public String getActionTitle() {
+			return "Size Humiliation (Frotting)";
+		}
+
+		@Override
+		public boolean isSadisticAction() {
+			return true;
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Humiliate [npc2.name] with your larger cock.";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			GameCharacter actor = Main.sex.getCharacterPerformingAction();
+			GameCharacter target = Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction());
+			boolean dicksTouching = Main.sex.getCharacterOngoingSexArea(actor, SexAreaPenetration.PENIS).contains(target) 
+				&& Main.sex.getCharacterOngoingSexArea(target, SexAreaPenetration.PENIS).contains(actor);
+			float penisSizeRatio = (float)actor.getPenisRawSizeValue() / (float)target.getPenisRawSizeValue();
+			int penisEnumSizeDifference = actor.getPenisSize().ordinal() - target.getPenisSize().ordinal();
+			return (penisEnumSizeDifference > 0 || penisSizeRatio > 1.25)
+				&& penisSizeRatio > 1.15
+				&& !hasSmallPenis(target) && !hasSmallPenis(actor) 
+				&& notDildoPenis(target) && dicksTouching;
+		}
+
+		@Override
+		public String getDescription() {
+			GameCharacter actor = Main.sex.getCharacterPerformingAction();
+			GameCharacter target = Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction());
+			String intro = UtilText.returnStringAtRandom(
+					"Lining up [npc.her] [npc.cock+] against [npc2.hers], [npc2.namePos] [npc2.cock+] comes up comparitively short.",
+					"[npc.Name] [npc.verb(pause)] to lay [npc.her] [npc.cock+] against [npc2.namePos] [npc2.cock], making the size difference apparent.",
+					"[npc.Name] [npc.verb(take)] the time to make an extra-long thrust rubbing the entire length of [npc.her] [npc.cock+] over [npc2.namePos] [npc2.cock+]"
+			);
+			String mid = UtilText.returnStringAtRandom(
+					"Seeing the size difference between [npc.her] [npc.cock+] and [npc2.her], [npc.name] [npc.verb(laughs)], saying ",
+					"Continuing to rub [npc.her] [npc.cock] over [npc2.her] [npc2.cock], [npc.name] [npc.verb(decide)] to [npc.verb(rub)] it in, saying ",
+					"[npc.Name] [npc.verb(give)] [npc2.him] a chuckle, saying "
+			);
+			String quote;
+			switch (target.getPenisSize()) {
+				case ZERO_MICROSCOPIC:
+					quote =  UtilText.returnStringAtRandom(
+						"That thing's practically a clit!",
+						"I wasn't expecting much, but this is just pathetic!",
+						"How's it feel, to have your little clit crushed against a real dick?",
+						"I can barely feel that pathetic little bump.",
+						"You should feel lucky, to get to feel a <i>real</i> cock for once."
+					);
+					break;
+				case ONE_TINY:
+					quote =  UtilText.returnStringAtRandom(
+						"Nice try, little "+ (target.isFeminine()?"lady":"guy") + ", but that thing just doesn't measure up.",
+						"<i>That?</i> That's just disappointing.",
+						"You should feel lucky, to get to feel a <i>real</i> cock for once.",
+						"Is that it?",
+						"I wasn't expecting much, but this is just pathetic!",
+						"'Fun Size', huh?", 
+						"I bet you love seeing your little dick dominated like this!"
+					);
+					break;
+				case TWO_AVERAGE:
+					quote =  UtilText.returnStringAtRandom(
+						"Not bad, but you're playing with the big "+(actor.isFeminine()?"girls":"boys")+" now.",
+						"That's nothing special, take good look at <i>this</i>!",
+						"Take a good look at a real "+(actor.isFeminine()?"woman's":"man's")+" cock!",
+						"You should feel lucky, to get to feel a <i>real</i> cock for once.",
+						"'Average' isn't anything to brag about.",
+						"Is that it?",
+						"'Average'? I see bigger cocks at on imps."
+					);
+					break;
+				case FIVE_ENORMOUS:
+				case SIX_GIGANTIC:
+				case SEVEN_STALLION:
+					quote = UtilText.returnStringAtRandom(
+						"Not bad, but you're playing with the big "+(actor.isFeminine()?"girls":"boys")+" now.",
+						"No matter how big you are, there's always someone bigger!",
+						"No matter how big you are, but there's always someone better!",
+						"No matter how big you are, but I'm bigger!",
+						"Not bad, but I've seen bigger.",
+						"You don't often see someone bigger than you, do you?"
+					);
+					break;
+				case THREE_LARGE:
+				case FOUR_HUGE:
+				default:
+					quote =  UtilText.returnStringAtRandom(
+						"Not bad, but you're playing with the big "+(actor.isFeminine()?"girls":"boys")+" now.",
+						"You're pretty big, but there's always someone bigger!",
+						"You're pretty big, but there's always someone better!",
+						"You're pretty big, but I'm bigger!",
+						"Not bad, but I've seen bigger.",
+						"Nice cock, "+(actor.isFeminine()?"filly":"colt")+", but you've got a ways to go."
+					);
+					break;
+			}
+			quote = "[npc.speech(" + quote + ")]";
+			return String.join(" ", intro, mid, quote);
+		}
+	};
 }
