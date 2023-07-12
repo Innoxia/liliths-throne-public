@@ -14,6 +14,9 @@ import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.Tentacle;
 import com.lilithsthrone.game.character.body.Torso;
 import com.lilithsthrone.game.character.body.Wing;
+import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
+import com.lilithsthrone.game.character.body.types.PenisType;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractPenisType;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -35,6 +38,16 @@ import com.lilithsthrone.utils.Util.Value;
  * @author Sightglass
  */
 public class PenisPenis {
+
+	private static boolean hasSmallPenis(GameCharacter gc) {
+		PenisLength pl = gc.getPenisSize();
+		return (pl == PenisLength.ONE_TINY || pl == PenisLength.ZERO_MICROSCOPIC);
+	}
+	
+	private static boolean notDildoPenis(GameCharacter gc) {
+		AbstractPenisType pt = gc.getPenisType();
+		return pt != PenisType.DILDO;
+	}
 	
 	public static final SexAction FROTTING_START = new SexAction(
 			SexActionType.START_ONGOING,
@@ -54,6 +67,13 @@ public class PenisPenis {
 			return "Start grinding your [npc.cock] up and down against [npc2.namePos] [npc2.cock].";
 		}
 
+		@Override
+		public boolean isBaseRequirementsMet() {
+			GameCharacter actor = Main.sex.getCharacterPerformingAction();
+			GameCharacter target = Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction());
+			return notDildoPenis(target) && notDildoPenis(target);
+		}
+		
 		@Override
 		public String getDescription() {
 			
@@ -759,4 +779,79 @@ public class PenisPenis {
 			return Main.sex.getCharacterPerformingAction().getSexActionOrgasmOverride(this, OrgasmCumTarget.GROIN, true).isEndsSex();
 		}
 	};
+	
+	public static final SexAction FROTTING_SPH_SMALL = new SexAction(
+			SexActionType.SPEECH,
+			ArousalIncrease.FOUR_HIGH,
+			ArousalIncrease.FIVE_EXTREME,
+			CorruptionLevel.THREE_DIRTY,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.PENIS, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL) {
+		
+		@Override
+		public String getActionTitle() {
+			return "Small Penis Humiliation (Frotting)";
+		}
+
+		@Override
+		public boolean isSadisticAction() {
+			return true;
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Mock [npc2.name] over [npc2.her] small member.";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			GameCharacter actor = Main.sex.getCharacterPerformingAction();
+			GameCharacter target = Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction());
+			boolean dicksTouching = Main.sex.getCharacterOngoingSexArea(actor, SexAreaPenetration.PENIS).contains(target) 
+				&& Main.sex.getCharacterOngoingSexArea(target, SexAreaPenetration.PENIS).contains(actor);
+			return hasSmallPenis(target) && notDildoPenis(target) && !hasSmallPenis(actor) && dicksTouching;
+		}
+
+		@Override
+		public String getDescription() {
+			GameCharacter target = Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction());
+			String intro = UtilText.returnStringAtRandom(
+					"Lining up [npc.her] [npc.cock+] against [npc2.hers], [npc2.namePos] [npc2.cock+] comes up obviously short.",
+					"[npc.Name] [npc.verb(pause)] to lay [npc.her] [npc.cock+] against [npc2.namePos] much smaller [npc2.cock].",
+					"[npc.Name] [npc.verb(take)] the time to make an extra-long thrust rubbing the entire length of [npc.her] [npc.cock+] over [npc2.namePos] [npc2.cock+]"
+			);
+			String mid = UtilText.returnStringAtRandom(
+					"Sneering at [npc2.her] pathetic [npc2.cock], [npc.name] [npc.verb(growl)], ",
+					"Continuing to rub [npc.her] [npc.cock] over [npc2.her] pathetic [npc2.cock], [npc.name] [npc.verb(decide)] to really  [npc.verb(rub)] it in, saying ",
+					"[npc.Name] [npc.verb(give)] [npc2.him] a mocking chuckle, saying "
+			);
+			String quote;
+			switch (target.getPenisSize()) {
+				case ZERO_MICROSCOPIC:
+					quote =  UtilText.returnStringAtRandom(
+						"That thing's practically a clit!",
+						"I wasn't expecting much, but this is just pathetic!",
+						"How's it feel, to have your little clit crushed against a real dick?",
+						"I can barely feel that pathetic little bump.",
+						"You should feel lucky, to get to feel a <i>real</i> cock for once."
+					);
+					break;
+				case ONE_TINY:
+				default:
+					quote =  UtilText.returnStringAtRandom(
+						"Nice try, little "+ (target.isFeminine()?"lady":"guy") + ", but that thing just doesn't measure up.",
+						"<i>That?</i> That's just disappointing.",
+						"You should feel lucky, to get to feel a <i>real</i> cock for once.",
+						"Is that it?",
+						"I wasn't expecting much, but this is just pathetic!",
+						"'Fun Size', huh?", 
+						"I bet you love seeing your little dick dominated like this!"
+					);
+					break;
+			}
+			quote = "[npc.speech(" + quote + ")]";
+			return String.join(" ", intro, mid, quote);
+		}
+	};
+	
 }
