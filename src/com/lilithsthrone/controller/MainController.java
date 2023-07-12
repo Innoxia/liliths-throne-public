@@ -511,6 +511,11 @@ public class MainController implements Initializable {
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
 							
+//							System.out.println("####");
+//							System.out.println(GenericOrgasms.GENERIC_ORGASM_CREAMPIE.isBaseRequirementsMet());
+//							System.out.println(Main.sex.getOrgasmActionsPlayer().contains(GenericOrgasms.GENERIC_ORGASM_SELF_FACE));
+//							System.out.println(Main.sex.getOrgasmActionsPlayer().contains(GenericOrgasms.GENERIC_ORGASM_CREAMPIE));
+							
 //							System.out.println(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
 							
 							// Testing genetics/inheritance:

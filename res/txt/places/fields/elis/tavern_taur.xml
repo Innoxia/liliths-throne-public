@@ -1095,6 +1095,11 @@
 	<p>
 		Finding yourself at the end of the corridor, you're confronted by a locked door. A sign beside this door declares that it leads to the tavern's stable, with the word 'Private' written beneath that.
 	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_sterope_with_centaur))
+		<p>
+			Over the background noise of the tavern, you can hear noises coming from the other side of the door. It sounds like a combination of frenzied neighing and rhythmic thudding, and you realise that you're hearing Sterope and the centaur you saw her with earlier.
+		</p>
+	#ENDIF
 	<p>
 		As you don't have the key to this door, there's little else for you to do except turn around and head back into the tavern...
 	</p>

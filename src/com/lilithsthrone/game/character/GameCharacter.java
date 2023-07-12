@@ -3871,7 +3871,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @return true if the target knows what this character's area looks like.
 	 */
 	public boolean isAreaKnownByCharacter(CoverableArea area, GameCharacter target) {
-		if(target.equals(this) || Main.game.isConcealedSlotsReveal()) {
+		if(target.equals(this) || (!this.isPlayer() && Main.game.isConcealedSlotsReveal())) {
 			return true;
 		}
 		return areasKnownByCharactersMap.get(area).contains(target.getId());
@@ -21059,7 +21059,7 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @param washAllOrifices Pass in true to completely drain all fluids from all orifices.
 	 * @param cleanNonEquippedClothing
 	 * @param effect Should be SHOWER, BATH, or BATH_BOOSTED
-	 * @param statusEffectMinutes Default value should probably be 8*60
+	 * @param statusEffectMinutes Default value should probably be 8*60 = 480
 	 * @return A description of the wash.
 	 */
 	public String applyWash(boolean washAllOrifices, boolean cleanNonEquippedClothing, AbstractStatusEffect effect, int statusEffectMinutes) {
@@ -24426,7 +24426,8 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @param feralAttributes Pass in the AbstractSubspecies to which this character should be transformed into a feral version of. Pass in null to transform back from feral to a standard anthro.
 	 */
 	public void setFeral(AbstractSubspecies subspecies) {
-		if(!subspecies.getFeralAttributes(this.getBody()).isBreastsPresent()
+		if(subspecies!=null
+				&& !subspecies.getFeralAttributes(this.getBody()).isBreastsPresent()
 				&& this.hasIncubationLitter(SexAreaOrifice.NIPPLE)) {
 			this.endIncubationPregnancy(SexAreaOrifice.NIPPLE, true);
 			System.err.println("Warning: Nipple egg pregnancy was ended (with birth) as feral form '"+subspecies.getFeralName(this.getBody())+"' was applied, which does not have breasts.");

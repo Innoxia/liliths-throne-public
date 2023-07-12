@@ -1447,340 +1447,6 @@
 		</responses>
 	</scene>
 	
-	<scene id="sterope">
-		<author><![CDATA[Innoxia]]></author>
-		<content folderPath="txt/places/fields/elis/tavern_taur">STEROPE</content>
-		<secondsPassed><![CDATA[120]]></secondsPassed>
-		<continuesDialogue>false</continuesDialogue>
-		<travelDisabled>true</travelDisabled>
-		<responses>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[0]]></index>
-				<responseTitle><![CDATA[Leave]]></responseTitle>
-				<responseTooltip><![CDATA[Tell Sterope that you're going to find someone else to be with tonight.]]></responseTooltip>
-				<nextDialogue>innoxia_places_fields_elis_tavern_taur_tables</nextDialogue>
-				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_LEAVE'))]
-					#IF(flags.hasFlag(FLAG_innoxia_sterope_with_centaur))
-						[#game.banishNPC(centaur)]
-						[#sterope.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
-					#ENDIF
-				]]></effects>
-			</response>
-			<!-- Centaur present: -->
-			<response>
-				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_sterope_with_centaur)]]]></availabilityConditional>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Claim Sterope]]></responseTitle>
-				<responseTooltip><![CDATA[Tell [centaur.name] that Sterope is yours tonight.]]></responseTooltip>
-				<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_claimed</nextDialogue>
-				<effects><![CDATA[
-					#IF(flags.hasFlag(FLAG_innoxia_sterope_with_centaur))
-						[#game.banishNPC(centaur)]
-					#ENDIF
-				]]></effects>
-			</response>
-			<response>
-				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_sterope_with_centaur)]]]></availabilityConditional>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[2]]></index>
-				<responseTitle><![CDATA[Submit]]></responseTitle>
-				<responseTooltip><![CDATA[
-					#IF((!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) && (!game.isAnalContentEnabled() || !pc.isAbleToAccessCoverableArea(CA_ANUS, true)))
-						#IF(game.isAnalContentEnabled())
-							You need a vagina and to be able to access it, or to be able to access your asshole, in order to do this...
-						#ELSE
-							You need a vagina and to be able to access it in order to do this...
-						#ENDIF
-					#ELSE
-						Submit to [centaur.name] and tell [centaur.herHim] that you're a worthless slut like Sterope.
-					#ENDIF
-				]]></responseTooltip>
-				<nextDialogue><![CDATA[
-					#IF((!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) && (!game.isAnalContentEnabled() || !pc.isAbleToAccessCoverableArea(CA_ANUS, true)))
-						null
-					#ELSE
-						innoxia_places_fields_elis_tavern_taur_sterope_centaur_submit
-					#ENDIF
-				]]></nextDialogue>
-			</response>
-			<!-- Centaur not present: -->
-			<response>
-				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_sterope_with_centaur)]]]></availabilityConditional>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Claim her]]></responseTitle>
-				<responseTooltip><![CDATA[Tell Sterope that she's yours tonight.]]></responseTooltip>
-				<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope</nextDialogue>
-			</response>
-		</responses>
-	</scene>
-	
-	<scene id="sterope_claimed">
-		<content folderPath="txt/places/fields/elis/tavern_taur">STEROPE_CLAIMED</content>
-		<secondsPassed><![CDATA[120]]></secondsPassed>
-		<continuesDialogue>false</continuesDialogue>
-		<travelDisabled>true</travelDisabled>
-		<responses>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<colour><![CDATA[GENERIC_SEX_AS_DOM]]></colour>
-				<responseTitle><![CDATA[Stable]]></responseTitle>
-				<responseTooltip><![CDATA[Lead Sterope to the stable and get ready for some kinky sex.]]></responseTooltip>
-				<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_stables</nextDialogue>
-				<effects><![CDATA[
-					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town_tavern_taur, PLACE_TYPE_innoxia_fields_elis_town_tavern_taur_stable)]
-					[#sterope.setLocation(pc)]
-					[#flags.setFlag(FLAG_innoxia_sterope_sex, true)]
-				]]></effects>
-			</response>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[0]]></index>
-				<responseTitle><![CDATA[Back out]]></responseTitle>
-				<responseTooltip><![CDATA[Tell Sterope that you've changed your mind and that you're going to find someone else to be with tonight.]]></responseTooltip>
-				<nextDialogue>innoxia_places_fields_elis_tavern_taur_tables</nextDialogue>
-				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_CLAIMED_LEAVE'))]
-					[#game.appendToTextStartStringBuilder(sterope.incrementAffection(pc, -5))]
-					[#flags.setFlag(FLAG_innoxia_sterope_with_centaur, true)]
-					[#sterope.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
-				]]></effects>
-			</response>
-		</responses>
-	</scene>
-	
-	<scene id="sterope_stables">
-		<preParsingEffects><![CDATA[
-			[#sterope.equipClothing()]
-		]]></preParsingEffects>
-		<content folderPath="txt/places/fields/elis/tavern_taur">STEROPE_STABLES</content>
-		<secondsPassed><![CDATA[10]]></secondsPassed>
-		<continuesDialogue>false</continuesDialogue>
-		<travelDisabled>true</travelDisabled>
-		<responses>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Tie her up]]></responseTitle>
-				<responseTooltip><![CDATA[Tie up Sterope and bend her over the table.]]></responseTooltip>
-				<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_stables_core</nextDialogue>
-				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_STABLES_TIE_UP'))]
-				]]></effects>
-			</response>
-			<!-- TF into greater horse-girl: -->
-			<response>
-				<availabilityConditional><![CDATA[[#sterope.getRaceStage()!=RACE_STAGE_GREATER]]]></availabilityConditional>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[2]]></index>
-				<colour><![CDATA[TRANSFORMATION_GENERIC]]></colour>
-				<responseTitle><![CDATA[TF & tie up]]></responseTitle>
-				<responseTooltip><![CDATA[Get Sterope to drink the transformation potion and then tie her up and bend her over the table.]]></responseTooltip>
-				<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_stables_core</nextDialogue>
-				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_STABLES_TRANSFORM_TIE_UP'))]
-					[#sterope.applyTransformation()]
-				]]></effects>
-			</response>
-			<!-- TF into feral mare: -->
-			<response>
-				<availabilityConditional><![CDATA[[#sterope.getRaceStage()==RACE_STAGE_GREATER && game.isFeralContentEnabled()]]]></availabilityConditional>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[2]]></index>
-				<colour><![CDATA[RACE_BESTIAL]]></colour>
-				<responseTitle><![CDATA[Mare TF]]></responseTitle>
-				<responseTooltip><![CDATA[
-					#IF(sterope.isPregnant())
-						As Sterope is pregnant, she can't be transformed into a feral mare...
-					#ELSE
-						Get Sterope to touch the beast stone for fifteen minutes, which should be enough to transform her into a feral mare until morning.
-					#ENDIF
-				]]></responseTooltip>
-				<nextDialogue><![CDATA[
-					#IF(sterope.isPregnant())
-						null
-					#ELSE
-						innoxia_places_fields_elis_tavern_taur_sterope_stables_feral
-					#ENDIF
-				]]></nextDialogue>
-				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_STABLES_TRANSFORM_FERAL'))]
-					[#sterope.setFeral(SUBSPECIES_HORSE_MORPH)]
-				]]></effects>
-			</response>
-			<response>
-				<availabilityConditional><![CDATA[[#sterope.getRaceStage()==RACE_STAGE_GREATER && game.isFeralContentEnabled()]]]></availabilityConditional>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[3]]></index>
-				<colour><![CDATA[RACE_BESTIAL]]></colour>
-				<responseTitle><![CDATA[Feral TF (both)]]></responseTitle>
-				<responseTooltip><![CDATA[
-					#IF(sterope.isPregnant())
-						As Sterope is pregnant, she can't be transformed into a feral mare...
-					#ELSEIF(pc.getTrueRace()!=RACE_HORSE_MORPH)
-						As you're not a horse-morph, you cannot transform into a feral #IF(pc.isFeminine())mare#ELSEstallion#ENDIF...
-					#ELSE
-						Get Sterope to touch the beast stone for fifteen minutes, which should be enough to transform her into a feral mare until morning. Join her in touching the stone so that you transform into a feral #IF(pc.isFeminine())mare#ELSEstallion#ENDIF for the same duration.
-					#ENDIF
-				]]></responseTooltip>
-				<nextDialogue><![CDATA[
-					#IF(pc.getTrueRace()!=RACE_HORSE_MORPH || sterope.isPregnant())
-						null
-					#ELSE
-						innoxia_places_fields_elis_tavern_taur_sterope_stables_feral
-					#ENDIF
-				]]></nextDialogue>
-				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_STABLES_TRANSFORM_FERAL_BOTH'))]
-					[#sterope.setFeral(SUBSPECIES_HORSE_MORPH)]
-				]]></effects>
-			</response>
-		</responses>
-	</scene>
-	
-	<scene id="sterope_stables_core">
-		<content/>
-		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
-		<continuesDialogue>false</continuesDialogue>
-		<travelDisabled>true</travelDisabled>
-		<responses>
-			<!-- Punishments: -->
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Spanking]]></responseTitle>
-				<responseTooltip><![CDATA[Give Sterope a good, hard spanking.]]></responseTooltip>
-				<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_stables_core</nextDialogue>
-				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_STABLES_SPANKING'))]
-				]]></effects>
-			</response>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[2]]></index>
-				<responseTitle><![CDATA[Whipping]]></responseTitle>
-				<responseTooltip><![CDATA[Use the riding crop to give Sterope a thorough whipping.]]></responseTooltip>
-				<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_stables_core</nextDialogue>
-				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_STABLES_WHIPPING'))]
-				]]></effects>
-			</response>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[3]]></index>
-				<responseTitle><![CDATA[Degrading talk]]></responseTitle>
-				<responseTooltip><![CDATA[Tell Sterope what a worthless cunt she is.]]></responseTooltip>
-				<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_stables_core</nextDialogue>
-				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_STABLES_DEGRADING'))]
-				]]></effects>
-			</response>
-			<!-- Sex: -->
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[5]]></index>
-				<responseTitle><![CDATA[Fuck her]]></responseTitle>
-				<responseTooltip><![CDATA[
-					[pc.Step] up behind Sterope and get ready to fuck her...
-					<br/>[style.italicsMinorBad(This BDSM scene will end after sex, so make sure to punish Sterope as much as you want before doing this.)]
-				]]></responseTooltip>
-				<nextDialogue/>
-				<effects/>
-				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_elis_tavern_taur_sterope]]></id>
-					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
-					<dominants>
-						<character>
-							<id>pc</id>
-							<slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
-						</character>
-					</dominants>
-					<submissives>
-						<character>
-							<id>sterope</id>
-							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_FRONT]]></slot>
-						</character>
-					</submissives>
-					<postSexDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_sterope_after_sex]]></postSexDialogue>
-					<sexStartContent folderPath="txt/places/fields/elis/tavern_taur">STEROPE_SEX_START</sexStartContent>
-					<ongoingActionsAtStart/>
-				</sexVariablesWithManager>
-			</response>
-			<!-- Clothing: -->
-		</responses>
-	</scene>
-	
-	<scene id="sterope_after_sex">
-		<title><![CDATA[Finished]]></title>
-		<tooltip><![CDATA[Having had your fun with Sterope, it's time to bring an end to the sex...]]></tooltip>
-		<content folderPath="txt/places/fields/elis/tavern_taur">STEROPE_AFTER_SEX</content>
-		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
-		<continuesDialogue>false</continuesDialogue>
-		<travelDisabled>true</travelDisabled>
-		<responses>
-			<!-- Sterope has been transformed: -->
-			<response>
-				<availabilityConditional><![CDATA[[#sterope.getRaceStage()==RACE_STAGE_GREATER && !flags.hasFlag(FLAG_innoxia_sterope_fully_furry)]]]></availabilityConditional>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Continue]]></responseTitle>
-				<responseTooltip><![CDATA[Say goodbye to Sterope and return to the tavern.]]></responseTooltip>
-				<nextDialogue defaultPlaceType="innoxia_fields_elis_tavern_taur_tables"/>
-				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_AFTER_SEX_LEAVE'))]
-					[#sterope.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
-				]]></effects>
-			</response>
-			<response>
-				<availabilityConditional><![CDATA[[#sterope.getRaceStage()==RACE_STAGE_GREATER && !flags.hasFlag(FLAG_innoxia_sterope_fully_furry)]]]></availabilityConditional>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[2]]></index>
-				<responseTitle><![CDATA[Stay transformed]]></responseTitle>
-				<responseTooltip><![CDATA[Tell Sterope not to transform back to her previous form, and to instead remain as a fully furry horse-girl.]]></responseTooltip>
-				<nextDialogue defaultPlaceType="innoxia_fields_elis_tavern_taur_tables"/>
-				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_AFTER_SEX_LEAVE'))]
-					[#sterope.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
-				]]></effects>
-			</response>
-			<!-- No TF actions: -->
-			<response>
-				<availabilityConditional><![CDATA[[#sterope.getRaceStage()!=RACE_STAGE_GREATER || flags.hasFlag(FLAG_innoxia_sterope_fully_furry)]]]></availabilityConditional>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Continue]]></responseTitle>
-				<responseTooltip><![CDATA[Say goodbye to Sterope and return to the tavern.]]></responseTooltip>
-				<nextDialogue defaultPlaceType="innoxia_fields_elis_tavern_taur_tables"/>
-				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_AFTER_SEX_LEAVE'))]
-					[#sterope.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
-				]]></effects>
-			</response>
-		</responses>
-	</scene>
-	
-	<scene id="sterope_stables_feral">
-		<content/>
-		<secondsPassed minutes="true"><![CDATA[20]]></secondsPassed>
-		<continuesDialogue>false</continuesDialogue>
-		<travelDisabled>true</travelDisabled>
-		<responses>
-		</responses>
-	</scene>
-	
-	<scene id="sterope_submit">
-		<content folderPath="txt/places/fields/elis/tavern_taur">STEROPE_SUBMIT</content>
-		<secondsPassed><![CDATA[10]]></secondsPassed>
-		<continuesDialogue>false</continuesDialogue>
-		<travelDisabled>true</travelDisabled>
-		<responses/>
-	</scene>
-	
-	
 	<!-- Place type id: innoxia_fields_elis_tavern_locked_door -->
 	<scene id="locked_door">
 		<author><![CDATA[Innoxia]]></author>
@@ -1876,6 +1542,1159 @@
 				<effects><![CDATA[
 					[#pc.applyLimitedWash(IS_HEAD, IS_EYES, IS_MOUTH, IS_NECK, IS_HAIR, IS_FINGER, IS_HAND, IS_WRIST)]
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'TOILETS_WASH'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Sterope content: -->
+	
+	<scene id="sterope">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE'))]
+			[#flags.setFlag(FLAG_innoxia_sterope_met_in_tavern, true)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed><![CDATA[120]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Sterope that you're going to find someone else to be with tonight.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_tavern_taur_tables</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_LEAVE'))]
+					#IF(flags.hasFlag(FLAG_innoxia_sterope_with_centaur))
+						[#sterope.setLocation(WORLD_TYPE_innoxia_fields_elis_town_tavern_taur, PLACE_TYPE_innoxia_fields_elis_town_tavern_taur_stable)]
+						[#centaur.setLocation(sterope)]
+					#ENDIF
+				]]></effects>
+			</response>
+			<!-- Centaur present: -->
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_sterope_with_centaur)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Claim Sterope]]></responseTitle>
+				<responseTooltip><![CDATA[Tell [centaur.name] that Sterope is yours tonight.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_claimed</nextDialogue>
+				<effects><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sterope_with_centaur))
+						[#game.banishNPC(centaur)]
+					#ENDIF
+				]]></effects>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_DOMINANT]]></fetish>
+				</requiredFetishes>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_sterope_with_centaur)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Submit]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.isFeminine())
+						The centaur is only interested in feminine sluts...
+					#ELSEIF((!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) && (!game.isAnalContentEnabled() || !pc.isAbleToAccessCoverableArea(CA_ANUS, true)))
+						#IF(game.isAnalContentEnabled())
+							You need a vagina and to be able to access it, or to be able to access your asshole, in order to do this...
+						#ELSE
+							You need a vagina and to be able to access it in order to do this...
+						#ENDIF
+					#ELSE
+						Submit to [centaur.name] and tell [centaur.herHim] that you're a worthless slut like Sterope.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(!pc.isFeminine() || ((!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) && (!game.isAnalContentEnabled() || !pc.isAbleToAccessCoverableArea(CA_ANUS, true))))
+						null
+					#ELSE
+						innoxia_places_fields_elis_tavern_taur_sterope_centaur_submit
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+			<!-- Centaur not present: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_sterope_with_centaur)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Claim her]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Sterope that she's yours tonight.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope</nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sterope_claimed">
+		<content folderPath="txt/places/fields/elis/tavern_taur">STEROPE_CLAIMED</content>
+		<secondsPassed><![CDATA[120]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<colour><![CDATA[GENERIC_SEX_AS_DOM]]></colour>
+				<responseTitle><![CDATA[Stable]]></responseTitle>
+				<responseTooltip><![CDATA[Lead Sterope to the stable and get ready for some kinky sex.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_stables</nextDialogue>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town_tavern_taur, PLACE_TYPE_innoxia_fields_elis_town_tavern_taur_stable)]
+					[#sterope.setLocation(pc)]
+					[#flags.setFlag(FLAG_innoxia_sterope_sex, true)]
+					[#sterope.stripForStables()]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Back out]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Sterope that you've changed your mind and that you're going to find someone else to be with tonight.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_tavern_taur_tables</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_CLAIMED_LEAVE'))]
+					[#game.appendToTextStartStringBuilder(sterope.incrementAffection(pc, -5))]
+					[#flags.setFlag(FLAG_innoxia_sterope_with_centaur, true)]
+					[#sterope.setLocation(WORLD_TYPE_innoxia_fields_elis_town_tavern_taur, PLACE_TYPE_innoxia_fields_elis_town_tavern_taur_stable)]
+					[#centaur.setLocation(sterope)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sterope_stables">
+		<preParsingEffects><![CDATA[
+			[#sterope.stripForStables()]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/tavern_taur">STEROPE_STABLES</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Tie her up]]></responseTitle>
+				<responseTooltip><![CDATA[Tie Sterope up and bend her over the table.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_stables_core</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_STABLES_TIE_UP'))]
+				]]></effects>
+			</response>
+			<!-- TF into greater horse-girl: -->
+			<response>
+				<availabilityConditional><![CDATA[[#sterope.getRaceStage()!=RACE_STAGE_GREATER]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<colour><![CDATA[TRANSFORMATION_GENERIC]]></colour>
+				<responseTitle><![CDATA[TF & tie up]]></responseTitle>
+				<responseTooltip><![CDATA[Get Sterope to drink the transformation potion and then tie her up and bend her over the table.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_stables_core</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_STABLES_TRANSFORM_TIE_UP'))]
+					[#sterope.applyTransformation()]
+				]]></effects>
+			</response>
+			<!-- TF into feral mare: -->
+			<response>
+				<availabilityConditional><![CDATA[[#sterope.getRaceStage()==RACE_STAGE_GREATER && game.isFeralContentEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<colour><![CDATA[RACE_BESTIAL]]></colour>
+				<responseTitle><![CDATA[Mare TF]]></responseTitle>
+				<responseTooltip><![CDATA[Get Sterope to touch the beast stone for fifteen minutes, which should be enough to transform her into a feral mare until morning.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_sterope_stables_core]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_STABLES_TRANSFORM_FERAL'))]
+					[#sterope.unequipAllClothingIntoVoid(true, true)]
+					[#sterope.setFeral(SUBSPECIES_HORSE_MORPH)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#sterope.getRaceStage()==RACE_STAGE_GREATER && game.isFeralContentEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<colour><![CDATA[RACE_BESTIAL]]></colour>
+				<responseTitle><![CDATA[Feral TF (both)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getTrueRace()!=RACE_HORSE_MORPH && !pc.isAbleToHaveRaceTransformed())
+						As you're unable to have your race transformed, you cannot transform into a feral #IF(pc.isFeminine())mare#ELSEstallion#ENDIF...
+					#ELSE
+						Get Sterope to touch the beast stone for fifteen minutes, which should be enough to transform her into a feral mare until morning.
+						#IF(pc.getTrueRace()!=RACE_HORSE_MORPH)
+							 As you're not a horse-morph, you'll first drink a transformative potion to turn into one, and then you'll touch the stone so that you transform into a feral #IF(pc.isFeminine())mare#ELSEstallion#ENDIF for the same duration.
+						#ELSE
+							 Join her in touching the stone so that you transform into a feral #IF(pc.isFeminine())mare#ELSEstallion#ENDIF for the same duration.
+						#ENDIF
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF((pc.getTrueRace()!=RACE_HORSE_MORPH && !pc.isAbleToHaveRaceTransformed()))
+						null
+					#ELSE
+						innoxia_places_fields_elis_tavern_taur_sterope_stables_feral
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_STABLES_TRANSFORM_FERAL_BOTH'))]
+					[#sterope.unequipAllClothingIntoVoid(true, true)]
+					[#sterope.setFeral(SUBSPECIES_HORSE_MORPH)]
+					[#pc.unequipAllClothingIntoHoldingInventory(pc, true, true)]
+					[#pc.setFeral(SUBSPECIES_HORSE_MORPH)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sterope_stables_core">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Punishments: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Spanking]]></responseTitle>
+				<responseTooltip><![CDATA[Give Sterope a good, hard spanking.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_stables_core</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_STABLES_SPANKING'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Whipping]]></responseTitle>
+				<responseTooltip><![CDATA[Use the riding crop to give Sterope a thorough whipping.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_stables_core</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_STABLES_WHIPPING'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Degrading talk]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Sterope what a worthless cunt she is.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_stables_core</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_STABLES_DEGRADING'))]
+				]]></effects>
+			</response>
+			<!-- Sex: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Fuck her]]></responseTitle>
+				<responseTooltip><![CDATA[
+					[pc.Step] up behind Sterope and get ready to fuck her...
+					<br/>[style.italicsMinorBad(This BDSM scene will end after sex, so make sure to punish Sterope as much as you want before doing this!)]
+				]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_tavern_taur_sterope]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>sterope</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_FRONT]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_sterope_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/tavern_taur">STEROPE_SEX_START</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Clothing: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Nipple clamps]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(sterope.getClothingInSlot(IS_NIPPLE)!=null)
+						Sterope is already wearing nipple clamps!
+					#ELSE
+						Tease and pinch Sterope's nipples, before attaching nipple clamps to them.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_stables_core</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_STABLES_CLOTHING_NIPPLE_CLAMPS'))]
+					[#sterope.wearNippleClamps()]
+				]]></effects>
+			</response>
+			<!-- Feral variation is 'tack': -->
+				<response>
+					<availabilityConditional><![CDATA[[#sterope.isFeral()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[7]]></index>
+					<responseTitle><![CDATA[Tack]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(sterope.getClothingInSlot(IS_MOUTH)!=null)
+							You've already tacked up Sterope!
+						#ELSE
+							Tack up Sterope by equipping her with a bridle, saddle, and tail wrap.
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_stables_core</nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_STABLES_CLOTHING_TACKED_UP'))]
+						[#sterope.applyTack(pc, sterope)]
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#!sterope.isFeral()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[7]]></index>
+					<responseTitle><![CDATA[Ring gag]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(sterope.getClothingInSlot(IS_MOUTH)!=null)
+							Sterope is already wearing a ring gag!
+						#ELSE
+							Make Sterope suck on your [pc.fingers], before forcing her to wear a ring gag.
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_stables_core</nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_STABLES_CLOTHING_RING_GAG'))]
+						[#sterope.wearRingGag()]
+					]]></effects>
+				</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[8]]></index>
+				<responseTitle><![CDATA[Blindfold]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(sterope.getClothingInSlot(IS_EYES)!=null)
+						Sterope is already wearing a blindfold!
+					#ELSE
+						Put a blindfold on Sterope so that she can't see what's happening.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_stables_core</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_STABLES_CLOTHING_BLINDFOLD'))]
+					[#sterope.wearBlindfold()]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[9]]></index>
+				<responseTitle><![CDATA[Dildo]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(sterope.getClothingInSlot(IS_VAGINA)!=null)
+						Sterope already has a dildo shoved deep in her cunt!
+					#ELSE
+						Use the dildo to fuck Sterope's cunt, making her orgasm before hilting it deep in her pussy.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_stables_core</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_STABLES_CLOTHING_DILDO'))]
+					[#sterope.wearDildo()]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[10]]></index>
+				<responseTitle><![CDATA[Buttplug]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(sterope.getClothingInSlot(IS_ANUS)!=null)
+						Sterope is already wearing a buttplug!
+					#ELSE
+						Use the buttplug to tease Sterope's asshole, before shoving it inside of her.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_stables_core</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_STABLES_CLOTHING_BUTTPLUG'))]
+					[#sterope.wearButtPlug()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sterope_after_sex">
+		<preParsingEffects><![CDATA[
+			[#sterope.applyWash(true, false, SE_CLEANED_SHOWER, 240)]
+			#IF(sterope.isPregnant())
+				[#sterope.useItem(game.getItemGen().generateItem(ITEM_MOTHERS_MILK), sterope, false, true)]
+				[#sterope.useItem(game.getItemGen().generateItem(ITEM_MOTHERS_MILK), sterope, false, true)]
+				[#sterope.useItem(game.getItemGen().generateItem(ITEM_MOTHERS_MILK), sterope, false, true)]
+			#ENDIF
+			#IF(!sterope.isFeral())
+				[#sterope.equipClothing()]
+			#ENDIF
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Having had your fun with Sterope, it's time to bring an end to the sex...]]></tooltip>
+		<content folderPath="txt/places/fields/elis/tavern_taur">STEROPE_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Feral: -->
+				<response>
+					<availabilityConditional><![CDATA[[#pc.isFeral()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Wait]]></responseTitle>
+					<responseTooltip><![CDATA[Wait here in the stables for your feral transformation to end.]]></responseTooltip>
+					<nextDialogue defaultPlaceType="innoxia_fields_elis_tavern_taur_tables"/>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_AFTER_SEX_FERAL_LEAVE'))]
+						[#sterope.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
+						[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_tavern_taur_tables)]
+						[#sterope.setFeral(null)]
+						[#sterope.resetToStartingBody()]
+						[#sterope.equipClothing()]
+						[#pc.setFeral(null)]
+						[#pc.equipAllClothingFromHoldingInventory()]
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#pc.isFeral()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Follow her]]></responseTitle>
+					<responseTooltip><![CDATA[Gallop after Sterope to see where she wants to lead you.]]></responseTooltip>
+					<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_feral_fields</nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_AFTER_SEX_FERAL_FOLLOW'))]
+						[#pc.setRandomLocation(WORLD_TYPE_innoxia_fields_elis_town, WORLD_TYPE_innoxia_fields_elis_town_fields)]
+						[#sterope.setLocation(pc)]
+					]]></effects>
+				</response>
+			
+			<!-- Non-feral: -->
+				<!-- Sterope has been transformed: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!pc.isFeral() && sterope.getRaceStage()==RACE_STAGE_GREATER && !flags.hasFlag(FLAG_innoxia_sterope_fully_furry)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Continue]]></responseTitle>
+					<responseTooltip><![CDATA[Say goodbye to Sterope and return to the tavern.]]></responseTooltip>
+					<nextDialogue defaultPlaceType="innoxia_fields_elis_tavern_taur_tables"/>
+					<effects><![CDATA[
+						[#sterope.resetToStartingBody()]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_AFTER_SEX_LEAVE'))]
+						[#sterope.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
+						[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_tavern_taur_tables)]
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#!pc.isFeral() && sterope.getRaceStage()==RACE_STAGE_GREATER && !flags.hasFlag(FLAG_innoxia_sterope_fully_furry)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Stay transformed]]></responseTitle>
+					<responseTooltip><![CDATA[Tell Sterope not to transform back to her previous form, and to instead remain as a fully furry horse-girl.]]></responseTooltip>
+					<nextDialogue defaultPlaceType="innoxia_fields_elis_tavern_taur_tables"/>
+					<effects><![CDATA[
+						[#flags.setFlag(FLAG_innoxia_sterope_fully_furry, true)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_AFTER_SEX_LEAVE_STAY_TRANSFORMED'))]
+						[#sterope.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
+						[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_tavern_taur_tables)]
+					]]></effects>
+				</response>
+				<!-- No TF actions: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!pc.isFeral() && (sterope.getRaceStage()!=RACE_STAGE_GREATER || flags.hasFlag(FLAG_innoxia_sterope_fully_furry))]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Continue]]></responseTitle>
+					<responseTooltip><![CDATA[Say goodbye to Sterope and return to the tavern.]]></responseTooltip>
+					<nextDialogue defaultPlaceType="innoxia_fields_elis_tavern_taur_tables"/>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_AFTER_SEX_LEAVE'))]
+						[#sterope.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
+						[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_tavern_taur_tables)]
+					]]></effects>
+				</response>
+		</responses>
+	</scene>
+	
+	<!-- Sterope feral: -->
+	
+	<scene id="sterope_stables_feral">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[20]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fuck her]]></responseTitle>
+				<responseTooltip><![CDATA[
+					[pc.Step] up behind Sterope and get ready to fuck her...
+				]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_tavern_taur_sterope_feral]]></id>
+					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>sterope</id>
+							<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_sterope_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/tavern_taur">STEROPE_FERAL_SEX_START</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sterope_feral_fields">
+		<content folderPath="txt/places/fields/elis/tavern_taur">STEROPE_FERAL_FIELDS</content>
+		<secondsPassed minutes="true"><![CDATA[20]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Race]]></responseTitle>
+				<responseTooltip><![CDATA[Having had enough sex for one night, you decide to simply race through the fields with Sterope.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_feral_fields_end</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_FERAL_FIELDS_RACE'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Fuck her]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Chase after Sterope and fuck her...
+				]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_tavern_taur_sterope_feral]]></id>
+					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>sterope</id>
+							<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_sterope_after_sex_feral_fields]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/tavern_taur">STEROPE_FERAL_FIELDS_SEX_START</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sterope_after_sex_feral_fields">
+		<preParsingEffects><![CDATA[
+			[#sterope.applyWash(true, false, null, 0)]
+			#IF(sterope.isPregnant())
+				[#sterope.useItem(game.getItemGen().generateItem(ITEM_MOTHERS_MILK), sterope, false, true)]
+				[#sterope.useItem(game.getItemGen().generateItem(ITEM_MOTHERS_MILK), sterope, false, true)]
+				[#sterope.useItem(game.getItemGen().generateItem(ITEM_MOTHERS_MILK), sterope, false, true)]
+			#ENDIF
+		]]></preParsingEffects>
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Having had your fun with Sterope, it's time to bring an end to the sex...]]></tooltip>
+		<content folderPath="txt/places/fields/elis/tavern_taur">STEROPE_AFTER_SEX_FERAL_FIELDS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Wait]]></responseTitle>
+				<responseTooltip><![CDATA[Wait here in the field for your feral transformation to end.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_feral_fields_end</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_AFTER_SEX_FERAL_FIELDS_LEAVE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sterope_feral_fields_end">
+		<effects><![CDATA[
+			[#sterope.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
+			[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_tavern_taur_tables)]
+			[#sterope.setFeral(null)]
+			[#sterope.resetToStartingBody()]
+			[#sterope.equipClothing()]
+			[#pc.setFeral(null)]
+			[#pc.equipAllClothingFromHoldingInventory()]
+		]]></effects>
+		<content/>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Having had your fun with Sterope, and now transformed back into a regular horse-morph, you're free to continue on your way...]]></responseTooltip>
+				<nextDialogue stripContent="true">default</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_FERAL_FIELDS_END'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Sterope threesome with centaur: -->
+	
+	<scene id="sterope_centaur_submit">
+		<content folderPath="txt/places/fields/elis/tavern_taur">STEROPE_CENTAUR_SUBMIT</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<colour><![CDATA[GENERIC_SEX]]></colour>
+				<responseTitle><![CDATA[Stable]]></responseTitle>
+				<responseTooltip><![CDATA[Allow the centaur to lead you and Sterope to the stable and get ready for some kinky sex.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_centaur_submit_stables</nextDialogue>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town_tavern_taur, PLACE_TYPE_innoxia_fields_elis_town_tavern_taur_stable)]
+					[#sterope.setLocation(pc)]
+					[#centaur.setLocation(pc)]
+					[#flags.setFlag(FLAG_innoxia_sterope_sex, true)]
+					[#sterope.stripForStables()]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Back out]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Sterope and the centaur that you've changed your mind and that you're going to find someone else to be with tonight.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_tavern_taur_tables</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_CENTAUR_SUBMIT_LEAVE'))]
+					[#game.appendToTextStartStringBuilder(sterope.incrementAffection(pc, -5))]
+					[#flags.setFlag(FLAG_innoxia_sterope_with_centaur, true)]
+					[#sterope.setLocation(WORLD_TYPE_innoxia_fields_elis_town_tavern_taur, PLACE_TYPE_innoxia_fields_elis_town_tavern_taur_stable)]
+					[#centaur.setLocation(sterope)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sterope_centaur_submit_stables">
+		<preParsingEffects><![CDATA[
+			[#sterope.applyTransformation()]
+			[#game.getDialogueFlags().setSavedLong('sterope_centaur_punishments', 0)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/tavern_taur">STEROPE_CENTAUR_SUBMIT_STABLES</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Refuse drink]]></responseTitle>
+				<responseTooltip><![CDATA[Don't drink the transformation potion and instead simply submit to be tied up so that you're bent over the table.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_sterope_centaur_submit_stables_core]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_CENTAUR_SUBMIT_STABLES_NO_TF'))]
+					[#pc.unequipAllClothingIntoHoldingInventory(pc, true, false)]
+				]]></effects>
+			</response>
+			<!-- TF into greater horse-girl: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<colour><![CDATA[TRANSFORMATION_GENERIC]]></colour>
+				<responseTitle><![CDATA[Drink potion]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.isAbleToHaveRaceTransformed())
+						Kiss Sterope and allow her to feed you half of the transformation potion, turning you into a greater horse-girl.
+					#ELSE
+						As you cannot have your race transformed, the potion is useless.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.isAbleToHaveRaceTransformed())
+						innoxia_places_fields_elis_tavern_taur_sterope_centaur_submit_stables_core
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_CENTAUR_SUBMIT_STABLES_TF'))]
+					[#pc.unequipAllClothingIntoHoldingInventory(pc, true, false)]
+					[#pc.setBody(GENDER_F_V_B_FEMALE, SUBSPECIES_HORSE_MORPH, RACE_STAGE_GREATER, false)]
+				]]></effects>
+			</response>
+			<!-- TF into feral mares: -->
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_sterope_fully_furry) && game.isFeralContentEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<colour><![CDATA[RACE_BESTIAL]]></colour>
+				<responseTitle><![CDATA[Mare TF]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getTrueRace()!=RACE_HORSE_MORPH && !pc.isAbleToHaveRaceTransformed())
+						As you're unable to have your race transformed, you cannot transform into a feral mare...
+					#ELSE
+						Kiss Sterope and allow her to feed you half of the transformation potion, turning you into a greater horse-girl. Then join Sterope in touching the beast stone for fifteen minutes, which should be enough to transform the two of you into feral mares until morning.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF((pc.getTrueRace()!=RACE_HORSE_MORPH && !pc.isAbleToHaveRaceTransformed()))
+						null
+					#ELSE
+						innoxia_places_fields_elis_tavern_taur_sterope_centaur_submit_stables_feral
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_CENTAUR_SUBMIT_STABLES_FERAL_TF'))]
+					[#sterope.unequipAllClothingIntoVoid(true, true)]
+					[#sterope.setFeral(SUBSPECIES_HORSE_MORPH)]
+					[#pc.unequipAllClothingIntoHoldingInventory(pc, true, true)]
+					[#pc.setBody(GENDER_F_V_B_FEMALE, SUBSPECIES_HORSE_MORPH, RACE_STAGE_GREATER, false)]
+					[#pc.setFeral(SUBSPECIES_HORSE_MORPH)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sterope_centaur_submit_stables_core">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- 3 punishments: -->
+			<response>
+				<availabilityConditional><![CDATA[[#flags.getSavedLong('sterope_centaur_punishments')<3]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Punished]]></responseTitle>
+				<responseTooltip><![CDATA[Tied up and at the mercy of the centaur, all you can do is submit to your punishment.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_centaur_submit_stables_core</nextDialogue>
+				<effects><![CDATA[
+					[#flags.incrementSavedLong('sterope_centaur_punishments', 1)]
+					#IF(flags.getSavedLong('sterope_centaur_punishments')<3)
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_CENTAUR_SUBMIT_STABLES_PUNISHMENT'))]
+					#ELSE
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_CENTAUR_SUBMIT_STABLES_PUNISHMENT_END'))]
+						#IF(RND.nextInt(100)<50)
+							[#flags.setFlag(FLAG_innoxia_sterope_centaur_fucks_sterope_first, true)]
+						#ELSE
+							[#flags.setFlag(FLAG_innoxia_sterope_centaur_fucks_sterope_first, false)]
+						#ENDIF
+					#ENDIF
+				]]></effects>
+			</response>
+			<!-- Sex: -->
+				<!-- Sterope first: -->
+				<response>
+					<availabilityConditional><![CDATA[[#flags.getSavedLong('sterope_centaur_punishments')>=3 && flags.hasFlag(FLAG_innoxia_sterope_centaur_fucks_sterope_first)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Sterope first...]]></responseTitle>
+					<responseTooltip><![CDATA[The centaur decides to rut Sterope first...]]></responseTooltip>
+					<nextDialogue/>
+					<effects/>
+					<sexVariablesWithManager enabled="true">
+						<id><![CDATA[innoxia_elis_tavern_taur_sterope_centaur_sterope]]></id>
+						<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+						<dominants>
+							<character>
+								<id>centaur</id>
+								<slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+							</character>
+						</dominants>
+						<submissives>
+							<character>
+								<id>sterope</id>
+								<slot><![CDATA[OVER_DESK_OVER_DESK_ON_FRONT]]></slot>
+							</character>
+						</submissives>
+						<dominantSpectators/>
+						<submissiveSpectators>
+							<character><![CDATA[pc]]></character>
+						</submissiveSpectators>
+						<postSexDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_sterope_centaur_after_sex]]></postSexDialogue>
+						<sexStartContent folderPath="txt/places/fields/elis/tavern_taur">STEROPE_CENTAUR_SUBMIT_STABLES_SEX_START_STEROPE</sexStartContent>
+						<ongoingActionsAtStart/>
+					</sexVariablesWithManager>
+				</response>
+				<!-- Player first: -->
+				<response>
+					<availabilityConditional><![CDATA[[#flags.getSavedLong('sterope_centaur_punishments')>=3 && !flags.hasFlag(FLAG_innoxia_sterope_centaur_fucks_sterope_first)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[You first...]]></responseTitle>
+					<responseTooltip><![CDATA[The centaur decides to rut you first...]]></responseTooltip>
+					<nextDialogue/>
+					<effects/>
+					<sexVariablesWithManager enabled="true">
+						<id><![CDATA[innoxia_elis_tavern_taur_sterope_centaur_pc]]></id>
+						<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+						<dominants>
+							<character>
+								<id>centaur</id>
+								<slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+							</character>
+						</dominants>
+						<submissives>
+							<character>
+								<id>pc</id>
+								<slot><![CDATA[OVER_DESK_OVER_DESK_ON_FRONT]]></slot>
+							</character>
+						</submissives>
+						<dominantSpectators/>
+						<submissiveSpectators>
+							<character><![CDATA[sterope]]></character>
+						</submissiveSpectators>
+						<postSexDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_sterope_centaur_after_sex]]></postSexDialogue>
+						<sexStartContent folderPath="txt/places/fields/elis/tavern_taur">STEROPE_CENTAUR_SUBMIT_STABLES_SEX_START_PLAYER</sexStartContent>
+						<ongoingActionsAtStart/>
+					</sexVariablesWithManager>
+				</response>
+		</responses>
+	</scene>
+	
+	<scene id="sterope_centaur_after_sex">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[The centaur has had his fun, and so brings an end to the sex...]]></tooltip>
+		<content folderPath="txt/places/fields/elis/tavern_taur">STEROPE_CENTAUR_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Sterope first: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_sterope_centaur_fucks_sterope_first)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Sterope next...]]></responseTitle>
+				<responseTooltip><![CDATA[Having had his fun with you, the centaur moves over to rut Sterope...]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_tavern_taur_sterope_centaur_sterope]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>centaur</id>
+							<slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>sterope</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_FRONT]]></slot>
+						</character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators>
+						<character><![CDATA[pc]]></character>
+					</submissiveSpectators>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_sterope_centaur_after_sex_final]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/tavern_taur">STEROPE_CENTAUR_SUBMIT_STABLES_SEX_START_STEROPE_NEXT</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Player first: -->
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_sterope_centaur_fucks_sterope_first)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[You next...]]></responseTitle>
+				<responseTooltip><![CDATA[Having had his fun with Sterope, the centaur moves over to rut you...]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_tavern_taur_sterope_centaur_pc]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>centaur</id>
+							<slot><![CDATA[OVER_DESK_BETWEEN_LEGS]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_FRONT]]></slot>
+						</character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators>
+						<character><![CDATA[sterope]]></character>
+					</submissiveSpectators>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_sterope_centaur_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/tavern_taur">STEROPE_CENTAUR_SUBMIT_STABLES_SEX_START_PLAYER_NEXT</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sterope_centaur_after_sex_final">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[The centaur has had his fun, and so brings an end to the sex...]]></tooltip>
+		<content folderPath="txt/places/fields/elis/tavern_taur">STEROPE_CENTAUR_AFTER_SEX_FINAL</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Say goodbye to Sterope and return to the tavern.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_tavern_taur_tables"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_CENTAUR_AFTER_SEX_FINAL_LEAVE'))]
+					[#game.banishNPC(centaur)]
+					#IF(sterope.getRaceStage()==RACE_STAGE_GREATER && !flags.hasFlag(FLAG_innoxia_sterope_fully_furry))
+						[#sterope.resetToStartingBody()]
+					#ENDIF
+					[#sterope.equipClothing()]
+					[#pc.equipAllClothingFromHoldingInventory()]
+					[#sterope.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
+					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_tavern_taur_tables)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Sterope feral threesome with centaur: -->
+	
+	<scene id="sterope_centaur_submit_stables_feral">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Tacked up]]></responseTitle>
+				<responseTooltip><![CDATA[The centaur puts tack equipment on both you and Sterope.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_tavern_taur_sterope_centaur_submit_stables_feral_sex</nextDialogue>
+				<effects><![CDATA[
+					[#sterope.applyTack(centaur, sterope)]
+					[#sterope.applyTack(centaur, pc)]
+					#IF(RND.nextInt(100)<50)
+						[#flags.setFlag(FLAG_innoxia_sterope_centaur_fucks_sterope_first, true)]
+					#ELSE
+						[#flags.setFlag(FLAG_innoxia_sterope_centaur_fucks_sterope_first, false)]
+					#ENDIF
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sterope_centaur_submit_stables_feral_sex">
+		<content folderPath="txt/places/fields/elis/tavern_taur">STEROPE_CENTAUR_FERAL_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_sterope_centaur_fucks_sterope_first)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Sterope first...]]></responseTitle>
+				<responseTooltip><![CDATA[The centaur decides to rut Sterope first...]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_tavern_taur_sterope_centaur_feral_sterope]]></id>
+					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+					<dominants>
+						<character>
+							<id>centaur</id>
+							<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>sterope</id>
+							<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+						</character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators>
+						<character><![CDATA[pc]]></character>
+					</submissiveSpectators>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_sterope_centaur_feral_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/tavern_taur">STEROPE_CENTAUR_FERAL_SEX_START_STEROPE</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Player first: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_sterope_centaur_fucks_sterope_first)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[You first...]]></responseTitle>
+				<responseTooltip><![CDATA[The centaur decides to rut you first...]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_tavern_taur_sterope_centaur_feral_pc]]></id>
+					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+					<dominants>
+						<character>
+							<id>centaur</id>
+							<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+						</character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators>
+						<character><![CDATA[sterope]]></character>
+					</submissiveSpectators>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_sterope_centaur_feral_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/tavern_taur">STEROPE_CENTAUR_FERAL_SEX_START_PLAYER</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sterope_centaur_submit_stables_feral_after_sex">
+		<content folderPath="txt/places/fields/elis/tavern_taur">STEROPE_CENTAUR_FERAL_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_sterope_centaur_fucks_sterope_first)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Sterope next...]]></responseTitle>
+				<responseTooltip><![CDATA[Having rutted you, the centaur moves over to fuck Sterope next...]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_tavern_taur_sterope_centaur_feral_sterope]]></id>
+					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+					<dominants>
+						<character>
+							<id>centaur</id>
+							<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>sterope</id>
+							<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+						</character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators>
+						<character><![CDATA[pc]]></character>
+					</submissiveSpectators>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_sterope_centaur_feral_after_sex_final]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/tavern_taur">STEROPE_CENTAUR_FERAL_SEX_START_STEROPE_NEXT</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Player first: -->
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_sterope_centaur_fucks_sterope_first)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[You next...]]></responseTitle>
+				<responseTooltip><![CDATA[Having rutted Sterope, the centaur moves over to fuck you next...]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_elis_tavern_taur_sterope_centaur_feral_pc]]></id>
+					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+					<dominants>
+						<character>
+							<id>centaur</id>
+							<slot><![CDATA[ALL_FOURS_BEHIND]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[ALL_FOURS_ALL_FOURS]]></slot>
+						</character>
+					</submissives>
+					<dominantSpectators/>
+					<submissiveSpectators>
+						<character><![CDATA[sterope]]></character>
+					</submissiveSpectators>
+					<postSexDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_sterope_centaur_feral_after_sex_final]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/elis/tavern_taur">STEROPE_CENTAUR_FERAL_SEX_START_PLAYER_NEXT</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sterope_centaur_feral_after_sex_final">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[The centaur has had his fun, and so brings an end to the sex...]]></tooltip>
+		<content folderPath="txt/places/fields/elis/tavern_taur">STEROPE_CENTAUR_FERAL_AFTER_SEX_FINAL</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Say goodbye to Sterope and return to the tavern.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_tavern_taur_tables"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_taur', 'STEROPE_CENTAUR_FERAL_AFTER_SEX_FINAL_LEAVE'))]
+					[#game.banishNPC(centaur)]
+					[#sterope.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
+					[#sterope.setFeral(null)]
+					[#sterope.resetToStartingBody()]
+					[#sterope.equipClothing()]
+					[#pc.setFeral(null)]
+					[#pc.equipAllClothingFromHoldingInventory()]
+					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_tavern_taur_tables)]
 				]]></effects>
 			</response>
 		</responses>

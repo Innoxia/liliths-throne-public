@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<scene id ="stall">
+		<author><![CDATA[DSG]]></author>			
+		<title><![CDATA[An empty lot]]></title>
+		<tooltip/>				
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/places/fields/elis/market/produce_banished">STALL</content>		
+		<secondsPassed minutes="false"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue><![CDATA[false]]></continuesDialogue>	
+		<travelDisabled><![CDATA[false]]></travelDisabled>	
+		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>	
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responseTabs/>
+		<responses/>
+	</scene>
+	
+</dialogueNodes>

@@ -325,15 +325,17 @@
 		<flag dailyReset="false">elis_enforcers_talk_lunette</flag>
 		<!-- Sterope: -->
 			<flag dailyReset="false">sterope_unlocked</flag>
+			<flag dailyReset="false">sterope_met_in_tavern</flag>
 			<flag resetHour="12">sterope_sex</flag>
 			<flag resetHour="12">sterope_with_centaur</flag>
 			<flag dailyReset="false">sterope_fully_furry</flag>
+			<flag dailyReset="false">sterope_centaur_fucks_sterope_first</flag>
 			
 		
 		
 	
 	
-	<!-- You can ignore this section, I just use it to track the ids of saved long values (using [flags.setSavedLong(id, value)] calls)
+	<!-- You can ignore this section, I just use it to track the ids of saved long values (using [#flags.setSavedLong(id, value)] calls)
 	meraxis_duel_player_wins (Meraxis duel player wins)
 	meraxis_duel_player_losses (Meraxis duel player losses)
 	

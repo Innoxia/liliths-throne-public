@@ -135,12 +135,12 @@
 	
 	<nameHalfDemon>
 		<namesDefault>
-			<name><![CDATA[zahhak]]></name>
-			<namePlural><![CDATA[zahhaks]]></namePlural>
-			<singularMaleName><![CDATA[zahhak]]></singularMaleName>
-			<singularFemaleName><![CDATA[zahhak]]></singularFemaleName>
-			<pluralMaleName><![CDATA[zahhaks]]></pluralMaleName>
-			<pluralFemaleName><![CDATA[zahhaks]]></pluralFemaleName>
+			<name><![CDATA[vritra]]></name>
+			<namePlural><![CDATA[vritras]]></namePlural>
+			<singularMaleName><![CDATA[vritra]]></singularMaleName>
+			<singularFemaleName><![CDATA[vritra]]></singularFemaleName>
+			<pluralMaleName><![CDATA[vritras]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[vritras]]></pluralFemaleName>
 		</namesDefault>
 	</nameHalfDemon>
 	

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<authorTag><![CDATA['MFD by DSG Novelty Co.' is printed around one of the sphere's poles.]]></authorTag>
+		
+		<value>1000</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Mystical Orb of Fate]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Mystical Orbs of Fate]]></namePlural>
+		<description><![CDATA[Supposedly a powerful arcane artefact capable of seeing into the future, it is actually just a novelty toy. Inside its spherical plastic shell, an icosahedral die floats in alcohol. The small window allows the wielder to view a random answer inscribed on the die as it floats up.]]></description> 
+		
+		<useDescriptor>ponder</useDescriptor>
+		
+		<sexUse>false</sexUse>
+		<combatUseAllies>false</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>false</consumedOnUse>
+		
+		<rarity>LEGENDARY</rarity> 
+		
+		<imageName>sm_magicorb.svg</imageName> 
+		
+		<colourPrimary>CLOTHING_BLACK</colourPrimary>
+		<colourSecondary>CLOTHING_BLUE_DARK</colourSecondary>
+		<colourTertiary/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[Answers a yes-or-no question.]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+		<p>
+			A blue triangle floats up into view. Upon its surface, the inscription reads: <i>"[style.random(Certainly|Decidedly|No doubt|Definitely|Count on it|I see it is so|Most likely|A high chance|Yes|Signs are good|Too horny, try again|Try again later|Answer delayed|Uncertain|Masturbate and try again|Doubtful|No|Don't rely on it|Sources say no|Bad signs)]."</i>
+		</p>
+		]]></applyEffects>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] gingerly [npc.verb(shake)] the orb before peering into its murky depths...
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(shake)] the orb before turning the window on it towards [npc2.name] so that [npc2.she] can peer into its murky depths...
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

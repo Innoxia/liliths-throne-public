@@ -35,7 +35,6 @@ import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
-import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -53,7 +52,6 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
@@ -147,7 +145,7 @@ public class Sterope extends NPC {
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, PresetColour.COVERING_BROWN_DARK), true);
 		this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
 		this.setHairStyle(HairStyle.BUN);
-
+		
 		this.setSkinCovering(new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, PresetColour.SKIN_DARK, false, PresetColour.ORIFICE_INTERIOR, false), false);
 
 		this.setHairCovering(new Covering(BodyCoveringType.BODY_HAIR_HUMAN, PresetColour.COVERING_BROWN_DARK), false);
@@ -235,8 +233,6 @@ public class Sterope extends NPC {
 				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_thong", PresetColour.CLOTHING_RED_BURGUNDY, false), true, this);
 				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_strappy_sandals", PresetColour.CLOTHING_RED_BURGUNDY, PresetColour.CLOTHING_TAN, PresetColour.CLOTHING_ROSE_GOLD, false), true, this);
 			}
-			
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_buttPlugs_butt_plug_heart", PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_RED_DARK, null, false), true, this);
 			
 			AbstractClothing choker = Main.game.getItemGen().generateClothing("innoxia_bdsm_choker", PresetColour.CLOTHING_RED_BURGUNDY, PresetColour.CLOTHING_ROSE_GOLD, null, false);
 			choker.setSticker("top_txt", "worthless");
@@ -340,19 +336,17 @@ public class Sterope extends NPC {
 	
 	@Override
 	public void hourlyUpdate(int hour) {
-		// 25% to roll for pregnancy if no sex that evening:
-		if(!Main.game.getDialogueFlags().hasFlag("innoxia_sterope_sex") && this.getWorldLocation()==WorldType.EMPTY) {
-			if(Math.random()<0.25f) {
-				this.rollForPregnancy(Subspecies.CENTAUR, Subspecies.CENTAUR, 1500, true);
-			}
+		if(hour>1 && Main.game.getDialogueFlags().hasFlag("innoxia_sterope_with_centaur")) { // After 1 in the morning, Sterope finishes sex with centaur
 			Main.game.getDialogueFlags().setFlag("innoxia_sterope_sex", true);
-		}
-		if(this.isPregnant() && hour==8) {
-			if(this.hasStatusEffect(StatusEffect.PREGNANT_3)) { // If ready to give birth, gives birth before work
-				this.endPregnancy(true);
-			} else { // Otherwise, uses mother's milk to speed pregnancy along
-				this.useItem(Main.game.getItemGen().generateItem(ItemType.MOTHERS_MILK), this, false, true);
+			try {
+				Main.game.banishNPC((NPC) Main.game.getNPCById("centaur"));
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
+			this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+		}
+		if(this.isPregnant() && hour==8) { // Sterope always gives birth before work
+			this.endPregnancy(true);
 		}
 	}
 	
@@ -404,6 +398,39 @@ public class Sterope extends NPC {
 	
 	// Transform:
 	public void applyTransformation() {
-		
+		this.setBody(Gender.F_V_B_FEMALE, Subspecies.HORSE_MORPH, RaceStage.GREATER, false);
+		setStartingBody(false); // Sets covering colours, breast size, etc.
+	}
+	public void resetToStartingBody() {
+		this.setBody(Gender.F_V_B_FEMALE, Subspecies.HORSE_MORPH, RaceStage.PARTIAL, false);
+		setStartingBody(false); // Sets covering colours, breast size, etc.
+	}
+	
+	// Clothing:
+	public void stripForStables() {
+		for(InventorySlot slot : InventorySlot.getClothingSlots()) {
+			AbstractClothing clothing = this.getClothingInSlot(slot);
+			if(clothing!=null && slot!=InventorySlot.NECK) {
+				this.unequipClothingIntoVoid(clothing, true, this);
+			}
+		}
+	}
+	public void applyTack(GameCharacter equipper, GameCharacter target) {
+		//TODO bridle, saddle, tail wrap
+	}
+	public void wearNippleClamps() {
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("norin_clover_clamps_clover_clamps", PresetColour.CLOTHING_BLACK_STEEL, false), true, this);
+	}
+	public void wearRingGag() {
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_ringgag", PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_RED_BURGUNDY, PresetColour.CLOTHING_STEEL, false), true, this);
+	}
+	public void wearBlindfold() {
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_blindfold", PresetColour.CLOTHING_RED_BURGUNDY, PresetColour.CLOTHING_STEEL, null, false), true, this);
+	}
+	public void wearDildo() {
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("norin_dildos_realistic_dildo", PresetColour.CLOTHING_RED_BURGUNDY, false), true, this);
+	}
+	public void wearButtPlug() {
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_buttPlugs_butt_plug_jewel", PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_RED_BURGUNDY, null, false), true, this);
 	}
 }

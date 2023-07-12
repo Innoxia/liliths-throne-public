@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<encounterRoot>
+	<additionalPlaceTypeTriggers>
+		<placeType>dsg_fields_elis_market_produce</placeType>
+	</additionalPlaceTypeTriggers>
+	
+	<possibleEncounters>
+		<encounter>
+			<name><![CDATA[Another Mob??]]></name>
+			<chanceToTrigger opportunisticEncounter="false"><![CDATA[
+				#IF(game.isSillyMode()
+					&& !flags.hasFlag(FLAG_dsg_elis_eisek_sillymode_mob_dispersed)
+					&& eisek.getLocationPlaceType() == PLACE_TYPE_dsg_fields_elis_market_produce
+					&& pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB)
+					&& (game.getDayNumber() - flags.getSavedLong("elis_eisek_mob_quest_completion_date") >= 3))
+					100
+				#ELSE
+					0
+				#ENDIF
+			]]></chanceToTrigger>
+			<dialogueReturned><![CDATA[dsg_encounters_fields_elis_market_eisek_sillymode_start]]></dialogueReturned>
+		</encounter>
+	</possibleEncounters>
+	
+</encounterRoot>

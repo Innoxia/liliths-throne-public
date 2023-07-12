@@ -1709,7 +1709,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_TOILETS"><![CDATA[
 	<p>
-		The club's toilets are far larger and cleaner than those of a typical nightclub, with at least twenty individual stalls running down one wall. Opposite the stalls, sinks and mirrors provide a place for the club's revellers to clean themselves.
+		The club's toilets are far larger and cleaner than those of a typical nightclub, with at least twenty individual stalls running down one wall. Opposite the stalls, sinks and mirrors provide a place for the club's revellers to clean themselves, while plastered over the far wall there are a few dozen posters.
 	</p>
 	<p>
 		As you walk past one of the open stalls, you see that someone's cut glory holes in the walls to either side, and obscene writing is scrawled beside each one. From the splatters of cum on the floor, you can tell that this stall sees regular use...
@@ -1953,6 +1953,28 @@
 	</p>
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_POSTERS"><![CDATA[
+	<p>
+		[pc.Walking] over to the far side of the room, you stop and take a look at the posters which are plastered all over the wall. Most of them are of a promotional nature, and display images of music bands, the newest cosmetic and clothing brands, or different types of food and drink.
+	</p>
+	<p>
+		A few of these posters have a more sinister nature, however, and you see that they're displaying mug shots of dangerous-looking criminals. Wanted for crimes ranging from robbery and #IF(game.isNonConEnabled())rape#ELSEassault#ENDIF to kidnapping and sedition, the posters promise that these criminals will be caught eventually, and anyone caught aiding them will join them in a punishment of lifetime enslavement.
+	</p>
+	<p>
+		The final poster of any note displays an idyllic scene of a happy family living in the countryside. The writing beneath promises a better life for anyone willing to leave Dominion and take the voyage over the 'Endless Sea' to the land beyond.
+		#IF(game.isPlotDiscovered())
+			 Knowing that this land must be mainland Europe, you can't help but doubt that the emigrating citizens of Dominion will have a life there similar to the one shown on the poster.
+		#ELSE
+			 Taking another look at the scene displayed upon the poster, you can't help but wonder what this promised land is like in reality.
+		#ENDIF
+	</p>
+	<p>
+		Having seen all there is, you [pc.step] away from the posters and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	<htmlContent tag="AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME"><![CDATA[
 	<p>

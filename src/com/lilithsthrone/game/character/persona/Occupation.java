@@ -57,6 +57,7 @@ public enum Occupation {
 	NPC_CASINO_OWNER(Perk.JOB_NPC_SHOP_MANAGER, "casino owner", "[npc.NameIs] the owner of a casino.", OccupationTag.HAS_PREREQUISITES),
 	NPC_BUSINESS_OWNER(Perk.JOB_NPC_SHOP_MANAGER, "business owner", "[npc.NameIs] the owner of their own business.", OccupationTag.HAS_PREREQUISITES),
 	NPC_TAVERN_OWNER(Perk.JOB_NPC_SHOP_MANAGER, "tavern owner", "[npc.NameIs] the owner of a tavern.", OccupationTag.HAS_PREREQUISITES),
+	NPC_FARMER(Perk.JOB_NPC_FARMER, "farmer", "[npc.NameIs] a farmer.", OccupationTag.HAS_PREREQUISITES),
 	
 	REINDEER_OVERSEER(Perk.JOB_NPC_REINDEER_OVERSEER, "overseer", "[npc.NameIs] an overseer of one of the reindeer workgangs which migrate to Dominion during the winter.", OccupationTag.HAS_PREREQUISITES),
 

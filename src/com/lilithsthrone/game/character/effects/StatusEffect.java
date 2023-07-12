@@ -8532,6 +8532,33 @@ public class StatusEffect {
 		}
 	};
 	
+	public static AbstractStatusEffect SET_SUBMISSIVE_STEED = new AbstractStatusEffect(70,
+			"Domesticated Beast",
+			"clothingSets/submissive_steed",
+			PresetColour.CLOTHING_STEEL,
+			true,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 5f),
+					new Value<>(Attribute.RESISTANCE_LUST, -5f)),
+			null) {
+		@Override
+		public StatusEffectCategory getCategory() {
+			return StatusEffectCategory.INVENTORY;
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				return UtilText.parse(target, "By wearing a full set of tack, [npc.name] [npc.verb(find)] [npc.herself] feeling like a loyal, submissive beast, and [npc.verb(want)] to work hard for [npc.her] owner!");
+			} else {
+				return "";
+			}
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return SetBonus.getSetBonusFromId("innoxia_submissive_steed").isCharacterWearingCompleteSet(target);
+		}
+	};
+	
 	public static AbstractStatusEffect CLOTHING_EFFECT = new AbstractStatusEffect(70,
 			"clothing effects",
 			"combatHidden",
