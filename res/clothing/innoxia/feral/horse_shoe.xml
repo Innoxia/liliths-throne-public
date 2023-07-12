@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+
+<clothing>
+  <coreAttributes>
+    <value>500</value>
+    <determiner><![CDATA[a set of]]></determiner>
+    <name><![CDATA[horseshoe]]></name>
+    <namePlural pluralByDefault="true"><![CDATA[horseshoes]]></namePlural>
+    <description><![CDATA[A set of four horseshoes. Although they're of the right shape and size to fit an anthro, an enchantment placed upon them repels them from anything other than feral hoofs.]]></description>
+
+    <physicalResistance>0</physicalResistance>
+    <femininity>ANDROGYNOUS</femininity>
+    <slot>FOOT</slot>
+    <rarity>EPIC</rarity>
+	<clothingSet>innoxia_submissive_steed</clothingSet>
+    <imageName>horse_shoe.svg</imageName>
+    <imageEquippedName/>
+
+	
+	<effects>
+		<effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="TF_MOD_FETISH_BEHAVIOUR" secondaryModifier="TF_MOD_FETISH_MASOCHIST" timer="0"/>
+	</effects>
+
+    <blockedPartsList>
+      <blockedParts>
+        <displacementType>REMOVE_OR_EQUIP</displacementType>
+        <clothingAccessRequired/>
+		<blockedBodyParts/>
+		<clothingAccessBlocked/>
+        <concealedSlots/>
+      </blockedParts>
+    </blockedPartsList>
+
+    <incompatibleSlots/>
+
+	<primaryColours values="JUST_STEEL"/>
+	<primaryColoursDye values="ALL_METAL"/>
+	<secondaryColours/>
+	<secondaryColoursDye/>
+	<tertiaryColours/> 
+	<tertiaryColoursDye/>
+			
+    <itemTags>
+		<tag>FITS_HOOFS_EXCLUSIVE</tag>
+		<tag>FITS_TAUR_BODY</tag>
+		<tag>SOLD_BY_FINCH</tag>
+    </itemTags>
+
+  </coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(step)] onto the horseshoes, at which point their arcane enchantment activates, attaching themselves securely to [npc.her] hoofs.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(direct)] [npc2.name] to step onto the horseshoes, at which point their arcane enchantment activates, attaching themselves securely to [npc2.her] hoofs.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(force)] [npc2.name] to step onto the horseshoes, at which point their arcane enchantment activates, attaching themselves securely to [npc2.her] hoofs.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(stomp)] [npc.her] hoofs against the ground, forcing the horseshoes to undo their enchantment and fall off.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(direct)] [npc2.name] to stomp [npc2.her] hoofs against the ground, which forces the horseshoes to undo their enchantment and fall off.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] impatiently [npc.verb(order)] [npc2.name] to stomp [npc2.her] hoofs against the ground, which forces the horseshoes to undo their enchantment and fall off.]]>
+		</otherRough>
+	</displacementText>
+
+</clothing>

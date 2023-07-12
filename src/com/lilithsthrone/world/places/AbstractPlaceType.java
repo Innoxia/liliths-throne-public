@@ -738,7 +738,7 @@ public class AbstractPlaceType {
 	}
 	
 	public String getSexBlockedReason(GameCharacter character) {
-		if(this.isFromExternalFile()) {
+		if(this.isFromExternalFile() && sexBlockedReason!=null) {
 			return UtilText.parse(character, sexBlockedReason);
 		}
 		return sexBlockedReason;

@@ -1001,7 +1001,7 @@
 					<br/>[style.italicsGood(Cleans <b>a maximum of [style.fluid(500)]</b> of fluids from all orifices.)]
 					<br/>[style.italicsGood(This will clean <b>only</b> your currently equipped clothing.)]
 				]]></responseTooltip>
-				<responses stripContent="true" copyFromDialogueId="innoxia_places_dominion_shopping_arcade_gym_showers"/>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_dominion_shopping_arcade_gym_showers]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/shoppingArcade/pixsPlayground', 'SHOWERS_QUICK'))]
@@ -1017,7 +1017,7 @@
 					<br/>[style.italicsExcellent(This will clean <b>all</b> fluids out of all your orifices.)]
 					<br/>[style.italicsGood(This will clean <b>only</b> your currently equipped clothing.)]
 				]]></responseTooltip>
-				<responses stripContent="true" copyFromDialogueId="innoxia_places_dominion_shopping_arcade_gym_showers"/>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_dominion_shopping_arcade_gym_showers]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[20]]></secondsPassed>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/shoppingArcade/pixsPlayground', 'SHOWERS_THOROUGH'))]

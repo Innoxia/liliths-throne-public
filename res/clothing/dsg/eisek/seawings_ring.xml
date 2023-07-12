@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	
+	<coreAtributes>
+	
+		<authorTag><![CDATA["Made by the DSG Jewellers Guild" is engraved on the bridge behind the gemstone.]]></authorTag>
+		
+		<value>500000</value>
+		
+		<determiner><![CDATA[]]></determiner>
+		
+		<name appendColourName="false"><![CDATA[Eisek's Ring]]></name>
+		
+		<namePlural pluralByDefault="false"><![CDATA[Eisek's Rings]]></namePlural>
+		
+		<description><![CDATA[A strange piece of jewellery with an inscription in an unknown language inside the band. It looks very old and you feel like the eye-shaped gem in the middle is watching you.]]></description>
+		
+		<physicalResistance>0</physicalResistance>
+		
+		<femininity>ANDROGYNOUS</femininity>
+		
+		<slot>FINGER</slot>
+		
+		<rarity>QUEST</rarity>
+		
+		<clothingSet/>
+		
+		<imageName>seawings_ring.svg</imageName>
+		
+		<imageEquippedName/>
+		
+		<enchantmentLimit/>
+		
+		<stickers>
+			<category id="inscription" priority="1"> 
+				<categoryName><![CDATA[Inscription]]></categoryName> 
+				<sticker id="none" priority="0" defaultSticker="true" zLayer="1" colourSelected=""> 
+					<stickerName><![CDATA[None]]></stickerName>
+					<namePrefix priority="1"><![CDATA[]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="scratches" priority="1" defaultSticker="false" zLayer="1" colourSelected="55a2d5"> 
+					<stickerName><![CDATA[Scratches]]></stickerName> 
+					<namePrefix/> 
+					<namePostfix/> 
+					<descriptionModification fullReplacement="true" priority="1"><![CDATA[A rare example of pre-Dragonfall craftsmanship, this ring was given by Lisophia to those she considered especially loyal. Considered by most modern dragons to be a symbol of slavery, they are nonetheless kept by a few as family heirlooms to remind them of mistakes committed in an ancient age. The inscription once read "faithful servant" but [eisek.Name] has scratched out the word "servant", turning the grim artefact into a symbol of hope for a future spent at your side.]]></descriptionModification> 
+					<imageName zLayer="1">seawings_ring_st_scratch.svg</imageName> 					
+					<itemTagsAdded/> 
+					<itemTagsRemoved/> 
+					<unavailabilityText showDisabledButton="false"><![CDATA[
+							unavailable
+					]]></unavailabilityText> 
+					<availabilityText><![CDATA[
+						Part of the inscription has been scratched out.
+					]]></availabilityText> 
+				</sticker>
+			</category>
+		</stickers>
+		
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>FINGERS</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots></incompatibleSlots>
+		
+		<primaryColours values="JUST_GOLD"/>
+		<primaryColoursDye values="ALL_METAL"/>
+		<secondaryColours>
+			<colour>CLOTHING_BLUE</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours>
+			<colour>CLOTHING_BLACK</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL_WITH_METAL"/>
+		
+		<itemTags> 
+			<tag>NOT_FOR_SALE</tag>
+			<tag>NO_RANDOM_SPAWN</tag>
+			<tag>UNENCHANTABLE</tag>
+		</itemTags>
+	</coreAtributes>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(slip)] the ring onto [npc.her] [npc.finger].]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(slip)] the ring onto [npc2.namePos] [npc2.finger].]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(force)] the ring onto [npc2.namePos] [npc2.finger].]]>
+		</otherRough>
+	</replacementText>
+	
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(slip)] [npc.her] ring off [npc.her] [npc.finger].]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(slip)] [npc2.namePos] ring off [npc2.her] [npc2.finger].]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(yank)] [npc2.namePos] ring off [npc2.her] [npc2.finger].]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

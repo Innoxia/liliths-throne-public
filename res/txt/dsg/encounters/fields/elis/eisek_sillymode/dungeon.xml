@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	<!-- COMBAT -->
+		
+	<htmlContent tag="COMBAT"><![CDATA[
+	<p>
+		As you make your way through the dungeon, the wall suddenly slides opens and out steps a figure clad in what appears to be cardboard shaped into a crude breastplate and armed with a cardboard sword.
+	</p>
+	<p>
+		[npc.speech(Halt, intruder! You may have gotten this far, but you will get no further! I'll see to that,)] [npc.name] says. The passage is too narrow for you to go around and even if you ran you wouldn't get far in the confines of this basement. You're going to have to go through [npc.herHim]!
+	</p>
+	]]>
+	</htmlContent>
+
+	<!-- COMBAT_WON -->
+
+	<htmlContent tag="COMBAT_WON"><![CDATA[
+	<p>
+		[npc.Name] makes a gratuitous show of collapsing and lays motionless for moment. Just as you're wondering if [npc.she]'s truly unconscious, [npc.she] suddenly springs to her [npc.feet] as if nothing had just happened.
+	</p>
+	<p>
+		[npc.speech(Well fought! Hope you're keeping track on your character sheet,)] [npc.she] says as the wall slides open once again. [npc.She] walks into the darkness behind the walls again and it closes before you can follow along.
+	</p>
+	]]>
+	</htmlContent>
+
+	<!-- COMBAT_LOST -->
+
+	<htmlContent tag="COMBAT_LOST"><![CDATA[
+	<p>
+		[npc.Name] twirls [npc.her] sword around for a moment before poking you in the stomach with it. [npc.speech(Ha ha! Victory is mine!)] [npc.she] says as [npc.she] writes something down on a piece of paper before the wall slides open again. [npc.She] walks into the darkness behind the walls again and it closes, leaving you to recover.
+	</p>
+	]]>
+	</htmlContent>
+
+	<!-- BOSS -->
+
+	<htmlContent tag="BOSS"><![CDATA[
+	<p>
+		As you enter the next room, you notice that it's better decorated and more ornate than all the others, but is still just as poorly lit. Skulls, cobweb-covered tomes, and other appropriately macabre items are drawn upon the walls behind a sparse scattering of real props. There's a ladder in the corner leading up to somewhere, but it's too dark to see where. In the centre of the room is a marble pedestal atop of which sits a shiny black orb which at first glance appears to be a genuine arcane artefact!
+	</p>
+	<p>
+		A hooded and cloaked figure emerges from the shadows. You recognise him as the same scrawny human from the market! [test.speechMasculine(So, bested all my warriors, have you? But you'll not best me, not when I have the Orb of Mystic Fate,)] he says as he picks up the black orb. He seems to mean business. This might be the first person in this dungeon you'll actually have to fight!
+	</p>
+	<p>
+		The cloaked human raises the orb and begins some kind of incantation, [test.speechMasculine(O Orb of Mystic Fate, scryer of all, burn a path through-)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- BOSS_TWO -->
+
+	<htmlContent tag="BOSS_TWO"><![CDATA[
+	<p>
+		[test.speechFeminine(Sweetie! I brought your retainer!)]
+	</p>
+	<p>
+		The unknown, mature, feminine voice emanates from above you, interrupting the incantation. A hatch in the ceiling opens, allowing a blinding light to flood the room. You can only see the faintest outline of a bipedal form in the light. [test.speechFeminine(Tell your friends goodbye, you can play more tomorrow,)] the voice continues.
+	</p>
+	<p>
+		The cloaked figure attempts to bargain, [test.speechMasculine(Aww, but Mum, we were just starting the boss battle!)]
+	</p>
+	<p>
+		His attempt is immediately shut down as the voice from above shoots back, [test.speechFeminine(Don't you talk to your mother like that, young man! Get back up here this instant!)]
+	</p>
+	<p>
+		[test.speechMasculine(Uuugh, fine! You never let me do anything fun,)] he says, placing the black orb back onto the pedestal and taking the ladder out of the basement. The hatch slams shut and you're left in darkness again.
+	</p>
+	<p>
+		Now that you're alone in the dark again, curiosity about the orb gets the better of you and pick it up off the pedestal to examine it more closely. Upon closer inspection, the pedestal is actually a birdbath and the orb is one of those "fortune telling" novelty toys made from plastic. It's something at least...
+	</p>
+	]]>
+	</htmlContent>
+</dialogue>

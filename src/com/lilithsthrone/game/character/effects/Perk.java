@@ -560,6 +560,29 @@ public class Perk {
 			return UtilText.parse(owner, "[npc.NamePos] training has given [npc.herHim] some defence against Lilith's forces.");
 		}
 	};
+	
+	public static AbstractPerk JOB_NPC_FARMER = new AbstractPerk(20,
+			true,
+			"Feeding the World",
+			PerkCategory.JOB,
+			"perks/jobs/npc_farmer",
+			PresetColour.DAMAGE_TYPE_PHYSICAL,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 10),
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 5),
+					new Value<>(Attribute.RESISTANCE_FIRE, 1),
+					new Value<>(Attribute.RESISTANCE_ICE, 1)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"#IF(!game.isSillyMode())"
+						+ "The back-breaking work required to make fields bloom has made [npc.name] strong and tough. [npc.She] is also no stranger to the biting cold or the scorching sun."
+					+ "#ELSE"
+						+ "[npc.NameHasFull] a brand new combine harvester and [npc.she]'ll give you the key, but only after driving [npc.her] tractor through your haystack, ooar-ooar!"
+					+ "#ENDIF");
+		}
+	};
 
 	public static AbstractPerk JOB_NPC_OFFICE_WORKER = new AbstractPerk(20,
 			true,
@@ -1557,6 +1580,25 @@ public class Perk {
 			return UtilText.parse(owner, "[npc.NameHasFull] spent a good deal of time working on improving [npc.her] ability to counter physical attacks.");
 		}
 	};
+
+	public static AbstractPerk HYPERMOBILITY = new AbstractPerk(20,
+			false,
+			"hypermobility",
+			PerkCategory.PHYSICAL,
+			"perks/hypermobility",
+			PresetColour.BASE_WHITE,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.CRITICAL_DAMAGE, 15)),
+			Util.newArrayListOfValues(
+					"[style.colourExcellent(Unlocks)] autofellatio and autocunnilingus [style.colourSex(sex actions)] while in a non-taur form")) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NameIsFull] exceptionally flexible, allowing [npc.herHim] to strike from completely unexpected angles."
+					+ " As [npc.sheIs] able to bend all the way down until [npc.her] head touches [npc.her] groin, [npc.sheIs] able to perform oral on [npc.herself].");
+		}
+	};
 	
 	public static AbstractPerk SPELL_DAMAGE = new AbstractPerk(20,
 			false,
@@ -2310,12 +2352,12 @@ public class Perk {
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.Name] [npc.verb(love)] a good brawl, and is a fearsome opponent in unarmed combat.");
+			return UtilText.parse(owner, "[npc.Name] [npc.verb(love)] a good brawl, and [npc.is] a fearsome opponent in unarmed combat.");
 		}
 	};
 
 	public static AbstractPerk FEMALE_ATTRACTION = new AbstractPerk(60,
-			true,
+			false,
 			"ladykiller",
 			PerkCategory.LUST,
 			"perks/fitness_female_attraction",
@@ -2340,7 +2382,7 @@ public class Perk {
 	};
 
 	public static AbstractPerk MALE_ATTRACTION = new AbstractPerk(60,
-			true,
+			false,
 			"minx",
 			PerkCategory.LUST,
 			"perks/fitness_male_attraction",
@@ -2995,6 +3037,27 @@ public class Perk {
 		}
 	};
 	
+	public static AbstractPerk SPECIAL_CHILD_OF_THE_CRAG = new AbstractPerk(20,
+			true,
+			"Child of the Crag",
+			PerkCategory.PHYSICAL_WATER,
+			"perks/cragchild",
+			PresetColour.DAMAGE_TYPE_COLD,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.DAMAGE_ICE, 30),
+					new Value<>(Attribute.RESISTANCE_ICE, 50),
+					new Value<>(Attribute.RESISTANCE_FIRE, -15)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "The blood of Cimryth runs through [npc.namePos] veins and [npc.she] is long inured to the cold of living so high up in the mountains. However, being so removed from [npc.her] desert kin has lessened [npc.her] natural resistance to fire.");
+		}
+		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	};
 	
 	//**** Special perks which can be gained from in-game events: ****//
 

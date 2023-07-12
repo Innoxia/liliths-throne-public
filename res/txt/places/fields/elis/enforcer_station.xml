@@ -45,11 +45,6 @@
 		<p>
 			Sterope says hello.
 		</p>
-		#IF(sterope.isVisiblyPregnant())
-			<p>
-				Sterope is sporting a visibly [style.colourSex(pregnant belly)].
-			</p>
-		#ENDIF
 		#IF(sterope.getTotalTimesHadSex(pc)>0)
 			<p>
 				She sternly warns you not to mention her private life while she's at work.
@@ -57,7 +52,7 @@
 		#ENDIF
 	#ELSE
 		<p>
-			The receptionist says hello and introduces herself as Sterope. Her stomach is massively swollen, making it clear that she's heavily pregnant and ready to give birth.
+			The receptionist says hello and introduces herself as Sterope.
 		</p>
 	#ENDIF
 	]]>

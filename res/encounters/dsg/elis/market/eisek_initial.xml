@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<encounterRoot>
+	<additionalPlaceTypeTriggers>
+		<placeType>dsg_fields_elis_market_produce</placeType>
+	</additionalPlaceTypeTriggers>
+	
+	<possibleEncounters>
+		<encounter>
+			<name><![CDATA[Heckling A Dragon]]></name>
+			<chanceToTrigger opportunisticEncounter="false"><![CDATA[
+				#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_introduced) && eisek.getLocationPlaceType() == PLACE_TYPE_dsg_fields_elis_market_produce)
+					100
+				#ELSE
+					0
+				#ENDIF
+			]]></chanceToTrigger>
+			<dialogueReturned><![CDATA[dsg_encounters_fields_elis_market_eisek_initial_start]]></dialogueReturned>
+		</encounter>
+	</possibleEncounters>
+	
+</encounterRoot>

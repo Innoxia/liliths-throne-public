@@ -161,15 +161,6 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Enter]]></responseTitle>
-				<responseTooltip><![CDATA[Head inside the Enforcer station...<br/>[style.italicsMinorBad(This will be added soon!)]]]></responseTooltip>
-				<nextDialogue><![CDATA[null]]></nextDialogue>
-			</response>
-			<!-- TODO: -->
-			<response>
-				<availabilityConditional><![CDATA[false]]></availabilityConditional>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Enter]]></responseTitle>
 				<responseTooltip><![CDATA[
 					#IF(game.isHourBetween(8, 20))
 						Head inside the Enforcer station...

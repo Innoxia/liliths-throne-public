@@ -1778,6 +1778,226 @@ public enum Quest {
 		}
 	},
 
+	//Eisek Quests
+	
+	EISEK_STALL_QUEST_STAGE_ONE(QuestType.SIDE,
+			1,
+			10) {
+		@Override
+		public String getName() {
+			return "Gathering Materials";
+		}
+		@Override
+		public String getDescription() {
+			return "You've learned what Eisek needs to fix up his stall, as well as what he would like on a new sign. Now you just need to gather some materials from the merchants around town for a nice surprise. Maybe there's one that deals in fabric?";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You've ordered a new sign and some bolts of cloth from Monica.";
+		}
+	},
+	
+	EISEK_STALL_QUEST_STAGE_TWO(QuestType.SIDE,
+			1,
+			10) {
+		@Override
+		public String getName() {
+			return "Need an Awning Here";
+		}
+		@Override
+		public String getDescription() {
+			return "While you're waiting for Monica to finish your order, you need to find some wooden poles for the awning. Perhaps the local smithy could modify the haft of a polearm could be modified somehow?";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You've placed an order with Imsu and Hale for some modified axe hafts.";
+		}
+	},
+	
+	EISEK_STALL_QUEST_STAGE_THREE(QuestType.SIDE,
+			1,
+			10) {
+		@Override
+		public String getName() {
+			return "It's All Coming Together";
+		}
+		@Override
+		public String getDescription() {
+			return "You should check back in with Hale in a day and Monica in three days to see if your order is ready yet.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You've gathered all the materials.";
+		}
+	},
+	
+	EISEK_STALL_QUEST_STAGE_FOUR(QuestType.SIDE,
+			1,
+			10) {
+		@Override
+		public String getName() {
+			return "Putting it all together";
+		}
+		@Override
+		public String getDescription() {
+			return "You have what you need to improve Eisek's stall. Tell him about it the next time you see him.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "As far as you could tell, Eisek was overjoyed at what you've done for him and his stall looks better than ever.";
+		}
+	},
+	
+	EISEK_MOB_QUEST_STAGE_ONE(QuestType.SIDE,
+			10,
+			25) {
+		@Override
+		public String getName() {
+			return "One against Many";
+		}
+		@Override
+		public String getDescription() {
+			return "Eisek explained why there was a mob hounding him, but he doesn't know much about them. If you want to make sure they don't come back, you'll have to find them and confront them."
+					+ "<br/>As they seemed to be comprised of locals, maybe a search around town will do the trick.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Through a bit of luck and the mob putting up a big colourful poster, you've found and entered their meeting place.";
+		}
+	},
+	
+	EISEK_MOB_QUEST_STAGE_TWO(QuestType.SIDE,
+			10,
+			100) {
+		@Override
+		public String getName() {
+			return "Leave the Dragon Alone!";
+		}
+		@Override
+		public String getDescription() {
+			return "You've found where the mob has been meeting. Time to handle them!";
+		}
+		@Override
+		public String getCompletedDescription() {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_mob_quest_intimidate"))) {
+			    return "You decided to try and convince the mob to leave Eisek alone with your intimidating physique.";
+			} else if (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_mob_quest_intimidate_arcane"))) {
+			    return "You decided to try and convince the mob to leave Eisek alone with your arcane prowess.";
+			} else if (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_mob_quest_persuade"))) {
+			    if(!Main.game.isSillyModeEnabled()) {
+			    	return "You convinced the mob to leave Eisek alone with a heartfelt speech.";
+			    } else {
+			    	return "You destroyed the mob's arguments with FACTS and LOGIC.";
+			    }
+			} else if (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_mob_quest_seduce"))) {
+			    return "You convinced the mob to leave Eisek alone by using your mastery of lust magic to fuel an orgy.";
+			} else {
+			    return "You weren't able to convince the mob to leave Eisek alone.";
+			}
+		}
+	},
+	
+	EISEK_MOB_QUEST_STAGE_TWO_FAILED(QuestType.SIDE,
+			10,
+			0) {
+		@Override
+		public String getName() {
+			return "Tossed Out";
+		}
+		@Override
+		public String getDescription() {
+			return "You weren't able to convince the mob to leave Eisek alone. You should return to him with the bad news now that you weren't able to handle the mob.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You weren't able to convince the mob to leave Eisek alone.";
+		}
+	},
+	
+	EISEK_MOB_QUEST_STAGE_THREE_FAILED(QuestType.SIDE,
+			10,
+			0) {
+		@Override
+		public String getName() {
+			return "Bad News";
+		}
+		@Override
+		public String getDescription() {
+			return "";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Although he tried to hide it, Eisek seemed upset that the mob is still somewhere out there plotting against him.";
+		}
+	},
+	
+	EISEK_MOB_QUEST_STAGE_THREE(QuestType.SIDE,
+			10,
+			250) {
+		@Override
+		public String getName() {
+			return "Good News";
+		}
+		@Override
+		public String getDescription() {
+			return "You should return to Eisek with the good news now that you've handled the mob.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Although he tried to hide it, Eisek seemed pretty happy that the mob will now leave him alone. You even got some rare Dragonfruit.";
+		}
+	},
+	
+	EISEK_SILLYMODE_QUEST_STAGE_ONE(QuestType.SIDE,
+			1,
+			10) {
+		@Override
+		public String getName() {
+			return "Strange Crowd";
+		}
+		@Override
+		public String getDescription() {
+			return "You encountered a different sort of mob that was weirdly obsessed with Eisek. It ultimately came to nothing but you've decided to see what these strange people were all about.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You've entered some sort of basement where they've gathered.";
+		}
+	},
+	
+	EISEK_SILLYMODE_QUEST_STAGE_TWO(QuestType.SIDE,
+			1,
+			10) {
+		@Override
+		public String getName() {
+			return "Darkest Dungeon";
+		}
+		@Override
+		public String getDescription() {
+			return "You've followed the basement dwellers back to their basement and decided to have a look inside. Unfortunately they didn't appreciate your trespassing very much and have blocked off the way you came.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You're nearly at the exit, only one obstacle remains...";
+		}
+	},
+	
+	EISEK_SILLYMODE_QUEST_STAGE_THREE(QuestType.SIDE,
+			1,
+			10) {
+		@Override
+		public String getName() {
+			return "Dungeon Cleared";
+		}
+		@Override
+		public String getDescription() {
+			return "Having defeated the leader of this strange group, all that's left for you to leave.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You've successfully escaped the dungeon and shown a bunch of nerds who is the boss.";
+		}
+	},
 	
 	// Fetching beer barrels for Oglix:
 	
