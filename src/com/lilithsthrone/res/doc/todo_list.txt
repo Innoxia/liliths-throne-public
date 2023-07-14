@@ -555,6 +555,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] developers chat
 		[] PR
 	
+	[] gential slit option
+	
 	[] main quest
 		[] SWORD group in room at end of corridor - just over a dozen of them
 			[] Two leaders who are in late 60's
