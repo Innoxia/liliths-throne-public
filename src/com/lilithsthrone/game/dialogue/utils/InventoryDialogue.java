@@ -6746,7 +6746,7 @@ public class InventoryDialogue {
 							?"<div class='inventoryImage' style='width:100%;'>"
 								+ "Equipped"
 									+ "<div class='inventoryImage-content'>"
-										+ weapon.getWeaponType().getSVGEquippedImage(damageTypePreview, dyePreviews)
+										+ weapon.getWeaponType().getSVGEquippedImage(Main.game.getPlayer(), damageTypePreview, dyePreviews)
 									+ "</div>"
 								+ "</div>"
 							:"")

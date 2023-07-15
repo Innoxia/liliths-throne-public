@@ -6,6 +6,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
+	Engine/Modding:
+		The 'imageEquippedName' element in clothing and weapon files now supports parsing, allowing you to change the equipped icon based on who's got it equipped (using 'npc' as the parsing target for the character who's equipping it).
+	
 	Clothing:
 		The 'horseshoes' item is no longer limited to taurs, and is instead only restricted to characters with hoofs.
 	
@@ -13,6 +16,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed bug where you couldn't access your key items page in your inventory.
 		Unique items on the floor or in NPCs' inventories are now correctly placed in their unique items tab instead of being mixed in with all other items.
 		When clicking on an item in the 'Items Present' section on the right of the UI, the inventory will now open on the correct page for the item that's been clicked on.
+		Fixed bug where clicking on the item at the very bottom-right of the inventory grid would change the inventory page to the next one.
 	
 	
 	
@@ -22,9 +26,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[x] floor
 			[x] NPC
 		[x] when opening inventory via clicking on item on right, page is not set
-	
-	[] modifying the horseshoes to where you can also put them on bipedal hooves
-		[] need variation of image based on character -> bipedal should show two
+	[x] page switch not working - final item clicks to next screen
+	[x] modifying the horseshoes to where you can also put them on bipedal hooves
+		[x] cannot equip to feral
+		[x] need variation of image based on character -> bipedal should show two
 	
 	[] add an option to reset virginity loss information into the debug menu
 	

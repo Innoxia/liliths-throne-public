@@ -14,7 +14,13 @@
     <rarity>EPIC</rarity>
 	<clothingSet>innoxia_sturdy_steed</clothingSet>
     <imageName>horse_shoe.svg</imageName>
-    <imageEquippedName/>
+    <imageEquippedName><![CDATA[
+		#IF(npc.isTaur())
+			horse_shoe.svg
+		#ELSE
+			horse_shoe_pair.svg
+		#ENDIF
+	]]></imageEquippedName>
 
 	
 	<effects>
@@ -43,6 +49,7 @@
 			
     <itemTags>
 		<tag>FITS_HOOFS_EXCLUSIVE</tag>
+		<tag>FITS_FERAL_QUADRUPED_BODY</tag>
 		<tag>SOLD_BY_FINCH</tag>
     </itemTags>
 

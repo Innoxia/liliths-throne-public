@@ -224,7 +224,7 @@ public enum RenderingEngine {
 			String weaponCount = getThrownWeaponCountDiv(depletedWeapon, 0);
 			equippedPanelSB.append(
 					"<div class='inventory-item-slot" + getClassRarityIdentifier(depletedWeapon.getRarity()) + "' style='"+weaponStyle+"'>"
-						+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated()+"</div>"
+						+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated(charactersInventoryToRender)+"</div>"
 						+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_MAIN_1.toString() + "Slot'>"+weaponCount+"</div>"
 					+ "</div>");
 			
@@ -249,7 +249,7 @@ public enum RenderingEngine {
 				String weaponCount = getThrownWeaponCountDiv(depletedWeapon, 0);
 				equippedPanelSB.append(
 						"<div class='inventory-item-slot" + getClassRarityIdentifier(depletedWeapon.getRarity()) + "' style='"+weaponStyle+"'>"
-							+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated()+"</div>"
+							+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated(charactersInventoryToRender)+"</div>"
 							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_MAIN_2.toString() + "Slot'>"+weaponCount+"</div>"
 						+ "</div>");
 				
@@ -272,7 +272,7 @@ public enum RenderingEngine {
 				String weaponCount = getThrownWeaponCountDiv(depletedWeapon, 0);
 				equippedPanelSB.append(
 						"<div class='inventory-item-slot" + getClassRarityIdentifier(depletedWeapon.getRarity()) + "' style='"+weaponStyle+"'>"
-							+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated()+"</div>"
+							+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated(charactersInventoryToRender)+"</div>"
 							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_MAIN_3.toString() + "Slot'>"+weaponCount+"</div>"
 						+ "</div>");
 				
@@ -298,7 +298,7 @@ public enum RenderingEngine {
 			String weaponCount = getThrownWeaponCountDiv(depletedWeapon, 0);
 			equippedPanelSB.append(
 					"<div class='inventory-item-slot" + getClassRarityIdentifier(depletedWeapon.getRarity()) + "' style='"+weaponStyle+"'>"
-						+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated()+"</div>"
+						+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated(charactersInventoryToRender)+"</div>"
 						+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_OFFHAND_1.toString() + "Slot'>"+weaponCount+"</div>"
 					+ "</div>");
 			
@@ -325,7 +325,7 @@ public enum RenderingEngine {
 				String weaponCount = getThrownWeaponCountDiv(depletedWeapon, 0);
 				equippedPanelSB.append(
 						"<div class='inventory-item-slot" + getClassRarityIdentifier(depletedWeapon.getRarity()) + "' style='"+weaponStyle+"'>"
-							+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated()+"</div>"
+							+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated(charactersInventoryToRender)+"</div>"
 							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_OFFHAND_2.toString() + "Slot'>"+weaponCount+"</div>"
 						+ "</div>");
 				
@@ -350,7 +350,7 @@ public enum RenderingEngine {
 				String weaponCount = getThrownWeaponCountDiv(depletedWeapon, 0);
 				equippedPanelSB.append(
 						"<div class='inventory-item-slot" + getClassRarityIdentifier(depletedWeapon.getRarity()) + "' style='"+weaponStyle+"'>"
-							+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated()+"</div>"
+							+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated(charactersInventoryToRender)+"</div>"
 							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_OFFHAND_3.toString() + "Slot'>"+weaponCount+"</div>"
 						+ "</div>");
 				
@@ -3109,36 +3109,35 @@ public enum RenderingEngine {
 		if(charactersInventoryToRender==null) {
 			for(Entry<AbstractWeapon, Integer> entry : Main.game.getPlayer().getCell().getInventory().getAllWeaponsInInventory().entrySet()) {
 				if(entry.getKey().getRarity()!=Rarity.QUEST) {
-					uniqueItemCount++;
 					if(entry.getKey().equals(item)) {
 						setPageRight(uniqueItemCount/ITEMS_PER_PAGE);
 						return;
 					}
+					uniqueItemCount++;
 				}
 			}
 			for(Entry<AbstractClothing, Integer> entry : Main.game.getPlayer().getCell().getInventory().getAllClothingInInventory().entrySet()) {
 				if(entry.getKey().getRarity()!=Rarity.QUEST) {
-					uniqueItemCount++;
 					if(entry.getKey().equals(item)) {
 						setPageRight(uniqueItemCount/ITEMS_PER_PAGE);
 						return;
 					}
+					uniqueItemCount++;
 				}
 			}
 			for(Entry<AbstractItem, Integer> entry : Main.game.getPlayer().getCell().getInventory().getAllItemsInInventory().entrySet()) {
 				if(entry.getKey().getRarity()!=Rarity.QUEST) {
-					uniqueItemCount++;
 					if(entry.getKey().equals(item)) {
 						setPageRight(uniqueItemCount/ITEMS_PER_PAGE);
 						return;
 					}
+					uniqueItemCount++;
 				}
 			}
 			
 		} else {
 			for(Entry<AbstractWeapon, Integer> entry : charactersInventoryToRender.getAllWeaponsInInventory().entrySet()) {
 				if(entry.getKey().getRarity()!=Rarity.QUEST || !charactersInventoryToRender.isPlayer()) {
-					uniqueItemCount++;
 					if(entry.getKey().equals(item)) {
 						if(charactersInventoryToRender.isPlayer()) {
 							setPageLeft(uniqueItemCount/ITEMS_PER_PAGE);
@@ -3148,11 +3147,11 @@ public enum RenderingEngine {
 							return;
 						}
 					}
+					uniqueItemCount++;
 				}
 			}
 			for(Entry<AbstractClothing, Integer> entry : charactersInventoryToRender.getAllClothingInInventory().entrySet()) {
 				if(entry.getKey().getRarity()!=Rarity.QUEST || !charactersInventoryToRender.isPlayer()) {
-					uniqueItemCount++;
 					if(entry.getKey().equals(item)) {
 						if(charactersInventoryToRender.isPlayer()) {
 							setPageLeft(uniqueItemCount/ITEMS_PER_PAGE);
@@ -3162,11 +3161,11 @@ public enum RenderingEngine {
 							return;
 						}
 					}
+					uniqueItemCount++;
 				}
 			}
 			for(Entry<AbstractItem, Integer> entry : charactersInventoryToRender.getAllItemsInInventory().entrySet()) {
 				if(entry.getKey().getRarity()!=Rarity.QUEST || !charactersInventoryToRender.isPlayer()) {
-					uniqueItemCount++;
 					if(entry.getKey().equals(item)) {
 						if(charactersInventoryToRender.isPlayer()) {
 							setPageLeft(uniqueItemCount/ITEMS_PER_PAGE);
@@ -3176,6 +3175,7 @@ public enum RenderingEngine {
 							return;
 						}
 					}
+					uniqueItemCount++;
 				}
 			}
 		}
