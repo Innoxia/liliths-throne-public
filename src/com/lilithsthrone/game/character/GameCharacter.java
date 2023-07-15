@@ -22194,7 +22194,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isCarryingQuestItems() {
-		return getUniqueQuestWeaponCount()+getUniqueQuestClothingCount()+getUniqueQuestItemCount()>0;
+		return inventory.isAnyQuestItemPresent();
 	}
 	
 	
