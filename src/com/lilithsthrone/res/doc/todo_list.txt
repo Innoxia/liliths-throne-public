@@ -12,6 +12,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Clothing:
 		The 'horseshoes' item is no longer limited to taurs, and is instead only restricted to characters with hoofs.
 	
+	Other:
+		Added an option to completely reset all virginities and virginity loss information in the debug menu (on the second page of the 'stats' tab).
+		Added more time options when loitering.
+	
 	Bugs:
 		Fixed bug where you couldn't access your key items page in your inventory.
 		Unique items on the floor or in NPCs' inventories are now correctly placed in their unique items tab instead of being mixed in with all other items.
@@ -30,16 +34,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[x] modifying the horseshoes to where you can also put them on bipedal hooves
 		[x] cannot equip to feral
 		[x] need variation of image based on character -> bipedal should show two
+	[x] add an option to reset virginity loss information into the debug menu
+	[x] add the options for 5 min, 30 min, 2 hr and 6 hrs to the loiter/delay selection
+	[x] equipped inventory icons shouldn't be saved as they can vary
 	
-	[] add an option to reset virginity loss information into the debug menu
-	
-	[] add the options for 5 min, 30 min, 2 hr and 6 hrs to the loiter/delay selection
 	
 	[] gential slit option
 	
 	[] copy-paste slave settings
-	
-	
 	
 	
 	[] developers chat

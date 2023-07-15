@@ -956,9 +956,9 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		return "";
 	}
 	
-	private void addSVGStringEquippedMapping(GameCharacter character, DamageType dt, List<Colour> colours, String s) {
-		SVGStringEquippedMap.put(generateIdentifier(character, dt, colours), s);
-	}
+//	private void addSVGStringEquippedMapping(GameCharacter character, DamageType dt, List<Colour> colours, String s) {
+//		SVGStringEquippedMap.put(generateIdentifier(character, dt, colours), s);
+//	}
 	
 	private String getSVGStringEquippedFromMap(GameCharacter character, DamageType dt, List<Colour> colours) {
 		return SVGStringEquippedMap.get(generateIdentifier(character, dt, colours));
@@ -1006,8 +1006,9 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			List<Colour> coloursPlusDT = Util.newArrayListOfValues(dt.getColour());
 			coloursPlusDT.addAll(colours);
 			s = SvgUtil.colourReplacement(this.getId()+"Equipped", coloursPlusDT, this.getColourReplacements(true), s);
-			
-			addSVGStringEquippedMapping(characterEquipped, dt, colours, s);
+
+			// Don't save icon as it can vary based on character changes...
+//			addSVGStringEquippedMapping(characterEquipped, dt, colours, s);
 			
 			return s;
 			

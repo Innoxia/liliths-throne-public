@@ -2068,9 +2068,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		SVGStringEquippedMap.put(generateIdentifier(slotEquippedTo, colours, pattern, patternColours, stickers), svgString);
 	}
 	
-	private void addSVGStringEquippedMapping(GameCharacter character, InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, Map<String, String> stickers, String svgString) {
-		SVGStringEquippedMap.put(generateIdentifier(character, slotEquippedTo, colours, pattern, patternColours, stickers), svgString);
-	}
+//	private void addSVGStringEquippedMapping(GameCharacter character, InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, Map<String, String> stickers, String svgString) {
+//		SVGStringEquippedMap.put(generateIdentifier(character, slotEquippedTo, colours, pattern, patternColours, stickers), svgString);
+//	}
 	
 	private String getSVGStringFromMap(InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, Map<String, String> stickers) {
 		return SVGStringMap.get(generateIdentifier(slotEquippedTo, colours, pattern, patternColours, stickers));
@@ -2289,7 +2289,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 											+ "deg);'>" + SVGImages.SVG_IMAGE_PROVIDER.getMensWatchMinuteHand(colours, this.getColourReplacements()) + "</div>"
 										: "");
 
-							addSVGStringEquippedMapping(character, slotEquippedTo, colours, pattern, patternColours, stickers, s);
+							// Don't save icon as it can vary based on character changes...
+//							addSVGStringEquippedMapping(character, slotEquippedTo, colours, pattern, patternColours, stickers, s);
 							
 							return s;
 						} catch (IOException e) {

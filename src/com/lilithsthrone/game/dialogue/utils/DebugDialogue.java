@@ -441,6 +441,15 @@ public class DebugDialogue {
 							Main.saveProperties();
 						}
 					};
+					
+				} else if (index == 15) {
+					return new Response("Reset virginities", "Removes all of your virginity loss information as well as resetting all orifices to being 'virgin'.", DEBUG_MENU){
+						@Override
+						public void effects() {
+							Main.game.getPlayer().completeVirginityReset();
+						}
+					};
+					
 				}
 				
 			} else if(responseTab==2) {
