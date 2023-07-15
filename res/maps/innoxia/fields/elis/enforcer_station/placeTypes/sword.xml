@@ -4,7 +4,6 @@
 	<name><![CDATA[SWORD Office]]></name>
 	<tooltipDescription><![CDATA[This office is where Elis's SWORD unit meets to plan their missions.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the SWORD office in the Enforcer station in Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_ORANGE</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

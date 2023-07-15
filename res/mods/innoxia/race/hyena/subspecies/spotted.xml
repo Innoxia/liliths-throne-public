@@ -66,11 +66,8 @@
 	
 	<!-- Any special changes which should be applied to a newly-spawned character of this subspecies.
 	This is applied *after* the parent race's 'applyRaceChanges' method.
-	The character's body that's being changed can be accessed via using 'targetedBody'.
-	The code here is redundant, as clitoris girth & size is set to 4 & 18 in both the race.xml and the racialBody.xml files, but I've added it in here to show a working example. -->
+	The character's body that's being changed can be accessed via using 'targetedBody'. -->
 	<applySubspeciesChanges><![CDATA[
-		[#targetedBody.getVagina().getClitoris().setGirth(null, 4)]
-		[#targetedBody.getVagina().getClitoris().setClitorisSize(null, 18)]
 		[#targetedBody.setCoveringPattern(BODY_COVERING_TYPE_innoxia_hyena_fur, true, COVERING_PATTERN_SPOTTED)]
 		#IF(targetedBody.isFeminine())
 			[#targetedBody.setHeight(targetedBody.getHeightValue()*1.12)]

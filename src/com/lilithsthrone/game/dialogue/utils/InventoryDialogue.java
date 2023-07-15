@@ -184,16 +184,16 @@ public class InventoryDialogue {
 		return sb.toString();
 	}
 	
-	private static String getClothingBlockingRemovalText(String equipVerb) {
+	private static String getClothingBlockingRemovalText(GameCharacter equipTarget, String equipVerb) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("You can't ");
 		sb.append(equipVerb);
 		sb.append(" the ");
 		sb.append(clothing.getName());
 		sb.append(", as ");
-		sb.append(UtilText.parse(owner, "[npc.namePos] "));
-		sb.append(owner.getBlockingClothing().getName());
-		sb.append((owner.getBlockingClothing().getClothingType().isPlural()?" are":" is"));
+		sb.append(UtilText.parse(equipTarget, "[npc.namePos] "));
+		sb.append(equipTarget.getBlockingClothing().getName());
+		sb.append((equipTarget.getBlockingClothing().getClothingType().isPlural()?" are":" is"));
 		sb.append(" blocking you from doing so!");
 		return sb.toString();
 	}
@@ -3855,7 +3855,7 @@ public class InventoryDialogue {
 												}
 											};
 										} else {
-											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), getClothingBlockingRemovalText("equip"), null);
+											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), getClothingBlockingRemovalText(Main.game.getPlayer(), "equip"), null);
 										}
 										
 									} else {
@@ -4383,7 +4383,7 @@ public class InventoryDialogue {
 												}
 											};
 										} else {
-											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), getClothingBlockingRemovalText("equip"), null);
+											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), getClothingBlockingRemovalText(Main.game.getPlayer(), "equip"), null);
 										}
 										
 									} else {
@@ -4759,7 +4759,7 @@ public class InventoryDialogue {
 											}
 										};
 									} else {
-										return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), getClothingBlockingRemovalText("equip"), null);
+										return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), getClothingBlockingRemovalText(Main.game.getPlayer(), "equip"), null);
 									}
 								} else {
 									return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), clothing.isAbleToBeEquippedDuringSex(slot).getValue(), null);
@@ -5119,7 +5119,7 @@ public class InventoryDialogue {
 												}
 											};
 										} else {
-											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), getClothingBlockingRemovalText("equip"), null);
+											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), getClothingBlockingRemovalText(Main.game.getPlayer(), "equip"), null);
 										}
 										
 									} else {
@@ -5908,7 +5908,7 @@ public class InventoryDialogue {
 								};
 								
 							} else {
-								return new Response("Unequip", getClothingBlockingRemovalText("unequip"), null);
+								return new Response("Unequip", getClothingBlockingRemovalText(owner, "unequip"), null);
 							}
 							
 						} else if (index == 10) {
@@ -6035,7 +6035,7 @@ public class InventoryDialogue {
 											}
 										};
 									} else {
-										return new Response("Drop", getClothingBlockingRemovalText("unequip"), null);
+										return new Response("Drop", getClothingBlockingRemovalText(owner, "unequip"), null);
 									}
 								}
 								
@@ -6065,7 +6065,7 @@ public class InventoryDialogue {
 											}
 										};
 									} else {
-										return new Response("Store", getClothingBlockingRemovalText("unequip"), null);
+										return new Response("Store", getClothingBlockingRemovalText(owner, "unequip"), null);
 									}
 								}
 							}
@@ -6105,7 +6105,7 @@ public class InventoryDialogue {
 									}
 								};
 							} else {
-								return new Response("Unequip", getClothingBlockingRemovalText("unequip"), null);
+								return new Response("Unequip", getClothingBlockingRemovalText(owner, "unequip"), null);
 							}
 							
 						} else if (index == 10) {
@@ -6389,7 +6389,7 @@ public class InventoryDialogue {
 											}
 										};
 									} else {
-										return new Response("Drop", getClothingBlockingRemovalText("unequip"), null);
+										return new Response("Drop", getClothingBlockingRemovalText(owner, "unequip"), null);
 									}
 								}
 								
@@ -6420,7 +6420,7 @@ public class InventoryDialogue {
 											}
 										};
 									} else {
-										return new Response("Store", getClothingBlockingRemovalText("unequip"), null);
+										return new Response("Store", getClothingBlockingRemovalText(owner, "unequip"), null);
 									}
 								}
 							}
@@ -6460,7 +6460,7 @@ public class InventoryDialogue {
 									}
 								};
 							} else {
-								return new Response("Unequip", getClothingBlockingRemovalText("unequip"), null);
+								return new Response("Unequip", getClothingBlockingRemovalText(owner, "unequip"), null);
 							}
 							
 						} else if (index == 10) {

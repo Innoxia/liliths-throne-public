@@ -4,7 +4,6 @@
 	<name><![CDATA[Waiting Area]]></name>
 	<tooltipDescription><![CDATA[The entrance to the dairy farm takes the form of a pair of modern, glass doors, and leads directly into a large waiting area.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the waiting area at Evelyx's Dairy]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_RED</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

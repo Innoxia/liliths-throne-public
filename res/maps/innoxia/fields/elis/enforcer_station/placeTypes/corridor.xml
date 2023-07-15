@@ -4,7 +4,6 @@
 	<name><![CDATA[corridor]]></name>
 	<tooltipDescription><![CDATA[The corridors in the Enforcer station are carpeted and have that faint, musty smell that you typically find in old buildings.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the corridor at the Enforcer station in Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_GREY</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

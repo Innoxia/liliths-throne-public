@@ -4,7 +4,6 @@
 	<name><![CDATA[conservatory]]></name>
 	<tooltipDescription><![CDATA[A conservatory connected to the back of 'The Red Dragon' provides access to the beer garden.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the conservatory at 'The Red Dragon' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_GREEN</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

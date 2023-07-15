@@ -4,7 +4,6 @@
 	<name><![CDATA[Meraxis's room]]></name>
 	<tooltipDescription><![CDATA[Having lost a duel to Meraxis, the tavern's owner has surrendered possession of this room to the chuuni [meraxis.race].]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in Meraxis's room at 'The Red Dragon' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<svgName>room</svgName>
 	<colour>BASE_PURPLE</colour>

@@ -4,7 +4,6 @@
 	<name><![CDATA[bar]]></name>
 	<tooltipDescription><![CDATA[The long bar in 'Lights Out' can seat up to twenty patrons at once.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[at the bar in 'Lights Out']]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_ORANGE</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

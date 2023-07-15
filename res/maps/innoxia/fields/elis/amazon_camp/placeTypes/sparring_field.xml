@@ -4,7 +4,6 @@
 	<name><![CDATA[Sparring field]]></name>
 	<tooltipDescription><![CDATA[To keep their impressive martial skills maintained, the Amazons use this area in which to spar with one another.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[at the sparring field in the Amazons' camp]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_ORANGE</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

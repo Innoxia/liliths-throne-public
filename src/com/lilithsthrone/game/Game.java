@@ -203,6 +203,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.Spell;
+import com.lilithsthrone.game.dialogue.AbstractDialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueFlags;
 import com.lilithsthrone.game.dialogue.DialogueManager;
@@ -2572,11 +2573,11 @@ public class Game implements XMLSaving {
 	public void endTurn(int secondsPassedThisTurn, boolean advanceTime) {
 
 		boolean loopDebug = false;
-		
 		long tStart = System.nanoTime();
-		
 		long startHour = getHour();
 		int startHourOfDay = getHourOfDay();
+		List<AbstractDialogueFlagValue> flagsReset = new ArrayList<>();
+		
 		if(advanceTime) {
 			secondsPassed += secondsPassedThisTurn;
 			updateResponses();
@@ -2584,7 +2585,7 @@ public class Game implements XMLSaving {
 		int hoursPassed = (int) (getHour() - startHour);
 		
 		if(hoursPassed>0) {
-			Main.game.getDialogueFlags().applyTimePassingResets(startHourOfDay, hoursPassed);
+			flagsReset = Main.game.getDialogueFlags().applyTimePassingResets(startHourOfDay, hoursPassed);
 		}
 		
 		if(loopDebug) {
@@ -2949,10 +2950,22 @@ public class Game implements XMLSaving {
 				}
 			}
 			
-			for(int i=1; i<=hoursPassed; i++) {
-				npc.hourlyUpdate(startHourOfDay + (hoursPassed%24));
-				if(inGame) {
-					npc.performHourlyFluidsCheck();
+			if(hoursPassed>=1) {
+				 // Reset flags to their original values and then reset them to false during the loop so that the flags can be safely used in the hourlyUpdate()
+				for(AbstractDialogueFlagValue value : flagsReset) {
+					this.getDialogueFlags().setFlag(value, true);
+				}
+				for(int i=1; i<=hoursPassed; i++) {
+					int incrementedHourOfDay = (startHourOfDay + i) % 24;
+					for(AbstractDialogueFlagValue value : flagsReset) {
+						if(value.getResetHour()==incrementedHourOfDay) {
+							this.getDialogueFlags().setFlag(value, false);
+						}
+					}
+					npc.hourlyUpdate(incrementedHourOfDay);
+					if(inGame) {
+						npc.performHourlyFluidsCheck();
+					}
 				}
 			}
 			

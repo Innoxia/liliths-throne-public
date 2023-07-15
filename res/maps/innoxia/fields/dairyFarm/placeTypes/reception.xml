@@ -4,7 +4,6 @@
 	<name><![CDATA[Reception]]></name>
 	<tooltipDescription><![CDATA[A donkey-boy sits behind this reception desk, ready to deal with any visitors.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[at the reception to Evelyx's Dairy]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_BLUE_LIGHT</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

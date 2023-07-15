@@ -6353,24 +6353,27 @@ public class Body implements XMLSaving {
 	/**
 	 * @param subspecies Pass in the AbstractSubspecies to which this character should be transformed into a feral version of. Pass in null to transform back from feral to a standard anthro.
 	 */
-	public void setFeral(AbstractSubspecies subspecies) {
-		
-		FeralAttributes attributes = subspecies==null?null:subspecies.getFeralAttributes(this);
+	public void setFeral(GameCharacter target, AbstractSubspecies subspecies) {
+		AbstractSubspecies targetSubspecies = subspecies == null ? getSubspecies() : subspecies;
+		FeralAttributes attributes = targetSubspecies.getFeralAttributes(this);
 		if(attributes==null) {
-			System.err.println("Error in Body.setFeral(): subspecies '"+Subspecies.getIdFromSubspecies(subspecies)+"' does not support FeralAttributes!");
+			System.err.println("Error in Body.setFeral(): subspecies '"+Subspecies.getIdFromSubspecies(targetSubspecies)+"' does not support FeralAttributes!");
 			return;
 		}
 		
 		this.feral = subspecies!=null;
 		// Set body to full subspecies:
 		Main.game.getCharacterUtils().reassignBody(
-				null,
+				target,
 				this,
 				this.getGender(),
-				subspecies==null?this.getSubspecies():subspecies,
+				targetSubspecies,
 				RaceStage.GREATER,
 				false);
 		
+		if (subspecies == null) {
+			return; 
+		}
 		// Set feral-specific attributes:
 		this.getLeg().getType().applyLegConfigurationTransformation(this, attributes.getLegConfiguration(), true);
 		
@@ -6388,7 +6391,7 @@ public class Body implements XMLSaving {
 		}
 		
 		// Set genital relative sizes:
-		AbstractRacialBody rb = subspecies.getRace().getRacialBody();
+		AbstractRacialBody rb = targetSubspecies.getRace().getRacialBody();
 		float proportionSizeDifference = ((float)attributes.getSize())/(this.isFeminine()?rb.getFemaleHeight():rb.getMaleHeight());
 		this.getPenis().setPenisLength(null, (int) (rb.getPenisSize()*proportionSizeDifference));
 		this.getPenis().setPenisGirth(null, (int) (rb.getPenisGirth()*proportionSizeDifference));

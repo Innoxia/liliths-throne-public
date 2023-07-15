@@ -4,7 +4,6 @@
 	<name><![CDATA[Pathway]]></name>
 	<tooltipDescription><![CDATA[The wide pathway which snakes through the Amazons' camp links the hundreds of tents with one another.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[on the pathway in the Amazons' camp]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_GREY</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

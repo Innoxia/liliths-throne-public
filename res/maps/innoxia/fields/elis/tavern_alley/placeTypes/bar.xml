@@ -4,7 +4,6 @@
 	<name><![CDATA[bar]]></name>
 	<tooltipDescription><![CDATA[Positioned near to the entrance, the bar at 'The Crossed Blades' is home to the 'beer bitches'.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[at the bar in 'The Crossed Blades' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_ORANGE</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

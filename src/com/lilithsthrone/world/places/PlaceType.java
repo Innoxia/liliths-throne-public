@@ -5632,7 +5632,7 @@ public class PlaceType {
 			"thick jungle",
 			null,
 			"The further into the jungle one travels, the thicker the vegetation becomes, which allows particularly wild and dangerous predators to conceal themselves...",
-			new Colour(Util.newColour(0x6b8f7e)), null, null, "") {
+			new Colour(Util.newColour(0x6b8f7e)), null, null, "in the jungle") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5644,7 +5644,7 @@ public class PlaceType {
 			"jungle",
 			null,
 			"Sparse, tropical foliage is home to many different jungle animal-morphs, not all of which are friendly.",
-			new Colour(Util.newColour(0x8fbfa8)), null, null, "") {
+			new Colour(Util.newColour(0x8fbfa8)), null, null, "in the jungle") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5656,7 +5656,7 @@ public class PlaceType {
 			"Itza'aak",
 			null,
 			"A sprawling, Mayan-like city, Itza'aak is the last bastion of civilisation before the sprawling, wild jungles of the north.",
-			new Colour(Util.newColour(0xb377b0)), null, null, "") {
+			new Colour(Util.newColour(0xb377b0)), null, null, "outside Itza'aak") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5667,8 +5667,8 @@ public class PlaceType {
 			WorldRegion.MOUNTAINS,
 			"foothills",
 			null,
-			"A steady increase in elevation leads to the rolling hills at the base of the mountains of the moon.",
-			PresetColour.BASE_BLACK, null, null, "") {
+			"A steady increase in elevation leads to the rolling hills at the base of the Mountains of the Moon.",
+			PresetColour.BASE_BLACK, null, null, "in the foothills of the Mountains of the Moon") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5680,7 +5680,7 @@ public class PlaceType {
 			"mountains",
 			null,
 			"The mountain range to the far west is known as the 'Mountains of the Moon', and is home to many alpine animal-morphs.",
-			PresetColour.BASE_GREY_DARK, null, null, "") {
+			PresetColour.BASE_GREY_DARK, null, null, "in the Mountains of the Moon") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5692,7 +5692,7 @@ public class PlaceType {
 			"mountain peaks",
 			null,
 			"The highest peaks of the Mountains of the Moon are capped in snow, and are home to several wild and aggressive races...",
-			PresetColour.BASE_GREY_LIGHT, null, null, "") {
+			PresetColour.BASE_GREY_LIGHT, null, null, "in the Mountains of the Moon") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5704,7 +5704,7 @@ public class PlaceType {
 			"snowstorm valley",
 			null,
 			"This sheltered valley sees regular, heavy snowfall, and is home to numerous arctic races.",
-			new Colour(Util.newColour(0xeeeeee)), null, null, "") {
+			new Colour(Util.newColour(0xeeeeee)), null, null, "in snowstorm valley") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5716,7 +5716,7 @@ public class PlaceType {
 			"selkie lake",
 			null,
 			"On the western side of snowstorm valley, there can be found a huge, partially-frozen lake.",
-			new Colour(Util.newColour(0xbbf0f1)), null, null, "") {
+			new Colour(Util.newColour(0xbbf0f1)), null, null, "at selkie lake") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5769,7 +5769,7 @@ public class PlaceType {
 			"The grassland wilderness is home to many different races, the vast majority of which are just as wild and untamed as the land they inhabit.",
 			new Colour(Util.newColour(0x688255)),
 			FieldsDialogue.GRASSLAND_WILDERNESS,
-			null, "") {
+			null, "in the grassland wilderness of the Foloi Fields") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5783,7 +5783,7 @@ public class PlaceType {
 			"The farmland surrounding Dominion is known as the 'Foloi Fields', and is primarily inhabited by farmyard animal-morphs.",
 			new Colour(Util.newColour(0xB9E3A1)),
 			FieldsDialogue.FOLOI_FIELDS,
-			null, "") {
+			null, "in the Foloi Fields") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5792,13 +5792,13 @@ public class PlaceType {
 	
 	public static final AbstractGlobalPlaceType WORLD_MAP_FOREST = new AbstractGlobalPlaceType(
 			WorldRegion.WOODLAND,
-			"Foloi forests",
+			"forest",
 			"The thick forests surrounding the Foloi Fields are particularly dangerous, as they are home to the wild, predatory morphs of wolves, foxes, and bears.",
 			"global/forest",
 			new Colour(Util.newColour(0x51A468)),
 			new Colour(Util.newColour(0x5E685E)),
 			FieldsDialogue.FOLOI_FOREST,
-			null, "") {
+			null, "in the forested parts of the Foloi Fields") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5813,7 +5813,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0xd544ae)),
 			new Colour(Util.newColour(0x859871)),
 			FieldsDialogue.ELIS,
-			null, "") {
+			null, "outside Elis") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5828,7 +5828,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0x61BDFF)),
 			new Colour(Util.newColour(0x98B4CD)),
 			FieldsDialogue.RIVER_HUBUR,
-			null, "") {
+			null, "at the river Huber") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5841,7 +5841,7 @@ public class PlaceType {
 			"river Hubur (wild)",
 			null,
 			"Far from Dominion, the river Hubur is a dangerous place in which to swim, as it is home to many wild freshwater races.",
-			new Colour(Util.newColour(0xc1f1ee)), null, null, "") {
+			new Colour(Util.newColour(0xc1f1ee)), null, null, "at the river Huber") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5851,10 +5851,10 @@ public class PlaceType {
 
 	public static final AbstractGlobalPlaceType WORLD_MAP_YOUKO_FOREST = new AbstractGlobalPlaceType(
 			WorldRegion.YOUKO_FOREST,
-			"shinrin highlands",
+			"Shinrin highlands",
 			null,
 			"The Shinrin highlands are a range of low, forest-covered hills, which steadily increase in elevation the further west you go. The elusive youko live here.",
-			new Colour(Util.newColour(0x6ccc74)), null, null, "") {
+			new Colour(Util.newColour(0x6ccc74)), null, null, "in the Shinrin highlands") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5866,7 +5866,7 @@ public class PlaceType {
 			"endless sea",
 			null,
 			"The aquatic races inhabiting Lilith's realm do not like to stray too far from shore, and so to them, the sea is considered to be endless.",
-			PresetColour.BASE_BLUE_DARK, null, null, "") {
+			PresetColour.BASE_BLUE_DARK, null, null, "in the endless sea") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5879,7 +5879,7 @@ public class PlaceType {
 			"Lyonesse",
 			null,
 			"The underwater city of Lyonesse is situated off the eastern coast, and, unsurprisingly, is particularly difficult for non-aquatic races to visit.",
-			new Colour(Util.newColour(0x8264b0)), null, null, "") {
+			new Colour(Util.newColour(0x8264b0)), null, null, "outside Lyonesse") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5891,7 +5891,7 @@ public class PlaceType {
 			"arid grassland",
 			null,
 			"To the south, the wild grassland starts to dry out, and is the preferred home for morphs such as lions, leopard, and zebras.",
-			PresetColour.BASE_YELLOW_LIGHT, null, null, "") {
+			PresetColour.BASE_YELLOW_LIGHT, null, null, "in the arid grasslands") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5903,7 +5903,7 @@ public class PlaceType {
 			"savannah",
 			null,
 			"Sparse, open-canopy woodlands are scattered across this area, and are inhabited by the same races as those found in the arid grasslands.",
-			PresetColour.BASE_TAN, null, null, "") {
+			PresetColour.BASE_TAN, null, null, "in the savannah") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5915,7 +5915,7 @@ public class PlaceType {
 			"desert",
 			null,
 			"To the south of the arid grassland, all vegetation dies out, creating a hot, barren wasteland.",
-			new Colour(Util.newColour(0xffe7a7)), null, null, "") {
+			new Colour(Util.newColour(0xffe7a7)), null, null, "in the desert") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5927,7 +5927,7 @@ public class PlaceType {
 			"sand dunes",
 			null,
 			"At the southern edge of the desert, there lies a huge range of sand dunes, which are home to many dangerous races.",
-			new Colour(Util.newColour(0xffdb7a)), null, null, "") {
+			new Colour(Util.newColour(0xffdb7a)), null, null, "in the sand dunes") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5939,7 +5939,7 @@ public class PlaceType {
 			"Thinis",
 			null,
 			"A city resembling one of ancient Egypt, Thinis is the southern-most settlement in Lilith's realm, and is well known for its prestigious arcane university.",
-			new Colour(Util.newColour(0xd5445e)), null, null, "") {
+			new Colour(Util.newColour(0xd5445e)), null, null, "outside Thinis") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5950,8 +5950,8 @@ public class PlaceType {
 			WorldRegion.VOLCANO,
 			"dragon's breath volcano",
 			null,
-			"A huge volcano, perpetually oozing red-hot lava. Despite its name, dragons are no more common here than they are elsewhere in Lilith's realm.",
-			PresetColour.BASE_ORANGE, null, null, "") {
+			"A huge volcano, perpetually oozing red-hot lava. Despite its name, dragons are just as rare a sight here as they are in the rest of Lilith's Realm.",
+			PresetColour.BASE_ORANGE, null, null, "at Dragon's Breath volcano") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5963,7 +5963,7 @@ public class PlaceType {
 			"lava flows",
 			null,
 			"The lava which pours forth from the volcano slowly runs off in a southern direction.",
-			PresetColour.BASE_BLACK, null, null, "") {
+			PresetColour.BASE_BLACK, null, null, "at the lava flows") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;

@@ -4,7 +4,6 @@
 	<name noCapitalisation="true"><![CDATA[Bank of Elis]]></name>
 	<tooltipDescription><![CDATA[Positioned close to the farmer's market, this bank serves all of Elis.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[outside of the Bank of Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>false</sexBlockedFromCharacterPresent>
 	<colour>BASE_GOLD</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

@@ -4,7 +4,6 @@
 	<name><![CDATA[Western road]]></name>
 	<tooltipDescription><![CDATA[This road leads out of the western gate of Elis, leading in the direction of the Shinrin Highlands.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[on the western road leading out of Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_GREY</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

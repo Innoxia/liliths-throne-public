@@ -4,7 +4,6 @@
 	<name><![CDATA[VIP area]]></name>
 	<tooltipDescription><![CDATA[Large, comfortable sofas and a private bar can be found within this VIP area.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the VIP area at 'The Crossed Blades' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<svgName>seating</svgName>
 	<colour>BASE_GOLD</colour>

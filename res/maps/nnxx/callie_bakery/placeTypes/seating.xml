@@ -4,7 +4,6 @@
 	<name><![CDATA[Seating]]></name>
 	<tooltipDescription><![CDATA[A small seating area fills the small amount of space which isn't taken up by the store's counter.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the seating area in 'The Creamy Bakey']]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_ORANGE</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

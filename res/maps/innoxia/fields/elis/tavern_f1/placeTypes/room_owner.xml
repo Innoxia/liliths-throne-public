@@ -4,7 +4,6 @@
 	<name><![CDATA[Flash's room]]></name>
 	<tooltipDescription><![CDATA[The tavern's owner, Flash, lives in this room.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in Flash's room at 'The Red Dragon' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<svgName>room</svgName>
 	<colour>BASE_BLACK</colour>

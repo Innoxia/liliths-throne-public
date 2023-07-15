@@ -4,7 +4,6 @@
 	<name><![CDATA[beer garden]]></name>
 	<tooltipDescription><![CDATA[At the back of 'The Red Dragon' tavern, there's a modestly-sized beer garden, complete with wooden tables and chairs.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the beer garden at 'The Red Dragon' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_GREEN</colour>
 	<backgroundColour>MAP_BACKGROUND_GREEN</backgroundColour>

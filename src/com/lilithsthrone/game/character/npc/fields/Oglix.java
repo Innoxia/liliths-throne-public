@@ -337,6 +337,11 @@ public class Oglix extends NPC {
 			Elemental elemental = this.getElemental();
 			elemental.setName("Golix");
 			
+			elemental.clearPersonalityTraits();
+			elemental.addPersonalityTrait(PersonalityTrait.BRAVE);
+			elemental.addPersonalityTrait(PersonalityTrait.CONFIDENT);
+			elemental.addPersonalityTrait(PersonalityTrait.LEWD);
+			
 			elemental.setSpeechColour(PresetColour.BASE_BROWN_LIGHT);
 
 			elemental.addFetish(Fetish.FETISH_DOMINANT);
@@ -349,6 +354,12 @@ public class Oglix extends NPC {
 			
 			elemental.setBodyMaterial(BodyMaterial.STONE);
 			elemental.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(elemental.getBodyMaterial(), BodyCoveringCategory.MAIN_SKIN), PresetColour.COVERING_GREY), true);
+
+			elemental.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
+			elemental.setBodySize(BodySize.FOUR_HUGE.getMedianValue());
+			
+			elemental.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
+			elemental.setHairStyle(HairStyle.STRAIGHT);
 			
 			elemental.setVaginaType(VaginaType.NONE);
 			

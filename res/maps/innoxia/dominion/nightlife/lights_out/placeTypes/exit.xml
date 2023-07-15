@@ -4,7 +4,6 @@
 	<name><![CDATA[entrance]]></name>
 	<tooltipDescription><![CDATA[The entrance to 'Lights Out'.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[at the entrance to 'Lights Out']]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_RED</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

@@ -4,7 +4,6 @@
 	<name><![CDATA[Dormitory]]></name>
 	<tooltipDescription><![CDATA[This large room contains dozens of bunk beds, and an adjacent wetroom provides shower and toilet facilities to the farm's workers.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the dormitory at Evelyx's Dairy]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_AQUA</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

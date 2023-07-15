@@ -4,7 +4,6 @@
 	<name><![CDATA[Locked Door]]></name>
 	<tooltipDescription><![CDATA[A sign fixed to the wall above this large, locked door indicates that it leads into the 'Slave Barn'.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the slave barn at Evelyx's Dairy]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<svgName>door</svgName>
 	<colour>BASE_PINK</colour>

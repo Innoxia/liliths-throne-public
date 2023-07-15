@@ -4,7 +4,6 @@
 	<name><![CDATA[Jess's room]]></name>
 	<tooltipDescription><![CDATA[The fox-girl prostitute, Jess, lives and works out of this room.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in Jess's room at 'The Red Dragon' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_PINK_LIGHT</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

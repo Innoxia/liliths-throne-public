@@ -4,7 +4,6 @@
 	<name><![CDATA[boxing rings]]></name>
 	<tooltipDescription><![CDATA[Punch bags and free weights surround a couple of boxing rings.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the gym, 'Pix's Playground']]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_GREEN_DARK</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

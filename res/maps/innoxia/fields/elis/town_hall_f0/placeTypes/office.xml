@@ -4,7 +4,6 @@
 	<name><![CDATA[office]]></name>
 	<tooltipDescription><![CDATA[This is just one of the many offices to be found throughout Elis's town hall.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in one of the offices in Elis's town hall]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_ORANGE</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

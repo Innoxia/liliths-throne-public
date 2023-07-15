@@ -329,7 +329,10 @@
 			<flag resetHour="12">sterope_sex</flag>
 			<flag resetHour="12">sterope_with_centaur</flag>
 			<flag dailyReset="false">sterope_fully_furry</flag>
+			<flag dailyReset="false">sterope_transformed_into_feral</flag>
 			<flag dailyReset="false">sterope_centaur_fucks_sterope_first</flag>
+			<flag dailyReset="false">sterope_had_centaur_threesome</flag>
+			
 			
 		
 		

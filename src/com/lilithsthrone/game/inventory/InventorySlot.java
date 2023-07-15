@@ -22,7 +22,7 @@ public enum InventorySlot {
 	 *  Tattoo slot "head".*/
 	HEAD(40, "head", false, false, false, "head") {
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "head";
 		}
 	},
@@ -31,7 +31,7 @@ public enum InventorySlot {
 	 *  Tattoo slot "upper face".*/
 	EYES(50, "eyes", true, false, false, "upper face") {
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.eyes]";
 		}
 	},
@@ -47,7 +47,7 @@ public enum InventorySlot {
 			return super.getPhysicallyUnavailableReason(character);
 		}
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.hair(true)]";
 		}
 	},
@@ -56,7 +56,7 @@ public enum InventorySlot {
 	 *  Tattoo slot "lower face".*/
 	MOUTH(10, "mouth", false, false, false, "lower face") {
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.mouth]";
 		}
 	},
@@ -65,7 +65,7 @@ public enum InventorySlot {
 	 *  Tattoo slot "neck".*/
 	NECK(30, "neck", false, false, false, "neck") {
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "neck";
 		}
 	},
@@ -77,7 +77,7 @@ public enum InventorySlot {
 	 *  Tattoo slot "upper back".*/
 	TORSO_OVER(50, "over-torso", false, false, false, "upper back") {
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "over-torso";
 		}
 	},
@@ -86,7 +86,7 @@ public enum InventorySlot {
 	 *  Tattoo slot "lower back".*/
 	TORSO_UNDER(40, "torso", false, true, false, "lower back") {
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "torso";
 		}
 	},
@@ -95,23 +95,27 @@ public enum InventorySlot {
 	 *  Tattoo slot "chest".*/
 	CHEST(10, "chest", false, true, false, "chest") {
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.breasts]";
 		}
 	},
 
 	/** Clothing slot "nipples". Used for nipple shields, plugs.<br/>
+	 * <br/>If character is a feral with no breasts, crotch-nipples are referenced.
 	 *  Tattoo slot "nipples".*/
 	NIPPLE(5, "nipples", false, false, false, "nipples") {
 		@Override
 		public String getPhysicallyUnavailableReason(GameCharacter character) {
-			if(character.isFeral() && !character.getFeralAttributes().isBreastsPresent()) {
-				return UtilText.parse(character, "[npc.Name] [npc.do] not have any breasts!");
+			if(character.isFeral() && !character.getFeralAttributes().isBreastsPresent() && !character.hasBreastsCrotch()) {
+				return UtilText.parse(character, "[npc.Name] [npc.do] not have any breasts or crotch-boobs!");
 			}
 			return super.getPhysicallyUnavailableReason(character);
 		}
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
+			if(character.isFeral() && !character.getFeralAttributes().isBreastsPresent() && character.hasBreastsCrotch()) {
+				return "[npc.nipplesCrotch]";
+			}
 			return "[npc.nipples]";
 		}
 	},
@@ -120,7 +124,7 @@ public enum InventorySlot {
 	 *  Tattoo slot "stomach".*/
 	STOMACH(10, "stomach", false, false, false, "stomach") {
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "stomach";
 		}
 	},
@@ -139,7 +143,7 @@ public enum InventorySlot {
 			return super.getPhysicallyUnavailableReason(character);
 		}
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.hands]";
 		}
 	},
@@ -155,7 +159,7 @@ public enum InventorySlot {
 			return super.getPhysicallyUnavailableReason(character);
 		}
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "wrists";
 		}
 	},
@@ -171,7 +175,7 @@ public enum InventorySlot {
 			return super.getPhysicallyUnavailableReason(character);
 		}
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.fingers]";
 		}
 	},
@@ -180,7 +184,7 @@ public enum InventorySlot {
 	 *  Tattoo slot "hips".*/
 	HIPS(40, "hips", true, false, false, "hips") {
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.hips]";
 		}
 	},
@@ -193,7 +197,7 @@ public enum InventorySlot {
 	 *  Tattoo slot "ass".*/
 	ANUS(0, "anus", false, false, false, "ass") {
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.asshole]";
 		}
 	},
@@ -205,7 +209,7 @@ public enum InventorySlot {
 	 *  Tattoo slot "upper leg".*/
 	LEG(30, "legs", true, true, false, "upper leg") {
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.legs]";
 		}
 	},
@@ -214,7 +218,7 @@ public enum InventorySlot {
 	 *  Tattoo slot "lower abdomen".*/
 	GROIN(10, "groin", false, true, false, "lower abdomen") {
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "groin";
 		}
 	},
@@ -230,7 +234,7 @@ public enum InventorySlot {
 			return super.getPhysicallyUnavailableReason(character);
 		}
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.feet]";
 		}
 	},
@@ -246,7 +250,7 @@ public enum InventorySlot {
 			return super.getPhysicallyUnavailableReason(character);
 		}
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "calves";
 		}
 	},
@@ -262,7 +266,7 @@ public enum InventorySlot {
 			return super.getPhysicallyUnavailableReason(character);
 		}
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "ankles";
 		}
 	},
@@ -281,7 +285,7 @@ public enum InventorySlot {
 			return super.getPhysicallyUnavailableReason(character);
 		}
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.horns]";
 		}
 	},
@@ -297,7 +301,7 @@ public enum InventorySlot {
 			return super.getPhysicallyUnavailableReason(character);
 		}
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.wings]";
 		}
 	},
@@ -313,7 +317,7 @@ public enum InventorySlot {
 			return super.getPhysicallyUnavailableReason(character);
 		}
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.tail]";
 		}
 	},
@@ -361,7 +365,7 @@ public enum InventorySlot {
 			return null;
 		}
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.cock]";
 		}
 	},
@@ -409,7 +413,7 @@ public enum InventorySlot {
 			return null;
 		}
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.pussy]";
 		}
 	},
@@ -417,37 +421,37 @@ public enum InventorySlot {
 	// PIERCING:
 	PIERCING_EAR(0, "ear piercing", false, false, true, null) {
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.ears]";
 		}
 	},
 	PIERCING_NOSE(0, "nose piercing", false, false, true, null) {
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.nose]";
 		}
 	},
 	PIERCING_TONGUE(0, "tongue piercing", false, false, true, null) {
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.tongue]";
 		}
 	},
 	PIERCING_LIP(0, "lip piercing", false, false, true, null) {
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.lips]";
 		}
 	},
 	PIERCING_STOMACH(0, "navel piercing", false, false, true, null) {
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "navel";
 		}
 	},
 	PIERCING_NIPPLE(0, "nipple piercing", false, false, true, null) {
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.nipples]";
 		}
 	},
@@ -460,7 +464,7 @@ public enum InventorySlot {
 			return super.getPhysicallyUnavailableReason(character);
 		}
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.pussy]";
 		}
 	},
@@ -473,7 +477,7 @@ public enum InventorySlot {
 			return super.getPhysicallyUnavailableReason(character);
 		}
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.cock]";
 		}
 	},
@@ -481,7 +485,7 @@ public enum InventorySlot {
 	// EQUIPPABLE:
 	WEAPON_MAIN_1(0, "primary weapon", false, false, false, null) {
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return null;
 		}
 		@Override
@@ -491,7 +495,7 @@ public enum InventorySlot {
 	},
 	WEAPON_MAIN_2(0, "primary weapon (2nd)", false, false, false, null) {
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return null;
 		}
 		@Override
@@ -501,7 +505,7 @@ public enum InventorySlot {
 	},
 	WEAPON_MAIN_3(0, "primary weapon (3rd)", false, false, false, null) {
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return null;
 		}
 		@Override
@@ -512,7 +516,7 @@ public enum InventorySlot {
 	
 	WEAPON_OFFHAND_1(0, "secondary weapon", false, false, false, null) {
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return null;
 		}
 		@Override
@@ -522,7 +526,7 @@ public enum InventorySlot {
 	},
 	WEAPON_OFFHAND_2(0, "secondary weapon (2nd)", false, false, false, null) {
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return null;
 		}
 		@Override
@@ -532,7 +536,7 @@ public enum InventorySlot {
 	},
 	WEAPON_OFFHAND_3(0, "secondary weapon (3rd)", false, false, false, null) {
 		@Override
-		protected String getNameForParsing() {
+		protected String getNameForParsing(GameCharacter character) {
 			return null;
 		}
 		@Override
@@ -690,10 +694,10 @@ public enum InventorySlot {
 	}
 	
 	public String getNameOfAssociatedPart(GameCharacter owner) {
-		return UtilText.parse(owner, getNameForParsing());
+		return UtilText.parse(owner, getNameForParsing(owner));
 	}
 	
-	protected abstract String getNameForParsing();
+	protected abstract String getNameForParsing(GameCharacter character);
 
 	public boolean isPlural() {
 		return plural;

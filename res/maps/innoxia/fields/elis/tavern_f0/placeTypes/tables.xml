@@ -4,7 +4,6 @@
 	<name><![CDATA[Main floor]]></name>
 	<tooltipDescription><![CDATA[The majority of the floor area inside 'The Red Dragon' tavern is occupied by wooden tables and chairs, which provide places for customers to sit and drink.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the main floor area of 'The Red Dragon' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_BLACK</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

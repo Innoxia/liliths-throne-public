@@ -246,6 +246,7 @@
 		<preParsingEffects><![CDATA[
 			[#game.addNPC('misc.GenericSexualPartner', 'partner')]
 			[#partner.resetBodyToGenderPreferences(false, false)]
+			[#game.getCharacterUtils().randomiseBody(partner, true)]
 			[#partner.setLocation(pc, false)]
 			[#partner.setPlayerKnowsName(true)]
 			[#partner.setSexualOrientation(ORIENTATION_AMBIPHILIC)]

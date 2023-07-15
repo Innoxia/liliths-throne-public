@@ -4,7 +4,6 @@
 	<name><![CDATA[wine merchants' district]]></name>
 	<tooltipDescription><![CDATA[The residents of Themiscyra had a particular fondness for wine, and as a result an entire wine merchant district sprang up to serve this demand.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the wine merchants' district in Themiscyra]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_PURPLE</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

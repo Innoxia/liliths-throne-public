@@ -4,7 +4,6 @@
 	<name><![CDATA[Wall's End]]></name>
 	<tooltipDescription><![CDATA[A circular cobblestone path links all of the stores within the Wall's End shopping precinct.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the 'Wall's End' shopping precinct]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_GREY</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>
