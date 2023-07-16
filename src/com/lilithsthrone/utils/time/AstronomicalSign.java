@@ -62,13 +62,13 @@ public enum AstronomicalSign {
 		return getName();
 	}
 	
-	public AstronomicalSign getSignFromDate(LocalDateTime dateTime) {
+	public static AstronomicalSign getSignFromDate(LocalDateTime dateTime) {
 		int day = dateTime.getDayOfMonth();
 		Month month = dateTime.getMonth();
 		
 		for (AstronomicalSign sign : AstronomicalSign.values()) {
-			if ((month == getStartMonth() && day>=getStartDay())
-					|| (month == getEndMonth() && day<=getEndDay())) {
+			if ((month == sign.getStartMonth() && day>=sign.getStartDay())
+					|| (month == sign.getEndMonth() && day<=sign.getEndDay())) {
 				return sign;
 			}
 		}

@@ -37,7 +37,7 @@ public enum ChineseZodiac {
 		return getName();
 	}
 	
-	public ChineseZodiac getSignFromDate(LocalDateTime dateTime) {
+	public static ChineseZodiac getSignFromDate(LocalDateTime dateTime) {
 		// Remove 4 from the year to bring it inline with the chinese calendar https://en.wikipedia.org/wiki/Chinese_zodiac#Years
 		int signIndex = (dateTime.getYear() - 4) % 12;
 		if (ChineseCalender.getCycleFromDate(dateTime) != (dateTime.getYear() - 5) % 19) {

@@ -291,6 +291,8 @@ import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.utils.time.AstronomicalSign;
+import com.lilithsthrone.utils.time.ChineseZodiac;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.World;
@@ -3652,6 +3654,13 @@ public abstract class GameCharacter implements XMLSaving {
 						+" on the "+this.getBirthdayString()+"."));
 			}
 		}
+		AstronomicalSign astronomicalSign = AstronomicalSign.getSignFromDate(this.getBirthday());
+		infoScreenSB.append(UtilText.parse(this,
+				" [npc.HerPos] astronomical sign is "
+						+astronomicalSign.getName()
+						+" ("+astronomicalSign.getHtmlDisplay()+")"
+						+" and [npc.herPos] chinese zodiac animal is "
+						+ChineseZodiac.getSignFromDate(this.getBirthday()).getName()+"."));
 		
 		String relationships = this.getRelationshipStrTo(Main.game.getPlayer());
 		
