@@ -2,7 +2,7 @@ package com.lilithsthrone.utils.time;
 
 import java.time.LocalDateTime;
 
-public enum ChineseCalender {
+public enum ChineseCalendar {
 	ONE(0, 2, 5),
 	TWO(1, 1, 24),
 	THREE(2, 2, 13),
@@ -26,7 +26,7 @@ public enum ChineseCalender {
 	private final int index;
 	private final int startMonth;
 	private final int startDay;
-	ChineseCalender(int index, int startMonth, int startDay) {
+	ChineseCalendar(int index, int startMonth, int startDay) {
 		this.index = index;
 		this.startMonth = startMonth;
 		this.startDay = startDay;
@@ -44,8 +44,8 @@ public enum ChineseCalender {
 		return startDay;
 	}
 	
-	public static ChineseCalender getCycleFromIndex(int index) {
-		for(ChineseCalender cycle : ChineseCalender.values()) {
+	public static ChineseCalendar getCycleFromIndex(int index) {
+		for(ChineseCalendar cycle : ChineseCalendar.values()) {
 			if (cycle.index == index) {
 				return cycle;
 			}
@@ -58,7 +58,7 @@ public enum ChineseCalender {
 		int month = dateTime.getMonthValue();
 		// Remove 5 from the year to bring it inline with the chinese calendar https://en.wikipedia.org/wiki/Chinese_zodiac#Years
 		int index = (dateTime.getYear() - 5) % 19;
-		ChineseCalender cycle = getCycleFromIndex(index);
+		ChineseCalendar cycle = getCycleFromIndex(index);
 		if (cycle == null) {
 			return -1;
 		}
