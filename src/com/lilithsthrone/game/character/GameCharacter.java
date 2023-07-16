@@ -10095,6 +10095,23 @@ public abstract class GameCharacter implements XMLSaving {
 
 	// Virginity:
 	
+	public void completeVirginityReset() {
+		this.setAnalVirgin(true);
+		this.setAssVirgin(true);
+		this.setFaceVirgin(true);
+		this.setNippleCrotchVirgin(true);
+		this.setNippleVirgin(true);
+		this.setPenisVirgin(true);
+		this.setSecondUrethraVirgin(true);
+		this.setSpinneretVirgin(true);
+		this.setUrethraVirgin(true);
+		this.setVaginaUrethraVirgin(true);
+		this.setVaginaVirgin(true);
+		this.setHymen(true);
+		
+		virginityLossMap = new HashMap<>();
+		backupVirginityLossMap = new HashMap<>();
+	}
 	
 	public Map<SexType, String> getBackupVirginityLossMap() {
 		return backupVirginityLossMap;
@@ -22199,7 +22216,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isCarryingQuestItems() {
-		return getUniqueQuestWeaponCount()+getUniqueQuestClothingCount()+getUniqueQuestItemCount()>0;
+		return inventory.isAnyQuestItemPresent();
 	}
 	
 	

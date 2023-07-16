@@ -527,7 +527,10 @@ public class CharacterInventory implements XMLSaving {
 				+ getUniqueClothingCount() - getUniqueQuestClothingCount()
 				+ getUniqueItemCount() - getUniqueQuestItemCount();
 	}
-	
+
+	/**
+	 * @return true if this inventory contains any unique clothing, weapons, or items.
+	 */
 	public boolean isAnyQuestItemPresent() {
 		return getUniqueQuestWeaponCount()>0 || getUniqueQuestClothingCount()>0 || getUniqueQuestItemCount()>0;
 	}
