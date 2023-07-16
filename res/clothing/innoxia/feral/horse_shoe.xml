@@ -6,7 +6,7 @@
     <determiner><![CDATA[a set of]]></determiner>
     <name><![CDATA[horseshoe]]></name>
     <namePlural pluralByDefault="true"><![CDATA[horseshoes]]></namePlural>
-    <description><![CDATA[A set of four horseshoes. Although they're of the right shape and size to fit an anthro, an enchantment placed upon them repels them from anything other than feral hoofs.]]></description>
+    <description><![CDATA[A set of four horseshoes. Although they're intended for centaurs and feral horses, a pair of them would also be suitable for being fit onto hoofed anthros.]]></description>
 
     <physicalResistance>0</physicalResistance>
     <femininity>ANDROGYNOUS</femininity>
@@ -14,7 +14,13 @@
     <rarity>EPIC</rarity>
 	<clothingSet>innoxia_sturdy_steed</clothingSet>
     <imageName>horse_shoe.svg</imageName>
-    <imageEquippedName/>
+    <imageEquippedName><![CDATA[
+		#IF(npc.isTaur())
+			horse_shoe.svg
+		#ELSE
+			horse_shoe_pair.svg
+		#ENDIF
+	]]></imageEquippedName>
 
 	
 	<effects>
@@ -43,7 +49,7 @@
 			
     <itemTags>
 		<tag>FITS_HOOFS_EXCLUSIVE</tag>
-		<tag>FITS_TAUR_BODY</tag>
+		<tag>FITS_FERAL_QUADRUPED_BODY</tag>
 		<tag>SOLD_BY_FINCH</tag>
     </itemTags>
 
