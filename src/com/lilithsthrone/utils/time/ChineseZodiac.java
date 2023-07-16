@@ -4,15 +4,15 @@ import java.time.LocalDateTime;
 
 public enum ChineseZodiac {
 	RAT("rat", 0),
-	OX("ox", 1),
+	COW("cow", 1),
 	TIGER("tiger", 2),
 	RABBIT("rabbit", 3),
 	DRAGON("dragon", 4),
-	SNAKE("snake", 5),
+	LAMIA("lamia", 5),
 	HORSE("horse", 6),
 	GOAT("goat", 7),
-	MONKEY("monkey", 8),
-	ROOSTER("rooster", 9),
+	HARPY("harpy", 8),
+	DEMON("demon", 9),
 	DOG("dog", 10),
 	PIG("pig", 11);
 	
