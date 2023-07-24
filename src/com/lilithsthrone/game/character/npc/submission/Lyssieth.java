@@ -1473,4 +1473,9 @@ public class Lyssieth extends NPC {
 					+ " <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
 				+ "</p>";
 	}
+	
+	@Override
+	public int getLevel() {
+		return 1000;
+	}
 }
