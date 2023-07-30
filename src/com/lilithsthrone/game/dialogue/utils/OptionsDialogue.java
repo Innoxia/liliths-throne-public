@@ -2493,7 +2493,7 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("SILLY",
 					PresetColour.GENERIC_GOOD,
 					"Silly mode",
-					"This enables funny flavour text throughout the game.",
+					"This enables additional silly content throughout the game.",
 					Main.getProperties().hasValue(PropertyValue.sillyMode)));
 			
 			return UtilText.nodeContentSB.toString();
@@ -2539,11 +2539,11 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("OFFSPRING_ENCOUNTERS",
 					PresetColour.BASE_INDIGO,
 					"Offspring Encounters",
-					"This enables you to randomly encounter your offspring throught the world."
+					"This enables you to randomly encounter your offspring through out the world."
 					+ "<br/><i>This setting has no effect on the Offspring Map, nor on offspring who you've already met.</i>",
 					Main.game.isOffspringEncountersEnabled()));
 			
-			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_BLUE_LIGHT, "Clothing Femininity", "This sets the limitations of clothings' femininity values."));
+			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_BLUE_LIGHT, "Clothing Femininity", "This sets the limitations of clothing's' femininity values."));
 			for (int i=Main.getProperties().clothingFemininityTitles.length-1; i>=0; i--) {
 				if (Main.getProperties().getClothingFemininityLevel() == i) {
 					UtilText.nodeContentSB.append("<div id='CLOTHING_FEMININITY_"+i
@@ -2701,7 +2701,7 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("LIPSTICK_MARKING",
 					PresetColour.BASE_RED_DARK,
 					"Lipstick marking",
-					"This enables lipstick marking of bodyparts via kisses during sex.",
+					"This enables lipstick marking of body parts via kisses during sex.",
 					Main.getProperties().hasValue(PropertyValue.lipstickMarkingContent)));
 			
 			
@@ -2794,7 +2794,7 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("FURRY_TAIL_PENETRATION",
 					PresetColour.BASE_MAGENTA,
 					"Furry tail penetrations",
-					"This marks all tail types as being suitable for penetration, thereby enabling furry tails to engage in penetrative actions in sex.",
+					"This marks all prehensile tail types as being suitable for penetration, thereby enabling most furry tails to engage in penetrative actions in sex.",
 					Main.getProperties().hasValue(PropertyValue.furryTailPenetrationContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("INFLATION_CONTENT",
