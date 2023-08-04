@@ -24,7 +24,7 @@ public enum SlaveJobHours {
 	NIGHT_TWELVE("Overnight", "Get this character to work twelve hours over the course of the night.", 18, 12),
 
 	NOON_SIX("Afternoon shift", "Get this character to work six hours, starting at noon.", 12, 6),
-	EVENING_SIX("Evening shift", "Get this character to work six hours in the morning.", 18, 6);
+	EVENING_SIX("Evening shift", "Get this character to work six hours in the evening.", 18, 6);
 	
 
 	private String name;
