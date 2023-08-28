@@ -17,14 +17,14 @@ public enum SlaveJobHours {
 
 	TWENTY_FOUR_HOURS("24 hours", "Assign every hour as a work hour.", 0, 24),
 	
-	MIDNIGHT_SIX("Midnight shift", "Get this character to work six hours, starting at midnight.", 0, 6),
-	MORNING_SIX("Morning shift", "Get this character to work six hours in the morning.", 6, 6),
+	MIDNIGHT_SIX("Midnight shift", "Get this character to work six hours after midnight.", 2, 6),
+	MORNING_SIX("Morning shift", "Get this character to work six hours in the morning.", 8, 6),
 
-	DAY_TWELVE("All day", "Get this character to work twelve hours over the course of the day.", 6, 12),
-	NIGHT_TWELVE("Overnight", "Get this character to work twelve hours over the course of the night.", 18, 12),
+	DAY_TWELVE("All day", "Get this character to work twelve hours over the course of the day.", 8, 12),
+	NIGHT_TWELVE("Overnight", "Get this character to work twelve hours over the course of the night.", 20, 12),
 
-	NOON_SIX("Afternoon shift", "Get this character to work six hours, starting at noon.", 12, 6),
-	EVENING_SIX("Evening shift", "Get this character to work six hours in the evening.", 18, 6);
+	NOON_SIX("Afternoon shift", "Get this character to work six hours in the afternoon.", 14, 6),
+	EVENING_SIX("Evening shift", "Get this character to work six hours in the evening.", 20, 6);
 	
 
 	private String name;
