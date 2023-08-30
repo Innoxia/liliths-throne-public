@@ -1473,7 +1473,7 @@
 	</p>
 	<p style='text-align:center;'>
 		<b><strike>[axel.name]'s</strike> Rules For Dice Poker</b><br/>
-		1. Both players place the buy-in amount to start a game.<br/><i>Some of the text has been etched out here, and replaced with crude writing:</i><br/>If ya wont to play, you haz to pay up [style.moneyFormat(500, span)]. No reefundz, no arrguinn if ya looses.<br/>
+		1. Both players place the buy-in amount to start a game.<br/><i>Some of the text has been etched out here, and replaced with crude writing:</i><br/>If ya won't to play, you haz to pay up [style.moneyFormat(500, span)]. No reefundz, no arrguinn if ya looses.<br/>
 		2. Both players roll five dice each.<br/>
 		3. Players can choose to increase the bet (referred to as a 'raise'), or leave the bet at the buy-in amount (referred to as a 'call').<br/>
 		4. After betting is done, each player selects as many of their dice as they want to re-roll.<br/>

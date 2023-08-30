@@ -621,7 +621,7 @@
 			#IF(com.isAttractedTo(npc) || !game.isNonConEnabled())
 				[com.speech(Now that sounds fun!)] [com.Name] enthusiastically replies, and without needing any more encouragement, starts moving the imps into position, forcing each one of them down onto all fours before [com.herHim].
 			#ELSE
-				[com.speech(I-I don't really want to...)] [com.Name] mutters, but after you've told [com.herHim] that it's an , [com.she] reluctantly does as you command, and starts moving the imps into position. As [com.she] forces each one of them down onto all fours before [com.herHim], [com.she] snaps, [com.speech(Hurry up and present yourselves! If I've got to do this, I want to get it over with as quickly as possible!)]
+				[com.speech(I-I don't really want to...)] [com.Name] mutters, but after you've told [com.herHim] that it's an order, [com.she] reluctantly does as you command, and starts moving the imps into position. As [com.she] forces each one of them down onto all fours before [com.herHim], [com.she] snaps, [com.speech(Hurry up and present yourselves! If I've got to do this, I want to get it over with as quickly as possible!)]
 			#ENDIF
 		</p>
 		<p>

@@ -1645,7 +1645,7 @@
 			<p>
 				As you repeat your new name back to [npc.herHim], [npc.name] looks down at you and lets out an amused humming noise.
 				#IF(!npc.isMute())
-					 Clearly not being attracted to you, [npc.name] states, [npc.speech(Come back soon, [pc.name], <i>or else</i>. Ive got plans for you!)]
+					 Clearly not being attracted to you, [npc.name] states, [npc.speech(Come back soon, [pc.name], <i>or else</i>. I've got plans for you!)]
 				#ELSE
 					 Clearly not being attracted to you, [npc.name] simply glares at you for a moment, before turning [npc.her] back on you.
 				#ENDIF
