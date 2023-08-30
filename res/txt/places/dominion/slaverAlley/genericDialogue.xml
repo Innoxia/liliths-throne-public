@@ -1506,9 +1506,9 @@
 	<htmlContent tag="PUBLIC_STOCKS_SEAN_TALK_FREED_SLAVES"><![CDATA[
 	<p>
 		#IF(game.getDialogueFlags().hasFlag(FLAG_slaverAlleyTalkedFreedSlaves))
-			Turing to glance at the deserted stocks, you once again ask [sean.name] if [sean.sheIs] going to get in trouble for allowing the slaves to escape on his watch.
+			Turning to glance at the deserted stocks, you once again ask [sean.name] if [sean.sheIs] going to get in trouble for allowing the slaves to escape on his watch.
 		#ELSE
-			Turing to glance at the deserted stocks, you ask [sean.name] if [sean.sheIs] going to get in trouble for allowing the slaves to escape on his watch.
+			Turning to glance at the deserted stocks, you ask [sean.name] if [sean.sheIs] going to get in trouble for allowing the slaves to escape on his watch.
 		#ENDIF
 	</p>
 	<p>
