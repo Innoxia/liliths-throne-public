@@ -56,9 +56,9 @@ This gives the user both a good experience on entering the game and allows you t
 
 Theres a lot of detail to this one and thats great. Lots of different pieces for different slots, negative status effects, you even went through the trouble of inventing the jinxed equipment mechanic for it, truly a lot of attention to detail. Some of it seems unnecessarily tedious though.
 
--The "enchanted Karada" blocks your underwear slots (even nipple tape? Oo) Is that intended? Im not knowledgeable on BDSM at all but is there no way for a person to wear that kind of rope underneath underwear?
+-The "enchanted Karada" blocks your underwear slots (even nipple tape? Oo) Is that intended? I'm not knowledgeable on BDSM at all but is there no way for a person to wear that kind of rope underneath underwear?
 
--"wrist restraints" and "spreader bar" blocking you from equipping pieces onto your arms and legs is...logical but also annoying in a way...may I suggest that for reconsideration? As for how its possible to, for example, equip something to your "hand slot" even though the PC is wearing wrist restraints, it could just be handwaved as a magic attribute of the BDSM-set for practicality. (Just like how the PC can still walk, even though she/he is waring a spreader bar. Im handwaving that already in my mind.)
+-"wrist restraints" and "spreader bar" blocking you from equipping pieces onto your arms and legs is...logical but also annoying in a way...may I suggest that for reconsideration? As for how it's possible to, for example, equip something to your "hand slot" even though the PC is wearing wrist restraints, it could just be handwaved as a magic attribute of the BDSM-set for practicality. (Just like how the PC can still walk, even though she/he is waring a spreader bar. I'm handwaving that already in my mind.)
 
 -Commitment to the BDSM-set is definitely something that should be a thing, but maybe in a different way than blocking so many slots? "Unjinxing" could surely stand to cost way more and maybe costs could scale with the level of the PC.
 
@@ -313,7 +313,7 @@ Make "Cum Addict" fetish replace "Creampie" and "Dirty Clothes" statuses with po
 - Werewolves that roam about during arcane storms in wintertime. 
 - More perk options. Ex: Unlock abilities
 - More weapons. Basically there is feather 1, feather 2, stone 1, stone 2, and witch broom. Additionally an explanation of the magic system in the library would be nice.
-- Book merchant. Its a serious pain right now to try and get all the books. Perhaps this merchant could give a faster way to fill the encyclopedia as well.
+- Book merchant. It's a serious pain right now to try and get all the books. Perhaps this merchant could give a faster way to fill the encyclopedia as well.
 - Special item merchant. Sells enchanted items. Blue enchanted items are really rare.
 - Latex. Would really like latex high-thigh stockings and latex elbow gloves.
 - More color options for witch gear. Can't do red, purple, green, etc. currently.
@@ -375,7 +375,7 @@ Miscellaneous things I've noted:
 		I was considering something like that, I'll add it to my list and see if I cna get that implemented when I do the combat rework
 		Although it would probably be something simple like making all NPCs no lower than 3 levels beneath you
 	
-	also, if an NPC wants to fuck my pussy, but my pussy is at max wetness, can they stop trying to finger me first xD its not a huge deal, its just always like.. okay. they are wetting their fingers.. this is taking a while, when do i get preggo already, lo
+	also, if an NPC wants to fuck my pussy, but my pussy is at max wetness, can they stop trying to finger me first xD it's not a huge deal, it's just always like.. okay. they are wetting their fingers.. this is taking a while, when do i get preggo already, lo
 	
 	a special action to oral/kiss a hole that has been creampied
 	
@@ -672,9 +672,9 @@ a potential super potion, where you have the effect of the potion hit the entire
 
 a system to set up what the slaves base permissions are before any come into the house would cut an entire step out of every slaves setup. If I could also pay for my slaves to be altered before they reach me, that would be even better. 
 
-lets see here, if I implemented anything, I would have body mods handled through administration, the large strokes, like adding or removing breasts, penis, vagina, and altering how they work, what they do, and have this act as filter 1, they wouldnt change race, as if you wanted another race, you would have bought another race.
+lets see here, if I implemented anything, I would have body mods handled through administration, the large strokes, like adding or removing breasts, penis, vagina, and altering how they work, what they do, and have this act as filter 1, they wouldn't change race, as if you wanted another race, you would have bought another race.
 
-Filter 2 would happen at the house, where everyone gets there permissions and inventories dealt with. lets say I have a uniform, it gets special ordered and costs quite a bit, but its made and they get it on arrival.
+Filter 2 would happen at the house, where everyone gets there permissions and inventories dealt with. lets say I have a uniform, it gets special ordered and costs quite a bit, but it's made and they get it on arrival.
 
 this deals with 2 potentially tedious tasks, personally I just keep everyone nude and walk around nude myself, so for me it cuts one out. 
 
@@ -695,7 +695,7 @@ this is less about patience and more about tedious tasks. granted each update I 
 	
 	
 	
-	is there maybe any chance you might consider like a "fade to black" skip sex button or something?  Hell I'd even settle for a lay back and take it option or whatever. I like losing and such cause I like forced TFs but at the same time its a lot to click through for the payoff. I'll keep playing either way, just a thought though
+	is there maybe any chance you might consider like a "fade to black" skip sex button or something?  Hell I'd even settle for a lay back and take it option or whatever. I like losing and such cause I like forced TFs but at the same time it's a lot to click through for the payoff. I'll keep playing either way, just a thought though
 	
 	
 	I'd like to throw in a suggestion with the Brax encounter. If you happen to already be a wolf-morph when you first encounter him, you can seduce him for information. Alternatively, if you are not, you could end up fighting him, losing, then being forcibly transformed into his dream wolf-morph (all optional). If you return after this, despite being his dream fuck, you only have the option to fight him.
@@ -1010,7 +1010,7 @@ While that should probably be gated, and fall under non-con, I don't want to be 
 	
 	Speaking of the fast travel system and the mall, each shop should have a fast travel button back to the entrance.
 	  It's actually confusing for the player when you leave a store to realize that you've been moved to another location, but don't have a fast button to get back like in the mansion.
-	  after being done with pix in the gym the fast travel comes up and its very confusing because it does nothing so you have to move manually anyway
+	  after being done with pix in the gym the fast travel comes up and it's very confusing because it does nothing so you have to move manually anyway
 	
 	Midair fucking while in flight
 	
@@ -1038,7 +1038,7 @@ While that should probably be gated, and fall under non-con, I don't want to be 
 	'wild' morphs instead of 'feral'
 		Have ferals as actual animals
 		The last pace I could possibly think of that would be worth adding would be "primal", in this case instincts have taken over completely, people in this state can't be reasoned with and do not talk.
-			The sex itself would be rough with 2 possible goals either baby making or establishing dominance over a rival of the same gender (male/male, female/female, after all its the strong in nature that get the best picks). 
+			The sex itself would be rough with 2 possible goals either baby making or establishing dominance over a rival of the same gender (male/male, female/female, after all it's the strong in nature that get the best picks). 
 		
 	Define custom NPCs.
 	
@@ -1196,7 +1196,7 @@ If she likes you enough she will hand you a pass that allows you to get into a d
 	    If the player wants, they can remove these contacts at any time and they're also removed if the player removes that NPC from that area.
 		
 	1) A bit in relation to the kissing and lipstick suggestion. Perfume/Pheromones/Smells and maybe body licking (It is sometimes erotic). The perfume/pheromones/smells could have an effect both in combat and in random encounters. For example you could be secreting mating pheromones and someone might pick up on the invitation. It could cause status effects during combat.
-	2) This one would probably work better for a single specific individual but its also in relation to the idea of people coming to your house. It would concern pregnancy fetishists (or races that are really into breeding like the bunnies and rats) specifically:
+	2) This one would probably work better for a single specific individual but it's also in relation to the idea of people coming to your house. It would concern pregnancy fetishists (or races that are really into breeding like the bunnies and rats) specifically:
 	Basically if you have a certain amount of virility, Penis+Testicle size and cum production and have sex with a pregnancy fetishist or one female member of that race but don't cum inside them they might find you again either out in the open world or at the house/camp. They would basically try to get you to have sex with them again but they make it clear they want you to finish inside. 
 	The way they try to convince you could vary depending on the personnality of the NPC, some might try to provoke you by saying you couldn't do it even if you tried all day, some might try to fan your ego, some would ask up front what they are lacking for you to be interested.
 	You would then have choices on how to answer to them, either you can choose to "take the bait" of their provocations etc, tell them you didn't feel like it but they could try to "convince you", make the "work" for it or even don't say anything and just breed them right then and there.
