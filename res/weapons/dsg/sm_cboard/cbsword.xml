@@ -68,7 +68,7 @@
 	
 	<hitDescriptions>
 		<hitText><![CDATA[
-		[npc.Name] [npc.verb(swing)] [npc.her] sword at [npc2.name]! The edge of the mighty cardboardium blade makes contact with [npc2.namePos] aura, draining a miniscule amount of energy.
+		[npc.Name] [npc.verb(swing)] [npc.her] sword at [npc2.name]! The edge of the mighty cardboardium blade makes contact with [npc2.namePos] aura, draining a minuscule amount of energy.
 		]]></hitText>
 	</hitDescriptions>
 

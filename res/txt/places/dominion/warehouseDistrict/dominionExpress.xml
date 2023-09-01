@@ -185,7 +185,7 @@
 	
 	<htmlContent tag="FILLY_STATION"><![CDATA[
 	<p>
-		On one side of the long corridor which runs through the warehouse, there's a small alcove, which is just about large enough to comfortably accommodate a single centaur. Stepping into this recess, you find yourself coming face-to-face with what looks to be some kind of vending machine, which is proudly displaying the words 'Filly Rewards Station'. Looking through its clear glass frontage, you see that there are a large selection of transformative potions on offer, but instead of their prices being displayed in flames, they're each marked as costing a certain number of 'filly points'.
+		On one side of the long corridor which runs through the warehouse, there's a small alcove, which is just about large enough to comfortably accommodate a single centaur. Stepping into this recess, you find yourself coming face-to-face with what looks to be some kind of vending machine, which is proudly displaying the words 'Filly Rewards Station'. Looking through its clear glass frontage, you see that there is a large selection of transformative potions on offer, but instead of their prices being displayed in flames, they're each marked as costing a certain number of 'filly points'.
 	</p>
 	<p>
 		Beside this curious vending machine, you see that there's an informative poster titled 'Filly Rewards Scheme'. If you wanted to, you could spend a moment reading over the information displayed on this poster, or perhaps instead you could try interacting with the filly rewards station...
@@ -371,7 +371,7 @@
 		Having saved up enough points to permanently upgrade your choker, you select the 'silver choker' upgrade option. The moment that you finish entering the button combination on the mechanical keypad, a bright pink flash is emitted from out of the scanner, and right before your eyes, [#SPECIAL_PARSE_0] of your filly points are drawn out of your choker and absorbed into the machine. Immediately after this, a short, high-pitched fanfare is emitted from an internal speaker, before a previously-flat panel on the front of the machine slides aside to fire a burst of silver-coloured confetti all over you.
 	</p>
 	<p>
-		As you start brushing the glittery mess off of your body, a small mirror pokes out of the still-open panel, and you look into it to see that your filly choker has somehow been dyed silver! Smiling happily to yourself, you watch as the mirror retracts back into its compartment, before a series of arcane words are once gain projected into the air in front of your face:
+		As you start brushing the glittery mess off of your body, a small mirror pokes out of the still-open panel, and you look into it to see that your filly choker has somehow been dyed silver! Smiling happily to yourself, you watch as the mirror retracts back into its compartment, before a series of arcane words are once again projected into the air in front of your face:
 	</p>
 	<p style='text-align:center;'>
 		<b>[style.italicsPink(Congratulations filly!)]</b>
@@ -395,7 +395,7 @@
 		Having saved up enough points to permanently upgrade your choker once again, you select the 'gold choker' upgrade option. The moment that you finish entering the button combination on the mechanical keypad, a bright pink flash is emitted from out of the scanner, and right before your eyes, [#SPECIAL_PARSE_0] of your filly points are drawn out of your choker and absorbed into the machine. Immediately after this, an elaborate, high-pitched fanfare is emitted from an internal speaker, before a previously-flat panel on the front of the machine slides aside to fire a burst of gold-coloured confetti all over you.
 	</p>
 	<p>
-		Just like when you received your silver collar upgrade, a small mirror pokes out of the still-open panel, and you look into it to see that your filly choker has somehow been dyed gold! Smiling happily to yourself, you watch as the mirror retracts back into its compartment, before a series of arcane words are once gain projected into the air in front of your face:
+		Just like when you received your silver collar upgrade, a small mirror pokes out of the still-open panel, and you look into it to see that your filly choker has somehow been dyed gold! Smiling happily to yourself, you watch as the mirror retracts back into its compartment, before a series of arcane words are once again projected into the air in front of your face:
 	</p>
 	<p style='text-align:center;'>
 		<b>[style.italicsPink(Congratulations filly!)]</b>
@@ -782,7 +782,7 @@
 		</p>
 	#ELSE
 		<p>
-			At the far end of the corridor, positioned next to the stables, there's a solid wooden door bearing a plaque which reads; 'Stable Mistress Natalya's Office'. Looking through the large glass windows positioned to the side of this door, you see that there's a small, totally-deserted waiting room on the other side. As Mistress Natalya isn't working at this hour, the waiting room's light are all turned off, and its door is securely locked.
+			At the far end of the corridor, positioned next to the stables, there's a solid wooden door bearing a plaque which reads; 'Stable Mistress Natalya's Office'. Looking through the large glass windows positioned to the side of this door, you see that there's a small, totally-deserted waiting room on the other side. As Mistress Natalya isn't working at this hour, the waiting room's lights are all turned off, and its door is securely locked.
 		</p>
 		<p>
 			#IF(pc.hasQuest(QUEST_LINE_ROMANCE_NATALYA))
@@ -897,7 +897,7 @@
 	
 	<htmlContent tag="OFFICE_STABLE_ENTRY_INTERVIEW"><![CDATA[
 	<p>
-		Beside its impressive size, the first thing that strikes you as you enter Natalya's office is a series of large glass windows running down the entire length of the far wall, which grant you a captivating view of the warehouse district. Looking around the office's interior, you see that the usual assortment of cabinets and potted plants are of a rather bland, modern design. The only piece of furniture which looks to have had any thought put into its selection is the impressive wooden desk on the far side of the room, behind which Dominion Express's 'Stable Mistress' is currently sitting.
+		Besides its impressive size, the first thing that strikes you as you enter Natalya's office is a series of large glass windows running down the entire length of the far wall, which grant you a captivating view of the warehouse district. Looking around the office's interior, you see that the usual assortment of cabinets and potted plants are of a rather bland, modern design. The only piece of furniture which looks to have had any thought put into its selection is the impressive wooden desk on the far side of the room, behind which Dominion Express's 'Stable Mistress' is currently sitting.
 	</p>
 	<p>
 		[natalya.speech(Come over here, filly,)] Natalya calls out, putting an end to your appraisal of her office. Seeing no reason not to do as she says, you walk over the polished wooden floor to where Natalya has just stood up from behind her desk. Once again, you can't help but notice how the lilac-skinned [natalya.race] is especially short for a taur, measuring barely more than
@@ -1314,7 +1314,7 @@
 	
 	<htmlContent tag="OFFICE_STABLE_CONTRACT_OFFERED_NO_TF"><![CDATA[
 	<p>
-		[pc.speech(I wont need to be transformed though, will I?)] you ask, confident that your big breasts, feminine figure, and [pc.cockSize] cock are just what Natalya is looking for.
+		[pc.speech(I won't need to be transformed though, will I?)] you ask, confident that your big breasts, feminine figure, and [pc.cockSize] cock are just what Natalya is looking for.
 	</p>
 	<p>
 		[natalya.speech(From what I can see, you won't require any transforming, no. Just keep in mind that if you ever present yourself to me without being [style.a_shemale], or with tits smaller than D-cups, then I'll have to punish you and have you fixed!)] your Mistress says, before warning, [natalya.speech(Anyway, the final part of the contract is saying that you agree to let me train you as an anal-loving filly slut. Each stage of your training will follow the same format; you'll perform a sex act on me, and then I'll have you repeat that act on one of my centaur slaves. As you've already sucked my cock, we can move straight on to having you give a blowjob to one of them. Now hurry up and sign on the dotted line, so that I can start training you.)]

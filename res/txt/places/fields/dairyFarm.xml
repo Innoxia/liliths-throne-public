@@ -1601,7 +1601,7 @@
 	
 	<htmlContent tag="DORMITORY"><![CDATA[
 	<p>
-		At one end of the farm's long corridor, a sign reading 'Dormitories' is fixed to the wall above two large doors, each of which has a round glass window fixed into it at head height. The door on the left bears a sign reading 'Non-cow Employees Only', and after taking a brief glance through its window, you see that the room beyond is very small and cramped, and there are only a handful of shabby-looking bunk beds in there.
+		At one end of the farm's long corridor, a sign reading 'Dormitories' is fixed to the wall above two large doors, each of which has a round glass window fixed into it at head height. The door on the left bears a sign reading 'Non-cow Employees Only', and after taking a brief glance through its window, you see that the room beyond is very small and cramped, and there is only a handful of shabby-looking bunk beds in there.
 		#IF(game.getCharactersPresent().contains(dale))
 			 As you scan over the room's interior, you see the unmistakable form of Dale sleeping on the bottom bunk of one of these beds.
 			#IF(dale.getTotalTimesHadSex(pc)>0)
@@ -2416,7 +2416,7 @@
 	
 	<htmlContent tag="BARN_WORK_NO_MILK"><![CDATA[
 	<p>
-		Telling yourself that it's time to get down to work, you look around at the nearby milking stalls and quickly choose one of them. Deciding to do a four-hour shift, you approach your selected stall and sink down into the half-standing, half-prone position which its padded surfaces support. Once in this position, you find yourself looking down at a small arcane device that's positioned just in front of you. Consisting of a flat screen and a primitive keyboard with a dozen well-worn buttons, this arcane device resembles a form of very simple computer, and as it detects that you're in the stall, its screen lights up and starts impatiently flashing a red warning, reading:
+		Telling yourself that it's time to get down to work, you look around at the nearby milking stalls and quickly choose one of them. Deciding to do a four-hour shift, you approach your selected stall and sink down into the half-standing, half-prone position which the padded surfaces support. Once in this position, you find yourself looking down at a small arcane device that's positioned just in front of you. Consisting of a flat screen and a primitive keyboard with a dozen well-worn buttons, this arcane device resembles a form of very simple computer, and as it detects that you're in the stall, its screen lights up and starts impatiently flashing a red warning, reading:
 	</p>
 	<p style='text-align:center;'>
 		<i>
@@ -2868,7 +2868,7 @@
 	
 	<htmlContent tag="BARN_WORK_INITIAL_START"><![CDATA[
 	<p>
-		Telling yourself that it's time to get down to work, you look around at the nearby milking stalls and quickly choose one of them. Deciding to do a four-hour shift, you approach your selected stall and sink down into the half-standing, half-prone position which its padded surfaces support. Once in this position, you find yourself looking down at a small arcane device that's positioned just in front of you. Consisting of a flat screen and a primitive keyboard with a dozen well-worn buttons, this arcane device resembles a form of very simple computer, and as it detects that you're in the stall, its screen lights up and displays some text for you to read:
+		Telling yourself that it's time to get down to work, you look around at the nearby milking stalls and quickly choose one of them. Deciding to do a four-hour shift, you approach your selected stall and sink down into the half-standing, half-prone position which the padded surfaces support. Once in this position, you find yourself looking down at a small arcane device that's positioned just in front of you. Consisting of a flat screen and a primitive keyboard with a dozen well-worn buttons, this arcane device resembles a form of very simple computer, and as it detects that you're in the stall, its screen lights up and displays some text for you to read:
 	</p>
 	<p style='text-align:center;'>
 		<i>
@@ -3335,7 +3335,7 @@
 		</i>
 	</p>
 	<p>
-		Following the machine's instructions, you quickly place the tube in your mouth and start to suck out the sickly-sweet potion. After greedily swallowing down every last drop, you can't help but let out a deeply erotic [pc.moan] as you feel your body start to transform. As the transformative effects begin to manifest themselves, your mind starts to spin, and you dip in and out of conciousness as your body undergoes some radical transformations to turn you into a lesser cow-girl...
+		Following the machine's instructions, you quickly place the tube in your mouth and start to suck out the sickly-sweet potion. After greedily swallowing down every last drop, you can't help but let out a deeply erotic [pc.moan] as you feel your body start to transform. As the transformative effects begin to manifest themselves, your mind starts to spin, and you dip in and out of consciousness as your body undergoes some radical transformations to turn you into a lesser cow-girl...
 	</p>
 	]]>
 	</htmlContent>
@@ -3362,7 +3362,7 @@
 		</i>
 	</p>
 	<p>
-		Following the machine's instructions, you quickly place the tube in your mouth and start to suck out the sickly-sweet potion. After greedily swallowing down every last drop, you can't help but let out a deeply erotic [pc.moan] as you feel your body start to transform. As the transformative effects begin to manifest themselves, your mind starts to spin, and you dip in and out of conciousness as your body undergoes some radical transformations to turn you into a greater cow-girl...
+		Following the machine's instructions, you quickly place the tube in your mouth and start to suck out the sickly-sweet potion. After greedily swallowing down every last drop, you can't help but let out a deeply erotic [pc.moan] as you feel your body start to transform. As the transformative effects begin to manifest themselves, your mind starts to spin, and you dip in and out of consciousness as your body undergoes some radical transformations to turn you into a greater cow-girl...
 	</p>
 	]]>
 	</htmlContent>
@@ -3389,7 +3389,7 @@
 		</i>
 	</p>
 	<p>
-		Following the machine's instructions, you quickly place the tube in your mouth and start to suck out the sickly-sweet potion. After greedily swallowing down every last drop, you can't help but let out a deeply erotic [pc.moan] as you feel your body start to transform. As the transformative effects begin to manifest themselves, your mind starts to spin, and you dip in and out of conciousness as your body undergoes some radical transformations to turn your lower body into that of a feral cow...
+		Following the machine's instructions, you quickly place the tube in your mouth and start to suck out the sickly-sweet potion. After greedily swallowing down every last drop, you can't help but let out a deeply erotic [pc.moan] as you feel your body start to transform. As the transformative effects begin to manifest themselves, your mind starts to spin, and you dip in and out of consciousness as your body undergoes some radical transformations to turn your lower body into that of a feral cow...
 	</p>
 	]]>
 	</htmlContent>

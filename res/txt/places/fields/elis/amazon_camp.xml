@@ -540,7 +540,7 @@
 		Wanting to see Aurokaris, you approach the entrance to her tent and call out to her. A few moments later, you hear sounds of movement within, before the canvas flap is hastily untied and opened before you.
 	</p>
 	<p>
-		[aurokaris.speech([pc.Name]! Please, come on in,)] the Amazon happily exclaims. [pc.Stepping] forwards into the tent, you look around to see that it's surprisingly spacious inside, granting both you and Aurokaris plenty of room in which to move around. Turing to face the cow-girl after she's tied the entrance flap back into place, you see that 
+		[aurokaris.speech([pc.Name]! Please, come on in,)] the Amazon happily exclaims. [pc.Stepping] forwards into the tent, you look around to see that it's surprisingly spacious inside, granting both you and Aurokaris plenty of room in which to move around. Turning to face the cow-girl after she's tied the entrance flap back into place, you see that 
 		#IF(aurokaris.isVisiblyPregnant())
 			#IF(!aurokaris.isCharacterReactedToPregnancy(pc))
 				 she's sporting a [style.colourSex(pregnant belly)]. Blushing as she smiles at you, she reveals, [aurokaris.speech(I haven't been with anyone else, so it was you who got me pregnant... Oh, don't worry about having to do anything to help; I can manage it just fine!)]
