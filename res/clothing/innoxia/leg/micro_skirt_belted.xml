@@ -5,7 +5,7 @@
 		<determiner><![CDATA[a]]></determiner>
 		<name><![CDATA[belted microskirt]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[belted microskirts]]></namePlural>
-		<description><![CDATA[Consisting of little more than belt holding up a narrow band of tight-fitting fabric, this microskirt is so short that it leaves its wearer's private parts completely exposed.]]></description> 
+		<description><![CDATA[Consisting of little more than a belt holding up a narrow band of tight-fitting fabric, this microskirt is so short that it leaves its wearer's private parts completely exposed.]]></description> 
 		<physicalResistance>0</physicalResistance>
 		<femininity>FEMININE</femininity>
 		<slot>LEG</slot>

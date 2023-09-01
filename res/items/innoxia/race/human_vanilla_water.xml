@@ -5,7 +5,7 @@
 		<determiner><![CDATA[a bottle of]]></determiner>
 		<name><![CDATA[Vanilla Water]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[Vanilla Waters]]></namePlural>
-		<description><![CDATA[A plastic bottle filled with what appears to be nothing but water. While there's no label on the bottle, there is a slight indentation in its surface, and, holding it up to the light to get a better look, you see that the impression spells the words 'Vanilla Water'.]]></description> 
+		<description><![CDATA[A plastic bottle filled with what appears to be nothing but water. While there's no label on the bottle, there is a slight indentation on its surface, and, holding it up to the light to get a better look, you see that the impression spells the words 'Vanilla Water'.]]></description> 
 		
 		<useDescriptor>drink</useDescriptor>
 		

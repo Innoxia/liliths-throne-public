@@ -114,7 +114,7 @@
 	</p>
 	#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_RELATIONSHIP_NYAN_HELP, QUEST_RELATIONSHIP_NYAN_3_STOCK_ISSUES_DOBERMANNS))
 		<p>
-			A weathered, open-topped crate positioned near to the front of this storage area is noticeably larger than all the others, and has the words 'Surplus Disposal' painted in large black letters across its side.
+			A weathered, open-topped crate positioned near the front of this storage area is noticeably larger than all the others, and has the words 'Surplus Disposal' painted in large black letters across its side.
 			#IF(game.getDialogueFlags().hasFlag(FLAG_kayCratesSearched))
 				 With [kay.namePos] permission, [style.colourMinorBad(you've already taken today's clothing surplus)], and so there's nothing else for you to do except [pc.step] away from the crate and prepare to head elsewhere...
 			#ELSE
@@ -123,7 +123,7 @@
 		</p>
 	#ELSE
 		<p>
-			A weathered, open-topped crate positioned near to the front of this storage area is noticeably larger than all the others, and has the words 'Surplus Disposal' painted in large black letters across its side. Although there are several items of what appear to be discarded clothing inside, the crate is within direct line-of-sight from the overseer's station at the far end of the corridor. Although it seems a waste to have to abandon those items of perfectly-serviceable clothing to their fate, you don't want to be seen rescuing them and accused of stealing, so you [pc.step] away from the crate and prepare to head elsewhere...
+			A weathered, open-topped crate positioned near the front of this storage area is noticeably larger than all the others, and has the words 'Surplus Disposal' painted in large black letters across its side. Although there are several items of what appear to be discarded clothing inside, the crate is within direct line-of-sight from the overseer's station at the far end of the corridor. Although it seems a waste to have to abandon those items of perfectly-serviceable clothing to their fate, you don't want to be seen rescuing them and accused of stealing, so you [pc.step] away from the crate and prepare to head elsewhere...
 		</p>
 	#ENDIF
 	]]>
