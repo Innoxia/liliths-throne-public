@@ -342,7 +342,7 @@ public enum TattooCounterType {
 	PREGNANCY("pregnancy", "Keeps a count of how many times the bearer has been impregnated.") {
 		@Override
 		public int getCount(GameCharacter bearer) {
-			return bearer.getLittersBirthed().size() + (bearer.isPregnant()?1:0);
+			return Main.game.getFamily().getLittersBirthed(bearer).size() + (bearer.isPregnant()?1:0);
 		}
 	},
 
@@ -380,7 +380,7 @@ public enum TattooCounterType {
 				}
 			}
 			Set<String> partners = new HashSet<>();
-			for(Litter litter : bearer.getLittersFathered()) {
+			for(Litter litter : Main.game.getFamily().getLittersFathered(bearer)) {
 				partners.add(litter.getMotherId());
 			}
 			return potentials.size() + partners.size();

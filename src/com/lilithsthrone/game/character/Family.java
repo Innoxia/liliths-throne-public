@@ -6,10 +6,12 @@ import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-import com.lilithsthrone.utils.XMLSaving;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+
+import com.lilithsthrone.game.character.pregnancy.Litter;
+import com.lilithsthrone.utils.XMLSaving;
 
 public final class Family implements XMLSaving {
 	private final Map<Integer, Litter> litterMap = new TreeMap<>();
