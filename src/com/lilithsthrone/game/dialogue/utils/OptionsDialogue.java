@@ -295,39 +295,17 @@ public class OptionsDialogue {
 	
 	private static String getJavaVersionInformation() {
 		StringBuilder sb = new StringBuilder();
+		String version = System.getProperty("java.version");
 		
 		sb.append("<p style='text-align:center;'>"
-					+ "Your java version: "+System.getProperty("java.version"));
-//				+" | ");
-		
-//		String[] version = System.getProperty("java.version").split("\\.");
-//		if(version[0]!=null) {
-//			if(Integer.valueOf(version[0])<9) {
-//				sb.append("<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>You have an old version of java!</span> This game needs at least 9.0.1 to work correctly!");
-//			} else {
-//				sb.append("<span style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Your java is up to date!</span>");
-//			}
-//		}
-//		if(version.length>=2) {
-//			if(Integer.valueOf(version[1])<8) {
-//				sb.append("<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>You have an old version of java!</span> This game needs at least v1.8.0_131 to work correctly!");
-//				
-//			} else {
-//				if(version.length==3){
-//					String[] versionMinor = version[2].split("_");
-//					if(versionMinor.length>=2)
-//						if(Integer.valueOf(versionMinor[1])<131) {
-//							sb.append("<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>You have an old version of java!</span> This game needs at least v1.8.0_131 to work correctly!");
-//							
-//						} else {
-//							sb.append("<span style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>Your java is up to date!</span>");
-//						}
-//				} else {
-//					sb.append("This game needs at least v1.8.0_131 to work correctly!");
-//				}
-//			}
-//		}
-		
+					+ "Your java version: "+version);
+		if (version.equals("1.8.0_172")) {
+			sb.append(" | <span style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>This is the recommended java version!</span>");
+		} else {
+			sb.append(" | <span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>1.8.0_172 is the recommended java version!</span>");
+			sb.append("</p><p style='text-align:center;'>");
+			sb.append("This may result in abnormal behaviour such as tooltips getting stuck!<br>Please launch with the recommended version or use the .exe build.");
+		}
 		sb.append("</p>");
 		
 		return sb.toString();
