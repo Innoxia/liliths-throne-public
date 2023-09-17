@@ -46,7 +46,6 @@ import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericFemaleNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
-import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.character.npc.misc.PrologueFemale;
 import com.lilithsthrone.game.character.npc.misc.PrologueMale;
 import com.lilithsthrone.game.character.persona.NameTriplet;
@@ -1137,8 +1136,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			|| this instanceof GenericMaleNPC
 			|| this instanceof GenericAndrogynousNPC
 			|| this instanceof PrologueFemale
-			|| this instanceof PrologueMale
-			|| this	instanceof NPCOffspring) {
+			|| this instanceof PrologueMale) {
 			return false;
 		}
 

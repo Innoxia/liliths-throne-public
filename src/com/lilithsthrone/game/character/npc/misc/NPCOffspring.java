@@ -121,7 +121,6 @@ public class NPCOffspring extends NPC {
 		
 		String npcId = Main.game.safeAddNPC(this, false);
 		Main.game.getFamily().swapLitters(os.getId(), npcId);
-		Main.game.getOffspring().add(this);
 		Main.game.removeOffspringSeed(os);
 	}
 	

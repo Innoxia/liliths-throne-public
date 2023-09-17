@@ -187,6 +187,7 @@ import com.lilithsthrone.game.character.npc.submission.Takahashi;
 import com.lilithsthrone.game.character.npc.submission.Vengar;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.pregnancy.Litter;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
@@ -4727,17 +4728,25 @@ public class Game implements XMLSaving {
 	 * @return a list of all offspring that have been encountered in the game.
 	 */
 	public List<NPC> getOffspring() {
-		List<NPC> offspring = new ArrayList<>();
+		List<String> offspring = new ArrayList<>();
+		List<NPC> offspringNPCs = new ArrayList<>();
 		
-		for(NPC npc : NPCMap.values()) {
-			if((npc.getMother()!=null && npc.getMother().isPlayer()) ||
-			   (npc.getFather()!=null && npc.getFather().isPlayer()) ||
-			   (npc.getIncubator()!=null && npc.getIncubator().isPlayer())){
-					offspring.add(npc);
-			}
+		for(Litter litter : this.getFamily().getLittersRelated(this.getPlayer())) {
+			offspring.addAll(litter.getOffspring());
 		}
 		
-		return offspring;
+		for(OffspringSeed os : getOffspringNotSpawned(os -> true)) {
+			offspring.remove(os.getId());
+		}
+		
+		for(String id : offspring) {
+			try {
+				offspringNPCs.add((NPC) this.getNPCById(id));
+			} catch(Exception ignore) {
+				// Supress the exception, NPCOffspring has most likely been removed
+			}
+		}
+		return offspringNPCs;
 	}
 	
 	/**

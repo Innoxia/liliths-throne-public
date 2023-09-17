@@ -119,7 +119,6 @@ public class OffspringSeed implements XMLSaving {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		Main.game.getOffspring().remove(npc);
 		Main.game.banishNPC(npc);
 	}
 	

@@ -41,6 +41,13 @@ public final class Family implements XMLSaving {
 		return litterMap.values().stream().filter(litter -> character.equals(litter.getMother()) && !litter.getIncubatorId().isEmpty()).collect(Collectors.toList());
 	}
 	
+	public List<Litter> getLittersRelated(GameCharacter character) {
+		return litterMap.values().stream().filter(
+				litter -> character.equals(litter.getMother())
+						|| character.equals(litter.getFather())
+						|| character.equals(litter.getIncubator())).collect(Collectors.toList());
+	}
+	
 	public Litter getLastLitterBirthed(GameCharacter character) {
 		List<Litter> filteredLitterMap = getLittersBirthed(character);
 		return filteredLitterMap.get(filteredLitterMap.size()-1);
