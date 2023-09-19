@@ -10,17 +10,15 @@ import com.lilithsthrone.utils.Util;
  * @author Innoxia
  */
 public enum Height {
-	
-	// Need to standardise to 1.5 each category
 
 	/**6" to 2'*/
 	NEGATIVE_THREE_MINIMUM("fairy-sized", 15, 61, PresetColour.GENERIC_SIZE_ONE),
 	
 	/**2' to 3'6"*/
-	NEGATIVE_TWO_MINIMUM("very tiny", 61, 106, PresetColour.GENERIC_SIZE_ONE),
+	NEGATIVE_TWO_MINIMUM("very tiny", 61, 92, PresetColour.GENERIC_SIZE_ONE),
 	
 	/**3'6" to 4'*/
-	NEGATIVE_ONE_TINY("tiny", 106, 122, PresetColour.GENERIC_SIZE_ONE),
+	NEGATIVE_ONE_TINY("tiny", 92, 122, PresetColour.GENERIC_SIZE_ONE),
 	
 	/**4' to 5'*/
 	ZERO_TINY("small", 122, 152, PresetColour.GENERIC_SIZE_ONE),
@@ -28,23 +26,23 @@ public enum Height {
 	/**5' to 5'6"*/
 	ONE_SHORT("short", 152, 166, PresetColour.GENERIC_SIZE_TWO),
 
-	/**5'6" to 6'*/
-	TWO_AVERAGE("average height", 166, 183, PresetColour.GENERIC_SIZE_THREE),
+	/**5'6" to 5'11"*/
+	TWO_AVERAGE("average height", 166, 181, PresetColour.GENERIC_SIZE_THREE),
 
-	/**6' to 6'6"*/
-	THREE_TALL("tall", 183, 198, PresetColour.GENERIC_SIZE_FOUR),
+	/**5'11" to 6'6"*/
+	THREE_TALL("tall", 181, 197, PresetColour.GENERIC_SIZE_FOUR),
 
 	/**6'6" to 7'*/
-	FOUR_VERY_TALL("very tall", 198, 214, PresetColour.GENERIC_SIZE_FIVE),
+	FOUR_VERY_TALL("very tall", 197, 214, PresetColour.GENERIC_SIZE_FIVE),
 
-	/**7' to 7'6"*/
-	FIVE_ENORMOUS("towering", 214, 228, PresetColour.GENERIC_SIZE_SIX),
+	/**7' to 7'8*/
+	FIVE_ENORMOUS("towering", 214, 234, PresetColour.GENERIC_SIZE_SIX),
 
-	/**7'6" to 9'"*/
-	SIX_GIANT("gigantic", 228, 274, PresetColour.GENERIC_SIZE_SEVEN),
+	/**7'8" to 9'3"*/
+	SIX_GIANT("gigantic", 234, 281, PresetColour.GENERIC_SIZE_SEVEN),
 
-	/**9' to 12'*/
-	SEVEN_COLOSSAL("colossal", 274, 366, PresetColour.GENERIC_SIZE_EIGHT);
+	/**9'3" to 12'*/
+	SEVEN_COLOSSAL("colossal", 281, 366, PresetColour.GENERIC_SIZE_EIGHT);
 	
 	private int minimumValue;
 	private int maximumValue;
