@@ -381,6 +381,19 @@ public class OccupancyUtil implements XMLSaving {
 			updateJob(slave, hour, previousJobs);
 		}
 		
+		// Non-slave specific effects:
+		for(String id : Main.game.getPlayer().getFriendlyOccupants()) {
+			try {
+				NPC occupant = (NPC) Main.game.getNPCById(id);
+				SlaveJob currentJob = occupant.getSlaveJob(hour);
+				if(currentJob.hasFlag(SlaveJobFlag.EXPERIENCE_GAINS) && Math.random()<0.25f) {
+					occupant.incrementExperience(5, false);
+				}
+			} catch (Exception e) {
+				Util.logGetNpcByIdError("performHourlyUpdate(), getFriendlyOccupants() section 2.", id);
+			}
+		}
+		
 		// Now can apply changes and generate events based on who else is present in the job:
 		for(String id : Main.game.getPlayer().getSlavesOwned()) {
 			NPC slave;
@@ -429,8 +442,7 @@ public class OccupancyUtil implements XMLSaving {
 				}
 				
 				// chance to gain experience based on profits
-				if(currentJob.hasFlag(SlaveJobFlag.EXPERIENCE_GAINS)
-						&& workQuality>Math.random()*4) {
+				if(currentJob.hasFlag(SlaveJobFlag.EXPERIENCE_GAINS) && workQuality>Math.random()*4) {
 					slave.incrementExperience(5, false);
 				}
 				

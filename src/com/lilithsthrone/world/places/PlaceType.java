@@ -3709,6 +3709,10 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.NIGHTLIFE_CLUB, this, false)));
 		}
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
 	}.initWeatherImmune();
 
 	public static final AbstractPlaceType WATERING_HOLE_MAIN_AREA = new AbstractPlaceType(

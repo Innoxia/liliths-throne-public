@@ -2161,7 +2161,8 @@ public class BodyChanging {
 	}
 
 	public static boolean isPresetTransformationAvailable(Body body) {
-		return getPresetTransformationUnavailabilityText(body)==null || getPresetTransformationUnavailabilityText(body).isEmpty();
+		String unavailabilityText = getPresetTransformationUnavailabilityText(body);
+		return unavailabilityText==null || unavailabilityText.isEmpty();
 	}
 	
 	public static String getPresetTransformationUnavailabilityText(Body body) {
@@ -2233,6 +2234,14 @@ public class BodyChanging {
 		if(isDemonTFMenu() || BodyChanging.getTarget().isYouko() || BodyChanging.getTarget() instanceof Elemental) {
 			StringBuilder sb = new StringBuilder();
 			List<String> partsList = new ArrayList<>();
+			//TODO handle half-demons!
+			// .getHalfDemonSubspecies()
+			if(BodyChanging.getTarget().getSubspecies()==Subspecies.HALF_DEMON) {
+				if(body.getRace()==Race.DEMON && body.getSubspecies()!=Subspecies.HALF_DEMON) {
+					return UtilText.parse(BodyChanging.getTarget(), "As [npc.sheIsFull] a half-demon, [npc.name] cannot transform into a full demon!");
+				}
+			}
+			
 			for(BodyPartInterface part : body.getAllBodyParts()) {
 				if(!BodyChanging.getTarget().getSelfTransformationRaces().contains(part.getType().getRace())) {
 					if(sb.length()==0) {

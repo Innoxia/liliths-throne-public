@@ -462,10 +462,16 @@ public class Elemental extends NPC {
 	}
 
 	public boolean isActive() {
+		if(this.getSummoner()==null) {
+			return false;
+		}
 		return this.getSummoner().isElementalActive();
 	}
 
 	public boolean isSummonerServant() {
+		if(this.getSummoner()==null) {
+			return false;
+		}
 		switch(this.getCurrentSchool()) {
 			case AIR:
 				return this.getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_3A);
@@ -482,6 +488,9 @@ public class Elemental extends NPC {
 	}
 
 	public boolean isServant() {
+		if(this.getSummoner()==null) {
+			return false;
+		}
 		switch(this.getCurrentSchool()) {
 			case AIR:
 				return this.getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_3B);

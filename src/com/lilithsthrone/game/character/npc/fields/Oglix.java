@@ -10,7 +10,6 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
@@ -274,6 +273,14 @@ public class Oglix extends NPC {
 	public boolean isUnique() {
 		return true;
 	}
+
+	@Override
+	public String getArtworkFolderName() {
+		if(this.isVisiblyPregnant()) {
+			return "OglixPregnant";
+		}
+		return "Oglix";
+	}
 	
 	@Override
 	public boolean isAbleToBeImpregnated() {
@@ -328,62 +335,71 @@ public class Oglix extends NPC {
 		}
 	}
 	
+	@Override
+	public Elemental createElemental() {
+		// Remove old elemental:
+		if(this.isElementalSummoned() && !(this.getElemental() instanceof Golix)) {
+			Main.game.banishNPC(getElemental());
+		}
+		
+		Golix golix = (Golix) Main.game.getNpc(Golix.class);
+		this.elementalID = golix.getId();
+		golix.setSummoner(this);
+		
+		initElemental();
+		
+		return golix;
+	}
+	
 	// Methods for use in external dialogue:
 	
 	public void initElemental() {
-		if(!this.isElementalSummoned()) {
-			Spell.ELEMENTAL_EARTH.applyEffect(this, this, true, false);
-			
-			Elemental elemental = this.getElemental();
-			elemental.setName("Golix");
-			
-			elemental.clearPersonalityTraits();
-			elemental.addPersonalityTrait(PersonalityTrait.BRAVE);
-			elemental.addPersonalityTrait(PersonalityTrait.CONFIDENT);
-			elemental.addPersonalityTrait(PersonalityTrait.LEWD);
-			
-			elemental.setSpeechColour(PresetColour.BASE_BROWN_LIGHT);
+		Elemental elemental = this.getElemental();
+		elemental.setName("Golix");
+		
+		elemental.clearPersonalityTraits();
+		elemental.addPersonalityTrait(PersonalityTrait.BRAVE);
+		elemental.addPersonalityTrait(PersonalityTrait.CONFIDENT);
+		elemental.addPersonalityTrait(PersonalityTrait.LEWD);
+		
+		elemental.setSpeechColour(PresetColour.BASE_BROWN_LIGHT);
 
-			elemental.addFetish(Fetish.FETISH_DOMINANT);
-			elemental.addFetish(Fetish.FETISH_NON_CON_DOM);
-			
-			elemental.addFetish(Fetish.FETISH_PENIS_GIVING);
-			elemental.addFetish(Fetish.FETISH_VAGINAL_GIVING);
-			elemental.addFetish(Fetish.FETISH_ANAL_GIVING);
-			elemental.addFetish(Fetish.FETISH_ORAL_RECEIVING);
-			
-			elemental.setBodyMaterial(BodyMaterial.STONE);
-			elemental.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(elemental.getBodyMaterial(), BodyCoveringCategory.MAIN_SKIN), PresetColour.COVERING_GREY), true);
+		elemental.addFetish(Fetish.FETISH_DOMINANT);
+		elemental.addFetish(Fetish.FETISH_NON_CON_DOM);
+		
+		elemental.addFetish(Fetish.FETISH_PENIS_GIVING);
+		elemental.addFetish(Fetish.FETISH_VAGINAL_GIVING);
+		elemental.addFetish(Fetish.FETISH_ANAL_GIVING);
+		elemental.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+		
+		elemental.setBodyMaterial(BodyMaterial.STONE);
+		elemental.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(elemental.getBodyMaterial(), BodyCoveringCategory.MAIN_SKIN), PresetColour.COVERING_GREY), true);
 
-			elemental.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
-			elemental.setBodySize(BodySize.FOUR_HUGE.getMedianValue());
-			
-			elemental.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
-			elemental.setHairStyle(HairStyle.STRAIGHT);
-			
-			elemental.setVaginaType(VaginaType.NONE);
-			
-			elemental.setPenisType(PenisType.DEMON_COMMON);
-			elemental.setPenisGirth(PenetrationGirth.FIVE_THICK);
-			elemental.setPenisSize(38);
-			elemental.setTesticleSize(TesticleSize.FOUR_HUGE);
-			elemental.setPenisCumStorage(1000);
-			elemental.setPenisCumExpulsion(85);
-			elemental.fillCumToMaxStorage();
-			elemental.setTesticleCount(2);
-			
-			elemental.clearPenisModifiers();
-			elemental.addPenisModifier(PenetrationModifier.RIBBED);
-			
-			elemental.setVaginaVirgin(false);
-			elemental.setPenisVirgin(false);
-			elemental.setFaceVirgin(false);
-			elemental.setNippleVirgin(false);
-			elemental.setAssVirgin(false);
-			
-			Main.game.getNpc(Kheiron.class).setAffection(elemental, AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
-			elemental.setAffection(Main.game.getNpc(Kheiron.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
-		}
+		elemental.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
+		elemental.setBodySize(BodySize.FOUR_HUGE.getMedianValue());
+		
+		elemental.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
+		elemental.setHairStyle(HairStyle.STRAIGHT);
+		
+		elemental.setVaginaType(VaginaType.NONE);
+		
+		elemental.setPenisType(PenisType.DEMON_COMMON);
+		elemental.setPenisGirth(PenetrationGirth.FIVE_THICK);
+		elemental.setPenisSize(38);
+		elemental.setTesticleSize(TesticleSize.FOUR_HUGE);
+		elemental.setPenisCumStorage(1000);
+		elemental.setPenisCumExpulsion(85);
+		elemental.fillCumToMaxStorage();
+		elemental.setTesticleCount(2);
+		
+		elemental.clearPenisModifiers();
+		elemental.addPenisModifier(PenetrationModifier.RIBBED);
+		
+		elemental.setVaginaVirgin(false);
+		elemental.setPenisVirgin(false);
+		elemental.setFaceVirgin(false);
+		elemental.setNippleVirgin(false);
+		elemental.setAssVirgin(false);
 	}
 	
 	public void initBeerBitches() {

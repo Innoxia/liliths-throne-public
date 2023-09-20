@@ -1147,15 +1147,16 @@ public class GenericOrgasms {
 				}
 				if(!characterOrgasming.isMute()) {
 					if(Main.sex.getSexPace(characterTargeted)==SexPace.SUB_RESISTING || characterTargeted.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
-						genericOrgasmSB.append(", and [npc2.verb(let)] out a distressed cry as [npc.name] [npc.verb(tease)], ");
+						genericOrgasmSB.append(", and [npc2.verb(let)] out a distressed cry as [npc.name] ");
 					} else {
-						genericOrgasmSB.append(", and [npc2.verb(let)] out a horny whine as [npc.name] [npc.verb(tease)], ");
+						genericOrgasmSB.append(", and [npc2.verb(let)] out a horny whine as [npc.name] ");
 					}
 					genericOrgasmSB.append(UtilText.returnStringAtRandom(
-							"[npc.speechNoEffects(You're going to get pregnant from this...)]",
-							"[npc.speechNoEffects(You'll be carrying my kids soon enough...)]",
-							"[npc.speechNoEffects(I'll have knocked you up from this...)]",
-							"[npc.speechNoEffects(I'll have got you pregnant from this...)]"));
+							"[npc.moans], [npc.speechNoEffects(Get pregnant!)]",
+							"[npc.verb(tease)], [npc.speechNoEffects(You're going to get pregnant from this...)]",
+							"[npc.verb(tease)], [npc.speechNoEffects(You'll be carrying my kids soon enough...)]",
+							"[npc.verb(tease)], [npc.speechNoEffects(I'll have knocked you up from this...)]",
+							"[npc.verb(tease)], [npc.speechNoEffects(I'll have got you pregnant from this...)]"));
 				} else {
 					genericOrgasmSB.append(".");
 				}
@@ -6829,7 +6830,7 @@ public class GenericOrgasms {
 								+ " [npc.name] [npc.verb(manage)] to use a series of pleading whines in order to convey that [npc.she] [npc.verb(want)] [npc2.name] to pull away from [npc.her] [npc.armpit+] before [npc2.she] [npc2.verb(cum)].";
 						
 					} else {
-						return "Although not able to speak, [npc.name] [npc.verb(manage)] to use a series of pleading whines in order to convey that [npc.she] [npc.do]n't [npc.verb(want)] [npc2.namePos] cum.";
+						return "Although not able to speak, [npc.name] [npc.verb(manage)] to use a series of pleading whines in order to convey that [npc.she] [npc.do]n't want [npc2.namePos] cum.";
 					}
 				}
 				

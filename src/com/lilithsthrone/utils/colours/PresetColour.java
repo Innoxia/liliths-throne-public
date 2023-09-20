@@ -532,7 +532,8 @@ public class PresetColour {
 	public static Colour SKIN_LILAC_LIGHT = new Colour(false, BaseColour.LILAC_LIGHT, "pale lilac") {}.setLinkedColourLighter(SKIN_PERIWINKLE);
 	public static Colour SKIN_LILAC = new Colour(false, BaseColour.LILAC, "lilac") {}.setLinkedColourLighter(SKIN_LILAC_LIGHT);
 	public static Colour SKIN_INDIGO = new Colour(false, BaseColour.INDIGO, "indigo") {}.setLinkedColourLighter(SKIN_LILAC);
-	public static Colour SKIN_PURPLE = new Colour(false, BaseColour.PURPLE, "purple") {}.setLinkedColourLighter(SKIN_INDIGO);
+	public static Colour SKIN_PURPLE_LIGHT = new Colour(false, BaseColour.PURPLE_LIGHT, "light purple") {}.setLinkedColourLighter(SKIN_INDIGO);
+	public static Colour SKIN_PURPLE = new Colour(false, BaseColour.PURPLE, "purple") {}.setLinkedColourLighter(SKIN_PURPLE_LIGHT);
 	public static Colour SKIN_PURPLE_DARK = new Colour(false, BaseColour.PURPLE_DARK, "dark purple") {}.setLinkedColourLighter(SKIN_PURPLE);
 	
 	// Orifices:
@@ -756,6 +757,7 @@ public class PresetColour {
 			PresetColour.SKIN_LILAC_LIGHT,
 			PresetColour.SKIN_LILAC,
 			PresetColour.SKIN_INDIGO,
+			PresetColour.SKIN_PURPLE_LIGHT,
 			PresetColour.SKIN_PURPLE,
 			PresetColour.SKIN_PURPLE_DARK,
 			PresetColour.SKIN_PINK_PALE,
@@ -791,6 +793,7 @@ public class PresetColour {
 			PresetColour.SKIN_LILAC_LIGHT,
 			PresetColour.SKIN_LILAC,
 			PresetColour.SKIN_INDIGO,
+			PresetColour.SKIN_PURPLE_LIGHT,
 			PresetColour.SKIN_PURPLE,
 			PresetColour.SKIN_PURPLE_DARK,
 			PresetColour.SKIN_PINK_PALE,

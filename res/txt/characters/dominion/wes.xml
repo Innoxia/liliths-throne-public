@@ -240,7 +240,7 @@
 		[style.speechMasculineHeavy(Woah, woah, woah! We ain't wantin' no trouble!)] the leader of the gang nervously shouts, [style.speechMasculineHeavy('E was only jokin' 'bout not payin'! Look, I's got the flames 'ere, 'ow much do ya-)]
 	</p>
 	<p>
-		[elle.speech(I don't give a damn about your money,)] Elle snaps, cutting the gang-member off. Advancing towards him with her wings unfurled, she reveals, [elle.speech(I'm not doing this to get rich! You scum are too soft; do you know how boring it is to be an Enforcer these days?! Oh, what I'd give to go back to the crime waves of the late 70's, or for the fifth human rebellion to still be ongoing. Where's the fun in subduing pathetic, bottom-feeding losers like you lot? Perhaps if these weapons got out onto the streets, however, and a new crime wave started, then I'd get to relive the glory days...)]
+		[elle.speech(I don't give a damn about your money,)] Elle snaps, cutting the gang-member off. Advancing towards him with her wings unfurled, she reveals, [elle.speech(I'm not doing this to get rich! You scum are too soft; do you know how boring it is to be an Enforcer these days?! Oh, what I'd give to go back to the crime waves of the late 70's, or for the Fifth Human Rebellion to still be ongoing. Where's the fun in subduing pathetic, bottom-feeding losers like you lot? Perhaps if these weapons got out onto the streets, however, and a new crime wave started, then I'd get to relive the glory days...)]
 	</p>
 	<p>
 		Sensing that they're in very real danger of being on the receiving end of Elle's wrath, the gang-members wisely choose not to interrupt her monologue. Waiting until she's calmed down and folded her wings back into place, the dog-boy leader of the gang holds out a bag of money to Elle, saying, [style.speechMasculineHeavy(A-A deal's a deal, right? We's givin' you's this cash so we can 'ave the weapons, ok? We ain't wantin' no trouble...)]
@@ -818,7 +818,7 @@
 			[elle.speech(My instructor said that I was one of the best he'd seen, thank you very much,)] Elle calls out in a light-hearted tone, before biting her lip and teasing, [elle.speech(Of course, that might have had something to do with the fact that I was spreading my legs for him every day in his office...)]
 		</p>
 		<p>
-			Hearing no further comment from Wes, Elle smirks and continues, [elle.speech(Anyway, I graduated with above-average grades and then applied for the position of courier, which I was immediately granted. I'd thought that as a courier, I'd be able to have all sorts of fun fucking different people all over Lilith's Realm, but I just so happened to graduate in the July of '88, right before the fifth human rebellion started...)]
+			Hearing no further comment from Wes, Elle smirks and continues, [elle.speech(Anyway, I graduated with above-average grades and then applied for the position of courier, which I was immediately granted. I'd thought that as a courier, I'd be able to have all sorts of fun fucking different people all over Lilith's Realm, but I just so happened to graduate in the July of '88, right before the Fifth Human Rebellion started...)]
 		</p>
 		<p>
 			As she says this, the flirty, light-hearted look in Elle's eyes quickly fades away, and she lets out a deep, remorseful sigh. Realising that she's not comfortable talking about this right now, you tell Elle that it wasn't your intention to uncover any unpleasant memories, and perhaps it would be best to drop the subject for now.
@@ -846,7 +846,7 @@
 			Although Elle seemed to have some unpleasant memories of her early days as a SWORD Enforcer, you're sure that she's prepared to answer your questions about it by now, and so you ask her what her job was like after graduating.
 		</p>
 		<p>
-			Once again, Elle's flirty demeanour vanishes as she recalls her early memories of working as a member of SWORD, but despite the troubled expression which settles on her face, she willingly answers, [elle.speech(Well, as I mentioned before, I'd graduated in the July of '88, less than a month before all the troubles of the fifth human rebellion kicked off. You won't hear many people talking about it these days, but back then, it seemed like the whole world was starting to fall apart...)]
+			Once again, Elle's flirty demeanour vanishes as she recalls her early memories of working as a member of SWORD, but despite the troubled expression which settles on her face, she willingly answers, [elle.speech(Well, as I mentioned before, I'd graduated in the July of '88, less than a month before all the troubles of the Fifth Human Rebellion kicked off. You won't hear many people talking about it these days, but back then, it seemed like the whole world was starting to fall apart...)]
 		</p>
 		<p>
 			Letting out a deep sigh, she recalls, [elle.speech(I'd been given the job of courier over at SWORD's Fifth Company, which seemed like a cushy assignment for the first couple of weeks. Thanks to my wings, I could fly all over Dominion in no time at all, and if the situation called for it, I could even make the roundabout trip to Elis, Thinis, and even Itza'aak in less than a day. The main thing on my mind back then was who I'd get to seduce and fuck when I arrived at my destination, but that all changed with the violent start of the rebellion; the 'Day of Four Eights'...)]
@@ -868,7 +868,7 @@
 		</p>
 	#ELSE
 		<p>
-			Wanting to talk to Elle about her past again, you ask her if she's got any stories to tell about her experiences during the fifth human rebellion.
+			Wanting to talk to Elle about her past again, you ask her if she's got any stories to tell about her experiences during the Fifth Human Rebellion.
 		</p>
 		<p>
 			A slight smile breaks out across Elle's face as she hears you ask this, and in a wistful tone, she recalls, [elle.speech(Well, if you want a story, then I can tell you about the one rebel who managed to get away from me... Out of all the countless scum who I fought and bested in aerial combat, he was the only one who I'd ever consider to be my equal. He was some kind of greater bird-of-prey harpy, perhaps a falcon, but despite fighting against one another over a dozen times, I could never get a good look at him; he was just too fast.)]
@@ -889,7 +889,7 @@
 	<htmlContent tag="REQUISITIONS_BACKGROUND_ELLE_4"><![CDATA[
 	#IF(game.getDialogueFlags().getSavedLong("elle_background_progress")<5)
 		<p>
-			Curious to hear about Elle's more recent past, you ask her what she did once the fifth human rebellion had ended.
+			Curious to hear about Elle's more recent past, you ask her what she did once the Fifth Human Rebellion had ended.
 		</p>
 		<p>
 			[elle.speech(I continued with my job as a courier,)] she reveals, [elle.speech(Of course, I'd been promoted by that time, so I could delegate the more tedious assignments to those serving under me. Despite taking only the most 'exciting' of assignments, however, I soon grew very bored of my once-exhilarating job. Flying just isn't the same when you don't have to worry about being attacked at any moment by a swooping rebel harpy...)]

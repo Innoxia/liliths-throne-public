@@ -18,7 +18,11 @@ public enum PopulationDensity {
 	SPARSE("sparse"),
 	
 	SEVERAL("several"),
-
+	
+	HALF_DOZEN("half a dozen"),
+	
+	DOZEN("a dozen"),
+	
 	MANY("many"),
 	
 	NUMEROUS("numerous"),

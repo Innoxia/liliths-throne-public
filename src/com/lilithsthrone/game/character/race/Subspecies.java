@@ -1199,10 +1199,10 @@ public class Subspecies {
 			"statusEffects/race/raceBackground",
 			"dobermann",
 			"dobermanns",
-			"dobermann",
-			"dobermann",
-			"dobermanns",
-			"dobermanns",
+			"dobermann-boy",
+			"dobermann-girl",
+			"dobermann-boys",
+			"dobermann-girls",
 			new FeralAttributes(
 					"dobermann",
 					"dobermanns",
@@ -1217,7 +1217,7 @@ public class Subspecies {
 					5,
 					1, false),
 			Nocturnality.DIURNAL,
-			"[npc.NameIsFull] always ready to defend those [npc.she] [npc.verb(call)] [npc.her] friend, and, thanks to [npc.her] powerful dobermann's body, [npc.sheIs] able to do just that."
+			"[npc.NameIsFull] always ready to defend those [npc.she] [npc.verb(call)] [npc.her] friend, and, thanks to [npc.her] powerful body, [npc.sheIs] able to do just that."
 					+ " [npc.She] also [npc.has] an instinctive desire to display [npc.her] dominance over innocent cat-morphs...",
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MAJOR_PHYSIQUE, 15f),

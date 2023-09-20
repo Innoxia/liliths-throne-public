@@ -199,6 +199,9 @@
 						[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_STALL, QUEST_SIDE_UTIL_COMPLETE))]
 						[#game.appendToTextEndStringBuilder(pc.incrementMoney(1000))]
 						[#game.appendToTextEndStringBuilder(eisek.incrementAffection(pc,20))]
+						[#pc.removeItem(itemGen.generateItem(ITEM_dsg_quest_fabricbolt), 1)]
+						[#pc.removeItem(itemGen.generateItem(ITEM_dsg_quest_embsign), 1)]
+						[#pc.removeItem(itemGen.generateItem(ITEM_dsg_quest_awningpoles), 4)]
 						[#eisek.setSellModifier(1)]
 						[#flags.setSavedLong("elis_eisek_stall_quest_completion_date", game.getDayNumber())]
 					]]></effects>

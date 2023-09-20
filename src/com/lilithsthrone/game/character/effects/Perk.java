@@ -935,6 +935,27 @@ public class Perk {
 					"[npc.NameIsFull] a recognised daughter of Lunette herself, and as such is considerably more powerful than a regular demon.");
 		}
 	};
+
+	public static AbstractPerk JOB_ELDER_LILIN_PAWN = new AbstractPerk(20,
+			true,
+			"A loyal pawn",
+			PerkCategory.JOB,
+			"perks/jobs/elder_lilin_pawn",
+			Util.newArrayListOfValues(PresetColour.RACE_LILIN),
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 15),
+					new Value<>(Attribute.MAJOR_ARCANE, 15),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 25),
+					new Value<>(Attribute.DAMAGE_LUST, 15)),
+			null,
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NameIsFull] a loyal, valued pawn of an elder lilin, and as such has been granted a fraction of [npc.her] mistress's power.");
+		}
+	};
+	
 	
 	public static AbstractPerk JOB_AMAZONIAN_QUEEN = new AbstractPerk(20,
 			true,
@@ -2599,7 +2620,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameIsFull] very infertile, and as a result, is highly unlikely to ever get pregnant.");
+			return UtilText.parse(owner, "[npc.NameIsFull] very infertile, and as a result, [npc.is] highly unlikely to ever get pregnant.");
 		}
 	};
 	
@@ -3053,6 +3074,30 @@ public class Perk {
 			return UtilText.parse(owner, "The blood of Cimryth runs through [npc.namePos] veins and [npc.she] is long inured to the cold of living so high up in the mountains. However, being so removed from [npc.her] desert kin has lessened [npc.her] natural resistance to fire.");
 		}
 		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	};
+
+	public static AbstractPerk SPECIAL_ENFORCER_FIREARMS_TRAINING = new AbstractPerk(20,
+			true,
+			"Firearms Mastery",
+			PerkCategory.PHYSICAL,
+			"perks/enforcer_firearms",
+			Util.newArrayListOfValues(
+					PresetColour.DAMAGE_TYPE_FIRE,
+					PresetColour.CLOTHING_BLACK,
+					PresetColour.CLOTHING_GUNMETAL),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 75)),
+			Util.newArrayListOfValues("[style.colourExcellent(Doubles)] all firearms damage"),
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NameHasFull] not only completed the notoriously grueling Firearms Proficiency Program required of all SWORD Enforcers, but finished with a grade of Master."
+					+ " No doubt this left some dark, lingering memories, but as a result [npc.sheIs] one of the most proficient #IF(npc.isFeminine())markswomen#ELSEmarksmen#ENDIF in the realm.");
+		}
 		@Override
 		public boolean isHiddenPerk() {
 			return true;

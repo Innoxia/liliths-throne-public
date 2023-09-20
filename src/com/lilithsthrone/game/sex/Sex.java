@@ -2754,7 +2754,7 @@ public class Sex {
 			if(Main.sex.getCharacterPerformingAction().isWearingCondom()) {
 				if(sexAction.getCondomFailure(activeCharacter, targetCharacter)==CondomFailure.NONE) {
 					Main.sex.getCharacterPerformingAction().getClothingInSlot(InventorySlot.PENIS).setSealed(false);
-					if(Main.sex.getCharacterPerformingAction().getPenisRawOrgasmCumQuantity()>0) {
+					if(Main.sex.getCharacterPerformingAction().getPenisRawOrgasmCumQuantity()>0 && Main.sex.isSpectator(Main.sex.getCharacterPerformingAction())==Main.sex.isSpectator(Main.game.getPlayer())) {
 						stringBuilderForAppendingDescriptions.append(Main.game.getPlayer().addItem(
 								Main.game.getItemGen().generateFilledCondom(
 										Main.sex.getCharacterPerformingAction().getClothingInSlot(InventorySlot.PENIS).getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))

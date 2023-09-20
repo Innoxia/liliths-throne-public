@@ -259,7 +259,7 @@
 	'regionLocations' covers a more general spawn area, whereas 'worldLocations' is a lot more precise in which areas should see this subspecies spawning.
 	The text inside the 'region' element corresponds to a WorldRegion as found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/world/WorldRegion.java 
 	The 'rarity' field corresponds to a SubspeciesSpawnRarity, values of which can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesSpawnRarity.java
-	This can be left blank, but if no 'regionLocations' or 'worldLocations' are defined, then this subspecies will never spawn as a randomly-encountered subspecies. -->
+	This can be left blank, but if no 'placeLocations', 'regionLocations' or 'worldLocations' are defined, then this subspecies will never spawn as a randomly-encountered subspecies. -->
 	<regionLocations>
 		<region rarity="THREE_UNCOMMON">SAVANNAH</region>
 		<region rarity="ONE_VERY_RARE">DESERT</region>
@@ -268,15 +268,15 @@
 	<!-- The world types in which this subspecies can spawn.
 	The text inside the 'world' element corresponds to a WorldType as found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/world/WorldType.java 
 	The 'rarity' field corresponds to a SubspeciesSpawnRarity, values of which can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesSpawnRarity.java
-	This can be left blank, but if no 'regionLocations' or 'worldLocations' are defined, then this subspecies will never spawn as a randomly-encountered subspecies. -->
+	This can be left blank, but if no 'placeLocations', 'regionLocations' or 'worldLocations' are defined, then this subspecies will never spawn as a randomly-encountered subspecies. -->
 	<worldLocations>
 		<world rarity="ONE_VERY_RARE">NIGHTLIFE_CLUB</world>
 	</worldLocations>
 	
 	<!-- The place types in which this subspecies can spawn.
-	The text inside the 'place' element corresponds to a WorldType as found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/world/WorldType.java 
+	The text inside the 'place' element corresponds to a PlaceType as found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/world/places/PlaceType.java
 	The 'rarity' field corresponds to a SubspeciesSpawnRarity, values of which can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/race/SubspeciesSpawnRarity.java
-	This can be left blank, but if no 'regionLocations' or 'worldLocations' are defined, then this subspecies will never spawn as a randomly-encountered subspecies.
+	This can be left blank, but if no 'placeLocations', 'regionLocations' or 'worldLocations' are defined, then this subspecies will never spawn as a randomly-encountered subspecies.
 	-->
 	<placeLocations>
 		<place rarity="TWO_RARE">DOMINION_CANAL</place>

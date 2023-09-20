@@ -327,6 +327,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	// Core variables:
 	protected String id;
+	protected String parserTarget;
 	protected NameTriplet nameTriplet;
 	protected String surname;
 	protected String genericName;
@@ -459,7 +460,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	//Companion
 	private boolean elementalSummoned;
-	private String elementalID;
+	protected String elementalID;
 	private List<String> companions;
 	String partyLeader;
 	
@@ -796,6 +797,9 @@ public abstract class GameCharacter implements XMLSaving {
 		properties.appendChild(characterCoreInfo);
 		
 		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "id", this.getId());
+		if(parserTarget!=null && !parserTarget.isEmpty()) {
+			XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "parserTarget", parserTarget);
+		}
 		XMLUtil.createXMLElementWithValue(doc, characterCoreInfo, "pathName", this.getClass().isAnonymousClass() ? this.getClass().getSuperclass().getCanonicalName() : this.getClass().getCanonicalName());
 		
 		Element name = doc.createElement("name");
@@ -1531,6 +1535,12 @@ public abstract class GameCharacter implements XMLSaving {
 		if (loadedCharacterId != null) {
 			character.setId(loadedCharacterId);
 			Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set id: " + character.getId());
+		}
+		
+		String loadedParserTarget = getValueFromElementWithTagName(element, "parserTarget");
+		if (loadedParserTarget != null) {
+			character.parserTarget = loadedParserTarget;
+			Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Set parserTarget: " + loadedParserTarget);
 		}
 		
 		// Name:
@@ -3507,6 +3517,16 @@ public abstract class GameCharacter implements XMLSaving {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+	/**
+	 * @return The String identifier for this character in the parsing engine. Will usually be null unless this character has been specifically assigned a parser target.
+	 */
+	public String getParserTarget() {
+		return parserTarget;
+	}
+
+	public void setParserTarget(String parserTarget) {
+		this.parserTarget = parserTarget;
 	}
 	
 	public String getMapIcon() {
@@ -8342,11 +8362,33 @@ public abstract class GameCharacter implements XMLSaving {
 		boolean extendedDescription = flags.contains(GenericSexFlag.EXTENDED_DESCRIPTION_NEEDED);
 		
 		boolean partnerPresent = partner!=null;
-
+		
+		boolean condomAbleToBeAdded = true;
+		if(partnerPresent && Main.game.isInSex()) {
+			condomAbleToBeAdded = Main.sex.isSpectator(partner)==Main.sex.isSpectator(Main.game.getPlayer());
+		}
+		
 		SexAreaInterface performingArea = sexType.getPerformingSexArea();
 		SexAreaInterface targetedArea = sexType.getTargetedSexArea();
 		SexType partnerSexType = new SexType(SexParticipantType.NORMAL, targetedArea, performingArea);
-
+		
+		// Increment sex stats:
+		if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(this)) {
+			if(!partnerPresent || Main.sex.getSexTypeCount(this, partner, sexType)<=0) {
+				this.incrementSexCount(partner, sexType);
+				Main.sex.incrementSexTypeCount(this, partner, sexType);;
+				if(partnerPresent) {
+					partner.incrementSexCount(this, sexType.getReversedSexType());
+					Main.sex.incrementSexTypeCount(partner, this, sexType.getReversedSexType());
+				}
+			}
+		} else {
+			this.incrementSexCount(partner, sexType);
+			if(partnerPresent) {
+				partner.incrementSexCount(this, sexType.getReversedSexType());
+			}
+		}
+		
 		// All parts get revealed to both parties:
 		if(partnerPresent) {
 			partner.setAllAreasKnownByCharacter(this, true);
@@ -8446,14 +8488,16 @@ public abstract class GameCharacter implements XMLSaving {
 										partnerCondom = false;
 									} else {
 										ingestFluidSB.append(UtilText.parse(partner, "<p class='centre noPad'>[npc.NamePos] [npc.cum] was [style.boldGood(caught in [npc.her] condom)]!</p>"));
-										ingestFluidSB.append(Main.game.getPlayer().addItem(
-												Main.game.getItemGen().generateFilledCondom(
-														partner.getClothingInSlot(InventorySlot.PENIS).getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))
-															?ItemType.CONDOM_USED_WEBBING
-															:ItemType.CONDOM_USED,
-														partner.getClothingInSlot(InventorySlot.PENIS).getColour(0),
-														partner, partner.getCum(), partner.getPenisRawOrgasmCumQuantity()),
-												false, true));
+										if(condomAbleToBeAdded) {
+											ingestFluidSB.append(Main.game.getPlayer().addItem(
+													Main.game.getItemGen().generateFilledCondom(
+															partner.getClothingInSlot(InventorySlot.PENIS).getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))
+																?ItemType.CONDOM_USED_WEBBING
+																:ItemType.CONDOM_USED,
+															partner.getClothingInSlot(InventorySlot.PENIS).getColour(0),
+															partner, partner.getCum(), partner.getPenisRawOrgasmCumQuantity()),
+													false, true));
+										}
 									}
 									partner.getClothingInSlot(InventorySlot.PENIS).setSealed(false);
 									partner.unequipClothingIntoVoid(partner.getClothingInSlot(InventorySlot.PENIS), true, partner);
@@ -8958,14 +9002,16 @@ public abstract class GameCharacter implements XMLSaving {
 										thisCondom = false;
 									} else {
 										ingestFluidSB.append(UtilText.parse(this, "<p class='centre noPad'>[npc.NamePos] [npc.cum] was [style.boldGood(caught in [npc.her] condom)]!</p>"));
-										ingestFluidSB.append(Main.game.getPlayer().addItem(
-												Main.game.getItemGen().generateFilledCondom(
-														this.getClothingInSlot(InventorySlot.PENIS).getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))
-															?ItemType.CONDOM_USED_WEBBING
-															:ItemType.CONDOM_USED,
-														this.getClothingInSlot(InventorySlot.PENIS).getColour(0),
-														this, this.getCum(), this.getPenisRawOrgasmCumQuantity()),
-												false, true));
+										if(condomAbleToBeAdded) {
+											ingestFluidSB.append(Main.game.getPlayer().addItem(
+													Main.game.getItemGen().generateFilledCondom(
+															this.getClothingInSlot(InventorySlot.PENIS).getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))
+																?ItemType.CONDOM_USED_WEBBING
+																:ItemType.CONDOM_USED,
+															this.getClothingInSlot(InventorySlot.PENIS).getColour(0),
+															this, this.getCum(), this.getPenisRawOrgasmCumQuantity()),
+													false, true));
+										}
 									}
 									this.getClothingInSlot(InventorySlot.PENIS).setSealed(false);
 									this.unequipClothingIntoVoid(this.getClothingInSlot(InventorySlot.PENIS), true, this);
@@ -9430,16 +9476,18 @@ public abstract class GameCharacter implements XMLSaving {
 				if(partner.isWearingCondom()) { // Handle this character wearing a condom:
 					if(GenericOrgasms.GENERIC_ORGASM_CREAMPIE.getCondomFailure(partner, this)==CondomFailure.NONE) {
 						ingestFluidSB.append(UtilText.parse(partner, "<p class='centre noPad'>[npc.NamePos] [npc.cum] was [style.boldGood(caught in [npc.her] condom)]!</p>"));
-						ingestFluidSB.append(Main.game.getPlayer().addItem(
-								Main.game.getItemGen().generateFilledCondom(
-										partner.getClothingInSlot(InventorySlot.PENIS).getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))
-											?ItemType.CONDOM_USED_WEBBING
-											:ItemType.CONDOM_USED,
-										partner.getClothingInSlot(InventorySlot.PENIS).getColour(0),
-										partner,
-										partner.getCum(),
-										partner.getPenisRawOrgasmCumQuantity()),
-								false, true));
+						if(condomAbleToBeAdded) {
+							ingestFluidSB.append(Main.game.getPlayer().addItem(
+									Main.game.getItemGen().generateFilledCondom(
+											partner.getClothingInSlot(InventorySlot.PENIS).getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))
+												?ItemType.CONDOM_USED_WEBBING
+												:ItemType.CONDOM_USED,
+											partner.getClothingInSlot(InventorySlot.PENIS).getColour(0),
+											partner,
+											partner.getCum(),
+											partner.getPenisRawOrgasmCumQuantity()),
+									false, true));
+						}
 					}
 					partner.getClothingInSlot(InventorySlot.PENIS).setSealed(false);
 					partner.unequipClothingIntoVoid(partner.getClothingInSlot(InventorySlot.PENIS), true, partner);
@@ -9450,16 +9498,18 @@ public abstract class GameCharacter implements XMLSaving {
 				if(this.isWearingCondom()) { // Handle this character wearing a condom:
 					if(GenericOrgasms.GENERIC_ORGASM_CREAMPIE.getCondomFailure(this, partner)==CondomFailure.NONE) {
 						ingestFluidSB.append(UtilText.parse(this, "<p class='centre noPad'>[npc.NamePos] [npc.cum] was [style.boldGood(caught in [npc.her] condom)]!</p>"));
-						ingestFluidSB.append(Main.game.getPlayer().addItem(
-								Main.game.getItemGen().generateFilledCondom(
-										this.getClothingInSlot(InventorySlot.PENIS).getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))
-											?ItemType.CONDOM_USED_WEBBING
-											:ItemType.CONDOM_USED,
-										this.getClothingInSlot(InventorySlot.PENIS).getColour(0),
-										this,
-										this.getCum(),
-										this.getPenisRawOrgasmCumQuantity()),
-								false, true));
+						if(condomAbleToBeAdded) {
+							ingestFluidSB.append(Main.game.getPlayer().addItem(
+									Main.game.getItemGen().generateFilledCondom(
+											this.getClothingInSlot(InventorySlot.PENIS).getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))
+												?ItemType.CONDOM_USED_WEBBING
+												:ItemType.CONDOM_USED,
+											this.getClothingInSlot(InventorySlot.PENIS).getColour(0),
+											this,
+											this.getCum(),
+											this.getPenisRawOrgasmCumQuantity()),
+									false, true));
+						}
 					}
 					this.getClothingInSlot(InventorySlot.PENIS).setSealed(false);
 					this.unequipClothingIntoVoid(this.getClothingInSlot(InventorySlot.PENIS), true, this);
@@ -17581,6 +17631,8 @@ public abstract class GameCharacter implements XMLSaving {
 		String orificeName = orifice.getName(characterPenetrated);
 		String orificeNameStandard = orifice.getName(characterPenetrated, true);
 		
+		boolean selfPenetration = characterPenetrating.equals(characterPenetrated);
+		
 		if(internalOrifice==SexAreaOrifice.MOUTH) {
 			orificeName = "throat";
 		}
@@ -17648,7 +17700,7 @@ public abstract class GameCharacter implements XMLSaving {
 				if(Main.sex.getSexPace(characterPenetrated)!=SexPace.SUB_RESISTING) {
 					sb.append("[npc.Name] [npc.verb(let)] out a disappointed [npc.moan] as [npc.she] [npc.verb(feel)] that");
 					sb.append("[style.italicsBad(");
-						sb.append(" [npc2.namePos] "+orificeName+" "+(orificePlural?"aren't":"isn't")+" deep enough");
+						sb.append((selfPenetration?" [npc.her] ":" [npc2.namePos] ")+orificeName+" "+(orificePlural?"aren't":"isn't")+" deep enough");
 					sb.append(")]");
 					sb.append(" to comfortably accommodate the full length of [npc.her] "+nameLength+".");
 				}
@@ -17752,7 +17804,7 @@ public abstract class GameCharacter implements XMLSaving {
 					sb.append("<br/>");
 					sb.append("[npc.Name] [npc.verb(let)] out a disappointed "+(characterPenetrating.isFeminine()?"whine":"growl")+" as [npc.she] [npc.verb(feel)] that");
 					sb.append("[style.italicsBad(");
-						sb.append(" [npc2.namePos] "+orificeName+" "+(orificePlural?"aren't":"isn't")+" deep enough");
+						sb.append((selfPenetration?" [npc.her] ":" [npc2.namePos] ")+orificeName+" "+(orificePlural?"aren't":"isn't")+" deep enough");
 					sb.append(")]");
 					sb.append(" to accommodate the full length of [npc.her] "+nameLength+".");
 					
@@ -17768,9 +17820,9 @@ public abstract class GameCharacter implements XMLSaving {
 		} else { // The character being penetrated is the dom:
 			if(length<=comfortable) {
 				if(internalOrifice==SexAreaOrifice.MOUTH) {
-					sb.append("[npc2.NameIsFull] able to take [npc.namePos] "+nameDesc+" [style.italicsMinorGood(fully down [npc2.her] throat)] without it going deep enough to cause any discomfort!");
+					sb.append("[npc2.NameIsFull] able to take "+(selfPenetration?" [npc.her] ":" [npc.namePos] ")+" "+nameDesc+" [style.italicsMinorGood(fully down [npc2.her] throat)] without it going deep enough to cause any discomfort!");
 				} else {
-					sb.append("[npc2.NameIsFull] able to take [npc.namePos] "+nameDesc+" [style.italicsMinorGood(fully into [npc2.her] "+orificeName+")] without it going deep enough to cause any discomfort!");
+					sb.append("[npc2.NameIsFull] able to take "+(selfPenetration?" [npc.her] ":" [npc.namePos] ")+" "+nameDesc+" [style.italicsMinorGood(fully into [npc2.her] "+orificeName+")] without it going deep enough to cause any discomfort!");
 				}
 				
 				if(characterPenetrating.isFullPenetrationFarTooShort(penetrationType, characterPenetrated, internalOrifice)) {
@@ -17810,18 +17862,18 @@ public abstract class GameCharacter implements XMLSaving {
 					
 				} else {
 					// Core penetration information is displayed last:
-					sb.append("<br/>[style.italicsSex([npc2.Name] [npc2.is] taking the entire [style.sizeShort("+length+")] length of [npc.namePos] "+name+" in [npc2.her] "+orificeName+"!)]");
+					sb.append("<br/>[style.italicsSex([npc2.Name] [npc2.is] taking the entire [style.sizeShort("+length+")] length of "+(selfPenetration?" [npc.her] ":" [npc.namePos] ")+" "+name+" in [npc2.her] "+orificeName+"!)]");
 				}
 				
 			} else if(!penetratingDeep) {
 				sb.append("[npc.Name] [npc.verb(let)] out a disappointed [npc.moan] as [npc.she] [npc.verb(feel)] that");
 				sb.append("[style.italicsBad(");
-					sb.append(" [npc2.namePos] "+orificeName+" "+(orificePlural?"aren't":"isn't")+" deep enough");
+					sb.append((selfPenetration?" [npc.her] ":" [npc2.namePos] ")+orificeName+" "+(orificePlural?"aren't":"isn't")+" deep enough");
 				sb.append(")]");
 				sb.append(" to comfortably accommodate the full length of [npc.her] "+nameLength+".");
 
 				// Core penetration information is displayed last:
-				sb.append("<br/>[style.italicsBad([npc2.Name] [npc2.is] only taking [style.sizeShort("+comfortable+")] of [npc.namePos] "+name+" so as not to experience any discomfort!)]");
+				sb.append("<br/>[style.italicsBad([npc2.Name] [npc2.is] only taking [style.sizeShort("+comfortable+")] of "+(selfPenetration?" [npc.her] ":" [npc.namePos] ")+" "+name+" so as not to experience any discomfort!)]");
 				
 				
 			} else {
@@ -17849,12 +17901,16 @@ public abstract class GameCharacter implements XMLSaving {
 //					}
 					
 				} else if(characterPenetrated.hasFetish(Fetish.FETISH_MASOCHIST)) {
+					String targetParsing = "[npc.namePos]";
+					if(selfPenetration) {
+						targetParsing = "[npc.her] own";
+					}
 					if(internalOrifice==SexAreaOrifice.MOUTH) {
-						sb.append("Wanting to feel as though [npc2.sheIs] being abused, [npc2.name] willingly [npc2.verb(take)] [npc.namePos] "+nameLength+" [style.italicsTerrible(as deep as physically possible)] down [npc2.her] "+orificeName);
+						sb.append("Wanting to feel as though [npc2.sheIs] being abused, [npc2.name] willingly [npc2.verb(take)] "+targetParsing+" "+nameLength+" [style.italicsTerrible(as deep as physically possible)] down [npc2.her] "+orificeName);
 						sb.append(", letting out a gargled, masochistic scream of pleasure in the process!");
 							
 					} else {
-						sb.append("Wanting to feel as though [npc2.sheIs] being abused, [npc2.name] willingly [npc2.verb(take)] [npc.namePos] "+nameLength+" [style.italicsTerrible(as deep as physically possible)] into [npc2.her] "+orificeName);
+						sb.append("Wanting to feel as though [npc2.sheIs] being abused, [npc2.name] willingly [npc2.verb(take)] "+targetParsing+" "+nameLength+" [style.italicsTerrible(as deep as physically possible)] into [npc2.her] "+orificeName);
 						if(isStomachBulging(characterPenetrating, penetrationType, characterPenetrated, orifice)) {
 							sb.append(", letting out a masochistic scream of pleasure as [npc2.her] stomach visibly bulges out");
 						} else {
@@ -17876,17 +17932,17 @@ public abstract class GameCharacter implements XMLSaving {
 						sb.append("<br/>");
 						sb.append("[npc.Name] [npc.verb(let)] out a disappointed "+(characterPenetrating.isFeminine()?"whine":"growl")+" as [npc.she] [npc.verb(feel)] that");
 						sb.append("[style.italicsBad(");
-							sb.append(" [npc2.namePos] "+orificeName+" "+(orificePlural?"aren't":"isn't")+" deep enough");
+							sb.append((selfPenetration?" [npc.her] ":" [npc2.namePos] ")+orificeName+" "+(orificePlural?"aren't":"isn't")+" deep enough");
 						sb.append(")]");
 						sb.append(" to accommodate the full length of [npc.her] "+nameLength+".");
 					}
 					
 					// Core penetration information is displayed last:
-					sb.append("<br/>[style.italicsSex([npc2.NamePos] [npc2.is] taking [npc.namePos] "+name+" to the full, [style.sizeShort("+uncomfortable+")] limit of [npc2.her] "+orificeName+"!)]");
+					sb.append("<br/>[style.italicsSex([npc2.NamePos] [npc2.is] taking "+(selfPenetration?" [npc.her] ":" [npc.namePos] ")+" "+name+" to the full, [style.sizeShort("+uncomfortable+")] limit of [npc2.her] "+orificeName+"!)]");
 					
 				} else {
 					// Core penetration information is displayed last:
-					sb.append("<br/>[style.italicsSex([npc2.Name] [npc2.is] taking the entire [style.sizeShort("+length+")] length of [npc.namePos] "+name+" in [npc2.her] "+orificeName+"!)]");
+					sb.append("<br/>[style.italicsSex([npc2.Name] [npc2.is] taking the entire [style.sizeShort("+length+")] length of "+(selfPenetration?" [npc.her] ":" [npc.namePos] ")+" "+name+" in [npc2.her] "+orificeName+"!)]");
 				}
 			}
 		}
@@ -18209,16 +18265,17 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public String getStretchingDescription(boolean initialPenetration, GameCharacter partner, SexAreaPenetration penetrationType, SexAreaOrifice orifice, boolean pastTense) {
 		if(initialPenetration) {
+			String plurality = orifice.isPlural()?"are":"is";
 			if(penetrationType==SexAreaPenetration.PENIS && Objects.equals(Main.sex.getCharacterKnotting(partner), this)) { // Knotted:
 				if(partner.equals(this)) {
-					return UtilText.parse(this, "[npc.NamePos] "+orifice.getName(this)+" is too tight for the fat knot at the base of [npc.her] "+penetrationType.getName(partner)+", and is being stretched out as a result!");
+					return UtilText.parse(this, "[npc.NamePos] "+orifice.getName(this)+" "+plurality+" too tight for the fat knot at the base of [npc.her] "+penetrationType.getName(partner)+", and "+plurality+" being stretched out as a result!");
 				}
-				return UtilText.parse(this, partner, "[npc.NamePos] "+orifice.getName(this)+" is too tight for the fat knot at the base of [npc2.namePos] "+penetrationType.getName(partner)+", and is being stretched out as a result!");
+				return UtilText.parse(this, partner, "[npc.NamePos] "+orifice.getName(this)+" "+plurality+" too tight for the fat knot at the base of [npc2.namePos] "+penetrationType.getName(partner)+", and "+plurality+" being stretched out as a result!");
 			}
 			if(partner.equals(this)) {
-				return UtilText.parse(this, "[npc.NamePos] "+orifice.getName(this)+" is too tight for [npc.her] "+penetrationType.getName(partner)+", and is being stretched out as a result!");
+				return UtilText.parse(this, "[npc.NamePos] "+orifice.getName(this)+" "+plurality+" too tight for [npc.her] "+penetrationType.getName(partner)+", and "+plurality+" being stretched out as a result!");
 			}
-			return UtilText.parse(this, partner, "[npc.NamePos] "+orifice.getName(this)+" is too tight for [npc2.namePos] "+penetrationType.getName(partner)+", and is being stretched out as a result!");
+			return UtilText.parse(this, partner, "[npc.NamePos] "+orifice.getName(this)+" "+plurality+" too tight for [npc2.namePos] "+penetrationType.getName(partner)+", and "+plurality+" being stretched out as a result!");
 		}
 		switch(orifice) {
 			case ANUS:
@@ -24197,7 +24254,7 @@ public abstract class GameCharacter implements XMLSaving {
 			case PENIS:
 				if(this.getGenitalArrangement()==GenitalArrangement.CLOACA_BEHIND) {
 					AbstractClothing penisClothing = this.getClothingInSlot(InventorySlot.PENIS);
-					return isAbleToAccessRearCloaca() && (penisClothing==null || penisClothing.isTransparent(penisClothing.getSlotEquippedTo()));
+					return isAbleToAccessRearCloaca() && penisClothing==null;//(penisClothing==null || penisClothing.isTransparent(penisClothing.getSlotEquippedTo()));
 				} else {
 					return isCoverableAreaExposed(CoverableArea.PENIS);
 				}
@@ -24223,7 +24280,7 @@ public abstract class GameCharacter implements XMLSaving {
 				if(this.getGenitalArrangement()==GenitalArrangement.CLOACA) {
 					AbstractClothing anusClothing = this.getClothingInSlot(InventorySlot.ANUS);
 					return (isCoverableAreaExposed(CoverableArea.VAGINA) || isCoverableAreaExposed(CoverableArea.PENIS))
-							&& (anusClothing==null || anusClothing.isTransparent(anusClothing.getSlotEquippedTo()));
+							&& anusClothing==null;//(anusClothing==null || anusClothing.isTransparent(anusClothing.getSlotEquippedTo()));
 				} else {
 					return isCoverableAreaExposed(CoverableArea.ANUS);
 				}
@@ -24240,12 +24297,15 @@ public abstract class GameCharacter implements XMLSaving {
 			case NIPPLE_CROTCH:
 				return isCoverableAreaExposed(CoverableArea.NIPPLES_CROTCH);
 			case URETHRA_PENIS:
+				if(this.isWearingCondom()) {
+					return false;
+				}
 				return isPenetrationTypeExposed(SexAreaPenetration.PENIS);
 			case VAGINA:
 			case URETHRA_VAGINA:
 				if(this.getGenitalArrangement()==GenitalArrangement.CLOACA_BEHIND) {
 					AbstractClothing vaginaClothing = this.getClothingInSlot(InventorySlot.VAGINA);
-					return isAbleToAccessRearCloaca() && (vaginaClothing==null || vaginaClothing.isTransparent(vaginaClothing.getSlotEquippedTo()));
+					return isAbleToAccessRearCloaca() && vaginaClothing==null;//(vaginaClothing==null || vaginaClothing.isTransparent(vaginaClothing.getSlotEquippedTo()));
 				} else {
 					return isCoverableAreaExposed(CoverableArea.VAGINA);
 				}
@@ -25315,6 +25375,10 @@ public abstract class GameCharacter implements XMLSaving {
 		if(this.getSubspeciesOverrideRace()==Race.DEMON) {
 			races.add(Race.NONE);
 			races.add(Race.DEMON);
+			
+			if(this.getSubspecies()==Subspecies.HALF_DEMON) {
+				races.add(this.getHalfDemonSubspecies().getRace());
+			}
 			
 			ArrayList<AbstractRace> unavailableRaces = Util.newArrayListOfValues(Race.ELEMENTAL, Race.SLIME); // Never have these TF options
 			

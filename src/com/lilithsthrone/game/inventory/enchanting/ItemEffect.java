@@ -345,7 +345,7 @@ public class ItemEffect implements XMLSaving {
 							break;
 					}
 				}
- 				return AbstractItemEffectType.getRacialEffect(target.getRace(), getPrimaryModifier(), secondaryMod, getPotency(), user, target).applyEffect();
+ 				return AbstractItemEffectType.getRacialEffect(target.getRace()==Race.SLIME?target.getFleshSubspecies().getRace():target.getRace(), getPrimaryModifier(), secondaryMod, getPotency(), user, target).applyEffect();
 			}
 		}
 		return getItemEffectType().applyEffect(getPrimaryModifier(), getSecondaryModifier(), getPotency(), getLimit(), user, target, this.timer);

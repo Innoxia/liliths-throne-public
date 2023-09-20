@@ -42,6 +42,8 @@ public class PopulationType {
 	public static AbstractPopulationType PRIVATE_SECURITY_GUARD = new AbstractPopulationType("private security guard", "private security guards") {};
 	
 	public static AbstractPopulationType ENFORCER = new AbstractPopulationType("Enforcer", "Enforcers") {};
+	
+	public static AbstractPopulationType SWORD = new AbstractPopulationType("SWORD Enforcer", "SWORD Enforcers") {};
 
 	public static AbstractPopulationType CENTAUR_CARTS = new AbstractPopulationType("centaur-pulled cart", "centaur-pulled carts") {};
 	

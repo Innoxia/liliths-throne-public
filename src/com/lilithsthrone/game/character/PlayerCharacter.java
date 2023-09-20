@@ -733,6 +733,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			}
 		}
 		
+		if(Main.isVersionOlderThan(version, "0.4.8.10") && character.isQuestCompleted(QuestLine.SIDE_EISEK_STALL)) {
+			character.removeItem(Main.game.getItemGen().generateItem("dsg_quest_fabricbolt"), 1);
+			character.removeItem(Main.game.getItemGen().generateItem("dsg_quest_embsign"), 1);
+			character.removeItem(Main.game.getItemGen().generateItem("dsg_quest_awningpoles"), 4);
+		}
+		
 		if(debug) {
 			System.out.println("Player loading finished: "+((System.nanoTime()-time)/1000000000d));
 		}

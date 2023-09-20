@@ -198,7 +198,7 @@ public class WorldType {
 	};
 	
 	public static AbstractWorldType LILAYAS_HOUSE_GROUND_FLOOR = new AbstractWorldType(WorldRegion.DOMINION,
-			"Lilaya's Home GF",
+			"Lilaya's Home F0",
 			PresetColour.BASE_BLUE_LIGHT,
 			true,
 			false,
@@ -228,7 +228,7 @@ public class WorldType {
 	};
 	
 	public static AbstractWorldType LILAYAS_HOUSE_FIRST_FLOOR = new AbstractWorldType(WorldRegion.DOMINION,
-			"Lilaya's Home 1F",
+			"Lilaya's Home F1",
 			PresetColour.BASE_BLUE_LIGHT,
 			true,
 			false,
@@ -254,7 +254,7 @@ public class WorldType {
 	};
 	
 	public static AbstractWorldType ZARANIX_HOUSE_FIRST_FLOOR = new AbstractWorldType(WorldRegion.DOMINION,
-			"Zaranix's Home 1F",
+			"Zaranix's Home F1",
 			PresetColour.BASE_CRIMSON,
 			false,
 			false,
@@ -277,7 +277,7 @@ public class WorldType {
 	};
 	
 	public static AbstractWorldType ZARANIX_HOUSE_GROUND_FLOOR = new AbstractWorldType(WorldRegion.DOMINION,
-			"Zaranix's Home GF",
+			"Zaranix's Home F0",
 			PresetColour.BASE_CRIMSON,
 			false,
 			false,
@@ -613,7 +613,7 @@ public class WorldType {
 	
 	
 	public static AbstractWorldType ANGELS_KISS_GROUND_FLOOR = new AbstractWorldType(WorldRegion.DOMINION,
-			"Angel's Kiss GF",
+			"Angel's Kiss F0",
 			PresetColour.BASE_MAGENTA,
 			false,
 			false,
@@ -632,7 +632,7 @@ public class WorldType {
 	};
 	
 	public static AbstractWorldType ANGELS_KISS_FIRST_FLOOR = new AbstractWorldType(WorldRegion.DOMINION,
-			"Angel's Kiss 1F",
+			"Angel's Kiss F1",
 			PresetColour.BASE_MAGENTA,
 			false,
 			false,
@@ -1005,7 +1005,7 @@ public class WorldType {
 	};
 
 	public static AbstractWorldType SLIME_QUEENS_LAIR_GROUND_FLOOR = new AbstractWorldType(WorldRegion.SUBMISSION,
-			"Slime Queen's Tower GF",
+			"Slime Queen's Tower F0",
 			PresetColour.BASE_PINK,
 			false,
 			false,
@@ -1031,7 +1031,7 @@ public class WorldType {
 	};
 
 	public static AbstractWorldType SLIME_QUEENS_LAIR_FIRST_FLOOR = new AbstractWorldType(WorldRegion.SUBMISSION,
-			"Slime Queen's Tower 1F",
+			"Slime Queen's Tower F1",
 			PresetColour.BASE_PINK,
 			false,
 			false,

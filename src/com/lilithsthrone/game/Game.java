@@ -119,6 +119,7 @@ import com.lilithsthrone.game.character.npc.dominion.Wes;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
+import com.lilithsthrone.game.character.npc.fields.Angelixx;
 import com.lilithsthrone.game.character.npc.fields.Arion;
 import com.lilithsthrone.game.character.npc.fields.Astrapi;
 import com.lilithsthrone.game.character.npc.fields.Aurokaris;
@@ -134,7 +135,10 @@ import com.lilithsthrone.game.character.npc.fields.Fae;
 import com.lilithsthrone.game.character.npc.fields.Farah;
 import com.lilithsthrone.game.character.npc.fields.FieldsBandit;
 import com.lilithsthrone.game.character.npc.fields.Flash;
+import com.lilithsthrone.game.character.npc.fields.Ghost;
+import com.lilithsthrone.game.character.npc.fields.Golix;
 import com.lilithsthrone.game.character.npc.fields.Hale;
+import com.lilithsthrone.game.character.npc.fields.Hammer;
 import com.lilithsthrone.game.character.npc.fields.HeadlessHorseman;
 import com.lilithsthrone.game.character.npc.fields.Heather;
 import com.lilithsthrone.game.character.npc.fields.Imsu;
@@ -147,10 +151,12 @@ import com.lilithsthrone.game.character.npc.fields.Lunexis;
 import com.lilithsthrone.game.character.npc.fields.Minotallys;
 import com.lilithsthrone.game.character.npc.fields.Monica;
 import com.lilithsthrone.game.character.npc.fields.Moreno;
+import com.lilithsthrone.game.character.npc.fields.Nir;
 import com.lilithsthrone.game.character.npc.fields.Nizhoni;
 import com.lilithsthrone.game.character.npc.fields.Oglix;
 import com.lilithsthrone.game.character.npc.fields.Penelope;
 import com.lilithsthrone.game.character.npc.fields.Silvia;
+import com.lilithsthrone.game.character.npc.fields.Sleip;
 import com.lilithsthrone.game.character.npc.fields.Sterope;
 import com.lilithsthrone.game.character.npc.fields.Ursa;
 import com.lilithsthrone.game.character.npc.fields.Vronti;
@@ -1341,6 +1347,12 @@ public class Game implements XMLSaving {
 											}
 										}
 
+										// Assign parser target:
+										if(npc.getParserTarget()!=null) {
+											ParserTarget.addAdditionalParserTarget(npc.getParserTarget(), npc);
+										}
+										
+										
 									} else {
 										System.err.println("LOADNPC returned null: "+id);
 										System.err.println("CLASS: " + className);
@@ -2013,6 +2025,21 @@ public class Game implements XMLSaving {
 					}
 				}
 				
+				if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.8.10")) {
+					List<NPC> charactersInStable = Main.game.getCharactersPresent(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_taur"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_taur_stable"));
+					boolean steropePresent = charactersInStable.contains(Main.game.getNpc(Sterope.class));
+					int charactersToBanish = charactersInStable.size() - (steropePresent?2:0);
+					for(GameCharacter c : charactersInStable) {
+						if(charactersToBanish<=0) {
+							break;
+						}
+						if(c instanceof GenericSexualPartner) {
+							Main.game.banishNPC((NPC) c);
+							charactersToBanish--;
+						}
+					}
+				}
+				
 				if(debug) {
 					System.out.println("New NPCs finished");
 					System.out.println("All finished");
@@ -2505,15 +2532,44 @@ public class Game implements XMLSaving {
 
 			// The Crossed Blades:
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Oglix.class))) { addNPC(new Oglix(), false); addedNpcs.add(Oglix.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Wynter.class))) { addNPC(new Wynter(), false); addedNpcs.add(Wynter.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Golix.class))) { addNPC(new Golix(), false); addedNpcs.add(Golix.class); }
 			if(addedNpcs.contains(Oglix.class)) {
 				Main.game.getNpc(Oglix.class).setAffection(Main.game.getNpc(Kheiron.class), AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
 				Main.game.getNpc(Kheiron.class).setAffection(Main.game.getNpc(Oglix.class), AffectionLevel.NEGATIVE_THREE_STRONG_DISLIKE.getMedianValue());
 			}
+			if(addedNpcs.contains(Golix.class)) {
+				((Oglix)Main.game.getNpc(Oglix.class)).createElemental(); // inits the summoner ID
+				Main.game.getNpc(Kheiron.class).setAffection(Main.game.getNpc(Golix.class), AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
+				Main.game.getNpc(Golix.class).setAffection(Main.game.getNpc(Kheiron.class), AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+			}
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Wynter.class))) { addNPC(new Wynter(), false); addedNpcs.add(Wynter.class); }
 
 			// Enforcer station:
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Sterope.class))) { addNPC(new Sterope(), false); addedNpcs.add(Sterope.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Hammer.class))) { addNPC(new Hammer(), false); addedNpcs.add(Hammer.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Ghost.class))) { addNPC(new Ghost(), false); addedNpcs.add(Ghost.class); }
+			if(addedNpcs.contains(Hammer.class)) {
+				Main.game.getNpc(Hammer.class).setAffection(Main.game.getNpc(Ghost.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+				Main.game.getNpc(Ghost.class).setAffection(Main.game.getNpc(Hammer.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+			}
 			
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Angelixx.class))) { addNPC(new Angelixx(), false); addedNpcs.add(Angelixx.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Sleip.class))) { addNPC(new Sleip(), false); addedNpcs.add(Sleip.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Nir.class))) { addNPC(new Nir(), false); addedNpcs.add(Nir.class); }
+			if(addedNpcs.contains(Angelixx.class)) {
+				Main.game.getNpc(Angelixx.class).setAffection(Main.game.getNpc(Sleip.class), AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
+				Main.game.getNpc(Angelixx.class).setAffection(Main.game.getNpc(Nir.class), AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
+			}
+			if(addedNpcs.contains(Sleip.class)) {
+				getNpc(Sleip.class).setMother(getNpc(Angelixx.class));
+				Main.game.getNpc(Sleip.class).setAffection(Main.game.getNpc(Angelixx.class), AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
+				Main.game.getNpc(Sleip.class).setAffection(Main.game.getNpc(Nir.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+			}
+			if(addedNpcs.contains(Nir.class)) {
+				getNpc(Nir.class).setMother(getNpc(Angelixx.class));
+				Main.game.getNpc(Nir.class).setAffection(Main.game.getNpc(Angelixx.class), AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
+				Main.game.getNpc(Nir.class).setAffection(Main.game.getNpc(Sleip.class), AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+			}
 			
 			// Evelyx's Dairy:
 			

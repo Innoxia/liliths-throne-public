@@ -963,27 +963,27 @@ public enum RenderingEngine {
 			if(page==5) { // Quest:
 				for(Entry<AbstractWeapon, Integer> entry : charactersInventoryToRender.getAllWeaponsInInventory().entrySet()) {
 					if(entry.getKey().getRarity()==Rarity.QUEST) {
-						if(uniqueItemCount < ITEMS_PER_PAGE) {
+//						if(uniqueItemCount < ITEMS_PER_PAGE) {
 							pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"WEAPON_"));
-						}
+//						}
 						uniqueItemCount++;
 					}
 				}
 				
 				for(Entry<AbstractClothing, Integer> entry : charactersInventoryToRender.getAllClothingInInventory().entrySet()) {
 					if(entry.getKey().getRarity()==Rarity.QUEST) {
-						if(uniqueItemCount < ITEMS_PER_PAGE) {
+//						if(uniqueItemCount < ITEMS_PER_PAGE) {
 							pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"CLOTHING_"));
-						}
+//						}
 						uniqueItemCount++;
 					}
 				}
 				
 				for(Entry<AbstractItem, Integer> entry : charactersInventoryToRender.getAllItemsInInventory().entrySet()) {
 					if(entry.getKey().getRarity()==Rarity.QUEST) {
-						if(uniqueItemCount < ITEMS_PER_PAGE) {
+//						if(uniqueItemCount < ITEMS_PER_PAGE) {
 							pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"ITEM_"));
-						}
+//						}
 						uniqueItemCount++;
 					}
 				}
@@ -1630,6 +1630,11 @@ public enum RenderingEngine {
 			uiAttributeSB.append("<div class='attribute-container effects'>"
 								+ "<p style='text-align:center;padding:0;margin:0;'><b>Characters Present</b></p>");
 			List <NPC> charactersPresent = Main.game.getCharactersPresent();
+			for(GameCharacter c : Main.game.getCharactersPresent()) {
+				if(c.isElementalSummoned() && !c.getElemental().isActive()) {
+					charactersPresent.add(c.getElemental());
+				}
+			}
 			Set<AbstractSubspecies> subspeciesSet = new HashSet<>();
 			if(place.getPopulation()!=null) {
 				for(Population pop : place.getPopulation()) {
