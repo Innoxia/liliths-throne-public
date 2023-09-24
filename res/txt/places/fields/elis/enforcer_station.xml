@@ -450,7 +450,11 @@
 		[ghost.speech(So the lilin comes crawling to us for help, but she can't even be bothered to come here herself,)] a feminine voice speaks out from the sofas. Hidden up until now behind the huge, muscular bull-boy she's sitting next to, a small otter-girl leans forwards and flashes you a grin. Like the wolf-boy, she looks to be in her late sixties, and again like her comrade she bears a visible scar. Her entire left arm, right up to the point where it meets the short sleeve of her shirt, is covered in horrific burn scars. Standing up, and allowing you to see that she's no more than [ghost.heightValue] tall in the process, she says in an accusatory tone, [ghost.speech(You've been living with one of Lyssieth's recognised daughters in Dominion, and now that you've arrived here in our town you've brought the other one with you. You've clearly been sent here on her orders, and now you come here and ask us to fight Lunette? It sounds to me like you want to use us as pawns in some plot of Lyssieth's.)]
 	</p>
 	<p>
-		Clearly having been expecting you, this otter-girl throws a folder down onto the coffee table nearest to you, and out spill dozens of papers detailing your exploits in Dominion, Submission, and now Elis. On the front of this folder are printed the words 'ORICL: Top Secret', letting you know that these Enforcers clearly have some important contacts back in Dominion, as well as that your exploits haven't gone unnoticed.
+		Clearly having been expecting you, this otter-girl throws a folder down onto the coffee table nearest to you, and out spill dozens of papers
+		#IF(game.isSillyMode())
+			 and lurid pictures
+		#ENDIF
+		 detailing your exploits in Dominion, Submission, and now Elis. On the front of this folder are printed the words 'ORICL: Top Secret', letting you know that these Enforcers clearly have some important contacts back in Dominion, as well as that your exploits haven't gone unnoticed.
 	</p>
 	<p>
 		[hammer.speech(You only have to take one look at the Foloi Fields to know that Lunette needs to be stopped,)] the wolf-boy growls, [hammer.speech(but by doing your bidding it seems to me like we'll just be swapping one elder lilin for another. Why should we trust you?)]
@@ -534,7 +538,7 @@
 		Wanting to know what's happening to the refugees who are being kidnapped, you ask the Enforcers if they've discovered what's being done with them.
 	</p>
 	<p>
-		[ghost.speech(They're being illegally enslaved and teleported to Dominion by the succubus,)] Ghost coldly replies, the icy tone in her voice making it clear that she's angry about it, [ghost.speech(Illegal enslavement is a serious crime, and there are dozens of systems and regulations in place to detect if a slave isn't legal. We expected flags to be raised in Dominion and Enforcers to be dispatched here to put an end to it, but nothing's happened, suggesting that these slaves are all going to a private buyer who knows but doesn't care about their origin.)]
+		[ghost.speech(They're being illegally enslaved and teleported to Dominion by the succubus,)] Ghost coldly replies, the icy tone in her voice making it clear that she's angry about it, [ghost.speech(Illegal enslavement is a serious crime, and there are dozens of systems and regulations in place to detect if a slave isn't legal. The Slavery Administration would go ballistic if they got even the slightest inkling of illegal enslavement, and Dominion Enforcers would immediately be dispatched here to put an end to it. Nothing's happened though, suggesting that these slaves are all going to a private buyer who knows but doesn't care about their origin.)]
 	</p>
 	<p>
 		One of the other Enforcers, a fox-boy who'd introduced himself as 'Dancer', adds in a rough voice, [style.speechMasculineStrong(It must be for something important, as her mother clearly knows what's going on, and an elder lilin wouldn't risk being tied to illegal enslavement unless it was seriously worth it. If it was found out that an elder lilin was involved in illegal enslavement then it'd be a major scandal, and even the papers wouldn't be able to hide the truth forever. If people thought that they could be enslaved at any time for no reason then there'd definitely be unrest, if not full-blown riots.)]
@@ -632,13 +636,13 @@
 		[hammer.speech(I know, I know...)] Hammer says with a deep sigh. Clenching his fist, he grunts, [hammer.speech(We can't call off the op. If the gang knew we were coming they'd have abandoned their HQ. Their increased awareness must be a coincidence.)]
 	</p>
 	<p>
-		[ghost.speech(I agree, but they'll definitely see us coming and might call off the meeting,)] Ghost says, before suggesting, [ghost.speech(If just two of us go in civvy gear then we can probably walk on past without alerting them. We've got enough gear in the hideout for two of us to get changed once there.)]
+		[ghost.speech(I agree, but they'll definitely see us coming and might call off the meeting,)] Ghost says, before suggesting, [ghost.speech(If just two of us go in civvy clothes then we can probably walk on past without alerting them. We've got enough gear in the hideout for two of us to get changed once there.)]
 	</p>
 	<p>
 		[hammer.speech(That's risky,)] Hammer grunts, [hammer.speech(but those refugees need us. You and I will go, Ghost. Everyone else, get geared up and wait here. We'll take a resonance stone and activate it if we need backup.)]
 	</p>
 	<p>
-		The Enforcers all stand up and head off to a door on the far side of the room, which you assume leads into the room in which their equipment is stored. Remaining behind for a moment, Ghost steps over to you and explains, [ghost.speech(Hammer and I will get changed into normal clothing and then head on over to a hideout we've got with you. Don't worry, the two of us will be more than enough to deal with some petty gang members.)]
+		The Enforcers all stand up and head off to a door on the far side of the room, which you assume leads into the room in which their equipment is stored. Remaining behind for a moment, Ghost steps over to you and explains, [ghost.speech(Hammer and I will get changed into street clothing and then head on over to a hideout we've got with you. Don't worry, the two of us will be more than enough to deal with some petty gang members.)]
 	</p>
 	<p>
 		With that, the small otter-girl follows her comrades into the other room, leaving you to wait while they all get changed. A few minutes later, Hammer comes out wearing a ribbed jumper and a cap pulled down to conceal his eye patch. Behind him walks Ghost, who's changed into a long-sleeved dress so that her burns are hidden. The other Enforcers don't reappear, and you assume that it's taking them a while longer to put on all of their Enforcer gear.

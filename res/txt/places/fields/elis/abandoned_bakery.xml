@@ -75,6 +75,12 @@
 	#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_WES, QUEST_WES_3_WES))
 		[hammer.speech(I heard some fox in 1st Battalion put a stop to that in Dominion. Was a local boy from around here too. Good on him,)] Hammer says. Recognising the fact that he's talking about Wes, you tell the Enforcers that you helped the fox-boy he's talking about. Hammer gives an approving nod in response, before grunting, [hammer.seepch(Good to hear that there's still at least one guy who's doing something about the corruption in Dominion.)]
 	#ENDIF
+	<p>
+		Thinking that it must be challenging to come up against gangs who have the same kit as them, you ask the Enforcers if the proliferation of SWORD equipment to gangs makes their job a lot harder.
+	</p>
+	<p>
+		[hammer.speech(Hardware is one thing, training and experience are another,)] Hammer replies, [hammer.speech(Besides, the vast majority of gangs are motivated by money, which doesn't make them fight as hard as you might think.)]
+	</p>
 	]]>
 	</htmlContent>
 	
@@ -168,7 +174,7 @@
 		Pulling on their balaclavas and strapping their ballistic helmets into place, Ghost and Hammer quickly check their weapons and turn to face you.
 	</p>
 	<p>
-		[hammer.speech(I'm going in through the front, Ghost'll take the back. Which one of us do you want to stick with?)] Hammer asks.
+		[hammer.speech(I'm going in through the front, Ghost'll take the back. Which one of us do you want to stick with?)] Hammer asks as he picks up a sledgehammer which had been resting against the wall.
 	</p>
 	]]>
 	</htmlContent>
@@ -178,10 +184,10 @@
 		Thinking that it would be safer to be with the large wolf-boy and his fearsome-looking shotgun, you tell Hammer that you'll go with him. Giving you a brief nod, he opens the door and rushes across the street, while Ghost slips off down an alleyway to the side of the bakery.
 	</p>
 	<p>
-		[hammer.speech(Cover your ears,)] the wolf-boy grunts as the two of you come to a halt beside the bakery's front door. Quickly loading a couple of large, red shells into his shotgun, Hammer points the weapon at the place where the door is connected to its upper hinge and pulls the trigger. With a deafening blast and a brief flash of light the shotgun turns a huge chunk of the door into a shower of splinters. Pointing the shotgun down to the lower hinge, Hammer pulls the trigger again, and then with a forceful kick he smashes the door to the floor.
+		[hammer.speech(Stand back,)] the wolf-boy grunts as the two of you come to a halt beside the bakery's front door. Giving the wolf-boy some space, you watch as he lifts his sledgehammer and swings it at a point just beside the door's handle. The heavy mass of metal turns a huge chunk of weathered wood into a shower of splinters. The force of the blow completely shatters the lock and slams the door wide open in the process.
 	</p>
 	<p>
-		Relying on the arcane nature of his weapon to convert essences into ammunition, the wolf-boy doesn't need to pause to reload any shells, and so instantly rushes into the building...
+		Having served its purpose, the wolf-boy tosses his sledgehammer aside and lifts up his shotgun. Giving you the briefest of nods, he rushes into the building...
 	</p>
 	]]>
 	</htmlContent>
@@ -465,7 +471,7 @@
 			[pc.Stepping] over the remains of the bakery's front door, you follow Hammer into the building. The area immediately beyond the front entrance is enclosed by an internal wall to form a small antechamber, preventing you from seeing into the majority of the building's interior. Although you can't see them, you can hear several voices shouting out in alarm from somewhere beyond the archway that's immediately in front of you.
 		</p>
 		<p>
-			[hammer.speech(Stick with me!)] hammer growls as he rushes into what appears to be the bakery's shop floor...
+			[hammer.speech(Stick with me!)] Hammer growls as he rushes into what appears to be the bakery's shop floor...
 		</p>
 	#ELSE
 		<p>

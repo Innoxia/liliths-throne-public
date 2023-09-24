@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -67,6 +68,23 @@ public enum BodyMaterial {
 		}
 	},
 
+	// Dolls:
+	
+	SILICONE("silicone", "smooth", PresetColour.BASE_BLACK, DamageType.PHYSICAL, true, false, true) {
+		@Override
+		public Map<AbstractAttribute, Float> getAttributeModifiers(GameCharacter target) {
+			return Util.newHashMapOfValues();
+		}
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			return null;
+		}
+		@Override
+		public List<String> getPartDescriptors() {
+			return Util.newArrayListOfValues("silicone", "artificial", "doll");
+		}
+	},
+	
 	// Fire elementals:
 	
 	FIRE("fire", "burning", PresetColour.BASE_ORANGE, DamageType.FIRE, false, false, false) {
@@ -192,8 +210,11 @@ public enum BodyMaterial {
 	private String shellAltNoun; private String shellAltAdj;
 	private	String keratinNoun; private String keratinAdj;
 	private String keratinAltNoun; private String keratinAltAdj;
+	private List<String> partDescriptors;
+	
 	private Colour colour;
 	private DamageType unarmedDamageType;
+	
 	private boolean requiresPiercing;
 	private boolean orificesAlwaysMaximumWetness;
 	private boolean ableToWearMakeup;
@@ -256,6 +277,7 @@ public enum BodyMaterial {
 		this.keratinAdj = keratinAdj;
 		this.keratinAltNoun = keratinAltNoun;
 		this.keratinAltAdj = keratinAltAdj;
+		this.partDescriptors = new ArrayList<>();
 		this.colour = colour;
 		this.unarmedDamageType = unarmedDamageType;
 		this.requiresPiercing = requiresPiercing;
@@ -299,6 +321,7 @@ public enum BodyMaterial {
 		this.keratinAdj = adjective;
 		this.keratinAltNoun = noun;
 		this.keratinAltAdj = adjective;
+		this.partDescriptors = new ArrayList<>();
 		this.colour = colour;
 		this.unarmedDamageType = unarmedDamageType;
 		this.requiresPiercing = requiresPiercing;
@@ -342,6 +365,7 @@ public enum BodyMaterial {
 		this.keratinAdj = noun;
 		this.keratinAltNoun = noun;
 		this.keratinAltAdj = noun;
+		this.partDescriptors = new ArrayList<>();
 		this.colour = colour;
 		this.unarmedDamageType = unarmedDamageType;
 		this.requiresPiercing = requiresPiercing;
@@ -492,6 +516,10 @@ public enum BodyMaterial {
 	
 	public String getKeratinAltAdj() {
 		return keratinAltAdj;
+	}
+
+	public List<String> getPartDescriptors() {
+		return partDescriptors;
 	}
 
 	public Colour getColour() {

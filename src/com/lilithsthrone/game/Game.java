@@ -5727,7 +5727,11 @@ public class Game implements XMLSaving {
 	public boolean isPlotDiscovered() {
 		return Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN);
 	}
-	
+
+	public boolean isLunetteDefeated() {
+//		return Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_D_MEETING_A_LILIN);
+		return false; // TODO once main quest progress is past Lunette, return true
+	}
 	
 	public boolean isRenderMap() {
 		return renderMap;

@@ -28,6 +28,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added 'balaclava' (androgynous, hair slot (so that it can be equipped with hats, eyewear, and mouth items), sold by Nyan). Muggers will now sometimes spawn wearing a balaclava instead of a bandana.
 		Added 'SWORD dagger' (melee, one-handed, 25 base damage with high variance, all damage types, not sold by anyone as it's a special reward).
 		Added 'leg warmers' (feminine, calves slot, sold by Nyan).
+		Added 'arcane slegehammer' (melee, two-handed, 25 base damage with low variance, all damage types, sold by Vicky).
+		Standardised the angle of two-handed melee weapons' icons (battle axe, sledgehamme, and zweihander) to be opposite to that of one-handed weapons.
 	
 	Other:
 		Characters now need to be visibly pregnant (i.e. progressed past the 'risk of pregnancy' stage) in order to lay eggs via ovipositor. (Remember that characters can use mother's milk to progress past this stage if you want to impregnate & lay eggs in the same sex scene.)
@@ -40,6 +42,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		The default fetish preferences for the 'Bimbo' and 'Cross dressing' fetishes has been lowered. (This won't have any effect unless a new 'properties.xml' file is generated, i.e. only on a completely new game start.)
 		Changed the masculine/female race names for dobermanns from simply 'dobermann/dobermann' to 'dobermann-boy/dobermann-girl' to make them more consistent with other race names.
 		Changed the name postfix of ground floor maps from 'GF' to 'F0', and that of first floor maps from '1F' to 'F1'.
+		Added 'flavourless' as a new fluid flavouring.
 	
 	Bugs:
 		Parsing and typo fixes.
@@ -323,23 +326,111 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[x] MAKE PUSSPUSS POLL!
 	[x] Add Fae & Siliva
 	[x] test art
+	[x] More DSG feedback:
+		[x] Enforcer Station description: declaring this to be the Enforcer's Elis branch: I think declaring this to be the Enforcer's headquarters for the Elis region sounds better.
+		[x] Also before you defeat Lunette, perhaps the description of the Enforcers inside and outside can mention how they seem melancholy at being forbidden from doing anything about the situation outside the walls? Does that makes sense if Minotallys is in denial?
+			[] the mood of the office can be something you ask Sterope about
+		[x] txt\places\fields\elis\enforcer_station.xml line 453, out spill dozens of papers detailing your exploits in Dominion, Submission, and now Elis: perhaps papers and lurid pictures in Silly Mode?
+		[x] txt\places\fields\elis\enforcer_station.xml line 537, there are dozens of systems and regulations in place to detect if a slave isn't legal: You can also mention how the Slavery Administration would be going nuts.
+		[x] dialogue\innoxia\places\fields\elis\enforcer_station.xml line 686, defense of ELis
+		[x] txt\places\fields\elis\enforcer_station.xml line 635, civvy gear, normal clothes: civvy clothes, street clothes sounds more casual, you can also use gear and kit interchangeably
+		[x] res\txt\places\fields\elis\abandoned_bakery.xml line 73: You can also have the player ask if the proliferation of SWORD equipment to gangs makes things harder, to which Ghost or Hammer can say something like Hardware is one thing, training and experience are another. or Money doesn't make people fight as hard as you might think.
+		[x] txt\places\fields\elis\abandoned_bakery.xml line 178, difference of shells: can either handwave him loading conventional shells into one that normally fires gas or change the scene a bit so that he's using the butt on his gun to beat down the door. Or merge Mist's PR so I can expand the available elements. :BlobHyperCatCoffeeSmug:
+			[x] change to sledgehammer
+			[x] add sledgehammer weapon
+		[x] txt\places\fields\elis\abandoned_bakery.xml line 465, "Stick with me!" hammer
+		[x] Observation: Hammer doesn't seem to use his gun much in combat?
 	
 	[] Doll quest
-		[] add doll race -> like slime but rubber instead of slime
-			[] no essence from sex
-			[] cannot ever impregnate/be impregnated
-			[] can never self-TF
-			[] always level 1
-				[] custom perk tree
-					[] nympho
-					[] hyper flexibility
-					[] barren & sterile
-			[] no hair or pubic hair
-			[] add doll wigs
-			[] need special TF item to make TF injections, immune otherwise
-			[] nipple-pen
-			[] cannot resist in sex
-			[] limited slave permissions system
+		[x] add doll race -> like slime but rubber instead of slime
+			[x] add new silicone material for dolls
+			[x] no essence from sex
+			[x] cannot ever impregnate/be impregnated
+			[x] can never self-TF
+			[x] always level 1
+			[x] always ambiphilic
+			[x] cannot resist in sex
+			[x] need aura set to 0
+				[x] UI
+			[x] custom perk tree
+				[x] arcane-infused silicone - +100 to add resistances
+					[x] hyper flexibility
+					[x] plastic parts - completely barren & sterile cannot and cannot grow hair or pubic hair
+				[x] sex toy - 100 corruption
+					[x] live to fuck - cannot resist in sex
+					[x] owned - obeys all owner's orders
+				[x] automaton - - to all combat skills
+					[x] no aura - -1000 arcane, cannot be transformed, cannot generate essences from sex
+					[x] object - cannot gain experience and stuck at level 1
+			[x] reset occupation to 'dutiful doll' - will obey any command unless from a slave or another doll
+			[x] no hair
+			[x] can never grow pubic hair
+			[x] need special TF items, immune otherwise
+				[x] TF item immunity handling
+					[x] clothing
+						 [x] fetish handling?
+					[x] tattoos
+					[x] items
+					[x] fetishes
+				[x] add Doll Expedient Customisation Kit
+					[x] opens TF menu (like makeup kit does)
+						[x] breaking when doll...
+						[x] DOLL_TF item effect???
+					[x] body changes
+					[x] change body covering colours & modifiers
+			[x] check for all TF items
+				[x] mushroom
+				[x] essences - set to 0 as well
+				[x] harpy TFs
+			[x] no hymen
+			[x] mineral oil modifiers
+			[x] cannot gain fetishes
+			[x] neutral desires
+			[x] fetish experience
+				[x] add fetish immunity to lust perk - 'anything goes'
+			[x] cannot get addicted to fluids, hallucinate, nor get drunk (check caffeine drunk)
+				[x] remove associated status effects
+				[x] thirst quenched and hunger satisfied removal
+				[x] psychoactive still not working
+				[x] addictions
+				[x] add to physical perk - 'organs not included'
+			[x] add arcane perk 'arcane-powered' - can enter a motionless state and absorb background arcane energy for power
+			[x] do not allow egg incubation
+			[x] nipple-pen
+			[x] set elasticity/plasticity
+			[x] self-cleaning orifices
+			[x] check items again
+				[x] Inno-chan
+				[x] Innoxia's gift
+			[x] body parts
+				[x] milk/fluids needs to be
+					[x] mineral oil
+					[x] slimy
+					[x] clear
+					[x] lemon
+				[x] body hair is called 'silicone'...
+					[x] SILICONE_BODY_HAIR generated
+					[x] BodyCoveringTemplateFactory.createSilicone
+		[x] TODO
+			[x] setBodyMaterial()
+			[x] add default consumables to subspecies
+			[x] setBodyMaterial() -> // Doll subspecies are set in the Main.game.getCharacterUtils().generateBody() method
+			[x] check every instance of BodyMaterial.SLIME and getBodyMaterial()
+				[x] flying
+			[x] sex attraction
+			[x] DOLL_BASIC and ADVANCED race lore
+			[x] need doll descriptors for sexual parts (plastic, rubber, silicone etc.)
+				[x] vagina
+				[x] penis
+				[x] nipples
+				[x] breasts
+				[x] anus
+				[x] ass
+			[x] flavourless
+				[x] TF
+				[x] flavour descriptors should only be used when mouth actions are involved?
+			[x] doll TF presets (save/load) not working
+			
 		[] Lovienne's Luxuries
 			[] Add location in Dominion
 				[] sells sex toys -> move from Finch
@@ -364,6 +455,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[] need a doll closet in Lilaya's home to buy dolls
 			[] station dolls in any tile in house or order to follow
 			[] can set pose and sex use by slaves - standing split, missionary presenting, all fours, at attention, squatting, handstand, bridge
+			[] limited slave permissions system
+			[] slave jobs
+				[] no milking
+		
+		
 		[] Quest
 			[] Can start quest after main quest where slaves are being sent to DD
 			[] search around the back
@@ -379,6 +475,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 					[] after physical TF, they get mind-broken
 						[] essence corrupted and then channelled into pussy while being fucked
 						[] succubus uses spells to overwhelm with arousal and break into nympho sex doll
+					[] unlock doll advanced lore
 				[] fight guards
 					[] demon employees
 					[] Angelixx's nightmare guards
@@ -415,11 +512,13 @@ Not everything in this file is up-to-date, and everything is subject to change a
 					[] if obedience is full, surrender to her
 					[] if caught, full conversion
 				[] find way to reverse it - find your drained essence and consume it
+					[] can bad-end as a different race by consuming a different essence
 			[] Get caught again
 				[] full conversion
 					[] nightmares fuck to get revenge - Angelixx masturbates while watching (special sex actions for corrupt essence infusion)
 					[] girl is found as well and TF'd alongside you
 					[] sold to slave-owner and used as slave sex relief
+					[] or if non-human, sold to rich, horny succubus
 			
 	[] Hannah shouldn't drink while pregnant
 		[] need non-drinking variations for all scenes
@@ -427,8 +526,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] Shadow & Silence!
 	
 	[] Need non-crime alternative for offspring
-			
-			
+	
+	
 	[] wiki
 		[] placeholder
 		[] doku fix?

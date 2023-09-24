@@ -22,6 +22,7 @@ import com.lilithsthrone.game.character.body.Tentacle;
 import com.lilithsthrone.game.character.body.Torso;
 import com.lilithsthrone.game.character.body.Wing;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
+import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
@@ -1867,8 +1868,14 @@ public class GenericOrgasms {
 								case BANANA:
 									cumTargetSB.append(" The taste of [npc.namePos] banana-flavoured");
 									break;
+								case FLAVOURLESS:
+									cumTargetSB.append(" [npc.NamePos] cum is completely flavourless, and you");
+									break;
 							}
-							cumTargetSB.append(" cum rises up to hit your [npc2.tongue], and you");
+							if(characterOrgasming.getCumFlavour()!=FluidFlavour.FLAVOURLESS) {
+								cumTargetSB.append(" cum rises up to hit your [npc2.tongue], and you");
+							}
+							
 							if(target.hasFetish(Fetish.FETISH_CUM_ADDICT) || Main.sex.getCharactersRequestingCreampie().contains(target) || Main.sex.getCharactersRequestingKnot().contains(target)) {
 								cumTargetSB.append(" " + UtilText.returnStringAtRandom("greedily","hungrily"));
 							} else {
@@ -2053,6 +2060,7 @@ public class GenericOrgasms {
 					case ICE:
 					case RUBBER:
 					case STONE:
+					case SILICONE:
 						break;
 				}
 				

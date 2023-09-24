@@ -298,9 +298,9 @@ public class Hammer extends NPC {
 	public void resetDefaultMoves() {
 		this.clearEquippedMoves();
 		equipMove("strike");
-		equipMove("offhand-strike");
-		equipMove("twin-strike");
-		equipMove("block");
+		//equipMove("offhand-strike");
+		//equipMove("twin-strike");
+		//equipMove("block");
 		this.equipAllSpellMoves();
 	}
 	

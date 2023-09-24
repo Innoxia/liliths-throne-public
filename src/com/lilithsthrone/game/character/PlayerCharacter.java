@@ -1437,7 +1437,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	@Override
 	public boolean isAbleToBeEgged() {
-		return true;
+		return !this.isDoll();
 	}
 	
 	// This behaviour is overridden for unique scenes in which the player's orgasm requires special dialogue or effects.

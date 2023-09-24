@@ -369,6 +369,7 @@ public enum Attack {
 					break;
 				case FLESH:
 				case SLIME:
+				case SILICONE:
 					break;
 				case RUBBER:
 				case STONE:

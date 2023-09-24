@@ -809,9 +809,11 @@ public interface SexActionInterface {
 				}
 			}
 
-			// You can't resist in scenes that don't allow it or if non-con is disabled:
+			// You can't resist in scenes that don't allow it, if non-con is disabled, or if the performing character is a doll:
 			if(getSexPace()==SexPace.SUB_RESISTING) {
-				if((Main.sex.isConsensual() && !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_SUB)) || !Main.game.isNonConEnabled()) {
+				if((Main.sex.isConsensual() && !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_SUB))
+						|| !Main.game.isNonConEnabled()
+						|| Main.sex.getCharacterPerformingAction().isDoll()) {
 					return null;
 				}
 			}

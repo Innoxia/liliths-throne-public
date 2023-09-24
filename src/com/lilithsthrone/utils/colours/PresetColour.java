@@ -179,6 +179,7 @@ public class PresetColour {
 	public static Colour RACE_FOX_MORPH_ARCTIC = new Colour(false, BaseColour.WHITE, "white", Util.newArrayListOfValues("arcticFoxMorph", "arcticFox")) {};
 	public static Colour RACE_HARPY = new Colour(false, BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues("harpy")) {};
 	public static Colour RACE_SLIME = new Colour(false, BaseColour.GREEN_LIGHT, "light green", Util.newArrayListOfValues("slime")) {};
+	public static Colour RACE_DOLL = new Colour(false, Util.newColour(0x555555), Util.newColour(0x555555), "black", Util.newArrayListOfValues("doll")) {};
 	public static Colour RACE_SQUIRREL_MORPH = new Colour(false, BaseColour.GINGER, "ginger", Util.newArrayListOfValues("squirrelMorph", "squirrel")) {};
 	public static Colour RACE_RAT_MORPH = new Colour(false, BaseColour.BROWN_DARK, "dark brown", Util.newArrayListOfValues("ratMorph", "rat")) {};
 	public static Colour RACE_RABBIT_MORPH = new Colour(false, BaseColour.BROWN_DARK, "dark brown", Util.newArrayListOfValues("rabbitMorph", "rabbit")) {};
@@ -840,6 +841,70 @@ public class PresetColour {
 			);
 	
 	public static List<Colour> dyeSlimeColours = Util.newArrayListOfValues(
+			PresetColour.COVERING_PLATINUM,
+			PresetColour.COVERING_ROSE_GOLD,
+			PresetColour.COVERING_GOLD,
+			PresetColour.COVERING_SILVER,
+			PresetColour.COVERING_BRONZE,
+			PresetColour.COVERING_COPPER,
+			PresetColour.COVERING_BRASS,
+			PresetColour.COVERING_STEEL,
+			PresetColour.COVERING_BLACK_STEEL,
+			
+			PresetColour.COVERING_RAINBOW,
+			PresetColour.COVERING_RAINBOW_PASTEL
+	);
+	
+
+	public static List<Colour> naturalSiliconeColours = Util.newArrayListOfValues(
+			PresetColour.COVERING_BLACK,
+			PresetColour.COVERING_JET_BLACK
+			);
+	
+	public static List<Colour> dyeSiliconeColours = Util.newArrayListOfValues(
+			PresetColour.SKIN_PALE,
+			PresetColour.SKIN_LIGHT,
+			PresetColour.SKIN_PORCELAIN,
+			PresetColour.SKIN_ROSY,
+			PresetColour.SKIN_OLIVE,
+			PresetColour.SKIN_TANNED,
+			PresetColour.SKIN_DARK,
+			PresetColour.SKIN_CHOCOLATE,
+			PresetColour.SKIN_EBONY,
+			PresetColour.SKIN_IVORY,
+			
+			PresetColour.COVERING_CLEAR,
+			PresetColour.COVERING_WHITE,
+			PresetColour.COVERING_GREY,
+			PresetColour.COVERING_SCARLET,
+			PresetColour.COVERING_RED_LIGHT,
+			PresetColour.COVERING_RED,
+			PresetColour.COVERING_RED_DARK,
+			PresetColour.COVERING_TAN,
+			PresetColour.COVERING_BROWN_LIGHT,
+			PresetColour.COVERING_BROWN,
+			PresetColour.COVERING_BROWN_DARK,
+			PresetColour.COVERING_ORANGE_DARK,
+			PresetColour.COVERING_ORANGE,
+			PresetColour.COVERING_YELLOW,
+			PresetColour.COVERING_AMBER,
+			PresetColour.COVERING_ORANGE_LIGHT,
+			PresetColour.COVERING_GREEN_LIGHT,
+			PresetColour.COVERING_GREEN,
+			PresetColour.COVERING_GREEN_DARK,
+			PresetColour.COVERING_BLUE_LIGHT,
+			PresetColour.COVERING_BLUE,
+			PresetColour.COVERING_BLUE_DARK,
+			PresetColour.COVERING_PERIWINKLE,
+			PresetColour.COVERING_LILAC_LIGHT,
+			PresetColour.COVERING_LILAC,
+			PresetColour.COVERING_INDIGO,
+			PresetColour.COVERING_PURPLE_LIGHT,
+			PresetColour.COVERING_PURPLE,
+			PresetColour.COVERING_PURPLE_DARK,
+			PresetColour.COVERING_PINK,
+			PresetColour.COVERING_PINK_LIGHT,
+			
 			PresetColour.COVERING_PLATINUM,
 			PresetColour.COVERING_ROSE_GOLD,
 			PresetColour.COVERING_GOLD,

@@ -141,4 +141,48 @@ public class MiscDialogue {
 			return DialogueNodeType.PHONE;
 		}
 	};
+	
+
+	public static DialogueNode getDollCustomisationDialogue() {
+		return BODY_CHANGING_DOLL_CUSTOMISATION;
+	}
+	
+	private static final DialogueNode BODY_CHANGING_DOLL_CUSTOMISATION = new DialogueNode("D.E.C.K.", "", true) {
+		@Override
+		public String getHeaderContent() {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append("<div class='container-full-width' style='text-align:center;'>"
+						+ (BodyChanging.getTarget().isPlayer()
+								?"You plug the D.E.C.K.'s cable into port on the rear of your neck and prepare to customise yourself..."
+								:"You plug the D.E.C.K.'s cable into the port on the rear of [npc.namePos] neck and prepare to customise [npc.herHim]...")
+					+ "</div>");
+			
+			return sb.toString();
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new ResponseEffectsOnly("Finished", "Return to your inventory screen.") {
+					@Override
+					public void effects() {
+						if(BodyChanging.getTarget().isPlayer()) {
+							Main.mainController.openInventory();
+						} else {
+							Main.mainController.openInventory((NPC) BodyChanging.getTarget(), InventoryInteraction.FULL_MANAGEMENT);
+						}
+					}
+				};
+			}
+			return null;
+		}
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.PHONE;
+		}
+	};
 }

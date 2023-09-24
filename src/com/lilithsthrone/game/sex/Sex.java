@@ -1370,7 +1370,8 @@ public class Sex {
 					}
 				}
 				if(getNumberOfOrgasms(participant) > 0
-						&& Main.game.isInNewWorld()) {
+						&& Main.game.isInNewWorld()
+						&& !Main.game.getPlayer().isDoll()) {
 					if(participant.hasStatusEffect(StatusEffect.RECOVERING_AURA)) {
 						int orgasmCount = Main.sex.getNumberOfOrgasms(participant);
 						endSexSB.append("<div class='container-full-width' style='text-align:center;'>"
@@ -1474,7 +1475,9 @@ public class Sex {
 										+ "</div>");
 						
 					}
-					participant.addStatusEffect(StatusEffect.RECOVERING_AURA, (240*60)+(postSexDialogue.getSecondsPassed()));
+					if(!participant.isDoll()) {
+						participant.addStatusEffect(StatusEffect.RECOVERING_AURA, (240*60)+(postSexDialogue.getSecondsPassed()));
+					}
 				}
 				
 				endSexSB = new StringBuilder(UtilText.parse(participant, endSexSB.toString()));
@@ -1508,7 +1511,8 @@ public class Sex {
 					}
 				}
 				if(getNumberOfOrgasms(participant) > 0
-						&& Main.game.isInNewWorld()) {
+						&& Main.game.isInNewWorld()
+						&& !Main.game.getPlayer().isDoll()) {
 					if(participant.hasStatusEffect(StatusEffect.RECOVERING_AURA)) {
 
 						int orgasmCount = Main.sex.getNumberOfOrgasms(participant);
@@ -1570,7 +1574,9 @@ public class Sex {
 											+ Main.game.getPlayer().incrementEssenceCount(essences, true)
 										+ "</div>");
 					}
-					participant.addStatusEffect(StatusEffect.RECOVERING_AURA, (240*60)+(postSexDialogue.getSecondsPassed()));
+					if(!participant.isDoll()) {
+						participant.addStatusEffect(StatusEffect.RECOVERING_AURA, (240*60)+(postSexDialogue.getSecondsPassed()));
+					}
 
 				}
 				

@@ -683,7 +683,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[4]]></index>
 				<responseTitle><![CDATA[Agree to help]]></responseTitle>
-				<responseTooltip><![CDATA[As you need their help for the defence of ELis, you don't seem to have much choice but to agree to help the Enforcers on their op...]]></responseTooltip>
+				<responseTooltip><![CDATA[As you need their help for the defence of Elis, you don't seem to have much choice but to agree to help the Enforcers on their op...]]></responseTooltip>
 				<nextDialogue>innoxia_places_fields_elis_enforcer_station_sword_mission_end</nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_MAIN, QUEST_MAIN_3_G_SWORD_SCAPEGOAT))]
