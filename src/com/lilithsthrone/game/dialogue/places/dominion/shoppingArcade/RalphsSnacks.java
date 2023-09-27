@@ -17,7 +17,10 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexControl;
@@ -47,7 +50,11 @@ public class RalphsSnacks {
 			Main.game.getDialogueFlags().ralphDiscount=0;
 		}
 	}
-	
+
+	private static Ralph getRalph() {
+		return ((Ralph)Main.game.getNpc(Ralph.class));
+	}
+
 	public static final DialogueNode EXTERIOR = new DialogueNode("Ralph's Snacks (Exterior)", "-", false) {
 
 		@Override
@@ -131,15 +138,70 @@ public class RalphsSnacks {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseTrade("Trade with Ralph", "Go and ask Ralph about the special consumables on display.", Main.game.getNpc(Ralph.class)){
+				return new ResponseTrade("Trade with Ralph (food)", "Go and ask Ralph about the special consumable food items on display.", getRalph()) {
 					@Override
 					public void effects() {
+						getRalph().clearNonEquippedInventory(false);
+						for (Map.Entry<AbstractItem, Integer> item : (getRalph()).getFoodItemsForSale().entrySet()) {
+							if(getRalph().isInventoryFull()) {
+								break;
+							}
+							getRalph().addItem(item.getKey(), item.getValue(), false, false);
+						}
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphIntroduced);
 						resetDiscountCheck();
 					}
 				};
-				
+
 			} else if (index == 2) {
+					return new ResponseTrade("Trade with Ralph (drink)", "Go and ask Ralph about the special consumable drink items on display.", getRalph()){
+						@Override
+						public void effects() {
+							getRalph().clearNonEquippedInventory(false);
+							for (Map.Entry<AbstractItem, Integer> item : (getRalph()).getDrinkItemsForSale().entrySet())  {
+								if(getRalph().isInventoryFull()) {
+									break;
+								}
+								getRalph().addItem(item.getKey(), item.getValue(), false, false);
+							}
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphIntroduced);
+							resetDiscountCheck();
+						}
+					};
+
+			} else if (index == 3) {
+					return new ResponseTrade("Trade with Ralph (other)", "Go and ask Ralph about the other items on display.", getRalph()){
+						@Override
+						public void effects() {
+							getRalph().clearNonEquippedInventory(false);
+
+							for (Map.Entry<AbstractItem, Integer> item : (getRalph()).getOtherItemsForSale().entrySet()) {
+								if(getRalph().isInventoryFull()) {
+									break;
+								}
+								getRalph().addItem(item.getKey(), item.getValue(), false, false);
+							}
+
+							for (Map.Entry<AbstractClothing, Integer> clothing : (getRalph()).getClothingForSale().entrySet()) {
+								if(getRalph().isInventoryFull()) {
+									break;
+								}
+								getRalph().addClothing(clothing.getKey(), clothing.getValue(), false, false);
+							}
+
+							for (Map.Entry<AbstractWeapon, Integer> weapon : (getRalph()).getWeaponsForSale().entrySet()) {
+								if(getRalph().isInventoryFull()) {
+									break;
+								}
+								getRalph().addWeapon(weapon.getKey(), weapon.getValue(), false, false);
+							}
+
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphIntroduced);
+							resetDiscountCheck();
+						}
+					};
+
+			} else if (index == 4) {
 				if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
 					return new Response("Discount", "Ask Ralph if there's anything you can do to get a discount.", INTERIOR_ASK_FOR_DISCOUNT){
 						@Override
@@ -154,7 +216,7 @@ public class RalphsSnacks {
 					
 				}
 
-			} else if (index == 3
+			} else if (index == 5
 					&& Main.game.getPlayer().hasQuest(QuestLine.SIDE_BUYING_BRAX)
 					&& Main.game.getPlayer().getQuest(QuestLine.SIDE_BUYING_BRAX)==Quest.BUYING_BRAX_LIPSTICK
 					&& !Main.game.getPlayer().hasItemType(ItemType.CANDI_HUNDRED_KISSES)) {
