@@ -144,7 +144,7 @@ public class ItemEffectType {
 		
 		@Override
 		public List<TFModifier> getPrimaryModifiers() {
-			return Util.newArrayListOfValues(
+			ArrayList<TFModifier> tfModifiers = Util.newArrayListOfValues(
 					TFModifier.REMOVAL,
 					TFModifier.ORIENTATION_GYNEPHILIC,
 					TFModifier.ORIENTATION_AMBIPHILIC,
@@ -152,6 +152,10 @@ public class ItemEffectType {
 					TFModifier.PERSONALITY_TRAIT_SPEECH_LISP,
 					TFModifier.PERSONALITY_TRAIT_SPEECH_STUTTER,
 					TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY);
+			if (Main.game.isSillyMode()) {
+				tfModifiers.add(TFModifier.PERSONALITY_TRAIT_SPEECH_UWU);
+			}
+			return tfModifiers;
 		}
 
 		@Override
@@ -162,9 +166,10 @@ public class ItemEffectType {
 
 		@Override
 		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			if(primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_LISP
-					|| primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_STUTTER
-					|| primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY) {
+			if (primaryModifier == TFModifier.PERSONALITY_TRAIT_SPEECH_LISP
+					|| primaryModifier == TFModifier.PERSONALITY_TRAIT_SPEECH_STUTTER
+					|| primaryModifier == TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY
+					|| primaryModifier == TFModifier.PERSONALITY_TRAIT_SPEECH_UWU) {
 				return Util.newArrayListOfValues(
 						TFPotency.MINOR_DRAIN,
 						TFPotency.MINOR_BOOST);
@@ -211,6 +216,13 @@ public class ItemEffectType {
 						descriptions.add("Removes <b style='color:"+TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY.getColour().toWebHexString()+";'>slovenly speech</b>");
 					} else {
 						descriptions.add("Adds <b style='color:"+TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY.getColour().toWebHexString()+";'>slovenly speech</b>");
+					}
+					
+				} else if (primaryModifier == TFModifier.PERSONALITY_TRAIT_SPEECH_UWU) {
+					if (potency == TFPotency.MINOR_DRAIN) {
+						descriptions.add("Removes <b style='color:"+TFModifier.PERSONALITY_TRAIT_SPEECH_UWU.getColour().toWebHexString()+";'>uwu speech</b>");
+					} else {
+						descriptions.add("Adds <b style='color:"+TFModifier.PERSONALITY_TRAIT_SPEECH_UWU.getColour().toWebHexString()+";'>uwu speech</b>");
 					}
 				}
 				
@@ -287,6 +299,27 @@ public class ItemEffectType {
 						return target.removePersonalityTrait(PersonalityTrait.SLOVENLY);
 					} else {
 						return target.addPersonalityTrait(PersonalityTrait.SLOVENLY);
+					}
+					
+				} else if (primaryModifier == TFModifier.PERSONALITY_TRAIT_SPEECH_UWU) {
+					boolean alreadyUwu = target.hasPersonalityTrait(PersonalityTrait.UWU);
+					if (potency == TFPotency.MINOR_DRAIN) {
+						target.removePersonalityTrait(PersonalityTrait.UWU);
+						return UtilText.parse(target,
+								"<p style='text-align:center;'>"
+										+(!alreadyUwu
+										?"[style.colourDisabled([npc.Name] already [npc.do]n't speak with an uwu accent, so nothing happens...)]"
+										:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorGood(no longer speaking with an uwu speech quirk)]!")
+										+"</p>");
+						
+					} else {
+						target.addPersonalityTrait(PersonalityTrait.UWU);
+						return UtilText.parse(target,
+								"<p style='text-align:center;'>"
+										+(alreadyUwu
+										?"[style.colourDisabled([npc.Name] already [npc.verb(speak)] with an uwu speech quirk, so nothing happens...)]"
+										:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorBad(speaking with an uwu speech quirk)]!")
+										+"</p>");
 					}
 				}
 				

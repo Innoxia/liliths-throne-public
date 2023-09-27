@@ -342,8 +342,8 @@ public class CharacterModificationUtils {
 				}
 				
 				for(PersonalityTrait trait : PersonalityTrait.values()) {
-					if(allowSpecials || !trait.isSpecialRequirements()) {
-						if(BodyChanging.getTarget().hasPersonalityTrait(trait)) {
+					if ((allowSpecials || !trait.isSpecialRequirements()) || trait.equals(PersonalityTrait.UWU) && Main.game.isSillyMode()) {
+						if (BodyChanging.getTarget().hasPersonalityTrait(trait)) {
 							contentSB.append(
 									"<div id='PERSONALITY_TRAIT_"+trait+"' class='cosmetics-button active'>"
 										+ "<span style='color:"+trait.getColour().getShades()[2]+";'>"+Util.capitaliseSentence(trait.getName())+"</span>"

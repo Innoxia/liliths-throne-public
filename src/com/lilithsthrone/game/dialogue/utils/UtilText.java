@@ -541,6 +541,10 @@ public class UtilText {
 				if(target.hasPersonalityTrait(PersonalityTrait.STUTTER)) {
 					modifiedSentence = Util.addStutter(modifiedSentence, 4);
 				}
+				
+				if (target.hasPersonalityTrait(PersonalityTrait.UWU)) {
+					modifiedSentence = Util.applyUwuSpeech(modifiedSentence);
+				}
 			}
 			
 			if(splitOnConditional.length>1) {

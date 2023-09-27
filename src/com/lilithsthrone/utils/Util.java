@@ -1448,7 +1448,30 @@ public class Util {
 //			.replaceAll("So", "Sho")
 //			.replaceAll("so", "sho");
 	}
-
+	
+	public static String applyUwuSpeech(String sentence) {
+		String[] split = sentence.split("\\[(.*?)\\]");
+		for (String s : split) {
+			String[] splitConditional = s.split("#IF\\((.*?)\\)|#ELSEIF\\((.*?)\\)"); // Do not replace text inside conditional parsing statements
+			for (String s2 : splitConditional) {
+				String sReplace = s2
+						.replaceAll("[rl]", "w")
+						.replaceAll("[RL]", "W")
+						.replaceAll("tt", "dd")
+						.replaceAll("TT", "DD")
+						.replaceAll("th ", "f ")
+						.replaceAll("TH ", "F ")
+						.replaceAll("n([aeiou])", "ny$1")
+						.replaceAll("N([aeiou])", "Ny$1")
+						.replaceAll("N([AEIOU])", "NY$1");
+				
+				sentence = sentence.replace(s2, sReplace);
+			}
+		}
+		
+		return sentence;
+	}
+	
 	private static Map<String, String> slovenlySpeechReplacementMap = new LinkedHashMap<>();
 	static {
 		slovenlySpeechReplacementMap.put("What are", "Wot's");
