@@ -857,8 +857,7 @@ public class PresetColour {
 	
 
 	public static List<Colour> naturalSiliconeColours = Util.newArrayListOfValues(
-			PresetColour.COVERING_BLACK,
-			PresetColour.COVERING_JET_BLACK
+			PresetColour.COVERING_BLACK
 			);
 	
 	public static List<Colour> dyeSiliconeColours = Util.newArrayListOfValues(
@@ -876,6 +875,7 @@ public class PresetColour {
 			PresetColour.COVERING_CLEAR,
 			PresetColour.COVERING_WHITE,
 			PresetColour.COVERING_GREY,
+			PresetColour.COVERING_JET_BLACK,
 			PresetColour.COVERING_SCARLET,
 			PresetColour.COVERING_RED_LIGHT,
 			PresetColour.COVERING_RED,

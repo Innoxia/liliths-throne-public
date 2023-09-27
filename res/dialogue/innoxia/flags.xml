@@ -50,6 +50,17 @@
 			<flag dailyReset="false">lights_out_hannah_sex</flag>
 			<flag resetHour="20">lights_out_hannah_last_night_met</flag>
 			<flag resetHour="20">lights_out_hannah_last_night_sex</flag>
+		
+		<!-- Lovienne's Luxuries: -->
+			<flag dailyReset="false">sex_shop_display_on</flag>
+			<flag dailyReset="false">sex_shop_oral_offer</flag>
+			<flag dailyReset="false">sex_shop_choker_snapped</flag>
+			<flag dailyReset="false">sex_shop_choker_survived</flag>
+			<flag dailyReset="false">sex_shop_discount</flag>
+			<flag dailyReset="false">sex_shop_penalty</flag>
+			<flag resetHour="8">sex_shop_saellatrix_sex</flag>
+			
+			
 	
 	<!-- Submission:-->
 		<flag dailyReset="false">elizabeth_routine_started</flag>

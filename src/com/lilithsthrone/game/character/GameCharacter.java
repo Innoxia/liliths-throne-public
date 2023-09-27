@@ -3750,7 +3750,11 @@ public abstract class GameCharacter implements XMLSaving {
 				infoScreenSB.append("<b style='color:"+trait.getColour().toWebHexString()+"'>"+Util.capitaliseSentence(trait.getName())+"</b>: "+trait.getDescription(this, false, false));
 			}
 			if(i==0) {
-				infoScreenSB.append(UtilText.parse(this, "[npc.NameHasFull] a well-rounded personality, with no exceptionally good nor bad traits."));
+				if(this.isDoll()) {
+					infoScreenSB.append(UtilText.parse(this, "[npc.NameIsFull] a sex doll, and as such [npc.has] no personality traits."));
+				} else {
+					infoScreenSB.append(UtilText.parse(this, "[npc.NameHasFull] a well-rounded personality, with no exceptionally good nor bad traits."));
+				}
 			}
 			infoScreenSB.append("</p>");
 			
@@ -4538,6 +4542,9 @@ public abstract class GameCharacter implements XMLSaving {
 		return personalityTraits.contains(trait);
 	}
 
+	/**
+	 * Does not work for dolls.
+	 */
 	public void setPersonalityTraits(PersonalityTrait... traits) {
 		this.clearPersonalityTraits();
 		for(PersonalityTrait t : traits) {
@@ -4545,17 +4552,35 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 	}
 	
-	public void addPersonalityTrait(PersonalityTrait trait) {
+	/**
+	 * Does not work for dolls.
+	 */
+	public String addPersonalityTrait(PersonalityTrait trait) {
+		if(this.isDoll()) {
+			return UtilText.parse(this,
+					"<p style='text-align:center;'>"
+							+ "[style.colourDisabled(As a sex doll, [npc.name] cannot gain any personality traits...)]"
+						+ "</p>");
+		}
+		StringBuilder sb = new StringBuilder();
 		for(PersonalityTrait pt : new ArrayList<>(this.getPersonalityTraits())) {
 			if(trait.getMutuallyExclusiveSettings().contains(pt) || pt.getMutuallyExclusiveSettings().contains(trait)) {
-				this.removePersonalityTrait(pt);
+				if(personalityTraits.remove(pt) && Main.game.isStarted() && this.getBody()!=null) {
+					sb.append(pt.getRemovalDescription(this));
+				}
 			}
 		}
-		personalityTraits.add(trait);
+		if(personalityTraits.add(trait) && Main.game.isStarted() && this.getBody()!=null) {
+			sb.append(trait.getAdditionDescription(this));
+		}
+		return sb.toString();
 	}
 
-	public void removePersonalityTrait(PersonalityTrait trait) {
-		personalityTraits.remove(trait);
+	public String removePersonalityTrait(PersonalityTrait trait) {
+		if(personalityTraits.remove(trait) && Main.game.isStarted() && this.getBody()!=null) {
+			return trait.getRemovalDescription(this);
+		}
+		return "";
 	}
 
 	public void removePersonalityTraits(PersonalityCategory category) {
@@ -4682,14 +4707,17 @@ public abstract class GameCharacter implements XMLSaving {
 	// Obedience:
 	
 	public ObedienceLevel getObedience() {
-		return ObedienceLevel.getObedienceLevelFromValue(obedience);
+		return ObedienceLevel.getObedienceLevelFromValue(getObedienceValue());
 	}
 
 	public ObedienceLevelBasic getObedienceBasic() {
-		return ObedienceLevelBasic.getObedienceLevelFromValue(obedience);
+		return ObedienceLevelBasic.getObedienceLevelFromValue(getObedienceValue());
 	}
 	
 	public float getObedienceValue() {
+		if(this.isDoll()) {
+			return 100;
+		}
 		return Math.round(obedience*100)/100f;
 	}
 	
@@ -5034,6 +5062,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public float getAffection(GameCharacter character) {
+		if(this.isDoll()) {
+			return 0;
+		}
 		affectionMap.putIfAbsent(character.getId(), 0f);
 		
 		return Math.round(affectionMap.get(character.getId())*100)/100f;
@@ -5063,6 +5094,12 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @return
 	 */
 	public String setAffection(GameCharacter character, float affection) {
+		if(this.isDoll()) {
+			return UtilText.parse(this,
+					"<p style='text-align:center'>"
+						+ "[style.colourDisabled(As a sex doll, [npc.name] cannot gain or lose affection towards anyone...)]"
+					+ "</p>");
+		}
 		setAffection(character.getId(), affection);
 		
 		return UtilText.parse(this, character,
@@ -10210,6 +10247,20 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		virginityLossMap = new HashMap<>();
 		backupVirginityLossMap = new HashMap<>();
+	}
+
+	public void completeVirginityLoss() {
+		this.setAnalVirgin(false);
+		this.setAssVirgin(false);
+		this.setFaceVirgin(false);
+		this.setNippleCrotchVirgin(false);
+		this.setNippleVirgin(false);
+		this.setPenisVirgin(false);
+		this.setSpinneretVirgin(false);
+		this.setUrethraVirgin(false);
+		this.setVaginaUrethraVirgin(false);
+		this.setVaginaVirgin(false);
+		this.setHymen(false);
 	}
 	
 	public Map<SexType, String> getBackupVirginityLossMap() {
@@ -20190,13 +20241,20 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 	}
-
+	
 	/**
 	 * When called, the next call to any rollForPregnancy() method will guarantee that this character gets pregnant, regardless of any status effects, fertility, or partner virility values.
 	 * <br/>After the rollForPregnancy() method is called, the guarantee is reset.
 	 */
 	public void guaranteePregnancyOnNextRoll() {
 		guaranteePregnancyOnNextRoll = true;
+	}
+	
+	/**
+	 * @return false if this character is a doll or an elemental.
+	 */
+	public boolean isImpregnationPhysicallyPossible() {
+		return !this.isDoll() && !this.isElemental();
 	}
 	
 	public String rollForPregnancy(GameCharacter partner, float cumQuantity, boolean directSexInsemination) {
@@ -23955,6 +24013,10 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public String unequipClothingIntoVoid(InventorySlot slot, boolean automaticClothingManagement, GameCharacter characterClothingUnequipper) {
+		if(getClothingInSlot(slot)==null) {
+			System.err.println("Error: "+this.getNameIgnoresPlayerKnowledge()+" tried to unequip null clothing in slot '"+slot.toString()+"'");
+			return "";
+		}
 		return unequipClothingIntoVoid(getClothingInSlot(slot), automaticClothingManagement, characterClothingUnequipper);
 	}
 	
@@ -27076,7 +27138,20 @@ public abstract class GameCharacter implements XMLSaving {
 			// Effects:
 			
 			// *** Physical:*** //
-			// Nipple-pen:
+			//TODO move to racial body?
+			// Standard attributes
+			this.setHeight(160);
+			this.setMuscle(Muscle.TWO_TONED.getMedianValue());
+			this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+			if(this.isFeminine()) {
+				this.setFemininity(100);
+			}
+			// Sexual orifices:
+			this.completeVirginityReset();
+			// Breasts:
+			this.setBreastSize(CupSize.DD);
+			this.setBreastShape(BreastShape.ROUND);
+			// Nipples:
 			this.setNippleCapacity(Capacity.ONE_EXTREMELY_TIGHT.getMedianValue(), true);
 			this.setNippleElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 			this.setNipplePlasticity(OrificePlasticity.ZERO_RUBBERY.getValue());
@@ -27098,17 +27173,26 @@ public abstract class GameCharacter implements XMLSaving {
 			if(!hadCrotchBoobs) {
 				this.setBreastCrotchType(BreastType.NONE);
 			}
-			// Elasticity/plasticity:
+			// Ass:
+			this.setAssCapacity(Capacity.TWO_TIGHT, true);
 			this.setAssElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 			this.setAssPlasticity(OrificePlasticity.ZERO_RUBBERY.getValue());
+			this.setAssWetness(Wetness.THREE_WET);
+			// Face:
+			this.setFaceCapacity(Capacity.TWO_TIGHT, true);
 			this.setFaceElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 			this.setFacePlasticity(OrificePlasticity.ZERO_RUBBERY.getValue());
+			this.setFaceWetness(Wetness.THREE_WET.getValue());
+			// Vagina:
 			boolean hadVagina = this.hasVagina();
 			if(!hadVagina) {
 				this.setVaginaType(VaginaType.HUMAN);
 			}
+			this.setVaginaLabiaSize(LabiaSize.ZERO_TINY);
+			this.setVaginaCapacity(Capacity.TWO_TIGHT, true);
 			this.setVaginaElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 			this.setVaginaPlasticity(OrificePlasticity.ZERO_RUBBERY.getValue());
+			this.setVaginaUrethraCapacity(Capacity.ONE_EXTREMELY_TIGHT.getMedianValue(), true);
 			this.setVaginaUrethraElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 			this.setVaginaUrethraPlasticity(OrificePlasticity.ZERO_RUBBERY.getValue());
 			this.clearGirlcumModifiers();
@@ -27117,13 +27201,16 @@ public abstract class GameCharacter implements XMLSaving {
 			this.setGirlcumFlavour(FluidFlavour.FLAVOURLESS);
 			this.getCovering(BodyCoveringType.GIRL_CUM).setPrimaryColour(PresetColour.COVERING_CLEAR);
 			this.setHymen(false);
+			this.setVaginaWetness(Wetness.THREE_WET);
 			if(!hadVagina) {
 				this.setVaginaType(VaginaType.NONE);
 			}
+			// Penis:
 			boolean hadPenis = this.hasPenis();
 			if(!hadPenis) {
 				this.setPenisType(PenisType.HUMAN);
 			}
+			this.setPenisCapacity(Capacity.ONE_EXTREMELY_TIGHT.getMedianValue(), true);
 			this.setUrethraElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 			this.setUrethraPlasticity(OrificePlasticity.ZERO_RUBBERY.getValue());
 			this.clearCumModifiers();
@@ -27131,20 +27218,29 @@ public abstract class GameCharacter implements XMLSaving {
 			this.addCumModifier(FluidModifier.SLIMY);
 			this.setCumFlavour(FluidFlavour.FLAVOURLESS);
 			this.getCovering(BodyCoveringType.CUM).setPrimaryColour(PresetColour.COVERING_CLEAR);
+			this.setPenisCumStorage(250);
 			if(!hadPenis) {
 				this.setPenisType(PenisType.NONE);
 			}
+			// Spinneret:
 			boolean hadSpinneret = this.hasSpinneret();
 			if(!hadSpinneret) {
 				this.setTailType(TailType.getTailTypeFromId("charisma_spider_tail"));
 			}
+			this.setSpinneretCapacity(Capacity.ONE_EXTREMELY_TIGHT.getMedianValue(), true);
 			this.setSpinneretElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
 			this.setSpinneretPlasticity(OrificePlasticity.ZERO_RUBBERY.getValue());
+			this.setSpinneretWetness(Wetness.THREE_WET.getValue());
 			if(!hadSpinneret) {
 				this.setTailType(TailType.NONE);
 			}
 			
 			// *** Other:*** //
+			// Birthday of a doll is when they're created
+			this.setBirthday(Main.game.getDateNow());
+			this.setAgeAppearanceDifferenceToAppearAsAge(21);
+			// Personality:
+			this.clearPersonalityTraits();
 			// Banish elemental:
 			this.setElementalSummoned(false);
 			// Remove all hair:
@@ -27176,6 +27272,8 @@ public abstract class GameCharacter implements XMLSaving {
 			this.setAlcoholLevel(0);
 			this.removeStatusEffect(StatusEffect.PSYCHOACTIVE);
 			this.clearAddictions();
+			// Slavery:
+			this.setObedience(100);
 			
 			tfDescription = UtilText.parse(this,
 					"<p>"

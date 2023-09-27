@@ -10,7 +10,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added Oglix (with pregnant variations) and Golix artwork.
 	
 	Pusspuss's Artwork (https://twitter.com/PusspussARTZ):
-		Added Fae & Silvia artowrk (with pregnant and multi-boob variations).
+		Added Fae & Silvia artwork (with pregnant and multi-boob variations).
 	
 	Engine/Modding:
 		Custom parser targets (i.e. the custom parser ID you assign to an NPC when creating them) are now saved and loaded correctly, meaning that custom NPCs can now be accessed via their custom ID after saving and loading. (More of a bugfix than an addition.)
@@ -21,8 +21,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Gameplay:
 		Added the next section of the main quest, where you get the help from the SWORD Enforcers in Elis. (thanks to DSG for assistance with Enforcer lore)
 		At the nightclub, 'The Watering Hole', if you are a demon you can now skip the queue, and if you've sucked Jules's cock, you now can have sex with him in his office.
+		Added a new sex toy shop location in Dominion; 'Lovienne's Luxuries'. Sex toys and fetish gear is now sold here instead of by Finch.
+		Added new 'doll' race. This race only appears in Lovienne's Luxuries at the moment, and dolls will be available to purchase as a type of slave in the next version.
 	
-	Clothing & Weapons:
+	Clothing/Weapons/Tattoos:
 		Added 'cuff choker necklace' (androgynous, neck slot, sold by Nyan).
 		Added 'triple cuff choker necklace' (feminine, neck slot, sold by Nyan).
 		Added 'balaclava' (androgynous, hair slot (so that it can be equipped with hats, eyewear, and mouth items), sold by Nyan). Muggers will now sometimes spawn wearing a balaclava instead of a bandana.
@@ -30,6 +32,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added 'leg warmers' (feminine, calves slot, sold by Nyan).
 		Added 'arcane slegehammer' (melee, two-handed, 25 base damage with low variance, all damage types, sold by Vicky).
 		Standardised the angle of two-handed melee weapons' icons (battle axe, sledgehamme, and zweihander) to be opposite to that of one-handed weapons.
+		Added 'barcode' tattoo.
 	
 	Other:
 		Characters now need to be visibly pregnant (i.e. progressed past the 'risk of pregnancy' stage) in order to lay eggs via ovipositor. (Remember that characters can use mother's milk to progress past this stage if you want to impregnate & lay eggs in the same sex scene.)
@@ -43,6 +46,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Changed the masculine/female race names for dobermanns from simply 'dobermann/dobermann' to 'dobermann-boy/dobermann-girl' to make them more consistent with other race names.
 		Changed the name postfix of ground floor maps from 'GF' to 'F0', and that of first floor maps from '1F' to 'F1'.
 		Added 'flavourless' as a new fluid flavouring.
+		Changed default feminine gender names for lacking genitals from 'doll' to 'mannequin'.
 	
 	Bugs:
 		Parsing and typo fixes.
@@ -72,7 +76,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Fixed bug where you could knock on the door to Minotallys's office and have a conversation with her while she was asleep in her bedroom.
 		If you have more 'Quest' rarity items than your inventory tab can normally display, the UI will now display your extra quest items instead of hiding them from you.
 		Fixed bug where tooltips for perks weren't working in some character view windows.
-	
+		Fixed bug where setting body coverings would not set the correct covering pattern or modifier.
 	
 	[x] bugs
 		[x] [natalya.speech(My name is [natalya.name] in res/txt/places/dominion/slaverAlley/helenaRomance.xml line 734 should be [natalya.name(true)] as she is introducing herself there.
@@ -430,30 +434,128 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[x] TF
 				[x] flavour descriptors should only be used when mouth actions are involved?
 			[x] doll TF presets (save/load) not working
-			
+		
+		[x] doll speech font?
+		[x] doll extras
+			[x] obedience
+			[x] personality
+				[x] clear on TF
+				[x] handle hypno watch and other forms of addition
+			[x] perk handling
+			[x] hymen description
+			[x] end sex affection changes
+			[-] sex pace lock to normal
+				[-] player is not forced?
+				[#angelixx.setBodyMaterial(BODY_MATERIAL_SILICONE)] [#game.startGenericSex(angelixx)]
+			[x] dolls should not suffer from sadistic actions 'finds this sadistic action to be a huge turn-off'
+			[x] arcane storm health handling
+			[x] test weather SEs
+			[x] check sex and combat essence gains
+			[x] change doll gender name
+			[x] exposed immunity
+			[x] crossdressing immunity
+		
+		[x] glossy not working in Saellatrix?
+		
 		[] Lovienne's Luxuries
-			[] Add location in Dominion
-				[] sells sex toys -> move from Finch
-			[] Extremely high quality, self-cleaning human dolls (they move around and obey commands without question - when not in use they can remain motionless indefinitely)
-				[] "It's happened to us all before - you go out looking for a cute bunny girl in an arcane storm only to get turned into some horse-boy's cock-sleeve. With dolls, you can fuck them any time with no risks!"
-				[] "If you're lucky enough to have a slaver license, then you'll know that slaves aren't cheap! Feeding, housing, dealing with the rebellious ones... Dolls don't eat, you can put them in a closet, and they're 100% obedient!"
-				[] standard model is the 'DD-doll' -> DD-cups
-				[] also offer other sizes, but they cost more
-				[] non-human limited editions are extremely expensive - slave value * 20
-				[] barcodes on foreheads (can be removed upon purchase for extra cost)
-				[] can buy toy set with them
-				[] Suspicions that dolls are transformed people
-					[] Salesman says that they're just constructs with a patented secret enchantment to animate them
-					[] To prove it, they explain that people have essences which can be extracted by lilin - dolls don't have essences, so can't be people
-					[] Can get 'tour of factory' to put mind at ease
-						[] just a fake frontage of a factory, see doll parts on conveyor belts but they don't look like the same quality as the dolls
-					[] Can ask Arthur about it
-						[] He says that it would be possible, but it would require core essence extraction, which is only theoretical
-						[] if it were possible, an elder lilin would have the power to get a core extractor working, but it's extremely unlikely
-						[] he says that it would, however, be relatively easy to enchant a doll to be able to move and follow commands - with Lovienne's help they must have perfected that process
+			[x] Add location
+				[x] map
+				[x] dialogues
+				[x] Dominion place
+					[x] demon home
+			[] add succubus saleswoman
+				[x] Saellatrix
+				[x] sells sex toys -> move from Finch
+					[x] check/correct Finch dialogue
+				[x] if blowjob demo doll, Saellatrix offers deal 'your cock's wasted on this hole, slapping across face'
+					[x] discount if snap choker, penalty if can't
+						[x] go to staff room for blowjob
+						[x] orifices tentacle description
+						[x] snap
+							[x] handle snap detection
+							[x] need initial description to handle this as it happens immediately if cock is thick enough
+							[x] take discount (-25% for everything for 1 week)
+							[x] fuck tits, pussy, ass
+						[x] can't snap
+							[x] take penalty (+200% cost for everything for 1 week)
+							[x] take cock
+								[x] need cock preference
+								[x] use calculateSexTypeWeighting -> generateSexChoices instead?
+								[-] test cock preference when blocked
+					[x] saellatrix equips clothing from sale inventory...
+					[x] sexClothingEquippable isn't working...
+					[-] snapped choker goes into sale inventory?
+					[x] movement broken
+					[x] penalty/discount trade variations
+					[x] repeat wager
+						[x] discount -> she offers same deal
+						[x] penalty -> she says you can remove it by letting her fuck you
+						[x] writing for wager check sex count instead of discounts
+					[x] writing
+						[x] throat muscles
+					[x] day's cooldown to sex
+					[x] pregnancy handling
+					[x] wolf guards
+					[x] penis modifiers
+					[x] test
+						[x] discount
+							[x] fuck her
+								[x] repeat wager
+									[x] acts like it's the first time...
+							[x] repeat discount
+						[x] penalty
+							[x] fucked
+							[x] leave -> repeat fucked
+								[x] repeat wager
+						[x] need cock removal
+						[x] for conditional use isFullPenetrationFarTooShort(SexAreaPenetration.PENIS, characterReacting, orifice)
+					[x] add player cock size detection to oral offer
+				[] add talk options
+					[] 2 Lovienne
+					[] 3 Saellatrix
+					[] 4 ask about dolls, repeat
+						[] shows dolls (info)
+							[] display (more info)
+								[] can question realism
+									[] she assumes you're from protest group
+									[] offers factory tour to clear it up
+									[] factory tour (free to move, limited to 10 minutes)
+							[] counter (unlock doll purchase)
+						[] 5 doll purchase
+							[] menu - optional extras
+								[] remove barcode (1000)
+								[] toy set (5000)
+								[] Hair (10000)
+								[] HH-cup model (25000)
+							[] doll ownership below
+			[x] demo doll
+				[x] public blowjob/cunnilingus
+				[x] need more randomDescriptions
+					[x] saellatrix for blowjob
+				[x] exhibitionist check
+				[x] test repeat blowjob after offer made
+			[] writing
+				[] Extremely high quality, self-cleaning human dolls (they move around and obey commands without question - when not in use they can remain motionless indefinitely)
+					[] "It's happened to us all before - you go out looking for a cute bunny girl in an arcane storm only to get turned into some horse-boy's cock-sleeve. With dolls, you can fuck them any time with no risks!"
+					[] "If you're lucky enough to have a slaver license, then you'll know that slaves aren't cheap! Feeding, housing, dealing with the rebellious ones... Dolls don't eat, you can put them in a closet, and they're 100% obedient!"
+					[] standard model is the 'DD-doll' -> DD-cups
+					[] also offer other sizes, but they cost more
+					[] non-human limited editions are extremely expensive - slave value * 20
+					[] barcodes on foreheads (can be removed upon purchase for extra cost)
+					[] can buy toy set with them
+					[] Suspicions that dolls are transformed people
+						[] Salesman says that they're just constructs with a patented secret enchantment to animate them
+						[] To prove it, they explain that people have essences which can be extracted by lilin - dolls don't have essences, so can't be people
+						[] Can get 'tour of factory' to put mind at ease
+							[] just a fake frontage of a factory, see doll parts on conveyor belts but they don't look like the same quality as the dolls
+						[] Can ask Arthur about it
+							[] He says that it would be possible, but it would require core essence extraction, which is only theoretical
+							[] if it were possible, an elder lilin would have the power to get a core extractor working, but it's extremely unlikely
+							[] he says that it would, however, be relatively easy to enchant a doll to be able to move and follow commands - with Lovienne's help they must have perfected that process
 		[] Doll ownership
 			[] need a doll closet in Lilaya's home to buy dolls
-			[] station dolls in any tile in house or order to follow
+				[] ask Lilaya about room upgrades if not unlocked already
+			[] station dolls in any tile in house
 			[] can set pose and sex use by slaves - standing split, missionary presenting, all fours, at attention, squatting, handstand, bridge
 			[] limited slave permissions system
 			[] slave jobs
@@ -501,9 +603,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 					[] employee sex - penis cum fetishes
 					[] storage rest (advance time to mid-day) - barcode tattooed on forehead
 					[] nightmare stretching - masochist sub non-con
-					[] ordered to pose/masturbate - lose all dom fetishes
+					[] ordered to clean other doll - lose all dom fetishes
 					[] sex toy testing - masturbation anal oral vaginal fetishes
-					[] showroom (after storage rest) - exhibitionist bondage bitch fetishes
+					[] display (after storage rest) - exhibitionist bondage bitch fetishes
 				[] succubus looking for you
 					[] random encounter, can hide or do other things to avoid detection
 						[] hide
@@ -527,6 +629,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] Need non-crime alternative for offspring
 	
+	[] demon tail ovipositor sometimes not working (pegging)?
+	
+	[] if player has TF (self) fetish, make sealing gear that bondage kink npcs apply on defeat have some kind of slow transformative effect
 	
 	[] wiki
 		[] placeholder

@@ -120,7 +120,9 @@ public class WorldType {
 					
 					new Value<>(new Color(0x000000), PlaceType.DOMINION_DEMON_HOME_GATE),
 					new Value<>(new Color(0xff80ff), PlaceType.DOMINION_DEMON_HOME),
-					new Value<>(new Color(0xff9100), PlaceType.DOMINION_DEMON_HOME_ARTHUR),
+					new Value<>(new Color(0xff9100), PlaceType.DOMINION_DEMON_HOME_ARTHUR),//TODO remove???
+					new Value<>(new Color(0xff40bf), PlaceType.DOMINION_DEMON_HOME_SEX_SHOP),
+					
 					new Value<>(new Color(0x8000ff), PlaceType.DOMINION_CITY_HALL),
 					new Value<>(new Color(0x7f4040), PlaceType.DOMINION_BANK),
 					

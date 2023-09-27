@@ -73,7 +73,7 @@ public enum BodyMaterial {
 	SILICONE("silicone", "smooth", PresetColour.BASE_BLACK, DamageType.PHYSICAL, true, false, true) {
 		@Override
 		public Map<AbstractAttribute, Float> getAttributeModifiers(GameCharacter target) {
-			return Util.newHashMapOfValues();
+			return null;
 		}
 		@Override
 		public List<String> getExtraEffects(GameCharacter target) {

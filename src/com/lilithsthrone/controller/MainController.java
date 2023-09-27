@@ -512,6 +512,10 @@ public class MainController implements Initializable {
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
 
+//							System.out.println(Main.sex.getSexPace(Main.game.getPlayer()));
+//							System.out.println(Main.sex.isSexPaceForced(Main.game.getPlayer()));
+							
+							
 //							System.out.println(Main.isVersionOlderThan(Game.loadingVersion, "0.4.8.10"));
 							
 //							if(Main.game.isInSex()) {

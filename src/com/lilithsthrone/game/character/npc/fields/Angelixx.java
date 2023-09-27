@@ -92,7 +92,7 @@ public class Angelixx extends NPC {
 	
 	public Angelixx(boolean isImported) {
 		super(isImported,
-				new NameTriplet("Angelixx"), "Loviennemartu",
+				new NameTriplet("Angelixx"), "Loviennemartuilani",
 				"Although she appears as a young, innocent succubus, Angelixx is an extremely powerful and dangerous pawn of her mother, the elder lilin Lovienne.",
 				52, Month.MAY, 17,
 				30, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.GREATER,
@@ -109,6 +109,9 @@ public class Angelixx extends NPC {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.8.10")) {
 			this.setupPerks(true);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.9")) {
+			this.setStartingBody(true);
 		}
 	}
 
@@ -187,6 +190,7 @@ public class Angelixx extends NPC {
 			this.setFetishDesire(Fetish.FETISH_CUM_ADDICT, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_PENIS_RECEIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_DENIAL, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.THREE_LIKE);
 
 			this.setFetishDesire(Fetish.FETISH_PREGNANCY, FetishDesire.ONE_DISLIKE);
 		}

@@ -593,6 +593,11 @@ public enum PerkManager {
 	public static Set<AbstractPerk> initialisePerks(GameCharacter character, boolean autoSelectPerks, List<AbstractPerk> requiredPerks, Map<PerkCategory, Integer> perkWeightingOverride) {
 		Set<AbstractPerk> perksAdded = new HashSet<>();
 		
+		if(character.isDoll()) {
+			requiredPerks = null;
+			perkWeightingOverride = null;
+		}
+		
 		for(TreeEntry<PerkCategory, AbstractPerk> perk : getStartingPerks(character)) {
 			if(character.addPerk(perk.getRow(), perk.getEntry())) {
 				perksAdded.add(perk.getEntry());

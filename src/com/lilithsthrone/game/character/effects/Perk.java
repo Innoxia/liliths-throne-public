@@ -18,6 +18,7 @@ import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
@@ -6419,7 +6420,8 @@ public class Perk {
 			PresetColour.RACE_DOLL,
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(
-					"Can [style.colourTerrible(never)] resist in [style.colourSex(sex scenes)]",
+					"Can [style.colourTerrible(never)] use <span style='color:"+SexPace.SUB_RESISTING.getColour().toWebHexString()+";'>resist</span> actions in [style.colourSex(sex scenes)]",
+					"Does not object to <span style='color:"+SexPace.SUB_RESISTING.getColour().toWebHexString()+";'>sadistic</span> sex actions",
 					"Orientation always [style.colourAndrogynous(ambiphilic)]")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -6436,7 +6438,8 @@ public class Perk {
 			Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_GOLD),
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(
-					"Will always [style.colourSex(obey)] owner"),
+					"Will always [style.colourSex(obey)] owner",
+					"[style.colourObedience(Obedience)] is [style.colourExcellent(always 100)]"),
 			null, null, null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -6454,7 +6457,8 @@ public class Perk {
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(
 					"[style.colourTerrible(Cannot)] gain [style.colourFetish(fetishes)]",
-					"[style.colourFetish(Fetish desires)] are always [style.colourHuman(neutral)]"),
+					"[style.colourFetish(Fetish desires)] are always [style.colourHuman(neutral)]",
+					"[npc.Do] not feel embarrased at being publicly exposed or from clothing femininity"),
 			null, null, null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -6514,7 +6518,9 @@ public class Perk {
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(
 					"Can [style.colourTerrible(never)] gain [style.colourExperience(experience)]",
-					"[style.colourTerrible(Permanently locked)] to [style.colourExperience(level 1)]")) {
+					"[style.colourTerrible(Permanently locked)] to [style.colourExperience(level 1)]",
+					"Can [style.colourTerrible(never)] gain personality traits",
+					"[style.colourAffection(Affection)] to others is <span style='color:"+PresetColour.AFFECTION_NEUTRAL.toWebHexString()+";'>always neutral</span>")) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,

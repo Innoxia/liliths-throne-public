@@ -15,6 +15,8 @@ public enum PopulationDensity {
 	
 	FEW("few"),
 	
+	TRIO("trio of"),
+	
 	SPARSE("sparse"),
 	
 	SEVERAL("several"),
@@ -22,6 +24,8 @@ public enum PopulationDensity {
 	HALF_DOZEN("half a dozen"),
 	
 	DOZEN("a dozen"),
+
+	DOZENS("dozens of"),
 	
 	MANY("many"),
 	

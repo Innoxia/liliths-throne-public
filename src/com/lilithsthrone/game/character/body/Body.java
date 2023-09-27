@@ -5161,8 +5161,13 @@ public class Body implements XMLSaving {
 							+ " [npc.pussy], [style.colourMinorGood([npc.her] hymen is still intact)], and [style.colourExcellent([npc.she] [npc.has] retained [npc.her] vaginal virginity)].");
 					
 				} else {
-					descriptionSB.append(" Within [npc.her] " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor(true)
-							+ " [npc.pussy], [style.colourMinorBad([npc.her] hymen has been torn)], but despite this, [style.colourExcellent([npc.she] [npc.has] retained [npc.her] vaginal virginity)].");
+					if(owner.isDoll()) {
+						descriptionSB.append(" As a sex doll, [npc.name] [npc.do] not have a hymen, and [style.colourExcellent([npc.has] retained [npc.her] vaginal virginity)].");
+						
+					} else {
+						descriptionSB.append(" Within [npc.her] " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor(true)
+								+ " [npc.pussy], [style.colourMinorBad([npc.her] hymen has been torn)], but despite this, [style.colourExcellent([npc.she] [npc.has] retained [npc.her] vaginal virginity)].");
+					}
 				}
 			}
 			
@@ -5183,7 +5188,12 @@ public class Body implements XMLSaving {
 			if(viewedVagina.getOrificeVagina().hasHymen()) {
 				descriptionSB.append(" Although [npc.sheIsFull] no longer a virgin, [style.colourMinorGood([npc.she] [npc.has] an intact hymen)] within [npc.her] pussy.");
 			} else {
-				descriptionSB.append(" As is to be expected of someone who is no longer a virgin, [style.colourMinorBad([npc.her] hymen has been torn)].");
+				if(owner.isDoll()) {
+					descriptionSB.append(" As a sex doll, [npc.name] [npc.do] not have a hymen.");
+					
+				} else {
+					descriptionSB.append(" As is to be expected of someone who is no longer a virgin, [style.colourMinorBad([npc.her] hymen has been torn)].");
+				}
 			}
 		}
 		
@@ -6530,13 +6540,24 @@ public class Body implements XMLSaving {
 			for(BodyMaterial mat : BodyMaterial.values()) { // Update all non-flesh parts to be the same colour as main skin:
 				if(mat!=BodyMaterial.FLESH) {
 					AbstractBodyCoveringType coreSlimeCovering = BodyCoveringType.getMaterialBodyCoveringType(mat, BodyCoveringCategory.MAIN_SKIN);
+					Covering currentCovering = this.getCovering(coreSlimeCovering, true);
 					
 					for(BodyCoveringCategory cat : BodyCoveringCategory.values()) {
 						if(cat.isInfluencedByMaterialType()) {
-							AbstractBodyCoveringType slimeCovering = BodyCoveringType.getMaterialBodyCoveringType(mat, cat);
-							coverings.put(slimeCovering,
-									new Covering(slimeCovering,
-											slimeCovering.getNaturalPatterns().entrySet().iterator().next().getKey(),
+							AbstractBodyCoveringType nonFleshCovering = BodyCoveringType.getMaterialBodyCoveringType(mat, cat);
+							CoveringPattern pattern = currentCovering.getPattern();
+							if(!nonFleshCovering.getAllPatterns().keySet().contains(pattern)) {
+								pattern = nonFleshCovering.getNaturalPatterns().entrySet().iterator().next().getKey();
+							}
+							CoveringModifier modifier = currentCovering.getModifier();
+							if(!nonFleshCovering.getAllModifiers().contains(modifier)) {
+								modifier = nonFleshCovering.getNaturalModifiers().get(0);
+							}
+							
+							coverings.put(nonFleshCovering,
+									new Covering(nonFleshCovering,
+											pattern, //nonFleshCovering.getNaturalPatterns().entrySet().iterator().next().getKey(),
+											modifier,
 											coverings.get(coreSlimeCovering).getPrimaryColour(),
 											false,
 											coverings.get(coreSlimeCovering).getPrimaryColour(),

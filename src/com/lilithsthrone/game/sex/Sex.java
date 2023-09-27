@@ -38,6 +38,7 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.Perk;
@@ -556,10 +557,11 @@ public class Sex {
 						break;
 				}
 			}
-
-			if(sexManager.getForcedSexPace(character)!=null) {
-				forceSexPaceMap.put(character, sexManager.getForcedSexPace(character));
-				switch(sexManager.getForcedSexPace(character)) {
+			
+			SexPace forcedPace = sexManager.getForcedSexPace(character);
+			if(forcedPace!=null) {
+				forceSexPaceMap.put(character, forcedPace);
+				switch(forcedPace) {
 					case DOM_GENTLE:
 						character.setLustNoText(10);
 						break;
@@ -6449,6 +6451,7 @@ public class Sex {
 	}
 
 	// ------------------------------------------------------ //
+	// Methods added for parsing in external files:
 	
 	/**
 	 * Helper method so that there's a parser hook for generating a SexType.
@@ -6463,5 +6466,19 @@ public class Sex {
 	
 	public void applyGenericPullOutEffects() {
 		GenericOrgasms.applyGenericPullOutEffects(null, null);
+	}
+	
+	// Capacity sizes:
+	
+	public boolean isPenetrationDiameterTooSmall(Set<OrificeModifier> orificeModifiers, float capacity, float diameter) {
+		return Capacity.isPenetrationDiameterTooSmall(orificeModifiers, capacity, diameter);
+	}
+
+	public boolean isPenetrationDiameterTooBig(OrificeElasticity elasticity, float capacity, float diameter, boolean lubed) {
+		return Capacity.isPenetrationDiameterTooBig(elasticity, capacity, diameter, lubed);
+	}
+	
+	public float getMaximumComfortableDiameter(OrificeElasticity elasticity, float capacity, boolean lubed) {
+		return Capacity.getMaximumComfortableDiameter(elasticity, capacity, lubed);
 	}
 }

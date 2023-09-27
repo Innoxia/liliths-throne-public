@@ -269,66 +269,24 @@ public class ItemEffectType {
 								+ "</p>");
 					
 				} else if(primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_LISP) {
-					boolean alreadyLisp = target.hasPersonalityTrait(PersonalityTrait.LISP);
 					if(potency==TFPotency.MINOR_DRAIN) {
-						target.removePersonalityTrait(PersonalityTrait.LISP);
-						return UtilText.parse(target,
-								"<p style='text-align:center;'>"
-										+ (!alreadyLisp
-											?"[style.colourDisabled([npc.Name] already [npc.do]n't speak with a lisp, so nothing happens...)]"
-											:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorGood(able to speak without a lisp)]!")
-									+ "</p>");
-						
+						return target.removePersonalityTrait(PersonalityTrait.LISP);
 					} else {
-						target.addPersonalityTrait(PersonalityTrait.LISP);
-						return UtilText.parse(target,
-								"<p style='text-align:center;'>"
-										+ (alreadyLisp
-											?"[style.colourDisabled([npc.Name] already [npc.verb(speak)] with a lisp, so nothing happens...)]"
-											:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorBad(speaking with a lisp)]!")
-									+ "</p>");
+						return target.addPersonalityTrait(PersonalityTrait.LISP);
 					}
 					
 				} else if(primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_STUTTER) {
-					boolean alreadyStutter = target.hasPersonalityTrait(PersonalityTrait.STUTTER);
 					if(potency==TFPotency.MINOR_DRAIN) {
-						target.removePersonalityTrait(PersonalityTrait.STUTTER);
-						return UtilText.parse(target,
-								"<p style='text-align:center;'>"
-										+ (!alreadyStutter
-												?"[style.colourDisabled([npc.Name] already [npc.do]n't with a stutter, so nothing happens...)]"
-												:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorGood(able to speak without stuttering)]!")
-									+ "</p>");
-						
+						return target.removePersonalityTrait(PersonalityTrait.STUTTER);
 					} else {
-						target.addPersonalityTrait(PersonalityTrait.STUTTER);
-						return UtilText.parse(target,
-								"<p style='text-align:center;'>"
-										+ (alreadyStutter
-												?"[style.colourDisabled([npc.Name] already [npc.verb(speak)] with a stutter, so nothing happens...)]"
-												:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorBad(speaking with a stutter)]!")
-									+ "</p>");
+						return target.addPersonalityTrait(PersonalityTrait.STUTTER);
 					}
 					
 				} else if(primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY) {
-					boolean alreadySlovenly = target.hasPersonalityTrait(PersonalityTrait.SLOVENLY);
 					if(potency==TFPotency.MINOR_DRAIN) {
-						target.removePersonalityTrait(PersonalityTrait.SLOVENLY);
-						return UtilText.parse(target,
-								"<p style='text-align:center;'>"
-										+ (!alreadySlovenly
-												?"[style.colourDisabled([npc.Name] already [npc.do]n't speak in a slovenly manner, so nothing happens...)]"
-												:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorGood(no longer speaking in a slovenly manner)]!")
-									+ "</p>");
-						
+						return target.removePersonalityTrait(PersonalityTrait.SLOVENLY);
 					} else {
-						target.addPersonalityTrait(PersonalityTrait.SLOVENLY);
-						return UtilText.parse(target,
-								"<p style='text-align:center;'>"
-										+ (alreadySlovenly
-												?"[style.colourDisabled([npc.Name] already [npc.verb(speak)] in a slovenly manner, so nothing happens...)]"
-												:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorBad(speaking in a slovenly manner)]!")
-									+ "</p>");
+						return target.addPersonalityTrait(PersonalityTrait.SLOVENLY);
 					}
 				}
 				
