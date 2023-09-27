@@ -2912,7 +2912,7 @@ public class CharacterModificationUtils {
 						+(Main.getProperties().multiBreasts == 0
 						?"<br/>[style.italicsBad(Multi-Breasts are disabled in the content settings!)]"
 						:(Main.getProperties().multiBreasts == 1
-						&& BodyChanging.getTarget().getTorsoType() == TorsoType.HUMAN)
+						&& BodyChanging.getTarget().getBreastType() == BreastType.HUMAN)
 						?"<br/>[style.italicsBad(Multi-Breasts are disabled for humans in the content settings!)]"
 						:"")),
 				"BREAST_ROWS",
