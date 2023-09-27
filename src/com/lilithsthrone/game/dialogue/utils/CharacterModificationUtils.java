@@ -1031,6 +1031,9 @@ public class CharacterModificationUtils {
 			case FLESH:
 				materials.add(BodyMaterial.FLESH);
 				break;
+			case SILICONE:
+				materials.add(BodyMaterial.SILICONE);
+				break;
 			case ICE:
 			case WATER:
 				materials.add(BodyMaterial.WATER);

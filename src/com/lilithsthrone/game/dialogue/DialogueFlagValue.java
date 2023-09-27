@@ -343,6 +343,14 @@ public class DialogueFlagValue {
 	// Nightlife:
 	public static AbstractDialogueFlagValue julesIntroduced = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue suckedJulesCock = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue fuckedJules = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue fuckedJulesTonight = new AbstractDialogueFlagValue() {
+		@Override
+		public int getResetHour() {
+			return 12;
+		}
+	};
+	
 	public static AbstractDialogueFlagValue passedJules = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue kalahariIntroduced = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue kalahariWantsSex = new AbstractDialogueFlagValue();

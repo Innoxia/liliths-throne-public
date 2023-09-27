@@ -562,7 +562,7 @@
 					#ENDIF
 				]]></responseTooltip>
 				<nextDialogue stripContent="true"><![CDATA[
-					#IF(!pc.hasSpell(SPELL_SOOTHING_WATERS, true))
+					#IF(!nizhoni.hasGirlcumModifier(FLUID_MODIFIER_MUSKY) || !pc.hasSpell(SPELL_SOOTHING_WATERS, true))
 						null
 					#ELSE
 						innoxia_places_fields_elis_market_nizhoni_bins

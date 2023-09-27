@@ -185,7 +185,8 @@ public class DebugDialogue {
 							PlaceType.DOMINION_CANAL_END,
 							PlaceType.DOMINION_ALLEYS_CANAL_CROSSING,
 							PlaceType.SUBMISSION_TUNNELS,
-							PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_alley")
+							PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_alley"),
+							PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_abandoned_bakery")
 							).contains(Main.game.getPlayer().getLocationPlace().getPlaceType())) {
 						return new Response("Spawn attacker", "You can only spawn an attacker on: Dominion's alleyway & canal tiles; Submission's tunnel tiles; Elis alleyway tiles.", null);
 					}
@@ -1373,7 +1374,8 @@ public class DebugDialogue {
 	private static void initAttacker() {
 		if(Main.game.getPlayer().getWorldLocation()==WorldType.DOMINION) {
 			attacker = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false));
-		} else if(Main.game.getPlayer().getLocationPlaceType()==PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_alley")) {
+		} else if(Main.game.getPlayer().getLocationPlaceType()==PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_alley")
+				|| Main.game.getPlayer().getLocationPlaceType()==PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_abandoned_bakery")) {
 			attacker = new ElisAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false));
 		} else {
 			attacker = new SubmissionAttacker(Gender.getGenderFromUserPreferences(false, false));

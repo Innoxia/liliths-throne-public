@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <g transform="matrix(.9 0 0 .9 -16.062 -866.69)" stroke="#ffb380">
+  <path transform="matrix(.74076 0 0 .76781 17.029 222.71)" d="m9.016 1036.6 24.351 0.167 0.074-22.813-24.293-0.073z" fill="none" stroke-width="2.101"/>
+  <path transform="matrix(.74076 0 0 .76781 17.029 222.71)" d="m30.545 1031.5 0.037-14.805-16.264-0.076zm-18.789 2.564 16.794 0.039-16.794-15.11z" fill="#ffb380" fill-rule="evenodd"/>
+ </g>
+ <g transform="matrix(-.9 0 0 .9 61.425 -866.64)" stroke="#ffb380">
+  <path transform="matrix(.74076 0 0 .76781 17.029 222.71)" d="m9.016 1036.6 24.351 0.167 0.074-22.813-24.293-0.073z" fill="none" stroke-width="2.101"/>
+  <path transform="matrix(.74076 0 0 .76781 17.029 222.71)" d="m30.545 1031.5 0.037-14.805-16.264-0.076zm-18.789 2.564 16.794 0.039-16.794-15.11z" fill="#ffb380" fill-rule="evenodd"/>
+ </g>
+ <g transform="matrix(.9 0 .0031998 .9 1.8373 5.3885)" stroke="#ffb380">
+  <g transform="matrix(.96364 0 0 2.0709 22.587 -2058.4)">
+   <path transform="matrix(.74076 0 0 .76781 17.029 222.71)" d="m30.545 1031.5 0.037-14.805-16.264-0.076c5.409 4.9603 14.614 13.697 16.227 14.881zm-18.789 2.564 16.794 0.039c-5.6253-5.0246-15.974-14.424-16.856-15.055z" fill="#ffb380" fill-rule="evenodd" stroke="#ffb380"/>
+  </g>
+  <path d="m63.073 49.723-18.038 0.1282 0.13213-33.407 17.995-0.056z" fill="none" stroke-width="1.5845"/>
+ </g>
+ <g transform="matrix(.9 0 0 .9 -.97521 5.3324)" stroke="#ffb380">
+  <path d="m24.999 29.782-18.038 0.1282-0.05482-17.516 17.995-0.056z" fill="none" stroke-width="1.5845"/>
+  <path d="m9.051 25.842-0.02741-11.368 12.048-0.058zm13.918 1.9686-12.44 0.03 12.44-11.602z" fill="#ffb380" fill-rule="evenodd" stroke-width=".75416"/>
+ </g>
+ <g transform="matrix(.4783 0 0 .4783 28.523 18.167)" stroke="#ffb380">
+  <path d="m24.999 29.782-18.038 0.1282-0.05482-17.516 17.995-0.056z" fill="none" stroke-width="1.5845"/>
+  <path d="m9.051 25.842-0.02741-11.368 12.048-0.058zm13.918 1.9686-12.44 0.03 12.44-11.602z" fill="#ffb380" fill-rule="evenodd" stroke-width=".75416"/>
+ </g>
+ <g transform="matrix(.41606 -.23593 .23593 .41606 17.353 14.272)" stroke="#ffb380">
+  <path d="m24.999 29.782-18.038 0.1282-0.05482-17.516 17.995-0.056z" fill="none" stroke-width="1.5845"/>
+  <path d="m9.051 25.842-0.02741-11.368 12.048-0.058zm13.918 1.9686-12.44 0.03 12.44-11.602z" fill="#ffb380" fill-rule="evenodd" stroke-width=".75416"/>
+ </g>
+</svg>

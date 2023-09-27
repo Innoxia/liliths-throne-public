@@ -1,0 +1,782 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- Saellatrix scenes: -->
+	
+	<htmlContent tag="TRANSACTION_START"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_sex_shop_discount))
+		<p>
+			[saellatrix.speech(As we agreed, you get a 25% discount on everything,)] Saellatrix states in her posh accent.
+		</p>
+	#ELSEIF(flags.hasFlag(FLAG_innoxia_sex_shop_penalty))
+		<p>
+			[saellatrix.speech(As we agreed, you've got to pay double for everything,)] Saellatrix states with an arrogant smirk on her face.
+		</p>
+	#ELSE
+		<p>
+			[saellatrix.speech(You've found something you like?)] Saellatrix asks in her posh accent.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	
+	<!-- Main shop scenes: -->
+	
+	<!-- Entrance: -->
+	
+	<htmlContent tag="ENTER"><![CDATA[
+	<p>
+		Taking hold of its golden handle, you push open the glass door and [pc.step] into Loveienne's Luxuries. To your left and right, you see numerous sleek, glass shelving units, each one of which is stocked full of all sorts of sex toys and fetish gear. To your far right, past the shelving units, you see that dozens of black, silicone sex dolls have been lined up against the wall. Directly ahead, linked to the door behind you by a red strip of carpet, is the shop's counter, behind which is standing
+		#IF(!saellatrix.isPlayerKnowsName())
+			 Saellatrix.
+		#ELSE
+			 a big-chested succubus wearing a smart black blazer.
+		#ENDIF
+	</p>
+	<p>
+		There are several dozen shoppers within the store, and from their smart outfits and the way they hold themselves, they all give off the impression of being very wealthy. To either side of the entrance, and scattered throughout the store, are tall, muscular wolf-boy security guards. With such a heavy security presence, you're convinced that this store's clientèle must be very important and wealthy indeed.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="EXIT"><![CDATA[
+	<p>
+		Finding yourself standing at the entrance to Lovienne's Luxuries, you turn to face the store and take a look around. To your left and right, you see numerous sleek, glass shelving units, each one of which is stocked full of all sorts of sex toys and fetish gear. To your far right, past the shelving units, you see that dozens of black, silicone sex dolls have been lined up against the wall. Directly ahead, linked to the door behind you by a red strip of carpet, is the shop's counter, behind which is standing
+		#IF(!saellatrix.isPlayerKnowsName())
+			 Saellatrix.
+		#ELSE
+			 a big-chested succubus wearing a smart black blazer.
+		#ENDIF
+	</p>
+	<p>
+		There are several dozen shoppers within the store, and from their smart outfits and the way they hold themselves, they all give off the impression of being very wealthy. To either side of the entrance, and scattered throughout the store, are tall, muscular wolf-boy security guards. With such a heavy security presence, you're convinced that this store's clientèle must be very important and wealthy indeed.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT_LEAVE"><![CDATA[
+	<p>
+		Having had enough of Lovienne's Luxuries, you push open the glass door and head back out into the streets of Demon Home...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="FLOOR"><![CDATA[
+	<p>
+		The main floor of the store is filled with glass shelving units, upon which countless types of sex toys are on display. You pass by dildos, vibrators, and butt-plugs of all shapes, sizes, and colours, before entering an aisle which specialises in latex fetish gear. After that, there's another section dedicated to sex toys, and then you're passing by collars, restraints, and other such BDSM accessories.
+	</p>
+	<p>
+		If there's anything which takes your fancy, it'd be best to head on over to the counter to complete your purchase...
+	</p>
+	]]>
+	</htmlContent>
+
+	<!-- Display & demo doll: -->
+	
+	<htmlContent tag="DISPLAY"><![CDATA[
+	<p>
+		In one corner of the store, a square section of black marble flooring has been cordoned off with red rope barriers. Within this space are located three black silicone sex dolls, each one of which is completely identical to the others. The first doll is lying on her back with her legs spread, while the second is sitting on the first one's face. The third is performing a standing split beside the second, with her exposed groin hovering right next to the second's face.
+	</p>
+	<p>
+		Although their pussies, assholes, and mouths have been left empty, you can quite clearly see that bright-pink dildos have been shoved deep into these dolls' fuckable nipples.
+		#IF(flags.hasFlag(FLAG_innoxia_sex_shop_display_on))
+			 These dildos are noisily buzzing away as they vibrate with a powerful intensity, causing the dolls' DD-cup breasts to jiggle and jump about in the process. Clearly having been ordered to act only while the toys are turned on, the once-motionless dolls are rubbing their clits and letting out horny moans, with the first greedily eating out the second and the second 
+			#IF(game.isAnalContentEnabled())
+				 hungrily rimming the third.
+			#ELSE
+				 doing the same to the third.
+			#ENDIF
+		#ELSE
+			 Despite the fact that they're holding awkward poses and have their breasts stuffed full of sex toys, the dolls are all completely and utterly motionless.
+		#ENDIF
+	</p>
+	<p>
+		A smart-looking pedestal is positioned beside this display area, with a large pink button on top being labelled as controlling the dildos' vibration, which in turn will animate the dolls or make them remain motionless.
+		#IF(flags.hasFlag(FLAG_innoxia_sex_shop_display_on))
+			 If you wanted to, you could press this button and turn off the dildos, bringing the dolls to a halt.
+		#ELSE
+			 If you wanted to, you could press this button and turn on the dildos, bringing the dolls to life.
+		#ENDIF
+	</p>
+	<p>
+		As well as these three dolls, you see that a fourth is squatting on the floor in front of the display. Unlike all of the others, who are coloured black, this doll is bright pink, and has a glossy, shiny finish to her which makes her appear to be made out of latex. Beneath the white barcode that's tattooed onto her forehead, the words 'DEMONSTRATION MODEL - NOT FOR SALE' have been inked into her skin.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="DISPLAY_TRIO_BUTTON"><![CDATA[
+	#IF(!flags.hasFlag(FLAG_innoxia_sex_shop_display_on))
+		<p>
+			Deciding to give the dolls a break, you press the button, turning their sex toys off. Immediately, the bright pink dildos inserted into their fuckable nipples stop vibrating, and with that the three dolls stop moving. Remaining completely and utterly motionless, the sex dolls could easily be mistaken for statues.
+		</p>
+	#ELSE
+		<p>
+			Deciding to give the dolls some fun, you press the button, turning their sex toys on. Immediately, the bright pink dildos inserted into their fuckable nipples start vibrating, and with that all three of them reach down and start rhythmically rubbing their clits. Letting out lewd moans, they start to perform oral on one another, with the first greedily eating out the second and the second 
+			#IF(game.isAnalContentEnabled())
+				 hungrily rimming the third.
+			#ELSE
+				 doing the same to the third.
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DISPLAY_DEMO_DOLL"><![CDATA[
+	<p>
+		Finding yourself drawn to the shiny pink doll, you [pc.step] over to where she's squatting down on the floor. From here, you're able to see that she's rhythmically rubbing her clit as she slowly lifts herself up and down, forcing a massive, ribbed dildo in and out of her cunt. Thanks to the mirrored section of floor upon which she's squatting, you're able to see her cunt stretching lewdly around the huge toy, as well as the end of a jewelled-heart buttplug that's been securely pushed into her asshole. With her free hand, she's cupping and groping her [demoDoll.cupSize]-cup breasts, and occasionally sliding her fingers into her fuckable nipples.
+	</p>
+	<p>
+		A sign next to this pink doll names her as the shop's 'demo doll', and instructs customers to use her to find out how good Lovienne's sex dolls are at performing oral. Permission is given to cum in and on the doll as much as you want, but any sex action other than oral is strictly forbidden, with the doll having been instructed to call security if you try anything else with her.
+	</p>
+	<p>
+		Continuing to masturbate, the doll looks up at you and asks in a feminine, yet slightly robotic voice, [demoDoll.speech(Would you like to use my mouth, [pc.master]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DISPLAY_DEMO_DOLL_BLOWJOB_START"><![CDATA[
+	<p>
+		Liking the sound of getting a blowjob from this demo doll, you pull out your [pc.cock+] and present it to her. Obediently opening her mouth wide, she lets out a horny moan and begs, [demoDoll.speech(Please, [pc.master], fuck my throat! Be as rough as you like...)]
+	</p>
+	<p>
+		At the sight of this naked, slutty doll telling you to use her, your cock quickly rises to attention, and you waste no time in pushing the [pc.cockHead+] into her mouth. Hungrily wrapping her [demoDoll.lips+] around your hard shaft, the doll slides her head forwards and swallows your cock as she beings to give you a blowjob...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DISPLAY_DEMO_DOLL_CUNNILINGUS_START"><![CDATA[
+	<p>
+		Liking the sound of receiving cunnilingus from this demo doll, you expose your [pc.pussy+] and present it to her. Obediently opening her mouth wide and sticking out her tongue, she lets out a horny moan and begs, [demoDoll.speech(Please, [pc.master], let me taste your cunt...)]
+	</p>
+	<p>
+		At the sight of this naked, slutty doll begging for your pussy, you feel yourself getting turned on, and you waste no time in pushing your [pc.labia+] down against her mouth. Hungrily pressing her [demoDoll.lips+] to your pussy, the doll slides her tongue into your twat and starts to eat you out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DISPLAY_DEMO_DOLL_BACK"><![CDATA[
+	<p>
+		Deciding that you're not interested in using the demoDoll right now, you [pc.step] away from her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DISPLAY_DEMO_DOLL_BLOWJOB_END"><![CDATA[
+	<p>
+		Having had your fun with the demo doll, you get her to give your cock a few last licks, before [pc.stepping] back and bringing an end to the sex.
+	</p>
+	<p>
+		[demoDoll.speech(I hope that I was to your satisfaction, [pc.master],)] she says as you get your things back in order. Reaching over to grab a wet wipe from behind the nearby sign, the demo doll quickly cleans herself up, before starting to once again rhythmically rub her clit and bounce up and down on the massive dildo.
+	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_sex_shop_oral_offer))
+		<p>
+			Leaving the shiny pink doll behind, you start to [pc.walk] away from the display area, wondering what to do next...
+		</p>
+	#ELSE
+		<p>
+			[saellatrix.speech(I couldn't help but watch that little performance,)] the posh voice of Saellatrix sounds out from behind you. Turning to face the succubus, you watch as she steps forwards and reveals a sadistic streak by unexpectedly delivering a vicious, sharp slap to the demo doll's face. The pink doll appears to be totally unaffected by this abuse, for she continues masturbating as though nothing happened while the succubus addresses you, [saellatrix.speech(That big cock of yours is wasted on this hole. How about the two of us have a little wager?)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DISPLAY_DEMO_DOLL_BLOWJOB_END_OFFER_END"><![CDATA[
+	<p>
+		Wondering what this is all about, you ask Saellatrix what it is she has in mind.
+	</p>
+	<p>
+		[saellatrix.speech(You let me suck that delicious-looking dick of yours, and if you manage to snap my choker in the process, I'll give you a lifetime 25% discount,)] she offers while playfully tugging at the black, velvet choker that's tightly hugging her neck. Allowing a sinister expression to settle on her face, she takes a step towards you, and while using her spaded tail to playfully stroke your crotch, she evilly sneers, [saellatrix.speech(If you fail to snap it, you'll have to pay double for everything instead. That is, unless you let me fuck you raw. In case I'm not being clear, that means I'll grow a nice, fat cock and shove every last inch of it inside of you.)]
+	</p>
+	<p>
+		Before you can respond, the succubus places her index finger over your [pc.lips], before saying, [saellatrix.speech(No need to rush. Let me know when you're ready for it.)]
+	</p>
+	<p>
+		With that, the succubus strides back to her counter, her [saellatrix.ass+] swaying in a hypnotic manner as she goes. Left standing beside the display area, you wonder what to do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DISPLAY_DEMO_DOLL_CUNNILINGUS_END"><![CDATA[
+	<p>
+		Having had your fun with the demo doll, you get her to give your pussy a few last licks, before [pc.stepping] back and bringing an end to the sex.
+	</p>
+	<p>
+		[demoDoll.speech(I hope that I was to your satisfaction, [pc.master],)] she says as you get your things back in order. Reaching over to grab a wet wipe from behind the nearby sign, the demo doll quickly cleans herself up, before starting to once again rhythmically rub her clit and bounce up and down on the massive dildo.
+	</p>
+	<p>
+		Leaving the shiny pink doll behind, you start to [pc.walk] away from the display area, wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+
+	<!-- Dolls: -->
+	
+	<htmlContent tag="DOLLS"><![CDATA[
+	<p>
+		Along the right-hand wall of the shop, several dozen sex dolls have been lined up in regimented ranks. Each one of them is completely identical, being made out of black silicone and taking the appearance of a human female in her early twenties. Thanks to the fact that they're not wearing a single item of clothing, and that they're completely bald, you're able to see that each one of them has a white barcode tattooed onto their forehead.
+	</p>
+	<p>
+		Taking a closer look at their bodies, you can't help but be impressed by the absurd level of detail each one of these dolls possesses. Every detail of a real body has been replicated in black silicone, right down to the cuticles of each nail, the correct number and shape of individual eyelashes, and even the pores on their faux skin. In fact, it would almost be believable if someone told you that they were real people, just made out of silicone instead of flesh.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="COUNTER"><![CDATA[
+	#IF(!saellatrix.isPlayerKnowsName())
+		<p>
+			Crossing the shop floor, you approach the counter, behind which a smartly-dressed succubus. The first thing which you can't help but notice is the fact that she has a massive pair of [saellatrix.cupSize]-cup breasts, which are threatening to burst out of her smart black blazer at any moment. Looking past her sizeable assets, you see a pair of thick-rimmed glasses sitting on the beautiful face of a woman in her late thirties. Her dark red skin fades into black at the tips of her long, upright horns, and black again is the colour of her shoulder-length, bob-cut hair.
+		</p>
+		<p>
+			As you approach, and so are able to see down over the top of the counter, you notice that the succubus is wearing a very short miniskirt, while a pair of black stockings are covering her long, smooth legs. Looking back up to her face, you see that a pair of yellow, snake-like eyes are closely following your every move. Finally, as you come to a halt before her, you see that she's wearing a black velvet choker around her neck.
+		</p>
+		<p>
+			[saellatrix.speech(I don't believe that I've had the pleasure,)] the succubus says in a silky-smooth, posh British accent. Giving you a polite smile which has very little sincerity to it, she waits for you to introduce yourself...
+		</p>
+	#ELSE
+		<p>
+			Crossing the shop floor, you approach the counter, behind which the familiar, smartly-dressed form of Saellatrix is standing. The first thing which you can't help but notice is the fact that she has a massive pair of [saellatrix.cupSize]-cup breasts, which are threatening to burst out of her smart black blazer at any moment. Looking past her sizeable assets, you see a pair of thick-rimmed glasses sitting on the beautiful face of a woman in her late thirties. Her dark red skin fades into black at the tips of her long, upright horns, and black again is the colour of her shoulder-length, bob-cut hair.
+		</p>
+		<p>
+			As you approach, and so are able to see down over the top of the counter, you notice that the succubus is wearing a very short miniskirt, while a pair of black stockings are covering her long, smooth legs. Looking back up to her face, you see that a pair of yellow, snake-like eyes are closely following your every move. Finally, as you come to a halt before her, you see that she's wearing a black velvet choker around her neck.
+		</p>
+		#IF(saellatrix.isVisiblyPregnant())
+			#IF(!saellatrix.isCharacterReactedToPregnancy(pc))
+				<p>
+					Pointedly rubbing her hands over her swollen, [style.colourSex(pregnant belly)], the succubus calmly states in her posh British accent, [saellatrix.speech(Yes, you got me pregnant. No, this doesn't grant you any special privileges. If you think that knocking me up makes us an item, you're very much mistaken.)]
+				</p>
+			#ELSE
+				<p>
+					Pointedly rubbing her hands over her swollen, [style.colourSex(pregnant belly)], the succubus calmly states in her posh British accent, [saellatrix.speech(Yes, I'm still pregnant, thanks to you. No, still don't get any special privileges. If you think that knocking me up makes us an item, you're very much mistaken.)]
+				</p>
+			#ENDIF
+			<p>
+				As she's the mother of your children, you feel like you should at least try to talk to Saellatrix about it. Before you can get out a single word, however, the succubus anticipates what it is you're going to say and interrupts you.
+			</p>
+			#IF(flags.hasFlag(FLAG_innoxia_sex_shop_discount))
+				<p>
+					[saellatrix.speech(Don't even try to offer me any help. I don't need it, I don't want it,)] Saellatrix firmly states. With the matter of her pregnancy seemingly dealt with, the succubus suddenly opens her mouth, allowing her abnormally-long tongue to loll out in order to give you an unobstructed view of her tentacle-lined throat. After playfully licking her [saellatrix.lips+], she closes her mouth and offers in a seductive tone,
+					#IF(flags.hasFlag(FLAG_innoxia_sex_shop_saellatrix_sex))
+						 [saellatrix.speech(I don't have any more time today, but if you'd like to repeat my wager tomorrow, you know where to find me...)]
+					#ELSE
+						 [saellatrix.speech(You've already earned your discount, but if you'd like to repeat my wager, I'm always game. Snap my choker and keep your discount, fail to snap it and you have to pay double for everything. Interested?)]
+					#ENDIF
+				</p>
+			#ELSEIF(flags.hasFlag(FLAG_innoxia_sex_shop_penalty))
+				<p>
+					[saellatrix.speech(Don't even try to offer me any help. I don't need it, I don't want it,)] Saellatrix firmly states. With the matter of her pregnancy seemingly dealt with, the succubus allows an arrogant smirk to settle on her beautiful face as she offers,
+					#IF(flags.hasFlag(FLAG_innoxia_sex_shop_saellatrix_sex))
+						 [saellatrix.speech(I don't have any more time today, but if you'd like me to stop charging you double for everything, all you'll have to do is submit. I know you'll do it, so come back to me tomorrow...)]
+					#ELSE
+						 [saellatrix.speech(If you'd like me to stop charging you double for everything, all you have to do is submit. Let me rail you with my fat cock and I'll let you buy my goods at normal prices.)]
+					#ENDIF
+				</p>
+			#ELSEIF(saellatrix.getTotalTimesHadSex(pc)>0)
+				<p>
+					[saellatrix.speech(Don't even try to offer me any help. I don't need it, I don't want it,)] Saellatrix firmly states. With the matter of her pregnancy seemingly dealt with, the succubus suddenly opens her mouth, allowing her abnormally-long tongue to loll out in order to give you an unobstructed view of her tentacle-lined throat. After playfully licking her [saellatrix.lips+], she closes her mouth and offers in a seductive tone,
+					#IF(flags.hasFlag(FLAG_innoxia_sex_shop_saellatrix_sex))
+						 [saellatrix.speech(I don't have any more time today, but if you'd like to repeat my wager tomorrow, you know where to find me...)]
+					#ELSE
+						 [saellatrix.speech(If you'd like to repeat my wager, I'm always game. Snap my choker and earn a 25% discount, fail to snap it and you have to pay double for everything. Interested?)]
+					#ENDIF
+				</p>
+			#ELSE
+				<p>
+					[saellatrix.speech(Don't even try to offer me any help. I don't need it, I don't want it,)] Saellatrix firmly states. With the matter of her pregnancy seemingly dealt with, the succubus gives you another of her polite, insincere smiles as she waits to hear what it is you want of her...
+				</p>
+			#ENDIF
+		#ELSE
+			#IF(flags.hasFlag(FLAG_innoxia_sex_shop_discount))
+				<p>
+					[saellatrix.speech([pc.Name], I was just thinking about you,)] Saellatrix teases in her silky-smooth, posh British accent. Opening her mouth, she allows her abnormally-long tongue to loll out, giving you an unobstructed view of her tentacle-lined throat. After playfully licking her [saellatrix.lips+], she closes her mouth and offers in a seductive tone,
+					#IF(flags.hasFlag(FLAG_innoxia_sex_shop_saellatrix_sex))
+						 [saellatrix.speech(I don't have any more time today, but if you'd like to repeat my wager tomorrow, you know where to find me...)]
+					#ELSE
+						 [saellatrix.speech(You've already earned your discount, but if you'd like to repeat my wager, I'm always game. Snap my choker and keep your discount, fail to snap it and you have to pay double for everything. Interested?)]
+					#ENDIF
+				</p>
+			#ELSEIF(flags.hasFlag(FLAG_innoxia_sex_shop_penalty))
+				<p>
+					[saellatrix.speech([pc.Name], I was just thinking about how much money I'm going to make from you,)] Saellatrix teases in her silky-smooth, posh British accent. Allowing an arrogant smirk to settle on her beautiful face, she offers,
+					#IF(flags.hasFlag(FLAG_innoxia_sex_shop_saellatrix_sex))
+						 [saellatrix.speech(I don't have any more time today, but if you'd like me to stop charging you double for everything, all you'll have to do is submit. I know you'll do it, so come back to me tomorrow...)]
+					#ELSE
+						 [saellatrix.speech(If you'd like me to stop charging you double for everything, all you have to do is submit. Let me rail you with my fat cock and I'll let you buy my goods at normal prices.)]
+					#ENDIF
+				</p>
+			#ELSEIF(saellatrix.getTotalTimesHadSex(pc)>0)
+				<p>
+					[saellatrix.speech([pc.Name], I was just thinking about you,)] Saellatrix teases in her silky-smooth, posh British accent. Opening her mouth, she allows her abnormally-long tongue to loll out, giving you an unobstructed view of her tentacle-lined throat. After playfully licking her [saellatrix.lips+], she closes her mouth and offers in a seductive tone,
+					#IF(flags.hasFlag(FLAG_innoxia_sex_shop_saellatrix_sex))
+						 [saellatrix.speech(I don't have any more time today, but if you'd like to repeat my wager tomorrow, you know where to find me...)]
+					#ELSE
+						 [saellatrix.speech(If you'd like to repeat my wager, I'm always game. Snap my choker and earn a 25% discount, fail to snap it and you have to pay double for everything. Interested?)]
+					#ENDIF
+				</p>
+			#ELSE
+				<p>
+					[saellatrix.speech([pc.Name], how wonderful it is to see you again,)] Saellatrix greets you in her silky-smooth, posh British accent. Giving you another of her polite, insincere smiles, she waits to hear what it is you want of her...
+				</p>
+			#ENDIF
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="COUNTER_STEP_BACK"><![CDATA[
+	<p>
+		Telling Saellatrix that you want to take another look at the goods on sale in her shop, you [pc.step] away from the counter.
+	</p>
+	<p>
+		[saellatrix.speech(Please let me know if you require any assistance,)] the succubus says, [saellatrix.speech(Oh, and please do use the demonstration doll as much as you'd like.)]
+	</p>
+	<p>
+		Moving away from the counter, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="COUNTER_INTRO"><![CDATA[
+	<p>
+		Giving the succubus your name, you ask her if she's the owner of this store.
+	</p>
+	<p>
+		[saellatrix.speech(That's correct,)] she replies. Her accent and the way she looks slightly down her nose at you as she speaks gives her a haughty, somewhat-arrogant mannerism. Clearly relishing this opportunity to show off, she pauses for a moment and allows a smirk to settle on her beautiful face, before revealing, [saellatrix.speech(I am <i>the</i> Saellatrix Loviennemartuilani; recognised daughter of the elder lilin Lovienne, I own and manage this store in my mother's name. This is the only place in the entire realm where you can purchase one of my mother's premium sex dolls. No other doll comes close to their realism, autonomy, or durability. Not to mention how good they feel to <i>fuck</i>.)]
+	</p>
+	<p>
+		This last word is said with some emphasis, and for a moment a very sincere, yet oddly sinister smile flashes across the succubus's face. Before you can think too much of it, Saellatrix continues in her posh accent, [saellatrix.speech(Of course, our dolls command a high price, as is befitting of anything created by an elder lilin. Please inform me if you'd like to know more about our dolls. Or, if you're simply here for a sex toy, then we have a wide range for sale.)]
+	</p>
+	<p>
+		With that, Saellatrix stops talking, and after pushing her glasses up onto the bridge of her nose, she gives you another of her insincere smiles and waits to hear what it is you want...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COUNTER_WAGER"><![CDATA[
+	<p>
+		Liking the sound of Saellatrix's wager, you tell her that you'll take her up on it.
+	</p>
+	<p>
+		[saellatrix.speech(Of course you will,)] the succubus confidently replies in her posh accent, [saellatrix.speech(Nobody would turn me down. Now follow me.)]
+	</p>
+	<p>
+		Turning her back on you, the succubus struts off to a door behind the counter, her [saellatrix.ass+] and [saellatrix.hips+] hypnotically swaying as she goes. Following her through this door, and then around a corner, you find yourself being led into the store's staff room. Unlike the basic sort of facilities found in most rooms of this type, the space before you has the appearance of a very upmarket bar. Black designer sofas have been placed around the edges of the room, while the fully-stocked bar itself is staffed by a couple of golden sex dolls. The soft light from a trio of expensive-looking chandeliers reflects off the polished marble floor, which causes Saellatrix's heels to make a loud clicking noise as she struts over to the bar.
+	</p>
+	<p>
+		[saellatrix.speech(Get me a Vixen's Kiss,)] the succubus snaps at the nearest doll, [saellatrix.speech(and mix up a Face Fuck for [pc.name] here.)]
+	</p>
+	<p>
+		The two dolls quickly set about grabbing bottles from off the shelves behind the bar and pouring out exact measurements into two shot glasses. The first, the 'Vixen's Kiss', ends up as a fruity orange colour, with a bright red twist of glazed cherry perched on the rim. The drink which Saellatrix has ordered for you is quite clearly something more than an ordinary alcoholic drink, for it turns out to be an almost luminescent shade of yellow, with bright pink bubbles rising to create a grapefruit-coloured foam on the top.
+	</p>
+	<p>
+		[saellatrix.speech(You like what I've done with this place?)] Saellatrix asks as you [pc.step] over to stand beside her at the bar. Telling her that it's more than you expected, you watch as the succubus downs her shot in one gulp. Opening her mouth, she allows her abnormally-long tongue to loll out, revealing to you that her throat is lined with a series of small, pulsating tentacles. Licking her [saellatrix.lips+], she reaches down to grope your [pc.cock+] as she seductively teases, [saellatrix.speech(I guarantee you've never had a blowjob quite like the one I'm about to give.)]
+	</p>
+	<p>
+		Strutting around to the other side of the bar, the succubus once again reveals that she has a sadistic streak as she slaps the nearest doll hard across the face. Still speaking in her posh British accent, she hisses, [saellatrix.speech(Move it, you dumb cunts.)]
+	</p>
+	<p>
+		As the two dolls hurry over to one corner of the room, their owner lies back over the bar top, allowing her head to hang down off the side right by where you're standing. Looking up at you, she teases, [saellatrix.speech(What are you waiting for? Drink up, then stick that delicious cock of yours down my throat. Remember, if you can snap my choker you get a lifetime discount. If not, then be prepared to pay double.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COUNTER_WAGER_REPEAT"><![CDATA[
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_sex_shop_discount))
+			Although you've already snapped her choker and so earned a lifetime discount, you find yourself wanting to fuck Saellatrix's face once again. As such you tell her that you'll take her up on her wager.
+		#ELSE
+			Remembering how good it felt the last time, you find yourself wanting to fuck Saellatrix's face again. As such you tell her that you'll take her up on her wager.
+		#ENDIF
+	</p>
+	<p>
+		[saellatrix.speech(Well of course you want to fuck my throat again,)] the succubus confidently replies in her posh accent, [saellatrix.speech(Nothing else comes close to the experience I can provide.)]
+	</p>
+	<p>
+		Turning her back on you, the succubus struts off to a door behind the counter, her [saellatrix.ass+] and [saellatrix.hips+] hypnotically swaying as she goes. Following her through this door, and then around a corner, you find yourself once again being led into the store's staff room. Unlike the basic sort of facilities found in most rooms of this type, the space before you has the appearance of a very upmarket bar. Black designer sofas have been placed around the edges of the room, while the fully-stocked bar itself is staffed by a couple of golden sex dolls. The soft light from a trio of expensive-looking chandeliers reflects off the polished marble floor, which causes Saellatrix's heels to make a loud clicking noise as she struts over to the bar.
+	</p>
+	<p>
+		[saellatrix.speech(Give me the usual,)] the succubus snaps at the nearest doll, [saellatrix.speech(and mix up another Face Fuck for [pc.name] here.)]
+	</p>
+	<p>
+		The two dolls quickly set about grabbing bottles from off the shelves behind the bar and pouring out exact measurements into two shot glasses. The first, which you recognise as a 'Vixen's Kiss', ends up as a fruity orange colour, with a bright red twist of glazed cherry perched on the rim. The drink which Saellatrix has ordered for you is quite clearly something more than an ordinary alcoholic drink, for it turns out to be an almost luminescent shade of yellow, with bright pink bubbles rising to create a grapefruit-coloured foam on the top.
+	</p>
+	<p>
+		[saellatrix.speech(I always like a drink before swallowing cock,)] Saellatrix says as you [pc.step] over to stand beside her at the bar. Making a comment about the fact that she has a fully stocked bar at her disposal, you watch as the succubus downs her shot in one gulp. Opening her mouth, she allows her abnormally-long tongue to loll out, showing to you once again that her throat is lined with a series of small, pulsating tentacles. Licking her [saellatrix.lips+], she reaches down to grope your [pc.cock+] as she seductively teases, [saellatrix.speech(Ready to experience heaven again?)]
+	</p>
+	<p>
+		Strutting around to the other side of the bar, the succubus once again reveals that she has a sadistic streak as she slaps the nearest doll hard across the face. Still speaking in her posh British accent, she hisses, [saellatrix.speech(Move it, you dumb cunts.)]
+	</p>
+	<p>
+		As the two dolls hurry over to one corner of the room, their owner lies back over the bar top, allowing her head to hang down off the side right by where you're standing. Looking up at you, she teases, [saellatrix.speech(What are you waiting for? Drink up, then stick that delicious cock of yours down my throat. Remember, if you can snap my choker you keep your lifetime discount. If not, then be prepared to pay double.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COUNTER_WAGER_DRINK"><![CDATA[
+	<p>
+		Picking up the shot glass, you down the bright yellow cocktail in one swift gulp. Immediately, you feel an unnatural wave of arousal surge through your body, giving you an intense desire to ram your cock into Saellatrix's open mouth. Looking up at you with a sly look on her face, the succubus teases, [saellatrix.speech(It's not called 'Face Fuck' for nothing. Now give me what I want...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COUNTER_WAGER_NO_DRINK"><![CDATA[
+	<p>
+		Deciding against drinking the bright yellow cocktail, you slide the shot glass down the bar top. Letting out a disappointed tut, Saellatrix looks up at you and teases, [saellatrix.speech(Oh well, your loss. Now give me what I want...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COUNTER_WAGER_BLOWJOB_START"><![CDATA[
+	<p>
+		#IF(pc.isTaur())
+			Doing as she says, you rear up and mount Saellatrix's face, before lining your [pc.cock+] up to her mouth.
+		#ELSE
+			Doing as she says, you pull out your [pc.cock+] and [pc.step] up to Saellatrix's face.
+		#ENDIF
+		 Letting out a hungry moan, the succubus darts out her abnormally long tongue, before wrapping it around your shaft and sliding it up and down. Finding yourself being jerked off by Saellatrix's warm, wet tongue, you're rock hard in seconds, and can't resist thrusting forwards to push your [pc.cockHead+] into her mouth.
+	</p>
+	<p>
+		[saellatrix.speechNoEffects(~Mmm!~)] the succubus happily moans, continuing to use her tongue to stroke your cock as you push it down her throat. As your hard shaft slides down her slimy, warm passage, you feel the small tentacles which line her throat start to stroke and massage your throbbing length. Seemingly built for sex, the succubus's throat turns out to have extra muscles lining it, and as she starts gripping down and squeezing your shaft, you find yourself pushed to the limit of what you can endure. Unable to resist any longer, you buck your [pc.hips+] forwards and desperately slam your [pc.cock+] deep down Saellatrix's throat.
+	</p>
+	#IF(sex.isPenetrationDiameterTooBig(saellatrix.getFaceElasticity(), saellatrix.getFaceStretchedCapacity(), pc.getPenisDiameter(), true))
+		<p>
+			Her neck bulges massively as your thick shaft stretches her throat out and causes her to let out a gargled, horny splutter. Saellatrix's choker strains against the pressure for as long as it can, but the sheer girth of your fat cock is too much for it to bear. With a metallic 'ping', the chain holding it together at the back snaps, and with a great deal of satisfaction you watch the strip of black velvet fall to the floor. With your discount now earned, you can focus on how good it feels to receive a blowjob from this sexy succubus...
+		</p>
+	#ELSE
+		<p>
+			Although you see her neck bulging slightly as you begin to fuck her face, Saellatrix's choker shows no sign of snapping. Not wanting to dwell on the fact that you might not be big enough to earn that discount, you instead simply focus on how good it feels to receive a blowjob from this sexy succubus...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COUNTER_WAGER_BLOWJOB_END"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_sex_shop_choker_snapped))
+		<p>
+			With one last long, hungry lick up the entire length of your saliva-coated shaft, Saellatrix pushes you back and sits up on the bar top. After making a show of licking her [saellatrix.lips+], she turns to look at the dolls in the corner of the room. Snapping her fingers, she points to the floor where her broken choker has fallen and commands, [saellatrix.speech(Pick it up, cunt!)]
+		</p>
+		<p>
+			While one of the dolls rushes forwards to hand the broken choker back to her mistress, Saellatrix playfully pouts at you and teases, [saellatrix.speech(I suppose you won the wager. I must say, it was worth it to get a taste of that fat, delicious cock of yours...)]
+		</p>
+		#IF(game.isNipplePenEnabled())
+			<p>
+				Snatching the choker from the doll who rushed to retrieve it for her, Saellatrix quickly bends its metal clasp back into position, before fitting it around her neck once more. Strutting around to your side of the bar, the succubus lets out a thoughtful hum and says, [saellatrix.speech(Now that I think about it, I really would rather not give you that discount. How about I offer you an alternative...)]
+			</p>
+			<p>
+				Shrugging off her feminine blazer, the succubus unbuttons her shirt and tosses it to one side, leaving her wearing nothing above her waist but a black, lacy plunge bra. This quickly follows her shirt to the floor, leaving her huge, [saellatrix.cupSize]-cup breasts completely exposed. In contrast to the dark red skin which covers the rest of her body, both her massive, puffy nipples are the large areolae which surround them are ebony in colour. Around the rim of her left areola, the words 'Fuck Hole' have been tattooed in black ink, while 'Cock Sleeve' has been similarly written around the right one.
+			</p>
+			<p>
+				[saellatrix.speech(Instead of giving you that discount, why don't I let you fuck my tits?)] she offers, pushing her fingers into her right nipple to demonstrate that they're penetrable orifices. Squatting down in front of you, she grabs your cock and pushes out her chest, rubbing your shaft over each of her nipples in turn. Looking up, she seductively teases, [saellatrix.speech(Go on, you know you'd rather have this. You can fuck my pussy and ass as well, if you'd like...)]
+			</p>
+			<p>
+				Pressing her left nipple against your cock, she allows just the [pc.cockHead+] to push inside, and you can't help but let out [pc.a_moan+] as you feel the exotic orifice's internal tentacles trying to pull your shaft deeper inside. It looks like you'll have to decide which you'd prefer; getting a 25% discount in Lovienne's Luxuries, or getting to fuck Saellatrix any way you want...
+			</p>
+		#ELSE
+			<p>
+				Snatching the choker from the doll who rushed to retrieve it for her, Saellatrix quickly bends its metal clasp back into position, before fitting it around her neck once more. Strutting around to your side of the bar, the succubus smirks at you and offers, [saellatrix.speech(We should do this again some time. But not today.)]
+			</p>
+			<p>
+				With that, the succubus strides off to the door through which you entered, leaving you to catch up with her...
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			With one last long, hungry lick up the entire length of your saliva-coated shaft, Saellatrix pushes you back and sits up on the bar top. After making a show of licking her [saellatrix.lips+], she gives you a rather sinister smirk and gloats in her posh accent, [saellatrix.speech(Well, it looks like I won the wager. That's a real pity for you; I'll have to charge you double for everything from now on.)]
+		</p>
+		<p>
+			Strutting around to your side of the bar, the succubus lets out a thoughtful hum and says, [saellatrix.speech(Now that I think about it, making you pay double does seem a little harsh. How about I offer you a way out...)]
+		</p>
+		<p>
+			Lifting her miniskirt, Saellatrix drops her black, lacy panties to the floor and and kicks them off her feet. Looking down, you see that the succubus has fully exposed her ebony-lipped pussy. Her pubic hair has been shaved and trimmed down into the shape of a little heart, while above that she's got a black pentagram tattoo. Playfully biting her lip, she softly teases, [saellatrix.speech(You want to fuck my tight little pussy, hmm? Spread my legs and hilt your cock deep in my hot, wet cunt?)]
+		</p>
+		<p>
+			Before you can reply, the succubus lets out a mocking laugh, before evilly grinning at you and growling in a deep voice, [saellatrix.speech(I don't think so! If you want me to forget about doubling my prices, then <i>you're</i> the one who's going to get fucked, and fucked <i>hard</i>.)]
+		</p>
+		<p>
+			As she says this,
+			#IF(!saellatrix.isPregnant())
+				 Saellatrix's pussy beings to visibly tighten, before closing up and disappearing entirely. In it's place,
+			#ELSE
+				 just above Saellatrix's pussy,
+			#ENDIF
+			 a thick bulge starts to grow out from her dark red skin, and as it increases in size it changes colour to ebony. Within moments, this bulge has transformed into a penis, and you can't help but watch as it rapidly grows in size to finally hang down at a staggering [saellatrix.penisLengthValues] in length.
+			#IF(!saellatrix.isPregnant())
+				 A massive pair of heavy, ebony balls then grow out from where her pussy used to be, before ponderously dropping down within their thick-skinned ball sack.
+			#ENDIF
+			 Transforming it into a cock that's worthy of a demon, Saellatrix grins as a fat, canine-like knot swells up at the base, before thick ribs and small, nub-like tentacles press out along its length.
+			 Confidently stepping forwards, the succubus bucks her hips at you, causing her flaccid shaft
+			#IF(!saellatrix.isPregnant())
+				 and drooping balls
+			#ENDIF
+			 to swing forwards and back. Licking her lips, she lets out a wicked-sounding laugh and snaps, [saellatrix.speech(Get me hard, slut. You don't want to pay double for everything, do you?)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COUNTER_WAGER_BLOWJOB_END_TAKE_DISCOUNT"><![CDATA[
+	#IF(game.isNipplePenEnabled())
+		<p>
+			Pulling your cock away from Saellatrix's tits, you tell the succubus that you'd rather take the discount.
+		</p>
+		<p>
+			[saellatrix.speech(How disappointing,)] she tuts. Standing up, she once again snaps her fingers at her discarded clothing, ordering the nearby dolls as she does so, [saellatrix.speech(Dress me, you useless cunts.)]
+		</p>
+		<p>
+			Hurrying to obey, the golden dolls retrieve Saellatrix's bra, shirt, and blazer, before assisting the succubus in getting dressed. Instead of thanks, the dolls each receive a vicious slap across the face for their trouble, along with the reprimand, [saellatrix.speech(Be quicker next time. )]
+		</p>
+		<p>
+			Turning back to face you, the succubus softens her tone and smirks as she says, [saellatrix.speech(We should do this again some time. But not today.)]
+		</p>
+		<p>
+			With that, Saellatrix strides off to the door through which you entered, leaving you to catch up with her. Following her through the door, you soon find yourself back in the main area of the shop, and after saying a quick goodbye, you [pc.step] away from Saellatrix's counter and wonder what to do next...
+		</p>
+	#ELSE
+		<p>
+			Following Saellatrix through the door, you soon find yourself back in the main area of the shop, and after saying a quick goodbye, you [pc.step] away from the succubus's counter and wonder what to do next...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COUNTER_WAGER_NIPPLE_FUCK_START"><![CDATA[
+	<p>
+		Too turned on to stop this and take the discount, you answer Saellatrix by pushing forwards and sinking your [pc.cock+] deep into her tight, fuckable nipple. The tentacles lining her insides instantly start stroking and massaging the entire length of your throbbing shaft, causing you to let out an involuntary [pc.moan].
+	</p>
+	<p>
+		[saellatrix.speech(~Mmm!~ That's right, I knew you wouldn't be able to resist,)] the succubus teases. Using one hand to hold up her breast so that it's easier for you to fuck, she drops the other down between her legs, and after hiking up her miniskirt and shifting aside her black, lacy panties, she starts to rub her clit. Clearly enjoying this just as much as you are, she lets out a horny moan and pants in her posh accent, [saellatrix.speech(Yes… ~Aah!~ Fuck me... Use my pussy #IF(game.isAnalContentEnabled())and ass#ENDIF if you want... ~Mmm!~ Yes! Fuck!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COUNTER_WAGER_BLOWJOB_END_TAKE_PENALTY"><![CDATA[
+	<p>
+		Not at all liking the sound of what Saellatrix is offering, you tell the succubus that you'd rather pay double than get fucked by the monster of a cock that's now hanging between her legs.
+	</p>
+	<p>
+		[saellatrix.speech(How disappointing,)] she tuts. Instantly, her cock shrinks down and disappears back into the skin of her
+		#IF(!saellatrix.isPregnant())
+			 groin, before quickly being replaced by the pussy she had just moments ago.
+		#ELSE
+			 groin.
+		#ENDIF
+		 Picking up her panties, she slides them up her legs, before patting down her miniskirt and snapping, [saellatrix.speech(Follow me. We're done here.)]
+	</p>
+	<p>
+		With that, the succubus strides off to the door through which you entered, leaving you to catch up with her. Following her through the door, you soon find yourself back in the main area of the shop, and after saying a quick goodbye, you [pc.step] away from Saellatrix's counter and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COUNTER_WAGER_FUCKED_START"><![CDATA[
+	<p>
+		Not wanting to pay double for everything in Saellatrix's store, you do as she asks and take hold of her massive, demonic cock, before starting to jerk her off to get her hard.
+	</p>
+	<p>
+		[saellatrix.speech(Good choice, slut,)] the succubus sneers as her thick shaft stiffens and rises to attention. Letting out an excited, high-pitched moan, she suddenly slaps you across the face,
+		#IF(pc.isCoverableAreaExposed(CA_MOUTH))
+			 before pulling you into a deep, passionate kiss. Her long, strong tongue dominantly explores the insides of your mouth while you continue to stroke her cock.
+		#ELSE
+			 before leaning forwards and dragging her long, strong tongue over your neck and face.
+		#ENDIF
+		 Pulling back, she evilly grins at you and growls, [saellatrix.speech(You're mine now, slut. I'm going to <i>break</i> you...)]
+	</p>
+	<p>
+		Not daring to stop now, you feel Saellatrix's thick, heavy cock throbbing in anticipation as you continue giving her a handjob...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COUNTER_FUCKED"><![CDATA[
+	<p>
+		Not wanting to pay double for everything any more, you tell Saellatrix that you'll submit to her in exchange for the penalty being removed.
+	</p>
+	<p>
+		[saellatrix.speech(Of course you'll submit,)] the succubus arrogantly states in her posh accent, [saellatrix.speech(Everyone does what I want in the end. Now follow me, slut.)]
+	</p>
+	<p>
+		Turning her back on you, the succubus struts off to a door behind the counter, her [saellatrix.ass+] and [saellatrix.hips+] hypnotically swaying as she goes. Following her through this door, and then around a corner, you find yourself being led into the store's staff room. Unlike the basic sort of facilities found in most rooms of this type, the space before you has the appearance of a very upmarket bar. Black designer sofas have been placed around the edges of the room, while the fully-stocked bar itself is staffed by a couple of golden sex dolls. The soft light from a trio of expensive-looking chandeliers reflects off the polished marble floor, which causes Saellatrix's heels to make a loud clicking noise as she turns to face you.
+	</p>
+	<p>
+		Lifting her miniskirt, Saellatrix drops her black, lacy panties to the floor and and kicks them off her feet. Looking down, you see that the succubus has fully exposed her ebony-lipped pussy. Her pubic hair has been shaved and trimmed down into the shape of a little heart, while above that she's got a black pentagram tattoo. Before you can say anything,
+		#IF(!saellatrix.isPregnant())
+			 Saellatrix's pussy beings to visibly tighten, before closing up and disappearing entirely. In it's place,
+		#ELSE
+			 just above Saellatrix's pussy,
+		#ENDIF
+		 a thick bulge starts to grow out from her dark red skin, and as it increases in size it changes colour to ebony. Within moments, this bulge has transformed into a penis, and you can't help but watch as it rapidly grows in size to finally hang down at a staggering [saellatrix.penisLengthValues] in length.
+		#IF(!saellatrix.isPregnant())
+			 A massive pair of heavy, ebony balls then grow out from where her pussy used to be, before ponderously dropping down within their thick-skinned ball sack.
+		#ENDIF
+		 Transforming it into a cock that's worthy of a demon, Saellatrix grins as a fat, canine-like knot swells up at the base, before thick ribs and small, nub-like tentacles press out along its length.
+		 Confidently stepping forwards, the succubus bucks her hips at you, causing her flaccid shaft
+		#IF(!saellatrix.isPregnant())
+			 and drooping balls
+		#ENDIF
+		 to swing forwards and back. Licking her lips, she lets out a wicked-sounding laugh and snaps, [saellatrix.speech(Get me hard, slut. I can't wait to hear what lewd noises my fat cock's going to make you produce.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COUNTER_FUCKED_START"><![CDATA[
+	<p>
+		Doing as Saellatrix commands, you [pc.step] forwards and take hold of her massive, demonic cock, before starting to jerk her off to get her hard.
+	</p>
+	<p>
+		[saellatrix.speech(That's it, slut, get a good feel of it,)] the succubus sneers as her thick shaft stiffens and rises to attention. Letting out an excited, high-pitched moan, she suddenly slaps you across the face,
+		#IF(pc.isCoverableAreaExposed(CA_MOUTH))
+			 before pulling you into a deep, passionate kiss. Her long, strong tongue dominantly explores the insides of your mouth while you continue to stroke her cock.
+		#ELSE
+			 before leaning forwards and dragging her long, strong tongue over your neck and face.
+		#ENDIF
+		 Pulling back, she evilly grins at you and growls, [saellatrix.speech(You're mine now, slut. I'm going to <i>break</i> you...)]
+	</p>
+	<p>
+		Not daring to stop now, you feel Saellatrix's thick, heavy cock throbbing in anticipation as you continue giving her a handjob...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COUNTER_WAGER_NIPPLE_FUCK_END"><![CDATA[
+	<p>
+		With one last, lewd moan, Saellatrix moves back and pants, [saellatrix.speech(That's enough... Fuck...)]
+	</p>
+	<p>
+		As she brings an end to the sex, the succubus calls out to the dolls in the corner of the room, [saellatrix.speech(Come on, cunts, clean me up and help me get dressed.)] 
+	</p>
+	<p>
+		Hurrying to do as their mistress commands, one of the golden dolls quickly gathers Saellatrix's clothing, while the other used several arcane wet wipes to clean her body. While you get your own things in order, the dolls help Saellatrix to get dressed, before hurrying back to their place behind the bar.
+	</p>
+	<p>
+		[saellatrix.speech(That was an enjoyable break from the monotony of the day,)] the succubus declares, before commanding, [saellatrix.speech(Follow me. We're done here.)]
+	</p>
+	<p>
+		With that, the succubus strides off to the door through which you entered, leaving you to catch up with her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COUNTER_WAGER_NIPPLE_FUCK_END_CONTINUE"><![CDATA[
+	<p>
+		Following Saellatrix through the door, you soon find yourself back in the main area of the shop, and after saying a quick goodbye, you [pc.step] away from the succubus's counter and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COUNTER_WAGER_FUCKED_END"><![CDATA[
+	<p>
+		With one last, lewd moan, Saellatrix moves back and pants, [saellatrix.speech(That's enough, slut... Fuck...)]
+	</p>
+	<p>
+		As she brings an end to the sex, the succubus calls out to the dolls in the corner of the room, [saellatrix.speech(Come on, cunts, clean me up and help me get dressed.)] 
+	</p>
+	<p>
+		Hurrying to do as their mistress commands, one of the golden dolls quickly gathers Saellatrix's clothing, while the other used several arcane wet wipes to clean her body. While you get your own things in order, the dolls help Saellatrix to get dressed, before hurrying back to their place behind the bar.
+	</p>
+	<p>
+		[saellatrix.speech(That was an enjoyable break from the monotony of the day,)] the succubus declares, before commanding, [saellatrix.speech(Follow me. We're done here.)]
+	</p>
+	<p>
+		With that, the succubus strides off to the door through which you entered, leaving you to catch up with her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COUNTER_WAGER_FUCKED_END_CONTINUE"><![CDATA[
+	<p>
+		Following Saellatrix through the door, you soon find yourself back in the main area of the shop, and after saying a quick goodbye, you [pc.step] away from the succubus's counter and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Factory scenes: -->
+	
+	<htmlContent tag="MEZZANINE"><![CDATA[
+	<p>
+		TODO
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="TOY_MACHINES"><![CDATA[
+	<p>
+		TODO
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="STEPS"><![CDATA[
+	<p>
+		TODO
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="DOLL_MACHINE_A"><![CDATA[
+	<p>
+		TODO
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="DOLL_MACHINE_B"><![CDATA[
+	<p>
+		TODO
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="DOLL_MACHINE_C"><![CDATA[
+	<p>
+		TODO
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="DOLL_MACHINE_STORAGE"><![CDATA[
+	<p>
+		TODO
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	<!-- Staff area dialogues: -->
+	
+	<htmlContent tag="STAFF_DOOR"><![CDATA[
+	<p>
+		TODO
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="STAFF_ROOM"><![CDATA[
+	<p>
+		TODO
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		TODO
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="BACK_DOOR"><![CDATA[
+	<p>
+		TODO
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="ELEVATOR"><![CDATA[
+	<p>
+		TODO
+	</p>
+	]]>
+	</htmlContent>
+
+</dialogue>

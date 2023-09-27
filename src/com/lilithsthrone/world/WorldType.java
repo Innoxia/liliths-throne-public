@@ -120,7 +120,9 @@ public class WorldType {
 					
 					new Value<>(new Color(0x000000), PlaceType.DOMINION_DEMON_HOME_GATE),
 					new Value<>(new Color(0xff80ff), PlaceType.DOMINION_DEMON_HOME),
-					new Value<>(new Color(0xff9100), PlaceType.DOMINION_DEMON_HOME_ARTHUR),
+					new Value<>(new Color(0xff9100), PlaceType.DOMINION_DEMON_HOME_ARTHUR),//TODO remove???
+					new Value<>(new Color(0xff40bf), PlaceType.DOMINION_DEMON_HOME_SEX_SHOP),
+					
 					new Value<>(new Color(0x8000ff), PlaceType.DOMINION_CITY_HALL),
 					new Value<>(new Color(0x7f4040), PlaceType.DOMINION_BANK),
 					
@@ -198,7 +200,7 @@ public class WorldType {
 	};
 	
 	public static AbstractWorldType LILAYAS_HOUSE_GROUND_FLOOR = new AbstractWorldType(WorldRegion.DOMINION,
-			"Lilaya's Home GF",
+			"Lilaya's Home F0",
 			PresetColour.BASE_BLUE_LIGHT,
 			true,
 			false,
@@ -228,7 +230,7 @@ public class WorldType {
 	};
 	
 	public static AbstractWorldType LILAYAS_HOUSE_FIRST_FLOOR = new AbstractWorldType(WorldRegion.DOMINION,
-			"Lilaya's Home 1F",
+			"Lilaya's Home F1",
 			PresetColour.BASE_BLUE_LIGHT,
 			true,
 			false,
@@ -254,7 +256,7 @@ public class WorldType {
 	};
 	
 	public static AbstractWorldType ZARANIX_HOUSE_FIRST_FLOOR = new AbstractWorldType(WorldRegion.DOMINION,
-			"Zaranix's Home 1F",
+			"Zaranix's Home F1",
 			PresetColour.BASE_CRIMSON,
 			false,
 			false,
@@ -277,7 +279,7 @@ public class WorldType {
 	};
 	
 	public static AbstractWorldType ZARANIX_HOUSE_GROUND_FLOOR = new AbstractWorldType(WorldRegion.DOMINION,
-			"Zaranix's Home GF",
+			"Zaranix's Home F0",
 			PresetColour.BASE_CRIMSON,
 			false,
 			false,
@@ -613,7 +615,7 @@ public class WorldType {
 	
 	
 	public static AbstractWorldType ANGELS_KISS_GROUND_FLOOR = new AbstractWorldType(WorldRegion.DOMINION,
-			"Angel's Kiss GF",
+			"Angel's Kiss F0",
 			PresetColour.BASE_MAGENTA,
 			false,
 			false,
@@ -632,7 +634,7 @@ public class WorldType {
 	};
 	
 	public static AbstractWorldType ANGELS_KISS_FIRST_FLOOR = new AbstractWorldType(WorldRegion.DOMINION,
-			"Angel's Kiss 1F",
+			"Angel's Kiss F1",
 			PresetColour.BASE_MAGENTA,
 			false,
 			false,
@@ -1005,7 +1007,7 @@ public class WorldType {
 	};
 
 	public static AbstractWorldType SLIME_QUEENS_LAIR_GROUND_FLOOR = new AbstractWorldType(WorldRegion.SUBMISSION,
-			"Slime Queen's Tower GF",
+			"Slime Queen's Tower F0",
 			PresetColour.BASE_PINK,
 			false,
 			false,
@@ -1031,7 +1033,7 @@ public class WorldType {
 	};
 
 	public static AbstractWorldType SLIME_QUEENS_LAIR_FIRST_FLOOR = new AbstractWorldType(WorldRegion.SUBMISSION,
-			"Slime Queen's Tower 1F",
+			"Slime Queen's Tower F1",
 			PresetColour.BASE_PINK,
 			false,
 			false,

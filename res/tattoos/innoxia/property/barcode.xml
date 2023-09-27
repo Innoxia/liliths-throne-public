@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tattoo>
+	<coreAttributes>
+		<value>500</value> 
+		
+		<name><![CDATA[barcode]]></name>
+		
+		<description><![CDATA[A series of vertical lines of alternating widths which represent data in a visual, machine-readable form.]]></description> 
+		<bodyOverviewDescription><![CDATA[a tattoo which acts as a functional barcode]]></bodyOverviewDescription> 
+		
+		<imageName>barcode.svg</imageName> 
+		
+		<slotAvailability/>
+		
+		<primaryColours values="ALL" defaultColour="CLOTHING_BLACK"/> 
+		<secondaryColours/> 
+		<tertiaryColours/> 
+		
+	</coreAttributes>
+	
+</tattoo>

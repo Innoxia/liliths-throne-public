@@ -3,6 +3,7 @@
 	
 	<additionalPlaceTypeTriggers>
 		<placeType>innoxia_fields_elis_town_alley</placeType>
+		<placeType>innoxia_fields_elis_town_abandoned_bakery</placeType>
 	</additionalPlaceTypeTriggers>
 	
 	<possibleEncounters>

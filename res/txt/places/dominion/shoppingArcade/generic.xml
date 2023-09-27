@@ -419,7 +419,7 @@
 		#ENDIF
 	</p>
 	<p>
-		As [npc.she] sees the approach of your groin, [npc.name] lets out [npc.a_moan+], before shuffling closer to the wall and firmly pressing her open mouth up against the hole. 
+		As [npc.she] sees the approach of your groin, [npc.name] lets out [npc.a_moan+], before shuffling closer to the wall and firmly pressing [npc.her] open mouth up against the hole. 
 		#IF(!npc.isMute())
 			 Letting out [npc.a_moan+], [npc.she] impatiently encourages you to get started, [game.random(
 			[npc.speech(Oh yeah, come on! Let this whore show you what [npc.sheIs] capable of!)]

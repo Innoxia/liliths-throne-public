@@ -256,6 +256,7 @@
 		<itemTags>
 			<tag>CONTRABAND_HEAVY</tag>
 			<tag>CHEAT_ITEM</tag>
+			<tag>WEAPON_FIREARM</tag>
 		</itemTags>
 		
 	</coreAttributes>
