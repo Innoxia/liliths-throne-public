@@ -4,7 +4,6 @@
 	<name><![CDATA[Corridor]]></name>
 	<tooltipDescription><![CDATA[A clean, tiled corridor links the dairy farm's barns.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the corridor at Evelyx's Dairy]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_GREY</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

@@ -138,6 +138,11 @@ public class Penis implements BodyPartInterface {
 				}
 			}
 		}
+		
+		if(owner.getBodyMaterial().getPartDescriptors()!=null && !owner.getBodyMaterial().getPartDescriptors().isEmpty()) {
+			list.add(Util.randomItemFrom(owner.getBodyMaterial().getPartDescriptors()));
+		}
+		
 		list.removeIf(d->d.isEmpty());
 		if(list.isEmpty()) {
 			return "";

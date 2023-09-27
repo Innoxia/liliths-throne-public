@@ -4,7 +4,6 @@
 	<name><![CDATA[tables]]></name>
 	<tooltipDescription><![CDATA[Taking up most of the floor space in 'Lights Out', numerous metal tables are where most of the bar's patrons choose to sit and drink.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[at one of the tables within 'Lights Out']]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_BLACK</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

@@ -55,7 +55,7 @@ public class BountyHunterLodge {
 			
 			if(!KaysWarehouse.isPlayerMouthFree()) {
 				return new Response(title,
-						"As you cannot gain access to your mouth, you cannot offer to perform oral on the dobermanns...",
+						"As you cannot gain access to your mouth, you cannot offer to perform oral on the dobermann-boys...",
 						null);
 				
 			} else {
@@ -64,7 +64,7 @@ public class BountyHunterLodge {
 						SexSlotSitting.SITTING, SexAreaPenetration.FINGER,
 						SexSlotSitting.PERFORMING_ORAL,
 						title,
-						"Offer to suck the dobermanns' cocks...",
+						"Offer to suck the dobermann-boys' cocks...",
 						DOBERMANNS_AFTER_SEX,
 						UtilText.parseFromXMLFile("places/dominion/slaverAlley/bountyHunterLodge", "DOBERMANNS_SEX_OFFER_ORAL"));
 			}
@@ -74,12 +74,12 @@ public class BountyHunterLodge {
 			
 			if(!KaysWarehouse.isPlayerMouthFree()) {
 				return new Response(title,
-						"As you cannot gain access to your mouth, you cannot offer to be spit-roasted by the dobermanns...",
+						"As you cannot gain access to your mouth, you cannot offer to be spit-roasted by the dobermann-boys...",
 						null);
 				
 			} else if(!KaysWarehouse.isPlayerAssFree() && !KaysWarehouse.isPlayerVaginaFree()) {
 				return new Response(title,
-						"As you cannot gain access to your ass"+(Main.game.getPlayer().hasVagina()?" or pussy":"")+", you cannot offer to be spit-roasted by the dobermanns...",
+						"As you cannot gain access to your ass"+(Main.game.getPlayer().hasVagina()?" or pussy":"")+", you cannot offer to be spit-roasted by the dobermann-boys...",
 						null);
 				
 			} else {
@@ -88,7 +88,7 @@ public class BountyHunterLodge {
 						SexSlotAllFours.IN_FRONT, SexAreaOrifice.MOUTH,
 						SexSlotAllFours.ALL_FOURS,
 						title,
-						"Offer to let the two dobermanns spit-roast you...",
+						"Offer to let the two dobermann-boys spit-roast you...",
 						DOBERMANNS_AFTER_SEX,
 						UtilText.parseFromXMLFile("places/dominion/slaverAlley/bountyHunterLodge", "DOBERMANNS_SEX_OFFER_SPITROAST"));
 			}
@@ -98,7 +98,7 @@ public class BountyHunterLodge {
 			
 			if(!KaysWarehouse.isPlayerAssFree() && !KaysWarehouse.isPlayerVaginaFree()) {
 				return new Response(title,
-						"As you cannot gain access to your ass"+(Main.game.getPlayer().hasVagina()?" or pussy":"")+", you cannot offer to ride the dobermanns...",
+						"As you cannot gain access to your ass"+(Main.game.getPlayer().hasVagina()?" or pussy":"")+", you cannot offer to ride the dobermann-boys...",
 						null);
 				
 			} else {
@@ -107,7 +107,7 @@ public class BountyHunterLodge {
 						SexSlotLyingDown.MISSIONARY, KaysWarehouse.isPlayerAssFree()?SexAreaOrifice.ANUS:SexAreaOrifice.VAGINA,
 						SexSlotLyingDown.COWGIRL,
 						title,
-						"Offer to give the two dobermanns a ride...",
+						"Offer to give the two dobermann-boys a ride...",
 						DOBERMANNS_AFTER_SEX,
 						UtilText.parseFromXMLFile("places/dominion/slaverAlley/bountyHunterLodge", "DOBERMANNS_SEX_OFFER_RIDE"));
 			}
@@ -118,8 +118,8 @@ public class BountyHunterLodge {
 			if(!KaysWarehouse.isPlayerNippleFuckFree()) {
 				return new Response(title,
 						Main.game.getPlayer().isBreastFuckableNipplePenetration()
-							?"As you cannot gain access to your fuckable nipples, you cannot offer them to the dobermanns..."
-							:"As you do not have fuckable nipples, you cannot offer them to the dobermanns...",
+							?"As you cannot gain access to your fuckable nipples, you cannot offer them to the dobermann-boys..."
+							:"As you do not have fuckable nipples, you cannot offer them to the dobermann-boys...",
 						null);
 				
 			} else {
@@ -128,7 +128,7 @@ public class BountyHunterLodge {
 						SexSlotStanding.STANDING_DOMINANT_TWO, SexAreaOrifice.NIPPLE,
 						SexSlotStanding.PERFORMING_ORAL,
 						title,
-						"Offer to let the two dobermanns fuck your nipples...",
+						"Offer to let the two dobermann-boys fuck your nipples...",
 						DOBERMANNS_AFTER_SEX,
 						UtilText.parseFromXMLFile("places/dominion/slaverAlley/bountyHunterLodge", "DOBERMANNS_SEX_OFFER_NIPPLES"));
 			}
@@ -206,11 +206,11 @@ public class BountyHunterLodge {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				if(!KaysWarehouse.isSexAvailable()) {
-					return new Response("Seduce", "As you're unable to access any of your orifices, you're unable to seduce the dobermanns...", null);
+					return new Response("Seduce", "As you're unable to access any of your orifices, you're unable to seduce the dobermann-boys...", null);
 				}
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.dobermannDefeatSeduced) || Main.game.getNpc(SupplierLeader.class).getSexCount(Main.game.getPlayer()).getTotalTimesHadSex()>0) {
 					return new Response("Seduce",
-							"Offer to let the dobermanns fuck you again..."
+							"Offer to let the dobermann-boys fuck you again..."
 								+ "<br/>"
 								+ (Main.game.getPlayer().hasFetish(Fetish.FETISH_DOMINANT)
 										?"[style.italicsSexDom(As you)]"
@@ -232,7 +232,7 @@ public class BountyHunterLodge {
 					
 				} else {
 					return new Response("Seduce",
-							"Seduce the dobermanns and have sex with them..."
+							"Seduce the dobermann-boys and have sex with them..."
 									+ "<br/>"
 									+ (Main.game.getPlayer().hasFetish(Fetish.FETISH_DOMINANT)
 											?"[style.italicsSexDom(As you)]"

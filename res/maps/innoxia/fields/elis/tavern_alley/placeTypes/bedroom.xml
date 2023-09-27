@@ -4,7 +4,6 @@
 	<name><![CDATA[Oglix's bedroom]]></name>
 	<tooltipDescription><![CDATA[Behind two locked doors, Oglix's surprisingly-girly bedroom can be found.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in Oglix's bedroom]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<svgName>bedroom</svgName>
 	<colour>BASE_PINK</colour>

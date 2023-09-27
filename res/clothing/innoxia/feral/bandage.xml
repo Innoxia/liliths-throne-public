@@ -12,13 +12,14 @@
     <femininity>ANDROGYNOUS</femininity>
     <slot>TAIL</slot>
     <rarity>EPIC</rarity>
-	<clothingSet>innoxia_submissive_steed</clothingSet>
+	<clothingSet>innoxia_sturdy_steed</clothingSet>
     <imageName>bandage.svg</imageName>
     <imageEquippedName>bandage_equipped.svg</imageEquippedName>
 
 	
 	<effects>
-		<effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="TF_MOD_FETISH_BEHAVIOUR" secondaryModifier="TF_MOD_FETISH_EXHIBITIONIST" timer="0"/>
+		<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="HEALTH_MAXIMUM" timer="0"/>
+		<effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="HEALTH_MAXIMUM" timer="0"/>
 	</effects>
 
     <blockedPartsList>

@@ -4,7 +4,6 @@
 	<name><![CDATA[Minotallys fountain]]></name>
 	<tooltipDescription><![CDATA[Dual streams of water spurt out from the exposed nipples of this statue of the town's mayor, Minotallys.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[beside the Minotallys fountain in the 'Wall's End' shopping precinct]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_BLUE_LIGHT</colour>
 	<backgroundColour>MAP_BACKGROUND_GREEN</backgroundColour>

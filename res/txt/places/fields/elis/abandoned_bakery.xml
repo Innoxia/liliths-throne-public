@@ -1,0 +1,848 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- ########## ENFORCER MISSION DIALOGUES: ########## -->
+
+	<htmlContent tag="MISSION_START"><![CDATA[
+	<p>
+		[pc.Stepping] out of the room, you and Ghost follow Hammer as he unlocks a door on your right and leads you into another corridor. A second door is unlocked, and then the three of you are standing outside in a narrow alley behind the Enforcer station.
+	</p>
+	<p>
+		[hammer.speech(It's quicker to get to the hideout this way,)] Hammer states as he removes a padlock from a barbed-wire gate at the end of the alley. Locking it behind you, he adds, [hammer.speech(We won't be seen by as many of the gang's lookouts by going this way as well.)]
+	</p>
+	<p>
+		Although the alleyways which you subsequently find yourself travelling through appear to be deserted at first glance, you soon spot a couple of shady-looking figures keeping watch from the shadows. Holding Hammer's hand and leaning into him to make it appear as though the two of them are a couple, Ghost lets out a surprisingly youthful giggle and teases her partner, [ghost.speech(Looking forward to having some fun tonight?)]
+	</p>
+	<p>
+		Hammer pulls his cap down further over his eyes and lets out a deep grunt. The lookouts seem to have been fooled by the show Ghost has put on, for the three of you arrive at the Enforcer's hideout without causing any alarm to be raised.
+	</p>
+	<p>
+		Their hideout takes the form of a derelict building, and the Enforcers have led you to a rotten, graffiti-covered door situated to its rear. Following the two of them inside, you see that the staircase has collapsed and several large holes have been smashed in the walls. Revealing why this building was chosen as their hideout, Ghost states, [ghost.speech(The gang's HQ is across the street from this building. We've been observing them from here for a few weeks now; take a look through that hole over there. Oh, and stay away from the windows.)]
+	</p>
+	<p>
+		Peeking through the hole which Ghost has pointed out, you find yourself looking out onto an unusually wide alleyway. Directly opposite from where you're positioned, you can quite clearly see the entire frontage of an old, abandoned bakery. A couple of tall, muscular figures are lighting up a couple of cigarettes outside the entrance. At first you assume that they're horse-boys, but as the orange glow from their lighter catches in their red and orange eyes, you realise that they're half-horse, half-demon nightmares. As they talk, one of them pumps his hips and makes some kind of joke, to which the other laughs and gives his companion a high-five. With their cigarettes still lit, they open the bakery's front door and disappear into the building.
+	</p>
+	<p>
+		Hammer nods as you report what you've just seen, before saying, [hammer.speech(It's too early for Angelixx to show up yet; she usually doesn't make an appearance until around midnight. Those nightmares always arrive an hour or two before she does, though, so perhaps she'll be early tonight. We'd better get geared up right away.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MISSION_START_GEARED_UP"><![CDATA[
+	<p>
+		Pulling up a couple of loose floorboards in one corner of the room, Hammer lifts out a couple of large, black duffel bags. He and Ghost then quickly strip out of their civilian clothing, before pulling Enforcer gear out of the bags and putting it on.
+	</p>
+	<p>
+		[ghost.speech(I'd rather be wearing trainers than these,)] Ghost complains as she pulls on a pair of sturdy-looking boots. As she does up the laces, she adds, [ghost.speech(They make my heels ache and it's hard for me to move silently in them...)]
+	</p>
+	<p>
+		[hammer.speech(I don't recall you complaining about them when they saved your feet from those caltrops a couple of months back,)] Hammer grunts as he pulls on a heavy plate carrier and sets about doing up the straps.
+	</p>
+	<p>
+		A couple of minutes later and the two Enforcers are fully kitted out in military-style gear. Ghost's setup look to be a little lighter than Hammer's, but they're both wearing boots, trousers, battle belts, and plate carriers. Fixing a dagger to one side of her belt, Ghost attaches a holster to the other, before sliding an old, worn-looking revolver into it. Hammer's choice of weaponry is a little less subtle, as he lifts a huge, 4-gauge shotgun from out of the space beneath the floorboards.
+	</p>
+	<p>
+		[hammer.speech(Now we wait for the succubus to show up,)] Hammer states, before sitting on an upturned metal bucket and saying to you, [hammer.speech(Got any questions while we wait?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MISSION_START_TALK_WEAPONS"><![CDATA[
+	<p>
+		Looking at the shotgun that Hammer has leant up against the wall beside him, you ask him if that's his normal choice of weapon.
+	</p>
+	<p>
+		[hammer.speech(Only on ops like this, where we can't risk being recognised,)] Hammer replies, [hammer.speech(This thing's a bit of relic; they were phased out of Enforcer service in the late eighties. They fire tear gas grenades, which are good enough, but the modern pepper grenade launcher is far more effective. See this marking on the side?)]
+	</p>
+	<p>
+		You take a closer look at the side of the shotgun as Hammer holds it towards you. The Enforcer's five-pointed star symbol has been scratched out, and beside it a striking arrow within a circle has been carved into the metal.
+	</p>
+	<p>
+		[hammer.speech(That's one of the symbols the HLF used,)] the wolf-boy reveals, [hammer.speech(The 'Human Liberation Front' got their hands on a lot of Enforcer gear back in the Fifth Human Rebellion. This one was used against us until the owner's jaw felt my fist. It went 'missing' from the evidence room many years ago, so it can't be traced back to us.)]
+	</p>
+	<p>
+		[ghost.speech(I prefer a more subtle approach,)] Ghost says as she unsheathes her dagger and shows off its wicked, poison-enchanted ethereal blade. Patting the revolver at her hip, she adds, [ghost.speech(When I can't get up close and personal, this does the trick. Like Hammer's shotgun, this was in the hands of the HLF; I picked it up off a particularly stubborn human on Green Grass Hill...)]
+	</p>
+	<p>
+		[hammer.speech(We never recovered even half of the weapons that the HLF had,)] Hammer says, [hammer.speech(Thousands are thought to be in the hands of gangs all across the realm, so us using them tonight won't identify us as Enforcers.)]
+	</p>
+	<p>
+		You point out that their weapons might not, but they're wearing what's clearly Enforcer gear. Surely that'll be enough to identify them to the gang members.
+	</p>
+	<p>
+		[ghost.speech(All the serious gangs are wearing SWORD gear,)] Ghost replies with a weary smirk on her face. [ghost.speech(Too many Enforcer quartermasters over the years have become very wealthy while marking down an abnormally high amount of equipment as being 'destroyed in the line of duty'. The gang we're going to be dealing with tonight will think that we're a serious rival operation from Dominion.)]
+	</p>
+	#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_WES, QUEST_WES_3_WES))
+		[hammer.speech(I heard some fox in 1st Battalion put a stop to that in Dominion. Was a local boy from around here too. Good on him,)] Hammer says. Recognising the fact that he's talking about Wes, you tell the Enforcers that you helped the fox-boy he's talking about. Hammer gives an approving nod in response, before grunting, [hammer.seepch(Good to hear that there's still at least one guy who's doing something about the corruption in Dominion.)]
+	#ENDIF
+	<p>
+		Thinking that it must be challenging to come up against gangs who have the same kit as them, you ask the Enforcers if the proliferation of SWORD equipment to gangs makes their job a lot harder.
+	</p>
+	<p>
+		[hammer.speech(Hardware is one thing, training and experience are another,)] Hammer replies, [hammer.speech(Besides, the vast majority of gangs are motivated by money, which doesn't make them fight as hard as you might think.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MISSION_START_TALK_GANG"><![CDATA[
+	<p>
+		Thinking that it would be best to know what you're likely to come up against once inside, you ask the Enforcers what to expect from the gang in terms of combat capabilities.
+	</p>
+	<p>
+		[ghost.speech(They're just a bunch of amateurs,)] Ghost dismissively states, [ghost.speech(The only ones who might be more than that are those two nightmare you saw earlier, as well as Angelixx herself.)]
+	</p>
+	<p>
+		[hammer.speech(The succubus is meant to be a coward, though,)] Hammer says, [hammer.speech(and those two bodyguards of hers aren't anything to be concerned about.)]
+	</p>
+	<p>
+		[ghost.speech(True, there shouldn't be any difficulty,)] Ghost says, before turning to smile at you and say, [ghost.speech(Remember, you're not here to fight, you're here to get Lovienne off our backs if we're recognised. Leave the violence to us.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MISSION_START_TALK_SUCCUBUS"><![CDATA[
+	<p>
+		Wanting to know how they plan on dealing with Angelixx, you ask the two Enforcers what their plan is for when you encounter the succubus.
+	</p>
+	<p>
+		[hammer.speech(I'll shoot her,)] Hammer grunts, giving his mean-looking shotgun a pat as he does so. [hammer.speech(If that isn't enough, then I'll show her some SWORD close combat techniques.)]
+	</p>
+	<p>
+		[ghost.speech(Leave the close combat to me,)] Ghost says with a sly smile on her face, before replying to your initial question, [ghost.speech(Angelixx won't be an issue; even if she turns out to not be a complete coward, we've taken down hundreds of demons before. She won't be an issue.)]
+	</p>
+	<p>
+		[hammer.speech(Just don't let her talk too much,)] Hammer grunts, [hammer.speech(If she can't fight, she's bound to have some tricks up her sleeve. I'd wager that she's using telepathy or some other kind of arcane spell to control her gang. Don't let her get into your head.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MISSION_START_TALK_BACKUP"><![CDATA[
+	<p>
+		Wondering if the three of you are going to be enough to handle an entire gang, you ask Hammer and Ghost if they're going to call for the other SWORD Enforcers as soon as they start the operation.
+	</p>
+	<p>
+		[hammer.speech(I'll call for them if they're needed, not before,)] Hammer replies, [hammer.speech(The two of us will be more than enough to deal with a bunch of amateurs.)]
+	</p>
+	<p>
+		[ghost.speech(It's probably for the best that the gang's increased vigilance forced us into leaving most of the squad behind,)] Ghost adds, [ghost.speech(If we were to start the op with everyone present then Angelixx might get spooked and teleport away before we get a chance to deal with her.)]
+	</p>
+	<p>
+		[hammer.speech(Good point,)] Hammer grunts, before holding up a small, dark-purple orb for you to see and explaining, [hammer.speech(If the gang turns out to be more competent than we're expecting then I'll activate this resonance stone. Its counterpart is back at the Enforcer station, and if it's activated then the rest of the squad will be here within a couple of minutes.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MISSION_START_TALK_HISTORY"><![CDATA[
+	<p>
+		Curious to find out what it's like to be a member of SWORD, you ask Hammer and Ghost what sort of duties they're expected to perform.
+	</p>
+	<p>
+		[hammer.speech(The small-time criminals are for the Patrol officers, which leaves all the big boys and girls for us in SWORD to deal with,)] Hammer says, [hammer.speech(We go after organised crime, serious gangs, and criminals who are simply too dangerous or strong for the Patrol guys and gals to deal with.)]
+	</p>
+	<p>
+		[ghost.speech(We're not just the muscle; we do a lot of the investigative work as well,)] Ghost adds, [ghost.speech(Of course, ORICL often has targets which we need to deal with, but most of the time we're gathering our own intelligence to act upon.)]
+	</p>
+	<p>
+		Wondering how often they go out on missions like this one, you ask the two Enforcers if they're behind a desk more often than not.
+	</p>
+	<p>
+		[ghost.speech(Well, we do carry out a lot of ops, but most of our time is in the office or out on the streets gathering intel or pursuing different leads,)] Ghost replies, [ghost.speech(Our unit leans more into carrying out ops like this one, although I guess tonight's a special one; we normally number at least eight and use modern SWORD gear. Other units are more focused on solving serious crime, and others are bit too close to ORICL for comfort...)]
+	</p>
+	<p>
+		[hammer.speech(Snatching people off the streets for saying something bad about Lilith isn't what I signed up for,)] Hammer grunts, [hammer.speech(ORICL should do their own dirty work...)]
+	</p>
+	<p>
+		[ghost.speech(Our unit's all on the same page on that one,)] Ghost says, before taking another look through the hole in the wall and sighing, [hammer.speech(No sign of Angelixx yet...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MISSION_START_WAIT"><![CDATA[
+	<p>
+		You get as comfortable as the derelict building will allow and wait for the operation to start. Hammer and Ghost take turns at the hole in the wall, keeping watch for any sign of the succubus, Angelixx. Although the three of you make some occassional small talk, nothing much is said for the rest of the evening.
+	</p>
+	<p>
+		[hammer.speech(It's almost midnight,)] Hammer eventually grunts after taking a look at his watch. Tutting to himself, he grumbles, [hammer.speech(Angelixx is normally here by now... Maybe she called off the meeting tonight?)]
+	</p>
+	<p>
+		[ghost.speech(No, the usual number of gang members have shown up,)] Ghost says from her position at the hole in the wall, before suddenly hissing, [ghost.speech(Shit! She's already inside! I just saw her through the bedroom window!)]
+	</p>
+	<p>
+		[hammer.speech(Fuck, she must have gone in through the back,)] Hammer grunts as he leaps to his feet, [hammer.speech(Every other time she's used the front door. Of course she'd choose this night to change her habits...)]
+	</p>
+	<p>
+		Pulling on their balaclavas and strapping their ballistic helmets into place, Ghost and Hammer quickly check their weapons and turn to face you.
+	</p>
+	<p>
+		[hammer.speech(I'm going in through the front, Ghost'll take the back. Which one of us do you want to stick with?)] Hammer asks as he picks up a sledgehammer which had been resting against the wall.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MISSION_START_HAMMER"><![CDATA[
+	<p>
+		Thinking that it would be safer to be with the large wolf-boy and his fearsome-looking shotgun, you tell Hammer that you'll go with him. Giving you a brief nod, he opens the door and rushes across the street, while Ghost slips off down an alleyway to the side of the bakery.
+	</p>
+	<p>
+		[hammer.speech(Stand back,)] the wolf-boy grunts as the two of you come to a halt beside the bakery's front door. Giving the wolf-boy some space, you watch as he lifts his sledgehammer and swings it at a point just beside the door's handle. The heavy mass of metal turns a huge chunk of weathered wood into a shower of splinters. The force of the blow completely shatters the lock and slams the door wide open in the process.
+	</p>
+	<p>
+		Having served its purpose, the wolf-boy tosses his sledgehammer aside and lifts up his shotgun. Giving you the briefest of nods, he rushes into the building...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MISSION_START_GHOST"><![CDATA[
+	<p>
+		Thinking that it would be better to rely on Ghost and her combination of wicked-looking dagger and revolver, you tell the otter-girl that you'll go with her. Giving you a brief nod, Hammer opens the door and rushes across the street to the bakery's front door, while Ghost motions for you to follow her and slips off down an alleyway to one side of the building.
+	</p>
+	<p>
+		[hammer.speech(Stay quiet,)] the otter-girl whispers as you catch up with her. Doing your best to move stealthily, you follow Ghost as she sneaks through the shadows and around the corner to the rear of the bakery. Just as with the front of the building, the gang has neglected to post a sentry, and so Ghost is able to get to the back door without issue. Producing a lockpick, she has the door open in seconds, and uses a hand signal to gesture for you to follow her inside.
+	</p>
+	<p>
+		Sliding her dagger out of its sheath, the otter-girl silently slips into the shadowy interior...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MISSION_COMBAT_WON"><![CDATA[
+	<p>
+		The gang members collapse to the floor, utterly defeated.
+		#IF(flags.hasFlag(FLAG_innoxia_hammer_following))
+			 Quickly stepping forwards, Hammer kicks their weapons away, and with another couple of kicks he makes sure that they're not getting up any time soon. Turning to look at you, he grunts, [hammer.speech(They'd do the same to us. Come on, we need to keep moving.)]
+		#ELSE
+			 Quickly darting forwards, Ghost kicks their weapons away, and with a couple of swift stabs with her arcane dagger she makes sure that they're well and truly drained of energy. Turning to look at you, she smirks and says, [ghost.speech(It's better than they deserve. Come on, we need to keep moving.)]
+		#ENDIF
+	</p>
+	<p>
+		Knowing that you need to find and beat Angelixx as quickly as possible, you do as
+		#IF(flags.hasFlag(FLAG_innoxia_hammer_following))
+			 Hammer says and follow him
+			#IF(flags.hasFlag(FLAG_innoxia_ghost_following))
+				 and Ghost
+			#ENDIF
+			 further into the building...
+		#ELSE
+			 Ghost says and follow her further into the building...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MISSION_COMBAT_LOST"><![CDATA[
+	<p>
+		You can't bring yourself to fight any more and back away from the conflict.
+		#IF(flags.hasFlag(FLAG_innoxia_hammer_following))
+			 Thankfully, Hammer is more than enough to defeat the gang members, and after a couple of rounds from his shotgun his opponents have collapsed to the floor.
+		#ELSE
+			 Thankfully, Ghost is more than enough to defeat the gang members, and after a couple of rounds from her revolver her opponents have collapsed to the floor.
+		#ENDIF
+		#IF(flags.hasFlag(FLAG_innoxia_hammer_following))
+			 Quickly stepping forwards, the wolf-boy kicks their weapons away, and with another couple of kicks he makes sure that they're not getting up any time soon. Turning to look at you, he grunts, [hammer.speech(They'd do the same to us. Come on, we need to keep moving.)]
+		#ELSE
+			 Quickly darting forwards, the otter-girl kicks their weapons away, and with a couple of swift stabs with her arcane dagger she makes sure that they're well and truly drained of energy. Turning to look at you, she smirks and says, [ghost.speech(It's better than they deserve. Come on, we need to keep moving.)]
+		#ENDIF
+	</p>
+	<p>
+		Knowing that you need to find and beat Angelixx as quickly as possible, you do as
+		#IF(flags.hasFlag(FLAG_innoxia_hammer_following))
+			 Hammer says and follow him
+			#IF(flags.hasFlag(FLAG_innoxia_ghost_following))
+				 and Ghost
+			#ENDIF
+			 further into the building...
+		#ELSE
+			 Ghost says and follow her further into the building...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!--! ########## PLACE TYPE DIALOGUES: ########## -->
+
+	<!-- ELIS DIALOGUE: -->
+
+	<htmlContent tag="EXTERIOR"><![CDATA[
+	<p>
+		Turning a corner in the alleyways, you find yourself standing before the abandoned bakery which served as the headquarters for Angelixx's gang. The front door, having been destroyed by Hammer at the start of their raid, has been replaced by several sheets of plywood held together by rusty nails and old planks of wood. Although someone has taken the trouble to put up this makeshift barrier, the building looks to be completely deserted.
+	</p>
+	<p>
+		Knowing that it would be far more trouble than it's worth to try and gain entry to the abandoned bakery, you [pc.walk] past the building and continue on your way through the alleyways of Elis...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- GROUND FLOOR DIALOGUE: -->
+	
+	<htmlContent tag="BACK_DOOR"><![CDATA[
+	#IF(!flags.hasFlag(FLAG_innoxia_sword_mission_back_door) && !flags.hasFlag(FLAG_innoxia_hammer_following))
+		<p>
+			Following Ghost into the building, you find yourself entering a small, dimly-lit pantry. The food and drink which were once stored in here are long gone, and in their place old, empty cans and ruined bags of flour are strewn across the shelves. What grabs your attention the most, however, is a massive, hulking alligator-boy. Thankfully his back is towards you, and so he hasn't seen you or Ghost.
+		</p>
+		<p>
+			[ghost.speech(Stay here,)] the small otter-girl whispers in your ear. Deciding to do as she says, you remain stationary and watch as the comparatively tiny Enforcer sneaks up on the gang member. With a nimble leap that you didn't think possible for a woman of her age, Ghost jumps up onto the guard's back, hooking her left arm around his neck and slamming his lower jaw upwards so as to prevent him from crying out. With the poison-bladed dagger in her right paw, she repeatedly drives it deep into her target, first into his throat, and then into his chest. The sudden, overwhelming violence of Ghost's attack completely overwhelms the massive alligator-boy, and he crumples to the ground with a heavy thud. Luckily for him, Ghost's blade is arcane in nature, and so you see that he's still breathing, although imagine that he isn't likely to regain consciousness any time soon after being struck so many times.
+		</p>
+		<p>
+			Nimbly jumping off the gang member's back as he falls to the floor, Ghost motions for you to catch up as she slips into the kitchen...
+		</p>
+	#ELSE
+		<p>
+			You find yourself standing in the small, dimly-lit pantry that's situated behind the bakery's kitchen. The food and drink which were once stored in here are long gone, and in their place old, empty cans and ruined bags of flour are strewn across the shelves. The back door which
+			#IF(flags.hasFlag(FLAG_innoxia_sword_mission_chose_hammer))
+				 Ghost
+			#ELSE
+				 you and Ghost
+			#ENDIF
+			 used to enter the bakery is found here.
+		</p>
+		<p>
+			Slumped down on the floor on one side of the room is a huge, muscular alligator-boy. Having been on the receiving end of Ghost's dagger, he;'s not likely to be getting up any time soon.
+		</p>
+		<p>
+			[ghost.speech(Come on, we need to go the other way,)] Ghost hisses, before turning to return to the kitchen...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KITCHEN"><![CDATA[
+	#IF(!flags.hasFlag(FLAG_innoxia_sword_mission_kitchen) && !flags.hasFlag(FLAG_innoxia_hammer_following))
+		<p>
+			Following Ghost into the kitchen, you see more signs that this bakery has been out of commission for some time. The large ovens which must have once baked hundreds of loaves of bread a day are covered with cobwebs and a thick layer of dust. All of the metal bread racks and other pieces of kitchen furniture have been piled up in the middle of the long room, effectively creating an impassable barrier that splits the area in two.
+		</p>
+		<p>
+			What draws your attention the most, however, is the pair of gang members who are standing a short way in front of you. This encounter isn't going to be as straightforward as the last one, for both of them have seen you and Ghost enter the kitchen.
+		</p>
+		<p>
+			[gangMember1.speech(Where did you come from?!)] the [gangMember1.raceFull(true)] demands.
+		</p>
+		<p>
+			[gangMember2.speech(What did you do to Jaws? You're going to fucking pay!)] the [gangMember2.raceFull(true)] standing next to [gangMember1.herHim] shouts.
+		</p>
+		<p>
+			[ghost.speech(Leave this to me,)] Ghost says to you, [ghost.speech(they won't take me long...)]
+		</p>
+	#ELSEIF(flags.hasFlag(FLAG_innoxia_hammer_following) && !flags.hasFlag(FLAG_innoxia_ghost_following))
+		<p>
+			Following Hammer through the door, you find yourself entering the bakery's kitchen, where you see more signs that this business has been out of commission for some time. The large ovens which must have once baked hundreds of loaves of bread a day are covered with cobwebs and a thick layer of dust. All of the metal bread racks and other pieces of kitchen furniture have been removed, leaving this area looking very empty.
+		</p>
+		<p>
+			As you look around the room, you see the familiar figure of Ghost standing beside one of the ovens. A couple of gang members are collapsed down, unconscious, at her feet, and as she turns to face you she reveals, [ghost.speech(I didn't expect you here yet. I've only just finished with these two.)]
+		</p>
+		<p>
+			[hammer.speech(You used to be a lot quicker,)] Hammer grunts as he quickly steps over to his partner.
+		</p>
+		<p>
+			[ghost.speech(Being quick isn't always a good thing,)] Ghost replies, and you can tell that she's smirking beneath her balaclava. She lowers her voice as Hammer approaches her, but not enough to prevent you from overhearing her tease, [ghost.speech(My place later, just like old times.)]
+		</p>
+		<p>
+			Letting out a deep, rumbling growl, Hammer motions for you to follow as he moves in front of Ghost to take the lead...
+		</p>
+	#ELSE
+		<p>
+			You find yourself moving through the bakery's kitchen, where you see more signs that this business has been out of commission for some time. The large ovens which must have once baked hundreds of loaves of bread a day are covered with cobwebs and a thick layer of dust.
+			#IF(flags.hasFlag(FLAG_innoxia_sword_mission_chose_hammer))
+				 All of the metal bread racks and other pieces of kitchen furniture have been removed, leaving this area looking very empty.
+			#ELSE
+				 All of the metal bread racks and other pieces of kitchen furniture have been piled up in the middle of the long room, effectively creating an impassable barrier that splits the area in two.
+			#ENDIF
+		</p>
+		<p>
+			[ghost.speech(Come on, let's keep moving,)] Ghost hisses to you while nimbly moving forwards...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KITCHEN_NO_FIGHT"><![CDATA[
+	<p>
+		Deciding to do as Ghost says, you move back to give her some space as she prepares to fight the two gang members.
+	</p>
+	<p>
+		[gangMember1.speech(Hah! You think you can beat us alone? You're so small an imp coul-)] the [gangMember1.name] starts to taunt, but [gangMember1.sheIs] silenced by three shots fired in quick succession from Ghost's revolver. The gelatin capsules burst in contact with [gangMember1.her] aura, splattering [gangMember1.herHim] with burning, stinging oil.
+	</p>
+	<p>
+		The [gangMember2.name] manages to leap to one side and narrowly dodge two of the next three shots which Ghost fires at [gangMember2.herHim]. Although the single shot which connects with [gangMember2.her] aura isn't enough to down [gangMember2.herHim], Ghost rushes forwards with unexpected speed and plunges her dagger into [gangMember2.her] side. Nimbly darting between the two gang members, the small otter-girl stabs each of them dozens of times, before rolling to one side and raising her revolver to shoot them again.
+	</p>
+	<p>
+		No more shots ring out, however, as Ghost's two opponents collapse to the ground and lose consciousness. After checking her firearm and dagger to make sure that they've suffered no damage during the fight, the otter-girl smiles at you and, careful to avoid using Hammer's name, says, [ghost.speech(Let's get moving; we'll link up with our partner and finish clearing this level.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BARRICADE"><![CDATA[
+	<p>
+		Dozens of bread racks and other pieces of kitchen furniture have been wheeled to this location and jammed on top of one another to create an impassable barricade.
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_hammer_following))
+			[hammer.speech(I could tear this down, but it would take too much time,)] Hammer growls, [hammer.speech(Let's find another way around.)]
+		#ELSE
+			[ghost.speech(We could tear this down, but it would take too much time,)] Ghost muses out loud, before turning to face you and saying, [ghost.speech(Let's find another way around.)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOOR"><![CDATA[
+	<p>
+		The wide, double-hinged door before you separates the bakery's kitchens and its shop floor.
+		#IF(flags.hasFlag(FLAG_innoxia_hammer_following))
+			#IF(flags.hasFlag(FLAG_innoxia_ghost_following))
+				 Hammer and Ghost quickly stack up next to this door without saying a word, before preparing to push it open and clear whatever might be waiting on the other side...
+			#ELSE
+				 Hammer quickly moves up next to this door without saying a word, before preparing to push it open and clear whatever might be waiting on the other side...
+			#ENDIF
+		#ELSE
+			 Ghost quickly moves up next to this door without saying a word, before preparing to push it open and clear whatever might be waiting on the other side...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SHOP_FLOOR"><![CDATA[
+	#IF(!flags.hasFlag(FLAG_innoxia_sword_mission_shop_floor) && !flags.hasFlag(FLAG_innoxia_ghost_following))
+		<p>
+			Following Hammer into the building, you find yourself [pc.stepping] into the area which once served as the bakery's shop floor. The shelving units, tables, and chairs which were left here when the bakery was abandoned have either been pushed up against the far wall or used to smash the glass counter to pieces, leaving all of the floor area in this room clear of furniture.
+		</p>
+		<p>
+			Four startled-looking gang members are standing a short distance away, and upon catching sight of you and Hammer, they pull out their weapons and get ready for a fight. The nearest one, a rough-looking cat-boy, spits on the floor and confidently strides towards you, growling as he does so, [style.speechMasculine(You don't know who you're fucking with. You're gonna pay for thi-)]
+		</p>
+		<p>
+			His speech is quickly and brutally interrupted as Hammer darts forwards with surprising speed and uses the butt of his shotgun to deliver a crushing blow to the side of the cat-boy's head. The gang member instantly crumples to the floor in an unconscious daze. Upon seeing his comrade being dealt with in such a swift and violent manner, one of the remaining three gang members turns and runs away.
+		</p>
+		<p>
+			The other two, [gangMember1.a_raceFull(true)] and [gangMember2.a_raceFull(true)] stand their ground, with the first one shouting in anger, [gangMember1.speech(You'll fucking pay for that!)] 
+		</p>
+		<p>
+			A fight seems inevitable, and so you need to decide whether to assist Hammer or stand back and watch...
+		</p>
+	#ELSEIF(!flags.hasFlag(FLAG_innoxia_hammer_following))
+		#IF(game.getCharactersPresent().contains(hammer))
+			<p>
+				Moving quickly forwards, you and Ghost approach the one-eyed wolf-boy. Stepping over the two bodies at his feet, he grunts, [hammer.speech(Took your time. You used to be quicker.)]
+			</p>
+			<p>
+				[ghost.speech(Being quick isn't always a good thing,)] Ghost replies, and you can tell that she's smirking beneath her balaclava. She lowers her voice as she steps past Hammer, but not enough to prevent you from overhearing her tease, [ghost.speech(My place later, just like old times.)]
+			</p>
+			<p>
+				Letting out a deep, rumbling growl, Hammer motions for you to follow as he moves in front of Ghost to take the lead...
+			</p>
+		#ELSE
+			<p>
+				Following Ghost, you find yourself moving through the area which once served as the bakery's shop floor. The shelving units, tables, and chairs which were left here when the bakery was abandoned have either been pushed up against the far wall or used to smash the glass counter to pieces, leaving all of the floor area in this room clear of furniture.
+			</p>
+			<p>
+				On the far side of this area, you see the familiar, grey-furred form of Hammer. Standing over the bodies of a couple of gang members, he motions for the two of you to hurry to his location.
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			You once again find yourself moving through the area which once served as the bakery's shop floor. The shelving units, tables, and chairs which were left here when the bakery was abandoned have either been pushed up against the far wall or used to smash the glass counter to pieces, leaving all of the floor area in this room clear of furniture.
+		</p>
+		<p>
+			A couple of defeated gang members are sprawled out, unconscious, on the floor of this area. Letting out a deep grunt, Hammer says, [hammer.speech(We need to keep moving...)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SHOP_FLOOR_NO_FIGHT"><![CDATA[
+	<p>
+		The Enforcers told you that they weren't expecting you to fight, and so you decide to sit this one out. [pc.Stepping] back, you watch as Hammer deals with these gang members.
+	</p>
+	<p>
+		Raising his shotgun, the wolf-boy fires off a round which hits [gangMember1.name] squarely in the chest. A cloud of choking tear gas instantly bursts forth from the projectile, engulfing both of his opponents. [gangMember2.Name] tries to rush through the poison cloud, but a powerful kick from the one-eyed wolf-boy sends [gangMember2.herHim] sprawling back into the noxious fumes.
+	</p>
+	<p>
+		[hammer.speech(I only fired one, so it'll clear in a moment,)] Hammer grunts at you while the two gang members fall to the floor in a fit of choking coughs and gasps. Within a few more seconds, the two of them have passed out, and after waiting for the fumes to fade away Hammer steps forwards and kicks their weapons to one side of the room.
+	</p>
+	<p>
+		[hammer.speech(Let's keep moving,)] the wolf-boy grunts at you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXIT"><![CDATA[
+	#IF(!flags.hasFlag(FLAG_innoxia_sword_mission_exit) && !flags.hasFlag(FLAG_innoxia_ghost_following))
+		<p>
+			[pc.Stepping] over the remains of the bakery's front door, you follow Hammer into the building. The area immediately beyond the front entrance is enclosed by an internal wall to form a small antechamber, preventing you from seeing into the majority of the building's interior. Although you can't see them, you can hear several voices shouting out in alarm from somewhere beyond the archway that's immediately in front of you.
+		</p>
+		<p>
+			[hammer.speech(Stick with me!)] Hammer growls as he rushes into what appears to be the bakery's shop floor...
+		</p>
+	#ELSE
+		<p>
+			You find yourself standing before the bakery's front entrance. This area is enclosed by an internal wall to form a small antechamber, preventing you from seeing into the majority of the building's interior. The front door has been well and truly destroyed by Hammer during his ingress, allowing you to see out into the alleyway beyond.
+		</p>
+		<p>
+			[hammer.speech(Come on, we don't have time for this!)] Hammer growls, motioning for you to return the way you came.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STAIRS"><![CDATA[
+	<p>
+		Before you stands a winding staircase that leads up to the next floor of the building. Taking a look back the way you came, Ghost states, [ghost.speech(We've covered all of this floor. The kidnapped refugees must be upstairs with Angelixx.)]
+	</p>
+	<p>
+		[hammer.speech(If they're still here, that is,)] Hammer growls in a frustrated tone, [hammer.speech(I'm starting to think that they might already have been teleported out of here...)]
+	</p>
+	<p>
+		[ghost.speech(Let's hope that's not the case,)] Ghost replies, [ghost.speech(If they're still here then they'll have to be upstairs. Along with that bitch of a succubus...)]
+	</p>
+	<p>
+		Hammer grunts in agreement, before motioning for you to follow him up the stairs...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STAIRS_UP"><![CDATA[
+	<p>
+		The three of you head up the stairs, and after sweeping around a 180-degree turn, you make it to the next floor without incident. At the top of the stairs you see a short corridor, dimly lit by flickering arcane lights, which leads to a half-open door. Although the centre of the corridor looks to be well-trodden, the edges of the carpet are caked in dust, letting you know that nobody's bothered cleaning this place for some time.
+	</p>
+	<p>
+		[hammer.speech(Our priority is to find Angelixx. Defeating her will cause the rest of the gang to scatter,)] Hammer growls as he sees the door ahead of you.
+	</p>
+	<p>
+		[ghost.speech(We should also check to see if we can find the kidnapped refugees,)] Ghost adds, before decisively saying, [ghost.speech(Let's get this over with.)]
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	<!-- FIRST FLOOR DIALOGUE: -->
+	
+	<htmlContent tag="STAIRS_TOP"><![CDATA[
+	<p>
+		You find yourself once again at the top of the stairs. From here a short corridor, dimly lit by flickering arcane lights, leads to a half-open door. Although the centre of the corridor looks to be well-trodden, the edges of the carpet are caked in dust, letting you know that nobody's bothered cleaning this place for some time.
+	</p>
+	<p>
+		[hammer.speech(There's nothing down there,)] Hammer growls, [hammer.speech(We need to find Angelixx as quickly as possible.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CORRIDOR"><![CDATA[
+	<p>
+		Flickering arcane lights dimly illuminate your way as you move forwards with Hammer and Ghost down the corridor. Although the centre of this passageway looks to be well-trodden, the edges of the carpet are caked in dust, letting you know that nobody's bothered cleaning this place for some time.
+	</p>
+	<p>
+		Knowing that Angelixx must be up here somewhere, Hammer and Ghost prepare to clear any rooms which you come across...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STORAGE"><![CDATA[
+	#IF(!flags.hasFlag(FLAG_innoxia_sword_mission_storage))
+		<p>
+			As you approach the half-open door which sits at the end of the corridor, Hammer and Ghost rush forwards to stack up on one side of it. Motioning for you to stay back, the otter-girl hisses, [ghost.speech(You don't need to fight. Leave this to us.)]
+		</p>
+		<p>
+			Making a hand signal to his partner, Hammer steps forwards and kicks the door wide open. Rushing inside with their weapons drawn, he and Ghost prepare to deal with any gang members who might be within. Seeing no harm in following the two of them into the room, you [pc.step] through the open doorway and take a quick look around.
+		</p>
+		<p>
+			This room, which once might have been a bedroom, has been converted into a storage space for the gang. Numerous crates, boxes, and barrels have been stacked up in here, and from the few containers which have been left open you're able to see that their contents range from wrapped food and bottles of drink to bags of clothing and other personal belongings which have no doubt been stolen. In the middle of the room, looking to have been dividing a pile of flames between themselves, are [gangMember1.a_raceFull(true)], [gangMember2.a_raceFull(true)], and [gangMember3.a_raceFull(true)].
+		</p>
+		<p>
+			[gangMember1.speech(What was all that noise downstairs? We could hear-)] the [gangMember1.race] starts to shout as the door swings open, before realising that [gangMember1.she] and [gangMember1.her] companions are under attack.
+		</p>
+		<p>
+			Without a word, Hammer lifts his shotgun and aims it at the three gang members, while Ghost points her revolver at them and prepares to fire. You have a split second in which to decide whether to help the Enforcers or to stand back and watch...
+		</p>
+	#ELSE
+		<p>
+			This room, which once might have been a bedroom, has been converted into a storage space for the gang. Numerous crates, boxes, and barrels have been stacked up in here, and from the few containers which have been left open you're able to see that their contents range from wrapped food and bottles of drink to bags of clothing and other personal belongings which have no doubt been stolen. The trio of gang members who you found in here are collapsed down on the floor, unconscious.
+		</p>
+		#IF(flags.hasFlag(FLAG_innoxia_sword_mission_searched_storage))
+			<p>
+				You've already taken the flames which the gang members were in the process of diving between themselves, and so there's nothing else to do in here.
+			</p>
+			<p>
+				[hammer.speech(Let's get out of here,)] Hammer grunts, [hammer.speech(We need to find Angelixx.)]
+			</p>
+		#ELSE
+			<p>
+				[ghost.speech(There's no time to search this place,)] Ghost hisses, before pointing at the pile of flames that the gang members were in the process of diving between themselves. Looking at you, she says, [ghost.speech(Might as well take the cash; it'd be a shame to leave it here for them to recover.)]
+			</p>
+			<p>
+				[hammer.speech(Be quick,)] Hammer grunts, [hammer.speech(We need to find Angelixx.)]
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STORAGE_NO_FIGHT"><![CDATA[
+	<p>
+		Deciding to leave the fighting to the professionals, you stop in the doorway and watch them get to work. The first to strike is Hammer, and with a loud bang and a brief flash from the end of his shotgun, he fires a tear gas canister right into the chest of [gangMember1.name]. The canister explodes into a small cloud of poisonous fumes, which causes all three of the gang members to cough and splutter as they attempt to rush forwards and attack.
+	</p>
+	<p>
+		Using the brief moment of chaos to line up her targets, Ghost empties the cylinder of her revolver in the space of just a few seconds, hitting each of the gang members twice. The gelatin capsules which her arcane firearm produces burst in contact with her targets' auras, splattering each of them with burning, stinging oil.
+	</p>
+	<p>
+		The combination of choking tear gas and stinging pepperball oil halts the gang members in their tracks. Reduced to stumbling, coughing wrecks, the gang members are no match for Ghost's dagger. Darting between the three of them with impressive speed, the small otter-girl stabs each of her targets multiple times, sending them crashing to the floor in an unconscious daze.
+	</p>
+	<p>
+		[hammer.speech(Good work,)] Hammer grunts.
+	</p>
+	<p>
+		[ghost.speech(Let's save it for after we've defeated Angelixx,)] the otter-girl replies in a cheeky, jovial tone, before pointing at the pile of flames that the gang members were in the process of diving between themselves. Looking at you, she says, [ghost.speech(Might as well take the cash; it'd be a shame to leave it here for them to recover.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STORAGE_SEARCH"><![CDATA[
+	<p>
+		Doing as Ghost suggests, you [pc.step] over to the crate which the gang members were using as a makeshift table. On its lid are three unequal piles of coins, which you merge into one larger stack before sliding the whole lot into your inventory.
+	</p>
+	<p>
+		[hammer.speech(Now let's get moving,)] Hammer says, before motioning towards the door and grunting, [hammer.speech(Angelixx is somewhere up here...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BATHROOM"><![CDATA[
+	<p>
+		Silently pushing open the door before you, Ghost reveals that the room beyond is a decently-sized bathroom. The walls are absolutely covered in graffiti, while the grimy floor tiles are smashed and cracked in several places. From the stains and debris which fill it, the bath looks like it hasn't been used or cleaned in at least a decade. While the toilet and wash hand basin do look to be kept in working order, they're not in much better shape than the bath.
+	</p>
+	#IF(!flags.hasFlag(FLAG_innoxia_sword_mission_bathroom))
+		#IF(game.isNonConEnabled())
+			<p>
+				On the far side of the room, [victim.a_raceFull(true)] is being pressed back against the wall by [gangMember1.a_raceFull(true)], who's slamming his fat donkey-cock deep into the woman's cum-stuffed cunt. Sturdy-looking chains connected to the ceiling and floor have been attached to the woman's wrist and ankle restraints, while a ball-gag has been fitted into her mouth to prevent her from making too much noise. From the anguished look in her eyes and the distressed, muffled noises she's making, it's immediately obvious that the woman is one of the kidnapped refugees, and that the donkey-boy is a gang member who's taking advantage of her while he's got the chance.
+			</p>
+			<p>
+				[gangMember1.speech(Angelixx is waiting for you... You're the last to go,)] the donkey-boy grunts as he slams his fat cock balls-deep in the woman's pussy. Holding her hips, his balls tense up and he groans as he orgasms, [gangMember1.speech(~Mmm!~ You're not as tight as Angelixx, but you can still milk me dry, you slut!)]
+			</p>
+			<p>
+				With a furious, icy glare in her [ghost.eyeColour] eyes, Ghost motions for you and Hammer to remain where you are, before darting forwards to save the woman...
+			</p>
+		#ELSE
+			<p>
+				On the far side of the room, [gangMember1.a_raceFull(true)] is standing with his back to you, his fat donkey-cock in one hand as he makes use of the toilet. Talking to himself, you overhear him say, [gangMember1.speech(Angelixx should be finished with teleporting the last of them by now... Maybe she'll let me fuck her tight cunt again before she goes...)]
+			</p>
+			<p>
+				With a dangerous-looking gleam in her [ghost.eyeColour] eyes, Ghost motions for you and Hammer to remain where you are, before darting forwards to take out this oblivious gang member...
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			Slumped down on one side of the bathroom, the donkey-boy is still well and truly out of it.
+			#IF(game.isNonConEnabled())
+				 Flashing him a furious glare, Ghost spits, [ghost.speech(Scum like him deserve far worse...)]
+			#ELSE
+				 Flashing him a cold glare, Ghost mutters, [ghost.speech(Lucky for you we didn't bring any enslavement collars...)]
+			#ENDIF
+		</p>
+		<p>
+			[hammer.speech(There's nothing more in here,)] Hammer says, before turning to leave and motioning for you and Ghost to follow...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BATHROOM_WAIT"><![CDATA[
+	#IF(game.isNonConEnabled())
+		<p>
+			Before you know it, Ghost has already silently crossed the bathroom, and as the donkey-boy fills his unwilling partner's womb with his cum, the otter-girl draws her dagger and lunges at his back. A startled gasp and a brief yelp later, and Ghost's target has been knocked unconscious by a dozen or so stabs from her arcane blade.
+		</p>
+		<p>
+			As the donkey-boy hits the floor, Hammer rushes forwards to help the woman. Making sure that the gang member is definitely unconscious, Ghost joins her parter in assisting the captive...
+		</p>
+	#ELSE
+		<p>
+			Before you know it, Ghost has already silently crossed the bathroom, and as the donkey-boy finishes urinating, the otter-girl draws her dagger and lunges at his back. A startled gasp and a brief yelp later, and Ghost's target has been knocked unconscious by a dozen or so stabs from her arcane blade.
+		</p>
+		<p>
+			[ghost.speech(That's one more scum dealt with,)] the otter-girl says, before quickly moving back over to where you and Hammer are still standing by the door. 
+		</p>
+		<p>
+			[hammer.speech(There's nothing more in here,)] Hammer says, before turning to leave and motioning for you and Ghost to follow...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BATHROOM_CAPTIVE"><![CDATA[
+	<p>
+		Removing the ball gag from the woman's mouth, Hammer tosses it into the bath, before starting to unfasten the restraints from around her wrists. Letting out a weary sob, the woman says in a hoarse voice, [victim.speech(Thank you... They... The others... The others were being teleported somewhere... You have to help them too...)]
+	</p>
+	<p>
+		From what the donkey-boy said when you first entered the bathroom, it sounded like the others have already gone, but none of you say this to the woman. Quickly unfastening the woman's ankle restraints, Ghost stands up and asks, [ghost.speech(Can you walk? We need to find Angelixx and take her out. We don't have time to help.)]
+	</p>
+	<p>
+		[victim.speech(I can walk...)] the woman pants as she unclasps the choker from around her neck. Tossing it to the floor, she mutters as she leaves the room, [victim.speech(My place isn't far from here... I'll make it...)]
+	</p>
+	<p>
+		[hammer.speech(I wish we could do more to help her, but taking out Angelixx is the priority,)] Hammer grunts, before motioning for you and Ghost to follow him out of the room...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM"><![CDATA[
+	<p>
+		The door and walls before you have been covered in graffiti, with most of it alluding to the fact that the room beyond is where the 'slaves' are kept. Nodding to each other, Hammer and Ghost stack up beside this door, before motioning for you to follow but to keep your distance. Using hand signals, they count down from three, before Hammer kicks the door open and the two Enforcers rush inside.
+	</p>
+	<p>
+		Following Hammer and Ghost through the doorway, you find yourself entering a surprisingly large room. In fact, as you glance around to take in your surrounds, you see that one wall of the original room has been knocked down to merge it with another. Hanging from the ceiling via metal rings in over a dozen places, you see sturdy chains linked to heavy metal slave collars. Not one of these collars are in use, revealing that you're too late to save the kidnapped refugees who were being kept here.
+	</p>
+	<p>
+		Illuminated by the dim arcane lights which hang down from the high ceiling, you see that there's only one other person in here, and she's standing over on the far side of the room. No more than [angelixx.heightValue] in height, making her slightly smaller than Ghost, and with a slender build to match her diminutive stature, the succubus Angelixx doesn't look like much of a threat. Unlike most succubi, her light skin tone is the same as that of a human, while her chest is almost completely flat. A pair of tiny, white feathered wings grow out of her back, and if it wasn't for the tiny, white horns growing out of her forehead, you might at first glance be forgiven for mistaking her for an angel.
+	</p>
+	<p>
+		As the succubus turns to face you, you're able to see that she's taken on the appearance of a youthful eighteen year old. Her beautiful face, small size, and outfit choice of an oversized hoodie, leg warmers, and skater shoes gives her a very innocent look. Her blonde, twin-tailed hair swings around as her head turns, while her bright blue eyes quickly flick between Hammer, Ghost, and yourself. Just as you'd been warned, the succubus instantly tries to manipulate the three of you by crying out, [angelixx.speech(Thank goodness you're here! Please, I need your help!)] 
+	</p>
+	<p>
+		Although her acting is impeccable, and a normal, unprepared individual would more than likely be persuaded to stop in their tracks, the two Enforcers she's facing are seasoned professionals. Instantly firing off all four rounds from his shotgun in quick succession, Hammer envelops the succubus in a cloud of arcane tear gas. Before the choking poison can do its work, however, it's swept aside by a powerful blast of air as Angelixx casts
+		#IF(pc.hasSpell(SPELL_PROTECTIVE_GUSTS, true))
+			 the spell which you recognise as 'Protective Gusts' upon herself.
+		#ELSE
+			 a protective wind spell upon herself.
+		#ENDIF
+		 With Hammer's attack having been nullified, Ghost follows up with six shots from her revolver. Showing herself to be a master of defensive spells, Angelixx transforms her shield into
+		#IF(pc.hasSpell(SPELL_CLOAK_OF_FLAMES, true))
+			 'Cloak of Flames',
+		#ELSE
+			 a fiery barrier,
+		#ENDIF
+		 causing the pepperball capsules to harmlessly burn away upon contact.
+	</p>
+	<p>
+		Keeping up the act, the succubus desperately cries out, [angelixx.speech(You've made a mistake! I'm not Angelixx! I'm her twin, I came here to rescue the kidnapped refugees, but I was too late, just like you are! I can tell you where they're being taken, just please stop shooting me!)]
+	</p>
+	<p>
+		The desperate tone in the succubus's voice is extremely convincing, and for a moment you wonder if she's telling the truth. Hammer seems to be wondering the same thing, for he lowers his shotgun and barks, [hammer.speech(Tell us then! Where are they being taken?)]
+	</p>
+	<p>
+		From your position behind them, you see that the wolf-boy's response is just a ruse to buy time, as Ghost turns to one side to unsheathe her dagger in such a way that the succubus can't see. Hammer, too, turns to one side and uses his position to covertly reach down into one of his pockets.
+	</p>
+	<p>
+		[angelixx.speech(I'll tell you all I know, please, just listen to me for a moment,)] the succubus pleads, doing all she can to look totally harmless and innocent...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_ANGELIXX_ESCAPE"><![CDATA[
+	<p>
+		[angelixx.speech(Angelixx has taken them all to the underwater city of Lyonesse as gifts for Lirecea,)] the succubus claims, [angelixx.speech(I've got proof in the other room, please just trust me.)]
+	</p>
+	<p>
+		[ghost.speech(The problem with lying, Angelixx, is that you don't know if the other person already knows the truth,)] Ghost says in an icy tone, [ghost.speech(We know you've been taking them to Dominion. You think you can operate in our territory and get away with it? You're finished.)]
+	</p>
+	<p>
+		For the first time since entering the room, a look of genuine distress crosses Angelixx's face, before she drops the innocent act and scowls at Ghost in a bitter tone, [angelixx.speech(You don't know who you're fucking with! Mother's promised to recognise me, and once I'm a recognised daughter I'll hunt you down! I'll make you wish you'd never come here!)]
+	</p>
+	<p>
+		With the succubus's attention now on his partner, Hammer pulls a concealed taser out of one of his bulky pockets. With the otter-girl gripping her dagger behind her back, the two Enforcers exchange a subtle hand signal, and you realise that they're about to rush Angelixx.
+	</p>
+	<p>
+		[sleip.speech(You picked the wrong gang to fuck with!)] a masculine voice suddenly growls from the doorway behind you.
+	</p>
+	<p>
+		Turning around, you see that the two nightmares who were standing outside the bakery when you first arrived have finally shown up. Dropping his taser back into his pocket, Hammer swings his shotgun around to point at these new arrivals. Sensing her moment in which to escape, Angelixx starts casting her teleport spell, desperately calling out as she does so, [angelixx.speech(You'll get a special reward for this, boys! I'll come and find you later!)]
+	</p>
+	<p>
+		Not wanting her to escape so easily, Ghost rushes at Angelixx with a burst of speed that you'd never expect from someone of her age. Letting out a frightened little scream, Angelixx only just manages to teleport away in time, leaving Ghost's dagger to slice through thin air.
+	</p>
+	<p>
+		With the succubus having escaped, it looks like you'll now have to deal with these nightmares...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_COMBAT_WON"><![CDATA[
+	<p>
+		Having proven themselves to be no match for you, Hammer, and Ghost, the nightmares slump to the floor in a daze.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_COMBAT_LOST"><![CDATA[
+	<p>
+		Not wanting to fight any longer, you back away from the nightmares, leaving Hammer and Ghost to take them alone. Thankfully, the Enforcers prove to be more than a match for them, and just a moment later the two nightmares are slumping to the floor in a daze.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_COMBAT_NO_FIGHT"><![CDATA[
+	<p>
+		You don't like the thought of having to fight these huge, demonic horse-morphs, and so you back away from them, leaving Hammer and Ghost to take them down. Thankfully, the Enforcers prove to be more than a match for them, and after taking a couple of tear gas canisters and half a dozen pepperball canisters, the two nightmares slump to the floor in a daze.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_COMBAT_END"><![CDATA[
+	<p>
+		[hammer.speech(I can't believe that bitch managed to escape,)] Hammer angrily growls, before kicking at one of the empty collars lying on the floor and adding, [hammer.speech(We didn't even get here in time to save the kidnapped refugees...)]
+	</p>
+	<p>
+		[ghost.speech(She won't be back here any time soon, so we achieved our main goal of clearing her gang out of Elis,)] Ghost says to put a positive spin on things. Sheathing her dagger, she steps over to an old table on one side of the room, before picking up what looks to be a flowery notebook and saying, [ghost.speech(Looks like Angelixx forgot her diary. Perhaps we'll get something useful out of this...)]
+	</p>
+	<p>
+		[hammer.speech(Fuck, looks like we made too much of a commotion,)] Hammer grunts as he looks out of the room's single window and down into the alleyway. Moving over to see what he's looking at, you count no less than half a dozen Enforcers preparing to enter the bakery. Speaking out loud for your benefit, the wolf-boy says, [hammer.speech(The Patrol crew are good guys and gals, but if they recognise us then everyone in Elis will know by morning. We haven't been recognised so far, and I'd prefer to keep it that way.)]
+	</p>
+	<p>
+		[ghost.speech(So how are we going to get out of here without being found?)] Ghost asks. You can tell from the tone of her voice that she's teasing Hammer, and knows that he's got a plan for your escape.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MISSION_END"><![CDATA[
+	<p>
+		[hammer.speech(The adjoining building is also abandoned, and the back door leads into the perfect alleyway for us to use as an escape route,)] Hammer explains, [hammer.speech(We just need a way of getting into it...)]
+	</p>
+	<p>
+		Reaching down into another of the bulky pockets in his trousers, he produces what looks very much like an explosive charge. Placing this device on one of the walls, he grabs hold of you and Ghost and firmly pulls the two of you out into the corridor. A moment later, a flash of orange light and a deafening roar bursts out from the bedroom, causing the whole building to shake while dust and pieces of plasterboard fall from the ceiling.
+	</p>
+	<p>
+		[style.speechMasculineHeavy(That came from upstairs!)] you hear the voice of one of the Patrol Enforcers shouting from somewhere downstairs. Realising the need for speed, the three of you quickly rush back into the bedroom, where a centaur-sized hole has been blown clean through the wall.
+	</p>
+	<p>
+		Hurrying through the hole that Hammer's device has created, you and Ghost follow the wolf-boy as he confidently leads you down a flight of stairs and into an alleyway. A few minutes of navigating through the narrow, twisting passages of northern Elis, and you soon find yourself passing through the same gate that Hammer unlocked on your way to the bakery.
+	</p>
+	<p>
+		With the Enforcer station now in sight in the distance, Ghost turns to you and says, [ghost.speech(It's time for us to part ways. We didn't get recognised, so I guess we didn't need you after all, [pc.name].)]
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_sword_mission_fought))
+			[hammer.speech(Thanks for the backup in there, [pc.name]. You didn't have to fight, you know, but we appreciate it,)]
+		#ELSE
+			[hammer.speech(Thanks for agreeing to come along with us, [pc.name],)]
+		#ENDIF
+		 Hammer says, before grunting, [hammer.speech(Next it's our turn to help you. We'll get to work on preparing a defence plan for Elis first thing tomorrow.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MISSION_END_CONTINUE"><![CDATA[
+	<p>
+		With the operation now at an end, you say goodbye to Hammer and Ghost.
+	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_sword_mission_fought) && ghost.getAffection(pc)>=20)
+		#IF(flags.hasFlag(FLAG_innoxia_sword_mission_chose_hammer))
+			<p>
+				[hammer.speech(You know, you would have made a good Enforcer,)] Hammer says, [hammer.speech(I'd have liked to have had you around during the Fifth Human Rebellion... I'll have something for you when you next drop in at the station.)]
+			</p>
+		#ELSE
+			<p>
+				[ghost.speech(You know, I think you'd have made a half-decent Enforcer,)] Ghost says in a serious tone, [ghost.speech(We could have used you during the Fifth Human Rebellion... Tell you what, I'll have something for you when you next drop in at the station.)]
+			</p>
+		#ENDIF
+	#ENDIF
+	<p>
+		Turning to her partner, the small otter-girl teases, [ghost.speech(So, my place?)]
+	</p>
+	<p>
+		[hammer.speech(Just don't keep me up all night,)] the wolf-boy grunts.
+	</p>
+	<p>
+		With that, the two of them say goodbye to you and slip off into the darkness. Although they're not going to be awake at this time, you now need to head back to the town hall and tell Minotallys and Arion that you've managed to get the help of the SWORD Enforcers. Wondering what to do with the rest of the night, you set off into the streets of Elis...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

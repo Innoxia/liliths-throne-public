@@ -4,7 +4,6 @@
 	<name><![CDATA[Aurokaris's tent]]></name>
 	<tooltipDescription><![CDATA[Aurokaris has her tent in this area of the Amazons' camp.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in Aurokaris's tent in the Amazons' camp]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<svgName>tents</svgName>
 	<colour>RACE_COW_MORPH</colour>

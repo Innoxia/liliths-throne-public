@@ -6,514 +6,676 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	Patch notes:
 	
-	DSG's Eisek Quest:
-		Added a new NPC merchant to Elis's Farmer's Market, who also serves to gate early access to the dragon TF behind a quest.
-		Added three side quests related to this NPC (with one of these quests being exclusive to silly mode).
-		Ralph no longer sells dragonfruit, as this new NPC is now the one who sells it (provided his quest is completed in the best way).
-		Added: 5 new clothing items for new NPC outfit; 1 new clothing item for silly mode; 1 new weapon for silly mode; 4 new Items for new NPC to sell; 3 new quests (1 exclusive to silly mode); 4 new quest items (1 exclusive to silly mode).
-		Full patch notes and details can be seen in the PR here: https://github.com/Innoxia/liliths-throne-public/pull/1718
+	FriendlyAlienFriend's Artwork (https://twitter.com/thealienfriend):
+		Added Oglix (with pregnant variations) and Golix artwork.
 	
-	Contributors:
-		Fixed bug where vaginal, lactation, and virginity fetishes had incorrect sorting (based on left-aligned fetishes being active/giving and right-aligned being passive/receiving) in the fetish menu. (by Maxis010)
-		Changed the Body.setFeral() method to not set the body as feral if the subspecies does not have feral attributes or is null. (PR#1771 by SightglassCat)
-		Fixed missing background textures in slime and half-demon race icons. (PR#1772 by SightglassCat)
-		Added 'winged' to NPC lists and tooltips for winged characters of a race that usually does not have wings. (PR#1724 by Stadler76)
-		Made NPCs react more logically to unexpected genitals being revealed in sex scenes, with genital reveals now based on whether the perceived gender of the subject normally has one. (PR#1741 by NoHornyOnMain)
-		Enabled tattoo rendering with non-standard colours (e.g. via save editing). (PR#1742 by NoHornyOnMain)
+	Pusspuss's Artwork (https://twitter.com/PusspussARTZ):
+		Added Fae & Silvia artwork (with pregnant and multi-boob variations).
 	
 	Engine/Modding:
-		Added 'FITS_MUZZLES_EXCLUSIVE' and 'FITS_BEAKS_EXCLUSIVE' item tags for tagging clothing which can only be equipped on characters with muzzles or beaks.
+		Custom parser targets (i.e. the custom parser ID you assign to an NPC when creating them) are now saved and loaded correctly, meaning that custom NPCs can now be accessed via their custom ID after saving and loading. (More of a bugfix than an addition.)
+		Added 'IGNORE_HAIR_RESTRICTION' item tag, for use on clothing which should be able to be equipped into the HAIR slot even if the character has no hair.
+		Added 'WEAPON_FIREARM' item tag, which should be given to any weapon that should be regarded as being a firearm. (Weapons with this tag are affected by the new 'Firearms Mastery' perk which Ghost and Hammer have.)
+		Added a new 'submitBlocked' element to combat responses, allowing you to disable the option to submit during combat scenes.
 	
-	Clothing:
-		Added 'Submissive Steed' clothing set, which provides +5 physique and -5 lust shielding.
-		Added: 'Bridle' (androgynous, mouth slot, Submissive Steed set, only fits muzzles).
-		Added: 'Saddle' (androgynous, leg slot, Submissive Steed set, only fits quadrupedal bodies).
-		Added: 'Horseshoes' (androgynous, foot slot, Submissive Steed set, only fits hoofs, only fits quadrupedal bodies).
-		Added: 'Tail bandage' (androgynous, tail slot, Submissive Steed set).
+	Gameplay:
+		Added the next section of the main quest, where you get the help from the SWORD Enforcers in Elis. (thanks to DSG for assistance with Enforcer lore)
+		At the nightclub, 'The Watering Hole', if you are a demon you can now skip the queue, and if you've sucked Jules's cock, you now can have sex with him in his office.
+		Added a new sex toy shop location in Dominion; 'Lovienne's Luxuries'. Sex toys and fetish gear is now sold here instead of by Finch.
+		Added new 'doll' race. This race only appears in Lovienne's Luxuries at the moment, and dolls will be available to purchase as a type of slave in the next version.
 	
-	Combat:
-		The two final upgrades to the Vacuum spell no longer strip clothing from unique NPCs. (As stripping clothing from quest-critical NPCs was resulting in issues with their content.)
-	
-	Sex:
-		The 'GenericSexualPartner' NPC class no longer spawns with addictive fluids, so as to prevent issues with their partners getting addicted (which was happening with Jess).
-		For size-difference characters, the smaller character can now kiss crotch-boobs in the missionary position, and can now kiss breasts instead of kissing mouth in the mating press position.
-		You can now use the 'GENERIC_ORGASM_CREAMPIE' action in masturbation scenes (which is the same action that provides the 'Handjob Climax' orgasm action).
-		Added autofellatio and autocunnilingus sex actions, which require the new 'hpermobility' perk to unlock, are limited to non-taurs, and which work in most but not all sex positions.
-		Added a small speech variation to the creampie sex action.
+	Clothing/Weapons/Tattoos:
+		Added 'cuff choker necklace' (androgynous, neck slot, sold by Nyan).
+		Added 'triple cuff choker necklace' (feminine, neck slot, sold by Nyan).
+		Added 'balaclava' (androgynous, hair slot (so that it can be equipped with hats, eyewear, and mouth items), sold by Nyan). Muggers will now sometimes spawn wearing a balaclava instead of a bandana.
+		Added 'SWORD dagger' (melee, one-handed, 25 base damage with high variance, all damage types, not sold by anyone as it's a special reward).
+		Added 'leg warmers' (feminine, calves slot, sold by Nyan).
+		Added 'arcane slegehammer' (melee, two-handed, 25 base damage with low variance, all damage types, sold by Vicky).
+		Standardised the angle of two-handed melee weapons' icons (battle axe, sledgehamme, and zweihander) to be opposite to that of one-handed weapons.
+		Added 'barcode' tattoo.
 	
 	Other:
-		Both types of wet wipes now additionally clean all equipped clothing.
-		You can no longer assign work hours to friendly occupants if they want to sleep during that hour.
-		Improved method of calculating sleep hours for slaves and friendly occupants so that they prefer to sleep as close to the mid-point of their natural sleep hours as they can.
-		Jess can now be impregnated, and you can pay her (5000 flames) to take a breeder pill before having sex with her. She also no longer has the barren perk nor a hatred of the pregnancy fetish, and also she now refuses to consume items during sex.
-		Demons, half-demons, and imps will no longer spawn with demonic horse tails if they're bipedal.
-		The 'ladykiller' and 'minx' perks are no longer traits which require equipping to work.
-		Added 'hypermobility' perk in the physical perk tree, which unlocks autofellatio and autocunnilingus sex actions.
-		Added some dialogue referencing citizens of the Realm travelling over the Endless Sea to new lands (as posters in the nightclub, at the Slavery Administration building, and as a minor piece of dialogue when paying a prostitute's fine to remove them from the game).
-		Added Hannah pregnancy reactions to her encounter in 'Light's out'.
+		Characters now need to be visibly pregnant (i.e. progressed past the 'risk of pregnancy' stage) in order to lay eggs via ovipositor. (Remember that characters can use mother's milk to progress past this stage if you want to impregnate & lay eggs in the same sex scene.)
+		Added the 'Highly illegal' tag to the arcane revolver.
+		Friendly occupants now earn experience by working slave jobs (25% chance per hour to earn 5xp).
+		NPCs' elementals now show in the 'Characters Present' panel on the right of the screen, even when not active.
+		Catherine (the slime queen) now has barbell nipple piercings and a triple cuff choker necklace, as her artwork depicts.
+		You can no longer loiter in 'The Crossed Blades' tavern, as doing so could leave you in there during closing hours.
+		Added 'light purple' as a skin colour.
+		The default fetish preferences for the 'Bimbo' and 'Cross dressing' fetishes has been lowered. (This won't have any effect unless a new 'properties.xml' file is generated, i.e. only on a completely new game start.)
+		Changed the masculine/female race names for dobermanns from simply 'dobermann/dobermann' to 'dobermann-boy/dobermann-girl' to make them more consistent with other race names.
+		Changed the name postfix of ground floor maps from 'GF' to 'F0', and that of first floor maps from '1F' to 'F1'.
+		Added 'flavourless' as a new fluid flavouring.
+		Changed default feminine gender names for lacking genitals from 'doll' to 'mannequin'.
 	
 	Bugs:
-		Typo and parsing fixes.
-		Compacted the compatible slot names in the tooltips for piercing items, so that it doesn't run over into another line and cause the tooltip to overflow.
-		Fixed issue where there'd be no slaves in the stocks nor in any of the shops if you entered Slaver Alley before midnight after starting a new game.
-		Fixed issue where the Rental Mommy encounter would throw a background (harmless?) error every time it was triggered.
-		Fixed bug where the slaves in the stocks and shops in Slaver Alley would sometimes not be saved correctly.
-		Fixed bug where exported transformation presets for Elementals which were not bound to arcane or water would cause the transformation preset menu to break.
-		Fixed bug where stopping a sex scene in which you were a spectator (such as spying on Rose and Lilaya in Lilaya's lab) would cause the description for that scene to be displayed the next time you used the 'Quick sex' action.
-		Astrapi is now always considered to be feminine, ignoring your 'androgynous bodies' setting (as it fits her content for her to always be treated as a 'she').
-		Spell tooltips and predictive text in combat now show their potential damage range instead of a random value from within that range.
-		Fixed the Vacuum spell's first upgrade downgrading the health shielding debuff from -10 to -5, and also fixed the second and third upgrade tooltips to show their full effects.
-		Fixed bug in Helena's custom slave menu where you could customise a slave to be an angel by swapping back and forth between the spinneret tab.
-		Lunette's marauders and raiders in the Foloi Fields now have several of their fetish desires set to 'like' instead of 'love', as the 'love' setting was making it look like they had the associated fetish even though they didn't.
-		Characters (including the player) can no longer be milked of their cum or girlcum in a milking room if they're wearing any clothing which prevents them from orgasming.
-		Removed ability to fight Jhortrax after besting him in the 'Tameshigiri' scene, due to numerous inconsistencies with the resulting post-combat scenes.
-		Fixed background error being thrown when completing an incubation pregnancy of a single egg/offspring.
-		Fixed bug where transformation presets didn't take into account whether or not the target or preset were of 'short stature', which inadvertently allowed you to transform demons into imps and vice versa by using transformation presets.
-		Fixed bug where the greyed-out 'load' button for incompatible transformation presets would still work if you clicked on it.
-		Jess will no longer have random fluid addictions (and all of her fluid addictions will be cleared upon loading into this version).
-		Fixed bug where if none of the colours defined for an item of clothing within an outfit file were available for that clothing, the clothing would spawn with broken colourings. (This was mostly affecting jewellery on randomly-spawned NPCs.)
-		Fixed some inconsistent availabilities of 'offer/request orifice' actions in the breeding stall & glory hole positions.
-		Your demonic offspring will no longer spawn with heavily enchanted weapons which would push them over their enchantment capacity.
-		Characters in sex who are in the resisting pace and who are involved in finger-anus or finger-vagina sex actions will no longer be described as stimulating their orgasming partner's prostate.
-		Fixed bug where after taking a shower in the gym, the text was only shown after you moved away from the tile.
+		Parsing and typo fixes.
+		The awning poles, green cloth, and embroidered sign are now correctly removed from the player's inventory when completing Eisek's stall quest (these items are also removed from your inventory when loading into this version if you've already completed the quest).
+		The 'Clean her' option on Nizhoni is now correctly disabled after activating it.
+		Fixed issue where the next scene after going downstairs in Elis's town hall would be the scene at the top of the stairs instead of the bottom.
+		Fixed some dialogue bugs in Pix's gym where it would describe you as not being a member of the gym when you were and vice versa.
+		You will no longer obtain condoms used by NPCs in sex if either the player or the NPC is a spectator of the sex scene and the other one isn't.
+		The 'Trickster's Mask' is no longer sold by Nyan (the whole set will be added as a quest reward at a different location in a future version).
+		Fixed issue where Nyan was described as saying goodbye to you when you left her store while she wasn't there. 
+		In double-penetration sex, penises no longer have their race prefix added to their name to prevent illogical parsing (e.g. 'wolf-cocks' was used for when a wolf and a non-wolf were penetrating).
+		The vagina and anus orifices for characters with a cloaca are now correctly treated as being blocked for the purpose of sex action availability when clothing is equipped into them.
+		Fixed issue with the 'Apple Pie à la Mode' item sometimes having incorrect colouring.
+		The 'Balls focus' sex action now requires the performing character to have a real penis (so this action won't be available for strap-ons anymore).
+		Fixed issue where half-demons could load full demon transformation presets but not half-demon ones.
+		NPCs which spawn at the bar in 'Lights Out' no longer have their genitals and all other concealed body parts revealed to you right from the start.
+		Fixed bug where you could get stuck in Desryth's apartment after rejecting him, then returning to meet him and rejecting him again.
+		Fixed bug where if you reloaded a game which was saved during the day, NPCs which had spawned in Elis's alleyway tiles at night would often despawn and disappear.
+		Fixed issue in sex actions involving urethral penetration of a penis where a pussy was being incorrectly referenced.
+		Condoms now correctly block access to the wearer's penile urethra.
+		The quick load feature should now work correctly for characters with a space in their name.
+		Fixed bug where if you enchanted an item which had been renamed, the item's name would be reset back to its default name.
+		Using the 'Quick sex' sex action now correctly increments your sex stats.
+		Fixed bug where Natalya's TF potion wouldn't work if you were a demonic slime.
+		Fixed background error being thrown when trying to delete Sterope's sexual partners (which would also leave random NPCs in the stables in the Centaur's Sword tavern - these excess NPCs will be cleaned up upon loading into this version).
+		Fixed bug where the 'lime green' colour for clothing would be shown twice in the dye menu, with the second instance not being responsive.
+		Fixed bug where you could knock on the door to Minotallys's office and have a conversation with her while she was asleep in her bedroom.
+		If you have more 'Quest' rarity items than your inventory tab can normally display, the UI will now display your extra quest items instead of hiding them from you.
+		Fixed bug where tooltips for perks weren't working in some character view windows.
+		Fixed bug where setting body coverings would not set the correct covering pattern or modifier.
 	
+	[x] bugs
+		[x] [natalya.speech(My name is [natalya.name] in res/txt/places/dominion/slaverAlley/helenaRomance.xml line 734 should be [natalya.name(true)] as she is introducing herself there.
+		[x] Eisek quest items not removed
+		[x] At the Farmers Market after playing darts and then walking with Nizhoni you can repeatedly use the "Clean her" option. the tooltip says she is cleaned however the button does not get greyed out and repeated use does not drain your aura.
+		[x] townhall staircase. if you go downstairs the button stays displaying "downstairs" and cant be used, until you move away and back on the cell
+		[x] And for some reason, if you go to the gym while Hannah's not present, it will show text as if you are not a member of the gym while it states her absence.
+		[x] And the area does not update unless if you exit and enter it, regardless of how much time you spend showering -  Showering at the gym doesn't refresh the page until you walk to the next screen.
+		[x] If you Spy on Jess in the Red Dragon when she is with someone: the used Condom (when one is used) is placed inside the players inventory despite them being stated to watch this action trough the keyhole of a door.
+		[x] If you enter Nyan's emporium on the weekends, it acts as if she's there when you leave.
+		[x] Nyan sells tricksters mask
+		[-] When equipping bodysuit on a slave, the text shows a random npc for the unequipping part
+		[-] 0.4.8.3 fixed?
+			java.lang.NullPointerException
+				at com.lilithsthrone.game.character.GameCharacter.getAffection(GameCharacter.java:5011)
+				at com.lilithsthrone.game.character.GameCharacter.incrementAffection(GameCharacter.java:5067)
+				at com.lilithsthrone.game.character.GameCharacter.incrementAffection(GameCharacter.java:5059)
+				at com.lilithsthrone.game.occupantManagement.OccupancyUtil.performHourlyUpdate(OccupancyUtil.java:401)
+				at com.lilithsthrone.game.Game.endTurn(Game.java:2641)
+				at com.lilithsthrone.game.Game.endTurn(Game.java:2541)
+		[x] In DP action, game considers both cocks to be of the type of the 1st one entering. In this case it counts Scarlett's harpy cock as a wolf cock.
+			"around the two wolf-shafts currently double-penetrating you"
+		[x] The ribbed dildo (the big one) equipped in your anus doesn't prevent anal sex actions. May have to do with my character having a cloaca
+			[x] cloaca is not detecting clothing blocks
+		[x] NPCs (slaves?) with ovipositors don't wait for the "Risk of Pregnancy" time to elapse before laying their eggs into others
+		[x] If you are in a occupied guest room that a guest is doing work in the house and you hover the mouse over the job button, it will show Error: parserTarget.getCharacter() not found! (npc) in a red color, plus the rest of the text
+		[-] On teleport effect tooltip of player character, it reads : "You has teleported behind your enemies"... - I have the party teleport perk and another 3 people in the party.
+		[x] Bug: wrong pronoun used in the glory hole serviced sex scene; always 'her' in that specific sentence, regardless of gender "closer to the wall and firmly pressing her open mouth"
+		[x] supposedly the Arcane Revolver from the shady merch is supposed to be illegal yet doesn't have the tag
+		[x] With both the PC and house guest going naked into the spa, there should be a space between "herboobs" - "take in the sight of herboobs"
+		[-] NPCs that you exclude in-game still remain in the save file, bloating it.
+		[x] Apple Pie has some weird coloration in the sell window
+		[x] Conjugation oversight in "Request pullout" from NPC when NPC requests in the negative form: "in order to convey that he doesn't wants..."
+		[x] Decline tooltip "gaining the shark as you slave and leave them to go..."
+		[-] After turning Brax into Bree, she still has the potion in her inventory that was used in this transformation.
+		[-] wearing a strap on will make the game assume you have balls, even if you dont - "Balls focus" action available
+		[x] Unlike slaves, guests do not earn experience at work. More than 100 days have passed since iv got 2 guests. But both still have lvl 1 and 0xp. playing at max difficulty. Game version 0.4.8.3 alpha 
+		[x] Loading a preset demon transformation for a furry half-demon can cause them to lose their furry traits permanently...
+			[x] half-demons can load full demon presets but not half-demon ones...
+		[x] Girlified and bimbified Brax after obtaining them as a slave and waking them up for some reason depicted as loyal centaur? - "The loyal centaur doesn't appreciate being woken up..."
+		[x] "Regarding bug when all NPC in bar spawn as virgins..." - might be fixed?
+		[x] there's a nearby bug that spawned NPC in bar has full penis/vagina/etc description instead of concealed info about not visible bodyparts
+		[x] can get stuck in Desryth's apartment after rejecting him
+		[-] Not sure what happened but both the foxtauresses and cow slaves in the farmers market don't work anymore.
+			Only fae is in the spot where the taurs are,  and there is no text when I do the ticket actions.
+			All the other npcs as far as I've checked are working fine.
+		 	I've had the most recent update since release and I haven't added any mods or characters recently.
+		 	Tried a new character and completely fresh install with nothing added and they are still broken
+		 [x] elementals don't show in characters present
+		 [x] Whenever I reload Elis during the day, all the encounters that were on the tiles the previous night despawn and disappear
+		 [x] The Cattle set ear tag probably shouldn't embed the colour in the description. It leads to some oddities if you re-dye the tag
+		 [x] The condom does not block access to urethra
+		 [x] Urethra fucked (penis) - "as you enthusiastically penetrate his hairy pussy"
+		 [-] The hint on the button states that handjob will interrupt another action (urethral fuck). But eventually it is possible to jerk off a partner and fuck his urethra at the same time
+		 [-] I am able to purchase slaver items from Finch and Scarlett from Helena before getting the Slaver's license. Additionally this bug prevents getting the Slaver's License the legit way, blocking off access to Lilaya's Dungeon
+		 [x] If you create a character with a space in their name (Prince Adam), you will not be able to quick load.
+		 	Saving and quick save both change the space to an underscore for the save file name (QuickSave_Prince_Adam).
+		 	Trying to quick load looks for a save file with the space, not an underscore (QuickSave_Prince Adam).
+		 [-] You can't get fucked as a sub. As soon as you get naked, the NPC will fill all holes with sex toys. As soon one is removed, another is inserted.
+		 [x] "Turing towards your..." -> "Turning"
+		 [-] Fixed?
+		 	I dont know if this has been reported, but I noticed last time that I played that I couldnt aquire any fetishes. It still charged me aura, but they didnt unlock, not even when I tried it with a potion.
+		 [x] Tooltip -> "You can't can't shift aside..."
+		 [-] could not encounter eisek and was receiving a text stating "error in conditional parsing" whenever i walked around the market in elis
+		 [-] Jess gives birth instantly (or almost instantly) after the first stage of pregnancy
+		 [-] Tried to start giving Nyan Analingus, but got put into a standing position and I'm unable to change the positions, making analingus impossible.
+		 [x] Positioning parser error: "Just like X and Y-ERROR, the Z has sunk down onto the floor, before lying..." -> Lying on back (1), (3), and (4) -> missing (2) is causing it?
+		 [x] wont -> won't
+		 [x] If you enchant a renamed item, the name will be set back to default unless you rename it to something else different than the renamed item's original name. 
+		 [x] Natalya Introduction -> she proudly boasts, "My name is strict succutaur Lunettemartu, and I hold the prestigious...
+		 [x] Catherine the Slime Queen is depicted with barbell nipple piercings, yet does not have this item on her person.
+		 	[x] add necklace for her
+		 [-] when making a new save and going to slaver alley when you interact with Constantable Hughes it shows the "Freed slaves" even though you never had a chance to free the slaves yet.
+		 	might just be for the night that you created the save and the day following since slaves didnt have a chance to restock yet or it goes forever,  havent tried more then 1 day after creating the save though
+		 [x] quick sex doesn't increment sex stats...
+		 [x] Natalya potion fails when player is demon slime
+		 [x] Natalya's helper can spawn with psychoactive cum
+		 [x] "bed sits on side of the room"
+		 [x] The deep penetration text for self-penetration is oddly worded "X willingly takes X's tail" and "X lets out a disappointed whine as she feels that [X's tits aren't deep enough]" and "X is taking X's tail to the full,"
+	[x] Add Oglix & Golix
+		[x] handle reloading of Golix if already encountered
+	[x] Scripting parsing error: game.banishNPC(centaur)
+		ReferenceError: "centaur" is not defined in <eval> at line number 1
+	[x] clean up stables tile
+	[x] add ID save/load persistence to prevent this issue in future
+		[x] save/load additional parser targets - or save in the charater's save file
+	[x] can loiter in crossed blades tavern
+	[x] message FAF
+	[x] web stuff
+	[x] blog post
+	[x] emails
 	
-	[x] new bug reports
-		[x] Necklaces don't appear to be cleaned by either types of wet wipes while equipped or when in inventory
-		[x] "require any assistance, Mr.," last name missing at bank
-		[x] This person is not asleep - slaves losing 1 affection even when at work and such
-			[x] friendly occupants should not accept work when sleeping
-		[x] Friendly occupant referred to as slave
-		[x] Tongue piercing/Ear piercing - tooltip overflows and causes bottom cutoff
-		[x] the fetish window is clearly sorted "left active/giving and right passive/recieving" yet two fetishes disregard this rule. "lactation" and "pussy" are swapped the other way around. edit: figured "virginity and deflowering may are swapped as well"
-			The menu is generated and sorted starting here
-			com/lilithsthrone/game/dialogue/utils/PhoneDialogue.java:3791
-			It's checking for fetish pairing and then putting the top fetish first based on the first fetish in the list and checking isTopFetish which unless overridden is false
-			Add 
-			@Override
-			public boolean isTopFetish() { return true; }
-			 to the top fetishes in com/lilithsthrone/game/character/fetishes/Fetish.java to fix it
-		[x] Slaver Alley's public use stocks are bugged, and the first time entering on a new save all the slaves will have already been freed
-			(plus the dialogue option to talk with Constable Hughes about whether or not you'll get in trouble for freeing them)
-			they do come back spawn for the first time (wording) after two or three in-game days, though
-		[x] Whenever I save this preset for my elemental it breaks the save/load menu and nothing happens when I click the save/load button. Problem disappears when I delete the file
-			Wind.xml on desktop
-		[-] the Martial Artist perk is missing and still required for one of the forts when doing the quest Into the Depths. Want to bypass the fight in that fort and unable to without afore mentioned perk
-		[-] a nipple/ear piercing can be enchanted to give +5 resting lust and +0.5 arousal/turn (vibration) but an ear piercing only cannot be, even if the nipple/ear piercing were put into the ear slot it would still provide the vibration bonus
-		[x] i went to have quick sex with one of my slaves in my milking room and for some reason the game though i was watching lilaya and rose
-	[x] finish bug reports
-		[x] a weird interaction with Astrapi and gendering. If you've set "masculine if in unisex clothing" in options you will get Astrapi referred as "he" during sex, but "she" in regular conversations with them
-		[-] If you have 1 or 2 arcane firebombs you can still throw 3 in 1 turn,
-		[x] Spell tooltips are bugged in combat. Instead of range they show you a randomly rolled number in a pop-up, a different roll in the projected turn sequence and rolling third time for actual damage
-		[x] Using an upgraded vacuum spell while dueling meraxis in elis strips her clothing for the player to take and doesn't replace it after the encounter
-		[x] in 4.7 you can set your slave parts to Angel when purchasing from Helena if you have a Spider tail with Spinnerette by modifying the Spinnerette and going back to other tabs; allowing you to Purchase a Custom Angel Slave
-			the process involves swapping to Spinner tab then to the part you want to alter, select the Forbidden option, then go back to Spinner to refresh the tabs
-		[x] On 0.4.7, I'm not able to crit any of the marauder succutaurs you encounter in the overworld with any of the fetish teases I have (except for the submissive tease), despite the fact they they have several fetishes that should allow them to crit.
-			 This only happens with these enemies, everyone else I've encountered works fine
-		[x] you can still self milk yourself to orgasm in a milking room with the orgasm denial enchantment equipped
-		[x] Jhortrax scene after showcasing him your might and fighting him anyways for some reason has text from him coming back as if you'd fought him before -> "Why did you come back? I told you to stay away from here!"
-		[-] multiple pregnancies (breast eggs,stomach eggs,and womb eggs) being completed at the same time due to mother's milk only calls the main pregnancy for birth and clearing of effects.
-			You are not given a chance after to birth the rest of the eggs from the other two instances of egg-nancy, leaving a state of permanent incubation
-			[#nyan.guaranteePregnancyOnNextRoll()] [#nyan.rollForPregnancy(pc, 500, true)] [#nyan.implantPregnantLitter(pc, ORIFICE_VAGINA)]
-		[x] You can freely transform imps and half-demons into demons and demons into imps by loading preset to transform into
-		[x] after having an encounter with the fox prostitute Jess, even if you manage to push their fertility over 0% you get the line about how there is no chance of being impregnated
-			[x] get option for risky sex
-			[x] she should refuse pills (and all items)
-			[x] pregnancy reaction
-		[x] Jess can end up with random cum addictions
-			[x] check other random-sex characters for this too (perhaps remove addictive fluids from the generic sex partners?)
-		[x] random item gen for Sunflower and Rose series of piercings spawn with incorrect colours on NPCs
-			[x] if no available colours are in defined outfit colours, it breaks
-		[x] when you are domming at the Glory hole you can give instructions on the position but only have actions to use on oral
-		[x] Your demonic children can spawn with 2 heavily enchanted weapons (demonstone and feather) and being lvl 1 they only have 13 enchantment capacity, so they get a debuff.
-		[-] the victim used to sometimes respond with a Resisting (sexual act here) But now not a single time has it procced. Now only the Base Default Resist or beg to stop now procs
-		[-] For some reason, a sealed strapon on an NPC seems to make them keep start trying to hotdog or do intercrural, then stop, then start, then stop
-			but I've noticed that they never seem to actually autonomously start anal or vaginal penetration? Is it just because the dildo is too big for their partner's orifice
-		[x] you cant suckle one's crotch nipples or top nipples when they are abnormally taller than you.
-			Whether it be
-				[x] missionary (I should be able to suck on her crotch tits) 
-				[-] sitting down (how tf can I kiss one when they are sitting down, but I cant suckle either of their nipples),
-				[x] mating press (this is practically strange cause if it was true size difference, you'd be able to suckle nipples and unable to kiss)
-			and just about all the others.
-			I find it strange that any of the positions where you should be able to do it, you can't.
-			No position allows you to suck on someone's top breasts if they are twice your height
-		[-] in the lower left corner of the dominion map you can see a Rat icon
-		[x] demons can spawn with demonic horse tail???
-	[x] Small PRs
-	[x] Eisek
-		[x] Read through content
-	[x] autofellatio/autocunnilingus
-		[x] requires perk - branch off physically fit 5
-			[x] hypermobility
-		[x] penis
-			[x] do not allow multiples
-			[x] actions
-			[x] descriptions
-			[x] need swallow orgasm action
-			[x] need positioning limitations
-		[x] vagina
-			[x] do not allow multiples
-			[x] actions
-			[x] descriptions
-	[x] add some references to going east to leave Dominion for new land
-		[x] nightclub toilets
-		[x] slaver alley
-		[x] prostitute pay-off variation
-	[x] add speech variation for creampie in resisting partner
-	[x] Hannah to reference arcane protecting child from alcohol when pregnant
-	[x] AceXP:
-		Some typos in the gym floor content: 
-		rubbing matting -> rubber matting; Do you best! -> Do your best!
-		Also, after you take a shower, it's text is only shown after you move away from the tile.
-	[x] Eisek PR!
-		Bugfixes:
-			- Bugfix: Regenerated Elis market map upon loading so as to add in Eisek's stall.
-			- Bugfix: Very minor fixes for some clothing formatting and typos.
-			- Bugfix: Replaced 'setGirlCumFlavour' with 'setGirlcumFlavour' for fruit flavouring effects, and fixed conditional error in fruits' status effect application.
-				(So apples apply the buffed effect and remove the standard effect, while the other three only apply the standard effect if the target doesn't have the buffed effect.)
-			- Bugfix: Super minor typo in farmer job description.
-		Misc.:
-			- I noticed some UK spellings ('civilised'), thank you for making an effort to maintain the game's spelling consistency. (Although I changed some US spellings I found >:D)
-		Clothing, Weapons, Items:
-			- Cardboard sword: Do the numbers on the PVC pipe mean anything? 'SCH 40 PVC 480 310' (I assume it's the PVC piping type from a google search)
-			- Cardboard cuirass: Nice details.
-			- Eisek's ring: Very cool. Nice use of the sticker system! (I bet those scales took a while.)
-			- Fruit items: All look very nice. Should I add an 'apple' fluids flavour? (As the other fruits apply fluid flavours but there's no flavour for apple - or was this balanced by the apple's better buff?)
-			- Quest items: As usual, all icons are very good.
-			- Mystical Orb of Fate: Nicely done (some of the random options are funny). Perhaps I could feature creep this at some point so that having it highlights a random action (or something).
-			- Eisek's clothing: They suit him very well, and the icons are great once again.
-		Status effects:
-			- Would you like me to add some icons for the two status effects? (As they both use the default effect icon.)
-		Perks:
-			- Crag child: Icon and description are cool, effects are nice.
-			- Farmer: Again, nice icon. The silly mode description made me laugh.
-		Quest:
-			- EISEK_MOB_QUEST_STAGE_TWO: Silly mode 'You destroyed the mob's arguments with FACTS and LOGIC.' made me laugh.
-		NPCs:
-			- Eisek's dailyUpdate(): I agree with your comment 'Probably could reduce this to only update on the first day, but that might get annoying when adding items in future updates or for modders'.
-			- SillyModeLARPAttacker's setStartingCombatMoves(): 'Do not add tease...just...don't do it.' Now I am curious...
-			- SillyModeLARPAttacker's's isLootingPlayerAfterCombat(): 'return false; // This is not high-stakes LARPing' made me laugh.
-		Lore:
-			- Dragon race: Half-demon name from zahhak to vritra looks ok, although I admittedly don't know much about either.
-			- New dragon lore: I like the change to Lisophia's method for getting more wealth, it really suits the greed theme she'll have and helps to reinforce the fact that the elder lilin are 'the bad guys'.
-		Maps:
-			- Sillymode dungeon exit: 'The  air is not so foul near this door, it must be the way out.' is this a LOTR reference?
-			- Sillymode dungeon: 'Getting off in a dungeon full of weirdos isn't a good idea.' Made me laugh.
-			- Eisek's stall tile: Good idea making the shoppers present increase in density based on quest completion.
-			- Eisek's stall tile: I changed the density of the crowd from 'ONE' ('A single crowd') to a newly-added density, 'SMALL' ('A small crowd').
-		Dialogue/Playthrough:
-			- Change: Moved action position from 14 to 5 for Fae's 'Fabric?' action.
-			- Bugfix: Fixed issue where you could ask Monica, Silvia/Fae, Imsu/Hale about stall quest items even before starting quest (due to a missing 'pc.hasQuest(QUEST_LINE_SIDE_EISEK_STALL)' check in the action conditionals).
-			- Change: When buying produce from Eisek, the 3 affection gain is now multiplied by items purchased (so buying 2 items at once gives +6 affection, for example). These gains are capped, so buying lots of items at once won't boost affection past 15.
-			- Change: Selecting the 'Back off' action now moves the player back a tile, so that when the dialogue ends they have the standard market path scene.
-			- Initial Eisek encounter: Interesting use of an encounter to display the correct dialogue for the tile. I normally use conditional checks within the same dialogue node to alter the content displayed (using the 'eisek_introduced' flag, for example).
-			- Eisek's banishment: I was going to remove the 'banishNPC(eisek)' call (as I don't want to remove unique NPCs from the game), but unique NPCs aren't deleted via that method, so I left it as it is.
-			- Bugfix: Fixed issue where the 'banished stall' text was always blank due to an '#ELSEIF' instead of an '#ELSE'.
-			- Minor fix: Added '<p>' tags to Eisek's post-trade speech to format it correctly.
-			- Eisek talk options: I've disabled the talk options if they're the currently active scene. Also I've greyed-out the affection-locked talk actions instead of hiding them to let players know that there's more to be discovered by increasing affection.
-			- Bugfix: In the mob talk, the 'Change the subject' action was set to index 1, so didn't show. (I moved it to index 3.)
-			- CHAD poster: It's brilliant.
-			- 'Confront mob' action: I altered the tooltip's logic a little to make it clearer that knowing Eisek is the best way to go.
-			- Bugfix: The 'Change the subject' action had no associated scene text.
-			- Change: The 'Dragonfall?' action now remains in the 'mob' scene with its associated actions instead of returning to the main talk scene.
-			- Mob quest: I like the way the player gets rewarded for having taken the time to get to know Eisek (via the persuade option).
-			- Eisek's smalltalk: I really like the variations based on what the player has accomplished (vengar, harpy nests, slime queen).
-			- Bugfix: Mob fight scene had 'muscle' instead of 'dsg_muscle' as a parser target.
-			- Mob confrontation: For the lust tooltip: 'Use your mastery of lust spells to make things interesting. [style.boldBad(NYI)]', what does NYI mean? (Also this content wasn't added so I added content for it.)
-			- Mob confrontation: I made victory conditions greyed-out if the requirements weren't met instead of hiding them, and also made the resolution scenes have 'continue dialogue'.
-			- Bugfix: When losing the fight against the mob, or failing to intimidate them, the quest conditional checks weren't quite working correctly, so I added another Quest, 'EISEK_MOB_QUEST_STAGE_THREE_FAILED', and set the progress using that.
-			- Bugfix: When reporting to Eisek that you failed to handle the mob, the dialogue displayed the player reporting their success.
-			- Bugfix: Changed the wording of 'EISEK_MOB_QUEST_STAGE_TWO' quest completion text so that it doesn't contradict the quest text if the player fails the mob quest.
-			- Change: Eisek's stall quest can now only be started if the player resolved the mob quest via persuasion.
-			- Fae/Silvia: I made it so that their 'Fabirc?' action is greyed out once clicked on.
-			- Imsu/Hale: I did some tinkering with conditionals and formatting to tidy it up a little.
-			- Monica: Similar editing of conditionals and formatting as I did with Imsu/Hale.
-			- Eisek's ring: Is the inscription change for future content?
-		Silly mode:
-			- Writing: Funny, it made me laugh several times.
-			- Change: I made the initial encounter flow into Eisek's standard interactions, instead of returning the player to the 'Approach' action.
-			- Bugfix: The 'FLAG_dsg_elis_eisek_sillymode_basement_found' wasn't being set to true when discovering the dungeon (it was being set to false instead, so I assume a copy paste error), allowing the dungeon tile to be repeatedly generated.
-			- Traps: Again, writing is funny (the disarm tooltip 'Counterterrorists win' made me laugh).
-			- Bugfix: Failing to disarm the trap set the place type to diarmed on both the trap tile and the tile the player was moved to.
-			- Bugfix: Fixed background error being thrown when opening the phone in the dungeon map (caused by my code, not your files).
-			- Writing: 'This strange little group is going without snacks for a while.​' ;_;
-		Writing:
-			- General: Style fits well with my style of writing, and has a good amount of dialogue.
-			- Bugfix: Changed 'FLAG_dsg_elis_eisek_mob_quest_intimidate_seduce' to 'FLAG_dsg_elis_eisek_mob_quest_seduce' at end of the 'STALL' text in produce.xml.
-			- Change: Minor grammatical fixes.
-			- Change: Added some preface text to some of Eisek's dialogues.
-			- Typo of note: Changed 'glassfromer' to 'glass-maker' in Eisek's dialogue about other dragons. Would you prefer this to be glassformer?
-			- Change: Added the 'VENDOR' dialogue which you'd written but not implemented in Eisek's class (you needed to override the getTraderDescription() method to use it).
-			- Comment: 'Imagine writing something you hate doing irl ha ha couldn't be me' I get that a lot too when writing.
-			- Initial Eisek scene when player is dragon: 'This is getting out of hand! Now there are two of them!' I didn't notice this before and it made me laugh.
-		Final full playthrough test:
-			- Bugfix: Added 'pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB)' to the silly mode mob conditional check, as it was triggering when encountering Eisek for the first time.
-			- Food status effects: Added unique icons for the two food-related status effects, using your apple and tangerine images for the icons.
+	[x] main quest
+		[x] add NPCs
+			[x] Hammer
+			[x] Ghost
+			[x] Angelixx
+		[x] add abandoned bakery map
+			[x] ground floor
+			[x] first floor
+		[x] add txt file
+		[x] add tile for Elis
+		[x] create maps
+		[x] spawn characters
+		[x] Enforcer station dialogue
+			[x] SWORD group in room at end of corridor - half a dozen of them
+				[x] Two leaders who are in late 60's
+				[x] Rest of group look to have an average age of around 50
+					[x] None of them look like the ones who are on duty in the town hall, realise that those guards must be separate to this group
+				[x] Highly competent, although extremely cynical after being demoted and assigned to Elis when they tried to expose corruption
+			[x] Conversation
+				[x] Need reference for if player is detected as an Enforcer
+				[x] Otter-girl says who you are and recounts your journey - flashing file at you that bears the words ORICL TOP SECRET on the front
+					[x] Did you really think you could move in with a recognised daughter of an elder lilin and do all that you've done without triggering an alarm
+				[x] They reveal that they already know about the situation, and that you should watch yourself
+				[x] Say they'll help, but not for Minotallys or you, but because the innocent people of Elis will be the ones to suffer
+				[x] They say that they need help with an operation before they can help plan the defence of Elis
+					[x] But first:
+						[x] They know that you went to Themiscyra and shortly after they got intel that Lunexis has gone missing
+						[x] Tell them that you were responsible
+						[x] They say that they'll trust you
+				[x] Criminal gang has set up here in Elis and is illegally enslaving refugees
+					[x] You've taken down an elder lilin's daughter, so you can help them take down two more
+					[x] A daughter of Lovienne is the one behind the gang, she's kidnapping people and having them shipped off to Dominion as 'slaves'
+						[x] This illegal enslavement should be raising flags in Dominion, but nothing's happening, suggesting that these slaves are all going to a private buyer who knows but doesn't care about their origin
+							[x] Elder lilin wouldn't risk this kind of illegal enslavement if it was going to be found out for fear of unrest
+						[x] Dominion is well outside of their operational area though so all they can do is stop the trade on this end
+					[x] This group has arrested dozens of gang members, but they won't be broken until the leader is stopped
+					[x] In their eyes, Minotallys is one of the corrupt elite and can't be trusted
+					[x] You clearly have some kind of status, so if it's discovered who's behind the operation then you'll take the fall
+						[x] Acting against demons is risky at the best of times, but confronting a daughter of an elder lilin is sure to bring the hammer down on them
+						[x] Won't wear any Enforcer insignia
+					[x] There's some kind of important gathering at their headquarters every Tuesday night
+					[x] Can't arrest succubus as that would bring too much heat down on them
+					[x] Instead they're betting on the fact that she'll return to Dominion after her headquarters is raided
+		[x] Quest
+			[x] Add balaclava for Enforcers
+				[x] lime green not working???
+				[x] add to mugger outfit
+			[x] No markings on uniforms (they don't want to be recognised)
+			[x] HLF Enforcer weapons (they disappeared from evidence a long time ago)
+			[x] enchantment overload - [#hammer.getEnchantmentPointsUsedTotal()] [#ghost.getEnchantmentPointsUsedTotal()]
+				[x] give enchantment cap increase
+			[x] Add gang members
+			[x] add Enforcer firearms training perk (doubles damage with all firearms)
+			[x] Add succubus
+				[x] Submissive, innocent-acting, looks 18, unusually for a succubus has a flat chest
+			[x] need combat moves set for Hammer & Ghost - just use weapons
+			[x] Quest
+				[x] Meet with Hammer and Ghost
+				[x] The gang are mostly upstairs normally
+					[x] can choose which one to go with
+						[x] Ghost back door
+							[x] barricade in kitchen
+						[x] Hammer front
+							[x] barricade in front
+				[x] Says to ignore any slaves - they'll be freed when the Enforcers show up
+				[x] says you aren't here to fight, just tag along
+					[x] can choose to fight
+				[x] Gang member fight after entry
+					[x] Slaves all missing in kitchen area
+				[x] another fight in second kitchen area
+				[x] Proceed upstairs and into more gang member fight
+					[x] gang member reveals that all slaves were teleported out an hour ago, and that the succubus doing the teleporting is in bedroom
+				[x] optional rooms to clear
+					[x] storage room - flames and enchanted collars (but no slave enchant on them...)
+					[x] bathroom - used condoms
+				[x] Enter succubus's lair
+					[x] She tries to act innocent
+					[x] Says that her mother, Lovienne, has sent her here personally, so you're interfering with an elder lilin
+					[x] When Hammer says that shit won't work, she gets visibly angry and says that she's close to being officially recognised by her mother - you're not going to fuck this up for her
+					[x] Ghost enters, and she realises it's over - says that she's collected enough slaves to last for years anyway
+					[x] She says that she has no intention of fighting and manages to escape while you fight her minions
+					[x] Enforcers leave before others show up
+				[x] Quickly exit as more gang members show up - blow hole through wall of bedroom (to raise town alarm to make sure this place is checked out and to escape)
+		[x] Back at Enforcer station
+			[x] Enforcers say they'll draw up a plan of how to defend Elis
+			[x] If fought with Enforcers and affection>=20 (from telling truth and talking while waiting), they give SWORD dagger reward
+				[x] Ghost - poison, enchantment gives crit damage
+				[x] Hammer - physical, enchantment gives physical damage and melee damage
+			[x] fix flow of reward dialogue
+			[x] Talk
+				[x] History
+				[x] SWORD
+				[x] ORICL
+				[x] Recovered diary, Ghost says that it reveals where the slaves are being sent to
+					[x] Doll quest
+			[x] patrol -> Patrol
+		[x] Report back to Minotallys
+	[x] disable submit in combat
+	[x] add way to skip combat
+		 [x] tracking for rewards
 	[x] Test:
-		[x] Issue with 'SIDE_EISEK_STALL' quest progress: Can ask Monica, Silvia/Fae, Imsu/Hale about quest items even before starting quest.
-		[x] Dialogue:
-			[x] When buying produce, multiply the 3 affection gain by items purchased
-			[x] Back off missing dialogue
-			[x] banish route
-				[-] change banishNPC(eisek) to change home tile and use FLAG_dsg_elis_eisek_banished to prevent his movement
-				[x] No description for the banished Eisek tile
-			[x] real route
-				[x] trade
-					[x] speech is not in p tags
-				[x] talking
-					[x] make options greyed out if they're the active option
-					[x] test all talk options
-				[x] mob
-					[x] The 'Change the subject' action has no associated scene text
-					[x] The 'Dragonfall?' action should keep the mob options instead of returning to the main talk scene
-					[x] test after having talked with Eisek (elis_eisek_talk_score >= 4)
-					[x] test all victory conditions
-						[x] make victory conditions greyed-out if don't meet requirements instead of hiding them
-						[x] physique
-						[x] arcane
-						[x] test fight
-							[x] win
-							[x] lose
-								[x] cannot report back to Eisek if lose (and probably fail intimidate as well)
-						[-] arcane spell school
-							[-] add seduce content
-					[x] check quest log at each stage
-						[x] incorrect if lost fight
-				[x] stall quest
-					[x] disable unless persuasion route end for mob quest
-					[x] Fae/Silvia
-					[x] Imsu/Hale
-					[x] Monica
-					[x] Eisek's stall tile: Does the tile's name change correctly based on quest progress?
-			[x] Silly mode
-				[x] change back to 30
-				[x] location placement repeats if repeatedly leave it
-				[x] trap disarming takes place after player move...
-				[x] Opening phone throws errors... - sexBlockedReason -> some kind of underlying error
-		[x] Proofreading
-			[x] txt file checks
-				[x] core
-					[x] stall
-					[x] eisek_initial
-					[x] eisek_mob_hideout
-					[x] produce
-					[x] produce_banished
-				[x] silly mode
-					[x] dungeon (encounter)
-					[x] eisek_sillymode
-					[x] dungeon (place)
-					[x] eisek_sillymode_dungeon_street
-				[x] Fae/Silvia
-				[x] Monica
-				[x] Imsu/Hale
-			[x] search for US spelling z
-			[x] full play test
-				[x] silly mode encounter triggering before main quest?
-				[x] Mob quest
-				[x] Stall quest
-					[x] Fae/Silvia
-				[x] Silly mode quest
-		[x] Add fruit status effect icons
-		[-] Add apple flavour?
+		[x] encounters on Elis bakery tile
+			[x] tile should be safe in day
+			[x] check for tile type checks in code for removal
+			[x] add explore action
+		[-] autosaving when moving to bakery tile!
+		[x] dobermanns aren't called dobermann-boy/girl?
+		[x] do not remove items
+		[x] add cat-boy and alligator
+			[x] test
+		[x] change gang member names when defeated
+		[x] clean up items after leaving
+		[-] bedroom dialogue needs splitting?
+		[-] change gang member job perk icons to something more generic
+		[x] give Hammer a beard
+		[x] change 'GF to F0' -> all instances
+		[x] add leg warmers for Angelixx
+		[x] add Angelixx's diary (to floor of room?)
+			[x] test quest inventory overflow - quest items get deleted!
+		[x] test dialogue after quest completion in station
+			[x] incorrect history flag setting
+	[x] Error from saving/loading parser tags:
+		Failed to parse: thanks to the fact that [npc.her] raptor eyes grant [npc.herHim] excellent night vision
+		java.util.ConcurrentModificationException
+			at java.util.ArrayList$Itr.checkForComodification(ArrayList.java:909)
+			at java.util.ArrayList$Itr.next(ArrayList.java:859)
+			at com.lilithsthrone.game.dialogue.utils.UtilText.findParserTargetWithTag(UtilText.java:9663)
+			at com.lilithsthrone.game.dialogue.utils.UtilText.parseSyntaxNew(UtilText.java:9627)
+			at com.lilithsthrone.game.dialogue.utils.UtilText.parse(UtilText.java:1288)
+			at com.lilithsthrone.game.dialogue.utils.UtilText.parse(UtilText.java:975)
+			at com.lilithsthrone.game.dialogue.utils.UtilText.parse(UtilText.java:971)
+			at com.lilithsthrone.game.dialogue.utils.UtilText.parse(UtilText.java:956)
+			at com.lilithsthrone.game.character.GameCharacter.getDescriptionSelfImmuneToDarkness(GameCharacter.java:21623)
+	[x] If you are a demon you should be able to skip the line at the watering hole
+	[x] If sucked cock, can get fucked by Jules
+	[x] Meraxis hug action -> anal?
+	[x] player's perk tooltips in character view don't work
+	[x] full quest test
+		[x] Enforcer station
+		[x] Bakery
+			[x] GF
+			[x] 1F
+		[x] Post-quest
+	[x] DSG feedback
+		I've had a look through enforcer_station.xml, and my only real lore corrections are
+			[x] Line 297 "Elis SWORD Department" should be something like "SWORD 3rd Battalion, 1st Company - Company Headquarters" since SWORD isn't bound to regions the way the Patrol is
+			[x] The ORICL Directorates would be proper nouns; Directorate Red, Yellow, etc	
+			And some typos/stylistic things I noticed:
+				[x] Line 406, you've spelled out the year here but not elsewhere?
+				[x] Line 211, misssing "ago" after "five years"
+		abandoned bakery:
+			[x] Line 64 after what was later called 'The Battle of Green Grass Hill'... you can shorten this to just on Green Grass Hill
+			[x] fifth human rebellion, I noticed this in enforcer_station as well, I think it would be best to have this as a proper noun, and you can use it with just Rebellion interchangeably, since the Fourth would have been over a hundred years ago
+			[x] Change 'They never quite got the shape of these right for digitigrade feet' -> Ghost says she would rather wear trainers (or "go-fasters") or something
+			You can add something to this line if Elle has been displaced:
+				Too many Enforcer quartermasters over the years have become very wealthy while marking down an abnormally high amount of equipment as being 'destroyed in the line of duty'. The gang we're going to be dealing with tonight will think that we're a serious rival operation from Dominion.
+				[x] "I heard some fox in 1st Battalion put a stop to that in Dominion. Was a local boy from around here too. Good on him."
+	[x] balaclava has pumpkin description
+	[x] MAKE PUSSPUSS POLL!
+	[x] Add Fae & Siliva
+	[x] test art
+	[x] More DSG feedback:
+		[x] Enforcer Station description: declaring this to be the Enforcer's Elis branch: I think declaring this to be the Enforcer's headquarters for the Elis region sounds better.
+		[x] Also before you defeat Lunette, perhaps the description of the Enforcers inside and outside can mention how they seem melancholy at being forbidden from doing anything about the situation outside the walls? Does that makes sense if Minotallys is in denial?
+			[] the mood of the office can be something you ask Sterope about
+		[x] txt\places\fields\elis\enforcer_station.xml line 453, out spill dozens of papers detailing your exploits in Dominion, Submission, and now Elis: perhaps papers and lurid pictures in Silly Mode?
+		[x] txt\places\fields\elis\enforcer_station.xml line 537, there are dozens of systems and regulations in place to detect if a slave isn't legal: You can also mention how the Slavery Administration would be going nuts.
+		[x] dialogue\innoxia\places\fields\elis\enforcer_station.xml line 686, defense of ELis
+		[x] txt\places\fields\elis\enforcer_station.xml line 635, civvy gear, normal clothes: civvy clothes, street clothes sounds more casual, you can also use gear and kit interchangeably
+		[x] res\txt\places\fields\elis\abandoned_bakery.xml line 73: You can also have the player ask if the proliferation of SWORD equipment to gangs makes things harder, to which Ghost or Hammer can say something like Hardware is one thing, training and experience are another. or Money doesn't make people fight as hard as you might think.
+		[x] txt\places\fields\elis\abandoned_bakery.xml line 178, difference of shells: can either handwave him loading conventional shells into one that normally fires gas or change the scene a bit so that he's using the butt on his gun to beat down the door. Or merge Mist's PR so I can expand the available elements. :BlobHyperCatCoffeeSmug:
+			[x] change to sledgehammer
+			[x] add sledgehammer weapon
+		[x] txt\places\fields\elis\abandoned_bakery.xml line 465, "Stick with me!" hammer
+		[x] Observation: Hammer doesn't seem to use his gun much in combat?
+	
+	[] Doll quest
+		[x] add doll race -> like slime but rubber instead of slime
+			[x] add new silicone material for dolls
+			[x] no essence from sex
+			[x] cannot ever impregnate/be impregnated
+			[x] can never self-TF
+			[x] always level 1
+			[x] always ambiphilic
+			[x] cannot resist in sex
+			[x] need aura set to 0
+				[x] UI
+			[x] custom perk tree
+				[x] arcane-infused silicone - +100 to add resistances
+					[x] hyper flexibility
+					[x] plastic parts - completely barren & sterile cannot and cannot grow hair or pubic hair
+				[x] sex toy - 100 corruption
+					[x] live to fuck - cannot resist in sex
+					[x] owned - obeys all owner's orders
+				[x] automaton - - to all combat skills
+					[x] no aura - -1000 arcane, cannot be transformed, cannot generate essences from sex
+					[x] object - cannot gain experience and stuck at level 1
+			[x] reset occupation to 'dutiful doll' - will obey any command unless from a slave or another doll
+			[x] no hair
+			[x] can never grow pubic hair
+			[x] need special TF items, immune otherwise
+				[x] TF item immunity handling
+					[x] clothing
+						 [x] fetish handling?
+					[x] tattoos
+					[x] items
+					[x] fetishes
+				[x] add Doll Expedient Customisation Kit
+					[x] opens TF menu (like makeup kit does)
+						[x] breaking when doll...
+						[x] DOLL_TF item effect???
+					[x] body changes
+					[x] change body covering colours & modifiers
+			[x] check for all TF items
+				[x] mushroom
+				[x] essences - set to 0 as well
+				[x] harpy TFs
+			[x] no hymen
+			[x] mineral oil modifiers
+			[x] cannot gain fetishes
+			[x] neutral desires
+			[x] fetish experience
+				[x] add fetish immunity to lust perk - 'anything goes'
+			[x] cannot get addicted to fluids, hallucinate, nor get drunk (check caffeine drunk)
+				[x] remove associated status effects
+				[x] thirst quenched and hunger satisfied removal
+				[x] psychoactive still not working
+				[x] addictions
+				[x] add to physical perk - 'organs not included'
+			[x] add arcane perk 'arcane-powered' - can enter a motionless state and absorb background arcane energy for power
+			[x] do not allow egg incubation
+			[x] nipple-pen
+			[x] set elasticity/plasticity
+			[x] self-cleaning orifices
+			[x] check items again
+				[x] Inno-chan
+				[x] Innoxia's gift
+			[x] body parts
+				[x] milk/fluids needs to be
+					[x] mineral oil
+					[x] slimy
+					[x] clear
+					[x] lemon
+				[x] body hair is called 'silicone'...
+					[x] SILICONE_BODY_HAIR generated
+					[x] BodyCoveringTemplateFactory.createSilicone
+		[x] TODO
+			[x] setBodyMaterial()
+			[x] add default consumables to subspecies
+			[x] setBodyMaterial() -> // Doll subspecies are set in the Main.game.getCharacterUtils().generateBody() method
+			[x] check every instance of BodyMaterial.SLIME and getBodyMaterial()
+				[x] flying
+			[x] sex attraction
+			[x] DOLL_BASIC and ADVANCED race lore
+			[x] need doll descriptors for sexual parts (plastic, rubber, silicone etc.)
+				[x] vagina
+				[x] penis
+				[x] nipples
+				[x] breasts
+				[x] anus
+				[x] ass
+			[x] flavourless
+				[x] TF
+				[x] flavour descriptors should only be used when mouth actions are involved?
+			[x] doll TF presets (save/load) not working
+		
+		[x] doll speech font?
+		[x] doll extras
+			[x] obedience
+			[x] personality
+				[x] clear on TF
+				[x] handle hypno watch and other forms of addition
+			[x] perk handling
+			[x] hymen description
+			[x] end sex affection changes
+			[-] sex pace lock to normal
+				[-] player is not forced?
+				[#angelixx.setBodyMaterial(BODY_MATERIAL_SILICONE)] [#game.startGenericSex(angelixx)]
+			[x] dolls should not suffer from sadistic actions 'finds this sadistic action to be a huge turn-off'
+			[x] arcane storm health handling
+			[x] test weather SEs
+			[x] check sex and combat essence gains
+			[x] change doll gender name
+			[x] exposed immunity
+			[x] crossdressing immunity
+		
+		[x] glossy not working in Saellatrix?
+		
+		[] Lovienne's Luxuries
+			[x] Add location
+				[x] map
+				[x] dialogues
+				[x] Dominion place
+					[x] demon home
+			[] add succubus saleswoman
+				[x] Saellatrix
+				[x] sells sex toys -> move from Finch
+					[x] check/correct Finch dialogue
+				[x] if blowjob demo doll, Saellatrix offers deal 'your cock's wasted on this hole, slapping across face'
+					[x] discount if snap choker, penalty if can't
+						[x] go to staff room for blowjob
+						[x] orifices tentacle description
+						[x] snap
+							[x] handle snap detection
+							[x] need initial description to handle this as it happens immediately if cock is thick enough
+							[x] take discount (-25% for everything for 1 week)
+							[x] fuck tits, pussy, ass
+						[x] can't snap
+							[x] take penalty (+200% cost for everything for 1 week)
+							[x] take cock
+								[x] need cock preference
+								[x] use calculateSexTypeWeighting -> generateSexChoices instead?
+								[-] test cock preference when blocked
+					[x] saellatrix equips clothing from sale inventory...
+					[x] sexClothingEquippable isn't working...
+					[-] snapped choker goes into sale inventory?
+					[x] movement broken
+					[x] penalty/discount trade variations
+					[x] repeat wager
+						[x] discount -> she offers same deal
+						[x] penalty -> she says you can remove it by letting her fuck you
+						[x] writing for wager check sex count instead of discounts
+					[x] writing
+						[x] throat muscles
+					[x] day's cooldown to sex
+					[x] pregnancy handling
+					[x] wolf guards
+					[x] penis modifiers
+					[x] test
+						[x] discount
+							[x] fuck her
+								[x] repeat wager
+									[x] acts like it's the first time...
+							[x] repeat discount
+						[x] penalty
+							[x] fucked
+							[x] leave -> repeat fucked
+								[x] repeat wager
+						[x] need cock removal
+						[x] for conditional use isFullPenetrationFarTooShort(SexAreaPenetration.PENIS, characterReacting, orifice)
+					[x] add player cock size detection to oral offer
+				[] add talk options
+					[] 2 Lovienne
+					[] 3 Saellatrix
+					[] 4 ask about dolls, repeat
+						[] shows dolls (info)
+							[] display (more info)
+								[] can question realism
+									[] she assumes you're from protest group
+									[] offers factory tour to clear it up
+									[] factory tour (free to move, limited to 10 minutes)
+							[] counter (unlock doll purchase)
+						[] 5 doll purchase
+							[] menu - optional extras
+								[] remove barcode (1000)
+								[] toy set (5000)
+								[] Hair (10000)
+								[] HH-cup model (25000)
+							[] doll ownership below
+			[x] demo doll
+				[x] public blowjob/cunnilingus
+				[x] need more randomDescriptions
+					[x] saellatrix for blowjob
+				[x] exhibitionist check
+				[x] test repeat blowjob after offer made
+			[] writing
+				[] Extremely high quality, self-cleaning human dolls (they move around and obey commands without question - when not in use they can remain motionless indefinitely)
+					[] "It's happened to us all before - you go out looking for a cute bunny girl in an arcane storm only to get turned into some horse-boy's cock-sleeve. With dolls, you can fuck them any time with no risks!"
+					[] "If you're lucky enough to have a slaver license, then you'll know that slaves aren't cheap! Feeding, housing, dealing with the rebellious ones... Dolls don't eat, you can put them in a closet, and they're 100% obedient!"
+					[] standard model is the 'DD-doll' -> DD-cups
+					[] also offer other sizes, but they cost more
+					[] non-human limited editions are extremely expensive - slave value * 20
+					[] barcodes on foreheads (can be removed upon purchase for extra cost)
+					[] can buy toy set with them
+					[] Suspicions that dolls are transformed people
+						[] Salesman says that they're just constructs with a patented secret enchantment to animate them
+						[] To prove it, they explain that people have essences which can be extracted by lilin - dolls don't have essences, so can't be people
+						[] Can get 'tour of factory' to put mind at ease
+							[] just a fake frontage of a factory, see doll parts on conveyor belts but they don't look like the same quality as the dolls
+						[] Can ask Arthur about it
+							[] He says that it would be possible, but it would require core essence extraction, which is only theoretical
+							[] if it were possible, an elder lilin would have the power to get a core extractor working, but it's extremely unlikely
+							[] he says that it would, however, be relatively easy to enchant a doll to be able to move and follow commands - with Lovienne's help they must have perfected that process
+		[] Doll ownership
+			[] need a doll closet in Lilaya's home to buy dolls
+				[] ask Lilaya about room upgrades if not unlocked already
+			[] station dolls in any tile in house
+			[] can set pose and sex use by slaves - standing split, missionary presenting, all fours, at attention, squatting, handstand, bridge
+			[] limited slave permissions system
+			[] slave jobs
+				[] no milking
+		
+		
+		[] Quest
+			[] Can start quest after main quest where slaves are being sent to DD
+			[] search around the back
+				[] Get approached by human girl, who says her friend was kidnapped in Elis and she knows that she was taken to DD. Offers help
+			[] Gather proof
+				[] Sneak in to DD, girl stays in air vents
+				[] factory mainly makes sex toys, dolls work on production lines
+				[] dolls walking around as they're heavily used for labour (can't have too many people knowing the truth so employees are kept to minimum)
+				[] Find doll conversion taking place
+					[] horse-boy transformed to human girl then dollified
+						[] succubus explains that slaves are transformed into identical forms to make it seem like they're mass-produced products, not transformed people
+					[] complete essence drain and ingestion of transformed slime
+					[] after physical TF, they get mind-broken
+						[] essence corrupted and then channelled into pussy while being fucked
+						[] succubus uses spells to overwhelm with arousal and break into nympho sex doll
+					[] unlock doll advanced lore
+				[] fight guards
+					[] demon employees
+					[] Angelixx's nightmare guards
+				[] retrieve proof
+					[] find girls' friend, now as a doll
+					[] recover documents
+					[] get admission from regretful employee
+				[] Choice at end of working with DD or the girl
+					[] If DD, girl is TF'd to doll and can have slaves converted to dolls and earn money by sending criminals to them
+						[] Can fuck Angelixx
+						[] If Meraxis sex unlocked, can tell her that there's someone you want her to duel (breast size comparison)
+							[] Threesome with Angelixx and Meraxis
+					[] If girl, she uses proof to get DD truth published in underground newspaper
+						[] Angelixx TF'd into a doll
+							[] Can get Sleip and Nir to fuck her in doll form
+			[] Get caught
+				[] turned into doll by succubus from main quest - massive essence drain, ingestion of transformed slime, and infusion of corrupted essences
+					[] if can be transformed, transformed to human
+					[] if not (demon), transformed to look like human, teased that nobody will ever be able to tell
+				[] you can escape before mind-break - succubus says that your core essence is different and needs to get the lab tech to analyse it
+				[] obedience stat to determine when broken
+				[] temptations during factory explore which increase obedience
+					[] employee sex - penis cum fetishes
+					[] storage rest (advance time to mid-day) - barcode tattooed on forehead
+					[] nightmare stretching - masochist sub non-con
+					[] ordered to clean other doll - lose all dom fetishes
+					[] sex toy testing - masturbation anal oral vaginal fetishes
+					[] display (after storage rest) - exhibitionist bondage bitch fetishes
+				[] succubus looking for you
+					[] random encounter, can hide or do other things to avoid detection
+						[] hide
+						[] pose
+						[] work
+					[] if obedience is full, surrender to her
+					[] if caught, full conversion
+				[] find way to reverse it - find your drained essence and consume it
+					[] can bad-end as a different race by consuming a different essence
+			[] Get caught again
+				[] full conversion
+					[] nightmares fuck to get revenge - Angelixx masturbates while watching (special sex actions for corrupt essence infusion)
+					[] girl is found as well and TF'd alongside you
+					[] sold to slave-owner and used as slave sex relief
+					[] or if non-human, sold to rich, horny succubus
+			
+	[] Hannah shouldn't drink while pregnant
+		[] need non-drinking variations for all scenes
+	
+	[] Shadow & Silence!
+	
+	[] Need non-crime alternative for offspring
+	
+	[] demon tail ovipositor sometimes not working (pegging)?
+	
+	[] if player has TF (self) fetish, make sealing gear that bondage kink npcs apply on defeat have some kind of slow transformative effect
+	
+	[] wiki
+		[] placeholder
+		[] doku fix?
+		[] mediawiki setup
+		
+	[] developers chat
+		[] PRs
+		
+	[] gential slit option
+	
+	[] copy-paste slave settings
 	
 	[] Maxis DMs
 	[] A Fox submission
 	[] Dwight submission
 	
-	[] Add Wolfgang & Karl art
-		[x] preview also
-	[x] PussPuss poll!
+	[] Sterope expansion
+		[] If double feral sex once, spawn unique centaur as encounter when in taur tavern and Sterope is present
+		[] drags you over to Sterope and says that he's heard how the two of you like being fucked as mares
+		[] have to feral TF for him
+		[] after sex, he leads the two of you through the tavern and makes you give a double blowjob while he drinks at the bar
+			[] kheiron eventually asks to leave
+		[] next time, invited to his manor but have to feral TF for 24 hours
+			[] get 'trained' in his stable until the next evening
+		[] next time, he says he'll keep you as his mares
+			[] after sex, taken back to his stables - floor is an enchanted beast stone to make sure you stay as ferals
+		[] Bad end
 	
-	[] Pusspuss character
+	[] Ralph's player-orgasm sex action dirties Ralph's underwear
 	
-	[] Add Oglix
-	[] Get Golix details to FAF
+	[] Silence scream post-Shadow defeat is parsed to ...
 	
-	[] Platinum Bank of Dominion card states that it grants access to Elis's town hall's tower.
+	[x] revisit desryth, reject him, stuck in his apartment
 	
-	[] Remove <sexBlockedReason/> from lots of place types...
+	[] penile virginity loss to Aurokaris apparently ended up being to Harely in Diana's nest
 	
-	[] Too many virgins spawning as one-night stands in Lights Out
-		dialogue/innoxia/places/dominion/nightlife/lights_out.xml:244
-		Go to this file, this line
-		[#partner.resetBodyToGenderPreferences(false, false)]
-		Delete this
-		[18:09]Maxis (Lvl 17 Code Monkey): if I'm right, that method call is restoring the virginities by regenerating the body
-		
-	[] AceXP: Taking all items while on the second/third/etc page of the inventory screws up the rendering of the right side of the inventory page.
-		And the same happens on the left side if you store all while not on the first page.
-		This happens because the page stays the same but there are now no more items to display.
-		
-	[] main quest
-		[x] Add Enforcer station
-			[x] map
-			[x] places
-			[x] dialogue
-			[x] txt
-		[x] Only open to public from 8:00-20:00
-		[] Receptionist
-			[x] Human - Sterope Hippos
-				[x] Olive skin, emerald eyes, dark brown hair, beautiful face
-				[x] Aloof, derisive
-				[x] mid-30s
-				[x] bun hair, D-cups, womanly hips, hourglass figure
-			[x] Intro
-				[x] If not met, when enter tile set her to pregnancy stage 3
-				[x] If fucked, she sternly says not to mention her private life while she's at work
-			[x] ribbon corrections
-			[x] Change to partial horse-girl
-			[x] Talk
-				[x] Work - Enforcers are managing with the huge influx of refugees, but after dark the alleyways are dangerous
-				[x] Career 
-				[x] Lunette - She says that her daughters are causing a huge problem, but it's not for her to question an elder lilin's motives
-					[x] Besides, there are worse fates than being turned into a succutaur's cock sleeve...
-					[x] Can flirt - she says to find her in The Centaur's Sword after 21:00
-				[x] Ask to see SWORD group
-					[x] She says that they don't mix with the rest of the Enforcers
-					[x] Rumour is that the sergeants were part of the group who dealt with the criminals behind the bank heists of 76, before SWORD was even formed
-					[x] Says that they caused a fuss in Dominion about five years ago and were demoted and sent here
-						[x] There was talk that a recognised daughter of the elder lilin Lasielle, who'd been given a high-ranking position in the Enforcers, had been arrested
-						[x] That elder daughter hasn't been seen since, and a week later the group arrived here in Elis
-			[x] Pregnancy if no sex and in empty world
-				[x] hourly update
-					[x] 20% roll 01:00
-					[x] mother's milk 8:00
-			[x] hourlyUpdate needs hour passed in as argument
-				[x] refactor all hourly update methods
-			[] Need reference in initial encounter for if player is detected as an Enforcer
-			[] Centaur's Sword
-				[x] Map
-					[x] Add locked door and stable
-					[x] Writing
-				[x] Make sure she doesn't go to where Fae is
-				[] In tables area
-					[] 50/50 for her to be with centaur - not the first time though
-						[] centaur gropes Sterope and asks if you're a worthless slut like she is
-						[] join her (if feminine)
-							[] She's keen to rent the stables (large room with high ceilings)
-							[] Before tied up, double TF potion option (into fully furry horse-girls)
-								[] If fully-furry from previous sex scene, she's paid for Kheiron to get a feral stone & can TF into feral
-							[] You're both tied up
-								[] Get punished
-									[] non-feral - spanking, whipping, oral dom
-									[] feral
-										[x] add clothing:
-											[x] bridle (muzzle only)
-												[x] need muzzle/beak/humanoid face limitations for tags
-											[x] saddle (taur only - slot?)
-												[x] quaternary colour not init correctly
-											[x] tail wrap (for any tail)
-											[x] horse shoes
-											[x] add submissive steed set
-												[x] add status effect icon
-										[] both get put into sub steed gear 
-								[] Fucked
-									[] feral - reins
-							[] After sex, same end
-						[x] lose the centaur - dominant
-							[x] She's revealed to be super kinky when not on duty
-							[x] She's keen to rent the stables (large room with high ceilings)
-							[x] Before tied up, TF potion option (into fully furry horse-girl)
-								[x] If fully-furry from previous sex scene, she's paid for Kheiron to get a feral stone & can TF into feral
-							[x] You tie her up
-								[x] Sex: Fuck her
-								[x] BDSM punishments: spanking, whipping, degrading talk - sadist variations
-								[x] Clothing: nipple clamps, ring gag, blindfold, dildo, butt plug
-									[x] test that clothing equipped at start of sex
-							[x] After sex
-								[x] Untie her
-								[x] She uses pregnancy tester if chance of impreg
-									[x] If pregnant, she drinks mothers milk, saying she'll go to a clinic to give birth before work tomorrow
-									[x] make her end pregnancy before work every day
-								[x] If TF'd her into fully furry horse-girl, she picks up TF potion to change back
-									[x] can convince her not to TF back
-										[x] she says she's more comfortable in a mostly human form
-										[x] can tell her that she's now your mare
-										[x] she hesitates and submits to your command
-						[x] Decline
-							[x] She leaves with centaur - move to stable
-							[x] Going to the back door, you can faintly hear neighing and rhythmic thudding...
-					[] If submitted to three centaurs, spawn unique centaur
-						[] cannot lose him
-						[] have to horse TF for him
-						[] after sex, he leads the two of you through the tavern and makes you give a double blowjob while he drinks at the bar
-						[] next time, have to feral TF
-						[] repeat blowjob scene
-						[] next time, he says he'll keep you as his mares
-						[] after sex, taken back to his stables - floor is an enchanted beast stone to make sure you stay as ferals
-						[] Bad end
-				[] check ferals should have crotch boobs despite setting
-		[] SWORD group in room at end of corridor - just over a dozen of them
-			[] Two leaders who are in late 60's
-				[] Wolf-boy
-					[] Scarred, permanent scowl on his face, equipment looks worn and heavy but he moves with it as though it were nothing
-					[] Elle ribbons, but 2nd class graduate, one star
-				[] Otter-girl
-					[] Has a fake smile on her face, weary look in her eyes, left arm is covered in burn marks
-					[] Elle ribbons, 1st class graduate, two stars
-			[] Rest of group look to have an average age of around 50
-				[] None of them look like the ones who are on duty in the town hall, realise that those guards must be separate to this group
-			[] Highly competent, although extremely cynical after being demoted and assigned to Elis when they tried to expose corruption
-			[] Conversation
-				[] Need reference for if player is detected as an Enforcer
-				[] Otter-girl says who you are and recounts your journey - flashing file at you that bears the words ORICL TOP SECRET on the front
-					[] Did you really think you could move in with a recognised daughter of an elder lilin and do all that you've done without triggering an alarm
-				[] They reveal that they already know about the situation, and that you should watch yourself
-				[] Say they'll help, but not for Minotallys or you, but because the innocent people of Elis will be the ones to suffer
-		[] They say that they need help with an operation before they can help plan the defence of Elis
-			[] But first:
-				[] They know that you went to Themiscyra and shortly after they got intel that Lunexis has gone missing
-				[] Tell them that you were responsible
-				[] They say that they'll trust you
-		[] Criminal gang has set up here in Elis and is exploiting the refugees
-			[] You've taken down an elder lilin's daughter, so you can help them take down two more
-			[] A daughter of Lovienne is the one behind the gang, she's kidnapping people and using her status to have them enslaved and shipped off to Dominion
-			[] This group has arrested dozens of gang members, but they won't be broken until the leader is stopped
-			[] In their eyes, Minotallys is one of the corrupt elite and can't be trusted
-			[] You clearly have some kind of status, so if it's discovered who's behind the operation then you'll take the fall
-				[] Acting against demons is risky at the best of times, but confronting a daughter of an elder lilin is sure to bring the hammer down on them
-				[] Won't wear any Enforcer insignia
-				[] Enforcer weapons are known to end up in the hands of gangs due to corruption, so even though they'll be using their standard weapons they'll have plausible deniability
-			[] The gang meets at their headquarters every Tuesday night
-			[] Can't arrest succubus as that would bring too much heat down on them
-			[] Instead they're betting on the fact that she'll return to Dominion after her headquarters is raided
-	[] Two birds with one stone
-		[] Add balaclava for Enforcers
-			[] No markings on uniforms (they don't want to be recognised)
-		[] Add abandoned bakery
-			[] first floor
-			[] ground floor
-			[] basement
-		[] Add gang members
-		[] Add succubus
-			[] Submissive, innocent-acting
-			[] She seduces people into being her slaves
-		[] Quest
-			[] Meet with Otter-girl and go into building
-				[] She explains that the team doesn't want to be seen entering via the front door, so you're going to force entry through an adjacent basement
-			[] Otter-girl leads (asks if you were expecting the big tough wolf to be the first in - don't worry he'll be joining soon)
-				[] Says to ignore any slaves - they'll be freed when the Enforcers show up
-			[] Gang member fight
-				[] Slaves here
-			[] Proceed upstairs and into more gang member fight
-			[] Upstairs to first floor
-			[] Wolf-boy and others enter through wall of adjacent building
-			[] Succubus fight
-			[] She teleports away and Enforcers leave before others show up
-			[] Quickly exit as more gang members show up
-				[] Optional fight to beat all gang members and unlock basement - loot inside
-	[] Back at Enforcer station
-		[] Enforcers say they'll draw up a plan of how to defend Elis
-	[] Report back to Arion
-		[] He says he'll come to hear their plan and to take him there whenever you're ready
+	[] Lyssieth image height too small
 	
 	[] If rape-play content is 'on at start', then make it so that NPCs with the unwilling fuck toy fetish present you with the 'rape' action even if they're attracted to you
 	
 	[] prioritise res races over mod folder - or mod folder different ids
 	
 	[] reduce anal fingering frequency
-	
-	[] copy-paste slave settings
 	
 	[] With a high enough Affection, the PC can walk into Meraxis' room while she's sleeping and she won't get mad.
 	 PC would slip under the covers and spoon the little thing, forcing her to let out a soft, content coo and almost immediately start to fall back asleep
@@ -595,6 +757,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] #1658 - MintyChip races
 	
 	###################
+	
+	[] language/translation support
 	
 	did i ever suggest a "drink until full term" option for mothers milk? cause if not, there it is.
 	also it seems like irresistible requests doesn't work for things like "object to rough"
@@ -811,6 +975,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] Add Dominion hospital and Elis clinic as alternatives to Lilaya
 		[] clothing
+		[] birthing scene expansion
+			[] Like give belly rubs, suck teats, kiss them, rub clit, hold hands, that kind of stuff. Maybe doing that helps them birth faster
+			[] use modified sex scene system for it
 	
 	[] add more pregnant interactions for offspring/occupants
 	

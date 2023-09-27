@@ -1,7 +1,6 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.time.Month;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -47,14 +46,6 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.ItemTag;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
-import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
-import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -236,40 +227,40 @@ public class Finch extends NPC {
 	public void dailyUpdate() {
 		clearNonEquippedInventory(false);
 		
-		// Always at least 4 slave collars:
-		for(int i = 0; i<4; i++) {
+		// Always at least 12 slave collars:
+		for(int i = 0; i<12; i++) {
 			this.addClothing(Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", false), false);
 		}
 
-		for(AbstractWeaponType wt : WeaponType.getAllWeapons()) {
-			if(wt.getItemTags().contains(ItemTag.SOLD_BY_FINCH)
-					&& (!wt.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
-				this.addWeapon(Main.game.getItemGen().generateWeapon(wt), false);
-			}
-		}
-		for(AbstractItemType item : ItemType.getAllItems()) {
-			if(item.getItemTags().contains(ItemTag.SOLD_BY_FINCH)
-					&& (!item.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
-				this.addItem(Main.game.getItemGen().generateItem(item), false);
-			}
-		}
-		
-		List<AbstractClothing> clothingToSell = new ArrayList<>();
-		
-		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
-			if(clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_FINCH)
-					&& (!clothing.getDefaultItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
-				clothingToSell.add(Main.game.getItemGen().generateClothing(clothing, false));
-			}
-		}
-
-		for(AbstractClothing c : clothingToSell) {
-			this.addClothing(c, 2+Util.random.nextInt(5), false, false);
-		}
-		
-		for(AbstractClothing c : Main.game.getCharacterUtils().generateEnchantedClothingForTrader(this, clothingToSell, 4, 2)) {
-			this.addClothing(c, false);
-		}
+//		for(AbstractWeaponType wt : WeaponType.getAllWeapons()) {
+//			if(wt.getItemTags().contains(ItemTag.SOLD_BY_FINCH)
+//					&& (!wt.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
+//				this.addWeapon(Main.game.getItemGen().generateWeapon(wt), false);
+//			}
+//		}
+//		for(AbstractItemType item : ItemType.getAllItems()) {
+//			if(item.getItemTags().contains(ItemTag.SOLD_BY_FINCH)
+//					&& (!item.getItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
+//				this.addItem(Main.game.getItemGen().generateItem(item), false);
+//			}
+//		}
+//		
+//		List<AbstractClothing> clothingToSell = new ArrayList<>();
+//		
+//		for(AbstractClothingType clothing : ClothingType.getAllClothing()) {
+//			if(clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_FINCH)
+//					&& (!clothing.getDefaultItemTags().contains(ItemTag.SILLY_MODE) || Main.game.isSillyMode())) {
+//				clothingToSell.add(Main.game.getItemGen().generateClothing(clothing, false));
+//			}
+//		}
+//
+//		for(AbstractClothing c : clothingToSell) {
+//			this.addClothing(c, 2+Util.random.nextInt(5), false, false);
+//		}
+//		
+//		for(AbstractClothing c : Main.game.getCharacterUtils().generateEnchantedClothingForTrader(this, clothingToSell, 4, 2)) {
+//			this.addClothing(c, false);
+//		}
 		
 		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.finchFreedomTalk)) {
 			this.addItem(Main.game.getItemGen().generateItem("innoxia_slavery_freedom_certification"), 10, false, false);

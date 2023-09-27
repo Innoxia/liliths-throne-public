@@ -4,7 +4,6 @@
 	<name><![CDATA[Counter]]></name>
 	<tooltipDescription><![CDATA[The counters at the Bank of Dominion are staffed by bank employees, who are able to help customers with all matters relating to their accounts.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[at the counters in the Bank of Dominion]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_BLUE_LIGHT</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

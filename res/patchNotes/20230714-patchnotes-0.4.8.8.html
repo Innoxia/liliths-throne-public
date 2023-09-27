@@ -1,0 +1,115 @@
+<h2>v0.4.8.8</h2>
+
+<h3>DSG's Eisek Quest:</h3>
+<ul>
+	<li>Added a new NPC merchant to Elis's Farmer's Market, who also serves to gate early access to the dragon TF behind a quest.</li>
+	<li>Added three side quests related to this NPC (with one of these quests being exclusive to silly mode).</li>
+	<li>Ralph no longer sells dragonfruit, as this new NPC is now the one who sells it (provided his quest is completed in the best way).</li>
+	<li>Added: 5 new clothing items for new NPC outfit; 1 new clothing item for silly mode; 1 new weapon for silly mode; 4 new Items for new NPC to sell; 3 new quests (1 exclusive to silly mode); 4 new quest items (1 exclusive to silly mode).</li>
+	<li>Full patch notes and details can be seen in the PR here: https://github.com/Innoxia/liliths-throne-public/pull/1718</li>
+</ul>
+
+<h3>Pusspuss's Artwork (https://twitter.com/PusspussARTZ):</h3>
+<ul>
+	<li>Added artwork for both Wolfgang and Karl.</li>
+	<li>Added artwork for Jess, which includes pregnant and multi-boob variations.</li>
+</ul>
+
+<h3>Contributors:</h3>
+<ul>
+	<li>Fixed bug where vaginal, lactation, and virginity fetishes had incorrect sorting (based on left-aligned fetishes being active/giving and right-aligned being passive/receiving) in the fetish menu. (by Maxis010)</li>
+	<li>Changed the Body.setFeral() method to not set the body as feral if the subspecies does not have feral attributes or is null. (PR#1771 by SightglassCat)</li>
+	<li>Fixed missing background textures in slime and half-demon race icons. (PR#1772 by SightglassCat)</li>
+	<li>Added 'winged' to NPC lists and tooltips for winged characters of a race that usually does not have wings. (PR#1724 by Stadler76)</li>
+	<li>Made NPCs react more logically to unexpected genitals being revealed in sex scenes, with genital reveals now based on whether the perceived gender of the subject normally has one. (PR#1741 by NoHornyOnMain)</li>
+	<li>Enabled tattoo rendering with non-standard colours (e.g. via save editing). (PR#1742 by NoHornyOnMain)</li>
+	<li>Fixed issue where setting a character's feral subspecies to null wouldn't display the correct behaviour of reverting their feral status. (by Stadler76)</li>
+	<li>Updated the 'LTSuperGuide' which is included in the game's folder. (by C4MG1RL)</li>
+</ul>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Added 'FITS_MUZZLES_EXCLUSIVE' and 'FITS_BEAKS_EXCLUSIVE' item tags for tagging clothing which can only be equipped on characters with muzzles or beaks.</li>
+	<li>Added hook to AbstractItemEffectType values via an 'ITEM_EFFECT_TYPE_' parsing prefix.</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>Added a new character, 'Sterope' to the Enforcer station in Elis, who has some BDSM and feral sex content.</li>
+</ul>
+
+<h3>Clothing:</h3>
+<ul>
+	<li>Added 'Sturdy Steed' clothing set, which provides +5 physique and +25 max health.</li>
+	<li>Added: 'Bridle' (androgynous, mouth slot, Sturdy Steed set, only fits muzzles).</li>
+	<li>Added: 'Saddle' (androgynous, leg slot, Sturdy Steed set, only fits quadrupedal bodies).</li>
+	<li>Added: 'Horseshoes' (androgynous, foot slot, Sturdy Steed set, only fits hoofs, only fits quadrupedal bodies).</li>
+	<li>Added: 'Tail bandage' (androgynous, tail slot, Sturdy Steed set).</li>
+</ul>
+
+<h3>Combat:</h3>
+<ul>
+	<li>The two final upgrades to the Vacuum spell no longer strip clothing from unique NPCs. (As stripping clothing from quest-critical NPCs was resulting in issues with their content.)</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>The 'GenericSexualPartner' NPC class no longer spawns with addictive fluids, so as to prevent issues with their partners getting addicted (which was happening with Jess).</li>
+	<li>For size-difference characters, the smaller character can now kiss crotch-boobs in the missionary position, and can now kiss breasts instead of kissing mouth in the mating press position.</li>
+	<li>You can now use the 'GENERIC_ORGASM_CREAMPIE' action in masturbation scenes (which is the same action that provides the 'Handjob Climax' orgasm action).</li>
+	<li>Added autofellatio and autocunnilingus sex actions, which require the new 'hpermobility' perk to unlock, are limited to non-taurs, and which work in most but not all sex positions.</li>
+	<li>Added a small speech variation to the creampie sex action.</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>Both types of wet wipes now additionally clean all equipped clothing.</li>
+	<li>You can no longer assign work hours to friendly occupants if they want to sleep during that hour.</li>
+	<li>Improved method of calculating sleep hours for slaves and friendly occupants so that they prefer to sleep as close to the mid-point of their natural sleep hours as they can.</li>
+	<li>Jess can now be impregnated, and you can pay her (5000 flames) to take a breeder pill before having sex with her. She also no longer has the barren perk nor a hatred of the pregnancy fetish, and also she now refuses to consume items during sex.</li>
+	<li>Demons, half-demons, and imps will no longer spawn with demonic horse tails if they're bipedal.</li>
+	<li>The 'ladykiller' and 'minx' perks are no longer traits which require equipping to work.</li>
+	<li>Added 'hypermobility' perk in the physical perk tree, which unlocks autofellatio and autocunnilingus sex actions.</li>
+	<li>Added some dialogue referencing citizens of the Realm travelling over the Endless Sea to new lands (as posters in the nightclub, at the Slavery Administration building, and as a minor piece of dialogue when paying a prostitute's fine to remove them from the game).</li>
+	<li>Added Hannah pregnancy reactions to her encounter in 'Lights out'.</li>
+	<li>Added a couple of new talk options to Kheiron (one for Fae & Silvia and one for Sterope, both of which require them to have told you when they visit the tavern to be available), and his talk scenes now correctly grey out when they're active.</li>
+	<li>Made Fae and Silvia a little taller to better suit their fox-taur form.</li>
+	<li>Spotted hyena females no longer spawn in with big clits, and Hannah now has a normal sized clit. (I felt like having every spotted-hyena spawn with a huge clit was too much, but I'm planning on adding a tribe of spotted-hyena-girls with clit-dicks later on.)</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Typo and parsing fixes.</li>
+	<li>Fixed game-breaking bug where if you were unable to equip a sex toy which was in your partner's inventory during sex, then clicking on that sex toy would throw background errors and cause the inventory/game to become unresponsive.</li>
+	<li>Compacted the compatible slot names in the tooltips for piercing items, so that it doesn't run over into another line and cause the tooltip to overflow.</li>
+	<li>Fixed issue where there'd be no slaves in the stocks nor in any of the shops if you entered Slaver Alley before midnight after starting a new game.</li>
+	<li>Fixed issue where the Rental Mommy encounter would throw a background (harmless?) error every time it was triggered.</li>
+	<li>Fixed bug where the slaves in the stocks and shops in Slaver Alley would sometimes not be saved correctly.</li>
+	<li>Fixed bug where exported transformation presets for Elementals which were not bound to arcane or water would cause the transformation preset menu to break.</li>
+	<li>Fixed bug where stopping a sex scene in which you were a spectator (such as spying on Rose and Lilaya in Lilaya's lab) would cause the description for that scene to be displayed the next time you used the 'Quick sex' action.</li>
+	<li>Astrapi is now always considered to be feminine, ignoring your 'androgynous bodies' setting (as it fits her content for her to always be treated as a 'she').</li>
+	<li>Spell tooltips and predictive text in combat now show their potential damage range instead of a random value from within that range.</li>
+	<li>Fixed the Vacuum spell's first upgrade downgrading the health shielding debuff from -10 to -5, and also fixed the second and third upgrade tooltips to show their full effects.</li>
+	<li>Fixed bug in Helena's custom slave menu where you could customise a slave to be an angel by swapping back and forth between the spinneret tab.</li>
+	<li>Lunette's marauders and raiders in the Foloi Fields now have several of their fetish desires set to 'like' instead of 'love', as the 'love' setting was making it look like they had the associated fetish even though they didn't.</li>
+	<li>Characters (including the player) can no longer be milked of their cum or girlcum in a milking room if they're wearing any clothing which prevents them from orgasming.</li>
+	<li>Removed ability to fight Jhortrax after besting him in the 'Tameshigiri' scene, due to numerous inconsistencies with the resulting post-combat scenes.</li>
+	<li>Fixed background error being thrown when completing an incubation pregnancy of a single egg/offspring.</li>
+	<li>Fixed bug where transformation presets didn't take into account whether or not the target or preset were of 'short stature', which inadvertently allowed you to transform demons into imps and vice versa by using transformation presets.</li>
+	<li>Fixed bug where the greyed-out 'load' button for incompatible transformation presets would still work if you clicked on it.</li>
+	<li>Jess will no longer have random fluid addictions (and all of her fluid addictions will be cleared upon loading into this version).</li>
+	<li>Fixed bug where if none of the colours defined for an item of clothing within an outfit file were available for that clothing, the clothing would spawn with broken colourings. (This was mostly affecting jewellery on randomly-spawned NPCs.)</li>
+	<li>Fixed some inconsistent availabilities of 'offer/request orifice' actions in the breeding stall & glory hole positions.</li>
+	<li>Your demonic offspring will no longer spawn with heavily enchanted weapons which would push them over their enchantment capacity.</li>
+	<li>Characters in sex who are in the resisting pace and who are involved in finger-anus or finger-vagina sex actions will no longer be described as stimulating their orgasming partner's prostate.</li>
+	<li>Fixed bug where after taking a shower in the gym, the text was only shown after you moved away from the tile.</li>
+	<li>Fixed incorrect description for the item 'platinum Bank of Dominion card'.</li>
+	<li>Fixed bug where you could masturbate in areas in which masturbation/sex was meant to be blocked (such as in the bank).</li>
+	<li>Fixed issue where the one-night-stand characters spawning 'Lights Out' would almost always be virgins.</li>
+	<li>Fixed minor UI issue with the inventory, where if you dropped or took all items while not on the first page of that inventory, the rendering would mess up.</li>
+	<li>Also fixed a related issue where if you took or dropped the last item in an inventory page, the UI would be left on the empty page instead of moving down to the next one.</li>
+	<li>Resetting your race via the debug menu no longer clears virginity loss information.</li>
+	<li>Filled in some missing virginity location text.</li>
+	<li>Fixed issue where use of NPC's hourlyUpdate() method would not handle flag resets correctly, resulting in rare instances of unexpected gameplay behaviour.</li>
+	<li>Fixed bug where changing a character's leg configuration would regrow their hymen.</li>
+</ul>

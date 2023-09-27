@@ -4,7 +4,6 @@
 	<name><![CDATA[seating area]]></name>
 	<tooltipDescription><![CDATA[Large sofas, specially-designed to accommodate taurs, are scattered throughout this seating area.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the seating area at 'The Centaur's Sword' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_BROWN</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

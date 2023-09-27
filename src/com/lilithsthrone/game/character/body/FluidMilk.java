@@ -189,14 +189,20 @@ public class FluidMilk implements FluidInterface {
 			return UtilText.parse(owner,
 					"<p>"
 						+ "A soothing warmth spreads through [npc.namePos] [npc.crotchBoobs], causing [npc.herHim] to let out a contented little sigh.<br/>"
-						+ "[npc.NamePos] [npc.crotchMilk] now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>."
+						+ "[npc.NamePos] [npc.crotchMilk] "
+						+ (flavour==FluidFlavour.FLAVOURLESS
+							?"is now <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>"
+							:"now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>.")
 					+ "</p>");
 			
 		} else {
 			return UtilText.parse(owner,
 					"<p>"
 						+ "A soothing warmth spreads through [npc.namePos] [npc.breasts], causing [npc.herHim] to let out a contented little sigh.<br/>"
-						+ "[npc.NamePos] [npc.milk] now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>."
+						+ "[npc.NamePos] [npc.milk] "
+						+ (flavour==FluidFlavour.FLAVOURLESS
+							?"is now <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>"
+							:"now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>.")
 					+ "</p>");
 		}
 	}

@@ -4,7 +4,6 @@
 	<name><![CDATA[stable]]></name>
 	<tooltipDescription><![CDATA[Behind a locked door, the stable to the rear of 'The Centaur's Sword' is rented out to amorous couples on an hourly rate.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the stable behind 'The Centaur's Sword' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>RACE_HORSE_MORPH</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

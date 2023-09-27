@@ -4,7 +4,6 @@
 	<name><![CDATA[Elis tourism board]]></name>
 	<tooltipDescription><![CDATA[This particular office is signposted as being home to the 'Elis tourism board'.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the office of the 'Elis tourism board' in the town hall]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<svgName>office</svgName>
 	<colour>BASE_BLUE_STEEL</colour>

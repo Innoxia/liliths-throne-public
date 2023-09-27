@@ -4,7 +4,6 @@
 	<name><![CDATA[The Barn]]></name>
 	<tooltipDescription><![CDATA[The only business in the shopping precinct which is open 24/7, the convenience store 'The Barn' offers the usual range of consumable items.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in 'The Barn' convenience store]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_TEAL</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

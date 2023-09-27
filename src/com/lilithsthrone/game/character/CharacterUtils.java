@@ -905,7 +905,7 @@ public class CharacterUtils {
 		}
 
 		if(mother.isFeral()) { // Feral mothers always birth feral offspring. This is done after the genetics section to make sure that the feral offspring is not modified in an unintended manner (such as making them as tall as the father).
-			body.setFeral(mother.getSubspecies()); // Feral offspring should always be the race of the feral mother to avoid very odd birthings (e.g. elephants born from a wolf)
+			body.setFeral(linkedCharacter, mother.getSubspecies()); // Feral offspring should always be the race of the feral mother to avoid very odd birthings (e.g. elephants born from a wolf)
 //			body.setFeral(raceTakesAfter.isFeralConfigurationAvailable(body)
 //							?raceTakesAfter
 //							:mother.getSubspecies());
@@ -1192,13 +1192,14 @@ public class CharacterUtils {
 		boolean hasBreasts = startingGender.getGenderName().isHasBreasts();
 		boolean isSlime = species == Subspecies.SLIME;
 		boolean isHalfDemon = species == Subspecies.HALF_DEMON;
+		boolean isDoll = species == Subspecies.DOLL;
 		
 		if(isSlime || isHalfDemon) {
 			if(linkedCharacter==null || !linkedCharacter.isUnique()) {
 				List<AbstractSubspecies> slimeSubspecies = new ArrayList<>();
 				for(AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
 					// Special races that slimes/half-demons do not spawn as are slimes and any Subspecies which sets an override (so demons, elementals, or Youko):
-					if(subspecies!=Subspecies.SLIME && subspecies.getSubspeciesOverridePriority()==0) {
+					if(!isSlime && subspecies.getSubspeciesOverridePriority()==0) {
 						if(startingGender.isFeminine()) {
 							for(Entry<AbstractSubspecies, FurryPreference> entry : Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().entrySet()) {
 								if(entry.getValue() != FurryPreference.HUMAN) {
@@ -1233,6 +1234,10 @@ public class CharacterUtils {
 				
 				startingBodyType = RacialBody.valueOfRace(species.getRace());
 			}
+		}
+		
+		if(isDoll) { // Dolls spawn as human
+			species = Subspecies.HUMAN;
 		}
 		
 //		System.out.println(species+", "+stage);
@@ -1382,6 +1387,10 @@ public class CharacterUtils {
 				Race.SLIME.applyRaceChanges(body);
 				Subspecies.SLIME.applySpeciesChanges(body);
 			}
+			if(isDoll) {
+				Race.DOLL.applyRaceChanges(body);
+				Subspecies.DOLL.applySpeciesChanges(body);
+			}
 		}
 		
 		body.setSubspeciesOverride(null); // Set override to null so that it can be recalculated based on the final body type.
@@ -1394,7 +1403,6 @@ public class CharacterUtils {
 	 * If you are wanting to change a newly-spawned NPC's body, then <b>you should consider using GameCharacter.setBody() instead</b>, as that method can also apply personality changes.
 	 */
 	public Body reassignBody(GameCharacter linkedCharacter, Body body, Gender startingGender, AbstractSubspecies species, RaceStage stage, boolean removeDemonOverride) {
-		
 		if(removeDemonOverride) {
 			body.setSubspeciesOverride(null);
 		}
@@ -1404,6 +1412,24 @@ public class CharacterUtils {
 		boolean hasVagina = startingGender.getGenderName().isHasVagina();
 		boolean hasPenis = startingGender.getGenderName().isHasPenis();
 		boolean hasBreasts = startingGender.getGenderName().isHasBreasts();
+		boolean[] virginities = null;
+		
+		// Save virginities to be restored after body reset:
+		if(linkedCharacter!=null) {
+			virginities = new boolean[] {
+				linkedCharacter.isAnalVirgin(),
+				linkedCharacter.isAssVirgin(),
+				linkedCharacter.isFaceVirgin(),
+				linkedCharacter.isNippleCrotchVirgin(),
+				linkedCharacter.isNippleVirgin(),
+				linkedCharacter.isPenisVirgin(),
+				linkedCharacter.isSpinneretVirgin(),
+				linkedCharacter.isUrethraVirgin(),
+				linkedCharacter.isVaginaUrethraVirgin(),
+				linkedCharacter.isVaginaVirgin(),
+				linkedCharacter.hasHymen()
+			};
+		}
 		
 		body.setArm(new Arm((stage.isArmFurry()?startingBodyType.getArmType():ArmType.HUMAN), startingBodyType.getArmRows()));
 		
@@ -1552,6 +1578,20 @@ public class CharacterUtils {
 		
 		if(linkedCharacter!=null) {
 			linkedCharacter.postTransformationCalculation();
+		}
+
+		if(linkedCharacter!=null) {
+			linkedCharacter.setAnalVirgin(virginities[0]);
+			linkedCharacter.setAssVirgin(virginities[1]);
+			linkedCharacter.setFaceVirgin(virginities[2]);
+			linkedCharacter.setNippleCrotchVirgin(virginities[3]);
+			linkedCharacter.setNippleVirgin(virginities[4]);
+			linkedCharacter.setPenisVirgin(virginities[5]);
+			linkedCharacter.setSpinneretVirgin(virginities[6]);
+			linkedCharacter.setUrethraVirgin(virginities[7]);
+			linkedCharacter.setVaginaUrethraVirgin(virginities[8]);
+			linkedCharacter.setVaginaVirgin(virginities[9]);
+			linkedCharacter.setHymen(virginities[10]);
 		}
 		
 		return body;
@@ -2690,7 +2730,7 @@ public class CharacterUtils {
 
 		// Desires:
 		int[] posDesireProb = new int[] {1, 1, 2, 2, 2, 3, 3};
-		int[] negDesireProb = new int[] {3, 3, 4, 4, 4, 5, 5};
+		int[] negDesireProb = new int[] {2, 2, 3, 3, 3, 4, 4};
 		int numberOfPositiveDesires = Util.randomItemFrom(posDesireProb);
 		int numberOfNegativeDesires = Util.randomItemFrom(negDesireProb);
 		

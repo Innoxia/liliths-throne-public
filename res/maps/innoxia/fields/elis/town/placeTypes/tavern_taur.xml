@@ -4,7 +4,6 @@
 	<name><![CDATA[The Centaur's Sword]]></name>
 	<tooltipDescription><![CDATA[Located adjacent to the farmer's market, the tavern 'The Centaur's Sword' prides itself on having taur-friendly seating and plenty of space at the bar.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[outside 'The Centaur's Sword' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_BROWN</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

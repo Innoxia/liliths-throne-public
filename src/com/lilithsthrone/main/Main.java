@@ -84,7 +84,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.4.8.7"; // Remember to update pom.xml!
+	public static final String VERSION_NUMBER = "0.4.9"; // Remember to update pom.xml!
 	public static final String VERSION_DESCRIPTION = "Alpha";
 
 	public static boolean quickSaved = false;
@@ -848,11 +848,17 @@ public class Main extends Application {
 	}
 
 	public static void quickLoadGame() {
+		String name = "";
 		if(quickSaved) {
-			loadGame(Main.properties.lastQuickSaveName);
+			name = Main.checkFileName(Main.properties.lastQuickSaveName);
 		} else {
-			loadGame(getQuickSaveName());
+			name = Main.checkFileName(getQuickSaveName());
 		}
+
+		if(name.isEmpty()) {
+			return;
+		}
+		loadGame(name);
 	}
 
 	public static boolean isSaveGameAvailable() {

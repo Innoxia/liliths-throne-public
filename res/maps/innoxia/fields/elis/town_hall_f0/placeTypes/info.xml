@@ -4,7 +4,6 @@
 	<name><![CDATA[information desk]]></name>
 	<tooltipDescription><![CDATA[Positioned immediately in front of the main entrance, the staff at this information desk offer help to members of the public.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[beside the information desk in Elis's town hall]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_BLUE_LIGHT</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

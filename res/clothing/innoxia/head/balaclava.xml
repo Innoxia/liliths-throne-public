@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>180</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[balaclava]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[balaclavas]]></namePlural>
+		<description><![CDATA[A form of headgear which covers almost all of the wearer's head, with just a horizontal slot to leave their eyes exposed.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>HAIR</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>balaclava.svg</imageName>
+		<imageEquippedName/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>PULLS_DOWN</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>MOUTH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+				<concealedSlots>
+					<slot>PIERCING_NOSE</slot>
+					<slot>PIERCING_LIP</slot>
+					<slot>PIERCING_TONGUE</slot>
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_GREY_DARK</colour>
+			
+			<colour>CLOTHING_GREEN_VERY_DARK</colour>
+			<colour>CLOTHING_BLUE_NAVY</colour>
+			<colour>CLOTHING_KHAKI</colour>
+			<colour>CLOTHING_GREEN_DRAB</colour>
+			<colour>CLOTHING_OLIVE</colour>
+			<colour>CLOTHING_DESATURATED_BROWN_DARK</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+	
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+			<tag>IGNORE_HAIR_RESTRICTION</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] the balaclava down over [npc.her] head.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] the balaclava down over [npc2.namePos] head.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] the balaclava down over [npc2.namePos] head.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] off [npc.her] balaclava.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] off [npc2.namePos] balaclava.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(yank)] off [npc2.namePos] balaclava.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

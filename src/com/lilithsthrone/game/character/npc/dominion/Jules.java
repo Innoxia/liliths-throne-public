@@ -48,11 +48,8 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.sex.SexAreaOrifice;
-import com.lilithsthrone.game.sex.SexAreaPenetration;
-import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
-import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
+import com.lilithsthrone.game.sex.managers.dominion.SMJulesCockSucking;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
@@ -62,7 +59,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.8
- * @version 0.3.4
+ * @version 0.4.9
  * @author Innoxia
  */
 public class Jules extends NPC {
@@ -256,22 +253,29 @@ public class Jules extends NPC {
 	}
 
 	// Sex:
-
 	@Override
-	public SexType getForeplayPreference(GameCharacter target) {
-		if(Main.sex.getSexPositionSlot(Main.game.getNpc(Jules.class))==SexSlotStanding.STANDING_DOMINANT && this.hasPenis()) {
-			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
+	public boolean getSexBehaviourDeniesRequests(GameCharacter requestingCharacter, SexType sexTypeRequest) {
+		if(Main.game.isInSex() && Main.sex.getInitialSexManager() instanceof SMJulesCockSucking) {
+			return true;
 		}
-		
-		return super.getForeplayPreference(target);
+		return super.getSexBehaviourDeniesRequests(requestingCharacter, sexTypeRequest);
 	}
-
-	@Override
-	public SexType getMainSexPreference(GameCharacter target) {
-		if(Main.sex.getSexPositionSlot(Main.game.getNpc(Jules.class))==SexSlotStanding.STANDING_DOMINANT && this.hasPenis()) {
-			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
-		}
-
-		return super.getMainSexPreference(target);
-	}
+//
+//	@Override
+//	public SexType getForeplayPreference(GameCharacter target) {
+//		if(Main.sex.getSexPositionSlot(Main.game.getNpc(Jules.class))==SexSlotStanding.STANDING_DOMINANT && this.hasPenis()) {
+//			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
+//		}
+//		
+//		return super.getForeplayPreference(target);
+//	}
+//
+//	@Override
+//	public SexType getMainSexPreference(GameCharacter target) {
+//		if(Main.sex.getSexPositionSlot(Main.game.getNpc(Jules.class))==SexSlotStanding.STANDING_DOMINANT && this.hasPenis()) {
+//			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
+//		}
+//
+//		return super.getMainSexPreference(target);
+//	}
 }

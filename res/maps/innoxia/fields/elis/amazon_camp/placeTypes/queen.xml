@@ -4,7 +4,6 @@
 	<name><![CDATA[Ursa's tent]]></name>
 	<tooltipDescription><![CDATA[This purple tent is larger than all the others in the Amazons' camp, and it houses the queen, Ursa.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in Ursa's tent in the Amazons' camp]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_PURPLE</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

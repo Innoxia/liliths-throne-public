@@ -4,7 +4,6 @@
 	<name><![CDATA[Golden Treasures]]></name>
 	<tooltipDescription><![CDATA[A ferret-boy runs this stall, and has all manner of jewellery and trinkets for sale, some of which is enchanted.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the Farmer's Market in Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<svgName>trinkets</svgName>
 	<colour>BASE_GOLD</colour>

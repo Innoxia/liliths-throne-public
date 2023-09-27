@@ -151,6 +151,10 @@ public class Nipples implements BodyPartInterface {
 			descriptorList.add(Capacity.getCapacityFromValue(orificeNipples.getStretchedCapacity()).getDescriptor().replaceAll(" ", "-"));
 		}
 		
+		if(owner.getBodyMaterial().getPartDescriptors()!=null && !owner.getBodyMaterial().getPartDescriptors().isEmpty()) {
+			descriptorList.add(Util.randomItemFrom(owner.getBodyMaterial().getPartDescriptors()));
+		}
+		
 		descriptorList.removeIf(d->d==null || d.isEmpty());
 		
 		return Util.randomItemFrom(descriptorList);

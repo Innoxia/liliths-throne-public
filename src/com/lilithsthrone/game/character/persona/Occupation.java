@@ -101,6 +101,10 @@ public enum Occupation {
 	NPC_AMAZONIAN(Perk.JOB_AMAZONIAN, "Amazon", "[npc.NameIsFull] an Amazon, and as such [npc.has] spent much time training for combat.", OccupationTag.HAS_PREREQUISITES),
 
 	NPC_PUGILIST(Perk.JOB_PUGILIST, "pugilist", "[npc.NameIsFull] a professional boxer, and as such is a fearsome opponent in a fight."),
+
+	NPC_LILIN_PAWN(Perk.JOB_ELDER_LILIN_PAWN, "elder lilin's helper", "[npc.NameIsFull] carrying out orders on behalf of a lilin."),
+
+	NPC_SEX_DOLL(Perk.JOB_SEX_DOLL, "sex doll", "[npc.NameIsFull] a very realistic-looking sex doll."),
 	
 	// NPC generic histories:
 

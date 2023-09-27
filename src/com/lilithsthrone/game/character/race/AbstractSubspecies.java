@@ -117,6 +117,7 @@ public abstract class AbstractSubspecies {
 	protected String SVGStringNoBackground;
 	protected String SVGStringDesaturated;
 	protected String slimeSVGString;
+	protected String dollSVGString;
 	protected String halfDemonSVGString;
 	protected String demonSVGString;
 	
@@ -1648,7 +1649,7 @@ public abstract class AbstractSubspecies {
 						getTertiaryColour(),
 						"<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>");
 				
-                                SVGStringUncolouredNoBackground = "<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>";
+                SVGStringUncolouredNoBackground = "<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>";
 				SVGStringUncoloured = SVGStringBackground + "<div style='"+fullDivStyle+"'>"+SVGStringUncoloured+"</div>";
 				
 				slimeSVGString = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
@@ -1657,7 +1658,16 @@ public abstract class AbstractSubspecies {
 						PresetColour.RACE_SLIME,
 						"<div style='"+fullDivStyle+"'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundSlime()+"</div>"
 						+ "<div style='"+fullDivStyle+"'>"+SVGStringUncolouredNoBackground+"</div>");
-
+				
+				dollSVGString = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
+						PresetColour.RACE_DOLL,
+						PresetColour.RACE_DOLL,
+						PresetColour.RACE_DOLL,
+						"<div style='"+fullDivStyle+"'>" + SVGImages.SVG_IMAGE_PROVIDER.getRaceBackgroundDoll()+"</div>"
+						+ (this==Subspecies.HUMAN
+							?""
+							:"<div style='"+fullDivStyle+"'>"+SVGStringUncolouredNoBackground+"</div>"));
+				
 				halfDemonSVGString = SvgUtil.colourReplacement(Subspecies.getIdFromSubspecies(this),
 						PresetColour.RACE_HALF_DEMON,
 						PresetColour.RACE_HALF_DEMON,
@@ -1762,6 +1772,13 @@ public abstract class AbstractSubspecies {
 			initSVGStrings();
 		}
 		return getBipedBackground(slimeSVGString, character, PresetColour.RACE_SLIME);
+	}
+
+	public String getDollSVGString(GameCharacter character) {
+		if(SVGString==null) {
+			initSVGStrings();
+		}
+		return getBipedBackground(dollSVGString, character, PresetColour.RACE_DOLL);
 	}
 
 	public String getHalfDemonSVGString(GameCharacter character) {

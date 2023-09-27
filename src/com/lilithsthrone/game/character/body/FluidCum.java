@@ -187,7 +187,10 @@ public class FluidCum implements FluidInterface, XMLSaving {
 		return UtilText.parse(owner,
 				"<p>"
 					+ "A soothing warmth spreads down into [npc.namePos] [npc.balls+], causing [npc.herHim] to let out an involuntary [npc.moan].<br/>"
-					+ "[npc.NamePos] [npc.cum] now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>."
+					+ "[npc.NamePos] [npc.cum] "
+					+ (flavour==FluidFlavour.FLAVOURLESS
+						?"is now <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>"
+						:"now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>.")
 				+ "</p>");
 	}
 	
