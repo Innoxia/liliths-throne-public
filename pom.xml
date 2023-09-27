@@ -7,12 +7,17 @@
 	<name>Lilith's Throne</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.release>17</maven.compiler.release>
+		<maven.compiler.release>11</maven.compiler.release>
 		<javafx.version>18.0.2</javafx.version>
 		<nashorn.version>15.4</nashorn.version>
 		<javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
 		<maven-shade-plugin.version>3.3.0</maven-shade-plugin.version>
 		<maven-compile-plugin.version>3.10.1</maven-compile-plugin.version>
+		<maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
+		<internalNashornImport>import jdk.nashorn.</internalNashornImport>
+		<externalNashornImport>import org.openjdk.nashorn.</externalNashornImport>
+		<defaultNashornImport>${internalNashornImport}</defaultNashornImport>
+		<correctNashornImport>${internalNashornImport}</correctNashornImport>
 	</properties>
 
 	<profiles>
@@ -40,53 +45,108 @@
 				<exclude.platform>win</exclude.platform>
 			</properties>
 		</profile>
+		<profile>
+			<id>profile-mac</id>
+			<activation>
+				<os>
+					<family>Mac</family>
+				</os>
+			</activation>
+			<properties>
+				<target.platform>mac</target.platform>
+			</properties>
+		</profile>
+		<profile>
+			<id>jdk8</id>
+			<activation>
+				<jdk>1.8</jdk>
+			</activation>
+			<properties>
+				<maven.compiler.release>${maven.compiler}</maven.compiler.release>
+				<maven.compiler.source>1.8</maven.compiler.source>
+				<maven.compiler.target>1.8</maven.compiler.target>
+			</properties>
+		</profile>
+		<profile>
+			<id>jdk11</id>
+			<activation>
+				<jdk>11</jdk>
+			</activation>
+			<properties>
+				<maven.compiler.release>11</maven.compiler.release>
+			</properties>
+		</profile>
+		<profile>
+			<id>jdk17</id>
+			<activation>
+				<jdk>17</jdk>
+			</activation>
+			<properties>
+				<maven.compiler.release>17</maven.compiler.release>
+			</properties>
+		</profile>
+		<profile>
+			<id>external-javafx</id>
+			<activation>
+				<jdk>[11,)</jdk>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.openjfx</groupId>
+					<artifactId>javafx-base</artifactId>
+					<version>${javafx.version}</version>
+					<classifier>${target.platform}</classifier>
+				</dependency>
+				<dependency>
+					<groupId>org.openjfx</groupId>
+					<artifactId>javafx-fxml</artifactId>
+					<version>${javafx.version}</version>
+					<classifier>${target.platform}</classifier>
+				</dependency>
+				<dependency>
+					<groupId>org.openjfx</groupId>
+					<artifactId>javafx-web</artifactId>
+					<version>${javafx.version}</version>
+					<classifier>${target.platform}</classifier>
+				</dependency>
+				<dependency>
+					<groupId>org.openjfx</groupId>
+					<artifactId>javafx-graphics</artifactId>
+					<version>${javafx.version}</version>
+					<classifier>${target.platform}</classifier>
+				</dependency>
+				<dependency>
+					<groupId>org.openjfx</groupId>
+					<artifactId>javafx-controls</artifactId>
+					<version>${javafx.version}</version>
+					<classifier>${target.platform}</classifier>
+				</dependency>
+				<dependency>
+					<groupId>org.openjfx</groupId>
+					<artifactId>javafx-media</artifactId>
+					<version>${javafx.version}</version>
+					<classifier>${target.platform}</classifier>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>external-nashorn</id>
+			<activation>
+				<jdk>[11,)</jdk>
+			</activation>
+			<properties>
+				<correctNashornImport>${externalNashornImport}</correctNashornImport>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.openjdk.nashorn</groupId>
+					<artifactId>nashorn-core</artifactId>
+					<version>${nashorn.version}</version>
+				</dependency>
+			</dependencies>
+		</profile>
 	</profiles>
 
-	<dependencies>
-
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-base</artifactId>
-			<version>${javafx.version}</version>
-			<classifier>${target.platform}</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-fxml</artifactId>
-			<version>${javafx.version}</version>
-			<classifier>${target.platform}</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-web</artifactId>
-			<version>${javafx.version}</version>
-			<classifier>${target.platform}</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-graphics</artifactId>
-			<version>${javafx.version}</version>
-			<classifier>${target.platform}</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-controls</artifactId>
-			<version>${javafx.version}</version>
-			<classifier>${target.platform}</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-media</artifactId>
-			<version>${javafx.version}</version>
-			<classifier>${target.platform}</classifier>
-		</dependency>
-
-		<dependency>
-			<groupId>org.openjdk.nashorn</groupId>
-			<artifactId>nashorn-core</artifactId>
-			<version>${nashorn.version}</version>
-		</dependency>
-	</dependencies>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<resources>
@@ -117,6 +177,36 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>${maven-antrun-plugin.version}</version>
+				<executions>
+					<execution>
+						<phase>process-sources</phase>
+						<id>correct-imports</id>
+						<configuration>
+						<target>
+							<replace token= "${defaultNashornImport}" value="${correctNashornImport}" file="src/com/lilithsthrone/game/dialogue/utils/UtilText.java"/>
+						</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+					<execution>
+						<phase>prepare-package</phase>
+						<id>restore-imports</id>
+						<configuration>
+						<target>
+							<replace token= "${correctNashornImport}" value="${defaultNashornImport}" file="src/com/lilithsthrone/game/dialogue/utils/UtilText.java"/>
+						</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>${maven-shade-plugin.version}</version>
@@ -132,7 +222,10 @@
 							<outputFile>${project.build.directory}/${project.name} (${target.platform})/${project.name}-${project.version}.jar</outputFile>
 							<transformers>
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>com.lilithsthrone.Launcher</mainClass>
+									<manifestEntries>
+										<Built-By>REDACTED</Built-By>
+										<Main-Class>com.lilithsthrone.Launcher</Main-Class>
+									</manifestEntries>
 								</transformer>
 							</transformers>
 							<artifactSet>
