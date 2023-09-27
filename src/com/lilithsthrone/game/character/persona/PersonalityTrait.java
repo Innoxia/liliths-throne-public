@@ -436,6 +436,25 @@ public enum PersonalityTrait {
 		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
 			return Util.newArrayListOfValues(MUTE);
 		}
+		
+		@Override
+		public String getAdditionDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (target.hasPersonalityTrait(SLOVENLY)
+							?"[style.colourDisabled([npc.Name] already speaks with an uwu speech quirk, so nothing happens...)]"
+							:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorBad(speaking with an uwu speech quirk)]!")
+							+ "</p>");
+		}
+		@Override
+		public String getRemovalDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (!target.hasPersonalityTrait(UWU)
+							?"[style.colourDisabled([npc.Name] already [npc.do]n't speak with an uwu speech quirk, so nothing happens...)]"
+							:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorGood(no longer speaking with an uwu speech quirk)]!")
+							+ "</p>");
+		}
 	},
 	;
 	
