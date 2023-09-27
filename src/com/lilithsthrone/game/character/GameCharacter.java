@@ -412,13 +412,8 @@ public abstract class GameCharacter implements XMLSaving {
 	protected Map<SexAreaOrifice, Long> timeProgressedToFinalIncubationStage;
 	protected List<PregnancyPossibility> potentialPartnersAsMother;
 	protected List<PregnancyPossibility> potentialPartnersAsFather;
-	protected Litter pregnantLitter;
-	protected Map<SexAreaOrifice, Litter> incubatingLitters;
-	protected List<Litter> littersBirthed;
-	protected List<Litter> littersFathered;
-	protected List<Litter> implantedLitters; // Ovipositors
-	protected List<Litter> incubatedLitters;
-	protected int littersGenerated;
+	protected Integer pregnantLitter;
+	protected Map<SexAreaOrifice, Integer> incubatingLitters;
 	protected boolean guaranteePregnancyOnNextRoll = false;
 	
 	// Family:
@@ -688,13 +683,8 @@ public abstract class GameCharacter implements XMLSaving {
 		timeProgressedToFinalIncubationStage = new HashMap<>();
 		pregnantLitter = null;
 		incubatingLitters = new HashMap<>();
-		implantedLitters = new ArrayList<>();
-		incubatedLitters = new ArrayList<>();
-		littersBirthed = new ArrayList<>();
-		littersFathered = new ArrayList<>();
 		potentialPartnersAsMother = new ArrayList<>();
 		potentialPartnersAsFather = new ArrayList<>();
-		littersGenerated = 0;
 
 		// Stats:
 		foughtPlayerCount=0;
@@ -1105,26 +1095,26 @@ public abstract class GameCharacter implements XMLSaving {
 //		for(AbstractFetish f : this.getFetishes(false)){
 //			Element element = doc.createElement("fetish");
 //			characterFetishes.appendChild(element);
-//			
+//
 //			XMLUtil.addAttribute(doc, element, "type", Fetish.getIdFromFetish(f));
 //		}
-//		
+//
 //		Element fetishDesire = doc.createElement("fetishDesire");
 //		properties.appendChild(fetishDesire);
 //		for(Entry<AbstractFetish, FetishDesire> entry : this.getFetishDesireMap().entrySet()){
 //			Element fondnessEntry = doc.createElement("entry");
 //			fetishDesire.appendChild(fondnessEntry);
-//			
+//
 //			XMLUtil.addAttribute(doc, fondnessEntry, "fetish", Fetish.getIdFromFetish(entry.getKey()));
 //			XMLUtil.addAttribute(doc, fondnessEntry, "desire", entry.getValue().toString());
 //		}
-//		
+//
 //		Element fetishExperience = doc.createElement("fetishExperience");
 //		properties.appendChild(fetishExperience);
 //		for(Entry<AbstractFetish, Integer> entry : this.getFetishExperienceMap().entrySet()){
 //			Element expEntry = doc.createElement("entry");
 //			fetishExperience.appendChild(expEntry);
-//			
+//
 //			XMLUtil.addAttribute(doc, expEntry, "fetish", Fetish.getIdFromFetish(entry.getKey()));
 //			XMLUtil.addAttribute(doc, expEntry, "experience", String.valueOf(entry.getValue()));
 //		}
@@ -1193,10 +1183,6 @@ public abstract class GameCharacter implements XMLSaving {
 		Element characterPregnancy = doc.createElement("pregnancy");
 		properties.appendChild(characterPregnancy);
 		XMLUtil.addAttribute(doc, characterPregnancy, "timeProgressedToFinalPregnancyStage", String.valueOf(this.getTimeProgressedToFinalPregnancyStage()));
-
-		XMLUtil.addAttribute(doc, characterPregnancy, "littersGenerated", String.valueOf(this.getLittersGenerated()));
-
-
 		if(!timeProgressedToFinalIncubationStage.isEmpty()) {
 			Element incubationStageElement = doc.createElement("timeProgressedToFinalIncubationStage");
 			characterPregnancy.appendChild(incubationStageElement);
@@ -1227,49 +1213,17 @@ public abstract class GameCharacter implements XMLSaving {
 		if(this.getPregnantLitter() != null) {
 			Element characterPregnancyCurrentLitter = doc.createElement("pregnantLitter");
 			characterPregnancy.appendChild(characterPregnancyCurrentLitter);
-			this.getPregnantLitter().saveAsXML(characterPregnancyCurrentLitter, doc);
+			characterPregnancyCurrentLitter.setAttribute("id", pregnantLitter.toString());
 		}
 		
 		if(!incubatingLitters.isEmpty()) {
 			Element incubatingLittersElement = doc.createElement("incubatingLitters");
 			characterPregnancy.appendChild(incubatingLittersElement);
-			for(Entry<SexAreaOrifice, Litter> entry : incubatingLitters.entrySet()) {
+			for(Entry<SexAreaOrifice, Integer> entry : incubatingLitters.entrySet()) {
 				Element incubatingLittersEntryElement = doc.createElement("entry");
 				incubatingLittersElement.appendChild(incubatingLittersEntryElement);
 				incubatingLittersEntryElement.setAttribute("orifice", entry.getKey().toString());
-				entry.getValue().saveAsXML(incubatingLittersEntryElement, doc);
-			}
-		}
-		
-		if(!this.getLittersBirthed().isEmpty()) {
-			Element characterPregnancyBirthedLitters = doc.createElement("birthedLitters");
-			characterPregnancy.appendChild(characterPregnancyBirthedLitters);
-			for(Litter litter : this.getLittersBirthed()) {
-				litter.saveAsXML(characterPregnancyBirthedLitters, doc);
-			}
-		}
-
-		if(!this.getLittersFathered().isEmpty()) {
-			Element characterPregnancyLittersFathered = doc.createElement("littersFathered");
-			characterPregnancy.appendChild(characterPregnancyLittersFathered);
-			for(Litter litter : this.getLittersFathered()) {
-				litter.saveAsXML(characterPregnancyLittersFathered, doc);
-			}
-		}
-
-		if(!this.getLittersIncubated().isEmpty()) {
-			Element characterPregnancyLittersIncubated = doc.createElement("incubatedLitters");
-			characterPregnancy.appendChild(characterPregnancyLittersIncubated);
-			for(Litter litter : this.getLittersIncubated()) {
-				litter.saveAsXML(characterPregnancyLittersIncubated, doc);
-			}
-		}
-
-		if(!this.getLittersImplanted().isEmpty()) {
-			Element characterPregnancyLittersImplanted = doc.createElement("implantedLitters");
-			characterPregnancy.appendChild(characterPregnancyLittersImplanted);
-			for(Litter litter : this.getLittersImplanted()) {
-				litter.saveAsXML(characterPregnancyLittersImplanted, doc);
+				incubatingLittersEntryElement.setAttribute("id", entry.getValue().toString());
 			}
 		}
 		
@@ -2575,12 +2529,6 @@ public abstract class GameCharacter implements XMLSaving {
 					character.setTimeProgressedToFinalPregnancyStage(Integer.valueOf(pregnancyElement.getAttribute("timeProgressedToFinalPregnancyStage")));
 				}
 				
-				if(!pregnancyElement.getAttribute("littersGenerated").isEmpty()) {
-					character.setLittersGenerated(Integer.valueOf(pregnancyElement.getAttribute("littersGenerated")));
-				} else {
-					character.setLittersGenerated(0);
-				}
-
 				nodes = pregnancyElement.getElementsByTagName("timeProgressedToFinalIncubationStage");
 				if(nodes.getLength()>0) {
 					element = (Element) nodes.item(0);
@@ -2629,7 +2577,11 @@ public abstract class GameCharacter implements XMLSaving {
 				if(nodes.getLength()>0) {
 					element = (Element) ((Element) nodes.item(0)).getElementsByTagName("litter").item(0);
 					if(element!=null) {
-						character.setPregnantLitter(Litter.loadFromXML(element, doc));
+						if(!element.getAttribute("id").isEmpty()) {
+							character.setPregnantLitter(Integer.valueOf(element.getAttribute("id")));
+						} else {
+							character.setPregnantLitter(Main.game.getFamily().addLitter(Litter.loadFromXML(element, doc)));
+						}
 						Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added Pregnant litter.");
 					}
 				}
@@ -2641,8 +2593,11 @@ public abstract class GameCharacter implements XMLSaving {
 						NodeList entryElements = element.getElementsByTagName("entry");
 						for(int i=0; i<entryElements.getLength(); i++){
 							Element e = (Element) ((Element)entryElements.item(i)).getElementsByTagName("litter").item(0);
-							
-							character.addIncubationLitter(SexAreaOrifice.valueOf(((Element)entryElements.item(i)).getAttribute("orifice")), Litter.loadFromXML(e, doc));
+							if(!e.getAttribute("id").isEmpty()) {
+								character.addIncubationLitter(SexAreaOrifice.valueOf(((Element)entryElements.item(i)).getAttribute("orifice")), Integer.valueOf(((Element)entryElements.item(i)).getAttribute("id")));
+							} else {
+								character.addIncubationLitter(SexAreaOrifice.valueOf(((Element)entryElements.item(i)).getAttribute("orifice")), Main.game.getFamily().addLitter(Litter.loadFromXML(e, doc)));
+							}
 						}
 					}
 				}
@@ -2656,7 +2611,7 @@ public abstract class GameCharacter implements XMLSaving {
 						for(int i=0; i<litterElements.getLength(); i++){
 							Element e = ((Element)litterElements.item(i));
 							
-							character.getLittersBirthed().add(Litter.loadFromXML(e, doc));
+							Main.game.getFamily().addLitter(Litter.loadFromXML(e, doc));
 							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added litter birthed.");
 						}
 					}
@@ -2670,7 +2625,7 @@ public abstract class GameCharacter implements XMLSaving {
 						for(int i=0; i<litterElements.getLength(); i++){
 							Element e = ((Element)litterElements.item(i));
 							
-							character.getLittersFathered().add(Litter.loadFromXML(e, doc));
+							Main.game.getFamily().addLitter(Litter.loadFromXML(e, doc));
 							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added litter fathered.");
 						}
 					}
@@ -2684,7 +2639,7 @@ public abstract class GameCharacter implements XMLSaving {
 						for(int i=0; i<litterElements.getLength(); i++){
 							Element e = ((Element)litterElements.item(i));
 							
-							character.getLittersIncubated().add(Litter.loadFromXML(e, doc));
+							Main.game.getFamily().addLitter(Litter.loadFromXML(e, doc));
 							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added litter incubated.");
 						}
 					}
@@ -2698,7 +2653,7 @@ public abstract class GameCharacter implements XMLSaving {
 						for(int i=0; i<litterElements.getLength(); i++){
 							Element e = ((Element)litterElements.item(i));
 							
-							character.getLittersImplanted().add(Litter.loadFromXML(e, doc));
+							Main.game.getFamily().addLitter(Litter.loadFromXML(e, doc));
 							Main.game.getCharacterUtils().appendToImportLog(log, "<br/>Added litter implanted.");
 						}
 					}
@@ -5855,7 +5810,7 @@ public abstract class GameCharacter implements XMLSaving {
 	protected Set<GameCharacter> getChildren() {
 		HashSet<GameCharacter> result = new HashSet<>();
 
-		for(Litter litter : getLittersBirthed()) {
+		for(Litter litter : Main.game.getFamily().getLittersBirthed(this)) {
 			for(String id : litter.getOffspring()) {
 				try {
 					result.add(Main.game.getNPCById(id));
@@ -5865,7 +5820,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 		}
 
-		for(Litter litter : getLittersFathered()) {
+		for(Litter litter : Main.game.getFamily().getLittersFathered(this)) {
 			for(String id : litter.getOffspring()) {
 				try {
 					result.add(Main.game.getNPCById(id));
@@ -20374,7 +20329,7 @@ public abstract class GameCharacter implements XMLSaving {
 					}
 				}
 				
-				pregnantLitter = new Litter(Main.game.getDateNow(), Main.game.getDateNow(), this, partner, fertilisationType, offspring);
+				pregnantLitter = Main.game.getFamily().addLitter(new Litter(Main.game.getDateNow(), Main.game.getDateNow(), this, partner, fertilisationType, offspring));
 				this.resetAllPregnancyReactions();
 			}
 		}
@@ -20476,8 +20431,8 @@ public abstract class GameCharacter implements XMLSaving {
 					}
 				}
 				
-				pregnantLitter = new Litter(Main.game.getDateNow(), Main.game.getDateNow(), this, null, fertilisationType, offspring);
-				pregnantLitter.setFatherRace(partnerSubspecies);
+				pregnantLitter = Main.game.getFamily().addLitter(new Litter(Main.game.getDateNow(), Main.game.getDateNow(), this, null, fertilisationType, offspring));
+				Main.game.getFamily().getLitter(pregnantLitter).setFatherRace(partnerSubspecies);
 				this.resetAllPregnancyReactions();
 			}
 		}
@@ -20531,17 +20486,9 @@ public abstract class GameCharacter implements XMLSaving {
 		if(!this.isPregnant()) {
 			return;
 		}
-
-		pregnantLitter.setBirthDate(Main.game.getDateNow());
-		if(pregnantLitter.getFather()!=null) { // Set birth date for the father's litter copy:
-			for(Litter fatherCopy : pregnantLitter.getFather().getLittersFathered()) {
-				if(!fatherCopy.getId().isEmpty() && fatherCopy.getId().equals(pregnantLitter.getId())) {
-					fatherCopy.setBirthDate(Main.game.getDateNow());
-					continue;
-				}
-			}
-		}
-		Litter birthedLitter = pregnantLitter;
+		
+		Main.game.getFamily().getLitter(pregnantLitter).setBirthDate(Main.game.getDateNow());
+		Litter birthedLitter = Main.game.getFamily().getLitter(pregnantLitter);
 
 		if(withBirth) {
 			if(withClothingManagement) {
@@ -20591,12 +20538,6 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 			}
 			
-			littersBirthed.add(birthedLitter);
-			
-			if(birthedLitter.getFather()!=null) {
-				birthedLitter.getFather().getLittersFathered().add(birthedLitter);
-			}
-			
 			// Remove offspring if not related to the player:
 			if(!this.isPlayer() && (birthedLitter.getFather()==null || !birthedLitter.getFather().isPlayer())) {
 				for(String os : birthedLitter.getOffspring()) {
@@ -20609,7 +20550,7 @@ public abstract class GameCharacter implements XMLSaving {
 			}
 			
 		} else {
-			for(String os : pregnantLitter.getOffspring()) {
+			for(String os : birthedLitter.getOffspring()) {
 				if(os.contains("NPCOffspring")) {
 					Main.game.banishNPC(os);
 				} else {
@@ -20655,22 +20596,6 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 
 		this.getIncubationLitter(orifice).setBirthDate(Main.game.getDateNow());
-		if(this.getIncubationLitter(orifice).getMother()!=null) { // Set birth date for the mother's litter copy:
-			for(Litter motherCopy : this.getIncubationLitter(orifice).getMother().getLittersImplanted()) {
-				if(!motherCopy.getId().isEmpty() && motherCopy.getId().equals(this.getIncubationLitter(orifice).getId())) {
-					motherCopy.setBirthDate(Main.game.getDateNow());
-					continue;
-				}
-			}
-		}
-		if(this.getIncubationLitter(orifice).getFather()!=null) { // Set birth date for the father's litter copy:
-			for(Litter fatherCopy : this.getIncubationLitter(orifice).getFather().getLittersFathered()) {
-				if(!fatherCopy.getId().isEmpty() && fatherCopy.getId().equals(this.getIncubationLitter(orifice).getId())) {
-					fatherCopy.setBirthDate(Main.game.getDateNow());
-					continue;
-				}
-			}
-		}
 		Litter birthedLitter = this.getIncubationLitter(orifice);
 
 		if(withBirth) {
@@ -20742,8 +20667,6 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 			}
 			
-			getLittersIncubated().add(birthedLitter);
-
 			// Done at time of implanting
 //			if(birthedLitter.getFather()!=null) {
 //				birthedLitter.getFather().getLittersFathered().add(birthedLitter);
@@ -20824,23 +20747,17 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		potentialPartnersAsMother.clear();
 		
-		Litter implantedLitter = pregnantLitter;
+		Litter implantedLitter = Main.game.getFamily().getLitter(pregnantLitter);
 		
 		implantedLitter.setIncubatorId(target.getId());
 		implantedLitter.setIncubationStartDate(Main.game.getDateNow());
-		
-		getLittersImplanted().add(implantedLitter);
-		if(implantedLitter.getFather()!=null) {
-			implantedLitter.getFather().getLittersFathered().add(implantedLitter);
-		}
-		
-		if(target.isPlayer()) {
-			for(OffspringSeed seed : implantedLitter.getOffspringSeed()) {
-				seed.setFromPlayer(true);
+		if(isPlayer()) {
+			for(OffspringSeed os : implantedLitter.getOffspringSeed()) {
+				os.setFromPlayer(true);
 			}
 		}
 		
-		target.addIncubationLitter(orifice, implantedLitter);
+		target.addIncubationLitter(orifice, pregnantLitter);
 		AbstractStatusEffect incubationEffect = StatusEffect.INCUBATING_EGGS_STOMACH_1;
 		switch(orifice) {
 			case ANUS:
@@ -20895,75 +20812,18 @@ public abstract class GameCharacter implements XMLSaving {
 		this.resetAllPregnancyReactions();
 	}
 	
-	public List<Litter> getLittersBirthed() {
-		return littersBirthed;
-	}
-
-	public Litter getLastLitterBirthed() {
-		if(littersBirthed.isEmpty()) {
-			return null;
-		}
-		return littersBirthed.get(littersBirthed.size() - 1);
-	}
-	
-	public Litter getLastLitterIncubated() {
-		if(incubatedLitters.isEmpty()) {
-			return null;
-		}
-		return incubatedLitters.get(incubatedLitters.size() - 1);
-	}
-	
-	public List<Litter> getLittersFathered() {
-		return littersFathered;
-	}
-	
 	public Litter getPregnantLitter() {
+		return Main.game.getFamily().getLitter(getPregnantLitterId());
+	}
+	
+	public Integer getPregnantLitterId() {
 		return pregnantLitter;
 	}
 	
-	public void setPregnantLitter(Litter pregnantLitter) {
+	public void setPregnantLitter(Integer pregnantLitter) {
 		this.pregnantLitter = pregnantLitter;
 	}
 
-	public int getLittersGenerated() {
-		return littersGenerated;
-	}
-
-	public void setLittersGenerated(int littersGenerated) {
-		this.littersGenerated = littersGenerated;
-	}
-
-	public void incrementLittersGenerated(int increment) {
-		this.setLittersGenerated(this.getLittersGenerated()+increment);
-	}
-	
-	public void swapLitter(Litter litter, String oldId, String newId) {
-		if(litter!=null && litter.getOffspring().contains(oldId)) {
-			litter.getOffspring().remove(oldId);
-			litter.getOffspring().add(newId);
-		}
-	}
-	
-	public void swapLitters(String oldId, String newId) {
-		this.swapLitter(this.getPregnantLitter(), oldId, newId);
-		
-		for(Entry<SexAreaOrifice, Litter> entry : this.getIncubatingLitters().entrySet()) {
-			this.swapLitter(entry.getValue(), oldId, newId);
-		}
-		for(Litter litter : this.getLittersBirthed()) {
-			this.swapLitter(litter, oldId, newId);
-		}
-		for(Litter litter : this.getLittersFathered()) {
-			this.swapLitter(litter, oldId, newId);
-		}
-		for(Litter litter : this.getLittersImplanted()) {
-			this.swapLitter(litter, oldId, newId);
-		}
-		for(Litter litter : this.getLittersIncubated()) {
-			this.swapLitter(litter, oldId, newId);
-		}
-	}
-	
 	/**
 	 * @return The time, in seconds, when this character's egg incubation in the orifice reached the fully matured stage (ready for birthing).
 	 * <br/><b>NOTE:</b> Returns -1 if not yet reached the final stage.
@@ -20982,7 +20842,15 @@ public abstract class GameCharacter implements XMLSaving {
 		this.timeProgressedToFinalIncubationStage.put(orifice, time);
 	}
 	
-	public Map<SexAreaOrifice, Litter> getIncubatingLitters() {
+	public Map<SexAreaOrifice, Integer> getIncubatingLitters() {
+		HashMap litterMap = new HashMap();
+		for(Entry<SexAreaOrifice, Integer> entry : incubatingLitters.entrySet()) {
+			litterMap.put(entry.getKey(), Main.game.getFamily().getLitter(entry.getValue()));
+		}
+		return litterMap;
+	}
+	
+	public Map<SexAreaOrifice, Integer> getIncubatingLittersId() {
 		return incubatingLitters;
 	}
 	
@@ -20991,6 +20859,13 @@ public abstract class GameCharacter implements XMLSaving {
 	 * <br/><b>NOTE:</b> If the SexAreaOrifice.MOUTH value is supplied as the orifice, it is converted to ANUS (as both MOUTH and ANUS lead to stomach incubation).
 	 */
 	public Litter getIncubationLitter(SexAreaOrifice orifice) {
+		if(orifice==SexAreaOrifice.MOUTH) {
+			orifice = SexAreaOrifice.ANUS;
+		}
+		return Main.game.getFamily().getLitter(incubatingLitters.getOrDefault(orifice, null));
+	}
+	
+	public Integer getIncubationLitterId(SexAreaOrifice orifice) {
 		if(orifice==SexAreaOrifice.MOUTH) {
 			orifice = SexAreaOrifice.ANUS;
 		}
@@ -21004,33 +20879,18 @@ public abstract class GameCharacter implements XMLSaving {
 	/**
 	 * <br/><b>NOTE:</b> If the SexAreaOrifice.MOUTH value is supplied as the orifice, it is converted to ANUS (as both MOUTH and ANUS lead to stomach incubation).
 	 */
-	public Litter addIncubationLitter(SexAreaOrifice orifice, Litter litter) {
+	public Integer addIncubationLitter(SexAreaOrifice orifice, Integer litter) {
 		if(orifice==SexAreaOrifice.MOUTH) {
 			orifice = SexAreaOrifice.ANUS;
 		}
-		litter.setIncubatorId(this.getId());
 		return incubatingLitters.put(orifice, litter);
 	}
 
-	public Litter removeIncubationLitter(SexAreaOrifice orifice) {
+	public Integer removeIncubationLitter(SexAreaOrifice orifice) {
 		timeProgressedToFinalIncubationStage.remove(orifice);
 		return incubatingLitters.remove(orifice);
 	}
 	
-	/**
-	 * @return A List of Litters which this character has incubated and birthed.
-	 */
-	public List<Litter> getLittersIncubated() {
-		return incubatedLitters;
-	}
-
-	/**
-	 * @return A List of Litters which this character has implanted in others.
-	 */
-	public List<Litter> getLittersImplanted() {
-		return implantedLitters;
-	}
-
 	/**
 	 * @return A list of PregnancyPossibilities which are linked to the possibility of this character being a mother. i.e. A list of all the people who could have gotten them pregnant.
 	 */
@@ -30445,7 +30305,7 @@ public abstract class GameCharacter implements XMLSaving {
 //		AbstractClothing clothingInVagina = this.getClothingInSlot(InventorySlot.VAGINA);
 //		if(clothingInVagina!=null && clothingInVagina.getItemTags().contains(ItemTag.ONAHOLE_OTHER)) {
 //			if(Main.game.isInSex()) { //TODO save onahole in sex
-//				
+//
 //			} else {
 //				return new Vagina(
 //						VaginaType.ONAHOLE,

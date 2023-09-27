@@ -51,6 +51,7 @@ import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.Family;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.SexCount;
@@ -330,6 +331,8 @@ public class Game implements XMLSaving {
 	private ItemGeneration itemGeneration;
 	private CharacterUtils characterUtils;
 	
+	private final Family family;
+	
 	// NPCs:
 	private NPC activeNPC;
 	private AtomicInteger npcTally = new AtomicInteger(0);
@@ -413,6 +416,7 @@ public class Game implements XMLSaving {
 		
 		itemGeneration = new ItemGeneration();
 		characterUtils = new CharacterUtils();
+		family = new Family();
 		OccupantManagementDialogue.resetImportantCells();
 		startingDate = LocalDateTime.of(
 				2019, // LocalDateTime.now().getYear(),
@@ -903,6 +907,17 @@ public class Game implements XMLSaving {
 			ex.printStackTrace();
 			Main.game.addEvent(new EventLogEntry("<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "offspringSeed failure"), false);
 		}
+		
+		// Add Family
+		try {
+			Element familyNode = doc.createElement("family");
+			game.appendChild(familyNode);
+			Main.game.getFamily().saveAsXML(familyNode, doc);
+		} catch (Exception ex) {
+			System.err.println("family saving failed!");
+			ex.printStackTrace();
+			Main.game.addEvent(new EventLogEntry("<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "family failure"), false);
+		}
 
 		// Ending stuff:
 		try {
@@ -1278,6 +1293,8 @@ public class Game implements XMLSaving {
 				if(debug) {
 					System.out.println("Player finished: "+ (System.nanoTime()-time)/1000000000d);
 				}
+				
+				Main.game.getFamily().loadFromXML(gameElement, doc);
 
 				// Load NPCs:
 				NodeList npcs = gameElement.getElementsByTagName("NPC");
@@ -2935,7 +2952,7 @@ public class Game implements XMLSaving {
 						if(npc.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_ALLOW_BIRTHING)) {
 							npc.endPregnancy(true, false);
 							
-							List<String> events = Util.newArrayListOfValues(UtilText.parse(npc, "[npc.She] gave birth to:<br/>")+npc.getLastLitterBirthed().getBirthedDescription());
+							List<String> events = Util.newArrayListOfValues(UtilText.parse(npc, "[npc.She] gave birth to:<br/>")+getFamily().getLastLitterBirthed(npc).getBirthedDescription());
 							SlaveryEventLogEntry entry = new SlaveryEventLogEntry(getHourOfDay(),
 									npc,
 									null,
@@ -2960,7 +2977,7 @@ public class Game implements XMLSaving {
 			if(!npc.getIncubatingLitters().isEmpty()
 					&& !Main.game.getCharactersPresent().contains(npc)
 					&& !Main.game.getPlayer().getCompanions().contains(npc)) {
-				for(Entry<SexAreaOrifice, Litter> entry : new HashMap<>(npc.getIncubatingLitters()).entrySet()) {
+				for(Entry<SexAreaOrifice, Integer> entry : new HashMap<>(npc.getIncubatingLitters()).entrySet()) {
 					long finalStageTime = npc.getTimeProgressedToFinalIncubationStage(entry.getKey());
 //					System.out.println(finalStageTime+", "+(Main.game.getSecondsPassed() - finalStageTime));
 					if(finalStageTime>0 && (Main.game.getSecondsPassed() - finalStageTime) > (12*60*60)) {
@@ -2995,7 +3012,7 @@ public class Game implements XMLSaving {
 									case URETHRA_VAGINA:
 										break;
 								}
-								List<String> events = Util.newArrayListOfValues(UtilText.parse(npc, "[npc.She] completed [npc.her] "+areaEgged+" incubation and gave birth to:<br/>")+npc.getLastLitterIncubated().getBirthedDescription());
+								List<String> events = Util.newArrayListOfValues(UtilText.parse(npc, "[npc.She] completed [npc.her] "+areaEgged+" incubation and gave birth to:<br/>")+getFamily().getLastLitterIncubated(npc).getBirthedDescription());
 								SlaveryEventLogEntry incubationBirthEntry = new SlaveryEventLogEntry(getHourOfDay(),
 										npc,
 										null,
@@ -4957,17 +4974,25 @@ public class Game implements XMLSaving {
 	 * @return a list of all offspring that have been encountered in the game.
 	 */
 	public List<NPC> getOffspring() {
-		List<NPC> offspring = new ArrayList<>();
+		List<String> offspring = new ArrayList<>();
+		List<NPC> offspringNPCs = new ArrayList<>();
 		
-		for(NPC npc : NPCMap.values()) {
-			if((npc.getMother()!=null && npc.getMother().isPlayer()) ||
-			   (npc.getFather()!=null && npc.getFather().isPlayer()) ||
-			   (npc.getIncubator()!=null && npc.getIncubator().isPlayer())){
-					offspring.add(npc);
-			}
+		for(Litter litter : this.getFamily().getLittersRelated(this.getPlayer())) {
+			offspring.addAll(litter.getOffspring());
 		}
 		
-		return offspring;
+		for(OffspringSeed os : getOffspringNotSpawned(os -> true)) {
+			offspring.remove(os.getId());
+		}
+		
+		for(String id : offspring) {
+			try {
+				offspringNPCs.add((NPC) this.getNPCById(id));
+			} catch(Exception ignore) {
+				// Supress the exception, NPCOffspring has most likely been removed
+			}
+		}
+		return offspringNPCs;
 	}
 	
 	/**
@@ -5908,6 +5933,10 @@ public class Game implements XMLSaving {
 	 */
 	public void openInventoryDialogue(NPC target, InventoryInteraction interactionType) {
 		Main.mainController.openInventory(target, interactionType);
+	}
+	
+	public Family getFamily() {
+		return family;
 	}
 	
 	public void initCosmeticsDialogue(NPC beautician, GameCharacter target, DialogueNode returnToNode) {

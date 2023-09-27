@@ -321,7 +321,7 @@ public enum TattooCounterType {
 		@Override
 		public int getCount(GameCharacter bearer) {
 			int count = 0;
-			for(Litter litter : bearer.getLittersBirthed()) {
+			for(Litter litter : Main.game.getFamily().getLittersBirthed(bearer)) {
 				count+=litter.getTotalLitterCount();
 			}
 			return count;
@@ -332,7 +332,7 @@ public enum TattooCounterType {
 		@Override
 		public int getCount(GameCharacter bearer) {
 			int count = 0;
-			for(Litter litter : bearer.getLittersFathered()) {
+			for(Litter litter : Main.game.getFamily().getLittersFathered(bearer)) {
 				count+=litter.getTotalLitterCount();
 			}
 			return count;
@@ -342,7 +342,7 @@ public enum TattooCounterType {
 	PREGNANCY("pregnancy", "Keeps a count of how many times the bearer has been impregnated.") {
 		@Override
 		public int getCount(GameCharacter bearer) {
-			return bearer.getLittersBirthed().size() + (bearer.isPregnant()?1:0);
+			return Main.game.getFamily().getLittersBirthed(bearer).size() + (bearer.isPregnant()?1:0);
 		}
 	},
 
@@ -350,7 +350,7 @@ public enum TattooCounterType {
 		@Override
 		public int getCount(GameCharacter bearer) {
 			Set<String> partners = new HashSet<>();
-			for(Litter litter : bearer.getLittersBirthed()) {
+			for(Litter litter : Main.game.getFamily().getLittersBirthed(bearer)) {
 				partners.add(litter.getFatherId());
 			}
 			return partners.size();
@@ -366,7 +366,7 @@ public enum TattooCounterType {
 					potentials++;
 				}
 			}
-			return potentials + bearer.getLittersFathered().size();
+			return potentials + Main.game.getFamily().getLittersFathered(bearer).size();
 		}
 	},
 
@@ -380,7 +380,7 @@ public enum TattooCounterType {
 				}
 			}
 			Set<String> partners = new HashSet<>();
-			for(Litter litter : bearer.getLittersFathered()) {
+			for(Litter litter : Main.game.getFamily().getLittersFathered(bearer)) {
 				partners.add(litter.getMotherId());
 			}
 			return potentials.size() + partners.size();
@@ -391,7 +391,7 @@ public enum TattooCounterType {
 		@Override
 		public int getCount(GameCharacter bearer) {
 			int count = 0;
-			for(Litter litter : bearer.getLittersImplanted()) {
+			for(Litter litter : Main.game.getFamily().getLittersImplanted(bearer)) {
 				count+=litter.getTotalLitterCount();
 			}
 			return count;
@@ -402,7 +402,7 @@ public enum TattooCounterType {
 		@Override
 		public int getCount(GameCharacter bearer) {
 			int count = 0;
-			for(Litter litter : bearer.getLittersIncubated()) {
+			for(Litter litter : Main.game.getFamily().getLittersIncubated(bearer)) {
 				count+=litter.getTotalLitterCount();
 			}
 			return count;

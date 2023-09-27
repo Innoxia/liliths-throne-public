@@ -293,7 +293,7 @@ public class LilayaBirthing {
 				UtilText.nodeContentSB.append("You feel a weight on your chest, and you're vaguely aware of something greedily drinking a bottle of milk as you cradle it in your arms...");
 			}
 			
-			String offspringId = Util.randomItemFrom(Main.game.getPlayer().getLastLitterBirthed().getOffspring());
+			String offspringId = Util.randomItemFrom(Main.game.getFamily().getLastLitterBirthed(Main.game.getPlayer()).getOffspring());
 			try {
 				if(offspringId.contains("NPCOffspring")) { // If the offspring is from the pre-offspring seed PR, handle them in the old way:
 					GameCharacter offspring = Main.game.getNPCById(offspringId);
@@ -437,7 +437,7 @@ public class LilayaBirthing {
 
 		@Override
 		public String getContent() {
-			UtilText.addSpecialParsingString(Util.intToString(Main.game.getPlayer().getLastLitterBirthed().getTotalLitterCount()), true);
+			UtilText.addSpecialParsingString(Util.intToString(Main.game.getFamily().getLastLitterBirthed(Main.game.getPlayer()).getTotalLitterCount()), true);
 			
 			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayaBirthing", "LILAYA_ASSISTS_EGG_LAYING_DELIVERS");
 		}
@@ -446,10 +446,10 @@ public class LilayaBirthing {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response(
-						Main.game.getPlayer().getLastLitterBirthed().getTotalLitterCount()==1
+						Main.game.getFamily().getLastLitterBirthed(Main.game.getPlayer()).getTotalLitterCount()==1
 							?"Protect the egg"
 							:"Protect the eggs!",
-						Main.game.getPlayer().getLastLitterBirthed().getTotalLitterCount()==1
+						Main.game.getFamily().getLastLitterBirthed(Main.game.getPlayer()).getTotalLitterCount()==1
 							?"Why is Lilaya getting so close?! Maybe she wants to take your egg for herself!"
 							:"Why is Lilaya getting so close?! Maybe she wants to take your eggs for herself!",
 						LILAYA_ASSISTS_EGG_LAYING_PROTECT_THE_EGGS) {
@@ -478,7 +478,7 @@ public class LilayaBirthing {
 			
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/lilayaBirthing", "LILAYA_ASSISTS_EGG_LAYING_PROTECT_THE_EGGS"));
 			
-			String offspringId = Util.randomItemFrom(Main.game.getPlayer().getLastLitterBirthed().getOffspring());
+			String offspringId = Util.randomItemFrom(Main.game.getFamily().getLastLitterBirthed(Main.game.getPlayer()).getOffspring());
 			try {
 				if(offspringId.contains("NPCOffspring")) { // If the offspring is from the pre-offspring seed PR, handle them in the old way:
 					GameCharacter offspring = Main.game.getNPCById(offspringId);
@@ -546,7 +546,7 @@ public class LilayaBirthing {
 					"<p style='text-align:center;'>"
 					+ "In the picture you see:");
 			
-			for(String id : Main.game.getPlayer().getLastLitterBirthed().getOffspring()) {
+			for(String id : Main.game.getFamily().getLastLitterBirthed(Main.game.getPlayer()).getOffspring()) {
 				try {
 					if(id.contains("NPCOffspring")) { // If the offspring is from the pre-offspring seed PR, handle them in the old way:
 						GameCharacter offspring = Main.game.getNPCById(id);

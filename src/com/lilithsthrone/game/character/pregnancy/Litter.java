@@ -26,14 +26,14 @@ import java.util.Map.Entry;
  */
 public class Litter implements XMLSaving {
 	
-	private String id;
+	private final String id;
 	
-	private LocalDateTime conceptionDate;
+	private final LocalDateTime conceptionDate;
 	private LocalDateTime birthDate;
 	private LocalDateTime incubationStartDate;
 	
-	private String motherId;
-	private String fatherId;
+	private final String motherId;
+	private final String fatherId;
 	private String incubatorId; // For if this litter was eggs incubated in a third party
 	
 	private int sonsMother;
@@ -43,15 +43,15 @@ public class Litter implements XMLSaving {
 	
 	private FertilisationType fertilisationType;
 	
-	private List<String> offspring;
+	private final List<String> offspring;
 	
 	private String birthedDescription;
 	
-	private AbstractSubspecies motherRace;
+	private final AbstractSubspecies motherRace;
 	private AbstractSubspecies fatherRace;
 
 	public Litter(LocalDateTime conceptionDate, LocalDateTime birthDate, GameCharacter mother, GameCharacter father, FertilisationType fertilisationType, List<OffspringSeed> offspring) {
-		this.id = mother.getId()+mother.getLittersGenerated();
+		this.id = mother.getId()+Main.game.getFamily().getId();
 		
 		this.conceptionDate = LocalDateTime.of(conceptionDate.getYear(), conceptionDate.getMonth(), conceptionDate.getDayOfMonth(), 12, 0);
 		this.birthDate = LocalDateTime.of(birthDate.getYear(), birthDate.getMonth(), birthDate.getDayOfMonth(), 12, 0);
@@ -174,10 +174,10 @@ public class Litter implements XMLSaving {
 		
 		for(String offspring : this.getOffspring()) {
 
-			element = doc.createElement("offspring");
-			innerElement.appendChild(element);
+			Element offspringElement = doc.createElement("offspring");
+			innerElement.appendChild(offspringElement);
 			
-			XMLUtil.addAttribute(doc, element, "id", offspring);
+			XMLUtil.addAttribute(doc, offspringElement, "id", offspring);
 		}
 		
 		return element;
@@ -590,5 +590,19 @@ public class Litter implements XMLSaving {
 		}
 		return birthedDescription;
 	}
-
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Litter litter = (Litter) o;
+		return getId().equals(litter.getId()) && getConceptionDate().equals(litter.getConceptionDate()) && Objects.equals(getBirthDate(), litter.getBirthDate()) && Objects.equals(getIncubationStartDate(), litter.getIncubationStartDate()) && Objects.equals(getMotherId(), litter.getMotherId()) && Objects.equals(getFatherId(), litter.getFatherId()) && Objects.equals(getIncubatorId(), litter.getIncubatorId());
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(getId(), getConceptionDate(), getBirthDate(), getIncubationStartDate(), getMotherId(), getFatherId(), getIncubatorId());
+	}
 }

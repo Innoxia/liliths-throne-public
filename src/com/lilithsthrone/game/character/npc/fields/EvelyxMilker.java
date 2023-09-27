@@ -226,7 +226,7 @@ public class EvelyxMilker extends NPC {
 			}
 			// Pregnancy preference:
 			if(Main.game.getDialogueFlags().hasFlag("innoxia_evelyx_cow_search_pregnant")) {
-				this.setPregnantLitter(new Litter(Main.game.getDateNow(), Main.game.getDateNow(), this, this, FertilisationType.NORMAL, new ArrayList<>()));
+				this.setPregnantLitter(Main.game.getFamily().addLitter(new Litter(Main.game.getDateNow(), Main.game.getDateNow(), this, this, FertilisationType.NORMAL, new ArrayList<>())));
 			}
 			// Mileage preference:
 			if(Main.game.getDialogueFlags().hasFlag("innoxia_evelyx_cow_search_high_mileage")) {
