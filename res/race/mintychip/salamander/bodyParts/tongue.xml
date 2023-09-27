@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tongue>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- If you want to see the part of the code where this type is defined, then please look here:
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/abstractTypes/AbstractTongueType.java -->
+	
+	<!-- The id of the race which this tongue belongs to.
+	This will almost always be the id of the race in which this type is found (in this case hyena). -->
+	<race>mintychip_salamander</race>
+	
+	<!-- The id of the material covering this tongue.
+	This should always be left as 'TONGUE'.
+	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
+	<coveringType>TONGUE</coveringType>
+	
+	<!-- The default length of this tongue, measured in cm.
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/TongueLength.java -->
+	<defaultLength>8</defaultLength>
+	
+	<!-- The singular and plural names of this tongue. -->
+	<name><![CDATA[tongue]]></name>
+	<namePlural><![CDATA[tongues]]></namePlural>
+	
+	<!-- The descriptors which should be drawn upon when describing a masculine character's tongue of this type.
+	Additional tongue descriptors are generated based on the tongue's properties (such as its modifiers, lubrication, capacity, etc.), so these descriptors should only be related to the race itself. -->
+	<descriptorsMasculine>
+		<descriptor><![CDATA[salamander-like]]></descriptor>
+	</descriptorsMasculine>
+	<!-- Same as above, but for feminine characters. -->
+	<descriptorsFeminine>
+		<descriptor><![CDATA[salamander-like]]></descriptor>
+	</descriptorsFeminine>
+	
+	<!-- How this tongue is described in a character's description page. -->
+	<bodyDescription><![CDATA[
+		[npc.Her] mouth holds [npc.a_tongueLength], [npc.tongueColour(true)], salamander-like [npc.tongue]#IF(npc.isPiercedTongue()), which has been pierced#ENDIF.
+	]]></bodyDescription>
+	
+	<!-- The tongue modifiers which this tongue has when first created (such as when a new hyena-morph is spawned).
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/TongueModifier.java -->
+	<defaultTongueModifiers>
+		<modifier>STRONG</modifier>
+		<modifier>BIFURCATED</modifier>
+	</defaultTongueModifiers>
+	
+</tongue>

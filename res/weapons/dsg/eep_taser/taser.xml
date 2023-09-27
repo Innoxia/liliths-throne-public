@@ -43,8 +43,6 @@
 		
 		<spells/>
 		
-		<enchantmentLimit>0</enchantmentLimit>
-		
 		<effects/>
 		
 		<extraEffects>
@@ -66,6 +64,7 @@
 		
 		<itemTags>
 			<tag>CONTRABAND_MEDIUM</tag>
+			<tag>WEAPON_FIREARM</tag>
 		</itemTags>
 		
 	</coreAttributes>

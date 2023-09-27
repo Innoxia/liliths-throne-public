@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<worldType>
+	<worldRegion>FIELDS</worldRegion>
+	<name><![CDATA[Evelyx's Dairy]]></name>
+	<colour>BASE_YELLOW_LIGHT</colour>
+	<sexBlockedReason/>
+	<furniturePresent>false</furniturePresent>
+	<wallsPresent>true</wallsPresent>
+	<loiteringEnabled>true</loiteringEnabled>
+	<flightEnabled>false</flightEnabled>
+	<visibleFromStart>false</visibleFromStart>
+	<fullyRevealedFromStart>false</fullyRevealedFromStart>
+	<globalMapLocation>WORLD_MAP_FIELDS</globalMapLocation>
+	<standardPlace>innoxia_fields_dairyFarm_corridor</standardPlace>
+	<entryFromGlobalMapLocation>innoxia_fields_dairyFarm_exit</entryFromGlobalMapLocation>
+	<teleportPermissions>NONE</teleportPermissions>
+	<places>
+		<place colour="#ffffff">GENERIC_IMPASSABLE</place>
+		
+		<place colour="#ff0000">innoxia_fields_dairyFarm_exit</place>
+		<place colour="#ffbf40">innoxia_fields_dairyFarm_reception</place>
+		<place colour="#808080">innoxia_fields_dairyFarm_corridor</place>
+		<place colour="#3b3b3b">innoxia_fields_dairyFarm_locked_door</place>
+		
+		<place colour="#81ffd6">innoxia_fields_dairyFarm_dormitory</place>
+		<place colour="#800080">innoxia_fields_dairyFarm_manager</place>
+		<place colour="#805c80">innoxia_fields_dairyFarm_storage</place>
+		<place colour="#800000">innoxia_fields_dairyFarm_auction</place>
+		
+		<place colour="#ff8000">innoxia_fields_dairyFarm_barn1_door</place>
+		<place colour="#ffd0a1">innoxia_fields_dairyFarm_barn1</place>
+		
+		<place colour="#008000">innoxia_fields_dairyFarm_barn2_door</place>
+		<place colour="#adffad">innoxia_fields_dairyFarm_barn2</place>
+		
+		<place colour="#008080">innoxia_fields_dairyFarm_barn3_door</place>
+		<place colour="#97ffff">innoxia_fields_dairyFarm_barn3</place>
+		
+		<place colour="#ff0080">innoxia_fields_dairyFarm_barn4_door</place>
+		<place colour="#ff97cb">innoxia_fields_dairyFarm_barn4</place>
+	</places>
+</worldType>

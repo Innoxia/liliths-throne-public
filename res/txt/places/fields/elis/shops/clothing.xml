@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	
+	<!-- Monica's 'The Fashionable Moo' clothing store: -->
+	
+	<htmlContent tag="CLOTHING"><![CDATA[
+	<p>
+		The store in front of you bears what is undoubtedly the most colourful sign in all of Wall's End. Adorned with painted flowers of every type and colour imaginable, the words 'The Fashionable Moo' are displayed in a light pink script, with an additional subtext reading:
+		#IF(game.getHourOfDay()>=9 && game.getHourOfDay()<17 && game.getDayOfWeek()!=DOW_SUNDAY)
+			 'Open weekdays and Saturdays, [style.colourMinorGood([units.time(9)]-[units.time(17)])]'
+		#ELSE
+			 'Open weekdays and Saturdays, [style.colourMinorBad([units.time(9)]-[units.time(17)])]'
+		#ENDIF
+	</p>
+	<p>
+		#IF(game.getHourOfDay()>=9 && game.getHourOfDay()<17 && game.getDayOfWeek()!=DOW_SUNDAY)
+			Even if the displayed opening times weren't enough to inform you that this shop is currently [style.colourGood(open)], you can quite clearly see through the wide windows that all of the lights are on, allowing you to view the many items of clothing, shoes, and accessories which this store offers for sale.
+			#IF(flags.hasFlag(FLAG_innoxia_elis_clothing_visited))
+				 Further inside, you see the voluminous form of Monica bouncing around as she excitedly helps some customers find the clothing they're after. It looks like she's just about finished serving them, and as she heads over to the checkout and starts packaging the customers' selected clothing, you wonder whether to head inside and say hello to the energetic cow-girl again...
+			#ELSE
+				 Further inside, you see the voluminous form of a short, busty cow-girl bouncing around as she excitedly helps some customers find the clothing they're after. It looks like she's just about finished serving them, and as she heads over to the checkout and starts packaging the customers' selected clothing, you wonder whether to head inside and say hello to who you assume must be the owner of this store...
+			#ENDIF
+		#ELSE
+			Unfortunately, this shop is currently [style.colourBad(closed)], although you can see through the wide windows that some of the lights have been left on, allowing you to view the many items of clothing, shoes, and accessories which this store offers for sale.
+			#IF(flags.hasFlag(FLAG_innoxia_elis_clothing_visited))
+				 Knowing that Monica has put a lot of effort into the window display, you spend a moment looking over the dressed-up mannequins, before [pc.stepping] back and preparing to continue on your way...
+			#ELSE
+				 It looks like the owner has put a considerable amount of effort into the window display, and so you spend a moment looking over the dressed-up mannequins, before [pc.stepping] back and preparing to continue on your way...
+			#ENDIF
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_ENTER"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_elis_clothing_visited))
+		<p>
+			Deciding to once again to enter Monica's store to see what she's got on offer, you push open the glass door and [pc.step] inside. A little bell rings out above your head as the door swings open, which causes the familiar cow-girl to look over in your direction. Having once again caught her just as she's finished serving a pair of customers, the slightly-chubby, incredibly-busty cow-girl flashes you a smile and calls out in a happy, friendly tone, [monica.speech(Hi, [pc.name]!)]
+		</p>
+		#IF(monica.isVisiblyPregnant() && monica.getPregnantLitter().getFather().equals(pc))
+			<p>
+				#IF(!monica.isCharacterReactedToPregnancy(pc))
+					Returning Monica's greeting, you [pc.step] past the exiting customers and head on over to the cow-girl's counter. As you approach, you suddenly notice that the cow-girl's belly is visibly swollen, and as she sees what you're looking at, she brushes her hand through her hand and laughs, [monica.speech(Haha, yeah, you kind of got me pregnant... I haven't been sexually active with anyone else for a long time, so it had to have been you... I wonder if my boobs are going to get bigger from this?)]
+				#ELSE
+					Returning Monica's greeting, you [pc.step] past the exiting customers and head on over to the cow-girl's counter. As you approach, you see that the cow-girl's belly is still visibly swollen, and as she sees what you're looking at, she brushes her hand through her hand and laughs, [monica.speech(Haha, yeah, I'm still pregnant, thanks to you...)]
+				#ENDIF
+			</p>
+			<p>
+				At her encouragement, you [pc.step] forwards and stroke Monica's round belly, causing her to let out a happy little sigh and declare, [monica.speech(I don't need any help with anything, so don't worry about anything like that.
+				#IF(flags.hasFlag(FLAG_innoxia_monica_milked))
+					 Unless... Well, I can't afford to close my store again today, but if you come back tomorrow then I could do with being milked, and then perhaps we could have some fun together again?
+				#ELSE
+					 Unless... If you've got a thing for pregnant girls, then I could do with being milked, and then perhaps we could have some fun together again?
+				#ENDIF
+				)]
+			</p>
+			<p>
+				As you give Monica's belly one last affection stroke, she gestures around her at the dozens of different types of clothing which fill her store and continues, [monica.speech(Of course, if you're here for business, then I can help you pick out an outfit!)] 
+			</p>
+		#ELSE
+			<p>
+				Returning Monica's greeting, you [pc.step] past the exiting customers and head on over to the cow-girl's counter. Gesturing around her at the dozens of different types of clothing which fill her store, she offers in a friendly, happy voice, [monica.speech(I'd be happy to help you pick out an outfit. Just let me know what you're looking for!)]
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			Deciding to enter this clothing store to see what's on offer, you push open the glass door and [pc.step] inside. A little bell rings out above your head as the door swings open, which causes the store's solitary member of staff to look over in your direction. Having just finished serving a pair of customers, this slightly-chubby, incredibly-busty cow-girl flashes you a smile and calls out in a happy, friendly tone, [monica.speech(Hello, and welcome to 'The Fashionable Moo'!)]
+		</p>
+		<p>
+			As the customers pass you by and exit the shop, you return the cow-girl's greeting, which leads into her skipping over towards you. Although mostly human, she has a pair of small, white horns, along with a black-and-white spotted tail and a similarly-coloured pair of cow-like ears, which is how you've identified her as being a cow-girl. She's wearing a yellow dress, yellow headband, and has a yellow ribbon tied around her tail. Bronze bangles adorn her wrists, which match the bronze ring worn on one of her fingers, as well as the sunflower earrings hanging from her cow-like ears.
+		</p>
+		<p>
+			This energetic cow-girl's massive, [monica.cupSize]-cup breasts bounce up and down as she skids to a halt in front of you, and after brushing one of her hands back through her black, white-highlighted hair, she flashes you a big smile and reveals, [monica.speech(I'm Monica, the owner of the store. Is there anything I can help you with today, [pc.mr]...?)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_INTRO"><![CDATA[
+	<p>
+		Seeing no reason not to give the happy cow-girl your name, you introduce yourself to Monica and tell her that you were hoping to take a look around at what sort of clothing she has for sale here. Gesturing around her at the dozens of different types of clothing which fill her store, she replies in a friendly, happy voice, [monica.speech(I've got all the latest fashions from Dominion! I'd love to help you pick out an outfit, so just let me know what you're looking for!)]
+	</p>
+	<p>
+		With Monica continuing to flash you a happy smile, you wonder whether to continue with your original plan and see what Monica has for sale, or to instead engage her in further conversation...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_TRANSACTION_START"><![CDATA[
+	<p>
+		[monica.speech(I get new stock in every day, so if you see something you really like, you can always come back tomorrow and buy more,)] Monica explains as you take a look at what she has for sale.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_TRANSACTION_START"><![CDATA[
+	<p>
+		[monica.speech(I'm sure there's something here you like the look of, right?)] Monica asks as she trails along behind you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_TRANSACTION_START"><![CDATA[
+	<p>
+		[monica.speech(Let me know if you see something you like,)] Monica says as she skips up beside you.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_LEAVE"><![CDATA[
+	<p>
+		Having concluded your business here for now, you tell Monica that you've got to get going and say goodbye. Flashing another of her big, friendly smiles, she waves as you head towards the door and calls out, [monica.speech(Goodbye, [pc.name]! I hope to see you again soon!)]
+	</p>
+	<p>
+		Waving behind you to the energetic cow-girl, you [pc.step] out of her store and wonder where to go next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_TALK_SMALL"><![CDATA[
+	<p>
+		Wanting to spend some time talking with Monica, you engage her in conversation by asking her how her day's been so far today. More than happy to talk with you, the busty cow-girl answers your question in great detail, and before you know it, the two of you are making small talk about the weather, the clothing she's got for sale, and the recent happenings in Elis.
+	</p>
+	<p>
+		You and Monica spend the next fifteen minutes in this manner, and after finally exhausting the trivial topics of conversation, the cow-girl smiles and declares, [monica.speech(It's been fun talking with you, [pc.name]! Is there anything else I can do for you today?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_TALK_BUSINESS"><![CDATA[
+	<p>
+		Wanting to know more about 'The Fashionable Moo', you ask Monica how business has been lately. Flashing you another one of her happy smiles, she enthusiastically responds, [monica.speech(Everything's going great, thanks; I always get lots of customers every day! Although there are stalls in the market which sell clothing, I offer the biggest selection in Elis, and so I get a lot of people saying that they prefer shopping here to buy their outfits.)]
+	</p>
+	<p>
+		Congratulating the cow-girl on her success, you ask her if business has always been this good. Nodding her head, Monica explains, [monica.speech(Before I bought it and turned it into 'The Fashionable Moo', this place used to be a different clothing store, and so everyone in Elis already knew to come here for their clothing. Thanks to that, and the good reputation I've got from stocking a huge selection of clothing, I've always had lots of customers.)]
+	</p>
+	<p>
+		After spending the next few minutes discussing the finer points about her business model, the topic of conversation draws to an end, leading Monica to smile and ask, [monica.speech(So, was there anything else you needed, [pc.name]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_TALK_ELIS"><![CDATA[
+	<p>
+		Wanting to hear Monica's thoughts on Elis, you ask her what she thinks of living here in this town. After spending a moment to think of how to answer, she says, [monica.speech(Well, I used to live in a small village out in the Fields, so compared to that there's far more going on here, but it doesn't have the same kind of close-knit community that I was used to. Thanks to Lunette, there's been a huge influx of refugees into Elis over the past couple of years, and tensions between them and the original residents of Elis flare up now and again. Thanks to those troubles, it isn't as nice here as it used to be, but it's still great living here!)]
+	</p>
+	<p>
+		After that, the cow-girl spends a few minutes describing the perks of living in Elis, and then after that she spends a while talking about some recent events that have been happening here. After ten minutes, your conversation draws to a close, and with a smile on her face, the busty cow-girl asks, [monica.speech(Is there anything else I could do for you today, [pc.name]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_TALK_HISTORY"><![CDATA[
+	#IF(pc.hasQuest(QUEST_LINE_ROMANCE_MONICA))
+		<p>
+			Wanting to talk to Monica about her past again, you ask her to remind you of how long she's been running this place, and what led to her wanting to own a clothing store.
+		</p>
+		<p>
+			[monica.speech(Well, it was about five years ago that I bought this place, and before that, I used to work as a dairy cow in a nice little barn out in the fields,)] she tells you once again. Before you can ask more about her work as a 'dairy cow', Monica squeezes her huge breasts and reveals with a hint of pride in her voice, [monica.speech(Along with a dozen other girls, my breasts were milked all day, and I was the most productive employee there! Thanks to that, I always got a big bonus at the end of each month, which is what helped me to save up and buy this place. It'd always been my dream to own a clothing store, and so when the farm's owners sold out to Evelyx, I quit and finally made my dream a reality!)]
+		</p>
+		<p>
+			Commenting on the big career change from dairy cow to clothing store owner, you ask Monica how she managed to adjust to her new life. Flashing you a slightly-embarrassed smile, she says, [monica.speech(Well, like most ex-cows that I know of, I'd grown to love the feeling of being milked, so although I massively reduced my milk production via transformative potions, I still produce enough to fill a couple of bottles each night. That's really helped me to switch over to this more normal life.)]
+		</p>
+		#IF(pc.isQuestCompleted(QUEST_LINE_ROMANCE_MONICA))
+			<p>
+				Continuing to grope her huge breasts, she bites her lip and steps a little closer to you, before teasing, [monica.speech(Thanks to you, my nightly milking is now every bit as pleasurable as it used to be. Thanks for getting my breast pump back for me, [pc.name], I'm really, really grateful...)]
+			</p>
+			<p>
+				From her behaviour, it's clear that Monica is attracted to you, and after giving you a coy look, she teases,
+				#IF(flags.hasFlag(FLAG_innoxia_monica_milked))
+					 [monica.speech(I'm still a bit worn out from earlier, but if you come back tomorrow, I'd like it if you could help to milk me again...)]
+				#ELSE
+					 [monica.speech(You know, I could always use some help being milked...)]
+				#ENDIF
+			</p>
+		#ELSE
+			<p>
+				Continuing to grope her huge breasts, she bites her lip and steps a little closer to you, before sighing, [monica.speech(Thanks for offering to get my breast pump back for me, [pc.name], I'm really, really grateful. Just be careful out there, ok?)]
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			Curious about Monica's past and how she came to own this shop, you ask the cow-girl how long she's been running this place, and what led to her wanting to own a clothing store.
+		</p>
+		<p>
+			[monica.speech(Well, it was about five years ago that I bought this place, and before that, I used to work as a dairy cow in a nice little barn out in the fields,)] she explains. Before you can ask what exactly she means by working as a 'dairy cow', Monica squeezes her huge breasts and reveals with a hint of pride in her voice, [monica.speech(Along with a dozen other girls, my breasts were milked all day, and I was the most productive employee there! Thanks to that, I always got a big bonus at the end of each month, which is what helped me to save up and buy this place. It'd always been my dream to own a clothing store, and so when the farm's owners sold out to some arrogant succubus, I quit and finally made my dream a reality!)]
+		</p>
+		<p>
+			Commenting on the big career change from dairy cow to clothing store owner, you ask Monica how she managed to adjust to her new life. Flashing you a slightly-embarrassed smile, she says, [monica.speech(Well, like most ex-cows that I know of, I'd grown to love the feeling of being milked, so although I massively reduced my milk production via transformative potions, I still produce enough to fill a couple of bottles each night. That's really helped me to switch over to this more normal life, although my nightly milking is never the same as it used to be...)]
+		</p>
+		<p>
+			Reaching up to give her huge breasts one last grope, the busty cow-girl lets out a good-natured laugh and declares, [monica.speech(Anyway, I don't want to be boring you with that stuff! Is there anything else I can do for you today, [pc.name]?)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_TALK_MILKING"><![CDATA[
+	<p>
+		Thinking that there's something more to what Monica mentioned about her 'nightly milking' not being the same as it used to be, you ask her what exactly she meant by that.
+	</p>
+	<p>
+		[monica.speech(Oh, well, it's just something silly, really,)] she replies, before sighing and continuing, [monica.speech(If you really want to know, then I guess I can tell you... Back when I worked at the farm, I had a custom breast pump made, which perfectly fits me. Of course, most of the day we'd be milked by the machines, but after that I could always wind down and get some real pleasure out of using my special pump to finish me off for the day. I've gone through at least a dozen 'Moo Milker' breast pumps since leaving the farm, but none of them have ever felt quite the same as my custom one did...)]
+	</p>
+	<p>
+		Assuming that she's left her custom pump at the farm, you ask Monica why she hasn't gone back to retrieve it. Shuffling around on the spot a little in a clear sign of unease, she explains, [monica.speech(I've heard some really bad things about the new management. I only met the succubus who took over the farm once, right after the deal had been done and I went to hand in my letter of resignation. Her attitude and reaction to me quitting was... well... not a very pleasant experience. I know for a fact that she'd never agree to give me my old pump back.)]
+	</p>
+	<p>
+		Letting out a regretful sigh, Monica concludes by saying, [monica.speech(I wish I'd have thought to take it with me when I quit, but what's done is done... Anyway, I don't want to burden you with these bad thoughts, so is there anything else you want from me today?)]  
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_TALK_BOOBIES"><![CDATA[
+	<p>
+		Every time Monica moves, her huge breasts jiggle and sway in a mesmerising manner, and before you know what you're doing, you're making a very forward comment on how large the cow-girl's breasts are.
+	</p>
+	<p>
+		[monica.speech(Oh these?)] she replies, pushing out her chest and thrusting her massive breasts towards you, [monica.speech(My boobies? My massive fucking tiddies? My super stuffed-up milkies? My honker-donker doinky-boinkies? My fucking fabric-stretching, wind-flapping, gravity-welling sex mounds? Do you mean these super duper, ultra god damn motherfucking tits?)]
+	</p>
+	<p>
+		After you've replied in the positive, Monica smiles and says, [monica.speech(Oh, well in that case thank you for the compliment, [pc.name]!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_TALK_MILKING_HELP"><![CDATA[
+	<p>
+		Deciding to offer Monica your help, you tell her that you'd be willing to go and retrieve her unique breast pump from her old farm. The cow-girl's eyes open wide as she hears you say this, and she quickly asks with more than a hint of excitement in her voice, [monica.speech(You'd really do that for me?)]
+	</p>
+	<p>
+		After confirming that you're serious, you ask Monica where her old farm is located, and who the succubus is who you'll have to deal with.
+		#IF(game.getWorlds().get(WORLD_TYPE_WORLD_MAP).getCell(PLACE_TYPE_innoxia_fields_dairyFarm)==null)
+			 Beaming at you in delight, Monica tells you that the farm is some distance to the north-east of Elis, and after showing her your map, she marks where it is on it. Gazing into your eyes, she reveals, [monica.speech(The succubus who took the farm over is called 'Evelyx', and she renamed the place 'Evelyx's Dairy' when she took it over. From what I've heard, she had all of the old buildings demolished, and now it's just a few modern barns. Evelyx isn't the nicest person around, so please be careful when dealing with her...)]
+		#ELSE
+			 Beaming at you in delight, Monica tells you that the farm is some distance to the north-east of Elis, and, just as you'd started to suspect, she names it as 'Evelyx's Dairy'.
+			#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_started))
+				 You tell the cow-girl that you're actually employed at Evelyx's farm, to which she replies in surprise,
+			#ELSE
+				 You tell the cow-girl that you've actually visited Evelyx's farm before, to which she replies in surprise,
+			#ENDIF
+			 [monica.speech(Oh! Well, then you already know far more about the place than I do! I'm sure that you already know this, but please do be careful when dealing with Evelyx...)]
+		#ENDIF
+	</p>
+	<p>
+		Reassuring Monica that you'll be fine, you tell her that you'll return and let her know as soon as you've managed to secure her breast pump. Clapping her hands together in excitement, the happy cow-girl flashes you another big smile and offers you her thanks, before asking, [monica.speech(Did you want to take a look at the clothing I've got for sale before you go, [pc.name]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_TALK_MILKING_COMPLETE"><![CDATA[
+	<p>
+		Wanting to give Monica the good news, you tell her that you've discussed the matter of her custom breast pump with Evelyx. The cow-girl's eyes open wide as you say this, and in an impatient tone she asks, [monica.speech(So?! Did you manage to get it from her?!)]
+	</p>
+	<p>
+		As an answer to her question, you produce the breast pump which you retrieved from Evelyx's Dairy and hold it out towards the cow-girl. Seeing that you've succeeded in your quest, Monica happily jumps up and down on the spot, causing her massive breasts to bounce up and down in a hypnotic rhythm. Taking the breast pump from you, she flashes you an enormous smile and declares, [monica.speech(You're the best, [pc.name]! You have no idea how much this means to me! I can't believe you actually managed to get it from Evelyx. Here, let me give you a proper thank-you...)]
+	</p>
+	<p>
+		Before you can react, Monica leans forwards and happily plants a big, wet kiss directly on your [pc.lips+]. Although she quickly pulls back, the cow-girl remains standing right in front of you, and as you catch the floral scent of her perfume, she lowers her voice and suggests in a husky tone, [monica.speech(I'd love to repay you for your trouble, so you're more than welcome to see how my pump works first-hand if ever you're interested... Just say the word, and we can head on up to my room...)]
+	</p>
+	<p>
+		As she bites her lip and flashes you a seductive glance, you wonder whether to take the busty cow-girl up on her offer to help milk her huge breasts straight away, or to leave your reward for another time...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_MILKING"><![CDATA[
+	<p>
+		Unable to resist the temptation of Monica's massive mammaries, you tell her that you'd like to take her up on her offer of helping to milk her. An excited little moan escapes from between the cow-girl's lips as she hears you say this, and after flashing you a delighted smile, she hurries over to the door of her shop and securely locks it. After quickly hanging a small 'Be back soon' sign in the window, she skips back to where you're standing, before taking hold of your [pc.hand] and panting, [monica.speech(Come on then, [pc.name], let's go up to my room...)]
+	</p>
+	<p>
+		Still holding firmly on to your [pc.hand], the enthusiastic cow-girl leads you into her store's back room and then up a narrow staircase to her apartment. Before you know it, you're being led into Monica's bedroom, and you watch as the cow-girl quickly strips out of her dress, before removing her bra and fully exposing her huge breasts. Your eyes are immediately drawn to her massive nipples, which you see are a darker shade than her body's light tone of skin would suggest. Sitting down on the edge of her bed, the cow-girl produces her custom breast pump from out of her bedside cabinet, before holding it out towards you and pleading, [monica.speech(Use this, and let's get started already; my breasts feel so full...)]
+	</p>
+	<p>
+		Teasing her free hand over her massive breasts and big nipples, Monica lets out a desperate whine, and as you see a few beads of white milk start to seep out of her huge nipples, you wonder how best to proceed with the cow-girl's milking...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_MILKING_PUMP"><![CDATA[
+	<p>
+		Deciding to stick with Monica's plan, you take the breast pump from her and sit down beside her. Placing the pump's suction cup over one of the cow-girl's massive nipples, you start to operate the device's lever, and thanks to its transparent plastic construction, you're able to see a steady stream of milk start to ooze out of Monica's teat as the pump's vacuum does its work. Placing her hands down on the bed behind her, the cow-girl pushes out her chest and lets out a deeply erotic moan, before panting, [monica.speech(~Ooh!~ Yes, that feels so good... ~Mmm!~ That's it, [pc.name]! Keep going...)]
+	</p>
+	<p>
+		The cow-girl's cheeks flush red as you do as she asks and continue operating the pump, and after biting her lip and flashing you a coy look, she starts letting out a stream of horny moans and sighs under her breath. After several minutes of this, she asks you to switch to her other breast, and as you follow Monica's instructions and start pumping away at her other teat, she starts rubbing her legs together and pants, [monica.speech(You're so good at this, [pc.name]... ~Mmm!~ Yes... Give it to me...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_MILKING_MASSAGE"><![CDATA[
+	<p>
+		Wanting to do things a little differently, you tell Monica that it would be best for her to operate the pump while you massage her breasts. Flashing you a sly smile as she hears what it is you want to do, the cow-girl pushes out her chest and teases, [monica.speech(You want to get a good feel of my tits? Come on then...)]
+	</p>
+	<p>
+		With Monica agreeing to your suggestion, you move into position beside her, and as she places her pump's suction cup over one her massive nipples, you reach forwards and sink your [pc.fingers+] into her huge, pillowy mammaries. The cow-girl lets out a deeply erotic moan as you start to grope and massage her breasts, and as she operates her breast pump to extract the milk from her dark nipples, she pants, [monica.speech(~Ooh!~ Yes, that feels so good... ~Mmm!~ That's it, [pc.name]! Keep going...)]
+	</p>
+	<p>
+		The cow-girl's cheeks flush red as you do as she asks and continue kneading and squeezing her huge breasts, and after biting her lip and flashing you a coy look, she starts letting out a stream of horny moans and sighs under her breath. After several minutes of this, she switches the pump to her other breast, and as you continue playing with her tits, she starts rubbing her legs together and pants, [monica.speech(You're so good at this, [pc.name]... ~Mmm!~ Yes... Give it to me...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_MILKING_DRINK"><![CDATA[
+	<p>
+		Wanting to do more than simply operate Monica's breast pump, you tell her that it would be more effective for you to use your mouth and suckle on her breasts instead. The cow-girl's cheeks flush red as she hears you say this, but after flashing you a coy smile, she agrees to your plan by teasing, [monica.speech(You want me to breast-feed you? Well, if that's what you really want, [pc.name], then I'm happy to play along...)]
+	</p>
+	<p>
+		Pushing out her chest, Monica beckons you forwards, and as you move your face towards her massive breasts, she reaches forwards and pulls you into her huge, pillowy mammaries. After planting a series of kisses on her massive breasts, you quickly move over to one of her large, dark nipples, before parting your [pc.lips+] and taking it into your mouth. Using your [pc.tongue+] to playfully lick and tease her teat, you start to suck on Monica's nipple, and within a second, her warm, creamy milk starts to seep out into your mouth. The cow-girl lets out a deeply erotic moan as you start to suckle on her breast, and as she pulls your face into her chest, she pants, [monica.speech(~Ooh!~ Yes, that feels so good... ~Mmm!~ That's it, [pc.name]! Keep going...)]
+	</p>
+	<p>
+		The cow-girl starts letting out a stream of horny moans and sighs under her breath as you continue to suck on her nipple and drink her milk. After several minutes, she gently pushes you back and asks you to switch to her other breast, and as you follow Monica's instructions and move over to start sucking on her other teat, she rubs her legs together and pants, [monica.speech(You're so good at this, [pc.name]... ~Mmm!~ Yes... Drink it all down, that's a good [pc.girl]...)]
+	</p>
+	<p>
+		After spending the next five or so minutes drinking Monica's milk, you start to feel quite full, and after pulling back from her huge breasts, you ask her how much more milking she needs. Letting out a playful laugh, she tells you that her tits are still well over half full, and so with there being simply too much milk to be drunk in a single session, you end up having to use the cow-girl's breast pump after all. Placing the pump's suction cup over one of Monica's massive nipples, you start to operate the device's lever, and thanks to its transparent plastic construction, you're able to see a steady stream of milk start to ooze out of the cow-girl's teat as the pump's vacuum does its work. Placing her hands down on the bed behind her, she pushes out her chest and lets out another deeply erotic moan, before panting, [monica.speech(~Mmm!~ Yes, that feels so good... ~Aah!~ Keep going, [pc.name]...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_MILKING_FINISHED"><![CDATA[
+	<p>
+		Soon enough, the bottle that's attached to the pump is completely full of milk, but instead of signalling the end of the milking session, Monica produces another empty bottle from out of her cabinet, and after swapping them over, she asks you to keep going. Twenty minutes, and a lot of horny moaning and panting later, and several bottles full of Monica's milk are sitting on the floor beside you. With her breasts now drained, the cow-girl lets out a deep, satisfied moan, before happily smiling at you and sighing, [monica.speech(That was amazing, thank you so much for helping me with this, [pc.name]...)]
+	</p>
+	<p>
+		As she says your name, she spreads her legs a little, and as your attention is drawn down to her groin, you see that there's a wet patch in her lacy panties. Letting out a little high-pitched laugh as she sees you looking down between her legs, she teases, [monica.speech(You know, cows are conditioned to associate being milked with having sex... You've really got me turned on now, so how about it? Want to have some fun before I have to get back to work?)]
+	</p>
+	<p>
+		Dropping one of her hands down to her groin, Monica slides her panties to one side, flashing you her dripping-wet pussy as she lets out an excited moan. Her [monica.labiaSize] labia are the same dark shade as her nipples, and as you watch the cow-girl slide her fingers over her eager cunt, you wonder whether you should take things further and have sex with her right here and now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_MILKING_FINISHED_LEAVE"><![CDATA[
+	<p>
+		Although you enjoyed helping to milk Monica, you really don't feel like having sex with her, and so you tell the cow-girl that you've got to leave. She lets out a disappointed whine as she hears this, and after pouting at you, she sighs, [monica.speech(Fine... I'm going to need a few minutes to finish myself off here, so you can head downstairs and let yourself out. Thanks for helping me with my milking, [pc.name], and maybe next time you'll be up for a quick fuck?)]
+	</p>
+	<p>
+		Making a non-committal response, you say goodbye to Monica, before [pc.stepping] out of her room and leaving her to deal with her arousal by herself. Heading down the stairs, you pass through her store and show yourself out into Wall's End, before looking around the shopping precinct and wondering where to go next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_MILKING_FINISHED_SEX_START"><![CDATA[
+	<p>
+		Not being able to resist that offer, you move up close to Monica and playfully tease her big nipples as you ask if she always gets turned on from being milked like this. Leaning into you, the horny cow-girl lets out an erotic moan and reveals in breathless sighs, [monica.speech(I don't normally get this bad... It must be because you're so good at milking...)]
+	</p>
+	<p>
+		Leaning heavily into you, Monica plants a big, wet kiss on your [pc.lips], and before you know it, the two of you are passionately making out with one another. After a few moments of this, the cow-girl breaks off from your kiss, before lying back on her bed and spreading her legs, and as she presents you with her wet cunt, she desperately moans, [monica.speech(Come on, [pc.name], fuck me already!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_MILKING_FINISHED_SEX_END"><![CDATA[
+	<p>
+		Collapsing back on her bed, Monica's huge breasts rise and fall in time with her heavy breathing as she pants,
+		#IF(monica.isSatisfiedFromLastSex())
+			 [monica.speech(Fuck... That was amazing... You're so good, [pc.name]...)]
+		#ELSE
+			 [monica.speech(Fuck... I'm still feeling so horny... You didn't exactly satisfy me there, [pc.name]...)]
+		#ENDIF
+	</p>
+	<p>
+		After spending a moment to get your breath back, you move to start getting your things back in order while the cow-girl quickly cleans herself up in her bathroom. Pulling on her underwear and dress, she flashes you a smile and says,
+		#IF(monica.isSatisfiedFromLastSex())
+			 [monica.speech(That was just what I needed. Thanks again, [pc.name]! Now let's head back downstairs.)]
+		#ELSE
+			 [monica.speech(I can always finish myself off later... Thanks again for the help with my milking, [pc.name]. Now let's head back downstairs.)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_MILKING_FINISHED_SEX_END_LEAVE"><![CDATA[
+	<p>
+		As the two of you move to her bedroom door, the cow-girl stops and exclaims, [monica.speech(Oh! I need to put my milk in the fridge and get it dated! You go on ahead, [pc.name]. You can show yourself out, right?)]
+	</p>
+	<p>
+		Responding in the affirmative, you say goodbye to Monica, before [pc.stepping] out of her room and leaving her to deal with her bottled milk. Heading down the stairs, you pass through her store and show yourself out into Wall's End, before looking around the shopping precinct and wondering where to go next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_TALK_FABRIC"><![CDATA[
+	<p>
+		Taking a look around you, you suddenly remember your quest for fabric and ask Monica if she could sell you some fabric. The busty cow-girl makes a show of considering your question when you ask about it, and after placing a finger on her chin to make an exaggerated thinking expression, she playfully replies, [monica.speech(Hmm... Yes, I suppose I could order in some fabric for you. How come? Are you looking to get something custom made? Or are you looking to muscle in on my business?)]
+	</p>
+	<p>
+		You explain that you need the fabric to fix up a certain friend's stall, and since she brought it up, you actually are also looking to get something custom made. Monica's ears swivel forward as she hears this, and she excitedly asks, [monica.speech(Oh? Like what?)]
+	</p>
+	<p>
+		You mention that the same stall needs a new sign, but you're not really sure how to go about getting one printed. [monica.speech(Well, printing is one way to do it, or...)] she pauses for a moment before continuing with an up-seller's twinkle in her eye, [monica.speech(...an embroidery would be much more eye-catching, not to mention long-lasting. Maybe with metallic thread?)]
+	</p>
+	<p>
+		Well, you <i>do</i> want to make it a nice surprise for Eisek. When you assent to an embroidered sign, Monica fishes a small notepad from her considerable bust and begins writing down the description you give of what form it should take.
+	</p>
+	<p>
+		[monica.speech(I'll need about three days to get this ready and it'll probably run you around two and a half thousand flames,)] she says as you finish your order, [monica.speech(Do feel free to stop by in the meantime.)]
+	</p>
+	<p>
+		With two items down, you look out the window at the smithy across the cobblestone path. You'll need some wooden poles to hold up the awning, preferably the sort that can be folded up. Maybe they can help?
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CLOTHING_TALK_PICKUP_ORDER"><![CDATA[
+	<p>
+		Monica lights up when you mention the custom order you placed, and cheerfully says, [monica.speech(Oh yes, they just arrived this morning! I think you'll like them a lot!)]
+	</p>
+	<p>
+		The busty cow-girl places a bolt of green fabric and a folded piece of canvas next to each other on the counter. You carefully unfold the canvas to find an embroidered, stylised depiction of many different types of fruits and vegetables carried by an avalanche descending the side of a mountain, while in the corner letters sewn in metallic blue thread proclaim "ALPINE PRODUCE". Whatever your trepidations about how Eisek may react to this tapestry of a sign, the craftsmanship is beyond reproach.
+	</p>
+	<p>
+		You must have been staring for a while, since in the corner of your mind you hear Monica ask, [monica.speech(Well? Do you like it?)]
+	</p>
+	<p>
+		You answer affirmatively as you fold up the canvas and hand over the payment. With a teasing smile on her face, Monica giggles, [monica.speech(Your friend is very lucky you came to me. Now, is there anything else I can do for you?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

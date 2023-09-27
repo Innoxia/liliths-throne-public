@@ -45,7 +45,8 @@
 		]]></applyEffects>
 		
 		<itemTags>
-			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+			<tag>FOOD</tag>
+			<tag>ELIS_ALLEYWAY_SPAWN</tag>
 			<tag>RACIAL_TF_ITEM</tag>
 			<tag>SOLD_BY_RALPH</tag>
 		</itemTags>

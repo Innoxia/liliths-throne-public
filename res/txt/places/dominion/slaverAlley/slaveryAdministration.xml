@@ -9,11 +9,33 @@
 		Noticing a little information board attached to one side of the entrance, you walk up and read what it says. From what you can gather, it appears as though this is an official government building, in which all matters relating to the ownership of slaves, licenses, and businesses dealing in slave-trading are handled. A little piece of paper has been stuck to the bottom of the board, which reads; <i>'Slaver licenses are not being issued!'</i>
 	</p>
 	<p>
+		To one side of this information board, a dozen posters have been plastered over the side of the building. You could take a closer look at these posters,
 		#IF(pc.isHasSlaverLicense())
-			Being in possession of a slaver license yourself, you could enter the Slavery Administration building and make use of its services.
+			 or, as you're in possession of a slaver license, you could enter the Slavery Administration building and make use of its services.
 		#ELSE
-			Although it's doubtful that you'd be able to make use of any of its services, it looks like any member of the public is free to enter the building.
+			 or, even though it's doubtful that you'd be able to make use of any of its services, you could enter the Slavery Administration building.
 		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLAVERY_ADMINISTRATION_POSTERS"><![CDATA[
+	<p>
+		Deciding to take a closer look at the posters which are plastered over the wall of the Slavery Administration building, you [pc.step] over to stand in front of them. It immediately becomes apparent why these posters have been allowed to remain on the side of a government building, for all except one of them are declarations of victory for the state.
+	</p>
+	<p>
+		As you casts your gaze over the posters, you find yourself looking at mug shots of dangerous-looking criminals. Their crimes are listed below their portraits, and range from theft and public disorder to #IF(game.isNonConEnabled())rape#ELSEassault#ENDIF and treason. The punishment for every one of these individuals is listed as lifetime enslavement, and as the capitalised words 'JUSTICE SERVED' have been stamped in purple letters over each one, you realise that these criminals have all been caught and enslaved.
+	</p>
+	<p>
+		The only poster which isn't of this format is one that displays an idyllic scene of a happy family living in the countryside. The writing beneath promises a better life for anyone willing to leave Dominion and take the voyage over the 'Endless Sea' to the land beyond.
+		#IF(game.isPlotDiscovered())
+			 Knowing that this land must be mainland Europe, you can't help but doubt that the emigrating citizens of Dominion will have a life there similar to the one shown on the poster.
+		#ELSE
+			 Taking another look at the scene displayed upon the poster, you can't help but wonder what this promised land is like in reality.
+		#ENDIF
+	</p>
+	<p>
+		Having seen all there is, you [pc.step] away from the posters and wonder what to do next...
 	</p>
 	]]>
 	</htmlContent>
@@ -30,7 +52,7 @@
 			Walking forwards, you return [finch.namePos] greeting, [pc.speech(Hi, [finch.name].)]
 		</p>
 		<p>
-			[finch.speech(As an owner of a slaver license, I'm pleased to offer you my services,)] he says, standing up to reveal his tiny feline cock. [finch.speech(I've got slave collars, with the appropriate paperwork already completed, as well as a large selection of clothing suitable for your slaves!)]
+			[finch.speech(As an owner of a slaver license, I'm pleased to offer you my services,)] he says, standing up to reveal his tiny feline cock. [finch.speech(I've got several slave collars for sale, each of which have all the required paperwork already completed.)]
 		</p>
 		<p>
 			As you come to a halt in front of the black marble desk, [finch.name] grins expectantly at you, [finch.speech(Or, if you'd like, we can discuss the management and handling of your property. Remember, any new slaves you capture will be delivered here first. All the costs of collection and transport are covered in the cost of each slave collar, so just let me know if you want to have your slaves moved elsewhere.)]
@@ -153,7 +175,7 @@
 		[finch.speech(That's right, but I'm sure someone as important as you can simply send a messenger to come and collect them from the comfort of your own home. Although this system is a little inconvenient for all involved, we had to implement it a few years ago to counteract some nasty illegal enslavement practices. With this new system, we're making sure that all new slaves go through the proper channels.)]
 	</p>
 	<p>
-		[finch.Name] picks up the last piece of paper you signed and holds it out for you to take. [finch.speech(That's all there really is to it. With this license, you're able to buy and sell slaves in any manner you like. The only restriction is on enslavement, which, as I said, can only be done to those who are willing, or those who are wanted by the Enforcers. Oh, and on that last note, there's usually no point in trying to enslave any demons you run into, as there's absolutely no way an Enforcer would sign off on an enslavement order for them, unless they're of a particularly troublesome and destitute sort. Any demon with even a shred of respectability could, for all any Enforcer knows, be a lilin's favoured son or daughter, and before they know it, they'd be the one ending up in my cells instead of the demon!)]
+		[finch.Name] picks up the last piece of paper you signed and holds it out for you to take. [finch.speech(That's all there really is to it. With this license, you're able to buy and sell slaves in any manner you like. The only restriction is on enslavement, which, as I said, can only be done to those who are willing, or those who are wanted by the Enforcers. Oh, and on that last note, there's usually no point in trying to enslave any demons you run into, as Enforcers only sign off on an enslavement order for the most troublesome and destitute demons in the city. Any demon with even a shred of respectability could, for all any Enforcer knows, be a lilin's favoured son or daughter, and before they know it, they'd be the one ending up in my cells instead of the demon!)]
 	</p>
 	<p>
 		[pc.speech(I see,)] you say, wondering if any demons prowling the alleyways of Dominion have been marked for enslavement.

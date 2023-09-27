@@ -3,17 +3,21 @@ package com.lilithsthrone.game.dialogue.places.submission;
 import java.time.DayOfWeek;
 
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.encounters.BatCavernsEncounterDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.WesQuest;
+import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -68,6 +72,63 @@ public class BatCaverns {
 			return null;
 		}
 	};
+
+	public static final DialogueNode SHAFT = new DialogueNode("", "", false) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/batCaverns", "SHAFT");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				if(Main.game.getPlayer().isAbleToFly()) {
+					if(!Main.game.getPlayer().isPartyAbleToFly()) {
+						return new Response("Dominion", "As your party members are unable to fly, you cannot use the shaft to travel up to Dominion...", null);
+						
+					} else {
+						return new Response("Dominion", "Fly up the shaft to return to Dominion.", SHAFT_FLY_UP) {
+							@Override
+							public void effects() {
+								if(Main.game.getWorlds().get(WorldType.DOMINION).getCell(PlaceType.DOMINION_EXIT_TO_BAT_CAVERNS)==null) {
+									Cell referenceCell = Main.game.getWorlds().get(WorldType.DOMINION).getCell(PlaceType.DOMINION_WAREHOUSES);
+									Cell shaftCell = Main.game.getWorlds().get(WorldType.DOMINION).getCell(new Vector2i(referenceCell.getLocation().getX()+2, referenceCell.getLocation().getY()));
+									shaftCell.getPlace().setPlaceType(PlaceType.DOMINION_EXIT_TO_BAT_CAVERNS);
+									shaftCell.getPlace().setName(PlaceType.BAT_CAVERN_SHAFT.getName());
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/batCaverns", "SHAFT_FLY_UP_FIRST_TIME"));
+								} else {
+									Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/batCaverns", "SHAFT_FLY_UP"));
+								}
+								Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_EXIT_TO_BAT_CAVERNS, false);
+							}
+						};
+					}
+					
+				} else {
+					return new Response("Dominion", "As you are unable to fly, you cannot use the shaft to travel up to Dominion...", null);
+				}
+			}
+			return null;
+		}
+	};
+
+	public static final DialogueNode SHAFT_FLY_UP = new DialogueNode("", "", false) {
+		@Override
+		public int getSecondsPassed() {
+			return 3*60;
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return DominionPlaces.CITY_EXIT_BAT_CAVERNS.getResponse(responseTab, index);
+		}
+	};
 	
 	public static final DialogueNode CAVERN_DARK = new DialogueNode("Dark Cavern", "", false) {
 		@Override
@@ -79,8 +140,13 @@ public class BatCaverns {
 			return 5*60;
 		}
 		@Override
-		public String getContent() { // If this is going to be changed, bare in mind that this is called in the REBEL_BASE DialogueNodes below
-			return UtilText.parseFromXMLFile("places/submission/batCaverns", "CAVERN_DARK");
+		public String getContent() { // If this is going to be changed, bear in mind that this is called in the REBEL_BASE DialogueNodes below
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.parseFromXMLFile("places/submission/batCaverns", "CAVERN_DARK"));
+			Main.game.getNonCompanionCharactersPresent().forEach((npc) -> {
+				sb.append(((NPC) npc).getPresentInTileDescription(false));
+			});
+			return sb.toString();
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -149,7 +215,12 @@ public class BatCaverns {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/batCaverns", "CAVERN_LIGHT");
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.parseFromXMLFile("places/submission/batCaverns", "CAVERN_LIGHT"));
+			Main.game.getNonCompanionCharactersPresent().forEach((npc) -> {
+				sb.append(((NPC) npc).getPresentInTileDescription(false));
+			});
+			return sb.toString();
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -211,7 +282,12 @@ public class BatCaverns {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/batCaverns", "RIVER");
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.parseFromXMLFile("places/submission/batCaverns", "RIVER"));
+			Main.game.getNonCompanionCharactersPresent().forEach((npc) -> {
+				sb.append(((NPC) npc).getPresentInTileDescription(false));
+			});
+			return sb.toString();
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -240,7 +316,12 @@ public class BatCaverns {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/batCaverns", "RIVER_BRIDGE");
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.parseFromXMLFile("places/submission/batCaverns", "RIVER_BRIDGE"));
+			Main.game.getNonCompanionCharactersPresent().forEach((npc) -> {
+				sb.append(((NPC) npc).getPresentInTileDescription(false));
+			});
+			return sb.toString();
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -269,7 +350,12 @@ public class BatCaverns {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/submission/batCaverns", "RIVER_END");
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.parseFromXMLFile("places/submission/batCaverns", "RIVER_END"));
+			Main.game.getNonCompanionCharactersPresent().forEach((npc) -> {
+				sb.append(((NPC) npc).getPresentInTileDescription(false));
+			});
+			return sb.toString();
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -314,6 +400,10 @@ public class BatCaverns {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/submission/batCaverns", "SLIME_LAKE_QUEEN_GUESS"));
 				
 			}
+
+			Main.game.getNonCompanionCharactersPresent().forEach((npc) -> {
+				UtilText.nodeContentSB.append(((NPC) npc).getPresentInTileDescription(false));
+			});
 			
 			return UtilText.nodeContentSB.toString();
 		}

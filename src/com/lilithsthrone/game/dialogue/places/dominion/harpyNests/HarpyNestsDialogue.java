@@ -106,12 +106,7 @@ public class HarpyNestsDialogue {
 			} else {
 				if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_HARPY_PACIFICATION)) {
 					responses.add(
-							new Response("Angry Harpies", "Ask one of the Enforcers about the recent troubles in the Harpy Nests.", ENTRANCE_ENFORCER_POST_ASK_ABOUT_RIOTS) {
-								@Override
-								public void effects() {
-									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_HARPY_PACIFICATION));
-								}
-							});
+							new Response("Angry Harpies", "Ask one of the Enforcers about the recent troubles in the Harpy Nests.", ENTRANCE_ENFORCER_POST_ASK_ABOUT_RIOTS));
 					
 				} else {
 					if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_REWARD && !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) {
@@ -176,26 +171,49 @@ public class HarpyNestsDialogue {
 		}
 	};
 	
-	public static final DialogueNode ENTRANCE_ENFORCER_POST_ASK_ABOUT_RIOTS = new DialogueNode("Enforcer post", ".", false) {
-
+	public static final DialogueNode ENTRANCE_ENFORCER_POST_ASK_ABOUT_RIOTS = new DialogueNode("Enforcer post", ".", true) {
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
 		}
-
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/harpyNests/generic", "ENTRANCE_ENFORCER_POST_ASK_ABOUT_RIOTS");
 		}
-		
-		@Override
-		public boolean isTravelDisabled() {
-			return !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.hasHarpyNestAccess);
-		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return ENTRANCE_ENFORCER_POST.getResponse(0, index);
+			if(index == 1) {
+				return new Response("Follow", "Do as the horse-boy asks and follow him.", ENTRANCE_ENFORCER_POST_ASK_ABOUT_RIOTS_NEXT) {
+					@Override
+					public void effects() {
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_HARPY_PACIFICATION));
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode ENTRANCE_ENFORCER_POST_ASK_ABOUT_RIOTS_NEXT = new DialogueNode("Enforcer post", ".", true, true) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/harpyNests/generic", "ENTRANCE_ENFORCER_POST_ASK_ABOUT_RIOTS_NEXT");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index == 1) {
+				return new Response("Leave", "Having agreed to help pacify the Harpy Nests, you leave the horse-boy's office...", ENTRANCE_ENFORCER_POST) {
+					@Override
+					public void effects() {
+						Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("places/dominion/harpyNests/generic", "ENTRANCE_ENFORCER_POST_ASK_ABOUT_RIOTS_NEXT_LEAVE"));
+					}
+				};
+			}
+			return null;
 		}
 	};
 	

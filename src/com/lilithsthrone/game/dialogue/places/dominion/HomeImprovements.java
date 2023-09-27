@@ -5,14 +5,9 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
-import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.fetishes.FetishDesire;
-import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Helena;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
-import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
@@ -38,106 +33,6 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class HomeImprovements {
-	
-	private static void spawnDomGloryHoleNPC(String genericName) {
-		NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, true), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false, (s)->s.isNonBiped()) {
-			@Override
-			public void turnUpdate() {
-				if(this.getGenitalArrangement()==GenitalArrangement.NORMAL) { // Hide ass areas if normal genitals (not entirely sure why this was added...)
-					this.setAreaKnownByCharacter(CoverableArea.ASS, Main.game.getPlayer(), false);
-					this.setAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer(), false);
-				}
-			}
-		};
-		
-		npc.setRaceConcealed(true);
-		Main.game.getCharacterUtils().setGenericName(npc, genericName, Util.newArrayListOfValues());
-		
-		npc.setDescription("[npc.Name] is a customer at 'Argus's DIY Depot', and after wandering in to use the toilet, found you offering to service [npc.her] cock at a gloryhole...");
-		
-		if(Math.random()<0.4f) {
-			npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-		} else {
-			if(Main.game.getPlayer().isFeminine()) {
-				npc.setSexualOrientation(SexualOrientation.GYNEPHILIC);
-			} else {
-				npc.setSexualOrientation(SexualOrientation.ANDROPHILIC);
-			}
-		}
-		npc.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.THREE_LIKE);
-		npc.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.TWO_NEUTRAL);
-		npc.setFetishDesire(Fetish.FETISH_ORAL_RECEIVING, FetishDesire.THREE_LIKE);
-		npc.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
-		npc.setFetishDesire(Fetish.FETISH_ANAL_GIVING, FetishDesire.THREE_LIKE);
-		npc.removeFetish(Fetish.FETISH_NON_CON_SUB);
-		if(npc.hasVagina()) {
-			npc.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
-		}
-		if(npc.hasPenis()) {
-			npc.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.THREE_LIKE);
-		}
-		
-		npc.unequipAllClothingIntoVoid(true, true);
-		
-		npc.setPenisVirgin(false);
-		npc.setVaginaVirgin(false);
-		
-		npc.setAreaKnownByCharacter(CoverableArea.ANUS, Main.game.getPlayer(), false);
-		
-		try {
-			Main.game.addNPC(npc, false);
-			Main.game.setActiveNPC(npc);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	private static void spawnSubGloryHoleNPC(String genericName) {
-		NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false, (s)->s.isNonBiped());
-
-		npc.setRaceConcealed(true);
-		Main.game.getCharacterUtils().setGenericName(npc, genericName, Util.newArrayListOfValues());
-		
-		npc.setDescription("[npc.Name] is a customer at 'Argus's DIY Depot', and after wandering in to use the toilet, decided to spend some time servicing the gloryhole [npc.she] found there...");
-		
-		if(Math.random()<0.4f) {
-			npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-		} else {
-			if(Main.game.getPlayer().isFeminine()) {
-				npc.setSexualOrientation(SexualOrientation.GYNEPHILIC);
-			} else {
-				npc.setSexualOrientation(SexualOrientation.ANDROPHILIC);
-			}
-		}
-		npc.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.TWO_NEUTRAL);
-		npc.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.THREE_LIKE);
-		npc.setFetishDesire(Fetish.FETISH_ORAL_GIVING, FetishDesire.THREE_LIKE);
-		npc.setFetishDesire(Fetish.FETISH_PENIS_RECEIVING, FetishDesire.THREE_LIKE);
-		npc.setFetishDesire(Fetish.FETISH_ANAL_RECEIVING, FetishDesire.THREE_LIKE);
-		npc.removeFetish(Fetish.FETISH_NON_CON_SUB);
-		if(npc.hasVagina()) {
-			npc.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
-		}
-		if(Math.random()>0.75f) {
-			npc.addFetish(Fetish.FETISH_ORAL_GIVING);
-		}
-		
-		npc.unequipAllClothingIntoVoid(true, true);
-		
-		npc.setPenisVirgin(false);
-		npc.setVaginaVirgin(false);
-		npc.setAssVirgin(false);
-		npc.setFaceVirgin(false);
-		
-		npc.setAllAreasKnownByCharacter(Main.game.getPlayer(), false);
-		
-		try {
-			Main.game.addNPC(npc, false);
-			Main.game.setActiveNPC(npc);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	public static GameCharacter getGloryHoleCharacter() {
 		List<GameCharacter> characters = new ArrayList<>(Main.game.getNonCompanionCharactersPresent());
@@ -235,7 +130,7 @@ public class HomeImprovements {
 			if(Main.game.getPlayer().getQuest(QuestLine.ROMANCE_HELENA)==Quest.ROMANCE_HELENA_2_PURCHASE_PAINT) {
 				if(!Main.game.getPlayer().hasItemType(ItemType.PAINT_CAN_PREMIUM)
 						&& !Main.game.getPlayer().hasItemType(ItemType.PAINT_CAN)) {
-					UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN_PREMIUM.getValue(null)), true);
+					UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN_PREMIUM.getValue()), true);
 					sb.append(UtilText.parseFromXMLFile("places/dominion/homeImprovements/generic", "SHELVING_PREMIUM_PRICE"));
 				} else {
 					sb.append(UtilText.parseFromXMLFile("places/dominion/homeImprovements/generic", "SHELVING_PAINT_PURCHASED"));
@@ -250,19 +145,19 @@ public class HomeImprovements {
 					&& !Main.game.getPlayer().hasItemType(ItemType.PAINT_CAN_PREMIUM)
 					&& !Main.game.getPlayer().hasItemType(ItemType.PAINT_CAN)) {
 				if(index==1) {
-					if(Main.game.getPlayer().getMoney()<ItemType.PAINT_CAN_PREMIUM.getValue(null)) {
-						return new Response("Purchase ("+UtilText.formatAsMoneyUncoloured(ItemType.PAINT_CAN_PREMIUM.getValue(null), "span")+")",
+					if(Main.game.getPlayer().getMoney()<ItemType.PAINT_CAN_PREMIUM.getValue()) {
+						return new Response("Purchase ("+UtilText.formatAsMoneyUncoloured(ItemType.PAINT_CAN_PREMIUM.getValue(), "span")+")",
 								"Although this can of paint [style.colourGood(is the one Helena requested)], you [style.colourbad(cannot afford to buy it)]!",
 								null);
 					}
-					return new Response("Purchase ("+UtilText.formatAsMoney(ItemType.PAINT_CAN_PREMIUM.getValue(null), "span")+")",
+					return new Response("Purchase ("+UtilText.formatAsMoney(ItemType.PAINT_CAN_PREMIUM.getValue(), "span")+")",
 							"Purchase a can of "+ItemType.PAINT_CAN_PREMIUM.getName(false)+", which [style.colourGood(is the one Helena requested)].",
 							PAINT_PURCHASED) {
 						@Override
 						public void effects() {
 							Main.game.getPlayer().setLocation(WorldType.HOME_IMPROVEMENTS, PlaceType.HOME_IMPROVEMENTS_ENTRANCE);
-							UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN_PREMIUM.getValue(null)), true);
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-ItemType.PAINT_CAN_PREMIUM.getValue(null)));
+							UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN_PREMIUM.getValue()), true);
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-ItemType.PAINT_CAN_PREMIUM.getValue()));
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.PAINT_CAN_PREMIUM), false, true));
 							((Helena)Main.game.getNpc(Helena.class)).sellOffRemainingSlaves();
 						}
@@ -286,7 +181,7 @@ public class HomeImprovements {
 			if(Main.game.getPlayer().getQuest(QuestLine.ROMANCE_HELENA)==Quest.ROMANCE_HELENA_2_PURCHASE_PAINT) {
 				if(!Main.game.getPlayer().hasItemType(ItemType.PAINT_CAN_PREMIUM)
 						&& !Main.game.getPlayer().hasItemType(ItemType.PAINT_CAN)) {
-					UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN.getValue(null)), true);
+					UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN.getValue()), true);
 					sb.append(UtilText.parseFromXMLFile("places/dominion/homeImprovements/generic", "SHELVING_STANDARD_PRICE"));
 				} else {
 					sb.append(UtilText.parseFromXMLFile("places/dominion/homeImprovements/generic", "SHELVING_PAINT_PURCHASED"));
@@ -301,19 +196,19 @@ public class HomeImprovements {
 					&& !Main.game.getPlayer().hasItemType(ItemType.PAINT_CAN_PREMIUM)
 					&& !Main.game.getPlayer().hasItemType(ItemType.PAINT_CAN)) {
 				if(index==1) {
-					if(Main.game.getPlayer().getMoney()<ItemType.PAINT_CAN.getValue(null)) {
-						return new Response("Purchase ("+UtilText.formatAsMoneyUncoloured(ItemType.PAINT_CAN.getValue(null), "span")+")",
+					if(Main.game.getPlayer().getMoney()<ItemType.PAINT_CAN.getValue()) {
+						return new Response("Purchase ("+UtilText.formatAsMoneyUncoloured(ItemType.PAINT_CAN.getValue(), "span")+")",
 								"This can of paint [style.colourBad(is not the one Helena requested)], and even if you did want to purchase it, you [style.colourbad(cannot afford it)]!",
 								null);
 					}
-					return new Response("Purchase ("+UtilText.formatAsMoney(ItemType.PAINT_CAN.getValue(null), "span")+")",
+					return new Response("Purchase ("+UtilText.formatAsMoney(ItemType.PAINT_CAN.getValue(), "span")+")",
 							"Purchase a can of "+ItemType.PAINT_CAN.getName(false)+", which [style.colourBad(is not the one Helena requested)]!",
 							PAINT_PURCHASED) {
 						@Override
 						public void effects() {
 							Main.game.getPlayer().setLocation(WorldType.HOME_IMPROVEMENTS, PlaceType.HOME_IMPROVEMENTS_ENTRANCE);
-							UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN.getValue(null)), true);
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-ItemType.PAINT_CAN.getValue(null)));
+							UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN.getValue()), true);
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-ItemType.PAINT_CAN.getValue()));
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.PAINT_CAN), false, true));
 							((Helena)Main.game.getNpc(Helena.class)).sellOffRemainingSlaves();
 						}
@@ -431,7 +326,7 @@ public class HomeImprovements {
 							TOILETS_GLORY_HOLE_DOM) {
 						@Override
 						public void effects() {
-							spawnSubGloryHoleNPC("stranger");
+							Main.game.spawnSubGloryHoleNPC("stranger");
 						}
 					};
 					
@@ -455,7 +350,7 @@ public class HomeImprovements {
 							TOILETS_GLORY_HOLE_SUB) {
 						@Override
 						public void effects() {
-							spawnDomGloryHoleNPC("stranger");
+							Main.game.spawnDomGloryHoleNPC("stranger");
 							getGloryHoleCharacter().setAreaKnownByCharacter(CoverableArea.PENIS, Main.game.getPlayer(), true);
 						}
 					};

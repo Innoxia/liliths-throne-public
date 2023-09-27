@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[Shop]]></name>
+	<tooltipDescription><![CDATA[One of several generic shops in the 'Wall's End' shopping precinct, this store doesn't have sell anything which would be of interest to you.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in one of the shops at the 'Wall's End' shopping precinct]]></virginityLossDescription>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<colour>BASE_BLACK</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_fields_elis_shops_generic_shop</dialogue>
+	<populationPresent copyPlaceType="innoxia_fields_elis_shops_street"/>
+	<furniturePresent>false</furniturePresent>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<weatherImmunities/>
+	<applyInventoryInit/>
+</placeType>

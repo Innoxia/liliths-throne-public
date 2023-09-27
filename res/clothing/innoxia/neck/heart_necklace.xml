@@ -17,7 +17,6 @@
 		<clothingSet/>
 		<imageName>heart_necklace.svg</imageName>
 		<imageEquippedName/>
-		<enchantmentLimit>5</enchantmentLimit>
 		<effects/>
 		
 		<blockedPartsList slot="NECK">

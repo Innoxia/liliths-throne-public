@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexManager>
+	<title><![CDATA[For old times' sake]]></title>
+	<wallName><![CDATA[stack of papers]]></wallName>
+	<consensual><![CDATA[true]]></consensual>
+	<subHasEqualControl><![CDATA[true]]></subHasEqualControl>
+	<canSkipSex><![CDATA[true]]></canSkipSex>
+	<washingScene><![CDATA[false]]></washingScene>
+	<sadisticActionsAllowed><![CDATA[true]]></sadisticActionsAllowed>
+	<canItemsBeUsed><![CDATA[true]]></canItemsBeUsed>
+	<exposingReactions><![CDATA[false]]></exposingReactions>
+	<positionsAvailable/>
+	<publicSex/>
+	
+	<characterInformationContainer>
+		<characterInformation>
+			<characterId>pc</characterId>
+			<slotsAvailable/>
+			<canStopSex><![CDATA[true]]></canStopSex>
+			<canChangePositions><![CDATA[true]]></canChangePositions>
+			<endSexAffectionChanges><![CDATA[true]]></endSexAffectionChanges>
+			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+			<sexPace/>
+			<canSelfTransform><![CDATA[true]]></canSelfTransform>		
+			<hidden><![CDATA[false]]></hidden>
+			<control><![CDATA[FULL]]></control>
+			<sexClothingEquippable><![CDATA[true]]></sexClothingEquippable>
+			<selfClothingRemoval><![CDATA[true]]></selfClothingRemoval>
+			<partnerClothingRemoval><![CDATA[true]]></partnerClothingRemoval>
+			<startNaked><![CDATA[false]]></startNaked>
+			<exposeAtStart preferRemoval="false">
+				<coverableArea><![CDATA[
+					#IF(pc.hasPenis())
+						PENIS
+					#ENDIF
+				]]></coverableArea>
+				<coverableArea><![CDATA[
+					#IF(pc.hasVagina())
+						VAGINA
+					#ENDIF
+				]]></coverableArea>
+			</exposeAtStart>
+			<forcedCreampiesDisabled/>
+			<orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+			<orgasmCumTarget/>
+			<orgasmCumTargetsBlocked/>
+			<orgasmEncourageBehaviours/>
+			<concealedSlots/>
+			<preferredTarget/>
+			<preferences/>
+			<uniqueSexActions/>
+			<sexTypesBanned/>
+			<areasBanned/>
+			<stopSexCondition/>
+			<dirtyTalk/>
+		</characterInformation>
+		
+		<characterInformation>
+			<characterId>angel</characterId>
+			<slotsAvailable/>
+			<canStopSex><![CDATA[true]]></canStopSex>
+			<canChangePositions><![CDATA[true]]></canChangePositions>
+			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
+			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+			<sexPace locked="false"><![CDATA[SUB_EAGER]]></sexPace>
+			<canSelfTransform><![CDATA[false]]></canSelfTransform>
+			<hidden><![CDATA[false]]></hidden>
+			<control><![CDATA[ONGOING_PLUS_LIMITED_PENETRATIONS]]></control>
+			<sexClothingEquippable><![CDATA[false]]></sexClothingEquippable>
+			<selfClothingRemoval><![CDATA[true]]></selfClothingRemoval>
+			<partnerClothingRemoval><![CDATA[true]]></partnerClothingRemoval>
+			<startNaked><![CDATA[false]]></startNaked>
+			<exposeAtStart/>
+			<forcedCreampiesDisabled/>
+			<orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+			<orgasmCumTarget/>
+			<orgasmEncourageBehaviours/>
+			<concealedSlots/>
+			<preferredTarget/>
+			<uniqueSexActions/>
+            <preferences>
+                <character id="pc">
+                    <foreplay copyForMain="false">
+                        <performing><![CDATA[
+							#IF(pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+								ORIFICE_MOUTH
+							#ELSEIF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+								PENETRATION_TONGUE
+							#ENDIF
+						]]></performing>
+                        <targeted><![CDATA[
+							#IF(pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
+								PENETRATION_PENIS
+							#ELSEIF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+								ORIFICE_VAGINA
+							#ENDIF
+						]]></targeted>
+                    </foreplay>
+                </character>
+            </preferences>
+			<sexTypesBanned/>
+			<areasBanned/>
+			<stopSexCondition><![CDATA[
+				[#sex.isSatisfiedFromOrgasms(pc, true) && (!pc.hasTrait(PERK_OBJECT_OF_DESIRE, true) || sex.isSatisfiedFromOrgasms(angel, true))]
+			]]></stopSexCondition>
+			<dirtyTalk>
+				<character id="pc">
+					<standard additionToDefault="true">
+						<line><![CDATA[Go on, treat me like a whore!]]></line>
+						<line><![CDATA[You know I'm just a dirty whore!]]></line>
+						<line><![CDATA[Put this pathetic human in her place!]]></line>
+						<line><![CDATA[I love getting fucked for money, give it to me!]]></line>
+						<line performingAnyPenetration="true"><![CDATA[Treat me like the filthy whore that I am!]]></line>
+					</standard>
+					<submissive additionToDefault="true">
+						<line><![CDATA[Go on, treat me like a whore!]]></line>
+						<line><![CDATA[You know I'm just a dirty whore!]]></line>
+						<line><![CDATA[Put this pathetic human in her place!]]></line>
+						<line><![CDATA[I love getting fucked for money, give it to me!]]></line>
+						<line performingAnyPenetration="true"><![CDATA[Treat me like the filthy whore that I am!]]></line>
+					</submissive>
+				</character>
+			</dirtyTalk>
+		</characterInformation>
+	</characterInformationContainer>
+		
+</sexManager>

@@ -641,6 +641,60 @@ public class SuccubisSecrets {
 		return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/succubisSecrets", "SHOP_BEAUTY_SALON_MONEY_REMAINING");
 	}
 	
+	public static final DialogueNode SHOP_BEAUTY_SALON_COSMETICS = new DialogueNode("", "", true) {
+		
+		@Override
+		public String getLabel() {
+			return "Cosmetics";
+		}
+
+		@Override
+		public String getHeaderContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/succubisSecrets", "SHOP_BEAUTY_SALON_COSMETICS"));
+			
+			UtilText.nodeContentSB.append(getMoneyRemainingString());
+			
+			UtilText.nodeContentSB.append(
+					CharacterModificationUtils.getKatesDivCoveringsNew(
+							true, Race.NONE, BodyCoveringType.MAKEUP_BLUSHER, "Blusher", "Blusher (also called rouge) is used to colour the cheeks so as to provide a more youthful appearance, and to emphasise the cheekbones.", true, true)
+							
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							true, Race.NONE, BodyCoveringType.MAKEUP_LIPSTICK, "Lipstick", "Lipstick is used to provide colour, texture, and protection to the wearer's lips.", true, true)
+		
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							true, Race.NONE, BodyCoveringType.MAKEUP_EYE_LINER, "Eyeliner", "Eyeliner is applied around the contours of the eyes to help to define shape or highlight different features.", true, true)
+		
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							true, Race.NONE, BodyCoveringType.MAKEUP_EYE_SHADOW, "Eye shadow", "Eye shadow is used to make the wearer's eyes stand out or look more attractive.", true, true)
+		
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							true, Race.NONE, BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, "Nail polish", "Nail polish is used to colour and protect the nails on your [pc.hands].", true, true)
+		
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							true, Race.NONE, BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, "Toenail polish", "Toenail polish is used to colour and protect the nails on your [pc.feet].", true, true));
+			
+			return UtilText.nodeContentSB.toString();
+			
+		}
+
+		@Override
+		public String getContent() {
+			return "";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return getMainResponse(index);
+		}
+
+		@Override
+		public boolean reloadOnRestore() {
+			return true;
+		}
+	};
+	
 	public static final DialogueNode SHOP_BEAUTY_SALON_HAIR = new DialogueNode("Succubi's Secrets", "-", true) {
 
 		@Override
@@ -858,66 +912,11 @@ public class SuccubisSecrets {
 			}
 			
 			return UtilText.nodeContentSB.toString();
-			
 		}
 
 		@Override
 		public String getContent() {
-			return null;
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return getMainResponse(index);
-		}
-
-		@Override
-		public boolean reloadOnRestore() {
-			return true;
-		}
-	};
-	
-	public static final DialogueNode SHOP_BEAUTY_SALON_COSMETICS = new DialogueNode("", "", true) {
-		
-		@Override
-		public String getLabel() {
-			return "Cosmetics";
-		}
-
-		@Override
-		public String getHeaderContent() {
-			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/succubisSecrets", "SHOP_BEAUTY_SALON_COSMETICS"));
-			
-			UtilText.nodeContentSB.append(getMoneyRemainingString());
-			
-			UtilText.nodeContentSB.append(
-					CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, Race.NONE, BodyCoveringType.MAKEUP_BLUSHER, "Blusher", "Blusher (also called rouge) is used to colour the cheeks so as to provide a more youthful appearance, and to emphasise the cheekbones.", true, true)
-							
-					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, Race.NONE, BodyCoveringType.MAKEUP_LIPSTICK, "Lipstick", "Lipstick is used to provide colour, texture, and protection to the wearer's lips.", true, true)
-		
-					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, Race.NONE, BodyCoveringType.MAKEUP_EYE_LINER, "Eyeliner", "Eyeliner is applied around the contours of the eyes to help to define shape or highlight different features.", true, true)
-		
-					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, Race.NONE, BodyCoveringType.MAKEUP_EYE_SHADOW, "Eye shadow", "Eye shadow is used to make the wearer's eyes stand out or look more attractive.", true, true)
-		
-					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, Race.NONE, BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, "Nail polish", "Nail polish is used to colour and protect the nails on your [pc.hands].", true, true)
-		
-					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, Race.NONE, BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, "Toenail polish", "Toenail polish is used to colour and protect the nails on your [pc.feet].", true, true));
-			
-			return UtilText.nodeContentSB.toString();
-			
-		}
-
-		@Override
-		public String getContent() {
-			return null;
+			return "";
 		}
 		
 		@Override
@@ -1004,7 +1003,7 @@ public class SuccubisSecrets {
 				if(Main.game.getPlayer().getMoney()<value) {
 					return new Response("Apply ("+UtilText.formatAsMoneyUncoloured(value, "span")+")", "You don't have enough money to get a tattoo!", null);
 					
-				} else if(CharacterModificationUtils.tattoo.getType().equals(TattooType.NONE)
+				} else if(CharacterModificationUtils.tattoo.getType().equals(TattooType.getTattooTypeFromId("innoxia_misc_none"))
 						&& CharacterModificationUtils.tattoo.getWriting().getText().isEmpty()
 						&& CharacterModificationUtils.tattoo.getCounter().getType()==TattooCounterType.NONE) {
 					return new Response("Apply ("+UtilText.formatAsMoneyUncoloured(value, "span")+")", "You need to select a tattoo type, add some writing, or add a counter in order to make a tattoo!", null);
@@ -1013,7 +1012,7 @@ public class SuccubisSecrets {
 					return new Response("Apply ("+UtilText.formatAsMoney(value, "span")+")", "Tell Kate that you'd like her to give you this tattoo.", SHOP_BEAUTY_SALON_TATTOOS) {
 						@Override
 						public void effects() {
-							Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-value)); //TODO Kate description
+							Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-value));
 
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
 							CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());

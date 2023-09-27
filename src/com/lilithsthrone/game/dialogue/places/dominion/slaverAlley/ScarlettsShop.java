@@ -184,8 +184,8 @@ public class ScarlettsShop {
 				return SexControl.ONGOING_ONLY; // So Scarlett doesn't start anything else.
 			}
 			@Override
-			public boolean isAbleToEquipSexClothing(GameCharacter character){
-				return false;
+			public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip){
+				return clothingToEquip.isCondom();
 			}
 			@Override
 			public boolean isAbleToRemoveSelfClothing(GameCharacter character){
@@ -276,8 +276,8 @@ public class ScarlettsShop {
 				return SexControl.ONGOING_ONLY; // So Scarlett doesn't start anything else.
 			}
 			@Override
-			public boolean isAbleToEquipSexClothing(GameCharacter character){
-				return false;
+			public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip){
+				return clothingToEquip.isCondom();
 			}
 			@Override
 			public boolean isAbleToRemoveSelfClothing(GameCharacter character){
@@ -358,7 +358,7 @@ public class ScarlettsShop {
 				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_ASS
 				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS
 				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS_CROTCH
-				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_CORE
+				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_SPINNERET
 				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_EYES
 				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_HAIR
 				|| Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_HEAD
@@ -384,6 +384,9 @@ public class ScarlettsShop {
 		SuccubisSecrets.initCoveringsMap(slave);
 	}
 	
+	private static boolean isFilly() {
+		return Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_NATALYA) || Main.game.getPlayer().hasQuest(QuestLine.ROMANCE_NATALYA) || Main.game.getPlayer().hasItemType(ItemType.NATALYA_BUSINESS_CARD);
+	}
 	
 	public static final DialogueNode SCARLETTS_SHOP_EXTERIOR = new DialogueNode("", "", false) {
 		@Override
@@ -583,7 +586,7 @@ public class ScarlettsShop {
 							AbstractClothing collar = Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", PresetColour.CLOTHING_BLACK_STEEL, false);
 							collar.setSealed(true);
 							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(collar, true, Main.game.getNpc(Helena.class));
-							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_BALLGAG, PresetColour.CLOTHING_PINK, false), true, Main.game.getNpc(Helena.class));
+							Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_ballgag", PresetColour.CLOTHING_PINK, false), true, Main.game.getNpc(Helena.class));
 						}
 					};
 					
@@ -1413,8 +1416,8 @@ public class ScarlettsShop {
 		}
 		@Override
 		public String getContent() {
-			UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN_PREMIUM.getValue(null)), true);
-			UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN.getValue(null)), false);
+			UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN_PREMIUM.getValue()), true);
+			UtilText.addSpecialParsingString(Util.intToString(ItemType.PAINT_CAN.getValue()), false);
 			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "ROMANCE_OFFER_HELP_WAIT");
 		}
 		@Override
@@ -1501,9 +1504,19 @@ public class ScarlettsShop {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Introduction",
-						"Introduce yourself as the person this [natalya.race] is looking for, and then proceed to take delivery of the furniture which must be in the back of the cart.",
-						ROMANCE_PAINTING_FURNITURE_DELIVERY);
+				return new Response(
+						isFilly()
+							?"Greet Natalya"
+							:"Introduction",
+						isFilly()
+							?"Greet your Mistress and tell her that you're here to take delivery of the furniture which must be in the back of the cart."
+							:"Introduce yourself as the person this [natalya.race] is looking for, and then proceed to take delivery of the furniture which must be in the back of the cart.",
+						ROMANCE_PAINTING_FURNITURE_DELIVERY) {
+					@Override
+					public void effects() {
+						Main.game.getNpc(Helena.class).setPlayerKnowsName(true);
+					}
+				};
 			}
 			return null;
 		}
@@ -1556,35 +1569,50 @@ public class ScarlettsShop {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Remain", "Wait next to the cart for Natalya to return.", ROMANCE_PAINTING_FURNITURE_DELIVERY_END) {
-					@Override
-					public int getSecondsPassed() {
-						return 15*60;
-					}
-					@Override
-					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "ROMANCE_PAINTING_FURNITURE_DELIVERY_WAIT"));
-					}
-				};
-				
-			} else if(index==2) {
-				if(!Main.game.isAnalContentEnabled()) {
+			if(isFilly()) {
+				if(index==1) {
 					return new Response("Follow",
-							"You get the feeling that following Natalya down the alleyway would lead to something you'd rather not see..."
-									+ "<br/>[style.italicsMinorBad(Natalya's scenes involve anal content, and as such will be disabled for as long as your 'Anal Content' setting is turned off.)]",
-							null);
+							"Follow Mistress Natalya down the alleyway to see what she requires of you.",
+							ROMANCE_PAINTING_FURNITURE_DELIVERY_FOLLOW_SUBMIT) {
+						@Override
+						public void effects() {
+							Main.game.getNpc(Natalya.class).displaceClothingForAccess(CoverableArea.PENIS, null);
+							((Natalya)Main.game.getNpc(Natalya.class)).insertDildo();
+						}
+					};
 				}
-				return new Response("Follow",
-						"Follow Natalya down the alleyway and see what she's up to."
-								+ "<br/>[style.italicsSex(You get the feeling that you might see something quite lewd...)]",
-						ROMANCE_PAINTING_FURNITURE_DELIVERY_FOLLOW) {
-					@Override
-					public void effects() {
-						Main.game.getNpc(Natalya.class).displaceClothingForAccess(CoverableArea.PENIS, null);
-						((Natalya)Main.game.getNpc(Natalya.class)).insertDildo();
+				
+			} else {
+				if(index==1) {
+					return new Response("Remain", "Wait next to the cart for Natalya to return.", ROMANCE_PAINTING_FURNITURE_DELIVERY_END) {
+						@Override
+						public int getSecondsPassed() {
+							return 15*60;
+						}
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenaRomance", "ROMANCE_PAINTING_FURNITURE_DELIVERY_WAIT"));
+						}
+					};
+					
+				} else if(index==2) {
+					if(!Main.game.isAnalContentEnabled()) {
+						return new Response("Follow",
+								"You get the feeling that following Natalya down the alleyway would lead to something you'd rather not see..."
+										+ "<br/>[style.italicsMinorBad(Natalya's scenes involve anal content, and as such will be disabled for as long as your 'Anal Content' setting is turned off.)]",
+								null);
 					}
-				};
+					return new Response("Follow",
+							"Follow Natalya down the alleyway and see what she's up to."
+									+ "<br/>[style.italicsSex(You get the feeling that you might see something quite lewd...)]",
+							ROMANCE_PAINTING_FURNITURE_DELIVERY_FOLLOW) {
+						@Override
+						public void effects() {
+							Main.game.getNpc(Natalya.class).displaceClothingForAccess(CoverableArea.PENIS, null);
+							((Natalya)Main.game.getNpc(Natalya.class)).insertDildo();
+						}
+					};
+				}
 			}
 			return null;
 		}
@@ -1598,7 +1626,12 @@ public class ScarlettsShop {
 			}
 			Main.game.getNpc(Natalya.class).returnToHome();
 			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.ROMANCE_HELENA, Quest.ROMANCE_HELENA_3_C_EXTERIOR_DECORATOR));
-			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.NATALYA_BUSINESS_CARD), false));
+			if(!Main.game.getPlayer().isQuestFailed(QuestLine.ROMANCE_NATALYA)
+					&& !Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_NATALYA)
+					&& !Main.game.getPlayer().hasQuest(QuestLine.ROMANCE_NATALYA)
+					&& !Main.game.getPlayer().hasItemType(ItemType.NATALYA_BUSINESS_CARD)) {
+				Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.NATALYA_BUSINESS_CARD), false));
+			}
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -1706,6 +1739,13 @@ public class ScarlettsShop {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Natalya.class), SexSlotStanding.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.PERFORMING_ORAL))) {
+							@Override
+							public SexControl getSexControl(GameCharacter character) {
+								if(character.isPlayer()) {
+									return SexControl.ONGOING_ONLY;
+								}
+								return super.getSexControl(character);
+							}
 							@Override
 							public boolean isAbleToSkipSexScene() {
 								return false;
@@ -3056,13 +3096,9 @@ public class ScarlettsShop {
 				}
 				return new Response("Spinneret", "Customise aspects of your slave's penis.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_SPINNERET);
 				
-			} else if(index==11 && Main.getProperties().getUddersLevel()!=0) {
+			} else if(index==11) {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS_CROTCH) {
 					return new Response("Crotch-boobs", "You are already customising the aspects of your slave's crotch-boobs!", null);
-				}
-				
-				if(Main.getProperties().getUddersLevel()==1 && BodyChanging.getTarget().getLegConfiguration().isBipedalPositionedCrotchBoobs()) {
-					return new Response("Crotch-boobs", "As you have crotch-boobs disabled for non-taur characters, you cannot access this menu!", null);
 				}
 				
 				return new Response(
@@ -3085,7 +3121,12 @@ public class ScarlettsShop {
 			} else if(index==14) {
 				return new Response("[style.colourMinorGood(Finalise order)]",
 						"Tell Helena that you've completed the ordering forms, and see how much this is going to cost you...",
-						HELENAS_SHOP_CUSTOM_SLAVE_FINISH);
+						HELENAS_SHOP_CUSTOM_SLAVE_FINISH) {
+					@Override
+					public void effects() {
+						BodyChanging.getTarget().setAllAreasKnownByCharacter(Main.game.getPlayer(), true);
+					}
+				};
 				
 			} 
 			return null;
@@ -3406,9 +3447,7 @@ public class ScarlettsShop {
 			
 			sb.append("<div class='container-full-width' style='text-align:center;'>"
 							+ "<i>"
-								+ "For each increase in sexual experience, your slave will gain 1 corruption."
-								+ "<br/>"
-								+ "Current corruption: [style.colourCorruption("+BodyChanging.getTarget().getAttributeValue(Attribute.MAJOR_CORRUPTION)+")]"
+								+ "More sexual experience will result in your slave gaining more corruption."
 							+ "</i>"
 						+ "</div>"
 						+CharacterModificationUtils.getSexualExperienceDiv());

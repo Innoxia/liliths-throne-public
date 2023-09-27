@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
@@ -71,6 +72,16 @@ public class Clitoris implements BodyPartInterface {
 			return UtilText.returnStringAtRandom("clits", "clits", "clits", "clit-dick");
 		}
 	}
+
+	@Override
+	public AbstractBodyCoveringType getBodyCoveringType(GameCharacter gc) {
+		return gc.getVaginaType().getBodyCoveringType(gc);
+	}
+
+	@Override
+	public AbstractBodyCoveringType getBodyCoveringType(Body body) {
+		return body.getVagina().getBodyCoveringType(body);
+	}
 	
 	@Override
 	public String getDescriptor(GameCharacter gc) {
@@ -93,6 +104,10 @@ public class Clitoris implements BodyPartInterface {
 			if(mod!=PenetrationModifier.OVIPOSITOR) {
 				descriptors.add(mod.getName());
 			}
+		}
+
+		if(gc.getBodyMaterial().getPartDescriptors()!=null && !gc.getBodyMaterial().getPartDescriptors().isEmpty()) {
+			descriptors.add(Util.randomItemFrom(gc.getBodyMaterial().getPartDescriptors()));
 		}
 		
 		return Util.randomItemFrom(descriptors);
@@ -268,7 +283,10 @@ public class Clitoris implements BodyPartInterface {
 	}
 	
 	public static float getGenericDiameter(int length, PenetrationGirth girth, Set<PenetrationModifier> mods) {
-		return Units.round((length * 0.25f) * (1f + girth.getDiameterPercentageModifier() + (mods.contains(PenetrationModifier.FLARED)?0.05f:0) + (mods.contains(PenetrationModifier.TAPERED)?-0.05f:0)), 2);
+		float baseDiameterModifier = 0.2f;
+		baseDiameterModifier = Math.max(0.15f, baseDiameterModifier - (Math.max(length-15, 0) * 0.0025f)); // Every cm over 15 (6 inches) reduces the base diameter modifier by 0.25%
+		
+		return Units.round((length * baseDiameterModifier) * (1f + girth.getDiameterPercentageModifier() + (mods.contains(PenetrationModifier.FLARED)?0.05f:0) + (mods.contains(PenetrationModifier.TAPERED)?-0.05f:0)), 2);
 	}
 	
 	public float getDiameter() {
@@ -358,7 +376,7 @@ public class Clitoris implements BodyPartInterface {
 			case OVIPOSITOR:
 				returnText = "An intense tingling sensation works its up [npc.namePos] [npc.clit], and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] feels it transforming into [style.boldGrow(an ovipositor)]."
 							+ "<br/>[style.boldSex([npc.NamePos] [npc.clit] is now able to lay eggs!)]"
-							+ "<br/><i>(To be fully functional, [npc.name] [npc.verb(require)] an egg-laying vagina and for [npc.her] eggs to be fertilised before laying can occur. Eggs cannot be laid in an already-pregnant target's vagina.)</i>";
+							+ "<br/><i>(To be fully functional, [npc.name] [npc.verb(require)] [npc.her] eggs to be fertilised before laying can occur. Eggs cannot be laid in an already-pregnant target's vagina.)</i>";
 				break;
 		}
 		

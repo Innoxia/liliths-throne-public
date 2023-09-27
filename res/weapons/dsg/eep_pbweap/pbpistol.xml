@@ -44,8 +44,6 @@
 		
 		<spells/>
 		
-		<enchantmentLimit>5</enchantmentLimit>
-		
 		<effects/> 
 		
 		<primaryColours values="JUST_BLACK"/> 
@@ -57,6 +55,7 @@
 		
 		<itemTags>
 			<tag>CONTRABAND_MEDIUM</tag>
+			<tag>WEAPON_FIREARM</tag>
 		</itemTags>
 		
 	</coreAttributes>

@@ -1,53 +1,204 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogueFlags>
 	<!-- Additional dialogue flags for use in the game.
-	The 'dailyReset' value determines whether or not the flag gets reset to false at midnight every day.
+	The 'dailyReset' attribute determines whether or not the flag gets reset to false at midnight every day.
+	You can instead use the 'resetHour' attribute to define the hour at which the flag is reset to false every day.
+	If neither attribute is defined, the flag will never automatically reset to false.
 	Please note that the final id of the flags defined below will have the parent folder's name appended to the front of them.
 		i.e. 'elis_berries_found' will be identified as 'innoxia_elis_berries_found' during the game's runtime. -->
 	
-	<!-- Meraxis -->
-		<flag dailyReset="false">meraxis_any_sex_unlocked</flag>
-		<flag dailyReset="false">meraxis_handjobs_unlocked</flag>
-		<flag dailyReset="false">meraxis_oral_unlocked</flag>
-		<flag dailyReset="false">meraxis_anal_unlocked</flag>
-		<flag dailyReset="false">meraxis_paizuri_unlocked</flag>
-		<flag dailyReset="false">meraxis_vaginal_unlocked</flag>
-		<flag dailyReset="false">meraxis_demon_tf_teleported</flag>
-		<flag dailyReset="true">meraxis_daily_sex</flag>
-	<!-- Meraxis Duels -->
-		<flag dailyReset="true">meraxis_duel_daily_complete</flag>
-		<flag dailyReset="false">meraxis_duel_place_dominion</flag>
-		<flag dailyReset="false">meraxis_duel_place_elis</flag>
-		<flag dailyReset="false">meraxis_duel_reward_money</flag>
-		<flag dailyReset="false">meraxis_duel_reward_transform</flag>
-		<flag dailyReset="false">meraxis_duel_reward_sex</flag>
+	<!-- Misc. encounters etc.: -->
+		<!-- Alleyway attackers -->
+			<flag dailyReset="false">alleyway_submission_tattooed_pussy</flag>
+			<flag dailyReset="false">alleyway_submission_tattooed_ass</flag>
+			<flag dailyReset="false">alleyway_transformations_applied</flag>
 	
+	<!-- Dominion:-->
+		<!-- Gym:-->
+			<flag dailyReset="false">pix_introduced</flag>
+			<flag dailyReset="false">pix_had_tour</flag>
+			<flag dailyReset="false">pix_session_started</flag>
+			<flag dailyReset="false">pix_workout_weights_saved_energy</flag>
+			<flag dailyReset="false">pix_workout_cardio_saved_energy</flag>
+			<flag dailyReset="false">pix_workout_pix_completed</flag>
+			<flag dailyReset="false">pix_talk_gym</flag>
+			<flag dailyReset="false">pix_talk_boxing</flag>
+			<flag dailyReset="false">pix_talk_yoga</flag>
+			
+			<flag dailyReset="false">hannah_introduced</flag>
+			<flag dailyReset="false">hannah_talk_history</flag>
+			<flag dailyReset="false">hannah_talk_pix</flag>
+			<flag dailyReset="false">hannah_talk_yoga</flag>
+			<flag dailyReset="false">hannah_training_complete</flag>
+			
+		<!-- Vicky:-->
+			<flag dailyReset="false">vicky_claimed</flag>
+			<flag dailyReset="true">vicky_fed</flag>
+			<flag dailyReset="true">vicky_helped</flag>
+			<flag dailyReset="true">vicky_apartment</flag>
+			<flag dailyReset="true">vicky_daily_sex</flag>
+			
+		<!-- Nightlife: -->
+			<flag dailyReset="false">lights_out_visited</flag>
+			<flag dailyReset="false">lights_out_free_drink</flag>
+			<flag resetHour="6">lights_out_hannah_left</flag>
+			<flag dailyReset="false">lights_out_hannah_alcohol_warning</flag>
+			<flag dailyReset="false">lights_out_hannah_talk</flag>
+			<flag dailyReset="false">lights_out_hannah_had_initial_talk</flag>
+			<flag dailyReset="false">lights_out_hannah_flirt</flag>
+			<flag dailyReset="false">lights_out_hannah_kiss</flag>
+			<flag dailyReset="false">lights_out_hannah_sex</flag>
+			<flag resetHour="20">lights_out_hannah_last_night_met</flag>
+			<flag resetHour="20">lights_out_hannah_last_night_sex</flag>
+		
+		<!-- Lovienne's Luxuries: -->
+			<flag dailyReset="false">sex_shop_display_on</flag>
+			<flag dailyReset="false">sex_shop_oral_offer</flag>
+			<flag dailyReset="false">sex_shop_choker_snapped</flag>
+			<flag dailyReset="false">sex_shop_choker_survived</flag>
+			<flag dailyReset="false">sex_shop_discount</flag>
+			<flag dailyReset="false">sex_shop_penalty</flag>
+			<flag resetHour="8">sex_shop_saellatrix_sex</flag>
+			
+			
 	
-	<!-- Astrapi and Vronti -->
-		<flag dailyReset="false">centaur_transport_introduced</flag>
-		<flag dailyReset="true">centaur_transport_setup_in_progress</flag>
-		<flag dailyReset="false">centaur_travel_to_elis</flag>
-		<flag dailyReset="false">vronti_handjob_given</flag>
-		<flag dailyReset="false">vronti_blowjob_given</flag>
-		<flag dailyReset="false">vronti_sex_given</flag>
-		<flag dailyReset="false">vronti_anilingus_given</flag>
-		<flag dailyReset="false">vronti_anal_sex_given</flag>
-		<flag dailyReset="false">astrapi_not_shaving</flag>
+	<!-- Submission:-->
+		<flag dailyReset="false">elizabeth_routine_started</flag>
 	
-	<!-- Field attackers: -->
-		<flag dailyReset="false">fields_centaur_attacker_talked</flag>
-		<flag dailyReset="false">fields_bandit_talked</flag>
+	<!-- Meraxis: -->
 	
-	<!-- Elis -->
+		<!-- Sex flags -->
+			<flag dailyReset="false">meraxis_any_sex_unlocked</flag>
+			<flag dailyReset="false">meraxis_handjobs_unlocked</flag>
+			<flag dailyReset="false">meraxis_oral_unlocked</flag>
+			<flag dailyReset="false">meraxis_anal_unlocked</flag>
+			<flag dailyReset="false">meraxis_paizuri_unlocked</flag>
+			<flag dailyReset="false">meraxis_vaginal_unlocked</flag>
+			<flag dailyReset="false">meraxis_demon_tf_teleported</flag>
+			<flag dailyReset="true">meraxis_daily_sex</flag>
+			
+		<!-- Duels -->
+			<flag dailyReset="true">meraxis_duel_daily_complete</flag>
+			<flag dailyReset="false">meraxis_duel_place_dominion</flag>
+			<flag dailyReset="false">meraxis_duel_place_elis</flag>
+			<flag dailyReset="false">meraxis_duel_reward_money</flag>
+			<flag dailyReset="false">meraxis_duel_reward_transform</flag>
+			<flag dailyReset="false">meraxis_duel_reward_sex</flag>
+
+	<!-- Lilin Relations: -->
+		<flag dailyReset="false">child_of_lyssieth</flag>
+		<flag dailyReset="false">child_of_lunette</flag>
+		<flag dailyReset="false">child_of_lirecea</flag>
+		<flag dailyReset="false">child_of_lovienne</flag>
+		<flag dailyReset="false">child_of_lasielle</flag>
+		<flag dailyReset="false">child_of_lyxias</flag>
+		<flag dailyReset="false">child_of_lisophia</flag>
+		<flag dailyReset="false">child_of_lilith</flag>
+	
+	<!-- Foloi Fields: -->
+		
+		<!-- Field attacker and encounters: -->
+			<flag dailyReset="false">fields_centaur_attacker_talked</flag>
+			<flag dailyReset="false">fields_bandit_talked</flag>
+			<flag dailyReset="false">fields_headless_horseman_encountered</flag>
+	
+		<!-- Astrapi and Vronti -->
+			<flag dailyReset="false">centaur_transport_introduced</flag>
+			<flag dailyReset="true">centaur_transport_setup_in_progress</flag>
+			<flag dailyReset="false">centaur_travel_to_elis</flag>
+			<flag dailyReset="false">vronti_handjob_given</flag>
+			<flag dailyReset="false">vronti_blowjob_given</flag>
+			<flag dailyReset="false">vronti_sex_given</flag>
+			<flag dailyReset="false">vronti_anilingus_given</flag>
+			<flag dailyReset="false">vronti_anal_sex_given</flag>
+			<flag dailyReset="false">astrapi_not_shaving</flag>
+			<flag dailyReset="false">astrapi_impregnation_talk</flag>
+			
+		<!-- Evelyx's Dairy: -->
+			<flag dailyReset="true">dale_talk_himself</flag>
+			<flag dailyReset="true">dale_talk_work</flag>
+			<flag dailyReset="true">dale_talk_evelyx</flag>
+			<flag dailyReset="true">dale_talk_farm</flag>
+			<flag dailyReset="true">dale_talk_lunette</flag>
+			<flag dailyReset="false">evelyx_cow_search_furry</flag>
+			<flag dailyReset="false">evelyx_cow_search_taur</flag>
+			<flag dailyReset="false">evelyx_cow_search_pregnant</flag>
+			<flag dailyReset="false">evelyx_cow_search_high_mileage</flag>
+			<flag dailyReset="false">evelyx_reception_sex</flag>
+			<flag dailyReset="false">evelyx_dorm_sex</flag>
+			<flag dailyReset="false">evelyx_work_started</flag>
+			<flag dailyReset="false">evelyx_work_offered</flag>
+			<flag dailyReset="false">evelyx_work_accessories_trainee</flag>
+			<flag dailyReset="false">evelyx_work_accessories_heifer</flag>
+			<flag dailyReset="false">evelyx_work_accessories_cow</flag>
+			<flag dailyReset="false">evelyx_work_sex_scene_just_ended</flag>
+			<flag dailyReset="false">evelyx_work_fucked</flag>
+			<flag dailyReset="false">evelyx_work_not_pregnant_at_start</flag>
+			<flag dailyReset="false">evelyx_work_impregnated</flag>
+			<flag dailyReset="false">evelyx_work_promotion1</flag>
+			<flag dailyReset="false">evelyx_work_promotion2</flag>
+			<flag dailyReset="false">evelyx_work_promotion3</flag>
+			<flag dailyReset="false">evelyx_work_promotion_meeting</flag>
+			<flag dailyReset="false">evelyx_work_promotion_meeting_happened</flag>
+			<flag dailyReset="true">evelyx_work_promotion_meeting_didnt_sign</flag>
+			<flag dailyReset="false">evelyx_finished_no_bad_end</flag>
+			<flag dailyReset="true">evelyx_no_bad_end_daily_fuck</flag>
+			<flag dailyReset="false">evelyx_monica_meeting</flag>
+			<flag dailyReset="true">evelyx_monica_meeting_refused</flag>
+			<flag dailyReset="false">evelyx_monica_ring_questions_failed</flag>
+			<flag dailyReset="false">evelyx_daily_fuck_unlocked</flag>
+			<flag dailyReset="false">evelyx_daily_fuck_gaped</flag>
+			<flag dailyReset="true">evelyx_daily_fuck</flag>
+			<!-- Bad end: -->
+			<flag dailyReset="true">evelyx_bad_end_pussy</flag>
+			<flag dailyReset="true">evelyx_bad_end_oral</flag>
+			<flag dailyReset="true">evelyx_bad_end_anal</flag>
+			<flag dailyReset="true">evelyx_bad_end_flavours</flag>
+			<flag dailyReset="true">evelyx_bad_end_hyper</flag>
+			<flag dailyReset="true">evelyx_bad_end_multi</flag>
+			<flag dailyReset="true">evelyx_bad_end_bondage</flag>
+			<flag dailyReset="true">evelyx_bad_end_bimbo</flag>
+			<flag dailyReset="true">evelyx_bad_end_feral</flag>
+		
+		
+	<!-- Themiscyra: -->
+		<flag dailyReset="false">themiscyra_smithies_looted</flag>
+		<flag dailyReset="false">themiscyra_jewellers_looted</flag>
+		<flag dailyReset="false">themiscyra_wine_looted</flag>
+		<flag dailyReset="false">themiscyra_centauresses_question</flag>
+		<flag dailyReset="false">themiscyra_aurokaris_talk_ursa</flag>
+		<flag dailyReset="false">themiscyra_aurokaris_talk_raiders</flag>
+		<flag dailyReset="false">themiscyra_aurokaris_talk_town</flag>
+		<flag dailyReset="false">themiscyra_aurokaris_talk_amazons</flag>
+		<flag dailyReset="false">themiscyra_aurokaris_talk_location</flag>
+		<flag dailyReset="false">themiscyra_raider_sex_player_targeted_by_leader</flag>
+		<!-- Bad end -->
+		<flag dailyReset="false">themiscyra_bad_end_oral</flag>
+		<flag dailyReset="false">themiscyra_bad_end_vaginal</flag>
+		<flag dailyReset="false">themiscyra_bad_end_anal</flag>
+		<flag dailyReset="false">themiscyra_bad_end_spectate_meraxis</flag>
+		<flag dailyReset="false">themiscyra_bad_end_spectate_aurokaris</flag>
+		<flag dailyReset="false">themiscyra_bad_end_spectate_ursa</flag>
+		<flag dailyReset="false">themiscyra_bad_end_spectate_self</flag>
+		
+		
+	<!-- Elis: -->
+	
 		<!-- Woods -->
 		<flag dailyReset="true">elis_berries_found</flag>
 		<flag dailyReset="false">elis_berries_eaten</flag>
 		<flag dailyReset="false">elis_berries_encountered</flag>
 		
+		<!-- Alleyways -->
+		<flag dailyReset="false">elis_alleyway_talked</flag>
+		<flag dailyReset="false">elis_alleyway_prostitute_apartment</flag>
+		<flag dailyReset="false">elis_alleyway_prostitute_sex</flag>
+		
 		<!-- Town -->
 		<flag dailyReset="false">elis_blacksmith_visited</flag>
 		<flag dailyReset="false">elis_clothing_visited</flag>
 		<flag dailyReset="false">elis_convenience_visited</flag>
+		<flag dailyReset="false">elis_spa_visited</flag>
 		<flag dailyReset="false">elis_toilets_hole_ever_made</flag>
 		<flag dailyReset="true">elis_toilets_hole_made</flag>
 		
@@ -68,12 +219,31 @@
 		
 		<!-- Taur tavern -->
 		<flag dailyReset="true">kheiron_smalltalk_complete</flag>
+		<flag dailyReset="true">kheiron_talk_golix</flag>
 		<flag dailyReset="true">tavern_fae_met</flag>
 		<flag dailyReset="true">tavern_fae_small_talk</flag>
 		<flag dailyReset="true">tavern_fae_drink</flag>
 		<flag dailyReset="true">tavern_fae_tail_fluffed</flag>
 		<flag dailyReset="true">tavern_fae_flirt</flag>
 		<flag dailyReset="true">tavern_fae_kiss</flag>
+		
+		<!-- Alley tavern -->
+		<flag dailyReset="false">oglix_beer_bitches_spawned</flag>
+		<flag dailyReset="false">oglix_introduced</flag>
+		<flag dailyReset="false">oglix_tavern_brawl</flag>
+		<flag resetHour="6">oglix_tavern_pacified</flag>
+		<flag resetHour="6">oglix_talk_background</flag>
+		<flag resetHour="6">oglix_talk_lunette</flag>
+		<flag resetHour="6">oglix_talk_beer_bitch</flag>
+		<flag dailyReset="false">oglix_talk_beer_bitch_quest_unlocked</flag>
+		<flag resetHour="6">oglix_talk_elemental</flag>
+		<flag dailyReset="false">oglix_talk_vip_unlocked</flag>
+		<flag resetHour="6">oglix_talk_vip</flag>
+		<flag resetHour="6">oglix_flirted</flag>
+		<flag dailyReset="false">oglix_talk_elemental_sex_unlocked</flag>
+		<flag dailyReset="false">oglix_kheiron_spectated</flag>
+		<flag dailyReset="true">oglix_kheiron_spectated_today</flag>
+		<flag dailyReset="false">oglix_tavern_seating_seen</flag>
 		
 		<!-- Market -->
 		<flag dailyReset="true">elis_market_entry_north</flag>
@@ -109,13 +279,124 @@
 		<flag dailyReset="true">minotallys_talk_lilith</flag>
 		<flag dailyReset="true">minotallys_talk_milk</flag>
 	
+		<!-- Monica -->
+		<flag dailyReset="true">monica_talk_small</flag>
+		<flag dailyReset="true">monica_talk_business</flag>
+		<flag dailyReset="true">monica_talk_elis</flag>
+		<flag dailyReset="true">monica_talk_history</flag>
+		<flag dailyReset="false">monica_talk_milker_unlocked</flag>
+		<flag dailyReset="true">monica_talk_boobies</flag>
+		<flag dailyReset="true">monica_milked</flag>
+	
+		<!-- Ceridwen -->
+		<flag dailyReset="true">ceridwen_talk_name</flag>
+		<flag dailyReset="true">ceridwen_talk_sources</flag>
+		<flag dailyReset="true">ceridwen_talk_mice</flag>
+		<flag dailyReset="false">ceridwen_side_quest_available</flag>
+	
+		<!-- Imsu & Hale -->
+		<flag dailyReset="true">blacksmith_talk_history</flag>
+		<flag dailyReset="true">blacksmith_talk_name</flag>
+		<flag dailyReset="false">blacksmith_side_quest_available</flag>
+	
+		<!-- Penelope -->
+		<flag dailyReset="true">spa_talk_posters</flag>
+		<flag dailyReset="true">spa_talk_sheep</flag>
+		<flag dailyReset="false">spa_sheep_introduced</flag>
+	
+		<!-- Amazon Camp: -->
+		<flag dailyReset="false">amazon_camp_discovered</flag>
+		<!-- Aurokaris: -->
+			<flag dailyReset="true">amazon_camp_aurokaris_sparred</flag>
+			<flag dailyReset="false">amazon_camp_aurokaris_sparred_unarmed</flag>
+			<flag dailyReset="false">amazon_camp_aurokaris_sparred_melee</flag>
+			<flag dailyReset="false">amazon_camp_aurokaris_sparred_ranged</flag>
+			<flag dailyReset="false">amazon_camp_aurokaris_tent_invite_received</flag>
+			<flag resetHour="18">amazon_camp_aurokaris_tent_visited</flag>
+			<flag dailyReset="false">amazon_camp_aurokaris_tent_had_sex</flag>
+			<flag dailyReset="true">amazon_camp_aurokaris_ambrosia_tasting</flag>
+		<!-- Ursa: -->
+			<flag dailyReset="false">amazon_camp_ursa_met</flag>
+			<flag dailyReset="true">amazon_camp_ursa_daily_interaction</flag>
+			<flag dailyReset="true">amazon_camp_ursa_talk_amazons</flag>
+			<flag dailyReset="true">amazon_camp_ursa_talk_queen</flag>
+			<flag dailyReset="true">amazon_camp_ursa_talk_lunette</flag>
+			<flag dailyReset="true">amazon_camp_ursa_talk_aurokaris</flag>
+		<!-- Lunexis: -->
+			<flag dailyReset="true">amazon_camp_lunexis_questioned</flag>
+			<flag dailyReset="true">amazon_camp_lunexis_humiliated</flag>
+			<flag dailyReset="false">amazon_camp_lunexis_obeyed</flag>
+			<flag dailyReset="false">amazon_camp_lunexis_surrendered</flag>
+			
+		<!-- Enforcer station -->
+		<flag dailyReset="false">elis_enforcers_sterope_met</flag>
+		<flag dailyReset="false">elis_enforcers_access_granted</flag>
+		<flag dailyReset="false">elis_enforcers_talk_work</flag>
+		<flag dailyReset="false">elis_enforcers_talk_career</flag>
+		<flag dailyReset="false">elis_enforcers_talk_lunette</flag>
+		<flag dailyReset="false">elis_enforcers_talk_sword</flag>
+		<!-- Sterope: -->
+			<flag dailyReset="false">sterope_unlocked</flag>
+			<flag dailyReset="false">sterope_met_in_tavern</flag>
+			<flag resetHour="12">sterope_sex</flag>
+			<flag resetHour="12">sterope_with_centaur</flag>
+			<flag dailyReset="false">sterope_fully_furry</flag>
+			<flag dailyReset="false">sterope_transformed_into_feral</flag>
+			<flag dailyReset="false">sterope_centaur_fucks_sterope_first</flag>
+			<flag dailyReset="false">sterope_had_centaur_threesome</flag>
+		<!-- SWORD -->
+			<flag dailyReset="false">elis_sword_met</flag>
+			<flag dailyReset="false">hammer_following</flag>
+			<flag dailyReset="false">ghost_following</flag>
+			<flag dailyReset="false">sword_mission_discuss_refugees</flag>
+			<flag dailyReset="false">sword_mission_discuss_plan</flag>
+			<flag dailyReset="false">sword_mission_discuss_succubus</flag>
+			
+			<flag dailyReset="false">sword_mission_talk_weapons</flag>
+			<flag dailyReset="false">sword_mission_talk_gang</flag>
+			<flag dailyReset="false">sword_mission_talk_succubus</flag>
+			<flag dailyReset="false">sword_mission_talk_backup</flag>
+			<flag dailyReset="false">sword_mission_talk_history</flag>
+			<flag dailyReset="false">sword_mission_chose_hammer</flag>
+			<flag dailyReset="false">sword_mission_fought</flag>
+			<flag dailyReset="false">sword_mission_reward</flag>
+			
+			<flag dailyReset="false">sword_mission_back_door</flag>
+			<flag dailyReset="false">sword_mission_kitchen</flag>
+			<flag dailyReset="false">sword_mission_shop_floor</flag>
+			<flag dailyReset="false">sword_mission_exit</flag>
+			<flag dailyReset="false">sword_mission_storage</flag>
+			<flag dailyReset="false">sword_mission_searched_storage</flag>
+			<flag dailyReset="false">sword_mission_bathroom</flag>
+			<flag dailyReset="false">sword_mission_react_needed</flag>
+			
+			<flag dailyReset="false">sword_talk_elis</flag>
+			<flag dailyReset="false">sword_talk_history</flag>
+			<flag dailyReset="false">sword_talk_oricl</flag>
+			<flag dailyReset="false">sword_talk_human_rebellion</flag>
+			<flag dailyReset="false">sword_talk_hlf</flag>
+			<flag dailyReset="false">sword_history_revealed</flag>
+			
+			
+			
+		
+		
 	
 	
-	
-	
-	<!-- You can ignore this section, I just use it to track the ids of saved long values (using [flags.setSavedLong(id, value)] calls)
+	<!-- You can ignore this section, I just use it to track the ids of saved long values (using [#flags.setSavedLong(id, value)] calls)
 	meraxis_duel_player_wins (Meraxis duel player wins)
 	meraxis_duel_player_losses (Meraxis duel player losses)
+	
+	evelyx_work_level (The level of the player when working for Evelyx, from 0 to 2)
+	evelyx_work_hours (The number of hours that the player has worked in the current session during Evelyx milking)
+	evelyx_total_milked (The total millilitres milked from the player)
+	evelyx_player_number (The number which is given to the player when working as a cow for Evelyx)
+	
+	headless_horseman_year_warning (The year in which the headless horseman warning was encountered, used so that the warning is given each year)
+	headless_horseman_attack_minutes (The game.getMinutesPassed() at which the headless horseman was last encountered)
+	
+	gym_perk_progress (Progress towards the perk unlock in Pix's gym)
+	boxing_perk_progress (Progress towards the boxing perk unlock in Pix's gym)
 	-->
 	
 </dialogueFlags>

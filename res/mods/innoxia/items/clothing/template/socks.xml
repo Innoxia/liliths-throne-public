@@ -63,22 +63,28 @@
 		<imageName>socks.svg</imageName>
 		
 		<!-- The file paths for this clothing's image while equipped. The "slot" attribute determines the InventorySlot in which the defined file will be used.
-			- Example: When equipped to the "SOCK" slot, the sock will be displayed using the "sock.svg" file. When equipped to the "HAND" slot, it will instead use the "sock_hand.svg" file. Again, this file must be placed in the same folder location alongside this xml file. -->
+			- Example: When equipped to the "SOCK" slot, the sock will be displayed using the "sock.svg" file. When equipped to the "HAND" slot, it will instead use the "sock_hand.svg" file. Again, this file must be placed in the same folder location alongside this xml file.
+			This element supports parsing, with the character who's equipping the clothing using the parser tag 'npc', with an example to be seen below.
+			-->
 		<imageEquippedName slot="SOCK">socks.svg</imageEquippedName>
-		<imageEquippedName slot="HAND">socks_hand.svg</imageEquippedName>
+		<imageEquippedName slot="HAND"><![CDATA[
+			#IF(npc.hasArms())
+				socks_hand.svg
+			#ELSE
+				socks.svg
+			#ENDIF
+		]]></imageEquippedName>
 		
 		<!-- For an annotated example on how stickers are defined, please see the 'res/mods/innoxia/items/clothing/rentalMommy/rental_mommy.xml' file -->
 		<stickers/>
 		
-		<!-- How many enchantments can be fit into this item. It's typically best to let the game handle the default number of enchantments, which typically results in 100.
-			- Example: I have not defined this, as I'll let the game keep the 100 enchantments default value.-->
-		<enchantmentLimit/>
-		
 		<!-- The default effects that this clothing spawns in with. To know what to put in here, it would probably be easiest to enchant clothing in your game, save the game, then copy over that clothing's 'effects' in your save file.
 			- Example: The first defined effect will give +3 to physical damage, while the second will give the wearer the masturbation fetish while worn. -->
 		<effects> 
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_PHYSICAL" timer="0"/>
-              <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="TF_MOD_FETISH_BEHAVIOUR" secondaryModifier="TF_MOD_FETISH_MASTURBATION" timer="0"/>
+				<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_PHYSICAL" timer="0"/>
+				<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="TF_MOD_FETISH_BEHAVIOUR" secondaryModifier="TF_MOD_FETISH_MASTURBATION" timer="0"/>
+				<!-- The secondary TFModifier 'ENCHANTMENT_LIMIT' is not available as an enchantment to the player in-game (for balance reasons), but can be defined as below to give enchantment capacity boosts to modded clothing: -->
+				<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="ENCHANTMENT_LIMIT" timer="0"/>
 		</effects>
 		
 		<!-- This section determines how the clothing interacts with other clothing and the wearer's body.
@@ -165,7 +171,7 @@
 		<!-- You can also make your own, custom list of colours to be used. The following colours in 'tertiaryColoursDye' are all found within the list preset 'ALL', but this is for a demonstration.
 		 If you want to include custom colours, do not define a 'values' attribute, and instead, list each Colour.
 		 Colour types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java
-		 PLEASE USE THE 'Colour' VALUES THAT SATRT WITH 'CLOTHING-'-->
+		 PLEASE USE THE 'Colour' VALUES THAT START WITH 'CLOTHING-'-->
 		<tertiaryColoursDye>
 			<colour>CLOTHING_WHITE</colour>
 			<colour>CLOTHING_BLACK</colour>
@@ -232,8 +238,10 @@
 		<!-- Custom pattern colours can be defined just like the customColours up above. -->
 		<customPatternColours/>
 		
-		<!-- These tags determine where in the world your clothing can be found, and what special attributes your clothing should have. Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
-		<itemTags> <!-- itemTags without a 'slot' defined will have these tags added to every equippable slot. SHould only be used for generic tags like those related to which vendors sell it. -->
+		<!-- These tags determine where in the world your clothing can be found, and what special attributes your clothing should have.
+			There are several ItemTags which start with 'FITS', which are used to check for whether clothing is suitable for certain body parts (such as hoof or wing compatibility).
+			Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
+		<itemTags> <!-- itemTags without a 'slot' defined will have these tags added to every equippable slot. Should only be used for generic tags like those related to which vendors sell it. -->
 			<tag>NOT_FOR_SALE</tag>
 		</itemTags>
 		<itemTags slot="HAND"> <!-- itemTags with a 'slot' defined will have these tags applied ONLY when the clothing is equipped into that slot. In this example, equipping the socks onto your hands hinders arm movement. This is not entirely logical, and I added this just for demonstration purposes. -->
@@ -278,6 +286,7 @@
 	<!-- - Example: This is the equip text for when socks are equipped to the "SOCK" slot:-->
 	<replacementText slot="SOCK" type="REMOVE_OR_EQUIP">
 		<self>
+			<!-- These lines follow all of the standard parsing rules, which can be found in-game by accessing the debug menu (type 'buggy' during gameplay), and then selecting 'Open parser', then 'Help'/'Targets'/'Commands' -->
 			<![CDATA[[npc.Name] [npc.verb(pull)] the socks on to cover [npc.her] [npc.feet].]]>
 		</self>
 		<other>

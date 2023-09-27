@@ -11,7 +11,7 @@
 		<description><![CDATA[Consisting of a long, flexible shaft, with a handle at one end and a thin leather tongue at the other, this riding crop can be used to swat at unruly slaves and animals alike.]]></description>
 		<attackDescriptor>swat</attackDescriptor>
 		<attackTooltipDescription><![CDATA[Strike at [npc.name] with your riding crop!]]></attackTooltipDescription>
-		<rarity>EPIC</rarity>
+		<rarity>COMMON</rarity>
 		<weaponSet/>
 		<equipText><![CDATA[[npc.Name] [npc.verb(ready)] [npc.her] riding crop.]]></equipText>
 		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] [npc.her] riding crop away.]]></unequipText>
@@ -28,8 +28,6 @@
 		</availableDamageTypes>
 		
 		<spells/>
-		
-		<enchantmentLimit>5</enchantmentLimit>
 		
 		<effects> 
             <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="CRITICAL_CHANCE" timer="0"/>

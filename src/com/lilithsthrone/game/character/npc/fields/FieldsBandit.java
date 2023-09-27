@@ -11,7 +11,6 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -28,7 +27,6 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -83,11 +81,11 @@ public class FieldsBandit extends NPC {
 			this.setBodyFromSubspeciesPreference(gender, availableRaces, true, true);
 			
 			if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f && this.getSubspecies()!=Subspecies.SLIME) { // Don't convert slimes, as their getFleshSubspecies() can be of any non-Fields subspecies
-				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, this.getFleshSubspecies(), true), true);
+				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, this.getBody().getFleshSubspecies(), true), true);
 			}
 			
 			if(Math.random()<Main.getProperties().taurSpawnRate/100f
-					&& this.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL) { // Do not reset this charatcer's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
+					&& this.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL) { // Do not reset this character's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
 				// Check for race's leg type as taur, otherwise NPCs which spawn with human legs won't be affected by taur conversion rate:
 				if(this.getRace().getRacialBody().getLegType().isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) {
 					this.setLegType(this.getRace().getRacialBody().getLegType());
@@ -97,16 +95,14 @@ public class FieldsBandit extends NPC {
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 			
-			setName(Name.getRandomTriplet(this.getRace()));
+			setName(Name.getRandomTriplet(this.getSubspecies()));
 			this.setPlayerKnowsName(false);
 			
 			// PERSONALITY & BACKGROUND:
 			
 			Main.game.getCharacterUtils().setHistoryAndPersonality(this, true);
-			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-				this.setHistory(Occupation.NPC_MUGGER);
-				setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
-			}
+			this.setHistory(Occupation.NPC_MUGGER);
+			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 			
 			// ADDING FETISHES:
 			
@@ -120,12 +116,13 @@ public class FieldsBandit extends NPC {
 			
 			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-			Main.game.getCharacterUtils().generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
 			
 			if(!Arrays.asList(generationFlags).contains(NPCGenerationFlag.NO_CLOTHING_EQUIP)) {
 				this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			}
 			Main.game.getCharacterUtils().applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyTattoos(this, true);
 			
 			// Set starting perks based on the character's race
 			initPerkTreeAndBackgroundPerks();
@@ -152,7 +149,7 @@ public class FieldsBandit extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 2.5f));
 		this.clearNonEquippedInventory(false);
-		Main.game.getCharacterUtils().generateItemsInInventory(this);
+		Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
 		String outfitId = "innoxia_genericMugger_dominion_masculine";
 		if(this.isFeminine()) {
 			outfitId = "innoxia_genericMugger_dominion_feminine";
@@ -163,10 +160,6 @@ public class FieldsBandit extends NPC {
 	@Override
 	public boolean isUnique() {
 		return false;
-	}
-	
-	@Override
-	public void hourlyUpdate() {
 	}
 	
 	@Override
@@ -219,63 +212,5 @@ public class FieldsBandit extends NPC {
 	
 	public int getPaymentDemand() {
 		return (Math.max(2500, Math.min(Main.game.getPlayer().getMoney()/10, 10000))/500) * 500; // Round to nearest 500
-	}
-
-	public boolean isWantsToFight() {
-		return this.getAffectionLevel(Main.game.getPlayer()).isLessThan(AffectionLevel.POSITIVE_ONE_FRIENDLY);
-	}
-	
-	public String getStatusDescription() {
-		StringBuilder sb = new StringBuilder();
-		
-		sb.append("<p style='text-align:center;'><i>");
-		AffectionLevel al = this.getAffectionLevel(Main.game.getPlayer());
-		switch(al) {
-			case NEGATIVE_FIVE_LOATHE:
-			case NEGATIVE_FOUR_HATE:
-			case NEGATIVE_THREE_STRONG_DISLIKE:
-			case NEGATIVE_TWO_DISLIKE:
-			case NEGATIVE_ONE_ANNOYED:
-			case ZERO_NEUTRAL:
-				break;
-			case POSITIVE_ONE_FRIENDLY:
-				if(this.isAttractedTo(Main.game.getPlayer())) {
-					sb.append("[npc.Name] is acting in a <i style='color:"+al.getColour().toWebHexString()+";'>friendly, flirtatious</i> manner towards you.");
-				} else {
-					sb.append("[npc.Name] is acting in a <i style='color:"+al.getColour().toWebHexString()+";'>friendly</i> manner towards you.");
-				}
-				break;
-			case POSITIVE_TWO_LIKE:
-				if(this.isAttractedTo(Main.game.getPlayer())) {
-					sb.append("[npc.Name] quite clearly <i style='color:"+al.getColour().toWebHexString()+";'>likes you</i>, and sees you as more than just a friend.");
-				} else {
-					sb.append("[npc.Name] quite clearly <i style='color:"+al.getColour().toWebHexString()+";'>likes you</i>, and sees you as a close friend.");
-				}
-				break;
-			case POSITIVE_THREE_CARING:
-				if(this.isAttractedTo(Main.game.getPlayer())) {
-					sb.append("[npc.Name] quite clearly <i style='color:"+al.getColour().toWebHexString()+";'>cares about you a lot</i>, and is deeply attracted towards you.");
-				} else {
-					sb.append("[npc.Name] quite clearly <i style='color:"+al.getColour().toWebHexString()+";'>cares about you a lot</i>, and considers you to be [npc.her] best friend.");
-				}
-				break;
-			case POSITIVE_FOUR_LOVE:
-				if(this.isAttractedTo(Main.game.getPlayer())) {
-					sb.append("You can tell from the way that [npc.she] looks at you that [npc.name] <i style='color:"+al.getColour().toWebHexString()+";'>loves you</i>.");
-				} else {
-					sb.append("You can tell that [npc.name] <i style='color:"+al.getColour().toWebHexString()+";'>loves you</i> in a purely platonic manner.");
-				}
-				break;
-			case POSITIVE_FIVE_WORSHIP:
-				if(this.isAttractedTo(Main.game.getPlayer())) {
-					sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>worships you</i>, and is head-over-heels in love with you.");
-				} else {
-					sb.append("[npc.Name] <i style='color:"+al.getColour().toWebHexString()+";'>worships you</i>, and would do almost anything you asked of [npc.herHim].");
-				}
-				break;
-		}
-		sb.append("</i></p>");
-		
-		return UtilText.parse(this, sb.toString());
 	}
 }

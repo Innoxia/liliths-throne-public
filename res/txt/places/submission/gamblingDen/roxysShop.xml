@@ -35,7 +35,7 @@
 		Suddenly noticing your approach out of the corner of her eye, Roxy turns towards you with an angry snarl on her face. Upon recognising you, however, her scowl shifts into a devious grin. Leaning heavily on the counter-top, she takes a deep drag of her cigarette and teases, [roxy.speech(If yer back ta get another taste o' me cunt, ya know ya gotta pay a thousand flames! Ya ain't gonna resist gettin' a taste o' me flowin' juices now, are ya?)]
 	</p>
 	<p>
-		Having rid yourself of your addiction to Roxy's girlcum, you tell the rat-girl that you have absolutely no interest in paying any money to eat her out. Raising one eyebrow, the foul-mouther rat-girl jeers, [roxy.speech(Oh, you's fuckin' gone an' cured yeself, 'ave ya? Well, 'ow about I offer ya the chance to earn an item by eatin' me out again? Come on, ya know yer cravin' a taste o' me wet little cunt again, ain't ya?! Me little slave 'ere sure seems ta love it! Heh-heh-heh!)]
+		Having rid yourself of your addiction to Roxy's girlcum, you tell the rat-girl that you have absolutely no interest in paying any money to eat her out. Raising one eyebrow, the foul-mouthed rat-girl jeers, [roxy.speech(Oh, you's fuckin' gone an' cured yeself, 'ave ya? Well, 'ow about I offer ya the chance to earn an item by eatin' me out again? Come on, ya know yer cravin' a taste o' me wet little cunt again, ain't ya?! Me little slave 'ere sure seems ta love it! Heh-heh-heh!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -232,12 +232,17 @@
 	]]>
 	</htmlContent>
 	
-	<!-- FIREBOMBS -->
 	
+	<!-- FIREBOMBS -->
 	
 	<htmlContent tag="FIREBOMBS"><![CDATA[
 	<p>
-		You think back to the arcane firebombs you got from the mysterious cave. Surely Roxy still has some connections from her time with Vengar's gang? You bring out a firebomb and set it down on the counter.
+		You think back to the arcane firebombs you got from the mysterious cave.
+		#IF(flags.hasFlag(FLAG_axelExplainedVengar))
+			 Surely Roxy still has some connections from her time with Vengar's gang? You bring out a firebomb and set it down on the counter.
+		#ELSE
+			 Surely Roxy is the sort of rat who'd have some shady connections? You bring out a firebomb and set it down on the counter.
+		#ENDIF
 	</p>
 	<p>
 		[roxy.speech(What's that yer got there?)] Roxy asks, raising an eyebrow, [roxy.speech(The newest thing y'been jammin' up yer arse?)]
@@ -496,7 +501,7 @@
 		Cackling in glee at Vengar's new form, Roxy grabs a chastity cage and a butt-plug from beneath her counter, and after locking Vengar's small cock up, she shoves the sex toy into her ass. Letting out a shocked gasp as she feels the metallic object enter her, Vengar whines, [vengar.speech(Is dat really necessary?)]
 	</p>
 	<p>
-		[roxy.speech(Course it is, ya sissy slut!)] Roxy teases as she gives her slave's feminine ass a good grope, before turning towards you and snickering, [roxy.speech(Good job with creatin' those potions! Me slave's lookin' real good now! So, you's wantin' ta pay ta get a fuck with 'er?)]
+		[roxy.speech(Course it is, ya sissy slut!)] Roxy teases as she gives her slave's feminine ass a good grope. After applying the finishing touch by using a dye brush to recolour Vengar's slave collar from black to light pink, Roxy turns towards you and snickers, [roxy.speech(Good job with creatin' those potions! Me slave's lookin' real good now! So, you's wantin' ta pay ta get a fuck with 'er?)]
 	</p>
 	<p>
 		Looking over at the feminine form of Vengar, you wonder whether you should pay to have sex with her, or do something else...

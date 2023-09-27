@@ -121,7 +121,7 @@ public class Cell implements XMLSaving {
 			System.err.println("Cell import error 1");
 		}
 		
-		cell.getInventory().setMaximumInventorySpace(CELL_MAXIMUM_INVENTORY_SPACE);
+//		cell.getInventory().setMaximumInventorySpace(CELL_MAXIMUM_INVENTORY_SPACE);
 
 		return cell;
 	}
@@ -294,6 +294,9 @@ public class Cell implements XMLSaving {
 	}
 
 	public Set<String> getCharactersPresentIds() {
+		if(charactersPresentIds==null) {
+			charactersPresentIds = Collections.synchronizedSet(new HashSet<>());
+		}
 		return charactersPresentIds;
 	}
 
@@ -320,6 +323,9 @@ public class Cell implements XMLSaving {
 	}
 
 	public Set<String> getCharactersHomeIds() {
+		if(charactersHomeIds==null) {
+			charactersHomeIds = Collections.synchronizedSet(new HashSet<>());
+		}
 		return charactersHomeIds;
 	}
 
@@ -346,6 +352,9 @@ public class Cell implements XMLSaving {
 
 
 	public Set<String> getCharactersGlobalIds() {
+		if(charactersGlobalIds==null) {
+			charactersGlobalIds = Collections.synchronizedSet(new HashSet<>());
+		}
 		return charactersGlobalIds;
 	}
 

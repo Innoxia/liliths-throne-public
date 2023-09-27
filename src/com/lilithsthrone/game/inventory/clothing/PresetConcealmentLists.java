@@ -49,6 +49,17 @@ public enum PresetConcealmentLists {
 			InventorySlot.PIERCING_PENIS,
 			InventorySlot.PIERCING_VAGINA)),
 
+	CONCEALED_GENITALS_NO_PENIS(Util.newArrayListOfValues(
+			InventorySlot.VAGINA,
+			InventorySlot.ANUS,
+			InventorySlot.PIERCING_VAGINA)),
+	
+	CONCEALED_GENITALS_NO_ANUS(Util.newArrayListOfValues(
+			InventorySlot.VAGINA,
+			InventorySlot.PENIS,
+			InventorySlot.PIERCING_PENIS,
+			InventorySlot.PIERCING_VAGINA)),
+
 	CONCEALED_GROIN(Util.newArrayListOfValues(
 			InventorySlot.GROIN,
 			InventorySlot.VAGINA,

@@ -11,11 +11,14 @@ import java.util.Map.Entry;
 import com.lilithsthrone.game.sex.sexActions.baseActions.ClitAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.ClitClit;
 import com.lilithsthrone.game.sex.sexActions.baseActions.ClitMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActions.ClitNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActions.ClitNippleCrotch;
 import com.lilithsthrone.game.sex.sexActions.baseActions.ClitVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerBreasts;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerBreastsCrotch;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerClit;
+import com.lilithsthrone.game.sex.sexActions.baseActions.FingerFinger;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerNippleCrotch;
@@ -56,6 +59,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericPositioning;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericTalk;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.LovingActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PlayerTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PositioningMenu;
@@ -172,6 +176,9 @@ public class SexActionManager {
 
 				// Sadistic actions:
 				new Value<>("SadisticActions", SadisticActions.class.getFields()),
+
+				// Gentle actions:
+				new Value<>("LovingActions", LovingActions.class.getFields()),
 				
 				// Finger actions:
 				new Value<>("FingerAnus", FingerAnus.class.getFields()),
@@ -183,6 +190,7 @@ public class SexActionManager {
 				new Value<>("FingerVagina", FingerVagina.class.getFields()),
 				new Value<>("FingerClit", FingerClit.class.getFields()),
 				new Value<>("FingerPenis", FingerPenis.class.getFields()),
+				new Value<>("FingerFinger", FingerFinger.class.getFields()),
 
 				// Oral actions:
 				new Value<>("TongueMouth", TongueMouth.class.getFields()),
@@ -228,6 +236,8 @@ public class SexActionManager {
 				new Value<>("ClitClit", ClitClit.class.getFields()),
 				new Value<>("ClitVagina", ClitVagina.class.getFields()),
 				new Value<>("ClitAnus", ClitAnus.class.getFields()),
+				new Value<>("ClitNipple", ClitNipple.class.getFields()),
+				new Value<>("ClitNippleCrotch", ClitNippleCrotch.class.getFields()),
 		
 				// Self actions
 				new Value<>("SelfNoPen", SelfNoPen.class.getFields()),

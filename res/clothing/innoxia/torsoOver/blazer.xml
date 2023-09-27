@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>300</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[blazer]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[blazers]]></namePlural>
+		<description><![CDATA[A type of jacket which resembles a suit, but which is cut in a more casual manner.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>TORSO_OVER</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>blazer.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		<effects/>
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>BACK</bodyPart>
+					<bodyPart>ARMPITS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>UNBUTTONS</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked> 
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours values="ALL"/>
+		<primaryColoursDye/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(pull)] on the blazer.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(guide)] [npc2.namePos] [npc2.arms] through the blazer's sleeves as [npc.she] [npc.verb(pull)] it on [npc2.herHim].
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(force)] [npc2.namePos] [npc2.arms] through the blazer's sleeves as [npc.she] [npc.verb(pull)] it on [npc2.herHim].
+		]]></otherRough>
+	</replacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(take)] off [npc.her] blazer.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(take)] off [npc2.namePos] blazer.
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] blazer.
+		]]></otherRough>
+	</displacementText>
+	
+</clothing>

@@ -21,7 +21,6 @@
 
     <clothingSet>BDSM</clothingSet> 
     <imageEquippedName/>
-    <enchantmentLimit>5</enchantmentLimit>
     
     <effects>
       <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_DRAIN" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="STRENGTH" timer="6"/>     
@@ -70,7 +69,7 @@
     <incompatibleSlots slot="VAGINA"/>
       
     <primaryColours values="ALL_METAL"/>
-    <primaryColoursDye values="ALL_METAL"/>
+	<primaryColoursDye values="ALL"/>
     <secondaryColours/>
     <secondaryColoursDye/>
     <tertiaryColours/>
@@ -97,7 +96,7 @@
       <![CDATA[[npc.Name] carefully [npc.verb(remove)] the clover clamps from [npc.her] [npc.nipples+].]]>
     </self>
     <other>
-      <![CDATA[[npc.Name] carefully [npc.verb(remove)] the clover clamps from [npc2.namePos] [npc.nipples+].]]>
+      <![CDATA[[npc.Name] carefully [npc.verb(remove)] the clover clamps from [npc2.namePos] [npc2.nipples+].]]>
     </other>
     <otherRough>
       <![CDATA[[npc.Name] [npc.verb(give)] [npc2.namePos] clover clamps a rough tug before removing them from [npc2.her] [npc2.nipples+].]]>

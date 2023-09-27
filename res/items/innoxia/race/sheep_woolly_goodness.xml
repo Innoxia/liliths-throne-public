@@ -5,7 +5,7 @@
 		<determiner><![CDATA[a]]></determiner>
 		<name><![CDATA[Woolly Goodness]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[Woolly Goodnesses]]></namePlural>
-		<description><![CDATA[A large serving of fluffy candy floss, covered in a type of protective cellophane wrapper and skewered by a wooden stick. A label on the plastic packaging bears the brand name 'Wooly Goodness', and displays a naked sheep-girl happily presenting herself to the viewer.]]></description> 
+		<description><![CDATA[A large serving of fluffy candy floss, covered in a type of protective cellophane wrapper and skewered by a wooden stick. A label on the plastic packaging bears the brand name 'Woolly Goodness', and displays a naked sheep-girl happily presenting herself to the viewer.]]></description>
 		
 		<useDescriptor>eat</useDescriptor>
 		
@@ -45,7 +45,8 @@
 		]]></applyEffects>
 		
 		<itemTags>
-			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
+			<tag>FOOD</tag>
+			<tag>ELIS_ALLEYWAY_SPAWN</tag>
 			<tag>RACIAL_TF_ITEM</tag>
 			<tag>SOLD_BY_RALPH</tag>
 		</itemTags>

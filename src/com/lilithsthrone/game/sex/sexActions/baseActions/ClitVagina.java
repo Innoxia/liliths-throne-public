@@ -199,7 +199,7 @@ public class ClitVagina {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction()) != SexPace.SUB_RESISTING
-					&& Main.sex.getCharacterPerformingAction().isClitorisPseudoPenis();
+					&& Main.sex.getCharacterTargetedForSexAction(this).isClitorisPseudoPenis();
 		}
 		@Override
 		public String getActionTitle() {

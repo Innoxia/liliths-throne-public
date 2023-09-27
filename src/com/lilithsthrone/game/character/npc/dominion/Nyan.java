@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.rendering.Pattern;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -226,7 +227,12 @@ public class Nyan extends NPC {
 				for(int i=0; i < nodeList.getLength(); i++){
 					Element e = (Element) nodeList.item(i);
 					try {
-						entry.getValue().add(AbstractClothing.loadFromXML(e, doc));
+						AbstractClothing c = AbstractClothing.loadFromXML(e, doc);
+						if(c!=null) {
+							entry.getValue().add(c);
+						} else {
+							System.err.println("Warning: loaded clothing is null in Nyan's loadFromXML() method!");
+						}
 					} catch(Exception ex) {
 					}
 				}
@@ -375,7 +381,7 @@ public class Nyan extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.unequipAllClothingIntoVoid(true, true);
 		
-		if(Main.game.isWeekend()) {
+		if(Main.game.isWeekend() && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanRestaurantDateRequested)) {
 			this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, PresetColour.COVERING_NONE));
 			this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, PresetColour.COVERING_NONE));
 			this.setBlusher(new Covering(BodyCoveringType.MAKEUP_BLUSHER, PresetColour.COVERING_NONE));
@@ -388,8 +394,8 @@ public class Nyan extends NPC {
 					PresetColour.CLOTHING_WHITE,
 					PresetColour.CLOTHING_WHITE,
 					PresetColour.CLOTHING_BLACK));
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_PANTIES, lingerieColour, false), true, this);
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_FULLCUP_BRA, lingerieColour, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_panties", lingerieColour, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_fullcup_bra", lingerieColour, false), true, this);
 			
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_head_headband", PresetColour.CLOTHING_BLACK, false), true, this);
 			
@@ -412,8 +418,8 @@ public class Nyan extends NPC {
 					PresetColour.CLOTHING_WHITE,
 					PresetColour.CLOTHING_WHITE,
 					PresetColour.CLOTHING_BLACK));
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_PANTIES, lingerieColour, false), true, this);
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_FULLCUP_BRA, lingerieColour, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_panties", lingerieColour, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_fullcup_bra", lingerieColour, false), true, this);
 			
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_mini_skirt", PresetColour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_trainer_socks", PresetColour.CLOTHING_BLACK, false), true, this);
@@ -500,14 +506,14 @@ public class Nyan extends NPC {
 					PresetColour.CLOTHING_PURPLE_VERY_DARK,
 					PresetColour.CLOTHING_YELLOW));
 			dress = Main.game.getItemGen().generateClothing("phlarx_dresses_vintage_dress", dressColour, PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_STEEL, false);
-			dress.setPattern("polka_dots_small");
+			dress.setPattern(Pattern.getPatternIdByName("polka_dots_small"));
 			dress.setPatternColour(0, PresetColour.CLOTHING_BLACK);
 			dress.setPatternColour(1, PresetColour.CLOTHING_WHITE);
 			
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_head_headband_bow", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_GREY, dressColour, false), true, this);
 			
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_THONG, PresetColour.CLOTHING_BLACK, false), true, this);
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_FULLCUP_BRA, PresetColour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_thong", PresetColour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_fullcup_bra", PresetColour.CLOTHING_BLACK, false), true, this);
 			
 		} else if(rndGen<66) {
 			Colour dressColour = Util.randomItemFrom(Util.newArrayListOfValues(
@@ -519,7 +525,7 @@ public class Nyan extends NPC {
 
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_head_headband_bow", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_GREY, dressColour, false), true, this);
 			
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_THONG, PresetColour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_thong", PresetColour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_strapless_bra", PresetColour.CLOTHING_BLACK, false), true, this);
 			
 		} else {
@@ -531,7 +537,7 @@ public class Nyan extends NPC {
 
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_head_headband_bow", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_GREY, dressColour, false), true, this);
 			
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_THONG, PresetColour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_thong", PresetColour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_strapless_bra", PresetColour.CLOTHING_BLACK, false), true, this);
 		}
 		this.equipClothingFromNowhere(dress, true, this);
@@ -550,8 +556,8 @@ public class Nyan extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 
 		if(kinky) {
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_OPEN_CUP_BRA, PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_crotchless_thong", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_open_cup_bra", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_bell_collar", PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_SILVER, false), true, this);
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("norin_tail_ribbon_tail_ribbon", PresetColour.CLOTHING_WHITE, false), true, this);
 			
@@ -563,6 +569,9 @@ public class Nyan extends NPC {
 	
 	@Override
 	public String getArtworkFolderName() {
+		if(this.isVisiblyPregnant()) {
+			return "NyanPregnant";
+		}
 		return "Nyan";
 		//TODO NyanSpecials
 	}
@@ -813,8 +822,8 @@ public class Nyan extends NPC {
 //
 //		if(withBirth) {
 //			// Nyan's children can't be encountered as her mother finds them jobs elsewhere in the Realm:
-//			for(String npc : offspringIds) {
-//				Main.game.removeNPC(npc);
+//			for(String os : offspringIds) {
+//				Main.game.removeOffspringSeed(os);
 //			}
 //		}
 //	}

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+
+<clothing>
+  <coreAttributes>
+    <value>100</value>
+    <determiner><![CDATA[a]]></determiner>
+    <name><![CDATA[tail bandage]]></name>
+    <namePlural pluralByDefault="false"><![CDATA[tail bandages]]></namePlural>
+    <description><![CDATA[A length of bandage, which has been enchanted so as to automatically wrap itself around someone's tail in order to protect it from damage and to keep loose hair away from machinery.]]></description>
+
+    <physicalResistance>0</physicalResistance>
+    <femininity>ANDROGYNOUS</femininity>
+    <slot>TAIL</slot>
+    <rarity>EPIC</rarity>
+	<clothingSet>innoxia_sturdy_steed</clothingSet>
+    <imageName>bandage.svg</imageName>
+    <imageEquippedName>bandage_equipped.svg</imageEquippedName>
+
+	
+	<effects>
+		<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="HEALTH_MAXIMUM" timer="0"/>
+		<effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="HEALTH_MAXIMUM" timer="0"/>
+	</effects>
+
+    <blockedPartsList>
+      <blockedParts>
+        <displacementType>REMOVE_OR_EQUIP</displacementType>
+        <clothingAccessRequired/>
+		<blockedBodyParts/>
+		<clothingAccessBlocked/>
+        <concealedSlots/>
+      </blockedParts>
+    </blockedPartsList>
+
+    <incompatibleSlots/>
+
+	<primaryColours values="ALL"/>
+	<primaryColoursDye/>
+	<secondaryColours/>
+	<secondaryColoursDye/>
+	<tertiaryColours/> 
+	<tertiaryColoursDye/>
+			
+    <itemTags>
+		<tag>SOLD_BY_FINCH</tag>
+    </itemTags>
+
+  </coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(move)] the bandage close to [npc.her] [npc.tail], at which point the arcane enchantment activates, and within seconds it's wrapped itself securely in place.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(move)] the bandage close to [npc2.namePos] [npc2.tail], at which point the arcane enchantment activates, and within seconds it's wrapped itself securely in place.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(move)] the bandage close to [npc2.namePos] [npc2.tail], at which point the arcane enchantment activates, and within seconds it's wrapped itself securely in place.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] at the bandage and [npc.verb(take)] it off.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] at [npc2.namePos] bandage and [npc.verb(take)] it off.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] impatiently [npc.verb(pull)] at [npc2.namePos] bandage and [npc.verb(take)] it off.]]>
+		</otherRough>
+	</displacementText>
+
+</clothing>

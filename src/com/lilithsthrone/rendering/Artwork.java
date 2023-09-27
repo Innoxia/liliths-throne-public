@@ -22,27 +22,28 @@ import com.lilithsthrone.utils.colours.PresetColour;
  */
 public class Artwork {
 	
-	private GameCharacter character;
-	private Artist artist;
+	private final GameCharacter character;
+	private final Artist artist;
 	
 	private int index;
 	
-	private List<String> clothedImages;
-	private List<String> partialImages;
-	private List<String> nakedImages;
-	
+	private final List<String> clothedImages;
+	private final List<String> partialImages;
+	private final List<String> nakedImages;
+
 	public static List<Artist> allArtists;
+	
+	public static Artist customArtist;
+	
 	static {
 		allArtists = new ArrayList<>();
+		
+		customArtist = new Artist("Custom", PresetColour.BASE_GREY, "custom", new ArrayList<>());
 		
 		File dir = new File("res/images/characters");
 		
 		if(dir.exists()) {
-			FilenameFilter textFilter = new FilenameFilter() {
-				public boolean accept(File dir, String name) {
-					return name.toLowerCase().endsWith(".xml");
-				}
-			};
+			FilenameFilter textFilter = (dir1, name)->name.toLowerCase().endsWith(".xml");
 			
 			for(File subFile : dir.listFiles(textFilter)) {
 				if (subFile.exists()) {
@@ -81,7 +82,7 @@ public class Artwork {
 			}
 
 			// Add artist template for custom art
-			allArtists.add(new Artist("Custom", PresetColour.BASE_GREY, "custom", new ArrayList<>()));
+			allArtists.add(customArtist);
 		}
 	}
 	
@@ -130,11 +131,11 @@ public class Artwork {
 	}
 
 	public int getTotalArtworkCount() {
-		return getClothedImages().size() + getPartialImages().size() + getNakedImages().size();
+		return getFilteredImages(clothedImages).size() + getFilteredImages(partialImages).size() + getFilteredImages(nakedImages).size();
 	}
 	
 	public boolean isCurrentImageClothed() {
-		return index < getClothedImages().size();
+		return index < getFilteredImages(clothedImages).size();
 	}
 	
 	public File getCurrentImage() {
@@ -142,14 +143,18 @@ public class Artwork {
 			return null;
 		}
 		String path;
-		if(index < getClothedImages().size()) {
-			path = getClothedImages().get(index);
-			
-		} else if(index < getClothedImages().size() + getPartialImages().size()) {
-			path = getPartialImages().get(index - getClothedImages().size());
-			
-		} else {
-			path = getNakedImages().get(index - getClothedImages().size() - getPartialImages().size());
+		try {
+			if(index<getFilteredImages(clothedImages).size()) {
+				path = getFilteredImages(clothedImages).get(index);
+
+			} else if(index<getFilteredImages(clothedImages).size() + getFilteredImages(partialImages).size()) {
+				path = getFilteredImages(partialImages).get(index - getFilteredImages(clothedImages).size());
+
+			} else {
+				path = getFilteredImages(nakedImages).get(index - getFilteredImages(clothedImages).size() - getFilteredImages(partialImages).size());
+			}
+		} catch(IndexOutOfBoundsException ex) {
+			path = getFilteredImages(clothedImages).get(0);
 		}
 
 		if(path.isEmpty()) {
@@ -158,25 +163,18 @@ public class Artwork {
 		return new File(path);
 	}
 	
-	public List<String> getClothedImages() {
-		List<String> filteredImages = new ArrayList<>(clothedImages);
-		filteredImages.removeIf(s -> s.contains("penis") && !character.hasPenisIgnoreDildo());
-		filteredImages.removeIf(s -> s.contains("vagina") && !character.hasVagina());
-		return filteredImages;
-	}
-
-	public List<String> getPartialImages() {
-		List<String> filteredImages = new ArrayList<>(partialImages);
-		filteredImages.removeIf(s -> s.contains("penis") && !character.hasPenisIgnoreDildo());
-		filteredImages.removeIf(s -> s.contains("vagina") && !character.hasVagina());
-		return filteredImages;
-	}
-
-	public List<String> getNakedImages() {
-		List<String> filteredImages = new ArrayList<>(nakedImages);
+	private List<String> getFilteredImages(List<String> images) {
+		List<String> filteredImages = new ArrayList<>(images);
 		filteredImages.removeIf(s -> s.contains("penis") && !character.hasPenisIgnoreDildo());
 		filteredImages.removeIf(s -> s.contains("vagina") && !character.hasVagina());
 		return filteredImages;
 	}
 	
+	public List<String> getAllImagePaths() {
+		List<String> imagePaths = new ArrayList<>();
+		imagePaths.addAll(clothedImages);
+		imagePaths.addAll(partialImages);
+		imagePaths.addAll(nakedImages);
+		return imagePaths;
+	}
 }

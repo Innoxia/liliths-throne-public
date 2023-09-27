@@ -36,6 +36,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.ItemType;
@@ -96,7 +97,7 @@ public class KaysWarehouse {
 		((SupplierPartner)Main.game.getNpc(SupplierPartner.class)).moveToBountyHunterLodge();
 	}
 	
-	/** The amount of flames the dobermanns give to you if you demonically intimidate them. */
+	/** The amount of flames the dobermann-boys give to you if you demonically intimidate them. */
 	private static final int DEMONIC_PAYOFF = 6_000;
 	
 	public static boolean isPlayerMouthFree() {
@@ -243,7 +244,7 @@ public class KaysWarehouse {
 			
 			if(!isPlayerMouthFree()) {
 				return new Response(title,
-						"As you cannot gain access to your mouth, you cannot offer to perform oral on the dobermanns...",
+						"As you cannot gain access to your mouth, you cannot offer to perform oral on the dobermann-boys...",
 						null);
 				
 			} else {
@@ -252,7 +253,7 @@ public class KaysWarehouse {
 						SexSlotSitting.SITTING, SexAreaPenetration.FINGER,
 						SexSlotSitting.PERFORMING_ORAL,
 						title,
-						"Offer to suck the dobermanns' cocks...",
+						"Offer to suck the dobermann-boys' cocks...",
 						AFTER_SEX_WILLING,
 						UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "DOBERMANNS_SEX_OFFER_ORAL"));
 			}
@@ -262,12 +263,12 @@ public class KaysWarehouse {
 			
 			if(!isPlayerMouthFree()) {
 				return new Response(title,
-						"As you cannot gain access to your mouth, you cannot offer to be spit-roasted by the dobermanns...",
+						"As you cannot gain access to your mouth, you cannot offer to be spit-roasted by the dobermann-boys...",
 						null);
 				
 			} else if(!isPlayerAssFree() && !isPlayerVaginaFree()) {
 				return new Response(title,
-						"As you cannot gain access to your ass"+(Main.game.getPlayer().hasVagina()?" or pussy":"")+", you cannot offer to be spit-roasted by the dobermanns...",
+						"As you cannot gain access to your ass"+(Main.game.getPlayer().hasVagina()?" or pussy":"")+", you cannot offer to be spit-roasted by the dobermann-boys...",
 						null);
 				
 			} else {
@@ -276,7 +277,7 @@ public class KaysWarehouse {
 						SexSlotAllFours.IN_FRONT, SexAreaOrifice.MOUTH,
 						SexSlotAllFours.ALL_FOURS,
 						title,
-						"Offer to let the two dobermanns spit-roast you...",
+						"Offer to let the two dobermann-boys spit-roast you...",
 						AFTER_SEX_WILLING,
 						UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "DOBERMANNS_SEX_OFFER_SPITROAST"));
 			}
@@ -286,7 +287,7 @@ public class KaysWarehouse {
 			
 			if(!isPlayerAssFree() && !isPlayerVaginaFree()) {
 				return new Response(title,
-						"As you cannot gain access to your ass"+(Main.game.getPlayer().hasVagina()?" or pussy":"")+", you cannot offer to ride the dobermanns...",
+						"As you cannot gain access to your ass"+(Main.game.getPlayer().hasVagina()?" or pussy":"")+", you cannot offer to ride the dobermann-boys...",
 						null);
 				
 			} else {
@@ -295,7 +296,7 @@ public class KaysWarehouse {
 						SexSlotLyingDown.MISSIONARY, isPlayerAssFree()?SexAreaOrifice.ANUS:SexAreaOrifice.VAGINA,
 						SexSlotLyingDown.COWGIRL,
 						title,
-						"Offer to give the two dobermanns a ride...",
+						"Offer to give the two dobermann-boys a ride...",
 						AFTER_SEX_WILLING,
 						UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "DOBERMANNS_SEX_OFFER_RIDE"));
 			}
@@ -306,8 +307,8 @@ public class KaysWarehouse {
 			if(!isPlayerNippleFuckFree()) {
 				return new Response(title,
 						Main.game.getPlayer().isBreastFuckableNipplePenetration()
-							?"As you cannot gain access to your fuckable nipples, you cannot offer them to the dobermanns..."
-							:"As you do not have fuckable nipples, you cannot offer them to the dobermanns...",
+							?"As you cannot gain access to your fuckable nipples, you cannot offer them to the dobermann-boys..."
+							:"As you do not have fuckable nipples, you cannot offer them to the dobermann-boys...",
 						null);
 				
 			} else {
@@ -316,7 +317,7 @@ public class KaysWarehouse {
 						SexSlotStanding.STANDING_DOMINANT_TWO, SexAreaOrifice.NIPPLE,
 						SexSlotStanding.PERFORMING_ORAL,
 						title,
-						"Offer to let the two dobermanns fuck your nipples...",
+						"Offer to let the two dobermann-boys fuck your nipples...",
 						AFTER_SEX_WILLING,
 						UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "DOBERMANNS_SEX_OFFER_NIPPLES"));
 			}
@@ -377,8 +378,8 @@ public class KaysWarehouse {
 							return null;
 						}
 						@Override
-						public boolean isAbleToEquipSexClothing(GameCharacter character){
-							return false; // Do not let sex clothing be equipped onto Kay, as they have special actions for this and it would otherwise break the flow of their scenes
+						public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip){
+							return clothingToEquip.isCondom(); // Do not let sex clothing be equipped onto Kay, as they have special actions for this and it would otherwise break the flow of their scenes
 						}
 						@Override
 						public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
@@ -645,12 +646,12 @@ public class KaysWarehouse {
 		public Response getResponse(int responseTab, int index) {
 			if(index==0) {
 				if(Main.game.getPlayer().hasAnyEnforcerStatusEffect()) {
-					return new Response("Leave", "Now that the dobermanns have mistaken you for an Enforcer, it would be best to resolve this conflict before attempting to leave...", null);
+					return new Response("Leave", "Now that the dobermann-boys have mistaken you for an Enforcer, it would be best to resolve this conflict before attempting to leave...", null);
 				}
 				if(Main.game.getPlayer().getRace()==Race.DEMON) {
-					return new Response("Leave", "Now that the dobermanns have seen you in your demonic form, it would be best to resolve this conflict before attempting to leave...", null);
+					return new Response("Leave", "Now that the dobermann-boys have seen you in your demonic form, it would be best to resolve this conflict before attempting to leave...", null);
 				}
-				return new Response("Leave", "[pc.Step] back from the dobermanns and head back out the way you came.", CORRIDOR) {
+				return new Response("Leave", "[pc.Step] back from the dobermann-boys and head back out the way you came.", CORRIDOR) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setNearestLocation(WorldType.TEXTILES_WAREHOUSE, PlaceType.TEXTILE_WAREHOUSE_CORRIDOR, false);
@@ -661,12 +662,12 @@ public class KaysWarehouse {
 			} else if(index == 1) {
 				if(Main.game.getPlayer().getMoney()<PAY_OFF_PRICE) {
 					return new Response("Pay off ("+UtilText.formatAsMoneyUncoloured(PAY_OFF_PRICE, "span")+")",
-							"You don't have enough flames to offer to pay off the dobermanns' contract...",
+							"You don't have enough flames to offer to pay off the dobermann-boys' contract...",
 							null);
 					
 				} else {
 					return new Response("Pay off ("+UtilText.formatAsMoney(PAY_OFF_PRICE, "span")+")",
-							"Offer to pay off the remainder of the dobermanns' contract, which, along with the pointed reminder that what they're doing is illegal, should be enough to make them leave.",
+							"Offer to pay off the remainder of the dobermann-boys' contract, which, along with the pointed reminder that what they're doing is illegal, should be enough to make them leave.",
 							DOBERMANNS_PAID_OFF) {
 						@Override
 						public void effects() {
@@ -681,7 +682,7 @@ public class KaysWarehouse {
 				
 			} else if (index == 2) {
 				if(Main.game.getPlayer().hasAnyEnforcerStatusEffect()) {
-					return new Response("Enforcer bluff", "Use the fact that the dobermanns have mistaken you for an Enforcer to convince them to leave.", DOBERMANNS_ENFORCER_BLUFF) {
+					return new Response("Enforcer bluff", "Use the fact that the dobermann-boys have mistaken you for an Enforcer to convince them to leave.", DOBERMANNS_ENFORCER_BLUFF) {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.suppliersEncountered, true);
@@ -697,10 +698,10 @@ public class KaysWarehouse {
 				if(Main.game.getPlayer().getRace()!=Race.DEMON
 						&& Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON) {
 					if(!Main.game.getPlayer().isAbleToSelfTransform()) {
-						return new Response("Demonic reveal", "As your self-transformative powers are current inhibited, you're not able to turn into a demon in front of the dobermanns in order to intimidate them into leaving!", null);
+						return new Response("Demonic reveal", "As your self-transformative powers are current inhibited, you're not able to turn into a demon in front of the dobermann-boys in order to intimidate them into leaving!", null);
 					} else {
 						return new Response("Demonic reveal",
-								"Transform into a demon in front of the dobermanns and intimidate them into leaving.",
+								"Transform into a demon in front of the dobermann-boys and intimidate them into leaving.",
 								DOBERMANNS_DEMON_REVEAL) {
 							@Override
 							public void effects() {
@@ -712,7 +713,7 @@ public class KaysWarehouse {
 					
 				} else {
 					return new Response("Demonic intimidation",
-							"Use the fact that you're a demon to intimidate the dobermanns into leaving.",
+							"Use the fact that you're a demon to intimidate the dobermann-boys into leaving.",
 							DOBERMANNS_DEMONIC_INTIMIDATION,
 							null,
 							null,
@@ -729,10 +730,10 @@ public class KaysWarehouse {
 				
 			} else if(index==4) {
 				if(!isSexAvailable()) {
-					return new Response("Seduce", "As you're unable to access any of your orifices, you're unable to seduce the dobermanns...", null);
+					return new Response("Seduce", "As you're unable to access any of your orifices, you're unable to seduce the dobermann-boys...", null);
 				}
 				return new Response("Seduce",
-						"Seduce the dobermanns and offer them your body in exchange for leaving Kay alone.",
+						"Seduce the dobermann-boys and offer them your body in exchange for leaving Kay alone.",
 						DOBERMANNS_SEDUCE,
 						null,
 						null,
@@ -752,7 +753,7 @@ public class KaysWarehouse {
 				
 			} else if(index==5) {
 				if(Main.game.getPlayer().hasAnyEnforcerStatusEffect()) {
-					return new Response("Fight", "It'd be better to try and play on the fact that the dobermanns have mistaken you for an Enforcer...", null);
+					return new Response("Fight", "It'd be better to try and play on the fact that the dobermann-boys have mistaken you for an Enforcer...", null);
 					
 				} else {
 					return new ResponseCombat("Fight", "Immediately launch into combat!",
@@ -790,7 +791,7 @@ public class KaysWarehouse {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index == 1) {
-				return new Response("Let them go", "Stand aside and let the two dobermanns leave.", DOBERMANNS_BANISHED);
+				return new Response("Let them go", "Stand aside and let the two dobermann-boys leave.", DOBERMANNS_BANISHED);
 				
 			} else {
 				return getDobermannsRewardSexResponse(2, index, "\"Thank\" them (sex_type_replacement)");
@@ -868,7 +869,7 @@ public class KaysWarehouse {
 		}
 	};
 	
-	public static final DialogueNode DOBERMANNS_COMBAT_PLAYER_VICTORY = new DialogueNode("Victory", "The two dobermanns have been defeated!", true) {
+	public static final DialogueNode DOBERMANNS_COMBAT_PLAYER_VICTORY = new DialogueNode("Victory", "The two dobermann-boys have been defeated!", true) {
 		@Override
 		public void applyPreParsingEffects() {
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.dobermannDefeatCombat, true);
@@ -880,7 +881,7 @@ public class KaysWarehouse {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Let them go", "Stand aside and let the two dobermanns leave.", DOBERMANNS_BANISHED);
+				return new Response("Let them go", "Stand aside and let the two dobermann-boys leave.", DOBERMANNS_BANISHED);
 				
 			} else if (index == 2) {
 				return new ResponseSex("Fuck Them",
@@ -902,7 +903,7 @@ public class KaysWarehouse {
 		}
 	};
 	
-	public static final DialogueNode DOBERMANNS_COMBAT_PLAYER_LOSS = new DialogueNode("Defeated", "The dobermanns have proven to be too much for you to handle...", true) {
+	public static final DialogueNode DOBERMANNS_COMBAT_PLAYER_LOSS = new DialogueNode("Defeated", "The dobermann-boys have proven to be too much for you to handle...", true) {
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "DOBERMANNS_COMBAT_PLAYER_LOSS");
@@ -911,7 +912,7 @@ public class KaysWarehouse {
 		public Response getResponse(int responseTab, int index) {
 			if(index == 1) {
 				return new ResponseSex("Fucked",
-						"Completely exhausted and utterly defeated, you're not able to offer any resistance as the two dobermanns prepare to fuck you...",
+						"Completely exhausted and utterly defeated, you're not able to offer any resistance as the two dobermann-boys prepare to fuck you...",
 						null, null, null, null, null, null,
 						false, false,
 						new SMGeneric(
@@ -932,7 +933,7 @@ public class KaysWarehouse {
 				
 			} else if(index == 2) {
 				return new ResponseSex("Eagerly fucked",
-						"Turned on from being so dominantly put in your place, you can't help but eagerly beg for the two dobermanns to fuck you...",
+						"Turned on from being so dominantly put in your place, you can't help but eagerly beg for the two dobermann-boys to fuck you...",
 						null, null, null, null, null, null,
 						false, false,
 						new SMGeneric(
@@ -963,7 +964,7 @@ public class KaysWarehouse {
 					
 				} else {
 					return new ResponseSex("Resist",
-							"Despite being completely exhausted and utterly defeated, you do your best to resist as the two dobermanns prepare to rape you...",
+							"Despite being completely exhausted and utterly defeated, you do your best to resist as the two dobermann-boys prepare to rape you...",
 							null, null, null, null, null, null,
 							false, false,
 							new SMGeneric(
@@ -987,7 +988,7 @@ public class KaysWarehouse {
 		}
 	};
 	
-	public static final DialogueNode AFTER_SEX_WILLING = new DialogueNode("Finished", "The two dobermanns have had enough...", true) {
+	public static final DialogueNode AFTER_SEX_WILLING = new DialogueNode("Finished", "The two dobermann-boys have had enough...", true) {
 		@Override
 		public int getSecondsPassed() {
 			return 2*60;
@@ -1003,13 +1004,13 @@ public class KaysWarehouse {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Let them go", "Stand aside and let the two dobermanns leave.", DOBERMANNS_BANISHED);
+				return new Response("Let them go", "Stand aside and let the two dobermann-boys leave.", DOBERMANNS_BANISHED);
 			}
 			return null;
 		}
 	};
 	
-	public static final DialogueNode AFTER_SEX_FUCKED = new DialogueNode("Finished", "The two dobermanns have had their fun with you...", true) {
+	public static final DialogueNode AFTER_SEX_FUCKED = new DialogueNode("Finished", "The two dobermann-boys have had their fun with you...", true) {
 		@Override
 		public int getSecondsPassed() {
 			return 2*60;
@@ -1024,7 +1025,7 @@ public class KaysWarehouse {
 				return new Response("Thrown out", "Karl unceremoniously throws you out of the warehouse.", PlaceType.DOMINION_WAREHOUSES.getDialogue(false)) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "DOBERMANNS_COMBAT_PLAYER_LOSS_THROWN_OUT"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "AFTER_SEX_FUCKED_THROWN_OUT"));
 						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_WAREHOUSES, false);
 					}
 				};
@@ -1790,11 +1791,12 @@ public class KaysWarehouse {
 				Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_CAGE_EQUIP"));
 				
 			} else {
+				Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_CAGE_UNEQUIP"));
 				Main.game.getNpc(Kay.class).getClothingInSlot(InventorySlot.PENIS).setSealed(false);
 				UtilText.addSpecialParsingString(
 						Main.game.getNpc(Kay.class).unequipClothingIntoVoid(Main.game.getNpc(Kay.class).getClothingInSlot(InventorySlot.PENIS), true, Main.game.getPlayer()),
 						true);
-				Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_CAGE_UNEQUIP"));
+				Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_CAGE_UNEQUIP_END"));
 			}
 		}
 		@Override
@@ -1932,7 +1934,7 @@ public class KaysWarehouse {
 			if(Main.game.getNpc(Kay.class).getClothingInSlot(InventorySlot.ANUS)==null) {
 				UtilText.addSpecialParsingString(
 						Main.game.getNpc(Kay.class).equipClothingFromNowhere(
-								Main.game.getItemGen().generateClothing("innoxia_buttPlugs_butt_plug_jewel", PresetColour.CLOTHING_SILVER, PresetColour.COVERING_BLUE_LIGHT, null, false), true, Main.game.getPlayer()),
+								Main.game.getItemGen().generateClothing("innoxia_buttPlugs_butt_plug_jewel", PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_BLUE_LIGHT, null, false), true, Main.game.getPlayer()),
 						true);
 				Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_BUTTPLUG_EQUIP"));
 				
@@ -2069,6 +2071,7 @@ public class KaysWarehouse {
 				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kayFeminised, true);
 				Main.game.getNpc(Kay.class).equipClothing(EquipClothingSetting.getAllClothingSettings());
 			}
+			Main.game.getNpc(Kay.class).loadImages(true); // reload images to use correct artwork
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -2094,7 +2097,7 @@ public class KaysWarehouse {
 					
 				} else if(index==2) {
 					return new Response("Jackie",
-							"Tell the the cute [kay.race] that she looks very pretty, and that the name of 'Jackie' is more suitable for [kay.herHim] when [kay.she] looks like this."
+							"Tell the cute [kay.race] that she looks very pretty, and that the name of 'Jackie' is more suitable for [kay.herHim] when [kay.she] looks like this."
 							+ "<br/>[style.colourFeminine(Kay will be renamed to 'Jackie' until (if ever) you tell [kay.herHim] to start wearing masculine clothing again.)]",
 							KAY_OFFICE_DOMINATE_UTIL_EMPTY) {
 						@Override
@@ -2110,7 +2113,7 @@ public class KaysWarehouse {
 					
 				} else if(index==3) {
 					return new Response("Kaytie",
-							"Tell the the cute [kay.race] that she looks very pretty, and that the name of 'Kaytie' is more suitable for [kay.herHim] when [kay.she] looks like this."
+							"Tell the cute [kay.race] that she looks very pretty, and that the name of 'Kaytie' is more suitable for [kay.herHim] when [kay.she] looks like this."
 							+ "<br/>[style.colourFeminine(Kay will be renamed to 'Kaytie' until (if ever) you tell [kay.herHim] to start wearing masculine clothing again.)]",
 							KAY_OFFICE_DOMINATE_UTIL_EMPTY) {
 						@Override
@@ -2126,7 +2129,7 @@ public class KaysWarehouse {
 					
 				} else if(index==4) {
 					return new Response("Mikayla",
-							"Tell the the cute [kay.race] that she looks very pretty, and that the name of 'Mikayla' is more suitable for [kay.herHim] when [kay.she] looks like this."
+							"Tell the cute [kay.race] that she looks very pretty, and that the name of 'Mikayla' is more suitable for [kay.herHim] when [kay.she] looks like this."
 							+ "<br/>[style.colourFeminine(Kay will be renamed to 'Mikayla' until (if ever) you tell [kay.herHim] to start wearing masculine clothing again.)]",
 							KAY_OFFICE_DOMINATE_UTIL_EMPTY) {
 						@Override

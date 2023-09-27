@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[Enforcer station]]></name>
+	<tooltipDescription><![CDATA[The Elis Enforcers are based out of a large, heavily-fortified building.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[outside the Enforcer station in Elis]]></virginityLossDescription>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<colour>#2c5aa0</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_fields_elis_generic_enforcers</dialogue>
+	<populationPresent copyPlaceType="innoxia_fields_elis_town_street"/>
+	<furniturePresent>false</furniturePresent>
+	<loiteringEnabled>true</loiteringEnabled>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<weatherImmunities/>
+	<applyInventoryInit/>
+</placeType>

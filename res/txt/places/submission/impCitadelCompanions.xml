@@ -95,7 +95,7 @@
 		The six imps are no match for you and [npc.name], and you let out a triumphant laugh as the last of them falls to the floor, defeated.
 	</p>
 	<p>
-		Before either of you are able to take a breather, however, another group of imps arrive from elsewhere in the citadel, and jump forwards to avenge their fallen comrades!
+		Before either of you are able to take a breather, however, another group of imps arrives from elsewhere in the citadel, and jump forwards to avenge their fallen comrades!
 	</p>
 	]]>
 	</htmlContent>
@@ -160,7 +160,7 @@
 		[npc.speech(Stop it!)] [npc.name] scream, [npc.speech(Don't do it! I don't want to be a slave!)]
 	</p>
 	<p>
-		Grinning at this last defeated imp, you wonder whether you should enslaving [npc.herHim] as well, or leave [npc.herHim] be...
+		Grinning at this last defeated imp, you wonder whether you should be enslaving [npc.herHim] as well, or leave [npc.herHim] be...
 	</p>
 	]]>
 	</htmlContent>
@@ -547,7 +547,7 @@
 		[npc2.speech(Hah! What was all that about?!)] [npc2.name] sneers, stepping forwards to grin hungrily down at you and your companion. [npc2.speech(I bet yer was both just hopin' we'd win, so that we'd give yer a good fucking!)]
 	</p>
 	<p>
-		The other imps all agree with their leader, and quickly conclude that you only started this fight in the hopes that they'd beat and fuck you. Before you can say anything to the contrary, they've convinced themselves that this must be your fetish, and agree amongst one another that they'd be more than happy to help indulge you in it. Before you know what's happing, the imps are swarming all over you and [npc.name], and as they push the two of you into position, [npc2.name] calls out, [npc2.speech(Let's give 'em what they's wantin'; a good, hard, fuckin'!)]
+		The other imps all agree with their leader, and quickly conclude that you only started this fight in the hopes that they'd beat and fuck you. Before you can say anything to the contrary, they've convinced themselves that this must be your fetish, and agree amongst one another that they'd be more than happy to help indulge you in it. Before you know what's happening, the imps are swarming all over you and [npc.name], and as they push the two of you into position, [npc2.name] calls out, [npc2.speech(Let's give 'em what they's wantin'; a good, hard, fuckin'!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1733,15 +1733,42 @@
 	<!-- KEEP_COLLAPSE_ESCAPE -->
 	
 	<!--Escape after enslaving dark siren with ring:-->
-	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_GUARDS_EXPLAIN"><![CDATA[
+	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_GUARDS_ENSLAVE"><![CDATA[
 	<p>
 		With little choice but to do as you're told, you explain to the officer that you were instructed by Elizabeth to apprehend [siren.name]. Recounting how you were able to trick her into wearing the enslavement ring, you describe how she was able to cast one final spell before vanishing, which caused the citadel to collapse.
 	</p>
 	<p>
-		[genericFemale.speech(I see,)] the officer says, before turning to one of her subordinates. [genericFemale.speech(Elrinia, have you heard anything from the palace?)]
+		[genericFemale.speech(I see,)] the officer says, before turning to one of her subordinates. [genericFemale.speech(Elrinia, did Elizabeth mention any of this to you?)]
 	</p>
 	<p>
-		The half-succubus which she addresses appears to be carrying a strange purple stone, and, after staring intensely at it for a moment, she looks up and replies, [style.speechFeminineStrong(Yes, Ma'am, it's as the [pc.race] says. The Captain did ask [pc.herHim] to help with subduing [siren.name], who is now safely with Lyssieth.)]
+		The half-succubus which the officer is addressing quickly replies, [style.speechFeminineStrong(Yes, Ma'am, it's as the [pc.race] says. The captain did ask [pc.herHim] to help with subduing [siren.name], who is now safely being escorted back to Lyssieth.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!--Escape with dark siren:-->
+	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_GUARDS_EXPLAIN"><![CDATA[
+	<p>
+		With little choice but to do as you're told, you explain to the officer that you were instructed by Elizabeth to apprehend [siren.name]. Recounting the fight you had with the siren, you describe how she was able to cast one final spell before being defeated, which is what caused the citadel to collapse.
+	</p>
+	<p>
+		[genericFemale.speech(I see,)] the officer says, before turning to one of her subordinates. [genericFemale.speech(Elrinia, did Elizabeth mention any of this to you?)]
+	</p>
+	<p>
+		The half-succubus which the officer is addressing quickly replies, [style.speechFeminineStrong(Yes, Ma'am, it's as the [pc.race] says. The captain did ask [pc.herHim] to help with subduing [siren.name].)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_GUARDS_EXPLAIN_PRE_QUEST"><![CDATA[
+	<p>
+		With little choice but to do as you're told, you explain to the officer that you were trying to put an end to the imp gangs by confronting [siren.name]. Recounting the fight you had with the siren, you describe how she was able to cast one final spell before being defeated, which is what caused the citadel to collapse.
+	</p>
+	<p>
+		[genericFemale.speech(I see,)] the officer says, before turning to one of her subordinates. [genericFemale.speech(Elrinia, did Elizabeth mention anything about what to do with any third parties who assisted us?)]
+	</p>
+	<p>
+		The half-succubus which the officer is addressing quickly replies, [style.speechFeminineStrong(Yes, Ma'am, the captain thought of everything. She stated that anyone who helped in our mission should be offered our gratitude.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1768,33 +1795,6 @@
 	</p>
 	<p>
 		As the demon guards head off into Submission's tunnels, you and [npc.name] turn back towards the citadel. It looks like the collapse has come to a complete halt, and you wonder if the two of you should head back through the gates and explore the ruins...
-	</p>
-	]]>
-	</htmlContent>
-	
-	<!--Escape with dark siren:-->
-	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_GUARDS_ENSLAVE"><![CDATA[
-	<p>
-		With little choice but to do as you're told, you explain to the officer that you were instructed by Elizabeth to apprehend [siren.name]. Recounting the fight you had with the siren, you describe how she was able to cast one final spell before being defeated, which is what caused the citadel to collapse.
-	</p>
-	<p>
-		[genericFemale.speech(I see,)] the officer says, before turning to one of her subordinates. [genericFemale.speech(Elrinia, have you heard anything from the palace?)]
-	</p>
-	<p>
-		The half-succubus which she addresses appears to be carrying a strange purple stone, and, after staring intensely at it for a moment, she looks up and replies, [style.speechFeminineStrong(Yes, Ma'am, it's as the [pc.race] says. The Captain did ask [pc.herHim] to help with subduing [siren.name].)]
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="KEEP_COLLAPSE_ESCAPE_GUARDS_ENSLAVE_PRE_QUEST"><![CDATA[
-	<p>
-		With little choice but to do as you're told, you explain to the officer that you were trying to put an end to the imp gangs by confronting [siren.name]. Recounting the fight you had with the siren, you describe how she was able to cast one final spell before being defeated, which is what caused the citadel to collapse.
-	</p>
-	<p>
-		[genericFemale.speech(I see,)] the officer says, before turning to one of her subordinates. [genericFemale.speech(Elrinia, have you informed the palace of these developments?)]
-	</p>
-	<p>
-		The half-succubus which she addresses appears to be carrying a strange purple stone, and, after staring intensely at it for a moment, she looks up and replies, [style.speechFeminineStrong(Yes, Ma'am. The Captain has asked that this [pc.race]  be offered our gratitude for [pc.her] help in subduing [siren.name].)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1826,7 +1826,7 @@
 	#IF pc.getHeightValue()>siren.getHeightValue()
 	#THEN
 		<p>
-			Even though she was your enemy just a moment ago, there's no way you're going to leave [siren.name] behind! Turing towards your companion, you command [npc.herHim], [pc.speech(Get out of here, [npc.name]! I'm going to help [siren.name]!)]
+			Even though she was your enemy just a moment ago, there's no way you're going to leave [siren.name] behind! Turning towards your companion, you command [npc.herHim], [pc.speech(Get out of here, [npc.name]! I'm going to help [siren.name]!)]
 		</p>
 		<p>
 			Placing [npc.her] trust in you, your companion does as you say, and runs to safety. Dodging a falling chunk of the ceiling, you rush over to where [siren.name] is lying on the floor, and, scooping her up in your [pc.arms], you turn and rush out of the throne room's huge stone archway, only to discover that her spell is causing the entire citadel to collapse. Huge sections of the cavern's roof are giving way and collapsing to the floor, causing the ground to shake and rumble underfoot as rocks and debris are sent scattering over the carved flagstones.
@@ -1845,7 +1845,7 @@
 		</p>
 	#ELSE
 		<p>
-			Even though she was your enemy just a moment ago, there's no way you're going to leave [siren.name] behind! Turing towards your companion, you command [npc.herHim], [pc.speech(Get out of here, [npc.name]! I'm going to help [siren.name]!)]
+			Even though she was your enemy just a moment ago, there's no way you're going to leave [siren.name] behind! Turning towards your companion, you command [npc.herHim], [pc.speech(Get out of here, [npc.name]! I'm going to help [siren.name]!)]
 		</p>
 		<p>
 			Placing [npc.her] trust in you, your companion does as you say, and runs to safety. Dodging a falling chunk of the ceiling, you rush over to where [siren.name] is lying on the floor, and, helping her up onto her feet, you loop one of her arms around your shoulders. Half-carrying, half-supporting the exhausted siren, you hurry as fast as you can out of the throne room's huge stone archway, only to discover that her spell is causing the entire citadel to collapse. Huge sections of the cavern's roof are giving way and collapsing to the floor, causing the ground to shake and rumble underfoot as rocks and debris are sent scattering over the carved flagstones.
@@ -1870,7 +1870,7 @@
 	#IF pc.getHeightValue()>siren.getHeightValue()
 	#THEN
 		<p>
-			Even though she was your enemy just a moment ago, there's no way you're going to leave [siren.name] behind! Turing towards your companion, you command [npc.herHim], [pc.speech(Get out of here, [npc.name]! I'm going to help [siren.name]!)]
+			Even though she was your enemy just a moment ago, there's no way you're going to leave [siren.name] behind! Turning towards your companion, you command [npc.herHim], [pc.speech(Get out of here, [npc.name]! I'm going to help [siren.name]!)]
 		</p>
 		<p>
 			Placing [npc.her] trust in you, your companion does as you say, and runs to safety. Dodging a falling chunk of the ceiling, you rush over to where [siren.name] is lying on the floor, and, scooping her up in your [pc.arms], you turn and rush out of the throne room's huge stone archway, only to discover that her spell is causing the entire citadel to collapse. Huge sections of the cavern's roof are giving way and collapsing to the floor, causing the ground to shake and rumble underfoot as rocks and debris are sent scattering over the carved flagstones.
@@ -1888,7 +1888,7 @@
 		</p>
 	#ELSE
 		<p>
-			Even though she was your enemy just a moment ago, there's no way you're going to leave [siren.name] behind! Turing towards your companion, you command [npc.herHim], [pc.speech(Get out of here, [npc.name]! I'm going to help [siren.name]!)]
+			Even though she was your enemy just a moment ago, there's no way you're going to leave [siren.name] behind! Turning towards your companion, you command [npc.herHim], [pc.speech(Get out of here, [npc.name]! I'm going to help [siren.name]!)]
 		</p>
 		<p>
 			Placing [npc.her] trust in you, your companion does as you say, and runs to safety. Dodging a falling chunk of the ceiling, you rush over to where [siren.name] is lying on the floor, and, helping her up onto her feet, you loop one of her arms around your shoulders. Half-carrying, half-supporting the exhausted siren, you hurry as fast as you can out of the throne room's huge stone archway, only to discover that her spell is causing the entire citadel to collapse. Huge sections of the cavern's roof are giving way and collapsing to the floor, causing the ground to shake and rumble underfoot as rocks and debris are sent scattering over the carved flagstones.
@@ -2037,7 +2037,7 @@
 	
 	<htmlContent tag="KEEP_AFTER_COMBAT_DEFEAT_SEX_RESIST"><![CDATA[
 	<p>
-		You don't like the sound of that, and, as [siren.name] sits back on her throne to watch, you desperately struggle against the thee demons as they force you and your companion into position, ready to fuck the two of you...
+		You don't like the sound of that, and, as [siren.name] sits back on her throne to watch, you desperately struggle against the three demons as they force you and your companion into position, ready to fuck the two of you...
 	</p>
 	]]>
 	</htmlContent>

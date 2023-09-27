@@ -31,8 +31,8 @@ public class BodyCoveringType {
 					new Value<>(CoveringPattern.NONE, 30),
 					new Value<>(CoveringPattern.FRECKLED_FACE, 2),
 					new Value<>(CoveringPattern.FRECKLED, 1)),
-			PresetColour.humanSkinColours,
-			PresetColour.humanSkinColours,
+			PresetColour.getHumanSkinColours(),
+			PresetColour.getHumanSkinColours(),
 			PresetColour.allSkinColours)) {
 	};
 	
@@ -63,7 +63,7 @@ public class BodyCoveringType {
 			BodyCoveringCategory.MAIN_SKIN,
 			BodyCoveringTemplateFactory.createTopSkin(
 			Util.newHashMapOfValues(new Value<>(CoveringPattern.NONE, 1)),
-			PresetColour.humanSkinColours)) {
+			PresetColour.getHumanSkinColours())) {
 	};
 
 	public static AbstractBodyCoveringType ANGEL_FEATHER = new AbstractBodyCoveringType(
@@ -127,7 +127,7 @@ public class BodyCoveringType {
 	
 	public static AbstractBodyCoveringType BAT_SKIN = new AbstractBodyCoveringType(
 			BodyCoveringCategory.MAIN_SKIN,
-			BodyCoveringTemplateFactory.createBottomSkin(PresetColour.humanSkinColours)) {
+			BodyCoveringTemplateFactory.createBottomSkin(PresetColour.getHumanSkinColours())) {
 	};
 	
 	public static AbstractBodyCoveringType BAT_FUR = new AbstractBodyCoveringType(
@@ -140,14 +140,15 @@ public class BodyCoveringType {
 	public static AbstractBodyCoveringType CANINE_FUR = new AbstractBodyCoveringType(
 			BodyCoveringCategory.MAIN_FUR,
 			BodyCoveringTemplateFactory.createFurSkin(
-			Util.newArrayListOfValues(
-					CoveringModifier.FLUFFY,
-					CoveringModifier.SHORT,
-					CoveringModifier.SHAGGY),
-			Util.newHashMapOfValues(
-					new Value<>(CoveringPattern.NONE, 30),
-					new Value<>(CoveringPattern.SPOTTED, 5),
-					new Value<>(CoveringPattern.MARKED, 5)))) {
+				Util.newArrayListOfValues(
+						CoveringModifier.SHORT,
+						CoveringModifier.SHAGGY),
+				Util.newArrayListOfValues(
+						CoveringModifier.FLUFFY), // Put it as non-standard covering so that dog-morphs doen't spawn as samoyed-morphs.
+				Util.newHashMapOfValues(
+						new Value<>(CoveringPattern.NONE, 30),
+						new Value<>(CoveringPattern.SPOTTED, 5),
+						new Value<>(CoveringPattern.MARKED, 5)))) {
 	};
 	
 	public static AbstractBodyCoveringType LYCAN_FUR = new AbstractBodyCoveringType(
@@ -188,7 +189,7 @@ public class BodyCoveringType {
 
 	public static AbstractBodyCoveringType RABBIT_FUR = new AbstractBodyCoveringType(
 			BodyCoveringCategory.MAIN_FUR,
-			BodyCoveringTemplateFactory.createFurSkin(Util.newArrayListOfValues(CoveringModifier.SMOOTH), null)) {
+			BodyCoveringTemplateFactory.createFurSkin(Util.newArrayListOfValues(CoveringModifier.SMOOTH, CoveringModifier.FLUFFY), null)) {
 	};
 	
 	public static AbstractBodyCoveringType HORSE_HAIR = new AbstractBodyCoveringType(
@@ -224,6 +225,8 @@ public class BodyCoveringType {
 			Util.newArrayListOfValues(
 					CoveringModifier.SHORT,
 					CoveringModifier.SMOOTH),
+			Util.newArrayListOfValues(
+					CoveringModifier.SHAGGY),
 			Util.newHashMapOfValues(
 					new Value<>(CoveringPattern.NONE, 10),
 					new Value<>(CoveringPattern.SPOTTED, 5),
@@ -978,6 +981,8 @@ public class BodyCoveringType {
 
 	public static List<AbstractBodyCoveringType> allMakeupTypes;
 	public static List<AbstractBodyCoveringType> allSlimeTypes;
+	public static List<AbstractBodyCoveringType> allSiliconeTypes;
+	
 	
 	public static AbstractBodyCoveringType getBodyCoveringTypeFromId(String id) {
 		
@@ -1182,6 +1187,81 @@ public class BodyCoveringType {
 						}
 					}
 					
+				} else if(mat==BodyMaterial.SILICONE) { // Doll covering types:
+					allSiliconeTypes = new ArrayList<>();
+					
+					for(BodyCoveringCategory cat : BodyCoveringCategory.values()) {
+						AbstractBodyCoveringType bct = null;
+						switch(cat) {
+							case BODY_HAIR:
+//								bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createSilicone("a layer of", "silicone-hair", CoveringPattern.NONE, CoveringPattern.allSiliconeCoveringPatterns)) {};
+//								break;
+							case HAIR:
+//								bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createSilicone("a head of", "silicone-hair", CoveringPattern.NONE, CoveringPattern.allSiliconeCoveringPatterns)) {};
+//								break;
+							case MAIN_HAIR:
+							case ANTENNAE:
+							case ANTLER:
+							case HORN:
+							case MAIN_FEATHER:
+							case MAIN_FUR:
+							case MAIN_SCALES:
+							case MAIN_CHITIN:
+							case MAIN_SKIN:
+							case PENIS:
+							case TONGUE:
+								bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createSilicone(CoveringPattern.NONE, CoveringPattern.allSiliconeCoveringPatterns)) {};
+								break;
+							case EYE_IRIS:
+								bct = new AbstractBodyCoveringType(cat,
+										BodyCoveringTemplateFactory.createSilicone(CoveringPattern.EYE_IRISES, Util.newHashMapOfValues(new Value<>(CoveringPattern.EYE_IRISES_HETEROCHROMATIC, 1)))) {
+								};
+								break;
+							case EYE_PUPIL:
+								bct = new AbstractBodyCoveringType(cat,
+										BodyCoveringTemplateFactory.createSilicone(CoveringPattern.EYE_PUPILS, Util.newHashMapOfValues(new Value<>(CoveringPattern.EYE_IRISES_HETEROCHROMATIC, 1)))) {
+								};
+								break;
+							case EYE_SCLERA:
+								bct = new AbstractBodyCoveringType(cat,
+										BodyCoveringTemplateFactory.createSilicone(CoveringPattern.EYE_SCLERA, Util.newHashMapOfValues(new Value<>(CoveringPattern.EYE_IRISES_HETEROCHROMATIC, 1)))) {
+								};
+								break;
+								
+							case ANUS:
+								bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createSilicone(CoveringPattern.ORIFICE_ANUS, null)) {};
+								break;
+							case MOUTH:
+								bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createSilicone(CoveringPattern.ORIFICE_MOUTH, null)) {};
+								break;
+							case NIPPLE:
+								bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createSilicone(CoveringPattern.ORIFICE_NIPPLE, null)) {};
+								break;
+							case NIPPLE_CROTCH:
+								bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createSilicone(CoveringPattern.ORIFICE_NIPPLE_CROTCH, null)) {};
+								break;
+							case VAGINA:
+								bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createSilicone(CoveringPattern.ORIFICE_VAGINA, null)) {};
+								break;
+							case SPINNERET:
+								bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createSilicone(CoveringPattern.ORIFICE_SPINNERET, null)) {};
+								break;
+								
+							case ARTIFICIAL:
+							case FLUID:
+							case MAKEUP:
+								break;
+						}
+						
+						if(bct!=null) {
+							String id =  mat.toString()+"_"+cat.toString();
+							bodyCoveringTypesToIdMap.put(bct,id);
+							idToBodyCoveringTypesMap.put(id, bct);
+							allBodyCoveringTypes.add(bct);
+							allSiliconeTypes.add(bct);
+						}
+					}
+					
 				} else {
 					String name = "";
 					CoveringModifier modifier = CoveringModifier.SMOOTH;
@@ -1190,6 +1270,7 @@ public class BodyCoveringType {
 					switch(mat) {
 						case FLESH:
 						case SLIME:
+						case SILICONE:
 							break;
 						case AIR:
 							name = "vapours";
@@ -1313,5 +1394,9 @@ public class BodyCoveringType {
 	
 	public static List<AbstractBodyCoveringType> getAllSlimeTypes() {
 		return allSlimeTypes;
+	}
+	
+	public static List<AbstractBodyCoveringType> getAllSiliconeTypes() {
+		return allSiliconeTypes;
 	}
 }

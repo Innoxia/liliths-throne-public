@@ -131,7 +131,7 @@
 			</acceptableFemininities>
 			<slot/>
 			<rarity>COMMON</rarity>
-			<conditional><![CDATA[clothing.getSlot().isJewellery() && (RND.nextInt(100)<=25 || clothing.getSlot()==IS_PIERCING_EAR)]]></conditional> <!-- 25% chance for every item of jewellery to be added, unless it's earrings, then 100%. These items are skipped over if the the related slot is not pierced. -->
+			<conditional><![CDATA[clothing.getSlot().isJewellery() && (RND.nextInt(100)<=25 || clothing.getSlot()==IS_PIERCING_EAR)]]></conditional> <!-- 25% chance for every item of jewellery to be added, unless it's earrings, then 100%. These items are skipped over if the related slot is not pierced. -->
 			<primaryColours>
 				<colour>presetColourGroup2</colour>
 			</primaryColours>

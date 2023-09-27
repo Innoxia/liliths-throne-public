@@ -2,6 +2,7 @@ package com.lilithsthrone.utils.colours;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -158,6 +159,11 @@ public class Colour {
 		return "#"+getColor().toString().substring(2, 8);
 	}
 
+	public String toRGBA(double alpha) {
+		Color color = Color.web(this.toWebHexString());
+		return "rgba(" + (int)(color.getRed()*255) + ", " + (int)(color.getGreen()*255) + ",  " + (int)(color.getBlue()*255) + ", " + alpha + ")";
+	}
+
 	/**
 	 * The colour that should be used when displaying icons to the player in covering recolouring screens. Will usually be the same as toWebHexString().
 	 * @return A String in the format #RRGGBB
@@ -187,6 +193,10 @@ public class Colour {
 
 	public List<String> getRainbowColours() {
 		return null;
+	}
+
+	public boolean isRainbow() {
+		return getRainbowColours()!=null;
 	}
 	
 	public String getRainbowDiv(int rainbowPixels) {
@@ -355,4 +365,12 @@ public class Colour {
 		return tags;
 	}
 
+	/**
+	* Checks if the given Colour is in the list of Colours.
+	* @param values The list of Colours to match the type against.
+	* @return true, if the type is among the list.
+	*/
+	public boolean isOneOf(Colour... values) {
+		return Arrays.asList(values).contains(this);
+	}
 }

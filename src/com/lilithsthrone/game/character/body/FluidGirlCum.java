@@ -184,7 +184,10 @@ public class FluidGirlCum implements FluidInterface, XMLSaving {
 		return UtilText.parse(owner,
 				"<p>"
 					+ "A soothing warmth spreads down into [npc.namePos] [npc.pussy], causing [npc.herHim] to let out an involuntary [npc.moan].<br/>"
-					+ "[npc.NamePos] [pc.girlcum] now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>."
+					+ "[npc.NamePos] [pc.girlcum] "
+					+ (flavour==FluidFlavour.FLAVOURLESS
+						?"is now <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>"
+						:"now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>.")
 				+ "</p>");
 	}
 	
@@ -211,6 +214,14 @@ public class FluidGirlCum implements FluidInterface, XMLSaving {
 							+ "[npc.NamePos] [npc.girlcum] is now [style.boldGrow(addictive)]!"
 						+ "</p>");
 			case ALCOHOLIC:
+				fluidModifiers.remove(FluidModifier.ALCOHOLIC_WEAK);
+				return UtilText.parse(owner,
+						"<p>"
+							+ "A strange, soothing warmth takes root deep within [npc.namePos] [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+							+ "[npc.NamePos] [npc.girlcum] is now [style.boldGrow(strongly alcoholic)]!"
+						+ "</p>");
+			case ALCOHOLIC_WEAK:
+				fluidModifiers.remove(FluidModifier.ALCOHOLIC);
 				return UtilText.parse(owner,
 						"<p>"
 							+ "A strange, soothing warmth takes root deep within [npc.namePos] [npc.pussy], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
@@ -278,6 +289,7 @@ public class FluidGirlCum implements FluidInterface, XMLSaving {
 							+ "[npc.NamePos] [npc.girlcum] is [style.boldShrink(no longer addictive)]!"
 						+ "</p>");
 			case ALCOHOLIC:
+			case ALCOHOLIC_WEAK:
 				return UtilText.parse(owner,
 						"<p>"
 							+ "A soft coolness spreads up into [npc.namePos] [npc.pussy], causing [npc.herHim] to let out a gentle sigh.<br/>"
@@ -350,7 +362,7 @@ public class FluidGirlCum implements FluidInterface, XMLSaving {
 	}
 
 	public float getValuePerMl() {
-		return (4f + (this.getFluidModifiers().size()*0.5f)) * (this.getFlavour()!=FluidFlavour.GIRL_CUM?1.5f:1);
+		return 1f;
 	}
 
 	@Override

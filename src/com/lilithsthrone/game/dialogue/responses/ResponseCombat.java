@@ -15,7 +15,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.69
- * @version 0.4
+ * @version 0.4.4
  * @author Innoxia
  */
 public class ResponseCombat extends Response {
@@ -30,6 +30,7 @@ public class ResponseCombat extends Response {
 
 	private List<String> alliesIds;
 	private boolean addCompanionsToAllies;
+	private boolean addElementalsToAllies;
 	private String enemyLeaderId;
 	private List<String> enemiesIds;
 	
@@ -37,6 +38,8 @@ public class ResponseCombat extends Response {
 	private String nextDialoguePlayerDefeatId;
 
 	private Map<String, String> openingDescriptionsUsingIds;
+	private boolean escapeBlocked = false;
+	private boolean submitBlocked = false;
 	
 	
 	public ResponseCombat(String title, String tooltipText, NPC opponent) {
@@ -45,6 +48,7 @@ public class ResponseCombat extends Response {
 		for(GameCharacter companion : Main.game.getPlayer().getCompanions()) {
 			this.allies.add((NPC) companion);
 		}
+		addElementalsToAllies = true;
 		
 		this.enemyLeader = opponent;
 		
@@ -63,6 +67,7 @@ public class ResponseCombat extends Response {
 		for(GameCharacter companion : Main.game.getPlayer().getCompanions()) {
 			this.allies.add((NPC) companion);
 		}
+		addElementalsToAllies = true;
 		
 		this.enemyLeader = opponent;
 		
@@ -83,6 +88,7 @@ public class ResponseCombat extends Response {
 		for(GameCharacter companion : Main.game.getPlayer().getCompanions()) {
 			this.allies.add((NPC) companion);
 		}
+		addElementalsToAllies = true;
 		
 		this.enemyLeader = enemyLeader;
 
@@ -109,6 +115,7 @@ public class ResponseCombat extends Response {
 				this.allies.add((NPC) companion);
 			}
 		}
+		addElementalsToAllies = true;
 		
 		this.enemyLeader = enemyLeader;
 
@@ -128,17 +135,34 @@ public class ResponseCombat extends Response {
 	}
 	
 	
-	public ResponseCombat(String title, String tooltipText, List<String> alliesIds, boolean addCompanionsToAllies, String enemyLeaderId, List<String> enemiesIds, Map<String, String> openingDescriptionsUsingIds) {
+	public ResponseCombat(String title,
+			String tooltipText,
+			List<String> alliesIds,
+			boolean addCompanionsToAllies,
+			boolean addElementalsToAllies,
+			String enemyLeaderId,
+			List<String> enemiesIds,
+			Map<String, String> openingDescriptionsUsingIds,
+			String effectsResponse,
+			boolean escapeBlocked,
+			boolean submitBlocked) {
 		super(title, tooltipText, null);
+		this.fromExternalFile = true;
 		
 		this.alliesIds = alliesIds;
 		this.addCompanionsToAllies = addCompanionsToAllies;
+		this.addElementalsToAllies = addElementalsToAllies;
 		this.enemyLeaderId = enemyLeaderId;
 		this.enemiesIds = enemiesIds;
 		
 		if(openingDescriptionsUsingIds!=null) {
 			this.openingDescriptionsUsingIds = openingDescriptionsUsingIds;
 		}
+		
+		this.effectsString = effectsResponse;
+		
+		this.escapeBlocked = escapeBlocked;
+		this.submitBlocked = submitBlocked;
 	}
 	
 	@Override
@@ -179,14 +203,13 @@ public class ResponseCombat extends Response {
 				openingDescriptions.put(UtilText.findFirstCharacterFromParserTarget(entry.getKey()), entry.getValue());
 			}
 			
-			Main.combat.initialiseCombat(allies, enemyLeader, enemies, openingDescriptions);
+			Main.combat.initialiseCombat(allies, addElementalsToAllies, enemyLeader, enemies, openingDescriptions, escapeBlocked, submitBlocked);
 			Main.combat.setPlayerPostVictoryDialogue(DialogueManager.getDialogueFromId(UtilText.parse(nextDialoguePlayerVictoryId).trim()));
 			Main.combat.setPlayerPostDefeatDialogue(DialogueManager.getDialogueFromId(UtilText.parse(nextDialoguePlayerDefeatId).trim()));
 			
 		} else {
-			Main.combat.initialiseCombat(allies, enemyLeader, enemies, openingDescriptions);
+			Main.combat.initialiseCombat(allies, addElementalsToAllies, enemyLeader, enemies, openingDescriptions);
 		}
-		
 		
 		return Main.combat.startCombat();
 	}

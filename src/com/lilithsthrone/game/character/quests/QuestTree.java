@@ -4,13 +4,14 @@ import com.lilithsthrone.utils.TreeNode;
 
 /**
  * @since 0.1.99
- * @version 0.3.9.4
+ * @version 0.4.2
  * @author Innoxia
  */
 public class QuestTree {
 
 	public static TreeNode<Quest> mainQuestTree = new TreeNode<Quest>(Quest.MAIN_PROLOGUE);
 	
+	// Side quests:
 	public static TreeNode<Quest> enchantmentTree = new TreeNode<Quest>(Quest.SIDE_ENCHANTMENTS_LILAYA_HELP);
 	public static TreeNode<Quest> pregnancyTree = new TreeNode<Quest>(Quest.SIDE_PREGNANCY_CONSULT_LILAYA);
 	public static TreeNode<Quest> incubationTree = new TreeNode<Quest>(Quest.SIDE_INCUBATION_WAITING);
@@ -25,10 +26,21 @@ public class QuestTree {
 	public static TreeNode<Quest> buyingBraxTree = new TreeNode<Quest>(Quest.BUYING_BRAX_START);
 	public static TreeNode<Quest> vengarTree = new TreeNode<Quest>(Quest.VENGAR_START);
 	public static TreeNode<Quest> wesTree = new TreeNode<Quest>(Quest.WES_START);
+	public static TreeNode<Quest> beerBarrelTree = new TreeNode<Quest>(Quest.OGLIX_BEER_BARRELS_1);
+	public static TreeNode<Quest> lunexisEscapeTree = new TreeNode<Quest>(Quest.LUNEXIS_ESCAPE);
+	public static TreeNode<Quest> dollFactoryTree = new TreeNode<Quest>(Quest.DOLL_FACTORY_1);
 	
+	// Relationship/romance quests:
 	public static TreeNode<Quest> nyanTree = new TreeNode<Quest>(Quest.RELATIONSHIP_NYAN_1_STOCK_ISSUES);
 	public static TreeNode<Quest> helenaTree = new TreeNode<Quest>(Quest.ROMANCE_HELENA_1_OFFER_HELP);
 	public static TreeNode<Quest> natalyaTree = new TreeNode<Quest>(Quest.ROMANCE_NATALYA_1_INTERVIEW_START);
+	public static TreeNode<Quest> monicaTree = new TreeNode<Quest>(Quest.ROMANCE_MONICA_1_TO_THE_FARM);
+	
+	// DSG's quests:
+	public static TreeNode<Quest> eisekStallTree = new TreeNode<Quest>(Quest.EISEK_STALL_QUEST_STAGE_ONE);
+	public static TreeNode<Quest> eisekMobTree = new TreeNode<Quest>(Quest.EISEK_MOB_QUEST_STAGE_ONE);
+	public static TreeNode<Quest> eisekSillyModeTree = new TreeNode<Quest>(Quest.EISEK_SILLYMODE_QUEST_STAGE_ONE);
+	
 	public static TreeNode<Quest> rebelBaseTree = new TreeNode<Quest>(Quest.REBEL_BASE_EXPLORATION);
 	public static TreeNode<Quest> rebelBaseFirebombTree = new TreeNode<Quest>(Quest.REBEL_BASE_FIREBOMBS_START);
 	
@@ -52,25 +64,33 @@ public class QuestTree {
 		node1.addChild(node2);
 		node1 = new TreeNode<Quest>(Quest.MAIN_1_I_ARTHURS_TALE);
 		node2.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.MAIN_1_J_ARTHURS_ROOM);
+		node2 = new TreeNode<Quest>(Quest.MAIN_2_A_INTO_THE_DEPTHS);
 		node1.addChild(node2);
-		node1 = new TreeNode<Quest>(Quest.MAIN_2_A_INTO_THE_DEPTHS);
+		node1 = new TreeNode<Quest>(Quest.MAIN_2_B_SIRENS_CALL);
 		node2.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.MAIN_2_B_SIRENS_CALL);
+		node2 = new TreeNode<Quest>(Quest.MAIN_2_C_SIRENS_FALL);
 		node1.addChild(node2);
-		node1 = new TreeNode<Quest>(Quest.MAIN_2_C_SIRENS_FALL);
+		node1 = new TreeNode<Quest>(Quest.MAIN_2_D_MEETING_A_LILIN);
 		node2.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.MAIN_2_D_MEETING_A_LILIN);
+		node2 = new TreeNode<Quest>(Quest.MAIN_3_ELIS);
 		node1.addChild(node2);
-		node1 = new TreeNode<Quest>(Quest.MAIN_3_ELIS);
+		node1 = new TreeNode<Quest>(Quest.MAIN_3_B_MEETING_MERAXIS);
 		node2.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.MAIN_3_B_MEETING_MERAXIS);
+		node2 = new TreeNode<Quest>(Quest.MAIN_3_C_MEETING_MINOTALLYS);
 		node1.addChild(node2);
-		node1 = new TreeNode<Quest>(Quest.MAIN_3_C_MEETING_MINOTALLYS);
+		node1 = new TreeNode<Quest>(Quest.MAIN_3_D_TO_THEMISCYRA);
 		node2.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.MAIN_3_D_TO_THEMISCRYA);
+		node2 = new TreeNode<Quest>(Quest.MAIN_3_E_THEMISCYRA_ATTACK);
 		node1.addChild(node2);
-		node1 = new TreeNode<Quest>(Quest.MAIN_3_E_TODO);
+		node1 = new TreeNode<Quest>(Quest.MAIN_3_F_PREPARING_ELIS);
+		node2.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.MAIN_3_G_SWORD_SCAPEGOAT);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.MAIN_3_H_SWORD_MISSION);
+		node2.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.MAIN_3_I_ARION_REPORT);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.MAIN_3_J_TODO);
 		node2.addChild(node1);
 
 		enchantmentTree.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
@@ -208,38 +228,77 @@ public class QuestTree {
 		node2.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
 		
 		
-        //Rebel base:
+		// Rebel base:
+
+		node1 = new TreeNode<Quest>(Quest.REBEL_BASE_HANDLE_REFUSED);
+		rebelBaseTree.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.REBEL_BASE_PASSWORD_PART_ONE);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.REBEL_BASE_PASSWORD_PART_TWO);
+		node2.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.REBEL_BASE_PASSWORD_COMPLETE);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.REBEL_BASE_EXPLORATION);
+		node2.addChild(node1);
+
+		nodeBranchA = new TreeNode<Quest>(Quest.REBEL_BASE_ESCAPE);
+		node1.addChild(nodeBranchA);
+		nodeBranchB = new TreeNode<Quest>(Quest.REBEL_BASE_FAILED);
+		node1.addChild(nodeBranchB);
+		node2 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
+		nodeBranchA.addChild(node2);
+
+
+		//Firebombs:
+
+		node1 = new TreeNode<Quest>(Quest.REBEL_BASE_FIREBOMBS_START);
+		rebelBaseFirebombTree.addChild(node1);
+		nodeBranchA = new TreeNode<Quest>(Quest.REBEL_BASE_FIREBOMBS_FINISH);
+		node1.addChild(nodeBranchA);
+		nodeBranchB = new TreeNode<Quest>(Quest.REBEL_BASE_FIREBOMBS_FAILED);
+		node1.addChild(nodeBranchB);
+		node1 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
+		nodeBranchA.addChild(node1);
+
+		// Eisek stall quest
+
+		node1 = new TreeNode<Quest>(Quest.EISEK_STALL_QUEST_STAGE_ONE);
+		eisekStallTree.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.EISEK_STALL_QUEST_STAGE_TWO);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.EISEK_STALL_QUEST_STAGE_THREE);
+		node2.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.EISEK_STALL_QUEST_STAGE_FOUR);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
+		node2.addChild(node1);
+
+
+		// Eisek mob quest
+
+		node1 = new TreeNode<Quest>(Quest.EISEK_MOB_QUEST_STAGE_ONE);
+		eisekMobTree.addChild(node1);
+		nodeBranchA = new TreeNode<Quest>(Quest.EISEK_MOB_QUEST_STAGE_TWO);
+		node1.addChild(nodeBranchA);
+		nodeBranchB = new TreeNode<Quest>(Quest.EISEK_MOB_QUEST_STAGE_TWO_FAILED);
+		node1.addChild(nodeBranchB);
+		nodeBranchB.addChild(new TreeNode<Quest>(Quest.EISEK_MOB_QUEST_STAGE_THREE_FAILED));
 		
-        node1 = new TreeNode<Quest>(Quest.REBEL_BASE_HANDLE_REFUSED);
-        rebelBaseTree.addChild(node1);
-        node2 = new TreeNode<Quest>(Quest.REBEL_BASE_PASSWORD_PART_ONE);
-        node1.addChild(node2);
-        node1 = new TreeNode<Quest>(Quest.REBEL_BASE_PASSWORD_PART_TWO);
-        node2.addChild(node1);
-        node2 = new TreeNode<Quest>(Quest.REBEL_BASE_PASSWORD_COMPLETE);
-        node1.addChild(node2);
-        node1 = new TreeNode<Quest>(Quest.REBEL_BASE_EXPLORATION);
-        node2.addChild(node1);
-        
-        nodeBranchA = new TreeNode<Quest>(Quest.REBEL_BASE_ESCAPE);
-        node1.addChild(nodeBranchA);
-        nodeBranchB = new TreeNode<Quest>(Quest.REBEL_BASE_FAILED);
-        node1.addChild(nodeBranchB);
-        node2 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
-        nodeBranchA.addChild(node2);
-        
-        
-        //Firebombs:
-        
-        node1 = new TreeNode<Quest>(Quest.REBEL_BASE_FIREBOMBS_START);
-        rebelBaseFirebombTree.addChild(node1);
-        nodeBranchA = new TreeNode<Quest>(Quest.REBEL_BASE_FIREBOMBS_FINISH);
-        node1.addChild(nodeBranchA);
-        nodeBranchB = new TreeNode<Quest>(Quest.REBEL_BASE_FIREBOMBS_FAILED);
-        node1.addChild(nodeBranchB);
-        node1 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
-        nodeBranchA.addChild(node1);
+		node1 = new TreeNode<Quest>(Quest.EISEK_MOB_QUEST_STAGE_THREE);
+		nodeBranchA.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
+		node1.addChild(node2);
 		
+		// Eisek silly mode quest
+		
+		node1 = new TreeNode<Quest>(Quest.EISEK_SILLYMODE_QUEST_STAGE_ONE);
+		eisekSillyModeTree.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.EISEK_SILLYMODE_QUEST_STAGE_TWO);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.EISEK_SILLYMODE_QUEST_STAGE_THREE);
+		node2.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
+		node1.addChild(node2);
         
 		// Wes quest:
 
@@ -256,6 +315,41 @@ public class QuestTree {
 		nodeBranchA = new TreeNode<Quest>(Quest.WES_3_ELLE);
 		node2.addChild(nodeBranchA);
 		nodeBranchA.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
+		
+		
+		// Beer barrels for Oglix:
+		
+		node1 = new TreeNode<Quest>(Quest.OGLIX_BEER_BARRELS_2);
+		beerBarrelTree.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
+		node1.addChild(node2);
+		
+		
+		// Lunexis escape:
+		
+		node1 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
+		lunexisEscapeTree.addChild(node1);
+		
+		
+		// Doll factory:
+
+		node1 = new TreeNode<Quest>(Quest.DOLL_FACTORY_2);
+		dollFactoryTree.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.DOLL_FACTORY_3);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.DOLL_FACTORY_4);
+		node2.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.DOLL_FACTORY_5);
+		node1.addChild(node2);
+
+		nodeBranchA = new TreeNode<Quest>(Quest.DOLL_FACTORY_6A);
+		node2.addChild(nodeBranchA);
+		nodeBranchA.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
+
+		nodeBranchA = new TreeNode<Quest>(Quest.DOLL_FACTORY_6B);
+		node2.addChild(nodeBranchA);
+		nodeBranchA.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
+		
 		
 		
 		// Romance quests:
@@ -300,6 +394,14 @@ public class QuestTree {
 		node1 = new TreeNode<Quest>(Quest.ROMANCE_NATALYA_4_TRAINING_2);
 		node2.addChild(node1);
 		node2 = new TreeNode<Quest>(Quest.ROMANCE_NATALYA_5_TRAINING_3);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
+		node2.addChild(node1);
+
+		
+		node1 = new TreeNode<Quest>(Quest.ROMANCE_MONICA_2_UNREASONABLE_DEMAND);
+		monicaTree.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.ROMANCE_MONICA_3_THE_JOURNEY_HOME);
 		node1.addChild(node2);
 		node1 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
 		node2.addChild(node1);

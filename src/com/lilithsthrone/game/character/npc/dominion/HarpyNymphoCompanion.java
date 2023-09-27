@@ -42,6 +42,7 @@ import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestNympho;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -56,7 +57,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.8
- * @version 0.2.11
+ * @version 0.4.3.2
  * @author Innoxia
  */
 public class HarpyNymphoCompanion extends NPC {
@@ -85,6 +86,9 @@ public class HarpyNymphoCompanion extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
 			this.resetPerksMap(true);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.3.3")) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		}
 	}
 
 	@Override
@@ -106,7 +110,7 @@ public class HarpyNymphoCompanion extends NPC {
 
 		if(setPersona) {
 			
-			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
 			this.setHistory(Occupation.NPC_HARPY_FLOCK_MEMBER);
 	
@@ -194,8 +198,8 @@ public class HarpyNymphoCompanion extends NPC {
 
 		this.unequipAllClothingIntoVoid(true, true);
 
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BOYSHORTS, PresetColour.CLOTHING_BLUE_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_FULLCUP_BRA, PresetColour.CLOTHING_BLUE_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_boyshorts", PresetColour.CLOTHING_BLUE_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_fullcup_bra", PresetColour.CLOTHING_BLUE_LIGHT, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_SHORT_CROPTOP, PresetColour.CLOTHING_PURPLE_LIGHT, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_skirt", PresetColour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_finger_ring", PresetColour.CLOTHING_GOLD, false), true, this);
@@ -215,6 +219,11 @@ public class HarpyNymphoCompanion extends NPC {
 		} else {
 			return "#F986E7";
 		}
+	}
+
+	@Override
+	public boolean isAbleToBeImpregnated() {
+		return true;
 	}
 	
 	@Override
@@ -248,7 +257,7 @@ public class HarpyNymphoCompanion extends NPC {
 		if (victory) {
 			return new Response("", "", HarpyNestNympho.HARPY_NEST_NYMPHO_FIGHT_BEAT_BF);
 		} else {
-			return new Response("", "", HarpyNestNympho.HARPY_NEST_NYMPHO_FIGHT_LOSE);
+			return new Response("", "", DialogueManager.getDialogueFromId("innoxia_places_dominion_harpy_nests_nympho_combat_lost"));
 		}
 	}
 

@@ -67,6 +67,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private String name;
 	private String namePlural;
 	private String description;
+	private String pathNamePrefix;
 	private String pathName;
 	private Map<InventorySlot, String> pathNameEquipped;
 	private String authorDescription;
@@ -92,13 +93,19 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private Set<PenetrationModifier> penetrationOtherModifiers;
 	
 	// Orifice variables:
+	private int orificeSelfLabiaSize;
+	private int orificeSelfClitSize;
+	private int orificeSelfClitGirth;
 	private int orificeSelfDepth;
 	private float orificeSelfCapacity;
 	private int orificeSelfElasticity;
 	private int orificeSelfPlasticity;
 	private int orificeSelfWetness;
 	private Set<OrificeModifier> orificeSelfModifiers;
-	
+
+	private int orificeOtherLabiaSize;
+	private int orificeOtherClitSize;
+	private int orificeOtherClitGirth;
 	private int orificeOtherDepth;
 	private float orificeOtherCapacity;
 	private int orificeOtherElasticity;
@@ -107,8 +114,6 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private Set<OrificeModifier> orificeOtherModifiers;
 
 	// Enchantments:
-	@SuppressWarnings("unused")
-	private int enchantmentLimit; // Removed as part of 0.3.3.7's update to add enchantment capacity mechanics.
 	protected List<ItemEffect> effects;
 
 	// Images:
@@ -245,8 +250,6 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		
 		this.isPatternAvailable = false;
 		this.isPatternAvailableInitCompleted = false;
-
-		enchantmentLimit = -1;
 		
 		// Attribute modifiers:
 		if (effects != null) {
@@ -522,7 +525,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						mapToPutIn.put(DisplacementDescriptionType.byTagsPath(repositionDescListTag+" "+desc.getTagName()), desc.getTextContent()));
 					};
 					Consumer<String> toUniversalMap = putTagContentTo.apply(universalMap);
-					//TODO this is messing up
+					// Deprecated:
 					toUniversalMap.accept("playerNPC");
 					toUniversalMap.accept("playerNPCRough");
 					toUniversalMap.accept("playerSelf");
@@ -555,32 +558,27 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			
 			Predicate<Element> filterEmptyElements = element -> !element.getTextContent().isEmpty(); //helper function to filter out empty elements.
 
-			this.enchantmentLimit = coreAttributes.getOptionalFirstOf("enchantmentLimit") // three possible cases
-				.filter(filterEmptyElements) // <enchantmentLimit> or <enchantmentLimit></enchantmentLimit> - text content is "" - trying to convert to Integer throws  - filter it out so default value gets assigned
-				.map(Element::getTextContent).map(Integer::valueOf) //<enchantmentLimit>x</enchantmentLimit>, x being Integer		
-				.orElse(-1);// empty element or no value in element, assign default value;
-
 			this.clothingSet = coreAttributes.getOptionalFirstOf("clothingSet")
 				.filter(filterEmptyElements)
 				.map(Element::getTextContent).map(SetBonus::getSetBonusFromId)
 				.orElse(null);
 
 			
-			
-			this.pathName = clothingXMLFile.getParentFile().getAbsolutePath() + "/"+ coreAttributes.getMandatoryFirstOf("imageName").getTextContent();
+			this.pathNamePrefix = clothingXMLFile.getParentFile().getAbsolutePath() + "/";
+			this.pathName = pathNamePrefix + coreAttributes.getMandatoryFirstOf("imageName").getTextContent();
 			
 			this.pathNameEquipped = new HashMap<>();
 			try {
 				for(Element imageNameElement : coreAttributes.getAllOf("imageEquippedName")) {
 					InventorySlot relatedSlot = InventorySlot.valueOf(imageNameElement.getAttribute("slot"));
 					
-					this.pathNameEquipped.put(relatedSlot, clothingXMLFile.getParentFile().getAbsolutePath() + "/"+ imageNameElement.getTextContent());
+					this.pathNameEquipped.put(relatedSlot, imageNameElement.getTextContent());
 				}
 				
 			} catch(Exception ex) { // Old version single slot support:
 				String path = coreAttributes.getOptionalFirstOf("imageEquippedName")
 						.filter(filterEmptyElements)
-						.map(e -> clothingXMLFile.getParentFile().getAbsolutePath() + "/" + e.getTextContent())
+						.map(e -> e.getTextContent()) // clothingXMLFile.getParentFile().getAbsolutePath() + "/" + e.getTextContent()
 						.filter(s -> !s.equals(this.pathName)) // if imageEquippedName is the same as imageName, we don't need to load it twice
 						.orElse(null);
 				this.pathNameEquipped.put(this.getEquipSlots().get(0), path);
@@ -716,7 +714,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			Function<Element, List<Pattern> > getPatternsFromElement = (patternsElement) -> { //Helper function to get the patterns
 				try {
 					return patternsElement.getAllOf("pattern").stream()
-							.map(Element::getTextContent).map(Pattern::getPattern)
+							.map(Element::getTextContent).map(Pattern::getPatternByIdOrName)
 							.collect(Collectors.toList());
 				} catch (Exception e) {
 					printHelpfulErrorForEnumValueMismatches(e);
@@ -902,18 +900,21 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 									path = clothingXMLFile.getParentFile().getAbsolutePath() + "/"+ svgPathElement.getTextContent();
 									svgImageFound = true;
 								}
-								InventorySlot slot = this.getEquipSlots().get(0);
+								InventorySlot slot = null;
 								if(!svgPathElement.getAttribute("slot").isEmpty()) {
 									slot = InventorySlot.valueOf(svgPathElement.getAttribute("slot"));
 								}
-								stickerSvgPaths.putIfAbsent(slot, new HashMap<>());
-								
 								int zLayer = stickerZLayer;
 								if(!svgPathElement.getAttribute("zLayer").isEmpty()) {
 									zLayer = Integer.valueOf(svgPathElement.getAttribute("zLayer"));
 //									System.out.println(zLayer);
 								}
-								stickerSvgPaths.get(slot).put(zLayer, path);
+								for (InventorySlot equipSlot : this.getEquipSlots()) {
+									stickerSvgPaths.putIfAbsent(equipSlot, new HashMap<>());
+									if(slot == null || slot == equipSlot) {
+										stickerSvgPaths.get(equipSlot).put(zLayer, path);
+									}
+								}
 							}
 							if(!svgImageFound && stickerElement.getAttribute("colourSelected").isEmpty()) {
 								colourSelected = PresetColour.TEXT_GREY;
@@ -1001,7 +1002,25 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							this.itemTags.get(slot).add(ItemTag.ONAHOLE_SELF);
 						}
 					}
-					
+
+					this.orificeSelfLabiaSize = 2;
+					this.orificeSelfClitSize = 0;
+					this.orificeSelfClitGirth = 3;
+					this.orificeSelfDepth = 25;
+					this.orificeSelfCapacity = 2;
+					this.orificeSelfElasticity = 1;
+					this.orificeSelfPlasticity = 0;
+					this.orificeSelfWetness = 0;
+					this.orificeSelfModifiers = new HashSet<>();
+					if(orificeAttributes.getOptionalFirstOf("labiaSize").isPresent()) {
+						this.orificeSelfLabiaSize = Integer.valueOf(orificeAttributes.getMandatoryFirstOf("labiaSize").getTextContent());
+					}
+					if(orificeAttributes.getOptionalFirstOf("clitSize").isPresent()) {
+						this.orificeSelfClitSize = Integer.valueOf(orificeAttributes.getMandatoryFirstOf("clitSize").getTextContent());
+					}
+					if(orificeAttributes.getOptionalFirstOf("clitGirth").isPresent()) {
+						this.orificeSelfClitGirth = Integer.valueOf(orificeAttributes.getMandatoryFirstOf("clitGirth").getTextContent());
+					}
 					if(orificeAttributes.getOptionalFirstOf("depth").isPresent()) {
 						this.orificeSelfDepth = Integer.valueOf(orificeAttributes.getMandatoryFirstOf("depth").getTextContent());
 					}
@@ -1064,6 +1083,24 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 						}
 					}
 					
+					this.orificeOtherLabiaSize = 2;
+					this.orificeOtherClitSize = 0;
+					this.orificeOtherClitGirth = 3;
+					this.orificeOtherDepth = 25;
+					this.orificeOtherCapacity = 2;
+					this.orificeOtherElasticity = 1;
+					this.orificeOtherPlasticity = 0;
+					this.orificeOtherWetness = 0;
+					this.orificeOtherModifiers = new HashSet<>();
+					if(orificeAttributes.getOptionalFirstOf("labiaSize").isPresent()) {
+						this.orificeOtherLabiaSize = Integer.valueOf(orificeAttributes.getMandatoryFirstOf("labiaSize").getTextContent());
+					}
+					if(orificeAttributes.getOptionalFirstOf("clitSize").isPresent()) {
+						this.orificeOtherClitSize = Integer.valueOf(orificeAttributes.getMandatoryFirstOf("clitSize").getTextContent());
+					}
+					if(orificeAttributes.getOptionalFirstOf("clitGirth").isPresent()) {
+						this.orificeOtherClitGirth = Integer.valueOf(orificeAttributes.getMandatoryFirstOf("clitGirth").getTextContent());
+					}
 					if(orificeAttributes.getOptionalFirstOf("depth").isPresent()) {
 						this.orificeOtherDepth = Integer.valueOf(orificeAttributes.getMandatoryFirstOf("depth").getTextContent());
 					}
@@ -1203,6 +1240,18 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		SVGStringMap = new HashMap<>();
 		SVGStringEquippedMap = new HashMap<>();
 		
+		// Add PENIS and VAGINA from blocked parts to clothingAccessBlocked:
+		for(Entry<InventorySlot, List<BlockedParts>> entry : this.blockedPartsMap.entrySet()) {
+			for(BlockedParts bp : entry.getValue()) {
+				if(bp.blockedBodyParts.contains(CoverableArea.PENIS) && !bp.clothingAccessBlocked.contains(ClothingAccess.PENIS)) {
+					bp.clothingAccessBlocked.add(ClothingAccess.PENIS);
+				}
+				if(bp.blockedBodyParts.contains(CoverableArea.VAGINA)&& !bp.clothingAccessBlocked.contains(ClothingAccess.VAGINA)) {
+					bp.clothingAccessBlocked.add(ClothingAccess.VAGINA);
+				}
+			}
+		}
+		
 		// Add blocked parts due to sealing or plugging:
 		for(Entry<InventorySlot, List<ItemTag>> entry : this.itemTags.entrySet()) { //TODO check
 			for(ItemTag tag : entry.getValue()) {
@@ -1254,9 +1303,9 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				if(((AbstractClothingType)o).getName().equals(getName())
 						&& ((AbstractClothingType)o).getPathName().equals(getPathName())
 						&& ((AbstractClothingType)o).getPhysicalResistance() == getPhysicalResistance()
-						&& ((AbstractClothingType)o).getFemininityMaximum() == getFemininityMaximum()
-						&& ((AbstractClothingType)o).getFemininityMinimum() == getFemininityMinimum()
-						&& ((AbstractClothingType)o).getFemininityRestriction() == getFemininityRestriction()
+						&& ((AbstractClothingType)o).femininityMaximum == femininityMaximum
+						&& ((AbstractClothingType)o).femininityMinimum == femininityMinimum
+						&& ((AbstractClothingType)o).femininityRestriction == femininityRestriction
 						&& ((AbstractClothingType)o).getEquipSlots().equals(getEquipSlots())
 						&& ((AbstractClothingType)o).getEffects().equals(getEffects())
 						&& ((AbstractClothingType)o).getClothingSet() == getClothingSet()
@@ -1275,10 +1324,10 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		result = 31 * result + getName().hashCode();
 		result = 31 * result + getPathName().hashCode();
 		result = 31 * result + Float.floatToIntBits(getPhysicalResistance());
-		result = 31 * result + getFemininityMaximum();
-		result = 31 * result + getFemininityMinimum();
-		if(getFemininityRestriction()!=null) {
-			result = 31 * result + getFemininityRestriction().hashCode();
+		result = 31 * result + femininityMinimum;
+		result = 31 * result + femininityMinimum;
+		if(femininityRestriction!=null) {
+			result = 31 * result + femininityRestriction.hashCode();
 		}
 		result = 31 * result + getEquipSlots().hashCode();
 		result = 31 * result + getEffects().hashCode();
@@ -1365,18 +1414,30 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	
 	public String equipText(GameCharacter clothingOwner, GameCharacter clothingEquipper, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
 		if(clothing.isCondom(slotToEquipInto) && applyEffects) {
-			NPC interactingTarget = InventoryDialogue.getInventoryNPC();
-			if(interactingTarget==null) {
-				if(Main.game.isInSex() && !Main.sex.isMasturbation() && Main.sex.getTargetedPartner(Main.game.getPlayer())!=null && Main.sex.getTargetedPartner(Main.game.getPlayer()) instanceof NPC) {
-					interactingTarget = (NPC) Main.sex.getTargetedPartner(Main.game.getPlayer());
-				}
+			NPC interactingTarget;
+			if(Main.game.isInSex() && !Main.sex.isMasturbation() && Main.sex.getTargetedPartner(clothingEquipper)!=null && Main.sex.getTargetedPartner(clothingEquipper) instanceof NPC) {
+			    interactingTarget = (NPC) Main.sex.getTargetedPartner(clothingEquipper);
+			} else {
+			    interactingTarget = InventoryDialogue.getInventoryNPC();
 			}
 			if(interactingTarget!=null) {
-				String condomEquip = interactingTarget.getCondomEquipEffects(this, clothingEquipper, clothingOwner, rough);
+			    String condomEquip = interactingTarget.getCondomEquipEffects(this, clothingEquipper, clothingOwner, rough);
 				if(condomEquip!=null) {
 					return condomEquip;
 				}
 			}
+//			NPC interactingTarget = InventoryDialogue.getInventoryNPC();
+//			if(interactingTarget==null) {
+//				if(Main.game.isInSex() && !Main.sex.isMasturbation() && Main.sex.getTargetedPartner(Main.game.getPlayer())!=null && Main.sex.getTargetedPartner(Main.game.getPlayer()) instanceof NPC) {
+//					interactingTarget = (NPC) Main.sex.getTargetedPartner(Main.game.getPlayer());
+//				}
+//			}
+//			if(interactingTarget!=null) {
+//				String condomEquip = interactingTarget.getCondomEquipEffects(this, clothingEquipper, clothingOwner, rough);
+//				if(condomEquip!=null) {
+//					return condomEquip;
+//				}
+//			}
 		}
 		
 		if(clothingOwner==null || clothingEquipper==null || !Main.game.isStarted()) {
@@ -1893,14 +1954,25 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	}
 
 	public int getFemininityMinimum() {
+		if(Main.getProperties().getClothingFemininityLevel()==0 || (Main.getProperties().getClothingFemininityLevel()==1 && femininityMinimum>0)) {
+			return 0;
+		}
 		return femininityMinimum;
 	}
 
 	public int getFemininityMaximum() {
+		if(Main.getProperties().getClothingFemininityLevel()==0 || (Main.getProperties().getClothingFemininityLevel()==2 && femininityMinimum<100)) {
+			return 100;
+		}
 		return femininityMaximum;
 	}
 
 	public Femininity getFemininityRestriction() {
+		if(Main.getProperties().getClothingFemininityLevel()==0
+				|| (Main.getProperties().getClothingFemininityLevel()==1 && femininityRestriction == Femininity.FEMININE)
+				|| (Main.getProperties().getClothingFemininityLevel()==2 && femininityRestriction == Femininity.MASCULINE)) {
+			return Femininity.ANDROGYNOUS;
+		}
 		return femininityRestriction;
 	}
 	
@@ -1931,8 +2003,15 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return pathName;
 	}
 
-	public String getPathNameEquipped(InventorySlot invSlot) {
-		return pathNameEquipped.get(invSlot);
+	public String getPathNameEquipped(GameCharacter characterEquippedTo, InventorySlot invSlot) {
+		if(pathNameEquipped.get(invSlot)==null) {
+			return null;	
+		}
+		String parsedPath = UtilText.parse(characterEquippedTo, pathNameEquipped.get(invSlot)).trim();
+		if(parsedPath.isEmpty()) {
+			return null;
+		}
+		return pathNamePrefix + parsedPath;
 	}
 	
 	public AbstractSetBonus getClothingSet() {
@@ -1949,9 +2028,16 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	public List<ColourReplacement> getColourReplacements() {
 		return colourReplacements;
 	}
-	
+
 	private static String generateIdentifier(InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, Map<String, String> stickers) {
+		return generateIdentifier(null, slotEquippedTo, colours, pattern, patternColours, stickers);
+	}
+	
+	private static String generateIdentifier(GameCharacter character, InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, Map<String, String> stickers) {
 		StringBuilder sb = new StringBuilder(slotEquippedTo.toString());
+		if(character!=null) {
+			sb.append(character.getId());
+		}
 		for(Colour c : colours) {
 			sb.append(c.getId());
 		}
@@ -1977,17 +2063,21 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private void addSVGStringMapping(InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, Map<String, String> stickers, String svgString) {
 		SVGStringMap.put(generateIdentifier(slotEquippedTo, colours, pattern, patternColours, stickers), svgString);
 	}
-	
+
 	private void addSVGStringEquippedMapping(InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, Map<String, String> stickers, String svgString) {
 		SVGStringEquippedMap.put(generateIdentifier(slotEquippedTo, colours, pattern, patternColours, stickers), svgString);
 	}
+	
+//	private void addSVGStringEquippedMapping(GameCharacter character, InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, Map<String, String> stickers, String svgString) {
+//		SVGStringEquippedMap.put(generateIdentifier(character, slotEquippedTo, colours, pattern, patternColours, stickers), svgString);
+//	}
 	
 	private String getSVGStringFromMap(InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, Map<String, String> stickers) {
 		return SVGStringMap.get(generateIdentifier(slotEquippedTo, colours, pattern, patternColours, stickers));
 	}
 	
-	private String getSVGStringFromEquippedMap(InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, Map<String, String> stickers) {
-		return SVGStringEquippedMap.get(generateIdentifier(slotEquippedTo, colours, pattern, patternColours, stickers));
+	private String getSVGStringFromEquippedMap(GameCharacter character, InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, Map<String, String> stickers) {
+		return SVGStringEquippedMap.get(generateIdentifier(character, slotEquippedTo, colours, pattern, patternColours, stickers));
 	}
 
 	public String getSVGImage() {
@@ -2154,8 +2244,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				}
 			}
 			
-			if(equippedVariant && pathNameEquipped!=null && pathNameEquipped.get(slotEquippedTo)!=null) {
-				String stringFromMap = getSVGStringFromEquippedMap(slotEquippedTo, colours, pattern, patternColours, handledStickers);
+			if(equippedVariant && pathNameEquipped!=null && getPathNameEquipped(character, slotEquippedTo)!=null) {
+				String stringFromMap = getSVGStringFromEquippedMap(character, slotEquippedTo, colours, pattern, patternColours, handledStickers);
 				if (stringFromMap!=null && !this.equals(ClothingType.WRIST_WOMENS_WATCH) && !this.equals(ClothingType.WRIST_MENS_WATCH)) {
 					return stringFromMap;
 					
@@ -2165,14 +2255,14 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							InputStream is;
 							String s;
 							if(isMod) {
-								List<String> lines = Files.readAllLines(Paths.get(pathNameEquipped.get(slotEquippedTo)));
+								List<String> lines = Files.readAllLines(Paths.get(getPathNameEquipped(character, slotEquippedTo)));
 								StringBuilder sb = new StringBuilder();
 								for(String line : lines) {
 									sb.append(line);
 								}
 								s = sb.toString();
 							} else {
-								is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/" + pathNameEquipped.get(slotEquippedTo) + ".svg");
+								is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/" + getPathNameEquipped(character, slotEquippedTo) + ".svg");
 								s = Util.inputStreamToString(is);
 								is.close();
 							}
@@ -2199,7 +2289,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 											+ "deg);'>" + SVGImages.SVG_IMAGE_PROVIDER.getMensWatchMinuteHand(colours, this.getColourReplacements()) + "</div>"
 										: "");
 
-							addSVGStringEquippedMapping(slotEquippedTo, colours, pattern, patternColours, stickers, s);
+							// Don't save icon as it can vary based on character changes...
+//							addSVGStringEquippedMapping(character, slotEquippedTo, colours, pattern, patternColours, stickers, s);
 							
 							return s;
 						} catch (IOException e) {
@@ -2465,6 +2556,18 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return penetrationOtherModifiers;
 	}
 
+	public int getOrificeSelfLabiaSize() {
+		return orificeSelfLabiaSize;
+	}
+	
+	public int getOrificeSelfClitSize() {
+		return orificeSelfClitSize;
+	}
+	
+	public int getOrificeSelfClitGirth() {
+		return orificeSelfClitGirth;
+	}
+	
 	public int getOrificeSelfDepth() {
 		return orificeSelfDepth;
 	}
@@ -2492,6 +2595,18 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return orificeSelfModifiers;
 	}
 
+	public int getOrificeOtherLabiaSize() {
+		return orificeOtherLabiaSize;
+	}
+	
+	public int getOrificeOtherClitSize() {
+		return orificeOtherClitSize;
+	}
+	
+	public int getOrificeOtherClitGirth() {
+		return orificeOtherClitGirth;
+	}
+	
 	public int getOrificeOtherDepth() {
 		return orificeOtherDepth;
 	}

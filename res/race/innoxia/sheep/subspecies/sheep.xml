@@ -9,9 +9,9 @@
 	<attributeItemId>innoxia_race_sheep_ewes_brew</attributeItemId>
 	<transformativeItemId>innoxia_race_sheep_woolly_goodness</transformativeItemId>
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<nocturnality>DIURNAL</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
-	<aquatic>false</aquatic>
 	<applySubspeciesChanges/>
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_innoxia_sheep)

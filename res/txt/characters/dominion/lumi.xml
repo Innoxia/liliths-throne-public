@@ -188,7 +188,7 @@
 		[lumi.speech(W-What are you doing? Let me go!)] She shouts as she starts to struggle against you. Tears quickly well up in her eyes as she discovers that you've totally immobilised her, and her struggles and cries quickly start to get more frantic and desperate.
 	</p>
 	<p>
-		[pc.speech(Don't worry, I'll make this as enjoyable as possible... For me, that is!)] You sneer as you pin the little wolf-girl to the the floor. Unable to hold back any longer, you quickly drop your lips down to hers, intent on putting her whining to an end by forcing her into a kiss.
+		[pc.speech(Don't worry, I'll make this as enjoyable as possible... For me, that is!)] You sneer as you pin the little wolf-girl to the floor. Unable to hold back any longer, you quickly drop your lips down to hers, intent on putting her whining to an end by forcing her into a kiss.
 	</p>
 	<p>
 		[lumi.speech(Nooo! Let me go! Let me go, let me go, lemmegolemmegolemmego!)] She shouts, struggling more and more and kicking out into mid-air as she tries to wriggle out of your grasp, but to no avail.
@@ -225,10 +225,10 @@
 		[pc.speech(Yes, I promise.)] You smile, caught off guard by how cute [lumi.she] is.
 	</p>
 	<p>
-		With those words, the wolf-girl lets out a relieves sigh, before suddenly dropping down onto [lumi.her] knees as her adrenaline rush comes to an end. Wanting to spend a moment talking with this unusual thief, you walk towards her and crouch down so as to be on the same level. [pc.speech(Now tell me, why do you steal?)]
+		With those words, the wolf-girl lets out a relieved sigh, before suddenly dropping down onto [lumi.her] knees as her adrenaline rush comes to an end. Wanting to spend a moment talking with this unusual thief, you walk towards her and crouch down so as to be on the same level. [pc.speech(Now tell me, why do you steal?)]
 	</p>
 	<p>
-		[lumi.speech(Because I'm hungry, and people are mean!)] She huffs, [lumi.speech(A-At first I tried stealing food from m-mar.. morch..)]
+		[lumi.speech(Because I'm hungry, and people are mean!)] She huffs, [lumi.speech(A-At first I tried stealing food from m-mar... morch...)]
 	</p>
 	<p>
 		[pc.speech(Merchants?)]

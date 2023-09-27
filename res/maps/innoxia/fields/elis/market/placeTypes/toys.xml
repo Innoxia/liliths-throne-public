@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[Yui's Toys]]></name>
+	<tooltipDescription><![CDATA[A demonic spider-girl sells all manner of sex-toys and fetish gear from out of this stall.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in the Farmer's Market in Elis]]></virginityLossDescription>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<svgName>toys</svgName>
+	<colour>BASE_PINK</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_fields_elis_market_toys</dialogue>
+	<populationPresent>
+		<population startMinutes="480" endMinutes="1079">
+			<populationType plural="true" density="OCCASIONAL">SHOPPER</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
+	</populationPresent>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<weatherImmunities/>
+	<applyInventoryInit/>
+</placeType>

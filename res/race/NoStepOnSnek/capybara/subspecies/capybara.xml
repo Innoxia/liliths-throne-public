@@ -9,9 +9,9 @@
 	<attributeItemId>NoStepOnSnek_race_capybara_tea2go</attributeItemId>
 	<transformativeItemId>NoStepOnSnek_race_capybara_brownie</transformativeItemId>
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<nocturnality>CREPUSCULAR</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
-	<aquatic>false</aquatic>
 	<applySubspeciesChanges></applySubspeciesChanges>
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_NoStepOnSnek_capybara)

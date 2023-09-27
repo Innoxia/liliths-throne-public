@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<scene id ="start">
+
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Another Mob??]]></title>
+		<content folderPath="txt/dsg/encounters/fields/elis/market/eisek_sillymode">ENCOUNTER_START</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
+		<inventoryDisabled><![CDATA[true]]></inventoryDisabled>
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responses>	
+			<response>	
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Approach]]></responseTitle>
+				<responseTooltip><![CDATA[Approach the stall and see what the mob is up to.]]></responseTooltip>
+				<colour><![CDATA[QUEST_SIDE]]></colour>
+				<nextDialogue stripContent="false"><![CDATA[dsg_encounters_fields_elis_market_eisek_sillymode_approach]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.startQuest(QUEST_LINE_SIDE_EISEK_SILLYMODE))]
+					[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_mob_dispersed, true)]
+				]]></effects>
+			</response>
+			
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Back off]]></responseTitle>
+				<responseTooltip><![CDATA[They're not a threat and this isn't worth your time. Eisek can handle this on his own.]]></responseTooltip>
+				<nextDialogue><![CDATA[dsg_encounters_fields_elis_market_eisek_sillymode_back_off]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_mob_dispersed, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id ="approach">
+		<author><![CDATA[DSG]]></author>
+		<content folderPath="txt/dsg/encounters/fields/elis/market/eisek_sillymode">ENCOUNTER_APPROACH</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<travelDisabled><![CDATA[true]]></travelDisabled>	
+		<inventoryDisabled><![CDATA[true]]></inventoryDisabled>	
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>	
+		<responses>	
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Something is rotten in the town of Elis...]]></responseTooltip>
+				<colour><![CDATA[TEXT]]></colour>
+				<nextDialogue stripContent="true"><![CDATA[dsg_characters_eisek_stall_talk_menu]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/dsg/encounters/fields/elis/market/eisek_sillymode', 'ENCOUNTER_END'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id ="back_off">
+		<author><![CDATA[DSG]]></author>	
+		<content folderPath="txt/dsg/encounters/fields/elis/market/eisek_sillymode">ENCOUNTER_BACK_OFF</content>
+		<secondsPassed minutes="false"><![CDATA[30]]></secondsPassed>	
+		<travelDisabled><![CDATA[true]]></travelDisabled>	
+		<inventoryDisabled><![CDATA[true]]></inventoryDisabled>	
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responses>	
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[It seems they got what they wanted. Hopefully they won't be back.]]></responseTooltip>
+				<responseTooltip/>
+				<colour><![CDATA[TEXT]]></colour>
+				<nextDialogue stripContent="true"><![CDATA[dsg_characters_eisek_stall_talk_menu]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/dsg/encounters/fields/elis/market/eisek_sillymode', 'ENCOUNTER_END'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

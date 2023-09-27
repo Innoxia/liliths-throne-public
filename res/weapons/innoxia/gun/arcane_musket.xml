@@ -25,7 +25,6 @@
 		</availableDamageTypes>
 		
 		<spells/>
-		<enchantmentLimit>10</enchantmentLimit>
 		<effects/>
 		
 		<primaryColours/> 
@@ -35,6 +34,7 @@
 		
 		<itemTags>
 			<tag>CONTRABAND_MEDIUM</tag>
+			<tag>WEAPON_FIREARM</tag>
 		</itemTags>
 	</coreAttributes>
 	

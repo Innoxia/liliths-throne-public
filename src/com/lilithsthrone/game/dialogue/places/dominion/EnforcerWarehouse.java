@@ -1269,8 +1269,8 @@ public class EnforcerWarehouse {
 								return super.isAbleToRemoveOthersClothing(character, clothing);
 							}
 							@Override
-							public boolean isAbleToEquipSexClothing(GameCharacter character) {
-								return !character.isPlayer();
+							public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip) {
+								return !equippingCharacter.isPlayer();
 							}
 							@Override
 							public boolean isAbleToRemoveSelfClothing(GameCharacter character) {
@@ -1368,8 +1368,8 @@ public class EnforcerWarehouse {
 								return super.isAbleToRemoveOthersClothing(character, clothing);
 							}
 							@Override
-							public boolean isAbleToEquipSexClothing(GameCharacter character) {
-								return !character.isPlayer();
+							public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip) {
+								return !equippingCharacter.isPlayer();
 							}
 							@Override
 							public boolean isAbleToRemoveSelfClothing(GameCharacter character) {

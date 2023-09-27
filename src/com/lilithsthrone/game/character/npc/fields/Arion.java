@@ -47,7 +47,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.4
- * @version 0.4
+ * @version 0.4.2.3
  * @author Innoxia
  */
 public class Arion extends NPC {
@@ -77,6 +77,9 @@ public class Arion extends NPC {
 					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.CYNICAL,
 					PersonalityTrait.PRUDE);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.2.3")) {
+			this.setStartingBody(true);
 		}
 	}
 
@@ -182,7 +185,7 @@ public class Arion extends NPC {
 //		this.addAssOrificeModifier(OrificeModifier.MUSCLE_CONTROL);
 		
 		// Penis:
-		this.setPenisVirgin(true);
+		this.setPenisVirgin(false);
 		this.setPenisGirth(PenetrationGirth.FOUR_GIRTHY);
 		this.setPenisSize(30);
 		this.setTesticleSize(TesticleSize.THREE_LARGE);
@@ -215,7 +218,7 @@ public class Arion extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.unequipAllClothingIntoVoid(true, true);
 		
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BRIEFS, PresetColour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_briefs", PresetColour.CLOTHING_WHITE, false), true, this);
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_long_sleeved_shirt", PresetColour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_tie", PresetColour.CLOTHING_RED_BURGUNDY, false), true, this);
@@ -247,10 +250,10 @@ public class Arion extends NPC {
 	}
 
 	@Override
-	public void hourlyUpdate() {
+	public void hourlyUpdate(int hour) {
 		if(!Main.game.getCharactersPresent().contains(this)) {
-			if(Main.game.getHourOfDay()<7 || Main.game.getHourOfDay()>21) {
-				if(Main.game.getHourOfDay()>21) {
+			if(hour<7 || hour>21) {
+				if(hour>21) {
 					this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town_hall_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_hall_f1_minotallys_room"), false);
 				} else {
 					this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town_hall_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_hall_f1_assistant_room"), true);

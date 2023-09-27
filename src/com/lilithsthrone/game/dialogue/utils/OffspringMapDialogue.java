@@ -4,9 +4,13 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
+import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.encounters.AbstractEncounter;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.main.Main;
@@ -18,38 +22,49 @@ import com.lilithsthrone.world.places.AbstractPlaceType;
 
 /**
  * @since 0.3.2
- * @version 0.3.5.5
+ * @version 0.4.4
  * @author Innoxia
  */
 public class OffspringMapDialogue {
 	
-	private static List<NPC> getOffspringList() {
+	private static List<OffspringSeed> getOffspringList() {
 		AbstractWorldType worldType = Main.game.getPlayer().getWorldLocation();
 		AbstractPlaceType placeType = Main.game.getPlayer().getLocationPlace().getPlaceType();
 		
-		return Main.game.getOffspringNotSpawned(npc->
-			npc.getSubspecies().isAbleToNaturallySpawnInLocation(worldType, placeType)
+		AbstractEncounter enc = Main.game.getPlayer().getLocationPlace().getPlaceType().getEncounterType();
+		return Main.game.getOffspringNotSpawned(os->
+			os.getSubspecies().isAbleToNaturallySpawnInLocation(worldType, placeType)
 				&& (worldType==WorldType.HARPY_NEST
-						?(npc.getHalfDemonSubspecies()==null || npc.getHalfDemonSubspecies().getRace()==Race.HARPY)
-						:(npc.getHalfDemonSubspecies()==null || npc.getHalfDemonSubspecies().getRace()!=Race.HARPY))
-				|| (Main.game.getPlayer().getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_ALLEY
-						&& (npc.getSubspecies()==Subspecies.ANGEL
-							|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT
-							|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_ARCTIC
-							|| npc.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC))
-				|| (Main.game.getPlayer().getLocationPlace().getPlaceType().getEncounterType()==Encounter.DOMINION_CANAL
-						&& (npc.getSubspecies()==Subspecies.ALLIGATOR_MORPH
-							|| npc.getSubspecies()==Subspecies.SLIME
-							|| npc.getSubspecies()==Subspecies.RAT_MORPH)));
+						?(os.getHalfDemonSubspecies()==null || os.getHalfDemonSubspecies().getRace()==Race.HARPY)
+						:(os.getHalfDemonSubspecies()==null || os.getHalfDemonSubspecies().getRace()!=Race.HARPY))
+				// Allow youko in Elis alleyways:
+				|| (enc==Encounter.getEncounterFromId("innoxia_elis_alleyway")
+						&& (os.getSubspecies()==Subspecies.FOX_ASCENDANT
+							|| os.getSubspecies()==Subspecies.FOX_ASCENDANT_ARCTIC
+							|| os.getSubspecies()==Subspecies.FOX_ASCENDANT_FENNEC))
+				// Allow Angels in Dominion:
+				|| (enc==Encounter.DOMINION_ALLEY
+						&& (os.getSubspecies()==Subspecies.ANGEL))
+				// Allow alligators, slimes, and rats in Dominion canals:
+				|| (enc==Encounter.DOMINION_CANAL
+						&& (os.getSubspecies()==Subspecies.ALLIGATOR_MORPH
+							|| os.getSubspecies()==Subspecies.SLIME
+							|| os.getSubspecies()==Subspecies.RAT_MORPH))
+				);
 	}
 	
 	
 	public static final DialogueNode OFFSPRING_CHOICE = new DialogueNode("Offspring list", "-", true) {
+		List<OffspringSeed> offspringList;
+		@Override
+		public void applyPreParsingEffects() {
+			offspringList = getOffspringList();
+		}
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			boolean noOffspring = getOffspringList().isEmpty();
+			boolean noOffspring = offspringList.isEmpty();
 			
 			UtilText.nodeContentSB.append(
 					"<p>"
@@ -61,59 +76,59 @@ public class OffspringMapDialogue {
 					+ "</p>"
 					+ "<p style='text-align:center;'>");
 			
-				if(Main.game.getOffspringNotSpawned(npc->true).isEmpty()) {
-					UtilText.nodeContentSB.append("[style.colourDisabled(No offspring available)]");
-					
-				} else {
-					boolean foundAnyInArea = false;
-					List<NPC> npcsToShow = Main.game.getOffspringNotSpawned(npc->getOffspringList().contains(npc));
-					if(!npcsToShow.isEmpty()) {
-						foundAnyInArea = true;
-						UtilText.nodeContentSB.append("Offspring [style.colourMinorGood(possibly in this area)]:<br/>");
-					}
-					for(NPC npc : npcsToShow) {
-						UtilText.nodeContentSB.append("<span style='color:"+npc.getFemininity().getColour().toWebHexString()+";'>"+(npc.isPlayer()?"You":Util.capitaliseSentence(npc.getName(true)))+"</span>");
-						
-						String unknownMotherName = "Unknown";
-						if(npc.getMother()==null && !npc.getMotherName().equals("???")) {
-							unknownMotherName = npc.getMotherName();
-						}
-						String unknownFatherName = "Unknown";
-						if(npc.getFather()==null && !npc.getFatherName().equals("???")) {
-							unknownFatherName = npc.getFatherName();
-						}
-						
-						UtilText.nodeContentSB.append(" (<span style='color:"+npc.getSubspecies().getColour(npc).toWebHexString()+";'>"+Util.capitaliseSentence(npc.getSubspecies().getName(npc))+"</span>)"
-								+ " Mother: "+(npc.getMother()==null?unknownMotherName:npc.getMother().getName(true))
-								+ " Father: "+(npc.getFather()==null?unknownFatherName:npc.getFather().getName(true))
-								+ "<br/>");
-					}
-					
-					npcsToShow = Main.game.getOffspringNotSpawned(npc->!getOffspringList().contains(npc));
-					if(!npcsToShow.isEmpty()) {
-						if(foundAnyInArea) {
-							UtilText.nodeContentSB.append("<br/>");
-						}
-						UtilText.nodeContentSB.append("Offspring [style.colourMinorBad(not in this area)]:<br/>");
-					}
-					for(NPC npc : npcsToShow) {
-						UtilText.nodeContentSB.append("[style.colourDisabled("+(npc.isPlayer()?"You":Util.capitaliseSentence(npc.getName(true)))+")]");
-
-						String unknownMotherName = "Unknown";
-						if(npc.getMother()==null && !npc.getMotherName().equals("???")) {
-							unknownMotherName = npc.getMotherName();
-						}
-						String unknownFatherName = "Unknown";
-						if(npc.getFather()==null && !npc.getFatherName().equals("???")) {
-							unknownFatherName = npc.getFatherName();
-						}
-						
-						UtilText.nodeContentSB.append(" (<span style='color:"+npc.getSubspecies().getColour(npc).toWebHexString()+";'>"+Util.capitaliseSentence(npc.getSubspecies().getName(npc))+"</span>)"
-								+ " Mother: "+(npc.getMother()==null?unknownMotherName:npc.getMother().getName(true))
-								+ " Father: "+(npc.getFather()==null?unknownFatherName:npc.getFather().getName(true))
-								+ "<br/>");
-					}
+			if(Main.game.getOffspringNotSpawned(os->true).isEmpty()) {
+				UtilText.nodeContentSB.append("[style.colourDisabled(No offspring available)]");
+				
+			} else {
+				boolean foundAnyInArea = false;
+				List<OffspringSeed> offspringToShow = Main.game.getOffspringNotSpawned(npc->offspringList.contains(npc));
+				if(!offspringToShow.isEmpty()) {
+					foundAnyInArea = true;
+					UtilText.nodeContentSB.append("Offspring [style.colourMinorGood(possibly in this area)]:<br/>");
 				}
+				for(OffspringSeed os : offspringToShow) {
+					UtilText.nodeContentSB.append("<span style='color:"+os.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(os.getName())+"</span>");
+					
+					String unknownMotherName = "Unknown";
+					if(os.getMother()==null && !os.getMotherName().equals("???")) {
+						unknownMotherName = os.getMotherName();
+					}
+					String unknownFatherName = "Unknown";
+					if(os.getFather()==null && !os.getFatherName().equals("???")) {
+						unknownFatherName = os.getFatherName();
+					}
+
+					UtilText.nodeContentSB.append(" ("+(os.isFeral()?"<span style='color:"+RaceStage.FERAL.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(RaceStage.FERAL.getName())+"</span> ":"")+"<span style='color:"+os.getSubspecies().getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(os.getSubspecies().getName(os.getBody()))+"</span>)"
+							+ " Mother: "+(os.getMother()==null?unknownMotherName:(os.getMother().isPlayer()?"[style.colourExcellent(You)]":os.getMother().getName(true)))
+							+ " Father: "+(os.getFather()==null?unknownFatherName:(os.getFather().isPlayer()?"[style.colourExcellent(You)]":os.getFather().getName(true)))
+							+ "<br/>");
+				}
+				
+				offspringToShow = Main.game.getOffspringNotSpawned(npc->!offspringList.contains(npc));
+				if(!offspringToShow.isEmpty()) {
+					if(foundAnyInArea) {
+						UtilText.nodeContentSB.append("<br/>");
+					}
+					UtilText.nodeContentSB.append("Offspring [style.colourMinorBad(not in this area)]:<br/>");
+				}
+				for(OffspringSeed os : offspringToShow) {
+					UtilText.nodeContentSB.append("[style.colourDisabled("+Util.capitaliseSentence(os.getName())+")]");
+					
+					String unknownMotherName = "Unknown";
+					if(os.getMother()==null && !os.getMotherName().equals("???")) {
+						unknownMotherName = os.getMotherName();
+					}
+					String unknownFatherName = "Unknown";
+					if(os.getFather()==null && !os.getFatherName().equals("???")) {
+						unknownFatherName = os.getFatherName();
+					}
+					
+					UtilText.nodeContentSB.append(" (<span style='color:"+os.getSubspecies().getColour(null).toWebHexString()+";'>"+Util.capitaliseSentence(os.getSubspecies().getName(os.getBody()))+"</span>)"
+							+ " Mother: "+(os.getMother()==null?unknownMotherName:(os.getMother().isPlayer()?"[style.colourExcellent(You)]":os.getMother().getName(true)))
+							+ " Father: "+(os.getFather()==null?unknownFatherName:(os.getFather().isPlayer()?"[style.colourExcellent(You)]":os.getFather().getName(true)))
+							+ "<br/>");
+				}
+			}
 				
 			UtilText.nodeContentSB.append("</p>");
 			
@@ -122,23 +137,23 @@ public class OffspringMapDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			List<NPC> npcsToShow = Main.game.getOffspringNotSpawned(npc->getOffspringList().contains(npc));
-			npcsToShow.addAll(Main.game.getOffspringNotSpawned(npc->!getOffspringList().contains(npc)));
+			List<OffspringSeed> offspringToShow = Main.game.getOffspringNotSpawned(npc->offspringList.contains(npc));
+			offspringToShow.addAll(Main.game.getOffspringNotSpawned(npc->!offspringList.contains(npc)));
 			
 			if (index == 0) {
 				return new Response("Back", "Decide not to look for any of your offspring in this location after all.", Main.game.getDefaultDialogue(false));
 				
-			} else if(index-1 < npcsToShow.size()) {
-				NPC offspring = npcsToShow.get(index-1);
+			} else if(index-1 < offspringToShow.size()) {
+				OffspringSeed offspring = offspringToShow.get(index-1);
 				
-				if(!getOffspringList().contains(offspring)) {
-					return new Response(offspring.getName(true),
-							UtilText.parse(offspring,"[npc.Name] cannot be found in this area, due to [npc.her] subspecies..."),
+				if(!offspringList.contains(offspring)) {
+					return new Response(offspring.getName(),
+							offspring.getName()+" cannot be found in this area, due to "+offspring.hisHer()+" subspecies...",
 							null);
 				}
-				
-				return new Response(offspring.getName(true),
-						UtilText.parse(offspring, "With the help of the enchanted map, you know that you'll soon be able to find [npc.name] in this area..."),
+
+				return new Response(offspring.getName(),
+						"With the help of the enchanted map, you know that you'll soon be able to find "+offspring.getName()+" in this area...",
 						offspring.getEncounterDialogue()) {
 					@Override
 					public Colour getHighlightColour() {
@@ -146,17 +161,17 @@ public class OffspringMapDialogue {
 					}
 					@Override
 					public void effects() {
-						Main.game.getOffspringSpawned().add(offspring);
+						NPC npc = new NPCOffspring(offspring);
 
-						offspring.setLocation(Main.game.getPlayer(), true);
-						
-						offspring.equipClothing(EquipClothingSetting.getAllClothingSettings());
-						
-						Main.game.setActiveNPC(offspring);
-						
+						npc.setLocation(Main.game.getPlayer(), true);
+
+						npc.equipClothing(EquipClothingSetting.getAllClothingSettings());
+
+						Main.game.setActiveNPC(npc);
+
 						Main.game.getTextStartStringBuilder().append(
 								"<p><i>"
-									+ UtilText.parse(offspring,
+									+ UtilText.parse(npc,
 										"Consulting the map, you soon find that your [npc.daughter], [npc.name], is living in this particular area of the alleyways."
 										+ " Putting away your map, you start to search for [npc.herHim]...")
 								+ "</i></p>");

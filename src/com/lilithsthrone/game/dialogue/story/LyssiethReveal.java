@@ -45,7 +45,7 @@ public class LyssiethReveal {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "ENTRANCE_WITH_ELIZABETH");
+			return UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "ENTRANCE_WITH_ELIZABETH");
 		}
 
 		@Override
@@ -72,7 +72,7 @@ public class LyssiethReveal {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "FORWARDS_1");
+			return UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "FORWARDS_1");
 		}
 
 		@Override
@@ -99,7 +99,7 @@ public class LyssiethReveal {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "FORWARDS_2");
+			return UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "FORWARDS_2");
 		}
 
 		@Override
@@ -127,7 +127,7 @@ public class LyssiethReveal {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "FORWARDS_3");
+			return UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "FORWARDS_3");
 		}
 
 		@Override
@@ -154,7 +154,7 @@ public class LyssiethReveal {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "OFFICE");
+			return UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "OFFICE");
 		}
 
 		@Override
@@ -175,7 +175,7 @@ public class LyssiethReveal {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "OFFICE_REACTION");
+			return UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "OFFICE_REACTION");
 		}
 
 		@Override
@@ -184,7 +184,7 @@ public class LyssiethReveal {
 				return new Response("Resist", "Don't give in! Resist Lyssieth's spell and try to remain on your [pc.feet].", OFFICE_REACTION_BETRAYAL) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "OFFICE_REACTION_RESIST"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "OFFICE_REACTION_RESIST"));
 					}
 				};
 				
@@ -192,7 +192,7 @@ public class LyssiethReveal {
 				return new Response("Submit", "Yes... Kneel... Just give in...", OFFICE_REACTION_BETRAYAL) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "OFFICE_REACTION_SUBMIT"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "OFFICE_REACTION_SUBMIT"));
 					}
 				};
 			}
@@ -209,7 +209,7 @@ public class LyssiethReveal {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "OFFICE_REACTION_BETRAYAL");
+			return UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "OFFICE_REACTION_BETRAYAL");
 		}
 
 		@Override
@@ -230,7 +230,7 @@ public class LyssiethReveal {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "OFFICE_REACTION_END");
+			return UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "OFFICE_REACTION_END");
 		}
 
 		@Override
@@ -251,7 +251,7 @@ public class LyssiethReveal {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "OFFICE_TELEPORT");
+			return UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "OFFICE_TELEPORT");
 		}
 
 		@Override
@@ -264,6 +264,7 @@ public class LyssiethReveal {
 						Main.game.getNpc(DarkSiren.class).setLocation(Main.game.getPlayer(), false);
 						Main.game.getNpc(Lyssieth.class).setLocation(Main.game.getPlayer(), false);
 						Main.game.getNpc(Arthur.class).setLocation(Main.game.getPlayer(), false);
+						Main.game.getNpc(Lilaya.class).setLocation(Main.game.getPlayer(), false);
 						Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_ROSE);
 					}
 				};
@@ -281,7 +282,7 @@ public class LyssiethReveal {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "OFFICE_TELEPORT_ARRIVE");
+			return UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "OFFICE_TELEPORT_ARRIVE");
 		}
 
 		@Override
@@ -302,7 +303,7 @@ public class LyssiethReveal {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ARTHUR_THEORY");
+			return UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "LAB_ARTHUR_THEORY");
 		}
 
 		@Override
@@ -323,7 +324,7 @@ public class LyssiethReveal {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_WORLD_REVEAL");
+			return UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "LAB_WORLD_REVEAL");
 		}
 
 		@Override
@@ -344,7 +345,7 @@ public class LyssiethReveal {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_LILAYA_ANGERY");
+			return UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "LAB_LILAYA_ANGERY");
 		}
 
 		@Override
@@ -365,7 +366,7 @@ public class LyssiethReveal {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_LILAYA_CALMED_DOWN");
+			return UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "LAB_LILAYA_CALMED_DOWN");
 		}
 
 		@Override
@@ -377,9 +378,9 @@ public class LyssiethReveal {
 					return new Response("World", "Ask Lyssieth why the rest of the world hasn't done something already.", LAB_QUESTION) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_QUESTION_WORLD"));
+							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "LAB_QUESTION_WORLD"));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.lyssiethQuestionAsked1, true);
-							Main.game.getTextEndStringBuilder().append(AbstractItemEffectType.getBookEffect(Main.game.getPlayer(), Subspecies.LILIN, false));
+							AbstractItemEffectType.getBookEffect(Main.game.getPlayer(), Subspecies.LILIN, null, false);
 						}
 					};
 				}
@@ -391,7 +392,7 @@ public class LyssiethReveal {
 					return new Response("Betrayal", "Ask Lyssieth why she has chosen to betray Lilith.", LAB_QUESTION) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_QUESTION_BETRAYAL"));
+							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "LAB_QUESTION_BETRAYAL"));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.lyssiethQuestionAsked2, true);
 						}
 					};
@@ -404,7 +405,7 @@ public class LyssiethReveal {
 					return new Response("People", "Lilaya wants to ask about the way in which people were changed into different version of themselves.", LAB_QUESTION) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_QUESTION_PEOPLE"));
+							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "LAB_QUESTION_PEOPLE"));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.lyssiethQuestionAsked3, true);
 						}
 					};
@@ -417,7 +418,7 @@ public class LyssiethReveal {
 					return new Response("Spell", "[siren.Name] wants to ask about Lilith's reality-altering spell.", LAB_QUESTION) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_QUESTION_SPELL"));
+							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "LAB_QUESTION_SPELL"));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.lyssiethQuestionAsked4, true);
 						}
 					};
@@ -430,7 +431,7 @@ public class LyssiethReveal {
 					return new Response("Reversal", "Arthur wants to ask about the possibility of reversing Lilith's spell.", LAB_QUESTION) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_QUESTION_REVERSAL"));
+							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "LAB_QUESTION_REVERSAL"));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.lyssiethQuestionAsked5, true);
 						}
 					};
@@ -479,7 +480,7 @@ public class LyssiethReveal {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_QUESTION_END");
+			return UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "LAB_QUESTION_END");
 		}
 
 		@Override
@@ -488,7 +489,7 @@ public class LyssiethReveal {
 				return new Response("Liberate", "Tell everyone that you want to defeat Lilith and end her tyrannical rule.", LAB_ENDING) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ENDING_LIBERATE"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "LAB_ENDING_LIBERATE"));
 						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Lyssieth.class).incrementAffection(Main.game.getPlayer(), 25));
 						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Lilaya.class).incrementAffection(Main.game.getPlayer(), 10));
 						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(DarkSiren.class).incrementAffection(Main.game.getPlayer(), 10));
@@ -501,7 +502,7 @@ public class LyssiethReveal {
 				return new Response("Usurp", "Say that you intend to defeat Lilith, and take her place as the ruler of all Dominion.", LAB_ENDING) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ENDING_USURP"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "LAB_ENDING_USURP"));
 						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Lyssieth.class).incrementAffection(Main.game.getPlayer(), 10));
 						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Lilaya.class).incrementAffection(Main.game.getPlayer(), 10));
 						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(DarkSiren.class).incrementAffection(Main.game.getPlayer(), 10));
@@ -513,7 +514,7 @@ public class LyssiethReveal {
 				return new Response("Join", "Say that you want to join Lilith.", LAB_ENDING) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ENDING_JOIN"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "LAB_ENDING_JOIN"));
 						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Lyssieth.class).incrementAffection(Main.game.getPlayer(), -20));
 						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Lilaya.class).incrementAffection(Main.game.getPlayer(), -5));
 						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(DarkSiren.class).incrementAffection(Main.game.getPlayer(), -5));
@@ -528,7 +529,7 @@ public class LyssiethReveal {
 						LAB_ENDING) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ENDING_NOTHING"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "LAB_ENDING_NOTHING"));
 						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Lyssieth.class).incrementAffection(Main.game.getPlayer(), -5));
 						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Lilaya.class).incrementAffection(Main.game.getPlayer(), -5));
 						Main.game.getTextStartStringBuilder().append(Main.game.getNpc(DarkSiren.class).incrementAffection(Main.game.getPlayer(), -5));
@@ -550,7 +551,7 @@ public class LyssiethReveal {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ENDING");
+			return UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "LAB_ENDING");
 		}
 
 		@Override
@@ -569,7 +570,7 @@ public class LyssiethReveal {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ENDING_MINOTALLYS");
+			return UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "LAB_ENDING_MINOTALLYS");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -591,7 +592,7 @@ public class LyssiethReveal {
 		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ENDING_SIREN_HELP");
+			return UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "LAB_ENDING_SIREN_HELP");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
@@ -619,7 +620,7 @@ public class LyssiethReveal {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ENDING_RETURN");
+			return UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "LAB_ENDING_RETURN");
 		}
 
 		@Override
@@ -631,7 +632,7 @@ public class LyssiethReveal {
 							LAB_ENDING_RETURN_DECLINE_SEX) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ENDING_RETURN_DECLINE_SEX_HUMAN"));
+							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "LAB_ENDING_RETURN_DECLINE_SEX_HUMAN"));
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementEssenceCount(250, false));
 						}
 					};
@@ -641,7 +642,7 @@ public class LyssiethReveal {
 							LAB_ENDING_RETURN_DECLINE_SEX) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "LAB_ENDING_RETURN_DECLINE_SEX"));
+							Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "LAB_ENDING_RETURN_DECLINE_SEX"));
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementEssenceCount(250, false));
 						}
 					};
@@ -659,7 +660,7 @@ public class LyssiethReveal {
 						null,
 						null,
 						POWER_VISION,
-						UtilText.parseFromXMLFile("misc/lyssiethReveal", "SEX_PUSSY"));
+						UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "SEX_PUSSY"));
 				
 			} else if(index==3) {
 				return new ResponseSex("Cock",
@@ -673,7 +674,7 @@ public class LyssiethReveal {
 						null,
 						null,
 						POWER_VISION,
-						UtilText.parseFromXMLFile("misc/lyssiethReveal", "SEX_COCK")) {
+						UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "SEX_COCK")) {
 					@Override
 					public void effects() {
 						((Lyssieth) Main.game.getNpc(Lyssieth.class)).growCock(PenisType.HUMAN);
@@ -734,7 +735,7 @@ public class LyssiethReveal {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "POWER_VISION");
+			return UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "POWER_VISION");
 		}
 
 		@Override
@@ -760,7 +761,7 @@ public class LyssiethReveal {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "POWER_EXPLANATION");
+			return UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "POWER_EXPLANATION");
 		}
 
 		@Override
@@ -769,7 +770,7 @@ public class LyssiethReveal {
 				return new Response("Lap pillow", "Take up Lyssieth's offer, and continue resting your head on her lap as you tell her about the vision you saw.", POWER_EXPLANATION_CONTINUE) {
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "POWER_EXPLANATION_LAP"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "POWER_EXPLANATION_LAP"));
 					}
 				};
 				
@@ -777,7 +778,7 @@ public class LyssiethReveal {
 				return new Response("Stand up", "You don't feel comfortable like this. Stand up and tell her about the vision you saw.", POWER_EXPLANATION_CONTINUE) { // But why
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("misc/lyssiethReveal", "POWER_EXPLANATION_STAND_UP"));
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "POWER_EXPLANATION_STAND_UP"));
 					}
 				};
 			}
@@ -824,7 +825,7 @@ public class LyssiethReveal {
 		
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "END_SIREN");
+			return UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "END_SIREN");
 		}
 
 		@Override
@@ -851,7 +852,7 @@ public class LyssiethReveal {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("misc/lyssiethReveal", "END_FINAL");
+			return UtilText.parseFromXMLFile("quests/main/lyssiethReveal", "END_FINAL");
 		}
 
 		@Override

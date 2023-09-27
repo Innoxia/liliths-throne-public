@@ -36,7 +36,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class BatCavernSlimeAttacker extends NPC {
 
 	public BatCavernSlimeAttacker() {
-		this(Gender.F_V_B_FEMALE, false);
+		this(Gender.getGenderFromUserPreferences(false, false), false);
 	}
 	
 	public BatCavernSlimeAttacker(Gender gender) {
@@ -65,7 +65,7 @@ public class BatCavernSlimeAttacker extends NPC {
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
-			setName(Name.getRandomTriplet(this.getRace()));
+			setName(Name.getRandomTriplet(this.getSubspecies()));
 			this.setPlayerKnowsName(false);
 			
 			// PERSONALITY & BACKGROUND:
@@ -86,7 +86,7 @@ public class BatCavernSlimeAttacker extends NPC {
 			
 			resetInventory(true);
 			inventory.setMoney(50 + Util.random.nextInt(getLevel()*10) + 1);
-			Main.game.getCharacterUtils().generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
 	
 			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			Main.game.getCharacterUtils().applyMakeup(this, true);
@@ -118,14 +118,14 @@ public class BatCavernSlimeAttacker extends NPC {
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
 		this.clearNonEquippedInventory(false);
-		Main.game.getCharacterUtils().generateItemsInInventory(this);
+		Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
 
 		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.MUGGER, settings); //TODO need slime-specific?
 	}
 	
 	@Override
-	public void hourlyUpdate() {
-		if(!this.isSlave()) {
+	public void hourlyUpdate(int hour) {
+		if(!this.isSlave() && !Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())) {
 			this.useItem(Main.game.getItemGen().generateItem(ItemType.MUSHROOM), this, false);
 		}
 	}
@@ -141,6 +141,10 @@ public class BatCavernSlimeAttacker extends NPC {
 			return (UtilText.parse(this,
 					"[npc.NamePos] days of getting high on mushrooms and attacking innocent travellers in the Bat Caverns are now over."
 							+ " Having been enslaved as punishment for [npc.her] lawless behaviour, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property."));
+		} else if(Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())){
+			return (UtilText.parse(this,
+					"[npc.NamePos] days of getting high on mushrooms and attacking innocent travellers in the Bat Caverns are now over."
+					+ " Having befriended [npc.herHim], you invited [npc.name] to move in with you and helped [npc.herHim] to start a new life."));
 		} else {
 			return (UtilText.parse(this,
 					"[npc.Name] is a resident of the bat caverns, and loves nothing more than getting high on mushrooms, attacking innocent travellers, and having sex."));

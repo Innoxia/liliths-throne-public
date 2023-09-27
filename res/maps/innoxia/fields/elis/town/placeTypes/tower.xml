@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[tower]]></name>
+	<tooltipDescription><![CDATA[At several points along the wall's perimeter, tall stone towers have been constructed, from the crenellated tops of which the surrounding lands can easily be surveyed.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in one of the towers along the walls of Elis]]></virginityLossDescription>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<colour>BASE_BLACK</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_fields_elis_generic_tower</dialogue>
+	<populationPresent>
+		<population day="true">
+			<populationType plural="true" density="FEW">PERSON</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
+		<population night="true">
+			<populationType plural="false" density="OCCASIONAL">PERSON</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
+		<population night="true">
+			<populationType plural="false" density="OCCASIONAL">ENFORCER</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town">
+				<subspeciesToRemove>HUMAN</subspeciesToRemove>
+			</subspeciesPresent>
+		</population>
+	</populationPresent>
+	<furniturePresent>false</furniturePresent>
+	<loiteringEnabled>true</loiteringEnabled>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<weatherImmunities/>
+	<applyInventoryInit/>
+</placeType>

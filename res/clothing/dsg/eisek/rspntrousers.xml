@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAtributes>
+		<authorTag><![CDATA["Tailored by the DSG Textile Guild" is crudely sewn inside the left leg.]]></authorTag>
+		<value>100</value>
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[roughspun trousers]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[roughspun trousers]]></namePlural>
+		<description><![CDATA[A pair of trousers made of roughspun wool. Its construction is so simple that it lacks even an elastic waistband and uses drawstrings instead. The fabric is worn and dangerously thin around the knees.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>MASCULINE</femininity>
+		<slot>LEG</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>rspntrousers.svg</imageName>
+		<imageEquippedName/> 
+
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
+					<clothingAccess>FEET</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked> 
+					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_ANKLES_FROM_TROUSERS"/> 
+			</blockedParts>
+			<blockedParts>
+				<displacementType>PULLS_DOWN</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>GROIN</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots>
+					<slot>GROIN</slot>
+					<slot>VAGINA</slot>
+					<slot>ANUS</slot>
+					<slot>PENIS</slot>
+					<slot>PIERCING_PENIS</slot>
+					<slot>PIERCING_VAGINA</slot>
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours>
+			<colour>CLOTHING_GREY_LIGHT</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_GREY</colour>
+		</secondaryColours>	
+		<secondaryColoursDye values="ALL"/>
+		
+		<itemTags> 
+			<tag>NOT_FOR_SALE</tag>
+			<tag>NO_RANDOM_SPAWN</tag>
+		</itemTags>
+	</coreAtributes>
+	
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] trousers down and [npc.verb(kick)] them off [npc.her] [npc.feet].]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc2.namePos] trousers down and [npc.verb(slide)] them off [npc2.her] [npc2.feet].]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(yank)] [npc2.namePos] trousers down and [npc.verb(toss)] them aside.]]>
+		</otherRough>
+	</displacementText>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(step)] into [npc.her] trousers before pulling them up to [npc.her] waist.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] the trousers up [npc2.namePos] [npc2.legs] and [npc.verb(button)] them up around [npc2.her] waist.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(force)] [npc2.namePos] [npc2.legs] into the trousers and [npc.verb(yank)] them up around [npc2.her] waist.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="PULLS_DOWN">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc.her] trousers down.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] [npc2.namePos] trousers down.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(yank)] [npc2.namePos] trousers down.]]>
+		</otherRough>
+	</displacementText>
+	
+	<replacementText type="PULLS_UP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] up [npc.her] trousers.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] up [npc2.namePos] trousers.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] forcefully [npc.verb(pull)] up [npc2.namePos] trousers.]]>
+		</otherRough>
+	</replacementText>
+	
+</clothing>

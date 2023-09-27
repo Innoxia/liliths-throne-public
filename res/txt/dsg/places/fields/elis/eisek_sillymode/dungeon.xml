@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- AMBUSH -->
+	
+	<htmlContent tag="AMBUSH"><![CDATA[
+	<p>
+		You cautiously walk down the stairs and open the door. It's surprisingly well lit for a basement. On either side of the entrance are intricately stacked piles of what you can only describe as trash. There's probably several lifetimes of weird craft projects and other kitsch in there. You don't get much time to think about it some more, however, since an unseen force slams the door shut behind you. This disturbance causes the junk towers to come crashing down, but you're able to get out of the way in time!
+	</p>
+	<p>
+		As the dust settles, you see that your way out is blocked. There's nowhere to go except further into the basement...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- BOSS -->
+	
+	<htmlContent tag="BOSS"><![CDATA[
+	<p>
+		This "room" is better decorated and more ornate than all the others, but is also just as poorly lit. Skulls, cobweb-covered tomes, and other appropriately macabre items are drawn upon the walls behind a sparse scattering of real props. The ladder in the corner is now known to lead up into the rest of the house. In the centre of the room is a marble pedestal where the Mystical Orb of Fate was once stored, but upon closer inspection it seems to be just a bird-bath.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- ENTRY -->
+	
+	<htmlContent tag="ENTRY"><![CDATA[
+	<p>
+		Behind this avalanche of junk was once the door to the outside world. The pile is now so high that you cannot even see the frame of the door. The junk itself is a boring mix of kitschy craft projects and worthless trash but the sheer mass would make digging your way out a filthy, dangerous
+		#IF(pc.hasSpell(SPELL_TELEKENETIC_SHOWER))
+			 affair, even with your telekinetic earth magic.
+		#ELSE
+			 affair.
+		#ENDIF
+		 One wonders how the occupants of this "dungeon" reset this trap, or even if they bother resetting it at all. There is nowhere to go except deeper into the basement.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- EXIT -->
+	
+	<htmlContent tag="EXIT"><![CDATA[
+	<p>
+		The air is noticeably fresher in front of this door. It must be the way out, or is at least substantially closer to it. How curious, a basement with two doors...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- EXIT_TAKEN -->
+	
+	<htmlContent tag="EXIT_TAKEN"><![CDATA[
+	<p>
+		You open the door and follow the stairs up back into the streets of Elis. Behind you, you hear a crashing noise. You turn around and try to open the door again, but it's blocked. Another junk avalanche probably...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- PASSAGE -->
+	
+	<htmlContent tag="PASSAGE"><![CDATA[
+	<p>
+		The walls on either side of this passage appear to be made from ill-fitting pieces of cardboard from floor to ceiling but through the occasional gap you catch glimpses of dust covered junk from an unknown age. Cobblestones, manacles, sconces for torches, and various related accoutrements have been illustrated on the walls to give the appearance of a real dungeon with differing degrees of success. Beneath you is an unremarkable cobblestone floor that bears the marks of recent movement of both furniture and people. Above you hangs a mishmash of arcane lighting, giving the place a suitably dour atmosphere.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TRAP -->
+	
+	<htmlContent tag="TRAP"><![CDATA[
+	<p>
+		This area is noticeably wider than the passage behind and in front of it. In the middle, you see some lit candles and aerosol cans rigged into a primitive flamethrower trap; an incredibly brave thing to put in a dungeon that is not only made of cardboard but also has defenders clad in it. Although the trap mechanism is obvious, the web of tripwires connected to it is also dense.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TRAP_SUCCESS -->
+	
+	<htmlContent tag="TRAP_SUCCESS"><![CDATA[
+	<p>
+		#IF(pc.hasSpell(SPELL_TELEKENETIC_SHOWER))
+			With your telekinetic earth magic, it's trivial for you to set off the tripwires from a safe distance. A huge gout of flame shoots into the room as the trap goes off, obliterating the candles. That's certainly one way to disarm a trap.
+		#ELSEIF(pc.hasSpell(SPELL_VACUUM))
+			You easily snuff out the candles with your vacuum spell, disarming the trap. To prove a point, you casually stroll into the room, setting off all the tripwires to no effect.
+		#ELSEIF(pc.hasSpell(SPELL_PROTECTIVE_GUSTS))
+			You easily blow out the candles with your wind magic, disarming the trap. To prove a point, you casually stroll into the room, setting off all the tripwires to no effect.
+		#ELSEIF(pc.hasSpell(SPELL_SOOTHING_WATERS)||pc.hasSpell(SPELL_RAIN_CLOUD))
+			You easily douse the candles with your ice magic, disarming the trap. To prove a point, you casually stroll into the room, setting off all the tripwires to no effect.
+		#ELSE
+			You manage to work your way through the tripwires without setting off the trap. You carefully blow out each candle, disarming the trap. 
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TRAP_FAILURE -->
+	
+	<htmlContent tag="TRAP_FAILURE"><![CDATA[
+	<p>
+		You try to work your way through the tripwires but trigger one of them. A huge gout of flame shoots into the room,
+		#IF(pc.isImmuneToDamageType(DAMAGE_TYPE_FIRE) || pc.getAttributeValue(ATTRIBUTE_RESISTANCE_FIRE) >= 30)
+			 but your resistance to fire protects you! Looking down, you see that this sudden burst of heat also obliterated the candles. It should be safe to continue.
+		#ELSE
+			 forcing you to make a hasty retreat! Looking back, you see that this sudden burst of heat also obliterated the candles. It should be safe to go back in now.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TRAP_TRIGGERED -->
+	
+	<htmlContent tag="TRAP_TRIGGERED"><![CDATA[
+	<p>
+		This area is noticeably wider than the passage behind and in front of it. In the middle was once a flamethrower trap but the candles serving as its sources of ignition have since been extinguished, rendering it harmless.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TREASURE -->
+	
+	<htmlContent tag="TREASURE"><![CDATA[
+	<p>
+		A dead end room with walls on all three sides. There doesn't seem to be anything here except an antique chest, unclasped and unlocked, with "Snack Fund" neatly scrawled on the lid. Surely no one would mind if you took a peek inside?
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TREASURE_TAKING -->
+	
+	<htmlContent tag="TREASURE_TAKING"><![CDATA[
+	<p>
+		You open the chest to find a pile of loose flames. Well... finders keepers.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TREASURE_TAKEN -->
+	
+	<htmlContent tag="TREASURE_TAKEN"><![CDATA[
+	<p>
+		A dead end room with walls on all three sides. There isn't anything here except an antique chest which you've looted. This strange little group is going without snacks for a while.
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

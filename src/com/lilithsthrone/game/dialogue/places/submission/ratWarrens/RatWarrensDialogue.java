@@ -128,36 +128,8 @@ public class RatWarrensDialogue {
 		}
 		
 		// Spawn humans:
-		if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)
-				&& Main.game.getCharactersPresent(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_ROOM).isEmpty()) {
-			try {
-				String[] adjectives = new String[] {"brainwashed", "submissive", "obedient", "docile"};
-				for(int i=0;i<4;i++) {
-					NPC human = new RatWarrensCaptive(Gender.F_V_B_FEMALE);
-					Main.game.addNPC(human, false);
-					human.setGenericName(adjectives[i]+" milker");
-					human.setAffection(Main.game.getNpc(Murk.class), 100);
-					Main.game.getNpc(Murk.class).calculateGenericSexEffects(true, true, human, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA), GenericSexFlag.NO_DESCRIPTION_NEEDED);
-					Main.game.getNpc(Murk.class).fillCumToMaxStorage();
-					human.clearFluidsStored(SexAreaOrifice.VAGINA);
-					human.calculateStatusEffects(1);
-					AbstractItem milk = Main.game.getItemGen().generateItem(ItemType.MOTHERS_MILK);
-					human.useItem(milk, human, false);
-					if(human.isPregnant()) {
-						if(Math.random()<0.75f) {
-							human.useItem(milk, human, false);
-						}
-						if(Math.random()<0.5f) {
-							human.useItem(milk, human, false);
-						}
-						if(Math.random()<0.25f) {
-							human.useItem(milk, human, false);
-						}
-					}
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR) && Main.game.getCharactersPresent(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_ROOM).isEmpty()) {
+			spawnMilkers();
 		}
 		
 		// Spawn bar-tender:
@@ -217,7 +189,7 @@ public class RatWarrensDialogue {
 		return guards;
 	}
 	
-	private static List<GameCharacter> getMilkers() {
+	public static List<GameCharacter> getMilkers() {
 		List<GameCharacter> milkers = new ArrayList<>();
 		for(GameCharacter milker : Main.game.getCharactersPresent(Main.game.getWorlds().get(WorldType.RAT_WARRENS).getCell(PlaceType.RAT_WARRENS_MILKING_ROOM))) {
 			if(milker instanceof RatWarrensCaptive && !Main.game.getPlayer().getCompanions().contains(milker)) {
@@ -267,6 +239,48 @@ public class RatWarrensDialogue {
 		
 		Main.game.getPlayer().removeItemByType(ItemType.RESONANCE_STONE);
 
+		List<NPC> ratGuards = new ArrayList<>(Main.game.getCharactersPresent(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_ENTRANCE));
+		ratGuards.addAll(Main.game.getCharactersPresent(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_DICE_DEN));
+		for(NPC ratGuard : ratGuards) {
+			if(ratGuard instanceof RatGangMember && !Main.game.getPlayer().getCompanions().contains(ratGuard)) {
+				Main.game.banishNPC(ratGuard);
+			}
+		}
+	}
+	
+	public static void spawnMilkers() {
+		try {
+			String[] adjectives = new String[] {"brainwashed", "submissive", "obedient", "docile"};
+			for(int i=0;i<4;i++) {
+				NPC human = new RatWarrensCaptive(Gender.F_V_B_FEMALE);
+				Main.game.addNPC(human, false);
+				human.setGenericName(adjectives[i]+" milker");
+				human.setAffection(Main.game.getNpc(Murk.class), 100);
+				Main.game.getNpc(Murk.class).calculateGenericSexEffects(true, true, human, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA), GenericSexFlag.NO_DESCRIPTION_NEEDED);
+				Main.game.getNpc(Murk.class).fillCumToMaxStorage();
+				human.clearFluidsStored(SexAreaOrifice.VAGINA);
+				human.calculateStatusEffects(1);
+				AbstractItem milk = Main.game.getItemGen().generateItem(ItemType.MOTHERS_MILK);
+				human.useItem(milk, human, false);
+				if(human.isPregnant()) {
+					if(Math.random()<0.75f) {
+						human.useItem(milk, human, false);
+					}
+					if(Math.random()<0.5f) {
+						human.useItem(milk, human, false);
+					}
+					if(Math.random()<0.25f) {
+						human.useItem(milk, human, false);
+					}
+				}
+				human.setMuskMarker(Main.game.getNpc(Murk.class).getId());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void banishMilkers() {
 		for(GameCharacter milker : getMilkers()) {
 			Main.game.banishNPC((NPC) milker);
 		}
@@ -367,7 +381,7 @@ public class RatWarrensDialogue {
 	}
 	
 	private static int getRumPrice() {
-		return ItemType.getItemTypeFromId("innoxia_race_rat_black_rats_rum").getValue(null)/2;
+		return ItemType.getItemTypeFromId("innoxia_race_rat_black_rats_rum").getValue()/2;
 	}
 
 	private static boolean isMouthAccess(GameCharacter target) {
@@ -1089,8 +1103,8 @@ public class RatWarrensDialogue {
 				return super.isAbleToRemoveOthersClothing(character, clothing);
 			}
 			@Override
-			public boolean isAbleToEquipSexClothing(GameCharacter character) {
-				return !character.isPlayer() && !character.equals(getMainCompanion());
+			public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip) {
+				return !equippingCharacter.isPlayer() && !equippingCharacter.equals(getMainCompanion());
 			}
 			@Override
 			public boolean isAbleToRemoveSelfClothing(GameCharacter character) {
@@ -1518,7 +1532,7 @@ public class RatWarrensDialogue {
 						return new Response("Loot bar", "You've already taken everything of value from behind the bar...", null);
 						
 					} else {
-						return new Response("Loot bar", "You've already taken everything of value from behind the bar...", DICE_DEN_LOOT) {
+						return new Response("Loot bar", "Take a look behind the bar and see if there's anything worth taking...", DICE_DEN_LOOT) {
 							@Override
 							public void effects() {
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensLootedDiceDen, true);
@@ -2652,12 +2666,12 @@ public class RatWarrensDialogue {
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensHostile)) {
 						return new Response("Seduce", "Vengar considers you to be an enemy, so he isn't going to pay attention to any attempts at seducing him...", null);
 					}
-					if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS)
+					if(Main.game.getPlayer().hasTraitActivated(Perk.CONVINCING_REQUESTS)
 							|| Main.game.getPlayer().hasSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_3)
 							|| Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_LUST)>=75) {
 						return new Response("Seduce",
 								"Seduce Vengar in an attempt to convince him to stop extorting protection money from Axel."
-										+ "<br/>[style.italicsMinorGood(Unlocked from having the '"+Perk.CONVINCING_REQUESTS.getName(Main.game.getPlayer())+"' perk.)]"
+										+ "<br/>[style.italicsMinorGood(Unlocked from having the '"+Perk.CONVINCING_REQUESTS.getName(Main.game.getPlayer())+"' trait activated.)]"
 										+getCooperationWarning(),
 								VENGARS_HALL_APPROACH_SEDUCE) {
 							@Override
@@ -2676,7 +2690,7 @@ public class RatWarrensDialogue {
 					}
 					return new Response("Seduce",
 							"You aren't skilled enough in the art of seduction to convince Vengar to stop extorting protection money from Axel in this manner."
-									+ "<br/>[style.italicsMinorBad(Requires the '"+Perk.CONVINCING_REQUESTS.getName(Main.game.getPlayer())+"' perk,"
+									+ "<br/>[style.italicsMinorBad(Requires the '"+Perk.CONVINCING_REQUESTS.getName(Main.game.getPlayer())+"' trait to be active,"
 											+ " at least 75 lust damage, or the '"+SpellUpgrade.TELEPATHIC_COMMUNICATION_3.getName()+"' upgrade for the '"+Spell.TELEPATHIC_COMMUNICATION.getName()+"' spell.)]",
 							null);
 				}
@@ -3475,7 +3489,7 @@ public class RatWarrensDialogue {
 						Main.game.getNpc(Vengar.class));
 				
 			} else if(index==2) {
-				if(Main.game.getPlayer().hasTrait(Perk.UNARMED_TRAINING, true)
+				if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.MARTIAL_ARTIST)
 						|| Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_UNARMED)>=75
 						|| Main.game.getPlayer().hasSpellUpgrade(SpellUpgrade.SLAM_3)) {
 					return new Response("Knock out",
@@ -3483,8 +3497,8 @@ public class RatWarrensDialogue {
 									+ "<br/>[style.italicsMinorGood("
 									+(Main.game.getPlayer().hasSpellUpgrade(SpellUpgrade.SLAM_3)
 										?"Unlocked from having the '"+SpellUpgrade.SLAM_3.getName()+"' upgrade to the '"+Spell.SLAM.getName()+"' spell."
-										:(Main.game.getPlayer().hasTrait(Perk.UNARMED_TRAINING, true)
-											?"Unlocked from having the '"+Perk.UNARMED_TRAINING.getName(Main.game.getPlayer())+"' trait."
+										:(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.MARTIAL_ARTIST)
+											?"Unlocked from having the '"+Perk.MARTIAL_ARTIST.getName(Main.game.getPlayer())+"' trait."
 											:"Unlocked from having over 75 unarmed damage."))
 									+ ")]",
 							VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT);
@@ -3492,7 +3506,7 @@ public class RatWarrensDialogue {
 				} else {
 					return new Response("Knock out",
 							"You aren't able to take advantage of Vengar's haste..."
-									+ "<br/>[style.italicsMinorBad(Requires the '"+Perk.UNARMED_TRAINING.getName(Main.game.getPlayer())+"' trait,"
+									+ "<br/>[style.italicsMinorBad(Requires the '"+Perk.MARTIAL_ARTIST.getName(Main.game.getPlayer())+"' trait,"
 											+ " over 75 unarmed damage, or the '"+SpellUpgrade.SLAM_3.getName()+"' upgrade to the '"+Spell.SLAM.getName()+"' spell.)]",
 							null);
 				}

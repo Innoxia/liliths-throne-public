@@ -19,7 +19,11 @@
 
 	<htmlContent tag="OCCUPANT_START"><![CDATA[
 	<p>
-		Wanting to pay your [npc.relation(pc)] a visit to find out how [npc.sheIs] getting on, you knock on [npc.namePos] door, and after just a second, you hear [npc.herHim] call out, [npc.speech(Come on in!)]
+		#IF(npc.isSleepingAtHour())
+			Wanting to pay your [npc.relation(pc)] a visit to find out how [npc.sheIs] getting on, you knock on [npc.namePos] door and wait for an answer. Clearly having just woken [npc.herHim] up, you soon hear [npc.herHim] sleepily calling out, [npc.speech(Come on in...)]
+		#ELSE
+			Wanting to pay your [npc.relation(pc)] a visit to find out how [npc.sheIs] getting on, you knock on [npc.namePos] door, and after just a second, you hear [npc.herHim] call out, [npc.speech(Come on in!)]
+		#ENDIF
 	</p>
 	<p>
 		Doing as [npc.she] says, you push open the door and step inside [npc.her] room, greeting [npc.herHim] as you enter, [pc.speech(Hi, [npc.name].)]
@@ -35,6 +39,26 @@
 	#ELSE
 		<p>
 			[npc.speech([npc.PcName]!)] [npc.name] happily shouts, bounding forwards with a huge grin on [npc.her] face before wrapping [npc.her] [npc.arms] around you and giving you a big hug. After spending a moment together in one another's loving embrace, [npc.name] pulls back and joyously exclaims, [npc.speech(Thank you so much for everything again; I'm so lucky to be your [npc.relation(pc)]! If there's anything you ever need, just let me know! So, what did you want to talk about?)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_WORKING"><![CDATA[
+	<p>
+		Wanting to see how your [npc.relation(pc)] is getting on with [npc.her] job, you approach [npc.herHim] and call out, [pc.speech(Hi, [npc.name].)]
+	</p>
+	#IF (npc.getAffection(pc) < AFFECTION_NEGATIVE_TWO_DISLIKE.getMaximumValue())
+		<p>
+			[npc.speech(Oh. It's you,)] [npc.name] replies, doing [npc.her] best to hide [npc.her] animosity towards you as [npc.she] stops what she is doing and crosses [npc.her] [npc.arms]. [npc.speech(Look, I'm really grateful for everything you've done for me, but can you make this quick? I'm busy.)]
+		</p>
+	#ELSEIF (npc.getAffection(pc) < AFFECTION_POSITIVE_ONE_FRIENDLY.getMaximumValue())
+		<p>
+			[npc.speech(Hi, [npc.pcName]!)] [npc.name] happily replies, [npc.she] sets aside what [npc.she] was working on to give you [npc.her] full attention. [npc.speech(Thank you so much for everything again; I'm so lucky to be your [npc.relation(pc)]! What can I do for you?)]
+		</p>
+	#ELSE
+		<p>
+			[npc.speech([npc.PcName]!)] [npc.name] happily shouts. After quickly finishing [npc.her] current task, [npc.she] bounds forwards with a huge grin on [npc.her] face, before wrapping [npc.her] [npc.arms] around you and giving you a big hug. After spending a moment together in one another's loving embrace, [npc.name] pulls back and joyously exclaims, [npc.speech(Thank you so much for everything again; I'm so lucky to be your [npc.relation(pc)]! If there's anything you ever need, just let me know! So, what did you want to talk about?)]
 		</p>
 	#ENDIF
 	]]>
@@ -130,11 +154,11 @@
 	<htmlContent tag="OCCUPANT_START_FINISH_WITH_NEW_JOB"><![CDATA[
 	#IF (npc.getAffection(pc) < AFFECTION_NEGATIVE_TWO_DISLIKE.getMaximumValue())
 		<p>
-			[npc.speech(Oh, I suppose I should tell you, by the way,)] [npc.name] says, [npc.speech(I got a job. I'm working as [npc.a_job], from [npc.jobStartHour]:00 to [npc.jobEndHour]:00, [npc.jobStartDay] to [npc.jobEndDay]. One of my new colleagues said there's a cheap apartment available near to where they live, so if you want me to move out at any time, just let me know. Oh, and I've also talked to Lilaya already about all this, and I told her that I wanted to start paying rent, so from now on I can cover the cost of my upkeep.)]
+			[npc.speech(Oh, I suppose I should tell you, by the way,)] [npc.name] says, [npc.speech(I got a job. I'm working as [npc.a_job], from [npc.jobStartTime] to [npc.jobEndTime], [npc.jobStartDay] to [npc.jobEndDay]. One of my new colleagues said there's a cheap apartment available near to where they live, so if you want me to move out at any time, just let me know. Oh, and I've also talked to Lilaya already about all this, and I told her that I wanted to start paying rent, so from now on I can cover the cost of my upkeep.)]
 		</p>
 	#ELSE
 		<p>
-			[npc.speech(Oh, by the way, I have some really exciting news, [pc.name]!)] [npc.name] happily exclaims, beaming at you in delight as [npc.she] delivers it to you, [npc.speech(I got a job working as [npc.a_job]! From now on, I'm going to be out at work from [npc.jobStartHour]:00 to [npc.jobEndHour]:00, [npc.jobStartDay] to [npc.jobEndDay]. Isn't that exciting?!)]
+			[npc.speech(Oh, by the way, I have some really exciting news, [pc.name]!)] [npc.name] happily exclaims, beaming at you in delight as [npc.she] delivers it to you, [npc.speech(I got a job working as [npc.a_job]! From now on, I'm going to be out at work from [npc.jobStartTime] to [npc.jobEndTime], [npc.jobStartDay] to [npc.jobEndDay]. Isn't that exciting?!)]
 		</p>
 		<p>
 			[pc.speech(Congratulations!)] you reply, stepping forwards and pulling [npc.name] into a big hug. [pc.speech(I knew you could do it! I'm so proud of you, [npc.name]!)]
@@ -459,6 +483,37 @@
 	]]>
 	</htmlContent>
 
+	<!-- Description is more generic as with more than 2 characters the combinations of attracted/non-attracted would be quite complex to fully detail. -->
+	<htmlContent tag="SEX_GANGBANG_3"><![CDATA[
+	<p>
+		Wanting to have sex with everyone present, you tell [npc.name], [npc2.name], and [npc3.name] what's on your mind.
+	</p>
+	<p>
+		#IF(npc.isAttractedTo(pc) && npc2.isAttractedTo(pc) && npc3.isAttractedTo(pc))
+			As all three of them give positive responses,
+		#ELSE
+			Before any of them have any time in which to respond,
+		#ENDIF
+		 you [pc.step] forwards and prepare to get started...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_GANGBANG_4"><![CDATA[
+	<p>
+		Wanting to have sex with everyone present, you tell [npc.name], [npc2.name], [npc3.name], and [npc4.name] what's on your mind.
+	</p>
+	<p>
+		#IF(npc.isAttractedTo(pc) && npc2.isAttractedTo(pc) && npc3.isAttractedTo(pc) && npc4.isAttractedTo(pc))
+			As all four of them give positive responses,
+		#ELSE
+			Before any of them have any time in which to respond,
+		#ENDIF
+		 you [pc.step] forwards and prepare to get started...
+	</p>
+	]]>
+	</htmlContent>
+
 	<!-- END Dominant sex actions -->
 	
 	
@@ -477,21 +532,21 @@
 			 Throwing [npc.herHim] your most charming smile, you tease,
 		#ENDIF
 		#IF (npc.isFeminine())
-			 [pc.speech(I'm the luckiest [pc.relation(npc)] in the world, to have such a beautiful, loving daughter as yourself...)]
+			 [pc.speech(I'm the luckiest [pc.relation(npc)] in the world, to have such a beautiful, loving [npc.relation(pc)] as yourself...)]
 		#ELSE
-			 [pc.speech(I'm the luckiest [pc.relation(npc)] in the world, to have such a strong, handsome son as yourself...)]
+			 [pc.speech(I'm the luckiest [pc.relation(npc)] in the world, to have such a strong, handsome [npc.relation(pc)] as yourself...)]
 		#ENDIF
 	</p>
 	<p>
 		#IF(npc.isFeminine())
-			Staring lustfully into your [pc.eyes], [npc.name] wraps [npc.her] [npc.arms] around your lower back and dominantly pulls you into [npc.her] embrace. Letting out a desperate, lustful moan, [npc.she] says, [npc.speech(I'm going to show you how a daughter ought to treat her [pc.relation(npc)]; I'll make you submit
+			Staring lustfully into your [pc.eyes], [npc.name] wraps [npc.her] [npc.arms] around your lower back and dominantly pulls you into [npc.her] embrace. Letting out a desperate, lustful moan, [npc.she] says, [npc.speech(I'm going to show you how [npc.a_relation(pc)] ought to treat her [pc.relation(npc)]; I'll make you submit
 			#IF(npc.hasVagina() && !npc.getFetishDesire(FETISH_VAGINAL_RECEIVING).isNegative())
 			 and service my pussy!
 			#ELSE
 			 and pleasure me!
 			#ENDIF)]
 		#ELSE
-			Staring lustfully into your [pc.eyes], [npc.name] wraps [npc.her] [npc.arms] around your lower back and dominantly pulls you into [npc.her] embrace. Letting out a deep, horny growl, [npc.she] says, [npc.speech(I'm going to show you how a son ought to treat his [pc.relation(npc)]; I'll make you submit
+			Staring lustfully into your [pc.eyes], [npc.name] wraps [npc.her] [npc.arms] around your lower back and dominantly pulls you into [npc.her] embrace. Letting out a deep, horny growl, [npc.she] says, [npc.speech(I'm going to show you how [npc.a_relation(pc)] ought to treat his [pc.relation(npc)]; I'll make you submit
 			#IF(npc.hasPenis() && !npc.getFetishDesire(FETISH_PENIS_GIVING).isNegative())
 			 and service my cock!
 			#ELSE
@@ -544,7 +599,7 @@
 			#IF(!npc.isTaur() && !pc.isTaur())
 				Moving around in front of you, [npc.name] then reaches up to grab your shoulders, before pulling down and forcing you onto all fours.
 			#ELSEIF(npc.isTaur())
-				Moving around in front of you, [npc.name] kneels down to grab your shoulders, before pushing down and forcing you onto all fours. Standing back up, [npc2.she] turns [npc2.her] [npc.legConfiguration] body to one side in order to present [npc2.her] groin to you.
+				Moving around in front of you, [npc.name] kneels down to grab your shoulders, before pushing down and forcing you onto all fours. Standing back up, [npc2.she] turns [npc2.her] [npc2.legConfiguration] body to one side in order to present [npc2.her] groin to you.
 			#ELSE
 				Moving around in front of you, [npc.name] lets out a hungry [npc2.moan] as [npc.she] prepares to present [npc2.her] groin to you.
 			#ENDIF
@@ -576,16 +631,16 @@
 		</p>
 		<p>
 			#IF(!npc2.isTaur())
-				With agreement from [npc.your] [npc.relation(pc)], [npc2.name] takes hold of your [pc.hips] and pulls you down onto your knees as [npc2.she] drops down behind you.
+				With agreement from your [npc.relation(pc)], [npc2.name] takes hold of your [pc.hips] and pulls you down onto your knees as [npc2.she] drops down behind you.
 			#ELSE
-				With agreement from [npc.your] [npc.relation(pc)], [npc2.name] takes hold of your [pc.hips] and pushes you down onto your knees, before stepping forwards and positioning [npc2.her] [npc2.legConfiguration] body over the top of you, ready to mount you.
+				With agreement from your [npc.relation(pc)], [npc2.name] takes hold of your [pc.hips] and pushes you down onto your knees, before stepping forwards and positioning [npc2.her] [npc2.legConfiguration] body over the top of you, ready to mount you.
 			#ENDIF
 		</p>
 		<p>
 			#IF(!npc.isTaur() && !pc.isTaur())
 				Kneeling down before you, [npc.name] then reaches up to grab your shoulders, before pulling down and forcing you onto all fours.
 			#ELSEIF(npc.isTaur())
-				Moving around in front of you, [npc.name] kneels down to grab your shoulders, before pushing down and forcing you onto all fours. Standing back up, [npc2.she] turns [npc2.her] [npc.legConfiguration] body to one side in order to present [npc2.her] groin to you.
+				Moving around in front of you, [npc.name] kneels down to grab your shoulders, before pushing down and forcing you onto all fours. Standing back up, [npc2.she] turns [npc2.her] [npc2.legConfiguration] body to one side in order to present [npc2.her] groin to you.
 			#ELSE
 				Moving around in front of you, [npc.name] lets out a hungry [npc2.moan] as [npc.she] prepares to present [npc2.her] groin to you.
 			#ENDIF
@@ -618,7 +673,7 @@
 			#IF(!npc.isTaur() && !pc.isTaur())
 				Kneeling down before you, [npc.name] then reaches up to grab your shoulders, before pulling down and forcing you onto all fours.
 			#ELSEIF(!npc.isTaur())
-				Moving around in front of you, [npc.name] kneels down to grab your shoulders, before pushing down and forcing you onto all fours. Standing back up, [npc2.she] turns [npc2.her] [npc.legConfiguration] body to one side in order to present [npc2.her] groin to you.
+				Moving around in front of you, [npc.name] kneels down to grab your shoulders, before pushing down and forcing you onto all fours. Standing back up, [npc2.she] turns [npc2.her] [npc2.legConfiguration] body to one side in order to present [npc2.her] groin to you.
 			#ELSE
 				Moving around in front of you, [npc.name] lets out a hungry [npc2.moan] as [npc.she] prepares to present [npc2.her] groin to you.
 			#ENDIF
@@ -678,6 +733,27 @@
 	]]>
 	</htmlContent>
 	
+	<!-- Description is more generic as with more than 2 characters the combinations of attracted/non-attracted would be quite complex to fully detail. -->
+	<htmlContent tag="SEX_GANGBANG_AS_SUB_3"><![CDATA[
+	<p>
+		Wanting everyone present to dominantly fuck you, you tell [npc.name], [npc2.name], and [npc3.name] what's on your mind.
+	</p>
+	<p>
+		As all three of them give positive responses, you [pc.step] forwards and prepare to submit to them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_GANGBANG_AS_SUB_4"><![CDATA[
+	<p>
+		Wanting everyone present to dominantly fuck you, you tell [npc.name], [npc2.name], [npc3.name], and [npc4.name] what's on your mind.
+	</p>
+	<p>
+		As all four of them give positive responses, you [pc.step] forwards and prepare to submit to them...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<!-- END Submissive sex actions -->
 	
 	<htmlContent tag="LEAVING"><![CDATA[
@@ -705,7 +781,7 @@
 		Wanting to know how [npc.namePos] job as [npc.a_job] is going, you ask [npc.herHim] how [npc.sheIs] finding it. All too eager to try and impress you with [npc.her] tales of finally being a productive member of society, [npc.name] starts recounting some of [npc.her] recent experiences at work, pausing every now and then to allow you to compliment [npc.herHim] or make a comment on [npc.her] story-telling.
 	</p>
 	<p>
-		After a little while of this, [npc.name] draws the conversation to a close, finishing by reminding you that <b>[npc.her] work hours are from [npc.jobStartHour]:00 to [npc.jobEndHour]:00, [npc.jobStartDay] to [npc.jobEndDay]</b>.
+		After a little while of this, [npc.name] draws the conversation to a close, finishing by reminding you that <b>[npc.her] work hours are from [npc.jobStartTime] to [npc.jobEndTime], [npc.jobStartDay] to [npc.jobEndDay]</b>.
 	</p>
 	<p>
 		Having exhausted this line of conversation for the time being, you wonder what to do next...
@@ -992,6 +1068,20 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="AFTER_SEX_GANGBANG_3"><![CDATA[
+	<p>
+		Having had your fun, you disentangle yourself from [npc.name], [npc2.name], and [npc3.name], before starting to get your things back in order. Grinning at your three partners, you tell them that you should do this again some time, before [pc.stepping] back and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_GANGBANG_4"><![CDATA[
+	<p>
+		Having had your fun, you disentangle yourself from [npc.name], [npc2.name], [npc3.name], and [npc4.name], before starting to get your things back in order. Grinning at your four partners, you tell them that you should do this again some time, before [pc.stepping] back and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="LEAVE_AFTER_SEX"><![CDATA[
 	<p>
 		As [npc.name] looks exhausted, you decide to take your leave and give [npc.herHim] some time to recover. Heading over to the door, you call out, [pc.speech(I'll be back later, [npc.name]. Maybe we can have some more fun when I return...)]
@@ -1113,7 +1203,11 @@
 		Finding yourself near to where [npc.name] lives, you decide to pay [npc.herHim] a visit. Cutting across the street towards [npc.her] apartment building, you push open the front door and step into the building's foyer, before heading over to the staircase and making your way up to the second floor.
 	</p>
 	<p>
-		Walking up to the door of [npc.namePos] flat, you give it a firm knock, smiling to yourself as you hear a muffled response from somewhere within, [npc.speech(Hold on! I'm coming!)]
+		#IF(npc.isSleepingAtHour())
+			Walking up to the door of [npc.namePos] flat, you give it a firm knock and wait for an answer. Clearly having just woken [npc.herHim] up, you soon hear [npc.herHim] sleepily calling out, [npc.speech(Hold on... I'm coming...)]
+		#ELSE
+			Walking up to the door of [npc.namePos] flat, you give it a firm knock, smiling to yourself as you hear a muffled response from somewhere within, [npc.speech(Hold on! I'm coming!)]
+		#ENDIF
 	</p>
 	<p>
 		After just a moment, the door swings inwards, and you find yourself looking upon the delighted face of [npc.name], who instantly calls out, [npc.speech([npc.PcName]! Oh, I'm so happy to see you again!)]
@@ -1203,7 +1297,7 @@
 		Walking up to the door of [npc.namePos] flat, you give it a firm knock, but even after waiting a minute and knocking again, there's no sign of anyone being inside. Realising that [npc.name] must be out at work, there's nothing more for you to do except turn and head back out into Dominion.
 	</p>
 	<p>
-		Letting out a sigh, you remember what [npc.name] told you once before... [npc.speech(<i>My work hours are from [npc.jobStartHour]:00 to [npc.jobEndHour]:00, [npc.jobStartDay] to [npc.jobEndDay]!</i>)]
+		Letting out a sigh, you remember what [npc.name] told you once before... [npc.speech(<i>My work hours are from [npc.jobStartTime] to [npc.jobEndTime], [npc.jobStartDay] to [npc.jobEndDay]!</i>)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1325,7 +1419,7 @@
 		Wanting to know how [npc.namePos] job as [npc.a_job] is going, you ask [npc.herHim] how [npc.sheIs] finding it. All too eager to try and impress you with [npc.her] tales of finally being a productive member of society, [npc.name] starts recounting some of [npc.her] recent experiences at work, pausing every now and then to allow you to compliment [npc.herHim] or make a comment on [npc.her] story-telling.
 	</p>
 	<p>
-		After a little while of this, [npc.name] draws the conversation to a close, finishing by reminding you that <b>[npc.her] work hours are from [npc.jobStartHour]:00 to [npc.jobEndHour]:00, [npc.jobStartDay] to [npc.jobEndDay]</b>.
+		After a little while of this, [npc.name] draws the conversation to a close, finishing by reminding you that <b>[npc.her] work hours are from [npc.jobStartTime] to [npc.jobEndTime], [npc.jobStartDay] to [npc.jobEndDay]</b>.
 	</p>
 	<p>
 		Having exhausted this line of conversation for the time being, you wonder what to do next...
@@ -1353,7 +1447,7 @@
 	<p style='text-align:center;'><i>
 		Hi, [npc.pcName]!<br/>
 		I hope you slept well! You looked so happy fast asleep that I couldn't wake you to tell you that I needed to go to work, but that's where I am!<br/>
-		I'll be back at [npc.jobEndHour]:00, so if you wanted to drop by again after that time, I'll be here!<br/>
+		I'll be back at [npc.jobEndTime], so if you wanted to drop by again after that time, I'll be here!<br/>
 		See you soon,<br/>
 		[npc.name] x
 	</i></p>

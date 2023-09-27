@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<breast>
+	<race>innoxia_raptor</race>
+	
+	<transformationName><![CDATA[raptor]]></transformationName>
+	
+	<coveringType>innoxia_raptor_feathers</coveringType>
+	
+	<nippleType>innoxia_raptor_nipple</nippleType>
+	
+	<fluidType>innoxia_raptor_milk</fluidType>
+	
+	<names/>
+	<namesPlural/>
+	<descriptors/>
+	
+	<namesFlat/>
+	<namesPluralFlat/>
+	<descriptorsFlat/>
+	
+	<transformationDescription><![CDATA[
+		[npc.She] now [npc.has] [style.boldRaptor(avian)], [npc.nipplesFullDescription], and when lactating, [npc.she] will produce [style.boldRaptor(raptor milk)].
+	]]></transformationDescription>
+	
+	<bodyDescription><![CDATA[
+		On each of [npc.her] [npc.breastSize] [npc.breasts], [npc.she] [npc.has] [npc.nipplesPerBreast] avian, [npc.nipplesFullDescription].
+	]]></bodyDescription>
+	
+	<crotchBoobsTransformationDescription><![CDATA[
+		[npc.She] now [npc.has] [style.boldRaptor(avian)], [npc.crotchNipplesFullDescription], and when lactating, [npc.she] will produce [style.boldRaptor(raptor milk)].
+	]]></crotchBoobsTransformationDescription>
+	
+	<crotchBoobsBodyDescription><![CDATA[
+		On each of [npc.her] [npc.crotchBoobSize] [npc.crotchBoobs], [npc.she] [npc.has] [npc.crotchNipplesPerBreast] avian, [npc.crotchNipplesFullDescription].
+	]]></crotchBoobsBodyDescription>
+</breast>

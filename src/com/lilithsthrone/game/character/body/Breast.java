@@ -140,6 +140,10 @@ public class Breast implements BodyPartInterface {
 		list.add(this.getSize().getDescriptor());
 		list.add(this.getShape().getDescriptor());
 		
+		if(owner.getBodyMaterial().getPartDescriptors()!=null && !owner.getBodyMaterial().getPartDescriptors().isEmpty()) {
+			list.add(Util.randomItemFrom(owner.getBodyMaterial().getPartDescriptors()));
+		}
+		
 		return Util.randomItemFrom(list);
 	}
 
@@ -283,7 +287,7 @@ public class Breast implements BodyPartInterface {
 			return UtilText.parse(owner,
 					"<p>"
 						+ "[npc.Name] [npc.verb(feel)] a strange bubbling and churning taking place deep within [npc.her] [npc.breasts], and [npc.a_moan+] drifts out from between [npc.her] [npc.lips] as a few drops of [npc.milk] suddenly leak"
-							+ " from [npc.her] [npc.nipples]; clear evidence that that [npc.her] [npc.milk] production has [style.boldGrow(increased)].<br/>"
+							+ " from [npc.her] [npc.nipples]; clear evidence that [npc.her] [npc.milk] production has [style.boldGrow(increased)].<br/>"
 						+ "[npc.NameIsFull] now able to produce [style.boldSex(" + lactationDescriptor + " [npc.milk])]!"
 					+ "</p>");
 			
@@ -368,7 +372,7 @@ public class Breast implements BodyPartInterface {
 			return UtilText.parse(owner,
 					"<p>"
 						+ "[npc.Name] [npc.verb(feel)] an alarming bubbling and churning taking place deep within [npc.her] [npc.breasts], and [npc.a_moan+] drifts out from between [npc.her] [npc.lips] as a few drops of [npc.milk] suddenly leak"
-							+ " from [npc.her] [npc.nipples]; clear evidence that that [npc.her] [npc.milk] regeneration has [style.boldGrow(increased)].<br/>"
+							+ " from [npc.her] [npc.nipples]; clear evidence that [npc.her] [npc.milk] regeneration has [style.boldGrow(increased)].<br/>"
 						+ "[npc.NamePos] rate of [npc.milk] regeneration is now [style.boldSex(" + regenerationDescriptor + ")] ("+Units.fluid(milkRegeneration)+"/day)!"
 					+ "</p>");
 			

@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -42,6 +43,7 @@ public enum LegConfiguration {
 			true,
 			true,
 			false,
+			false,
 			WingSize.THREE_LARGE,
 			false,
 			2,
@@ -82,6 +84,7 @@ public enum LegConfiguration {
 			0,
 			false,
 			false,
+			true,
 			true,
 			WingSize.FOUR_HUGE,
 			true,
@@ -170,6 +173,7 @@ public enum LegConfiguration {
 			0,
 			true,
 			true,
+			false,
 			false,
 			WingSize.FOUR_HUGE,
 			false,
@@ -298,6 +302,7 @@ public enum LegConfiguration {
 			true,
 			true,
 			false,
+			false,
 			WingSize.THREE_LARGE,
 			false, 
 			0,
@@ -353,7 +358,7 @@ public enum LegConfiguration {
 									Util.newArrayListOfValues(
 											ItemTag.WEAPON_FERAL_EQUIPPABLE)));
 				
-			} else if(character.hasStatusEffect(StatusEffect.AQUATIC_POSITIVE)) {
+			} else if(character.hasStatusEffect(StatusEffect.AQUATIC_TAIL_POSITIVE)) {
 				return Util.newArrayListOfValues(
 						new BodyPartClothingBlock(
 								Util.newArrayListOfValues(
@@ -394,6 +399,7 @@ public enum LegConfiguration {
 			-25,
 			100,
 			false,
+			true,
 			true,
 			true,
 			WingSize.FOUR_HUGE,
@@ -512,6 +518,7 @@ public enum LegConfiguration {
 			-75,
 			true,
 			true,
+			false,
 			false,
 			WingSize.THREE_LARGE,
 			false,
@@ -641,6 +648,7 @@ public enum LegConfiguration {
 			false,
 			true,
 			true,
+			true,
 			WingSize.THREE_LARGE,
 			true,
 			2,
@@ -738,6 +746,7 @@ public enum LegConfiguration {
 			true,
 			true,
 			false,
+			false,
 			WingSize.THREE_LARGE,
 			false,
 			2,
@@ -795,6 +804,7 @@ public enum LegConfiguration {
 	private boolean bipedalPositionedGenitals;
 	private boolean bipedalPositionedCrotchBoobs;
 	private boolean largeGenitals;
+	private boolean tall;
 	
 	private WingSize minimumWingSizeForFlight;
 	private boolean wingsOnLegConfiguration;
@@ -815,6 +825,7 @@ public enum LegConfiguration {
 			boolean bipedalPositionedGenitals,
 			boolean bipedalPositionedCrotchBoobs,
 			boolean largeGenitals,
+			boolean tall,
 			WingSize minimumWingSizeForFlight,
 			boolean wingsOnLegConfiguration,
 			int numberOfLegs,
@@ -831,6 +842,7 @@ public enum LegConfiguration {
 		this.bipedalPositionedGenitals = bipedalPositionedGenitals;
 		this.bipedalPositionedCrotchBoobs = bipedalPositionedCrotchBoobs;
 		this.largeGenitals = largeGenitals;
+		this.tall = tall;
 		
 		this.minimumWingSizeForFlight=minimumWingSizeForFlight;
 		this.wingsOnLegConfiguration=wingsOnLegConfiguration;
@@ -943,8 +955,19 @@ public enum LegConfiguration {
 		return largeGenitals;
 	}
 
+	/**
+	 * @return true if this configuration is classed as being 'tall' (such as quadrupeds).
+	 */
+	public boolean isTall() {
+		return tall;
+	}
+
 	public boolean isThighSexAvailable() {
 		return true;
+	}
+
+	public boolean isOneOf(LegConfiguration... values) {
+		return Arrays.asList(values).contains(this);
 	}
 	
 	public int getNumberOfLegs() {

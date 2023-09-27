@@ -375,11 +375,29 @@ public class SlimeQueensLair {
 		}
 	};
 	
-	public static final DialogueNode SLIME_GUARDS_COMBAT_PLAYER_VICTORY = new DialogueNode("Victory", "", false) {
+	public static final DialogueNode SLIME_GUARDS_COMBAT_PLAYER_VICTORY = new DialogueNode("Victory", "", true) {
 		
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_GUARDS_COMBAT_PLAYER_VICTORY");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Continue", "", SLIME_GUARDS_COMBAT_PLAYER_VICTORY_CONTINUE);
+			} else if(index==2 || index==3) {
+				return GUARD_POST.getResponse(responseTab, index-1);
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode SLIME_GUARDS_COMBAT_PLAYER_VICTORY_CONTINUE = new DialogueNode("Victory", "", false) {
+		
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_GUARDS_COMBAT_PLAYER_VICTORY_CONTINUE");
 		}
 
 		@Override
@@ -592,7 +610,8 @@ public class SlimeQueensLair {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeRoyalGuardDefeated)) {
-				if(index==1) {
+				boolean defeatReacted = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeRoyalGuardDefeatReacted);
+				if(index==(!defeatReacted?2:1)) {
 					return new ResponseSex("Sex",
 							UtilText.parse(Main.game.getNpc(SlimeRoyalGuard.class), "Pull [slimeRoyalGuard.name] to [slimeRoyalGuard.his] feet and get ready to fuck [slimeRoyalGuard.him]."),
 							null, null, null, null, null, null,
@@ -608,11 +627,11 @@ public class SlimeQueensLair {
 						}
 					};
 				
-				} else if(index==2) {
+				} else if(index==(!defeatReacted?3:2)) {
 					return new ResponseSex("Submit",
 							UtilText.parse(Main.game.getNpc(SlimeRoyalGuard.class), "Let [slimeRoyalGuard.name] fuck you."),
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
-							false, false,
+							true, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getNpc(SlimeRoyalGuard.class)),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -624,7 +643,7 @@ public class SlimeQueensLair {
 						}
 					};
 					
-				} else if(index==3 && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeRoyalGuardDefeatReacted)) {
+				} else if(!defeatReacted && index==1) {
 					return new Response("Continue",
 							"Continue on your way through the tower.",
 							CORRIDOR) {
@@ -724,7 +743,7 @@ public class SlimeQueensLair {
 								new Value<>(Main.game.getNpc(SlimeRoyalGuard.class), "[slimeRoyalGuard.speech(Excellent! Now, defend yourself!)] [slimeRoyalGuard.name] booms, before moving forwards to attack.")));
 				
 			} else if(index==2) {
-				if(Main.game.getPlayer().hasTraitActivated(Perk.FEROCIOUS_WARRIOR) || Main.game.getPlayer().getHistory()==Occupation.SOLDIER) {
+				if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.FEROCIOUS_WARRIOR) || Main.game.getPlayer().getHistory()==Occupation.SOLDIER) {
 					return new Response("Instruct", "Tell [slimeRoyalGuard.name] what [slimeRoyalGuard.he]'s doing wrong in an attempt to fluster [slimeRoyalGuard.him] into wearing [slimeRoyalGuard.himself] out.", ROYAL_GUARD_POST_ADMIRE_INSTRUCT) {
 						@Override
 						public void effects() {
@@ -733,7 +752,10 @@ public class SlimeQueensLair {
 					};
 					
 				} else {
-					return new Response("Instruct", "You don't know enough about fighting techniques to offer [slimeRoyalGuard.name] any advice. (Requires 'Brawler' trait to be active, or for you to have the 'Soldier' history.)", null);
+					return new Response("Instruct",
+							"You don't know enough about fighting techniques to offer [slimeRoyalGuard.name] any advice."
+									+ " (Requires "+Perk.FEROCIOUS_WARRIOR.getName(Main.game.getPlayer())+" perk, or for you to have the 'Soldier' history.)",
+							null);
 				}
 				
 			} else if(index==3) {
@@ -985,7 +1007,7 @@ public class SlimeQueensLair {
 				return new ResponseSex("Submit",
 						UtilText.parse(Main.game.getNpc(SlimeRoyalGuard.class), "Let [slimeRoyalGuard.name] fuck you."),
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
-						false, false,
+						true, false,
 						new SMGeneric(
 								Util.newArrayListOfValues(Main.game.getNpc(SlimeRoyalGuard.class)),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -1170,7 +1192,12 @@ public class SlimeQueensLair {
 						new SMLyingDown(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotLyingDown.MISSIONARY)),
 								Util.newHashMapOfValues(
-										new Value<>(Main.game.getNpc(SlimeQueen.class), SexSlotLyingDown.LYING_DOWN))),
+										new Value<>(Main.game.getNpc(SlimeQueen.class), SexSlotLyingDown.LYING_DOWN))) {
+							@Override
+							public boolean isRapePlayBannedAtStart(GameCharacter character) {
+								return false;
+							}
+						},
 						null,
 						null,
 						AFTER_SLIME_QUEEN_SEX, UtilText.parseFromXMLFile("places/submission/slimeQueensLair", "SLIME_QUEEN_SEX_START"));
@@ -1256,7 +1283,12 @@ public class SlimeQueensLair {
 						new SMBath(SexPosition.ALL_FOURS,
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.BEHIND)),
 								Util.newHashMapOfValues(
-										new Value<>(Main.game.getNpc(SlimeQueen.class), SexSlotAllFours.ALL_FOURS))),
+										new Value<>(Main.game.getNpc(SlimeQueen.class), SexSlotAllFours.ALL_FOURS))) {
+							@Override
+							public boolean isRapePlayBannedAtStart(GameCharacter character) {
+								return false;
+							}
+						},
 						null,
 						null,
 						AFTER_SLIME_QUEEN_SEX_BATH,

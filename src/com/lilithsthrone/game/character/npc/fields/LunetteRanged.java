@@ -90,7 +90,7 @@ public class LunetteRanged extends NPC {
 			this.setStartingBody(true);
 			
 			this.setGenericName(Util.randomItemFrom(namePrefixes)+" "+name);
-			setName(Name.getRandomTriplet(this.getRace()));
+			setName(Name.getRandomTriplet(this.getSubspecies()));
 			this.setSurname("Lunettemartu");
 			this.setPlayerKnowsName(false);
 			
@@ -98,7 +98,7 @@ public class LunetteRanged extends NPC {
 			
 			resetInventory(true);
 			inventory.setMoney(2500 + Util.random.nextInt(2500));
-			Main.game.getCharacterUtils().generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
 			
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			
@@ -192,7 +192,7 @@ public class LunetteRanged extends NPC {
 			this.clearFetishDesires();
 
 			boolean oral = Math.random()<0.25f;
-			boolean anal = Math.random()<0.25f && Main.game.isAnalContentEnabled();
+			boolean anal = Math.random()<0.25f;
 			
 			this.setAssVirgin(!anal);
 			this.setPenisVirgin(false);
@@ -204,8 +204,8 @@ public class LunetteRanged extends NPC {
 			this.addFetish(Fetish.FETISH_SADIST);
 			this.addFetish(Fetish.FETISH_MASOCHIST);
 			
-			this.setFetishDesire(Fetish.FETISH_ORAL_RECEIVING, FetishDesire.FOUR_LOVE);
-			this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.FOUR_LOVE);
+			this.setFetishDesire(Fetish.FETISH_ORAL_RECEIVING, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
 			
 			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.ZERO_HATE);
 			this.setFetishDesire(Fetish.FETISH_NON_CON_SUB, FetishDesire.ZERO_HATE);
@@ -221,15 +221,13 @@ public class LunetteRanged extends NPC {
 			}
 			
 			if(gender.getGenderName().isHasPenis()) {
-				this.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.FOUR_LOVE);
+				this.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.THREE_LIKE);
 				this.setFetishDesire(Fetish.FETISH_CUM_STUD, FetishDesire.THREE_LIKE);
 			}
 			if(gender.getGenderName().isHasVagina()) {
-				this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.FOUR_LOVE);
+				this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
 			}
-			if(Main.game.isAnalContentEnabled()) {
-				this.setFetishDesire(Fetish.FETISH_ANAL_GIVING, FetishDesire.THREE_LIKE);
-			}
+			this.setFetishDesire(Fetish.FETISH_ANAL_GIVING, FetishDesire.THREE_LIKE);
 
 		}
 	}
@@ -263,7 +261,8 @@ public class LunetteRanged extends NPC {
 		);
 		
 		if(!this.hasFetish(Fetish.FETISH_EXHIBITIONIST)) {
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(Util.randomItemFromValues(ClothingType.CHEST_TUBE_TOP, ClothingType.CHEST_SPORTS_BRA), clothingColour, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(
+					Util.randomItemFromValues(ClothingType.getClothingTypeFromId("innoxia_chest_tube_top"), ClothingType.getClothingTypeFromId("innoxia_chest_sports_bra")), clothingColour, false), true, this);
 		}
 		
 		if(Math.random()<0.2f) {
@@ -354,7 +353,11 @@ public class LunetteRanged extends NPC {
 
 	@Override
 	public void applyEscapeCombatEffects() {
-		Main.game.banishNPC(this);
+		if(this.getLocationPlace().getPlaceType()==PlaceType.getPlaceTypeFromId("innoxia_fields_themiscyra_raiders")) {
+			Main.game.getPlayer().setLocation(Main.game.getPlayer().getLastCell());
+		} else {
+			Main.game.banishNPC(this); // Only remove if this NPC is not a raider in Themiscyra
+		}
 	}
 	
 	@Override

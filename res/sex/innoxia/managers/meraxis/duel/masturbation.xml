@@ -25,11 +25,12 @@
 	To avoid cluttering the comments, here is an alphabetical list of all the values used in the elements below:
 		CoverableAreas: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/CoverableArea.java
 		Immobilisation types: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/ImmobilisationType.java
+		Lubrication types: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/LubricationType.java
 		InventorySlots: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/inventory/InventorySlot.java
 		OrgasmBehaviours: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/managers/OrgasmBehaviour.java
 		OrgasmCumTargets: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/OrgasmCumTarget.java
 		ResponseTags: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/dialogue/responses/ResponseTag.java
-		SexActions (you cna see how ids are generated in this class): https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/SexActions/SexActionManager.java
+		SexActions (you can see how ids are generated in this class): https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/SexActions/SexActionManager.java
 		SexAreaOrifices (should be prefaced with 'ORIFICE_'): https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/SexAreaOrifice.java
 		SexAreaPenetrations (should be prefaced with 'PENETRATION_'): https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/SexAreaPenetration.java
 		SexControls: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/SexControl.java
@@ -85,6 +86,12 @@
 		OPTIONAL: Default true
 		PARSER: Initial -->
 	<sadisticActionsAllowed><![CDATA[false]]></sadisticActionsAllowed>
+	
+	<!-- When set to true, loving actions (such as 'Caress cheek', 'Loving confession', etc.) can be used during the sex scene.
+		NPCs will only use loving actions if they are using the gentle pace, lack the sadist fetish, and have 50+ affection towards the target, so disabling this is mainly to restrict the player's actions.
+		OPTIONAL: Default true
+		PARSER: Initial -->
+	<lovingActionsAllowed><![CDATA[true]]></lovingActionsAllowed>
 	
 	<!-- Whether or not items can be used during this sex scene.
 		OPTIONAL: Default true
@@ -164,6 +171,11 @@
 				PARSER: Initial -->
 			<canChangePositions><![CDATA[false]]></canChangePositions>
 			
+			<!-- Whether or not this character is able to swap positions with another character.
+				OPTIONAL: Default true
+				PARSER: Initial -->
+			<canSwapPositions><![CDATA[false]]></canSwapPositions>
+			
 			<!-- Whether or not this character gains or loses affection towards their partners at the end of this sex scene.
 				OPTIONAL: Default true
 				PARSER: Initial -->
@@ -192,11 +204,48 @@
 				PARSER: Initial -->
 			<startingImmobilisation/>
 			
+			<!-- The additional types of lubrication which this character should start with (in addition to default starting lubrications).
+					The 'lubedArea' element contains all of the lubrication information related to the area which it's defining.
+						The 'area' attribute determines which SexAreaOrifice or SexAreaPenetration is being lubricated.
+					The 'lubrication' elements holds information on a lubrication that's being applied to the area, with multiple 'lubrication' elements being able to be defined within one 'lubedArea' element.
+						The 'luberId' element determines which character has provided the lubrication.
+						The 'type' elements correspond to the LubricationType, with multiple types being able to be defined within one lubrication element.
+				In the example below, the player will start with their vagina lubricated by Lilaya's girlcum and saliva, as well as their own saliva. Their penis will also start with lubrication from Lilaya's cum.
+				To define this, use the following format:
+					<startingLubrications>
+						<lubedArea area="ORIFICE_VAGINA">
+							<lubrication>
+								<luberId><![CDATA[lilaya]]></luberId>
+								<type><![CDATA[GIRLCUM]]></type>
+								<type><![CDATA[SALIVA]]></type>
+							</lubrication>
+							<lubrication>
+								<luberId><![CDATA[pc]]></luberId>
+								<type><![CDATA[SALIVA]]></type>
+							</lubrication>
+						</lubedArea>
+						<lubedArea area="PENETRATION_PENIS">
+							<lubrication>
+								<luberId><![CDATA[lilaya]]></luberId>
+								<type><![CDATA[CUM]]></type>
+							</lubrication>
+						</lubedArea>
+					</startingLubrications>
+				OPTIONAL: Default is no additional lubrication types are applied at the start of sex.
+				PARSER: Initial -->
+			<startingLubrications/>
+			
 			<!-- Whether or not this character can access the self-transformation menu during this sex scene.
 				OPTIONAL: Default true
 				PARSER: Initial -->
 			<canSelfTransform><![CDATA[true]]></canSelfTransform>
 	
+			<!-- Whether or not this character starts the sex scene being banned from rape-play (i.e. going into the 'resisting' pace in consensual sex scenes due to having the 'unwilling fuck-toy' fetish).
+				The default is true, thereby making it so NPCs don't start sex resisting, as it without a scene which leads into it (such as that with the slime queen), the resisting behaviour is quite jarring.
+				OPTIONAL: Default true
+				PARSER: Initial -->
+			<rapePlayBannedAtStart><![CDATA[true]]></rapePlayBannedAtStart>
+			
 			<!-- Set this to true to make this character hidden to the other participants in this sex scene, which restricts their ability to end sex, and they can only use 'self' sex actions.
 				This should only ever be applied to spectators, as it makes no sense otherwise.
 				OPTIONAL: Default false
@@ -209,8 +258,11 @@
 				PARSER: Initial -->
 			<control><![CDATA[SELF]]></control>
 			
-			<!-- Whether or not this character is able to have sex toys equipped onto them during this sex scene.
-				OPTIONAL: Default true
+			<!-- Whether or not this character is able to equip sex toys onto other characters during this sex scene.
+				You can use the optional parser tag 'clothing' in this section to get a handle on the clothing *type* which is being equipped to the target.
+					Please note that 'clothing' might be null, so always handle a potential null when using the 'clothing' tag.
+				The parser tag 'npc' targets the character who's having the clothing equipped onto them.
+				OPTIONAL: Default true (note that unique NPCs can only have condoms equipped onto them, even if this is true)
 				PARSER: Initial -->
 			<sexClothingEquippable><![CDATA[true]]></sexClothingEquippable>
 			
@@ -274,9 +326,9 @@
 			
 			<!-- Where this character will prefer to direct their cum when pulling out at the moment of orgasm, defined as an OrgasmCumTarget.
 				The 'id' attribute of each target corresponds to the id of the character.
-					<orgasmCumTargets>
+					<orgasmCumTarget>
 						<target id="meraxis"><![CDATA[FACE]]></target>
-					</orgasmCumTargets>
+					</orgasmCumTarget>
 				OPTIONAL: Default is null, in which case the character will use a pull out action corresponding to their fetishes or determined via random chance
 				PARSER: Every check -->
 			<orgasmCumTarget/>
@@ -313,8 +365,9 @@
 			<orgasmEncourageBehaviours/>
 			
 			<!-- You can define which areas of this character are concealed from view to other characters here, which is really only useful for scenes such as gloryholes, where partners will only have small sections of themselves visible.
+				The optional 'exclusive' attribute (defaults to false) defines whether these slots are excluded from all slots being hidden (true), or whether they are the only slots hidden (false).
 					e.g. (For just feet being hidden from meraxis for some reason)
-						<concealedSlots>
+						<concealedSlots exclusive="false">
 							<viewingCharacter id="meraxis">
 								<inventorySlot><![CDATA[FOOT]]></inventorySlot>
 							</viewingCharacter>
@@ -444,6 +497,24 @@
 							</rough>
 						OPTIONAL: Default is that the character uses their default rough lines -->
 					<rough/>
+					<!-- 'loving' lines are used when using the 'Loving confession' action, and are not seen as often as standard lines.
+						The 'additionToDefault' attribute works in the same way as it does for 'standard'.
+						The inner 'line' elements also work exactly as they do for 'standard.'
+						An example would be:
+							<loving>
+								<line takingAnyPenetration="true"><![CDATA[Yes, give it to me... I love you so much...]]></line>
+							</loving>
+						OPTIONAL: Default is that the character uses their default loving lines -->
+					<loving/>
+					<!-- 'lovingResponse' lines are used when using the 'Loving response' action, and are not seen as often as standard lines.
+						The 'additionToDefault' attribute works in the same way as it does for 'standard'.
+						The inner 'line' elements also work exactly as they do for 'standard.'
+						An example would be:
+							<lovingResponse>
+								<line takingAnyPenetration="true"><![CDATA[You know that I love you too!]]></line>
+							</lovingResponse>
+						OPTIONAL: Default is that the character uses their default lovingResponse lines -->
+					<lovingResponse/>
 				</character>
 			</dirtyTalk>
 			
@@ -460,7 +531,9 @@
 			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
 			<sexPace locked="true"><![CDATA[SUB_EAGER]]></sexPace>
 			<startingImmobilisation/>
+			<startingLubrications/>
 			<canSelfTransform><![CDATA[false]]></canSelfTransform>
+			<rapePlayBannedAtStart><![CDATA[true]]></rapePlayBannedAtStart>
 			<hidden><![CDATA[false]]></hidden>
 			<control><![CDATA[SELF]]></control>
 			<sexClothingEquippable><![CDATA[false]]></sexClothingEquippable>
@@ -485,7 +558,7 @@
 				<sexArea><![CDATA[ORIFICE_VAGINA]]></sexArea> <!-- Prevent self-fingering -->
 			</areasBanned>
 			<stopSexCondition><![CDATA[
-				[#sex.isOrgasmCountMet(pc, 1, true)]
+				[#sex.isOrgasmCountMet(meraxis, 1, true)]
 			]]></stopSexCondition>
 			<dirtyTalk>
 				<character id="pc">

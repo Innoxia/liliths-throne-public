@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>450</value>
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[maid's stocking]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[maid's  stockings]]></namePlural>
+		<description><![CDATA[A pair of cotton stockings, which reach up to the wearer's upper-thigh, and which sport little bows near their tops.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>SOCK</slot> 
+		<rarity>EPIC</rarity>
+		<clothingSet>innoxia_maid</clothingSet>
+		<imageName>stockings.svg</imageName>
+		<imageEquippedName/>
+		
+		<effects> 
+			<effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_LUST" timer="0"/>
+		</effects>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired> 
+					<clothingAccess>FEET</clothingAccess>
+					<clothingAccess>CALVES</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>FEET</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="MAID"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_WHITE"/>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+		<![CDATA[[npc.Name] [npc.verb(pull)] on the stockings before pulling them all the way up to [npc.her] upper-thigh.]]>
+    </self>
+    <other>
+		<![CDATA[[npc.Name] [npc.verb(pull)] the stockings onto [npc2.namePos] [npc2.feet], before pulling them all the way up to [npc2.her] upper-thigh.]]>
+    </other>
+    <otherRough>
+		<![CDATA[[npc.Name] roughly [npc.verb(pull)] the stockings onto [npc2.namePos] [npc2.feet], before pulling them all the way up to [npc2.her] upper-thigh.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+		<![CDATA[[npc.Name] [npc.verb(pull)] off [npc.her] stockings.]]>
+    </self>
+    <other>
+		<![CDATA[[npc.Name] [npc.verb(pull)] off [npc2.namePos] stockings.]]>
+    </other>
+    <otherRough>
+		<![CDATA[[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] stockings.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

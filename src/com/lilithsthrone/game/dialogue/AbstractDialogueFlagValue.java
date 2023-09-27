@@ -17,14 +17,16 @@ import com.lilithsthrone.main.Main;
 public class AbstractDialogueFlagValue {
 	
 	private String id;
-	private boolean dailyReset;
+	private int resetHour = -1;
 
 	public AbstractDialogueFlagValue() {
 		this(false);
 	}
 	
 	public AbstractDialogueFlagValue(boolean dailyReset) {
-		this.dailyReset = dailyReset;
+		if(dailyReset) {
+			resetHour = 0;
+		}
 	}
 	
 	public static List<AbstractDialogueFlagValue> loadFlagsFromFile(File XMLFile, String author, boolean mod) {
@@ -40,6 +42,9 @@ public class AbstractDialogueFlagValue {
 				List<AbstractDialogueFlagValue> flags = new ArrayList<>();
 				for(Element e : coreElement.getAllOf("flag")) {
 					AbstractDialogueFlagValue newFlag = new AbstractDialogueFlagValue(Boolean.valueOf(e.getAttribute("dailyReset".trim())));
+					if(!e.getAttribute("resetHour").isEmpty()) {
+						newFlag.resetHour = Integer.valueOf(e.getAttribute("resetHour"));
+					}
 					newFlag.id = author + "_" + e.getTextContent();
 //					System.out.println(newFlag.id);
 					flags.add(newFlag);
@@ -55,8 +60,8 @@ public class AbstractDialogueFlagValue {
 		return null;
 	}
 
-	public boolean isDailyReset() {
-		return dailyReset;
+	public int getResetHour() {
+		return resetHour;
 	}
 
 	/**

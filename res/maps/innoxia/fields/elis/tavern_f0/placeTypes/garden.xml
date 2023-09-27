@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[beer garden]]></name>
+	<tooltipDescription><![CDATA[At the back of 'The Red Dragon' tavern, there's a modestly-sized beer garden, complete with wooden tables and chairs.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in the beer garden at 'The Red Dragon' tavern]]></virginityLossDescription>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<colour>BASE_GREEN</colour>
+	<backgroundColour>MAP_BACKGROUND_GREEN</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_fields_elis_tavern_f0_garden</dialogue>
+	<populationPresent>
+		<population startMinutes="900" endMinutes="1440">
+			<conditional><![CDATA[
+				[#game.getCurrentWeather()!=WEATHER_RAIN && game.getSeason()!=SEASON_WINTER]
+			]]></conditional>
+			<populationType plural="true" density="NUMEROUS">PERSON</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
+		<population startMinutes="900" endMinutes="1440" inclusiveRange="false">
+			<conditional><![CDATA[
+				[#game.getCurrentWeather()!=WEATHER_RAIN && game.getSeason()!=SEASON_WINTER]
+			]]></conditional>
+			<populationType plural="true" density="FEW">PERSON</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
+	</populationPresent>
+	<furniturePresent>true</furniturePresent>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<weatherImmunities immuneToAll="true"/>
+	<applyInventoryInit/>
+</placeType>

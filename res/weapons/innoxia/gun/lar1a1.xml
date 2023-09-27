@@ -26,7 +26,6 @@
 		</availableDamageTypes>
 		<spells/>
 		<combatMoves/>
-		<enchantmentLimit>0</enchantmentLimit>
 		<effects/>
 		
 		<customColours>
@@ -59,6 +58,7 @@
 		<itemTags>
 			<tag>CHEAT_ITEM</tag>
 			<tag>CONTRABAND_HEAVY</tag>
+			<tag>WEAPON_FIREARM</tag>
 		</itemTags>
 	</coreAttributes>
 

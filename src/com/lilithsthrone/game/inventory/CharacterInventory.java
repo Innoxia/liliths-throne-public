@@ -20,6 +20,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Arm;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -256,9 +257,9 @@ public class CharacterInventory implements XMLSaving {
 	public static CharacterInventory loadFromXML(Element parentElement, Document doc) {
 		CharacterInventory inventory = new CharacterInventory(0);
 		
-		if(parentElement.getElementsByTagName("maxInventorySpace").item(0)!=null) {
-			inventory.setMaximumInventorySpace(Integer.valueOf(((Element)parentElement.getElementsByTagName("maxInventorySpace").item(0)).getAttribute("value")));
-		}
+//		if(parentElement.getElementsByTagName("maxInventorySpace").item(0)!=null) {
+//			inventory.setMaximumInventorySpace(Integer.valueOf(((Element)parentElement.getElementsByTagName("maxInventorySpace").item(0)).getAttribute("value")));
+//		}
 		inventory.setMoney(Integer.valueOf(((Element)parentElement.getElementsByTagName("money").item(0)).getAttribute("value")));
 		
 		if(parentElement.getElementsByTagName("essences").item(0)!=null) { // Old version support.
@@ -372,10 +373,10 @@ public class CharacterInventory implements XMLSaving {
 				if(id.equals("GIFT_ROSE")) { // Changed the rose to a clothing item in v0.3.5.5
 					inventory.addClothing(Main.game.getItemGen().generateClothing("innoxia_hair_rose", PresetColour.CLOTHING_RED_DARK, PresetColour.CLOTHING_GREEN_DARK, null, false), count);
 					
-				} else if(id.equals(ItemType.getItemToIdMap().get(ItemType.CONDOM_USED))) {
+				} else if(id.equals(ItemType.getIdFromItemType(ItemType.CONDOM_USED)) || id.equals(ItemType.getIdFromItemType(ItemType.CONDOM_USED_WEBBING))) {
 					itemMapToAdd.put(AbstractFilledCondom.loadFromXML(e, doc), count);
 					
-				} else if(id.equals(ItemType.getItemToIdMap().get(ItemType.MOO_MILKER_FULL))) {
+				} else if(id.equals(ItemType.getIdFromItemType(ItemType.MOO_MILKER_FULL))) {
 					itemMapToAdd.put(AbstractFilledBreastPump.loadFromXML(e, doc), count);
 					
 				} else {
@@ -498,7 +499,6 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	public int getMaximumInventorySpace() {
-//		return maxInventorySpace;
 		return RenderingEngine.INVENTORY_PAGES * RenderingEngine.ITEMS_PER_PAGE;
 	}
 	
@@ -511,9 +511,9 @@ public class CharacterInventory implements XMLSaving {
 		}
 	}
 	
-	public void setMaximumInventorySpace(int maxInventorySpace) {
-		this.maxInventorySpace = maxInventorySpace;
-	}
+//	public void setMaximumInventorySpace(int maxInventorySpace) {
+//		this.maxInventorySpace = maxInventorySpace;
+//	}
 	
 	public boolean isInventoryFull() {
 		return getInventorySlotsTaken() >= getMaximumInventorySpace();
@@ -527,7 +527,10 @@ public class CharacterInventory implements XMLSaving {
 				+ getUniqueClothingCount() - getUniqueQuestClothingCount()
 				+ getUniqueItemCount() - getUniqueQuestItemCount();
 	}
-	
+
+	/**
+	 * @return true if this inventory contains any unique clothing, weapons, or items.
+	 */
 	public boolean isAnyQuestItemPresent() {
 		return getUniqueQuestWeaponCount()>0 || getUniqueQuestClothingCount()>0 || getUniqueQuestItemCount()>0;
 	}
@@ -1246,7 +1249,6 @@ public class CharacterInventory implements XMLSaving {
 	 * Calculates if the character is able to remove or displace all blocking clothing in order to equip the supplied clothing.
 	 */
 	public boolean isAbleToEquip(AbstractClothing newClothing, InventorySlot slotToEquipInto, boolean equipIfAble, boolean automaticClothingManagement, GameCharacter characterClothingOwner, GameCharacter characterClothingEquipper) {
-		
 		displacementClothingChecked = new HashMap<>();
 		
 		clothingToRemove.clear();
@@ -1547,11 +1549,14 @@ public class CharacterInventory implements XMLSaving {
 		return isAbleToUnequip(clothing, unequipIfAble, automaticClothingManagement, characterClothingOwner, characterRemovingClothing, false);
 	}
 
-	private AbstractClothing previousClothingCheck = null;
+	private AbstractClothing initialClothingCheck = null;
 	private boolean isAbleToUnequip(AbstractClothing clothing, boolean unequipIfAble, boolean automaticClothingManagement, GameCharacter characterClothingOwner, GameCharacter characterRemovingClothing, boolean continuingIsAbleToEquip) {
 		if(!continuingIsAbleToEquip) {
-			previousClothingCheck = null;
+			initialClothingCheck = clothing;
+			clothingToRemove.clear();
+			equipTextSB.setLength(0);
 		}
+		
 		if(!unequipIfAble) {
 			if(characterClothingOwner==null) {
 				characterClothingOwner = Main.game.getPlayer();
@@ -1560,13 +1565,8 @@ public class CharacterInventory implements XMLSaving {
 				characterRemovingClothing = Main.game.getPlayer();
 			}
 		}
-		
-		if (!continuingIsAbleToEquip) {
-			clothingToRemove.clear();
-			equipTextSB.setLength(0);
-		}
 
-		if (clothing.isSealed()) {
+		if(clothing.isSealed()) {
 			equipTextSB.append(characterClothingOwner.isPlayer()
 					?"Your " + clothing.getName() + " can't be removed because "+(clothing.getClothingType().isPlural()?"they are":"it is")+" <b style='color:" + PresetColour.SEALED.toWebHexString() + ";'>sealed</b>!"
 					:UtilText.parse(characterClothingOwner,
@@ -1574,67 +1574,61 @@ public class CharacterInventory implements XMLSaving {
 			
 			blockingClothing = clothing;
 			return false;
+			
 		} else if (!continuingIsAbleToEquip) {
 			clothingToRemove.put(clothing, DisplacementType.REMOVE_OR_EQUIP);
 		}
 		
-		// Check for access needed: TODO check this works TODO it doesn't TODO I did a temporary fix. please come back and fix this properly some time
-		for (BlockedParts bp : clothing.getBlockedPartsMap(characterClothingOwner, clothing.getSlotEquippedTo())) {
-			// Keep iterating through until until we find the BlockedParts that corresponds to equipping (if not found, carry on, as this clothing doesn't need any access in order to be equipped):
-			if (bp.displacementType == DisplacementType.REMOVE_OR_EQUIP) {
-				if (bp.clothingAccessRequired == null) { // This clothing doesn't need any access in order to be equipped, so just carry on.
-					break; 
-					
-				} else { // This clothing has access requirements in order to be unequipped. Check each piece of equipped clothing to see if it's blocking the access required:
-					for (AbstractClothing equippedClothing : clothingCurrentlyEquipped) {
-						if (equippedClothing != clothing) {
-							for (BlockedParts bpEquipped : equippedClothing.getBlockedPartsMap(characterClothingOwner, equippedClothing.getSlotEquippedTo())) {
-								for (ClothingAccess caBlocked : bpEquipped.clothingAccessBlocked) {
-									if (bp.clothingAccessRequired.contains(caBlocked)
-											&& !equippedClothing.getDisplacedList().contains(bpEquipped.displacementType)
-											&& !isDisplacementAvailableFromElsewhere(characterClothingOwner, equippedClothing, caBlocked)) {
-										if (bpEquipped.displacementType != DisplacementType.REMOVE_OR_EQUIP) { // Can be displaced:
-											// If clothingToRemove already contains this clothing, it's just going to be easier to remove the clothing fully than perform multiple displacements:
-											if (!clothingToRemove.containsKey(equippedClothing))
-												if (!equippedClothing.getDisplacedList().contains(bpEquipped.displacementType)){ // Not already displaced:
-													if(automaticClothingManagement) {
-//														System.out.println(equippedClothing +", "+ bpEquipped.displacementType);
-														clothingToRemove.put(equippedClothing, bpEquipped.displacementType);
-													} else {
-														equipTextSB.append(characterClothingOwner.isPlayer()
-																?"Your <b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>" + equippedClothing.getName() + "</b> "
-																+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " preventing your "+clothing.getName()+" from being removed!"
-																:UtilText.parse(characterClothingOwner,
-																		"[npc.NamePos] <b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>" + equippedClothing.getName() + "</b> "
-																+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " preventing [npc.her] "+clothing.getName()+" from being removed!"));
-														
-														blockingClothing = equippedClothing;
-														return false;
-													}
-												}
-
-										} else {
-											if(equippedClothing.equals(previousClothingCheck)) {
-												System.err.println("Error: "+clothing.getName()+" and "+equippedClothing.getName()+" are blocking one another's removal!!!");
-//												throw new IllegalArgumentException();
-												return true;
-											}
-											previousClothingCheck = clothing;
-											if (isAbleToUnequip(equippedClothing, false, automaticClothingManagement, characterClothingOwner, characterRemovingClothing, true)) { // Can  be removed:
-												clothingToRemove.put(equippedClothing, DisplacementType.REMOVE_OR_EQUIP);
-												
-											} else {
-												equipTextSB.append(characterClothingOwner.isPlayer()
-														?"<br/>Your " + clothing.getName() + " can't be unequipped because your " + equippedClothing.getName() + " "
-														+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " in the way."
-														:UtilText.parse(characterClothingOwner,
-																"<br/>[npc.NamePos] " + clothing.getName() + " can't be unequipped because [npc.her] " + equippedClothing.getName() + " "
-														+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " in the way."));
-												
-												blockingClothing = equippedClothing;
-												return false;
-											}
-										}
+		BlockedParts removeEquipBlockedParts = null;
+		for(BlockedParts bp : clothing.getBlockedPartsMap(characterClothingOwner, clothing.getSlotEquippedTo())) {
+			if(bp.displacementType == DisplacementType.REMOVE_OR_EQUIP && bp.clothingAccessRequired!=null) {
+				removeEquipBlockedParts = bp;
+				continue;
+			}
+		}
+		if(removeEquipBlockedParts!=null) { // This clothing has access requirements in order to be unequipped.
+			List<AbstractClothing> equippedClothingSorted = new ArrayList<>(clothingCurrentlyEquipped);
+			equippedClothingSorted.sort(new ClothingZLayerComparator());
+			equippedClothingSorted.remove(clothing);
+			equippedClothingSorted.remove(initialClothingCheck); // Do not include the initial clothing, as otherwise there might be an infinite loop if two clothing items are blocking one another's removal
+			for(AbstractClothing equippedClothing : equippedClothingSorted) { // Check each piece of equipped clothing to see if it's blocking the access required:
+				for(BlockedParts bpEquipped : equippedClothing.getBlockedPartsMap(characterClothingOwner, equippedClothing.getSlotEquippedTo())) {
+					for(ClothingAccess caBlocked : bpEquipped.clothingAccessBlocked) {
+						if(removeEquipBlockedParts.clothingAccessRequired.contains(caBlocked)
+								&& !equippedClothing.getDisplacedList().contains(bpEquipped.displacementType)
+								&& !isDisplacementAvailableFromElsewhere(characterClothingOwner, equippedClothing, caBlocked)) {
+							if(bpEquipped.displacementType==DisplacementType.REMOVE_OR_EQUIP) { // Remove this clothing to resolve the blocked access
+								if(isAbleToUnequip(equippedClothing, false, automaticClothingManagement, characterClothingOwner, characterRemovingClothing, true)) { // Can be removed:
+									clothingToRemove.put(equippedClothing, DisplacementType.REMOVE_OR_EQUIP);
+									
+								} else { // Cannot be removed, so return false:
+									equipTextSB.append(characterClothingOwner.isPlayer()
+											?"<br/>Your " + clothing.getName() + " can't be unequipped because your " + equippedClothing.getName() + " "
+											+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " in the way."
+											:UtilText.parse(characterClothingOwner,
+													"<br/>[npc.NamePos] " + clothing.getName() + " can't be unequipped because [npc.her] " + equippedClothing.getName() + " "
+											+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " in the way."));
+									
+									blockingClothing = equippedClothing;
+									return false;
+								}
+								
+							// If clothingToRemove already contains this clothing, it's just going to be easier to remove the clothing fully than perform multiple displacements, so skip over this
+							} else if(!clothingToRemove.containsKey(equippedClothing)) { // Displace this clothing to resolve the blocked access
+								if (!equippedClothing.getDisplacedList().contains(bpEquipped.displacementType)) { // Not already displaced:
+									if(automaticClothingManagement) {
+										clothingToRemove.put(equippedClothing, bpEquipped.displacementType);
+										
+									} else {
+										equipTextSB.append(characterClothingOwner.isPlayer()
+												?"Your <b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>" + equippedClothing.getName() + "</b> "
+												+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " preventing your "+clothing.getName()+" from being removed!"
+												:UtilText.parse(characterClothingOwner,
+														"[npc.NamePos] <b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>" + equippedClothing.getName() + "</b> "
+												+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " preventing [npc.her] "+clothing.getName()+" from being removed!"));
+										
+										blockingClothing = equippedClothing;
+										return false;
 									}
 								}
 							}
@@ -1643,7 +1637,7 @@ public class CharacterInventory implements XMLSaving {
 				}
 			}
 		}
-
+		
 		if (continuingIsAbleToEquip && !unequipIfAble) {
 			return true;
 		}
@@ -1651,7 +1645,7 @@ public class CharacterInventory implements XMLSaving {
 		if (!automaticClothingManagement && clothingToRemove.size() > 1) { // Greater than 1, as it will contain the item of clothing that's trying to be removed.
 //			Set<AbstractClothing> blockingClothingSet = clothingToRemove.keySet().stream().filter(c -> c != clothing).collect(Collectors.toSet());
 			Set<AbstractClothing> blockingClothingSet = new HashSet<>(clothingToRemove.keySet());
-			blockingClothingSet.removeIf(c -> c != clothing);
+			blockingClothingSet.removeIf(c -> c == clothing);
 			
 			equipTextSB.append(characterClothingOwner.isPlayer()
 					?"Before your " + clothing.getName() + " "+(clothing.getClothingType().isPlural()?"are":"is")+" able to be removed, your " + Util.clothesToStringList(blockingClothingSet, false) + " need"
@@ -1674,6 +1668,8 @@ public class CharacterInventory implements XMLSaving {
 			List<AbstractClothing> tempClothingList = new ArrayList<>();
 			tempClothingList.addAll(clothingToRemove.keySet());
 			tempClothingList.sort(new ClothingZLayerComparator());
+			tempClothingList.remove(clothing);
+			tempClothingList.add(clothing); // Put clothing at the end
 			
 			Map<AbstractClothing, String> removalTextMap = new HashMap<>();
 			
@@ -1696,14 +1692,12 @@ public class CharacterInventory implements XMLSaving {
 										?Main.sex.getSexPace(characterRemovingClothing)==SexPace.DOM_ROUGH
 										:false))));
 			}
-			
+
 			// Append removal descriptions, sorted by zLayer:
-			removalTextMap.keySet().stream().sorted(new ClothingZLayerComparator());
-			for(Entry<AbstractClothing, String> entry : removalTextMap.entrySet()) {
-				equipTextSB.append(entry.getValue());
+			for(AbstractClothing entry : tempClothingList) {
+				equipTextSB.append(removalTextMap.get(entry));
 			}
 			
-
 			// Actually unequip the clothing:
 			clothingCurrentlyEquipped.remove(clothing);
 			clothing.setSlotEquippedTo(null);
@@ -1770,8 +1764,6 @@ public class CharacterInventory implements XMLSaving {
 //			return true;
 //		}
 		
-		previousClothingCheck = clothing;
-		
 		if(!displaceIfAble) {
 			if(characterClothingOwner==null) {
 				characterClothingOwner = Main.game.getPlayer();
@@ -1793,7 +1785,7 @@ public class CharacterInventory implements XMLSaving {
 		boolean displacementTypeFound = false;
 		// Check for access needed:
 		for (BlockedParts bp : clothing.getBlockedPartsMap(characterClothingOwner, clothing.getSlotEquippedTo())) {
-			// Keep iterating through until until we find the displacementType:
+			// Keep iterating through until we find the displacementType:
 			if (bp.displacementType == dt) {
 				displacementTypeFound = true;
 
@@ -1849,7 +1841,8 @@ public class CharacterInventory implements XMLSaving {
 
 		// The supplied clothing cannot be displaced in this manner!
 		if (!displacementTypeFound) {
-			throw new IllegalArgumentException("The supplied clothing cannot be displaced in this manner!");
+			new IllegalArgumentException("The supplied clothing ("+clothing.getClothingType().getId()+") cannot be displaced in this manner ("+dt.getDescription()+")!").printStackTrace();
+			return false;
 		}
 
 		// Is able to be displaced!
@@ -1919,7 +1912,7 @@ public class CharacterInventory implements XMLSaving {
 		// Check for access needed: TODO check this works
 		for (BlockedParts bp : clothing.getBlockedPartsMap(characterClothingOwner, clothing.getSlotEquippedTo())) {
 
-			// Keep iterating through until until we find the displacementType:
+			// Keep iterating through until we find the displacementType:
 			if (bp.displacementType == dt) {
 				displacementTypeFound = true;
 
@@ -2184,6 +2177,9 @@ public class CharacterInventory implements XMLSaving {
 	public boolean isCoverableAreaExposed(GameCharacter character, CoverableArea area, boolean justVisible) {
 		if(area==CoverableArea.TESTICLES) { // There are no proper checks in clothing for testicle access, so use penis access:
 			return isCoverableAreaExposed(character, CoverableArea.PENIS, justVisible);
+		}
+		if(area==CoverableArea.ANUS && character.getGenitalArrangement()==GenitalArrangement.CLOACA) { // If asshole is within cloaca, it's in the vagina position:
+			return isCoverableAreaExposed(character, CoverableArea.VAGINA, justVisible);
 		}
 		
 		if(this.getExtraBlockedParts()!=null && justVisible) {

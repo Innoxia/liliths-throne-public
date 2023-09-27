@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Ralph;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -368,7 +369,7 @@ public class RalphOral {
 			}
 		}
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
 				return Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_PREGNANCY);
 			} else {
@@ -434,7 +435,7 @@ public class RalphOral {
 			}
 		}
 		@Override
-		public List<Fetish> getFetishes(GameCharacter character) {
+		public List<AbstractFetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
 				return Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE, Fetish.FETISH_ANAL_RECEIVING);
 			} else {
@@ -611,16 +612,19 @@ public class RalphOral {
 		public SexActionLimitation getLimitation() {
 			return SexActionLimitation.NPC_ONLY;
 		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Main.sex.getTurn() - SexFlags.customerTurnAppearance >= 3; // Have 2 turns of non-customer at minimum
+		}
 		@Override
 		public String getActionTitle() {
-			return "";
+			return "A customer!";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "";
 		}
-
 		@Override
 		public String getDescription() {
 			return "Ralph suddenly stops the gentle bucking of his hips, and before you have time to wonder what's wrong, you hear him greeting a customer."
@@ -632,6 +636,7 @@ public class RalphOral {
 		@Override
 		public void applyEffects() {
 			SexFlags.customerAtCounter = true;
+			SexFlags.customerTurnAppearance = Main.sex.getTurn();
 		}
 	};
 	
@@ -648,7 +653,7 @@ public class RalphOral {
 		}
 		@Override
 		public String getActionTitle() {
-			return "";
+			return "Dirty talk";
 		}
 
 		@Override
@@ -692,7 +697,7 @@ public class RalphOral {
 
 		@Override
 		public void applyEffects() {
-			SexFlags.customerAtCounter=false;
+			SexFlags.customerAtCounter = false;
 		}
 	};
 	
@@ -709,7 +714,7 @@ public class RalphOral {
 		}
 		@Override
 		public String getActionTitle() {
-			return "";
+			return "Dirty talk";
 		}
 
 		@Override
@@ -748,7 +753,7 @@ public class RalphOral {
 
 		@Override
 		public void applyEffects() {
-			SexFlags.customerAtCounter=false;
+			SexFlags.customerAtCounter = false;
 		}
 	};
 	
@@ -765,7 +770,7 @@ public class RalphOral {
 		}
 		@Override
 		public String getActionTitle() {
-			return "";
+			return "Dirty talk";
 		}
 
 		@Override
@@ -809,7 +814,7 @@ public class RalphOral {
 
 		@Override
 		public void applyEffects() {
-			SexFlags.customerAtCounter=false;
+			SexFlags.customerAtCounter = false;
 		}
 	};
 	
@@ -826,7 +831,7 @@ public class RalphOral {
 		}
 		@Override
 		public String getActionTitle() {
-			return "";
+			return "Demand oral";
 		}
 
 		@Override
@@ -867,7 +872,7 @@ public class RalphOral {
 
 		@Override
 		public void applyEffects() {
-			SexFlags.customerAtCounter=false;
+			SexFlags.customerAtCounter = false;
 		}
 
 	};
@@ -885,7 +890,7 @@ public class RalphOral {
 		}
 		@Override
 		public String getActionTitle() {
-			return "";
+			return "Start blowjob";
 		}
 
 		@Override
@@ -925,7 +930,7 @@ public class RalphOral {
 
 		@Override
 		public void applyEffects() {
-			SexFlags.customerAtCounter=false;
+			SexFlags.customerAtCounter = false;
 		}
 		
 	};
@@ -973,7 +978,7 @@ public class RalphOral {
 
 		@Override
 		public void applyEffects() {
-			SexFlags.customerAtCounter=false;
+			SexFlags.customerAtCounter = false;
 		}
 		
 	};
@@ -1016,7 +1021,7 @@ public class RalphOral {
 
 		@Override
 		public void applyEffects() {
-			SexFlags.customerAtCounter=false;
+			SexFlags.customerAtCounter = false;
 		}
 		
 	};
@@ -1059,7 +1064,7 @@ public class RalphOral {
 
 		@Override
 		public void applyEffects() {
-			SexFlags.customerAtCounter=false;
+			SexFlags.customerAtCounter = false;
 		}
 		
 	};
@@ -1111,7 +1116,7 @@ public class RalphOral {
 
 		@Override
 		public void applyEffects() {
-			SexFlags.customerAtCounter=false;
+			SexFlags.customerAtCounter = false;
 		}
 		
 	};
@@ -1129,7 +1134,7 @@ public class RalphOral {
 		}
 		@Override
 		public String getActionTitle() {
-			return "";
+			return "Reduce discount";
 		}
 
 		@Override
@@ -1157,7 +1162,7 @@ public class RalphOral {
 		@Override
 		public void applyEffects() {
 			SexFlags.alertedCustomer=false;
-			SexFlags.customerAtCounter=false;
+			SexFlags.customerAtCounter = false;
 			if(SexFlags.ralphDiscount>0)
 				SexFlags.ralphDiscount-=5;
 		}
@@ -1251,7 +1256,7 @@ public class RalphOral {
 		public void applyEffects() {
 			Main.game.getPlayer().displaceClothingForAccess(CoverableArea.VAGINA, new ArrayList<>());
 			
-			SexFlags.customerAtCounter=false;
+			SexFlags.customerAtCounter = false;
 			if(SexFlags.alertedCustomer) {
 				if(SexFlags.ralphDiscount>0) {
 					SexFlags.ralphDiscount-=5;
@@ -1348,7 +1353,7 @@ public class RalphOral {
 		public void applyEffects() {
 			Main.game.getPlayer().displaceClothingForAccess(CoverableArea.ANUS, new ArrayList<>());
 			
-			SexFlags.customerAtCounter=false;
+			SexFlags.customerAtCounter = false;
 			if(SexFlags.alertedCustomer) {
 				if(SexFlags.ralphDiscount>0) {
 					SexFlags.ralphDiscount-=5;
@@ -1737,7 +1742,7 @@ public class RalphOral {
 					SexFlags.ralphDiscount-=5;
 			}
 			
-			SexFlags.customerAtCounter=false;
+			SexFlags.customerAtCounter = false;
 		}
 	};
 	

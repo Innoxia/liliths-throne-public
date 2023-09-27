@@ -43,6 +43,47 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="OUTSIDE_DADDY_PACKAGE_SECURITY"><![CDATA[
+	<p>
+		You knock on the front door, and after only a brief moment, it swings open to reveal the familiar figure of your slave, [npc.name].
+	</p>
+	<p>
+		#IF(npc.isMute())
+			As [npc.sheIs] mute, the [npc.race] simply nods and 
+			#IF(npc.isFeminine())
+				 curtsies
+			#ELSE
+				 bows
+			#ENDIF
+			 to you as [npc.she] [npc.steps] back in order to grant you access to Lilaya's house.
+		#ELSE
+			[npc.speech(Welcome back, [pc.name],)] the [npc.race] says,
+			#IF(npc.isFeminine())
+				 curtsying
+			#ELSE
+				 bowing
+			#ENDIF
+			  to you as [npc.she] [npc.steps] back in order to grant you access to Lilaya's house. [npc.speech(While you were out, a package arrived for you.)]
+		#ENDIF
+	</p>
+	<p>
+		As you forwards into the impressive entrance hall, the security guard retrieves a small box, wrapped in brown packaging paper, from off of the top of a nearby table. Handing you this package, the [npc.race] moves back into position beside the front door.
+	</p>
+	<p>
+		Opening the package, you discover that it contains a spell book and several scrolls, along with a small note which reads;
+	</p>
+	<p style='text-align:center;'><i>
+		Hi [pc.name],<br/>
+		Here are the scrolls and spell book which I promised to send to you. Hope this letter finds you well, and look forwards to seeing you again soon!<br/>
+		Love,<br/>
+		[daddy.Dad]
+	</i></p>
+	<p>
+		Smiling to yourself as you finish reading the note, you put the contents of the package into your inventory, before discarding the now-empty box and packaging into a nearby waste-paper bin. Looking ahead, you wonder whether to proceed into Lilaya's home, or to say something else to [npc.name] first...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="OUTSIDE_KNOCK_ON_DOOR"><![CDATA[
 	<p>
 		You knock on the front door, and after only a brief moment, it swings open.
@@ -57,6 +98,33 @@
 		#ELSE
 			 upstairs to go back to sleep.
 		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OUTSIDE_KNOCK_ON_DOOR_SECURITY"><![CDATA[
+	<p>
+		You knock on the front door, and after only a brief moment, it swings open to reveal the familiar figure of your slave, [npc.name].
+	</p>
+	<p>
+		#IF(npc.isMute())
+			As [npc.sheIs] mute, the [npc.race] simply nods and 
+			#IF(npc.isFeminine())
+				 curtsies
+			#ELSE
+				 bows
+			#ENDIF
+			 to you as [npc.she] [npc.steps] back in order to grant you access to Lilaya's house.
+		#ELSE
+			[npc.speech(Welcome back, [pc.name],)] the [npc.race] says,
+			#IF(npc.isFeminine())
+				 curtsying
+			#ELSE
+				 bowing
+			#ENDIF
+			  to you as [npc.she] [npc.steps] back in order to grant you access to Lilaya's house.
+		#ENDIF
+		 Moving forwards into the impressive entrance hall, you greet the security guard as [npc.she] closes the door behind you.
 	</p>
 	]]>
 	</htmlContent>
@@ -162,7 +230,7 @@
 		[rose.speech(Really, [pc.sir], I'm happy to help in any way I can, but you'd be better off consulting the books in Mistress's library if you're looking for that sort of information,)] Rose replies, [rose.speech(If you want some basic knowledge, however, then I can tell you that this world is ruled by Lilith, who's the most powerful demon to ever have existed. She lives here in Dominion, in that huge tower that can be seen from miles around. Although she personally rules over this city, she allows her daughters, the elder lilin, to control other parts of her domain. Surrounding Dominion, there's plenty of farmland and woodland, which collectively is called the 'Foloi Fields', and is ruled by Lunette. Other than that, I know that there's a jungle to the north, ruled by Lyxias; a desert to the south, ruled by Lisophia; and the Endless Sea to the East, ruled by Lirecea.)]
 	</p>
 	<p>
-		It seems as though every elder lilin's name beings with an 'L', and you wonder how Rose is able to remember them all. Even though the maid's information was quite limited, you're still grateful that she's told you a little more about how this world works. It doesn't look like she's finished just yet, however, and takes a little breath before continuing, [rose.speech(If you're looking for more information about the culture and ways of Dominion, then I suppose I can give you a few pointers as well. The most common races that you'll see walking the streets are demons, cat, dog, and horse-morphs. Although there are countless other races that inhabit this world, they mostly tend to stay in their home regions, so you'll see plenty of cattle-morphs and rabbit-morphs out in the fields, but almost none in the jungle or desert.)]
+		It seems as though every elder lilin's name begins with an 'L', and you wonder how Rose is able to remember them all. Even though the maid's information was quite limited, you're still grateful that she's told you a little more about how this world works. It doesn't look like she's finished just yet, however, and takes a little breath before continuing, [rose.speech(If you're looking for more information about the culture and ways of Dominion, then I suppose I can give you a few pointers as well. The most common races that you'll see walking the streets are demons, cat, dog, and horse-morphs. Although there are countless other races that inhabit this world, they mostly tend to stay in their home regions, so you'll see plenty of cattle-morphs and rabbit-morphs out in the fields, but almost none in the jungle or desert.)]
 	</p>
 	<p>
 		Coming to the end, Rose finishes by saying, [rose.speech(The number of humans in our world seems to decrease every year. In order to escape the discrimination and prejudice against humans, they're more and more often choosing to transform themselves. Oh, speaking of which, don't drink any unmarked bottles of liquid, as while they're a little expensive, transformative potions are readily available for anyone to purchase, and they'll alter your body in a flash.)]
@@ -247,6 +315,21 @@
 	<p>
 		The garden courtyard consists of a series of wide, perfectly trimmed grass pathways, each one lined with beds of brightly-coloured flowers. Although Rose is now the one responsible for maintaining it, you guess that Lilaya must have hired a professional company in order to have had this area landscaped so perfectly.
 	</p>
+	<p>
+		Clearly being fond of her maid's namesake, you see that several magnificent rose bushes have been planted throughout the garden.
+		#IF(flags.hasFlag(FLAG_lilayaGardenPickRose))
+			 As you've already picked one of the beautiful flowers today, you probably shouldn't take any more until tomorrow...
+		#ELSE
+			 You're sure that Lilaya wouldn't mind if you took one of the beautiful flowers...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GARDEN_PICK ROSE"><![CDATA[
+	<p>
+		[pc.Stepping] over to one of the magnificent rose bushes which are found throughout Lilaya's courtyard garden, you select a particularly beautiful flower and cut it from the plant. After taking a moment to smell its delicate perfume, you place the rose in your inventory and wonder where to go next...
+	</p>
 	]]>
 	</htmlContent>
 	
@@ -257,8 +340,20 @@
 	<p>
 		In the very centre of the garden courtyard, a huge, ornate water fountain happily bubbles away with a mind of its own. The structure is made up of a collection of intricate statues; each one of a beautiful woman in some manner of indecent pose.
 	</p>
+	#IF(flags.hasFlag(FLAG_acexp_dungeon_garden_access_found))
+		<p>
+			Knowing that the nearby button that's disguised as part of the fountain's decorative stonework will grant you access to Lilaya's dungeon, you wonder whether to press it and head down into the subterranean gloom, or instead continue on your way elsewhere...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
+	
+    <htmlContent tag="DUNGEON_OPENS_FOUNTAIN"><![CDATA[
+   	<p>
+        Deciding that you'd like to head down into Lilaya's dungeon, you [pc.step] forwards and press the button that's been disguised as part of the fountain's stonework. A rumbling sound of grinding stone immediately breaks out to your side, and you turn to watch as a nearby slab slides open to reveal the secret, spiral staircase which leads down into the darkness of Lilaya's dungeon. As you begin to move forwards, the wall-mounted arcane torches burst into flame, casting staircase in a dancing, flickering light.
+	</p>
+	]]>
+    </htmlContent>
 	
 	
 	<!-- ENTRANCE_HALL -->

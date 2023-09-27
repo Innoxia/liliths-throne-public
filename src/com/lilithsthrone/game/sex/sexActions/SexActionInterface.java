@@ -1,16 +1,23 @@
 package com.lilithsthrone.game.sex.sexActions;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
-import com.lilithsthrone.game.character.body.types.FootType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
-import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -20,15 +27,21 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
-import com.lilithsthrone.game.sex.*;
+import com.lilithsthrone.game.sex.ArousalIncrease;
+import com.lilithsthrone.game.sex.CondomFailure;
+import com.lilithsthrone.game.sex.LubricationType;
+import com.lilithsthrone.game.sex.SexAreaInterface;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexControl;
+import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
-
-import java.util.*;
-import java.util.Map.Entry;
 
 /**
  * @since 0.1.0
@@ -53,6 +66,38 @@ public interface SexActionInterface {
 
 	public default boolean isSadisticAction() {
 		return false;
+	}
+
+	public default boolean isLovingAction() {
+		return false;
+	}
+
+	/**
+	 * Default is false, meaning that only actions of SexPace.SUB_RESISTING are available to resisting characters.
+	 * <br/>Override to return true if this action should be available to resisting characters.
+	 */
+	public default boolean isOverrideAvailableDuringResisting() {
+		return false;
+	}
+	
+	/**
+	 * If the performing character is immobilised, then this action is only available if it's a SexActionType of: SPEECH, SPEECH_WITH_ALTERNATIVE, PREPARE_FOR_PARTNER_ORGASM, or ORGASM.
+	 * <br/>ONGOING SexActionTypes are also available, but only so long as the performing areas doesn't include a virginity-taking penetration type.
+	 * @return
+	 */
+	public default boolean isAvailableDuringImmobilisation() {
+		if(this.getActionType()==SexActionType.ONGOING) {
+			for(SexAreaInterface sa : this.getPerformingCharacterAreas()) {
+				if(sa.isPenetration() && ((SexAreaPenetration)sa).isTakesVirginity()) {
+					return false;
+				}
+			}
+			return true;
+		}
+		return this.getActionType()==SexActionType.SPEECH
+				|| this.getActionType()==SexActionType.SPEECH_WITH_ALTERNATIVE
+				|| this.getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM
+				|| this.getActionType()==SexActionType.ORGASM;
 	}
 	
 	/**
@@ -264,12 +309,12 @@ public interface SexActionInterface {
 	/**
 	 * @return A list of fetishes that affect the character in this sex action.
 	 */
-	public List<Fetish> getFetishes(GameCharacter characterPerformingAction);
+	public List<AbstractFetish> getFetishes(GameCharacter characterPerformingAction);
 
 	/**
 	 * @return A list of fetishes that affect the target of 'characterPerformingAction' in this sex action.
 	 */
-	public List<Fetish> getFetishesForTargetedPartner(GameCharacter characterPerformingAction);
+	public List<AbstractFetish> getFetishesForTargetedPartner(GameCharacter characterPerformingAction);
 	
 	// Sex-specific:
 	
@@ -400,11 +445,11 @@ public interface SexActionInterface {
 		StringBuilder sb = new StringBuilder();
 		GameCharacter characterTargeted = Main.sex.getCharacterTargetedForSexAction(this);
 		if(this.isSadisticAction()) {
-			if(!characterTargeted.getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive()) {
-			sb.append("<p style='text-align:center'>"
-						+ "[style.colourBad([npc2.Name] [npc2.verb(find)] this sadistic action to be a huge turn-off!)]"
-						+ characterTargeted.incrementLust(-15, false)
-					+"</p>");
+			if(!characterTargeted.getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive() && !characterTargeted.isDoll()) {
+				sb.append("<p style='text-align:center'>"
+							+ "[style.colourBad([npc2.Name] [npc2.verb(find)] this sadistic action to be a huge turn-off!)]"
+							+ characterTargeted.incrementLust(-15, false)
+						+"</p>");
 			}
 		}
 		
@@ -447,15 +492,35 @@ public interface SexActionInterface {
 		return "";
 	}
 	
+	public default boolean isQuickSexRequirementsMet(GameCharacter performer) {
+		return isBaseRequirementsMet();
+	}
+	
 	public default boolean isBaseRequirementsMet() {
 		return true;
 	}
 	
 	public default boolean isBasicCoreRequirementsMet() {
+		GameCharacter performingCharacter = Main.sex.getCharacterPerformingAction();
+		
 		if(this.isSadisticAction()
 				&& (!Main.getProperties().hasValue(PropertyValue.sadisticSexContent)
 						|| !Main.sex.isSadisticActionsAllowed()
-						|| !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST))) {
+						|| !performingCharacter.hasFetish(Fetish.FETISH_SADIST))) {
+			return false;
+		}
+		
+		if(this.isLovingAction()) {
+			if(!Main.sex.isLovingActionsAllowed()) {
+				return false;
+			}
+			if(!performingCharacter.isPlayer()
+					&& (!performingCharacter.getAffectionLevel(Main.sex.getCharacterTargetedForSexAction(this)).isGreaterThan(AffectionLevel.POSITIVE_TWO_LIKE) || performingCharacter.hasFetish(Fetish.FETISH_SADIST))) {
+				return false;
+			}
+		}
+		
+		if(Main.sex.isCharacterImmobilised(performingCharacter) && !isAvailableDuringImmobilisation()) {
 			return false;
 		}
 		
@@ -464,14 +529,14 @@ public interface SexActionInterface {
 		boolean footAllowed = true;
 		try { // Wrap in try/catch block as some sex actions may make calls to ongoing actions that aren't ongoing yet
 			footAllowed = Main.game.isFootContentEnabled()
-					|| Collections.disjoint(Util.mergeLists(this.getFetishes(Main.sex.getCharacterPerformingAction()), this.getFetishesForTargetedPartner(Main.sex.getCharacterPerformingAction())),
+					|| Collections.disjoint(Util.mergeLists(this.getFetishes(performingCharacter), this.getFetishesForTargetedPartner(performingCharacter)),
 						Util.newArrayListOfValues(Fetish.FETISH_FOOT_GIVING, Fetish.FETISH_FOOT_RECEIVING));
 		} catch(Exception ex) {
 		}
 		
 		boolean crotchBoobsAllowed = true;
 		try { // Wrap in try/catch block as some sex actions may make calls to ongoing actions that aren't ongoing yet
-			crotchBoobsAllowed = (Main.getProperties().getUddersLevel()>0 || Main.sex.getCharacterTargetedForSexAction(this).isFeral())
+			crotchBoobsAllowed = Main.game.isUdderContentEnabled()
 									|| (!this.getTargetedCharacterAreas().contains(SexAreaOrifice.BREAST_CROTCH)
 											&& !this.getTargetedCharacterAreas().contains(SexAreaOrifice.NIPPLE_CROTCH)
 											&& !this.getPerformingCharacterAreas().contains(SexAreaOrifice.BREAST_CROTCH)
@@ -486,11 +551,11 @@ public interface SexActionInterface {
 				&& crotchBoobsAllowed
 				&& underarmAllowed
 				&& (this.getSexPace()==null
-					|| (this.getSexPace().isDom() == Main.sex.getSexPace(Main.sex.getCharacterPerformingAction()).isDom()))
+					|| (this.getSexPace().isDom() == Main.sex.getSexPace(performingCharacter).isDom()))
 				&& (this.getActionType()!=SexActionType.STOP_ONGOING // Can only stop non-self ongoing penetrations if full control
 					|| this.getParticipantType()==SexParticipantType.SELF
-					|| Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL)
-				&& (Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())!=SexSlotGeneric.MISC_WATCHING // Cannot switch positions as spectator
+					|| Main.sex.getSexControl(performingCharacter)==SexControl.FULL)
+				&& (Main.sex.getSexPositionSlot(performingCharacter)!=SexSlotGeneric.MISC_WATCHING // Cannot switch positions as spectator
 					|| this.getActionType()!=SexActionType.POSITIONING); 
 	}
 	
@@ -576,8 +641,9 @@ public interface SexActionInterface {
 	}
 	
 	public default boolean isSwitchOngoingActionAvailable() {
-		if(Main.sex.getCharacterPerformingAction().isPlayer()
-				&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction()).getValue()>=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue()) {
+		if(
+				Main.sex.getCharacterPerformingAction().isPlayer() && //TODO test commenting this out to allow NPCs to switch actions
+				Main.sex.getSexControl(Main.sex.getCharacterPerformingAction()).getValue()>=SexControl.ONGOING_PLUS_LIMITED_PENETRATIONS.getValue()) {
 			List<GameCharacter> ongoingTargetedAreaCharacters = Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterTargetedForSexAction(this), this.getTargetedCharacterAreas().get(0));
 			List<GameCharacter> ongoingPerformingAreaCharacters = Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), this.getPerformingCharacterAreas().get(0));
 			
@@ -590,6 +656,28 @@ public interface SexActionInterface {
 					&& !ongoingTargetedAreaCharacters.contains(Main.game.getPlayer())) {
 				return false;
 			}
+//			//TODO needs more testing, and needs checks for tongue<->mouth, nipple<->breast, urethra/clit<->vagina
+			// I added this to try and address the very rare issue of:
+			// NPCs who are targeting c1 but have an ongoing with c2 will not switch ongoing to c1, repeatedly preparing to do so (stopping handjob) then reverting (starting handjob)	
+//			// If NPCs are using ongoing parts in their action preference, do not allow switching to disrupt this
+//			if(!Main.sex.getCharacterPerformingAction().isPlayer()) {
+//				for(GameCharacter character : Main.sex.getAllParticipants(false)) {
+//					if(!character.equals(Main.sex.getCharacterPerformingAction())) {
+//						SexType preference = Main.sex.getCharacterPerformingAction().getCurrentSexPreference(character);
+//						if(preference!=null && Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), preference.getPerformingSexArea(), preference.getTargetedSexArea()).contains(character)) {
+//							System.out.println("x1a "+preference.getPerformingSexArea()+" | "+preference.getTargetedSexArea());
+//							System.out.println("x1b "+this.getPerformingCharacterAreas().get(0)+" | "+this.getTargetedCharacterAreas().get(0));
+//							if(this.getPerformingCharacterAreas().contains(preference.getPerformingSexArea()) || this.getTargetedCharacterAreas().contains(preference.getTargetedSexArea())) {
+//								System.out.println("x2");
+//								if(character.equals(Main.sex.getCharacterTargetedForSexAction(this))) { // Allow switching from preference if targeted character is not the same as the one who is involved with the preference
+//									System.out.println("x3");
+//									return false;
+//								}
+//							}
+//						}
+//					}
+//				}
+//			}
 			
 			try {
 				return !Main.sex.getOngoingActionsMap(Main.sex.getCharacterPerformingAction()).get(this.getPerformingCharacterAreas().get(0)).get(Main.sex.getCharacterTargetedForSexAction(this)).contains(this.getTargetedCharacterAreas().get(0));
@@ -721,9 +809,11 @@ public interface SexActionInterface {
 				}
 			}
 
-			// You can't resist in scenes that don't allow it or if non-con is disabled:
+			// You can't resist in scenes that don't allow it, if non-con is disabled, or if the performing character is a doll:
 			if(getSexPace()==SexPace.SUB_RESISTING) {
-				if((Main.sex.isConsensual() && !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_SUB)) || !Main.game.isNonConEnabled()) {
+				if((Main.sex.isConsensual() && !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_SUB))
+						|| !Main.game.isNonConEnabled()
+						|| Main.sex.getCharacterPerformingAction().isDoll()) {
 					return null;
 				}
 			}
@@ -1408,7 +1498,7 @@ public interface SexActionInterface {
 					StringBuilder SB = new StringBuilder();
 					
 					if(fetishesRequired!=null) {
-						for(Fetish f : fetishesRequired){
+						for(AbstractFetish f : fetishesRequired){
 							if(Main.game.getPlayer().hasFetish(f)) {
 								SB.append("<br/>"
 										+"<span style='color:"+PresetColour.GENERIC_SEX.toWebHexString()+";'>Associated Fetish</span>"
@@ -1665,7 +1755,7 @@ public interface SexActionInterface {
 					break;
 				case FOOT:
 					// IF no legs or feet, cannot use foot actions:
-					if(!performingCharacter.hasLegs() || performingCharacter.getFootStructure()==FootStructure.NONE || performingCharacter.getLegType().getFootType()==FootType.NONE) {
+					if(!performingCharacter.hasFeet()) {
 						return false;
 					}
 					break;
@@ -1811,7 +1901,7 @@ public interface SexActionInterface {
 		return CondomFailure.NONE;
 	}
 	
-	public default List<Fetish> getFetishesFromPenetrationAndOrificeTypes(
+	public default List<AbstractFetish> getFetishesFromPenetrationAndOrificeTypes(
 			GameCharacter characterPerformingAction,
 			SexAreaInterface performingArea,
 			GameCharacter characterTarget,
@@ -1821,10 +1911,10 @@ public interface SexActionInterface {
 		SexType type = new SexType(this.getParticipantType(), performingArea, targetedArea);
 		
 		// Self areas:
-		List<Fetish> associatedFetishes = new ArrayList<>(type.getRelatedFetishes(characterPerformingAction, characterTarget, this.getActionType().isPenetratingOption(), this.getActionType()==SexActionType.ORGASM));
+		List<AbstractFetish> associatedFetishes = new ArrayList<>(type.getRelatedFetishes(characterPerformingAction, characterTarget, this.getActionType().isPenetratingOption(), this.getActionType()==SexActionType.ORGASM));
 		
 		// Add opposite fetishes for partner:
-		List<Fetish> associatedFetishesPartner = new ArrayList<>(type.getOppositeFetishes(characterPerformingAction, characterTarget, this.getActionType().isPenetratingOption(), this.getActionType()==SexActionType.ORGASM));
+		List<AbstractFetish> associatedFetishesPartner = new ArrayList<>(type.getOppositeFetishes(characterPerformingAction, characterTarget, this.getActionType().isPenetratingOption(), this.getActionType()==SexActionType.ORGASM));
 		
 		if(characterPerformingActionFetishes) {
 			return associatedFetishes;

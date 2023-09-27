@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<worldType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[Farmer's Market]]></name>
+	<colour>BASE_TAN</colour>
+	<sexBlockedReason/>
+	<furniturePresent>true</furniturePresent>
+	<wallsPresent>true</wallsPresent>
+	<loiteringEnabled>false</loiteringEnabled>
+	<flightEnabled>true</flightEnabled>
+	<visibleFromStart>true</visibleFromStart>
+	<fullyRevealedFromStart>false</fullyRevealedFromStart>
+	<globalMapLocation>WORLD_MAP_FIELDS_CITY</globalMapLocation>
+	<standardPlace>innoxia_fields_elis_market_path</standardPlace>
+	<entryFromGlobalMapLocation>innoxia_fields_elis_market_centre</entryFromGlobalMapLocation>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<places>
+		<place colour="#ffffff">GENERIC_IMPASSABLE</place>
+		
+		<place colour="#ff0000">innoxia_fields_elis_market_exit_north</place>
+		<place colour="#ff0040">innoxia_fields_elis_market_exit_east</place>
+		<place colour="#ff0080">innoxia_fields_elis_market_exit_south</place>
+		<place colour="#ff00bf">innoxia_fields_elis_market_exit_west</place>
+		
+		<place colour="#808080">innoxia_fields_elis_market_path</place>
+		<place colour="#3b3b3b">innoxia_fields_elis_market_path_bins</place>
+		<place colour="#ffbe58">innoxia_fields_elis_market_centre</place>
+		
+		<place colour="#ff7f2a">innoxia_fields_elis_market_drinks_alcohol</place>
+		<place colour="#ffff2a">innoxia_fields_elis_market_drinks_soft</place>
+		
+		<place colour="#00ff2a">innoxia_fields_elis_market_food_meals</place>
+		<place colour="#00ffc2">innoxia_fields_elis_market_food_snacks</place>
+		
+		<place colour="#ff92ff">innoxia_fields_elis_market_clothing</place>
+		<place colour="#92dfff">innoxia_fields_elis_market_trinkets</place>
+		<place colour="#dadf81">innoxia_fields_elis_market_toys</place>
+		
+		<place colour="#ffbed3">innoxia_fields_elis_market_kissing</place>
+		<place colour="#c481df">innoxia_fields_elis_market_fortunes</place>
+		
+		<place colour="#55a2d5">dsg_fields_elis_market_produce</place>	
+	</places>
+</worldType>

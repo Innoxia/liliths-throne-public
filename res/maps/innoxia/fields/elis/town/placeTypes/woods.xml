@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[woodland]]></name>
+	<tooltipDescription><![CDATA[Patches of deciduous woodland surround Elis and offer places for the townsfolk to forage for mushrooms and truffles.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in the woodland beside Elis]]></virginityLossDescription>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<colour>BASE_GREEN</colour>
+	<backgroundColour>MAP_BACKGROUND_GREEN</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_fields_elis_generic_woods</dialogue>
+	<furniturePresent>false</furniturePresent>
+	<wallsPresent wallName="tree">true</wallsPresent>
+	<loiteringEnabled>true</loiteringEnabled>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<weatherImmunities/>
+	<applyInventoryInit/>
+</placeType>

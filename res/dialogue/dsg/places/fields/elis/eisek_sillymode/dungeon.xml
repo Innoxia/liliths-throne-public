@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+	
+	<scene id="ambush">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Junk Avalanche!]]></title>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">AMBUSH</content>
+		<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>			
+			<response>				
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[No telling what was in that dust, you'll probably want a long bath after this.]]></responseTooltip>
+				<colour><![CDATA[TEXT]]></colour>
+				<nextDialogue stripContent="false"><![CDATA[dsg_places_fields_elis_eisek_sillymode_dungeon_entry]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_SILLYMODE, QUEST_EISEK_SILLYMODE_QUEST_STAGE_TWO))]
+				]]></effects>			
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id ="entry">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Dungeon Entry]]></title>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">ENTRY</content>
+		<secondsPassed minutes="false"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue><![CDATA[false]]></continuesDialogue>
+		<travelDisabled><![CDATA[false]]></travelDisabled>
+		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responses/>
+	</scene>
+	
+	<scene id ="passage">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Dungeon Passage]]></title>
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_dungeon_trap_north, false)]
+			[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_dungeon_trap_east, false)]
+			[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_dungeon_trap_south, false)]
+			[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_dungeon_trap_west, false)]
+				
+			#IF((pc.getCellFromLocation(0, -1) != null && pc.getCellFromLocation(0, -1).getPlace().getPlaceType()==PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_trap))
+				[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_dungeon_trap_north, true)]
+			#ELSEIF((pc.getCellFromLocation(-1, 0) != null && pc.getCellFromLocation(-1, 0).getPlace().getPlaceType()==PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_trap))
+				[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_dungeon_trap_east, true)]
+			#ELSEIF((pc.getCellFromLocation(0, 1) != null && pc.getCellFromLocation(0, 1).getPlace().getPlaceType()==PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_trap))
+				[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_dungeon_trap_south, true)]
+			#ELSEIF((pc.getCellFromLocation(1, 0) != null && pc.getCellFromLocation(1, 0).getPlace().getPlaceType()==PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_trap))
+				[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_dungeon_trap_west, true)]
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">PASSAGE</content>
+		<secondsPassed minutes="false"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue><![CDATA[false]]></continuesDialogue>
+		<travelDisabled><![CDATA[false]]></travelDisabled>
+		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responses/>
+	</scene>
+	
+	<scene id ="boss">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Dungeon Boss Room]]></title>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">BOSS</content>
+		<secondsPassed minutes="false"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue><![CDATA[false]]></continuesDialogue>
+		<travelDisabled><![CDATA[false]]></travelDisabled>
+		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responses/>
+	</scene>
+	
+	<scene id ="treasure">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Treasure Room]]></title>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">TREASURE</content>
+		<secondsPassed minutes="false"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue><![CDATA[false]]></continuesDialogue>
+		<travelDisabled><![CDATA[false]]></travelDisabled>
+		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Loot the chest]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Open up the antique chest and take what's in it! Might as well take a chance and make this strange place worth your while.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					dsg_places_fields_elis_eisek_sillymode_dungeon_treasure_taking
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(500))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id ="treasure_taking">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Treasure Room]]></title>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">TREASURE_TAKING</content>
+		<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+		<continuesDialogue><![CDATA[true]]></continuesDialogue>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
+		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					A paltry sum, but at least the chest didn't try to eat you.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					dsg_places_fields_elis_eisek_sillymode_dungeon_treasure_taken
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.getPlayerCell().getPlace().setPlaceType(PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_treasure_taken)]
+					[#game.getPlayerCell().getPlace().setName(PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_treasure_taken.getName())]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id ="treasure_taken">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Treasure Room (Looted)]]></title>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">TREASURE_TAKEN</content>
+		<secondsPassed minutes="false"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue><![CDATA[false]]></continuesDialogue>
+		<travelDisabled><![CDATA[false]]></travelDisabled>
+		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responses/>
+	</scene>
+	
+	<scene id ="trap">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[It's A Trap!]]></title>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">TRAP</content>
+		<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+		<continuesDialogue><![CDATA[false]]></continuesDialogue>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
+		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Disarm the trap]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Try and disarm the trap. High physique grants higher chance. Slimes get a bonus, taurs get a penalty, while mastery of certain ice, wind, or earth spells guarantee success.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.hasSpell(SPELL_TELEKENETIC_SHOWER) || pc.hasSpell(SPELL_VACUUM) || pc.hasSpell(SPELL_PROTECTIVE_GUSTS) || pc.hasSpell(SPELL_SOOTHING_WATERS) || pc.hasSpell(SPELL_RAIN_CLOUD))
+						dsg_places_fields_elis_eisek_sillymode_dungeon_trap_success
+					#ELSEIF(pc.getBodyMaterial() == BODY_MATERIAL_SLIME))
+						#IF(RND.nextInt(50) < pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE) + 25)
+							dsg_places_fields_elis_eisek_sillymode_dungeon_trap_success
+						#ELSE
+							dsg_places_fields_elis_eisek_sillymode_dungeon_trap_failure
+						#ENDIF
+					#ELSEIF(pc.isTaur())
+						#IF(RND.nextInt(50) < pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE) - 25)
+							dsg_places_fields_elis_eisek_sillymode_dungeon_trap_success
+						#ELSE
+							dsg_places_fields_elis_eisek_sillymode_dungeon_trap_failure
+						#ENDIF
+					#ELSE
+						#IF(RND.nextInt(50) < pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE))
+							dsg_places_fields_elis_eisek_sillymode_dungeon_trap_success
+						#ELSE
+							dsg_places_fields_elis_eisek_sillymode_dungeon_trap_failure
+						#ENDIF
+					#ENDIF
+				]]></nextDialogue>
+				<effects/>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Step back]]></responseTitle>
+				<responseTooltip><![CDATA[
+					You're not in the mood to be set on fire or risk burning the whole place down right now.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					dsg_places_fields_elis_eisek_sillymode_dungeon_passage
+				]]></nextDialogue>
+				<effects><![CDATA[
+					#IF(flags.hasFlag(FLAG_dsg_elis_eisek_sillymode_dungeon_trap_north))
+						[#pc.moveLocation(0, 1)]
+					#ELSEIF(flags.hasFlag(FLAG_dsg_elis_eisek_sillymode_dungeon_trap_east))
+						[#pc.moveLocation(1, 0)]
+					#ELSEIF(flags.hasFlag(FLAG_dsg_elis_eisek_sillymode_dungeon_trap_south))
+						[#pc.moveLocation(0, -1)]
+					#ELSE
+						[#pc.moveLocation(-1, 0)]
+					#ENDIF
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id ="trap_success">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Trap Disarmed!]]></title>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">TRAP_SUCCESS</content>
+		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue><![CDATA[true]]></continuesDialogue>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
+		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Counterterrorists win.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					dsg_places_fields_elis_eisek_sillymode_dungeon_trap_triggered
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.getPlayerCell().getPlace().setPlaceType(PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_trap_triggered)]
+					[#game.getPlayerCell().getPlace().setName(PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_trap_triggered.getName())]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id ="trap_failure">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Getting Hot In Here...]]></title>
+		<preParsingEffects><![CDATA[			
+			[#game.getPlayerCell().getPlace().setPlaceType(PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_trap_triggered)]
+			[#game.getPlayerCell().getPlace().setName(PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_trap_triggered.getName())]
+			#IF(!pc.isImmuneToDamageType(DAMAGE_TYPE_FIRE) && pc.getAttributeValue(ATTRIBUTE_RESISTANCE_FIRE) < 30)
+				#IF(flags.hasFlag(FLAG_dsg_elis_eisek_sillymode_dungeon_trap_north))
+					[#pc.moveLocation(0, 1)]
+				#ELSEIF(flags.hasFlag(FLAG_dsg_elis_eisek_sillymode_dungeon_trap_east))
+					[#pc.moveLocation(1, 0)]
+				#ELSEIF(flags.hasFlag(FLAG_dsg_elis_eisek_sillymode_dungeon_trap_south))
+					[#pc.moveLocation(0, -1)]
+				#ELSE
+					[#pc.moveLocation(-1, 0)]
+				#ENDIF
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">TRAP_FAILURE</content>
+		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue><![CDATA[true]]></continuesDialogue>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
+		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					At least you're unharmed.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					default
+				]]></nextDialogue>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id ="trap_triggered">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Trap (Disarmed)]]></title>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">TRAP_TRIGGERED</content>
+		<secondsPassed minutes="false"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue><![CDATA[false]]></continuesDialogue>
+		<travelDisabled><![CDATA[false]]></travelDisabled>
+		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+	
+		<responses/>
+			
+	</scene>
+	
+	<scene id ="exit">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Dungeon Exit]]></title>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">EXIT</content>
+		<secondsPassed minutes="false"><![CDATA[1]]></secondsPassed>
+		<continuesDialogue><![CDATA[false]]></continuesDialogue>
+		<travelDisabled><![CDATA[false]]></travelDisabled>
+		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+	
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Exit]]></responseTitle>
+				<responseTooltip><![CDATA[
+					You've had just about enough of this silly place.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					dsg_places_fields_elis_eisek_sillymode_dungeon_exit_taken
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_SILLYMODE, QUEST_SIDE_UTIL_COMPLETE))]
+				]]></effects>
+			</response>
+		</responses>
+			
+	</scene>
+	
+	<scene id ="exit_taken">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Fresh Air]]></title>
+		<preParsingEffects><![CDATA[
+		[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_eisek_sillymode_dungeon_entrance)]
+		[#game.getPlayerCell().getPlace().setPlaceType(PLACE_TYPE_innoxia_fields_elis_town_street)]		[#game.getPlayerCell().getPlace().setName(PLACE_TYPE_innoxia_fields_elis_town_street.getName())]
+		]]></preParsingEffects>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode/dungeon">EXIT_TAKEN</content>
+		<secondsPassed minutes="false"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue><![CDATA[true]]></continuesDialogue>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
+		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+	
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Eisek isn't going to believe this, nor anyone else for that matter.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					default
+				]]></nextDialogue>
+				<effects/>
+			</response>
+		</responses>
+			
+	</scene>
+	
+</dialogueNodes>

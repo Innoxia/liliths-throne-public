@@ -299,18 +299,22 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 			}
 		}
 		
+		if(!Main.game.isStarted()) {
+			return name;
+		}
+		
 		if(name.endsWith("-")) {
 			if(Math.random()<0.25f) { // 25% chance to return this '-' name.
-				return name + Util.getRandomObjectFromWeightedMap(returnNames);
+				return UtilText.parse(gc, name + Util.getRandomObjectFromWeightedMap(returnNames));
 			} else {
-				return Util.getRandomObjectFromWeightedMap(returnNames);
+				return UtilText.parse(gc, Util.getRandomObjectFromWeightedMap(returnNames));
 			}
 		}
 		if(name.isEmpty()) {
-			return Util.getRandomObjectFromWeightedMap(returnNames);
+			return UtilText.parse(gc, Util.getRandomObjectFromWeightedMap(returnNames));
 		}
 		
-		return name;
+		return UtilText.parse(gc, name);
 	}
 	
 	@Override
@@ -337,18 +341,22 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 			}
 		}
 		
+		if(!Main.game.isStarted()) {
+			return name;
+		}
+		
 		if(name.endsWith("-")) {
-			if(Math.random()<0.25f) { // 25% chance to return this '-' name.
-				return name + Util.getRandomObjectFromWeightedMap(returnNames);
+			if(Math.random()<0.25f && (!Main.game.isInSex() || Main.sex.getAllParticipants().size()<=2)) { // 25% chance to return this '-' name, so long as not in threesome+ sex scene, as otherwise parsing is weird (e.g. "wolf-cocks" for wolf & non-wolf)
+				return UtilText.parse(gc, name + Util.getRandomObjectFromWeightedMap(returnNames));
 			} else {
-				return name + Util.getRandomObjectFromWeightedMap(returnNames);
+				return UtilText.parse(gc, Util.getRandomObjectFromWeightedMap(returnNames));
 			}
 		}
 		if(name.isEmpty()) {
-			return Util.getRandomObjectFromWeightedMap(returnNames);
+			return UtilText.parse(gc, Util.getRandomObjectFromWeightedMap(returnNames));
 		}
 		
-		return name;
+		return UtilText.parse(gc, name);
 	}
 
 	@Override
@@ -380,7 +388,7 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 	}
 	
 	/**
-	 * This method is called immediately before and immediately after the target's penis type is changed into into this type. When before, applicationAfterChangeApplied is false, and when after, applicationAfterChangeApplied is true.
+	 * This method is called immediately before and immediately after the target's penis type is changed into this type. When before, applicationAfterChangeApplied is false, and when after, applicationAfterChangeApplied is true.
 	 * It is not called if owner is null.
 	 */
 	public String applyAdditionalTransformationEffects(GameCharacter owner, boolean applicationAfterChangeApplied) {

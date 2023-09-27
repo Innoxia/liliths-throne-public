@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.inventory.Rarity;
@@ -131,7 +131,14 @@ public enum TFModifier {
 			"Applies an effect related to the primary attribute 'Corruption'.",
 			"modifier_circle_corruption",
 			Rarity.LEGENDARY),
-	
+
+	/** This TFModifier is a special case, as it is not added to the available clothing TF lists.
+	 * It is simply defined so that modded clothing can add this as a secondary TFModifier (to the primary TFModifier 'CLOTHING_MAJOR_ATTRIBUTE') to increase enchantment capacity of the wearer. */
+	ENCHANTMENT_LIMIT(AttributeCategory.CORRUPTION,
+			Attribute.ENCHANTMENT_LIMIT,
+			"Applies an effect related to the secondary attribute 'Enchantment Capacity'.",
+			"modifier_circle_corruption",
+			Rarity.LEGENDARY),
 	
 	FERTILITY(AttributeCategory.CORRUPTION,
 			Attribute.FERTILITY,
@@ -1225,7 +1232,7 @@ public enum TFModifier {
 		}
 	},
 	
-	TF_MOD_FLUID_ALCOHOLIC("alcoholic",
+	TF_MOD_FLUID_ALCOHOLIC("strongly alcoholic",
 			"Applies an effect related to changing a fluid.",
 			"alcoholic",
 			"modifier_circle_fluid_modifier",
@@ -1234,6 +1241,18 @@ public enum TFModifier {
 		@Override
 		public Colour getColour() {
 			return FluidModifier.ALCOHOLIC.getColour();
+		}
+	},
+	
+	TF_MOD_FLUID_ALCOHOLIC_WEAK("alcoholic",
+			"Applies an effect related to changing a fluid.",
+			"alcoholic",
+			"modifier_circle_fluid_modifier",
+			PresetColour.BASE_ORANGE_LIGHT,
+			Rarity.COMMON) {
+		@Override
+		public Colour getColour() {
+			return FluidModifier.ALCOHOLIC_WEAK.getColour();
 		}
 	},
 	
@@ -1281,6 +1300,8 @@ public enum TFModifier {
 	TF_MOD_FLAVOUR_MILK(FluidFlavour.MILK, "flavours/cum"),
 	
 	TF_MOD_FLAVOUR_GIRLCUM(FluidFlavour.GIRL_CUM, "flavours/cum"),
+
+	TF_MOD_FLAVOUR_FLAVOURLESS(FluidFlavour.FLAVOURLESS, "flavours/flavourless"),
 	
 	TF_MOD_FLAVOUR_BUBBLEGUM(FluidFlavour.BUBBLEGUM, "flavours/bubblegum"),
 	
@@ -1320,6 +1341,8 @@ public enum TFModifier {
 	
 	TF_MOD_FLAVOUR_BLUEBERRY(FluidFlavour.BLUEBERRY, "flavours/blueberry"),
 	
+	TF_MOD_FLAVOUR_BANANA(FluidFlavour.BANANA, "flavours/banana"),
+	
 	
 	// Fetishes:
 	
@@ -1346,8 +1369,8 @@ public enum TFModifier {
 	TF_MOD_FETISH_PENIS_RECEIVING(Fetish.FETISH_PENIS_RECEIVING),
 	TF_MOD_FETISH_BREASTS_OTHERS(Fetish.FETISH_BREASTS_OTHERS),
 	TF_MOD_FETISH_BREASTS_SELF(Fetish.FETISH_BREASTS_SELF),
-	TF_MOD_FETISH_ORAL_GIVING(Fetish.FETISH_ORAL_GIVING),
 	TF_MOD_FETISH_ORAL_RECEIVING(Fetish.FETISH_ORAL_RECEIVING),
+	TF_MOD_FETISH_ORAL_GIVING(Fetish.FETISH_ORAL_GIVING),
 	TF_MOD_FETISH_LEG_LOVER(Fetish.FETISH_LEG_LOVER),
 	TF_MOD_FETISH_STRUTTER(Fetish.FETISH_STRUTTER),
 	TF_MOD_FETISH_FOOT_GIVING(Fetish.FETISH_FOOT_GIVING),
@@ -1404,6 +1427,10 @@ public enum TFModifier {
 	private static List<TFModifier> weaponPrimaryList = new ArrayList<>();
 	private static List<TFModifier> weaponAttributeList = new ArrayList<>();
 	private static List<TFModifier> weaponMajorAttributeList = new ArrayList<>();
+
+	private static List<TFModifier> dollPrimaryList = new ArrayList<>();
+	private static List<TFModifier> dollSecondaryList = new ArrayList<>();
+	
 	
 	static {
 
@@ -1619,7 +1646,7 @@ public enum TFModifier {
 	
 	private Colour colour;
 	private Rarity rarity;
-	private Fetish fetish;
+	private AbstractFetish fetish;
 	
 	private TFModifier(AttributeCategory attributeCategory, AbstractAttribute associatedAttribute, String description, String SVGString, Rarity rarity) {
 		this.attributeCategory=attributeCategory;
@@ -1650,7 +1677,7 @@ public enum TFModifier {
 		this.SVGString = null;
 	}
 	
-	private TFModifier(Fetish f) {
+	private TFModifier(AbstractFetish f) {
 		this.name = f.getName(null);
 		this.description = "Applies an effect related to the "+name+" fetish. ("+Util.capitaliseSentence(f.getShortDescriptor(null))+".)";
 		this.descriptor = name;
@@ -1665,7 +1692,7 @@ public enum TFModifier {
 	}
 	
 	private TFModifier(FluidFlavour flavour, String pathName, Colour colour) {
-		this.name = flavour.getName()+"-flavour";
+		this.name = flavour.getName()+(flavour==FluidFlavour.FLAVOURLESS?"":"-flavour");
 		this.description = "Applies an effect related to changing a fluid's flavour.";
 		this.descriptor = name;
 		this.rarity = Rarity.COMMON;
@@ -1780,10 +1807,12 @@ public enum TFModifier {
 	}
 
 	public static List<TFModifier> getTFRacialBodyPartsList() {
-		if(Main.getProperties().getUddersLevel()==0) {
-			return TFRacialBodyPartsList.stream().filter(mod -> mod!=TFModifier.TF_BREASTS_CROTCH && mod!=TFModifier.TF_MILK_CROTCH).collect(Collectors.toList());
+		List<TFModifier> returnList = new ArrayList<>(TFRacialBodyPartsList);
+		if(!Main.game.isUdderContentEnabled()) {
+			returnList.remove(TFModifier.TF_BREASTS_CROTCH);
+			returnList.remove(TFModifier.TF_MILK_CROTCH);
 		}
-		return TFRacialBodyPartsList;
+		return returnList;
 	}
 
 	public static List<TFModifier> getTFAttributeList() {
@@ -1792,37 +1821,17 @@ public enum TFModifier {
 
 	public static List<TFModifier> getTFBodyPartFetishList() {
 		List<TFModifier> returnList = new ArrayList<>(TFBodyPartFetishList);
-		if(!Main.game.isAnalContentEnabled()) {
-			returnList.remove(TFModifier.TF_MOD_FETISH_ANAL_GIVING);
-			returnList.remove(TFModifier.TF_MOD_FETISH_ANAL_RECEIVING);
-		}
-		if(!Main.game.isFootContentEnabled()) {
-			returnList.remove(TFModifier.TF_MOD_FETISH_FOOT_GIVING);
-			returnList.remove(TFModifier.TF_MOD_FETISH_FOOT_RECEIVING);
-		}
-		if(!Main.game.isLactationContentEnabled()) {
-			returnList.remove(TFModifier.TF_MOD_FETISH_LACTATION_OTHERS);
-			returnList.remove(TFModifier.TF_MOD_FETISH_LACTATION_SELF);
-		}
+		returnList.removeIf(modifier->!modifier.fetish.isContentEnabled());
 		return returnList;
 	}
 	
 	public static List<TFModifier> getTFBehaviouralFetishList() {
 		List<TFModifier> returnList = new ArrayList<>(TFBehaviouralFetishList);
-		if(!Main.game.isNonConEnabled()) {
-			returnList.remove(TFModifier.TF_MOD_FETISH_NON_CON_DOM);
-			returnList.remove(TFModifier.TF_MOD_FETISH_NON_CON_SUB);
-		}
-		if(!Main.game.isIncestEnabled()) {
-			returnList.remove(TFModifier.TF_MOD_FETISH_INCEST);
-		}
-		if(!Main.game.isPenetrationLimitationsEnabled()) {
-			returnList.remove(TFModifier.TF_MOD_FETISH_SIZE_QUEEN);
-		}
+		returnList.removeIf(modifier->!modifier.fetish.isContentEnabled());
 		return returnList;
 	}
 
-	public Fetish getFetish() {
+	public AbstractFetish getFetish() {
 		return fetish;
 	}
 
@@ -1835,12 +1844,15 @@ public enum TFModifier {
 	}
 
 	public static List<TFModifier> getClothingPrimaryList() {
+		List<TFModifier> returnList = new ArrayList<>(clothingPrimaryList);
 		if(!Main.game.isBodyHairEnabled()) {
-			List<TFModifier> noArms = new ArrayList<>(clothingPrimaryList);
-			noArms.remove(TF_ARMS);
-			return noArms;
+			returnList.remove(TF_ARMS);
 		}
-		return clothingPrimaryList;
+		if(!Main.game.isUdderContentEnabled()) {
+			returnList.remove(TFModifier.TF_BREASTS_CROTCH);
+			returnList.remove(TFModifier.TF_MILK_CROTCH);
+		}
+		return returnList;
 	}
 
 	public static List<TFModifier> getTattooPrimaryList() {
@@ -1857,5 +1869,13 @@ public enum TFModifier {
 	
 	public static List<TFModifier> getWeaponAttributeList() {
 		return weaponAttributeList;
+	}
+
+	public static List<TFModifier> getDollPrimaryList() {
+		return dollPrimaryList;
+	}
+
+	public static List<TFModifier> getDollSecondaryList() {
+		return dollSecondaryList;
 	}
 }

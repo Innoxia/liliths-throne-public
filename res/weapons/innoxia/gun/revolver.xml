@@ -39,8 +39,6 @@
 		
 		<spells/>
 		
-		<enchantmentLimit>10</enchantmentLimit>
-		
 		<effects> 
             <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
             <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="DAMAGE_WEAPON" timer="0"/>
@@ -55,7 +53,10 @@
 		</secondaryColours> 
 		<secondaryColoursDye values="ALL"/>
 		
-		<itemTags/>
+		<itemTags>
+			<tag>CONTRABAND_HEAVY</tag>
+			<tag>WEAPON_FIREARM</tag>
+		</itemTags>
 		
 	</coreAttributes>
 

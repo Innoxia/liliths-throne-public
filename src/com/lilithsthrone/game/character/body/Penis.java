@@ -139,6 +139,14 @@ public class Penis implements BodyPartInterface {
 			}
 		}
 		
+		if(owner.getBodyMaterial().getPartDescriptors()!=null && !owner.getBodyMaterial().getPartDescriptors().isEmpty()) {
+			list.add(Util.randomItemFrom(owner.getBodyMaterial().getPartDescriptors()));
+		}
+		
+		list.removeIf(d->d.isEmpty());
+		if(list.isEmpty()) {
+			return "";
+		}
 		return Util.randomItemFrom(list);
 	}
 	
@@ -428,12 +436,14 @@ public class Penis implements BodyPartInterface {
 	}
 	
 	public static float getGenericDiameter(int length, PenetrationGirth girth, Set<PenetrationModifier> mods) {
-		return Units.round((length * 0.25f) * (1f + girth.getDiameterPercentageModifier() + (mods.contains(PenetrationModifier.FLARED)?0.05f:0) + (mods.contains(PenetrationModifier.TAPERED)?-0.05f:0)), 2);
+		float baseDiameterModifier = 0.2f;
+		baseDiameterModifier = Math.max(0.15f, baseDiameterModifier - (Math.max(length-15, 0) * 0.0025f)); // Every cm over 15 (6 inches) reduces the base diameter modifier by 0.25%
+		
+		return Units.round((length * baseDiameterModifier) * (1f + girth.getDiameterPercentageModifier() + (mods.contains(PenetrationModifier.FLARED)?0.05f:0) + (mods.contains(PenetrationModifier.TAPERED)?-0.05f:0)), 2);
 	}
 	
 	public float getDiameter() {
 		return getGenericDiameter(length, getGirth(), penisModifiers);
-//		return Units.round((length * 0.25f) * (1f + this.getGirth().getDiameterPercentageModifier() + (this.hasPenisModifier(PenetrationModifier.FLARED)?0.05f:0) + (this.hasPenisModifier(PenetrationModifier.TAPERED)?-0.05f:0)), 2);
 	}
 	
 	public boolean isPierced() {
@@ -556,7 +566,7 @@ public class Penis implements BodyPartInterface {
 			case OVIPOSITOR:
 				returnText = "An intense tingling sensation works its up [npc.namePos] [npc.cock], and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] feels it transforming into [style.boldGrow(an ovipositor)]."
 							+ "<br/>[style.boldSex([npc.NamePos] [npc.cock] is now able to lay eggs!)]"
-							+ "<br/><i>(To be fully functional, [npc.name] [npc.verb(require)] an egg-laying vagina and for [npc.her] eggs to be fertilised before laying can occur. Eggs cannot be laid in an already-pregnant target's vagina.)</i>";
+							+ "<br/><i>(To be fully functional, [npc.name] [npc.verb(require)] [npc.her] eggs to be fertilised before laying can occur. Eggs cannot be laid in an already-pregnant target's vagina.)</i>";
 				break;
 		}
 		

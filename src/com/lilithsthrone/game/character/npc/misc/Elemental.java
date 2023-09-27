@@ -55,7 +55,6 @@ import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.sex.PregnancyDescriptor;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -83,7 +82,7 @@ public class Elemental extends NPC {
 					:summoner.getBirthMonth(),
 				summoner==null
 					?1
-					:summoner.getBirthMonth()==Month.FEBRUARY&&summoner.getDayOfBirth()==29?28:summoner.getDayOfBirth(),
+					:summoner.getDayOfBirth(),
 				20,
 				gender,
 				Subspecies.DEMON, RaceStage.GREATER,
@@ -92,13 +91,15 @@ public class Elemental extends NPC {
 		if(!isImported) {
 //			this.setLocation(summoner, false);
 			
-			setLevel(summoner.getLevel());
+			setLevel(summoner==null?1:summoner.getLevel());
 			
 			this.setSummoner(summoner);
-			this.setSurname(this.getSummoner().getNameIgnoresPlayerKnowledge()+"kamu"); // Akkadian for bind
+			this.setSurname(summoner==null?"":this.getSummoner().getNameIgnoresPlayerKnowledge()+"kamu"); // Akkadian for bind
 			this.setStartingBody(true);
 			setPassiveForm(null);
-			this.setAffection(getSummoner(), 100);
+			if(summoner!=null) {
+				this.setAffection(getSummoner(), 100);
+			}
 			
 			this.setLegType(LegType.DEMON_COMMON);
 			
@@ -108,7 +109,7 @@ public class Elemental extends NPC {
 			
 			setSexualOrientation(SexualOrientation.AMBIPHILIC);
 	
-			setName(Name.getRandomTriplet(Race.DEMON));
+			setName(Name.getRandomTriplet(Subspecies.DEMON));
 			this.setPlayerKnowsName(true);
 			
 			// INVENTORY:
@@ -321,14 +322,6 @@ public class Elemental extends NPC {
 	}
 	
 	@Override
-	public String rollForPregnancy(GameCharacter partner, float cum, boolean directSexInsemination) {
-		return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner, directSexInsemination)
-				+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot get pregnant!)]"
-//				+ "<br/>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals soon!)]"
-				+ "</p>";
-	}
-
-	@Override
 	public String incrementExperience(int increment, boolean withExtraModifiers) {
 		return ""; // Elementals don't gain experience, but instead automatically level up alongside their summoner.
 	}
@@ -389,6 +382,7 @@ public class Elemental extends NPC {
 				return SpellSchool.FIRE;
 			case FLESH:
 			case SLIME:
+			case SILICONE:
 				break;
 			case RUBBER:
 			case STONE:
@@ -452,14 +446,22 @@ public class Elemental extends NPC {
 	}
 	
 	public void setSummoner(GameCharacter summoner) {
-		this.summonerID = summoner.getId();
+		if(summoner!=null) {
+			this.summonerID = summoner.getId();
+		}
 	}
 
 	public boolean isActive() {
+		if(this.getSummoner()==null) {
+			return false;
+		}
 		return this.getSummoner().isElementalActive();
 	}
 
 	public boolean isSummonerServant() {
+		if(this.getSummoner()==null) {
+			return false;
+		}
 		switch(this.getCurrentSchool()) {
 			case AIR:
 				return this.getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_3A);
@@ -476,6 +478,9 @@ public class Elemental extends NPC {
 	}
 
 	public boolean isServant() {
+		if(this.getSummoner()==null) {
+			return false;
+		}
 		switch(this.getCurrentSchool()) {
 			case AIR:
 				return this.getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_3B);

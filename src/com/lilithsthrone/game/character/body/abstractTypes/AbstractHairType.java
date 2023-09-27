@@ -133,7 +133,7 @@ public abstract class AbstractHairType implements BodyPartTypeInterface {
 				this.tags = new ArrayList<>();
 				if(coreElement.getOptionalFirstOf("tags").isPresent()) {
 					for(Element e : coreElement.getMandatoryFirstOf("tags").getAllOf("tag")) {
-						tags.add(BodyPartTag.valueOf(e.getTextContent()));
+						tags.add(BodyPartTag.getBodyPartTagFromId(e.getTextContent()));
 					}
 				}
 				
@@ -211,6 +211,9 @@ public abstract class AbstractHairType implements BodyPartTypeInterface {
 		if(gc.getBodyMaterial()==BodyMaterial.SLIME) {
 			return "slime-"+name;
 		}
+		if(gc.getBodyMaterial()==BodyMaterial.SILICONE) {
+			return "silicone-"+name;
+		}
 		return name;
 	}
 	
@@ -218,6 +221,9 @@ public abstract class AbstractHairType implements BodyPartTypeInterface {
 	public String getNamePlural(GameCharacter gc) {
 		if(gc.getBodyMaterial()==BodyMaterial.SLIME) {
 			return "slime-"+namePlural;
+		}
+		if(gc.getBodyMaterial()==BodyMaterial.SILICONE) {
+			return "silicone-"+namePlural;
 		}
 		return namePlural;
 	}

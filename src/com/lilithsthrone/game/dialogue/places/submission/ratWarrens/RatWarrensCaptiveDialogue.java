@@ -286,8 +286,8 @@ public class RatWarrensCaptiveDialogue {
 						return super.isAbleToRemoveOthersClothing(character, clothing);
 					}
 					@Override
-					public boolean isAbleToEquipSexClothing(GameCharacter character) {
-						return !character.isPlayer();
+					public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip) {
+						return !equippingCharacter.isPlayer();
 					}
 					@Override
 					public boolean isAbleToRemoveSelfClothing(GameCharacter character) {
@@ -407,7 +407,7 @@ public class RatWarrensCaptiveDialogue {
 				return false;
 			}
 			@Override
-			public boolean isAbleToEquipSexClothing(GameCharacter character) {
+			public boolean isAbleToEquipSexClothing(GameCharacter equippingCharacter, GameCharacter targetedCharacter, AbstractClothing clothingToEquip) {
 				return false;
 			}
 			@Override
@@ -457,7 +457,7 @@ public class RatWarrensCaptiveDialogue {
 	private static void applyPlayerMilkingPumps(boolean equip, List<InventorySlot> slots) {
 		GameCharacter player = Main.game.getPlayer();
 		if(equip) {
-			// It really doens't make any narrative sense for the game's lactation content setting to limit the entire purpose of Murk's milkers. Instead of preventing milking, the lactation content setting jsut limits descriptions of it.
+			// It really doesn't make any narrative sense for the game's lactation content setting to limit the entire purpose of Murk's milkers. Instead of preventing milking, the lactation content setting just limits descriptions of it.
 			if(slots.contains(InventorySlot.NIPPLE) && player.hasBreasts()) {
 				player.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_milking_breast_pumps"), false), InventorySlot.NIPPLE, true, player);
 			}
@@ -823,6 +823,14 @@ public class RatWarrensCaptiveDialogue {
 
 	public static final DialogueNode CAPTIVE_DAY_1_TF_CHOICE = new DialogueNode("", "", true, true) {
 		@Override
+		public void applyPreParsingEffects() {
+			if(!Main.game.getPlayer().getTattoos().isEmpty()) {
+				Main.game.getPlayer().clearTattoos();
+				Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_END_CLEAR_TATTOOS"));
+			}
+			Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_END"));
+		}
+		@Override
 		public int getSecondsPassed() {
 			return 15*60;
 		}
@@ -866,6 +874,8 @@ public class RatWarrensCaptiveDialogue {
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_MORNING_ENDURE", getMilkers()));
 						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(5));
+						Main.game.getPlayer().setMuskMarker(getMurk().getId());
+						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_MORNING_MUSK_APPLIED", getMilkers()));
 					}
 				};
 				
@@ -878,6 +888,8 @@ public class RatWarrensCaptiveDialogue {
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_MORNING_COMPLIMENT", getMilkers()));
 						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(10));
+						Main.game.getPlayer().setMuskMarker(getMurk().getId());
+						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_MORNING_MUSK_APPLIED", getMilkers()));
 					}
 				};
 				
@@ -890,6 +902,8 @@ public class RatWarrensCaptiveDialogue {
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_MORNING_RESIST", getMilkers()));
 						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(-10));
+						Main.game.getPlayer().setMuskMarker(getMurk().getId());
+						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_MORNING_MUSK_APPLIED", getMilkers()));
 					}
 				};
 				
@@ -971,6 +985,7 @@ public class RatWarrensCaptiveDialogue {
 		@Override
 		public void applyPreParsingEffects() {
 			getMurk().returnToHome();
+			Main.game.getPlayer().applyFoodConsumed(15);
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -1493,6 +1508,7 @@ public class RatWarrensCaptiveDialogue {
 		@Override
 		public void applyPreParsingEffects() {
 			getMurk().returnToHome();
+			Main.game.getPlayer().applyFoodConsumed(15);
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -2152,6 +2168,7 @@ public class RatWarrensCaptiveDialogue {
 			milker.calculateGenericSexEffects(false, true, getMurk(), new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), GenericSexFlag.FORCE_CREAMPIE);
 			Main.game.getPlayer().addDirtySlot(InventorySlot.MOUTH);
 			getMurk().returnToHome();
+			Main.game.getPlayer().applyFoodConsumed(15);
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -2643,6 +2660,9 @@ public class RatWarrensCaptiveDialogue {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("The End...", "[style.italicsBadEnd(With this end to your journey, the thread of prophecy is severed. Restore a saved game to restore the weave of fate, or persist in the doomed world you have created.)]", null);
+			}
 			return null;
 		}
 	};
@@ -2916,18 +2936,18 @@ public class RatWarrensCaptiveDialogue {
 				};
 				
 			} else if(index==2) {
-				if(!Main.game.getPlayer().hasPerkAnywhereInTree(Perk.CONVINCING_REQUESTS) && !isPlayerObeyingOrders(false)) {
+				if(!Main.game.getPlayer().hasTraitActivated(Perk.CONVINCING_REQUESTS) && !isPlayerObeyingOrders(false)) {
 					return new Response("Seduce",
 							UtilText.parse(getMurk(),
 									"You aren't convincing enough at seduction to attempt to trick [npc.name] into taking your collar off..."
-									+ "<br/>[style.italicsMinorBad(Requires the '"+Perk.CONVINCING_REQUESTS.getName(Main.game.getPlayer())+"' perk.)]"),
+									+ "<br/>[style.italicsMinorBad(Requires the '"+Perk.CONVINCING_REQUESTS.getName(Main.game.getPlayer())+"' trait to be active.)]"),
 							null);
 				}
 				return new Response("Seduce",
 						isPlayerObeyingOrders(false)
 							?"Tell Murk that you're so desperate for sex that you can't sleep..."
 							:"Tell Murk that you're desperate for sex in an attempt to trick him into taking your collar off..."
-								+ "<br/>[style.italicsMinorGood(Unlocked from having the '"+Perk.CONVINCING_REQUESTS.getName(Main.game.getPlayer())+"' perk.)]",
+								+ "<br/>[style.italicsMinorGood(Unlocked from having the '"+Perk.CONVINCING_REQUESTS.getName(Main.game.getPlayer())+"' trait activated.)]",
 						CAPTIVE_CALL_OUT_RELEASED) {
 					@Override
 					public void effects() {
@@ -3243,7 +3263,7 @@ public class RatWarrensCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Follow", "Join Shadow and SIlence in following Constable Adams to the nearest Enforcer post.", RatWarrensDialogue.POST_CAPTIVITY_SWORD_RAID) {
+				return new Response("Follow", "Join Shadow and Silence in following Constable Adams to the nearest Enforcer post.", RatWarrensDialogue.POST_CAPTIVITY_SWORD_RAID) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(WorldType.SUBMISSION, PlaceType.SUBMISSION_RAT_WARREN);

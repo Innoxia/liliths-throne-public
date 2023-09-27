@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -57,7 +58,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class EnforcerPatrol extends NPC {
 
 	public EnforcerPatrol() {
-		this(Occupation.NPC_ENFORCER_PATROL_CONSTABLE, Gender.F_V_B_FEMALE, false);
+		this(Occupation.NPC_ENFORCER_PATROL_CONSTABLE, Gender.getGenderFromUserPreferences(false, false), false);
 	}
 	
 	public EnforcerPatrol(boolean isImported) {
@@ -94,12 +95,12 @@ public class EnforcerPatrol extends NPC {
 			this.setBodyFromSubspeciesPreference(gender, availableRaces, true, false);
 			
 			if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f) { // Half-demon spawn rate
-				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, this.getFleshSubspecies(), true), true);
+				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, this.getBody().getFleshSubspecies(), true), true);
 			}
 			
 			if(Math.random()<Main.getProperties().taurSpawnRate/100f
-					&& this.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL) { // Do not reset this charatcer's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
-				// Check for race's leg type as taur, otherwise NPCs which sapwn with human legs won't be affected by taur conversion rate:
+					&& this.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL) { // Do not reset this character's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
+				// Check for race's leg type as taur, otherwise NPCs which spawn with human legs won't be affected by taur conversion rate:
 				if(this.getRace().getRacialBody().getLegType().isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) {
 					this.setLegType(this.getRace().getRacialBody().getLegType());
 					Main.game.getCharacterUtils().applyTaurConversion(this);
@@ -108,7 +109,7 @@ public class EnforcerPatrol extends NPC {
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 			
-			setName(Name.getRandomTriplet(this.getRace()));
+			setName(Name.getRandomTriplet(this.getSubspecies()));
 			
 			this.setPlayerKnowsName(false);
 			
@@ -116,7 +117,7 @@ public class EnforcerPatrol extends NPC {
 			
 			Main.game.getCharacterUtils().addFetishes(this, Fetish.FETISH_CROSS_DRESSER, Fetish.FETISH_EXHIBITIONIST); // Do not allow cross-dressing or exhibitionist, as otherwise it will mess with uniforms.
 			
-			List<Fetish> fetishesForNonNegative = Util.newArrayListOfValues(
+			List<AbstractFetish> fetishesForNonNegative = Util.newArrayListOfValues(
 					Fetish.FETISH_ANAL_GIVING,
 					Fetish.FETISH_ORAL_RECEIVING,
 					Fetish.FETISH_VAGINAL_GIVING,
@@ -124,7 +125,7 @@ public class EnforcerPatrol extends NPC {
 					Fetish.FETISH_PENIS_GIVING,
 					Fetish.FETISH_PENIS_RECEIVING,
 					Fetish.FETISH_DOMINANT);
-			for(Fetish fetish : fetishesForNonNegative) {
+			for(AbstractFetish fetish : fetishesForNonNegative) {
 				if(this.getFetishDesire(fetish).isNegative()) {
 					this.setFetishDesire(fetish, FetishDesire.TWO_NEUTRAL);
 				}
@@ -134,13 +135,14 @@ public class EnforcerPatrol extends NPC {
 			
 			resetInventory(true);
 			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-			Main.game.getCharacterUtils().generateItemsInInventory(this);
+			Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, false);
 			this.addClothing(Main.game.getItemGen().generateClothing("innoxia_penis_condom", PresetColour.CLOTHING_PURPLE_DARK, false), 5, false, false);
 			
 			if(!Arrays.asList(generationFlags).contains(NPCGenerationFlag.NO_CLOTHING_EQUIP)) {
 				this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			}
 			Main.game.getCharacterUtils().applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyTattoos(this, true);
 			
 			initPerkTreeAndBackgroundPerks(); // Set starting perks based on the character's race
 			

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>DOMINION</worldRegion>
+	<name><![CDATA[reception area]]></name>
+	<tooltipDescription><![CDATA[The reception area is where gym members and guests check-in to gain access to the facilities.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in the gym, 'Pix's Playground']]></virginityLossDescription>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<colour>BASE_ORANGE</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_dominion_shopping_arcade_gym_reception</dialogue>
+	<populationPresent>
+		<population>
+			<conditional><![CDATA[
+				[#pix.getWorldLocation()!=pc.getWorldLocation()]
+			]]></conditional>
+			<populationType plural="false" density="ONE">RECEPTIONIST</populationType>
+			<subspeciesPresent>
+				<subspecies>RABBIT_MORPH</subspecies>
+			</subspeciesPresent>
+		</population>
+	</populationPresent>
+	<furniturePresent>true</furniturePresent>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>OUTGOING_ONLY</teleportPermissions>
+	<weatherImmunities immuneToAll="true"/>
+	<applyInventoryInit/>
+</placeType>

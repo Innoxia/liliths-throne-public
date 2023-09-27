@@ -18,6 +18,7 @@ import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
@@ -482,6 +483,8 @@ public class DominionExpress {
 		npc.setLocation(Main.game.getPlayer(), false);
 		
 		npc.setLastTimeOrgasmedSeconds(Main.game.getSecondsPassed()-(25*60*60));
+		npc.removeCumModifier(FluidModifier.ADDICTIVE);
+		npc.removeCumModifier(FluidModifier.HALLUCINOGENIC);
 		
 		try {
 			Main.game.addNPC(npc, false);
@@ -850,7 +853,7 @@ public class DominionExpress {
 			if(index==1) {
 				if(Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_NATALYA)) {
 					if(!wearingFillyCollar()) {
-						return new Response("Enter", "You cannot see Mistress Natalya without wearing your filly collar!", null);
+						return new Response("Enter", "You cannot see Mistress Natalya without wearing your filly choker!", null);
 					} else if(!isPlayerBodyCorrect()) {
 						return new Response("Enter", "You cannot see Mistress Natalya without being a busty [style.shemale]!", null);
 					}
@@ -2738,10 +2741,10 @@ public class DominionExpress {
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/dominionExpress", "OFFICE_STABLE_TRAINING_3_CHOKER_EQUIPPED_LEAVE"));
 						Main.game.getPlayer().setNearestLocation(WorldType.DOMINION_EXPRESS, PlaceType.DOMINION_EXPRESS_CORRIDOR, false);
-						Main.game.getPlayer().equipAllClothingFromHoldingInventory(Util.newArrayListOfValues(InventorySlot.NECK));
 						if(Main.game.getPlayer().getHoldingClothing().containsKey(InventorySlot.NECK)) {
 							Main.game.getPlayer().addClothing(Main.game.getPlayer().getHoldingClothing().get(InventorySlot.NECK), false);
 						}
+						Main.game.getPlayer().equipAllClothingFromHoldingInventory(Util.newArrayListOfValues(InventorySlot.NECK));
 					}
 				};
 			}
@@ -3034,7 +3037,7 @@ public class DominionExpress {
 						new SMDominionExpress(SexPosition.ALL_FOURS,
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.BEHIND)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Natalya.class), SexSlotAllFours.ALL_FOURS)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Natalya.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Natalya.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS))),
 								Util.newHashMapOfValues(
 										new Value<>(Main.game.getNpc(Natalya.class), Util.newArrayListOfValues(CoverableArea.ANUS)),
 										new Value<>(Main.game.getPlayer(), Util.newArrayListOfValues(CoverableArea.PENIS)))) {

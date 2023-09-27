@@ -3,7 +3,6 @@ package com.lilithsthrone.game.dialogue.places.dominion.zaranixHome;
 import java.util.List;
 import java.util.Map;
 
-import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -28,7 +27,6 @@ import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMAmberDoggyFucked;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMPetMounting;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMPetOral;
@@ -45,7 +43,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.2
- * @version 0.3.4
+ * @version 0.4.4.2
  * @author Innoxia
  */
 public class ZaranixHomeGroundFloorRepeat {
@@ -188,7 +186,6 @@ public class ZaranixHomeGroundFloorRepeat {
 	};
 	
 	
-	
 	public static final DialogueNode OUTSIDE_APOLOGY = new DialogueNode("Zaranix's Home", "", true, true) {
 
 		@Override
@@ -196,8 +193,10 @@ public class ZaranixHomeGroundFloorRepeat {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "KNOCK_ON_DOOR_APOLOGISE"));
-
-			if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+			
+			if(!Main.game.isFootContentEnabled()) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "KNOCK_ON_DOOR_APOLOGISE_NO_FOOT"));
+			} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "KNOCK_ON_DOOR_APOLOGISE_MOUTH_FREE"));
 			} else {
 				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "KNOCK_ON_DOOR_APOLOGISE_MOUTH_BLOCKED"));
@@ -208,7 +207,7 @@ public class ZaranixHomeGroundFloorRepeat {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+			if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true) && Main.game.isFootContentEnabled()) {
 				if(index == 1) {
 					return new Response("Enter", "Refuse to lick Amber's heels, and step past her into Zaranix's home.", ENTRANCE) {
 						@Override
@@ -455,7 +454,7 @@ public class ZaranixHomeGroundFloorRepeat {
 					return new ResponseSex("Submit",
 							"You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with Katherine. Perhaps if you submitted, [katherine.she]'d be willing to fuck you?",
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
-							false, false,
+							true, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getNpc(ZaranixMaidKatherine.class)),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -620,7 +619,7 @@ public class ZaranixHomeGroundFloorRepeat {
 					return new ResponseSex("Submit",
 							"You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with Katherine. Perhaps if you submitted, [katherine.she]'d be willing to fuck you?",
 							Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
-							false, false,
+							true, false,
 							new SMGeneric(
 									Util.newArrayListOfValues(Main.game.getNpc(ZaranixMaidKatherine.class)),
 									Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -1180,7 +1179,7 @@ public class ZaranixHomeGroundFloorRepeat {
 				return new ResponseSex("Submit",
 						"Do as Amber says and drop down on all fours, ready for her to fuck you.",
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
-						!Main.getProperties().hasValue(PropertyValue.nonConContent), false,
+						true, false,
 						new SMAmberDoggyFucked(
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Amber.class), SexSlotAllFours.BEHIND)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.ALL_FOURS))),
@@ -1346,7 +1345,7 @@ public class ZaranixHomeGroundFloorRepeat {
 				return new ResponseSex("Submit",
 						"Amber's fiery personality is seriously turning you on. You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with her. Perhaps if you submitted, she'd be willing to fuck you?",
 						Util.newArrayListOfValues(Fetish.FETISH_SUBMISSIVE), null, CorruptionLevel.THREE_DIRTY, null, null, null,
-						false, false,
+						true, false,
 						new SMAmberDoggyFucked(
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Amber.class), SexSlotAllFours.BEHIND)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotAllFours.ALL_FOURS))),
@@ -1441,11 +1440,11 @@ public class ZaranixHomeGroundFloorRepeat {
 //						if(rnd>0.01f) { // Testing:
 //							return WALKIES_PET_FUCKS;
 //						}
-						if(rnd<0.3) {
+						if(rnd<0.2) {
 							return WALKIES_PEACEFUL;
-						} else if(rnd<0.5) {
+						} else if(rnd<0.4) {
 							return WALKIES_HUMILIATION;
-						} else if(rnd<0.7) {
+						} else if(rnd<0.6) {
 							return WALKIES_PUNISHMENT;
 						} else if(rnd<0.85
 								&& (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) || (Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)))) {
@@ -1483,48 +1482,71 @@ public class ZaranixHomeGroundFloorRepeat {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Don't Lick", "Refuse to lick Amber's shoes in front of her friends.", WALKIES_HUMILIATION_REFUSE) {
-					@Override
-					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Amber.class).incrementAffection(Main.game.getPlayer(), -10));
-					}
-				};
-				
-			} else if(index==2) {
-				return new Response("Reluctant Lick", "Reluctantly lick Amber's shoes in front of her friends.", WALKIES_HUMILIATION_RELUCTANT) {
-					@Override
-					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Amber.class).incrementAffection(Main.game.getPlayer(), -2.5f));
-					}
-				};
-				
-			} else if(index==3) {
-				return new Response("Eager Lick", "Eagerly lick Amber's shoes in front of her friends.", WALKIES_HUMILIATION_EAGER) {
-					@Override
-					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Amber.class).incrementAffection(Main.game.getPlayer(), 5f));
-					}
-				};
+			if(Main.game.isFootContentEnabled()) {
+				if(index==1) {
+					return new Response("Don't lick", "Refuse to lick Amber's shoes in front of her friends.", WALKIES_HUMILIATION_REFUSE) {
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Amber.class).incrementAffection(Main.game.getPlayer(), -10));
+						}
+					};
+					
+				} else if(index==2) {
+					return new Response("Reluctant lick", "Reluctantly lick Amber's shoes in front of her friends.", WALKIES_HUMILIATION_RELUCTANT) {
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Amber.class).incrementAffection(Main.game.getPlayer(), -2.5f));
+						}
+					};
+					
+				} else if(index==3) {
+					return new Response("Eager lick", "Eagerly lick Amber's shoes in front of her friends.", WALKIES_HUMILIATION_EAGER) {
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Amber.class).incrementAffection(Main.game.getPlayer(), 5f));
+						}
+					};
+				}
 				
 			} else {
-				return null;
+				if(index==1) {
+					return new Response("Don't beg", "Refuse to beg like a dog in front of Amber's friends.", WALKIES_HUMILIATION_REFUSE) {
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Amber.class).incrementAffection(Main.game.getPlayer(), -10));
+						}
+					};
+					
+				} else if(index==2) {
+					return new Response("Reluctant beg", "Reluctantly beg like a dog in front of Amber's friends.", WALKIES_HUMILIATION_RELUCTANT) {
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Amber.class).incrementAffection(Main.game.getPlayer(), -2.5f));
+						}
+					};
+					
+				} else if(index==3) {
+					return new Response("Eager beg", "Eagerly beg like a dog in front of Amber's friends.", WALKIES_HUMILIATION_EAGER) {
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(Main.game.getNpc(Amber.class).incrementAffection(Main.game.getPlayer(), 5f));
+						}
+					};
+				}
 			}
+			return null;
 		}
 	};
 	
 	public static final DialogueNode WALKIES_HUMILIATION_REFUSE = new DialogueNode("Demon Home", "", true, true) {
-
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
 		}
-
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_HUMILIATION_REFUSE");
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
@@ -1535,25 +1557,24 @@ public class ZaranixHomeGroundFloorRepeat {
 						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
 					}
 				};
-				
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	
 	public static final DialogueNode WALKIES_HUMILIATION_RELUCTANT = new DialogueNode("Demon Home", "", true, true) {
-
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
 		}
-
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_HUMILIATION_RELUCTANT");
+			if(Main.game.isFootContentEnabled()) {
+				return UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_HUMILIATION_RELUCTANT");
+			} else {
+				return UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_HUMILIATION_RELUCTANT_NO_FOOT");
+			}
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
@@ -1564,25 +1585,24 @@ public class ZaranixHomeGroundFloorRepeat {
 						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
 					}
 				};
-				
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	
 	public static final DialogueNode WALKIES_HUMILIATION_EAGER = new DialogueNode("Demon Home", "", true, true) {
-
 		@Override
 		public int getSecondsPassed() {
 			return 5*60;
 		}
-
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_HUMILIATION_EAGER");
+			if(Main.game.isFootContentEnabled()) {
+				return UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_HUMILIATION_EAGER");
+			} else {
+				return UtilText.parseFromXMLFile("places/dominion/zaranixHome/groundFloorRepeat", "WALKIES_HUMILIATION_EAGER_NO_FOOT");
+			}
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
@@ -1593,10 +1613,8 @@ public class ZaranixHomeGroundFloorRepeat {
 						Main.game.getPlayer().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
 					}
 				};
-				
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	
@@ -1782,7 +1800,7 @@ public class ZaranixHomeGroundFloorRepeat {
 						pet.setPlayerKnowsName(true);
 						owner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 						owner.setBody(Gender.getGenderFromUserPreferences(false, false), RacialBody.DEMON, RaceStage.GREATER, false);
-						owner.setName(Name.getRandomTriplet(owner.getRace()));
+						owner.setName(Name.getRandomTriplet(owner.getSubspecies()));
 						
 						try {
 							Main.game.addNPC(pet, false);
@@ -1818,7 +1836,7 @@ public class ZaranixHomeGroundFloorRepeat {
 							pet.addFetish(Fetish.FETISH_ORAL_RECEIVING);
 							pet.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_metal_collar", false), true, owner);
 							if(Math.random()>0.5f) {
-								pet.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.BDSM_BALLGAG), true, owner);
+								pet.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_ballgag", false), true, owner);
 							}
 							owner.setAffection(pet, (float) (10 + Math.random()*90));
 							owner.setPlayerKnowsName(true);

@@ -71,6 +71,18 @@ public class VaginaType {
 			return "";
 		}
 	};
+	
+	public static AbstractVaginaType ONAHOLE = new AbstractVaginaType(BodyCoveringType.DILDO,
+			FluidType.GIRL_CUM_HUMAN,
+			Race.NONE,
+			false,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues("toy", "artificial"),
+			"You have somehow transformed your vagina into an onahole, which is a bug. (Please let Innoxia know!)", // Onaholes are not a transformable option
+			"[npc.she] [npc.has] an onahole inserted into [npc.her] vagina, which is made out of [npc.vaginaFullDescription(true)].",
+			null) {
+	};
 
 	public static AbstractVaginaType HUMAN = new AbstractVaginaType(BodyCoveringType.VAGINA,
 			FluidType.GIRL_CUM_HUMAN,
@@ -395,8 +407,8 @@ public class VaginaType {
 			FluidType.GIRL_CUM_HORSE_MORPH,
 			Race.HORSE_MORPH,
 			false,
-			Util.newArrayListOfValues("horse-", "mare-"),
-			Util.newArrayListOfValues("horse-", "mare-"),
+			Util.newArrayListOfValues("#IF(npc.getRace()==npc.getVaginaRace())[npc.raceFeral]#ELSE[npc.pussyRaceFeral]#ENDIF-", "mare-"),
+			Util.newArrayListOfValues("#IF(npc.getRace()==npc.getVaginaRace())[npc.raceFeral]#ELSE[npc.pussyRaceFeral]#ENDIF-", "mare-"),
 			Util.newArrayListOfValues("hot"),
 			"[npc.She] [npc.verb(let)] out a squeal of excitement as a wave of pleasure runs up through [npc.her] groin, which increases in intensity as [npc.she] [npc.verb(feel)] [npc.her] slit uncontrollably shifting and contracting."
 					+ " A strange, bubbling sensation starts running down deep into [npc.her] cunt,"

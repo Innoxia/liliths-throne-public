@@ -13,7 +13,9 @@ public enum ScarType {
 	
 	STRAIGHT_SCAR("straight scar", "straight scars", false),
 	
-	JAGGED_SCAR("jagged scar", "jagged scars", false);
+	JAGGED_SCAR("jagged scar", "jagged scars", false),
+
+	BRUISE("bruise", "bruises", false);
 	
 	private String name;
 	private String namePlural;
@@ -37,4 +39,10 @@ public enum ScarType {
 		return alwaysPlural;
 	}
 	
+	public static ScarType getScarTypeFromString(String value) {
+		if(value=="BRUIS") {
+			return BRUISE;
+		}
+		return ScarType.valueOf(value);
+	}
 }

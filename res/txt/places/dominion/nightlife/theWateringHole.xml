@@ -47,6 +47,22 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="OUTSIDE_LIGHTS_OUT"><![CDATA[
+	<p>
+		[style.boldYellow(Lights Out)]
+		<br/>
+		A neon sign reading 'Lights Out' is positioned above a short, steep staircase that leads down to a basement bar. A second neon sign declares that the bar's opening hours are from
+		#IF(game.isHourBetween(18, 4))
+			 [style.colourMinorGood([unit.time(18)]-[unit.time(4)])], and as such the bar is currently [style.colourGood(open)].
+		#ELSE
+			 [style.colourMinorBad([unit.time(18)]-[unit.time(4)])], and as such the bar is currently [style.colourBad(closed)].
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Interior: -->
+	
 	<htmlContent tag="WATERING_HOLE_ENTRANCE"><![CDATA[
 	<p>
 		Walking up to the entrance of the club, you push the front door open and step inside. As it swings shut behind you, you find yourself standing in a large, well-lit entrance hall, and before you, a winding queue leads up to a pair of white doors. The walls have been decorated with savannah-themed murals, which, combined with the club's name 'The Watering Hole', as well as the pair of imposing zebra-boy bouncers standing guard at the front of the queue, gives the club an African theme.
@@ -57,15 +73,27 @@
 	<p>
 		From the amused smile on his face, you can tell that he's trying to trick you, but before you can offer a reply, he continues, [jules.speech(All you've got to do is come over here and suck my cock!)]
 	</p>
-	<p>
-		The other zebra-boy sighs and crosses his arms, before turning to his companion and berating him, [genericMale.speech(Come on Jules, knock it off. Kruger's already warned you about scaring the customers off.)]
-	</p>
-	<p>
-		[jules.speech(Ah, come on, I'm just teasing [pc.herHim],)] Jules laughs, before turning back towards you. [jules.speech(No harm meant!)]
-	</p>
-	<p>
-		It looks like you'll have to join the back of the queue and wait in line to get into the club, which you guess will take about half an hour. Then again, if you didn't want to wait, you could always take Jules up on his offer...
-	</p>
+	#IF(pc.getRace()==RACE_DEMON)
+		<p>
+			Before you can react, the other zebra-boy angrily punches his companion and berates him, [style.speechMasculine(What the fuck are you saying, Jules?! Can't you see [pc.sheIs] a demon?!)]
+		</p>
+		<p>
+			[jules.speech(Ah, come on, I'm just teasing [pc.herHim],)] Jules laughs, before turning back towards you. [jules.speech(No harm meant!)]
+		</p>
+		<p>
+			It looks like you'll have to join the back of the queue and wait in line to get into the club, which you guess will take about half an hour. Then again, you could use your status as a demon to cut the queue, or even take Jules up on his offer...
+		</p>
+	#ELSE
+		<p>
+			The other zebra-boy sighs and crosses his arms, before turning to his companion and berating him, [style.speechMasculine(Come on Jules, knock it off. Kruger's already warned you about scaring the customers off.)]
+		</p>
+		<p>
+			[jules.speech(Ah, come on, I'm just teasing [pc.herHim],)] Jules laughs, before turning back towards you. [jules.speech(No harm meant!)]
+		</p>
+		<p>
+			It looks like you'll have to join the back of the queue and wait in line to get into the club, which you guess will take about half an hour. Then again, if you didn't want to wait, you could always take Jules up on his offer...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -81,21 +109,38 @@
 			 [jules.speech(Hey, it's you again! You gonna suck my cock this time, or what?)]
 		#ENDIF
 	</p>
-	<p>
-		The other zebra-boy leans back against the wall and sighs, [genericMale.speech(Damn it, Jules...)]
-	</p>
-	<p>
-		It looks like you'll have to join the back of the queue and wait in line to get into the club, which you guess will take about half an hour. Then again, if you didn't want to wait, you could always take Jules up on his offer...
-	</p>
+	#IF(pc.getRace()==RACE_DEMON)
+		<p>
+			Before you can react, the other zebra-boy angrily berates Jules, [style.speechMasculine(You're going to get the two of us fired, you fucking idiot! Can't you see [pc.sheIs] a demon?!)]
+		</p>
+		<p>
+			[jules.speech(Relax, man, [pc.she] knows I'm just teasing [pc.herHim],)] Jules laughs.
+		</p>
+		<p>
+			It looks like you'll have to join the back of the queue and wait in line to get into the club, which you guess will take about half an hour. Then again, you could use your status as a demon to cut the queue, or even take Jules up on his offer...
+		</p>
+	#ELSE
+		<p>
+			The other zebra-boy leans back against the wall and sighs, [style.speechMasculine(Damn it, Jules...)]
+		</p>
+		<p>
+			It looks like you'll have to join the back of the queue and wait in line to get into the club, which you guess will take about half an hour. Then again, if you didn't want to wait, you could always take Jules up on his offer...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_ENTRANCE_START_BLOWJOB"><![CDATA[
 	<p>
-		[pc.speech(Sure, I don't mind doing that!)] you happily call out, before starting to make your way towards the large zebra-boy.
+		Deciding to take Jules up on his offer, you cut the queue and [pc.walk] up to the large zebra-boy, before telling him that you'll suck his cock.
 	</p>
 	<p>
-		[jules.speech(Hah! I told you I'd get my cock sucked tonight!)] Jules happily states to his partner, before turning back towards you. [jules.speech(Go on then, slut, get down on your knees.)]
+		#IF(pc.getRace()==RACE_DEMON)
+			[jules.speech(Hah! I told you I'd get my cock sucked tonight, and by a demon no less!)]
+		#ELSE
+			[jules.speech(Hah! I told you I'd get my cock sucked tonight!)]
+		#ENDIF
+		 Jules happily states to his partner, before turning back towards you and commanding, [jules.speech(Go on then, slut, get down on your knees.)]
 	</p>
 	<p>
 		Doing as you're told, you drop down onto your knees in front of Jules. You hear several of the people waiting in the queue behind you starting to gasp and laugh as you shuffle forwards and prepare to suck the zebra-boy's cock.
@@ -104,31 +149,66 @@
 		[jules.speech(Get it out for me,)] Jules commands, thrusting his hips forwards.
 	</p>
 	<p>
-		 You quickly move to do as you're told, and happily pull down his black jeans. Thanks to the pair of crotchless briefs that Jules is wearing, your move results in your face being just [unit.sizes] away from his rapidly-hardening horse-cock. Without any warning, the zebra-boy bucks his hips forwards, slapping his huge, fat cock against your face as he lets out a triumphant laugh, [jules.speech(Hah! Now let's find out how good you are at sucking cock!)]
+		You quickly move to do as you're told, and happily pull down his black jeans. Thanks to the pair of crotchless briefs that Jules is wearing, your move results in your face being just [unit.sizes] away from his huge, rapidly-hardening horse-cock. Without any warning, the zebra-boy bucks his hips forwards, slapping his fat, ebony shaft against your face as he lets out a triumphant laugh, [jules.speech(Hah! Now let's find out how good you are at sucking cock!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_ENTRANCE_JULES_SEX"><![CDATA[
+	<p>
+		Finding yourself back at the entrance to the club, you
+		#IF(flags.hasFlag(FLAG_fuckedJules))
+			 can't help but remember the 'proper fuck' Jules gave you in his office.
+		#ELSE
+			 remember Jules's offer of giving you a 'proper fuck'.
+		#ENDIF
+		 Deciding that the zebra-boy's fat cock is what you need right now, you [pc.step] out through the doors and immediately catch his eye.
+	</p>
+	<p>
+		[jules.speech(Leaving already?)] he asks, [jules.speech(Hey, how about another blowjob some time? You're not half bad at giving head.)]
+	</p>
+	<p>
+		[pc.Walking] over to Jules, you tell him that giving him a blowjob isn't going to cut it, and that a 'proper fuck' is what you need right now.
+	</p>
+	<p>
+		[jules.speech(Hey, cover for me for ten minutes while I bang this slut,)] Jules says to his colleague, before taking you by the [pc.hand(true)] and leading you over to a nearby door marked as 'Staff Only'.
+	</p>
+	<p>
+		[style.speechMasculine(For fuck's sake,)] the other zebra-boy sighs as Jules leads you into a small, dingy office. Calling out after you as the door swings shut, the bouncer shouts, [style.speechMasculine(Don't leave a mess in there this time!)]
+	</p>
+	<p>
+		Dominantly pulling you into his chest, Jules greedily gropes your body and grunts in a deep voice, [jules.speech(Time to give you a proper fucking, slut.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AFTER_JULES_BLOWJOB"><![CDATA[
 	<p>
-		Having finished sucking his cock, you stand up in front of Jules, who grins at you as he steps to one side in order to let you pass. [jules.speech(Good job, slut. Go on in, I'm sure you'll find plenty more cocks to service inside.)]
-	</p>
-	<p>
-		Stepping through the double doors, you enter the club proper, which you discover to be absolutely packed with people of all different races. The chatter, laughter, and shouting from the crowd is joined by loud, bassy background music, making it very hard to make out what anyone's saying unless you're standing right beside them.
-	</p>
-	<p>
-		Just like the entrance hall, the main interior looks to have an African theme to it, and although the lights are very dim, you can clearly see zebra-stripes, leopard-spots, and savannah-style trees painted onto the walls. The floor beneath your feet is covered in light wooden boards, which, combined with the light blue colour of the high ceiling, gives the club a spacious feel to it.
-	</p>
-	<p>
-		Although you can't directly see it through the crowds in front of you, a wooden sign hanging from the ceiling on the far side of the club's huge interior tells you where the bar is. You wonder if you should go straight there and get a drink, or try to find someone to flirt with first...
+		Having finished sucking his cock, you stand up in front of Jules, who grins at you as he steps to one side in order to let you pass.
+		#IF(flags.hasFlag(FLAG_fuckedJules))
+			 [jules.speech(Good job, slut. Go on in, and if you can't find someone to fuck, then come and let me know and I'll give you a proper fuck again.)]
+		#ELSE
+			 [jules.speech(Good job, slut. Go on in, I'm sure you'll find plenty more cocks to service inside. If not, come and let me know and I'll give you a proper fuck.)]
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_ENTRANCE_PASSED"><![CDATA[
 	<p>
-		You find yourself standing beside the pair of white doors which lead back out into the club's entrance hall. From here, you could choose to take your leave, or turn around and head back into the club.
+		You find yourself standing beside the pair of white doors which lead back out into the club's entrance hall. From here you could choose to take your leave, or instead turn around and head back into the club.
 	</p>
+	#IF(!flags.hasFlag(FLAG_fuckedJulesTonight))
+		#IF(flags.hasFlag(FLAG_fuckedJules))
+			<p>
+				Having been given a 'proper fuck' by Jules on a previous occasion, you could return to the zebra-boy bouncer and tell him that you want a repeat performance...
+			</p>
+		#ELSEIF(flags.hasFlag(FLAG_suckedJulesCock))
+			<p>
+				Remembering that Jules had offered to give you a 'proper fuck' after giving him a blowjob, you could return to the zebra-boy bouncer and tell him that you want him...
+			</p>
+		#ENDIF
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -139,6 +219,20 @@
 	<p>
 		It takes about thirty minutes before you're standing before the pair of zebra-boy bouncers. After just a minute more, Jules steps to one side in order to let you pass. [jules.speech(Go on in then.)]
 	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_ENTRANCE_SKIP_QUEUE"><![CDATA[
+	<p>
+		Deciding to take advantage of your status as a demon, you stride forwards and coldly ask Jules if he has any idea who you are.
+	</p>
+	<p>
+		[jules.speech(Hey, I was just joking, I didn't mean to offend you,)] the zebra-boy sheepishly replies. Realising that he might be in serious trouble, he steps aside and waves you on through, saying as he does so, [jules.speech(I'm sorry, please go on in and have a good evening.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_ENTRANCE_END"><![CDATA[
 	<p>
 		Stepping through the double doors, you enter the club proper, which you discover to be absolutely packed with people of all different races. The chatter, laughter, and shouting from the crowd is joined by loud, bassy background music, making it very hard to make out what anyone's saying unless you're standing right beside them.
 	</p>
@@ -150,6 +244,39 @@
 	</p>
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="AFTER_JULES_SEX"><![CDATA[
+	<p>
+		#IF(jules.isSatisfiedFromLastSex())
+			[jules.speech(Fuck, I needed that tonight. You're a decent lay, slut,)] Jules grunts as he brings an end to things.
+		#ELSE
+			[jules.speech(You're done already?! Fuck, you're a lousy lay, slut,)] Jules grunts in annoyance as you bring an end to things before he's had the chance to orgasm.
+		#ENDIF
+		 After quickly using some wet wipes to clean himself off, he pulls on his clothes and states, [jules.speech(I've got to get back to work, and I can't leave you in here. Hurry up and get ready.)]
+	</p>
+	<p>
+		Doing as you're told, you quickly get your things back in order, before exiting the dingy office via the same door through which you entered. Giving your [pc.ass+] a hard slap as he follows you out, Jules returns to his place at the doors to the club.
+	</p>
+	<p>
+		[jules.speech(Go on, you probably want a drink or something after that,)] Jules says to you, before holding open the door and gesturing for you to head inside.
+	</p>
+	<p>
+		[style.speechMasculine(How romantic,)] the other zebra-boy sarcastically chuckles.
+	</p>
+	<p>
+		Doing as Jules says, you pass him by and enter the club once again. The chatter, laughter, and shouting from the crowd is joined by loud, bassy background music, making it very hard to make out what anyone's saying unless you're standing right beside them.
+	</p>
+	<p>
+		Just like the entrance hall, the main interior looks to have an African theme to it, and although the lights are very dim, you can clearly see zebra-stripes, leopard-spots, and savannah-style trees painted onto the walls. The floor beneath your feet is covered in light wooden boards, which, combined with the light blue colour of the high ceiling, gives the club a spacious feel to it.
+	</p>
+	<p>
+		Although you can't directly see it through the crowds in front of you, a wooden sign hanging from the ceiling on the far side of the club's huge interior tells you where the bar is. You wonder if you should go straight there and get a drink, or try to find someone else to have some more fun with tonight...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Main club content: -->
 	
 	<htmlContent tag="WATERING_HOLE_MAIN"><![CDATA[
 	<p>
@@ -214,6 +341,26 @@
 	</p>
 	<p>
 		The two of you chat for a little while, and it soon becomes apparent that [npc.name] would like to spend some of [npc.her] time with you once again. With your familiar partner in tow, you wonder where you should head to next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_IMPORT_DOM"><![CDATA[
+	<p>
+		You can import any of your previously exported characters in order to add them to your contacts list. Once imported, this character will show up in your 'Contacts (as dom)' list.
+	</p>
+	<p>
+		<i>You can export any character in the game by viewing their character sheet and pressing the little export button in the bottom-right of the screen.</i>
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_IMPORT_SUB"><![CDATA[
+	<p>
+		You can import any of your previously exported characters in order to add them to your contacts list. Once imported, this character will show up in your 'Contacts (as sub)' list.
+	</p>
+	<p>
+		<i>You can export any character in the game by viewing their character sheet and pressing the little export button in the bottom-right of the screen.</i>
 	</p>
 	]]>
 	</htmlContent>
@@ -645,7 +792,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_SEATING_SEX_AS_SUB_REJECTED"><![CDATA[
 	<p>
-		DEsperate to have sex with [npc.name], you start to make your move, but, sensing what it is you want, [npc.she] quickly lets out a frustrated sigh and pushes you away.
+		Desperate to have sex with [npc.name], you start to make your move, but, sensing what it is you want, [npc.she] quickly lets out a frustrated sigh and pushes you away.
 		#IF(npc.isShy())
 			 Stuttering in embarrassment, [npc.she] exclaims, [npc.speech(P-Please stay on your side!)]
 		#ELSE
@@ -1291,13 +1438,13 @@
 		In one corner of the club, there's a seating area which is quite unlike the others. Most of the frontage is blocked off by a dark glass wall, and the single opening is guarded by a pair of muscular lion bouncers. Looking through this opening reveals the interior to be furnished with numerous semi-circular booths, each one housing a polished black marble table and a long, curved leather sofa.
 	</p>
 	<p>
-		As you approach, one of the bouncers recognises you from before, and asks, [genericMale.speech(You're Kalahari's friend, right?)]
+		As you approach, one of the bouncers recognises you from before, and asks, [style.speechMasculineStrong(You're Kalahari's friend, right?)]
 	</p>
 	<p>
 		[pc.speech(Yeah, that's me,)] you reply.
 	</p>
 	<p>
-		[genericMale.speech(Kruger said you can head on in if you returned. I'm sure he'd like to talk to you,)] the bouncer explains, before stepping to one side in order to let you pass.
+		[style.speechMasculineStrong(Kruger said you can head on in if you returned. I'm sure he'd like to talk to you,)] the bouncer explains, before stepping to one side in order to let you pass.
 	</p>
 	<p>
 		You could head over to Kruger's booth, or turn back and return to the main part of the club...
@@ -1480,18 +1627,61 @@
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_VIP_KRUGER_SEX_AS_SUB"><![CDATA[
-	<p>
-		Desperate to have sex with Kruger, you lean into him, before tilting your head to one side and pressing your lips against his. The two of you share a passionate kiss for a moment, before you pull back, and moan, [pc.speech(Please, Kruger, fuck me...)]
-	</p>
-	<p>
-		Kruger lets out a deep, rumbling growl of approval as he hears your request, and, reaching up to take hold of your shoulders, he pushes you down onto your knees in front of him. Glaring down at you with a hungry look in his eyes, he growls, [kruger.speech(You can start by sucking my cock, then I'll give you a good fuck!)]
-	</p>
-	<p>
-		One of the zebra-girls to your right lets out a giggle, before leaning forwards and softly moaning in your ear, [genericFemale.speech(Lucky you, about to get fucked in front of all of us...)]
-	</p>
-	<p>
-		Biting your lip, you look up at Kruger as he spreads his legs a little, getting ready for you to take his cock into your mouth...
-	</p>
+	#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+		<p>
+			Desperate to have sex with Kruger, you lean into him, before tilting your head to one side and pressing your lips against his. The two of you share a passionate kiss for a moment, before you pull back and desperately plead for him to fuck you. The lion-boy lets out a deep, rumbling growl of approval as he hears your request, and after reaching up to take hold of your shoulders, he pushes you down onto your knees in front of him. Glaring down at you with a hungry look in his eyes, he growls, [kruger.speech(You can start by sucking my cock, then I'll give you a good fuck!)]
+		</p>
+		<p>
+			One of the zebra-girls to your right lets out a giggle and leans over towards you, then with a level of ease suggesting that she's done this countless times before, she swiftly pulls down both Kruger's trousers and underwear. Thanks to this, you suddenly find yourself presented with the lion-boy's [kruger.cockLengthValue], ebony cock, which rapidly rises to full erection. Just like the rest of Kruger's body, his throbbing dick has an anthropomorphic, feline quality to it, and you can't help but let out an eager, submissive whine as you see a series of soft, backwards-facing barbs lining its length. The surrounding lion and zebra-girls let out a chorus of giggles as they hear your reaction, and before you can make a move, the zebra-girl who exposed Kruger's cock suddenly pushes your face into the lion-boy's groin and commands, [genericFemale.speech(Show Kruger some respect, slut. Start licking.)]
+		</p>
+		<p>
+			Letting out yet another deep, rumbling groan, Kruger spreads his legs a little and impatiently pushes his hips into your face, causing his hot cock to grind up against your [pc.lips+]. Turned on by what's happening, and eager to do as you're told, you dart out your [pc.tongue+] and start licking the lion-boy's hard, ebony shaft. Working your way up to the [kruger.cockHead+], you open wide and take him into your mouth, and with the lion-boy's harem excitedly commenting on your performance, you start to give Kruger a blowjob...
+		</p>
+	#ELSEIF(pc.isTaur())
+		#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+			<p>
+				Wanting nothing more than to have sex with Kruger right here and now, you lean into him and desperately plead for him to fuck you. The lion-boy lets out a deep, rumbling growl of approval as he hears your request, and after reaching up to take hold of your shoulders, he gives you a firm push and growls, [kruger.speech(I can't get a blowjob from you, so get your pussy down in my lap!)]
+			</p>
+			<p>
+				One of the zebra-girls to your right lets out a giggle and leans over towards the lion-boy, then with a level of ease suggesting that she's done this countless times before, she swiftly pulls down both Kruger's trousers and underwear. Thanks to this, the lion-boy's [kruger.cockLengthValue], ebony cock is suddenly fully exposed, and you watch in delight as it rapidly rises to full erection. Just like the rest of Kruger's body, his throbbing dick has an anthropomorphic, feline quality to it, and you can't help but let out an eager, submissive whine as you see a series of soft, backwards-facing barbs lining its length. The surrounding lion and zebra-girls let out a chorus of giggles as they hear your reaction, and before you can make a move, the zebra-girl who exposed Kruger's cock suddenly pulls your [pc.legRace] lower body around to face the lion-boy, before exposing your [pc.pussy+] and pushing you down into his groin. Giving your rump a quick smack, she commands, [genericFemale.speech(Show Kruger some respect, slut. Rub that horny little [pc.legRace]-cunt over his cock and beg for him to fuck you!)]
+			</p>
+			<p>
+				Letting out yet another deep, rumbling groan, Kruger spreads his legs a little and impatiently bucks his hips, causing his hot cock to grind up against your [pc.labia+]. Turned on by what's happening, and eager to do as you're told, you start gyrating your [pc.hips+] back into the lion-boy, and as his hard, ebony shaft slides up over your [pc.pussy+], you desperately beg for him to fuck you. Clearly eager to get started, the lion-boy responds to your request by giving you what you want, and you can't help but let out [pc.a_moan+] as you feel his cock push its way into your [pc.pussy+]. The moment he penetrates you, Kruger's harem starts excitedly commenting on your performance, and you continue to let out a stream of erotic [pc.moans] as you get fucked in front of them...
+			</p>
+		#ELSE
+			<p>
+				Wanting nothing more than to have sex with Kruger right here and now, you lean into him and desperately plead for him to fuck you. The lion-boy lets out a deep, rumbling growl of approval as he hears your request, and after reaching up to take hold of your shoulders, he gives you a firm push and growls, [kruger.speech(I can't get a blowjob from you, so get your ass down in my lap!)]
+			</p>
+			<p>
+				One of the zebra-girls to your right lets out a giggle and leans over towards the lion-boy, then with a level of ease suggesting that she's done this countless times before, she swiftly pulls down both Kruger's trousers and underwear. Thanks to this, the lion-boy's [kruger.cockLengthValue], ebony cock is suddenly fully exposed, and you watch in delight as it rapidly rises to full erection. Just like the rest of Kruger's body, his throbbing dick has an anthropomorphic, feline quality to it, and you can't help but let out an eager, submissive whine as you see a series of soft, backwards-facing barbs lining its length. The surrounding lion and zebra-girls let out a chorus of giggles as they hear your reaction, and before you can make a move, the zebra-girl who exposed Kruger's cock suddenly pulls your [pc.legRace] lower body around to face the lion-boy, before exposing your [pc.asshole+] and pushing you down into his groin. Giving your rump a quick smack, she commands, [genericFemale.speech(Show Kruger some respect, slut. Rub that horny little [pc.legRace]-asshole over his cock and beg for him to fuck you!)]
+			</p>
+			<p>
+				Letting out yet another deep, rumbling groan, Kruger spreads his legs a little and impatiently bucks his hips, causing his hot cock to grind up against your [pc.ass+]. Turned on by what's happening, and eager to do as you're told, you start gyrating your [pc.hips+] back into the lion-boy, and as his hard, ebony shaft slides up over your [pc.asshole+], you desperately beg for him to fuck you. Clearly eager to get started, the lion-boy responds to your request by giving you what you want, and you can't help but let out [pc.a_moan+] as you feel his cock push its way into your [pc.asshole+]. The moment he penetrates you, Kruger's harem starts excitedly commenting on your performance, and you continue to let out a stream of erotic [pc.moans] as you get fucked in front of them...
+			</p>
+		#ENDIF
+	#ELSE
+		#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+			<p>
+				Wanting nothing more than to have sex with Kruger right here and now, you lean into him and desperately plead for him to fuck you. The lion-boy lets out a deep, rumbling growl of approval as he hears your request, and while dominantly reaching down between your [pc.legs] to give your [pc.pussy+] a good grope, he growls, [kruger.speech(I can't get a blowjob from you, so get this hot cunt of yours in my lap!)]
+			</p>
+			<p>
+				Upon hearing this, one of the zebra-girls to your right quickly leans over towards the lion-boy, then with a level of ease suggesting that she's done this countless times before, she swiftly pulls down both Kruger's trousers and underwear. Thanks to this, the lion-boy's [kruger.cockLengthValue], ebony cock is suddenly fully exposed, and you watch in delight as it rapidly rises to full erection. Just like the rest of Kruger's body, his throbbing dick has an anthropomorphic, feline quality to it, and you can't help but let out an eager, submissive whine as you see a series of soft, backwards-facing barbs lining its length. The surrounding lion and zebra-girls let out a chorus of giggles as they hear your reaction, and before you can make a move, the zebra-girl who exposed Kruger's cock suddenly pulls you to your [pc.feet], and after making sure that your [pc.pussy+] is fully exposed, she pushes you down into the lion-boy's lap. Giving your rump a quick smack, she commands, [genericFemale.speech(Show Kruger some respect, slut. Rub that horny little cunt over his cock and beg for him to fuck you!)]
+			</p>
+			<p>
+				Letting out yet another deep, rumbling groan, Kruger spreads his legs a little and impatiently bucks his hips, causing his hot cock to grind up against your [pc.labia+]. Turned on by what's happening, and eager to do as you're told, you start gyrating your [pc.hips+] into the lion-boy, and as his hard, ebony shaft slides up over your [pc.pussy+], you look into his [kruger.eyes+] and desperately beg for him to fuck you. Clearly eager to get started, the lion-boy responds to your request by taking hold of your [pc.hips+] and pulling you down, and you can't help but let out [pc.a_moan+] as you feel his cock push its way into your [pc.pussy+]. The moment he penetrates you, Kruger's harem starts excitedly commenting on your performance, and you continue to let out a stream of erotic [pc.moans] as you get fucked in front of them...
+			</p>
+		#ELSE
+			<p>
+				Wanting nothing more than to have sex with Kruger right here and now, you lean into him and desperately plead for him to fuck you. The lion-boy lets out a deep, rumbling growl of approval as he hears your request, and while dominantly reaching around to give your [pc.ass+] a good grope, he growls, [kruger.speech(I can't get a blowjob from you, so get this hot ass of yours in my lap!)]
+			</p>
+			<p>
+				Upon hearing this, one of the zebra-girls to your right quickly leans over towards the lion-boy, then with a level of ease suggesting that she's done this countless times before, she swiftly pulls down both Kruger's trousers and underwear. Thanks to this, the lion-boy's [kruger.cockLengthValue], ebony cock is suddenly fully exposed, and you watch in delight as it rapidly rises to full erection. Just like the rest of Kruger's body, his throbbing dick has an anthropomorphic, feline quality to it, and you can't help but let out an eager, submissive whine as you see a series of soft, backwards-facing barbs lining its length. The surrounding lion and zebra-girls let out a chorus of giggles as they hear your reaction, and before you can make a move, the zebra-girl who exposed Kruger's cock suddenly pulls you to your [pc.feet], and after making sure that your [pc.asshole+] is fully exposed, she pushes you down into the lion-boy's lap. Giving your rump a quick smack, she commands, [genericFemale.speech(Show Kruger some respect, slut. Rub that horny little asshole over his cock and beg for him to fuck you!)]
+			</p>
+			<p>
+				Letting out yet another deep, rumbling groan, Kruger spreads his legs a little and impatiently bucks his hips, causing his hot cock to grind up against your [pc.ass+]. Turned on by what's happening, and eager to do as you're told, you start gyrating your [pc.hips+] into the lion-boy, and as his hard, ebony shaft slides up over your [pc.ass+], you look into his [kruger.eyes+] and desperately beg for him to fuck you. Clearly eager to get started, the lion-boy responds to your request by taking hold of your [pc.hips+] and pulling you down, and you can't help but let out [pc.a_moan+] as you feel his cock push its way into your [pc.asshole+]. The moment he penetrates you, Kruger's harem starts excitedly commenting on your performance, and you continue to let out a stream of erotic [pc.moans] as you get fucked in front of them...
+			</p>
+		#ENDIF
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -1630,7 +1820,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_TOILETS"><![CDATA[
 	<p>
-		The club's toilets are far larger and cleaner than those of a typical nightclub, with at least twenty individual stalls running down one wall. Opposite the stalls, sinks and mirrors provide a place for the club's revellers to clean themselves.
+		The club's toilets are far larger and cleaner than those of a typical nightclub, with at least twenty individual stalls running down one wall. Opposite the stalls, sinks and mirrors provide a place for the club's revellers to clean themselves, while plastered over the far wall there are a few dozen posters.
 	</p>
 	<p>
 		As you walk past one of the open stalls, you see that someone's cut glory holes in the walls to either side, and obscene writing is scrawled beside each one. From the splatters of cum on the floor, you can tell that this stall sees regular use...
@@ -1666,7 +1856,7 @@
 		#ENDIF
 	</p>
 	<p>
-		As [npc.she] sees the approach of your groin, [npc.name] lets out [npc.a_moan+], before shuffling closer to the wall and firmly pressing her open mouth up against the hole. 
+		As [npc.she] sees the approach of your groin, [npc.name] lets out [npc.a_moan+], before shuffling closer to the wall and firmly pressing [npc.her] open mouth up against the hole. 
 		#IF(!npc.isMute())
 			 Letting out [npc.a_moan+], [npc.she] impatiently encourages you to get started, [game.random(
 			[npc.speech(Oh yeah, come on! Let this whore show you what [npc.sheIs] capable of!)]
@@ -1874,6 +2064,28 @@
 	</p>
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_POSTERS"><![CDATA[
+	<p>
+		[pc.Walking] over to the far side of the room, you stop and take a look at the posters which are plastered all over the wall. Most of them are of a promotional nature, and display images of music bands, the newest cosmetic and clothing brands, or different types of food and drink.
+	</p>
+	<p>
+		A few of these posters have a more sinister nature, however, and you see that they're displaying mug shots of dangerous-looking criminals. Wanted for crimes ranging from robbery and #IF(game.isNonConEnabled())rape#ELSEassault#ENDIF to kidnapping and sedition, the posters promise that these criminals will be caught eventually, and anyone caught aiding them will join them in a punishment of lifetime enslavement.
+	</p>
+	<p>
+		The final poster of any note displays an idyllic scene of a happy family living in the countryside. The writing beneath promises a better life for anyone willing to leave Dominion and take the voyage over the 'Endless Sea' to the land beyond.
+		#IF(game.isPlotDiscovered())
+			 Knowing that this land must be mainland Europe, you can't help but doubt that the emigrating citizens of Dominion will have a life there similar to the one shown on the poster.
+		#ELSE
+			 Taking another look at the scene displayed upon the poster, you can't help but wonder what this promised land is like in reality.
+		#ENDIF
+	</p>
+	<p>
+		Having seen all there is, you [pc.step] away from the posters and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	<htmlContent tag="AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME"><![CDATA[
 	<p>
@@ -2198,6 +2410,67 @@
 	</p>
 	<p>
 		[pc.speech(Yeah, that sounds good,)] you reply, before spending the next few minutes talking with [npc.name], allowing [npc.herHim] to take the lead in conversation. It very quickly becomes apparent that [npc.she] wants to show you a good time this evening, and, leading [npc.herHim] on, you wonder where [npc.she]'ll take you first...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_LEAVES"><![CDATA[
+	<p>
+		Letting out a frustrated sigh, [npc.name] [npc.steps] away from you and says,
+		#IF(npc.isKind())
+			[npc.speech(This really isn't working out. I think I'm going to leave now...)]
+		#ELSE
+			#IF(npc.isSelfish())
+				[npc.speech(You're being a real cunt. Fuck this, I'm off.)]
+			#ELSE
+				[npc.speech(This isn't working out. I'm off.)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		As the [npc.race] turns and starts to head off into the club, you wonder how to respond...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_LEAVES_SAVE_CLUBBER"><![CDATA[
+	<p>
+		Not wanting this to be the end of your relation with [npc.name], you quickly say that despite how the evening has gone, you hope to see [npc.herHim] again.
+	</p>
+	<p>
+		#IF(npc.isKind())
+			[npc.speech(Fine... I guess I could meet up with you here again some other time... See you later,)] [npc.name] sighs, before continuing forwards and taking [npc.her] leave.
+		#ELSE
+			#IF(npc.isSelfish())
+				[npc.speech(Really? After all the shit you just pulled? You'd better not be such a drag the next time we're doing this,)] [npc.name] bluntly responds, before abruptly turning and taking [npc.her] leave.
+			#ELSE
+				[npc.speech(Really? Well, I guess we could give it another go. I'll catch you around some other time,)] [npc.name] responds, before continuing forwards and taking [npc.her] leave.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Now that you're alone once more, you wonder what you should do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_LEAVES_LOSE_COMPANY"><![CDATA[
+	<p>
+		Feeling as though you've had enough of [npc.namePos] company to last a lifetime, you call out after [npc.herHim] that you don't ever want to see [npc.herHim] again.
+	</p>
+	<p>
+		#IF(npc.isKind())
+			[npc.speech(That suits me. Bye, [pc.name],)] [npc.name] unhappily responds, before continuing forwards and taking [npc.her] leave.
+		#ELSE
+			#IF(npc.isSelfish())
+				[npc.speech(Yeah, fuck you too, [pc.bitch]. Have fun getting fucked by one of your other cunt friends,)] [npc.name] rudely responds, before storming off to another part of the club.
+			#ELSE
+				[npc.speech(The feeling's mutual,)] [npc.name] dismissively responds, before continuing forwards and taking [npc.her] leave.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		Now that you're alone once more, you wonder what you should do next...
 	</p>
 	]]>
 	</htmlContent>

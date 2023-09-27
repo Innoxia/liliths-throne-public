@@ -29,7 +29,6 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
@@ -184,7 +183,7 @@ public class Ashley extends NPC {
 		
 		// No tattoos or scars
 
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_OVER_CLOAK, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_SILVER, null, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torsoOver_hooded_cloak", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_SILVER, null, false), true, this);
 
 	}
 
@@ -206,14 +205,13 @@ public class Ashley extends NPC {
 				+ "<h4>Relationships</h4>"
 				+ "<p>"
 					+ "[style.boldAffection(Affection:)]<br/>"
-					+ AffectionLevel.getDescription(this, Main.game.getPlayer(),
-							AffectionLevel.getAffectionLevelFromValue(this.getAffection(Main.game.getPlayer())), true));
+					+ AffectionLevel.getDescription(this, Main.game.getPlayer(), true));
 		
 		for(Entry<String, Float> entry : this.getAffectionMap().entrySet()) {
 			try {
 				GameCharacter target = Main.game.getNPCById(entry.getKey());
 				if(!target.isPlayer()) {
-					infoScreenSB.append("<br/>" + AffectionLevel.getDescription(this, target, AffectionLevel.getAffectionLevelFromValue(this.getAffection(target)), true));
+					infoScreenSB.append("<br/>" + AffectionLevel.getDescription(this, target, true));
 				}
 			} catch (Exception e) {
 				Util.logGetNpcByIdError("Ashley.getCharacterInformationScreen()", entry.getKey());

@@ -45,6 +45,23 @@ public class ClitMouth {
 			return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING;
 		}
 		@Override
+		public Map<SexAreaInterface, SexAreaInterface> getSexAreaInteractions() {
+			if(Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE).contains(Main.sex.getCharacterTargetedForSexAction(this))) {
+				return Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE));
+			} else {
+				return Util.newHashMapOfValues(new Value<>(SexAreaPenetration.CLIT, SexAreaOrifice.MOUTH));
+			}
+		}
+		@Override
+		public SexActionType getActionType(){
+			if(Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE).contains(Main.sex.getCharacterTargetedForSexAction(this))
+					|| Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.CLIT, SexAreaOrifice.MOUTH).contains(Main.sex.getCharacterTargetedForSexAction(this))) {
+				return SexActionType.ONGOING;
+			} else {
+				return SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED;
+			}
+		}
+		@Override
 		public String getActionTitle() {
 			return "Clit attention";
 		}
@@ -114,7 +131,7 @@ public class ClitMouth {
 		}
 		@Override
 		public Map<SexAreaInterface, SexAreaInterface> getSexAreaInteractions() {
-			if(Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterPerformingAction())) {
+			if(Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterTargetedForSexAction(this))) {
 				return Util.newHashMapOfValues(new Value<>(SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA));
 			} else {
 				return Util.newHashMapOfValues(new Value<>(SexAreaOrifice.MOUTH, SexAreaPenetration.CLIT));
@@ -122,7 +139,8 @@ public class ClitMouth {
 		}
 		@Override
 		public SexActionType getActionType(){
-			if(Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterTargetedForSexAction(this), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterPerformingAction())) {
+			if(Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterTargetedForSexAction(this))
+					|| Main.sex.getOngoingCharactersUsingAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.MOUTH, SexAreaPenetration.CLIT).contains(Main.sex.getCharacterTargetedForSexAction(this))) {
 				return SexActionType.ONGOING;
 			} else {
 				return SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED;
@@ -336,7 +354,7 @@ public class ClitMouth {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Taking hold of [npc2.namePos] "+style+", [npc.name] gently [npc.verb(pull)] [npc2.her] forwards, forcing [npc2.herHim] to swallow [npc.her] [npc.clit+] all the way down to the base.",
-							"Reaching down to take a gentle, but firm, grip on each of [npc2.namePos] "+style+", [npc.name] slowly [npc.verb(pull)] [npc2.herHim] into [npc2.her] groin,"
+							"Reaching down to take a gentle, but firm, grip on each of [npc2.namePos] "+style+", [npc.name] slowly [npc.verb(pull)] [npc2.herHim] into [npc.her] groin,"
 									+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(force)] [npc2.herHim] to deepthroat [npc.her] [npc.clit+].",
 							"With [npc.a_moan+], [npc.name] [npc.verb(reach)] down to take hold of [npc2.namePos] "+style+","
 									+ " before gently pulling [npc2.herHim] forwards, hilting [npc.her] [npc.clit+] down [npc2.her] throat so that [npc2.her] [npc2.lips+] are pressed up against "
@@ -354,7 +372,7 @@ public class ClitMouth {
 				default: // For dom normal, sub normal, and sub eager:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Taking hold of [npc2.namePos] "+style+", [npc.name] firmly [npc.verb(pull)] [npc2.her] head forwards, forcing [npc2.herHim] to swallow [npc.her] [npc.clit+] all the way down to the base.",
-							"Reaching down to take a firm grip on each of [npc2.namePos] "+style+", [npc.name] steadily [npc.verb(pull)] [npc2.herHim] into [npc2.her] groin,"
+							"Reaching down to take a firm grip on each of [npc2.namePos] "+style+", [npc.name] steadily [npc.verb(pull)] [npc2.herHim] into [npc.her] groin,"
 									+ " letting out [npc.a_moan+] as [npc.she] [npc.verb(force)] [npc2.herHim] to deepthroat [npc.her] [npc.clit+].",
 							"With [npc.a_moan+], [npc.name] [npc.verb(reach)] down to take hold of [npc2.namePos] "+style+","
 									+ " before steadily pulling [npc2.herHim] forwards, hilting [npc.her] [npc.clit+] down [npc2.her] throat so that [npc2.her] [npc2.lips+] are pressed up against "
@@ -1655,7 +1673,7 @@ public class ClitMouth {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc2.Name] roughly [npc2.verb(slam)] [npc2.her] [npc2.hips] into [npc.namePos] [npc.face], [npc2.moaning+] as [npc.she] [npc.verb(suck)] [npc2.her] [npc2.clit+].",
 
-							" With an rough [npc.verb(thrust)] of [npc2.her] [npc2.hips],"
+							" With a rough [npc.verb(thrust)] of [npc2.her] [npc2.hips],"
 									+ " [npc2.name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(enjoy)] the feeling of [npc.namePos] [npc.lips+] sliding up and down the length of [npc2.her] [npc2.clit+]."));
 					break;
 				case SUB_NORMAL:

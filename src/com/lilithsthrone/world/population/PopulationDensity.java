@@ -2,7 +2,7 @@ package com.lilithsthrone.world.population;
 
 /**
  * @since 0.2.12
- * @version 0.3.7
+ * @version 0.4.4.5
  * @author Innoxia
  */
 public enum PopulationDensity {
@@ -15,13 +15,29 @@ public enum PopulationDensity {
 	
 	FEW("few"),
 	
+	TRIO("trio of"),
+	
 	SPARSE("sparse"),
 	
 	SEVERAL("several"),
 	
+	HALF_DOZEN("half a dozen"),
+	
+	DOZEN("a dozen"),
+
+	DOZENS("dozens of"),
+	
+	MANY("many"),
+	
 	NUMEROUS("numerous"),
 	
-	DENSE("dense");
+	DENSE("dense"),
+	
+	SMALL("a small"),
+	
+	HUNDREDS("hundreds of"),
+	
+	THOUSANDS("thousands of");
 
 	String name;
 	

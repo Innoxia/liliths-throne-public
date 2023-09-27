@@ -11,10 +11,12 @@
 	<!-- Any special changes which should be applied to a newly-spawned character of this race.
 	This is applied *before* individual Subspecies' 'applySubspeciesChanges' method.
 	The character's body that's being changed can be accessed via using 'targetedBody'.
-	The code here is redundant, as clitoris girth is set to 4 in the racialBody.xml file, and modified in the spotted and striped subspecies files, but I've added it in here to show a working example. -->
-	<applyRaceChanges><![CDATA[
-		[#targetedBody.getVagina().getClitoris().setGirth(null, 4)]
-	]]></applyRaceChanges>
+	e.g.:
+		<applyRaceChanges><![CDATA[
+			[#targetedBody.getVagina().getClitoris().setGirth(null, 4)]
+		]]></applyRaceChanges>
+	-->
+	<applyRaceChanges/>
 	
 	<!-- The non-gendered name and plural name of this race when in anthropomorphic form. -->
 	<name><![CDATA[hyena-morph]]></name>
@@ -24,9 +26,14 @@
 	See the 'res/race/NoStepOnSnek/snake/race.xml' file for an example in use. -->
 	
 	<!-- The non-gendered name and plural name of this race when in feral form.
-	The name corresponds to the name of this race when in the 'legConfiguration' form defined. 
-	LegConfiguration values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/LegConfiguration.java
-	(Just use 'BIPEDAL' if you're unsure of what to use, and the game will handle the rest.) -->
+		The name corresponds to the name of this race when in the 'legConfiguration' form defined. 
+		LegConfiguration values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/LegConfiguration.java
+		(Just use 'BIPEDAL' if you're unsure of what to use, and the game will handle the rest.)
+		You can add the optional parameter 'affinity' to name elements to handle cases where the name should differ based on whether or not there are multiple subspecies which have the same legConfiguration.
+			e.g.:
+			<name legConfiguration="TAIL_LONG" affinity="AQUATIC"><![CDATA[sea-snake-hyena]]></name>
+			<name legConfiguration="TAIL_LONG"><![CDATA[snake-hyena]]></name>
+	-->
 	<nameFeral>
 		<name legConfiguration="QUADRUPEDAL"><![CDATA[hyena]]></name>
 	</nameFeral>
@@ -98,7 +105,7 @@
 	<!-- The weighting of this race's fetishes.
 		Newly-spawned characters of this race will have their starting fetishes affected by the weightings defined in this section. -->
 	<racialFetishModifiers>
-		<!-- You can define the attributes 'love', 'like', 'dislike', and 'hate' to have weightings, with those omitted having a default weighting of 0.
+		<!-- You can define the attributes 'love', 'like', 'dislike', and 'hate' to have weightings, with those omitted having a default weighting of 1.
 			In this example, hyenas are more likely to like or love the dominant fetish than dislike or hate it. -->
 		<fetish love="3" like="5" dislike="2" hate="1">FETISH_DOMINANT</fetish>
 	</racialFetishModifiers>

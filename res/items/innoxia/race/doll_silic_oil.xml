@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>225</value> 
+		<determiner><![CDATA[a bottle of]]></determiner>
+		<name><![CDATA[Silic Oil]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Silic Oils]]></namePlural>
+		<description><![CDATA[A plastic bottle full of 'Silic Oil'. It claims to be a lubricant for 'sex toys, dolls, and heavy machinery', and bears large letters reading 'Do Not Drink'. The instructions on the back go on to say that it's safe for consumption only for dolls, which should result in the doll's orifices getting wetter.]]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>false</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="-15" imageSize="80">doll_silic_oil.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>GENERIC_SEX</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_SEXUAL</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.colourHuman(Non-dolls:)] [style.colourTerrible(Drains)] 75% [style.colourHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[style.colourDoll(Dolls:)] [style.colourGood(Increases)] [style.colourWetness(wetness)] of all [style.colourSex(orifices)]]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			#IF(npc.getRace()!=RACE_DOLL)
+				[##npc.incrementHealth(-npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)*(3/4))]
+				<p style='margin-bottom:0; padding-bottom:0;'>
+					A sickly feeling rises in [npc.namePos] stomach, making [npc.herHim] feel very unwell...
+				</p>
+			#ELSE
+				<p style='margin-bottom:0; padding-bottom:0;'>
+					[npc.Name] [npc.verb(feel)] the oil spreading throughout [npc.her] silicone body, and a moment later it begins to seep out of [npc.her] orifices...
+				</p>
+				[#npc.incrementFaceWetness(1)]
+				#IF(npc.hasBreasts())
+					[#npc.incrementBreastMilkStorage(50)]
+				#ENDIF
+				#IF(npc.hasBreastsCrotch())
+					[#npc.incrementBreastCrotchMilkStorage(50)]
+				#ENDIF
+				#IF(npc.hasVagina())
+					[#npc.incrementVaginaWetness(1)]
+				#ENDIF
+				[#npc.incrementAssWetness(1)]
+				#IF(npc.hasSpinneret())
+					[#npc.incrementSpinneretWetness(1)]
+				#ENDIF
+			#ENDIF
+			
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(pop)] the cap off of the bottle of Silic Oil, before lifting it to [npc.her] waiting [npc.lips] and promptly downing the entire bottle.
+		#IF(npc.getRace()!=RACE_DOLL)
+			 [npc.She] [npc.verb(choke)] and [npc.verb(splutter)] as the nasty silicone oil slides down [npc.her] throat.
+		#ELSE
+			 [npc.She] eagerly [npc.verb(swallow)] every last drop, finding the taste of the silicone oil to be absolutely delicious.
+		#ENDIF
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(pop)] the cap off of the bottle of Silic Oil, before lifting it to [npc2.namePos] waiting [npc2.lips] and getting [npc2.her] to down the entire bottle.
+		#IF(npc.getRace()!=RACE_DOLL)
+			 [npc2.Name] [npc2.verb(choke)] and [npc2.verb(splutter)] as the nasty silicone oil slides down [npc2.her] throat.
+		#ELSE
+			 [npc2.Name] obediently [npc2.verb(swallow)] every last drop, finding the taste of the silicone oil to be absolutely delicious.
+		#ENDIF
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

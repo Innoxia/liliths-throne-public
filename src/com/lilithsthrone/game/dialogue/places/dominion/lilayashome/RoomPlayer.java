@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
@@ -25,10 +26,9 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
-import com.lilithsthrone.game.dialogue.companions.OccupantDialogue;
 import com.lilithsthrone.game.dialogue.companions.OccupantManagementDialogue;
-import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.nightlife.NightlifeDistrict;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -51,7 +51,6 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
-import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.utils.time.DateAndTime;
 import com.lilithsthrone.utils.time.SolarElevationAngle;
@@ -89,10 +88,16 @@ public class RoomPlayer {
 		for(GameCharacter character : charactersPresent) {
 			character.applySleep(sleepTimeInMinutes);
 		}
+		
+		slavesPresentWhenGoingToSleep = slavesInRoom(Main.game.getHourOfDay());
+//		Main.game.getTextStartStringBuilder().append("X: "+Main.game.getHourOfDay());
 
 		Main.game.getPlayer().setActive(false);
 		Main.game.endTurn(sleepTimeInMinutes*60);
 		Main.game.getPlayer().setActive(true);
+
+		slavesPresentWhenWaking = slavesInRoom(Main.game.getHourOfDay());
+		slavesToWakePlayer = slavesInRoom(Main.game.getHourOfDay()).stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.BEDROOM, SlaveJobSetting.BEDROOM_WAKE_UP)).collect(Collectors.toList());
 	}
 	
 	private static Response getResponseRoom(int responseTab, int index) {
@@ -195,32 +200,42 @@ public class RoomPlayer {
 				} else {
 					return new Response("<span style='color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+";'>Calendar</span>", "There's a calendar pinned up on one wall. Take a closer look at it.", AUNT_HOME_PLAYERS_ROOM_CALENDAR);
 				}
+				
+			} else if (index == 9) {
+				return new Response("Set alarm", "Set the alarm on your phone, so that you can wake at a specific time.", RoomPlayer.ROOM_SET_ALARM) {
+					@Override
+					public void effects() {
+						Main.game.saveDialogueNode();
+					}
+				};
+
+			} else if (index == 10) {
+				long alarmTime = Main.game.getDialogueFlags().getSavedLong("player_phone_alarm");
+				if(alarmTime >= 0) {
+					String alarmTimeStr = Main.game.getDisplayTime(LocalTime.ofSecondOfDay(alarmTime*60));
+					int timeUntilAlarm = Main.game.getMinutesUntilTimeInMinutes((int)alarmTime-1)+1; // -1+1 is so we get 1440 instead of 0
+					return new Response("Rest until alarm (" + alarmTimeStr + ")",
+							"Rest for " + (timeUntilAlarm >= 60 ? timeUntilAlarm / 60 + " hours, " : "")
+									+ (timeUntilAlarm % 60 != 0 ? timeUntilAlarm % 60 + " minutes, " : "")
+									+ "until your alarm goes off. As well as replenishing your " + Attribute.HEALTH_MAXIMUM.getName() + " and " + Attribute.MANA_MAXIMUM.getName() + ", you will also get the 'Well Rested' status effect.",
+							AUNT_HOME_PLAYERS_ROOM_SLEEP) {
+						@Override
+						public void effects() {
+							sleepTimeInMinutes = timeUntilAlarm;
+							RoomPlayer.applySleep(sleepTimeInMinutes);
+						}
+					};
+				} else {
+					return new Response("Rest until alarm (unset)", "<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>Your alarm is unset!</span>", null);
+				}
 			}
 			
 			List<NPC> charactersPresent = LilayaHomeGeneric.getSlavesAndOccupantsPresent();
 			
-			int indexPresentStart = 9;
+			int indexPresentStart = 11;
 			if(index-indexPresentStart<charactersPresent.size() && index-indexPresentStart>=0) {
 				NPC character = charactersPresent.get(index-indexPresentStart);
-				return new Response(
-						UtilText.parse(character, "[npc.Name]"),
-						UtilText.parse(character, "Interact with [npc.name]."),
-						character.isSlave()
-							?SlaveDialogue.SLAVE_START
-							:OccupantDialogue.OCCUPANT_START) {
-					@Override
-					public Colour getHighlightColour() {
-						return character.getFemininity().getColour();
-					}
-					@Override
-					public void effects() {
-						if(character.isSlave()) {
-							SlaveDialogue.initDialogue(character, false);
-						} else {
-							OccupantDialogue.initDialogue(character, false, false);
-						}
-					}
-				};
+				return LilayaHomeGeneric.interactWithNPC(character);
 			}
 			
 		} else if(responseTab==2) {
@@ -236,7 +251,7 @@ public class RoomPlayer {
 						List<NPC> charactersPresent = LilayaHomeGeneric.getSlavesAndOccupantsPresent();
 						slavesWashing = charactersPresent.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.BEDROOM, SlaveJobSetting.BEDROOM_HELP_WASH)).collect(Collectors.toList());
 						for(GameCharacter npc : slavesWashing) {
-							npc.applyWash(true, true, null, 240+30);
+							npc.applyWash(true, true, StatusEffect.CLEANED_SHOWER, 120+30);
 						}
 
 						Main.game.getTextEndStringBuilder().append("<p style='text-align:center'><i>You leave your clothes outside of your bathroom so that they can be cleaned while you wash yourself...</i></p>");
@@ -812,7 +827,7 @@ public class RoomPlayer {
 	
 	/** Calendar's associated animal-morphs are based on the twelve animals of the Chinese zodiac, with the Monkey being replaced with a demon, the Rooster with a harpy, and the Snake with a lamia.
 	 *  The ordering of the demon and harpy have also been switched, so that October has demons.<br/>
-	 *  There is also a 20% chance of giving a different, random animal-morph for each month.<br/>
+	 *  There is also a 15% chance of giving a different, random animal-morph for each month.<br/>
 	 * Animals are:<br/>
 	 * Rat, Cow, Tiger, Rabbit, Dragon, Lamia (Snake), Horse, Sheep/Goat, Harpy (Rooster), Demon (Monkey), Dog, Pig
 	 */
@@ -848,7 +863,7 @@ public class RoomPlayer {
 								+ " His huge muscles are flexing as he carries a felled tree over one shoulder, while between his legs, you can't help but notice that he's got a massive bulge pressing out against the fabric of his shorts.");
 					} else {
 						sb.append("a black-and-white "+Subspecies.COW_MORPH.getSingularFemaleName(null)+", who's sitting on a small milking stool."
-								+ " With a happy smile on her face, she's busily pinching and tugging at at her engorged nipples, causing a stream of milk to flow out into a metal bucket.");
+								+ " With a happy smile on her face, she's busily pinching and tugging at her engorged nipples, causing a stream of milk to flow out into a metal bucket.");
 					}
 					break;
 				case MARCH:
@@ -889,7 +904,7 @@ public class RoomPlayer {
 					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
 						sb.append("an impressively-endowed "+Subspecies.HORSE_MORPH.getSingularMaleName(null)+", who's flexing his muscles as he presents his fully-erect flared cock to you.");
 					} else {
-						sb.append("a fit "+Subspecies.HORSE_MORPH.getPluralFemaleName(null)+", who's leaning against a fence, flicking her tail to one side in order to present her animalistic-pussy to you.");
+						sb.append("a fit "+Subspecies.HORSE_MORPH.getSingularFemaleName(null)+", who's leaning against a fence, flicking her tail to one side in order to present her animalistic-pussy to you.");
 					}
 					break;
 				case AUGUST:
@@ -920,7 +935,7 @@ public class RoomPlayer {
 					if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
 						sb.append("an energetic-looking "+Subspecies.DOG_MORPH.getSingularMaleName(null)+", who's smiling at you as he strokes his erect, knotted dog-cock.");
 					} else {
-						sb.append("an excited-looking "+Subspecies.DOG_MORPH.getPluralFemaleName(null)+", who's down on all fours, raising her hips in order to present you with her wet pussy.");
+						sb.append("an excited-looking "+Subspecies.DOG_MORPH.getSingularFemaleName(null)+", who's down on all fours, raising her hips in order to present you with her wet pussy.");
 					}
 					break;
 				case DECEMBER:
@@ -1224,9 +1239,74 @@ public class RoomPlayer {
 		return charactersPresent;
 	}
 	
+	public static final DialogueNode ROOM_SET_ALARM = new DialogueNode("Set Alarm", "", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			super.applyPreParsingEffects();
+			if(Main.game.getDialogueFlags().getSavedLong("player_phone_alarm") < 0) {
+				// If unset, default to 8:00 AM
+				Main.game.getDialogueFlags().setSavedLong("player_phone_alarm", 8*60);
+			}
+		}
+		@Override
+		public String getContent() {
+			long alarmTime = Main.game.getDialogueFlags().getSavedLong("player_phone_alarm");
+			String alarmTimeStr = Units.time(LocalTime.ofSecondOfDay(alarmTime*60));
+			return "<div><p style='text-align:center;'>Taking out your phone, you open the alarm app and prepare to set a time for it to go off...</p></div>"
+					+ "<div class='cosmetics-inner-container' style='margin:1% 10%; width:78%; padding:1%; box-sizing:border-box; position:relative;'>"
+						+ "<p style='margin:0; padding:0;'>"
+							+ "<b>Set Alarm</b>"
+						+"</p>"
+						+ "<div class='container-full-width' style='width:35%; text-align:center; float:left; position:relative; padding:0; margin:0;'>"
+							+ "<div id='PLAYER_ALARM_DECREASE_LARGE' class='normal-button' style='width:48%; margin:1%; padding:0;'>"
+								+ "[style.boldBad(-1 hour)]"
+							+ "</div>"
+							+ "<div id='PLAYER_ALARM_DECREASE' class='normal-button' style='width:48%; margin:1%; padding:0;'>"
+								+ "[style.boldBadMinor(-5 minutes)]"
+							+ "</div>"
+						+ "</div>"
+						+ "<div class='container-full-width' style='width:28%; margin:1%; padding:0; text-align:center; float:left; position:relative;'>"
+							+ alarmTimeStr
+						+ "</div>"
+						+ "<div class='container-full-width' style='width:35%; text-align:center; float:left; position:relative; padding:0; margin:0;'>"
+							+ "<div id='PLAYER_ALARM_INCREASE' class='normal-button' style='width:48%; margin:1%; padding:0;'>"
+								+ "[style.boldGoodMinor(+5 minutes)]"
+							+ "</div>"
+							+ "<div id='PLAYER_ALARM_INCREASE_LARGE' class='normal-button' style='width:48%; margin:1%; padding:0;'>"
+								+ "[style.boldGood(+1 hour)]"
+							+ "</div>"
+						+ "</div>"
+					+ "</div>";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index == 1) {
+				return new Response("Set alarm", "Your alarm will be set to the time that you've entered.", Main.game.getSavedDialogueNode());
+				
+			} else if(index == 2) {
+				return new Response("Delete alarm", "Delete your alarm, leaving it unset.", Main.game.getSavedDialogueNode()) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().removeSavedLong("player_phone_alarm");
+					}
+				};
+				
+			}
+			
+			return null;
+		}
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.OPTIONS;
+		}
+	};
+	
 //	private static int getHourPlusSleep() {
 //		return (Main.game.getHourOfDay() + (sleepTimeInMinutes/60))%24;
 //	}
+	private static List<GameCharacter> slavesPresentWhenGoingToSleep;
+	private static List<GameCharacter> slavesPresentWhenWaking;
+	private static List<GameCharacter> slavesToWakePlayer;
 	
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_SLEEP = new DialogueNode("Your Room", "", false) {
 
@@ -1239,13 +1319,13 @@ public class RoomPlayer {
 		public String getContent() {
 			StringBuilder sb = new StringBuilder();
 			
-			List<GameCharacter> charactersPresent = slavesInRoom(Main.game.getHourOfDay());
+			// Going to sleep:
 			
-			if(!charactersPresent.isEmpty()) {
-				boolean soloSlave = charactersPresent.size()==1;
-				List<GameCharacter> slavesToWakePlayer = charactersPresent.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.BEDROOM, SlaveJobSetting.BEDROOM_WAKE_UP)).collect(Collectors.toList());
+			if(!slavesPresentWhenGoingToSleep.isEmpty()) {
+				boolean soloSlave = slavesPresentWhenGoingToSleep.size()==1;
+				
 				List<String> names = new ArrayList<>();
-				charactersPresent.stream().forEach((npc) -> names.add(npc.getName()));
+				slavesPresentWhenGoingToSleep.stream().forEach((npc) -> names.add(npc.getName()));
 
 				sb.append("<p>"
 						+ "Feeling tired and in need of some rest, you head over to your bed and collapse down onto the mattress, before pulling back the covers and slipping beneath them."
@@ -1253,8 +1333,8 @@ public class RoomPlayer {
 					+ "</p>");
 
 				// Sleeping arrangements:
-				List<GameCharacter> floorSlaves = charactersPresent.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.BEDROOM, SlaveJobSetting.BEDROOM_SLEEP_FLOOR)).collect(Collectors.toList());
-				List<GameCharacter> onBedSlaves = charactersPresent.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.BEDROOM, SlaveJobSetting.BEDROOM_SLEEP_ON_BED)).collect(Collectors.toList());
+				List<GameCharacter> floorSlaves = slavesPresentWhenGoingToSleep.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.BEDROOM, SlaveJobSetting.BEDROOM_SLEEP_FLOOR)).collect(Collectors.toList());
+				List<GameCharacter> onBedSlaves = slavesPresentWhenGoingToSleep.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.BEDROOM, SlaveJobSetting.BEDROOM_SLEEP_ON_BED)).collect(Collectors.toList());
 				if(!floorSlaves.isEmpty() || !onBedSlaves.isEmpty()) {
 					sb.append("<p>");
 					boolean soloFloor = floorSlaves.size()==1;
@@ -1283,7 +1363,7 @@ public class RoomPlayer {
 					sb.append("</p>");
 				}
 
-				List<GameCharacter> inBedSlaves = charactersPresent.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.BEDROOM, SlaveJobSetting.BEDROOM_SLEEP_IN_BED)).collect(Collectors.toList());
+				List<GameCharacter> inBedSlaves = slavesPresentWhenGoingToSleep.stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.BEDROOM, SlaveJobSetting.BEDROOM_SLEEP_IN_BED)).collect(Collectors.toList());
 				if(!inBedSlaves.isEmpty()) {
 					sb.append("<p>");
 					boolean soloInBed = inBedSlaves.size()==1;
@@ -1433,6 +1513,23 @@ public class RoomPlayer {
 					}
 				}
 				
+			} else {
+				sb.append("<p>"
+						+ "You set your phone's alarm before drawing the curtains, lying on your bed and closing your eyes."
+						+ " You feel extremely safe and comfortable here in Lilaya's home, and soon drift off to sleep, thinking about all the things that have happened to you recently..."
+					+ "</p>");
+				
+			}
+			
+			
+			// Sleeping:
+			sb.append("<p>"
+					+ "[style.italics(...)]"
+				+ "</p>");
+			
+			
+			// Waking up:
+			if(!slavesPresentWhenWaking.isEmpty()) {
 				int hour = Main.game.getHourOfDay();
 				String morningString = "evening";
 				if(hour<4) {
@@ -1445,61 +1542,74 @@ public class RoomPlayer {
 
 				List<GameCharacter> hornySlaves = slavesWantingToSexPlayer(Main.game.getHourOfDay());
 				
+//				boolean soloSlave = slavesToWakePlayer.size()==1;
+				
 				if(!slavesToWakePlayer.isEmpty()) {
+					List<String> names = new ArrayList<>();
+					slavesToWakePlayer.stream().forEach((npc) -> names.add(npc.getName()));
+					
 					GameCharacter slaveWaking = Util.randomItemFrom(slavesToWakePlayer);
-					sb.append("<p>"
-							+ (soloSlave
-								?UtilText.parse(slaveWaking,
-									"With you and [npc.name] now in your respective positions, you ask [npc.herHim] to wake you at the time that you'd like to be getting up."
-										+ " After [npc.sheHas] reassured you that [npc.she] won't let you sleep in too late, you let out a contented sigh, close your eyes, and start to drift off to sleep...")
-								:UtilText.parse(slaveWaking,
-									"With your slaves now being settled into their respective positions, you ask [npc.name] to wake you at the time that you'd like to be getting up."
-										+ " After [npc.sheHas] reassured you that [npc.she] won't let you sleep in too late, you let out a contented sigh, close your eyes, and start to drift off to sleep..."))
-						+ "</p>"
-						+ "<p>"
-							+ "[style.italics(...)]"
-						+ "</p>");
+//					sb.append("<p>"
+//							+ (soloSlave
+//								?UtilText.parse(slaveWaking,
+//									"With you and [npc.name] now in your respective positions, you ask [npc.herHim] to wake you at the time that you'd like to be getting up."
+//										+ " After [npc.sheHas] reassured you that [npc.she] won't let you sleep in too late, you let out a contented sigh, close your eyes, and start to drift off to sleep...")
+//								:UtilText.parse(slaveWaking,
+//									"With your slaves now being settled into their respective positions, you ask [npc.name] to wake you at the time that you'd like to be getting up."
+//										+ " After [npc.sheHas] reassured you that [npc.she] won't let you sleep in too late, you let out a contented sigh, close your eyes, and start to drift off to sleep..."))
+//						+ "</p>"
+//						+ "<p>"
+//							+ "[style.italics(...)]"
+//						+ "</p>");
 					
 					if(hornySlaves.isEmpty()) {
 						sb.append("<p>");
 						if(slaveWaking.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_PROFESSIONAL)) {
 							sb.append(UtilText.parse(slaveWaking,
-									"[npc.speech([pc.Name]? It's the appointed hour for you to be waking up,)] you hear a voice calling out to you, and as you slowly open your [pc.eyes], you see [npc.name] smiling down at you."
+									"[npc.speech([pc.Name]? It's the appointed hour for you to be waking up,)]"
+									+ " you hear a voice calling out to you, and as you slowly open your [pc.eyes], you see [npc.name] smiling down at you."
 									+ " Seeing that you're awake, [npc.she] withdraws to open the curtains, calling over [npc.her] shoulder as [npc.she] does so, [npc.speech(Good "+morningString+", [pc.name]!)]"));
 						} else if(slaveWaking.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_SEDUCTIVE)) {
 							sb.append(UtilText.parse(slaveWaking, 
-									"[npc.speech(Come on, [pc.name], it's time to wake up,)] you hear a voice seductively whispering into your [pc.ear], and as you slowly open your [pc.eyes], you see [npc.name] smiling down at you and biting [npc.her] lip."
+									"[npc.speech(Come on, [pc.name], it's time to wake up,)]"
+									+ " you hear a voice seductively whispering into your [pc.ear], and as you slowly open your [pc.eyes], you see [npc.name] smiling down at you and biting [npc.her] lip."
 									+ " Seeing that you're awake, [npc.she] runs a hand over your [pc.chest], before withdrawing to open the curtains. Calling over [npc.her] shoulder as [npc.she] does so, [npc.she] teases,"
 									+ " [npc.speech(Good "+morningString+", [pc.name]... So, is there anything <i>special</i> that you wanted to do today?)]"));
 						} else if(slaveWaking.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_SLUTTY)) {
 							sb.append(UtilText.parse(slaveWaking,
-									"[npc.speech(If you get up now, you can make time for a quick fuck, can't you?)] you hear a voice asking, and as you slowly open your [pc.eyes], you see [npc.name] hungrily gazing down at you."
+									"[npc.speech(If you get up now, you can make time for a quick fuck, can't you?)]"
+									+ " you hear a voice asking, and as you slowly open your [pc.eyes], you see [npc.name] hungrily gazing down at you."
 									+ " Seeing that you're awake, [npc.she] leans down to kiss you fully on the [pc.lips], before withdrawing to open the curtains. Calling over [npc.her] shoulder as [npc.she] does so, [npc.she] teases,"
 									+ " [npc.speech(Good "+morningString+", [pc.name]! So, you want to fuck me now, right?)]"));
 						} else if(slaveWaking.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_STANDARD)) {
 							if(slaveWaking.isShy()) {
 								sb.append(UtilText.parse(slaveWaking,
-										"[npc.speech([pc.Name]? Erm, excuse me, [pc.name]? It's time to wake up,)] you hear a voice nervously calling out to you, and as you slowly open your [pc.eyes], you see [npc.name] worriedly looking down at you."
+										"[npc.speech([pc.Name]? Erm, excuse me, [pc.name]? It's time to wake up,)]"
+										+ " you hear a voice nervously calling out to you, and as you slowly open your [pc.eyes], you see [npc.name] worriedly looking down at you."
 											+ " Seeing that you're awake, [npc.she] breaths a little sigh of relief and hurries off to open the curtains, calling out as [npc.she] does so, [npc.speech(Good "+morningString+", [pc.name]!)]"));
 							} else {
 								sb.append(UtilText.parse(slaveWaking, 
-										"[npc.speech([pc.Name]? Come on, [pc.name], it's time to wake up,)] you hear a voice calling out to you, and as you slowly open your [pc.eyes], you see [npc.name] smiling down at you."
+										"[npc.speech([pc.Name]? Come on, [pc.name], it's time to wake up,)]"
+										+ " you hear a voice calling out to you, and as you slowly open your [pc.eyes], you see [npc.name] smiling down at you."
 												+ " Seeing that you're awake, [npc.she] withdraws to open the curtains, calling over [npc.her] shoulder as [npc.she] does so, [npc.speech(Good "+morningString+", [pc.name]!)]"));
 							}
 						} else if(slaveWaking.hasSlavePermissionSetting(SlavePermissionSetting.BEHAVIOUR_WHOLESOME)) {
 							if(slaveWaking.isShy()) {
 								sb.append(UtilText.parse(slaveWaking,
-										"[npc.speech([pc.Name]? Um... Come on, sleepy... It's time to wake up,)] you hear a voice shyly calling out to you, and as you slowly open your [pc.eyes], you see [npc.name] looking down at you."
+										"[npc.speech([pc.Name]? Um... Come on, sleepy... It's time to wake up,)]"
+										+ " you hear a voice shyly calling out to you, and as you slowly open your [pc.eyes], you see [npc.name] looking down at you."
 												+ " Seeing that you're awake, [npc.she] breaths a little sigh of relief and hurries off to open the curtains, quietly calling out as [npc.she] does so,"
 												+ " [npc.speech(Good "+morningString+", [pc.name]... I hope you have a wonderful day today...)]"));
 							} else if(slaveWaking.isKind()) {
 								sb.append(UtilText.parse(slaveWaking,
-										"[npc.speech([pc.Name]? Come on, sleepy-head! You don't want to stay in bed forever do you?)] you hear a voice calling out to you, and as you slowly open your [pc.eyes], you see [npc.name] smiling down at you."
+										"[npc.speech([pc.Name]? Come on, sleepy-head! You don't want to stay in bed forever do you?)]"
+										+ " you hear a voice calling out to you, and as you slowly open your [pc.eyes], you see [npc.name] smiling down at you."
 												+ " Seeing that you're awake, [npc.she] gives your face a gentle, loving stroke, before hurrying off to open the curtains, calling out over [npc.her] shoulder as [npc.she] does so,"
 												+ " [npc.speech(Good "+morningString+", [pc.name]! I hope you have a wonderful day today!)]"));
 							} else {
 								sb.append(UtilText.parse(slaveWaking,
-										"[npc.speech([pc.Name]? Come on, sleepy-head! You don't want to stay in bed forever do you?)] you hear a voice calling out to you, and as you slowly open your [pc.eyes], you see [npc.name] smiling down at you."
+										"[npc.speech([pc.Name]? Come on, sleepy-head! You don't want to stay in bed forever do you?)]"
+										+ " you hear a voice calling out to you, and as you slowly open your [pc.eyes], you see [npc.name] smiling down at you."
 												+ " Seeing that you're awake, [npc.she] stands up and hurries off to open the curtains, calling out over [npc.her] shoulder as [npc.she] does so,"
 												+ " [npc.speech(Good "+morningString+", [pc.name]! I hope you have a wonderful day today!)]"));
 							}
@@ -1514,19 +1624,21 @@ public class RoomPlayer {
 					}
 					
 				} else {
-					sb.append("<p>"
-								+ (soloSlave
-									?UtilText.parse(charactersPresent.get(0),
-											"With you and [npc.name] now in your respective positions, you set your phone's alarm and place it on the bedside cabinet beside you."
-											+ " Letting out a contented sigh, you close your eyes and start to drift off to sleep...")
-									:"With your slaves now being settled into their respective positions, you set your phone's alarm and place it on the bedside cabinet beside you."
-										+ " Letting out a contented sigh, you close your eyes and start to drift off to sleep...")
-							+ "</p>"
-							+ "<p>"
-								+ "[style.italics(...)]"
-							+ "</p>");
+//					sb.append("<p>"
+//								+ (soloSlave
+//									?UtilText.parse(slavesPresentWhenGoingToSleep.get(0),
+//											"With you and [npc.name] now in your respective positions, you set your phone's alarm and place it on the bedside cabinet beside you."
+//											+ " Letting out a contented sigh, you close your eyes and start to drift off to sleep...")
+//									:"With your slaves now being settled into their respective positions, you set your phone's alarm and place it on the bedside cabinet beside you."
+//										+ " Letting out a contented sigh, you close your eyes and start to drift off to sleep...")
+//							+ "</p>"
+//							+ "<p>"
+//								+ "[style.italics(...)]"
+//							+ "</p>");
 
 					if(hornySlaves.isEmpty()) {
+						List<String> names = new ArrayList<>();
+						slavesPresentWhenWaking.stream().forEach((npc) -> names.add(npc.getName()));
 						sb.append(
 								"<p>"
 									+ "<i>Beep-beep... beep-beep... bee-</i>"
@@ -1561,10 +1673,6 @@ public class RoomPlayer {
 				
 			} else {
 				sb.append("<p>"
-						+ "You set your phone's alarm before drawing the curtains, lying on your bed and closing your eyes."
-						+ " You feel extremely safe and comfortable here in Lilaya's home, and soon drift off to sleep, thinking about all the things that have happened to you recently..."
-					+ "</p>"
-					+ "<p>"
 						+ "<i>Beep-beep... beep-beep... bee-</i>"
 					+ "</p>"
 					+ "<p>"
@@ -2026,7 +2134,7 @@ public class RoomPlayer {
 				for(int i=0 ; i<attractedSlaves.size(); i++) {
 					slaveSlots.put(attractedSlaves.get(i), bathSlots[i]);
 				}
-				UtilText.addSpecialParsingString(String.valueOf(slavesWashing.size()), true);
+				UtilText.addSpecialParsingString(String.valueOf(attractedSlaves.size()), true);
 				return new ResponseSex("Submissive sex",
 						attractedSlaves.size()==1
 								?UtilText.parse(attractedSlaves, "Let [npc.name] dominantly fuck you in the bath.")
@@ -2164,27 +2272,27 @@ public class RoomPlayer {
 			if (index == 0) {
 				return new Response("Back", "Step away from the calendar.", ROOM);
 			} else if(index==1) {
-				return new Response("January", "Read the information on January's page. [style.italicsMinorBad(There are currently no special events during January.)]", null);
+				return new Response("January", "Read the information on January's page. [style.italicsMinorBad(There are currently no special events during January.)]", AUNT_HOME_PLAYERS_ROOM_CALENDAR_JANUARY);
 			} else if(index==2) {
-				return new Response("February", "Read the information on February page. [style.italicsMinorBad(There are currently no special events during February.)]", null);
+				return new Response("February", "Read the information on February page. [style.italicsMinorBad(There are currently no special events during February.)]", AUNT_HOME_PLAYERS_ROOM_CALENDAR_FEBRUARY);
 			} else if(index==3) {
-				return new Response("March", "Read the information on March's page. [style.italicsMinorBad(There are currently no special events during March.)]", null);
+				return new Response("March", "Read the information on March's page. [style.italicsMinorBad(There are currently no special events during March.)]", AUNT_HOME_PLAYERS_ROOM_CALENDAR_MARCH);
 			} else if(index==4) {
-				return new Response("April", "Read the information on April's page. [style.italicsMinorBad(There are currently no special events during April.)]", null);
+				return new Response("April", "Read the information on April's page. [style.italicsMinorBad(There are currently no special events during April.)]", AUNT_HOME_PLAYERS_ROOM_CALENDAR_APRIL);
 			} else if(index==5) {
 				return new Response("May", "Read the information on May's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_MAY);
 			} else if(index==6) {
 				return new Response("June", "Read the information on June's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_JUNE);
 			} else if(index==7) {
-				return new Response("July", "Read the information on July's page. [style.italicsMinorBad(There are currently no special events during July.)]", null);
+				return new Response("July", "Read the information on July's page. [style.italicsMinorBad(There are currently no special events during July.)]", AUNT_HOME_PLAYERS_ROOM_CALENDAR_JULY);
 			} else if(index==8) {
-				return new Response("August", "Read the information on August's page. [style.italicsMinorBad(There are currently no special events during August.)]", null);
+				return new Response("August", "Read the information on August's page. [style.italicsMinorBad(There are currently no special events during August.)]", AUNT_HOME_PLAYERS_ROOM_CALENDAR_AUGUST);
 			} else if(index==9) {
-				return new Response("September", "Read the information on September's page. [style.italicsMinorBad(There are currently no special events during September.)]", null);
+				return new Response("September", "Read the information on September's page. [style.italicsMinorBad(There are currently no special events during September.)]", AUNT_HOME_PLAYERS_ROOM_CALENDAR_SEPTEMBER);
 			} else if(index==10) {
 				return new Response("October", "Read the information on October's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER);
 			} else if(index==11) {
-				return new Response("November", "Read the information on November's page. [style.italicsMinorBad(There are currently no special events during November.)]", null);
+				return new Response("November", "Read the information on November's page. [style.italicsMinorBad(There are currently no special events during November.)]", AUNT_HOME_PLAYERS_ROOM_CALENDAR_NOVEMBER);
 			} else if(index==12) {
 				return new Response("December", "Read the information on December's page.", AUNT_HOME_PLAYERS_ROOM_CALENDAR_DECEMBER);
 			} else {
@@ -2192,8 +2300,99 @@ public class RoomPlayer {
 			}
 		}
 	};
-	
-	
+
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_JANUARY = new DialogueNode("Calendar", "", true) {
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(getCalendarImageDescription(Month.JANUARY));
+
+			UtilText.nodeContentSB.append(
+					"<h6 style='text-align:center;'>"
+							+ "[style.italicsMinorBad(There are currently no special events during January.)]");
+
+			return UtilText.nodeContentSB.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("January", "You are already reading the calendar's page concerning the month of January.", null);
+			}
+			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_FEBRUARY = new DialogueNode("Calendar", "", true) {
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(getCalendarImageDescription(Month.FEBRUARY));
+
+			UtilText.nodeContentSB.append(
+					"<h6 style='text-align:center;'>"
+							+ "[style.italicsMinorBad(There are currently no special events during February.)]");
+
+			return UtilText.nodeContentSB.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==2) {
+				return new Response("February", "You are already reading the calendar's page concerning the month of February.", null);
+			}
+			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_MARCH = new DialogueNode("Calendar", "", true) {
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(getCalendarImageDescription(Month.MARCH));
+
+			UtilText.nodeContentSB.append(
+					"<h6 style='text-align:center;'>"
+							+ "[style.italicsMinorBad(There are currently no special events during March.)]");
+
+			return UtilText.nodeContentSB.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==3) {
+				return new Response("March", "You are already reading the calendar's page concerning the month of March.", null);
+			}
+			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_APRIL = new DialogueNode("Calendar", "", true) {
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(getCalendarImageDescription(Month.APRIL));
+
+			UtilText.nodeContentSB.append(
+					"<h6 style='text-align:center;'>"
+							+ "[style.italicsMinorBad(There are currently no special events during April.)]");
+
+			return UtilText.nodeContentSB.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==4) {
+				return new Response("April", "You are already reading the calendar's page concerning the month of April.", null);
+			}
+			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
+		}
+	};
+
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_MAY = new DialogueNode("Calendar", "", true) {
 
 		@Override
@@ -2229,7 +2428,7 @@ public class RoomPlayer {
 			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
 		}
 	};
-	
+
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_JUNE = new DialogueNode("Calendar", "", true) {
 
 		@Override
@@ -2265,7 +2464,76 @@ public class RoomPlayer {
 			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
 		}
 	};
-	
+
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_JULY = new DialogueNode("Calendar", "", true) {
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(getCalendarImageDescription(Month.JULY));
+
+			UtilText.nodeContentSB.append(
+					"<h6 style='text-align:center;'>"
+							+ "[style.italicsMinorBad(There are currently no special events during July.)]");
+
+			return UtilText.nodeContentSB.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==7) {
+				return new Response("July", "You are already reading the calendar's page concerning the month of July.", null);
+			}
+			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_AUGUST = new DialogueNode("Calendar", "", true) {
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(getCalendarImageDescription(Month.AUGUST));
+
+			UtilText.nodeContentSB.append(
+					"<h6 style='text-align:center;'>"
+							+ "[style.italicsMinorBad(There are currently no special events during August.)]");
+
+			return UtilText.nodeContentSB.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==8) {
+				return new Response("August", "You are already reading the calendar's page concerning the month of August.", null);
+			}
+			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_SEPTEMBER = new DialogueNode("Calendar", "", true) {
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(getCalendarImageDescription(Month.SEPTEMBER));
+
+			UtilText.nodeContentSB.append(
+					"<h6 style='text-align:center;'>"
+							+ "[style.italicsMinorBad(There are currently no special events during September.)]");
+
+			return UtilText.nodeContentSB.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==9) {
+				return new Response("September", "You are already reading the calendar's page concerning the month of September.", null);
+			}
+			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
+		}
+	};
+
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_OCTOBER = new DialogueNode("Calendar", "", true) {
 
 		@Override
@@ -2307,7 +2575,30 @@ public class RoomPlayer {
 			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
 		}
 	};
-	
+
+	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_NOVEMBER = new DialogueNode("Calendar", "", true) {
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(getCalendarImageDescription(Month.NOVEMBER));
+
+			UtilText.nodeContentSB.append(
+					"<h6 style='text-align:center;'>"
+							+ "[style.italicsMinorBad(There are currently no special events during November.)]");
+
+			return UtilText.nodeContentSB.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==11) {
+				return new Response("November", "You are already reading the calendar's page concerning the month of November.", null);
+			}
+			return AUNT_HOME_PLAYERS_ROOM_CALENDAR.getResponse(responseTab, index);
+		}
+	};
+
 	public static final DialogueNode AUNT_HOME_PLAYERS_ROOM_CALENDAR_DECEMBER = new DialogueNode("Calendar", "", true) {
 
 		@Override
@@ -2366,7 +2657,6 @@ public class RoomPlayer {
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME", NightlifeDistrict.getClubbersPresent());
 		}
-
 
 		@Override
 		public Response getResponse(int responseTab, int index) {

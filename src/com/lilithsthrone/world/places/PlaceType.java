@@ -12,8 +12,10 @@ import java.util.Set;
 import com.lilithsthrone.game.character.npc.dominion.Daddy;
 import com.lilithsthrone.game.character.npc.dominion.Elle;
 import com.lilithsthrone.game.character.npc.dominion.Helena;
+import com.lilithsthrone.game.character.npc.dominion.Natalya;
 import com.lilithsthrone.game.character.npc.dominion.Wes;
 import com.lilithsthrone.game.character.npc.submission.DarkSiren;
+import com.lilithsthrone.game.character.npc.submission.Elizabeth;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
@@ -30,6 +32,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.places.dominion.EnforcerWarehouse;
 import com.lilithsthrone.game.dialogue.places.dominion.HomeImprovements;
 import com.lilithsthrone.game.dialogue.places.dominion.LilithsTower;
+import com.lilithsthrone.game.dialogue.places.dominion.DominionPark;
 import com.lilithsthrone.game.dialogue.places.dominion.RedLightDistrict;
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHall;
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallDemographics;
@@ -37,10 +40,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallProperty
 import com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ.BraxOffice;
 import com.lilithsthrone.game.dialogue.places.dominion.enforcerHQ.EnforcerHQDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.feliciaApartment.FeliciaApartment;
-import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
-import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestHelena;
-import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestNympho;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestsDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.helenaHotel.HelenaApartment;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Lab;
@@ -117,10 +117,13 @@ public class PlaceType {
 			WorldRegion.MISC, "Impassable Tile", "", null, PresetColour.BASE_GREY, null, Darkness.ALWAYS_LIGHT, null, "");
 	
 	public static final AbstractPlaceType GENERIC_EMPTY_TILE = new AbstractPlaceType(
-			WorldRegion.MISC, "Empty", "", "dominion/slaverAlleyIcon", PresetColour.BASE_CRIMSON, null, Darkness.ALWAYS_LIGHT, null, "");
+			WorldRegion.MISC, "Empty Tile", "", "dominion/slaverAlleyIcon", PresetColour.BASE_CRIMSON, null, Darkness.ALWAYS_LIGHT, null, "");
 
 	public static final AbstractPlaceType GENERIC_HOLDING_CELL = new AbstractPlaceType(
-			WorldRegion.MISC, "Unknown", "", "dominion/slaverAlleyIcon", PresetColour.BASE_GREY, null, Darkness.ALWAYS_LIGHT, null, "");
+			WorldRegion.MISC, "Holding Cell", "", "dominion/slaverAlleyIcon", PresetColour.BASE_GREY, null, Darkness.ALWAYS_LIGHT, null, "");
+
+	public static final AbstractPlaceType GENERIC_CLUB_HOLDING_CELL = new AbstractPlaceType(
+			WorldRegion.MISC, "Holding Cell (club)", "", "dominion/slaverAlleyIcon", PresetColour.BASE_GREY, null, Darkness.ALWAYS_LIGHT, null, "");
 	
 	public static final AbstractPlaceType GENERIC_MUSEUM = new AbstractPlaceType(
 			WorldRegion.OLD_WORLD, "Museum", "", "dominion/slaverAlleyIcon", PresetColour.BASE_TAN, null, Darkness.ALWAYS_LIGHT, null, "in Lily's Museum"
@@ -142,7 +145,7 @@ public class PlaceType {
 			null, "in Lily's Museum") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.FEW, Util.newHashMapOfValues(new Value<>(Subspecies.HUMAN, SubspeciesSpawnRarity.FOUR_COMMON))));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.FEW, Util.newHashMapOfValues(new Value<>(Subspecies.HUMAN, SubspeciesSpawnRarity.TEN))));
 		}
 	}.initItemsPersistInTile()
 	.initWeatherImmune();
@@ -158,7 +161,7 @@ public class PlaceType {
 			null, "in Lily's Museum") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Util.newHashMapOfValues(new Value<>(Subspecies.HUMAN, SubspeciesSpawnRarity.FOUR_COMMON))));
+			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Util.newHashMapOfValues(new Value<>(Subspecies.HUMAN, SubspeciesSpawnRarity.TEN))));
 		}
 	}.initItemsPersistInTile()
 	.initWeatherImmune();
@@ -186,7 +189,7 @@ public class PlaceType {
 			null, "in Lily's Museum") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Util.newHashMapOfValues(new Value<>(Subspecies.HUMAN, SubspeciesSpawnRarity.FOUR_COMMON))));
+			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Util.newHashMapOfValues(new Value<>(Subspecies.HUMAN, SubspeciesSpawnRarity.TEN))));
 		}
 	}.initItemsPersistInTile()
 	.initWeatherImmune();
@@ -226,7 +229,7 @@ public class PlaceType {
 			null, "in Lily's Museum") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.FEW, Util.newHashMapOfValues(new Value<>(Subspecies.HUMAN, SubspeciesSpawnRarity.FOUR_COMMON))));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.FEW, Util.newHashMapOfValues(new Value<>(Subspecies.HUMAN, SubspeciesSpawnRarity.TEN))));
 		}
 	}.initItemsPersistInTile()
 	.initWeatherImmune();
@@ -278,7 +281,7 @@ public class PlaceType {
 			} else {
 				pop.add(new Population(true, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
-				pop.add(new Population(true, PopulationType.CENTAUR_CARTS, PopulationDensity.NUMEROUS, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.FOUR_COMMON))));
+				pop.add(new Population(true, PopulationType.CENTAUR_CARTS, PopulationDensity.NUMEROUS, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.TEN))));
 			}
 			
 			return pop;
@@ -304,7 +307,7 @@ public class PlaceType {
 			if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
 				List<Population> pop = Util.newArrayListOfValues(new Population(true, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
-				pop.add(new Population(true, PopulationType.CENTAUR_CARTS, PopulationDensity.NUMEROUS, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.FOUR_COMMON))));
+				pop.add(new Population(true, PopulationType.CENTAUR_CARTS, PopulationDensity.NUMEROUS, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.TEN))));
 				return pop;
 				
 			} else {
@@ -376,7 +379,7 @@ public class PlaceType {
 	public static final AbstractPlaceType DOMINION_DEMON_HOME = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Demon Home",
-			"The area surrounding Lilith's tower is known as 'Demon Home', but despite that name, the residents are of all manner of different races.",
+			"The area surrounding Lilith's tower is known as 'Demon Home', but despite that name, the residents are all manner of different races.",
 			null,
 			PresetColour.BASE_PINK,
 			DemonHome.DEMON_HOME_STREET,
@@ -417,7 +420,7 @@ public class PlaceType {
 	public static final AbstractPlaceType DOMINION_DEMON_HOME_ZARANIX = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Demon Home (Zaranix)",
-			"The area surrounding Lilith's tower is known as 'Demon Home', but despite that name, the residents are of all manner of different races.",
+			"The area surrounding Lilith's tower is known as 'Demon Home', but despite that name, the residents are all manner of different races.",
 			"dominion/demonHomeZaranixIcon",
 			PresetColour.BASE_PINK,
 			DemonHome.DEMON_HOME_STREET_ZARANIX,
@@ -443,7 +446,7 @@ public class PlaceType {
 	public static final AbstractPlaceType DOMINION_DEMON_HOME_DADDY = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Demon Home (Daddy)",
-			"The area surrounding Lilith's tower is known as 'Demon Home', but despite that name, the residents are of all manner of different races.",
+			"The area surrounding Lilith's tower is known as 'Demon Home', but despite that name, the residents are all manner of different races.",
 			"dominion/demonHomeDaddyIcon",
 			PresetColour.BASE_INDIGO,
 			DemonHome.DEMON_HOME_STREET_DADDY,
@@ -467,6 +470,17 @@ public class PlaceType {
 			}
 			return DOMINION_PLAZA.getPopulation();
 		}
+	}.initMapBackgroundColour(PresetColour.MAP_BACKGROUND_PINK);
+	
+	public static final AbstractPlaceType DOMINION_DEMON_HOME_SEX_SHOP = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Lovienne's Luxuries",
+			"Catering to the more affluent clientele of Demon Home, the sex shop 'Lovienne's Luxuries' is the place to buy sex toys and autonomous sex dolls.",
+			"dominion/sexShopIcon",
+			PresetColour.BASE_PINK_LIGHT,
+			DemonHome.DEMON_HOME_SEX_SHOP,
+			Darkness.ALWAYS_LIGHT,
+			null, "in the streets of Demon Home") {
 	}.initMapBackgroundColour(PresetColour.MAP_BACKGROUND_PINK);
 	
 	public static final AbstractPlaceType DOMINION_SHOPPING_ARCADE = new AbstractPlaceType(
@@ -493,6 +507,26 @@ public class PlaceType {
 			"As she's shown you where she lives, you know that Nyan's Apartment building is in this area of Dominion.",
 			"dominion/homeNyanIcon",
 			PresetColour.BASE_PINK_LIGHT,
+			DominionPlaces.STREET,
+			Darkness.ALWAYS_LIGHT,
+			Encounter.DOMINION_STREET,
+			"in the streets of Dominion") {
+		@Override
+		public boolean isDangerous() {
+			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
+		}
+		@Override
+		public List<Population> getPopulation() {
+			return DOMINION_STREET.getPopulation();
+		}
+	};
+
+	public static final AbstractPlaceType DOMINION_CALLIE_BAKERY = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"The Creamy Bakey",
+			"This bakery is owned by a horse-girl named Callie.",
+			"dominion/callieBakeryIcon",
+			PresetColour.BASE_BROWN,
 			DominionPlaces.STREET,
 			Darkness.ALWAYS_LIGHT,
 			Encounter.DOMINION_STREET,
@@ -593,6 +627,22 @@ public class PlaceType {
 			return DOMINION_STREET.getPopulation();
 		}
 	};
+
+	public static final AbstractPlaceType DOMINION_BANK = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Bank of Dominion",
+			"The Realm's only bank, the 'Bank of Dominion' has its main branch here in Dominion.",
+			"dominion/bankIcon",
+			PresetColour.BASE_GOLD,
+			DialogueManager.getDialogueFromId("innoxia_places_dominion_bank_generic_exterior"),
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the streets of Dominion") {
+		@Override
+		public List<Population> getPopulation() {
+			return DOMINION_PLAZA.getPopulation();
+		}
+	};
 	
 	public static final AbstractPlaceType DOMINION_AUNTS_HOME = new AbstractPlaceType(
 			WorldRegion.DOMINION,
@@ -658,15 +708,27 @@ public class PlaceType {
 			"There are several large parks found throughout Dominion, all of which are fully open to the public.",
 			"dominion/park",
 			PresetColour.BASE_GREEN,
-			DominionPlaces.PARK,
-			Darkness.DAYLIGHT, Encounter.DOMINION_STREET, "in one of Dominion's parks") {
+			DominionPark.PARK,
+			Darkness.DAYLIGHT,
+			Encounter.DOMINION_PARK,
+			"in one of Dominion's parks") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
 		}
 		@Override
 		public List<Population> getPopulation() {
-			return DOMINION_STREET.getPopulation();
+			List<Population> pop = new ArrayList<>();
+			
+			if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
+				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
+				if(Main.game.getCharactersPresent().contains(Main.game.getNpc(Natalya.class))) {
+					pop.add(new Population(true, PopulationType.CENTAUR_CARTS, PopulationDensity.SEVERAL, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.TEN))));
+				}
+			}
+			
+			return pop;
 		}
 	};
 
@@ -759,7 +821,7 @@ public class PlaceType {
 	public static final AbstractPlaceType DOMINION_ALLEYS_CANAL_CROSSING = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Canal Crossing",
-			"These alleyway crossings over the city's canal are considered to be very dangerous, and have the reputation as being the favourite haunts of dangerous desperados.",
+			"These alleyway crossings over the city's canal are considered to be very dangerous, and have the reputation as being the favourite haunts of dangerous desperadoes.",
 			"dominion/bridge",
 			PresetColour.BASE_BLUE_LIGHT,
 			DominionPlaces.BACK_ALLEYS_CANAL,
@@ -802,6 +864,30 @@ public class PlaceType {
 			DominionPlaces.CITY_EXIT_SEWERS,
 			Darkness.ALWAYS_LIGHT,
 			null, "in the streets of Dominion") {
+		@Override
+		public boolean isDangerous() {
+			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
+		}
+		@Override
+		public List<Population> getPopulation() {
+			return DOMINION_PLAZA.getPopulation();
+		}
+		@Override
+		public Bearing getBearing() {
+			return Bearing.RANDOM;
+		}
+	};
+
+	public static final AbstractPlaceType DOMINION_EXIT_TO_BAT_CAVERNS = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Shaft to the Bat Caverns",
+			"This deep, twisting shaft is surrounded by a high chain-link fence, with nearby signs indicating that it leads down to the Bat Caverns beneath Submission.",
+			"dominion/batCaverns",
+			PresetColour.BASE_BLUE,
+			DominionPlaces.CITY_EXIT_BAT_CAVERNS,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in the streets of Dominion") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
@@ -913,7 +999,7 @@ public class PlaceType {
 	public static final AbstractPlaceType ENFORCER_HQ_STAIRS = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Guarded Staircase",
-			"A staircase leaduing up to the next floor is guarded by a vigilant Enforcer.",
+			"A staircase leading up to the next floor is guarded by a vigilant Enforcer.",
 			"dominion/enforcerHQ/stairs",
 			PresetColour.BASE_GREEN,
 			EnforcerHQDialogue.STAIRCASE,
@@ -1101,7 +1187,7 @@ public class PlaceType {
 
 	public static final AbstractPlaceType ENFORCER_HQ_REQUISITIONS = new AbstractPlaceType(
 			WorldRegion.DOMINION,
-			"Requisions Desk",
+			"Requisitions Desk",
 			"Specialist or replacement Enforcer equipment is checked out of this area.",
 			"dominion/enforcerHQ/requisitions",
 			PresetColour.BASE_TAN,
@@ -1112,7 +1198,7 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			if(!Main.game.getCharactersPresent(Main.game.getWorlds().get(WorldType.ENFORCER_HQ).getCell(ENFORCER_HQ_REQUISITIONS)).contains(Main.game.getNpc(Wes.class))
 					&& !Main.game.getCharactersPresent(Main.game.getWorlds().get(WorldType.ENFORCER_HQ).getCell(ENFORCER_HQ_REQUISITIONS)).contains(Main.game.getNpc(Elle.class))) {
-				return Util.newArrayListOfValues(new Population(false, PopulationType.ENFORCER, PopulationDensity.ONE, Util.newHashMapOfValues(new Value<>(Subspecies.DOG_MORPH_GERMAN_SHEPHERD, SubspeciesSpawnRarity.FOUR_COMMON))));
+				return Util.newArrayListOfValues(new Population(false, PopulationType.ENFORCER, PopulationDensity.ONE, Util.newHashMapOfValues(new Value<>(Subspecies.DOG_MORPH_GERMAN_SHEPHERD, SubspeciesSpawnRarity.TEN))));
 			}
 			return super.getPopulation();
 		}
@@ -1121,7 +1207,7 @@ public class PlaceType {
 	public static final AbstractPlaceType ENFORCER_HQ_OFFICE_QUARTERMASTER = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Quartermaster's Office",
-			"Responsible for the management of Enforcer equipment, the HQ's quartermaster has their office conveniently positioned opposite to the Requisions Desk.",
+			"Responsible for the management of Enforcer equipment, the HQ's quartermaster has their office conveniently positioned opposite to the Requisitions Desk.",
 			"dominion/enforcerHQ/office",
 			PresetColour.BASE_ORANGE,
 			EnforcerHQDialogue.OFFICE_QUARTERMASTER,
@@ -1206,7 +1292,7 @@ public class PlaceType {
         public static final AbstractPlaceType FELICIA_APARTMENT_HALLWAY = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Hallway",
-			"The hallway is totally void of decoration or funiture.",
+			"The hallway is totally void of decoration or furniture.",
 			null,
 			PresetColour.BASE_BLACK,
 			FeliciaApartment.HALLWAY,
@@ -1609,9 +1695,9 @@ public class PlaceType {
 		@Override
 		public List<Population> getPopulation() {
 			if(Main.game.isExtendedWorkTime()) {
-				return Util.newArrayListOfValues(new Population(true, PopulationType.SLAVE, PopulationDensity.SEVERAL, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.FOUR_COMMON))));
+				return Util.newArrayListOfValues(new Population(true, PopulationType.SLAVE, PopulationDensity.SEVERAL, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.TEN))));
 			}
-			return Util.newArrayListOfValues(new Population(true, PopulationType.SLAVE, PopulationDensity.COUPLE, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.FOUR_COMMON))));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.SLAVE, PopulationDensity.COUPLE, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.TEN))));
 		}
 	}.initWeatherImmune();
 
@@ -1627,9 +1713,9 @@ public class PlaceType {
 		@Override
 		public List<Population> getPopulation() {
 			if(Main.game.isExtendedWorkTime()) {
-				return Util.newArrayListOfValues(new Population(true, PopulationType.RECEPTIONIST, PopulationDensity.FEW, Util.newHashMapOfValues(new Value<>(Subspecies.HORSE_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
+				return Util.newArrayListOfValues(new Population(true, PopulationType.RECEPTIONIST, PopulationDensity.FEW, Util.newHashMapOfValues(new Value<>(Subspecies.HORSE_MORPH, SubspeciesSpawnRarity.TEN))));
 			}
-			return Util.newArrayListOfValues(new Population(false, PopulationType.RECEPTIONIST, PopulationDensity.ONE, Util.newHashMapOfValues(new Value<>(Subspecies.HORSE_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
+			return Util.newArrayListOfValues(new Population(false, PopulationType.RECEPTIONIST, PopulationDensity.ONE, Util.newHashMapOfValues(new Value<>(Subspecies.HORSE_MORPH, SubspeciesSpawnRarity.TEN))));
 		}
 	}.initWeatherImmune();
 
@@ -1695,7 +1781,7 @@ public class PlaceType {
 			null, "in the stables at the 'Dominion Express' warehouse") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.SLAVE, PopulationDensity.NUMEROUS, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.FOUR_COMMON))));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.SLAVE, PopulationDensity.NUMEROUS, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.TEN))));
 		}
 	}.initWeatherImmune();
 	
@@ -1779,12 +1865,16 @@ public class PlaceType {
 			"Diana's nest consists primarily of angry red harpies; their feather colour an attempt to mimic the appearance of their sadistic leader.",
 			"dominion/harpyNests/nestRed",
 			PresetColour.BASE_CRIMSON,
-			HarpyNestDominant.HARPY_NEST_DOMINANT,
+			null,
 			Darkness.ALWAYS_LIGHT,
 			null, "in Diana's nest"){
 		@Override
 		public List<Population> getPopulation() {
 			return HARPY_NESTS_WALKWAYS.getPopulation();
+		}
+		@Override
+		protected DialogueNode getBaseDialogue(Cell cell) {
+			return DialogueManager.getDialogueFromId("innoxia_places_dominion_harpy_nests_dominant_exterior");
 		}
 	};
 	
@@ -1794,12 +1884,16 @@ public class PlaceType {
 			"Lexi's nest contains a disproportionate amount of harpy males, each of whom hangs around in the hopes of getting to fuck their sex-loving matriarch.",
 			"dominion/harpyNests/nestPink",
 			PresetColour.BASE_PINK_LIGHT,
-			HarpyNestNympho.HARPY_NEST_NYMPHO,
+			null,
 			Darkness.ALWAYS_LIGHT,
 			null, "in Lexi's nest"){
 		@Override
 		public List<Population> getPopulation() {
 			return HARPY_NESTS_WALKWAYS.getPopulation();
+		}
+		@Override
+		protected DialogueNode getBaseDialogue(Cell cell) {
+			return DialogueManager.getDialogueFromId("innoxia_places_dominion_harpy_nests_nympho_exterior");
 		}
 	};
 	
@@ -1809,12 +1903,16 @@ public class PlaceType {
 			"Brittany's nest has a considerable population of bleach-blonde-feathered, big-busted, bimbo harpies.",
 			"dominion/harpyNests/nestYellow",
 			PresetColour.BASE_YELLOW_LIGHT,
-			HarpyNestBimbo.HARPY_NEST_BIMBO,
+			null,
 			Darkness.ALWAYS_LIGHT,
 			null, "in Brittany's nest"){
 		@Override
 		public List<Population> getPopulation() {
 			return HARPY_NESTS_WALKWAYS.getPopulation();
+		}
+		@Override
+		protected DialogueNode getBaseDialogue(Cell cell) {
+			return DialogueManager.getDialogueFromId("innoxia_places_dominion_harpy_nests_bimbo_exterior");
 		}
 	};
 	
@@ -1828,9 +1926,11 @@ public class PlaceType {
 			null,
 			PresetColour.BASE_GREY,
 			LilayaHomeGeneric.CORRIDOR,
-			Darkness.ALWAYS_LIGHT, Encounter.LILAYAS_HOME_CORRIDOR, "in Lilaya's Home"
-			).initItemsPersistInTile()
-			.initWeatherImmune();
+			Darkness.ALWAYS_LIGHT,
+			Encounter.LILAYAS_HOME_CORRIDOR,
+			"in Lilaya's Home"
+		).initItemsPersistInTile()
+		.initWeatherImmune();
 	
 	public static final AbstractPlaceType LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR = new AbstractPlaceType(
 			WorldRegion.DOMINION,
@@ -1840,7 +1940,8 @@ public class PlaceType {
 			PresetColour.BASE_GREY,
 			LilayaHomeGeneric.ROOM_WINDOW,
 			Darkness.ALWAYS_LIGHT,
-			null, "in Lilaya's Home") {
+			null,
+			"in Lilaya's Home") {
 		@Override
 		protected DialogueNode getBaseDialogue(Cell cell) {
 			if(cell!=null) {
@@ -1878,6 +1979,12 @@ public class PlaceType {
 				
 			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SPA)) {
 				return PlaceUpgrade.getSpaUpgrades();
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_DINING_HALL)) {
+				return PlaceUpgrade.getDiningHallUpgrades();
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_LOUNGE)) {
+				return PlaceUpgrade.getSlaveLoungeUpgrades();
 			}
 			
 			return PlaceUpgrade.getCoreRoomUpgrades();
@@ -2010,10 +2117,50 @@ public class PlaceType {
 	}.initItemsPersistInTile()
 	.initWeatherImmune();
 	
+	public static final AbstractPlaceType LILAYA_HOME_DUNGEON_CELL = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Dungeon cell",
+			"The cells within Lilaya's dungeon are designed to be cramped and uncomfortable.",
+			"dominion/lilayasHome/roomSlave",
+			PresetColour.BASE_GREY,//BASE_MAGENTA
+			LilayaHomeGeneric.DUNGEON_CELL,
+			Darkness.ALWAYS_LIGHT,
+			null,
+			"in Lilaya's dungeon") {
+		@Override
+		protected DialogueNode getBaseDialogue(Cell cell) {
+			if(cell!=null) {
+				for(AbstractPlaceUpgrade pu : cell.getPlace().getPlaceUpgrades()) {
+					if(pu.getRoomDialogue(cell)!=null) {
+						return pu.getRoomDialogue(cell);
+					}
+				}
+			}
+			return LilayaHomeGeneric.DUNGEON_CELL;
+		}
+		@Override
+		public ArrayList<AbstractPlaceUpgrade> getStartingPlaceUpgrades() {
+			return Util.newArrayListOfValues(PlaceUpgrade.LILAYA_DUNGEON_CELL);
+		}
+		@Override
+		public ArrayList<AbstractPlaceUpgrade> getAvailablePlaceUpgrades(Set<AbstractPlaceUpgrade> upgrades) {
+			return PlaceUpgrade.getDungeonCellUpgrades();
+		}
+		@Override
+		public boolean isAbleToBeUpgraded() {
+			return true;
+		}
+		@Override
+		public String getPlaceNameAppendFormat(int count) {
+			return " D-"+String.format("%02d", count);
+		}
+	}.initItemsPersistInTile()
+	.initWeatherImmune();
+	
 	public static final AbstractPlaceType LILAYA_HOME_ARTHUR_ROOM = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Arthur's Room",
-			"As chosen by you, this room houses Lilaya's one-time lover and colleague, Arthur.",
+			"Converted from a store room houses Lilaya's one-time lover and colleague, Arthur.",
 			"dominion/lilayasHome/roomArthur",
 			PresetColour.BASE_BLUE_STEEL,
 			RoomArthur.ROOM_ARTHUR,
@@ -2811,12 +2958,12 @@ public class PlaceType {
 	public static final AbstractPlaceType SHOPPING_ARCADE_PIXS_GYM = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Pix's Playground",
-			"A huge, multi-story gym, 'Pix's Playground' is both owned and run by a particularly energetic border-collie-girl.",
+			"A huge, multi-story gym, 'Pix's Playground' is both owned and run by a particularly energetic border collie-girl.",
 			"dominion/shoppingArcade/gym",
 			PresetColour.BASE_GOLD,
 			PixsPlayground.GYM_EXTERIOR,
 			Darkness.ALWAYS_LIGHT,
-			null, "in her gym"
+			null, "in the gym, 'Pix's Playground'"
 			).initWeatherImmune();
 
 	public static final AbstractPlaceType SHOPPING_ARCADE_ENTRANCE = new AbstractPlaceType(
@@ -2885,7 +3032,7 @@ public class PlaceType {
 			"in Kay's Textiles") {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(false, PopulationType.RECEPTIONIST, PopulationDensity.ONE, Util.newHashMapOfValues(new Value<>(Subspecies.RABBIT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
+			return Util.newArrayListOfValues(new Population(false, PopulationType.RECEPTIONIST, PopulationDensity.ONE, Util.newHashMapOfValues(new Value<>(Subspecies.RABBIT_MORPH, SubspeciesSpawnRarity.TEN))));
 		}
 		@Override
 		public String getTooltipDescription() {
@@ -2945,13 +3092,13 @@ public class PlaceType {
 			return Util.newArrayListOfValues(
 					new Population(true, PopulationType.TEXTILE_WORKER, PopulationDensity.NUMEROUS,
 							Util.newHashMapOfValues(
-									new Value<>(Subspecies.RABBIT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON),
-									new Value<>(Subspecies.CAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON),
-									new Value<>(Subspecies.DOG_MORPH, SubspeciesSpawnRarity.FOUR_COMMON),
-									new Value<>(Subspecies.FOX_MORPH, SubspeciesSpawnRarity.FOUR_COMMON),
-									new Value<>(Subspecies.HORSE_MORPH, SubspeciesSpawnRarity.FOUR_COMMON),
-									new Value<>(Subspecies.COW_MORPH, SubspeciesSpawnRarity.FOUR_COMMON),
-									new Value<>(Subspecies.HUMAN, SubspeciesSpawnRarity.FOUR_COMMON))));
+									new Value<>(Subspecies.RABBIT_MORPH, SubspeciesSpawnRarity.TEN),
+									new Value<>(Subspecies.CAT_MORPH, SubspeciesSpawnRarity.TEN),
+									new Value<>(Subspecies.DOG_MORPH, SubspeciesSpawnRarity.TEN),
+									new Value<>(Subspecies.FOX_MORPH, SubspeciesSpawnRarity.TEN),
+									new Value<>(Subspecies.HORSE_MORPH, SubspeciesSpawnRarity.TEN),
+									new Value<>(Subspecies.COW_MORPH, SubspeciesSpawnRarity.TEN),
+									new Value<>(Subspecies.HUMAN, SubspeciesSpawnRarity.TEN))));
 		}
 	}.initWeatherImmune();
 	
@@ -2969,7 +3116,7 @@ public class PlaceType {
 		@Override
 		public List<Population> getPopulation() {
 			if(Main.game.getWorlds().get(WorldType.TEXTILES_WAREHOUSE).getCell(PlaceType.TEXTILE_WAREHOUSE_OFFICE).isTravelledTo()) {
-				return Util.newArrayListOfValues(new Population(false, PopulationType.TEXTILE_WORKER, PopulationDensity.ONE, Util.newHashMapOfValues(new Value<>(Subspecies.FOX_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
+				return Util.newArrayListOfValues(new Population(false, PopulationType.TEXTILE_WORKER, PopulationDensity.ONE, Util.newHashMapOfValues(new Value<>(Subspecies.FOX_MORPH, SubspeciesSpawnRarity.TEN))));
 			} else {
 				return super.getPopulation();
 			}
@@ -3166,6 +3313,71 @@ public class PlaceType {
 		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
 	
+	public static final AbstractPlaceType SLAVER_ALLEY_CAFE_2 = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Cafe",
+			"Numerous cafes are scattered throughout Slaver Alley, providing a place for shoppers to rest and replenish their energy.",
+			"dominion/slaverAlley/marketStallCafe",
+			PresetColour.BASE_BROWN,
+			SlaverAlleyDialogue.MARKET_STALL_CAFE,
+			Darkness.ALWAYS_LIGHT,
+			null, "in Slaver Alley") {
+		@Override
+		public List<Population> getPopulation() {
+			List<Population> pop = new ArrayList<>();
+			if(Main.game.isExtendedWorkTime()) {
+				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+			} else {
+				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+			}
+			return pop;
+		}
+	}.initWeatherImmune(Weather.MAGIC_STORM);
+
+	
+	public static final AbstractPlaceType SLAVER_ALLEY_CAFE_3 = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Cafe",
+			"Numerous cafes are scattered throughout Slaver Alley, providing a place for shoppers to rest and replenish their energy.",
+			"dominion/slaverAlley/marketStallCafe",
+			PresetColour.BASE_BROWN,
+			SlaverAlleyDialogue.MARKET_STALL_CAFE,
+			Darkness.ALWAYS_LIGHT,
+			null, "in Slaver Alley") {
+		@Override
+		public List<Population> getPopulation() {
+			List<Population> pop = new ArrayList<>();
+			if(Main.game.isExtendedWorkTime()) {
+				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+			} else {
+				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+			}
+			return pop;
+		}
+	}.initWeatherImmune(Weather.MAGIC_STORM);
+
+	
+	public static final AbstractPlaceType SLAVER_ALLEY_CAFE_4 = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Cafe",
+			"Numerous cafes are scattered throughout Slaver Alley, providing a place for shoppers to rest and replenish their energy.",
+			"dominion/slaverAlley/marketStallCafe",
+			PresetColour.BASE_BROWN,
+			SlaverAlleyDialogue.MARKET_STALL_CAFE,
+			Darkness.ALWAYS_LIGHT,
+			null, "in Slaver Alley") {
+		@Override
+		public List<Population> getPopulation() {
+			List<Population> pop = new ArrayList<>();
+			if(Main.game.isExtendedWorkTime()) {
+				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+			} else {
+				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+			}
+			return pop;
+		}
+	}.initWeatherImmune(Weather.MAGIC_STORM);
+	
 	public static final AbstractPlaceType SLAVER_ALLEY_AUCTIONING_BLOCK = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Auctioning Block",
@@ -3325,7 +3537,7 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			return Util.newArrayListOfValues(
 					new Population(true, PopulationType.PERSON, PopulationDensity.FEW, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)),
-					new Population(true, PopulationType.PRIVATE_SECURITY_GUARD, PopulationDensity.COUPLE, Util.newHashMapOfValues(new Value<>(Subspecies.HORSE_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
+					new Population(true, PopulationType.PRIVATE_SECURITY_GUARD, PopulationDensity.COUPLE, Util.newHashMapOfValues(new Value<>(Subspecies.HORSE_MORPH, SubspeciesSpawnRarity.TEN))));
 		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
 
@@ -3405,7 +3617,7 @@ public class PlaceType {
 	public static final AbstractPlaceType BOUNTY_HUNTER_LODGE_SEATING = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Recessed seating",
-			"Around the edges of the taven's main floor, there are several recessed seating areas.",
+			"Around the edges of the tavern's main floor, there are several recessed seating areas.",
 			"dominion/slaverAlley/bountyHunterLodge/seatingArea",
 			PresetColour.BASE_BROWN,
 			BountyHunterLodge.SEATING,
@@ -3508,6 +3720,10 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.NIGHTLIFE_CLUB, this, false)));
 		}
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
+		}
 	}.initWeatherImmune();
 
 	public static final AbstractPlaceType WATERING_HOLE_MAIN_AREA = new AbstractPlaceType(
@@ -3553,8 +3769,8 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			return Util.newArrayListOfValues(new Population(true, PopulationType.VIP, PopulationDensity.SEVERAL,
 					Util.newHashMapOfValues(
-							new Value<>(Subspecies.getSubspeciesFromId("innoxia_panther_subspecies_lion"), SubspeciesSpawnRarity.FOUR_COMMON),
-							new Value<>(Subspecies.HORSE_MORPH_ZEBRA, SubspeciesSpawnRarity.FOUR_COMMON))));
+							new Value<>(Subspecies.getSubspeciesFromId("innoxia_panther_subspecies_lion"), SubspeciesSpawnRarity.TEN),
+							new Value<>(Subspecies.HORSE_MORPH_ZEBRA, SubspeciesSpawnRarity.TEN))));
 		}
 	}.initWeatherImmune();
 
@@ -3665,7 +3881,7 @@ public class PlaceType {
 		) {
 			@Override
 			public List<Population> getPopulation() {
-				return Util.newArrayListOfValues(new Population(false, PopulationType.MAID, PopulationDensity.OCCASIONAL, Util.newHashMapOfValues(new Value<>(Subspecies.HARPY, SubspeciesSpawnRarity.FOUR_COMMON))));
+				return Util.newArrayListOfValues(new Population(false, PopulationType.MAID, PopulationDensity.OCCASIONAL, Util.newHashMapOfValues(new Value<>(Subspecies.HARPY, SubspeciesSpawnRarity.TEN))));
 			}
 		}.initWeatherImmune();
 	
@@ -3693,7 +3909,7 @@ public class PlaceType {
 		) {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(false, PopulationType.MAID, PopulationDensity.ONE, Util.newHashMapOfValues(new Value<>(Subspecies.HARPY, SubspeciesSpawnRarity.FOUR_COMMON))));
+			return Util.newArrayListOfValues(new Population(false, PopulationType.MAID, PopulationDensity.ONE, Util.newHashMapOfValues(new Value<>(Subspecies.HARPY, SubspeciesSpawnRarity.TEN))));
 		}
 	}.initWeatherImmune();
 	
@@ -3764,7 +3980,7 @@ public class PlaceType {
 		) {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(false, PopulationType.CHEF, PopulationDensity.ONE, Util.newHashMapOfValues(new Value<>(Subspecies.HARPY, SubspeciesSpawnRarity.FOUR_COMMON))));
+			return Util.newArrayListOfValues(new Population(false, PopulationType.CHEF, PopulationDensity.ONE, Util.newHashMapOfValues(new Value<>(Subspecies.HARPY, SubspeciesSpawnRarity.TEN))));
 		}
 	}.initWeatherImmune();
 	
@@ -3780,7 +3996,7 @@ public class PlaceType {
 		) {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(false, PopulationType.MAID, PopulationDensity.ONE, Util.newHashMapOfValues(new Value<>(Subspecies.HARPY, SubspeciesSpawnRarity.FOUR_COMMON))));
+			return Util.newArrayListOfValues(new Population(false, PopulationType.MAID, PopulationDensity.ONE, Util.newHashMapOfValues(new Value<>(Subspecies.HARPY, SubspeciesSpawnRarity.TEN))));
 		}
 	}.initWeatherImmune();
 	
@@ -3796,7 +4012,7 @@ public class PlaceType {
 		) {
 		@Override
 		public List<Population> getPopulation() {
-			return Util.newArrayListOfValues(new Population(true, PopulationType.MAID, PopulationDensity.COUPLE, Util.newHashMapOfValues(new Value<>(Subspecies.HARPY, SubspeciesSpawnRarity.FOUR_COMMON))));
+			return Util.newArrayListOfValues(new Population(true, PopulationType.MAID, PopulationDensity.COUPLE, Util.newHashMapOfValues(new Value<>(Subspecies.HARPY, SubspeciesSpawnRarity.TEN))));
 		}
 	}.initWeatherImmune();
 	
@@ -3941,14 +4157,14 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			return Util.newArrayListOfValues(new Population(true, PopulationType.ENFORCER, PopulationDensity.NUMEROUS,
 					Util.newHashMapOfValues(
-							new Value<>(Subspecies.ALLIGATOR_MORPH, SubspeciesSpawnRarity.THREE_UNCOMMON),
-							new Value<>(Subspecies.CAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON),
-							new Value<>(Subspecies.DOG_MORPH, SubspeciesSpawnRarity.FOUR_COMMON),
-							new Value<>(Subspecies.FOX_MORPH, SubspeciesSpawnRarity.THREE_UNCOMMON),
-							new Value<>(Subspecies.HORSE_MORPH, SubspeciesSpawnRarity.THREE_UNCOMMON),
-							new Value<>(Subspecies.RABBIT_MORPH, SubspeciesSpawnRarity.THREE_UNCOMMON),
-							new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.THREE_UNCOMMON),
-							new Value<>(Subspecies.WOLF_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
+							new Value<>(Subspecies.ALLIGATOR_MORPH, SubspeciesSpawnRarity.FIVE),
+							new Value<>(Subspecies.CAT_MORPH, SubspeciesSpawnRarity.TEN),
+							new Value<>(Subspecies.DOG_MORPH, SubspeciesSpawnRarity.TEN),
+							new Value<>(Subspecies.FOX_MORPH, SubspeciesSpawnRarity.FIVE),
+							new Value<>(Subspecies.HORSE_MORPH, SubspeciesSpawnRarity.FIVE),
+							new Value<>(Subspecies.RABBIT_MORPH, SubspeciesSpawnRarity.FIVE),
+							new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FIVE),
+							new Value<>(Subspecies.WOLF_MORPH, SubspeciesSpawnRarity.TEN))));
 		}
 	}.initWeatherImmune();
 	
@@ -4053,7 +4269,7 @@ public class PlaceType {
 		@Override
 		public List<Population> getPopulation() {
 			return Util.newArrayListOfValues(new Population(true, PopulationType.GUARD, PopulationDensity.NUMEROUS,
-					Util.newHashMapOfValues(new Value<>(Subspecies.HALF_DEMON, SubspeciesSpawnRarity.FOUR_COMMON))));
+					Util.newHashMapOfValues(new Value<>(Subspecies.HALF_DEMON, SubspeciesSpawnRarity.TEN))));
 		}
 	}.initMapBackgroundColour(PresetColour.MAP_BACKGROUND_DARK)
 	.initWeatherImmune()
@@ -4206,8 +4422,8 @@ public class PlaceType {
 			}
 			return Util.newArrayListOfValues(new Population(true, PopulationType.GUARD, PopulationDensity.NUMEROUS,
 					Util.newHashMapOfValues(
-							new Value<>(Subspecies.IMP_ALPHA, SubspeciesSpawnRarity.TWO_RARE),
-							new Value<>(Subspecies.IMP, SubspeciesSpawnRarity.FOUR_COMMON))));
+							new Value<>(Subspecies.IMP_ALPHA, SubspeciesSpawnRarity.THREE),
+							new Value<>(Subspecies.IMP, SubspeciesSpawnRarity.TEN))));
 		}
 		@Override
 		public Darkness getDarkness() {
@@ -4292,8 +4508,8 @@ public class PlaceType {
 			}
 			return Util.newArrayListOfValues(new Population(true, PopulationType.GUARD, PopulationDensity.FEW,
 					Util.newHashMapOfValues(
-							new Value<>(Subspecies.IMP_ALPHA, SubspeciesSpawnRarity.TWO_RARE),
-							new Value<>(Subspecies.IMP, SubspeciesSpawnRarity.FOUR_COMMON))));
+							new Value<>(Subspecies.IMP_ALPHA, SubspeciesSpawnRarity.THREE),
+							new Value<>(Subspecies.IMP, SubspeciesSpawnRarity.TEN))));
 		}
 		@Override
 		public Darkness getDarkness() {
@@ -4509,8 +4725,8 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			return Util.newArrayListOfValues(new Population(true, PopulationType.MAID, PopulationDensity.COUPLE,
 					Util.newHashMapOfValues(
-							new Value<>(Subspecies.HUMAN, SubspeciesSpawnRarity.TWO_RARE),
-							new Value<>(Subspecies.HALF_DEMON, SubspeciesSpawnRarity.FOUR_COMMON))));
+							new Value<>(Subspecies.HUMAN, SubspeciesSpawnRarity.THREE),
+							new Value<>(Subspecies.HALF_DEMON, SubspeciesSpawnRarity.TEN))));
 		}
 	}.initWeatherImmune();
 	
@@ -4556,6 +4772,13 @@ public class PlaceType {
 			null, "in Lyssieth's Palace"
 			) {
 		@Override
+		public DialogueNode getBaseDialogue(Cell cell) {
+			if(Main.game.getCharactersPresent().contains(Main.game.getNpc(Elizabeth.class))) {
+				return DialogueManager.getDialogueFromId("acexp_submission_palace_elizabeth");
+			}
+			return LyssiethPalaceDialogue.ROOM;
+		}
+		@Override
 		public List<Population> getPopulation() {
 			return LYSSIETH_PALACE_CORRIDOR.getPopulation();
 		}
@@ -4565,8 +4788,8 @@ public class PlaceType {
 			WorldRegion.SUBMISSION,
 			"Hall",
 			"In each wing of the palace, there is a long, extravagantly-furnished dining hall, which Lyssieth uses to entertain her particularly-important guests.",
-			"submission/lyssiethsPalace/throneRoom",
-			PresetColour.BASE_ORANGE,
+			"submission/lyssiethsPalace/hall",
+			PresetColour.BASE_ORANGE_LIGHT,
 			LyssiethPalaceDialogue.HALL,
 			Darkness.ALWAYS_LIGHT,
 			null, "in Lyssieth's Palace"
@@ -4602,7 +4825,7 @@ public class PlaceType {
 			if(Main.game.getNpc(DarkSiren.class).getHomeWorldLocation()!=WorldType.LYSSIETH_PALACE) {
 				return Util.newArrayListOfValues(new Population(false, PopulationType.RECEPTIONIST, PopulationDensity.ONE,
 						Util.newHashMapOfValues(
-								new Value<>(Subspecies.HALF_DEMON, SubspeciesSpawnRarity.FOUR_COMMON))));
+								new Value<>(Subspecies.HALF_DEMON, SubspeciesSpawnRarity.TEN))));
 			}
 			return super.getPopulation();
 		}
@@ -4679,9 +4902,9 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			if(Main.game.getCharactersPresent().contains(Main.game.getNpc(Elle.class))) {
 				return Util.newArrayListOfValues(new Population(true, PopulationType.GANG_MEMBER, PopulationDensity.SEVERAL, Util.newHashMapOfValues(
-						new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON),
-						new Value<>(Subspecies.ALLIGATOR_MORPH, SubspeciesSpawnRarity.FOUR_COMMON),
-						new Value<>(Subspecies.DOG_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
+						new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.TEN),
+						new Value<>(Subspecies.ALLIGATOR_MORPH, SubspeciesSpawnRarity.TEN),
+						new Value<>(Subspecies.DOG_MORPH, SubspeciesSpawnRarity.TEN))));
 			}
 			return super.getPopulation();
 		}
@@ -4737,6 +4960,18 @@ public class PlaceType {
 			).initDangerous()
 			.initWeatherImmune()
 			.initAquatic(Aquatic.MIXED);
+
+	public static final AbstractPlaceType BAT_CAVERN_SHAFT = new AbstractPlaceType(
+			WorldRegion.SUBMISSION,
+			"Shaft to Dominion",
+			"A large, winding shaft set into the ceiling provides a direct link between the Bat Caverns and Dominion.",
+			"submission/batCaverns/cavernShaft",
+			PresetColour.BASE_GREEN,
+			BatCaverns.SHAFT,
+			Darkness.DAYLIGHT,
+			null,
+			"in the Bat Caverns"
+			).initWeatherImmune();
 	
 	// HLF Quest places:
 	
@@ -5119,9 +5354,9 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedLeft)) {
 				if(Main.game.isExtendedWorkTime()) {
-					return Util.newArrayListOfValues(new Population(true, PopulationType.GANG_MEMBER, PopulationDensity.FEW, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
+					return Util.newArrayListOfValues(new Population(true, PopulationType.GANG_MEMBER, PopulationDensity.FEW, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.TEN))));
 				} else {
-					return Util.newArrayListOfValues(new Population(true, PopulationType.GANG_MEMBER, PopulationDensity.SEVERAL, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
+					return Util.newArrayListOfValues(new Population(true, PopulationType.GANG_MEMBER, PopulationDensity.SEVERAL, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.TEN))));
 				}
 			}
 			return new ArrayList<>();
@@ -5145,9 +5380,9 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedRight)) {
 				if(Main.game.isExtendedWorkTime()) {
-					return Util.newArrayListOfValues(new Population(true, PopulationType.GANG_MEMBER, PopulationDensity.FEW, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
+					return Util.newArrayListOfValues(new Population(true, PopulationType.GANG_MEMBER, PopulationDensity.FEW, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.TEN))));
 				} else {
-					return Util.newArrayListOfValues(new Population(true, PopulationType.GANG_MEMBER, PopulationDensity.SEVERAL, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
+					return Util.newArrayListOfValues(new Population(true, PopulationType.GANG_MEMBER, PopulationDensity.SEVERAL, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.TEN))));
 				}
 			}
 			return new ArrayList<>();
@@ -5171,9 +5406,9 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedCentre)) {
 				if(Main.game.isExtendedWorkTime()) {
-					return Util.newArrayListOfValues(new Population(true, PopulationType.GANG_MEMBER, PopulationDensity.SEVERAL, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
+					return Util.newArrayListOfValues(new Population(true, PopulationType.GANG_MEMBER, PopulationDensity.SEVERAL, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.TEN))));
 				} else {
-					return Util.newArrayListOfValues(new Population(true, PopulationType.GANG_MEMBER, PopulationDensity.COUPLE, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
+					return Util.newArrayListOfValues(new Population(true, PopulationType.GANG_MEMBER, PopulationDensity.COUPLE, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.TEN))));
 				}
 			}
 			return new ArrayList<>();
@@ -5251,7 +5486,7 @@ public class PlaceType {
 		@Override
 		public List<Population> getPopulation() {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.ratWarrensClearedCentre)) {
-				return Util.newArrayListOfValues(new Population(true, PopulationType.GANG_MEMBER, PopulationDensity.NUMEROUS, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.FOUR_COMMON))));
+				return Util.newArrayListOfValues(new Population(true, PopulationType.GANG_MEMBER, PopulationDensity.NUMEROUS, Util.newHashMapOfValues(new Value<>(Subspecies.RAT_MORPH, SubspeciesSpawnRarity.TEN))));
 			}
 			return new ArrayList<>();
 		}
@@ -5412,7 +5647,7 @@ public class PlaceType {
 			"thick jungle",
 			null,
 			"The further into the jungle one travels, the thicker the vegetation becomes, which allows particularly wild and dangerous predators to conceal themselves...",
-			new Colour(Util.newColour(0x6b8f7e)), null, null, "") {
+			new Colour(Util.newColour(0x6b8f7e)), null, null, "in the jungle") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5424,7 +5659,7 @@ public class PlaceType {
 			"jungle",
 			null,
 			"Sparse, tropical foliage is home to many different jungle animal-morphs, not all of which are friendly.",
-			new Colour(Util.newColour(0x8fbfa8)), null, null, "") {
+			new Colour(Util.newColour(0x8fbfa8)), null, null, "in the jungle") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5436,7 +5671,7 @@ public class PlaceType {
 			"Itza'aak",
 			null,
 			"A sprawling, Mayan-like city, Itza'aak is the last bastion of civilisation before the sprawling, wild jungles of the north.",
-			new Colour(Util.newColour(0xb377b0)), null, null, "") {
+			new Colour(Util.newColour(0xb377b0)), null, null, "outside Itza'aak") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5447,8 +5682,8 @@ public class PlaceType {
 			WorldRegion.MOUNTAINS,
 			"foothills",
 			null,
-			"A steady increase in elevation leads to the rolling hills at the base of the mountains of the moon.",
-			PresetColour.BASE_BLACK, null, null, "") {
+			"A steady increase in elevation leads to the rolling hills at the base of the Mountains of the Moon.",
+			PresetColour.BASE_BLACK, null, null, "in the foothills of the Mountains of the Moon") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5460,7 +5695,7 @@ public class PlaceType {
 			"mountains",
 			null,
 			"The mountain range to the far west is known as the 'Mountains of the Moon', and is home to many alpine animal-morphs.",
-			PresetColour.BASE_GREY_DARK, null, null, "") {
+			PresetColour.BASE_GREY_DARK, null, null, "in the Mountains of the Moon") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5472,7 +5707,7 @@ public class PlaceType {
 			"mountain peaks",
 			null,
 			"The highest peaks of the Mountains of the Moon are capped in snow, and are home to several wild and aggressive races...",
-			PresetColour.BASE_GREY_LIGHT, null, null, "") {
+			PresetColour.BASE_GREY_LIGHT, null, null, "in the Mountains of the Moon") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5484,7 +5719,7 @@ public class PlaceType {
 			"snowstorm valley",
 			null,
 			"This sheltered valley sees regular, heavy snowfall, and is home to numerous arctic races.",
-			new Colour(Util.newColour(0xeeeeee)), null, null, "") {
+			new Colour(Util.newColour(0xeeeeee)), null, null, "in snowstorm valley") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5496,7 +5731,7 @@ public class PlaceType {
 			"selkie lake",
 			null,
 			"On the western side of snowstorm valley, there can be found a huge, partially-frozen lake.",
-			new Colour(Util.newColour(0xbbf0f1)), null, null, "") {
+			new Colour(Util.newColour(0xbbf0f1)), null, null, "at selkie lake") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5535,7 +5770,7 @@ public class PlaceType {
 			} else {
 				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.SEVERAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
-				pop.add(new Population(false, PopulationType.CENTAUR_CARTS, PopulationDensity.OCCASIONAL, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.FOUR_COMMON))));
+				pop.add(new Population(false, PopulationType.CENTAUR_CARTS, PopulationDensity.OCCASIONAL, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.TEN))));
 			}
 			
 			return pop;
@@ -5549,7 +5784,7 @@ public class PlaceType {
 			"The grassland wilderness is home to many different races, the vast majority of which are just as wild and untamed as the land they inhabit.",
 			new Colour(Util.newColour(0x688255)),
 			FieldsDialogue.GRASSLAND_WILDERNESS,
-			null, "") {
+			null, "in the grassland wilderness of the Foloi Fields") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5563,7 +5798,7 @@ public class PlaceType {
 			"The farmland surrounding Dominion is known as the 'Foloi Fields', and is primarily inhabited by farmyard animal-morphs.",
 			new Colour(Util.newColour(0xB9E3A1)),
 			FieldsDialogue.FOLOI_FIELDS,
-			null, "") {
+			null, "in the Foloi Fields") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5572,13 +5807,13 @@ public class PlaceType {
 	
 	public static final AbstractGlobalPlaceType WORLD_MAP_FOREST = new AbstractGlobalPlaceType(
 			WorldRegion.WOODLAND,
-			"Foloi forests",
+			"forest",
 			"The thick forests surrounding the Foloi Fields are particularly dangerous, as they are home to the wild, predatory morphs of wolves, foxes, and bears.",
 			"global/forest",
 			new Colour(Util.newColour(0x51A468)),
 			new Colour(Util.newColour(0x5E685E)),
 			FieldsDialogue.FOLOI_FOREST,
-			null, "") {
+			null, "in the forested parts of the Foloi Fields") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5593,7 +5828,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0xd544ae)),
 			new Colour(Util.newColour(0x859871)),
 			FieldsDialogue.ELIS,
-			null, "") {
+			null, "outside Elis") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5608,7 +5843,7 @@ public class PlaceType {
 			new Colour(Util.newColour(0x61BDFF)),
 			new Colour(Util.newColour(0x98B4CD)),
 			FieldsDialogue.RIVER_HUBUR,
-			null, "") {
+			null, "at the river Huber") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5621,7 +5856,7 @@ public class PlaceType {
 			"river Hubur (wild)",
 			null,
 			"Far from Dominion, the river Hubur is a dangerous place in which to swim, as it is home to many wild freshwater races.",
-			new Colour(Util.newColour(0xc1f1ee)), null, null, "") {
+			new Colour(Util.newColour(0xc1f1ee)), null, null, "at the river Huber") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5631,10 +5866,10 @@ public class PlaceType {
 
 	public static final AbstractGlobalPlaceType WORLD_MAP_YOUKO_FOREST = new AbstractGlobalPlaceType(
 			WorldRegion.YOUKO_FOREST,
-			"shinrin highlands",
+			"Shinrin highlands",
 			null,
 			"The Shinrin highlands are a range of low, forest-covered hills, which steadily increase in elevation the further west you go. The elusive youko live here.",
-			new Colour(Util.newColour(0x6ccc74)), null, null, "") {
+			new Colour(Util.newColour(0x6ccc74)), null, null, "in the Shinrin highlands") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5646,7 +5881,7 @@ public class PlaceType {
 			"endless sea",
 			null,
 			"The aquatic races inhabiting Lilith's realm do not like to stray too far from shore, and so to them, the sea is considered to be endless.",
-			PresetColour.BASE_BLUE_DARK, null, null, "") {
+			PresetColour.BASE_BLUE_DARK, null, null, "in the endless sea") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5659,7 +5894,7 @@ public class PlaceType {
 			"Lyonesse",
 			null,
 			"The underwater city of Lyonesse is situated off the eastern coast, and, unsurprisingly, is particularly difficult for non-aquatic races to visit.",
-			new Colour(Util.newColour(0x8264b0)), null, null, "") {
+			new Colour(Util.newColour(0x8264b0)), null, null, "outside Lyonesse") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5671,7 +5906,7 @@ public class PlaceType {
 			"arid grassland",
 			null,
 			"To the south, the wild grassland starts to dry out, and is the preferred home for morphs such as lions, leopard, and zebras.",
-			PresetColour.BASE_YELLOW_LIGHT, null, null, "") {
+			PresetColour.BASE_YELLOW_LIGHT, null, null, "in the arid grasslands") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5683,7 +5918,7 @@ public class PlaceType {
 			"savannah",
 			null,
 			"Sparse, open-canopy woodlands are scattered across this area, and are inhabited by the same races as those found in the arid grasslands.",
-			PresetColour.BASE_TAN, null, null, "") {
+			PresetColour.BASE_TAN, null, null, "in the savannah") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5695,7 +5930,7 @@ public class PlaceType {
 			"desert",
 			null,
 			"To the south of the arid grassland, all vegetation dies out, creating a hot, barren wasteland.",
-			new Colour(Util.newColour(0xffe7a7)), null, null, "") {
+			new Colour(Util.newColour(0xffe7a7)), null, null, "in the desert") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5707,7 +5942,7 @@ public class PlaceType {
 			"sand dunes",
 			null,
 			"At the southern edge of the desert, there lies a huge range of sand dunes, which are home to many dangerous races.",
-			new Colour(Util.newColour(0xffdb7a)), null, null, "") {
+			new Colour(Util.newColour(0xffdb7a)), null, null, "in the sand dunes") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5719,7 +5954,7 @@ public class PlaceType {
 			"Thinis",
 			null,
 			"A city resembling one of ancient Egypt, Thinis is the southern-most settlement in Lilith's realm, and is well known for its prestigious arcane university.",
-			new Colour(Util.newColour(0xd5445e)), null, null, "") {
+			new Colour(Util.newColour(0xd5445e)), null, null, "outside Thinis") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5730,8 +5965,8 @@ public class PlaceType {
 			WorldRegion.VOLCANO,
 			"dragon's breath volcano",
 			null,
-			"A huge volcano, perpetually oozing red-hot lava. Despite its name, dragons are no more common here than they are elsewhere in Lilith's realm.",
-			PresetColour.BASE_ORANGE, null, null, "") {
+			"A huge volcano, perpetually oozing red-hot lava. Despite its name, dragons are just as rare a sight here as they are in the rest of Lilith's Realm.",
+			PresetColour.BASE_ORANGE, null, null, "at Dragon's Breath volcano") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5743,7 +5978,7 @@ public class PlaceType {
 			"lava flows",
 			null,
 			"The lava which pours forth from the volcano slowly runs off in a southern direction.",
-			PresetColour.BASE_BLACK, null, null, "") {
+			PresetColour.BASE_BLACK, null, null, "at the lava flows") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5794,6 +6029,9 @@ public class PlaceType {
 			
 		} else if(id.equals("SHOPPING_ARCADE_SUPPLIER_DEPOT")) {
 			id = "SHOPPING_ARCADE_RESTAURANT";
+			
+		} else if(id.equals("innoxia_fields_elis_town_tavern_seedy")) {
+			id = "innoxia_fields_elis_town_tavern_alley";
 		}
 		
 		id = Util.getClosestStringMatch(id, idToPlaceMap.keySet());
@@ -5831,12 +6069,12 @@ public class PlaceType {
 		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
 				try {
-					String id = "innoxia_"+innerEntry.getKey().replace("_placeTypes", "");
+					String id = innerEntry.getKey().replace("_placeTypes", "");
 					AbstractPlaceType placeType = new AbstractPlaceType(innerEntry.getValue(), entry.getKey(), id, false) {};
 					allPlaceTypes.add(placeType);
 					placeToIdMap.put(placeType, id);
 					idToPlaceMap.put(id, placeType);
-//					System.out.println("res PT: "+innerEntry.getKey());
+//					System.out.println("res PT: "+innerEntry.getKey()+" | "+id);
 				} catch(Exception ex) {
 					System.err.println("Loading place type failed at 'PlaceType'. File path: "+innerEntry.getValue().getAbsolutePath());
 					System.err.println("Actual exception: ");

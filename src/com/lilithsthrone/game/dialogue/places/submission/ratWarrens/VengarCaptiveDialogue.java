@@ -44,11 +44,11 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.markings.Tattoo;
-import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.markings.TattooWriting;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.submission.RatGangMember;
@@ -190,9 +190,7 @@ public class VengarCaptiveDialogue {
 			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "APPLY_FETISH_HOLES"));
 			sb.append(target.addFetish(Fetish.FETISH_VAGINAL_RECEIVING, true));
 			sb.append(target.addFetish(Fetish.FETISH_ORAL_GIVING, true));
-			if(Main.game.isAnalContentEnabled()) {
-				sb.append(target.addFetish(Fetish.FETISH_ANAL_RECEIVING, true));
-			}
+			sb.append(target.addFetish(Fetish.FETISH_ANAL_RECEIVING, true));
 			tfApplied = true;
 		}
 
@@ -202,9 +200,7 @@ public class VengarCaptiveDialogue {
 			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "APPLY_FETISH_SERVICING_HOLES"));
 			sb.append(target.addFetish(Fetish.FETISH_PENIS_RECEIVING, true));
 			sb.append(target.addFetish(Fetish.FETISH_VAGINAL_GIVING, true));
-			if(Main.game.isAnalContentEnabled()) {
-				sb.append(target.addFetish(Fetish.FETISH_ANAL_GIVING, true));
-			}
+			sb.append(target.addFetish(Fetish.FETISH_ANAL_GIVING, true));
 			tfApplied = true;
 		}
 		
@@ -294,7 +290,7 @@ public class VengarCaptiveDialogue {
 	}
 	
 	private static void applyTattoo(GameCharacter target, String text) {
-		Tattoo tattoo = new Tattoo(TattooType.NONE, PresetColour.CLOTHING_GREY, null, null, false, new TattooWriting(text, PresetColour.BASE_PINK, false), null);
+		Tattoo tattoo = new Tattoo("innoxia_misc_none", PresetColour.CLOTHING_GREY, null, null, false, new TattooWriting(text, PresetColour.BASE_PINK, false), null);
 		tattoo.setName("'"+text+"' tattoo");
 		target.addTattoo(InventorySlot.GROIN, tattoo);
 	}
@@ -342,11 +338,11 @@ public class VengarCaptiveDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				List<Fetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING);
+				List<AbstractFetish> applicableFetishes = Util.newArrayListOfValues(Fetish.FETISH_TRANSFORMATION_RECEIVING);
 				CorruptionLevel applicableCorruptionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
 				return new Response(
 						"Obey",
-						"Due to the potion you were just forced to drink, you're now so desperate to submit and be transformed that you can't bring yourself to to anything other than exactly what Shadow commands...",
+						"Due to the potion you were just forced to drink, you're now so desperate to submit and be transformed that you can't bring yourself to do anything other than exactly what Shadow commands...",
 						START_VENGAR_PUBLIC_FUCK,
 						applicableFetishes,
 						applicableCorruptionLevel,

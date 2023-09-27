@@ -3,7 +3,6 @@ package com.lilithsthrone.game.character.body;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
 import com.lilithsthrone.game.character.body.tags.BodyPartTag;
@@ -406,13 +405,13 @@ public class Tail implements BodyPartInterface {
 	 * Takes into account whether player has 'Allow furry tail penetrations' turned on or off.
 	 */
 	public boolean isSuitableForPenetration() {
-		if(this.getType().getTags().contains(BodyPartTag.TAIL_NEVER_SUTABLE_FOR_PENETRATION)) {
+		if(this.getType().getTags().contains(BodyPartTag.TAIL_NEVER_SUITABLE_FOR_PENETRATION)) {
 			return false;
 		}
-		if(this.getType().getTags().contains(BodyPartTag.TAIL_SUTABLE_FOR_PENETRATION)) {
+		if(this.getType().getTags().contains(BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION)) {
 			return this.getType().isPrehensile() || this.getLengthAsPercentageOfHeight()>=0.5f;
 			
-		} else if(Main.getProperties().hasValue(PropertyValue.furryTailPenetrationContent)) {
+		} else if(Main.game.isFurryTailPenetrationContentEnabled()) {
 			return this.getType().isPrehensile();
 		}
 		return false;

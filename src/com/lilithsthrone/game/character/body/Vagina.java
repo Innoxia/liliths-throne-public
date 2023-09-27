@@ -8,7 +8,6 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
-import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
@@ -107,9 +106,10 @@ public class Vagina implements BodyPartInterface {
 			descriptorList.add("hairy");
 		}
 		
-		if(this.getGirlcum().getFlavour()!=FluidFlavour.GIRL_CUM) {
-			descriptorList.add(this.getGirlcum().getFlavour().getName()+"-flavoured");
-		}
+		// It doesn't make much sense to be referencing taste in a generic context
+//		if(this.getGirlcum().getFlavour()!=FluidFlavour.GIRL_CUM && this.getGirlcum().getFlavour()!=FluidFlavour.FLAVOURLESS) {
+//			descriptorList.add(this.getGirlcum().getFlavour().getName()+"-flavoured");
+//		}
 		
 		if(owner.isVaginaFeral()) {
 			descriptorList.add(Util.randomItemFrom(Util.newArrayListOfValues(
@@ -120,8 +120,16 @@ public class Vagina implements BodyPartInterface {
 			descriptorList.add(type.getDescriptor(owner));
 		}
 		
+		if(owner.getBodyMaterial().getPartDescriptors()!=null && !owner.getBodyMaterial().getPartDescriptors().isEmpty()) {
+			descriptorList.add(Util.randomItemFrom(owner.getBodyMaterial().getPartDescriptors()));
+		}
+		
 		descriptorList.add(Capacity.getCapacityFromValue(orificeVagina.getStretchedCapacity()).getDescriptor().replaceAll(" ", "-"));
 
+		descriptorList.removeIf(d->d==null || d.isEmpty());
+		if(descriptorList.isEmpty()) {
+			return "";
+		}
 		return Util.randomItemFrom(descriptorList);
 	}
 	
@@ -201,10 +209,10 @@ public class Vagina implements BodyPartInterface {
 					"<p>"
 						+ "[npc.Name] [npc.verb(blush)] as [npc.she] [npc.verb(feel)] a strange heat spreading through [npc.her] groin, and can't help but let out a low [npc.moan] as the [npc.skin] "
 						+ (!owner.hasPenisIgnoreDildo()
-							? "in the middle of [npc.her] groin,"
+							? "in the middle of [npc.her] groin"
 							: (!owner.isTaur()
-									?"beneath [npc.her] cock,"
-									:"above and behind [npc.her] cock,"))
+									?"beneath [npc.her] cock"
+									:"above and behind [npc.her] cock"))
 						+ " starts to cave inwards and form a shallow furrow."
 						+ " Showing no sign of stopping, this strange new indentation continues to deepen, sending another burst of heat shooting up into [npc.namePos] lower abdomen."
 						+ " As this second wave of heat fades away, a sharp, penetrating sensation shoots up into [npc.her] groin, and while it isn't painful,"
@@ -290,13 +298,15 @@ public class Vagina implements BodyPartInterface {
 		
 		sb.append("</p>");
 
-		sb.append("<p style='text-align:center;'>");
-			if(this.eggLayer) {
-				sb.append(UtilText.parse(owner,"<i>Instead of giving birth to live young, [npc.name] now [style.colourEgg([npc.verb(lay)] eggs)]!</i>"));
-			} else {
-				sb.append(UtilText.parse(owner,"<i>[npc.Name] now [style.colourSex([npc.verb(give)] birth to live young)]!</i>"));
-			}
-		sb.append("</p>");
+		if(this.type != VaginaType.NONE) {
+			sb.append("<p style='text-align:center;'>");
+				if(this.eggLayer) {
+					sb.append(UtilText.parse(owner,"<i>Instead of giving birth to live young, [npc.name] now [style.colourEgg([npc.verb(lay)] eggs)]!</i>"));
+				} else {
+					sb.append(UtilText.parse(owner,"<i>[npc.Name] now [style.colourSex([npc.verb(give)] birth to live young)]!</i>"));
+				}
+			sb.append("</p>");
+		}
 		
 		orificeVagina.getOrificeModifiers().clear();
 		for(OrificeModifier om : type.getDefaultRacialOrificeModifiers()) {
@@ -341,6 +351,10 @@ public class Vagina implements BodyPartInterface {
 		int oldSize = this.labiaSize;
 		this.labiaSize = Math.max(0, Math.min(labiaSize, LabiaSize.FOUR_MASSIVE.getValue()));
 		int sizeChange = this.labiaSize - oldSize;
+
+		if(!Main.game.isStarted() || owner==null) {
+			return "";
+		}
 		
 		if (sizeChange == 0) {
 			if(owner.isPlayer()) {
@@ -386,7 +400,7 @@ public class Vagina implements BodyPartInterface {
 	}
 
 	public String setPierced(GameCharacter owner, boolean pierced) {
-		if(owner==null) {
+		if(!Main.game.isStarted() || owner==null) {
 			this.pierced = pierced;
 			return "";
 		}
@@ -421,7 +435,7 @@ public class Vagina implements BodyPartInterface {
 	}
 
 	public String setEggLayer(GameCharacter owner, boolean eggLayer) {
-		if(owner==null) {
+		if(!Main.game.isStarted() || owner==null) {
 			this.eggLayer = eggLayer;
 			return "";
 		}

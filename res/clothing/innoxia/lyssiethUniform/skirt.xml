@@ -25,8 +25,6 @@
 		
 		<imageEquippedName/> 
 		
-		<enchantmentLimit/>
-		
 		<effects> 
             <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_LUST" timer="0"/>
             <effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="RESISTANCE_PHYSICAL" timer="0"/>
@@ -42,6 +40,7 @@
 					<bodyPart>ANUS</bodyPart>
 					<bodyPart>PENIS</bodyPart>
 					<bodyPart>VAGINA</bodyPart>
+					<bodyPart>THIGHS</bodyPart>
 				</blockedBodyParts>
 				
 				<clothingAccessBlocked>

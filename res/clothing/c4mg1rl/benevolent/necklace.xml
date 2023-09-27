@@ -18,7 +18,6 @@
 		<imageName>necklace.svg</imageName>
 		<imageEquippedName/>
 		<stickers/>
-		<enchantmentLimit/>
 		<effects> 
               <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_RANGED_WEAPON" potency="MAJOR_BOOST" timer="3500" type="CLOTHING"/>
               <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_RANGED_WEAPON" potency="MAJOR_BOOST" timer="3500" type="CLOTHING"/>

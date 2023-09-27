@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[information desk]]></name>
+	<tooltipDescription><![CDATA[Positioned immediately in front of the main entrance, the staff at this information desk offer help to members of the public.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[beside the information desk in Elis's town hall]]></virginityLossDescription>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<colour>BASE_BLUE_LIGHT</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_fields_elis_town_hall_f0_info</dialogue>
+	<populationPresent>
+		<population>
+			<populationType plural="true" density="COUPLE">PERSON</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
+		<population>
+			<populationType plural="true" density="FEW">RECEPTIONIST</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
+	</populationPresent>
+	<furniturePresent>true</furniturePresent>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<weatherImmunities immuneToAll="true"/>
+	<applyInventoryInit/>
+</placeType>

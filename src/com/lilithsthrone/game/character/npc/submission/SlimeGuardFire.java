@@ -98,7 +98,7 @@ public class SlimeGuardFire extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.10.5")) {
 			resetBodyAfterVersion_2_10_5();
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") && this.getFleshSubspecies()!=Subspecies.HUMAN) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.12") && this.getBody().getFleshSubspecies()!=Subspecies.HUMAN) {
 			this.setBody(Gender.M_P_MALE, Subspecies.SLIME, RaceStage.HUMAN, false);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.8")) {
@@ -246,7 +246,7 @@ public class SlimeGuardFire extends NPC {
 		
 		this.setMoney(0);
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-		Main.game.getCharacterUtils().generateItemsInInventory(this);
+		Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, false);
 		
 		this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_europeanSwords_arming_sword", DamageType.FIRE));
 		this.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_buckler_buckler", DamageType.FIRE));

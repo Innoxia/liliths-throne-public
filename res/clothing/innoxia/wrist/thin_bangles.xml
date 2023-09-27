@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>750</value>
+		<determiner><![CDATA[numerous]]></determiner>
+		<name><![CDATA[thin bangle]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[thin bangles]]></namePlural>
+		<description><![CDATA[Just over a dozen thin bands of metal, which are intended to be split up and worn in equal numbers around the wearer's wrists.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>WRIST</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>thin_bangles.svg</imageName>
+		<imageEquippedName/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>WRISTS</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours values="ALL_METAL"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+	
+		<itemTags>
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the thin bangles into place around [npc.her] wrists.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the thin bangles into place around [npc2.namePos] wrists.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(push)] the thin bangles into place around [npc2.namePos] wrists.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the thin bangles off [npc.her] wrists.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the thin bangles off [npc2.namePos] wrists.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(pull)] the thin bangles off [npc2.namePos] wrists.]]>
+    </otherRough>
+  </displacementText>
+  
+</clothing>

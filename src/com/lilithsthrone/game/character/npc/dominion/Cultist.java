@@ -22,7 +22,6 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
@@ -108,7 +107,7 @@ public class Cultist extends NPC {
 			this.setNippleVirgin(false);
 			this.setPenisVirgin(false);
 			
-			setName(Name.getRandomTriplet(Race.DEMON));
+			setName(Name.getRandomTriplet(Subspecies.DEMON));
 			this.setPlayerKnowsName(true);
 			setDescription("As a high-ranking member of the 'Cult of Lilith', it's obvious to anyone that this demon is extremely powerful."
 					+ " You aren't exactly 'anyone', however, and as you get close to her, you can almost physically feel the power of her arcane aura as it comes into contact with yours...");
@@ -195,13 +194,13 @@ public class Cultist extends NPC {
 		
 		List<AbstractClothingType> clothingChoices = new ArrayList<>();
 		
-		clothingChoices.add(ClothingType.GROIN_CROTCHLESS_PANTIES);
-		clothingChoices.add(ClothingType.GROIN_CROTCHLESS_THONG);
+		clothingChoices.add(ClothingType.getClothingTypeFromId("innoxia_groin_crotchless_panties"));
+		clothingChoices.add(ClothingType.getClothingTypeFromId("innoxia_groin_crotchless_thong"));
 		equipClothingFromNowhere(Main.game.getItemGen().generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
 		
 		clothingChoices.clear();
 		clothingChoices.add(ClothingType.getClothingTypeFromId("innoxia_chest_lacy_plunge_bra"));
-		clothingChoices.add(ClothingType.CHEST_PLUNGE_BRA);
+		clothingChoices.add(ClothingType.getClothingTypeFromId("innoxia_chest_plunge_bra"));
 		equipClothingFromNowhere(Main.game.getItemGen().generateClothing(clothingChoices.get(Util.random.nextInt(clothingChoices.size())), underwearColour, false), true, this);
 		
 		clothingChoices.clear();
@@ -407,7 +406,7 @@ public class Cultist extends NPC {
 	
 	@Override
 	public String getCondomEquipEffects(AbstractClothingType condomClothingType, GameCharacter equipper, GameCharacter target, boolean rough) {
-		if(Main.game.isInSex()) {
+		if(!target.equals(equipper) && Main.game.isInSex()) {
 			if((Main.sex.isDom(Main.game.getPlayer()) || Main.sex.isSubHasEqualControl()) && !target.isPlayer()) {
 				if(condomClothingType.equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))) {
 					return null;

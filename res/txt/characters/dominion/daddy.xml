@@ -359,7 +359,7 @@
 		[genericMale.speech(Good evening, [daddy.name], may I assist you with anything this evening?)] the waiter responds in a friendly tone, clearly being on good terms with the incubus.
 	</p>
 	<p>
-		[daddy.speech(Yeah, you able to get the two of us a table?)] your companion asks.
+		[daddy.speech(Yeah, are you able to get the two of us a table?)] your companion asks.
 	</p>
 	<p>
 		[genericMale.speech(I don't think the boss would ever forgive me if I were to say no to you. Let me see what I can do,)] the waiter says, before stepping back into the restaurant.
@@ -390,7 +390,7 @@
 		[genericMale.speech(Good evening, [daddy.name], may I assist you and your partner with anything this evening?)] the waiter responds in a friendly tone, clearly being on good terms with your companion.
 	</p>
 	<p>
-		[daddy.speech(Yeah, you able to get the two of us a table?)]
+		[daddy.speech(Yeah, are you able to get the two of us a table?)]
 	</p>
 	<p>
 		[genericMale.speech(I don't think the boss would ever forgive me if I were to say no to you. Let me see what I can do,)] the waiter says, before stepping back into the restaurant.
@@ -1448,9 +1448,9 @@
 	</htmlContent>
 	
 	
-	<!-- AFTER_APARTMET_SEX -->
+	<!-- AFTER_APARTMENT_SEX -->
 	
-	<htmlContent tag="AFTER_APARTMET_SEX"><![CDATA[
+	<htmlContent tag="AFTER_APARTMENT_SEX"><![CDATA[
 	<p>
 		Disentangling yourselves from one another, you and [daddy.name] collapse back onto [daddy.her] bed, panting for breath. Once you've recovered from your exertion, you roll over onto your side, before teasing [pc.a_finger] over [daddy.her] [daddy.breasts] and telling [daddy.herHim] how good that was.
 	</p>
@@ -1466,7 +1466,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="LILAYA_AFTER_APARTMET_SEX"><![CDATA[
+	<htmlContent tag="LILAYA_AFTER_APARTMENT_SEX"><![CDATA[
 	<p>
 		Disentangling yourselves from one another, you and [daddy.name] collapse back onto [daddy.her] bed, panting for breath. Once you've recovered from your exertion, you roll over onto your side, before teasing [pc.a_finger] over [daddy.her] [daddy.breasts] and telling [daddy.herHim] how good that was.
 	</p>
@@ -1487,7 +1487,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="AFTER_APARTMET_SEX_HOME"><![CDATA[
+	<htmlContent tag="AFTER_APARTMENT_SEX_HOME"><![CDATA[
 	<p>
 		After lying next to one another for a while, you eventually decide that it's time for you to leave, and, after putting your clothes back on, [daddy.name] leads you back to [daddy.her] front door. Leaning in to plant one last kiss on your [pc.lips+] [daddy.she] says,
 		#IF(pc.getQuest(QUEST_LINE_SIDE_DADDY) == QUEST_DADDY_ACCEPTED)
@@ -1502,7 +1502,7 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="LILAYA_AFTER_APARTMET_SEX_HOME"><![CDATA[
+	<htmlContent tag="LILAYA_AFTER_APARTMENT_SEX_HOME"><![CDATA[
 	<p>
 		After lying next to one another for a while, you eventually decide that it's time for you to leave, and, after putting your clothes back on, [daddy.name] leads you and Lilaya back to [daddy.her] front door. Leaning in to plant one last kiss on each of your lips, [daddy.she] says, [daddy.speech(I really had a lot of fun tonight. Please come and visit me again soon!)]
 	</p>

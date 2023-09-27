@@ -52,6 +52,7 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -109,6 +110,9 @@ public class FortressMalesLeader extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
 			this.setTesticleCount(2);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.7.11")) {
+			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 		}
 	}
 
@@ -241,20 +245,30 @@ public class FortressMalesLeader extends NPC {
 		
 		this.unequipAllClothingIntoVoid(true, true);
 		
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.STOMACH_SARASHI, PresetColour.CLOTHING_WHITE, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_stomach_sarashi", PresetColour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_wraps", PresetColour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.GROIN_BRIEFS, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_briefs", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_leg_mens_hakama"), PresetColour.CLOTHING_BLACK, false), true, this);
 
 		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
-			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_japaneseSwords_katana"), DamageType.PHYSICAL));
-			this.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_japaneseSwords_wakizashi"), DamageType.FIRE));
+			AbstractWeapon katana = Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_japaneseSwords_katana"), DamageType.PHYSICAL);
+			katana.setColours(Util.newArrayListOfValues(PresetColour.CLOTHING_RED_VERY_DARK, PresetColour.CLOTHING_YELLOW, PresetColour.CLOTHING_RED_VERY_DARK, PresetColour.CLOTHING_YELLOW));
+			this.equipMainWeaponFromNowhere(katana);
+
+			AbstractWeapon wakizashi = Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_japaneseSwords_wakizashi"), DamageType.FIRE);
+			wakizashi.setColours(Util.newArrayListOfValues(PresetColour.CLOTHING_RED_VERY_DARK, PresetColour.CLOTHING_YELLOW, PresetColour.CLOTHING_RED_VERY_DARK, PresetColour.CLOTHING_YELLOW));
+			this.equipOffhandWeaponFromNowhere(wakizashi);
 		}
 	}
 	
 	@Override
 	public boolean isUnique() {
 		return true;
+	}
+
+	@Override
+	public String getArtworkFolderName() {
+		return "Jhortrax";
 	}
 
 	@Override
@@ -277,7 +291,7 @@ public class FortressMalesLeader extends NPC {
 	}
 
 	public boolean isAbleToEquipThong(GameCharacter target) {
-		AbstractClothing thong = Main.game.getItemGen().generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, PresetColour.CLOTHING_RED_DARK, null);
+		AbstractClothing thong = Main.game.getItemGen().generateClothing("innoxia_groin_crotchless_thong", PresetColour.CLOTHING_RED_DARK, null);
 		return target.isAbleToEquip(thong, true, this)
 				&& Main.sex.getSexTypeCount(this, target, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))>0
 				&& (target.getClothingInSlot(InventorySlot.GROIN)==null || !target.getClothingInSlot(InventorySlot.GROIN).getName().contains(UtilText.parse(this,"[npc.Name]")));	

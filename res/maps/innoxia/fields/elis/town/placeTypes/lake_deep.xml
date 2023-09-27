@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[lake]]></name>
+	<tooltipDescription><![CDATA[The middle of the lake is surprisingly deep, and could easily conceal an underwater treasure.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in the lake to the north-east of Elis]]></virginityLossDescription>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<colour>BASE_BLUE_DARK</colour>
+	<backgroundColour>MAP_BACKGROUND_BLUE</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_fields_elis_generic_lake_deep</dialogue>
+	<furniturePresent>false</furniturePresent>
+	<loiteringEnabled>false</loiteringEnabled>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[WATER_SURFACE]]></aquatic>
+	<darkness><![CDATA[DAYLIGHT]]></darkness>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<weatherImmunities/>
+	<applyInventoryInit/>
+</placeType>

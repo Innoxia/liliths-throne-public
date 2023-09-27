@@ -13,6 +13,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -45,14 +46,16 @@ import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
+ * This NPC doesn't spawn with addictive fluids so as to prevent issues with randomly getting their partners addicted to fluids.
+ * 
  * @since 0.2.2
- * @version 0.4.1
+ * @version 0.4.8.4
  * @author Innoxia
  */
 public class GenericSexualPartner extends NPC {
 
 	public GenericSexualPartner() {
-		this(Gender.F_V_B_FEMALE, WorldType.EMPTY, new Vector2i(0, 0), false);
+		this(Gender.getGenderFromUserPreferences(false, false), WorldType.EMPTY, new Vector2i(0, 0), false);
 	}
 	
 	public GenericSexualPartner(boolean isImported) {
@@ -110,10 +113,9 @@ public class GenericSexualPartner extends NPC {
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
 	
-			setName(Name.getRandomTriplet(this.getRace()));
+			setName(Name.getRandomTriplet(this.getSubspecies()));
 			this.setPlayerKnowsName(false);
-			setDescription(UtilText.parse(this,
-					"[npc.Name] is a resident of Dominion, who's currently only interested in having sex."));
+			setDescription(UtilText.parse(this, "[npc.NameIsFull] [npc.a_race]."));
 			
 			// PERSONALITY & BACKGROUND:
 			
@@ -126,6 +128,11 @@ public class GenericSexualPartner extends NPC {
 			// BODY RANDOMISATION:
 			
 			Main.game.getCharacterUtils().randomiseBody(this, true);
+			// Do not allow addictive fluids:
+			this.removeMilkCrotchModifier(FluidModifier.ADDICTIVE);
+			this.removeMilkModifier(FluidModifier.ADDICTIVE);
+			this.removeCumModifier(FluidModifier.ADDICTIVE);
+			this.removeGirlcumModifier(FluidModifier.ADDICTIVE);
 			
 			// INVENTORY:
 			
@@ -134,6 +141,7 @@ public class GenericSexualPartner extends NPC {
 
 			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
 			Main.game.getCharacterUtils().applyMakeup(this, true);
+			Main.game.getCharacterUtils().applyTattoos(this, true);
 			
 			// Set starting attributes based on the character's race
 			initPerkTreeAndBackgroundPerks();
@@ -261,7 +269,7 @@ public class GenericSexualPartner extends NPC {
 					sb.append("As [npc.namePos] [npc.cock+] thrusts into your [pc.pussy+] to tear your hymen and claim your virginity, you can't help but let out a lewd, masochistic scream."
 							+ " The agonising pain of having your hymen torn by a person you've never even seen or spoken to before completely overwhelms you, and you can't help but squeal and moan in a delightful haze of overwhelming ecstasy.");
 				} else {
-					sb.append("As [npc.namePos] [npc.cock+] thrusts into your [pc.pussy+] claim your virginity, you can't help but let out a desperate, shuddering wail."
+					sb.append("As [npc.namePos] [npc.cock+] thrusts into your [pc.pussy+] to claim your virginity, you can't help but let out a desperate, shuddering wail."
 							+ " The agonising pain of having your hymen torn by a person you've never even seen or spoken to before completely overwhelms you, and you squirm about on the table as you try to endure this terrible experience.");
 				}
 			sb.append("</p>");
@@ -296,7 +304,7 @@ public class GenericSexualPartner extends NPC {
 									+ " but as [npc.namePos] [npc.cock+] claims your precious virginity, you don't have any time to reflect on your poor choice."
 								+ " The only thing that's on your mind is the fact that you're being broken in by a person you've never even seen or spoken to before, and you can't help but continue to desperately cry out as [npc.she] penetrates you.");
 				} else {
-					sb.append("As [npc.namePos] [npc.cock+] thrusts into your [pc.pussy+] claim your virginity, you can't help but let out a desperately lewd [pc.moan]."
+					sb.append("As [npc.namePos] [npc.cock+] thrusts into your [pc.pussy+] to claim your virginity, you can't help but let out a desperately lewd [pc.moan]."
 							+ " This person who you've never even seen or spoken to before is giving you a feeling unlike any you've felt before, and you can't help but continue to scream and [pc.moan] in a delightful haze of overwhelming ecstasy.");
 				}
 			sb.append("</p>");
@@ -330,7 +338,8 @@ public class GenericSexualPartner extends NPC {
 	
 	@Override
 	public String getSpecialPlayerPureVirginityLoss(GameCharacter penetratingCharacter, SexAreaPenetration penetrating) {
-		return "<p style='text-align:center;'>"
+		return UtilText.parse(penetratingCharacter,
+				"<p style='text-align:center;'>"
 					+ "<b style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
 				+ "</p>"
 				+ "<p>"
@@ -342,22 +351,26 @@ public class GenericSexualPartner extends NPC {
 				+ "</p>"
 				+ "<p>"
 					+ "You don't know what's worse, losing the virginity that you prized so highly, or the fact that you're actually enjoying it."
-					+ " As your [pc.labia+] spread lewdly around the hot, thick [npc.cock] pumping in and out of you, you start convincing yourself that this is all you're good for."
+					+ " As your [pc.labia+] spread lewdly around the "
+					+ (penetrating==SexAreaPenetration.PENIS
+						?"hot, thick [npc.cock]"
+						:penetrating.getName(penetratingCharacter))
+					+ " that's pumping in and out of you, you start convincing yourself that this is all you're good for."
 				+ "</p>"
 				+ "<p style='text-align:center;'>"
 				+ UtilText.parsePlayerThought("If I'm not a virgin, that makes me a slut...<br/>"
-						+ "Just a slut to be fucked and pumped full of cum...<br/>"
-						+ "If this [npc.race] doesn't knock me up, I hope one of the other breeders makes me a Mommy...")
+						+ "Just a slut to be fucked by whoever wants to use me...<br/>"
+						+ "After this [npc.race] is done with me, I bet it won't be long before I'm fucked by someone else...")
 				+ "</p>"
 				+ "<p>"
-					+ "You're vaguely aware of [npc.namePos] taunts fading away as [npc.she] starts to focus [npc.her] attention on fucking you."
-					+ " With a desperate moan,"
+					+ "You're vaguely aware of [npc.name] [npc.moaning] in triumphant pleasure as [npc.she] realises that [npc.sheHas] just taken your virginity."
+					+ " With a desperate [pc.moan],"
 					+ (Main.game.getPlayer().hasLegs()
 						?" you spread your legs and"
 						:" you")
 					+ " resign yourself to the fact that you're now nothing more than a"
 					+ " <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
-				+ "</p>";
+				+ "</p>");
 	}
 	
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<coveringType>
+	<category>MAIN_FUR</category>
+	
+	<determiner><![CDATA[a layer of]]></determiner>
+	
+	<name><![CDATA[fur]]></name>
+	
+	<namePlural pluralByDefault="false"><![CDATA[fur]]></namePlural> 
+	
+	<naturalCoveringModifiers>
+		<modifier>SHORT</modifier>
+	</naturalCoveringModifiers>
+	
+	<extraCoveringModifiers/>
+	
+	<naturalPatterns>
+		<pattern weighting="1">NONE</pattern>
+	</naturalPatterns>
+	
+	<extraPatterns>
+		<pattern weighting="1">HIGHLIGHTS</pattern>
+		<pattern weighting="1">STRIPED</pattern>
+		<pattern weighting="1">SPOTTED</pattern>
+		<pattern weighting="1">MOTTLED</pattern>
+		<pattern weighting="1">MARKED</pattern>
+	</extraPatterns>
+	
+	<naturalColoursPrimary values="naturalFurColours"/>
+	<extraColoursPrimary values="allCoveringColours"/>
+	
+	<naturalColoursSecondary values="naturalFurColours"/>
+	<extraColoursSecondary values="allCoveringColours"/>
+	
+</coveringType>

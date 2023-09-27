@@ -43,7 +43,7 @@ public class ToiletStall {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Main.sex.getCharacterPerformingAction().equals(Main.sex.getCharacterTargetedForSexAction(this))
-					&& Main.sex.getSexManager().isSwapPositionAllowed(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))
+					&& Main.sex.getInitialSexManager().isSwapPositionAllowed(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))
 //					&& Main.sex.getInitialSexManager().isPositionChangingAllowed(Main.sex.getCharacterPerformingAction()) // Should be covered in the method above
 					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
 					&& Main.sex.getCharacterPerformingAction().isPlayer();
@@ -73,6 +73,7 @@ public class ToiletStall {
 	
 	private static boolean checkBaseRequirements(PositioningData data, boolean request) {
 		return Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
+				&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(data.getPosition())
 				&& !(Main.sex.getPosition() == data.getPosition()
 					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==data.getPerformerSlots().get(0)
 					&& Main.sex.getSexPositionSlot(Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()))==data.getPartnerSlots().get(0))

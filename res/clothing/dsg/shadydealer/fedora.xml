@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+
+	<coreAtributes>
+		
+		<authorTag><![CDATA[A label reading "MFD by DSG Threadworks" is sewn into the inside of the crown.]]></authorTag>
+
+		<value>100</value> 
+
+		<determiner><![CDATA[a]]></determiner>
+
+		<name><![CDATA[fedora]]></name>
+
+		<namePlural pluralByDefault="false"><![CDATA[fedoras]]></namePlural> 
+
+		<description><![CDATA[A hat with an indented crown and decorative ribbon band, it has a relatively wide brim compared to many others of its style. It is made of woollen felt and hemmed for durability.]]></description> 
+
+		<physicalResistance>0</physicalResistance> 
+
+		<femininity>ANDROGYNOUS</femininity> 
+
+		<slot>HEAD</slot> 
+
+		<rarity>COMMON</rarity> 
+
+		<clothingSet/>
+
+		<imageName>fedora.svg</imageName> 
+
+		<imageEquippedName/>
+
+		<effects/> 
+
+		<blockedPartsList> 
+
+			<blockedParts>
+
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+
+				<clothingAccessRequired>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired> 
+
+				<blockedBodyParts>
+					<bodyPart>HAIR</bodyPart>
+				</blockedBodyParts>
+
+				<clothingAccessBlocked/> 
+
+				<concealedSlots/> 
+			</blockedParts>
+			
+		</blockedPartsList>
+
+		<incompatibleSlots/> 
+
+		<primaryColours values="ALL"/> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="ALL"/> 
+		<secondaryColoursDye values="ALL"/>
+
+		<itemTags>
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAtributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(put)] the fedora on.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(put)] the fedora on [npc2.namePos] head.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(force)] the fedora down on [npc2.namePos] head.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(take)] [npc.her] fedora off.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(take)] [npc2.namePos] fedora off.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(slap)] [npc2.namePos] fedora off.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

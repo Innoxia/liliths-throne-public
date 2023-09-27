@@ -1,7 +1,9 @@
 package com.lilithsthrone.game.dialogue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -27,13 +29,16 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.4
+ * @version 0.4.4
  * @author Innoxia
  */
 public class DialogueFlags implements XMLSaving {
 	
-	public static int MUGGER_DEMAND_1 = 250;
-	public static int MUGGER_DEMAND_2 = 500;
+	private int muggerDemand1 = 250; // Dominion
+	private int muggerDemand2 = 500; // Submission
+	private int muggerDemand3 = 750; // Elis
+	
+	private int prostituteFine = 10_000;
 	
 	public Set<AbstractDialogueFlagValue> values;
 	
@@ -342,8 +347,23 @@ public class DialogueFlags implements XMLSaving {
 		}
 	}
 
-	public void dailyReset() {
-		values.removeIf((flag)->flag.isDailyReset());
+	/**
+	 * @return A list of which flags were reset.
+	 */
+	public List<AbstractDialogueFlagValue> applyTimePassingResets(int startHour, int hoursPassed) {
+		List<AbstractDialogueFlagValue> flagsReset = new ArrayList<>();
+		
+		for(AbstractDialogueFlagValue flag : new HashSet<>(values)) {
+			if(flag.getResetHour()>-1) {
+				if((startHour<flag.getResetHour() && startHour+hoursPassed>=flag.getResetHour())
+						|| ((startHour-24)+hoursPassed>=flag.getResetHour())) {
+					flagsReset.add(flag);
+					values.remove(flag);
+				}
+			}
+		}
+		
+		return flagsReset;
 	}
 
 	public boolean hasFlag(AbstractDialogueFlagValue flag) {
@@ -352,6 +372,14 @@ public class DialogueFlags implements XMLSaving {
 
 	public boolean hasFlag(String flagId) {
 		return values.contains(DialogueFlagValue.getDialogueFlagValueFromId(flagId));
+	}
+
+	public void setFlag(String flagId, boolean flagMarker) {
+		if(flagMarker) {
+			values.add(DialogueFlagValue.getDialogueFlagValueFromId(flagId));
+		} else {
+			values.remove(DialogueFlagValue.getDialogueFlagValueFromId(flagId));
+		}
 	}
 	
 	public void setFlag(AbstractDialogueFlagValue flag, boolean flagMarker) {
@@ -365,6 +393,16 @@ public class DialogueFlags implements XMLSaving {
 	public void setSavedLong(String id, long value) {
 		savedLongs.put(id, value);
 	}
+	
+	public void setSavedLong(String id, String value) {
+		try {
+			long valueLong = Long.valueOf(value);
+			setSavedLong(id, valueLong);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
 
 	/**
 	 * @return Increments the long saved to this id. Sets to -1 before incrementing if there was no entry found.
@@ -389,6 +427,22 @@ public class DialogueFlags implements XMLSaving {
 		return savedLongs.get(id);
 	}
 	
+	public int getMuggerDemand1() {
+		return muggerDemand1;
+	}
+
+	public int getMuggerDemand2() {
+		return muggerDemand2;
+	}
+
+	public int getMuggerDemand3() {
+		return muggerDemand3;
+	}
+
+	public int getProstituteFine() {
+		return prostituteFine;
+	}
+
 	public NPC getSlaveTrader() {
 		if(slaveTrader==null || slaveTrader.isEmpty()) {
 			return null;

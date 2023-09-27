@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<authorTag><![CDATA['Printed by DSG Stationery Co.' is lightly embossed on the back.]]></authorTag>
+		
+		<value>100</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[HappyRat Gold+ discount card]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[HappyRat Gold+ discount cards]]></namePlural>
+		<description><![CDATA[A plastic card, bearing a golden, holographic icon of a smiling rat's face. The writing on the front identifies it as a 'HappyRat Gold+ discount card', which can be used at 'any Hazmat Rat vending machine'.]]></description> 
+		
+		<useDescriptor>examine</useDescriptor>
+		
+		<sexUse>false</sexUse>
+		<combatUseAllies>false</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>false</consumedOnUse>
+		
+		<rarity>QUEST</rarity> 
+		
+		<imageName>hazmat_rat_card.svg</imageName> 
+		
+		<colourPrimary>CLOTHING_GOLD</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[Provides a [style.colourExcellent(50% discount)] at all [style.colourGreen(Hazmat Rat vending machines)]]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+		<p>
+			This plastic card is the same size and shape as a credit card, and bears a golden, holographic icon of a smiling rat's face. The writing on the front identifies it as a 'HappyRat Gold+ discount card', which can be used at 'any Hazmat Rat vending machine'.
+		</p>
+		]]></applyEffects>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(take)] a closer look at the HappyRat card...
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(show)] off [npc.her] HappyRat card to [npc2.name], who is duly impressed by [npc.her] possession of it...
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

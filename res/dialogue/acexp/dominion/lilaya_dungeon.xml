@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+    <scene id ="stairsUp">
+        <author><![CDATA[AceXp]]></author>
+        <title><![CDATA[Stairs up]]></title>
+        <tooltip><![CDATA[Head up the stairs and return to the library...]]></tooltip>
+        <preParsingEffects/>
+        <content folderPath="txt/acexp/dominion/lilaya_dungeon">STAIRS_UP</content>
+        <secondsPassed ><![CDATA[20]]></secondsPassed>
+        <continuesDialogue>false</continuesDialogue>
+        <travelDisabled>false</travelDisabled>
+        <responses>
+            <response>
+                <availabilityConditional><![CDATA[true]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[Stairs up]]></responseTitle>
+                <responseTooltip><![CDATA[Head up the spiral staircase...]]></responseTooltip>
+                <nextDialogue stripContent="true" defaultPlaceType="LILAYA_HOME_LIBRARY"/>
+                <secondsPassed ><![CDATA[20]]></secondsPassed>
+                <effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/acexp/dominion/lilaya_dungeon', 'STAIRS_UP_EXIT'))]
+					[#pc.setLocation(WORLD_TYPE_LILAYAS_HOUSE_GROUND_FLOOR, PLACE_TYPE_LILAYA_HOME_LIBRARY, false)]
+                    [#flags.setFlag(FLAG_acexp_dungeon_explored, true)]
+				]]></effects>
+            </response>
+        </responses>
+    </scene>
+
+    <scene id ="stairsUp_garden">
+        <author><![CDATA[Innoxia]]></author>
+        <title><![CDATA[Stairs up]]></title>
+        <tooltip><![CDATA[Head up the stairs and return to the garden...]]></tooltip>
+        <preParsingEffects/>
+        <content folderPath="txt/acexp/dominion/lilaya_dungeon">STAIRS_UP_GARDEN</content>
+        <secondsPassed ><![CDATA[20]]></secondsPassed>
+        <continuesDialogue>false</continuesDialogue>
+        <travelDisabled>false</travelDisabled>
+        <responses>
+            <response>
+                <availabilityConditional><![CDATA[true]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[Stairs up]]></responseTitle>
+                <responseTooltip><![CDATA[Head up the spiral staircase...]]></responseTooltip>
+                <nextDialogue stripContent="true" defaultPlaceType="LILAYA_HOME_FOUNTAIN"/>
+                <secondsPassed ><![CDATA[20]]></secondsPassed>
+                <effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/acexp/dominion/lilaya_dungeon', 'STAIRS_UP_GARDEN_EXIT'))]
+					[#pc.setLocation(WORLD_TYPE_LILAYAS_HOUSE_GROUND_FLOOR, PLACE_TYPE_LILAYA_HOME_FOUNTAIN, false)]
+                    [#flags.setFlag(FLAG_acexp_dungeon_explored, true)]
+                    [#flags.setFlag(FLAG_acexp_dungeon_garden_access_found, true)]
+				]]></effects>
+            </response>
+        </responses>
+    </scene>
+
+    <scene id ="corridor">
+        <author><![CDATA[AceXp]]></author>
+        <title><![CDATA[Corridor]]></title>
+        <tooltip><![CDATA[Corridor]]></tooltip>
+        <preParsingEffects><![CDATA[
+			#IF(RND.nextInt(100)<=20)
+				[#flags.setFlag(FLAG_acexp_dungeon_sounds_heard, true)]
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/acexp/dominion/lilaya_dungeon', 'CORRIDOR_NOISE'))]
+			#ENDIF
+		]]></preParsingEffects>
+        <content folderPath="txt/acexp/dominion/lilaya_dungeon">CORRIDOR</content>
+        <secondsPassed ><![CDATA[20]]></secondsPassed>
+        <continuesDialogue>false</continuesDialogue>
+        <travelDisabled>false</travelDisabled>
+    </scene>
+
+    <scene id ="room">
+        <author><![CDATA[AceXp]]></author>
+        <title><![CDATA[Dungeon BDSM room]]></title>
+        <tooltip><![CDATA[Room]]></tooltip>
+        <preParsingEffects/>
+        <content folderPath="txt/acexp/dominion/lilaya_dungeon">ROOM</content>
+        <secondsPassed ><![CDATA[20]]></secondsPassed>
+        <continuesDialogue>false</continuesDialogue>
+        <travelDisabled>false</travelDisabled>
+        <responses>
+            <response>
+                <availabilityConditional/>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[Call Rose]]></responseTitle>
+                <responseTooltip><![CDATA[
+                    Rose hinted she could treat you to a good time, call her to find out what she has in mind.
+                ]]></responseTooltip>
+                <colour><![CDATA[TEXT]]></colour>
+                <nextDialogue stripContent="false">acexp_dominion_lilaya_dungeon_room_rose</nextDialogue>
+                <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+                <effects><![CDATA[
+                    [#rose.setLocation(pc, false)]
+                ]]></effects>
+                <requiredFetishes/>
+                <corruptionLevel/>
+                <requiredPerks/>
+                <requiredFemininity/>
+                <requiredSubspecies/>
+                <tradingVariables/>
+                <combatVariables/>
+            </response>
+        </responses>
+    </scene>
+
+    <scene id ="room_rose">
+        <author><![CDATA[AceXp]]></author>
+        <title><![CDATA[Dungeon BDSM room]]></title>
+        <tooltip><![CDATA[Room]]></tooltip>
+        <preParsingEffects/>
+        <content folderPath="txt/acexp/dominion/lilaya_dungeon">ROOM_ROSE</content>
+        <secondsPassed ><![CDATA[20]]></secondsPassed>
+        <continuesDialogue>true</continuesDialogue>
+        <travelDisabled>true</travelDisabled>
+        <responses>
+            <response>
+                <availabilityConditional/>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[Dungeon]]></responseTitle>
+                <responseTooltip><![CDATA[Ask Rose about the dungeon.]]></responseTooltip>
+                <nextDialogue>acexp_dominion_lilaya_dungeon_room_rose_talk_history</nextDialogue>
+                <effects/>
+            </response>
+            <response>
+                <availabilityConditional/>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[2]]></index>
+                <responseTitle><![CDATA[Bedroom]]></responseTitle>
+                <responseTooltip><![CDATA[Ask Rose about this room that you are in.]]></responseTooltip>
+                <nextDialogue>acexp_dominion_lilaya_dungeon_room_rose_talk_room</nextDialogue>
+            </response>
+            <response>
+                <availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_acexp_dungeon_sex)]]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[3]]></index>
+                <responseTitle><![CDATA[Dominated]]></responseTitle>
+                <responseTooltip><![CDATA[
+                    Surrender yourself to Rose and let her dominate you.
+                ]]></responseTooltip>
+                <colour><![CDATA[TEXT]]></colour>
+                <nextDialogue stripContent="false"><![CDATA[default]]></nextDialogue>
+                <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+                <effects><![CDATA[
+                    [#flags.setFlag(FLAG_acexp_dungeon_sex, true)]
+                    [#flags.setFlag(FLAG_acexp_dungeon_sex_revealed, true)]
+                    [#rose.equipClothingFromNowhere(itemGen.generateClothing('innoxia_bdsm_penis_strapon', COLOUR_CLOTHING_PINK_HOT, false), true, rose)]
+                ]]></effects>
+                <requiredFetishes>
+                    <fetish><![CDATA[FETISH_MASOCHIST]]></fetish>
+                    <fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+                    <fetish><![CDATA[FETISH_BONDAGE_VICTIM]]></fetish>
+                </requiredFetishes>
+                <corruptionLevel><![CDATA[FOUR_LUSTFUL]]></corruptionLevel>
+                <requiredPerks/>
+                <requiredFemininity/>
+                <requiredSubspecies/>
+                <tradingVariables/>
+                <combatVariables/>
+                <sexVariablesWithManager enabled="true">
+                    <id><![CDATA[acexp_lilaya_dungeon]]></id>
+                    <startingPosition><![CDATA[STOCKS]]></startingPosition>
+                    <dominants>
+                        <character>
+                            <id>rose</id>
+                            <slot><![CDATA[STOCKS_BEHIND_STOCKS]]></slot>
+                        </character>
+                    </dominants>
+                    <submissives>
+                        <character>
+                            <id>pc</id>
+                            <slot><![CDATA[STOCKS_LOCKED_IN_STOCKS]]></slot>
+                        </character>
+                    </submissives>
+                    <dominantSpectators/>
+                    <submissiveSpectators/>
+                    <postSexDialogue><![CDATA[acexp_dominion_lilaya_dungeon_after_sex]]></postSexDialogue>
+                    <sexStartContent folderPath="txt/acexp/dominion/lilaya_dungeon">SEX_START</sexStartContent>
+                    <ongoingActionsAtStart/>
+                </sexVariablesWithManager>
+            </response>
+            <response>
+                <availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_acexp_dungeon_sex)]]]></availabilityConditional>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[3]]></index>
+                <responseTitle><![CDATA[Dominated]]></responseTitle>
+                <responseTooltip><![CDATA[
+                    You can't be dominated by Rose right now. <br/>[style.italicsMinorBad(You need to wait until the next day.)]
+                ]]></responseTooltip>
+                <nextDialogue><![CDATA[null]]></nextDialogue>
+            </response>
+            <response>
+                <availabilityConditional/>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[4]]></index>
+                <responseTitle><![CDATA[Dismiss Rose]]></responseTitle>
+                <responseTooltip><![CDATA[Tell Rose she can continue with her duties.]]></responseTooltip>
+                <nextDialogue stripContent="false">acexp_dominion_lilaya_dungeon_room</nextDialogue>
+                <secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+                <effects><![CDATA[
+                    [#rose.returnToHome()]
+				]]></effects>
+            </response>
+        </responses>
+    </scene>
+
+	<scene id="room_rose_talk_history">
+        <content folderPath="txt/acexp/dominion/lilaya_dungeon">TALK_DUNGEON</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="acexp_dominion_lilaya_dungeon_room_rose">
+            <response>
+                <availabilityConditional/>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[Dungeon]]></responseTitle>
+                <responseTooltip><![CDATA[You're already asking Rose about the dungeon!]]></responseTooltip>
+                <nextDialogue>null</nextDialogue>
+                <effects/>
+            </response>
+		</responses>
+	</scene>
+
+	<scene id="room_rose_talk_room">
+        <content folderPath="txt/acexp/dominion/lilaya_dungeon">TALK_ROOM</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="acexp_dominion_lilaya_dungeon_room_rose">
+            <response>
+                <availabilityConditional/>
+                <responseTabIndex><![CDATA[0]]></responseTabIndex>
+                <index><![CDATA[2]]></index>
+                <responseTitle><![CDATA[Bedroom]]></responseTitle>
+                <responseTooltip><![CDATA[You're already asking Rose about this room!]]></responseTooltip>
+                <nextDialogue>null</nextDialogue>
+                <effects/>
+            </response>
+		</responses>
+	</scene>
+	
+    <scene id ="after_sex">
+        <author><![CDATA[AceXp]]></author>
+        <title><![CDATA[Finished]]></title>
+        <tooltip><![CDATA[You need some time to recover...]]></tooltip>
+        <preParsingEffects><![CDATA[
+            [#rose.returnToHome()]
+            [#rose.unequipClothingIntoVoid(rose.getClothingInSlot(IS_GROIN), true, rose)]
+		]]></preParsingEffects>
+        <content folderPath="txt/acexp/dominion/lilaya_dungeon">AFTER_SEX</content>
+        <secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+        <continuesDialogue>false</continuesDialogue>
+        <travelDisabled>false</travelDisabled>
+    </scene>
+
+</dialogueNodes>

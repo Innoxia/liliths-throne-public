@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELDS</worldRegion>
+	<name><![CDATA[Evelyx's Dairy]]></name>
+	<tooltipDescription><![CDATA[Located out in the Foloi Fields to the North-East of Elis, this dairy farm has somehow managed to avoid destruction at the hands and hoofs of Lunette's marauders.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[near Evelyx's Dairy]]></virginityLossDescription>
+	<sexBlockedFromCharacterPresent>false</sexBlockedFromCharacterPresent>
+	<colour>BASE_YELLOW_LIGHT</colour>
+	<backgroundColour>MAP_BACKGROUND_GREEN</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_fields_dairyFarm_exterior</dialogue>
+	<populationPresent/>
+	<furniturePresent>false</furniturePresent>
+	<globalMapTile>true</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<weatherImmunities/>
+	<applyInventoryInit/>
+</placeType>

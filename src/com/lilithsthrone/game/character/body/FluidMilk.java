@@ -189,14 +189,20 @@ public class FluidMilk implements FluidInterface {
 			return UtilText.parse(owner,
 					"<p>"
 						+ "A soothing warmth spreads through [npc.namePos] [npc.crotchBoobs], causing [npc.herHim] to let out a contented little sigh.<br/>"
-						+ "[npc.NamePos] [npc.crotchMilk] now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>."
+						+ "[npc.NamePos] [npc.crotchMilk] "
+						+ (flavour==FluidFlavour.FLAVOURLESS
+							?"is now <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>"
+							:"now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>.")
 					+ "</p>");
 			
 		} else {
 			return UtilText.parse(owner,
 					"<p>"
 						+ "A soothing warmth spreads through [npc.namePos] [npc.breasts], causing [npc.herHim] to let out a contented little sigh.<br/>"
-						+ "[npc.NamePos] [npc.milk] now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>."
+						+ "[npc.NamePos] [npc.milk] "
+						+ (flavour==FluidFlavour.FLAVOURLESS
+							?"is now <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>"
+							:"now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>.")
 					+ "</p>");
 		}
 	}
@@ -232,6 +238,22 @@ public class FluidMilk implements FluidInterface {
 							+ "</p>");
 				}
 			case ALCOHOLIC:
+				fluidModifiers.remove(FluidModifier.ALCOHOLIC_WEAK);
+				if(this.isCrotchMilk()) {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A strange, soothing warmth spreads up through [npc.namePos] [npc.crotchBoobs], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.crotchMilk] is now [style.boldGrow(strongly alcoholic)]!"
+							+ "</p>");
+				} else {
+					return UtilText.parse(owner,
+							"<p>"
+								+ "A strange, soothing warmth spreads up through [npc.namePos] [npc.breasts], causing [npc.herHim] to let out [npc.a_moan+].<br/>"
+								+ "[npc.NamePos] [npc.milk] is now [style.boldGrow(strongly alcoholic)]!"
+							+ "</p>");
+				}
+			case ALCOHOLIC_WEAK:
+				fluidModifiers.remove(FluidModifier.ALCOHOLIC);
 				if(this.isCrotchMilk()) {
 					return UtilText.parse(owner,
 							"<p>"
@@ -375,6 +397,7 @@ public class FluidMilk implements FluidInterface {
 							+ "</p>");
 				}
 			case ALCOHOLIC:
+			case ALCOHOLIC_WEAK:
 				if(this.isCrotchMilk()) {
 					return UtilText.parse(owner,
 							"<p>"
@@ -511,7 +534,7 @@ public class FluidMilk implements FluidInterface {
 	}
 	
 	public float getValuePerMl() {
-		return (0.1f + (this.getFluidModifiers().size()*0.1f)) + (this.getFlavour()!=FluidFlavour.MILK?1.5f:1);
+		return 0.01f;
 	}
 
 	public boolean isCrotchMilk() {

@@ -71,7 +71,29 @@
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>false</travelDisabled>
-		<responses/>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Explore]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(ENCOUNTER_innoxia_elis_alleyway.isAnyEncounterAvailable())
+						Spend some time exploring the surrounding alleyways to see if you can find anything of interest.
+					#ELSE
+						You get the feeling that you're not going to find anything interesting in the surrounding alleyways, so there's no reason to waste your time exploring...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(ENCOUNTER_innoxia_elis_alleyway.isAnyEncounterAvailable())
+						defaultForceEncounter
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+				<effects/>
+			</response>
+		</responses>
 	</scene>
 	
 	<!-- Place type id: innoxia_fields_elis_town_bank -->
@@ -80,11 +102,35 @@
 		<title/>
 		<tooltip/>
 		<preParsingEffects/>
-		<content folderPath="txt/places/fields/elis/generic">BANK</content>
+		<content folderPath="txt/places/fields/elis/bank">EXTERIOR</content>
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>false</travelDisabled>
-		<responses/>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#(game.getDayOfWeek()==DOW_SUNDAY && !game.isHourBetween(10, 16)) || (game.getDayOfWeek()!=DOW_SUNDAY && !game.isHourBetween(9, 17))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[The bank is currently closed...]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+				<effects/>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#(game.getDayOfWeek()==DOW_SUNDAY && game.isHourBetween(10, 16)) || (game.getDayOfWeek()!=DOW_SUNDAY && game.isHourBetween(9, 17))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[Enter the bank.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_bank_exit"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_bank, PLACE_TYPE_innoxia_fields_elis_bank_exit)]
+					[#game.moveBankInventory()]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/bank', 'ENTER'))]
+				]]></effects>
+			</response>
+		</responses>
 	</scene>
 	
 	<!-- Place type id: innoxia_fields_elis_town_cult -->
@@ -110,7 +156,30 @@
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>false</travelDisabled>
-		<responses/>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isHourBetween(8, 20))
+						Head inside the Enforcer station...
+					#ELSE
+						The enforcer station is currently closed to members of the public...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.isHourBetween(8, 20))
+						innoxia_places_fields_elis_enforcer_station_exit_initial_entry
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_enforcer_station, PLACE_TYPE_innoxia_fields_elis_enforcer_station_exit)]
+				]]></effects>
+			</response>
+		</responses>
 	</scene>
 	
 	<!-- Place type id: innoxia_fields_elis_town_fields -->
@@ -269,7 +338,11 @@
 				<nextDialogue defaultPlaceType="innoxia_fields_elis_town_fields"/>
 				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 				<effects><![CDATA[
-					[#pc.setLocation(pc.getLastCell())]
+					#IF(pc.getLastCell().getPlace().getPlaceType()==PLACE_TYPE_innoxia_fields_elis_town_fields)
+						[#pc.setLocation(pc.getLastCell())]
+					#ELSE
+						[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_town_fields)]
+					#ENDIF
 				]]></effects>
 			</response>
 			<response>
@@ -530,8 +603,8 @@
 		</responses>
 	</scene>
 	
-	<!-- Place type id: innoxia_fields_elis_town_tavern_seedy -->
-	<scene id="tavern_seedy">
+	<!-- Place type id: innoxia_fields_elis_town_tavern_alley -->
+	<scene id="tavern_alley">
 		<author><![CDATA[Innoxia]]></author>
 		<title/>
 		<tooltip/>
@@ -540,7 +613,66 @@
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>false</travelDisabled>
-		<responses/>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.isHourBetween(5, 14)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[
+					The tavern isn't open at this time of day...
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					null
+				]]></nextDialogue>
+				<effects/>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[
+					[#game.isHourBetween(0, 5) || game.isHourBetween(14, 24)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[Push open the tavern's door and head inside.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_tavern_alley_exit"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_alley, PLACE_TYPE_innoxia_fields_elis_tavern_alley_exit)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_alley', 'INITIAL_ENTRY'))]
+					[#oglix.initBeerBitches()]
+					[#game.initGamblersInElisTavern()]
+				]]></effects>
+			</response>
+			<!-- Kheiron watching: -->
+			<response>
+				<availabilityConditional><![CDATA[
+					[#pc.isQuestCompleted(QUEST_LINE_SIDE_OGLIX_BEER_BARRELS)]
+				]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Old stables]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!game.isHourBetween(6, 7))
+						You need to come back between [units.time(6)]-[units.time(7)] if you wanted to see what Golix does to Kheiron...
+					#ELSEIF(flags.hasFlag(FLAG_innoxia_oglix_kheiron_spectated_today))
+						You've already seen what Golix does to Kheiron today...
+					#ELSE
+						Sneak around the back of the tavern to the old stables so that you can watch what Golix does to Kheiron...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(!game.isHourBetween(6, 7) || flags.hasFlag(FLAG_innoxia_oglix_kheiron_spectated_today))
+						null
+					#ELSE
+						innoxia_places_fields_elis_tavern_alley_old_stables
+					#ENDIF
+				]]></nextDialogue>
+				<effects/>
+			</response>
+		</responses>
 	</scene>
 	
 	<!-- Place type id: innoxia_fields_elis_town_tavern_taur -->

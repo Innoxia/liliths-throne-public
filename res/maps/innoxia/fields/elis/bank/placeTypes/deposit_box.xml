@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[VIP deposit boxes]]></name>
+	<tooltipDescription><![CDATA[The VIP deposit boxes at the Bank of Elis utilise teleportation to make sure that clients' items are available at every branch.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[at the VIP deposit boxes in the Bank of Elis]]></virginityLossDescription>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<colour>BASE_GOLD</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_fields_elis_bank_deposit_box</dialogue>
+	<populationPresent>
+		<population>
+			<populationType plural="true" density="COUPLE">VIP</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
+		<population>
+			<populationType plural="true" density="COUPLE">CLERK</populationType>
+			<subspeciesPresent>
+				<subspecies>DEMON</subspecies>
+			</subspeciesPresent>
+		</population>
+	</populationPresent>
+	<furniturePresent>true</furniturePresent>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[false]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>OUTGOING_ONLY</teleportPermissions>
+	<weatherImmunities immuneToAll="true"/>
+	<applyInventoryInit/>
+</placeType>

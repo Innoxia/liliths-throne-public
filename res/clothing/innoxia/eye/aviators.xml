@@ -14,7 +14,6 @@
 		<clothingSet/>
 		<imageName>aviators.svg</imageName>
 		<imageEquippedName/>
-		<enchantmentLimit/>
 		<effects/>
 		
 		<blockedPartsList>
@@ -72,7 +71,7 @@
 			<![CDATA[[npc.Name] [npc.verb(take)] off [npc2.namePos] aviators.]]>
 		</other>
 		<otherRough>
-			<![CDATA[[npc.Name] [npc.verb(grabs)] [npc2.namePos] aviators and roughly [npc.verb(pull)] them off.]]>
+			<![CDATA[[npc.Name] [npc.verb(grab)] [npc2.namePos] aviators and roughly [npc.verb(pull)] them off.]]>
 		</otherRough>
 	</displacementText>
   

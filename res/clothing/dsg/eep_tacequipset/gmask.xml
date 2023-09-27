@@ -30,8 +30,6 @@
 
 		<imageEquippedName>gmask.svg</imageEquippedName>
 
-		<enchantmentLimit/>
-
 		<effects>
 			<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_POISON" potency="MAJOR_BOOST" timer="397" type="CLOTHING"/>
 			<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_POISON" potency="MAJOR_BOOST" timer="397" type="CLOTHING"/>
@@ -87,7 +85,7 @@
 			<![CDATA[[npc.Name] [npc.verb(put)] on the gas mask and [npc.verb(screw)] in a new filter cartridge.]]>
 		</self>
 		<other>
-			<![CDATA[[npc.Name] [npc.verb(push)] the gas mask onto [npc2.namePos] [npc.face] and [npc.verb(screw)] in a new filter cartridge.]]>
+			<![CDATA[[npc.Name] [npc.verb(push)] the gas mask onto [npc2.namePos] [npc2.face] and [npc.verb(screw)] in a new filter cartridge.]]>
 		</other>
 		<otherRough>
 			<![CDATA[[npc.Name] [npc.verb(force)] the gas mask onto [npc2.namePos] [npc2.face] and hastily [npc.verb(screw)] in a new filter cartridge.]]>

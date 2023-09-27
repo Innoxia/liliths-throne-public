@@ -18,7 +18,7 @@ public class ItemTypeRarityComparator implements Comparator<AbstractItemType> {
 		if (result != 0) {
 			return result;
 		} else {
-			return first.getValue(null) - second.getValue(null);
+			return first.getValue() - second.getValue();
 		}
 	}
 }

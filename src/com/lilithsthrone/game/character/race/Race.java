@@ -12,13 +12,16 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Body;
+import com.lilithsthrone.game.character.body.LegConfigurationAffinity;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.AssType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.body.valueEnums.Affinity;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.main.Main;
@@ -112,22 +115,36 @@ public class Race {
 	};
 
 	// DEMON:
+	private static HashMap<LegConfigurationAffinity, String> generateDemonNameFeralMap() {
+		HashMap<LegConfigurationAffinity, String> names = new HashMap<>();
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.BIPEDAL, "demon"));
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.ARACHNID, "demonic-spider"));
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.CEPHALOPOD, "demonic-octopus"));
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.QUADRUPEDAL, "demonic-horse"));
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.AVIAN, "demonic-eagle"));
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.TAIL, "demonic-fish"));
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.TAIL_LONG, "demonic-snake"));
+		names.put(new LegConfigurationAffinity(LegConfiguration.TAIL_LONG, Affinity.AQUATIC), "demonic-sea-serpent");
+
+		return names;
+	}
+	private static HashMap<LegConfigurationAffinity, String> generateDemonNameFeralPluralMap() {
+		HashMap<LegConfigurationAffinity, String> names = new HashMap<>();
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.BIPEDAL, "demons"));
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.ARACHNID, "demonic-spiders"));
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.CEPHALOPOD, "demonic-octopuses"));
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.QUADRUPEDAL, "demonic-horses"));
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.AVIAN, "demonic-eagles"));
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.TAIL, "demonic-fish"));
+		names.putAll(LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.TAIL_LONG, "demonic-snakes"));
+		names.put(new LegConfigurationAffinity(LegConfiguration.TAIL_LONG, Affinity.AQUATIC), "demonic-sea-serpents");
+
+		return names;
+	}
 	public static AbstractRace DEMON = new AbstractRace("demon",
 			"demons",
-			Util.newHashMapOfValues(
-					new Value<>(LegConfiguration.BIPEDAL, "demon"),
-					new Value<>(LegConfiguration.ARACHNID, "demonic-spider"),
-					new Value<>(LegConfiguration.CEPHALOPOD, "demonic-octopus"),
-					new Value<>(LegConfiguration.QUADRUPEDAL, "demonic-horse"),
-					new Value<>(LegConfiguration.TAIL, "demonic-fish"),
-					new Value<>(LegConfiguration.TAIL_LONG, "demonic-snake")),
-			Util.newHashMapOfValues(
-					new Value<>(LegConfiguration.BIPEDAL, "demons"),
-					new Value<>(LegConfiguration.ARACHNID, "demonic-spiders"),
-					new Value<>(LegConfiguration.CEPHALOPOD, "demonic-octopuses"),
-					new Value<>(LegConfiguration.QUADRUPEDAL, "demonic-horses"),
-					new Value<>(LegConfiguration.TAIL, "demonic-fish"),
-					new Value<>(LegConfiguration.TAIL_LONG, "demonic-snakes")),
+			generateDemonNameFeralMap(),
+			generateDemonNameFeralPluralMap(),
 			"demonic",
 			PresetColour.RACE_DEMON,
 			Disposition.CIVILIZED,
@@ -144,18 +161,18 @@ public class Race {
 			return true;
 		}
 		@Override
-		public String getName(GameCharacter character, boolean feral) {
-			if(feral && character!=null && character.getHalfDemonSubspecies()!=null && character.getHalfDemonSubspecies()!=Subspecies.HUMAN) {
-				return "demonic-"+character.getHalfDemonSubspecies().getFeralName(character);
+		public String getName(Body body, boolean feral) {
+			if(feral && body !=null && body.getHalfDemonSubspecies()!=null && body.getHalfDemonSubspecies()!=Subspecies.HUMAN) {
+				return "demonic-"+ body.getHalfDemonSubspecies().getFeralName(body);
 			}
-			return super.getName(character, feral);
+			return super.getName(body, feral);
 		}
 		@Override
-		public String getNamePlural(GameCharacter character, boolean feral) {
-			if(feral && character!=null && character.getHalfDemonSubspecies()!=null && character.getHalfDemonSubspecies()!=Subspecies.HUMAN) {
-				return "demonic-"+character.getHalfDemonSubspecies().getFeralNamePlural(character);
+		public String getNamePlural(Body body, boolean feral) {
+			if(feral && body !=null && body.getHalfDemonSubspecies()!=null && body.getHalfDemonSubspecies()!=Subspecies.HUMAN) {
+				return "demonic-"+ body.getHalfDemonSubspecies().getFeralNamePlural(body);
 			}
-			return super.getNamePlural(character, feral);
+			return super.getNamePlural(body, feral);
 		}
 //		// This is the same as what's found in Subspecies.DEMON
 //		@Override
@@ -263,7 +280,7 @@ public class Race {
 		}
 		
 		@Override
-		public Map<Fetish, Map<String, Integer>> getRacialFetishModifiers() {
+		public Map<AbstractFetish, Map<String, Integer>> getRacialFetishModifiers() {
 			return Util.newHashMapOfValues(
 					new Value<>(Fetish.FETISH_BREASTS_SELF,
 							Util.newHashMapOfValues(
@@ -317,24 +334,24 @@ public class Race {
 				FurryPreference.NORMAL,
 				true) {
 		@Override
-		public String getName(GameCharacter character, boolean feral) {
+		public String getName(Body body, boolean feral) {
 			if(Main.game!=null && Main.game.isSillyModeEnabled()) {
 				if(feral) {
 					return "awoo";
 				}
 				return "awoo-morph";
 			}
-			return super.getName(character, feral);
+			return super.getName(body, feral);
 		}
 		@Override
-		public String getNamePlural(GameCharacter character, boolean feral) {
+		public String getNamePlural(Body body, boolean feral) {
 			if(Main.game!=null && Main.game.isSillyModeEnabled()) {
 				if(feral) {
 					return "awoos";
 				}
 				return "awoo-morphs";
 			}
-			return super.getNamePlural(character, feral);
+			return super.getNamePlural(body, feral);
 		}
 		@Override
 		public void applyRaceChanges(Body body) {
@@ -395,24 +412,24 @@ public class Race {
 				FurryPreference.NORMAL,
 				true) {
 		@Override
-		public String getName(GameCharacter character, boolean feral) {
+		public String getName(Body body, boolean feral) {
 			if(Main.game!=null && Main.game.isSillyModeEnabled()) {
 				if(feral) {
 					return "catte";
 				}
 				return "catte-morph";
 			}
-			return super.getName(character, feral);
+			return super.getName(body, feral);
 		}
 		@Override
-		public String getNamePlural(GameCharacter character, boolean feral) {
+		public String getNamePlural(Body body, boolean feral) {
 			if(Main.game!=null && Main.game.isSillyModeEnabled()) {
 				if(feral) {
 					return "cattes";
 				}
 				return "catte-morphs";
 			}
-			return super.getNamePlural(character, feral);
+			return super.getNamePlural(body, feral);
 		}
 		@Override
 		public AbstractRacialBody getRacialBody() {
@@ -576,7 +593,7 @@ public class Race {
 		}
 		
 		@Override
-		public Map<Fetish, Map<String, Integer>> getRacialFetishModifiers() {
+		public Map<AbstractFetish, Map<String, Integer>> getRacialFetishModifiers() {
 			return Util.newHashMapOfValues(
 					new Value<>(Fetish.FETISH_IMPREGNATION,
 							Util.newHashMapOfValues(
@@ -635,6 +652,50 @@ public class Race {
 		}
 	};
 
+	// AVIAN:
+	public static AbstractRace HARPY = new AbstractRace("harpy",
+			"harpies",
+			"bird",
+			"birds",
+			"harpy",
+			PresetColour.RACE_HARPY,
+			Disposition.NEUTRAL,
+			RacialClass.BIRD,
+			CombatBehaviour.SEDUCE,
+			0.5f,
+			2,
+			4,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL,
+			false) {
+		@Override
+		public String getName(Body body, boolean feral) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled()) {
+				return "birb";
+			}
+			return super.getName(body, feral);
+		}
+		@Override
+		public String getNamePlural(Body body, boolean feral) {
+			if(Main.game!=null && Main.game.isSillyModeEnabled()) {
+				return "birbs";
+			}
+			return super.getNamePlural(body, feral);
+		}
+		@Override
+		public boolean isFlyingRace() {
+			return true;
+		}
+		@Override
+		public AbstractRacialBody getRacialBody() {
+			return RacialBody.HARPY;
+		}
+	};
+	
+	
+	// ********** SPECIAL RACES ********** //
+	
+	
 	// SLIME:
 	public static AbstractRace SLIME = new AbstractRace("slime",
 			"slimes",
@@ -660,50 +721,34 @@ public class Race {
 			return RacialBody.HUMAN;
 		}
 	};
-
-	// AVIAN:
-	public static AbstractRace HARPY = new AbstractRace("harpy",
-			"harpies",
-			"bird",
-			"birds",
-			"harpy",
-			PresetColour.RACE_HARPY,
+	
+	// DOLLS:
+	public static AbstractRace DOLL = new AbstractRace("doll",
+			"dolls",
+			"doll",
+			"dolls",
+			"doll",
+			PresetColour.RACE_DOLL,
 			Disposition.NEUTRAL,
-			RacialClass.BIRD,
-			CombatBehaviour.SEDUCE,
+			RacialClass.OTHER,
+			CombatBehaviour.BALANCED,
 			0.5f,
-			3,
-			4,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL,
+			1,
+			1,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM,
 			false) {
 		@Override
-		public String getName(GameCharacter character, boolean feral) {
-			if(Main.game!=null && Main.game.isSillyModeEnabled()) {
-				return "birb";
-			}
-			return super.getName(character, feral);
-		}
-		@Override
-		public String getNamePlural(GameCharacter character, boolean feral) {
-			if(Main.game!=null && Main.game.isSillyModeEnabled()) {
-				return "birbs";
-			}
-			return super.getNamePlural(character, feral);
-		}
-		@Override
-		public boolean isFlyingRace() {
-			return true;
+		public boolean isAbleToSelfTransform() {
+			return false;
 		}
 		@Override
 		public AbstractRacialBody getRacialBody() {
-			return RacialBody.HARPY;
+			return RacialBody.HUMAN;
 		}
 	};
 	
-
 	// ELEMENTALS:
-
 	public static AbstractRace ELEMENTAL = new AbstractRace("elemental",
 				"elementals",
 				"elemental",
