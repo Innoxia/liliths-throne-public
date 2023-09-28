@@ -91,11 +91,11 @@
 	<htmlContent tag="INTRO_EMPTY_ROOM_SEX_FEMALE_AS_MALE_START_SUB"><![CDATA[
 	#IF(pc.isFeminine() && !pc.isPenisBulgeVisible() && !pc.isTesticleBulgeVisible())
 		<p>
-			Not wanting to be the one to take the lead, you lean into [prologueFemale.namePos] [pc.breasts], before letting out a desperate [pc.moan] and begging her to fuck you. Smirking at your submissively display, [prologueFemale.name] presses her lips against yours, before thrusting her tongue into your mouth as she dominantly gropes and fondles your body. Never expecting something like this to happen today, you're glad that you always keep a condom in your purse 'just in case'. Now would be a good time to put it to use...
+			Not wanting to be the one to take the lead, you lean into [prologueFemale.namePos] [prologueFemale.breasts], before letting out a desperate [pc.moan] and begging her to fuck you. Smirking at your submissively display, [prologueFemale.name] presses her lips against yours, before thrusting her tongue into your mouth as she dominantly gropes and fondles your body. Never expecting something like this to happen today, you're glad that you always keep a condom in your purse 'just in case'. Now would be a good time to put it to use...
 		</p>
 	#ELSE
 		<p>
-			Not wanting to be the one to take the lead, you lean into [prologueFemale.namePos] [pc.breasts], before letting out a desperate [pc.moan] and begging her to fuck you. Smirking at your submissively display, [prologueFemale.name] presses her lips against yours, before thrusting her tongue into your mouth as she dominantly gropes and fondles your body. Breaking off the kiss for a moment, she pulls something out of her purse, before pushing it into your hands and saying, [prologueFemale.speech(I'd rather you didn't, but if you want to, you can wear this.)]
+			Not wanting to be the one to take the lead, you lean into [prologueFemale.namePos] [prologueFemale.breasts], before letting out a desperate [pc.moan] and begging her to fuck you. Smirking at your submissively display, [prologueFemale.name] presses her lips against yours, before thrusting her tongue into your mouth as she dominantly gropes and fondles your body. Breaking off the kiss for a moment, she pulls something out of her purse, before pushing it into your hands and saying, [prologueFemale.speech(I'd rather you didn't, but if you want to, you can wear this.)]
 		</p>
 		<p>
 			You look down to see that you've just been given a condom, still sealed in its small square packet...
@@ -110,7 +110,7 @@
 
 	<htmlContent tag="INTRO_EMPTY_ROOM_SEX_FEMALE_AS_FEMALE_START_SUB"><![CDATA[
 	<p>
-		Not wanting to be the one to take the lead, you lean into [prologueFemale.namePos] [pc.breasts], before letting out a desperate [pc.moan] and begging her to fuck you. Smirking at your submissively display, [prologueFemale.name] presses her lips against yours, before thrusting her tongue into your mouth as she dominantly gropes and fondles your body...
+		Not wanting to be the one to take the lead, you lean into [prologueFemale.namePos] [prologueFemale.breasts], before letting out a desperate [pc.moan] and begging her to fuck you. Smirking at your submissively display, [prologueFemale.name] presses her lips against yours, before thrusting her tongue into your mouth as she dominantly gropes and fondles your body...
 	</p>
 	]]>
 	</htmlContent>

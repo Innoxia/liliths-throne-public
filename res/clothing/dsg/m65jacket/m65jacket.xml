@@ -133,7 +133,7 @@
 		  <![CDATA[[npc.Name] [npc.verb(guide)] [npc2.namePos] [npc2.arms] through the jacket's sleeves and [npc.verb(pull)] the rest of it over [npc2.her] shoulders.]]>
 		</other>
 		<otherRough>
-		  <![CDATA[CDATA[[npc.Name] [npc.verb(force)] [npc2.namePos] [npc2.arms] through the jacket's sleeves and [npc.verb(yank)] the rest of it over [npc2.her] shoulders.]]>
+		  <![CDATA[[[npc.Name] [npc.verb(force)] [npc2.namePos] [npc2.arms] through the jacket's sleeves and [npc.verb(yank)] the rest of it over [npc2.her] shoulders.]]>
 		</otherRough>
 	</replacementText>
 

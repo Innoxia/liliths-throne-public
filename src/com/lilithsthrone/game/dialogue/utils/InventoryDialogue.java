@@ -818,7 +818,7 @@ public class InventoryDialogue {
 						}
 
 					} else if (index == 8 && inventoryNPC != null) {
-						return new Response(UtilText.parse(inventoryNPC, "Replace all ([npc.HerHim])"), "You can't replace clothing in sex!", null);
+						return new Response(UtilText.parse(inventoryNPC, "Replace all ([npc.HerHim])"), "You can't replace [npc.namePos] clothing in sex!", null);
 
 					} else if (index == 9 && inventoryNPC != null) {
 						if(!Main.sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), null)) {
@@ -1066,7 +1066,7 @@ public class InventoryDialogue {
 									}
 								} else {
 									if(!item.getItemType().isAbleToBeDropped()) {
-										return new Response("Store (1)", "You cannot drop the " + item.getName() + "!", null);
+										return new Response("Store (1)", "You cannot store the " + item.getName() + "!", null);
 									} else if(areaFull) {
 										return new Response("Store (1)", "This area is full, so you can't store your " + item.getName() + " here!", null);
 									} else {
@@ -1103,7 +1103,7 @@ public class InventoryDialogue {
 										return new Response("Store (5)", "You don't have five " + item.getNamePlural() + " to give!", null);
 										
 									} else if(!item.getItemType().isAbleToBeDropped()) {
-										return new Response("Store (5)", "You cannot drop the " + item.getName() + "!", null);
+										return new Response("Store (5)", "You cannot store the " + item.getName() + "!", null);
 										
 									} else if(areaFull) {
 										return new Response("Store (5)", "This area is full, so you can't store your " + item.getNamePlural() + " here!", null);
@@ -1134,7 +1134,7 @@ public class InventoryDialogue {
 									}
 								} else {
 									if(!item.getItemType().isAbleToBeDropped()) {
-										return new Response("Store (All)", "You cannot drop the " + item.getName() + "!", null);
+										return new Response("Store (All)", "You cannot store the " + item.getName() + "!", null);
 									} else if(areaFull) {
 										return new Response("Store (All)", "This area is full, so you can't store your " + item.getNamePlural() + " here!", null);
 									} else {
@@ -2076,10 +2076,10 @@ public class InventoryDialogue {
 								return getQuickTradeResponse();
 								
 							} else if(index == 11) {
-								return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (Opponent)", "You can't use make someone use an item while fighting them!", null);
+								return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (Opponent)", "You can't make someone use an item while fighting them!", null);
 								
 							} else if(index == 12) {
-								return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" all (Opponent)", "You can't use make someone use an item while fighting them!", null);
+								return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" all (Opponent)", "You can't make someone use an item while fighting them!", null);
 								
 							} else {
 								return null;
@@ -3428,10 +3428,10 @@ public class InventoryDialogue {
 								return getQuickTradeResponse();
 								
 							} else if(index == 11) {
-								return new Response("Equip Main (Opponent)", "You can't use make someone use a weapon while fighting them!", null);
+								return new Response("Equip Main (Opponent)", "You can't make someone use a weapon while fighting them!", null);
 								
 							} else if(index == 12) {
-								return new Response("Equip Offhand (Opponent)", "You can't use make someone use a weapon while fighting them!", null);
+								return new Response("Equip Offhand (Opponent)", "You can't make someone use a weapon while fighting them!", null);
 								
 							} else {
 								return null;
@@ -3618,10 +3618,10 @@ public class InventoryDialogue {
 								return getQuickTradeResponse();
 								
 							} else if(index == 11) {
-								return new Response("Equip Main (Opponent)", "You can't use make someone use a weapon while having sex with them!", null);
+								return new Response("Equip Main (Opponent)", "You can't make someone use a weapon while having sex with them!", null);
 								
 							} else if(index == 12) {
-								return new Response("Equip Offhand (Opponent)", "You can't use make someone use a weapon while having sex with them!", null);
+								return new Response("Equip Offhand (Opponent)", "You can't make someone use a weapon while having sex with them!", null);
 								
 							} else {
 								return null;
@@ -6121,7 +6121,7 @@ public class InventoryDialogue {
 							} else {
 								if(!Main.sex.getSexManager().isAbleToRemoveSelfClothing(Main.game.getPlayer())) {
 									return new Response(Util.capitaliseSentence(clothing.getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index - 11).getDescription()),
-											"You can't can't "+clothing.getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index -11).getDescription()
+											"You can't "+clothing.getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index -11).getDescription()
 											+ " "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " in this sex scene!", null);
 								}
 								
@@ -6478,7 +6478,7 @@ public class InventoryDialogue {
 									
 									if(!Main.sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer(), clothing)) {
 										return new Response(Util.capitaliseSentence(clothing.getBlockedPartsKeysAsListWithoutNONE(inventoryNPC, clothing.getSlotEquippedTo()).get(index - 11).getDescription()),
-												"You "+clothing.getBlockedPartsKeysAsListWithoutNONE(inventoryNPC, clothing.getSlotEquippedTo()).get(index -11).getDescription() + " the " + clothing.getName() + " in this sex scene!", null);
+												"You can't "+clothing.getBlockedPartsKeysAsListWithoutNONE(inventoryNPC, clothing.getSlotEquippedTo()).get(index -11).getDescription() + " the " + clothing.getName() + " in this sex scene!", null);
 									}
 									
 									return new Response(Util.capitaliseSentence(clothing.getBlockedPartsKeysAsListWithoutNONE(inventoryNPC, clothing.getSlotEquippedTo()).get(index - 11).getDescription()),
@@ -7603,7 +7603,7 @@ public class InventoryDialogue {
 					
 					if(reforgeHammerCount<stackCount) {
 						return new Response("Reforge all (stack)",
-								"You do not have enough reforging hammers to dye all the " + weapon.getNamePlural() + "! You have "+reforgeHammerCount+" reforging hammers, but there are "+stackCount+" "+weapon.getNamePlural()+" in this stack...",
+								"You do not have enough reforging hammers to reforge all the " + weapon.getNamePlural() + "! You have "+reforgeHammerCount+" reforging hammers, but there are "+stackCount+" "+weapon.getNamePlural()+" in this stack...",
 								null); 
 					}
 				}
@@ -7819,7 +7819,7 @@ public class InventoryDialogue {
 				}
 				
 				return new Response("Dye all",
-						"Dye all " + weapon.getNamePlural() + " which are in this clothing stack ("+stackCount+" in total) in the colours you have chosen."
+						"Dye all " + weapon.getNamePlural() + " which are in this weapon stack ("+stackCount+" in total) in the colours you have chosen."
 								+ (Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.EARTH)
 										?" This action is permanent, but thanks to your proficiency with [style.boldEarth(Earth spells)], you can dye them a different colour at any time."
 										:" This action is permanent, and you'll need another dye-brush if you want to change their colour again."),
@@ -7918,7 +7918,7 @@ public class InventoryDialogue {
 					
 					if(reforgeHammerCount<stackCount) {
 						return new Response("Reforge all",
-								"You do not have enough reforging hammers to dye all the " + weapon.getNamePlural() + "! You have "+reforgeHammerCount+" reforging hammers, but there are "+stackCount+" "+weapon.getNamePlural()+" in total...",
+								"You do not have enough reforging hammers to reforge all the " + weapon.getNamePlural() + "! You have "+reforgeHammerCount+" reforging hammers, but there are "+stackCount+" "+weapon.getNamePlural()+" in total...",
 								null); 
 					}
 				}

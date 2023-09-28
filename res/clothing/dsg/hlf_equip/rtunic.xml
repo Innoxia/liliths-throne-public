@@ -130,7 +130,7 @@
 		  <![CDATA[[npc.Name] [npc.verb(help)] [npc2.name] put the tunic on and [npc.verb(button)] it up.]]>
 		</other>
 		<otherRough>
-		  <![CDATA[CDATA[[npc.Name] [npc.verb(force)] the tunic onto [npc2.name] before roughly buttoning it up.]]>
+		  <![CDATA[[[npc.Name] [npc.verb(force)] the tunic onto [npc2.name] before roughly buttoning it up.]]>
 		</otherRough>
 	</replacementText>
 	
