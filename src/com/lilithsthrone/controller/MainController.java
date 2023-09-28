@@ -1,6 +1,8 @@
 package com.lilithsthrone.controller;
 
+import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
@@ -2729,8 +2731,22 @@ public class MainController implements Initializable {
 			"document.open('text/html');"
 			+ "document.write(\""+content+"\");"
 			+"document.close();");
+		checkForMesh(engine, content);
 	}
-	
+
+	private static String gradientMeshScript = null;
+	private void checkForMesh(WebEngine engine, String content) {
+		if (content.contains("meshgradient")) {
+			try {
+				if (gradientMeshScript == null)
+					gradientMeshScript = new String(Main.class.getResource("/com/lilithsthrone/res/js/GradientMesh.js").openStream().readAllBytes(), StandardCharsets.UTF_8);
+
+				engine.executeScript(gradientMeshScript);
+			} catch (IOException e) {
+				System.err.println("GradientMeshScript cannot be loaded.");
+			}
+		}
+	}
 	public void setMainContent(String content) {
 		if(useJavascriptToSetContent
 				 // For rendering images from file:
