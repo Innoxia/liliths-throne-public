@@ -152,13 +152,13 @@ public class OrificePenisUrethra implements OrificeInterface {
 	public int getMaximumPenetrationDepthComfortable(GameCharacter owner, OrificeDepth depth) {
 		return (int) ( depth.getDepthPercentage() > 1
 						?owner.getHeightValue() * 0.02f * depth.getDepthPercentage() + owner.getPenisRawSizeValue()
-						:owner.getHeightValue() * 0.02f * depth.getDepthPercentage() + owner.getPenisRawSizeValue() * depth.getDepthPercentage());
+						:(owner.getHeightValue() * 0.02f + owner.getPenisRawSizeValue()) * depth.getDepthPercentage());
 	}
 	
 	@Override
 	public int getMaximumPenetrationDepthUncomfortable(GameCharacter owner, OrificeDepth depth) {
 		if(Main.game.isElasticityAffectDepthEnabled() && OrificeElasticity.getElasticityFromInt(elasticity).isExtendingUncomfortableDepth()) {
-			return (int) ((getMaximumPenetrationDepthComfortable(owner, depth) - owner.getPenisRawSizeValue()) * (float)elasticity/1.8f + owner.getPenisRawSizeValue());
+			return (int) (owner.getHeightValue() * 0.05f * depth.getDepthPercentage() * (float)elasticity/1.8f + owner.getPenisRawSizeValue());
 		} else {
 			return (int) (owner.getHeightValue() * 0.05f * depth.getDepthPercentage() + owner.getPenisRawSizeValue());
 		}
