@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<subspecies>
+	<race>sightglass_beaver</race>
+	<colour>BASE_BROWN_DARK</colour>
+	<secondaryColour>BASE_BROWN_DARK</secondaryColour>
+	<tertiaryColour>BASE_BROWN_DARK</tertiaryColour>
+	<mainSubspecies>true</mainSubspecies>
+	<baseSlaveValue>10000</baseSlaveValue>
+	<attributeItemId>sightglass_race_beaver_latte</attributeItemId>
+	<transformativeItemId>sightglass_race_beaver_maple_bar</transformativeItemId>
+	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<shortStature>false</shortStature>
+	<bipedalSubspecies>true</bipedalSubspecies>
+	<aquatic>false</aquatic>
+	<applySubspeciesChanges><![CDATA[
+		#IF(RND.nextInt(100) < 10)
+			[#targetedBody.getPenis().getTesticle().getCum().setFlavour(null, FLUID_FLAVOUR_MAPLE)]
+			[#targetedBody.getBreast().getMilk().setFlavour(null, FLUID_FLAVOUR_MAPLE)]
+			[#targetedBody.getVagina().getGirlcum().setFlavour(null, FLUID_FLAVOUR_MAPLE)]
+		#ENDIF
+	]]></applySubspeciesChanges>
+	<subspeciesWeighting><![CDATA[
+		#IF(targetedRace==RACE_sightglass_beaver)
+			100
+		#ELSE
+			0
+		#ENDIF
+	]]></subspeciesWeighting>
+	<iconName displaySize="80">beavericon</iconName>
+	<backgroundName/>
+	<bookIconName>beavericon</bookIconName>
+	<bookName>Eager Beavers</bookName>
+	<basicDescriptionId>BEAVER_BASIC</basicDescriptionId>
+	<advancedDescriptionId>BEAVER_ADVANCED</advancedDescriptionId>
+	<defaultPreference>TWO_AVERAGE</defaultPreference>
+	<nameAnthro>
+		<namesDefault>
+			<name><![CDATA[beaver-morph]]></name>
+			<namePlural><![CDATA[beaver-morphs]]></namePlural>
+			<singularMaleName><![CDATA[beaver-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[beaver-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[beaver-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[beaver-girls]]></pluralFemaleName>
+		</namesDefault>
+	</nameAnthro>
+	<description><![CDATA[An anthropomorphic beaver, known as a 'beaver-morph' when bipedal, and a 'beavertaur' when the lower body is that of a typically-oversized feral beaver.]]></description>
+	<nameHalfDemon>
+		<namesDefault>
+			<name><![CDATA[demonic-beaver]]></name>
+			<namePlural><![CDATA[demonic-beavers]]></namePlural>
+			<singularMaleName><![CDATA[demonic-beaver-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[demonic-beaver-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[demonic-beaver-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[demonic-beaver-girls]]></pluralFemaleName>
+		</namesDefault>
+	</nameHalfDemon>
+	<feralAttributes>
+		<feralName><![CDATA[beaver]]></feralName>
+		<feralNamePlural><![CDATA[beaver]]></feralNamePlural>
+		<feralSingularMaleName><![CDATA[beaver]]></feralSingularMaleName>
+		<feralSingularFemaleName><![CDATA[beaver]]></feralSingularFemaleName>
+		<feralPluralMaleName><![CDATA[beaver]]></feralPluralMaleName>
+		<feralPluralFemaleName><![CDATA[beaver]]></feralPluralFemaleName>
+		<legConfiguration>QUADRUPEDAL</legConfiguration>
+		<sizeHeight>true</sizeHeight>
+		<size>50</size>
+		<breastRowCount>0</breastRowCount>
+		<nipplesPerBreastCount>1</nipplesPerBreastCount>
+		<crotchBreastRowCount>5</crotchBreastRowCount>
+		<nipplesPerCrotchBreastCount>1</nipplesPerCrotchBreastCount>
+		<armsOrWingsPresent>false</armsOrWingsPresent>
+		<fingerActionsAvailable>false</fingerActionsAvailable>
+		<hairPresent>false</hairPresent>
+	</feralAttributes>
+	<statusEffectDescription><![CDATA[
+		[npc.NamePos] beaver-like body is built to endure strenuous physical activity, and is well-insulated against the cold.
+	]]></statusEffectDescription>
+	<statusEffectAttributeModifiers>
+		<attribute value="20">MAJOR_PHYSIQUE</attribute>
+		<attribute value="25">HEALTH_MAXIMUM</attribute>
+		<attribute value="0">MAJOR_ARCANE</attribute>
+		<attribute value="3">RESISTANCE_ICE</attribute>
+		<attribute value="3">RESISTANCE_LUST</attribute>
+	</statusEffectAttributeModifiers>
+	<extraEffects/>
+	<perkWeightings>
+		<category masculineWeighting="1" feminineWeighting="1">PHYSICAL</category>
+		<category masculineWeighting="1" feminineWeighting="1">LUST</category>
+		<category masculineWeighting="5" feminineWeighting="5">ARCANE</category>
+	</perkWeightings>
+	<regionLocations>
+		<region rarity="FOUR_COMMON">RIVER</region>
+		<region rarity="TWO_RARE">JUNGLE_CITY</region>
+		<region rarity="TWO_RARE">DOMINION</region>
+		<region rarity="TWO_RARE">MOUNTAINS</region>
+		<region rarity="FOUR_COMMON">WOODLAND</region>
+		<region rarity="THREE_UNCOMMON">FIELD_CITY</region>
+		<region rarity="THREE_UNCOMMON">FIELDS</region>
+	</regionLocations>
+	<worldLocations>
+		<world rarity="TWO_RARE">NIGHTLIFE_CLUB</world>
+	</worldLocations>
+	<flags/>
+</subspecies>

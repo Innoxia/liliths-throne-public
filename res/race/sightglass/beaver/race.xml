@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<race>
+	<racialBody>sightglass_beaver</racialBody>
+	<applyRaceChanges/>
+	<name><![CDATA[beaver-morph]]></name>
+	<namePlural><![CDATA[beaver-morphs]]></namePlural>
+	<nameFeral>
+		<name legConfiguration="QUADRUPEDAL"><![CDATA[beaver]]></name>
+	</nameFeral>
+	<nameFeralPlural>
+		<name legConfiguration="QUADRUPEDAL"><![CDATA[beavers]]></name>
+	</nameFeralPlural>
+	<defaultTransformName><![CDATA[beaver]]></defaultTransformName>
+	<colour>BASE_BROWN_DARK</colour>
+	<disposition>CIVILIZED</disposition>
+	<racialClass>MAMMAL</racialClass>
+	<feralPartsAvailable>true</feralPartsAvailable>
+	<ableToSelfTransform>false</ableToSelfTransform>
+	<flyingRace>false</flyingRace>
+	<combatBehaviour>SUPPORT</combatBehaviour>
+	<chanceForMaleOffspring>0.5</chanceForMaleOffspring>
+	<numberOfOffspringLow>2</numberOfOffspringLow>
+	<numberOfOffspringHigh>3</numberOfOffspringHigh>
+	<defaultFemininePreference>NORMAL</defaultFemininePreference>
+	<defaultMasculinePreference>NORMAL</defaultMasculinePreference>
+	<affectedByFurryPreference>true</affectedByFurryPreference>
+</race>
