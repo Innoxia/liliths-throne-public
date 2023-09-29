@@ -11,6 +11,7 @@ public class QuestTree {
 
 	public static TreeNode<Quest> mainQuestTree = new TreeNode<Quest>(Quest.MAIN_PROLOGUE);
 	
+	// Side quests:
 	public static TreeNode<Quest> enchantmentTree = new TreeNode<Quest>(Quest.SIDE_ENCHANTMENTS_LILAYA_HELP);
 	public static TreeNode<Quest> pregnancyTree = new TreeNode<Quest>(Quest.SIDE_PREGNANCY_CONSULT_LILAYA);
 	public static TreeNode<Quest> incubationTree = new TreeNode<Quest>(Quest.SIDE_INCUBATION_WAITING);
@@ -27,11 +28,15 @@ public class QuestTree {
 	public static TreeNode<Quest> wesTree = new TreeNode<Quest>(Quest.WES_START);
 	public static TreeNode<Quest> beerBarrelTree = new TreeNode<Quest>(Quest.OGLIX_BEER_BARRELS_1);
 	public static TreeNode<Quest> lunexisEscapeTree = new TreeNode<Quest>(Quest.LUNEXIS_ESCAPE);
+	public static TreeNode<Quest> dollFactoryTree = new TreeNode<Quest>(Quest.DOLL_FACTORY_1);
 	
+	// Relationship/romance quests:
 	public static TreeNode<Quest> nyanTree = new TreeNode<Quest>(Quest.RELATIONSHIP_NYAN_1_STOCK_ISSUES);
 	public static TreeNode<Quest> helenaTree = new TreeNode<Quest>(Quest.ROMANCE_HELENA_1_OFFER_HELP);
 	public static TreeNode<Quest> natalyaTree = new TreeNode<Quest>(Quest.ROMANCE_NATALYA_1_INTERVIEW_START);
 	public static TreeNode<Quest> monicaTree = new TreeNode<Quest>(Quest.ROMANCE_MONICA_1_TO_THE_FARM);
+	
+	// DSG's quests:
 	public static TreeNode<Quest> eisekStallTree = new TreeNode<Quest>(Quest.EISEK_STALL_QUEST_STAGE_ONE);
 	public static TreeNode<Quest> eisekMobTree = new TreeNode<Quest>(Quest.EISEK_MOB_QUEST_STAGE_ONE);
 	public static TreeNode<Quest> eisekSillyModeTree = new TreeNode<Quest>(Quest.EISEK_SILLYMODE_QUEST_STAGE_ONE);
@@ -79,8 +84,14 @@ public class QuestTree {
 		node1.addChild(node2);
 		node1 = new TreeNode<Quest>(Quest.MAIN_3_F_PREPARING_ELIS);
 		node2.addChild(node1);
-		node2 = new TreeNode<Quest>(Quest.MAIN_3_G_TODO);
+		node2 = new TreeNode<Quest>(Quest.MAIN_3_G_SWORD_SCAPEGOAT);
 		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.MAIN_3_H_SWORD_MISSION);
+		node2.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.MAIN_3_I_ARION_REPORT);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.MAIN_3_J_TODO);
+		node2.addChild(node1);
 
 		enchantmentTree.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
 
@@ -318,6 +329,26 @@ public class QuestTree {
 		
 		node1 = new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE);
 		lunexisEscapeTree.addChild(node1);
+		
+		
+		// Doll factory:
+
+		node1 = new TreeNode<Quest>(Quest.DOLL_FACTORY_2);
+		dollFactoryTree.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.DOLL_FACTORY_3);
+		node1.addChild(node2);
+		node1 = new TreeNode<Quest>(Quest.DOLL_FACTORY_4);
+		node2.addChild(node1);
+		node2 = new TreeNode<Quest>(Quest.DOLL_FACTORY_5);
+		node1.addChild(node2);
+
+		nodeBranchA = new TreeNode<Quest>(Quest.DOLL_FACTORY_6A);
+		node2.addChild(nodeBranchA);
+		nodeBranchA.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
+
+		nodeBranchA = new TreeNode<Quest>(Quest.DOLL_FACTORY_6B);
+		node2.addChild(nodeBranchA);
+		nodeBranchA.addChild(new TreeNode<Quest>(Quest.SIDE_UTIL_COMPLETE));
 		
 		
 		

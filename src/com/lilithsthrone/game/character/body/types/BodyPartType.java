@@ -43,7 +43,6 @@ public enum BodyPartType {
 	
 	// Penis:
 	PENIS("penis"),
-	SECOND_PENIS("second penis"),
 	TESTICLES("testicles"),
 	CUM("cum"),
 	

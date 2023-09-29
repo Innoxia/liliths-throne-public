@@ -537,7 +537,7 @@
 						I have nothing more to say to you, hacker
 					</availabilityText>
 				</sticker>
-				<sticker id="ribbon_nysa" priority="7" defaultSticker="false" zLayer="3" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BROWN">
+				<sticker id="ribbon_sterope" priority="7" defaultSticker="false" zLayer="3" colourDisabled="TEXT_GREY" colourSelected="CLOTHING_BROWN">
 					<stickerName><![CDATA[Sterope]]></stickerName>
 					<namePrefix/>
 					<namePostfix/>

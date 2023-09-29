@@ -1148,7 +1148,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 */
 	@Override
 	public boolean isAbleToBeEgged() {
-		return !this.isUnique() || (this.isSlave() && this.getOwner().isPlayer());
+		return (!this.isUnique() || (this.isSlave() && this.getOwner().isPlayer()))
+				&& !this.isDoll();
 	}
 
 	public boolean isReadyToBeDeleted() {

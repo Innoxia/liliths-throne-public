@@ -168,7 +168,10 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 				boolean conditionalParsed = Boolean.valueOf(UtilText.parse(user, target, conditional).trim());
 				if(conditionalParsed) {
 					int time = entry.getValue().getValue();
-					target.addStatusEffect(se, time);
+					boolean added = target.addStatusEffect(se, time);
+					if(!added) {
+						continue;
+					}
 					String timeDesc = time+" turns";
 					if(!se.isCombatEffect()) {
 						int timeMinutes = (time/60);

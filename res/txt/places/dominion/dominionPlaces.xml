@@ -478,4 +478,42 @@
 	</htmlContent>
 	
 	
+	<!-- DEMON HOME -->
+
+	<htmlContent tag="DEMON_HOME_SEX_SHOP"><![CDATA[
+	<p>
+		You find yourself [pc.walking] down what looks to be the main high street of Demon Home, with dozens of upmarket shops, eateries, and other such premises located to your left and right.
+		#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+			 As there's currently an arcane storm raging overhead, the usual crowds of shoppers are mostly gone, with just a few demons here and there taking advantage of the quiet.
+		#ELSE
+			 Being the city's most affluent district, the shoppers you see around you all look to be very wealthy, with most of them sporting designer clothing and accessories.
+		#ENDIF
+	</p>
+	<p>
+		Although the vast majority of the shops here are of no interest or use to you, there is one which catches your eye. A long, black awning has been extended over a line of large glass windows, and upon the front it reads in gold lettering; 'Lovienne's Luxuries'. Looking through the glass, you see an impressive collection of sex toys of all different shapes and sizes on display. A very posh-looking black-and-gold sign positioned beside the entrance declares:
+	</p>
+	<p style='text-align:center;'><i>
+	<b>Lovienne's Luxuries</b>
+	<br/>
+	Premium sex toys designed by the elder lilin Lovienne herself
+	<br/>
+	Exclusive home to Lovienne's premium sex dolls
+	<br/>
+	Open every day between
+	#IF(game.isHourBetween(11, 23))
+		 [style.colourMinorGood([units.time(11)]-[units.time(23)])]
+	#ELSE
+		 [style.colourMinorBad([units.time(11)]-[units.time(23)])]
+	#ENDIF
+	</i></p>
+	<p>
+		#IF(game.isHourBetween(11, 23))
+			As the current time is within the shop's opening hours, Lovienne's Luxuries is [style.colourGood(open)]. You could push open the door and head inside if you wanted to take a look at what's for sale...
+		#ELSE
+			As the current time is outside of the shop's opening hours, Lovienne's Luxuries is [style.colourBad(closed)]. You'll have to return at another time if you wanted to take a look at what's for sale...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
 </dialogue>

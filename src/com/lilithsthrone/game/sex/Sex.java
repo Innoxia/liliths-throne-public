@@ -38,6 +38,7 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.Perk;
@@ -556,10 +557,11 @@ public class Sex {
 						break;
 				}
 			}
-
-			if(sexManager.getForcedSexPace(character)!=null) {
-				forceSexPaceMap.put(character, sexManager.getForcedSexPace(character));
-				switch(sexManager.getForcedSexPace(character)) {
+			
+			SexPace forcedPace = sexManager.getForcedSexPace(character);
+			if(forcedPace!=null) {
+				forceSexPaceMap.put(character, forcedPace);
+				switch(forcedPace) {
 					case DOM_GENTLE:
 						character.setLustNoText(10);
 						break;
@@ -1370,7 +1372,8 @@ public class Sex {
 					}
 				}
 				if(getNumberOfOrgasms(participant) > 0
-						&& Main.game.isInNewWorld()) {
+						&& Main.game.isInNewWorld()
+						&& !Main.game.getPlayer().isDoll()) {
 					if(participant.hasStatusEffect(StatusEffect.RECOVERING_AURA)) {
 						int orgasmCount = Main.sex.getNumberOfOrgasms(participant);
 						endSexSB.append("<div class='container-full-width' style='text-align:center;'>"
@@ -1474,7 +1477,9 @@ public class Sex {
 										+ "</div>");
 						
 					}
-					participant.addStatusEffect(StatusEffect.RECOVERING_AURA, (240*60)+(postSexDialogue.getSecondsPassed()));
+					if(!participant.isDoll()) {
+						participant.addStatusEffect(StatusEffect.RECOVERING_AURA, (240*60)+(postSexDialogue.getSecondsPassed()));
+					}
 				}
 				
 				endSexSB = new StringBuilder(UtilText.parse(participant, endSexSB.toString()));
@@ -1508,7 +1513,8 @@ public class Sex {
 					}
 				}
 				if(getNumberOfOrgasms(participant) > 0
-						&& Main.game.isInNewWorld()) {
+						&& Main.game.isInNewWorld()
+						&& !Main.game.getPlayer().isDoll()) {
 					if(participant.hasStatusEffect(StatusEffect.RECOVERING_AURA)) {
 
 						int orgasmCount = Main.sex.getNumberOfOrgasms(participant);
@@ -1570,7 +1576,9 @@ public class Sex {
 											+ Main.game.getPlayer().incrementEssenceCount(essences, true)
 										+ "</div>");
 					}
-					participant.addStatusEffect(StatusEffect.RECOVERING_AURA, (240*60)+(postSexDialogue.getSecondsPassed()));
+					if(!participant.isDoll()) {
+						participant.addStatusEffect(StatusEffect.RECOVERING_AURA, (240*60)+(postSexDialogue.getSecondsPassed()));
+					}
 
 				}
 				
@@ -2754,7 +2762,7 @@ public class Sex {
 			if(Main.sex.getCharacterPerformingAction().isWearingCondom()) {
 				if(sexAction.getCondomFailure(activeCharacter, targetCharacter)==CondomFailure.NONE) {
 					Main.sex.getCharacterPerformingAction().getClothingInSlot(InventorySlot.PENIS).setSealed(false);
-					if(Main.sex.getCharacterPerformingAction().getPenisRawOrgasmCumQuantity()>0) {
+					if(Main.sex.getCharacterPerformingAction().getPenisRawOrgasmCumQuantity()>0 && Main.sex.isSpectator(Main.sex.getCharacterPerformingAction())==Main.sex.isSpectator(Main.game.getPlayer())) {
 						stringBuilderForAppendingDescriptions.append(Main.game.getPlayer().addItem(
 								Main.game.getItemGen().generateFilledCondom(
 										Main.sex.getCharacterPerformingAction().getClothingInSlot(InventorySlot.PENIS).getClothingType().equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))
@@ -6443,6 +6451,7 @@ public class Sex {
 	}
 
 	// ------------------------------------------------------ //
+	// Methods added for parsing in external files:
 	
 	/**
 	 * Helper method so that there's a parser hook for generating a SexType.
@@ -6457,5 +6466,19 @@ public class Sex {
 	
 	public void applyGenericPullOutEffects() {
 		GenericOrgasms.applyGenericPullOutEffects(null, null);
+	}
+	
+	// Capacity sizes:
+	
+	public boolean isPenetrationDiameterTooSmall(Set<OrificeModifier> orificeModifiers, float capacity, float diameter) {
+		return Capacity.isPenetrationDiameterTooSmall(orificeModifiers, capacity, diameter);
+	}
+
+	public boolean isPenetrationDiameterTooBig(OrificeElasticity elasticity, float capacity, float diameter, boolean lubed) {
+		return Capacity.isPenetrationDiameterTooBig(elasticity, capacity, diameter, lubed);
+	}
+	
+	public float getMaximumComfortableDiameter(OrificeElasticity elasticity, float capacity, boolean lubed) {
+		return Capacity.getMaximumComfortableDiameter(elasticity, capacity, lubed);
 	}
 }

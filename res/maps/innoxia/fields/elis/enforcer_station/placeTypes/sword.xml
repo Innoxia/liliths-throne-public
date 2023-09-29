@@ -5,11 +5,23 @@
 	<tooltipDescription><![CDATA[This office is where Elis's SWORD unit meets to plan their missions.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the SWORD office in the Enforcer station in Elis]]></virginityLossDescription>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
-	<colour>BASE_ORANGE</colour>
+	<colour>#2c5aa0</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>
 	<encounterType>null</encounterType>
 	<dialogue>innoxia_places_fields_elis_enforcer_station_sword</dialogue>
-	<populationPresent/>
+	<populationPresent>
+		<population>
+			<populationType plural="true" density="HALF_DOZEN">SWORD</populationType>
+			<subspeciesPresent>
+				<subspecies>CAT_MORPH_LYNX</subspecies>
+				<subspecies>dsg_bear_subspecies_bear</subspecies>
+				<subspecies>FOX_MORPH</subspecies>
+				<subspecies>HORSE_MORPH</subspecies>
+				<subspecies>innoxia_panther_subspecies_tiger</subspecies>
+				<subspecies>COW_MORPH</subspecies>
+			</subspeciesPresent>
+		</population>
+	</populationPresent>
 	<furniturePresent>true</furniturePresent>
 	<globalMapTile>false</globalMapTile>
 	<dangerous><![CDATA[false]]></dangerous>

@@ -115,8 +115,7 @@ public class GenericSexualPartner extends NPC {
 	
 			setName(Name.getRandomTriplet(this.getSubspecies()));
 			this.setPlayerKnowsName(false);
-			setDescription(UtilText.parse(this,
-					"[npc.Name] is a resident of Dominion, who's currently only interested in having sex."));
+			setDescription(UtilText.parse(this, "[npc.NameIsFull] [npc.a_race]."));
 			
 			// PERSONALITY & BACKGROUND:
 			

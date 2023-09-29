@@ -64,6 +64,7 @@
 		
 		<itemTags>
 			<tag>CONTRABAND_MEDIUM</tag>
+			<tag>WEAPON_FIREARM</tag>
 		</itemTags>
 		
 	</coreAttributes>

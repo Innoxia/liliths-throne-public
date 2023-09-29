@@ -1240,6 +1240,53 @@ public class ItemType {
 			return "This item cannot be used in this way!";
 		}
 	};
+
+	public static AbstractItemType DOLL_CONSOLE = new AbstractItemType(120000,
+			"a",
+			false,
+			"D.E.C.K.",
+			"D.E.C.K.s",
+			"The <i>'Doll's Expedient Customisation Kit'</i> is the only way to transform an autonomous sex doll."
+				+ " By plugging the cable into a doll's rear neck port, the user can modify a wide range of the connected doll's physical attributes.",
+			"dollConsole",
+			PresetColour.CLOTHING_BLUE_LIGHT,
+			PresetColour.CLOTHING_PINK_LIGHT,
+			PresetColour.CLOTHING_PURPLE,
+			Rarity.LEGENDARY,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.DOLL_CONSOLE)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public boolean isAbleToBeUsedInSex() {
+			return false;
+		}
+		@Override
+		public boolean isAbleToBeUsedInCombatAllies() {
+			return false;
+		}
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+		@Override
+		public String getUseName() {
+			return "use";
+		}
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "";
+		}
+		@Override
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			return super.isAbleToBeUsed(target) && target.isDoll();
+		}
+		@Override
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			if(!target.isDoll()) {
+				return UtilText.parse(target, "<i>As [npc.nameIsFull] not a doll, the D.E.C.K. is of no use!</i>");
+			}
+			return "This item cannot be used in this way!";
+		}
+	};
 	
 	public static AbstractItemType PRESENT = new AbstractItemType(250,
 			"a",
@@ -3068,13 +3115,18 @@ public class ItemType {
 //					}
 					@Override
 					public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-						target.incrementEssenceCount(1, false);
-//						target.addStatusEffect(statusEffect, 60*4*60);
-						return UtilText.parse(target,
-								"<p style='text-align:center;'>"
-									+ "[npc.NameHasFull] absorbed [style.boldGood(+1)] [style.boldArcane(arcane essence)], and [npc.is] also temporarily far more effective at fighting "
-									+ "<b style='color:"+mainSubspecies.getColour(null).toWebHexString()+";'>" + raceNamePlural +"</b>!"
-								+ "</p>");
+						if(target.isDoll()) {
+							return UtilText.parse(target,
+										"<p style='text-align:center;'>"
+											+ "[style.colourDisabled(As [npc.sheIsFull] a sex doll, [npc.nameIsFull] unable to absorb essences...)]"
+										+ "</p>");
+						}
+						return target.incrementEssenceCount(1, false)
+								+ UtilText.parse(target,
+										"<p style='text-align:center;'>"
+											+"[npc.She] [npc.is] also temporarily far more effective at fighting "
+											+ "<b style='color:"+mainSubspecies.getColour(null).toWebHexString()+";'>" + raceNamePlural +"</b>!"
+										+ "</p>");
 					}
 				};
 

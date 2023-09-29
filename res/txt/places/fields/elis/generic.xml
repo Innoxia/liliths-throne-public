@@ -127,10 +127,15 @@
 	
 	<htmlContent tag="ENFORCERS"><![CDATA[
 	<p>
-		While nowhere near as huge or imposing as its Dominion counterpart, the building which houses the Elis Enforcers is nevertheless a suitably large and official-looking one. Although it's of the same timber-framed style as most of the other structures in the town, the Enforcer station differs from those around it by nature of the fact that it sits back from the road, and is separated from where you're standing by an attractive knot garden. If it wasn't for the large sign declaring this to be the Enforcer's Elis branch, as well as the Enforcers themselves occasionally coming and going from the main entrance, you could easily be mistaken for thinking that this building was simply a wealthy resident's manor.
+		While nowhere near as huge or imposing as its Dominion counterpart, the building which houses the Elis Enforcers is nevertheless a suitably large and official-looking one. Although it's of the same timber-framed style as most of the other structures in the town, the Enforcer station differs from those around it by nature of the fact that it sits back from the road, and is separated from where you're standing by an attractive knot garden. If it wasn't for the large sign declaring this to be the Enforcer's headquarters for the Elis region, as well as the Enforcers themselves occasionally coming and going from the main entrance, you could easily be mistaken for thinking that this building was simply a wealthy resident's manor.
 	</p>
 	<p>
-		Clearly not having to deal with anywhere near the same level of crime as the Realm's capital, the Enforcers which you see all have a relaxed, friendly look about them. A sign beside the main entrance to the station declares that non-emergency visiting hours for members of the public is between
+		#IF(game.isLunetteDefeated())
+			With Lunette's destruction of the Fields causing serious issues both within and without the walls of Elis, the Enforcers which you see all seem to have a melancholy look about them.
+		#ELSE
+			With Lunette having been defeated, and Elis now experiencing a level of peace and security which hasn't been felt for many years, all of the Enforcers you see have a relaxed, friendly look about them.
+		#ENDIF
+		 A sign beside the main entrance to the station declares that non-emergency visiting hours for members of the public is between
 		#IF(game.isHourBetween(8, 20))
 			 [style.colourMinorGood([units.time(8)]-[units.time(20)])], and as such it's currently [style.colourGood(open)], allowing you to head on in and take a look inside if you wanted to...
 		#ELSE

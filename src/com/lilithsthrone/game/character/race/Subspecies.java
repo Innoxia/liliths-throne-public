@@ -1174,7 +1174,7 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.DOG_MORPH) {
-				AbstractBodyCoveringType canineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FUR):BodyCoveringType.CANINE_FUR;
+				AbstractBodyCoveringType canineFur = (body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)?BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), BodyCoveringCategory.MAIN_FUR):BodyCoveringType.CANINE_FUR;
 				if(body.getCoverings().get(canineFur).getPrimaryColour()==PresetColour.COVERING_BLACK
 						&& body.getCoverings().get(canineFur).getSecondaryColour()==PresetColour.COVERING_WHITE
 						&& body.getCoverings().get(canineFur).getPattern() == CoveringPattern.MARKED
@@ -1199,10 +1199,10 @@ public class Subspecies {
 			"statusEffects/race/raceBackground",
 			"dobermann",
 			"dobermanns",
-			"dobermann",
-			"dobermann",
-			"dobermanns",
-			"dobermanns",
+			"dobermann-boy",
+			"dobermann-girl",
+			"dobermann-boys",
+			"dobermann-girls",
 			new FeralAttributes(
 					"dobermann",
 					"dobermanns",
@@ -1217,7 +1217,7 @@ public class Subspecies {
 					5,
 					1, false),
 			Nocturnality.DIURNAL,
-			"[npc.NameIsFull] always ready to defend those [npc.she] [npc.verb(call)] [npc.her] friend, and, thanks to [npc.her] powerful dobermann's body, [npc.sheIs] able to do just that."
+			"[npc.NameIsFull] always ready to defend those [npc.she] [npc.verb(call)] [npc.her] friend, and, thanks to [npc.her] powerful body, [npc.sheIs] able to do just that."
 					+ " [npc.She] also [npc.has] an instinctive desire to display [npc.her] dominance over innocent cat-morphs...",
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MAJOR_PHYSIQUE, 15f),
@@ -1298,7 +1298,7 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.DOG_MORPH) {
-				AbstractBodyCoveringType canineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FUR):BodyCoveringType.CANINE_FUR;
+				AbstractBodyCoveringType canineFur = (body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)?BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), BodyCoveringCategory.MAIN_FUR):BodyCoveringType.CANINE_FUR;
 				
 				if((body.getCoverings().get(canineFur).getPrimaryColour()==PresetColour.COVERING_BLACK
 						|| body.getCoverings().get(canineFur).getPrimaryColour()==PresetColour.COVERING_JET_BLACK)
@@ -1408,7 +1408,7 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.DOG_MORPH) {
-				AbstractBodyCoveringType canineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FUR):BodyCoveringType.CANINE_FUR;
+				AbstractBodyCoveringType canineFur = (body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)?BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), BodyCoveringCategory.MAIN_FUR):BodyCoveringType.CANINE_FUR;
 				
 				if(body.getCoverings().get(canineFur).getPrimaryColour()==PresetColour.COVERING_BLACK
 						&& body.getCoverings().get(canineFur).getSecondaryColour()==PresetColour.COVERING_TAN
@@ -1690,7 +1690,7 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.FOX_MORPH) {
-				AbstractBodyCoveringType foxFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FOX_FUR;
+				AbstractBodyCoveringType foxFur = (body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)?BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FOX_FUR;
 				Covering fox_fur = body.getCoverings().get(foxFur);
 				
 				if(fox_fur.getPrimaryColour()==PresetColour.COVERING_WHITE && body.getTail().getType()!=TailType.FOX_MORPH_MAGIC) {
@@ -1777,7 +1777,7 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.FOX_MORPH) {
-				AbstractBodyCoveringType foxFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FOX_FUR;
+				AbstractBodyCoveringType foxFur = (body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)?BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FOX_FUR;
 				Covering fox_fur = body.getCoverings().get(foxFur);
 				List<Colour> fennecColours = Util.newArrayListOfValues(PresetColour.COVERING_DIRTY_BLONDE, PresetColour.COVERING_BLEACH_BLONDE, PresetColour.COVERING_TAN);
 				
@@ -2054,7 +2054,7 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.FOX_MORPH) {
-				AbstractBodyCoveringType foxFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FOX_FUR;
+				AbstractBodyCoveringType foxFur = (body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)?BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FOX_FUR;
 				Covering fox_fur = body.getCoverings().get(foxFur);
 				
 				if(fox_fur.getPrimaryColour()==PresetColour.COVERING_WHITE &&  body.getTail().getType() == TailType.FOX_MORPH_MAGIC) {
@@ -2188,7 +2188,7 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.FOX_MORPH) {
-				AbstractBodyCoveringType foxFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FOX_FUR;
+				AbstractBodyCoveringType foxFur = (body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)?BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FOX_FUR;
 				Covering fox_fur = body.getCoverings().get(foxFur);
 				List<Colour> fennecColours = Util.newArrayListOfValues(PresetColour.COVERING_DIRTY_BLONDE, PresetColour.COVERING_BLEACH_BLONDE, PresetColour.COVERING_TAN);
 				
@@ -2394,7 +2394,7 @@ public class Subspecies {
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.CAT_MORPH) {
 				AbstractFaceType faceType = body.getFace().getType();
-				AbstractBodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FELINE_FUR;
+				AbstractBodyCoveringType felineFur = (body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)?BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FELINE_FUR;
 				
 				if((faceType == FaceType.CAT_MORPH || faceType == FaceType.HUMAN)
 						&& body.getHair().getType() == HairType.CAT_MORPH_SIDEFLUFF
@@ -2499,7 +2499,7 @@ public class Subspecies {
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.CAT_MORPH) {
 				AbstractFaceType faceType = body.getFace().getType();
-				AbstractBodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FELINE_FUR;
+				AbstractBodyCoveringType felineFur = (body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)?BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FELINE_FUR;
 				
 				if((faceType == FaceType.CAT_MORPH || faceType == FaceType.HUMAN)
 						&& body.getCoverings().get(felineFur).getPattern() == CoveringPattern.SPOTTED
@@ -2680,7 +2680,7 @@ public class Subspecies {
 //		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 //			if(race==Race.CAT_MORPH) {
 //				AbstractFaceType faceType = body.getFace().getType();
-//				AbstractBodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FELINE_FUR;
+//				AbstractBodyCoveringType felineFur = (body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)?BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FELINE_FUR;
 //				
 //				if((faceType == FaceType.CAT_MORPH_PANTHER || faceType == FaceType.HUMAN)
 //					&& body.getCoverings().get(felineFur).getPattern() == CoveringPattern.SPOTTED
@@ -2779,7 +2779,7 @@ public class Subspecies {
 //		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 //			if(race==Race.CAT_MORPH) {
 //				AbstractFaceType faceType = body.getFace().getType();
-//				AbstractBodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FELINE_FUR;
+//				AbstractBodyCoveringType felineFur = (body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)?BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FELINE_FUR;
 //				
 //				if((faceType == FaceType.CAT_MORPH_PANTHER || faceType == FaceType.HUMAN)
 //					&& body.getCoverings().get(felineFur).getPattern() == CoveringPattern.SPOTTED
@@ -2879,7 +2879,7 @@ public class Subspecies {
 //		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 //			if(race==Race.CAT_MORPH) {
 //				AbstractFaceType faceType = body.getFace().getType();
-//				AbstractBodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FELINE_FUR;
+//				AbstractBodyCoveringType felineFur = (body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)?BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FELINE_FUR;
 //				
 //				if((faceType == FaceType.CAT_MORPH_PANTHER || faceType == FaceType.HUMAN)
 //					&& body.getCoverings().get(felineFur).getModifier() == CoveringModifier.SHORT
@@ -2977,7 +2977,7 @@ public class Subspecies {
 //		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 //			if(race==Race.CAT_MORPH) {
 //				AbstractFaceType faceType = body.getFace().getType();
-//				AbstractBodyCoveringType felineFur = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FELINE_FUR;
+//				AbstractBodyCoveringType felineFur = (body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)?BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), BodyCoveringCategory.MAIN_FUR):BodyCoveringType.FELINE_FUR;
 //				
 //				if((faceType == FaceType.CAT_MORPH_PANTHER || faceType == FaceType.HUMAN)
 //					&& body.getCoverings().get(felineFur).getPattern() == CoveringPattern.STRIPED
@@ -3847,7 +3847,7 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.HORSE_MORPH) {
-				AbstractBodyCoveringType horseHair = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_HAIR):BodyCoveringType.HORSE_HAIR;
+				AbstractBodyCoveringType horseHair = (body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)?BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), BodyCoveringCategory.MAIN_HAIR):BodyCoveringType.HORSE_HAIR;
 				Colour zebraPrimary = body.getCoverings().get(horseHair).getPrimaryColour();
 				Colour zebraSecondary = body.getCoverings().get(horseHair).getSecondaryColour();
 				if((((zebraPrimary==PresetColour.COVERING_BLACK || zebraPrimary==PresetColour.COVERING_JET_BLACK) && zebraSecondary==PresetColour.COVERING_WHITE)
@@ -4129,8 +4129,8 @@ public class Subspecies {
 			Nocturnality.DIURNAL,
 			"Due to [npc.her] soft, slimy body, [npc.nameIsFull] almost completely immune to physical damage, but [npc.sheIs] also unable to inflict any significant damage while unarmed."
 					+ " [npc.She] can also morph [npc.her] body at will, allowing [npc.herHim] to take on any form that [npc.she] [npc.verb(desire)].",
-                        "Due to [npc.her] soft, slimy body, [npc.nameIsFull] almost completely immune to physical damage, but [npc.she] is also unable to inflict any serious unarmed damage."
-                                        + " [npc.Her] slime core is pulsating with an immense power, revealing the fact that [npc.sheIs] a true demonic slime.",
+			"Due to [npc.her] soft, slimy body, [npc.nameIsFull] almost completely immune to physical damage, but [npc.she] is also unable to inflict any serious unarmed damage."
+					+ " [npc.Her] slime core is pulsating with an immense power, revealing the fact that [npc.sheIs] a true demonic slime.",
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MAJOR_PHYSIQUE, 0f),
 					new Value<>(Attribute.MAJOR_ARCANE, 0f),
@@ -4157,21 +4157,21 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.BAT_CAVERNS, SubspeciesSpawnRarity.TEN)), null, Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES),
-                        true, BodyMaterial.SLIME
-        ) {
-            
+			true, BodyMaterial.SLIME
+	) {
+	    
 		@Override
 		public String getSVGString(GameCharacter character) {
 			if(character==null) {
 				return Subspecies.HUMAN.getBodyMaterialSVGString(null, getSubspeciesBodyMaterial());
 			}
-                        AbstractSubspecies fleshSubspecies = character.getBody().getFleshSubspecies();
-                        if (fleshSubspecies == Subspecies.HUMAN) {
-                                return Subspecies.SLIME.getBodyMaterialSVGString(character, getSubspeciesBodyMaterial());
-                        }
+			AbstractSubspecies fleshSubspecies = character.getBody().getFleshSubspecies();
+			if (fleshSubspecies == Subspecies.HUMAN) {
+				return Subspecies.SLIME.getBodyMaterialSVGString(character, getSubspeciesBodyMaterial());
+			}
 			return fleshSubspecies.getBodyMaterialSVGString(character, getSubspeciesBodyMaterial());
 		}
-                
+		
 		@Override
 		public String getName(Body body) {
 			if(body == null) {
@@ -4278,8 +4278,8 @@ public class Subspecies {
 			return body.getFleshSubspecies().getFeralAttributes(body);
 		}
 	};
-        
-        // LATEX CREATURE:
+	
+	// LATEX CREATURE:
 	public static AbstractSubspecies LATEX_CREATURE = new AbstractSubspecies(true,
 			10000,
 			"sightglass_race_latex_liqueur",
@@ -4295,15 +4295,15 @@ public class Subspecies {
 			null,
 			Nocturnality.DIURNAL,
 			"Due to [npc.her] body being made of living latex, [npc.nameIsFull] highly resistant to physical damage and generally immune to substances that would be toxic to fleshy creatures."
-                            + " The constant rubbing and roiling of the slick, pliable latex constantly stimulates [npc.himHer], raising [npc.her] lust during the excitement of combat.",
-                        "Due to [npc.her] body being made of living latex, [npc.nameIsFull] highly resistant to physical damage."
-                            + " The slick, glossy latex that makes up [npc.her] body shimmers with an eerie iridescence, hinting at [npc.her] true nature as a latex demon.",
+			    + " The constant rubbing and roiling of the slick, pliable latex constantly stimulates [npc.himHer], raising [npc.her] lust during the excitement of combat.",
+			"Due to [npc.her] body being made of living latex, [npc.nameIsFull] highly resistant to physical damage."
+			    + " The slick, glossy latex that makes up [npc.her] body shimmers with an eerie iridescence, hinting at [npc.her] true nature as a latex demon.",
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MAJOR_PHYSIQUE, 0f),
 					new Value<>(Attribute.MAJOR_ARCANE, 0f),
-                                        new Value<>(Attribute.RESISTANCE_POISON, 25f),
+					new Value<>(Attribute.RESISTANCE_POISON, 25f),
 					new Value<>(Attribute.MAJOR_CORRUPTION, 25f),
-                                        new Value<>(Attribute.RESTING_LUST, 15f)),
+					new Value<>(Attribute.RESTING_LUST, 15f)),
 			Util.newArrayListOfValues(),
 			"Playing with Latex",
 			"Playing with Latex",
@@ -4326,21 +4326,21 @@ public class Subspecies {
 			Util.newHashMapOfValues(
 					new Value<>(WorldType.BAT_CAVERNS, SubspeciesSpawnRarity.TEN)), null, Util.newArrayListOfValues(
 					SubspeciesFlag.HIDDEN_FROM_PREFERENCES),
-                        true, BodyMaterial.RUBBER,
-                        true, "latex ", "corrupted latex ","latex "
-        ) {
-            
+			true, BodyMaterial.RUBBER,
+			true, "latex ", "corrupted latex ","latex "
+	) {
+	    
 		@Override
 		public String getSVGString(GameCharacter character) {
 			if(character==null) {
 				return Subspecies.HUMAN.getBodyMaterialSVGString(null, getSubspeciesBodyMaterial(), 
-                                        "#ffffff", Util.newArrayListOfValues("#404040", "#202020", "#101010"));
-                        }
-                        AbstractSubspecies fleshSubspecies = character.getBody().getFleshSubspecies();
+					"#ffffff", Util.newArrayListOfValues("#404040", "#202020", "#101010"));
+			}
+			AbstractSubspecies fleshSubspecies = character.getBody().getFleshSubspecies();
 			return fleshSubspecies.getBodyMaterialSVGString(character, getSubspeciesBodyMaterial(), 
-                                "#ffffff", Util.newArrayListOfValues("#404040", "#202020", "#101010"));
+				"#ffffff", Util.newArrayListOfValues("#404040", "#202020", "#101010"));
 		}
-                	
+			
 		@Override
 		public String getSVGStringDesaturated(GameCharacter character) {
 			if(character==null) {
@@ -4355,8 +4355,8 @@ public class Subspecies {
 			}
 			return 0;
 		}
-                
-                @Override
+		
+		@Override
 		public FeralAttributes getFeralAttributes(Body body) {
 			if(body==null) {
 				return super.getFeralAttributes(body);
@@ -4364,8 +4364,8 @@ public class Subspecies {
 			return body.getFleshSubspecies().getFeralAttributes(body);
 		}
 	};
-        
-        // PLANT CREATURE:
+	
+	// PLANT CREATURE:
 	public static AbstractSubspecies PLANT_CREATURE = new AbstractSubspecies(true,
 			10000,
 			"sightglass_race_plant_water",
@@ -4381,15 +4381,15 @@ public class Subspecies {
 			null,
 			Nocturnality.DIURNAL,
 			"[npc.NameIsFull] a plant creature, composed of magically-enhanced foliage given motion. [npc.She] [npc.has] a deep affinity for growing new life, and [npc.verb(benefit)] from bright light.",
-                        "[npc.NameIsFull] a plant creature, composed of magically-enhanced foliage given motion. [npc.She] [npc.has] a deep affinity for growing new life, and [npc.verb(benefit)] from bright light." 
-                            + "[npc.Her] demon core is visible wrapped in a leafy calyx, pulsing with potential.",
+			"[npc.NameIsFull] a plant creature, composed of magically-enhanced foliage given motion. [npc.She] [npc.has] a deep affinity for growing new life, and [npc.verb(benefit)] from bright light." 
+			    + "[npc.Her] demon core is visible wrapped in a leafy calyx, pulsing with potential.",
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MAJOR_PHYSIQUE, 10f),
 					new Value<>(Attribute.MAJOR_ARCANE, 10f),
-                                        new Value<>(Attribute.DAMAGE_LUST, 10f),
-                                        new Value<>(Attribute.VIRILITY, 25f),
-                                        new Value<>(Attribute.FERTILITY, 25f)
-                                        ),
+					new Value<>(Attribute.DAMAGE_LUST, 10f),
+					new Value<>(Attribute.VIRILITY, 25f),
+					new Value<>(Attribute.FERTILITY, 25f)
+					),
 			Util.newArrayListOfValues(),
 			"Green Vines",
 			"Green Vines",
@@ -4408,58 +4408,58 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An animated plant-creature",
 			Util.newHashMapOfValues(
-                                new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.THREE),
-                                new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FIVE),
-                                new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.TWO),
-                                new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.SEVEN),
-                                new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FOUR),
-                                new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.SEVEN),
-                                new Value<>(WorldRegion.SAVANNAH, SubspeciesSpawnRarity.FOUR),
-                                new Value<>(WorldRegion.JUNGLE, SubspeciesSpawnRarity.SEVEN),
-                                new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.FIVE),
-                                new Value<>(WorldRegion.MOUNTAINS, SubspeciesSpawnRarity.TWO)
-                        ),
+				new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.THREE),
+				new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FIVE),
+				new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.TWO),
+				new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.SEVEN),
+				new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.FOUR),
+				new Value<>(WorldRegion.WOODLAND, SubspeciesSpawnRarity.SEVEN),
+				new Value<>(WorldRegion.SAVANNAH, SubspeciesSpawnRarity.FOUR),
+				new Value<>(WorldRegion.JUNGLE, SubspeciesSpawnRarity.SEVEN),
+				new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.FIVE),
+				new Value<>(WorldRegion.MOUNTAINS, SubspeciesSpawnRarity.TWO)
+			),
 			Util.newHashMapOfValues(
-                                new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO)
-                        ), null, 
-                        Util.newArrayListOfValues(SubspeciesFlag.HIDDEN_FROM_PREFERENCES),
-                        true, BodyMaterial.PLANT,
-                        true, "plantfolk "," mandragora ", "beast-plant "
-        ) {
-            
-                @Override
-                public Map<AbstractAttribute, Float> getStatusEffectAttributeModifiers(GameCharacter character) {
-                        if (character != null && character.isVisiblyPregnant()) {
-                            return Util.newHashMapOfValues(
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO)
+			), null, 
+			Util.newArrayListOfValues(SubspeciesFlag.HIDDEN_FROM_PREFERENCES),
+			true, BodyMaterial.PLANT,
+			true, "plantfolk "," mandragora ", "beast-plant "
+	) {
+	    
+		@Override
+		public Map<AbstractAttribute, Float> getStatusEffectAttributeModifiers(GameCharacter character) {
+			if (character != null && character.isVisiblyPregnant()) {
+			    return Util.newHashMapOfValues(
 					new Value<>(Attribute.MAJOR_PHYSIQUE, 15f),
 					new Value<>(Attribute.MAJOR_ARCANE, 15f),
-                                        new Value<>(Attribute.DAMAGE_LUST, 20f),
-                                        new Value<>(Attribute.HEALTH_MAXIMUM, 50f),
-                                        new Value<>(Attribute.VIRILITY, 25f),
-                                        new Value<>(Attribute.FERTILITY, 25f)
-                                        );
-                        }
-                        return super.getStatusEffectAttributeModifiers(character);
-                }
-                
-                @Override
-                public String getStatusEffectDescription(GameCharacter character) {
-                        if (character != null && character.isVisiblyPregnant()) {
-                            return super.getStatusEffectDescription(character) 
-                                    + UtilText.parse(character, " [npc.Her] pregnancy gives [npc.him] a healthy glow!");
-                        }
-                        return super.getStatusEffectDescription(character);
-                }
-            
+					new Value<>(Attribute.DAMAGE_LUST, 20f),
+					new Value<>(Attribute.HEALTH_MAXIMUM, 50f),
+					new Value<>(Attribute.VIRILITY, 25f),
+					new Value<>(Attribute.FERTILITY, 25f)
+					);
+			}
+			return super.getStatusEffectAttributeModifiers(character);
+		}
+		
+		@Override
+		public String getStatusEffectDescription(GameCharacter character) {
+			if (character != null && character.isVisiblyPregnant()) {
+			    return super.getStatusEffectDescription(character) 
+				    + UtilText.parse(character, " [npc.Her] pregnancy gives [npc.him] a healthy glow!");
+			}
+			return super.getStatusEffectDescription(character);
+		}
+	    
 		@Override
 		public String getSVGString(GameCharacter character) {
 			if(character==null) {
 				return Subspecies.HUMAN.getBodyMaterialSVGString(null, getSubspeciesBodyMaterial(), 
-                                        "#203603", Util.newArrayListOfValues("#5dd446", "#27912f", "#18a34b"));
-                        }
-                        AbstractSubspecies fleshSubspecies = character.getBody().getFleshSubspecies();
+					"#203603", Util.newArrayListOfValues("#5dd446", "#27912f", "#18a34b"));
+			}
+			AbstractSubspecies fleshSubspecies = character.getBody().getFleshSubspecies();
 			return fleshSubspecies.getBodyMaterialSVGString(character, getSubspeciesBodyMaterial(), 
-                                "#203603", Util.newArrayListOfValues("#5dd446", "#27912f", "#18a34b"));
+				"#203603", Util.newArrayListOfValues("#5dd446", "#27912f", "#18a34b"));
 		}
 		
 		@Override
@@ -4476,8 +4476,8 @@ public class Subspecies {
 			}
 			return 0;
 		}
-                
-                @Override
+		
+		@Override
 		public FeralAttributes getFeralAttributes(Body body) {
 			if(body==null) {
 				return super.getFeralAttributes(body);
@@ -4486,7 +4486,7 @@ public class Subspecies {
 		}
 	};
 	
-        // FUNGUS CREATURE:
+	// FUNGUS CREATURE:
 	public static AbstractSubspecies FUNGUS_CREATURE = new AbstractSubspecies(true,
 			10000,
 			"sightglass_race_fungus_kombucha",
@@ -4502,14 +4502,14 @@ public class Subspecies {
 			null,
 			Nocturnality.NOCTURNAL,
 			"[npc.NameIsFull] a fungus creature, composed of a network of magically-enhanced fungal mycelia. [npc.She] gradually [npc.verb(sap)] the strength of opponents in battle.",
-                        "[npc.NameIsFull] a fungus creature, composed of a network of magically-enhanced fungal mycelia. [npc.She] gradually [npc.verb(sap)] the strength of opponents in battle." 
-                            + "The glow of [npc.her] demon core is visible embedded in [npc.her] chest, pulsing with potential.",
+			"[npc.NameIsFull] a fungus creature, composed of a network of magically-enhanced fungal mycelia. [npc.She] gradually [npc.verb(sap)] the strength of opponents in battle." 
+			    + "The glow of [npc.her] demon core is visible embedded in [npc.her] chest, pulsing with potential.",
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MAJOR_PHYSIQUE, 10f),
 					new Value<>(Attribute.MAJOR_ARCANE, 15f),
-                                        new Value<>(Attribute.DAMAGE_LUST, 12f),
-                                        new Value<>(Attribute.DAMAGE_POISON, 12f)
-                                        ),
+					new Value<>(Attribute.DAMAGE_LUST, 12f),
+					new Value<>(Attribute.DAMAGE_POISON, 12f)
+					),
 			Util.newArrayListOfValues(),
 			"Kingdom of Mushrooms",
 			"Kingdom of Mushrooms",
@@ -4528,33 +4528,33 @@ public class Subspecies {
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"An animated fungus-creature",
 			Util.newHashMapOfValues(
-                                new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO),
-                                new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR),
-                                new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.TWO),
-                                new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.SIX),
-                                new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE),
-                                new Value<>(WorldRegion.JUNGLE, SubspeciesSpawnRarity.SIX),
-                                new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.THREE),
-                                new Value<>(WorldRegion.MOUNTAINS, SubspeciesSpawnRarity.TWO),
-                                new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.SEVEN)
-                        ),
+				new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TWO),
+				new Value<>(WorldRegion.FIELD_CITY, SubspeciesSpawnRarity.FOUR),
+				new Value<>(WorldRegion.DESERT_CITY, SubspeciesSpawnRarity.TWO),
+				new Value<>(WorldRegion.JUNGLE_CITY, SubspeciesSpawnRarity.SIX),
+				new Value<>(WorldRegion.FIELDS, SubspeciesSpawnRarity.THREE),
+				new Value<>(WorldRegion.JUNGLE, SubspeciesSpawnRarity.SIX),
+				new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.THREE),
+				new Value<>(WorldRegion.MOUNTAINS, SubspeciesSpawnRarity.TWO),
+				new Value<>(WorldRegion.SUBMISSION, SubspeciesSpawnRarity.SEVEN)
+			),
 			Util.newHashMapOfValues(
-                                new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO)
-                        ), null, 
-                        Util.newArrayListOfValues(SubspeciesFlag.HIDDEN_FROM_PREFERENCES),
-                        true, BodyMaterial.FUNGUS,
-                        true, "fungal ", "corrupted fungal ", "fungal "
-        ) {
-                                        
+				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.TWO)
+			), null, 
+			Util.newArrayListOfValues(SubspeciesFlag.HIDDEN_FROM_PREFERENCES),
+			true, BodyMaterial.FUNGUS,
+			true, "fungal ", "corrupted fungal ", "fungal "
+	) {
+					
 		@Override
 		public String getSVGString(GameCharacter character) {
 			if(character==null) {
 				return Subspecies.HUMAN.getBodyMaterialSVGString(null, getSubspeciesBodyMaterial(), 
-                                        "#cf2b5c", Util.newArrayListOfValues("#fffbf2", "#e3b394", "#d96c7e"));
-                        }
-                        AbstractSubspecies fleshSubspecies = character.getBody().getFleshSubspecies();
+					"#cf2b5c", Util.newArrayListOfValues("#fffbf2", "#e3b394", "#d96c7e"));
+			}
+			AbstractSubspecies fleshSubspecies = character.getBody().getFleshSubspecies();
 			return fleshSubspecies.getBodyMaterialSVGString(character, getSubspeciesBodyMaterial(), 
-                                "#cf2b5c", Util.newArrayListOfValues("#fffbf2", "#e3b394", "#d96c7e"));
+				"#cf2b5c", Util.newArrayListOfValues("#fffbf2", "#e3b394", "#d96c7e"));
 		}
 
 		@Override
@@ -4571,25 +4571,25 @@ public class Subspecies {
 			}
 			return 0;
 		}
-                
-                @Override
+		
+		@Override
 		public FeralAttributes getFeralAttributes(Body body) {
 			if(body==null) {
 				return super.getFeralAttributes(body);
 			}
 			return body.getFleshSubspecies().getFeralAttributes(body);
 		}
-                
-                @Override
-                public void applySpeciesChanges(Body body) {
-                        super.applySpeciesChanges(body);
-                        if(body.hasPenisIgnoreDildo() && Math.random()<0.35) {
-                                body.getPenis().getTesticle().getCum().addFluidModifier(null, FluidModifier.HALLUCINOGENIC);
-                        }
-                        if(body.hasVagina() && Math.random()<0.35) {
-                                body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.HALLUCINOGENIC);
-                        }
-                }
+		
+		@Override
+		public void applySpeciesChanges(Body body) {
+			super.applySpeciesChanges(body);
+			if(body.hasPenisIgnoreDildo() && Math.random()<0.35) {
+				body.getPenis().getTesticle().getCum().addFluidModifier(null, FluidModifier.HALLUCINOGENIC);
+			}
+			if(body.hasVagina() && Math.random()<0.35) {
+				body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.HALLUCINOGENIC);
+			}
+		}
 	};
         
 	// RODENTS:
@@ -5212,7 +5212,7 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.HARPY) {
-				AbstractBodyCoveringType feathers = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FEATHER):BodyCoveringType.FEATHERS;
+				AbstractBodyCoveringType feathers = (body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)?BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), BodyCoveringCategory.MAIN_FEATHER):BodyCoveringType.FEATHERS;
 				
 				if(body.getCoverings().get(feathers).getPrimaryColour()==PresetColour.COVERING_BLACK
 						|| body.getCoverings().get(feathers).getPrimaryColour()==PresetColour.COVERING_JET_BLACK) {
@@ -5317,8 +5317,8 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.HARPY) {
-				AbstractBodyCoveringType feathers = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FEATHER):BodyCoveringType.FEATHERS;
-				AbstractBodyCoveringType legSkin = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_SKIN):BodyCoveringType.HARPY_SKIN;
+				AbstractBodyCoveringType feathers = (body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)?BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), BodyCoveringCategory.MAIN_FEATHER):BodyCoveringType.FEATHERS;
+				AbstractBodyCoveringType legSkin = (body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)?BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), BodyCoveringCategory.MAIN_SKIN):BodyCoveringType.HARPY_SKIN;
 				Colour legColour = body.getCoverings().get(legSkin).getPrimaryColour();
 				
 				if(body.getCoverings().get(feathers).getPrimaryColour()==PresetColour.COVERING_WHITE
@@ -5425,8 +5425,8 @@ public class Subspecies {
 //		@Override
 //		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 //			if(race==Race.HARPY) {
-//				AbstractBodyCoveringType feathers = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FEATHER):BodyCoveringType.FEATHERS;
-//				AbstractBodyCoveringType headFeathers = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.HAIR):BodyCoveringType.HAIR_HARPY;
+//				AbstractBodyCoveringType feathers = (body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)?BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), BodyCoveringCategory.MAIN_FEATHER):BodyCoveringType.FEATHERS;
+//				AbstractBodyCoveringType headFeathers = (body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)?BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), BodyCoveringCategory.HAIR):BodyCoveringType.HAIR_HARPY;
 //				
 //				if(body.getCoverings().get(feathers).getPrimaryColour()==PresetColour.COVERING_BROWN_DARK
 //						&& body.getCoverings().get(headFeathers).getPrimaryColour()==PresetColour.COVERING_WHITE) {
@@ -5448,7 +5448,7 @@ public class Subspecies {
 //			return PresetColour.BASE_YELLOW;
 //		}
 //	};
-
+	
 	public static AbstractSubspecies HARPY_PHOENIX = new AbstractSubspecies(false,
 			50000,
 			"innoxia_race_harpy_harpy_perfume",
@@ -5545,7 +5545,7 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.HARPY) {
-				AbstractBodyCoveringType feathers = body.getBodyMaterial()==BodyMaterial.SLIME?BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.MAIN_FEATHER):BodyCoveringType.FEATHERS;
+				AbstractBodyCoveringType feathers = (body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)?BodyCoveringType.getMaterialBodyCoveringType(body.getBodyMaterial(), BodyCoveringCategory.MAIN_FEATHER):BodyCoveringType.FEATHERS;
 				
 				if((body.getCoverings().get(feathers).isPrimaryGlowing()
 						&& (body.getCoverings().get(feathers).getPrimaryColour()==PresetColour.COVERING_RED
@@ -5562,7 +5562,158 @@ public class Subspecies {
 			return true;
 		}
 	};
-	
+
+	// DOLLS:
+	public static AbstractSubspecies DOLL = new AbstractSubspecies(true,
+			10000,
+			"innoxia_race_doll_silic_oil",
+			null,
+			"statusEffects/race/raceDoll",
+			"statusEffects/race/raceBackgroundDoll",
+			"doll",
+			"dolls",
+			"doll",
+			"doll",
+			"dolls",
+			"dolls",
+			null,
+			Nocturnality.CATHEMERAL,
+			"[npc.NameIsFull] an extremely realistic-looking, autonomous sex doll, created from arcane-infused silicone at the shop 'Lovienne's Luxuries'."
+					+ " [npc.Her] artificial body and the nature of [npc.her] arcane-powered automation grants [npc.herHim] numerous characteristics.",
+			"[npc.NameIsFull] an extremely realistic-looking, autonomous sex doll, created from arcane-infused silicone at the shop 'Lovienne's Luxuries'."
+					+ " [npc.Her] artificial body and the nature of [npc.her] arcane-powered automation grants [npc.herHim] numerous characteristics.",
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues(
+					"[style.boldExcellent(Doll-specific perk tree)]",
+					"[style.boldGood(Perks grant numerous effects)]"),
+			"The Ultimate Toy",
+			"The Ultimate Toys",
+			"DOLL_BASIC",
+			"DOLL_ADVANCED",
+			Race.DOLL,
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 1)),
+			Util.newHashMapOfValues(
+					new Value<>(PerkCategory.PHYSICAL, 1),
+					new Value<>(PerkCategory.LUST, 1),
+					new Value<>(PerkCategory.ARCANE, 1)),
+			PresetColour.RACE_DOLL,
+			SubspeciesPreference.ZERO_NONE,
+			"A lifelike rubber doll, which has been enchanted so as to be able to move, speak, and obey commands.",
+			null,
+			Util.newHashMapOfValues(), null, Util.newArrayListOfValues(
+					SubspeciesFlag.HIDDEN_FROM_PREFERENCES),
+			true, BodyMaterial.SILICONE
+		) {
+		@Override
+		public AbstractItemType getTransformativeItem(GameCharacter owner) {
+			return null;
+		}
+		@Override
+		public void applySpeciesChanges(Body body) {
+			// Doll subspecies are set in the Main.game.getCharacterUtils().generateBody() method
+			body.setBodyMaterial(BodyMaterial.SILICONE);
+		}
+		@Override
+		public String getName(Body body) {
+			if(body == null) {
+				return super.getName(body);
+			}
+			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
+			if(coreSubspecies==Subspecies.HUMAN) {
+				return super.getName(body);
+			}
+			return coreSubspecies.getName(body)+"-doll";
+		}
+		
+		@Override
+		public String getNamePlural(Body body) {
+			if(body ==null) {
+				return super.getNamePlural(body);
+			}
+			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
+			if(coreSubspecies==Subspecies.HUMAN) {
+				return super.getNamePlural(body);
+			}
+			return coreSubspecies.getName(body)+"-dolls";
+		}
+
+		@Override
+		public String getSingularMaleName(Body body) {
+			if(body ==null) {
+				return super.getSingularMaleName(body);
+			}
+			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
+			if(coreSubspecies==Subspecies.HUMAN) {
+				return super.getSingularMaleName(body);
+			}
+			return coreSubspecies.getSingularMaleName(body)+"-doll";
+		}
+
+		@Override
+		public String getSingularFemaleName(Body body) {
+			if(body ==null) {
+				return super.getSingularFemaleName(body);
+			}
+			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
+			if(coreSubspecies==Subspecies.HUMAN) {
+				return super.getSingularFemaleName(body);
+			}
+			return coreSubspecies.getSingularFemaleName(body)+"-doll";
+		}
+
+		@Override
+		public String getPluralMaleName(Body body) {
+			if(body ==null) {
+				return super.getPluralMaleName(body);
+			}
+			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
+			if(coreSubspecies==Subspecies.HUMAN) {
+				return super.getPluralMaleName(body);
+			}
+			return coreSubspecies.getSingularMaleName(body)+"-dolls";
+		}
+
+		@Override
+		public String getPluralFemaleName(Body body) {
+			if(body ==null) {
+				return super.getPluralFemaleName(body);
+			}
+			AbstractSubspecies coreSubspecies = body.getFleshSubspecies();
+			if(coreSubspecies==Subspecies.HUMAN) {
+				return super.getPluralFemaleName(body);
+			}
+			return coreSubspecies.getSingularFemaleName(body)+"-dolls";
+		}
+
+		@Override
+		public String getSVGString(GameCharacter character) {
+			if(character==null) {
+				return Subspecies.HUMAN.getBodyMaterialSVGString(null, getSubspeciesBodyMaterial());
+			}
+			AbstractSubspecies fleshSubspecies = character.getBody().getFleshSubspecies();
+			if (fleshSubspecies == Subspecies.HUMAN) {
+				return Subspecies.DOLL.getBodyMaterialSVGString(character, getSubspeciesBodyMaterial());
+			}
+			return fleshSubspecies.getBodyMaterialSVGString(character, getSubspeciesBodyMaterial());
+		}
+
+		@Override
+		public int getSubspeciesWeighting(Body body, AbstractRace race) {
+			if(race==Race.DOLL) {
+				return 20_000; // Dolls should always be dolls, no matter their underlying subspecies
+			}
+			return 0;
+		}
+		public FeralAttributes getFeralAttributes(Body body) {
+			if(body==null) {
+				return super.getFeralAttributes(body);
+			}
+			return body.getFleshSubspecies().getFeralAttributes(body);
+		}
+	};
 	
 	// ELEMENTALS:
 	
@@ -5649,16 +5800,16 @@ public class Subspecies {
 		public boolean isWinged() {
 			return true;
 		}
-                
-                @Override
-                public boolean isMaterialSubspecies() {
-                        return true;
-                }
-                
-                @Override
-                public BodyMaterial getSubspeciesBodyMaterial() {
-                        return BodyMaterial.FIRE;
-                }
+		
+		@Override
+		public boolean isMaterialSubspecies() {
+			return true;
+		}
+		
+		@Override
+		public BodyMaterial getSubspeciesBodyMaterial() {
+			return BodyMaterial.FIRE;
+		}
 	};
 	
 	public static AbstractSubspecies ELEMENTAL_EARTH = new AbstractSubspecies(false,
@@ -5733,7 +5884,7 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.ELEMENTAL
-					&& (body.getBodyMaterial()==BodyMaterial.STONE || body.getBodyMaterial()==BodyMaterial.RUBBER || body.getBodyMaterial()==BodyMaterial.FLESH || body.getBodyMaterial()==BodyMaterial.SLIME)) {
+					&& (body.getBodyMaterial()==BodyMaterial.STONE || body.getBodyMaterial()==BodyMaterial.RUBBER || body.getBodyMaterial()==BodyMaterial.FLESH || body.getBodyMaterial()==BodyMaterial.SLIME || body.getBodyMaterial()==BodyMaterial.SILICONE)) {
 				return 100;
 			}
 			return 0;
@@ -5742,16 +5893,16 @@ public class Subspecies {
 		public boolean isWinged() {
 			return true;
 		}
-                
-                @Override
-                public boolean isMaterialSubspecies() {
-                        return true;
-                }
-                
-                @Override
-                public BodyMaterial getSubspeciesBodyMaterial() {
-                        return BodyMaterial.STONE;
-                }
+		
+		@Override
+		public boolean isMaterialSubspecies() {
+			return true;
+		}
+		
+		@Override
+		public BodyMaterial getSubspeciesBodyMaterial() {
+			return BodyMaterial.STONE;
+		}
 	};
 
 	public static AbstractSubspecies ELEMENTAL_WATER = new AbstractSubspecies(false,
@@ -5834,16 +5985,16 @@ public class Subspecies {
 		public boolean isWinged() {
 			return true;
 		}
-                
-                @Override
-                public boolean isMaterialSubspecies() {
-                        return true;
-                }
-                
-                @Override
-                public BodyMaterial getSubspeciesBodyMaterial() {
-                        return BodyMaterial.WATER;
-                }
+		
+		@Override
+		public boolean isMaterialSubspecies() {
+			return true;
+		}
+		
+		@Override
+		public BodyMaterial getSubspeciesBodyMaterial() {
+			return BodyMaterial.WATER;
+		}
 	};
 
 	public static AbstractSubspecies ELEMENTAL_AIR = new AbstractSubspecies(false,
@@ -5926,16 +6077,16 @@ public class Subspecies {
 		public boolean isWinged() {
 			return true;
 		}
-                
-                @Override
-                public boolean isMaterialSubspecies() {
-                        return true;
-                }
-                
-                @Override
-                public BodyMaterial getSubspeciesBodyMaterial() {
-                        return BodyMaterial.AIR;
-                }
+		
+		@Override
+		public boolean isMaterialSubspecies() {
+			return true;
+		}
+		
+		@Override
+		public BodyMaterial getSubspeciesBodyMaterial() {
+			return BodyMaterial.AIR;
+		}
 	};
 
 	public static AbstractSubspecies ELEMENTAL_ARCANE = new AbstractSubspecies(true,
@@ -6018,16 +6169,16 @@ public class Subspecies {
 		public boolean isWinged() {
 			return true;
 		}
-                
-                @Override
-                public boolean isMaterialSubspecies() {
-                        return true;
-                }
-                
-                @Override
-                public BodyMaterial getSubspeciesBodyMaterial() {
-                        return BodyMaterial.ARCANE;
-                }
+		
+		@Override
+		public boolean isMaterialSubspecies() {
+			return true;
+		}
+		
+		@Override
+		public BodyMaterial getSubspeciesBodyMaterial() {
+			return BodyMaterial.ARCANE;
+		}
 	};
 
 
@@ -6207,15 +6358,15 @@ public class Subspecies {
 			placeSpecies.putIfAbsent(placeType, new HashMap<>());
 			regionSpecies.putIfAbsent(placeType.getWorldRegion(), new HashMap<>());
 		    for(Entry<AbstractSubspecies, SubspeciesSpawnRarity> placeEntry : placeSpecies.get(placeType).entrySet()) {
-		        if(!map.containsKey(placeEntry.getKey())) {
-		            map.put(placeEntry.getKey(), placeEntry.getValue());
-		        }
+			if(!map.containsKey(placeEntry.getKey())) {
+			    map.put(placeEntry.getKey(), placeEntry.getValue());
+			}
 		    }
 			if (includeRegionSpecies && regionSpecies.get(placeType.getWorldRegion())!=null) {
 			    for(Entry<AbstractSubspecies, SubspeciesSpawnRarity> regionEntry : regionSpecies.get(placeType.getWorldRegion()).entrySet()) {
-			        if(!map.containsKey(regionEntry.getKey())) {
-			            map.put(regionEntry.getKey(), regionEntry.getValue());
-			        }
+				if(!map.containsKey(regionEntry.getKey())) {
+				    map.put(regionEntry.getKey(), regionEntry.getValue());
+				}
 			    }
 			}
 		}

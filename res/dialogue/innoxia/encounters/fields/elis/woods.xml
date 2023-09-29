@@ -282,6 +282,9 @@
 					<!-- An optional element, which defaults to false.
 						If set to true, the option to try and escape from this combat scene is blocked. -->
 					<escapeBlocked><![CDATA[false]]></escapeBlocked>
+					<!-- An optional element, which defaults to false.
+						If set to true, the option to submit in this combat scene is blocked. -->
+					<submitBlocked><![CDATA[false]]></submitBlocked>
 				</combatVariables>
 				
 				

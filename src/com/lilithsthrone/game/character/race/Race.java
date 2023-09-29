@@ -655,91 +655,7 @@ public class Race {
 			return RacialBody.ALLIGATOR_MORPH;
 		}
 	};
-
-	// SLIME:
-	public static AbstractRace SLIME = new AbstractRace("slime",
-			"slimes",
-			"slime",
-			"slimes",
-			"slime",
-			PresetColour.RACE_SLIME,
-			Disposition.NEUTRAL,
-			RacialClass.OTHER,
-			CombatBehaviour.BALANCED,
-			0.5f,
-			1,
-			1,
-			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM,
-			false,
-                        true,
-                        new HashSet<BodyMaterial>(Arrays.asList(BodyMaterial.SLIME)),
-                        true) {
-	};
-        
-        // LATEX CREATURE
-        public static AbstractRace LATEX_CREATURE = new AbstractRace("latex",
-			"latex creatures",
-			"latex creature",
-			"latex creatures",
-			"latex creature",
-			PresetColour.BASE_BLACK,
-			Disposition.UNPREDICTABLE,
-			RacialClass.OTHER,
-			CombatBehaviour.BALANCED,
-			0.5f,
-			1,
-			2,
-			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM,
-			false,
-                        true,
-                        new HashSet<BodyMaterial>(Arrays.asList(BodyMaterial.RUBBER)),
-                        false) {
-	};
-
-        // PLANT CREATURE
-        public static AbstractRace PLANT_CREATURE = new AbstractRace("plant",
-			"plant-folk",
-			"plant beast",
-			"plant beasts",
-			"plant creature",
-			PresetColour.BASE_GREEN,
-			Disposition.CIVILIZED,
-			RacialClass.OTHER,
-			CombatBehaviour.BALANCED,
-			0.5f,
-			1,
-			6,
-			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM,
-			false,
-                        true,
-                        new HashSet<BodyMaterial>(Arrays.asList(BodyMaterial.PLANT)),
-                        false) {
-	};     
-        
-        // FUNGUS CREATURE
-        public static AbstractRace FUNGUS_CREATURE = new AbstractRace("fungus",
-			"fungus creatures",
-			"fungus creature",
-			"fungus creatures",
-			"fungus creature",
-			PresetColour.BASE_PINK_SALMON,
-			Disposition.UNPREDICTABLE,
-			RacialClass.OTHER,
-			CombatBehaviour.BALANCED,
-			0.5f,
-			1,
-			2,
-			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM,
-			false,
-                        true,
-                        new HashSet<BodyMaterial>(Arrays.asList(BodyMaterial.FUNGUS)),
-                        false) {
-	};   
-        
+	
 	// AVIAN:
 	public static AbstractRace HARPY = new AbstractRace("harpy",
 			"harpies",
@@ -780,9 +696,116 @@ public class Race {
 		}
 	};
 	
+	
+	// ********** SPECIAL RACES ********** //
+	
+	// SLIME:
+	public static AbstractRace SLIME = new AbstractRace("slime",
+			"slimes",
+			"slime",
+			"slimes",
+			"slime",
+			PresetColour.RACE_SLIME,
+			Disposition.NEUTRAL,
+			RacialClass.OTHER,
+			CombatBehaviour.BALANCED,
+			0.5f,
+			1,
+			1,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM,
+			false,
+			true,
+			new HashSet<BodyMaterial>(Arrays.asList(BodyMaterial.SLIME)),
+			true) {
+	};
+	
+	// DOLLS:
+	public static AbstractRace DOLL = new AbstractRace("doll",
+			"dolls",
+			"doll",
+			"dolls",
+			"doll",
+			PresetColour.RACE_DOLL,
+			Disposition.NEUTRAL,
+			RacialClass.OTHER,
+			CombatBehaviour.BALANCED,
+			0.5f,
+			1,
+			1,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM,
+			false,
+			true,
+			new HashSet<BodyMaterial>(Arrays.asList(BodyMaterial.SILICONE)),
+			false) {
+	};
+	
+	// LATEX CREATURE
+	public static AbstractRace LATEX_CREATURE = new AbstractRace("latex",
+			"latex creatures",
+			"latex creature",
+			"latex creatures",
+			"latex creature",
+			PresetColour.BASE_BLACK,
+			Disposition.UNPREDICTABLE,
+			RacialClass.OTHER,
+			CombatBehaviour.BALANCED,
+			0.5f,
+			1,
+			2,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM,
+			false,
+			true,
+			new HashSet<BodyMaterial>(Arrays.asList(BodyMaterial.RUBBER)),
+			false) {
+	};
 
+	// PLANT CREATURE
+	public static AbstractRace PLANT_CREATURE = new AbstractRace("plant",
+			"plant-folk",
+			"plant beast",
+			"plant beasts",
+			"plant creature",
+			PresetColour.BASE_GREEN,
+			Disposition.CIVILIZED,
+			RacialClass.OTHER,
+			CombatBehaviour.BALANCED,
+			0.5f,
+			1,
+			6,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM,
+			false,
+			true,
+			new HashSet<BodyMaterial>(Arrays.asList(BodyMaterial.PLANT)),
+			false) {
+	};
+	
+	// FUNGUS CREATURE
+	public static AbstractRace FUNGUS_CREATURE = new AbstractRace("fungus",
+			"fungus creatures",
+			"fungus creature",
+			"fungus creatures",
+			"fungus creature",
+			PresetColour.BASE_PINK_SALMON,
+			Disposition.UNPREDICTABLE,
+			RacialClass.OTHER,
+			CombatBehaviour.BALANCED,
+			0.5f,
+			1,
+			2,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM,
+			false,
+			true,
+			new HashSet<BodyMaterial>(Arrays.asList(BodyMaterial.FUNGUS)),
+			false) {
+	};
+	
 	// ELEMENTALS:
-
+	
 	public static AbstractRace ELEMENTAL = new AbstractRace("elemental",
 				"elementals",
 				"elemental",

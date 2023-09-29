@@ -105,6 +105,10 @@ public class Clitoris implements BodyPartInterface {
 				descriptors.add(mod.getName());
 			}
 		}
+
+		if(gc.getBodyMaterial().getPartDescriptors()!=null && !gc.getBodyMaterial().getPartDescriptors().isEmpty()) {
+			descriptors.add(Util.randomItemFrom(gc.getBodyMaterial().getPartDescriptors()));
+		}
 		
 		return Util.randomItemFrom(descriptors);
 	}
