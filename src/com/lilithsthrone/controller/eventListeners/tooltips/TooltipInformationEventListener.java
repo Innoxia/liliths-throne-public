@@ -870,7 +870,8 @@ public class TooltipInformationEventListener implements EventListener {
 				} else {
 					CachedImage image = null;
 					boolean displayImage = Main.getProperties().hasValue(PropertyValue.thumbnail)
-							&& Main.getProperties().hasValue(PropertyValue.artwork);
+							&& Main.getProperties().hasValue(PropertyValue.artwork)
+							&& (!owner.isElemental() || ((Elemental)owner).isActive());
 					if (displayImage) {
 						if (owner.hasArtwork()) {
 							image = ImageCache.INSTANCE.requestImage(owner.getCurrentArtwork().getCurrentImage());

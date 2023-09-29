@@ -7,6 +7,7 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.combat.moves.CombatMoveType;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
 
@@ -368,6 +369,7 @@ public enum Attack {
 					break;
 				case FLESH:
 				case SLIME:
+				case SILICONE:
 					break;
 				case RUBBER:
 				case STONE:
@@ -385,6 +387,11 @@ public enum Attack {
 				damage += attackersDamage*2;
 			} else {
 				damage += attackersDamage;
+			}
+			
+			// Double damage if ranged and has the perk:
+			if(weapon!=null && weapon.getWeaponType().getItemTags().contains(ItemTag.WEAPON_FIREARM) && attacker.hasPerkAnywhereInTree(Perk.SPECIAL_ENFORCER_FIREARMS_TRAINING)) {
+				damage *= 2;
 			}
 			
 			if(attacker!=null) { // Attacker modifiers:

@@ -5,7 +5,10 @@
 	
 	<htmlContent tag="CORRIDOR"><![CDATA[
 	<p>
-		TODO Corridor. Carpeted, beams overhead. Faint musty smell like that found in very old buildings...
+		You find yourself [pc.walking] down the corridor which leads from the reception area into the rest of the Enforcer station. Worn, greyish-blue carpet covers the floor, while up above bright fluorescent-style arcane lights illuminate the dark wooden beams which hold up the ceiling. The entire area has that faint, musty smell which is often found in old, public buildings like this one.
+	</p>
+	<p>
+		The odd Enforcer passes you as you travel down this corridor. Busy with their duties, they don't stop to ask what you're doing back here, and instead hurry past you with either the briefest of nods or no acknowledgement at all.
 	</p>
 	]]>
 	</htmlContent>
@@ -95,11 +98,11 @@
 				[sterope.speech([pc.Name],)] the cold-mannered horse-girl greets you by simply stating your name. Suspiciously looking at your Enforcer uniform, she asks, [sterope.speech(Are you <i>really</i> an Enforcer?)]
 			</p>
 			<p>
-				You assure Sterope that you are, but that you're on a secret assignment from Dominion and so can't say too much to her. Before you can say anything else, Sterope gives you a slightly disdainful look, before
+				You assure Sterope that you are, but that you're on a secret assignment from Dominion and so can't say too much to her. Before you can say anything else, Sterope
 				#IF(flags.hasFlag(FLAG_innoxia_sterope_met_in_tavern))
-					 flashing you an icy look and hissing under her breath, [sterope.speech(Don't you <i>dare</i> mention anything about my private life while I'm on duty.)]
+					 flashes you an icy look and hisses under her breath, [sterope.speech(Don't you <i>dare</i> mention anything about my private life while I'm on duty.)]
 				#ELSE
-					 asking, [sterope.speech(So, what is it that I can help you with?)]
+					 gives you a slightly disdainful look, before asking, [sterope.speech(So, what is it that I can help you with?)]
 				#ENDIF
 			</p>
 		#ELSE
@@ -113,11 +116,11 @@
 	#ELSE
 		#IF(flags.hasFlag(FLAG_innoxia_elis_enforcers_sterope_met))
 			<p>
-				[sterope.speech([pc.Name],)] the cold-mannered horse-girl greets you by simply stating your name. Before you can say anything else, she gives you a slightly disdainful look, before
+				[sterope.speech([pc.Name],)] the cold-mannered horse-girl greets you by simply stating your name. Before you can say anything else, she
 				#IF(flags.hasFlag(FLAG_innoxia_sterope_met_in_tavern))
-					 flashing you an icy look and hissing under her breath, [sterope.speech(Don't you <i>dare</i> mention anything about my private life while I'm on duty.)]
+					 flashes you an icy look and hisses under her breath, [sterope.speech(Don't you <i>dare</i> mention anything about my private life while I'm on duty.)]
 				#ELSE
-					 asking, [sterope.speech(Do you have a crime to report? Or is there something else you're hoping that I can help you with?)]
+					 gives you a slightly disdainful look, before asking, [sterope.speech(Do you have a crime to report? Or is there something else you're hoping that I can help you with?)]
 				#ENDIF
 			</p>
 		#ELSE
@@ -194,6 +197,31 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="RECEPTION_TALK_SWORD"><![CDATA[
+	<p>
+		Wanting to know more about the group of SWORD Enforcers who are stationed here, you ask Sterope what she knows about them.
+	</p>
+	<p>
+		[sterope.speech(It's not my place to share rumours with members of the public,)] the horse-girl bluntly responds, before impatiently drumming her fingers on the desk and asking, [sterope.speech(Anything else?)]
+	</p>
+	<p>
+		Not satisfied with her answer, you remind Sterope that you're working on behalf of Minotallys herself, and that the lilin would be disappointed to find out that one of her town's Enforcers had been uncooperative.
+	</p>
+	<p>
+		[sterope.speech(Lilin and mayor she may be, but we Enforcers are not under her command, so take your threats elsewhere,)] Sterope angrily snaps, before rolling her eyes and sighing, [sterope.speech(I suppose there's no need to make this into an issue. You want to know about those SWORD guys? Well, they don't mix with the rest of us, so I don't know much. They were assigned to Elis about five years ago, and the rumour was that they caused a fuss in Dominion and got on the wrong side of an elder lilin.)]
+	</p>
+	<p>
+		Wanting to know more, you press Sterope for more information. Shrugging her shoulders and crossing her arms, the horse-girl reluctantly reveals, [sterope.speech(I don't know if any of this is true, but there was talk that a recognised daughter of the elder lilin Lasielle had been given a high-ranking position in the Enforcers, and that a year or so after her appointment a SWORD group arrested her. Apparently Lasielle was furious and wanted to disband SWORD entirely. All that happened in the end, however, was that the Enforcers who were involved were transferred here.)]
+	</p>
+	<p>
+		Before you can ask Sterope if she knows anything else, she shakes her head and says, [sterope.speech(That's all I know. If you want to know more, just ask them yourself.)]
+	</p>
+	<p>
+		Thanking the horse-girl for the information, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="RECEPTION_FLIRT"><![CDATA[
 	<p>
 		Seizing upon what Sterope has just said, you tease the horse-girl by asking her if she thinks about succutaurs turning people into submissive, worthless cock-sleeves often. Although she blushes a little as you say this, Sterope maintains her composure and looks down her nose at you as she prepares her response.
@@ -209,26 +237,13 @@
 	
 	<htmlContent tag="RECEPTION_SWORD"><![CDATA[
 	<p>
-		TODO You tell Sterope that you've been sent by Minotallys to make contact with the group of SWORD Enforcers who are staioned here. Sterope doesn't believe you, but when you show her your access pass to the town hall, she accepts what you're saying as the truth.
+		Wanting to meet with the SWORD Enforcers who are staioned here as soon as possible, you tell Sterope that you've been sent by Minotallys herself to make contact with them. The horse-girl flashes you a suspicious look, before flatly stating, [sterope.speech(I find that hard to believe. I'll need some proof.)]
 	</p>
 	<p>
-		You ask her what she knows about the SWORD Enforcers.
+		Taking out your town hall access card, you show it to the distrustful Enforcer, who snatches it from your [pc.hand(true)] and closely inspects it. Letting out an annoyed hum, she hands it back to you, before saying, [sterope.speech(Fine, you can head on through. They're in the room at the far end of the corridor, but don't expect a warm welcome.)]
 	</p>
 	<p>
-		She says that they don't mix well with the rest of the Enforcers, and that the rumour is that they caused a fuss in Dominion about five years ago and were demoted and sent here.
-	</p>
-	<p>
-		There was talk that a recognised daughter of the elder lilin Lasielle, who'd been given a high-ranking position in the Enforcers, had been arrested. That elder daughter hasn't been seen since, and a week later the group arrived here in Elis.
-	</p>
-	<p>
-		She says that she doesn't know any more, and you can just ask them. Says that you can come and go as you please, and that the SWORD Enforcer office is straight ahead down the corridor.
-	</p>
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="RECEPTION_SWORD_CONTINUE"><![CDATA[
-	<p>
-		TODO Thanking Sterope for the information, you head on past her desk and into the station's interior.
+		With that, Sterope motions for you to head on past her desk and through the door behind her. Before you proceed, however, you could always take a moment to ask her what she could tell you about these SWORD Enforcers...
 	</p>
 	]]>
 	</htmlContent>
@@ -238,14 +253,17 @@
 
 	<htmlContent tag="LOCKED_DOOR"><![CDATA[
 	<p>
-		TODO This door is locked...
+		This door is marked as leading to the Enforcer station's cells and offices, although a quick test of the handle reveals it to be locked. An arcane card-reading device is attached to the wall to one side of it, letting you know that you'd need an access card to gain entry.
+	</p>
+	<p>
+		Unable to proceed through this door, all you can do is turn around and head back into the corridor...
 	</p>
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="LOCKED_DOOR_STEP_BACK"><![CDATA[
 	<p>
-		TODO You [pc.step] back into the corridor...
+		You [pc.step] back into the corridor and wonder which way to go now...
 	</p>
 	]]>
 	</htmlContent>
@@ -274,10 +292,571 @@
 	<!-- SWORD: -->
 
 	<htmlContent tag="SWORD"><![CDATA[
+	#IF(!flags.hasFlag(FLAG_innoxia_elis_sword_met))
+		<p>
+			The door at the end of the corridor is fitted with an opaque glass window, and etched into this glass are the words 'SWORD 3rd Battalion, 1st Company - Company Headquarters'. An old, seriously-dented ballistic helmet is being used to prop this door ajar, although all that can be seen through the narrow opening is a section of beige wall. Several deep voices can be heard within, which occasionally turn into brief, booming laughs.
+		</p>
+		<p>
+			Giving the door a brief knock, you push it open and [pc.step] into the room beyond. The voices are instantly silenced as you make your entrance, and the eyes of half a dozen veteran SWORD Enforcers are fixed onto you. A couple of these Enforcers are sitting behind desks on the far side of the room, but the rest are lounging about on sofas that have been arranged into a rectangular area to the left of where you're standing. While each of these Enforcers are of a different race, and a few of them are female, they all appear to be at least in their late fifties. Although you've seen SWORD Enforcers on duty in Elis's town hall, you don't recognise any of the ones before you, and you realise that those guards must be separate to this group.
+		</p>
+		<p>
+			One of the Enforcers who's sitting behind a desk is a large, grey-furred wolf-boy with a furry beard and a black patch over one eye. Despite appearing to be in his late sixties, he looks to be very physically fit, and from his confident posture and position in the room he seems to be the leader of this group. As you start to introduce yourself, he grunts and says in a deep, gravelly voice, [hammer.speech(We know who you are, [pc.name]. You think someone as dangerous as you enters our town without us noticing? State your business quickly; we don't have time for small talk.)]
+		</p>
+		#IF(pc.hasAnyEnforcerStatusEffect())
+			<p>
+				Before you can start to say anything, a mean-looking tiger-girl takes one look at your uniform and growls from her position on one of the sofas, [style.speechFeminineStrong(You're not convincing anyone in this room that you're an Enforcer, so don't even try.)]
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			Pushing open the door marked 'SWORD 3rd Battalion, 1st Company - Company Headquarters' at the far end of the corridor, you [pc.step] around the old, seriously-dented ballistic helmet which was being used to prop the door ajar and enter the room beyond. The voices of the Enforcers, which were audible from out in the corridor, are instantly silenced as you make your entrance. As they see that it's you, however, they turn back to their conversations and leave you to Hammer and Ghost. 
+		</p>
+		#IF(pc.getQuest(QUEST_LINE_MAIN)==QUEST_MAIN_3_G_SWORD_SCAPEGOAT)
+			#IF(game.getDayOfWeek()==DOW_TUESDAY && game.isHourBetween(17, 24))
+				<p>
+					The small otter-girl turns on her sofa to face you and say, [ghost.speech(The succubus and her gang are going to be holding their weekly meeting in a few hours. You're ready to go, right?)]
+				</p>
+				<p>
+					[hammer.speech(Refugees are still going missing. We can't afford to wait another week,)] Hammer grunts while cracking his knuckles, [hammer.speech(We need to take that bitch out tonight.)]
+				</p>
+				<p>
+					Although you're not obliged to go with them this evening, it seems like it would be a good idea to get this operation done sooner rather than later...
+				</p>
+			#ELSE
+				<p>
+					The small otter-girl turns on her sofa to face you and say,
+					#IF(game.getDayOfWeek()==DOW_MONDAY)
+						 [ghost.speech(The succubus and her gang are going to be holding their weekly meeting tomorrow evening. You'll be ready for that, right?)]
+					#ELSE
+						 [ghost.speech(The succubus and her gang are going to be holding their weekly meeting on Tuesday evening. You'll be ready for that, right?)]
+					#ENDIF
+				</p>
+				<p>
+					[hammer.speech([pc.SheWill] be ready,)] Hammer grunts, before looking at you from behind his desk and saying, [hammer.speech(We've got other ops to plan, so we'll see you on Tuesday evening.)]
+				</p>
+				<p>
+					It seems like you'll have to earn the Enforcers' trust before they'll be comfortable with you being here...
+				</p>
+			#ENDIF
+		#ELSE
+			#IF(flags.hasFlag(FLAG_innoxia_sword_mission_react_needed))
+				<p>
+					[hammer.speech(Good work on that op,)] the wolf-boy grunts from behind his desk.
+				</p>
+				<p>
+					[ghost.speech(Yeah, sorry we had to plan to use you as a scapegoat, but at least it didn't come to that, right?)] Ghost says with a smile from her place on one of the sofas.
+				</p>
+				#IF(flags.hasFlag(FLAG_innoxia_sword_mission_reward))
+					#IF(flags.hasFlag(FLAG_innoxia_sword_mission_chose_hammer))
+						<p>
+							[hammer.speech(You didn't have to risk yourself to help us fight those gang members,)] Hammer sternly says, before placing a sheathed dagger down on his desk and grunting, [hammer.speech(I don't like being in someone's debt, so take this and then we're even.)]
+						</p>
+						<p>
+							[ghost.speech(When's the last time you actually used that thing?)] Ghost playfully asks the wolf-boy as she sees what it is he's offering you.
+						</p>
+						<p>
+							[hammer.speech(Knives aren't my style; I leave that work to you,)] Hammer replies, before beckoning for you to take the dagger and barking, [hammer.speech(Come on, I don't have all day.)]
+						</p>
+						<p>
+							Despite his stern attitude, you get the feeling that the wolf-boy genuinely likes you. This feeling is reinforced as you approach his desk and see that the dagger he's giving you looks to be quite a special one...
+						</p>
+					#ELSE
+						<p>
+							Before you can reply, the otter-girl holds a sheathed dagger towards you and says, [ghost.speech(We didn't expect you to put yourself at risk and fight alongside us. I get the feeling that you're going to get yourself into a lot more fights in the future, so perhaps you'd like this?)]
+						</p>
+						<p>
+							[hammer.speech(You're giving away your dagger?)] Hammer asks in surprise as he sees what it is the otter-girl's offering you.
+						</p>
+						<p>
+							[ghost.speech(I have like ten of these,)] Ghost replies, before chuckling at the look of surprise on Hammer's face and teasing, [ghost.speech(So I can still surprise you even after all these years.)]
+						</p>
+						<p>
+							The wolf-boy simply grunts and crosses his arms in response. You understand his surprise as you approach Ghost and see that the dagger she's giving you looks to be quite a special one...
+						</p>
+					#ENDIF
+				#ELSE
+					<p>
+						[hammer.speech(Before you ask, we're working on the plan to defend Elis,)] Hammer grunts, motioning towards a large map of the town and the surrounding area that's pinned to one wall. Although there are an impressive number of lines, unit markers, and technical symbols drawn over it, there doesn't quite seem to be enough to defend the entire town. Noticing your questioning look, the wolf-boy simply grunts, [hammer.speech(We'll get it sorted.)]
+					</p>
+					<p>
+						Now that the SWORD Enforcers seem to trust you, you wonder if you can ask them a few questions...
+					</p>
+				#ENDIF
+			#ELSE
+				<p>
+					[ghost.speech(Hi, [pc.name],)] the otter-girl cheerfully calls out from her place on one of the sofas.
+				</p>
+				<p>
+					[hammer.speech(Before you ask, we're working on the plan to defend Elis,)] Hammer grunts, motioning towards a large map of the town and the surrounding area that's pinned to one wall. Although there are an impressive number of lines, unit markers, and technical symbols drawn over it, there doesn't quite seem to be enough to defend the entire town. Noticing your questioning look, the wolf-boy simply grunts, [hammer.speech(We'll get it sorted.)]
+				</p>
+				<p>
+					Now that the SWORD Enforcers seem to trust you, you wonder if you can ask them a few questions...
+				</p>
+			#ENDIF
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SWORD_DAGGER_HAMMER"><![CDATA[
 	<p>
-		TODO A group of dangerous-looking SWORD Enforcers...
+		[pc.Stepping] up to Hammer's desk, you take the offered dagger from him. Unclasping the sheath's restraining strap, you slide the weapon free to get a good look at it. It's quite simple in design, having a plain foil grip and a tapered, double-edged blade. Like almost all weapons in the realm, the blade isn't made from metal, but is instead formed from arcane energy. Its sharp point makes it clear that it was made for thrusting and stabbing attacks.
+	</p>
+	<p>
+		[hammer.speech(We were issued those back when SWORD was first formed,)] Hammer reveals, [hammer.speech(They still use the same design today, but that one's a first pattern example. They only issued them from 1976 to '77.)]
+	</p>
+	<p>
+		[ghost.speech(You sure you want to be giving it away?)] Ghost asks from the other side of the room, [ghost.speech(Haven't you got some memories attached to that thing?)]
+	</p>
+	<p>
+		[hammer.speech(Only bad ones,)] Hammer grunts, before giving you a brief nod and saying, [hammer.speech(I haven't unsheathed it for over a decade. At least with you it might see some use.)]
+	</p>
+	<p>
+		[ghost.speech(Oh, and before you ask, we're working on the plan to defend Elis,)] Ghost says, motioning towards a large map of the town and the surrounding area that's pinned to one wall. Although there are an impressive number of lines, unit markers, and technical symbols drawn over it, there doesn't quite seem to be enough to defend the entire town. Noticing your questioning look, the otter-girl sighs, [ghost.speech(We'll get it sorted. I hope...)]
+	</p>
+	<p>
+		Now that the SWORD Enforcers seem to trust you, you wonder if you can ask them a few questions...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SWORD_DAGGER_GHOST"><![CDATA[
+	<p>
+		[pc.Stepping] over to Ghost, you take the offered dagger from her. Unclasping the sheath's restraining strap, you slide the weapon free to get a good look at it. It's quite simple in design, having a plain foil grip and a tapered, double-edged blade. Like almost all weapons in the realm, the blade isn't made from metal, but is instead formed from arcane energy. Its sharp point makes it clear that it was made for thrusting and stabbing attacks.
+	</p>
+	<p>
+		[ghost.speech(We were issued these back when SWORD was first formed,)] Ghost reveals, [ghost.speech(They still use the same design today, but this one's a first pattern example. They only issued them from 1976 to '77. The newer ones are fine, but I've always preferred the weighting and feel of these old ones.)]
+	</p>
+	<p>
+		[hammer.speech(A firearm's the better choice,)] Hammer grunts from the other side of the room, [hammer.speech(Knife fights are far too risky.)]
+	</p>
+	<p>
+		[ghost.speech(It's only risky if the target sees you before they feel the blade,)] Ghost coldly replies, before giving you a brief nod and saying, [ghost.speech(I prefer to run my blades with a poison enchantment, but you do you. Thanks again for backing us up on that op.)]
+	</p>
+	<p>
+		[hammer.speech(Before you ask, we're working on the plan to defend Elis,)] Hammer grunts, motioning towards a large map of the town and the surrounding area that's pinned to one wall. Although there are an impressive number of lines, unit markers, and technical symbols drawn over it, there doesn't quite seem to be enough to defend the entire town. Noticing your questioning look, the wolf-boy simply grunts, [hammer.speech(We'll get it sorted.)]
+	</p>
+	<p>
+		Now that the SWORD Enforcers seem to trust you, you wonder if you can ask them a few questions...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SWORD_INITIAL"><![CDATA[
+	<p>
+		Deciding that it would be best to do as the wolf-boy says, you explain the situation to all of the assembled SWORD Enforcers. After telling them what happened in Themiscyra, you say that the defeat of Lunexis will bring the wrath of Lunette herself down on Elis. As a result, Minotallys has asked you to come here and ask for these Enforcers' help in preparing a plan to defend the town.
+	</p>
+	<p>
+		[ghost.speech(So the lilin comes crawling to us for help, but she can't even be bothered to come here herself,)] a feminine voice speaks out from the sofas. Hidden up until now behind the huge, muscular bull-boy she's sitting next to, a small otter-girl leans forwards and flashes you a grin. Like the wolf-boy, she looks to be in her late sixties, and again like her comrade she bears a visible scar. Her entire left arm, right up to the point where it meets the short sleeve of her shirt, is covered in horrific burn scars. Standing up, and allowing you to see that she's no more than [ghost.heightValue] tall in the process, she says in an accusatory tone, [ghost.speech(You've been living with one of Lyssieth's recognised daughters in Dominion, and now that you've arrived here in our town you've brought the other one with you. You've clearly been sent here on her orders, and now you come here and ask us to fight Lunette? It sounds to me like you want to use us as pawns in some plot of Lyssieth's.)]
+	</p>
+	<p>
+		Clearly having been expecting you, this otter-girl throws a folder down onto the coffee table nearest to you, and out spill dozens of papers
+		#IF(game.isSillyMode())
+			 and lurid pictures
+		#ENDIF
+		 detailing your exploits in Dominion, Submission, and now Elis. On the front of this folder are printed the words 'ORICL: Top Secret', letting you know that these Enforcers clearly have some important contacts back in Dominion, as well as that your exploits haven't gone unnoticed.
+	</p>
+	<p>
+		[hammer.speech(You only have to take one look at the Foloi Fields to know that Lunette needs to be stopped,)] the wolf-boy growls, [hammer.speech(but by doing your bidding it seems to me like we'll just be swapping one elder lilin for another. Why should we trust you?)]
+	</p>
+	<p>
+		It seems like these Enforcers don't trust any of the elder lilin. As they know about your connection to Lyssieth, it looks like you'll need to do some convincing to get them on your side...
 	</p>
 	]]>
 	</htmlContent>
 
+	<htmlContent tag="SWORD_CONVINCE_TRUTH"><![CDATA[
+	<p>
+		Considering how experienced and distrustful these Enforcers seem, you decide that telling them the truth is the best course of action. Although they seem to dislike the elder lilin, you aren't sure of their opinion of Lilith, and so have to hope that they'll be sympathetic to your cause as you tell them that your plan is to defeat each of the elder lilin and then overthrow Lilith herself.
+	</p>
+	<p>
+		[hammer.speech(So you decided to waltz on in and admit to a group of SWORD Enforcers that you're plotting an act of high treason?)] the wolf-boy asks, and for the first time since entering this room his stoic expression is broken by a toothy grin. Leaning back in his chair, he states, [hammer.speech(We've got all we need to arrest you right now and have you enslaved for life.)]
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SWORD_CONVINCE_LIE"><![CDATA[
+	<p>
+		Although you need to trust these Enforcers to an extent, you don't think that it's wise to admit to them that you're planning on eventually overthrowing Lilith herself. As a result, you simply tell them that you've been sent here by Lyssieth to help deal with Lunette, and that the elder lilin needs to be defeated to bring an end to her reign of terror over the Foloi Fields.
+	</p>
+	<p>
+		[hammer.speech(You're aware that plotting against an elder lilin is an act of high treason?)] the wolf-boy asks, and for the first time since entering this room his stoic expression is broken by a toothy grin. Leaning back in his chair, he states, [hammer.speech(We've got all we need to arrest you right now and have you enslaved for life.)]
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SWORD_CONVINCE_END"><![CDATA[
+	<p>
+		As all of the Enforcers remain stationary as the wolf-boy says this, you point out that that they aren't making a move to arrest you.
+	</p>
+	<p>
+		[hammer.speech(We're not interested in enforcing Lilith's laws any more,)] the wolf-boy growls, his grin vanishing as quickly as it appeared, [hammer.speech(We do what we can to help the ordinary citizens of the realm. We'll help you, but not for Lyssieth or Minotallys or any other lilin. We'll do it to help bring an end to the suffering that the folk of the Fields have endured for years.)]
+	</p>
+	<p>
+		The other Enforcers nod as the wolf-boy says this. The otter-girl, who seems to have a far friendlier attitude than the wolf-boy, begins the introductions by saying, [ghost.speech(We don't use our real names here, so you can just call me 'Ghost'. The big scary wolf-boy over there's called 'Hammer'.)]
+	</p>
+	<p>
+		The other Enforcers offer their own callsigns, and after they've finished Hammer says, [hammer.speech(Before we help you, we need you to help us.)]
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SWORD_HELP"><![CDATA[
+	<p>
+		Everything about these Enforcers suggests that they're very experienced and extremely dangerous. As such, it seems odd that they'd need your help with something, and so you ask them what it is that you can offer them.
+	</p>
+	<p>
+		[ghost.speech(As you've already defeated one daughter of an elder lilin, we were hoping that you could help us deal with another one,)] Ghost says, before quietly stepping forwards to push the door closed behind you. After retrieving the folder which contains details of your exploits, she returns to sit on the sofa and reveals, [ghost.speech(We've got an op planned to take down a succubus, but if we're recognised while doing it then that'll be the end for us. Her mother, who's the elder lilin Lovienne, will undoubtedly find out if her daughter is attacked, and if it's known that we were behind it then we'd be one order away from being kicked out of SWORD, or maybe even being enslaved. As such, we need some insurance against her mother's wrath.)]
+	</p>
+	<p>
+		[hammer.speech(We know that you're somehow related to Lyssieth, and as you've just got away with defeating Lunexis then you'll be able to deal with any fallout from our op should we be recognised,)] Hammer gruffly states, [hammer.speech(We don't need you to fight, but we want you to tag along and get any heat off of us if we're recognised.)]
+	</p>
+	<p>
+		You're not sure that you like the sound of being used like this, but it might be best to get the full details of this mission before agreeing or refusing to go along with it...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SWORD_MISSION"><![CDATA[
+	<p>
+		Wanting to know exactly what this operation is all about, you ask the Enforcers for some more details.
+	</p>
+	<p>
+		[hammer.speech(We first discovered the disappearance of refugees a few months ago, but it's likely that it's been going on a lot longer than that,)] Hammer says. Producing a map from out of his drawer, the wolf-boy stands up and walks over to the sofas, before spreading it out over the coffee table and stepping back to give you a clear view. The map appears to show the northern alleyways of Elis, and in about two dozen places red circles have been drawn onto it. [hammer.speech(The ones who are being kidnapped are carefully selected. They never have friends or family who'd report their disappearance, and if it wasn't for the surveillance we were conducting on an unrelated gang, we'd never have discovered it.)]
+	</p>
+	<p>
+		[ghost.speech(After we witnessed one attempted kidnapping, we interrogated the culprits and found out that they're working for a succubus,)] Ghost adds, [ghost.speech(They were far more loyal to their leader than we expected, but after some persuasion I found out that she's a daughter of Lovienne called 'Angelixx'. Thankfully she isn't recognised yet, but our contacts in Dominion found out that she's one of her mother's favourites, and a recognition ceremony is planned for her. Apparently, Lovienne seems to like the fact that her daughter is kidnapping refugees in Elis...)]
+	</p>
+	<p>
+		[hammer.speech(We're going to attack their headquarters and put and end to it,)] Hammer states, [hammer.speech(Any questions?)]
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SWORD_MISSION_DETAILS_REFUGEES"><![CDATA[
+	<p>
+		Wanting to know what's happening to the refugees who are being kidnapped, you ask the Enforcers if they've discovered what's being done with them.
+	</p>
+	<p>
+		[ghost.speech(They're being illegally enslaved and teleported to Dominion by the succubus,)] Ghost coldly replies, the icy tone in her voice making it clear that she's angry about it, [ghost.speech(Illegal enslavement is a serious crime, and there are dozens of systems and regulations in place to detect if a slave isn't legal. The Slavery Administration would go ballistic if they got even the slightest inkling of illegal enslavement, and Dominion Enforcers would immediately be dispatched here to put an end to it. Nothing's happened though, suggesting that these slaves are all going to a private buyer who knows but doesn't care about their origin.)]
+	</p>
+	<p>
+		One of the other Enforcers, a fox-boy who'd introduced himself as 'Dancer', adds in a rough voice, [style.speechMasculineStrong(It must be for something important, as her mother clearly knows what's going on, and an elder lilin wouldn't risk being tied to illegal enslavement unless it was seriously worth it. If it was found out that an elder lilin was involved in illegal enslavement then it'd be a major scandal, and even the papers wouldn't be able to hide the truth forever. If people thought that they could be enslaved at any time for no reason then there'd definitely be unrest, if not full-blown riots.)]
+	</p>
+	<p>
+		[hammer.speech(Dominion is well outside of our operational area, so all we can do to stop it is disrupt their operation here in Elis,)] Hammer grunts in frustration, [hammer.speech(We don't know exactly what the kidnapped refugees are being used for, but they're never seen again.)]
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SWORD_MISSION_DETAILS_PLAN"><![CDATA[
+	<p>
+		Not knowing what their plan is, nor exactly how they want you to help, you ask the Enforcers for more details of their operation.
+	</p>
+	<p>
+		[ghost.speech(The gang's headquarters is in an abandoned bakery in the alleyways a short distance to the north-west of here. Every Tuesday night they meet with the succubus to have the week's kidnapped refugees teleported to Dominion, so we're going to hit them then,)] Ghost says, [ghost.speech(We can't raid them as Enforcers or else that'll bring the wrath of Lovienne down on us. Instead, we'll hit them like a rival gang would. No insignias, no arrests, and with our faces covered. We'll hit them hard and fast and tell them to clear out of our territory.)]
+	</p>
+	<p>
+		[hammer.speech(As for Angelixx, we'll rough her up a bit and tell her never to show her face in Elis again,)] Hammer says, [hammer.speech(We'll try to find out what's happening to the refugees from her as well, but we're not likely to have the time to conduct a full interrogation.)]
+	</p>
+	<p>
+		[ghost.speech(If we're somehow recognised during it all, then you're going to use your influence with Lyssieth to get Lovienne off our back,)] Ghost says to you with a smile on her face, [ghost.speech(It most likely won't come to that, but we need you as insurance just in case. We want you there on the op with us so that you can't back out of the agreement later; you'll be seen to be with us, so your fate will be tied to ours. Not that we don't trust you, of course...)]
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SWORD_MISSION_DETAILS_SUCCUBUS"><![CDATA[
+	<p>
+		Wanting to know more about Angelixx, the succubus who's the gang's leader, you ask the Enforcers if there's anything else they can tell you about her.
+	</p>
+	<p>
+		[hammer.speech(We've seen her entering and leaving the gang's headquarters several times,)] Hammer states, [hammer.speech(She takes the form of a small, young succubus, but how old she really is we don't know. She seems to make an effort to look and act innocent, likely as a way to influence people and gain loyalty from her followers.)]
+	</p>
+	<p>
+		[ghost.speech(We don't know much about her combat abilities, but one of our contacts in Dominion told us that she's a complete coward, so once we've beaten her she'll run off back to Dominion with her tail between her legs,)] Ghost says.
+	</p>
+	<p>
+		[style.speechMasculineStrong(I know how scum like her operate,)] a huge, muscular horse-boy with the callsign 'mountain' says in a booming voice, [style.speechMasculineStrong(Instead of fighting, she likely tries to turn her opponents against one another, or she'll just keep talking and delaying until she can spring a trap on them. Don't believe anything the bitch says, and attack her as soon as you see her.)]
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SWORD_MISSION_END"><![CDATA[
+	<p>
+		Needing these Enforcers to help with the defence of Elis, you tell them that you'll do as they ask. You say that you'll come along on their op and do all you can to get Lyssieth to pardon them if they're discovered.
+	</p>
+	#IF(game.getDayOfWeek()==DOW_TUESDAY && game.isHourBetween(17, 24))
+		<p>
+			[ghost.speech(The succubus and her gang are going to be holding their weekly meeting in a few hours. You're ready to go now, right?)] Ghost asks.
+		</p>
+		<p>
+			[hammer.speech(We can't afford to wait another week,)] Hammer grunts while cracking his knuckles, [hammer.speech(We need to take that bitch out tonight.)]
+		</p>
+		<p>
+			Although you're not obliged to go with them this evening, it seems like it would be a good idea to get this operation done sooner rather than later...
+		</p>
+	#ELSE
+		#IF(game.getDayOfWeek()==DOW_TUESDAY)
+			<p>
+				[ghost.speech(The succubus and her gang are going to be holding their weekly meeting tonight, so we'll see you in a few hours, right?)] Ghost asks.
+			</p>
+			<p>
+				[hammer.speech(We can't afford to wait another week,)] Hammer grunts while cracking his knuckles, [hammer.speech(We need to take that bitch out tonight.)]
+			</p>
+		#ELSE
+			<p>
+				[ghost.speech(We'll see you on Tuesday then. Come here after five in the evening and we'll be ready,)] Ghost says.
+			</p>
+			<p>
+				[hammer.speech(Don't forget about it,)] Hammer grunts while cracking his knuckles, [hammer.speech(We need to take that bitch out as soon as possible. Oh, and I shouldn't have to say this, but don't tell anyone about this op. We need to maintain secrecy.)]
+			</p>
+		#ENDIF
+		<p>
+			Stepping past you, Ghost opens the door and cheerfully says, [ghost.speech(We'll see you soon, [pc.name].)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SWORD_MISSION_END_LEAVE"><![CDATA[
+	<p>
+		Saying goodbye, you head out through the door and return to the corridor. The door swings shut behind you, before knocking into the battered helmet that's serving as a door stop. Taking a quick look around, you prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="SWORD_MISSION_START"><![CDATA[
+	<p>
+		Wanting to get this operation done as soon as possible, you tell the Enforcers that you're ready to go.
+	</p>
+	<p>
+		[style.speechFeminine(The gang's been unusually vigilant over the past couple of days,)] a pretty lynx-girl says from her spot on one of the sofas. Letting out a frustrated sigh, she continues, [style.speechFeminine(They had double the lookouts last night, and they'll almost certainly have more tonight.)]
+	</p>
+	<p>
+		[hammer.speech(I know, I know...)] Hammer says with a deep sigh. Clenching his fist, he grunts, [hammer.speech(We can't call off the op. If the gang knew we were coming they'd have abandoned their HQ. Their increased awareness must be a coincidence.)]
+	</p>
+	<p>
+		[ghost.speech(I agree, but they'll definitely see us coming and might call off the meeting,)] Ghost says, before suggesting, [ghost.speech(If just two of us go in civvy clothes then we can probably walk on past without alerting them. We've got enough gear in the hideout for two of us to get changed once there.)]
+	</p>
+	<p>
+		[hammer.speech(That's risky,)] Hammer grunts, [hammer.speech(but those refugees need us. You and I will go, Ghost. Everyone else, get geared up and wait here. We'll take a resonance stone and activate it if we need backup.)]
+	</p>
+	<p>
+		The Enforcers all stand up and head off to a door on the far side of the room, which you assume leads into the room in which their equipment is stored. Remaining behind for a moment, Ghost steps over to you and explains, [ghost.speech(Hammer and I will get changed into street clothing and then head on over to a hideout we've got with you. Don't worry, the two of us will be more than enough to deal with some petty gang members.)]
+	</p>
+	<p>
+		With that, the small otter-girl follows her comrades into the other room, leaving you to wait while they all get changed. A few minutes later, Hammer comes out wearing a ribbed jumper and a cap pulled down to conceal his eye patch. Behind him walks Ghost, who's changed into a long-sleeved dress so that her burns are hidden. The other Enforcers don't reappear, and you assume that it's taking them a while longer to put on all of their Enforcer gear.
+	</p>
+	<p>
+		[hammer.speech(Tag along, [pc.name],)] Hammer grunts as he strides past you out of the room. Flashing you a smile, Ghost gestures for you to go first...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TODO SWORD talk: -->
+	
+	<htmlContent tag="SWORD_TALK_ELIS"><![CDATA[
+	<p>
+		Wanting to hear from them directly what the reason is for their posting to Elis, you ask the Enforcers why they're here instead of in Dominion or elsewhere in the realm.
+	</p>
+	<p>
+		[ghost.speech(We trust you enough to talk openly about this,)] Ghost says, before revealing, [ghost.speech(We were loyal to Lilith and served with distinction for years, and we were rewarded for that loyalty by having a clueless daughter of Lasielle assigned as our superior. She got the appointment simply by being an elder lilin's recognised daughter, and her incompetence was directly to blame for several botched operations. To make matters worse, she started selling off our weapons to gangs to make a few extra flames, making our job considerably harder and more dangerous. Our superiors said they couldn't act against a recognised daughter, so we arrested her ourselves.)]
+	</p>
+	<p>
+		[hammer.speech(For all of our loyalty and a life of sacrifice for Lilith and the realm, we were stripped of our ranks and threatened with slavery. In the end, however, we were instead assigned here to Elis and told to serve out the rest of our days where we couldn't cause any more trouble,)] Hammer growls with a scowl on his face as he reveals the reason for their presence here in Elis. In a bitter tone, he adds, [hammer.speech(Every last lilin, including Lilith herself, are only interested in their own petty games of politics and power. We don't owe Lilith our loyalty and have no interest in enforcing her laws. We do what's right to help the common folk, that's it.)]
+	</p>
+	<p>
+		[ghost.speech(Such talk would get us arrested and enslaved,)] Ghost muses out loud, before looking at you with a smirk on her face. [ghost.speech(You won't go around telling anyone about this, [pc.name].)]
+	</p>
+	<p>
+		You can't quite tell from the tone in Ghost's voice if that's a threat or a request. With no intention of betraying their trust regardless, you think it best not to ask for clarification and instead wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SWORD_TALK_HISTORY"><![CDATA[
+	<p>
+		Wanting to know about their history and how they all ended up being in the same SWORD unit, you ask the assembled Enforcers to tell you about their careers. A few of them say things to the effect of telling you to mind your own business, while the others simply sit in silence and don't say anything.
+	</p>
+	<p>
+		[ghost.speech(Well, I at least don't mind talking about it,)] Ghost says with a smile on her face, [ghost.speech(and if I'm telling my story, then I'd be telling Hammer's as well. Go on, Hammer, tell [pc.name] how we started.)]
+	</p>
+	<p>
+		[hammer.speech(I don't suppose there's much point in arguing,)] Hammer sighs at Ghost, before looking over at you and revealing, [hammer.speech(The two of us enlisted together back in the summer of 1974. We were young, motivated, and damn good at our job, which is how we ended up as Patrol weapons specialists just two years later. We were part of the group which helped to put an end to the Grand Bank Heists, and as such were some of the first to be inducted into the newly-formed SWORD.)]
+	</p>
+	<p>
+		[ghost.speech(Things were looking good for a while back then,)] Ghost reminisces with a smile. A dark look then quickly falls over her face and she says in a flat tone, [ghost.speech(Then the ambushes started... A couple of years later and the Fifth Human Rebellion broke out, and Hammer and I were there together through the whole thing.)]
+	</p>
+	<p>
+		[style.speechMasculineStrong(Don't forget about me now,)] the fox-boy with the call-sign 'Dancer' says.
+	</p>
+	<p>
+		[hammer.speech(Nor 'Feather',)] Hammer grunts with a nod towards the mean-looking tiger-girl who's sitting beside Dancer.
+	</p>
+	<p>
+		[ghost.speech(I know, I know. That's when we started to form this unit after all,)] Ghost says with a gentle laugh, [ghost.speech(After the rebellion, the four of us were stationed in Dominion, where we set about recruiting other veterans into our team. Ever since then we've all been working together.)]
+	</p>
+	<p>
+		[hammer.speech(We make a good team,)] Hammer states, to which the other Enforcers nod.
+	</p>
+	<p>
+		With your question answered, you wonder whether to ask anything else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SWORD_TALK_ORICL"><![CDATA[
+	<p>
+		Having seen the words 'ORICL: Top Secret' on the front of the folder which Ghost showed you when you first met her, you ask the assembled Enforcers what they can tell you about that organisation.
+	</p>
+	<p>
+		[ghost.speech('The Office of Realm Intelligence, Counter-espionage, and Logistics',)] Ghost says when you mention the acronym 'ORICL', before going on, [ghost.speech(They're at the top of the pecking-order; if they give an order, it's for the Patrol and SWORD branches to carry it out without question. They only accept demons into their ranks, and like to think of themselves as the brains of the Enforcers.)]
+	</p>
+	<p>
+		[hammer.speech(They're corrupt, scheming scum,)] Hammer grunts from behind his desk, [hammer.speech(Their red and yellow Directorates like to think they're better at our job than we are. As for blue, they can get fucked.)]
+	</p>
+	<p>
+		The rest of the room seems to be in agreement with this last statement, for the other SWORD Enforcers either nod or say something to the effect of ORICL's blue Directorate being the worst.
+	</p>
+	<p>
+		[ghost.speech(They have five Directorates, of which-)] Ghost starts to explain for your benefit, but is swiftly interrupted by Hammer.
+	</p>
+	<p>
+		[hammer.speech(Seven. They have seven,)] the wolf-boy corrects his colleague, [hammer.speech(I've seen the records. There were files on 'Indigo' and 'Violet'.)]
+	</p>
+	<p>
+		[ghost.speech(Right, well even if those two do exist, we only have to deal with the other five, thank goodness,)] Ghost replies, before continuing where she left off, [ghost.speech(Directorate red does the investigate work, while yellow is their tactical group. Both of them tread on toes all the time, or at least they did while we were still in Dominion. As for Directorate blue, they're the answer to 'Who watches the watchmen?', but they do a terrible job of combating corruption.)]
+	</p>
+	<p>
+		With the red, yellow, and blue Directorates having been explained, you ask Ghost what the remaining two are.
+	</p>
+	<p>
+		[ghost.speech(Directorate green are the ones who show up in the middle of the night to snatch some poor bastard who was heard saying bad things about Lilith,)] the otter-girl replies, [ghost.speech(They make sure that the population stays loyal by removing any dissenters. Thankfully they rarely give orders to SWORD, so we don't have to deal with them. The last one's Orange, but although they're seen around the Block - that's what we call the Enforcer HQ in Dominion - they never speak to anyone outside of their unit.)]
+	</p>
+	<p>
+		[hammer.speech(Arrogant pricks, the lot of them,)] Hammer grunts, before adding, [hammer.speech(They're always heavily geared up and teleport themselves to their operations, but I've never heard of them operating in Dominion or anywhere else in the realm. They're sometimes carrying weapons which we don't have access to as well. I just know that they're involved with Indigo and Violet...)]
+	</p>
+	<p>
+		From what he's saying, it sounds like these branches of ORICL are operating out in the rest of the world, likely in support of Lilith's attempts to control the countries not affected by her reality-changing spell. Although you trust them, you don't think that it's wise to share this information with the assembled Enforcers, and so with your initial question answered you wonder what to ask of them next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SWORD_TALK_HUMAN_REBELLION"><![CDATA[
+	<p>
+		Wanting to hear more about the 'Fifth Human Rebellion', you ask the Enforcers what it was like.
+	</p>
+	<p>
+		[hammer.speech(Well, I guess thanks to Ghost you've already heard how we started,)] Hammer says, [hammer.speech(We'd helped to put an end to the Grand Bank Heists of '76, and were some of the first to be recruited into the newly-formed SWORD. Things were going well, then in '82 the ambushes started...)]
+	</p>
+	<p>
+		[ghost.speech(ORICL struggled to find out who was behind them, and for years we were on the back foot, not knowing much about who the enemy were or why they were attacking Enforcer patrols,)] Ghost adds, [ghost.speech(The few we captured were quickly taken away by ORICL before we could seriously question them, and whatever information they revealed during interrogation didn't make it back to us.)]
+	</p>
+	<p>
+		[hammer.speech(ORICL knew exactly what was happening, they just weren't telling us,)] Hammer snaps, before leaning back against the wall and crossing his arms. His cynicism causes Ghost to let out a sigh, to which the wolf-boy grumbles, [hammer.speech(I'll get proof one day. I <i>know</i> that they betrayed us...)]
+	</p>
+	<p>
+		[ghost.speech(They might have betrayed us, or maybe they were just incompetent. It doesn't matter now and it didn't back then,)] Ghost calmly replies with a soft smile on her face. This proves to be just the right attitude to get Hammer to relax, as he uncrosses his arms and looks a little sheepish as Ghost addresses you and continues the tale, [ghost.speech(We decided over the first weekend of August, 1988, to hand in our resignations together. We'd had enough of being sitting ducks for the group which had started calling themselves the 'Human Liberation Front'.)]
+	</p>
+	<p>
+		[style.speechMasculineHeavy(I'd signed up a week earlier, not knowing how bad the ambushes were,)] a huge, muscular bull-boy, who you recall having introduced himself as 'Boomerang', says from his position on one of the sofas. Shaking his head, he mutters, [style.speechMasculineHeavy(That's what you get for trusting the papers to tell the truth...)]
+	</p>
+	<p>
+		[hammer.speech(While Boomerang was being put through his first week at the Enforcer Academy, Ghost and I were quitting. We went to our station in the very early hours of Monday morning, hoping that our superior would still be up so that we could get her to sign the paperwork,)] Hammer says, before letting out a humourless laugh and revealing, [hammer.speech(The HLF chose that morning to start their rebellion. Every Enforcer station across the realm was hit at the same time. Most were seized, some managed to hold, and the rest were firebombed to deny their use to us. Our station was one of the latter, and we barely made it out alive...)]
+	</p>
+	<p>
+		Ghost absent-mindedly rubs her scarred arm as Hammer says this. Letting out a sigh, she recalls, [ghost.speech(Of course, now that a full-blown rebellion was underway there was no chance of us resigning. We managed to link up with what was left of our company and together with other survivors we retreated and regrouped near to the Shinrin Highlands. Thankfully, the youko hadn't taken a side, and they left us alone as we used the HLF's own tactics against them. Outnumbered, we had to rely on ambushes and hit-and-run attacks to get whatever small victories we could.)]
+	</p>
+	<p>
+		[hammer.speech(It soon turned into a complete mess,)] Hammer says, [hammer.speech(The Patrol Enforcers who'd remained loyal managed to secure boroughs in Dominion, Itza'aak, and Thinis, but the cities remained split and in a state of conflict throughout the entire rebellion. The first year was by far the worst, especially our time in the jungles around Itza'aak...)]
+	</p>
+	<p>
+		[ghost.speech(We were there throughout it all, and finally, after four years, the rebellion came to an end in 1992,)] Ghost says. Clearly not wanting to relive any more of these memories, she brings the tale to an end by saying, [ghost.speech(By the time it was over, Hammer and I, as well as Dancer and Feather, had been promoted and had a lot of responsibility for those under our command. We couldn't abandon them, so gave up on our idea of resigning.)]
+	</p>
+	<p>
+		[style.speechFeminineStrong(The jungles weren't so bad,)] the mean-looking tiger-girl called 'Feather' says in a deep, growling tone, [style.speechFeminineStrong(It was far worse for the HLF scum we were hunting.)]
+	</p>
+	<p>
+		Hammer, Ghost, and the fox-boy called 'Dancer' all exchange glances, but what they're thinking about is impossible to determine. Deciding not to pry any further, you wonder what to ask next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SWORD_TALK_HLF"><![CDATA[
+	<p>
+		Curious to hear more about the people these Enforcers were fighting during the Fifth Human Rebellion, you ask them who the 'Human Liberation Front' were.
+	</p>
+	<p>
+		[hammer.speech(You'd think they were just humans, given what they called themselves,)] Hammer replies, [hammer.speech(but they consisted of every race you could think of. Anyone opposed to Lilith's rule, as well as opportunistic criminals, joined the HLF in the hopes that they could overthrow the lilin and create a new system of governance.)]
+	</p>
+	<p>
+		[ghost.speech(The core of the HLF, what we were ended up labelling as the 'regulars' were the real threat, especially during that first year,)] Ghost adds, [ghost.speech(They were the die-hard revolutionaries, utterly committed to the cause, well trained, and completely fearless. The vast majority of them were humans, equipped with stolen Enforcer weapons and having their own uniforms, logistics networks, and command structures. Thankfully there weren't too many of them.)]
+	</p>
+	<p>
+		[hammer.speech(Then they had the irregulars,)] Hammer grunts, [hammer.speech(Committed to the cause, although varying in competence, they were the ones who stuck to guerilla warfare. Blending in with the civilian population before performing hit and run attacks, they left the serious offensive operations to the regulars.)]
+	</p>
+	<p>
+		[style.speechMasculineStrong(Then there was the usual rabble of malcontents, looters, and small-time criminals who joined in to make the most of the chaos,)] Dancer, the fox-boy, says, [style.speechMasculineStrong(The Patrol was more than enough to deal with them most of the time, leaving us with the serious HLF soldiers.)]
+	</p>
+	<p>
+		[ghost.speech(In the end, with their regulars having been whittled down to a fraction of their original strength, the HLF succumbed to infighting and fell apart from within,)] Ghost reveals, [ghost.speech(We know that we didn't manage to get all of them in the end, so there's a good chance that there's some veterans hiding out there somewhere.)]
+	</p>
+	#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_REBEL_BASE))
+		<p>
+			Remembering the crazed HLF survivor you encountered in Submission, you tell the Enforcers that you encountered one of the veterans which Ghost is talking about.
+		</p>
+		<p>
+			[hammer.speech(There's bound to be dozens more like that,)] hammer grunts, [hammer.speech(It'd take far too many resources to root them all out, and they can't cause any serious damage any more.)]
+		</p>
+	#ENDIF
+	<p>
+		With this conversation seemingly now at an end, you wonder what to ask about next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SWORD_ANGELIXX_DIARY"><![CDATA[
+	<p>
+		Remembering that Ghost picked up Angelixx's diary at the end of the operation you accompanied her and Hammer on, you ask the otter-girl if it revealed what was happening to the kidnapped refugees.
+	</p>
+	<p>
+		[ghost.speech(She's a nasty piece of work,)] Ghost says of the succubus as she walks over to a nearby filing cabinet and produces the diary from within. Holding up the little pink book, she reveals, [ghost.speech(Remember how she tried to act all sweet and innocent when we met her? She's really a massive slut, and treats people like dirt.)]
+	</p>
+	<p>
+		[hammer.speech(There's nothing in there to tell us what's happening to the refugees,)] Hammer grunts, [hammer.speech(but there is an entry which mentions that Angelixx was teleporting them to her mother's shop.)]
+	</p>
+	<p>
+		[ghost.speech(That'd be 'Lovienne's Luxuries',)] Ghost says, [ghost.speech(As we told you before, Dominion's outside of our jurisdiction, and if we're caught trying to take down another elder lilin's daughter it'd be the end for us. We've stopped Angelixx's operations here in Elis, and that's all we can do.)]
+	</p>
+	<p>
+		[hammer.speech(Perhaps you can do something about it,)] Hammer says to you, before motioning for Ghost to give you the diary. [hammer.speech(We're not asking you to go after Angelixx, but with her diary as proof of her involvement, the opportunity's there.)]
+	</p>
+	<p>
+		Holding out the diary towards you, the otter-girl says, [ghost.speech(Be careful if you do decide to take this further. Angelixx is a coward and not much of a physical threat, but she's got others who do the fighting for her. She's also a manipulative bitch; don't trust anything she says.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SWORD_ANGELIXX_DIARY_TAKE"><![CDATA[
+	<p>
+		With no obligation to pursue Angelixx and investigate her mother's store, you decide that there's no harm in taking the diary. Putting the small, pink notebook in your inventory, you tell the Enforcers that you'll look into it if you get the chance.
+	</p>
+	<p>
+		[ghost.speech(We won't be there to back you up this time, so don't take any risks,)] Ghost says with a smile.
+	</p>
+	<p>
+		[hammer.speech([pc.Name] can handle [pc.herself] just fine,)] Hammer grunts, before looking at you and saying, [hammer.speech(If you take Angelixx down, make sure to come back and tell us about it. I'd like to know if the bitch got what was coming to her.)]
+	</p>
+	<p>
+		[ghost.speech(You may have visited it already, but I'd start by taking another look around Lovienne's shop if I were you,)] Ghost suggests, [ghost.speech(We know that the refugees were teleported there, so it's likely that they're either being kept there and used as slave labour or sold off from that location. Either way, there's bound to be signs of them there if you look hard enough.)]
+	</p>
+	<p>
+		[hammer.speech(Don't bother with the Enforcers in Dominion,)] Hammer warns, [hammer.speech(They won't lift a finger to go after a daughter of an elder lilin unless you've got substantial, concrete evidence of illegal enslavement; that diary won't be enough for them. Worse, they might even report you to Lovienne directly, then it'd all be over for you.)]
+	</p>
+	<p>
+		Thanking the Enforcers for the advice, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
 </dialogue>

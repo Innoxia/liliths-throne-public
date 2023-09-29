@@ -264,6 +264,21 @@ public class Fae extends NPC {
 	}
 	
 	@Override
+	public String getArtworkFolderName() {
+		if(this.getBreastRows()>1) {
+			if(this.isVisiblyPregnant()) {
+				return "FaeMultiBoobPregnant";
+			}
+			return "FaeMultiBoob";
+		} else {
+			if(this.isVisiblyPregnant()) {
+				return "FaePregnant";
+			}
+			return "Fae";
+		}
+	}
+	
+	@Override
 	public String getSpeechColour() {
 		return "#ff99cb";
 	}

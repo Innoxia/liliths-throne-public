@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<worldType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[abandoned bakery F0]]></name>
+	<colour>BASE_TAN</colour>
+	<sexBlockedReason><![CDATA[[npc.Name] cannot have sex here!]]></sexBlockedReason> 
+	<furniturePresent>true</furniturePresent>
+	<wallsPresent>true</wallsPresent>
+	<loiteringEnabled>false</loiteringEnabled>
+	<flightEnabled>false</flightEnabled>
+	<visibleFromStart>false</visibleFromStart>
+	<fullyRevealedFromStart>false</fullyRevealedFromStart>
+	<globalMapLocation>WORLD_MAP_FIELDS_CITY</globalMapLocation>
+	<standardPlace>innoxia_fields_elis_abandoned_bakery_f0_shop_floor</standardPlace>
+	<entryFromGlobalMapLocation>innoxia_fields_elis_abandoned_bakery_f0_back_door</entryFromGlobalMapLocation>
+	<teleportPermissions>NONE</teleportPermissions>
+	<places>
+		<place colour="#ffffff">GENERIC_IMPASSABLE</place>
+		
+		<place colour="#00ffff">innoxia_fields_elis_abandoned_bakery_f0_back_door</place>
+		<place colour="#008080">innoxia_fields_elis_abandoned_bakery_f0_kitchen</place>
+		<place colour="#ff8080">innoxia_fields_elis_abandoned_bakery_f0_barricade</place>
+		<place colour="#ff8000">innoxia_fields_elis_abandoned_bakery_f0_door</place>
+		<place colour="#808080">innoxia_fields_elis_abandoned_bakery_f0_shop_floor</place>
+		<place colour="#ff0000">innoxia_fields_elis_abandoned_bakery_f0_exit</place>
+		<place colour="#00ff00">innoxia_fields_elis_abandoned_bakery_f0_stairs</place>
+	</places>
+</worldType>

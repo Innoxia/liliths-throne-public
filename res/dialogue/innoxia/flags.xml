@@ -50,6 +50,17 @@
 			<flag dailyReset="false">lights_out_hannah_sex</flag>
 			<flag resetHour="20">lights_out_hannah_last_night_met</flag>
 			<flag resetHour="20">lights_out_hannah_last_night_sex</flag>
+		
+		<!-- Lovienne's Luxuries: -->
+			<flag dailyReset="false">sex_shop_display_on</flag>
+			<flag dailyReset="false">sex_shop_oral_offer</flag>
+			<flag dailyReset="false">sex_shop_choker_snapped</flag>
+			<flag dailyReset="false">sex_shop_choker_survived</flag>
+			<flag dailyReset="false">sex_shop_discount</flag>
+			<flag dailyReset="false">sex_shop_penalty</flag>
+			<flag resetHour="8">sex_shop_saellatrix_sex</flag>
+			
+			
 	
 	<!-- Submission:-->
 		<flag dailyReset="false">elizabeth_routine_started</flag>
@@ -323,6 +334,7 @@
 		<flag dailyReset="false">elis_enforcers_talk_work</flag>
 		<flag dailyReset="false">elis_enforcers_talk_career</flag>
 		<flag dailyReset="false">elis_enforcers_talk_lunette</flag>
+		<flag dailyReset="false">elis_enforcers_talk_sword</flag>
 		<!-- Sterope: -->
 			<flag dailyReset="false">sterope_unlocked</flag>
 			<flag dailyReset="false">sterope_met_in_tavern</flag>
@@ -332,6 +344,39 @@
 			<flag dailyReset="false">sterope_transformed_into_feral</flag>
 			<flag dailyReset="false">sterope_centaur_fucks_sterope_first</flag>
 			<flag dailyReset="false">sterope_had_centaur_threesome</flag>
+		<!-- SWORD -->
+			<flag dailyReset="false">elis_sword_met</flag>
+			<flag dailyReset="false">hammer_following</flag>
+			<flag dailyReset="false">ghost_following</flag>
+			<flag dailyReset="false">sword_mission_discuss_refugees</flag>
+			<flag dailyReset="false">sword_mission_discuss_plan</flag>
+			<flag dailyReset="false">sword_mission_discuss_succubus</flag>
+			
+			<flag dailyReset="false">sword_mission_talk_weapons</flag>
+			<flag dailyReset="false">sword_mission_talk_gang</flag>
+			<flag dailyReset="false">sword_mission_talk_succubus</flag>
+			<flag dailyReset="false">sword_mission_talk_backup</flag>
+			<flag dailyReset="false">sword_mission_talk_history</flag>
+			<flag dailyReset="false">sword_mission_chose_hammer</flag>
+			<flag dailyReset="false">sword_mission_fought</flag>
+			<flag dailyReset="false">sword_mission_reward</flag>
+			
+			<flag dailyReset="false">sword_mission_back_door</flag>
+			<flag dailyReset="false">sword_mission_kitchen</flag>
+			<flag dailyReset="false">sword_mission_shop_floor</flag>
+			<flag dailyReset="false">sword_mission_exit</flag>
+			<flag dailyReset="false">sword_mission_storage</flag>
+			<flag dailyReset="false">sword_mission_searched_storage</flag>
+			<flag dailyReset="false">sword_mission_bathroom</flag>
+			<flag dailyReset="false">sword_mission_react_needed</flag>
+			
+			<flag dailyReset="false">sword_talk_elis</flag>
+			<flag dailyReset="false">sword_talk_history</flag>
+			<flag dailyReset="false">sword_talk_oricl</flag>
+			<flag dailyReset="false">sword_talk_human_rebellion</flag>
+			<flag dailyReset="false">sword_talk_hlf</flag>
+			<flag dailyReset="false">sword_history_revealed</flag>
+			
 			
 			
 		

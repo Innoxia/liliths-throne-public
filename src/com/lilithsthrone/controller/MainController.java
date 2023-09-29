@@ -53,6 +53,7 @@ import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Kay;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.combat.moves.AbstractCombatMove;
@@ -510,8 +511,21 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
+
+//							System.out.println(Main.sex.getSexPace(Main.game.getPlayer()));
+//							System.out.println(Main.sex.isSexPaceForced(Main.game.getPlayer()));
 							
-//							System.out.println("####");
+							
+//							System.out.println(Main.isVersionOlderThan(Game.loadingVersion, "0.4.8.10"));
+							
+//							if(Main.game.isInSex()) {
+//								for(GameCharacter c : Main.sex.getAllParticipants()) {
+//									if(c.hasPenis()) {
+//										c.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_penis_condom_super_strong", false), true, c);
+//									}
+//								}
+//							}
+							
 //							System.out.println(GenericOrgasms.GENERIC_ORGASM_CREAMPIE.isBaseRequirementsMet());
 //							System.out.println(Main.sex.getOrgasmActionsPlayer().contains(GenericOrgasms.GENERIC_ORGASM_SELF_FACE));
 //							System.out.println(Main.sex.getOrgasmActionsPlayer().contains(GenericOrgasms.GENERIC_ORGASM_CREAMPIE));
@@ -585,8 +599,8 @@ public class MainController implements Initializable {
 ////										&& (npc.getWorldLocation().getWorldRegion()==WorldRegion.DOMINION)
 ////										&& npc.isFeminine()
 //										&& npc.getFaceType().getBodyCoveringType(npc).getCategory()!=BodyCoveringCategory.MAIN_SKIN
-//										&& npc.isAbleToBeImpregnated()
-//										&& npc.isFeminine()
+////										&& npc.isAbleToBeImpregnated()
+////										&& npc.isFeminine()
 ////										&& (npc.getClass().getName().contains("dominion.") || npc.getClass().getName().contains("submission."))
 //										) {
 //									System.out.println(npc.getNameIgnoresPlayerKnowledge() + " "+npc.getClass().getName().split(".npc.")[1]);// + " " + npc.getSurname());
@@ -1587,6 +1601,7 @@ public class MainController implements Initializable {
 				|| currentNode.equals(PhoneDialogue.CONTACTS_CHARACTER)
 				|| currentNode.equals(PhoneDialogue.CHARACTER_APPEARANCE)) {
 			FileController.initArtworkListeners();
+			MiscController.initPerkListeners(currentNode);
 		} else if (currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_JOBS)) {
 			OccupantController.initSlaveJobListeners();
 		} else if (currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_PERMISSIONS)) {
@@ -2513,6 +2528,11 @@ public class MainController implements Initializable {
 			
 		} else {
 			charactersBeingRendered.addAll(Main.game.getCharactersPresent());
+			for(GameCharacter c : Main.game.getCharactersPresent()) {
+				if(c.isElementalSummoned() && !c.getElemental().isActive()) {
+					charactersBeingRendered.add(c.getElemental());
+				}
+			}
 			
 			if(Main.game.isStarted()) {
 				int i=0;
@@ -2542,7 +2562,7 @@ public class MainController implements Initializable {
 			
 			for (AbstractAttribute a : attributes) {
 				if (((EventTarget) documentRight.getElementById("NPC_"+idModifier+a.getName())) != null) {
-					if(a == Attribute.EXPERIENCE) {
+					if(a == Attribute.EXPERIENCE && (!character.isElemental() || ((Elemental)character).isActive())) {
 						((EventTarget) documentRight.getElementById("NPC_"+idModifier+a.getName())).addEventListener("click", e -> {
 							openCharactersPresent(character);
 						}, false);
@@ -2557,7 +2577,7 @@ public class MainController implements Initializable {
 			
 			// Extra attribute info:
 			if(((EventTarget) documentRight.getElementById("NPC_"+idModifier+"ATTRIBUTES"))!=null){
-				if(!RenderingEngine.ENGINE.isRenderingCharactersRightPanel()) {
+				if(!RenderingEngine.ENGINE.isRenderingCharactersRightPanel() && (!character.isElemental() || ((Elemental)character).isActive())) {
 					((EventTarget) documentRight.getElementById("NPC_"+idModifier+"ATTRIBUTES")).addEventListener("click", e -> {
 						openCharactersPresent(character);
 					}, false);

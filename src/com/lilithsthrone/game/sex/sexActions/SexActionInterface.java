@@ -445,11 +445,11 @@ public interface SexActionInterface {
 		StringBuilder sb = new StringBuilder();
 		GameCharacter characterTargeted = Main.sex.getCharacterTargetedForSexAction(this);
 		if(this.isSadisticAction()) {
-			if(!characterTargeted.getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive()) {
-			sb.append("<p style='text-align:center'>"
-						+ "[style.colourBad([npc2.Name] [npc2.verb(find)] this sadistic action to be a huge turn-off!)]"
-						+ characterTargeted.incrementLust(-15, false)
-					+"</p>");
+			if(!characterTargeted.getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive() && !characterTargeted.isDoll()) {
+				sb.append("<p style='text-align:center'>"
+							+ "[style.colourBad([npc2.Name] [npc2.verb(find)] this sadistic action to be a huge turn-off!)]"
+							+ characterTargeted.incrementLust(-15, false)
+						+"</p>");
 			}
 		}
 		
@@ -809,9 +809,11 @@ public interface SexActionInterface {
 				}
 			}
 
-			// You can't resist in scenes that don't allow it or if non-con is disabled:
+			// You can't resist in scenes that don't allow it, if non-con is disabled, or if the performing character is a doll:
 			if(getSexPace()==SexPace.SUB_RESISTING) {
-				if((Main.sex.isConsensual() && !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_SUB)) || !Main.game.isNonConEnabled()) {
+				if((Main.sex.isConsensual() && !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_SUB))
+						|| !Main.game.isNonConEnabled()
+						|| Main.sex.getCharacterPerformingAction().isDoll()) {
 					return null;
 				}
 			}

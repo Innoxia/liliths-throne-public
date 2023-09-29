@@ -297,9 +297,14 @@ public abstract class DialogueNode {
 									if(combatElement.getOptionalFirstOf("escapeBlocked").isPresent()) {
 										escapeBlocked = Boolean.valueOf(UtilText.parse(combatElement.getMandatoryFirstOf("escapeBlocked").getTextContent()).trim());
 									}
+
+									boolean submitBlocked = false;
+									if(combatElement.getOptionalFirstOf("submitBlocked").isPresent()) {
+										submitBlocked = Boolean.valueOf(UtilText.parse(combatElement.getMandatoryFirstOf("submitBlocked").getTextContent()).trim());
+									}
 									
 									ResponseCombat combatResponse = new ResponseCombat(
-											responseTitle, responseTooltip, alliesIds, companionsAreAllies, elementalsAreAllies, enemyLeaderId, enemiesIds, openingDescriptions, effectsResponse, escapeBlocked);
+											responseTitle, responseTooltip, alliesIds, companionsAreAllies, elementalsAreAllies, enemyLeaderId, enemiesIds, openingDescriptions, effectsResponse, escapeBlocked, submitBlocked);
 									combatResponse.setNextDialoguePlayerVictoryId(nextDialoguePlayerVictory);
 									combatResponse.setNextDialoguePlayerDefeatId(nextDialoguePlayerDefeat);
 									combatResponse.setConditional(availabilityConditional);

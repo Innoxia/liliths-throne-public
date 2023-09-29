@@ -47,6 +47,7 @@ import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.markings.TattooWriting;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
@@ -101,6 +102,9 @@ public class Sterope extends NPC {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.8.8")) {
 			this.setStartingBody(true);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.9")) {
+			this.equipClothing();
 		}
 	}
 
@@ -375,7 +379,11 @@ public class Sterope extends NPC {
 			} else if((hour>=1 && hour<8) && Main.game.getDialogueFlags().hasFlag("innoxia_sterope_with_centaur")) { // After 1 in the morning, Sterope finishes sex with centaur
 				Main.game.getDialogueFlags().setFlag("innoxia_sterope_sex", true);
 				try {
-					UtilText.parse("[#game.banishNPC(centaur)]");
+					NPC centaur = Main.game.getCharactersPresent(this.getCell()).stream().filter(npc -> npc instanceof GenericSexualPartner).findFirst().get();
+					Main.game.banishNPC(centaur);
+					
+					// This will now work as parsing targets are saved as of v0.4.9, but the above code has been left to cover older versions:
+//					UtilText.parse("[#game.banishNPC(centaur)]");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
