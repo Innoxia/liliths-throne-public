@@ -3138,8 +3138,10 @@ public class MainController implements Initializable {
 	public void setTooltipSize(int width, int height) {
 		webviewTooltip.setMaxWidth(width);
 		webviewTooltip.setMaxHeight(height);
+		webviewTooltip.setPrefHeight(height);
 		tooltip.setMaxWidth(width);
 		tooltip.setMaxHeight(height);
+		tooltip.setPrefHeight(height);
 	}
 
 	public KeyboardAction getActionToBind() {
