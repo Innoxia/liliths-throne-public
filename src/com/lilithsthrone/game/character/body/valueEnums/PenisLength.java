@@ -17,23 +17,23 @@ public enum PenisLength {
 	/**Barely even anything there. (0-1 inches)*/
 	ZERO_MICROSCOPIC("tiny", 0, 5, PresetColour.GENERIC_SIZE_TWO),
 
-	/**Average size for a harpy. (2-3 inches)*/
-	ONE_TINY("small", 5, 10, PresetColour.GENERIC_SIZE_TWO),
+	/**Average size for a harpy. (2-4 inches)*/
+	ONE_TINY("small", 5, 12, PresetColour.GENERIC_SIZE_TWO),
 
-	/**Average size for all regular morphs. (4-7 inches)*/
-	TWO_AVERAGE("average-sized", 10, 20, PresetColour.GENERIC_SIZE_THREE),
+	/**Average size for all regular morphs. (5-6 inches)*/
+	TWO_AVERAGE("average-sized", 12, 17, PresetColour.GENERIC_SIZE_THREE),
 
-	/**Average size for a wolf morph. (8-11 inches)*/
-	THREE_LARGE("large", 20, 30, PresetColour.GENERIC_SIZE_FOUR),
+	/**Average size for a wolf morph. (7-8 inches)*/
+	THREE_LARGE("large", 17, 22, PresetColour.GENERIC_SIZE_FOUR),
 
-	/**Average size for a horse morph. (12-15 inches)*/
-	FOUR_HUGE("huge", 30, 40, PresetColour.GENERIC_SIZE_FIVE),
+	/** Straying into the bounds of "world record for a human". Average size for a horse morph. (9-10 inches)*/ 
+	FOUR_HUGE("huge", 22, 28, PresetColour.GENERIC_SIZE_FIVE),
 
-	/**Straying into the bounds of "world record for a human". Large for a horse morph. (16-19 inches)*/
-	FIVE_ENORMOUS("enormous", 40, 50, PresetColour.GENERIC_SIZE_SIX),
+	/** Large for a horse morph. (11-13 inches)*/
+	FIVE_ENORMOUS("enormous", 28, 36, PresetColour.GENERIC_SIZE_SIX),
 
-	/**This is just ridiculous... World record for a horse-morph. (20-23 inches)*/
-	SIX_GIGANTIC("gigantic", 50, 60, PresetColour.GENERIC_SIZE_SEVEN),
+	/**This is just ridiculous... World record for a horse-morph. (14-23 inches)*/
+	SIX_GIGANTIC("gigantic", 36, 60, PresetColour.GENERIC_SIZE_SEVEN),
 
 	/**And this is for "extreme proportion" content. (24-40 inches)*/
 	SEVEN_STALLION("stallion-sized", 60, 100, PresetColour.GENERIC_SIZE_EIGHT);
