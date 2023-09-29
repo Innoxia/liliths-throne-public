@@ -3396,7 +3396,7 @@ public class Body implements XMLSaving {
 		AbstractRace race = Race.HUMAN;
 		if(target!=null && target.isElemental()) {
 			race = Race.ELEMENTAL;
-			this.raceStage = RaceStage.GREATER;w
+			this.raceStage = RaceStage.GREATER;
 		} else if( Race.racialBodyMaterialList.contains(this.bodyMaterial)) {
 			race = Race.getRaceFromBodyMaterial(this.bodyMaterial);
 			this.raceStage = RaceStage.GREATER;
