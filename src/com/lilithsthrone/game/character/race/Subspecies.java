@@ -4284,8 +4284,8 @@ public class Subspecies {
 			10000,
 			"sightglass_race_latex_liqueur",
 			"sightglass_race_latex_licorice",
-			"statusEffects/race/raceSlime",
-			"statusEffects/race/raceBackgroundSlime",
+			"statusEffects/race/raceBackgroundRubber",
+			"statusEffects/race/raceBackgroundRubber",
 			"latex creature",
 			"latex creatures",
 			"rubber-boy",
@@ -4337,6 +4337,10 @@ public class Subspecies {
 					"#ffffff", Util.newArrayListOfValues("#404040", "#202020", "#101010"));
 			}
 			AbstractSubspecies fleshSubspecies = character.getBody().getFleshSubspecies();
+			if (fleshSubspecies == Subspecies.HUMAN) {
+				return Subspecies.LATEX_CREATURE.getBodyMaterialSVGString(character, getSubspeciesBodyMaterial(), 
+				"#ffffff", Util.newArrayListOfValues("#404040", "#202020", "#101010"));
+			}
 			return fleshSubspecies.getBodyMaterialSVGString(character, getSubspeciesBodyMaterial(), 
 				"#ffffff", Util.newArrayListOfValues("#404040", "#202020", "#101010"));
 		}
@@ -4363,6 +4367,13 @@ public class Subspecies {
 			}
 			return body.getFleshSubspecies().getFeralAttributes(body);
 		}
+		
+		@Override
+		public void initBookSVGString() {
+			initBookSVGString(
+				"#ffffff", 
+				Util.newArrayListOfValues("#404040", "#202020", "#101010"));
+		}
 	};
 	
 	// PLANT CREATURE:
@@ -4370,8 +4381,8 @@ public class Subspecies {
 			10000,
 			"sightglass_race_plant_water",
 			"sightglass_race_plant_seed",
-			"statusEffects/race/raceSlime",
-			"statusEffects/race/raceBackgroundSlime",
+			"statusEffects/race/raceBackgroundPlant",
+			"statusEffects/race/raceBackgroundPlant",
 			"plant-folk",
 			"plant-folk",
 			"treant",
@@ -4458,6 +4469,10 @@ public class Subspecies {
 					"#203603", Util.newArrayListOfValues("#5dd446", "#27912f", "#18a34b"));
 			}
 			AbstractSubspecies fleshSubspecies = character.getBody().getFleshSubspecies();
+			if (fleshSubspecies == Subspecies.HUMAN) {
+				return Subspecies.PLANT_CREATURE.getBodyMaterialSVGString(character, getSubspeciesBodyMaterial(), 
+				"#203603", Util.newArrayListOfValues("#5dd446", "#27912f", "#18a34b"));
+			}
 			return fleshSubspecies.getBodyMaterialSVGString(character, getSubspeciesBodyMaterial(), 
 				"#203603", Util.newArrayListOfValues("#5dd446", "#27912f", "#18a34b"));
 		}
@@ -4484,6 +4499,13 @@ public class Subspecies {
 			}
 			return body.getFleshSubspecies().getFeralAttributes(body);
 		}
+				
+		@Override
+		public void initBookSVGString() {
+			initBookSVGString(
+				"#203603", 
+				Util.newArrayListOfValues("#5dd446", "#27912f", "#18a34b"));
+		}
 	};
 	
 	// FUNGUS CREATURE:
@@ -4491,8 +4513,8 @@ public class Subspecies {
 			10000,
 			"sightglass_race_fungus_kombucha",
 			"sightglass_race_fungus_truffle",
-			"statusEffects/race/raceSlime",
-			"statusEffects/race/raceBackgroundSlime",
+			"statusEffects/race/raceBackgroundFungus",
+			"statusEffects/race/raceBackgroundFungus",
 			"mushroom creature",
 			"mushroom creatures",
 			"mushroom-boy",
@@ -4553,6 +4575,10 @@ public class Subspecies {
 					"#cf2b5c", Util.newArrayListOfValues("#fffbf2", "#e3b394", "#d96c7e"));
 			}
 			AbstractSubspecies fleshSubspecies = character.getBody().getFleshSubspecies();
+			if (fleshSubspecies == Subspecies.HUMAN) {
+				return Subspecies.FUNGUS_CREATURE.getBodyMaterialSVGString(character, getSubspeciesBodyMaterial(), 
+				"#cf2b5c", Util.newArrayListOfValues("#fffbf2", "#e3b394", "#d96c7e"));
+			}
 			return fleshSubspecies.getBodyMaterialSVGString(character, getSubspeciesBodyMaterial(), 
 				"#cf2b5c", Util.newArrayListOfValues("#fffbf2", "#e3b394", "#d96c7e"));
 		}
@@ -4589,6 +4615,11 @@ public class Subspecies {
 			if(body.hasVagina() && Math.random()<0.35) {
 				body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.HALLUCINOGENIC);
 			}
+		}
+				
+		@Override
+		public void initBookSVGString() {
+			initBookSVGString("#cf2b5c", Util.newArrayListOfValues("#fffbf2", "#e3b394", "#d96c7e"));
 		}
 	};
         

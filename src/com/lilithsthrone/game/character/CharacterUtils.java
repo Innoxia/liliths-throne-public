@@ -1395,10 +1395,10 @@ public class CharacterUtils {
 				Subspecies.DOLL.applySpeciesChanges(body);
 			}
 		}
-                if (materialSubspecies != null) {
-                    materialSubspecies.getRace().applyRaceChanges(body);
-                    materialSubspecies.applySpeciesChanges(body);
-                }
+		if (materialSubspecies != null) {
+			materialSubspecies.getRace().applyRaceChanges(body);
+			materialSubspecies.applySpeciesChanges(body);
+		}
                         
 		body.setSubspeciesOverride(null); // Set override to null so that it can be recalculated based on the final body type.
 		body.calculateRace(linkedCharacter);

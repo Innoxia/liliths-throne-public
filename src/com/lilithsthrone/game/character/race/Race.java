@@ -655,7 +655,7 @@ public class Race {
 			return RacialBody.ALLIGATOR_MORPH;
 		}
 	};
-	
+
 	// AVIAN:
 	public static AbstractRace HARPY = new AbstractRace("harpy",
 			"harpies",
@@ -735,10 +735,13 @@ public class Race {
 			1,
 			FurryPreference.MAXIMUM,
 			FurryPreference.MAXIMUM,
-			false,
-			true,
-			new HashSet<BodyMaterial>(Arrays.asList(BodyMaterial.SILICONE)),
+			false, 
+			true, new HashSet<BodyMaterial>(Arrays.asList(BodyMaterial.SILICONE)),
 			false) {
+		@Override
+		public AbstractRacialBody getRacialBody() {
+			return RacialBody.HUMAN;
+		}
 	};
 	
 	// LATEX CREATURE
@@ -781,7 +784,7 @@ public class Race {
 			true,
 			new HashSet<BodyMaterial>(Arrays.asList(BodyMaterial.PLANT)),
 			false) {
-	};
+	};     
 	
 	// FUNGUS CREATURE
 	public static AbstractRace FUNGUS_CREATURE = new AbstractRace("fungus",
@@ -802,7 +805,7 @@ public class Race {
 			true,
 			new HashSet<BodyMaterial>(Arrays.asList(BodyMaterial.FUNGUS)),
 			false) {
-	};
+	};   
 	
 	// ELEMENTALS:
 	
@@ -821,15 +824,15 @@ public class Race {
 				FurryPreference.MAXIMUM,
 				FurryPreference.MAXIMUM,
 				false,
-                                true, 
-                                new HashSet<BodyMaterial>(Arrays.asList(
-                                        BodyMaterial.FIRE,
-                                        BodyMaterial.WATER,
-                                        BodyMaterial.ICE,
-                                        BodyMaterial.AIR,
-                                        BodyMaterial.STONE,
-                                        BodyMaterial.ARCANE)), 
-                true) {
+				true, 
+				new HashSet<BodyMaterial>(Arrays.asList(
+					BodyMaterial.FIRE,
+					BodyMaterial.WATER,
+					BodyMaterial.ICE,
+					BodyMaterial.AIR,
+					BodyMaterial.STONE,
+					BodyMaterial.ARCANE)), 
+		true) {
 		@Override
 		public boolean isAbleToSelfTransform() {
 			return true;
@@ -1506,10 +1509,10 @@ public class Race {
 	
 	public static Map<AbstractRace, String> raceToIdMap = new HashMap<>();
 	public static Map<String, AbstractRace> idToRaceMap = new HashMap<>();
-        
-        public static Map<AbstractRace, Set<BodyMaterial>> raceToBodyMaterialSetMap = new HashMap<>();
-        public static Map<BodyMaterial, AbstractRace> bodyMaterialToRaceMap = new HashMap<>();
-        public static List<BodyMaterial> racialBodyMaterialList;
+	
+	public static Map<AbstractRace, Set<BodyMaterial>> raceToBodyMaterialSetMap = new HashMap<>();
+	public static Map<BodyMaterial, AbstractRace> bodyMaterialToRaceMap = new HashMap<>();
+	public static List<BodyMaterial> racialBodyMaterialList;
 	
 	/**
 	 * @param id Will be in the format of: 'innoxia_hyena'.
@@ -1522,18 +1525,18 @@ public class Race {
 	public static String getIdFromRace(AbstractRace race) {
 		return raceToIdMap.get(race);
 	}
-        
-        public static AbstractRace getRaceFromBodyMaterial(BodyMaterial bMat) {
-                return bodyMaterialToRaceMap.get(bMat);
-        }
-        
-        public static Set<BodyMaterial> getBodyMaterialSetFromRace(AbstractRace race) {
-                return raceToBodyMaterialSetMap.get(race);
-        }
+	
+	public static AbstractRace getRaceFromBodyMaterial(BodyMaterial bMat) {
+		return bodyMaterialToRaceMap.get(bMat);
+	}
+	
+	public static Set<BodyMaterial> getBodyMaterialSetFromRace(AbstractRace race) {
+		return raceToBodyMaterialSetMap.get(race);
+	}
 	
 	static {
 		allRaces = new ArrayList<>();
-                racialBodyMaterialList = new ArrayList<>();
+		racialBodyMaterialList = new ArrayList<>();
 		
 		// Modded races:
 		
@@ -1616,16 +1619,16 @@ public class Race {
 				Attribute.attributeToIdMap.put(racialAttribute, id);
 				Attribute.idToAttributeMap.put(id, racialAttribute);
 				Attribute.allAttributes.add(racialAttribute);
-                                
-                                //Building race/body material mappings
-                                if (race.isMaterialRace()) {
-                                        raceToBodyMaterialSetMap.put(race, race.getRacialBodyMaterialSet());
-                                        for (BodyMaterial bMat : race.getRacialBodyMaterialSet()) {
-                                                bodyMaterialToRaceMap.put(bMat, race);
-                                                racialBodyMaterialList.add(bMat);
-                                        } //
-                                } //
-                                
+				
+				//Building race/body material mappings
+				if (race.isMaterialRace()) {
+					raceToBodyMaterialSetMap.put(race, race.getRacialBodyMaterialSet());
+					for (BodyMaterial bMat : race.getRacialBodyMaterialSet()) {
+						bodyMaterialToRaceMap.put(bMat, race);
+						racialBodyMaterialList.add(bMat);
+					} //
+				} //
+				
 			}
 		}
 	}
