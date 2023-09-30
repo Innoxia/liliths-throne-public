@@ -2178,7 +2178,7 @@ public class CharacterInventory implements XMLSaving {
 		if(area==CoverableArea.TESTICLES) { // There are no proper checks in clothing for testicle access, so use penis access:
 			return isCoverableAreaExposed(character, CoverableArea.PENIS, justVisible);
 		}
-		if(area==CoverableArea.ANUS && character.getGenitalArrangement()==GenitalArrangement.CLOACA) { // If asshole is within cloace, it's in the vagina position:
+		if(area==CoverableArea.ANUS && character.getGenitalArrangement()==GenitalArrangement.CLOACA) { // If asshole is within cloaca, it's in the vagina position:
 			return isCoverableAreaExposed(character, CoverableArea.VAGINA, justVisible);
 		}
 		

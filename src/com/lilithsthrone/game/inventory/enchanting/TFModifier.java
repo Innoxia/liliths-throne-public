@@ -1293,6 +1293,8 @@ public enum TFModifier {
 	TF_MOD_FLAVOUR_MILK(FluidFlavour.MILK, "flavours/cum"),
 	
 	TF_MOD_FLAVOUR_GIRLCUM(FluidFlavour.GIRL_CUM, "flavours/cum"),
+
+	TF_MOD_FLAVOUR_FLAVOURLESS(FluidFlavour.FLAVOURLESS, "flavours/flavourless"),
 	
 	TF_MOD_FLAVOUR_BUBBLEGUM(FluidFlavour.BUBBLEGUM, "flavours/bubblegum"),
 	
@@ -1418,6 +1420,10 @@ public enum TFModifier {
 	private static List<TFModifier> weaponPrimaryList = new ArrayList<>();
 	private static List<TFModifier> weaponAttributeList = new ArrayList<>();
 	private static List<TFModifier> weaponMajorAttributeList = new ArrayList<>();
+
+	private static List<TFModifier> dollPrimaryList = new ArrayList<>();
+	private static List<TFModifier> dollSecondaryList = new ArrayList<>();
+	
 	
 	static {
 
@@ -1679,7 +1685,7 @@ public enum TFModifier {
 	}
 	
 	private TFModifier(FluidFlavour flavour, String pathName, Colour colour) {
-		this.name = flavour.getName()+"-flavour";
+		this.name = flavour.getName()+(flavour==FluidFlavour.FLAVOURLESS?"":"-flavour");
 		this.description = "Applies an effect related to changing a fluid's flavour.";
 		this.descriptor = name;
 		this.rarity = Rarity.COMMON;
@@ -1856,5 +1862,13 @@ public enum TFModifier {
 	
 	public static List<TFModifier> getWeaponAttributeList() {
 		return weaponAttributeList;
+	}
+
+	public static List<TFModifier> getDollPrimaryList() {
+		return dollPrimaryList;
+	}
+
+	public static List<TFModifier> getDollSecondaryList() {
+		return dollSecondaryList;
 	}
 }

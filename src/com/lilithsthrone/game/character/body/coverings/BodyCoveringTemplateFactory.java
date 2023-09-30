@@ -54,6 +54,30 @@ public class BodyCoveringTemplateFactory {
 				PresetColour.naturalSlimeColours,
 				PresetColour.dyeSlimeColours);
 	}
+
+	public static BodyCoveringTemplate createSilicone(CoveringPattern basePattern, Map<CoveringPattern, Integer> coverPatterns) {
+		return createSilicone("a layer of", "silicone", basePattern, coverPatterns);
+	}
+	
+	public static BodyCoveringTemplate createSilicone(String determiner, String name, CoveringPattern basePattern, Map<CoveringPattern, Integer> coverPatterns) {
+		return new BodyCoveringTemplate(determiner,
+				false,
+				name,
+				name,
+				Util.newArrayListOfValues(CoveringModifier.SMOOTH),
+				Util.newArrayListOfValues(
+						CoveringModifier.GLOSSY,
+						CoveringModifier.GLITTERING,
+						CoveringModifier.MATTE,
+						CoveringModifier.SPARKLY,
+						CoveringModifier.METALLIC),
+				Util.newHashMapOfValues(new Value<>(basePattern, 1)),
+				coverPatterns,
+				PresetColour.naturalSiliconeColours,
+				PresetColour.dyeSiliconeColours,
+				PresetColour.naturalSiliconeColours,
+				PresetColour.dyeSiliconeColours);
+	}
 	
 	public static BodyCoveringTemplate createFurSkin(List<CoveringModifier> modifiers, Map<CoveringPattern, Integer> patterns) {
 		return createFur("a layer of", "fur", modifiers, null, patterns);

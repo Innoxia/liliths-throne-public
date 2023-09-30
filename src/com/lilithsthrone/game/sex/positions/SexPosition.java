@@ -2911,6 +2911,13 @@ public class SexPosition {
 			
 			List<String> besideNames = new ArrayList<>();
 			GameCharacter mainBeside = null;
+
+			List<GameCharacter> lyingDownCharacters = new ArrayList<>();
+			for(Entry<GameCharacter, SexSlot> e : occupiedSlots.entrySet()) {
+				if(e.getValue().hasTag(SexSlotTag.LYING_DOWN)) {
+					lyingDownCharacters.add(e.getKey());
+				}
+			}
 			
 			int count=0;
 			for(List<SexSlot> positions : positionLists) {
@@ -2925,10 +2932,6 @@ public class SexPosition {
 				GameCharacter sixtyNine = null;
 				GameCharacter lapPillow = null;
 				GameCharacter performingOral = null;
-				
-				GameCharacter fallBackLyingDown1 = null;
-				GameCharacter fallBackLyingDown2 = null;
-				GameCharacter fallBackLyingDown3 = null;
 				
 				for(Entry<GameCharacter, SexSlot> e : occupiedSlots.entrySet()) {
 					if(e.getValue()==positions.get(0)) {
@@ -2975,52 +2978,33 @@ public class SexPosition {
 						}
 					}
 					
-					if(e.getValue()==SexSlotLyingDown.LYING_DOWN_THREE) {
-						fallBackLyingDown1 = e.getKey();
-					}
-					if(e.getValue()==SexSlotLyingDown.LYING_DOWN_TWO) {
-						fallBackLyingDown2 = e.getKey();
-					}
-					if(e.getValue()==SexSlotLyingDown.LYING_DOWN) {
-						fallBackLyingDown3 = e.getKey();
-					}
 				}
 				
-				boolean skipLyingdown = false;
-				if(lyingDown == null) {
-					skipLyingdown = true;
-					lyingDown = fallBackLyingDown1;
-				}
-				if(lyingDown == null) {
-					lyingDown = fallBackLyingDown2;
-				}
-				if(lyingDown == null) {
-					lyingDown = fallBackLyingDown3;
-				}
+				boolean skipLyingdown = count >= lyingDownCharacters.size();
 				
 				if(!skipLyingdown) {
 					switch(count) {
 						case 0:
-							sb.append(UtilText.parse(lyingDown,
-									(!lyingDown.isTaur()
+							sb.append(UtilText.parse(lyingDownCharacters.get(0),
+									(!lyingDownCharacters.get(0).isTaur()
 										?"[npc.NameIsFull] lying down on [npc.her] back, submissively exposing [npc.her] stomach, [npc.face], and groin. "
 										:"[npc.NameHasFull] lain down on [npc.her] feral [npc.legRace]'s body, before rolling over onto [npc.her] back in order to submissively expose [npc.her] stomach. ")));
 							break;
 						case 1:
-							sb.append(UtilText.parse(lyingDown, fallBackLyingDown3,
-									(!lyingDown.isTaur()
+							sb.append(UtilText.parse(lyingDownCharacters.get(1), lyingDownCharacters.get(0),
+									(!lyingDownCharacters.get(0).isTaur()
 										?" In a similar manner to [npc2.name], [npc.nameHasFull] dropped down to lie on [npc.her] back. "
 										:" In a similar manner to [npc2.name], [npc.nameHasFull] knelt down onto [npc.her] feral [npc.legRace]'s body, before rolling over and presenting [npc.her] underside. ")));
 							break;
 						case 2:
-							sb.append(UtilText.parse(Util.newArrayListOfValues(lyingDown, fallBackLyingDown3, fallBackLyingDown2),
-									(!lyingDown.isTaur()
+							sb.append(UtilText.parse(Util.newArrayListOfValues(lyingDownCharacters.get(2), lyingDownCharacters.get(1), lyingDownCharacters.get(0)),
+									(!lyingDownCharacters.get(0).isTaur()
 										?" Just like [npc2.name] and [npc3.name], [npc.nameHasFull] sunk down onto the floor, before lying down on [npc.her] back. "
 										:" Just like [npc2.name] and [npc3.name], [npc.nameHasFull] sunk down onto [npc.her] feral [npc.legRace]'s body, before rolling over onto [npc.her] back and presenting [npc.herself]. ")));
 							break;
 						case 3:
-							sb.append(UtilText.parse(Util.newArrayListOfValues(lyingDown, fallBackLyingDown3, fallBackLyingDown2, fallBackLyingDown1),
-									(!lyingDown.isTaur()
+							sb.append(UtilText.parse(Util.newArrayListOfValues(lyingDownCharacters.get(3), lyingDownCharacters.get(2), lyingDownCharacters.get(1), lyingDownCharacters.get(0)),
+									(!lyingDownCharacters.get(0).isTaur()
 										?" Finishing off the group of four, [npc.nameIsFull] lying down on [npc.her] back beside [npc2.name], [npc3.name], and [npc4.name]. "
 										:" Finishing off the group of four, [npc.nameIsFull] lying down beside [npc2.name], [npc3.name], and [npc4.name], and [npc.has] rolled over to present the underside of [npc.her] feral [npc.legRace]'s body. ")));
 							break;

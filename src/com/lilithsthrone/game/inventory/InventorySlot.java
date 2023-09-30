@@ -773,7 +773,7 @@ public enum InventorySlot {
 				Util.newArrayListOfValues(this),
 				null,
 				this.getPhysicallyUnavailableReason(character),
-				Util.newArrayListOfValues());
+				Util.newArrayListOfValues(this == InventorySlot.HAIR?ItemTag.IGNORE_HAIR_RESTRICTION:null));
 		}
 		
 		// Leg configuration (takes into account feral):

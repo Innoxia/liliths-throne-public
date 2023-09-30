@@ -542,7 +542,8 @@ public class MiscController {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 					if (Main.game.getPlayer().getEssenceCount()>=f.getCost()
 							&& f.getFetishesForAutomaticUnlock().isEmpty()
-							&& !targetedCharacter.hasFetish(f)) {
+							&& !targetedCharacter.hasFetish(f)
+							&& !targetedCharacter.isDoll()) {
 						targetedCharacter.addFetish(f);
 						targetedCharacter.incrementEssenceCount(-f.getCost(), false);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
@@ -561,7 +562,8 @@ public class MiscController {
 				if (MainController.document.getElementById(id) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 						if (Main.game.getPlayer().getEssenceCount()>=FetishDesire.getCostToChange()
-								&& targetedCharacter.getBaseFetishDesire(f) != desire) {
+								&& targetedCharacter.getBaseFetishDesire(f) != desire
+								&& !targetedCharacter.isDoll()) {
 							targetedCharacter.incrementEssenceCount(-FetishDesire.getCostToChange(), false);
 							targetedCharacter.setFetishDesire(f, desire);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));

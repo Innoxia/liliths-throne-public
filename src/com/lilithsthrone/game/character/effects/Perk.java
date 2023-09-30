@@ -18,6 +18,7 @@ import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
 import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
@@ -933,6 +934,46 @@ public class Perk {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
 					"[npc.NameIsFull] a recognised daughter of Lunette herself, and as such is considerably more powerful than a regular demon.");
+		}
+	};
+
+	public static AbstractPerk JOB_ELDER_LILIN_PAWN = new AbstractPerk(20,
+			true,
+			"A loyal pawn",
+			PerkCategory.JOB,
+			"perks/jobs/elder_lilin_pawn",
+			Util.newArrayListOfValues(PresetColour.RACE_LILIN),
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_PHYSIQUE, 15),
+					new Value<>(Attribute.MAJOR_ARCANE, 15),
+					new Value<>(Attribute.MAJOR_CORRUPTION, 25),
+					new Value<>(Attribute.DAMAGE_LUST, 15)),
+			null,
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NameIsFull] a loyal, valued pawn of an elder lilin, and as such has been granted a fraction of [npc.her] mistress's power.");
+		}
+	};
+
+	public static AbstractPerk JOB_SEX_DOLL = new AbstractPerk(20,
+			true,
+			"dutiful doll",
+			PerkCategory.JOB,
+			"perks/jobs/sex_doll",
+			Util.newArrayListOfValues(PresetColour.RACE_DOLL),
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues(
+					"[style.boldGood(Obeys)] any command",
+					"[style.boldExcellent(Prioritises)] owner's commands",
+					"[style.boldBad(Ignores)] slaves and other dolls"),
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NameIsFull] an extremely realistic-looking sex doll, who was created at 'Lovienne's Luxuries'."
+					+ " [npc.She] will obey any command given to [npc.herHim], so long as it's not from a slave or another doll, with commands from [npc.her] owner taking priority.");
 		}
 	};
 	
@@ -2599,7 +2640,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameIsFull] very infertile, and as a result, is highly unlikely to ever get pregnant.");
+			return UtilText.parse(owner, "[npc.NameIsFull] very infertile, and as a result, [npc.is] highly unlikely to ever get pregnant.");
 		}
 	};
 	
@@ -3053,6 +3094,30 @@ public class Perk {
 			return UtilText.parse(owner, "The blood of Cimryth runs through [npc.namePos] veins and [npc.she] is long inured to the cold of living so high up in the mountains. However, being so removed from [npc.her] desert kin has lessened [npc.her] natural resistance to fire.");
 		}
 		
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+	};
+
+	public static AbstractPerk SPECIAL_ENFORCER_FIREARMS_TRAINING = new AbstractPerk(20,
+			true,
+			"Firearms Mastery",
+			PerkCategory.PHYSICAL,
+			"perks/enforcer_firearms",
+			Util.newArrayListOfValues(
+					PresetColour.DAMAGE_TYPE_FIRE,
+					PresetColour.CLOTHING_BLACK,
+					PresetColour.CLOTHING_GUNMETAL),
+			Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 75)),
+			Util.newArrayListOfValues("[style.colourExcellent(Doubles)] all firearms damage"),
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NameHasFull] not only completed the notoriously grueling Firearms Proficiency Program required of all SWORD Enforcers, but finished with a grade of Master."
+					+ " No doubt this left some dark, lingering memories, but as a result [npc.sheIs] one of the most proficient #IF(npc.isFeminine())markswomen#ELSEmarksmen#ENDIF in the realm.");
+		}
 		@Override
 		public boolean isHiddenPerk() {
 			return true;
@@ -6251,8 +6316,237 @@ public class Perk {
 		}
 	};
 	
+	// Doll perks:
 	
+	public static AbstractPerk DOLL_PHYSICAL_CORE = new AbstractPerk(20,
+			false,
+			"arcane-infused silicone",
+			PerkCategory.PHYSICAL,
+			"perks/doll/physical0",
+			Util.newArrayListOfValues(PresetColour.BASE_WHITE, PresetColour.GENERIC_ARCANE),
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.RESISTANCE_PHYSICAL, 10),
+					new Value<>(Attribute.RESISTANCE_FIRE, 10),
+					new Value<>(Attribute.RESISTANCE_ICE, 10),
+					new Value<>(Attribute.RESISTANCE_POISON, 10)),
+			Util.newArrayListOfValues(
+					"Orifices slowly absorb fluids"),
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NamePos] body is made entirely out of an arcane-infused, silicone-like polymer, the composition of which is a closely-guarded secret of 'Lovienne's Luxuries'."
+						+ " As well as being able to slowly absorb and convert stored fluids to energy, this material is extraordinarily durable.");
+		}
+	};
+	
+	public static AbstractPerk DOLL_PHYSICAL_1 = new AbstractPerk(20,
+			false,
+			"hypermobility",
+			PerkCategory.PHYSICAL,
+			"perks/doll/physical1",
+			PresetColour.BASE_PINK_LIGHT,
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues(
+					"[style.colourExcellent(Unlocks)] autofellatio and autocunnilingus")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NamePos] body is exceptionally flexible, allowing [npc.herHim] to twist [npc.her] body into poses which would make a gymnast jealous.");
+		}
+	};
+	
+	public static AbstractPerk DOLL_PHYSICAL_2 = new AbstractPerk(20,
+			false,
+			"no means of reproduction",
+			PerkCategory.PHYSICAL,
+			"perks/doll/physical2",
+			PresetColour.RACE_DOLL,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.VIRILITY, -1000),
+					new Value<>(Attribute.FERTILITY, -1000)),
+			Util.newArrayListOfValues(
+					"Impregnation is [style.colourTerrible(impossible)]",
+					"Pregnancy is [style.colourTerrible(impossible)]",
+					"[style.colourTerrible(Cannot)] incubate eggs")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NamePos] artificial body is completely unable to bear offspring of [npc.her] own."
+					+ " [npc.Her] rubbery orifices are also inhospitable places for eggs.");
+		}
+	};
+	
+	public static AbstractPerk DOLL_PHYSICAL_3 = new AbstractPerk(20,
+			false,
+			"organs not included",
+			PerkCategory.PHYSICAL,
+			"perks/doll/physical3",
+			PresetColour.BASE_RED_LIGHT,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.RESISTANCE_POISON, 50)),
+			Util.newArrayListOfValues(
+					"[style.colourExcellent(Unaffected)] by fluid addictions, psychoactive substances, and alcohol")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"The internal structure of [npc.namePos] body consists solely of deep passages which are linked to [npc.her] orifices."
+					+ " Lacking biological systems of any sort, [npc.name] [npc.is] immune to most substances' effects.");
+		}
+	};
 
+	public static AbstractPerk DOLL_LUST_CORE = new AbstractPerk(20,
+			false,
+			"sex toy",
+			PerkCategory.LUST,
+			"perks/doll/lust0",
+			PresetColour.RACE_DOLL,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_CORRUPTION, 100),
+					new Value<>(Attribute.RESISTANCE_LUST, -100)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NameHasFull] been designed and made to be a sex doll, and although [npc.she] can carry out a wide range of other tasks, [npc.her] true purpose is to get fucked.");
+		}
+	};
+
+	public static AbstractPerk DOLL_LUST_1 = new AbstractPerk(20,
+			false,
+			"live to fuck",
+			PerkCategory.LUST,
+			"perks/doll/lust1",
+			PresetColour.RACE_DOLL,
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues(
+					"Can [style.colourTerrible(never)] use <span style='color:"+SexPace.SUB_RESISTING.getColour().toWebHexString()+";'>resist</span> actions in [style.colourSex(sex scenes)]",
+					"Does not object to <span style='color:"+SexPace.SUB_RESISTING.getColour().toWebHexString()+";'>sadistic</span> sex actions",
+					"Orientation always [style.colourAndrogynous(ambiphilic)]")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.Name] only wants one thing - to be fucked non-stop, no matter who's doing the fucking nor how rough they are.");
+		}
+	};
+
+	public static AbstractPerk DOLL_LUST_2 = new AbstractPerk(20,
+			false,
+			"owned",
+			PerkCategory.LUST,
+			"perks/doll/lust2",
+			Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_GOLD),
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues(
+					"Will always [style.colourSex(obey)] owner",
+					"[style.colourObedience(Obedience)] is [style.colourExcellent(always 100)]"),
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.Name] [npc.verb(know)] that [npc.sheIs] nothing more than an object, and will do absolutely anything [npc.her] owner asks of [npc.herHim].");
+		}
+	};
+
+	public static AbstractPerk DOLL_LUST_3 = new AbstractPerk(20,
+			false,
+			"anything goes",
+			PerkCategory.LUST,
+			"perks/doll/lust3",
+			Util.newArrayListOfValues(PresetColour.CLOTHING_BLUE_GREY, PresetColour.BASE_GREY_LIGHT),
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues(
+					"[style.colourTerrible(Cannot)] gain [style.colourFetish(fetishes)]",
+					"[style.colourFetish(Fetish desires)] are always [style.colourHuman(neutral)]",
+					"[npc.Do] not feel embarrased at being publicly exposed or from clothing femininity"),
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"As an automaton who lacks free will, [npc.name] [npc.do] not have any opinion on different fetishes, and [npc.is] content to go along with whatever [npc.her] partner asks of [npc.herHim].");
+		}
+	};
+	
+	public static AbstractPerk DOLL_ARCANE_CORE = new AbstractPerk(20,
+			false,
+			"automaton",
+			PerkCategory.ARCANE,
+			"perks/doll/arcane0",
+			Util.newArrayListOfValues(PresetColour.CLOTHING_PINK_DARK, PresetColour.CLOTHING_PINK, PresetColour.CLOTHING_PINK_LIGHT),
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.ACTION_POINTS, -1),
+					new Value<>(Attribute.DAMAGE_MELEE_WEAPON, -25),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, -25)),
+			Util.newArrayListOfValues(
+					"Can remain motionless indefinitely"),
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NameIsFull] an automaton, and while [npc.sheIs] capable of moving in a life-like fashion, [npc.she] will never be as agile or responsive as a real person."
+					+ " If ordered to, [npc.she] can remain completely motionless for an unlimited amount of time.");
+		}
+	};
+	
+	public static AbstractPerk DOLL_ARCANE_1 = new AbstractPerk(20,
+			false,
+			"no aura",
+			PerkCategory.ARCANE,
+			"perks/doll/arcane1",
+			Util.newArrayListOfValues(PresetColour.BASE_BLACK, PresetColour.GENERIC_ARCANE),
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_ARCANE, -1000)),
+			Util.newArrayListOfValues(
+					"Can [style.colourTerrible(never)] generate essences from [style.colourSex(orgasming)]",
+					"Can [style.colourTerrible(never)] absorb essences",
+					"[style.colourExcellent(Immune)] to [style.colourTfGeneric(standard transformatives)]"),
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"As [npc.sheIs] just a doll, and not a real person, [npc.name] [npc.verb(lack)] an arcane aura, and as such cannot absorb nor generate essences."
+						+ " Normal transformation methods also have no effect on [npc.herHim], with only special doll-specific transformatives having any effect.");
+		}
+	};
+
+	public static AbstractPerk DOLL_ARCANE_2 = new AbstractPerk(20,
+			false,
+			"object limitations",
+			PerkCategory.ARCANE,
+			"perks/doll/arcane2",
+			PresetColour.GENERIC_EXPERIENCE,
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues(
+					"Can [style.colourTerrible(never)] gain [style.colourExperience(experience)]",
+					"[style.colourTerrible(Permanently locked)] to [style.colourExperience(level 1)]",
+					"Can [style.colourTerrible(never)] gain personality traits",
+					"[style.colourAffection(Affection)] to others is <span style='color:"+PresetColour.AFFECTION_NEUTRAL.toWebHexString()+";'>always neutral</span>")) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"With no free will or a conscience, [npc.nameIsFull] unable to learn from [npc.her] experiences, and [npc.is] therefore never going to grow or develop as a real person would.");
+		}
+	};
+
+	public static AbstractPerk DOLL_ARCANE_3 = new AbstractPerk(20,
+			false,
+			"arcane-powered",
+			PerkCategory.ARCANE,
+			"perks/doll/arcane3",
+			Util.newArrayListOfValues(PresetColour.BASE_PINK, PresetColour.GENERIC_ARCANE),
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues(
+					"Does not need to eat or drink",
+					"Gain [style.colourExcellent(1000)] "+Attribute.HEALTH_MAXIMUM.getColouredName("span")+" while exposed to an arcane storm"),
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"Instead of requiring calories from food or drink to function, [npc.name] passively absorbs background arcane energy to power [npc.herself]."
+						+ " Thanks to this, arcane storms grant [npc.herHim] a significant amount of vitality.");
+		}
+	};
+	
 	public static List<AbstractPerk> hiddenPerks;
 	public static List<AbstractPerk> allPerks;
 	public static List<AbstractPerk> subspeciesKnowledgePerks;

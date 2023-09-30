@@ -48,7 +48,7 @@ public enum Quest {
 	MAIN_PROLOGUE(QuestType.MAIN, 1, 5) {
 		@Override
 		public String getName() {
-			return "Survive the evening";
+			return "Survive the Evening";
 		}
 		@Override
 		public String getDescription() {
@@ -66,7 +66,7 @@ public enum Quest {
 	MAIN_1_A_LILAYAS_TESTS(QuestType.MAIN, 1, 10) {
 		@Override
 		public String getName() {
-			return "Lilaya's tests";
+			return "Lilaya's Tests";
 		}
 		@Override
 		public String getDescription() {
@@ -398,7 +398,7 @@ public enum Quest {
 	MAIN_2_D_MEETING_A_LILIN(QuestType.MAIN, 1, 100) {
 		@Override
 		public String getName() {
-			return "Meeting A Lilin";
+			return "Meeting a Lilin";
 		}
 
 		@Override
@@ -541,36 +541,93 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_3_F_PREPARING_ELIS(QuestType.MAIN, 1, 25) {//TODO
+	MAIN_3_F_PREPARING_ELIS(QuestType.MAIN, 1, 25) {
 		@Override
 		public String getName() {
-			return "Defence of Elis";
+			return "Some Help from SWORD";
 		}
-
 		@Override
 		public String getDescription() {
-			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in future updates!)]<br/>"
-					+ "With Lunette planning to attack Elis at some point in the near future, you've been tasked by Minotallys with helping get the town's defences in order."
-					+ " You need to travel to the Enforcer station in Elis and ask for their assistance.";
+			return "With Lunette planning to attack Elis at some point in the near future, you've told Minotallys that you'll help to get the town's defences in order."
+					+ " You need to travel to the Enforcer station in Elis and ask the group of SWORD Enforcers for their assistance.";
 		}
-
+		@Override
+		public String getCompletedDescription() {
+			return "You travelled to the Enforcer station in Elis and asked the group of SWORD Enforcers to help with getting the town's defences in order.";
+		}
+		@Override
+		public void applySkipQuestEffects() {
+			// TODO
+		}
+	},
+	
+	MAIN_3_G_SWORD_SCAPEGOAT(QuestType.MAIN, 1, 25) {
+		@Override
+		public String getName() {
+			return "SWORD's Scapegoat";
+		}
+		@Override
+		public String getDescription() {
+			return "The SWORD Enforcers told you that in order for them to help you, you first need to help them."
+					+ " You're to tag along on an operation to stop an elder lilin's daughter so that you can get them out of trouble if they're recognised."
+					+ " You need to meet them in the Enforcer station on a Tuesday evening, after [units.time(17)], to start the operation.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You met with the SWORD Enforcers on a Tuesday afternoon so that you could tag along on an operation to stop an elder lilin's daughter.";
+		}
+		@Override
+		public void applySkipQuestEffects() {
+			// TODO
+		}
+	},
+	
+	MAIN_3_H_SWORD_MISSION(QuestType.MAIN, 25, 250) {
+		@Override
+		public String getName() {
+			return "Stop the Succubus";
+		}
+		@Override
+		public String getDescription() {
+			return "You need to stay with the SWORD Enforcers as they clear the succubus's headquarters."
+					+ " You don't need to fight, but the Enforcers might appreciate it if you gave them some assistance.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You worked with the SWORD Enforcers to clear the succubus's headquarters."
+					+ " Although she managed to escape, you've put a decisive end to her illegal enslavement activities.";
+		}
+		@Override
+		public void applySkipQuestEffects() {
+			// TODO
+		}
+	},
+	
+	MAIN_3_I_ARION_REPORT(QuestType.MAIN, 1, 25) {//TODO
+		@Override
+		public String getName() {
+			return "Report to Minotallys";
+		}
+		@Override
+		public String getDescription() {
+			return "[style.italicsBad(This is as far as the main quest goes for now! It will be updated soon!)]"
+					+ "<br/>Now that the SWORD Enforcers are working on preparing the town's defences, you need to head back to the town hall to report this to Minotallys.";
+		}
 		@Override
 		public String getCompletedDescription() {
 			return "-";
 		}
 	},
 	
-	MAIN_3_G_TODO(QuestType.MAIN, 1, 25) {//TODO
+	MAIN_3_J_TODO(QuestType.MAIN, 1, 25) {//TODO
 		@Override
 		public String getName() {
 			return "";
 		}
-
 		@Override
 		public String getDescription() {
 			return "";
 		}
-
 		@Override
 		public String getCompletedDescription() {
 			return "-";
@@ -2069,6 +2126,127 @@ public enum Quest {
 			return getDescription();
 		}
 	},
+
+	
+	// Doll factory quests:
+	
+	DOLL_FACTORY_1(QuestType.SIDE, 30, 10) {
+		@Override
+		public String getName() {
+			return "On Lovienne's Orders";
+		}
+		@Override
+		public String getDescription() {
+			return "Angelixx's diary revealed that the kidnapped refugees were being teleported to the shop 'Lovienne's Luxury' in Dominion."
+					+ " If you're to discover what's happened to Angelixx's victims, then you'll need to investigate this store...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You travelled to the shop 'Lovienne's Luxury' and attempted to discover if the refugees kidnapped by Angelixx were being taken there."
+					+ " Although you weren't able to discover anything, a woman approached you as you left and offered her help.";
+		}
+	},
+	
+	DOLL_FACTORY_2(QuestType.SIDE, 30, 10) {
+		@Override
+		public String getName() {
+			return "Breaking and Entering";
+		}
+		@Override
+		public String getDescription() {
+			return "The woman you met outside 'Lovienne's Luxury' knows a way into the rear of the premises, where she believes the kidnapped refugees are being held and used as slave labour."
+					+ " With no other way to gain entry and get to the bottom of what's happening in there, you agreed to her plan and said you'd meet her near to the shop between [units.time(1)]-[units.time(4)].";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You met the woman outside 'Lovienne's Luxury' and managed to break in to the rear of the premises without setting off the alarm system.";
+		}
+	},
+	
+	DOLL_FACTORY_3(QuestType.SIDE, 30, 10) {
+		@Override
+		public String getName() {
+			return "Getting to the Bottom";
+		}
+		@Override
+		public String getDescription() {
+			return "The doll factory to the rear of 'Lovienne's Luxury' has turned out to be nothing but a facade."
+					+ " The real factory, and where you're sure to find the kidnapped refugees, has been revealed to be deep underground, so it's down you go...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You travelled down the elevator to the real doll factory, where you witnessed Angelixx converting a captive into a sex doll.";
+		}
+	},
+	
+	DOLL_FACTORY_4(QuestType.SIDE, 30, 10) {
+		@Override
+		public String getName() {
+			return "Gather Evidence";
+		}
+		@Override
+		public String getDescription() {
+			return "Nobody will believe what you've seen, so you're going to need to gather hard evidence of how Lovienne's dolls are created."
+					+ " Ledgers, machine schematics, or other such documents are sure to be found in an office somewhere...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You managed to gather hard evidence of how Lovienne's dolls are created.";
+		}
+	},
+	
+	DOLL_FACTORY_5(QuestType.SIDE, 30, 10) {
+		@Override
+		public String getName() {
+			return "Up and Away";
+		}
+		@Override
+		public String getDescription() {
+			return "With hard evidence of Lovienne's dolls are created now in your possession, you need to escape from the factory...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You managed to escape from the lower factory, but as you exited the elevator you were confronted by Angelixx herself, who offered you a deal...";
+		}
+	},
+	
+	DOLL_FACTORY_6A(QuestType.SIDE, 30, 10) {
+		@Override
+		public String getName() {
+			return "Angelixx's Fall";
+		}
+		@Override
+		public String getDescription() {
+			return "You refused to make a deal with Angelixx, and instead handed the evidence you'd gathered over to the woman."
+					+ " When word of what's going on in her shop is made public, Lovienne is likely to administer a severe punishment to Angelixx."
+					+ " Perhaps if you return to the shop during opening hours you'll find out what's to become of her...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You refused to make a deal with Angelixx, and instead handed the evidence you'd gathered over to the woman."
+					+ " Returning to 'Lovienne's Luxury' during opening hours, you discovered that the evidence of how sex dolls are created is not being taken seriously by members of the public."
+					+ " What's more, there's now a limited-edition succubus sex doll for sale, who's the spitting image of Angelixx...";
+		}
+	},
+	
+	DOLL_FACTORY_6B(QuestType.SIDE, 30, 10) {
+		@Override
+		public String getName() {
+			return "Angelixx's Associate";
+		}
+		@Override
+		public String getDescription() {
+			return "You betrayed the trust of the woman and handed her over to Angelixx, along with the evidence you'd gathered."
+					+ " The succubus offered you her thanks and told you to return to the shop during opening hours to get a special reward...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You betrayed the trust of the woman and handed her over to Angelixx, along with the evidence you'd gathered."
+					+ " In return, Angelixx will convert your slaves to dolls in exchange for a small fee, or will instead pay you if you don't want them back."
+					+ " She also offered you her intimate company...";
+		}
+	},
+	
 	
 	// Romance quests:
 

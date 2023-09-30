@@ -73,15 +73,27 @@
 	<p>
 		From the amused smile on his face, you can tell that he's trying to trick you, but before you can offer a reply, he continues, [jules.speech(All you've got to do is come over here and suck my cock!)]
 	</p>
-	<p>
-		The other zebra-boy sighs and crosses his arms, before turning to his companion and berating him, [genericMale.speech(Come on Jules, knock it off. Kruger's already warned you about scaring the customers off.)]
-	</p>
-	<p>
-		[jules.speech(Ah, come on, I'm just teasing [pc.herHim],)] Jules laughs, before turning back towards you. [jules.speech(No harm meant!)]
-	</p>
-	<p>
-		It looks like you'll have to join the back of the queue and wait in line to get into the club, which you guess will take about half an hour. Then again, if you didn't want to wait, you could always take Jules up on his offer...
-	</p>
+	#IF(pc.getRace()==RACE_DEMON)
+		<p>
+			Before you can react, the other zebra-boy angrily punches his companion and berates him, [style.speechMasculine(What the fuck are you saying, Jules?! Can't you see [pc.sheIs] a demon?!)]
+		</p>
+		<p>
+			[jules.speech(Ah, come on, I'm just teasing [pc.herHim],)] Jules laughs, before turning back towards you. [jules.speech(No harm meant!)]
+		</p>
+		<p>
+			It looks like you'll have to join the back of the queue and wait in line to get into the club, which you guess will take about half an hour. Then again, you could use your status as a demon to cut the queue, or even take Jules up on his offer...
+		</p>
+	#ELSE
+		<p>
+			The other zebra-boy sighs and crosses his arms, before turning to his companion and berating him, [style.speechMasculine(Come on Jules, knock it off. Kruger's already warned you about scaring the customers off.)]
+		</p>
+		<p>
+			[jules.speech(Ah, come on, I'm just teasing [pc.herHim],)] Jules laughs, before turning back towards you. [jules.speech(No harm meant!)]
+		</p>
+		<p>
+			It looks like you'll have to join the back of the queue and wait in line to get into the club, which you guess will take about half an hour. Then again, if you didn't want to wait, you could always take Jules up on his offer...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -97,21 +109,38 @@
 			 [jules.speech(Hey, it's you again! You gonna suck my cock this time, or what?)]
 		#ENDIF
 	</p>
-	<p>
-		The other zebra-boy leans back against the wall and sighs, [genericMale.speech(Damn it, Jules...)]
-	</p>
-	<p>
-		It looks like you'll have to join the back of the queue and wait in line to get into the club, which you guess will take about half an hour. Then again, if you didn't want to wait, you could always take Jules up on his offer...
-	</p>
+	#IF(pc.getRace()==RACE_DEMON)
+		<p>
+			Before you can react, the other zebra-boy angrily berates Jules, [style.speechMasculine(You're going to get the two of us fired, you fucking idiot! Can't you see [pc.sheIs] a demon?!)]
+		</p>
+		<p>
+			[jules.speech(Relax, man, [pc.she] knows I'm just teasing [pc.herHim],)] Jules laughs.
+		</p>
+		<p>
+			It looks like you'll have to join the back of the queue and wait in line to get into the club, which you guess will take about half an hour. Then again, you could use your status as a demon to cut the queue, or even take Jules up on his offer...
+		</p>
+	#ELSE
+		<p>
+			The other zebra-boy leans back against the wall and sighs, [style.speechMasculine(Damn it, Jules...)]
+		</p>
+		<p>
+			It looks like you'll have to join the back of the queue and wait in line to get into the club, which you guess will take about half an hour. Then again, if you didn't want to wait, you could always take Jules up on his offer...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_ENTRANCE_START_BLOWJOB"><![CDATA[
 	<p>
-		[pc.speech(Sure, I don't mind doing that!)] you happily call out, before starting to make your way towards the large zebra-boy.
+		Deciding to take Jules up on his offer, you cut the queue and [pc.walk] up to the large zebra-boy, before telling him that you'll suck his cock.
 	</p>
 	<p>
-		[jules.speech(Hah! I told you I'd get my cock sucked tonight!)] Jules happily states to his partner, before turning back towards you. [jules.speech(Go on then, slut, get down on your knees.)]
+		#IF(pc.getRace()==RACE_DEMON)
+			[jules.speech(Hah! I told you I'd get my cock sucked tonight, and by a demon no less!)]
+		#ELSE
+			[jules.speech(Hah! I told you I'd get my cock sucked tonight!)]
+		#ENDIF
+		 Jules happily states to his partner, before turning back towards you and commanding, [jules.speech(Go on then, slut, get down on your knees.)]
 	</p>
 	<p>
 		Doing as you're told, you drop down onto your knees in front of Jules. You hear several of the people waiting in the queue behind you starting to gasp and laugh as you shuffle forwards and prepare to suck the zebra-boy's cock.
@@ -120,31 +149,66 @@
 		[jules.speech(Get it out for me,)] Jules commands, thrusting his hips forwards.
 	</p>
 	<p>
-		 You quickly move to do as you're told, and happily pull down his black jeans. Thanks to the pair of crotchless briefs that Jules is wearing, your move results in your face being just [unit.sizes] away from his rapidly-hardening horse-cock. Without any warning, the zebra-boy bucks his hips forwards, slapping his huge, fat cock against your face as he lets out a triumphant laugh, [jules.speech(Hah! Now let's find out how good you are at sucking cock!)]
+		You quickly move to do as you're told, and happily pull down his black jeans. Thanks to the pair of crotchless briefs that Jules is wearing, your move results in your face being just [unit.sizes] away from his huge, rapidly-hardening horse-cock. Without any warning, the zebra-boy bucks his hips forwards, slapping his fat, ebony shaft against your face as he lets out a triumphant laugh, [jules.speech(Hah! Now let's find out how good you are at sucking cock!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_ENTRANCE_JULES_SEX"><![CDATA[
+	<p>
+		Finding yourself back at the entrance to the club, you
+		#IF(flags.hasFlag(FLAG_fuckedJules))
+			 can't help but remember the 'proper fuck' Jules gave you in his office.
+		#ELSE
+			 remember Jules's offer of giving you a 'proper fuck'.
+		#ENDIF
+		 Deciding that the zebra-boy's fat cock is what you need right now, you [pc.step] out through the doors and immediately catch his eye.
+	</p>
+	<p>
+		[jules.speech(Leaving already?)] he asks, [jules.speech(Hey, how about another blowjob some time? You're not half bad at giving head.)]
+	</p>
+	<p>
+		[pc.Walking] over to Jules, you tell him that giving him a blowjob isn't going to cut it, and that a 'proper fuck' is what you need right now.
+	</p>
+	<p>
+		[jules.speech(Hey, cover for me for ten minutes while I bang this slut,)] Jules says to his colleague, before taking you by the [pc.hand(true)] and leading you over to a nearby door marked as 'Staff Only'.
+	</p>
+	<p>
+		[style.speechMasculine(For fuck's sake,)] the other zebra-boy sighs as Jules leads you into a small, dingy office. Calling out after you as the door swings shut, the bouncer shouts, [style.speechMasculine(Don't leave a mess in there this time!)]
+	</p>
+	<p>
+		Dominantly pulling you into his chest, Jules greedily gropes your body and grunts in a deep voice, [jules.speech(Time to give you a proper fucking, slut.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AFTER_JULES_BLOWJOB"><![CDATA[
 	<p>
-		Having finished sucking his cock, you stand up in front of Jules, who grins at you as he steps to one side in order to let you pass. [jules.speech(Good job, slut. Go on in, I'm sure you'll find plenty more cocks to service inside.)]
-	</p>
-	<p>
-		Stepping through the double doors, you enter the club proper, which you discover to be absolutely packed with people of all different races. The chatter, laughter, and shouting from the crowd is joined by loud, bassy background music, making it very hard to make out what anyone's saying unless you're standing right beside them.
-	</p>
-	<p>
-		Just like the entrance hall, the main interior looks to have an African theme to it, and although the lights are very dim, you can clearly see zebra-stripes, leopard-spots, and savannah-style trees painted onto the walls. The floor beneath your feet is covered in light wooden boards, which, combined with the light blue colour of the high ceiling, gives the club a spacious feel to it.
-	</p>
-	<p>
-		Although you can't directly see it through the crowds in front of you, a wooden sign hanging from the ceiling on the far side of the club's huge interior tells you where the bar is. You wonder if you should go straight there and get a drink, or try to find someone to flirt with first...
+		Having finished sucking his cock, you stand up in front of Jules, who grins at you as he steps to one side in order to let you pass.
+		#IF(flags.hasFlag(FLAG_fuckedJules))
+			 [jules.speech(Good job, slut. Go on in, and if you can't find someone to fuck, then come and let me know and I'll give you a proper fuck again.)]
+		#ELSE
+			 [jules.speech(Good job, slut. Go on in, I'm sure you'll find plenty more cocks to service inside. If not, come and let me know and I'll give you a proper fuck.)]
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_ENTRANCE_PASSED"><![CDATA[
 	<p>
-		You find yourself standing beside the pair of white doors which lead back out into the club's entrance hall. From here, you could choose to take your leave, or turn around and head back into the club.
+		You find yourself standing beside the pair of white doors which lead back out into the club's entrance hall. From here you could choose to take your leave, or instead turn around and head back into the club.
 	</p>
+	#IF(!flags.hasFlag(FLAG_fuckedJulesTonight))
+		#IF(flags.hasFlag(FLAG_fuckedJules))
+			<p>
+				Having been given a 'proper fuck' by Jules on a previous occasion, you could return to the zebra-boy bouncer and tell him that you want a repeat performance...
+			</p>
+		#ELSEIF(flags.hasFlag(FLAG_suckedJulesCock))
+			<p>
+				Remembering that Jules had offered to give you a 'proper fuck' after giving him a blowjob, you could return to the zebra-boy bouncer and tell him that you want him...
+			</p>
+		#ENDIF
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -155,6 +219,20 @@
 	<p>
 		It takes about thirty minutes before you're standing before the pair of zebra-boy bouncers. After just a minute more, Jules steps to one side in order to let you pass. [jules.speech(Go on in then.)]
 	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_ENTRANCE_SKIP_QUEUE"><![CDATA[
+	<p>
+		Deciding to take advantage of your status as a demon, you stride forwards and coldly ask Jules if he has any idea who you are.
+	</p>
+	<p>
+		[jules.speech(Hey, I was just joking, I didn't mean to offend you,)] the zebra-boy sheepishly replies. Realising that he might be in serious trouble, he steps aside and waves you on through, saying as he does so, [jules.speech(I'm sorry, please go on in and have a good evening.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_ENTRANCE_END"><![CDATA[
 	<p>
 		Stepping through the double doors, you enter the club proper, which you discover to be absolutely packed with people of all different races. The chatter, laughter, and shouting from the crowd is joined by loud, bassy background music, making it very hard to make out what anyone's saying unless you're standing right beside them.
 	</p>
@@ -166,6 +244,39 @@
 	</p>
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="AFTER_JULES_SEX"><![CDATA[
+	<p>
+		#IF(jules.isSatisfiedFromLastSex())
+			[jules.speech(Fuck, I needed that tonight. You're a decent lay, slut,)] Jules grunts as he brings an end to things.
+		#ELSE
+			[jules.speech(You're done already?! Fuck, you're a lousy lay, slut,)] Jules grunts in annoyance as you bring an end to things before he's had the chance to orgasm.
+		#ENDIF
+		 After quickly using some wet wipes to clean himself off, he pulls on his clothes and states, [jules.speech(I've got to get back to work, and I can't leave you in here. Hurry up and get ready.)]
+	</p>
+	<p>
+		Doing as you're told, you quickly get your things back in order, before exiting the dingy office via the same door through which you entered. Giving your [pc.ass+] a hard slap as he follows you out, Jules returns to his place at the doors to the club.
+	</p>
+	<p>
+		[jules.speech(Go on, you probably want a drink or something after that,)] Jules says to you, before holding open the door and gesturing for you to head inside.
+	</p>
+	<p>
+		[style.speechMasculine(How romantic,)] the other zebra-boy sarcastically chuckles.
+	</p>
+	<p>
+		Doing as Jules says, you pass him by and enter the club once again. The chatter, laughter, and shouting from the crowd is joined by loud, bassy background music, making it very hard to make out what anyone's saying unless you're standing right beside them.
+	</p>
+	<p>
+		Just like the entrance hall, the main interior looks to have an African theme to it, and although the lights are very dim, you can clearly see zebra-stripes, leopard-spots, and savannah-style trees painted onto the walls. The floor beneath your feet is covered in light wooden boards, which, combined with the light blue colour of the high ceiling, gives the club a spacious feel to it.
+	</p>
+	<p>
+		Although you can't directly see it through the crowds in front of you, a wooden sign hanging from the ceiling on the far side of the club's huge interior tells you where the bar is. You wonder if you should go straight there and get a drink, or try to find someone else to have some more fun with tonight...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Main club content: -->
 	
 	<htmlContent tag="WATERING_HOLE_MAIN"><![CDATA[
 	<p>
@@ -1327,13 +1438,13 @@
 		In one corner of the club, there's a seating area which is quite unlike the others. Most of the frontage is blocked off by a dark glass wall, and the single opening is guarded by a pair of muscular lion bouncers. Looking through this opening reveals the interior to be furnished with numerous semi-circular booths, each one housing a polished black marble table and a long, curved leather sofa.
 	</p>
 	<p>
-		As you approach, one of the bouncers recognises you from before, and asks, [genericMale.speech(You're Kalahari's friend, right?)]
+		As you approach, one of the bouncers recognises you from before, and asks, [style.speechMasculineStrong(You're Kalahari's friend, right?)]
 	</p>
 	<p>
 		[pc.speech(Yeah, that's me,)] you reply.
 	</p>
 	<p>
-		[genericMale.speech(Kruger said you can head on in if you returned. I'm sure he'd like to talk to you,)] the bouncer explains, before stepping to one side in order to let you pass.
+		[style.speechMasculineStrong(Kruger said you can head on in if you returned. I'm sure he'd like to talk to you,)] the bouncer explains, before stepping to one side in order to let you pass.
 	</p>
 	<p>
 		You could head over to Kruger's booth, or turn back and return to the main part of the club...
@@ -1745,7 +1856,7 @@
 		#ENDIF
 	</p>
 	<p>
-		As [npc.she] sees the approach of your groin, [npc.name] lets out [npc.a_moan+], before shuffling closer to the wall and firmly pressing her open mouth up against the hole. 
+		As [npc.she] sees the approach of your groin, [npc.name] lets out [npc.a_moan+], before shuffling closer to the wall and firmly pressing [npc.her] open mouth up against the hole. 
 		#IF(!npc.isMute())
 			 Letting out [npc.a_moan+], [npc.she] impatiently encourages you to get started, [game.random(
 			[npc.speech(Oh yeah, come on! Let this whore show you what [npc.sheIs] capable of!)]

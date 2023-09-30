@@ -227,6 +227,16 @@ public class ItemEffectType {
 			if(primaryModifier!=null && primaryModifier!=TFModifier.NONE && primaryModifier!=TFModifier.REMOVAL) {
 				target.incrementAttribute(Attribute.MAJOR_CORRUPTION, 5);
 				
+				if(target.isDoll()
+						&& (primaryModifier==TFModifier.ORIENTATION_GYNEPHILIC
+							|| primaryModifier==TFModifier.ORIENTATION_AMBIPHILIC
+							|| primaryModifier==TFModifier.ORIENTATION_ANDROPHILIC)) {
+					return UtilText.parse(target,
+							"<p style='text-align:center;'>"
+									+ "[style.colourDisabled(As a sex doll, [npc.name] can never be anything other than ambiphilic...)]"
+								+ "</p>");
+				}
+				
 				if(primaryModifier==TFModifier.ORIENTATION_GYNEPHILIC) {
 					boolean alreadyGynephilic = target.getSexualOrientation()==SexualOrientation.GYNEPHILIC;
 					target.setSexualOrientation(SexualOrientation.GYNEPHILIC);
@@ -259,66 +269,24 @@ public class ItemEffectType {
 								+ "</p>");
 					
 				} else if(primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_LISP) {
-					boolean alreadyLisp = target.hasPersonalityTrait(PersonalityTrait.LISP);
 					if(potency==TFPotency.MINOR_DRAIN) {
-						target.removePersonalityTrait(PersonalityTrait.LISP);
-						return UtilText.parse(target,
-								"<p style='text-align:center;'>"
-										+ (!alreadyLisp
-											?"[style.colourDisabled([npc.Name] already [npc.do]n't speak with a lisp, so nothing happens...)]"
-											:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorGood(able to speak without a lisp)]!")
-									+ "</p>");
-						
+						return target.removePersonalityTrait(PersonalityTrait.LISP);
 					} else {
-						target.addPersonalityTrait(PersonalityTrait.LISP);
-						return UtilText.parse(target,
-								"<p style='text-align:center;'>"
-										+ (alreadyLisp
-											?"[style.colourDisabled([npc.Name] already [npc.verb(speak)] with a lisp, so nothing happens...)]"
-											:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorBad(speaking with a lisp)]!")
-									+ "</p>");
+						return target.addPersonalityTrait(PersonalityTrait.LISP);
 					}
 					
 				} else if(primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_STUTTER) {
-					boolean alreadyStutter = target.hasPersonalityTrait(PersonalityTrait.STUTTER);
 					if(potency==TFPotency.MINOR_DRAIN) {
-						target.removePersonalityTrait(PersonalityTrait.STUTTER);
-						return UtilText.parse(target,
-								"<p style='text-align:center;'>"
-										+ (!alreadyStutter
-												?"[style.colourDisabled([npc.Name] already [npc.do]n't with a stutter, so nothing happens...)]"
-												:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorGood(able to speak without stuttering)]!")
-									+ "</p>");
-						
+						return target.removePersonalityTrait(PersonalityTrait.STUTTER);
 					} else {
-						target.addPersonalityTrait(PersonalityTrait.STUTTER);
-						return UtilText.parse(target,
-								"<p style='text-align:center;'>"
-										+ (alreadyStutter
-												?"[style.colourDisabled([npc.Name] already [npc.verb(speak)] with a stutter, so nothing happens...)]"
-												:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorBad(speaking with a stutter)]!")
-									+ "</p>");
+						return target.addPersonalityTrait(PersonalityTrait.STUTTER);
 					}
 					
 				} else if(primaryModifier==TFModifier.PERSONALITY_TRAIT_SPEECH_SLOVENLY) {
-					boolean alreadySlovenly = target.hasPersonalityTrait(PersonalityTrait.SLOVENLY);
 					if(potency==TFPotency.MINOR_DRAIN) {
-						target.removePersonalityTrait(PersonalityTrait.SLOVENLY);
-						return UtilText.parse(target,
-								"<p style='text-align:center;'>"
-										+ (!alreadySlovenly
-												?"[style.colourDisabled([npc.Name] already [npc.do]n't speak in a slovenly manner, so nothing happens...)]"
-												:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorGood(no longer speaking in a slovenly manner)]!")
-									+ "</p>");
-						
+						return target.removePersonalityTrait(PersonalityTrait.SLOVENLY);
 					} else {
-						target.addPersonalityTrait(PersonalityTrait.SLOVENLY);
-						return UtilText.parse(target,
-								"<p style='text-align:center;'>"
-										+ (alreadySlovenly
-												?"[style.colourDisabled([npc.Name] already [npc.verb(speak)] in a slovenly manner, so nothing happens...)]"
-												:"[npc.Name] suddenly [npc.verb(find)] [npc.herself] [style.colourMinorBad(speaking in a slovenly manner)]!")
-									+ "</p>");
+						return target.addPersonalityTrait(PersonalityTrait.SLOVENLY);
 					}
 				}
 				
@@ -707,6 +675,26 @@ public class ItemEffectType {
 			return "";
 		}
 	};
+
+	public static AbstractItemEffectType DOLL_CONSOLE = new AbstractItemEffectType(Util.newArrayListOfValues(
+			"[style.boldPink(Opens doll customisation screen)]"),
+			PresetColour.BASE_PURPLE) {
+		@Override
+		public boolean isBreakOutOfInventory() {
+			return true;
+		}
+		@Override
+		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			BodyChanging.setTarget(target);
+			Main.game.setContent(new Response(
+					"",
+					"",
+					BodyChanging.BODY_CHANGING_CORE
+//					MiscDialogue.getDollCustomisationDialogue()
+					));
+			return "";
+		}
+	};
 	
 	// Ingredients and potions:
 	
@@ -734,27 +722,11 @@ public class ItemEffectType {
 			
 			if((Math.random()>0.33f && !fetishesToAdd.isEmpty()) || fetishesToRemove.isEmpty()) {
 				AbstractFetish f = fetishesToAdd.get(Util.random.nextInt(fetishesToAdd.size()));
-				target.addFetish(f);
-				
-				return "<p style='text-align:center;'>"
-						+(target.isPlayer()
-						?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
-								+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldGood(gained)] the [style.boldFetish("+f.getName(target)+" fetish)]!"
-						:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
-								+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.sheIs] [style.boldGood(gained)] the [style.boldFetish("+f.getName(target)+" fetish)]!"))
-						+"</p>";
+				return target.addFetish(f);
 				
 			} else {
 				AbstractFetish f = fetishesToRemove.get(Util.random.nextInt(fetishesToRemove.size()));
-				target.removeFetish(f);
-				
-				return "<p style='text-align:center;'>"
-						+(target.isPlayer()
-						?"A staggering wave of arcane energy crashes over you, the sheer strength of which almost causes you to black out."
-								+ " As you stagger back from the brink of unconsciousness, you realise that you've [style.boldBad(lost)] your [style.boldFetish("+f.getName(target)+" fetish)]!"
-						:UtilText.parse(target, "A staggering wave of arcane energy crashes over [npc.name], the sheer strength of which almost causes [npc.herHim] to black out."
-								+ " As [npc.she] staggers back from the brink of unconsciousness, [npc.she] discovers that [npc.sheIs] [style.boldBad(lost)] [npc.her] [style.boldFetish("+f.getName(target)+" fetish)]!"))
-						+"</p>";
+				return target.removeFetish(f);
 			}
 		}
 	};
@@ -809,6 +781,12 @@ public class ItemEffectType {
 		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			StringBuilder sb = new StringBuilder();
 
+			if(target.isDoll()) {
+				return "<p style='text-align:center;'>"
+							+ UtilText.parse(target, "[style.colourDisabled(As [npc.sheIs] a sex doll, [npc.nameIsFull] completely unaffected by the mushrooms...)]")
+						+"</p>";
+			}
+			
 			sb.append("<p style='text-align:center;'>");
 				if(target.getBodyMaterial()==BodyMaterial.SLIME) {
 					if(target.isPlayer()) {
@@ -1432,8 +1410,7 @@ public class ItemEffectType {
 		
 		@Override
 		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			target.incrementEssenceCount(1, false);
-			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane essence)]!";
+			return target.incrementEssenceCount(1, false);
 		}
 	};
 	
@@ -1448,6 +1425,13 @@ public class ItemEffectType {
 		@Override
 		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.addStatusEffect(StatusEffect.LOLLIPOP_SUCKING, 60*20);
+			
+			if(target.isDoll()) {
+				return "<p>"
+							+ UtilText.parse(target, "As [npc.sheIsFull] a sex doll, the lollipop's transformative effects do nothing to [npc.name]...")
+						+ "</p>";
+			}
+			
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -1553,6 +1537,12 @@ public class ItemEffectType {
 		@Override
 		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			target.addStatusEffect(StatusEffect.LOLLIPOP_SUCKING, 60*20);
+
+			if(target.isDoll()) {
+				return "<p>"
+							+ UtilText.parse(target, "As [npc.sheIsFull] a sex doll, the lollipop's transformative effects do nothing to [npc.name]...")
+						+ "</p>";
+			}
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -1663,6 +1653,12 @@ public class ItemEffectType {
 		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			StringBuilder sb = new StringBuilder();
 
+			if(target.isDoll()) {
+				return "<p>"
+							+ UtilText.parse(target, "As [npc.sheIsFull] a sex doll, the perfume's transformative effects do nothing to [npc.name]...")
+						+ "</p>";
+			}
+			
 			sb.append("<p>"
 						+ UtilText.parse(target, "As the perfume's transformative effects start to make themselves known, [npc.name] [npc.verb(start)] to feel very light-headed...")
 					+ "</p>");
@@ -2330,6 +2326,9 @@ public class ItemEffectType {
 		
 		@Override
 		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			if(target.isDoll()) {
+				return ""; // Dolls cannot be transformed via standard clothing effects
+			}
 			if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE
 					|| primaryModifier == TFModifier.CLOTHING_MAJOR_ATTRIBUTE
 					|| secondaryModifier == TFModifier.CLOTHING_ENSLAVEMENT
@@ -2433,6 +2432,9 @@ public class ItemEffectType {
 		
 		@Override
 		public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			if(target.isDoll()) {
+				return ""; // Dolls cannot be transformed via standard clothing effects
+			}
 			if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE
 					|| primaryModifier == TFModifier.CLOTHING_MAJOR_ATTRIBUTE
 					|| primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR

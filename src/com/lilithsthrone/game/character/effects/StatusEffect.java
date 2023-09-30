@@ -1209,13 +1209,18 @@ public class StatusEffect {
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
+			StringBuilder sb = new StringBuilder();
 			if(Main.game.isDayTime()) {
-				return "The sun shines down from a perfectly clear blue sky."
-						+ " Although there's no sign of a storm at the moment, you can still feel the effects of the arcane manifesting in the form of an increased libido.";
+				sb.append("The sun shines down from a perfectly clear blue sky.");
 			} else {
-				return "The moon and stars shine down from a perfectly clear night's sky."
-						+ " Although there's no sign of a storm at the moment, you can still feel the effects of the arcane manifesting in the form of an increased libido.";
+				sb.append("The moon and stars shine down from a perfectly clear night's sky.");
 			}
+			if(target.isDoll()) {
+				sb.append(" Although there's no sign of a storm at the moment, [npc.nameIsFull] still able to absorb background arcane energy to power [npc.herself].");
+			} else {
+				sb.append(" Although there's no sign of a storm at the moment, [npc.name] can still feel the effects of the arcane manifesting in the form of an increased libido.");
+			}
+			return UtilText.parse(target, sb.toString());
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -1223,21 +1228,25 @@ public class StatusEffect {
 		}
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			if(Main.game.isDayTime())
+			if(Main.game.isDayTime()) {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherDayClear();
-			else
+			} else {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightClear();
+			}
 		}
 		@Override
 		public List<String> getExtraEffects(GameCharacter target) {
-			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
-				return Util.newArrayListOfValues(	"<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>",
-						"Time until next <b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>arcane storm</b>:",
-						Main.game.getNextStormTimeAsTimeString());
-				
+			List<String> exEff = new ArrayList<>();
+			if(target.isDoll()) {
+				exEff.add("[style.colourGood(Gaining)] energy from background [style.colourArcane(arcane)]");
 			} else {
-				return Util.newArrayListOfValues(	"<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>");
+				exEff.add("[style.colourArcane(Enhanced libido)]");
 			}
+			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
+				exEff.add("Time until next [style.colourArcane(arcane storm)]:");
+				exEff.add(Main.game.getNextStormTimeAsTimeString());
+			}
+			return exEff;
 		}
 	};
 	
@@ -1247,11 +1256,17 @@ public class StatusEffect {
 			PresetColour.CLOTHING_WHITE,
 			false,
 			null,
-			Util.newArrayListOfValues("<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>")) {
+			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "The weather seems to change at a moment's notice, and is currently overcast, with a chance of rain."
-					+ " Although there's no sign of a storm at the moment, you can still feel the effects of the arcane manifesting in the form of an increased libido.";
+			StringBuilder sb = new StringBuilder();
+			sb.append("The weather seems to change at a moment's notice, and is currently overcast, with a chance of rain.");
+			if(target.isDoll()) {
+				sb.append(" Although there's no sign of a storm at the moment, [npc.nameIsFull] still able to absorb background arcane energy to power [npc.herself].");
+			} else {
+				sb.append(" Although there's no sign of a storm at the moment, [npc.name] can still feel the effects of the arcane manifesting in the form of an increased libido.");
+			}
+			return UtilText.parse(target, sb.toString());
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -1259,21 +1274,25 @@ public class StatusEffect {
 		}
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			if(Main.game.isDayTime())
+			if(Main.game.isDayTime()) {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherDayCloud();
-			else
+			} else {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightCloud();
+			}
 		}
 		@Override
 		public List<String> getExtraEffects(GameCharacter target) {
-			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
-				return Util.newArrayListOfValues(	"<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>",
-						"Time until next <b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>arcane storm</b>:",
-						Main.game.getNextStormTimeAsTimeString());
-				
+			List<String> exEff = new ArrayList<>();
+			if(target.isDoll()) {
+				exEff.add("[style.colourGood(Gaining)] energy from background [style.colourArcane(arcane)]");
 			} else {
-				return Util.newArrayListOfValues(	"<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>");
+				exEff.add("[style.colourArcane(Enhanced libido)]");
 			}
+			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
+				exEff.add("Time until next [style.colourArcane(arcane storm)]:");
+				exEff.add(Main.game.getNextStormTimeAsTimeString());
+			}
+			return exEff;
 		}
 	};
 	
@@ -1283,11 +1302,17 @@ public class StatusEffect {
 			PresetColour.CLOTHING_WHITE,
 			false,
 			null,
-			Util.newArrayListOfValues("<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>")) {
+			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "The heavy rain clouds overhead have finally burst, unleashing a sudden, and torrential, downpour."
-					+ " Although there's no sign of an arcane storm at the moment, you can still feel its effects manifesting in the form of an increased libido.";
+			StringBuilder sb = new StringBuilder();
+			sb.append("The heavy rain clouds overhead have finally burst, unleashing a sudden, torrential downpour.");
+			if(target.isDoll()) {
+				sb.append(" Although there's no sign of a storm at the moment, [npc.nameIsFull] still able to absorb background arcane energy to power [npc.herself].");
+			} else {
+				sb.append(" Although there's no sign of a storm at the moment, [npc.name] can still feel the effects of the arcane manifesting in the form of an increased libido.");
+			}
+			return UtilText.parse(target, sb.toString());
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -1295,21 +1320,25 @@ public class StatusEffect {
 		}
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			if(Main.game.isDayTime())
+			if(Main.game.isDayTime()) {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherDayRain();
-			else
+			} else {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightRain();
+			}
 		}
 		@Override
 		public List<String> getExtraEffects(GameCharacter target) {
-			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
-				return Util.newArrayListOfValues(	"<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>",
-						"Time until next <b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>arcane storm</b>:",
-						Main.game.getNextStormTimeAsTimeString());
-				
+			List<String> exEff = new ArrayList<>();
+			if(target.isDoll()) {
+				exEff.add("[style.colourGood(Gaining)] energy from background [style.colourArcane(arcane)]");
 			} else {
-				return Util.newArrayListOfValues(	"<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>");
+				exEff.add("[style.colourArcane(Enhanced libido)]");
 			}
+			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
+				exEff.add("Time until next [style.colourArcane(arcane storm)]:");
+				exEff.add(Main.game.getNextStormTimeAsTimeString());
+			}
+			return exEff;
 		}
 	};
 	
@@ -1319,7 +1348,7 @@ public class StatusEffect {
 			PresetColour.CLOTHING_WHITE,
 			false,
 			null,
-			Util.newArrayListOfValues("<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>")) {
+			null) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
 			if(target.isPlayer() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.hasSnowedThisWinter)) {
@@ -1368,8 +1397,14 @@ public class StatusEffect {
 		}
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "The heavy clouds overhead have finally burst, unleashing a flurry of brilliant white snowflakes upon the land below."
-					+ " Although there's no sign of an arcane storm at the moment, you can still feel its effects manifesting in the form of an increased libido.";
+			StringBuilder sb = new StringBuilder();
+			sb.append("The heavy clouds overhead have finally burst, unleashing a flurry of brilliant white snowflakes upon the land below.");
+			if(target.isDoll()) {
+				sb.append(" Although there's no sign of a storm at the moment, [npc.nameIsFull] still able to absorb background arcane energy to power [npc.herself].");
+			} else {
+				sb.append(" Although there's no sign of a storm at the moment, [npc.name] can still feel the effects of the arcane manifesting in the form of an increased libido.");
+			}
+			return UtilText.parse(target, sb.toString());
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -1377,21 +1412,25 @@ public class StatusEffect {
 		}
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			if(Main.game.isDayTime())
+			if(Main.game.isDayTime()) {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherDaySnow();
-			else
+			} else {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightSnow();
+			}
 		}
 		@Override
 		public List<String> getExtraEffects(GameCharacter target) {
-			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
-				return Util.newArrayListOfValues(	"<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>",
-						"Time until next <b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>arcane storm</b>:",
-						Main.game.getNextStormTimeAsTimeString());
-				
+			List<String> exEff = new ArrayList<>();
+			if(target.isDoll()) {
+				exEff.add("[style.colourGood(Gaining)] energy from background [style.colourArcane(arcane)]");
 			} else {
-				return Util.newArrayListOfValues(	"<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>");
+				exEff.add("[style.colourArcane(Enhanced libido)]");
 			}
+			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
+				exEff.add("Time until next [style.colourArcane(arcane storm)]:");
+				exEff.add(Main.game.getNextStormTimeAsTimeString());
+			}
+			return exEff;
 		}
 	};
 	
@@ -1401,11 +1440,12 @@ public class StatusEffect {
 			PresetColour.CLOTHING_WHITE,
 			false,
 			null,
-			Util.newArrayListOfValues("<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>")) {
+			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "A roiling mass of thick black storm clouds hang heavy in the skies above you."
-					+ " Flashes of pink and purple energy can be seen just beneath their surface, and you realise that an arcane storm is going to break out at any moment.";
+			return UtilText.parse(target,
+					"A roiling mass of thick black storm clouds hang heavy in the skies above [npc.name]."
+					+ " Flashes of pink and purple energy can be seen just beneath their surface, and [npc.she] [npc.verb(realise)] that an arcane storm is going to break out at any moment.");
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -1413,21 +1453,25 @@ public class StatusEffect {
 		}
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			if(Main.game.isDayTime())
+			if(Main.game.isDayTime()) {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherDayStormIncoming();
-			else
+			} else {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightStormIncoming();
+			}
 		}
 		@Override
 		public List<String> getExtraEffects(GameCharacter target) {
-			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
-				return Util.newArrayListOfValues(	"<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>",
-						"Time until next <b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>arcane storm</b>:",
-						Main.game.getNextStormTimeAsTimeString());
-				
+			List<String> exEff = new ArrayList<>();
+			if(target.isDoll()) {
+				exEff.add("[style.colourGood(Gaining)] energy from background [style.colourArcane(arcane)]");
 			} else {
-				return Util.newArrayListOfValues(	"<b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>");
+				exEff.add("[style.colourArcane(Enhanced libido)]");
 			}
+			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
+				exEff.add("Time until next [style.colourArcane(arcane storm)]:");
+				exEff.add(Main.game.getNextStormTimeAsTimeString());
+			}
+			return exEff;
 		}
 	};
 	
@@ -1436,9 +1480,8 @@ public class StatusEffect {
 			"weatherDayStorm",
 			PresetColour.CLOTHING_WHITE,
 			false,
-			Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, -5f)),
-			Util.newArrayListOfValues("<b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
-					"[style.boldExcellent(Double)] all <b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat")) {
+			null,
+			null) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
 			if(target.isPlayer() && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.stormTextUpdateRequired)) {
@@ -1450,7 +1493,7 @@ public class StatusEffect {
 				StringBuilder sb = new StringBuilder();
 				
 				sb.append("<p>"
-							+ "A bright-pink flash suddenly illuminates the entire city of Dominion, causing those few residents still prowling the streets to look skywards."
+							+ "A bright pink flash suddenly illuminates the entire city of Dominion, causing those few residents still prowling the streets to look skywards."
 							+ " High up above them, the threatening storm clouds have finally broken, and a roiling mass of arcane energy finally crackles into life."
 						+ "</p>"
 						+ "<p>"
@@ -1484,7 +1527,6 @@ public class StatusEffect {
 						}
 						
 					} else {
-
 						sb.append("<p>"
 									+ "As the storm's epicentre is directly over Dominion, you're far enough away so that you can only hear the very faintest of arcane moans in the air."
 									+ " While it's likely that anyone you come across out here will be a little hornier than usual, you imagine that they'll easily be able to resist the storm's arousing effects."
@@ -1493,24 +1535,24 @@ public class StatusEffect {
 				}
 				
 				return sb.toString();
-				
-			} else {
-				return "";
 			}
+			return "";
 		}
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "Huge streaks of pink and purple lightning arc through the sky as an arcane storm rages high above Dominion."
-						+ " Although resistant to most of its arousing power, you're not completely unaffected, and you find yourself feeling a little hornier than usual.";
+			StringBuilder sb = new StringBuilder();
+			sb.append("Huge streaks of pink and purple lightning arc through the sky as an arcane storm rages high above Dominion.");
+			if(target.isDoll()) {
+				sb.append(" As an arcane-powered sex doll, [npc.nameIsFull] filled with a colossal amount of energy!");
 				
 			} else {
 				if(!target.isVulnerableToArcaneStorm()) {
-					return UtilText.parse(target, "[npc.NamePos] affinity with the arcane has rendered [npc.herHim] all but immune to the arousing effects of arcane storms!");
+					sb.append(" [npc.NamePos] affinity with the arcane has rendered [npc.herHim] almost completely immune to the arousing effects of arcane storms, with the only effect being feeling a little hornier than usual.");
 				} else {
-					return UtilText.parse(target, "[npc.NameIsFull] far enough away from the storm's epicentre to be rendered all but immune to its arousing effects!");
+					sb.append(" [npc.NameIsFull] far enough away from the storm's epicentre to be rendered all but immune to its arousing effects!");
 				}
 			}
+			return UtilText.parse(target, sb.toString());
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -1529,17 +1571,27 @@ public class StatusEffect {
 			}
 		}
 		@Override
-		public List<String> getExtraEffects(GameCharacter target) {
-			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
-				return Util.newArrayListOfValues(	"<b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
-						"[style.boldExcellent(Double)] all <b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat",
-						"Time until <b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>storm ends</b>:",
-						Main.game.getWeatherTimeRemainingAsTimeString());
-				
+		public Map<AbstractAttribute, Float> getAttributeModifiers(GameCharacter target) {
+			if(target.isDoll()) {
+				return Util.newHashMapOfValues(new Value<>(Attribute.HEALTH_MAXIMUM, 1000f));
 			} else {
-				return Util.newArrayListOfValues(	"<b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
-						"[style.boldExcellent(Double)] all <b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat");
+				return Util.newHashMapOfValues(new Value<>(Attribute.RESISTANCE_LUST, -5f));
 			}
+		}
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			List<String> exEff = new ArrayList<>();
+			if(target.isDoll()) {
+				exEff.add("[style.colourGood(Gaining)] [style.colourExcellent(massive)] energy from [style.colourArcane(arcane storm)]");
+			} else {
+				exEff.add("[style.colourArcane(Enhanced libido)]");
+				exEff.add("[style.boldExcellent(Double)] [style.colourArcane(essence gains)] from sex & combat");
+			}
+			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
+				exEff.add("Time until [style.colourArcane(storm ends)]:");
+				exEff.add(Main.game.getWeatherTimeRemainingAsTimeString());
+			}
+			return exEff;
 		}
 	};
 	
@@ -1548,12 +1600,8 @@ public class StatusEffect {
 			"weatherDayStorm",
 			PresetColour.CLOTHING_WHITE,
 			false,
-			Util.newHashMapOfValues(
-					new Value<>(Attribute.RESISTANCE_LUST, -100f),
-					new Value<>(Attribute.RESTING_LUST, 50f)),
-			Util.newArrayListOfValues(
-					"<b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
-					"[style.boldExcellent(Double)] <b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat")) {
+			null,
+			null) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
 			if(target.isPlayer() && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.stormTextUpdateRequired)) {
@@ -1563,7 +1611,7 @@ public class StatusEffect {
 				}
 				
 				return "<p>"
-							+ "A bright-pink flash suddenly illuminates the entire city of Dominion, causing those few residents still prowling the streets to look skywards."
+							+ "A bright pink flash suddenly illuminates the entire city of Dominion, causing those few residents still prowling the streets to look skywards."
 							+ " High up above them, the threatening storm clouds have finally broken, and a roiling mass of arcane energy finally crackles into life."
 						+ "</p>"
 						+ "<p>"
@@ -1574,13 +1622,20 @@ public class StatusEffect {
 						+ "<p>"
 							+ "As you continue on your way, you find yourself hoping that you'll run into someone willing to give you a good fuck..."
 						+ "</p>";
-			} else {
-				return "";
 			}
+			return "";
 		}
 		@Override
 		public String getDescription(GameCharacter target) {
-			return UtilText.parse(target, "[npc.NameIsFull] being heavily affected by the ongoing arcane storm, and can think of nothing but sex...");
+			StringBuilder sb = new StringBuilder();
+			sb.append("Huge streaks of pink and purple lightning arc through the sky as an arcane storm rages high above Dominion.");
+			if(target.isDoll()) {
+				sb.append(" As an arcane-powered sex doll, [npc.nameIsFull] filled with a colossal amount of energy!");
+				
+			} else {
+				sb.append(" [npc.NameIsFull] being heavily affected by the ongoing arcane storm, and can think of nothing but sex...");
+			}
+			return UtilText.parse(target, sb.toString());
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -1600,19 +1655,31 @@ public class StatusEffect {
 			}
 		}
 		@Override
-		public List<String> getExtraEffects(GameCharacter target) {
-			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
-				return Util.newArrayListOfValues(	"<b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
-						"<b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Overwhelming Lust</b>",
-						"[style.boldExcellent(Double)] <b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat",
-						"Time until <b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>storm ends</b>:",
-						Main.game.getWeatherTimeRemainingAsTimeString());
-				
+		public Map<AbstractAttribute, Float> getAttributeModifiers(GameCharacter target) {
+			if(target.isDoll()) {
+				return Util.newHashMapOfValues(
+						new Value<>(Attribute.HEALTH_MAXIMUM, 1000f));
 			} else {
-				return Util.newArrayListOfValues(	"<b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
-						"<b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Overwhelming Lust</b>",
-						"[style.boldExcellent(Double)] <b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Essence gains</b> from sex & combat");
+				return Util.newHashMapOfValues(
+						new Value<>(Attribute.RESISTANCE_LUST, -100f),
+						new Value<>(Attribute.RESTING_LUST, 50f));
 			}
+		}
+		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			List<String> exEff = new ArrayList<>();
+			if(target.isDoll()) {
+				exEff.add("[style.colourGood(Gaining)] [style.colourExcellent(massive)] energy from [style.colourArcane(arcane storm)]");
+			} else {
+				exEff.add("[style.colourArcane(Enhanced libido)]");
+				exEff.add("[style.colourArcane(Overwhelming Lust)]");
+				exEff.add("[style.boldExcellent(Double)] [style.colourArcane(essence gains)] from sex & combat");
+			}
+			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
+				exEff.add("Time until [style.colourArcane(storm ends)]:");
+				exEff.add(Main.game.getWeatherTimeRemainingAsTimeString());
+			}
+			return exEff;
 		}
 	};
 	
@@ -1622,7 +1689,7 @@ public class StatusEffect {
 			PresetColour.GENERIC_GOOD,
 			true,
 			null,
-			Util.newArrayListOfValues("<b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>")) {
+			null) {
 		@Override
 		public String applyEffect(GameCharacter target, int secondsPassed, long totalSecondsPassed) {
 			if(target.isPlayer() && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.stormTextUpdateRequired)) {
@@ -1645,13 +1712,15 @@ public class StatusEffect {
 		}
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer()) {
-				return "Huge streaks of pink and purple lightning arc through the sky as an arcane storm rages high above you."
-						+ " Although you can still feel its effects taking the form of an increased libido, you're currently protected from most of the storm's wrath.";
+			StringBuilder sb = new StringBuilder();
+			sb.append("Huge streaks of pink and purple lightning arc through the sky as an arcane storm rages high above Dominion.");
+			if(target.isDoll()) {
+				sb.append(" Although [npc.nameIsFull] protected from the storm, [npc.sheIs] still able to absorb background arcane energy to power [npc.herself].");
+				
 			} else {
-				return UtilText.parse(target,
-						"[npc.NameIsFull] currently protected from the arcane storm.");
+				sb.append(" Although [npc.she] can still feel its effects taking the form of an increased libido, [npc.nameIsFull] currently protected from most of the storm's wrath.");
 			}
+			return UtilText.parse(target, sb.toString());
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -1671,14 +1740,17 @@ public class StatusEffect {
 		}
 		@Override
 		public List<String> getExtraEffects(GameCharacter target) {
-			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
-				return Util.newArrayListOfValues(	"<b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>",
-						"Time until <b style='color: " + PresetColour.GENERIC_ARCANE.toWebHexString() + ";'>storm ends</b>:",
-						Main.game.getWeatherTimeRemainingAsTimeString());
-				
+			List<String> exEff = new ArrayList<>();
+			if(target.isDoll()) {
+				exEff.add("[style.colourGood(Gaining)] energy from background [style.colourArcane(arcane)]");
 			} else {
-				return Util.newArrayListOfValues(	"<b style='color: "+ PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>Enhanced libido</b>");
+				exEff.add("[style.colourArcane(Enhanced libido)]");
 			}
+			if(Main.game.getPlayer().isSpellSchoolSpecialAbilityUnlocked(SpellSchool.ARCANE)) {
+				exEff.add("Time until [style.colourArcane(storm ends)]:");
+				exEff.add(Main.game.getWeatherTimeRemainingAsTimeString());
+			}
+			return exEff;
 		}
 	};
 
@@ -2211,7 +2283,9 @@ public class StatusEffect {
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			if(target.hasFetish(Fetish.FETISH_CROSS_DRESSER) || target.hasPerkAnywhereInTree(Perk.SPECIAL_CLOTHING_FEMININITY_INDIFFERENCE)) {
+			if(target.hasFetish(Fetish.FETISH_CROSS_DRESSER)
+					|| target.hasPerkAnywhereInTree(Perk.SPECIAL_CLOTHING_FEMININITY_INDIFFERENCE)
+					|| target.isDoll()) {
 				return false;
 			}
 			for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
@@ -2238,7 +2312,9 @@ public class StatusEffect {
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			if(target.hasFetish(Fetish.FETISH_CROSS_DRESSER) || target.hasPerkAnywhereInTree(Perk.SPECIAL_CLOTHING_MASCULINITY_INDIFFERENCE)) {
+			if(target.hasFetish(Fetish.FETISH_CROSS_DRESSER)
+					|| target.hasPerkAnywhereInTree(Perk.SPECIAL_CLOTHING_MASCULINITY_INDIFFERENCE)
+					|| target.isDoll()) {
 				return false;
 			}
 			for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
@@ -7113,6 +7189,7 @@ public class StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return !target.isPlayer()
 					&& target.isSlave()
+					&& !target.isDoll()
 					&& ((NPC)target).getLastTimeOrgasmedSeconds()+(60*60*24)<Main.game.getSecondsPassed();
 		}
 	};
@@ -7159,6 +7236,7 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.isWearingChastity()
+					&& !target.isDoll()
 					&& !target.hasStatusEffect(CHASTITY_2)
 					&& !target.hasStatusEffect(CHASTITY_3)
 					&& !target.hasStatusEffect(CHASTITY_4);
@@ -7468,6 +7546,7 @@ public class StatusEffect {
 			return !target.hasFetish(Fetish.FETISH_EXHIBITIONIST)
 					&& target.getLegConfiguration()==LegConfiguration.BIPEDAL
 					&& !target.isFeral()
+					&& !target.isDoll()
 					&& isExposedParts(target, false, true);
 		}
 		@Override
@@ -7499,9 +7578,41 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return !target.hasFetish(Fetish.FETISH_EXHIBITIONIST)
+					&& !target.isDoll()
 					&& (target.getLegConfiguration()!=LegConfiguration.BIPEDAL || target.isFeral())
 					&& !((target.hasBreasts() || target.isFeminine()) && target.isCoverableAreaVisible(CoverableArea.NIPPLES))
 					&& ((target.hasBreastsCrotch() && target.isCoverableAreaVisible(CoverableArea.NIPPLES_CROTCH))
+						|| target.isCoverableAreaVisible(CoverableArea.ANUS)
+						|| (target.isCoverableAreaVisible(CoverableArea.PENIS) && target.hasPenis())
+						|| (target.isCoverableAreaVisible(CoverableArea.VAGINA) && target.hasVagina()));
+		}
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return getExposedStatus(owner, super.getSVGString(owner));
+		}
+	};
+
+	public static AbstractStatusEffect EXPOSED_DOLL = new AbstractStatusEffect(80,
+			"exposed (doll)",
+			"exposedDoll",
+			PresetColour.BASE_PINK_LIGHT,
+			PresetColour.BASE_GREY,
+			PresetColour.BASE_GREY,
+			false,
+			Util.newHashMapOfValues(),
+			null) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target==null) {
+				return "";
+			}
+			return UtilText.parse(target, "[npc.NamePos] clothing doesn't conceal [npc.her] "+getExposedPartsNamesList(target)+", but as [npc.sheIs] a doll, [npc.sheIs] incapable of feeling ashamed or embarrassed.");
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.isDoll()
+					&& ((target.hasBreastsCrotch() && target.isCoverableAreaVisible(CoverableArea.NIPPLES_CROTCH))
+						|| (target.hasBreasts() && target.isFeminine() && target.isCoverableAreaVisible(CoverableArea.NIPPLES))
 						|| target.isCoverableAreaVisible(CoverableArea.ANUS)
 						|| (target.isCoverableAreaVisible(CoverableArea.PENIS) && target.hasPenis())
 						|| (target.isCoverableAreaVisible(CoverableArea.VAGINA) && target.hasVagina()));
@@ -7549,6 +7660,7 @@ public class StatusEffect {
 			return !target.hasFetish(Fetish.FETISH_EXHIBITIONIST)
 					&& (target.getLegConfiguration()==LegConfiguration.BIPEDAL || ((target.hasBreasts() || target.isFeminine()) && target.isCoverableAreaVisible(CoverableArea.NIPPLES)))
 					&& !target.isFeral()
+					&& !target.isDoll()
 					&& isExposedParts(target, true, false);
 		}
 		@Override
@@ -7586,6 +7698,7 @@ public class StatusEffect {
 			return !target.hasFetish(Fetish.FETISH_EXHIBITIONIST)
 					&& target.getLegConfiguration()==LegConfiguration.BIPEDAL
 					&& !target.isFeral()
+					&& !target.isDoll()
 					&& isExposedParts(target, true, true);
 		}
 		@Override
@@ -7620,6 +7733,7 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.hasFetish(Fetish.FETISH_EXHIBITIONIST)
+					&& !target.isDoll()
 					&& isExposedParts(target, false, true);
 		}
 		@Override
@@ -7654,6 +7768,7 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.hasFetish(Fetish.FETISH_EXHIBITIONIST)
+					&& !target.isDoll()
 					&& isExposedParts(target, true, false);
 		}
 		@Override
@@ -7688,6 +7803,7 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.hasFetish(Fetish.FETISH_EXHIBITIONIST)
+					&& !target.isDoll()
 					&& isExposedParts(target, true, true);
 		}
 		@Override
@@ -11464,7 +11580,7 @@ public class StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			return UtilText.parse(target,
-						"[npc.Name] has teleported behind [npc.her] enemies, making it extremely unlikely that they'll be able to land a hit on [npc.herHim]!");
+						"[npc.NameHasFull] teleported behind [npc.her] enemies, making it extremely unlikely that they'll be able to land a hit on [npc.herHim]!");
 		}
 		@Override
 		public String getSVGString(GameCharacter owner) {
@@ -11494,7 +11610,7 @@ public class StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			return UtilText.parse(target,
-						"[npc.Name] has teleported behind [npc.her] enemies, making it extremely unlikely that they'll be able to land a hit on [npc.herHim]! A burst of lust-inducing arcane energy accompanies [npc.her] arrival!");
+						"[npc.NameHasFull] teleported behind [npc.her] enemies, making it extremely unlikely that they'll be able to land a hit on [npc.herHim]! A burst of lust-inducing arcane energy accompanies [npc.her] arrival!");
 		}
 		@Override
 		public String getSVGString(GameCharacter owner) {

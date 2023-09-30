@@ -25,6 +25,7 @@ import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueManager;
@@ -577,7 +578,7 @@ public class NightlifeDistrict {
 							}
 						};
 						
-					} else if(index==2 && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.passedJules)) {
+					} else if(index==2) {
 						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
 							return new Response("Suck cock", "You can't gain access to your mouth, so you can't suck Jules's cock!", null);
 						}
@@ -604,8 +605,46 @@ public class NightlifeDistrict {
 							}
 						};
 						
+					} else if(index==3 && Main.game.getPlayer().getRace()==Race.DEMON) {
+						return new Response("Skip queue", "Use your status as a demon to cut the queue.", WATERING_HOLE_ENTRANCE_SKIP_QUEUE) {
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.passedJules, true);
+								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.julesIntroduced, true);
+								Main.game.getPlayer().setNearestLocation(WorldType.NIGHTLIFE_CLUB, PlaceType.WATERING_HOLE_MAIN_AREA, false);
+							}
+						};
+						
 					}
 					return null;
+					
+				} else { // Passed Jules:
+					if(index==1 && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.suckedJulesCock)) {
+						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.fuckedJulesTonight)) {
+							return new Response("Jules", "You've already had a 'proper fuck' from Jules tonight, and he doesn't have time to do it again...", null);
+						}
+						return new ResponseSex("Jules", "Tell Jules that you want him to give you 'a proper fuck'...",
+								true, true,
+								new SMGeneric(
+										Util.newArrayListOfValues(Main.game.getNpc(Jules.class)),
+										Util.newArrayListOfValues(Main.game.getPlayer()),
+								null,
+								null) {
+									@Override
+									public boolean isPublicSex() {
+										return false;
+									}
+								},
+								AFTER_JULES_SEX,
+								UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_ENTRANCE_JULES_SEX", NightlifeDistrict.getClubbersPresent())){
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.fuckedJules, true);
+								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.fuckedJulesTonight, true);
+							}
+						};
+						
+					}
 				}
 				
 			} else {
@@ -662,30 +701,54 @@ public class NightlifeDistrict {
 	};
 	
 	public static final DialogueNode WATERING_HOLE_ENTRANCE_WAITING = new DialogueNode("The Watering Hole", "", false, true) {
-		
 		@Override
 		public int getSecondsPassed() {
 			return 30*60;
 		}
-
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_ENTRANCE_WAITING");
+			return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_ENTRANCE_WAITING")
+					+ UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_ENTRANCE_END");
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return WATERING_HOLE_MAIN.getResponse(responseTab, index);
 		}
 	};
 	
-	public static final DialogueNode AFTER_JULES_BLOWJOB = new DialogueNode("Finished", "", false) {
-		
+	public static final DialogueNode WATERING_HOLE_ENTRANCE_SKIP_QUEUE = new DialogueNode("The Watering Hole", "", false, true) {
+		@Override
+		public int getSecondsPassed() {
+			return 2*60;
+		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "AFTER_JULES_BLOWJOB");
+			return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_ENTRANCE_SKIP_QUEUE")
+					+ UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_ENTRANCE_END");
 		}
-
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return WATERING_HOLE_MAIN.getResponse(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNode AFTER_JULES_BLOWJOB = new DialogueNode("Finished", "Jules has had enough.", false) {
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "AFTER_JULES_BLOWJOB")
+					+ UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_ENTRANCE_END");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return WATERING_HOLE_MAIN.getResponse(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNode AFTER_JULES_SEX = new DialogueNode("Finished", "Jules has had enough.", false) {
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "AFTER_JULES_SEX");
+		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			return WATERING_HOLE_MAIN.getResponse(responseTab, index);

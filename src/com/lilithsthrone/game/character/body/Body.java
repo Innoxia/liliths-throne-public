@@ -147,7 +147,6 @@ public class Body implements XMLSaving {
 	private BreastCrotch breastCrotch;
 	private Horn horn;
 	private Penis penis;
-	private Penis secondPenis;
 	private Tail tail;
 	private Tentacle tentacle;
 	private Vagina vagina;
@@ -204,7 +203,6 @@ public class Body implements XMLSaving {
 		private BreastCrotch breastCrotch = new BreastCrotch(BreastType.NONE, BreastShape.ROUND, 0, 0, 1, 1, NippleShape.NORMAL, 1, AreolaeShape.NORMAL, 1, 0, 2, 0, 0, true);
 		private Horn horn = new Horn(HornType.NONE, 0);
 		private Penis penis = new Penis(PenisType.NONE, 0, false, 0, 0, 0, 0);
-		private Penis secondPenis = new Penis(PenisType.NONE, 0, false, 0, 0, 0, 0);
 		private Tail tail = new Tail(TailType.NONE);
 		private Tentacle tentacle = new Tentacle(TentacleType.NONE);
 		private Vagina vagina = new Vagina(VaginaType.NONE, 0, 0, 0, 0, 0, 2, 3, 3, true);
@@ -249,11 +247,6 @@ public class Body implements XMLSaving {
 			return this;
 		}
 		
-		public BodyBuilder secondPenis(Penis secondPenis) {
-			this.secondPenis = secondPenis;
-			return this;
-		}
-
 		public BodyBuilder tail(Tail tail) {
 			this.tail = tail;
 			return this;
@@ -299,7 +292,6 @@ public class Body implements XMLSaving {
 		torso = builder.torso;
 		horn = builder.horn;
 		penis = builder.penis;
-		secondPenis = builder.secondPenis;
 		tail = builder.tail;
 		tentacle = builder.tentacle;
 		vagina = builder.vagina;
@@ -355,7 +347,6 @@ public class Body implements XMLSaving {
 		allBodyParts.add(torso);
 		allBodyParts.add(horn);
 		allBodyParts.add(penis);
-		allBodyParts.add(secondPenis);
 		allBodyParts.add(tail);
 		allBodyParts.add(tentacle);
 		allBodyParts.add(vagina);
@@ -2302,6 +2293,7 @@ public class Body implements XMLSaving {
 							+ " [npc.She] [npc.do]n't need to have any parts of [npc.her] body pierced in order to equip jewellery, as [npc.she] can freely morph [npc.her] body at will!"
 						+ "</p>");
 				break;
+			case SILICONE:
 			case AIR:
 			case ARCANE:
 			case STONE:
@@ -2966,6 +2958,8 @@ public class Body implements XMLSaving {
 			if(arm.getType().allowsFlight()) {
 				if(this.getBodyMaterial() == BodyMaterial.SLIME) {
 					sb.append(" [style.colourSlime(As they're made out of slime, flight is rendered impossible...)]");
+				} else if(this.getBodyMaterial() == BodyMaterial.SILICONE) {
+					sb.append(" [style.colourDoll(As they're made out of silicone, flight is rendered impossible...)]");
 				} else {
 					sb.append(" [style.colourBlue(They are large and powerful enough to allow [npc.herHim] to fly!)]");
 				}
@@ -3156,6 +3150,8 @@ public class Body implements XMLSaving {
 			if(wing.getType().allowsFlight()) {
 				if(this.getBodyMaterial() == BodyMaterial.SLIME) {
 					sb.append(" [style.colourSlime(As they're made out of slime, flight is rendered impossible...)]");
+				} else if(this.getBodyMaterial() == BodyMaterial.SILICONE) {
+					sb.append(" [style.colourDoll(As they're made out of silicone, flight is rendered impossible...)]");
 				} else if(wing.getSizeValue()>=owner.getLegConfiguration().getMinimumWingSizeForFlight(owner.getBody()).getValue()) {
 					sb.append(" [style.colourBlue(They are large and powerful enough to allow [npc.herHim] to fly!)]");
 				} else {
@@ -3401,7 +3397,7 @@ public class Body implements XMLSaving {
 		if(target!=null && target.isElemental()) {
 			race = Race.ELEMENTAL;
 			this.raceStage = RaceStage.GREATER;
-                } else if( Race.racialBodyMaterialList.contains(this.bodyMaterial)) {
+		} else if( Race.racialBodyMaterialList.contains(this.bodyMaterial)) {
 			race = Race.getRaceFromBodyMaterial(this.bodyMaterial);
 			this.raceStage = RaceStage.GREATER;
 		} else {
@@ -3686,10 +3682,6 @@ public class Body implements XMLSaving {
 		return hasPenisIgnoreDildo();
 	}
 	
-	public Penis getSecondPenis() {
-		return secondPenis;
-	}
-
 	public OrificeSpinneret getSpinneret() {
 		return spinneret;
 	}
@@ -3916,10 +3908,6 @@ public class Body implements XMLSaving {
 
 	public String addPenisModifier(GameCharacter owner, PenetrationModifier modifier) {
 		return this.penis.addPenisModifier(owner, modifier);
-	}
-
-	public void setSecondPenis(Penis secondPenis) {
-		this.secondPenis = secondPenis;
 	}
 
 	public void setTail(Tail tail) {
@@ -4405,6 +4393,9 @@ public class Body implements XMLSaving {
 					case BUBBLEGUM:
 						descriptionSB.append(" [npc.Her] [npc.milkColour(true)] [npc.milk] has the fruity taste of bubblegum.");
 						break;
+					case FLAVOURLESS:
+						descriptionSB.append(" [npc.Her] [npc.milkColour(true)] [npc.milk] has absolutely no flavour whatsoever.");
+						break;
 					default:
 						descriptionSB.append(" [npc.Her] [npc.milkColour(true)] [npc.milk] tastes exactly like "+viewedBreast.getMilk().getFlavour().getName()+".");
 						break;
@@ -4648,6 +4639,9 @@ public class Body implements XMLSaving {
 						break;
 					case BUBBLEGUM:
 						descriptionSB.append(" [npc.Her] [npc.crotchMilkColour(true)] [npc.crotchMilk] has the fruity taste of bubblegum.");
+						break;
+					case FLAVOURLESS:
+						descriptionSB.append(" [npc.Her] [npc.crotchMilkColour(true)] [npc.crotchMilk] has absolutely no flavour whatsoever.");
 						break;
 					default:
 						descriptionSB.append(" [npc.Her] [npc.crotchMilkColour(true)] [npc.crotchMilk] tastes exactly like "+viewedBreastCrotch.getMilk().getFlavour().getName()+".");
@@ -5048,6 +5042,9 @@ public class Body implements XMLSaving {
 				case BUBBLEGUM:
 					descriptionSB.append(" has the fruity taste of bubblegum.");
 					break;
+				case FLAVOURLESS:
+					descriptionSB.append(" has absolutely no flavour whatsoever.");
+					break;
 				default:
 					descriptionSB.append(" tastes exactly like "+viewedPenis.getTesticle().getCum().getFlavour().getName()+".");
 					break;
@@ -5177,8 +5174,13 @@ public class Body implements XMLSaving {
 							+ " [npc.pussy], [style.colourMinorGood([npc.her] hymen is still intact)], and [style.colourExcellent([npc.she] [npc.has] retained [npc.her] vaginal virginity)].");
 					
 				} else {
-					descriptionSB.append(" Within [npc.her] " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor(true)
-							+ " [npc.pussy], [style.colourMinorBad([npc.her] hymen has been torn)], but despite this, [style.colourExcellent([npc.she] [npc.has] retained [npc.her] vaginal virginity)].");
+					if(owner.isDoll()) {
+						descriptionSB.append(" As a sex doll, [npc.name] [npc.do] not have a hymen, and [style.colourExcellent([npc.has] retained [npc.her] vaginal virginity)].");
+						
+					} else {
+						descriptionSB.append(" Within [npc.her] " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor(true)
+								+ " [npc.pussy], [style.colourMinorBad([npc.her] hymen has been torn)], but despite this, [style.colourExcellent([npc.she] [npc.has] retained [npc.her] vaginal virginity)].");
+					}
 				}
 			}
 			
@@ -5199,7 +5201,12 @@ public class Body implements XMLSaving {
 			if(viewedVagina.getOrificeVagina().hasHymen()) {
 				descriptionSB.append(" Although [npc.sheIsFull] no longer a virgin, [style.colourMinorGood([npc.she] [npc.has] an intact hymen)] within [npc.her] pussy.");
 			} else {
-				descriptionSB.append(" As is to be expected of someone who is no longer a virgin, [style.colourMinorBad([npc.her] hymen has been torn)].");
+				if(owner.isDoll()) {
+					descriptionSB.append(" As a sex doll, [npc.name] [npc.do] not have a hymen.");
+					
+				} else {
+					descriptionSB.append(" As is to be expected of someone who is no longer a virgin, [style.colourMinorBad([npc.her] hymen has been torn)].");
+				}
 			}
 		}
 		
@@ -5328,6 +5335,9 @@ public class Body implements XMLSaving {
 				break;
 			case BUBBLEGUM:
 				descriptionSB.append(" has the fruity taste of bubblegum.");
+				break;
+			case FLAVOURLESS:
+				descriptionSB.append(" has absolutely no flavour whatsoever.");
 				break;
 			default:
 				descriptionSB.append(" tastes exactly like "+viewedVagina.getGirlcum().getFlavour().getName()+".");
@@ -6543,6 +6553,7 @@ public class Body implements XMLSaving {
 			for(BodyMaterial mat : BodyMaterial.values()) { // Update all non-flesh parts to be the same colour as main skin:
 				if(mat!=BodyMaterial.FLESH) {
 					AbstractBodyCoveringType coreSlimeCovering = BodyCoveringType.getMaterialBodyCoveringType(mat, BodyCoveringCategory.MAIN_SKIN);
+					Covering currentCovering = this.getCovering(coreSlimeCovering, true);
 					
 					for(BodyCoveringCategory cat : BodyCoveringCategory.values()) {
 						if(cat.isInfluencedByMaterialType()) {
@@ -6660,14 +6671,16 @@ public class Body implements XMLSaving {
 	}
 	
 	public boolean isAbleToFlyFromArms() {
-		if(this.getBodyMaterial()==BodyMaterial.SLIME || this.getLeg().getLegConfiguration().getMinimumWingSizeForFlight(this).getValue()>WingSize.THREE_LARGE.getValue()) {
+		if(this.getBodyMaterial()==BodyMaterial.SLIME
+				|| this.getBodyMaterial()==BodyMaterial.SILICONE
+				|| this.getLeg().getLegConfiguration().getMinimumWingSizeForFlight(this).getValue()>WingSize.THREE_LARGE.getValue()) {
 			return false;
 		}
 		return arm.getType().allowsFlight();
 	}
 	
 	public boolean isAbleToFlyFromWings() {
-		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
+		if(this.getBodyMaterial()==BodyMaterial.SLIME || this.getBodyMaterial()==BodyMaterial.SILICONE) {
 			return false;
 		}
 		return wing.getType().allowsFlight() && wing.getSize().getValue()>=this.getLeg().getLegConfiguration().getMinimumWingSizeForFlight(this).getValue();

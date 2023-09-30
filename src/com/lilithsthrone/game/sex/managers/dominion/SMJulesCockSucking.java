@@ -8,6 +8,11 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.npc.dominion.Jules;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexControl;
+import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
@@ -17,7 +22,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.2.8
- * @version 0.3.5.1
+ * @version 0.4.9
  * @author Innoxia
  */
 public class SMJulesCockSucking extends SexManagerDefault {
@@ -26,6 +31,14 @@ public class SMJulesCockSucking extends SexManagerDefault {
 		super(SexPosition.STANDING,
 				dominants,
 				submissives);
+	}
+
+	@Override
+	public SexControl getSexControl(GameCharacter character) {
+		if(character.isPlayer()) {
+			return SexControl.ONGOING_ONLY;
+		}
+		return super.getSexControl(character);
 	}
 	
 	@Override
@@ -58,5 +71,21 @@ public class SMJulesCockSucking extends SexManagerDefault {
 	@Override
 	public List<CoverableArea> getAdditionalAreasToExposeDuringSex(GameCharacter performer, GameCharacter target) {
 		return new ArrayList<>();
+	}
+
+	@Override
+	public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
+		if(character instanceof Jules) {
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
+		}
+		return super.getForeplayPreference(character, targetedCharacter);
+	}
+
+	@Override
+	public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
+		if(character instanceof Jules) {
+			return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
+		}
+		return super.getMainSexPreference(character, targetedCharacter);
 	}
 }

@@ -656,90 +656,6 @@ public class Race {
 		}
 	};
 
-	// SLIME:
-	public static AbstractRace SLIME = new AbstractRace("slime",
-			"slimes",
-			"slime",
-			"slimes",
-			"slime",
-			PresetColour.RACE_SLIME,
-			Disposition.NEUTRAL,
-			RacialClass.OTHER,
-			CombatBehaviour.BALANCED,
-			0.5f,
-			1,
-			1,
-			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM,
-			false,
-                        true,
-                        new HashSet<BodyMaterial>(Arrays.asList(BodyMaterial.SLIME)),
-                        true) {
-	};
-        
-        // LATEX CREATURE
-        public static AbstractRace LATEX_CREATURE = new AbstractRace("latex",
-			"latex creatures",
-			"latex creature",
-			"latex creatures",
-			"latex creature",
-			PresetColour.BASE_BLACK,
-			Disposition.UNPREDICTABLE,
-			RacialClass.OTHER,
-			CombatBehaviour.BALANCED,
-			0.5f,
-			1,
-			2,
-			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM,
-			false,
-                        true,
-                        new HashSet<BodyMaterial>(Arrays.asList(BodyMaterial.RUBBER)),
-                        false) {
-	};
-
-        // PLANT CREATURE
-        public static AbstractRace PLANT_CREATURE = new AbstractRace("plant",
-			"plant-folk",
-			"plant beast",
-			"plant beasts",
-			"plant creature",
-			PresetColour.BASE_GREEN,
-			Disposition.CIVILIZED,
-			RacialClass.OTHER,
-			CombatBehaviour.BALANCED,
-			0.5f,
-			1,
-			6,
-			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM,
-			false,
-                        true,
-                        new HashSet<BodyMaterial>(Arrays.asList(BodyMaterial.PLANT)),
-                        false) {
-	};     
-        
-        // FUNGUS CREATURE
-        public static AbstractRace FUNGUS_CREATURE = new AbstractRace("fungus",
-			"fungus creatures",
-			"fungus creature",
-			"fungus creatures",
-			"fungus creature",
-			PresetColour.BASE_PINK_SALMON,
-			Disposition.UNPREDICTABLE,
-			RacialClass.OTHER,
-			CombatBehaviour.BALANCED,
-			0.5f,
-			1,
-			2,
-			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM,
-			false,
-                        true,
-                        new HashSet<BodyMaterial>(Arrays.asList(BodyMaterial.FUNGUS)),
-                        false) {
-	};   
-        
 	// AVIAN:
 	public static AbstractRace HARPY = new AbstractRace("harpy",
 			"harpies",
@@ -780,9 +696,119 @@ public class Race {
 		}
 	};
 	
+	
+	// ********** SPECIAL RACES ********** //
+	
+	// SLIME:
+	public static AbstractRace SLIME = new AbstractRace("slime",
+			"slimes",
+			"slime",
+			"slimes",
+			"slime",
+			PresetColour.RACE_SLIME,
+			Disposition.NEUTRAL,
+			RacialClass.OTHER,
+			CombatBehaviour.BALANCED,
+			0.5f,
+			1,
+			1,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM,
+			false,
+			true,
+			new HashSet<BodyMaterial>(Arrays.asList(BodyMaterial.SLIME)),
+			true) {
+	};
+	
+	// DOLLS:
+	public static AbstractRace DOLL = new AbstractRace("doll",
+			"dolls",
+			"doll",
+			"dolls",
+			"doll",
+			PresetColour.RACE_DOLL,
+			Disposition.NEUTRAL,
+			RacialClass.OTHER,
+			CombatBehaviour.BALANCED,
+			0.5f,
+			1,
+			1,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM,
+			false, 
+			true, new HashSet<BodyMaterial>(Arrays.asList(BodyMaterial.SILICONE)),
+			false) {
+		@Override
+		public AbstractRacialBody getRacialBody() {
+			return RacialBody.HUMAN;
+		}
+	};
+	
+	// LATEX CREATURE
+	public static AbstractRace LATEX_CREATURE = new AbstractRace("latex",
+			"latex creatures",
+			"latex creature",
+			"latex creatures",
+			"latex creature",
+			PresetColour.BASE_BLACK,
+			Disposition.UNPREDICTABLE,
+			RacialClass.OTHER,
+			CombatBehaviour.BALANCED,
+			0.5f,
+			1,
+			2,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM,
+			false,
+			true,
+			new HashSet<BodyMaterial>(Arrays.asList(BodyMaterial.RUBBER)),
+			false) {
+	};
 
+	// PLANT CREATURE
+	public static AbstractRace PLANT_CREATURE = new AbstractRace("plant",
+			"plant-folk",
+			"plant beast",
+			"plant beasts",
+			"plant creature",
+			PresetColour.BASE_GREEN,
+			Disposition.CIVILIZED,
+			RacialClass.OTHER,
+			CombatBehaviour.BALANCED,
+			0.5f,
+			1,
+			6,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM,
+			false,
+			true,
+			new HashSet<BodyMaterial>(Arrays.asList(BodyMaterial.PLANT)),
+			false) {
+	};     
+	
+	// FUNGUS CREATURE
+	public static AbstractRace FUNGUS_CREATURE = new AbstractRace("fungus",
+			"fungus creatures",
+			"fungus creature",
+			"fungus creatures",
+			"fungus creature",
+			PresetColour.BASE_PINK_SALMON,
+			Disposition.UNPREDICTABLE,
+			RacialClass.OTHER,
+			CombatBehaviour.BALANCED,
+			0.5f,
+			1,
+			2,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM,
+			false,
+			true,
+			new HashSet<BodyMaterial>(Arrays.asList(BodyMaterial.FUNGUS)),
+			false) {
+	};   
+	
 	// ELEMENTALS:
-
+	
 	public static AbstractRace ELEMENTAL = new AbstractRace("elemental",
 				"elementals",
 				"elemental",
@@ -798,15 +824,15 @@ public class Race {
 				FurryPreference.MAXIMUM,
 				FurryPreference.MAXIMUM,
 				false,
-                                true, 
-                                new HashSet<BodyMaterial>(Arrays.asList(
-                                        BodyMaterial.FIRE,
-                                        BodyMaterial.WATER,
-                                        BodyMaterial.ICE,
-                                        BodyMaterial.AIR,
-                                        BodyMaterial.STONE,
-                                        BodyMaterial.ARCANE)), 
-                true) {
+				true, 
+				new HashSet<BodyMaterial>(Arrays.asList(
+					BodyMaterial.FIRE,
+					BodyMaterial.WATER,
+					BodyMaterial.ICE,
+					BodyMaterial.AIR,
+					BodyMaterial.STONE,
+					BodyMaterial.ARCANE)), 
+		true) {
 		@Override
 		public boolean isAbleToSelfTransform() {
 			return true;
@@ -1483,10 +1509,10 @@ public class Race {
 	
 	public static Map<AbstractRace, String> raceToIdMap = new HashMap<>();
 	public static Map<String, AbstractRace> idToRaceMap = new HashMap<>();
-        
-        public static Map<AbstractRace, Set<BodyMaterial>> raceToBodyMaterialSetMap = new HashMap<>();
-        public static Map<BodyMaterial, AbstractRace> bodyMaterialToRaceMap = new HashMap<>();
-        public static List<BodyMaterial> racialBodyMaterialList;
+	
+	public static Map<AbstractRace, Set<BodyMaterial>> raceToBodyMaterialSetMap = new HashMap<>();
+	public static Map<BodyMaterial, AbstractRace> bodyMaterialToRaceMap = new HashMap<>();
+	public static List<BodyMaterial> racialBodyMaterialList;
 	
 	/**
 	 * @param id Will be in the format of: 'innoxia_hyena'.
@@ -1499,18 +1525,18 @@ public class Race {
 	public static String getIdFromRace(AbstractRace race) {
 		return raceToIdMap.get(race);
 	}
-        
-        public static AbstractRace getRaceFromBodyMaterial(BodyMaterial bMat) {
-                return bodyMaterialToRaceMap.get(bMat);
-        }
-        
-        public static Set<BodyMaterial> getBodyMaterialSetFromRace(AbstractRace race) {
-                return raceToBodyMaterialSetMap.get(race);
-        }
+	
+	public static AbstractRace getRaceFromBodyMaterial(BodyMaterial bMat) {
+		return bodyMaterialToRaceMap.get(bMat);
+	}
+	
+	public static Set<BodyMaterial> getBodyMaterialSetFromRace(AbstractRace race) {
+		return raceToBodyMaterialSetMap.get(race);
+	}
 	
 	static {
 		allRaces = new ArrayList<>();
-                racialBodyMaterialList = new ArrayList<>();
+		racialBodyMaterialList = new ArrayList<>();
 		
 		// Modded races:
 		
@@ -1593,16 +1619,16 @@ public class Race {
 				Attribute.attributeToIdMap.put(racialAttribute, id);
 				Attribute.idToAttributeMap.put(id, racialAttribute);
 				Attribute.allAttributes.add(racialAttribute);
-                                
-                                //Building race/body material mappings
-                                if (race.isMaterialRace()) {
-                                        raceToBodyMaterialSetMap.put(race, race.getRacialBodyMaterialSet());
-                                        for (BodyMaterial bMat : race.getRacialBodyMaterialSet()) {
-                                                bodyMaterialToRaceMap.put(bMat, race);
-                                                racialBodyMaterialList.add(bMat);
-                                        } //
-                                } //
-                                
+				
+				//Building race/body material mappings
+				if (race.isMaterialRace()) {
+					raceToBodyMaterialSetMap.put(race, race.getRacialBodyMaterialSet());
+					for (BodyMaterial bMat : race.getRacialBodyMaterialSet()) {
+						bodyMaterialToRaceMap.put(bMat, race);
+						racialBodyMaterialList.add(bMat);
+					} //
+				} //
+				
 			}
 		}
 	}

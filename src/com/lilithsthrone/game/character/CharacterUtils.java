@@ -1192,16 +1192,17 @@ public class CharacterUtils {
 		boolean hasBreasts = startingGender.getGenderName().isHasBreasts();
 		boolean isSlime = species == null ? false : species.getRace().isMaterialRace();
 		boolean isHalfDemon = species == Subspecies.HALF_DEMON;
-                
-                AbstractSubspecies materialSubspecies = null;
-                if (isSlime) {materialSubspecies = species; }
+		
+		AbstractSubspecies materialSubspecies = null;
+		if (isSlime) {materialSubspecies = species; }
+		boolean isDoll = species == Subspecies.DOLL;
 		
 		if(isSlime || isHalfDemon) {
 			if(linkedCharacter==null || !linkedCharacter.isUnique()) {
 				List<AbstractSubspecies> slimeSubspecies = new ArrayList<>();
 				for(AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
 					// Special races that slimes/half-demons do not spawn as are slimes and any Subspecies which sets an override (so demons, elementals, or Youko):
-					if(subspecies!=Subspecies.SLIME && subspecies.getSubspeciesOverridePriority()==0) {
+					if(!isSlime && subspecies.getSubspeciesOverridePriority()==0) {
 						if(startingGender.isFeminine()) {
 							for(Entry<AbstractSubspecies, FurryPreference> entry : Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().entrySet()) {
 								if(entry.getValue() != FurryPreference.HUMAN) {
@@ -1236,6 +1237,10 @@ public class CharacterUtils {
 				
 				startingBodyType = RacialBody.valueOfRace(species.getRace());
 			}
+		}
+		
+		if(isDoll) { // Dolls spawn as human
+			species = Subspecies.HUMAN;
 		}
 		
 //		System.out.println(species+", "+stage);
@@ -1385,11 +1390,15 @@ public class CharacterUtils {
 				Race.SLIME.applyRaceChanges(body);
 				Subspecies.SLIME.applySpeciesChanges(body);
 			}
+			if(isDoll) {
+				Race.DOLL.applyRaceChanges(body);
+				Subspecies.DOLL.applySpeciesChanges(body);
+			}
 		}
-                if (materialSubspecies != null) {
-                    materialSubspecies.getRace().applyRaceChanges(body);
-                    materialSubspecies.applySpeciesChanges(body);
-                }
+		if (materialSubspecies != null) {
+			materialSubspecies.getRace().applyRaceChanges(body);
+			materialSubspecies.applySpeciesChanges(body);
+		}
                         
 		body.setSubspeciesOverride(null); // Set override to null so that it can be recalculated based on the final body type.
 		body.calculateRace(linkedCharacter);
@@ -1421,7 +1430,6 @@ public class CharacterUtils {
 				linkedCharacter.isNippleCrotchVirgin(),
 				linkedCharacter.isNippleVirgin(),
 				linkedCharacter.isPenisVirgin(),
-				linkedCharacter.isSecondUrethraVirgin(),
 				linkedCharacter.isSpinneretVirgin(),
 				linkedCharacter.isUrethraVirgin(),
 				linkedCharacter.isVaginaUrethraVirgin(),
@@ -1586,12 +1594,11 @@ public class CharacterUtils {
 			linkedCharacter.setNippleCrotchVirgin(virginities[3]);
 			linkedCharacter.setNippleVirgin(virginities[4]);
 			linkedCharacter.setPenisVirgin(virginities[5]);
-			linkedCharacter.setSecondUrethraVirgin(virginities[6]);
-			linkedCharacter.setSpinneretVirgin(virginities[7]);
-			linkedCharacter.setUrethraVirgin(virginities[8]);
-			linkedCharacter.setVaginaUrethraVirgin(virginities[9]);
-			linkedCharacter.setVaginaVirgin(virginities[10]);
-			linkedCharacter.setHymen(virginities[11]);
+			linkedCharacter.setSpinneretVirgin(virginities[6]);
+			linkedCharacter.setUrethraVirgin(virginities[7]);
+			linkedCharacter.setVaginaUrethraVirgin(virginities[8]);
+			linkedCharacter.setVaginaVirgin(virginities[9]);
+			linkedCharacter.setHymen(virginities[10]);
 		}
 		
 		return body;
