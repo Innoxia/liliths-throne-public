@@ -223,7 +223,11 @@
 	</htmlContent>
 	
 	<htmlContent tag="NYAN_EXIT"><![CDATA[
-	#IF(game.getDialogueFlags().hasFlag(FLAG_nyanmumInterviewPassed))
+	#IF(!game.getCharactersPresent().contains(nyan))
+		<p>
+			Deciding that it's time to leave, you you make your way back out through the store to the exit. Having to push your way through a crowd of customers that's loitering around the glass doors, you head back out into the Arcade and wonder what to do next...
+		</p>
+	#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_nyanmumInterviewPassed))
 		<p>
 			Thanking Nyan for her time, you explain to her that you need to get going now. Putting her little notepad away, she cheekily plants a quick kiss on your cheek, before exclaiming, [nyan.speechNoEffects(Thanks for dropping by, [pc.name]! I'll see you again this weekend, right?)]
 		</p>

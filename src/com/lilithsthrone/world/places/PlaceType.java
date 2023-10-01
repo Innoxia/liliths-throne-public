@@ -379,7 +379,7 @@ public class PlaceType {
 	public static final AbstractPlaceType DOMINION_DEMON_HOME = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Demon Home",
-			"The area surrounding Lilith's tower is known as 'Demon Home', but despite that name, the residents are of all manner of different races.",
+			"The area surrounding Lilith's tower is known as 'Demon Home', but despite that name, the residents are all manner of different races.",
 			null,
 			PresetColour.BASE_PINK,
 			DemonHome.DEMON_HOME_STREET,
@@ -420,7 +420,7 @@ public class PlaceType {
 	public static final AbstractPlaceType DOMINION_DEMON_HOME_ZARANIX = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Demon Home (Zaranix)",
-			"The area surrounding Lilith's tower is known as 'Demon Home', but despite that name, the residents are of all manner of different races.",
+			"The area surrounding Lilith's tower is known as 'Demon Home', but despite that name, the residents are all manner of different races.",
 			"dominion/demonHomeZaranixIcon",
 			PresetColour.BASE_PINK,
 			DemonHome.DEMON_HOME_STREET_ZARANIX,
@@ -446,7 +446,7 @@ public class PlaceType {
 	public static final AbstractPlaceType DOMINION_DEMON_HOME_DADDY = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Demon Home (Daddy)",
-			"The area surrounding Lilith's tower is known as 'Demon Home', but despite that name, the residents are of all manner of different races.",
+			"The area surrounding Lilith's tower is known as 'Demon Home', but despite that name, the residents are all manner of different races.",
 			"dominion/demonHomeDaddyIcon",
 			PresetColour.BASE_INDIGO,
 			DemonHome.DEMON_HOME_STREET_DADDY,
@@ -470,6 +470,17 @@ public class PlaceType {
 			}
 			return DOMINION_PLAZA.getPopulation();
 		}
+	}.initMapBackgroundColour(PresetColour.MAP_BACKGROUND_PINK);
+	
+	public static final AbstractPlaceType DOMINION_DEMON_HOME_SEX_SHOP = new AbstractPlaceType(
+			WorldRegion.DOMINION,
+			"Lovienne's Luxuries",
+			"Catering to the more affluent clientele of Demon Home, the sex shop 'Lovienne's Luxuries' is the place to buy sex toys and autonomous sex dolls.",
+			"dominion/sexShopIcon",
+			PresetColour.BASE_PINK_LIGHT,
+			DemonHome.DEMON_HOME_SEX_SHOP,
+			Darkness.ALWAYS_LIGHT,
+			null, "in the streets of Demon Home") {
 	}.initMapBackgroundColour(PresetColour.MAP_BACKGROUND_PINK);
 	
 	public static final AbstractPlaceType DOMINION_SHOPPING_ARCADE = new AbstractPlaceType(
@@ -3708,6 +3719,10 @@ public class PlaceType {
 		@Override
 		public List<Population> getPopulation() {
 			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.NIGHTLIFE_CLUB, this, false)));
+		}
+		@Override
+		public boolean isFurniturePresent() {
+			return true;
 		}
 	}.initWeatherImmune();
 

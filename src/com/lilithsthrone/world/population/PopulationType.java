@@ -42,6 +42,8 @@ public class PopulationType {
 	public static AbstractPopulationType PRIVATE_SECURITY_GUARD = new AbstractPopulationType("private security guard", "private security guards") {};
 	
 	public static AbstractPopulationType ENFORCER = new AbstractPopulationType("Enforcer", "Enforcers") {};
+	
+	public static AbstractPopulationType SWORD = new AbstractPopulationType("SWORD Enforcer", "SWORD Enforcers") {};
 
 	public static AbstractPopulationType CENTAUR_CARTS = new AbstractPopulationType("centaur-pulled cart", "centaur-pulled carts") {};
 	
@@ -88,6 +90,8 @@ public class PopulationType {
 	public static AbstractPopulationType LUNETTE_DAUGTHER = new AbstractPopulationType("Lunette's daughter", "Lunette's daughters") {};
 	
 	public static AbstractPopulationType COCK_SLEEVE = new AbstractPopulationType("cock-sleeve", "cock-sleeves") {};
+
+	public static AbstractPopulationType DOLL = new AbstractPopulationType("doll", "dolls") {};
 	
 	
 	private static List<AbstractPopulationType> allPopulationTypes = new ArrayList<>();

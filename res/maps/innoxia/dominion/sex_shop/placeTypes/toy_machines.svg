@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+ <g fill="none" stroke="#ffb380" stroke-linejoin="round">
+  <g stroke-linecap="round">
+   <g transform="translate(-.62297 .87258)">
+    <rect x="8.6933" y="46.66" width="46.738" height="10.095" rx="5" ry="5" stroke-width="2.5"/>
+    <g stroke-width="2.4746">
+     <ellipse cx="13.959" cy="51.708" rx="4.4361" ry="4.263"/>
+     <ellipse cx="50.166" cy="51.708" rx="4.4361" ry="4.263"/>
+     <ellipse cx="32.062" cy="51.708" rx="4.4361" ry="4.263"/>
+    </g>
+   </g>
+   <path d="m6.637 6.138 50.726-0.015579" stroke-width="2"/>
+   <rect x="17.511" y="9.4257" width="8.7244" height="6.0448" stroke-width="2"/>
+  </g>
+  <g transform="translate(.00020014 -.8723)">
+   <path d="m15.766 12.666c-3.328-0.05589-0.83236 3.8927-4.4869 3.8014-3.0384-0.0759-1.297-5.2798-1.371-7.2288" stroke-width="2"/>
+   <path d="m19.568 18.835h4.6115" stroke-linecap="round" stroke-width="2"/>
+   <path d="m21.812 19.582-9.21e-4 1.1538" stroke-linecap="round" stroke-width="1.9368"/>
+  </g>
+ </g>
+ <g transform="translate(-.99688 -1.4332)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path d="m18.508 43.077h8.0389" stroke="#ffb380" stroke-width="3"/>
+  <path d="m22.497 41.456-0.062318-13.585" stroke="#ffb380" stroke-width="6"/>
+  <path d="m22.652 26.298c1.0033-0.02285 1.8083 0.92638 1.6203 3.9572" stroke="#ffe6d5"/>
+ </g>
+ <g transform="translate(-3.3026 -1.3708)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path d="m39.869 43.076h8.0389" stroke="#ffb380" stroke-width="3"/>
+  <path d="m43.858 41.456-0.062318-13.585" stroke="#ffb380" stroke-width="6"/>
+  <path d="m44.013 26.096c1.0033-0.02285 1.8083 0.92638 1.6203 3.9572" stroke="#ffe6d5"/>
+ </g>
+</svg>

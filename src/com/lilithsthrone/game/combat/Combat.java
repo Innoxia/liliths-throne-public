@@ -46,7 +46,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
  * Call initialiseCombat() before using.
  *
  * @since 0.1.0
- * @version 0.4.2.1
+ * @version 0.4.9
  * @author Innoxia, Irbynx
  */
 public class Combat {
@@ -62,6 +62,7 @@ public class Combat {
 	private List<GameCharacter> activeCombatants; // A list of combatants who are still active in the fight. This is updated at the very end of each combat turn, and removes characters which have been defeated during the last turn.
 	
 	private float escapeChance = 0;
+	private boolean submitBlocked = false;
 	private Map<GameCharacter, Float> totalDamageTaken;
 	private int turn = 0;
 	private boolean attemptedEscape = false;
@@ -107,6 +108,7 @@ public class Combat {
 				enemyLeader,
 				enemies,
 				openingDescriptions,
+				false,
 				false);
 	}
 	/**
@@ -122,7 +124,8 @@ public class Combat {
 			NPC enemyLeader,
 			List<NPC> enemies,
 			Map<GameCharacter, String> openingDescriptions,
-			boolean escapeBlocked) {
+			boolean escapeBlocked,
+			boolean submitBlocked) {
 		
 		// These should be set manually after initialising combat
 		playerPostVictoryDialogue = null;
@@ -218,6 +221,8 @@ public class Combat {
 				}
 			}
 		}
+		
+		this.submitBlocked = submitBlocked;
 		
 		String startingEffect = "";
 		
@@ -970,11 +975,15 @@ public class Combat {
 								:index-7;
 					
 					if(index==9) {
-						return new Response("Submit",
-								(getEnemies(Main.game.getPlayer()).size()==1
-									?"Surrender this fight to your opponent, allowing them to do whatever they want to you."
-									:"Surrender this fight to your enemies, allowing them to do whatever they want to you."),
-								SUBMIT);
+						if(Main.combat.isSubmitBlocked()) {
+							return new Response("Submit", "You cannot submit in this combat scene!", null);
+						} else {
+							return new Response("Submit",
+									(getEnemies(Main.game.getPlayer()).size()==1
+										?"Surrender this fight to your opponent, allowing them to do whatever they want to you."
+										:"Surrender this fight to your enemies, allowing them to do whatever they want to you."),
+									SUBMIT);
+						}
 						
 					} else if(index==10) {
 						if (escapeChance == 0) {
@@ -2188,5 +2197,9 @@ public class Combat {
 
 	public void setPlayerPostDefeatDialogue(DialogueNode playerPostDefeatDialogue) {
 		this.playerPostDefeatDialogue = playerPostDefeatDialogue;
+	}
+
+	public boolean isSubmitBlocked() {
+		return submitBlocked;
 	}
 }

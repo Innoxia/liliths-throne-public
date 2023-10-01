@@ -963,27 +963,27 @@ public enum RenderingEngine {
 			if(page==5) { // Quest:
 				for(Entry<AbstractWeapon, Integer> entry : charactersInventoryToRender.getAllWeaponsInInventory().entrySet()) {
 					if(entry.getKey().getRarity()==Rarity.QUEST) {
-						if(uniqueItemCount < ITEMS_PER_PAGE) {
+//						if(uniqueItemCount < ITEMS_PER_PAGE) {
 							pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"WEAPON_"));
-						}
+//						}
 						uniqueItemCount++;
 					}
 				}
 				
 				for(Entry<AbstractClothing, Integer> entry : charactersInventoryToRender.getAllClothingInInventory().entrySet()) {
 					if(entry.getKey().getRarity()==Rarity.QUEST) {
-						if(uniqueItemCount < ITEMS_PER_PAGE) {
+//						if(uniqueItemCount < ITEMS_PER_PAGE) {
 							pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"CLOTHING_"));
-						}
+//						}
 						uniqueItemCount++;
 					}
 				}
 				
 				for(Entry<AbstractItem, Integer> entry : charactersInventoryToRender.getAllItemsInInventory().entrySet()) {
 					if(entry.getKey().getRarity()==Rarity.QUEST) {
-						if(uniqueItemCount < ITEMS_PER_PAGE) {
+//						if(uniqueItemCount < ITEMS_PER_PAGE) {
 							pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"ITEM_"));
-						}
+//						}
 						uniqueItemCount++;
 					}
 				}
@@ -1630,6 +1630,11 @@ public enum RenderingEngine {
 			uiAttributeSB.append("<div class='attribute-container effects'>"
 								+ "<p style='text-align:center;padding:0;margin:0;'><b>Characters Present</b></p>");
 			List <NPC> charactersPresent = Main.game.getCharactersPresent();
+			for(GameCharacter c : Main.game.getCharactersPresent()) {
+				if(c.isElementalSummoned() && !c.getElemental().isActive()) {
+					charactersPresent.add(c.getElemental());
+				}
+			}
 			Set<AbstractSubspecies> subspeciesSet = new HashSet<>();
 			if(place.getPopulation()!=null) {
 				for(Population pop : place.getPopulation()) {
@@ -2519,6 +2524,12 @@ public enum RenderingEngine {
 	}
 	
 	private static String getAttributeBar(String SVGImage, Colour barColour, float attributeValue, float attributeMaximum, String id) {
+		float width;
+		if(attributeMaximum==0) {
+			width = 0;
+		} else {
+			width = (attributeValue/attributeMaximum) * 100;
+		}
 		return "<div class='full-width-container' style='margin:8 0 0 0; margin:0; padding:0;'>"
 					+ "<div class='icon small'>"
 						+ "<div class='icon-content'>"
@@ -2526,7 +2537,7 @@ public enum RenderingEngine {
 						+ "</div>"
 					+ "</div>"
 					+ "<div class='barBackgroundAtt'>"
-						+ "<div style='width:" + (attributeValue/attributeMaximum) * 100 + "%; height:5vw; background:" + barColour.toWebHexString() + "; float:left; border-radius: 2px;'></div>"
+						+ "<div style='width:" + width + "%; height:5vw; background:" + barColour.toWebHexString() + "; float:left; border-radius: 2px;'></div>"
 					+ "</div>"
 					+ "<p style='text-align:center; margin:0; padding:0; line-height:12vw;'>"
 						+ (int) Math.ceil(attributeValue)
@@ -2536,6 +2547,12 @@ public enum RenderingEngine {
 	}
 	
 	private static String getAttributeBarHalf(String SVGImage, Colour barColour, float attributeValue, float attributeMaximum, String id) {
+		float width;
+		if(attributeMaximum==0) {
+			width = 0;
+		} else {
+			width = (attributeValue/attributeMaximum) * 100;
+		}
 		return "<div class='half-width-container' style='margin:8 0 0 0; margin:0; padding:0;'>"
 					+ "<div class='icon small' style='width:20%;'>"
 						+ "<div class='icon-content'>"
@@ -2543,7 +2560,7 @@ public enum RenderingEngine {
 						+ "</div>"
 					+ "</div>"
 					+ "<div class='barBackgroundAtt' style='width:50%;'>"
-						+ "<div style='width:" + (attributeValue/attributeMaximum) * 100 + "%; height:5vw; background:" + barColour.toWebHexString() + "; float:left; border-radius: 2px;'></div>"
+						+ "<div style='width:" + width + "%; height:5vw; background:" + barColour.toWebHexString() + "; float:left; border-radius: 2px;'></div>"
 					+ "</div>"
 					+ "<p style='text-align:center; margin:0; padding:0; line-height:12vw; color:" + barColour.toWebHexString() + ";'>"
 						+ (int) Math.ceil(attributeValue)
@@ -2553,6 +2570,12 @@ public enum RenderingEngine {
 	}
 	
 	private static String getAttributeBarThird(String SVGImage, Colour barColour, float attributeValue, float attributeMaximum, String id) {
+		float width;
+		if(attributeMaximum==0) {
+			width = 0;
+		} else {
+			width = (attributeValue/attributeMaximum) * 100;
+		}
 		return "<div class='half-width-container' style='width:33.3%; margin:8 0 0 0; margin:0; padding:0;'>"
 					+ "<div class='icon small' style='width:30%;'>"
 						+ "<div class='icon-content'>"
@@ -2560,7 +2583,7 @@ public enum RenderingEngine {
 						+ "</div>"
 					+ "</div>"
 					+ "<div class='barBackgroundAtt' style='width:30%;'>"
-						+ "<div style='width:" + (attributeValue/attributeMaximum) * 100 + "%; height:5vw; background:" + barColour.toWebHexString() + "; float:left; border-radius: 2px;'></div>"
+						+ "<div style='width:" + width + "%; height:5vw; background:" + barColour.toWebHexString() + "; float:left; border-radius: 2px;'></div>"
 					+ "</div>"
 					+ "<p style='text-align:center; margin:0; padding:0; line-height:12vw; color:" + barColour.toWebHexString() + ";'>"
 						+ (int) Math.ceil(attributeValue)

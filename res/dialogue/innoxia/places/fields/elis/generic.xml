@@ -642,7 +642,6 @@
 				<effects><![CDATA[
 					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_alley, PLACE_TYPE_innoxia_fields_elis_tavern_alley_exit)]
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_alley', 'INITIAL_ENTRY'))]
-					[#oglix.initElemental()]
 					[#oglix.initBeerBitches()]
 					[#game.initGamblersInElisTavern()]
 				]]></effects>

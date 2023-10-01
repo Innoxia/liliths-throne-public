@@ -3867,7 +3867,7 @@ public class GenericActions {
 					|| !Main.sex.getCharacterPerformingAction().hasPenisModifier(PenetrationModifier.OVIPOSITOR)
 //					|| !Main.sex.getCharacterPerformingAction().hasVagina()
 //					|| !Main.sex.getCharacterPerformingAction().isVaginaEggLayer()
-					|| !Main.sex.getCharacterPerformingAction().isPregnant()) {
+					|| !Main.sex.getCharacterPerformingAction().isVisiblyPregnant()) {
 				return false;
 			}
 			if(Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterPerformingAction(), SexAreaPenetration.PENIS).isEmpty()) {
@@ -4159,7 +4159,7 @@ public class GenericActions {
 					|| !Main.sex.getCharacterPerformingAction().hasClitorisModifier(PenetrationModifier.OVIPOSITOR)
 //					|| !Main.sex.getCharacterPerformingAction().hasVagina()
 //					|| !Main.sex.getCharacterPerformingAction().isVaginaEggLayer()
-					|| !Main.sex.getCharacterPerformingAction().isPregnant()) {
+					|| !Main.sex.getCharacterPerformingAction().isVisiblyPregnant()) {
 				return false;
 			}
 			
@@ -4350,7 +4350,7 @@ public class GenericActions {
 			if(!Main.sex.getCharacterPerformingAction().getTailType().isOvipositor()
 //					|| !Main.sex.getCharacterPerformingAction().hasVagina()
 //					|| !Main.sex.getCharacterPerformingAction().isVaginaEggLayer()
-					|| !Main.sex.getCharacterPerformingAction().isPregnant()) {
+					|| !Main.sex.getCharacterPerformingAction().isVisiblyPregnant()) {
 				return false;
 			}
 			
@@ -4542,7 +4542,7 @@ public class GenericActions {
 			if(!Main.sex.getCharacterPerformingAction().getTailType().isOvipositor()
 //					|| !Main.sex.getCharacterPerformingAction().hasVagina()
 //					|| !Main.sex.getCharacterPerformingAction().isVaginaEggLayer()
-					|| !Main.sex.getCharacterPerformingAction().isPregnant()) {
+					|| !Main.sex.getCharacterPerformingAction().isVisiblyPregnant()) {
 				return false;
 			}
 			

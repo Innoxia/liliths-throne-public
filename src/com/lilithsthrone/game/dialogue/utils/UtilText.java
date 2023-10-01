@@ -549,18 +549,25 @@ public class UtilText {
 		}
 		
 		Colour glow = target.getSpeechGlowColour();
+		String classAddition = "";
 		if (target.getSpeechColour() != null) {
-			return "<span class='speech' style='color:" + target.getSpeechColour() + ";"+getGlowStyle(glow)+"'>"
+			if(target.isDoll()) {
+				classAddition = " doll";
+			}
+			return "<span class='speech"+classAddition+"' style='color:" + target.getSpeechColour() + ";"+getGlowStyle(glow)+"'>"
 						+ modifiedSentence
 					+ "</span>";
 
 		} else {
+			if(target.isDoll()) {
+				classAddition = " doll";
+			}
 			if (Femininity.valueOf(target.getFemininityValue()) == Femininity.MASCULINE || Femininity.valueOf(target.getFemininityValue()) == Femininity.MASCULINE_STRONG) {
-				return "<span class='speech' style='color:" + PresetColour.MASCULINE_NPC.toWebHexString() + ";"+getGlowStyle(glow)+"'>" + modifiedSentence + "</span>";
+				return "<span class='speech"+classAddition+"' style='color:" + PresetColour.MASCULINE_NPC.toWebHexString() + ";"+getGlowStyle(glow)+"'>" + modifiedSentence + "</span>";
 			} else if (Femininity.valueOf(target.getFemininityValue()) == Femininity.ANDROGYNOUS) {
-				return "<span class='speech' style='color:" + PresetColour.ANDROGYNOUS_NPC.toWebHexString() + ";"+getGlowStyle(glow)+"'>" + modifiedSentence + "</span>";
+				return "<span class='speech"+classAddition+"' style='color:" + PresetColour.ANDROGYNOUS_NPC.toWebHexString() + ";"+getGlowStyle(glow)+"'>" + modifiedSentence + "</span>";
 			} else {
-				return "<span class='speech' style='color:" + PresetColour.FEMININE_NPC.toWebHexString() + ";"+getGlowStyle(glow)+"'>" + modifiedSentence + "</span>";
+				return "<span class='speech"+classAddition+"' style='color:" + PresetColour.FEMININE_NPC.toWebHexString() + ";"+getGlowStyle(glow)+"'>" + modifiedSentence + "</span>";
 			}
 		}
 	
@@ -5459,11 +5466,6 @@ public class UtilText {
 				Util.newArrayListOfValues("penis", "cock", "dick"),
 				Util.newArrayListOfValues("penises", "cocks", "dicks"),
 				BodyPartType.PENIS);
-
-		addStandardParsingCommands(
-				Util.newArrayListOfValues("secondPenis", "secondCock", "secondDick", "penis2", "cock2", "dick2"),
-				Util.newArrayListOfValues("secondPenises", "secondCocks", "secondDicks", "penises2", "cocks2", "dicks2"),
-				BodyPartType.SECOND_PENIS);
 		
 		addStandardParsingCommands(
 				Util.newArrayListOfValues("testicle", "ball"),
@@ -7703,100 +7705,6 @@ public class UtilText {
 					return Units.size(character.getPenisRawSizeValue(), Units.ValueType.NUMERIC, Units.UnitType.SHORT);
 				}
 				return Units.size(character.getPenisRawSizeValue(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
-			}
-		});
-		
-		// Second penis:
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"secondPenisHead",
-						"secondCockHead",
-						"secondDickHead",
-						"penis2Head",
-						"cock2Head",
-						"dick2Head"),
-				true,
-				true,
-				"",
-				"Description of method",
-				BodyPartType.PENIS){//TODO
-			@Override
-			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return character.getBody().getSecondPenis().getPenisHeadName(character);
-			}
-		});
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"secondPenisHead+",
-						"secondCockHead+",
-						"secondDickHead+",
-						"penis2Head+",
-						"cock2Head+",
-						"dick2Head+",
-						"secondPenisHeadD",
-						"secondCockHeadD",
-						"secondDickHeadD",
-						"penis2HeadD",
-						"cock2HeadD",
-						"dick2HeadD"),
-				true,
-				true,
-				"",
-				"Description of method",
-				BodyPartType.PENIS){//TODO
-			@Override
-			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return applyDescriptor(character.getBody().getSecondPenis().getPenisHeadDescriptor(character), character.getBody().getSecondPenis().getPenisHeadName(character));
-			}
-		});
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"secondPenisSize",
-						"secondCockSize",
-						"secondDickSize",
-						"penis2Size",
-						"cock2Size",
-						"dick2Size"),
-				true,
-				true,
-				"",
-				"Description of method",
-				BodyPartType.PENIS){//TODO
-			@Override
-			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return character.getSecondPenisSize().getDescriptor();
-			}
-		});
-
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"secondPenisValue",
-						"penis2Value"),
-				false,
-				false,
-				"",
-				"Returns the localized, formatted size of the second penis with long units.",
-				BodyPartType.PENIS) {
-			@Override
-			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return Units.size(character.getSecondPenisRawSizeValue(), Units.ValueType.NUMERIC, Units.UnitType.LONG);
-			}
-		});
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"secondUrethra"),
-				false,
-				false,
-				"",
-				"Description of method",
-				BodyPartType.PENIS){//TODO
-			@Override
-			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return "urethra";
 			}
 		});
 		
@@ -10682,8 +10590,6 @@ public class UtilText {
 				return character.getBody().getLeg();
 			case PENIS:
 				return character.getCurrentPenis();
-			case SECOND_PENIS:
-				return character.getBody().getSecondPenis();
 			case TESTICLES:
 				return character.getCurrentPenis().getTesticle();
 			case CUM:

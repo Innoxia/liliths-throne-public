@@ -78,6 +78,7 @@
 					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_work, true)]
 					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_career, false)]
 					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_lunette, false)]
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_sword, false)]
 				]]></effects>
 			</response>
 			<response>
@@ -103,6 +104,7 @@
 					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_work, false)]
 					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_career, true)]
 					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_lunette, false)]
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_sword, false)]
 				]]></effects>
 			</response>
 			<response>
@@ -128,21 +130,34 @@
 					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_work, false)]
 					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_career, false)]
 					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_lunette, true)]
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_sword, false)]
 				]]></effects>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_elis_enforcers_talk_lunette) && !flags.hasFlag(FLAG_innoxia_sterope_unlocked)]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_elis_enforcers_access_granted)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[4]]></index>
-				<responseTitle><![CDATA[Flirt]]></responseTitle>
-				<responseTooltip><![CDATA[Push Sterope on what she's just said and ask her if she thinks of being turned into a succutaur's cock-sleeve often.]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_places_fields_elis_enforcer_station_reception_talk]]></nextDialogue>
+				<responseTitle><![CDATA[SWORD Info.]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_elis_enforcers_talk_sword))
+						You're already talking to Sterope about the SWORD Enforcers who are stationed here...
+					#ELSE
+						Ask Sterope what she can tell you about the SWORD Enforcers who are stationed here.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_elis_enforcers_talk_sword))
+						null
+					#ELSE
+						innoxia_places_fields_elis_enforcer_station_reception_talk
+					#ENDIF
+				]]></nextDialogue>
 				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'RECEPTION_FLIRT'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'RECEPTION_TALK_SWORD'))]
 					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_work, false)]
 					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_career, false)]
 					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_lunette, false)]
-					[#flags.setFlag(FLAG_innoxia_sterope_unlocked, true)]
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_sword, true)]
 				]]></effects>
 			</response>
 			<response>
@@ -152,13 +167,30 @@
 				<responseTitle><![CDATA[SWORD Enforcers]]></responseTitle>
 				<responseTooltip><![CDATA[
 					Tell Sterope that you've been sent here by Minotallys and that you need to speak with the group of SWORD Enforcers who are stationed here.
-					<br/>[style.italicsBad(This will be added soon!)]
 				]]></responseTooltip>
-				<nextDialogue><![CDATA[null]]></nextDialogue> <!-- innoxia_places_fields_elis_enforcer_station_reception_sword -->
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_enforcer_station_reception_sword]]></nextDialogue>
 				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_access_granted, true)]
 					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_work, false)]
 					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_career, false)]
 					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_lunette, false)]
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_sword, false)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_elis_enforcers_talk_lunette) && !flags.hasFlag(FLAG_innoxia_sterope_unlocked)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Flirt]]></responseTitle>
+				<responseTooltip><![CDATA[Push Sterope on what she's just said and ask her if she thinks of being turned into a succutaur's cock-sleeve often.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_enforcer_station_reception_talk]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'RECEPTION_FLIRT'))]
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_work, false)]
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_career, false)]
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_lunette, false)]
+					[#flags.setFlag(FLAG_innoxia_elis_enforcers_talk_sword, false)]
+					[#flags.setFlag(FLAG_innoxia_sterope_unlocked, true)]
 				]]></effects>
 			</response>
 			<!-- Back: -->
@@ -189,21 +221,8 @@
 		<content folderPath="txt/places/fields/elis/enforcer_station">RECEPTION_SWORD</content>
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
-		<travelDisabled>true</travelDisabled>
-		<responses>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Continue]]></responseTitle>
-				<responseTooltip><![CDATA[Proceed past the reception desk and enter the interior of the Enforcer station.]]></responseTooltip>
-				<nextDialogue>innoxia_places_fields_elis_enforcer_station_corridor</nextDialogue>
-				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'RECEPTION_SWORD_CONTINUE'))]
-					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_enforcer_station_corridor)]
-					[#flags.setFlag(FLAG_innoxia_elis_enforcers_access_granted, true)]
-				]]></effects>
-			</response>
-		</responses>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_enforcer_station_reception"/>
 	</scene>
 	
 	<!-- Place type id: innoxia_fields_elis_enforcer_station_locked_door -->
@@ -247,12 +266,496 @@
 	
 	<!-- Place type id: innoxia_fields_elis_enforcer_station_sword -->
 	<scene id="sword">
-		<content folderPath="txt/places/fields/elis/enforcer_station">SWORD</content>
-		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'SWORD'))]
+			[#flags.setFlag(FLAG_innoxia_sword_mission_react_needed, false)]
+			
+			[#flags.setFlag(FLAG_innoxia_sword_history_revealed, false)]
+			[#flags.setFlag(FLAG_innoxia_sword_talk_elis, false)]
+			[#flags.setFlag(FLAG_innoxia_sword_talk_oricl, false)]
+			[#flags.setFlag(FLAG_innoxia_sword_talk_human_rebellion, false)]
+			[#flags.setFlag(FLAG_innoxia_sword_talk_hlf, false)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
-		<travelDisabled>false</travelDisabled>
-		<responses/>
+		<travelDisabled><![CDATA[[#!flags.hasFlag(FLAG_innoxia_elis_sword_met) || flags.hasFlag(FLAG_innoxia_sword_mission_reward)]]]></travelDisabled>
+		<responses>
+			<!-- Initial meeting: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_elis_sword_met)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Explain]]></responseTitle>
+				<responseTooltip><![CDATA[Explain to the wolf-boy why you're here.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_enforcer_station_sword_initial</nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_elis_sword_met, true)]
+				]]></effects>
+			</response>
+			<!-- Repeat: -->
+			<response>
+				<availabilityConditional><![CDATA[[#pc.getQuest(QUEST_LINE_MAIN)==QUEST_MAIN_3_G_SWORD_SCAPEGOAT]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Operation]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.getDayOfWeek()==DOW_TUESDAY && game.isHourBetween(17, 24))
+						Tell the Enforcers that you're ready to tag along with them on their operation.
+					#ELSE
+						You need to come back on a Tuesday after [units.time(17)] to start the operation.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.getDayOfWeek()==DOW_TUESDAY && game.isHourBetween(17, 24))
+						innoxia_places_fields_elis_enforcer_station_sword_mission_start
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+			<!-- Post-quest: -->
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_sword_mission_reward)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Take dagger]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_mission_chose_hammer))
+						Thank Hammer for the dagger and take it from him.
+					#ELSE
+						Thank Ghost for the dagger and take it from her.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_enforcer_station_sword_talk]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sword_mission_reward, false)]
+					#IF(flags.hasFlag(FLAG_innoxia_sword_mission_chose_hammer))
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'SWORD_DAGGER_HAMMER'))]
+						[#game.appendToTextEndStringBuilder(pc.addWeapon(hammer.getDagger(), 1, false, true))]
+					#ELSE
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'SWORD_DAGGER_GHOST'))]
+						[#game.appendToTextEndStringBuilder(pc.addWeapon(ghost.getDagger(), 1, false, true))]
+					#ENDIF
+				]]></effects>
+			</response>
+			<!-- Talk after completing mission: -->
+			<response>
+				<availabilityConditional><![CDATA[[#pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_H_SWORD_MISSION) && !flags.hasFlag(FLAG_innoxia_sword_mission_reward)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Elis]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_talk_elis))
+						You're already asking the Enforcers how they ended up here in Elis...
+					#ELSE
+						Ask the Enforcers how they ended up here in Elis.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_talk_elis))
+						null
+					#ELSE
+						innoxia_places_fields_elis_enforcer_station_sword_talk
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'SWORD_TALK_ELIS'))]
+					[#flags.setFlag(FLAG_innoxia_sword_talk_elis, true)]
+					[#flags.setFlag(FLAG_innoxia_sword_talk_history, false)]
+					[#flags.setFlag(FLAG_innoxia_sword_talk_oricl, false)]
+					[#flags.setFlag(FLAG_innoxia_sword_talk_human_rebellion, false)]
+					[#flags.setFlag(FLAG_innoxia_sword_talk_hlf, false)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_H_SWORD_MISSION) && !flags.hasFlag(FLAG_innoxia_sword_mission_reward)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[History]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_talk_history))
+						You're already asking the Enforcers about their history and how they ended up working together...
+					#ELSE
+						Ask the Enforcers about their history and how they ended up working together.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_talk_history))
+						null
+					#ELSE
+						innoxia_places_fields_elis_enforcer_station_sword_talk
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'SWORD_TALK_HISTORY'))]
+					[#flags.setFlag(FLAG_innoxia_sword_history_revealed, true)]
+					[#flags.setFlag(FLAG_innoxia_sword_talk_elis, false)]
+					[#flags.setFlag(FLAG_innoxia_sword_talk_history, true)]
+					[#flags.setFlag(FLAG_innoxia_sword_talk_oricl, false)]
+					[#flags.setFlag(FLAG_innoxia_sword_talk_human_rebellion, false)]
+					[#flags.setFlag(FLAG_innoxia_sword_talk_hlf, false)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_H_SWORD_MISSION) && !flags.hasFlag(FLAG_innoxia_sword_mission_reward)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[ORICL]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_talk_oricl))
+						You're already asking the Enforcers what they can tell you about ORICL...
+					#ELSE
+						Ask the Enforcers what they can tell you about ORICL.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_talk_oricl))
+						null
+					#ELSE
+						innoxia_places_fields_elis_enforcer_station_sword_talk
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'SWORD_TALK_ORICL'))]
+					[#flags.setFlag(FLAG_innoxia_sword_talk_elis, false)]
+					[#flags.setFlag(FLAG_innoxia_sword_talk_history, false)]
+					[#flags.setFlag(FLAG_innoxia_sword_talk_oricl, true)]
+					[#flags.setFlag(FLAG_innoxia_sword_talk_human_rebellion, false)]
+					[#flags.setFlag(FLAG_innoxia_sword_talk_hlf, false)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_H_SWORD_MISSION) && !flags.hasFlag(FLAG_innoxia_sword_mission_reward) && flags.hasFlag(FLAG_innoxia_sword_history_revealed)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Rebellion]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_talk_human_rebellion))
+						You're already asking the Enforcers about the Fifth Human Rebellion...
+					#ELSE
+						Ask the Enforcers about the Fifth Human Rebellion.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_talk_human_rebellion))
+						null
+					#ELSE
+						innoxia_places_fields_elis_enforcer_station_sword_talk
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'SWORD_TALK_HUMAN_REBELLION'))]
+					[#flags.setFlag(FLAG_innoxia_sword_talk_elis, false)]
+					[#flags.setFlag(FLAG_innoxia_sword_talk_history, false)]
+					[#flags.setFlag(FLAG_innoxia_sword_talk_oricl, false)]
+					[#flags.setFlag(FLAG_innoxia_sword_talk_human_rebellion, true)]
+					[#flags.setFlag(FLAG_innoxia_sword_talk_hlf, false)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_H_SWORD_MISSION) && !flags.hasFlag(FLAG_innoxia_sword_mission_reward) && flags.hasFlag(FLAG_innoxia_sword_history_revealed)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[HLF]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_talk_hlf))
+						You're already asking the Enforcers about the 'Human Liberation Front'...
+					#ELSE
+						Ask the Enforcers their antagonists during the Fifth Human Rebellion; the 'Human Liberation Front'.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_talk_hlf))
+						null
+					#ELSE
+						innoxia_places_fields_elis_enforcer_station_sword_talk
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'SWORD_TALK_HLF'))]
+					[#flags.setFlag(FLAG_innoxia_sword_talk_elis, false)]
+					[#flags.setFlag(FLAG_innoxia_sword_talk_history, false)]
+					[#flags.setFlag(FLAG_innoxia_sword_talk_oricl, false)]
+					[#flags.setFlag(FLAG_innoxia_sword_talk_human_rebellion, false)]
+					[#flags.setFlag(FLAG_innoxia_sword_talk_hlf, true)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_H_SWORD_MISSION) && !flags.hasFlag(FLAG_innoxia_sword_mission_reward) && !pc.hasQuest(QUEST_LINE_SIDE_DOLL_FACTORY)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Angelixx's diary]]></responseTitle>
+				<responseTooltip><![CDATA[Ask the Enforcers if they've discovered anything from the contents of Angelixx's diary.<br/>[style.italicsBad(This will be added soon!)]]]></responseTooltip>
+				<colour><![CDATA[QUEST_SIDE]]></colour>
+				<nextDialogue><![CDATA[null]]></nextDialogue><!-- TODO innoxia_places_fields_elis_enforcer_station_sword_angelixx_diary -->
+			</response>
+		</responses>
 	</scene>
 	
+	<scene id="sword_talk">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_enforcer_station_sword"/>
+	</scene>
+	
+	<scene id="sword_angelixx_diary">
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_innoxia_sword_history_revealed, false)]
+			[#flags.setFlag(FLAG_innoxia_sword_talk_elis, false)]
+			[#flags.setFlag(FLAG_innoxia_sword_talk_oricl, false)]
+			[#flags.setFlag(FLAG_innoxia_sword_talk_human_rebellion, false)]
+			[#flags.setFlag(FLAG_innoxia_sword_talk_hlf, false)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/enforcer_station">SWORD_ANGELIXX_DIARY</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Take diary]]></responseTitle>
+				<responseTooltip><![CDATA[Take the diary from Ghost.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_enforcer_station_sword_angelixx_diary_take]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sword_angelixx_diary_take">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(pc.addItem(itemGen.generateItem('innoxia_quest_angelixx_diary')))]
+			[#game.appendToTextEndStringBuilder(pc.startQuest(QUEST_LINE_SIDE_DOLL_FACTORY))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/enforcer_station">SWORD_ANGELIXX_DIARY_TAKE</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_enforcer_station_sword"/>
+	</scene>
+	
+	<scene id="sword_initial">
+		<content folderPath="txt/places/fields/elis/enforcer_station">SWORD_INITIAL</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Tell truth]]></responseTitle>
+				<responseTooltip><![CDATA[Tell the Enforcers that you're working to overthrow Lilith herself...]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_enforcer_station_sword_convince</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'SWORD_CONVINCE_TRUTH'))]
+					[#game.appendToTextEndStringBuilder(hammer.incrementAffection(pc, 10))]
+					[#game.appendToTextEndStringBuilder(ghost.incrementAffection(pc, 10))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Hold back]]></responseTitle>
+				<responseTooltip><![CDATA[Tell the Enforcers that you want to help Elis, and that's all there is to it...]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_enforcer_station_sword_convince</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'SWORD_CONVINCE_LIE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sword_convince">
+		<preParsingEffects><![CDATA[
+			[#hammer.setGenericName('Hammer')]
+			[#ghost.setGenericName('Ghost')]	
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/enforcer_station">SWORD_CONVINCE_END</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Listen]]></responseTitle>
+				<responseTooltip><![CDATA[Listen to what it is that these Enforcers want from you.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_enforcer_station_sword_help</nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sword_help">
+		<content folderPath="txt/places/fields/elis/enforcer_station">SWORD_HELP</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Details]]></responseTitle>
+				<responseTooltip><![CDATA[Ask the Enforcers for some details on what this operation involves.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_enforcer_station_sword_mission</nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sword_mission">
+		<content folderPath="txt/places/fields/elis/enforcer_station">SWORD_MISSION</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Refugees]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_mission_discuss_refugees))
+						You've already asked the Enforcers if they know what's happening to the refugees.
+					#ELSE
+						Ask the Enforcers if they know what's happening to the refugees.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_mission_discuss_refugees))
+						null
+					#ELSE
+						innoxia_places_fields_elis_enforcer_station_sword_mission_details
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sword_mission_discuss_refugees, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'SWORD_MISSION_DETAILS_REFUGEES'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Plan]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_mission_discuss_plan))
+						You've already asked the Enforcers what their plan is.
+					#ELSE
+						Ask the Enforcers what their plan is.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_mission_discuss_plan))
+						null
+					#ELSE
+						innoxia_places_fields_elis_enforcer_station_sword_mission_details
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sword_mission_discuss_plan, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'SWORD_MISSION_DETAILS_PLAN'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Succubus]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_mission_discuss_succubus))
+						You've already asked the Enforcers about Angelixx, the succubus who's their target.
+					#ELSE
+						Ask the Enforcers if they can tell you any more about Angelixx, the succubus who's their target.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_mission_discuss_succubus))
+						null
+					#ELSE
+						innoxia_places_fields_elis_enforcer_station_sword_mission_details
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sword_mission_discuss_succubus, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'SWORD_MISSION_DETAILS_SUCCUBUS'))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_sword_mission_discuss_refugees) && flags.hasFlag(FLAG_innoxia_sword_mission_discuss_plan) && flags.hasFlag(FLAG_innoxia_sword_mission_discuss_succubus)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Agree to help]]></responseTitle>
+				<responseTooltip><![CDATA[As you need their help for the defence of Elis, you don't seem to have much choice but to agree to help the Enforcers on their op...]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_enforcer_station_sword_mission_end</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_MAIN, QUEST_MAIN_3_G_SWORD_SCAPEGOAT))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sword_mission_details">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_enforcer_station_sword_mission"/>
+	</scene>
+	
+	<scene id="sword_mission_end">
+		<content folderPath="txt/places/fields/elis/enforcer_station">SWORD_MISSION_END</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#game.getDayOfWeek()!=DOW_TUESDAY || !game.isHourBetween(17, 24)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Tell the Enforcers that you'll be back when you're ready to go with them on their operation.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_enforcer_station_corridor</nextDialogue>
+				<effects><![CDATA[
+					[#pc.setNearestLocation(WORLD_TYPE_innoxia_fields_elis_enforcer_station, PLACE_TYPE_innoxia_fields_elis_enforcer_station_corridor)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'SWORD_MISSION_END_LEAVE'))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.getDayOfWeek()==DOW_TUESDAY && game.isHourBetween(17, 24)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Operation]]></responseTitle>
+				<responseTooltip><![CDATA[Tell the Enforcers that you're ready to go with them on their operation.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_enforcer_station_sword_mission_start]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sword_mission_start">
+		<preParsingEffects><![CDATA[
+			[#hammer.equipCivilianGear()]
+			[#ghost.equipCivilianGear()]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/enforcer_station">SWORD_MISSION_START</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Tag along]]></responseTitle>
+				<responseTooltip><![CDATA[Go along with the SWORD Enforcers as they set off to the abandoned bakery.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_abandoned_bakery_mission_start</nextDialogue>
+				<effects><![CDATA[
+					[#game.getWorlds().get(WORLD_TYPE_innoxia_fields_elis_town).getCell(9, 12).getPlace().setPlaceType(PLACE_TYPE_innoxia_fields_elis_town_abandoned_bakery)]
+					
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_abandoned_bakery)]
+					[#hammer.setLocation(pc)]
+					[#ghost.setLocation(pc)]
+					
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_MAIN, QUEST_MAIN_3_H_SWORD_MISSION))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
 
 </dialogueNodes>

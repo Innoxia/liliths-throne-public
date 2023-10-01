@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>450</value>
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[leg warmer]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[leg warmers]]></namePlural>
+		<description><![CDATA[A pair of ribbed, woollen leg warmers. Forming tubular sleeves, they're intended to keep the wearer's lower legs warm in cold weather, although are often worn simply for the sake of fashion.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>SOCK</slot> 
+		<rarity>COMMON</rarity>
+		<clothingSet/> 
+		<imageName>leg_warmers.svg</imageName>
+		<imageEquippedName/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired> 
+					<clothingAccess>FEET</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>FEET</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL"/> 
+		<primaryColoursDye/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] the leg warmers on to cover [npc.her] lower [npc.legs(true)].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] the leg warmers onto [npc2.namePos] lower [npc2.legs(true)].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] the leg warmers onto [npc2.namePos] lower [npc2.legs(true)].]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(pull)] off [npc.her] leg warmers.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(pull)] off [npc2.namePos] leg warmers.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] leg warmers.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

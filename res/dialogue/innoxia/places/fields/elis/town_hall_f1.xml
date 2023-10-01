@@ -9,6 +9,7 @@
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>false</travelDisabled>
 		<responses>
+			<!--
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
@@ -19,6 +20,7 @@
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[null]]></nextDialogue>
 			</response>
+			-->
 		</responses>
 	</scene>
 	
@@ -44,8 +46,20 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Knock]]></responseTitle>
-				<responseTooltip><![CDATA[Knock on the door to get Minotallys's attention.]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_places_fields_elis_town_hall_f1_minotallys_office_start]]></nextDialogue>
+				<responseTooltip><![CDATA[
+					#IF(game.getCharactersPresent().contains(minotallys))
+						Knock on the door to get Minotallys's attention.
+					#ELSE
+						Minotallys isn't in her office at the moment...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.getCharactersPresent().contains(minotallys))
+						innoxia_places_fields_elis_town_hall_f1_minotallys_office_start
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
 				<effects><![CDATA[
 					[#flags.setFlag(FLAG_innoxia_minotallys_talk_milk, false)]
 				]]></effects>
@@ -195,6 +209,22 @@
 					#ENDIF
 				]]></effects>
 			</response>
+			<!-- Quest: -->
+			<response>
+				<availabilityConditional><![CDATA[[#pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_E_THEMISCYRA_ATTACK)]]]></availabilityConditional> <!-- TODO conditional -->
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[SWORD help]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getQuest(QUEST_LINE_MAIN)==QUEST_MAIN_3_I_ARION_REPORT)
+						Tell Minotallys and Arion that you've got the help of the SWORD Enforcers.
+						<br/>[style.italicsMinorBad(This will be added soon!)]
+					#ELSE
+						You haven't got the help of the SWORD Enforcers yet...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
 			<!-- Leave: -->
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
@@ -227,6 +257,7 @@
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>false</travelDisabled>
 		<responses>
+			<!--
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
@@ -237,6 +268,7 @@
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[null]]></nextDialogue>
 			</response>
+			-->
 		</responses>
 	</scene>
 	
@@ -263,7 +295,7 @@
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Downstairs]]></responseTitle>
 				<responseTooltip><![CDATA[Head down the staircase to the ground floor of the town hall.]]></responseTooltip>
-				<nextDialogue defaultPlaceType="innoxia_fields_elis_town_hall_f1_stairs"/>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_town_hall_f0_stairs"/>
 				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
 				<effects><![CDATA[
 					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town_hall_f0, PLACE_TYPE_innoxia_fields_elis_town_hall_f0_stairs)]

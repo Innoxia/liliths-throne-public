@@ -798,7 +798,7 @@
 					Tell Meraxis that you'd like to hug her.
 					<br/>[style.italicsSex(This action leads into being able to increase Meraxis's affection towards
 					#IF(game.isAnalContentEnabled())
-						 you, as well as anal actions.
+						 you, as well as ass groping and anal actions.
 					#ELSE
 						 you.
 					#ENDIF
