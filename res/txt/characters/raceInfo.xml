@@ -863,4 +863,23 @@
 	]]>
 	</htmlContent>
 
+	<!-- DOLLS -->
+
+	<htmlContent tag="DOLL_BASIC"><![CDATA[
+	<p>
+		Although there exist dozens, if not hundreds, of different types of sex doll, the one which stands apart as being truly special is the one sold at 'Lovienne's Luxuries'. Life-like features, cast in arcane-infused silicone, give these dolls a truly exceptional appearance, but it's not just their looks which they're known for. Instead, what makes them the most sought-after toys in all the realm is the fact that they're completely autonomous. The advanced animation spell which Lovienne herself has spent decades perfecting allows these dolls to move, understand and carry out orders, and even engage in conversation.
+	</p>
+	<p>
+		As is to be expected of such exceptional creations, Lovienne's sex dolls are extremely expensive. As they're not living creatures, they don't require a slaver license to own, and so there's no shortage of customers willing to pay hundreds of thousands of flames for even the most basic model. Obediently carrying out any order, able to withstand the roughest sex, and ready to fuck at a moment's notice, they're widely considered to be well worth the price.
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="DOLL_ADVANCED"><![CDATA[
+	<p>
+		TODO
+	</p>
+	]]>
+	</htmlContent>
+
 </dialogue>

@@ -4,7 +4,6 @@
 	<name><![CDATA[Marketplace]]></name>
 	<tooltipDescription><![CDATA[Catering to the needs of the Amazon population, a series of large tents have been set up in this area in which all manner of goods are being traded.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in Aurokaris's tent in the Amazons' camp]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_TEAL</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

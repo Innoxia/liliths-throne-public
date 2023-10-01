@@ -4,7 +4,6 @@
 	<name><![CDATA[foyer]]></name>
 	<tooltipDescription><![CDATA[The foyer of the Bank of Elis takes the form of a large room, with polished marble flooring and a high, vaulted ceiling.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the foyer in the Bank of Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_GREY</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

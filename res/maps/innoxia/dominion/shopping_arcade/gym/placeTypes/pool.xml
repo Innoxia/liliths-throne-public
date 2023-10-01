@@ -4,7 +4,6 @@
 	<name><![CDATA[pool]]></name>
 	<tooltipDescription><![CDATA[A large, deep pool has been split into multiple lanes.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the pool at the gym, 'Pix's Playground']]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_AQUA</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

@@ -4,7 +4,6 @@
 	<name><![CDATA[room]]></name>
 	<tooltipDescription><![CDATA[Just like all of the others, this room has already been rented by someone.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the upstairs corridor at 'The Red Dragon' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<svgName>room</svgName>
 	<colour>BASE_TEAL</colour>

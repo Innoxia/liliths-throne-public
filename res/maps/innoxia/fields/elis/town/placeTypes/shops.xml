@@ -4,7 +4,6 @@
 	<name><![CDATA[Wall's End]]></name>
 	<tooltipDescription><![CDATA[Carrying the name of 'Wall's End', this open-air shopping precinct contains the sort of businesses which aren't suitable for the farmer's market.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the shopping precinct in Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_ORANGE</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

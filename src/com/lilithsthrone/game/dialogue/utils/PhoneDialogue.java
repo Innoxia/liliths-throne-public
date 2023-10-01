@@ -4092,7 +4092,16 @@ public class PhoneDialogue {
 			if (index == 0) {
 				return new Response("Back", "Decide against loitering in this area.", MENU);
 			}
+			
 			if(index == 1) {
+				return new ResponseEffectsOnly("5 minutes", "Loiter in this area for the next five minutes.") {
+					@Override
+					public void effects() {
+						loiter(5);
+					}
+				};
+				
+			} else if(index == 2) {
 				return new ResponseEffectsOnly("15 minutes", "Loiter in this area for the next fifteen minutes.") {
 					@Override
 					public void effects() {
@@ -4100,7 +4109,15 @@ public class PhoneDialogue {
 					}
 				};
 				
-			} else if(index == 2) {
+			} else if(index == 3) {
+				return new ResponseEffectsOnly("30 minutes", "Loiter in this area for the next thirty minutes.") {
+					@Override
+					public void effects() {
+						loiter(30);
+					}
+				};
+				
+			} else if(index == 4) {
 				return new ResponseEffectsOnly("1 hour", "Loiter in this area for the next hour.") {
 					@Override
 					public void effects() {
@@ -4108,7 +4125,15 @@ public class PhoneDialogue {
 					}
 				};
 				
-			} else if(index == 3) {
+			} else if(index == 5) {
+				return new ResponseEffectsOnly("2 hours", "Loiter in this area for the next two hours.") {
+					@Override
+					public void effects() {
+						loiter(60*2);
+					}
+				};
+				
+			} else if(index == 6) {
 				return new ResponseEffectsOnly("4 hours", "Loiter in this area for the next four hours.") {
 					@Override
 					public void effects() {
@@ -4116,7 +4141,23 @@ public class PhoneDialogue {
 					}
 				};
 				
-			} else if(index == 4) {
+			} else if(index == 7) {
+				return new ResponseEffectsOnly("6 hours", "Loiter in this area for the next six hours.") {
+					@Override
+					public void effects() {
+						loiter(60*6);
+					}
+				};
+				
+			} else if(index == 8) {
+				return new ResponseEffectsOnly("8 hours", "Loiter in this area for the next eight hours.") {
+					@Override
+					public void effects() {
+						loiter(60*8);
+					}
+				};
+				
+			} else if(index == 9) {
 				return new ResponseEffectsOnly("12 hours", "Loiter in this area for the next twelve hours.") {
 					@Override
 					public void effects() {
@@ -4124,7 +4165,7 @@ public class PhoneDialogue {
 					}
 				};
 				
-			} else if(index == 5) {
+			} else if(index == 10) {
 				return new ResponseEffectsOnly("24 hours", "Loiter in this area for the next twenty-four hours.") {
 					@Override
 					public void effects() {

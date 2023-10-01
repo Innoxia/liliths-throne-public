@@ -146,7 +146,7 @@ public class Fae extends NPC {
 		this.setTailGirth(PenetrationGirth.FIVE_THICK);
 		
 		// Core:
-		this.setHeight(175);
+		this.setHeight(195);
 		this.setFemininity(95);
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
@@ -261,6 +261,21 @@ public class Fae extends NPC {
 	@Override
 	public boolean isUnique() {
 		return true;
+	}
+	
+	@Override
+	public String getArtworkFolderName() {
+		if(this.getBreastRows()>1) {
+			if(this.isVisiblyPregnant()) {
+				return "FaeMultiBoobPregnant";
+			}
+			return "FaeMultiBoob";
+		} else {
+			if(this.isVisiblyPregnant()) {
+				return "FaePregnant";
+			}
+			return "Fae";
+		}
 	}
 	
 	@Override

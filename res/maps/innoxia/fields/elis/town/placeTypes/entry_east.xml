@@ -26,7 +26,6 @@
 	If omitted entirely, then the game will use the parent world type's value instead of this.
 	Characters can have sex in this place type, so I've left it blank, but if you wanted to define a value, it would look like this:
 		<sexBlockedReason><![CDATA[[npc.Name] cannot have sex here!]]></sexBlockedReason> -->
-	<sexBlockedReason/>
 	
 	<!-- If the 'sexBlockedReason' above is omitted or left blank (thereby allowing sex to occur in this place type), then the game checks to see if there is a character in this tile who would block sex from taking place.
 	If you define this value as 'false' instead of the default 'true', then the game will allow sex to take place even if a character is present.

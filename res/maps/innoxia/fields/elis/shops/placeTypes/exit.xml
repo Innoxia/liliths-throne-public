@@ -4,7 +4,6 @@
 	<name><![CDATA[Entrance]]></name>
 	<tooltipDescription><![CDATA[A large sign is positioned above the entrance to this shopping precinct, informing shoppers that it's called 'Wall's End'.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[at the entrance to the 'Wall's End' shopping precinct]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_RED</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

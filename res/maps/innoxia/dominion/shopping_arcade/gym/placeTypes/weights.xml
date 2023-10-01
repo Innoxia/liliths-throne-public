@@ -4,7 +4,6 @@
 	<name><![CDATA[weights]]></name>
 	<tooltipDescription><![CDATA[Both free weights and machines offer different ways for gym members to get some resistance training.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the gym, 'Pix's Playground']]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_BLUE_STEEL</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

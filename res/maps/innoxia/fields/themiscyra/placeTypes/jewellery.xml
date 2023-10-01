@@ -4,7 +4,6 @@
 	<name><![CDATA[jewellery quarter]]></name>
 	<tooltipDescription><![CDATA[Wanting to look their best, the residents of Themiscyra mastered the art of creating fine pieces of jewellery in this area.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the jewellery quarter in Themiscyra]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_GOLD</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

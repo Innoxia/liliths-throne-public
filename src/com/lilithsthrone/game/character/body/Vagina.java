@@ -8,7 +8,6 @@ import com.lilithsthrone.game.character.body.abstractTypes.AbstractVaginaType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
-import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
@@ -107,9 +106,10 @@ public class Vagina implements BodyPartInterface {
 			descriptorList.add("hairy");
 		}
 		
-		if(this.getGirlcum().getFlavour()!=FluidFlavour.GIRL_CUM) {
-			descriptorList.add(this.getGirlcum().getFlavour().getName()+"-flavoured");
-		}
+		// It doesn't make much sense to be referencing taste in a generic context
+//		if(this.getGirlcum().getFlavour()!=FluidFlavour.GIRL_CUM && this.getGirlcum().getFlavour()!=FluidFlavour.FLAVOURLESS) {
+//			descriptorList.add(this.getGirlcum().getFlavour().getName()+"-flavoured");
+//		}
 		
 		if(owner.isVaginaFeral()) {
 			descriptorList.add(Util.randomItemFrom(Util.newArrayListOfValues(
@@ -118,6 +118,10 @@ public class Vagina implements BodyPartInterface {
 					"animalistic")));
 		} else {
 			descriptorList.add(type.getDescriptor(owner));
+		}
+		
+		if(owner.getBodyMaterial().getPartDescriptors()!=null && !owner.getBodyMaterial().getPartDescriptors().isEmpty()) {
+			descriptorList.add(Util.randomItemFrom(owner.getBodyMaterial().getPartDescriptors()));
 		}
 		
 		descriptorList.add(Capacity.getCapacityFromValue(orificeVagina.getStretchedCapacity()).getDescriptor().replaceAll(" ", "-"));

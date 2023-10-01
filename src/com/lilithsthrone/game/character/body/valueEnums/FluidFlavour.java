@@ -26,6 +26,11 @@ public enum FluidFlavour {
 	GIRL_CUM("girlcum", PresetColour.GIRLCUM,
 			Util.newArrayListOfValues(
 					"sweet")),
+	
+	FLAVOURLESS("flavourless", PresetColour.BASE_GREY,
+			Util.newArrayListOfValues(
+					"flavourless",
+					"tasteless")),
 
 	BUBBLEGUM("bubblegum", PresetColour.BASE_PINK_LIGHT,
 			Util.newArrayListOfValues(

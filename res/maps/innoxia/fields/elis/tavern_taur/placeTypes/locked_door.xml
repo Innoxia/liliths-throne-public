@@ -4,7 +4,6 @@
 	<name><![CDATA[locked door]]></name>
 	<tooltipDescription><![CDATA[The door which leads to the stable at the rear of the tavern is kept locked.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[beside the locked door in 'The Centaur's Sword']]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_CRIMSON</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

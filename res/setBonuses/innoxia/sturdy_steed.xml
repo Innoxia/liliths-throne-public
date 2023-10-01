@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <setBonus>
-	<name><![CDATA[Submissive Steed]]></name>
+	<name><![CDATA[Sturdy Steed]]></name>
 	
-	<statusEffect>SET_SUBMISSIVE_STEED</statusEffect>
+	<statusEffect>SET_STURDY_STEED</statusEffect>
 	
 	<numberRequiredForCompleteSet>3</numberRequiredForCompleteSet>
 	

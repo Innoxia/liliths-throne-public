@@ -4,7 +4,6 @@
 	<name><![CDATA[Training Barn]]></name>
 	<tooltipDescription><![CDATA[The 'training' barn is lined on both sides by several dozen stalls, beside each one of which there's a steadily-humming milking machine.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the training barn at Evelyx's Dairy]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<svgName>milking</svgName>
 	<colour>BASE_YELLOW_LIGHT</colour>

@@ -22,6 +22,7 @@ import com.lilithsthrone.game.character.body.Tentacle;
 import com.lilithsthrone.game.character.body.Torso;
 import com.lilithsthrone.game.character.body.Wing;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
+import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
@@ -1147,15 +1148,16 @@ public class GenericOrgasms {
 				}
 				if(!characterOrgasming.isMute()) {
 					if(Main.sex.getSexPace(characterTargeted)==SexPace.SUB_RESISTING || characterTargeted.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
-						genericOrgasmSB.append(", and [npc2.verb(let)] out a distressed cry as [npc.name] [npc.verb(tease)], ");
+						genericOrgasmSB.append(", and [npc2.verb(let)] out a distressed cry as [npc.name] ");
 					} else {
-						genericOrgasmSB.append(", and [npc2.verb(let)] out a horny whine as [npc.name] [npc.verb(tease)], ");
+						genericOrgasmSB.append(", and [npc2.verb(let)] out a horny whine as [npc.name] ");
 					}
 					genericOrgasmSB.append(UtilText.returnStringAtRandom(
-							"[npc.speechNoEffects(You're going to get pregnant from this...)]",
-							"[npc.speechNoEffects(You'll be carrying my kids soon enough...)]",
-							"[npc.speechNoEffects(I'll have knocked you up from this...)]",
-							"[npc.speechNoEffects(I'll have got you pregnant from this...)]"));
+							"[npc.moans], [npc.speechNoEffects(Get pregnant!)]",
+							"[npc.verb(tease)], [npc.speechNoEffects(You're going to get pregnant from this...)]",
+							"[npc.verb(tease)], [npc.speechNoEffects(You'll be carrying my kids soon enough...)]",
+							"[npc.verb(tease)], [npc.speechNoEffects(I'll have knocked you up from this...)]",
+							"[npc.verb(tease)], [npc.speechNoEffects(I'll have got you pregnant from this...)]"));
 				} else {
 					genericOrgasmSB.append(".");
 				}
@@ -1866,8 +1868,14 @@ public class GenericOrgasms {
 								case BANANA:
 									cumTargetSB.append(" The taste of [npc.namePos] banana-flavoured");
 									break;
+								case FLAVOURLESS:
+									cumTargetSB.append(" [npc.NamePos] cum is completely flavourless, and you");
+									break;
 							}
-							cumTargetSB.append(" cum rises up to hit your [npc2.tongue], and you");
+							if(characterOrgasming.getCumFlavour()!=FluidFlavour.FLAVOURLESS) {
+								cumTargetSB.append(" cum rises up to hit your [npc2.tongue], and you");
+							}
+							
 							if(target.hasFetish(Fetish.FETISH_CUM_ADDICT) || Main.sex.getCharactersRequestingCreampie().contains(target) || Main.sex.getCharactersRequestingKnot().contains(target)) {
 								cumTargetSB.append(" " + UtilText.returnStringAtRandom("greedily","hungrily"));
 							} else {
@@ -2052,6 +2060,7 @@ public class GenericOrgasms {
 					case ICE:
 					case RUBBER:
 					case STONE:
+					case SILICONE:
 						break;
 				}
 				
@@ -5264,7 +5273,7 @@ public class GenericOrgasms {
 
 					sb.append("Through [npc.her] desperate moans and lewd cries, [npc.name] somehow [npc.verb(manage)] to formulate a sentence as [npc.she] [npc.verb(cry)] out for [npc2.namePos] cum,");
 					if(isAreaFuckedByTarget(this, Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA)) {
-						sb.append((Main.sex.getCharacterPerformingAction().isVisiblyPregnant()
+						sb.append(((Main.sex.getCharacterPerformingAction().isVisiblyPregnant() || !Main.sex.getCharacterPerformingAction().isImpregnationPhysicallyPossible())
 										?" [npc.speech(Fuck! Cum in me"+(petName?", [#npc.getPetName(npc2)]":"")+"! I need your cum!)]"
 										:" [npc.speech(Breed me"+(petName?", [#npc.getPetName(npc2)]":"")+"! Cum in me! I need your cum!)]"));
 	
@@ -6829,7 +6838,7 @@ public class GenericOrgasms {
 								+ " [npc.name] [npc.verb(manage)] to use a series of pleading whines in order to convey that [npc.she] [npc.verb(want)] [npc2.name] to pull away from [npc.her] [npc.armpit+] before [npc2.she] [npc2.verb(cum)].";
 						
 					} else {
-						return "Although not able to speak, [npc.name] [npc.verb(manage)] to use a series of pleading whines in order to convey that [npc.she] [npc.do]n't [npc.verb(want)] [npc2.namePos] cum.";
+						return "Although not able to speak, [npc.name] [npc.verb(manage)] to use a series of pleading whines in order to convey that [npc.she] [npc.do]n't want [npc2.namePos] cum.";
 					}
 				}
 				

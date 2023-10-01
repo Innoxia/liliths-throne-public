@@ -4,7 +4,6 @@
 	<name><![CDATA[landing]]></name>
 	<tooltipDescription><![CDATA[This landing separates the tower's central staircase from the rooms which surround it.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the landing of Elis's town hall tower]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_GREY</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

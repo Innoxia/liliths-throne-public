@@ -350,6 +350,7 @@ public class ColourListPresets {
 	//Speshul debug color list with added damage and BaseColours
 	//Modders don't use this in your items rrrrreeeeee
 	public static ArrayList<Colour> DEBUG_ALL = Util.newArrayListOfValues(
+			PresetColour.CLOTHING_GREEN_LIME, // So that the index 0 isn't a non-clothing colour
 			PresetColour.BASE_WHITE,
 			PresetColour.BASE_GREY_LIGHT,
 			PresetColour.BASE_GREY,

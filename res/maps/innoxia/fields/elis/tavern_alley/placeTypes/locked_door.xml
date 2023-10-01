@@ -4,7 +4,6 @@
 	<name><![CDATA[locked door]]></name>
 	<tooltipDescription><![CDATA[A locked door bars members of the public from accessing the VIP area.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in 'The Crossed Blades' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<svgName>door</svgName>
 	<colour>BASE_CRIMSON</colour>

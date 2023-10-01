@@ -67,6 +67,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private String name;
 	private String namePlural;
 	private String description;
+	private String pathNamePrefix;
 	private String pathName;
 	private Map<InventorySlot, String> pathNameEquipped;
 	private String authorDescription;
@@ -563,21 +564,21 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				.orElse(null);
 
 			
-			
-			this.pathName = clothingXMLFile.getParentFile().getAbsolutePath() + "/"+ coreAttributes.getMandatoryFirstOf("imageName").getTextContent();
+			this.pathNamePrefix = clothingXMLFile.getParentFile().getAbsolutePath() + "/";
+			this.pathName = pathNamePrefix + coreAttributes.getMandatoryFirstOf("imageName").getTextContent();
 			
 			this.pathNameEquipped = new HashMap<>();
 			try {
 				for(Element imageNameElement : coreAttributes.getAllOf("imageEquippedName")) {
 					InventorySlot relatedSlot = InventorySlot.valueOf(imageNameElement.getAttribute("slot"));
 					
-					this.pathNameEquipped.put(relatedSlot, clothingXMLFile.getParentFile().getAbsolutePath() + "/"+ imageNameElement.getTextContent());
+					this.pathNameEquipped.put(relatedSlot, imageNameElement.getTextContent());
 				}
 				
 			} catch(Exception ex) { // Old version single slot support:
 				String path = coreAttributes.getOptionalFirstOf("imageEquippedName")
 						.filter(filterEmptyElements)
-						.map(e -> clothingXMLFile.getParentFile().getAbsolutePath() + "/" + e.getTextContent())
+						.map(e -> e.getTextContent()) // clothingXMLFile.getParentFile().getAbsolutePath() + "/" + e.getTextContent()
 						.filter(s -> !s.equals(this.pathName)) // if imageEquippedName is the same as imageName, we don't need to load it twice
 						.orElse(null);
 				this.pathNameEquipped.put(this.getEquipSlots().get(0), path);
@@ -2002,8 +2003,15 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return pathName;
 	}
 
-	public String getPathNameEquipped(InventorySlot invSlot) {
-		return pathNameEquipped.get(invSlot);
+	public String getPathNameEquipped(GameCharacter characterEquippedTo, InventorySlot invSlot) {
+		if(pathNameEquipped.get(invSlot)==null) {
+			return null;	
+		}
+		String parsedPath = UtilText.parse(characterEquippedTo, pathNameEquipped.get(invSlot)).trim();
+		if(parsedPath.isEmpty()) {
+			return null;
+		}
+		return pathNamePrefix + parsedPath;
 	}
 	
 	public AbstractSetBonus getClothingSet() {
@@ -2020,9 +2028,16 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	public List<ColourReplacement> getColourReplacements() {
 		return colourReplacements;
 	}
-	
+
 	private static String generateIdentifier(InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, Map<String, String> stickers) {
+		return generateIdentifier(null, slotEquippedTo, colours, pattern, patternColours, stickers);
+	}
+	
+	private static String generateIdentifier(GameCharacter character, InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, Map<String, String> stickers) {
 		StringBuilder sb = new StringBuilder(slotEquippedTo.toString());
+		if(character!=null) {
+			sb.append(character.getId());
+		}
 		for(Colour c : colours) {
 			sb.append(c.getId());
 		}
@@ -2048,17 +2063,21 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	private void addSVGStringMapping(InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, Map<String, String> stickers, String svgString) {
 		SVGStringMap.put(generateIdentifier(slotEquippedTo, colours, pattern, patternColours, stickers), svgString);
 	}
-	
+
 	private void addSVGStringEquippedMapping(InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, Map<String, String> stickers, String svgString) {
 		SVGStringEquippedMap.put(generateIdentifier(slotEquippedTo, colours, pattern, patternColours, stickers), svgString);
 	}
+	
+//	private void addSVGStringEquippedMapping(GameCharacter character, InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, Map<String, String> stickers, String svgString) {
+//		SVGStringEquippedMap.put(generateIdentifier(character, slotEquippedTo, colours, pattern, patternColours, stickers), svgString);
+//	}
 	
 	private String getSVGStringFromMap(InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, Map<String, String> stickers) {
 		return SVGStringMap.get(generateIdentifier(slotEquippedTo, colours, pattern, patternColours, stickers));
 	}
 	
-	private String getSVGStringFromEquippedMap(InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, Map<String, String> stickers) {
-		return SVGStringEquippedMap.get(generateIdentifier(slotEquippedTo, colours, pattern, patternColours, stickers));
+	private String getSVGStringFromEquippedMap(GameCharacter character, InventorySlot slotEquippedTo, List<Colour> colours, String pattern, List<Colour> patternColours, Map<String, String> stickers) {
+		return SVGStringEquippedMap.get(generateIdentifier(character, slotEquippedTo, colours, pattern, patternColours, stickers));
 	}
 
 	public String getSVGImage() {
@@ -2225,8 +2244,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 				}
 			}
 			
-			if(equippedVariant && pathNameEquipped!=null && pathNameEquipped.get(slotEquippedTo)!=null) {
-				String stringFromMap = getSVGStringFromEquippedMap(slotEquippedTo, colours, pattern, patternColours, handledStickers);
+			if(equippedVariant && pathNameEquipped!=null && getPathNameEquipped(character, slotEquippedTo)!=null) {
+				String stringFromMap = getSVGStringFromEquippedMap(character, slotEquippedTo, colours, pattern, patternColours, handledStickers);
 				if (stringFromMap!=null && !this.equals(ClothingType.WRIST_WOMENS_WATCH) && !this.equals(ClothingType.WRIST_MENS_WATCH)) {
 					return stringFromMap;
 					
@@ -2236,14 +2255,14 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 							InputStream is;
 							String s;
 							if(isMod) {
-								List<String> lines = Files.readAllLines(Paths.get(pathNameEquipped.get(slotEquippedTo)));
+								List<String> lines = Files.readAllLines(Paths.get(getPathNameEquipped(character, slotEquippedTo)));
 								StringBuilder sb = new StringBuilder();
 								for(String line : lines) {
 									sb.append(line);
 								}
 								s = sb.toString();
 							} else {
-								is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/" + pathNameEquipped.get(slotEquippedTo) + ".svg");
+								is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/" + getPathNameEquipped(character, slotEquippedTo) + ".svg");
 								s = Util.inputStreamToString(is);
 								is.close();
 							}
@@ -2270,7 +2289,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 											+ "deg);'>" + SVGImages.SVG_IMAGE_PROVIDER.getMensWatchMinuteHand(colours, this.getColourReplacements()) + "</div>"
 										: "");
 
-							addSVGStringEquippedMapping(slotEquippedTo, colours, pattern, patternColours, stickers, s);
+							// Don't save icon as it can vary based on character changes...
+//							addSVGStringEquippedMapping(character, slotEquippedTo, colours, pattern, patternColours, stickers, s);
 							
 							return s;
 						} catch (IOException e) {

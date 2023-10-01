@@ -246,7 +246,7 @@
 		<preParsingEffects><![CDATA[
 			[#game.addNPC('misc.GenericSexualPartner', 'partner')]
 			[#partner.resetBodyToGenderPreferences(false, false)]
-			[#partner.setLocation(pc, false)]
+			[#game.getCharacterUtils().randomiseBody(partner, true)]
 			[#partner.setPlayerKnowsName(true)]
 			[#partner.setSexualOrientation(ORIENTATION_AMBIPHILIC)]
 			[#partner.removePersonalityTrait(PERSONALITY_TRAIT_MUTE)]
@@ -255,6 +255,7 @@
 				[#partner.setMuscle(75)]
 			#ENDIF
 			[#game.getCharacterUtils().equipClothingFromOutfitType(partner, OUTFIT_TYPE_CLUBBING)]
+			[#partner.setLocation(pc, false)]
 		]]></preParsingEffects>
 		<content folderPath="txt/places/dominion/nightlife/lights_out">BAR_SIT_RELAX</content>
 		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>

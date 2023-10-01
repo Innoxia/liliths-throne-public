@@ -4,7 +4,6 @@
 	<name><![CDATA[fields]]></name>
 	<tooltipDescription><![CDATA[The land around Elis consists of either natural meadows or fields of crops.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the fields outside Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>false</sexBlockedFromCharacterPresent>
 	<colour>BASE_GREY</colour>
 	<backgroundColour>MAP_BACKGROUND_GREEN</backgroundColour>
