@@ -818,6 +818,13 @@ public class CharacterModificationUtils {
 		int singleStep = 1;
 		int minorStep = 10;
 		int majorStep = 100;
+		// Can't take pure virgin later if you have vaginal sex experience
+		if (id.equals("VAGINAL_TAKEN") && BodyChanging.getTarget().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
+			id = "VAGINAL_TAKEN_DISABLED";
+			sexCount = 0;
+			decreaseDisabled = true;
+			increaseDisabled = true;
+		}
 		
 		return "<div class='container-full-width inner'>"
 					+ "<div class='container-full-width inner' style='width:calc(30%);margin:0;padding:0;'>"
