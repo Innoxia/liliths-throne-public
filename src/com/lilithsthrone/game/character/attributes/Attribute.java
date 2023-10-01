@@ -151,7 +151,7 @@ public class Attribute {
 	
 	public static AbstractAttribute RESTING_LUST = new AbstractAttribute(false,
 			0,
-			0,
+			-15,
 			80,
 			"resting lust",
 			"Resting lust",
