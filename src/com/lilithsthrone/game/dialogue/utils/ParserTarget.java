@@ -154,6 +154,15 @@ public class ParserTarget {
 			return Main.game.getPlayer();
 		}
 	};
+
+	public static AbstractParserTarget ITEM = new AbstractParserTarget(Util.newArrayListOfValues(
+			"item"),
+			"The 'active' item. <b>Should only be used within a parsing event which directly refers to an item, such as a weapon's name, a clothing's displacement text, or an item's usage text.</b>") {
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			throw new NullPointerException();
+		}
+	};
 	
 	public static AbstractParserTarget PC = new AbstractParserTarget(Util.newArrayListOfValues(
 			"pc",

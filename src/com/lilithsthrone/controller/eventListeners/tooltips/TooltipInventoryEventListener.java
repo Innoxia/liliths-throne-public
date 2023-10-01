@@ -954,7 +954,7 @@ public class TooltipInventoryEventListener implements EventListener {
 		tooltipSB.append("</body>");
 
 		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 364 + (yIncrease * LINE_HEIGHT));
-		Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
+		Main.mainController.setTooltipContent(UtilText.parse(absItem, tooltipSB.toString()));
 	}
 
 	private void weaponTooltip(AbstractWeapon absWep) {
@@ -1109,7 +1109,7 @@ public class TooltipInventoryEventListener implements EventListener {
 		tooltipSB.append("</div>");
 
 		tooltipSB.append("<div class='container-full-width' style='padding:8px; min-height:106px;'>"
-						+ UtilText.parse(absWep.getWeaponType().getDescription())
+						+ UtilText.parse(absWep, absWep.getWeaponType().getDescription())
 					+ "</div>");
 
 		if(owner!=null && owner.getEssenceCount()<absWep.getWeaponType().getArcaneCost()) {
@@ -1187,7 +1187,7 @@ public class TooltipInventoryEventListener implements EventListener {
 
 		yIncrease += Math.max(0, listIncrease-4);
 		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 364 + (Main.game.isEnchantmentCapacityEnabled()?32:0) + (yIncrease * LINE_HEIGHT));
-		Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
+		Main.mainController.setTooltipContent(UtilText.parse(absWep, tooltipSB.toString()));
 		
 	}
 
@@ -1432,7 +1432,7 @@ public class TooltipInventoryEventListener implements EventListener {
 			specialIncrease = 26;
 		}
 		Main.mainController.setTooltipSize(TOOLTIP_WIDTH, 400 + (Main.game.isEnchantmentCapacityEnabled()?32:0) + (yIncrease * LINE_HEIGHT) + specialIncrease);
-		Main.mainController.setTooltipContent(UtilText.parse(equippedToCharacter==null?Main.game.getPlayer():equippedToCharacter, tooltipSB.toString()));
+		Main.mainController.setTooltipContent(UtilText.parse(equippedToCharacter==null?Main.game.getPlayer():equippedToCharacter, absClothing, tooltipSB.toString()));
 
 	}
 	

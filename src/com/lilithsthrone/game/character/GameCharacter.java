@@ -7583,7 +7583,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public String getAttackDescription(AbstractWeapon weapon, GameCharacter target, boolean isHit, boolean critical) {
 		if(weapon!=null) {
-			return weapon.getWeaponType().getAttackDescription(this, target, isHit, critical);
+			return weapon.getWeaponType().getAttackDescription(this, target, weapon, isHit, critical);
 		} else {
 			return AbstractWeaponType.genericMeleeAttackDescription(this, target, isHit);
 		}
