@@ -3,6 +3,7 @@ package com.lilithsthrone.game.dialogue.places.dominion.warehouseDistrict;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import com.lilithsthrone.game.character.EquipClothingSetting;
@@ -1239,7 +1240,7 @@ public class KaysWarehouse {
 					return new Response("[pc.Mistress]", "Get [kay.name] to call you '[pc.Mistress]'.<br/>[style.colourMinorGood(This can be changed at any time after this scene.)]", KAY_OFFICE_DOMINATE_UTIL_EMPTY) {
 						@Override
 						public void effects() {
-							Main.game.getNpc(Kay.class).setPetName(Main.game.getPlayer(), "[pc.Mistress]");
+							Main.game.getNpc(Kay.class).setPetName(Main.game.getPlayer(), new NameTriplet("Master", "", "Mistress"));
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_PET_NAME"));
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_END"));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kaySubmitted, true);
@@ -1250,7 +1251,7 @@ public class KaysWarehouse {
 					return new Response("[pc.Maam]", "Get [kay.name] to call you '[pc.Maam]'.<br/>[style.colourMinorGood(This can be changed at any time after this scene.)]", KAY_OFFICE_DOMINATE_UTIL_EMPTY) {
 						@Override
 						public void effects() {
-							Main.game.getNpc(Kay.class).setPetName(Main.game.getPlayer(), "[pc.Maam]");
+							Main.game.getNpc(Kay.class).setPetName(Main.game.getPlayer(), new NameTriplet("Sir", "", "Maam"));
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_PET_NAME"));
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_END"));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kaySubmitted, true);
@@ -1258,11 +1259,11 @@ public class KaysWarehouse {
 					};
 					
 				} else if(index==4) {
-					String surname = (Main.game.getPlayer().getSurname()!=null && !Main.game.getPlayer().getSurname().isEmpty()?"[pc.Surname]":"[pc.Name]");
+					String surname = (Main.game.getPlayer().getSurname()!=null && !Main.game.getPlayer().getSurname().isEmpty()?"[pc.Surname]":"[pc.Name(true)]");
 					return new Response("[pc.Miss] "+surname,"Get [kay.name] to call you '[pc.Miss] "+surname+"'.<br/>[style.colourMinorGood(This can be changed at any time after this scene.)]", KAY_OFFICE_DOMINATE_UTIL_EMPTY) {
 						@Override
 						public void effects() {
-							Main.game.getNpc(Kay.class).setPetName(Main.game.getPlayer(), "[pc.Miss] "+surname);
+							Main.game.getNpc(Kay.class).setPetName(Main.game.getPlayer(), new NameTriplet("Mr. "+surname, "", "Miss "+surname));
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_PET_NAME"));
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_END"));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kaySubmitted, true);
@@ -1273,7 +1274,7 @@ public class KaysWarehouse {
 					return new Response("[pc.Mommy]", "Get [kay.name] to call you '[pc.Mommy]'.<br/>[style.colourMinorGood(This can be changed at any time after this scene.)]", KAY_OFFICE_DOMINATE_UTIL_EMPTY) {
 						@Override
 						public void effects() {
-							Main.game.getNpc(Kay.class).setPetName(Main.game.getPlayer(), "[pc.Mommy]");
+							Main.game.getNpc(Kay.class).setPetName(Main.game.getPlayer(), new NameTriplet("Daddy", "", "Mommy"));
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_PET_NAME"));
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_END"));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kaySubmitted, true);
@@ -2258,21 +2259,20 @@ public class KaysWarehouse {
 						+ "&#127922;"
 					+ "</div>"
 					
-					+ "<form style='float:left; width:20%; margin:0; padding:0;'><input type='text' id='slaveToPlayerNameInput' value='"+ UtilText.parseForHTMLDisplay(kay.getPetName(Main.game.getPlayer()))
-						+ "' style='width:100%; margin:0; padding:0;'></form>"
+					+ "<form style='float:left; width:20%; margin:0; padding:0;'><input type='text' id='slaveToPlayerNameInputFeminine' value='"
+						+ UtilText.parseForHTMLDisplay(Optional.ofNullable(kay.getPetNameTriplet(Main.game.getPlayer())).orElse(NameTriplet.EMPTY).getFeminine())
+						+ "' style='width:100%; margin:0; padding:0; color:" + PresetColour.FEMININE.toWebHexString() + ";'><input type='text' id='slaveToPlayerNameInputMasculine' value='"
+						+ UtilText.parseForHTMLDisplay(Optional.ofNullable(kay.getPetNameTriplet(Main.game.getPlayer())).orElse(NameTriplet.EMPTY).getMasculine())
+						+ "' style='width:100%; margin:0; padding:0; color:" + PresetColour.MASCULINE.toWebHexString() + ";'></form>"
 					+ "<div class='normal-button' id='"+kay.getId()+"_CALLS_PLAYER' style='float:left; width:5%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>"
 						+ "&#10003;"
 					+ "</div>"
 					+ " <div class='normal-button disabled' style='float:left; width:12%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>"
 						+ "All Slaves"
-					+ "</div>");
+					+ "</div>"
+				+ "</div>");
 			
-			UtilText.nodeContentSB.append(UtilText.parse(kay,
-						"<p style='text-align:center; margin-top:4px;'>"
-							+ "<i>If [npc.name] is told to call you 'Mom' or 'Dad', 'Mommy' or 'Daddy', 'Mistress' or 'Master', or 'Ma'am' or 'Sir',"
-							+ " then [npc.she] will automatically switch to the appropriate paired name depending on the femininity of your character.</i>"
-						+ "</p>"
-					+ "</div>"));
+			UtilText.nodeContentSB.append(UtilText.parse(kay, GameCharacter.getPetNameInstructions()));
 			
 			UtilText.nodeContentSB.append("<p id='hiddenFieldName' style='display:none;'></p>");
 			

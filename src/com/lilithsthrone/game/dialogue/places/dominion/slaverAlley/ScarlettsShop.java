@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
 
 import com.lilithsthrone.game.character.EquipClothingSetting;
@@ -37,6 +38,7 @@ import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.npc.misc.BasicSlave;
 import com.lilithsthrone.game.character.npc.misc.GenericMaleNPC;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
+import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -2963,6 +2965,10 @@ public class ScarlettsShop {
 		}
 		@Override
 		public String getHeaderContent() {
+			if(getSlaveForCustomisation() == null) {
+				throw new NullPointerException("Attempted to customize a null slave!");
+			}
+			
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/helenasBoutique", "HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY"));
@@ -2997,8 +3003,11 @@ public class ScarlettsShop {
 							+ "&#127922;"
 						+ "</div>"
 						
-						+ "<form style='float:left; width:24%; margin:0; padding:0;'><input type='text' id='slaveToPlayerNameInput' value='"+ UtilText.parseForHTMLDisplay(getSlaveForCustomisation().getPetName(Main.game.getPlayer()))
-							+ "' style='width:100%; margin:0; padding:0;'></form>"
+						+ "<form style='float:left; width:20%; margin:0; padding:0;'><input type='text' id='slaveToPlayerNameInputFeminine' value='"
+							+ UtilText.parseForHTMLDisplay(Optional.ofNullable(getSlaveForCustomisation().getPetNameTriplet(Main.game.getPlayer())).orElse(NameTriplet.EMPTY).getFeminine())
+							+ "' style='width:100%; margin:0; padding:0; color:" + PresetColour.FEMININE.toWebHexString() + ";'><input type='text' id='slaveToPlayerNameInputMasculine' value='"
+							+ UtilText.parseForHTMLDisplay(Optional.ofNullable(getSlaveForCustomisation().getPetNameTriplet(Main.game.getPlayer())).orElse(NameTriplet.EMPTY).getMasculine())
+							+ "' style='width:100%; margin:0; padding:0; color:" + PresetColour.MASCULINE.toWebHexString() + ";'></form>"
 						+ "<div class='normal-button' id='"+getSlaveForCustomisation().getId()+"_CALLS_PLAYER' style='float:left; width:5%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>"
 							+ "&#10003;"
 						+ "</div>"

@@ -10,6 +10,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.npc.dominion.Daddy;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
+import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -59,7 +60,7 @@ public class DaddyDialogue {
 	
 	private static void acceptAsDaddy() {
 		Main.game.getTextStartStringBuilder().append(Main.game.getNpc(Daddy.class).incrementAffection(Main.game.getPlayer(), 15));
-		Main.game.getPlayer().setPetName(Main.game.getNpc(Daddy.class), "daddy");
+		Main.game.getPlayer().setPetName(Main.game.getNpc(Daddy.class), new NameTriplet("daddy", "", "mommy"));
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.daddySendingReward, true);
 		Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_DADDY, Quest.DADDY_ACCEPTED));
 	}
@@ -150,7 +151,7 @@ public class DaddyDialogue {
 						Main.game.getNpc(Lilaya.class).setLocation(Main.game.getPlayer(), false);
 						Main.game.getNpc(Daddy.class).setLocation(Main.game.getPlayer(), false);
 						
-						Main.game.getNpc(Lilaya.class).setPetName(Main.game.getNpc(Daddy.class), "daddy");
+						Main.game.getNpc(Lilaya.class).setPetName(Main.game.getNpc(Daddy.class), new NameTriplet("daddy", "", "mommy"));
 						
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_DADDY, Quest.DADDY_LILAYA_MEETING));
 
