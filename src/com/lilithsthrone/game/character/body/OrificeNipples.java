@@ -213,6 +213,15 @@ public class OrificeNipples implements OrificeInterface {
 	@Override
 	public String setElasticity(GameCharacter owner, int elasticity) {
 		int oldElasticity = this.elasticity;
+                if (owner.getBodyMaterial().isOrificesAlwaysMaximumElasticity()) {
+                        this.elasticity = OrificeElasticity.SEVEN_ELASTIC.getValue();
+                        if (oldElasticity != this.elasticity) {
+                                return UtilText.parse(owner,
+					"<p style='text-align:center;'>[style.colourSex(Due to being made out of "+owner.getBodyMaterial().getName()+", the [npc.namePos] "+OrificeElasticity.SEVEN_ELASTIC.getDescriptor()+" nipples can't be changed...)]</p>");
+                        } else {
+                                return "";
+                        }
+                }
 		this.elasticity = Math.max(0, Math.min(elasticity, OrificeElasticity.SEVEN_ELASTIC.getValue()));
 		if(owner==null) {
 			return "";

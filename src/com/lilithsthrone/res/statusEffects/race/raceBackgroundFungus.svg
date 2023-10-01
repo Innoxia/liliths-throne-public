@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="linearGradient8459">
+            <stop offset="0" stop-color="#ffd5d5"/>
+            <stop offset=".855" stop-color="#ffd5d5"/>
+            <stop offset="1" stop-color="#fea"/>
+        </linearGradient>
+        <linearGradient id="linearGradient5705">
+            <stop offset="0" stop-color="#ffd5d5"/>
+            <stop offset=".614" stop-color="#ffd5d5"/>
+            <stop offset="1" stop-color="#fff6d5"/>
+        </linearGradient>
+        <linearGradient id="linearGradient4287">
+            <stop offset="0" stop-color="#fff6d5"/>
+            <stop offset="1" stop-color="#ffd5d5"/>
+        </linearGradient>
+        <radialGradient id="radialGradient8323" cx="141.962" cy="10.822" r="14.941" fx="141.962" fy="10.822" gradientTransform="matrix(1.96077 .22328 -.21175 1.85947 -247.586 -16.648)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient8459"/>
+    </defs>
+    <circle cx="28.477" cy="35.172" r="30" fill="url(#radialGradient8323)" fill-rule="evenodd" stroke="#000" stroke-width="2" color="#000" overflow="visible" transform="rotate(-6.004)" style="font-variation-settings:normal;isolation:auto;mix-blend-mode:normal"/>
+    <circle cx="14.525" cy="28.061" r="7.172" fill="#fff6d5"/>
+    <circle cx="26.059" cy="45.638" r="5.182" fill="#fff6d5"/>
+    <circle cx="41.587" cy="24.182" r="4.556" fill="#fff6d5"/>
+    <circle cx="48.005" cy="43.064" r="6.096" fill="#fff6d5"/>
+    <circle cx="36.693" cy="52.886" r="4.809" fill="#fff6d5"/>
+    <circle cx="12.669" cy="44.668" r="4.674" fill="#fff6d5"/>
+    <circle cx="32.664" cy="11.886" r="5.877" fill="#fff6d5"/>
+    <circle cx="32.432" cy="33.756" r="5.673" fill="#fff6d5"/>
+    <circle cx="54.508" cy="29.517" r="4.471" fill="#fff6d5"/>
+    <circle cx="50.376" cy="17.257" r="3.861" fill="#fff6d5"/>
+    <circle cx="17.659" cy="13.667" r="3.929" fill="#fff6d5"/>
+    <circle cx="28.427" cy="22.657" r="3.268" fill="#fff6d5"/>
+</svg>

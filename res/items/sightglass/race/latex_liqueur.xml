@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>250</value> 
+		<determiner><![CDATA[a bottle of]]></determiner>
+		<name><![CDATA[Black Liqueur]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Black Liqueurs]]></namePlural>
+		<description><![CDATA[A small glass bottle of a dark, murky liquid. It's hard to tell what it might be, since the hue seems to shift in the light. The faded paper label isn't much help either.]]></description> 
+		
+		<useDescriptor>drink</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>UNCOMMON</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="-15" imageSize="75">latex_liqueur.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>GENERIC_SEX</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_SEXUAL</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldSex(+1)] [style.boldWetness(Vagina Wetness)]]]></line>
+			<line><![CDATA[[style.boldSex(+1)] [style.boldWetness(Anal Wetness)]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_DAMAGE_LUST.getFormattedValue(5)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				A warm wave of arcane energy washes over [npc.name]...
+			</p>
+			[#npc.incrementVaginaWetness(1)]
+			[#npc.incrementAssWetness(1)]
+			[#npc.addPotionEffect(ATTRIBUTE_DAMAGE_LUST, 5)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>DRINK</tag>
+			<tag>BAT_CAVERNS_SPAWN</tag>
+			<tag>SUBMISSION_TUNNEL_SPAWN</tag>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>ALCOHOLIC</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(pop)] the cork off of the bottle of... whatever it is and cautiously [npc.verb(sip)] the liquid contained within. A mysterious flavor and the burn of alcohol fills [npc.namePos]. The flavor seems to shift as it swirls in [npc.her] mouth, but [npc.name] can definitely taste elderberry, blackcurrant and licorice. It's oddly intoxicating, and [npc.name] [npc.verb(finish)] the bottle in no time.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(pop)] the cap off of the bottle of... whatever it is and [npc.verb(offer)] it to [npc2.name] to drink. [npc2.Name] [npc2.verb(give)] [npc.himHer] a questioning look, and [npc.name] [npc.verb(shrug)]. When [npc2.name] [npc2.verb(take)] a sip, [npc.name] [npc.verb(can)] definitely see that [npc2.name] is confused by the flavor, but [npc2.she] [npc2.verb(finish)] it anyways.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

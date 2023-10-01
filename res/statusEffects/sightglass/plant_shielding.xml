@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<statusEffect>
+	<renderingPriority>70</renderingPriority>
+	<renderInEffectsPanel>true</renderInEffectsPanel>
+	<category>ATTRIBUTE</category>
+	<beneficial>BENEFICIAL</beneficial>
+	<combatEffect>true</combatEffect>
+	<sexEffect>false</sexEffect>
+	<tags/>
+	<name><![CDATA[Growing Strong]]></name>
+	<description><![CDATA[
+		[npc.Name] [npc.is] surrounded by a shield of vital energy!
+	]]></description>
+	<imageName>plant_shielding.svg</imageName>
+	<colourPrimary>BASE_GREEN</colourPrimary>
+	<colourSecondary/>
+	<colourTertiary/>
+	<attributeModifiers>
+		<modifier value="15.0">RESISTANCE_PHYSICAL</modifier>
+		<modifier value="15.0">ENERGY_SHIELDING</modifier>
+	</attributeModifiers>
+	<combatMoves/>
+	<spells/>
+	<extraEffects/>
+	<applicationCondition><![CDATA[
+		false
+	]]></applicationCondition>
+	<applicationLength constantRefresh="false">-1</applicationLength>
+	<applyEffect/>
+	<applyRemovalEffect/>
+	<applyPostRemovalEffect/>
+</statusEffect>

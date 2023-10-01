@@ -3,6 +3,8 @@ package com.lilithsthrone.game.character.race;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
 
 import org.w3c.dom.Document;
 
@@ -13,6 +15,7 @@ import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.LegConfigurationAffinity;
 import com.lilithsthrone.game.character.body.valueEnums.Affinity;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.combat.CombatBehaviour;
@@ -60,6 +63,9 @@ public abstract class AbstractRace {
 	private boolean feralPartsAvailable;
 	private boolean ableToSelfTransform;
 	private boolean flyingRace;
+        
+        private boolean materialRace;
+        private Set<BodyMaterial> racialBodyMaterials;
 	
 	public AbstractRace(String name,
 			String namePlural,
@@ -93,6 +99,48 @@ public abstract class AbstractRace {
 				affectedByFurryPreference);
 	}
 	
+        // For body material-based races
+	public AbstractRace(String name, String namePlural,
+			String nameFeral,
+			String nameFeralPlural,
+			String defaultTransformName,
+			Colour colour,
+			Disposition disposition,
+			RacialClass racialClass,
+			CombatBehaviour preferredCombatBehaviour,
+			float chanceForMaleOffspring,
+			int numberOfOffspringLow,
+			int numberOfOffspringHigh,
+			FurryPreference defaultFemininePreference,
+			FurryPreference defaultMasculinePreference,
+			boolean affectedByFurryPreference,
+                        boolean materialRace,
+                        Set<BodyMaterial> racialBodyMaterials,
+                        boolean ableToSelfTransform) {
+		this(name,
+				namePlural,
+				LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.BIPEDAL, nameFeral),
+				LegConfigurationAffinity.getFeralNamesMap(LegConfiguration.BIPEDAL, nameFeralPlural),
+				defaultTransformName,
+				colour,
+				disposition,
+				racialClass,
+				preferredCombatBehaviour,
+				chanceForMaleOffspring,
+				numberOfOffspringLow,
+				numberOfOffspringHigh,
+				defaultFemininePreference, 
+				defaultMasculinePreference,
+				affectedByFurryPreference);
+                this.materialRace = materialRace;
+                if (racialBodyMaterials != null) {
+                        this.racialBodyMaterials = racialBodyMaterials;
+                } else {
+                        this.racialBodyMaterials = new HashSet<BodyMaterial>();
+                }
+                this.ableToSelfTransform = ableToSelfTransform;
+	}
+        
 	public AbstractRace(String name,
 			String namePlural,
 			Map<LegConfigurationAffinity, String> nameFeral,
@@ -153,6 +201,9 @@ public abstract class AbstractRace {
 		this.feralPartsAvailable = true;
 		this.ableToSelfTransform = false;
 		this.flyingRace = false;
+                
+                this.materialRace = false;
+                this.racialBodyMaterials = new HashSet<BodyMaterial>();
 	}
 	
 	public AbstractRace(File XMLFile, String author, boolean mod) {
@@ -311,6 +362,23 @@ public abstract class AbstractRace {
 				this.ableToSelfTransform = Boolean.valueOf(coreElement.getMandatoryFirstOf("ableToSelfTransform").getTextContent());
 				this.flyingRace = Boolean.valueOf(coreElement.getMandatoryFirstOf("flyingRace").getTextContent());
 				
+                                this.materialRace = false;
+                                this.racialBodyMaterials = new HashSet<BodyMaterial>();
+                                
+				if(coreElement.getOptionalFirstOf("materialRace").isPresent()) {
+					this.materialRace = Boolean.valueOf(coreElement.getMandatoryFirstOf("materialRace").getTextContent());
+                                }
+                                if (coreElement.getOptionalFirstOf("racialBodyMaterials").isPresent()) {
+                                        for(Element e : coreElement.getMandatoryFirstOf("racialBodyMaterials").getAllOf("bodyMaterial")) {
+						try {   
+                                                        BodyMaterial bMat = BodyMaterial.valueOf(e.getTextContent());
+                                                        this.racialBodyMaterials.add(bMat);
+						} catch(Exception ex) { //
+							System.err.println("Error in AbstractRace loading: BodyMaterial '"+e.getTextContent()+"' not recognised in racialBodyMaterials!");
+							ex.printStackTrace(); //
+						}
+					}
+                                }
 			} catch(Exception ex) {
 				ex.printStackTrace();
 				System.err.println("AbstractRace was unable to be loaded from file! (" + XMLFile.getName() + ")\n" + ex);
@@ -330,6 +398,9 @@ public abstract class AbstractRace {
 		if(this.isFromExternalFile()) {
 			return RacialBody.getRacialBodyFromId(racialBodyId);
 		}
+                if(this.isMaterialRace()) {
+                        return RacialBody.HUMAN;
+                }
 		System.err.println("Warning: AbstractRacialBody is calling getRacialBody() where racialBodyId does not exist!");
 		return null;
 	}
@@ -351,6 +422,14 @@ public abstract class AbstractRace {
 	public boolean isFlyingRace() {
 		return flyingRace;
 	}
+        
+        public boolean isMaterialRace() {
+                return materialRace;
+        }
+        
+        public Set<BodyMaterial> getRacialBodyMaterialSet() {
+                return racialBodyMaterials;
+        }
 
 	public boolean isAbleToSelfTransform() {
 		return ableToSelfTransform;

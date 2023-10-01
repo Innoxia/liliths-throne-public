@@ -2401,10 +2401,8 @@ public class BodyChanging {
 					break;
 				// Earth:
 				case RUBBER:
-					materialsAllowed.add(BodyMaterial.STONE);
 					break;
 				case STONE:
-					materialsAllowed.add(BodyMaterial.RUBBER);
 					break;
 				// Water:
 				case WATER:
