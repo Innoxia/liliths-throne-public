@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<arm>
+	<race>sightglass_roach</race>
+	<transformationName><![CDATA[roach]]></transformationName>
+	<coveringType>sightglass_roach_chitin</coveringType>
+	<underarmHairAllowed>true</underarmHairAllowed>
+	<allowsFlight>false</allowsFlight>
+	<tags>
+		<tag>ARM_STANDARD</tag>
+	</tags>
+	<name><![CDATA[arm]]></name>
+	<namePlural><![CDATA[arms]]></namePlural> 
+	<descriptorsMasculine>
+		<descriptor>bulky</descriptor>
+		<descriptor>armoured</descriptor>
+		<descriptor>chitinous</descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor>bulky</descriptor>
+		<descriptor>armoured</descriptor>
+		<descriptor>chitinous</descriptor>
+	</descriptorsFeminine>
+	<handName><![CDATA[claw]]></handName>
+	<handNamePlural><![CDATA[claws]]></handNamePlural>
+	<handDescriptorsMasculine>
+		<descriptor>roach-like</descriptor>
+		<descriptor>armoured</descriptor>
+		<descriptor>chitinous</descriptor>
+	</handDescriptorsMasculine>
+	<handDescriptorsFeminine>
+		<descriptor>feminine</descriptor>
+		<descriptor>roach-like</descriptor>
+		<descriptor>armoured</descriptor>
+		<descriptor>chitinous</descriptor>
+	</handDescriptorsFeminine>
+	<fingerName><![CDATA[talon]]></fingerName>
+	<fingerNamePlural><![CDATA[talons]]></fingerNamePlural>
+	<fingerDescriptorsMasculine>
+		<descriptor>chitinous</descriptor>
+	</fingerDescriptorsMasculine>
+	<fingerDescriptorsFeminine>
+		<descriptor>chitinous</descriptor>
+	</fingerDescriptorsFeminine>
+	<transformationDescription><![CDATA[
+		Within a matter of moments, a layer of [npc.armFullDescription] has quickly emerged over them, and, looking down, [npc.she] [npc.verb(see)] new plates growing over the fronts and backs of [npc.her] hands. The plates stop their advance at [npc.her] upper-biceps, [npc.her] chitin abruptly transitioning into the [npc.skin] that's covering the rest of [npc.her] body.
+		<br/>As the transformation comes to an end, [npc.nameIsFull] left with anthropomorphic, [style.boldTfGeneric(roach-like arms and hands)], which are [npc.materialDescriptor] [npc.armFullDescription].
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+	[npc.She] [npc.has] [npc.armRows] arms, which are [npc.materialCompositionDescriptor] [npc.armFullDescription(true)]. [npc.Her] armored-like hands are formed into anthropomorphic, roach-like hands, complete with dextrous grasping talons.
+	]]></bodyDescription>
+</arm>

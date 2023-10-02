@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tongue>
+	<race>sightglass_roach</race>
+	<coveringType>TONGUE</coveringType>
+	<defaultLength>8</defaultLength>
+	<name><![CDATA[tongue]]></name>
+	<namePlural><![CDATA[tongues]]></namePlural>
+	<descriptorsMasculine>
+		<descriptor><![CDATA[roach-like]]></descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor><![CDATA[roach-like]]></descriptor>
+	</descriptorsFeminine>
+	<bodyDescription><![CDATA[
+		[npc.Her] mouth holds [npc.a_tongueLength], [npc.tongueColour(true)], roach-like [npc.tongue]#IF(npc.isPiercedTongue()), which has been pierced#ENDIF.
+	]]></bodyDescription>
+	<defaultTongueModifiers>
+		<modifier>TAPERED</modifier>
+	</defaultTongueModifiers>
+</tongue>
