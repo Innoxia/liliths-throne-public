@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<subspecies>
+	<race>sightglass_roach</race>
+	<colour>sightglass_umber</colour>
+	<secondaryColour>sightglass_umber</secondaryColour>
+	<tertiaryColour>sightglass_umber</tertiaryColour>
+	<mainSubspecies>true</mainSubspecies>
+	<baseSlaveValue>6000</baseSlaveValue>
+	<attributeItemId>sightglass_race_roach_milk</attributeItemId>
+	<transformativeItemId>sightglass_race_roach_plate</transformativeItemId>
+	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<shortStature>false</shortStature>
+	<bipedalSubspecies>true</bipedalSubspecies>
+	<aquatic>false</aquatic>
+	<winged>true</winged>
+	<nocturnality>CREPUSCULAR</nocturnality>
+	<applySubspeciesChanges><![CDATA[
+		#IF(RND.nextInt(100)<80)
+			[#targetedBody.setWingType(WING_TYPE_sightglass_roach_wing)]
+			[#targetedBody.setWingSize(4)]
+		#ELSE
+			[#targetedBody.setWingType(WING_TYPE_NONE)]
+		#ENDIF
+	]]></applySubspeciesChanges>
+	<subspeciesWeighting><![CDATA[
+		#IF(targetedRace==RACE_sightglass_roach)
+			100
+		#ELSE
+			0
+		#ENDIF
+	]]></subspeciesWeighting>
+	<iconName displaySize="80">roachicon</iconName>
+	<backgroundName/>
+	<bookIconName>roachicon</bookIconName>
+	<bookName>Roaches?</bookName> 
+	<basicDescriptionId>ROACH_BASIC</basicDescriptionId>
+	<advancedDescriptionId>ROACH_ADVANCED</advancedDescriptionId> 
+	<defaultPreference>TWO_AVERAGE</defaultPreference>
+	<nameAnthro>
+		<namesDefault>
+			<name><![CDATA[roach-morph]]></name>
+			<namePlural><![CDATA[roach-morphs]]></namePlural>
+			<singularMaleName><![CDATA[cockroach-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[roach-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[cockroach-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[roach-girls]]></pluralFemaleName>
+		</namesDefault>
+	</nameAnthro>
+	<description><![CDATA[An anthropomorphic roach, known as a 'roach-morph' when bipedal, and a 'roach-taur' when the lower body is that of a typically-oversized feral roach.]]></description>
+	<feralAttributes>
+		<name><![CDATA[roach]]></name>
+		<namePlural><![CDATA[roaches]]></namePlural>
+		<singularMaleName><![CDATA[cockroach]]></singularMaleName>
+		<singularFemaleName><![CDATA[roach]]></singularFemaleName>
+		<pluralMaleName><![CDATA[cockroaches]]></pluralMaleName>
+		<pluralFemaleName><![CDATA[roaches]]></pluralFemaleName>
+		<legConfiguration>QUADRUPEDAL</legConfiguration>
+		<sizeHeight>true</sizeHeight>
+		<size>120</size>
+		<serpentTailLength>0.1</serpentTailLength>
+		<breastRowCount>0</breastRowCount>
+		<nipplesPerBreastCount>1</nipplesPerBreastCount>
+		<crotchBreastRowCount>1</crotchBreastRowCount>
+		<nipplesPerCrotchBreastCount>1</nipplesPerCrotchBreastCount>
+		<armsOrWingsPresent>true</armsOrWingsPresent>
+		<fingerActionsAvailable>false</fingerActionsAvailable>
+		<hairPresent>false</hairPresent>
+	</feralAttributes>
+	<statusEffectDescription><![CDATA[
+		[npc.NamePos] body is very resistant to most forms of damage, making [npc.name] difficult to defeat.
+	]]></statusEffectDescription>
+	<statusEffectAttributeModifiers>
+		<attribute value="5">MAJOR_PHYSIQUE</attribute>
+		<attribute value="0">MAJOR_ARCANE</attribute>
+		<attribute value="10">RESISTANCE_PHYSICAL</attribute>
+		<attribute value="20">HEALTH_MAXIMUM</attribute>
+		<attribute value="10">RESISTANCE_ICE</attribute>
+		<attribute value="10">RESISTANCE_FIRE</attribute>
+		<attribute value="10">RESISTANCE_POISON</attribute>
+	</statusEffectAttributeModifiers>
+	<extraEffects/>
+	<perkWeightings>
+		<category masculineWeighting="10" feminineWeighting="10">PHYSICAL</category>
+		<category masculineWeighting="0" feminineWeighting="0">LUST</category>
+		<category masculineWeighting="1" feminineWeighting="1">ARCANE</category>
+	</perkWeightings>
+	<regionLocations>
+		<region rarity="THREE">DOMINION</region>
+		<region rarity="FIVE">SUBMISSION</region>
+		<region rarity="FIVE">FIELD_CITY</region>
+		<region rarity="THREE">DESERT_CITY</region>
+		<region rarity="FIVE">JUNGLE_CITY</region>
+		<region rarity="SEVEN">FIELDS</region>
+		<region rarity="TEN">WOODLAND</region>
+		<region rarity="FIVE">SAVANNAH</region>
+		<region rarity="THREE">DESERT</region>
+		<region rarity="TWO">VOLCANO</region>
+		<region rarity="TEN">JUNGLE</region>
+		<region rarity="SEVEN">YOUKO_FOREST</region>
+		<region rarity="TWO">MOUNTAINS</region>
+		<region rarity="TWO">SNOW</region>
+	</regionLocations>
+	<worldLocations>
+		<world rarity="ONE_VERY_RARE">NIGHTLIFE_CLUB</world>
+	</worldLocations>
+	<placeLocations/>
+	<flags/>
+</subspecies>
