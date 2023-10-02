@@ -143,7 +143,7 @@ public class DebugDialogue {
 						@Override
 						public void effects() {
 							Main.getProperties().setValue(PropertyValue.debugMode, !Main.game.isDebugMode());
-							Main.getProperties().savePropertiesAsXML();
+							Main.saveProperties();
 						}
 					};
 					
@@ -157,7 +157,7 @@ public class DebugDialogue {
 						@Override
 						public void effects() {
 							Main.getProperties().setValue(PropertyValue.mapReveal, !Main.game.isMapReveal());
-							Main.getProperties().savePropertiesAsXML();
+							Main.saveProperties();
 						}
 					};
 					
@@ -174,7 +174,7 @@ public class DebugDialogue {
 						@Override
 						public void effects() {
 							Main.getProperties().setValue(PropertyValue.concealedSlotsReveal, !Main.game.isConcealedSlotsReveal());
-							Main.getProperties().savePropertiesAsXML();
+							Main.saveProperties();
 						}
 					};
 					
@@ -246,7 +246,7 @@ public class DebugDialogue {
 						@Override
 						public void effects() {
 							Main.getProperties().setValue(PropertyValue.allStickersUnlocked, !Main.game.isAllStickersUnlocked());
-							Main.getProperties().savePropertiesAsXML();
+							Main.saveProperties();
 						}
 					};
 					

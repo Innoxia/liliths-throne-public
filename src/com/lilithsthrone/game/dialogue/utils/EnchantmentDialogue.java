@@ -830,7 +830,7 @@ public class EnchantmentDialogue {
 						overwriteConfirmationName = "";
 						deleteConfirmationName = "";
 						Main.getProperties().setValue(PropertyValue.overwriteWarning, !Main.getProperties().hasValue(PropertyValue.overwriteWarning));
-						Main.getProperties().savePropertiesAsXML();
+						Main.saveProperties();
 					}
 				};
 

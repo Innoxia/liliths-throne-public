@@ -702,7 +702,7 @@ public class Main extends Application {
 			}
 		} else {
 			properties = new Properties();
-			properties.savePropertiesAsXML();
+			saveProperties();
 		}
 
 		launch(args);
@@ -799,7 +799,7 @@ public class Main extends Application {
 
 	public static void setFontSize(int size) {
 		properties.fontSize = size;
-		properties.savePropertiesAsXML();
+		saveProperties();
 	}
 	
 	public static boolean isQuickSaveAvailable() {
@@ -889,7 +889,7 @@ public class Main extends Application {
 			}
 			properties.quest = game.getPlayer().getQuest(QuestLine.MAIN).getName();
 
-			properties.savePropertiesAsXML();
+			saveProperties();
 
 		} catch (Exception ex) {
 			ex.printStackTrace();

@@ -389,7 +389,7 @@ public class OptionsDialogue {
 						overwriteConfirmationName = "";
 						deleteConfirmationName = "";
 						Main.getProperties().setValue(PropertyValue.overwriteWarning, !Main.getProperties().hasValue(PropertyValue.overwriteWarning));
-						Main.getProperties().savePropertiesAsXML();
+						Main.saveProperties();;
 					}
 				};
 
@@ -485,7 +485,7 @@ public class OptionsDialogue {
 						OptionsDialogue.overwriteConfirmationName = "";
 						OptionsDialogue.deleteConfirmationName = "";
 						Main.getProperties().setValue(PropertyValue.overwriteWarning, !Main.getProperties().hasValue(PropertyValue.overwriteWarning));
-						Main.getProperties().savePropertiesAsXML();
+						Main.saveProperties();;
 					}
 				};
 	
@@ -583,11 +583,13 @@ public class OptionsDialogue {
 				+ "</div>";
 	}
 	
+	private static boolean confirmReset = false;
 	
 	public static final DialogueNode OPTIONS = new DialogueNode("Options", "Options", true) {
 		
 		@Override
 		public String getContent(){
+			confirmReset = false;
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append(
@@ -1020,18 +1022,31 @@ public class OptionsDialogue {
 			} else if (index == 2) {
 				return new Response("Defaults", "Resets all pronouns to their default values.", OPTIONS_PRONOUNS){
 					@Override
+					public String getTitle() {
+						if (confirmReset) {
+							return "[style.colourMinorBad(Confirm?)]";
+						} else {
+							return "Defaults";
+						}
+					}
+					
+					@Override
 					public void effects() {
-						for(GenderNames gn : GenderNames.values()) {
-							Main.getProperties().genderNameMale.put(gn, gn.getMasculine());
-							Main.getProperties().genderNameNeutral.put(gn, gn.getNeutral());
-							Main.getProperties().genderNameFemale.put(gn, gn.getFeminine());
+						if (confirmReset) {
+							for (GenderNames gn : GenderNames.values()) {
+								Main.getProperties().genderNameMale.put(gn, gn.getMasculine());
+								Main.getProperties().genderNameNeutral.put(gn, gn.getNeutral());
+								Main.getProperties().genderNameFemale.put(gn, gn.getFeminine());
+							}
+							for (GenderPronoun gp : GenderPronoun.values()) {
+								Main.getProperties().genderPronounFemale.put(gp, gp.getFeminine());
+								Main.getProperties().genderPronounMale.put(gp, gp.getMasculine());
+							}
+							confirmReset = false;
+							Main.saveProperties();
+						} else {
+							confirmReset = true;
 						}
-						for (GenderPronoun gp : GenderPronoun.values()) {
-							Main.getProperties().genderPronounFemale.put(gp, gp.getFeminine());
-							Main.getProperties().genderPronounMale.put(gp, gp.getMasculine());
-						}
-						Main.saveProperties();
-						
 					}
 				};
 				
@@ -1057,6 +1072,7 @@ public class OptionsDialogue {
 								break;
 						}
 						
+						confirmReset = false;
 						Main.saveProperties();
 					}
 				};
@@ -1205,9 +1221,23 @@ public class OptionsDialogue {
 			 if (index == 11) {
 				return new Response("Defaults", "Restore all gender preferences to their default values.", GENDER_PREFERENCE) {
 					@Override
+					public String getTitle() {
+						if (confirmReset) {
+							return "[style.colourMinorBad(Confirm?)]";
+						} else {
+							return "Defaults";
+						}
+					}
+					
+					@Override
 					public void effects() {
-						Main.getProperties().resetGenderPreferences();
-						Main.getProperties().savePropertiesAsXML();
+						if (confirmReset) {
+							Main.getProperties().resetGenderPreferences();
+							Main.saveProperties();
+							confirmReset = false;
+						} else {
+							confirmReset = true;
+						}
 					}
 				};
 			}
@@ -1330,9 +1360,23 @@ public class OptionsDialogue {
 			if (index == 11) {
 				return new Response("Defaults", "Restore all orientation preferences to their default values.", ORIENTATION_PREFERENCE) {
 					@Override
+					public String getTitle() {
+						if (confirmReset) {
+							return "[style.colourMinorBad(Confirm?)]";
+						} else {
+							return "Defaults";
+						}
+					}
+
+					@Override
 					public void effects() {
-						Main.getProperties().resetOrientationPreferences();
-						Main.getProperties().savePropertiesAsXML();
+						if (confirmReset) {
+							Main.getProperties().resetOrientationPreferences();
+							Main.saveProperties();
+							confirmReset = false;
+						} else {
+							confirmReset = true;
+						}
 					}
 				};
 			}
@@ -1379,9 +1423,23 @@ public class OptionsDialogue {
 			if(index == 11) {
 				return new Response("Defaults", "Reset all fetish preferences to their default settings.", FETISH_PREFERENCE) {
 					@Override
+					public String getTitle() {
+						if (confirmReset) {
+							return "[style.colourMinorBad(Confirm?)]";
+						} else {
+							return "Defaults";
+						}
+					}
+
+					@Override
 					public void effects() {
-						Main.getProperties().resetFetishPreferences();
-						Main.getProperties().savePropertiesAsXML();
+						if (confirmReset) {
+							Main.getProperties().resetFetishPreferences();
+							Main.saveProperties();
+							confirmReset = false;
+						} else {
+							confirmReset = true;
+						}
 					}
 				};
 			}
@@ -1559,9 +1617,23 @@ public class OptionsDialogue {
 			if (index == 11) {
 				return new Response("Defaults", "Restore all age preferences to their default values.", AGE_PREFERENCE) {
 					@Override
+					public String getTitle() {
+						if (confirmReset) {
+							return "[style.colourMinorBad(Confirm?)]";
+						} else {
+							return "Defaults";
+						}
+					}
+
+					@Override
 					public void effects() {
-						Main.getProperties().resetAgePreferences();
-						Main.getProperties().savePropertiesAsXML();
+						if (confirmReset) {
+							Main.getProperties().resetAgePreferences();
+							Main.saveProperties();
+							confirmReset = false;
+						} else {
+							confirmReset = true;
+						}
 					}
 				};
 			}
@@ -1798,15 +1870,29 @@ public class OptionsDialogue {
 			if(index==11) {
 				return new Response("Defaults", "Reset all furry and spawn preferences to their default settings.", FURRY_PREFERENCE) {
 					@Override
-					public void effects() {
-						for(AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
-							Main.getProperties().setFeminineFurryPreference(subspecies, subspecies.getDefaultFemininePreference());
-							Main.getProperties().setMasculineFurryPreference(subspecies, subspecies.getDefaultMasculinePreference());
-
-							Main.getProperties().setFeminineSubspeciesPreference(subspecies, subspecies.getSubspeciesPreferenceDefault());
-							Main.getProperties().setMasculineSubspeciesPreference(subspecies, subspecies.getSubspeciesPreferenceDefault());
+					public String getTitle() {
+						if (confirmReset) {
+							return "[style.colourMinorBad(Confirm?)]";
+						} else {
+							return "Defaults";
 						}
-						Main.saveProperties();
+					}
+
+					@Override
+					public void effects() {
+						if (confirmReset) {
+							for (AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
+								Main.getProperties().setFeminineFurryPreference(subspecies, subspecies.getDefaultFemininePreference());
+								Main.getProperties().setMasculineFurryPreference(subspecies, subspecies.getDefaultMasculinePreference());
+								
+								Main.getProperties().setFeminineSubspeciesPreference(subspecies, subspecies.getSubspeciesPreferenceDefault());
+								Main.getProperties().setMasculineSubspeciesPreference(subspecies, subspecies.getSubspeciesPreferenceDefault());
+							}
+							Main.saveProperties();
+							confirmReset = false;
+						} else {
+							confirmReset = true;
+						}
 					}
 				};
 			}

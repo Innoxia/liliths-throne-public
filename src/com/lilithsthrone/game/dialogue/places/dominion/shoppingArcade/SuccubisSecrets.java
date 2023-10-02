@@ -966,7 +966,7 @@ public class SuccubisSecrets {
 					@Override
 					public void effects() {
 						Main.getProperties().setValue(PropertyValue.tattooRemovalConfirmations, !Main.getProperties().hasValue(PropertyValue.tattooRemovalConfirmations));
-						Main.getProperties().savePropertiesAsXML();
+						Main.saveProperties();
 					}
 				};
 			}
