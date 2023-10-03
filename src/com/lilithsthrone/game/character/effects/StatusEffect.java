@@ -6758,8 +6758,8 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			float cumAmount = target.getTotalFluidInArea(SexAreaOrifice.ANUS) + target.getTotalFluidInArea(SexAreaOrifice.MOUTH) + target.getTotalFluidInArea(SexAreaOrifice.VAGINA);
-			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMinimumValue()
-					&& cumAmount < CumProduction.SEVEN_MONSTROUS.getMedianValue()
+			return cumAmount >= Math.pow((Math.cbrt(3785) / 182.88) * target.getHeightValue(), 3)
+					&& cumAmount < Math.pow((Math.cbrt(7570) / 182.88) * target.getHeightValue(), 3)
 					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
 		}
 		@Override
@@ -6808,8 +6808,8 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			float cumAmount = target.getTotalFluidInArea(SexAreaOrifice.ANUS) + target.getTotalFluidInArea(SexAreaOrifice.MOUTH) + target.getTotalFluidInArea(SexAreaOrifice.VAGINA);
-			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMedianValue()
-					&& cumAmount < CumProduction.SEVEN_MONSTROUS.getMaximumValue()
+			return cumAmount >= Math.pow((Math.cbrt(7570) / 182.88) * target.getHeightValue(), 3)
+					&& cumAmount < Math.pow((Math.cbrt(11356) / 182.88) * target.getHeightValue(), 3)
 					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
 		}
 		@Override
@@ -6858,7 +6858,7 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			float cumAmount = target.getTotalFluidInArea(SexAreaOrifice.ANUS) + target.getTotalFluidInArea(SexAreaOrifice.MOUTH) + target.getTotalFluidInArea(SexAreaOrifice.VAGINA);
-			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMaximumValue()
+			return cumAmount >= Math.pow((Math.cbrt(11356) / 182.88) * target.getHeightValue(), 3)
 					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
 		}
 		@Override
@@ -6901,8 +6901,8 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			float cumAmount = target.getTotalFluidInArea(SexAreaOrifice.NIPPLE);
-			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMinimumValue()
-					&& cumAmount < CumProduction.SEVEN_MONSTROUS.getMedianValue()
+			return cumAmount >= Math.pow(((Math.cbrt(10)/182.88)*target.getHeightValue())*((target.getBreastSize().getMeasurement()/3)+1),3)
+					&& cumAmount < Math.pow(((Math.cbrt(20)/182.88)*target.getHeightValue())*((target.getBreastSize().getMeasurement()/3)+1),3)
 					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
 		}
 		@Override
@@ -6945,8 +6945,8 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			float cumAmount = target.getTotalFluidInArea(SexAreaOrifice.NIPPLE);
-			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMedianValue()
-					&& cumAmount < CumProduction.SEVEN_MONSTROUS.getMaximumValue()
+			return cumAmount >= Math.pow(((Math.cbrt(20)/182.88)*target.getHeightValue())*((target.getBreastSize().getMeasurement()/3)+1),3)
+					&& cumAmount < Math.pow(((Math.cbrt(30)/182.88)*target.getHeightValue())*((target.getBreastSize().getMeasurement()/3)+1),3)
 					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
 		}
 		@Override
@@ -6989,7 +6989,7 @@ public class StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			float cumAmount = target.getTotalFluidInArea(SexAreaOrifice.NIPPLE);
-			return cumAmount >= CumProduction.SEVEN_MONSTROUS.getMaximumValue()
+			return cumAmount >= Math.pow(((Math.cbrt(30)/182.88)*target.getHeightValue())*((target.getBreastSize().getMeasurement()/3)+1),3)
 					&& Main.getProperties().hasValue(PropertyValue.inflationContent);
 		}
 		@Override
