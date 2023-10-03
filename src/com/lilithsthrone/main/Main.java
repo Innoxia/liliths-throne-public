@@ -826,10 +826,13 @@ public class Main extends Application {
 	}
 	
 	public static String getQuickSaveName() {
+		String name;
 		if(!Main.game.isStarted()) {
-			return "QuickSave_intro";
+			name = "QuickSave_intro";
+		} else {
+			name = "QuickSave_"+Main.game.getPlayer().getName(false);
 		}
-		return "QuickSave_"+Main.game.getPlayer().getName(false);
+		return Main.checkFileName(name);
 	}
 	
 	public static void quickSaveGame() {
