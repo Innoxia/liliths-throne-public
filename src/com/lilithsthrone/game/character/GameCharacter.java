@@ -21837,7 +21837,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public int getLevel() {
 		try { // There was a NullPointerException being thrown somewhere in here during NPC load from XML.
 			if(this.isPlayer()
-					|| !Main.getProperties().difficultyLevel.isNPCLevelScaling()
+					|| (!Main.getProperties().difficultyLevel.isNPCLevelScaling())
 					|| (this.isSlave() && this.getOwner().isPlayer())
 					|| (this.isElemental() && ((Elemental)this).getSummoner()!=null && ((Elemental)this).getSummoner().isPlayer())
 					|| Main.game.getPlayer().getFriendlyOccupants().contains(this.getId())
@@ -21845,17 +21845,8 @@ public abstract class GameCharacter implements XMLSaving {
 				return level;
 				
 			} else {
-				if(Main.getProperties().difficultyLevel == DifficultyLevel.HELL) {
-					if(level < Main.game.getPlayer().getLevel() * 2) {
-						return Main.game.getPlayer().getLevel() * 2;
-					} else {
-						return level;
-					}
-				} else if(level < Main.game.getPlayer().getLevel()) {
-					return Main.game.getPlayer().getLevel();
-				} else {
-					return level;
-				}
+				float scaling = Main.getProperties().difficultyLevel.getNPCLevelScaling();
+				return Math.round(Math.max(level, Main.game.getPlayer().getLevel() * scaling + level / (scaling * 2)));
 			}
 		} catch(Exception ex) {
 			return level;
