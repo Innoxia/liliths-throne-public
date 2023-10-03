@@ -12,6 +12,7 @@
 	<nocturnality>DIURNAL</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
+	<taurSpawnLegConfiguration>AVIAN</taurSpawnLegConfiguration>
 	<winged>true</winged>
 	<applySubspeciesChanges/>
 	<subspeciesWeighting><![CDATA[

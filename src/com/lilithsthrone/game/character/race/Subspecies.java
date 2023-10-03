@@ -4493,6 +4493,10 @@ public class Subspecies {
 				new Value<>(WorldType.BAT_CAVERNS, SubspeciesSpawnRarity.TEN),
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.ONE)), null, null) {
 		@Override
+		public boolean isTaurSpawnDisabled() {
+			return true;
+		}
+		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.BAT_MORPH) {
 				return 100;
@@ -4626,6 +4630,10 @@ public class Subspecies {
 			return "harpy";
 		}
 		@Override
+		public LegConfiguration getTaurSpawnLegConfiguration() {
+			return LegConfiguration.AVIAN;
+		}
+		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
 			if(race==Race.HARPY) {
 				return 100;
@@ -4728,6 +4736,10 @@ public class Subspecies {
 			}
 			
 			return names;
+		}
+		@Override
+		public LegConfiguration getTaurSpawnLegConfiguration() {
+			return LegConfiguration.AVIAN;
 		}
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
@@ -4833,6 +4845,10 @@ public class Subspecies {
 			}
 			
 			return names;
+		}
+		@Override
+		public LegConfiguration getTaurSpawnLegConfiguration() {
+			return LegConfiguration.AVIAN;
 		}
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
@@ -5061,6 +5077,10 @@ public class Subspecies {
 			}
 			
 			return names;
+		}
+		@Override
+		public LegConfiguration getTaurSpawnLegConfiguration() {
+			return LegConfiguration.AVIAN;
 		}
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {

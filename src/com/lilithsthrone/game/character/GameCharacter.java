@@ -24743,6 +24743,23 @@ public abstract class GameCharacter implements XMLSaving {
 	public List<BodyPartInterface> getAllBodyParts() {
 		return body.getAllBodyParts();
 	}
+
+	public void handleTaurSpawnRate() {
+		if (getSubspecies().isTaurSpawnDisabled()) {
+			return;
+		}
+
+		if (Math.random() < Main.getProperties().taurSpawnRate / 100f &&
+			// Do not reset this character's taur body if they spawned as a taur,
+			// as otherwise subspecies-specific settings get overridden by global taur settings.
+			getLegConfiguration() != getSubspecies().getTaurSpawnLegConfiguration()) {
+			// Check for race's leg type as taur, otherwise NPCs which spawn with human legs won't be affected by taur conversion rate:
+			if (getRace().getRacialBody().getLegType().isLegConfigurationAvailable(getSubspecies().getTaurSpawnLegConfiguration())) {
+				setLegType(getRace().getRacialBody().getLegType());
+				Main.game.getCharacterUtils().applyTaurConversion(this);
+			}
+		}
+	}
 	
 	private static class GenderAppearance {
 		public String description;

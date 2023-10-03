@@ -12,6 +12,7 @@
 	<nocturnality>NOCTURNAL</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>false</bipedalSubspecies>
+	<taurSpawnDisabled>true</taurSpawnDisabled>
 	<affinity>AQUATIC</affinity>
 	<applySubspeciesChanges><![CDATA[
 		[#targetedBody.applyLegConfigurationTransformation(LEG_TYPE_NoStepOnSnek_octopus_leg, LEG_CONFIGURATION_CEPHALOPOD, true)]

@@ -12,6 +12,7 @@
 	<nocturnality>CATHEMERAL</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
+	<taurSpawnDisabled>true</taurSpawnDisabled>
 	<applySubspeciesChanges/>
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_NoStepOnSnek_snake)

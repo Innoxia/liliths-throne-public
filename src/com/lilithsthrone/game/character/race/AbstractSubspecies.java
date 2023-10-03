@@ -81,6 +81,9 @@ public abstract class AbstractSubspecies {
 	private Map<LegConfiguration, String[]> halfDemonNames;
 	
 	private FeralAttributes feralAttributes;
+
+	private boolean taurSpawnDisabled;
+	private LegConfiguration taurSpawnLegConfiguration;
 	
 	private Nocturnality nocturnality;
 	
@@ -309,6 +312,9 @@ public abstract class AbstractSubspecies {
 		
 		this.feralAttributes = feralAttributes;
 		this.nocturnality = nocturnality;
+
+		this.taurSpawnDisabled = false;
+		this.taurSpawnLegConfiguration = LegConfiguration.QUADRUPEDAL;
 		
 		this.statusEffectDescription = statusEffectDescription;
 		
@@ -682,6 +688,9 @@ public abstract class AbstractSubspecies {
 						System.err.println("Error in AbstractSubspecies loading: feralAttributes failed to initialise!<br/>"+ex.getMessage());
 					}
 				}
+
+				this.taurSpawnDisabled = coreElement.getOptionalFirstOf("taurSpawnDisabled").isPresent() ? Boolean.valueOf(coreElement.getMandatoryFirstOf("taurSpawnDisabled").getTextContent()) : false;
+				this.taurSpawnLegConfiguration = coreElement.getOptionalFirstOf("taurSpawnLegConfiguration").isPresent() ? LegConfiguration.valueOf(coreElement.getMandatoryFirstOf("taurSpawnLegConfiguration").getTextContent()) : LegConfiguration.QUADRUPEDAL;
 
 				this.statusEffectDescription = coreElement.getMandatoryFirstOf("statusEffectDescription").getTextContent();
 				
@@ -1301,6 +1310,14 @@ public abstract class AbstractSubspecies {
 
 	public Nocturnality getNocturnality() {
 		return nocturnality;
+	}
+
+	public boolean isTaurSpawnDisabled() {
+		return taurSpawnDisabled;
+	}
+
+	public LegConfiguration getTaurSpawnLegConfiguration() {
+		return taurSpawnLegConfiguration;
 	}
 	
 	public boolean isFeralConfigurationAvailable(Body body) {

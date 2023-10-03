@@ -86,7 +86,9 @@ public class BatCavernLurkerAttacker extends NPC {
 			setBody(gender, species, stage, true);
 			
 			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
-	
+
+			handleTaurSpawnRate();
+
 			setName(Name.getRandomTriplet(species));
 			this.setPlayerKnowsName(false);
 			

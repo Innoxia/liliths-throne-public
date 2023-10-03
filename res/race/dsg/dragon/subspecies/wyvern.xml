@@ -44,6 +44,12 @@
 	Set to false for subspecies like centaurs. -->
 	<bipedalSubspecies>true</bipedalSubspecies>
 	
+	<!-- For subspecies, that only have a single LegConfiguration. Set this to true to disable taur spawns for this subspecies (optional). -->
+	<taurSpawnDisabled>true</taurSpawnDisabled>
+	
+	<!-- Which LegConfiguration should be used, when that NPC is set to spawn as a taur. Optional. Defaults to QUADRUPEDAL -->
+	<!--<taurSpawnLegConfiguration>QUADRUPEDAL</taurSpawnLegConfiguration>-->
+	
 	<!-- The affinity of the subspecies. Optional. Defaults to AMPHIBIOUS. -->
 	<!--<affinity>AMPHIBIOUS</affinity>-->
 
