@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fluid>
+	<race>sightglass_dragonfly</race>
+	<transformationName><![CDATA[dragonfly]]></transformationName>
+	<baseFluidType>MILK</baseFluidType>
+	<flavour>MILK</flavour>
+	<namesMasculine/>
+	<namesFeminine/>
+	<descriptorsMasculine>
+		<name><![CDATA[dragonfly]]></name>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<name><![CDATA[dragonfly]]></name>
+	</descriptorsFeminine>
+	<defaultFluidModifiers values="STICKY"/>
+</fluid>

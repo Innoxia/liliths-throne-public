@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<penis>
+	<race>sightglass_dragonfly</race>
+	<transformationName><![CDATA[dragonfly]]></transformationName>
+	<coveringType>PENIS</coveringType>
+	<pubicHairAllowed>true</pubicHairAllowed>
+	<testicleType>sightglass_dragonfly_testicle</testicleType>
+	<additionalTransformationEffect/>
+	<namesMasculine>
+		<name><![CDATA[dragonfly-]]></name>
+	</namesMasculine>
+	<namesPluralMasculine>
+		<name><![CDATA[dragonfly-]]></name>
+	</namesPluralMasculine>
+	<namesFeminine>
+		<name><![CDATA[dragonfly-]]></name>
+	</namesFeminine>
+	<namesPluralFeminine>
+		<name><![CDATA[dragonfly-]]></name>
+	</namesPluralFeminine>
+	<descriptors/>
+	<defaultPenetrationModifiers>
+		<modifier>SHEATHED</modifier>
+		<modifier>TAPERED</modifier>
+	</defaultPenetrationModifiers>
+	<transformationDescription><![CDATA[
+		Letting out an involuntary moan, [npc.name] [npc.verb(feel)] [npc.her] penis shifting into a new form, and [npc.sheIs] hit by a wave of overwhelming arousal as a thick sheath suddenly grows around the base of [npc.her] shaft. As [npc.she] [npc.verb(pant)] and [npc.verb(gasp)] for air, the tip of [npc.her] cock narrows down as it tapers into its new form.
+		<br/>[npc.She] now [npc.has] a [style.boldDarkTeal(dragonfly-like penis)], [npc.materialDescriptor] [npc.penisFullDescription(true)].
+		<br/>[npc.She] [npc.has] [style.boldDarkTeal([npc.ballsCount]#IF(npc.isInternalTesticles()) internal#ENDIF balls)], [npc.materialDescriptor] [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldDarkTeal(dragonfly honey)].
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		[npc.She] [npc.has] [npc.a_cockGirth], [npc.cockLengthValue] dragonfly cock, which is [npc.materialCompositionDescriptor] [npc.cockFullDescription(true)].
+	]]></bodyDescription>
+</penis>

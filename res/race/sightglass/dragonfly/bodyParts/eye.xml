@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<eye>
+	<race>sightglass_dragonfly</race>
+	<transformationName><![CDATA[dragonfly]]></transformationName>
+	<coveringType>sightglass_dragonfly_eye</coveringType>
+	<tags/>
+	<defaultPairCount>2</defaultPairCount>
+	<defaultIrisShape>ROUND</defaultIrisShape>
+	<defaultPupilShape>ROUND</defaultPupilShape>
+	<name><![CDATA[eye]]></name>
+	<namePlural><![CDATA[eyes]]></namePlural>
+	<descriptorsMasculine>
+		<descriptor><![CDATA[dragonfly-like]]></descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor><![CDATA[dragonfly-like]]></descriptor>
+	</descriptorsFeminine>
+	<transformationDescription><![CDATA[
+		By the time [npc.she] hesitantly [npc.verb(open)] them again, they've changed into lustrous dragonfly-like eyes, with the massive primary pair bulging out from the sides of [npc.her] face.
+		<br/>[npc.Name] now [npc.has] [style.boldDarkTeal(dragonfly-like eyes)] of a solid [npc.irisColour(true)] colour.
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] [npc.eyePairs] dragonfly-like eyes. They are a reflective, solid [npc.irisColour(true)] colour, and bulge from the sides of [npc.her] face.
+	]]></bodyDescription>
+</eye>
