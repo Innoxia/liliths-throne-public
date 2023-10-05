@@ -34,8 +34,9 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 	private boolean fromExternalFile;
 	
 	// Maps the name to weighting for use in random selection:
-	protected static final Map<String, Integer> BASE_NAMES_SINGULAR = !Main.game.isSillyMode()	?Util.newHashMapOfValues(new Value<>("cock", 3), new Value<>("dick", 2), new Value<>("shaft", 1))
-																								:Util.newHashMapOfValues(new Value<>("cock", 9), new Value<>("dick", 6), new Value<>("shaft", 2), new Value<>("peen", 1), new Value<>("bingus", 1), new Value<>("peenor", 1));
+	protected static final Map<String, Integer> BASE_NAMES_SINGULAR = !Main.game.isSillyMode()
+			?Util.newHashMapOfValues(new Value<>("cock", 3), new Value<>("dick", 2), new Value<>("shaft", 1))
+			:Util.newHashMapOfValues(new Value<>("cock", 24), new Value<>("dick", 16), new Value<>("shaft", 9), new Value<>("bingus", 2), new Value<>("plonker", 2), new Value<>("hammer", 1), new Value<>("knob", 1), new Value<>("lad", 1), new Value<>("meat", 1), new Value<>("peen", 1), new Value<>("peenor", 2), new Value<>("piston", 1), new Value<>("shlong", 1));
 	protected static final Map<String, Integer> BASE_NAMES_PLURAL = Util.newHashMapOfValues(new Value<>("cocks", 3), new Value<>("dicks", 2), new Value<>("shafts", 1));
 	
 	private AbstractBodyCoveringType coveringType;
