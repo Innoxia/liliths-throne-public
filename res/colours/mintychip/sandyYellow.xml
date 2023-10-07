@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<colour>
+	<metallic>false</metallic>
+	<name><![CDATA[Sandy Yellow]]></name>
+	<colour>edc491</colour>
+	<lightColour>edc491</lightColour>
+	<coveringIconColour/>
+	<formattingNames>
+		<name><![CDATA[jackal]]></name>
+		<name><![CDATA[sphinx]]></name>
+	<!--<name><![CDATA[course]]></name>
+		<name><![CDATA[rough]]></name>
+		<name><![CDATA[irritating]]></name>-->
+	</formattingNames>
+</colour>
