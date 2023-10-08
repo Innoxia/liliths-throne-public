@@ -15917,49 +15917,12 @@ public abstract class GameCharacter implements XMLSaving {
 		
 					// Reactions are based on what they can fit inside their primary orifice:
 					if(characterBeingRevealed.isFullPenetrationFarTooShort(SexAreaPenetration.PENIS, characterReacting, orifice)) { // too shallow
-						//narration
-						if(characterReacting.isFeminine()) {
-							if (characterReacting.getAffection(characterBeingRevealed) >= AffectionLevel.POSITIVE_THREE_CARING.getMinimumValue() || (characterReacting.isKind()||characterReacting.isPrude()) && !characterReacting.hasFetish(Fetish.FETISH_SADIST)){ // peen too short | friendly fem reacts
-									intro = UtilText.returnStringAtRandom(
+						if(characterReacting.isFeminine()) {	// peen too short | fem reacts
+							if ((characterReacting.getAffection(characterBeingRevealed) >= AffectionLevel.POSITIVE_THREE_CARING.getMinimumValue() || characterReacting.isKind()) && !characterReacting.hasFetish(Fetish.FETISH_SADIST)){ // peen too short | friendly fem reacts
+								intro = UtilText.returnStringAtRandom(
 										"[npc.Name] [npc.verb(fail)] to suppress a giggle as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
 										"[npc.Name] supresses a little giggle as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
 										"[npc.Name] squints briefly as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed");
-							}
-							else if(characterReacting.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) { // peen too short | fem reacts seen bulge
-								intro = UtilText.returnStringAtRandom(
-										"[npc.Name] [npc.verb(fail)] to suppress a mocking giggle as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
-										"[npc.Name] [npc.verb(let)] out a little giggle as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
-										"[npc.Name] [npc.verb(let)] out a derisive sneer as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed");
-								
-							} else { 
-								intro = UtilText.returnStringAtRandom(
-										"[npc.Name] [npc.verb(fail)] to suppress a mocking giggle as [npc.she] sees that [npc2.nameHas] got [npc2.a_cockSize] [npc2.cock]",
-										"[npc.Name] [npc.verb(let)] out a surprised laugh as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
-										"[npc.Name] [npc.verb(let)] out a derisive laugh as [npc.she] sees [npc2.namePos] [npc2.cockSize] [npc2.cock]");
-							}
-							
-						} else {	
-							if (characterReacting.getAffection(characterBeingRevealed) >= AffectionLevel.POSITIVE_THREE_CARING.getMinimumValue() && !characterReacting.hasFetish(Fetish.FETISH_SADIST)){ // peen too short | friendly fem reacts
-									intro = UtilText.returnStringAtRandom(
-										"[npc.Name] [npc.verb(fail)] to suppress a laugh as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
-										"[npc.Name] supresses [npc.namePos] laughter as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
-										"[npc.Name] squints briefly as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed");
-							}
-							else if(characterReacting.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) { 
-								intro = UtilText.returnStringAtRandom(
-										"[npc.Name] [npc.verb(fail)] to suppress a booming, mocking laugh as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
-										"[npc.Name] [npc.verb(let)] out a grunt as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
-										"[npc.Name] [npc.verb(let)] out a derisive grunt as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed");
-							} else {		
-								intro = UtilText.returnStringAtRandom(
-										"[npc.Name] [npc.verb(let)] out a booming, mocking laugh as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
-										"[npc.Name] [npc.verb(let)] out an unamused grunt as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
-										"[npc.Name] [npc.verb(let)] out a derisive grunt as [npc.she] sees that [npc2.nameHas] got [npc2.a_cockSize] [npc2.cock]");
-							}
-						}
-						// speech
-						if(characterReacting.isFeminine()) {	// peen too short | fem reacts
-							if ((characterReacting.getAffection(characterBeingRevealed) >= AffectionLevel.POSITIVE_THREE_CARING.getMinimumValue() || characterReacting.isKind()) && !characterReacting.hasFetish(Fetish.FETISH_SADIST)){ // peen too short | friendly fem reacts
 								if(characterBeingRevealed.getPenisRawSizeValue()<PenisLength.ONE_TINY.getMaximumValue()) {	// peen too short is tiny | friendly fem reacts
 									quote = UtilText.returnStringAtRandom(
 											"Your little dick is so cute!",
@@ -15973,18 +15936,26 @@ public abstract class GameCharacter implements XMLSaving {
 								}
 							}
 							else if(characterReacting.hasFetish(Fetish.FETISH_CUM_ADDICT)){	// peen too short | fem reacts | CUM ADDICT
-										 quote = UtilText.returnStringAtRandom(
-												"So you got me a little ready to drink thingy.",
-												"Well... The least you can do is to provide me with some fat ropes.",
-												"Hoping this can compensate it with some extra-tasty [npc2.cum]!");
-									}
-									else if(characterReacting.hasFetish(Fetish.FETISH_PREGNANCY) && characterReacting.hasVagina()){	// peen too short | fem reacts | CUM ADDICT
-										 quote = UtilText.returnStringAtRandom(
-												"Your swimmers will have to work extra hard.",
-												"Your poor thing can still pump me with some good seed, right?",
-												"I hope your [npc2.cum] is juicier than your cock.");
-									}
+								if (Main.game.isSillyMode() && Math.random()<0.2f){
+									quote = "So you got me a little ready to drink thingy.";
+								} else{
+									 quote = UtilText.returnStringAtRandom(
+											"Well... The least you can do is to provide me with some fat ropes.",
+											"Hoping this can compensate it with some extra-tasty [npc2.cum]!");
+								}	
+							}
+							else if(characterReacting.hasFetish(Fetish.FETISH_PREGNANCY) && characterReacting.hasVagina()){	// peen too short | fem reacts | CUM ADDICT
+								 quote = UtilText.returnStringAtRandom(
+										"Your swimmers will have to work extra hard.",
+										"Your poor thing can still pump me with some good seed, right?",
+										"I hope your [npc2.cum] is juicier than your cock.");
+							}
 							else if(characterReacting.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) { // peen too short | fem reacts seen bulge
+								intro = UtilText.returnStringAtRandom(
+										"[npc.Name] [npc.verb(fail)] to suppress a mocking giggle as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
+										"[npc.Name] [npc.verb(let)] out a little giggle as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
+										"[npc.Name] [npc.verb(let)] out a derisive sneer as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed");
+
 								if(characterBeingRevealed.getPenisRawSizeValue()<PenisLength.ONE_TINY.getMaximumValue()) {	// peen too short is tiny | fem reacts
 									if (characterReacting.isPrude()) {
 										quote = UtilText.returnStringAtRandom(
@@ -16014,9 +15985,14 @@ public abstract class GameCharacter implements XMLSaving {
 									}
 								}
 								if (Main.game.isSillyMode() && Math.random()<0.2f && characterReacting.hasFetish(Fetish.FETISH_ORAL_GIVING)){
-									quote2 = " But, if I blow it really hard, maybe...";
+									quote2 = " If I blow it really hard, maybe...";
 								}
 							} else { // peen too short| fem react seen no bulge
+								intro = UtilText.returnStringAtRandom(
+										"[npc.Name] [npc.verb(fail)] to suppress a mocking giggle as [npc.she] sees that [npc2.nameHas] got [npc2.a_cockSize] [npc2.cock]",
+										"[npc.Name] [npc.verb(let)] out a surprised laugh as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
+										"[npc.Name] [npc.verb(let)] out a derisive laugh as [npc.she] sees [npc2.namePos] [npc2.cockSize] [npc2.cock]");
+
 								if(characterBeingRevealed.getPenisRawSizeValue()<PenisLength.ONE_TINY.getMaximumValue()) {
 									if(!characterBeingRevealed.getAppearsAsGender(true).getGenderName().isHasPenis()) {
 										quote = UtilText.returnStringAtRandom(
@@ -16044,6 +16020,10 @@ public abstract class GameCharacter implements XMLSaving {
 						
 						} else {	// peen too short | masc reacts
 							if (characterReacting.getAffection(characterBeingRevealed) >= AffectionLevel.POSITIVE_THREE_CARING.getMinimumValue() && !characterReacting.hasFetish(Fetish.FETISH_SADIST)){ // peen too short | friendly masc reacts
+								intro = UtilText.returnStringAtRandom(
+										"[npc.Name] [npc.verb(fail)] to suppress a laugh as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
+										"[npc.Name] supresses [npc.namePos] laughter as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
+										"[npc.Name] squints briefly as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed");
 								if(characterBeingRevealed.getPenisRawSizeValue()<PenisLength.ONE_TINY.getMaximumValue()) {	// peen too short is tiny | friendly masc reacts
 									quote = UtilText.returnStringAtRandom(
 											"Your little dick is so cute!",
@@ -16062,7 +16042,11 @@ public abstract class GameCharacter implements XMLSaving {
 											"You'll have to can compensate it with some extra-tasty [npc2.cum]!");
 							
 							} else if(characterReacting.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) { 
-								
+								intro = UtilText.returnStringAtRandom(
+										"[npc.Name] [npc.verb(fail)] to suppress a booming, mocking laugh as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
+										"[npc.Name] [npc.verb(let)] out a grunt as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
+										"[npc.Name] [npc.verb(let)] out a derisive grunt as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed");
+
 								if(characterBeingRevealed.getPenisRawSizeValue()<PenisLength.ONE_TINY.getMaximumValue()) { // peen too short is tiny | masc reacts
 									quote = UtilText.returnStringAtRandom(
 											"That thing's more like a clit than a real cock!",
@@ -16076,10 +16060,16 @@ public abstract class GameCharacter implements XMLSaving {
 								}
 								
 							} else {		// peen too short is unexpected | masc reacts	
+								intro = UtilText.returnStringAtRandom(
+										"[npc.Name] [npc.verb(let)] out a booming, mocking laugh as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
+										"[npc.Name] [npc.verb(let)] out an unamused grunt as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
+										"[npc.Name] [npc.verb(let)] out a derisive grunt as [npc.she] sees that [npc2.nameHas] got [npc2.a_cockSize] [npc2.cock]");
+
 								if(!characterBeingRevealed.getAppearsAsGender(true).getGenderName().isHasPenis()) {
 									quote = UtilText.returnStringAtRandom(
 											"Is that pathetic little thing your cock?! I didn't realise you were [npc2.a_gender]!",
-											"Wait, you're [npc2.a_gender]?! What a pathetic excuse for a cock you've got!");
+											"Wait, you're [npc2.a_gender]?! What a pathetic excuse for a cock you've got!",
+											"You're [npc2.a_gender]? Well... Just barely.");
 								} else {
 									if(characterBeingRevealed.getPenisRawSizeValue()<PenisLength.ONE_TINY.getMaximumValue()) {
 										quote = UtilText.returnStringAtRandom(
@@ -16127,7 +16117,7 @@ public abstract class GameCharacter implements XMLSaving {
 										"...",
 										"Your... it's...",
 										"Are you going to...?");
-							} else if (Main.game.isSillyMode() && characterReacting.isLewd() && !characterBeingRevealed.isInternalTesticles() && Math.random()<0.5f){
+							} else if (Main.game.isSillyMode() && characterReacting.isLewd() && !characterBeingRevealed.isInternalTesticles() && Math.random()<0.2f){
 								quote = UtilText.returnStringAtRandom(
 										"Give me my fair share of [npc2.race]-[npc2.penis] and [npc2.race]sticles.",
 										"Got to get my fix of [npc2.cockRace]-[npc2.cock] and [npc2.cockRace]sticles...");
@@ -16244,35 +16234,10 @@ public abstract class GameCharacter implements XMLSaving {
 							}
 						}
 					} else if(characterBeingRevealed.isFullPenetrationTooLongToFit(SexAreaPenetration.PENIS, characterReacting, orifice, false)) {	// can't hilt
-						// narration
 						if(Main.game.isPenetrationLimitationsEnabled()) {
 							if(characterReacting.hasFetish(Fetish.FETISH_SIZE_QUEEN)) {
 								intro = UtilText.returnStringAtRandom(
 										"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed");
-								
-							} else {
-								intro = UtilText.returnStringAtRandom(
-										"[npc.Name] [npc.verb(let)] out nervous [npc.moan] as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
-										"[npc.Name] [npc.verb(let)] out a worried-sounding [npc.moan] as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
-										"[npc.Name] [npc.verb(let)] out a nervous [npc.moan] as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed");
-							}
-							
-						} else {
-							if(characterReacting.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) {
-								intro = UtilText.returnStringAtRandom(
-										"[npc.Name] [npc.verb(let)] out a hungry [npc.moan] as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
-										"[npc.Name] [npc.verb(let)] out a delighted [npc.moan] as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
-										"[npc.Name] [npc.verb(let)] out a happy [npc.moan] as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed");
-							} else {
-								intro = UtilText.returnStringAtRandom(
-										"[npc.Name] [npc.verb(fail)] to suppress [npc.a_moan+] as [npc.she] sees that [npc2.nameHas] got [npc2.a_cockSize] [npc2.cock]",
-										"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
-										"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] sees [npc2.namePos] [npc2.cockSize] [npc2.cock]");
-							}
-						}
-						// speech
-						if(Main.game.isPenetrationLimitationsEnabled()) {
-							if(characterReacting.hasFetish(Fetish.FETISH_SIZE_QUEEN)) {
 								if (Main.game.isSillyMode() && Math.random()<0.5f){
 									quote = UtilText.returnStringAtRandom(
 											"Oh, fuck yes! Come and stab me with that [npc2.cockSize] [npc2.cock]",
@@ -16286,19 +16251,34 @@ public abstract class GameCharacter implements XMLSaving {
 											"Oh yeah! I want your massive cock rammed as <i>deep</i> as it'll go inside of me!");
 								}
 							} else {
+								intro = UtilText.returnStringAtRandom(
+										"[npc.Name] [npc.verb(let)] out nervous [npc.moan] as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
+										"[npc.Name] [npc.verb(let)] out a worried-sounding [npc.moan] as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
+										"[npc.Name] [npc.verb(let)] out a nervous [npc.moan] as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed");
+
 								quote = UtilText.returnStringAtRandom(
 										"That thing is never going to fit inside of me! You're far too big!",
 										"Your cock's far too big! There's no way it's ever going to fit!",
 										"There's no way I can fit something that huge inside of me!");
 							}
 							
-						} else {
+						} else { // Penetration Limitations NOT enabled
 							if(characterReacting.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) {
+								intro = UtilText.returnStringAtRandom(
+										"[npc.Name] [npc.verb(let)] out a hungry [npc.moan] as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
+										"[npc.Name] [npc.verb(let)] out a delighted [npc.moan] as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
+										"[npc.Name] [npc.verb(let)] out a happy [npc.moan] as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed");
+
 								quote = UtilText.returnStringAtRandom(
 										"I can't believe how massive your cock is! I doubt anyone's got a bigger one than you...",
 										"Oh yeah, bring that gigantic cock of yours over to me!",
 										"Your cock's so huge! I don't think I'll ever get tired of it!");
 							} else {
+								intro = UtilText.returnStringAtRandom(
+										"[npc.Name] [npc.verb(fail)] to suppress [npc.a_moan+] as [npc.she] sees that [npc2.nameHas] got [npc2.a_cockSize] [npc2.cock]",
+										"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
+										"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] sees [npc2.namePos] [npc2.cockSize] [npc2.cock]");
+
 								quote = UtilText.returnStringAtRandom(
 										"What?! Holy shit! Your cock's <i>huge</i>!",
 										"Holy shit! I could see it was huge from your bulge, but... well... it's <i>massive</i>!");
