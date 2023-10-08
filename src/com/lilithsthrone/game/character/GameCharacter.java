@@ -15966,7 +15966,7 @@ public abstract class GameCharacter implements XMLSaving {
 											"There are other forms you can make [npc2.namePos]self useful.",
 											"It's so little! I mean, can I even call it...");
 								} else {														
-									quote = UtilText.returnStringAtRandom(												// peen too short is tiny | friendly fem reacts
+									quote = UtilText.returnStringAtRandom(												// peen too short isn't tiny | friendly fem reacts
 											"We'll figure out some use for [npc2.namePos] [npc2.cockSize] thingy.",
 											"Nothing we can do about that, right?",
 											"We'll need some extra effort!");
@@ -16013,7 +16013,9 @@ public abstract class GameCharacter implements XMLSaving {
 												
 									}
 								}
-								
+								if (Main.game.isSillyMode() && Math.random()<0.2f && characterReacting.hasFetish(Fetish.FETISH_ORAL_GIVING)){
+									quote2 = " But, if I blow it really hard, maybe...";
+								}
 							} else { // peen too short| fem react seen no bulge
 								if(characterBeingRevealed.getPenisRawSizeValue()<PenisLength.ONE_TINY.getMaximumValue()) {
 									if(!characterBeingRevealed.getAppearsAsGender(true).getGenderName().isHasPenis()) {
@@ -16125,12 +16127,10 @@ public abstract class GameCharacter implements XMLSaving {
 										"...",
 										"Your... it's...",
 										"Are you going to...?");
-							} else if (Main.game.isSillyMode() && characterReacting.isLewd() && !characterBeingRevealed.isInternalTesticles()){
+							} else if (Main.game.isSillyMode() && characterReacting.isLewd() && !characterBeingRevealed.isInternalTesticles() && Math.random()<0.5f){
 								quote = UtilText.returnStringAtRandom(
 										"Give me my fair share of [npc2.race]-[npc2.penis] and [npc2.race]sticles.",
-										"Got to get my fix of [npc2.cockRace]-[npc2.cock] and [npc2.cockRace]sticles...",
-										"Oh yeah, your cock's looking real good!",
-										"Come on, put that cock of yours to use!");
+										"Got to get my fix of [npc2.cockRace]-[npc2.cock] and [npc2.cockRace]sticles...");
 							} else {
 								quote = UtilText.returnStringAtRandom(
 										"Your cock's looking good!",
@@ -16189,13 +16189,10 @@ public abstract class GameCharacter implements XMLSaving {
 						if(characterReacting.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) {
 							if(Main.game.isPenetrationLimitationsEnabled()) {
 								if(characterReacting.hasFetish(Fetish.FETISH_SIZE_QUEEN) || characterReacting.hasFetish(Fetish.FETISH_MASOCHIST)) {
-									if (Main.game.isSillyMode()){
+									if (Main.game.isSillyMode() && Math.random()<0.5f){
 										quote = UtilText.returnStringAtRandom(
-												"Oh, fuck yes! Your cock's so huge! I want it <i>deep</i> inside of me!",
-												"~Ooh!~ Your cock's so massive! That's going to feel <i>amazing</i>!",
-												"Wow! Your cock's so huge! I want it hilted <i>deep</i> inside of me!",
-												"Whoever can get [npc2.namePos] [npc2.cockSize] thing out of me after I get it all inside will be worth of Lilith's Throne!",
-												"I can see in this cyclop's eye it desires to get <i>deep</i> inside of me!",
+												"Whoever can get [npc2.namePos] [npc2.cockSize] thing out of me after I get <i>it all</i> inside will be worth of Lilith's Throne!",
+												"~Ooh!~ My relationship with this trouser python will be <i>intimate</i>!",
 												"~Ooh!~ Yes! I need your massive cock to rearrange my insides!");
 									} else {
 									quote = UtilText.returnStringAtRandom(
@@ -16219,13 +16216,10 @@ public abstract class GameCharacter implements XMLSaving {
 						} else {
 							if(Main.game.isPenetrationLimitationsEnabled()) {
 								if(characterReacting.hasFetish(Fetish.FETISH_SIZE_QUEEN)) {
-									if (Main.game.isSillyMode()){
+									if (Main.game.isSillyMode()  && Math.random()<0.5f){
 										quote = UtilText.returnStringAtRandom(
-												"Oh, fuck yes! A massive cock! I want it <i>deep</i> inside of me!",
-												"~Ooh!~ Your cock's so massive! That's going to feel <i>amazing</i>!",
-												"Wow! Your cock's so huge! I want it hilted <i>deep</i> inside of me!",
-												"Whoever can get [npc2.namePos] [npc2.cockSize] thing out of me after I get it all inside will be worth of Lilith's Throne!",
-												"How did you keep it hidden?!",
+												"~Ooh!~ My relationship with this trouser python will be <i>intimate</i>!",
+												"Whoever can get [npc2.namePos] [npc2.cockSize] thing out of me after I get <i>it all</i> inside will be worth of Lilith's Throne!",
 												"~Ooh!~ Yes! I need your massive cock to rearrange my insides!");
 									} else {
 										quote = UtilText.returnStringAtRandom(
@@ -16279,11 +16273,10 @@ public abstract class GameCharacter implements XMLSaving {
 						// speech
 						if(Main.game.isPenetrationLimitationsEnabled()) {
 							if(characterReacting.hasFetish(Fetish.FETISH_SIZE_QUEEN)) {
-								if (Main.game.isSillyMode()){
+								if (Main.game.isSillyMode() && Math.random()<0.5f){
 									quote = UtilText.returnStringAtRandom(
 											"Oh, fuck yes! Come and stab me with that [npc2.cockSize] [npc2.cock]",
 											"I can see in this cyclop's eye it desires to get as <i>deep</i> as possible inside of me!",
-											"~Ooh!~ Yes! I want your massive cock thrusting as <i>deep</i> as possible inside of me!",
 											"Oh yeah! I want your massive [npc2.cock] to ram into my walls!",
 											"~Ooh!~ Yes! I need your massive cock to liquify my insides!");
 								} else {
