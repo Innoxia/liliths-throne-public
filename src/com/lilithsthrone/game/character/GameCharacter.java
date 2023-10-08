@@ -15893,7 +15893,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		if(!characterBeingRevealed.equals(characterReacting) && !characterReacting.isPlayer()) {
 			if(reactingPace==SexPace.SUB_RESISTING) {
-				if(!characterReacting.isMute() && !characterReacting.isSpeechMuffled()){
+				if(!characterReacting.isMute() && !characterReacting.isSpeechMuffled()){ // this one has a logic different from the rest
 					intro = UtilText.returnStringAtRandom(
 							"[npc.Name] [npc.verb(let)] out [npc.a_sob+] as [npc2.namePos] [npc2.penis+] is revealed",
 							"[npc.speech(No! Please! Get away from me!)] [npc.name] [npc.sobsVerb] as [npc2.namePos] [npc2.penis+] is revealed");
@@ -15903,19 +15903,15 @@ public abstract class GameCharacter implements XMLSaving {
 			} else {
 				if(characterBeingRevealed.getPenisType()==PenisType.DILDO) {
 					intro = "[npc.Name] [npc.verb(grin)] as [npc.she] [npc.verb(see)] that [npc2.nameIs] wearing a strap-on";
-					if(!characterReacting.isMute() && !characterReacting.isSpeechMuffled()){
-						quote = "Looking to have a little extra fun, huh?";
-					}
+					quote = "Looking to have a little extra fun, huh?";
 				} else if(characterReacting.getFetishDesire(Fetish.FETISH_PENIS_RECEIVING).isNegative()) {
 					intro = UtilText.returnStringAtRandom(
 							"[npc.Name] tuts in disappointment as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed",
 							"[npc.Name] [npc.verb(let)] out an annoyed whine as [npc2.namePos] [npc2.cockSize] [npc2.cock] is revealed");
-					if(!characterReacting.isMute() && !characterReacting.isSpeechMuffled()){
-						quote = UtilText.returnStringAtRandom(
-								"I hate cocks!",
-								"Get that thing away from me!",
-								"You can keep that to yourself.");
-					}
+					quote = UtilText.returnStringAtRandom(
+							"I hate cocks!",
+							"Get that thing away from me!",
+							"You can keep that to yourself.");
 				} else {
 					SexAreaOrifice orifice = characterReacting.hasVagina()?SexAreaOrifice.VAGINA:SexAreaOrifice.ANUS;
 		
@@ -15961,90 +15957,89 @@ public abstract class GameCharacter implements XMLSaving {
 										"[npc.Name] [npc.verb(let)] out a derisive grunt as [npc.she] sees that [npc2.nameHas] got [npc2.a_cockSize] [npc2.cock]");
 							}
 						}
-					// speech
-					if(!characterReacting.isMute() && !characterReacting.isSpeechMuffled()) {
+						// speech
 						if(characterReacting.isFeminine()) {	// peen too short | fem reacts
-								if ((characterReacting.getAffection(characterBeingRevealed) >= AffectionLevel.POSITIVE_THREE_CARING.getMinimumValue() || characterReacting.isKind()) && !characterReacting.hasFetish(Fetish.FETISH_SADIST)){ // peen too short | friendly fem reacts
-									if(characterBeingRevealed.getPenisRawSizeValue()<PenisLength.ONE_TINY.getMaximumValue()) {	// peen too short is tiny | friendly fem reacts
+							if ((characterReacting.getAffection(characterBeingRevealed) >= AffectionLevel.POSITIVE_THREE_CARING.getMinimumValue() || characterReacting.isKind()) && !characterReacting.hasFetish(Fetish.FETISH_SADIST)){ // peen too short | friendly fem reacts
+								if(characterBeingRevealed.getPenisRawSizeValue()<PenisLength.ONE_TINY.getMaximumValue()) {	// peen too short is tiny | friendly fem reacts
+									quote = UtilText.returnStringAtRandom(
+											"Your little dick is so cute!",
+											"There are other forms you can make [npc2.namePos]self useful.",
+											"It's so little! I mean, can I even call it...");
+								} else {														
+									quote = UtilText.returnStringAtRandom(												// peen too short is tiny | friendly fem reacts
+											"We'll figure out some use for [npc2.namePos] [npc2.cockSize] thingy.",
+											"Nothing we can do about that, right?",
+											"We'll need some extra effort!");
+								}
+							}
+							else if(characterReacting.hasFetish(Fetish.FETISH_CUM_ADDICT)){	// peen too short | fem reacts | CUM ADDICT
+										 quote = UtilText.returnStringAtRandom(
+												"So you got me a little ready to drink thingy.",
+												"Well... The least you can do is to provide me with some fat ropes.",
+												"Hoping this can compensate it with some extra-tasty [npc2.cum]!");
+									}
+									else if(characterReacting.hasFetish(Fetish.FETISH_PREGNANCY) && characterReacting.hasVagina()){	// peen too short | fem reacts | CUM ADDICT
+										 quote = UtilText.returnStringAtRandom(
+												"Your swimmers will have to work extra hard.",
+												"Your poor thing can still pump me with some good seed, right?",
+												"I hope your [npc2.cum] is juicier than your cock.");
+									}
+							else if(characterReacting.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) { // peen too short | fem reacts seen bulge
+								if(characterBeingRevealed.getPenisRawSizeValue()<PenisLength.ONE_TINY.getMaximumValue()) {	// peen too short is tiny | fem reacts
+									if (characterReacting.isPrude()) {
 										quote = UtilText.returnStringAtRandom(
-												"Your little dick is so cute!",
-												"There are other forms you can make [npc2.namePos]self useful.",
-												"It's so little! I mean, can I even call it...");
-									} else {														
-										quote = UtilText.returnStringAtRandom(												// peen too short is tiny | friendly fem reacts
-												"We'll figure out some use for [npc2.namePos] [npc2.cockSize] thingy.",
-												"Nothing we can do about that, right?",
-												"We'll need some extra effort!");
+												"But it's so... can you even...",
+												"Wait... Are you even able to...?");
+									} else {
+										quote = UtilText.returnStringAtRandom(
+												"Your little clitty dick is so cute!",
+												"That's just so unbelievably pathetic!",
+												"What a pathetic little cock! I mean, can I even call it a cock?! It's more like a little clit!");
+									}
+								} else {
+									if (characterReacting.isPrude()) {
+										quote = UtilText.returnStringAtRandom(
+											"...",
+												"That's just too...");
+									} else {
+										quote = UtilText.returnStringAtRandom(		// peen too short NOT tiny | fem reacts
+												" You're far too small to satisfy me!",
+												characterReacting.hasFetish(Fetish.FETISH_SADIST)
+													? "That pathetic little thing is never going to satisfy me!"
+													: "That little thing is never going to satisfy me!",
+												characterReacting.hasFetish(Fetish.FETISH_SADIST)
+													? "~Eugh!~ I'm not going to have much fun with something so small!"
+													: "~Eugh!~ How disappointing! I'm not going to have much fun with something so pathetically small!");
+												
 									}
 								}
-								else if(characterReacting.hasFetish(Fetish.FETISH_CUM_ADDICT)){	// peen too short | fem reacts | CUM ADDICT
-											 quote = UtilText.returnStringAtRandom(
-													"So you got me a little ready to drink thingy.",
-													"Well... The least you can do is to provide me with some fat ropes.",
-													"Hoping this can compensate it with some extra-tasty [npc2.cum]!");
-										}
-										else if(characterReacting.hasFetish(Fetish.FETISH_PREGNANCY) && characterReacting.hasVagina()){	// peen too short | fem reacts | CUM ADDICT
-											 quote = UtilText.returnStringAtRandom(
-													"Your swimmers will have to work extra hard.",
-													"Your poor thing can still pump me with some good seed, right?",
-													"I hope your [npc2.cum] is juicier than your cock.");
-										}
-								else if(characterReacting.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) { // peen too short | fem reacts seen bulge
-									if(characterBeingRevealed.getPenisRawSizeValue()<PenisLength.ONE_TINY.getMaximumValue()) {	// peen too short is tiny | fem reacts
-										if (characterReacting.isPrude()) {
-											quote = UtilText.returnStringAtRandom(
-													"But it's so... can you even...",
-													"Wait... Are you even able to...?");
-										} else {
-											quote = UtilText.returnStringAtRandom(
-													"Your little clitty dick is so cute!",
-													"That's just so unbelievably pathetic!",
-													"What a pathetic little cock! I mean, can I even call it a cock?! It's more like a little clit!");
-										}
+								
+							} else { // peen too short| fem react seen no bulge
+								if(characterBeingRevealed.getPenisRawSizeValue()<PenisLength.ONE_TINY.getMaximumValue()) {
+									if(!characterBeingRevealed.getAppearsAsGender(true).getGenderName().isHasPenis()) {
+										quote = UtilText.returnStringAtRandom(
+												"I didn't realise you were [npc2.a_gender]! What a cute little clitty dick you've got!",
+												"Wait, you're [npc2.a_gender]?! What a pathetic little clitty dick you've got!");
 									} else {
-										if (characterReacting.isPrude()) {
-											quote = UtilText.returnStringAtRandom(
-												"...",
-													"That's just too...");
-										} else {
-											quote = UtilText.returnStringAtRandom(		// peen too short NOT tiny | fem reacts
-													" You're far too small to satisfy me!",
-													characterReacting.hasFetish(Fetish.FETISH_SADIST)
-														? "That pathetic little thing is never going to satisfy me!"
-														: "That little thing is never going to satisfy me!",
-													characterReacting.hasFetish(Fetish.FETISH_SADIST)
-														? "~Eugh!~ I'm not going to have much fun with something so small!"
-														: "~Eugh!~ How disappointing! I'm not going to have much fun with something so pathetically small!");
-													
-										}
+										quote = UtilText.returnStringAtRandom(
+												"What a cute little clitty dick! A shame that it's never going to be enough to satisfy me!",
+												"Hah! Look at that pathetic little thing! You're far too small to satisfy me!");
 									}
-									
-								} else { // peen too short| fem react seen no bulge
+								} else {
 									if(characterBeingRevealed.getPenisRawSizeValue()<PenisLength.ONE_TINY.getMaximumValue()) {
-										if(!characterBeingRevealed.getAppearsAsGender(true).getGenderName().isHasPenis()) {
-											quote = UtilText.returnStringAtRandom(
-													"I didn't realise you were [npc2.a_gender]! What a cute little clitty dick you've got!",
-													"Wait, you're [npc2.a_gender]?! What a pathetic little clitty dick you've got!");
-										} else {
-											quote = UtilText.returnStringAtRandom(
-													"What a cute little clitty dick! A shame that it's never going to be enough to satisfy me!",
-													"Hah! Look at that pathetic little thing! You're far too small to satisfy me!");
-										}
+										quote = UtilText.returnStringAtRandom(
+												"What a cute little clitty dick! A shame that it's never going to satisfy me!",
+												"That's just so unbelievably pathetic!",
+												"What a pathetic little cock! I mean, can I even call it a cock?! It's more like a little clit!");
 									} else {
-										if(characterBeingRevealed.getPenisRawSizeValue()<PenisLength.ONE_TINY.getMaximumValue()) {
-											quote = UtilText.returnStringAtRandom(
-													"What a cute little clitty dick! A shame that it's never going to satisfy me!",
-													"That's just so unbelievably pathetic!",
-													"What a pathetic little cock! I mean, can I even call it a cock?! It's more like a little clit!");
-										} else {
-											quote = UtilText.returnStringAtRandom(
-													"You're far too small to satisfy me!",
-													"That pathetic little thing is never going to satisfy me!",
-													"~Eugh!~ How disappointing! I'm not going to have much fun with something so pathetically small!");
-										}
+										quote = UtilText.returnStringAtRandom(
+												"You're far too small to satisfy me!",
+												"That pathetic little thing is never going to satisfy me!",
+												"~Eugh!~ How disappointing! I'm not going to have much fun with something so pathetically small!");
 									}
 								}
-							
+							}
+						
 						} else {	// peen too short | masc reacts
 							if (characterReacting.getAffection(characterBeingRevealed) >= AffectionLevel.POSITIVE_THREE_CARING.getMinimumValue() && !characterReacting.hasFetish(Fetish.FETISH_SADIST)){ // peen too short | friendly masc reacts
 								if(characterBeingRevealed.getPenisRawSizeValue()<PenisLength.ONE_TINY.getMaximumValue()) {	// peen too short is tiny | friendly masc reacts
@@ -16097,7 +16092,6 @@ public abstract class GameCharacter implements XMLSaving {
 								}
 							}
 						}
-					}
 					
 					} else if(characterBeingRevealed.isFullPenetrationTooShort(SexAreaPenetration.PENIS, characterReacting, orifice, false)) { // can comfortably hilt
 						// can comfortably hilt // narration
@@ -16120,57 +16114,55 @@ public abstract class GameCharacter implements XMLSaving {
 									"[npc.Name] [npc.verb(let)] out a startled [npc.moan] as [npc.she] sees [npc2.namePos] [npc2.cockSize] [npc2.cock]");
 						}
 						// speech
-						if(!characterReacting.isMute() && !characterReacting.isSpeechMuffled()) {
-							if(characterReacting.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) {
-								if(characterReacting.hasFetish(Fetish.FETISH_SIZE_QUEEN) && !characterReacting.hasFetish(Fetish.FETISH_PENIS_RECEIVING) && characterReacting.getAffection(characterBeingRevealed) < AffectionLevel.POSITIVE_THREE_CARING.getMinimumValue()) {
-									quote = UtilText.returnStringAtRandom(
-											"It could be bigger...",
-											"I need it as deep inside of me as you can get it.",
-											"Come on, let's see what use your cock has!");
-								} else if (characterReacting.isPrude()) {
-									quote = UtilText.returnStringAtRandom(
-											"...",
-											"Your... it's...",
-											"Are you going to...?");
-								} else if (Main.game.isSillyMode() && characterReacting.isLewd() && !characterBeingRevealed.isInternalTesticles()){
-									quote = UtilText.returnStringAtRandom(
-											"Give me my fair share of [npc2.race]-[npc2.penis] and [npc2.race]sticles.",
-											"Got to get my fix of [npc2.cockRace]-[npc2.cock] and [npc2.cockRace]sticles...",
-											"Oh yeah, your cock's looking real good!",
-											"Come on, put that cock of yours to use!");
+						if(characterReacting.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) {
+							if(characterReacting.hasFetish(Fetish.FETISH_SIZE_QUEEN) && !characterReacting.hasFetish(Fetish.FETISH_PENIS_RECEIVING) && characterReacting.getAffection(characterBeingRevealed) < AffectionLevel.POSITIVE_THREE_CARING.getMinimumValue()) {
+								quote = UtilText.returnStringAtRandom(
+										"It could be bigger...",
+										"I need it as deep inside of me as you can get it.",
+										"Come on, let's see what use your cock has!");
+							} else if (characterReacting.isPrude()) {
+								quote = UtilText.returnStringAtRandom(
+										"...",
+										"Your... it's...",
+										"Are you going to...?");
+							} else if (Main.game.isSillyMode() && characterReacting.isLewd() && !characterBeingRevealed.isInternalTesticles()){
+								quote = UtilText.returnStringAtRandom(
+										"Give me my fair share of [npc2.race]-[npc2.penis] and [npc2.race]sticles.",
+										"Got to get my fix of [npc2.cockRace]-[npc2.cock] and [npc2.cockRace]sticles...",
+										"Oh yeah, your cock's looking real good!",
+										"Come on, put that cock of yours to use!");
+							} else {
+								quote = UtilText.returnStringAtRandom(
+										"Your cock's looking good!",
+										"Oh yeah, your cock's looking real good!",
+										"Come on, put that cock of yours to use!");
+							}
+						} else {
+							if(!characterBeingRevealed.getAppearsAsGender(true).getGenderName().isHasPenis()) {
+								if (characterReacting.isPrude()) {
+								quote = UtilText.returnStringAtRandom(
+										"[npc2.A_gender]...",
+										"Your... it's...?",
+										"I didn't realise...");
 								} else {
 									quote = UtilText.returnStringAtRandom(
-											"Your cock's looking good!",
-											"Oh yeah, your cock's looking real good!",
-											"Come on, put that cock of yours to use!");
+											"Hey! I didn't realise you were [npc2.a_gender]!",
+											"Wait, you're [npc2.a_gender]?!");
+									if(characterReacting.getFetishDesire(Fetish.FETISH_PENIS_RECEIVING).isPositive()){
+										quote2 = UtilText.returnStringAtRandom(
+											" And with a nice cock...",
+											" It just got better.",
+											" That's a nice-looking cock...");
+									}else{
+										quote2 = UtilText.returnStringAtRandom(
+											"",
+											" Well, whatever...");
+									}
 								}
 							} else {
-								if(!characterBeingRevealed.getAppearsAsGender(true).getGenderName().isHasPenis()) {
-									if (characterReacting.isPrude()) {
-									quote = UtilText.returnStringAtRandom(
-											"[npc2.A_gender]...",
-											"Your... it's...?",
-											"I didn't realise...");
-									} else {
-										quote = UtilText.returnStringAtRandom(
-												"Hey! I didn't realise you were [npc2.a_gender]!",
-												"Wait, you're [npc2.a_gender]?!");
-										if(characterReacting.getFetishDesire(Fetish.FETISH_PENIS_RECEIVING).isPositive()){
-											quote2 = UtilText.returnStringAtRandom(
-												" And with a nice cock...",
-												" It just got better.",
-												" That's a nice-looking cock...");
-										}else{
-											quote2 = UtilText.returnStringAtRandom(
-												"",
-												" Well, whatever...");
-										}
-									}
-								} else {
-									quote = UtilText.returnStringAtRandom(
-											"That's a nice cock you've got...",
-											"~Mmm!~ That's a nice-looking cock...");
-								}
+								quote = UtilText.returnStringAtRandom(
+										"That's a nice cock you've got...",
+										"~Mmm!~ That's a nice-looking cock...");
 							}
 						}
 						
@@ -16194,69 +16186,67 @@ public abstract class GameCharacter implements XMLSaving {
 									"[npc.Name] [npc.verb(let)] out [npc.a_moan] as [npc.she] sees [npc2.namePos] [npc2.cockSize] [npc2.cock]");
 						}
 						//speech
-						if(!characterReacting.isMute() && !characterReacting.isSpeechMuffled()) {
-							if(characterReacting.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) {
-								if(Main.game.isPenetrationLimitationsEnabled()) {
-									if(characterReacting.hasFetish(Fetish.FETISH_SIZE_QUEEN) || characterReacting.hasFetish(Fetish.FETISH_MASOCHIST)) {
-										if (Main.game.isSillyMode()){
-											quote = UtilText.returnStringAtRandom(
-													"Oh, fuck yes! Your cock's so huge! I want it <i>deep</i> inside of me!",
-													"~Ooh!~ Your cock's so massive! That's going to feel <i>amazing</i>!",
-													"Wow! Your cock's so huge! I want it hilted <i>deep</i> inside of me!",
-													"Whoever can get [npc2.namePos] [npc2.cockSize] thing out of me after I get it all inside will be worth of Lilith's Throne!",
-													"I can see in this cyclop's eye it desires to get <i>deep</i> inside of me!",
-													"~Ooh!~ Yes! I need your massive cock to rearrange my insides!");
-										} else {
+						if(characterReacting.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) {
+							if(Main.game.isPenetrationLimitationsEnabled()) {
+								if(characterReacting.hasFetish(Fetish.FETISH_SIZE_QUEEN) || characterReacting.hasFetish(Fetish.FETISH_MASOCHIST)) {
+									if (Main.game.isSillyMode()){
 										quote = UtilText.returnStringAtRandom(
-												"Oh, fuck yes! I want your huge cock <i>deep</i> inside of me!",
-												"~Ooh!~ I want your huge cock pushing <i>deep</i> inside of me!",
-												"Oh yeah! I want your huge cock hilted <i>deep</i> inside of me!");
-										}
+												"Oh, fuck yes! Your cock's so huge! I want it <i>deep</i> inside of me!",
+												"~Ooh!~ Your cock's so massive! That's going to feel <i>amazing</i>!",
+												"Wow! Your cock's so huge! I want it hilted <i>deep</i> inside of me!",
+												"Whoever can get [npc2.namePos] [npc2.cockSize] thing out of me after I get it all inside will be worth of Lilith's Throne!",
+												"I can see in this cyclop's eye it desires to get <i>deep</i> inside of me!",
+												"~Ooh!~ Yes! I need your massive cock to rearrange my insides!");
 									} else {
-										quote = UtilText.returnStringAtRandom(
-												"Your cock's so huge! It might be too big for me...",
-												"Your cock's massive... There's no way it's all going to fit...",
-												"Wow! Your cock's just so huge! It might be <i>too</i> huge...");
+									quote = UtilText.returnStringAtRandom(
+											"Oh, fuck yes! I want your huge cock <i>deep</i> inside of me!",
+											"~Ooh!~ I want your huge cock pushing <i>deep</i> inside of me!",
+											"Oh yeah! I want your huge cock hilted <i>deep</i> inside of me!");
 									}
 								} else {
 									quote = UtilText.returnStringAtRandom(
-											"Your cock's so huge!",
-											"Your cock's massive!",
-											"Your cock really is so huge!");
+											"Your cock's so huge! It might be too big for me...",
+											"Your cock's massive... There's no way it's all going to fit...",
+											"Wow! Your cock's just so huge! It might be <i>too</i> huge...");
 								}
-
 							} else {
-								if(Main.game.isPenetrationLimitationsEnabled()) {
-									if(characterReacting.hasFetish(Fetish.FETISH_SIZE_QUEEN)) {
-										if (Main.game.isSillyMode()){
-											quote = UtilText.returnStringAtRandom(
-													"Oh, fuck yes! A massive cock! I want it <i>deep</i> inside of me!",
-													"~Ooh!~ Your cock's so massive! That's going to feel <i>amazing</i>!",
-													"Wow! Your cock's so huge! I want it hilted <i>deep</i> inside of me!",
-													"Whoever can get [npc2.namePos] [npc2.cockSize] thing out of me after I get it all inside will be worth of Lilith's Throne!",
-													"How did you keep it hidden?!",
-													"~Ooh!~ Yes! I need your massive cock to rearrange my insides!");
-										} else {
-											quote = UtilText.returnStringAtRandom(
-													"Oh, fuck yes! A massive cock! Get it <i>deep</i> inside of me!",
-													"~Ooh!~ Your cock's massive! That's going to feel <i>amazing</i>!",
-													"What-- Wow! Your cock's so huge! I want it hilted <i>deep</i> inside of me!",
-													"Wait... How did you keep it hidden?!");
-										}
-									} else if(characterReacting.hasFetish(Fetish.FETISH_MASOCHIST)){
+								quote = UtilText.returnStringAtRandom(
+										"Your cock's so huge!",
+										"Your cock's massive!",
+										"Your cock really is so huge!");
+							}
+
+						} else {
+							if(Main.game.isPenetrationLimitationsEnabled()) {
+								if(characterReacting.hasFetish(Fetish.FETISH_SIZE_QUEEN)) {
+									if (Main.game.isSillyMode()){
 										quote = UtilText.returnStringAtRandom(
-												"That thing's huge! There's no way it's all going to fit! I don't mind you trying, though...",
-												"No way! Your cock's far too big! It's going to ~hurt me~...");
+												"Oh, fuck yes! A massive cock! I want it <i>deep</i> inside of me!",
+												"~Ooh!~ Your cock's so massive! That's going to feel <i>amazing</i>!",
+												"Wow! Your cock's so huge! I want it hilted <i>deep</i> inside of me!",
+												"Whoever can get [npc2.namePos] [npc2.cockSize] thing out of me after I get it all inside will be worth of Lilith's Throne!",
+												"How did you keep it hidden?!",
+												"~Ooh!~ Yes! I need your massive cock to rearrange my insides!");
 									} else {
 										quote = UtilText.returnStringAtRandom(
-												"That thing's huge! There's no way it's all going to fit!",
-												"No way! Your cock's far too big for me!");
+												"Oh, fuck yes! A massive cock! Get it <i>deep</i> inside of me!",
+												"~Ooh!~ Your cock's massive! That's going to feel <i>amazing</i>!",
+												"What-- Wow! Your cock's so huge! I want it hilted <i>deep</i> inside of me!",
+												"Wait... How did you keep it hidden?!");
 									}
+								} else if(characterReacting.hasFetish(Fetish.FETISH_MASOCHIST)){
+									quote = UtilText.returnStringAtRandom(
+											"That thing's huge! There's no way it's all going to fit! I don't mind you trying, though...",
+											"No way! Your cock's far too big! It's going to ~hurt me~...");
 								} else {
 									quote = UtilText.returnStringAtRandom(
-											"That thing's huge! This is going to be good!",
-											"No way! Your cock's so huge!");
+											"That thing's huge! There's no way it's all going to fit!",
+											"No way! Your cock's far too big for me!");
 								}
+							} else {
+								quote = UtilText.returnStringAtRandom(
+										"That thing's huge! This is going to be good!",
+										"No way! Your cock's so huge!");
 							}
 						}
 					} else if(characterBeingRevealed.isFullPenetrationTooLongToFit(SexAreaPenetration.PENIS, characterReacting, orifice, false)) {	// can't hilt
@@ -16287,40 +16277,38 @@ public abstract class GameCharacter implements XMLSaving {
 							}
 						}
 						// speech
-						if(!characterReacting.isMute() && !characterReacting.isSpeechMuffled()) {
-							if(Main.game.isPenetrationLimitationsEnabled()) {
-								if(characterReacting.hasFetish(Fetish.FETISH_SIZE_QUEEN)) {
-									if (Main.game.isSillyMode()){
-										quote = UtilText.returnStringAtRandom(
-												"Oh, fuck yes! Come and stab me with that [npc2.cockSize] [npc2.cock]",
-												"I can see in this cyclop's eye it desires to get as <i>deep</i> as possible inside of me!",
-												"~Ooh!~ Yes! I want your massive cock thrusting as <i>deep</i> as possible inside of me!",
-												"Oh yeah! I want your massive [npc2.cock] to ram into my walls!",
-												"~Ooh!~ Yes! I need your massive cock to liquify my insides!");
-									} else {
-										quote = UtilText.returnStringAtRandom(
-												"Oh, fuck yes! I want your massive cock pushed as <i>deep</i> as possible inside of me!",
-												"~Ooh!~ Yes! I want your massive cock thrusting as <i>deep</i> as possible inside of me!",
-												"Oh yeah! I want your massive cock rammed as <i>deep</i> as it'll go inside of me!");
-									}
+						if(Main.game.isPenetrationLimitationsEnabled()) {
+							if(characterReacting.hasFetish(Fetish.FETISH_SIZE_QUEEN)) {
+								if (Main.game.isSillyMode()){
+									quote = UtilText.returnStringAtRandom(
+											"Oh, fuck yes! Come and stab me with that [npc2.cockSize] [npc2.cock]",
+											"I can see in this cyclop's eye it desires to get as <i>deep</i> as possible inside of me!",
+											"~Ooh!~ Yes! I want your massive cock thrusting as <i>deep</i> as possible inside of me!",
+											"Oh yeah! I want your massive [npc2.cock] to ram into my walls!",
+											"~Ooh!~ Yes! I need your massive cock to liquify my insides!");
 								} else {
 									quote = UtilText.returnStringAtRandom(
-											"That thing is never going to fit inside of me! You're far too big!",
-											"Your cock's far too big! There's no way it's ever going to fit!",
-											"There's no way I can fit something that huge inside of me!");
+											"Oh, fuck yes! I want your massive cock pushed as <i>deep</i> as possible inside of me!",
+											"~Ooh!~ Yes! I want your massive cock thrusting as <i>deep</i> as possible inside of me!",
+											"Oh yeah! I want your massive cock rammed as <i>deep</i> as it'll go inside of me!");
 								}
-								
 							} else {
-								if(characterReacting.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) {
-									quote = UtilText.returnStringAtRandom(
-											"I can't believe how massive your cock is! I doubt anyone's got a bigger one than you...",
-											"Oh yeah, bring that gigantic cock of yours over to me!",
-											"Your cock's so huge! I don't think I'll ever get tired of it!");
-								} else {
-									quote = UtilText.returnStringAtRandom(
-											"What?! Holy shit! Your cock's <i>huge</i>!",
-											"Holy shit! I could see it was huge from your bulge, but... well... it's <i>massive</i>!");
-								}
+								quote = UtilText.returnStringAtRandom(
+										"That thing is never going to fit inside of me! You're far too big!",
+										"Your cock's far too big! There's no way it's ever going to fit!",
+										"There's no way I can fit something that huge inside of me!");
+							}
+							
+						} else {
+							if(characterReacting.isKnowsCharacterArea(CoverableArea.PENIS, characterBeingRevealed)) {
+								quote = UtilText.returnStringAtRandom(
+										"I can't believe how massive your cock is! I doubt anyone's got a bigger one than you...",
+										"Oh yeah, bring that gigantic cock of yours over to me!",
+										"Your cock's so huge! I don't think I'll ever get tired of it!");
+							} else {
+								quote = UtilText.returnStringAtRandom(
+										"What?! Holy shit! Your cock's <i>huge</i>!",
+										"Holy shit! I could see it was huge from your bulge, but... well... it's <i>massive</i>!");
 							}
 						}
 						
