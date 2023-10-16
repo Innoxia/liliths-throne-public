@@ -295,7 +295,7 @@ public class ImpFortressDialogue {
 				impGroup = new ArrayList<>();
 				List<String> impAdjectives = new ArrayList<>();
 				
-				ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI, false);
+				ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI);
 				impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 				imp.setLevel(12+Util.random.nextInt(3)); // 12-14
 				Main.game.addNPC(imp, false);
@@ -303,14 +303,14 @@ public class ImpFortressDialogue {
 				imp.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_crudeShield_crude_shield")));
 				impGroup.add(imp);
 				
-				imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI, false);
+				imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI);
 				impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 				imp.setLevel(12+Util.random.nextInt(3)); // 12-14
 				Main.game.addNPC(imp, false);
 				imp.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_pipe_pipe")));
 				impGroup.add(imp);
 				
-				imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI, false);
+				imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI);
 //				impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 				imp.setGenericName("alpha-imp archer");
 				imp.setLevel(8+Util.random.nextInt(3)); // 8-10
@@ -364,7 +364,7 @@ public class ImpFortressDialogue {
 				impGroup = new ArrayList<>();
 				List<String> impAdjectives = new ArrayList<>();
 				
-				ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI, false);
+				ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI);
 				impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 				imp.setLevel(12+Util.random.nextInt(3)); // 12-14
 				Main.game.addNPC(imp, false);
@@ -372,14 +372,14 @@ public class ImpFortressDialogue {
 				imp.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_crudeShield_crude_shield")));
 				impGroup.add(imp);
 				
-				imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI, false);
+				imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI);
 				impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 				imp.setLevel(12+Util.random.nextInt(3)); // 12-14
 				Main.game.addNPC(imp, false);
 				imp.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_pipe_pipe")));
 				impGroup.add(imp);
 				
-				imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI, false);
+				imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI);
 //				impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 				imp.setGenericName("alpha-imp archer");
 				imp.setLevel(8+Util.random.nextInt(3)); // 8-10
@@ -433,7 +433,7 @@ public class ImpFortressDialogue {
 				impGroup = new ArrayList<>();
 				List<String> impAdjectives = new ArrayList<>();
 				
-				ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.M_P_MALE, false);
+				ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.M_P_MALE);
 				impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 				imp.setLevel(12+Util.random.nextInt(3)); // 12-14
 				Main.game.addNPC(imp, false);
@@ -441,7 +441,7 @@ public class ImpFortressDialogue {
 				imp.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_crudeShield_crude_shield")));
 				impGroup.add(imp);
 				
-				imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.M_P_MALE, false);
+				imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.M_P_MALE);
 				impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 				imp.setLevel(12+Util.random.nextInt(3)); // 12-14
 				Main.game.addNPC(imp, false);
@@ -449,7 +449,7 @@ public class ImpFortressDialogue {
 				imp.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_crudeShield_crude_shield")));
 				impGroup.add(imp);
 				
-				imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.M_P_MALE, false);
+				imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.M_P_MALE);
 				impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 				imp.setLevel(8+Util.random.nextInt(3)); // 8-10
 				Main.game.addNPC(imp, false);
@@ -641,14 +641,14 @@ public class ImpFortressDialogue {
 
 		if(fortress==WorldType.IMP_FORTRESS_ALPHA) {
 			try {
-				ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI, false);
+				ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI);
 				imp.setGenericName("alpha-imp leader");
 				imp.setLevel(12+Util.random.nextInt(3)); // 12-14
 				Main.game.addNPC(imp, false);
 				imp.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_pipe_pipe")));
 				impGroup.add(imp);
 				
-				imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI, false);
+				imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI);
 				imp.setGenericName("alpha-imp archer");
 				imp.setLevel(8+Util.random.nextInt(3)); // 8-10
 				Main.game.addNPC(imp, false);
@@ -671,13 +671,13 @@ public class ImpFortressDialogue {
 
 		} else if(fortress==WorldType.IMP_FORTRESS_FEMALES) {
 			try {
-				ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_V_B_FEMALE, false);
+				ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_V_B_FEMALE);
 				imp.setGenericName("alpha-imp leader");
 				imp.setLevel(12+Util.random.nextInt(3)); // 12-14
 				Main.game.addNPC(imp, false);
 				impGroup.add(imp);
 				
-				imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_V_B_FEMALE, false);
+				imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_V_B_FEMALE);
 				impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 				imp.setLevel(8+Util.random.nextInt(3)); // 8-10
 				Main.game.addNPC(imp, false);
@@ -699,7 +699,7 @@ public class ImpFortressDialogue {
 
 		} else if(fortress==WorldType.IMP_FORTRESS_MALES) {
 			try {
-				ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.M_P_MALE, false);
+				ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.M_P_MALE);
 				imp.setGenericName("alpha-imp leader");
 				imp.setLevel(12+Util.random.nextInt(3)); // 12-14
 				Main.game.addNPC(imp, false);
@@ -707,7 +707,7 @@ public class ImpFortressDialogue {
 				imp.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon(WeaponType.getWeaponTypeFromId("innoxia_crudeShield_crude_shield")));
 				impGroup.add(imp);
 				
-				imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.M_P_MALE, false);
+				imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.M_P_MALE);
 				imp.setGenericName("alpha-imp brawler");
 				imp.setLevel(8+Util.random.nextInt(3)); // 8-10
 				Main.game.addNPC(imp, false);

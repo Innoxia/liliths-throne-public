@@ -48,9 +48,6 @@
 		<preParsingEffects><![CDATA[
 			[#game.addNPC('fields.SillyModeLARPAttacker', 'dsg_larpattacker')]
 			[#game.setActiveNPC(dsg_larpattacker)]
-			[#npc.setHistory(OCCUPATION_NPC_UNEMPLOYED)]
-			[#npc.equipClothing()]
-			[#npc.setLocation(pc, true)]
 		]]></preParsingEffects>
 		<content folderPath="txt/dsg/encounters/fields/elis/eisek_sillymode/dungeon">COMBAT</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>

@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.submission;
 
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,8 +27,9 @@ import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.gender.Gender;
-import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
+import com.lilithsthrone.game.character.npc.RandomNPC;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
@@ -37,13 +37,11 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.submission.TunnelImpsDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpCitadelDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.impFortress.ImpFortressDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.PossibleItemEffect;
@@ -65,72 +63,52 @@ import com.lilithsthrone.world.places.PlaceType;
  * @version 0.2.12
  * @author Innoxia
  */
-public class ImpAttacker extends NPC {
-
-	public ImpAttacker() {
-		this(Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), false);
+public class ImpAttacker extends RandomNPC {
+	
+	public ImpAttacker(NPCGenerationFlag... generationFlags) {
+		this(false, Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), generationFlags);
 	}
 	
 	public ImpAttacker(boolean isImported) {
-		this(Subspecies.IMP, Gender.F_V_B_FEMALE, isImported);
+		this(isImported, Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false));
 	}
 	
-	public ImpAttacker(AbstractSubspecies subspecies, Gender gender) {
-		this(subspecies, gender, false);
+	public ImpAttacker(AbstractSubspecies subspecies, NPCGenerationFlag... generationFlags) {
+		this(false, subspecies, Gender.getGenderFromUserPreferences(false, false), generationFlags);
 	}
 	
-	public ImpAttacker(AbstractSubspecies subspecies, Gender gender, boolean isImported) {
-		super(isImported, null, null, "",
-				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				3, gender, subspecies, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.SUBMISSION, PlaceType.SUBMISSION_TUNNELS, false);
+	public ImpAttacker(AbstractSubspecies subspecies, Gender gender, NPCGenerationFlag... generationFlags) {
+		this(false, subspecies, gender, generationFlags);
+	}
+	
+	public ImpAttacker(boolean isImported, AbstractSubspecies subspecies, Gender gender, NPCGenerationFlag... generationFlags) {
+		super(isImported, false, generationFlags);
 		
-		if(!isImported) {
-			this.setLocation(Main.game.getPlayer(), true);
-			
-			// Set random level from 5 to 8:
-			setLevel(5 + Util.random.nextInt(4));
-			
-			setSexualOrientation(SexualOrientation.AMBIPHILIC);
-	
-			setName(Name.getRandomTriplet(this.getSubspecies()));
-			this.setPlayerKnowsName(false);
-			setDescription(UtilText.parse(this,
-					"Imps, such as this one, have no interest in anything but sex, and will attack anyone who's not a member of their clan in order to get what they want..."));
-			
-			// PERSONALITY & BACKGROUND:
-			
-			Main.game.getCharacterUtils().setHistoryAndPersonality(this, true);
-			
-			// ADDING FETISHES:
-			
-			Main.game.getCharacterUtils().addFetishes(this);
-			
-			
-			// BODY RANDOMISATION:
-			
-			Main.game.getCharacterUtils().randomiseBody(this, true);
-			
-			// INVENTORY:
-			
-			resetInventory(true);
-			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-			Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
-	
-			// Clothing is equipped in the Encounter class, when the imps are spawned.
-			Main.game.getCharacterUtils().applyMakeup(this, true);
-			Main.game.getCharacterUtils().applyTattoos(this, true);
-			
-			// Set starting attributes based on the character's race
-			initPerkTreeAndBackgroundPerks();
-			this.setStartingCombatMoves();
-			loadImages();
-
-			initHealthAndManaToMax();
-			this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
+		if(isImported) {
+			return;
 		}
 		
-		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
+		// Pre-setup
+		this.setLevel(5 + Util.random.nextInt(4));
+		
+		// Setup
+		setupNPC(subspecies,
+				RaceStage.GREATER,
+				Occupation.NPC_MUGGER,
+				false,
+				false,
+				false,
+				true,
+				true,
+				true,
+				true,
+				generationFlags);
+		
+		// Post-setup
+		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		setDescription(UtilText.parse(this,
+				"Imps, such as this one, have no interest in anything but sex, and will attack anyone who's not a member of their clan in order to get what they want..."));
+		this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
 	}
 	
 	@Override
@@ -168,22 +146,12 @@ public class ImpAttacker extends NPC {
 	}
 	
 	@Override
-	public void setStartingBody(boolean setPersona) {
-		// Not needed
-	}
-
-	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) { //TODO gang tattoos?
 		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
 		this.clearNonEquippedInventory(false);
 		Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
 
 		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
-	}
-	
-	@Override
-	public boolean isUnique() {
-		return false;
 	}
 	
 	@Override
@@ -194,27 +162,6 @@ public class ImpAttacker extends NPC {
 		} else {
 			return (UtilText.parse(this, description));
 		}
-	}
-	
-	@Override
-	public void endSex() {
-		if(!isSlave()) {
-			setPendingClothingDressing(true);
-		}
-	}
-
-	@Override
-	public boolean isClothingStealable() {
-		return true;
-	}
-	
-	@Override
-	public boolean isAbleToBeImpregnated() {
-		return true;
-	}
-	
-	@Override
-	public void changeFurryLevel(){
 	}
 	
 	@Override
@@ -320,7 +267,7 @@ public class ImpAttacker extends NPC {
 				if(effects!=null) {
 					AbstractItem potion = EnchantingUtils.craftItem(
 						Main.game.getItemGen().generateItem(effects.getItemType()),
-						effects.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
+						effects.getEffects().stream().map(PossibleItemEffect::getEffect).collect(Collectors.toList()));
 					potion.setName("Imp's Elixir");
 					TunnelImpsDialogue.getImpGroup().get(1).addItem(potion, false);
 				}
@@ -329,7 +276,7 @@ public class ImpAttacker extends NPC {
 					if(effects2!=null) {
 						AbstractItem potion2 = EnchantingUtils.craftItem(
 							Main.game.getItemGen().generateItem(effects2.getItemType()),
-							effects2.getEffects().stream().map(x -> x.getEffect()).collect(Collectors.toList()));
+							effects2.getEffects().stream().map(PossibleItemEffect::getEffect).collect(Collectors.toList()));
 						potion2.setName("Imp's Elixir");
 						TunnelImpsDialogue.getImpGroup().get(1).addItem(potion2, false);
 					}

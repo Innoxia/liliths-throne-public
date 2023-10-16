@@ -8,17 +8,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
-import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.EnforcerPatrol;
+import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
+import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -161,13 +160,13 @@ public abstract class AbstractEncounter {
 		if(Math.random()<chanceOfNewEnforcers) {
 			try {
 				List<String> enforcerIds = new ArrayList<>();
-				EnforcerPatrol npc = new EnforcerPatrol(Occupation.NPC_ENFORCER_PATROL_CONSTABLE, Gender.getGenderFromUserPreferences(false, false));
+				EnforcerPatrol npc = new EnforcerPatrol(Occupation.NPC_ENFORCER_PATROL_CONSTABLE);
 				Main.game.addNPC(npc, false);
 				npc.setLevel(9+Util.random.nextInt(4)); // 9-12
 				((EnforcerPatrol)npc).setWeapons("dsg_eep_pbweap_pbpistol");
 				enforcerIds.add(npc.getId());
 				
-				EnforcerPatrol npc2 = new EnforcerPatrol(Occupation.NPC_ENFORCER_PATROL_CONSTABLE, Gender.getGenderFromUserPreferences(false, false));
+				EnforcerPatrol npc2 = new EnforcerPatrol(Occupation.NPC_ENFORCER_PATROL_CONSTABLE);
 				Main.game.addNPC(npc2, false);
 				npc2.setLevel(4+Util.random.nextInt(5)); // 4-8
 				((EnforcerPatrol)npc2).setWeapons("dsg_eep_taser_taser");

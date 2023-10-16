@@ -132,7 +132,6 @@ public class VengarCaptiveDialogue {
 			NPC rat = new RatGangMember(gender);
 			Main.game.addNPC(rat, false);
 			rat.setLevel(4+Util.random.nextInt(5));
-			rat.setLocation(Main.game.getPlayer(), true);
 			String[] names = new String[] {"thug", "gangster", "gang-member", "mobster"};
 			Main.game.getCharacterUtils().setGenericName(rat, Util.randomItemFrom(names), null);
 			return rat;
@@ -2452,7 +2451,7 @@ public class VengarCaptiveDialogue {
 	public static final DialogueNode VENGARS_HALL_GROPED = new DialogueNode("", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
-			VengarCaptiveDialogue.generateRat(Gender.getGenderFromUserPreferences(false, false));
+			generateRat(Gender.getGenderFromUserPreferences(false, false));
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -2763,7 +2762,7 @@ public class VengarCaptiveDialogue {
 	public static final DialogueNode VENGARS_HALL_RAT_FUCK = new DialogueNode("", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
-			VengarCaptiveDialogue.generateRat(Gender.getGenderFromUserPreferences(false, false));
+			generateRat(Gender.getGenderFromUserPreferences(false, false));
 		}
 		@Override
 		public int getSecondsPassed() {
@@ -2931,14 +2930,14 @@ public class VengarCaptiveDialogue {
 	public static final DialogueNode VENGARS_HALL_GROUP_SEX = new DialogueNode("", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
-			VengarCaptiveDialogue.generateRat(Gender.getGenderFromUserPreferences(false, true));
+			generateRat(Gender.getGenderFromUserPreferences(false, true));
 			if(Main.game.isAnalContentEnabled()) {
-				VengarCaptiveDialogue.generateRat(Gender.getGenderFromUserPreferences(false, true));
+				generateRat(Gender.getGenderFromUserPreferences(false, true));
 			} else {
-				VengarCaptiveDialogue.generateRat(Gender.getGenderFromUserPreferences(true, false));
+				generateRat(Gender.getGenderFromUserPreferences(true, false));
 			}
-			VengarCaptiveDialogue.generateRat(Gender.getGenderFromUserPreferences(false, false));
-			VengarCaptiveDialogue.generateRat(Gender.getGenderFromUserPreferences(false, false));
+			generateRat(Gender.getGenderFromUserPreferences(false, false));
+			generateRat(Gender.getGenderFromUserPreferences(false, false));
 		}
 		@Override
 		public int getSecondsPassed() {

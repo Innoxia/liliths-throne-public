@@ -17,7 +17,7 @@ import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -1794,13 +1794,10 @@ public class ZaranixHomeGroundFloorRepeat {
 					@Override
 					public void effects() {
 						Gender petGender = Gender.getGenderFromUserPreferences(false, false);
-						pet = new GenericSexualPartner(
-								petGender.getGenderName().isHasPenis()?petGender:(petGender.isFeminine()?Gender.F_P_V_B_FUTANARI:Gender.M_P_MALE), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+						pet = new GenericSexualPartner(petGender.getGenderName().isHasPenis()?petGender:(petGender.isFeminine()?Gender.F_P_V_B_FUTANARI:Gender.M_P_MALE));
 						pet.setName(Util.randomItemFrom(Name.petNames));
 						pet.setPlayerKnowsName(true);
-						owner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
-						owner.setBody(Gender.getGenderFromUserPreferences(false, false), RacialBody.DEMON, RaceStage.GREATER, false);
-						owner.setName(Name.getRandomTriplet(owner.getSubspecies()));
+						owner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER);
 						
 						try {
 							Main.game.addNPC(pet, false);

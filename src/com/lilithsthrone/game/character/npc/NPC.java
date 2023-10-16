@@ -184,7 +184,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		NPCFlagValues = new HashSet<>();
 		
-		if(!isImported) {
+		if(!isImported && isUnique()) {
 			setStartingBody(true);
 			if(!flags.contains(NPCGenerationFlag.NO_CLOTHING_EQUIP) && this.getBody()!=null) {
 				equipClothing(EquipClothingSetting.getAllClothingSettings());
@@ -1296,7 +1296,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			BodyMaterial material = this.getBodyMaterial();
 			this.setBody(this.getGenderIdentity(), this.getBody().getFleshSubspecies(), this.getBody().getRaceStageFromPartWeighting(), false);
 			this.setBodyMaterial(material);
-			Main.game.getCharacterUtils().randomiseBody(this, false);
+			Main.game.getCharacterUtils().randomiseBody(this);
 			
 			this.setAssVirgin(assVirgin);
 			this.setFaceVirgin(faceVirgin);

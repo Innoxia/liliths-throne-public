@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,13 +11,12 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
-import com.lilithsthrone.game.character.gender.Gender;
-import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
+import com.lilithsthrone.game.character.npc.RandomNPC;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
@@ -27,11 +25,9 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.AlleywayDemonDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -43,94 +39,60 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.PresetColour;
-import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.69
  * @version 0.3.7.4
  * @author Innoxia
  */
-public class DominionSuccubusAttacker extends NPC {
+public class DominionSuccubusAttacker extends RandomNPC {
 	
-	public DominionSuccubusAttacker() {
-		this(false);
+	public DominionSuccubusAttacker(NPCGenerationFlag... generationFlags) {
+		this(false, generationFlags);
 	}
 	
-	public DominionSuccubusAttacker(boolean isImported) {
-		super(isImported, null, null, "",
-				Util.random.nextInt(50)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				5, Gender.getGenderFromUserPreferences(Femininity.FEMININE), Subspecies.DEMON, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
-
-		if(!isImported) {
-			this.setLocation(Main.game.getPlayer(), true);
-			
-//			if(!Gender.getGenderFromUserPreferences(false, false).isFeminine()) {
-//				this.setBody(Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER, true);
-//				this.setGenderIdentity(Gender.M_P_MALE);
-//			}
-			
-			Gender gender = Gender.getGenderFromUserPreferences(false, false);
-			this.setBody(gender, Subspecies.DEMON, RaceStage.GREATER, true);
-			this.setGenderIdentity(gender);
-			
-			
-			Main.game.getCharacterUtils().randomiseBody(this, true);
-
-			Main.game.getCharacterUtils().setHistoryAndPersonality(this, false);
-			this.setHistory(Occupation.NPC_MUGGER); // All demon alleyway attackers are muggers
-			
-			addFetish(Fetish.FETISH_DEFLOWERING);
-			addFetish(Fetish.FETISH_DOMINANT);
-			Main.game.getCharacterUtils().addFetishes(this);
-
-			this.removePersonalityTrait(PersonalityTrait.PRUDE);
-
-			setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.setAgeAppearanceDifferenceToAppearAsAge(18+Util.random.nextInt(10));
-			
-			this.setVaginaVirgin(false);
-			this.setAssVirgin(false);
-			this.setFaceVirgin(false);
-			this.setNippleVirgin(false);
-			this.setPenisVirgin(false);
-			
-			setLevel(Util.random.nextInt(5) + 8);
-			
-			setName(Name.getRandomTriplet(Subspecies.DEMON));
-			this.setPlayerKnowsName(false);
-			
-			// Set random inventory & weapons:
-			resetInventory(true);
-			inventory.setMoney(50);
-			Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
-			
-			// CLOTHING:
-			
-			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
-			
-			Main.game.getCharacterUtils().applyMakeup(this, true);
-			Main.game.getCharacterUtils().applyTattoos(this, true);
-
-			if(hasFetish(Fetish.FETISH_CUM_ADDICT) && Math.random() < 0.1) {
-				Main.game.getCharacterUtils().applyDirtiness(this);
-			}
-			
-			this.addSpell(Spell.ARCANE_AROUSAL);
-			this.addSpell(Spell.TELEPATHIC_COMMUNICATION);
-			this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_1);
-
-			// Set starting perks based on the character's race
-			initPerkTreeAndBackgroundPerks();
-			this.setStartingCombatMoves();
-			loadImages();
-			
-			initHealthAndManaToMax();
+	public DominionSuccubusAttacker(boolean isImported, NPCGenerationFlag... generationFlags) {
+		super(isImported, false, generationFlags);
+		
+		if (isImported) {
+			return;
 		}
+		
+		// Pre-setup
+		this.setLevel(Util.random.nextInt(5)+4);
+		
+		this.addFetish(Fetish.FETISH_DEFLOWERING);
+		this.addFetish(Fetish.FETISH_DOMINANT);
+		
+		// Setup
+		this.setupNPC(Subspecies.DEMON,
+				RaceStage.GREATER,
+				Occupation.NPC_MUGGER,
+				false,
+				false,
+				false,
+				true,
+				true,
+				true,
+				true,
+				generationFlags);
+		
+		// Post-setup
+		this.removePersonalityTrait(PersonalityTrait.PRUDE);
+		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		this.setAgeAppearanceDifferenceToAppearAsAge(18+Util.random.nextInt(10));
+		
+		this.setVaginaVirgin(false);
+		this.setAssVirgin(false);
+		this.setFaceVirgin(false);
+		this.setNippleVirgin(false);
+		this.setPenisVirgin(false);
+		
+		inventory.setMoney(50);
 
-		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
+		this.addSpell(Spell.ARCANE_AROUSAL);
+		this.addSpell(Spell.TELEPATHIC_COMMUNICATION);
+		this.addSpellUpgrade(SpellUpgrade.TELEPATHIC_COMMUNICATION_1);
 	}
 	
 	@Override
@@ -145,22 +107,12 @@ public class DominionSuccubusAttacker extends NPC {
 	}
 
 	@Override
-	public void setStartingBody(boolean setPersona) {
-		// Not needed
-	}
-
-	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 0.5f));
 		this.clearNonEquippedInventory(false);
 		Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
 		
 		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.MUGGER, settings);
-	}
-	
-	@Override
-	public boolean isUnique() {
-		return false;
 	}
 	
 	@Override
@@ -176,20 +128,6 @@ public class DominionSuccubusAttacker extends NPC {
 	}
 
 	@Override
-	public boolean isClothingStealable() {
-		return true;
-	}
-	
-	@Override
-	public boolean isAbleToBeImpregnated() {
-		return true;
-	}
-	
-	@Override
-	public void changeFurryLevel(){
-	}
-	
-	@Override
 	public DialogueNode getEncounterDialogue() {
 		return AlleywayDemonDialogue.DEMON_ATTACK;
 	}
@@ -204,7 +142,6 @@ public class DominionSuccubusAttacker extends NPC {
 	}
 
 	// Combat:
-
 	@Override
 	public String getMainAttackDescription(int armRow, GameCharacter target, boolean isHit, boolean critical) {
 		if(!this.isSlave() && this.getMainWeapon(0)==null) {

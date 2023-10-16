@@ -1,36 +1,24 @@
 package com.lilithsthrone.game.character.npc.fields;
 
-import java.time.Month;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
-import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
-import com.lilithsthrone.game.character.gender.Gender;
-import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
-import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.npc.RandomNPC;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
-import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.character.race.SubspeciesSpawnRarity;
 import com.lilithsthrone.game.combat.moves.AbstractCombatMove;
 import com.lilithsthrone.game.combat.moves.CombatMoveType;
 import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.main.Main;
@@ -46,109 +34,54 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author DSG
  */
 
-public class SillyModeLARPAttacker extends NPC {
+public class SillyModeLARPAttacker extends RandomNPC {
 	
-    public SillyModeLARPAttacker() {
-		this(Gender.getGenderFromUserPreferences(false, false), false);
+    public SillyModeLARPAttacker(NPCGenerationFlag... generationFlags) {
+		this(false, generationFlags);
 	}
 	
-	public SillyModeLARPAttacker(Gender gender) {
-		this(gender, false);
-	}
-	
-	public SillyModeLARPAttacker(boolean isImported) {
-		this(Gender.M_P_MALE, isImported);
-	}
-	
-	/**
-	 * You must manually place this NPC in a location after creation!
-	 */
-	public SillyModeLARPAttacker(Gender gender, boolean isImported, NPCGenerationFlag... generationFlags) {
-		super(isImported, null, null, "",
-				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				3,
-				null, null, null,
-				new CharacterInventory(10),
-				WorldType.getWorldTypeFromId("dsg_fields_elis_eisek_sillymode_dungeon"),
-				PlaceType.getPlaceTypeFromId("dsg_fields_elis_eisek_sillymode_dungeon_passage"),
-				false,
-				generationFlags);
-
-		if(!isImported) {
-			// Set random level from 1 to 5:
-			setLevel(Util.random.nextInt(6) + 1);
-			
-			// Race, name, personality/fetishes:
-			
-			Map<AbstractSubspecies, Integer> availableRaces = new HashMap<>();
-			for(AbstractSubspecies s : Subspecies.getAllSubspecies()) {
-				if(s.getSubspeciesOverridePriority()>0) { // Do not spawn demonic races, elementals, or youko
-					continue;
-				}
-				Map<AbstractSubspecies, SubspeciesSpawnRarity> subMap = Subspecies.getWorldSpecies(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_alley"), false);
-				if(subMap.containsKey(s)) {
-					AbstractSubspecies.addToSubspeciesMap((int) (10000 * subMap.get(s).getChanceMultiplier()), gender, s, availableRaces);
-				}
-			}
-			
-			this.setBodyFromSubspeciesPreference(gender, availableRaces, true, true);
-			
-			if(Math.random()<Main.getProperties().halfDemonSpawnRate/100f && this.getSubspecies()!=Subspecies.SLIME) { // Don't convert slimes, as their getFleshSubspecies() can be of any subspecies
-				this.setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, gender, this.getBody().getFleshSubspecies(), true), true);
-			}
-			
-			if(Math.random()<Main.getProperties().taurSpawnRate/100f
-					&& this.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL) { // Do not reset this character's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
-				// Check for race's leg type as taur, otherwise NPCs which spawn with human legs won't be affected by taur conversion rate:
-				if(this.getRace().getRacialBody().getLegType().isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) {
-					this.setLegType(this.getRace().getRacialBody().getLegType());
-					Main.game.getCharacterUtils().applyTaurConversion(this);
-				}
-			}
-			
-			setSexualOrientation(RacialBody.valueOfRace(this.getRace()).getSexualOrientation(gender));
-			
-			setName(Name.getRandomTriplet(this.getSubspecies()));
-			this.setPlayerKnowsName(false);
-			
-			//NEET gang represent!
-			this.setHistory(Occupation.NPC_UNEMPLOYED);
-			if(Math.random()<0.25f) {
-				this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
-			}
-			
-			Main.game.getCharacterUtils().addFetishes(this);
-			
-			Main.game.getCharacterUtils().randomiseBody(this, true);
-			
-			//An appropriately dorky physique
-			this.setMuscle(Util.random.nextInt(40));
-						
-			// Inventory:			
-			resetInventory(true);
-			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-			Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
-			
-			if(!Arrays.asList(generationFlags).contains(NPCGenerationFlag.NO_CLOTHING_EQUIP)) {
-				this.equipClothing(EquipClothingSetting.getAllClothingSettings());
-			}
-			
-			// Set starting perks based on the character's race
-			initPerkTreeAndBackgroundPerks();
-			this.setStartingCombatMoves();
-			loadImages();
-
-			initHealthAndManaToMax();
+	public SillyModeLARPAttacker(boolean isImported, NPCGenerationFlag... generationFlags) {
+		super(isImported, false, generationFlags);
+		
+		if (isImported) {
+			return;
 		}
+		
+		// Pre-setup
+		setLevel(Util.random.nextInt(6) + 1);
 
-		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
+		Map<AbstractSubspecies, Integer> subspeciesMap = new HashMap<>();
+		for(AbstractSubspecies s : Subspecies.getAllSubspecies()) {
+			if(s.getSubspeciesOverridePriority()>0) { // Do not spawn demonic races, elementals, or youko
+				continue;
+			}
+			Map<AbstractSubspecies, SubspeciesSpawnRarity> subMap = Subspecies.getWorldSpecies(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_alley"), false);
+			if(subMap.containsKey(s)) {
+				AbstractSubspecies.addToSubspeciesMap((int) (10000 * subMap.get(s).getChanceMultiplier()), this.getGenderIdentity(), s, subspeciesMap);
+			}
+		}
+		
+		// Setup
+		setupNPC(subspeciesMap,
+				null,
+				Occupation.NPC_UNEMPLOYED,
+				true,
+				true,
+				true,
+				true,
+				true,
+				true,
+				true,
+				generationFlags);
+		
+		// Post-setup
+		if(Math.random()<0.25f) {
+			this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
+		}
+		//An appropriately dorky physique
+		this.setMuscle(Util.random.nextInt(40));
 	}
 	
-	@Override
-	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
-		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
-	}
-
 	// Do not add tease...just...don't do it
 	@Override
 	public void setStartingCombatMoves() {
@@ -185,36 +118,13 @@ public class SillyModeLARPAttacker extends NPC {
 	}
 	
 	@Override
-	public boolean isUnique() {
-		return false;
-	}
-	
-	@Override
 	public String getDescription() {
 	    return (UtilText.parse(this, "[npc.Name] is a resident of Elis who has an affinity for live-action roleplay."));
-	}
-
-	@Override
-	public boolean isClothingStealable() {
-		return true;
-	}
-	
-	@Override
-	public boolean isAbleToBeImpregnated() {
-		return true;
-	}
-	
-	@Override
-	public void changeFurryLevel(){
 	}
 	
 	@Override
 	public DialogueNode getEncounterDialogue() {
 		return DialogueManager.getDialogueFromId("dsg_encounters_fields_elis_eisek_sillymode_dungeon_combat");
-	}
-	
-	@Override
-	public void applyEscapeCombatEffects() {
 	}
 	
 	@Override
@@ -230,10 +140,4 @@ public class SillyModeLARPAttacker extends NPC {
 	public boolean isLootingPlayerAfterCombat() {
 		return false; // This is not high-stakes LARPing
 	}
-	
-	@Override
-	public void setStartingBody(boolean setPersona) {
-		// Here to make Java happy
-	}
-    
 }

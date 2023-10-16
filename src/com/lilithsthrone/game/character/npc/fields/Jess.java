@@ -47,6 +47,7 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -296,11 +297,8 @@ public class Jess extends NPC {
 							new Value<>(Gender.F_P_B_SHEMALE, 5),
 							new Value<>(Gender.F_P_V_B_FUTANARI, 5),
 							new Value<>(Gender.M_P_MALE, 50));
-					GenericSexualPartner partner = new GenericSexualPartner(Util.getRandomObjectFromWeightedMap(genders),
-							WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"),
-							PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f1_room_sex"),
-							false,
-							((s) -> s.isNonBiped()));
+					GenericSexualPartner partner = new GenericSexualPartner(Util.getRandomObjectFromWeightedMap(genders), (AbstractSubspecies::isNonBiped));
+					partner.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f1_room_sex"));
 					partner.setPlayerKnowsName(false);
 					if(!partner.getSexualOrientation().isAttractedToFeminine()) {
 						partner.setSexualOrientation(SexualOrientation.AMBIPHILIC);

@@ -3,7 +3,7 @@
 
 	<scene id="start">
 		<preParsingEffects><![CDATA[
-			[#game.addNPC('FieldsBandit', 'attacker')]
+			[#game.addNPC('fields.FieldsBandit', 'attacker')]
 			[#attacker.setLocation(pc, true)]
 			[#flags.setFlag(FLAG_innoxia_fields_bandit_talked, false)]
 		]]></preParsingEffects>

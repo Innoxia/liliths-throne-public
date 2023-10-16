@@ -1,23 +1,14 @@
 package com.lilithsthrone.game.character.npc.fields;
 
-import java.time.Month;
 import java.util.List;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
-import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
-import com.lilithsthrone.game.character.body.types.BreastType;
-import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
-import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
@@ -33,26 +24,15 @@ import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
-import com.lilithsthrone.game.character.gender.Gender;
-import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.persona.Name;
-import com.lilithsthrone.game.character.persona.Occupation;
-import com.lilithsthrone.game.character.persona.PersonalityTrait;
-import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
+import com.lilithsthrone.game.character.npc.RandomNPC;
 import com.lilithsthrone.game.combat.DamageType;
-import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
-import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -60,59 +40,34 @@ import com.lilithsthrone.world.places.PlaceType;
  * @version 0.4
  * @author Innoxia
  */
-public class LunetteMelee extends NPC {
+public class LunetteMelee extends RandomNPC {
 
-	private static List<String> defaultNamePrefixes = Util.newArrayListOfValues("angry", "furious", "wrathful");
-	private static String defaultName = "marauder";
+	private static final List<String> defaultNamePrefixes = Util.newArrayListOfValues("angry", "furious", "wrathful");
+	private static final String defaultName = "marauder";
 	
-	public LunetteMelee() {
-		this(defaultNamePrefixes, defaultName, false);
+	public LunetteMelee(NPCGenerationFlag... generationFlags) {
+		this(false, defaultNamePrefixes, defaultName, generationFlags);
 	}
 	
 	public LunetteMelee(boolean isImported) {
-		this(defaultNamePrefixes, defaultName, isImported);
+		this(isImported, defaultNamePrefixes, defaultName);
 	}
 	
-	public LunetteMelee(List<String> namePrefixes, String name, boolean isImported) {
-		super(isImported,
-				null, null, "",
-				Util.random.nextInt(100)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				30,
-				null, null, null,
-				new CharacterInventory(10),
-				WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL,
-				false);
-
-		if(!isImported) {
-			setLevel(25 + Util.random.nextInt(11)); // 25-35
-			
-			// RACE & NAME:
-			this.setStartingBody(true);
-			
-			this.setGenericName(Util.randomItemFrom(namePrefixes)+" "+name);
-			setName(Name.getRandomTriplet(this.getSubspecies()));
-			this.setSurname("Lunettemartu");
-			this.setPlayerKnowsName(false);
-			
-			// INVENTORY:
-			
-			resetInventory(true);
-			inventory.setMoney(2500 + Util.random.nextInt(2500));
-			Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
-			
-			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
-			
-			// Set starting attributes based on the character's race
-			this.setStartingCombatMoves();
-			loadImages();
-
-			initHealthAndManaToMax();
+	public LunetteMelee(List<String> namePrefixes, String name, NPCGenerationFlag... generationFlags) {
+		this(false, namePrefixes, name, generationFlags);
+	}
+	
+	public LunetteMelee(boolean isImported, List<String> namePrefixes, String name, NPCGenerationFlag... generationFlags) {
+		super(isImported, false, generationFlags);
+		
+		if (isImported) {
+			return;
 		}
-	}
-	
-	@Override
-	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
-		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		
+		// Lunette NPCs have a special setup
+		this.setupMarauder(false, namePrefixes, name, generationFlags);
+		this.setStartingBody(true);
+		this.setDescription("This demonic centaur is a member of the faction 'Lunette's Marauders', and loves nothing more than to break anything and anyone who gets in [npc.her] way.");
 	}
 	
 	@Override
@@ -143,28 +98,8 @@ public class LunetteMelee extends NPC {
 	
 	@Override
 	public void setStartingBody(boolean setPersona) {
-		Gender gender = Util.randomItemFrom(new Gender[] {
-				Gender.F_P_V_B_FUTANARI,
-				Gender.F_P_V_B_FUTANARI,
-				Gender.F_P_B_SHEMALE,
-				Gender.F_P_B_SHEMALE,
-				Gender.F_V_B_FEMALE,
-				Gender.F_V_B_FEMALE,
-		});
-		
-		this.setBody(gender, Subspecies.DEMON, RaceStage.GREATER, true);
-		this.setWingType(WingType.NONE);
-		this.setLegType(LegType.DEMON_HORSE_HOOFED);
-		this.setLegConfiguration(LegType.DEMON_HORSE_HOOFED, LegConfiguration.QUADRUPEDAL, true);
-		if(!gender.getGenderName().isHasVagina()) {
-			this.setBreastCrotchType(BreastType.NONE);
-		}
-
 		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
 		this.setBodySize(BodySize.FOUR_HUGE.getMedianValue());
-		
-		// Randomisation:
-		Main.game.getCharacterUtils().randomiseBody(this, true);
 		
 		this.setHeight(210+Util.random.nextInt(41));
 		
@@ -177,63 +112,12 @@ public class LunetteMelee extends NPC {
 		}
 		
 		if(setPersona) {
-			this.setPersonalityTraits(
-					PersonalityTrait.BRAVE,
-					PersonalityTrait.CONFIDENT,
-					PersonalityTrait.SELFISH,
-					PersonalityTrait.LEWD);
-
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			this.setHistory(Occupation.NPC_LUNETTE_HERD);
-			
-			// Fetishes:
-			this.clearFetishes();
-			this.clearFetishDesires();
-
-			boolean oral = Math.random()<0.25f;
-			boolean anal = Math.random()<0.25f;
-			
-			this.setAssVirgin(!anal);
-			this.setPenisVirgin(false);
-			this.setVaginaVirgin(false);
-			this.setFaceVirgin(!oral);
-
-			this.addFetish(Fetish.FETISH_DOMINANT);
-			this.addFetish(Fetish.FETISH_NON_CON_DOM);
-			this.addFetish(Fetish.FETISH_SADIST);
-
-			this.setFetishDesire(Fetish.FETISH_ORAL_RECEIVING, FetishDesire.THREE_LIKE);
-			this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
-
-			this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.ZERO_HATE);
-			this.setFetishDesire(Fetish.FETISH_NON_CON_SUB, FetishDesire.ZERO_HATE);
 			this.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.ZERO_HATE);
 			
 			if(Math.random()<0.5f) {
 				this.addFetish(Fetish.FETISH_EXHIBITIONIST);
 			}
-			if(anal) {
-				this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
-			}
-			if(oral) {
-				this.addFetish(Fetish.FETISH_ORAL_GIVING);
-			}
-			
-			if(gender.getGenderName().isHasPenis()) {
-				this.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.THREE_LIKE);
-				this.setFetishDesire(Fetish.FETISH_CUM_STUD, FetishDesire.THREE_LIKE);
-			}
-			if(gender.getGenderName().isHasVagina()) {
-				this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
-			}
-			this.setFetishDesire(Fetish.FETISH_ANAL_GIVING, FetishDesire.THREE_LIKE);
 		}
-	}
-	
-	@Override
-	public String getDescription() {
-		return UtilText.parse(this, "This demonic centaur is a member of the faction 'Lunette's Marauders', and loves nothing more than to break anything and anyone who gets in [npc.her] way.");
 	}
 	
 	@Override
@@ -332,27 +216,7 @@ public class LunetteMelee extends NPC {
 		Util.random.setSeed(System.nanoTime()); // Reset seed to be close to random
 	}
 	
-	@Override
-	public boolean isUnique() {
-		return false;
-	}
-	
-	@Override
-	public boolean isAbleToBeImpregnated() {
-		return true;
-	}
-	
-	@Override
-	public void changeFurryLevel(){
-	}
-	
-	@Override
-	public DialogueNode getEncounterDialogue() {
-		return null;
-	}
-
 	// Combat:
-
 	@Override
 	public void applyEscapeCombatEffects() {
 		if(this.getLocationPlace().getPlaceType()==PlaceType.getPlaceTypeFromId("innoxia_fields_themiscyra_raiders")) {
@@ -362,11 +226,6 @@ public class LunetteMelee extends NPC {
 		}
 	}
 	
-	@Override
-	public Response endCombat(boolean applyEffects, boolean victory) {
-		return null; // Post-combat responses are handled in the dialogue itself
-	}
-
 	public int getPaymentDemand() {
 		return (Math.max(2500, Math.min(Main.game.getPlayer().getMoney()/10, 10000))/500) * 500; // Round to nearest 500
 	}

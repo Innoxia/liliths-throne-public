@@ -385,9 +385,9 @@ public class Lunexis extends NPC {
 		try {
 			NPC npc;
 			if(leader || Math.random()>0.5f) {
-				npc = new LunetteMelee(defaultNamePrefixes, defaultName, false);
+				npc = new LunetteMelee(defaultNamePrefixes, defaultName);
 			} else {
-				npc = new LunetteRanged(defaultNamePrefixes, defaultName, false);
+				npc = new LunetteRanged(defaultNamePrefixes, defaultName);
 			}
 			npc.setLocation(cell, true);
 			Main.game.addNPC(npc, false);

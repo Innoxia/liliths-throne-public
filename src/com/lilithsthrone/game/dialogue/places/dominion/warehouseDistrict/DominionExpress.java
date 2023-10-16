@@ -466,22 +466,11 @@ public class DominionExpress {
 		slavePointsReward = 2+Util.random.nextInt(4); // Slaves give the player 2-5 points to service them
 		
 		NPC npc;
-		if(collarColour==null) {
-			collarColour = PresetColour.CLOTHING_GOLD;
-			double rnd = Math.random();
-			if(rnd<0.8f) {
-				collarColour = PresetColour.CLOTHING_BRONZE;
-			} else if(rnd<0.95f) {
-				collarColour = PresetColour.CLOTHING_SILVER;
-			}
-		}
 		if(feminine) {
 			npc = new DominionExpressCentaur(Gender.F_P_B_SHEMALE, collarColour);
 		} else {
 			npc = new DominionExpressCentaur(Gender.M_P_MALE, collarColour);
 		}
-		npc.setLocation(Main.game.getPlayer(), false);
-		
 		npc.setLastTimeOrgasmedSeconds(Main.game.getSecondsPassed()-(25*60*60));
 		npc.removeCumModifier(FluidModifier.ADDICTIVE);
 		npc.removeCumModifier(FluidModifier.HALLUCINOGENIC);
