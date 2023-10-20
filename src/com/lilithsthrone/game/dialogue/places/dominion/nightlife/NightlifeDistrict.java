@@ -123,7 +123,7 @@ public class NightlifeDistrict {
 	}
 
 	private static void spawnClubbers(boolean submissiveClubbers) {
-		NPC clubber = new DominionClubNPC(clubberGender, clubberSubspecies, clubberRaceStage, false);
+		NPC clubber = new DominionClubNPC(false, clubberGender, clubberSubspecies, clubberRaceStage);
 				
 		if(Math.random()<0.4f) {
 			clubber.setSexualOrientation(SexualOrientation.AMBIPHILIC);
@@ -3967,7 +3967,7 @@ public class NightlifeDistrict {
 	
 	private static String gloryholeNpcNameDescriptor ="";
 	private static void spawnDomGloryHoleNPC(String genericName) {
-		NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, true), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false, (s)->s.isNonBiped()) {
+		NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, true), AbstractSubspecies::isNonBiped) {
 			@Override
 			public void turnUpdate() {
 				if(this.getGenitalArrangement()==GenitalArrangement.NORMAL) { // Hide ass areas if normal genitals (not entirely sure why this was added...)
@@ -4040,7 +4040,7 @@ public class NightlifeDistrict {
 	}
 	
 	private static void spawnSubGloryHoleNPC(String genericName) {
-		NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false, (s)->s.isNonBiped());
+		NPC npc = new GenericSexualPartner(AbstractSubspecies::isNonBiped);
 		
 		npc.setRaceConcealed(true);
 		

@@ -335,7 +335,7 @@ public class Helena extends NPC {
 					&& !Main.game.getPlayer().hasItemType(ItemType.PAINT_CAN)
 					&& !Main.game.getPlayer().hasItemType(ItemType.PAINT_CAN_PREMIUM)) {
 				for (int i=0; i<2; i++) {
-					NPC newSlave = new SlaveForSale(Gender.getGenderFromUserPreferences(false, false), false);
+					NPC newSlave = new SlaveForSale();
 					try {
 						Main.game.addNPC(newSlave, false, true);
 					} catch (Exception e) {

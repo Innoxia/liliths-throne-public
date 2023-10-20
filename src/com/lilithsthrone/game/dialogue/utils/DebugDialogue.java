@@ -20,7 +20,6 @@ import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.markings.AbstractTattooType;
 import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -590,7 +589,7 @@ public class DebugDialogue {
 					return new Response("Centaur", "A wild centaur appears! (Please only use this on a completely neutral tile, as it will probably break things otherwise.)", CENTAUR_SEX){
 						@Override
 						public void effects(){
-							NPC target = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false,  false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false, (s)->s!=Subspecies.CENTAUR);
+							NPC target = new GenericSexualPartner((s)->s!=Subspecies.CENTAUR);
 							try {
 								Main.game.addNPC(target, false);
 								Main.game.setActiveNPC(target);
@@ -1373,12 +1372,12 @@ public class DebugDialogue {
 	private static NPC attacker;
 	private static void initAttacker() {
 		if(Main.game.getPlayer().getWorldLocation()==WorldType.DOMINION) {
-			attacker = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false));
+			attacker = new DominionAlleywayAttacker();
 		} else if(Main.game.getPlayer().getLocationPlaceType()==PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_alley")
 				|| Main.game.getPlayer().getLocationPlaceType()==PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_abandoned_bakery")) {
-			attacker = new ElisAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false));
+			attacker = new ElisAlleywayAttacker(false);
 		} else {
-			attacker = new SubmissionAttacker(Gender.getGenderFromUserPreferences(false, false));
+			attacker = new SubmissionAttacker();
 		}
 		
 		try {

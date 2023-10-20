@@ -5,15 +5,7 @@
 
 	<scene id="start">
 		<preParsingEffects><![CDATA[
-			#IF(pc.getCell().getCharactersHomeIds().isEmpty())
-				[#game.addNPC('fields.ElisAlleywayAttacker', 'prostitute')]
-			#ELSE
-				[#game.setParserTarget('prostitute', game.getNPCById(pc.getCell().getCharactersHomeIds().iterator().next()))]
-			#ENDIF
 			[#game.setActiveNPC(prostitute)]
-			[#npc.setAsProstitute()]
-			[#npc.setPlayerKnowsName(true)]
-			[#npc.setLocation(pc, true)]
 			[#flags.setFlag(FLAG_innoxia_elis_alleyway_prostitute_apartment, false)]
 			[#flags.setFlag(FLAG_innoxia_elis_alleyway_prostitute_sex, false)]
 			[#game.addSpecialParsingString('[style.intToString([#npc.getProstitutePrice()])]', true)]

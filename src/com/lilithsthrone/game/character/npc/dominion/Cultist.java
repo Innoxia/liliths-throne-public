@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +18,8 @@ import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
-import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
+import com.lilithsthrone.game.character.npc.RandomNPC;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -29,7 +28,6 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.CultistDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -48,91 +46,77 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
-import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.88
  * @version 0.3.4
  * @author Innoxia
  */
-public class Cultist extends NPC {
+public class Cultist extends RandomNPC {
 
 	private boolean requestedAnal = false;
-//	private boolean sealedSex = false;
 
-	public Cultist() {
-		this(false);
+	public Cultist(NPCGenerationFlag... generationFlags) {
+		this(false, generationFlags);
 	}
 	
-	public Cultist(boolean isImported) {
-		super(isImported, null, null,
-				"",
-				Util.random.nextInt(30)+30, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				15,
-				Gender.F_P_V_B_FUTANARI,
-				Subspecies.DEMON,
+	public Cultist(boolean isImported, NPCGenerationFlag... generationFlags) {
+		super(isImported, false, generationFlags);
+		
+		if(isImported) {
+			return;
+		}
+		
+		// Pre-setup
+		this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+		this.addFetish(Fetish.FETISH_ORAL_GIVING);
+		this.addFetish(Fetish.FETISH_ANAL_GIVING);
+		this.addFetish(Fetish.FETISH_VAGINAL_GIVING);
+		this.addFetish(Fetish.FETISH_IMPREGNATION);
+		this.setLevel(15);
+		this.setGenderIdentity(Gender.F_P_V_B_FUTANARI);
+		
+		// Setup
+		setupNPC(Subspecies.DEMON,
 				RaceStage.GREATER,
-				new CharacterInventory(10),
-				WorldType.DOMINION,
-				PlaceType.DOMINION_BACK_ALLEYS,
+				Occupation.NPC_CULTIST,
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
 				false);
 		
-		if(!isImported) {
-			this.setLocation(Main.game.getPlayer(), true);
-			
-			// BODY RANDOMISATION:
-			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
-			this.addFetish(Fetish.FETISH_ORAL_GIVING);
-			this.addFetish(Fetish.FETISH_ANAL_GIVING);
-			this.addFetish(Fetish.FETISH_VAGINAL_GIVING);
-			this.addFetish(Fetish.FETISH_IMPREGNATION);
-			Main.game.getCharacterUtils().addFetishes(this);
-			if(this.getFetishDesire(Fetish.FETISH_NON_CON_DOM)==FetishDesire.ONE_DISLIKE || this.getFetishDesire(Fetish.FETISH_NON_CON_DOM)==FetishDesire.ZERO_HATE) {
-				this.setFetishDesire(Fetish.FETISH_NON_CON_DOM, FetishDesire.TWO_NEUTRAL);
-			}
-			if(this.getFetishDesire(Fetish.FETISH_PENIS_GIVING)==FetishDesire.ONE_DISLIKE || this.getFetishDesire(Fetish.FETISH_PENIS_GIVING)==FetishDesire.ZERO_HATE) {
-				this.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.TWO_NEUTRAL);
-			}
-			
-			Main.game.getCharacterUtils().randomiseBody(this, true);
-
-			this.setHistory(Occupation.NPC_CULTIST);
-			
-			this.setAgeAppearanceDifferenceToAppearAsAge(18+Util.random.nextInt(10));
-			
-			this.setVaginaVirgin(false);
-			this.setAssVirgin(false);
-			this.setFaceVirgin(false);
-			this.setNippleVirgin(false);
-			this.setPenisVirgin(false);
-			
-			setName(Name.getRandomTriplet(Subspecies.DEMON));
-			this.setPlayerKnowsName(true);
-			setDescription("As a high-ranking member of the 'Cult of Lilith', it's obvious to anyone that this demon is extremely powerful."
-					+ " You aren't exactly 'anyone', however, and as you get close to her, you can almost physically feel the power of her arcane aura as it comes into contact with yours...");
-			
-			// Set random inventory & weapons:
-			resetInventory(true);
-			inventory.setMoney(100);
-			
-			// CLOTHING:
-			
-			equipClothing(EquipClothingSetting.getAllClothingSettings());
-			
-			initHealthAndManaToMax();
-			
-			setStartingCombatMoves();
+		// Post-setup
+		if(this.getFetishDesire(Fetish.FETISH_NON_CON_DOM).isNegative()) {
+			this.setFetishDesire(Fetish.FETISH_NON_CON_DOM, FetishDesire.TWO_NEUTRAL);
 		}
+		if(this.getFetishDesire(Fetish.FETISH_PENIS_GIVING).isNegative()) {
+			this.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.TWO_NEUTRAL);
+		}
+		this.setAgeAppearanceDifferenceToAppearAsAge(18+Util.random.nextInt(10));
+
+		this.setVaginaVirgin(false);
+		this.setAssVirgin(false);
+		this.setFaceVirgin(false);
+		this.setNippleVirgin(false);
+		this.setPenisVirgin(false);
+			
+		this.setPlayerKnowsName(true);
+		this.setDescription("As a high-ranking member of the 'Cult of Lilith', it's obvious to anyone that this demon is extremely powerful."
+				+" You aren't exactly 'anyone', however, and as you get close to her, you can almost physically feel the power of her arcane aura as it comes into contact with yours...");
+		
+		inventory.setMoney(100);
 	}
 	
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
-		if(this.getFetishDesire(Fetish.FETISH_NON_CON_DOM)==FetishDesire.ONE_DISLIKE || this.getFetishDesire(Fetish.FETISH_NON_CON_DOM)==FetishDesire.ZERO_HATE) {
+		if(this.getFetishDesire(Fetish.FETISH_NON_CON_DOM).isNegative()) {
 			this.setFetishDesire(Fetish.FETISH_NON_CON_DOM, FetishDesire.TWO_NEUTRAL);
 		}
-		if(this.getFetishDesire(Fetish.FETISH_PENIS_GIVING)==FetishDesire.ONE_DISLIKE || this.getFetishDesire(Fetish.FETISH_PENIS_GIVING)==FetishDesire.ZERO_HATE) {
+		if(this.getFetishDesire(Fetish.FETISH_PENIS_GIVING).isNegative()) {
 			this.setFetishDesire(Fetish.FETISH_PENIS_GIVING, FetishDesire.TWO_NEUTRAL);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11")) {
@@ -170,11 +154,6 @@ public class Cultist extends NPC {
 		this.equipMove("block");
 		this.equipAllKnownMoves();
 		this.equipAllSpellMoves();
-	}
-
-	@Override
-	public void setStartingBody(boolean setPersona) {
-		// Not needed
 	}
 
 	@Override
@@ -242,40 +221,16 @@ public class Cultist extends NPC {
 		setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, colourForNails));
 	}
 	
-	@Override
-	public boolean isUnique() {
-		return false;
-	}
-	
-	public boolean isRequestedAnal() {
-		return requestedAnal;
-	}
-
 	public void setRequestedAnal(boolean requestedAnal) {
 		this.requestedAnal = requestedAnal;
 	}
 
-	@Override
-	public boolean isClothingStealable() {
-		return true;
-	}
-	
-	@Override
-	public boolean isAbleToBeImpregnated() {
-		return true;
-	}
-	
-	@Override
-	public void changeFurryLevel(){
-	}
-	
 	@Override
 	public DialogueNode getEncounterDialogue() {
 		return CultistDialogue.ENCOUNTER_START;
 	}
 
 	// Combat:
-	
 	@Override
 	public String getLostVirginityDescriptor() {
 		return "in her chapel";

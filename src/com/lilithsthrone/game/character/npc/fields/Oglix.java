@@ -406,11 +406,8 @@ public class Oglix extends NPC {
 		if(!Main.game.getDialogueFlags().hasFlag("innoxia_oglix_beer_bitches_spawned")) {
 			Main.game.getDialogueFlags().setFlag("innoxia_oglix_beer_bitches_spawned", true);
 			
-			GenericSexualPartner bitch1 = new GenericSexualPartner(Gender.getGenderFromUserPreferences(Femininity.FEMININE),
-					WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_alley"),
-					PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_alley_bar"),
-					false,
-					((s) -> s.isNonBiped() && s.getRace()!=Race.SLIME));
+			GenericSexualPartner bitch1 = new GenericSexualPartner(Gender.getGenderFromUserPreferences(Femininity.FEMININE), ((s) -> s.isNonBiped() && s.getRace()!=Race.SLIME));
+			bitch1.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_alley"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_alley_bar"));
 
 			bitch1.addFetish(Fetish.FETISH_EXHIBITIONIST);
 			bitch1.addFetish(Fetish.FETISH_BONDAGE_VICTIM);

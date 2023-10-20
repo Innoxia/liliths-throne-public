@@ -1,33 +1,24 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
-import java.time.Month;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
-import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.gender.Gender;
-import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
+import com.lilithsthrone.game.character.npc.RandomNPC;
 import com.lilithsthrone.game.character.npc.submission.Claire;
-import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.combat.CombatBehaviour;
-import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.EnforcerWarehouse;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -40,7 +31,6 @@ import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStocks;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -48,70 +38,57 @@ import com.lilithsthrone.world.places.PlaceType;
  * @version 0.3.5
  * @author Innoxia
  */
-public class EnforcerWarehouseGuard extends NPC {
+public class EnforcerWarehouseGuard extends RandomNPC {
 
-	public EnforcerWarehouseGuard() {
-		this(Occupation.NPC_ENFORCER_SWORD_SERGEANT, Subspecies.WOLF_MORPH, RaceStage.GREATER, Gender.getGenderFromUserPreferences(false, false), false);
+	public EnforcerWarehouseGuard(NPCGenerationFlag... generationFlags) {
+		this(Occupation.NPC_ENFORCER_SWORD_SERGEANT, false);
 	}
 	
 	public EnforcerWarehouseGuard(boolean isImported) {
-		this(Occupation.NPC_ENFORCER_SWORD_SERGEANT, Subspecies.WOLF_MORPH, RaceStage.GREATER, Gender.F_V_B_FEMALE, isImported);
+		this(Occupation.NPC_ENFORCER_SWORD_SERGEANT, isImported);
 	}
 	
-	public EnforcerWarehouseGuard(Occupation occupation, AbstractSubspecies subspecies, RaceStage raceStage, Gender gender, boolean isImported, NPCGenerationFlag... generationFlags) {
-		super(isImported, null, null, "",
-				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				5, gender, subspecies, raceStage,
-				new CharacterInventory(10), WorldType.ENFORCER_WAREHOUSE, PlaceType.ENFORCER_WAREHOUSE_ENFORCER_GUARD_POST, false,
-				generationFlags);
-
-		if(!isImported) {
-			setLevel(Util.random.nextInt(6) + 5);
-			
-			setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			setName(Name.getRandomTriplet(this.getSubspecies()));
-			
-			this.setPlayerKnowsName(false);
-			
-			this.setHistory(occupation);
-			
-			Main.game.getCharacterUtils().addFetishes(this, Fetish.FETISH_CROSS_DRESSER, Fetish.FETISH_EXHIBITIONIST); // Do not allow cross-dressing or exhibitionist, as otherwise it will mess with uniforms.
-			
-			this.addFetish(Fetish.FETISH_SADIST);
-			
-			Main.game.getCharacterUtils().randomiseBody(this, true);
-			
-			resetInventory(true);
-			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-			Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, false);
-			
-			if(!Arrays.asList(generationFlags).contains(NPCGenerationFlag.NO_CLOTHING_EQUIP)) {
-				this.equipClothing(EquipClothingSetting.getAllClothingSettings());
-			}
-			Main.game.getCharacterUtils().applyMakeup(this, true);
-			Main.game.getCharacterUtils().applyTattoos(this, true);
-			
-			initPerkTreeAndBackgroundPerks(); // Set starting perks based on the character's race
-			
-			this.setCombatBehaviour(CombatBehaviour.ATTACK);
-			
-			this.setEssenceCount(100);
-			
-			initHealthAndManaToMax();
+	public EnforcerWarehouseGuard(Occupation occupation) {
+		this(occupation, false);
+	}
+	
+	public EnforcerWarehouseGuard(Occupation occupation, boolean isImported, NPCGenerationFlag... generationFlags) {
+		super(isImported, false, generationFlags);
+		
+		if (isImported) {
+			return;
 		}
+		
+		// Pre-setup
+		this.setLevel(Util.random.nextInt(6) + 5);
+		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		
+		// Make SWORD guards a predator subspecies:
+		Map<AbstractSubspecies, Integer> subspeciesMap = new HashMap<>();
+		for (AbstractSubspecies subspecies : Util.newArrayListOfValues(
+				Subspecies.getSubspeciesFromId("innoxia_panther_subspecies_tiger"),
+				Subspecies.getSubspeciesFromId("innoxia_panther_subspecies_lion"),
+				Subspecies.getSubspeciesFromId("innoxia_panther_subspecies_leopard"),
+				Subspecies.DOG_MORPH_DOBERMANN,
+				Subspecies.DOG_MORPH_GERMAN_SHEPHERD,
+				Subspecies.FOX_MORPH,
+				Subspecies.WOLF_MORPH)) {
+			subspeciesMap.put(subspecies, 1);
+		}
+		
+		// Setup
+		this.setupEnforcer(subspeciesMap, null, occupation, false, false, generationFlags);
+		
+		// Enforcers can't be human so force lesser from the valid species
+		if (this.getRace() == Race.HUMAN) {
+			this.setBody(getGenderIdentity(), Util.getRandomObjectFromWeightedMap(subspeciesMap), RaceStage.LESSER, true);
+		}
+
+		// Post-setup
+		this.addFetish(Fetish.FETISH_SADIST);
+		this.setDescription("One of the SWORD Enforcers tasked with guarding [npc.his] division's warehouse, [npc.name] is more than prepared to use an unreasonable amount of force to detain anyone [npc.she] catches...");
 	}
 	
-	@Override
-	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
-		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
-	}
-
-	@Override
-	public void setStartingBody(boolean setPersona) {
-		// Not needed
-	}
-
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.ATHLETIC, settings);
@@ -124,38 +101,10 @@ public class EnforcerWarehouseGuard extends NPC {
 	}
 	
 	@Override
-	public boolean isUnique() {
-		return false;
-	}
-	
-	@Override
-	public String getDescription() {
-		return UtilText.parse(this, "One of the SWORD Enforcers tasked with guarding [npc.his] division's warehouse, [npc.name] is more than prepared to use an unreasonable amount of force to detain anyone [npc.she] catches..."); 
-	}
-	
-	@Override
-	public void endSex() {
-	}
-
-	@Override
 	public boolean isClothingStealable() {
 		return false;
 	}
 	
-	@Override
-	public boolean isAbleToBeImpregnated() {
-		return true;
-	}
-	
-	@Override
-	public void changeFurryLevel(){
-	}
-	
-	@Override
-	public DialogueNode getEncounterDialogue() {
-		return null;
-	}
-
 	// Combat:
 	@Override
 	public int getEscapeChance() {

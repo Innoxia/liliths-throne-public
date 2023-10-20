@@ -3,7 +3,7 @@
 
 	<scene id="start">
 		<preParsingEffects><![CDATA[
-			[#game.addNPC('LunetteRanged', 'attacker')]
+			[#game.addNPC('fields.LunetteRanged', 'attacker')]
 			[#attacker.setLocation(pc)]
 			[#flags.setFlag(FLAG_innoxia_fields_centaur_attacker_talked, false)]
 		]]></preParsingEffects>

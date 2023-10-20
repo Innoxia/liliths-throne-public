@@ -480,7 +480,8 @@ public class Sterope extends NPC {
 		centaur.addPersonalityTrait(PersonalityTrait.SELFISH);
 		centaur.addPersonalityTrait(PersonalityTrait.CONFIDENT);
 
-		Main.game.getCharacterUtils().randomiseBody(centaur, true);
+		Main.game.getCharacterUtils().randomiseBody(centaur);
+		Main.game.getCharacterUtils().randomiseAge(centaur);
 		
 		centaur.clearFetishes();
 		centaur.addFetish(Fetish.FETISH_DOMINANT);

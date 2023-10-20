@@ -103,7 +103,6 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
 import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
-import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
@@ -1920,21 +1919,7 @@ public class CharacterUtils {
 		return adjective;
 	}
 	
-	public void randomiseBody(GameCharacter character, boolean randomiseAge) {
-		
-		if(randomiseAge) {
-			int dayOfMonth = character.getDayOfBirth();
-			if(character.getBirthMonth() == Month.FEBRUARY) { // Don't set a character's birthday to a leap day as otherwise it ends up causing messy issues.
-				dayOfMonth = Math.min(dayOfMonth, 28);
-			}
-			character.setBirthday(LocalDateTime.of(Main.game.getDateNow().getYear()-(AgeCategory.getAgeFromPreferences(character.getGender())-GameCharacter.MINIMUM_AGE), character.getBirthMonth(), dayOfMonth, 12, 0));
-			character.setConceptionDate(character.getBirthday().minusDays(15+Util.random.nextInt(30)));
-			
-			if(character.getSubspeciesOverrideRace()==Race.DEMON || character.getRace()==Race.HARPY) {
-				character.setAgeAppearanceDifferenceToAppearAsAge(18+Util.random.nextInt(9));
-			}
-		}
-		
+	public void randomiseBody(GameCharacter character) {
 		// Piercings (in order of probability that they'll have them, based on some random website that orders popularity):
 		// All piercings are reliant on having ear piercings first:
 		if (Math.random() >= (character.isFeminine()?0.1f:0.9f) || character.hasFetish(Fetish.FETISH_MASOCHIST)) {
@@ -2207,6 +2192,19 @@ public class CharacterUtils {
 		character.getRace().applyRaceChanges(character.getBody());
 		character.getSubspecies().applySpeciesChanges(character.getBody());
 		character.getBody().calculateRace(character);
+	}
+	
+	public void randomiseAge(GameCharacter character) {
+		int dayOfMonth = character.getDayOfBirth();
+		if(character.getBirthMonth() == Month.FEBRUARY) { // Don't set a character's birthday to a leap day as otherwise it ends up causing messy issues.
+			dayOfMonth = Math.min(dayOfMonth, 28);
+		}
+		character.setBirthday(LocalDateTime.of(Main.game.getDateNow().getYear()-(AgeCategory.getAgeFromPreferences(character.getGender())-GameCharacter.MINIMUM_AGE), character.getBirthMonth(), dayOfMonth, 12, 0));
+		character.setConceptionDate(character.getBirthday().minusDays(15+Util.random.nextInt(30)));
+		
+		if(character.getSubspeciesOverrideRace()==Race.DEMON || character.getRace()==Race.HARPY) {
+			character.setAgeAppearanceDifferenceToAppearAsAge(18+Util.random.nextInt(9));
+		}
 	}
 	
 	private static int getRandomSexCount(GameCharacter character) {
@@ -2532,88 +2530,6 @@ public class CharacterUtils {
 				break;
 			}
 		}
-	}
-	
-	/**
-	 * Sets the History for the supplied character.
-	 * @param character
-	 */
-	public void setHistoryAndPersonality(GameCharacter character, boolean lowlife) {
-
-		 //TODO Set personality based on history. (Or vice-versa, but one should lead to the other.)
-		
-		if(lowlife) {
-			// High chance to be slovenly:
-			if(Math.random()<0.25f) {
-				character.addPersonalityTrait(PersonalityTrait.SLOVENLY);
-			}
-			
-			double prostituteChance = 0.15f; // Base 0.15% chance for any random to be a prostitute.
-			 			
-			 if(character.isFeminine()) {
-				prostituteChance += 0.10f; // Bonus for femininity
-			 }
-			 
-			 prostituteChance += Math.min((character.body.getBreast().getRawSizeValue()-7)*0.02f, 0.35f); // Compare breast size to average.
-			 
-			 if(character.hasPenis()) {
-				prostituteChance += Math.min((character.body.getPenis().getRawLengthValue()-5)*0.01f, 0.10f); // Scaling based off of cock size. Very small cocks are a penalty.
-			 } 
-			 
-			 if(character.hasVagina()) {
-				prostituteChance += 0.15f; // Bonus for vagina.
-			 }
-			 
-			 if(character.body.getBreast().getNipples().getOrificeNipples().getRawCapacityValue() >= 4) {
-				prostituteChance += 0.05f; //Bonus for fuckable nipples.
-			 }
-			 
-			 if(character.hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
-				prostituteChance = 0.03f; // addFetishes() can be called before or after this method. This is a catch for the case where addFetishes() is called before.
-			 }
-			 
-			 prostituteChance = Math.min(prostituteChance, 0.3f); // Prostitutes can only ever spawn at a maximum of a 30% chance.
-
-			if (Math.random() < prostituteChance) {
-				character.setHistory(Occupation.NPC_PROSTITUTE);
-				initProstitute(character);
-
-			} else {
-				character.setHistory(Occupation.NPC_MUGGER);
-			}
-			
-		} else {
-			List<Occupation> histories = Occupation.getAvailableHistories(character);
-			histories.removeIf((his) -> his.isLowlife());
-			character.setHistory(Util.randomItemFrom(histories));
-		}
-	}
-	
-	public static void initProstitute(GameCharacter character) {
-		character.removePersonalityTrait(PersonalityTrait.PRUDE);
-		character.removePersonalityTrait(PersonalityTrait.INNOCENT);
-
-		character.setAssVirgin(false);
-		character.setAssCapacity(character.getAssRawCapacityValue()
-				* 1.2f,
-				true);
-
-		if(character.hasVagina()) {
-			character.setVaginaVirgin(false);
-			character.setVaginaCapacity(character.getVaginaRawCapacityValue()
-					* 1.2f,
-					true);
-		}
-
-		if(character.hasPenis()) {
-			character.setPenisVirgin(false);
-		}
-
-		character.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-		character.setName(Name.getRandomProstituteTriplet());
-		character.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"),
-				character,
-				false);
 	}
 	
 	private static List<AbstractFetish> getAllowedFetishes(GameCharacter character) {

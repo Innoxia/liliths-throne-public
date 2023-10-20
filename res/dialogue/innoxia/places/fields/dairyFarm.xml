@@ -542,7 +542,7 @@
 					[#pc.setRandomLocation(WORLD_TYPE_innoxia_fields_dairyFarm, PLACE_TYPE_innoxia_fields_dairyFarm_barn1)]
 					[#dale.setLocation(pc)]
 					[#evelyx.setDairyRevealed(0)]
-					[#game.addNPC('EvelyxMilker', 'cow')]
+					[#game.addNPC('fields.EvelyxMilker', 'cow')]
 					[#cow.initMilkerLevel(0)]
 					[#cow.setLocation(pc, true)]
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'RECEPTION_MILKER_SEX_TRAINEE'))]
@@ -562,7 +562,7 @@
 					[#pc.setRandomLocation(WORLD_TYPE_innoxia_fields_dairyFarm, PLACE_TYPE_innoxia_fields_dairyFarm_barn2)]
 					[#dale.setLocation(pc)]
 					[#evelyx.setDairyRevealed(1)]
-					[#game.addNPC('EvelyxMilker', 'cow')]
+					[#game.addNPC('fields.EvelyxMilker', 'cow')]
 					[#cow.initMilkerLevel(1)]
 					[#cow.setLocation(pc, true)]
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'RECEPTION_MILKER_SEX_HEIFER'))]
@@ -686,7 +686,7 @@
 				<responseTooltip><![CDATA[Find a cow which matches your preferences...]]></responseTooltip>
 				<nextDialogue stripContent="true">innoxia_places_fields_dairyFarm_milker_sex_start</nextDialogue>
 				<effects><![CDATA[
-					[#game.addNPC('EvelyxMilker', 'cow')]
+					[#game.addNPC('fields.EvelyxMilker', 'cow')]
 					[#cow.initMilkerLevel(2)]
 					[#cow.setLocation(pc, true)]
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'MILKER_SEX_COW_SEARCH_FOUND'))]
@@ -2811,7 +2811,7 @@
 				<responseTooltip><![CDATA[The demonic centauresses start bidding against one another as they try to be the one to purchase you...]]></responseTooltip>
 				<nextDialogue>innoxia_places_fields_dairyFarm_manager_enter_auction_end</nextDialogue>
 				<effects><![CDATA[
-					[#game.addNPC('LunetteMelee', 'owner')]
+					[#game.addNPC('fields.LunetteMelee', 'owner')]
 					[#owner.setLocation(pc)]
 				]]></effects>
 			</response>
@@ -3124,7 +3124,7 @@
 	
 	<scene id="barn_work_sex_interrupt">
 		<preParsingEffects><![CDATA[
-			[#game.addNPC('EvelyxSexualPartner', 'partner')]
+			[#game.addNPC('fields.EvelyxSexualPartner', 'partner')]
 			[#partner.removeSealsFromBlockingClothing(CA_PENIS)]
 			[#partner.setLocation(pc)]
 		]]></preParsingEffects>
@@ -3827,7 +3827,7 @@
 				<corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
 				<nextDialogue>innoxia_places_fields_dairyFarm_player_as_cow_sex</nextDialogue>
 				<effects><![CDATA[
-					[#game.addNPC('EvelyxSexualPartner', 'partner')]
+					[#game.addNPC('fields.EvelyxSexualPartner', 'partner')]
 					[#partner.removeSealsFromBlockingClothing(CA_PENIS)]
 					[#partner.setLocation(pc)]
 					[#flags.setFlag(FLAG_innoxia_evelyx_work_fucked, true)]

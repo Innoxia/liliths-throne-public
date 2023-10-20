@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
-import java.time.Month;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -12,19 +11,16 @@ import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.gender.Gender;
-import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
+import com.lilithsthrone.game.character.npc.RandomNPC;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
-import com.lilithsthrone.game.character.race.AbstractSubspecies;
-import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.ReindeerOverseerDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
-import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -44,73 +40,43 @@ import com.lilithsthrone.world.places.PlaceType;
  * @version 0.3.5.5
  * @author Innoxia
  */
-public class ReindeerOverseer extends NPC {
+public class ReindeerOverseer extends RandomNPC {
 	
-	public ReindeerOverseer() {
-		this(Gender.getGenderFromUserPreferences(false, false), false);
+	public ReindeerOverseer(NPCGenerationFlag... generationFlags) {
+		this(false, Gender.getGenderFromUserPreferences(false, false), generationFlags);
 	}
 	
-	public ReindeerOverseer(Gender gender) {
-		this(gender, false);
+	public ReindeerOverseer(Gender gender, NPCGenerationFlag... generationFlags) {
+		this(false, gender, generationFlags);
 	}
 	
-	public ReindeerOverseer(boolean isImported) {
-		this(Gender.F_V_B_FEMALE, isImported);
-	}
-	
-	public ReindeerOverseer(Gender gender, boolean isImported) {
-		super(isImported, null, null, "",
-				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				10,
-				null, null, null,
-				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_STREET, false);
-
-		if(!isImported) {
-			
-			this.setRandomLocation(WorldType.DOMINION, PlaceType.DOMINION_STREET, true);
-			
-			// RACE & NAME:
-			
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-			
-			AbstractSubspecies subspecies = Subspecies.REINDEER_MORPH;
-				
-			if(gender.isFeminine()) {
-				RaceStage stage = Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies), gender, subspecies);
-				setBody(gender, subspecies, stage, true);
-				
-			} else {
-				RaceStage stage = Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(subspecies), gender, subspecies);
-				setBody(gender, subspecies, stage, true);
-			}
-
-			setName(Name.getRandomTriplet(subspecies));
-			this.setPlayerKnowsName(false);
-			
-			// PERSONALITY & BACKGROUND:
-			
-			this.setHistory(Occupation.REINDEER_OVERSEER);
-			
-			// ADDING FETISHES:
-			
-			Main.game.getCharacterUtils().addFetishes(this);
-			
-			// BODY RANDOMISATION:
-			
-			Main.game.getCharacterUtils().randomiseBody(this, true);
-			
-			// INVENTORY:
-			
-			resetInventory(true);
-			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-
-			equipClothing(EquipClothingSetting.getAllClothingSettings());
-			Main.game.getCharacterUtils().applyMakeup(this, true);
-			
-			dailyUpdate(); // Give items for sale.
-
-			initHealthAndManaToMax();
+	public ReindeerOverseer(boolean isImported, Gender gender, NPCGenerationFlag... generationFlags) {
+		super(isImported, false, generationFlags);
+		
+		if (isImported) {
+			return;
 		}
+		
+		// Pre-setup
+		this.setGenderIdentity(gender);
+		
+		// Setup
+		this.setupNPC(Subspecies.REINDEER_MORPH,
+				null,
+				Occupation.REINDEER_OVERSEER,
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
+				generationFlags);
+		
+		// Post-setup
+		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		this.setDescription("[npc.Name] is an overseer of one of the many groups of reindeer-morphs which are working throughout Dominion to keep the streets shovelled clear of snow.");
+		dailyUpdate(); // Give items for sale.
 	}
 	
 	@Override
@@ -133,25 +99,8 @@ public class ReindeerOverseer extends NPC {
 	}
 
 	@Override
-	public void setStartingBody(boolean setPersona) {
-		// Not needed
-	}
-
-	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		Main.game.getCharacterUtils().equipClothingFromOutfitType(this, OutfitType.JOB_LABOUR, settings);
-//		super.equipClothing(settings);
-	}
-	
-	@Override
-	public boolean isUnique() {
-		return false;
-	}
-	
-	@Override
-	public String getDescription() {
-		return (UtilText.parse(this,
-				"[npc.Name] is an overseer of one of the many groups of reindeer-morphs which are working throughout Dominion to keep the streets shovelled clear of snow."));
 	}
 	
 	@Override
@@ -218,26 +167,9 @@ public class ReindeerOverseer extends NPC {
 		return false;
 	}
 	
-	
 	// Sex:
-	
-	@Override
-	public void endSex() {
-	}
-	
-	@Override
-	public boolean isAbleToBeImpregnated() {
-		return true;
-	}
-	
-	@Override
-	public void changeFurryLevel(){
-	}
-	
 	@Override
 	public DialogueNode getEncounterDialogue() {
 		return ReindeerOverseerDialogue.ENCOUNTER_START;
 	}
-
-	
 }
