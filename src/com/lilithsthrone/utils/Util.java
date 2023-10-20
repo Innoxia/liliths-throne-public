@@ -192,7 +192,7 @@ public class Util {
 	 * @return A map of Files with the author as the key, mapped to a map of ids to files (id is based on file name and folder path).
 	 */
 	public static Map<String, Map<String, File>> getExternalModFilesById(String containingFolderId) {
-		return getExternalModFilesById(containingFolderId, null, null);
+		return Main.mods.getModFilesByID(containingFolderId, null, null);
 	}
 	
 	/**
