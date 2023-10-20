@@ -369,9 +369,9 @@ public class RandomNPC extends NPC {
 			setBody(Main.game.getCharacterUtils().generateHalfDemonBody(this, getGender(), this.getBody().getFleshSubspecies(), true), true);
 		}
 		if (canBeTaur && getLegConfiguration() != LegConfiguration.QUADRUPEDAL
-				&& getRace().getRacialBody().getLegType().isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)
+				&& getHalfDemonSubspecies().getRace().getRacialBody().getLegType().isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)
 				&& Math.random()<Main.getProperties().taurSpawnRate/100f) {
-			setLegType(this.getRace().getRacialBody().getLegType());
+			setLegType(this.getHalfDemonSubspecies().getRace().getRacialBody().getLegType());
 			Main.game.getCharacterUtils().applyTaurConversion(this);
 		}
 		
