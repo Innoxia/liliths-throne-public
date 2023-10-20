@@ -101,7 +101,7 @@ public class SillyModeLARPAttacker extends NPC {
 					&& this.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL) { // Do not reset this character's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
 				// Check for race's leg type as taur, otherwise NPCs which spawn with human legs won't be affected by taur conversion rate:
 				if(this.getHalfDemonSubspecies().getRace().getRacialBody().getLegType().isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) {
-					this.setLegType(this.getRace().getRacialBody().getLegType());
+					this.setLegType(this.getHalfDemonSubspecies().getRace().getRacialBody().getLegType());
 					Main.game.getCharacterUtils().applyTaurConversion(this);
 				}
 			}
