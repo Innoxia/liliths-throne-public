@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<coveringType>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<category>HAIR</category>
+	
+	<determiner><![CDATA[a layer of]]></determiner>
+	<name><![CDATA[hair]]></name>
+	<namePlural pluralByDefault="false"><![CDATA[hair]]></namePlural> 
+	
+	<naturalCoveringModifiers>
+		<modifier>SMOOTH</modifier>
+		<modifier>FLUFFY</modifier>
+		<modifier>SHORT</modifier>
+		<modifier>SHAGGY</modifier>
+		<modifier>FURRY</modifier>
+	</naturalCoveringModifiers>
+			
+	<extraCoveringModifiers/>
+	
+	<naturalPatterns>
+		<pattern weighting="1">OMBRE</pattern>
+	</naturalPatterns>
+	
+	<extraPatterns>
+		<pattern weighting="1">HIGHLIGHTS</pattern>
+		<pattern weighting="1">STRIPED</pattern>
+		<pattern weighting="1">SPOTTED</pattern>
+		<pattern weighting="1">MOTTLED</pattern>
+		<pattern weighting="1">MARKED</pattern>
+	</extraPatterns>
+	
+	<naturalColoursPrimary>
+		<colour>COVERING_JET_BLACK</colour>
+		<colour>COVERING_BLACK</colour>
+		<colour>COVERING_RED_DARK</colour>
+		<colour>COVERING_AMBER</colour>
+		<colour>COVERING_ORANGE</colour>
+		<colour>COVERING_GINGER</colour>
+		<colour>COVERING_AUBURN</colour>
+	</naturalColoursPrimary>
+	
+	<extraColoursPrimary values="allCoveringColours"/>
+	
+	<naturalColoursSecondary>
+		<colour>COVERING_JET_BLACK</colour>
+		<colour>COVERING_BLACK</colour>
+		<colour>COVERING_RED_DARK</colour>
+		<colour>COVERING_AMBER</colour>
+		<colour>COVERING_ORANGE</colour>
+		<colour>COVERING_GINGER</colour>
+		<colour>COVERING_AUBURN</colour>		
+	</naturalColoursSecondary>
+	
+	<extraColoursSecondary values="allCoveringColours"/>
+	
+</coveringType>
