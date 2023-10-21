@@ -204,7 +204,7 @@ public class Clitoris implements BodyPartInterface {
 			} else {
 				return UtilText.parse(owner,
 						"<p>"
-								+ "[npc.Name] lets out [npc.a_moan] as [npc.she] feels a deep throbbing sensation building up at the base of [npc.her] cock."
+								+ "[npc.Name] lets out [npc.a_moan] as [npc.she] feels a deep throbbing sensation  building up within [npc.her] [npc.pussy]"
 								+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] clit, and with a little gasp, [npc.she] feels it [style.boldShrink(shrink)].<br/>"
 								+ "[npc.She] now has [style.boldSex([npc.a_clitSize] [npc.clit])]!"
 						+ "</p>");
