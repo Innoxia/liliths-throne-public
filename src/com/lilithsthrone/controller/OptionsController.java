@@ -283,8 +283,10 @@ public class OptionsController {
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 					for (AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
-						Main.getProperties().setFeminineFurryPreference(subspecies, preference);
-						Main.getProperties().setMasculineFurryPreference(subspecies, preference);
+						if (subspecies.isFurryPreferencesEnabled()) {
+							Main.getProperties().setFeminineFurryPreference(subspecies, preference);
+							Main.getProperties().setMasculineFurryPreference(subspecies, preference);
+						}
 					}
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
@@ -296,8 +298,10 @@ public class OptionsController {
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 					for (AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
-						Main.getProperties().setFeminineSubspeciesPreference(subspecies, preference);
-						Main.getProperties().setMasculineSubspeciesPreference(subspecies, preference);
+						if (subspecies.isSpawnPreferencesEnabled()) {
+							Main.getProperties().setFeminineSubspeciesPreference(subspecies, preference);
+							Main.getProperties().setMasculineSubspeciesPreference(subspecies, preference);
+						}
 					}
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
