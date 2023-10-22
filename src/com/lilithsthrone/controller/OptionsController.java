@@ -283,7 +283,7 @@ public class OptionsController {
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 					for (AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
-						if (subspecies.isFurryPreferencesEnabled()) {
+						if (subspecies.isFurryPreferencesEnabled() && subspecies.isDisplayedInFurryPreferences()) {
 							Main.getProperties().setFeminineFurryPreference(subspecies, preference);
 							Main.getProperties().setMasculineFurryPreference(subspecies, preference);
 						}
@@ -298,7 +298,7 @@ public class OptionsController {
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 					for (AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
-						if (subspecies.isSpawnPreferencesEnabled()) {
+						if (subspecies.isSpawnPreferencesEnabled() && subspecies.isDisplayedInFurryPreferences()) {
 							Main.getProperties().setFeminineSubspeciesPreference(subspecies, preference);
 							Main.getProperties().setMasculineSubspeciesPreference(subspecies, preference);
 						}
