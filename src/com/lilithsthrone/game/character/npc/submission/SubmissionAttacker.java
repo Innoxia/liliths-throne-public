@@ -105,6 +105,8 @@ public class SubmissionAttacker extends NPC {
 				this.setBody(gender, randomSpecies, RaceStage.GREATER, true);
 				
 			} else {
+				// Already picked a race, and it's not Slime or Imp as checked above so respect that pick
+				availableRaces = Util.newHashMapOfValues(new Util.Value<>(randomSpecies, 1));
 				this.setBodyFromSubspeciesPreference(gender, availableRaces, true, true);
 			}
 			
