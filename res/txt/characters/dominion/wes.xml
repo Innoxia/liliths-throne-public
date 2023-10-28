@@ -500,7 +500,7 @@
 	<p>
 		[elle.speech(Oh, I didn't realise you were back!)] the familiar voice of Elle replies from somewhere within the maze of shelving units which fill the vast storage area behind the counter. A moment later, the [elle.race] steps into view, and you see that while she looks just as she did the last time you saw her, she's now wearing a metal slave collar and slutty fancy-dress Enforcer uniform. Catching sight of you waiting behind the counter,
 		#IF(!game.getDialogueFlags().hasFlag(FLAG_rebelBaseElleCostumeEncountered) && (pc.hasStatusEffect(SE_dsg_set_hlf_regular) || pc.hasStatusEffect(SE_dsg_set_hlf_insurgent)))
-			 her eyes narrow for an instant as she glances over your salvaged gear and arcane power briefly flashes over her hands before she decides you're no threat after all and relaxes. [elle.speech(What's this, Wes?] the horny slave remarks,)]
+			 her eyes narrow for an instant as she glances over your salvaged gear and arcane power briefly flashes over her hands before she decides you're no threat after all and relaxes. [elle.speech(What's this, Wes?)] the horny slave remarks,
 			#IF(game.getDateNow().getMonthValue()==10)
 			 [elle.speech(You've finally brought me someone to fuck other than you? And my, does [pc.she] have a peculiar taste in costumes.)]
 			#ELSE

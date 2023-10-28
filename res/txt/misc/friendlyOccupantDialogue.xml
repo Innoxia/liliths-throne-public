@@ -654,7 +654,7 @@
 	</p>
 	<p>
 		#IF(npc.isShy())
-			Casting [npc.her] gaze to the floor, [npc.name] shyly shuffles [npc.her] [npc.feet] as [npc.she] replies, [npc.speech(Well, if you think that a job change would be good for me, [pc.name... I'll start looking for whatever you suggest right away...)]
+			Casting [npc.her] gaze to the floor, [npc.name] shyly shuffles [npc.her] [npc.feet] as [npc.she] replies, [npc.speech(Well, if you think that a job change would be good for me, [pc.name]... I'll start looking for whatever you suggest right away...)]
 		#ELSE
 			Letting out a contemplative hum, [npc.name] replies, [npc.speech(You know, [pc.name], I <i>had</i> been thinking about a change of job... I'll start looking for whatever you suggest right away!)]
 		#ENDIF
