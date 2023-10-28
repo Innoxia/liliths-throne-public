@@ -318,7 +318,7 @@
 							#ENDIF
 						#ELSE
 							#IF(lilaya.getPregnantLitter().isFatherId(daddy.getId()))
-								[daddy.speech(Well, if it isn't my two favourite step-kids-to-be!)] [daddy.she] exclaims, before suddenly noticing the bulges in each of your stomachs, [daddy.speech(Hey, Lilaya, I got you pregnant?! That's fantastic! And you're pregnant too, pc.name]?! Hold on, let me get you something to help!)]
+								[daddy.speech(Well, if it isn't my two favourite step-kids-to-be!)] [daddy.she] exclaims, before suddenly noticing the bulges in each of your stomachs, [daddy.speech(Hey, Lilaya, I got you pregnant?! That's fantastic! And you're pregnant too, [pc.name]?! Hold on, let me get you something to help!)]
 							#ELSE
 								[daddy.speech(Well, if it isn't my two favourite step-kids-to-be!)] [daddy.she] exclaims, before suddenly noticing the bulges in each of your stomachs, [daddy.speech(Hey, sweethearts, you're both pregnant?! Hold on, let me get you something to help!)]
 							#ENDIF
