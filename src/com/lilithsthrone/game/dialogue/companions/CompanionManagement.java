@@ -826,11 +826,15 @@ public class CompanionManagement {
 		public String getLabel() {
 			return UtilText.parse(characterSelected(), "Inspecting [npc.Name]");
 		}
+
+		@Override
+		public void applyPreParsingEffects() {
+			CharactersPresentDialogue.resetContent(characterSelected());
+		}
 		
 		@Override
 		public String getContent() {
 			NPC character = characterSelected();
-			CharactersPresentDialogue.resetContent(character);
 			
 			UtilText.nodeContentSB.setLength(0);
 			
