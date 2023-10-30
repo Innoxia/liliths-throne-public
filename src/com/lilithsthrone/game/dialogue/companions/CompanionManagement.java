@@ -830,6 +830,7 @@ public class CompanionManagement {
 		@Override
 		public String getContent() {
 			NPC character = characterSelected();
+			CharactersPresentDialogue.resetContent(character);
 			
 			UtilText.nodeContentSB.setLength(0);
 			
