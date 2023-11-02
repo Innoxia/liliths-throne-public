@@ -978,7 +978,7 @@ public class HarpyAttackerDialogue {
 				GameCharacter companion = getMainCompanion();
 
 				if(!Main.game.isNonConEnabled() && !getHarpy().isAttractedTo(companion)) {
-					return new Response(UtilText.parse(companion, "Give to [npc.name]"), UtilText.parse(companion, getHarpy(), "[npc2.Name] isn't attracted to [npc.name], so wouldn't be willing to have sex with [npc2.herHim]!"), null);
+					return new Response(UtilText.parse(companion, "Give to [npc.name]"), UtilText.parse(companion, getHarpy(), "[npc2.Name] isn't attracted to [npc.name], so wouldn't be willing to have sex with [npc.herHim]!"), null);
 					
 				} else if(!companion.isAttractedTo(getHarpy())) {
 					return new Response(UtilText.parse(companion, "Give to [npc.name]"), UtilText.parse(companion, getHarpy(), "[npc.Name] isn't attracted to [npc2.name], so wouldn't be willing to have sex with [npc2.herHim]!"), null);

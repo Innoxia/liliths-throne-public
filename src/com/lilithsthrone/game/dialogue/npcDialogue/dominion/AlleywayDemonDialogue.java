@@ -991,7 +991,7 @@ public class AlleywayDemonDialogue {
 				GameCharacter companion = getMainCompanion();
 
 				if(!Main.game.isNonConEnabled() && !getDemon().isAttractedTo(companion)) {
-					return new Response(UtilText.parse(companion, "Give to [npc.name]"), UtilText.parse(companion, getDemon(), "[npc2.Name] isn't attracted to [npc.name], so wouldn't be willing to have sex with [npc2.herHim]!"), null);
+					return new Response(UtilText.parse(companion, "Give to [npc.name]"), UtilText.parse(companion, getDemon(), "[npc2.Name] isn't attracted to [npc.name], so wouldn't be willing to have sex with [npc.herHim]!"), null);
 					
 				} else if(!companion.isAttractedTo(getDemon())) {
 					return new Response(UtilText.parse(companion, "Give to [npc.name]"), UtilText.parse(companion, getDemon(), "[npc.Name] isn't attracted to [npc2.name], so wouldn't be willing to have sex with [npc2.herHim]!"), null);
