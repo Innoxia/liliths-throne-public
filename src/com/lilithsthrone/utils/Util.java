@@ -854,7 +854,7 @@ public class Util {
 		return numeralSB.toString();
 	}
 
-	String[] zhengPhase = {"丨","丄","上","止"};
+	private static String[] zhengPhase = {"丨","丄","上","止"};
 
 	public static String intToZheng(int integer, int max) {
 		StringBuilder numeralSB = new StringBuilder();
