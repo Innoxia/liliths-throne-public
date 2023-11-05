@@ -32,6 +32,11 @@ public enum TattooCountType {
 		public String convertInt(int input) {
 			return Util.intToString(input);
 		}
+	},
+	CHINESE("Chinese characters tally") {
+		public String convertInt(int input) {
+			return Util.intToZheng(input, 50);
+		}
 	};
 	
 	private String name;

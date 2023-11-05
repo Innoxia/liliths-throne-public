@@ -853,6 +853,19 @@ public class Util {
 		
 		return numeralSB.toString();
 	}
+
+	String[] zhengPhase = {"丨","丄","上","止"};
+
+	public static String intToZheng(int integer, int max) {
+		StringBuilder numeralSB = new StringBuilder();
+		int limit = Math.min(integer, max);
+		for(int i=0; i<limit/5; i++) numeralSB.append("正");
+
+		if(limit%5 != 0) numeralSB.append(zhengPhase[limit%5-1]);
+
+		if(limit<integer) numeralSB.append("... (Total: "+integer+")");
+		return numeralSB.toString();
+	}
 	
 	public static String getKeyCodeCharacter(KeyCode code) {
 		String name = KEY_NAMES.get(code);
