@@ -294,7 +294,6 @@ import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.World;
-import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.GenericPlace;
@@ -25510,79 +25509,6 @@ public abstract class GameCharacter implements XMLSaving {
 	 */
 	public boolean isAbleToSelfTransform() {
 		return getUnableToTransformDescription().isEmpty();
-	}
-	
-
-	public List<AbstractRace> getSelfTransformationRaces() {
-		return getSelfTransformationRaces(true);
-	}
-	
-	public List<AbstractRace> getSelfTransformationRaces(boolean includeNoneRace) {
-		List<AbstractRace> races = new ArrayList<>();
-		
-		if(this instanceof Elemental) {
-			races.addAll(Race.allRaces);
-		}
-		if(this.getSubspeciesOverrideRace()==Race.DEMON) {
-			races.add(Race.NONE);
-			races.add(Race.DEMON);
-			
-			if(this.getSubspecies()==Subspecies.HALF_DEMON) {
-				races.add(this.getHalfDemonSubspecies().getRace());
-			}
-			
-			ArrayList<AbstractRace> unavailableRaces = Util.newArrayListOfValues(Race.ELEMENTAL, Race.SLIME); // Never have these TF options
-			
-			if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LOVIENNE_2) || this.hasPerkAnywhereInTree(Perk.POWER_OF_LOVIENNE_2_DEMON)) { // I'm assuming you defeat Lovienne last
-				races.addAll(Race.allRaces);
-				races.removeAll(unavailableRaces);
-			} else if(this.hasPerkAnywhereInTree(Perk.POWER_OF_LYSSIETH_4) || this.hasPerkAnywhereInTree(Perk.POWER_OF_LYSSIETH_4_DEMON)) {
-				races.add(Race.HUMAN);
-			}
-			for (AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
-				AbstractRace race = subspecies.getRace();
-				if(subspecies.isMainSubspecies() && !unavailableRaces.contains(race)) { // Only check the main subspecies
-					List<WorldRegion> mostCommonRegion = subspecies.getMostCommonWorldRegions();
-					if ((this.hasPerkAnywhereInTree(Perk.POWER_OF_LIRECEA_1) || this.hasPerkAnywhereInTree(Perk.POWER_OF_LIRECEA_1_DEMON))
-							&& (mostCommonRegion.contains(WorldRegion.SEA)
-							|| mostCommonRegion.contains(WorldRegion.SEA_CITY))) {
-						races.add(race);
-					} else if((this.hasPerkAnywhereInTree(Perk.POWER_OF_LASIELLE_3) || this.hasPerkAnywhereInTree(Perk.POWER_OF_LASIELLE_3_DEMON))
-							&& (mostCommonRegion.contains(WorldRegion.MOUNTAINS)
-							|| mostCommonRegion.contains(WorldRegion.YOUKO_FOREST)
-							|| mostCommonRegion.contains(WorldRegion.SNOW))) {
-						races.add(race);
-					} else if((this.hasPerkAnywhereInTree(Perk.POWER_OF_LUNETTE_5) || this.hasPerkAnywhereInTree(Perk.POWER_OF_LUNETTE_5_DEMON))
-							&& (mostCommonRegion.contains(WorldRegion.WOODLAND)
-							|| mostCommonRegion.contains(WorldRegion.FIELDS)
-							|| mostCommonRegion.contains(WorldRegion.FIELD_CITY)
-							|| mostCommonRegion.contains(WorldRegion.RIVER))) {
-						races.add(race);
-					} else if((this.hasPerkAnywhereInTree(Perk.POWER_OF_LYXIAS_6) || this.hasPerkAnywhereInTree(Perk.POWER_OF_LYXIAS_6_DEMON))
-							&& (mostCommonRegion.contains(WorldRegion.JUNGLE)
-							|| mostCommonRegion.contains(WorldRegion.JUNGLE_CITY))) {
-						races.add(race);
-					} else if((this.hasPerkAnywhereInTree(Perk.POWER_OF_LISOPHIA_7) || this.hasPerkAnywhereInTree(Perk.POWER_OF_LISOPHIA_7_DEMON))
-							&& (mostCommonRegion.contains(WorldRegion.SAVANNAH)
-							|| mostCommonRegion.contains(WorldRegion.DESERT)
-							|| mostCommonRegion.contains(WorldRegion.DESERT_CITY)
-							|| mostCommonRegion.contains(WorldRegion.VOLCANO))) {
-						races.add(race);
-					}
-				}
-			}
-		}
-		if(this.isYouko()) {
-			races.add(Race.NONE);
-			races.add(Race.HUMAN);
-			races.add(Race.FOX_MORPH);
-		}
-		
-		if(!includeNoneRace) {
-			races.remove(Race.NONE);
-		}
-		
-		return races;
 	}
 	
 	/**
