@@ -40,9 +40,7 @@ import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.pregnancy.Litter;
 import com.lilithsthrone.game.character.pregnancy.PregnancyPossibility;
-import com.lilithsthrone.game.character.quests.Quest;
-import com.lilithsthrone.game.character.quests.QuestLine;
-import com.lilithsthrone.game.character.quests.QuestType;
+import com.lilithsthrone.game.character.quests.*;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
@@ -765,10 +763,10 @@ public class PhoneDialogue {
 			journalSB = new StringBuilder();
 
 			// Main Quests:
-			QuestLine questLine = QuestLine.MAIN;
-			List<Quest> questList = Main.game.getPlayer().getQuests().get(questLine);
+			AbstractQuestLine questLine = QuestLine.MAIN;
+			List<AbstractQuest> questList = Main.game.getPlayer().getQuests().get(questLine);
 			int index = questList.size()-1;
-			Quest q = questList.get(index);
+			AbstractQuest q = questList.get(index);
 			
 			if (Main.game.getPlayer().isQuestCompleted(questLine)) {
 				journalSB.append(
@@ -852,7 +850,7 @@ public class PhoneDialogue {
 			boolean sideQuestsFound = false;
 			
 			// Side Quests:
-			List<QuestLine> sideQuests = new ArrayList<>(Main.game.getPlayer().getQuests().keySet());
+			List<AbstractQuestLine> sideQuests = new ArrayList<>(Main.game.getPlayer().getQuests().keySet());
 			sideQuests.sort((q1, q2)->
 				Main.game.getPlayer().isQuestCompleted(q1)
 					?(Main.game.getPlayer().isQuestCompleted(q2)
@@ -861,13 +859,13 @@ public class PhoneDialogue {
 					:(Main.game.getPlayer().isQuestCompleted(q2)
 						?-1
 						:0));
-			for (QuestLine questLine : sideQuests) {
+			for (AbstractQuestLine questLine : sideQuests) {
 				if(questLine.getType()==QuestType.SIDE) {
 					sideQuestsFound = true;
 					
-					List<Quest> questList = Main.game.getPlayer().getQuests().get(questLine);
+					List<AbstractQuest> questList = Main.game.getPlayer().getQuests().get(questLine);
 					int index = questList.size()-1;
-					Quest q = questList.get(index);
+					AbstractQuest q = questList.get(index);
 					
 					if(Main.game.getPlayer().isQuestFailed(questLine)) {
 						journalSB.append(
@@ -953,13 +951,13 @@ public class PhoneDialogue {
 			boolean relationshipQuestFound = false;
 			
 			// Romance Quests:
-			for (QuestLine questLine : Main.game.getPlayer().getQuests().keySet()) {
+			for (AbstractQuestLine questLine : Main.game.getPlayer().getQuests().keySet()) {
 				if(questLine.getType()==QuestType.RELATIONSHIP) {
 					relationshipQuestFound = true;
 					
-					List<Quest> questList = Main.game.getPlayer().getQuests().get(questLine);
+					List<AbstractQuest> questList = Main.game.getPlayer().getQuests().get(questLine);
 					int index = questList.size()-1;
-					Quest q = questList.get(index);
+					AbstractQuest q = questList.get(index);
 					
 					if(Main.game.getPlayer().isQuestFailed(questLine)) {
 						journalSB.append(
@@ -1034,7 +1032,7 @@ public class PhoneDialogue {
 		}
 	};
 
-	private static String getQuestBoxDivFailed(Quest q) {
+	private static String getQuestBoxDivFailed(AbstractQuest q) {
 		return "<div class='quest-box'>"
 				+ getLevelAndExperienceHTML(q, true)
 				+ "<h6 style='color:" + PresetColour.GENERIC_BAD.toWebHexString() + ";text-align:center;'>"
@@ -1046,7 +1044,7 @@ public class PhoneDialogue {
 			+ "</div>";
 	}
 	
-	private static String getQuestBoxDiv(Quest q, boolean completed) {
+	private static String getQuestBoxDiv(AbstractQuest q, boolean completed) {
 		if(q==Quest.SIDE_UTIL_COMPLETE) {
 			return "";
 //			return "<div class='quest-box'>"
@@ -1080,7 +1078,7 @@ public class PhoneDialogue {
 		}
 	}
 	
-	private static String getLevelAndExperienceHTML(Quest q, boolean completed) {
+	private static String getLevelAndExperienceHTML(AbstractQuest q, boolean completed) {
 		if(q==Quest.SIDE_UTIL_COMPLETE) {
 			return "";
 		}

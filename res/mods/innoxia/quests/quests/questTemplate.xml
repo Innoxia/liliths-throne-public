@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<quests>
+    <!-- for every quest there is a "quest" element and you need to define an "id" for it. When you want to use it, just use "QUEST_path-related-part_id". -->
+    <quest id="test">
+        <name><![CDATA[Test Quest]]></name>
+        <!-- There are three kinds of questType: MAIN, SIDE, RELATIONSHIP. All quests in a quest line need to have the same quest type with the quest line.(maybe) -->
+        <type>SIDE</type>
+        <description><![CDATA[
+            This is a test quest.
+        ]]></description>
+        <completedDescription><![CDATA[
+            This is a test quest. And it is completed.
+        ]]></completedDescription>
+        <!-- recommended level -->
+        <level>1</level>
+        <!-- experience rewarded when this quest is completed -->
+        <experienceReward>100</experienceReward>
+    </quest>
+
+    <quest id="test_end">
+        <name><![CDATA[Test Quest (End)]]></name>
+        <type>SIDE</type>
+        <description><![CDATA[
+            This is a test quest in the end of the quest line.
+        ]]></description>
+        <completedDescription><![CDATA[
+            This is a test quest in the end of the quest line.. And it is completed.
+        ]]></completedDescription>
+        <level>1</level>
+        <experienceReward>200</experienceReward>
+    </quest>
+</quests>

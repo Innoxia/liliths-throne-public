@@ -300,7 +300,7 @@ public class DaddyDialogue {
 								? "Tell [daddy.name] that you've changed your mind, and don't want to go out for dinner with [daddy.herHim] after all.<br/>"
 									+ "[style.italicsMinorBad(You can still change your mind and return tomorrow or at any other later time.)]"
 								: "Refuse to go to dinner with [daddy.name], and tell him never to bother Lilaya again.<br/>"
-									+ "[style.italicsMinorBad(This will complete the quest, '"+QuestLine.SIDE_DADDY.getName()+"', but you can still return and restart it at any time.)]",
+									+ "[style.italicsMinorBad(This will complete the quest, '"+ QuestLine.SIDE_DADDY.getName()+"', but you can still return and restart it at any time.)]",
 							BLANK_DEFAULT_DIALOGUE) {
 						@Override
 						public void effects() {
@@ -359,7 +359,7 @@ public class DaddyDialogue {
 				} else if(index==3) {
 					return new Response("Refuse",
 								"Tell [daddy.name] that you aren't going to convince Lilaya to meet [daddy.herHim], and that you certainly aren't going to call [daddy.herHim] '[daddy.daddy]'.<br/>"
-										+ "<i>This will complete the quest, '"+QuestLine.SIDE_DADDY.getName()+"', but you can still return and restart it at any time.</i>",
+										+ "<i>This will complete the quest, '"+ QuestLine.SIDE_DADDY.getName()+"', but you can still return and restart it at any time.</i>",
 								BLANK_DEFAULT_DIALOGUE) {
 						@Override
 						public void effects() {
@@ -723,7 +723,7 @@ public class DaddyDialogue {
 			} else if(index==2) {
 				return new Response("Refuse",
 							"Tell [daddy.name] that you aren't going to convince Lilaya to meet [daddy.herHim], and that you certainly aren't going to call [daddy.herHim] '[daddy.daddy]'.<br/>"
-									+ "<i>This will complete the quest, '"+QuestLine.SIDE_DADDY.getName()+"', but you can still return and restart it at any time.</i>",
+									+ "<i>This will complete the quest, '"+ QuestLine.SIDE_DADDY.getName()+"', but you can still return and restart it at any time.</i>",
 							BLANK_DEFAULT_DIALOGUE) {
 					@Override
 					public void effects() {

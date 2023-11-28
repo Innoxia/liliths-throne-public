@@ -1142,7 +1142,7 @@ public class SubmissionGenericPlaces {
 					if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLIME_QUEEN)) {
 						responses.add(new Response("Teleportation pads",
 								"You're unable to see the teleportation pads until the Submission Enforcers have a reason to trust you..."
-										+ "<br/>[style.italicsMinorBad(You'll be able to access this option once you've completed the quest '"+QuestLine.SIDE_SLIME_QUEEN.getName()+"'.)]",
+										+ "<br/>[style.italicsMinorBad(You'll be able to access this option once you've completed the quest '"+ QuestLine.SIDE_SLIME_QUEEN.getName()+"'.)]",
 								null));
 						
 					} else {
