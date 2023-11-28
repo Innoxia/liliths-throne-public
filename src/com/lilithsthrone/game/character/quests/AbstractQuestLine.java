@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @since 0.1.1
@@ -46,20 +47,20 @@ public class AbstractQuestLine {
 					this.completedDescription = coreElement.getMandatoryFirstOf("completedDescription").getTextContent();
 				this.type = QuestType.valueOf(coreElement.getMandatoryFirstOf("type").getTextContent());
 
-				var questNodesMap = new HashMap<String, QuestNode>();
+				Map<String, QuestNode> questNodesMap = new HashMap<String, QuestNode>();
 				QuestNode rootNode = null;
 
-				for (var questNode : coreElement.getMandatoryFirstOf("questTree").getAllOf("quest"))
+				for (Element questNode : coreElement.getMandatoryFirstOf("questTree").getAllOf("quest"))
 				{
-					var questId = questNode.getAttribute("id");
-					var root = Boolean.valueOf(questNode.getAttribute("root"));
-					var childrenId = new ArrayList<String>();
-					for (var child : questNode.getAllOf("child"))
+					String questId = questNode.getAttribute("id");
+					boolean root = Boolean.valueOf(questNode.getAttribute("root"));
+					List<String> childrenId = new ArrayList<String>();
+					for (Element child : questNode.getAllOf("child"))
 					{
 						childrenId.add(child.getTextContent());
 					}
-					var questTreeNode = new QuestNode(questId, childrenId);
-					questNodesMap.put(questId, questTreeNode)
+					QuestNode questTreeNode = new QuestNode(questId, childrenId);
+					questNodesMap.put(questId, questTreeNode);
 					// if there are multiple roots, the last node with root will be the root
 					if (root) rootNode = questTreeNode;
 				}
@@ -108,9 +109,9 @@ public class AbstractQuestLine {
 		return questTree;
 	}
 
-	private TreeNode<String> convertToStringTreeNode(QuestNode node, HashMap<String, QuestNode> map) {
+	private TreeNode<String> convertToStringTreeNode(QuestNode node, Map<String, QuestNode> map) {
 		TreeNode<String> treeNode = new TreeNode<>(node.id);
-		for (var childId : node.childrenId) {
+		for (String childId : node.childrenId) {
 			treeNode.addChild(convertToStringTreeNode(map.get(childId), map));
 		}
 		return treeNode;

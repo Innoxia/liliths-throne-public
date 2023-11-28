@@ -45,22 +45,22 @@ public class AbstractQuest {
 
                 for (Element questElement : coreElement.getAllOf("quest")) {
 
-                    var tagId = questElement.getAttribute("id");
+                    String tagId = questElement.getAttribute("id");
 
-                    var name = questElement.getMandatoryFirstOf("name").getTextContent();
+                    String name = questElement.getMandatoryFirstOf("name").getTextContent();
 
-                    var questType = QuestType.valueOf(questElement.getMandatoryFirstOf("type").getTextContent());
+                    QuestType questType = QuestType.valueOf(questElement.getMandatoryFirstOf("type").getTextContent());
 
-                    var description = questElement.getMandatoryFirstOf("description").getTextContent();
-                    var completeDescription = description;
+                    String description = questElement.getMandatoryFirstOf("description").getTextContent();
+                    String completeDescription = description;
                     if (questElement.getOptionalFirstOf("completeDescription").isPresent())
                     {
                         completeDescription = questElement.getMandatoryFirstOf("completeDescription").getTextContent();
                     }
-                    var level = Integer.parseInt(questElement.getMandatoryFirstOf("level").getTextContent());
-                    var experienceReward = Integer.parseInt(questElement.getMandatoryFirstOf("experienceReward").getTextContent());
+                    int level = Integer.parseInt(questElement.getMandatoryFirstOf("level").getTextContent());
+                    int experienceReward = Integer.parseInt(questElement.getMandatoryFirstOf("experienceReward").getTextContent());
 
-                    var quest = new AbstractQuest(questType, level, experienceReward, mod, true, author) {
+                    AbstractQuest quest = new AbstractQuest(questType, level, experienceReward, mod, true, author) {
                         @Override
                         public String getName() {
                             return name;
