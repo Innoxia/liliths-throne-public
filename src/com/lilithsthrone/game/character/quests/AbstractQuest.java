@@ -62,23 +62,8 @@ public class AbstractQuest {
 
                     AbstractQuest quest = new AbstractQuest(questType, level, experienceReward, mod, true, author) {
                         @Override
-                        public String getName() {
-                            return name;
-                        }
-
-                        @Override
                         public String getId() {
                             return idPrefix + "_" + tagId;
-                        }
-
-                        @Override
-                        public String getDescription() {
-                            return UtilText.parse(description);
-                        }
-
-                        @Override
-                        public String getCompletedDescription() {
-                            return UtilText.parse(completeDescription);
                         }
                     };
 
@@ -118,14 +103,26 @@ public class AbstractQuest {
     }
 
     public String getName(){
+        if (isFromExternalFile())
+        {
+            return UtilText.parse(name);
+        }
         return name;
     }
 
     public String getDescription(){
+        if (isFromExternalFile())
+        {
+            return UtilText.parse(description);
+        }
         return description;
     }
 
     public String getCompletedDescription(){
+        if (isFromExternalFile())
+        {
+            return UtilText.parse(completeDescription);
+        }
         return completeDescription;
     }
 
