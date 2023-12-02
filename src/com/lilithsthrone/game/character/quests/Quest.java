@@ -1,8 +1,13 @@
 package com.lilithsthrone.game.character.quests;
 
+import java.io.File;
+import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -40,12 +45,12 @@ import com.lilithsthrone.world.places.PlaceType;
  * @version 0.4.6.3
  * @author Innoxia
  */
-public enum Quest {
+public class Quest {
 	
 	
 	// Main quests:
 
-	MAIN_PROLOGUE(QuestType.MAIN, 1, 5) {
+	public static final AbstractQuest MAIN_PROLOGUE = new AbstractQuest(QuestType.MAIN, 1, 5) {
 		@Override
 		public String getName() {
 			return "Survive the Evening";
@@ -61,9 +66,9 @@ public enum Quest {
 					+ " After waking up in the middle of an unfamiliar street, you were saved from a dire situation by the half-demon 'Lilaya'."
 					+ " She seems to be this universe's version of your aunt Lily, and, in return for agreeing to help her with her experiments, she's allowed you to stay at her home.";
 		}
-	},
+	};
 
-	MAIN_1_A_LILAYAS_TESTS(QuestType.MAIN, 1, 10) {
+	public static final AbstractQuest MAIN_1_A_LILAYAS_TESTS = new AbstractQuest(QuestType.MAIN, 1, 10) {
 		@Override
 		public String getName() {
 			return "Lilaya's Tests";
@@ -80,9 +85,9 @@ public enum Quest {
 		public void applySkipQuestEffects() {
 			((Arthur) Main.game.getNpc(Arthur.class)).generateNewTile();
 		}
-	},
+	};
 
-	MAIN_1_B_DEMON_HOME(QuestType.MAIN, 1, 10) {
+	public static final AbstractQuest MAIN_1_B_DEMON_HOME = new AbstractQuest(QuestType.MAIN, 1, 10) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; Demon Home";
@@ -101,9 +106,9 @@ public enum Quest {
 		public void applySkipQuestEffects() {
 			// No effects applied
 		}
-	},
+	};
 
-	MAIN_1_C_WOLFS_DEN(QuestType.MAIN, 3, 20) {
+	public static final AbstractQuest MAIN_1_C_WOLFS_DEN = new AbstractQuest(QuestType.MAIN, 3, 20) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; The Wolf's Den";
@@ -123,9 +128,9 @@ public enum Quest {
 			BraxOffice.setBraxsPostQuestStatus(false);
 			BraxOffice.givePlayerEnforcerUniform(null,-1);
 		}
-	},
+	};
 
-	MAIN_1_D_SLAVERY(QuestType.MAIN, 3, 10) {
+	public static final AbstractQuest MAIN_1_D_SLAVERY = new AbstractQuest(QuestType.MAIN, 3, 10) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; Sold into Slavery";
@@ -143,9 +148,9 @@ public enum Quest {
 		public void applySkipQuestEffects() {
 			// No effects applied
 		}
-	},
+	};
 	
-	MAIN_1_E_REPORT_TO_HELENA(QuestType.MAIN, 3, 30) {
+	public static final AbstractQuest MAIN_1_E_REPORT_TO_HELENA = new AbstractQuest(QuestType.MAIN, 3, 30) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; Find Helena";
@@ -165,9 +170,9 @@ public enum Quest {
 			Main.game.getNpc(Helena.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP);
 			Main.game.getNpc(Helena.class).addSlave(Main.game.getNpc(Scarlett.class));
 		}
-	},
+	};
 	
-	MAIN_1_F_SCARLETTS_FATE(QuestType.MAIN, 3, 30) {
+	public static final AbstractQuest MAIN_1_F_SCARLETTS_FATE = new AbstractQuest(QuestType.MAIN, 3, 30) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; Scarlett's fate";
@@ -190,9 +195,9 @@ public enum Quest {
 			Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(collar, true, Main.game.getNpc(Helena.class));
 			Main.game.getNpc(Scarlett.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_ballgag", PresetColour.CLOTHING_PINK, false), true, Main.game.getNpc(Helena.class));
 		}
-	},
+	};
 	
-	MAIN_1_G_SLAVERY(QuestType.MAIN, 3, 30) {
+	public static final AbstractQuest MAIN_1_G_SLAVERY = new AbstractQuest(QuestType.MAIN, 3, 30) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; Slavery";
@@ -218,12 +223,12 @@ public enum Quest {
 			if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLAVERY)) {
 				Main.game.getPlayer().startQuest(QuestLine.SIDE_SLAVERY);
 			}
-			List<Quest> slaverSkipQuests = Util.newArrayListOfValues(
+			List<AbstractQuest> slaverSkipQuests = Util.newArrayListOfValues(
 					Quest.SIDE_SLAVER_NEED_RECOMMENDATION,
 					Quest.SIDE_SLAVER_RECOMMENDATION_OBTAINED,
 					Quest.SIDE_UTIL_COMPLETE);
 			for(int i=0; i<slaverSkipQuests.size()-1; i++) {
-				Quest q = slaverSkipQuests.get(i);
+				AbstractQuest q = slaverSkipQuests.get(i);
 				if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLAVERY)==q) {
 					q.applySkipQuestEffects();
 					Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLAVERY, slaverSkipQuests.get(i+1));
@@ -239,9 +244,9 @@ public enum Quest {
 			
 			((Zaranix) Main.game.getNpc(Zaranix.class)).generateNewTile();
 		}
-	},
+	};
 	
-	MAIN_1_H_THE_GREAT_ESCAPE(QuestType.MAIN, 10, 200) {
+	public static final AbstractQuest MAIN_1_H_THE_GREAT_ESCAPE = new AbstractQuest(QuestType.MAIN, 10, 200) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; The Great Escape";
@@ -260,9 +265,9 @@ public enum Quest {
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixDiscoveredHome, true);
 			Main.game.getNpc(Arthur.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 		}
-	},
+	};
 	
-	MAIN_1_I_ARTHURS_TALE(QuestType.MAIN, 1, 30) {
+	public static final AbstractQuest MAIN_1_I_ARTHURS_TALE = new AbstractQuest(QuestType.MAIN, 1, 30) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; Conclusion";
@@ -284,10 +289,10 @@ public enum Quest {
 			Cell arthurRoomCell = Lab.addArthurRoom();
 			Main.game.getNpc(Arthur.class).setLocation(arthurRoomCell, true);
 		}
-	},
+	};
 	
 	// This quest is no longer used, but is left here for old version support
-	MAIN_1_J_ARTHURS_ROOM(QuestType.MAIN, 1, 30) {
+	public static final AbstractQuest MAIN_1_J_ARTHURS_ROOM = new AbstractQuest(QuestType.MAIN, 1, 30) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; A room of his own";
@@ -301,10 +306,10 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You located a suitable room for Arthur, and, with Rose's help, moved a significant amount of arcane instrumentation into his new lab-cum-bedroom.";
 		}
-	},
+	};
 	
 	
-	MAIN_2_A_INTO_THE_DEPTHS(QuestType.MAIN, 1, 10) {
+	public static final AbstractQuest MAIN_2_A_INTO_THE_DEPTHS = new AbstractQuest(QuestType.MAIN, 1, 10) {
 		@Override
 		public String getName() {
 			return "Into Submission";
@@ -324,9 +329,9 @@ public enum Quest {
 		public void applySkipQuestEffects() {
 			Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.LYSSIETHS_RING), false);
 		}
-	},
+	};
 	
-	MAIN_2_B_SIRENS_CALL(QuestType.MAIN, 25, 300) {
+	public static final AbstractQuest MAIN_2_B_SIRENS_CALL = new AbstractQuest(QuestType.MAIN, 25, 300) {
 		@Override
 		public String getName() {
 			return "The Siren's Call";
@@ -366,9 +371,9 @@ public enum Quest {
 				}
 			}
 		}
-	},
+	};
 	
-	MAIN_2_C_SIRENS_FALL(QuestType.MAIN, 1, 10) {
+	public static final AbstractQuest MAIN_2_C_SIRENS_FALL = new AbstractQuest(QuestType.MAIN, 1, 10) {
 		@Override
 		public String getName() {
 			return "The Siren's Fall";
@@ -393,9 +398,9 @@ public enum Quest {
 				Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(ClothingType.FINGER_LYSSIETHS_RING), false);
 			}
 		}
-	},
+	};
 	
-	MAIN_2_D_MEETING_A_LILIN(QuestType.MAIN, 1, 100) {
+	public static final AbstractQuest MAIN_2_D_MEETING_A_LILIN = new AbstractQuest(QuestType.MAIN, 1, 100) {
 		@Override
 		public String getName() {
 			return "Meeting a Lilin";
@@ -423,9 +428,9 @@ public enum Quest {
 				Main.game.getNpc(DarkSiren.class).setAffection(Main.game.getPlayer(), 0);
 			}
 		}
-	},
+	};
 	
-	MAIN_3_ELIS(QuestType.MAIN, 1, 25) {
+	public static final AbstractQuest MAIN_3_ELIS = new AbstractQuest(QuestType.MAIN, 1, 25) {
 		@Override
 		public String getName() {
 			return "Destination Elis";
@@ -445,9 +450,9 @@ public enum Quest {
 		public void applySkipQuestEffects() {
 			// TODO
 		}
-	},
+	};
 	
-	MAIN_3_B_MEETING_MERAXIS(QuestType.MAIN, 1, 25) {
+	public static final AbstractQuest MAIN_3_B_MEETING_MERAXIS = new AbstractQuest(QuestType.MAIN, 1, 25) {
 		@Override
 		public String getName() {
 			return "To The Red Dragon";
@@ -467,9 +472,9 @@ public enum Quest {
 		public void applySkipQuestEffects() {
 			// TODO
 		}
-	},
+	};
 	
-	MAIN_3_C_MEETING_MINOTALLYS(QuestType.MAIN, 1, 25) {
+	public static final AbstractQuest MAIN_3_C_MEETING_MINOTALLYS = new AbstractQuest(QuestType.MAIN, 1, 25) {
 		@Override
 		public String getName() {
 			return "Meeting Minotallys";
@@ -490,9 +495,9 @@ public enum Quest {
 		public void applySkipQuestEffects() {
 			// TODO
 		}
-	},
+	};
 	
-	MAIN_3_D_TO_THEMISCYRA(QuestType.MAIN, 1, 25) {
+	public static final AbstractQuest MAIN_3_D_TO_THEMISCYRA = new AbstractQuest(QuestType.MAIN, 1, 25) {
 		@Override
 		public String getName() {
 			return "To Themiscyra";
@@ -513,9 +518,9 @@ public enum Quest {
 				Main.game.getWorlds().get(WorldType.WORLD_MAP).getCell(11, 32).getPlace().setPlaceType(PlaceType.getPlaceTypeFromId("innoxia_fields_themiscyra"));
 			}
 		}
-	},
+	};
 	
-	MAIN_3_E_THEMISCYRA_ATTACK(QuestType.MAIN, 1, 250) {
+	public static final AbstractQuest MAIN_3_E_THEMISCYRA_ATTACK = new AbstractQuest(QuestType.MAIN, 1, 250) {
 		@Override
 		public String getName() {
 			return "Save the Queen";
@@ -539,9 +544,9 @@ public enum Quest {
 			Main.game.getNpc(Aurokaris.class).setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_town"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_amazon_camp"), true);
 			Main.game.getNpc(Lunexis.class).setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 		}
-	},
+	};
 	
-	MAIN_3_F_PREPARING_ELIS(QuestType.MAIN, 1, 25) {
+	public static final AbstractQuest MAIN_3_F_PREPARING_ELIS = new AbstractQuest(QuestType.MAIN, 1, 25) {
 		@Override
 		public String getName() {
 			return "Some Help from SWORD";
@@ -559,9 +564,9 @@ public enum Quest {
 		public void applySkipQuestEffects() {
 			// TODO
 		}
-	},
+	};
 	
-	MAIN_3_G_SWORD_SCAPEGOAT(QuestType.MAIN, 1, 25) {
+	public static final AbstractQuest MAIN_3_G_SWORD_SCAPEGOAT = new AbstractQuest(QuestType.MAIN, 1, 25) {
 		@Override
 		public String getName() {
 			return "SWORD's Scapegoat";
@@ -580,9 +585,9 @@ public enum Quest {
 		public void applySkipQuestEffects() {
 			// TODO
 		}
-	},
+	};
 	
-	MAIN_3_H_SWORD_MISSION(QuestType.MAIN, 25, 250) {
+	public static final AbstractQuest MAIN_3_H_SWORD_MISSION = new AbstractQuest(QuestType.MAIN, 25, 250) {
 		@Override
 		public String getName() {
 			return "Stop the Succubus";
@@ -601,9 +606,9 @@ public enum Quest {
 		public void applySkipQuestEffects() {
 			// TODO
 		}
-	},
+	};
 	
-	MAIN_3_I_ARION_REPORT(QuestType.MAIN, 1, 25) {//TODO
+	public static final AbstractQuest MAIN_3_I_ARION_REPORT = new AbstractQuest(QuestType.MAIN, 1, 25) {//TODO
 		@Override
 		public String getName() {
 			return "Report to Minotallys";
@@ -617,9 +622,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "-";
 		}
-	},
+	};
 	
-	MAIN_3_J_TODO(QuestType.MAIN, 1, 25) {//TODO
+	public static final AbstractQuest MAIN_3_J_TODO = new AbstractQuest(QuestType.MAIN, 1, 25) {//TODO
 		@Override
 		public String getName() {
 			return "";
@@ -632,12 +637,12 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "-";
 		}
-	},
+	};
 	
 
 	// Side Quests:
 
-	SIDE_UTIL_COMPLETE(QuestType.SIDE, 1, 0) {
+	public static final AbstractQuest SIDE_UTIL_COMPLETE = new AbstractQuest(QuestType.SIDE, 1, 0) {
 		@Override
 		public String getName() {
 			return "Quest Complete!";
@@ -652,9 +657,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "Quest complete!";
 		}
-	},
+	};
 	
-	SIDE_DISCOVER_ALL_ITEMS(QuestType.SIDE, 1, 100) {
+	public static final AbstractQuest SIDE_DISCOVER_ALL_ITEMS = new AbstractQuest(QuestType.SIDE, 1, 100) {
 		@Override
 		public String getName() {
 			return "Completionist";
@@ -669,9 +674,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You have discovered every item there is to find!";
 		}
-	},
+	};
 
-	SIDE_DISCOVER_ALL_RACES(QuestType.SIDE, 1, 100) {
+	public static final AbstractQuest SIDE_DISCOVER_ALL_RACES = new AbstractQuest(QuestType.SIDE, 1, 100) {
 		@Override
 		public String getName() {
 			return "Completionist";
@@ -686,12 +691,12 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You have discovered every race there is to find!.";
 		}
-	},
+	};
 	
 	
 	// For when you discover your first essence:
 	
-	SIDE_ENCHANTMENTS_LILAYA_HELP(QuestType.SIDE, 1, 10) {
+	public static final AbstractQuest SIDE_ENCHANTMENTS_LILAYA_HELP = new AbstractQuest(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
 			return "Ask Lilaya for help";
@@ -708,11 +713,11 @@ public enum Quest {
 			return "Lilaya informed you that you're able to collect 'essences' from other people's arcane aura."
 					+ " She seemed a little worried that you're able to do this, as apparently it's normally only Lilin who are able to gather essences in this fashion...";
 		}
-	},
+	};
 
 	// For the first time you get pregnant:
 	
-	SIDE_PREGNANCY_CONSULT_LILAYA(QuestType.SIDE, 1, 10) {
+	public static final AbstractQuest SIDE_PREGNANCY_CONSULT_LILAYA = new AbstractQuest(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
 			return "Lilaya knows best";
@@ -727,9 +732,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "Lilaya managed to calm you down, and reassured you that pregnancy in this world isn't as big a deal as it was back home.";
 		}
-	},
+	};
 	
-	SIDE_PREGNANCY_LILAYA_THE_MIDWIFE(QuestType.SIDE, 1, 20) {
+	public static final AbstractQuest SIDE_PREGNANCY_LILAYA_THE_MIDWIFE = new AbstractQuest(QuestType.SIDE, 1, 20) {
 		@Override
 		public String getName() {
 			return "Lilaya the midwife";
@@ -744,11 +749,11 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "Lilaya helped you give birth. She said that if ever you get pregnant again, she can always help out.";
 		}
-	},
+	};
 	
 	// When getting eggs implanted in you for the first time:
 	
-	SIDE_INCUBATION_WAITING(QuestType.SIDE, 1, 10) {
+	public static final AbstractQuest SIDE_INCUBATION_WAITING = new AbstractQuest(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
 			return "Living Incubator";
@@ -761,7 +766,7 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You waited for the eggs implanted inside of your body to mature, and then successfully laid and hatched them!";
 		}
-	},
+	};
 	
 //	SIDE_INCUBATION_LILAYA_HELP(QuestType.SIDE, 1, 20) {
 //		@Override
@@ -776,11 +781,11 @@ public enum Quest {
 //		public String getCompletedDescription() {
 //			return "Lilaya helped you to lay your eggs. She said that if ever you get implanted with eggs again, she can always help out.";
 //		}
-//	},
+//	};
 	
 	// Getting a slaver license:
 	
-	SIDE_SLAVER_NEED_RECOMMENDATION(QuestType.SIDE, 1, 10) {
+	public static final AbstractQuest SIDE_SLAVER_NEED_RECOMMENDATION = new AbstractQuest(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
 			return "Letter of recommendation";
@@ -799,9 +804,9 @@ public enum Quest {
 		public void applySkipQuestEffects() {
 			Main.game.getDialogueFlags().values.add(DialogueFlagValue.finchIntroduced);
 		}
-	},
+	};
 	
-	SIDE_SLAVER_RECOMMENDATION_OBTAINED(QuestType.SIDE, 1, 10) {
+	public static final AbstractQuest SIDE_SLAVER_RECOMMENDATION_OBTAINED = new AbstractQuest(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
 			return "Present letter";
@@ -820,11 +825,11 @@ public enum Quest {
 		public void applySkipQuestEffects() {
 			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.SLAVER_LICENSE), false));
 		}
-	},
+	};
 	
 	// Accommodation:
 	
-	SIDE_ACCOMMODATION_NEED_LILAYAS_PERMISSION(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest SIDE_ACCOMMODATION_NEED_LILAYAS_PERMISSION = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Lilaya the Landlady";
@@ -839,11 +844,11 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "Lilaya gave you permission to use the empty rooms to house your friends and family, on the condition that you pay for the expenses that are incurred.";
 		}
-	},
+	};
 	
 	// Other:
 	
-	SIDE_HYPNO_WATCH_VICKY(QuestType.SIDE, 1, 10) {
+	public static final AbstractQuest SIDE_HYPNO_WATCH_VICKY = new AbstractQuest(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
 			return "Order at Arcane Arts";
@@ -860,9 +865,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You retrieved the package from Arcane Arts, and brought it back to Arthur.";
 		}
-	},
+	};
 	
-	SIDE_HYPNO_WATCH_TEST_SUBJECT(QuestType.SIDE, 1, 10) {
+	public static final AbstractQuest SIDE_HYPNO_WATCH_TEST_SUBJECT = new AbstractQuest(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
 			return "Test subject";
@@ -879,10 +884,10 @@ public enum Quest {
 			return "The Hypno-Watch appeared to work, although Lilaya stopped the test before it had a permanent effect."
 					+ " She warned that it will have a strong corruptive effect upon the mind of the whoever is targeted, and disenchanted it for good measure, before handing it over to you.";
 		}
-	},
+	};
 	
 	
-	LIGHTNING_SPELL_1_PAYMENT(QuestType.SIDE, 1, 10) {
+	public static final AbstractQuest LIGHTNING_SPELL_1_PAYMENT = new AbstractQuest(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
 			return "The Price Of Power";
@@ -899,9 +904,9 @@ public enum Quest {
 			return "You gave Arthur the arcane lightning globe which you found in the Enforcer warehouse, and also let him extract 500 arcane essences from your aura."
 					+ " In exchange, you've been promised that a powerful arcane lightning spell shall soon be yours.";
 		}
-	},
+	};
 	
-	LIGHTNING_SPELL_2_WAITING(QuestType.SIDE, 1, 10) {
+	public static final AbstractQuest LIGHTNING_SPELL_2_WAITING = new AbstractQuest(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
 			return "Lightning Extraction";
@@ -916,13 +921,13 @@ public enum Quest {
 			return "Arthur excitedly informed you that he'd not only been able to extract the secrets of two arcane lightning spells from the globe,"
 					+ " but that he'd also been able to transfer its remaining power into a smaller crystal, which he's had fitted onto a ring for you.";
 		}
-	},
+	};
 	
 	
 	
 	// Angry Harpies:
 	
-	HARPY_PACIFICATION_ONE(QuestType.SIDE, 6, 25) {
+	public static final AbstractQuest HARPY_PACIFICATION_ONE = new AbstractQuest(QuestType.SIDE, 6, 25) {
 		@Override
 		public String getName() {
 			return "Nests in chaos";
@@ -938,8 +943,8 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You've managed to assume control of one of the harpy nests!";
 		}
-	},
-	HARPY_PACIFICATION_TWO(QuestType.SIDE, 6, 25) {
+	};
+	public static final AbstractQuest HARPY_PACIFICATION_TWO = new AbstractQuest(QuestType.SIDE, 6, 25) {
 		@Override
 		public String getName() {
 			return "One down, two to go";
@@ -954,8 +959,8 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You've managed to assume control of two of the harpy nests!";
 		}
-	},
-	HARPY_PACIFICATION_THREE(QuestType.SIDE, 6, 25) {
+	};
+	public static final AbstractQuest HARPY_PACIFICATION_THREE = new AbstractQuest(QuestType.SIDE, 6, 25) {
 		@Override
 		public String getName() {
 			return "One matriarch left";
@@ -970,8 +975,8 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You've managed to assume control of all three of the major harpy nests!";
 		}
-	},
-	HARPY_PACIFICATION_REWARD(QuestType.SIDE, 6, 50) {
+	};
+	public static final AbstractQuest HARPY_PACIFICATION_REWARD = new AbstractQuest(QuestType.SIDE, 6, 50) {
 		@Override
 		public String getName() {
 			return "Harpy "+(Main.game.getPlayer().isFeminine()?"queen":"king");
@@ -986,13 +991,13 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "After informing the Enforcers that you've pacified all three of the major harpy nests, they resumed their regular patrols, resulting in the Harpy Nests being safe to travel through!";
 		}
-	},
+	};
 	
 	
 	
 	// Slime Queen:
 	
-	SLIME_QUEEN_ONE(QuestType.SIDE, 10, 25) {
+	public static final AbstractQuest SLIME_QUEEN_ONE = new AbstractQuest(QuestType.SIDE, 10, 25) {
 		@Override
 		public String getName() {
 			return "Troublesome Slimes";
@@ -1011,9 +1016,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "One of the Slimes that you encountered in the tunnels told you that they'd been given orders to transform people by a certain 'Slime Queen'.";
 		}
-	},
+	};
 	
-	SLIME_QUEEN_TWO(QuestType.SIDE, 1, 10) {
+	public static final AbstractQuest SLIME_QUEEN_TWO = new AbstractQuest(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
 			return "Report Back";
@@ -1029,9 +1034,9 @@ public enum Quest {
 			return "The Enforcer that you reported to told you that they'd heard rumours of a Slime Queen before, but no trace of any such thing has ever been found in Submission."
 					+ " They suggested that you could take a look down in the Bat Caverns, and offered you a further twenty-thousand flames if you could find this Queen and put an end to her scheming.";
 		}
-	},
+	};
 	
-	SLIME_QUEEN_THREE(QuestType.SIDE, 15, 25) {
+	public static final AbstractQuest SLIME_QUEEN_THREE = new AbstractQuest(QuestType.SIDE, 15, 25) {
 		@Override
 		public String getName() {
 			return "Finding the Slime Queen";
@@ -1046,9 +1051,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "In the middle of Slime Lake, you discovered the Slime Queen's lair!";
 		}
-	},
+	};
 	
-	SLIME_QUEEN_FOUR(QuestType.SIDE, 20, 50) {
+	public static final AbstractQuest SLIME_QUEEN_FOUR = new AbstractQuest(QuestType.SIDE, 20, 50) {
 		@Override
 		public String getName() {
 			return "Confront the Queen";
@@ -1063,9 +1068,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You found the Slime Queen at the top of the tower.";
 		}
-	},
+	};
 	
-	SLIME_QUEEN_FIVE_SUBMIT(QuestType.SIDE, 1, 25) {
+	public static final AbstractQuest SLIME_QUEEN_FIVE_SUBMIT = new AbstractQuest(QuestType.SIDE, 1, 25) {
 		@Override
 		public String getName() {
 			return "Help the Queen";
@@ -1080,9 +1085,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You decided to help the Slime Queen with her plans, and agreed to trick the Enforcers into believing that she's no longer a threat!";
 		}
-	},
+	};
 	
-	SLIME_QUEEN_SIX_SUBMIT(QuestType.SIDE, 1, 200) {
+	public static final AbstractQuest SLIME_QUEEN_SIX_SUBMIT = new AbstractQuest(QuestType.SIDE, 1, 200) {
 		@Override
 		public String getName() {
 			return "Final Report";
@@ -1098,9 +1103,9 @@ public enum Quest {
 			return "You told Claire that the Slime Queen is no longer a threat, and received the twenty-thousand flame reward."
 				+ " With your Queen now safe from Enforcer investigation, it's only a matter of time before all of Submission is a Slime paradise!";
 		}
-	},
+	};
 	
-	SLIME_QUEEN_FIVE_CONVINCE(QuestType.SIDE, 1, 25) {
+	public static final AbstractQuest SLIME_QUEEN_FIVE_CONVINCE = new AbstractQuest(QuestType.SIDE, 1, 25) {
 		@Override
 		public String getName() {
 			return "Convince the Queen";
@@ -1115,9 +1120,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You convinced Catherine to abandon her plan of transforming everyone in Submission into slimes.";
 		}
-	},
+	};
 	
-	SLIME_QUEEN_SIX_CONVINCE(QuestType.SIDE, 1, 200) {
+	public static final AbstractQuest SLIME_QUEEN_SIX_CONVINCE = new AbstractQuest(QuestType.SIDE, 1, 200) {
 		@Override
 		public String getName() {
 			return "Final Report";
@@ -1132,9 +1137,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You told Claire that the Slime Queen is no longer a threat, and received the twenty-thousand flame reward.";
 		}
-	},
+	};
 	
-	SLIME_QUEEN_FIVE_FORCE(QuestType.SIDE, 1, 25) {
+	public static final AbstractQuest SLIME_QUEEN_FIVE_FORCE = new AbstractQuest(QuestType.SIDE, 1, 25) {
 		@Override
 		public String getName() {
 			return "Force the Queen";
@@ -1149,9 +1154,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You forced Catherine to abandon her plan of transforming everyone in Submission into slimes.";
 		}
-	},
+	};
 	
-	SLIME_QUEEN_SIX_FORCE(QuestType.SIDE, 1, 200) {
+	public static final AbstractQuest SLIME_QUEEN_SIX_FORCE = new AbstractQuest(QuestType.SIDE, 1, 200) {
 		@Override
 		public String getName() {
 			return "Final Report";
@@ -1166,12 +1171,12 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You told Claire that the Slime Queen is no longer a threat, and received the twenty-thousand flame reward.";
 		}
-	},
+	};
 	
 	
 	// Teleporting:
 	
-	TELEPORTING_START(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest TELEPORTING_START = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Escape from the warehouse";
@@ -1186,9 +1191,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You and Claire managed to escape from SWORD's warehouse.";
 		}
-	},
+	};
 
-	TELEPORTING_CAUGHT(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest TELEPORTING_CAUGHT = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Endure the stocks";
@@ -1211,12 +1216,12 @@ public enum Quest {
 				return "Having been defeated by the Enforcers inside SWORD's warehouse, you had to endure being locked into the cells at Enforcer Headquarters for a couple of hours before Claire turned up to release you.";
 			}
 		}
-	},
+	};
 	
 	
 	// Daddy:
 	
-	DADDY_START(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest DADDY_START = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Meeting [daddy.name]";
@@ -1232,9 +1237,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "At Rose's behest, you met with [daddy.name] at [daddy.her] apartment in Demon Home.";
 		}
-	},
+	};
 	
-	DADDY_MEETING(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest DADDY_MEETING = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Dinner with [daddy.name]";
@@ -1249,9 +1254,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You gave [daddy.name] your answer in response to [daddy.her] request to take you out for dinner.";
 		}
-	},
+	};
 	
-	DADDY_REFUSED(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest DADDY_REFUSED = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "[daddy.Name] denied";
@@ -1266,9 +1271,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You told [daddy.name] that you aren't at all interested in going out for a meal with [daddy.herHim], and that [daddy.sheIs] never to bother Lilaya again.";
 		}
-	},
+	};
 	
-	DADDY_REFUSED_2(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest DADDY_REFUSED_2 = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "[daddy.Name] denied";
@@ -1283,9 +1288,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You told [daddy.name] that you aren't interested in convincing Lilaya to meet with [daddy.herHim], and that [daddy.she] should never bother your [lilaya.relation(pc)] again.";
 		}
-	},
+	};
 	
-	DADDY_ACCEPTED(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest DADDY_ACCEPTED = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Convincing Lilaya";
@@ -1300,9 +1305,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You convinced Lilaya to meet with [daddy.name] for dinner, on the condition that you go with her. ";
 		}
-	},
+	};
 	
-	DADDY_LILAYA_MEETING(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest DADDY_LILAYA_MEETING = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Lilaya's date with [daddy.name]";
@@ -1317,12 +1322,12 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You went with Lilaya to meet [daddy.name] for dinner, and while she had bad news for [daddy.herHim] regarding Lyssieth's romantic preferences, she did seem to like [daddy.herHim] well enough...";
 		}
-	},
+	};
 	
 	
 	// Buying Brax:
 	
-	BUYING_BRAX_START(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest BUYING_BRAX_START = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Perfume collection";
@@ -1337,9 +1342,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You both paid for and collected Candi's order of perfume from Succubi's Secrets.";
 		}
-	},
+	};
 	
-	BUYING_BRAX_DELIVER_PERFUME(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest BUYING_BRAX_DELIVER_PERFUME = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Perfume delivery";
@@ -1354,9 +1359,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You delivered Candi's bottles of perfume to her.";
 		}
-	},
+	};
 	
-	BUYING_BRAX_LOLLIPOPS(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest BUYING_BRAX_LOLLIPOPS = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Lollipop contraband";
@@ -1372,9 +1377,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You retrieved the lollipops from the Harpy Nests' Enforcer checkpoint.";
 		}
-	},
+	};
 	
-	BUYING_BRAX_DELIVER_LOLLIPOPS(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest BUYING_BRAX_DELIVER_LOLLIPOPS = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Lollipops for Candi";
@@ -1389,9 +1394,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You delivered the box of contraband lollipops to Candi, who seemed to pay no attention to the warnings stamped all over it.";
 		}
-	},
+	};
 	
-	BUYING_BRAX_LIPSTICK(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest BUYING_BRAX_LIPSTICK = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "A wolf's weight in lipstick";
@@ -1407,9 +1412,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You retrieved the box of 'A Hundred Kisses' from Ralph.";
 		}
-	},
+	};
 	
-	BUYING_BRAX_DELIVER_LIPSTICK(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest BUYING_BRAX_DELIVER_LIPSTICK = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "At the wolf's door";
@@ -1424,12 +1429,12 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You handed over the box of 'A Hundred Kisses' to Candi, and finally gained your prize; ownership of [brax.name].";
 		}
-	},
+	};
 
 	
 	// Vengar:
 	
-	VENGAR_START(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest VENGAR_START = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Rat Warrens";
@@ -1442,9 +1447,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "By using the password Axel gave to you, you were able to gain entry to Vengar's hideout; the Rat Warrens.";
 		}
-	},
+	};
 	
-	VENGAR_ONE(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest VENGAR_ONE = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Meeting Vengar";
@@ -1457,9 +1462,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You found Vengar sitting on a throne in the main hall, and after approaching him, you were given the choice to either join his gang, or be set upon by his rat-girl bodyguards.";
 		}
-	},
+	};
 	
-	VENGAR_TWO_CONFLICT(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest VENGAR_TWO_CONFLICT = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Conflict";
@@ -1472,9 +1477,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You managed to defeat Vengar, but before you could take any further action, SWORD started their raid on the Rat Warrens.";
 		}
-	},
+	};
 	
-	VENGAR_TWO_COOPERATION(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest VENGAR_TWO_COOPERATION = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Axel's submission";
@@ -1489,9 +1494,9 @@ public enum Quest {
 			return "You managed to convince Axel to go to the Rat Warrens and show his submission to Vengar."
 					+ " Accompanying him there, you were able to provide some input and influence what happened to the alligator-boy.";
 		}
-	},
+	};
 	
-	VENGAR_TWO_ENFORCERS(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest VENGAR_TWO_ENFORCERS = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Raid";
@@ -1504,9 +1509,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "The SWORD Enforcers successfully raided the Rat Warrens, and were able to apprehend Vengar.";
 		}
-	},
+	};
 	
-	VENGAR_THREE_COOPERATION_END(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest VENGAR_THREE_COOPERATION_END = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Vengar's End";
@@ -1519,9 +1524,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "After [axel.name] had shown [axel.her] submission to Vengar, a group of SWORD Enforcers turned up to raid the Rat Warrens and arrest the rat-boy!";
 		}
-	},
+	};
 
-	VENGAR_THREE_END(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest VENGAR_THREE_END = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Return to Axel";
@@ -1534,9 +1539,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You returned to Axel and told him what the situation will be from now on.";
 		}
-	},
+	};
 	
-	VENGAR_OPTIONAL_CLAIRE(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest VENGAR_OPTIONAL_CLAIRE = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Claire's Help";
@@ -1553,11 +1558,11 @@ public enum Quest {
 					+ " Apparently, a SWORD team is already prepared to raid the Rat Warrens, but they need to know Vengar is inside before launching their assault."
 					+ " Claire gave you a resonance stone to activate if you want them to back you up once inside.";
 		}
-	},
+	};
 
 	// Wes:
 
-	WES_FAIL(QuestType.SIDE, 1, 0) {
+	public static final AbstractQuest WES_FAIL = new AbstractQuest(QuestType.SIDE, 1, 0) {
 		@Override
 		public String getName() {
 			return "Opportunity Missed";
@@ -1570,9 +1575,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return getDescription();
 		}
-	},
+	};
 	
-	WES_START(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest WES_START = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Help Needed";
@@ -1586,9 +1591,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You agreed to help Wesley investigate his superior officer.";
 		}
-	},
+	};
 
-	WES_1(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest WES_1 = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Finding Elle";
@@ -1607,9 +1612,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "Having deduced that Elle was doing her shady business down in the Bat Caverns, you managed to collect evidence of her selling weapons to a dangerous criminal gang.";
 		}
-	},
+	};
 
-	WES_2(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest WES_2 = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Using the Evidence";
@@ -1624,9 +1629,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You made use of the evidence which you collected in order to bring an end to this whole business with Wes and Elle.";
 		}
-	},
+	};
 
-	WES_3_WES(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest WES_3_WES = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Sided with Wes";
@@ -1642,9 +1647,9 @@ public enum Quest {
 					+ " With his new authority, he's granted you access to the Enforcer HQ's requisitions area as a reward for your help."
 					+ " You can also now freely visit Wes in the Enforcer HQ between the hours of [units.time(9)]-[units.time(17)].";
 		}
-	},
+	};
 
-	WES_3_ELLE(QuestType.SIDE, 1, 5) {
+	public static final AbstractQuest WES_3_ELLE = new AbstractQuest(QuestType.SIDE, 1, 5) {
 		@Override
 		public String getName() {
 			return "Sided with Elle";
@@ -1660,12 +1665,12 @@ public enum Quest {
 					+ " Thankful for your support, the [elle.race] has granted you access to the Enforcer HQ's requisitions area."
 					+ " You can also now freely visit Elle (and Wes) in the Enforcer HQ between the hours of [units.time(9)]-[units.time(17)].";
 		}
-	},
+	};
 
 	
 	// Rebel Base for HLF Quest
 	
-	REBEL_BASE_HANDLE_REFUSED(QuestType.SIDE,
+	public static final AbstractQuest REBEL_BASE_HANDLE_REFUSED = new AbstractQuest(QuestType.SIDE,
 			15,
 			5) {
 		@Override
@@ -1680,9 +1685,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You pulled the handle against your better judgement.";
 		}
-	},
+	};
 
-	REBEL_BASE_PASSWORD_PART_ONE(QuestType.SIDE,
+	public static final AbstractQuest REBEL_BASE_PASSWORD_PART_ONE = new AbstractQuest(QuestType.SIDE,
 			15,
 			5) {
 		@Override
@@ -1697,9 +1702,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You found half of a journal page that mentioned that the password is two words. You could only decipher one word, the other got torn away.";
 		}
-	},
+	};
 
-	REBEL_BASE_PASSWORD_PART_TWO(QuestType.SIDE,
+	public static final AbstractQuest REBEL_BASE_PASSWORD_PART_TWO = new AbstractQuest(QuestType.SIDE,
 			15,
 			5) {
 		@Override
@@ -1714,9 +1719,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You found both halves of the password, together they make the phrase 'RUAT CAELUM'";
 		}
-	},
+	};
 
-	REBEL_BASE_PASSWORD_COMPLETE(QuestType.SIDE,
+	public static final AbstractQuest REBEL_BASE_PASSWORD_COMPLETE = new AbstractQuest(QuestType.SIDE,
 			15,
 			5) {
 		@Override
@@ -1731,9 +1736,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You discovered that the handle was actually attached to a door that led to a hidden cave splitting off from the Bat Caverns.";
 		}
-	},
+	};
 
-	REBEL_BASE_EXPLORATION(QuestType.SIDE,
+	public static final AbstractQuest REBEL_BASE_EXPLORATION = new AbstractQuest(QuestType.SIDE,
 			15,
 			5) {
 		@Override
@@ -1748,9 +1753,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You found out that the hidden cave was a hideout for a long gone rebel group. From the looks of things, they didn't win.";
 		}
-	},
+	};
 
-	REBEL_BASE_ESCAPE(QuestType.SIDE,
+	public static final AbstractQuest REBEL_BASE_ESCAPE = new AbstractQuest(QuestType.SIDE,
 			15,
 			100) {
 		@Override
@@ -1765,9 +1770,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You managed to get out in one piece. Whatever else that cave held is now buried forever.";
 		}
-	},
+	};
 
-	REBEL_BASE_FAILED(QuestType.SIDE,
+	public static final AbstractQuest REBEL_BASE_FAILED = new AbstractQuest(QuestType.SIDE,
 			15,
 			0) {
 		@Override
@@ -1782,9 +1787,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return getDescription();
 		}
-	},
+	};
 
-	REBEL_BASE_FIREBOMBS_START(QuestType.SIDE,
+	public static final AbstractQuest REBEL_BASE_FIREBOMBS_START = new AbstractQuest(QuestType.SIDE,
 			1,
 			5) {
 		@Override
@@ -1799,9 +1804,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "Roxy has agreed to look into getting more firebombs for you.";
 		}
-	},
+	};
 
-	REBEL_BASE_FIREBOMBS_FINISH(QuestType.SIDE,
+	public static final AbstractQuest REBEL_BASE_FIREBOMBS_FINISH = new AbstractQuest(QuestType.SIDE,
 			1,
 			5) {
 		@Override
@@ -1816,9 +1821,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "Somehow, Roxy didn't swindle you and you've gotten yourself a supply of firebombs.";
 		}
-	},
+	};
 
-	REBEL_BASE_FIREBOMBS_FAILED(QuestType.SIDE,
+	public static final AbstractQuest REBEL_BASE_FIREBOMBS_FAILED = new AbstractQuest(QuestType.SIDE,
 			1,
 			0) {
 		@Override
@@ -1833,11 +1838,11 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return getDescription();
 		}
-	},
+	};
 
 	//Eisek Quests
 	
-	EISEK_STALL_QUEST_STAGE_ONE(QuestType.SIDE,
+	public static final AbstractQuest EISEK_STALL_QUEST_STAGE_ONE = new AbstractQuest(QuestType.SIDE,
 			1,
 			10) {
 		@Override
@@ -1852,9 +1857,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You've ordered a new sign and some bolts of cloth from Monica.";
 		}
-	},
+	};
 	
-	EISEK_STALL_QUEST_STAGE_TWO(QuestType.SIDE,
+	public static final AbstractQuest EISEK_STALL_QUEST_STAGE_TWO = new AbstractQuest(QuestType.SIDE,
 			1,
 			10) {
 		@Override
@@ -1869,9 +1874,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You've placed an order with Imsu and Hale for some modified axe hafts.";
 		}
-	},
+	};
 	
-	EISEK_STALL_QUEST_STAGE_THREE(QuestType.SIDE,
+	public static final AbstractQuest EISEK_STALL_QUEST_STAGE_THREE = new AbstractQuest(QuestType.SIDE,
 			1,
 			10) {
 		@Override
@@ -1886,9 +1891,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You've gathered all the materials.";
 		}
-	},
+	};
 	
-	EISEK_STALL_QUEST_STAGE_FOUR(QuestType.SIDE,
+	public static final AbstractQuest EISEK_STALL_QUEST_STAGE_FOUR = new AbstractQuest(QuestType.SIDE,
 			1,
 			10) {
 		@Override
@@ -1903,9 +1908,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "As far as you could tell, Eisek was overjoyed at what you've done for him and his stall looks better than ever.";
 		}
-	},
+	};
 	
-	EISEK_MOB_QUEST_STAGE_ONE(QuestType.SIDE,
+	public static final AbstractQuest EISEK_MOB_QUEST_STAGE_ONE = new AbstractQuest(QuestType.SIDE,
 			10,
 			25) {
 		@Override
@@ -1921,9 +1926,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "Through a bit of luck and the mob putting up a big colourful poster, you've found and entered their meeting place.";
 		}
-	},
+	};
 	
-	EISEK_MOB_QUEST_STAGE_TWO(QuestType.SIDE,
+	public static final AbstractQuest EISEK_MOB_QUEST_STAGE_TWO = new AbstractQuest(QuestType.SIDE,
 			10,
 			100) {
 		@Override
@@ -1952,9 +1957,9 @@ public enum Quest {
 			    return "You weren't able to convince the mob to leave Eisek alone.";
 			}
 		}
-	},
+	};
 	
-	EISEK_MOB_QUEST_STAGE_TWO_FAILED(QuestType.SIDE,
+	public static final AbstractQuest EISEK_MOB_QUEST_STAGE_TWO_FAILED = new AbstractQuest(QuestType.SIDE,
 			10,
 			0) {
 		@Override
@@ -1969,9 +1974,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You weren't able to convince the mob to leave Eisek alone.";
 		}
-	},
+	};
 	
-	EISEK_MOB_QUEST_STAGE_THREE_FAILED(QuestType.SIDE,
+	public static final AbstractQuest EISEK_MOB_QUEST_STAGE_THREE_FAILED = new AbstractQuest(QuestType.SIDE,
 			10,
 			0) {
 		@Override
@@ -1986,9 +1991,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "Although he tried to hide it, Eisek seemed upset that the mob is still somewhere out there plotting against him.";
 		}
-	},
+	};
 	
-	EISEK_MOB_QUEST_STAGE_THREE(QuestType.SIDE,
+	public static final AbstractQuest EISEK_MOB_QUEST_STAGE_THREE = new AbstractQuest(QuestType.SIDE,
 			10,
 			250) {
 		@Override
@@ -2003,9 +2008,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "Although he tried to hide it, Eisek seemed pretty happy that the mob will now leave him alone. You even got some rare Dragonfruit.";
 		}
-	},
+	};
 	
-	EISEK_SILLYMODE_QUEST_STAGE_ONE(QuestType.SIDE,
+	public static final AbstractQuest EISEK_SILLYMODE_QUEST_STAGE_ONE = new AbstractQuest(QuestType.SIDE,
 			1,
 			10) {
 		@Override
@@ -2020,9 +2025,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You've entered some sort of basement where they've gathered.";
 		}
-	},
+	};
 	
-	EISEK_SILLYMODE_QUEST_STAGE_TWO(QuestType.SIDE,
+	public static final AbstractQuest EISEK_SILLYMODE_QUEST_STAGE_TWO = new AbstractQuest(QuestType.SIDE,
 			1,
 			10) {
 		@Override
@@ -2037,9 +2042,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You're nearly at the exit, only one obstacle remains...";
 		}
-	},
+	};
 	
-	EISEK_SILLYMODE_QUEST_STAGE_THREE(QuestType.SIDE,
+	public static final AbstractQuest EISEK_SILLYMODE_QUEST_STAGE_THREE = new AbstractQuest(QuestType.SIDE,
 			1,
 			10) {
 		@Override
@@ -2054,11 +2059,11 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You've successfully escaped the dungeon and shown a bunch of nerds who is the boss.";
 		}
-	},
+	};
 	
 	// Fetching beer barrels for Oglix:
 	
-	OGLIX_BEER_BARRELS_1(QuestType.SIDE, 1, 10) {
+	public static final AbstractQuest OGLIX_BEER_BARRELS_1 = new AbstractQuest(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
 			return "Kheiron's Barrels";
@@ -2072,9 +2077,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "Thanks to the special phrase 'Golix says to be a good horsie', you managed to convince Kheiron to send four spare barrels to Oglix's tavern.";
 		}
-	},
+	};
 	
-	OGLIX_BEER_BARRELS_2(QuestType.SIDE, 1, 10) {
+	public static final AbstractQuest OGLIX_BEER_BARRELS_2 = new AbstractQuest(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
 			return "Good Horsie Report";
@@ -2089,12 +2094,12 @@ public enum Quest {
 					+ " Having now secured four additional barrels in which to lock new beer-bitches, Oglix asked you to supply promising candidates from the nearby alleyways' criminal population."
 					+ " Additionally, she told you to sneak around the back of her tavern between [units.time(6)]-[units.time(7)] if you wanted to see what the phrase 'Golix says to be a good horsie' meant...";
 		}
-	},
+	};
 
 	
 	// Helping Lunexis to escape:
 	
-	LUNEXIS_ESCAPE(QuestType.SIDE, 1, 10) {
+	public static final AbstractQuest LUNEXIS_ESCAPE = new AbstractQuest(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
 			return "Free Lunexis";
@@ -2110,9 +2115,9 @@ public enum Quest {
 			return "You convinced Meraxis to teleport herself, along with you and Lunexis, back to Themiscyra."
 					+ " Once there, your deception was made clear, and although she tried to fight, Meraxis was soon subdued and used by your Mistress to win back the wavering loyalty of her centauress army.";
 		}
-	},
+	};
 
-	LUNEXIS_ESCAPE_FAILED(QuestType.SIDE, 1, 0) {
+	public static final AbstractQuest LUNEXIS_ESCAPE_FAILED = new AbstractQuest(QuestType.SIDE, 1, 0) {
 		@Override
 		public String getName() {
 			return "Lunexis Betrayed";
@@ -2125,12 +2130,12 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return getDescription();
 		}
-	},
+	};
 
 	
 	// Doll factory quests:
 	
-	DOLL_FACTORY_1(QuestType.SIDE, 30, 10) {
+	public static final AbstractQuest DOLL_FACTORY_1 = new AbstractQuest(QuestType.SIDE, 30, 10) {
 		@Override
 		public String getName() {
 			return "On Lovienne's Orders";
@@ -2145,9 +2150,9 @@ public enum Quest {
 			return "You travelled to the shop 'Lovienne's Luxury' and attempted to discover if the refugees kidnapped by Angelixx were being taken there."
 					+ " Although you weren't able to discover anything, a woman approached you as you left and offered her help.";
 		}
-	},
+	};
 	
-	DOLL_FACTORY_2(QuestType.SIDE, 30, 10) {
+	public static final AbstractQuest DOLL_FACTORY_2 = new AbstractQuest(QuestType.SIDE, 30, 10) {
 		@Override
 		public String getName() {
 			return "Breaking and Entering";
@@ -2161,9 +2166,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You met the woman outside 'Lovienne's Luxury' and managed to break in to the rear of the premises without setting off the alarm system.";
 		}
-	},
+	};
 	
-	DOLL_FACTORY_3(QuestType.SIDE, 30, 10) {
+	public static final AbstractQuest DOLL_FACTORY_3 = new AbstractQuest(QuestType.SIDE, 30, 10) {
 		@Override
 		public String getName() {
 			return "Getting to the Bottom";
@@ -2177,9 +2182,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You travelled down the elevator to the real doll factory, where you witnessed Angelixx converting a captive into a sex doll.";
 		}
-	},
+	};
 	
-	DOLL_FACTORY_4(QuestType.SIDE, 30, 10) {
+	public static final AbstractQuest DOLL_FACTORY_4 = new AbstractQuest(QuestType.SIDE, 30, 10) {
 		@Override
 		public String getName() {
 			return "Gather Evidence";
@@ -2193,9 +2198,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You managed to gather hard evidence of how Lovienne's dolls are created.";
 		}
-	},
+	};
 	
-	DOLL_FACTORY_5(QuestType.SIDE, 30, 10) {
+	public static final AbstractQuest DOLL_FACTORY_5 = new AbstractQuest(QuestType.SIDE, 30, 10) {
 		@Override
 		public String getName() {
 			return "Up and Away";
@@ -2208,9 +2213,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You managed to escape from the lower factory, but as you exited the elevator you were confronted by Angelixx herself, who offered you a deal...";
 		}
-	},
+	};
 	
-	DOLL_FACTORY_6A(QuestType.SIDE, 30, 10) {
+	public static final AbstractQuest DOLL_FACTORY_6A = new AbstractQuest(QuestType.SIDE, 30, 10) {
 		@Override
 		public String getName() {
 			return "Angelixx's Fall";
@@ -2227,9 +2232,9 @@ public enum Quest {
 					+ " Returning to 'Lovienne's Luxury' during opening hours, you discovered that the evidence of how sex dolls are created is not being taken seriously by members of the public."
 					+ " What's more, there's now a limited-edition succubus sex doll for sale, who's the spitting image of Angelixx...";
 		}
-	},
+	};
 	
-	DOLL_FACTORY_6B(QuestType.SIDE, 30, 10) {
+	public static final AbstractQuest DOLL_FACTORY_6B = new AbstractQuest(QuestType.SIDE, 30, 10) {
 		@Override
 		public String getName() {
 			return "Angelixx's Associate";
@@ -2245,12 +2250,12 @@ public enum Quest {
 					+ " In return, Angelixx will convert your slaves to dolls in exchange for a small fee, or will instead pay you if you don't want them back."
 					+ " She also offered you her intimate company...";
 		}
-	},
+	};
 	
 	
 	// Romance quests:
 
-	RELATIONSHIP_NYAN_1_STOCK_ISSUES(QuestType.RELATIONSHIP, 1, 0) {
+	public static final AbstractQuest RELATIONSHIP_NYAN_1_STOCK_ISSUES = new AbstractQuest(QuestType.RELATIONSHIP, 1, 0) {
 		@Override
 		public String getName() {
 			return "Helping Nyan";
@@ -2265,9 +2270,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You offered Nyan your help in finding out what's happened to her wholesale enchanted clothing supplier.";
 		}
-	},
+	};
 	
-	RELATIONSHIP_NYAN_2_STOCK_ISSUES_AGREED_TO_HELP(QuestType.RELATIONSHIP, 1, 25) {
+	public static final AbstractQuest RELATIONSHIP_NYAN_2_STOCK_ISSUES_AGREED_TO_HELP = new AbstractQuest(QuestType.RELATIONSHIP, 1, 25) {
 		@Override
 		public String getName() {
 			return "Saving Kay";
@@ -2281,9 +2286,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You not only found Kay's warehouse, but were also able to discover that his business has been effectively seized by a pair of bullying bounty hunters.";
 		}
-	},
+	};
 	
-	RELATIONSHIP_NYAN_3_STOCK_ISSUES_DOBERMANNS(QuestType.RELATIONSHIP, 10, 100) {
+	public static final AbstractQuest RELATIONSHIP_NYAN_3_STOCK_ISSUES_DOBERMANNS = new AbstractQuest(QuestType.RELATIONSHIP, 10, 100) {
 		@Override
 		public String getName() {
 			return "Bounty Hunter Bullies";
@@ -2298,9 +2303,9 @@ public enum Quest {
 			return "By dealing with Wolfgang and Karl and sending them skulking off back to Slaver Alley's 'Bounty Hunter Lodge', you've both saved Kay's business and ensured that Nyan once again has access to a stock of enchanted clothing."
 					+ " Offering you his eternal thanks, Kay said that you're welcome to pay him a visit whenever you like.";
 		}
-	},
+	};
 	
-	RELATIONSHIP_NYAN_4_STOCK_ISSUES_SUPPLIERS_BEATEN(QuestType.RELATIONSHIP, 1, 25) {
+	public static final AbstractQuest RELATIONSHIP_NYAN_4_STOCK_ISSUES_SUPPLIERS_BEATEN = new AbstractQuest(QuestType.RELATIONSHIP, 1, 25) {
 		@Override
 		public String getName() {
 			return "Nyan's Reward";
@@ -2314,11 +2319,11 @@ public enum Quest {
 			return "A very happy Nyan paid you your promised reward, and also offered to give you a lifetime 25% discount in her store."
 					+ " She also let slip that she's single, in a clumsy attempt to try and hit on you...";
 		}
-	},
+	};
 	
 	
 	
-	ROMANCE_HELENA_FAILED(QuestType.RELATIONSHIP, 1, 0) {
+	public static final AbstractQuest ROMANCE_HELENA_FAILED = new AbstractQuest(QuestType.RELATIONSHIP, 1, 0) {
 		@Override
 		public String getName() {
 			return "Furious Matriarch";
@@ -2334,9 +2339,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return getDescription();
 		}
-	},
+	};
 	
-	ROMANCE_HELENA_1_OFFER_HELP(QuestType.RELATIONSHIP, 1, 5) {
+	public static final AbstractQuest ROMANCE_HELENA_1_OFFER_HELP = new AbstractQuest(QuestType.RELATIONSHIP, 1, 5) {
 		@Override
 		public String getName() {
 			return "Offer to help";
@@ -2353,9 +2358,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You offered to help Helena make some improvements to her shop.";
 		}
-	},
+	};
 
-	ROMANCE_HELENA_2_PURCHASE_PAINT(QuestType.RELATIONSHIP, 1, 25) {
+	public static final AbstractQuest ROMANCE_HELENA_2_PURCHASE_PAINT = new AbstractQuest(QuestType.RELATIONSHIP, 1, 25) {
 		@Override
 		public String getName() {
 			return "Purchase Paint";
@@ -2373,9 +2378,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You purchased the required paint from 'Argus's DIY Depot' and returned to Helena.";
 		}
-	},
+	};
 
-	ROMANCE_HELENA_3_A_EXTERIOR_DECORATOR(QuestType.RELATIONSHIP, 1, 10) {
+	public static final AbstractQuest ROMANCE_HELENA_3_A_EXTERIOR_DECORATOR = new AbstractQuest(QuestType.RELATIONSHIP, 1, 10) {
 		@Override
 		public String getName() {
 			return "Exterior Decorator (1/3)";
@@ -2390,9 +2395,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You stripped off all of the old paint from the front of Helena's store.";
 		}
-	},
+	};
 
-	ROMANCE_HELENA_3_B_EXTERIOR_DECORATOR(QuestType.RELATIONSHIP, 1, 10) {
+	public static final AbstractQuest ROMANCE_HELENA_3_B_EXTERIOR_DECORATOR = new AbstractQuest(QuestType.RELATIONSHIP, 1, 10) {
 		@Override
 		public String getName() {
 			return "Exterior Decorator (2/3)";
@@ -2407,9 +2412,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You repainted the entire frontage of Helena's store, and additionally received a delivery of furniture from a succutaur named 'Natalya'.";
 		}
-	},
+	};
 
-	ROMANCE_HELENA_3_C_EXTERIOR_DECORATOR(QuestType.RELATIONSHIP, 1, 10) {
+	public static final AbstractQuest ROMANCE_HELENA_3_C_EXTERIOR_DECORATOR = new AbstractQuest(QuestType.RELATIONSHIP, 1, 10) {
 		@Override
 		public String getName() {
 			return "Exterior Decorator (3/3)";
@@ -2424,9 +2429,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "Under the harpy matriarch's supervision, you painted the words 'Helena's Boutique' in golden lettering above the door to her store.";
 		}
-	},
+	};
 
-	ROMANCE_HELENA_4_SCARLETTS_RETURN(QuestType.RELATIONSHIP, 1, 100) {
+	public static final AbstractQuest ROMANCE_HELENA_4_SCARLETTS_RETURN = new AbstractQuest(QuestType.RELATIONSHIP, 1, 100) {
 		@Override
 		public String getName() {
 			return "Scarlett's Return";
@@ -2453,9 +2458,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "According to the wishes of Helena's old etiquette coach, Scarlett will from now on be working as the harpy matriarch's personal assistant.";
 		}
-	},
+	};
 
-	ROMANCE_HELENA_5_SCARLETT_TRAINER(QuestType.RELATIONSHIP, 1, 5) {
+	public static final AbstractQuest ROMANCE_HELENA_5_SCARLETT_TRAINER = new AbstractQuest(QuestType.RELATIONSHIP, 1, 5) {
 		@Override
 		public String getName() {
 			return "Harpy Helper";
@@ -2470,9 +2475,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You returned to Helena's store to discover that everything is set up and ready for the harpy matriarch to start accepting customers. Before that, however, you need to help her with a couple more things...";
 		}
-	},
+	};
 
-	ROMANCE_HELENA_6_ADVERTISING(QuestType.RELATIONSHIP, 1, 15) {
+	public static final AbstractQuest ROMANCE_HELENA_6_ADVERTISING = new AbstractQuest(QuestType.RELATIONSHIP, 1, 15) {
 		@Override
 		public String getName() {
 			return "Advertising";
@@ -2487,9 +2492,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You put up posters advertising 'Helena's Boutique' at the entrance to Slaver Alley.";
 		}
-	},
+	};
 
-	ROMANCE_HELENA_7_GRAND_OPENING_PREPARATION(QuestType.RELATIONSHIP, 1, 15) {
+	public static final AbstractQuest ROMANCE_HELENA_7_GRAND_OPENING_PREPARATION = new AbstractQuest(QuestType.RELATIONSHIP, 1, 15) {
 		@Override
 		public String getName() {
 			return "Preparing for the Grand Opening";
@@ -2505,9 +2510,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You and Scarlett finished the preparations for the store's grand opening.";
 		}
-	},
+	};
 
-	ROMANCE_HELENA_8_FINISH(QuestType.RELATIONSHIP, 1, 100) {
+	public static final AbstractQuest ROMANCE_HELENA_8_FINISH = new AbstractQuest(QuestType.RELATIONSHIP, 1, 100) {
 		@Override
 		public String getName() {
 			return "Preparing Drinks";
@@ -2523,11 +2528,11 @@ public enum Quest {
 			return "You and Scarlett stayed in the back room making drinks until the grand opening was over."
 					+ "  Finally showing some appreciation for your efforts, Helena told you that she'd be willing to let you take her on a date as your reward...";
 		}
-	},
+	};
 	
 	
 
-	ROMANCE_NATALYA_FAILED_INTERVIEW(QuestType.RELATIONSHIP, 1, 0) {
+	public static final AbstractQuest ROMANCE_NATALYA_FAILED_INTERVIEW = new AbstractQuest(QuestType.RELATIONSHIP, 1, 0) {
 		@Override
 		public String getName() {
 			return "Interview Failed";
@@ -2540,9 +2545,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return getDescription();
 		}
-	},
+	};
 
-	ROMANCE_NATALYA_FAILED_CONTRACT(QuestType.RELATIONSHIP, 1, 0) {
+	public static final AbstractQuest ROMANCE_NATALYA_FAILED_CONTRACT = new AbstractQuest(QuestType.RELATIONSHIP, 1, 0) {
 		@Override
 		public String getName() {
 			return "Contract Refused";
@@ -2555,9 +2560,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return getDescription();
 		}
-	},
+	};
 	
-	ROMANCE_NATALYA_1_INTERVIEW_START(QuestType.RELATIONSHIP, 1, 5) {
+	public static final AbstractQuest ROMANCE_NATALYA_1_INTERVIEW_START = new AbstractQuest(QuestType.RELATIONSHIP, 1, 5) {
 		@Override
 		public String getName() {
 			return "Interviewed";
@@ -2570,9 +2575,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You accepted Natalya's offer of an interview for the position of 'filly' at Dominion Express.";
 		}
-	},
+	};
 
-	ROMANCE_NATALYA_2_CONTRACT_SIGNED(QuestType.RELATIONSHIP, 1, 5) {
+	public static final AbstractQuest ROMANCE_NATALYA_2_CONTRACT_SIGNED = new AbstractQuest(QuestType.RELATIONSHIP, 1, 5) {
 		@Override
 		public String getName() {
 			return "Natalya's Filly";
@@ -2585,9 +2590,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You successfully passed Natalya's interview, and after you'd signed the contract, you were told that you now need to be transformed into [style.a_shemale] taur.";
 		}
-	},
+	};
 	
-	ROMANCE_NATALYA_3_TRAINING_1(QuestType.RELATIONSHIP, 1, 5) {
+	public static final AbstractQuest ROMANCE_NATALYA_3_TRAINING_1 = new AbstractQuest(QuestType.RELATIONSHIP, 1, 5) {
 		@Override
 		public String getName() {
 			return "Filly Training";
@@ -2600,9 +2605,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "After being transformed into [style.a_shemale] taur, you began your filly training by sucking the cock of one of Dominion Express's more unruly centaur slaves.";
 		}
-	},
+	};
 
-	ROMANCE_NATALYA_4_TRAINING_2(QuestType.RELATIONSHIP, 1, 5) {
+	public static final AbstractQuest ROMANCE_NATALYA_4_TRAINING_2 = new AbstractQuest(QuestType.RELATIONSHIP, 1, 5) {
 		@Override
 		public String getName() {
 			return "More Training";
@@ -2615,9 +2620,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "The second stage of your training involved wearing colourful lipstick and performing anilingus on Mistress Natalya.";
 		}
-	},
+	};
 
-	ROMANCE_NATALYA_5_TRAINING_3(QuestType.RELATIONSHIP, 1, 5) {
+	public static final AbstractQuest ROMANCE_NATALYA_5_TRAINING_3 = new AbstractQuest(QuestType.RELATIONSHIP, 1, 5) {
 		@Override
 		public String getName() {
 			return "Final Training";
@@ -2630,9 +2635,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "After performing anilingus on a centaur slave and then being mounted and anally fucked by them, Natalya declared that your filly training is complete.";
 		}
-	},
+	};
 
-	ROMANCE_MONICA_1_TO_THE_FARM(QuestType.RELATIONSHIP, 1, 10) {
+	public static final AbstractQuest ROMANCE_MONICA_1_TO_THE_FARM = new AbstractQuest(QuestType.RELATIONSHIP, 1, 10) {
 		@Override
 		public String getName() {
 			return "To The Farm";
@@ -2646,9 +2651,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "Having found the farm which is Monica's old workplace, you asked for the cow-girl's personalised breast pump, and were granted a meeting with the farm's owner...";
 		}
-	},
+	};
 
-	ROMANCE_MONICA_2_UNREASONABLE_DEMAND(QuestType.RELATIONSHIP, 1, 10) {
+	public static final AbstractQuest ROMANCE_MONICA_2_UNREASONABLE_DEMAND = new AbstractQuest(QuestType.RELATIONSHIP, 1, 10) {
 		@Override
 		public String getName() {
 			return "An Unreasonable Demand";
@@ -2662,9 +2667,9 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You managed to obtain Monica's personalised breast pump from Evelyx.";
 		}
-	},
+	};
 
-	ROMANCE_MONICA_3_THE_JOURNEY_HOME(QuestType.RELATIONSHIP, 1, 10) {
+	public static final AbstractQuest ROMANCE_MONICA_3_THE_JOURNEY_HOME = new AbstractQuest(QuestType.RELATIONSHIP, 1, 10) {
 		@Override
 		public String getName() {
 			return "The Journey Home";
@@ -2677,49 +2682,101 @@ public enum Quest {
 		public String getCompletedDescription() {
 			return "You returned Monica's personalised breast pump to her, much to her surprise and delight.";
 		}
-	},
-	;
+	};
 
-	private int level, experienceReward;
-	private QuestType questType;
+	private static List<AbstractQuest> allQuests = new ArrayList<>();
+	private static Map<AbstractQuest, String> questToIdMap = new HashMap<>();
+	private static Map<String, AbstractQuest> idToQuestMap = new HashMap<>();
 
-	private Quest(QuestType questType, int level, int experienceReward) {
-		this.questType = questType;
-
-		this.level = level;
-		this.experienceReward = experienceReward;
+	public static List<AbstractQuest> getAllQuest() {
+		return allQuests;
 	}
 
-	public abstract String getName();
+	public static AbstractQuest getQuestFromId(String id) {
+		id = id.replace("_quest", "");
 
-	public abstract String getDescription();
-
-	public abstract String getCompletedDescription();
-	
-	public void applySkipQuestEffects() {	
-	}
-	
-	public int getLevel() {
-		return level;
-	}
-
-	public QuestType getQuestType() {
-		return questType;
-	}
-
-	public int getExperienceReward() {
-		return experienceReward;
-	}
-	
-	public static Quest getQuestFromId(String quest) {
-		if(quest.equalsIgnoreCase("MAIN_3_A_FINDING_THE_YOUKO")) {
+		if(id.equalsIgnoreCase("MAIN_3_A_FINDING_THE_YOUKO")) {
 			return Quest.MAIN_3_ELIS;
 		}
-		if(quest.equalsIgnoreCase("MAIN_3_D_TO_THEMISCRYA")) {
+		if(id.equalsIgnoreCase("MAIN_3_D_TO_THEMISCRYA")) {
 			return Quest.MAIN_3_D_TO_THEMISCYRA;
 		}
-		
-		return Quest.valueOf(quest);
+
+		id = Util.getClosestStringMatch(id, idToQuestMap.keySet());
+		return idToQuestMap.get(id);
 	}
 
+	public static String getIdFromQuest(AbstractQuest placeType) {
+		return questToIdMap.get(placeType);
+	}
+
+
+	static {
+		// modded quests:
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/quests", "quests", null);
+		for (Map.Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
+			for (Map.Entry<String, File> innerEntry : entry.getValue().entrySet())
+			{
+				try {
+					String id = innerEntry.getKey().replace("_quests", "");
+					List<AbstractQuest> quests = AbstractQuest.loadQuestsFromFile(innerEntry.getValue(), entry.getKey(), id, true);
+					if (quests == null) throw new NullPointerException("There is no valid quest to load.");
+					for (AbstractQuest quest : quests) {
+						questToIdMap.put(quest, quest.getId());
+						idToQuestMap.put(quest.getId(), quest);
+						allQuests.add(quest);
+					}
+				} catch(Exception ex) {
+					System.err.println("Loading modded quest failed at 'QuestLine' for mod: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
+				}
+			}
+		}
+
+		// External res quests:
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/quests", "quests", null);
+		for (Map.Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
+			for (Map.Entry<String, File> innerEntry : entry.getValue().entrySet())
+			{
+				try {
+					String id = innerEntry.getKey().replace("_quests", "");
+					List<AbstractQuest> quests = AbstractQuest.loadQuestsFromFile(innerEntry.getValue(), entry.getKey(), id, false);
+					if (quests == null) throw new NullPointerException("There is no valid quest to load.");
+					for (AbstractQuest quest : quests) {
+						questToIdMap.put(quest, quest.getId());
+						idToQuestMap.put(quest.getId(), quest);
+						allQuests.add(quest);
+					}
+				} catch(Exception ex) {
+					System.err.println("Loading quest failed at 'Quest'. File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Actual exception: ");
+					ex.printStackTrace(System.err);
+				}
+			}
+		}
+
+		// Hard-coded quests above
+		Field[] fields = Quest.class.getFields();
+
+		for(Field f : fields){
+
+			if (AbstractQuest.class.isAssignableFrom(f.getType())) {
+
+				AbstractQuest quest;
+				try {
+					quest = ((AbstractQuest) f.get(null));
+
+					if(quest!=null) {
+						questToIdMap.put(quest, f.getName());
+						idToQuestMap.put(f.getName(), quest);
+						allQuests.add(quest);
+					}
+
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }

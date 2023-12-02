@@ -32,6 +32,7 @@ import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.quests.AbstractQuest;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
@@ -258,7 +259,7 @@ public class DebugDialogue {
 						return new Response("Skip Dominion quests", "Skip all main quests up to the start of the Submission quest line.", DEBUG_MENU){
 							@Override
 							public void effects() {
-								List<Quest> dominionSkipQuests = Util.newArrayListOfValues(
+								List<AbstractQuest> dominionSkipQuests = Util.newArrayListOfValues(
 										Quest.MAIN_1_A_LILAYAS_TESTS,
 										Quest.MAIN_1_B_DEMON_HOME,
 										Quest.MAIN_1_C_WOLFS_DEN,
@@ -271,7 +272,7 @@ public class DebugDialogue {
 										Quest.MAIN_2_A_INTO_THE_DEPTHS
 										);
 								for(int i=0; i<dominionSkipQuests.size()-1; i++) {
-									Quest q = dominionSkipQuests.get(i);
+									AbstractQuest q = dominionSkipQuests.get(i);
 									if(Main.game.getPlayer().getQuest(QuestLine.MAIN)==q) {
 										q.applySkipQuestEffects();
 										Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, dominionSkipQuests.get(i+1));
@@ -292,7 +293,7 @@ public class DebugDialogue {
 						return new Response("Skip Submission quests", "Skip all main quests up to the start of the Elis quest line.", DEBUG_MENU){
 							@Override
 							public void effects() {
-								List<Quest> submissionSkipQuests = Util.newArrayListOfValues(
+								List<AbstractQuest> submissionSkipQuests = Util.newArrayListOfValues(
 										Quest.MAIN_2_A_INTO_THE_DEPTHS,
 										Quest.MAIN_2_B_SIRENS_CALL,
 										Quest.MAIN_2_C_SIRENS_FALL,
@@ -300,7 +301,7 @@ public class DebugDialogue {
 										Quest.MAIN_3_ELIS
 										);
 								for(int i=0; i<submissionSkipQuests.size()-1; i++) {
-									Quest q = submissionSkipQuests.get(i);
+									AbstractQuest q = submissionSkipQuests.get(i);
 									if(Main.game.getPlayer().getQuest(QuestLine.MAIN)==q) {
 										q.applySkipQuestEffects();
 										Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, submissionSkipQuests.get(i+1));
@@ -568,12 +569,12 @@ public class DebugDialogue {
 								if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLAVERY)){
 									Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_SLAVERY));
 								}
-								List<Quest> slaverSkipQuests = Util.newArrayListOfValues(
+								List<AbstractQuest> slaverSkipQuests = Util.newArrayListOfValues(
 										Quest.SIDE_SLAVER_NEED_RECOMMENDATION,
 										Quest.SIDE_SLAVER_RECOMMENDATION_OBTAINED,
 										Quest.SIDE_UTIL_COMPLETE);
 								for(int i=0; i<slaverSkipQuests.size()-1; i++) {
-									Quest q = slaverSkipQuests.get(i);
+									AbstractQuest q = slaverSkipQuests.get(i);
 									if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLAVERY)==q) {
 										q.applySkipQuestEffects();
 										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLAVERY, slaverSkipQuests.get(i+1)));

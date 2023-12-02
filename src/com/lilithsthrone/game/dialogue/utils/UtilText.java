@@ -159,6 +159,8 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.pregnancy.FertilisationType;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.quests.AbstractQuest;
+import com.lilithsthrone.game.character.quests.AbstractQuestLine;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.AbstractRacialBody;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
@@ -10038,11 +10040,11 @@ public class UtilText {
 		for(SlavePermissionSetting permission : SlavePermissionSetting.values()) {
 			engine.put("SLAVE_PERMISSION_SETTING_"+permission.toString(), permission);
 		}
-		for(QuestLine questLine : QuestLine.values()) {
-			engine.put("QUEST_LINE_"+questLine.toString(), questLine);
+		for(AbstractQuestLine questLine : QuestLine.getAllQuestLine()) {
+			engine.put("QUEST_LINE_"+QuestLine.getIdFromQuestLine(questLine), questLine);
 		}
-		for(Quest quest : Quest.values()) {
-			engine.put("QUEST_"+quest.toString(), quest);
+		for(AbstractQuest quest : Quest.getAllQuest()) {
+			engine.put("QUEST_"+Quest.getIdFromQuest(quest), quest);
 		}
 		for(SexualOrientation orientation : SexualOrientation.values()) {
 			engine.put("ORIENTATION_"+orientation.toString(), orientation);

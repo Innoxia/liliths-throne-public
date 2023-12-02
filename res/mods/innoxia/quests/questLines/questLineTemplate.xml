@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<questLine>
+    <name><![CDATA[Test Quest Line]]></name>
+    <completedDescription><![CDATA[
+        This is a test quest line.
+    ]]></completedDescription>
+    <!-- There are three kinds of questType: MAIN, SIDE, RELATIONSHIP. All quests in a quest line need to have the same quest type with the quest line.(maybe) -->
+    <type>SIDE</type>
+    <!-- 
+        You need to define all the quest of this quest line in this section "questTree", and name them by ids using "quest" element.
+
+        There must be at least one "quest" element have a attribute "root" set to true, if there are multiple, the last one quest will be the root, try to DO NOT do this.
+        
+        In the "quest" element, there are "child" element to represent the children list of this quest, to support quest branch.
+        It is not determined that it should use a innerText or attribute to specify the child quest id.
+     -->
+    <questTree>
+        <quest id="innoxia_questTemplate_test" root="true">
+            <child><![CDATA[innoxia_questTemplate_test_end]]></child>
+        </quest>
+        <quest id="innoxia_questTemplate_test_end"/>
+    </questTree>
+</questLine>
