@@ -823,14 +823,14 @@
 				#IF(!murk.isCharacterReactedToPregnancy(pc))
 					<p>
 						A devious grin instantly crosses [murk.namePos] face as she sees that you've come to pay her a visit again, and after letting out a loud belch, she rubs her chubby hands over her [style.colourSex(pregnant belly)] and sneers, [murk.speech(Look at wot you's done an gone ta me! You's got me knocked up! Heh-heh-heh!)]
-					<p>
+					</p>
 					<p>
 						Slipping her chubby fingers down towards her groin, the chubby rat-girl spreads her legs and starts touching herself, sneering, [murk.speech(Me cunt's still 'ungry ta be filled with cock, so come on, do me already! I's all wet an' eager ta get ya inside o' me!)]
 					</p>
 				#ELSE
 					<p>
 						A devious grin instantly crosses [murk.namePos] face as she sees that you've come to pay her a visit again, and after letting out a loud belch, she rubs her chubby hands over her [style.colourSex(pregnant belly)] and sneers, [murk.speech(I's still all nice an' swollen with our kids! Heh-heh-heh!)]
-					<p>
+					</p>
 					<p>
 						Slipping her chubby fingers down towards her groin, the chubby rat-girl spreads her legs and starts touching herself, sneering, [murk.speech(Me cunt's still 'ungry ta be filled with cock, so come on, do me already! I's all wet an' eager ta get ya inside o' me!)]
 					</p>
@@ -838,7 +838,7 @@
 			#ELSE
 				<p>
 					A hungry grin instantly crosses [murk.namePos] face as she sees that you've come to pay her a visit again, and after letting out a loud belch, she spreads her legs and starts rubbing her chubby fingers over her exposed pussy, sneering, [murk.speech(You's 'ere ta give me cunt a good fuckin' ain't ya?! Come on, I's all wet an' eager ta get ya inside o' me! Heh!)]
-				<p>
+				</p>
 			#ENDIF
 			<p>
 				Looking down at the horny rat-girl, you wonder whether you should do as she asks and fuck her, or do something else instead...

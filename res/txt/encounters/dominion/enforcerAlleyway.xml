@@ -875,7 +875,6 @@
 		[style.boldTerrible(You have lost:)]<br/>
 		[#SPECIAL_PARSE_0]
 	</p>
-	</p>
 	<p>
 		Finding no further evidence of wrongdoing, [npc.name] soon [npc.steps] back and says, [npc.speech(Ok, we'll be holding onto these items of yours, but other than that, there's no cause for us to take any further action against you. You can turn around again now.)]
 	</p>

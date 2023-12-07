@@ -867,6 +867,7 @@
 	<p>
 		Wanting to hear more about this 'royal tournament', you ask Ursa what that entails, and how it's related to her becoming the queen.
 	</p>
+	<p>
 		[ursa.speech(The tournament is how we decide who's going to rule us,)] Ursa reveals, [ursa.speech(it's held every two years, and involves tests of strength, martial prowess, intelligence, and leadership abilities. I've won the past ten contests, and in doing so have earned the Amazons' respect, love, and devotion. Anyone can enter the tournament to try and unseat the ruling queen, but there haven't been any serious entrants for the past four times it's been held. Of course, after what's happened to our home town, I'm sure that there will be many who'll want to try and remove me from power at the next tournament...)]
 	</p>
 	<p>
