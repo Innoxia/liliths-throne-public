@@ -898,6 +898,7 @@
 	</p>
 	<p>
 		[pc.Stepping] towards Meraxis, you lean forwards and press your [pc.lips+] against hers.
+	</p>
 	<p>
 		#IF(meraxis.isMouthChanged())
 			 Having previously instructed Meraxis to transform her mouth, you enjoy how her wet, plump lips feel as they press against your mouth.

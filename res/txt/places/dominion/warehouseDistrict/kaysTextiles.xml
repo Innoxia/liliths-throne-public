@@ -963,7 +963,7 @@
 	#IF(pc.isVisiblyPregnant())
 		#IF(!pc.isCharacterReactedToPregnancy(kay))
 			#IF(pc.getPregnantLitter().isFatherId(kay.getId()))
-				</p>
+				<p>
 					Only after asking this question does [kay.name] finally notice the swollen bump in your belly, and after letting out a very feminine, high-pitched gasp, [kay.she] asks, [kay.speech([pc.Name], you're pregnant?! Wait, am I... I mean... Was it me who...)]
 				</p>
 				<p>
@@ -973,7 +973,7 @@
 					Leaning down to plant a kiss on [kay.her] forehead, you tell [kay.name] that you can handle everything just fine. Smirking down at your good little pet, you wonder what to do next...
 				</p>
 			#ELSE
-				</p>
+				<p>
 					Only after asking this question does [kay.name] look down at the swollen bump in your belly, before once again offering, [kay.speech(Is there anything I can do to help? Please, just ask!)]
 				</p>
 				<p>
@@ -981,7 +981,7 @@
 				</p>
 			#ENDIF
 		#ELSE
-			</p>
+			<p>
 				Only after asking this question does [kay.name] finally notice the swollen bump in your belly, and after letting out a very feminine, high-pitched gasp, [kay.she] asks, [kay.speech([pc.Name], you're pregnant?! Please, if there's anything I can do to help then just ask!)]
 			</p>
 			<p>
@@ -1455,19 +1455,19 @@
 		#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
 			<p>
 				Almost immediately, you feel [kay.name] start to stroke your [pc.labia+], which causes you to let out an erotic [pc.moan]. Spurred on by your reaction, the [kay.race] slides [kay.her] [kay.fingers+] into your [pc.pussy+], before starting to enthusiastically finger you.
-			<p>
+			</p>
 			<p>
 				This alone proves to not be enough for your horny pet, for no sooner has [kay.she] started to pleasure your [pc.pussy+], you feel [kay.name] using [kay.her] other hand to reach down and stroke your [pc.cock+]. Delighted by [kay.her] decision to give both sets of your genitalia [kay.her] attention, you let out a series of [pc.moans+] and tell the [kay.race] not to stop until you're completely satisfied...
 			</p>
 		#ELSE
 			<p>
 				Almost immediately, you feel [kay.name] reach down and start to stroke your [pc.cock+], which causes you to let out [pc.a_moan+]. Spurred on by your reaction, the [kay.race] wraps [kay.her] [kay.hands] around your [pc.cockGirth] shaft and begins to eagerly jerk you off. Delighted by the attention given to your [pc.cock+], you let out a series of [pc.moans+] and tell the [kay.race] not to stop until you're completely satisfied...
-			<p>
+			</p>
 		#ENDIF
 	#ELSE
 		<p>
 			Almost immediately, you feel [kay.name] start to stroke your [pc.labia+], which causes you to let out an erotic [pc.moan]. Spurred on by your reaction, the [kay.race] slides [kay.her] [kay.fingers+] into your [pc.pussy+], before starting to enthusiastically finger you. Delighted by the attention given to your [pc.pussy+], you let out a series of [pc.moans+] and tell the [kay.race] not to stop until you're completely satisfied...
-		<p>
+		</p>
 	#ENDIF
 	]]>
 	</htmlContent>
@@ -1490,7 +1490,7 @@
 	</p>
 	<p>
 		Almost immediately, you feel [kay.namePos] hot breath on your [pc.pussySkin], and then a moment later, [kay.her] [kay.lips+] suddenly press against your [pc.labia+]. Spurred on by the erotic [pc.moan] you fail to contain, the [kay.race] starts planting a series of passionate kisses on your [pc.pussy+], before darting [kay.her] tongue out and beginning to greedily lick your [pc.labia+]. Delighted by the attention given to your [pc.pussy+], you let out a series of [pc.moans+] and tell the [kay.race] not to stop until you're completely satisfied...
-	<p>
+	</p>
 	]]>
 	</htmlContent>
 	
@@ -1512,7 +1512,7 @@
 	</p>
 	<p>
 		Almost immediately, you feel [kay.namePos] hot breath on your [pc.assSkin], and then a moment later, [kay.her] [kay.lips+] suddenly press against your [pc.asshole+]. Spurred on by the erotic [pc.moan] you fail to contain, the [kay.race] starts planting a series of passionate kisses on your [pc.ass+], before darting [kay.her] tongue out and beginning to greedily lick your [pc.asshole+]. Delighted by [kay.namePos] desire to perform anilingus, you let out a series of [pc.moans+] and tell [kay.herHim] not to stop until you're completely satisfied...
-	<p>
+	</p>
 	]]>
 	</htmlContent>
 	

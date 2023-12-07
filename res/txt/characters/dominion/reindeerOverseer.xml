@@ -143,6 +143,7 @@
 	#IF(pc.hasStatusEffect(SE_INTELLIGENCE_PERK_0) || pc.hasStatusEffect(SE_INTELLIGENCE_PERK_1))
 		<p>
 			Setting off to the area where the reindeer-morphs will need to clear next, you do as [npc.name] instructed, and point the bottom of the staff at the mounds of snow while focusing your arcane energy into it. A little jet of hot air shoots out of the staff, and by slowly tracing a path over the snow, you're able to melt it into pre-cut sections, ready for the reindeer-morphs to shovel.
+		</p>
 		<p>
 			[npc.speech(Looking good, [pc.name],)] the voice of [npc.name] calls out, and you turn around to see [npc.herHim] approach. [npc.speech(With you helping out like this, the rest of the day's work shouldn't take too long.)]
 		</p>
@@ -155,6 +156,7 @@
 	#ELSEIF(pc.hasStatusEffect(SE_INTELLIGENCE_PERK_2) || pc.hasStatusEffect(SE_INTELLIGENCE_PERK_3))
 		<p>
 			Setting off to the area where the reindeer-morphs will need to clear next, you do as [npc.name] instructed, and point the bottom of the staff at the mounds of snow while focusing your arcane energy into it. A small jet of flames shoots out of the staff, and by tracing a path over the snow, you're able to quickly melt it into pre-cut sections, ready for the reindeer-morphs to shovel.
+		</p>
 		<p>
 			[npc.speech(Looking great, [pc.name],)] the voice of [npc.name] calls out, and you turn around to see [npc.herHim] approach. [npc.speech(With you helping out like this, the rest of the day's work shouldn't take too long.)]
 		</p>
@@ -167,6 +169,7 @@
 	#ELSE
 		<p>
 			Setting off to the area where the reindeer-morphs will need to clear next, you do as [npc.name] instructed, and point the bottom of the staff at the mounds of snow while focusing your arcane energy into it. An intense jet of flames blasts out of the staff, and by tracing a path over the snow, you're able to almost-instantly melt it into pre-cut sections, ready for the reindeer-morphs to shovel.
+		</p>
 		<p>
 			[npc.speech(Wow, [pc.name]!)] The voice of [npc.name] calls out, and you turn around to see [npc.herHim] approach, [npc.speech(I didn't even realise the heat-stave had that much power in it! I've never seen anyone use it quite like that! With your help, we should be finished in no time!)]
 		</p>
@@ -187,6 +190,7 @@
 	#IF(pc.hasStatusEffect(SE_CORRUPTION_PERK_0) || pc.hasStatusEffect(SE_CORRUPTION_PERK_1))
 		<p>
 			Setting off to the area where the reindeer-morphs are working, you do as [npc.name] instructed and start asking each one if they'd like a drink. The workers are far less appreciative of your efforts than you'd expected, and before long you find yourself regretting your decision to help out in this manner.
+		</p>
 		<p>
 			[npc.speech(Good work, [pc.name],)] the voice of [npc.name] calls out, and you turn around to see [npc.herHim] approach and declare, [npc.speech(With you helping out like this, the rest of the day's work shouldn't take too long.)]
 		</p>
@@ -199,6 +203,7 @@
 	#ELSEIF(pc.hasStatusEffect(SE_CORRUPTION_PERK_2) || pc.hasStatusEffect(SE_CORRUPTION_PERK_3))
 		<p>
 			Setting off to the area where the reindeer-morphs are working, you do as [npc.name] instructed and start asking each one if they'd like a drink. The workers seem to appreciate your efforts, especially when you take time out to flirt with them each time you bring them their requested beverages.
+		</p>
 		<p>
 			[npc.speech(Great work, [pc.name],)] the voice of [npc.name] calls out, and you turn around to see [npc.herHim] approach and declare, [npc.speech(With you helping out like this, the rest of the day's work shouldn't take too long.)]
 		</p>
@@ -211,6 +216,7 @@
 	#ELSE
 		<p>
 			Setting off to the area where the reindeer-morphs are working, you do as [npc.name] instructed and start seductively asking each one if they'd like a drink. The workers very clearly appreciate your efforts, especially when you take time out to lewdly flirt with them each time you bring them their requested beverages.
+		</p>
 		<p>
 			[npc.speech(Fantastic work, [pc.name],)] the voice of [npc.name] calls out, and you turn around to see [npc.herHim] approach and declare, [npc.speech(With you helping out like this, the rest of the day's work shouldn't take too long.)]
 		</p>

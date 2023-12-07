@@ -318,7 +318,7 @@
 							#ENDIF
 						#ELSE
 							#IF(lilaya.getPregnantLitter().isFatherId(daddy.getId()))
-								[daddy.speech(Well, if it isn't my two favourite step-kids-to-be!)] [daddy.she] exclaims, before suddenly noticing the bulges in each of your stomachs, [daddy.speech(Hey, Lilaya, I got you pregnant?! That's fantastic! And you're pregnant too, pc.name]?! Hold on, let me get you something to help!)]
+								[daddy.speech(Well, if it isn't my two favourite step-kids-to-be!)] [daddy.she] exclaims, before suddenly noticing the bulges in each of your stomachs, [daddy.speech(Hey, Lilaya, I got you pregnant?! That's fantastic! And you're pregnant too, [pc.name]?! Hold on, let me get you something to help!)]
 							#ELSE
 								[daddy.speech(Well, if it isn't my two favourite step-kids-to-be!)] [daddy.she] exclaims, before suddenly noticing the bulges in each of your stomachs, [daddy.speech(Hey, sweethearts, you're both pregnant?! Hold on, let me get you something to help!)]
 							#ENDIF
@@ -1565,6 +1565,7 @@
 		#ENDIF
 		 More than eager to play along, your [daddy.daddy] leans in close to you, and the next time you gaze longingly into [daddy.her] [daddy.eyeColour] [daddy.eyes+], [daddy.she] suddenly leans forwards and presses [daddy.her] lips against yours.
 	</p>
+	<p>
 		Before you know what's happening, the two of you are thrusting your tongues into one another's mouths, while your [pc.hands] are desperately roaming all over each other's bodies. Quickly stripping your [daddy.daddy]'s t-shirt off, you press your lips down against [daddy.her] [daddy.breasts+], kissing [daddy.her] [daddy.nipples+] as you reach down to start slipping off your own clothing.
 	</p>
 	<p>
@@ -1582,6 +1583,7 @@
 		#ENDIF
 		 More than eager to play along, your [daddy.daddy] puts [daddy.her] arms around you and Lilaya, and the next time your [lilaya.relation(pc)] gazes hungrily into [daddy.namePos] [daddy.eyeColour] [daddy.eyes+], [daddy.she] suddenly leans forwards and presses [daddy.her] lips against hers.
 	</p>
+	<p>
 		Before you know what's happening, you and Lilaya are taking turns to thrust your tongues into [daddy.namePos] mouth, while your [pc.hands] are desperately roaming all over [daddy.her] body. Stripping your [daddy.daddy]'s t-shirt off, you press your lips down against [daddy.her] [daddy.breasts+], kissing [daddy.her] [daddy.nipples+] as Lilaya once again desperately presses her [lilaya.lips+] against [daddy.her] mouth.
 	</p>
 	<p>

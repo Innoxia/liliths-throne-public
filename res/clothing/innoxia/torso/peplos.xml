@@ -148,10 +148,10 @@
 		  <![CDATA[[npc.Name] [npc.verb(pull)] up the top half of [npc.her] peplos and [npc.verb(pin)] the top edges into place over [npc.her] shoulders.]]>
 		</self>
 		<other>
-		  <![CDATA[[npc.Name] [npc.verb(pull)] up the top half of [npc2.namePos] peplos and [npc.verb(pin)] the top edges into place over [npc.her] shoulders.]]>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] up the top half of [npc2.namePos] peplos and [npc.verb(pin)] the top edges into place over [npc2.her] shoulders.]]>
 		</other>
 		<otherRough>
-		  <![CDATA[[npc.Name] roughly [npc.verb(yank)] up the top half of [npc2.namePos] peplos and [npc.verb(pin)] the top edges into place over [npc.her] shoulders.]]>
+		  <![CDATA[[npc.Name] roughly [npc.verb(yank)] up the top half of [npc2.namePos] peplos and [npc.verb(pin)] the top edges into place over [npc2.her] shoulders.]]>
 		</otherRough>
 	</replacementText>
 

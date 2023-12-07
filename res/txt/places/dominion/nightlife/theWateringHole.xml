@@ -661,7 +661,7 @@
 		#ELSE
 			<p>
 				Due to the fact that the two of you have rather unusual lower bodies, you and [npc.name] have ended up sitting down with your humanoid upper-bodies next to one another. In such a position, it'd be impossible to reach over far enough to give [npc.namePos] groin a grope, so, thinking up a quick excuse to move over to [npc.her] lower half, you tell [npc.herHim] that the sofa's cushion looks to be about to fall off.
-			<p>
+			</p>
 			<p>
 				Telling your partner to remain seated, you stand up and quickly step forwards, before kneeling down and patting the sofa's cushion. Instead of then standing up again, you slide your [pc.hand] up and over [npc.namePos] animalistic rump, before moving down to [npc.her] groin and starting to grope and stroke [npc.her] crotch.
 				#IF(npc.hasPenis())
@@ -727,7 +727,7 @@
 		#ELSE
 			<p>
 				Due to the fact that the two of you have rather unusual lower bodies, you and [npc.name] have ended up sitting down with your humanoid upper-bodies next to one another. In such a position, it'd be impossible to reach over far enough to give [npc.namePos] groin a grope, so, thinking up a quick excuse to move over to [npc.her] lower half, you tell [npc.herHim] that the sofa's cushion looks to be about to fall off.
-			<p>
+			</p>
 			<p>
 				Telling your partner to remain seated, you stand up and quickly step forwards, before kneeling down and patting the sofa's cushion. Instead of then standing up again, you slide your [pc.hand] up and over [npc.namePos] animalistic rump, before starting to move your touch over between [npc.her] hind legs.
 			</p>
@@ -3188,7 +3188,7 @@
 			#ELSE
 				<p>
 					Due to the fact that you have a rather unusual lower body, your rear end is quite outside of [npc.namePos] reach. This proves to be an issue for your partner, as, after making a feeble excuse about the cushion you're sitting on about to fall off the sofa, [npc.she] stands up and quickly moves over to kneel down beside your hind-quarters.
-				<p>
+				</p>
 				#IF(npc.isKind())
 					After giving the sofa's cushion a quick pat, [npc.name] makes playful, flirtatious remark, before placing [npc.her] [npc.hand] on your [pc.hips+]. As [npc.she] starts to slide [npc.her] touch down between your [pc.legs], you wonder if you should play along, and let [npc.herHim] get a good feel of your lower half, or quickly put a stop to this unsolicited contact.
 				#ELSE

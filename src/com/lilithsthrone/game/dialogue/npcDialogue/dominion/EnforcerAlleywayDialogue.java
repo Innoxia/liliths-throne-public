@@ -1675,7 +1675,7 @@ public class EnforcerAlleywayDialogue {
 					} else {
 						return new ResponseSex(
 								UtilText.parse(getEnforcerSubordinate(), "Sex ([npc.Surname])"),
-								UtilText.parse(getEnforcers(), "If it's sex that [npc.nameIs] after, then you're more than happy to give it to [npc.herHim]!"),
+								UtilText.parse(getEnforcerSubordinate(), "If it's sex that [npc.nameIs] after, then you're more than happy to give it to [npc.herHim]!"),
 								true, false,
 								new SMGeneric(
 										Util.newArrayListOfValues(Main.game.getPlayer()),

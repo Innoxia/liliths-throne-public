@@ -498,7 +498,7 @@ public class SlaveEncountersDialogue {
 	public static final DialogueNode SLAVE_USES_OTHER_SLAVE_ALLEYWAY_POST_SEX = new DialogueNode("Finished", "", true) {
 		@Override
 		public String getDescription(){
-			return UtilText.parse(slave, "Now that [npc.sheHas] had [npc.her], [npc.name] [npc.steps] back...");
+			return UtilText.parse(slave, "Now that [npc.sheHas] had [npc.her] fun, [npc.name] [npc.steps] back...");
 		}
 		@Override
 		public String getContent() {
@@ -633,7 +633,7 @@ public class SlaveEncountersDialogue {
 	public static final DialogueNode SLAVE_USES_OTHER_SLAVE_LILAYA_CORRIDOR_POST_SEX = new DialogueNode("Finished", "", true) {
 		@Override
 		public String getDescription(){
-			return UtilText.parse(slave, "Now that [npc.sheHas] had [npc.her], [npc.name] [npc.steps] back...");
+			return UtilText.parse(slave, "Now that [npc.sheHas] had [npc.her] fun, [npc.name] [npc.steps] back...");
 		}
 		@Override
 		public String getContent() {

@@ -822,6 +822,7 @@
 	<htmlContent tag="TREASURY_SEARCH"><![CDATA[
 	<p>
 		You spend a short while carefully searching through the rubble, making sure not to disturb any of the debris that looks to be particularly unstable. It doesn't take you long before you find a small chest, containing a considerable amount of flames.
+	</p>
 	<p>
 		Encouraged by this early success, you continue searching, but, after ten more minutes, you've explored the entire room and haven't found anything else of value. Just as you're about to give up, you notice a door-shaped indentation in one of the few sections of wall left undamaged by the collapse. Pressing your [pc.hand] against it, you inadvertently trigger an internal mechanism of some kind, and the stone wall sinks into the floor to reveal a huge, undamaged wardrobe.
 	</p>
@@ -1245,6 +1246,7 @@
 		<p>
 			You've already defeated and driven out all of the residents of the citadel, so, other than you, [siren.name], and the demon lieutenants, nobody is in any danger. With your heart pounding in your chest, and the small siren cowering in your [pc.arms], you somehow manage to dodge all of the falling boulders and collapsing masonry as you rush across the courtyard and follow the three demons out into Submission's cavern.
 		</p>
+		<p>
 			Miraculously, all five of you manage to make it out without injury, but, while that's a relief for everybody involved, your troubles aren't over yet. Surrounding the main gates, and with arcane muskets at the ready, there are at least thirty of Lyssieth's elite guard. Several of them are talking to [siren.namePos] lieutenants, but, due to their demon status, it looks like they're going to be released without anything happening to them.
 		</p>
 		<p>
