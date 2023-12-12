@@ -17,7 +17,7 @@ import javafx.scene.paint.Color;
 
 /**
  * @since 0.3.7
- * @version 0.4
+ * @version 0.4.9
  * @author Innoxia
  */
 public class Colour {
@@ -38,6 +38,9 @@ public class Colour {
 	private Colour colourLinkDarker = null;
 	
 	private List<ColourTag> tags;
+
+	private List<String> rainbowColour;
+	private List<String> lightRainbowColour;
 	
 	public Colour(Color colour) {
 		this.metallic = false;
@@ -111,9 +114,38 @@ public class Colour {
 				this.metallic = Boolean.valueOf(coreElement.getMandatoryFirstOf("metallic").getTextContent());
 
 				this.name = coreElement.getMandatoryFirstOf("name").getTextContent();
-				
-				this.colour = Util.newColour(Integer.parseInt(coreElement.getMandatoryFirstOf("colour").getTextContent(), 16));
-				this.lightColour = Util.newColour(Integer.parseInt(coreElement.getMandatoryFirstOf("lightColour").getTextContent(), 16));
+//				colours is passed in
+				if(coreElement.getOptionalFirstOf("colours").isPresent()
+						&& !coreElement.getMandatoryFirstOf("colours").getTextContent().isEmpty()){
+//					colour in dark mod
+					List<Element> colours = coreElement.getMandatoryFirstOf("colours").getAllOf("colour");
+					this.colour = Util.newColour(Integer.parseInt(colours.get(0).getTextContent(), 16));
+					if (colours.size() > 1){
+//						have many colours, can create rainbowColour
+						this.rainbowColour = new ArrayList<String >();
+						for(Element e : colours){
+							this.rainbowColour.add("#" + e.getTextContent());
+						}
+					}
+
+//					colour in light mod
+					if(coreElement.getOptionalFirstOf("lightColours").isPresent()
+							&& !coreElement.getMandatoryFirstOf("lightColours").getTextContent().isEmpty()){
+						List<Element> lightColours = coreElement.getMandatoryFirstOf("colours").getAllOf("colour");
+						this.lightColour = Util.newColour(Integer.parseInt(lightColours.get(0).getTextContent(), 16));
+						if(lightColours.size() > 1){
+							this.lightRainbowColour = new ArrayList<String >();
+							for(Element e : lightColours){
+								this.lightRainbowColour.add("#" + e.getTextContent());
+							}
+						}
+					}else{
+						this.lightRainbowColour = this.rainbowColour;
+					}
+				}else{
+					this.colour = Util.newColour(Integer.parseInt(coreElement.getMandatoryFirstOf("colour").getTextContent(), 16));
+					this.lightColour = Util.newColour(Integer.parseInt(coreElement.getMandatoryFirstOf("lightColour").getTextContent(), 16));
+				}
 				if(coreElement.getOptionalFirstOf("coveringIconColour").isPresent()
 						&& !coreElement.getMandatoryFirstOf("coveringIconColour").getTextContent().isEmpty()) {
 					try {
@@ -192,7 +224,15 @@ public class Colour {
 	}
 
 	public List<String> getRainbowColours() {
-		return null;
+		if(Main.getProperties()!=null) {
+			if(Main.getProperties().hasValue(PropertyValue.lightTheme))
+				return lightRainbowColour;
+			else
+				return rainbowColour;
+
+		} else {
+			return rainbowColour;
+		}
 	}
 
 	public boolean isRainbow() {
@@ -216,7 +256,20 @@ public class Colour {
 	}
 	
 	public String getName() {
-		return name;
+//		normally colour
+		if(!isRainbow())return name;
+
+//		rainbow colour
+		StringBuilder sb = new StringBuilder();
+		int i=0;
+		char[] characters = name.toCharArray();
+		for(char ch : characters) {
+			sb.append("<span style='color:"+getRainbowColours().get(i%getRainbowColours().size())+";'>");
+			sb.append(ch);
+			sb.append("</span>");
+			i++;
+		}
+		return sb.toString();
 	}
 	
 	public String getId() {
