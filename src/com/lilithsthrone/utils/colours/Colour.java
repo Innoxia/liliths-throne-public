@@ -18,7 +18,7 @@ import javafx.scene.paint.Color;
 /**
  * @since 0.3.7
  * @version 0.4.9
- * @author Innoxia
+ * @author Innoxia, Mr.Lee
  */
 public class Colour {
 
