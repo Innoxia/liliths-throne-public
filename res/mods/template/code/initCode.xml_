@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<!-- Write your js code it there. You can define your global variable, function or class.
+It will be parse when the engine be inited. 
+You should pay attenton to your identifier, don't let it is a duplicate name with other mods. -->
+<code><![CDATA[
+[#function hellowWorld(){
+	return "hellow World";
+}]
+]]></code>

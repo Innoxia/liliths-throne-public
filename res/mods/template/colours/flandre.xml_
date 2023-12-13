@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<colour>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- Whether this is a metallic colour or not.
+	If metallic, the game generates a metallic effect for this colour's icon. -->
+	<metallic>false</metallic>
+	
+	<!-- The name of this colour. -->
+	<name><![CDATA[flandre's wing]]></name>
+	
+	<!-- The colour which is used when the game is set in the default 'dark' theme.
+	You should write hex code it there
+	You can use the 'colours' containing multiple 'colour' to instead of only one <colour>.
+	The fist 'colour' in the 'colours' will be used as the origin 'colour'
+	These two pieces of code have the same result:
+		1.	<colour>98FFED</colour>
+
+		2.	<colours>
+				<colour>98FFED</colour>
+			</colours>
+	When 'colours' containing multiple 'colour', it will be recognized as a rainbow colour that composed of these 'colour'
+	-->
+	<colours>
+		<colour>98FFED</colour>
+		<colour>82A6FF</colour>
+		<colour>C08FFB</colour>
+		<colour>FE82CA</colour>
+		<colour>FFC68C</colour>
+		<colour>FDFD9D</colour>
+		<colour>A2FB84</colour>
+	</colours>
+
+	<!-- The colour which is used when the game is set in the default 'light' theme.
+	It's the same as above.
+	If you omit it, it will use 'colours'
+	-->
+	<lightColours>
+		<colour>08817F</colour>
+		<colour>22495D</colour>
+		<colour>66225C</colour>
+		<colour>9F2340</colour>
+		<colour>9C4B0A</colour>
+		<colour>B6B70B</colour>
+		<colour>077E0C</colour>
+	</lightColours>
+
+	<!-- here you can define names to be recognised by the parser for formatting.
+	e.g. After defining this colour's formattingNames as below, the parsing command '[style.colourFuchsia(This is coloured text!)]' will now work. -->
+	<formattingNames>
+		<name><![CDATA[flandreWing]]></name>
+	</formattingNames>
+	
+	<!-- Tags which determine whether or not this colour is added to the game's covering colours (for fur, eyes, skin, etc.)
+	Values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourTag.java -->
+	<tags>
+		<tag>SKIN</tag>
+	</tags>
+	
+</colour>
