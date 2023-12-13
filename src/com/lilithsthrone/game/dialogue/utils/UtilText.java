@@ -226,6 +226,7 @@ import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.AbstractPlaceUpgrade;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
+import com.lilithsthrone.utils.mod.jsCode;
 
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
@@ -10089,8 +10090,9 @@ public class UtilText {
 		for(InventoryInteraction interaction : InventoryInteraction.values()) {
 			engine.put("INVENTORY_INTERACTION_"+interaction.toString(), interaction);
 		}
-		
-		
+
+		// load mod's js code
+		jsCode.initModJsCode();
 		
 		// static methods don't work unless initialised like so:
 //		try {
