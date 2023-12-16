@@ -9684,6 +9684,7 @@ public class UtilText {
 		engine.put("itemGen", Main.game.getItemGen());
 		engine.put("flags", Main.game.getDialogueFlags());
 		engine.put("dialogueManager", Main.game.getDialogueManager());
+		engine.put("err", System.err);
 		
 		// Java classes:
 		for(Month month : Month.values()) {
