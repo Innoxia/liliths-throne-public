@@ -288,7 +288,70 @@ public class Util {
 		
 		return returnMap;
 	}
-	
+
+	public static Map<String, Map<String, File>> getExternalModJsFilesById(String containingFolderId) {
+		return getExternalModJsFilesById(containingFolderId, null, null);
+	}
+
+	/**
+	 * @param containingFolderId To be in the format: <b>"/statusEffects"</b>
+	 * @param filterFolderName If a non-null String is passed in, only files within folders with that String as their name will be added to the returned map.
+	 * @param filterPathName If a non-null String is passed in, only files with that String as their name will be added to the returned map.
+	 * @return A map of Files with the author as the key, mapped to a map of ids to files (id is based on file name and folder path).
+	 */
+	public static Map<String, Map<String, File>> getExternalModJsFilesById(String containingFolderId, String filterFolderName, String filterPathName) {
+		File dir = new File("res/mods");
+		Map<String, Map<String, File>> returnMap = new HashMap<>();
+
+		if(dir.exists() && dir.isDirectory()) {
+			File[] directoryListing = dir.listFiles();
+			if(directoryListing != null) {
+				for(File directory : directoryListing) {
+					String modAuthorName = directory.getName();
+					returnMap.putIfAbsent(modAuthorName, new HashMap<>());
+					File modAuthorDirectory = new File(directory.getAbsolutePath()+containingFolderId);
+
+					populateMapJsFiles(modAuthorName, directory.getName()+"_", modAuthorDirectory, returnMap, filterFolderName, filterPathName);
+				}
+			}
+		}
+
+		return returnMap;
+	}
+
+	private static Map<String, Map<String, File>> populateMapJsFiles(String modAuthorName, String idPrefix, File directory, Map<String, Map<String, File>> returnMap, String filterFolderName, String filterPathName) {
+		if(filterFolderName==null || filterFolderName.equalsIgnoreCase(directory.getName())) {
+			File[] innerDirectoryListing = directory.listFiles((path, filename) -> filename.toLowerCase().endsWith(".js"));
+
+			if(innerDirectoryListing != null) {
+				for(File innerChild : innerDirectoryListing) {
+					if(filterPathName==null || filterPathName.equalsIgnoreCase(innerChild.getName().split("\\.")[0])) {
+						try {
+							String id = (idPrefix!=null?idPrefix:"")+innerChild.getName().split("\\.")[0];
+							returnMap.get(modAuthorName).put(id, innerChild);
+						} catch(Exception ex) {
+							System.err.println("Loading external mod files failed at Util.getExternalModFilesById()");
+							System.err.println("File path: "+innerChild.getAbsolutePath());
+							ex.printStackTrace();
+						}
+					}
+				}
+			}
+		}
+
+		File[] additionalDirectories =  directory.listFiles();
+
+		if(additionalDirectories != null) {
+			for(File f : additionalDirectories) {
+				if(f.isDirectory()) {
+					populateMapFiles(modAuthorName, (idPrefix!=null?idPrefix:"")+f.getName()+"_", f, returnMap, filterFolderName, filterPathName);
+				}
+			}
+		}
+
+		return returnMap;
+	}
+
 	public static String getXmlRootElementName(File XMLFile) {
 		try {
 			Document doc = Main.getDocBuilder().parse(XMLFile);

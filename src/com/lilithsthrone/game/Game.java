@@ -5878,10 +5878,11 @@ public class Game implements XMLSaving {
 	/**
 	 * For use in external res files as a way to get a hook to UtilText.parseFromXMLFile
 	 */
+
 	public String parseFromFile(String pathName, String tag, GameCharacter... specialNPCs) {
 		return getDialogueManager().getDialogueFromFile(pathName, tag, specialNPCs);
 	}
-	
+
 	/**
 	 * For use in external res files as a way to get a hook to UtilText.parse
 	 */
@@ -5926,7 +5927,11 @@ public class Game implements XMLSaving {
 	public void setParserTarget(String parserTarget, NPC npc) {
 		ParserTarget.addAdditionalParserTarget(parserTarget, npc);
 	}
-	
+
+	public String parseJsFromFile(String pathName) {
+		return UtilText.parseJs(new File("res"+System.getProperty("file.separator")+pathName+".js"));
+	}
+
 	public boolean isFreeRoomAvailableForOccupant() {
 		return OccupancyUtil.isFreeRoomAvailableForOccupant();
 	}
