@@ -1704,7 +1704,7 @@ public class DebugDialogue {
 			return  "<p>"
 					+ "<b>Output:</b>"
 					+ "</p>"
-					+ "<p>"+parsedText+"</p>";
+					+ "<p>{!"+parsedText+"#}</p>";
 		}
 
 		@Override
@@ -1713,7 +1713,7 @@ public class DebugDialogue {
 				return new ResponseEffectsOnly("Parse!", "Parse the text you've entered."){
 					@Override
 					public void effects() {
-						rawText = (String) Main.mainController.getWebEngine().executeScript("document.getElementById('parseInput').value");
+ 						rawText = (String) Main.mainController.getWebEngine().executeScript("document.getElementById('parseInput').value");
 						parsedText = UtilText.parse(rawText);
 						if(Main.game.getCurrentDialogueNode()==PARSER) {
 							Main.game.setContent(new Response("", "", PARSER));

@@ -1,0 +1,1 @@
+err.println("example of load mod's js")
