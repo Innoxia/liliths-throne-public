@@ -1,0 +1,8 @@
+// it will be process when save game
+// save will be writed to xml
+// due to the reason xml only can have a root element, so put your node at game.
+
+var mainNode = save.createElement("exampleMod")
+exampleModXmlAddAttribute(save, mainNode, "version", 0.495)
+var gameNode = save.getElementsByTagName("game").item(0)
+gameNode.appendChild(mainNode)

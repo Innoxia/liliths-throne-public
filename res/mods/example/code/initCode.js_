@@ -1,0 +1,21 @@
+// this file will be process when the game start(don't include read save)
+
+//import the pack
+game.parseJsFromFile("mods/example/code/XMLUtil")
+
+if (save == null){
+    //all it is a new game, so it doesn't have save
+}else{
+    var gameE
+    try{
+        gameE = save.getElementsByTagName("game").item(0).getElementsByTagName("exampleMod").item(0)
+    }catch (e){
+        // the mod first run, so it doesn't have elements
+    }
+
+    try{
+        err.println("example's version:" + gameE.getAttribute("version"))
+    }catch (e){
+        err.println("load mod data fail")
+    }
+}

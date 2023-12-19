@@ -15,23 +15,25 @@ import java.util.Map;
  * @author Mr.Lee
  */
 public class jsCode {
-    private static void loadFromXML(File XMLFile){
-        assert XMLFile.exists() : "file dosn't exist";
-        try{
-            Element coreElement = Element.getDocumentRootElement(XMLFile);
-            UtilText.parse(coreElement.getTextContent());
-        }catch (Exception ex){
-            ex.printStackTrace();
-            System.err.println("prase mod code fail! (" + XMLFile.getName() + ")\n" + ex);
-        }
+    public static void initModJsCode(){
+        generalModJsCode("initCode");
     }
 
-    public  static  void initModJsCode(){
-        Map<String, Map<String, File>> filesMap = Util.getExternalModFilesById("/code", null, "initCode");
+    public static void saveGameModJsCode(){
+        generalModJsCode("saveGameCode");
+    }
+
+    public static void updateCheck(){
+        generalModJsCode("updataCheckCode");
+    }
+
+
+    private static void generalModJsCode(String fileName){
+        Map<String, Map<String, File>> filesMap = Util.getExternalModJsFilesById("/code", null, fileName);
         for(Map.Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
             for(Map.Entry<String, File> innerEntry : entry.getValue().entrySet()) {
                 try {
-                    loadFromXML(innerEntry.getValue());
+                    load(innerEntry.getValue());
                 } catch(Exception ex) {
                     System.err.println("load mod code fail. File path: "+innerEntry.getValue().getAbsolutePath());
                     System.err.println("Actual exception: ");
@@ -39,6 +41,15 @@ public class jsCode {
                 }
             }
         }
+    }
 
+    private static void load(File jsFile){
+        assert jsFile.exists() : "file dosn't exist";
+        try{
+            UtilText.parseJs(jsFile);
+        }catch (Exception ex){
+            ex.printStackTrace();
+            System.err.println("prase mod code fail! (" + jsFile.getName() + ")\n" + ex);
+        }
     }
 }

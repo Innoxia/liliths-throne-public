@@ -1,6 +1,9 @@
 package com.lilithsthrone.game.dialogue.utils;
 
-import java.io.*;
+import java.io.File;
+import java.io.Reader;
+import java.io.InputStreamReader;
+import java.io.FileInputStream;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -258,10 +261,11 @@ public class UtilText {
 
 	private static NashornScriptEngineFactory factory = new NashornScriptEngineFactory();
 	private static ScriptEngine engine;
-	
+
 	private static List<String> specialParsingStrings = new ArrayList<>();
 	private static List<GameCharacter> parsingCharactersForSpeech = new ArrayList<>();
-	
+
+    private static Document loadSave;
 	private static Map<String, String> americanEnglishConversions = Util.newHashMapOfValues(
 			// -our to -or:
 			new Value<>("armour", "armor"),
@@ -1295,7 +1299,6 @@ public class UtilText {
 					}
 				} else {
 					if (c=='#'&&input.charAt(i+1)=='}'){
-						System.err.println("sb = " + sb);
 						command = "";
 						if(sb.length() > 2){
 							if(sb.charAt(2)=='#') {
@@ -10123,8 +10126,13 @@ public class UtilText {
 			engine.put("INVENTORY_INTERACTION_"+interaction.toString(), interaction);
 		}
 
-		// load mod's js code
-		if(Main.game.isStarted())jsCode.initModJsCode();
+        // the data for mod
+        if(loadSave != null)engine.put("save", loadSave);
+        // load mod's js code
+        if(Main.game.isStarted())jsCode.initModJsCode();
+
+        // remove the save when save finish load.
+        loadSave = null;
 		
 		// static methods don't work unless initialised like so:
 //		try {
@@ -10842,6 +10850,16 @@ public class UtilText {
 		return parseSyntaxNew(new ArrayList<>(), null, code, null, ParseMode.JAVA_SCRIPT);
 	}
 
+    public static void setLoadSave(Document save){
+        loadSave = save;
+    }
+
+    public static void putObjectToEngine(String tag, Object obj) {
+        if(engine==null) {
+            initScriptEngine();
+        }
+        engine.put(tag, obj);
+    }
 
 	// Memoization improvement attempts follow from here:
 	
