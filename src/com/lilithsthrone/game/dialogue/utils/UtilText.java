@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.dialogue.utils;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -10822,7 +10823,7 @@ public class UtilText {
 			return null;
 		}
 		try{
-			Reader reader = new InputStreamReader(new FileInputStream(jsFile));
+			Reader reader = new InputStreamReader(new FileInputStream(jsFile), StandardCharsets.UTF_8);
 			int c;
 			StringBuilder sb = new StringBuilder();
 			while (true){
