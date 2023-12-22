@@ -1,6 +1,10 @@
 package com.lilithsthrone.game.dialogue.utils;
 
 import java.io.File;
+import java.io.Reader;
+import java.io.InputStreamReader;
+import java.io.FileInputStream;
+import java.nio.charset.StandardCharsets;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -226,6 +230,7 @@ import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.AbstractPlaceUpgrade;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
+import com.lilithsthrone.utils.mod.jsCode;
 
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
@@ -257,10 +262,11 @@ public class UtilText {
 
 	private static NashornScriptEngineFactory factory = new NashornScriptEngineFactory();
 	private static ScriptEngine engine;
-	
+
 	private static List<String> specialParsingStrings = new ArrayList<>();
 	private static List<GameCharacter> parsingCharactersForSpeech = new ArrayList<>();
-	
+
+    private static Document loadSave;
 	private static Map<String, String> americanEnglishConversions = Util.newHashMapOfValues(
 			// -our to -or:
 			new Value<>("armour", "armor"),
@@ -1058,230 +1064,258 @@ public class UtilText {
 						conditionalCloseBrackets++;
 					}
 				}
-				
-				if (currentParseMode != ParseMode.REGULAR && currentParseMode != ParseMode.REGULAR_SCRIPT) {
-					suppressOutput = false;
-					if (c == 'F' && substringMatchesInReverseAtIndex(input, "#IF", i)) {
-						if (openBrackets == 0) {
-							conditionals = new LinkedHashMap<>();
-							currentParseMode = ParseMode.CONDITIONAL;
-							startIndex = i-2;
-							
-							for(int j=i+1;j<input.length();j++) {
-								if(!Character.isWhitespace(input.charAt(j))) {
-									usingConditionalBrackets = input.charAt(j)=='(';
-									lastConditionalUsedBrackets = usingConditionalBrackets;
-									break;
-								}
-							}
-						} else {
-							lastConditionalUsedBrackets = false;
-						}
-						
-						openBrackets++;
-						
-					} else if (currentParseMode == ParseMode.CONDITIONAL) {
-						if(usingConditionalBrackets) {
-							if(conditionalOpenBrackets>0 && conditionalOpenBrackets==conditionalCloseBrackets && openBrackets-1==closeBrackets) {
-								conditionalStatement = sb.toString().substring(1, sb.length())+")";
-								conditionalStatement = conditionalStatement.replaceAll("\n", "").replaceAll("\t", "");
-								conditionalStatement = conditionalStatement.trim();
-								
-								usingConditionalBrackets = false;
-								conditionalOpenBrackets = 0;
-								conditionalCloseBrackets = 0;
-								
-								sb.setLength(0);
-								
-							} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ELSE IF", i) && openBrackets-1==closeBrackets && conditionalStatement!=null) {
-								conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-7)); // Cut off the '#ELSE IF' at the end of this section.
+
+				if (currentParseMode != ParseMode.JAVA_SCRIPT && currentParseMode != ParseMode.ONLY_TEXT){
+					if (currentParseMode != ParseMode.REGULAR && currentParseMode != ParseMode.REGULAR_SCRIPT) {
+						suppressOutput = false;
+						if (c == 'F' && substringMatchesInReverseAtIndex(input, "#IF", i)) {
+							if (openBrackets == 0) {
+								conditionals = new LinkedHashMap<>();
+								currentParseMode = ParseMode.CONDITIONAL;
+								startIndex = i-2;
+
 								for(int j=i+1;j<input.length();j++) {
 									if(!Character.isWhitespace(input.charAt(j))) {
 										usingConditionalBrackets = input.charAt(j)=='(';
+										lastConditionalUsedBrackets = usingConditionalBrackets;
 										break;
 									}
 								}
-								
-								sb.setLength(0);
-								
-							} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ELSEIF", i) && openBrackets-1==closeBrackets && conditionalStatement!=null) {
-								conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-6)); // Cut off the '#ELSEIF' at the end of this section.
-								
-								for(int j=i+1;j<input.length();j++) {
-									if(!Character.isWhitespace(input.charAt(j))) {
-										usingConditionalBrackets = input.charAt(j)=='(';
-										break;
-									}
-								}
-								
-								sb.setLength(0);
-								
-							} else if(c == 'E' && substringMatchesInReverseAtIndex(input, "#ELSE", i)
-									&& (i+1==input.length()||i+2==input.length()||input.charAt(i+1)!='I'||input.charAt(i+2)!='F')
-									&& (i+1==input.length()||i+2==input.length()||i+3==input.length()||input.charAt(i+1)!=' '||input.charAt(i+2)!='I'||input.charAt(i+3)!='F')
-									&& openBrackets-1==closeBrackets
-									&& conditionalStatement!=null) {
-								conditionalElseFound = true;
-								conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-4)); // Cut off the '#ELSE' at the end of this section.
-								sb.setLength(0);
-								
-							} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ENDIF", i)) {
-								closeBrackets++;
-								
-								if (openBrackets == closeBrackets) {
-									if (conditionalElseFound) {
-										conditionals.putIfAbsent("true", sb.toString().substring(1, sb.length()-5)); // Cut off the '#ENDIF' at the end.
-									} else {
-										conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-5)); // Cut off the '#ENDIF' at the end of this section.
-									}
-				
-									endIndex = i;
-								}
+							} else {
+								lastConditionalUsedBrackets = false;
 							}
-							
-						} else {
-//							System.out.println("noConditionalBrackets");
-							if(c == 'N' && substringMatchesInReverseAtIndex(input, "#THEN", i)) {
-								// If last conditional was brackets, remove the THEN
-								if(lastConditionalUsedBrackets) {
-									sb.replace(sb.length()-4, sb.length(), ""); // Reset StringBuilder to exclude #THEN
-									i++;
-									c = input.charAt(i);
-									
-								} else if (openBrackets-1==closeBrackets) {
-									conditionalStatement = sb.toString().substring(1, sb.length()-4); // Cut off the '#THEN' at the end of the conditional statement.
+
+							openBrackets++;
+
+						} else if (currentParseMode == ParseMode.CONDITIONAL) {
+							if(usingConditionalBrackets) {
+								if(conditionalOpenBrackets>0 && conditionalOpenBrackets==conditionalCloseBrackets && openBrackets-1==closeBrackets) {
+									conditionalStatement = sb.toString().substring(1, sb.length())+")";
 									conditionalStatement = conditionalStatement.replaceAll("\n", "").replaceAll("\t", "");
 									conditionalStatement = conditionalStatement.trim();
+
+									usingConditionalBrackets = false;
+									conditionalOpenBrackets = 0;
+									conditionalCloseBrackets = 0;
+
+									sb.setLength(0);
+
+								} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ELSE IF", i) && openBrackets-1==closeBrackets && conditionalStatement!=null) {
+									conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-7)); // Cut off the '#ELSE IF' at the end of this section.
+									for(int j=i+1;j<input.length();j++) {
+										if(!Character.isWhitespace(input.charAt(j))) {
+											usingConditionalBrackets = input.charAt(j)=='(';
+											break;
+										}
+									}
+
+									sb.setLength(0);
+
+								} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ELSEIF", i) && openBrackets-1==closeBrackets && conditionalStatement!=null) {
+									conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-6)); // Cut off the '#ELSEIF' at the end of this section.
+
+									for(int j=i+1;j<input.length();j++) {
+										if(!Character.isWhitespace(input.charAt(j))) {
+											usingConditionalBrackets = input.charAt(j)=='(';
+											break;
+										}
+									}
+
+									sb.setLength(0);
+
+								} else if(c == 'E' && substringMatchesInReverseAtIndex(input, "#ELSE", i)
+										&& (i+1==input.length()||i+2==input.length()||input.charAt(i+1)!='I'||input.charAt(i+2)!='F')
+										&& (i+1==input.length()||i+2==input.length()||i+3==input.length()||input.charAt(i+1)!=' '||input.charAt(i+2)!='I'||input.charAt(i+3)!='F')
+										&& openBrackets-1==closeBrackets
+										&& conditionalStatement!=null) {
+									conditionalElseFound = true;
+									conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-4)); // Cut off the '#ELSE' at the end of this section.
+									sb.setLength(0);
+
+								} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ENDIF", i)) {
+									closeBrackets++;
+
+									if (openBrackets == closeBrackets) {
+										if (conditionalElseFound) {
+											conditionals.putIfAbsent("true", sb.toString().substring(1, sb.length()-5)); // Cut off the '#ENDIF' at the end.
+										} else {
+											conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-5)); // Cut off the '#ENDIF' at the end of this section.
+										}
+
+										endIndex = i;
+									}
+								}
+
+							} else {
+//							System.out.println("noConditionalBrackets");
+								if(c == 'N' && substringMatchesInReverseAtIndex(input, "#THEN", i)) {
+									// If last conditional was brackets, remove the THEN
+									if(lastConditionalUsedBrackets) {
+										sb.replace(sb.length()-4, sb.length(), ""); // Reset StringBuilder to exclude #THEN
+										i++;
+										c = input.charAt(i);
+
+									} else if (openBrackets-1==closeBrackets) {
+										conditionalStatement = sb.toString().substring(1, sb.length()-4); // Cut off the '#THEN' at the end of the conditional statement.
+										conditionalStatement = conditionalStatement.replaceAll("\n", "").replaceAll("\t", "");
+										conditionalStatement = conditionalStatement.trim();
+										sb.setLength(0);
+									}
+
+								} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ELSE IF", i) && openBrackets-1==closeBrackets) {
+									conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-7)); // Cut off the '#ELSE IF' at the end of this section.
+
+									for(int j=i+1;j<input.length();j++) {
+										if(!Character.isWhitespace(input.charAt(j))) {
+											usingConditionalBrackets = input.charAt(j)=='(';
+											break;
+										}
+									}
+
+									sb.setLength(0);
+
+								} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ELSEIF", i) && openBrackets-1==closeBrackets) {
+									conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-6)); // Cut off the '#ELSEIF' at the end of this section.
+
+									for(int j=i+1;j<input.length();j++) {
+										if(!Character.isWhitespace(input.charAt(j))) {
+											usingConditionalBrackets = input.charAt(j)=='(';
+											break;
+										}
+									}
+
+									sb.setLength(0);
+
+								} else if(c == 'E' && substringMatchesInReverseAtIndex(input, "#ELSE", i)
+										&& (i+1==input.length()||i+2==input.length()||input.charAt(i+1)!='I'||input.charAt(i+2)!='F')
+										&& (i+1==input.length()||i+2==input.length()||i+3==input.length()||input.charAt(i+1)!=' '||input.charAt(i+2)!='I'||input.charAt(i+3)!='F')
+										&& openBrackets-1==closeBrackets) {
+									conditionalElseFound = true;
+									//							conditionalTrue = sb.toString().substring(1, sb.length()-4); // Cut off the '#ELSE' at the end of this section.
+									conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-4)); // Cut off the '#ELSE' at the end of this section.
+									sb.setLength(0);
+
+								} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ENDIF", i)) {
+									closeBrackets++;
+
+									if (openBrackets == closeBrackets) {
+
+										if (conditionalElseFound) {
+											// conditionalTrue has already been set in the #ELSE catch
+											//									conditionalFalse = sb.toString().substring(1, sb.length()-5); // Cut off the '#ENDIF' at the end.
+											conditionals.putIfAbsent("true", sb.toString().substring(1, sb.length()-5)); // Cut off the '#ENDIF' at the end.
+										} else {
+											//									conditionalTrue = sb.toString().substring(1, sb.length()-5); // Cut off the '#ENDIF' at the end.
+											//									conditionalFalse = "";
+											conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-5)); // Cut off the '#ENDIF' at the end of this section.
+										}
+
+										endIndex = i;
+									}
+								}
+							}
+						}
+					}
+
+					if (currentParseMode != ParseMode.CONDITIONAL) {
+						suppressOutput = false;
+						if (c == '[') {
+							if(openBrackets==0) {
+								if(input.charAt(i+1) == '#') {
+									currentParseMode = ParseMode.REGULAR_SCRIPT;
+								} else {
+									currentParseMode = ParseMode.REGULAR;
+								}
+								startIndex = i;
+							}
+
+							openBrackets++;
+
+						} else if (currentParseMode == ParseMode.REGULAR) {
+							if (c =='.' && target == null) {
+								target = sb.toString().substring(1); // Cut off the '[' at the start.
+								sb.setLength(0);
+
+							} else if (c == '(') {
+								if(command == null) {
+									command = sb.toString().substring(1); // Cut off the '.' at the start.
+									if(command.equals("speech") || command.equals("speechNoEffects") || command.equals("speechNoExtraEffects")) {
+										speechTarget = target;
+									}
 									sb.setLength(0);
 								}
-								
-							} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ELSE IF", i) && openBrackets-1==closeBrackets) {
-								conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-7)); // Cut off the '#ELSE IF' at the end of this section.
 
-								for(int j=i+1;j<input.length();j++) {
-									if(!Character.isWhitespace(input.charAt(j))) {
-										usingConditionalBrackets = input.charAt(j)=='(';
-										break;
-									}
-								}
-								
-								sb.setLength(0);
-								
-							} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ELSEIF", i) && openBrackets-1==closeBrackets) {
-								conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-6)); // Cut off the '#ELSEIF' at the end of this section.
+								openArg++;
 
-								for(int j=i+1;j<input.length();j++) {
-									if(!Character.isWhitespace(input.charAt(j))) {
-										usingConditionalBrackets = input.charAt(j)=='(';
-										break;
-									}
+							} else if (c == ')') {
+								closeArg++;
+
+								if (openArg == closeArg){
+									arguments = sb.toString().substring(1);
 								}
-								
-								sb.setLength(0);
-								
-							} else if(c == 'E' && substringMatchesInReverseAtIndex(input, "#ELSE", i)
-									&& (i+1==input.length()||i+2==input.length()||input.charAt(i+1)!='I'||input.charAt(i+2)!='F')
-									&& (i+1==input.length()||i+2==input.length()||i+3==input.length()||input.charAt(i+1)!=' '||input.charAt(i+2)!='I'||input.charAt(i+3)!='F')
-									&& openBrackets-1==closeBrackets) {
-								conditionalElseFound = true;
-	//							conditionalTrue = sb.toString().substring(1, sb.length()-4); // Cut off the '#ELSE' at the end of this section.
-								conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-4)); // Cut off the '#ELSE' at the end of this section.
-								sb.setLength(0);
-								
-							} else if(c == 'F' && substringMatchesInReverseAtIndex(input, "#ENDIF", i)) {
+
+							} else if (c == ']') {
 								closeBrackets++;
-								
+
 								if (openBrackets == closeBrackets) {
-									
-									if (conditionalElseFound) {
-										// conditionalTrue has already been set in the #ELSE catch
-	//									conditionalFalse = sb.toString().substring(1, sb.length()-5); // Cut off the '#ENDIF' at the end.
-										conditionals.putIfAbsent("true", sb.toString().substring(1, sb.length()-5)); // Cut off the '#ENDIF' at the end.
-									} else {
-	//									conditionalTrue = sb.toString().substring(1, sb.length()-5); // Cut off the '#ENDIF' at the end.
-	//									conditionalFalse = "";
-										conditionals.putIfAbsent(conditionalStatement, sb.toString().substring(1, sb.length()-5)); // Cut off the '#ENDIF' at the end of this section.
+									if (command == null) {
+										command = sb.toString().substring(1); // Cut off the '.' at the start.
+										sb.setLength(0);
 									}
-				
+
 									endIndex = i;
 								}
 							}
-						}
-					}
-				}
-				
-				if (currentParseMode != ParseMode.CONDITIONAL) {
-					suppressOutput = false;
-					if (c == '[') {
-						if(openBrackets==0) {
-							if(input.charAt(i+1) == '#') {
-								currentParseMode = ParseMode.REGULAR_SCRIPT;
-							} else {
-								currentParseMode = ParseMode.REGULAR;
-							}
-							startIndex = i;
-						}
-						
-						openBrackets++;
-						
-					} else if (currentParseMode == ParseMode.REGULAR) {
-						if (c =='.' && target == null) {
-							target = sb.toString().substring(1); // Cut off the '[' at the start.
-							sb.setLength(0);
-						
-						} else if (c == '(') {
-							if(command == null) {
-								command = sb.toString().substring(1); // Cut off the '.' at the start.
-								if(command.equals("speech") || command.equals("speechNoEffects") || command.equals("speechNoExtraEffects")) {
-									speechTarget = target;
-								}
-								sb.setLength(0);
-							}
-							
-							openArg++;
-							
-						} else if (c == ')') {
-							closeArg++;
-							
-							if (openArg == closeArg){
-								arguments = sb.toString().substring(1);
-							}
-							
-						} else if (c == ']') {
-							closeBrackets++;
-							
-							if (openBrackets == closeBrackets) {
-								if (command == null) {
-									command = sb.toString().substring(1); // Cut off the '.' at the start.
-									sb.setLength(0);
-								}
-			
-								endIndex = i;
-							}
-						}
-						
-					} else if (currentParseMode == ParseMode.REGULAR_SCRIPT) {
-						if (c == ']') {
-							closeBrackets++;
-							
-							if (openBrackets == closeBrackets) {
-								if(command == null) {
-									if(sb.charAt(2)=='#') {
-										suppressOutput = true;
-										command = sb.toString().substring(3); // Cut off the '[##' at the start.
-									} else {
-										suppressOutput = false;
-										command = sb.toString().substring(2); // Cut off the '[#' at the start.
+
+						} else if (currentParseMode == ParseMode.REGULAR_SCRIPT) {
+							if (c == ']') {
+								closeBrackets++;
+
+								if (openBrackets == closeBrackets) {
+									if (command == null) {
+										if (sb.charAt(2) == '#') {
+											suppressOutput = true;
+											command = sb.toString().substring(3); // Cut off the '[##' at the start.
+										} else {
+											suppressOutput = false;
+											command = sb.toString().substring(2); // Cut off the '[#' at the start.
+										}
+										sb.setLength(0);
 									}
-									sb.setLength(0);
+
+									endIndex = i;
 								}
-			
-								endIndex = i;
+							}
+						}else if (c == '{'){
+							if (input.charAt(i+1)=='!'){
+								openBrackets ++;
+								currentParseMode = ParseMode.ONLY_TEXT;
+								startIndex = i;
+							}else if(input.charAt(i+1)=='#'){
+								openBrackets ++;
+								currentParseMode = ParseMode.JAVA_SCRIPT;
+								startIndex = i;
 							}
 						}
 					}
+				} else {
+					if (c=='#'&&input.charAt(i+1)=='}'){
+						command = "";
+						if(sb.length() > 2){
+							if(sb.charAt(2)=='#') {
+								suppressOutput = true;
+								if (sb.length() > 3)command = sb.toString().substring(3); // Cut off the '{##' at the start.
+							} else {
+								suppressOutput = false;
+								command = sb.toString().substring(2); // Cut off the '{#' or '{!' at the start.
+							}
+						}
+						sb.setLength(0);
+						closeBrackets++;
+						endIndex = i+1;
+					}
 				}
-				
+
 				if (openBrackets>0 && ((target!=null && command!=null) || (!Character.isWhitespace(c) || c==' '))) {
 					sb.append(c);
 				}
@@ -9411,8 +9445,10 @@ public class UtilText {
 
 	private static String parseSyntaxNew(List<GameCharacter> specialNPCs, String target, String command, String arguments, ParseMode currentParseMode) {
 		GameCharacter character;
-		
-		if(currentParseMode == ParseMode.REGULAR_SCRIPT) {
+
+		if(currentParseMode == ParseMode.ONLY_TEXT){
+			return command;
+		}else if(currentParseMode == ParseMode.REGULAR_SCRIPT || currentParseMode == ParseMode.JAVA_SCRIPT) {
 			if(engine==null) {
 				initScriptEngine();
 			}
@@ -9683,6 +9719,7 @@ public class UtilText {
 		engine.put("itemGen", Main.game.getItemGen());
 		engine.put("flags", Main.game.getDialogueFlags());
 		engine.put("dialogueManager", Main.game.getDialogueManager());
+		engine.put("err", System.err);
 		
 		// Java classes:
 		for(Month month : Month.values()) {
@@ -10089,8 +10126,14 @@ public class UtilText {
 		for(InventoryInteraction interaction : InventoryInteraction.values()) {
 			engine.put("INVENTORY_INTERACTION_"+interaction.toString(), interaction);
 		}
-		
-		
+
+        // the data for mod
+        if(loadSave != null)engine.put("save", loadSave);
+        // load mod's js code
+        if(Main.game.isStarted())jsCode.initModJsCode();
+
+        // remove the save when save finish load.
+        loadSave = null;
 		
 		// static methods don't work unless initialised like so:
 //		try {
@@ -10776,8 +10819,49 @@ public class UtilText {
 		}
 		engine.put(tag, getInventoryForParsing());
 	}
-	
-	
+
+	public static String parseJs(File jsFile){
+
+		if(jsFile == null){
+			System.err.println("don't give file");
+			return null;
+		}
+		if(!jsFile.exists()){
+			System.err.println("file don't exist ! file path:" + jsFile.getPath());
+			return null;
+		}
+		try{
+			Reader reader = new InputStreamReader(new FileInputStream(jsFile), StandardCharsets.UTF_8);
+			int c;
+			StringBuilder sb = new StringBuilder();
+			while (true){
+				c = reader.read();
+				if(c == -1)break;
+				if((char) c != '\r')sb.append((char) c);
+			}
+			return parseSyntaxNew(new ArrayList<>(), null, sb.toString(), null, ParseMode.JAVA_SCRIPT);
+		} catch (Exception e){
+			System.err.println("parse js file fail ! file path:" + jsFile.getPath());
+			e.printStackTrace(System.err);
+			return null;
+		}
+	}
+
+	public static String parseJs(String code){
+		return parseSyntaxNew(new ArrayList<>(), null, code, null, ParseMode.JAVA_SCRIPT);
+	}
+
+    public static void setLoadSave(Document save){
+        loadSave = save;
+    }
+
+    public static void putObjectToEngine(String tag, Object obj) {
+        if(engine==null) {
+            initScriptEngine();
+        }
+        engine.put(tag, obj);
+    }
+
 	// Memoization improvement attempts follow from here:
 	
 //	private static final Map<String, CompiledScript> memo = new HashMap<>();

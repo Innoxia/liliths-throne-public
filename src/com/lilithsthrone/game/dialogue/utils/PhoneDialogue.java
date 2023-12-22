@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.utils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -12,6 +13,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.lilithsthrone.controller.xmlParsing.Element;
+import com.lilithsthrone.controller.xmlParsing.XMLLoadException;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AbstractAttribute;
@@ -84,8 +87,8 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.0
- * @version 0.3.9
- * @author Innoxia, tukaima
+ * @version 0.4.9
+ * @author Innoxia, tukaima, Mr.Lee
  */
 public class PhoneDialogue {
 	
@@ -446,6 +449,9 @@ public class PhoneDialogue {
 							"Spend some time talking with [el.name].",
 							ElementalDialogue.ELEMENTAL_START);
 					
+				} else if(index != 0){
+//					mod's response
+					return modPhoneResponse(index - 15);
 				}
 				
 			} else if(responseTab==1) {
@@ -627,7 +633,7 @@ public class PhoneDialogue {
 //					}
 //				}
 			}
-			
+
 			if(index == 0) {
 				return new ResponseEffectsOnly("Back", "Put your phone away."){
 					@Override
@@ -635,7 +641,7 @@ public class PhoneDialogue {
 						Main.game.restoreSavedContent(false);
 					}
 				};
-				
+
 			}
 			return null;
 		}
@@ -644,6 +650,149 @@ public class PhoneDialogue {
 		public DialogueNodeType getDialogueNodeType() {
 			return DialogueNodeType.PHONE;
 		}
+
+		private List<Response> modResponses;
+
+		private int falseNum;
+
+		private Response modPhoneResponse(int index){
+			if(modResponses == null)loadModResponse();
+//			if it is the begin of this round
+			if(index == 0)falseNum = 0;
+			while (true){
+//				the search index
+				int searchIndex = index + falseNum;
+//				finish search
+				if(searchIndex>=modResponses.size())return null;
+				if(modResponses.get(searchIndex).isAvailableFromConditional())return modResponses.get(searchIndex);
+				else falseNum++;
+			}
+		}
+
+		private void loadModResponse(){
+			modResponses = new ArrayList<>();
+			Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/response", null, "phoneResponse");
+			for(Entry<String, Map<String, File>> enter : moddedFilesMap.entrySet()){
+				for(Entry<String, File> innerEntry : enter.getValue().entrySet()){
+					String id = innerEntry.getKey();
+					try{
+						modResponses.addAll(loadFromXML(innerEntry.getValue()));
+					}catch (Exception ex){
+						System.err.println("laod mod's phone response fail, id: " + id);
+						System.err.println("Actual exception: ");
+						ex.printStackTrace(System.err);
+					}
+				}
+			}
+		}
+
+//		I think write a funtion to process the resppnses at there and dialogue node is a better choice
+//		However it isn't the target of this pull request, I also don't know whether my thinking is right or not
+		private List<Response> loadFromXML(File XMLFile){
+			assert XMLFile.exists() : "file don't exist";
+			List<Response> out = new ArrayList<>();
+			try {
+				Element coreElement = Element.getDocumentRootElement(XMLFile);
+				for (Element response : coreElement.getAllOf("response")){
+					String availabilityConditional = "true";
+					if(response.getOptionalFirstOf("availabilityConditional").isPresent()) {
+						availabilityConditional = response.getMandatoryFirstOf("availabilityConditional").getTextContent();
+					}
+
+					String responseTitle = response.getMandatoryFirstOf("responseTitle").getTextContent();
+					String responseTooltip = response.getMandatoryFirstOf("responseTooltip").getTextContent();
+
+					String nextDialogueId = "";
+					String defaultPlaceTypeForNextDialogue = "";
+					boolean stripContentForNextDialogue = false;
+					boolean forceContinueForNextDialogue = false;
+					if(response.getOptionalFirstOf("nextDialogue").isPresent()) {
+						nextDialogueId = response.getMandatoryFirstOf("nextDialogue").getTextContent();
+						defaultPlaceTypeForNextDialogue = response.getMandatoryFirstOf("nextDialogue").getAttribute("defaultPlaceType");
+						stripContentForNextDialogue = Boolean.valueOf(response.getMandatoryFirstOf("nextDialogue").getAttribute("stripContent"));
+						forceContinueForNextDialogue = Boolean.valueOf(response.getMandatoryFirstOf("nextDialogue").getAttribute("forceContinue"));
+					}
+					// Thanks, Java!
+					String finalDefaultPlaceTypeForNextDialogue = defaultPlaceTypeForNextDialogue;
+
+					String colourResponse = "";
+					if(response.getOptionalFirstOf("colour").isPresent()) {
+						colourResponse = response.getMandatoryFirstOf("colour").getTextContent();
+					}
+
+					String secondsPassedResponse = "";
+					boolean asMinutes = false;
+					if(response.getOptionalFirstOf("secondsPassed").isPresent()) {
+						secondsPassedResponse = response.getMandatoryFirstOf("secondsPassed").getTextContent();
+						asMinutes = Boolean.valueOf(response.getMandatoryFirstOf("secondsPassed").getAttribute("minutes"));
+					}
+
+					String effectsResponse = "";
+					if(response.getOptionalFirstOf("effects").isPresent()) {
+						effectsResponse = response.getMandatoryFirstOf("effects").getTextContent();
+					}
+
+					List<String> requiredFetishes = new ArrayList<>();
+					if(response.getOptionalFirstOf("requiredFetishes").isPresent()) {
+						for(Element fetish : response.getMandatoryFirstOf("requiredFetishes").getAllOf("fetish")) {
+							requiredFetishes.add(fetish.getTextContent());
+						}
+					}
+
+					String corruptionLevel = "";
+					if(response.getOptionalFirstOf("corruptionLevel").isPresent()) {
+						corruptionLevel = response.getMandatoryFirstOf("corruptionLevel").getTextContent();
+					}
+
+					String requiredFemininity = "";
+					if(response.getOptionalFirstOf("requiredFemininity").isPresent()) {
+						requiredFemininity = response.getMandatoryFirstOf("requiredFemininity").getTextContent();
+					}
+
+
+					List<String> requiredPerks = new ArrayList<>();
+					if(response.getOptionalFirstOf("requiredPerks").isPresent()) {
+						for(Element perk : response.getMandatoryFirstOf("requiredPerks").getAllOf("perk")) {
+							requiredPerks.add(perk.getTextContent());
+						}
+					}
+
+					List<String> subspeciesRequired = new ArrayList<>();
+					if(response.getOptionalFirstOf("requiredSubspecies").isPresent()) {
+						for(Element subspecies : response.getMandatoryFirstOf("requiredSubspecies").getAllOf("subspecies")) {
+							subspeciesRequired.add(subspecies.getTextContent());
+						}
+					}
+
+					Response standardResponse = new Response(responseTitle,
+							responseTooltip,
+							nextDialogueId,
+							secondsPassedResponse,
+							asMinutes,
+							colourResponse,
+							effectsResponse,
+							requiredFetishes,
+							corruptionLevel,
+							requiredPerks,
+							requiredFemininity,
+							subspeciesRequired) {
+						@Override
+						public String getDefaultPlaceTypeForNextDialogue() {
+							return finalDefaultPlaceTypeForNextDialogue;
+						}
+					};
+					standardResponse.setConditional(availabilityConditional);
+					standardResponse.setStripContent(stripContentForNextDialogue);
+					standardResponse.setForceContinue(forceContinueForNextDialogue);
+					out.add(standardResponse);
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				System.err.println("load mod's phone response error ! (" + XMLFile.getName() + ")" + ex);
+			}
+			return out;
+		}
+
 	};
 	
 	public static final DialogueNode INCUBATION_EGG_LAYING = new DialogueNode("", "", true) {

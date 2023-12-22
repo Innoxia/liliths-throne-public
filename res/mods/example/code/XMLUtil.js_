@@ -1,0 +1,8 @@
+// you can write your code in another file
+// then use 'game.parseJsFromFile(String path)' to call it
+
+function exampleModXmlAddAttribute(doc, parent, name, value){
+    var attr = doc.createAttribute(name)
+    attr.setValue(value)
+    parent.setAttributeNode(attr)
+}

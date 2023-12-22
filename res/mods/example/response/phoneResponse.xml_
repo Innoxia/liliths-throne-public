@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<!--It is same as dialogue's response.
+However it dosen't have 'responseTabIndex' and 'index'.
+They will be put in the first response tab, and be showed in the order of id.
+If 'availabilityConditional' is false. it will be skiped.-->
+<responses>
+	<response>
+		<availabilityConditional><![CDATA[true]]></availabilityConditional>
+		<responseTitle><![CDATA[test 1]]></responseTitle>
+		<responseTooltip><![CDATA[tooltip of test 1]]></responseTooltip>
+		<colour><![CDATA[TEXT]]></colour>
+		<nextDialogue forceContinue="true"><![CDATA[innoxia_encounters_fields_elis_woods_berries_found]]></nextDialogue>
+		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+		<effects><![CDATA[
+		[#pc.setHealth(10)]
+		]]></effects>
+		<requiredFetishes/>
+		<corruptionLevel/>
+		<requiredPerks/>
+		<requiredFemininity/>
+		<requiredSubspecies/>
+		<tradingVariables enabled="false"/>
+		<combatVariables enabled="false"/>
+		<sexVariables enabled="false"/>
+		<sexVariablesWithManager enabled="false"/>
+	</response>
+	<response>
+		<availabilityConditional><![CDATA[false]]></availabilityConditional>
+		<responseTitle><![CDATA[test 2]]></responseTitle>
+		<responseTooltip><![CDATA[tooltip of test 2]]></responseTooltip>
+		<colour><![CDATA[TEXT]]></colour>
+		<nextDialogue forceContinue="true"><![CDATA[innoxia_encounters_fields_elis_woods_berries_found]]></nextDialogue>
+		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+		<effects><![CDATA[
+		[#pc.setHealth(10)]
+		]]></effects>
+		<requiredFetishes/>
+		<corruptionLevel/>
+		<requiredPerks/>
+		<requiredFemininity/>
+		<requiredSubspecies/>
+		<tradingVariables enabled="false"/>
+		<combatVariables enabled="false"/>
+		<sexVariables enabled="false"/>
+		<sexVariablesWithManager enabled="false"/>
+	</response>
+	<response>
+		<availabilityConditional><![CDATA[true]]></availabilityConditional>
+		<responseTitle><![CDATA[test 3]]></responseTitle>
+		<responseTooltip><![CDATA[tooltip of test 3]]></responseTooltip>
+		<colour><![CDATA[TEXT]]></colour>
+		<nextDialogue forceContinue="true"><![CDATA[innoxia_encounters_fields_elis_woods_berries_found]]></nextDialogue>
+		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+		<effects><![CDATA[
+		[#pc.setHealth(10)]
+		]]></effects>
+		<requiredFetishes/>
+		<corruptionLevel/>
+		<requiredPerks/>
+		<requiredFemininity/>
+		<requiredSubspecies/>
+		<tradingVariables enabled="false"/>
+		<combatVariables enabled="false"/>
+		<sexVariables enabled="false"/>
+		<sexVariablesWithManager enabled="false"/>
+	</response>
+</responses>

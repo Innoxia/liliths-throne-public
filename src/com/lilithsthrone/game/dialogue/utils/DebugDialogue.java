@@ -1704,7 +1704,7 @@ public class DebugDialogue {
 			return  "<p>"
 					+ "<b>Output:</b>"
 					+ "</p>"
-					+ "<p>"+parsedText+"</p>";
+					+ "<p>{!"+parsedText+"#}</p>";
 		}
 
 		@Override
@@ -1713,7 +1713,7 @@ public class DebugDialogue {
 				return new ResponseEffectsOnly("Parse!", "Parse the text you've entered."){
 					@Override
 					public void effects() {
-						rawText = (String) Main.mainController.getWebEngine().executeScript("document.getElementById('parseInput').value");
+ 						rawText = (String) Main.mainController.getWebEngine().executeScript("document.getElementById('parseInput').value");
 						parsedText = UtilText.parse(rawText);
 						if(Main.game.getCurrentDialogueNode()==PARSER) {
 							Main.game.setContent(new Response("", "", PARSER));
@@ -1936,6 +1936,17 @@ public class DebugDialogue {
 					+ "'Lilaya storms up to Innoxia, shouting angrily in response to finding out that her sex scenes haven't been fixed yet, "
 						+UtilText.parseSpeech("What the hell are you doing Innoxia?! You said my scenes were going to be re-written weeks ago!", Main.game.getNpc(Lilaya.class))+"'"
 					
+					+ "</p>"
+					+ "<br><br><br>"
+					+ "<p>"
+					+ "Mr.Lee add some boring parse introduce of his pr at there..."
+					+ "</p>"
+					+ "<p>"
+					+ "<h6>{!text at there#}</h6>"
+					+ "the text be around by '{!#}' won't be parse. If you don't hope the [] be parse, you can use it"
+					+ "<h6>{#js code#}/{##js code#}</h6>"
+					+ "js code will not be recursively parsed, means the [] at the code won't be parse as command such as [pc.name]<br>"
+					+ "the mean of '#' or '##' is same with [#]/[##]"
 					+ "</p>";
 		}
 		

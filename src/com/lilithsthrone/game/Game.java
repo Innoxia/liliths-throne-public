@@ -40,6 +40,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import com.lilithsthrone.utils.mod.jsCode;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -904,6 +905,17 @@ public class Game implements XMLSaving {
 			Main.game.addEvent(new EventLogEntry("<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "offspringSeed failure"), false);
 		}
 
+		// mod save data
+		try {
+			UtilText.putObjectToEngine("save", doc);
+			UtilText.parseJs("var isAutoSave = " + isAutoSave);
+			jsCode.saveGameModJsCode();
+		} catch (Exception e){
+			System.err.println("save mod's data error");
+			e.printStackTrace();
+			Main.game.addEvent(new EventLogEntry("<style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Partial Save Fail<b>", "mods data"), false);
+		}
+
 		// Ending stuff:
 		try {
 			Transformer transformer1 = Main.transformerFactory.newTransformer();
@@ -954,10 +966,11 @@ public class Game implements XMLSaving {
 	public static void importGame(File file) {
 		Main.game = new Game();
 		UtilText.initScriptEngine(); // Have to init the script engine before loading game variables as some classes (such as race) call parsing as part of their initialisation (Race's 'applyRaceChanges')
-		
+
 		if (file.exists()) {
 			try {
 				Document doc = Main.getDocBuilder().parse(file);
+				UtilText.setLoadSave(doc); // save the information of save that let mod's code to load data
 
 				long time = System.nanoTime();
 				if(debug) {
@@ -966,6 +979,11 @@ public class Game implements XMLSaving {
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
+
+				// update check for mod
+				// something like placeType's change, must run before it read the xml
+				UtilText.putObjectToEngine("save", doc);
+				jsCode.updateCheck();
 				
 				Element gameElement = (Element) doc.getElementsByTagName("game").item(0);
 				
@@ -5878,10 +5896,11 @@ public class Game implements XMLSaving {
 	/**
 	 * For use in external res files as a way to get a hook to UtilText.parseFromXMLFile
 	 */
+
 	public String parseFromFile(String pathName, String tag, GameCharacter... specialNPCs) {
 		return getDialogueManager().getDialogueFromFile(pathName, tag, specialNPCs);
 	}
-	
+
 	/**
 	 * For use in external res files as a way to get a hook to UtilText.parse
 	 */
@@ -5926,7 +5945,11 @@ public class Game implements XMLSaving {
 	public void setParserTarget(String parserTarget, NPC npc) {
 		ParserTarget.addAdditionalParserTarget(parserTarget, npc);
 	}
-	
+
+	public String parseJsFromFile(String pathName) {
+		return UtilText.parseJs(new File("res"+System.getProperty("file.separator")+pathName+".js"));
+	}
+
 	public boolean isFreeRoomAvailableForOccupant() {
 		return OccupancyUtil.isFreeRoomAvailableForOccupant();
 	}
@@ -6218,4 +6241,5 @@ public class Game implements XMLSaving {
 						+ UtilText.parse(character, "You start having sex with [npc.name]")
 					+ "</p>"));
 	}
+
 }

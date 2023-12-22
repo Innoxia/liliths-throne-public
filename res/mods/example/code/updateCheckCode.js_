@@ -1,0 +1,32 @@
+// it will be process when load the save, let you update your mod.
+// Its priority is very high, it will be process before game read the save
+// when game finish read xml, it will restart engine, all the data read at there all will be lost.
+// you should read all the data at initCode.js
+
+
+//import the pack
+game.parseJsFromFile("mods/example/code/XMLUtil")
+
+try{
+    var gameE = save.getElementsByTagName("game").item(0).getElementsByTagName("exampleMod").item(0)
+}catch (e){
+    // the mod first run, so it doesn't have elements
+}
+
+try{
+    var verison =  gameE.getAttribute("version")
+}catch (e){
+    err.println("update check fail")
+    var verison = null
+}
+
+if(verison == null){
+    // add the version in xml. you can do your update process
+    err.println("you are first run the example mod")    //delete the err, it is used to show the function of this js.
+    var mainNode = save.createElement("exampleMod")
+    exampleModXmlAddAttribute(save, mainNode, "version", 0.495)
+    var gameNode = save.getElementsByTagName("game").item(0)
+    gameNode.appendChild(mainNode)
+}else if(verison < 0.74){
+    // do you update process at there
+}
