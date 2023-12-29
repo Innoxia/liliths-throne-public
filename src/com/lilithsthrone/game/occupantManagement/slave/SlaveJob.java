@@ -509,10 +509,6 @@ public enum SlaveJob {
 			return aff + (c==null?0:c.getPlace().getHourlyAffectionChange());
 		}
 		@Override
-		public boolean isAvailable(int hour, GameCharacter character) {
-			return !character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) && Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, SlaveJob.MILKING)<getSlaveLimit();
-		}
-		@Override
 		public String getAvailabilityText(int hour, GameCharacter character) {
 			if(!isAvailable(hour, character)) {
 				return "Not enough space in milking rooms!";
@@ -737,11 +733,6 @@ public enum SlaveJob {
 			return 4;
 		}
 		
-		@Override
-		public boolean isAvailable(int hour, GameCharacter character) {
-			return !character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) && Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, SlaveJob.OFFICE) < getSlaveLimit();
-		}
-	
 		public String getAvailabilityText(int hour, GameCharacter character) {
 			if(!isAvailable(hour, character)) {
 				return "There isn't enough office space to assign this job!";
@@ -1187,27 +1178,27 @@ public enum SlaveJob {
 					&& character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_MILK)
 					&& character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_MILK_AUTO_SELL)) {
 				int milked = MilkingRoom.getActualMilkPerHour(character);
-				value += (milked * character.getMilk().getValuePerMl());
+				value += Math.ceil(milked * character.getMilk().getValuePerMl());
 			}
 			if(character.hasBreastsCrotch()
 					&& character.getBreastCrotchRawStoredMilkValue()>0
 					&& character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_MILK_CROTCH)
 					&& character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_MILK_CROTCH_AUTO_SELL)) {
 				int milked = MilkingRoom.getActualCrotchMilkPerHour(character);
-				value += (milked * character.getMilkCrotch().getValuePerMl());
+				value += Math.ceil(milked * character.getMilkCrotch().getValuePerMl());
 			}
 			if(character.hasPenis()
 					&& character.getPenisRawStoredCumValue()>0
 					&& character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_CUM)
 					&& character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_CUM_AUTO_SELL)) {
 				int milked = MilkingRoom.getActualCumPerHour(character);
-				value += (milked * character.getCum().getValuePerMl());
+				value += Math.ceil(milked * character.getCum().getValuePerMl());
 			}
 			if(character.hasVagina()
 					&& character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_GIRLCUM)
 					&& character.hasSlaveJobSetting(this, SlaveJobSetting.MILKING_GIRLCUM_AUTO_SELL)) {
 				int milked = MilkingRoom.getActualGirlcumPerHour(character);
-				value += (milked * character.getGirlcum().getValuePerMl());
+				value += Math.ceil(milked * character.getGirlcum().getValuePerMl());
 			}
 		}
 

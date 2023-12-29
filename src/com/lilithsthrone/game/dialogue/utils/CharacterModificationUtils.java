@@ -568,7 +568,7 @@ public class CharacterModificationUtils {
 				
 				int i=0;
 				for(AbstractFetish fetish : Fetish.getAllFetishes()) {
-					if(fetish.isAvailable(BodyChanging.getTarget()) && fetish.getFetishesForAutomaticUnlock().isEmpty()) {
+					if(fetish.isAvailable(BodyChanging.getTarget()) && fetish.getFetishesForAutomaticUnlock().isEmpty() && fetish.isContentEnabled()) {
 						contentSB.append("<div class='container-full-width inner' style='width:100%; margin:0; padding:0; background:"+(i%2==0?PresetColour.BACKGROUND:PresetColour.BACKGROUND_ALT).toWebHexString()+";'>");
 						
 							contentSB.append("<div class='container-full-width inner' style='margin:0; padding:0 0 0 20px; width:25%; text-align:center;background:transparent;'>");
@@ -815,30 +815,44 @@ public class CharacterModificationUtils {
 		int sexCount = BodyChanging.getTarget().getTotalSexCount(associatedSexType);
 		boolean decreaseDisabled = sexCount<=0;
 		boolean increaseDisabled = sexCount>=maxSexExperience;
-		int minorStep = 1;
-		int majorStep = 10;
+		int singleStep = 1;
+		int minorStep = 10;
+		int majorStep = 100;
+		// Can't take pure virgin later if you have vaginal sex experience
+		if (id.equals("VAGINAL_TAKEN") && BodyChanging.getTarget().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
+			id = "VAGINAL_TAKEN_DISABLED";
+			sexCount = 0;
+			decreaseDisabled = true;
+			increaseDisabled = true;
+		}
 		
 		return "<div class='container-full-width inner'>"
 					+ "<div class='container-full-width inner' style='width:calc(30%);margin:0;padding:0;'>"
 						+ title
 					+ "</div>"
 					+ "<div class='container-full-width inner' style='width:calc(70%);margin:0;padding:0;'>"
-						+ "<div class='container-full-width' style='width:15%; text-align:center; float:left; position:relative; padding:0; margin:0;'>"
-							+ "<div id='"+id+"_DECREASE_LARGE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:48%; margin:1%; padding:0;'>"
+						+ "<div class='container-full-width' style='width:30%; text-align:center; float:left; position:relative; padding:0; margin:0;'>"
+							+ "<div id='"+id+"_DECREASE_LARGE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:30%; margin:1%; padding:0;'>"
 								+ (decreaseDisabled?"[style.boldDisabled(-"+majorStep+")]":"[style.boldBad(-"+majorStep+")]")
 							+ "</div>"
-							+ "<div id='"+id+"_DECREASE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:48%; margin:1%; padding:0;'>"
-								+ (decreaseDisabled?"[style.boldDisabled(-"+minorStep+")]":"[style.boldBadMinor(-"+minorStep+")]")
+							+ "<div id='"+id+"_DECREASE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:30%; margin:1%; padding:0;'>"
+								+ (decreaseDisabled?"[style.boldDisabled(-"+minorStep+")]":"[style.boldBad(-"+minorStep+")]")
+							+ "</div>"
+							+ "<div id='"+id+"_DECREASE_SMALL' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:30%; margin:1%; padding:0;'>"
+								+ (decreaseDisabled?"[style.boldDisabled(-"+singleStep+")]":"[style.boldBadMinor(-"+singleStep+")]")
 							+ "</div>"
 						+ "</div>"
 						+ "<div class='container-full-width' style='width:18%; margin:1%; padding:0; text-align:center; float:left; position:relative;'>"
 							+ sexCount
 						+ "</div>"
-						+ "<div class='container-full-width' style='width:15%; text-align:center; float:left; position:relative; padding:0; margin:0;'>"
-							+ "<div id='"+id+"_INCREASE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:48%; margin:1%; padding:0;'>"
+						+ "<div class='container-full-width' style='width:30%; text-align:center; float:left; position:relative; padding:0; margin:0;'>"
+							+ "<div id='"+id+"_INCREASE_SMALL' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:30%; margin:1%; padding:0;'>"
+								+ (increaseDisabled?"[style.boldDisabled(+"+singleStep+")]":"[style.boldGoodMinor(+"+singleStep+")]")
+							+ "</div>"
+							+ "<div id='"+id+"_INCREASE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:30%; margin:1%; padding:0;'>"
 								+ (increaseDisabled?"[style.boldDisabled(+"+minorStep+")]":"[style.boldGoodMinor(+"+minorStep+")]")
 							+ "</div>"
-							+ "<div id='"+id+"_INCREASE_LARGE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:48%; margin:1%; padding:0;'>"
+							+ "<div id='"+id+"_INCREASE_LARGE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:30%; margin:1%; padding:0;'>"
 								+ (increaseDisabled?"[style.boldDisabled(+"+majorStep+")]":"[style.boldGood(+"+majorStep+")]")
 							+ "</div>"
 						+ "</div>"
@@ -1095,11 +1109,15 @@ public class CharacterModificationUtils {
 					c = tail.getRace().getColour();
 				}
 				
+				boolean suitableForPenetration = (tail.getTags().contains(BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION)
+						|| Main.game.isFurryTailPenetrationContentEnabled())
+						&& !tail.getTags().contains(BodyPartTag.TAIL_NEVER_SUITABLE_FOR_PENETRATION);
+				
 				if(BodyChanging.getTarget().getTailType() == tail) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
 								+ "<span style='color:"+c.toWebHexString()+";'>"
-									+Util.capitaliseSentence(tail.getTransformName())+(tail.getTags().contains(BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION) || Main.game.isFurryTailPenetrationContentEnabled()?"*":"")
+									+Util.capitaliseSentence(tail.getTransformName())+(suitableForPenetration?"*":"")
 									+(tail.isPrehensile()?"&#8314;":"")
 									+(tail.isOvipositor()?"&deg;":"")
 								+"</span>"
@@ -1109,7 +1127,7 @@ public class CharacterModificationUtils {
 					contentSB.append(
 							"<div id='TAIL_"+TailType.getIdFromTailType(tail)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+c.getShades()[0]+";'>"
-									+Util.capitaliseSentence(tail.getTransformName())+(tail.getTags().contains(BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION) || Main.game.isFurryTailPenetrationContentEnabled()?"*":"")
+									+Util.capitaliseSentence(tail.getTransformName())+(suitableForPenetration?"*":"")
 									+(tail.isPrehensile()?"&#8314;":"")
 									+(tail.isOvipositor()?"&deg;":"")
 								+"</span>"
@@ -2905,7 +2923,7 @@ public class CharacterModificationUtils {
 						+(Main.getProperties().multiBreasts == 0
 						?"<br/>[style.italicsBad(Multi-Breasts are disabled in the content settings!)]"
 						:(Main.getProperties().multiBreasts == 1
-						&& BodyChanging.getTarget().getTorsoType() == TorsoType.HUMAN)
+						&& BodyChanging.getTarget().getBreastType() == BreastType.HUMAN)
 						?"<br/>[style.italicsBad(Multi-Breasts are disabled for humans in the content settings!)]"
 						:"")),
 				"BREAST_ROWS",

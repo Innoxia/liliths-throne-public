@@ -334,8 +334,9 @@ public class BodyChanging {
 	
 	private static boolean isDemonTFMenu() {
 		return !debugMenu
-				&& BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.SLIME
-				&& (BodyChanging.getTarget().getRace()==Race.DEMON
+				&& (BodyChanging.getTarget().getSubspeciesOverride()==Subspecies.IMP
+					|| BodyChanging.getTarget().getSubspeciesOverride()==Subspecies.IMP_ALPHA
+					|| BodyChanging.getTarget().getSubspeciesOverride()==Subspecies.HALF_DEMON
 					|| BodyChanging.getTarget().getSubspeciesOverride()==Subspecies.DEMON
 					|| BodyChanging.getTarget().getSubspeciesOverride()==Subspecies.LILIN
 					|| BodyChanging.getTarget().getSubspeciesOverride()==Subspecies.ELDER_LILIN
@@ -670,12 +671,12 @@ public class BodyChanging {
 					+"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getAgeAppearanceChoiceDiv()
 					+"</div>"
-						
+					
 					+"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformFemininityChoiceDiv()
 						+ CharacterModificationUtils.getHeightChoiceDiv()
 					+"</div>"
-						
+					
 					+ "<div class='cosmetics-container' style='background:transparent;'>"
 						+ CharacterModificationUtils.getBodySizeChoiceDiv()
 						+ CharacterModificationUtils.getMuscleChoiceDiv()
@@ -694,7 +695,7 @@ public class BodyChanging {
 						+ CharacterModificationUtils.getSelfTransformTailLengthDiv()
 						+ CharacterModificationUtils.getSelfTransformTailGirthDiv()
 					+"</div>"
-						
+					
 					+"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformTentacleLengthDiv()
 						+ CharacterModificationUtils.getSelfTransformTentacleGirthDiv()
@@ -1379,7 +1380,7 @@ public class BodyChanging {
 							+ CharacterModificationUtils.getSelfTransformTongueSizeDiv()
 							+ CharacterModificationUtils.getSelfTransformTongueModifiersDiv()
 						+"</div>"
-							
+						
 						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getMouthType().getRace(), BodyChanging.getTarget().getCovering(BodyCoveringType.MOUTH).getType(),
 								"Lip & Throat colour",
 								UtilText.parse(BodyChanging.getTarget(),
@@ -2144,7 +2145,7 @@ public class BodyChanging {
 						overwriteConfirmationName = "";
 						deleteConfirmationName = "";
 						Main.getProperties().setValue(PropertyValue.overwriteWarning, !Main.getProperties().hasValue(PropertyValue.overwriteWarning));
-						Main.getProperties().savePropertiesAsXML();
+						Main.saveProperties();
 					}
 				};
 
@@ -2441,14 +2442,9 @@ public class BodyChanging {
 		if(isDemonTFMenu() || BodyChanging.getTarget().isYouko() || BodyChanging.getTarget() instanceof Elemental) {
 			StringBuilder sb = new StringBuilder();
 			List<String> partsList = new ArrayList<>();
-			//TODO handle half-demons!
-			// .getHalfDemonSubspecies()
-			if(BodyChanging.getTarget().getSubspecies()==Subspecies.HALF_DEMON) {
-				if(body.getRace()==Race.DEMON && body.getSubspecies()!=Subspecies.HALF_DEMON) {
-					return UtilText.parse(BodyChanging.getTarget(), "As [npc.sheIsFull] a half-demon, [npc.name] cannot transform into a full demon!");
-				}
+			if (isHalfDemon() && BodyChanging.getTarget().getHalfDemonSubspecies().getRace() == body.getHalfDemonSubspecies().getRace()) {
+				return "";
 			}
-			
 			for(BodyPartInterface part : body.getAllBodyParts()) {
 				if(!BodyChanging.getTarget().getSelfTransformationRaces().contains(part.getType().getRace())) {
 					if(sb.length()==0) {

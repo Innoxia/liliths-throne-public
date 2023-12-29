@@ -105,6 +105,8 @@ public class SubmissionAttacker extends NPC {
 				this.setBody(gender, randomSpecies, RaceStage.GREATER, true);
 				
 			} else {
+				// Already picked a race, and it's not Slime or Imp as checked above so respect that pick
+				availableRaces = Util.newHashMapOfValues(new Util.Value<>(randomSpecies, 1));
 				this.setBodyFromSubspeciesPreference(gender, availableRaces, true, true);
 			}
 			
@@ -115,8 +117,8 @@ public class SubmissionAttacker extends NPC {
 			if(Math.random()<Main.getProperties().taurSpawnRate/100f
 					&& this.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL) { // Do not reset this character's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
 				// Check for race's leg type as taur, otherwise NPCs which spawn with human legs won't be affected by taur conversion rate:
-				if(this.getRace().getRacialBody().getLegType().isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) {
-					this.setLegType(this.getRace().getRacialBody().getLegType());
+				if(this.getHalfDemonSubspecies().getRace().getRacialBody().getLegType().isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) {
+					this.setLegType(this.getHalfDemonSubspecies().getRace().getRacialBody().getLegType());
 					Main.game.getCharacterUtils().applyTaurConversion(this);
 				}
 			}

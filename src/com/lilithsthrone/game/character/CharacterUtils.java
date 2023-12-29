@@ -2478,7 +2478,10 @@ public class CharacterUtils {
 		// Only bondage fetishists spawn with BDSM clothing:
 		if(character.hasFetish(Fetish.FETISH_BONDAGE_APPLIER)) {
 			maxClothingCount+=1;
-			for(AbstractClothingType ct : ClothingType.getAllClothingInSet(SetBonus.getSetBonusFromId("innoxia_bdsm"))) {
+			List<AbstractClothingType> bondageClothing = ClothingType.getAllClothingInSet(SetBonus.getSetBonusFromId("innoxia_bdsm"));
+			bondageClothing.addAll(ClothingType.getAllClothingInSet(SetBonus.getSetBonusFromId("sage_ltxset")));
+			bondageClothing.remove(ClothingType.getClothingTypeFromId("innoxia_bdsm_metal_collar"));
+			for(AbstractClothingType ct : bondageClothing) {
 				InventorySlot defaultSlot = ct.getEquipSlots().get(0);
 				if(defaultSlot!=InventorySlot.VAGINA && defaultSlot!=InventorySlot.PENIS && defaultSlot!=InventorySlot.ANUS && defaultSlot!=InventorySlot.NIPPLE && defaultSlot!=InventorySlot.GROIN) {
 					availableClothing.add(ct); // Do not add clothing types which are sex toys, as conditionals for those are added in the next logic block

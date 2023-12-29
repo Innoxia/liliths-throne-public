@@ -6167,7 +6167,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public String incrementExperience(int increment, boolean withExtraModifiers) {
-		if (getLevel() == LEVEL_CAP) {
+		if (getLevel() >= LEVEL_CAP) {
 			experience = 0;
 			return "";
 		}
@@ -10481,7 +10481,7 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public String applyLevelDrain(GameCharacter target) {
 		if(target.getTrueLevel()>1) {
-			int exp = target.getExperienceNeededForNextLevel();
+			int exp = target.getTrueLevel()*5;
 			return UtilText.parse(target, this,
 					"<p style='text-align:center; margin:0;'>"
 						+ this.getLevelDrainDescription(target)
@@ -21863,6 +21863,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 
 	public void setLevel(int level) {
+		if (level > LEVEL_CAP) {
+			level = LEVEL_CAP;
+		}
 		this.level = level;
 	}
 
@@ -26256,19 +26259,20 @@ public abstract class GameCharacter implements XMLSaving {
 		if(this.isFeral()) {
 			return Math.min(Height.NEGATIVE_TWO_MINIMUM.getMinimumValue(), (int) (this.getFeralAttributes().getSize()*0.5f));
 		}
-		return this.getSubspecies().isShortStature()
-				?Height.NEGATIVE_TWO_MINIMUM.getMinimumValue()
-				:Height.getShortStatureCutOff();
+		if (this.getSubspecies().isShortStature() || (this.getSubspeciesOverride() != null && this.getSubspeciesOverride().isShortStature())) {
+			return Height.NEGATIVE_TWO_MINIMUM.getMinimumValue();
+		}
+		return Height.getShortStatureCutOff();
 	}
 	
 	public int getMaximumHeight() {
 //		if(this.isFeral()) {
 //			return Math.max(Height.SEVEN_COLOSSAL.getMaximumValue(), (int) (this.getFeralAttributes().getSize()*2f));
 //		}
-
-		return this.getSubspecies().isShortStature()
-				?Height.getShortStatureCutOff()-1
-				:Height.SEVEN_COLOSSAL.getMaximumValue();
+		if (this.getSubspecies().isShortStature() || (this.getSubspeciesOverride() != null && this.getSubspeciesOverride().isShortStature())) {
+			return Height.getShortStatureCutOff()-1;
+		}
+		return Height.SEVEN_COLOSSAL.getMaximumValue();
 	}
 
 	public String setHeight(int height) {

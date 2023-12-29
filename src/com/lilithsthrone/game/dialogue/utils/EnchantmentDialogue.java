@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -320,25 +322,25 @@ public class EnchantmentDialogue {
 												+"<br/>"
 											+"<form style='padding:0; margin:0 0 4px 0; text-align:center;'><input type='text' id='output_name' value='" +UtilText.parseForHTMLDisplay(outputName)+"' style='padding:0;margin:0;width:80%;'></form>"
 								);
-			
+		
+				int cost = 0;
 				if(effects.isEmpty()) {
 					inventorySB.append("<br/><span style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No effects added</span>");
 				} else {
-					int cost = 0;
+					Map<ItemEffect, Integer> effectMap = new HashMap<>();
+					Map<ItemEffect, Integer> ingredientEffectMap = new HashMap<>();
 					
-					for(int it=0; it<effects.size(); it++) {
-						ItemEffect ie = effects.get(it);
-						
-						if(ie.getItemEffectType()==ItemEffectType.CLOTHING
-								|| ie.getItemEffectType()==ItemEffectType.WEAPON
-								|| ie.getItemEffectType()==ItemEffectType.TATTOO) {
-							if(ie.getPrimaryModifier()==TFModifier.CLOTHING_ATTRIBUTE
-									|| ie.getPrimaryModifier()==TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
-								if(ie.getSecondaryModifier()==TFModifier.FERTILITY
-										|| ie.getSecondaryModifier()==TFModifier.VIRILITY) {
+					for (ItemEffect ie : effects) { // All applied effects
+						if (ie.getItemEffectType() == ItemEffectType.CLOTHING
+								|| ie.getItemEffectType() == ItemEffectType.WEAPON
+								|| ie.getItemEffectType() == ItemEffectType.TATTOO) {
+							if (ie.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE
+									|| ie.getPrimaryModifier() == TFModifier.CLOTHING_MAJOR_ATTRIBUTE) {
+								if (ie.getSecondaryModifier() == TFModifier.FERTILITY
+										|| ie.getSecondaryModifier() == TFModifier.VIRILITY) {
 									cost += 0;
-								} else if(ie.getSecondaryModifier()==TFModifier.CORRUPTION) {
-									if(ie.getPotency().isNegative()) {
+								} else if (ie.getSecondaryModifier() == TFModifier.CORRUPTION) {
+									if (ie.getPotency().isNegative()) {
 										cost += Math.abs(ie.getPotency().getClothingBonusValue());
 									}
 								} else {
@@ -346,29 +348,45 @@ public class EnchantmentDialogue {
 								}
 							}
 						}
-						
-						int i=0;
-						for(String s : ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())) {
+						effectMap.put(ie, effectMap.getOrDefault(ie, 0)+1);
+					}
+					for (ItemEffect ie : ingredient.getEffects()) { // Effects before enchanting (used for clothes)
+						ingredientEffectMap.put(ie, ingredientEffectMap.getOrDefault(ie, 0)+1);
+					}
+					
+					boolean alternativeBackground = true;
+					for (Entry<ItemEffect, Integer> entry : effectMap.entrySet()) {
+						int i = 0;
+						for (String s : entry.getKey().getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())) {
 							inventorySB.append(
 									"<div class='container-full-width'"
-											+ " style='background:"+RenderingEngine.getEntryBackgroundColour(it%2==0)+"; width:98%; margin:0 1%; padding:"+(i==0?"2px":"2px "+(ingredient.getEffects().contains(ie)?"64px":"22px")+" 2px 2px")+";'>"
-										+Util.capitaliseSentence(s));
-							if(i==0) {
-								inventorySB.append(
-									(ingredient.getEffects().contains(ie)
-										?"<div class='normal-button' style='width:auto; min-width:64px; height:22px; line-height:22px; font-size:16px; margin:0; padding:0 0 0 4px; float:right; text-align:left;'>"
-												+ "<b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>X</b> "
-												+ (ingredient instanceof Tattoo
-														?UtilText.formatAsMoney(EnchantingUtils.getModifierEffectCost(false, ingredient, ie)*EnchantingUtils.FLAME_COST_MODIFER, "b")
-														:UtilText.formatAsEssences(EnchantingUtils.getModifierEffectCost(false, ingredient, ie), "b", false))
-												+ "<div class='overlay' id='DELETE_EFFECT_"+it+"'></div>"
-											+ "</div>"
-										:"<div class='normal-button' id='DELETE_EFFECT_"+it+"' style='width:22px; height:22px; line-height:22px; font-size:16px; margin:0; padding:0; float:right; color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>"
-											+ "<b>X</b>"
-										+ "</div>"));
+											+" style='background:"+RenderingEngine.getEntryBackgroundColour(alternativeBackground)+"; width:98%; margin:0 1%; padding:"+(i == 0?"2px":"2px "+(ingredient.getEffects().contains(entry.getKey())?"64px":"22px")+" 2px 2px")+";'>"
+											+Util.capitaliseSentence(s));
+							if (entry.getValue() > 1) {
+								inventorySB.append(" x ").append(entry.getValue());
+								inventorySB.append("<div class='normal-button' id='DELETE_ALL_EFFECT_"+effects.indexOf(entry.getKey())+"' style='width:40px; height:22px; line-height:22px; font-size:16px; margin:0; padding:0; float:right; color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>"
+										+"<b>ALL</b>"
+										+"</div>");
+							}
+							if (i == 0) {
+								// Use the costless button for new enchants
+								if (ingredientEffectMap.getOrDefault(entry.getKey(), 0) < entry.getValue()) {
+									inventorySB.append("<div class='normal-button' id='DELETE_EFFECT_"+effects.indexOf(entry.getKey())+"' style='width:40px; height:22px; line-height:22px; font-size:16px; margin:0; padding:0; float:right; color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>"
+											+"<b>ONE</b>"
+											+"</div>");
+								} else {
+									inventorySB.append("<div class='normal-button' style='width:auto; min-width:64px; height:22px; line-height:22px; font-size:16px; margin:0; padding:0 0 0 4px; float:right; text-align:left;'>"
+											+"<b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>ONE</b> "
+											+(ingredient instanceof Tattoo
+											?UtilText.formatAsMoney(EnchantingUtils.getModifierEffectCost(false, ingredient, entry.getKey())*EnchantingUtils.FLAME_COST_MODIFER, "b")
+											:UtilText.formatAsEssences(EnchantingUtils.getModifierEffectCost(false, ingredient, entry.getKey()), "b", false))
+											+"<div class='overlay' id='DELETE_EFFECT_"+effects.indexOf(entry.getKey())+"'></div>"
+											+"</div>");
+								}
 							}
 							inventorySB.append("</div>");
 							i++;
+							alternativeBackground = !alternativeBackground;
 						}
 					}
 					
@@ -812,7 +830,7 @@ public class EnchantmentDialogue {
 						overwriteConfirmationName = "";
 						deleteConfirmationName = "";
 						Main.getProperties().setValue(PropertyValue.overwriteWarning, !Main.getProperties().hasValue(PropertyValue.overwriteWarning));
-						Main.getProperties().savePropertiesAsXML();
+						Main.saveProperties();
 					}
 				};
 
@@ -1186,9 +1204,9 @@ public class EnchantmentDialogue {
 		return true;
 	}
 	
-	public static boolean removeEffect(ItemEffect effect) {
+	public static boolean removeMatchingEffect(int index) {
 		boolean defaultName = EnchantingUtils.getPotionName(EnchantmentDialogue.getIngredient(), EnchantmentDialogue.getEffects()).equalsIgnoreCase(EnchantmentDialogue.getOutputName());
-		boolean removed = getEffects().remove(effect);
+		boolean removed = getEffects().removeAll(Collections.singleton(getEffects().get(index)));
 		
 		if(removed) {
 			if(defaultName) {

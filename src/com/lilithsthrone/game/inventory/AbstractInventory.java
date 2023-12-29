@@ -93,7 +93,11 @@ class AbstractInventory<T extends AbstractCoreItem, U extends AbstractCoreType> 
 	}
 
 	void addItem(T item, int count) {
-		duplicateCounts.merge(item, count, Integer::sum);
+		try {
+			duplicateCounts.merge(item, count, Math::addExact);
+		} catch (ArithmeticException ex) {
+			duplicateCounts.put(item, Integer.MAX_VALUE);
+		}
 	}
 
 	boolean hasItem(T item) {

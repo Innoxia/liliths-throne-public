@@ -69,16 +69,16 @@ public class SpellManagement {
     
     private static Response getResponses1To9(int index) {
     	if(index==1) {
-    		if(Main.game.getCurrentDialogueNode()==CHARACTER_SPELLS_EARTH) {
-    			return new Response("Earth", UtilText.parse(getSpellOwner(), "You are already viewing [npc.namePos] Earth spells!"), null);
+    		if(Main.game.getCurrentDialogueNode()==CHARACTER_SPELLS_WATER) {
+			    return new Response("Water", UtilText.parse(getSpellOwner(), "You are already viewing [npc.namePos] Water spells!"), null);
     		}
-			return new Response("Earth", UtilText.parse(getSpellOwner(), "View [npc.namePos] spells and upgrades in the school of Earth."), CHARACTER_SPELLS_EARTH);
+		    return new Response("Water", UtilText.parse(getSpellOwner(), "View [npc.namePos] spells and upgrades in the school of Water."), CHARACTER_SPELLS_WATER);
 			
 		} else if(index==2) {
-    		if(Main.game.getCurrentDialogueNode()==CHARACTER_SPELLS_WATER) {
-    			return new Response("Water", UtilText.parse(getSpellOwner(), "You are already viewing [npc.namePos] Water spells!"), null);
+    		if(Main.game.getCurrentDialogueNode()==CHARACTER_SPELLS_EARTH) {
+			    return new Response("Earth", UtilText.parse(getSpellOwner(), "You are already viewing [npc.namePos] Earth spells!"), null);
     		}
-			return new Response("Water", UtilText.parse(getSpellOwner(), "View [npc.namePos] spells and upgrades in the school of Water."), CHARACTER_SPELLS_WATER);
+		    return new Response("Earth", UtilText.parse(getSpellOwner(), "View [npc.namePos] spells and upgrades in the school of Earth."), CHARACTER_SPELLS_EARTH);
 			
 		} else if(index==3) {
     		if(Main.game.getCurrentDialogueNode()==CHARACTER_SPELLS_FIRE) {

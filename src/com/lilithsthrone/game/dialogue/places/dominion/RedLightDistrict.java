@@ -14,7 +14,6 @@ import com.lilithsthrone.game.character.npc.dominion.Angel;
 import com.lilithsthrone.game.character.npc.dominion.Bunny;
 import com.lilithsthrone.game.character.npc.dominion.Loppy;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
-import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueManager;
@@ -1219,7 +1218,6 @@ public class RedLightDistrict {
 			for(int j=0; j<grid[0].length; j++) {
 				if(grid[i][j].getPlace().getPlaceType().equals(PlaceType.ANGELS_KISS_BEDROOM)) {
 					List<NPC> charactersPresent = Main.game.getCharactersPresent(WorldType.ANGELS_KISS_GROUND_FLOOR, new Vector2i(i, j));
-					charactersPresent.removeIf(NPC->NPC.getHistory() != Occupation.NPC_PROSTITUTE);
 					if(!charactersPresent.isEmpty()) {
 						prostitutes.add(charactersPresent.get(0));
 					}
@@ -1231,8 +1229,7 @@ public class RedLightDistrict {
 			for(int i = 0; i<grid.length; i++) {
 				for(int j=0; j<grid[0].length; j++) {
 					if(grid[i][j].getPlace().getPlaceType().equals(PlaceType.ANGELS_KISS_BEDROOM)) {
-						List<NPC> charactersPresent = Main.game.getCharactersPresent(WorldType.ANGELS_KISS_GROUND_FLOOR, new Vector2i(i, j));
-						charactersPresent.removeIf(NPC->!NPC.isSlave());
+						List<NPC> charactersPresent = Main.game.getCharactersPresent(WorldType.ANGELS_KISS_FIRST_FLOOR, new Vector2i(i, j));
 						if (!charactersPresent.isEmpty()) {
 							prostitutes.add(charactersPresent.get(0));
 						}
@@ -1243,11 +1240,40 @@ public class RedLightDistrict {
 		return prostitutes;
 	}
 	
+	public static List<NPC> getVisitors() {
+		List<NPC> visitors = new ArrayList<>();
+		Cell[][] grid = Main.game.getWorlds().get(WorldType.ANGELS_KISS_GROUND_FLOOR).getGrid();
+		for(int i = 0; i<grid.length; i++) {
+			for(int j=0; j<grid[0].length; j++) {
+				if(grid[i][j].getPlace().getPlaceType().equals(PlaceType.ANGELS_KISS_BEDROOM)) {
+					List<NPC> charactersPresent = Main.game.getCharactersPresent(WorldType.ANGELS_KISS_GROUND_FLOOR, new Vector2i(i, j));
+					visitors.addAll(charactersPresent);
+				}
+			}
+		}
+		grid = Main.game.getWorlds().get(WorldType.ANGELS_KISS_FIRST_FLOOR).getGrid();
+		for(int i = 0; i<grid.length; i++) {
+			for(int j=0; j<grid[0].length; j++) {
+				if(grid[i][j].getPlace().getPlaceType().equals(PlaceType.ANGELS_KISS_BEDROOM)) {
+					List<NPC> charactersPresent = Main.game.getCharactersPresent(WorldType.ANGELS_KISS_FIRST_FLOOR, new Vector2i(i, j));
+					visitors.addAll(charactersPresent);
+				}
+			}
+		}
+		visitors.removeIf(npc->!(npc instanceof GenericSexualPartner));
+		return visitors;
+	}
+	
 	public static boolean isSpaceForMoreProstitutes() {
 		return getProstitutes(false).size()<10;
 	}
 	
 	public static void prostituteUpdate() {
+		for (NPC visitor : getVisitors()) {
+			if (visitor instanceof GenericSexualPartner) {
+				Main.game.banishNPC(visitor);
+			}
+		}
 		for (NPC prostitute : getProstitutes(true)) {
 			if (Main.game.isLipstickMarkingEnabled()
 					&& !prostitute.isSlave()
@@ -1255,18 +1281,7 @@ public class RedLightDistrict {
 					&& prostitute.getLipstick().getPrimaryColour() != PresetColour.COVERING_NONE) {
 				prostitute.addHeavyMakeup(BodyCoveringType.MAKEUP_LIPSTICK);
 			}
-			
-			List<NPC> charactersPresent = new ArrayList<>(Main.game.getCharactersPresent(prostitute.getWorldLocation(), prostitute.getLocation()));
-			charactersPresent.removeAll(Main.game.getPlayer().getCompanions());
-			charactersPresent.remove(prostitute);
-			if(!charactersPresent.isEmpty()) {
-				for(NPC npc : charactersPresent) {
-					if(npc instanceof GenericSexualPartner) {
-						Main.game.banishNPC(npc);
-					}
-				}
-				
-			} else if(Math.random()<0.33f) { // Add client:
+			if(Math.random()<0.33f) { // Add client:
 				GenericSexualPartner partner = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, false), prostitute.getWorldLocation(), prostitute.getLocation(), false);
 				try {
 					Main.game.addNPC(partner, false, true);

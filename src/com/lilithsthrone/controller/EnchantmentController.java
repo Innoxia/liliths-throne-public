@@ -52,6 +52,12 @@ public class EnchantmentController {
 						new TooltipInformationEventListener().setInformation("Delete Effect", ""),
 						new EnchantmentEventListener().removeEffect(effectCount), false);
 			}
+			id = "DELETE_ALL_EFFECT_"+effectCount;
+			if (MainController.document.getElementById(id) != null) {
+				MainController.addTooltipListeners(id,
+						new TooltipInformationEventListener().setInformation("Delete Effect Stack", ""),
+						new EnchantmentEventListener().removeMatchingEffect(effectCount), false);
+			}
 		}
 		
 		AbstractItemEffectType effect = EnchantmentDialogue.getIngredient().getEnchantmentEffect();
