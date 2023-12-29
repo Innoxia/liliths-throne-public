@@ -1109,11 +1109,15 @@ public class CharacterModificationUtils {
 					c = tail.getRace().getColour();
 				}
 				
+				boolean suitableForPenetration = (tail.getTags().contains(BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION)
+						|| Main.game.isFurryTailPenetrationContentEnabled())
+						&& !tail.getTags().contains(BodyPartTag.TAIL_NEVER_SUITABLE_FOR_PENETRATION);
+				
 				if(BodyChanging.getTarget().getTailType() == tail) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
 								+ "<span style='color:"+c.toWebHexString()+";'>"
-									+Util.capitaliseSentence(tail.getTransformName())+(tail.getTags().contains(BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION) || Main.game.isFurryTailPenetrationContentEnabled()?"*":"")
+									+Util.capitaliseSentence(tail.getTransformName())+(suitableForPenetration?"*":"")
 									+(tail.isPrehensile()?"&#8314;":"")
 									+(tail.isOvipositor()?"&deg;":"")
 								+"</span>"
@@ -1123,7 +1127,7 @@ public class CharacterModificationUtils {
 					contentSB.append(
 							"<div id='TAIL_"+TailType.getIdFromTailType(tail)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+c.getShades()[0]+";'>"
-									+Util.capitaliseSentence(tail.getTransformName())+(tail.getTags().contains(BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION) || Main.game.isFurryTailPenetrationContentEnabled()?"*":"")
+									+Util.capitaliseSentence(tail.getTransformName())+(suitableForPenetration?"*":"")
 									+(tail.isPrehensile()?"&#8314;":"")
 									+(tail.isOvipositor()?"&deg;":"")
 								+"</span>"
