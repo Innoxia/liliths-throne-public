@@ -1096,7 +1096,7 @@ public class OccupancyUtil implements XMLSaving {
 					
 					if(usingRealPartner) {
 						if(Math.random()<0.25f) {
-							partner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, slave.getWorldLocation(), slave.getLocation(), false);
+							partner = new GenericSexualPartner(Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS, slave.getWorldLocation(), slave.getLocation(), false);
 						} else {
 							partner = new GenericSexualPartner(Gender.M_P_MALE, slave.getWorldLocation(), slave.getLocation(), false);
 						}

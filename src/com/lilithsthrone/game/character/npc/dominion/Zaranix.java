@@ -262,7 +262,7 @@ public class Zaranix extends NPC {
 	
 	public void transformFeminine() {
 		this.setAgeAppearanceDifferenceToAppearAsAge(32);
-		this.setBody(Gender.F_P_B_SHEMALE, Subspecies.DEMON, RaceStage.GREATER, false);
+		this.setBody(Gender.F_P_B_PREOP_TRANS_WOMAN, Subspecies.DEMON, RaceStage.GREATER, false);
 		this.setLegType(LegType.DEMON_COMMON);
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setWingType(WingType.NONE);

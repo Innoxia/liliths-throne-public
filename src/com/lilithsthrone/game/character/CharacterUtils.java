@@ -2125,7 +2125,7 @@ public class CharacterUtils {
 			} else {
 				character.setPenisVirgin(true);
 			}
-			if((character.getGender()==Gender.F_P_TRAP || character.getGender()==Gender.N_P_TRAP)) {
+			if((character.getGender()==Gender.F_P_FEMBOY || character.getGender()==Gender.N_P_NONBINARY_FEMBOY)) {
 				float sizeAlteration = (100+Main.getProperties().trapPenisSizePreference)/100f;
 
 				character.setPenisSize(character.getPenisSize().getMinimumValue() + Util.random.nextInt(character.getPenisSize().getMaximumValue() - character.getPenisSize().getMinimumValue()) +1);

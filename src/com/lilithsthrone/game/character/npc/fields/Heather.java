@@ -99,7 +99,7 @@ public class Heather extends NPC {
 				"Heather operates the stall, 'The Third Eye', in Elis's Farmer's market, from which [heather.she] sells potions and enchanted clothing, as well as telling fortunes in exchange for a Faire ticket.",
 				24, Month.MAY, 7,
 				5,
-				Gender.N_P_TRAP, Subspecies.HUMAN, RaceStage.HUMAN,
+				Gender.N_P_NONBINARY_FEMBOY, Subspecies.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_market"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_market_fortunes"),
 				true);

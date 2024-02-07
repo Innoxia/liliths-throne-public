@@ -147,7 +147,7 @@ public class ZaranixMaidKelly extends NPC {
 		// Body:
 		// Add full body reset as this method is called after leaving Zaranix's house:
 		this.setAgeAppearanceDifferenceToAppearAsAge(18);
-		this.setBody(Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER, false);
+		this.setBody(Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS, Subspecies.DEMON, RaceStage.GREATER, false);
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setWingType(WingType.NONE);
 		this.setLegType(LegType.DEMON_COMMON);

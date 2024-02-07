@@ -68,7 +68,7 @@ public class Callie extends NPC {
 		super(isImported, new NameTriplet("Callie"), "Dulce",
 				"Callie is the owner of the bakery, 'The Creamy Bakey', which is to be found in the north-west of Dominion.",
 				26, Month.JUNE, 11,
-				10, Gender.F_P_B_SHEMALE, Subspecies.HORSE_MORPH, RaceStage.PARTIAL_FULL,
+				10, Gender.F_P_B_PREOP_TRANS_WOMAN, Subspecies.HORSE_MORPH, RaceStage.PARTIAL_FULL,
 				new CharacterInventory(250),
 				WorldType.getWorldTypeFromId("nnxx_callie_bakery"), PlaceType.getPlaceTypeFromId("nnxx_callie_bakery_counter"),
 				true);

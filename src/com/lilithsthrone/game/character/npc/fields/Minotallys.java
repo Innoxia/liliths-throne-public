@@ -423,7 +423,7 @@ public class Minotallys extends NPC {
 	}
 	
 	public void setLilinBody() {
-		this.setBody(Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER, false);
+		this.setBody(Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS, Subspecies.DEMON, RaceStage.GREATER, false);
 
 		this.setPiercedEar(true);
 		AbstractClothing earrings = null;

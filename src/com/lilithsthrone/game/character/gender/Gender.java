@@ -23,15 +23,15 @@ public enum Gender {
 	M_P_B_BUSTYBOY(GenderNames.Y_PENIS_N_VAGINA_Y_BREASTS, PronounType.MASCULINE, PresetColour.MASCULINE, ContentPreferenceValue.ZERO_NONE),
 	M_P_MALE(GenderNames.Y_PENIS_N_VAGINA_N_BREASTS, PronounType.MASCULINE, PresetColour.MASCULINE, ContentPreferenceValue.THREE_AVERAGE),
 	M_V_B_BUTCH(GenderNames.N_PENIS_Y_VAGINA_Y_BREASTS, PronounType.MASCULINE, PresetColour.MASCULINE, ContentPreferenceValue.ZERO_NONE),
-	M_V_CUNTBOY(GenderNames.N_PENIS_Y_VAGINA_N_BREASTS, PronounType.MASCULINE, PresetColour.MASCULINE, ContentPreferenceValue.ZERO_NONE),
+	M_V_TRANSMASC_POST_TOP_PRE_BOTTOM(GenderNames.N_PENIS_Y_VAGINA_N_BREASTS, PronounType.MASCULINE, PresetColour.MASCULINE, ContentPreferenceValue.ZERO_NONE),
 	M_B_MANNEQUIN(GenderNames.N_PENIS_N_VAGINA_Y_BREASTS, PronounType.MASCULINE, PresetColour.MASCULINE, ContentPreferenceValue.ZERO_NONE),
 	M_MANNEQUIN(GenderNames.N_PENIS_N_VAGINA_N_BREASTS, PronounType.MASCULINE, PresetColour.MASCULINE, ContentPreferenceValue.ZERO_NONE),
 	
 	// Feminine:
-	F_P_V_B_FUTANARI(GenderNames.Y_PENIS_Y_VAGINA_Y_BREASTS, PronounType.FEMININE, PresetColour.FEMININE, ContentPreferenceValue.ONE_MINIMAL),
-	F_P_V_FUTANARI(GenderNames.Y_PENIS_Y_VAGINA_N_BREASTS, PronounType.FEMININE, PresetColour.FEMININE, ContentPreferenceValue.ZERO_NONE),
-	F_P_B_SHEMALE(GenderNames.Y_PENIS_N_VAGINA_Y_BREASTS, PronounType.FEMININE, PresetColour.FEMININE, ContentPreferenceValue.ZERO_NONE),
-	F_P_TRAP(GenderNames.Y_PENIS_N_VAGINA_N_BREASTS, PronounType.FEMININE, PresetColour.FEMININE, ContentPreferenceValue.ONE_MINIMAL),
+	F_P_V_B_FEMININE_INTERSEX_BOOBS(GenderNames.Y_PENIS_Y_VAGINA_Y_BREASTS, PronounType.FEMININE, PresetColour.FEMININE, ContentPreferenceValue.ONE_MINIMAL),
+	F_P_V_B_FEMININE_INTERSEX(GenderNames.Y_PENIS_Y_VAGINA_N_BREASTS, PronounType.FEMININE, PresetColour.FEMININE, ContentPreferenceValue.ZERO_NONE),
+	F_P_B_PREOP_TRANS_WOMAN(GenderNames.Y_PENIS_N_VAGINA_Y_BREASTS, PronounType.FEMININE, PresetColour.FEMININE, ContentPreferenceValue.ZERO_NONE),
+	F_P_FEMBOY(GenderNames.Y_PENIS_N_VAGINA_N_BREASTS, PronounType.FEMININE, PresetColour.FEMININE, ContentPreferenceValue.ONE_MINIMAL),
 	F_V_B_FEMALE(GenderNames.N_PENIS_Y_VAGINA_Y_BREASTS, PronounType.FEMININE, PresetColour.FEMININE, ContentPreferenceValue.THREE_AVERAGE),
 	F_V_FEMALE(GenderNames.N_PENIS_Y_VAGINA_N_BREASTS, PronounType.FEMININE, PresetColour.FEMININE, ContentPreferenceValue.ZERO_NONE),
 	F_B_DOLL(GenderNames.N_PENIS_N_VAGINA_Y_BREASTS, PronounType.FEMININE, PresetColour.FEMININE, ContentPreferenceValue.ZERO_NONE),
@@ -40,8 +40,8 @@ public enum Gender {
 	// Neutral (treated as feminine for now):
 	N_P_V_B_HERMAPHRODITE(GenderNames.Y_PENIS_Y_VAGINA_Y_BREASTS, PronounType.NEUTRAL, PresetColour.ANDROGYNOUS, ContentPreferenceValue.ZERO_NONE),
 	N_P_V_HERMAPHRODITE(GenderNames.Y_PENIS_Y_VAGINA_N_BREASTS, PronounType.NEUTRAL, PresetColour.ANDROGYNOUS, ContentPreferenceValue.ZERO_NONE),
-	N_P_B_SHEMALE(GenderNames.Y_PENIS_N_VAGINA_Y_BREASTS, PronounType.NEUTRAL, PresetColour.ANDROGYNOUS, ContentPreferenceValue.ZERO_NONE),
-	N_P_TRAP(GenderNames.Y_PENIS_N_VAGINA_N_BREASTS, PronounType.NEUTRAL, PresetColour.ANDROGYNOUS, ContentPreferenceValue.ZERO_NONE),
+	N_P_B_NONBINARY_NONOP_TRANS_WOMAN(GenderNames.Y_PENIS_N_VAGINA_Y_BREASTS, PronounType.NEUTRAL, PresetColour.ANDROGYNOUS, ContentPreferenceValue.ZERO_NONE),
+	N_P_NONBINARY_FEMBOY(GenderNames.Y_PENIS_N_VAGINA_N_BREASTS, PronounType.NEUTRAL, PresetColour.ANDROGYNOUS, ContentPreferenceValue.ZERO_NONE),
 	N_V_B_TOMBOY(GenderNames.N_PENIS_Y_VAGINA_Y_BREASTS, PronounType.NEUTRAL, PresetColour.ANDROGYNOUS, ContentPreferenceValue.ZERO_NONE),
 	N_V_TOMBOY(GenderNames.N_PENIS_Y_VAGINA_N_BREASTS, PronounType.NEUTRAL, PresetColour.ANDROGYNOUS, ContentPreferenceValue.ZERO_NONE),
 	N_B_DOLL(GenderNames.N_PENIS_N_VAGINA_Y_BREASTS, PronounType.NEUTRAL, PresetColour.ANDROGYNOUS, ContentPreferenceValue.ZERO_NONE),
@@ -172,10 +172,10 @@ public enum Gender {
 		if(genderMap.isEmpty()) {
 			if(Math.random()>0.5f || requiresVagina) {
 				if(requiresVagina && requiresPenis) {
-					return Gender.F_P_V_B_FUTANARI;
+					return Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS;
 					
 				} else if(requiresPenis) {
-					return Gender.F_P_B_SHEMALE;
+					return Gender.F_P_B_PREOP_TRANS_WOMAN;
 				}
 				return Gender.F_V_B_FEMALE;
 				

@@ -830,14 +830,14 @@ public class Encounter {
 					
 					try {
 						// Leader (alpha imp):
-						ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI, false);
+						ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS, false);
 						imp.setGenericName("alpha-imp leader");
 						imp.setLevel(8+Util.random.nextInt(5)); // 8-12
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
 						
 						// Alpha imp:
-						imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI, false);
+						imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS, false);
 						imp.setLevel(6+Util.random.nextInt(3)); // 6-8
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);

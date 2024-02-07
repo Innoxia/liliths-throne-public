@@ -165,7 +165,7 @@ public class Natalya extends NPC {
 		
 		// Body:
 		this.setAgeAppearanceDifferenceToAppearAsAge(35);
-		this.setBody(Gender.F_P_B_SHEMALE, Subspecies.DEMON, RaceStage.GREATER, false);
+		this.setBody(Gender.F_P_B_PREOP_TRANS_WOMAN, Subspecies.DEMON, RaceStage.GREATER, false);
 		this.setWingType(WingType.NONE);
 		this.setHornType(HornType.STRAIGHT);
 		this.setHornLength(HornLength.ZERO_TINY.getMedianValue());

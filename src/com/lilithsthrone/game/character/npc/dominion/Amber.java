@@ -193,7 +193,7 @@ public class Amber extends NPC {
 		// Body:
 		// Add full body reset as this method is called after leaving Zaranix's house:
 		this.setAgeAppearanceDifferenceToAppearAsAge(28);
-		this.setBody(Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER, false);
+		this.setBody(Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS, Subspecies.DEMON, RaceStage.GREATER, false);
 		this.setTailType(TailType.DEMON_HAIR_TIP);
 		this.setWingType(WingType.NONE);
 		this.setLegType(LegType.DEMON_COMMON);

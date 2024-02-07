@@ -144,10 +144,10 @@ public class LunetteMelee extends NPC {
 	@Override
 	public void setStartingBody(boolean setPersona) {
 		Gender gender = Util.randomItemFrom(new Gender[] {
-				Gender.F_P_V_B_FUTANARI,
-				Gender.F_P_V_B_FUTANARI,
-				Gender.F_P_B_SHEMALE,
-				Gender.F_P_B_SHEMALE,
+				Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS,
+				Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS,
+				Gender.F_P_B_PREOP_TRANS_WOMAN,
+				Gender.F_P_B_PREOP_TRANS_WOMAN,
 				Gender.F_V_B_FEMALE,
 				Gender.F_V_B_FEMALE,
 		});

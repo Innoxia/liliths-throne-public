@@ -476,7 +476,7 @@ public class DominionExpress {
 			}
 		}
 		if(feminine) {
-			npc = new DominionExpressCentaur(Gender.F_P_B_SHEMALE, collarColour);
+			npc = new DominionExpressCentaur(Gender.F_P_B_PREOP_TRANS_WOMAN, collarColour);
 		} else {
 			npc = new DominionExpressCentaur(Gender.M_P_MALE, collarColour);
 		}

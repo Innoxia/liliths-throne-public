@@ -1231,7 +1231,7 @@ public class Evelyx extends NPC {
 		
 		// Body:
 		princess.setAgeAppearanceDifferenceToAppearAsAge(32);
-		princess.setBody(Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER, false);
+		princess.setBody(Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS, Subspecies.DEMON, RaceStage.GREATER, false);
 		princess.setWingType(WingType.NONE);
 		princess.setHornType(HornType.CURVED);
 		princess.setHornLength(HornLength.THREE_HUGE.getMedianValue());

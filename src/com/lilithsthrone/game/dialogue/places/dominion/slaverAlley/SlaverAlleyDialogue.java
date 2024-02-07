@@ -115,7 +115,7 @@ public class SlaverAlleyDialogue {
 		Main.game.getNpc(Finch.class).removeAllSlaves();
 		
 		// Female stall:
-		Gender[] genders = new Gender[] {Gender.F_V_B_FEMALE, Gender.F_V_B_FEMALE, Gender.F_P_V_B_FUTANARI};
+		Gender[] genders = new Gender[] {Gender.F_V_B_FEMALE, Gender.F_V_B_FEMALE, Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS};
 		for (Gender gender : genders) {
 			NPC slave = new SlaveForSale(gender, false);
 			try {

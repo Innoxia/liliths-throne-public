@@ -6073,7 +6073,7 @@ public class Body implements XMLSaving {
 					if(hasBreasts) {
 						return Gender.M_V_B_BUTCH;
 					} else {
-						return Gender.M_V_CUNTBOY;
+						return Gender.M_V_TRANSMASC_POST_TOP_PRE_BOTTOM;
 					}
 				} else {
 					if(hasBreasts) {
@@ -6095,9 +6095,9 @@ public class Body implements XMLSaving {
 					}
 				} else {
 					if(hasBreasts) {
-						return Gender.N_P_B_SHEMALE;
+						return Gender.N_P_B_NONBINARY_NONOP_TRANS_WOMAN;
 					} else {
-						return Gender.N_P_TRAP;
+						return Gender.N_P_NONBINARY_FEMBOY;
 					}
 				}
 			} else {
@@ -6121,15 +6121,15 @@ public class Body implements XMLSaving {
 			if(hasPenis) {
 				if(hasVagina) {
 					if(hasBreasts) {
-						return Gender.F_P_V_B_FUTANARI;
+						return Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS;
 					} else {
-						return Gender.F_P_V_FUTANARI;
+						return Gender.F_P_V_B_FEMININE_INTERSEX;
 					}
 				} else {
 					if(hasBreasts) {
-						return Gender.F_P_B_SHEMALE;
+						return Gender.F_P_B_PREOP_TRANS_WOMAN;
 					} else {
-						return Gender.F_P_TRAP;
+						return Gender.F_P_FEMBOY;
 					}
 				}
 			} else {
