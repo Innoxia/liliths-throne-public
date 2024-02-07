@@ -90,7 +90,7 @@ public class SlaveAuctionBidder {
 				Subspecies.SQUIRREL_MORPH,
 				Subspecies.WOLF_MORPH);
 		
-		List<Gender> genders = Util.newArrayListOfValues(Gender.F_V_B_FEMALE, Gender.F_P_V_B_FUTANARI, Gender.M_P_MALE);
+		List<Gender> genders = Util.newArrayListOfValues(Gender.F_V_B_FEMALE, Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS, Gender.M_P_MALE);
 		
 		AbstractSubspecies race = Util.randomItemFrom(races);
 		Gender gender = Util.randomItemFrom(genders);

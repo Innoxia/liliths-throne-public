@@ -70,7 +70,7 @@ public class Cultist extends NPC {
 				"",
 				Util.random.nextInt(30)+30, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				15,
-				Gender.F_P_V_B_FUTANARI,
+				Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS,
 				Subspecies.DEMON,
 				RaceStage.GREATER,
 				new CharacterInventory(10),

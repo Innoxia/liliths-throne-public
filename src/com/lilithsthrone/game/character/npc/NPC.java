@@ -1797,7 +1797,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		// Penis:
 		if(body.getPenis().getType()!=PenisType.NONE) {
-			if(this.getGenderPreference()==Gender.F_P_TRAP) {
+			if(this.getGenderPreference()==Gender.F_P_FEMBOY) {
 				body.getPenis().setPenisLength(null, PenisLength.ONE_TINY.getMedianValue());
 				body.getPenis().getTesticle().setTesticleSize(null, TesticleSize.ONE_TINY.getValue());
 				body.getPenis().getTesticle().setCumStorage(null, CumProduction.ONE_TRICKLE.getMedianValue());
@@ -2163,29 +2163,29 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					desiredGenders.put(Gender.M_P_MALE, 14);
 					// maybe it would be appropriate to raise these chances for impregnators?
 					desiredGenders.put(Gender.M_P_V_HERMAPHRODITE, 2);
-					desiredGenders.put(Gender.M_V_CUNTBOY, 2);
-					desiredGenders.put(Gender.F_P_TRAP, 2);
+					desiredGenders.put(Gender.M_V_TRANSMASC_POST_TOP_PRE_BOTTOM, 2);
+					desiredGenders.put(Gender.F_P_FEMBOY, 2);
 				} else {
 					// basic chances of cis-female preference
 					desiredGenders.put(Gender.F_V_B_FEMALE, 14);
 					
 					// increase chances of growing a penis if fetishes increase desirability 
 					if(this.hasVagina() && (this.hasFetish(Fetish.FETISH_PREGNANCY))) {
-						desiredGenders.put(Gender.F_P_V_B_FUTANARI, 4);
-						desiredGenders.put(Gender.F_P_B_SHEMALE, 4);
-						desiredGenders.put(Gender.F_P_TRAP, 4);
+						desiredGenders.put(Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS, 4);
+						desiredGenders.put(Gender.F_P_B_PREOP_TRANS_WOMAN, 4);
+						desiredGenders.put(Gender.F_P_FEMBOY, 4);
 						
 					} else {
-						desiredGenders.put(Gender.F_P_V_B_FUTANARI, 2);
-						desiredGenders.put(Gender.F_P_B_SHEMALE, 2);
-						desiredGenders.put(Gender.F_P_TRAP, 2);
+						desiredGenders.put(Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS, 2);
+						desiredGenders.put(Gender.F_P_B_PREOP_TRANS_WOMAN, 2);
+						desiredGenders.put(Gender.F_P_FEMBOY, 2);
 					};
 					
 					// heavy masculine .getForcedTFTendency() option adds a bit of a chance for masculine preferences here
 					if (Main.getProperties().getForcedTFTendency() == ForcedTFTendency.MASCULINE_HEAVY) {
 						desiredGenders.put(Gender.M_P_V_HERMAPHRODITE, 4);
-						desiredGenders.put(Gender.M_V_CUNTBOY, 4);
-						desiredGenders.put(Gender.F_P_TRAP, 4);
+						desiredGenders.put(Gender.M_V_TRANSMASC_POST_TOP_PRE_BOTTOM, 4);
+						desiredGenders.put(Gender.F_P_FEMBOY, 4);
 						desiredGenders.put(Gender.M_V_B_BUTCH, 4);
 					}
 				}
@@ -2198,14 +2198,14 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				
 				// base chance options regardless of .getForcedTFTendency() option
 				desiredGenders.put(Gender.M_P_V_HERMAPHRODITE, 2);
-				desiredGenders.put(Gender.M_V_CUNTBOY, 2);
+				desiredGenders.put(Gender.M_V_TRANSMASC_POST_TOP_PRE_BOTTOM, 2);
 				
 				// both feminine .getForcedTFTendency() options add decent chances to get some feminine options despite tastes
 				if(Main.getProperties().getForcedTFTendency() == ForcedTFTendency.FEMININE || 
 				   Main.getProperties().getForcedTFTendency() == ForcedTFTendency.FEMININE_HEAVY) {
-					desiredGenders.put(Gender.F_P_V_B_FUTANARI, 2);
-					desiredGenders.put(Gender.F_P_B_SHEMALE, 2);
-					desiredGenders.put(Gender.F_P_TRAP, 2);
+					desiredGenders.put(Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS, 2);
+					desiredGenders.put(Gender.F_P_B_PREOP_TRANS_WOMAN, 2);
+					desiredGenders.put(Gender.F_P_FEMBOY, 2);
 					desiredGenders.put(Gender.M_V_B_BUTCH, 2);
 				}
 				break;
@@ -2213,9 +2213,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				// increase chances of growing a penis if fetishes increase desirability; also, this is a reasonable
 				// base level of feminine options even if .getForcedTFTendency() is heavy male
 				if(this.hasVagina() && (this.hasFetish(Fetish.FETISH_PREGNANCY))) {
-					desiredGenders.put(Gender.F_P_V_B_FUTANARI, 2);
-					desiredGenders.put(Gender.F_P_B_SHEMALE, 2);
-					desiredGenders.put(Gender.F_P_TRAP, 2);
+					desiredGenders.put(Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS, 2);
+					desiredGenders.put(Gender.F_P_B_PREOP_TRANS_WOMAN, 2);
+					desiredGenders.put(Gender.F_P_FEMBOY, 2);
 				// much lower base chance of pure female preference for heavy masculine .getForcedTFTendency()
 				} else if (Main.getProperties().getForcedTFTendency() == ForcedTFTendency.MASCULINE_HEAVY) {
 					desiredGenders.put(Gender.F_V_B_FEMALE, 4);
@@ -2228,9 +2228,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				if(Main.getProperties().getForcedTFTendency() == ForcedTFTendency.MASCULINE || 
 				   Main.getProperties().getForcedTFTendency() == ForcedTFTendency.MASCULINE_HEAVY) {
 					desiredGenders.put(Gender.M_P_V_HERMAPHRODITE, 2);
-					desiredGenders.put(Gender.M_V_CUNTBOY, 2);
+					desiredGenders.put(Gender.M_V_TRANSMASC_POST_TOP_PRE_BOTTOM, 2);
 					desiredGenders.put(Gender.M_V_B_BUTCH, 2);
-					desiredGenders.put(Gender.F_P_TRAP, 2);
+					desiredGenders.put(Gender.F_P_FEMBOY, 2);
 				}
 				break;
 		}

@@ -60,7 +60,7 @@ public class Ashley extends NPC {
 						+ " They are very stand-offish and loathe helping out their customers, to the point where they'd rather stare at the walls instead of offering any help.",
 				200, Month.AUGUST, 14,//TODO
 				10,
-				Gender.N_P_TRAP,
+				Gender.N_P_NONBINARY_FEMBOY,
 				Subspecies.ANGEL,
 				RaceStage.GREATER,
 				new CharacterInventory(10),

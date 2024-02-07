@@ -24796,7 +24796,7 @@ public abstract class GameCharacter implements XMLSaving {
 							isPlayer()
 							?"Due to the fact that both your [pc.vagina] and [pc.penis] are exposed, as well as the fact that you have [pc.breastSize] breasts, everyone can tell that you're [pc.a_gender("+colouredGender+")] on first glance."
 							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, as well as the fact that [npc.sheHasFull] [npc.breastSize] breasts, everyone can tell that [npc.sheIs] [npc.a_gender("+colouredGender+")] on first glance.",
-							Gender.F_P_V_B_FUTANARI);
+							Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS);
 						
 				} else if(visibleVagina) {
 					// Exposed vagina and obvious penis bulge:
@@ -24805,14 +24805,14 @@ public abstract class GameCharacter implements XMLSaving {
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your exposed [pc.vagina] and [pc.breastSize] breasts, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
 								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
-								Gender.F_P_V_B_FUTANARI);
+								Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS);
 						
 					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your exposed [pc.vagina] and [pc.breastSize] breasts, reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
 								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina] and [npc.breastSize] breasts, reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
-								Gender.F_P_V_B_FUTANARI);
+								Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS);
 					}
 					
 					if(hasPenis()) {
@@ -24838,7 +24838,7 @@ public abstract class GameCharacter implements XMLSaving {
 							isPlayer()
 							?"Due to your exposed [pc.penis] and [pc.breastSize] breasts, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
 							:"Due to [npc.her] exposed [npc.penis] and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
-							Gender.F_P_B_SHEMALE);
+							Gender.F_P_B_PREOP_TRANS_WOMAN);
 					
 				} else {
 					// Obvious bulge:
@@ -24847,14 +24847,14 @@ public abstract class GameCharacter implements XMLSaving {
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your feminine appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
 								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.F_P_B_SHEMALE);
+								Gender.F_P_B_PREOP_TRANS_WOMAN);
 						
 					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your feminine appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
 								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.F_P_B_SHEMALE);
+								Gender.F_P_B_PREOP_TRANS_WOMAN);
 					}
 					
 					if(hasPenis()) {
@@ -24899,7 +24899,7 @@ public abstract class GameCharacter implements XMLSaving {
 							isPlayer()
 							?"Due to the fact that both your [pc.vagina] and [pc.penis] are exposed, everyone can tell that you're [pc.a_gender("+colouredGender+")] on first glance."
 							:"Due to the fact that both [npc.her] [npc.vagina] and [npc.penis] are exposed, everyone can tell that [npc.sheIs] [npc.a_gender("+colouredGender+")] on first glance.",
-							Gender.F_P_V_FUTANARI);
+							Gender.F_P_V_B_FEMININE_INTERSEX);
 						
 				} else if(visibleVagina) {
 					// Exposed vagina and obvious penis bulge:
@@ -24908,14 +24908,14 @@ public abstract class GameCharacter implements XMLSaving {
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your exposed [pc.vagina], reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
 								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina], reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
-								Gender.F_P_V_FUTANARI);
+								Gender.F_P_V_B_FEMININE_INTERSEX);
 						
 					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your exposed [pc.vagina], reveals to everyone that you're [pc.a_gender("+colouredGender+")]."
 								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] exposed [npc.vagina], reveals to everyone that [npc.sheIs] [npc.a_gender("+colouredGender+")].",
-								Gender.F_P_V_FUTANARI);
+								Gender.F_P_V_B_FEMININE_INTERSEX);
 					}
 					
 					if(hasPenis()) {
@@ -24941,7 +24941,7 @@ public abstract class GameCharacter implements XMLSaving {
 							isPlayer()
 							?"Due to your exposed [pc.penis], everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
 							:"Due to [npc.her] exposed [npc.penis], everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
-							Gender.F_P_TRAP);
+							Gender.F_P_FEMBOY);
 					
 				} else {
 					// Obvious bulge:
@@ -24950,14 +24950,14 @@ public abstract class GameCharacter implements XMLSaving {
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your feminine appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
 								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.F_P_TRAP);
+								Gender.F_P_FEMBOY);
 						
 					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your feminine appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
 								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] feminine appearance, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.F_P_TRAP);
+								Gender.F_P_FEMBOY);
 					}
 					
 					if(hasPenis()) {
@@ -25046,7 +25046,7 @@ public abstract class GameCharacter implements XMLSaving {
 							isPlayer()
 							?"Due to your exposed [pc.penis] and [pc.breastSize] breasts, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
 							:"Due to [npc.her] exposed [npc.penis] and [npc.breastSize] breasts, everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
-							Gender.N_P_B_SHEMALE);
+							Gender.N_P_B_NONBINARY_NONOP_TRANS_WOMAN);
 					
 				} else {
 					// Obvious bulge:
@@ -25055,14 +25055,14 @@ public abstract class GameCharacter implements XMLSaving {
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your androgynous appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
 								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.N_P_B_SHEMALE);
+								Gender.N_P_B_NONBINARY_NONOP_TRANS_WOMAN);
 						
 					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your androgynous appearance and [pc.breastSize] breasts, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
 								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance and [npc.breastSize] breasts, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.N_P_B_SHEMALE);
+								Gender.N_P_B_NONBINARY_NONOP_TRANS_WOMAN);
 					}
 					
 					if(hasPenis()) {
@@ -25149,7 +25149,7 @@ public abstract class GameCharacter implements XMLSaving {
 							isPlayer()
 							?"Due to your exposed [pc.penis], everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
 							:"Due to [npc.her] exposed [npc.penis], everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
-							Gender.N_P_TRAP);
+							Gender.N_P_NONBINARY_FEMBOY);
 					
 				} else {
 					// Obvious bulge:
@@ -25158,14 +25158,14 @@ public abstract class GameCharacter implements XMLSaving {
 								isPlayer()
 								?"The [pc.cockSize] bulge between your legs, combined with your androgynous appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
 								:"The [npc.cockSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.N_P_TRAP);
+								Gender.N_P_NONBINARY_FEMBOY);
 						
 					} else if (isTesticleBulgeVisible()) {
 						return new GenderAppearance(
 								isPlayer()
 								?"The [pc.ballSize] bulge of your [pc.balls] between your legs, combined with your androgynous appearance, leads everyone to believe that you're [pc.a_appearsAsGender("+colouredGender+")]."
 								:"The [npc.ballSize] bulge between [npc.her] legs, combined with [npc.her] androgynous appearance, leads everyone to believe that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")].",
-								Gender.N_P_TRAP);
+								Gender.N_P_NONBINARY_FEMBOY);
 					}
 					
 					if(hasPenis()) {
@@ -25340,7 +25340,7 @@ public abstract class GameCharacter implements XMLSaving {
 								isPlayer()
 								?"Due to your exposed [pc.vagina], and the fact that your [pc.penis] remains concealed, everyone assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
 								:"Due to [npc.her] exposed [npc.vagina], everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
-								Gender.M_V_CUNTBOY);
+								Gender.M_V_TRANSMASC_POST_TOP_PRE_BOTTOM);
 						
 					} else {
 						// Correctly assume cuntboy:
@@ -25348,7 +25348,7 @@ public abstract class GameCharacter implements XMLSaving {
 								isPlayer()
 								?"Due to your exposed [pc.vagina], everyone correctly assumes that you're [pc.a_appearsAsGender("+colouredGender+")] on first glance."
 								:"Due to [npc.her] exposed [npc.vagina], everyone assumes that [npc.sheIs] [npc.a_appearsAsGender("+colouredGender+")] on first glance.",
-								Gender.M_V_CUNTBOY);
+								Gender.M_V_TRANSMASC_POST_TOP_PRE_BOTTOM);
 					}
 					
 				} else if(visiblePenis) {

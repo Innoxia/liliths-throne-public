@@ -280,7 +280,7 @@ public class PregnancyRoulette {
 								selectedBreeder=null;
 								
 								for(int i=0; i<6; i++) {
-									GenericSexualPartner partner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+									GenericSexualPartner partner = new GenericSexualPartner(Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS, Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 									initBreeder(partner);
 									breeders.add(partner);
 								}
@@ -331,7 +331,7 @@ public class PregnancyRoulette {
 									Main.game.getPlayer().setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_FUTA_PREGNANCY);
 									Main.game.getNpc(Epona.class).setLocation(WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_FUTA_PREGNANCY);
 									for(int i=0; i<5; i++) {
-										GenericSexualPartner partner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+										GenericSexualPartner partner = new GenericSexualPartner(Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS, Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 										initBreeder(partner);
 										breeders.add(partner);
 									}

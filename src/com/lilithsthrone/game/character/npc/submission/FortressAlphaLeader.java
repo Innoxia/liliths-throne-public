@@ -97,7 +97,7 @@ public class FortressAlphaLeader extends NPC {
 				new NameTriplet("Fyrsia", "Fyrsia", "Fyrsia"), "Lilyshamartu",
 				"The leader of one of Submission's imp fortresses, [npc.name] rules over [npc.her] followers with an iron fist, and shows very little respect towards anyone but [npc.her] boss, 'The Dark Siren'...",
 				27, Month.JANUARY, 28,
-				20, Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP, true);
+				20, Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS, Subspecies.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP, true);
 
 		if(!isImported || Main.isVersionOlderThan(Game.loadingVersion, "0.2.11.5")) {
 			this.setPlayerKnowsName(false);

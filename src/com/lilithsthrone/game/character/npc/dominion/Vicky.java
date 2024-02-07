@@ -182,7 +182,7 @@ public class Vicky extends NPC {
 		super(isImported, new NameTriplet("Vicky"), "Haugen",
 				"Vicky is the owner of the shop 'Arcane Arts'. Her manner of staring at anyone who enters her shop is quite unsettling, and you feel as though she's ready to pounce on you at any moment...",
 				37, Month.MAY, 26,
-				10, Gender.F_P_V_B_FUTANARI,
+				10, Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS,
 				Subspecies.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_VICKYS_SHOP, true);
 
 		weaponsForSale = new HashMap<>();

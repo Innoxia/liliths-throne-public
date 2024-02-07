@@ -82,7 +82,7 @@ public class Silvia extends NPC {
 						+ " Being relatively shy and nervous around strangers, Silvia leaves her sister to handle most of the interactions with their stall's customers.",
 				31, Month.MAY, 1,
 				15,
-				Gender.F_P_V_B_FUTANARI, Subspecies.FOX_MORPH, RaceStage.GREATER,
+				Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS, Subspecies.FOX_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_market"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_market_clothing"),
 				true);

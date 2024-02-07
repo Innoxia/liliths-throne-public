@@ -293,8 +293,8 @@ public class Jess extends NPC {
 					this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f1_room_sex"), true);
 					Map<Gender, Integer> genders = Util.newHashMapOfValues(
 							new Value<>(Gender.F_V_B_FEMALE, 40),
-							new Value<>(Gender.F_P_B_SHEMALE, 5),
-							new Value<>(Gender.F_P_V_B_FUTANARI, 5),
+							new Value<>(Gender.F_P_B_PREOP_TRANS_WOMAN, 5),
+							new Value<>(Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS, 5),
 							new Value<>(Gender.M_P_MALE, 50));
 					GenericSexualPartner partner = new GenericSexualPartner(Util.getRandomObjectFromWeightedMap(genders),
 							WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"),

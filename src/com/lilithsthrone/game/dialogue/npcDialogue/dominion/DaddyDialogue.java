@@ -655,7 +655,7 @@ public class DaddyDialogue {
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/dominion/daddy", "DINNER_SUCCUBUS_TF"));
 						Main.game.getNpc(Daddy.class).returnToHome();
-						Main.game.getNpc(Daddy.class).setGenderIdentity(Gender.F_P_B_SHEMALE);
+						Main.game.getNpc(Daddy.class).setGenderIdentity(Gender.F_P_B_PREOP_TRANS_WOMAN);
 						Main.game.getNpc(Daddy.class).setStartingBody(false);
 						Main.game.getNpc(Daddy.class).equipClothing();
 						Main.game.getNpc(Daddy.class).setLocation(Main.game.getPlayer(), false);
@@ -677,7 +677,7 @@ public class DaddyDialogue {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.flirtingWithDaddy, true);
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/dominion/daddy", "DINNER_SUCCUBUS_TF"));
 						Main.game.getNpc(Daddy.class).returnToHome();
-						Main.game.getNpc(Daddy.class).setGenderIdentity(Gender.F_P_B_SHEMALE);
+						Main.game.getNpc(Daddy.class).setGenderIdentity(Gender.F_P_B_PREOP_TRANS_WOMAN);
 						Main.game.getNpc(Daddy.class).setStartingBody(false);
 						Main.game.getNpc(Daddy.class).equipClothing();
 						Main.game.getNpc(Daddy.class).setLocation(Main.game.getPlayer(), false);

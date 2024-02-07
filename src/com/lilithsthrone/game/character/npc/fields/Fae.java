@@ -90,7 +90,7 @@ public class Fae extends NPC {
 						+ " Being far more confident and assertive than her sister, Fae is the one who handles most of the interactions with their stall's customers.",
 				30, Month.JANUARY, 19,
 				15,
-				Gender.F_P_V_B_FUTANARI, Subspecies.FOX_MORPH, RaceStage.GREATER,
+				Gender.F_P_V_B_FEMININE_INTERSEX_BOOBS, Subspecies.FOX_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_market"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_market_clothing"),
 				true);
