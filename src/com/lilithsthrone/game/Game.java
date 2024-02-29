@@ -415,7 +415,7 @@ public class Game implements XMLSaving {
 		characterUtils = new CharacterUtils();
 		OccupantManagementDialogue.resetImportantCells();
 		startingDate = LocalDateTime.of(
-				2019, // LocalDateTime.now().getYear(),
+				2020, // LocalDateTime.now().getYear(),
 				LocalDateTime.now().getMonth(),
 				LocalDateTime.now().getDayOfMonth(),
 				00,
