@@ -1112,24 +1112,29 @@ public class CharacterInventory implements XMLSaving {
 			visibleClothing.add(getClothingInSlot(slot));
 		}
 		
-		if(getInventorySlotsConcealed(character).get(slot)!=null) {
-			visibleClothing.addAll(getInventorySlotsConcealed(character).get(slot));
+		Map<InventorySlot, List<AbstractClothing>> slotsConcealed = getInventorySlotsConcealed(character);
+		if(slotsConcealed.get(slot)!=null) {
+			visibleClothing.addAll(slotsConcealed.get(slot));
 		}
 		
 		if(!visibleClothing.isEmpty()) {
-			List<InventorySlot> slotsToCheck = visibleClothing.stream().map(c -> c.getSlotEquippedTo()).collect(Collectors.toList());
+			Set<InventorySlot> slotsToCheck = visibleClothing.stream().map(AbstractClothing::getSlotEquippedTo).collect(Collectors.toSet());
+			Set<InventorySlot> slotsChecked = new HashSet<>();
 			
 			while(!slotsToCheck.isEmpty()) {
-				for(InventorySlot checkSlot : new ArrayList<>(slotsToCheck)) {
-					List<AbstractClothing> checkClothingSlot = getInventorySlotsConcealed(character).get(checkSlot);
-					if(checkClothingSlot!=null && !checkClothingSlot.isEmpty()) {
-						visibleClothing = visibleClothing.stream().filter(cl -> cl.getSlotEquippedTo()!=checkSlot).collect(Collectors.toList()); // Remove clothing which is concealed
-						for(AbstractClothing c : checkClothingSlot) {
-							visibleClothing.add(c);
+				InventorySlot checkSlot = slotsToCheck.iterator().next();
+				slotsToCheck.remove(checkSlot);
+				slotsChecked.add(checkSlot);
+				
+				List<AbstractClothing> checkClothingSlot = slotsConcealed.get(checkSlot);
+				if(checkClothingSlot!=null && !checkClothingSlot.isEmpty()) {
+					visibleClothing = visibleClothing.stream().filter(cl -> cl.getSlotEquippedTo()!=checkSlot).collect(Collectors.toList()); // Remove clothing which is concealed
+					for(AbstractClothing c : checkClothingSlot) {
+						visibleClothing.add(c);
+						if(!slotsChecked.contains(c.getSlotEquippedTo())) {
 							slotsToCheck.add(c.getSlotEquippedTo());
 						}
 					}
-					slotsToCheck.remove(checkSlot);
 				}
 			}
 		}
