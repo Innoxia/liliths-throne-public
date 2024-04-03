@@ -62,4 +62,12 @@ public enum AlcoholLevel {
 		}
 		return FIVE_WASTED;
 	}
+	
+	public boolean isLessThan(AlcoholLevel level) {
+		return this.getMinimumValue()<level.getMinimumValue();
+	}
+	
+	public boolean isGreaterThan(AlcoholLevel level) {
+		return this.getMinimumValue()>level.getMinimumValue();
+	}
 }

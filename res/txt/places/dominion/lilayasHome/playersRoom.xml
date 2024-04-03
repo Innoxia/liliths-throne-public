@@ -150,4 +150,94 @@
 	]]>
 	</htmlContent>
 	
+	
+	<!-- Sex in player's room: -->
+	
+	<htmlContent tag="BED_SEX_START"><![CDATA[
+	#IF([#SPECIAL_PARSE_0])
+		<p>
+			Before you can react, [npc.name] lowers [npc.herself] down over the top of you, pressing [npc.her] [npc.lips+] against yours and pulling you into a passionate kiss. Breaking it off a moment later, [npc.her] [npc.hands] start to roam down and grope your body as your horny slave [npc.moans], [npc.speech(Don't worry, [pc.name], I'll make this good for you as well...)]
+		</p>
+	#ELSE
+		<p>
+			[#SPECIAL_PARSE_1] had obviously conspired to wait until you'd gone to sleep before pinning you down and having their way with you. Before you can react to the situation, [npc.name] lowers [npc.herself] down over the top of you, pressing [npc.her] [npc.lips+] against yours and pulling you into a passionate kiss. Leaning in on one side of you, [npc2.name] [npc2.moans], [npc2.speech(Don't worry, [pc.name], we'll make this good for you as well...)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BED_SEX_START_SLEEP"><![CDATA[
+	#IF([#SPECIAL_PARSE_0])
+		<p>
+			Before you can react, [npc.name] lowers [npc.herself] down over the top of you, pressing [npc.her] [npc.lips+] against yours and pulling you into a passionate kiss. Breaking it off a moment later, [npc.her] [npc.hands] start to roam down and grope your body as your horny slave [npc.moans], [npc.speech(Don't worry, [pc.name], I'll make this good for you as well...)]
+		</p>
+	#ELSE
+		<p>
+			[#SPECIAL_PARSE_1] had obviously conspired to wait until you'd gone to sleep before pinning you down and having their way with you. Before you can react to the situation, [npc.name] lowers [npc.herself] down over the top of you, pressing [npc.her] [npc.lips+] against yours and pulling you into a passionate kiss. Leaning in on one side of you, [npc2.name] [npc2.moans], [npc2.speech(Don't worry, [pc.name], we'll make this good for you as well...)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POST_WAKE_UP_SEX"><![CDATA[
+	#IF(pc.isAsleep())
+		#IF([#SPECIAL_PARSE_0])
+			<p>
+				Having had [npc.her] fun with you, [npc.name] gently shuffles back and slips off your bed. Letting out a very satisfied sigh, [npc.she] teases, [npc.speech(I knew you wouldn't wake up...)]
+			</p>
+			<p>
+				Completely unaware of what's happening, you snuggle down into your pillow and let out a soft sigh. Being such a deep sleeper, you aren't even close to waking up, and remain totally oblivious to [npc.namePos] presence as [npc.she] quietly slips away.
+			</p>
+			<p>
+				...
+			</p>
+			<p>
+				Some time later, you naturally wake up, and after letting out a yawn and sleepily opening your eyes, you realise that something's not quite right. Your body still feels tired, and with the evidence of fresh sexual fluids on your sheets, you realise that someone must have fucked you in your sleep.
+			</p>
+			<p>
+				Getting out of bed, you wonder whether to do something about your night-time visitor, or to instead simply let [npc.herHim] be...
+			</p>
+		#ELSE
+			<p>
+				Having their fun with you, [#SPECIAL_PARSE_1] gently shuffle back and slip off your bed. Letting out a very satisfied sigh, [npc.name] teases, [npc.speech(I knew [pc.she] wouldn't wake up...)]
+			</p>
+			<p>
+				Completely unaware of what's happening, you snuggle down into your pillow and let out a soft sigh. Being such a deep sleeper, you aren't even close to waking up, and remain totally oblivious to [#SPECIAL_PARSE_1] presence as they quietly slip away.
+			</p>
+			<p>
+				...
+			</p>
+			<p>
+				Some time later, you naturally wake up, and after letting out a yawn and sleepily opening your eyes, you realise that something's not quite right. Your body still feels tired, and with the evidence of fresh sexual fluids on your sheets, you realise that you've been fucked while sleeping.
+			</p>
+			<p>
+				Getting out of bed, you wonder whether to do something about your night-time visitors, or to instead simply let them be...
+			</p>
+		#ENDIF
+	#ELSE
+		#IF([#SPECIAL_PARSE_0])
+			<p>
+				Having had [npc.her] fun with you, [npc.name] allows you to collapse back onto your bed. Letting out a very satisfied sigh, [npc.she] [npc.moans], [npc.speech(See, that was fun for both of us, wasn't it?)]
+			</p>
+			<p>
+				Interpreting your heavy breathing as a positive sign, [npc.name] smiles and asks, [npc.speech(Weren't you meant to be waking up at this time anyway?)]
+			</p>
+			<p>
+				Realising that [npc.sheIs] right, you decide that you'd better get out of bed, and so, after a minute of lying back and catching your breath, you do just that. With a sigh and stretch of your [pc.arms], you allow [npc.name] to assist you as you gather your things, and with one final stretch, you get ready to set out once more...
+			</p>
+		#ELSE
+			<p>
+				Having had their fun with you, [#SPECIAL_PARSE_1] allow you to collapse back onto your bed. Letting out a very satisfied sigh, [npc.name] [npc.moans], [npc.speech(See, that was fun for all of us, wasn't it?)]
+			</p>
+			<p>
+				Interpreting your heavy breathing as a positive sign, [npc2.name] smiles and asks, [npc2.speech(Weren't you meant to be waking up at this time anyway?)]
+			</p>
+			<p>
+				Realising that [npc2.sheIs] right, you decide that you'd better get out of bed, and so, after a minute of lying back and catching your breath, you do just that. With a sigh and stretch of your [pc.arms], you allow [#SPECIAL_PARSE_1] to assist you as you gather your things, and with one final stretch, you get ready to set out once more...
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
 </dialogue>

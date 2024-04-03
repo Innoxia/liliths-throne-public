@@ -22,17 +22,17 @@
 		<colourSecondary/>
 		<colourTertiary/>
 		
+		<statusEffects>
+			<effect seconds="86400">BROODMOTHER_PILL</effect>
+		</statusEffects>
+		
 		<effectTooltipLines>
-			<line><![CDATA[[#ATTRIBUTE_FERTILITY.getFormattedValue(+100)] for 24 hours]]></line>
-			<line><![CDATA[[#ATTRIBUTE_VIRILITY.getFormattedValue(+100)] for 24 hours]]></line>
 			<line><![CDATA[[style.colourExcellent(Doubles)] offspring conceived]]></line>
-			<line><![CDATA[[style.boldBad(Removes status effect:)]]]></line>
-			<line><![CDATA['<i>[#SE_PROMISCUITY_PILL.getName(null)]</i>']]></line>
+			<line><![CDATA[[style.colourExcellent(Disables)] 'menopause' effect]]></line>
 		</effectTooltipLines>
 		
 		<applyEffects><![CDATA[
 			[##npc.removeStatusEffect(SE_PROMISCUITY_PILL)]
-			[##npc.addStatusEffect(SE_BROODMOTHER_PILL, 60*24*60)]
 			<p style='margin-bottom:0; padding-bottom:0;'>
 				As the pill slides down [npc.namePos] throat, [npc.she] [npc.verb(assume)] there's little effect to be felt, but suddenly a powerful cramp takes hold of [npc.her] stomach!
 			</p>
@@ -63,9 +63,6 @@
 				#IF(!npc.hasVagina() && !npc.hasPenisIgnoreDildo())
 					Although the cramp quickly fades away, [npc.sheIs] left thinking that if [npc.she] were to gain a vagina or penis, then [npc.she]'d be able to conceive far more offspring than would normally be possible.
 				#ENDIF
-			</p>
-			<p style='text-align:center; margin-top:0; padding-top:0;'>
-				[style.colourPink([npc.Name] [npc.is] now experiencing <i>'[#SE_BROODMOTHER_PILL.getName(npc)]'</i> for the next 24 hours!)]
 			</p>
 		]]></applyEffects>
 		

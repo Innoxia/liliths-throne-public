@@ -2,6 +2,7 @@ package com.lilithsthrone.world;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -217,11 +218,16 @@ public class World implements XMLSaving {
 		return cells.get(Util.random.nextInt(cells.size()));
 	}
 	
+
+	public Cell getRandomCell(AbstractPlaceType place) {
+		return getRandomCell(place, Util.random);
+	}
+	
 	/**
 	 * @param place The PlaceType to find a Cell of.
 	 * @return A Cell of the PlaceType defined by the argument 'place'. If there are multiple Cells with the same PlaceType, a random one is returned.
 	 */
-	public Cell getRandomCell(AbstractPlaceType place) {
+	public Cell getRandomCell(AbstractPlaceType place, Random random) {
 		List<Cell> corridorCells = new ArrayList<>();
 		for(int i=0; i<grid.length; i++) {
 			for(int j=0; j<grid[0].length; j++) {
@@ -234,7 +240,7 @@ public class World implements XMLSaving {
 			return null;
 		}
 		
-		return corridorCells.get(Util.random.nextInt(corridorCells.size()));
+		return corridorCells.get(random.nextInt(corridorCells.size()));
 	}
 	
 	public Cell[][] getCellGrid() {

@@ -4,7 +4,6 @@
 	<name><![CDATA[staircase]]></name>
 	<tooltipDescription><![CDATA[A narrow staircase leads to the upper floor of 'The Centaur's Sword' tavern.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the staircase at 'The Centaur's Sword' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_GREEN_LIGHT</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

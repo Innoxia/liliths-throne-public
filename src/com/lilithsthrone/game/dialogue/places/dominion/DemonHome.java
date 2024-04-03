@@ -7,6 +7,7 @@ import com.lilithsthrone.game.character.npc.dominion.Felicia;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DaddyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.feliciaApartment.FeliciaApartment;
@@ -28,10 +29,41 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class DemonHome {
     
-        private static Felicia getFelicia() {
-            return ((Felicia)Main.game.getNpc(Felicia.class));
-        }
+    private static Felicia getFelicia() {
+        return ((Felicia)Main.game.getNpc(Felicia.class));
+    }
 	
+    private static String getAdditionalDescriptions() {
+    	StringBuilder sb = new StringBuilder();
+    	
+		if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+			sb.append(
+					"<p>"
+						+ "The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area."
+						+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted area known as Demon Home."
+						+ " There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace..."
+					+ "</p>");
+		}
+
+		if(Main.game.getDateNow().getMonth()==Month.OCTOBER) {
+			sb.append(
+				"<p>"
+					+ "<b style='color:"+PresetColour.BASE_ORANGE.toWebHexString()+";'>October;</b> <b style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month:</b><br/>"
+					+ "Orange, black, and purple flags fly from almost every window, and you look up to see that large banners have been hung across the street, each one bearing a different slogan celebrating Lilith's rule."
+					+ " The occasional demon that you see is usually dressed up in a Halloween-esque costume for the occasion, which does nothing to help alleviate the eerie atmosphere."
+				+ "</p>");
+		}
+		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter) && Main.game.getSeason()==Season.WINTER) {
+			sb.append(
+				"<p>"
+					+ "The reindeer-morph workers are doing a good job of keeping Dominion's streets clear from the snow, but the rooftops, trees, and tops of lamp posts are all home to a thick layer of white."
+					+ " You see your breath exiting your mouth in a little cloud of condensation, but despite the clear evidence of the air's freezing temperature, your arcane aura protects your body from feeling the cold."
+				+ "</p>");
+		}
+		
+		return sb.toString();
+    }
+    
 	public static final DialogueNode DEMON_HOME_GATE = new DialogueNode("Demon Home (Gates)", "Demon Home", false) {
 		
 		@Override
@@ -53,30 +85,7 @@ public class DemonHome {
 						+ " Ignoring their penetrating gaze, you stride forwards, breathing a sigh of relief as you get through to the other side without being stopped."
 					+ "</p>");
 			
-			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-				UtilText.nodeContentSB.append(
-						"<p>"
-							+ "The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area."
-							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted area known as Demon Home."
-							+ " There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace..."
-						+ "</p>");
-			}
-
-			if(Main.game.getDateNow().getMonth()==Month.OCTOBER) {
-				UtilText.nodeContentSB.append(
-					"<p>"
-						+ "<b style='color:"+PresetColour.BASE_ORANGE.toWebHexString()+";'>October;</b> <b style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month:</b><br/>"
-						+ "Orange, black, and purple flags fly from almost every window, and you look up to see that large banners have been hung across the street, each one bearing a different slogan celebrating Lilith's rule."
-						+ " The occasional demon that you see is usually dressed up in a Halloween-esque costume for the occasion, which does nothing to help alleviate the eerie atmosphere."
-					+ "</p>");
-			}
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter) && Main.game.getSeason()==Season.WINTER) {
-				UtilText.nodeContentSB.append(
-					"<p>"
-						+ "The reindeer-morph workers are doing a good job of keeping Dominion's streets clear from the snow, but the rooftops, trees, and tops of lamp posts are all home to a thick layer of white."
-						+ " You see your breath exiting your mouth in a little cloud of condensation, but despite the clear evidence of the air's freezing temperature, your arcane aura protects your body from feeling the cold."
-					+ "</p>");
-			}
+			UtilText.nodeContentSB.append(getAdditionalDescriptions());
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -127,31 +136,8 @@ public class DemonHome {
 							+ "Arthur's apartment building, 'Sawlty Towers', is located in this particular area of Demon Home."
 						+ "</p>");
 			}
-			
-			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-				UtilText.nodeContentSB.append(
-						"<p>"
-							+ "The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area."
-							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted area known as Demon Home."
-							+ " There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace..."
-						+ "</p>");
-			}
 
-			if(Main.game.getDateNow().getMonth()==Month.OCTOBER) {
-				UtilText.nodeContentSB.append(
-					"<p>"
-						+ "<b style='color:"+PresetColour.BASE_ORANGE.toWebHexString()+";'>October;</b> <b style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month:</b><br/>"
-						+ "Orange, black, and purple flags fly from almost every window, and you look up to see that large banners have been hung across the street, each one bearing a different slogan celebrating Lilith's rule."
-						+ " The occasional demon that you see is usually dressed up in a Halloween-esque costume for the occasion, which does nothing to help alleviate the eerie atmosphere."
-					+ "</p>");
-			}
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter) && Main.game.getSeason()==Season.WINTER) {
-				UtilText.nodeContentSB.append(
-					"<p>"
-						+ "The reindeer-morph workers are doing a good job of keeping Dominion's streets clear from the snow, but the rooftops, trees, and tops of lamp posts are all home to a thick layer of white."
-						+ " You see your breath exiting your mouth in a little cloud of condensation, but despite the clear evidence of the air's freezing temperature, your arcane aura protects your body from feeling the cold."
-					+ "</p>");
-			}
+			UtilText.nodeContentSB.append(getAdditionalDescriptions());
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -418,6 +404,44 @@ public class DemonHome {
 				}
 			}
 			return null;
+		}
+	};
+
+	public static final DialogueNode DEMON_HOME_SEX_SHOP = new DialogueNode("", "", false) {
+		@Override
+		public int getSecondsPassed() {
+			return DominionPlaces.TRAVEL_TIME_STREET;
+		}
+		@Override
+		public String getContent() {
+			StringBuilder sb = new StringBuilder();
+			sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "DEMON_HOME_SEX_SHOP"));
+//			sb.append(getAdditionalDescriptions());
+			return sb.toString();
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				if(!Main.game.isHourBetween(11, 23)) {
+					return new Response("Lovienne's Luxuries",
+							"Lovienne's Luxuries is open between [units.time(11)]-[units.time(23)], and as such is currently [style.colourBad(closed)].",
+							null);
+					
+				} else {
+					return new Response("Lovienne's Luxuries",
+							"Push open the front door and enter Lovienne's Luxuries.",
+							DialogueManager.getDialogueFromId("innoxia_places_dominion_sex_shop_generic_enter")) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().setLocation(WorldType.getWorldTypeFromId("innoxia_dominion_sex_shop"), PlaceType.getPlaceTypeFromId("innoxia_dominion_sex_shop_exit"));
+						}
+					};
+					
+				}
+
+			} else {
+				return null;
+			}
 		}
 	};
 }

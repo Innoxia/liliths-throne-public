@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+
+	<coreAtributes>
+	
+		<authorTag><![CDATA[A small tag sewn into the side seam reads "MFD by DSG Threadworks."]]></authorTag>
+
+		<value>500</value> 
+
+		<determiner><![CDATA[a]]></determiner>
+
+		<name><![CDATA[trenchcoat]]></name>
+
+		<namePlural pluralByDefault="false"><![CDATA[trenchcoats]]></namePlural> 
+
+		<description><![CDATA[A knee-length coat secured around the waist and wrists. Designed to keep wind and rain off of the wearer, it is generously sized to fit practically any body type, making it useful in hiding the wearer's identity especially when combined with headwear.]]></description> 
+
+		<physicalResistance>0</physicalResistance> 
+
+		<femininity>ANDROGYNOUS</femininity> 
+
+		<slot>TORSO_OVER</slot> 
+
+		<rarity>COMMON</rarity> 
+
+		<clothingSet/>
+
+		<imageName>trenchcoat.svg</imageName> 
+
+		<imageEquippedName/> 
+
+		<effects/>
+
+		<blockedPartsList> 
+
+			<blockedParts>
+
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessRequired>
+
+				<blockedBodyParts>
+					<bodyPart>BACK</bodyPart>
+					<bodyPart>ARMPITS</bodyPart>
+				</blockedBodyParts>
+				
+				<clothingAccessBlocked>
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessBlocked> 
+
+				<concealedSlots/>
+			</blockedParts>
+
+			<blockedParts>
+				<displacementType>UNBUTTONS</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+
+				<concealedSlots>
+					<slot>CHEST</slot>
+					<slot>NIPPLE</slot>
+					<slot>STOMACH</slot>
+					<slot>PIERCING_STOMACH</slot>
+					<slot>PIERCING_NIPPLE</slot>
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+
+		<incompatibleSlots/> 
+
+		<primaryColours values="ALL"/> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="ALL"/> 
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="ALL_WITH_METALS"/>
+		<tertiaryColoursDye values="ALL_WITH_METALS"/>
+
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAtributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(put)] [npc.her] arms through the trenchcoat's sleeves and [npc.verb(button)] up the front before cinching up the belt.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(help)] [npc2.name] [npc2.verb(put)] [npc2.her] arms through the trenchcoat's sleeves and [npc.verb(button)] up the front before cinching up the belt.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(force)] [npc2.namePos] arms through the trenchcoat's sleeves and hastily [npc.verb(button)] up the front before hastily tightening up the belt.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(uncinch)] the belt and [npc.verb(unbutton)] the front of [npc.her] trenchcoat and [npc.verb(pull)] [npc.her] arms out of the sleeves.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(uncinch)] the belt and [npc.verb(unbutton)] the front of [npc2.namePos] trenchcoat and [npc.verb(help)] [npc2.her] [npc2.verb(pull)] [npc2.her] arms out of the sleeves.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(tear)] at the belt before popping open the buttons on the front of [npc2.namePos] trenchcoat and roughly [npc.verb(pull)] [npc2.her] arms out of the sleeves.]]>
+		</otherRough>
+	</displacementText>
+
+	<replacementText type="UNBUTTONS">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(button)] up the front of [npc.namePos] trenchcoat.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(button)] up the front of [npc2.namePos] trenchcoat.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] hastily [npc.verb(button)] up the front of [npc2.namePos] trenchcoat.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="UNBUTTONS">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] [npc.her] trenchcoat.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unbutton)] [npc2.namePos] trenchcoat.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(pop)] open the buttons on [npc2.namePos] trenchcoat.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

@@ -1,11 +1,13 @@
 package com.lilithsthrone.game.character.markings;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.Litter;
-import com.lilithsthrone.game.character.PregnancyPossibility;
+import com.lilithsthrone.game.character.pregnancy.Litter;
+import com.lilithsthrone.game.character.pregnancy.PregnancyPossibility;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -337,10 +339,21 @@ public enum TattooCounterType {
 		}
 	},
 	
-	PREGNANCY("pregnancy", "Keeps a count of the bearer's completed pregnancies.") {
+	PREGNANCY("pregnancy", "Keeps a count of how many times the bearer has been impregnated.") {
 		@Override
 		public int getCount(GameCharacter bearer) {
-			return bearer.getLittersBirthed().size();
+			return bearer.getLittersBirthed().size() + (bearer.isPregnant()?1:0);
+		}
+	},
+
+	PREGNANCY_PARTNERS("pregnancy partners", "Keeps a count of the number of unique partners with whom the bearer has completed a pregnancy with.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			Set<String> partners = new HashSet<>();
+			for(Litter litter : bearer.getLittersBirthed()) {
+				partners.add(litter.getFatherId());
+			}
+			return partners.size();
 		}
 	},
 	
@@ -349,12 +362,28 @@ public enum TattooCounterType {
 		public int getCount(GameCharacter bearer) {
 			int potentials = 0;
 			for(PregnancyPossibility pp : bearer.getPotentialPartnersAsFather()) {
-				if(Objects.equals(pp.getFather(), bearer)) {
+				if(pp.getMother()!=null && pp.getMother().isPregnant() && Objects.equals(pp.getFather(), bearer)) {
 					potentials++;
 				}
 			}
-			
 			return potentials + bearer.getLittersFathered().size();
+		}
+	},
+
+	IMPREGNATION_PARTNERS("impregnation partners", "Keeps a count of the number of unique partners whom the bearer has impregnated.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			Set<String> potentials = new HashSet<>();
+			for(PregnancyPossibility pp : bearer.getPotentialPartnersAsFather()) {
+				if(pp.getMother()!=null && pp.getMother().isPregnant() && Objects.equals(pp.getFather(), bearer)) {
+					potentials.add(pp.getMotherId());
+				}
+			}
+			Set<String> partners = new HashSet<>();
+			for(Litter litter : bearer.getLittersFathered()) {
+				partners.add(litter.getMotherId());
+			}
+			return potentials.size() + partners.size();
 		}
 	},
 

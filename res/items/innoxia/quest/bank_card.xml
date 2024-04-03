@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>10000</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[platinum Bank of Dominion card]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[platinum Bank of Dominion cards]]></namePlural>
+		<description><![CDATA[A plastic card which declares the holder as possessing a platinum account with the Bank of Dominion, thereby identifying them as a direct descendant of an elder lilin.]]></description> 
+		
+		<useDescriptor>examine</useDescriptor>
+		
+		<sexUse>false</sexUse>
+		<combatUseAllies>false</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>false</consumedOnUse>
+		
+		<rarity>QUEST</rarity> 
+		
+		<imageName>bank_card.svg</imageName> 
+		
+		<colourPrimary>CLOTHING_PLATINUM</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[Grants access to premium banking services]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+		<p>
+			The small print on the front of the card explains that platinum accounts are only given out to direct descendants of elder lilin, and as such your card has been marked to identify you as being of Lyssieth's lineage. It has been verified with three arcane stamps, which glow when the card is in possession of its rightful owner. A warning on the front instructs citizens to immediately notify the nearest Enforcer if the stamps are not glowing.
+		</p>
+		]]></applyEffects>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(take)] a closer look at the bank card...
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(show)] off [npc.her] bank card to [npc2.name], who is duly impressed by [npc.her] possession of it...
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

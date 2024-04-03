@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>DOMINION</worldRegion>
+	<name><![CDATA[Display]]></name>
+	<tooltipDescription><![CDATA[A trio of sex dolls have been stuffed full of toys and ordered to perform a lewd display in this corner of the store.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in Lovienne's Luxuries]]></virginityLossDescription>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<colour>BASE_GOLD</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_dominion_sex_shop_generic_display</dialogue>
+	<populationPresent>
+		<population>
+			<populationType plural="true" density="SEVERAL">SHOPPER</populationType>
+			<subspeciesPresent worldType="DOMINION"/>
+		</population>
+		<population>
+			<populationType plural="false" density="ONE">SECURITY_GUARD</populationType>
+			<subspeciesPresent>
+				<subspecies>HORSE_MORPH</subspecies>
+			</subspeciesPresent>
+		</population>
+		<population>
+			<populationType plural="true" density="TRIO">DOLL</populationType>
+			<subspeciesPresent>
+				<subspecies>DOLL</subspecies>
+			</subspeciesPresent>
+		</population>
+	</populationPresent>
+	<furniturePresent>true</furniturePresent>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>NONE</teleportPermissions>
+	<weatherImmunities immuneToAll="true"/>
+	<applyInventoryInit/>
+</placeType>

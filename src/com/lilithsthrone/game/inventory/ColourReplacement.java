@@ -68,6 +68,10 @@ public class ColourReplacement {
 				this.allColours.add(c);
 			}
 		}
+		// Remove duplicate lime green from index 0:
+		if(allColours.stream().filter(c->c==PresetColour.CLOTHING_GREEN_LIME).count()>1) {
+			allColours.remove(PresetColour.CLOTHING_GREEN_LIME);
+		}
 	}
 
 	public boolean isRecolouringAllowed() {

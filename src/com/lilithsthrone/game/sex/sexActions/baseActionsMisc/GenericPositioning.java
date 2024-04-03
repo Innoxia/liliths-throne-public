@@ -92,7 +92,7 @@ public class GenericPositioning {
 		}
 	};
 	
-	private static boolean checkBaseRequirements(PositioningData data, boolean request) {
+	public static boolean checkBaseRequirements(PositioningData data, boolean request) {
 		for(SexSlot slot : data.getPartnerSlots()) {
 			if(!Main.sex.getInitialSexManager().isSlotAvailable(Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()), slot)) {
 				return false;

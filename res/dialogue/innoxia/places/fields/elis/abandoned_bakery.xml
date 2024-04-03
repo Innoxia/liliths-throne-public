@@ -1,0 +1,970 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<!-- ELIS SCENES: -->
+	
+    <!-- Place type id: innoxia_fields_elis_town_abandoned_bakery -->
+	<scene id="exterior">
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">EXTERIOR</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Explore]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(ENCOUNTER_innoxia_elis_alleyway.isAnyEncounterAvailable())
+						Spend some time exploring the surrounding alleyways to see if you can find anything of interest.
+					#ELSE
+						You get the feeling that you're not going to find anything interesting in the surrounding alleyways, so there's no reason to waste your time exploring...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(ENCOUNTER_innoxia_elis_alleyway.isAnyEncounterAvailable())
+						defaultForceEncounter
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	
+	<!-- ENFORCER MISSION SCENES: -->
+	
+	<scene id="mission_start">
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">MISSION_START</content>
+		<secondsPassed minutes="true"><![CDATA[20]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Geared up]]></responseTitle>
+				<responseTooltip><![CDATA[Wait while Hammer and Ghost get their gear on.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_abandoned_bakery_mission_start_geared_up</nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="mission_start_geared_up">
+		<preParsingEffects><![CDATA[
+			[#hammer.equipOpsGear()]
+			[#ghost.equipOpsGear()]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">MISSION_START_GEARED_UP</content>
+		<secondsPassed minutes="true"><![CDATA[20]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Talk: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Weapons]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_mission_talk_weapons))
+						You've already asked Hammer and Ghost about the weapons they're carrying...
+					#ELSE
+						Ask Hammer and Ghost about the weapons they're carrying.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_mission_talk_weapons))
+						null
+					#ELSE
+						innoxia_places_fields_elis_abandoned_bakery_mission_start_talk
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/abandoned_bakery', 'MISSION_START_TALK_WEAPONS'))]
+					[#flags.setFlag(FLAG_innoxia_sword_mission_talk_weapons, true)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Gang strength]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_mission_talk_gang))
+						You've already asked Hammer and Ghost about what to expect in the gang's hideout...
+					#ELSE
+						Ask Hammer and Ghost about what you should expect in the gang's hideout.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_mission_talk_gang))
+						null
+					#ELSE
+						innoxia_places_fields_elis_abandoned_bakery_mission_start_talk
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/abandoned_bakery', 'MISSION_START_TALK_GANG'))]
+					[#flags.setFlag(FLAG_innoxia_sword_mission_talk_gang, true)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Backup]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_mission_talk_backup))
+						You've already asked Hammer and Ghost if they're going to call on the other SWORD Enforcers for backup...
+					#ELSE
+						Ask Hammer and Ghost if they're going to call on the other SWORD Enforcers for backup.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_mission_talk_backup))
+						null
+					#ELSE
+						innoxia_places_fields_elis_abandoned_bakery_mission_start_talk
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/abandoned_bakery', 'MISSION_START_TALK_BACKUP'))]
+					[#flags.setFlag(FLAG_innoxia_sword_mission_talk_backup, true)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Succubus]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_mission_talk_succubus))
+						You've already asked Hammer and Ghost about what the plan is for when you encounter Angelixx...
+					#ELSE
+						Ask Hammer and Ghost what the plan is for when you encounter Angelixx.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_mission_talk_succubus))
+						null
+					#ELSE
+						innoxia_places_fields_elis_abandoned_bakery_mission_start_talk
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/abandoned_bakery', 'MISSION_START_TALK_SUCCUBUS'))]
+					[#flags.setFlag(FLAG_innoxia_sword_mission_talk_succubus, true)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[SWORD]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_mission_talk_history))
+						You've already asked Hammer and Ghost about SWORD...
+					#ELSE
+						Ask Hammer and Ghost what it's like to be in SWORD.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_mission_talk_history))
+						null
+					#ELSE
+						innoxia_places_fields_elis_abandoned_bakery_mission_start_talk
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/abandoned_bakery', 'MISSION_START_TALK_HISTORY'))]
+					[#flags.setFlag(FLAG_innoxia_sword_mission_talk_history, true)]
+				]]></effects>
+			</response>
+			
+			<!-- Proceed: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Start]]></responseTitle>
+				<responseTooltip><![CDATA[Wait with Hammer and Ghost until the gang's meeting is underway and then start the operation.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_abandoned_bakery_mission_start_wait</nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="mission_start_talk">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(hammer.incrementAffection(pc, 2))]
+			[#game.appendToTextEndStringBuilder(ghost.incrementAffection(pc, 2))]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_abandoned_bakery_mission_start_geared_up"/>
+	</scene>
+	
+	<scene id="mission_start_wait">
+		<preParsingEffects><![CDATA[
+			[#hammer.equipOpsGearHead()]
+			[#ghost.equipOpsGearHead()]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">MISSION_START_WAIT</content>
+		<secondsPassed minutes="true"><![CDATA[
+			[#~~(game.getMinutesUntilTimeInMinutes(1430))]
+		]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Hammer]]></responseTitle>
+				<responseTooltip><![CDATA[Decide to enter the building via the front door with Hammer.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_abandoned_bakery_mission_start_hammer</nextDialogue>
+				<effects><![CDATA[
+					[#hammer.resetBarricade()]
+					[#flags.setFlag(FLAG_innoxia_sword_mission_chose_hammer, true)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Ghost]]></responseTitle>
+				<responseTooltip><![CDATA[Decide to enter the building via the back door with Ghost.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_abandoned_bakery_mission_start_ghost</nextDialogue>
+			</response>
+		</responses>
+	</scene>
+
+	<scene id="mission_start_hammer">
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">MISSION_START_HAMMER</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[Follow Hammer into the bakery.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_abandoned_bakery_f0_exit"/>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_abandoned_bakery_f0, PLACE_TYPE_innoxia_fields_elis_abandoned_bakery_f0_exit)]
+					[#hammer.setLocation(pc)]
+					[#flags.setFlag(FLAG_innoxia_hammer_following, true)]
+					[#ghost.setLocation(WORLD_TYPE_innoxia_fields_elis_abandoned_bakery_f0, PLACE_TYPE_innoxia_fields_elis_abandoned_bakery_f0_back_door)]
+					[#ghost.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_abandoned_bakery_f0_kitchen)]
+					[#game.addNPC('fields.ElisAlleywayAttacker', 'gangMemberGhost1')]
+					[#game.addNPC('fields.ElisAlleywayAttacker', 'gangMemberGhost2')]
+					[#gangMemberGhost1.setLocation(ghost, true)]
+					[#gangMemberGhost2.setLocation(ghost, true)]
+					[#angelixx.setDefeatedName(gangMemberGhost1, true)]
+					[#angelixx.setDefeatedName(gangMemberGhost2, false)]
+					
+					[#game.addNPC('fields.ElisAlleywayAttacker', 'gangMemberGhost3')]
+					[#gangMemberGhost3.setBody(GENDER_M_P_MALE, SUBSPECIES_ALLIGATOR_MORPH, RACE_STAGE_GREATER, true)]
+					[#gangMemberGhost3.setLocation(WORLD_TYPE_innoxia_fields_elis_abandoned_bakery_f0, PLACE_TYPE_innoxia_fields_elis_abandoned_bakery_f0_back_door, true)]
+					[#angelixx.setDefeatedName(gangMemberGhost3, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="mission_start_ghost">
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">MISSION_START_GHOST</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[Follow Ghost into the bakery.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_abandoned_bakery_f0_back_door"/>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_abandoned_bakery_f0, PLACE_TYPE_innoxia_fields_elis_abandoned_bakery_f0_back_door)]
+					[#ghost.setLocation(pc)]
+					[#flags.setFlag(FLAG_innoxia_ghost_following, true)]
+					[#hammer.setLocation(WORLD_TYPE_innoxia_fields_elis_abandoned_bakery_f0, PLACE_TYPE_innoxia_fields_elis_abandoned_bakery_f0_shop_floor)]
+					[#game.addNPC('fields.ElisAlleywayAttacker', 'gangMemberHammer1')]
+					[#game.addNPC('fields.ElisAlleywayAttacker', 'gangMemberHammer2')]
+					[#gangMemberHammer1.setLocation(hammer, true)]
+					[#gangMemberHammer2.setLocation(hammer, true)]
+					[#angelixx.setDefeatedName(gangMemberHammer1, true)]
+					[#angelixx.setDefeatedName(gangMemberHammer2, false)]
+					
+					[#game.addNPC('fields.ElisAlleywayAttacker', 'gangMemberHammer3')]
+					[#gangMemberHammer3.setBody(GENDER_M_P_MALE, SUBSPECIES_CAT_MORPH, RACE_STAGE_GREATER, true)]
+					[#gangMemberHammer3.setLocation(hammer)]
+					[#angelixx.setDefeatedName(gangMemberHammer3, false)]
+					
+					[#game.addNPC('fields.ElisAlleywayAttacker', 'gangMemberGhost3')]
+					[#gangMemberGhost3.setBody(GENDER_M_P_MALE, SUBSPECIES_ALLIGATOR_MORPH, RACE_STAGE_GREATER, true)]
+					[#gangMemberGhost3.setLocation(WORLD_TYPE_innoxia_fields_elis_abandoned_bakery_f0, PLACE_TYPE_innoxia_fields_elis_abandoned_bakery_f0_back_door, true)]
+					[#angelixx.setDefeatedName(gangMemberGhost3, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="mission_combat_won">
+		<preParsingEffects><![CDATA[
+			[#angelixx.setDefeatedNamesPostCombat()]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">MISSION_COMBAT_WON</content>
+		<secondsPassed><![CDATA[60]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Follow
+					#IF(flags.hasFlag(FLAG_innoxia_hammer_following))
+						 Hammer as he continues
+						#IF(flags.hasFlag(FLAG_innoxia_ghost_following))
+						 and Ghost as they continue
+						#ENDIF
+					#ELSE
+						 Ghost as she continues
+					#ENDIF
+					 to clear the gang's hideout.
+				]]></responseTooltip>
+				<nextDialogue>default</nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- This scene really should be impossible to encounter... -->
+	<scene id="mission_combat_lost">
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_innoxia_sword_mission_fought, false)]
+			[#angelixx.setDefeatedNamesPostCombat()]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">MISSION_COMBAT_LOST</content>
+		<secondsPassed><![CDATA[60]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_abandoned_bakery_mission_combat_won"/>
+	</scene>
+	
+	
+	
+	<!-- GROUND FLOOR SCENES: -->
+	
+	<!-- Place type id: innoxia_fields_elis_abandoned_bakery_f0_back_door -->
+	<scene id="back_door">
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">BACK_DOOR</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled><![CDATA[[#!flags.hasFlag(FLAG_innoxia_sword_mission_back_door) && !flags.hasFlag(FLAG_innoxia_hammer_following)]]]></travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_sword_mission_back_door) && !flags.hasFlag(FLAG_innoxia_hammer_following)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Follow]]></responseTitle>
+				<responseTooltip><![CDATA[Follow Ghost into the abandoned bakery.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_abandoned_bakery_f0_back_door"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sword_mission_back_door, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+    <!-- Place type id: innoxia_fields_elis_abandoned_bakery_f0_kitchen -->
+	<scene id="kitchen">
+		<preParsingEffects><![CDATA[
+			#IF(!flags.hasFlag(FLAG_innoxia_sword_mission_kitchen) && !flags.hasFlag(FLAG_innoxia_hammer_following))
+				[#game.addNPC('fields.ElisAlleywayAttacker', 'gangMember1')]
+				[#game.addNPC('fields.ElisAlleywayAttacker', 'gangMember2')]
+				[#angelixx.initGangMember(gangMember1, true)]
+				[#angelixx.initGangMember(gangMember2, false)]
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">KITCHEN</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled><![CDATA[[#(!flags.hasFlag(FLAG_innoxia_sword_mission_kitchen) && !flags.hasFlag(FLAG_innoxia_hammer_following)) || (flags.hasFlag(FLAG_innoxia_hammer_following) && !flags.hasFlag(FLAG_innoxia_ghost_following))]]]></travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_sword_mission_kitchen) && !flags.hasFlag(FLAG_innoxia_hammer_following)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fight]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Join Ghost and help her to fight the gang members.
+				]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sword_mission_kitchen, true)]
+					[#flags.setFlag(FLAG_innoxia_sword_mission_fought, true)]
+				]]></effects>
+				<combatVariables enabled="true">
+					<nextDialoguePlayerVictory><![CDATA[innoxia_places_fields_elis_abandoned_bakery_mission_combat_won]]></nextDialoguePlayerVictory>
+					<nextDialoguePlayerDefeat><![CDATA[innoxia_places_fields_elis_abandoned_bakery_mission_combat_lost]]></nextDialoguePlayerDefeat>
+					<allies companionsAreAllies="true">
+						<ally><![CDATA[ghost]]></ally>
+					</allies>
+					<enemies>
+						<enemy leader="true"><![CDATA[gangMember1]]></enemy>
+						<enemy leader="false"><![CDATA[gangMember2]]></enemy>
+					</enemies>
+					<openingDescriptions>
+						<combatant id="pc"><![CDATA[You decide to give Ghost some backup and move to help her fight the gang members.]]></combatant>
+						<combatant id="ghost"><![CDATA[[ghost.speech(I can handle this myself,)] the [ghost.race] says, before smirking and adding, [ghost.speech(but I guess it'll be quicker this way.)]]]></combatant>
+						<combatant id="gangMember1"><![CDATA[[gangMember1.speech(Who the fuck are you?!)] the gang member demands.]]></combatant>
+						<combatant id="gangMember2"><![CDATA[[gangMember2.speech(They look pretty serious!)] the second gang member calls out to [gangMember2.her] comrade.]]></combatant>
+					</openingDescriptions>
+					<escapeBlocked><![CDATA[true]]></escapeBlocked>
+					<submitBlocked><![CDATA[true]]></submitBlocked>
+				</combatVariables>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_sword_mission_kitchen) && !flags.hasFlag(FLAG_innoxia_hammer_following)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Stay back]]></responseTitle>
+				<responseTooltip><![CDATA[Do as Ghost says and stay back while she takes care of the gang members.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sword_mission_kitchen, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/abandoned_bakery', 'KITCHEN_NO_FIGHT'))]
+				]]></effects>
+			</response>
+			<!-- Linking up with Ghost: -->
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_hammer_following) && !flags.hasFlag(FLAG_innoxia_ghost_following)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Now that you've linked up with Ghost, the three of you need to continue on up to the first floor of the abandoned bakery.]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_ghost_following, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+    <!-- Place type id: innoxia_fields_elis_abandoned_bakery_f0_barricade -->
+	<scene id="barricade">
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">BARRICADE</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Back]]></responseTitle>
+				<responseTooltip><![CDATA[There's no time to dismantle the barricade; head back to find another way around.]]></responseTooltip>
+				<nextDialogue><![CDATA[[#pc.getLastCell().getDialogue(false).getId()]]]></nextDialogue>
+				<secondsPassed><![CDATA[30]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(pc.getLastCell())]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+    <!-- Place type id: innoxia_fields_elis_abandoned_bakery_f0_door -->
+	<scene id="door">
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">DOOR</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+    <!-- Place type id: innoxia_fields_elis_abandoned_bakery_f0_shop_floor -->
+	<scene id="shop_floor">
+		<preParsingEffects><![CDATA[
+			#IF(!flags.hasFlag(FLAG_innoxia_sword_mission_shop_floor) && !flags.hasFlag(FLAG_innoxia_ghost_following))
+				[#game.addNPC('fields.ElisAlleywayAttacker', 'gangMember1')]
+				[#game.addNPC('fields.ElisAlleywayAttacker', 'gangMember2')]
+				[#angelixx.initGangMember(gangMember1, true)]
+				[#angelixx.initGangMember(gangMember2, false)]
+				
+				[#game.addNPC('fields.ElisAlleywayAttacker', 'gangMemberHammer3')]
+				[#gangMemberHammer3.setBody(GENDER_M_P_MALE, SUBSPECIES_CAT_MORPH, RACE_STAGE_GREATER, true)]
+				[#gangMemberHammer3.setLocation(pc, true)]
+				[#gangMemberHammer3.setGenericName('collapsed cat-boy')]
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">SHOP_FLOOR</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled><![CDATA[[#(!flags.hasFlag(FLAG_innoxia_sword_mission_shop_floor) && !flags.hasFlag(FLAG_innoxia_ghost_following)) || (!flags.hasFlag(FLAG_innoxia_hammer_following) && game.getCharactersPresent().contains(hammer))]]]></travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_sword_mission_shop_floor) && !flags.hasFlag(FLAG_innoxia_ghost_following)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fight]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Join Hammer and help him to fight the gang members.
+				]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sword_mission_shop_floor, true)]
+					[#flags.setFlag(FLAG_innoxia_sword_mission_fought, true)]
+				]]></effects>
+				<combatVariables enabled="true">
+					<nextDialoguePlayerVictory><![CDATA[innoxia_places_fields_elis_abandoned_bakery_mission_combat_won]]></nextDialoguePlayerVictory>
+					<nextDialoguePlayerDefeat><![CDATA[innoxia_places_fields_elis_abandoned_bakery_mission_combat_lost]]></nextDialoguePlayerDefeat>
+					<allies companionsAreAllies="true">
+						<ally><![CDATA[hammer]]></ally>
+					</allies>
+					<enemies>
+						<enemy leader="true"><![CDATA[gangMember1]]></enemy>
+						<enemy leader="false"><![CDATA[gangMember2]]></enemy>
+					</enemies>
+					<openingDescriptions>
+						<combatant id="pc"><![CDATA[You decide to give Hammer some backup and move to help him fight the gang members.]]></combatant>
+						<combatant id="hammer"><![CDATA[[hammer.speech(Let's make this quick,)] Hammer grunts, before pointing his shotgun towards the enemy.]]></combatant>
+						<combatant id="gangMember1"><![CDATA[[gangMember1.speech(Who the fuck are you?!)] the gang member demands.]]></combatant>
+						<combatant id="gangMember2"><![CDATA[[gangMember2.speech(They look pretty serious!)] the second gang member calls out to [gangMember2.her] comrade.]]></combatant>
+					</openingDescriptions>
+					<escapeBlocked><![CDATA[true]]></escapeBlocked>
+					<submitBlocked><![CDATA[true]]></submitBlocked>
+				</combatVariables>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_sword_mission_shop_floor) && !flags.hasFlag(FLAG_innoxia_ghost_following)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Stay back]]></responseTitle>
+				<responseTooltip><![CDATA[Do as Hammer says and stay back while he takes care of the gang members.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sword_mission_shop_floor, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/abandoned_bakery', 'SHOP_FLOOR_NO_FIGHT'))]
+				]]></effects>
+			</response>
+			<!-- Linking up with Hammer: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_hammer_following) && game.getCharactersPresent().contains(hammer)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Now that you've linked up with Hammer, the three of you need to continue on up to the first floor of the abandoned bakery.]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_hammer_following, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_abandoned_bakery_f0_exit -->
+	<scene id="exit">
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">EXIT</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled><![CDATA[[#!flags.hasFlag(FLAG_innoxia_sword_mission_exit) && !flags.hasFlag(FLAG_innoxia_ghost_following)]]]></travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_sword_mission_exit) && !flags.hasFlag(FLAG_innoxia_ghost_following)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Follow]]></responseTitle>
+				<responseTooltip><![CDATA[Follow Hammer into the abandoned bakery.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_abandoned_bakery_f0_exit"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sword_mission_exit, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_abandoned_bakery_f0_stairs -->
+	<scene id="stairs">
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">STAIRS</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Upstairs]]></responseTitle>
+				<responseTooltip><![CDATA[Head on up to the first floor of the abandoned bakery.]]></responseTooltip>
+				<nextDialogue stripContent="true">innoxia_places_fields_elis_abandoned_bakery_stairs_top</nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_abandoned_bakery_f1, PLACE_TYPE_innoxia_fields_elis_abandoned_bakery_f1_stairs)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/abandoned_bakery', 'STAIRS_UP'))]
+					[#angelixx.banishGangMembers(0)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- FIRST FLOOR SCENES: -->
+	
+	<!-- Place type id: innoxia_fields_elis_abandoned_bakery_f1_stairs_top -->
+	<scene id="stairs_top">
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">STAIRS_TOP</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_abandoned_bakery_f1_corridor -->
+	<scene id="corridor">
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">CORRIDOR</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_abandoned_bakery_f1_storage -->
+	<scene id="storage">
+		<preParsingEffects><![CDATA[
+			#IF(!flags.hasFlag(FLAG_innoxia_sword_mission_storage))
+				[#game.addNPC('fields.ElisAlleywayAttacker', 'gangMember1')]
+				[#game.addNPC('fields.ElisAlleywayAttacker', 'gangMember2')]
+				[#game.addNPC('fields.ElisAlleywayAttacker', 'gangMember3')]
+				[#angelixx.initGangMember(gangMember1, true)]
+				[#angelixx.initGangMember(gangMember2, false)]
+				[#angelixx.initGangMember(gangMember3, false)]
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">STORAGE</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled><![CDATA[[#!flags.hasFlag(FLAG_innoxia_sword_mission_storage)]]]></travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_sword_mission_storage)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fight]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Join Hammer and Ghost and help them to fight the gang members.
+				]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sword_mission_storage, true)]
+					[#flags.setFlag(FLAG_innoxia_sword_mission_fought, true)]
+				]]></effects>
+				<combatVariables enabled="true">
+					<nextDialoguePlayerVictory><![CDATA[innoxia_places_fields_elis_abandoned_bakery_mission_combat_won]]></nextDialoguePlayerVictory>
+					<nextDialoguePlayerDefeat><![CDATA[innoxia_places_fields_elis_abandoned_bakery_mission_combat_lost]]></nextDialoguePlayerDefeat>
+					<allies companionsAreAllies="true">
+						<ally><![CDATA[hammer]]></ally>
+						<ally><![CDATA[ghost]]></ally>
+					</allies>
+					<enemies>
+						<enemy leader="true"><![CDATA[gangMember1]]></enemy>
+						<enemy leader="false"><![CDATA[gangMember2]]></enemy>
+						<enemy leader="false"><![CDATA[gangMember3]]></enemy>
+					</enemies>
+					<openingDescriptions>
+						<combatant id="pc"><![CDATA[You decide to give Hammer and Ghost some backup and move to help them fight the gang members.]]></combatant>
+						<combatant id="hammer"><![CDATA[[hammer.speech(You're finished,)] Hammer barks as he raises his shotgun towards the nearest gang member.]]></combatant>
+						<combatant id="ghost"><![CDATA[[ghost.speech(This is our territory now,)] Ghost says in an attempt to make it seem like you're from a rival gang.]]></combatant>
+						<combatant id="gangMember1"><![CDATA[[gangMember1.speech(Fuck you!)] [gangMember1.name] shouts.]]></combatant>
+						<combatant id="gangMember2"><![CDATA[[gangMember2.speech(I'll fuck you up!)] [gangMember2.name] roars as [gangMember2.she] rushes forwards.]]></combatant>
+						<combatant id="gangMember3"><![CDATA[[gangMember3.speech(Let's do this!)] [gangMember3.name] cries.]]></combatant>
+					</openingDescriptions>
+					<escapeBlocked><![CDATA[true]]></escapeBlocked>
+					<submitBlocked><![CDATA[true]]></submitBlocked>
+				</combatVariables>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_sword_mission_storage)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Stay back]]></responseTitle>
+				<responseTooltip><![CDATA[Do as Ghost says and stay back while she and Hammer take care of the gang members.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sword_mission_storage, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/abandoned_bakery', 'STORAGE_NO_FIGHT'))]
+				]]></effects>
+			</response>
+			<!-- After beating gang members: -->
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_sword_mission_storage)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Take flames]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_mission_searched_storage))
+						You've already taken the flames which the three gang members were splitting amongst themselves, and there's no time to conduct a more thorough search.
+					#ELSE
+						Take the flames which the three gang members were splitting amongst themselves.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sword_mission_searched_storage))
+						null
+					#ELSE
+						default
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sword_mission_searched_storage, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/abandoned_bakery', 'STORAGE_SEARCH'))]
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(1964))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_abandoned_bakery_f1_bathroom -->
+	<scene id="bathroom">
+		<preParsingEffects><![CDATA[
+			#IF(!flags.hasFlag(FLAG_innoxia_sword_mission_bathroom))
+				[#game.addNPC('fields.ElisAlleywayAttacker', 'gangMember1')]
+				[#gangMember1.setBody(GENDER_M_P_MALE, SUBSPECIES_HORSE_MORPH_DONKEY, RACE_STAGE_GREATER, true)]
+				[#angelixx.initGangMember(gangMember1, true)]
+				
+				#IF(game.isNonConEnabled())
+					[#game.addNPC('misc.GenericSexualPartner', 'victim')]
+					[#angelixx.initVictim(victim, gangMember1)]
+				#ENDIF
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">BATHROOM</content>
+		<secondsPassed><![CDATA[60]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled><![CDATA[[#!flags.hasFlag(FLAG_innoxia_sword_mission_bathroom)]]]></travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_sword_mission_bathroom)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Wait]]></responseTitle>
+				<responseTooltip><![CDATA[Wait while Ghost deals with the gang member.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_abandoned_bakery_bathroom_wait</nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sword_mission_bathroom, true)]
+					[#angelixx.setDefeatedName(gangMember1, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="bathroom_wait">
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">BATHROOM_WAIT</content>
+		<secondsPassed><![CDATA[60]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled><![CDATA[[#game.isNonConEnabled()]]]></travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isNonConEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Captive]]></responseTitle>
+				<responseTooltip><![CDATA[Wait while Hammer releases the captive.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_abandoned_bakery_bathroom_captive</nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#victim.getClothingInSlot(IS_MOUTH).setSealed(false)]
+					[#victim.unequipClothingOntoFloor(victim.getClothingInSlot(IS_MOUTH), true, victim)]
+					[#victim.getClothingInSlot(IS_NECK).setSealed(false)]
+					[#victim.unequipClothingOntoFloor(victim.getClothingInSlot(IS_NECK), true, victim)]
+					
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/abandoned_bakery', 'BATHROOM_CAPTIVE'))]
+					[#game.banishNPC(victim)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="bathroom_captive">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_abandoned_bakery_bathroom"/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_abandoned_bakery_f1_bedroom -->
+	<scene id="bedroom">
+		<preParsingEffects><![CDATA[
+			[#angelixx.setLocation(WORLD_TYPE_innoxia_fields_elis_abandoned_bakery_f1, PLACE_TYPE_innoxia_fields_elis_abandoned_bakery_f1_bedroom)]
+			[#pc.getCell().getInventory().addItem(itemGen.generateItem(ITEM_innoxia_quest_angelixx_diary))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">BEDROOM</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Listen]]></responseTitle>
+				<responseTooltip><![CDATA[Listen to what it is Angelixx has to say.]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_abandoned_bakery_bedroom_angelixx_escape</nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="bedroom_angelixx_escape">
+		<preParsingEffects><![CDATA[
+			[#angelixx.initGangMemberGuards()]
+			[#angelixx.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">BEDROOM_ANGELIXX_ESCAPE</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fight]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Join Hammer and Ghost and help them to fight Angelixx's bodyguards.
+				]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sword_mission_fought, true)]
+				]]></effects>
+				<combatVariables enabled="true">
+					<nextDialoguePlayerVictory><![CDATA[innoxia_places_fields_elis_abandoned_bakery_bedroom_combat_won]]></nextDialoguePlayerVictory>
+					<nextDialoguePlayerDefeat><![CDATA[innoxia_places_fields_elis_abandoned_bakery_bedroom_combat_lost]]></nextDialoguePlayerDefeat>
+					<allies companionsAreAllies="true">
+						<ally><![CDATA[hammer]]></ally>
+						<ally><![CDATA[ghost]]></ally>
+					</allies>
+					<enemies>
+						<enemy leader="true"><![CDATA[sleip]]></enemy>
+						<enemy leader="false"><![CDATA[nir]]></enemy>
+					</enemies>
+					<openingDescriptions>
+						<combatant id="pc"><![CDATA[You decide to give Hammer and Ghost some backup and move to help them fight Angelixx's bodyguards.]]></combatant>
+						<combatant id="hammer"><![CDATA[[hammer.speech(I'll put you down!)] Hammer barks.]]></combatant>
+						<combatant id="ghost"><![CDATA[[ghost.speech(You don't stand a chance,)] Ghost teases.]]></combatant>
+						<combatant id="sleip"><![CDATA[[sleip.speech(Surrender now and I'll go easy on you!)] [sleip.name] shouts.]]></combatant>
+						<combatant id="nir"><![CDATA[[nir.speech(We'll be rewarded for beating you!)] [nir.name] gleefully exclaims.]]></combatant>
+					</openingDescriptions>
+					<escapeBlocked><![CDATA[true]]></escapeBlocked>
+					<submitBlocked><![CDATA[true]]></submitBlocked>
+				</combatVariables>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Stay back]]></responseTitle>
+				<responseTooltip><![CDATA[Do as Ghost says and stay back while she and Hammer take care of the nightmares.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_abandoned_bakery_bedroom_combat_no_fight]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="bedroom_combat_won">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/fields/elis/abandoned_bakery', 'BEDROOM_COMBAT_END'))]
+			[#pc.getCell().getInventory().removeItemByType(ITEM_innoxia_quest_angelixx_diary)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">BEDROOM_COMBAT_WON</content>
+		<secondsPassed><![CDATA[60]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Escape]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Listen to Hammer's escape plan and hope that it can be put into effect before the Enforcers arrive.
+				]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_abandoned_bakery_mission_end</nextDialogue>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_enforcers)]
+					[#hammer.setLocation(pc)]
+					[#ghost.setLocation(pc)]
+					[#angelixx.banishGangMembers(1)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- This scene really should be impossible to encounter... -->
+	<scene id="bedroom_combat_lost">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/fields/elis/abandoned_bakery', 'BEDROOM_COMBAT_END'))]
+			[#pc.getCell().getInventory().removeItemByType(ITEM_innoxia_quest_angelixx_diary)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">BEDROOM_COMBAT_LOST</content>
+		<secondsPassed><![CDATA[60]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_abandoned_bakery_bedroom_combat_won"/>
+	</scene>
+	
+	<scene id="bedroom_combat_no_fight">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/fields/elis/abandoned_bakery', 'BEDROOM_COMBAT_END'))]
+			[#pc.getCell().getInventory().removeItemByType(ITEM_innoxia_quest_angelixx_diary)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">BEDROOM_COMBAT_NO_FIGHT</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_abandoned_bakery_bedroom_combat_won"/>
+	</scene>
+	
+	<scene id="mission_end">
+		<content folderPath="txt/places/fields/elis/abandoned_bakery">MISSION_END</content>
+		<secondsPassed><![CDATA[60]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Part ways]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Say goodbye to Hammer and Ghost and tell them that you'll be back to see them again soon...
+				]]></responseTooltip>
+				<nextDialogue stripContent="true">default</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/abandoned_bakery', 'MISSION_END_CONTINUE'))]
+					
+					[#hammer.equipClothing()]
+					[#ghost.equipClothing()]
+					[#flags.setFlag(FLAG_innoxia_hammer_following, false)]
+					[#flags.setFlag(FLAG_innoxia_ghost_following, false)]
+					[#hammer.returnToHome()]
+					[#ghost.returnToHome()]
+					
+					#IF(flags.hasFlag(FLAG_innoxia_sword_mission_fought) && ghost.getAffection(pc)>=20)
+						[#flags.setFlag(FLAG_innoxia_sword_mission_reward, true)]
+					#ENDIF
+					
+					[#flags.setFlag(FLAG_innoxia_sword_mission_react_needed, true)]
+					
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_MAIN, QUEST_MAIN_3_I_ARION_REPORT))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

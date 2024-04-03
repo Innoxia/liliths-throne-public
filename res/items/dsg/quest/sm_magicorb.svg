@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256">
+    <defs>
+        <linearGradient id="innoGrad4">
+            <stop offset="0" stop-color="#ffd5d5"/>
+            <stop offset="1" stop-color="#ffd5d5" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="innoGrad3">
+            <stop offset="0" stop-color="#ffb380"/>
+            <stop offset="1" stop-color="#f95"/>
+        </linearGradient>
+        <linearGradient id="innoGrad2">
+            <stop offset="0" stop-color="#faa"/>
+            <stop offset="1" stop-color="#ff8080"/>
+        </linearGradient>
+        <linearGradient id="innoGrad1">
+            <stop offset="0" stop-color="#ff8080"/>
+            <stop offset="1" stop-color="#f55"/>
+        </linearGradient>
+        <radialGradient id="radialGradient837" cx="101.037" cy="103.023" r="81.25" fx="101.037" fy="103.023" gradientTransform="translate(-65.026 -60.485) scale(1.51393)" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad2"/>
+        <linearGradient id="linearGradient845" x1="-14.748" x2="2.408" y1="125.564" y2="178.933" gradientTransform="translate(2.31 -88.778) scale(1.51393)" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad1"/>
+        <linearGradient id="linearGradient853" x1="87.003" x2="109.514" y1="94.068" y2="103.446" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad3"/>
+        <radialGradient id="radialGradient837-5" cx="125.023" cy="115.063" r="81.25" fx="125.023" fy="115.063" gradientTransform="matrix(1.17408 0 0 1.17408 -25.867 -24.266)" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad4"/>
+    </defs>
+    <circle cx="128" cy="128" r="122.25" fill="url(#radialGradient837)" stroke="#000" stroke-miterlimit="10" style="font-variant-east_asian:normal"/>
+    <circle cx="128" cy="128" r="122.25" fill="url(#radialGradient837-5)"/>
+    <ellipse cx="-11.399" cy="129.309" fill="#ff2a2a" stroke="#000" stroke-miterlimit="10" rx="68.128" ry="63.397" transform="rotate(-48.563)"/>
+    <ellipse cx="-10.925" cy="131.601" fill="url(#linearGradient845)" stroke="#000" stroke-miterlimit="10" rx="63.697" ry="58.979" transform="rotate(-48.563)"/>
+    <path fill="url(#linearGradient853)" stroke="#000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width=".661" d="M73.696 109.761l29.322-36.193 12.632 44.835z" transform="translate(-56.405 -52.273) scale(1.51393)"/>
+</svg>

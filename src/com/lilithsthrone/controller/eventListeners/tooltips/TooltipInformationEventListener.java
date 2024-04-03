@@ -136,7 +136,7 @@ public class TooltipInformationEventListener implements EventListener {
 				for(Value<Integer, String> value : additionalDescriptions) {
 					yIncrease += 1 + value.getKey();
 				}
-				spacingHeight += additionalDescriptions.size() * 4;
+				spacingHeight += 12 * additionalDescriptions.size();
 			}
 				
 			Main.mainController.setTooltipSize(360, 278 + spacingHeight + (yIncrease * LINE_HEIGHT));
@@ -159,7 +159,11 @@ public class TooltipInformationEventListener implements EventListener {
 					}
 				} else {
 					tooltipSB.append("<p style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>");
-					tooltipSB.append(UtilText.parse(owner, "You don't know enough about [npc.racePlural] to know [npc.namePos] strengths and weaknesses...</p>"));
+					if(owner.isRaceConcealed()) {
+						tooltipSB.append(UtilText.parse(owner, "You don't know what [npc.namePos] race is, so can't know [npc.her] strengths and weaknesses...</p>"));
+					} else {
+						tooltipSB.append(UtilText.parse(owner, "You don't know enough about [npc.racePlural] to know [npc.her] strengths and weaknesses...</p>"));
+					}
 					effectsFound = true;
 				}
 				for (AbstractCombatMove cm : statusEffect.getCombatMoves()) {
@@ -186,7 +190,8 @@ public class TooltipInformationEventListener implements EventListener {
 			
 			if(additionalDescriptions!=null && !additionalDescriptions.isEmpty()) {
 				for(Value<Integer, String> desc : additionalDescriptions) {
-					tooltipSB.append("<div class='description' style='text-align:center; line-height:"+LINE_HEIGHT+"px; height:"+(16+(desc.getKey()*LINE_HEIGHT))+"px'>"
+					int heightString = 16+(desc.getKey()*LINE_HEIGHT);
+					tooltipSB.append("<div class='description' style='text-align:center; line-height:"+LINE_HEIGHT+"px; min-height:"+heightString+"px;height:"+heightString+"px;'>"
 							+ desc.getValue()
 						+ "</div>");
 				}
@@ -281,8 +286,9 @@ public class TooltipInformationEventListener implements EventListener {
 					tooltipSB.append((i!=0?"<br/>":"") + s);
 					i++;
 				}
-			} else
+			} else {
 				tooltipSB.append("<b style='color:" + PresetColour.PERK.toWebHexString() + ";'>Perk</b>" + "<br/><span style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>None</span>");
+			}
 			tooltipSB.append("</div>");
 
 			// Picture:
@@ -864,7 +870,8 @@ public class TooltipInformationEventListener implements EventListener {
 				} else {
 					CachedImage image = null;
 					boolean displayImage = Main.getProperties().hasValue(PropertyValue.thumbnail)
-							&& Main.getProperties().hasValue(PropertyValue.artwork);
+							&& Main.getProperties().hasValue(PropertyValue.artwork)
+							&& (!owner.isElemental() || ((Elemental)owner).isActive());
 					if (displayImage) {
 						if (owner.hasArtwork()) {
 							image = ImageCache.INSTANCE.requestImage(owner.getCurrentArtwork().getCurrentImage());
@@ -895,6 +902,7 @@ public class TooltipInformationEventListener implements EventListener {
 
 					Main.mainController.setTooltipSize(dimensions[0], dimensions[1]);
 					
+					boolean showWinged = (owner.hasWings() || owner.isArmWings()) && !owner.getFleshSubspecies().isWinged();
 					tooltipSB.setLength(0);
 					tooltipSB.append("<div class='title' style='color:" + owner.getRace().getColour().toWebHexString() + ";'>"
 							+(owner.getRaceStage().getName()!=""
@@ -902,8 +910,8 @@ public class TooltipInformationEventListener implements EventListener {
 								:"")
 							+ "<b style='color:"+owner.getSubspecies().getColour(owner).toWebHexString()+";'>"
 								+ (owner.isFeminine()
-										?Util.capitaliseSentence(owner.getSubspecies().getSingularFemaleName(owner.getBody()))
-										:Util.capitaliseSentence(owner.getSubspecies().getSingularMaleName(owner.getBody())))
+										?Util.capitaliseSentence((showWinged ? "winged " : "") + owner.getSubspecies().getSingularFemaleName(owner.getBody()))
+										:Util.capitaliseSentence((showWinged ? "winged " : "") + owner.getSubspecies().getSingularMaleName(owner.getBody())))
 							+ "</b>"
 							+ "</div>");
 					
@@ -982,9 +990,14 @@ public class TooltipInformationEventListener implements EventListener {
 						if (owner.getHairRawLengthValue() == 0 && owner.isFaceBaldnessNatural()) {
 							tooltipSB.append(getEmptyBodyPartDiv("Hair", "None"));
 						} else {
-							tooltipSB.append(getBodyPartDiv(owner, Util.capitaliseSentence(owner.getHairLength().getDescriptor())+" "+owner.getHairStyle().getName(owner)+" "+owner.getHairName(), owner.getHairRace(), owner.getHairCovering(), owner.isHairFeral()));
+							tooltipSB.append(getBodyPartDiv(owner,
+									Util.capitaliseSentence(owner.getHairLength().getDescriptor())+" "+owner.getHairStyle().getName(owner)+" "+owner.getHairName(), owner.getHairRace(), owner.getHairCovering(), owner.isHairFeral()));
 						}
-						tooltipSB.append(getBodyPartDiv(owner, Util.capitaliseSentence(Util.intToString(owner.getEyePairs()*2))+" eyes", owner.getEyeRace(), owner.getEyeCovering(), owner.isEyeFeral()));
+						if(!owner.isPlayer() && !owner.isAreaKnownByCharacter(CoverableArea.EYES, Main.game.getPlayer())) {
+							tooltipSB.append(getEmptyBodyPartDiv("Eyes", "Unknown!"));
+						} else {
+							tooltipSB.append(getBodyPartDiv(owner, Util.capitaliseSentence(Util.intToString(owner.getEyePairs()*2))+" eyes", owner.getEyeRace(), owner.getEyeCovering(), owner.isEyeFeral()));
+						}
 						tooltipSB.append(getBodyPartDiv(owner, "Ears", owner.getEarRace(), owner.getEarCovering(), owner.isEarFeral()));
 						tooltipSB.append(getBodyPartDiv(owner, "Tongue", owner.getTongueRace(), owner.getTongueCovering(), owner.isTongueFeral()));
 						if (owner.getHornType() != HornType.NONE) {
@@ -1344,7 +1357,7 @@ public class TooltipInformationEventListener implements EventListener {
 										:"This slot is currently hidden from view by [npc.namePos] <b>"+Util.clothesToStringList(clothingVisible, false)+"</b>.")))
 					+ "</div>"));
 			
-		} else if(slaveJob!=null) {
+		} else if(slaveJob!=null) {//TODO
 			int yIncrease = 0;
 
 			// Title:
@@ -1353,19 +1366,23 @@ public class TooltipInformationEventListener implements EventListener {
 								+ Util.capitaliseSentence(slaveJob.getName(owner))
 							+ "</div>");
 
-			tooltipSB.append("<div class='description' style='height:28px; text-align:center;'>"
+			tooltipSB.append("<div class='description' style='min-height:28px; height:28px; text-align:center;'>"
 								+ "[style.boldStamina(Hourly Stamina Cost:)]"
-								+ (slaveJob.getHourlyStaminaDrain()>0
+								+ (slaveJob.getHourlyStaminaDrain(owner)>0
 										?" [style.boldBad("
-										:" [style.boldGood(")+slaveJob.getHourlyStaminaDrain()+")]"
+										:" [style.boldGood(")+slaveJob.getHourlyStaminaDrain(owner)+")]"
 							+ "</div>");
 			
-			tooltipSB.append("<div class='description' style='height:64px'>"
-								+ slaveJob.getDescription()
-							+ "</div>");
+			tooltipSB.append("<div class='description' style='min-height:64px; height:64px;'>");
+				tooltipSB.append(slaveJob.getDescription());
+				if(slaveJob==SlaveJob.IDLE) {
+					tooltipSB.append("<br/>");
+					tooltipSB.append("The idle hours in which this slave will choose to sleep will be marked with [style.colourSleep(zzZ)].");
+				}
+			tooltipSB.append("</div>");
 
 			for(SlaveJobFlag flag : slaveJob.getFlags()) {
-				tooltipSB.append("<div class='description' style='height:48px'>"
+				tooltipSB.append("<div class='description' style='min-height:48px; height:48px;'>"
 									+ "<b style='color:"+flag.getColour().toWebHexString()+";'>"+flag.getName()+":</b> "+flag.getDescription()
 								+ "</div>");
 				yIncrease++;
@@ -1588,13 +1605,13 @@ public class TooltipInformationEventListener implements EventListener {
 			
 			tooltipSB.append(getBodyPartDiv(loadedBody, "Torso", loadedBody.getTorso(),
 					"<span>"
-					+(feral && !loadedBody.getSubspecies().getFeralAttributes().isSizeHeight()
+					+(feral && !loadedBody.getSubspecies().getFeralAttributes(loadedBody).isSizeHeight()
 						?"Length: [unit.sizeShort(" + (loadedBody.getHeightValue())+ ")]</span>"
 						:"Height: [unit.sizeShort(" + loadedBody.getHeightValue() + ")]</span>")));
 			
 			
 			// LESSER:
-			if(feral && !loadedBody.getSubspecies().getFeralAttributes().isArmsOrWingsPresent() && loadedBody.getLegConfiguration()!=LegConfiguration.AVIAN) {
+			if(feral && !loadedBody.getSubspecies().getFeralAttributes(loadedBody).isArmsOrWingsPresent() && loadedBody.getLegConfiguration()!=LegConfiguration.AVIAN) {
 				tooltipSB.append(getEmptyBodyPartDiv("Arms", "None"));
 			} else {
 				tooltipSB.append(getBodyPartDiv(loadedBody, Util.capitaliseSentence(Util.intToString(loadedBody.getArm().getArmRows()*2))+" arms", loadedBody.getArm()));
@@ -1679,7 +1696,7 @@ public class TooltipInformationEventListener implements EventListener {
 			
 			tooltipSB.append(getBodyPartDiv(loadedBody, "Anus", loadedBody.getAss().getAnus()));
 			
-			if(feral && !loadedBody.getSubspecies().getFeralAttributes().isBreastsPresent()) {
+			if(feral && !loadedBody.getSubspecies().getFeralAttributes(loadedBody).isBreastsPresent()) {
 				tooltipSB.append(getEmptyBodyPartDiv("Nipples (Breasts)", "None"));
 			} else {
 				tooltipSB.append(getBodyPartDiv(loadedBody, "Nipples",

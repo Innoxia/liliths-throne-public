@@ -13,8 +13,8 @@ public enum GenderNames {
 	Y_PENIS_N_VAGINA_N_BREASTS(true, false, false, "trap", "trap", "male"),
 	N_PENIS_Y_VAGINA_Y_BREASTS(false, true, true, "female", "tomboy",  "butch"),
 	N_PENIS_Y_VAGINA_N_BREASTS(false, true, false, "female", "tomboy", "cuntboy"),
-	N_PENIS_N_VAGINA_Y_BREASTS(false, false, true, "doll", "neuter", "mannequin"),
-	N_PENIS_N_VAGINA_N_BREASTS(false, false, false, "doll", "neuter", "mannequin");
+	N_PENIS_N_VAGINA_Y_BREASTS(false, false, true, "mannequin", "neuter", "mannequin"),
+	N_PENIS_N_VAGINA_N_BREASTS(false, false, false, "mannequin", "neuter", "mannequin");
 	
 	
 	private boolean hasPenis, hasVagina, hasBreasts;

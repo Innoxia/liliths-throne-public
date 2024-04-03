@@ -181,9 +181,9 @@ public class DominionExpressCentaur extends NPC {
 		
 		if(this.isFeminine()) {
 			if(Math.random()<0.5f) {
-				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_TUBE_TOP, false), true, this);
+				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_tube_top", false), true, this);
 			} else {
-				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_SPORTS_BRA, false), true, this);
+				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_sports_bra", false), true, this);
 			}
 		}
 	}
@@ -208,13 +208,11 @@ public class DominionExpressCentaur extends NPC {
 	}
 
 	@Override
-	public void hourlyUpdate() {
-		if(Main.game.isExtendedWorkTime() && !Main.game.getCharactersPresent().contains(this)) {
-			if(Math.random()<0.8f) {
-				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
-			} else {
-				this.returnToHome();
-			}
+	public void hourlyUpdate(int hour) {
+		if((hour>=6 && hour<22) // extended work time
+				&& !Main.game.getCharactersPresent().contains(this)
+				&& Math.random()<0.8f) {
+			this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 		} else {
 			this.returnToHome();
 		}

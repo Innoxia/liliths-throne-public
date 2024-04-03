@@ -4,7 +4,6 @@
 	<name><![CDATA[Woolly Heaven]]></name>
 	<tooltipDescription><![CDATA[This massage parlour is staffed exclusively by sheep and goat girls, who promise to work out all of the stress from their clients.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the 'Woolly Heaven' massage parlour]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_AQUA</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

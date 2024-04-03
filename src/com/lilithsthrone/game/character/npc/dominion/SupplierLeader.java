@@ -73,11 +73,9 @@ public class SupplierLeader extends NPC {
 				WorldType.TEXTILES_WAREHOUSE,
 				PlaceType.TEXTILE_WAREHOUSE_OVERSEER_STATION,
 				true);
-		
 		if(!isImported) {
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 25);
 		}
-		
 	}
 	
 	@Override

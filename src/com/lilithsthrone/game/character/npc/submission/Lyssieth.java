@@ -223,7 +223,7 @@ public class Lyssieth extends NPC {
 		
 		// Body:
 		this.setSubspeciesOverride(Subspecies.ELDER_LILIN);
-		this.setAgeAppearanceDifferenceToAppearAsAge(45);
+		this.setAgeAppearanceAbsolute(45);
 //		this.setTailType(TailType.DEMON_COMMON);
 //		this.setWingType(WingType.DEMON_COMMON);
 //		this.setHornType(HornType.CURLED);
@@ -965,7 +965,7 @@ public class Lyssieth extends NPC {
 		
 		// Body:
 		this.setSubspeciesOverride(Subspecies.ELDER_LILIN);
-		this.setAgeAppearanceDifferenceToAppearAsAge(45);
+		this.setAgeAppearanceAbsolute(45);
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setTailGirth(PenetrationGirth.FOUR_GIRTHY);
 		this.setWingType(WingType.DEMON_COMMON);

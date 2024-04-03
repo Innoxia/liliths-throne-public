@@ -61,13 +61,26 @@
 		<p>
 			Stepping up to the desk, you ring the bell, and after about ten seconds or so, the familiar figure of [vanessa.name] appears from behind one of the archive's shelves. In contrast to the first time you met her, you notice that there's a jovial spring to her step, and her bright blue eyes light up in delight as she sees that it's you who's come to visit her. [vanessa.speech([pc.Name]! It's wonderful to see you again!)]
 		</p>
-		<p>
-			#IF(game.getDialogueFlags().hasFlag(FLAG_vanessaDailyMassage))
-				After the intimate affair the two of you had in this very office, you've obviously left quite a lasting impression upon the elderly fox-girl, and instead of striding over and collapsing down into her chair, she rushes up to stand close in front of you, before smiling happily at you and exclaiming, [vanessa.speech(Thanks for that massage you gave me earlier! My feet feel so much better now!)]
-			#ELSE
-				After the intimate affair the two of you had in this very office, you've obviously left quite a lasting impression upon the elderly fox-girl, and instead of striding over and collapsing down into her chair, she rushes up to stand close in front of you, before seductively biting her lip and teasing, [vanessa.speech(You know, I'm still having to be up and about on my feet all day... I couldn't persuade you to give me another of those special massages of yours, could I?)]
-			#ENDIF
-		</p>
+		#IF(vanessa.isVisiblyPregnant())
+			<p>
+				#IF(!vanessa.isCharacterReactedToPregnancy(pc))
+					As you start to return [vanessa.namePos] greeting, you suddenly notice that her blouse is visibly stretched out around her [style.colourSex(pregnant belly)]. Noticing your gaze flicking down to her midriff, the elderly fox-girl lets out a soft laugh and playfully asks, [vanessa.speech(This is what you wanted, right? ~Mmm!~ What a naughty [pc.girl] you are, giving me that pill and then finishing inside of me...)]
+				#ELSE
+					As you start to return [vanessa.namePos] greeting, you suddenly notice that her blouse is still visibly stretched out around her [style.colourSex(pregnant belly)]. Noticing your gaze flicking down to her midriff, the elderly fox-girl lets out a soft laugh and playfully states, [vanessa.speech(That's right, I'm still pregnant, thanks to you! ~Mmm!~ What a naughty [pc.girl] you were, giving me that pill and then finishing inside of me...)]
+				#ENDIF
+			</p>
+			<p>
+				As she talks, [vanessa.name] steps up in front of you, and after taking hold of your [pc.hands], gets you to stroke her swollen belly. Seductively biting her lip, she teases, [vanessa.speech(Even with all this extra weight, I'm still having to be up and about on my feet all day... Surely I deserve another of those special massages of yours? If you're a good [pc.girl], I'll let you give me another creampie afterwards...)]
+			</p>
+		#ELSE
+			<p>
+				#IF(game.getDialogueFlags().hasFlag(FLAG_vanessaDailyMassage))
+					After the intimate affair the two of you had in this very office, you've obviously left quite a lasting impression upon the elderly fox-girl, and instead of striding over and collapsing down into her chair, she rushes up to stand close in front of you, before smiling happily at you and exclaiming, [vanessa.speech(Thanks for that massage you gave me earlier! My feet feel so much better now!)]
+				#ELSE
+					After the intimate affair the two of you had in this very office, you've obviously left quite a lasting impression upon the elderly fox-girl, and instead of striding over and collapsing down into her chair, she rushes up to stand close in front of you, before seductively biting her lip and teasing, [vanessa.speech(You know, I'm still having to be up and about on my feet all day... I couldn't persuade you to give me another of those special massages of yours, could I?)]
+				#ENDIF
+			</p>
+		#ENDIF
 	#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_vanessaIntroduced))
 		<p>
 			#IF(game.getDialogueFlags().hasFlag(FLAG_vanessaDailyMassage))
@@ -592,7 +605,14 @@
 	#IF(!pc.isTaur())
 		#IF(pc.hasPenis() && (pc.isAbleToAccessCoverableArea(CA_PENIS, true) || !pc.hasVagina()))
 			<p>
-				Before you can ask what she has in mind, the elderly fox-girl stands up and steps over to her desk, before sitting on top of it and spreading her legs for you. [vanessa.speech(Come on, give my little pussy a good, hard fuck! You can blow your load inside me all you want; I'm not going to get pregnant at my age...)]
+				Before you can ask what she has in mind, the elderly fox-girl stands up and steps over to her desk, before sitting on top of it and spreading her legs for you.
+				#IF(vanessa.isVisiblyPregnant())
+					 [vanessa.speech(Come on, give my pussy a good, hard fuck! You can blow your load inside me all you want; I'm already pregnant, after all...)]
+				#ELSEIF(vanessa.hasStatusEffect(SE_BROODMOTHER_PILL) || vanessa.hasStatusEffect(SE_VIXENS_VIRILITY))
+					 [vanessa.speech(Come on, give my pussy a good, hard fuck! I'm pretty sure that pill you gave me is still having an effect, so if you blow your load inside me the you could end up getting me pregnant...)]
+				#ELSE
+					 [vanessa.speech(Come on, give my pussy a good, hard fuck! You can blow your load inside me all you want; I'm not going to get pregnant at my age...)]
+				#ENDIF
 			</p>
 		#ELSEIF(pc.hasVagina())
 			<p>
@@ -606,7 +626,14 @@
 	#ELSE
 		#IF(pc.hasPenis() && (pc.isAbleToAccessCoverableArea(CA_PENIS, true) || !pc.hasVagina()))
 			<p>
-				Before you can ask what she has in mind, the elderly fox-girl stands up and steps over to one side, before dropping down onto all fours and presenting herself to you. [vanessa.speech(Come on, mount me and give my little pussy a good, hard fuck! You can blow your load inside me all you want; I'm not going to get pregnant at my age...)]
+				Before you can ask what she has in mind, the elderly fox-girl stands up and steps over to one side, before dropping down onto all fours and presenting herself to you.
+				#IF(vanessa.isVisiblyPregnant())
+					 [vanessa.speech(Come on, mount me and give my pussy a good, hard fuck! You can blow your load inside me all you want; I'm already pregnant, after all...)]
+				#ELSEIF(vanessa.hasStatusEffect(SE_BROODMOTHER_PILL) || vanessa.hasStatusEffect(SE_VIXENS_VIRILITY))
+					 [vanessa.speech(Come on, mount me and give my pussy a good, hard fuck! I'm pretty sure that pill you gave me is still having an effect, so if you blow your load inside me the you could end up getting me pregnant...)]
+				#ELSE
+					 [vanessa.speech(Come on, mount me and give my pussy a good, hard fuck! You can blow your load inside me all you want; I'm not going to get pregnant at my age...)]
+				#ENDIF
 			</p>
 		#ELSEIF(pc.hasVagina())
 			<p>
@@ -628,7 +655,14 @@
 	#IF(!pc.isTaur())
 		#IF(pc.hasPenis() && (pc.isAbleToAccessCoverableArea(CA_PENIS, true) || !pc.hasVagina()))
 			<p>
-				Before you can ask what she has in mind, the elderly fox-girl stands up and steps over to her desk, before sitting on top of it and spreading her legs at you. [vanessa.speech(Come on then, give my wet little pussy a good, hard fuck! You can blow your load inside me all you want; I'm not going to get pregnant at my age...)]
+				Before you can ask what she has in mind, the elderly fox-girl stands up and steps over to her desk, before sitting on top of it and spreading her legs at you.
+				#IF(vanessa.isVisiblyPregnant())
+					 [vanessa.speech(Come on, give my pussy a good, hard fuck! You can blow your load inside me all you want; I'm already pregnant, after all...)]
+				#ELSEIF(vanessa.hasStatusEffect(SE_BROODMOTHER_PILL) || vanessa.hasStatusEffect(SE_VIXENS_VIRILITY))
+					 [vanessa.speech(Come on, give my pussy a good, hard fuck! I'm pretty sure that pill you gave me is still having an effect, so if you blow your load inside me the you could end up getting me pregnant...)]
+				#ELSE
+					 [vanessa.speech(Come on, give my pussy a good, hard fuck! You can blow your load inside me all you want; I'm not going to get pregnant at my age...)]
+				#ENDIF
 			</p>
 		#ELSEIF(pc.hasVagina())
 			<p>
@@ -642,7 +676,14 @@
 	#ELSE
 		#IF(pc.hasPenis() && (pc.isAbleToAccessCoverableArea(CA_PENIS, true) || !pc.hasVagina()))
 			<p>
-				Before you can ask what she has in mind, the elderly fox-girl stands up and steps over to one side, before dropping down onto all fours and presenting herself to you. [vanessa.speech(Come on, mount me and give my little pussy a good, hard fuck! You can blow your load inside me all you want; I'm not going to get pregnant at my age...)]
+				Before you can ask what she has in mind, the elderly fox-girl stands up and steps over to one side, before dropping down onto all fours and presenting herself to you.
+				#IF(vanessa.isVisiblyPregnant())
+					 [vanessa.speech(Come on, mount me and give my pussy a good, hard fuck! You can blow your load inside me all you want; I'm already pregnant, after all...)]
+				#ELSEIF(vanessa.hasStatusEffect(SE_BROODMOTHER_PILL) || vanessa.hasStatusEffect(SE_VIXENS_VIRILITY))
+					 [vanessa.speech(Come on, mount me and give my pussy a good, hard fuck! I'm pretty sure that pill you gave me is still having an effect, so if you blow your load inside me the you could end up getting me pregnant...)]
+				#ELSE
+					 [vanessa.speech(Come on, mount me and give my pussy a good, hard fuck! You can blow your load inside me all you want; I'm not going to get pregnant at my age...)]
+				#ENDIF
 			</p>
 		#ELSEIF(pc.hasVagina())
 			<p>

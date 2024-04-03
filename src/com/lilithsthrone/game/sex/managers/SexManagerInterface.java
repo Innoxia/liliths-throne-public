@@ -30,6 +30,7 @@ import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotTag;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -181,11 +182,25 @@ public interface SexManagerInterface {
 		return false;
 	}
 	
+	public default boolean isRapePlayBannedAtStart(GameCharacter character) {
+		return true;
+	}
+	
 	public default boolean isSlotAvailable(GameCharacter character, SexSlot slot) {
+		if(character.isAsleep()) {
+			return slot==Main.sex.getSexPositionSlot(character); // If asleep, do not allow changing out of current slot
+		}
+		if(slot.hasTag(SexSlotTag.MATING_PRESS) && Main.sex.getAllParticipants(false).stream().anyMatch(c->c.isAsleep())) {
+			return false; // DO not allow mating press if characters are sleeping
+		}
 		return true;
 	}
 	
 	public default List<AbstractSexPosition> getAllowedSexPositions() {
+		if(Main.sex.getAllParticipants(false).stream().anyMatch(c->c.isAsleep())) {
+			return Util.newArrayListOfValues(Main.sex.getPosition()); // If asleep, do not allow changing out of current position
+		}
+		
 		List<AbstractSexPosition> positions = Util.newArrayListOfValues(
 				SexPosition.ALL_FOURS,
 				SexPosition.LYING_DOWN,

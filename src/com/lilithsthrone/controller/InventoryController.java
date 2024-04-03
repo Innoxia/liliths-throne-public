@@ -41,6 +41,7 @@ public class InventoryController {
 		}
 		// Quest inventory:
 		MainController.setInventoryPageLeft(5);
+		MainController.setInventoryPageRight(5);
 		
 		// Player:
 		String id;

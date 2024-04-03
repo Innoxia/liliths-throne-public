@@ -77,7 +77,13 @@ public class SubmissionAttacker extends NPC {
 			
 			// RACE & NAME:
 			
-			int slimeChance = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeQueenHelped) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLIME_QUEEN) ? 2000 : 800;
+			int slimeChance = 800;
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeQueenHelped) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLIME_QUEEN)) {
+				slimeChance *= 3; // Increase chance of encountering slime if the player helped the slime queen (which results in more slimes being in Submission)
+				
+			} else if(!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_SLIME_QUEEN, Quest.SLIME_QUEEN_ONE)) {
+				slimeChance *= 4; // Increase chance of encountering slime if the player is at the start of the slime quest
+			}
 			
 			Map<AbstractSubspecies, Integer> availableRaces = new HashMap<>();
 			for(AbstractSubspecies s : Subspecies.getAllSubspecies()) {

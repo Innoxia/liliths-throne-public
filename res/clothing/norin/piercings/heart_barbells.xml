@@ -1,108 +1,77 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 
 <clothing>
-  <coreAttributes>
-    <value>300</value> <!--10 flames = £1 ~ $1.5-->
-    <determiner><![CDATA[a pair of]]></determiner>
-    <name><![CDATA[heart-shaped barbells]]></name>
-    <namePlural pluralByDefault="true"><![CDATA[heart-shaped barbells]]></namePlural>
-    <description><![CDATA[A pair of barbells which surround each nipple with a cute heart.]]></description>
-    
-    <physicalResistance>0</physicalResistance>
-    <femininity>FEMININE</femininity> <!-- FEMININE, MASCULINE ANDROGYNOUS -->
-    <slot>PIERCING_NIPPLE</slot> <!-- slot values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
-    <rarity>COMMON</rarity> <!-- rarity values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
-    
-    <imageName>heart_barbells.svg</imageName>
-    
-    <clothingSet/> <!-- No way to define custom sets yet -->
-    <imageEquippedName/> <!-- The file path for this clothing's image while equipped -->
-    <effects/> <!-- Default enchantments -->
+	<coreAttributes>
+		<value>300</value> <!--10 flames = £1 ~ $1.5-->
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[heart-shaped barbells]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[heart-shaped barbells]]></namePlural>
+		<description><![CDATA[A pair of barbells which surround each nipple with a cute heart.]]></description>
+		
+		<physicalResistance>0</physicalResistance>
+		<femininity>FEMININE</femininity> <!-- FEMININE, MASCULINE ANDROGYNOUS -->
+		<slot>PIERCING_NIPPLE</slot> <!-- slot values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
+		<rarity>COMMON</rarity> <!-- rarity values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
+		
+		<imageName>heart_barbells.svg</imageName>
+		
+		<clothingSet/> <!-- No way to define custom sets yet -->
+		<imageEquippedName/> <!-- The file path for this clothing's image while equipped -->
+		<effects/> <!-- Default enchantments -->
 
-    <blockedPartsList>
-      <blockedParts>
-        
-        <displacementType>REMOVE_OR_EQUIP</displacementType> <!-- displacementType values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
-        
-        <clothingAccessRequired> <!-- clothingAccess values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingAccess.java -->
-          <clothingAccess>CHEST</clothingAccess>
-        </clothingAccessRequired>
-        
-        <blockedBodyParts/> <!--bodyPart values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/body/CoverableArea.java -->
-        <clothingAccessBlocked/> <!-- clothingAccess -->
-        <concealedSlots/> <!-- slot -->
-        
-      </blockedParts>
-    </blockedPartsList>
-    
-    <incompatibleSlots/> <!-- slot(s) not compatible -->
-    
-    <primaryColours values="ALL_METAL"/>
-    <primaryColoursDye values="ALL_METAL"/>
-    <secondaryColours values="ALL_METAL"/>
-    <secondaryColoursDye values="ALL_METAL"/>
-    <tertiaryColours/>
-    <tertiaryColoursDye/>
-    
-    <itemTags>
-      <tag>SOLD_BY_KATE</tag>
-    </itemTags>
-    
-  </coreAttributes>
+		<blockedPartsList>
+		  <blockedParts>
+			
+			<displacementType>REMOVE_OR_EQUIP</displacementType> <!-- displacementType values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
+			
+			<clothingAccessRequired> <!-- clothingAccess values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingAccess.java -->
+			  <clothingAccess>CHEST</clothingAccess>
+			</clothingAccessRequired>
+			
+			<blockedBodyParts/> <!--bodyPart values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/body/CoverableArea.java -->
+			<clothingAccessBlocked/> <!-- clothingAccess -->
+			<concealedSlots/> <!-- slot -->
+			
+		  </blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> <!-- slot(s) not compatible -->
+		
+		<primaryColours values="ALL_METAL"/>
+		<primaryColoursDye values="ALL_METAL"/>
+		<secondaryColours values="ALL_METAL"/>
+		<secondaryColoursDye values="ALL_METAL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags>
+		  <tag>SOLD_BY_KATE</tag>
+		</itemTags>
+		
+	</coreAttributes>
 
-  <displacementText type="REMOVE_OR_EQUIP">
-    <playerSelf>
-      <![CDATA[You slide out the heart-shaped nipple bars.]]>
-    </playerSelf>
-    <playerNPC>
-      <![CDATA[You slide out [npc.name]'s heart-shaped nipple bars.]]>
-    </playerNPC>
-    <playerNPCRough>
-      <![CDATA[You give [npc.name]'s heart-shaped nipple bars a tug before sliding them out.]]>
-    </playerNPCRough>
-    <NPCSelf>
-      <![CDATA[[npc.Name] slides out [npc.herHis] heart-shaped nipple bars.]]>
-    </NPCSelf>
-    <NPCPlayer>
-      <![CDATA[[npc.Name] slides the heart-shaped nipple bars from your nipples.]]>
-    </NPCPlayer>
-    <NPCPlayerRough>
-      <![CDATA[[npc.Name] gives your heart-shaped nipple bars a tug before sliding them out.]]>
-    </NPCPlayerRough>
-    <NPCOtherNPC>
-      <![CDATA[[npc1.Name] slides out [npc2.name]'s heart-shaped nipple bars.]]>
-    </NPCOtherNPC>
-    <NPCOtherNPCRough>
-      <![CDATA[[npc1.Name] gives [npc2.name]'s heart-shaped nipple bars a tug before sliding them out.]]>
-    </NPCOtherNPCRough>
-  </displacementText>
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slide)] the heart-shaped barbells into [npc.her] nipple piercings.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(slide)] the heart-shaped barbells into [npc2.namePos] nipple piercings.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(slide)] the heart-shaped barbells into [npc2.namePos] nipple piercings.]]>
+		</otherRough>
+	</replacementText>
 
-  <replacementText type="REMOVE_OR_EQUIP">
-    <playerSelf>
-      <![CDATA[You slide the heart-shaped nipple bars into place.]]>
-    </playerSelf>
-    <playerNPC>
-      <![CDATA[You slide the heart-shaped nipple bars into [npc.name]'s nipples.]]>
-    </playerNPC>
-    <playerNPCRough>
-      <![CDATA[You slide the heart-shaped nipple bars into [npc.name]'s nipples, giving them a tug.]]>
-    </playerNPCRough>
-    <NPCSelf>
-      <![CDATA[[npc.Name] slides the heart-shaped nipple bars into place.]]>
-    </NPCSelf>
-    <NPCPlayer>
-      <![CDATA[[npc.Name] slides the heart-shaped nipple bars into your nipples.]]>
-    </NPCPlayer>
-    <NPCPlayerRough>
-      <![CDATA[[npc.Name] slides the heart-shaped nipple bars into your nipples, giving them a tug.]]>
-    </NPCPlayerRough>
-    <NPCOtherNPC>
-      <![CDATA[[npc1.Name] slides the heart-shaped nipple bars into [npc2.Name]'s nipples.]]>
-    </NPCOtherNPC>
-    <NPCOtherNPCRough>
-      <![CDATA[[npc1.Name] slides the heart-shaped nipple bars into [npc2.Name]'s nipples, giving them a tug.]]>
-    </NPCOtherNPCRough>
-  </replacementText>
-  
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slide)] [npc.her] heart-shaped barbells out of [npc.her] nipple piercings.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(slide)] [npc2.namePos] heart-shaped barbells out of [npc2.her] nipple piercings.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] heart-shaped barbells out of [npc2.her] nipple piercings.]]>
+		</otherRough>
+	</displacementText>
   
 </clothing>

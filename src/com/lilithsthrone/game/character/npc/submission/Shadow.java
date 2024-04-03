@@ -58,7 +58,6 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
@@ -99,7 +98,6 @@ public class Shadow extends NPC {
 			setStartingCombatMoves();
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.9")) {
-			equipClothing(EquipClothingSetting.getAllClothingSettings());
 			this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6") && !this.hasItemType(ItemType.RESONANCE_STONE)) {
@@ -108,6 +106,10 @@ public class Shadow extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.2.1")) {
 			this.setupPerks(true);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.7.11")) {
+			equipClothing(EquipClothingSetting.getAllClothingSettings());
+			this.addSpecialPerk(Perk.MARTIAL_ARTIST);
+		}
 	}
 
 	@Override
@@ -115,6 +117,7 @@ public class Shadow extends NPC {
 		this.addSpecialPerk(Perk.SPECIAL_MARTIAL_BACKGROUND);
 		this.addSpecialPerk(Perk.SPECIAL_MELEE_EXPERT);
 		this.addSpecialPerk(Perk.SPECIAL_SLUT);
+		this.addSpecialPerk(Perk.MARTIAL_ARTIST);
 		
 		PerkManager.initialisePerks(this,
 				Util.newArrayListOfValues(
@@ -258,7 +261,7 @@ public class Shadow extends NPC {
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_hoops", PresetColour.CLOTHING_SILVER, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_nose_ring", PresetColour.CLOTHING_SILVER, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ringed_barbell", PresetColour.CLOTHING_GOLD, false), InventorySlot.PIERCING_VAGINA, true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_gemstone_barbell", PresetColour.CLOTHING_SILVER, false), InventorySlot.PIERCING_STOMACH, true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_gemstone_barbell", PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_GREEN, null, false), InventorySlot.PIERCING_STOMACH, true, this);
 		
 		AbstractClothing ring = Main.game.getItemGen().generateClothing("innoxia_finger_gemstone_ring", PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_GREEN_DARK, null, false);
 		
@@ -281,15 +284,11 @@ public class Shadow extends NPC {
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_thong", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_micro_skirt_belted", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_STEEL, PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_TUBE_TOP, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_tube_top", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_wraps", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_stomach_sarashi", PresetColour.CLOTHING_BLACK, false), true, this);
 
 		this.addItem(Main.game.getItemGen().generateItem(ItemType.RESONANCE_STONE), false);
-		
-//		this.equipClothingFromNowhere(Main.game.getItemGeneration().generateClothing("innoxia_hand_fishnet_gloves", PresetColour.CLOTHING_GREEN_VERY_DARK, false), true, this);
-//		this.equipClothingFromNowhere(Main.game.getItemGeneration().generateClothing("innoxia_sock_fishnets", PresetColour.CLOTHING_GREEN_VERY_DARK, false), true, this);
-		
 	}
 
 	@Override
@@ -323,6 +322,21 @@ public class Shadow extends NPC {
 	}
 	
 	@Override
+	public String getArtworkFolderName() {
+		if(this.getBreastRows()>1) {
+			if(this.isVisiblyPregnant()) {
+				return "ShadowMultiBoobPregnant";
+			}
+			return "ShadowMultiBoob";
+		} else {
+			if(this.isVisiblyPregnant()) {
+				return "ShadowPregnant";
+			}
+			return "Shadow";
+		}
+	}
+	
+	@Override
 	public void changeFurryLevel(){
 	}
 	
@@ -332,7 +346,7 @@ public class Shadow extends NPC {
 	}
 
 	@Override
-	public void hourlyUpdate() {
+	public void hourlyUpdate(int hour) {
 		this.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"), this, false);
 	}
 	

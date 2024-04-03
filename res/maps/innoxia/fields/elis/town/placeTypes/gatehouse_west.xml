@@ -4,7 +4,6 @@
 	<name><![CDATA[gatehouse]]></name>
 	<tooltipDescription><![CDATA[A pair of towers flank the western gatehouse, guarding the road which leads out of Elis.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the western gatehouse at Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<svgName>gatehouse</svgName> 
 	<colour>BASE_BLACK</colour>

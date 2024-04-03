@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>	
+	<name><![CDATA[Treasure Room]]></name>
+	<tooltipDescription><![CDATA[An antique wooden chest lies in the middle of this room.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in the treasure room of a strange basement]]></virginityLossDescription>	
+	<sexBlockedFromCharacterPresent/>
+	<svgName>chest</svgName>	
+	<colour>BASE_WHITE</colour>
+	<backgroundColour>BASE_BLUE</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>dsg_places_fields_elis_eisek_sillymode_dungeon_treasure</dialogue>
+	<loiteringEnabled>false</loiteringEnabled>
+	<globalMapTile>false</globalMapTile>	
+	<dangerous><![CDATA[true]]></dangerous>	
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<weatherImmunities immuneToAll="true"/>
+	<applyInventoryInit/>
+</placeType>

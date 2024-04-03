@@ -9,9 +9,9 @@
 	<attributeItemId>innoxia_race_hyena_workout_power</attributeItemId>
 	<transformativeItemId>innoxia_race_hyena_bone_crunchers</transformativeItemId>
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<nocturnality>NOCTURNAL</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
-	<aquatic>false</aquatic>
 	<applySubspeciesChanges><![CDATA[
 		[#targetedBody.getVagina().getClitoris().setGirth(null, 0)]
 		[#targetedBody.getVagina().getClitoris().setClitorisSize(null, 0)]

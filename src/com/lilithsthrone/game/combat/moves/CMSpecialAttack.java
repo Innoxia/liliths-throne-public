@@ -692,7 +692,8 @@ public class CMSpecialAttack {
             Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.VULNERABLE, 2))) {
 
         protected int getBaseDamage(GameCharacter source) {
-            return (int) Math.max(1, 20 * (source.isLegMovementHindered()?0.1f:1)); // kerambit damage
+//            return (int) Math.max(1, 20 * (source.isLegMovementHindered()?0.1f:1)); // kerambit damage
+            return (int) Math.max(1, source.getUnarmedDamage() * 1.2f * (source.isLegMovementHindered()?0.1f:1));
         }
 
         //TODO override as HORSE_KICK should be?

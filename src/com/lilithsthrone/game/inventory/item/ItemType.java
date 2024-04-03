@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
@@ -41,6 +40,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.places.PlaceType;
@@ -97,8 +97,8 @@ public class ItemType {
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
 					ItemTag.BAT_CAVERNS_SPAWN,
 					ItemTag.MISC_TF_ITEM,
-					ItemTag.SOLD_BY_RALPH)) {
-
+					ItemTag.SOLD_BY_RALPH,
+					ItemTag.DRINK)) {
 		@Override
 		public boolean isFetishGiving() {
 			return true;
@@ -143,7 +143,7 @@ public class ItemType {
 			null,
 			Rarity.EPIC,
 			null,
-			null) {
+			Util.newArrayListOfValues(ItemTag.DRINK)) {
 		@Override
 		public boolean isFetishGiving() {
 			return true;
@@ -180,7 +180,8 @@ public class ItemType {
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
 					ItemTag.BAT_CAVERNS_SPAWN,
-					ItemTag.SOLD_BY_RALPH)) {
+					ItemTag.SOLD_BY_RALPH,
+					ItemTag.DRINK_QUALITY)) {
 		@Override
 		public String getUseName() {
 			return "drink";
@@ -217,7 +218,7 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			null) {
+			Util.newArrayListOfValues(ItemTag.DRINK_QUALITY)) {
 		@Override
 		public String getUseName() {
 			return "drink";
@@ -420,7 +421,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.BIMBO_LOLLIPOP)),
 			Util.newArrayListOfValues(
 					ItemTag.RACIAL_TF_ITEM,
-					ItemTag.NOT_FOR_SALE)) {
+					ItemTag.NOT_FOR_SALE,
+					ItemTag.FOOD)) {
 
 		
 		@Override
@@ -465,7 +467,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.NYMPHO_LOLLIPOP)),
 			Util.newArrayListOfValues(
 					ItemTag.RACIAL_TF_ITEM,
-					ItemTag.NOT_FOR_SALE)) {
+					ItemTag.NOT_FOR_SALE,
+					ItemTag.FOOD)) {
 
 		
 		@Override
@@ -1067,7 +1070,8 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.SOLD_BY_RALPH)) {
+					ItemTag.SOLD_BY_RALPH,
+					ItemTag.DRINK)) {
 
 
 		@Override
@@ -1101,7 +1105,8 @@ public class ItemType {
 			Util.newArrayListOfValues(
 					ItemTag.DOMINION_ALLEYWAY_SPAWN,
 					ItemTag.SUBMISSION_TUNNEL_SPAWN,
-					ItemTag.SOLD_BY_RALPH)) {
+					ItemTag.SOLD_BY_RALPH,
+					ItemTag.DRINK)) {
 		@Override
 		public String getUseName() {
 			return "drink";
@@ -1235,6 +1240,53 @@ public class ItemType {
 			return "This item cannot be used in this way!";
 		}
 	};
+
+	public static AbstractItemType DOLL_CONSOLE = new AbstractItemType(120000,
+			"a",
+			false,
+			"D.E.C.K.",
+			"D.E.C.K.s",
+			"The <i>'Doll's Expedient Customisation Kit'</i> is the only way to transform an autonomous sex doll."
+				+ " By plugging the cable into a doll's rear neck port, the user can modify a wide range of the connected doll's physical attributes.",
+			"dollConsole",
+			PresetColour.CLOTHING_BLUE_LIGHT,
+			PresetColour.CLOTHING_PINK_LIGHT,
+			PresetColour.CLOTHING_PURPLE,
+			Rarity.LEGENDARY,
+			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.DOLL_CONSOLE)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public boolean isAbleToBeUsedInSex() {
+			return false;
+		}
+		@Override
+		public boolean isAbleToBeUsedInCombatAllies() {
+			return false;
+		}
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+		@Override
+		public String getUseName() {
+			return "use";
+		}
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "";
+		}
+		@Override
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			return super.isAbleToBeUsed(target) && target.isDoll();
+		}
+		@Override
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			if(!target.isDoll()) {
+				return UtilText.parse(target, "<i>As [npc.nameIsFull] not a doll, the D.E.C.K. is of no use!</i>");
+			}
+			return "This item cannot be used in this way!";
+		}
+	};
 	
 	public static AbstractItemType PRESENT = new AbstractItemType(250,
 			"a",
@@ -1337,7 +1389,9 @@ public class ItemType {
 			PresetColour.BASE_YELLOW,
 			Rarity.UNCOMMON,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.GIFT_CHOCOLATES)),
-			Util.newArrayListOfValues(ItemTag.GIFT)) {
+			Util.newArrayListOfValues(
+					ItemTag.GIFT,
+					ItemTag.FOOD_QUALITY)) {
 
 
 		@Override
@@ -1467,9 +1521,7 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			Util.newArrayListOfValues(new ItemEffect(ItemEffectType.EGGPLANT)),
-			null) {
-
-		
+			Util.newArrayListOfValues(ItemTag.FOOD)) {
 
 		@Override
 		public AbstractItemEffectType getEnchantmentEffect() {
@@ -1509,7 +1561,7 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			null) {
+			Util.newArrayListOfValues(ItemTag.DRINK)) {
 		@Override
 		public boolean isTransformative() {
 			return true;
@@ -2616,7 +2668,7 @@ public class ItemType {
 			AbstractItemEffectType effectType = new AbstractItemEffectType(effectsString, s.getSpellSchool().getColour()) {
 				
 				@Override
-				public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+				public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 					boolean hasSpell = target.hasSpell(s);
 					target.addSpell(s);
 					
@@ -2834,7 +2886,7 @@ public class ItemType {
 							school.getColour()) {
 						
 						@Override
-						public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+						public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 							target.incrementSpellUpgradePoints(school, 1);
 							return "<p style='text-align:center;'>"
 										+ (target.isPlayer()?"You gain":UtilText.parse(target, "[npc.Name] gains"))+" an upgrade point for the spell school <b style='color:"+school.getColour().toWebHexString()+";'>"+school.getName()+"</b>!<br/>"
@@ -2927,7 +2979,7 @@ public class ItemType {
 							mainSubspecies.getColour(null),
 							PresetColour.CLOTHING_GOLD,
 							mainSubspecies.getColour(null),
-							Rarity.LEGENDARY,
+							Rarity.RARE,
 							null,
 							Util.newArrayListOfValues(ItemTag.BOOK)) {
 				@Override
@@ -2995,8 +3047,8 @@ public class ItemType {
 			if(mainSubspecies!=Subspecies.CENTAUR) { // a CENTAUR essence is identical to a HORSE_MORPH essence
 
 				int override = mainSubspecies.getSubspeciesOverridePriority();
-				String raceName = (override>0?mainSubspecies.getName(null):mainSubspecies.getRace().getName(false));
-				String raceNamePlural = (override>0?mainSubspecies.getNamePlural(null):mainSubspecies.getRace().getNamePlural(false));
+				String raceName = (override>0?mainSubspecies.getFeralName(null):mainSubspecies.getRace().getName(true));
+				String raceNamePlural = (override>0?mainSubspecies.getFeralNamePlural(null):mainSubspecies.getRace().getNamePlural(true));
 
 				AbstractStatusEffect statusEffect = new AbstractStatusEffect(80,
 						(mainSubspecies.getRace()==Race.ANGEL
@@ -3049,23 +3101,32 @@ public class ItemType {
 						"[style.boldGood(+1)] [style.boldArcane(Arcane essence)]"),
 						mainSubspecies.getColour(null)) {
 					@Override
-					public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-						List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
-						list.add("Applies <i style='color:"+statusEffect.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(statusEffect.getName(target))+"'</i>:");
-						for(Entry<AbstractAttribute, Float> entry : statusEffect.getAttributeModifiers(target).entrySet()) {
-							list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
-						}
-						return list;
+					public Map<AbstractStatusEffect, Integer> getAppliedStatusEffects() {
+						return Util.newHashMapOfValues(new Value<>(statusEffect, 60*4*60));
 					}
+//					@Override
+//					public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+//						List<String> list = super.getEffectsDescription(primaryModifier, secondaryModifier, potency, limit, user, target);
+//						list.add("Applies <i style='color:"+statusEffect.getColour().toWebHexString()+";'>'"+Util.capitaliseSentence(statusEffect.getName(target))+"'</i>:");
+//						for(Entry<AbstractAttribute, Float> entry : statusEffect.getAttributeModifiers(target).entrySet()) {
+//							list.add("<i>"+entry.getKey().getFormattedValue(entry.getValue())+"</i>");
+//						}
+//						return list;
+//					}
 					@Override
-					public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-						target.incrementEssenceCount(1, false);
-						target.addStatusEffect(statusEffect, 60*4*60);
-						return UtilText.parse(target,
-								"<p style='text-align:center;'>"
-									+ "[npc.NameHasFull] absorbed [style.boldGood(+1)] [style.boldArcane(arcane essence)], and [npc.is] also temporarily far more effective at fighting "
-									+ "<b style='color:"+mainSubspecies.getColour(null).toWebHexString()+";'>" + raceNamePlural +"</b>!"
-								+ "</p>");
+					public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+						if(target.isDoll()) {
+							return UtilText.parse(target,
+										"<p style='text-align:center;'>"
+											+ "[style.colourDisabled(As [npc.sheIsFull] a sex doll, [npc.nameIsFull] unable to absorb essences...)]"
+										+ "</p>");
+						}
+						return target.incrementEssenceCount(1, false)
+								+ UtilText.parse(target,
+										"<p style='text-align:center;'>"
+											+"[npc.She] [npc.is] also temporarily far more effective at fighting "
+											+ "<b style='color:"+mainSubspecies.getColour(null).toWebHexString()+";'>" + raceNamePlural +"</b>!"
+										+ "</p>");
 					}
 				};
 
@@ -3140,7 +3201,7 @@ public class ItemType {
 				"[style.boldExcellent(+10)] <b style='color:"+mainSubspecies.getColour(null).toWebHexString()+";'>"+mainSubspecies.getDamageMultiplier().getName()+"</b>"),
 				mainSubspecies.getColour(null)) {
 			@Override
-			public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 				return getBookEffect(target, mainSubspecies, additionalUnlockSubspecies, true);
 			}
 		};

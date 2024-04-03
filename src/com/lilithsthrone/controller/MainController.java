@@ -53,6 +53,7 @@ import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Kay;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.combat.moves.AbstractCombatMove;
@@ -89,6 +90,7 @@ import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
 import com.lilithsthrone.game.dialogue.utils.GiftDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
+import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.SpellManagement;
@@ -510,6 +512,43 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
+
+							
+//							System.out.println(Main.sex.getSexPace(Main.game.getPlayer()));
+//							System.out.println(Main.sex.isSexPaceForced(Main.game.getPlayer()));
+							
+							
+//							System.out.println(Main.isVersionOlderThan(Game.loadingVersion, "0.4.8.10"));
+							
+//							if(Main.game.isInSex()) {
+//								for(GameCharacter c : Main.sex.getAllParticipants()) {
+//									if(c.hasPenis()) {
+//										c.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_penis_condom_super_strong", false), true, c);
+//									}
+//								}
+//							}
+							
+//							System.out.println(GenericOrgasms.GENERIC_ORGASM_CREAMPIE.isBaseRequirementsMet());
+//							System.out.println(Main.sex.getOrgasmActionsPlayer().contains(GenericOrgasms.GENERIC_ORGASM_SELF_FACE));
+//							System.out.println(Main.sex.getOrgasmActionsPlayer().contains(GenericOrgasms.GENERIC_ORGASM_CREAMPIE));
+							
+//							System.out.println(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+							
+							// Testing genetics/inheritance:
+//							Main.game.getPlayer().guaranteePregnancyOnNextRoll();
+//							Main.game.getPlayer().rollForPregnancy(Main.game.getCharactersPresent().get(0), 100, true);
+//							for(OffspringSeed os : Main.game.getPlayer().getPregnantLitter().getOffspringSeed()) {
+//								Covering covering = os.getBody().getCovering(os.getBody().getTorsoType().getBodyCoveringType(os.getBody()), false);
+//								System.out.println(os.getName()+": "+os.getBody().getRaceStage().getName()+" "+os.getRace().getName(os.getBody(), os.isFeral()));
+//								System.out.println("Primary: "+covering.getPrimaryColour().getName());
+//								System.out.println("Secondary: "+covering.getPrimaryColour().getName());
+//								
+//								covering = os.getBody().getCovering(os.getBody().getEyeType().getBodyCoveringType(os.getBody()), false);
+//								System.out.println("Eyes: "+covering.getPrimaryColour().getName());
+//								
+//								covering = os.getBody().getCovering(os.getBody().getHairType().getBodyCoveringType(os.getBody()), false);
+//								System.out.println("Hair: "+covering.getPrimaryColour().getName());
+//							}
 							
 //							Main.game.getCharactersPresent().get(0).incrementAttribute(Attribute.MAJOR_CORRUPTION, 100);
 //							Main.game.getCharactersPresent().get(0).addFetish(Fetish.FETISH_BONDAGE_APPLIER);
@@ -562,10 +601,34 @@ public class MainController implements Initializable {
 ////										&& (npc.getWorldLocation().getWorldRegion()==WorldRegion.DOMINION)
 ////										&& npc.isFeminine()
 //										&& npc.getFaceType().getBodyCoveringType(npc).getCategory()!=BodyCoveringCategory.MAIN_SKIN
-//										&& (npc.getClass().getName().contains("dominion.") || npc.getClass().getName().contains("submission."))
+////										&& npc.isAbleToBeImpregnated()
+////										&& npc.isFeminine()
+////										&& (npc.getClass().getName().contains("dominion.") || npc.getClass().getName().contains("submission."))
 //										) {
 //									System.out.println(npc.getNameIgnoresPlayerKnowledge() + " "+npc.getClass().getName().split(".npc.")[1]);// + " " + npc.getSurname());
 //								}
+//							}
+							
+//							Map<AbstractSubspecies, Integer> subCountMap = new HashMap<>();
+//							Map<AbstractSubspecies, Integer> subHDCountMap = new HashMap<>();
+//							for(NPC npc : Main.game.getAllNPCs()) {
+//								if(npc.isUnique()) {
+//									if(npc.getSubspecies()==Subspecies.HALF_DEMON) {
+//										AbstractSubspecies ss = npc.getHalfDemonSubspecies();
+//										subHDCountMap.putIfAbsent(ss, 0);
+//										subHDCountMap.put(ss, subHDCountMap.get(ss)+1);
+//										
+//									} else {
+//										AbstractSubspecies ss = npc.getTrueSubspecies();
+//										subCountMap.putIfAbsent(ss, 0);
+//										subCountMap.put(ss, subCountMap.get(ss)+1);
+//									}
+//								}
+//							}
+//							for(AbstractSubspecies ss : Subspecies.getAllSubspecies()) {
+//								subCountMap.putIfAbsent(ss, 0);
+//								subHDCountMap.putIfAbsent(ss, 0);
+//								System.out.println(ss.getName(null)+": "+subCountMap.get(ss)+" "+subHDCountMap.get(ss));
 //							}
 							
 //							Main.game.getPlayer().incrementPerkCategoryPoints(PerkCategory.PHYSICAL, 1);
@@ -1289,11 +1352,18 @@ public class MainController implements Initializable {
 		}
 		
 		DialogueNode currentNode = Main.game.getCurrentDialogueNode();
+		// Init combat listeners separately, as otherwise no menu buttons work
 		if (Main.game.isInCombat()) {
 			MiscController.initCombatListeners();
 			if(currentNode.getDialogueNodeType() == DialogueNodeType.INVENTORY) {
 				InventoryController.initInventoryListeners();
 			}
+		}
+		
+		if(currentNode.equals(MiscDialogue.DOLL_BROCHURE)
+				|| currentNode.equals(MiscDialogue.DOLL_BROCHURE_INTERNAL)) {
+			MiscController.initDollBrochureListeners();
+			
 		} else if (currentNode.equals(BodyChanging.BODY_CHANGING_ASS)
 				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_BODY_ASS)) {
 			CreationController.initAnusCapacityListeners();
@@ -1386,7 +1456,8 @@ public class MainController implements Initializable {
 			CreationController.initEyeTypeListeners();
 		} else if (currentNode.equals(BodyChanging.BODY_CHANGING_HAIR)
 				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_BODY_HAIR)
-				|| currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_COSMETICS_HAIR)) {
+				|| currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_COSMETICS_HAIR)
+				|| currentNode.equals(RoomPlayer.AUNT_HOME_PLAYERS_ROOM_MAKEUP)) {
 			CoveringController.initHairLengthListeners();
 			CoveringController.initHairStyleListeners();
 			CreationController.initHairTypeListeners();
@@ -1563,6 +1634,7 @@ public class MainController implements Initializable {
 				|| currentNode.equals(PhoneDialogue.CONTACTS_CHARACTER)
 				|| currentNode.equals(PhoneDialogue.CHARACTER_APPEARANCE)) {
 			FileController.initArtworkListeners();
+			MiscController.initPerkListeners(currentNode);
 		} else if (currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_JOBS)) {
 			OccupantController.initSlaveJobListeners();
 		} else if (currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_PERMISSIONS)) {
@@ -1758,10 +1830,21 @@ public class MainController implements Initializable {
 	static void setInventoryPageRight(int i) {
 		String id = "INV_PAGE_RIGHT_"+i;
 		if (((EventTarget) document.getElementById(id)) != null) {
-			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-				RenderingEngine.setPageRight(i);
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			}, false);
+			if(i!=5
+				|| (InventoryDialogue.getInventoryNPC()==null
+					?Main.game.getPlayer().getCell().getInventory().isAnyQuestItemPresent()
+					:InventoryDialogue.getInventoryNPC().isCarryingQuestItems())) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					RenderingEngine.setPageRight(i);
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			if(i==5) {
+				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation("Unique Items", "");
+				MainController.addEventListener(MainController.document, id, "mouseenter", el2, false);
+			}
 		}
 	}
 	
@@ -2478,6 +2561,11 @@ public class MainController implements Initializable {
 			
 		} else {
 			charactersBeingRendered.addAll(Main.game.getCharactersPresent());
+			for(GameCharacter c : Main.game.getCharactersPresent()) {
+				if(c.isElementalSummoned() && !c.getElemental().isActive()) {
+					charactersBeingRendered.add(c.getElemental());
+				}
+			}
 			
 			if(Main.game.isStarted()) {
 				int i=0;
@@ -2507,7 +2595,7 @@ public class MainController implements Initializable {
 			
 			for (AbstractAttribute a : attributes) {
 				if (((EventTarget) documentRight.getElementById("NPC_"+idModifier+a.getName())) != null) {
-					if(a == Attribute.EXPERIENCE) {
+					if(a == Attribute.EXPERIENCE && (!character.isElemental() || ((Elemental)character).isActive())) {
 						((EventTarget) documentRight.getElementById("NPC_"+idModifier+a.getName())).addEventListener("click", e -> {
 							openCharactersPresent(character);
 						}, false);
@@ -2522,7 +2610,7 @@ public class MainController implements Initializable {
 			
 			// Extra attribute info:
 			if(((EventTarget) documentRight.getElementById("NPC_"+idModifier+"ATTRIBUTES"))!=null){
-				if(!RenderingEngine.ENGINE.isRenderingCharactersRightPanel()) {
+				if(!RenderingEngine.ENGINE.isRenderingCharactersRightPanel() && (!character.isElemental() || ((Elemental)character).isActive())) {
 					((EventTarget) documentRight.getElementById("NPC_"+idModifier+"ATTRIBUTES")).addEventListener("click", e -> {
 						openCharactersPresent(character);
 					}, false);

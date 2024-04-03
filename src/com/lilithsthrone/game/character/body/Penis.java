@@ -138,6 +138,11 @@ public class Penis implements BodyPartInterface {
 				}
 			}
 		}
+		
+		if(owner.getBodyMaterial().getPartDescriptors()!=null && !owner.getBodyMaterial().getPartDescriptors().isEmpty()) {
+			list.add(Util.randomItemFrom(owner.getBodyMaterial().getPartDescriptors()));
+		}
+		
 		list.removeIf(d->d.isEmpty());
 		if(list.isEmpty()) {
 			return "";
@@ -561,7 +566,7 @@ public class Penis implements BodyPartInterface {
 			case OVIPOSITOR:
 				returnText = "An intense tingling sensation works its up [npc.namePos] [npc.cock], and [npc.she] can't help but let out [npc.a_moan+] as [npc.she] feels it transforming into [style.boldGrow(an ovipositor)]."
 							+ "<br/>[style.boldSex([npc.NamePos] [npc.cock] is now able to lay eggs!)]"
-							+ "<br/><i>(To be fully functional, [npc.name] [npc.verb(require)] an egg-laying vagina and for [npc.her] eggs to be fertilised before laying can occur. Eggs cannot be laid in an already-pregnant target's vagina.)</i>";
+							+ "<br/><i>(To be fully functional, [npc.name] [npc.verb(require)] [npc.her] eggs to be fertilised before laying can occur. Eggs cannot be laid in an already-pregnant target's vagina.)</i>";
 				break;
 		}
 		

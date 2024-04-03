@@ -70,6 +70,7 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.CondomFailure;
+import com.lilithsthrone.game.sex.ImmobilisationType;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -731,6 +732,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			if(character.getQuest(QuestLine.MAIN)==Quest.MAIN_1_J_ARTHURS_ROOM) {
 				character.setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_I_ARTHURS_TALE);
 			}
+		}
+		
+		if(Main.isVersionOlderThan(version, "0.4.8.10") && character.isQuestCompleted(QuestLine.SIDE_EISEK_STALL)) {
+			character.removeItem(Main.game.getItemGen().generateItem("dsg_quest_fabricbolt"), 1);
+			character.removeItem(Main.game.getItemGen().generateItem("dsg_quest_embsign"), 1);
+			character.removeItem(Main.game.getItemGen().generateItem("dsg_quest_awningpoles"), 4);
 		}
 		
 		if(debug) {
@@ -1431,7 +1438,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	@Override
 	public boolean isAbleToBeEgged() {
-		return true;
+		return !this.isDoll();
 	}
 	
 	// This behaviour is overridden for unique scenes in which the player's orgasm requires special dialogue or effects.
@@ -1841,76 +1848,23 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	}
 	
 	protected String losingPureVirginity(GameCharacter characterPenetrating, SexAreaPenetration penetrationType) {
+		UtilText.addSpecialParsingString(penetrationType.getName(characterPenetrating), true);
+		
 		if(characterPenetrating.isPlayer()) {
-			return UtilText.parse(this,
-					"<p style='text-align:center;'>"
-						+ "<b style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
-					+ "</p>"
-					+ "<p>"
-						+ "You can't quite believe what you're doing to yourself."
-						+ " As your "+(Main.sex.getFirstOngoingSexAreaPenetration(Main.game.getPlayer(), SexAreaOrifice.VAGINA).getName(characterPenetrating))
-							+" takes your own virginity in a single thrust, you find yourself letting out a desperate gasp."
-					+ "</p>"
-					+ "<p style='text-align:center;'>"
-						+ "[pc.thought(W-What am I doing?!<br/>"
-								+ "I-I'm just so... <i>horny</i>!<br/>"
-								+ "I-I can't help myself!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "You don't quite know how to react to your own actions."
-						+ " The virginity that you prized so highly is now gone, and a vacant gaze settles over your face as your [pc.pussy+] spreads lewdly around your own "+penetrationType.getName(characterPenetrating)+"."
-					+ "</p>"
-					+ "<p>"
-						+ "While you were a virgin, you felt invincible."
-						+ " As though you could overcome any obstacle that was placed in your way."
-						+ " Now, however..."
-					+ "</p>"
-					+ "<p style='text-align:center;'>"
-					+ "[pc.thought(Now I'm just some regular old slut...<br/>"
-							+ "So turned on that I choose to fuck myself...<br/>"
-							+ "All I'm good for now is being a worthless fuck-toy...)]"
-					+ "</p>"
-					+ "<p>"
-						+ "With a shuddering sigh, you decide to resign yourself to the fact that now you're nothing more than a <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
-					+ "</p>");
+			return UtilText.parseFromXMLFile("characters/player/virginity", "VIRGINITY_LOSS_PURE_SELF", characterPenetrating);
 			
 		} else {
-			return UtilText.parse(characterPenetrating,
-					"<p style='text-align:center;'>"
-						+ "<b style='color:"+PresetColour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
-					+ "</p>"
-					+ "<p>"
-						+ "You can't believe what's happening."
-						+ " As [npc.namePos] "+(Main.sex.getFirstOngoingSexArea(Main.game.getPlayer(), SexAreaOrifice.VAGINA).getName(characterPenetrating))
-						+" takes your virginity in a single thrust, you find yourself letting out a desperate gasp."
-					+ "</p>"
-					+ "<p style='text-align:center;'>"
-						+ "[pc.thought(This is how I lose my virginity?!<br/>"
-								+ "To...<i>"
-								+ (characterPenetrating.isSlave() && characterPenetrating.getOwner().isPlayer()
-										?" my own slave"
-										:" [npc.a_race]")
-								+ "</i>?!<br/>"
-								+ "This can't be happening!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "You don't quite know how to react."
-						+ " The virginity that you prized so highly has been suddenly taken from you, and a vacant gaze settles over your face as your [pc.pussy+] spreads lewdly around [npc.namePos] "+penetrationType.getName(characterPenetrating)+"."
-					+ "</p>"
-					+ "<p>"
-						+ "While you were a virgin, you felt invincible."
-						+ " As though you could overcome any obstacle that was placed in your way."
-						+ " Now, however..."
-					+ "</p>"
-					+ "<p style='text-align:center;'>"
-					+ "[pc.thought(Now I'm just some regular old slut...<br/>"
-							+ "Getting fucked by any random person I meet...<br/>"
-							+ "All I'm good for now is being the next lucky guy's fuck-toy...)]"
-					+ "</p>"
-					+ "<p>"
-					+ "You're vaguely aware of [npc.name] [npc.moaning] somewhere in the background, completely oblivious to how hard you've been hit by the loss of your virginity."
-					+ " With a shuddering sigh, you decide to resign yourself to the fact that now you're nothing more than a <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
-					+ "</p>");
+			boolean immobile = Main.sex.getAllParticipants().contains(this) && Main.sex.isCharacterImmobilised(this) && Main.sex.getImmobilisationType(this).getKey()==ImmobilisationType.COMMAND;
+			
+			if(immobile) {
+				if(this.isAsleep()) {
+					return UtilText.parseFromXMLFile("characters/player/virginity", "VIRGINITY_LOSS_PURE_SLEEPING", characterPenetrating);
+				}
+				return UtilText.parseFromXMLFile("characters/player/virginity", "VIRGINITY_LOSS_PURE_DOLL", characterPenetrating);
+				
+			} else {
+				return UtilText.parseFromXMLFile("characters/player/virginity", "VIRGINITY_LOSS_PURE", characterPenetrating);
+			}
 		}
 	}
 	
@@ -1918,126 +1872,34 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	protected String getAnalVirginityLossDescription(GameCharacter characterPenetrating, SexAreaPenetration penetration){
 		StringBuilder sb = new StringBuilder();
 		
-		boolean isPenis = penetration == SexAreaPenetration.PENIS;
-		boolean isTail = penetration == SexAreaPenetration.TAIL;
+		UtilText.addSpecialParsingString(penetration.getName(characterPenetrating), true);
+		
 		
 		if(characterPenetrating.isPlayer()) { // SELF-PENETRATION
-			// Initial penetration:
-			if(!Main.sex.hasLubricationTypeFromAnyone(Main.game.getPlayer(), SexAreaOrifice.ANUS)) {
-				// Dry:
-				sb.append(
-						"<p>"
-							+ "You let out a painful cry as you force your "+(isPenis?"[pc.penis+]":"")+(isTail?"[pc.tail+]":"")+" into your dry [pc.asshole]."
-							+ " Squirming and shuffling in discomfort, your cries grow louder and louder as you start fucking your own [pc.ass]; the lack of lubrication turning your first anal experience into one of mind-numbing agony."
-						+ "</p>");
-				
-			} else {
-				 // Wet:
-				sb.append(
-						"<p>"
-							+ "You let out a painful cry as you force your "+(isPenis?"[pc.penis+]":"")+(isTail?"[pc.tail+]":"")+" into your [pc.asshole+]."
-							+ " Squirming and shuffling in discomfort, you continue letting out little whimpers as you start fucking your own [pc.ass]."
-							+ " Thankfully, your [pc.asshole] was lubricated beforehand, and you dread to think of how painful your first anal experience would have been otherwise."
-						+ "</p>");
-			}
-			
-			// Player masochist reaction:
-			if(Main.game.getPlayer().hasFetish(Fetish.FETISH_MASOCHIST)) {
-				sb.append(
-						"<p>"
-							+ "Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure."
-							+ " The pain and discomfort at the feeling of losing your anal virginity is pure bliss, and you soon find yourself [pc.moaning] in a delightful haze of overwhelming ecstasy."
-						+ "</p>");
-			} else {
-				sb.append(
-						"<p>"
-							+ "With tears welling up in your [pc.eyes], you let out another painful wail as you draw"+(isTail?" your [pc.tail]":"")+" back, before thrusting deep inside yourself once again."
-							+ " This time, the pain isn't as extreme as before, and you realise that you're starting to get used to the feeling of using your own ass."
-						+ "</p>");
-			}
-			
-			// Ending:
-			sb.append(
-					"<p>"
-						+ "The throbbing, painful ache in your [pc.ass] slowly starts to fade away, and as your "+(isPenis?"[pc.penis+]":"")+(isTail?"[pc.tail+]":"")
-							+" pushes into your [pc.asshole+] once again, you let out a little whimper of relief as you feel that you're quickly getting used to the penetration."
-					+ "</p>");
+			sb.append(UtilText.parseFromXMLFile("characters/player/virginity", "VIRGINITY_LOSS_ANAL_SELF", characterPenetrating));
 			
 		} else {
+			boolean immobile = Main.sex.getAllParticipants().contains(this) && Main.sex.isCharacterImmobilised(this) && Main.sex.getImmobilisationType(this).getKey()==ImmobilisationType.COMMAND;
+			
 			if((characterPenetrating instanceof NPC) && ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.ANUS)!=null) {
 				return ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.ANUS);
 				
+			} else if(immobile) {
+				if(this.isAsleep()) {
+					sb.append(UtilText.parseFromXMLFile("characters/player/virginity", "VIRGINITY_LOSS_ANAL_SLEEPING", characterPenetrating));
+				} else {
+					sb.append(UtilText.parseFromXMLFile("characters/player/virginity", "VIRGINITY_LOSS_ANAL_DOLL", characterPenetrating));
+				}
+				
 			} else {
-				// Initial penetration:
-				if(!Main.sex.hasLubricationTypeFromAnyone(Main.game.getPlayer(), SexAreaOrifice.ANUS)) {
-					// Dry:
-					sb.append(
-							"<p>"
-								+ "You let out a painful cry as you feel [npc.namePos] "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" push into your dry [pc.asshole]."
-								+ " Squirming and shuffling in discomfort, your cries grow louder and louder as [npc.name] starts fucking your [pc.ass]; the lack of lubrication turning your first anal experience into one of mind-numbing agony."
-							+ "</p>");
-					
-				} else {
-					 // Wet:
-					sb.append(
-							"<p>"
-								+ "You let out a painful cry as you feel [npc.namePos] "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" push into your [pc.asshole+]."
-								+ " Squirming and shuffling in discomfort, you continue letting out little whimpers as [npc.name] starts fucking your [pc.ass]."
-								+ " Thankfully, your [pc.asshole] was lubricated beforehand, and you dread to think of how painful your first anal experience would have been otherwise."
-							+ "</p>");
-				}
-				
-				// Player masochist reaction:
-				if(Main.game.getPlayer().hasFetish(Fetish.FETISH_MASOCHIST)) {
-					sb.append(
-							"<p>"
-								+ "Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure."
-								+ " The pain and discomfort at the feeling of losing your anal virginity is pure bliss, and you soon find yourself [pc.moaning] in a delightful haze of overwhelming ecstasy."
-							+ "</p>");
-				}
-				
-				// Partner sadistic reaction:
-				if(characterPenetrating.hasFetish(Fetish.FETISH_SADIST)) {
-					sb.append(
-							"<p>"
-								+ "With tears welling up in your [pc.eyes], you let out another painful wail as [npc.name] draws"+(isTail?" [npc.her] [npc.tail]":"")+" back, before violently thrusting deep inside you once again."
-								+ " [npc.She] lets out an evil laugh as [npc.she] causes you to writhe about in pain, [npc.her] sadistic nature fuelling [npc.her] rough thrusts into your [pc.asshole] as [npc.she] ruthlessly fucks your [pc.ass]."
-							+ "</p>");
-				} else {
-					sb.append(
-							"<p>"
-								+ "With tears welling up in your [pc.eyes], you let out another painful wail as [npc.name] draws"+(isTail?" [npc.her] [npc.tail]":"")+" back, before thrusting deep inside you once again."
-								+ " This time, the pain isn't as extreme as before, and you realise that you're starting to get used to the feeling of being fucked in the ass."
-							+ "</p>");
-				}
-				
-				// Partner deflowering reaction:
-				if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
-					sb.append(
-							"<p>"
-								+ "[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your anal virginity for me!"
-									+ " Remember this moment, remember that <i>my</i> "+(isPenis?"cock":"")+(isTail?"tail":"")+" was the one that turned you into "+(Main.game.getPlayer().isFeminine()?"a horny buttslut":"a little fucktoy")+"!)]"
-							+ "</p>");
-				}
-				
-				// Ending:
-				sb.append(
-						"<p>"
-							+ "The throbbing, painful ache in your [pc.ass] slowly starts to fade away, and as [npc.namePos] "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")
-								+" pushes into your [pc.asshole+] once again, you let out a little whimper of relief as you feel that there's no accompanying stab of pain."
-						+ "</p>");
+				sb.append(UtilText.parseFromXMLFile("characters/player/virginity", "VIRGINITY_LOSS_ANAL", characterPenetrating));
 			}
 		}
-		
-		
-		sb.append(UtilText.formatVirginityLoss("You'll always remember this moment as the time that you lost your anal virginity!"));
 
-		if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
-			sb.append("<p style='text-align:center;'>"
-										+ "[style.italicsArcane(Due to [npc.namePos] deflowering fetish, [npc.she] [npc.verb(gain)])]"
-										+ " [style.italicsExperience("+AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
-								+ "</p>");
-		}
+		UtilText.addSpecialParsingString(String.valueOf(AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)), true);
+		sb.append(UtilText.parseFromXMLFile("characters/player/virginity", "VIRGINITY_LOSS_ANAL_ENDING", characterPenetrating));
+		
+		sb.append(getVirginityExperienceDescription(characterPenetrating));
 		
 		return UtilText.parse(characterPenetrating, sb.toString());
 	
@@ -2064,174 +1926,27 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			default:
 				break;
 		}
+		UtilText.addSpecialParsingString(penetrationName, true);
 		
 		if(characterPenetrating.isPlayer()) { // SELF-PENETRATION
-			// Initial penetration:
-			sb.append("<p>");
-				if(Main.game.isInSex() && !Main.sex.hasLubricationTypeFromAnyone(Main.game.getPlayer(), SexAreaOrifice.VAGINA)) { // Dry:
-					if(Main.game.getPlayer().hasHymen()) {
-						sb.append("As you drive your "+penetrationName+" deep into your dry [pc.pussy], your vision suddenly explodes in stars, and a painful, high-pitched shriek escapes from between your [pc.lips]."
-									+ " Being penetrated without any form of lubrication would be uncomfortable at the best of times, but due to the fact that you've also just torn your hymen, it's more than just a little discomfort,"
-										+ " and your shriek turns into a shuddering cry as you shuffle about in pure agony.");
-					} else {
-						sb.append("As you drive your "+penetrationName+" deep into your dry [pc.pussy], you can't help but let out an uncomfortable groan."
-								+ " Being penetrated without any form of lubrication would be uncomfortable at the best of times, but due to the fact that this is the moment in which you're taking your own virginity,"
-									+ " you're entirely unused to the sensation you're currently experiencing, and find it to be extremely unpleasant.");
-					}
-					
-				} else { // Wet:
-					if(Main.game.getPlayer().hasHymen()) {
-						sb.append("As you drive your "+penetrationName+" deep into your [pc.pussy+], your vision suddenly narrows down, and a painful, desperate wail escapes from between your [pc.lips]."
-										+ " Luckily, your pussy was lubricated before being penetrated, but due to the fact that you've also just torn your hymen, it isn't enough to completely prevent the pain you now feel in your groin,"
-											+ " and your wail turns into a shuddering moan as you shuffle about in discomfort.");
-					} else {
-						sb.append("As you drive your "+penetrationName+" deep into your [pc.pussy+], your vision suddenly narrows down, and a lewd [pc.moan] bursts out from between your [pc.lips]."
-								+ " As you're well lubricated, and you've already lost your hymen, the first experience of having your virgin pussy penetrated is not at all an unpleasant one,"
-									+ " and you let out a second eager [pc.moan] as you focus on the amazing feeling of your "+penetrationName+" thrusting into it.");
-					}
-				}
-			sb.append("</p>");
-
-			sb.append("<p>");
-				if(Main.game.getPlayer().hasHymen()) {
-					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_MASOCHIST)) {
-						sb.append("Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure."
-									+ " The agony between your legs is pure bliss, and you focus on the pain as you squeal and moan in a delightful haze of overwhelming ecstasy."
-									+ "  Unfortunately for your masochistic desires, your hymen is now torn, and so the pain isn't as extreme as before, but even without this, you find yourself starting to let out lustful [pc.moans].");
-					} else {
-						sb.append("Instinctively trying to clench your legs together, you let out another painful wail as you draw your "+penetrationName+" back, before thrusting deep inside yourself once again."
-									+ " As your hymen is now torn, the pain isn't as extreme as before, and your pained cries start to turn into lustful [pc.moans].");
-					}
-					
-				} else {
-					sb.append("Starting to get into the flow of things, you eagerly draw your "+penetrationName+" back, before thrusting deep inside yourself once again."
-								+ " As you start fucking yourself, you can't help but let out a series of extremely lewd, lustful [pc.moans].");
-				}
-			sb.append("</p>");
-			
-			// Ending:
-			sb.append("<p>");
-				if(Main.game.getPlayer().hasHymen()) {
-					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
-						sb.append("With the initial pain now having faded away into a faint, dull ache, you can't help but let out one final whimper as you feel a little trickle of blood running out of your broken-in pussy."
-									+ " Picking up the pace, you thrust your "+penetrationName+" into your [pc.pussy+] once again, letting out [pc.a_moan+] as you succumb to this new pleasurable experience...");
-					} else {
-						sb.append("With the initial pain now having faded away into a faint, dull ache, you let out one final whimper as you reflect on the fact that this is how you'll always remember losing your virginity."
-								+ " Picking up the pace, you thrust your "+penetrationName+" into your [pc.pussy+] once again, letting out [pc.a_moan+] as you succumb to this new pleasurable experience...");
-					}
-				} else {
-					sb.append("Not having had to experience the pain of losing your hymen, you let out a deep [pc.moan] as you reflect on the fact that this is how you'll always remember losing your virginity."
-							+ " Picking up the pace, you thrust your "+penetrationName+" into your [pc.pussy+] once again, letting out [pc.a_moan+] as you succumb to this new pleasurable experience...");
-				}
-			sb.append("</p>");
+			sb.append(UtilText.parseFromXMLFile("characters/player/virginity", "VIRGINITY_LOSS_VAGINAL_SELF", characterPenetrating));
 			
 		} else {
+			boolean immobile = Main.sex.getAllParticipants().contains(this) && Main.sex.isCharacterImmobilised(this) && Main.sex.getImmobilisationType(this).getKey()==ImmobilisationType.COMMAND;
+			
 			if((characterPenetrating instanceof NPC) && ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.VAGINA)!=null) {
 				sb.append(((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.VAGINA));
 				
-			} else {
-				sb.append("<p>");
-					if(Main.game.isInSex() && !Main.sex.hasLubricationTypeFromAnyone(Main.game.getPlayer(), SexAreaOrifice.VAGINA)) { // Dry:
-						if(Main.game.getPlayer().hasHymen()) {
-							sb.append("As [npc.name] drives [npc.her] "+penetrationName+" deep into your dry [pc.pussy], your vision suddenly explodes in stars, and a painful, high-pitched shriek escapes from between your [pc.lips]."
-										+ " Being penetrated without any form of lubrication would be uncomfortable at the best of times, but due to the fact that [npc.nameHasFull] also just torn through your hymen, it's more than just a little discomfort,"
-											+ " and your shriek turns into a shuddering cry as you shuffle about in pure agony.");
-						} else {
-							sb.append("As [npc.name] drives [npc.her] "+penetrationName+" deep into your dry [pc.pussy], you can't help but let out an uncomfortable groan."
-									+ " Being penetrated without any form of lubrication would be uncomfortable at the best of times, but due to the fact that this is the moment in which [npc.name] is taking your virginity,"
-										+ " you're entirely unused to the sensation you're currently experiencing, and find it to be extremely unpleasant.");
-						}
-						
-					} else { // Wet:
-						if(Main.game.getPlayer().hasHymen()) {
-							sb.append("As [npc.name] drives [npc.her] "+penetrationName+" deep into your [pc.pussy+], your vision suddenly narrows down, and a painful, desperate wail escapes from between your [pc.lips]."
-											+ " Luckily, your pussy was lubricated before being penetrated, but due to the fact that [npc.nameHasFull] also just torn through your hymen,"
-												+ " it isn't enough to completely prevent the pain you now feel in your groin, and your wail turns into a shuddering moan as you shuffle about in discomfort.");
-						} else {
-							sb.append("As [npc.name] drives [npc.her] "+penetrationName+" deep into your [pc.pussy+], your vision suddenly narrows down, and a lewd [pc.moan] bursts out from between your [pc.lips]."
-									+ " As you're well lubricated, and you've already lost your hymen, the first experience of having your virgin pussy penetrated is not at all an unpleasant one,"
-										+ " and you let out a second eager [pc.moan] as you focus on the amazing feeling of [npc.namePos] "+penetrationName+" thrusting into it.");
-						}
-					}
-				sb.append("</p>");
-	
-				sb.append("<p>");
-					if(Main.game.getPlayer().hasHymen()) {
-						if(characterPenetrating.hasFetish(Fetish.FETISH_SADIST)) {
-							sb.append("[npc.She] lets out an evil laugh as [npc.she] causes you to writhe about in pain, [npc.her] sadistic nature fuelling [npc.her] rough thrusts into your pussy as [npc.she] ruthlessly tears through your hymen.");
-						}
-						if(Main.game.getPlayer().hasFetish(Fetish.FETISH_MASOCHIST)) {
-							sb.append(" Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure."
-										+ " The agony between your legs is pure bliss, and you focus on the pain as you squeal and moan in a delightful haze of overwhelming ecstasy."
-										+ "  Unfortunately for your masochistic desires, your hymen is now torn, and so the pain isn't as extreme as before, but even without this, you find yourself starting to let out lustful [pc.moans].");
-						} else {
-							sb.append(" Instinctively trying to clench your legs together, you let out another painful wail as [npc.name] draws [npc.her] "+penetrationName+" back, before thrusting deep inside you once again."
-										+ " As your hymen is now torn, the pain isn't as extreme as before, and your pained cries start to turn into lustful [pc.moans].");
-						}
-						
-					} else {
-						sb.append("Starting to get into the flow of things, you let out [pc.a_moan+] as [npc.name] draws [npc.her] "+penetrationName+" back, before thrusting deep inside you once again."
-									+ " As [npc.she] starts fucking you, you can't help but let out a series of extremely lewd, lustful [pc.moans].");
-					}
-				sb.append("</p>");
-				
-				// Partner deflowering reaction:
-				if(!characterPenetrating.isMute()) {
-					sb.append("<p>");
-						if(Main.game.isInSex()) {
-							switch(Main.sex.getSexPace(characterPenetrating)) {
-								case DOM_GENTLE:
-									sb.append("[npc.speech(You were a virgin?)] [npc.she] softly muses to [npc.herself],"
-											+ " [npc.speech(You're a very good [pc.girl], saving your virginity for me!"
-												+ " You'll always remember that it was my "+penetration.getName(characterPenetrating, true)+" which was the first to break you in...)]");
-									break;
-								case DOM_NORMAL:
-								case SUB_EAGER:
-								case SUB_NORMAL:
-									sb.append("[npc.speech(Oh, yes!)] [npc.she] cries,"
-											+ " [npc.speech(Good [pc.girl], saving your virginity for me!"
-												+ " Remember this moment, remember that <i>my</i> "+penetration.getName(characterPenetrating, true)+" was the one that broke you in!)]");
-									break;
-								case DOM_ROUGH:
-									sb.append("[npc.speech(This is just the start, slut!)] [npc.she] roughly [npc.moansVerb],"
-											+ " [npc.speech(Now that I've claimed your virginity, I'll show you how it feels to get a good, hard pounding!"
-												+ " You'll never forget this feeling of my "+penetration.getName(characterPenetrating, true)+" breaking you in!)]");
-									break;
-								case SUB_RESISTING:
-									sb.append("[npc.speech(Stop it! I didn't want to do this!)] [npc.she] complains as [npc.she] realises that [npc.sheHas] taken your virginity,"
-											+ " [npc.speech(Just get off me and leave me alone!)]");
-									break;
-							}
-						} else {
-							sb.append("[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your virginity for me!"
-									+ " Remember this moment, remember that <i>my</i> "+penetration.getName(characterPenetrating, true)+" was the one that broke you in!)]");
-						}
-					sb.append("</p>");
+			} else if(immobile) {
+				if(this.isAsleep()) {
+					sb.append(UtilText.parseFromXMLFile("characters/player/virginity", "VIRGINITY_LOSS_VAGINAL_SLEEPING", characterPenetrating));
+				} else {
+					sb.append(UtilText.parseFromXMLFile("characters/player/virginity", "VIRGINITY_LOSS_VAGINAL_DOLL", characterPenetrating));
 				}
 				
-				// Ending:
-				sb.append("<p>");
-					if(Main.game.getPlayer().hasHymen()) {
-						if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
-							sb.append("With the initial pain now having faded away into a faint, dull ache, you can't help but let out one final whimper as you feel a little trickle of blood running out of your broken-in pussy."
-										+ " With [npc.namePos] "+penetrationName+" thrusting into your [pc.pussy+] once again, you find yourself letting out [pc.a_moan+] as you succumb to this new pleasurable experience...");
-						} else {
-							sb.append("With the initial pain now having faded away into a faint, dull ache, you let out one final whimper as you reflect on the fact that this is how you'll always remember losing your virginity."
-									+ " With [npc.namePos] "+penetrationName+" thrusting into your [pc.pussy+] once again, you find yourself letting out [pc.a_moan+] as you succumb to this new pleasurable experience...");
-						}
-					} else {
-						sb.append("Not having had to experience the pain of losing your hymen, you let out a deep [pc.moan] as you reflect on the fact that this is how you'll always remember losing your virginity."
-								+ " With [npc.namePos] "+penetrationName+" thrusting into your [pc.pussy+] once again, you find yourself letting out [pc.a_moan+] as you succumb to this new pleasurable experience...");
-					}
-				sb.append("</p>");
+			} else {
+				sb.append(UtilText.parseFromXMLFile("characters/player/virginity", "VIRGINITY_LOSS_VAGINAL", characterPenetrating));
 			}
-		}
-		
-		if(this.hasHymen()) {
-			sb.append(UtilText.formatVirginityLoss("Your hymen has been torn; you have lost your virginity!"));
-			
-		} else {
-			sb.append(UtilText.formatVirginityLoss("Although your hymen had already been torn, you've now officially lost your virginity!"));
 		}
 		
 		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
@@ -2242,13 +1957,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				sb.append(losingPureVirginity(characterPenetrating, penetration));
 			}
 		}
-		
-		if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
-			sb.append("<p style='text-align:center;'>"
-						+ "[style.italicsArcane(Due to [npc.namePos] deflowering fetish, [npc.she] [npc.verb(gain)])]"
-						+ " [style.italicsExperience("+AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
-					+ "</p>");
-		}
+
+		UtilText.addSpecialParsingString(String.valueOf(AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)), true);
+		sb.append(UtilText.parseFromXMLFile("characters/player/virginity", "VIRGINITY_LOSS_VAGINAL_ENDING", characterPenetrating));
+
+		sb.append(getVirginityExperienceDescription(characterPenetrating));
 		
 		return UtilText.parse(characterPenetrating, sb.toString());
 	}
@@ -2263,12 +1976,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				(characterPenetrated.equals(this)
 						?UtilText.formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc2.her] own penile virginity!")
 						:UtilText.formatVirginityLoss("[npc.Name] [npc.has] taken [npc2.namePos] penile virginity!"))
-				+(characterPenetrated.hasFetish(Fetish.FETISH_DEFLOWERING)
-						?"<p style='text-align:center;'>"
-							+ "[style.italicsArcane(Due to [npc.namePos] deflowering fetish, [npc.she] [npc.verb(gain)])]"
-								+ " [style.italicsExperience("+AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrated)+")] [style.italicsArcane(experience!)]"
-						+ "</p>"
-						:""));
+				+getVirginityExperienceDescription(characterPenetrated));
 	}
 
 	@Override
@@ -2281,12 +1989,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				(this.equals(characterPenetrating)
 						?UtilText.formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc2.her] own nipple virginity!")
 						:UtilText.formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc.namePos] nipple virginity!"))
-				+(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)
-						?"<p style='text-align:center;'>"
-							+ "[style.italicsArcane(Due to [npc2.namePos] deflowering fetish, [npc2.she] [npc2.verb(gain)])]"
-								+ " [style.italicsExperience("+AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
-						+ "</p>"
-						:""));
+				+getVirginityExperienceDescription(characterPenetrating));
 	}
 
 	@Override
@@ -2299,12 +2002,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				(this.equals(characterPenetrating)
 						?UtilText.formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc2.her] own [npc2.crotchNipple] virginity!")
 						:UtilText.formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc.namePos] [npc.crotchNipple] virginity!"))
-				+(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)
-						?"<p style='text-align:center;'>"
-							+ "[style.italicsArcane(Due to [npc2.namePos] deflowering fetish, [npc2.she] [npc2.verb(gain)])]"
-								+ " [style.italicsExperience("+AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
-						+ "</p>"
-						:""));
+				+getVirginityExperienceDescription(characterPenetrating));
 	}
 
 	@Override
@@ -2317,12 +2015,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				(this.equals(characterPenetrating)
 						?UtilText.formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc2.her] own urethral virginity!")
 						:UtilText.formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc.namePos] urethral virginity!"))
-				+(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)
-						?"<p style='text-align:center;'>"
-							+ "[style.italicsArcane(Due to [npc2.namePos] deflowering fetish, [npc2.she] [npc2.verb(gain)])]"
-								+ " [style.italicsExperience("+AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
-						+ "</p>"
-						:""));
+				+getVirginityExperienceDescription(characterPenetrating));
 	}
 
 	@Override
@@ -2335,12 +2028,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				(this.equals(characterPenetrating)
 						?UtilText.formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc2.her] own urethral virginity!")
 						:UtilText.formatVirginityLoss("[npc2.Name] [npc2.has] taken [npc.namePos] urethral virginity!"))
-				+(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)
-						?"<p style='text-align:center;'>"
-							+ "[style.italicsArcane(Due to [npc2.namePos] deflowering fetish, [npc2.she] [npc2.verb(gain)])]"
-								+ " [style.italicsExperience("+AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
-						+ "</p>"
-						:""));
+				+getVirginityExperienceDescription(characterPenetrating));
 	}
 
 	@Override
@@ -2353,11 +2041,6 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				(this.equals(characterPenetrating)
 						?UtilText.formatVirginityLoss("[npc2.Name] [npc2.has] given [npc2.herself] [npc.her] first oral experience!")
 						:UtilText.formatVirginityLoss("[npc2.Name] [npc2.has] given [npc.name] [npc.her] first oral experience!"))
-				+(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)
-						?"<p style='text-align:center;'>"
-							+ "[style.italicsArcane(Due to [npc2.namePos] deflowering fetish, [npc2.she] [npc2.verb(gain)])]"
-								+ " [style.italicsExperience("+AbstractFetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating)+")] [style.italicsArcane(experience!)]"
-						+ "</p>"
-						:""));
+				+getVirginityExperienceDescription(characterPenetrating));
 	}
 }

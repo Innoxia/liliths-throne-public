@@ -1,0 +1,1447 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<!-- Main shop dialogues: -->
+	
+	<!-- Initial entry scene: -->
+	<scene id="enter">
+		<preParsingEffects><![CDATA[
+			#IF(saellatrix.isPlayerVisited())
+				[#flags.setFlag(FLAG_innoxia_sex_shop_display_on, RND.nextInt(100)<50)]
+			#ENDIF
+			[#saellatrix.initDemoDoll()]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/generic">ENTER</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_sex_shop_generic_exit"/>
+	</scene>
+	
+    <!-- Place type id: innoxia_dominion_sex_shop_exit -->
+	<scene id="exit">
+		<content folderPath="txt/places/dominion/sex_shop/generic">EXIT</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Exit Lovienne's Luxuries and head back out into Demon Home.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="DOMINION_DEMON_HOME_SEX_SHOP"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_DEMON_HOME_SEX_SHOP)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'EXIT_LEAVE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+    <!-- Place type id: innoxia_dominion_sex_shop_floor -->
+	<scene id="floor">
+		<content folderPath="txt/places/dominion/sex_shop/generic">FLOOR</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+    <!-- Place type id: innoxia_dominion_sex_shop_display -->
+	<scene id="display">
+		<content folderPath="txt/places/dominion/sex_shop/generic">DISPLAY</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Demo doll]]></responseTitle>
+				<responseTooltip><![CDATA[Take a closer look at the pink doll.]]></responseTooltip>
+				<nextDialogue>innoxia_places_dominion_sex_shop_generic_display_demo_doll</nextDialogue>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sex_shop_display_on))
+						Toys: [style.colourGood(On)]
+					#ELSE
+						Toys: [style.colourBad(Off)]
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sex_shop_display_on))
+						Press the button to turn the sex toys off.
+					#ELSE
+						Press the button to turn the sex toys on.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>innoxia_places_dominion_sex_shop_generic_display_trio_button</nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sex_shop_display_on, !flags.hasFlag(FLAG_innoxia_sex_shop_display_on))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="display_trio_button">
+		<content folderPath="txt/places/dominion/sex_shop/generic">DISPLAY_TRIO_BUTTON</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_sex_shop_generic_display"/>
+	</scene>
+	
+	<scene id="display_demo_doll">
+		<content folderPath="txt/places/dominion/sex_shop/generic">DISPLAY_DEMO_DOLL</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Blowjob: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!pc.isAbleToAccessCoverableArea(CA_PENIS, true) || !pc.hasPenis()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Blowjob]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasPenis())
+						As you don't have a penis, you cannot get a blowjob from the demo doll...
+					#ELSE
+						As you're unable to access your penis, you cannot get a blowjob from the demo doll...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.isAbleToAccessCoverableArea(CA_PENIS, true) && pc.hasPenis()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Blowjob]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Stick your [pc.cock+] down the demo doll's throat and fuck her face.
+				]]></responseTooltip>
+				<nextDialogue/>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_EXHIBITIONIST]]></fetish>
+				</requiredFetishes>
+                <corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_dominion_sex_shop_demo_oral_blowjob]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>demoDoll</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[
+						#IF(!flags.hasFlag(FLAG_innoxia_sex_shop_oral_offer) && !pc.isFullPenetrationFarTooShort(PENETRATION_PENIS, saellatrix, ORIFICE_VAGINA))
+							innoxia_places_dominion_sex_shop_generic_display_demo_doll_after_blowjob_oral_offer
+						#ELSE
+							innoxia_places_dominion_sex_shop_generic_display_demo_doll_after_blowjob
+						#ENDIF
+					]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/sex_shop/generic">DISPLAY_DEMO_DOLL_BLOWJOB_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[demoDoll]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Cunnilingus: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!pc.isAbleToAccessCoverableArea(CA_VAGINA, true) || !pc.hasVagina()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Cunnilingus]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!pc.hasVagina())
+						As you don't have a pussy, you cannot get a blowjob from the demo doll...
+					#ELSE
+						As you're unable to access your pussy, you cannot get a blowjob from the demo doll...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.isAbleToAccessCoverableArea(CA_VAGINA, true) && pc.hasVagina()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Cunnilingus]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Press your [pc.pussy+] down against the demo doll's mouth and get her to eat you out.
+				]]></responseTooltip>
+				<nextDialogue/>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_EXHIBITIONIST]]></fetish>
+				</requiredFetishes>
+                <corruptionLevel><![CDATA[THREE_DIRTY]]></corruptionLevel>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_dominion_sex_shop_demo_oral_cunnilingus]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>demoDoll</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_sex_shop_generic_display_demo_doll_after_cunnilingus]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/sex_shop/generic">DISPLAY_DEMO_DOLL_CUNNILINGUS_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[TongueVagina_RECEIVING_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[demoDoll]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Back out: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Back]]></responseTitle>
+				<responseTooltip><![CDATA[Decide against using the demo doll...]]></responseTooltip>
+				<nextDialogue>innoxia_places_dominion_sex_shop_generic_display</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'DISPLAY_DEMO_DOLL_BACK'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="display_demo_doll_after_blowjob">
+		<preParsingEffects><![CDATA[
+			[#demoDoll.applyWash(true, true, null, 0)]
+		]]></preParsingEffects>
+        <title><![CDATA[Finished]]></title>
+        <tooltip><![CDATA[Having had enough, you [pc.step] away from the demo doll...]]></tooltip>
+		<content folderPath="txt/places/dominion/sex_shop/generic">DISPLAY_DEMO_DOLL_BLOWJOB_END</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_sex_shop_generic_display"/>
+	</scene>
+	
+	<scene id="display_demo_doll_after_blowjob_oral_offer">
+		<preParsingEffects><![CDATA[
+			[#demoDoll.applyWash(true, true, null, 0)]
+			[#saellatrix.setLocation(pc)]
+		]]></preParsingEffects>
+        <title><![CDATA[Finished]]></title>
+        <tooltip><![CDATA[Having had enough, you [pc.step] away from the demo doll...]]></tooltip>
+		<content folderPath="txt/places/dominion/sex_shop/generic">DISPLAY_DEMO_DOLL_BLOWJOB_END</content>
+		<secondsPassed><![CDATA[60]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Wager?]]></responseTitle>
+				<responseTooltip><![CDATA[Ask Saellatrix what it is she's offering.]]></responseTooltip>
+				<nextDialogue stripContent="true">innoxia_places_dominion_sex_shop_generic_display</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'DISPLAY_DEMO_DOLL_BLOWJOB_END_OFFER_END'))]
+					[#flags.setFlag(FLAG_innoxia_sex_shop_oral_offer, true)]
+					[#saellatrix.returnToHome()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="display_demo_doll_after_cunnilingus">
+		<preParsingEffects><![CDATA[
+			[#demoDoll.applyWash(true, true, null, 0)]
+		]]></preParsingEffects>
+        <title><![CDATA[Finished]]></title>
+        <tooltip><![CDATA[Having had enough, you [pc.step] away from the demo doll...]]></tooltip>
+		<content folderPath="txt/places/dominion/sex_shop/generic">DISPLAY_DEMO_DOLL_CUNNILINGUS_END</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_sex_shop_generic_display"/>
+	</scene>
+	
+    <!-- Place type id: innoxia_dominion_sex_shop_dolls -->
+	<scene id="dolls">
+		<content folderPath="txt/places/dominion/sex_shop/generic">DOLLS</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+    <!-- Place type id: innoxia_dominion_sex_shop_counter -->
+	<scene id="counter">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'COUNTER'))]
+			[#saellatrix.setCharacterReactedToPregnancy(pc, true)]
+			[#flags.setFlag(FLAG_innoxia_sex_shop_talk_background, false)]
+			[#flags.setFlag(FLAG_innoxia_sex_shop_talk_lovienne, false)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Introduction: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!saellatrix.isPlayerKnowsName()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Greet succubus]]></responseTitle>
+					<responseTooltip><![CDATA[Introduce yourself to the succubus.]]></responseTooltip>
+					<nextDialogue>innoxia_places_dominion_sex_shop_generic_counter_intro</nextDialogue>
+					<effects><![CDATA[
+						[#saellatrix.setPlayerKnowsName(true)]
+					]]></effects>
+				</response>
+			<!-- After introduction: -->
+				<!-- 1: trade -->
+				<response>
+					<availabilityConditional><![CDATA[[#saellatrix.isPlayerKnowsName()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Trade]]></responseTitle>
+					<responseTooltip><![CDATA[Tell Saellatrix if you're planning on buying anything from her store...]]></responseTooltip>
+					<nextDialogue/>
+					<effects><![CDATA[
+						[#flags.setFlag(FLAG_innoxia_sex_shop_talk_background, false)]
+						[#flags.setFlag(FLAG_innoxia_sex_shop_talk_lovienne, false)]
+					]]></effects>
+					<tradingVariables enabled="true">
+						<tradePartner><![CDATA[saellatrix]]></tradePartner>
+					</tradingVariables>
+				</response>
+				<!-- 2: dolls -->
+				<response>
+					<availabilityConditional><![CDATA[[#saellatrix.isPlayerKnowsName() && !flags.hasFlag(FLAG_innoxia_sex_shop_dolls_unlocked)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Dolls]]></responseTitle>
+					<responseTooltip><![CDATA[Tell Saellatrix that you'd like to know more about the sex dolls she sells here.]]></responseTooltip>
+					<nextDialogue>innoxia_places_dominion_sex_shop_generic_counter_doll_tour</nextDialogue>
+					<effects><![CDATA[
+						[#flags.setFlag(FLAG_innoxia_sex_shop_talk_background, false)]
+						[#flags.setFlag(FLAG_innoxia_sex_shop_talk_lovienne, false)]
+						[#flags.setFlag(FLAG_innoxia_sex_shop_dolls_unlocked, true)]
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_sex_shop_dolls_unlocked) && !pc.isQuestCompleted(QUEST_LINE_SIDE_DOLL_STORAGE)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Doll brochure]]></responseTitle>
+					<responseTooltip><![CDATA[You need to get Lilaya's permission to store dolls in her mansion before buying one...]]></responseTooltip>
+					<nextDialogue>null</nextDialogue>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_sex_shop_dolls_unlocked) && pc.isQuestCompleted(QUEST_LINE_SIDE_DOLL_STORAGE)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Doll brochure]]></responseTitle>
+					<responseTooltip><![CDATA[Take a look at the options for buying a doll.]]></responseTooltip>
+					<nextDialogue>DOLL_BROCHURE</nextDialogue>
+				</response>
+				<!-- 3 & 4: talk -->
+				<response>
+					<availabilityConditional><![CDATA[[#saellatrix.isPlayerKnowsName()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[3]]></index>
+					<responseTitle><![CDATA[Background]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_sex_shop_talk_background))
+							You're already asking Saellatrix about her background...
+						#ELSE
+							Ask Saellatrix how she ended up running this store.
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_sex_shop_talk_background))
+							null
+						#ELSE
+							innoxia_places_dominion_sex_shop_generic_counter_talk
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'COUNTER_TALK_BACKGROUND'))]
+						[#flags.setFlag(FLAG_innoxia_sex_shop_talk_background, true)]
+						[#flags.setFlag(FLAG_innoxia_sex_shop_talk_lovienne, false)]
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#saellatrix.isPlayerKnowsName()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[4]]></index>
+					<responseTitle><![CDATA[Lovienne]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_sex_shop_talk_lovienne))
+							You're already asking Saellatrix about her mother, the elder lilin Lovienne...
+						#ELSE
+							Ask Saellatrix what she can tell you about her mother, the elder lilin Lovienne.
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_sex_shop_talk_lovienne))
+							null
+						#ELSE
+							innoxia_places_dominion_sex_shop_generic_counter_talk
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'COUNTER_TALK_LOVIENNE'))]
+						[#flags.setFlag(FLAG_innoxia_sex_shop_talk_background, false)]
+						[#flags.setFlag(FLAG_innoxia_sex_shop_talk_lovienne, true)]
+					]]></effects>
+				</response>
+				<!-- 5: factory tour -->
+				<response>
+					<availabilityConditional><![CDATA[[#saellatrix.isPlayerKnowsName() && flags.hasFlag(FLAG_innoxia_sex_shop_dolls_unlocked)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[5]]></index>
+					<responseTitle><![CDATA[Factory tour]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_sex_shop_daily_tour))
+							You've already had a factory tour today...
+						#ELSE
+							Tell Saellatrix that you'd like a tour of the doll factory.
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_sex_shop_daily_tour))
+							null
+						#ELSE
+							innoxia_places_dominion_sex_shop_generic_counter_doll_tour_factory
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'COUNTER_FACTORY'))]
+					]]></effects>
+				</response>
+				<!-- Sex: -->
+					<!-- Initial wager: -->
+					<response>
+						<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_sex_shop_oral_offer) && (!pc.isAbleToAccessCoverableArea(CA_PENIS, true) || !pc.hasPenis() || flags.hasFlag(FLAG_innoxia_sex_shop_saellatrix_sex)) && !flags.hasFlag(FLAG_innoxia_sex_shop_discount) && !flags.hasFlag(FLAG_innoxia_sex_shop_penalty)]]]></availabilityConditional>
+						<responseTabIndex><![CDATA[0]]></responseTabIndex>
+						<index><![CDATA[6]]></index>
+						<responseTitle><![CDATA[Wager]]></responseTitle>
+						<responseTooltip><![CDATA[
+							#IF(flags.hasFlag(FLAG_innoxia_sex_shop_saellatrix_sex))
+								You've already had sex with Saellatrix today, and she doesn't have time for it again...
+							#ELSEIF(!pc.hasPenis())
+								As you don't have a penis, you cannot take Saellatrix up on her wager...
+							#ELSE
+								As you're unable to access your penis, you cannot take Saellatrix up on her wager...
+							#ENDIF
+						]]></responseTooltip>
+						<nextDialogue>null</nextDialogue>
+					</response>
+					<response>
+						<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_sex_shop_oral_offer) && pc.isAbleToAccessCoverableArea(CA_PENIS, true) && pc.hasPenis() && !flags.hasFlag(FLAG_innoxia_sex_shop_saellatrix_sex) && !flags.hasFlag(FLAG_innoxia_sex_shop_discount) && !flags.hasFlag(FLAG_innoxia_sex_shop_penalty)]]]></availabilityConditional>
+						<responseTabIndex><![CDATA[0]]></responseTabIndex>
+						<index><![CDATA[6]]></index>
+						<colour><![CDATA[GENERIC_SEX]]></colour>
+						<responseTitle><![CDATA[Wager]]></responseTitle>
+						<responseTooltip><![CDATA[
+							Tell Saellatrix that you'll take her up on her wager; if you can snap her choker while receiving a blowjob you'll get a 25% discount. If not, you'll have to pay double on everything...
+						]]></responseTooltip>
+						<nextDialogue>innoxia_places_dominion_sex_shop_generic_counter_wager</nextDialogue>
+						<effects><![CDATA[
+							#IF(saellatrix.getTotalTimesHadSex(pc)>0)
+								[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'COUNTER_WAGER_REPEAT'))]
+							#ELSE
+								[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'COUNTER_WAGER'))]
+							#ENDIF
+							[#pc.walkPathNoEffects(PLACE_TYPE_innoxia_dominion_sex_shop_staff_room, true, 1)]
+							[#saellatrix.setLocation(pc)]
+						]]></effects>
+					</response>
+					<!-- Repeat sex: -->
+					<!-- Discount applied: -->
+					<response>
+						<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_sex_shop_discount) && (!pc.isAbleToAccessCoverableArea(CA_PENIS, true) || !pc.hasPenis() || flags.hasFlag(FLAG_innoxia_sex_shop_saellatrix_sex))]]]></availabilityConditional>
+						<responseTabIndex><![CDATA[0]]></responseTabIndex>
+						<index><![CDATA[6]]></index>
+						<responseTitle><![CDATA[Repeat wager]]></responseTitle>
+						<responseTooltip><![CDATA[
+							#IF(flags.hasFlag(FLAG_innoxia_sex_shop_saellatrix_sex))
+								You've already had sex with Saellatrix today, and she doesn't have time for it again...
+							#ELSEIF(!pc.hasPenis())
+								As you don't have a penis, you cannot take Saellatrix up on her wager again...
+							#ELSE
+								As you're unable to access your penis, you cannot cannot take Saellatrix up on her wager again...
+							#ENDIF
+						]]></responseTooltip>
+						<nextDialogue>null</nextDialogue>
+					</response>
+					<response>
+						<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_sex_shop_discount) && pc.isAbleToAccessCoverableArea(CA_PENIS, true) && pc.hasPenis() && !flags.hasFlag(FLAG_innoxia_sex_shop_saellatrix_sex)]]]></availabilityConditional>
+						<responseTabIndex><![CDATA[0]]></responseTabIndex>
+						<index><![CDATA[6]]></index>
+						<colour><![CDATA[GENERIC_SEX]]></colour>
+						<responseTitle><![CDATA[Repeat wager]]></responseTitle>
+						<responseTooltip><![CDATA[
+							Tell Saellatrix that you'll take her up on a repeat of her wager; if you can snap her choker while receiving a blowjob you'll retain your 25% discount. If not, you'll have to pay double on everything...
+						]]></responseTooltip>
+						<nextDialogue>innoxia_places_dominion_sex_shop_generic_counter_wager</nextDialogue>
+						<effects><![CDATA[
+							[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'COUNTER_WAGER_REPEAT'))]
+							[#pc.walkPathNoEffects(PLACE_TYPE_innoxia_dominion_sex_shop_staff_room, true, 1)]
+							[#saellatrix.setLocation(pc)]
+						]]></effects>
+					</response>
+					<!-- Penalty applied: -->
+					<response>
+						<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_sex_shop_penalty)]]]></availabilityConditional>
+						<responseTabIndex><![CDATA[0]]></responseTabIndex>
+						<index><![CDATA[6]]></index>
+						<colour><![CDATA[GENERIC_SEX]]></colour>
+						<responseTitle><![CDATA[Submit]]></responseTitle>
+						<responseTooltip><![CDATA[
+							#IF(flags.hasFlag(FLAG_innoxia_sex_shop_saellatrix_sex))
+								You've already had sex with Saellatrix today, and she doesn't have time for it again...
+							#ELSE
+								Tell Saellatrix that you'll submit and get fucked by her in exchange for the removal of your double-cost penalty...
+							#ENDIF
+						]]></responseTooltip>
+						<nextDialogue><![CDATA[
+							#IF(!flags.hasFlag(FLAG_innoxia_sex_shop_saellatrix_sex))
+								innoxia_places_dominion_sex_shop_generic_counter_fucked
+							#ELSE
+								null
+							#ENDIF
+						]]></nextDialogue>
+						<effects><![CDATA[
+							[#pc.walkPathNoEffects(PLACE_TYPE_innoxia_dominion_sex_shop_staff_room, true, 1)]
+							[#saellatrix.setLocation(pc)]
+							[#saellatrix.growPenis(true)]
+						]]></effects>
+					</response>
+				<!-- Leave: -->
+				<response>
+					<availabilityConditional><![CDATA[[#saellatrix.isPlayerKnowsName()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[0]]></index>
+					<responseTitle><![CDATA[Back]]></responseTitle>
+					<responseTooltip><![CDATA[[pc.Step] away from the counter and return to the shop floor.]]></responseTooltip>
+					<nextDialogue>innoxia_places_dominion_sex_shop_generic_floor</nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'COUNTER_STEP_BACK'))]
+						[#pc.moveLocation(0, -1)]
+					]]></effects>
+				</response>
+		</responses>
+	</scene>
+	
+	<scene id="counter_intro">
+		<content folderPath="txt/places/dominion/sex_shop/generic">COUNTER_INTRO</content>
+		<secondsPassed><![CDATA[60]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_sex_shop_generic_counter"/>
+	</scene>
+	
+	<scene id="counter_talk">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_sex_shop_generic_counter"/>
+	</scene>
+	
+	<scene id="counter_doll_end_tour">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_sex_shop_generic_counter"/>
+	</scene>
+	
+	<scene id="counter_doll_tour">
+		<preParsingEffects><![CDATA[
+			[#pc.setNearestLocation(PLACE_TYPE_innoxia_dominion_sex_shop_display)]
+			[#saellatrix.setLocation(pc)]
+			[#flags.setFlag(FLAG_innoxia_sex_shop_display_on, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/generic">COUNTER_DOLL_TOUR</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Follow Saellatrix over to where the dolls available for purchase are kept.]]></responseTooltip>
+				<nextDialogue>innoxia_places_dominion_sex_shop_generic_counter_doll_tour_next</nextDialogue>
+			</response>
+			<!-- Obedience: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Obedience]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sex_shop_tour_obedience))
+						You've already asked Saellatrix about the dolls' obedience.
+					#ELSE
+						Ask Saellatrix if all of the dolls are completely obedient from the moment of purchase, or if they need training first.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sex_shop_tour_obedience))
+						null
+					#ELSE
+						innoxia_places_dominion_sex_shop_generic_counter_doll_tour_question
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sex_shop_tour_obedience, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'COUNTER_DOLL_TOUR_OBEDIENCE'))]
+				]]></effects>
+			</response>
+			<!-- Power: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Power]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sex_shop_tour_power))
+						You've already asked Saellatrix how the dolls are powered.
+					#ELSE
+						Ask Saellatrix how the dolls are powered.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sex_shop_tour_power))
+						null
+					#ELSE
+						innoxia_places_dominion_sex_shop_generic_counter_doll_tour_question
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sex_shop_tour_power, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'COUNTER_DOLL_TOUR_POWER'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="counter_doll_tour_question">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_sex_shop_generic_counter_doll_tour"/>
+	</scene>
+	
+	<scene id="counter_doll_tour_next">
+		<preParsingEffects><![CDATA[
+			[#pc.walkPathNoEffects(PLACE_TYPE_innoxia_dominion_sex_shop_dolls, true, 1)]
+			[#saellatrix.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/generic">COUNTER_DOLL_TOUR_NEXT</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Return to the counter with Saellatrix, where she'll reveal the dolls' price and tell you what different options are available.]]></responseTooltip>
+				<nextDialogue>innoxia_places_dominion_sex_shop_generic_counter_doll_tour_interruption</nextDialogue>
+			</response>
+			<!-- Silicone: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Silicone]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sex_shop_tour_silicone))
+						You've already asked Saellatrix about the dolls' arcane-infused silicone.
+					#ELSE
+						Ask Saellatrix about the dolls' arcane-infused silicone.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sex_shop_tour_silicone))
+						null
+					#ELSE
+						innoxia_places_dominion_sex_shop_generic_counter_doll_tour_next_question
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sex_shop_tour_silicone, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'COUNTER_DOLL_TOUR_NEXT_SILICONE'))]
+				]]></effects>
+			</response>
+			<!-- Realism: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Realism]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sex_shop_tour_realism))
+						You've already asked Saellatrix how they manage to make the dolls look so realistic.
+					#ELSE
+						Ask Saellatrix how they manage to make the dolls look so realistic.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sex_shop_tour_realism))
+						null
+					#ELSE
+						innoxia_places_dominion_sex_shop_generic_counter_doll_tour_next_question
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sex_shop_tour_realism, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'COUNTER_DOLL_TOUR_NEXT_REALISM'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="counter_doll_tour_next_question">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_sex_shop_generic_counter_doll_tour_next"/>
+	</scene>
+	
+	<scene id="counter_doll_tour_interruption">
+		<preParsingEffects><![CDATA[
+			[#pc.setNearestLocation(PLACE_TYPE_innoxia_dominion_sex_shop_floor)]
+			[#saellatrix.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/generic">COUNTER_DOLL_TOUR_INTERRUPTION</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Finish]]></responseTitle>
+				<responseTooltip><![CDATA[Return to the counter with Saellatrix, where she'll reveal the dolls' price and tell you what different options are available.]]></responseTooltip>
+				<nextDialogue>innoxia_places_dominion_sex_shop_generic_counter_doll_tour_finish</nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="counter_doll_tour_finish">
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_innoxia_dominion_sex_shop, PLACE_TYPE_innoxia_dominion_sex_shop_counter)]
+			[#saellatrix.setLocation(pc)]
+			[#game.appendToTextEndStringBuilder(pc.startQuest(QUEST_LINE_SIDE_DOLL_STORAGE))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/generic">COUNTER_DOLL_TOUR_FINISH</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_sex_shop_generic_counter"/>
+	</scene>
+	
+	<scene id="counter_doll_tour_factory">
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_innoxia_dominion_sex_shop, PLACE_TYPE_innoxia_dominion_sex_shop_counter)]
+			[#pc.moveLocation(0, 1)]
+			[#saellatrix.setLocation(pc)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Start]]></responseTitle>
+				<responseTooltip><![CDATA[[pc.Step] through the door and start the tour of the doll factory.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_dominion_sex_shop_generic_mezzanine]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setSavedLong('saellatrix_tour_start', game.getSecondsPassed())]
+					[#pc.moveLocation(-1, 0)]
+					[#flags.setFlag(FLAG_innoxia_sex_shop_saellatrix_following, true)]
+					[#flags.setFlag(FLAG_innoxia_sex_shop_daily_tour, true)]
+					[#flags.setFlag(FLAG_innoxia_sex_shop_had_factory_tour, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'FACTORY_TOUR_START'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="counter_wager">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(saellatrix.incrementAlcoholLevel(0.1))]
+			[#game.appendToTextEndStringBuilder(saellatrix.incrementLust(25, false))]
+			[#flags.setFlag(FLAG_innoxia_sex_shop_saellatrix_sex, true)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed><![CDATA[60]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Blowjob (drink)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Down the 'Face Fuck' shot, then give Saellatrix what she wants, trying to snap her choker while you're at it!
+				]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sex_shop_choker_snapped, false)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'COUNTER_WAGER_DRINK'))]
+					[#game.appendToTextEndStringBuilder(pc.incrementAlcoholLevel(0.15))]
+					[#game.appendToTextEndStringBuilder(pc.incrementLust(25, false))]
+					[#game.appendToTextEndStringBuilder(pc.setFetishDesire(FETISH_ORAL_RECEIVING, FETISH_DESIRE_FOUR_LOVE))]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_dominion_sex_shop_saellatrix_blowjob]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_RECEIVING_ORAL]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>saellatrix</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_BACK]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_sex_shop_generic_counter_wager_after_blowjob]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/sex_shop/generic">COUNTER_WAGER_BLOWJOB_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[saellatrix]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Blowjob (don't drink)]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Decide not to drink the 'Face Fuck' shot, and instead just give Saellatrix what she wants, trying to snap her choker while you're at it!
+				]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sex_shop_choker_snapped, false)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'COUNTER_WAGER_NO_DRINK'))]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_dominion_sex_shop_saellatrix_blowjob]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_RECEIVING_ORAL]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>saellatrix</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_BACK]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_sex_shop_generic_counter_wager_after_blowjob]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/sex_shop/generic">COUNTER_WAGER_BLOWJOB_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[saellatrix]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+
+	<scene id="counter_fucked">
+		<content folderPath="txt/places/dominion/sex_shop/generic">COUNTER_FUCKED</content>
+		<secondsPassed><![CDATA[60]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_sex_shop_choker_snapped)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Get fucked]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Submit to Saellatrix and prepare to get railed by her massive demonic cock.
+				]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sex_shop_penalty, false)]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_dominion_sex_shop_saellatrix_fucked]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>saellatrix</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_sex_shop_generic_counter_wager_after_fucked]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/sex_shop/generic">COUNTER_FUCKED_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[FingerPenis_COCK_MASTURBATING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[saellatrix]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="counter_wager_after_blowjob">
+		<preParsingEffects><![CDATA[
+			#IF(flags.hasFlag(FLAG_innoxia_sex_shop_choker_snapped))
+				[#flags.setFlag(FLAG_innoxia_sex_shop_discount, true)]
+				#IF(game.isNipplePenEnabled())
+					[#saellatrix.displaceClothingForAccess(CA_NIPPLES, null)]
+				#ENDIF
+			#ELSE
+				[#flags.setFlag(FLAG_innoxia_sex_shop_penalty, true)]
+				[#saellatrix.growPenis(true)]
+			#ENDIF
+		]]></preParsingEffects>
+        <title><![CDATA[Finished]]></title>
+        <tooltip><![CDATA[Having had enough, [saellatrix.name] stands up and brings an end to your blowjob...]]></tooltip>
+		<content folderPath="txt/places/dominion/sex_shop/generic">COUNTER_WAGER_BLOWJOB_END</content>
+		<secondsPassed><![CDATA[60]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Snapped choker: -->
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_sex_shop_choker_snapped)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[
+					#IF(game.isNipplePenEnabled())
+						Discount
+					#ELSE
+						Follow
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.isNipplePenEnabled())
+						Tell Saellatrix that you'll take the discount and follow her back to the shop floor.
+					#ELSE
+						Follow Saellatrix back to the shop floor.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true">innoxia_places_dominion_sex_shop_generic_floor</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'COUNTER_WAGER_BLOWJOB_END_TAKE_DISCOUNT'))]
+					[#saellatrix.returnToHome()]
+					[#pc.setLocation(saellatrix)]
+					[#pc.moveLocation(0, -1)]
+					[#saellatrix.equipClothing()]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_sex_shop_choker_snapped) && game.isNipplePenEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Nipple-fuck]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Saellatrix that you'll take her alternative offer and fuck her nipples.
+				]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sex_shop_discount, false)]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_dominion_sex_shop_saellatrix_nipple_fuck]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>saellatrix</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_sex_shop_generic_counter_wager_after_nipple_fuck]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/sex_shop/generic">COUNTER_WAGER_NIPPLE_FUCK_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisNipple_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[saellatrix]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Failed to snap choker: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_sex_shop_choker_snapped)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Penalty]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Saellatrix that you'll take the double-cost penalty and follow her back to the shop floor.]]></responseTooltip>
+				<nextDialogue stripContent="true">innoxia_places_dominion_sex_shop_generic_floor</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'COUNTER_WAGER_BLOWJOB_END_TAKE_PENALTY'))]
+					[#saellatrix.returnToHome()]
+					[#pc.setLocation(saellatrix)]
+					[#pc.moveLocation(0, -1)]
+					[#saellatrix.equipClothing()]
+					[#saellatrix.removePenis()]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_sex_shop_choker_snapped)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Get fucked]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Saellatrix that you'll take her alternative offer and get fucked by her massive demonic cock.
+				]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sex_shop_penalty, false)]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_dominion_sex_shop_saellatrix_fucked]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>saellatrix</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_sex_shop_generic_counter_wager_after_fucked]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/sex_shop/generic">COUNTER_WAGER_FUCKED_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[FingerPenis_COCK_MASTURBATING_START]]></id>
+							<performer><![CDATA[pc]]></performer>
+							<target><![CDATA[saellatrix]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="counter_wager_after_nipple_fuck">
+        <title><![CDATA[Finished]]></title>
+        <tooltip><![CDATA[Having had enough, [saellatrix.name] stands up and brings an end to the sex...]]></tooltip>
+		<content folderPath="txt/places/dominion/sex_shop/generic">COUNTER_WAGER_NIPPLE_FUCK_END</content>
+		<secondsPassed><![CDATA[60]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Follow]]></responseTitle>
+				<responseTooltip><![CDATA[Follow Saellatrix back to the shop floor.]]></responseTooltip>
+				<nextDialogue stripContent="true">innoxia_places_dominion_sex_shop_generic_floor</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'COUNTER_WAGER_NIPPLE_FUCK_END_CONTINUE'))]
+					[#saellatrix.returnToHome()]
+					[#pc.setLocation(saellatrix)]
+					[#pc.moveLocation(0, -1)]
+					[#saellatrix.equipClothing()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="counter_wager_after_fucked">
+        <title><![CDATA[Finished]]></title>
+        <tooltip><![CDATA[Having had enough, [saellatrix.name] brings an end to the sex...]]></tooltip>
+		<content folderPath="txt/places/dominion/sex_shop/generic">COUNTER_WAGER_FUCKED_END</content>
+		<secondsPassed><![CDATA[60]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Follow]]></responseTitle>
+				<responseTooltip><![CDATA[Follow Saellatrix back to the shop floor.]]></responseTooltip>
+				<nextDialogue stripContent="true">innoxia_places_dominion_sex_shop_generic_floor</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'COUNTER_WAGER_FUCKED_END_CONTINUE'))]
+					[#saellatrix.returnToHome()]
+					[#pc.setLocation(saellatrix)]
+					[#pc.moveLocation(0, -1)]
+					[#saellatrix.equipClothing()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Factory dialogues: -->
+	
+    <!-- Place type id: innoxia_dominion_sex_shop_mezzanine -->
+	<scene id="mezzanine">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(saellatrix.getFactoryTimeRemaining(30))]
+			#IF(saellatrix.isFactoryTourTimeUp(30))
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'FACTORY_TOUR_TIME_UP'))]
+			#ELSE
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'MEZZANINE'))]
+			#ENDIF
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled><![CDATA[[#saellatrix.isFactoryTourTimeUp()]]]></travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#saellatrix.isFactoryTourTimeUp()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Follow]]></responseTitle>
+				<responseTooltip><![CDATA[Follow Saellatrix back to the shop floor.]]></responseTooltip>
+				<nextDialogue stripContent="true">innoxia_places_dominion_sex_shop_generic_counter_doll_end_tour</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'FACTORY_TOUR_TIME_UP_END'))]
+					[#flags.setFlag(FLAG_innoxia_sex_shop_saellatrix_following, false)]
+					[#saellatrix.returnToHome()]
+					[#pc.setLocation(saellatrix)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+    <!-- Place type id: innoxia_dominion_sex_shop_toy_machines -->
+	<scene id="toy_machines">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(saellatrix.getFactoryTimeRemaining(30))]
+			#IF(saellatrix.isFactoryTourTimeUp(30))
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'FACTORY_TOUR_TIME_UP'))]
+			#ELSE
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'TOY_MACHINES'))]
+			#ENDIF
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled><![CDATA[[#saellatrix.isFactoryTourTimeUp()]]]></travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_sex_shop_generic_mezzanine">
+			<response>
+				<availabilityConditional><![CDATA[[#!saellatrix.isFactoryTourTimeUp() && pc.hasPerkAnywhereInTree(PERK_OBSERVANT)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Question]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sex_shop_tour_question_toy_machines))
+						You've already asked Saellatrix why the dildos are simply going around the conveyor belt...
+					#ELSE
+						Ask Saellatrix why the dildos are simply going around the conveyor belt...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sex_shop_tour_question_toy_machines))
+						null
+					#ELSE
+						innoxia_places_dominion_sex_shop_generic_toy_machines_question
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sex_shop_tour_question_toy_machines, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="toy_machines_question">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(saellatrix.getFactoryTimeRemaining(30))]
+			#IF(saellatrix.isFactoryTourTimeUp(30))
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'FACTORY_TOUR_QUESTION_TIME_UP'))]
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/generic">TOY_MACHINES_QUESTION</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled><![CDATA[[#saellatrix.isFactoryTourTimeUp()]]]></travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_sex_shop_generic_toy_machines"/>
+	</scene>
+	
+    <!-- Place type id: innoxia_dominion_sex_shop_steps -->
+	<scene id="steps">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(saellatrix.getFactoryTimeRemaining(30))]
+			#IF(saellatrix.isFactoryTourTimeUp(30))
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'FACTORY_TOUR_TIME_UP'))]
+			#ELSE
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'STEPS'))]
+			#ENDIF
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled><![CDATA[[#saellatrix.isFactoryTourTimeUp()]]]></travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_sex_shop_generic_mezzanine"/>
+	</scene>
+	
+    <!-- Place type id: innoxia_dominion_sex_shop_doll_machine_a -->
+	<scene id="doll_machine_a">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(saellatrix.getFactoryTimeRemaining(30))]
+			#IF(saellatrix.isFactoryTourTimeUp(30))
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'FACTORY_TOUR_TIME_UP'))]
+			#ELSE
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'DOLL_MACHINE_A'))]
+			#ENDIF
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled><![CDATA[[#saellatrix.isFactoryTourTimeUp()]]]></travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_sex_shop_generic_mezzanine"/>
+	</scene>
+	
+    <!-- Place type id: innoxia_dominion_sex_shop_doll_machine_b -->
+	<scene id="doll_machine_b">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(saellatrix.getFactoryTimeRemaining(30))]
+			#IF(saellatrix.isFactoryTourTimeUp(30))
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'FACTORY_TOUR_TIME_UP'))]
+			#ELSE
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'DOLL_MACHINE_B'))]
+			#ENDIF
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled><![CDATA[[#saellatrix.isFactoryTourTimeUp()]]]></travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_sex_shop_generic_mezzanine"/>
+	</scene>
+	
+    <!-- Place type id: innoxia_dominion_sex_shop_doll_machine_c -->
+	<scene id="doll_machine_c">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(saellatrix.getFactoryTimeRemaining(30))]
+			#IF(saellatrix.isFactoryTourTimeUp(30))
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'FACTORY_TOUR_TIME_UP'))]
+			#ELSE
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'DOLL_MACHINE_C'))]
+			#ENDIF
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled><![CDATA[[#saellatrix.isFactoryTourTimeUp()]]]></travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_sex_shop_generic_mezzanine"/>
+	</scene>
+	
+    <!-- Place type id: innoxia_dominion_sex_shop_doll_machine_storage -->
+	<scene id="doll_machine_storage">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(saellatrix.getFactoryTimeRemaining(30))]
+			#IF(saellatrix.isFactoryTourTimeUp(30))
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'FACTORY_TOUR_TIME_UP'))]
+			#ELSE
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'DOLL_MACHINE_STORAGE'))]
+			#ENDIF
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled><![CDATA[[#saellatrix.isFactoryTourTimeUp()]]]></travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_sex_shop_generic_mezzanine">
+			<response>
+				<availabilityConditional><![CDATA[[#!saellatrix.isFactoryTourTimeUp() && pc.hasPerkAnywhereInTree(PERK_OBSERVANT)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Question]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sex_shop_tour_question_doll_storage))
+						You've already asked Saellatrix why the assembled dolls look nothing like the ones in the shop...
+					#ELSE
+						Ask Saellatrix why the assembled dolls look nothing like the ones in the shop...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_sex_shop_tour_question_doll_storage))
+						null
+					#ELSE
+						innoxia_places_dominion_sex_shop_generic_doll_machine_storage_question
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_sex_shop_tour_question_doll_storage, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="doll_machine_storage_question">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(saellatrix.getFactoryTimeRemaining(30))]
+			#IF(saellatrix.isFactoryTourTimeUp(30))
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'FACTORY_TOUR_QUESTION_TIME_UP'))]
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/generic">DOLL_MACHINE_STORAGE_QUESTION</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled><![CDATA[[#saellatrix.isFactoryTourTimeUp()]]]></travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_sex_shop_generic_doll_machine_storage"/>
+	</scene>
+	
+	<!-- Staff area dialogues: -->
+	
+    <!-- Place type id: innoxia_dominion_sex_shop_staff_door -->
+	<scene id="staff_door">
+		<content folderPath="txt/places/dominion/sex_shop/generic">STAFF_DOOR</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+    <!-- Place type id: innoxia_dominion_sex_shop_staff_room -->
+	<scene id="staff_room">
+		<content folderPath="txt/places/dominion/sex_shop/generic">STAFF_ROOM</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+    <!-- Place type id: innoxia_dominion_sex_shop_corridor -->
+	<scene id="corridor">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(saellatrix.getFactoryTimeRemaining(30))]
+			#IF(saellatrix.isFactoryTourTimeUp(30))
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'FACTORY_TOUR_TIME_UP'))]
+			#ELSE
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'CORRIDOR'))]
+			#ENDIF
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled><![CDATA[[#flags.hasFlag(FLAG_innoxia_sex_shop_saellatrix_following)]]]></travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue tour]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(saellatrix.isFactoryTourTimeUp())
+						You've run out of time, and so can't continue the tour...
+					#ELSE
+						Tell Saellatrix that you'd like to continue the tour.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[
+					#IF(saellatrix.isFactoryTourTimeUp())
+						null
+					#ELSE
+						innoxia_places_dominion_sex_shop_generic_mezzanine
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'CORRIDOR_FACTORY_TOUR_CONTINUE'))]
+					[#pc.moveLocation(-1, 0)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[End tour]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Saellatrix that you've seen enough and bring an end to the tour.]]></responseTooltip>
+				<nextDialogue stripContent="true">innoxia_places_dominion_sex_shop_generic_counter_doll_end_tour</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/generic', 'CORRIDOR_FACTORY_TOUR_END'))]
+					[#flags.setFlag(FLAG_innoxia_sex_shop_saellatrix_following, false)]
+					[#saellatrix.returnToHome()]
+					[#pc.setLocation(saellatrix)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+    <!-- Place type id: innoxia_dominion_sex_shop_back_door -->
+	<scene id="back_door">
+		<content folderPath="txt/places/dominion/sex_shop/generic">BACK_DOOR</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+    <!-- Place type id: innoxia_dominion_sex_shop_elevator -->
+	<scene id="elevator">
+		<content folderPath="txt/places/dominion/sex_shop/generic">ELEVATOR</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+</dialogueNodes>

@@ -1094,7 +1094,7 @@
 				<responseTitle><![CDATA[Take charge]]></responseTitle>
 				<responseTooltip><![CDATA[Get Oglix to surrender the dominant role to you and fuck her.]]></responseTooltip>
 				<requiredPerks>
-					<perk><![CDATA[UNARMED_TRAINING]]></perk>
+					<perk><![CDATA[MARTIAL_ARTIST]]></perk>
 				</requiredPerks>
 				<nextDialogue/>
 				<effects/>

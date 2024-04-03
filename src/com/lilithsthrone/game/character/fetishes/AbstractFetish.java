@@ -216,7 +216,19 @@ public abstract class AbstractFetish {
 	public CorruptionLevel getAssociatedCorruptionLevel() {
 		return CorruptionLevel.ZERO_PURE;
 	}
-
+	
+	public boolean isContentEnabled() {
+		return true;
+	}
+	
+	public AbstractFetish getOpposite() {
+		return null;
+	}
+	
+	public boolean isTopFetish() {
+		return false;
+	}
+	
 	public int getRenderingPriority() {
 		return renderingPriority;
 	}

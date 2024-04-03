@@ -294,6 +294,9 @@ public class Cell implements XMLSaving {
 	}
 
 	public Set<String> getCharactersPresentIds() {
+		if(charactersPresentIds==null) {
+			charactersPresentIds = Collections.synchronizedSet(new HashSet<>());
+		}
 		return charactersPresentIds;
 	}
 

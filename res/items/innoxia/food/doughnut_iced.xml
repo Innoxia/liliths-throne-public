@@ -33,7 +33,9 @@
 			</p>
 		]]></applyEffects>
 		
-		<itemTags/>
+		<itemTags>
+			<tag>FOOD</tag>
+		</itemTags>
 		
 	</coreAttributes>
 

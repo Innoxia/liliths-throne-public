@@ -38,5 +38,7 @@
 		
 		<place colour="#ffbed3">innoxia_fields_elis_market_kissing</place>
 		<place colour="#c481df">innoxia_fields_elis_market_fortunes</place>
+		
+		<place colour="#55a2d5">dsg_fields_elis_market_produce</place>	
 	</places>
 </worldType>

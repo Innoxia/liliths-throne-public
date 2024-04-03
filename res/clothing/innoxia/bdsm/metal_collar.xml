@@ -61,27 +61,28 @@
 	</itemTags>
 	</coreAttributes>
 
-  <replacementText slot="NECK" type="REMOVE_OR_EQUIP">
-    <self>
-      <![CDATA[[npc.Name] [npc.verb(clasp)] the heavy metal collar around [npc.her] neck.]]>
-    </self>
-    <other>
-      <![CDATA[[npc.Name] [npc.verb(clasp)] the heavy metal collar around [npc2.namePos] neck.]]>
-    </other>
-    <otherRough>
-      <![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.name], before clasping the heavy metal collar around [npc2.her] neck.]]>
-    </otherRough>
-  </replacementText>
-  <displacementText slot="NECK" type="REMOVE_OR_EQUIP">
-    <self>
-      <![CDATA[[npc.Name] [npc.verb(unlock)] [npc.her] heavy metal collar, before taking it off from around [npc.her] neck.]]>
-    </self>
-    <other>
-      <![CDATA[[npc.Name] [npc.verb(unlock)] [npc2.namePos] heavy metal collar, before taking it off from around [npc2.her] neck.]]>
-    </other>
-    <otherRough>
-      <![CDATA[[npc.Name] roughly [npc.verb(unlock)] [npc2.namePos] heavy metal collar, before yanking it off from around [npc2.her] neck.]]>
-    </otherRough>
-  </displacementText>
+	<replacementText slot="NECK" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(clasp)] the heavy metal collar around [npc.her] neck.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(clasp)] the heavy metal collar around [npc2.namePos] neck.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.name], before clasping the heavy metal collar around [npc2.her] neck.]]>
+		</otherRough>
+	</replacementText>
+	
+	<displacementText slot="NECK" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(unlock)] [npc.her] heavy metal collar, before taking it off from around [npc.her] neck.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(unlock)] [npc2.namePos] heavy metal collar, before taking it off from around [npc2.her] neck.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(unlock)] [npc2.namePos] heavy metal collar, before yanking it off from around [npc2.her] neck.]]>
+		</otherRough>
+	</displacementText>
   
 </clothing>

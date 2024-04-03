@@ -57,7 +57,7 @@ public class SelfFingerVagina {
 				return (UtilText.returnStringAtRandom(
 						"Reaching down between [npc.her] [npc.legs], [npc.name] [npc.verb(tease)] [npc.her] [npc.fingers] over the entrance to [npc.her] [npc.pussy+],"
 								+ " before letting out [npc.a_moan+] as [npc.she] [npc.verb(use)] [npc.her] digits to spread out [npc.her] labia.",
-						"[npc.Name] [npc.verb(probe)] [npc.her] [npc.fingers] back between [npc.her] [npc.legs], [npc.moaning] softly as [npc.she] [npc.verb(use)] two of [npc.her] digits to spread out [npc.her] [npc.pussy+].",
+						"[npc.Name] [npc.verb(probe)] [npc.her] [npc.fingers] down between [npc.her] [npc.legs], [npc.moaning] softly as [npc.she] [npc.verb(use)] two of [npc.her] digits to spread out [npc.her] [npc.pussy+].",
 						"Sliding [npc.her] fingertips over [npc.her] [npc.pussy+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(use)] [npc.her] digits to spread out [npc.her] pussy lips.",
 						"[npc.Name] eagerly [npc.verb(slide)] [npc.her] [npc.fingers] over [npc.her] needy [npc.pussy], [npc.moaning+] as [npc.she] [npc.verb(use)] [npc.her] digits to part [npc.her] soft folds."));
 			}

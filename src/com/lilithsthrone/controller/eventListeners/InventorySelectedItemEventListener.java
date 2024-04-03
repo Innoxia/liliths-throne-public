@@ -15,6 +15,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.RenderingEngine;
 
 /**
  * @since 0.1.0
@@ -76,6 +77,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 				InventoryDialogue.setItem(item);
 				InventoryDialogue.setBuyBackIndex(buyBackIndex);
 				Main.game.setResponseTab(1);
+				RenderingEngine.setPage(owner, item);
 				Main.game.setContent(new Response("", "", InventoryDialogue.ITEM_INVENTORY));
 			}
 			
@@ -87,6 +89,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 			InventoryDialogue.setClothing(clothing);
 			InventoryDialogue.setBuyBackIndex(buyBackIndex);
 			Main.game.setResponseTab(1);
+			RenderingEngine.setPage(owner, clothing);
 			Main.game.setContent(new Response("", "", InventoryDialogue.CLOTHING_INVENTORY));
 			
 		} else if (weapon != null) {
@@ -97,6 +100,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 			InventoryDialogue.setWeapon(weaponSlot, weapon);
 			InventoryDialogue.setBuyBackIndex(buyBackIndex);
 			Main.game.setResponseTab(1);
+			RenderingEngine.setPage(owner, weapon);
 			Main.game.setContent(new Response("", "", InventoryDialogue.WEAPON_INVENTORY));
 
 		} else if (clothingEquipped != null) {

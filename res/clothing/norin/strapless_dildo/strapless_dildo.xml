@@ -71,59 +71,28 @@
 		<orifice/>
 	</sexAttributesOther>
 	
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf>
-			<![CDATA[You pull out the strapless dildo from your [pc.vagina+].]]>
-		</playerSelf>
-		<playerNPC>
-			<![CDATA[You pull out [npc.name]'s strapless dildo.]]>
-		</playerNPC>
-		<playerNPCRough>
-			<![CDATA[You firmly grab [npc.name]'s strapless dildo and yank it out of [npc.herHis] [npc.vagina+].]]>
-		</playerNPCRough>
-		<NPCSelf>
-			<![CDATA[[npc.Name] pulls out [npc.herHis] strapless dildo.]]>
-		</NPCSelf>
-		<NPCPlayer>
-			<![CDATA[[npc.Name] pulls out the strapless dildo from your [pc.vagina+].]]>
-		</NPCPlayer>
-		<NPCPlayerRough>
-			<![CDATA[[npc.Name] firmly grabs your strapless dildo and yanks it out of your [pc.vagina+].]]>
-		</NPCPlayerRough>
-		<NPCOtherNPC>
-			<![CDATA[[npc1.Name] pulls out [npc2.name]'s strapless dildo.]]>
-		</NPCOtherNPC>
-		<NPCOtherNPCRough>
-			<![CDATA[[npc.Name] firmly grabs [npc2.name]'s strapless dildo and yanks it out of [npc2.herHis] [npc2.vagina+].]]>
-		</NPCOtherNPCRough>
-	</displacementText>
-
 	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf>
-			<![CDATA[You push the strapless dildo into your [pc.vagina+].]]>
-		</playerSelf>
-		<playerNPC>
-			<![CDATA[You push the strapless dildo into [npc.name]'s [npc.vagina+].]]>
-		</playerNPC>
-		<playerNPCRough>
-			<![CDATA[You hold [npc.name] still as you roughly force the strapless dildo into [npc.herHis] [npc.vagina+].]]>
-		</playerNPCRough>
-		<NPCSelf>
-			<![CDATA[[npc.Name] pushes the strapless dildo into [npc.herHis] [npc.vagina+].]]>
-		</NPCSelf>
-		<NPCPlayer>
-			<![CDATA[[npc.Name] push the strapless dildo into your [pc.vagina+].]]>
-		</NPCPlayer>
-		<NPCPlayerRough>
-			<![CDATA[[npc.Name] holds you still as [npc.sheHe] roughly forces the strapless dildo into your [pc.vagina+]]]>
-		</NPCPlayerRough>
-		<NPCOtherNPC>
-			<![CDATA[[npc1.Name] pushes the strapless dildo into [npc2.Name]'s [npc2.vagina+].]]>
-		</NPCOtherNPC>
-		<NPCOtherNPCRough>
-			<![CDATA[[npc1.Name] holds [npc2.name] still as [npc1.sheHe] roughly forces the strapless dildo into [npc2.herHis] [npc2.vagina+].]]>
-		</NPCOtherNPCRough>
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(push)] the strapless dildo into [npc.her] [npc.pussy+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(push)] the strapless dildo into [npc2.namePos] [npc2.pussy+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(hold)] [npc2.name] still as [npc.she] roughly [npc.verb(force)] the strapless dildo into [npc2.her] [npc2.pussy+].]]>
+		</otherRough>
 	</replacementText>
 
-
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the strapless dildo out of [npc.her] [npc.pussy+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the strapless dildo out [npc2.namePos] [npc2.pussy+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.namePos] strapless dildo and [npc.verb(yank)] it out of [npc2.her] [npc2.pussy+].]]>
+		</otherRough>
+	</displacementText>
+	
 </clothing>

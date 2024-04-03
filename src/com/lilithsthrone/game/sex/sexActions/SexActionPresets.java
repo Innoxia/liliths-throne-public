@@ -10,6 +10,8 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.sexActions.baseActions.ClitAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.ClitClit;
 import com.lilithsthrone.game.sex.sexActions.baseActions.ClitMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActions.ClitNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActions.ClitNippleCrotch;
 import com.lilithsthrone.game.sex.sexActions.baseActions.ClitVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerBreasts;
@@ -481,6 +483,8 @@ public class SexActionPresets {
 		sexActions.add(ClitClit.class);
 		sexActions.add(ClitVagina.class);
 		sexActions.add(ClitAnus.class);
+		sexActions.add(ClitNipple.class);
+		sexActions.add(ClitNippleCrotch.class);
 		
 		// Self actions:
 		selfActions.add(SelfNoPen.class);

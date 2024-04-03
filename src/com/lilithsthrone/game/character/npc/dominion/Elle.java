@@ -135,7 +135,7 @@ public class Elle extends NPC {
 		}
 		
 		// Body:
-		this.setAgeAppearanceDifferenceToAppearAsAge(41);
+		this.setAgeAppearanceAbsolute(41);
 		this.setWingType(WingType.DEMON_COMMON);
 		this.setHornType(HornType.HORSE_STRAIGHT);
 		this.setHornLength(22);

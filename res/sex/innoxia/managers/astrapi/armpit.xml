@@ -51,7 +51,18 @@
 			<orgasmEncourageBehaviours/>
 			<concealedSlots/>
 			<preferredTarget/>
-			<preferences/>
+			<preferences>
+				<character id="pc">
+					<foreplay>
+						<performing><![CDATA[PENETRATION_PENIS]]></performing>
+						<targeted><![CDATA[ORIFICE_ARMPITS]]></targeted>
+					</foreplay>
+					<mainSex>
+						<performing><![CDATA[PENETRATION_PENIS]]></performing>
+						<targeted><![CDATA[ORIFICE_ARMPITS]]></targeted>
+					</mainSex>
+				</character>
+			</preferences>
 			<uniqueSexActions/>
 			<sexTypesBanned/>
 			<areasBanned/>

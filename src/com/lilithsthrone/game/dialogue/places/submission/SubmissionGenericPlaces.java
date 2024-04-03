@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.npc.submission.FortressMalesLeader;
 import com.lilithsthrone.game.character.npc.submission.GamblingDenPatron;
 import com.lilithsthrone.game.character.npc.submission.HazmatRat;
 import com.lilithsthrone.game.character.npc.submission.RatWarrensCaptive;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -1026,6 +1027,7 @@ public class SubmissionGenericPlaces {
 								milker.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
 								Main.game.getPlayer().addSlave((NPC) milker);
 								milker.setObedience(100);
+								milker.setHistory(Occupation.NPC_SLAVE);
 							}
 						}
 					};
@@ -1220,6 +1222,7 @@ public class SubmissionGenericPlaces {
 			if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_VENGAR)
 					&& !Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_TWO_COOPERATION)
 					&& !Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_OPTIONAL_CLAIRE)
+					&& !Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_VENGAR, Quest.VENGAR_THREE_END)
 					&& !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_VENGAR)) {
 				responses.add(new Response("Vengar", "Ask for Claire's help with dealing with Vengar.", CLAIRE_VENGAR_HELP) {
 					@Override

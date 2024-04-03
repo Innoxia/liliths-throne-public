@@ -22,23 +22,17 @@
 		<colourSecondary/>
 		<colourTertiary/>
 		
-		<effectTooltipLines>
-			<line><![CDATA[[#ATTRIBUTE_FERTILITY.getFormattedValue(-100)] for 24 hours]]></line>
-			<line><![CDATA[[#ATTRIBUTE_VIRILITY.getFormattedValue(-100)] for 24 hours]]></line>
-			<line><![CDATA[[style.boldBad(Removes status effects:)]]]></line>
-			<line><![CDATA['<i>[#SE_VIXENS_VIRILITY.getName(null)]</i>']]></line>
-			<line><![CDATA['<i>[#SE_BROODMOTHER_PILL.getName(null)]</i>']]></line>
-		</effectTooltipLines>
+		<statusEffects>
+			<effect seconds="86400">PROMISCUITY_PILL</effect> <!-- 'seconds' defines how long the status effect should be applied for. -->
+		</statusEffects>
+		
+		<effectTooltipLines/>
 		
 		<applyEffects><![CDATA[
 			[##npc.removeStatusEffect(SE_VIXENS_VIRILITY)]
 			[##npc.removeStatusEffect(SE_BROODMOTHER_PILL)]
-			[##npc.addStatusEffect(SE_PROMISCUITY_PILL, 60*24*60)]
 			<p style='margin-bottom:0; padding-bottom:0;'>
 				The little blue pill easily slides down [npc.namePos] throat, and after only a few moments [npc.she] [npc.verb(feel)] a cool throbbing sensation taking root deep within [npc.her] loins.
-			</p>
-			<p style='text-align:center; margin-top:0; padding-top:0;'>
-				[style.colourBlueLight([npc.Name] [npc.is] now experiencing <i>'[#SE_PROMISCUITY_PILL.getName(npc)]'</i> for the next 24 hours!)]
 			</p>
 		]]></applyEffects>
 		

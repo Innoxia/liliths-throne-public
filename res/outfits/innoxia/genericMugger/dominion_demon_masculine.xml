@@ -25,7 +25,7 @@
 	
 	<generationAttributes>
 		<condWeapons constant="true"><![CDATA[RND.nextInt(100)<=80]]></condWeapons>
-		<condDagger constant="true"><![CDATA[RND.nextInt(100)<=5]]></condDagger>
+		<condDagger constant="true"><![CDATA[RND.nextInt(100)<=5 && npc.getTrueLevel()>=8]]></condDagger>
 		<condDualWielding constant="true"><![CDATA[RND.nextInt(100)<=50]]></condDualWielding>
 		
 		<condPlantigrade constant="true"><![CDATA[npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL && npc.getFootStructure()==FOOT_STRUCTURE_PLANTIGRADE]]></condPlantigrade>
@@ -54,8 +54,19 @@
 				<secondaryColours/>
 			</weapon>
 			<weapon>
-				<conditional><![CDATA[condWeapons && !condDagger]]></conditional>
+				<conditional><![CDATA[condWeapons && !condDagger && npc.getTrueLevel()>=8]]></conditional>
 				<type>innoxia_crystal_epic</type>
+				<damageTypes>
+					<damage>FIRE</damage>
+					<damage>ICE</damage>
+					<damage>POISON</damage>
+				</damageTypes>
+				<primaryColours/>
+				<secondaryColours/>
+			</weapon>
+			<weapon>
+				<conditional><![CDATA[condWeapons && !condDagger && npc.getTrueLevel()<8]]></conditional>
+				<type>innoxia_crystal_rare</type>
 				<damageTypes>
 					<damage>FIRE</damage>
 					<damage>ICE</damage>
@@ -81,9 +92,22 @@
 				<secondaryColours/>
 			</weapon>
 			<weapon>
-				<conditional><![CDATA[condWeapons && !condDagger && condDualWielding]]></conditional>
+				<conditional><![CDATA[condWeapons && !condDagger && condDualWielding && npc.getTrueLevel()>=8]]></conditional>
 				<types>
 					<type>innoxia_feather_epic</type>
+				</types>
+				<damageTypes>
+					<damage>FIRE</damage>
+					<damage>ICE</damage>
+					<damage>POISON</damage>
+				</damageTypes>
+				<primaryColours/>
+				<secondaryColours/>
+			</weapon>
+			<weapon>
+				<conditional><![CDATA[condWeapons && !condDagger && condDualWielding && npc.getTrueLevel()<8]]></conditional>
+				<types>
+					<type>innoxia_feather_rare</type>
 				</types>
 				<damageTypes>
 					<damage>FIRE</damage>

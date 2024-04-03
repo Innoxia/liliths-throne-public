@@ -503,7 +503,7 @@ public class RoxysShop {
 					public void effects() {
 						AbstractClothing cage = Main.game.getNpc(Vengar.class).getClothingInSlot(InventorySlot.PENIS);
 						if(cage!=null) {
-							Main.game.getNpc(Vengar.class).unequipClothingIntoVoid(cage, true, Main.game.getNpc(Roxy.class));
+							Main.game.getNpc(Vengar.class).forceUnequipClothingIntoVoid(Main.game.getNpc(Roxy.class), cage);
 						}
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementMoney(-VENGAR_SUB_SEX_COST));
 						Main.game.getNpc(Roxy.class).incrementMoney(VENGAR_SUB_SEX_COST);

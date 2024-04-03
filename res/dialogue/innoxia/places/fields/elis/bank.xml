@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+    <!-- Place type id: innoxia_fields_elis_bank_foyer -->
+	<scene id="foyer">
+		<content folderPath="txt/places/fields/elis/bank">FOYER</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_bank_exit -->
+	<scene id="exit">
+		<content folderPath="txt/places/fields/elis/bank">EXIT</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Exit the bank and head back out into the streets of Elis.]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_fields_elis_town_bank"/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_town, PLACE_TYPE_innoxia_fields_elis_town_bank)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/bank', 'EXIT_LEAVE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_bank_counter -->
+	<scene id="counter">
+		<content folderPath="txt/places/fields/elis/bank">COUNTER</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<!-- Have an account: -->
+			<response>
+				<availabilityConditional><![CDATA[[#pc.hasItemType(ITEM_innoxia_quest_bank_card)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Take out loan]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Approach one of the bank clerks and ask her about taking out a loan.
+					<br/>[style.italicsMinorBad(This will be added when the bounty hunter lodge content is added!)]
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_bank_vip_door -->
+	<scene id="vip_door">
+		<content folderPath="txt/places/fields/elis/bank">VIP_DOOR</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled><![CDATA[[#!pc.hasItemType(ITEM_innoxia_quest_bank_card)]]]></travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#!pc.hasItemType(ITEM_innoxia_quest_bank_card)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[[pc.Step] back]]></responseTitle>
+				<responseTooltip><![CDATA[As you don't have permission to access the bank's deposit boxes, you're not allowed through the door...]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_bank_foyer</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/bank', 'VIP_DOOR_STEP_BACK'))]
+					[#pc.setLocation(pc.getLastCell())]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Place type id: innoxia_fields_elis_bank_deposit_box -->
+	<scene id="deposit_box">
+		<content folderPath="txt/places/fields/elis/bank">DEPOSIT_BOX</content>
+		<secondsPassed><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#game.getDialogueFlags().getSavedLong('bank_interest')<=0]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[
+					Interest ([style.moneyFormatUncoloured(0, span)])
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					You do not have any interest to collect...
+					<br/>Interest is calculated on your savings at 12% APR, and is added up every midnight.
+				]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+				<effects/>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.getDialogueFlags().getSavedLong('bank_interest')>0]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[
+					Interest ([style.moneyFormat([#game.getDialogueFlags().getSavedLong('bank_interest')], span)])
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Collect the interest which has accumulated on your savings...
+					<br/>Interest is calculated on your savings at 12% APR, and is added up every midnight.
+				]]></responseTooltip>
+				<nextDialogue>innoxia_places_fields_elis_bank_deposit_box_interest_collected</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder([pc.incrementMoney(game.getDialogueFlags().getSavedLong('bank_interest'))])]
+					[#game.getDialogueFlags().setSavedLong('bank_interest', 0)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="deposit_box_interest_collected">
+		<content folderPath="txt/places/fields/elis/bank">DEPOSIT_BOX_INTEREST_COLLECTED</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_bank_deposit_box"/>
+	</scene>
+
+</dialogueNodes>

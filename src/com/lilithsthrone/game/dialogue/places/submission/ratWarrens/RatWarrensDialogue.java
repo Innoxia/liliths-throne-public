@@ -273,6 +273,7 @@ public class RatWarrensDialogue {
 						human.useItem(milk, human, false);
 					}
 				}
+				human.setMuskMarker(Main.game.getNpc(Murk.class).getId());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1531,7 +1532,7 @@ public class RatWarrensDialogue {
 						return new Response("Loot bar", "You've already taken everything of value from behind the bar...", null);
 						
 					} else {
-						return new Response("Loot bar", "You've already taken everything of value from behind the bar...", DICE_DEN_LOOT) {
+						return new Response("Loot bar", "Take a look behind the bar and see if there's anything worth taking...", DICE_DEN_LOOT) {
 							@Override
 							public void effects() {
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensLootedDiceDen, true);
@@ -3488,7 +3489,7 @@ public class RatWarrensDialogue {
 						Main.game.getNpc(Vengar.class));
 				
 			} else if(index==2) {
-				if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.UNARMED_TRAINING)
+				if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.MARTIAL_ARTIST)
 						|| Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_UNARMED)>=75
 						|| Main.game.getPlayer().hasSpellUpgrade(SpellUpgrade.SLAM_3)) {
 					return new Response("Knock out",
@@ -3496,8 +3497,8 @@ public class RatWarrensDialogue {
 									+ "<br/>[style.italicsMinorGood("
 									+(Main.game.getPlayer().hasSpellUpgrade(SpellUpgrade.SLAM_3)
 										?"Unlocked from having the '"+SpellUpgrade.SLAM_3.getName()+"' upgrade to the '"+Spell.SLAM.getName()+"' spell."
-										:(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.UNARMED_TRAINING)
-											?"Unlocked from having the '"+Perk.UNARMED_TRAINING.getName(Main.game.getPlayer())+"' trait."
+										:(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.MARTIAL_ARTIST)
+											?"Unlocked from having the '"+Perk.MARTIAL_ARTIST.getName(Main.game.getPlayer())+"' trait."
 											:"Unlocked from having over 75 unarmed damage."))
 									+ ")]",
 							VENGARS_HALL_APPROACH_THREATEN_KNOCK_OUT);
@@ -3505,7 +3506,7 @@ public class RatWarrensDialogue {
 				} else {
 					return new Response("Knock out",
 							"You aren't able to take advantage of Vengar's haste..."
-									+ "<br/>[style.italicsMinorBad(Requires the '"+Perk.UNARMED_TRAINING.getName(Main.game.getPlayer())+"' trait,"
+									+ "<br/>[style.italicsMinorBad(Requires the '"+Perk.MARTIAL_ARTIST.getName(Main.game.getPlayer())+"' trait,"
 											+ " over 75 unarmed damage, or the '"+SpellUpgrade.SLAM_3.getName()+"' upgrade to the '"+Spell.SLAM.getName()+"' spell.)]",
 							null);
 				}

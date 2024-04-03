@@ -91,7 +91,8 @@ public class GenericTalk {
 					&& Main.game.isNonConEnabled()
 					&& Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))!=SexPace.SUB_RESISTING
 					&& !Main.sex.isSexPaceForced(Main.sex.getCharacterTargetedForSexAction(this))
-					&& Main.sex.isCharacterBannedFromRapePlay(Main.sex.getCharacterTargetedForSexAction(this));
+					&& Main.sex.isCharacterBannedFromRapePlay(Main.sex.getCharacterTargetedForSexAction(this))
+					&& Main.sex.getCharacterTargetedForSexAction(this).hasFetish(Fetish.FETISH_NON_CON_SUB);
 		}
 		@Override
 		public String getActionTitle() {

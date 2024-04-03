@@ -39,6 +39,7 @@ import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.CombatMovesSetup;
 import com.lilithsthrone.game.dialogue.utils.GiftDialogue;
 import com.lilithsthrone.game.dialogue.utils.MapTravelType;
+import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.SpellManagement;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -60,14 +61,96 @@ import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
+
 import javafx.scene.input.KeyCode;
 
 /**
  * @since 0.4.6.4
- * @version 0.4.6.4
+ * @version 0.4.9.1
  * @author Maxis010, Innoxia
  */
 public class MiscController {
+	
+	
+	public static void initDollBrochureListeners() {
+		String id = "DOLL_CORE_";
+		for(int i=0; i<3; i++) {
+			if (MainController.document.getElementById(id+i) != null) {
+				int i2 = i;
+				((EventTarget) MainController.document.getElementById(id+i)).addEventListener("click", e->{
+					MiscDialogue.dollOption = i2;
+					Main.game.setContent(new Response("", "", MiscDialogue.DOLL_BROCHURE_INTERNAL));
+				}, false);
+			}
+		}
+		id = "DOLL_GENITALS_";
+		for(int i=0; i<3; i++) {
+			if (MainController.document.getElementById(id+i) != null) {
+				int i2 = i;
+				((EventTarget) MainController.document.getElementById(id+i)).addEventListener("click", e->{
+					MiscDialogue.genitalsOption = i2;
+					Main.game.setContent(new Response("", "", MiscDialogue.DOLL_BROCHURE_INTERNAL));
+				}, false);
+			}
+		}
+		id = "DOLL_AGE_";
+		for(int i=0; i<6; i++) {
+			if (MainController.document.getElementById(id+i) != null) {
+				int i2 = i;
+				((EventTarget) MainController.document.getElementById(id+i)).addEventListener("click", e->{
+					MiscDialogue.ageOption = i2;
+					Main.game.setContent(new Response("", "", MiscDialogue.DOLL_BROCHURE_INTERNAL));
+				}, false);
+			}
+		}
+		id = "DOLL_CLOTHING_";
+		for(int i=0; i<4; i++) {
+			if (MainController.document.getElementById(id+i) != null) {
+				int i2 = i;
+				((EventTarget) MainController.document.getElementById(id+i)).addEventListener("click", e->{
+					MiscDialogue.outfitOption = i2;
+					Main.game.setContent(new Response("", "", MiscDialogue.DOLL_BROCHURE_INTERNAL));
+				}, false);
+			}
+		}
+		// Extra:
+		id = "DOLL_BARCODE";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				MiscDialogue.barcodeRemoval = !MiscDialogue.barcodeRemoval;
+				Main.game.setContent(new Response("", "", MiscDialogue.DOLL_BROCHURE_INTERNAL));
+			}, false);
+		}
+		id = "DOLL_TOYS";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				MiscDialogue.toySet = !MiscDialogue.toySet;
+				Main.game.setContent(new Response("", "", MiscDialogue.DOLL_BROCHURE_INTERNAL));
+			}, false);
+		}
+		id = "DOLL_HAIR";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				MiscDialogue.hair = !MiscDialogue.hair;
+				Main.game.setContent(new Response("", "", MiscDialogue.DOLL_BROCHURE_INTERNAL));
+			}, false);
+		}
+		id = "DOLL_DECK";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				MiscDialogue.deck = !MiscDialogue.deck;
+				Main.game.setContent(new Response("", "", MiscDialogue.DOLL_BROCHURE_INTERNAL));
+			}, false);
+		}
+		id = "DOLL_FUCKED";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				MiscDialogue.fucked = !MiscDialogue.fucked;
+				Main.game.setContent(new Response("", "", MiscDialogue.DOLL_BROCHURE_INTERNAL));
+			}, false);
+		}
+	}
+	
 	public static void initAlarmListeners() {
 		String id = "PLAYER_ALARM_DECREASE_LARGE";
 		if (MainController.document.getElementById(id) != null) {
@@ -476,12 +559,17 @@ public class MiscController {
 	
 	public static void initPerkListeners(DialogueNode currentNode) {
 		GameCharacter character = CharactersPresentDialogue.characterViewed;
-		if (currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_PERKS)) {
+		if (currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_PERKS)
+				|| currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_INSPECT)) {
 			character = OccupantManagementDialogue.characterSelected();
 		} else if (currentNode.equals(ElementalDialogue.ELEMENTAL_PERKS)) {
 			character = Main.game.getPlayer().getElemental();
 		} else if (currentNode.equals(PhoneDialogue.CHARACTER_APPEARANCE)
 				|| currentNode.equals(PhoneDialogue.CHARACTER_PERK_TREE)) {
+			character = Main.game.getPlayer();
+		}
+		if(character==null) {
+			System.err.println("Error: character was null in initPerkListeners(), Dialogue ID: "+currentNode.getId());
 			character = Main.game.getPlayer();
 		}
 		
@@ -588,7 +676,8 @@ public class MiscController {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 					if (Main.game.getPlayer().getEssenceCount()>=f.getCost()
 							&& f.getFetishesForAutomaticUnlock().isEmpty()
-							&& !targetedCharacter.hasFetish(f)) {
+							&& !targetedCharacter.hasFetish(f)
+							&& !targetedCharacter.isDoll()) {
 						targetedCharacter.addFetish(f);
 						targetedCharacter.incrementEssenceCount(-f.getCost(), false);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
@@ -607,7 +696,8 @@ public class MiscController {
 				if (MainController.document.getElementById(id) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 						if (Main.game.getPlayer().getEssenceCount()>=FetishDesire.getCostToChange()
-								&& targetedCharacter.getBaseFetishDesire(f) != desire) {
+								&& targetedCharacter.getBaseFetishDesire(f) != desire
+								&& !targetedCharacter.isDoll()) {
 							targetedCharacter.incrementEssenceCount(-FetishDesire.getCostToChange(), false);
 							targetedCharacter.setFetishDesire(f, desire);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
@@ -762,4 +852,5 @@ public class MiscController {
 			}
 		}
 	}
+	
 }

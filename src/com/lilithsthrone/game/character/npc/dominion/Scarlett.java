@@ -119,6 +119,9 @@ public class Scarlett extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.20")) {
 			this.setSkinCovering(new Covering(BodyCoveringType.HARPY_SKIN, PresetColour.SKIN_EBONY), false);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.8.2") && (!this.isSlave() || !this.getOwner().isPlayer())) {
+			this.clearTattoosAndScars();
+		}
 	}
 
 	@Override
@@ -239,7 +242,7 @@ public class Scarlett extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_boyshorts", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_CROPTOP_BRA, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_croptop_bra", PresetColour.CLOTHING_BLACK, false), true, this);
 		
 		if(Main.game.getPlayer().hasQuest(QuestLine.ROMANCE_HELENA)
 				&& (this.getLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP || this.hasVagina())) {
@@ -437,6 +440,7 @@ public class Scarlett extends NPC {
 		this.endPregnancy(true);
 		this.equipClothing();
 		this.getPetNameMap().remove(Main.game.getPlayer().getId());
+		this.clearTattoosAndScars();
 	}
 	
 	public void applyFeminisation() {

@@ -4,7 +4,6 @@
 	<name><![CDATA[lake]]></name>
 	<tooltipDescription><![CDATA[The middle of the lake is surprisingly deep, and could easily conceal an underwater treasure.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the lake to the north-east of Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_BLUE_DARK</colour>
 	<backgroundColour>MAP_BACKGROUND_BLUE</backgroundColour>

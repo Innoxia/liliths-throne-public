@@ -4,7 +4,6 @@
 	<name><![CDATA[Rainbow's End]]></name>
 	<tooltipDescription><![CDATA[This stall is run by a pair of foxtauresses and sells all manner of colourful clothing.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the Farmer's Market in Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<svgName>clothing</svgName>
 	<colour>BASE_ROSE</colour>

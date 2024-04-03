@@ -431,6 +431,7 @@ public abstract class AbstractEncounter {
 	}
 	
 	protected DialogueNode getBaseRandomEncounter(boolean forceEncounter) {
+		
 		if(forceEncounter) {
 			if(Main.game.forcedEncounterAtSeconds.getKey()==Main.game.getSecondsPassed()) {
 				return Main.game.forcedEncounterAtSeconds.getValue();
@@ -485,7 +486,10 @@ public abstract class AbstractEncounter {
 		}
 		
 		if(this.isFromExternalFile()) {
-//			System.out.println("--- Encounter Generation Start ---");
+			boolean debugText = false;
+			if(debugText) {
+				System.out.println("--- Encounter Generation Start ---");
+			}
 			float total = 0;
 			float opportunisticIncrease = 0;
 			Map<ExternalEncounterData, Float> finalMap = new HashMap<>();
@@ -498,15 +502,19 @@ public abstract class AbstractEncounter {
 					}
 					total+=weighting;
 					finalMap.put(data, weighting);
-//					System.out.println("Weighting add: "+weighting+" ("+data.getName()+")");
+					if(debugText) {
+						System.out.println("Weighting add: "+weighting+" ("+data.getName()+")");
+					}
 				}
 			}
 			if(total==0) {
 				setEncounterDialogue(null, forceEncounter);
 				return null;
 			}
-//			System.out.println("Final total: "+total);
-//			System.out.println("Final opportunisticIncrease: "+opportunisticIncrease);
+			if(debugText) {
+				System.out.println("Final total: "+total);
+				System.out.println("Final opportunisticIncrease: "+opportunisticIncrease);
+			}
 			
 			if(forceEncounter || Math.random()*(100+opportunisticIncrease)<total) {
 				ExternalEncounterData encounter;
@@ -518,14 +526,24 @@ public abstract class AbstractEncounter {
 					finalMap.remove(encounter);
 					dn = DialogueManager.getDialogueFromId(UtilText.parse(encounter.getDialogueId()).trim());
 				}
-//				System.out.println("Returning: "+dn.getId());
-//				System.out.println("--- END ---");
-				setEncounterDialogue(dn, forceEncounter);
-				return dn;
+				if(dn!=null) {
+					if(debugText) {
+						System.out.println("Returning: "+dn.getId());
+						System.out.println("--- END ---");
+					}
+					setEncounterDialogue(dn, forceEncounter);
+					return dn;
+				}
 			}
-//			System.out.println("--- END ---");
+			if(debugText) {
+				System.out.println("--- END ---");
+			}
 			
 		} else {
+			boolean debugText = false;
+			if(debugText) {
+				System.out.println("--- Encounter Generation Start ---");
+			}
 			float total = 0;
 			float opportunisticIncrease = 0;
 			Map<EncounterType, Float> finalMap = new HashMap<>();
@@ -538,11 +556,18 @@ public abstract class AbstractEncounter {
 					}
 					total+=weighting;
 					finalMap.put(e.getKey(), weighting);
+					if(debugText) {
+						System.out.println("Weighting add: "+weighting+" ("+e.getKey().name()+")");
+					}
 				}
 			}
 			if(total==0) {
 				setEncounterDialogue(null, forceEncounter);
 				return null;
+			}
+			if(debugText) {
+				System.out.println("Final total: "+total);
+				System.out.println("Final opportunisticIncrease: "+opportunisticIncrease);
 			}
 			
 			if(forceEncounter || Math.random()*(100+opportunisticIncrease)<total) {
@@ -555,8 +580,17 @@ public abstract class AbstractEncounter {
 					finalMap.remove(encounter);
 					dn = initialiseEncounter(encounter);
 				}
-				setEncounterDialogue(dn, forceEncounter);
-				return dn;
+				if(dn!=null) {
+					if(debugText) {
+						System.out.println("Returning: "+dn.getLabel());
+						System.out.println("--- END ---");
+					}
+					setEncounterDialogue(dn, forceEncounter);
+					return dn;
+				}
+			}
+			if(debugText) {
+				System.out.println("--- END ---");
 			}
 		}
 

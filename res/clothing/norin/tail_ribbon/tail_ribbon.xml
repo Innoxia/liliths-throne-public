@@ -6,13 +6,14 @@
     <determiner><![CDATA[a]]></determiner>
     <name><![CDATA[ribbon]]></name>
     <namePlural pluralByDefault="false"><![CDATA[ribbons]]></namePlural>
-    <description><![CDATA[A small, cute cotton ribbon. It could be tied around a tail, or into someone's hair.]]></description>
+    <description><![CDATA[A small, cute cotton ribbon. It could be tied around a tail, or into someone's hair. It could also potentially be tied around someone's penis...]]></description>
     
     <physicalResistance>0</physicalResistance>
     <femininity>FEMININE</femininity>
 	<equipSlots>
 		<slot>TAIL</slot>
 		<slot>HAIR</slot>
+		<slot>PENIS</slot>
 	</equipSlots>
     <rarity>COMMON</rarity>
     
@@ -21,6 +22,7 @@
     <clothingSet/>
     <imageEquippedName slot="TAIL">tail_ribbon.svg</imageEquippedName>
     <imageEquippedName slot="HAIR">tail_ribbon_hair.svg</imageEquippedName>
+    <imageEquippedName slot="PENIS">tail_ribbon.svg</imageEquippedName>
     <effects/>
 
     <blockedPartsList slot="TAIL">
@@ -41,9 +43,21 @@
         <concealedSlots/>
       </blockedParts>
     </blockedPartsList>
+    <blockedPartsList slot="PENIS">
+      <blockedParts>
+        <displacementType>REMOVE_OR_EQUIP</displacementType>
+        <clothingAccessRequired>
+			<clothingAccess>PENIS</clothingAccess>
+        </clothingAccessRequired>
+        <blockedBodyParts/>
+        <clothingAccessBlocked/>
+        <concealedSlots/>
+      </blockedParts>
+    </blockedPartsList>
     
     <incompatibleSlots slot="TAIL"/>
     <incompatibleSlots slot="HAIR"/>
+    <incompatibleSlots slot="PENIS"/>
     
     <primaryColours values="ALL"/>
     <primaryColoursDye values="ALL"/>
@@ -56,6 +70,10 @@
       <tag>SOLD_BY_NYAN</tag>
     </itemTags>
     
+    <itemTags slot="PENIS">
+      <tag>ENABLE_SEX_EQUIP</tag>
+      <tag>REQUIRES_PENIS</tag>
+    </itemTags>
   </coreAttributes>
 
   <replacementText slot="TAIL" type="REMOVE_OR_EQUIP">
@@ -110,5 +128,27 @@
     </otherRough>
   </displacementText>
   
+  <replacementText slot="PENIS" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(tie)] the ribbon into place around [npc.her] [npc.penis+].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(tie)] the ribbon into place around [npc2.namePos] [npc2.penis+].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(tie)] the ribbon into place around [npc2.namePos] [npc2.penis+].]]>
+    </otherRough>
+  </replacementText>
+  <displacementText slot="PENIS" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(untie)] the ribbon from around [npc.her] [npc.penis+].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(untie)] the ribbon from around [npc2.namePos] [npc2.penis+].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(untie)] the ribbon from around [npc2.namePos] [npc2.penis+].]]>
+    </otherRough>
+  </displacementText>
   
 </clothing>

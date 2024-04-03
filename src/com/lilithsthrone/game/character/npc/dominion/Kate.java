@@ -57,10 +57,7 @@ import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
-import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -116,7 +113,7 @@ public class Kate extends NPC {
 			resetBodyAfterVersion_2_10_5();
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11")) {
-			this.setAgeAppearanceDifferenceToAppearAsAge(28);
+			this.setAgeAppearanceAbsolute(28);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.5.1")) {
 			this.setPersonalityTraits(
@@ -124,8 +121,10 @@ public class Kate extends NPC {
 					PersonalityTrait.LEWD);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.6")) {
-			this.resetPerksMap(true);
 			this.setTailGirth(PenetrationGirth.TWO_NARROW);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.9.3")) {
+			this.resetPerksMap(true);
 		}
 	}
 
@@ -135,7 +134,8 @@ public class Kate extends NPC {
 		this.addSpecialPerk(Perk.SPECIAL_MEGA_SLUT);
 		
 		PerkManager.initialisePerks(this,
-				Util.newArrayListOfValues(),
+				Util.newArrayListOfValues(
+						Perk.HEAVY_SLEEPER),
 				Util.newHashMapOfValues(
 						new Value<>(PerkCategory.PHYSICAL, 0),
 						new Value<>(PerkCategory.LUST, 5),
@@ -217,7 +217,7 @@ public class Kate extends NPC {
 		}
 
 		// Core:
-		this.setAgeAppearanceDifferenceToAppearAsAge(28);
+		this.setAgeAppearanceAbsolute(28);
 		this.setHeight(180);
 		this.setFemininity(85);
 		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
@@ -400,89 +400,15 @@ public class Kate extends NPC {
 		return true;
 	}
 	
-	public static final DialogueNode AFTER_SEX = new DialogueNode("Step back", "Step back and allow Kate to recover.", true, true) {
-		
-		@Override
-		public String getContent() {
-			return "<p>"
-					+ "Quickly sorting your own clothes back into position, you watch as Kate does the same."
-					+ " Standing up, she wipes herself clean with a tissue she's produced from somewhere, before flattening down her mini skirt and turning to smile at you."
-					+ " She seems to have got her lust fully under control by now, and as she speaks, she sounds almost embarrassed of what just happened, "
-					+ UtilText.parseSpeech("Mmm, thanks for helping me out there... You know, it's pretty hard for us demons sometimes... Anyway! What are you even doing in here?"
-							+ " Weren't you deterred by the boarded-up windows and stuff?",
-						Main.game.getNpc(Kate.class))
-					+ "</p>"
-					+ "<p>"
-					+ UtilText.parsePlayerSpeech("So you're aware of how it appears to customers?")
-					+ " you ask as you finally get your clothing back in order."
-					+ "</p>"
-					+ "<p>"
-					+ UtilText.parseSpeech("Well, yeah I'm aware! You know, the owners of this whole Arcade keep threatening me with legal action, saying I have a 'responsibility' to keep the area looking nice."
-							+ " As if! As long as I display an 'open for business' sign, I'm following all the terms of my contract! You know what happened when I opened this place?! Thirty. Six. Customers. All in one day. Eugh!"
-							+ " As the last one of those demanding know-it-alls left, I followed them outside, boarded up the windows, and threw paint stripper all over the sign. One day's hard work is enough for anyone...",
-							Main.game.getNpc(Kate.class))
-					+ "</p>"
-					+ "<p>"
-					+ "As she's been speaking, she's started gathering items from the shelves on the other side of the room, stacking them up on a little metal trolley that's been sitting nearby."
-					+ " Looking back at you, she makes a satisfied little humming noise before making her way back over to the leather chair you just fucked her on, pulling the trolley behind her."
-					+ "</p>"
-					+ "<p>"
-					+ UtilText.parseSpeech("Well, I suppose I don't mind one customer every now and then. I could use the cash after all,",
-						Main.game.getNpc(Kate.class))
-					+" she says, motioning for you to come and sit down, "
-					+ UtilText.parseSpeech("This is the most comfortable seat, by the way, and hey, I've even warmed it up for you!",
-						Main.game.getNpc(Kate.class))
-					+ "</p>"
-					+ "<p>"
-					+ "Kate wipes down the seat, and, seeing that it looks clean enough, you do as she instructs and sink down into the chair."
-					+ " You feel some of Kate's residual warmth still clinging to the seat's padded leather backing, and you smile up at her as she hands you a little brochure."
-					+ " Flicking through, you see that it contains all the services she's capable of, and as you read, Kate sinks down onto one of the chairs next to you."
-					+ " Within a few seconds, her snores start to fill the empty shop once more..."
-					+ "</p>";
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Services", "Read the brochure that Kate just handed to you.", SuccubisSecrets.SHOP_BEAUTY_SALON_MAIN){
-					@Override
-					public void effects() {
-						Main.game.getDialogueFlags().values.add(DialogueFlagValue.kateIntroduced);
-					}
-				};
-			} else {
-				return null;
-			}
-		}
-	};
-	public static final DialogueNode AFTER_SEX_REPEATED = new DialogueNode("Step back", "Step back and allow Kate to recover.", true, true) {
-		
-		@Override
-		public String getContent() {
-			return  "<p>"
-					+ "Quickly sorting your own clothes back into position, you watch as Kate does the same."
-					+ " Standing up, she wipes herself clean with a tissue she's produced from somewhere, before flattening down her mini skirt and turning to smile at you."
-					+ " She seems to have got her lust fully under control by now, and as she speaks, she sounds almost embarrassed of what just happened, "
-					+ UtilText.parseSpeech("Mmm, thanks for helping me out there... You know, it's pretty hard for us demons sometimes... Anyway! You need any more of my services?",
-						Main.game.getNpc(Kate.class))
-					+ "</p>"
-					+ "<p>"
-					+ "Kate wipes down the seat she's just vacated, and, seeing that it looks clean enough, you take her offer of a seat and sink down into the chair."
-					+ " You feel some of Kate's residual warmth still clinging to the padded leather backing, and you smile up at her as she hands you a little brochure."
-					+ " Flicking through, you see that it contains all the services she's capable of, and as you read, Kate sinks down onto one of the chairs next to you."
-					+ " Within a few seconds, her snores start to fill the empty shop once more..."
-					+ "</p>";
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Services", "Read the brochure that Kate just handed to you.", SuccubisSecrets.SHOP_BEAUTY_SALON_MAIN);
-			} else {
-				return null;
-			}
-		}
-	};
+	@Override
+	public boolean isAffectedBySleepingStatusEffect() {
+		return true;
+	}
+	
+	@Override
+	public boolean isSleepingAtHour(int hour) {
+		return this.isAtHome(); // Always sleeping when on home tile
+	}
 	
 	@Override
 	public Value<Boolean, String> getItemUseEffects(AbstractItem item,  GameCharacter itemOwner, GameCharacter user, GameCharacter target) {
@@ -580,25 +506,15 @@ public class Kate extends NPC {
 	/**
 	 * @return A <b>non-formatted</b> String of this NPCs speech related to no ongoing penetration.
 	 */
-	public String getDirtyTalkNoPenetration(boolean isPlayerDom){
+	@Override
+	public String getDirtyTalkNoPenetration(GameCharacter target, boolean isPlayerDom){
 		List<String> speech = new ArrayList<>();
 
 		speech.add("Come on! Fuck me already!");
 		speech.add("Please, let's get started!");
 		speech.add("My little pussy needs you so bad!");
-		
-		return speech.get(Util.random.nextInt(speech.size()));
-	}
-	
-	/**
-	 * @return A <b>non-formatted</b> String of this NPCs speech related to no ongoing penetration.
-	 */
-	public String getPlayerDirtyTalkNoPenetration(boolean isPlayerDom){
-		List<String> speech = new ArrayList<>();
-		
-		speech.add("You're so hot!");
-		speech.add("What a cute little demon you are!");
-		
-		return speech.get(Util.random.nextInt(speech.size()));
+
+		String returnedLine = speech.get(Util.random.nextInt(speech.size()));
+		return UtilText.parse(this, target, "[npc.speech("+returnedLine+")]");
 	}
 }

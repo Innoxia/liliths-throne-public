@@ -48,9 +48,7 @@
 					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
 				</clothingAccessBlocked>
 				
-				<concealedSlots>
-					<slot>FINGER</slot>
-				</concealedSlots>
+				<concealedSlots/>
 			</blockedParts>
 			
 			<blockedParts>
@@ -88,59 +86,27 @@
 		</itemTags>
 	</coreAttributes>
 
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You take off your jacket.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You pull off [npc.name]'s jacket.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You grab hold of [npc.name]'s jacket and roughly pull it off.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] takes [npc.her] jacket off.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] pulls your jacket off.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] grabs hold of your jacket and roughly pulls it off.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] pulls [npc2.name]'s jacket off.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] grabs hold of [npc2.name]'s jacket and roughly pulls it off.
-		]]></NPCOtherNPCRough>
-	</displacementText>
-
-	<!-- 'replacementText' is used for equipping and replacements. -->
 	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You pull on the jacket.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You guide [npc.name]'s [npc.arms] into the jacket.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You hold [npc.name] still as you roughly force the jacket onto [npc.herHim].
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] pulls on the jacket.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] guides your [pc.arms] into the jacket.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] holds you still as [npc.she] roughly forces the jacket onto you.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] guides [npc2.name]'s [npc2.arms] into the jacket.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] holds [npc2.name] still as [npc1.she] roughly forces the jacket onto [npc2.herHim].
-		]]></NPCOtherNPCRough>
+		<self><![CDATA[
+			[npc.Name] [npc.verb(pull)] on the jacket.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(guide)] [npc2.namePos] [npc2.arms] through the jacket's sleeves as [npc.she] [npc.verb(pull)] it on [npc2.herHim].
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(force)] [npc2.namePos] [npc2.arms] through the jacket's sleeves as [npc.she] [npc.verb(pull)] it on [npc2.herHim].
+		]]></otherRough>
 	</replacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self><![CDATA[
+			[npc.Name] [npc.verb(take)] off [npc.her] jacket.
+		]]></self>
+		<other><![CDATA[
+			[npc.Name] [npc.verb(take)] off [npc2.namePos] jacket.
+		]]></other>
+		<otherRough><![CDATA[
+			[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] jacket.
+		]]></otherRough>
+	</displacementText>
 	
 </clothing>

@@ -30,17 +30,16 @@
 		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
 		<enchantmentEffectId>RACE</enchantmentEffectId>
 		
+		<statusEffects>
+			<effect seconds="1200">LOLLIPOP_SUCKING</effect>
+		</statusEffects>
+		
 		<effectTooltipLines>
 			<line><![CDATA[[#ATTRIBUTE_DAMAGE_LUST.getFormattedValue(10)] to 'potion effects']]></line>
 			<line><![CDATA[[style.italicsSex(+3)] [style.italicsFeminine(femininity)]]]></line>
-			<line><![CDATA[Applies <i style='color:[#SE_LOLLIPOP_SUCKING.getColour().toWebHexString()];'>'Sucking lollipop'</i>:]]></line>
-			<line><![CDATA[<i>[#ATTRIBUTE_DAMAGE_LUST.getFormattedValue(5)]</i>]]></line>
-			
 		</effectTooltipLines>
 		
 		<applyEffects><![CDATA[
-			[##npc.addStatusEffect(SE_LOLLIPOP_SUCKING, 60*20)]
-		
 			<p style='margin-bottom:0; padding-bottom:0;'>
 				[npc.Name] [npc.verb(start)] to feel more feminine...
 			</p>
@@ -49,6 +48,7 @@
 		]]></applyEffects>
 		
 		<itemTags>
+			<tag>FOOD</tag>
 			<tag>RACIAL_TF_ITEM</tag>
 			<tag>SOLD_BY_RALPH</tag>
 		</itemTags>

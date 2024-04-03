@@ -71,6 +71,18 @@ public class VaginaType {
 			return "";
 		}
 	};
+	
+	public static AbstractVaginaType ONAHOLE = new AbstractVaginaType(BodyCoveringType.DILDO,
+			FluidType.GIRL_CUM_HUMAN,
+			Race.NONE,
+			false,
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues(""),
+			Util.newArrayListOfValues("toy", "artificial"),
+			"You have somehow transformed your vagina into an onahole, which is a bug. (Please let Innoxia know!)", // Onaholes are not a transformable option
+			"[npc.she] [npc.has] an onahole inserted into [npc.her] vagina, which is made out of [npc.vaginaFullDescription(true)].",
+			null) {
+	};
 
 	public static AbstractVaginaType HUMAN = new AbstractVaginaType(BodyCoveringType.VAGINA,
 			FluidType.GIRL_CUM_HUMAN,

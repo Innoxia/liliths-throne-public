@@ -108,58 +108,27 @@
 		</itemTags>
 	</coreAtributes>
 	
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You fully unbuckle your bodysuit and pull it off.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You fully unbuckle [npc.name]'s bodysuit and pull it off.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You hold [npc.name] still as you fully unbuckle [npc.her] bodysuit and roughly pull it off.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] fully unbuckles [npc.her] bodysuit and pulls it off.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] fully unbuckles your bodysuit and pulls it off.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] holds you still as [npc.she] fully unbuckles your bodysuit and roughly pulls it off.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] fully unbuckles [npc2.name]'s bodysuit and pulls it off.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] holds [npc2.name] still as [npc1.she] fully unbuckles [npc2.her] bodysuit and roughly pulls it off.
-		]]></NPCOtherNPCRough>
-	</displacementText>
-
 	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You pull on your bodysuit and buckle yourself up.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You guide [npc.name] into the bodysuit and buckle [npc.herHim] up.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You hold [npc.name] still as you roughly force [npc.herHim] into the bodysuit, before buckling [npc.herHim] up.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] pulls on [npc.her] bodysuit and buckles [npc.herself] up.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] guides you into the bodysuit and buckles you up.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] holds you still as [npc.she] roughly forces you into the bodysuit, before buckling you up.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] guides [npc2.name] into the bodysuit and buckles [npc2.herHim] up.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] holds [npc2.name] still as [npc1.she] roughly forces [npc2.herHim] into the bodysuit, before buckling [npc2.herHim] up.
-		]]></NPCOtherNPCRough>
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(pull)] on [npc.her] bodysuit, before buckling it up.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(guide)] [npc2.name] into the bodysuit, before buckling [npc2.herHim] up.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(force)] [npc2.name] into the bodysuit, before impatiently buckling [npc2.herHim] up.]]>
+		</otherRough>
 	</replacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(unbuckle)] [npc.her] bodysuit, before pulling it off.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(unbuckle)] [npc2.namePos] bodysuit, before pulling it off.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] roughly [npc.verb(unbuckle)] [npc2.namePos] bodysuit, before impatiently pulling it off.]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

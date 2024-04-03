@@ -893,10 +893,13 @@
 		As she hears you explaining your dilemma, your [lilaya.relation(pc)] crosses her arms and tuts in disapproval. Shaking her head as you finish talking, she asks, [lilaya.speech(How did you end up in such a ridiculous situation? Were you just going around Dominion putting on any old piece of clothing you found lying on the ground? No, wait, don't answer. I feel as though I'd regret finding out.)]
 	</p>
 	<p>
-		Asking Lilaya if she can help, you're pleased to see the annoyed expression on her face quickly soften as she replies, [lilaya.speech(Yes, I can help. Ordinarily, I'd refuse to unseal any of your clothing to teach you a lesson about being so careless, but seeing as you're completely unable to get yourself out of this mess, I'll remove the seals from all of your clothing. Just come and stand over here, please.)]
+		Asking Lilaya if she can help, you're pleased to see the annoyed expression on her face quickly soften as she replies, [lilaya.speech(Yes, I can help. Ordinarily, I'd refuse to help so as to teach you a lesson about being so careless, but seeing as you're completely unable to get yourself out of this mess, I'll remove the servitude enchantments from all of your clothing. Just come and stand over here, please.)]
 	</p>
 	<p>
-		Moving up next to Lilaya, you hold still as she unseals your clothing. After just a few moments she's done, and after you've thanked her and stepped back, she asks you if there was anything else you needed.
+		Moving up next to Lilaya, you hold still as she removes the servitude enchantments your clothing. After just a few moments she's done, but as you thank her and then try to remove your clothing, you realise that it's still sealed.
+	</p>
+	<p>
+		[lilaya.speech(Did you think that I'd waste my essences on unsealing your clothing?)] the [lilaya.race] asks in a disapproving tone. Crossing her arms, she tuts, [lilaya.speech(You can unseal your clothing yourself. Just be grateful that I spent some essences on removing those other enchantments. Now, is there anything else you need from me?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1676,6 +1679,32 @@
 	</p>
 	<p style='text-align:center;'>
 		[style.italicsGood(You can now invite characters to come and live with you! To do so, you'll need to upgrade one of the empty rooms into a 'Guest Room', before asking the character to move in with you.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<htmlContent tag="LILAYA_DOLL_STORAGE"><![CDATA[
+	<p>
+		Wanting to find out if Lilaya would be ok with you storing sex dolls here in her mansion, you start by asking her if she's ever visited Lovienne's Luxuries before.
+	</p>
+	<p>
+		[lilaya.speech(Yes, I've been there before; Saellatrix and I know each other,)] Lilaya responds, before revealing, [lilaya.speech(I first met her when I attended her recognition ceremony. She had quite a vulgar display set up in the centre of the ballroom; about twenty or so of her unrecognised sisters were stripped naked and presenting themselves to us, and once Lovienne had finished her vow, Saellatrix invited all of the guests to use them in any way they wanted. Of course I didn't partake in that...)]
+	</p>
+	<p>
+		[rose.speech(And yet I seem to recall that you didn't come home that night,)] Rose quips, causing Lilaya to blush.
+	</p>
+	<p>
+		[lilaya.speech(Saellatrix was very charming,)] your [lilaya.relation(pc)] says in a defensive tone, before admitting in embarrassment, [lilaya.speech(Y-Yes, I spent the night with her, ok? She stood up for me when some of the other guests called me 'imp-fucker' to my face, and the next thing I knew we were in her bedroom and she'd grown a huge... W-Well... Anyway! Why were you asking about her shop, [pc.name]?)]
+	</p>
+	<p>
+		You tell Lilaya that you've seen the sex dolls which Saellatrix sells there, and was wondering if you could use one of the spare rooms in the mansion in which to store them if you decided to buy any.
+	</p>
+	<p>
+		[lilaya.speech(Oh, well of course,)] Lilaya replies, [lilaya.speech(Saellatrix almost talked me into buying some when I was last there; they're very impressive, but with Rose I simply have no need for them. Now, was there anything else?)]
+	</p>
+	<p style='text-align:center;'>
+		[style.italicsGood(You can now buy sex dolls from Lovienne's Luxuries! To move them into the mansion, you'll need to upgrade one of the empty rooms into a 'Doll Closet' for them to live in.)]
 	</p>
 	]]>
 	</htmlContent>

@@ -1,11 +1,11 @@
 package com.lilithsthrone.world.places;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import org.w3c.dom.Document;
@@ -31,25 +31,21 @@ public class GenericPlace implements XMLSaving {
 	private AbstractPlaceType placeType;
 	private Set<AbstractPlaceUpgrade> placeUpgrades;
 	
-	public static Map<AbstractPlaceType, Integer> placeCountMap = new HashMap<>();
+	public static Map<AbstractPlaceType, Integer> placeCountMap = new ConcurrentHashMap<>();
 
 	public GenericPlace(AbstractPlaceType placeType) {
 		this.placeType=placeType;
-		placeUpgrades = new HashSet<>();
-		
-		if(placeCountMap.containsKey(placeType)) {
-			placeCountMap.put(placeType, placeCountMap.get(placeType)+1);
-		} else {
-			placeCountMap.put(placeType, 1);
-		}
+		this.placeUpgrades = new HashSet<>();
 		
 		if(placeType!=null) {
-			if(placeType.getPlaceNameAppendFormat(placeCountMap.get(placeType))!=null && !placeType.getPlaceNameAppendFormat(placeCountMap.get(placeType)).isEmpty()) {
-				this.name = placeType.getName() + placeType.getPlaceNameAppendFormat(placeCountMap.get(placeType));
+			placeCountMap.put(placeType, placeCountMap.getOrDefault(placeType, 0) + 1);
+
+			String placeNameExtra = placeType.getPlaceNameAppendFormat(placeCountMap.get(placeType));
+			if (placeNameExtra != null && !placeNameExtra.isEmpty()) {
+				this.name = placeType.getName() + placeNameExtra;
 			}
-			for(AbstractPlaceUpgrade pu : placeType.getStartingPlaceUpgrades()) {
-				placeUpgrades.add(pu);
-			}
+
+			placeUpgrades.addAll(placeType.getStartingPlaceUpgrades());
 			
 		} else {
 			this.name = "";

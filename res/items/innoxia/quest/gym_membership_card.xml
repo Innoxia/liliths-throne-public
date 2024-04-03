@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>8000</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA['Pix's Playground' membership card]]></name>
+		<namePlural pluralByDefault="false"><![CDATA['Pix's Playground' membership card]]></namePlural>
+		<description><![CDATA[A cardboard card with laminate coating, declaring the holder as being a member of the gym, 'Pix's Playground'.]]></description> 
+		
+		<useDescriptor>examine</useDescriptor>
+		
+		<sexUse>false</sexUse>
+		<combatUseAllies>false</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>false</consumedOnUse>
+		
+		<rarity>QUEST</rarity> 
+		
+		<imageName>gym_membership_card.svg</imageName> 
+		
+		<colourPrimary>CLOTHING_BLACK</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.colourGood(Grants access)] to 'Pix's Playground']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+		<p>
+			There's nothing about this card's appearance to suggest that it cost eight thousand flames. Made of flimsy cardboard, and with just a thin laminate coating to protect it from moisture, the simple design on the front leaves much to be desired. The words 'Pix's Playground', along with a basic icon of a dumbbell, are the only identifying marks which it carries.
+		</p>
+		]]></applyEffects>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(take)] a closer look at the card...
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(show)] off [npc.her] card to [npc2.name], who is duly impressed by [npc.her] possession of it...
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

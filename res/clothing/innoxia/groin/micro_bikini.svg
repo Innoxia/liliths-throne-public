@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" cursor="default" viewBox="0 0 256 256">
+    <path fill="#ff2a2a" stroke="#000" stroke-width=".665" d="M113.65 97.362l1.327 4.81 25.713-.331.83-4.81z"/>
+    <path fill="#f55" stroke="#000" stroke-width=".665" d="M12.625 91.722c77.066 5.449 153.96 6.315 230.59-.166l.166 4.48c-77.348 3.257-154.12 2.813-230.59.33z"/>
+    <path fill="#ffd5d5" stroke="#000" stroke-width=".789" d="M113.64 100.48l6.604 72.51c4.363 1.683 8.777 3.204 14.781-.246l6.92-71.28z"/>
+    <g id="patternLayer">
+        <path fill="#faa" stroke="#000" stroke-width=".665" d="M117.31 101.18l4.927 69.208c3.254 1.607 6.547 3.058 11.026-.235l5.16-68.035z"/>
+    </g>
+    <path fill="#ffd5d5" stroke="#000" stroke-width=".665" d="M12.758 91.858c77.62 9.22 154.67 11.974 230.42 0v4.147c-74.679 11.366-151.92 9.081-230.34.491z"/>
+</svg>

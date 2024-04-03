@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<worldType>
+	<worldRegion>DOMINION</worldRegion>
+	<name><![CDATA[Lovienne's Luxuries]]></name>
+	<colour>BASE_PINK_DEEP</colour>
+	<sexBlockedReason><![CDATA[[npc.Name] cannot have sex here!]]></sexBlockedReason> 
+	<furniturePresent>true</furniturePresent>
+	<wallsPresent>true</wallsPresent>
+	<loiteringEnabled>false</loiteringEnabled>
+	<flightEnabled>false</flightEnabled>
+	<visibleFromStart>false</visibleFromStart>
+	<fullyRevealedFromStart>false</fullyRevealedFromStart>
+	<globalMapLocation>WORLD_MAP_DOMINION</globalMapLocation>
+	<standardPlace>innoxia_dominion_sex_shop_floor</standardPlace>
+	<entryFromGlobalMapLocation>innoxia_dominion_sex_shop_exit</entryFromGlobalMapLocation>
+	<teleportPermissions>NONE</teleportPermissions>
+	<places>
+		<place colour="#ffffff">GENERIC_IMPASSABLE</place>
+		
+		<place colour="#ff0000">innoxia_dominion_sex_shop_exit</place>
+		
+		<place colour="#808080">innoxia_dominion_sex_shop_floor</place>
+		<place colour="#ff7f00">innoxia_dominion_sex_shop_display</place>
+		<place colour="#ffff00">innoxia_dominion_sex_shop_dolls</place>
+		<place colour="#0000ff">innoxia_dominion_sex_shop_counter</place>
+		
+		<place colour="#404040">innoxia_dominion_sex_shop_mezzanine</place>
+		<place colour="#7f7f00">innoxia_dominion_sex_shop_toy_machines</place>
+		<place colour="#000000">innoxia_dominion_sex_shop_steps</place>
+		<place colour="#7f00ff">innoxia_dominion_sex_shop_doll_machine_a</place>
+		<place colour="#7f007f">innoxia_dominion_sex_shop_doll_machine_b</place>
+		<place colour="#4040bf">innoxia_dominion_sex_shop_doll_machine_c</place>
+		<place colour="#ff7f7f">innoxia_dominion_sex_shop_doll_machine_storage</place>
+		
+		<place colour="#00ffff">innoxia_dominion_sex_shop_staff_door</place>
+		<place colour="#ff7fff">innoxia_dominion_sex_shop_staff_room</place>
+		<place colour="#00ff00">innoxia_dominion_sex_shop_back_door</place>
+		<place colour="#bfbfbf">innoxia_dominion_sex_shop_corridor</place>
+		<place colour="#ff00ff">innoxia_dominion_sex_shop_elevator</place>
+	</places>
+</worldType>

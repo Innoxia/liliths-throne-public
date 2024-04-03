@@ -20,6 +20,16 @@ import com.lilithsthrone.utils.Util.Value;
  */
 public class TongueMound {
 	
+	private static String getDescriptionFinisher(SexAction action, int variation) {
+		if(!action.isTargetedCharacterInanimate()) {
+			if(variation==1) {
+				return " as [npc2.name] [npc2.moan+] beneath [npc.herHim].";
+			}
+			return " as [npc2.she] [npc2.moan+] beneath [npc.herHim].";
+		}
+		return ".";
+	}
+	
 	public static final SexAction MOUND_SNOG = new SexAction(
 			SexActionType.REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.ONE_MINIMUM,
@@ -49,13 +59,13 @@ public class TongueMound {
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
 						"[npc.Name] roughly [npc.verb(grind)] [npc.her] [npc.lips+] down against [npc2.namePos] doll-like mound,"
-								+ " forcefully kissing and licking at [npc2.her] sensitive crotch as [npc2.she] [npc2.moan+] beneath [npc.herHim].",
+								+ " forcefully kissing and licking at [npc2.her] sensitive crotch"+getDescriptionFinisher(this, 0),
 
 						"Dropping [npc.her] head down into [npc2.namePos] crotch, [npc.name] roughly [npc.verb(grind)] [npc.her] mouth against [npc2.her] genderless crotch,"
-								+ " kissing and licking [npc2.her] sensitive mound as [npc2.name] [npc2.moan+] beneath [npc.herHim].",
+								+ " kissing and licking [npc2.her] sensitive mound"+getDescriptionFinisher(this, 1),
 
 						"Pushing [npc.her] face down into [npc2.namePos] groin, [npc.name] [npc.verb(start)] grinding [npc.her] [npc.lips+] against [npc2.her] genderless mound,"
-								+ " roughly kissing and licking [npc2.her] sensitive crotch as [npc2.she] [npc2.moan+] beneath [npc.herHim].");
+								+ " roughly kissing and licking [npc2.her] sensitive crotch"+getDescriptionFinisher(this, 0));
 		}
 	};
 	
@@ -88,13 +98,13 @@ public class TongueMound {
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
 					"[npc.Name] eagerly [npc.verb(press)] [npc.her] [npc.lips+] down against [npc2.namePos] doll-like mound,"
-							+ " passionately kissing and licking at [npc2.her] sensitive crotch as [npc2.she] [npc2.moan+] beneath [npc.herHim].",
+							+ " passionately kissing and licking at [npc2.her] sensitive crotch"+getDescriptionFinisher(this, 0),
 
 					"Dropping [npc.her] head down into [npc2.namePos] crotch, [npc.name] passionately [npc.verb(press)] [npc.her] mouth against [npc2.her] genderless crotch,"
-							+ " kissing and licking [npc2.her] sensitive mound as [npc2.name] [npc2.moan+] beneath [npc.herHim].",
+							+ " kissing and licking [npc2.her] sensitive mound"+getDescriptionFinisher(this, 1),
 
 					"Pushing [npc.her] face down into [npc2.namePos] groin, [npc.name] [npc.verb(start)] pressing [npc.her] [npc.lips+] against [npc2.her] genderless mound,"
-							+ " eagerly kissing and licking [npc2.her] sensitive crotch as [npc2.she] [npc2.moan+] beneath [npc.herHim].");
+							+ " eagerly kissing and licking [npc2.her] sensitive crotch"+getDescriptionFinisher(this, 0));
 		}
 	};
 	
@@ -127,13 +137,13 @@ public class TongueMound {
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
 					"[npc.Name] gently [npc.verb(press)] [npc.her] [npc.lips+] down against [npc2.namePos] doll-like mound,"
-							+ " planting delicate kisses on [npc2.her] sensitive crotch as [npc2.she] [npc2.moan+] beneath [npc.herHim].",
+							+ " planting delicate kisses on [npc2.her] sensitive crotch"+getDescriptionFinisher(this, 0),
 
 					"Dropping [npc.her] head down into [npc2.namePos] crotch, [npc.name] gently [npc.verb(press)] [npc.her] mouth against [npc2.her] genderless crotch,"
-							+ " kissing and licking [npc2.her] sensitive mound as [npc2.name] [npc2.moan+] beneath [npc.herHim].",
+							+ " kissing and licking [npc2.her] sensitive mound"+getDescriptionFinisher(this, 1),
 
 					"Pushing [npc.her] face down into [npc2.namePos] groin, [npc.name] [npc.verb(start)] softly pressing [npc.her] [npc.lips+] against [npc2.her] genderless mound,"
-							+ " gently kissing and licking [npc2.her] sensitive crotch as [npc2.she] [npc2.moan+] beneath [npc.herHim].");
+							+ " gently kissing and licking [npc2.her] sensitive crotch"+getDescriptionFinisher(this, 0));
 		}
 	};
 	
@@ -166,13 +176,13 @@ public class TongueMound {
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
 					"[npc.Name] eagerly [npc.verb(press)] [npc.her] [npc.lips+] down against [npc2.namePos] doll-like mound,"
-							+ " passionately kissing and licking at [npc2.her] sensitive crotch as [npc2.she] [npc2.moan+] beneath [npc.herHim].",
+							+ " passionately kissing and licking at [npc2.her] sensitive crotch"+getDescriptionFinisher(this, 0),
 
 					"Dropping [npc.her] head down into [npc2.namePos] crotch, [npc.name] passionately [npc.verb(press)] [npc.her] mouth against [npc2.her] genderless crotch,"
-							+ " kissing and licking [npc2.her] sensitive mound as [npc2.name] [npc2.moan+] beneath [npc.herHim].",
+							+ " kissing and licking [npc2.her] sensitive mound"+getDescriptionFinisher(this, 1),
 
 					"Pushing [npc.her] face down into [npc2.namePos] groin, [npc.name] [npc.verb(start)] pressing [npc.her] [npc.lips+] against [npc2.her] genderless mound,"
-							+ " eagerly kissing and licking [npc2.her] sensitive crotch as [npc2.she] [npc2.moan+] beneath [npc.herHim].");
+							+ " eagerly kissing and licking [npc2.her] sensitive crotch"+getDescriptionFinisher(this, 0));
 		}
 	};
 	
@@ -205,13 +215,13 @@ public class TongueMound {
 		public String getDescription() {
 			return UtilText.returnStringAtRandom(
 					"[npc.Name] [npc.verb(press)] [npc.her] [npc.lips+] down against [npc2.namePos] doll-like mound,"
-							+ " kissing and licking at [npc2.her] sensitive crotch as [npc2.she] [npc2.moan+] beneath [npc.herHim].",
+							+ " kissing and licking at [npc2.her] sensitive crotch"+getDescriptionFinisher(this, 0),
 
 					"Dropping [npc.her] head down into [npc2.namePos] crotch, [npc.name] [npc.verb(press)] [npc.her] mouth against [npc2.her] genderless crotch,"
-							+ " kissing and licking [npc2.her] sensitive mound as [npc2.name] [npc2.moan+] beneath [npc.herHim].",
+							+ " kissing and licking [npc2.her] sensitive mound"+getDescriptionFinisher(this, 1),
 
 					"Pushing [npc.her] face down into [npc2.namePos] groin, [npc.name] [npc.verb(start)] pressing [npc.her] [npc.lips+] against [npc2.her] genderless mound,"
-							+ " kissing and licking [npc2.her] sensitive crotch as [npc2.she] [npc2.moan+] beneath [npc.herHim].");
+							+ " kissing and licking [npc2.her] sensitive crotch"+getDescriptionFinisher(this, 0));
 		}
 	};
 }

@@ -9,6 +9,7 @@ import org.w3c.dom.events.EventTarget;
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInformationEventListener;
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInventoryEventListener;
 import com.lilithsthrone.game.PropertyValue;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.Antenna;
@@ -1791,7 +1792,7 @@ public class CreationController {
 			String id = "URETHRA_ELASTICITY_"+elasticity;
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					BodyChanging.getTarget().setFaceElasticity(elasticity.getValue());
+					BodyChanging.getTarget().setUrethraElasticity(elasticity.getValue());
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
@@ -1822,7 +1823,7 @@ public class CreationController {
 			String id = "URETHRA_PLASTICITY_"+plasticity;
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					BodyChanging.getTarget().setFacePlasticity(plasticity.getValue());
+					BodyChanging.getTarget().setUrethraPlasticity(plasticity.getValue());
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
@@ -2475,28 +2476,48 @@ public class CreationController {
 		String id = "AGE_APPEARANCE_INCREASE";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().setAgeAppearanceDifferenceToAppearAsAge(Math.max(18, Math.min(BodyChanging.getTarget().getAppearsAsAgeValue()+1, BodyChanging.getTarget().getAgeValue()+10)));
+				int targetAge = Math.max(GameCharacter.MINIMUM_AGE, Math.min(BodyChanging.getTarget().getAppearsAsAgeValue()+1, BodyChanging.getTarget().getAgeValue()+BodyChanging.getTarget().getAgeDifferenceUpperLimit()));
+				if(BodyChanging.getTarget().getAgeAppearanceAbsolute()!=0) {
+					BodyChanging.getTarget().setAgeAppearanceAbsolute(targetAge);
+				} else {
+					BodyChanging.getTarget().setAgeAppearanceDifferenceToAppearAsAge(targetAge);
+				}
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
 		id = "AGE_APPEARANCE_INCREASE_LARGE";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().setAgeAppearanceDifferenceToAppearAsAge(Math.max(18, Math.min(BodyChanging.getTarget().getAppearsAsAgeValue()+5, BodyChanging.getTarget().getAgeValue()+10)));
+				int targetAge = Math.max(GameCharacter.MINIMUM_AGE, Math.min(BodyChanging.getTarget().getAppearsAsAgeValue()+5, BodyChanging.getTarget().getAgeValue()+BodyChanging.getTarget().getAgeDifferenceUpperLimit()));
+				if(BodyChanging.getTarget().getAgeAppearanceAbsolute()!=0) {
+					BodyChanging.getTarget().setAgeAppearanceAbsolute(targetAge);
+				} else {
+					BodyChanging.getTarget().setAgeAppearanceDifferenceToAppearAsAge(targetAge);
+				}
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
 		id = "AGE_APPEARANCE_DECREASE";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().setAgeAppearanceDifferenceToAppearAsAge(Math.max(18, Math.min(BodyChanging.getTarget().getAppearsAsAgeValue()-1, BodyChanging.getTarget().getAgeValue()+10)));
+				int targetAge = Math.max(GameCharacter.MINIMUM_AGE, Math.min(BodyChanging.getTarget().getAppearsAsAgeValue()-1, BodyChanging.getTarget().getAgeValue()+BodyChanging.getTarget().getAgeDifferenceUpperLimit()));
+				if(BodyChanging.getTarget().getAgeAppearanceAbsolute()!=0) {
+					BodyChanging.getTarget().setAgeAppearanceAbsolute(targetAge);
+				} else {
+					BodyChanging.getTarget().setAgeAppearanceDifferenceToAppearAsAge(targetAge);
+				}
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
 		id = "AGE_APPEARANCE_DECREASE_LARGE";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().setAgeAppearanceDifferenceToAppearAsAge(Math.max(18, Math.min(BodyChanging.getTarget().getAppearsAsAgeValue()-5, BodyChanging.getTarget().getAgeValue()+10)));
+				int targetAge = Math.max(GameCharacter.MINIMUM_AGE, Math.min(BodyChanging.getTarget().getAppearsAsAgeValue()-5, BodyChanging.getTarget().getAgeValue()+BodyChanging.getTarget().getAgeDifferenceUpperLimit()));
+				if(BodyChanging.getTarget().getAgeAppearanceAbsolute()!=0) {
+					BodyChanging.getTarget().setAgeAppearanceAbsolute(targetAge);
+				} else {
+					BodyChanging.getTarget().setAgeAppearanceDifferenceToAppearAsAge(targetAge);
+				}
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}

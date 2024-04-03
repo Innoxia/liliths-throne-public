@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<authorTag><![CDATA[A faint wax stamp on the peel reads "Grown by the dragons of the DSG Farmer's Guild."]]></authorTag>
+		<value>8</value>
+		<determiner><![CDATA[some]]></determiner>
+		<name><![CDATA[tangerines]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[tangerines]]></namePlural>
+		<description><![CDATA[A winter citrus fruit that is less sour than many of its larger cousins. The peel has a glossy shine to it, as if it has been polished.]]></description>
+		<useDescriptor>eat</useDescriptor>
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		<rarity>UNCOMMON</rarity>
+		
+		<imageName>tangerines.svg</imageName>
+		<colourPrimary>BASE_ORANGE</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<associatedRace/>
+		<enchantmentItemTypeId/>
+		<enchantmentEffectId/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 5% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[style.boldGood(Increases)] [style.boldPoison([#ATTRIBUTE_RESISTANCE_POISON.getName()])] by 5 for 90 minutes.]]></line>
+			<line><![CDATA[[style.colourBlueLight(Changes)] the flavour of all fluids to [style.colourOrange(orange)].]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/5)]
+			#IF (npc.hasBreasts())
+				[##npc.setMilkFlavour(FLUID_FLAVOUR_ORANGE)]
+			#ENDIF
+			#IF (npc.hasBreastsCrotch())
+				[##npc.setMilkFlavour(FLUID_FLAVOUR_ORANGE)]
+			#ENDIF
+			#IF (npc.hasPenis())
+				[##npc.setCumFlavour(FLUID_FLAVOUR_ORANGE)]
+			#ENDIF
+			#IF (npc.hasVagina())
+				[##npc.setGirlcumFlavour(FLUID_FLAVOUR_ORANGE)]
+			#ENDIF
+			#IF (!npc.hasStatusEffect(SE_dsg_item_fruit_buff_plus))
+				[##npc.addStatusEffect(SE_dsg_item_fruit_buff, 5400)]
+			#ENDIF
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				[npc.Name] [npc.verb(feel)] vaguely healthier...
+			</p>
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>SOLD_BY_EISEK</tag>
+		</itemTags>
+		
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+			[npc.Name] [npc.verb(find)] the tangerine surprisingly easy to peel and [npc.verb(start)] eating it wedge by wedge. It doesn't take long to consume the whole thing after that...
+		]]></selfUse>
+		<otherUse><![CDATA[
+			[npc.Name] [npc.verb(find)] the tangerine surprisingly easy to peel and [npc.verb(start)] feeding it to [npc2.name] wedge by wedge. It doesn't take long to consume the whole thing after that...
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

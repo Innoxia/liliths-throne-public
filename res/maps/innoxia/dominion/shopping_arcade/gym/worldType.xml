@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<worldType>
+	<worldRegion>DOMINION</worldRegion>
+	<name><![CDATA[Pix's Playground]]></name>
+	<colour>BASE_GOLD</colour>
+	<sexBlockedReason><![CDATA[[npc.Name] cannot have sex here!]]></sexBlockedReason> 
+	<furniturePresent>true</furniturePresent>
+	<wallsPresent>true</wallsPresent>
+	<loiteringEnabled>false</loiteringEnabled>
+	<flightEnabled>false</flightEnabled>
+	<visibleFromStart>true</visibleFromStart>
+	<fullyRevealedFromStart>false</fullyRevealedFromStart>
+	<globalMapLocation>WORLD_MAP_DOMINION</globalMapLocation>
+	<standardPlace>innoxia_dominion_shopping_arcade_gym_path</standardPlace>
+	<entryFromGlobalMapLocation>innoxia_dominion_shopping_arcade_gym_exit</entryFromGlobalMapLocation>
+	<teleportPermissions>OUTGOING_ONLY</teleportPermissions>
+	<places>
+		<place colour="#ffffff">GENERIC_IMPASSABLE</place>
+		
+		<place colour="#ff0000">innoxia_dominion_shopping_arcade_gym_exit</place>
+		<place colour="#808000">innoxia_dominion_shopping_arcade_gym_reception</place>
+		<place colour="#808080">innoxia_dominion_shopping_arcade_gym_path</place>
+		
+		<place colour="#ffff00">innoxia_dominion_shopping_arcade_gym_cardio</place>
+		<place colour="#ff8000">innoxia_dominion_shopping_arcade_gym_weights</place>
+		<place colour="#00ff00">innoxia_dominion_shopping_arcade_gym_yoga</place>
+		<place colour="#ff00ff">innoxia_dominion_shopping_arcade_gym_boxing</place>
+		
+		<place colour="#00ffff">innoxia_dominion_shopping_arcade_gym_showers</place>
+		<place colour="#8000ff">innoxia_dominion_shopping_arcade_gym_sauna</place>
+		<place colour="#0000ff">innoxia_dominion_shopping_arcade_gym_pool</place>
+	</places>
+</worldType>

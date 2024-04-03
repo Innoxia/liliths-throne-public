@@ -2230,11 +2230,11 @@ public class ImpFortressDialogue {
 
 				if (index == 1) {
 					if(isAlphaFortress()) {
-						if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.UNARMED_TRAINING)) {
-							return new Response(Util.capitaliseSentence(Perk.UNARMED_TRAINING.getName(Main.game.getPlayer())),
+						if(Main.game.getPlayer().hasPerkAnywhereInTree(Perk.MARTIAL_ARTIST)) {
+							return new Response(Util.capitaliseSentence(Perk.MARTIAL_ARTIST.getName(Main.game.getPlayer())),
 									UtilText.parse(getBoss(),
 											"Seize this fleeting opportunity to provoke [npc.name] into trying to punch you,"
-													+ " relying on your skill as a <b style='color:"+PresetColour.TRAIT.toWebHexString()+";'>"+Perk.UNARMED_TRAINING.getName(Main.game.getPlayer())+"</b>"
+													+ " relying on your skill as a <b style='color:"+PresetColour.TRAIT.toWebHexString()+";'>"+Perk.MARTIAL_ARTIST.getName(Main.game.getPlayer())+"</b>"
 															+ " to humiliate [npc.herHim] in front of [npc.her] imp followers."),
 									KEEP_ALPHA_BRAWLER) {
 								@Override
@@ -2257,10 +2257,10 @@ public class ImpFortressDialogue {
 							};
 							
 						} else {
-							return new Response(Util.capitaliseSentence(Perk.UNARMED_TRAINING.getName(Main.game.getPlayer())),
+							return new Response(Util.capitaliseSentence(Perk.MARTIAL_ARTIST.getName(Main.game.getPlayer())),
 									UtilText.parse(getBoss(),
 											"You're not competent enough at fighting to try and humiliate [npc.name] in front of [npc.her] gang...</br>"
-													+ "(Requires '"+Perk.UNARMED_TRAINING.getName(Main.game.getPlayer())+"' perk.)"),
+													+ "(Requires '"+Perk.MARTIAL_ARTIST.getName(Main.game.getPlayer())+"' perk.)"),
 									null);
 						}
 						
@@ -2848,8 +2848,8 @@ public class ImpFortressDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Stand aside",
-						UtilText.parse(getBoss(), "Stand aside to allow [npc.name] and [npc.her] imps to leave without a fight."),
+				return new Response("Let him leave",
+						UtilText.parse(getBoss(), "Allow [npc.name] and [npc.her] imps to leave without a fight."),
 						KEEP_MALES_TAMESHIGIRI_ALLOW_TO_LEAVE) {
 					@Override
 					public void effects() {
@@ -2857,11 +2857,6 @@ public class ImpFortressDialogue {
 						clearFortress();
 					}
 				};
-				
-			} else if(index==2) {
-				return new ResponseCombat("Fight", UtilText.parse(getBoss(), "Don't let [npc.name] and [npc.her] imps escape so easily!"),
-						(NPC) getBoss(),
-						getImpBossGroup(true), null);
 			}
 			return null;
 		}

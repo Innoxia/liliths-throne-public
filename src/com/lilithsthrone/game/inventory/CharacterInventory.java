@@ -20,6 +20,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Arm;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -526,7 +527,10 @@ public class CharacterInventory implements XMLSaving {
 				+ getUniqueClothingCount() - getUniqueQuestClothingCount()
 				+ getUniqueItemCount() - getUniqueQuestItemCount();
 	}
-	
+
+	/**
+	 * @return true if this inventory contains any unique clothing, weapons, or items.
+	 */
 	public boolean isAnyQuestItemPresent() {
 		return getUniqueQuestWeaponCount()>0 || getUniqueQuestClothingCount()>0 || getUniqueQuestItemCount()>0;
 	}
@@ -1837,7 +1841,8 @@ public class CharacterInventory implements XMLSaving {
 
 		// The supplied clothing cannot be displaced in this manner!
 		if (!displacementTypeFound) {
-			throw new IllegalArgumentException("The supplied clothing cannot be displaced in this manner!");
+			new IllegalArgumentException("The supplied clothing ("+clothing.getClothingType().getId()+") cannot be displaced in this manner ("+dt.getDescription()+")!").printStackTrace();
+			return false;
 		}
 
 		// Is able to be displaced!
@@ -2172,6 +2177,9 @@ public class CharacterInventory implements XMLSaving {
 	public boolean isCoverableAreaExposed(GameCharacter character, CoverableArea area, boolean justVisible) {
 		if(area==CoverableArea.TESTICLES) { // There are no proper checks in clothing for testicle access, so use penis access:
 			return isCoverableAreaExposed(character, CoverableArea.PENIS, justVisible);
+		}
+		if(area==CoverableArea.ANUS && character.getGenitalArrangement()==GenitalArrangement.CLOACA) { // If asshole is within cloaca, it's in the vagina position:
+			return isCoverableAreaExposed(character, CoverableArea.VAGINA, justVisible);
 		}
 		
 		if(this.getExtraBlockedParts()!=null && justVisible) {

@@ -50,8 +50,10 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.sex.GenericSexFlag;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -100,6 +102,11 @@ public class Jess extends NPC {
 			this.equipClothing();
 			this.setupPerks(true);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.8.5")) {
+			this.clearAddictions();
+			this.resetPerksMap(true);
+			this.setFetishDesire(Fetish.FETISH_PREGNANCY, FetishDesire.TWO_NEUTRAL);
+		}
 	}
 
 	@Override
@@ -107,7 +114,7 @@ public class Jess extends NPC {
 		this.addSpecialPerk(Perk.SPECIAL_SLUT);
 		
 		PerkManager.initialisePerks(this,
-				Util.newArrayListOfValues(Perk.BARREN),
+				Util.newArrayListOfValues(),
 				Util.newHashMapOfValues(
 						new Value<>(PerkCategory.PHYSICAL, 0),
 						new Value<>(PerkCategory.LUST, 1),
@@ -139,7 +146,6 @@ public class Jess extends NPC {
 			this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_VAGINAL_RECEIVING, FetishDesire.THREE_LIKE);
 			
-			this.setFetishDesire(Fetish.FETISH_PREGNANCY, FetishDesire.ZERO_HATE);
 			this.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.ZERO_HATE);
 		}
 		
@@ -262,12 +268,26 @@ public class Jess extends NPC {
 		return true;
 	}
 	
+	@Override
+	public String getArtworkFolderName() {
+		if(this.getBreastRows()>1) {
+			if(this.isVisiblyPregnant()) {
+				return "JessMultiBoobPregnant";
+			}
+			return "JessMultiBoob";
+		} else {
+			if(this.isVisiblyPregnant()) {
+				return "JessPregnant";
+			}
+			return "Jess";
+		}
+	}
 
 	@Override
-	public void hourlyUpdate() {
+	public void hourlyUpdate(int hour) {
 		// Sleeps between 03:00-11:00
 		if(!Main.game.getCharactersPresent().contains(this)) {
-			if((Main.game.getHourOfDay()>=11 || Main.game.getHourOfDay()<3)) {
+			if((hour>=11 || hour<3)) {
 				if(this.getLocationPlace().getPlaceType()!=PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f1_room_sex") && Math.random()<=0.5f) {
 					// 50% chance to entertain someone in her room
 					this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f1_room_sex"), true);
@@ -316,7 +336,7 @@ public class Jess extends NPC {
 					if(!npc.hasPenis()) {
 						st = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE);
 					}
-					this.calculateGenericSexEffects(dom, true, npc, st, GenericSexFlag.NO_DESCRIPTION_NEEDED, GenericSexFlag.PREVENT_LEVEL_DRAIN);
+					this.calculateGenericSexEffects(dom, true, npc, st, GenericSexFlag.NO_DESCRIPTION_NEEDED, GenericSexFlag.PREVENT_LEVEL_DRAIN, GenericSexFlag.PREVENT_CREAMPIE);
 					this.endSex();
 				}
 				Main.game.banishNPC(npc);
@@ -339,11 +359,14 @@ public class Jess extends NPC {
 	@Override
 	public void endSex() {
 		this.applyWash(true, true, StatusEffect.CLEANED_SHOWER, 8*60);
+		if(this.isPregnant() && this.getPregnantLitter().getFatherId()!=Main.game.getPlayer().getId()) {
+			this.endPregnancy(true); // Only allow the player to impregnate
+		}
 	}
 	
 	@Override
 	public boolean isAbleToBeImpregnated() {
-		return false;
+		return true;
 	}
 	
 	@Override
@@ -353,5 +376,19 @@ public class Jess extends NPC {
 	@Override
 	public DialogueNode getEncounterDialogue() {
 		return null;
+	}
+
+	@Override
+	public Value<Boolean, String> getItemUseEffects(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target) {
+		if(!user.equals(target)) { // Item is not being self-used:
+			String itemName = item.getName();
+			return new Value<>(false,
+					UtilText.parse(user, target,
+						"<p>"
+							+ "[npc.Name] [npc.verb(take)] out "+UtilText.generateSingularDeterminer(itemName)+" "+itemName+" from [npc.her] inventory and [npc.verb(try)] to give it to [npc2.name],"
+								+ " but [npc2.she] dismisses it with a wave of [npc2.her] hand and says, [npc2.speech(Sorry, [npc.babe], but that's not part of the deal!)]"
+						+ "</p>"));
+		}
+		return super.getItemUseEffects(item, itemOwner, user, target);
 	}
 }

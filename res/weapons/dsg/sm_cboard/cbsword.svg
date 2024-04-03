@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256">
+    <defs>
+        <linearGradient id="innoGrad3">
+            <stop offset="0" stop-color="#fd5" stop-opacity="0"/>
+            <stop offset="1" stop-color="#fd5" stop-opacity=".502"/>
+        </linearGradient>
+        <linearGradient id="innoGrad2">
+            <stop offset="0" stop-color="#f95" stop-opacity=".502"/>
+            <stop offset=".5" stop-color="#f95" stop-opacity="0"/>
+            <stop offset="1" stop-color="#f95" stop-opacity=".502"/>
+        </linearGradient>
+        <linearGradient id="innoGrad1">
+            <stop offset="0" stop-color="#f55" stop-opacity=".502"/>
+            <stop offset="1" stop-color="#f55" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="linearGradient844" x1="118.23" x2="118.125" y1="110.274" y2="-54.751" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad1"/>
+        <linearGradient id="linearGradient867" x1="86.165" x2="94.616" y1="161.385" y2="169.836" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad2"/>
+        <linearGradient id="linearGradient902" x1="27.911" x2="36.362" y1="164.343" y2="155.892" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad2"/>
+        <linearGradient id="linearGradient925" x1="72.522" x2="83.509" y1="172.491" y2="183.478" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad2"/>
+        <linearGradient id="linearGradient948" x1="6.035" x2="14.545" y1="241.514" y2="249.907" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad2"/>
+        <linearGradient id="linearGradient974" x1="104.162" x2="115.673" y1="56.054" y2="66.981" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad3"/>
+        <linearGradient id="linearGradient976" x1="132.88" x2="102.383" y1="80.536" y2="111.032" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad3"/>
+        <linearGradient id="linearGradient1008" x1="72.522" x2="83.509" y1="211.489" y2="200.502" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad2"/>
+        <linearGradient id="linearGradient1010" x1="44.512" x2="55.499" y1="183.479" y2="172.492" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad2"/>
+    </defs>
+    <path fill="#ff8080" d="M242.032 35.22L250 6.003l-29.217 7.968L66.479 158.599l30.923 30.923z"/>
+    <path fill="url(#linearGradient844)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width=".732" d="M134.133 119.249l-5.008-154.75-11-19.25-11 19.25-5.008 154.75z" transform="scale(1.36593 1.36592) rotate(45 79.18 53.163)"/>
+    <path fill="#ffb380" d="M45.02 202.53l41.145-41.145c2.988 0 8.451 5.463 8.451 8.451l-41.145 41.146z"/>
+    <path fill="url(#linearGradient867)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M45.02 202.53l41.145-41.145c2.988 0 8.451 5.463 8.451 8.451l-41.145 41.146z"/>
+    <path fill="#ffb380" d="M100.11 219.638c0 2.989-5.464 8.452-8.452 8.452L27.91 164.343c0-2.988 5.463-8.45 8.451-8.45z"/>
+    <path fill="url(#linearGradient902)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M100.11 219.638c0 2.989-5.464 8.452-8.452 8.452L27.91 164.343c0-2.988 5.463-8.45 8.451-8.45z"/>
+    <path fill="#ffb380" d="M83.509 200.502l-8.512-8.512 8.512-8.512c0-3.885-7.102-10.987-10.987-10.987l-8.512 8.512-8.512-8.512c-3.885 0-10.987 7.102-10.987 10.987l8.513 8.512-8.513 8.512c0 2.585 8.3 10.987 10.987 10.987l8.512-8.512 8.512 8.512c3.885 0 10.987-7.102 10.987-10.987z"/>
+    <path fill="url(#linearGradient925)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M83.509 200.502l-8.512-8.512 8.512-8.512c0-3.885-7.102-10.987-10.987-10.987l-8.512 8.512-8.512-8.512c-3.885 0-10.987 7.102-10.987 10.987l8.513 8.512-8.513 8.512c0 2.585 8.3 10.987 10.987 10.987l8.512-8.512 8.512 8.512c3.885 0 10.987-7.102 10.987-10.987z"/>
+    <path fill="#f95" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M55.3 211.689c-2.687 0-10.987-8.402-10.987-10.987C47 200.7 55.3 209.104 55.3 211.689z"/>
+    <path fill="#ffb380" d="M53.47 210.982c-.746-2.242-6.209-7.705-8.45-8.452L6.034 241.514c-.465 1.23 7.015 8.943 8.452 8.451z"/>
+    <path fill="#ff7f2a" d="M12.271 242.638l.444-.444.445.444-.445.445zm2.666 0l.444.445-1.334 1.333-.444-.444zm-1.333-2.221l.444.444-1.334 1.334-.444-.444zm0 2.666l-.444-.445.89-.89.443.445zm1.333-.445l-.444-.444.444-.444.444.444zm1.333-1.333l-.445.445-1.333-1.334.444-.444zm-1.333-1.332l-.444-.445.89-.89.443.445zm1.777 1.777l-.444-.445.89-.89.444.445zm.446-4.89l.445-.444 2.222 2.223-.444.444-.889-.889-.889.889.89.889-.446.445-2.223-2.223.446-.445.888.889.889-.889zm4-4l1.334 1.333.444-.444.444.444-.444.444.444.444-.444.445-.444-.445-.89.89-.888-.889.444-.444-.444-.444.445-.445-.444-.445zm0 1.778l.444.444.445-.445-.444-.444zm3.11-1.334l-.442.444-1.334-1.334.443-.444-.444-.444.89-.89.444.445.444-.444 1.334 1.333-.445.445.445.444-.89.89zm.89-.888l-1.334-1.334-.89.89 1.334 1.333zm2.667-5.334l.444-.444.89.889-.445.444.444.444-.889.889.445.444-.445.445-2.222-2.221 1.334-1.334zm0 1.777l.889-.888-.889-.889-.888.889zm.444-3.11l.446-.445 1.778 1.778-.445.446zm2.223 1.332l.444-.444.444.444-.444.445zm-.444-1.333l.444-.444.888.889-.444.444zm0-1.778l.89.889-.446.445-.889-.888zm2.666.889l-.445.445-1.334-1.334.445-.445zm-1.333-1.333l-.444-.444.889-.889.444.444zm1.778 1.777l-.445-.444.889-.889.444.445zm2.222-6.665l1.333 1.333.444-.445.445.445-.445.444.445.444-.445.445-.444-.445-.89.89-.888-.889.445-.445-.444-.444.444-.445-.444-.444zm0 1.777l.444.444.445-.444-.445-.444zm3.111-1.334l-.445.445-.444-.444.445-.445-.444-.444-.446.445-.444-.444.445-.446-.444-.444.889-.889.444.445.445-.446.444.445-.445.445.444.444.446-.445.444.444-.445.446.444.444-.889.888zm0-1.777l-.444-.444-.889.888.445.445zm.889.889l-.445-.445-.888.889.444.444zm1.334-1.334l-.446.445-1.334-1.334.446-.445-.445-.444.889-.889.444.444.446-.445 1.333 1.334-.445.445.444.444-.888.889zm.888-.889l-1.334-1.334-.888.889 1.334 1.334zm2.224-5.778l.444.445-1.334 1.334-.444-.445zm1.777 1.778l.444.444-1.334 1.334-.444-.445zm-.889-.889l.444.444-.89.89-.443-.444zm-.444-.444l.443-.444.444.445-.443.443zm1.333 1.333l-.445-.445.444-.443.444.444zm0-2.666l-.445.444-.444-.444.889-.889 2.222 2.223-.444.444zm2.666 0l-.444.443-1.334-1.334.444-.443-.445-.444.89-.89.444.444.445-.444 1.333 1.334-.444.444.444.445-.89.89zm.89-.89l-1.335-1.334-.89.89 1.335 1.334z"/>
+    <path fill="url(#linearGradient948)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M53.47 210.982c-.746-2.242-6.209-7.705-8.45-8.452L6.034 241.514c-.465 1.23 7.015 8.943 8.452 8.451z"/>
+    <path fill="#ffe680" d="M129.927 135.343l18.411-.224-.64-52.645-18.206 17.064z"/>
+    <path fill="url(#linearGradient974)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width=".732" d="M122.923 74.364l9.415-9.647-27.585-26.921-.591 18.258z" transform="scale(1.36593 1.36592) rotate(45 79.18 53.163)"/>
+    <path fill="#ffe680" d="M133.583 150.921l28.38-30.28-54.987.001-32.304 30.278z"/>
+    <path fill="url(#linearGradient976)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width=".732" d="M132.88 80.536l-.983-30.367-28.465 28.466-1.049 32.397z" transform="scale(1.36593 1.36592) rotate(45 79.18 53.163)"/>
+    <path fill="#ffb380" d="M72.522 211.489c3.885 0 10.987-7.102 10.987-10.987l-8.512-8.512c-7.404 0-10.987 3.582-10.987 10.987z"/>
+    <path fill="url(#linearGradient1008)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M72.522 211.489c3.885 0 10.987-7.102 10.987-10.987l-8.512-8.512c-7.404 0-10.987 3.582-10.987 10.987z"/>
+    <path fill="#ffb380" d="M44.512 183.479l8.513 8.512c7.659 0 10.986-3.841 10.986-10.987l-8.512-8.512c-3.885 0-10.987 7.102-10.987 10.987z"/>
+    <path fill="url(#linearGradient1010)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M44.512 183.479l8.513 8.512c7.659 0 10.986-3.841 10.986-10.987l-8.512-8.512c-3.885 0-10.987 7.102-10.987 10.987z"/>
+    <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M14.487 249.965c-1.437.492-8.917-7.22-8.452-8.451l.058-.058c2.242.747 7.705 6.21 8.452 8.451z"/>
+</svg>

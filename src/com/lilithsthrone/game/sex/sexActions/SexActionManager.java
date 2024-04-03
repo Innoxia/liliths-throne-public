@@ -11,6 +11,8 @@ import java.util.Map.Entry;
 import com.lilithsthrone.game.sex.sexActions.baseActions.ClitAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.ClitClit;
 import com.lilithsthrone.game.sex.sexActions.baseActions.ClitMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActions.ClitNipple;
+import com.lilithsthrone.game.sex.sexActions.baseActions.ClitNippleCrotch;
 import com.lilithsthrone.game.sex.sexActions.baseActions.ClitVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActions.FingerBreasts;
@@ -234,6 +236,8 @@ public class SexActionManager {
 				new Value<>("ClitClit", ClitClit.class.getFields()),
 				new Value<>("ClitVagina", ClitVagina.class.getFields()),
 				new Value<>("ClitAnus", ClitAnus.class.getFields()),
+				new Value<>("ClitNipple", ClitNipple.class.getFields()),
+				new Value<>("ClitNippleCrotch", ClitNippleCrotch.class.getFields()),
 		
 				// Self actions
 				new Value<>("SelfNoPen", SelfNoPen.class.getFields()),

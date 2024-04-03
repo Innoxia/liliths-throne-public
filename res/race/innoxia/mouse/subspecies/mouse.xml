@@ -9,9 +9,9 @@
 	<attributeItemId>innoxia_race_mouse_barley_water</attributeItemId>
 	<transformativeItemId>innoxia_race_mouse_cheese</transformativeItemId>
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<nocturnality>CREPUSCULAR</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
-	<aquatic>false</aquatic>
 	<applySubspeciesChanges/>
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_innoxia_mouse)

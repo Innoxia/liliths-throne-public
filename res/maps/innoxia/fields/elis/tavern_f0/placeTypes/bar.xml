@@ -4,7 +4,6 @@
 	<name><![CDATA[bar]]></name>
 	<tooltipDescription><![CDATA[The source of food and drink, the bar at 'The Red Dragon' is always busy.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[at the bar in 'The Red Dragon' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_ORANGE</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

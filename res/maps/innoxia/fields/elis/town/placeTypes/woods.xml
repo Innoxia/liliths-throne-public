@@ -4,7 +4,6 @@
 	<name><![CDATA[woodland]]></name>
 	<tooltipDescription><![CDATA[Patches of deciduous woodland surround Elis and offer places for the townsfolk to forage for mushrooms and truffles.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the woodland beside Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_GREEN</colour>
 	<backgroundColour>MAP_BACKGROUND_GREEN</backgroundColour>

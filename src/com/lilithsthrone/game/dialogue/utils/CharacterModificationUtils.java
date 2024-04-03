@@ -970,14 +970,17 @@ public class CharacterModificationUtils {
 	public static String getAgeAppearanceChoiceDiv() {
 		return applyFullVariableWrapper(
 				"Age Appearance",
-				UtilText.parse(BodyChanging.getTarget(), "Change how old [npc.name] [npc.verb(appear)] to be. [npc.She] [npc.is] limited to looking as young as 18, or up to ten years older than [npc.her] real age."
+				UtilText.parse(BodyChanging.getTarget(),
+						"Change how old [npc.name] [npc.verb(appear)] to be. [npc.She] [npc.is] limited to looking as young as 18, or up to "
+						+ Util.intToString(BodyChanging.getTarget().getAgeDifferenceUpperLimit())
+						+ " years older than [npc.her] real age."
 						+ "<br/><i>This is purely a cosmetic change, and doesn't affect any in-game choices.</i>"),
 				"AGE_APPEARANCE",
 				"1",
 				"5",
 				String.valueOf(BodyChanging.getTarget().getAppearsAsAgeValue()),
 				BodyChanging.getTarget().getAppearsAsAgeValue()<=18,
-				BodyChanging.getTarget().getAppearsAsAgeValue()>=(BodyChanging.getTarget().getAgeValue()+10))
+				BodyChanging.getTarget().getAppearsAsAgeValue()>=(BodyChanging.getTarget().getAgeValue()+BodyChanging.getTarget().getAgeDifferenceUpperLimit()))
 				
 				+ applyWrapper("Birthday",
 						UtilText.parse(BodyChanging.getTarget(), "[npc.NamePos] birthday can not ever be changed, but by transforming [npc.her] body, [npc.she] may appear to be younger or older than [npc.she] really [npc.is]."),
@@ -1030,6 +1033,9 @@ public class CharacterModificationUtils {
 				break;
 			case FLESH:
 				materials.add(BodyMaterial.FLESH);
+				break;
+			case SILICONE:
+				materials.add(BodyMaterial.SILICONE);
 				break;
 			case ICE:
 			case WATER:
@@ -3786,8 +3792,9 @@ public class CharacterModificationUtils {
 		contentSB.setLength(0);
 		
 		for(AbstractVaginaType vagina : VaginaType.getAllVaginaTypes()) {
-			if((vagina.getRace() !=null && availableRaces.contains(vagina.getRace()))
-					|| vagina==VaginaType.NONE) {
+			if(((vagina.getRace() !=null && availableRaces.contains(vagina.getRace()))
+					|| vagina==VaginaType.NONE)
+					&& vagina!=VaginaType.ONAHOLE) {
 				
 				Colour c = PresetColour.TEXT_GREY;
 				
@@ -6369,7 +6376,7 @@ public class CharacterModificationUtils {
 					isPierced = BodyChanging.getTarget().isPiercedNipple();
 					break;
 				case PENIS:
-					canPierce = BodyChanging.getTarget().hasPenis();
+					canPierce = BodyChanging.getTarget().hasPenisIgnoreDildo();
 					isPierced = BodyChanging.getTarget().isPiercedPenis();
 					break;
 				case VAGINA:

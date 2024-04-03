@@ -4,7 +4,6 @@
 	<name><![CDATA[kitchen]]></name>
 	<tooltipDescription><![CDATA[The place in which meals are prepared and cooked for the customers at 'The Crossed Blades'.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the kitchen in 'The Crossed Blades' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_TAN</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

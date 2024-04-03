@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <worldType>
 	<worldRegion>FIELD_CITY</worldRegion>
-	<name><![CDATA[The Red Dragon GF]]></name>
+	<name><![CDATA[The Red Dragon F0]]></name>
 	<colour>BASE_RED</colour>
 	<sexBlockedReason><![CDATA[[npc.Name] cannot have sex here!]]></sexBlockedReason> 
 	<furniturePresent>true</furniturePresent>

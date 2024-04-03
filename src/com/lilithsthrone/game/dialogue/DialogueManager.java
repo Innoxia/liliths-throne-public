@@ -25,6 +25,7 @@ import com.lilithsthrone.game.dialogue.places.submission.LyssiethPalaceDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.dicePoker.DicePoker;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CosmeticsDialogue;
+import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -136,6 +137,9 @@ public class DialogueManager {
 		addHardCodedDialogueId("HC_encounter_bat_caverns_victory", BatCavernDialogue.AFTER_COMBAT_VICTORY);
 
 		addHardCodedDialogueId("MARKET_STALL_CAFE_INTERIOR_NO_CONTENT", SlaverAlleyDialogue.MARKET_STALL_CAFE_INTERIOR_NO_CONTENT);
+
+		addHardCodedDialogueId("DOLL_BROCHURE", MiscDialogue.DOLL_BROCHURE);
+		
 		
 		// Modded dialogue types:
 		

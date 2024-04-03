@@ -44,6 +44,7 @@
 		]]></applyEffects>
 		
 		<itemTags>
+			<tag>FOOD</tag>
 			<tag>RACIAL_TF_ITEM</tag>
 			<tag>SOLD_BY_RALPH</tag>
 		</itemTags>
@@ -54,7 +55,7 @@
 		[npc.Name] [npc.verb(open)] the bag and [npc.verb(breathe)] in the rich scent of butter and hot starch. Unable to resist the delicious looking snack, [npc.she] eagerly [npc.verb(start)] wolfing it all down and [npc.verb(empty)] the bag in moments.
 		]]></selfUse>
 		<otherUse><![CDATA[
-		[npc.Name] [npc.verb(open)] the bag and [npc.verb(hold)] it out to [npc2.name], allowing [npc2.herHim] to [npc2.verb(breathe)] in the rich scent of butter and hot starch. Unable to resist the delicious-looking seafood inside, [npc2.she] [npc2.verb(start)] wolfing it all down and [npc.verb(empty)] the bag in moments.
+		[npc.Name] [npc.verb(open)] the bag and [npc.verb(hold)] it out to [npc2.name], allowing [npc2.herHim] to [npc2.verb(breathe)] in the rich scent of butter and hot starch. Unable to resist the delicious-looking popcorn inside, [npc2.she] [npc2.verb(start)] wolfing it all down and [npc.verb(empty)] the bag in moments.
 		]]></otherUse>
 	</useDescriptions>
 

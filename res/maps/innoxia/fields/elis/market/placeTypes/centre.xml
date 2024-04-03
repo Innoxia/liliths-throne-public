@@ -4,7 +4,6 @@
 	<name><![CDATA[Market's Centre]]></name>
 	<tooltipDescription><![CDATA[The centre of the Farmer's Market is used as a livestock market on Wednesdays and Saturdays, and used for games stalls on all other days of the week.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the Farmer's Market in Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_TAN</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

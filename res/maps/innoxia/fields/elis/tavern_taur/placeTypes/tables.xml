@@ -4,7 +4,6 @@
 	<name><![CDATA[Main floor]]></name>
 	<tooltipDescription><![CDATA[The majority of the floor area inside 'The Centaur's Sword' tavern is occupied by large, wooden tables.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the main floor area of 'The Centaur's Sword' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_BLACK</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

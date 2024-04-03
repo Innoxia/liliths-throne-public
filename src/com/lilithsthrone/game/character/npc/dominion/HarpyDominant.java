@@ -216,7 +216,7 @@ public class HarpyDominant extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_thong", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.CHEST_PLUNGE_BRA, PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_plunge_bra", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_PLUNGE_DRESS, PresetColour.CLOTHING_BLACK, false), true, this);
 
 		this.setPiercedEar(true);
@@ -334,7 +334,7 @@ public class HarpyDominant extends NPC {
 			target.equipClothingFromNowhere(choker, true, target);
 
 //			target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("sage_latex_croptop", PresetColour.CLOTHING_PURPLE_VERY_DARK, PresetColour.CLOTHING_STEEL, null, false), true, target);
-			target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.NIPPLE_TAPE_CROSSES, PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, target);
+			target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_nipple_tape_crosses", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, target);
 			target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("sage_latex_corset", PresetColour.CLOTHING_PURPLE_VERY_DARK, PresetColour.CLOTHING_STEEL, null, false), true, target);
 			target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("sage_latex_stockings_open", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, target);
 			target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_wrist_bracelets", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, target);

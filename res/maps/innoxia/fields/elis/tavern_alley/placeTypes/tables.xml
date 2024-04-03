@@ -4,7 +4,6 @@
 	<name><![CDATA[tables]]></name>
 	<tooltipDescription><![CDATA[Taking up most of the floor space in 'The Crossed Blades' tavern, numerous large wooden tables are where the more friendly patrons choose to sit and drink.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[at one of the tables within 'The Crossed Blades' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_BLACK</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

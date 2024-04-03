@@ -9,9 +9,9 @@
 	<attributeItemId>innoxia_race_panther_deep_roar</attributeItemId>
 	<transformativeItemId>innoxia_race_panther_panthers_delight</transformativeItemId>
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<nocturnality>CREPUSCULAR</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
-	<aquatic>false</aquatic>
 	<applySubspeciesChanges><![CDATA[
 		#IF(RND.nextInt(100)<40)
 			[#targetedBody.setCovering(BODY_COVERING_TYPE_innoxia_panther_fur, COVERING_PATTERN_SPOTTED, COVERING_MODIFIER_FLUFFY, COLOUR_COVERING_WHITE, false, COLOUR_COVERING_BLACK, false)]

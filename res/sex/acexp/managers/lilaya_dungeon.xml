@@ -71,7 +71,9 @@
 			<uniqueSexActions/>
 			<preferences/>
 			<sexTypesBanned/>
-			<areasBanned/>
+			<areasBanned appliesToSelf="true">
+				<sexArea><![CDATA[ORIFICE_VAGINA]]></sexArea>
+			</areasBanned>
 			<stopSexCondition><![CDATA[
 				[#sex.isSatisfiedFromOrgasms(rose, true)]
 			]]></stopSexCondition>

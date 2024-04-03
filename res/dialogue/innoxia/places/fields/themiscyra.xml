@@ -528,6 +528,10 @@
 				<effects><![CDATA[
 					[#lunexis.setLocation(WORLD_TYPE_innoxia_fields_themiscyra, PLACE_TYPE_innoxia_fields_themiscyra_plaza)]
 					[#lunexis.setPlayerKnowsName(true)]
+					[#lunexis.setAffection(pc, -100)]
+					[#lunexis.setAffection(meraxis, -100)]
+					[#lunexis.setAffection(aurokaris, -100)]
+					[#lunexis.setAffection(ursa, -100)]
 				]]></effects>
 			</response>
 			<response>

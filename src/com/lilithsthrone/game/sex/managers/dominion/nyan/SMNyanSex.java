@@ -6,20 +6,26 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Nyan;
 import com.lilithsthrone.game.character.npc.dominion.NyanMum;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.OrgasmEncourageBehaviour;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
+import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisBreasts;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
@@ -43,6 +49,21 @@ public class SMNyanSex extends SexManagerDefault {
 		this(SexPosition.LYING_DOWN, dominants, submissives);
 	}
 
+	public SexActionInterface getPartnerSexAction(NPC partner, SexActionInterface sexActionPlayer) {
+		// To restart penetration actions if player pulled out during orgasm:
+		if(partner instanceof Nyan && getSexControl(Main.game.getPlayer())!=SexControl.FULL) {
+			if(getForeplayPreference(partner, Main.game.getPlayer()).equals(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS))
+					&& !Main.sex.isOrificeNonSelfOngoingAction(partner, SexAreaOrifice.MOUTH)) {
+				return PenisMouth.GIVING_BLOWJOB_START;
+			}
+			if(getForeplayPreference(partner, Main.game.getPlayer()).equals(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.BREAST, SexAreaPenetration.PENIS))
+					&& !Main.sex.getOngoingSexAreas(partner, SexAreaOrifice.BREAST, Main.game.getPlayer()).contains(SexAreaPenetration.PENIS)) {
+				return PenisBreasts.USING_COCK_START;
+			}
+		}
+		return super.getPartnerSexAction(partner, sexActionPlayer);
+	}
+	
 	@Override
 	public SexPace getForcedSexPace(GameCharacter character) {
 		if(!character.isPlayer()) {
@@ -110,7 +131,8 @@ public class SMNyanSex extends SexManagerDefault {
 		
 		for(GameCharacter participant : Main.sex.getAllParticipants()) {
 			if((participant instanceof Nyan && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanAnalTalk))
-					|| participant instanceof NyanMum && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanmumAnalTalk)) {
+					|| (participant instanceof NyanMum && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.nyanmumAnalTalk))
+					|| participant.isPlayer()) {
 				bannedMap.put(participant, Util.newArrayListOfValues(SexAreaOrifice.ANUS));
 			}
 		}

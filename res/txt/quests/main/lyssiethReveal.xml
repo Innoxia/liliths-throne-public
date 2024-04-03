@@ -900,7 +900,7 @@
 		[lyssieth.speech([pc.Name]? Are you ok? [pc.Name]?)] you hear Lyssieth calling from somewhere far away. [lyssieth.speech([pc.Name]! Wake up!)]
 	</p>
 	<p>
-		Her voice suddenly increases in volume, and you open your eyes to discover that you're lying on the floor, with your head resting on Lyssieth's lap. [lyssieth.speech(Thank goodness! You're alright!)] She exclaims, relived to see that you've regained consciousness.
+		Her voice suddenly increases in volume, and you open your eyes to discover that you're lying on the floor, with your head resting on Lyssieth's lap. [lyssieth.speech(Thank goodness! You're alright!)] She exclaims, relieved to see that you've regained consciousness.
 	</p>
 	<p>
 		[pc.speech(Ow, my head,)] you complain, reaching up to rub at your temple.

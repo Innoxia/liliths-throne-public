@@ -4,7 +4,6 @@
 	<name><![CDATA[The Third Eye]]></name>
 	<tooltipDescription><![CDATA[Behind the curtains of this stall, a rabbit-girl offers to tell people their fortune in exchange for a Faire ticket.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the Farmer's Market in Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<svgName>fortunes</svgName>
 	<colour>BASE_PURPLE</colour>

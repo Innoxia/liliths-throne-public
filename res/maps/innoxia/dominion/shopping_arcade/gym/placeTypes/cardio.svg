@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+ <g fill="#fca">
+  <path d="m7.7122 39.724c-5.018 0-5.3667 9.1572 0 9.1582l48.352 0.0098c5.4646 0.0011 5.5362-9.168-0.04687-9.168zm4.4746 1.584c1.6569 0 3 1.3431 3 3s-1.3431 3-3 3-3-1.3431-3-3 1.3431-3 3-3zm39.812 0c1.6569 0 3 1.3431 3 3s-1.3431 3-3 3c-1.6569 0-3-1.3431-3-3s1.3431-3 3-3z"/>
+  <path d="m14.483 48.016v2.9289" stroke="#fca" stroke-width="5"/>
+  <path d="m49.755 47.923v2.9289" stroke="#fca" stroke-width="5"/>
+ </g>
+ <path d="m56.812 41.745-6.5759-17.164 3.6863-9.0258" fill="none" stroke="#fca" stroke-linecap="round" stroke-width="5"/>
+ <path d="m49.145 26.057-21.416-0.08813" fill="none" stroke="#fca" stroke-linecap="round" stroke-width="4"/>
+</svg>

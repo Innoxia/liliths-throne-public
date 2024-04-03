@@ -4,7 +4,6 @@
 	<name><![CDATA[corridor]]></name>
 	<tooltipDescription><![CDATA[A narrow corridor leads off from one side of the bar.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the corridor at 'The Centaur's Sword' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_GREY</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

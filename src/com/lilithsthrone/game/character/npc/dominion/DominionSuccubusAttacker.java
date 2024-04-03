@@ -89,7 +89,7 @@ public class DominionSuccubusAttacker extends NPC {
 
 			setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
-			this.setAgeAppearanceDifferenceToAppearAsAge(18+Util.random.nextInt(10));
+			this.setAgeAppearanceAbsolute(18+Util.random.nextInt(10));
 			
 			this.setVaginaVirgin(false);
 			this.setAssVirgin(false);
@@ -97,7 +97,7 @@ public class DominionSuccubusAttacker extends NPC {
 			this.setNippleVirgin(false);
 			this.setPenisVirgin(false);
 			
-			setLevel(Util.random.nextInt(5) + 4);
+			setLevel(Util.random.nextInt(5) + 8);
 			
 			setName(Name.getRandomTriplet(Subspecies.DEMON));
 			this.setPlayerKnowsName(false);
@@ -140,7 +140,7 @@ public class DominionSuccubusAttacker extends NPC {
 			this.setFetishDesire(Fetish.FETISH_NON_CON_DOM, FetishDesire.TWO_NEUTRAL);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11")) {
-			this.setAgeAppearanceDifferenceToAppearAsAge(18+Util.random.nextInt(10));
+			this.setAgeAppearanceAbsolute(18+Util.random.nextInt(10));
 		}
 	}
 
@@ -419,6 +419,7 @@ public class DominionSuccubusAttacker extends NPC {
 			return super.getDirtyTalkNoPenetration(target, isPlayerDom);
 		}
 		
-		return speech.get(Util.random.nextInt(speech.size()));
+		String returnedLine = speech.get(Util.random.nextInt(speech.size()));
+		return UtilText.parse(this, target, "[npc.speech("+returnedLine+")]");
 	}
 }

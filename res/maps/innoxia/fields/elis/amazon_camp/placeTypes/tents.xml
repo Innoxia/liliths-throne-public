@@ -4,7 +4,6 @@
 	<name><![CDATA[Tents]]></name>
 	<tooltipDescription><![CDATA[In order to house the Amazon refugees from Themiscyra, hundreds of tents have been erected in this camp.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in a tent in the Amazons' camp]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_YELLOW</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

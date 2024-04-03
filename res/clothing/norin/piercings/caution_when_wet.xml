@@ -1,118 +1,87 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 
 <clothing>
-  <coreAttributes>
-    <value>750</value> <!--10 flames = £1 ~ $1.5-->
-    <determiner><![CDATA[a]]></determiner>
-    <name><![CDATA[Caution-When-Wet piercing]]></name>
-    <namePlural pluralByDefault="false"><![CDATA[Caution-When-Wet piercings]]></namePlural>
-    <description><![CDATA[A navel piercing with an attached sign which reads; 'Caution, slippery when wet'. You get the feeling that wearing this piercing will quickly make you fit the sign's description.]]></description>
-    
-    <physicalResistance>0</physicalResistance>
-    <femininity>FEMININE</femininity> <!-- FEMININE, MASCULINE ANDROGYNOUS -->
-    <slot>PIERCING_STOMACH</slot> <!-- slot values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
-    <rarity>EPIC</rarity> <!-- rarity values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
-    
-    <imageName>caution_when_wet.svg</imageName>
-    
-    <clothingSet/> <!-- No way to define custom sets yet -->
-    <imageEquippedName/> <!-- The file path for this clothing's image while equipped -->
-    <effects>
-      <effect itemEffectType="CLOTHING" limit="0" potency="MINOR_BOOST" primaryModifier="CLOTHING_SPECIAL" secondaryModifier="CLOTHING_SEALING" timer="31"/>
-      <effect itemEffectType="CLOTHING" limit="7" potency="MAJOR_BOOST" primaryModifier="TF_VAGINA" secondaryModifier="TF_MOD_WETNESS" timer="31"/>
-      <effect itemEffectType="CLOTHING" limit="7" potency="MAJOR_BOOST" primaryModifier="TF_ASS" secondaryModifier="TF_MOD_WETNESS" timer="31"/>
-    </effects> <!-- Default enchantments -->
+	<coreAttributes>
+		<value>750</value> <!--10 flames = £1 ~ $1.5-->
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Caution-When-Wet piercing]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Caution-When-Wet piercings]]></namePlural>
+		<description><![CDATA[A navel piercing with an attached sign which reads; 'Caution, slippery when wet'. You get the feeling that wearing this piercing will quickly make you fit the sign's description.]]></description>
+		
+		<physicalResistance>0</physicalResistance>
+		<femininity>FEMININE</femininity> <!-- FEMININE, MASCULINE ANDROGYNOUS -->
+		<slot>PIERCING_STOMACH</slot> <!-- slot values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/InventorySlot.java -->
+		<rarity>EPIC</rarity> <!-- rarity values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/Rarity.java -->
+		
+		<imageName>caution_when_wet.svg</imageName>
+		
+		<clothingSet/> <!-- No way to define custom sets yet -->
+		<imageEquippedName/> <!-- The file path for this clothing's image while equipped -->
+		<effects>
+		  <effect itemEffectType="CLOTHING" limit="0" potency="MINOR_BOOST" primaryModifier="CLOTHING_SPECIAL" secondaryModifier="CLOTHING_SEALING" timer="31"/>
+		  <effect itemEffectType="CLOTHING" limit="7" potency="MAJOR_BOOST" primaryModifier="TF_VAGINA" secondaryModifier="TF_MOD_WETNESS" timer="31"/>
+		  <effect itemEffectType="CLOTHING" limit="7" potency="MAJOR_BOOST" primaryModifier="TF_ASS" secondaryModifier="TF_MOD_WETNESS" timer="31"/>
+		</effects> <!-- Default enchantments -->
 
-    <blockedPartsList>
-      <blockedParts>
-        
-        <displacementType>REMOVE_OR_EQUIP</displacementType> <!-- displacementType values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
-        
-        <clothingAccessRequired> <!-- clothingAccess values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingAccess.java -->
-          <clothingAccess>WAIST</clothingAccess>
-        </clothingAccessRequired>
-        
-        <blockedBodyParts/> <!--bodyPart values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/body/CoverableArea.java -->
-        <clothingAccessBlocked/> <!-- clothingAccess -->
-        <concealedSlots/> <!-- slot -->
-        
-      </blockedParts>
-    </blockedPartsList>
-    
-    <incompatibleSlots/> <!-- slot(s) not compatible -->
+		<blockedPartsList>
+		  <blockedParts>
+			
+			<displacementType>REMOVE_OR_EQUIP</displacementType> <!-- displacementType values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
+			
+			<clothingAccessRequired> <!-- clothingAccess values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/ClothingAccess.java -->
+			  <clothingAccess>WAIST</clothingAccess>
+			</clothingAccessRequired>
+			
+			<blockedBodyParts/> <!--bodyPart values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/character/body/CoverableArea.java -->
+			<clothingAccessBlocked/> <!-- clothingAccess -->
+			<concealedSlots/> <!-- slot -->
+			
+		  </blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> <!-- slot(s) not compatible -->
 
-    <!-- colourList presets: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
-    <!-- Colour values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->
-    <primaryColours values="ALL_METAL"/>
-    <primaryColoursDye values="ALL_METAL"/>
-    <secondaryColours>
-      <colour>CLOTHING_ORANGE_BRIGHT</colour>
-    </secondaryColours>
-    <secondaryColoursDye values="ALL"/>
-    <tertiaryColours>
-      <colour>CLOTHING_YELLOW</colour>
-    </tertiaryColours>
-    <tertiaryColoursDye values ="ALL"/>
-    
-    <itemTags> <!-- tag values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
-      <tag>SOLD_BY_KATE</tag>
-    </itemTags>
-    
-  </coreAttributes>
+		<!-- colourList presets: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
+		<!-- Colour values: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/PresetColour.java -->
+		<primaryColours values="ALL_METAL"/>
+		<primaryColoursDye values="ALL_METAL"/>
+		<secondaryColours>
+		  <colour>CLOTHING_ORANGE_BRIGHT</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours>
+		  <colour>CLOTHING_YELLOW</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values ="ALL"/>
+		
+		<itemTags> <!-- tag values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
+		  <tag>SOLD_BY_KATE</tag>
+		</itemTags>
+		
+	</coreAttributes>
+	
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slide)] the Caution-When-Wet piercing into [npc.her] navel.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(slide)] the Caution-When-Wet piercing into [npc2.namePos] navel.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(slide)] the Caution-When-Wet piercing into [npc2.namePos] navel.]]>
+		</otherRough>
+	</replacementText>
 
-  <displacementText type="REMOVE_OR_EQUIP">
-    <playerSelf>
-      <![CDATA[You slide out the Caution-When-Wet piercing.]]>
-    </playerSelf>
-    <playerNPC>
-      <![CDATA[You slide out [npc.name]'s Caution-When-Wet piercing.]]>
-    </playerNPC>
-    <playerNPCRough>
-      <![CDATA[You give [npc.name]'s Caution-When-Wet piercing a tug before sliding it out.]]>
-    </playerNPCRough>
-    <NPCSelf>
-      <![CDATA[[npc.Name] slides out [npc.herHis] Caution-When-Wet piercing.]]>
-    </NPCSelf>
-    <NPCPlayer>
-      <![CDATA[[npc.Name] slides the Caution-When-Wet piercing from your nipples.]]>
-    </NPCPlayer>
-    <NPCPlayerRough>
-      <![CDATA[[npc.Name] gives your Caution-When-Wet piercing a tug before sliding it out.]]>
-    </NPCPlayerRough>
-    <NPCOtherNPC>
-      <![CDATA[[npc1.Name] slides out [npc2.name]'s Caution-When-Wet piercing.]]>
-    </NPCOtherNPC>
-    <NPCOtherNPCRough>
-      <![CDATA[[npc1.Name] gives [npc2.name]'s Caution-When-Wet piercing a tug before sliding it out.]]>
-    </NPCOtherNPCRough>
-  </displacementText>
-
-  <replacementText type="REMOVE_OR_EQUIP">
-    <playerSelf>
-      <![CDATA[You slide the Caution-When-Wet piercing into place.]]>
-    </playerSelf>
-    <playerNPC>
-      <![CDATA[You slide the Caution-When-Wet piercing into [npc.name]'s navel.]]>
-    </playerNPC>
-    <playerNPCRough>
-      <![CDATA[You roughly push the Caution-When-Wet piercing into [npc.name]'s navel.]]>
-    </playerNPCRough>
-    <NPCSelf>
-      <![CDATA[[npc.Name] slides the Caution-When-Wet piercing into place.]]>
-    </NPCSelf>
-    <NPCPlayer>
-      <![CDATA[[npc.Name] slides the Caution-When-Wet piercing into your navel.]]>
-    </NPCPlayer>
-    <NPCPlayerRough>
-      <![CDATA[[npc.Name] roughly pushes the Caution-When-Wet piercing into your navel.]]>
-    </NPCPlayerRough>
-    <NPCOtherNPC>
-      <![CDATA[[npc1.Name] slides the Caution-When-Wet piercing into [npc2.Name]'s navel.]]>
-    </NPCOtherNPC>
-    <NPCOtherNPCRough>
-      <![CDATA[[npc1.Name] roughly pushes the Caution-When-Wet piercing into [npc2.Name]'s navel.]]>
-    </NPCOtherNPCRough>
-  </replacementText>
-  
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slide)] [npc.her] Caution-When-Wet piercing out of [npc.her] navel.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(slide)] [npc2.namePos] Caution-When-Wet piercing out of [npc2.her] navel.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] Caution-When-Wet piercing out of [npc2.her] navel.]]>
+		</otherRough>
+	</displacementText>
   
 </clothing>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256">
+    <defs>
+        <linearGradient id="linearGradient918">
+            <stop offset="0" stop-color="#f95"/>
+            <stop offset=".5" stop-color="#ffb380"/>
+            <stop offset="1" stop-color="#f95"/>
+        </linearGradient>
+        <linearGradient id="innoGrad3">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset=".5" stop-color="#ff8080"/>
+            <stop offset="1" stop-color="#f55"/>
+        </linearGradient>
+        <linearGradient id="innoGrad2">
+            <stop offset="0" stop-color="#ff8080"/>
+            <stop offset="1" stop-color="#f55"/>
+        </linearGradient>
+        <linearGradient id="innoGrad1">
+            <stop offset="0" stop-color="#ffb380"/>
+            <stop offset="1" stop-color="#f95"/>
+        </linearGradient>
+        <linearGradient id="linearGradient854" x1="195.229" x2="197.832" y1="14.171" y2="16.208" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad1"/>
+        <linearGradient id="linearGradient862" x1="183.588" x2="189.263" y1="21.459" y2="24.479" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad1"/>
+        <linearGradient id="linearGradient870" x1="102.204" x2="111.259" y1="124.439" y2="131.726" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad2"/>
+        <linearGradient id="linearGradient878" x1="67.023" x2="73.823" y1="168.963" y2="174.116" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad1"/>
+        <linearGradient id="linearGradient886" x1="126.285" x2="110.459" y1="165.449" y2="153.176" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad3"/>
+        <linearGradient id="linearGradient904" x1="135.816" x2="149.519" y1="91.837" y2="102.575" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad3"/>
+        <linearGradient id="linearGradient912" x1="185.035" x2="199.922" y1="29.004" y2="41.478" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient918"/>
+    </defs>
+    <path fill="#f95" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width=".987" d="M206.813 45.5L196 40.063l13.219-21.625 9.594 17.169z" transform="matrix(1.01309 0 0 1.01307 -.416 -7.252)"/>
+    <path fill="#ff2a2a" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width=".987" d="M39.042 234.791l12.083-14.209 3.959 2.375-12.25 16.292-1.452.335z" transform="matrix(1.01309 0 0 1.01307 -.416 -7.252)"/>
+    <path fill="#f95" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M47.896 220.308c3.736 4.832-6.448 13.086-8.158 11.534z"/>
+    <path fill="url(#linearGradient854)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M192.385 18.115l4.97-6.185c1.937-2.593 4.789-1.478 3.05 1.058l-4.547 6.681z"/>
+    <path fill="url(#linearGradient862)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M182.89 22.444l5.552-6.944c1.73-1.1 7.994 2.085 7.894 3.417l-5.198 8.163z"/>
+    <path fill="url(#linearGradient870)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M29.85 216.7L182.89 22.445c2.279-1.203 8.253 2.597 8.249 4.636L40.044 224.172c-1.71 1.33-10.574-4.432-10.194-7.471z"/>
+    <path fill="url(#linearGradient878)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M36.878 203.214c1.647-1.013 36.8-44.691 38.254-45.527 2.213-1.273 9.299 5.13 9.172 6.714-.127 1.583-33.938 46.547-35.585 47.397-1.646.85-11.832-7.031-11.84-8.584z"/>
+    <path fill="url(#linearGradient886)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M44.329 237.743L213.26 22.802c5.15-3.293 14.52 2.448 12.663 8.78L59.44 249.984c-5.933.397-14.435-7-15.111-12.24z"/>
+    <path fill="#ff2a2a" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width=".987" d="M201.625 15.25l2.065-2.11 1.56 1.673-8.406 9.562-1.5-.812z" transform="matrix(1.01309 0 0 1.01307 -.416 -7.252)"/>
+    <path fill="url(#linearGradient904)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M31.243 226.343c-.21 1.524 4.252 5.368 8.257 7.927 0 0 11.808-16.155 12.174-15.94.044.027 1.73 1.22 1.73 1.22l-11.897 15.914c1.607.872 2.96 1.386 3.637 1.242l172.46-220.404c.762-3.74-5.874-9.997-10.337-10.302l-8.675 10.492-.76-.284L205.94 6.06c-.446.08-.854.227-1.208.447z"/>
+    <ellipse cx="-168.445" cy="81.776" fill="#ffb380" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" rx=".485" ry="1.012" transform="rotate(-148.203) skewX(-.001)"/>
+    <ellipse cx="154.498" cy="147.702" fill="#ffb380" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" rx=".359" ry="1.204" transform="rotate(36.804) skewX(-.001)"/>
+    <ellipse cx="161.888" cy="154.035" fill="#ffb380" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" rx=".359" ry="1.204" transform="rotate(36.804) skewX(-.001)"/>
+    <ellipse cx="183.449" cy="-106.523" fill="#ffb380" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" rx="1.044" ry="1.551" transform="rotate(34.402) skewX(-.001)"/>
+    <ellipse cx="201.389" cy="-96.919" fill="#ffb380" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" rx="1.045" ry="1.551" transform="rotate(33.82) skewX(-.001)"/>
+    <path fill="#f95" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M162.738 59.718l.509-.643c-.303-.572 1.28-2.978 8.023 2.182 6.743 5.16 5.54 7.091 5.52 7.949l-.635.807c.829.416 1.117 0 1.117 0l2.894-5.998-13.881-8.79-3.6 2.867-.121.824z"/>
+    <path fill="url(#linearGradient912)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M193.49 16.498c7.18-4.096 18.778 7.846 15.739 12.214-3.04 4.368-24.884 31.912-31.957 41.301 3.433-4.925-13.442-16.797-14.708-11.098-1.71-.887 24.44-32.609 30.926-42.417z"/>
+</svg>

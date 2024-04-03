@@ -415,7 +415,9 @@ public class OccupantController {
 			
 			id = preset+"_TIME_DISABLED";
 			if (MainController.document.getElementById(id) != null) {
-				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Set Preset Work Hours", "You can't assign hours to a slave who is idle. Assign them a job first."));
+				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(
+						"[style.colourBad(Set Preset Work Hours)]",
+						"You cannot assign these hours. Either the job is not available for these hours, or it is too much work."));
 			}
 		}
 		
@@ -662,19 +664,37 @@ public class OccupantController {
 							@Override
 							public void effects() {
 								slave.setHomeLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation());
-								if(!slave.isAtWork() || slave.getLocationPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION)) {
+								if(!slave.isAtWork()
+										|| slave.getLocationPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION)
+										|| slave.getWorldLocation().equals(WorldType.getWorldTypeFromId("innoxia_dominion_sex_shop"))) {
 									slave.returnToHome();
-								}							}
+								}
+							}
 						});
 					}, false);
 					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Move Slave Here",
 							UtilText.parse(slave, "Move [npc.name] to your current location.")));
 				}
 				
-				id = slaveId+"_TRANSFER_DISABLED";
+				id = slaveId+"_TRANSFER_DISABLED_FULL";
 				if (MainController.document.getElementById(id) != null) {
 					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Move Slave Here",
 							UtilText.parse(slave, "You cannot move [npc.name] to this location, as there's no room for [npc.herHim] here.")));
+				}
+				id = slaveId+"_TRANSFER_DISABLED_INAPPPROPRIATE";
+				if (MainController.document.getElementById(id) != null) {
+					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Move Slave Here",
+							UtilText.parse(slave,
+									"You cannot move [npc.name] to this location, as it's not a suitable room for [npc.herHim]..."
+									+(slave.isDoll()
+										?"<br/><i>Dolls can only use doll closets as their home tile...</i>"
+										:"<br/><i>Slaves can only use slave rooms as their home tile...</i>")
+									)));
+				}
+				id = slaveId+"_TRANSFER_DISABLED_ALREADY_HERE";
+				if (MainController.document.getElementById(id) != null) {
+					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Move Slave Here",
+							UtilText.parse(slave, "You cannot move [npc.name] to this location, as [npc.sheIs] already treating this room as [npc.her] home!")));
 				}
 				
 				id = slaveId+"_SELL";
@@ -761,7 +781,21 @@ public class OccupantController {
 				
 				id = occupantId+"_JOB";
 				if (MainController.document.getElementById(id) != null) {
-					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Manage Job", "You cannot manage a free-willed occupant's job."));
+					if(occupant.hasJob()) {
+						MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Manage Job", UtilText.parse(occupant, "[npc.name] already has a permanent job, so cannot be assigned to work within the mansion...")));
+						
+					} else {
+						((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.setContent(new Response("", "", CompanionManagement.getSlaveryManagementSlaveJobsDialogue(occupant)) {
+								@Override
+								public void effects() {
+									CompanionManagement.initManagement(Main.game.getCurrentDialogueNode(), CompanionManagement.getDefaultResponseTab(), occupant);
+									Main.game.setResponseTab(CompanionManagement.getDefaultResponseTab());
+								}
+							});
+						}, false);
+						MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Manage Job", UtilText.parse(occupant, "Assign [npc.name] some temporary work.")));
+					}
 				}
 				
 				id = occupantId+"_PERMISSIONS";

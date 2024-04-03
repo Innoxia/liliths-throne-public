@@ -4,7 +4,6 @@
 	<name><![CDATA[staircase]]></name>
 	<tooltipDescription><![CDATA[A narrow staircase leads down to the ground floor of 'The Red Dragon' tavern.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the staircase at 'The Red Dragon' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_RED_LIGHT</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

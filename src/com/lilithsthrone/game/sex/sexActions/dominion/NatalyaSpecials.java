@@ -3,6 +3,7 @@ package com.lilithsthrone.game.sex.sexActions.dominion;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.npc.dominion.Natalya;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -28,7 +29,8 @@ public class NatalyaSpecials {
 			SexParticipantType.NORMAL) {
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.game.getNpc(Natalya.class).getLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP
+			return (Main.game.getNpc(Natalya.class).getLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP
+						|| (Main.game.getNpc(Natalya.class).getLocationPlace().getPlaceType()==PlaceType.DOMINION_PARK && !Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_NATALYA)))
 					&& !Main.sex.getCharacterPerformingAction().isPlayer()
 					&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.natalyaDemandedFacial)
 					&& Main.game.getNpc(Natalya.class).getArousal()>=ArousalLevel.FOUR_PASSIONATE.getMinimumValue();
@@ -65,7 +67,8 @@ public class NatalyaSpecials {
 			SexParticipantType.NORMAL) {
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.game.getNpc(Natalya.class).getLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP
+			return (Main.game.getNpc(Natalya.class).getLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP
+						|| (Main.game.getNpc(Natalya.class).getLocationPlace().getPlaceType()==PlaceType.DOMINION_PARK && !Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_NATALYA)))
 					&& Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		@Override
@@ -106,7 +109,8 @@ public class NatalyaSpecials {
 			SexParticipantType.NORMAL) {
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Main.game.getNpc(Natalya.class).getLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP
+			return (Main.game.getNpc(Natalya.class).getLocationPlace().getPlaceType()==PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP
+						|| (Main.game.getNpc(Natalya.class).getLocationPlace().getPlaceType()==PlaceType.DOMINION_PARK && !Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_NATALYA)))
 					&& Main.sex.getCharacterPerformingAction().isPlayer();
 		}
 		@Override

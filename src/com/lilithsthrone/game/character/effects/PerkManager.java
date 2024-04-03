@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.effects;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -24,7 +25,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
  * Singleton enforced by Enum. Because everyone loves Enums.
  * 
  * @since 0.1.99
- * @version 0.3.4
+ * @version 0.4.9
  * @author Innoxia
  */
 public enum PerkManager {
@@ -37,9 +38,11 @@ public enum PerkManager {
 	
 	private Map<Integer, Map<PerkCategory, List<TreeEntry<PerkCategory, AbstractPerk>>>> perkTree;
 	private Map<Integer, Map<PerkCategory, List<TreeEntry<PerkCategory, AbstractPerk>>>> elementalPerkTree;
+	private Map<Integer, Map<PerkCategory, List<TreeEntry<PerkCategory, AbstractPerk>>>> dollPerkTree;
 	
 	private List<TreeEntry<PerkCategory, AbstractPerk>> elementalStartingPerks = new ArrayList<>();
 	private List<TreeEntry<PerkCategory, AbstractPerk>> standardStartingPerks = new ArrayList<>();
+	private List<TreeEntry<PerkCategory, AbstractPerk>> dollStartingPerks = new ArrayList<>();
 	
 	public static final int ROWS = 20;
 	
@@ -76,6 +79,7 @@ public enum PerkManager {
 		
 		leftA = addPerkEntry(perkTree, PerkCategory.PHYSICAL, 2, Perk.PHYSIQUE_BOOST, physical1);
 		addPerkEntry(perkTree, PerkCategory.PHYSICAL, 2, Perk.OBSERVANT, physical1);
+		addPerkEntry(perkTree, PerkCategory.PHYSICAL, 2, Perk.HEAVY_SLEEPER, physical1);
 
 		leftC = addPerkEntry(perkTree, PerkCategory.PHYSICAL, 2, Perk.ENCHANTMENT_STABILITY, physical1);
 		
@@ -96,6 +100,7 @@ public enum PerkManager {
 		rightA = addPerkEntry(perkTree, PerkCategory.PHYSICAL, 5, Perk.UNARMED_DAMAGE, rightA, rightB);
 
 		connectorLeft = addPerkEntry(perkTree, PerkCategory.PHYSICAL, 6, Perk.PHYSIQUE_BOOST_MAJOR, leftA, rightA);
+		addPerkEntry(perkTree, PerkCategory.PHYSICAL, 6, Perk.HYPERMOBILITY, connectorLeft);
 
 		/* Physical Tree Section 2 */
 
@@ -408,7 +413,45 @@ public enum PerkManager {
 		arcane1 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 10, Perk.ELEMENTAL_AIR_BOOST, arcane2);
 		arcane2 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 11, Perk.ELEMENTAL_AIR_BOOST_MAJOR, arcane1);
 		arcane1 = addPerkEntry(elementalPerkTree, PerkCategory.ARCANE, 12, Perk.ELEMENTAL_AIR_BOOST_ULTIMATE, arcane2);
+
 		
+		// Doll version of the perk tree:
+		dollPerkTree = new HashMap<>();
+		
+		// Initialise NPCPerkTree:
+		for(int i = 0; i<ROWS; i++) {
+			dollPerkTree.put(i, new HashMap<>());
+			for(PerkCategory category : PerkCategory.values()) {
+				dollPerkTree.get(i).put(category, new ArrayList<>());
+			}
+		}
+
+		physical1 = addPerkEntry(dollPerkTree, PerkCategory.PHYSICAL, 1, Perk.DOLL_PHYSICAL_CORE);
+		dollStartingPerks.add(physical1);
+		TreeEntry<PerkCategory, AbstractPerk> dollPerk = addPerkEntry(dollPerkTree, PerkCategory.PHYSICAL, 2, Perk.DOLL_PHYSICAL_1, physical1);
+		dollStartingPerks.add(dollPerk);
+		dollPerk = addPerkEntry(dollPerkTree, PerkCategory.PHYSICAL, 2, Perk.DOLL_PHYSICAL_2, physical1);
+		dollStartingPerks.add(dollPerk);
+		dollPerk = addPerkEntry(dollPerkTree, PerkCategory.PHYSICAL, 2, Perk.DOLL_PHYSICAL_3, physical1);
+		dollStartingPerks.add(dollPerk);
+		
+		arcane1 = addPerkEntry(dollPerkTree, PerkCategory.ARCANE, 1, Perk.DOLL_ARCANE_CORE);
+		dollStartingPerks.add(arcane1);
+		dollPerk = addPerkEntry(dollPerkTree, PerkCategory.ARCANE, 2, Perk.DOLL_ARCANE_1, arcane1);
+		dollStartingPerks.add(dollPerk);
+		dollPerk = addPerkEntry(dollPerkTree, PerkCategory.ARCANE, 2, Perk.DOLL_ARCANE_2, arcane1);
+		dollStartingPerks.add(dollPerk);
+		dollPerk = addPerkEntry(dollPerkTree, PerkCategory.ARCANE, 2, Perk.DOLL_ARCANE_3, arcane1);
+		dollStartingPerks.add(dollPerk);
+		
+		both1 = addPerkEntry(dollPerkTree, PerkCategory.LUST, 1, Perk.DOLL_LUST_CORE, physical1, arcane1);
+		dollStartingPerks.add(both1);
+		dollPerk = addPerkEntry(dollPerkTree, PerkCategory.LUST, 2, Perk.DOLL_LUST_1, both1);
+		dollStartingPerks.add(dollPerk);
+		dollPerk = addPerkEntry(dollPerkTree, PerkCategory.LUST, 2, Perk.DOLL_LUST_2, both1);
+		dollStartingPerks.add(dollPerk);
+		dollPerk = addPerkEntry(dollPerkTree, PerkCategory.LUST, 2, Perk.DOLL_LUST_3, both1);
+		dollStartingPerks.add(dollPerk);
 	}
 	
 	@SafeVarargs
@@ -439,6 +482,8 @@ public enum PerkManager {
 	public Map<Integer, Map<PerkCategory, List<TreeEntry<PerkCategory, AbstractPerk>>>> getPerkTree(GameCharacter character) {
 		if(character.isElemental()) {
 			return elementalPerkTree;
+		} else if(character.isDoll()) {
+			return dollPerkTree;
 		} else {
 			return perkTree;
 		}
@@ -447,6 +492,8 @@ public enum PerkManager {
 	public static List<TreeEntry<PerkCategory, AbstractPerk>> getStartingPerks(GameCharacter character) {
 		if(character.isElemental()) {
 			return MANAGER.elementalStartingPerks;
+		} else if(character.isDoll()) {
+			return MANAGER.dollStartingPerks;
 		} else {
 			return MANAGER.standardStartingPerks;
 		}
@@ -547,6 +594,11 @@ public enum PerkManager {
 	public static Set<AbstractPerk> initialisePerks(GameCharacter character, boolean autoSelectPerks, List<AbstractPerk> requiredPerks, Map<PerkCategory, Integer> perkWeightingOverride) {
 		Set<AbstractPerk> perksAdded = new HashSet<>();
 		
+		if(character.isDoll()) {
+			requiredPerks = null;
+			perkWeightingOverride = null;
+		}
+		
 		for(TreeEntry<PerkCategory, AbstractPerk> perk : getStartingPerks(character)) {
 			if(character.addPerk(perk.getRow(), perk.getEntry())) {
 				perksAdded.add(perk.getEntry());
@@ -576,9 +628,10 @@ public enum PerkManager {
 				deniedPerks.add(Perk.CHUUNI);
 				deniedPerks.add(Perk.BARREN);
 				deniedPerks.add(Perk.FIRING_BLANKS);
-				deniedPerks.add(Perk.UNARMED_TRAINING);
+				deniedPerks.add(Perk.HYPERMOBILITY);
 				if(character.isUnique()) {
 					deniedPerks.add(Perk.AHEGAO);
+					deniedPerks.add(Perk.HEAVY_SLEEPER);
 				}
 				if(character.getEnchantmentPointsUsedTotal()<=character.getAttributeValue(Attribute.ENCHANTMENT_LIMIT) || !Main.game.isEnchantmentCapacityEnabled()) {
 					deniedPerks.add(Perk.ENCHANTMENT_STABILITY);
@@ -708,14 +761,33 @@ public enum PerkManager {
 		}
 		
 		if(character.getSpecialPerks().size()>0) {
+			List<AbstractPerk> subspeciesKnowledgePerks = new ArrayList<>();
+			// Non-subspecies knowledge perks:
 			treeSB.append("<div class='container-full-width' style='width:100%; padding:0; margin:0;'>");
 				for(AbstractPerk hiddenPerk : Perk.getHiddenPerks()) {
 					if(character.hasPerkAnywhereInTree(hiddenPerk)) {
-						treeSB.append(
-								"<div id='HIDDEN_PERK_" + Perk.getIdFromPerk(hiddenPerk) + "' class='square-button round small' style='width:6%; display:inline-block; float:none; border-color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+";'>"
-								+ "<div class='square-button-content'>"+hiddenPerk.getSVGString(character)+"</div>"
-								+ "</div>");
+						if(Perk.getSubspeciesKnowledgePerks().contains(hiddenPerk)) {
+							subspeciesKnowledgePerks.add(hiddenPerk);
+						} else {
+							treeSB.append(
+									"<div id='HIDDEN_PERK_" + Perk.getIdFromPerk(hiddenPerk) + "' class='square-button round small'"
+											+ " style='width:6%; display:inline-block; float:none; border-color:"+PresetColour.GENERIC_EXCELLENT.toWebHexString()+"; cursor:default;'>"
+									+ "<div class='square-button-content'>"+hiddenPerk.getSVGString(character)+"</div>"
+									+ "</div>");
+						}
 					}
+				}
+			treeSB.append("</div>");
+			
+			// Subspecies knowledge perks:
+			Collections.sort(subspeciesKnowledgePerks, (p1, p2)->p1.getName(character).compareTo(p2.getName(character)));
+			treeSB.append("<div class='container-full-width' style='width:100%; padding:0; margin:0;'>");
+				for(AbstractPerk hiddenPerk : subspeciesKnowledgePerks) {
+					treeSB.append(
+							"<div id='HIDDEN_PERK_" + Perk.getIdFromPerk(hiddenPerk) + "' class='square-button round small'"
+									+ " style='width:6%; padding:0; left:12px; margin:0 0 0 -24px; display:inline-block; float:none; border-color:"+hiddenPerk.getColour().toWebHexString()+"; cursor:default;'>"
+							+ "<div class='square-button-content'>"+hiddenPerk.getSVGString(character)+"</div>"
+							+ "</div>");
 				}
 			treeSB.append("</div>");
 		}

@@ -4,7 +4,6 @@
 	<name><![CDATA[wall]]></name>
 	<tooltipDescription><![CDATA[A crenellated stone wall surrounds the town of Elis, grating it exceptional protection against marauding bandits.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[on the walls of Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>#ac9a8c</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

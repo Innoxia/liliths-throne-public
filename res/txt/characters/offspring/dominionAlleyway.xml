@@ -693,7 +693,7 @@
 	
 	<htmlContent tag="OFFSPRING_ENCOUNTER_TALKING"><![CDATA[
 	#IF(!npc.hasFlag(NPC_FLAG_flagOffspringApartmentIntroduced))
-	<p>
+		<p>
 			[npc.Name] turns around and sets off down the alleyway. Following in [npc.her] footsteps, you allow your [npc.relation(pc)] to take the lead as [npc.she] guides you through the trail of narrow passageways that lead to [npc.her] home. As the width of the alleyways rarely offers you the chance to walk side-by-side, you decide to save conversation for when you finally arrive, leading to your five-minute journey being mostly in silence.
 		</p>
 		<p>

@@ -771,7 +771,7 @@ public abstract class AbstractStatusEffect {
 		List<Value<Integer, String>> additionalDescriptions = new ArrayList<>();
 		
 		additionalDescriptions.add(
-				new Value<>(3,
+				new Value<>(4,
 						Main.sex.formatPenetration(
 						target.getPenetrationDescription(false,
 								partner,
@@ -879,7 +879,7 @@ public abstract class AbstractStatusEffect {
 				}
 				
 			} else if(!Main.sex.getCharactersPenetratingFarTooShallow(owner, orificeType).isEmpty()) {
-				stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificePlural?"are":"is")+" [style.boldPinkLight(not being penetrated deep enough)]!");
+				stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificePlural?"are":"is")+" being penetrated [style.boldPinkLight(too shallowly)]!");//[style.boldPinkLight(not being penetrated deep enough)]!");
 			}
 		}
 		

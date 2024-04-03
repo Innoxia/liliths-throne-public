@@ -96,7 +96,7 @@ public class Zaranix extends NPC {
 			resetBodyAfterVersion_2_10_5();
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11")) {
-			this.setAgeAppearanceDifferenceToAppearAsAge(32);
+			this.setAgeAppearanceAbsolute(32);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
 			this.resetPerksMap(true);
@@ -145,7 +145,7 @@ public class Zaranix extends NPC {
 		
 		// Body
 		// Add full body reset as this method is called after leaving Zaranix's house:
-		this.setAgeAppearanceDifferenceToAppearAsAge(32);
+		this.setAgeAppearanceAbsolute(32);
 		this.setBody(Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER, false);
 		this.setLegType(LegType.DEMON_COMMON);
 		this.setTailType(TailType.DEMON_COMMON);
@@ -261,7 +261,7 @@ public class Zaranix extends NPC {
 	
 	
 	public void transformFeminine() {
-		this.setAgeAppearanceDifferenceToAppearAsAge(32);
+		this.setAgeAppearanceAbsolute(32);
 		this.setBody(Gender.F_P_B_SHEMALE, Subspecies.DEMON, RaceStage.GREATER, false);
 		this.setLegType(LegType.DEMON_COMMON);
 		this.setTailType(TailType.DEMON_COMMON);

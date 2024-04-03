@@ -1,0 +1,149 @@
+<h2>v0.4.7.5</h2>
+
+<h3>FriendlyAlienFriend's Artwork (https://twitter.com/thealienfriend):</h3>
+<ul>
+	<li>Added artwork for Vanessa/Ms. Cunningham, including pregnant variations.</li>
+</ul>
+
+<h3>Davyn's Artwork (https://twitter.com/davyndraw):</h3>
+<ul>
+	<li>Added artwork for Kalahari (lion-girl bartender in the nightclub, 'The Watering Hole').</li>
+	<li>Added artwork for Kruger (lion-boy nightclub owner in 'The Watering Hole').</li>
+</ul>
+
+<h3>Contributors:</h3>
+<ul>
+	<li>Fixed issue where mods which accessed the GameCharacter.getAffectionMap() method could cause an error which led to NPCs disappearing after saving/loading. (by CognitiveMist)</li>
+	<li>Fixed issue in Meraxis's blowjob and cunnilingus sex scenes, where the game was checking for incorrect fetishes to determine when to end the sex scenes. (by Maxis010)</li>
+	<li>Fixed issue where you couldn't change your hairstyle in your room's 'Hairstyle & Makeup' menu. (by Maxis010)</li>
+	<li>Fixed bug where certain black-white colouring combinations wouldn't correctly identify someone as a panda-morph. (by CognitiveMist)</li>
+	<li>Fixed bug where the 'New Game' button would sometimes not work, requiring a game restart to get it working again. (PR#1752 by CognitiveMist)</li>
+	<li>Fixed issue where characters who were imported into a game would remain related to the player (or other characters by chance) if they were related to them in the save where they were exported. (PR#1743 by Maxis010)</li>
+</ul>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Added 'FertilisationType' enum (game/character/pregnancy/FertilisationType.java) to track fertilisation type of Litters.</li>
+	<li>Added 'Nocturnality' enum (game/character/race/Nocturnality.java) for assigning nocturnality values to subspecies. For modded subspecies, you can now define the nocturnality of a subspecies within a 'nocturnality' element. Any subspecies missing this value will default to being biurnal.</li>
+	<li>Added 'FOOD' and 'DRINK' item tags which should from now on be applied to any modded food or drink items (with the idea being that any effects gained from food or drink can then be applied from any item tagged as such).</li>
+	<li>Added an optional 'statusEffects' element to modded item xml files, allowing you to define status effects to be applied when the item's effects are triggered (for a commented example see 'res/items/innoxia/pills/fertility.xml').</li>
+	<li>Added a 'rapePlayBannedAtStart' field to sex managers, allowing you to define whether or not NPCs with the 'unwilling fuck-toy' fetish will start sex in the resisting pace (defaults to true, thereby making it so rape-play NPCs no longer start consensual sex scenes in the resisting pace).</li>
+	<li>Added 'game.startGenericSex(character)' method to allow quick testing of a generic sex scene between the player and an NPC.</li>
+	<li>Moved all hard-coded chest and nipple clothing out into the res folder.</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>You are now able to impregnate Vanessa/Ms. Cunningham by giving her a 'breeder pill' or 'broodmother pill' during sex.</li>
+	<li>You can now gain entry to Zaranix's house during the related main quest by repeatedly knocking on the door.</li>
+	<li>Eating or drinking (via items or scenes in which you eat/drink) now confers positive status effects; 'recently eaten' and 'thirst quenched', respectively.</li>
+	<li>You can now ask Astrapi about being impregnated once her affection towards you is high enough, after which you will be able to get her pregnant.</li>
+	<li>Added an encounter in Dominion's park tiles to enable you to discover Natalya outside of Helena quest. It will trigger between 9:00-15:00, if the weather is not an 'arcane storm' or 'stormy sky', if you have travelled to all the park tiles, and if you have either completed Natalya's romance quest or not started it.</li>
+</ul>
+
+<h3>Lilaya's house/Slave management:</h3>
+<ul>
+	<li>You can now pick roses from Lilaya's garden (limited to 1 per day).</li>
+	<li>Added two new slave jobs; 'gardener' (4 slaves max., location is central courtyard garden); 'security' (8 slaves max., first security guard will always be posted at the entrance, with the others patrolling the corridors, has 'answer door' and 'entrance priority' job settings).</li>
+	<li>Added 'dining room' room upgrade, along with another new slave job, 'waiter'. You can choose to order a meal in the dining room, so long as you have slaves working as a cook and waiter.</li>
+	<li>Added 'slave lounge' room upgrade. Your slaves will go here when not sleeping.</li>
+	<li>Slaves will now sleep during idle time; the hours in which they sleep will depend on their race's nocturnality, and will be displayed in the job management screen via 'zzZ' next to the idle hour slots in which they'll be sleeping.</li>
+	<li>Added a new 'Sleeping' permission category, allowing you to specify whether slaves should sleep at night, during the day, or whenever they want (which will be based on their race's nocturnality).</li>
+	<li>Added description of slaves present/not present in their room description.</li>
+	<li>Friendly occupants will now sleep at times based on their race's nocturnality.</li>
+</ul>
+
+<h3>Items:</h3>
+<ul>
+	<li>The 'breeder pill' and 'broodmother pill' items now disable the effects of menopause while their effects are active.</li>
+	<li>Reduced rarity of subspecies books from legendary to rare, so they will now disappear from tiles like ordinary items.</li>
+	<li>The 'ribbon' clothing can now be equipped on a character's penis.</li>
+	<li>Added 'micro bikini top' and 'micro bikini bottoms'. Both are feminine and sold by Nyan.</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>NPCs with the 'unwilling fuck-toy' fetish no longer start sex in the resisting pace by default, and must be first allowed to perform rape-play before they'll switch into it. </li>
+	<li>If not satisfied at the end of sex, NPCs now lose 5 affection towards the person who ended the sex scene, instead of towards all dominant participants.</li>
+	<li>Improved description of size difference oral availability that's appended to the end of the 'standing' and 'against wall' sex position intros.</li>
+</ul>
+
+<h3>Combat:</h3>
+<ul>
+	<li>The 'All out strike' move now has a critical requirement of being the only move used, instead of being used 3 times (which was impossible due to AP cost).</li>
+	<li>Buffed the 'vulnerable' status effect that's applied via 'Hunting call', 'Talon slash', 'scratch', and 'squirrel scratch' from -2 physical shielding to -10 physical shielding and -5 physique.</li>
+	<li>The 'Talon slash' combat move now deals 120% of the attacker's unarmed damage, instead of a flat 20.</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>Clothing and weapons of the same rarity are now sorted in inventories so that they're grouped together.</li>
+	<li>Added an 'Always' option to the fetish preferences menu, which makes it so that randomly-generated NPCs will always spawn with that fetish.</li>
+	<li>The subspecies pages in the encyclopedia now display the subspecies' nocturnality, whether or not they're aquatic, their default leg configuration, and whether or not they're short-statured.</li>
+	<li>Slightly improved dialogue flow after both instances of combat in the slime queen's tower, and made it so the slime encounter rate in Submission's tunnels if 4 times higher than normal if you're at the start of the slime queen quest (to make it easier to progress the quest).</li>
+	<li>You no longer need to seduce Wolfgang and Karl in the Bounty hunter lodge if you've previously had sex with them (i.e. during the quest in Kay's textiles).</li>
+	<li>Added a new 'clothing femininity' option (in 'Content Options' -> 'Gameplay'), allowing you to set clothing femininity values to off, masculine-only, feminine-only, or on.</li>
+	<li>The 'pregnancy' tattoo counter now includes the bearer's ongoing pregnancy (if applicable) in the count of how many times they've been impregnated.</li>
+	<li>Added 'pregnancy partners' and 'impregnation partners' tattoo counters, which track how many unique partners have impregnated or been impregnated by the bearer, respectively.</li>
+	<li>The shady dealer encounter in the alleyways of Dominion will no longer trigger during an arcane storm.</li>
+	<li>If you have the 'object of desire' trait active, then Angel (in Angel's Kiss) will wait until she's satisfied before ending the sex scene, instead of ending it as soon as you were satisfied.</li>
+	<li>Characters who have large cum expulsion values now spawn with 'stallion' or 'dragon' condoms, so that their condoms don't break in sex.</li>
+	<li>The cultist chapels which appear during October in Dominion's streets will no longer spawn in adjacent tiles.</li>
+	<li>Added better indication of whether or not sex with slaves in the bathing scene in the spa will be considered rape.</li>
+	<li>Eye clothing which blocks eyes (i.e. the blindfold) now correctly conceals the wearer's eyes. (This will only be noticeable if you encounter an NPC who's already wearing a blindfold, as just like genitals & breasts, once you've seen their eyes then they will remain 'known' even if concealed afterwards.)</li>
+	<li>Lunexis now has minimum affection towards the player, Meraxis, Aurokaris, and Ursa.</li>
+	<li>Added 'Gangbang' options to sex actions when interacting with a slave so that you can more easily start a sex scene with all slaves who are present.</li>
+	<li>Added a shaft in the far west of the Bat Caverns which links them to Dominion.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Parsing, typo, and minor dialogue fixes.</li>
+	<li>Prevented friendly occupants in Lilaya's mansion from being able to get the 'Mushroom forager' job (it was intended as a background only for offspring found in the Bat Caverns).</li>
+	<li>Fixed issue where Lilaya would reference her growing a cock to get you pregnant even if she impregnated you via the effect of Amazon's Secret.</li>
+	<li>Fixed bug where slaves could work in the office or milking room while still being stationed in the slavery administration.</li>
+	<li>Fixed issue where friendly NPCs having moved out into an apartment, as well as offspring in the alleyways of Dominion, would be affected by arcane storms even though the scenes are described as being inside their apartment.</li>
+	<li>Fixed incorrect dialogue being displayed after sex with Wolfgang and Karl in 'Kay's Textiles' during Nyan's quest.</li>
+	<li>Fixed background error being thrown when inserting Kay's buttplug.</li>
+	<li>Nyan now correctly only wears her weekend outfit (skater dress with no shoes) after she's decided to take weekends off work (i.e. after progressing through her romance quest).</li>
+	<li>Fixed bug where the impregnation counter for tattoos would increment even if the impregnating character failed to get their partner pregnant, then decrement once the pregnancy possibility resulted in no pregnancy.</li>
+	<li>Tooltips for ongoing sex status effects no longer cut off half-way through displaying information.</li>
+	<li>Using quick sex in Astrapi's handjob & armpit scenes now only uses the related handjob/armpit actions. Also using quick sex in Rose's dungeon scene no longer allows her to use her pussy and lose her virginity.</li>
+	<li>Fixed issue where feral characters who were transformed into a slime would bug out and be identified as a human.</li>
+	<li>Fixed issue where body randomisation for centaurs was not working for all body parts, and would also increase the randomised character's height twice.</li>
+	<li>Fixed issue where dirty talk wasn't parsing correctly for random Dominion demon attackers, Kate, and Lilaya.</li>
+	<li>Fixed raccoon-morphs having hyena-morph crotch breasts.</li>
+	<li>Fixed issue where the transformation menu's buttons for changing urethra elasticity and plasticity would change throat elasticity and plasticity instead.</li>
+	<li>Clothing worn by slaves who go to work at a milking room will no longer sometimes completely disappear.</li>
+	<li>Added a missing 'RESIST_TRANSFORMED_NO_RAPE' dialogue node in Submission's slime tunnel encounters.</li>
+	<li>Fixed bug in the nightclub where if you were a sub and annoyed and then left your partner, the next partner you found would start off at the same level of annoyance as the one you just left.</li>
+	<li>Dominant partners in the nightclub will now leave you if you keep on annoying them.</li>
+	<li>The random partners during sex scenes while working as a cow in Evelyx's Dairy will no longer have fetish desires or orientations which result in them disliking sex.</li>
+	<li>The headless horseman will no longer regain his virginities between encounters.</li>
+	<li>Fixed issue where the replacement and displacement descriptions for the 'lowback bodysuit' clothing item were reversed.</li>
+	<li>The visibility of an asshole of an NPC who has a cloaca is now correctly linked to the groin area, instead of the ass.</li>
+	<li>Fixed bug where all menu buttons, including loading a saved game, would not work during combat.</li>
+	<li>Fixed UI issue where some elements which were meant to be shown as disabled, such as forbidden spells, would not render the disabled overlay.</li>
+	<li>Fixed incorrect slave references in the sleeping/waking scenes in your bedroom.</li>
+	<li>Fixed issue where slaves would be tagged as having orgasmed 24 hours later than intended while working in the milking room (which led to the 'pent up' status effect not activating at the correct time).</li>
+	<li>Fixed bug where the cunnilingus demos (giving and receiving) at the cafes in Slaver's Alley would sometimes have their scenes at the start of sex swapped.</li>
+	<li>Corrected the penis & cum related part of the orgasm description for when a futa character performs a 'Thigh squeeze' orgasm due to receiving cunnilingus.</li>
+	<li>Fixed issue where removing Kay's chastity cage would always display the scene variation for the minimum time of him having been locked up.</li>
+	<li>When an NPC forces a transformation on you after losing combat, they will no longer reference a 'no race-cock'.</li>
+	<li>Fixed issue where you were able to move after losing to Meraxis's three demon subordinates in her citadel, which was allowing you to access her treasury room and avoid being thrown out.</li>
+	<li>Fixed issue where giving yourself 'demonic-owl' eyes as a slime would change your subspecies from slime to owl-morph, thereby preventing you from accessing the self-transformation menu.</li>
+	<li>The gryphon's 'Hunting Call' combat move now correctly applies a +20 buff to physique and arcane as described, instead of +15.</li>
+	<li>Fixed bug where if you unsealed and unequipped a sealed item of clothing during sex, after sex the clothing would be cloned, with one clone remaining in your inventory and the other being re-equipped onto you.</li>
+	<li>If armpit and/or udder content is disabled in your settings, then in the enchanting menu you will no longer see associated fetish or body part options.</li>
+	<li>Fixed issue where selecting some transformative potions (such as the pre-made 'Brax's surprise' potion) while they're located in a world tile (i.e. not in a character's inventory) would result in an error being displayed instead of the potion's information.)</li>
+	<li>Fixed issue where feeding a spider-morph a caffeinated food or drink item would always intoxicate the provider of the food/drink (which was usually the player) instead of the targeted spider-morph.</li>
+	<li>NPCs should no longer be able to equip clothing onto their partners through other clothing during sex (such as equipping a buttplug on their partner if the partner is wearing trousers).</li>
+	<li>The 'Wolf-tease' action in Brax's office now works if you're an arctic wolf-girl.</li>
+	<li>Fixed issue during Nyan's first sex scene where she couldn't restart giving you a blowjob if you pulled out during orgasm.</li>
+	<li>When having submissive sex with a sissified Vengar, her cage is now correctly removed, and she also now correctly continues to wear a slave collar after being sissified.</li>
+	<li>NPC names which begin with a non-alphabetic character no longer have 'a' or 'the' automatically appended to the start of their name.</li>
+	<li>Upgrading rooms in the dungeon in Lilaya's mansion now correctly charges you the associated upkeep costs.</li>
+	<li>Fixed issue with sex action availability between size difference characters in the 'against wall' position (such as when the shorter character was facing the wall they were able to perform oral on the larger character behind them).</li>
+	<li>Fixed issue where the encounters while wearing a filly collar in Dominion street tiles were triggering far too frequently.</li>
+	<li>If a clothing item can be equipped during sex, but not in every possible slot, then the inventory will no longer show it as greyed-out.</li>
+</ul>

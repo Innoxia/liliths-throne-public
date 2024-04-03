@@ -190,9 +190,7 @@ public class VengarCaptiveDialogue {
 			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "APPLY_FETISH_HOLES"));
 			sb.append(target.addFetish(Fetish.FETISH_VAGINAL_RECEIVING, true));
 			sb.append(target.addFetish(Fetish.FETISH_ORAL_GIVING, true));
-			if(Main.game.isAnalContentEnabled()) {
-				sb.append(target.addFetish(Fetish.FETISH_ANAL_RECEIVING, true));
-			}
+			sb.append(target.addFetish(Fetish.FETISH_ANAL_RECEIVING, true));
 			tfApplied = true;
 		}
 
@@ -202,9 +200,7 @@ public class VengarCaptiveDialogue {
 			sb.append(UtilText.parseFromXMLFile("places/submission/ratWarrens/vengarCaptive", "APPLY_FETISH_SERVICING_HOLES"));
 			sb.append(target.addFetish(Fetish.FETISH_PENIS_RECEIVING, true));
 			sb.append(target.addFetish(Fetish.FETISH_VAGINAL_GIVING, true));
-			if(Main.game.isAnalContentEnabled()) {
-				sb.append(target.addFetish(Fetish.FETISH_ANAL_GIVING, true));
-			}
+			sb.append(target.addFetish(Fetish.FETISH_ANAL_GIVING, true));
 			tfApplied = true;
 		}
 		

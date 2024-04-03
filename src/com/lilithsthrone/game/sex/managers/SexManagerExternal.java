@@ -218,6 +218,9 @@ public class SexManagerExternal extends SexManagerDefault {
 		public String canSelfTransform;
 		public boolean canSelfTransformBool;
 
+		public String rapePlayBannedAtStart;
+		public boolean rapePlayBannedAtStartBool;
+		
 		public String hidden;
 		public boolean hiddenBool;
 		
@@ -340,6 +343,7 @@ public class SexManagerExternal extends SexManagerDefault {
 			endSexAffectionChangesBool = initBool(endSexAffectionChanges, true);
 			showStartingExposedDescriptionsBool = initBool(showStartingExposedDescriptions, true);
 			canSelfTransformBool = initBool(canSelfTransform, true);
+			rapePlayBannedAtStartBool = initBool(rapePlayBannedAtStart, true);
 			hiddenBool = initBool(hidden, false);
 			sadisticActionsAllowed = initBool(sadisticActionsAllowedString, true);
 			lovingActionsAllowed = initBool(lovingActionsAllowedString, true);
@@ -595,6 +599,10 @@ public class SexManagerExternal extends SexManagerDefault {
 
 		public boolean isCanSelfTransformBool() {
 			return canSelfTransformBool;
+		}
+		
+		public boolean isRapePlayBannedAtStartBool() {
+			return rapePlayBannedAtStartBool;
 		}
 
 		public boolean isHiddenBool() {
@@ -900,6 +908,10 @@ public class SexManagerExternal extends SexManagerDefault {
 						
 						if(characterElement.getOptionalFirstOf("canSelfTransform").isPresent()) {
 							behaviour.canSelfTransform = characterElement.getMandatoryFirstOf("canSelfTransform").getTextContent();
+						}
+						
+						if(characterElement.getOptionalFirstOf("rapePlayBannedAtStart").isPresent()) {
+							behaviour.rapePlayBannedAtStart = characterElement.getMandatoryFirstOf("rapePlayBannedAtStart").getTextContent();
 						}
 						
 						if(characterElement.getOptionalFirstOf("hidden").isPresent()) {
@@ -1455,6 +1467,15 @@ public class SexManagerExternal extends SexManagerDefault {
 		}
 		return super.isSelfTransformDisabled(character);
 	}
+
+	@Override
+	public boolean isRapePlayBannedAtStart(GameCharacter character) {
+		if(characterBehaviours.containsKey(character.getId())) {
+			return characterBehaviours.get(character.getId()).isRapePlayBannedAtStartBool();
+		}
+		return super.isRapePlayBannedAtStart(character);
+	}
+	
 
 	@Override
 	public boolean isHidden(GameCharacter character) {

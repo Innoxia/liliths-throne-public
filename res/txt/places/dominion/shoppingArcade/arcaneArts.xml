@@ -2,21 +2,70 @@
 <dialogue>
 
 	<htmlContent tag="EXTERIOR"><![CDATA[
-		#IF(game.isExtendedWorkTime())
+		#IF(game.isWorkTime())
 			<p>
 				You find yourself standing in front of a rather peculiar shop. Although there's a sign declaring 'Arcane Arts' to be [style.colourGood(open)], the interior is very dimly-lit, and you notice that most of the Arcade's shoppers are giving this particular store a wide berth. Wanting to take a closer look, you walk up to the entrance, and, looking through the glass into the shop's gloomy interior, you see signs of movement behind the counter.
 			</p>
 			<p>
-				A sign hanging in the door's window declares that the [style.colourMinorGood(opening hours are [unit.time(6)]-[unit.time(22)])]. You could step inside and browse the wares on offer if you wanted to.
+				A sign hanging in the door's window declares that the [style.colourMinorGood(opening hours are [unit.time(9)]-[unit.time(17)])]. You could step inside and browse the wares on offer if you wanted to.
 			</p>
 		#ELSE
 			<p>
 				A hanging sign fixed to the wall of the shop in front of you declares the name of the premises as 'Arcane Arts'. Just like the rest of the shops in the arcade, this store is currently [style.colourBad(closed)], although it's apparent from even a cursory glance through the windows that the gloomy interior is stocked with weapons and potions.
 			</p>
 			<p>
-				A sign hanging in the door's window declares that the [style.colourMinorBad(opening hours are [unit.time(6)]-[unit.time(22)])]. You'll have to come back later if you want to browse the wares on offer.
+				A sign hanging in the door's window declares that the [style.colourMinorBad(opening hours are [unit.time(9)]-[unit.time(17)])]. You'll have to come back later if you want to browse the wares on offer.
 			</p>
 		#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SHOP_WEAPONS_DOMINATE"><![CDATA[
+	<p>
+		Pushing open the door to Arcane Arts once again, your arrival is announced by the familiar sound of a little bell ringing above you. Unlike the other times you've visited, the greater wolf-girl, Vicky, is nowhere to be seen. As the door swings shut behind you, however, you suddenly spot movement out of the corner of your eye.
+	</p>
+	#IF(game.isMuskContentEnabled())
+		#IF(flags.hasFlag(FLAG_innoxia_vicky_claimed))
+			<p>
+				[vicky.speech(Why do you not carry my scent?!)] the wolf-girl angrily growls as she leaps out of the shadows. Locking the door and pinning you up against the wall in one swift motion, she allows a wild, predatory grin to settle on her face as she continues, [vicky.speech(You've removed my musk, haven't you?)]
+			</p>
+			<p>
+				With the dominant, ferocious wolf-girl continuing to hold you in place, you feel like you have no choice but to respond to her question by giving her a nod.
+			</p>
+			<p>
+				[vicky.speech(That's a bad little prey,)] she snaps, before declaring, [vicky.speech(I'll need to mark you as mine again. I'll cum on your face, and then you'll once again carry the scent of my musk.)]
+			</p>
+			<p>
+				Although she's dominantly demanding this of you, the wolf-girl doesn't make a move, and you realise that she's wanting you to once again give your consent. Although she'll likely take it badly, you could always use this opportunity to refuse her. Then again, you could submit and reclaim your place as Vicky's 'good little prey'...
+			</p>
+		#ELSE
+			<p>
+				[vicky.speech(Back to submit to me again, are you?)] the wolf-girl growls as she leaps out of the shadows. Locking the door and pinning you up against the wall in one swift motion, she allows a wild, predatory grin to settle on her face as she continues, [vicky.speech(I've decided to make you mine. You're going to be my good little prey, aren't you?)]
+			</p>
+			<p>
+				With the dominant, ferocious wolf-girl continuing to hold you in place, you feel like you have no choice but to respond to her question by giving her a nod.
+			</p>
+			<p>
+				[vicky.speech(That's my good little prey,)] she growls, before declaring, [vicky.speech(I need to mark you as mine. I'll cum on your face, and then you'll carry the scent of my musk.)]
+			</p>
+			<p>
+				Although she's dominantly demanding this of you, the wolf-girl doesn't make a move, and you realise that she's wanting you to consent to her idea. Although she'll likely take it badly, you could always use this opportunity to refuse her. Then again, you could submit and become Vicky's 'good little prey'...
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			[vicky.speech(Back to submit to me again, are you?)] the wolf-girl growls as she leaps out of the shadows. Locking the door and pinning you up against the wall in one swift motion, she allows a wild, predatory grin to settle on her face as she continues, [vicky.speech(I've decided to make you mine. You're going to be my good little prey, aren't you?)]
+		</p>
+		<p>
+			With the dominant, ferocious wolf-girl continuing to hold you in place, you feel like you have no choice but to respond to her question by giving her a nod.
+		</p>
+		<p>
+			[vicky.speech(That's my good little prey,)] she growls, before declaring, [vicky.speech(I'm going to claim you as mine!)]
+		</p>
+		<p>
+			Despite her words, the wolf-girl doesn't make a move, and you realise that she's wanting you to give your consent. Although she'll likely take it badly, you could always use this opportunity to refuse her. Then again, you could submit and become Vicky's 'good little prey'...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -25,11 +74,61 @@
 		<p>
 			Pushing open the door to Arcane Arts once again, your arrival is announced by the familiar sound of a little bell ringing above you. Just like the other times you've visited, only one other person is inside; the greater wolf-girl Vicky, who's standing behind the shop's counter.
 		</p>
+		#IF(vicky.isVisiblyPregnant())
+			#IF(!vicky.isCharacterReactedToPregnancy(pc))
+				<p>
+					As she flashes you a big, toothy grin, the rubbing motion of Vicky's right hand directs your attention down towards her stomach. Looking down, you see that she's sporting a [style.colourSex(pregnant belly)], but before you can react, the wolf-girl lets out a deep, rumbling growl and declares, [vicky.speech(You're the one who put these pups in me, my little prey. Now come here and have a feel.)]
+				</p>
+			#ELSE
+				<p>
+					As she flashes you a big, toothy grin, the rubbing motion of Vicky's right hand directs your attention down towards her stomach. Looking down, you see that she's still sporting a [style.colourSex(pregnant belly)], but before you can react, the wolf-girl lets out a deep, rumbling growl and declares, [vicky.speech(That's right, my little prey, I'm still carrying our pups around. Now come here and have a feel.)]
+				</p>
+			#ENDIF
+			<p>
+				Doing as you're told, you cross the shop floor to stand before Vicky. Impatiently grabbing hold of your hands, the wolf-girl forces you to rub her rounded tummy, growling as she does so, [vicky.speech(Don't think that this changes our relationship. I'm still the one in charge, and you're nothing more than my submissive little prey. Understand?)]
+			</p>
+			<p>
+				Replying in the affirmative, you rub Vicky's tummy for a few more moments, before the wolf-girl orders you to step back.
+			</p>
+		#ENDIF
+		#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(vicky))
+			<p>
+				#IF(flags.hasFlag(FLAG_innoxia_vicky_claimed))
+					#IF(!pc.isCharacterReactedToPregnancy(vicky))
+						Flashing a glance down at your pregnant bump, Vicky growls, [vicky.speech(Looks like I got you knocked up... You like that, my little prey? Being dominated and forced to carry my pups?)]
+					#ELSE
+						Flashing a glance down at your pregnant bump, Vicky growls, [vicky.speech(So, you're still pregnant... You like that, my little prey? Being dominated and forced to carry my pups?)]
+					#ENDIF
+				#ELSE
+					#IF(!pc.isCharacterReactedToPregnancy(vicky))
+						Flashing a glance down at your pregnant bump, Vicky growls, [vicky.speech(Looks like I got you knocked up... You like that, bitch? Being dominated and forced to carry my pups?)]
+					#ELSE
+						Flashing a glance down at your pregnant bump, Vicky growls, [vicky.speech(So, you're still pregnant... You like that, bitch? Being dominated and forced to carry my pups?)]
+					#ENDIF
+				#ENDIF
+			</p>
+			<p>
+				Feeling slightly intimidated by the menacing, toothy grin that's plastered across the wolf-girl's face, you don't dare to reply in the negative. Telling Vicky that you're happy to have been knocked up by her, you submissively shuffle around on the spot and wonder what to do next.
+			</p>
+		#ENDIF
 		<p>
-			As the door swings shut behind you, Vicky's yellow eyes lock onto yours, and her mouth turns up into an unsettling predatory grin. Even though she's only a few [unit.lSizes] away, and you're the only person in the shop, she doesn't utter a single word of greeting, and you find that the shop's already-gloomy atmosphere has quickly become extremely oppressive. As you step forwards to say hello, the wolf-girl suddenly cuts you off, [vicky.speech(If you aren't here to waste my time, I keep the good stuff under the counter here. Want to take a look again?)]
+			#IF(vicky.isVisiblyPregnant() || (pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(vicky)))
+				With Vicky's yellow eyes locked onto yours, and her mouth turned up into an unsettling predatory grin, she grunts, [vicky.speech(So, why are you back? You want to take a look at what I've got for sale?)]
+			#ELSE
+				As the door swings shut behind you, Vicky's yellow eyes lock onto yours, and her mouth turns up into an unsettling predatory grin. Even though she's only a few [unit.lSizes] away, and you're the only person in the shop, she doesn't utter a single word of greeting, and you find that the shop's already-gloomy atmosphere has quickly become extremely oppressive. As you step forwards to say hello, the wolf-girl suddenly cuts you off,
+				#IF(flags.hasFlag(FLAG_innoxia_vicky_claimed))
+					 [vicky.speech(So then, my little prey, are you here to take a look at what I've got for sale? Or for something else?)]
+				#ELSE
+					 [vicky.speech(If you aren't here to waste my time, I keep the good stuff under the counter here. Want to take a look again?)]
+				#ENDIF
+			#ENDIF
 		</p>
 		<p>
-			The toothy, menacing grin on Vicky's wolf-like face is extremely worrying, but surely she isn't going to attack a customer...
+			#IF(flags.hasFlag(FLAG_innoxia_vicky_claimed))
+				The toothy, menacing grin on Vicky's wolf-like face is extremely worrying, but surely she isn't going to attack 'her little prey'...
+			#ELSE
+				The toothy, menacing grin on Vicky's wolf-like face is extremely worrying, but surely she isn't going to attack a customer...
+			#ENDIF
 		</p>
 	#ELSE
 		<p>
@@ -56,7 +155,7 @@
 		[vicky.speech(Sounds good to me, bitch,)] she growls, before leaping over the counter, roughly grabbing you by the [pc.arms], and shoving you towards the store's counter, before turning and locking the front door. [vicky.speech(I love fucking submissive customers like you.)]
 	</p>
 	<p>
-		Before you can reply, Vicky bounds over towards you, before grabbing you by the waist and hurling you back onto the counter-top. Stepping forwards, she [npc.verb(position)] herself
+		Before you can reply, Vicky bounds over towards you, before grabbing you by the waist and hurling you down onto the counter-top. Stepping forwards, she [npc.verb(position)] herself
 		#IF(pc.hasLegs())
 			 between your legs,
 		#ELSE
@@ -129,7 +228,7 @@
 		[vicky.speech(Suits me, bitch,)] she growls, before grabbing you by the [pc.arms] and shoving you towards the store's counter, before turning and locking the front door. [vicky.speech(I love fucking submissive customers like you.)]
 	</p>
 	<p>
-		Before you can reply, Vicky bounds over towards you, before grabbing you by the waist and hurling you back onto the counter-top. Stepping forwards, she [npc.verb(position)] herself
+		Before you can reply, Vicky bounds over towards you, before grabbing you by the waist and hurling you down onto the counter-top. Stepping forwards, she [npc.verb(position)] herself
 		#IF(pc.hasLegs())
 			 between your legs,
 		#ELSE
@@ -171,7 +270,7 @@
 	
 	<htmlContent tag="VICKY_POST_SEX_PACKAGE"><![CDATA[
 	<p>
-		Vicky steps back, grinning down at you as she growls, [vicky.speech(You're a pretty good fuck. I guess this counts as payment for your package. If you wanted to take a look at my goods, or if you ever want to be my bitch again, then let me know.)]
+		Vicky steps back, grinning down at you as she growls, [vicky.speech(You're a pretty good fuck. I guess this counts as payment for your package. If you wanted to take a look at my goods, then let me know. I don't have time to fuck you again today, but if you want to be my bitch again, then come back for more tomorrow...)]
 	</p>
 	<p>
 		The wolf-girl strides over to the store's front door, barely giving you a moment to get your things in order before unlocking it and walking back behind her counter. You quickly finish gathering your things, and, taking the package from on top of the counter, you prepare to make your next move. Vicky leans back against the wall, fixing her gaze onto your face as she waits to see what you'll do next...
@@ -181,7 +280,7 @@
 	
 	<htmlContent tag="VICKY_POST_SEX_RAPE_PACKAGE"><![CDATA[
 	<p>
-		Vicky steps back, grinning down at you as she growls, [vicky.speech(You're a pretty good fuck; I love it when bitches like you try to put up a fight. I guess this counts as payment for your package. If you wanted to take a look at my goods, or if you ever want to be my bitch again, then let me know.)]
+		Vicky steps back, grinning down at you as she growls, [vicky.speech(You're a pretty good fuck; I love it when bitches like you try to put up a fight. I guess this counts as payment for your package. If you wanted to take a look at my goods, then let me know. I don't have time to fuck you again today, but if you want to be my bitch again, then come back for more tomorrow...)]
 	</p>
 	<p>
 		The wolf-girl strides over to the store's front door, barely giving you a moment to get your things in order before unlocking it and walking back behind her counter. You quickly finish gathering your things, and, taking the package from on top of the counter, you prepare to make your next move. Vicky leans back against the wall, fixing her gaze onto your face as she waits to see what you'll do next...
@@ -191,7 +290,7 @@
 	
 	<htmlContent tag="VICKY_POST_SEX"><![CDATA[
 	<p>
-		Vicky steps back, grinning down at you as she growls, [vicky.speech(You're a pretty good fuck. If you wanted to take a look at my goods, or if you ever want to be my bitch again, then let me know.)]
+		Vicky steps back, grinning down at you as she growls, [vicky.speech(You're a pretty good fuck. If you wanted to take a look at my goods, then let me know. I don't have time to fuck you again today, but if you want to be my bitch again, then come back for more tomorrow...)]
 	</p>
 	<p>
 		The wolf-girl strides over to the store's front door, barely giving you a moment to get your things in order before unlocking it and walking back behind her counter. You quickly finish gathering your things, and, scrambling to your [pc.feet], you prepare to make your next move. Vicky leans back against the wall, fixing her gaze onto your face as she waits to see what you'll do next...
@@ -201,12 +300,556 @@
 	
 	<htmlContent tag="VICKY_POST_SEX_RAPE"><![CDATA[
 	<p>
-		Vicky steps back, grinning down at you as she growls, [vicky.speech(You're a pretty good fuck; I love it when bitches like you try to put up a fight. If you wanted to take a look at my goods, or if you ever want to be my bitch again, then let me know.)]
+		Vicky steps back, grinning down at you as she growls, [vicky.speech(You're a pretty good fuck; I love it when bitches like you try to put up a fight. If you wanted to take a look at my goods, then let me know. I don't have time to fuck you again today, but if you want to be my bitch again, then come back for more tomorrow...)]
 	</p>
 	<p>
 		The wolf-girl strides over to the store's front door, barely giving you a moment to get your things in order before unlocking it and walking back behind her counter. You quickly finish gathering your things, and prepare to make your next move. Vicky leans back against the wall, fixing her gaze onto your face as she waits to see what you'll do next...
 	</p>
 	]]>
 	</htmlContent>
+	
+	
+	<!-- Sex action content: -->
+	
+	<htmlContent tag="VICKY_MARKING_ORGASM"><![CDATA[
+	<p>
+		With a deep, rumbling growl, Vicky suddenly grabs the back of your head, before moaning, [vicky.speechNoEffects(~Mmm!~ I'm going to cum! ~Aah!~ Take it on your face, my good little prey!)]
+	</p>
+	<p>
+		Obediently doing as you're told, you direct Vicky's throbbing cock towards your face. As the knot at the base of her huge shaft swells up, she reaches her climax, and a thick spurt of hot, salty cum shoots out of her hard cock. Directing her musky cum onto your face, the wolf-girl growls, [vicky.speechNoEffects(That's it... Let me mark you with my scent... ~Mmm!~ That's my good prey...)]
+	</p>
+	<p>
+		Completely submitting to Vicky, you hold still so as to allow spurt after spurt of her thick, musky jizz to land on your [pc.faceSkin]. Growling in satisfaction as her orgasm comes to an end, the wolf-girl flashes a toothy grin down at you, before pulling back and declaring, [vicky.speechNoEffects(We're done... You carry my scent now, so everyone will know that you belong to me!)]
+	</p>
+	<p>
+		It seems as though the wolf-girl has finished...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- After submitting content: -->
+	
+	<htmlContent tag="SHOP_WEAPONS_MARKING_SEX"><![CDATA[
+	<p>
+		Deciding to fully submit to Vicky, you tell her that you want to be her good little prey and get marked by her scent. Letting out a deep, rumbling growl, the wolf-girl pushes you down in front of her, before lifting her skirt and pulling out her thick, knotted cock. Licking her lips, she commands, [vicky.speech(Go on then, start stroking it! I'll cum all over your face and mark you as mine, my little prey!)]
+	</p>
+	<p>
+		Doing as you're told, you reach up and take hold of the wolf-girl's thick, throbbing cock, before starting to jerk her off...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SHOP_WEAPONS_SUBMIT_SEX"><![CDATA[
+	<p>
+		Deciding to fully submit to Vicky, you tell her that you want to be her good little prey. Letting out a deep, rumbling growl, the wolf-girl pulls you into her embrace, and after delivering a long, dominant lick to your neck, she commands, [vicky.speech(Submit to me, my little prey! You're mine now!)]
+	</p>
+	<p>
+		Doing as you're told, you submissively lean into Vicky and prepare to let her fuck you in whatever way she wants...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SHOP_WEAPONS_OFFER_CUNNILINGUS"><![CDATA[
+	<p>
+		Wanting to get a taste of Vicky's pussy, you tell her that you want to eat her out. As she hears you say this, the wolf-girl flashes you another of her toothy grins, before growling, [vicky.speech(That doesn't sound too bad. Come on then, my little prey, kneel down and get a taste...)]
+	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_vicky_apartment))
+		<p>
+			With that, Vicky shifts aside her underwear, revealing both her hardening cock and hot pussy. Obediently doing as you're told, you drop down in front of her and shuffle forwards, before leaning in to her groin and planting a big, wet kiss on her [vicky.labia+].
+		</p>
+	#ELSE
+		<p>
+			With that, Vicky pulls up her skirt and shifts aside her underwear, revealing both her hardening cock and hot pussy. Obediently doing as you're told, you drop down in front of her and shuffle forwards, before leaning in to her groin and planting a big, wet kiss on her [vicky.labia+].
+		</p>
+	#ENDIF
+	<p>
+		[vicky.speech(No need to be gentle,)] she growls, before grabbing the back of your head and pulling your face into her crotch. Darting out your [pc.tongue+], you start greedily licking and kissing Vicky's pussy...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SHOP_WEAPONS_OFFER_BLOWJOB"><![CDATA[
+	<p>
+		Wanting to get a taste of Vicky's cock, you tell her that you want to give her a blowjob. As she hears you say this, the wolf-girl lets out a deep, rumbling growl, before asking, [vicky.speech(You like the taste of my cock, my little prey? Go on then, kneel down and let me fuck your face...)]
+	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_vicky_apartment))
+		<p>
+			With that, Vicky shifts aside her underwear, revealing both her hardening cock and hot pussy. Obediently doing as you're told, you drop down in front of her and shuffle forwards, before leaning in to deliver a long, wet lick up the underside of her throbbing shaft.
+		</p>
+	#ELSE
+		<p>
+			With that, Vicky pulls up her skirt and shifts aside her underwear, revealing both her hardening cock and hot pussy. Obediently doing as you're told, you drop down in front of her and shuffle forwards, before leaning in to deliver a long, wet lick up the underside of her throbbing shaft.
+		</p>
+	#ENDIF
+	<p>
+		[vicky.speech(Open wide,)] she growls, before grabbing the back of your head and pulling your face into her crotch. Obediently parting your [pc.lips+], you take Vicky's [vicky.cock+] into your mouth and start giving her a blowjob...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SHOP_WEAPONS_OFFER_PUSSY"><![CDATA[
+	<p>
+		Wanting to get fucked by Vicky, you tease her by telling her how hot and horny your pussy feels every time you look at her. Letting out a deep, predatory growl, the wolf-girl leaps forwards, and before you can react she's roughly groping your crotch. Delivering a long, wet lick to your neck, she grunts, [vicky.speech(I'm going to break that filthy cunt of yours, my little prey... You're mine!)]
+	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_vicky_apartment))
+		<p>
+			With that, Vicky shifts aside her underwear, revealing both her hardening cock and hot pussy. Pushing you down over the nearby coffee table, the wolf-girl quickly gains access to your pussy, before roughly shoving two of her paw-like fingers into your horny slit. After dominantly fingering you for a few moments, and causing you to let out a stream of lewd noises in the process, she withdraws her hand and quickly starts rubbing the tip of her [vicky.cock+] up and down over your [pc.labia+].
+		</p>
+	#ELSE
+		<p>
+			With that, Vicky shifts aside her underwear, revealing both her hardening cock and hot pussy. Pushing you down over the shop's counter, the wolf-girl quickly gains access to your pussy, before roughly shoving two of her paw-like fingers into your horny slit. After dominantly fingering you for a few moments, and causing you to let out a stream of lewd noises in the process, she withdraws her hand and quickly starts rubbing the tip of her [vicky.cock+] up and down over your [pc.labia+].
+		</p>
+	#ENDIF
+	<p>
+		[vicky.speech(Beg for it, my little prey,)] she growls, before grabbing your [pc.hips+] and preparing to fuck you. Desperate for it, you obediently beg Vicky to fuck you, and can't help but let out a delighted, submissive squeal as you feel the wolf-girl roughly thrust forwards and slam her [vicky.cock+] into your hungry cunt...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SHOP_WEAPONS_OFFER_ASS"><![CDATA[
+	<p>
+		Wanting Vicky to fuck your ass, you tease her by telling her how much you love anal, and how good it would feel for her cock to be rammed deep into your butt. Letting out a deep, predatory growl, the wolf-girl leaps forwards, and before you can react she's grinding up against you while roughly groping your ass. Delivering a long, wet lick to your neck, she grunts, [vicky.speech(You know my weakness, my little prey... This cute ass of yours is mine!)]
+	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_vicky_apartment))
+		<p>
+			With that, Vicky shifts aside her underwear, revealing both her hardening cock and hot pussy. Pushing you down over the nearby coffee table, the wolf-girl quickly gains access to your asshole, before roughly shoving two of her paw-like fingers into your rear entrance. After dominantly fingering your ass for a few moments, and causing you to let out a stream of lewd noises in the process, she withdraws her hand and quickly starts rubbing the tip of her [vicky.cock+] up and down over your [pc.asshole+].
+		</p>
+	#ELSE
+		<p>
+			With that, Vicky shifts aside her underwear, revealing both her hardening cock and hot pussy. Pushing you down over the shop's counter, the wolf-girl quickly gains access to your asshole, before roughly shoving two of her paw-like fingers into your rear entrance. After dominantly fingering your ass for a few moments, and causing you to let out a stream of lewd noises in the process, she withdraws her hand and quickly starts rubbing the tip of her [vicky.cock+] up and down over your [pc.asshole+].
+		</p>
+	#ENDIF
+	<p>
+		[vicky.speech(Beg for it, my little prey,)] she growls, before grabbing your [pc.hips+] and preparing to fuck you. Desperate for it, you obediently beg Vicky to fuck your ass, and can't help but let out a delighted, submissive squeal as you feel the wolf-girl roughly thrust forwards and slam her [vicky.cock+] into your hungry asshole...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_PET_RAPE"><![CDATA[
+	<p>
+		Feeling more than a little intimidated by the overbearing wolf-girl's attitude, you try to back away towards the front door, muttering excuses for why you have to leave as you do so.
+	</p>
+	<p>
+		Sensing your weakness, Vicky suddenly leaps over the counter and pounces on you. Grabbing hold of your shoulders, she slams you back against the wall with considerable force, before snarling, [vicky.speech(You want to act like the submissive little prey? Fine with me! You're mine now, bitch!)]
+	</p>
+	<p>
+		You let out a startled cry as the aggressive wolf-girl suddenly throws you to the floor. Looking up as you struggle to your feet, you see Vicky quickly locking the front door, before she turns around and bounds over to you. With a frightening, toothy grin on her face, she snaps, [vicky.speech(You're just begging to be fucked!)]
+	</p>
+	<p>
+		Although you try to protest and crawl away, Vicky dominantly grabs you by the waist and hurls you down onto the counter-top. Stepping forwards, she [npc.verb(position)] herself right up behind you, making a point to grind her huge erection up against your [pc.ass+] as she snarls, [vicky.speech(Scream and cry as much as you want! I hope you like it rough, because I don't go easy with pathetic bitches like you!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_CLAIMED_AFTER_SEX"><![CDATA[
+	#IF(game.isMuskContentEnabled())
+		<p>
+			Having marked you with her musk, Vicky steps back and sniffs the air, before growling in satisfaction, [vicky.speech(That's better... You smell like me now, so everyone will know who you belong to. You like your new scent, my little prey?)]
+		</p>
+		<p>
+			As you breathe in, you find that all you can smell is the overpowering musk of Vicky's cum. Finding yourself turned on at the thought of being marked in such a dominant manner, you submissively tell the wolf-girl that you're happy to smell like her.
+		</p>
+	#ELSE
+		<p>
+			Having completely and utterly dominated you, Vicky steps back and growls in satisfaction, [vicky.speech(That's better... You've been shown your true place now. You like being dominated, my little prey?)]
+		</p>
+		<p>
+			Finding yourself turned on at the thought of being put in your place, you submissively tell the wolf-girl that you're happy to be dominated by her.
+		</p>
+	#ENDIF
+	<p>
+		[vicky.speech(That's my good little prey,)] Vicky grunts, before getting her clothes back in order and returning to stand behind the counter. As you recover and take your place on the other side of the desk, the wolf-girl asks, [vicky.speech(So, did you want to buy something? Or is there something else you want?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_REFUSED"><![CDATA[
+	<p>
+		Although you've enjoyed having sex with the wolf-girl, you really don't want to submit to her and let her completely dominate you in this manner. As such, you turn your head away from Vicky and tell her to leave you alone.
+	</p>
+	<p>
+		A deep, rumbling growl lets you know how angry Vicky is at hearing your response, and for a moment it really seems like she's going to attack you. After snapping her teeth in front of your face, however, she seems to decide to let it go, and backs off to return to her place behind the counter.
+	</p>
+	<p>
+		[vicky.speech(I could take you at any time I want, but it's not the same if you don't willingly submit to me,)] she defiantly growls, before asking, [vicky.speech(So, did you want to buy something? Or is there something else you want?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_PET_OFFER_COCK"><![CDATA[
+	<p>
+		Instead of being on the receiving end of Vicky's cock, you ask the wolf-girl if she'd use your cock for once. Hearing you say this, Vicky flashes you another of her toothy grins, before growling, [vicky.speech(Normally I'd never agree to that, but as you've been such a good little prey, I suppose I wouldn't mind...)]
+	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_vicky_apartment))
+		<p>
+			Pulling you up close to her furry body, the wolf-girl leans back on the sofa and asks, [vicky.speech(So, what exactly did you have in mind?)]
+		</p>
+	#ELSE
+		<p>
+			Leaning forwards over the counter, the wolf-girl locks her yellow eyes onto yours and asks, [vicky.speech(So, what exactly did you have in mind?)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_PET_OFFER_COCK_HANDJOB"><![CDATA[
+	<p>
+		Not wanting to risk being too daring, you tell the wolf-girl that you'd settle for a handjob. Letting out a deep, rumbling growl, Vicky replies, [vicky.speech(You want me to jerk you off? Sure, I could do that...)]
+	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_vicky_apartment))
+		<p>
+			Dominantly gaining access to your cock, Vicky reaches down and grabs hold of it. Grunting in amusement as you let out submissive [pc.moan], the wolf-girl wraps her [vicky.fingers+] around your shaft, before starting to give you a handjob...
+		</p>
+	#ELSE
+		<p>
+			Pushing you back up against the wall, Vicky dominantly gains access to your cock, before reaching down and grabbing hold of it. Grunting in amusement as you let out submissive [pc.moan], the wolf-girl wraps her [vicky.fingers+] around your shaft, before starting to give you a handjob...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_PET_OFFER_COCK_BLOWJOB"><![CDATA[
+	<p>
+		Not at all put off by the sight of Vicky's sharp teeth as she gives you a toothy grin, you tell the wolf-girl that you'd like her to give you a blowjob. Licking her lips as she hears you say this, she replies, [vicky.speech(If it were anyone else, I'd fuck their face for daring to ask that of me. As it's my little prey who's asking, however, I suppose I wouldn't mind sucking some cock...)]
+	</p>
+	#IF(pc.isTaur())
+		<p>
+			As your lower [pc.legRace]'s body limits the sort of positions you can use while receiving oral, you stand and turn to one side as the wolf-girl advances upon you. Dropping to her knees, she shuffles underneath you, and you can't help but let out [pc.a_moan+] as you feel her take hold of your [pc.cock+].
+		</p>
+		<p>
+			[vicky.speech(Let's see how you taste,)] Vicky teases, and a moment later you feel her large, flat tongue sliding up the underside of your rapidly-hardening shaft. A moment later, her lips wrap around your cock, and with the same dominant energy she always has, Vicky starts purposefully bobbing her head forwards and back as she gives you the blowjob you asked for...
+		</p>
+	#ELSE
+		#IF(flags.hasFlag(FLAG_innoxia_vicky_apartment))
+			<p>
+				Sliding off the sofa, the wolf-girl quickly gains access to your cock, before dropping her head down and sliding her large, flat tongue up the underside of your rapidly-hardening shaft. After grinning up at you for a moment, she wraps her lips around your cock, and with the same dominant energy she always has, she starts purposefully bobbing her head up and down as she gives you the blowjob you asked for...
+			</p>
+		#ELSE
+			<p>
+				Pushing you back against the wall, Vicky quickly gains access to your cock, before dropping to her knees and sliding her large, flat tongue up the underside of your rapidly-hardening shaft. After grinning up at you for a moment, she wraps her lips around your cock, and with the same dominant energy she always has, she starts purposefully bobbing her head up and down as she gives you the blowjob you asked for...
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_PET_OFFER_COCK_PUSSY"><![CDATA[
+	<p>
+		Deciding to risk it and go all the way, you tell Vicky that you'd like to fuck her pussy. Letting out a deep, predatory growl as she hears what it is you're asking, the wolf-girl snaps, [vicky.speech(You dare to ask for that? You're a brave little prey, aren't you?)]
+	</p>
+	<p>
+		Before you can answer, Vicky suddenly pounces on you, and using every ounce of her strength, she tackles you to the floor and pins you down onto your back. Staring down into your eyes, she bears her teeth at you, and for a moment you think that she's going to bite you, but instead she growls, [vicky.speech(I'll let you stick your cock in my pussy, but <i>I'm</i> the one fucking <i>you</i>, got it?!)]
+	</p>
+	<p>
+		As you tell her that you understand, Vicky quickly gains access to your cock, and after exposing her pussy, she drops her hips down and starts rubbing her [vicky.labia+] up and down over your shaft. Only once you're panting and letting out a series of desperate whines does she move to give you what you want. Lining the [pc.cockHead+] of your dick up to her cunt, she drops down, forcing your cock deep into her hot pussy as she begins to ride you, cowgirl style...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_PET_OFFER_COCK_ANAL"><![CDATA[
+	#IF(vicky.isAnalVirgin())
+		<p>
+			Although you know that Vicky likes to be on the giving end of anal, you want the wolf-girl to be the one whose ass is being fucked for once, and so tell her that you'd like to fuck her butt. Letting out a surprised grunt as she hears what it is you're asking, the wolf-girl snaps, [vicky.speech(You want to do what?! My little prey, I've never been fucked in the ass before... You want to be the one to take my anal virginity?! How brave of you...)]
+		</p>
+		<p>
+			For once you hear a slight tone of unease in Vicky's voice, and you quickly reassure her that you'll be gentle for her first time. Letting out a loud, bark-like laugh, she teases, [vicky.speech(Oh, you won't have any control over that, don't you worry... But fine, I suppose I'll lose my anal virginity to you. After all, I've grown quite fond of you, my little prey...)]
+		</p>
+		<p>
+			Before you can reply to that, Vicky suddenly pounces on you, and using every ounce of her strength, she tackles you to the floor and pins you down onto your back. After leaning down to deliver a long, slow lick over your neck, she snaps, [vicky.speech(I'm choosing to give my anal virginity to you, you're not 'taking' it from me, understand? <i>I'm</i> the one in charge, and <i>I'm</i> the one who's fucking <i>you</i>, got it?!)]
+		</p>
+		<p>
+			As you tell her that you understand, Vicky quickly gains access to your cock, and after exposing her ass, she drops her hips down and starts rubbing the [pc.cockHead+] of your dick over her virgin asshole. Letting out a series of muted, deep growls, she quickly lines your cock up to her rear entrance and starts dropping down. As she forces your [pc.cock+] into her ass, Vicky's growls turn into high-pitched whines, and then suddenly she pants, [vicky.speech(~Aah!~ Fuck... That's it, my little prey, fuck my ass!)]
+		</p>
+		<p>
+			With that, she suddenly drops down, forcing your cock deep into her ass and letting you claim her anal virginity in one powerful thrust. The wolf-girl's tongue lolls from her mouth and she moans in delight as she remains in place, your throbbing cock stuffed deep into her rear entrance. Clearly wanting more, Vicky then lifts her hips, before dropping back down and forcing your dick into her ass once again. Repeating this motion, the wolf-girl soon finds a rhythm as she anally rides you, cowgirl style...
+		</p>
+	#ELSE
+		<p>
+			Knowing now that Vicky likes having her ass fucked, you suggest to her that she could anally ride your cock again. Letting out a deep, predatory growl as she hears what it is you're asking, the wolf-girl snaps, [vicky.speech(You dare to ask for that again? You're a brave little prey, aren't you?)]
+		</p>
+		<p>
+			Before you can answer, Vicky suddenly pounces on you, and using every ounce of her strength, she tackles you to the floor and pins you down onto your back. Staring down into your eyes, she bears her teeth at you, and for a moment you think that she's going to bite you, but instead she growls, [vicky.speech(I'll let you stick your cock in my ass, but <i>I'm</i> the one fucking <i>you</i>, got it?!)]
+		</p>
+		<p>
+			As you tell her that you understand, Vicky quickly gains access to your cock, and after exposing her asshole, she drops her hips down and starts rubbing the [pc.cockHead+] of your dick over her butt. Only once you're panting and letting out a series of desperate whines does she move to give you what you want. Lining the [pc.cockHead+] of your dick up to her rear entrance, she drops down, forcing your cock deep into her hot ass as she begins to anally ride you, cowgirl style...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_PET_OFFER_COCK_FOOTJOB"><![CDATA[
+	<p>
+		Wanting to make the most of Vicky's furry, wolf-like paws, you ask her if she could give you a footjob. Letting out a brief, bark-like laugh as she hears you say this, the wolf-girl asks, [vicky.speech(That's really all you want, my little prey? A footjob?)]
+	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_vicky_apartment))
+		<p>
+			After you've quickly and eagerly responded in the affirmative, Vicky dominantly commands you to kneel down before her. Sliding off the sofa, you do as you're told, and after following further instructions to expose your cock, you present yourself to the wolf-girl as she lifts her foot to your groin.
+		</p>
+	#ELSE
+		<p>
+			After you've quickly and eagerly responded in the affirmative, Vicky dominantly commands you to kneel down before her. Happy to hear that she'll give you what you want, you quickly do as you're told, and after following further instructions to expose your cock, you present yourself to the wolf-girl as she lifts her foot to your groin.
+		</p>
+	#ENDIF
+	<p>
+		[vicky.speech(Go on then, beg for it,)] she teases as she hovers her paw over your hard shaft. As you're so close to getting what you want, you find yourself desperately doing as Vicky says, and submissively beg for her to use her paws to jerk you off. Flashing you a big, toothy grin, she pushes her paw down, pressing the pads of her furry foot against your cock. Letting out a horny [pc.moan], you buck your hips a little as the wolf-girl gives you the footjob you've been craving...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Non-sex offers: -->
+	
+	<!-- Offering food: -->
+	
+	<htmlContent tag="VICKY_PET_OFFER_MEAL"><![CDATA[
+	<p>
+		Thinking that Vicky's aggressive, confrontational attitude might be partially due to her being hungry, you ask the wolf-girl if you can offer her anything to eat. Snarling at you through bared teeth, she snaps, [vicky.speech(If I'm hungry, my little prey, I'll just eat you!)]
+	</p>
+	<p>
+		Nervously gulping as the wolf-girl follows up her threat with a low, rumbling growl, you back away and apologise for annoying her. As you take a step back, however, Vicky suddenly sniffs up in the air, before narrowing her eyes and asking, [vicky.speech(Wait, have you got some meat on you?)] 
+	</p>
+	<p>
+		Responding in the affirmative, you present Vicky with the [#SPECIAL_PARSE_0] and tell her that it was what you were planning on offering to her for her 
+		#IF(game.isMorning())
+			 breakfast.
+		#ELSE
+			 lunch.
+		#ENDIF
+		 A big grin breaks out across the wolf-girl's face as she hears this, and she grunts,
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_PET_OFFER_MEAL_DEMAND_FEED_HER"><![CDATA[
+		 [vicky.speech(In that case, I'll take it. Come over here and feed it to me, my little prey...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_PET_OFFER_MEAL_DEMAND_PETTINGS"><![CDATA[
+		 [vicky.speech(In that case, I'll take it. Come over here and sit beside me, my little prey. I want to pet you while I eat...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_PET_OFFER_MEAL_DEMAND_MASSAGE"><![CDATA[
+		 [vicky.speech(In that case, I'll take it. Come over here, my little prey, and give me a massage while I eat...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_PET_OFFER_MEAL_FEED_HER"><![CDATA[
+	<p>
+		Doing as you're told, you give Vicky the [#SPECIAL_PARSE_0], who proceeds to slam the raw meat down onto a large plate which she produces from under the counter. Thrusting a fork and a sharp steak knife into your [pc.hands], she opens her mouth, bearing her rows of sharp teeth at you in the process.
+	</p>
+	<p>
+		Using the cutlery which the wolf-girl has provided, you set about cutting up the meat and feeding it to her, bite-by-bite. After snapping up every last morsel you offer to her, and almost catching your [pc.hand(true)] on more than one occasion, Vicky finishes her meal by licking her lips and declaring, [vicky.speech(That was delicious. Thank you, my little prey... Now come here so that I can get a taste of <i>you</i>...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_PET_OFFER_MEAL_PETTINGS"><![CDATA[
+	<p>
+		Doing as you're told, you give Vicky the [#SPECIAL_PARSE_0], who proceeds to grab in one hand and use her rows of sharp teeth to tear off chunks and swallow them down in big, audible gulps. Pointing to the floor beside her, she directs to you sit, and as you do so, she uses her free hand to stroke
+		#IF(pc.hasHair())
+			 your [pc.hair+].
+		#ELSE
+			 the top of your head.
+		#ENDIF
+	</p>
+	<p>
+		Within just a few moments, the wolf-girl has swallowed down every bite, and after licking her fingers clean, she looks down at you and growls, [vicky.speech(That was delicious. Thank you, my little prey... Now come here so that I can get a taste of <i>you</i>...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_PET_OFFER_MEAL_MASSAGE"><![CDATA[
+	<p>
+		Doing as you're told, you give Vicky the [#SPECIAL_PARSE_0], who proceeds to grab in one hand and use her rows of sharp teeth to tear off chunks and swallow them down in big, audible gulps. At her direction, you move around behind her, and as she continues to eat, you start to give her furry shoulders a massage.
+	</p>
+	<p>
+		Within a couple of minutes, the wolf-girl has swallowed down every bite, and after licking her fingers clean, she growls, [vicky.speech(That was delicious. Thank you, my little prey... Now come here so that I can get a taste of <i>you</i>...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_PET_OFFER_MEAL_END"><![CDATA[
+	<p>
+		Although you can't help but feel a little frightened as you wonder how this wolf-girl is going to get a taste of you, you nevertheless obey and move up to stand right beside her. In an uncharacteristically gentle gesture, she tenderly pulls you into a loving hug, before darting out her tongue and delivering a series of big, wet licks to your neck and face.
+	</p>
+	<p>
+		[vicky.speech(I'm lucky to have you,)] she growls, before releasing you and asking with a grunt, [vicky.speech(So, did you come here just to feed me, or did you want to buy something?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Offering help: -->
+	
+	<htmlContent tag="VICKY_PET_OFFER_HELP"><![CDATA[
+	<p>
+		Wanting to do something for Vicky, you ask her if there's any way you can help in her shop. After letting out a low, rumbling growl, she asks, [vicky.speech(What do you mean? You think I can't handle this place by myself?)]
+	</p>
+	<p>
+		Realising that this situation has the potential to go very badly, you quickly clarify your intentions by telling Vicky that you just wanted to do something nice for her.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_PET_OFFER_HELP_DEMAND_STOCK_SHLEVES"><![CDATA[
+	<p>
+		[vicky.speech(Oh, I see, you just wanted to act like my good little prey, did you?)] the wolf-girl growls, [vicky.speech(In that case, I have a few boxes that need to be unpacked. You can stock the shelves with their contents.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_PET_OFFER_HELP_DEMAND_SWEEP_FLOOR"><![CDATA[
+	<p>
+		[vicky.speech(Ah, so you were just trying to act like a good little prey, were you?)] the wolf-girl growls, [vicky.speech(In that case, you could sweep the floor for me.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_PET_OFFER_HELP_DEMAND_ORGANISE_WEAPONS"><![CDATA[
+	<p>
+		[vicky.speech(So that's what this is about, is it?)] the wolf-girl growls, [vicky.speech(In that case, my little prey, you can organise the weapons for display.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_PET_OFFER_HELP_STOCK_SHLEVES"><![CDATA[
+	<p>
+		Happily hurrying to do as Vicky asks, you set about unpacking the stock from the boxes and placing the items upon the shelves. As you work, you can feel Vicky's predatory gaze roaming over your body, and each time you turn to confirm that she's still watching you, she flashes you a big, toothy grin.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_PET_OFFER_HELP_SWEEP_FLOOR"><![CDATA[
+	<p>
+		Grabbing a broom from behind the counter, you set about sweeping the floor of Vicky's shop. There's a surprising amount of dust and debris to be cleared, which is explained away when Vicky tells you that she opens all of her shop's deliveries right here on the shop floor, and that in the process of tearing apart the packaging she often causes a mess.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_PET_OFFER_HELP_ORGANISE_WEAPONS"><![CDATA[
+	<p>
+		Hurrying to do as you're asked, you wait for Vicky to open up the display case which houses dozens of weapons, and then set about organising them into a better arrangement. The wolf-girl stares hungrily at you while you work, and lets out the occasional low growl as she lustfully gazes at your body.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_PET_OFFER_HELP_END"><![CDATA[
+	<p>
+		Eventually you finish your task, and as you turn to Vicky to ask if she's happy with your work, you find yourself suddenly being pounced upon by the predatory wolf-girl. Pinning you up against the wall, she growls, [vicky.speech(You did a good job, my little prey... Thank you for your hard work...)]
+	</p>
+	<p>
+		Darting out her large, flat tongue to deliver a big, wet lick over your neck, Vicky lets out another low, rumbling growl, before staring into your eyes and sighing, [vicky.speech(I really do appreciate your help...)]
+	</p>
+	<p>
+		Not wanting to expose any more of her soft side to you, the wolf-girl steps back and quickly returns to stand behind the counter, before asking, [vicky.speech(So, did you come here only to offer me you help, or did you want to buy something?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Offer evening company: -->
+	
+	<htmlContent tag="VICKY_PET_OFFER_COMPANY"><![CDATA[
+	<p>
+		Wanting to spend some time with Vicky, you ask her if she'd like some company this evening. Flashing you a big, toothy grin, she grunts, [vicky.speech(I'm a lone wolf, I don't need company... But I suppose I wouldn't mind having my little prey with me tonight. Come and sit down here next to me and wait until closing time, then I'll take you up to my apartment.)]
+	</p>
+	<p>
+		Doing as you're told, you hurry over to sit down on a free stool beside Vicky. Within moments, you find yourself being dominantly groped and petted as the two of you wait until five o'clock...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_PET_OFFER_COMPANY_APARTMENT"><![CDATA[
+	<p>
+		Although no customers visit Vicky's shop while you wait, the time passes quickly enough, and before you know it the wolf-girl is standing up and moving over to lock the door. Placing a 'closed' sign in the window, she turns to you and growls, [vicky.speech(Follow me, my little prey...)]
+	</p>
+	<p>
+		Doing as you're told, you follow Vicky as she leads you through a door in the rear of the shop, and then up a flight of stairs which leads to her apartment. Looking around as you enter her home, you see that Vicky's apartment is tastefully furnished in a modern style. Stepping over to the kitchen to grab a quick bite to eat, the wolf-girl grabs a bottle of water and what looks like some kind of energy bar, before offering them to you and grunting, [vicky.speech(Would you like a quick snack?)]
+	</p>
+	<p>
+		Thinking that it might annoy her if you were to refuse, you accept the wolf-girl's offer, and join her in having a quick snack. As soon as the two of you have finished, Vicky grabs you by the [pc.arm] and pulls you along behind her as she heads to her bathroom. Stripping naked, she grunts, [vicky.speech(Come on, my little prey, I always like to have a shower after work, and you're going to join me.)]
+	</p>
+	<p>
+		It looks like you have no option other than to join Vicky in the shower...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_PET_OFFER_COMPANY_APARTMENT_SHOWER_SEX"><![CDATA[
+	<p>
+		Stripping naked, you join the wolf-girl in the shower, which thankfully turns out to be large enough to comfortably accommodate the two of you at once. As she turns on the taps, causing warm water to flow over both of your bodies, Vicky grabs hold of you and lustfully moans, [vicky.speech(I've got you now...)] 
+	</p>
+	<p>
+		Leaning into the wolf-girl's furry chest, you share a passionate kiss with her, before submitting to her and preparing to get fucked...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_APARTMENT_POST_SHOWER_SEX"><![CDATA[
+	<p>
+		[vicky.speech(That was fun,)] Vicky pants, before commanding, [vicky.speech(Now help me to clean myself.)] 
+	</p>
+	<p>
+		Doing as you're told, you use shampoo and soap to clean the wolf-girl's furry body, before standing still and allowing her to return the favour. Soon enough, the two of you are clean, and so Vicky turns off the taps and steps out of the shower. After drying one another off with a pair of fluffy towels, Vicky pulls on her thong and leads you back into the lounge.
+	</p>
+	<p>
+		[vicky.speech(Come here, my little prey,)] she playfully growls as she pulls you down onto the sofa beside her. Wrapping an arm around you, she dominantly pulls you into her naked chest, before sighing, [vicky.speech(I do like my solitude, but it's nice to have company every now and then...)]
+	</p>
+	<p>
+		Feeling Vicky's body relax as you snuggle into her, you wonder what your next move should be...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_APARTMENT_POST_SEX"><![CDATA[
+	<p>
+		Well and truly satisfied from having sex twice in one evening, Vicky collapses down onto the sofa with a big sigh. Grabbing hold of your [pc.arm], she dominantly pulls you down next to her, before growling, [vicky.speech(You really are a lot of fun, my little prey...)]
+	</p>
+	<p>
+		Feeling the wolf-girl's furry chest rise and fall beneath you, you allow yourself to relax and snuggle into her, before starting to make small talk...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_APARTMENT_SLEEP"><![CDATA[
+	<p>
+		You and Vicky relax on the sofa and talk for several hours about all sorts of things, from the state of Dominion, to how her day's gone, to your relationship with Lilaya and what you've seen around the city. Finally, after a relaxing evening spend cuddling into one another on the sofa, the wolf-girl yawns and declares, [vicky.speech(I'm tired... Come on, my little prey, let's sleep...)]
+	</p>
+	<p>
+		Grabbing hold of you, Vicky dominantly leads you into her bedroom. Pulling the duvet off her bed, she drags you into bed, before wrapping her arms around you and cuddling you. It looks like you have no choice but to sleep here with her here tonight...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_APARTMENT_END"><![CDATA[
+	<p>
+		Vicky's bed is extremely comfortable, and with the wolf-girl's clean, furry body pressed up against you, you're able to relax and begin to drift off to sleep. As you do so, Vicky softly sighs and whispers into your ear, [vicky.speech(I'm glad I've got you, my little prey...)]
+	</p>
+	<p>
+		Although she inadvertently wakes you several times throughout the night as she shuffles about or pulls you tightly into her body, you manage to get a good night's rest, and before you know it her alarm clock is loudly buzzing for the two of you to wake up. After reaching across to hit the snooze button, Vicky wraps her arms and legs around you, before tightly hugging you and sleepily muttering, [vicky.speech(Just five more minutes...)]
+	</p>
+	<p>
+		Completely and utterly immobilised by the dominant wolf-girl's embrace, you have no choice but to snuggle into her and wait for the alarm to start buzzing again. Soon enough, it does just that, and after letting out an annoyed growl that sends a rumbling vibration through your whole body, Vicky releases you and rolls out of bed.
+	</p>
+	<p>
+		[vicky.speech(Thanks for spending the night with me, my little prey,)] the wolf-girl yawns, before mumbling, [vicky.speech(I'm really not a morning person, so it'd probably be best if you left now...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VICKY_APARTMENT_END_LEAVE"><![CDATA[
+	<p>
+		Not wanting to overstay your welcome, you tell Vicky that you enjoyed the time you've spent together, before heading back through her apartment and across the shop floor to the exit. Following you the whole way, Vicky grabs hold of you as you unlock the door, before spinning you around to face her.
+	</p>
+	<p>
+		[vicky.speech(Come back soon, my little prey,)] she says, before dominantly dragging her large, flat tongue over your neck and face. Flashing you a big, toothy grin, she happily grunts, [vicky.speech(Take care of yourself out there!)]
+	</p>
+	<p>
+		Saying goodbye, you exit Vicky's shop and once again find yourself standing in the shopping arcade. As the wolf-girl locks the door behind you and returns to her apartment, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 </dialogue>

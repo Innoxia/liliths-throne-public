@@ -237,7 +237,7 @@
 	
 	<htmlContent tag="AFTER_SLIME_GUARD_SEX_AS_SUB"><![CDATA[
 	<p>
-		The #IFgame.isIncestEnabled()#THENslime siblings#ELSEslimes#ENDIF both move away from you, before stepping over to the nearest stone bench and sinking down onto it.
+		The #IF(game.isIncestEnabled())slime siblings#ELSEslimes#ENDIF both move away from you, before stepping over to the nearest stone bench and sinking down onto it.
 		 [slimeFire.Name] lets out a deep sigh, and as he leans back against the wall, [slimeIce.name] lies down to rest her head in his lap.
 	</p>
 	<p>
@@ -258,6 +258,13 @@
 	</p>
 	<p>
 		With your powerful arcane aura clearly causing these two slimes to be overwhelmed with lust, you wonder if you should take advantage of the situation, or continue on your way through the Slime Queen's tower...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLIME_GUARDS_COMBAT_PLAYER_VICTORY_CONTINUE"><![CDATA[
+	<p>
+		Ignoring the lewd moans coming from the #IF(game.isIncestEnabled())slime siblings#ELSEslimes#ENDIF, you [pc.step] past them and prepare to continue on your way. Although you don't show any interest in having sex with them, [slimeFire.name] and [slimeIce.name] continue to let out a series of horny moans as they proposition you for sex, letting you know that you could always change your mind and have some fun with them if you wanted to...
 	</p>
 	]]>
 	</htmlContent>

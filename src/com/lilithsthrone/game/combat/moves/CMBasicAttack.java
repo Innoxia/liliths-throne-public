@@ -491,7 +491,7 @@ public class CMBasicAttack {
     	@Override
         public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
         	float weight = super.getWeight(source, enemies, allies);
-        	if(!source.hasPerkAnywhereInTree(Perk.UNARMED_TRAINING)
+        	if(!source.hasPerkAnywhereInTree(Perk.MARTIAL_ARTIST)
         			&& source.getEquippedMoves().contains(CombatMove.getCombatMoveFromId("strike"))
         			&& source.getMainWeapon(0)!=null
         			&& source.getOffhandWeapon(0)==null) {
@@ -1210,6 +1210,16 @@ public class CMBasicAttack {
         			}
         		}
         	}
+        }
+
+        @Override
+        public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+        	return Util.newArrayListOfValues("This is the only move that's being used.");
+        }
+        
+        @Override
+        public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+    		return source.getSelectedMoves().stream().anyMatch(move->move.getValue()==BASIC_TWIN_STRIKE) && source.getSelectedMoves().size()==1;
         }
     };
     

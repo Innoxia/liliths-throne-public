@@ -65,6 +65,7 @@ public class Eye implements BodyPartInterface {
 			irisShape = type.getDefaultIrisShape();
 			pupilShape = type.getDefaultPupilShape();
 			if(owner!=null) {
+				owner.resetAreaKnownByCharacters(CoverableArea.EYES);
 				owner.postTransformationCalculation();
 			}
 			return "";
@@ -91,6 +92,7 @@ public class Eye implements BodyPartInterface {
 		this.type = type;
 		irisShape = type.getDefaultIrisShape();
 		pupilShape = type.getDefaultPupilShape();
+		owner.resetAreaKnownByCharacters(CoverableArea.EYES);
 
 		sb.append(type.getTransformationDescription(owner));
 		
@@ -140,6 +142,10 @@ public class Eye implements BodyPartInterface {
 	}
 
 	public String setIrisShape(GameCharacter owner, EyeShape irisShape) {
+		if(owner==null) {
+			this.irisShape = irisShape;
+			return "";
+		}
 		if(owner.getIrisShape() == irisShape) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
@@ -158,6 +164,10 @@ public class Eye implements BodyPartInterface {
 	}
 
 	public String setPupilShape(GameCharacter owner, EyeShape pupilShape) {
+		if(owner==null) {
+			this.pupilShape = pupilShape;
+			return "";
+		}
 		if(owner.getPupilShape() == pupilShape) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}

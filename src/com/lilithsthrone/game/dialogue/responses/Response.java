@@ -588,9 +588,11 @@ public class Response {
 			}
 
 			SB.append(" (Subspecies): ");
+			List<String> subspeciesList = new ArrayList<>();
 			for(AbstractSubspecies subspecies : getSubspeciesRequired()) {
-				SB.append("<span style='color:"+subspecies.getColour(Main.game.getPlayer()).toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getName(Main.game.getPlayer().getBody()))+"</span>");
+				subspeciesList.add("<span style='color:"+subspecies.getColour(Main.game.getPlayer()).toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getName(Main.game.getPlayer().getBody()))+"</span>");
 			}
+			SB.append(Util.stringsToStringChoice(subspeciesList, false));
 		}
 		
 		if(sexActionType==SexActionType.SPEECH) {

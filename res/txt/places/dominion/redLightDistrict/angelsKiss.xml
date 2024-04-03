@@ -353,17 +353,31 @@
 	
 	<htmlContent tag="ANGELS_KISS_BEDROOM_BUNNY_ENTER_REPEAT"><![CDATA[
 	#IF(bunny.isVisiblyPregnant())
-		<p>
-			[pc.Stepping] into the rabbit-girl's bedroom and announcing your presence with a quick hello, you watch as Bunny's large, rabbit-like ears twitch in response to your greeting, before she laboriously sits up and looks over at the door. Seeing that it's you, she points down at her swollen belly and excitedly calls out,
-			#IF(!bunny.isCharacterReactedToPregnancy(pc))
-				 [bunny.speech([pc.Name]! Look! Even though I was on the pill, you still managed to get me pregnant! Your seed must be super virile or something; I can't believe you actually managed to get me knocked up! Come and have a feel of my tummy!)]
-			#ELSE
-				 [bunny.speech([pc.Name]! Look! I'm still pregnant with our kids! Come and have a feel of my tummy!)]
-			#ENDIF
-		</p>
-		<p>
-			Doing as the mother of your children asks, you [pc.step] over to where she's still sitting on the edge of her bed and reach down to give her swollen belly a loving rub. Thanks to the fact that she's wearing a miniskirt and cami top in place of her usual tight-fitting bodysuit, you're able to run your hands over Bunny's exposed skin, making her let out a happy little giggle and seductively moan, [bunny.speech(You'd like to fuck a pregnant bunny, wouldn't you, [pc.name]? Come on, just hand over your flames and we can do a recreation of how our kids were conceived...)]
-		</p>
+		#IF(bunny.getPregnantLitter().getFather().equals(player))
+			<p>
+				[pc.Stepping] into the rabbit-girl's bedroom and announcing your presence with a quick hello, you watch as Bunny's large, rabbit-like ears twitch in response to your greeting, before she laboriously sits up and looks over at the door. Seeing that it's you, she points down at her swollen belly and excitedly calls out,
+				#IF(!bunny.isCharacterReactedToPregnancy(pc))
+					 [bunny.speech([pc.Name]! Look! Even though I was on the pill, you still managed to get me pregnant! Your seed must be super virile or something; I can't believe you actually managed to get me knocked up! Come and have a feel of my tummy!)]
+				#ELSE
+					 [bunny.speech([pc.Name]! Look! I'm still pregnant with our kids! Come and have a feel of my tummy!)]
+				#ENDIF
+			</p>
+			<p>
+				Doing as the mother of your children asks, you [pc.step] over to where she's still sitting on the edge of her bed and reach down to give her swollen belly a loving rub. Thanks to the fact that she's wearing a miniskirt and cami top in place of her usual tight-fitting bodysuit, you're able to run your hands over Bunny's exposed skin, making her let out a happy little giggle and seductively moan, [bunny.speech(You'd like to fuck a pregnant bunny, wouldn't you, [pc.name]? Come on, just hand over your flames and we can do a recreation of how our kids were conceived...)]
+			</p>
+		#ELSE
+			<p>
+				[pc.Stepping] into the rabbit-girl's bedroom and announcing your presence with a quick hello, you watch as Bunny's large, rabbit-like ears twitch in response to your greeting, before she laboriously sits up and looks over at the door. Seeing that it's you, she points down at her swollen belly and excitedly calls out,
+				#IF(!bunny.isCharacterReactedToPregnancy(pc))
+					 [bunny.speech([pc.Name]! Look! Even though I was on the pill, Loppy managed to get me pregnant when we had that threesome!)]
+				#ELSE
+					 [bunny.speech([pc.Name]! Look! I'm still pregnant with Loppy's kids!)]
+				#ENDIF
+			</p>
+			<p>
+				[pc.Stepping] into the room, you head on over to where the pregnant rabbit-girl is sitting on the edge of her bed. Thanks to the fact that she's wearing a miniskirt and cami top in place of her usual tight-fitting bodysuit, you're able to see the exposed fur of Bunny's tummy. Rubbing her hands over her swollen bump, she seductively moans, [bunny.speech(You'd like to fuck a pregnant bunny, wouldn't you, [pc.name]? Come on, just hand over your flames and we can do a recreation of how I ended up like this...)]
+			</p>
+		#ENDIF
 		<p>
 			Biting her lip and batting her eyelids at you, the horny bunny lets out another little giggle as she awaits your answer. You could pay her for sex, or make an excuse and take your leave...
 		</p>
@@ -636,10 +650,18 @@
 	<p>
 		You're not kept waiting for long, and after less than two minutes, Loppy bounds back into the room. Following in her footsteps, and looking every bit as excited as her sister, is Bunny.
 		#IF(bunny.isVisiblyPregnant())
-			#IF(!bunny.isCharacterReactedToPregnancy(pc))
-				 As she sees that it's you, Bunny lets out an excited squeal and points down to her clearly-swollen belly, before exclaiming, [bunny.speech([pc.name]! Look at what you did; you got me knocked up! Anyway, Loppy's told me what you've got in mind! I love being fucked alongside my sis' here! Let's show her how our kids were conceived!)]
+			#IF(bunny.getPregnantLitter().getFather().equals(player))
+				#IF(!bunny.isCharacterReactedToPregnancy(pc))
+					 As she sees that it's you, Bunny lets out an excited squeal and points down to her clearly-swollen belly, before exclaiming, [bunny.speech([pc.name]! Look at what you did; you got me knocked up! Anyway, Loppy's told me what you've got in mind! I love being fucked alongside my sis' here! Let's show her how our kids were conceived!)]
+				#ELSE
+					 As she sees that it's you, Bunny lets out an excited squeal and points down to her swollen belly, before exclaiming, [bunny.speech([pc.Name], look, I'm still pregnant! Anyway, Loppy's told me what you've got in mind! I love being fucked alongside my sis' here! Let's show her how our kids were conceived!)]
+				#ENDIF
 			#ELSE
-				 As she sees that it's you, Bunny lets out an excited squeal and points down to her swollen belly, before exclaiming, [bunny.speech([pc.Name], look, I'm still pregnant! Anyway, Loppy's told me what you've got in mind! I love being fucked alongside my sis' here! Let's show her how our kids were conceived!)]
+				#IF(!bunny.isCharacterReactedToPregnancy(pc))
+					 As she sees that it's you, Bunny lets out an excited squeal and points down to her clearly-swollen belly, before exclaiming, [bunny.speech([pc.name]! Look at what Loppy did; she got me knocked up when we had that threesome! Anyway, she's told me what you've got in mind! I love being fucked alongside my sis' here! Let's do a recreation of how I ended up like this!)]
+				#ELSE
+					 As she sees that it's you, Bunny lets out an excited squeal and points down to her swollen belly, before exclaiming, [bunny.speech([pc.Name], look, I'm still pregnant with Loppy's kids! Anyway, she's told me what you've got in mind! I love being fucked alongside my sis' here! Let's do a recreation of how I ended up like this!)]
+				#ENDIF
 			#ENDIF
 		#ELSE
 			 As she sees that it's you, Bunny lets out an excited squeal, [bunny.speech(Hey there, [pc.name]! Loppy's told me what you've got in mind! I love being fucked alongside my sis' here! Let's get started!)]

@@ -11,7 +11,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /***
  * @since 0.2.4
- * @version 0.3.9.4
+ * @version 0.4.9
  * @author Innoxia
  */
 public enum PersonalityTrait {
@@ -23,12 +23,48 @@ public enum PersonalityTrait {
 		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
 			return Util.newArrayListOfValues(SHY);
 		}
+		@Override
+		public String getAdditionDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (target.hasPersonalityTrait(CONFIDENT)
+								?"[style.colourDisabled([npc.Name] [npc.isFull] already confident, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorGood(feeling a lot more confident)]!")
+						+ "</p>");
+		}
+		@Override
+		public String getRemovalDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (!target.hasPersonalityTrait(CONFIDENT)
+								?"[style.colourDisabled([npc.Name] already lacks confidence, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorBad(feeling a lot less confident)]!")
+						+ "</p>");
+		}
 	},
 	
 	SHY(false, PersonalityCategory.CORE, "shy", "[npc.NameIsFull] incredibly shy around other people, and [npc.verb(prefer)] to avoid conversation wherever possible.", "", PresetColour.BASE_YELLOW_LIGHT) {
 		@Override
 		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
 			return Util.newArrayListOfValues(CONFIDENT);
+		}
+		@Override
+		public String getAdditionDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (target.hasPersonalityTrait(SHY)
+								?"[style.colourDisabled([npc.Name] [npc.isFull] already shy, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorGood(feeling a lot shyer)]!")
+						+ "</p>");
+		}
+		@Override
+		public String getRemovalDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (!target.hasPersonalityTrait(SHY)
+								?"[style.colourDisabled([npc.Name] already doesn't suffer from shyness, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorBad(losing [npc.her] shyness)]!")
+						+ "</p>");
 		}
 	},
 
@@ -37,12 +73,48 @@ public enum PersonalityTrait {
 		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
 			return Util.newArrayListOfValues(SELFISH);
 		}
+		@Override
+		public String getAdditionDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (target.hasPersonalityTrait(KIND)
+								?"[style.colourDisabled([npc.Name] [npc.isFull] already kind, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorGood(feeling a lot kinder)]!")
+						+ "</p>");
+		}
+		@Override
+		public String getRemovalDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (!target.hasPersonalityTrait(KIND)
+								?"[style.colourDisabled([npc.Name] already isn't very kind, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorBad(losing [npc.her] kindness)]!")
+						+ "</p>");
+		}
 	},
 	
 	SELFISH(false, PersonalityCategory.CORE, "selfish", "[npc.Name] always [npc.verb(put)] [npc.herself] first, and [npc.is] highly unlikely to do anything that doesn't directly benefit [npc.herHim].", "", PresetColour.BASE_RED) {
 		@Override
 		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
 			return Util.newArrayListOfValues(KIND);
+		}
+		@Override
+		public String getAdditionDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (target.hasPersonalityTrait(SELFISH)
+								?"[style.colourDisabled([npc.Name] [npc.isFull] already selfish, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorGood(feeling a lot more selfish)]!")
+						+ "</p>");
+		}
+		@Override
+		public String getRemovalDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (!target.hasPersonalityTrait(SELFISH)
+								?"[style.colourDisabled([npc.Name] already isn't selfish, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorBad(losing [npc.her] selfishness)]!")
+						+ "</p>");
 		}
 	},
 
@@ -51,12 +123,48 @@ public enum PersonalityTrait {
 		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
 			return Util.newArrayListOfValues(CYNICAL);
 		}
+		@Override
+		public String getAdditionDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (target.hasPersonalityTrait(NAIVE)
+								?"[style.colourDisabled([npc.Name] [npc.isFull] already naive, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorGood(feeling a lot more naive)]!")
+						+ "</p>");
+		}
+		@Override
+		public String getRemovalDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (!target.hasPersonalityTrait(NAIVE)
+								?"[style.colourDisabled([npc.Name] already isn't naive, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorBad(losing [npc.her] naivety)]!")
+						+ "</p>");
+		}
 	},
 	
 	CYNICAL(false, PersonalityCategory.CORE, "cynical", "[npc.NameIsFull] particularly distrustful of the intentions and motivations of other people.", "", PresetColour.BASE_RED_DARK) {
 		@Override
 		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
 			return Util.newArrayListOfValues(NAIVE);
+		}
+		@Override
+		public String getAdditionDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (target.hasPersonalityTrait(CYNICAL)
+								?"[style.colourDisabled([npc.Name] [npc.isFull] already cynical, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorGood(feeling a lot more cynical)]!")
+						+ "</p>");
+		}
+		@Override
+		public String getRemovalDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (!target.hasPersonalityTrait(CYNICAL)
+								?"[style.colourDisabled([npc.Name] already isn't cynical, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorBad(losing [npc.her] cynicism)]!")
+						+ "</p>");
 		}
 	},
 	
@@ -67,12 +175,48 @@ public enum PersonalityTrait {
 		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
 			return Util.newArrayListOfValues(COWARDLY);
 		}
+		@Override
+		public String getAdditionDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (target.hasPersonalityTrait(BRAVE)
+								?"[style.colourDisabled([npc.Name] [npc.isFull] already brave, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorGood(feeling a lot braver)]!")
+						+ "</p>");
+		}
+		@Override
+		public String getRemovalDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (!target.hasPersonalityTrait(BRAVE)
+								?"[style.colourDisabled([npc.Name] already isn't brave, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorBad(losing [npc.her] bravery)]!")
+						+ "</p>");
+		}
 	},
 	
 	COWARDLY(false, PersonalityCategory.COMBAT, "cowardly", "[npc.Name] [npc.verb(get)] scared very easily, and will prefer to run away from conflicts rather than try to resolve them directly.", "", PresetColour.BASE_RED_LIGHT) {
 		@Override
 		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
 			return Util.newArrayListOfValues(BRAVE);
+		}
+		@Override
+		public String getAdditionDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (target.hasPersonalityTrait(COWARDLY)
+								?"[style.colourDisabled([npc.Name] [npc.isFull] already cowardly, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorGood(feeling a lot more cowardly)]!")
+						+ "</p>");
+		}
+		@Override
+		public String getRemovalDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (!target.hasPersonalityTrait(COWARDLY)
+								?"[style.colourDisabled([npc.Name] already isn't cowardly, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorBad(losing [npc.her] cowardice)]!")
+						+ "</p>");
 		}
 	},
 
@@ -87,6 +231,24 @@ public enum PersonalityTrait {
 		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
 			return Util.newArrayListOfValues(PRUDE, INNOCENT);
 		}
+		@Override
+		public String getAdditionDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (target.hasPersonalityTrait(LEWD)
+								?"[style.colourDisabled([npc.Name] [npc.isFull] already lewd, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorGood(feeling a lot lewder)]!")
+						+ "</p>");
+		}
+		@Override
+		public String getRemovalDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (!target.hasPersonalityTrait(LEWD)
+								?"[style.colourDisabled([npc.Name] already isn't lewd, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorBad(losing [npc.her] lewdity)]!")
+						+ "</p>");
+		}
 	},
 	
 	INNOCENT(false,
@@ -98,6 +260,24 @@ public enum PersonalityTrait {
 		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
 			return Util.newArrayListOfValues(LEWD, PRUDE);
 		}
+		@Override
+		public String getAdditionDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (target.hasPersonalityTrait(INNOCENT)
+								?"[style.colourDisabled([npc.Name] [npc.isFull] already innocent, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorGood(feeling a lot more innocent)]!")
+						+ "</p>");
+		}
+		@Override
+		public String getRemovalDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (!target.hasPersonalityTrait(INNOCENT)
+								?"[style.colourDisabled([npc.Name] already isn't innocent, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorBad(losing [npc.her] innocence)]!")
+						+ "</p>");
+		}
 	},
 	
 	PRUDE(false,
@@ -108,6 +288,24 @@ public enum PersonalityTrait {
 		@Override
 		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
 			return Util.newArrayListOfValues(LEWD, INNOCENT);
+		}
+		@Override
+		public String getAdditionDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (target.hasPersonalityTrait(INNOCENT)
+								?"[style.colourDisabled([npc.Name] [npc.isFull] already prude, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorGood(feeling a lot more prude)]!")
+						+ "</p>");
+		}
+		@Override
+		public String getRemovalDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (!target.hasPersonalityTrait(INNOCENT)
+								?"[style.colourDisabled([npc.Name] already isn't prude, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorBad(losing [npc.her] prudish mannerisms)]!")
+						+ "</p>");
 		}
 	},
 
@@ -122,6 +320,24 @@ public enum PersonalityTrait {
 		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
 			return Util.newArrayListOfValues(MUTE);
 		}
+		@Override
+		public String getAdditionDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (target.hasPersonalityTrait(LISP)
+								?"[style.colourDisabled([npc.Name] already speaks with a lisp, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorBad(speaking with a lisp)]!")
+						+ "</p>");
+		}
+		@Override
+		public String getRemovalDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (!target.hasPersonalityTrait(LISP)
+								?"[style.colourDisabled([npc.Name] already [npc.do]n't speak with a lisp, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorGood(able to speak without a lisp)]!")
+						+ "</p>");
+		}
 	},
 
 	STUTTER(false,
@@ -132,6 +348,24 @@ public enum PersonalityTrait {
 		@Override
 		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
 			return Util.newArrayListOfValues(MUTE);
+		}
+		@Override
+		public String getAdditionDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (target.hasPersonalityTrait(STUTTER)
+								?"[style.colourDisabled([npc.Name] already speaks with a stutter, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorBad(speaking with a stutter)]!")
+						+ "</p>");
+		}
+		@Override
+		public String getRemovalDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (!target.hasPersonalityTrait(STUTTER)
+								?"[style.colourDisabled([npc.Name] already [npc.do]n't speak with a stutter, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorGood(able to speak without a stutter)]!")
+						+ "</p>");
 		}
 	},
 
@@ -144,6 +378,24 @@ public enum PersonalityTrait {
 		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
 			return Util.newArrayListOfValues(LISP, STUTTER, SLOVENLY);
 		}
+		@Override
+		public String getAdditionDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (target.hasPersonalityTrait(STUTTER)
+								?"[style.colourDisabled([npc.NameIsFull] already mute, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorBad(unable to talk)]!")
+						+ "</p>");
+		}
+		@Override
+		public String getRemovalDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (!target.hasPersonalityTrait(STUTTER)
+								?"[style.colourDisabled([npc.NameIsFull] already able to speak, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorGood(able to talk)]!")
+						+ "</p>");
+		}
 	},
 
 	SLOVENLY(false,
@@ -154,6 +406,24 @@ public enum PersonalityTrait {
 		@Override
 		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
 			return Util.newArrayListOfValues(MUTE);
+		}
+		@Override
+		public String getAdditionDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (target.hasPersonalityTrait(SLOVENLY)
+								?"[style.colourDisabled([npc.Name] already speaks in a slovenly manner, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorBad(speaking in a slovenly manner)]!")
+						+ "</p>");
+		}
+		@Override
+		public String getRemovalDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (!target.hasPersonalityTrait(SLOVENLY)
+								?"[style.colourDisabled([npc.Name] already [npc.do]n't speak in a slovenly manner, so nothing happens...)]"
+								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorGood(no longer speaking in a slovenly manner)]!")
+						+ "</p>");
 		}
 	},;
 	
@@ -214,6 +484,10 @@ public enum PersonalityTrait {
 
 	public abstract List<PersonalityTrait> getMutuallyExclusiveSettings();
 
+	public abstract String getAdditionDescription(GameCharacter target);
+	
+	public abstract String getRemovalDescription(GameCharacter target);
+	
 	public boolean isSpecialRequirements() {
 		return specialRequirements;
 	}

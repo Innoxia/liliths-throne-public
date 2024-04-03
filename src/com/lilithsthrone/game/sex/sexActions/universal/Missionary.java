@@ -27,34 +27,31 @@ public class Missionary {
 			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
-		
+
 		@Override
 		public String getActionTitle() {
 			return "Spread legs";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "Spread your [npc.legs] wide open for [npc2.name].";
 		}
-		
 		@Override
 		public SexActionCategory getCategory() {
 			return SexActionCategory.SEX;
 		}
-		
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING
 					&& (Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.LYING_DOWN))
 					&& (Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.MISSIONARY))
 					&& !Main.sex.isMasturbation()
-					&& Main.sex.getCharacterPerformingAction().hasLegs();
+					&& Main.sex.getCharacterPerformingAction().hasLegs()
+					&& !Main.sex.isCharacterImmobilised(Main.sex.getCharacterPerformingAction());
 		}
 
 		@Override
 		public String getDescription() {
-			
 			boolean vaginalSex = false;
 			try {
 				vaginalSex = Main.sex.getOngoingActionsMap(Main.sex.getCharacterTargetedForSexAction(this)).get(SexAreaPenetration.PENIS).get(Main.sex.getCharacterPerformingAction()).contains(SexAreaOrifice.VAGINA);

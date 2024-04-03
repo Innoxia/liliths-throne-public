@@ -4,7 +4,6 @@
 	<name><![CDATA[Amazons' camp]]></name>
 	<tooltipDescription><![CDATA[The Amazons, driven out of their hometown of Themiscyra, have set up a temporary camp in the woods to the west of Elis.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the Amazons' camp to the west of Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_BLUE_LIGHT</colour>
 	<backgroundColour>MAP_BACKGROUND_GREEN</backgroundColour>

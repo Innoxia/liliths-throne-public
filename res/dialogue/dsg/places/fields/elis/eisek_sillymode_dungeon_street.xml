@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+	
+	<scene id="entrance">
+		<author><![CDATA[DSG]]></author>
+		<title/>
+		<tooltip/>
+		<preParsingEffects><![CDATA[
+		[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/generic', 'STREET'))]
+		]]></preParsingEffects>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode_dungeon_street">STREET</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>			
+			<response>				
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter basement]]></responseTitle>
+				<responseTooltip><![CDATA[It's not like any of them were armed...at least that you could tell...<br/>[style.colourBad(You will not be able to leave the basement until you reach the end.)]]]></responseTooltip>
+				<colour><![CDATA[TEXT]]></colour>
+				<nextDialogue stripContent="false"><![CDATA[dsg_places_fields_elis_eisek_sillymode_dungeon_ambush]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_dsg_fields_elis_eisek_sillymode_dungeon, PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_entry)]
+				]]></effects>				
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

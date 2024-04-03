@@ -29,6 +29,8 @@
 		<cond3 constant="true"><![CDATA[RND.nextInt(100)<=25]]></cond3>
 		<cond4 constant="true"><![CDATA[RND.nextInt(100)<=90]]></cond4> <!-- weapons -->
 		<cond5 constant="true"><![CDATA[npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL && npc.getFootStructure()==FOOT_STRUCTURE_PLANTIGRADE]]></cond5> <!-- is bipedal -->
+		<cond7 constant="true"><![CDATA[RND.nextInt(100)<=50]]></cond7> <!-- face covering -->
+		<cond8 constant="true"><![CDATA[RND.nextInt(100)<=50]]></cond8> <!-- balaclava -->
 		
 		
 		<presetColourGroup1>
@@ -165,11 +167,22 @@
 		</clothingType>
 		
 		<clothingType>
-			<conditional><![CDATA[RND.nextInt(100)<=50]]></conditional>
+			<conditional><![CDATA[cond7 && !cond8]]></conditional>
 			<types>
 				<type>MOUTH_BANDANA</type>
 			</types>
 			<primaryColours values="DARK_SHADES"/>
+			<secondaryColours/>
+			<tertiaryColours/>
+		</clothingType>
+		<clothingType>
+			<conditional><![CDATA[cond7 && cond8]]></conditional>
+			<types>
+				<type>innoxia_head_balaclava</type>
+			</types>
+			<primaryColours>
+				<colour>CLOTHING_BLACK</colour>
+			</primaryColours>
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>

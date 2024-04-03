@@ -646,7 +646,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 	}
 
 	public String getSVGEquippedString(GameCharacter owner) {
-		return weaponType.getSVGEquippedImage(damageType, this.getColours());
+		return weaponType.getSVGEquippedImage(owner, damageType, this.getColours());
 	}
 
 	public List<Spell> getSpells() {

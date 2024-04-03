@@ -184,16 +184,16 @@ public class InventoryDialogue {
 		return sb.toString();
 	}
 	
-	private static String getClothingBlockingRemovalText(String equipVerb) {
+	private static String getClothingBlockingRemovalText(GameCharacter equipTarget, String equipVerb) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("You can't ");
 		sb.append(equipVerb);
 		sb.append(" the ");
 		sb.append(clothing.getName());
 		sb.append(", as ");
-		sb.append(UtilText.parse(owner, "[npc.namePos] "));
-		sb.append(owner.getBlockingClothing().getName());
-		sb.append((owner.getBlockingClothing().getClothingType().isPlural()?" are":" is"));
+		sb.append(UtilText.parse(equipTarget, "[npc.namePos] "));
+		sb.append(equipTarget.getBlockingClothing().getName());
+		sb.append((equipTarget.getBlockingClothing().getClothingType().isPlural()?" are":" is"));
 		sb.append(" blocking you from doing so!");
 		return sb.toString();
 	}
@@ -1672,6 +1672,9 @@ public class InventoryDialogue {
 								} else if (!item.isAbleToBeUsed(inventoryNPC)) {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (partner)", item.getUnableToBeUsedDescription(inventoryNPC), null);
 									
+								} else if(inventoryNPC.isAsleep()) {
+									return new Response(Util.capitaliseSentence(item.getItemType().getUseName())+" (partner)", UtilText.parse(inventoryNPC, "You cannot use this while [npc.nameIsFull] asleep!"), null);
+									
 								} else if(item.getItemType().isFetishGiving()) {
 									return new Response(
 											Util.capitaliseSentence(item.getItemType().getUseName()) +" (partner)",
@@ -1687,6 +1690,9 @@ public class InventoryDialogue {
 											Main.sex.setUsingItemText(inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC).getValue());
 											resetPostAction();
 											Main.mainController.openInventory();
+//											if(inventoryNPC.isAsleep()) {
+//												Main.sex.addCharacterWoken(inventoryNPC);
+//											}
 											Main.sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
 											Main.sex.setSexStarted(true);
 										}
@@ -1707,6 +1713,9 @@ public class InventoryDialogue {
 											Main.sex.setUsingItemText(inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC).getValue());
 											resetPostAction();
 											Main.mainController.openInventory();
+//											if(inventoryNPC.isAsleep()) {
+//												Main.sex.addCharacterWoken(inventoryNPC);
+//											}
 											Main.sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
 											Main.sex.setSexStarted(true);
 										}
@@ -1722,6 +1731,9 @@ public class InventoryDialogue {
 											Main.sex.setUsingItemText(inventoryNPC.getItemUseEffects(item, owner, Main.game.getPlayer(), inventoryNPC).getValue());
 											resetPostAction();
 											Main.mainController.openInventory();
+//											if(inventoryNPC.isAsleep()) {
+//												Main.sex.addCharacterWoken(inventoryNPC);
+//											}
 											Main.sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
 											Main.sex.setSexStarted(true);
 										}
@@ -3855,7 +3867,7 @@ public class InventoryDialogue {
 												}
 											};
 										} else {
-											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), getClothingBlockingRemovalText("equip"), null);
+											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), getClothingBlockingRemovalText(Main.game.getPlayer(), "equip"), null);
 										}
 										
 									} else {
@@ -4383,7 +4395,7 @@ public class InventoryDialogue {
 												}
 											};
 										} else {
-											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), getClothingBlockingRemovalText("equip"), null);
+											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), getClothingBlockingRemovalText(Main.game.getPlayer(), "equip"), null);
 										}
 										
 									} else {
@@ -4759,7 +4771,7 @@ public class InventoryDialogue {
 											}
 										};
 									} else {
-										return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), getClothingBlockingRemovalText("equip"), null);
+										return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), getClothingBlockingRemovalText(Main.game.getPlayer(), "equip"), null);
 									}
 								} else {
 									return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), clothing.isAbleToBeEquippedDuringSex(slot).getValue(), null);
@@ -5119,7 +5131,7 @@ public class InventoryDialogue {
 												}
 											};
 										} else {
-											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), getClothingBlockingRemovalText("equip"), null);
+											return new Response("Equip: "+Util.capitaliseSentence(slot.getName()), getClothingBlockingRemovalText(Main.game.getPlayer(), "equip"), null);
 										}
 										
 									} else {
@@ -5908,7 +5920,7 @@ public class InventoryDialogue {
 								};
 								
 							} else {
-								return new Response("Unequip", getClothingBlockingRemovalText("unequip"), null);
+								return new Response("Unequip", getClothingBlockingRemovalText(owner, "unequip"), null);
 							}
 							
 						} else if (index == 10) {
@@ -6035,7 +6047,7 @@ public class InventoryDialogue {
 											}
 										};
 									} else {
-										return new Response("Drop", getClothingBlockingRemovalText("unequip"), null);
+										return new Response("Drop", getClothingBlockingRemovalText(owner, "unequip"), null);
 									}
 								}
 								
@@ -6065,7 +6077,7 @@ public class InventoryDialogue {
 											}
 										};
 									} else {
-										return new Response("Store", getClothingBlockingRemovalText("unequip"), null);
+										return new Response("Store", getClothingBlockingRemovalText(owner, "unequip"), null);
 									}
 								}
 							}
@@ -6105,7 +6117,7 @@ public class InventoryDialogue {
 									}
 								};
 							} else {
-								return new Response("Unequip", getClothingBlockingRemovalText("unequip"), null);
+								return new Response("Unequip", getClothingBlockingRemovalText(owner, "unequip"), null);
 							}
 							
 						} else if (index == 10) {
@@ -6116,12 +6128,12 @@ public class InventoryDialogue {
 								return new Response(Util.capitaliseSentence(clothing.getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index -11).getDescription()),
 										"The "+ clothing.getName()+ " "
 										+(clothing.getClothingType().isPlural()?"have":"has")+" already been "
-												+ clothing.getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index -11).getDescription() + "!", null);
+												+ clothing.getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index -11).getDescriptionPast() + "!", null);
 								
 							} else {
 								if(!Main.sex.getSexManager().isAbleToRemoveSelfClothing(Main.game.getPlayer())) {
 									return new Response(Util.capitaliseSentence(clothing.getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index - 11).getDescription()),
-											"You can't can't "+clothing.getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index -11).getDescription()
+											"You can't "+clothing.getBlockedPartsKeysAsListWithoutNONE(owner, clothing.getSlotEquippedTo()).get(index -11).getDescription()
 											+ " "+(owner.isPlayer()?"your":owner.getName("")+"'s")+" " + clothing.getName() + " in this sex scene!", null);
 								}
 								
@@ -6195,7 +6207,7 @@ public class InventoryDialogue {
 								return new Response(Util.capitaliseSentence(clothing.getBlockedPartsKeysAsListWithoutNONE(inventoryNPC, clothing.getSlotEquippedTo()).get(index -11).getDescription()),
 										"The "+ clothing.getName()+ " "
 										+(clothing.getClothingType().isPlural()?"have":"has")+" already been "
-												+ clothing.getBlockedPartsKeysAsListWithoutNONE(inventoryNPC, clothing.getSlotEquippedTo()).get(index -11).getDescription() + "!", null);
+												+ clothing.getBlockedPartsKeysAsListWithoutNONE(inventoryNPC, clothing.getSlotEquippedTo()).get(index -11).getDescriptionPast() + "!", null);
 								
 							} else {
 								return new Response(Util.capitaliseSentence(clothing.getBlockedPartsKeysAsListWithoutNONE(inventoryNPC, clothing.getSlotEquippedTo()).get(index -11).getDescription()),
@@ -6389,7 +6401,7 @@ public class InventoryDialogue {
 											}
 										};
 									} else {
-										return new Response("Drop", getClothingBlockingRemovalText("unequip"), null);
+										return new Response("Drop", getClothingBlockingRemovalText(owner, "unequip"), null);
 									}
 								}
 								
@@ -6420,7 +6432,7 @@ public class InventoryDialogue {
 											}
 										};
 									} else {
-										return new Response("Store", getClothingBlockingRemovalText("unequip"), null);
+										return new Response("Store", getClothingBlockingRemovalText(owner, "unequip"), null);
 									}
 								}
 							}
@@ -6460,7 +6472,7 @@ public class InventoryDialogue {
 									}
 								};
 							} else {
-								return new Response("Unequip", getClothingBlockingRemovalText("unequip"), null);
+								return new Response("Unequip", getClothingBlockingRemovalText(owner, "unequip"), null);
 							}
 							
 						} else if (index == 10) {
@@ -6471,7 +6483,7 @@ public class InventoryDialogue {
 								return new Response(Util.capitaliseSentence(clothing.getBlockedPartsKeysAsListWithoutNONE(inventoryNPC, clothing.getSlotEquippedTo()).get(index -11).getDescription()),
 										"The "+ clothing.getName()+ " "
 										+(clothing.getClothingType().isPlural()?"have":"has")+" already been "
-												+ clothing.getBlockedPartsKeysAsListWithoutNONE(inventoryNPC, clothing.getSlotEquippedTo()).get(index -11).getDescription() + "!", null);
+												+ clothing.getBlockedPartsKeysAsListWithoutNONE(inventoryNPC, clothing.getSlotEquippedTo()).get(index -11).getDescriptionPast() + "!", null);
 								
 							} else {
 								if(owner.isAbleToBeDisplaced(clothing, clothing.getBlockedPartsKeysAsListWithoutNONE(inventoryNPC, clothing.getSlotEquippedTo()).get(index -11), false, false, Main.game.getPlayer())){
@@ -6539,7 +6551,7 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(clothing.getBlockedPartsKeysAsListWithoutNONE(inventoryNPC, clothing.getSlotEquippedTo()).get(index -11).getDescription()),
 											"The "+ clothing.getName()+ " "
 													+(clothing.getClothingType().isPlural()?"have":"has")+" already been "
-													+ clothing.getBlockedPartsKeysAsListWithoutNONE(inventoryNPC, clothing.getSlotEquippedTo()).get(index -11).getDescription() + "!", null);
+													+ clothing.getBlockedPartsKeysAsListWithoutNONE(inventoryNPC, clothing.getSlotEquippedTo()).get(index -11).getDescriptionPast() + "!", null);
 									
 								} else {
 									return new Response(Util.capitaliseSentence(clothing.getBlockedPartsKeysAsListWithoutNONE(inventoryNPC, clothing.getSlotEquippedTo()).get(index -11).getDescription()),
@@ -6746,7 +6758,7 @@ public class InventoryDialogue {
 							?"<div class='inventoryImage' style='width:100%;'>"
 								+ "Equipped"
 									+ "<div class='inventoryImage-content'>"
-										+ weapon.getWeaponType().getSVGEquippedImage(damageTypePreview, dyePreviews)
+										+ weapon.getWeaponType().getSVGEquippedImage(Main.game.getPlayer(), damageTypePreview, dyePreviews)
 									+ "</div>"
 								+ "</div>"
 							:"")
@@ -8392,7 +8404,7 @@ public class InventoryDialogue {
 	}
 	
 	private static String getItemDisplayPanel(String SVGString, String title, String description) {
-		return "<div class='inventoryImage'>"
+		return "<div class='inventoryImage'>" // style='width: calc(50% - 4px);'
 					+ "<div class='inventoryImage-content'>"
 						+ SVGString
 					+ "</div>"
@@ -8565,7 +8577,18 @@ public class InventoryDialogue {
 									+ "Removing the seal has cost you [style.boldBad("+removalCost+")] [style.boldArcane(Arcane Essences)]!"
 								+ "</p>");
 					}
+					
+					// Have to remove and then re-add the clothing as setting the sealed status affects the clothing's hashCode
+					List<DisplacementType> clothingDisplacementTypes = new ArrayList<>();
+					if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(owner)) {
+						clothingDisplacementTypes.addAll(Main.sex.getClothingPreSexMap().get(owner).get(clothing.getSlotEquippedTo()).get(clothing));
+						Main.sex.getClothingPreSexMap().get(owner).get(clothing.getSlotEquippedTo()).remove(clothing);
+					}
 					clothing.setSealed(false);
+					if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(owner)) {
+						Main.sex.getClothingPreSexMap().get(owner).get(clothing.getSlotEquippedTo()).put(clothing, clothingDisplacementTypes);
+					}
+					
 					if(interactionType==InventoryInteraction.SEX) {
 						Main.sex.setUnequipClothingText(clothing, s);
 						Main.mainController.openInventory();

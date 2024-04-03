@@ -16,6 +16,13 @@ public enum ClubberBehaviour {
 			return PlaceType.WATERING_HOLE_MAIN_AREA;
 		}
 	},
+
+	LEAVES() {
+		@Override
+		public AbstractPlaceType getPlaceType() {
+			return PlaceType.WATERING_HOLE_MAIN_AREA;
+		}
+	},
 	
 	BAR_DRINK() {
 		@Override

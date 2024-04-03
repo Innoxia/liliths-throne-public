@@ -9,9 +9,9 @@
 	<attributeItemId>innoxia_race_wolf_wolf_whiskey</attributeItemId>
 	<transformativeItemId>innoxia_race_wolf_meat_and_marrow</transformativeItemId>
 	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<nocturnality>CATHEMERAL</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
-	<aquatic>false</aquatic>
 	<applySubspeciesChanges><![CDATA[
 		[#targetedBody.setCovering(BODY_COVERING_TYPE_HUMAN, COVERING_PATTERN_NONE, COVERING_MODIFIER_SMOOTH, COLOUR_SKIN_PALE, false, COLOUR_SKIN_PALE, false)]
 		[#targetedBody.setCovering(BODY_COVERING_TYPE_HAIR_HUMAN, COVERING_PATTERN_NONE, COVERING_MODIFIER_SMOOTH, COLOUR_COVERING_WHITE, false, COLOUR_COVERING_WHITE, false)]

@@ -4,7 +4,6 @@
 	<name><![CDATA[The Crossed Blades]]></name>
 	<tooltipDescription><![CDATA[Within the alleyways of northern Elis, the seedy tavern 'The Crossed Blades' attracts the undesirable patrons who're not welcome in the town's more reputable establishments.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[outside of 'The Crossed Blades' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_PURPLE</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

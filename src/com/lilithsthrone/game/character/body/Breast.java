@@ -140,6 +140,10 @@ public class Breast implements BodyPartInterface {
 		list.add(this.getSize().getDescriptor());
 		list.add(this.getShape().getDescriptor());
 		
+		if(owner.getBodyMaterial().getPartDescriptors()!=null && !owner.getBodyMaterial().getPartDescriptors().isEmpty()) {
+			list.add(Util.randomItemFrom(owner.getBodyMaterial().getPartDescriptors()));
+		}
+		
 		return Util.randomItemFrom(list);
 	}
 

@@ -4,7 +4,6 @@
 	<name><![CDATA[corridor]]></name>
 	<tooltipDescription><![CDATA[A wide corridor links the offices of town hall to one another.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the corridor of Elis's town hall]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_GREY</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

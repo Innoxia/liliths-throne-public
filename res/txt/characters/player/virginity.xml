@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- Player virginity losses: -->
+	<!-- [#SPECIAL_PARSE_0] is the penetration type's name -->
+	
+	<!-- PURE -->
+	
+	<htmlContent tag="VIRGINITY_LOSS_PURE_SELF"><![CDATA[
+		<p style='text-align:center;'>
+			[style.boldTerrible(Broken Virgin)]
+		</p>
+		<p>
+			You can't quite believe what you're doing to yourself. As your [#sex.getFirstOngoingSexAreaPenetration(pc, ORIFICE_VAGINA).getName(npc)] takes your own virginity in a single thrust, you find yourself letting out a desperate gasp.
+		</p>
+		<p style='text-align:center;'>
+			[pc.thought(W-What am I doing?!
+				<br/>I-I'm just so... <i>horny</i>!
+				<br/>I-I can't help myself!)]
+		</p>
+		<p>
+			You don't quite know how to react to your own actions. The virginity that you prized so highly is now gone, and a vacant gaze settles over your face as your [pc.pussy+] spreads lewdly around your own [#SPECIAL_PARSE_0].
+		</p>
+		<p>
+			While you were a virgin, you felt invincible. As though you could overcome any obstacle that was placed in your way. Now, however...
+		</p>
+		<p style='text-align:center;'>
+			[pc.thought(Now I'm just some regular old slut...
+				<br/>So turned on that I choose to fuck myself...
+				<br/>All I'm good for now is being a worthless fuck-toy...)]
+		</p>
+		<p>
+			With a shuddering sigh, you decide to resign yourself to the fact that you're now nothing more than a [style.boldTerrible(broken virgin)]...
+		</p>
+	]]></htmlContent>
+	
+	<htmlContent tag="VIRGINITY_LOSS_PURE"><![CDATA[
+	<p style='text-align:center;'>
+		[style.boldTerrible(Broken Virgin)]
+	</p>
+	<p>
+		You can't believe what's happening. As [npc.namePos] [#sex.getFirstOngoingSexAreaPenetration(pc, ORIFICE_VAGINA).getName(npc)] takes your virginity in a single thrust, you find yourself letting out a desperate gasp.
+	</p>
+	<p style='text-align:center;'>
+		[pc.thought(This is how I lose my virginity?!
+			<br/>To...<i>
+			#IF(npc.isSlave() && npc.getOwner().isPlayer())
+				 my own slave
+			#ELSE
+				 [npc.a_race]
+			#ENDIF
+			</i>?!
+			<br/>This can't be happening!)]
+	</p>
+	<p>
+		You don't quite know how to react. The virginity that you prized so highly has been suddenly taken from you, and a vacant gaze settles over your face as your [pc.pussy+] spreads lewdly around [npc.namePos] [#SPECIAL_PARSE_0].
+	</p>
+	<p>
+		While you were a virgin, you felt invincible. As though you could overcome any obstacle that was placed in your way. Now, however...
+	</p>
+	<p style='text-align:center;'>
+		[pc.thought(Now I'm just some regular old slut...
+			<br/>Getting fucked by any random person I meet...
+			<br/>All I'm good for now is being the next lucky #IF(pc.getSexualOrientation().isAttractedToMasculine())guy#ELSEgirl#ENDIF's fuck-toy...)]
+	</p>
+	<p>
+		You're vaguely aware of [npc.name] [npc.moaning] somewhere in the background, completely oblivious to how hard you've been hit by the loss of your virginity. With a shuddering sigh, you decide to resign yourself to the fact that you're now nothing more than a [style.boldTerrible(broken virgin)]...
+	</p>
+	]]></htmlContent>
+	
+	<htmlContent tag="VIRGINITY_LOSS_PURE_DOLL"><![CDATA[
+	<p style='text-align:center;'>
+		[style.boldTerrible(Broken Virgin)]
+	</p>
+	<p>
+		You can't believe what's happening. As [npc.namePos] [#SPECIAL_PARSE_0] takes your virginity in a single thrust, there's nothing you can bring yourself to do to show how much it meant to you.
+	</p>
+	<p style='text-align:center;'>
+		[pc.thought(This is how I lose my virginity?!
+			<br/>To...<i>
+			#IF(npc.isSlave() && npc.getOwner().isPlayer())
+				 my own slave
+			#ELSE
+				 [npc.a_race]
+			#ENDIF
+			</i>, while I'm nothing more than a dumb sex toy?!
+			<br/>This can't be happening!)]
+	</p>
+	<p>
+		Although you want to scream and push [npc.name] away, your body betrays you, and you find yourself remaining totally silent and motionless. The virginity that you prized so highly has been suddenly taken from you, and you can't even react as your [pc.pussy+] spreads lewdly around [npc.namePos] [#SPECIAL_PARSE_0].
+	</p>
+	<p>
+		While you were a virgin, you felt invincible. As though you could overcome any obstacle that was placed in your way. Now, however...
+	</p>
+	<p style='text-align:center;'>
+		[pc.thought(Now I'm nothing more than a sex toy...
+			<br/>Getting fucked by anyone who wants to use me...
+			<br/>All I'm good for now is being the next lucky #IF(pc.getSexualOrientation().isAttractedToMasculine())guy#ELSEgirl#ENDIF's cum dump...)]
+	</p>
+	<p>
+		You're vaguely aware of [npc.name] [npc.moaning] somewhere in the background, completely oblivious to how hard you've been hit by the loss of your virginity. With absolutely nothing that you can do about it, you decide to resign yourself to the fact that you're now nothing more than a [style.boldTerrible(broken virgin)]...
+	</p>
+	]]></htmlContent>
+	
+	<htmlContent tag="VIRGINITY_LOSS_PURE_SLEEPING"><![CDATA[
+	<p style='text-align:center;'>
+		[style.boldTerrible(Broken Virgin)]
+	</p>
+	<p>
+		Your aimless drifting through a multitude of lewd dreams leads you to one which feels alarmingly real. Your tight, virgin pussy is at the mercy of [npc.name], who wastes no time in thrusting [npc.her] [#SPECIAL_PARSE_0] into you. Your virginity is stolen in a single thrust, and even in this dream world there's nothing you can bring yourself to do to show how much it meant to you.
+	</p>
+	<p style='text-align:center;'>
+		[pc.thought(This is how I lose my virginity?!
+			<br/>To...<i>
+			#IF(npc.isSlave() && npc.getOwner().isPlayer())
+				 my own slave?!
+			#ELSE
+				 [npc.a_race]?!
+			#ENDIF
+			<br/>This can't be happening!)]
+	</p>
+	<p>
+		Although you want to scream and push [npc.name] away, you're trapped within your dream, and you find yourself submissively lying still as [npc.she] begins to fuck you. The virginity that you prized so highly has been suddenly taken from you, and you can't even bring yourself to utter a single protest as your [pc.pussy+] spreads lewdly around [npc.namePos] [#SPECIAL_PARSE_0].
+	</p>
+	<p>
+		While you were a virgin, you felt invincible. As though you could overcome any obstacle that was placed in your way. Now, however...
+	</p>
+	<p style='text-align:center;'>
+		[pc.thought(Now I'm nothing more than a sex toy...
+			<br/>Getting fucked by anyone who wants to use me...
+			<br/>All I'm good for now is being the next lucky #IF(pc.getSexualOrientation().isAttractedToMasculine())guy#ELSEgirl#ENDIF's cum dump...)]
+	</p>
+	<p>
+		You're vaguely aware of [npc.name] [npc.moaning] somewhere in the background, completely oblivious to how hard you've been hit by the loss of your virginity. With absolutely nothing that you can do about it, you decide to resign yourself to the fact that you're now nothing more than a [style.boldTerrible(broken virgin)]...
+	</p>
+	]]></htmlContent>
+	
+	<!-- ANAL -->
+	
+	<htmlContent tag="VIRGINITY_LOSS_ANAL_SELF"><![CDATA[
+	<p>
+		#IF(game.isInSex() && !sex.hasLubricationTypeFromAnyone(pc, ORIFICE_ANUS))
+			You let out a painful cry as you force your [#SPECIAL_PARSE_0] into your dry [pc.asshole]. Squirming and shuffling in discomfort, your cries grow louder and louder as you start fucking your own [pc.ass]; the lack of lubrication turning your first anal experience into one of mind-numbing agony.
+		#ELSE
+			You let out a painful cry as you force your [#SPECIAL_PARSE_0] into your [pc.asshole+]. Squirming and shuffling in discomfort, you continue letting out little whimpers as you start fucking your own [pc.ass]. Thankfully, your [pc.asshole] was lubricated beforehand, and you dread to think of how painful your first anal experience would have been otherwise.
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.hasFetish(FETISH_MASOCHIST))
+			Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure. The pain and discomfort at the feeling of losing your anal virginity is pure bliss, and you soon find yourself [pc.moaning] in a delightful haze of overwhelming ecstasy.
+		#ELSE
+			With tears welling up in your [pc.eyes], you let out another painful wail as you draw your [#SPECIAL_PARSE_0] back, before thrusting deep inside yourself once again. This time, the pain isn't as extreme as before, and you realise that you're starting to get used to the feeling of using your own ass.
+		#ENDIF
+	</p>
+	<p>
+		The throbbing, painful ache in your [pc.ass] slowly starts to fade away, and as your [#SPECIAL_PARSE_0] pushes into your [pc.asshole+] once again, you let out a little whimper of relief as you feel that you're quickly getting used to the penetration.
+	</p>
+	]]></htmlContent>
+	
+	<htmlContent tag="VIRGINITY_LOSS_ANAL"><![CDATA[
+	<p>
+		#IF(game.isInSex() && !sex.hasLubricationTypeFromAnyone(pc, ORIFICE_ANUS))
+			You let out a painful cry as you feel [npc.namePos] [#SPECIAL_PARSE_0] push into your dry [pc.asshole]. Squirming and shuffling in discomfort, your cries grow louder and louder as [npc.name] starts fucking your [pc.ass]; the lack of lubrication turning your first anal experience into one of mind-numbing agony.
+		#ELSE
+			You let out a painful cry as you feel [npc.namePos] [#SPECIAL_PARSE_0] push into your [pc.asshole+]. Squirming and shuffling in discomfort, you continue letting out little whimpers as [npc.name] starts fucking your [pc.ass]. Thankfully, your [pc.asshole] was lubricated beforehand, and you dread to think of how painful your first anal experience would have been otherwise.
+		#ENDIF
+	</p>
+	#IF(pc.hasFetish(FETISH_MASOCHIST))
+		<p>
+			Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure. The pain and discomfort at the feeling of losing your anal virginity is pure bliss, and you soon find yourself [pc.moaning] in a delightful haze of overwhelming ecstasy.
+		</p>
+	#ENDIF
+	<p>
+		#IF(npc.hasFetish(FETISH_SADIST))
+			With tears welling up in your [pc.eyes], you let out another painful wail as [npc.name] draws [npc.her] [#SPECIAL_PARSE_0] back, before violently thrusting deep inside you once again. [npc.She] lets out an evil laugh as [npc.she] causes you to writhe about in pain, [npc.her] sadistic nature fuelling [npc.her] rough thrusts into your [pc.asshole] as [npc.she] ruthlessly fucks your [pc.ass].
+		#ELSE
+			With tears welling up in your [pc.eyes], you let out another painful wail as [npc.name] draws [npc.her] [#SPECIAL_PARSE_0] back, before thrusting deep inside you once again. This time, the pain isn't as extreme as before, and you realise that you're starting to get used to the feeling of being fucked in the ass.
+		#ENDIF
+	</p>
+	#IF(npc.hasFetish(FETISH_DEFLOWERING) && !npc.isMute())
+		<p>
+			[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your anal virginity for me! Remember this moment, remember that <i>my</i> [#SPECIAL_PARSE_0] was the one that turned you into #IF(pc.isFeminine())a horny buttslut#ELSEa little fucktoy#ENDIF!)]
+		</p>
+	#ENDIF
+	<p>
+		The throbbing, painful ache in your [pc.ass] slowly starts to fade away, and as [npc.namePos] [#SPECIAL_PARSE_0] pushes into your [pc.asshole+] once again, you let out a little whimper of relief as you feel that there's no accompanying stab of pain.
+	</p>
+	]]></htmlContent>
+	
+	<htmlContent tag="VIRGINITY_LOSS_ANAL_DOLL"><![CDATA[
+	<p>
+		#IF(game.isInSex() && !sex.hasLubricationTypeFromAnyone(pc, ORIFICE_ANUS))
+			The painful feeling of [npc.namePos] [#SPECIAL_PARSE_0] pushing into your dry [pc.asshole] makes you want to let out a cry, but instead you obediently remain silent and totally motionless. The lack of lubrication makes your first anal experience one of mind-numbing agony, but all you can do is silently endure the pain as [npc.name] starts fucking your [pc.ass].
+		#ELSE
+			The painful feeling of [npc.namePos] [#SPECIAL_PARSE_0] pushing into your [pc.asshole] makes you want to let out a cry, but instead you obediently remain silent and totally motionless. Thankfully, your [pc.asshole] was lubricated beforehand, and so the pain quickly fades away as [npc.name] starts fucking your [pc.ass].
+		#ENDIF
+	</p>
+	#IF(pc.hasFetish(FETISH_MASOCHIST))
+		<p>
+			Due to being an extreme masochist, you find this experience to be a source of exquisite pleasure. The pain and discomfort at the feeling of losing your anal virginity is pure bliss, and you soon find your senses numbed by a delightful haze of overwhelming ecstasy.
+		</p>
+	#ENDIF
+	<p>
+		#IF(npc.hasFetish(FETISH_SADIST))
+			Although you don't show any reaction to losing your anal virginity, [npc.name] clearly knows that you must be in pain. Drawing [npc.her] [#SPECIAL_PARSE_0] back, [npc.she] sadistically smirks at you, before violently thrusting deep inside you once again. [npc.She] lets out an evil laugh as [npc.she] makes [npc.her] movements as fast and rough as [npc.she] can; [npc.her] sadistic nature fuelling [npc.her] violent thrusts into your [pc.asshole] as [npc.she] ruthlessly fucks your [pc.ass].
+		#ELSE
+			Unable to react, you continue acting like an inanimate sex doll as [npc.name] draws [npc.her] [#SPECIAL_PARSE_0] back, before thrusting deep inside you once again. This time, the pain isn't as extreme as before, and you realise that you're starting to get used to the feeling of being fucked in the ass.
+		#ENDIF
+	</p>
+	#IF(npc.hasFetish(FETISH_DEFLOWERING) && !npc.isMute())
+		<p>
+			[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your anal virginity for me! Remember this moment, remember that <i>my</i> [#SPECIAL_PARSE_0] was the one that turned you into a horny buttslut!)]
+		</p>
+	#ENDIF
+	<p>
+		The throbbing, painful ache in your [pc.ass] slowly starts to fade away, and as [npc.namePos] [#SPECIAL_PARSE_0] pushes into your [pc.asshole+] once again, you're relieved to feel that there's no accompanying stab of pain.
+	</p>
+	]]></htmlContent>
+	
+	<htmlContent tag="VIRGINITY_LOSS_ANAL_SLEEPING"><![CDATA[
+	<p>
+		Your lewd dreams, which up until now have been fleeting and rather generic, suddenly morph into a crystal clear vision of [npc.name] pushing you down and lining [npc.her] [#SPECIAL_PARSE_0] up to your virgin ass.
+		#IF(game.isInSex() && !sex.hasLubricationTypeFromAnyone(pc, ORIFICE_ANUS))
+			 Before you can do more than gasp in shock, you're hit by the painful feeling of [npc.namePos] [#SPECIAL_PARSE_0] pushing into your dry [pc.asshole]. The lack of lubrication makes your first anal experience one of mind-numbing agony, but all you can do is silently endure the pain as [npc.name] starts fucking your [pc.ass].
+		#ELSE
+			 Before you can do more than gasp in shock, you're hit by the painful feeling of [npc.namePos] [#SPECIAL_PARSE_0] pushing into your [pc.asshole]. Thankfully, your [pc.asshole] was lubricated beforehand, and so the pain quickly fades away as [npc.name] starts fucking your [pc.ass].
+		#ENDIF
+	</p>
+	#IF(pc.hasFetish(FETISH_MASOCHIST))
+		<p>
+			Due to being an extreme masochist, you find this experience to be a source of exquisite pleasure. The pain and discomfort at the feeling of losing your anal virginity is pure bliss, and you soon find your senses numbed by a delightful haze of overwhelming ecstasy.
+		</p>
+	#ENDIF
+	<p>
+		#IF(npc.hasFetish(FETISH_SADIST))
+			With tears welling up in your [pc.eyes], you let out another painful wail as [npc.name] draws [npc.her] [#SPECIAL_PARSE_0] back, before violently thrusting deep inside you once again. [npc.She] lets out an evil laugh as [npc.she] causes you to writhe about in pain, [npc.her] sadistic nature fuelling [npc.her] rough thrusts into your [pc.asshole] as [npc.she] ruthlessly fucks your [pc.ass].
+		#ELSE
+			With tears welling up in your [pc.eyes], you let out another painful wail as [npc.name] draws [npc.her] [#SPECIAL_PARSE_0] back, before thrusting deep inside you once again. This time, the pain isn't as extreme as before, and you realise that you're starting to get used to the feeling of being fucked in the ass.
+		#ENDIF
+	</p>
+	#IF(npc.hasFetish(FETISH_DEFLOWERING) && !npc.isMute())
+		<p>
+			[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your anal virginity for me! Remember this moment, remember that <i>my</i> [#SPECIAL_PARSE_0] was the one that turned you into #IF(pc.isFeminine())a horny buttslut#ELSEa little fucktoy#ENDIF!)]
+		</p>
+	#ENDIF
+	<p>
+		The throbbing, painful ache in your [pc.ass] slowly starts to fade away, and as [npc.namePos] [#SPECIAL_PARSE_0] pushes into your [pc.asshole+] once again, you let out a little whimper of relief as you feel that there's no accompanying stab of pain.
+	</p>
+	]]></htmlContent>
+
+	<htmlContent tag="VIRGINITY_LOSS_ANAL_ENDING"><![CDATA[
+	<p style='text-align:center;'>
+		[style.italicsTerrible(You'll always remember this moment as the time that you lost your anal virginity!)]
+	</p>
+	]]></htmlContent>
+	
+	
+	<!-- VAGINAL -->
+	
+	<htmlContent tag="VIRGINITY_LOSS_VAGINAL_SELF"><![CDATA[
+	<p>
+		#IF(game.isInSex() && !sex.hasLubricationTypeFromAnyone(pc, ORIFICE_VAGINA))
+			#IF(pc.hasHymen())
+				As you drive your [#SPECIAL_PARSE_0] deep into your dry [pc.pussy], your vision suddenly explodes in stars, and a painful, high-pitched shriek escapes from between your [pc.lips]. Being penetrated without any form of lubrication would be uncomfortable at the best of times, but due to the fact that you've also just torn your hymen, it's more than just a little discomfort, and your shriek turns into a shuddering cry as you shuffle about in pure agony.
+			#ELSE
+				As you drive your [#SPECIAL_PARSE_0] deep into your [pc.pussy], you can't help but let out an uncomfortable groan. Being penetrated without any form of lubrication would be uncomfortable at the best of times, but due to the fact that this is the moment in which you're taking your own virginity, you're entirely unused to the sensation you're currently experiencing, and find it to be extremely unpleasant.
+			#ENDIF
+		#ELSE
+			#IF(pc.hasHymen())
+				As you drive your [#SPECIAL_PARSE_0] deep into your [pc.pussy+], your vision suddenly narrows down, and a painful, desperate wail escapes from between your [pc.lips]. Luckily, your pussy was lubricated before being penetrated, but due to the fact that you've also just torn your hymen, it isn't enough to completely prevent the pain you now feel in your groin, and your wail turns into a shuddering moan as you shuffle about in discomfort.
+			#ELSE
+				As you drive your [#SPECIAL_PARSE_0] deep into your [pc.pussy+], your vision suddenly narrows down, and a lewd [pc.moan] bursts out from between your [pc.lips]. As you're well lubricated, and you've already lost your hymen, the first experience of having your virgin pussy penetrated is not at all an unpleasant one, and you let out a second eager [pc.moan] as you focus on the amazing feeling of your [#SPECIAL_PARSE_0] thrusting into it.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.hasHymen())
+			#IF(pc.hasFetish(FETISH_MASOCHIST))
+				Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure. The agony between your legs is pure bliss, and you focus on the pain as you squeal and moan in a delightful haze of overwhelming ecstasy. Unfortunately for your masochistic desires, your hymen is now torn, and so the pain isn't as extreme as before, but even without this, you find yourself starting to let out lustful [pc.moans].
+			#ELSE
+				Instinctively trying to clench your legs together, you let out another painful wail as you draw your [#SPECIAL_PARSE_0] back, before thrusting deep inside yourself once again.  As your hymen is now torn, the pain isn't as extreme as before, and your pained cries start to turn into lustful [pc.moans].
+			#ENDIF
+			
+		#ELSE
+			Starting to get into the flow of things, you eagerly draw your [#SPECIAL_PARSE_0] back, before thrusting deep inside yourself once again. As you start fucking yourself, you can't help but let out a series of extremely lewd, lustful [pc.moans].
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.hasHymen())
+			#IF(pc.hasFetish(FETISH_PURE_VIRGIN) && pc.getBodyMaterial()==BODY_MATERIAL_FLESH)
+				With the initial pain now having faded away into a faint, dull ache, you can't help but let out one final whimper as you feel a little trickle of blood running out of your broken-in pussy. Picking up the pace, you thrust your [#SPECIAL_PARSE_0] into your [pc.pussy+] once again, letting out [pc.a_moan+] as you succumb to this new pleasurable experience...
+			#ELSE
+				With the initial pain now having faded away into a faint, dull ache, you let out one final whimper as you reflect on the fact that this is how you'll always remember losing your virginity. Picking up the pace, you thrust your [#SPECIAL_PARSE_0] into your [pc.pussy+] once again, letting out [pc.a_moan+] as you succumb to this new pleasurable experience...
+			#ENDIF
+		#ELSE
+			Not having had to experience the pain of losing your hymen, you let out a deep [pc.moan] as you reflect on the fact that this is how you'll always remember losing your virginity. Picking up the pace, you thrust your [#SPECIAL_PARSE_0] into your [pc.pussy+] once again, letting out [pc.a_moan+] as you succumb to this new pleasurable experience...
+		#ENDIF
+	</p>
+	]]></htmlContent>
+	
+	<htmlContent tag="VIRGINITY_LOSS_VAGINAL"><![CDATA[
+	<p>
+		#IF(game.isInSex() && !sex.hasLubricationTypeFromAnyone(pc, ORIFICE_VAGINA))
+			#IF(pc.hasHymen())
+				As [npc.name] drives [npc.her] [#SPECIAL_PARSE_0] deep into your dry [pc.pussy], your vision suddenly explodes in stars, and a painful, high-pitched shriek escapes from between your [pc.lips]. Being penetrated without any form of lubrication would be uncomfortable at the best of times, but due to the fact that [npc.nameHasFull] also just torn through your hymen, it's more than just a little discomfort, and your shriek turns into a shuddering cry as you shuffle about in pure agony.
+			#ELSE
+				As [npc.name] drives [npc.her] [#SPECIAL_PARSE_0] deep into your dry [pc.pussy], you can't help but let out an uncomfortable groan. Being penetrated without any form of lubrication would be uncomfortable at the best of times, but due to the fact that this is the moment in which [npc.name] is taking your virginity, you're entirely unused to the sensation you're currently experiencing, and find it to be extremely unpleasant.
+			#ENDIF
+		#ELSE
+			#IF(pc.hasHymen())
+				As [npc.name] drives [npc.her] [#SPECIAL_PARSE_0] deep into your [pc.pussy+], your vision suddenly narrows down, and a painful, desperate wail escapes from between your [pc.lips]. Luckily, your pussy was lubricated before being penetrated, but due to the fact that [npc.nameHasFull] also just torn through your hymen, it isn't enough to completely prevent the pain you now feel in your groin, and your wail turns into a shuddering moan as you shuffle about in discomfort.
+			#ELSE
+				As [npc.name] drives [npc.her] [#SPECIAL_PARSE_0] deep into your [pc.pussy+], your vision suddenly narrows down, and a lewd [pc.moan] bursts out from between your [pc.lips]. As you're well lubricated, and you've already lost your hymen, the first experience of having your virgin pussy penetrated is not at all an unpleasant one, and you let out a second eager [pc.moan] as you focus on the amazing feeling of [npc.namePos] [#SPECIAL_PARSE_0] thrusting into it.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.hasHymen())
+			#IF(npc.hasFetish(FETISH_SADIST))
+				[npc.She] lets out an evil laugh as [npc.she] causes you to writhe about in pain, [npc.her] sadistic nature fuelling [npc.her] rough thrusts into your pussy as [npc.she] ruthlessly tears through your hymen.
+			#ENDIF
+			#IF(pc.hasFetish(FETISH_MASOCHIST))
+				 Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure. The agony between your legs is pure bliss, and you focus on the pain as you squeal and moan in a delightful haze of overwhelming ecstasy.  Unfortunately for your masochistic desires, your hymen is now torn, and so the pain isn't as extreme as before, but even without this, you find yourself starting to let out lustful [pc.moans].
+			#ELSE
+				 Instinctively trying to clench your legs together, you let out another painful wail as [npc.name] draws [npc.her] [#SPECIAL_PARSE_0] back, before thrusting deep inside you once again. As your hymen is now torn, the pain isn't as extreme as before, and your pained cries start to turn into lustful [pc.moans].
+			#ENDIF
+		#ELSE
+			Starting to get into the flow of things, you let out [pc.a_moan+] as [npc.name] draws [npc.her] [#SPECIAL_PARSE_0] back, before thrusting deep inside you once again. As [npc.she] starts fucking you, you can't help but let out a series of extremely lewd, lustful [pc.moans].
+		#ENDIF
+	</p>
+	#IF(!npc.isMute())
+		<p>
+			#IF(game.isInSex())
+				#IF(sex.getSexPace(npc)==SEX_PACE_DOM_GENTLE)
+					[npc.speech(You were a virgin?)] [npc.she] softly muses to [npc.herself], [npc.speech(You're a very good [pc.girl], saving your virginity for me! You'll always remember that it was my [#SPECIAL_PARSE_0] which was the first to break you in...)]
+				#ELSEIF(sex.getSexPace(npc)==SEX_PACE_DOM_ROUGH:
+					[npc.speech(This is just the start, slut!)] [npc.she] roughly [npc.moansVerb], [npc.speech(Now that I've claimed your virginity, I'll show you how it feels to get a good, hard pounding! You'll never forget this feeling of my [#SPECIAL_PARSE_0] breaking you in!)]
+				#ELSEIF(sex.getSexPace(npc)==SEX_PACE_SUB_RESISTING:
+					[npc.speech(Stop it! I didn't want to do this!)] [npc.she] complains as [npc.she] realises that [npc.sheHas] taken your virginity, [npc.speech(Just get off me and leave me alone!)]
+				#ELSE
+					[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your virginity for me! Remember this moment, remember that <i>my</i> [#SPECIAL_PARSE_0] was the one that broke you in!)]
+				#ENDIF
+			#ELSE
+				[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your virginity for me! Remember this moment, remember that <i>my</i> [#SPECIAL_PARSE_0] was the one that broke you in!)]
+			#ENDIF
+		</p>
+	#ENDIF
+	<p>
+		#IF(pc.hasHymen())
+			#IF(pc.hasFetish(FETISH_PURE_VIRGIN) && pc.getBodyMaterial()==BODY_MATERIAL_FLESH)
+				With the initial pain now having faded away into a faint, dull ache, you can't help but let out one final whimper as you feel a little trickle of blood running out of your broken-in pussy. With [npc.namePos] [#SPECIAL_PARSE_0] thrusting into your [pc.pussy+] once again, you find yourself letting out [pc.a_moan+] as you succumb to this new pleasurable experience...
+			#ELSE
+				With the initial pain now having faded away into a faint, dull ache, you let out one final whimper as you reflect on the fact that this is how you'll always remember losing your virginity. With [npc.namePos] [#SPECIAL_PARSE_0] thrusting into your [pc.pussy+] once again, you find yourself letting out [pc.a_moan+] as you succumb to this new pleasurable experience...
+			#ENDIF
+		#ELSE
+			Not having had to experience the pain of losing your hymen, you let out a deep [pc.moan] as you reflect on the fact that this is how you'll always remember losing your virginity. With [npc.namePos] [#SPECIAL_PARSE_0] thrusting into your [pc.pussy+] once again, you find yourself letting out [pc.a_moan+] as you succumb to this new pleasurable experience...
+		#ENDIF
+	</p>
+	]]></htmlContent>
+	
+	<htmlContent tag="VIRGINITY_LOSS_VAGINAL_DOLL"><![CDATA[
+	<p>
+		#IF(game.isInSex() && !sex.hasLubricationTypeFromAnyone(pc, ORIFICE_VAGINA))
+			#IF(pc.hasHymen())
+				As [npc.name] drives [npc.her] [#SPECIAL_PARSE_0] deep into your dry [pc.pussy], your vision suddenly explodes in stars, and although you want to cry out, you obediently remain silent and unmoving. Being penetrated without any form of lubrication would be uncomfortable at the best of times, but due to the fact that [npc.nameHasFull] also just torn through your hymen, it's more than just a little discomfort, and you find yourself struggling to ignore the pure agony.
+			#ELSE
+				As [npc.name] drives [npc.her] [#SPECIAL_PARSE_0] deep into your dry [pc.pussy], you suppress your instinct to let out a groan and obediently remain silent and unmoving. Being penetrated without any form of lubrication would be uncomfortable at the best of times, but due to the fact that this is the moment in which [npc.name] is taking your virginity, you're entirely unused to the sensation you're currently experiencing, and find it to be extremely unpleasant.
+			#ENDIF
+		#ELSE
+			#IF(pc.hasHymen())
+				As [npc.name] drives [npc.her] [#SPECIAL_PARSE_0] deep into your [pc.pussy+], your vision suddenly narrows down, and although you want to cry out, you obediently remain silent and unmoving. Luckily, your pussy was lubricated before being penetrated, but due to the fact that [npc.nameHasFull] also just torn through your hymen, it isn't enough to completely prevent the pain you now feel in your groin, and you find yourself struggling to ignore the uncomfortable feeling.
+			#ELSE
+				As [npc.name] drives [npc.her] [#SPECIAL_PARSE_0] deep into your [pc.pussy+], your vision suddenly narrows down, and although you want to let out a moan, you obediently remain silent and unmoving. As you're well lubricated, and you've already lost your hymen, the first experience of having your virgin pussy penetrated is not at all an unpleasant one, and you find yourself enjoying the amazing feeling of [npc.namePos] [#SPECIAL_PARSE_0] thrusting into it.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.hasHymen())
+			#IF(npc.hasFetish(FETISH_SADIST))
+				[npc.She] lets out an evil laugh as [npc.she] realises that you must be in pain; [npc.her] sadistic nature fuels [npc.her] rough thrusts into your pussy as [npc.she] ruthlessly tears through your hymen.
+			#ENDIF
+			#IF(pc.hasFetish(FETISH_MASOCHIST))
+				 Due to being an extreme masochist, you find the pain to be a source of great pleasure. The agony between your legs is pure bliss, and you focus on the agony as you lose yourself in a delightful haze of overwhelming ecstasy. Unfortunately for your masochistic desires, your hymen is now torn, and so the pain on the next thrust isn't as extreme as before, but even so you still manage to enjoy it.
+			#ELSE
+				 Despite wanting to clench your legs together, you remain frozen in place as [npc.name] draws [npc.her] [#SPECIAL_PARSE_0] back, before thrusting inside you once again. As your hymen is now torn, the pain isn't as extreme as before, and you quickly find any discomfort being replaced by pleasure.
+			#ENDIF
+		#ELSE
+			Starting to get into the flow of things, you feel yourself getting intensely aroused as [npc.name] draws [npc.her] [#SPECIAL_PARSE_0] back and thrusts inside you once again. As [npc.she] starts fucking you, you can't help but begin to lose yourself in a delightful haze of pleasure.
+		#ENDIF
+	</p>
+	#IF(!npc.isMute())
+		<p>
+			#IF(game.isInSex())
+				#IF(sex.getSexPace(npc)==SEX_PACE_DOM_GENTLE)
+					[npc.speech(You were a virgin?)] [npc.she] softly muses to [npc.herself], [npc.speech(You're a very good [pc.girl], saving your virginity for me! You'll always remember that it was my [#SPECIAL_PARSE_0] which was the first to break you in...)]
+				#ELSEIF(sex.getSexPace(npc)==SEX_PACE_DOM_ROUGH)
+					[npc.speech(This is just the start, slut!)] [npc.she] roughly [npc.moansVerb], [npc.speech(Now that I've claimed your virginity, I'll show you how it feels to get a good, hard pounding! You'll never forget this feeling of my [#SPECIAL_PARSE_0] breaking you in!)]
+				#ELSEIF(sex.getSexPace(npc)==SEX_PACE_SUB_RESISTING)
+					[npc.speech(Stop it! I didn't want to do this!)] [npc.she] complains as [npc.she] realises that [npc.sheHas] taken your virginity, [npc.speech(Just get off me and leave me alone!)]
+				#ELSE
+					[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your virginity for me! Remember this moment, remember that <i>my</i> [#SPECIAL_PARSE_0] was the one that broke you in!)]
+				#ENDIF
+			#ELSE
+				[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your virginity for me! Remember this moment, remember that <i>my</i> [#SPECIAL_PARSE_0] was the one that broke you in!)]
+			#ENDIF
+		</p>
+	#ENDIF
+	<p>
+		#IF(pc.hasHymen())
+			#IF(pc.hasFetish(FETISH_PURE_VIRGIN) && pc.getBodyMaterial()==BODY_MATERIAL_FLESH)
+				With the initial pain now having faded away into a faint, dull ache, you continue to remain frozen in place as you feel a little trickle of blood running out of your broken-in pussy. With [npc.namePos] [#SPECIAL_PARSE_0] thrusting into your [pc.pussy+] once again, you focus on the pleasure and succumb to this new experience...
+			#ELSE
+				With the initial pain now having faded away into a faint, dull ache, you continue to remain frozen in place as you reflect on the fact that this is how you'll always remember losing your virginity. With [npc.namePos] [#SPECIAL_PARSE_0] thrusting into your [pc.pussy+] once again, you focus on the pleasure and succumb to this new experience...
+			#ENDIF
+		#ELSE
+			Not having had to experience the pain of losing your hymen, you continue to remain frozen in place as you reflect on the fact that this is how you'll always remember losing your virginity. With [npc.namePos] [#SPECIAL_PARSE_0] thrusting into your [pc.pussy+] once again, you focus on the pleasure and succumb to this new experience...
+		#ENDIF
+	</p>
+	]]></htmlContent>
+	
+	<htmlContent tag="VIRGINITY_LOSS_VAGINAL_SLEEPING"><![CDATA[
+	<p>
+		As your dreams get hotter and more graphic, you feel your pussy beginning to ache with a desperate need to be fucked hard. Suddenly, you find yourself face to face with [npc.name], who dominantly pushes you down and presses [npc.her] [#SPECIAL_PARSE_0] against your [pc.labia+]. Although this is what you thought you wanted, now that you're in this position you find yourself feeling a little unsure about giving up your virginity. Before you can express your thoughts, however, [npc.name] lustfully thrusts forwards and penetrates you.
+	</p>
+	<p>
+		#IF(game.isInSex() && !sex.hasLubricationTypeFromAnyone(pc, ORIFICE_VAGINA))
+			#IF(pc.hasHymen())
+				As [npc.name] drives [npc.her] [#SPECIAL_PARSE_0] deep into your dry [pc.pussy], your vision suddenly explodes in stars, and although you want to cry out, you obediently remain silent and unmoving. Being penetrated without any form of lubrication would be uncomfortable at the best of times, but due to the fact that [npc.nameHasFull] also just torn through your hymen, it's more than just a little discomfort, and you find yourself struggling to ignore the pure agony.
+			#ELSE
+				As [npc.name] drives [npc.her] [#SPECIAL_PARSE_0] deep into your dry [pc.pussy], you suppress your instinct to let out a groan and obediently remain silent and unmoving. Being penetrated without any form of lubrication would be uncomfortable at the best of times, but due to the fact that this is the moment in which [npc.name] is taking your virginity, you're entirely unused to the sensation you're currently experiencing, and find it to be extremely unpleasant.
+			#ENDIF
+		#ELSE
+			#IF(pc.hasHymen())
+				As [npc.name] drives [npc.her] [#SPECIAL_PARSE_0] deep into your [pc.pussy+], your vision suddenly narrows down, and although you want to cry out, you obediently remain silent and unmoving. Luckily, your pussy was lubricated before being penetrated, but due to the fact that [npc.nameHasFull] also just torn through your hymen, it isn't enough to completely prevent the pain you now feel in your groin, and you find yourself struggling to ignore the uncomfortable feeling.
+			#ELSE
+				As [npc.name] drives [npc.her] [#SPECIAL_PARSE_0] deep into your [pc.pussy+], your vision suddenly narrows down, and although you want to let out a moan, you obediently remain silent and unmoving. As you're well lubricated, and you've already lost your hymen, the first experience of having your virgin pussy penetrated is not at all an unpleasant one, and you find yourself enjoying the amazing feeling of [npc.namePos] [#SPECIAL_PARSE_0] thrusting into it.
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.hasHymen())
+			#IF(npc.hasFetish(FETISH_SADIST))
+				[npc.She] lets out an evil laugh as [npc.she] realises that you must be in pain; [npc.her] sadistic nature fuels [npc.her] rough thrusts into your pussy as [npc.she] ruthlessly tears through your hymen.
+			#ENDIF
+			#IF(pc.hasFetish(FETISH_MASOCHIST))
+				 Due to being an extreme masochist, you find the pain to be a source of great pleasure. The agony between your legs is pure bliss, and you focus on the agony as you lose yourself in a delightful haze of overwhelming ecstasy. Unfortunately for your masochistic desires, your hymen is now torn, and so the pain on the next thrust isn't as extreme as before, but even so you still manage to enjoy it.
+			#ELSE
+				 Despite wanting to clench your legs together, you remain frozen in place as [npc.name] draws [npc.her] [#SPECIAL_PARSE_0] back, before thrusting inside you once again. As your hymen is now torn, the pain isn't as extreme as before, and you quickly find any discomfort being replaced by pleasure.
+			#ENDIF
+		#ELSE
+			Starting to get into the flow of things, you feel yourself getting intensely aroused as [npc.name] draws [npc.her] [#SPECIAL_PARSE_0] back and thrusts inside you once again. As [npc.she] starts fucking you, you can't help but begin to lose yourself in a delightful haze of pleasure.
+		#ENDIF
+	</p>
+	#IF(!npc.isMute())
+		<p>
+			#IF(game.isInSex())
+				#IF(sex.getSexPace(npc)==SEX_PACE_DOM_GENTLE)
+					[npc.speech(You were a virgin?)] [npc.she] softly muses to [npc.herself], [npc.speech(You're a very good [pc.girl], saving your virginity for me! You'll always remember that it was my [#SPECIAL_PARSE_0] which was the first to break you in...)]
+				#ELSEIF(sex.getSexPace(npc)==SEX_PACE_DOM_ROUGH)
+					[npc.speech(This is just the start, slut!)] [npc.she] roughly [npc.moansVerb], [npc.speech(Now that I've claimed your virginity, I'll show you how it feels to get a good, hard pounding! You'll never forget this feeling of my [#SPECIAL_PARSE_0] breaking you in!)]
+				#ELSEIF(sex.getSexPace(npc)==SEX_PACE_SUB_RESISTING)
+					[npc.speech(Stop it! I didn't want to do this!)] [npc.she] complains as [npc.she] realises that [npc.sheHas] taken your virginity, [npc.speech(Just get off me and leave me alone!)]
+				#ELSE
+					[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your virginity for me! Remember this moment, remember that <i>my</i> [#SPECIAL_PARSE_0] was the one that broke you in!)]
+				#ENDIF
+			#ELSE
+				[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your virginity for me! Remember this moment, remember that <i>my</i> [#SPECIAL_PARSE_0] was the one that broke you in!)]
+			#ENDIF
+		</p>
+	#ENDIF
+	<p>
+		#IF(pc.hasHymen())
+			#IF(pc.hasFetish(FETISH_PURE_VIRGIN) && pc.getBodyMaterial()==BODY_MATERIAL_FLESH)
+				With the initial pain now having faded away into a faint, dull ache, you continue to remain frozen in place as you feel a little trickle of blood running out of your broken-in pussy. With [npc.namePos] [#SPECIAL_PARSE_0] thrusting into your [pc.pussy+] once again, you focus on the pleasure and succumb to this new experience...
+			#ELSE
+				With the initial pain now having faded away into a faint, dull ache, you continue to remain frozen in place as you reflect on the fact that this is how you'll always remember losing your virginity. With [npc.namePos] [#SPECIAL_PARSE_0] thrusting into your [pc.pussy+] once again, you focus on the pleasure and succumb to this new experience...
+			#ENDIF
+		#ELSE
+			Not having had to experience the pain of losing your hymen, you continue to remain frozen in place as you reflect on the fact that this is how you'll always remember losing your virginity. With [npc.namePos] [#SPECIAL_PARSE_0] thrusting into your [pc.pussy+] once again, you focus on the pleasure and succumb to this new experience...
+		#ENDIF
+	</p>
+	]]></htmlContent>
+	
+	<htmlContent tag="VIRGINITY_LOSS_VAGINAL_ENDING"><![CDATA[
+	<p style='text-align:center;'>
+		#IF(pc.hasHymen())
+			[style.italicsTerrible(Your hymen has been torn; you have lost your virginity!)]
+		#ELSE
+			[style.italicsTerrible(Although your hymen had already been torn, you've now officially lost your virginity!)]
+		#ENDIF
+	</p>
+	]]></htmlContent>
+	
+</dialogue>

@@ -160,6 +160,10 @@ public class BreastCrotch implements BodyPartInterface {
 		
 		list.add(this.getShape().getDescriptor());
 		
+		if(owner.getBodyMaterial().getPartDescriptors()!=null && !owner.getBodyMaterial().getPartDescriptors().isEmpty()) {
+			list.add(Util.randomItemFrom(owner.getBodyMaterial().getPartDescriptors()));
+		}
+		
 		return Util.randomItemFrom(list);
 	}
 

@@ -4,7 +4,6 @@
 	<name><![CDATA[Entrance]]></name>
 	<tooltipDescription><![CDATA[The main entrance to Elis's town hall.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[at the entrance to Elis's town hall]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_RED</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

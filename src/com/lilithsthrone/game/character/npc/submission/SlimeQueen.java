@@ -59,6 +59,7 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -144,7 +145,15 @@ public class SlimeQueen extends NPC {
 			this.setSkinCovering(new Covering(BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SLIME, BodyCoveringCategory.NIPPLE), CoveringPattern.ORIFICE_NIPPLE, PresetColour.COVERING_PINK_DARK, false, PresetColour.COVERING_PINK_DARK, true), false);
 			this.setSkinCovering(new Covering(BodyCoveringType.MILK, CoveringPattern.FLUID, PresetColour.COVERING_PINK_LIGHT, true, PresetColour.COVERING_PINK_LIGHT, true), false);
 		}
-		
+
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.8.10") && this.getClothingInSlot(InventorySlot.PIERCING_NIPPLE)==null) {
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_basic_barbell_pair", PresetColour.CLOTHING_GOLD, false), true, this);
+			AbstractClothing necklace = this.getClothingInSlot(InventorySlot.NECK);
+			if(necklace!=null) {
+				this.unequipClothingIntoVoid(necklace, true, this);
+				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_cuff_choker_necklace_triple", PresetColour.CLOTHING_GOLD, false), true, this);
+			}
+		}
 		setStartingCombatMoves();
 	}
 
@@ -302,9 +311,10 @@ public class SlimeQueen extends NPC {
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_BANGLE, PresetColour.CLOTHING_GOLD, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_finger_ring", PresetColour.CLOTHING_GOLD, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_heart_necklace", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_cuff_choker_necklace_triple", PresetColour.CLOTHING_GOLD, false), true, this);
 
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_hoops", PresetColour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_basic_barbell_pair", PresetColour.CLOTHING_GOLD, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_gemstone_barbell", PresetColour.CLOTHING_GOLD, false), InventorySlot.PIERCING_STOMACH, true, this);
 
 	}

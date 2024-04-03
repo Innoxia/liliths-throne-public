@@ -22,6 +22,8 @@ import com.lilithsthrone.utils.colours.PresetColour;
  */
 public class SlaveryAdministration {
 
+	private static int slaverLicenseCost = 5000;
+	
 	private static Finch getFinch() {
 		return (Finch) Main.game.getNpc(Finch.class);
 	}
@@ -40,13 +42,30 @@ public class SlaveryAdministration {
 			if (index == 1) {
 				return new Response("Enter", "Step inside the 'Slavery Administration' building.", SLAVERY_ADMINISTRATION);
 
-			} else {
-				return null;
+			} else if(index==2) {
+				if(Main.game.getCurrentDialogueNode()==SLAVERY_ADMINISTRATION_POSTERS) {
+					return new Response("Posters", "You're already taking a closer look at the posters...", null);
+				}
+				return new Response("Posters", "Take a closer look at the posters which are plastered over the wall of the Slavery Administation building.", SLAVERY_ADMINISTRATION_POSTERS);
 			}
+			return null;
 		}
 	};
-	
-	private static int slaverLicenseCost = 5000;
+
+	public static final DialogueNode SLAVERY_ADMINISTRATION_POSTERS = new DialogueNode("Slavery Administration", ".", false) {
+		@Override
+		public int getSecondsPassed() {
+			return 2*60;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/slaveryAdministration", "SLAVERY_ADMINISTRATION_POSTERS");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return SLAVERY_ADMINISTRATION_EXTERIOR.getResponse(responseTab, index);
+		}
+	};
 	
 	public static final DialogueNode SLAVERY_ADMINISTRATION = new DialogueNode("Slavery Administration", ".", true) {
 		@Override

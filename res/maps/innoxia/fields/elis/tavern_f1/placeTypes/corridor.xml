@@ -4,7 +4,6 @@
 	<name><![CDATA[corridor]]></name>
 	<tooltipDescription><![CDATA[This first floor corridor connects the rooms which are available to rent.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the upstairs corridor at 'The Red Dragon' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_RED_LIGHT</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

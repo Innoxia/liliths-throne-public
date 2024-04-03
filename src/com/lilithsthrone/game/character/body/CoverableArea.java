@@ -211,6 +211,16 @@ public enum CoverableArea {
 					InventorySlot.HEAD,
 					InventorySlot.EYES,
 					InventorySlot.MOUTH,
+					InventorySlot.NECK)),
+
+	EYES(true,
+			"eyes",
+			Util.newArrayListOfValues(
+					InventorySlot.HAIR,
+					InventorySlot.HORNS,
+					InventorySlot.HEAD,
+					InventorySlot.EYES,
+					InventorySlot.MOUTH,
 					InventorySlot.NECK));
 
 	

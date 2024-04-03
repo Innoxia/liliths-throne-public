@@ -42,6 +42,7 @@
 		]]></applyEffects>
 		
 		<itemTags>
+			<tag>DRINK</tag>
 			<tag>BAT_CAVERNS_SPAWN</tag>
 			<tag>ATTRIBUTE_TF_ITEM</tag>
 			<tag>SOLD_BY_RALPH</tag>

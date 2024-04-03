@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<authorTag><![CDATA["MFD by DSG Tarp and Awning Co." is burned into one section.]]></authorTag>
+		
+		<value>550</value> 
+		<determiner><![CDATA[a set of]]></determiner>
+		<name><![CDATA[foldable awning poles]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[foldable awning poles]]></namePlural>
+		<description><![CDATA[Originally destined to become the haft of several battleaxes, this set of wooden poles has been re-purposed to hold up an awning instead.]]></description> 
+		
+		<useDescriptor>examine</useDescriptor>
+		
+		<sexUse>false</sexUse>
+		<combatUseAllies>false</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>false</consumedOnUse>
+		
+		<rarity>QUEST</rarity> 
+		
+		<imageName>awningpoles.svg</imageName> 
+		
+		<colourPrimary>CLOTHING_DESATURATED_BROWN</colourPrimary>
+		<colourSecondary>CLOTHING_STEEL</colourSecondary>
+		<colourTertiary/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[One of [style.colourGood(three)] items that you need to fix up Eisek's stall.]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+		<p>
+			The wooden poles are joined together with metal hinges and locking tubes allowing it to either unfold to a longer size or fold to a more compact size for travel.
+		</p>
+		]]></applyEffects>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(unfold)] the set of wooden poles and [npc.verb(take)] a closer look while resisting the urge to swing it around like a quarterstaff...
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(unfold)] the set of wooden poles for [npc2.name] to take a closer look at...
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

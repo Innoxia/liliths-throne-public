@@ -4,7 +4,6 @@
 	<name><![CDATA[Exit]]></name>
 	<tooltipDescription><![CDATA[Along each of the four sides of the market, the road leads off into the rest of Elis.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in Elis's Farmer's Market]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<svgName>exit</svgName>
 	<colour>BASE_RED</colour>

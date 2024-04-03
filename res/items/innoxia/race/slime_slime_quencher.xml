@@ -43,6 +43,7 @@
 		]]></applyEffects>
 		
 		<itemTags>
+			<tag>DRINK</tag>
 			<tag>BAT_CAVERNS_SPAWN</tag>
 			<tag>SUBMISSION_TUNNEL_SPAWN</tag>
 			<tag>ATTRIBUTE_TF_ITEM</tag>

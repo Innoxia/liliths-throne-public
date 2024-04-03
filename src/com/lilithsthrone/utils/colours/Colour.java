@@ -194,6 +194,10 @@ public class Colour {
 	public List<String> getRainbowColours() {
 		return null;
 	}
+
+	public boolean isRainbow() {
+		return getRainbowColours()!=null;
+	}
 	
 	public String getRainbowDiv(int rainbowPixels) {
 		if(getRainbowColours()==null) {

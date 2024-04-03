@@ -4,7 +4,6 @@
 	<name><![CDATA[Centaur Carriage Depot]]></name>
 	<tooltipDescription><![CDATA[Located to the north of the road which leads towards Elis's eastern gate, the 'Centaur Carriage Depot' is the place to go if you want to catch a ride to Dominion.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the 'Centaur Carriage Depot' at Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>false</sexBlockedFromCharacterPresent>
 	<colour>BASE_TAN</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

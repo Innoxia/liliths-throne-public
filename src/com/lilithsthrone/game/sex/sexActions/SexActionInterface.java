@@ -29,6 +29,7 @@ import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.CondomFailure;
+import com.lilithsthrone.game.sex.ImmobilisationType;
 import com.lilithsthrone.game.sex.LubricationType;
 import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
@@ -85,8 +86,11 @@ public interface SexActionInterface {
 	 * <br/>ONGOING SexActionTypes are also available, but only so long as the performing areas doesn't include a virginity-taking penetration type.
 	 * @return
 	 */
-	public default boolean isAvailableDuringImmobilisation() {
+	public default boolean isAvailableDuringImmobilisation(ImmobilisationType type) {
 		if(this.getActionType()==SexActionType.ONGOING) {
+			if(type==ImmobilisationType.COMMAND || type==ImmobilisationType.SLEEP) {
+				return false;
+			}
 			for(SexAreaInterface sa : this.getPerformingCharacterAreas()) {
 				if(sa.isPenetration() && ((SexAreaPenetration)sa).isTakesVirginity()) {
 					return false;
@@ -94,10 +98,21 @@ public interface SexActionInterface {
 			}
 			return true;
 		}
-		return this.getActionType()==SexActionType.SPEECH
-				|| this.getActionType()==SexActionType.SPEECH_WITH_ALTERNATIVE
+		return (this.getActionType()==SexActionType.SPEECH && !type.isSilence())
+				|| (this.getActionType()==SexActionType.SPEECH_WITH_ALTERNATIVE && !type.isSilence())
 				|| this.getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM
 				|| this.getActionType()==SexActionType.ORGASM;
+	}
+	
+	/**
+	 * @return true if the character who's being targeted by this sex action is immobilised of the type 'COMMAND' or 'SLEEP'
+	 */
+	public default boolean isTargetedCharacterInanimate() {
+		GameCharacter target = Main.sex.getCharacterTargetedForSexAction(this);
+		return target!=null
+				&& Main.game.isInSex()
+				&& Main.sex.isCharacterImmobilised(target)
+				&& (Main.sex.getImmobilisationType(target).getKey()==ImmobilisationType.COMMAND || Main.sex.getImmobilisationType(target).getKey()==ImmobilisationType.SLEEP);
 	}
 	
 	/**
@@ -445,11 +460,11 @@ public interface SexActionInterface {
 		StringBuilder sb = new StringBuilder();
 		GameCharacter characterTargeted = Main.sex.getCharacterTargetedForSexAction(this);
 		if(this.isSadisticAction()) {
-			if(!characterTargeted.getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive()) {
-			sb.append("<p style='text-align:center'>"
-						+ "[style.colourBad([npc2.Name] [npc2.verb(find)] this sadistic action to be a huge turn-off!)]"
-						+ characterTargeted.incrementLust(-15, false)
-					+"</p>");
+			if(!characterTargeted.getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive() && !characterTargeted.isDoll()) {
+				sb.append("<p style='text-align:center'>"
+							+ "[style.colourBad([npc2.Name] [npc2.verb(find)] this sadistic action to be a huge turn-off!)]"
+							+ characterTargeted.incrementLust(-15, false)
+						+"</p>");
 			}
 		}
 		
@@ -472,6 +487,16 @@ public interface SexActionInterface {
 			}
 		}
 		
+		// Sleeping wake conditions:
+		if(characterTargeted.isAsleep()) {
+			// Wake if oral or not in gentle pace
+			if(Main.sex.getAllOngoingSexAreas(characterTargeted, SexAreaOrifice.MOUTH).stream().anyMatch(penetration->penetration.isPenetration() && ((SexAreaPenetration)penetration).isTakesVirginity())
+					|| (Main.sex.isDom(Main.sex.getCharacterPerformingAction()) && Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.DOM_GENTLE)) {
+				Main.sex.addCharacterWoken(Main.sex.getCharacterTargetedForSexAction(this));
+			}
+		}
+		
+
 		sb.append(applyEffectsString());
 		
 		return sb.toString();
@@ -520,7 +545,7 @@ public interface SexActionInterface {
 			}
 		}
 		
-		if(Main.sex.isCharacterImmobilised(performingCharacter) && !isAvailableDuringImmobilisation()) {
+		if(Main.sex.isCharacterImmobilised(performingCharacter) && !isAvailableDuringImmobilisation(Main.sex.getImmobilisationType(performingCharacter).getKey())) {
 			return false;
 		}
 		
@@ -809,9 +834,11 @@ public interface SexActionInterface {
 				}
 			}
 
-			// You can't resist in scenes that don't allow it or if non-con is disabled:
+			// You can't resist in scenes that don't allow it, if non-con is disabled, or if the performing character is a doll:
 			if(getSexPace()==SexPace.SUB_RESISTING) {
-				if((Main.sex.isConsensual() && !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_SUB)) || !Main.game.isNonConEnabled()) {
+				if((Main.sex.isConsensual() && !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_SUB))
+						|| !Main.game.isNonConEnabled()
+						|| Main.sex.getCharacterPerformingAction().isDoll()) {
 					return null;
 				}
 			}

@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.occupantManagement.slave;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -37,8 +38,18 @@ public enum SlavePermissionSetting {
 	SEX_INITIATE_PLAYER(false, "Use You", "Allow this slave to use you for sexual relief. This will allow them to initiate sex with you at any time."),
 	SEX_RECEIVE_SLAVES(false, "Sex Toy", "Allow this slave to be used for sexual relief by any of your slaves with the 'Initiate Sex' permission enabled."),
 	SEX_SAVE_VIRGINITY(true, "Save Virginity", "Do not let any other slaves take this slave's virginity during sex."),
-	SEX_IMPREGNATED(false, "Breeding Bitch", "Allow this slave to be impregnated during sexual events with any other slave that has the 'Slave Stud' permission enabled."),
-	SEX_IMPREGNATE(false, "Slave Stud", "Allow this slave to impregnate any other slave that has the 'Breeding Bitch' permission enabled during sexual events."),
+	SEX_IMPREGNATED(false, "Breeding Bitch", "Allow this slave to be impregnated during sexual events with any other slave that has the 'Slave Stud' permission enabled.") {
+		@Override
+		public boolean isAvailableForCharacter(GameCharacter character) {
+			return !character.isDoll();
+		}	
+	},
+	SEX_IMPREGNATE(false, "Slave Stud", "Allow this slave to impregnate any other slave that has the 'Breeding Bitch' permission enabled during sexual events.") {
+		@Override
+		public boolean isAvailableForCharacter(GameCharacter character) {
+			return !character.isDoll();
+		}	
+	},
 
 	
 	// Pills:
@@ -145,7 +156,14 @@ public enum SlavePermissionSetting {
 	// Claenliness:
 	
 	CLEANLINESS_WASH_CLOTHES(true, "Wash Clothing", "Tell this slave to keep their clothing washed and clean."),
-	CLEANLINESS_WASH_BODY(true, "Wash Body", "Tell this slave to keep their body washed and clean, which will keep their orifices free of creampies.")
+	CLEANLINESS_WASH_BODY(true, "Wash Body", "Tell this slave to keep their body washed and clean, which will keep their orifices free of creampies."),
+	
+	
+	// Sleeping:
+	SLEEPING_DEFAULT(true, "Sleep Whenever", "Tell this slave to sleep whenever they like, which will be during the night for diurnal races and during the day for nocturnal races."),
+	SLEEPING_NIGHT(false, "Sleep At Night", "Tell this slave to sleep during the night. This will have neither a positive nor negative effect on them."),
+	SLEEPING_DAY(false, "Sleep During Day", "Tell this slave to sleep during the day. This will have neither a positive nor negative effect on them.")
+	
 	;
 	
 	private String name;
@@ -168,6 +186,10 @@ public enum SlavePermissionSetting {
 
 	public boolean isDefaultValue() {
 		return defaultValue;
+	}
+	
+	public boolean isAvailableForCharacter(GameCharacter character) {
+		return true;
 	}
 	
 }

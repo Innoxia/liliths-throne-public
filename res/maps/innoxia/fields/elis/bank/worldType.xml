@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<worldType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[Bank of Elis]]></name>
+	<colour>BASE_GOLD</colour>
+	<sexBlockedReason><![CDATA[[npc.Name] cannot have sex here!]]></sexBlockedReason> 
+	<furniturePresent>true</furniturePresent>
+	<wallsPresent>true</wallsPresent>
+	<loiteringEnabled>false</loiteringEnabled>
+	<flightEnabled>false</flightEnabled>
+	<visibleFromStart>true</visibleFromStart>
+	<fullyRevealedFromStart>false</fullyRevealedFromStart>
+	<globalMapLocation>WORLD_MAP_FIELDS_CITY</globalMapLocation>
+	<standardPlace>innoxia_fields_elis_bank_foyer</standardPlace>
+	<entryFromGlobalMapLocation>innoxia_fields_elis_bank_exit</entryFromGlobalMapLocation>
+	<teleportPermissions>OUTGOING_ONLY</teleportPermissions>
+	<places>
+		<place colour="#ffffff">GENERIC_IMPASSABLE</place>
+		
+		<place colour="#ff0000">innoxia_fields_elis_bank_exit</place>
+		<place colour="#808080">innoxia_fields_elis_bank_foyer</place>
+		
+		<place colour="#ffff00">innoxia_fields_elis_bank_counter</place>
+		<place colour="#0000ff">innoxia_fields_elis_bank_vip_door</place>
+		<place colour="#ff7f00">innoxia_fields_elis_bank_deposit_box</place>
+	</places>
+</worldType>

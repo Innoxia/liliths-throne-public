@@ -55,7 +55,6 @@ import com.lilithsthrone.game.combat.spells.SpellUpgrade;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.sex.PregnancyDescriptor;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -180,7 +179,7 @@ public class Elemental extends NPC {
 		}
 		
 		// Body:
-		this.setAgeAppearanceDifferenceToAppearAsAge(summoner.getAppearsAsAgeValue());
+		this.setAgeAppearanceAbsolute(summoner.getAppearsAsAgeValue());
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setWingType(WingType.DEMON_COMMON);
 		this.setWingSize(WingSize.THREE_LARGE.getValue());
@@ -323,14 +322,6 @@ public class Elemental extends NPC {
 	}
 	
 	@Override
-	public String rollForPregnancy(GameCharacter partner, float cum, boolean directSexInsemination) {
-		return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner, directSexInsemination)
-				+"<p style='text-align:center;'>[style.italicsMinorBad(Elementals cannot get pregnant!)]"
-//				+ "<br/>[style.italicsDisabled(I will add support for impregnating/being impregnated by elementals soon!)]"
-				+ "</p>";
-	}
-
-	@Override
 	public String incrementExperience(int increment, boolean withExtraModifiers) {
 		return ""; // Elementals don't gain experience, but instead automatically level up alongside their summoner.
 	}
@@ -391,6 +382,7 @@ public class Elemental extends NPC {
 				return SpellSchool.FIRE;
 			case FLESH:
 			case SLIME:
+			case SILICONE:
 				break;
 			case RUBBER:
 			case STONE:
@@ -456,14 +448,22 @@ public class Elemental extends NPC {
 	public void setSummoner(GameCharacter summoner) {
 		if(summoner!=null) {
 			this.summonerID = summoner.getId();
+			this.setBirthday(summoner.getBirthday());
+			this.setAgeAppearanceAbsolute(summoner.getAppearsAsAgeValue());
 		}
 	}
 
 	public boolean isActive() {
+		if(this.getSummoner()==null) {
+			return false;
+		}
 		return this.getSummoner().isElementalActive();
 	}
 
 	public boolean isSummonerServant() {
+		if(this.getSummoner()==null) {
+			return false;
+		}
 		switch(this.getCurrentSchool()) {
 			case AIR:
 				return this.getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_3A);
@@ -480,6 +480,9 @@ public class Elemental extends NPC {
 	}
 
 	public boolean isServant() {
+		if(this.getSummoner()==null) {
+			return false;
+		}
 		switch(this.getCurrentSchool()) {
 			case AIR:
 				return this.getSummoner().hasSpellUpgrade(SpellUpgrade.ELEMENTAL_AIR_3B);

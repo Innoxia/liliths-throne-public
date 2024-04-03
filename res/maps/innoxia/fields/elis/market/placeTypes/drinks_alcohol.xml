@@ -4,7 +4,6 @@
 	<name><![CDATA[The Beer Brigade]]></name>
 	<tooltipDescription><![CDATA[A trio of dog-boys run this alcoholic drinks stall.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the Farmer's Market in Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<svgName>drinks</svgName>
 	<colour>BASE_ORANGE</colour>

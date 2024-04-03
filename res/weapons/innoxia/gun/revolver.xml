@@ -53,7 +53,10 @@
 		</secondaryColours> 
 		<secondaryColoursDye values="ALL"/>
 		
-		<itemTags/>
+		<itemTags>
+			<tag>CONTRABAND_HEAVY</tag>
+			<tag>WEAPON_FIREARM</tag>
+		</itemTags>
 		
 	</coreAttributes>
 

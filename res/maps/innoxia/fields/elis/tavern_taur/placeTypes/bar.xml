@@ -4,7 +4,6 @@
 	<name><![CDATA[bar]]></name>
 	<tooltipDescription><![CDATA[Positioned in the centre of the floor, the circular bar at 'The Centaur's Sword' is able to accommodate numerous tauric customers at once.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[at the bar in 'The Centaur's Sword' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_ORANGE</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

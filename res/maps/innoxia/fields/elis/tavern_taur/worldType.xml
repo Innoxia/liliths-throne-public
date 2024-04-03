@@ -27,5 +27,7 @@
 		<place colour="#00ffff">innoxia_fields_elis_tavern_taur_seating</place>
 		<place colour="#800080">innoxia_fields_elis_tavern_taur_toilets</place>
 		<place colour="#00ff80">innoxia_fields_elis_tavern_taur_stairs</place>
+		<place colour="#0000ff">innoxia_fields_elis_tavern_taur_locked_door</place>
+		<place colour="#ff00ff">innoxia_fields_elis_tavern_taur_stable</place>
 	</places>
 </worldType>

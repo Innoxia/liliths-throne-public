@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -70,6 +71,8 @@ import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
+import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
+import com.lilithsthrone.game.character.effects.EffectBenefit;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
@@ -121,7 +124,40 @@ public abstract class AbstractItemEffectType {
 		return null;
 	}
 	
-	public abstract String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer);
+	public abstract String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer);
+
+	public final String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(itemEffectOverride(primaryModifier, secondaryModifier, potency, limit, user, target, timer));
+		
+		for(Entry<AbstractStatusEffect, Integer> entry : getAppliedStatusEffects().entrySet()) {
+			AbstractStatusEffect se = entry.getKey();
+			int time = entry.getValue();
+			boolean added = target.addStatusEffect(se, time);
+			if(!added) {
+				continue;
+			}
+			String timeDesc = time+" turns";
+			if(!se.isCombatEffect()) {
+				int timeMinutes = (time/60);
+				if(timeMinutes > 3*60) {
+					timeDesc = timeMinutes/60+" hours";
+				} else {
+					timeDesc = timeMinutes+" minutes";
+				}
+			}
+			sb.append(UtilText.parse(target,
+					"<p style='text-align:center; padding-top:0; margin-top:0;'>"
+					+ "[npc.NameIsFull] now "
+					+(se.getBeneficialStatus()==EffectBenefit.DETRIMENTAL?"suffering from [style.italicsBad(":(se.getBeneficialStatus()==EffectBenefit.BENEFICIAL?"benefitting from [style.italicsGood(":"affected by "))
+					+se.getName(target)
+					+(se.getBeneficialStatus()==EffectBenefit.NEUTRAL?"":")]")
+					+ " for "+timeDesc+"!"
+					+ "</p>"));
+		}
+		
+		return sb.toString();
+	}
 	
 	public String getPotionDescriptor() {
 		return "";
@@ -133,6 +169,13 @@ public abstract class AbstractItemEffectType {
 	 */
 	public boolean isBreakOutOfInventory() {
 		return false;
+	}
+	
+	/**
+	 * @return A Map of status effects to be applied to the target, mapped to how long that status effect should be applied for, <b>in seconds</b>.
+	 */
+	public Map<AbstractStatusEffect, Integer> getAppliedStatusEffects() {
+		return new HashMap<>();
 	}
 	
 	public List<TFModifier> getPrimaryModifiers() {
@@ -2625,6 +2668,7 @@ public abstract class AbstractItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_CUM, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_GIRLCUM, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_MILK, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_FLAVOURLESS, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_BEER, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_CHOCOLATE, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_HONEY, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
@@ -2711,7 +2755,7 @@ public abstract class AbstractItemEffectType {
 	
 	protected static RacialEffectUtil getRacialEffect(AbstractRace race, TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, GameCharacter user, GameCharacter target) {
 		
-		boolean revealTransformedPart = !user.equals(target);
+		boolean revealTransformedPart = user!=null && target!=null && !user.equals(target);
 		
 		switch(primaryModifier) {
 			case TF_ANTENNA:
@@ -5205,6 +5249,8 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil("Makes cum taste like girlcum.") { @Override public String applyEffect() { return target.setCumFlavour(FluidFlavour.GIRL_CUM); } };
 					case TF_MOD_FLAVOUR_MILK:
 						return new RacialEffectUtil("Makes cum taste like milk.") { @Override public String applyEffect() { return target.setCumFlavour(FluidFlavour.MILK); } };
+					case TF_MOD_FLAVOUR_FLAVOURLESS:
+						return new RacialEffectUtil("Makes cum have no flavour.") { @Override public String applyEffect() { return target.setCumFlavour(FluidFlavour.FLAVOURLESS); } };
 					case TF_MOD_FLAVOUR_HONEY:
 						return new RacialEffectUtil("Makes cum taste like honey.") { @Override public String applyEffect() { return target.setCumFlavour(FluidFlavour.HONEY); } };
 					case TF_MOD_FLAVOUR_MINT:
@@ -5333,6 +5379,8 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil("Makes milk taste like girlcum.") { @Override public String applyEffect() { return target.setMilkFlavour(FluidFlavour.GIRL_CUM); } };
 					case TF_MOD_FLAVOUR_MILK:
 						return new RacialEffectUtil("Makes milk taste like milk.") { @Override public String applyEffect() { return target.setMilkFlavour(FluidFlavour.MILK); } };
+					case TF_MOD_FLAVOUR_FLAVOURLESS:
+						return new RacialEffectUtil("Makes milk have no flavour.") { @Override public String applyEffect() { return target.setMilkFlavour(FluidFlavour.FLAVOURLESS); } };
 					case TF_MOD_FLAVOUR_HONEY:
 						return new RacialEffectUtil("Makes milk taste like honey.") { @Override public String applyEffect() { return target.setMilkFlavour(FluidFlavour.HONEY); } };
 					case TF_MOD_FLAVOUR_MINT:
@@ -5461,6 +5509,8 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil("Makes udder-milk taste like girlcum.") { @Override public String applyEffect() { return target.setMilkCrotchFlavour(FluidFlavour.GIRL_CUM); } };
 					case TF_MOD_FLAVOUR_MILK:
 						return new RacialEffectUtil("Makes udder-milk taste like milk.") { @Override public String applyEffect() { return target.setMilkCrotchFlavour(FluidFlavour.MILK); } };
+					case TF_MOD_FLAVOUR_FLAVOURLESS:
+						return new RacialEffectUtil("Makes udder-milk have no flavour.") { @Override public String applyEffect() { return target.setMilkCrotchFlavour(FluidFlavour.FLAVOURLESS); } };
 					case TF_MOD_FLAVOUR_HONEY:
 						return new RacialEffectUtil("Makes udder-milk taste like honey.") { @Override public String applyEffect() { return target.setMilkCrotchFlavour(FluidFlavour.HONEY); } };
 					case TF_MOD_FLAVOUR_MINT:
@@ -5589,6 +5639,8 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil("Makes girlcum taste like girlcum.") { @Override public String applyEffect() { return target.setGirlcumFlavour(FluidFlavour.GIRL_CUM); } };
 					case TF_MOD_FLAVOUR_MILK:
 						return new RacialEffectUtil("Makes girlcum taste like milk.") { @Override public String applyEffect() { return target.setGirlcumFlavour(FluidFlavour.MILK); } };
+					case TF_MOD_FLAVOUR_FLAVOURLESS:
+						return new RacialEffectUtil("Makes girlcum have no flavour.") { @Override public String applyEffect() { return target.setGirlcumFlavour(FluidFlavour.FLAVOURLESS); } };
 					case TF_MOD_FLAVOUR_HONEY:
 						return new RacialEffectUtil("Makes girlcum taste like honey.") { @Override public String applyEffect() { return target.setGirlcumFlavour(FluidFlavour.HONEY); } };
 					case TF_MOD_FLAVOUR_MINT:

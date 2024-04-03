@@ -180,7 +180,7 @@ public class ElisAlleywayAttacker extends NPC {
 				&& this.getCell()!=Main.game.getPlayerCell()
 				&& this.getHomeCell().getPlace().getPlaceType()!=PlaceType.ANGELS_KISS_BEDROOM) {
 			if(Main.game.isDayTime()) {
-				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE);
+				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 			} else {
 				this.returnToHome();
 			}

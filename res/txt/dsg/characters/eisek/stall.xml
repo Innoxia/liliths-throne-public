@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	
+	<htmlContent tag="TALK_MENU"><![CDATA[
+	#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB) && flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_persuade) && !flags.hasFlag(FLAG_dsg_elis_eisek_talk_post_mob_quest) && (game.getDayNumber() - flags.getSavedLong("elis_eisek_mob_quest_completion_date") >= 30))
+		<p>
+			As you approach the stall, you notice a sheep-girl speaking with Eisek. A pang of adrenaline rushes through you as you recognise her from the same mob that had been trying to drive the [eisek.race] out. Fearing the worst, you quicken your pace, but she leaves before you can do or say anything.
+		</p>
+		<p>
+			Catching sight of you, a smile grows across Eisek's face. [eisek.speech(Greetings, [pc.name],)] he says, [eisek.speech(The strangest thing happened just before you got here. Some members of that mob stopped by and... actually apologised to me. I assume you had something to do with that.)]
+		</p>
+		<p>
+			Eisek chuckles when you mention that you didn't expect any of them to actually return, before asking, [eisek.speech(So, what can I do for my favourite doer of good deeds?)]
+		</p>
+		[##flags.setFlag(FLAG_dsg_elis_eisek_talk_post_mob_quest, true)]
+	#ELSEIF(eisek.getAffection(pc) >= 15)
+		<p>
+			Catching sight of you as you approach, a smile grows across Eisek's face as he greets you, [eisek.speech(Ah, and what can I do for my favourite customer?)]
+		</p>
+	#ELSEIF(eisek.getAffection(pc) >= 30)
+		<p>
+			Catching sight of you as you approach, a broad smile grows across Eisek's face and you catch a glimpse of his tail twitching involuntarily as he greets you, [eisek.speech(My favourite customer? The day is brighter already.)]
+		</p>
+	#ELSE
+		<p>
+			Catching sight of you as you approach, a faint smile creeps across Eisek's face. [eisek.speech(Greetings, [pc.name],)] he says, [eisek.speech(What can I do for you?)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_DRAGONFALL_SPECIFIC -->
+	<!-- TODO: Break up this wall of text -->
+	<!-- lol, jk, it got longer -->
+	
+	<htmlContent tag="TALK_DRAGONFALL_SPECIFIC"><![CDATA[
+	<p>
+		A puff of steam leaves Eisek's nostrils as you broach the subject of the Dragonfall again. He closes his eyes for a moment, thinking, before finally giving his response.
+	</p>
+	<p>
+		[eisek.speech(Alright,)] he says, somewhat dejectedly, [eisek.speech(I suppose you have already heard something of it from that mob. Better that you learn the truth of the matter.)]
+	</p>
+	<p>
+		[eisek.speech(We dragons were not always as we are now; a scattered and isolated people wringing our survival from the land. Once, the dragons of old were proud servants of the elder lilin Lisophia. For her Glistering Hoard they performed all sorts of brute tasks, extorted the peasants on her land, plundered countless villages, and in return she not only made them strongest creatures in the realm but also let them keep their own hoards. They were proud of their lot in life, so proud that they could not see the winds of change blowing.)]
+	</p>
+	<p>
+		[eisek.speech(Lisophia's greed knew no bounds, and after a time she decided she no longer wished to share. She demanded that the dragons of old surrender all of the treasure they had kept. Of course, this angered them, they fought back, and for that Lisophia's retribution was swift and terrible. My ancestors said very little about what happened and wrote down even less, so great was their shame, but I know that at the end of a great battle almost all the dragons of old were left with only a fraction of their former strength. What Lisopha gave she could just as easily take away, you see.)]
+	</p>
+	<p>
+		[eisek.speech(No longer afraid, mortal society rejected them for the crimes they committed in Lisophia's service, and the Lilin hated them for their arrogance. They and their children down the generations were forced to become outcasts. That is the Dragonfall. A millennia-long punishment for the hubris of my forebears and why those who know about it wish for us to remain outcasts.)]
+	</p>
+	<p>
+		After a long silence, Eisek regains his speech, [eisek.speech(I... do not wish to talk about this any further. Let us change the subject.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_HIMSELF -->
+	
+	<htmlContent tag="TALK_HIMSELF"><![CDATA[
+	<p>
+		Wanting to know more about the [eisek.race], you ask him if he can tell you anything about himself.
+	</p>
+	#IF(eisek.getAffection(pc) >= 15)
+		<p>
+			Since you've earned his trust, the [eisek.race] opens to you up a little, [eisek.speech(I come from Cimryth's Crag, a rocky little valley high in the mountains far to the west of here. My family has farmed there for a hundred years.)]
+		</p>
+		<p>
+			Expressing surprise that his farm is in the mountains, you ask Eisek how he can grow anything up there and how he can carry enough to sell all the way down. Trying not to sound too proud, he explains, [eisek.speech(Cimryth chose well when she decided where to settle my ancestors. Heat rises from the earth there, and ice never touches the ground. She brought soil from the foothills with her, and the greenhouses she designed took care of the rest. It is for this reason the Crag is named after her, and it is my honour to carry on in her tradition.)]
+		</p>
+		<p>
+			Eisek flexes his wings slightly before continuing, [eisek.speech(It is easy enough to carry my weight in goods on a downward glide from the Crag, and the thermals on the way back are strong.)]
+		</p>
+		<p>
+			From the sounds of things, the [eisek.race] is doing much or even all of this on his own. When you ask him if he's got anyone helping him, his face darkens. [eisek.speech(I do not,)] he answers tersely. You decide not to pry further.
+		</p>
+	#ELSE
+		<p>
+			Eisek opens his mouth to respond, but shuts it again just as quickly. A brief look of hesitation flashes across his face before he answers your question. [eisek.speech(My product comes from the mountains,)] he says carefully, [eisek.speech(On the first day of each month I bring it here and on the third day I leave.)]
+		</p>
+		<p>
+			When you ask how he can grow anything in the mountains, his answer is only a cryptic, [eisek.speech(There are ways.)]
+		</p>
+		<p>
+			From the way he dodged your questions he evidently doesn't trust you enough yet.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_BUSINESS -->
+	
+	<htmlContent tag="TALK_BUSINESS"><![CDATA[
+	<p>
+		Curious about the [eisek.race]'s business, you ask him how things are going on that front.
+	</p>
+	#IF(eisek.getAffection(pc) >= 15)
+		#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_MOB))
+			#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_EISEK_STALL))
+				<p>
+					His eyes light up at the question. [eisek.speech(I cannot thank you enough, [pc.name]. With this new stall I am on equal footing with the other merchants, and since you drove away that crowd of hooligans I can actually focus on running it. Sales have really started to pick up and I have seen many new customers.)]
+				</p>
+				<p>
+					He studies you intently for a brief instant before continuing with a warm smile, [eisek.speech(Do not worry, you will always be my favourite.)]
+				</p>
+			#ELSE
+				<p>
+					[eisek.speech(You have done me a great service in convincing that mob of the truth,)] he says, trying not to sound too excited, [eisek.speech(Without them to frighten away customers, I have been selling through my stock on some days.)]
+				</p>
+				<p>
+					Surveying the other stalls in the avenue, he continues, half talking to himself as he does so, [eisek.speech(Perhaps I should use this time to make improvements to my stall... but who...)]
+				</p>
+				<p>
+					Suddenly realising that he's thinking
+					#IF(flags.hasFlag(FLAG_dsg_elis_eisek_asked_business))
+						 aloud again,
+					#ELSE
+						 aloud,
+					#ENDIF
+					 the [eisek.race] straightens up and says, [eisek.speech(But that can wait for some other time. More customers is always a good thing.)] He scratches his chin in thought before flashing you a cheeky grin. [eisek.speech(Though, you still talk the most.)]
+				</p>
+			#ENDIF
+		#ELSE
+			<p>
+				He ponders your question for a moment, looking off into the distance, before answering, [eisek.speech(Well enough, I suppose. I never planned to succeed through volume. Although...)]
+			</p>
+			<p>
+				The [eisek.race] pauses as he surveys the other stalls up and down the avenue, before stating, [eisek.speech(My stall could use some work... Hmm, but I cannot leave it undefended with that mob out there. It would be in ruins when I returned, that is for sure. And even if I did not, who is to say they will not destroy it regardless?)]
+			</p>
+			<p>
+				As if suddenly aware that he's been thinking aloud, he snaps out of his trance and looks back at you, doing his best to hide his embarrassment. [eisek.speech(Ah, but I am sure you that did not come to hear me ramble. I am fortunate that not all of the locals are thick-skulled. They are not talkative like you, but they buy what I have to sell, and that is good enough for me.)]
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			The [eisek.race] responds with a dispassionate smoothness born of frequent practice, [eisek.speech(Well enough. Though I would much prefer to <i>do</i> business than merely talk about it. Perhaps this is something you can assist me with.)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_FAMILY -->
+	
+	<htmlContent tag="TALK_FAMILY"><![CDATA[
+	<p>
+		You ask Eisek about the family he mentioned. The question seems to hit him off-balance and he initially pretends that he didn't hear it as his expression darkens.
+		#IF (pc.hasTraitActivated(PERK_OBSERVANT))
+			 You notice him fiddling with a curious gold ring around his finger. A nervous tic perhaps?
+		#ENDIF
+		 When he finally does respond, he stares at the counter and says in a barely audible whisper, [eisek.speech(I do not wish to talk about that.)]
+	</p>
+	<p>
+		Probably not a good idea to push further.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_WHY_ELIS -->
+	
+	<htmlContent tag="TALK_WHY_ELIS"><![CDATA[
+	<p>		
+		#IF(pc.isAdvancedRaceKnowledgeDiscovered(SUBSPECIES_dsg_dragon_subspecies_dragon))
+			From what you read about dragons,
+		#ELSE
+			From what you know about dragon stereotypes,
+		#ENDIF
+		 they dislike strangers. With this on your mind, you ask Eisek how he came to run a stall in a town full of them, especially when some of them are so hostile.
+	</p>
+	<p>
+		The [eisek.race] lets out a rumbling chuckle as he responds, [eisek.speech(Ah yes, ironic, is it not? Well as much as we dragons value our solitude, there are some things we must rely on traders for. About three years ago, they stopped coming to the Crag and after a bad storm smashed up a few greenhouses last winter I had little other choice.)]
+	</p>
+	<p>
+		He pauses for a moment, looking you over with a small smile before continuing, [eisek.speech(Thanks to you, my little gamble on civilisation has thus far worked out better than I had hoped.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_OTHER_DRAGONS -->
+	
+	<htmlContent tag="TALK_OTHER_DRAGONS"><![CDATA[
+	<p>
+		Wondering if Eisek is in contact with others of his race, you ask him if he's met any other dragons.
+	</p>
+	<p>
+		[eisek.speech(Met? Only one. A family friend of sorts hailing from the desert,)], he replies, looking slightly misty-eyed at the recall of some private memory, [eisek.speech(She was a skilled glass-maker who once helped me repair a greenhouse. We have not spoken in... a long time. As for other dragons, I only know about the existence of them from the sight of their fields in bloom during the day or the glow of their kilns during the night. They were not so desperate as I was to make contact with strangers, however, and you would be wise to leave them alone should you encounter them in the wilds.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- VENDOR -->
+	<htmlContent tag="VENDOR"><![CDATA[
+	<p>
+		[eisek.speech(The cream of the crop. You will not find better in the whole of this market.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_ASK_ABOUT_MOB -->
+	<htmlContent tag="TALK_ASK_ABOUT_MOB"><![CDATA[
+	<p>
+		Something about the crowd you dispersed when you first met Eisek bothers you. They seemed rather organised for a random bunch of thugs, and to their credit, they did at least leave without a fight. You ask the [eisek.race] what they hoped to gain by driving him out.
+	</p>
+	<p>
+		Eisek meets your question with a steaming snort,
+		#IF (flags.hasFlag(FLAG_dsg_elis_eisek_asked_about_mob))
+			 [eisek.speech(As I said before, the first one showed up maybe three months ago. I ignored him and he came back with friends. The town guards came two or three times, but harassment is hardly a serious crime. The ones that were taken away would be absent for the next day or so, but they would always come back, none the worse for wear. They were a nuisance more than anything and I was mostly concerned that they were scaring away customers. Well, that was before their friends came back with more friends...)]
+		#ELSE
+			 [eisek.speech(Oh them. The first one showed up maybe three months ago. I ignored him and he came back with friends. The town guards came two or three times, but harassment is hardly a serious crime. The ones that were taken away would be absent for the next day or so, but they'd always come back, none the worse for wear. They were a nuisance more than anything and I was mostly concerned that they were scaring away customers. Well, that was before their friends came back with more friends...)]
+		#ENDIF
+	</p>
+	<p>
+		As he trails off, you get the impression that the [eisek.race] is avoiding your
+		#IF (flags.hasFlag(FLAG_dsg_elis_eisek_asked_about_mob))
+			 question again.
+		#ELSE
+			 again.
+		#ENDIF
+		 Eisek leans against the counter when you try to steer the conversation back to the crowd's motivation and quietly says, [eisek.speech(You heard them as well as I did. They think that I am like the dragons of old, from before the Dragonfall.)]
+	</p>
+	<p>
+		You're not really sure what the "dragons of old" really means or what a "Dragonfall" is. Do you press him for more information, focus on the matter at hand, or drop the subject entirely?
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TALK_ASK_ABOUT_MOB_CHANGE_SUBJECT"><![CDATA[
+	<p>
+		Feeling as though this is getting a little too heavy, you change the subject and direct the conversation back to Eisek's business. Leaning against the counter, he asks, [eisek.speech(So, would you like to buy some of my produce?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- TALK_DRAGONFALL_VAGUE -->
+	
+	<htmlContent tag="TALK_DRAGONFALL_VAGUE"><![CDATA[
+	<p>
+		When you ask Eisek what he means by "dragons of old", he dodges your gaze and answers as quietly as before, [eisek.speech(My ancestors did things to their ancestors. Things I am not proud of.)]
+	</p>
+	<p>
+		He's obviously hiding something but it's unlikely you'll get any more out of him without earning his trust.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- MOB_QUEST_START -->
+	
+	<htmlContent tag="MOB_QUEST_START"><![CDATA[
+	<p>
+		From the sound of things, the mob will return sooner or later and you're not sure a verbal telling off will be enough next time. They did appear to be common townsfolk, however, and a search around town could reveal more about them, such as where they are gathering to organize. You tell Eisek as much.
+	</p>
+	<p>
+		[eisek.speech(So, if you find them, what will you do?)] he asks, trying to hide his concern, [eisek.speech(If you harm them for my sake, you will have proven their point.)]
+	</p>
+	<p>
+		You reassure the [eisek.race] that <i>when</i> you find them, it need not come to that. There may yet be other options. Although your words do not seem to have much effect, Eisek grudgingly agrees.
+	</p>
+	<p>
+		[eisek.speech(Very well...)] he pauses and looks down at the counter as if thinking of what to say next, [eisek.speech(But please be careful, I do not wish for any harm to come to you. I will await news of your... success.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- MOB_QUEST_COMPLETE -->
+	
+	<htmlContent tag="MOB_QUEST_COMPLETE"><![CDATA[
+	#IF(pc.isQuestFailed(QUEST_LINE_SIDE_EISEK_MOB))
+		<p>
+			You tell Eisek apologetically that you weren't able to convince the mob to leave him alone. A look of concern crosses his face and he asks, [eisek.race(Are you... were you... injured?)] 
+		</p>
+		<p>
+			Although the [eisek.race] relaxes slightly when you tell him that your pride was wounded more than anything else, his face darkens. A small wisp of steam escapes from one side of his mouth. [eisek.speech(I see. At least we have that small comfort,)] he says simply, [eisek.speech(Regardless, you have my thanks for trying.)]
+		</p>
+	#ELSEIF(flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_persuade))
+		<p>
+			You tell Eisek that the mob won't be returning but he doesn't look convinced.
+		</p>
+		<p>
+			[eisek.speech(Is that so? And how did you manage such a feat?)]
+		</p>
+		<p>
+			You explain that since you'd learned so much about him, you were able to persuade the townsfolk into listening to the truth: that he isn't anything like his ancestors and isn't here to hurt anybody.
+		</p>
+		<p>
+			The [eisek.race]'s eyes widen slightly in surprise. He speaks haltingly, each word carefully chosen, [eisek.speech(I admit, I did not think you actually cared. Forgive me for doubting you.)]
+		</p>
+		<p>
+			He then reaches under the counter and retrieves something. [eisek.speech(I have little in the way of rewarding you but perhaps these will do,)] he says as he places three bright yellow fruit covered in green, scale-like leaves on the counter,
+			#IF(!pc.getRace().equals(RACE_dsg_dragon))
+				 [eisek.speech(My orchards can produce very few of these now, but if you would like to... empathise with my kind further, they will help you. And if you should require more, I will keep some on hand, just for you.)]
+			#ELSE
+				 [eisek.speech(My orchards can produce very few of these now, but if you should find your form straying, they will help you. And if you should require more, I will keep some on hand, just for you.)]
+			#ENDIF
+		</p>
+	#ELSEIF(flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_intimidate))
+		<p>
+			You tell Eisek that the mob won't be returning but he doesn't look convinced.
+		</p>
+		<p>
+			[eisek.speech(Is that so? And how did you manage such a feat?)]
+		</p>
+		<p>
+			You explain that you beat up the mob's strongest member in front of them and threatened the rest with a good thrashing. The [eisek.race]'s eyes narrow slightly as he hears this.
+		</p>
+		<p>
+			[eisek.speech(So... you convinced them that I was not in fact a violent beast with feats of violence?)] he asks rhetorically. After pondering this for a moment, he continues flatly, [eisek.speech(It seems I have misjudged the ways of civilised folk. Forgive me. I do not mean to sound ungrateful.)]
+		</p>
+		<p>
+			With that, he places a sack of flames on the counter and states, [eisek.speech(For your trouble.)]
+		</p>
+	#ELSEIF(flags.hasFlag(FLAG_dsg_elis_eisek_mob_quest_intimidate_arcane))
+		<p>
+			You tell Eisek that the mob won't be returning but he doesn't look convinced.
+		</p>
+		<p>
+			[eisek.speech(Is that so? And how did you manage such a feat?)]
+		</p>
+		<p>
+			You explain that you demonstrated your arcane prowess and defeated the mob's strongest member. That was enough to cow the townsfolk. The [eisek.race]'s eyes narrow slightly as he hears this.
+		</p>
+		<p>
+			[eisek.speech(So... you convinced them that I was not in fact a violent beast with feats of violence?)] he asks rhetorically. After pondering this for a moment, he continues flatly, [eisek.speech(It seems I have misjudged the ways of civilised folk. Forgive me. I do not mean to sound ungrateful.)]
+		</p>
+		<p>
+			With that, he places a sack of flames on the counter and states, [eisek.speech(For your trouble.)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- LEAVE -->
+	
+	<htmlContent tag="LEAVE"><![CDATA[
+	#IF(eisek.getAffection(pc) >= 30)
+		<p>
+			The [eisek.race] tilts his head slightly as you bid him farewell. [eisek.speech(Leaving so soon? As you wish. I hope it will not be long before you visit again, I enjoy your company.)]
+		</p>
+	#ELSEIF(eisek.getAffection(pc) >= 15)
+		<p>
+			The [eisek.race] bows his head slightly as you bid him farewell. [eisek.speech(Thank you for stopping by,)] he says, before quickly adding, [eisek.speech(Please come visit again.)]
+		</p>
+	#ELSE
+		<p>
+			The [eisek.race] bows his head slightly as you bid him farewell. [eisek.speech(Thank you for stopping by.)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<!-- STALL_QUEST_START -->
+	
+	<htmlContent tag="STALL_QUEST_START"><![CDATA[
+	<p>
+		Thinking back to what Eisek accidentally let slip about improvements to his stall, you decide to ask him about it.
+	</p>
+	<p>
+		[eisek.speech(Ah, you need not burden yourself with my idle thoughts. You have already done so much for me. I could never ask for such a thing from you,)] the [eisek.race] responds. He seems to be uncharacteristically flustered. Deflecting the question, however, is something you expected from him.
+	</p>
+	<p>
+		The indirect approach, then. You change the subject. What sort of difficulties does he run into in the market? To this, Eisek is more open, and he reveals, [eisek.speech(The sun is not always a source of comfort. Tilling a field and standing here under it are quite different. And...)] He looks around the avenue before continuing, [eisek.speech(This stall is definitely not as eye catching as the others.)]
+	</p>
+	<p>
+		Finally having something to work with, you briefly glance at the crude sign and dull burlap currently decorating the stall. You reframe your original question as wanting to know what qualities his goods possess that are so important that he'd put them on a sign if he had one, hypothetically, of course.
+	</p>
+	<p>
+		[eisek.speech(Hmm...)] he rumbles, leaning forward slightly on the counter, [eisek.speech(They are brought down from the mountains, yes, from the clear alpine air. And I keep them cold while I am here, they stay fresh that way even when the summer sun beats down upon them.)]
+	</p>
+	<p>
+		While his guard is still down, you slip in another question about what his favourite colour is to which he responds, [eisek.speech(Green. Is there... an aim behind this?)]
+	</p>
+	<p>
+		You don't bother trying to worm your way out with a grand explanation and admit to only being curious. With this new information, it seems you have some shopping to do. First, you'll need to find some green fabric for a new tablecloth and an awning, as well as someone who can make a new sign for you. Perhaps there is a local merchant who can help?
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- STALL_QUEST_COMPLETE -->
+	
+	<htmlContent tag="STALL_QUEST_COMPLETE"><![CDATA[
+	<p>
+		Eisek can only open and shut his mouth like a fish as his gaze catches the materials you've triumphantly brought back. He finds his voice as you set the bolt of cloth, the folded up canvas, and wooden poles down on the counter.
+	</p>
+	<p>
+		[eisek.speech(So that strange line of questions earlier was for this?)] he asks. His tone is reserved, but the way his tail twitches when you show him the new sign gives away his excitement.
+	</p>
+	<p>
+		With your quest nearly at an end, you come clean. Yes, those strange questions about signs and favourite colours were about getting him the improvements to his stall that he wanted, and there is nothing he can do to stop you now.
+	</p>
+	<p>
+		The next half hour is spent helping Eisek put up the awning and replace the fabric and signage covering the counter. When the two of you are done, the transformation is total and the stall stands on equal footing with all of its neighbours.
+	</p>
+	<p>
+		Standing at your side, Eisek asks in a much quieter voice than usual, [eisek.speech(Why did you do all this for me?)]
+	</p>
+	<p>
+		#IF(pc.hasPersonalityTrait(PERSONALITY_TRAIT_SELFISH))
+			You keep the fact that you were really after any potential reward to yourself and decide on a suitably noble response.
+		#ENDIF
+		 You tell him simply that after everything that's happened, he deserves to win for once. Not to just avoid losing, but to win. The [eisek.race] is silent, speechless for a few long minutes before he suddenly embraces you.
+	</p>
+	<p>
+		[eisek.speech(I am glad that I chose this town, [pc.name],)] he says as his voice rumbles in his chest, [eisek.speech(I met you in it.)]
+	</p>
+	<p>
+		#IF(pc.hasPersonalityTrait(PERSONALITY_TRAIT_CYNICAL))
+			You bear it for a few long seconds.
+		#ENDIF
+		 Then, just as suddenly, he releases you, leaving you in a cloud of steam as he turns away and coughs nervously. Returning to his side of the stall, he places a hefty sack of flames on the counter and clears his throat, [eisek.speech(~Ahem!~ Still, the fabric will need to be sewn up around the edges, but it is nothing I cannot manage on my own and... it would be wrong of me to profit from someone who has aided me so greatly. I will sell you my goods at cost. You have my sincerest thanks.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- SMALL_TALK -->
+	<!-- Imagine writing something you hate doing irl ha ha couldn't be me -->
+	<!-- Future opportunities: WesQuest, Oglix -->
+	
+	<htmlContent tag="SMALL_TALK"><![CDATA[
+	<p>
+		Having nothing in particular you wish to discuss with the [eisek.race], you decide to broach some lighter topics. Your conversation drifts aimlessly, but Eisek seems glad for the company and alternates between listening attentively and offering his own input.
+	</p>
+	#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_SLIME_QUEEN) && !flags.hasFlag(FLAG_dsg_elis_eisek_small_talk_slime_queen))
+		<p>
+			Somehow you end up recounting your tale of your involvement in the Slime Queen's scheme to transform everyone in Submission. When you mention the miles of caverns and tunnels you had to navigate, Eisek comments, [eisek.speech(Hmm, it is difficult for me to imagine such darkness. I have never been more than a few minutes from the open sky. And some of these passages were built on purpose? Interesting.)]
+		</p>
+		<p>
+			#IF(pc.hasPersonalityTrait(PERSONALITY_TRAIT_LEWD))
+				You almost lose yourself describing the raunchier parts of your experience but decide to stop when you see it's made your audience uncomfortable.
+			#ELSE
+				You decide to skip the raunchier parts of your experience fighting your way into the Slime Queen's lair.
+			#ENDIF
+			 [eisek.speech(So...what did you do when you reached her?)] Eisek asks.
+		</p>
+		<p>
+			#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_SLIME_QUEEN, QUEST_SLIME_QUEEN_SIX_SUBMIT))
+				You admit that you ended up helping the Slime Queen evade further investigation. The [eisek.race] furrows his brow at your subterfuge. [eisek.speech(Open deception does not suit you, [pc.name], but I trust you had good cause to do so.)]
+			#ELSEIF(pc.hasQuestInLine(QUEST_LINE_SIDE_SLIME_QUEEN, QUEST_SLIME_QUEEN_SIX_FORCE))
+				You describe how you defeated the Slime Queen in single combat and forced her to give up her sinister conspiracy. [eisek.speech(An honourable end to an interesting tale, thank you for sharing it with me,)] the [eisek.race] says with a small smile.
+			#ELSE
+				You describe how you simply convinced the Slime Queen to give up her nefarious plot. [eisek.speech(I would have expected no less from someone with your guile,)] the [eisek.race] says, practically beaming, [eisek.speech(An interesting tale, thank you for sharing it with me.)]
+			#ENDIF
+		</p>
+		[##flags.setFlag(FLAG_dsg_elis_eisek_small_talk_slime_queen, true)]
+	#ELSEIF(pc.isQuestCompleted(QUEST_LINE_SIDE_HARPY_PACIFICATION) && !flags.hasFlag(FLAG_dsg_elis_eisek_small_talk_harpy_pacification))
+		<p>
+			You eventually end up telling him about how you once found yourself in a nest of angry harpies in Dominion.
+		</p>
+		<p>
+			[eisek.speech(Yes... harpies,)] Eisek says, eyes slightly narrowed, [eisek.speech(Their kin used to try and stop me on my flights here. I see they defend their territory as zealously in civilisation as they do in the wilds. What did you do next? Escape?)] 
+		</p>
+		<p>
+			You reply that you decided
+			#IF(pc.hasPersonalityTrait(PERSONALITY_TRAIT_KIND))
+				 to do a public good 
+			#ELSE
+				 to take matters into your own [pc.hands]
+			#ENDIF
+			 and put an end to the violence by taking down all three matriarchs and assuming control of their nests. It wasn't easy, but you succeeded. At your mention of success, the [eisek.race] raises his brow. [eisek.speech(And you did this on your own? An impressive feat, [pc.name].)]
+		</p>
+		[##flags.setFlag(FLAG_dsg_elis_eisek_small_talk_harpy_pacification, true)]
+	#ELSEIF(pc.isQuestCompleted(QUEST_LINE_SIDE_VENGAR) && !flags.hasFlag(FLAG_dsg_elis_eisek_small_talk_vengar))
+		<p>
+			You see an opportunity to tell the tale of how you dealt with Vengar's gang and describe how the rat-boy's followers were extorting businesses. One in particular was being run into the ground with the fees, so you decided to do something about it.
+		</p>
+		<p>
+			At the mention of Vengar's protection fees, Eisek tilts his head slightly in confusion. [eisek.speech(Protection fees? But what is wrong with fair payment for services rendered?)] he asks.
+		</p>
+		<p>
+			Hiding your amusement at the [eisek.race]'s naïveté, you clarify that the protection fees were a euphemism for threatening the business owner. Protection <i>from</i> Vengar's gang, as it were. Realising what you mean, Eisek responds, [eisek.speech(I see... Interesting, so they were criminal brutes and yet they avoided speaking directly... So, what did you do to them?)]
+		</p>
+		<p>
+			You tell Eisek that you infiltrated Vengar's hideout and
+			#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_VENGAR, QUEST_VENGAR_TWO_CONFLICT))
+				 defeated him with the intent of taking over his gang but he was apprehended before you could do anything further. [eisek.speech(A pity. Perhaps you could have helped them change their ways. Even so, I am sure the other businesses of Submission rest easier now and I am glad you emerged unharmed.)]
+			#ELSEIF(pc.hasQuestInLine(QUEST_LINE_SIDE_VENGAR, QUEST_VENGAR_TWO_COOPERATION))
+				 found out that he was actually wanting to turn to more legitimate business so you helped him smooth over the transition. [eisek.speech(Hmm, I would not have expected such pressures on a crime lord, or that he would be seeking such an exit. It is good that you helped him turn a new leaf.)]
+			#ELSE
+				 decided to let the authorities handle the rest. [eisek.speech(A fair course of action. I am glad that you emerged unharmed.)]
+			#ENDIF
+		</p>
+		[##flags.setFlag(FLAG_dsg_elis_eisek_small_talk_vengar, true)]
+	#ELSE
+		<p>
+			Eventually though, you run out of things to talk about, and Eisek puts a graceful end to your little chat with a final, [eisek.speech([style.random(It is so.|Indeed.|It is as you say.|Please be more careful.|Perhaps.)])]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+</dialogue>

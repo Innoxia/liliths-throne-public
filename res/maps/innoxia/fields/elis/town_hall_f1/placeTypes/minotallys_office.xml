@@ -4,7 +4,6 @@
 	<name><![CDATA[Minotallys's office]]></name>
 	<tooltipDescription><![CDATA[From this office Minotallys manages the affairs of Elis and the surrounding Foloi Fields.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in Minotallys's office in Elis's town hall]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_PURPLE</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

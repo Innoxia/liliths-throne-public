@@ -58,6 +58,7 @@ public enum SVGImages {
 			raceBackground,
 			raceBackgroundHalf,
 			raceBackgroundSlime,
+			raceBackgroundDoll,
 			raceBackgroundDemon,
 			raceUnknown,
 			raceDobermann,
@@ -329,6 +330,9 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackgroundSlime.svg");
 			raceBackgroundSlime = Util.inputStreamToString(is);
 
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackgroundDoll.svg");
+			raceBackgroundDoll = Util.inputStreamToString(is);
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackgroundDemon.svg");
 			raceBackgroundDemon = Util.inputStreamToString(is);
 			
@@ -1513,6 +1517,10 @@ public enum SVGImages {
 
 	public String getRaceBackgroundSlime() {
 		return raceBackgroundSlime;
+	}
+
+	public String getRaceBackgroundDoll() {
+		return raceBackgroundDoll;
 	}
 
 	public String getRaceBackgroundDemon() {

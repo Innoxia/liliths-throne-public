@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<worldType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[Enforcer Station]]></name>
+	<colour>BASE_BLUE</colour>
+	<sexBlockedReason><![CDATA[[npc.Name] cannot have sex here!]]></sexBlockedReason> 
+	<furniturePresent>true</furniturePresent>
+	<wallsPresent>true</wallsPresent>
+	<loiteringEnabled>false</loiteringEnabled>
+	<flightEnabled>false</flightEnabled>
+	<visibleFromStart>false</visibleFromStart>
+	<fullyRevealedFromStart>false</fullyRevealedFromStart>
+	<globalMapLocation>WORLD_MAP_FIELDS_CITY</globalMapLocation>
+	<standardPlace>innoxia_fields_elis_enforcer_station_corridor</standardPlace>
+	<entryFromGlobalMapLocation>innoxia_fields_elis_enforcer_station_exit</entryFromGlobalMapLocation>
+	<teleportPermissions>OUTGOING_ONLY</teleportPermissions>
+	<places>
+		<place colour="#ffffff">GENERIC_IMPASSABLE</place>
+		
+		<place colour="#ff0000">innoxia_fields_elis_enforcer_station_exit</place>
+		<place colour="#808080">innoxia_fields_elis_enforcer_station_corridor</place>
+		
+		<place colour="#ffff00">innoxia_fields_elis_enforcer_station_reception</place>
+		<place colour="#ff00ff">innoxia_fields_elis_enforcer_station_locked_door</place>
+		<place colour="#ff8000">innoxia_fields_elis_enforcer_station_sword</place>
+		<place colour="#00ff00">innoxia_fields_elis_enforcer_station_office</place>
+		<place colour="#00ffff">innoxia_fields_elis_enforcer_station_cells</place>
+	</places>
+</worldType>

@@ -299,7 +299,9 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		// Skip over remove clothing if action is of HIGH or MAX priority
 		if(!availableActions.isEmpty()
 				&& availableActions.get(0).getPriority()!=SexActionPriority.HIGH
-				&& availableActions.get(0).getPriority()!=SexActionPriority.UNIQUE_MAX) {
+				&& availableActions.get(0).getPriority()!=SexActionPriority.UNIQUE_MAX
+				&& !Main.sex.isCharacterImmobilised(partner) // DO not allow immobilised characters to manage clothing of any kind
+				) {
 				
 			List<CoverableArea> targetAreasToBeExposed = new ArrayList<>();
 			List<CoverableArea> partnerAreasToBeExposed = new ArrayList<>();

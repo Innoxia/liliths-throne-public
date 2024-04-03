@@ -159,7 +159,7 @@ public class HeadlessHorseman extends NPC {
 //		this.setEyeShadow(new Covering(BodyCoveringType.MAKEUP_EYE_SHADOW, PresetColour.COVERING_PURPLE));
 		
 		// Face:
-		this.setFaceVirgin(true);
+//		this.setFaceVirgin(true);
 		this.setLipSize(LipSize.ONE_AVERAGE);
 //		this.setFaceCapacity(Capacity.FIVE_ROOMY, true);
 		// Throat settings and modifiers
@@ -167,7 +167,7 @@ public class HeadlessHorseman extends NPC {
 		// Tongue modifiers
 		
 		// Chest:
-		this.setNippleVirgin(true);
+//		this.setNippleVirgin(true);
 //		this.setBreastSize(CupSize.E.getMeasurement());
 //		this.setBreastShape(BreastShape.ROUND);
 //		this.setNippleSize(NippleSize.THREE_LARGE);
@@ -175,7 +175,7 @@ public class HeadlessHorseman extends NPC {
 		// Nipple settings and modifiers
 		
 		// Ass:
-		this.setAssVirgin(true);
+//		this.setAssVirgin(true);
 		this.setAssBleached(false);
 		this.setAssSize(AssSize.THREE_NORMAL);
 		this.setHipSize(HipSize.TWO_NARROW);

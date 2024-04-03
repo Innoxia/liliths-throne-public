@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	
+	<!-- STALL -->
+	
+	<htmlContent tag="STALL"><![CDATA[
+		#IF(game.getDayNumber() - flags.getSavedLong("elis_eisek_banished_date") >= 1)
+			<p>
+				The space previously occupied by that [eisek.race]'s stall still hasn't found a new occupant, but at least the ruins and the pile of pulverised produce have been cleared away.
+			</p>
+		#ELSE
+			<p>
+				The ruins of that [eisek.race]'s stall still occupy this space. It seems no one has come by to clean up the place yet.
+			</p>
+		#ENDIF
+	]]>
+	</htmlContent>
+	
+</dialogue>

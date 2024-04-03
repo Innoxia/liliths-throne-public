@@ -43,6 +43,47 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="OUTSIDE_DADDY_PACKAGE_SECURITY"><![CDATA[
+	<p>
+		You knock on the front door, and after only a brief moment, it swings open to reveal the familiar figure of your slave, [npc.name].
+	</p>
+	<p>
+		#IF(npc.isMute())
+			As [npc.sheIs] mute, the [npc.race] simply nods and 
+			#IF(npc.isFeminine())
+				 curtsies
+			#ELSE
+				 bows
+			#ENDIF
+			 to you as [npc.she] [npc.steps] back in order to grant you access to Lilaya's house.
+		#ELSE
+			[npc.speech(Welcome back, [pc.name],)] the [npc.race] says,
+			#IF(npc.isFeminine())
+				 curtsying
+			#ELSE
+				 bowing
+			#ENDIF
+			  to you as [npc.she] [npc.steps] back in order to grant you access to Lilaya's house. [npc.speech(While you were out, a package arrived for you.)]
+		#ENDIF
+	</p>
+	<p>
+		As you forwards into the impressive entrance hall, the security guard retrieves a small box, wrapped in brown packaging paper, from off of the top of a nearby table. Handing you this package, the [npc.race] moves back into position beside the front door.
+	</p>
+	<p>
+		Opening the package, you discover that it contains a spell book and several scrolls, along with a small note which reads;
+	</p>
+	<p style='text-align:center;'><i>
+		Hi [pc.name],<br/>
+		Here are the scrolls and spell book which I promised to send to you. Hope this letter finds you well, and look forwards to seeing you again soon!<br/>
+		Love,<br/>
+		[daddy.Dad]
+	</i></p>
+	<p>
+		Smiling to yourself as you finish reading the note, you put the contents of the package into your inventory, before discarding the now-empty box and packaging into a nearby waste-paper bin. Looking ahead, you wonder whether to proceed into Lilaya's home, or to say something else to [npc.name] first...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="OUTSIDE_KNOCK_ON_DOOR"><![CDATA[
 	<p>
 		You knock on the front door, and after only a brief moment, it swings open.
@@ -57,6 +98,33 @@
 		#ELSE
 			 upstairs to go back to sleep.
 		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OUTSIDE_KNOCK_ON_DOOR_SECURITY"><![CDATA[
+	<p>
+		You knock on the front door, and after only a brief moment, it swings open to reveal the familiar figure of your slave, [npc.name].
+	</p>
+	<p>
+		#IF(npc.isMute())
+			As [npc.sheIs] mute, the [npc.race] simply nods and 
+			#IF(npc.isFeminine())
+				 curtsies
+			#ELSE
+				 bows
+			#ENDIF
+			 to you as [npc.she] [npc.steps] back in order to grant you access to Lilaya's house.
+		#ELSE
+			[npc.speech(Welcome back, [pc.name],)] the [npc.race] says,
+			#IF(npc.isFeminine())
+				 curtsying
+			#ELSE
+				 bowing
+			#ENDIF
+			  to you as [npc.she] [npc.steps] back in order to grant you access to Lilaya's house.
+		#ENDIF
+		 Moving forwards into the impressive entrance hall, you greet the security guard as [npc.she] closes the door behind you.
 	</p>
 	]]>
 	</htmlContent>
@@ -246,6 +314,21 @@
 	<htmlContent tag="GARDEN"><![CDATA[
 	<p>
 		The garden courtyard consists of a series of wide, perfectly trimmed grass pathways, each one lined with beds of brightly-coloured flowers. Although Rose is now the one responsible for maintaining it, you guess that Lilaya must have hired a professional company in order to have had this area landscaped so perfectly.
+	</p>
+	<p>
+		Clearly being fond of her maid's namesake, you see that several magnificent rose bushes have been planted throughout the garden.
+		#IF(flags.hasFlag(FLAG_lilayaGardenPickRose))
+			 As you've already picked one of the beautiful flowers today, you probably shouldn't take any more until tomorrow...
+		#ELSE
+			 You're sure that Lilaya wouldn't mind if you took one of the beautiful flowers...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GARDEN_PICK ROSE"><![CDATA[
+	<p>
+		[pc.Stepping] over to one of the magnificent rose bushes which are found throughout Lilaya's courtyard garden, you select a particularly beautiful flower and cut it from the plant. After taking a moment to smell its delicate perfume, you place the rose in your inventory and wonder where to go next...
 	</p>
 	]]>
 	</htmlContent>
