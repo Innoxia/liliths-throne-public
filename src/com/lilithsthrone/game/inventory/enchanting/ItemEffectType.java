@@ -2669,7 +2669,7 @@ public class ItemEffectType {
 		}
 		
 		for(AbstractRace race : Race.getAllRaces()) {
-			if(race==Race.SLIME) { // Special case for slimes:
+			if(race.isMaterialRace()) { // Special case for slimes:
 				racialEffectTypes.put(
 						race,
 						new AbstractItemEffectType(null,
@@ -2696,11 +2696,11 @@ public class ItemEffectType {
 							}
 							@Override
 							public String itemEffectOverride(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-								return target.isElemental()
-										? "<p style='margin-bottom:0; padding-bottom:0;'>" +
-												"[style.colourDisabled([npc.NameIsFull] an elemental, so nothing happens...)]" +
-											"</p>"
-										: target.setBodyMaterial(BodyMaterial.FLESH);
+								return getAssociatedRace().getRacialBodyMaterialSet().contains(target.getBodyMaterial())
+										? target.setBodyMaterial(BodyMaterial.FLESH)
+										: "<p style='margin-bottom:0; padding-bottom:0;'>" +
+											"[style.colourDisabled([npc.NameIsFull] an elemental, so nothing happens...)]" +
+											"</p>";
 							}
 						});
 				

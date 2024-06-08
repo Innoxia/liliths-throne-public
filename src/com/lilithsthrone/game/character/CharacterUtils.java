@@ -1211,9 +1211,15 @@ public class CharacterUtils {
 		boolean hasVagina = startingGender.getGenderName().isHasVagina();
 		boolean hasPenis = startingGender.getGenderName().isHasPenis();
 		boolean hasBreasts = startingGender.getGenderName().isHasBreasts();
-		boolean isSlime = species == Subspecies.SLIME;
+		boolean isSlime = species == null ? false : species.getRace().isMaterialRace();
 		boolean isHalfDemon = species == Subspecies.HALF_DEMON;
+		
+		AbstractSubspecies materialSubspecies = null;
+		if (isSlime) {materialSubspecies = species; }
 		boolean isDoll = species == Subspecies.DOLL;
+
+		AbstractSubspecies materialSubspecies = null;
+		if (isSlime) {materialSubspecies = species; }
 		
 		if(isSlime || isHalfDemon) {
 			if(linkedCharacter==null || !linkedCharacter.isUnique()) {
@@ -1404,16 +1410,20 @@ public class CharacterUtils {
 				species.getRace().applyRaceChanges(body);
 				species.applySpeciesChanges(body);
 			}
-			if(isSlime) {
-				Race.SLIME.applyRaceChanges(body);
-				Subspecies.SLIME.applySpeciesChanges(body);
+			if (materialSubspecies != null) {
+				materialSubspecies.getRace().applyRaceChanges(body);
+				materialSubspecies.applySpeciesChanges(body);
 			}
 			if(isDoll) {
 				Race.DOLL.applyRaceChanges(body);
 				Subspecies.DOLL.applySpeciesChanges(body);
 			}
 		}
-		
+		if (materialSubspecies != null) {
+			materialSubspecies.getRace().applyRaceChanges(body);
+			materialSubspecies.applySpeciesChanges(body);
+		}
+                        
 		body.setSubspeciesOverride(null); // Set override to null so that it can be recalculated based on the final body type.
 		body.calculateRace(linkedCharacter);
 		

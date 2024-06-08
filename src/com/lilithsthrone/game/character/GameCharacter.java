@@ -19209,7 +19209,10 @@ public abstract class GameCharacter implements XMLSaving {
 //				fluidIngestionSB.append(this.rollForPregnancy(cumBody, millilitres, Main.game.isInSex()));
 //			}
 		}
-		
+        if( this.getBodyMaterial()==BodyMaterial.FUNGUS ) {
+            this.addStatusEffect(StatusEffect.RECENTLY_EATEN_QUALITY, 3600*3);
+            this.addStatusEffect(StatusEffect.THIRST_QUENCHED_QUALITY, 3600*3);
+        }
 		for(FluidModifier mod : modifiers) {
 			String s = mod.applyEffects(this, charactersFluid, millilitres, fluid);
 //			System.out.println(s);
@@ -28094,9 +28097,11 @@ public abstract class GameCharacter implements XMLSaving {
 		}
 		
 		if(type==BodyMaterial.FLESH) {
+            switch (body.getBodyMaterial()) {
+                case SLIME:
 			tfDescription = UtilText.parse(this,
 					"<p>"
-						+ "[npc.NamePos] slimy body starts to tingle all over, and as [npc.she] [npc.verb(look)] down at [npc.her] [npc.arms], [npc.she] [npc.verb(see)] the slime that they're made up of starting to get more and more opaque."
+						+ "[npc.NamePos] slimy body starts to tingle all over, and as [npc.she] [npc.verb(look)] down at [npc.her] [npc.arms], [npc.she] [npc.verb(see)] the slime that [npc.sheIs] made up of starting to get more and more opaque."
 						+ " As [npc.her] slime starts to solidify, the little glowing core in the place where [npc.her] heart should be starts to break up and disperse throughout [npc.her] torso."
 					+ "</p>"
 					+ "<p>"
@@ -28104,7 +28109,49 @@ public abstract class GameCharacter implements XMLSaving {
 					+ "</p>"
 					+ "<p>"
 						+ "[npc.NamePos] body is now made out of [style.boldTfGeneric(flesh)]!"
-					+ "</p>");
+					+ "</p>");break;
+                case RUBBER:
+                    tfDescription = UtilText.parse(this,
+                            "<p>"
+                                    + "[npc.NamePos] rubber body starts to tingle all over, and as [npc.she] [npc.verb(look)] down at [npc.her] [npc.arms], [npc.she] [npc.verb(feel)] the liquid latex that [npc.sheIs] made up of starting to get more and more solid."
+                                    + " As [npc.her] semi-solid ooze starts to solidify, the rubbery skin covering [npc.her] body breaks up and splits as flesh reforms underneath."
+                                    + "</p>"
+                                    + "<p>"
+                                    + "With a sharp gasp, [npc.she] [npc.verb(feel)] the transformation speed up, and within just a few moments, [npc.her] entire body has reverted to being made out of flesh and blood."
+                                    + "</p>"
+                                    + "<p>"
+                                    + "[npc.NamePos] body is now made out of [style.boldTfGeneric(flesh)]!"
+                                    + "</p>");
+                    break;
+                case PLANT:
+                    tfDescription = UtilText.parse(this,
+                            "<p>"
+                                    + "[npc.NamePos] leafy body starts to tingle all over, and as [npc.she] [npc.verb(look)] down at [npc.her] [npc.arms], [npc.she] [npc.verb(feel)] the foliage that [npc.sheIs] made up of starting to wilt and wither."
+                                    + " As the leaves fall away, it reveals soft flesh underneath."
+                                    + "</p>"
+                                    + "<p>"
+                                    + "With a sharp gasp, [npc.she] [npc.verb(feel)] the transformation speed up, and within just a few moments, [npc.her] entire body has reverted to being made out of flesh and blood."
+                                    + "</p>"
+                                    + "<p>"
+                                    + "[npc.NamePos] body is now made out of [style.boldTfGeneric(flesh)]!"
+                                    + "</p>");
+                    break;
+                case FUNGUS:
+                    tfDescription = UtilText.parse(this,
+                            "<p>"
+                                    + "[npc.NamePos] fungal body starts to tingle all over, and as [npc.she] [npc.verb(look)] down at [npc.her] [npc.arms], [npc.she] [npc.verb(see)] the spongy fungus that [npc.sheIs] made up of starting to compress."
+                                    + " As [npc.her] mycelia starts to solidify, it forms muscles, bones and skin."
+                                    + "</p>"
+                                    + "<p>"
+                                    + "With a sharp gasp, [npc.she] [npc.verb(feel)] the transformation speed up, and within just a few moments, [npc.her] entire body has reverted to being made out of flesh and blood."
+                                    + "</p>"
+                                    + "<p>"
+                                    + "[npc.NamePos] body is now made out of [style.boldTfGeneric(flesh)]!"
+                                    + "</p>");
+                    break;
+                default:
+                    break;
+            }
 			
 			if(this.getSubspeciesOverride()==Subspecies.DEMON
 					|| this.getSubspeciesOverride()==Subspecies.IMP_ALPHA
@@ -28439,8 +28486,223 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 			}
 		}
+        if(type == BodyMaterial.RUBBER) {
+            AbstractBodyCoveringType baseRubberCoveringType = BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.RUBBER, BodyCoveringCategory.MAIN_SKIN);
 
-		// The DOLL changes don't get to here
+            this.setAssElasticity(7);
+            this.setNippleElasticity(7);
+            this.setNippleCrotchElasticity(7);
+            this.setFaceElasticity(7);
+            this.setUrethraElasticity(7);
+            this.setSpinneretElasticity(7);
+            this.setVaginaElasticity(7);
+            this.setVaginaUrethraElasticity(7);
+
+            if(this.isPlayer()) {
+                tfDescription = "<p>"
+                        + "You feel a strange roiling in your body, a feeling of swirling tension through every fiber. While not painful, you have trouble staying upright as your muscles refuse to cooperate, and you find yourself unsteadily falling to the ground."
+                        + " Despite the lack of control over your own body, you feel oddly relaxed. A steadily building feeling of <i>anticipation</i>, as you feel your pulse slow to a low, heavy thump. Under your skin, you feel a strange tingling as you become acutely sensitive to every sensation."
+                        + "</p>"
+                        + "<p>"
+                        + "Suddenly, your vision goes dark as a tangled mass of dark tendrils rapidly engulfs your face! Your eyes are glued shut instantly, followed by nose and mouth. Thankfully, after a brief pause, they periodically part to let you draw a breath. You feel the same webbing overrunning your limbs, binding them in place as they fill out to cover every inch of your body."
+                        + "</p>"
+                        + "<p>"
+                        + "Pulling against the rubbery swaddling proves to be completely fruitless, but you find yourself squirming anyways as the stretch and pull of it against your sensitive body becomes intoxicatingly erogenous. Viscous strands cling to you like honey in the small gaps before it pulls tight again, squeezing itself ever closer and sealing itself into a unbroken sheet."
+                        + " Blindly tugging at the thick goo, you feel the distinction between your skin and the latex less and less each time they pull apart."
+                        + "</p>"
+                        + "<p>"
+                        + "With a slight pop, the slick rubber covering your face gives way, letting you open your eyes and uncovering your mouth."
+                        + " You open your mouth to gasp, but your cry gets cut off with a cute [pc.speechNoEffects(~Squeak!~)], as overwhelming pleasure turns it into a moan halfway."
+                        + " Finally being able to see, you look down to find that your body is entirely covered in smooth, glossy "+this.getCovering(baseRubberCoveringType).getPrimaryColour().getName()+" latex. With some trepidation, you experimentally run your fingers down your new body. Gentle stroking reveals that your skin to be pliable and <i>incredibly</i> sensitive, and you spend a little bit more time than necessary rubbing your nipples and crotch."
+                        + "</p>"
+                        + "<p>"
+                        + "The last of the rubbery tendrils recede into your new latex skin, leaving behind only a mirror-flat surface. You can still feel the same roiling just underneath as your muscles and sinews flex."
+                        + " As you explore your new body, you discover that you can painlessly pull your joints in all directions, or even apart entirely. Letting go, you feel them quickly snap back, so otherwise, your mobility and locomotion are about the same as they were. Tugging at your orifices, you find that they are much more accomodating, and retain their tightness."
+                        + " Your senses of hearing, taste and smell are largely unchanged, but your sense of touch is somewhat heightened. You feel the urge to rub against any interesting texture you can find...."
+                        + "</p>"
+                        + "<p>"
+                        + "Your entire being is now composed of [style.boldBlack(rubber)]!<br/><i>"
+                        + "- Your body is naturally very resilient to physical force!<br/>"
+                        + "- Your orifices are always extremely stretchy!"
+                        + "</i>"
+                        + "</p>";
+
+            } else {
+                tfDescription = UtilText.parse(this,
+                        "<p>"
+                                + "[npc.She] [npc.verb(feel)] a strange roiling in [npc.her] body, a feeling of swirling tension through every fiber. While not painful, [npc.she] [npc.has] trouble staying upright as [npc.her] muscles refuse to cooperate, and [npc.she] [npc.verb(find)] [npc.herself] unsteadily falling to the ground."
+                                + " Despite the lack of control, [npc.she] [npc.verb(seem)] oddly relaxed, even as a tangled mass of dark tendrils rapidly engulfs [npc.her] face. The same webbing overruns [npc.her] limbs, binding them in place as it covers every inch."
+                                + "</p>"
+                                + "<p>"
+                                + "[npc.She] languidly [npc.verb(tug)] at the rubber, and thick, viscous strands of black slime drip down between."
+                                + " With every separation, it becomes smoother and more cohesive, and sticks tigthter and tighter to [npc.her] body until it's skintight."
+                                + "</p>"
+                                + "<p>"
+                                + "With a slight pop, the slick rubber covering [npc.her] face gives way, letting [npc.herHim] open [npc.her] eyes and uncovering [npc.her] mouth."
+                                + " [npc.She] [npc.verb(open)] [npc.her] mouth to gasp, but the cry gets cut off with a cute [pc.speechNoEffects(~Squeak!~)], as overwhelming pleasure turns it into a moan halfway."
+                                + " [npc.Her] body is entirely covered in smooth, glossy "+this.getCovering(baseRubberCoveringType).getPrimaryColour().getName()+" latex!"
+                                + "</p>"
+                                + "<p>"
+                                + "[npc.Her] entire being is now composed of [style.boldBlack(rubber)]!<br/><i>"
+                                + "- [npc.Her] body is naturally very resilient to physical force!<br/>"
+                                + "- [npc.Her] orifices are always extremely stretchy!"
+                                + "</i>"
+                                + "</p>");
+            }
+        }
+        if(type == BodyMaterial.PLANT) {
+            AbstractBodyCoveringType basePlantCoveringType = BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.PLANT, BodyCoveringCategory.MAIN_SKIN);
+            BodyCoveringCategory armCoveringCategory = this.getArmCovering().getCategory();
+            if(this.isPlayer()) {
+                tfDescription = "<p>"
+                        + "You begin to feel strangely stiff, as throughout your body your muscles tighten and flex. As your sinews pull you into standing upright, your joints creak as they lock you into place."
+                        + " A golden glow surrounds your body, accompanied by a gentle warmth, feeling like gentle sunlight. Despite the lack of control over your own body, you feel oddly relaxed. Your body is still and unmoving, but with the all-encompassing calm, you feel no urge to fidget and fight against the stiffness constraining your body. A steadily building feeling of <i>anticipation</i>, as you feel your pulse slow to a low, heavy thump. Under your skin, you feel a strange tingling. Under your skin, you feel some sort of cool fluid running through your veins. ";
+                switch(armCoveringCategory) {
+                    case MAIN_SKIN:
+                        tfDescription += "From the little motion you have in your fingers, you notice your skin is puffy and turgid, as if the flesh below is swelling with the fluid."
+                                + "</p>"
+                                + "<p>"
+                                + "Suddenly, the golden sunlight flashes, and the stiffness in your limbs evaporates in a wave of euphoria! As you regain motion in your arms, the skin painlessly peels away, revealing glossy skin underneath. It's smooth and supple, resembling the pristine surface of an unripe fruit."
+                                + " Fascinated, you watch as leaf buds pop out of your skin, unfurling into patches of foliage where your body hair would ordinarily grow."
+                                + "</p>";
+                        break;
+                    case MAIN_HAIR:
+                    case MAIN_FUR:
+                        tfDescription += "From the little sensation you have in your arms, you notice a strange prickling, like pine needles."
+                                + "</p>"
+                                + "<p>"
+                                + "Suddenly, the golden sunlight flashes, and the stiffness in your limbs evaporates in a wave of euphoria! As you regain motion in your arms, grass-like shoots painlessly burst from your skin, quickly forming dense carpet of moss over your limbs."
+                                + " Fascinated, you watch as leaf buds pop out of your mossy fur, unfurling into patches of foliage where your body hair would ordinarily grow."
+                                + "</p>";
+                        break;
+                    case MAIN_SCALES:
+                        tfDescription += "From the little sensation you have in your arms, you notice a strange tenderness under your scales. It almost feels like they could pop off with the slightest touch."
+                                + "</p>"
+                                + "<p>"
+                                + "Suddenly, the golden sunlight flashes, and the stiffness in your limbs evaporates in a wave of euphoria! As you regain motion in your arms, your scales suddenly thicken and flare, now resembling the thick leaves of a succulent plant."
+                                + " Fascinated, you watch as leaf buds pop from between your scales, unfurling into patches of foliage where your body hair would ordinarily grow."
+                                + "</p>";
+                        break;
+                    case MAIN_FEATHER:
+                        tfDescription += "From the little sensation you have in your arms, you notice a strange tingling under your feathers. "
+                                + "</p>"
+                                + "<p>"
+                                + "Suddenly, the golden sunlight flashes, and the stiffness in your limbs evaporates in a wave of euphoria! As you regain motion in your arms, you suddenly feel your feathers molt off, quickly replaced by shocks of colorful leaves."
+                                + " Fascinated, you watch as more leaf buds pop from between your feathers, unfurling into patches of foliage where your body hair would ordinarily grow."
+                                + "</p>";
+                        break;
+                    case MAIN_CHITIN:
+                        tfDescription += "From the little sensation you have in your arms, you notice a strange pressure under the chitinous plates. It almost feels like they could pop off with the slightest touch."
+                                + "</p>"
+                                + "<p>"
+                                + "Suddenly, the golden sunlight flashes, and the stiffness in your limbs evaporates in a wave of euphoria! As you regain motion in your arms, the chitin suddenly flakes off, revealing a new smooth surface beneath. You experimentally rub your fingers over it, and it feels like the firm surface of a succulent plant."
+                                + " Fascinated, you watch as leaf buds pop from between your remaining plates, unfurling into patches of foliage where your body hair would ordinarily grow."
+                                + "</p>";
+                        break;
+                    default:
+                        tfDescription += " As you regain motion in your arms, the skin painlessly peels away, revealing glossy skin underneath. It's smooth and supple, resembling the pristine surface, of an unripe fruit."
+                                + "</p>"
+                                + "<p>"
+                                + "Suddenly, the golden sunlight flashes, and the stiffness in your limbs evaporates in a wave of euphoria! As you regain motion in your arms, the skin painlessly peels away, revealing glossy skin underneath, resembling a pristine surface, like the skin of an unripe fruit."
+                                + " Fascinated, you watch as leaf buds pop out of your skin, unfurling into patches of foliage where your body hair would ordinarily grow."
+                                + "</p>";
+                        break;
+                }
+                tfDescription += "<p>"
+                        + "With a creak and pop, your lower body unlocks. When you experimentally kick against the ground, you notice the change in their heft, and the resonant <i>clonk</i> as they impact. You realize that your bones have become lighter, as if made of wood!"
+                        + "</p>"
+                        + "Your entire being is now composed of [style.boldGreen(wood and foliage)]!<br/>"
+                        + "<i>- Your body is naturally energized in bright light!<br/>"
+                        + "- You're a little worried about how flammable you seem...<br/>"
+                        + "</i>"
+                        + "</p>";
+
+            } else {
+                tfDescription = "<p>"
+                        + "[npc.Name] [npc.verb(begin)] to feel strangely stiff, as throughout [npc.her] body [npc.her] muscles tighten and flex. As [npc.her] sinews pull [npc.name] into standing upright, [npc.her] joints creak as they lock [npc.him] into place."
+                        + " A golden glow surrounds [npc.her] body, accompanied by a gentle warmth, feeling like gentle sunlight. Despite the lack of control over [npc.her] own body, [npc.she] [npc.verb(seem)] oddly relaxed. [npc.She] [npc.does] not appear to fidget and fight against the stiffness constraining your body.";
+                switch(armCoveringCategory) {
+                    case MAIN_SKIN:
+                        tfDescription += " Fascinated, [npc.She] [npc.verb(watch)] as leaf buds pop out of [npc.his] skin, unfurling into patches of foliage where [npc.his] body hair would ordinarily grow."
+                                + "</p>";
+                        break;
+                    case MAIN_HAIR:
+                    case MAIN_FUR:
+                        tfDescription += " Fascinated, [npc.She] [npc.verb(watch)] as leaf buds pop out of [npc.his] mossy fur, unfurling into patches of foliage where [npc.his] body hair would ordinarily grow."
+                                + "</p>";
+                        break;
+                    case MAIN_SCALES:
+                        tfDescription += " Fascinated, [npc.She] [npc.verb(watch)] as leaf buds pop from between [npc.his] scales, unfurling into patches of foliage where [npc.his] body hair would ordinarily grow."
+                                + "</p>";
+                        break;
+                    case MAIN_FEATHER:
+                        tfDescription += " Fascinated, [npc.She] [npc.verb(watch)] as more leaf buds pop from between [npc.his] feathers, unfurling into patches of foliage where [npc.his] body hair would ordinarily grow."
+                                + "</p>";
+                        break;
+                    case MAIN_CHITIN:
+                        tfDescription += " Fascinated, [npc.She] [npc.verb(watch)] as leaf buds pop from between [npc.his] remaining plates, unfurling into patches of foliage where [npc.his] body hair would ordinarily grow."
+                                + "</p>";
+                        break;
+                    default:
+                        tfDescription += " Fascinated, [npc.She] [npc.verb(watch)] as leaf buds pop out of [npc.his] skin, unfurling into patches of foliage where [npc.his] body hair would ordinarily grow."
+                                + "</p>";
+                        break;
+                }
+                tfDescription += "<p>"
+                        + "With a creak and pop, [npc.her] lower body unlocks. When [npc.name] experimentally [npc.verb(kick)] against the ground, you notice the change in their heft, and the resonant <i>clonk</i> as they impact. [npc.Name] [npc.verb(realize)] that [npc.her] bones have become lighter, as if made of wood!"
+                        + "</p>"
+                        + "[npc.Her] entire being is now composed of [style.boldGreen(wood and foliage)]!<br/>"
+                        + "<i>- [npc.Her] body is naturally energized in bright light!<br/>"
+                        + "- [npc.SheIs] a little worried about how flammable [npc.she] [npc.is]...<br/>"
+                        + "</i>"
+                        + "</p>";
+            }
+        }
+        if(type == BodyMaterial.FUNGUS) {
+            if(this.isPlayer()) {
+                tfDescription = UtilText.parse(this,"<p>"
+                        + "You feel strangly lightheaded, a drowziness settling over you like a warm blanket. You have trouble staying upright as your muscles refuse to cooperate, and you find yourself unsteadily falling to the ground."
+                        + " Despite the lack of control over your own body, you feel oddly relaxed. A steadily building feeling of <i>anticipation</i>, as you feel your pulse slow to a low, heavy thump. In your mind, you hear a strange <i>call</i>, pulling your mind into a blissful delirium."
+                        + "</p>"
+                        + "<p>"
+                        + "Slowly your vision goes fades into a fuzzy white. Your mouth feels dry and fuzzy. Your mind feels fuzzy. Your skin, fuzzy. Every sensation fades into a comforting fuzzy numbness. Your entire existence narrows down to the siren call ringing through your head. The only other thing you feel is a throbbing arousal running through your core."
+                        + "</p>"
+                        + "<p>"
+                        + "Your stupor is abruptly interrupted by a strange dampness running over your skin. It feels like it's being being painlessly peeled off. With a jolt, you realize you are covered in a cocoon of some sort of soft foam. Your panic at this confinement is short lived, as you suddenly orgasm!"
+                        + "With a slight pop and a splattering of goo, the thick mat wrapping your body gives way, letting you open your eyes and uncovering your mouth."
+                        + " Finally being able to see, you look down to find that your body is entirely composed of a spongy material. Before your eyes, the pool of goo below you soaks into the absorbant material that makes up your feet. Looking closer at your torso, splits and furrows open and close, puffing out clouds of spores from gills hidden in your body. You realize your body now a mass of [style.boldPink(fungal mycelia!)]"
+                        + "</p>"
+                        + "<p>"
+                        + "Your entire being is now composed of [style.boldPink(fungus)]!<br/><i>"
+                        + "- Your spongy body is naturally resilient to physical force!<br/>"
+                        + "- Your fungal metabolism handles toxic chemicals well, giving you poison resistance.<br/>"
+                        + "- You can feed by absorbing sexual fluids!<br/>"
+                        + "- Spores fill the air around your body, weaking foes and bolstering your damage!"
+                        + "</i>"
+                        + "</p>");
+
+            } else {
+                tfDescription = UtilText.parse(this,"<p>"
+                        + "[npc.Name] [npc.verb(feel)] strangly lightheaded, a fuzzy drowziness settling over [npc.him] like a warm blanket. [npc.SheHas] trouble staying upright as [npc.her] muscles refuse to cooperate, and [npc.she] [npc.verb(fall)] unsteadily to the ground."
+                        + "</p>"
+                        + "<p>"
+                        + "Fine pale threads begin to extrude themselves from [npc.her] skin. Quickly, they overtake [npc.him] in a cocoon of some sort of soft foam. Despite this [npc.name] [npc.do] not seem to panic at this confinement."
+                        + "With a slight pop and a splattering of goo, the thick mat wrapping [npc.her] body gives way. Underneath, [npc.name] [npc.is] in a stupor with a blissful post-orgasm face, but quickly [npc.verb(regain)] consciousness."
+                        + " Finally being able to see, [npc.she] [npc.verb(look)] down to find that [npc.her] body is entirely composed of a spongy material. Before your eyes, the pool of goo below [npc.him] soaks into the absorbant material that makes up [npc.her] feet. Looking closer at [npc.her] torso, splits and furrows open and close, puffing out clouds of spores from gills hidden in [npc.her] body. You realize [npc.her] body now a mass of [style.boldPink(fungal mycelia!)]"
+                        + "</p>"
+                        + "<p>"
+                        + "[npc.Her] entire being is now composed of [style.boldPink(fungus)]!<br/><i>"
+                        + "- [npc.Her] spongy body is naturally resilient to physical force!<br/>"
+                        + "- [npc.Her] fungal metabolism handles toxic chemicals well, giving you poison resistance.<br/>"
+                        + "- [npc.Name] can feed by absorbing sexual fluids!<br/>"
+                        + "- Spores fill the air around [npc.her] body, weaking foes and bolstering [npc.her] damage!"
+                        + "</i>"
+                        + "</p>");
+            }
+        }
+
+
+        // The DOLL changes don't get to here
 		
 		body.setBodyMaterial(type);
 		postTransformationCalculation(false);
@@ -30826,6 +31088,8 @@ public abstract class GameCharacter implements XMLSaving {
 				case STONE:
 				case WATER:
 				case SLIME:
+                    case PLANT:
+                case FUNGUS:
 				case SILICONE:
 					return body.getCoverings().get(BodyCoveringType.getMaterialBodyCoveringType(this.getBodyMaterial(), bodyCoveringType.getCategory()));
 				case FLESH:

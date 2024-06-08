@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<combatMove>
+	<category>SPECIAL</category>
+	<type>DEFEND</type>
+	<equipWeighting>10</equipWeighting>
+	<name><![CDATA[Healing Bud]]></name>
+	<description><![CDATA[
+		Channel [npc.her] energy around a target, healing them. Stronger if [npc.she] [npc.is] pregnant.
+	]]></description>
+	<damageType><![CDATA[
+		PHYSICAL
+	]]></damageType>
+	<baseDamage><![CDATA[
+		0
+	]]></baseDamage>
+	<damageVariance>MEDIUM</damageVariance>
+	<blockAmount><![CDATA[
+		10
+	]]></blockAmount>
+	<cooldown><![CDATA[
+		3
+	]]></cooldown>
+	<APcost><![CDATA[
+		1
+	]]></APcost>
+	<canTargetEnemies>false</canTargetEnemies>
+	<canTargetAllies>true</canTargetAllies>
+	<canTargetSelf>true</canTargetSelf>
+	<imageName>plant_protection.svg</imageName>
+	<colourPrimary>BASE_GREEN</colourPrimary>
+	<colourSecondary/>
+	<colourTertiary/>
+	<statusEffects>
+	</statusEffects>
+	<availabilityCondition><![CDATA[
+		[#npc.getBodyMaterial() == BODY_MATERIAL_PLANT]
+	]]>
+	</availabilityCondition>
+	<availabilityDescription><![CDATA[
+		Available to plant creatures. More effective if the user is visibly pregnant.
+	]]></availabilityDescription>
+	<weighting><![CDATA[
+		1
+	]]></weighting>
+	<criticalCondition><![CDATA[
+		false
+	]]></criticalCondition>
+	<criticalDescription><![CDATA[]]></criticalDescription>
+	<movePredictionDescriptionWithTarget><![CDATA[
+		Use [npc.her] lust to heal!
+		#IF(npc.isVisiblyPregnant())
+			 [style.italicsGood(Grant a defensive buff due to being pregnant!)]
+		#ENDIF
+	]]></movePredictionDescriptionWithTarget>
+	<movePredictionDescriptionNoTarget><![CDATA[
+		Use [npc.her] lust to heal!
+		#IF(npc.isVisiblyPregnant())
+			 [style.italicsGood(Grants a defensive buff due to being pregnant!)]
+		#ENDIF
+	]]></movePredictionDescriptionNoTarget>
+	<performMove>
+		<execute><![CDATA[
+			[npc.Name] [npc.verb(focus)] on [npc.her] arousal, releasing a rolling shudder as you release shower of flower petals. The blossoms carries calming, rejuvenating energy that washes through [npc2.name]. 
+			[##npc2.setHealthPercentage(npc2.getHealthPercentage() + 0.25)]
+			#IF(npc.isVisiblyPregnant() && !npc2.hasStatusEffect(SE_sightglass_plant_shielding))
+				</br>The protective barrier surrounding [npc.her] womb extends over [npc2.name], making [npc2.him] more resistant to further punishment!
+				[##npc.addStatusEffect(SE_sightglass_plant_shielding, 10)]
+				[##npc2.addStatusEffect(SE_sightglass_plant_shielding, 10)]
+			#ENDIF
+		]]></execute>
+		<critDescription/>
+		<critEffectDescription/>
+	</performMove>
+</combatMove>

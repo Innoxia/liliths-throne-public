@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<authorTag><![CDATA[The fine print reads 'S.G.C. Provisions']]></authorTag>
+		<value>2500</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[Vitality Seed]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Vitality Seeds]]></namePlural>
+		<description><![CDATA[A large seed that brims with arcane energy. Holding it, you feel the power as a soft warmth, like gentle sunlight.]]></description> 
+		<useDescriptor>eat</useDescriptor>
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		<rarity>EPIC</rarity> 
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="80">plant_seed.svg</imageName>
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		<colourPrimary>BASE_TEAL</colourPrimary>
+		<colourSecondary>BASE_TEAL</colourSecondary>
+		<colourTertiary>BASE_TEAL</colourTertiary>
+		<potionDescriptor><![CDATA[plant]]></potionDescriptor>
+		<associatedRace>PLANT_CREATURE</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGreen(Transforms someone into a plant creature!)]]]></line>
+		</effectTooltipLines>
+		<applyEffects><![CDATA[
+			#IF(npc.getBody().getBodyMaterial()==BODY_MATERIAL_PLANT)
+				<p style='margin-bottom:0; padding-bottom:0;'>
+					[style.colourDisabled([npc.NameIsFull] already a plant creature, so nothing happens...)]
+				</p>
+			#ELSEIF(npc.getBody().getBodyMaterial()==BODY_MATERIAL_SLIME)
+				<p style='margin-bottom:0; padding-bottom:0;'>
+					[style.colourDisabled([npc.NameIsFull] a slime, so nothing happens...)]
+				</p>
+			#ELSEIF(npc.getBody().getBodyMaterial()!=BODY_MATERIAL_FLESH)
+				<p style='margin-bottom:0; padding-bottom:0;'>
+					[style.colourDisabled([npc.NameIsFull] an elemental, so nothing happens...)]
+				</p>
+			#ELSE
+				[#npc.setBodyMaterial(BODY_MATERIAL_PLANT)]
+			#ENDIF
+		]]></applyEffects>
+		<itemTags>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>FOOD</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] gently [npc.verb(licks)] the glowing seed. A gentle glow spreads from it to cover [npc.her] entire body... 
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(offer)] the glowing seed to [npc2.name]. When [npc2.name] curiously [npc2.verb(pokes)] it, its gentle glow grows to cover [npc2.her] body... 
+		]]></otherUse>
+	</useDescriptions>
+</item>

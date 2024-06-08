@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<statusEffect>
+	<renderingPriority>70</renderingPriority>
+	<renderInEffectsPanel>true</renderInEffectsPanel>
+	<category>ATTRIBUTE</category>
+	<beneficial>BENEFICIAL</beneficial>
+	<combatEffect>true</combatEffect>
+	<sexEffect>false</sexEffect>
+	<tags/>
+	<name><![CDATA[Intense Latex Libido]]></name>
+	<description><![CDATA[
+		The <i>excitement</i> of combat stimulates the latex making up [npc.her] body! [npc.Her] lust is reaching critical levels!
+	]]></description>
+	<imageName>latex_libido_2.svg</imageName>
+	<colourPrimary>BASE_BLACK</colourPrimary>
+	<colourSecondary/>
+	<colourTertiary/>
+	<attributeModifiers>
+		<modifier value="20.0">MAJOR_PHYSIQUE</modifier>
+		<modifier value="20.0">MAJOR_ARCANE</modifier>
+		<modifier value="20.0">DAMAGE_LUST</modifier>
+		<modifier value="25.0">CRITICAL_DAMAGE</modifier>
+	</attributeModifiers>
+	<combatMoves/>
+	<spells/>
+	<extraEffects/>
+	<applicationCondition><![CDATA[
+		#IF(npc.getRace() == RACE_LATEX_CREATURE && npc.getLust() >= 75) 
+			true
+		#ELSE
+			false
+		#ENDIF
+	]]></applicationCondition>
+	<applicationLength constantRefresh="false">-1</applicationLength>
+	<applyEffect/>
+	<applyRemovalEffect/>
+	<applyPostRemovalEffect/>
+</statusEffect>

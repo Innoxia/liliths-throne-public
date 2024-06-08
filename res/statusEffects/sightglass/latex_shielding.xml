@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<statusEffect>
+	<renderingPriority>70</renderingPriority>
+	<renderInEffectsPanel>true</renderInEffectsPanel>
+	<category>ATTRIBUTE</category>
+	<beneficial>BENEFICIAL</beneficial>
+	<combatEffect>true</combatEffect>
+	<sexEffect>false</sexEffect>
+	<tags/>
+	<name><![CDATA[Rubbery Resistance]]></name>
+	<description><![CDATA[
+		[npc.Name] has consumed [npc.her] own lust to bolster [npc.her] defenses, but it leaves [npc.him] more easily aroused!
+	]]></description>
+	<imageName>latex_shielding.svg</imageName>
+	<colourPrimary>BASE_BLACK</colourPrimary>
+	<colourSecondary/>
+	<colourTertiary/>
+	<attributeModifiers>
+		<modifier value="15.0">RESISTANCE_FIRE</modifier>
+		<modifier value="15.0">RESISTANCE_ICE</modifier>
+		<modifier value="15.0">RESISTANCE_POISON</modifier>
+		<modifier value="-10.0">RESISTANCE_LUST</modifier>
+		<modifier value="10.0">ENERGY_SHIELDING</modifier>
+	</attributeModifiers>
+	<combatMoves/>
+	<spells/>
+	<extraEffects/>
+	<applicationCondition><![CDATA[
+		false
+	]]></applicationCondition>
+	<applicationLength constantRefresh="false">-1</applicationLength>
+	<applyEffect/>
+	<applyRemovalEffect/>
+	<applyPostRemovalEffect/>
+</statusEffect>

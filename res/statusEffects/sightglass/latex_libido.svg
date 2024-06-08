@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" cursor="default" viewBox="0 0 256 256">
+    <defs>
+        <linearGradient id="linearGradient3633">
+            <stop offset="0" stop-color="#f0f"/>
+            <stop offset="1" stop-color="#db0034" stop-opacity=".992"/>
+        </linearGradient>
+        <linearGradient id="linearGradient8040">
+            <stop offset="0"/>
+            <stop offset="1" stop-color="#363636"/>
+        </linearGradient>
+        <linearGradient id="linearGradient7684" x1="157.142" x2="93.764" y1="137.807" y2="97.078" gradientTransform="translate(-26.59 -14.691) scale(1.21056)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient8040"/>
+        <linearGradient id="linearGradient3635" x1="107.974" x2="170.506" y1="82.866" y2="155.466" gradientTransform="translate(-26.59 -14.691) scale(1.21056)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient3633"/>
+    </defs>
+    <path fill="url(#linearGradient3635)" stroke="#000" stroke-width="3" d="M84.53 32.288c-38.066.451-70.908 41.203-20.18 103.086 35.387 43.169 50.772 57.162 54.834 96.294 0 0 14.755-26.67 41.014-43.245 36.115-22.796 72.689-69.09 62.702-96.806-9.076-25.19-49.179-41.509-83.209-18.658-10.81-28.496-33.808-40.924-55.162-40.67z"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="url(#linearGradient7684)" stroke="#000" stroke-linejoin="round" stroke-width="1.211" d="M193.765 65.283L51.127 116.742c3.563 5.975 7.895 12.188 13.189 18.645 1.603 1.955 2.632 3.188 4.154 5.029l25.336-9.987c3.214-1.267 1.311 4.828 1.311 7.138 0 10.029 7.447 10.315 6.345-1.884-.201-2.225-4.515-6.744-1.554-7.938l20.475-8.252c7.533 14.397 7.204 6.93 12.9-2.598 1.077-1.799 8.163-4.599 9.252-6.33 4.24-6.738 9.21-5.488 14.362-5.789 2.005-.117 5.993-.393 5.812 1.587-2.443 26.83 9.574 15.62 5.964.036-.448-1.937 1.784-5.952 3.96-7.965 11.598-10.723 43.95-17.714 43.95-17.714-5.528-6.762-13.507-12.21-22.818-15.437zm30.742 37.721C189.96 117.935 133.1 143.412 87.785 163.82c5.173 6.398 9.602 12.188 13.403 17.796l23.733-11.186c4.156 5.515 7.349.927 10.422-4.913 0 0 22.904-18.203 36.192-17.059 1.753.151 4.32 3.035 4.32 3.035-1.779 15.802 9.834 9.045 8.192-3.994 0 0 3.855-5.912 6.588-8.044 7.895-6.16 27.174-12.808 27.174-12.808 4.011-8.241 6.448-16.296 6.698-23.642z"/>
+</svg>

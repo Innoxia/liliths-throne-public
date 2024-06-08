@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<combatMove>
+	<category>SPECIAL</category>
+	<type>ATTACK</type>
+	<equipWeighting>10</equipWeighting>
+	<name><![CDATA[Vine Bind]]></name>
+	<description><![CDATA[
+		Wrap an opponent in entangling vines. If [npc.name] [npc.is] visibly pregnant, restores some health!
+	]]></description>
+	<damageType><![CDATA[
+		LUST
+	]]></damageType>
+	<baseDamage><![CDATA[
+		10
+	]]></baseDamage>
+	<damageVariance>MEDIUM</damageVariance>
+	<blockAmount><![CDATA[
+		10
+	]]></blockAmount>
+	<cooldown><![CDATA[
+		2
+	]]></cooldown>
+	<APcost><![CDATA[
+		2
+	]]></APcost>
+	<canTargetEnemies>true</canTargetEnemies>
+	<canTargetAllies>false</canTargetAllies>
+	<canTargetSelf>false</canTargetSelf>
+	<imageName>plant_binding.svg</imageName>
+	<colourPrimary>BASE_RED</colourPrimary>
+	<colourSecondary/>
+	<colourTertiary/>
+	<statusEffects>
+	</statusEffects>
+	<availabilityCondition><![CDATA[
+		[#npc.getBodyMaterial() == BODY_MATERIAL_PLANT]
+	]]>
+	</availabilityCondition>
+	<availabilityDescription><![CDATA[
+		Available to plant creatures. More effective if the user is visibly pregnant.
+	]]></availabilityDescription>
+	<weighting><![CDATA[
+		1
+	]]></weighting>
+	<criticalCondition><![CDATA[
+		false
+	]]></criticalCondition>
+	<criticalDescription><![CDATA[]]></criticalDescription>
+	<movePredictionDescriptionWithTarget><![CDATA[
+		Launch entangling vines at [npc2.name]!
+		formattedDamageInflicted
+		#IF(npc.isVisiblyPregnant())
+			 [style.italicsGood(Deals heals some damage!)]
+		#ENDIF
+	]]></movePredictionDescriptionWithTarget>
+	<movePredictionDescriptionNoTarget><![CDATA[
+		Launch entangling vines!
+		formattedDamageInflicted
+		#IF(npc.isVisiblyPregnant())
+			 [style.italicsGood(Absorbs some essence!)]
+		#ENDIF
+	]]></movePredictionDescriptionNoTarget>
+	<performMove>
+		<execute><![CDATA[
+			[npc.Name] [npc.verb(focus)], releasing a tangle of vines from [npc.her] body! The vine wrapping around [npc2.name] attempt to bind and grope them into submission.
+			[##npc2.addStatusEffect(SE_TENTACLE_RESTRAIN_3, 3)]
+			#IF(npc.isVisiblyPregnant())
+				 The protective barrier surrounding [npc.her] womb activates! A wave of healing energy washes over [npc.name].
+				[##npc.setHealthPercentage(npc.getHealthPercentage() + 0.25)]
+			#ENDIF
+		]]></execute>
+		<critDescription/>
+		<critEffectDescription/>
+	</performMove>
+</combatMove>
