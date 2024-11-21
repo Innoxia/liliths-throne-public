@@ -106,7 +106,6 @@ import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
-import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
@@ -191,8 +190,6 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
-import com.lilithsthrone.game.inventory.enchanting.TFModifier;
-import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.outfit.AbstractOutfit;
@@ -5869,7 +5866,7 @@ public class UtilText {
 				Util.newArrayListOfValues(
 						"armRows"),
 				true,
-				false,
+				true,
 				"",
 				"Returns a descriptor in the form of the character number of arms. i.e. If the character has 1 arm row it will return 'a pair of', for 2, 'two pairs of', and 3, 'three pairs of'.",
 				BodyPartType.ARM){
@@ -5882,20 +5879,6 @@ public class UtilText {
 				} else {
 					return "three pairs of";
 				}
-			}
-		});
-		
-		commandsList.add(new ParserCommand(
-				Util.newArrayListOfValues(
-						"handCount"),
-				true,
-				false,
-				"",
-				"Returns the total number of the character's hands, which will usually be 'two', 'four', or 'six'. (Sometimes 'no' for ferals!)",
-				BodyPartType.ARM){
-			@Override
-			public String parse(List<GameCharacter> specialNPCs, String command, String arguments, String target, GameCharacter character) {
-				return Util.intToString(character.getArmRows() * 2);
 			}
 		});
 		
@@ -9916,12 +9899,6 @@ public class UtilText {
 		for(AbstractItemEffectType aiet : ItemEffectType.getAllEffectTypes()) {
 			engine.put("ITEM_EFFECT_TYPE_"+ItemEffectType.getIdFromItemEffectType(aiet), aiet);
 		}
-		for(TFModifier modifier : TFModifier.values()) {
-			engine.put("ENCHANTMENT_MODIFIER_"+modifier.toString(), modifier);
-		}
-		for(TFPotency potency : TFPotency.values()) {
-			engine.put("ENCHANTMENT_POTENCY_"+potency.toString(), potency);
-		}
 		
 		// Tattoos:
 		for(AbstractTattooType tattooType : TattooType.getAllTattooTypes()) {
@@ -9969,9 +9946,6 @@ public class UtilText {
 		}
 		for(LegConfiguration legConf : LegConfiguration.values()) {
 			engine.put("LEG_CONFIGURATION_"+legConf.toString(), legConf);
-		}
-		for(CupSize cupSize : CupSize.values()) {
-			engine.put("CUP_SIZE_"+cupSize.toString(), cupSize);
 		}
 		for(FootStructure footStructure : FootStructure.values()) {
 			engine.put("FOOT_STRUCTURE_"+footStructure.toString(), footStructure);

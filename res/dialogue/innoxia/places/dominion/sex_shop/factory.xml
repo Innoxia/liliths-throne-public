@@ -17,7 +17,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Hide]]></responseTitle>
-				<responseTooltip><![CDATA[Hide from whoever it is who's approaching...]]></responseTooltip>
+				<responseTooltip><![CDATA[Remain in hiding while Fia waits for her contact to show up.]]></responseTooltip>
 				<nextDialogue>innoxia_places_dominion_sex_shop_factory_meet_fia_wait</nextDialogue>
 				<effects><![CDATA[
 					[#game.addNPC('misc.GenericSexualPartner', 'fia_friend')]
@@ -38,7 +38,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Enter]]></responseTitle>
-				<responseTooltip><![CDATA[Wait for the rat-boy to leave and then enter Lovienne's Luxuries with Fia.]]></responseTooltip>
+				<responseTooltip><![CDATA[Wait for Fia's friend to leave and then enter Lovienne's Luxuries with her.]]></responseTooltip>
 				<nextDialogue>innoxia_places_dominion_sex_shop_factory_meet_fia_enter</nextDialogue>
 			</response>
 			<!-- Sex scene: -->
@@ -136,7 +136,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Enter]]></responseTitle>
-				<responseTooltip><![CDATA[Wait for the rat-boy to leave and then enter Lovienne's Luxuries with Fia.]]></responseTooltip>
+				<responseTooltip><![CDATA[Wait for Fia's friend to leave and then enter Lovienne's Luxuries with her.]]></responseTooltip>
 				<nextDialogue>innoxia_places_dominion_sex_shop_factory_meet_fia_enter</nextDialogue>
 			</response>
 		</responses>
@@ -144,14 +144,12 @@
 	
 	<scene id="meet_fia_enter">
 		<preParsingEffects><![CDATA[
-			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory', 'MEET_FIA_ENTER'))]
 			[#game.banishNPC(fia_friend)]
 			[#pc.setLocation(WORLD_TYPE_innoxia_dominion_sex_shop, PLACE_TYPE_innoxia_dominion_sex_shop_back_door)]
 			[#fia.setLocation(pc)]
-			[#saellatrix.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
 			[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_3))]
 		]]></preParsingEffects>
-		<content/>
+		<content folderPath="txt/places/dominion/sex_shop/factory">MEET_FIA_ENTER</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
@@ -198,16 +196,13 @@
 	
 	<!-- Place type id: innoxia_dominion_sex_shop_factory_exit -->
 	<scene id="exit">
-		<preParsingEffects><![CDATA[
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'PLAYER_OBEDIENCE_POSTFIX'))]
-		]]></preParsingEffects>
 		<content folderPath="txt/places/dominion/sex_shop/factory">EXIT</content>
 		<secondsPassed><![CDATA[30]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>false</travelDisabled>
 		<responses>
 			<response>
-				<availabilityConditional><![CDATA[[#!pc.isDoll() && pc.isQuestProgressGreaterThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_4)]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#pc.isQuestProgressGreaterThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_4)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Escape!]]></responseTitle>
@@ -235,21 +230,12 @@
 				<responseTitle><![CDATA[Continue]]></responseTitle>
 				<responseTooltip><![CDATA[Your mission is complete, and now all you need to do is check in at the entrance to Lilaya's mansion after a few days have passed...]]></responseTooltip>
 				<nextDialogue>default</nextDialogue>
-				<effects><![CDATA[
-					[#fia.returnToHome()]
-					[#fia.equipClothing()]
-					[#saellatrix.returnToHome()]
-					[#saellatrix.resetFactoryCharacters()]
-				]]></effects>
 			</response>
 		</responses>
 	</scene>
 	
 	<!-- Place type id: innoxia_dominion_sex_shop_factory_storage_corridor -->
 	<scene id="storage_corridor">
-		<preParsingEffects><![CDATA[
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'PLAYER_OBEDIENCE_POSTFIX'))]
-		]]></preParsingEffects>
 		<content folderPath="txt/places/dominion/sex_shop/factory">STORAGE_CORRIDOR</content>
 		<secondsPassed><![CDATA[30]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
@@ -292,9 +278,6 @@
 	
 	<!-- Place type id: innoxia_dominion_sex_shop_factory_storage_crates -->
 	<scene id="storage_crates">
-		<preParsingEffects><![CDATA[
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'PLAYER_OBEDIENCE_POSTFIX'))]
-		]]></preParsingEffects>
 		<content folderPath="txt/places/dominion/sex_shop/factory">STORAGE_CRATES</content>
 		<secondsPassed><![CDATA[30]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
@@ -326,9 +309,6 @@
 	
 	<!-- Place type id: innoxia_dominion_sex_shop_factory_storage_crates_searched -->
 	<scene id="storage_crates_searched">
-		<preParsingEffects><![CDATA[
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'PLAYER_OBEDIENCE_POSTFIX'))]
-		]]></preParsingEffects>
 		<content folderPath="txt/places/dominion/sex_shop/factory">STORAGE_CRATES_SEARCHED</content>
 		<secondsPassed><![CDATA[30]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
@@ -338,9 +318,6 @@
 	
 	<!-- Place type id: innoxia_dominion_sex_shop_factory_storage_dolls -->
 	<scene id="storage_dolls">
-		<preParsingEffects><![CDATA[
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'PLAYER_OBEDIENCE_POSTFIX'))]
-		]]></preParsingEffects>
 		<content folderPath="txt/places/dominion/sex_shop/factory">STORAGE_DOLLS</content>
 		<secondsPassed><![CDATA[30]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
@@ -354,7 +331,6 @@
 				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory', 'STORAGE_VENT_DISCOVERY'))]
 			#ELSE
 				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory', 'STORAGE_DOLLS'))]
-				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'PLAYER_OBEDIENCE_POSTFIX'))]
 			#ENDIF
 		]]></preParsingEffects>
 		<content/>
@@ -400,10 +376,6 @@
 			#ENDIF
 			[#flags.setFlag(FLAG_innoxia_doll_factory_encountered_locked_door_1, true)]
 			[#flags.setFlag(FLAG_innoxia_doll_factory_sister_talked, false)]
-			
-			#IF(flags.hasFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_1))
-				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'PLAYER_OBEDIENCE_POSTFIX'))]
-			#ENDIF
 		]]></preParsingEffects>
 		<content/>
 		<secondsPassed><![CDATA[30]]></secondsPassed>
@@ -414,7 +386,7 @@
 		<responses copyFromDialogueId="innoxia_places_dominion_sex_shop_factory_sister_combat_won"> <!-- Succubus is present (copied from post-combat scene to get the Talk & Sex actions) -->
 			<!-- Approaching from factory side: -->
 				<response>
-					<availabilityConditional><![CDATA[[#pc.getLastCell().getPlaceType()==PLACE_TYPE_innoxia_dominion_sex_shop_factory_main_floor && !flags.hasFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_1) && !flags.hasFlag(FLAG_innoxia_doll_factory_broken_locked_door_1)]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#pc.getLastCell().getPlaceType()==PLACE_TYPE_innoxia_dominion_sex_shop_factory_main_floor && !flags.hasFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_1)]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[1]]></index>
 					<responseTitle><![CDATA[Unlocked!]]></responseTitle>
@@ -558,9 +530,6 @@
 	
 	<!-- Place type id: innoxia_dominion_sex_shop_factory_vents -->
 	<scene id="vents">
-		<preParsingEffects><![CDATA[
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'PLAYER_OBEDIENCE_POSTFIX'))]
-		]]></preParsingEffects>
 		<content folderPath="txt/places/dominion/sex_shop/factory">VENTS</content>
 		<secondsPassed><![CDATA[30]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
@@ -578,7 +547,6 @@
 				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_sister', 'SISTER_DEFEATED'))]
 			#ENDIF
 			[#flags.setFlag(FLAG_innoxia_doll_factory_sister_talked, false)]
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'PLAYER_OBEDIENCE_POSTFIX'))]
 		]]></preParsingEffects>
 		<content folderPath="txt/places/dominion/sex_shop/factory">MAIN_FLOOR</content>
 		<secondsPassed><![CDATA[30]]></secondsPassed>
@@ -602,15 +570,7 @@
 	<!-- Place type id: innoxia_dominion_sex_shop_factory_main_floor_event -->
 	<scene id="main_floor_event">
 		<preParsingEffects><![CDATA[
-			#IF(pc.isDoll())
-				#IF(flags.hasFlag(FLAG_innoxia_doll_factory_vents_event_triggered_2))
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory', 'MAIN_FLOOR_VENT_LOCKED'))]
-				#ELSE
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory', 'MAIN_FLOOR'))]
-				#ENDIF
-			#ELSEIF(flags.hasFlag(FLAG_innoxia_doll_factory_vents_locked_2))
-				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory', 'MAIN_FLOOR_VENT_LOCKED'))]
-			#ELSEIF(flags.hasFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_2))
+			#IF(flags.hasFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_2))
 				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory', 'MAIN_FLOOR_VENT_DISCOVERY_REPEAT'))]
 			#ELSEIF(flags.hasFlag(FLAG_innoxia_doll_factory_encountered_locked_door_2) && !flags.hasFlag(FLAG_innoxia_doll_factory_broken_locked_door_2) && !flags.hasFlag(FLAG_innoxia_doll_factory_vents_discovered_2))
 				#IF(!flags.hasFlag(FLAG_innoxia_doll_factory_vents_event_triggered_2))
@@ -618,22 +578,26 @@
 				#ELSE
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory', 'MAIN_FLOOR_VENT_DISCOVERY_REPEAT'))]
 				#ENDIF
+			#ELSEIF(flags.hasFlag(FLAG_innoxia_doll_factory_vents_locked_2))
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory', 'MAIN_FLOOR_VENT_LOCKED'))]
 			#ELSE
 				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory', 'MAIN_FLOOR'))]
 			#ENDIF
 			[#flags.setFlag(FLAG_innoxia_doll_factory_sister_talked, false)]
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'PLAYER_OBEDIENCE_POSTFIX'))]
 		]]></preParsingEffects>
 		<content/>
 		<secondsPassed><![CDATA[30]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled><![CDATA[
-			[#!pc.isDoll() && flags.hasFlag(FLAG_innoxia_doll_factory_encountered_locked_door_2) && !flags.hasFlag(FLAG_innoxia_doll_factory_broken_locked_door_2) && !flags.hasFlag(FLAG_innoxia_doll_factory_vents_event_triggered_2)]
+			[#(flags.hasFlag(FLAG_innoxia_doll_factory_encountered_locked_door_2)
+			&& !flags.hasFlag(FLAG_innoxia_doll_factory_broken_locked_door_2)
+			&& !flags.hasFlag(FLAG_innoxia_doll_factory_vents_event_triggered_2))
+			|| flags.hasFlag(FLAG_innoxia_doll_factory_vents_locked_2)]
 		]]></travelDisabled>
 		<responses> <!-- Succubus cannot be present here so no need to copy from post-combat scene to get the Talk & Sex actions -->
 			<!-- Vents are available: -->
 				<response>
-					<availabilityConditional><![CDATA[[#!pc.isDoll() && flags.hasFlag(FLAG_innoxia_doll_factory_encountered_locked_door_2) && !flags.hasFlag(FLAG_innoxia_doll_factory_broken_locked_door_2) && !flags.hasFlag(FLAG_innoxia_doll_factory_vents_discovered_2)]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_doll_factory_encountered_locked_door_2) && !flags.hasFlag(FLAG_innoxia_doll_factory_broken_locked_door_2) && !flags.hasFlag(FLAG_innoxia_doll_factory_vents_discovered_2)]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[1]]></index>
 					<responseTitle><![CDATA[Open it]]></responseTitle>
@@ -649,7 +613,7 @@
 					]]></effects>
 				</response>
 				<response>
-					<availabilityConditional><![CDATA[[#!pc.isDoll() && flags.hasFlag(FLAG_innoxia_doll_factory_encountered_locked_door_2) && !flags.hasFlag(FLAG_innoxia_doll_factory_broken_locked_door_2) && !flags.hasFlag(FLAG_innoxia_doll_factory_vents_discovered_2) && !flags.hasFlag(FLAG_innoxia_doll_factory_vents_event_triggered_2)]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_doll_factory_encountered_locked_door_2) && !flags.hasFlag(FLAG_innoxia_doll_factory_broken_locked_door_2) && !flags.hasFlag(FLAG_innoxia_doll_factory_vents_discovered_2) && !flags.hasFlag(FLAG_innoxia_doll_factory_vents_event_triggered_2)]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[2]]></index>
 					<responseTitle><![CDATA[Not yet]]></responseTitle>
@@ -657,6 +621,19 @@
 					<nextDialogue>innoxia_places_dominion_sex_shop_factory_main_floor_event_delay</nextDialogue>
 					<effects><![CDATA[
 						[#flags.setFlag(FLAG_innoxia_doll_factory_vents_event_triggered_2, true)]
+					]]></effects>
+				</response>
+			<!-- Vents are locked: -->
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_doll_factory_vents_locked_2)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Back]]></responseTitle>
+					<responseTooltip><![CDATA[You'll have to turn around and head back down the maintenance shaft...]]></responseTooltip>
+					<nextDialogue>innoxia_places_dominion_sex_shop_factory_vents_2</nextDialogue>
+					<effects><![CDATA[
+						[#pc.moveLocation(-1, 0)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory', 'MAIN_FLOOR_VENT_LOCKED_BACK'))]
 					]]></effects>
 				</response>
 		</responses>
@@ -683,7 +660,7 @@
 				<responseTooltip><![CDATA[Enter the passage so that you can use it to bypass the locked door...]]></responseTooltip>
 				<nextDialogue>innoxia_places_dominion_sex_shop_factory_vents_2</nextDialogue>
 				<effects><![CDATA[
-					[#pc.walkPathNoEffects(-2, 0, false, 1)]
+					[#pc.moveLocation(-1, 0)]
 					[#flags.setFlag(FLAG_innoxia_doll_factory_vents_locked_2, true)]
 				]]></effects>
 			</response>
@@ -699,7 +676,6 @@
 				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_sister', 'SISTER_DEFEATED'))]
 			#ENDIF
 			[#flags.setFlag(FLAG_innoxia_doll_factory_sister_talked, false)]
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'PLAYER_OBEDIENCE_POSTFIX'))]
 		]]></preParsingEffects>
 		<content folderPath="txt/places/dominion/sex_shop/factory">MAIN_MACHINES</content>
 		<secondsPassed><![CDATA[30]]></secondsPassed>
@@ -710,46 +686,23 @@
 	
 	<!-- Place type id: innoxia_dominion_sex_shop_factory_vents_2 -->
 	<scene id="vents_2">
-		<preParsingEffects><![CDATA[
-			#IF(pc.getCellFromLocation(1, 0).getPlaceType()==PLACE_TYPE_innoxia_dominion_sex_shop_factory_main_floor_event)
-				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory', 'VENTS_2_LOCKED'))]
-			#ELSE
-				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory', 'VENTS_2'))]
-			#ENDIF
-		]]></preParsingEffects>
-		<content/>
+		<content folderPath="txt/places/dominion/sex_shop/factory">VENTS_2</content>
 		<secondsPassed><![CDATA[30]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
-		<travelDisabled><![CDATA[
-			[#pc.getCellFromLocation(1, 0).getPlaceType()==PLACE_TYPE_innoxia_dominion_sex_shop_factory_main_floor_event]
-		]]></travelDisabled>
-		<responses>
-			<!-- Vents are locked: -->
-			<response>
-				<availabilityConditional><![CDATA[[#pc.getCellFromLocation(1, 0).getPlaceType()==PLACE_TYPE_innoxia_dominion_sex_shop_factory_main_floor_event]]]></availabilityConditional>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Back]]></responseTitle>
-				<responseTooltip><![CDATA[You'll have to turn around and head back down the maintenance shaft...]]></responseTooltip>
-				<nextDialogue><![CDATA[[#pc.getLastCell().getDialogue(false).getId()]]]></nextDialogue>
-				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory', 'VENTS_2_LOCKED_BACK'))]
-					[#pc.setLocation(pc.getLastCell())]
-				]]></effects>
-			</response>
-		</responses>
+		<travelDisabled><![CDATA[false]]></travelDisabled>
+		<responses/>
 	</scene>
 	
 	<!-- Place type id: innoxia_dominion_sex_shop_factory_vents_2_event -->
 	<scene id="vents_2_event">
 		<preParsingEffects><![CDATA[
 			#IF(flags.hasFlag(FLAG_innoxia_doll_factory_fia_horny))
-				[#fia.unequipAllClothing(fia, false, true)]
 				[#fia.setLust(100)]
 				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory', 'VENTS_2_EVENT'))]
 			#ELSE
 				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory', 'VENTS_2'))]
 			#ENDIF
+			[#fia.unequipAllClothing(fia, false, true)]
 		]]></preParsingEffects>
 		<content/>
 		<secondsPassed><![CDATA[60]]></secondsPassed>
@@ -1049,8 +1002,6 @@
 		<preParsingEffects><![CDATA[
 			[#flags.setFlag(FLAG_innoxia_doll_factory_fia_horny, false)]
 			[#fia.setLust(0)]
-			[#fia.equipClothing()]
-			[#fia.equipMainWeaponFromNowhere(itemGen.generateWeapon('innoxia_utility_flashlight'))]
 		]]></preParsingEffects>
 		<content folderPath="txt/places/dominion/sex_shop/factory">VENTS_2_EVENT_NO_SEX</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
@@ -1074,8 +1025,6 @@
 		<preParsingEffects><![CDATA[
 			[#flags.setFlag(FLAG_innoxia_doll_factory_fia_horny, false)]
 			[#fia.setLust(0)]
-			[#fia.equipClothing()]
-			[#fia.equipMainWeaponFromNowhere(itemGen.generateWeapon('innoxia_utility_flashlight'))]
 		]]></preParsingEffects>
         <title><![CDATA[Finished]]></title>
         <tooltip><![CDATA[Fia has had enough...]]></tooltip>
@@ -1107,7 +1056,7 @@
 		<responses copyFromDialogueId="innoxia_places_dominion_sex_shop_factory_sister_combat_won"> <!-- Succubus is present (copied from post-combat scene to get the Talk & Sex actions) -->
 			<!-- Approaching from milking chamber side: -->
 				<response>
-					<availabilityConditional><![CDATA[[#pc.getLastCell().getPlaceType()==PLACE_TYPE_innoxia_dominion_sex_shop_factory_slime_milking && !flags.hasFlag(FLAG_innoxia_doll_factory_broken_locked_door_2) && !flags.hasFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_2)]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#pc.getLastCell().getPlaceType()==PLACE_TYPE_innoxia_dominion_sex_shop_factory_slime_milking && !flags.hasFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_2)]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[1]]></index>
 					<responseTitle><![CDATA[Unlocked!]]></responseTitle>
@@ -1115,6 +1064,7 @@
 					<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_door_2]]></nextDialogue>
 					<effects><![CDATA[
 						[#flags.setFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_2, true)]
+						[#flags.setFlag(FLAG_innoxia_doll_factory_vents_locked_2, false)]
 						[#pc.getCell().getPlace().setPlaceType(PLACE_TYPE_innoxia_dominion_sex_shop_factory_door_2_unlocked)]
 					]]></effects>
 				</response>
@@ -1124,13 +1074,7 @@
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[1]]></index>
 					<responseTitle><![CDATA[Back]]></responseTitle>
-					<responseTooltip><![CDATA[
-						#IF(pc.isDoll())
-							You need to find Fia, not head back to the dollification room!
-						#ELSE
-							It looks like you'll have to find another way around this door...
-						#ENDIF
-					]]></responseTooltip>
+					<responseTooltip><![CDATA[It looks like you'll have to find another way around this door...]]></responseTooltip>
 					<nextDialogue stripContent="true"><![CDATA[
 						[#pc.getLastCell().getDialogue(false).getId()]
 					]]></nextDialogue>
@@ -1145,9 +1089,7 @@
 					<index><![CDATA[2]]></index>
 					<responseTitle><![CDATA[Break it]]></responseTitle>
 					<responseTooltip><![CDATA[
-						#IF(pc.isDoll())
-							Your new body is far too weak to break down this solid door!
-						#ELSEIF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)>=80)
+						#IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)>=80)
 							Use your physical strength to break this door down!
 							<br/>[style.italicsCombat(Someone is sure to be alerted if you do this!)]
 						#ELSE
@@ -1157,7 +1099,7 @@
 					]]></responseTooltip>
 					<colour><![CDATA[GENERIC_COMBAT]]></colour>
 					<nextDialogue><![CDATA[
-						#IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)>=80 && !pc.isDoll())
+						#IF(pc.getAttributeValue(ATTRIBUTE_MAJOR_PHYSIQUE)>=80)
 							innoxia_places_dominion_sex_shop_factory_door_2_break
 						#ELSE
 							null
@@ -1175,9 +1117,7 @@
 					<index><![CDATA[3]]></index>
 					<responseTitle><![CDATA[Cast [#SPELL_SLAM.getName()] ([#SPELL_UPGRADE_SLAM_2.getName()])]]></responseTitle>
 					<responseTooltip><![CDATA[
-						#IF(pc.isDoll())
-							Lacking an arcane aura in your new body, you're unable to cast spells!
-						#ELSEIF(!pc.hasSpell(SPELL_SLAM, true))
+						#IF(!pc.hasSpell(SPELL_SLAM, true))
 							You don't know the spell '[#SPELL_SLAM.getName()]', so you can't do anything...
 						#ELSEIF(!pc.hasSpellUpgrade(SPELL_UPGRADE_SLAM_2))
 							The spell '[#SPELL_SLAM.getName()]' won't be enough on its own to force the door open. You need to have the upgrade '[#SPELL_UPGRADE_SLAM_2.getName()]' to be able to do this.
@@ -1188,7 +1128,7 @@
 					]]></responseTooltip>
 					<colour><![CDATA[GENERIC_COMBAT]]></colour>
 					<nextDialogue><![CDATA[
-						#IF(pc.hasSpell(SPELL_SLAM, true) && pc.hasSpellUpgrade(SPELL_UPGRADE_SLAM_2) && !pc.isDoll())
+						#IF(pc.hasSpell(SPELL_SLAM, true) && pc.hasSpellUpgrade(SPELL_UPGRADE_SLAM_2))
 							innoxia_places_dominion_sex_shop_factory_door_2_break
 						#ELSE
 							null
@@ -1264,39 +1204,13 @@
 	
 	<!-- Place type id: innoxia_dominion_sex_shop_factory_slime_milking -->
 	<scene id="slime_milking">
-		<preParsingEffects><![CDATA[
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'PLAYER_OBEDIENCE_POSTFIX'))]
-		]]></preParsingEffects>
 		<content folderPath="txt/places/dominion/sex_shop/factory">SLIME_MILKING</content>
 		<secondsPassed><![CDATA[60]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
-		<travelDisabled><![CDATA[
-			[#!flags.hasFlag(FLAG_innoxia_doll_factory_slimes_discovered) || (pc.isDoll() && (pc.getCellFromLocation(1, 0).getPlaceType()==PLACE_TYPE_innoxia_dominion_sex_shop_factory_door_2 || pc.getCellFromLocation(1, 0).getPlaceType()==PLACE_TYPE_innoxia_dominion_sex_shop_factory_door_2_unlocked))]
-		]]></travelDisabled>
+		<travelDisabled><![CDATA[[#!flags.hasFlag(FLAG_innoxia_doll_factory_slimes_discovered)]]]></travelDisabled>
 		<responses>
-			<!-- Doll: -->
 			<response>
-				<availabilityConditional><![CDATA[[#pc.isDoll() && !flags.hasFlag(FLAG_innoxia_doll_factory_slimes_discovered)]]]></availabilityConditional>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Continue]]></responseTitle>
-				<responseTooltip><![CDATA[Continue on your way...]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
-				<effects><![CDATA[
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory', 'SLIME_MILKING_DOLL_CONTINUE'))]
-				]]></effects>
-			</response>
-			<response>
-				<availabilityConditional><![CDATA[[#pc.isDoll() && flags.hasFlag(FLAG_innoxia_doll_factory_slimes_discovered) && (pc.getCellFromLocation(1, 0).getPlaceType()==PLACE_TYPE_innoxia_dominion_sex_shop_factory_door_2 || pc.getCellFromLocation(1, 0).getPlaceType()==PLACE_TYPE_innoxia_dominion_sex_shop_factory_door_2_unlocked)]]]></availabilityConditional>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Into the factory]]></responseTitle>
-				<responseTooltip><![CDATA[Quickly rush through the door and hide in the factory before Angelixx sees you!]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_factory_hide]]></nextDialogue>
-			</response>
-			<!-- Normal: -->
-			<response>
-				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_doll_factory_slimes_discovered) && !pc.isDoll()]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_doll_factory_slimes_discovered)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Investigate]]></responseTitle>
@@ -1328,25 +1242,19 @@
 	<!-- Place type id: innoxia_dominion_sex_shop_factory_slime_milking_sleip_nir -->
 	<scene id="slime_milking_sleip_nir">
 		<preParsingEffects><![CDATA[
-			#IF(!pc.isDoll())
-				[#sleip.setLocation(pc)]
-				[#sleip.setPlayerKnowsName(true)]
-				[#nir.setLocation(pc)]
-				[#nir.setPlayerKnowsName(true)]
-				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory', 'SLEIP_NIR_INTRO'))]
-			#ELSE
-				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory', 'SLIME_MILKING'))]
-			#ENDIF
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'PLAYER_OBEDIENCE_POSTFIX'))]
+			[#sleip.setLocation(pc)]
+			[#sleip.setPlayerKnowsName(true)]
+			[#nir.setLocation(pc)]
+			[#nir.setPlayerKnowsName(true)]
 		]]></preParsingEffects>
-		<content/>
+		<content folderPath="txt/places/dominion/sex_shop/factory">SLEIP_NIR_INTRO</content>
 		<secondsPassed><![CDATA[30]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
-		<travelDisabled><![CDATA[[#!flags.hasFlag(FLAG_innoxia_doll_factory_sleip_nir_seen) && !pc.isDoll()]]]></travelDisabled>
+		<travelDisabled><![CDATA[[#!flags.hasFlag(FLAG_innoxia_doll_factory_sleip_nir_seen)]]]></travelDisabled>
 		<responses>
 			<!-- First time: -->
 				<response>
-					<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_doll_factory_sleip_nir_seen) && !pc.isDoll()]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_doll_factory_sleip_nir_seen)]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[1]]></index>
 					<responseTitle><![CDATA[Wait]]></responseTitle>
@@ -1354,7 +1262,7 @@
 					<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_slime_milking_sleip_nir_hide]]></nextDialogue>
 				</response>
 				<response>
-					<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_doll_factory_sleip_nir_seen) && !pc.isDoll()]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_doll_factory_sleip_nir_seen)]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[2]]></index>
 					<responseTitle><![CDATA[Confront them]]></responseTitle>
@@ -1367,7 +1275,7 @@
 				</response>
 			<!-- Repeat: -->
 				<response>
-					<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_doll_factory_sleip_nir_defeated) && flags.hasFlag(FLAG_innoxia_doll_factory_sleip_nir_seen) && !pc.isDoll()]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_doll_factory_sleip_nir_defeated) && flags.hasFlag(FLAG_innoxia_doll_factory_sleip_nir_seen)]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[1]]></index>
 					<responseTitle><![CDATA[Confront them]]></responseTitle>
@@ -1380,7 +1288,7 @@
 				</response>
 			<!-- Defeated them: -->
 				<response>
-					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_doll_factory_sleip_nir_defeated) && !pc.isDoll()]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_doll_factory_sleip_nir_defeated)]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[1]]></index>
 					<responseTitle><![CDATA[Use them]]></responseTitle>
@@ -1523,10 +1431,10 @@
 	<scene id="sleip_nir_combat_lost">
 		<preParsingEffects><![CDATA[
 			[#flags.setFlag(FLAG_innoxia_doll_factory_fia_in_hiding, true)]
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory', 'SLEIP_NIR_COMBAT_LOST'))]
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory', 'SLEIP_NIR_COMBAT_LOST'))]
 			[#game.addSavedInventory(pc)]
 			[#pc.resetInventory(true, true)]
-			#IF(!game.isNonConEnabled() || !sleip.isAttractedTo(pc))
+			#IF(!game.isNonConEnabled())
 				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory', 'SLEIP_NIR_COLLARED'))]
 			#ENDIF
 		]]></preParsingEffects>
@@ -1537,7 +1445,7 @@
 		<responses>
 			<!-- No non-con: -->
 				<response>
-					<availabilityConditional><![CDATA[[#!game.isNonConEnabled() || !sleip.isAttractedTo(pc)]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#!game.isNonConEnabled()]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[1]]></index>
 					<responseTitle><![CDATA[
@@ -1559,7 +1467,7 @@
 				</response>
 			<!-- Non-con: -->
 				<response>
-					<availabilityConditional><![CDATA[[#game.isNonConEnabled() && sleip.isAttractedTo(pc)]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#game.isNonConEnabled()]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[1]]></index>
 					<responseTitle><![CDATA[Fucked]]></responseTitle>
@@ -1667,7 +1575,7 @@
 					</sexVariablesWithManager>
 				</response>
 				<response>
-					<availabilityConditional><![CDATA[[#game.isNonConEnabled() && sleip.isAttractedTo(pc)]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#game.isNonConEnabled()]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[2]]></index>
 					<responseTitle><![CDATA[Resist]]></responseTitle>
@@ -1814,7 +1722,6 @@
 	<scene id="sleip_nir_travel">
 		<preParsingEffects><![CDATA[
 			[#pc.walkPathNoEffects(PLACE_TYPE_innoxia_dominion_sex_shop_factory_door_3, false, 1)]
-			[#saellatrix.resetFactoryCharacters()]
 			[#sleip.setLocation(pc)]
 			[#nir.setLocation(pc)]
 			[#angelixx.setLocation(pc)]
@@ -1823,31 +1730,21 @@
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
-		<responses>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Grabbed]]></responseTitle>
-				<responseTooltip><![CDATA[You've been captured by Angelixx and her sons, and are now completely at their mercy...]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_start]]></nextDialogue>
-			</response>
-		</responses>
+		<responses copyFromDialogueId="default"/>
+		<!-- TODO BE! -->
 	</scene>
 	
 	
 	<!-- Place type id: innoxia_dominion_sex_shop_factory_door_3 -->
 	<scene id="door_3">
-		<preParsingEffects><![CDATA[
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'PLAYER_OBEDIENCE_POSTFIX'))]
-		]]></preParsingEffects>
 		<content folderPath="txt/places/dominion/sex_shop/factory">DOOR_3</content>
 		<secondsPassed><![CDATA[30]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
-		<travelDisabled><![CDATA[[#pc.isQuestProgressLessThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_5) && !pc.isDoll()]]]></travelDisabled>
+		<travelDisabled><![CDATA[[#pc.isQuestProgressLessThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_5)]]]></travelDisabled>
 		<responses>
 			<!-- Locked: -->
 				<response>
-					<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_3) && !pc.isDoll()]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_3)]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[1]]></index>
 					<responseTitle><![CDATA[Back]]></responseTitle>
@@ -1862,18 +1759,16 @@
 				</response>
 			<!-- Unlocked: -->
 				<response>
-					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_3) && pc.isQuestProgressLessThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_5) && !pc.isDoll()]]]></availabilityConditional>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_3) && pc.isQuestProgressLessThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_5)]]]></availabilityConditional>
 					<responseTabIndex><![CDATA[0]]></responseTabIndex>
 					<index><![CDATA[1]]></index>
 					<responseTitle><![CDATA[Continue]]></responseTitle>
 					<responseTooltip><![CDATA[Continue forwards and see where this ominous corridor leads...]]></responseTooltip>
 					<nextDialogue>innoxia_places_dominion_sex_shop_factory_doll_machine_discovery</nextDialogue>
 					<effects><![CDATA[
-						[#flags.setFlag(FLAG_innoxia_doll_factory_seen_dollification_machine, true)]
 						[#pc.setNearestLocation(PLACE_TYPE_innoxia_dominion_sex_shop_factory_doll_machine)]
 						[#angelixx.setLocation(pc)]
 						[#saellatrix.setLocation(pc)]
-						[#pc.getCell().getInventory().addItem(itemGen.generateItem(ITEM_DOLL_CONSOLE))]
 					]]></effects>
 				</response>
 		</responses>
@@ -1883,9 +1778,6 @@
 	
 	<!-- Place type id: innoxia_dominion_sex_shop_factory_corridor -->
 	<scene id="corridor">
-		<preParsingEffects><![CDATA[
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'PLAYER_OBEDIENCE_POSTFIX'))]
-		]]></preParsingEffects>
 		<content folderPath="txt/places/dominion/sex_shop/factory">CORRIDOR</content>
 		<secondsPassed><![CDATA[30]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
@@ -1897,16 +1789,13 @@
 	
 	<!-- Place type id: innoxia_dominion_sex_shop_factory_cages -->
 	<scene id="cages">
-		<preParsingEffects><![CDATA[
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'PLAYER_OBEDIENCE_POSTFIX'))]
-		]]></preParsingEffects>
 		<content folderPath="txt/places/dominion/sex_shop/factory">CAGES</content>
 		<secondsPassed><![CDATA[30]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
-		<travelDisabled><![CDATA[[#!flags.hasFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_3) && !pc.isDoll()]]]></travelDisabled>
+		<travelDisabled><![CDATA[[#!flags.hasFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_3)]]]></travelDisabled>
 		<responses>
 			<response>
-				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_3) && !pc.isDoll()]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_3)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Search]]></responseTitle>
@@ -2079,9 +1968,6 @@
 	</scene>
 	
 	<scene id="doll_machine">
-		<preParsingEffects><![CDATA[
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'PLAYER_OBEDIENCE_POSTFIX'))]
-		]]></preParsingEffects>
 		<content folderPath="txt/places/dominion/sex_shop/factory">DOLL_MACHINE</content>
 		<secondsPassed><![CDATA[30]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>

@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -1146,6 +1147,54 @@ public class NightlifeDistrict {
 							}
 						};
 					}
+					if(index==11) {
+						return new Response("Random Femenine", "Just go for a femenine figure.",
+								WATERING_HOLE_SEARCH_RACE) {
+							@Override
+							public void effects() {
+								clubberGender = null;
+								while (clubberGender == null  || clubberGender.getType()!=PronounType.FEMININE) {
+									clubberGender = null;
+									clubberGender = Gender.values()[ThreadLocalRandom.current().nextInt(Gender.values().length)];
+								}
+							}
+						};
+					}
+					if(index==12) {
+						return new Response("Random Androgynous", "Just go for an adrogyunous figure.",
+								WATERING_HOLE_SEARCH_RACE) {
+							@Override
+							public void effects() {
+								clubberGender = null;
+								while (clubberGender == null  || clubberGender.getType()!=PronounType.NEUTRAL) {
+									clubberGender = null;
+									clubberGender = Gender.values()[ThreadLocalRandom.current().nextInt(Gender.values().length)];
+								}
+							}
+						};
+					}
+					if(index==13) {
+						return new Response("Random Masculine", "Just go for a masculine figure.",
+								WATERING_HOLE_SEARCH_RACE) {
+							@Override
+							public void effects() {
+								clubberGender = null;
+								while (clubberGender == null  || clubberGender.getType()!=PronounType.MASCULINE) {
+									clubberGender = null;
+									clubberGender = Gender.values()[ThreadLocalRandom.current().nextInt(Gender.values().length)];
+								}
+							}
+						};
+					}
+					if(index==14) {
+						return new Response("Random", "Don't choose any specific gender.",
+								WATERING_HOLE_SEARCH_RACE) {
+							@Override
+							public void effects() {
+								clubberGender = Gender.values()[ThreadLocalRandom.current().nextInt(Gender.values().length)];
+							}
+						};
+					}
 					count++;
 				}
 			}
@@ -1173,6 +1222,8 @@ public class NightlifeDistrict {
 				return "[style.colourTfLesser(Lesser)]";
 			} else if(index == 3) {
 				return "[style.colourTfGreater(Greater)]";
+			} else if(index == 4) {
+				return "Random";
 			}
 			return null;
 		}
@@ -1199,21 +1250,55 @@ public class NightlifeDistrict {
 										:WATERING_HOLE_SEARCH_GENERATE_DOM)) {
 							@Override
 							public void effects() {
+								RaceStage[] clubberRaceStageArray = {RaceStage.PARTIAL, RaceStage.PARTIAL_FULL, RaceStage.LESSER, RaceStage.GREATER};
 								switch(responseTab) {
-									case 0:
-										clubberRaceStage = RaceStage.PARTIAL;
-										break;
-									case 1:
-										clubberRaceStage = RaceStage.PARTIAL_FULL;
-										break;
-									case 2:
-										clubberRaceStage = RaceStage.LESSER;
-										break;
-									default:
-										clubberRaceStage = RaceStage.GREATER;
-										break;
+								case 0:
+									clubberRaceStage = RaceStage.PARTIAL;
+									break;
+								case 1:
+									clubberRaceStage = RaceStage.PARTIAL_FULL;
+									break;
+								case 2:
+									clubberRaceStage = RaceStage.LESSER;
+									break;
+								case 3:
+									clubberRaceStage = RaceStage.GREATER;
+									break;
+								case 4:
+									clubberRaceStage = clubberRaceStageArray[ThreadLocalRandom.current().nextInt(clubberRaceStageArray.length)];
+									break;
 								}
 								clubberSubspecies = subspecies;
+								spawnClubbers(isSearchingForASub);
+							}
+						};
+					}
+					if(index==sortedSubspecies.size() + 1) {
+						return new Response("Random", "Don't choose any specific race.",
+								(isSearchingForASub
+										?WATERING_HOLE_SEARCH_GENERATE
+										:WATERING_HOLE_SEARCH_GENERATE_DOM)) {
+							@Override
+							public void effects() {
+								RaceStage[] clubberRaceStageArray = {RaceStage.PARTIAL, RaceStage.PARTIAL_FULL, RaceStage.LESSER, RaceStage.GREATER};
+								switch(responseTab) {
+								case 0:
+									clubberRaceStage = RaceStage.PARTIAL;
+									break;
+								case 1:
+									clubberRaceStage = RaceStage.PARTIAL_FULL;
+									break;
+								case 2:
+									clubberRaceStage = RaceStage.LESSER;
+									break;
+								case 3:
+									clubberRaceStage = RaceStage.GREATER;
+									break;
+								default:
+									clubberRaceStage = clubberRaceStageArray[ThreadLocalRandom.current().nextInt(clubberRaceStageArray.length)];
+									break;
+							}
+								clubberSubspecies = sortedSubspecies.get(ThreadLocalRandom.current().nextInt(sortedSubspecies.size()));
 								spawnClubbers(isSearchingForASub);
 							}
 						};

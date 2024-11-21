@@ -700,18 +700,6 @@ public class OptionsController {
 								+"<br/><i>Characters can always gain udders/crotch-boobs via transformations after they've spawned.</i>"));
 			}
 		}
-
-		for (int i = 0; i<4; i++) {
-			id = "HAIR_GROWTH_PREFERENCE_"+i;
-			if (MainController.document.getElementById(id) != null) {
-				int finalI1 = i;
-				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					Main.getProperties().setHairGrowth(finalI1);
-					Main.saveProperties();
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-				}, false);
-			}
-		}
 		
 		id = "PREGNANCY_BREAST_GROWTH_ON";
 		if (MainController.document.getElementById(id) != null) {

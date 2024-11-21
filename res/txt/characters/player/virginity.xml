@@ -177,7 +177,7 @@
 			With tears welling up in your [pc.eyes], you let out another painful wail as [npc.name] draws [npc.her] [#SPECIAL_PARSE_0] back, before thrusting deep inside you once again. This time, the pain isn't as extreme as before, and you realise that you're starting to get used to the feeling of being fucked in the ass.
 		#ENDIF
 	</p>
-	#IF(npc.hasFetish(FETISH_DEFLOWERING) && !npc.isMute() && !npc.isDoll())
+	#IF(npc.hasFetish(FETISH_DEFLOWERING) && !npc.isMute())
 		<p>
 			[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your anal virginity for me! Remember this moment, remember that <i>my</i> [#SPECIAL_PARSE_0] was the one that turned you into #IF(pc.isFeminine())a horny buttslut#ELSEa little fucktoy#ENDIF!)]
 		</p>
@@ -207,7 +207,7 @@
 			Unable to react, you continue acting like an inanimate sex doll as [npc.name] draws [npc.her] [#SPECIAL_PARSE_0] back, before thrusting deep inside you once again. This time, the pain isn't as extreme as before, and you realise that you're starting to get used to the feeling of being fucked in the ass.
 		#ENDIF
 	</p>
-	#IF(npc.hasFetish(FETISH_DEFLOWERING) && !npc.isMute() && !npc.isDoll())
+	#IF(npc.hasFetish(FETISH_DEFLOWERING) && !npc.isMute())
 		<p>
 			[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your anal virginity for me! Remember this moment, remember that <i>my</i> [#SPECIAL_PARSE_0] was the one that turned you into a horny buttslut!)]
 		</p>
@@ -238,7 +238,7 @@
 			With tears welling up in your [pc.eyes], you let out another painful wail as [npc.name] draws [npc.her] [#SPECIAL_PARSE_0] back, before thrusting deep inside you once again. This time, the pain isn't as extreme as before, and you realise that you're starting to get used to the feeling of being fucked in the ass.
 		#ENDIF
 	</p>
-	#IF(npc.hasFetish(FETISH_DEFLOWERING) && !npc.isMute() && !npc.isDoll())
+	#IF(npc.hasFetish(FETISH_DEFLOWERING) && !npc.isMute())
 		<p>
 			[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your anal virginity for me! Remember this moment, remember that <i>my</i> [#SPECIAL_PARSE_0] was the one that turned you into #IF(pc.isFeminine())a horny buttslut#ELSEa little fucktoy#ENDIF!)]
 		</p>
@@ -328,7 +328,7 @@
 			Starting to get into the flow of things, you let out [pc.a_moan+] as [npc.name] draws [npc.her] [#SPECIAL_PARSE_0] back, before thrusting deep inside you once again. As [npc.she] starts fucking you, you can't help but let out a series of extremely lewd, lustful [pc.moans].
 		#ENDIF
 	</p>
-	#IF(!npc.isMute() && !npc.isDoll())
+	#IF(!npc.isMute())
 		<p>
 			#IF(game.isInSex())
 				#IF(sex.getSexPace(npc)==SEX_PACE_DOM_GENTLE)
@@ -388,7 +388,7 @@
 			Starting to get into the flow of things, you feel yourself getting intensely aroused as [npc.name] draws [npc.her] [#SPECIAL_PARSE_0] back and thrusts inside you once again. As [npc.she] starts fucking you, you can't help but begin to lose yourself in a delightful haze of pleasure.
 		#ENDIF
 	</p>
-	#IF(!npc.isMute() && !npc.isDoll())
+	#IF(!npc.isMute())
 		<p>
 			#IF(game.isInSex())
 				#IF(sex.getSexPace(npc)==SEX_PACE_DOM_GENTLE)
@@ -451,7 +451,7 @@
 			Starting to get into the flow of things, you feel yourself getting intensely aroused as [npc.name] draws [npc.her] [#SPECIAL_PARSE_0] back and thrusts inside you once again. As [npc.she] starts fucking you, you can't help but begin to lose yourself in a delightful haze of pleasure.
 		#ENDIF
 	</p>
-	#IF(!npc.isMute() && !npc.isDoll())
+	#IF(!npc.isMute())
 		<p>
 			#IF(game.isInSex())
 				#IF(sex.getSexPace(npc)==SEX_PACE_DOM_GENTLE)
@@ -485,8 +485,6 @@
 	<p style='text-align:center;'>
 		#IF(pc.hasHymen())
 			[style.italicsTerrible(Your hymen has been torn; you have lost your virginity!)]
-		#ELSEIF(pc.isDoll())
-			[style.italicsTerrible(You've now officially lost your virginity!)]
 		#ELSE
 			[style.italicsTerrible(Although your hymen had already been torn, you've now officially lost your virginity!)]
 		#ENDIF

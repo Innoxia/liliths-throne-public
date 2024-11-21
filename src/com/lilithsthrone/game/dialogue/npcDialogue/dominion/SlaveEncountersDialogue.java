@@ -123,11 +123,10 @@ public class SlaveEncountersDialogue {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			boolean isRape = getSlave().isWillingToRape(Main.game.getPlayer()) && getSlave().hasSlavePermissionSetting(SlavePermissionSetting.SEX_RAPIST);
 			if(index == 1) {
 				return new ResponseSex("Sex",
 						"[npc.Name] forces [npc.herself] on you...",
-						!isRape, !isRape,
+						false, false,
 						new SMGeneric(
 								Util.newArrayListOfValues(getSlave()),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -139,7 +138,7 @@ public class SlaveEncountersDialogue {
 			} else if(index == 2) {
 				return new ResponseSex("Eager Sex",
 						"[npc.Name] forces [npc.herself] on you...",
-						!isRape, !isRape,
+						false, false,
 						new SMGeneric(
 								Util.newArrayListOfValues(getSlave()),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -149,10 +148,10 @@ public class SlaveEncountersDialogue {
 						SLAVE_USES_YOU_POST_SEX,
 						UtilText.parseFromXMLFile("encounters/dominion/slaveEncounters", "SLAVE_USES_YOU_SEX_EAGER", slave));
 				
-			} else if(index == 3 && isRape) {
+			} else if(index == 3 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Resist Sex",
 						"[npc.Name] forces [npc.herself] on you...",
-						!isRape, !isRape,
+						false, false,
 						new SMGeneric(
 								Util.newArrayListOfValues(getSlave()),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -161,19 +160,6 @@ public class SlaveEncountersDialogue {
 								ResponseTag.START_PACE_PLAYER_SUB_RESISTING),
 						SLAVE_USES_YOU_POST_SEX,
 						UtilText.parseFromXMLFile("encounters/dominion/slaveEncounters", "SLAVE_USES_YOU_SEX_RESIST", slave));
-				
-			} else if(index==5) {
-				if(getSlave().isWillingToRape(Main.game.getPlayer()) && getSlave().hasSlavePermissionSetting(SlavePermissionSetting.SEX_RAPIST)) {
-					return new Response("Refuse",
-							UtilText.parse(getSlave(), "As you've given [npc.herHim] permission to rape, [npc.nameIsFull] not going to take no for an answer!"),
-							null);
-					
-				} else {
-					return new Response("Refuse",
-							UtilText.parse(getSlave(), "You really aren't in the mood right now, so firmly tell [npc.name] to stop."),
-							SLAVE_USES_YOU_REFUSED);
-					
-				}
 			}
 			return null;
 		}
@@ -202,25 +188,6 @@ public class SlaveEncountersDialogue {
 		}
 	};
 	
-	public static final DialogueNode SLAVE_USES_YOU_REFUSED = new DialogueNode("", "", true) {
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("encounters/dominion/slaveEncounters", "SLAVE_USES_YOU_REFUSED", slave);
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index == 1) {
-				return new Response("Continue", "Continue on your way.", Main.game.getDefaultDialogue(false)) {
-					@Override
-					public void effects() {
-						getSlave().returnToHome();
-					}
-				};
-			}
-			return null;
-		}
-	};
-	
 	private static final DialogueNode SLAVE_USES_YOU_DUNGEON = new DialogueNode("Ambushed", "", true) {
 		@Override
 		public String getContent() {
@@ -228,11 +195,10 @@ public class SlaveEncountersDialogue {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			boolean isRape = getSlave().isWillingToRape(Main.game.getPlayer()) && getSlave().hasSlavePermissionSetting(SlavePermissionSetting.SEX_RAPIST);
 			if(index == 1) {
 				return new ResponseSex("Sex",
 						"[npc.Name] forces [npc.herself] on you...",
-						!isRape, !isRape,
+						false, false,
 						new SMGeneric(
 								Util.newArrayListOfValues(getSlave()),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -244,7 +210,7 @@ public class SlaveEncountersDialogue {
 			} else if(index == 2) {
 				return new ResponseSex("Eager Sex",
 						"[npc.Name] forces [npc.herself] on you...",
-						!isRape, !isRape,
+						false, false,
 						new SMGeneric(
 								Util.newArrayListOfValues(getSlave()),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -254,10 +220,10 @@ public class SlaveEncountersDialogue {
 						SLAVE_USES_YOU_DUNGEON_POST_SEX,
 						UtilText.parseFromXMLFile("encounters/dominion/slaveEncounters", "SLAVE_USES_YOU_DUNGEON_SEX_EAGER", slave));
 				
-			} else if(index == 3 && isRape) {
+			} else if(index == 3 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Resist Sex",
 						"[npc.Name] forces [npc.herself] on you...",
-						!isRape, !isRape,
+						false, false,
 						new SMGeneric(
 								Util.newArrayListOfValues(getSlave()),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -266,19 +232,6 @@ public class SlaveEncountersDialogue {
 								ResponseTag.START_PACE_PLAYER_SUB_RESISTING),
 						SLAVE_USES_YOU_DUNGEON_POST_SEX,
 						UtilText.parseFromXMLFile("encounters/dominion/slaveEncounters", "SLAVE_USES_YOU_DUNGEON_SEX_RESIST", slave));
-				
-			} else if(index==5) {
-				if(getSlave().isWillingToRape(Main.game.getPlayer()) && getSlave().hasSlavePermissionSetting(SlavePermissionSetting.SEX_RAPIST)) {
-					return new Response("Refuse",
-							UtilText.parse(getSlave(), "As you've given [npc.herHim] permission to rape, [npc.nameIsFull] not going to take no for an answer!"),
-							null);
-					
-				} else {
-					return new Response("Refuse",
-							UtilText.parse(getSlave(), "You really aren't in the mood right now, so firmly tell [npc.name] to stop."),
-							SLAVE_USES_YOU_DUNGEON_REFUSED);
-					
-				}
 			}
 			return null;
 		}
@@ -307,25 +260,6 @@ public class SlaveEncountersDialogue {
 		}
 	};
 	
-	public static final DialogueNode SLAVE_USES_YOU_DUNGEON_REFUSED = new DialogueNode("", "", true) {
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("encounters/dominion/slaveEncounters", "SLAVE_USES_YOU_DUNGEON_REFUSED", slave);
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index == 1) {
-				return new Response("Continue", "Continue on your way.", Main.game.getDefaultDialogue(false)) {
-					@Override
-					public void effects() {
-						getSlave().returnToHome();
-					}
-				};
-			}
-			return null;
-		}
-	};
-	
 	private static final DialogueNode SLAVE_USES_YOU_STREETS = new DialogueNode("Ambushed", "", true) {
 		@Override
 		public String getContent() {
@@ -333,11 +267,10 @@ public class SlaveEncountersDialogue {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			boolean isRape = getSlave().isWillingToRape(Main.game.getPlayer()) && getSlave().hasSlavePermissionSetting(SlavePermissionSetting.SEX_RAPIST);
 			if(index == 1) {
 				return new ResponseSex("Sex",
 						"[npc.Name] forces [npc.herself] on you...",
-						!isRape, !isRape,
+						false, false,
 						new SMGeneric(
 								Util.newArrayListOfValues(getSlave()),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -349,7 +282,7 @@ public class SlaveEncountersDialogue {
 			} else if(index == 2) {
 				return new ResponseSex("Eager Sex",
 						"[npc.Name] forces [npc.herself] on you...",
-						!isRape, !isRape,
+						false, false,
 						new SMGeneric(
 								Util.newArrayListOfValues(getSlave()),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -359,10 +292,10 @@ public class SlaveEncountersDialogue {
 						SLAVE_USES_YOU_POST_SEX_STREETS,
 						UtilText.parseFromXMLFile("encounters/dominion/slaveEncounters", "SLAVE_USES_YOU_STREETS_SEX_EAGER", slave));
 				
-			} else if(index == 3 && isRape) {
+			} else if(index == 3 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Resist Sex",
 						"[npc.Name] forces [npc.herself] on you...",
-						!isRape, !isRape,
+						false, false,
 						new SMGeneric(
 								Util.newArrayListOfValues(getSlave()),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -371,19 +304,6 @@ public class SlaveEncountersDialogue {
 								ResponseTag.START_PACE_PLAYER_SUB_RESISTING),
 						SLAVE_USES_YOU_POST_SEX_STREETS,
 						UtilText.parseFromXMLFile("encounters/dominion/slaveEncounters", "SLAVE_USES_YOU_STREETS_SEX_RESIST", slave));
-				
-			} else if(index==5) {
-				if(getSlave().isWillingToRape(Main.game.getPlayer()) && getSlave().hasSlavePermissionSetting(SlavePermissionSetting.SEX_RAPIST)) {
-					return new Response("Refuse",
-							UtilText.parse(getSlave(), "As you've given [npc.herHim] permission to rape, [npc.nameIsFull] not going to take no for an answer!"),
-							null);
-					
-				} else {
-					return new Response("Refuse",
-							UtilText.parse(getSlave(), "You really aren't in the mood right now, so firmly tell [npc.name] to stop."),
-							SLAVE_USES_YOU_STREETS_REFUSED);
-					
-				}
 			}
 			return null;
 		}
@@ -412,25 +332,6 @@ public class SlaveEncountersDialogue {
 		}
 	};
 	
-	public static final DialogueNode SLAVE_USES_YOU_STREETS_REFUSED = new DialogueNode("", "", true) {
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("encounters/dominion/slaveEncounters", "SLAVE_USES_YOU_STREETS_REFUSED", slave);
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index == 1) {
-				return new Response("Continue", "Continue on your way.", Main.game.getDefaultDialogue(false)) {
-					@Override
-					public void effects() {
-						getSlave().returnToHome();
-					}
-				};
-			}
-			return null;
-		}
-	};
-	
 	private static final DialogueNode SLAVE_USES_YOU_ALLEYWAY = new DialogueNode("Ambushed", "", true) {
 		@Override
 		public String getContent() {
@@ -438,11 +339,10 @@ public class SlaveEncountersDialogue {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			boolean isRape = getSlave().isWillingToRape(Main.game.getPlayer()) && getSlave().hasSlavePermissionSetting(SlavePermissionSetting.SEX_RAPIST);
 			if(index == 1) {
 				return new ResponseSex("Sex",
 						"[npc.Name] forces [npc.herself] on you...",
-						!isRape, !isRape,
+						false, false,
 						new SMGeneric(
 								Util.newArrayListOfValues(getSlave()),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -454,7 +354,7 @@ public class SlaveEncountersDialogue {
 			} else if(index == 2) {
 				return new ResponseSex("Eager Sex",
 						"[npc.Name] forces [npc.herself] on you...",
-						!isRape, !isRape,
+						false, false,
 						new SMGeneric(
 								Util.newArrayListOfValues(getSlave()),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -464,10 +364,10 @@ public class SlaveEncountersDialogue {
 						SLAVE_USES_YOU_POST_SEX_ALLEYWAY,
 						UtilText.parseFromXMLFile("encounters/dominion/slaveEncounters", "SLAVE_USES_YOU_ALLEYWAY_SEX_EAGER", slave));
 				
-			} else if(index == 3 && isRape) {
+			} else if(index == 3 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Resist Sex",
 						"[npc.Name] forces [npc.herself] on you...",
-						!isRape, !isRape,
+						false, false,
 						new SMGeneric(
 								Util.newArrayListOfValues(getSlave()),
 								Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -476,19 +376,6 @@ public class SlaveEncountersDialogue {
 								ResponseTag.START_PACE_PLAYER_SUB_RESISTING),
 						SLAVE_USES_YOU_POST_SEX_ALLEYWAY,
 						UtilText.parseFromXMLFile("encounters/dominion/slaveEncounters", "SLAVE_USES_YOU_ALLEYWAY_SEX_RESISTING", slave));
-				
-			} else if(index==5) {
-				if(getSlave().isWillingToRape(Main.game.getPlayer()) && getSlave().hasSlavePermissionSetting(SlavePermissionSetting.SEX_RAPIST)) {
-					return new Response("Refuse",
-							UtilText.parse(getSlave(), "As you've given [npc.herHim] permission to rape, [npc.nameIsFull] not going to take no for an answer!"),
-							null);
-					
-				} else {
-					return new Response("Refuse",
-							UtilText.parse(getSlave(), "You really aren't in the mood right now, so firmly tell [npc.name] to stop."),
-							SLAVE_USES_YOU_REFUSED);
-					
-				}
 			}
 			return null;
 		}
@@ -502,25 +389,6 @@ public class SlaveEncountersDialogue {
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("encounters/dominion/slaveEncounters", "SLAVE_USES_YOU_POST_SEX_ALLEYWAY", slave);
-		}
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if(index == 1) {
-				return new Response("Continue", "Continue on your way.", Main.game.getDefaultDialogue(false)) {
-					@Override
-					public void effects() {
-						getSlave().returnToHome();
-					}
-				};
-			}
-			return null;
-		}
-	};
-	
-	public static final DialogueNode SLAVE_USES_YOU_ALLEYWAY_REFUSED = new DialogueNode("", "", true) {
-		@Override
-		public String getContent() {
-			return UtilText.parseFromXMLFile("encounters/dominion/slaveEncounters", "SLAVE_USES_YOU_ALLEYWAY_REFUSED", slave);
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {

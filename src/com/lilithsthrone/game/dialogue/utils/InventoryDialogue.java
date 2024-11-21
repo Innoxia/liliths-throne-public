@@ -6680,7 +6680,7 @@ public class InventoryDialogue {
 		
 		inventorySB.append("<h3 style='text-align:center;'><b>Dye & Preview</b></h3>");
 		
-		if(!clothing.getClothingType().getStickers().isEmpty()) {
+		if(!clothing.getClothingType().getStickers().isEmpty()) { //TODO test stickers
 			StringBuilder stickerSB = new StringBuilder();
 			boolean stickerFound = false;
 			List<StickerCategory> orderedCategories = new ArrayList<>(clothing.getClothingType().getStickers().keySet());
@@ -6738,22 +6738,20 @@ public class InventoryDialogue {
 							+ Util.capitaliseSentence(Util.intToPrimarySequence(i+1))+" Colour"+(cr.isRecolouringAllowed()?"":" ([style.italicsBad(cannot be changed)])")+":<br/>");
 				
 				for(Colour c : cr.getAllColours()) {
-//					if(!c.isDesaturated()) {
-						inventorySB.append("<div class='normal-button"+(dyePreviews.size()>i && dyePreviews.get(i)==c?" selected":"")+"' id='DYE_CLOTHING_"+i+"_"+c.getId()+"'"
-											+ " style='width:auto; margin-right:4px; border-width:1px;"
-												+(cr.getDefaultColours().contains(c)
-													?"border-color:"+PresetColour.TEXT_GREY.toWebHexString()+";"
-													:"")
-												+(dyePreviews.size()>i && dyePreviews.get(i)==c
-													?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";"
-													:"")+"'>"
-										+ "<div class='phone-item-colour' style='"
-											+ (c.isMetallic()
-													?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
-													:"background-color:" + c.toWebHexString() + ";")
-											+ "'></div>"
-							+ "</div>");
-//					}
+					inventorySB.append("<div class='normal-button"+(dyePreviews.size()>i && dyePreviews.get(i)==c?" selected":"")+"' id='DYE_CLOTHING_"+i+"_"+c.getId()+"'"
+										+ " style='width:auto; margin-right:4px; border-width:1px;"
+											+(cr.getDefaultColours().contains(c)
+												?"border-color:"+PresetColour.TEXT_GREY.toWebHexString()+";"
+												:"")
+											+(dyePreviews.size()>i && dyePreviews.get(i)==c
+												?" background-color:"+PresetColour.BASE_GREEN.getShades()[4]+";"
+												:"")+"'>"
+									+ "<div class='phone-item-colour' style='"
+										+ (c.isMetallic()
+												?"background: repeating-linear-gradient(135deg, " + c.toWebHexString() + ", " + c.getShades()[4] + " 10px);"
+												:"background-color:" + c.toWebHexString() + ";")
+										+ "'></div>"
+						+ "</div>");
 				}
 				inventorySB.append("</div>");
 			}

@@ -1040,22 +1040,20 @@ public class GenericActions {
 			
 			StringBuilder sb = new StringBuilder();
 			if(Main.game.getPlayer().getSubspeciesOverrideRace()==Race.DEMON) {
-				sb.append(Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON, false));
+				sb.append(Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON));
 			} else if (Main.game.getPlayer().isYouko()){
-				sb.append(Main.game.getPlayer().setPenisType(PenisType.FOX_MORPH, false));
+				sb.append(Main.game.getPlayer().setPenisType(PenisType.FOX_MORPH));
 			} else {
-				sb.append(Main.game.getPlayer().setPenisType(RacialBody.valueOfRace(Main.game.getPlayer().getBody().getFleshSubspecies().getRace()).getPenisType(), false));
+				sb.append(Main.game.getPlayer().setPenisType(RacialBody.valueOfRace(Main.game.getPlayer().getBody().getFleshSubspecies().getRace()).getPenisType()));
 			}
-			
-//			if(Main.game.getPlayer().getPenisRawCumStorageValue() < 150) {
-//				sb.append(Main.game.getPlayer().setPenisCumStorage(150));
-//			}
+			if(Main.game.getPlayer().getPenisRawCumStorageValue() < 150) {
+				sb.append(Main.game.getPlayer().setPenisCumStorage(150));
+			}
 			Main.game.getPlayer().fillCumToMaxStorage();
-//			int size = Main.sex.getCharacterTargetedForSexAction(this).getLegConfiguration().isLargeGenitals()?40:20;
-//			if(Main.game.getPlayer().getPenisRawSizeValue() < size) {
-//				sb.append(Main.game.getPlayer().setPenisSize(size));
-//			}
-			
+			int size = Main.sex.getCharacterTargetedForSexAction(this).getLegConfiguration().isLargeGenitals()?40:20;
+			if(Main.game.getPlayer().getPenisRawSizeValue() < size) {
+				sb.append(Main.game.getPlayer().setPenisSize(size));
+			}
 			
 			for(GameCharacter character : Main.sex.getAllParticipants()) {
 				if(character instanceof NPC) {
@@ -1167,11 +1165,11 @@ public class GenericActions {
 			Main.sex.getCharacterTargetedForSexAction(this).fillCumToMaxStorage();
 			if(Main.sex.getCharacterTargetedForSexAction(this).hasVagina()) {
 				Main.sex.getCharacterTargetedForSexAction(this).setTesticleSize(TesticleSize.ZERO_VESTIGIAL);
-			} else if(Main.sex.getCharacterTargetedForSexAction(this).getTesticleSize().getValue() < TesticleSize.THREE_LARGE.getValue()){
+			} else {
 				Main.sex.getCharacterTargetedForSexAction(this).setTesticleSize(TesticleSize.THREE_LARGE);
 			}
-			if(Main.sex.getCharacterTargetedForSexAction(this).getPenisGirth().getValue() < PenetrationGirth.THREE_AVERAGE.getValue()) {
-				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisGirth(PenetrationGirth.THREE_AVERAGE));
+			if(Main.sex.getCharacterTargetedForSexAction(this).getPenisGirth().getValue() < PenetrationGirth.FOUR_GIRTHY.getValue()) {
+				sb.append(Main.sex.getCharacterTargetedForSexAction(this).setPenisGirth(PenetrationGirth.FOUR_GIRTHY));
 			}
 			int size = Main.sex.getCharacterTargetedForSexAction(this).getLegConfiguration().isLargeGenitals()?40:20;
 			if(Main.sex.getCharacterTargetedForSexAction(this).getPenisRawSizeValue() < size) {
@@ -4282,29 +4280,25 @@ public class GenericActions {
 		}
 		@Override
 		public String getActionTitle() {
-			try {
-				switch((SexAreaOrifice)getAreaToBeEgged()) {
-					case ANUS:
-						return "Lay eggs (anal)";
-					case MOUTH:
-						return "Lay eggs (stomach)";
-					case NIPPLE: case NIPPLE_CROTCH:
-						return "Lay eggs (breasts)";
-					case VAGINA:
-						return "Lay eggs (womb)";
-					case SPINNERET:
-						return "Lay eggs (spinneret)";
-					case ARMPITS:
-					case BREAST:
-					case ASS:
-					case BREAST_CROTCH:
-					case THIGHS:
-					case URETHRA_PENIS:
-					case URETHRA_VAGINA:
-						return "";
-				}
-			} catch(Exception ex) {
-				System.err.println("OVIPOSITOR_PENIS_EGG_LAYING getActionTitle() error - Area not found!");
+			switch((SexAreaOrifice)getAreaToBeEgged()) {
+				case ANUS:
+					return "Lay eggs (anal)";
+				case MOUTH:
+					return "Lay eggs (stomach)";
+				case NIPPLE: case NIPPLE_CROTCH:
+					return "Lay eggs (breasts)";
+				case VAGINA:
+					return "Lay eggs (womb)";
+				case SPINNERET:
+					return "Lay eggs (spinneret)";
+				case ARMPITS:
+				case BREAST:
+				case ASS:
+				case BREAST_CROTCH:
+				case THIGHS:
+				case URETHRA_PENIS:
+				case URETHRA_VAGINA:
+					return "";
 			}
 			return "Lay eggs";
 		}
@@ -4580,29 +4574,25 @@ public class GenericActions {
 		}
 		@Override
 		public String getActionTitle() {
-			try {
-				switch((SexAreaOrifice)getAreaToBeEgged()) {
-					case ANUS:
-						return "Lay eggs (clit-anal)";
-					case MOUTH:
-						return "Lay eggs (clit-stomach)";
-					case NIPPLE: case NIPPLE_CROTCH:
-						return "Lay eggs (clit-breasts)";
-					case VAGINA:
-						return "Lay eggs (clit-womb)";
-					case SPINNERET:
-						return "Lay eggs (clit-spinneret)";
-					case ARMPITS:
-					case BREAST:
-					case ASS:
-					case BREAST_CROTCH:
-					case THIGHS:
-					case URETHRA_PENIS:
-					case URETHRA_VAGINA:
-						return "";
-				}
-			} catch(Exception ex) {
-				System.err.println("OVIPOSITOR_CLIT_EGG_LAYING getActionTitle() error - Area not found!");
+			switch((SexAreaOrifice)getAreaToBeEgged()) {
+				case ANUS:
+					return "Lay eggs (clit-anal)";
+				case MOUTH:
+					return "Lay eggs (clit-stomach)";
+				case NIPPLE: case NIPPLE_CROTCH:
+					return "Lay eggs (clit-breasts)";
+				case VAGINA:
+					return "Lay eggs (clit-womb)";
+				case SPINNERET:
+					return "Lay eggs (clit-spinneret)";
+				case ARMPITS:
+				case BREAST:
+				case ASS:
+				case BREAST_CROTCH:
+				case THIGHS:
+				case URETHRA_PENIS:
+				case URETHRA_VAGINA:
+					return "";
 			}
 			return "Lay eggs (clit)";
 		}
@@ -4775,29 +4765,25 @@ public class GenericActions {
 		}
 		@Override
 		public String getActionTitle() {
-			try {
-				switch((SexAreaOrifice)getAreaToBeEgged()) {
-					case ANUS:
-						return "Lay eggs (tail-anal)";
-					case MOUTH:
-						return "Lay eggs (tail-stomach)";
-					case NIPPLE: case NIPPLE_CROTCH:
-						return "Lay eggs (tail-breasts)";
-					case VAGINA:
-						return "Lay eggs (tail-womb)";
-					case SPINNERET:
-						return "Lay eggs (tail-spinneret)";
-					case ARMPITS:
-					case BREAST:
-					case ASS:
-					case BREAST_CROTCH:
-					case THIGHS:
-					case URETHRA_PENIS:
-					case URETHRA_VAGINA:
-						return "";
-				}
-			} catch(Exception ex) {
-				System.err.println("OVIPOSITOR_TAIL_EGG_LAYING getActionTitle() error - Area not found!");
+			switch((SexAreaOrifice)getAreaToBeEgged()) {
+				case ANUS:
+					return "Lay eggs (tail-anal)";
+				case MOUTH:
+					return "Lay eggs (tail-stomach)";
+				case NIPPLE: case NIPPLE_CROTCH:
+					return "Lay eggs (tail-breasts)";
+				case VAGINA:
+					return "Lay eggs (tail-womb)";
+				case SPINNERET:
+					return "Lay eggs (tail-spinneret)";
+				case ARMPITS:
+				case BREAST:
+				case ASS:
+				case BREAST_CROTCH:
+				case THIGHS:
+				case URETHRA_PENIS:
+				case URETHRA_VAGINA:
+					return "";
 			}
 			return "Lay eggs (tail)";
 		}
@@ -4971,29 +4957,25 @@ public class GenericActions {
 		}
 		@Override
 		public String getActionTitle() {
-			try {
-				switch((SexAreaOrifice)getAreaToBeEgged()) {
-					case ANUS:
-						return "Lay eggs (self tail-anal)";
-					case MOUTH:
-						return "Lay eggs (self tail-stomach)";
-					case NIPPLE: case NIPPLE_CROTCH:
-						return "Lay eggs (tail-breasts)";
-					case VAGINA:
-						return "Lay eggs (self tail-womb)";
-					case SPINNERET:
-						return "Lay eggs (self tail-spinneret)";
-					case ARMPITS:
-					case BREAST:
-					case ASS:
-					case BREAST_CROTCH:
-					case THIGHS:
-					case URETHRA_PENIS:
-					case URETHRA_VAGINA:
-						return "";
-				}
-			} catch(Exception ex) {
-				System.err.println("OVIPOSITOR_TAIL_EGG_LAYING_SELF getActionTitle() error - Area not found!");
+			switch((SexAreaOrifice)getAreaToBeEgged()) {
+				case ANUS:
+					return "Lay eggs (self tail-anal)";
+				case MOUTH:
+					return "Lay eggs (self tail-stomach)";
+				case NIPPLE: case NIPPLE_CROTCH:
+					return "Lay eggs (tail-breasts)";
+				case VAGINA:
+					return "Lay eggs (self tail-womb)";
+				case SPINNERET:
+					return "Lay eggs (self tail-spinneret)";
+				case ARMPITS:
+				case BREAST:
+				case ASS:
+				case BREAST_CROTCH:
+				case THIGHS:
+				case URETHRA_PENIS:
+				case URETHRA_VAGINA:
+					return "";
 			}
 			return "Lay eggs (self tail)";
 		}

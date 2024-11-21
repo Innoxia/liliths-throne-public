@@ -248,17 +248,13 @@ public class Wes extends NPC {
 	}
 
 	@Override
-	public boolean isUnique() {
-		return true;
+	public String getArtworkFolderName() {
+		return this.getNameIgnoresPlayerKnowledge();
 	}
 	
 	@Override
-	public String getArtworkFolderName() {
-		if(isSlave()) {
-			return "WesSlave";
-		} else {
-			return "Wes";
-		}
+	public boolean isUnique() {
+		return true;
 	}
 	
 	@Override

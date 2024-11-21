@@ -2574,9 +2574,6 @@ public class Body implements XMLSaving {
 				case SIDE_BRAIDS:
 					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been woven into braids that hang down on either side of [npc.her] face.");
 					break;
-				case SIDE_PARTED:
-					sb.append((hair.getType().isDefaultPlural(owner)?"have":"has")+" been combed away from a parting on the side of [npc.her] head.");
-					break;
 			}
 		}
 		if (hair.isNeckFluff()) {
@@ -6598,9 +6595,6 @@ public class Body implements XMLSaving {
 		// Set genital relative sizes:
 		AbstractRacialBody rb = targetSubspecies.getRace().getRacialBody();
 		float proportionSizeDifference = ((float)attributes.getSize())/(this.isFeminine()?rb.getFemaleHeight():rb.getMaleHeight());
-		if(attributes.getLegConfiguration().isLargeGenitals()) {
-			proportionSizeDifference += 1; // If large genitals, increase by 100%
-		}
 		this.getPenis().setPenisLength(null, (int) (rb.getPenisSize()*proportionSizeDifference));
 		this.getPenis().setPenisGirth(null, (int) (rb.getPenisGirth()*proportionSizeDifference));
 		this.getPenis().getTesticle().setTesticleSize(null, (int) (rb.getTesticleSize()*proportionSizeDifference));

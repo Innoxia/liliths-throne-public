@@ -98,7 +98,7 @@ public class ArcaneArts {
 	}
 	
 	private static boolean isMuskMarked() {
-		return Main.game.getPlayer().isMarkedByMuskMarkerCharacter(getVicky());
+		return Main.game.getPlayer().getMuskMarkerCharacter()==getVicky();
 	}
 	
 	public static final DialogueNode EXTERIOR = new DialogueNode("Arcane Arts (Exterior)", "-", false) {
@@ -911,7 +911,7 @@ public class ArcaneArts {
 		public void applyPreParsingEffects() {
 			Main.game.getDialogueFlags().setFlag("innoxia_vicky_claimed", true);
 			if(Main.game.isMuskContentEnabled()) {
-				Main.game.getPlayer().addMuskMarkerCharacter(getVicky()); // Just to make sure that the player was marked
+				Main.game.getPlayer().setMuskMarker(getVicky().getId()); // Just to make sure that the player was marked
 			}
 		}
 		@Override

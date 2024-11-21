@@ -271,15 +271,6 @@ public class Elle extends NPC {
 	}
 	
 	@Override
-	public String getArtworkFolderName() {
-		if(isSlave()) {
-			return "ElleSlave";
-		} else {
-			return "Elle";
-		}
-	}
-	
-	@Override
 	public String getDescription() {
 		if(this.isSlave()) {
 			return "Elle is no longer the Senior Quartermaster for all of the Enforcers in Central Dominion thanks to you. Although her fall from her former office was meteoric, she doesn't seem to mind at all.";

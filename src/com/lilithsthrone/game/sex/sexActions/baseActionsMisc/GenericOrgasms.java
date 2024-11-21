@@ -125,10 +125,6 @@ public class GenericOrgasms {
 		return isCharacterTotallyImmobilised(Main.sex.getCharacterPerformingAction());
 	}
 	
-	private static boolean isTargetedCharacterTotallyImmobilised(SexActionInterface sexAction) {
-		return isCharacterTotallyImmobilised(Main.sex.getCharacterTargetedForSexAction(sexAction));
-	}
-	
 	private static String getPositionPreparation(GameCharacter characterOrgasming, GameCharacter characterTargeted) {
 		if(characterTargeted!=null) {
 			String orgasmText = Main.sex.getSexPositionSlot(characterOrgasming).getOrgasmDescription(characterOrgasming, characterTargeted);
@@ -330,7 +326,6 @@ public class GenericOrgasms {
 				boolean sleeping = characterOrgasming.isAsleep();
 				boolean immobileTarget = isCharacterTotallyImmobilised(characterTargeted);
 				boolean sleepingTarget = characterTargeted.isAsleep();
-				boolean selfTargeting = characterOrgasming.equals(characterTargeted);
 				
 				if(contactingArea.isOrifice()) {
 					if(immobile) {
@@ -471,7 +466,7 @@ public class GenericOrgasms {
 									genericOrgasmSB.append(
 											UtilText.returnStringAtRandom(
 													" [npc2.name] [npc2.verb(continue)] to stroke [npc.her] [npc.cock+].",
-													selfTargeting?null:" [npc2.name] [npc2.verb(continue)] giving [npc.herHim] a handjob through [npc.her] orgasm.",
+													" [npc2.name] [npc2.verb(continue)] giving [npc.herHim] a handjob through [npc.her] orgasm.",
 													" [npc2.name] [npc2.verb(continue)] stroking [npc.her] [npc.cock+] through [npc.her] orgasm."));
 								}
 							} else {
@@ -490,7 +485,7 @@ public class GenericOrgasms {
 									genericOrgasmSB.append(
 											UtilText.returnStringAtRandom(
 													" as [npc2.name] [npc2.verb(continue)] to stroke [npc.her] [npc.cock+].",
-													selfTargeting?null:" as [npc2.name] [npc2.verb(continue)] giving [npc.herHim] a handjob through [npc.her] orgasm.",
+													" as [npc2.name] [npc2.verb(continue)] giving [npc.herHim] a handjob through [npc.her] orgasm.",
 													" as [npc2.name] [npc2.verb(continue)] stroking [npc.her] [npc.cock+] through [npc.her] orgasm."));
 								}
 							}
@@ -1650,7 +1645,7 @@ public class GenericOrgasms {
 					
 				} else {
 					StringBuilder sb = new StringBuilder();
-					sb.append(" all over [npc2.namePos] [npc2.breasts].");
+					sb.append(" all over [npc2.namePos] [npc.breasts].");
 					if(immobile) {
 						if(sleeping) {
 							sb.append(" [npc.Name] [npc.verb(remain)] deeply asleep as [npc.her] [npc.cum+] splatters onto [npc2.name],");
@@ -1679,7 +1674,7 @@ public class GenericOrgasms {
 					
 				} else {
 					StringBuilder sb = new StringBuilder();
-					sb.append(" all over [npc2.namePos] [npc2.face+].");
+					sb.append(" all over [npc2.namePos] [npc.face+].");
 					if(immobile) {
 						if(sleeping) {
 							sb.append(" [npc.Name] [npc.verb(remain)] deeply asleep as [npc.her] [npc.cum+] splatters onto [npc2.name],");
@@ -1838,7 +1833,7 @@ public class GenericOrgasms {
 					
 				} else {
 					StringBuilder sb = new StringBuilder();
-					sb.append(" all over [npc2.namePos] [npc2.legs].");
+					sb.append(" all over [npc2.namePos] [npc.legs].");
 					if(immobile) {
 						if(sleeping) {
 							sb.append(" [npc.Name] [npc.verb(remain)] deeply asleep as [npc.her] [npc.cum+] splatters onto [npc2.name],");
@@ -1867,7 +1862,7 @@ public class GenericOrgasms {
 					
 				} else {
 					StringBuilder sb = new StringBuilder();
-					sb.append(" all over [npc2.namePos] [npc2.feet+].");
+					sb.append(" all over [npc2.namePos] [npc.feet+].");
 					if(immobile) {
 						if(sleeping) {
 							sb.append(" [npc.Name] [npc.verb(remain)] deeply asleep as [npc.her] [npc.cum+] splatters onto [npc2.name],");
@@ -5688,7 +5683,7 @@ public class GenericOrgasms {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !isTakingCock(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))
+			return !isTakingCock(Main.game.getPlayer(), Main.sex.getCharacterTargetedForSexAction(this))
 					&& !isPerformingCharacterTotallyImmobilised();
 		}
 		@Override
@@ -5773,14 +5768,6 @@ public class GenericOrgasms {
 			CorruptionLevel.ONE_VANILLA,
 			null,
 			SexParticipantType.NORMAL) {
-
-		private GameCharacter getCharacterBeingFucked() {
-			List<GameCharacter> characters = Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS);
-			if(characters.isEmpty()) {
-				return null;
-			}
-			return characters.get(0);
-		}
 		
 		@Override
 		public String getActionTitle() {
@@ -5830,26 +5817,11 @@ public class GenericOrgasms {
 		public boolean isBaseRequirementsMet() {
 			return isTakingCock(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this))
 					&& (Main.sex.getCharacterPerformingAction().isPlayer() || Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())!=SexPace.SUB_RESISTING)
-					&& !isPerformingCharacterTotallyImmobilised()
-					&& !isTargetedCharacterTotallyImmobilised(this);
+					&& !isPerformingCharacterTotallyImmobilised();
 		}
 
 		@Override
 		public SexActionPriority getPriority() {
-			if(getCharacterBeingFucked()==Main.sex.getCharacterPerformingAction()) {
-				OrgasmEncourageBehaviour behaviour = Main.sex.getSexManager().getCharacterOrgasmEncourageBehaviour(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getCharacterBeingFucked());
-				switch(behaviour) {
-					case CREAMPIE:
-						return SexActionPriority.UNIQUE_MAX;
-					case DEFAULT:
-					case KNOT:
-						break;
-					case NO_ENCOURAGE:
-					case PULL_OUT:
-						return SexActionPriority.LOW;
-				}
-			}
-			
 			if((Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
 					&& Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterTargetedForSexAction(this))
 					&& Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_PREGNANCY).isPositive()
@@ -6124,14 +6096,6 @@ public class GenericOrgasms {
 			null,
 			SexParticipantType.NORMAL) {
 		
-		private GameCharacter getCharacterBeingFucked() {
-			List<GameCharacter> characters = Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS);
-			if(characters.isEmpty()) {
-				return null;
-			}
-			return characters.get(0);
-		}
-		
 		@Override
 		public String getActionTitle() {
 			return "Request knot";
@@ -6151,26 +6115,11 @@ public class GenericOrgasms {
 							Util.newArrayListOfValues(
 									SexAreaOrifice.VAGINA, SexAreaOrifice.ANUS, SexAreaOrifice.MOUTH, SexAreaOrifice.SPINNERET, SexAreaOrifice.NIPPLE, SexAreaOrifice.NIPPLE_CROTCH, SexAreaOrifice.URETHRA_PENIS, SexAreaOrifice.URETHRA_VAGINA),
 							Main.sex.getOngoingSexAreas(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS, Main.sex.getCharacterPerformingAction()))
-					&& !isPerformingCharacterTotallyImmobilised()
-					&& !isTargetedCharacterTotallyImmobilised(this);
+					&& !isPerformingCharacterTotallyImmobilised();
 		}
 
 		@Override
 		public SexActionPriority getPriority() {
-			if(getCharacterBeingFucked()==Main.sex.getCharacterPerformingAction()) {
-				OrgasmEncourageBehaviour behaviour = Main.sex.getSexManager().getCharacterOrgasmEncourageBehaviour(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getCharacterBeingFucked());
-				switch(behaviour) {
-					case KNOT:
-						return SexActionPriority.UNIQUE_MAX;
-					case DEFAULT:
-					case CREAMPIE:
-						break;
-					case NO_ENCOURAGE:
-					case PULL_OUT:
-						return SexActionPriority.LOW;
-				}
-			}
-			
 			if((Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
 					&& Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterTargetedForSexAction(this))
 					&& Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_PREGNANCY).isPositive()
@@ -7451,14 +7400,6 @@ public class GenericOrgasms {
 			null,
 			SexParticipantType.NORMAL) {
 		
-		private GameCharacter getCharacterBeingFucked() {
-			List<GameCharacter> characters = Main.sex.getCharactersHavingOngoingActionWith(Main.sex.getCharacterTargetedForSexAction(this), SexAreaPenetration.PENIS);
-			if(characters.isEmpty()) {
-				return null;
-			}
-			return characters.get(0);
-		}
-		
 		@Override
 		public String getActionTitle() {
 			return "Request pullout";
@@ -7474,7 +7415,7 @@ public class GenericOrgasms {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			if(isPerformingCharacterTotallyImmobilised() || isTargetedCharacterTotallyImmobilised(this)) {
+			if(isPerformingCharacterTotallyImmobilised()) {
 				return false;
 			}
 			if(Main.sex.getCharacterPerformingAction().isPlayer()) {
@@ -7501,20 +7442,6 @@ public class GenericOrgasms {
 
 		@Override
 		public SexActionPriority getPriority() {
-			if(getCharacterBeingFucked()==Main.sex.getCharacterPerformingAction()) {
-				OrgasmEncourageBehaviour behaviour = Main.sex.getSexManager().getCharacterOrgasmEncourageBehaviour(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), getCharacterBeingFucked());
-				switch(behaviour) {
-					case DEFAULT:
-						break;
-					case NO_ENCOURAGE:
-					case CREAMPIE:
-					case KNOT:
-						return SexActionPriority.LOW;
-					case PULL_OUT:
-						return SexActionPriority.UNIQUE_MAX;
-				}
-			}
-			
 			if((Main.sex.getAllOngoingSexAreas(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(SexAreaPenetration.PENIS)
 					&& Main.sex.getCharacterOngoingSexArea(Main.sex.getCharacterPerformingAction(), SexAreaOrifice.VAGINA).contains(Main.sex.getCharacterTargetedForSexAction(this))
 					&& (Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()
@@ -7754,7 +7681,7 @@ public class GenericOrgasms {
 		}
 		@Override
 		public boolean isBaseRequirementsMet() {
-			if(isPerformingCharacterTotallyImmobilised() || isTargetedCharacterTotallyImmobilised(this)) {
+			if(isPerformingCharacterTotallyImmobilised()) {
 				return false;
 			}
 			if(!Main.sex.getCharacterTargetedForSexAction(this).hasPenisIgnoreDildo()) {
@@ -7859,7 +7786,6 @@ public class GenericOrgasms {
 			return isTakingCock(Main.game.getPlayer(), Main.sex.getCharacterTargetedForSexAction(this))
 					&& Main.sex.getCharacterPerformingAction().isPlayer()
 					&& !isPerformingCharacterTotallyImmobilised();
-					//&& !isTargetedCharacterTotallyImmobilised(this);
 		}
 
 		@Override
@@ -8271,7 +8197,7 @@ public class GenericOrgasms {
 				targetHerHim = "[pc.herHim]"; // Otherwise it gets parsed as 'you'
 				targetHer = "[pc.her]"; // Otherwise it gets parsed as 'you'
 			}
-			
+
 			if(isSelfFucking()) {
 				if(Main.sex.getCharacterPerformingAction().isSpeechMuffled()) {
 					sb.append("Knowing exactly what it is [npc.she] [npc.verb(want)], [npc.name] [npc.verb(make)] a series of muffled cries as [npc.she] [npc.verb(try)] to convey to [npc2.name]"

@@ -643,8 +643,8 @@ public class ResponseSex extends Response {
 						for(String domId : dominantPositionIds.keySet()) {
 							for(String subId : submissivePositionIds.keySet()) {
 								try {
-									GameCharacter dom = UtilText.findFirstCharacterFromParserTarget(UtilText.parse(domId).trim());
-									GameCharacter sub = UtilText.findFirstCharacterFromParserTarget(UtilText.parse(subId).trim());
+									GameCharacter dom = Main.game.getNPCById(domId);
+									GameCharacter sub = Main.game.getNPCById(subId);
 									if(!sub.isAttractedTo(dom)) {
 										return true;
 									}
@@ -665,8 +665,8 @@ public class ResponseSex extends Response {
 						for(String domId : dominantIds) {
 							for(String subId : submissiveIds) {
 								try {
-									GameCharacter dom = UtilText.findFirstCharacterFromParserTarget(UtilText.parse(domId).trim());
-									GameCharacter sub = UtilText.findFirstCharacterFromParserTarget(UtilText.parse(subId).trim());
+									GameCharacter dom = Main.game.getNPCById(domId);
+									GameCharacter sub = Main.game.getNPCById(subId);
 									if(!sub.isAttractedTo(dom)) {
 										return true;
 									}

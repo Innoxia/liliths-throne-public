@@ -273,7 +273,7 @@ public class RatWarrensDialogue {
 						human.useItem(milk, human, false);
 					}
 				}
-				human.addMuskMarkerCharacter(Main.game.getNpc(Murk.class));
+				human.setMuskMarker(Main.game.getNpc(Murk.class).getId());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

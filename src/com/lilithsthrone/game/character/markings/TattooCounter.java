@@ -6,7 +6,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
-import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.ColourListPresets;
@@ -23,34 +22,16 @@ public class TattooCounter implements XMLSaving {
 	private TattooCountType countType;
 	private Colour colour;
 	private boolean glow;
-	private int retroactiveApplicationOffset;
 
 	public TattooCounter(TattooCounter counterToCopy) {
-		this(counterToCopy.type, counterToCopy.countType, counterToCopy.colour, counterToCopy.glow, counterToCopy.retroactiveApplicationOffset);
+		this(counterToCopy.type, counterToCopy.countType, counterToCopy.colour, counterToCopy.glow);
 	}
 	
-//	public TattooCounter(TattooCounterType type, TattooCountType countType, Colour colour, boolean glow) {
-//		this.type = type;
-//		this.countType = countType;
-//		this.colour = colour;
-//		this.glow = glow;
-//		this.retroactiveApplicationOffset = 0;
-//	}
-
-	public TattooCounter(TattooCounterType type, TattooCountType countType, Colour colour, boolean glow, GameCharacter bearer) {
+	public TattooCounter(TattooCounterType type, TattooCountType countType, Colour colour, boolean glow) {
 		this.type = type;
 		this.countType = countType;
 		this.colour = colour;
 		this.glow = glow;
-		this.retroactiveApplicationOffset = type.getNonRetroactiveOffset(bearer);
-	}
-	
-	public TattooCounter(TattooCounterType type, TattooCountType countType, Colour colour, boolean glow, int retroactiveApplicationOffset) {
-		this.type = type;
-		this.countType = countType;
-		this.colour = colour;
-		this.glow = glow;
-		this.retroactiveApplicationOffset = retroactiveApplicationOffset;
 	}
 	
 	public static List<Colour> getAvailableColours() {
@@ -64,8 +45,7 @@ public class TattooCounter implements XMLSaving {
 					&& ((TattooCounter)o).getType().equals(this.getType())
 					&& ((TattooCounter)o).getCountType().equals(this.getCountType())
 					&& ((TattooCounter)o).getColour().equals(this.getColour())
-					&& ((TattooCounter)o).isGlow()==glow
-					&& ((TattooCounter)o).getRetroactiveApplicationOffset()==this.getRetroactiveApplicationOffset();
+					&& ((TattooCounter)o).isGlow()==glow;
 		} else {
 			return false;
 		}
@@ -78,7 +58,6 @@ public class TattooCounter implements XMLSaving {
 		result = 31 * result + getCountType().hashCode();
 		result = 31 * result + getColour().hashCode();
 		result = 31 * result + (isGlow() ? 1 : 0);
-		result = 31 * result + this.getRetroactiveApplicationOffset();
 		return result;
 	}
 	
@@ -90,25 +69,17 @@ public class TattooCounter implements XMLSaving {
 		XMLUtil.addAttribute(doc, element, "countType", this.getCountType().toString());
 		XMLUtil.addAttribute(doc, element, "colour", this.getColour().getId());
 		XMLUtil.addAttribute(doc, element, "glow", String.valueOf(this.isGlow()));
-		XMLUtil.addAttribute(doc, element, "retroactiveApplicationOffset", String.valueOf(this.getRetroactiveApplicationOffset()));
 		
 		return element;
 	}
 	
 	public static TattooCounter loadFromXML(Element parentElement, Document doc) {
 		try {
-			int loadedRetroactiveApplicationOffset = 0;
-			String loadedRAOString = parentElement.getAttribute("retroactiveApplicationOffset");
-			if(!loadedRAOString.isEmpty()) {
-				loadedRetroactiveApplicationOffset = Integer.valueOf(loadedRAOString);
-			}
-			
 			return new TattooCounter(
 					TattooCounterType.valueOf(parentElement.getAttribute("type")),
 					TattooCountType.valueOf(parentElement.getAttribute("countType")),
 					PresetColour.getColourFromId(parentElement.getAttribute("colour")),
-					Boolean.valueOf(parentElement.getAttribute("glow")),
-					loadedRetroactiveApplicationOffset);
+					Boolean.valueOf(parentElement.getAttribute("glow")));
 			
 		} catch(Exception ex) {
 			System.err.println("Warning: An instance of TattooCounter was unable to be imported!");
@@ -132,16 +103,8 @@ public class TattooCounter implements XMLSaving {
 		return glow;
 	}
 
-	public void setType(TattooCounterType type, GameCharacter bearer) {
+	public void setType(TattooCounterType type) {
 		this.type = type;
-		if(!type.isRetroactiveApplicationAvailable()) {
-			setRetroactiveApplicationOffset(0);
-			
-		} else {
-			if(getRetroactiveApplicationOffset()<0) {
-				setRetroactiveApplicationOffset(type.getNonRetroactiveOffset(bearer));
-			}
-		}
 	}
 
 	public void setCountType(TattooCountType countType) {
@@ -155,24 +118,6 @@ public class TattooCounter implements XMLSaving {
 	public void setGlow(boolean glow) {
 		this.glow = glow;
 	}
-
-	/**
-	 * @return A negative int (or 0) which should be added to the counter before displaying to the player.
-	 */
-	public int getRetroactiveApplicationOffset() {
-		return retroactiveApplicationOffset;
-	}
-
-	public void setRetroactiveApplicationOffset(int retroactiveApplicationOffset) {
-		this.retroactiveApplicationOffset = retroactiveApplicationOffset;
-	}
-
-	public void setRetroactiveApplicationOffset(GameCharacter bearer) {
-		this.retroactiveApplicationOffset = getType().getNonRetroactiveOffset(bearer);
-	}
 	
-	public boolean isRetroactiveApplication() {
-		return getRetroactiveApplicationOffset()!=0;
-	}
 	
 }

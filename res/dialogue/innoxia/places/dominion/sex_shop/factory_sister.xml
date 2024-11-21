@@ -196,7 +196,7 @@
 		<travelDisabled>true</travelDisabled>
 		<responses>
 			<response>
-				<availabilityConditional><![CDATA[[#!game.isNonConEnabled() || (sister.hasFetish(FETISH_ORAL_GIVING) && !pc.hasPenisIgnoreDildo() && !pc.hasVagina())]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#!game.isNonConEnabled()]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[
@@ -217,7 +217,7 @@
 				<effects/>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[[#game.isNonConEnabled() && (!sister.hasFetish(FETISH_ORAL_GIVING) || pc.hasPenisIgnoreDildo() || pc.hasVagina())]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#game.isNonConEnabled()]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Sex]]></responseTitle>
@@ -346,7 +346,7 @@
 						</action>
 						<!-- Oral: -->
 						<action>
-							<condition><![CDATA[[#sister.hasFetish(FETISH_ORAL_GIVING) && pc.hasPenisIgnoreDildo()]]]></condition>
+							<condition><![CDATA[[#sister.hasFetish(FETISH_PURE_VIRGIN) && pc.hasPenisIgnoreDildo()]]]></condition>
 							<id><![CDATA[PenisMouth_GIVING_BLOWJOB_START]]></id>
 							<performer><![CDATA[sister]]></performer>
 							<target><![CDATA[pc]]></target>
@@ -354,7 +354,7 @@
 							<showEffects><![CDATA[true]]></showEffects>
 						</action>
 						<action>
-							<condition><![CDATA[[#sister.hasFetish(FETISH_ORAL_GIVING) && !pc.hasPenisIgnoreDildo()]]]></condition>
+							<condition><![CDATA[[#sister.hasFetish(FETISH_PURE_VIRGIN) && !pc.hasPenisIgnoreDildo()]]]></condition>
 							<id><![CDATA[TongueVagina_CUNNILINGUS_START]]></id>
 							<performer><![CDATA[sister]]></performer>
 							<target><![CDATA[pc]]></target>
@@ -454,49 +454,16 @@
 	<scene id="travel">
 		<preParsingEffects><![CDATA[
 			[#pc.walkPathNoEffects(PLACE_TYPE_innoxia_dominion_sex_shop_factory_door_3, false, 1)]
-			[#sleip.returnToHome()]
-			[#nir.returnToHome()]
 			[#sister.setLocation(pc)]
 			[#angelixx.setLocation(pc)]
-			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_sister', 'SISTER_TRAVEL'))]
-			[#flags.setFlag(FLAG_innoxia_doll_factory_slimes_discovered, true)]
 		]]></preParsingEffects>
-		<content/>
+		<content folderPath="txt/places/dominion/sex_shop/factory_sister">SISTER_TRAVEL</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
-		<responses>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Nightmares]]></responseTitle>
-				<responseTooltip><![CDATA[You recognise the two nightmares from having encountered them during the SWORD raid in Elis.]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_sister_travel_end]]></nextDialogue>
-			</response>
-		</responses>
+		<responses copyFromDialogueId="default"/>
+		<!-- TODO BE! -->
 	</scene>
 	
-	<scene id="travel_end">
-		<preParsingEffects><![CDATA[
-			[#saellatrix.resetFactoryCharacters()]
-			[#sleip.setLocation(pc)]
-			[#nir.setLocation(pc)]
-			[#sleip.setPlayerKnowsName(true)]
-			[#nir.setPlayerKnowsName(true)]
-		]]></preParsingEffects>
-		<content folderPath="txt/places/dominion/sex_shop/factory_sister">SISTER_TRAVEL_END</content>
-		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
-		<continuesDialogue>true</continuesDialogue>
-		<travelDisabled>true</travelDisabled>
-		<responses>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Captured]]></responseTitle>
-				<responseTooltip><![CDATA[You've been captured by Angelixx and her sons, and are now completely at their mercy...]]></responseTooltip>
-				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_start]]></nextDialogue>
-			</response>
-		</responses>
-	</scene>
 	
 </dialogueNodes>

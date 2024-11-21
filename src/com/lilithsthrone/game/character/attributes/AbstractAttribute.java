@@ -176,13 +176,6 @@ public abstract class AbstractAttribute {
 		return negativeEnchantment;
 	}
 
-	/**
-	 * @return true if this Attribute applies an enchantment cost to clothing/weapons which modify it (true is default behaviour).
-	 */
-	public boolean isAffectedByEnchantmentCost() {
-		return true;
-	}
-	
 	public String getSVGString() {
 		return SVGString;
 	}

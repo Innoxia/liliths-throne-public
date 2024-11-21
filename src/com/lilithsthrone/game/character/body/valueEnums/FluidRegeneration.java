@@ -34,7 +34,7 @@ public enum FluidRegeneration {
 	private String verb;
 	private Colour colour;
 	
-	public static int CUM_REGEN_DEFAULT = 10_000;
+	public static int CUM_REGEN_DEFAULT = 3;
 
 	private FluidRegeneration(String name, int minimumValue, int maximumValue, String verb, Colour colour) {
 		this.name = name;

@@ -938,7 +938,7 @@ public class CharacterUtils {
 				}
 			}
 		}
-		
+
 		if(motherBody.isFeral()) { // Feral mothers always birth feral offspring. This is done after the genetics section to make sure that the feral offspring is not modified in an unintended manner (such as making them as tall as the father).
 			body.setFeral(offspring, motherBody.getTrueSubspecies()); // Feral offspring should always be the race of the feral mother to avoid very odd birthings (e.g. elephants born from a wolf)
 		}

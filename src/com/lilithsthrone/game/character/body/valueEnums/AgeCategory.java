@@ -14,7 +14,22 @@ import com.lilithsthrone.utils.colours.PresetColour;
  */
 public enum AgeCategory {
 	
-	// Always at least 18, as returned by valueOf()
+	NEWBORN("newborn age", 0, 1, PresetColour.AGE_NEWBORN, ContentPreferenceValue.FOUR_HIGH),	
+
+	INFANT("infant years", 1, 2, PresetColour.AGE_INFANT, ContentPreferenceValue.FOUR_HIGH),
+
+	TODDLER("toddler years", 2, 4, PresetColour.AGE_TODDLER, ContentPreferenceValue.FOUR_HIGH),
+	
+	CHILD_EARLY("early childhood", 5, 8, PresetColour.AGE_CHILD, ContentPreferenceValue.FOUR_HIGH),
+
+	CHILD_MIDDLE("middle childhood", 8, 10, PresetColour.AGE_CHILD, ContentPreferenceValue.FOUR_HIGH),
+	
+	CHILD_LATE("late childhood", 10, 12, PresetColour.AGE_CHILD, ContentPreferenceValue.FOUR_HIGH),
+	
+	TEENS_EARLY("early teens", 13, 15, PresetColour.AGE_TEENS, ContentPreferenceValue.FOUR_HIGH),
+
+	TEENS_MIDDLE("middle teens", 16, 18, PresetColour.AGE_TEENS, ContentPreferenceValue.FOUR_HIGH),
+	
 	TEENS_LATE("late teens", 18, 20, PresetColour.AGE_TEENS, ContentPreferenceValue.FOUR_HIGH),
 	
 	TWENTIES_EARLY("early twenties", 20, 23, PresetColour.AGE_TWENTIES, ContentPreferenceValue.FIVE_ABUNDANT),
@@ -76,9 +91,6 @@ public enum AgeCategory {
 	}
 
 	public static AgeCategory valueOf(int age) {
-		if(age<TEENS_LATE.getMinimumValue()) {
-			return TEENS_LATE;
-		}
 		for(AgeCategory f : AgeCategory.values()) {
 			if(age>=f.getMinimumValue() && age<f.getMaximumValue()) {
 				return f;

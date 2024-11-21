@@ -261,10 +261,6 @@ public class Attribute {
 			return UtilText.parse(owner,
 						"The total amount of clothing and tattoo enchantments [npc.nameIsFull] able to handle without incurring massive penalties.");
 		}
-		@Override
-		public boolean isAffectedByEnchantmentCost() {
-			return false;
-		}
 	};
 	
 	public static AbstractAttribute FERTILITY = new AbstractAttribute(true, 10, -100, 100, "fertility", "Fertility", "shieldIcon", PresetColour.GENERIC_SEX, "fertility", "infertility", null) {

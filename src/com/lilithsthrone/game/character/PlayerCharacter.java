@@ -1458,7 +1458,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	@Override
 	public boolean isAbleToBeEgged() {
-		return !this.hasPerkAnywhereInTree(Perk.DOLL_PHYSICAL_2);
+		return !this.isDoll();
 	}
 	
 	// This behaviour is overridden for unique scenes in which the player's orgasm requires special dialogue or effects.
@@ -1934,19 +1934,18 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		StringBuilder sb = new StringBuilder();
 		
 		String penetrationName = "";
-		// Use simple names as parsed names with descriptors sounds awkward when NPC says it
 		switch(penetration) {
 			case CLIT:
-				penetrationName = "clit";
+				penetrationName = "[npc.clit+]";
 				break;
 			case PENIS:
-				penetrationName = "cock";
+				penetrationName = "[npc.penis+]";
 				break;
 			case TAIL:
-				penetrationName = "tail";
+				penetrationName = "[npc.tail+]";
 				break;
 			case TENTACLE:
-				penetrationName = "tentacle";
+				penetrationName = "[npc.tentacle+]";
 				break;
 			default:
 				break;

@@ -841,7 +841,7 @@ public enum Quest {
 		}
 	},
 
-	// Doll storage:
+	// Doll sotrage:
 	
 	SIDE_DOLL_STORAGE_ASK_FOR_SPACE(QuestType.SIDE, 1, 5) {
 		@Override
@@ -2226,22 +2226,6 @@ public enum Quest {
 		}
 	},
 	
-	DOLL_FACTORY_5_DOLLIFIED(QuestType.SIDE, 30, 250) {
-		@Override
-		public String getName() {
-			return "Dollified!";
-		}
-		@Override
-		public String getDescription() {
-			return "Having been caught, Angelixx has turned you into a doll! You desperately need to find Fia to undo this alarming transformation."
-					+ "<br/>[style.italics(You need to find and investigate the four)] [style.italicsExcellent(yellow)] [style.italics(tiles within the factory to find Fia.)]";
-		}
-		@Override
-		public String getCompletedDescription() {
-			return "After being transformed into a doll by Angelixx, you managed to find Fia and reverse the process, after which the two of you escaped from the factory.";
-		}
-	},
-	
 	DOLL_FACTORY_6(QuestType.SIDE, 30, 500) {
 		@Override
 		public String getName() {
@@ -2270,16 +2254,14 @@ public enum Quest {
 		@Override
 		public String getDescription() {
 			return "You refused to make a deal with Saellatrix, and instead swore to tell the truth and back up all that Fiammetta has written in her article."
-					+ " Before swiftly leaving the mansion, Saellatrix mentioned that her store will be closed for a week or two while she waits for the public outrage to blow over."
-					+ "<br/>[style.italicsMinorGood(You should return to Lovienne's Luxuries once it's reopened to find out what's become of the dolls...)]";
+					+ " Before swiftly leaving the mansion, Saellatrix mentioned that her store will be closed for at least a month."
+					+ "<br/>[style.italicsMinorGood(You should return to Lovienne's Luxuries once it's reopened to find out what's become of the refugees...)]";
 		}
 		@Override
 		public String getCompletedDescription() {
 			return "You refused to make a deal with Saellatrix, and instead swore to tell the truth and back up all that Fiammetta has written in her article."
-					+ " Returning to Lovienne's Luxuries after it'd been closed for a week, you discovered that Angelixx was made to take all of the blame for illegal enslavement,"
-						+ " and that Saellatrix is now only allowed to transform the worst of criminals into dolls."
-					+ "<br/>"
-					+ "Furthermore, not wanting to have you as an enemy, Saellatrix was keen to keep you as a customer, and even allowed you to decide what to do with Angelixx...";
+					+ " Returning to Lovienne's Luxuries after it'd been closed for a month, you discovered that Saellatrix has been pressured into creating a method to reverse the dollification process."
+					+ " You can now transform any of your dolls back into people, and as a peace offering, Saellatrix has allowed you to decide what to do with Angelixx...";
 		}
 	},
 	
@@ -2290,9 +2272,8 @@ public enum Quest {
 		}
 		@Override
 		public String getDescription() {
-			return "You betrayed the trust of Fiammetta and signed a document which declares that the reporter is lying."
-					+ " Saellatrix was delighted by your decision, and asked you to return to her shop to talk more about your special rewards..."
-					+ "<br/>[style.italicsMinorGood(You should return to Lovienne's Luxuries once it's reopened after a couple of days...)]";
+			return "You betrayed the trust of Fiammetta and signed the document declaring that the reporter is lying."
+					+ " Saellatrix was delighted by your decision, and asked you to return to her shop during opening hours to get a special reward...";
 		}
 		@Override
 		public String getCompletedDescription() {

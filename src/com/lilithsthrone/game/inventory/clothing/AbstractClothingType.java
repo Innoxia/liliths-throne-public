@@ -1976,14 +1976,6 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return femininityRestriction;
 	}
 	
-	/**
-	 * @return This clothing's associated femininity, ignoring the effects of the player's gameplay settings.
-	 * <br/>This should only be used for special checks, and you should instead be using <code>getFemininityRestriction()</code> in most instances.
-	 */
-	public Femininity getCoreFemininityRestriction() {
-		return femininityRestriction;
-	}
-	
 	@Deprecated
 	public InventorySlot getSlot() {
 		return equipSlots.get(0);

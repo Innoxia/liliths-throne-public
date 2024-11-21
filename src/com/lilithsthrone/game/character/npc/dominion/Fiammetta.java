@@ -90,8 +90,8 @@ public class Fiammetta extends NPC {
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.10.3") && !this.isDoll()) {
-			setStartingBody(true);
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.9.12")) {
+			setStartingBody(false);
 		}
 	}
 
@@ -114,13 +114,13 @@ public class Fiammetta extends NPC {
 		if(setPersona) {
 			this.setPersonalityTraits(
 					PersonalityTrait.KIND,
-					PersonalityTrait.CONFIDENT);
+					PersonalityTrait.CONFIDENT,
+					PersonalityTrait.BRAVE);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
 			this.setHistory(Occupation.NPC_JOURNALIST);
 			
-			this.clearFetishes();
 			// For the 'Lusty maiden' fetish:
 			this.addFetish(Fetish.FETISH_PURE_VIRGIN);
 			this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
@@ -128,7 +128,7 @@ public class Fiammetta extends NPC {
 			this.addFetish(Fetish.FETISH_BREASTS_SELF);
 			
 			this.setFetishDesire(Fetish.FETISH_ARMPIT_RECEIVING, FetishDesire.THREE_LIKE);
-			this.setFetishDesire(Fetish.FETISH_STRUTTER, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_LEG_LOVER, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.THREE_LIKE);
 			
 			this.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.ZERO_HATE);
@@ -212,7 +212,7 @@ public class Fiammetta extends NPC {
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.unequipAllClothingIntoVoid(true, true);
-		
+
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_head_headband", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_boyshorts", PresetColour.CLOTHING_GREY, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_sports_bra", PresetColour.CLOTHING_GREY, false), true, this);
@@ -255,10 +255,9 @@ public class Fiammetta extends NPC {
 	public void turnUpdate() {
 		if((Main.game.getPlayer().getWorldLocation()==WorldType.getWorldTypeFromId("innoxia_dominion_sex_shop") || Main.game.getPlayer().getWorldLocation()==WorldType.getWorldTypeFromId("innoxia_dominion_sex_shop_factory"))
 				&& Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_DOLL_FACTORY, Quest.DOLL_FACTORY_2)
-				&& Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_DOLL_FACTORY, Quest.DOLL_FACTORY_6)
 				&& !Main.game.isBadEnd()) {
 			if(Main.game.getDialogueFlags().hasFlag("innoxia_doll_factory_fia_in_hiding")) {
-				this.returnToHome();
+				this.setLocation("innoxia_dominion_sex_shop_factory", "innoxia_dominion_sex_shop_factory_storage_crates", false);
 			} else {
 				this.setLocation(Main.game.getPlayer(), false);
 			}

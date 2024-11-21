@@ -175,8 +175,8 @@ public class Brax extends NPC {
 			this.setPersonalityTraits(
 					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.BRAVE);
-	
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+
+			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
 			
 			this.setHistory(Occupation.NPC_ENFORCER_PATROL_INSPECTOR);
 	

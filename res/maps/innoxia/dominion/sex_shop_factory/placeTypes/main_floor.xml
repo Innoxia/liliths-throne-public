@@ -26,7 +26,7 @@
 	</populationPresent>
 	<furniturePresent>true</furniturePresent>
 	<globalMapTile>false</globalMapTile>
-	<dangerous><![CDATA[[#saellatrix.isAnySistersAvailable() || pc.isDoll()]]]></dangerous>
+	<dangerous><![CDATA[[#saellatrix.isAnySistersAvailable()]]]></dangerous>
 	<itemsDisappear><![CDATA[true]]></itemsDisappear>
 	<aquatic><![CDATA[LAND]]></aquatic>
 	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>

@@ -10,7 +10,7 @@
 		<encounter>
 			<name><![CDATA[succubus overseer appears]]></name>
 			<chanceToTrigger opportunisticEncounter="false"><![CDATA[
-				#IF(!pc.isDoll() && saellatrix.isAnySistersAvailable() && !saellatrix.isAnySisterPresent() && flags.hasFlag(FLAG_innoxia_doll_factory_main_area_discovered))
+				#IF(saellatrix.isAnySistersAvailable() && !saellatrix.isAnySisterPresent() && flags.hasFlag(FLAG_innoxia_doll_factory_main_area_discovered))
 					25
 				#ELSE
 					0

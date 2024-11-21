@@ -32,7 +32,6 @@ import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
-import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -91,23 +90,16 @@ public class Dale extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1.8")) {
 			this.setStartingBody(true);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.10.3")) {
-			this.setupPerks(true);
-		}
 	}
 
 	@Override
 	public void setupPerks(boolean autoSelectPerks) {
 		PerkManager.initialisePerks(this,
-				Util.newArrayListOfValues(Perk.HEAVY_SLEEPER),
+				Util.newArrayListOfValues(),
 				Util.newHashMapOfValues(
 						new Value<>(PerkCategory.PHYSICAL, 1),
 						new Value<>(PerkCategory.LUST, 0),
 						new Value<>(PerkCategory.ARCANE, 0)));
-		
-		if(!Main.game.getDialogueFlags().hasFlag("innoxia_dale_teddy_bear_given")) {
-			this.removeTrait(Perk.HEAVY_SLEEPER);
-		}
 	}
 
 	@Override
@@ -215,7 +207,7 @@ public class Dale extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 		
 		if(this.getLocationPlaceType()==PlaceType.getPlaceTypeFromId("innoxia_fields_dairyFarm_dormitory")) { // Sleeping
-			//this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_boxers", PresetColour.CLOTHING_DESATURATED_BROWN, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_boxers", PresetColour.CLOTHING_DESATURATED_BROWN, false), true, this);
 			
 		} else {
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_boxers", PresetColour.CLOTHING_DESATURATED_BROWN, false), true, this);
@@ -251,13 +243,13 @@ public class Dale extends NPC {
 		if(needsMoving && !Main.game.getCharactersPresent().contains(this)) {
 			if(Main.game.isHourBetween(1, 5)) {
 				Main.game.getDialogueFlags().setFlag("innoxia_evelyx_reception_sex", false);
-				this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_dairyFarm"), PlaceType.getPlaceTypeFromId("innoxia_fields_dairyFarm_dormitory"), true);
+				this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_dairyFarm"), PlaceType.getPlaceTypeFromId("innoxia_fields_dairyFarm_dormitory"), false);
 				this.equipClothing();
 				Main.game.updateResponses();
 				
 			} else {
 				Main.game.getDialogueFlags().setFlag("innoxia_evelyx_dorm_sex", false);
-				this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_dairyFarm"), PlaceType.getPlaceTypeFromId("innoxia_fields_dairyFarm_reception"), false);
+				this.setLocation(WorldType.getWorldTypeFromId("innoxia_fields_dairyFarm"), PlaceType.getPlaceTypeFromId("innoxia_fields_dairyFarm_reception"), true);
 				this.equipClothing();
 			}
 		}
@@ -273,17 +265,7 @@ public class Dale extends NPC {
 	public boolean isAbleToBeImpregnated() {
 		return false;
 	}
-	
-	@Override
-	public boolean isAffectedBySleepingStatusEffect() {
-		return true;
-	}
-	
-	@Override
-	public boolean isSleepingAtHour(int hour) {
-		return this.isAtHome(); // Always sleeping when on home tile
-	}
-	
+
 	@Override
 	public void changeFurryLevel() {
 	}

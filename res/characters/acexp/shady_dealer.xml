@@ -338,7 +338,7 @@
     </addictionsCore>
     <npcSpecific>
 	  <lastTimeEncountered value="-1"/>
-      <buyModifier value="0.4"/>
+      <buyModifier value="0.1"/>
       <sellModifier value="4"/>
       <playerSurrenderCount value="0"/>
       <addedToContacts value="false"/>

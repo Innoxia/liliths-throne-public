@@ -1179,7 +1179,7 @@ public class BodyChanging {
 								"Lip & Throat colour",
 								UtilText.parse(BodyChanging.getTarget(),
 										"The natural colour of [npc.namePos] "+(getTarget().getFaceType() == FaceType.HARPY?"beak":"lips")+" (top options) and [npc.her] throat (bottom options)."
-										+ " Lipstick can be used to conceal [npc.her] natural lip colour."),
+										+ "Lipstick can be used to conceal [npc.her] natural lip colour."),
 								true, true)
 
 						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getTongueType().getRace(), BodyChanging.getTarget().getCovering(BodyCoveringType.TONGUE).getType(),
@@ -1253,7 +1253,7 @@ public class BodyChanging {
 								"Lip & Throat colour",
 								UtilText.parse(BodyChanging.getTarget(),
 										"The natural colour of [npc.namePos] "+(getTarget().getFaceType() == FaceType.HARPY?"beak":"lips")+" (top options) and [npc.her] throat (bottom options)."
-										+ " Lipstick can be used to conceal [npc.her] natural lip colour."),
+										+ "Lipstick can be used to conceal [npc.her] natural lip colour."),
 								true, true)
 						
 						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getTongueType().getRace(), BodyChanging.getTarget().getCovering(BodyCoveringType.TONGUE).getType(),
@@ -1392,7 +1392,7 @@ public class BodyChanging {
 								"Lip & Throat colour",
 								UtilText.parse(BodyChanging.getTarget(),
 										"The natural colour of [npc.namePos] "+(getTarget().getFaceType() == FaceType.HARPY?"beak":"lips")+" (top options) and [npc.her] throat (bottom options)."
-										+ " Lipstick can be used to conceal [npc.her] natural lip colour."),
+										+ "Lipstick can be used to conceal [npc.her] natural lip colour."),
 								true, true)
 						
 						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getTongueType().getRace(), BodyChanging.getTarget().getCovering(BodyCoveringType.TONGUE).getType(),

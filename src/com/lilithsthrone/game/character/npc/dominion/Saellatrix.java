@@ -19,18 +19,10 @@ import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringCategory;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
-import com.lilithsthrone.game.character.body.types.ArmType;
-import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BreastType;
-import com.lilithsthrone.game.character.body.types.EarType;
-import com.lilithsthrone.game.character.body.types.EyeType;
-import com.lilithsthrone.game.character.body.types.FaceType;
-import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.TailType;
-import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -82,9 +74,6 @@ import com.lilithsthrone.game.character.markings.TattooCounter;
 import com.lilithsthrone.game.character.markings.TattooCounterType;
 import com.lilithsthrone.game.character.markings.TattooWriting;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.fields.Angelixx;
-import com.lilithsthrone.game.character.npc.fields.Nir;
-import com.lilithsthrone.game.character.npc.fields.Sleip;
 import com.lilithsthrone.game.character.npc.misc.BasicDoll;
 import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.NameTriplet;
@@ -680,11 +669,7 @@ public class Saellatrix extends NPC {
 	}
 
 	public void generateSister() {
-		generateSister(getNextSisterSlaveFetish());
-	}
-	
-	public void generateSister(AbstractFetish fetish) {
-//		AbstractFetish fetish = getNextSisterSlaveFetish();
+		AbstractFetish fetish = getNextSisterSlaveFetish();
 		DollFactorySuccubus sister = null;
 		for(NPC npc : Main.game.getCharactersPresent(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL)) {
 			if(npc instanceof DollFactorySuccubus && npc.hasFetish(fetish)) {
@@ -714,13 +699,8 @@ public class Saellatrix extends NPC {
 		String chokerBottomText = "bitch";
 		String crimeText = "";
 		
-		Colour colourChokerPrimary = PresetColour.CLOTHING_BLACK;
-		Colour colourChokerSecondary = PresetColour.CLOTHING_SILVER;
-		
 		sister.addFetish(fetishFocus);
-		if(!Main.game.getPlayer().isDoll()) {
-			Main.game.getDialogueFlags().setFlag(sisterFetishesToFlagIds.get(fetishFocus), true); // So that no repeats occur
-		}
+		Main.game.getDialogueFlags().setFlag(sisterFetishesToFlagIds.get(fetishFocus), true); // So that no repeats occur
 		
 		sister.setAffection(this, 100);
 		this.setAffection(sister, -100);
@@ -785,8 +765,6 @@ public class Saellatrix extends NPC {
 			initSisterCoverings(sister, PresetColour.EYE_YELLOW, PresetColour.SKIN_PURPLE, PresetColour.SKIN_EBONY, PresetColour.COVERING_BLACK);
 			
 			initSisterClothing(sister, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_STEEL, null);
-			colourChokerPrimary = PresetColour.CLOTHING_BLACK;
-			colourChokerSecondary = PresetColour.CLOTHING_STEEL;
 			sister.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_vagina_sticker_anal_only", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_PURPLE, PresetColour.CLOTHING_BLACK, false), true, sister);
 //			sister.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_anus_ribbed_dildo", PresetColour.CLOTHING_BLACK, false), true, sister);
 			
@@ -803,8 +781,7 @@ public class Saellatrix extends NPC {
 								TattooCounterType.UNIQUE_SEX_PARTNERS,
 								TattooCountType.TALLY,
 								PresetColour.CLOTHING_PINK_HOT,
-								false,
-								0)));
+								false)));
 			
 			
 		} else if(fetishFocus==Fetish.FETISH_PURE_VIRGIN) {
@@ -851,8 +828,6 @@ public class Saellatrix extends NPC {
 			sister.setSkinCovering(new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, PresetColour.SKIN_DARK, false, PresetColour.ORIFICE_INTERIOR, false), false);
 
 			initSisterClothing(sister, PresetColour.CLOTHING_PINK_HOT, PresetColour.CLOTHING_PINK_HOT, PresetColour.CLOTHING_STEEL, Util.newArrayListOfValues(InventorySlot.PIERCING_VAGINA));
-			colourChokerPrimary = PresetColour.CLOTHING_PINK_HOT;
-			colourChokerSecondary = PresetColour.CLOTHING_STEEL;
 			sister.setPiercedVagina(true);
 			sister.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("norin_piercings_piercing_vagina_sex", PresetColour.CLOTHING_STEEL, PresetColour.CLOTHING_PINK_HOT, PresetColour.CLOTHING_PINK_HOT, false), true, sister);
 			
@@ -869,18 +844,16 @@ public class Saellatrix extends NPC {
 								TattooCounterType.UNIQUE_SEX_PARTNERS,
 								TattooCountType.TALLY,
 								PresetColour.CLOTHING_PINK_HOT,
-								false,
-								0)));
+								false)));
 			
 			
 		} else if(fetishFocus==Fetish.FETISH_BREASTS_SELF) {
 			sister.addFetish(Fetish.FETISH_LACTATION_SELF);
-			sister.addFetish(Fetish.FETISH_BIMBO);
 			// Breast lover, 3 pairs of N-cup tits with piercings, huge nipples and tit cow tattoo - crime of calling Saellatrix a tit cow
 			// Loss is forced to fuck nipples, suckle while fingered or jerked off, or face sitting while she plays with tits (based on content settings)
 			chokerTopText = "worthless";
 			chokerBottomText = "slut";
-			crimeText = "Called Saellatrix a dumb tit cow";
+			crimeText = "Called Saellatrix a tit cow";
 
 			sister.setName("Niomia");
 			sister.setSpeechColour(PresetColour.BASE_INDIGO);
@@ -904,13 +877,13 @@ public class Saellatrix extends NPC {
 			sister.fillMilkToMaxStorage();
 			sister.setBreastLactationRegeneration(10_000);
 			sister.setMilkFlavour(FluidFlavour.MILK);
+			sister.addMilkModifier(FluidModifier.MUSKY);
+			sister.addMilkModifier(FluidModifier.VISCOUS);
 
 			initSisterCoverings(sister, PresetColour.EYE_GREEN, PresetColour.SKIN_IVORY, PresetColour.SKIN_GREY, PresetColour.COVERING_WHITE);
 			sister.setSkinCovering(new Covering(BodyCoveringType.NIPPLES, CoveringPattern.ORIFICE_NIPPLE, PresetColour.SKIN_EBONY, false, PresetColour.ORIFICE_INTERIOR, false), false);
 
 			initSisterClothing(sister, PresetColour.CLOTHING_PURPLE_DARK, PresetColour.CLOTHING_PURPLE_DARK, PresetColour.CLOTHING_STEEL, Util.newArrayListOfValues(InventorySlot.PIERCING_NIPPLE));
-			colourChokerPrimary = PresetColour.CLOTHING_PURPLE_DARK;
-			colourChokerSecondary = PresetColour.CLOTHING_STEEL;
 			sister.setPiercedNipples(true);
 			sister.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("norin_piercings_piercing_nipple_chain", PresetColour.CLOTHING_STEEL, false), true, sister);
 
@@ -927,8 +900,7 @@ public class Saellatrix extends NPC {
 								TattooCounterType.UNIQUE_SEX_PARTNERS,
 								TattooCountType.TALLY,
 								PresetColour.CLOTHING_PINK_HOT,
-								false,
-								0)));
+								false)));
 			
 		} else if(fetishFocus==Fetish.FETISH_PENIS_GIVING) {
 			// Penis fetish with massive cock, use me tattoo - crime of insulting Saellatrix's cock
@@ -966,8 +938,6 @@ public class Saellatrix extends NPC {
 			sister.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED), false);
 
 			initSisterClothing(sister, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_STEEL, null);
-			colourChokerPrimary = PresetColour.CLOTHING_BLACK;
-			colourChokerSecondary = PresetColour.CLOTHING_STEEL;
 			sister.setPiercedPenis(true);
 			sister.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_penis_ring", PresetColour.CLOTHING_GOLD, false), true, sister);
 			
@@ -986,10 +956,7 @@ public class Saellatrix extends NPC {
 								TattooCounterType.UNIQUE_SEX_PARTNERS,
 								TattooCountType.TALLY,
 								PresetColour.CLOTHING_PINK_HOT,
-								false,
-								0)));
-			
-			
+								false)));
 			
 		} else if(fetishFocus==Fetish.FETISH_ORAL_GIVING) {
 			// Oral fetish with huge lips and massive tongue, feed me tattoo - crime of complaining about the food at Saellatrix's dinner party
@@ -1029,8 +996,6 @@ public class Saellatrix extends NPC {
 			initSisterCoverings(sister, PresetColour.EYE_PINK_SALMON, PresetColour.SKIN_BLUE_LIGHT, PresetColour.SKIN_BLUE, PresetColour.COVERING_BLACK);
 
 			initSisterClothing(sister, PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_BLACK_STEEL, null);
-			colourChokerPrimary = PresetColour.CLOTHING_WHITE;
-			colourChokerSecondary = PresetColour.CLOTHING_BLACK_STEEL;
 			
 			sister.addTattoo(InventorySlot.NECK,
 					new Tattoo(
@@ -1045,12 +1010,11 @@ public class Saellatrix extends NPC {
 								TattooCounterType.UNIQUE_SEX_PARTNERS,
 								TattooCountType.TALLY,
 								PresetColour.CLOTHING_PINK_HOT,
-								false,
-								0)));
+								false)));
 		}
 		
 		// Add standard choker:
-		AbstractClothing choker = Main.game.getItemGen().generateClothing("innoxia_bdsm_choker", colourChokerPrimary, colourChokerSecondary, null, false);
+		AbstractClothing choker = Main.game.getItemGen().generateClothing("innoxia_bdsm_choker", PresetColour.CLOTHING_RED_VERY_DARK, PresetColour.CLOTHING_SILVER, null, false);
 		choker.setSticker("top_txt", chokerTopText);
 		choker.setSticker("btm_txt", chokerBottomText);
 		
@@ -1185,18 +1149,16 @@ public class Saellatrix extends NPC {
 		sister.returnToHome();
 	}
 	
-	/**
-	 * For use when factory quest is completely finished.
-	 */
-	public void resetFactoryCharacters() {
-		for(NPC npc : new ArrayList<>(Main.game.getAllNPCs())) {
-			if(npc instanceof DollFactorySuccubus) {
-				npc.returnToHome();
-			}
-		}
-		Main.game.getNpc(Sleip.class).returnToHome();
-		Main.game.getNpc(Nir.class).returnToHome();
-	}
+//	/**
+//	 * For use when factory quest is completely finished.
+//	 */
+//	public void deleteAllSisters() {
+//		for(NPC npc : new ArrayList<>(Main.game.getAllNPCs())) {
+//			if(npc instanceof DollFactorySuccubus) {
+//				Main.game.banishNPC(npc);
+//			}
+//		}
+//	}
 	
 	private static String[] toyNames = new String[]{"dildos", "anal beads", "cock rings", "strap-ons", "onaholes"};
 	private static Colour[] toyColours = new Colour[]{
@@ -1296,525 +1258,5 @@ public class Saellatrix extends NPC {
 		slime.setBreastMilkStorage(Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue());
 		slime.setBreastLactationRegeneration(FluidRegeneration.FOUR_VERY_RAPID.getMaximumRegenerationValuePerDay());
 		
-	}
-	
-	public void initBodyForDollification(GameCharacter doll) {
-		doll.clearTattoosAndScars();
-		
-		doll.applyWash(true,  true, null, 0);
-		doll.clearMuskMarkers();
-		
-		if(doll.isAbleToHaveRaceTransformed()) {
-			doll.setBody(Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN, false);
-			BodyMaterial.applyGenericSiliconeBodyChange(doll);
-			
-		} else {
-			doll.setPenisType(PenisType.NONE);
-			doll.setVaginaType(doll.getRace().getRacialBody().getVaginaType());
-			BodyMaterial.applyGenericSiliconeBodyChange(doll);
-		}
-	}
-
-	public void applyDollBodySiliconeDollification(GameCharacter doll) {
-		doll.resetFluidsStored();
-//		doll.completeVirginityReset();
-		
-		if(!doll.isAbleToHaveRaceTransformed()) {
-			doll.setTorsoType(TorsoType.HUMAN);
-			doll.setFaceType(FaceType.HUMAN);
-				doll.setEarType(EarType.HUMAN);
-				doll.setEyeType(EyeType.HUMAN);
-				doll.setHairType(HairType.HUMAN);
-			doll.setArmType(ArmType.HUMAN);
-			doll.setLegType(LegType.HUMAN);
-			doll.setBreastType(BreastType.HUMAN);
-			doll.setVaginaType(VaginaType.HUMAN);
-			doll.setAssType(AssType.HUMAN);
-			BodyMaterial.applyGenericSiliconeBodyChange(doll);
-		}
-		doll.setBodyMaterial(BodyMaterial.SILICONE);
-		doll.resetPerksMap(false);
-		doll.setupPerks(true);
-		doll.removePerk(2, Perk.DOLL_LUST_2);
-		doll.removePerk(2, Perk.DOLL_ARCANE_2);
-	}
-	
-	public void applyDollTattoo(GameCharacter doll) {
-		incrementDollsSold(1);
-		int dollCount = getDollsSold();
-		if(doll instanceof Fiammetta) {
-			// Make sure that Fia's number is theplayer's +1
-			dollCount = (int) Main.game.getDialogueFlags().getSavedLong("player_doll_number");
-		}
-		String dollNumber = "#"+String.format("%05d", dollCount);
-		UtilText.addSpecialParsingString(dollNumber, true);
-		
-		doll.addTattoo(InventorySlot.EYES,
-				new Tattoo("innoxia_property_barcode",
-						PresetColour.CLOTHING_WHITE,
-						false,
-						new TattooWriting(
-								dollNumber,
-								PresetColour.CLOTHING_WHITE,
-								false),
-						null));
-		
-		if(doll.isPlayer()) {
-			Main.game.getDialogueFlags().setSavedLong("player_doll_number", dollCount);
-		}
-	}
-
-	public void completeDollBodySiliconeDollification(GameCharacter doll) {
-		doll.resetPerksMap(false);
-		doll.setupPerks(true);
-	}
-	
-	
-	public void initRedDoll(String id) {
-		NPC doll = new BasicDoll(false);
-		doll.setBody(Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN, true);
-		doll.setBodyMaterial(BodyMaterial.SILICONE);
-		doll.setPlayerKnowsName(false);
-		doll.setName("doll");
-		String dollNumber = "#"+String.format("%03d", Util.random.nextInt(800));
-		if(id=="doll2") {
-			dollNumber = "#"+String.format("%03d", 800+Util.random.nextInt(200));
-		}
-		doll.setSurname(dollNumber);
-		
-		doll.setDescription("This doll works in Saellatrix's factory, and is responsible for maintaining the machines and performing quality control checks.");
-
-		doll.setBirthday(doll.getBirthday().minusDays((365*8) + Util.random.nextInt(365))); // Creation date is 8-9 years before encounter
-		
-		doll.completeVirginityLoss();
-		
-		doll.setLocation(Main.game.getPlayer());
-		AbstractBodyCoveringType dollCovering = BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SILICONE, BodyCoveringCategory.MAIN_SKIN);
-		doll.setSkinCovering(new Covering(dollCovering, CoveringPattern.NONE, CoveringModifier.SMOOTH, PresetColour.COVERING_RED, false, PresetColour.COVERING_RED, false), true);
-		
-		doll.addTattoo(InventorySlot.EYES,
-				new Tattoo("innoxia_property_barcode",
-						PresetColour.CLOTHING_WHITE,
-						false,
-						new TattooWriting(
-								dollNumber,
-								PresetColour.CLOTHING_WHITE,
-								false),
-						null));
-		
-		doll.unequipAllClothingIntoVoid(true, true);
-		doll.setMoney(0);
-		
-		try {
-			Main.game.addNPC(doll, false);
-			ParserTarget.addAdditionalParserTarget(id, doll);
-			
-			Main.game.getNpc(Saellatrix.class).addSlave(doll);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void applyDollificationBadEndSold() {
-		int ending = (int) Main.game.getDialogueFlags().getSavedLong("bad_end_dollification_owner");
-		
-		GenericSexualPartner owner = new GenericSexualPartner();
-		try {
-			Main.game.addNPC(owner, false);
-			Main.game.setParserTarget("doll_owner", owner);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		owner.clearFetishDesires();
-		owner.clearFetishes();
-		owner.unequipAllClothingIntoVoid(true, true);
-		
-		if(ending==1) { // Incubus
-			owner.addFetish(Fetish.FETISH_DOMINANT);
-			owner.addFetish(Fetish.FETISH_VOYEURIST);
-			owner.setBody(Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER, true);
-			owner.clearPersonalityTraits();
-			owner.addPersonalityTrait(PersonalityTrait.BRAVE);
-			owner.addPersonalityTrait(PersonalityTrait.CONFIDENT);
-
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_briefs", PresetColour.CLOTHING_BLACK, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_WHITE, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_mens_smart_shoes", PresetColour.CLOTHING_DESATURATED_BROWN_DARK, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_chinos", PresetColour.CLOTHING_BROWN, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_polo_shirt", PresetColour.CLOTHING_BLUE_LIGHT, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_MENS_WATCH, PresetColour.CLOTHING_BLACK_STEEL, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_eye_aviators", PresetColour.CLOTHING_BLACK_STEEL, false), true, owner);
-
-			Main.game.getPlayer().clearTattoos();
-			AbstractBodyCoveringType dollCovering = BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SILICONE, BodyCoveringCategory.MAIN_SKIN);
-			Main.game.getPlayer().setSkinCovering(new Covering(dollCovering, CoveringPattern.NONE, CoveringModifier.METALLIC, PresetColour.COVERING_BRONZE, false, PresetColour.COVERING_BRONZE, false), true);
-
-			dollCovering = BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SILICONE, BodyCoveringCategory.TONGUE);
-			Main.game.getPlayer().setSkinCovering(new Covering(dollCovering, CoveringPattern.NONE, CoveringModifier.METALLIC, PresetColour.COVERING_GOLD, false, PresetColour.COVERING_GOLD, false), false);
-			
-			List<BodyCoveringCategory> orifices = Util.newArrayListOfValues(BodyCoveringCategory.ANUS, BodyCoveringCategory.VAGINA, BodyCoveringCategory.NIPPLE, BodyCoveringCategory.MOUTH);
-			for(BodyCoveringCategory orifice : orifices) {
-				dollCovering = BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SILICONE, orifice);
-				Main.game.getPlayer().setSkinCovering(new Covering(dollCovering, dollCovering.getNaturalPatterns().keySet().iterator().next(), CoveringModifier.METALLIC, PresetColour.COVERING_BRONZE, false, PresetColour.COVERING_GOLD, false), false);
-			}
-			
-			Main.game.appendToTextStartStringBuilder(Main.game.parseFromFile("txt/places/dominion/sex_shop/factory_bad_end", "DOLLIFICATION_FINAL_SOLD_INCUBUS"));
-			
-			
-		} else if(ending==2) { // Pig-boy
-			owner.addFetish(Fetish.FETISH_SADIST);
-			owner.addFetish(Fetish.FETISH_DEFLOWERING);
-			owner.setBody(Gender.M_P_MALE, Subspecies.getSubspeciesFromId("innoxia_pig_subspecies_pig"), RaceStage.GREATER, true);
-			owner.setBodySize(BodySize.THREE_LARGE.getMedianValue());
-			owner.setMuscle(Muscle.ZERO_SOFT.getMedianValue());
-			owner.clearPersonalityTraits();
-			owner.addPersonalityTrait(PersonalityTrait.LEWD);
-			owner.addPersonalityTrait(PersonalityTrait.SELFISH);
-			owner.addPersonalityTrait(PersonalityTrait.SLOVENLY);
-
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_boxers", PresetColour.CLOTHING_BLACK, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_BLACK, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_work_boots", PresetColour.CLOTHING_BLACK, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_jeans", PresetColour.CLOTHING_BLACK, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_short_sleeved_shirt", PresetColour.CLOTHING_WHITE, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_MENS_WATCH, PresetColour.CLOTHING_SILVER, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_eye_aviators", PresetColour.CLOTHING_BLACK_STEEL, false), true, owner);
-			
-			Main.game.appendToTextStartStringBuilder(Main.game.parseFromFile("txt/places/dominion/sex_shop/factory_bad_end", "DOLLIFICATION_FINAL_SOLD_PIG"));
-			
-			
-		} else if(ending==3) { // Tiger-girl
-			owner.addFetish(Fetish.FETISH_MASOCHIST);
-			owner.addFetish(Fetish.FETISH_SUBMISSIVE);
-			owner.setBody(Gender.F_V_B_FEMALE, Subspecies.getSubspeciesFromId("innoxia_panther_subspecies_tiger"), RaceStage.GREATER, true);
-			owner.clearPersonalityTraits();
-			owner.addPersonalityTrait(PersonalityTrait.KIND);
-			owner.addPersonalityTrait(PersonalityTrait.NAIVE);
-
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_thong", PresetColour.CLOTHING_BLACK, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_BLACK, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_mini_skirt", PresetColour.CLOTHING_BLACK, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_trainer_socks", PresetColour.CLOTHING_BLACK, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_heels", PresetColour.CLOTHING_BLACK, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_torso_feminine_short_sleeve_shirt"), PresetColour.CLOTHING_WHITE, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_torsoOver_feminine_blazer"), PresetColour.CLOTHING_BLACK, false), true, owner);
-			
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_WOMENS_WATCH, PresetColour.CLOTHING_PURPLE_ROYAL, false), true, owner);
-			
-			owner.setPiercedEar(true);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_ball_studs", PresetColour.CLOTHING_SILVER, false), true, owner);
-
-			Main.game.appendToTextStartStringBuilder(Main.game.parseFromFile("txt/places/dominion/sex_shop/factory_bad_end", "DOLLIFICATION_FINAL_SOLD_TIGER"));
-			
-			
-		} else if(ending==4) { // Fox-boy
-			owner.addFetish(Fetish.FETISH_DOMINANT);
-			owner.addFetish(Fetish.FETISH_BREASTS_OTHERS);
-			owner.setBody(Gender.M_P_MALE, Subspecies.FOX_MORPH, RaceStage.GREATER, true);
-			owner.clearPersonalityTraits();
-			owner.addPersonalityTrait(PersonalityTrait.CONFIDENT);
-			owner.addPersonalityTrait(PersonalityTrait.SELFISH);
-
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_boxers", PresetColour.CLOTHING_BLACK, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_trousers", PresetColour.CLOTHING_BLACK, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_long_sleeved_shirt", PresetColour.CLOTHING_BLUE_LIGHT, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_MENS_WATCH, PresetColour.CLOTHING_BLACK_STEEL, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hips_leather_belt", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_GREY, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_tie", PresetColour.CLOTHING_RED_BURGUNDY, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torsoOver_suit_jacket", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_GREY, false), true, owner);
-			
-			// MILF body
-			Main.game.getPlayer().setName("Honey");
-			Main.game.getPlayer().setSurname("");
-			Main.game.getPlayer().clearTattoos();
-			Main.game.getPlayer().setAgeAppearanceAbsolute(45);
-
-			Main.game.getPlayer().setBreastSize(CupSize.HH);
-			Main.game.getPlayer().setHipSize(HipSize.FIVE_VERY_WIDE);
-			Main.game.getPlayer().setAssSize(AssSize.FIVE_HUGE);
-
-			Main.game.getPlayer().setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
-			Main.game.getPlayer().setHairStyle(HairStyle.BUN);
-			
-			Main.game.getPlayer().completeVirginityLoss();
-			Main.game.getPlayer().setVirginityLoss(new SexType(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), this, "before being delivered to your Master");
-			Main.game.getPlayer().setVirginityLoss(new SexType(SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS), this, "before being delivered to your Master");
-			Main.game.getPlayer().setVirginityLoss(new SexType(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS), this, "before being delivered to your Master");
-			Main.game.getPlayer().setVirginityLoss(new SexType(SexAreaOrifice.NIPPLE, SexAreaPenetration.PENIS), this, "before being delivered to your Master");
-
-			Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_mini_skirt", PresetColour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
-			Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_trainer_socks", PresetColour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
-			Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_heels", PresetColour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
-			Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_torso_feminine_short_sleeve_shirt"), PresetColour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
-			Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_torsoOver_feminine_blazer"), PresetColour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
-			
-			Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_WOMENS_WATCH, PresetColour.CLOTHING_RED_BURGUNDY, false), true, Main.game.getPlayer());
-			Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("norin_hair_accessories_hair_sticks", PresetColour.CLOTHING_RED_BURGUNDY, false), true, Main.game.getPlayer());
-			Main.game.getPlayer().equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_eye_thick_rim_glasses", PresetColour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
-
-			Main.game.appendToTextStartStringBuilder(Main.game.parseFromFile("txt/places/dominion/sex_shop/factory_bad_end", "DOLLIFICATION_FINAL_SOLD_FOX"));
-			
-			
-		} else { // Deer-girl
-			owner.addFetish(Fetish.FETISH_SADIST);
-			owner.addFetish(Fetish.FETISH_BONDAGE_APPLIER);
-			owner.setBody(Gender.F_V_B_FEMALE, Subspecies.getSubspeciesFromId("innoxia_deer_subspecies_deer"), RaceStage.GREATER, true);
-			owner.clearPersonalityTraits();
-			owner.addPersonalityTrait(PersonalityTrait.CONFIDENT);
-			owner.addPersonalityTrait(PersonalityTrait.CYNICAL);
-
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_thong", PresetColour.CLOTHING_BLACK, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_CORSET_DRESS, PresetColour.CLOTHING_BLACK, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.HIPS_SUSPENDER_BELT, PresetColour.CLOTHING_BLACK, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_stockings", PresetColour.CLOTHING_BLACK, false), true, owner);
-			owner.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_thigh_high_boots", PresetColour.CLOTHING_BLACK, false), true, owner);
-			
-			owner.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_bdsm_riding_crop", DamageType.FIRE));
-			
-			// wolf-girl futa body
-			Main.game.getPlayer().setBody(Gender.M_P_MALE, Subspecies.WOLF_MORPH, RaceStage.GREATER, false);
-			Main.game.getPlayer().setBodyMaterial(BodyMaterial.SILICONE);
-			Main.game.getPlayer().setPenisSize(PenisLength.SIX_GIGANTIC.getMaximumValue());
-			Main.game.getPlayer().setPenisGirth(PenetrationGirth.SIX_CHUBBY);
-			Main.game.getPlayer().setPenisCumStorage(2000);
-			Main.game.getPlayer().fillCumToMaxStorage();
-
-			AbstractClothing collar = Main.game.getItemGen().generateClothing("irbynx_spikedCollar_punk_neck_metal_collar_spiked", PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_IRON, null, false);
-			collar.clearEffects();
-			
-			collar.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0));
-			collar.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0));
-			collar.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0));
-			collar.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0));
-			collar.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0));
-
-			collar.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0));
-			collar.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0));
-			collar.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0));
-			collar.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0));
-			collar.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_MAJOR_ATTRIBUTE, TFModifier.STRENGTH, TFPotency.MAJOR_BOOST, 0));
-			Main.game.getPlayer().equipClothingFromNowhere(collar, true, Main.game.getPlayer());
-			
-			Main.game.appendToTextStartStringBuilder(Main.game.parseFromFile("txt/places/dominion/sex_shop/factory_bad_end", "DOLLIFICATION_FINAL_SOLD_DEER"));
-		}
-		
-	}
-
-	public void applyDollificationBadEndSoldMovement() {
-		// move to bad end map
-		Main.game.getPlayer().setLocation(WorldType.getWorldTypeFromId("innoxia_misc_bad_end"), PlaceType.getPlaceTypeFromId("innoxia_misc_bad_end_default"));
-		
-		int ending = (int) Main.game.getDialogueFlags().getSavedLong("bad_end_dollification_owner");
-		String newPlaceType = "";
-
-		if(ending==1) { // Incubus
-			newPlaceType = "innoxia_misc_bad_end_dollification_incubus";
-			
-		} else if(ending==2) { // Pig-boy
-			// Night life
-			newPlaceType = "innoxia_misc_bad_end_dollification_pig";
-		
-		} else if(ending==3) { // Tiger-girl
-			// Random tile in demon home
-			newPlaceType = "innoxia_misc_bad_end_dollification_tiger";
-		
-		} else if(ending==4) { // Fox-boy
-			// Random tile in demon home
-			newPlaceType = "innoxia_misc_bad_end_dollification_fox";
-		} else { // Deer-girl
-			// Warehouse district
-			newPlaceType = "innoxia_misc_bad_end_dollification_deer";
-		}
-		Main.game.getPlayerCell().getPlace().setPlaceType(PlaceType.getPlaceTypeFromId(newPlaceType));
-		Main.game.getPlayerCell().getPlace().setName(PlaceType.getPlaceTypeFromId(newPlaceType).getName());
-		
-		UtilText.parse("[#doll_owner.setLocation(pc)]");
-	}
-	
-
-	public void initAngelixxFiaAsDoll(GameCharacter doll) {
-		doll.unequipAllClothingIntoVoid(true, true);
-		doll.setMoney(0);
-		
-		doll.setBody(Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN, true);
-		
-		((Saellatrix)Main.game.getNpc(Saellatrix.class)).initBodyForDollification(doll);
-		((Saellatrix)Main.game.getNpc(Saellatrix.class)).applyDollBodySiliconeDollification(doll);
-		((Saellatrix)Main.game.getNpc(Saellatrix.class)).completeDollBodySiliconeDollification(doll);
-		
-//		doll.setPlayerKnowsName(false);
-//		doll.setName("doll");
-//		((Saellatrix)Main.game.getNpc(Saellatrix.class)).incrementDollsSold(1);
-//		int dollCount = ((Saellatrix)Main.game.getNpc(Saellatrix.class)).getDollsSold();
-//		doll.setSurname("#"+String.format("%05d", dollCount));
-//		doll.setGenericName("demo doll");
-
-		if(doll instanceof Angelixx || doll instanceof Fiammetta) {
-			doll.setDescription(UtilText.parse(doll,
-					"Having been transformed into a sex doll by Saellatrix, [npc.name] is now used as a demonstration model. Members of the public can freely transform her pussy and asshole and fuck her as much as they want."));
-			
-		} else if(doll instanceof Sleip || doll instanceof Nir) {
-			doll.setDescription(UtilText.parse(doll,
-					"Having been transformed into a sex doll by Saellatrix, [npc.name] was sold to an anonymous customer and her current whereabouts are unknown."));
-		}
-		// Birthday is set to TF time, and just leave it as that
-//		doll.setBirthday(doll.getBirthday().minusDays((365*4) + Util.random.nextInt(365)));
-		
-		doll.setPetName(Main.game.getPlayer(), "master");
-		
-		doll.completeVirginityLoss();
-
-		if(doll instanceof Angelixx || doll instanceof Fiammetta) {
-			doll.setLocation(WorldType.getWorldTypeFromId("innoxia_dominion_sex_shop"), PlaceType.getPlaceTypeFromId("innoxia_dominion_sex_shop_display"), true);
-			AbstractBodyCoveringType dollCovering = BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SILICONE, BodyCoveringCategory.MAIN_SKIN);
-			doll.setSkinCovering(new Covering(dollCovering, CoveringPattern.NONE, CoveringModifier.GLOSSY, PresetColour.COVERING_PURPLE_LIGHT, false, PresetColour.COVERING_PURPLE_LIGHT, false), true);
-
-			doll.addTattoo(InventorySlot.EYES,
-					new Tattoo("innoxia_property_barcode",
-							PresetColour.CLOTHING_WHITE,
-							false,
-							new TattooWriting(
-									"DEMONSTRATION MODEL - NOT FOR SALE",
-									PresetColour.CLOTHING_WHITE,
-									false),
-							null));
-		}
-		
-		if(doll instanceof Angelixx) {
-			doll.setBreastSize(CupSize.B);
-		}
-	}
-	
-	public void randomiseAngelixxFiaBodyAsDoll(GameCharacter doll) {
-		float maximumGape = Main.game.isGapeContentEnabled()?Capacity.SEVEN_GAPING.getMaximumValue(false):Capacity.FOUR_LOOSE.getMaximumValue(false);
-		
-		// Ass:
-		doll.setAssBleached(Util.random.nextBoolean());
-		doll.setAssCapacity(Util.random.nextFloat() * maximumGape, true);
-		doll.setAssWetness(Util.random.nextInt(Wetness.SEVEN_DROOLING.getValue() + 1));
-		// Anus settings and modifiers
-		
-		// Vagina:
-		doll.setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE);
-		doll.setVaginaLabiaSize(Util.random.nextInt(LabiaSize.FOUR_MASSIVE.getValue() + 1));
-		doll.setVaginaSquirter(Util.random.nextBoolean());
-		doll.setVaginaCapacity(Util.random.nextFloat() * maximumGape, true);
-		doll.setVaginaWetness(Util.random.nextInt(Wetness.SEVEN_DROOLING.getValue() + 1));
-		doll.addVaginaOrificeModifier(OrificeModifier.PUFFY);
-		
-		
-		// Colours:
-		
-		Colour bodyColour = PresetColour.COVERING_PINK_LIGHT;
-		CoveringModifier bodyModifier = CoveringModifier.SMOOTH;
-		Colour genitalsColour = PresetColour.COVERING_PINK_LIGHT;
-		
-		if(Math.random()<0.15) { // Metallic
-			bodyModifier = CoveringModifier.METALLIC;
-			List<Colour> bodyColours = Util.newArrayListOfValues(
-					PresetColour.COVERING_BRASS,
-					PresetColour.COVERING_COPPER,
-					PresetColour.COVERING_GOLD,
-					PresetColour.COVERING_PLATINUM,
-					PresetColour.COVERING_SILVER,
-					PresetColour.COVERING_STEEL);
-			bodyColour = Util.randomItemFrom(bodyColours);
-			genitalsColour = Util.randomItemFrom(bodyColours);
-			
-		} else {
-			List<Colour> bodyColours = Util.newArrayListOfValues(
-					PresetColour.COVERING_BLACK,
-					PresetColour.COVERING_BLUE,
-					PresetColour.COVERING_BLUE_DARK,
-					PresetColour.COVERING_BLUE_LIGHT,
-					PresetColour.COVERING_GREEN,
-					PresetColour.COVERING_GREEN_DARK,
-					PresetColour.COVERING_GREEN_LIGHT,
-					PresetColour.COVERING_LILAC,
-					PresetColour.COVERING_LILAC_LIGHT,
-					PresetColour.COVERING_ORANGE_LIGHT,
-					PresetColour.COVERING_PINK,
-					PresetColour.COVERING_PINK_DARK,
-					PresetColour.COVERING_PINK_LIGHT,
-					PresetColour.COVERING_PURPLE,
-					PresetColour.COVERING_PURPLE_DARK,
-					PresetColour.COVERING_PURPLE_LIGHT,
-					PresetColour.COVERING_RED,
-					PresetColour.COVERING_RED_DARK,
-					PresetColour.COVERING_RED_LIGHT,
-					PresetColour.COVERING_WHITE,
-					PresetColour.COVERING_YELLOW);
-			bodyColour = Util.randomItemFrom(bodyColours);
-			genitalsColour = Util.randomItemFrom(bodyColours);
-	
-			if(Math.random()<0.5) {
-				List<CoveringModifier> bodyModifiers = Util.newArrayListOfValues(
-						CoveringModifier.GLOSSY,
-						CoveringModifier.GLITTERING,
-						CoveringModifier.MATTE,
-						CoveringModifier.SPARKLY);
-				bodyModifier = Util.randomItemFrom(bodyModifiers);
-			}
-		}
-		
-		AbstractBodyCoveringType dollCovering = BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SILICONE, BodyCoveringCategory.MAIN_SKIN);
-		doll.setSkinCovering(new Covering(dollCovering, CoveringPattern.NONE, bodyModifier, bodyColour, false, bodyColour, false), true);
-		
-		dollCovering = BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SILICONE, BodyCoveringCategory.VAGINA);
-		doll.setSkinCovering(new Covering(dollCovering, CoveringPattern.ORIFICE_VAGINA, bodyModifier, genitalsColour, false, genitalsColour, false), false);
-
-		dollCovering = BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SILICONE, BodyCoveringCategory.ANUS);
-		doll.setSkinCovering(new Covering(dollCovering, CoveringPattern.ORIFICE_ANUS, bodyModifier, genitalsColour, false, genitalsColour, false), false);
-	}
-	
-	public void resetAngelixxFiaDollBody(GameCharacter doll) {
-		BodyMaterial.applyGenericSiliconeBodyChange(doll);
-		AbstractBodyCoveringType dollCovering = BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SILICONE, BodyCoveringCategory.MAIN_SKIN);
-		doll.setSkinCovering(new Covering(dollCovering, CoveringPattern.NONE, CoveringModifier.GLOSSY, PresetColour.COVERING_PURPLE_LIGHT, false, PresetColour.COVERING_PURPLE_LIGHT, false), true);
-	}
-	
-	public boolean isAngelixxFiaDollBodyDefault(GameCharacter doll) {
-		List<BodyCoveringCategory> coverings = Util.newArrayListOfValues(
-				BodyCoveringCategory.MAIN_SKIN,
-				BodyCoveringCategory.ANUS,
-				BodyCoveringCategory.VAGINA,
-				BodyCoveringCategory.MOUTH,
-				BodyCoveringCategory.TONGUE,
-				BodyCoveringCategory.NIPPLE);
-		
-		for(BodyCoveringCategory coveringCategory : coverings) {
-			AbstractBodyCoveringType dollCovering = BodyCoveringType.getMaterialBodyCoveringType(BodyMaterial.SILICONE, coveringCategory);
-			if(doll.getCovering(dollCovering).getPrimaryColour()!=PresetColour.COVERING_PURPLE_LIGHT
-					|| doll.getCovering(dollCovering).getSecondaryColour()!=PresetColour.COVERING_PURPLE_LIGHT) {
-				return false;
-			}
-		}
-		
-		// Ass:
-		if(doll.getAssCapacity()!=Capacity.TWO_TIGHT
-				|| doll.getAssWetness()!=Wetness.THREE_WET
-				|| !doll.getAssOrificeModifiers().equals(Util.newHashSetOfValues(OrificeModifier.RIBBED))) {
-			return false;
-		}
-		
-		// Vagina:
-		if(doll.getClitorisRawGirthValue()!=PenetrationGirth.ZERO_THIN.getValue()
-				|| doll.getVaginaRawClitorisSizeValue()!=ClitorisSize.ZERO_AVERAGE.getMedianValue()
-				|| !doll.getClitorisModifiers().isEmpty()
-				|| doll.getVaginaLabiaSize()!=LabiaSize.ZERO_TINY
-				|| doll.getVaginaCapacity()!=Capacity.TWO_TIGHT
-				|| doll.getVaginaUrethraCapacity()!=Capacity.ONE_EXTREMELY_TIGHT
-				|| doll.getVaginaWetness()!=Wetness.THREE_WET
-				|| !doll.isVaginaSquirter()
-				|| !doll.getVaginaOrificeModifiers().equals(Util.newHashSetOfValues(OrificeModifier.RIBBED))) {
-			return false;
-		}
-		
-		return true;
-	}
-	
-	public boolean isAnySlaveAvailableForDollification() {
-		return Main.game.getPlayer().getSlavesOwnedAsCharacters().stream().anyMatch(c->!c.isDoll() && !c.isUnique());
 	}
 }

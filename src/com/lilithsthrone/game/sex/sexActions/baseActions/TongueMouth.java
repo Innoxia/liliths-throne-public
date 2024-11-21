@@ -124,9 +124,7 @@ public class TongueMouth {
 					}
 				}
 			
-			} else if(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.FACE_TO_WALL)
-					&& !Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.FACE_TO_WALL)
-					&& !Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.BACK_TO_WALL)) {// Face-to-wall penetration descriptions:
+			} else if(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.FACE_TO_WALL)) {// Face-to-wall penetration descriptions: TODO
 				
 				switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
@@ -395,9 +393,7 @@ public class TongueMouth {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.FACE_TO_WALL)
-					&& !Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.FACE_TO_WALL)
-					&& !Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.BACK_TO_WALL)) {
+			if(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.FACE_TO_WALL)) {
 				
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Still leaning into [npc2.namePos] back, [npc.name] gently [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.nameHers], before planting a series of soft kisses on [npc2.her] mouth.",
@@ -447,9 +443,7 @@ public class TongueMouth {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.FACE_TO_WALL)
-					&& !Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.FACE_TO_WALL)
-					&& !Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.BACK_TO_WALL)) {
+			if(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.FACE_TO_WALL)) {
 				
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Still leaning into [npc2.namePos] back, [npc.name] eagerly [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.nameHers], before planting a series of passionate kisses on [npc2.her] mouth.",
@@ -499,9 +493,7 @@ public class TongueMouth {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.FACE_TO_WALL)
-					&& !Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.FACE_TO_WALL)
-					&& !Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.BACK_TO_WALL)) {
+			if(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.FACE_TO_WALL)) {
 				
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Violently grinding into [npc2.namePos] back, [npc.name] forcefully [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.nameHers], before greedily thrusting [npc.her] [npc.tongue] deep down [npc2.her] throat.",
@@ -552,9 +544,7 @@ public class TongueMouth {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 
-			if(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.FACE_TO_WALL)
-					&& !Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.FACE_TO_WALL)
-					&& !Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.BACK_TO_WALL)) {
+			if(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.FACE_TO_WALL)) {
 				
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Still leaning into [npc2.namePos] back, [npc.name] [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.nameHers], before planting a series of passionate kisses on [npc2.her] mouth.",
@@ -603,9 +593,7 @@ public class TongueMouth {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 
-			if(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.FACE_TO_WALL)
-					&& !Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.FACE_TO_WALL)
-					&& !Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.BACK_TO_WALL)) {
+			if(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.FACE_TO_WALL)) {
 				
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Still leaning into [npc2.namePos] back, [npc.name] eagerly [npc.verb(press)] [npc.her] [npc.lips+] against [npc2.nameHers], before planting a series of passionate kisses on [npc2.her] mouth.",

@@ -165,9 +165,6 @@ public class DominionSuccubusAttacker extends NPC {
 	
 	@Override
 	public String getDescription() {
-		if(this.isSlave() && this.isDoll()) {
-			return super.getDescription();
-		}
 		if(isSlave()) {
 			return UtilText.parse(this,
 					"Having lost [npc.herself] to [npc.her] powerful libido, [npc.name] ended up stalking the alleyways of Dominion in search of innocent citizens to force [npc.herself] on."

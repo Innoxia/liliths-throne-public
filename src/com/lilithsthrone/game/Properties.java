@@ -118,9 +118,6 @@ public class Properties {
 			"Neither randomly-generated taurs nor anthro-morphs will ever have udders or crotch-boobs.",
 			"Randomly-generated NPCs will only have udders or crotch-boobs if they have a non-bipedal body. (Default setting.)",
 			"Randomly-generated greater-anthro-morphs, as well as taurs, will have udders and crotch boobs."};
-
-	/** 0=off, 1=weekly, 2=daily, 3=hourly*/
-	private int hairGrowth = 1;
 	
 	public int autoSaveFrequency = 0;
 	public static String[] autoSaveLabels = new String[] {"Always", "Daily", "Weekly"};
@@ -341,7 +338,6 @@ public class Properties {
 			createXMLElementWithValue(doc, settings, "taurFurryLevel", String.valueOf(taurFurryLevel));
 			createXMLElementWithValue(doc, settings, "multiBreasts", String.valueOf(multiBreasts));
 			createXMLElementWithValue(doc, settings, "udders", String.valueOf(udders));
-			createXMLElementWithValue(doc, settings, "hairGrowth", String.valueOf(hairGrowth));
 			createXMLElementWithValue(doc, settings, "autoSaveFrequency", String.valueOf(autoSaveFrequency));
 			createXMLElementWithValue(doc, settings, "bypassSexActions", String.valueOf(bypassSexActions));
 			createXMLElementWithValue(doc, settings, "fullExposureDescriptions", String.valueOf(fullExposureDescriptions));
@@ -895,12 +891,6 @@ public class Properties {
 					udders = 1;
 				}
 
-				if(element.getElementsByTagName("hairGrowth").item(0)!=null) {
-					hairGrowth = Integer.valueOf(((Element)element.getElementsByTagName("hairGrowth").item(0)).getAttribute("value"));
-				} else {
-					hairGrowth = 1;
-				}
-				
 				if(element.getElementsByTagName("autoSaveFrequency").item(0)!=null) {
 					autoSaveFrequency = Integer.valueOf(((Element)element.getElementsByTagName("autoSaveFrequency").item(0)).getAttribute("value"));
 				} else {
@@ -1335,7 +1325,6 @@ public class Properties {
 		fullExposureDescriptions = 2;
 		multiBreasts = 1;
 		udders = 1;
-		hairGrowth = 1;
 		pregnancyDuration = 1;
 		forcedTFPercentage = 40;
 		forcedFetishPercentage = 40;
@@ -1692,20 +1681,8 @@ public class Properties {
 	public int getUddersLevel() {
 		return udders;
 	}
-
-	/** 0=off, 1=taur-only, 2=on*/
+	
 	public void setUddersLevel(int udders) {
 		this.udders = udders;
 	}
-
-	/** 0=off, 1=weekly, 2=daily, 3=hourly*/
-	public int getHairGrowth() {
-		return hairGrowth;
-	}
-
-	/** 0=off, 1=weekly, 2=daily, 3=hourly*/
-	public void setHairGrowth(int hairGrowth) {
-		this.hairGrowth = hairGrowth;
-	}
-	
 }

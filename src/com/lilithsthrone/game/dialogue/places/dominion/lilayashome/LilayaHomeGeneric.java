@@ -1268,76 +1268,44 @@ public class LilayaHomeGeneric {
 	};
 	
 	public static final DialogueNode ENTRANCE_HALL = new DialogueNode("Entrance hall", ".", false) {
-		private boolean fiammettaMessage = false;
-		@Override
-		public void applyPreParsingEffects() {
-			fiammettaMessage = Main.game.getPlayer().getQuest(QuestLine.SIDE_DOLL_FACTORY)==Quest.DOLL_FACTORY_6
-					&& Main.game.isDayTime()
-					&& Main.game.getDialogueFlags().hasSavedLong("fia_factory_finished")
-					&& (Main.game.getSecondsPassed() - Main.game.getDialogueFlags().getSavedLong("fia_factory_finished") > (2 * 24* 60 * 60)); // 2 days
 
-			if(fiammettaMessage) {
-				Main.game.getNpc(Rose.class).setLocation(Main.game.getPlayer());
-			}
-		}
 		@Override
 		public int getSecondsPassed() {
-			if(fiammettaMessage) {
-				return 60;
-			}
 			return 10;
 		}
-		@Override
-		public boolean isTravelDisabled() {
-			return fiammettaMessage;
-		}
+
 		@Override
 		public String getContent() {
-			StringBuilder sb = new StringBuilder();
-			
+			UtilText.nodeContentSB.setLength(0);
 			List<NPC> charactersPresent = getSlavesAndOccupantsPresent();
 			
-			if(fiammettaMessage) {
-				sb.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/doll_quest", "ENTRANCE_HALL_FIAMMETTA"));
-
-				return sb.toString();
-			}
-			
-			sb.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "ENTRANCE_HALL"));
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "ENTRANCE_HALL"));
 			
 			if(!charactersPresent.isEmpty()) {
 				for(NPC slave : charactersPresent) {
 					if(slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.SECURITY) {
-						sb.append(getSlavePresentDescription(slave,
+						UtilText.nodeContentSB.append(getSlavePresentDescription(slave,
 								"is not even bothering to pretend that [npc.sheIs] looking out for trouble.",
 								"is half-heartedly looking out for trouble.",
 								"is looking out for any sign of trouble.",
 								"is alert and on the lookout for any sign of trouble.",
 								"is highly alert and dutifully looking out for any sign of trouble."));
 					} else {
-						sb.append(getSlavePresentDescription(slave));
+						UtilText.nodeContentSB.append(getSlavePresentDescription(slave));
 					}
 				}
 			}
 			
-			return sb.toString();
+			return UtilText.nodeContentSB.toString();
 		}
+
 		@Override
 		public String getResponseTabTitle(int index) {
-			if(fiammettaMessage) {
-				return null;
-			}
 			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
 		}
+		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(fiammettaMessage) {
-				if(index==1) {
-					return new Response("Follow Rose", "Follow Rose to the library to see who this guest is.", DialogueManager.getDialogueFromId("innoxia_places_dominion_lilayas_home_doll_quest_start"));
-				}
-				return null;
-			}
-			
 			if(responseTab==1) {
 				return LilayaHomeGeneric.getLilayasHouseFastTravelResponses(index);
 			}

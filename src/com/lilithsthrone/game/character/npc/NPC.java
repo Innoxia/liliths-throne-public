@@ -180,7 +180,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		sexPositionPreferences = new HashSet<>();
 		
-		buyModifier=0.75f;
+		buyModifier=0.05f;
 		sellModifier=1.5f;
 		
 		NPCFlagValues = new HashSet<>();
@@ -1150,7 +1150,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	@Override
 	public boolean isAbleToBeEgged() {
 		return (!this.isUnique() || (this.isSlave() && this.getOwner().isPlayer()))
-				&& !this.hasPerkAnywhereInTree(Perk.DOLL_PHYSICAL_2);
+				&& !this.isDoll();
 	}
 
 	public boolean isReadyToBeDeleted() {
@@ -2163,7 +2163,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		return sb.toString();
 	}
 	
-	public void generatePartnerPreferences() {
+	private void generatePartnerPreferences() {
 		
 		// Preferred gender:
 		
@@ -3022,7 +3022,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	public Value<AbstractClothing, String> getSexClothingToEquip(GameCharacter partner, boolean inQuickSex) {
 		if(Main.game.isInSex() && (inQuickSex || !Main.sex.getInitialSexManager().isPartnerWantingToStopSex(this))) {
 			if(Main.sex.getSexPositionSlot(partner)==SexSlotGeneric.MISC_WATCHING) {
-				return null; // Do not equip anything on spectators
+				return null; // DO not equip anything on spectators
 			}
 			// Condoms:
 			if(partner.hasPenisIgnoreDildo()
@@ -3462,6 +3462,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 		
 		return actions;
+	}
+	
+	/**
+	 * Override this to set a preferred target for this character in sex. If there is an orgasm happening, and the returned character is not an orgasming character, this preference will be ignored.
+	 */
+	public GameCharacter getPreferredSexTarget() {
+		return null;
 	}
 
 	/**

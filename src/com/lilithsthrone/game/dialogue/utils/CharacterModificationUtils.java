@@ -6558,13 +6558,10 @@ public class CharacterModificationUtils {
 	
 	public static InventorySlot tattooInventorySlot = null;
 	public static Tattoo tattoo = null;
-	public static boolean retroactiveApplicationPreferZeroStart = false;
 	
 	public static void resetTattooVariables(InventorySlot slot) {
 		tattooInventorySlot = slot;
-		
-		retroactiveApplicationPreferZeroStart = false;
-		
+
 		tattoo = new Tattoo(
 				"innoxia_symbol_tribal",
 				PresetColour.CLOTHING_GREY,
@@ -6579,8 +6576,7 @@ public class CharacterModificationUtils {
 						TattooCounterType.NONE,
 						TattooCountType.NUMBERS,
 						PresetColour.BASE_GREY,
-						false,
-						0));
+						false));
 	}
 	
 	public static void resetTattooColours() {
@@ -6759,31 +6755,17 @@ public class CharacterModificationUtils {
 
 		// Counter:
 		if(Main.game.isInNewWorld()) {
-			contentSB.append("<div class='container-full-width'>");
-
-			contentSB.append("<div class='container-full-width inner' style='margin:0; padding:0; width:100%; text-align:center; background:transparent;'>");
-				contentSB.append("<h5 style='width:100%; text-align:center;'>Select Counter</h5>");
-			contentSB.append("</div>");
-			
-			contentSB.append(getInformationDiv(
-					"TATTOO_COUNTER_INFO",
-					new TooltipInformationEventListener().setInformation(
-							"Tattoo Counter",
-							"Tattoo counters are enchanted to make them automatically update as the counter type increments."
-								+ " Most counter types can either be started 0 or show all previous experiences."
-								+ " Some, however, can only show current values, and these are marked by an asterisk."),
-					false));
+			contentSB.append("<div class='container-full-width'>"
+					+ "<h5 style='width:100%; text-align:center;'>Select Counter</h5>");
 			
 				contentSB.append("<div class='container-full-width' style='width:66.6%; margin:0;'>");
-					contentSB.append("<div class='container-full-width' style='position:relative; text-align:center; margin-top:0; padding-top:0;'>");
+					contentSB.append("<div class='container-full-width' style='position:relative; text-align:center;'>");
 						contentSB.append("<p style='width:100%; text-align:center;'>Counter Type</p>");
-						for(TattooCounterType counterType : TattooCounterType.getTattooCounterTypesWithContentFiltersApplied()) {
+						for(TattooCounterType counterType : TattooCounterType.values()) {
 							contentSB.append("<div style='width:48%; margin:1%; padding:0; display:inline-block;'>"
 												+ "<div class='normal-button"+(tattoo.getCounter().getType()==counterType?" selected":"")+"' id='TATTOO_COUNTER_TYPE_"+counterType.toString()+"'"
 														+ " style='width:100%; margin:0; color:"+(tattoo.getCounter().getType()==counterType?PresetColour.GENERIC_GOOD:PresetColour.TEXT_HALF_GREY).toWebHexString()+";'>"
-													+Util.capitaliseSentence(counterType.getName())
-													+ (counterType.isRetroactiveApplicationAvailable()?"":" *")
-												+"</div>"
+													+Util.capitaliseSentence(counterType.getName())+"</div>"
 											+ "</div>");
 						}
 					contentSB.append("</div>");
@@ -6809,33 +6791,6 @@ public class CharacterModificationUtils {
 								+ "</div>");
 					}
 					
-					boolean activeButtonZero = tattoo.getCounter().getType().getNonRetroactiveOffset(BodyChanging.getTarget())==0?retroactiveApplicationPreferZeroStart:tattoo.getCounter().isRetroactiveApplication();
-					
-					contentSB.append("<div class='container-full-width' style='position:relative; text-align:center;'>");
-						contentSB.append("<p style='width:100%; text-align:center;'>Initial Count</p>");
-
-						if(tattoo.getCounter().getType().isRetroactiveApplicationAvailable()) {
-							contentSB.append("<div style='width:98%; margin:1%; padding:0; display:inline-block;'>");
-								contentSB.append("<div class='normal-button"+(activeButtonZero?" selected":"")+"' id='TATTOO_COUNT_RETROACTIVE_DISABLED'"
-														+ " style='width:100%; margin:0; color:"+(activeButtonZero?PresetColour.GENERIC_GOOD:PresetColour.TEXT_HALF_GREY).toWebHexString()+";'>");
-									contentSB.append("Start from 0");
-								contentSB.append("</div>");
-							contentSB.append("</div>");
-							contentSB.append("<div style='width:98%; margin:1%; padding:0; display:inline-block;'>");
-								contentSB.append("<div class='normal-button"+(!activeButtonZero?" selected":"")+"' id='TATTOO_COUNT_RETROACTIVE_ENABLED'"
-														+ " style='width:100%; margin:0; color:"+(!activeButtonZero?PresetColour.GENERIC_GOOD:PresetColour.TEXT_HALF_GREY).toWebHexString()+";'>");
-									contentSB.append("Show all");
-								contentSB.append("</div>");
-							contentSB.append("</div>");
-							
-						} else {
-							contentSB.append("<div class='container-full-width' style='margin:0; padding:0;'>");
-								contentSB.append("[style.colourDisabled(<i>This counter type always shows the current value, so the initial count is inapplicable.</i>)]");
-							contentSB.append("</div>");
-						}
-							
-					contentSB.append("</div>");
-					
 					contentSB.append("<div class='container-full-width' style='position:relative; text-align:center;'>");
 						contentSB.append("<p style='width:100%; text-align:center;'>Counter Style</p>");
 						for(TattooCountType countType : TattooCountType.values()) {
@@ -6847,13 +6802,9 @@ public class CharacterModificationUtils {
 						}
 					contentSB.append("</div>");
 					
-					contentSB.append("<div class='container-full-width'>");
-						if(tattoo.getCounter().getType()==TattooCounterType.NONE) {
-							contentSB.append("[style.colourDisabled(Output: <i>(The counter type is 'none', so this tattoo will not have a counter.)</i>)]");
-						} else {
-							contentSB.append("Output: "+tattoo.getFormattedCounterOutput(BodyChanging.getTarget()));
-						}
-					contentSB.append("</div>");
+					contentSB.append("<div class='container-full-width'>"
+							+ "Output: "+tattoo.getFormattedCounterOutput(BodyChanging.getTarget())
+							+ "</div>");
 				contentSB.append("</div>");
 				
 			contentSB.append("</div>");

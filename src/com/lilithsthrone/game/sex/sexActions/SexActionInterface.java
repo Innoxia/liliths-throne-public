@@ -18,7 +18,6 @@ import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
-import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
@@ -465,7 +464,7 @@ public interface SexActionInterface {
 		StringBuilder sb = new StringBuilder();
 		GameCharacter characterTargeted = Main.sex.getCharacterTargetedForSexAction(this);
 		if(this.isSadisticAction()) {
-			if(!characterTargeted.getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive() && !characterTargeted.hasPerkAnywhereInTree(Perk.DOLL_LUST_1)) {
+			if(!characterTargeted.getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive() && !characterTargeted.isDoll()) {
 				sb.append("<p style='text-align:center'>"
 							+ "[style.colourBad([npc2.Name] [npc2.verb(find)] this sadistic action to be a huge turn-off!)]"
 							+ characterTargeted.incrementLust(-15, false)
@@ -845,7 +844,7 @@ public interface SexActionInterface {
 			if(getSexPace()==SexPace.SUB_RESISTING) {
 				if((Main.sex.isConsensual() && !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_SUB))
 						|| !Main.game.isNonConEnabled()
-						|| Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.DOLL_LUST_1)) {
+						|| Main.sex.getCharacterPerformingAction().isDoll()) {
 					return null;
 				}
 			}
@@ -1164,7 +1163,7 @@ public interface SexActionInterface {
 				
 				return convertToResponse();
 				
-			} else { // SexActionType.ONGOING (and others?):
+			} else { // ONGOING (and others?):
 				if(!this.getSexAreaInteractions().isEmpty()) {
 					boolean ongoingFound = false;
 					// TODO check

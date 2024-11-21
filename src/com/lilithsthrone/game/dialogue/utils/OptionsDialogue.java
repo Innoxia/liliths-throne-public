@@ -2908,22 +2908,6 @@ public class OptionsDialogue {
 			}
 			UtilText.nodeContentSB.append("</div></div>");
 			
-			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_BROWN_LIGHT, "Hair growth", "Select how often the player's hair will grow by 1cm. NPCs maintain their hair lengths, so this setting only affects you."));
-			int[] hairButtonOrder = new int[] {2, 1, 0, 3}; // Order buttons in this manner so that they appear to be a little more logical
-			for (int i : hairButtonOrder) {
-				boolean active = Main.getProperties().getHairGrowth() == i;
-				UtilText.nodeContentSB.append("<div id='HAIR_GROWTH_PREFERENCE_"+i+"' class='normal-button"+(Main.getProperties().getHairGrowth() == i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
-						+(i == 0
-								?"[style.bold"+(active?"Bad":"Disabled")+"(Never)]"
-								:(i == 1
-									?"[style.bold"+(active?"Size10":"Disabled")+"(Weekly)]"
-									:(i == 2
-										?"[style.bold"+(active?"Size5":"Disabled")+"(Daily)]"
-										:"[style.bold"+(active?"Size0":"Disabled")+"(Hourly)]")))
-						+"</div>");
-			}
-			UtilText.nodeContentSB.append("</div></div>");
-			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("HAIR_FACIAL",
 					PresetColour.BASE_LILAC_LIGHT,
 					"Facial hair",
@@ -2967,7 +2951,7 @@ public class OptionsDialogue {
 					Main.getProperties().hasValue(PropertyValue.scalyHairContent)));
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("LIP_LISP",
-					PresetColour.BASE_PINK_SALMON,
+					PresetColour.BASE_GREEN_DARK,
 					"Lip lisps",
 					"Toggles whether or not characters with very large lips will speak with a lisp.",
 					Main.getProperties().hasValue(PropertyValue.lipLispContent)));

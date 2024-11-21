@@ -484,21 +484,6 @@ public class PlaceType {
 			DemonHome.DEMON_HOME_SEX_SHOP,
 			Darkness.ALWAYS_LIGHT,
 			null, "in the streets of Demon Home") {
-		@Override
-		public List<Population> getPopulation() {
-			if(Main.game.getPlayer().getQuest(QuestLine.SIDE_DOLL_FACTORY)==Quest.DOLL_FACTORY_7A) {
-				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-					return Util.newArrayListOfValues(
-							new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getDominionStormImmuneSpecies(true)),
-							new Population(true, PopulationType.ENFORCER, PopulationDensity.DOZENS, Subspecies.getDominionStormImmuneSpecies(true, Subspecies.HUMAN)));
-				} else {
-					return Util.newArrayListOfValues(
-							new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)),
-							new Population(true, PopulationType.ENFORCER, PopulationDensity.DOZENS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
-				}
-			}
-			return DOMINION_PLAZA.getPopulation();
-		}
 	}.initMapBackgroundColour(PresetColour.MAP_BACKGROUND_PINK);
 	
 	public static final AbstractPlaceType DOMINION_SHOPPING_ARCADE = new AbstractPlaceType(
@@ -3601,14 +3586,6 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.SPARSE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
-		@Override
-		public boolean isLoiteringEnabledOverride() {
-			return true;
-		}
-		@Override
-		public boolean isLoiteringEnabled() {
-			return true;
-		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
 	
 	public static final AbstractPlaceType BOUNTY_HUNTER_LODGE_BOUNTY_BOARD = new AbstractPlaceType(
@@ -3640,14 +3617,6 @@ public class PlaceType {
 		@Override
 		public List<Population> getPopulation() {
 			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
-		}
-		@Override
-		public boolean isLoiteringEnabledOverride() {
-			return true;
-		}
-		@Override
-		public boolean isLoiteringEnabled() {
-			return true;
 		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
 
@@ -3690,16 +3659,8 @@ public class PlaceType {
 			BountyHunterLodge.UPSTAIRS_CORRIDOR,
 			Darkness.ALWAYS_LIGHT,
 			null,
-			"in 'The Rusty Collar'") {
-		@Override
-		public boolean isLoiteringEnabledOverride() {
-			return true;
-		}
-		@Override
-		public boolean isLoiteringEnabled() {
-			return true;
-		}
-	}.initWeatherImmune(Weather.MAGIC_STORM);
+			"in 'The Rusty Collar'")
+		.initWeatherImmune(Weather.MAGIC_STORM);
 
 	public static final AbstractPlaceType BOUNTY_HUNTER_LODGE_UPSTAIRS_STAIRS = new AbstractPlaceType(
 			WorldRegion.DOMINION,
@@ -3748,7 +3709,7 @@ public class PlaceType {
 			null,
 			"in 'The Rusty Collar'")
 		.initWeatherImmune(Weather.MAGIC_STORM);
-
+	
 	
 	// Watering hole:
 	
@@ -4080,7 +4041,7 @@ public class PlaceType {
 	public static final AbstractPlaceType NYAN_APARTMENT_HALLWAY = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Hallway",
-			"The wide, carpeted hallways connect the rooms in Nyan's apartment.",
+			"The wide, carpeted hallways connects the rooms in Helena's apartment.",
 			null,
 			PresetColour.BASE_BLACK,
 			NyanApartment.HALLWAY,

@@ -1,7 +1,9 @@
 package com.lilithsthrone.game.inventory;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
@@ -52,7 +54,7 @@ public class ColourReplacement {
 			this.extraColours.addAll(extraColours);
 		}
 
-		List<Colour> colourSet = new ArrayList<>();
+		Set<Colour> colourSet = new HashSet<>();
 		this.allColours = new ArrayList<>(ColourListPresets.DEBUG_ALL);
 		if(defaultColours!=null) {
 			colourSet.addAll(defaultColours);

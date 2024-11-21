@@ -566,7 +566,7 @@
 		Due to there being no imminent threat of attack, there are no guards or Enforcers manning the parapets, and with no signs prohibiting access to members of the public, you're able to freely head up and travel along the wide, wooden walkway. Although there's a road running parallel to the wall, it seems a lot more interesting to travel along this elevated platform, which seems to be the opinion of several other residents of Elis, who have similarly decided to take the high road.
 	</p>
 	<p>
-		Looking over the stone crenellations, 
+		Looking over the stone crenelations, 
 		#IF(game.isDayTime())
 			 you're able to get a fine view of the surrounding fields and woodland.
 		#ELSE

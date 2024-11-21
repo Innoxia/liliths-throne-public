@@ -1753,8 +1753,7 @@ public class OccupancyUtil implements XMLSaving {
 				if(slave.hasStatusEffect(StatusEffect.PENT_UP_SLAVE)) { // They only want sex once a day, to stop the logs from being flooded
 					if(currentJob.hasFlag(SlaveJobFlag.INTERACTION_SEX)
 							&& slave.isAttractedTo(npc)
-							&& (npc.isAttractedTo(slave)
-									|| (slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_RAPIST) && slave.isWillingToRape(npc)))
+							&& (npc.isAttractedTo(slave) || slave.isWillingToRape(npc))
 							&& npc.hasSlavePermissionSetting(SlavePermissionSetting.SEX_RECEIVE_SLAVES)
 							&& slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_SLAVES)) {
 						
@@ -1773,8 +1772,9 @@ public class OccupancyUtil implements XMLSaving {
 				}
 				
 				if(currentJob.hasFlag(SlaveJobFlag.INTERACTION_BONDING)
-						&& (!npc.isDoll() || !slave.isDoll())) { // Two dolls should not bond with each other
-					// Generic affection event:
+						&& ((!npc.isDoll() || !slave.isDoll()) // Two dolls should not bond with each other
+						
+						|| (!npc.isPrisoner() || slave.isPrisoner()))){ //Slaves in dungeons cannot bond
 					descriptions = new ArrayList<>();
 					
 					float chanceToBond = 0.2f;

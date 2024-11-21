@@ -283,8 +283,7 @@ public class Heather extends NPC {
 								TattooCounterType.CUM_TAKEN_ANUS,
 								TattooCountType.NUMBERS,
 								PresetColour.CLOTHING_PINK_HOT,
-								false,
-								0)));
+								false)));
 		}
 	}
 	

@@ -649,7 +649,7 @@ public class Lunexis extends NPC {
 							PresetColour.CLOTHING_PURPLE,
 							false,
 							new TattooWriting("Choke Me!", PresetColour.CLOTHING_PURPLE, false, TattooWritingStyle.BOLD),
-							new TattooCounter(TattooCounterType.SEX_SUB, TattooCountType.NUMBERS, PresetColour.CLOTHING_PURPLE, false, meraxis)));
+							new TattooCounter(TattooCounterType.SEX_SUB, TattooCountType.NUMBERS, PresetColour.CLOTHING_PURPLE, false)));
 			meraxis.addTattoo(InventorySlot.WRIST,
 					new Tattoo(
 							"innoxia_hearts_hearts",
@@ -665,7 +665,7 @@ public class Lunexis extends NPC {
 							PresetColour.CLOTHING_PINK_HOT,
 							false,
 							new TattooWriting("~Fill Me Up~", PresetColour.CLOTHING_PINK_HOT, false, TattooWritingStyle.ITALICISED),
-							new TattooCounter(TattooCounterType.CUM_TAKEN, TattooCountType.NUMBERS, PresetColour.CLOTHING_PINK_HOT, false, meraxis)));
+							new TattooCounter(TattooCounterType.CUM_TAKEN, TattooCountType.NUMBERS, PresetColour.CLOTHING_PINK_HOT, false)));
 			meraxis.addTattoo(InventorySlot.CHEST,
 					new Tattoo(
 							"innoxia_hearts_hearts",
@@ -674,7 +674,7 @@ public class Lunexis extends NPC {
 							PresetColour.CLOTHING_PURPLE,
 							false,
 							new TattooWriting("~Slap My Tits~", PresetColour.CLOTHING_PINK_HOT, false, TattooWritingStyle.ITALICISED),
-							new TattooCounter(TattooCounterType.UNIQUE_SEX_PARTNERS, TattooCountType.NUMBERS, PresetColour.CLOTHING_PINK_HOT, false, meraxis)));
+							new TattooCounter(TattooCounterType.UNIQUE_SEX_PARTNERS, TattooCountType.NUMBERS, PresetColour.CLOTHING_PINK_HOT, false)));
 			meraxis.addTattoo(InventorySlot.NIPPLE,
 					new Tattoo(
 							"innoxia_knot_spiral",
@@ -708,7 +708,7 @@ public class Lunexis extends NPC {
 							PresetColour.CLOTHING_PURPLE,
 							false,
 							new TattooWriting("Foal Factory", PresetColour.CLOTHING_PURPLE, false),
-							new TattooCounter(TattooCounterType.OFFSPRING_BIRTHED, TattooCountType.NUMBERS, PresetColour.CLOTHING_PURPLE, false, meraxis)));
+							new TattooCounter(TattooCounterType.OFFSPRING_BIRTHED, TattooCountType.NUMBERS, PresetColour.CLOTHING_PURPLE, false)));
 			meraxis.addTattoo(InventorySlot.FINGER,
 					new Tattoo(
 							"innoxia_symbol_lines",
@@ -749,7 +749,7 @@ public class Lunexis extends NPC {
 							PresetColour.CLOTHING_PINK_HOT,
 							false,
 							new TattooWriting("~Knock Me Up~", PresetColour.CLOTHING_PINK_HOT, false, TattooWritingStyle.ITALICISED),
-							new TattooCounter(TattooCounterType.PREGNANCY, TattooCountType.TALLY, PresetColour.CLOTHING_PINK_HOT, false, meraxis)));
+							new TattooCounter(TattooCounterType.PREGNANCY, TattooCountType.TALLY, PresetColour.CLOTHING_PINK_HOT, false)));
 			meraxis.addTattoo(InventorySlot.ANUS,
 					new Tattoo(
 							"innoxia_symbol_pentagram",
@@ -758,14 +758,14 @@ public class Lunexis extends NPC {
 							PresetColour.CLOTHING_PURPLE,
 							false,
 							new TattooWriting("Rough Anal Only!", PresetColour.CLOTHING_RED, false, TattooWritingStyle.BOLD),
-							new TattooCounter(TattooCounterType.CUM_TAKEN_ANUS, TattooCountType.NUMBERS, PresetColour.CLOTHING_RED, false, meraxis)));
+							new TattooCounter(TattooCounterType.CUM_TAKEN_ANUS, TattooCountType.NUMBERS, PresetColour.CLOTHING_RED, false)));
 			meraxis.addTattoo(InventorySlot.VAGINA,
 					new Tattoo(
 							"innoxia_animal_hoof",
 							PresetColour.CLOTHING_PURPLE_DARK,
 							false,
 							new TattooWriting("Break This Cunt!", PresetColour.CLOTHING_PURPLE, false, TattooWritingStyle.BOLD),
-							new TattooCounter(TattooCounterType.CUM_TAKEN_PUSSY, TattooCountType.NUMBERS, PresetColour.CLOTHING_PURPLE, false, meraxis)));
+							new TattooCounter(TattooCounterType.CUM_TAKEN_PUSSY, TattooCountType.NUMBERS, PresetColour.CLOTHING_PURPLE, false)));
 		// Increment stats for tattoo counters:
 			applyTrainingSexCounts(meraxis, new SexType(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), 1);
 			applyTrainingSexCounts(meraxis, new SexType(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS), 0.75f);

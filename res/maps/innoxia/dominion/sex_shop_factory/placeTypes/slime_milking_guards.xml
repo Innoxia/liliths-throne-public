@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <placeType>
 	<worldRegion>DOMINION</worldRegion>
-	<name><![CDATA[slime milking stalls]]></name>
+	<name><![CDATA[slime milking chamber]]></name>
 	<tooltipDescription><![CDATA[Dozens of huge slimes are locked into milking stalls in this area.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[by the slime milking stalls in the factory beneath Lovienne's Luxuries]]></virginityLossDescription>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>

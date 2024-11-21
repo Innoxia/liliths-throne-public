@@ -160,8 +160,7 @@ public class DollFactorySuccubus extends NPC {
 							TattooCounterType.VALUE_AS_SLAVE,
 							TattooCountType.NUMBERS,
 							PresetColour.CLOTHING_GOLD,
-							false,
-							0)));
+							false)));
 	}
 	
 	@Override
@@ -249,23 +248,14 @@ public class DollFactorySuccubus extends NPC {
 						&& this.hasItemType(ItemType.REJUVENATION_POTION)
 						&& Main.sex.getNumberOfOrgasms(this)<3) {
 					return new Value<>(Main.game.getItemGen().generateItem(ItemType.REJUVENATION_POTION),
-							Main.sex.isMasturbation()
-							?UtilText.parse(this,
+								UtilText.parse(this,
 										Main.sex.getNumberOfOrgasms(this)==1
 											?"Producing a glass bottle filled with purple liquid, the succubus pulls out the stopper and tosses it over her shoulder, before downing the contents in three big gulps."
 												+ " Her gigantic balls visibly swell as the rejuvenation potion does its work, and she happily moans,"
-												+ " [npc.speechNoEffects(~Ooh!~ Fuck! That's better! ~Mmm!~ I'm such a bad bitch... I just need to cum some more!)]"
+												+ " [npc.speechNoEffects(~Ooh!~ Fuck! My balls feel so full! ~Mmm!~ Now I'm ready to pump another load in you, bitch!)]"
 											:"Producing another glass bottle filled with yet more purple liquid, the succubus once again pulls out the stopper and tosses it over her shoulder, before downing the contents in three big gulps."
 												+ " Just like before, her gigantic balls visibly swell as the rejuvenation potion does its work, and she excitedly moans,"
-												+ " [npc.speechNoEffects(~Aah!~ Fuck! Just one more... ~Mmm!~ Mistress... I'm a bad dog... I just need to cum!)]")
-							:UtilText.parse(this,
-									Main.sex.getNumberOfOrgasms(this)==1
-									?"Producing a glass bottle filled with purple liquid, the succubus pulls out the stopper and tosses it over her shoulder, before downing the contents in three big gulps."
-										+ " Her gigantic balls visibly swell as the rejuvenation potion does its work, and she happily moans,"
-										+ " [npc.speechNoEffects(~Ooh!~ Fuck! My balls feel so full! ~Mmm!~ Now I'm ready to pump another load in you, bitch!)]"
-									:"Producing another glass bottle filled with yet more purple liquid, the succubus once again pulls out the stopper and tosses it over her shoulder, before downing the contents in three big gulps."
-										+ " Just like before, her gigantic balls visibly swell as the rejuvenation potion does its work, and she excitedly moans,"
-										+ " [npc.speechNoEffects(~Aah!~ Fuck! Got another full load for you, bitch! ~Mmm!~ I'm going to fill you up real good...)]"));
+												+ " [npc.speechNoEffects(~Aah!~ Fuck! Got another full load for you, bitch! ~Mmm!~ I'm going to fill you up real good...)]"));
 				}
 			}
 		}

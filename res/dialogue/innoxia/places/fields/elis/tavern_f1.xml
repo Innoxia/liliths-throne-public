@@ -299,7 +299,7 @@
 				</requiredFetishes>
 				<corruptionLevel><![CDATA[TWO_HORNY]]></corruptionLevel>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_elis_jess_peeping]]></id>
+					<id><![CDATA[innoxia_jess_peeping]]></id>
 					<startingPosition><![CDATA[
 						#IF(ncom.getFetishDesire(FETISH_ANAL_GIVING).isPositive() || ncom.getFetishDesire(FETISH_DOMINANT).isPositive())
 							ALL_FOURS
@@ -371,7 +371,7 @@
 				</requiredFetishes>
 				<corruptionLevel><![CDATA[TWO_HORNY]]></corruptionLevel>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_elis_jess_peeping]]></id>
+					<id><![CDATA[innoxia_jess_peeping]]></id>
 					<startingPosition><![CDATA[LYING_DOWN]]></startingPosition>
 					<dominants>
 						<character>
@@ -419,7 +419,7 @@
 				</requiredFetishes>
 				<corruptionLevel><![CDATA[TWO_HORNY]]></corruptionLevel>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_elis_jess_peeping]]></id>
+					<id><![CDATA[innoxia_jess_peeping]]></id>
 					<startingPosition><![CDATA[LYING_DOWN]]></startingPosition>
 					<dominants>
 						<character>

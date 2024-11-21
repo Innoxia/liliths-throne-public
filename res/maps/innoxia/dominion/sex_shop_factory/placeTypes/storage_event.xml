@@ -20,7 +20,7 @@
 	</populationPresent>
 	<furniturePresent>true</furniturePresent>
 	<globalMapTile>false</globalMapTile>
-	<dangerous><![CDATA[[#pc.isDoll()]]]></dangerous>
+	<dangerous><![CDATA[false]]></dangerous>
 	<itemsDisappear><![CDATA[true]]></itemsDisappear>
 	<aquatic><![CDATA[LAND]]></aquatic>
 	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>

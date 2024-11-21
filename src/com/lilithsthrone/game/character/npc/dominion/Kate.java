@@ -526,8 +526,7 @@ public class Kate extends NPC {
 						TattooCounterType.CURRENT_PREGNANCY,
 						TattooCountType.NUMBERS,
 						PresetColour.CLOTHING_PINK_LIGHT,
-						true,
-						0));
+						true));
 		
 		for(int i=0; i<10; i++) {
 			tat.addEffect(new ItemEffect(ItemEffectType.TATTOO, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0));

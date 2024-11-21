@@ -86,8 +86,7 @@ public class CharacterInventory implements XMLSaving {
 	// ClothingSets being worn:
 	private final Map<AbstractSetBonus, Integer> clothingSetCount;
 
-	@SuppressWarnings("unused")
-	private int maxInventorySpace; // TODO use :3
+	private int maxInventorySpace;
 
 	public CharacterInventory(int money) {
 		this(money, 32);
@@ -119,46 +118,37 @@ public class CharacterInventory implements XMLSaving {
 		this.maxInventorySpace = maxInventorySpace;
 	}
 	
-	public static CharacterInventory getCopyOfInventory(CharacterInventory inventoryToCopy) {
-		Document doc = Main.getDocBuilder().newDocument();
-		Element mainNode = doc.createElement("mainNode");
-		inventoryToCopy.saveAsXML(mainNode, doc);
-		CharacterInventory newInventory = loadFromXML(mainNode, doc);
+	public CharacterInventory(CharacterInventory inventoryToCopy) {
+		this.money = inventoryToCopy.money;
+
+		weaponSubInventory = new AbstractInventory<>(inventoryToCopy.weaponSubInventory);
+		clothingSubInventory = new AbstractInventory<>(inventoryToCopy.clothingSubInventory);
+		itemSubInventory = new AbstractInventory<>(inventoryToCopy.itemSubInventory);
 		
-		return newInventory;
+		dirtySlots = new HashSet<>(inventoryToCopy.getDirtySlots());
+		
+		essenceCount = inventoryToCopy.essenceCount;
+
+		unlockKeyMap = new HashMap<>(inventoryToCopy.unlockKeyMap);
+		
+		mainWeapon = new AbstractWeapon[Arm.MAXIMUM_ROWS];
+		for(int i=0; i<mainWeapon.length; i++) {
+			mainWeapon[i] = inventoryToCopy.mainWeapon[i];
+		}
+		offhandWeapon = new AbstractWeapon[Arm.MAXIMUM_ROWS];
+		for(int i=0; i<offhandWeapon.length; i++) {
+			offhandWeapon[i] = inventoryToCopy.offhandWeapon[i];
+		}
+		
+		clothingCurrentlyEquipped = new ArrayList<>(inventoryToCopy.clothingCurrentlyEquipped);
+		clothingSetCount = new HashMap<>(inventoryToCopy.clothingSetCount);
+		
+		this.maxInventorySpace = inventoryToCopy.maxInventorySpace;
+		
+		this.blockingClothing = inventoryToCopy.blockingClothing;
+
+		this.extraBlockedParts = inventoryToCopy.extraBlockedParts;
 	}
-	
-//	public CharacterInventory(CharacterInventory inventoryToCopy) {
-//		this.money = inventoryToCopy.money;
-//
-//		weaponSubInventory = new AbstractInventory<>(inventoryToCopy.weaponSubInventory);
-//		clothingSubInventory = new AbstractInventory<>(inventoryToCopy.clothingSubInventory);
-//		itemSubInventory = new AbstractInventory<>(inventoryToCopy.itemSubInventory);
-//		
-//		dirtySlots = new HashSet<>(inventoryToCopy.getDirtySlots());
-//		
-//		essenceCount = inventoryToCopy.essenceCount;
-//
-//		unlockKeyMap = new HashMap<>(inventoryToCopy.unlockKeyMap);
-//		
-//		mainWeapon = new AbstractWeapon[Arm.MAXIMUM_ROWS];
-//		for(int i=0; i<mainWeapon.length; i++) {
-//			mainWeapon[i] = inventoryToCopy.mainWeapon[i];
-//		}
-//		offhandWeapon = new AbstractWeapon[Arm.MAXIMUM_ROWS];
-//		for(int i=0; i<offhandWeapon.length; i++) {
-//			offhandWeapon[i] = inventoryToCopy.offhandWeapon[i];
-//		}
-//		
-//		clothingCurrentlyEquipped = new ArrayList<>(inventoryToCopy.clothingCurrentlyEquipped);
-//		clothingSetCount = new HashMap<>(inventoryToCopy.clothingSetCount);
-//		
-//		this.maxInventorySpace = inventoryToCopy.maxInventorySpace;
-//		
-//		this.blockingClothing = inventoryToCopy.blockingClothing;
-//
-//		this.extraBlockedParts = inventoryToCopy.extraBlockedParts;
-//	}
 	
 	@Override
 	public Element saveAsXML(Element parentElement, Document doc) {
@@ -983,7 +973,7 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	/**
-	 * @return true if one item of clothing in this inventory has the same type as the type provided.
+	 * @return true if one of the clothings in this inventory has the same type as the Clothing provided.
 	 */
 	public boolean hasClothingType(AbstractClothingType type, boolean includeEquipped) {
 		return clothingSubInventory.hasItemType(type) || (includeEquipped && hasEquippedClothingType(type));
@@ -995,21 +985,6 @@ public class CharacterInventory implements XMLSaving {
 	
 	public boolean removeClothingByType(AbstractClothingType clothingType) {
 		return clothingSubInventory.removeItemByType(clothingType, 1);
-	}
-	
-	public boolean removeClothingByName(String nameToMatch) {
-		AbstractClothing clothing = null;
-		for(AbstractClothing c : getAllClothingInInventory().keySet()) {
-			if(c.getName().equalsIgnoreCase(nameToMatch)) {
-				clothing = c;
-				break;
-			}
-		}
-		if(clothing!=null) {
-			removeClothing(clothing, 1);
-			return true;
-		}
-		return false;
 	}
 	
 	public boolean removeAllClothingByRarity(Rarity rarity) {
@@ -2090,8 +2065,6 @@ public class CharacterInventory implements XMLSaving {
  			List<BlockedParts> blockedPartsMap = clothing.getBlockedPartsMap(character, clothing.getSlotEquippedTo());
  			if(blockedPartsMap==null) {
  				System.err.println("Clothing error in getBlockingCoverableAreaClothingList(): blockedPartsMap is returning null!");
- 				System.err.println(clothing.getName()+" | "+clothing.getClothingType().getId() + " ("+clothing.getSlotEquippedTo()+")");
- 				new IllegalArgumentException().printStackTrace();
  				continue;
  			}
 			for (BlockedParts bp : blockedPartsMap) {

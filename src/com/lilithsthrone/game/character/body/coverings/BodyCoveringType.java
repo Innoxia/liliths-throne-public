@@ -251,8 +251,8 @@ public class BodyCoveringType {
 					PresetColour.SKIN_AMBER,
 					PresetColour.SKIN_YELLOW,
 					PresetColour.SKIN_ORANGE),
-			PresetColour.allCoveringColours,
-			PresetColour.allCoveringColours,
+			ColourListPresets.ALL,
+			ColourListPresets.ALL,
 			null) {
 	};
 	
@@ -818,7 +818,7 @@ public class BodyCoveringType {
 			Util.newHashMapOfValues(new Value<>(CoveringPattern.FLUID, 1)),
 			null,
 			Util.newArrayListOfValues(PresetColour.COVERING_WHITE),
-			PresetColour.fluidCoverings,
+			PresetColour.allCoveringColours,
 			null,
 			null) {
 	};
@@ -834,7 +834,7 @@ public class BodyCoveringType {
 			Util.newHashMapOfValues(new Value<>(CoveringPattern.FLUID, 1)),
 			null,
 			Util.newArrayListOfValues(PresetColour.COVERING_CLEAR),
-			PresetColour.fluidCoverings,
+			PresetColour.allCoveringColours,
 			null,
 			null) {
 	};
@@ -850,7 +850,7 @@ public class BodyCoveringType {
 			Util.newHashMapOfValues(new Value<>(CoveringPattern.FLUID, 1)),
 			null,
 			Util.newArrayListOfValues(PresetColour.COVERING_WHITE),
-			PresetColour.fluidCoverings,
+			PresetColour.allCoveringColours,
 			null,
 			null) {
 	};
@@ -1210,41 +1210,41 @@ public class BodyCoveringType {
 							case MAIN_SKIN:
 							case PENIS:
 							case TONGUE:
-								bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createSilicone(CoveringPattern.NONE, CoveringPattern.allSiliconeCoveringPatterns, false)) {};
+								bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createSilicone(CoveringPattern.NONE, CoveringPattern.allSiliconeCoveringPatterns)) {};
 								break;
 							case EYE_IRIS:
 								bct = new AbstractBodyCoveringType(cat,
-										BodyCoveringTemplateFactory.createSilicone(CoveringPattern.EYE_IRISES, Util.newHashMapOfValues(new Value<>(CoveringPattern.EYE_IRISES_HETEROCHROMATIC, 1)), false)) {
+										BodyCoveringTemplateFactory.createSilicone(CoveringPattern.EYE_IRISES, Util.newHashMapOfValues(new Value<>(CoveringPattern.EYE_IRISES_HETEROCHROMATIC, 1)))) {
 								};
 								break;
 							case EYE_PUPIL:
 								bct = new AbstractBodyCoveringType(cat,
-										BodyCoveringTemplateFactory.createSilicone(CoveringPattern.EYE_PUPILS, Util.newHashMapOfValues(new Value<>(CoveringPattern.EYE_IRISES_HETEROCHROMATIC, 1)), false)) {
+										BodyCoveringTemplateFactory.createSilicone(CoveringPattern.EYE_PUPILS, Util.newHashMapOfValues(new Value<>(CoveringPattern.EYE_IRISES_HETEROCHROMATIC, 1)))) {
 								};
 								break;
 							case EYE_SCLERA:
 								bct = new AbstractBodyCoveringType(cat,
-										BodyCoveringTemplateFactory.createSilicone(CoveringPattern.EYE_SCLERA, Util.newHashMapOfValues(new Value<>(CoveringPattern.EYE_IRISES_HETEROCHROMATIC, 1)), false)) {
+										BodyCoveringTemplateFactory.createSilicone(CoveringPattern.EYE_SCLERA, Util.newHashMapOfValues(new Value<>(CoveringPattern.EYE_IRISES_HETEROCHROMATIC, 1)))) {
 								};
 								break;
 								
 							case ANUS:
-								bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createSilicone(CoveringPattern.ORIFICE_ANUS, null, true)) {};
+								bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createSilicone(CoveringPattern.ORIFICE_ANUS, null)) {};
 								break;
 							case MOUTH:
-								bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createSilicone(CoveringPattern.ORIFICE_MOUTH, null, true)) {};
+								bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createSilicone(CoveringPattern.ORIFICE_MOUTH, null)) {};
 								break;
 							case NIPPLE:
-								bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createSilicone(CoveringPattern.ORIFICE_NIPPLE, null, true)) {};
+								bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createSilicone(CoveringPattern.ORIFICE_NIPPLE, null)) {};
 								break;
 							case NIPPLE_CROTCH:
-								bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createSilicone(CoveringPattern.ORIFICE_NIPPLE_CROTCH, null, true)) {};
+								bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createSilicone(CoveringPattern.ORIFICE_NIPPLE_CROTCH, null)) {};
 								break;
 							case VAGINA:
-								bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createSilicone(CoveringPattern.ORIFICE_VAGINA, null, true)) {};
+								bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createSilicone(CoveringPattern.ORIFICE_VAGINA, null)) {};
 								break;
 							case SPINNERET:
-								bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createSilicone(CoveringPattern.ORIFICE_SPINNERET, null, true)) {};
+								bct = new AbstractBodyCoveringType(cat, BodyCoveringTemplateFactory.createSilicone(CoveringPattern.ORIFICE_SPINNERET, null)) {};
 								break;
 								
 							case ARTIFICIAL:

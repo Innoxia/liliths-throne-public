@@ -499,18 +499,8 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 		this.counter = counter;
 	}
 
-	/**
-	 * Use this method if you want to manually set the offset for the counter (if you're using this method you probably don't want any offset and so will be using 0).
-	 */
-	public void setCounter(TattooCounterType type, TattooCountType countType, Colour colour, boolean glow, int retroactiveApplicationOffset) {
-		this.counter = new TattooCounter(type, countType, colour, glow, retroactiveApplicationOffset);
-	}
-
-	/**
-	 * Use this method if you want the tattoo's counter to be automatically offset (so it will start at 0 no matter what the bearer's past experiences should have incremented it to).
-	 */
-	public void setCounter(TattooCounterType type, TattooCountType countType, Colour colour, boolean glow, GameCharacter bearer) {
-		this.counter = new TattooCounter(type, countType, colour, glow, bearer);
+	public void setCounter(TattooCounterType type, TattooCountType countType, Colour colour, boolean glow) {
+		this.counter = new TattooCounter(type, countType, colour, glow);
 	}
 	
 	/**
@@ -523,7 +513,7 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 	}
 	
 	public String getFormattedCounterOutput(GameCharacter equippedToCharacter) {
-		String convertedInt = getCounter().getCountType().convertInt(getCounter().getType().getCount(equippedToCharacter) + getCounter().getRetroactiveApplicationOffset());
+		String convertedInt = getCounter().getCountType().convertInt(getCounter().getType().getCount(equippedToCharacter));
 		return "<span style='color:"+getCounter().getColour().toWebHexString()+";'>"+(getCounter().isGlow()?UtilText.applyGlow(convertedInt, getCounter().getColour()):convertedInt)+"</span>";
 	}
 

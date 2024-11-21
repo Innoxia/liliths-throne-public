@@ -510,22 +510,8 @@ public class MainController implements Initializable {
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
 
 							
-//							for(GameCharacter partner : Main.sex.getAllParticipants()) {
-//								if(!partner.isPlayer()) {
-//									System.out.println();
-//									System.out.println("#####################################");
-//									System.out.println("##### "+partner.getName()+" #####");
-//									for(SexActionInterface sa : Main.sex.getActionsAvailablePartner(partner, Main.game.getPlayer())) {
-//										System.out.println(sa.toString()+" | "+ sa.getActionTitle());
-//									}
-//								}
-//							}
+							System.out.println(Main.game.getSavedDialogueNode()==null);
 							
-//							for(Colour c : ColourListPresets.ALL) {
-//								System.out.println(c.getId());
-//							}
-
-//							System.out.println(Main.game.getSavedDialogueNode()==null);
 							
 //							System.out.println(Main.isVersionOlderThan(Game.loadingVersion, "0.4.8.10"));
 							
@@ -537,8 +523,7 @@ public class MainController implements Initializable {
 //								}
 //							}
 							
-//							System.out.println(PenisMouth.BLOWJOB_START.isBaseRequirementsMet());
-							
+//							System.out.println(GenericOrgasms.GENERIC_ORGASM_CREAMPIE.isBaseRequirementsMet());
 //							System.out.println(Main.sex.getOrgasmActionsPlayer().contains(GenericOrgasms.GENERIC_ORGASM_SELF_FACE));
 //							System.out.println(Main.sex.getOrgasmActionsPlayer().contains(GenericOrgasms.GENERIC_ORGASM_CREAMPIE));
 							
@@ -1360,8 +1345,7 @@ public class MainController implements Initializable {
 			MiscController.initDollBrochureListeners();
 			
 		} else if (currentNode.equals(BodyChanging.BODY_CHANGING_ASS)
-				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_BODY_ASS)
-				|| currentNode.equals(MiscDialogue.SAELLATRIX_DOLL_ASS)) {
+				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_BODY_ASS)) {
 			CreationController.initAnusCapacityListeners();
 			CreationController.initAnusDepthListeners();
 			CreationController.initAnusElasticityListeners();
@@ -1512,8 +1496,7 @@ public class MainController implements Initializable {
 			CreationController.initSpinneretPlasticityListeners();
 			CreationController.initSpinneretWetnessListeners();
 		} else if (currentNode.equals(BodyChanging.BODY_CHANGING_VAGINA)
-				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_BODY_VAGINA)
-				|| currentNode.equals(MiscDialogue.SAELLATRIX_DOLL_PUSSY)) {
+				|| currentNode.equals(ScarlettsShop.HELENAS_SHOP_CUSTOM_SLAVE_BODY_VAGINA)) {
 			CreationController.initVaginaCapacityListeners();
 			CreationController.initVaginaDepthListeners();
 			CreationController.initVaginaEggLayerListeners();

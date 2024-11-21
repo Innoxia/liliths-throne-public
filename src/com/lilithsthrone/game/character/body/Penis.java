@@ -204,12 +204,8 @@ public class Penis implements BodyPartInterface {
 
 		return Util.randomItemFrom(list);
 	}
-
-	public String setType(GameCharacter owner, AbstractPenisType type) {
-		return setType(owner, type, true);
-	}
 	
-	public String setType(GameCharacter owner, AbstractPenisType type, boolean resetDefaultModifiers) {
+	public String setType(GameCharacter owner, AbstractPenisType type) {
 		if(this.type==PenisType.NONE) {
 			this.orificeUrethra.setStretchedCapacity(this.orificeUrethra.getRawCapacityValue());
 		}
@@ -296,20 +292,18 @@ public class Penis implements BodyPartInterface {
 			sb.append(this.type.applyAdditionalTransformationEffects(owner, true));
 		sb.append("</p>");
 		
-		if(resetDefaultModifiers) {
-			penisModifiers.clear();
-			penisModifiers.addAll(type.getDefaultRacialPenetrationModifiers());
-			
-			sb.append("<p>");
-				sb.append("Any old modifiers which [npc.her] penis might have had have [style.boldShrink(transformed away)]!");
-				if(!penisModifiers.isEmpty()) {
-					sb.append("<br/>Instead, [npc.her] new cock is:");
-					for(PenetrationModifier pm : penisModifiers) {
-						sb.append("<br/>[style.boldGrow("+Util.capitaliseSentence(pm.getName())+")]");
-					}
+		penisModifiers.clear();
+		penisModifiers.addAll(type.getDefaultRacialPenetrationModifiers());
+
+		sb.append("<p>");
+			sb.append("Any old modifiers which [npc.her] penis might have had have [style.boldShrink(transformed away)]!");
+			if(!penisModifiers.isEmpty()) {
+				sb.append("<br/>Instead, [npc.her] new cock is:");
+				for(PenetrationModifier pm : penisModifiers) {
+					sb.append("<br/>[style.boldGrow("+Util.capitaliseSentence(pm.getName())+")]");
 				}
-			sb.append("</p>");
-		}
+			}
+		sb.append("</p>");
 		
 		String postTF = owner.postTransformationCalculation(false); // Calculate this before parsing, as it updates covering colours
 		

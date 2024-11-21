@@ -14,40 +14,40 @@
 		You quickly find yourself taking a ninety-degree turn, and then shortly afterwards another one, bringing you around in a semi-circular fashion to the rear entrance of Lovienne's Luxuries. As you might expect, the door marked 'Deliveries Only' is securely locked, and so wondering what the plan is now, you ask Fia how she's planning on getting inside.
 	</p>
 	<p>
-		[fia.speech(You know I told you that there's just one security guard here at this time? Well, I convinced him to let us in through this back door!)] she reveals, before mumbling, [fia.speech(Well, I've <i>mostly</i> convinced him... He just needs some final persuasion...)]
+		[fia.speech(When I saw you in the street, I sent word for a friend to come and meet me here as soon as possible. He works for the security company which Sae employs, and although he's not assigned to Sae's shop, his access card should work on any of the security systems here, including the lock on this door,)] she reveals, [fia.speech(I've mostly convinced him to lend me his access card. He just needs some final persuasion...)]
 	</p>
 	<p>
-		Fia's words don't fill you with confidence, and so you ask her if she has a backup plan if this security guard refuses to cooperate.
+		Fia's words don't fill you with confidence, and so you ask her if she has a backup plan if her friend refuses to cooperate.
 	</p>
 	<p>
-		[fia.speech(Well, that's what you're here for, right?)] Fia confidently replies, before revealing, [fia.speech(I didn't tell him about you, of course, so you'd better stay hidden while I sort this out. Wait... Did you hear that? Someone's coming! Quick, hide behind those crates!)]
+		[fia.speech(Don't worry, I can get him to do whatever I want, you'll see,)] Fia confidently replies, before revealing, [fia.speech(I didn't tell him about you, though... You'd better stay hidden while I sort this out. Wait... Did you hear that? Someone's coming, quick hide behind those crates!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="MEET_FIA_WAIT"><![CDATA[
 	<p>
-		Fia gives you a panicked push as you [pc.step] over to a nearby stack of crates, and as you duck down out of sight, she hisses, [fia.speech(Stay quiet! Don't let him see you!)]
+		Fia gives you a panicked push as you [pc.step] over to a nearby stack of crates, and as you duck down out of sight, she hisses, [fia.speech(Stay quiet! If he sees you then he'll get suspicious and won't give me his access card!)]
 	</p>
 	<p>
-		From your hiding place you're able to peer through the thin gaps between the crates to see what's going on in the rest of the alleyway. Watching Fia as she returns to stand beside the locked door, you see her lift her flashlight in order to illuminate the approaching figure. Lit up in the beam of light, you see that the security guard is a grey-furred greater rat-boy, who's wearing a cap, a ribbed jumper, and a pair of loose-fitting cargo trousers.
+		From your hiding place you're able to peer through the thin gaps between the crates to see what's going on in the rest of the alleyway. Watching Fia as she returns to stand beside the locked door, you see her lift her flashlight in order to illuminate the approaching figure. Lit up in the beam of light, you see that Fia's friend is a greater, grey-furred rat-boy, who's wearing a cap, a ribbed jumper, and a pair of loose-fitting cargo trousers.
 	</p>
 	<p>
-		[fia_friend.speech(If anybody finds out about this then I'll be fired. You know that, right?)] the rat-boy says in a deep voice as he comes to a halt before the reporter. Being noticeably taller than Fia, the rat-boy tilts his head down to look at her as he sighs, [fia_friend.speech(Look, I know you promised that you won't touch anything, and you won't mention me in your article, but I really shouldn't be letting you inside like this...)]
+		[fia_friend.speech(I don't know about this, Fia,)] the rat-boy says in a deep voice as he comes to a halt before the reporter. Being noticeably taller than his friend, the rat-boy has to tilt his head down to look at Fia as he sighs, [fia_friend.speech(If the boss finds out I lent you my access card, I'd be fired. Why do you even want to get into this place? Can't you write an article on some other shop?)]
 	</p>
-	<p>
-		[fia.speech(Don't worry about it, babe,)] Fia says in a seductive tone, and as you see her reach down to playfully tease her fingers over his crotch, you suddenly realise how she managed to convince this rat-boy to help her. Sliding up against him, Fia playfully bites her lip and lewdly teases,
+	</p>
+		[fia.speech(Never you mind about my motives, babe,)] Fia says in a seductive tone, instantly revealing the nature of her relationship with this rat-boy. Sliding up against him, Fia traces her fingers over his crotch while lewdly teasing,
 		#IF(game.isAnalContentEnabled())
-			 [fia.speech(Just let me in and this time tomorrow that big, hard cock of yours will be buried in my tight ass...)]
+			 [fia.speech(Do this for me and tomorrow night I'll let you fuck my ass as many times as you want...)]
 		#ELSE
-			 [fia.speech(Just let me in and this time tomorrow I'll have my lips wrapped around your big, juicy cock...)]
+			 [fia.speech(Do this for me and tomorrow night I'll swallow as many loads as you want to give me...)]
 		#ENDIF
 	</p>
 	<p>
-		Grunting in barely-contained arousal, the rat-boy shakes his head in defeat and pulls a set of keys out of his pocket. Before unlocking the door, he warns, [fia_friend.speech(There's two of us on duty tonight, by the way. Don't worry about it though; he'll be busy fucking that demo doll all night long, so just keep out of the main shop area and you won't run into trouble. Oh, and if you're caught, I knew nothing about this, got it?)]
+		Grunting in barely-contained arousal, the rat-boy shakes his head in defeat and pulls a small card out of his pocket. Holding it back for a moment longer, he sternly says, [fia_friend.speech(I need this back by nine tomorrow morning. And if you're caught in there, you stole the card from my room. I knew nothing about this, got it?)]
 	</p>
 	<p>
-		[fia.speech(Don't worry, babe, I've done this kind of thing hundreds of times before,)] Fia happily replies as she watches the rat-boy unlock the door. Standing up on tip-toes to be able to reach, she plants a kiss on his nose and whispers, [fia.speech(I'll be at your place tomorrow at nine.)]
+		[fia.speech(Yes, yes, babe, I'll put it through your letterbox once I'm done,)] Fia happily replies as she eagerly snatches the card from her friend and stuffs it into her hoodie's pocket. Standing up on tip-toes to be able to reach, she plants a kiss on the rat-boy's nose and whispers, [fia.speech(And then tomorrow evening I'll be at your place at nine.)]
 	</p>
 	<p>
 		[fia_friend.speech(Make it eight,)] the rat-boy demands.
@@ -56,11 +56,11 @@
 		[fia.speech(Greedy boy,)] Fia laughs, [fia.speech(Fine, eight it is.)]
 	</p>
 	<p>
-		[fia_friend.speech(I can't believe I'm doing this just for some human ass,)] the rat-boy sighs as he turns away and begins to walk back down the alleyway.
+		[fia_friend.speech(Please don't get yourself in trouble,)] the rat-boy says with a note of genuine concern in his voice, before turning away and beginning to walk back down the alleyway.
 	</p>
 	#IF(pc.hasSpell(SPELL_ARCANE_AROUSAL, true))
 		<p>
-			As the rat-boy starts to leave, an interesting idea suddenly springs into your mind. If you were to silently cast arcane arousal on these two, perhaps they'd put on a show for you...
+			As the rat-boy starts to leave, an interesting idea suddenly springs into your mind. If you were to silently cast arcane arousal on these two love-birds, perhaps they'd put on a show for you...
 		</p>
 	#ENDIF
 	]]>
@@ -87,17 +87,17 @@
 			By now the rat-boy has already whipped out his cock, which is every bit as large as his bulge had suggested. His balls, too, are far larger than average, and as he impatiently presses his swollen head against Fia's exposed asshole, she moans, [fia.speech(I love how big you are... Hold on, don't go in dry!)]
 		</p>
 		<p>
-			Spitting on her fingers, Fia lewdly smears her rear entrance with her saliva, which is quickly mixed with the rat-boy's slimy precum as he continues to press his hard cock against her rear entrance. Satisfied that she's as lubed up as she's going to get, Fia teases her partner by pushing her hips back and forcing just the tip of his cock into her slutty back-door. Letting out an excited moan, she pants, [fia.speech(Go on then, babe, fuck my ass!)] 
+			Spitting on her fingers, Fia lewdly smears her rear entrance with her saliva, which is quickly mixed with her friend's slimy precum as he continues to press his hard cock against her rear entrance. Satisfied that she's as lubed up as she's going to get, Fia teases her friend by pushing her hips back and forcing just the tip of his cock into her slutty back-door. Letting out an excited moan, she pants, [fia.speech(Go on then, babe, fuck my ass!)] 
 		</p>
 		<p>
 			Not needing to be told twice, the rat-boy pushes forwards and drives his big, throbbing cock into Fia's dark-rimmed asshole. Grabbing his lover's hips, he starts to pump in and out, and within moments his deep groans are mixing with Fia's high-pitched moans as he eagerly fucks her ass...
 		</p>
 	#ELSE
 		<p>
-			[fia.speech(Hurry up, get your cock out,)] she pants, before squatting down in front of the rat-boy. Leaning back against the wall, he quickly whips out his cock, which is every bit as large as his bulge had suggested. His balls, too, are far larger than average, and as he impatiently points his swollen head at Fia's mouth, she moans, [fia.speech(I love how big you are...)]
+			[fia.speech(Hurry up, get your cock out,)] she pants, before squatting down in front of her friend. Leaning back against the wall, the rat-boy quickly whips out his cock, which is every bit as large as his bulge had suggested. His balls, too, are far larger than average, and as he impatiently points his swollen head at Fia's mouth, she moans, [fia.speech(I love how big you are...)]
 		</p>
 		<p>
-			Sticking out her tongue, Fia lewdly licks the underside of the rat-boy's hard cock, before planting a wet kiss on the tip. Now ready to get started, Fia looks up and teases, [fia.speech(Go on then, babe, fuck my face!)] 
+			Sticking out her tongue, Fia lewdly licks the underside of the rat-boy's hard cock, before planting a wet kiss on the tip. Now ready to get started, Fia looks up at her friend and teases, [fia.speech(Go on then, babe, fuck my face!)] 
 		</p>
 		<p>
 			Not needing to be told twice, the rat-boy places his left hand on Fia's head, before pushing his hips forwards and using his right hand to direct his big, throbbing cock into his lover's mouth. Once her lips are wrapped around his shaft, he takes hold of Fia's head in both hands, before staring to eagerly pump his hips forward and back in order to drive his cock deep down her throat. Within moments his deep groans are mixing with Fia's muffled, gargled moans as he eagerly fucks her face...
@@ -123,7 +123,7 @@
 		</p>
 	#ENDIF
 	<p>
-		[fia_friend.speech(Who's the greedy one now?)] the rat-boy laughs, [fia_friend.speech(Sure, I'll see you at six. Stay out of trouble in there...)]
+		[fia_friend.speech(Who's the greedy one now?)] the rat-boy laughs, [fia_friend.speech(Sure, I'll see you at six. Stay out of trouble in there, Fia.)]
 	</p>
 	<p>
 		With that, the rat-boy turns and once again starts to walk off down the alleyway...
@@ -135,20 +135,20 @@
 	<p>
 		Waiting for the rat-boy to disappear around the corner, you [pc.step] out of your hiding place and [pc.walk] over to Fia.
 	</p>
-	#IF(fia.getTotalTimesHadSex(fia_friend)>0)
+	#IF(fia.getTimeSinceLastHadSex()<60)
 		<p>
-			[fia.speech(Hey, sorry that you had to see that,)] she sheepishly apologises. Clearly not realising that it was your spell which caused the two of them to fuck, she sighs, [fia.speech(I don't know what came over me...)]
+			[fia.speech(Hey, sorry that you had to see that,)] she sheepishly apologises. Clearly not realising that it was your spell which caused the two of them to fuck, she sighs, [fia.speech(I don't know what came over me. Developing intimate relationships is one of the most effective ways for me to do my job, but it doesn't normally go that far in a public place...)]
 		</p>
 	#ELSE
 		<p>
-			[fia.speech(Hey, sorry if that made you uncomfortable,)] she apologises, [fia.speech(Seducing him seemed like the easiest way to get inside Sae's shop...)]
+			[fia.speech(Hey, sorry if that made you uncomfortable,)] she apologises, [fia.speech(Developing intimate relationships is one of the most effective ways for me to do my job...)]
 		</p>
 	#ENDIF
 	<p>
-		Telling her not to worry about it, you suggest that Fia should check to see if the door is actually unlocked. Nodding in agreement, the spunky reporter steps over to the door and turns the handle. With a quiet creak, the door swings open, and Fia turns to face you with a big grin on her face.
+		Telling her not to worry about it, you suggest that Fia should check to see if the access card actually works. Nodding in agreement, the spunky reporter produces it from her hoodie and steps over to the locked door. Swiping it over the small, arcane-powered card reader that's fixed to the wall, she beams in delight as a green light flashes and the door makes an audible clicking noise as it unlocks.
 	</p>
 	<p>
-		[fia.speech(You heard what that security guard said, right? There's a second guard on duty, but he'll he fucking that demo doll Sae's got all night,)] Fia says, before stepping through the doorway. Following hot on her heels, you enter Lovienne's Luxuries and quietly shut the door behind you. Shining her flashlight around the dark interior, Fia whispers, [fia.speech(Come on, we need to find evidence of what Sae's done with those illegal slaves...)]
+		[fia.speech(Remember, there's only one guard on station at this time, and from what I've been told, he spends all night fucking that demo doll Sae's got,)] Fia says, before cautiously pulling the door open and stepping inside. Following hot on her heels, you enter Lovienne's Luxuries and quietly shut the door behind you. Shining her flashlight around the dark interior, Fia whispers, [fia.speech(Come on, we need to find evidence of what Sae's done with those illegal slaves...)]
 	</p>
 	]]>
 	</htmlContent>
@@ -177,7 +177,7 @@
 		Preparing for the worst, you get ready to confront any guards who might question your sudden appearance. As the mesh doors slide open, however, you allow yourself to breathe a sigh of relief as you see that there's no sign of life in the cavernous space before you.
 	</p>
 	<p>
-		Carved out of the rock deep beneath the surface, you find yourself looking down a concrete-floored corridor which runs in a straight line through what could best be described as a subterranean warehouse. Cool white lights bolted into the rocky ceiling high above your head bathe the entire area in an artificial illumination. After having got used to the dim glow of Fia's flashlight, the brightness of the sterile lighting makes you feel a little uncomfortable. Looking to the right of the corridor, you see dozens of wooden crates neatly stacked up and marked as containing dildos, butt plugs, ball gags, and all manner of other such sex toys. Fia looks to your left at the same time that you do, and as you both set your eyes upon regimented rows of inanimate sex dolls, the reporter gasps, [fia.speech(Woah... There must be hundreds of them...)]
+		Carved out of the rock deep beneath the surface, you find yourself looking down a concrete-floored corridor which runs in a straight line through what could best be described as a subterranean warehouse. Cool white lights bolted into the rocky ceiling high above your head bathe the entire area in an artificial illumination. After having got used to the dim glow of Fia's flashlight, the brightness of the sterile lighting makes you feel a little uncomfortable. Looking to the right of the corridor, you see dozens of wooden crates neatly stacked up and marked as containing 'dildos', 'butt plugs', 'ball gags', and all manner of other such sex toys. Fia looks to your left at the same time that you do, and as you both set your eyes upon regimented rows of inanimate sex dolls, the reporter gasps, [fia.speech(Woah... There must be hundreds of them...)]
 	</p>
 	<p>
 		Sure enough, a quick count of the first row of dolls totals about twenty, and you can see that the columns behind stretch to at least twice that number. Although you know that every one of them is capable of fully autonomous behaviour, not a single doll reacts to your appearance, leading you to assume that they must have been ordered to wait here until needed to replenish the stock in the shop up above.
@@ -191,35 +191,26 @@
 	<!-- Elevator & storage: -->
 	
 	<htmlContent tag="EXIT"><![CDATA[
-	#IF(pc.isDoll())
+	#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_4))
+		<p>
+			The elevator you used to enter this subterranean facility waits with its mesh doors open, ready for you and Fia to enter and use it to escape from the factory.
+		</p>
+		<p>
+			[fia.speech(Come on, [pc.name]!)] the reporter exclaims, [fia.speech(Let's get out of this place!)]
+		</p>
+		<p>
+			Although your companion is keen to escape, you could always take one last look around before leaving this factory if you really wanted to...
+		</p>
+	#ELSE
 		<p>
 			The elevator you used to enter this subterranean facility waits with its mesh doors open, ready for when you and Fia have completed your mission.
 		</p>
 		<p>
-			You seriously doubt that the reporter would have left the factory and abandoned you to your fate, and you really can't leave this place until you've transformed back into your old self. With this in mind, you turn away from the elevator and wonder where to search for Fia next...
+			[fia.speech(We're not going to find anything in here, and we're not finished yet!)] the reporter exclaims, [fia.speech(Come on, [pc.name], let's explore some more...)]
 		</p>
-	#ELSE
-		#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_4))
-			<p>
-				The elevator you used to enter this subterranean facility waits with its mesh doors open, ready for you and Fia to enter and use it to escape from the factory.
-			</p>
-			<p>
-				[fia.speech(Come on, [pc.name]!)] the reporter exclaims, [fia.speech(Let's get out of this place!)]
-			</p>
-			<p>
-				Although your companion is keen to escape, you could always take one last look around before leaving this factory if you really wanted to...
-			</p>
-		#ELSE
-			<p>
-				The elevator you used to enter this subterranean facility waits with its mesh doors open, ready for when you and Fia have completed your mission.
-			</p>
-			<p>
-				[fia.speech(We're not going to find anything in here, and we're not finished yet!)] the reporter exclaims, [fia.speech(Come on, [pc.name], let's explore some more...)]
-			</p>
-			<p>
-				Turning away from the elevator, you wonder where to go now...
-			</p>
-		#ENDIF
+		<p>
+			Turning away from the elevator, you wonder where to go now...
+		</p>
 	#ENDIF
 	]]>
 	</htmlContent>
@@ -229,21 +220,17 @@
 		[pc.Stepping] into the elevator, you make sure that Fia is safely beside you before pressing the worn, blue button which has an up arrow etched into its surface. With a loud grating of metal-on-metal, the mesh doors of this industrial elevator quickly slide shut, before the whole platform lurches upwards and begins its slow ascent.
 	</p>
 	<p>
-		[fia.speech(I'll take all of this evidence straight to my editor,)] the reporter states, having to raise her voice almost to a shout to be heard over the sound of grinding gears and grating metal. Holding up the incriminating documents, she says, [fia.speech(This'll be enough to stop Sae and Angelixx. While we didn't manage to save the dolls, at least the illegally enslaved slimes will be set free once the Enforcers see my story.
-		#IF(flags.hasFlag(FLAG_innoxia_doll_factory_player_dollified))
-			 Oh, and don't worry, I'll leave out the whole part where you were... well, you know... turned into a doll for a while. Nobody needs to know about that.
-		#ENDIF
-		)]
+		[fia.speech(I'll take all of this evidence straight to my editor,)] the reporter states, having to raise her voice almost to a shout to be heard over the sound of grinding gears and grating metal. Holding up the incriminating documents, she says, [fia.speech(This'll be enough to stop Sae and Angelixx. While we didn't manage to save the dolls, at least the illegally enslaved slimes will be set free once the Enforcers see my story.)]
 	</p>
 	<p>
 		After the long ascent, the elevator finally jolts to a sudden stop. With a high pitched ping, the mesh doors automatically slide open, allowing the two of you to retrace your path into the building. Within a minute you're back out in the alleyway behind Lovienne's Luxuries, and as the door slams shut behind you, the two of you let out a relieved sigh.
 	</p>
 	</p>
 	<p>
-		[fia.speech(I'll have the story ready within a few days,)] Fia says, [fia.speech(You live at Lilaya's place, right? Near the central plaza? Great. I'll send word to you before it hits the presses, so keep an eye on your post! Oh, and I'll have those fifty thousand flames I promised for you when I see you next! Thanks for everything!)]
+		[fia.speech(I'll have the story ready within a few days,)] Fia says, [fia.speech(You live at Lilaya's place, right? Near the central plaza? Great. I'll send word to you before it hits the presses, so keep an eye on your post! Oh, and thanks for everything!)]
 	</p>
 	<p>
-		Clearly eager to get the evidence to her editor as soon as possible, Fia dashes off down the alleyway, leaving you wondering what to do now...
+		Clearly eager to get the eidence to her editor as soon as possible, Fia dashes off down the alleyway, leaving you wondering what to do now...
 	</p>
 	<p style='text-align:center;'>
 		[style.italicsMinorGood(After a few days have passed, check in the entrance hall to Lilaya's mansion during daylight hours to see if there's any news from Fia.)]
@@ -263,19 +250,13 @@
 			As the two of you proceed forwards away from the elevator, there's a sudden, loud clanging noise from the metal door at the far end of the corridor. Recognising it as the sound of a bolt being drawn back, Fia grabs you by the [pc.arm(true)] and pulls you over towards the nearby crates, hissing, [fia.speech(Someone must have heard the elevator! Quick, hide! We can't be caught here!)]
 		</p>
 	#ELSE
-		#IF(pc.isDoll())
-			<p>
-				Glancing over at the dolls, you experience a brief, unwelcome urge to step over and join them in their silent watch. Shaking the intrusive thought from your mind, you wonder if Fia could be hiding somewhere in this area...
-			</p>
-		#ELSE
-			<p>
-				#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_4))
-					[fia.speech(So all those dolls were once people,)] Fia says in a lowered tone, almost as though she doesn't want the dolls to hear her, [fia.speech(I can't believe it... Come on, [pc.name], let's get out of here...)]
-				#ELSE
-					[fia.speech(Don't you find it creepy?)] Fia says in a lowered tone, almost as though she doesn't want the dolls to hear her, [fia.speech(I mean, they're all capable of moving like the ones upstairs, right? And they've been standing here for how long? Look, most of them have dust on their heads and shoulders...)]
-				#ENDIF
-			</p>
-		#ENDIF
+		<p>
+			#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_4))
+				[fia.speech(So all those dolls were once people,)] Fia says in a lowered tone, almost as though she doesn't want the dolls to hear her, [fia.speech(I can't believe it... Come on, [pc.name], let's get out of here...)]
+			#ELSE
+				[fia.speech(Don't you find it creepy?)] Fia says in a lowered tone, almost as though she doesn't want the dolls to hear her, [fia.speech(I mean, they're all capable of moving like the ones upstairs, right? And they've been standing here for how long? Look, most of them have dust on their heads and shoulders...)]
+			#ENDIF
+		</p>
 	#ENDIF
 	]]>
 	</htmlContent>
@@ -316,23 +297,17 @@
 	
 	<htmlContent tag="STORAGE_CRATES"><![CDATA[
 	<p>
-		Dozens upon dozens of wooden crates have been neatly stacked up in this area. Moving past them, you read markings which declare their contents as being 'dildos', 'butt plugs', 'ball gags', and all manner of other such sex toys. There really isn't much else to see in this area, and after looping around a tower of crates, you find yourself facing the central corridor.
+		Dozens upon dozens of wooden crates have been neatly stacked up in this area. Moving past them, you read markings which declare their contents as being 'dildos', 'butt plugs', 'ball gags', and all manner of other such sex toys. There really isn't much else to see in this area, and after looping around a tower of crates, you find yourself wandering back towards the central corridor.
 	</p>
-	#IF(pc.isDoll())
-		<p>
-			The last thing on your mind right now is to start rummaging around in these crates, and besides, the sight of a doll carrying items would surely arouse suspicion in any of the succubi overseers who notice you. Deciding that it's best to leave the crates as they are, you turn away from them and focus on your mission of finding Fia...
-		</p>
-	#ELSE
-		<p>
-			[fia.speech(We aren't going to find much evidence of illegal enslavement here...)] Fia sighs.
-		</p>
-		<p>
-			Agreeing with her statement, you prepare to move on, but as you pass one of the crates you see that it hasn't been securely fastened shut. Experimentally pulling on the lid, you discover that it's completely loose, and so if you wanted to you could take it off and help yourself to the contents.
-		</p>
-		<p>
-			[fia.speech([pc.Name]... We aren't here to steal sex toys...)] Fia tuts in disapproval, making it clear that she thinks you should leave the crate as it is.
-		</p>
-	#ENDIF
+	<p>
+		[fia.speech(We aren't going to find much evidence of illegal enslavement here...)] Fia sighs.
+	</p>
+	<p>
+		Agreeing with her statement, you prepare to move on, but as you pass one of the crates you see that it hasn't been securely fastened shut. Experimentally pulling on the lid, you discover that it's completely loose, and so if you wanted to you could take it off and help yourself to the contents.
+	</p>
+	<p>
+		[fia.speech([pc.Name]... We aren't here to steal sex toys...)] Fia tuts in disapproval, making it clear that she thinks you should leave the crate as it is.
+	</p>
 	]]>
 	</htmlContent>
 	
@@ -364,37 +339,24 @@
 	
 	<htmlContent tag="STORAGE_CRATES_SEARCHED"><![CDATA[
 	<p>
-		Dozens upon dozens of wooden crates have been neatly stacked up in this area. Moving past them, you read markings which declare their contents as being 'dildos', 'butt plugs', 'ball gags', and all manner of other such sex toys. There really isn't much else to see in this area, and after looping around a tower of crates, you find yourself facing the central corridor.
+		Dozens upon dozens of wooden crates have been neatly stacked up in this area. Moving past them, you read markings which declare their contents as being 'dildos', 'butt plugs', 'ball gags', and all manner of other such sex toys. There really isn't much else to see in this area, and after looping around a tower of crates, you find yourself wandering back towards the central corridor.
 	</p>
-	#IF(pc.isDoll())
-		<p>
-			Having previously taken all you could from these crates, and subsequently having had your loot taken from you before your transformation, there's really nothing for you to do here. As such, you step away from the crates and return your focus to the mission of finding Fia...
-		</p>
-	#ELSE
-		<p>
-			[fia.speech(We've already spent enough time here, thanks to you...)] Fia sighs, nodding towards the crate which you've previously ransacked.
-		</p>
-		<p>
-			Agreeing with her statement, you continue forwards and wonder where to go next...
-		</p>
-	#ENDIF
+	<p>
+		[fia.speech(We've already spent enough time here, thanks to you...)] Fia sighs, nodding towards the crate which you've previously ransacked.
+	</p>
+	<p>
+		Agreeing with her statement, you continue forwards and wonder where to go next...
+	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="STORAGE_DOLLS"><![CDATA[
-	#IF(pc.isDoll())
-		<p>
-			Wondering if Fia might be hiding somewhere nearby, you [pc.step] forwards and just about manage to squeeze through the gaps between the rows of inanimate sex dolls. Just like you, the dolls are all totally naked and almost completely indistinguishable from each other; the only feature which differs between you all is the slight variation in appearance of the white barcode that's tattooed onto your shiny black foreheads. Your silicone breasts and ass bump and rub against them as you make your way through the dolls' tightly packed ranks, but instead of allowing themselves to be pushed aside or tipped over, any doll which you disturb immediately returns to her original position.
-		</p>
-		<p>
-			The further into the rows of dolls you get, the more dust seems to have settled on their heads, shoulders, and exposed breasts. Although your mind is still your own, you instinctively know that your new body is capable of remaining perfectly still for any length of time. A tiny part of you wishes to join the ranks of these silent, unmoving dolls, but you quickly dispel this thought and continue your search for Fia...
-		</p>
-	#ELSEIF(pc.isQuestProgressGreaterThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_4))
+	#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_4))
 		<p>
 			Wanting to fully explore this warehouse, you [pc.step] forwards and just about manage to squeeze through the gaps between the rows of inanimate sex dolls. Not wanting to be left behind, Fia hurries forwards and anxiously calls out, [fia.speech(Where are you going?! We don't have time for this...)]
 		</p>
 		<p>
-			Continuing forwards, you pass doll after doll, each one being totally naked and almost completely indistinguishable from the last; the only feature which differs between them is the slight variation in appearance of the white barcode that's tattooed onto their shiny black foreheads. Now and again you accidentally brush against one, but instead of allowing herself to be pushed aside or tipped over, the disturbed doll immediately returns to her original position.
+			Continuing forwards, you pass doll after doll, each one being completely naked and almost completely indistinguishable from the last; the only feature which differs between them is the slight variation in appearance of the white barcode that's tattooed onto their shiny black foreheads. Now and again you accidentally brush against one, but instead of allowing herself to be pushed aside or tipped over, the disturbed doll immediately returns to her original position.
 		</p>
 		<p>
 			[fia.speech(This is so creepy...)] Fia mutters as she follows closely behind. Reaching up to gently hold on to you, she nervously states, [fia.speech(All these dolls were once people... I can't believe that Sae's been doing this... We need to get out of here, now!)]
@@ -407,7 +369,7 @@
 			Wanting to fully explore this warehouse, you [pc.step] forwards and just about manage to squeeze through the gaps between the rows of inanimate sex dolls. Not wanting to be left behind, Fia skips forwards and playfully calls out, [fia.speech(Don't leave me!)]
 		</p>
 		<p>
-			Continuing forwards, you pass doll after doll, each one being totally naked and almost completely indistinguishable from the last; the only feature which differs between them is the slight variation in appearance of the white barcode that's tattooed onto their shiny black foreheads. Now and again you accidentally brush against one, but instead of allowing herself to be pushed aside or tipped over, the disturbed doll immediately returns to her original position.
+			Continuing forwards, you pass doll after doll, each one being completely naked and almost completely indistinguishable from the last; the only feature which differs between them is the slight variation in appearance of the white barcode that's tattooed onto their shiny black foreheads. Now and again you accidentally brush against one, but instead of allowing herself to be pushed aside or tipped over, the disturbed doll immediately returns to her original position.
 		</p>
 		<p>
 			[fia.speech(I don't like this, [pc.name]...)] Fia mutters as she follows closely behind. Reaching up to gently hold on to you, she nervously states, [fia.speech(This is creepy. These dolls can all move if they wanted to, but they're completely still... Look at these ones closer to the back; there's so much dust on them!)]
@@ -449,19 +411,13 @@
 	</htmlContent>
 	
 	<htmlContent tag="DOOR_1"><![CDATA[
-	#IF(pc.getLastCell().getPlaceType()==PLACE_TYPE_innoxia_dominion_sex_shop_factory_main_floor && !flags.hasFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_1) && !flags.hasFlag(FLAG_innoxia_doll_factory_broken_locked_door_1))
+	#IF(pc.getLastCell().getPlaceType()==PLACE_TYPE_innoxia_dominion_sex_shop_factory_main_floor && !flags.hasFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_1))
 		<p>
 			You once again find yourself approaching the metal door which separates the storage area and the toy factory. Now being on the other side of it, you see that there's a simple latch which operates the locking mechanism.
 		</p>
-		#IF(pc.isDoll())
-			<p>
-				Stepping forwards, you turn the latch and so unlock the door. Hoping that Fia is somewhere on the other side, you prepare to return to the storage area at the start of the underground factory...
-			</p>
-		#ELSE
-			<p>
-				[fia.speech(Great, we won't have to go through the vents again,)] Fia says, before skipping forwards and turning the latch. With the door now unlocked, she turns to smile at you and happily exclaim, [fia.speech(That was easy!)]
-			</p>
-		#ENDIF
+		<p>
+			[fia.speech(Great, we won't have to go through the vents again,)] Fia says, before skipping forwards and turning the latch. With the door now unlocked, she turns to smile at you and happily exclaim, [fia.speech(That was easy!)]
+		</p>
 	#ELSE
 		<p>
 			A large metal door sits at the end of the concrete corridor, and onto the bare rock above it the words 'Toy Factory; No Admittance!' have been neatly written in white paint. A metal workbench has been placed beside this door, and upon it sit stacks of papers, folders, and multi-coloured ring binders. A sign above this table reminds any passer-by to 'Always log inventory changes! Failure to do so will result in punishment!'.
@@ -586,20 +542,14 @@
 	<p>
 		As you travel through the maintenance passage, you pass numerous small ducts which branch off from the curved walls, and by peering down these smaller passageways, you're able to see rotating fans and flashes of light from deeper within the facility. Bored into the ceiling, several larger holes link your passage to the surface, and from up above you hear the steady background hum of huge fans as they tirelessly suck relatively fresh air down from Dominion.
 	</p>
-	#IF(pc.isDoll())
-		<p>
-			The passage is large enough for you to walk forwards without ducking your head, allowing you to move relatively quickly and comfortably. Your silicone feet quietly slap against the concrete floor as you continue forwards through the darkness...
-		</p>
-	#ELSE
-		<p>
-			#IF(pc.getHeightValue()<=fia.getHeightValue()+10)
-				Like Fia, the passage is large enough for you to [pc.walk] forwards without ducking your head, allowing you to move relatively quickly and comfortably.
-			#ELSE
-				Unlike Fia, who's small enough to walk forwards without ducking her head, you find yourself having to stoop down as you progress down the passage, making the experience a slow and uncomfortable one.
-			#ENDIF
-			 Your companion's flashlight illuminates your surroundings, allowing her to see the way ahead and happily state, [fia.speech(I can see the end already; this won't take long...)]
-		</p>
-	#ENDIF
+	<p>
+		#IF(pc.getHeightValue()<=fia.getHeightValue()+10)
+			Like Fia, the passage is large enough for you to [pc.walk] forwards without ducking your head, allowing you to move relatively quickly and comfortably.
+		#ELSE
+			Unlike Fia, who's small enough to walk forwards without ducking her head, you find yourself having to stoop down as you progress down the passage, making the experience a slow and uncomfortable one.
+		#ENDIF
+		 Your companion's flashlight illuminates your surroundings, allowing her to see the way ahead and happily state, [fia.speech(I can see the end already; this won't take long...)]
+	</p>
 	]]>
 	</htmlContent>
 
@@ -647,90 +597,14 @@
 		<p>
 			The vast cavern which you find yourself in has been carved out of bedrock, and is illuminated by the cool, white glow of hundreds of lights that are bolted into the rocky ceiling high above your head. Countless pipes and electrical ducts run in between these lights, and here and there they drop down to feed the huge, industrial machines which populate this cavern. Noisily whirring away, these massive contraptions spew forth sex toys of all descriptions, which then ride down conveyor belts, through other machines, and then finally arrive at one of dozens of packaging stations.
 		</p>
-		#IF(pc.isDoll())
-			<p>
-				Operating these machines, and placing the finished sex toys into boxes ready for transportation, are a vast number of sex dolls. Instead of their silicone bodies being the typical black as you've seen before, most of these dolls are either white or yellow, with some also being bright red. It only takes you a moment to notice that the dolls' colour matches that of lines and boxes which have been painted onto the smooth concrete floor, and for the most part they follow the lines and remain within the boxes that match their colour. White dolls seem to be responsible for operating the machines, yellow dolls are packaging the finished sex toys and stacking boxes, and red dolls are performing maintenance on the couple of machines which aren't currently in use.
-			</p>
-			<p>
-				Thanks to the fact that you look like just another doll, the sluttily-dressed succubi overseers which you sometimes encounter all ignore you. Angelixx is clearly keeping your escape a secret from them, most likely out of fear of Saellatrix finding out, and so you're able to proceed through the factory without issue...
-			</p>
-		#ELSE
-			<p>
-				Operating these machines, and placing the finished sex toys into boxes ready for transportation, are a vast number of sex dolls. Instead of their silicone bodies being the typical black as you've seen before, most of these dolls are either white or yellow, with some also being bright red. It only takes you a moment to notice that the dolls' colour matches that of lines and boxes which have been painted onto the smooth concrete floor, and for the most part they follow the lines and remain within the boxes that match their colour. White dolls seem to be responsible for operating the machines, yellow dolls are packaging the finished sex toys and stacking boxes, and red dolls are performing maintenance on the couple of machines which aren't currently in use. Thankfully, although many of them have quite clearly seen you, none of them react to your presence, and simply focus on carrying out their assigned tasks.
-			</p>
-			#IF(saellatrix.isAnySistersAvailable())
-				<p>
-					Now and again you catch brief glimpses of a sluttily-dressed succubus strutting around the factory. Thankfully, she doesn't catch sight of you, but you don't know for how long your luck will last...
-				</p>
-				#IF(pc.hasStatusEffect(SE_MARKED_BY_MUSK) || pc.hasStatusEffect(SE_SMOKING) || pc.hasStatusEffect(SE_RECENTLY_SMOKED) || pc.getAlcoholLevel().isGreaterThan(ALCOHOL_LEVEL_TWO_MERRY))
-					<p style='text-align:center;'>
-						#IF(pc.hasStatusEffect(SE_MARKED_BY_MUSK))
-							[style.italicsDirty(Your musky scent will surely give you away if you encounter a succubus!)]
-						#ELSEIF(pc.hasStatusEffect(SE_SMOKING) || pc.hasStatusEffect(SE_RECENTLY_SMOKED))
-							[style.italicsGrey(The smell of smoke that's hovering around you will surely give you away if you encounter a succubus!)]
-						#ELSEIF(pc.getAlcoholLevel().isGreaterThan(ALCOHOL_LEVEL_TWO_MERRY))
-							[style.italicsAlcohol(As you're drunk, you'll surely be unable to hide in time if you encounter a succubus!)]
-						#ENDIF
-					</p>
-				#ENDIF
-			#ELSE
-				<p>
-					Having defeated all of the succubi overseers within the factory, you're free to move through this area of the underground facility without risk of being caught.
-				</p>
-			#ENDIF
-		#ENDIF
-	#ENDIF
-	]]>
-	</htmlContent>
-
-	<htmlContent tag="MAIN_MACHINES"><![CDATA[
-	#IF(pc.isDoll())
 		<p>
-			Approaching one of the factory's many machines, you see that the pipe that's feeding it from above is pumping a clear, gelatinous liquid into its glass storage tanks. From there, the liquid drips directly into dozens of rubber moulds which are arranged neatly on a large metal tray, before advancing down a slow-moving assembly line. On this particular machine, the moulds have the distinctive shape of [#SPECIAL_PARSE_0].
+			Operating these machines, and placing the finished sex toys into boxes ready for transportation, are a vast number of sex dolls. Instead of their silicone bodies being the typical black as you've seen before, most of these dolls are either white or yellow, with some also being bright red. It only takes you a moment to notice that the dolls' colour matches that of lines and boxes which have been painted onto the smooth concrete floor, and for the most part they follow the lines and remain within the boxes that match their colour. White dolls seem to be responsible for operating the machines, yellow dolls are packaging the finished sex toys and stacking boxes, and red dolls are performing maintenance on the couple of machines which aren't currently in use. Thankfully, although many of them have quite clearly seen you, none of them react to your presence, and simply focus on carrying out their assigned tasks.
 		</p>
-		<p>
-			As you move past the white-coloured sex dolls which man the production line, you see them using syringes to manually inject each of the moulds with what looks to be a bubbling [#SPECIAL_PARSE_1] liquid. The clear material within the mould quickly takes on the same [#SPECIAL_PARSE_1] colour, and releases a small cloud of wispy purple smoke in the process. Adding to the brightly coloured fumes, the dolls at the next stage of the assembly line are using pneumatic spray guns to envelop the moulds in a fine pink mist, which is quickly sucked up towards a ceiling-mounted extractor fan.
-		</p>
-		<p>
-			Continuing down the concrete walkway which runs alongside the huge machine, you observe the white-coloured dolls further down the assembly line pushing the fully-formed [#SPECIAL_PARSE_1] [#SPECIAL_PARSE_0] out of their moulds. A yellow-coloured doll then retrieves the now-empty moulds and carries them back to be stacked up at the start of the line. Other yellow dolls are busily packing the [#SPECIAL_PARSE_0] into boxes, before wheeling them away to a temporary storage area.
-		</p>
-		<p>
-			You find the robotic movements of the dolls to be strangely appealing, and for a moment you find yourself wishing to be useful like them. A brief fantasy of becoming an obedient sex doll comes unbidden to your mind, but you manage to quickly snap out of it and continue your search for Fia.
-		</p>
-	#ELSE
-		#IF(saellatrix.isAnySisterPresent())
+		#IF(saellatrix.isAnySistersAvailable())
 			<p>
-				Wanting to make sure that you've explored all of the toy factory, you head back the way you came and soon find yourself passing by a familiar machine. The white and yellow dolls which are working in this area don't pay you any attention as you pass, leaving you to approach the spot where you had a fight with one of Saellatrix's enslaved sisters. 
+				Now and again you catch brief glimpses of a sluttily-dressed succubus strutting around the factory. Thankfully, she doesn't catch sight of you, but you don't know for how long your luck will last...
 			</p>
-		#ELSE
-			<p>
-				Approaching one of the factory's many machines, you see that the pipe that's feeding it from above is pumping a clear, gelatinous liquid into its glass storage tanks. From there, the liquid drips directly into dozens of rubber moulds which are arranged neatly on a large metal tray, before advancing down a slow-moving assembly line. On this particular machine, the moulds have the distinctive shape of [#SPECIAL_PARSE_0].
-			</p>
-			<p>
-				[fia.speech(All the sex toys in Dominion must come from here...)] Fia speculates as she sees how many sex toys are being created by just one machine alone.
-			</p>
-			<p>
-				As you move past the white-coloured sex dolls which man the production line, you see them using syringes to manually inject each of the moulds with what looks to be a bubbling [#SPECIAL_PARSE_1] liquid. The clear material within the mould quickly takes on the same [#SPECIAL_PARSE_1] colour, and releases a small cloud of wispy purple smoke in the process. Adding to the brightly coloured fumes, the dolls at the next stage of the assembly line are using pneumatic spray guns to envelop the moulds in a fine pink mist.
-			</p>
-			<p>
-				#IF(flags.hasFlag(FLAG_innoxia_doll_factory_vents_discovered_1) || flags.hasFlag(FLAG_innoxia_doll_factory_vents_discovered_2))
-					[fia.speech(Now I see why they have such a big ventilation system,)]
-				#ELSE
-					[fia.speech(They must have a big ventilation system here to cope with all this,)]
-				#ENDIF
-				 your companion states as she watches the colourful fumes being sucked up towards a ceiling-mounted extractor fan.
-			</p>
-			<p>
-				Continuing down the concrete walkway which runs alongside the huge machine, you observe the white-coloured dolls further down the assembly line pushing the fully-formed [#SPECIAL_PARSE_1] [#SPECIAL_PARSE_0] out of their moulds. A yellow-coloured doll then retrieves the now-empty moulds and carries them back to be stacked up at the start of the line. Other yellow dolls are busily packing the [#SPECIAL_PARSE_0] into boxes, before wheeling them away to a temporary storage area.
-			</p>
-			<p>
-				#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_4))
-					[fia.speech(We should keep moving,)] Fia impatiently states, [fia.speech(We need to get out of this place as quickly as possible...)]
-				#ELSE
-					[fia.speech(As fascinating as this is, we're not going to find any evidence of illegal slavery here,)] Fia impatiently states, [fia.speech(Let's try to get through this factory and find an office or something...)]
-				#ENDIF
-			</p>
-			#IF(saellatrix.isAnySistersAvailable() && (pc.hasStatusEffect(SE_MARKED_BY_MUSK) || pc.hasStatusEffect(SE_SMOKING) || pc.hasStatusEffect(SE_RECENTLY_SMOKED) || pc.getAlcoholLevel().isGreaterThan(ALCOHOL_LEVEL_TWO_MERRY)))
+			#IF(pc.hasStatusEffect(SE_MARKED_BY_MUSK) || pc.hasStatusEffect(SE_SMOKING) || pc.hasStatusEffect(SE_RECENTLY_SMOKED) || pc.getAlcoholLevel().isGreaterThan(ALCOHOL_LEVEL_TWO_MERRY))
 				<p style='text-align:center;'>
 					#IF(pc.hasStatusEffect(SE_MARKED_BY_MUSK))
 						[style.italicsDirty(Your musky scent will surely give you away if you encounter a succubus!)]
@@ -741,6 +615,58 @@
 					#ENDIF
 				</p>
 			#ENDIF
+		#ELSE
+			<p>
+				Having defeated all of the succubi overseers within the factory, you're free to move through this area of the underground facility without risk of being caught.
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="MAIN_MACHINES"><![CDATA[
+	#IF(saellatrix.isAnySisterPresent())
+		<p>
+			Wanting to make sure that you've explored all of the toy factory, you head back the way you came and soon find yourself passing by a familiar machine. The white and yellow dolls which are working in this area don't pay you any attention as you pass, leaving you to approach the spot where you had a fight with one of Saellatrix's enslaved sisters. 
+		</p>
+	#ELSE
+		<p>
+			Approaching one of the factory's many machines, you see that the pipe that's feeding it from above is pumping a clear, gelatinous liquid into its glass storage tanks. From there, the liquid drips directly into dozens of rubber moulds which are arranged neatly on a large metal tray, before advancing down a slow-moving assembly line. On this particular machine, the moulds have the distinctive shape of [#SPECIAL_PARSE_0].
+		</p>
+		<p>
+			[fia.speech(All the sex toys in Dominion must come from here...)] Fia speculates as she sees how many sex toys are being created by just one machine alone.
+		</p>
+		<p>
+			As you move past the white-coloured sex dolls which man the production line, you see them using syringes to manually inject each of the moulds with what looks to be a bubbling [#SPECIAL_PARSE_1] liquid. The clear material within the mould quickly takes on the same [#SPECIAL_PARSE_1] colour, and releases a small cloud of wispy purple smoke in the process. Adding to the brightly coloured fumes, the dolls at the next stage of the assembly line are using pneumatic spray guns to envelop the moulds in a fine pink mist.
+		</p>
+		<p>
+			#IF(flags.hasFlag(FLAG_innoxia_doll_factory_vents_discovered_1) || flags.hasFlag(FLAG_innoxia_doll_factory_vents_discovered_2))
+				[fia.speech(Now I see why they have such a big ventilation system,)]
+			#ELSE
+				[fia.speech(They must have a big ventilation system here to cope with all this,)]
+			#ENDIF
+			 your companion states as she watches the colourful fumes being sucked up towards a ceiling-mounted extractor fan.
+		</p>
+		<p>
+			Continuing down the concrete walkway which runs alongside the huge machine, you observe the white-coloured dolls further down the assembly line pushing the fully-formed [#SPECIAL_PARSE_1] [#SPECIAL_PARSE_0] out of their moulds. A yellow-coloured doll then retrieves the now-empty moulds and carries them back to be stacked up at the start of the line. Other yellow dolls then busily pack the [#SPECIAL_PARSE_0] into boxes, before wheeling them away to a temporary storage area.
+		</p>
+		<p>
+			#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_4))
+				[fia.speech(We should keep moving,)] Fia impatiently states, [fia.speech(We need to get out of this place as quickly as possible...)]
+			#ELSE
+				[fia.speech(As fascinating as this is, we're not going to find any evidence of illegal slavery here,)] Fia impatiently states, [fia.speech(Let's try to get through this factory and find an office or something...)]
+			#ENDIF
+		</p>
+		#IF(saellatrix.isAnySistersAvailable() && (pc.hasStatusEffect(SE_MARKED_BY_MUSK) || pc.hasStatusEffect(SE_SMOKING) || pc.hasStatusEffect(SE_RECENTLY_SMOKED) || pc.getAlcoholLevel().isGreaterThan(ALCOHOL_LEVEL_TWO_MERRY)))
+			<p style='text-align:center;'>
+				#IF(pc.hasStatusEffect(SE_MARKED_BY_MUSK))
+					[style.italicsDirty(Your musky scent will surely give you away if you encounter a succubus!)]
+				#ELSEIF(pc.hasStatusEffect(SE_SMOKING) || pc.hasStatusEffect(SE_RECENTLY_SMOKED))
+					[style.italicsGrey(The smell of smoke that's hovering around you will surely give you away if you encounter a succubus!)]
+				#ELSEIF(pc.getAlcoholLevel().isGreaterThan(ALCOHOL_LEVEL_TWO_MERRY))
+					[style.italicsAlcohol(As you're drunk, you'll surely be unable to hide in time if you encounter a succubus!)]
+				#ENDIF
+			</p>
 		#ENDIF
 	#ENDIF
 	]]>
@@ -749,55 +675,46 @@
 	<!-- Second locked door, following same format as door 1: -->
 	
 	<htmlContent tag="DOOR_2"><![CDATA[
-	#IF(pc.isDoll())
+	#IF(pc.getLastCell().getPlaceType()==PLACE_TYPE_innoxia_dominion_sex_shop_factory_slime_milking && !flags.hasFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_2))
 		<p>
-			You find yourself approaching the large, metal door through which you escaped from Angelixx. Reinforced with several bulky metal bars, and with a series of sturdy rivets set into it regular intervals, this door looks extremely strong and durable. Onto the bare rock above this door the words 'Milking Chambers; Strictly No Admittance!' have been neatly written in yellow paint.
+			You once again find yourself approaching the metal door which separates the toy factory from the milking chambers. Now being on the other side of it, you see that there's a simple latch which operates the locking mechanism.
 		</p>
 		<p>
-			Angelixx appears to have securely locked this door after her, and as Fia is bound to be somewhere within the factory itself, you thankfully don't need to find a way through it.
+			[fia.speech(At least this part's easy enough,)] Fia says, before stepping forwards and turning the latch. With the door now unlocked, she turns to smile at you and declare, [fia.speech(Now we can come and go as we please!)]
 		</p>
 	#ELSE
-		#IF(pc.getLastCell().getPlaceType()==PLACE_TYPE_innoxia_dominion_sex_shop_factory_slime_milking && !flags.hasFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_2))
+		<p>
+			Providing a second exit from the sex toy factory, another large, metal door has been set into the rock face before you. Unlike the first one you encountered, however, this one has been reinforced with several bulky metal bars, and a series of sturdy rivets set in regular intervals suggest that it has a composite construction. Onto the bare rock above this door the words 'Milking Chambers; Strictly No Admittance!' have been neatly written in yellow paint.
+		</p>
+		#IF(!flags.hasFlag(FLAG_innoxia_doll_factory_encountered_locked_door_2))
 			<p>
-				You once again find yourself approaching the metal door which separates the toy factory from the milking chambers. Now being on the other side of it, you see that there's a simple latch which operates the locking mechanism.
+				Giving the door a quick push and a pull, you discover that it's securely locked, just as you'd expect.
 			</p>
 			<p>
-				[fia.speech(At least this part's easy enough,)] Fia says, before stepping forwards and turning the latch. With the door now unlocked, she turns to smile at you and declare, [fia.speech(Now we can come and go as we please!)]
+				[fia.speech(We need to get past this door!)] Fia exclaims,
+				#IF(flags.hasFlag(FLAG_innoxia_doll_factory_broken_locked_door_1))
+					 before scratching her head and sighing, [fia.speech(I'm not sure how we'll do that, though. I don't know if you'll be able to knock this one down...)]
+				#ELSE
+					 before looking around and stating, [fia.speech(There's bound to be more ventilation ducts we can use. Let's try to find some!)]
+				#ENDIF
 			</p>
 		#ELSE
-			<p>
-				Providing a second exit from the sex toy factory, another large, metal door has been set into the rock face before you. Unlike the first one you encountered, however, this one has been reinforced with several bulky metal bars, and a series of sturdy rivets set in regular intervals suggest that it has a composite construction. Onto the bare rock above this door the words 'Milking Chambers; Strictly No Admittance!' have been neatly written in yellow paint.
-			</p>
-			#IF(!flags.hasFlag(FLAG_innoxia_doll_factory_encountered_locked_door_2))
+			#IF(flags.hasFlag(FLAG_innoxia_doll_factory_broken_locked_door_2))
 				<p>
-					Giving the door a quick push and a pull, you discover that it's securely locked, just as you'd expect.
+					Having smashed the door's lock, there's now nothing stopping you from travelling between the toy factory and the milking chambers.
 				</p>
+			#ELSEIF(flags.hasFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_2))
 				<p>
-					[fia.speech(We need to get past this door!)] Fia exclaims,
-					#IF(flags.hasFlag(FLAG_innoxia_doll_factory_broken_locked_door_1))
-						 before scratching her head and sighing, [fia.speech(I'm not sure how we'll do that, though. I don't know if you'll be able to knock this one down...)]
-					#ELSE
-						 before looking around and stating, [fia.speech(There's bound to be more ventilation ducts we can use. Let's try to find some!)]
-					#ENDIF
+					Having unlocked the door, there's now nothing stopping you from travelling between the toy factory and the milking chambers.
+				</p>
+			#ELSEIF(flags.hasFlag(FLAG_innoxia_doll_factory_vents_discovered_2))
+				<p>
+					The door is still securely locked, but having already discovered a way around by using the vents, you know exactly how to bypass it.
 				</p>
 			#ELSE
-				#IF(flags.hasFlag(FLAG_innoxia_doll_factory_broken_locked_door_2))
-					<p>
-						Having smashed the door's lock, there's now nothing stopping you from travelling between the toy factory and the milking chambers.
-					</p>
-				#ELSEIF(flags.hasFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_2))
-					<p>
-						Having unlocked the door, there's now nothing stopping you from travelling between the toy factory and the milking chambers.
-					</p>
-				#ELSEIF(flags.hasFlag(FLAG_innoxia_doll_factory_vents_discovered_2))
-					<p>
-						The door is still securely locked, but having already discovered a way around by using the vents, you know exactly how to bypass it.
-					</p>
-				#ELSE
-					<p>
-						The door is still securely locked, so you need to either break through it or look around the toy factory for a way to get around it...
-					</p>
-				#ENDIF
+				<p>
+					The door is still securely locked, so you need to either break through it or look around the toy factory for a way to get around it...
+				</p>
 			#ENDIF
 		#ENDIF
 	#ENDIF
@@ -805,33 +722,27 @@
 	</htmlContent>
 	
 	<htmlContent tag="DOOR_2_BACK"><![CDATA[
-	#IF(pc.isDoll())
+	<p>
+		With the door before you proving to be an impassable barrier, you [pc.step] back and wonder what to do about it.
+	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_doll_factory_vents_discovered_2))
 		<p>
-			Unable to pass back through the locked door, you turn around and head back into the factory. Looking around, you wonder where Fia could be hiding...
+			[fia.speech(We should go through the vents again,)] Fia says.
+		</p>
+		<p>
+			Turning to look at the toy factory, you wonder if you should do as your companion suggests and make your way over to the vents...
 		</p>
 	#ELSE
 		<p>
-			With the door before you proving to be an impassable barrier, you [pc.step] back and wonder what to do about it.
+			#IF(flags.hasFlag(FLAG_innoxia_doll_factory_vents_discovered_1))
+				[fia.speech(There's bound to be more vents which we can use,)] Fia muses, [fia.speech(Perhaps we could take a look around the edge of the factory?)]
+			#ELSE
+				[fia.speech(There's got to be a way around this,)] Fia muses, [fia.speech(Perhaps we could take a look around the factory?)]
+			#ENDIF
 		</p>
-		#IF(flags.hasFlag(FLAG_innoxia_doll_factory_vents_discovered_2))
-			<p>
-				[fia.speech(We should go through the vents again,)] Fia says.
-			</p>
-			<p>
-				Turning to look at the toy factory, you wonder if you should do as your companion suggests and make your way over to the vents...
-			</p>
-		#ELSE
-			<p>
-				#IF(flags.hasFlag(FLAG_innoxia_doll_factory_vents_discovered_1))
-					[fia.speech(There's bound to be more vents which we can use,)] Fia muses, [fia.speech(Perhaps we could take a look around the edge of the factory?)]
-				#ELSE
-					[fia.speech(There's got to be a way around this,)] Fia muses, [fia.speech(Perhaps we could take a look around the factory?)]
-				#ENDIF
-			</p>
-			<p>
-				Turning to look at the toy factory, you wonder if there might indeed be a way to bypass this locked door...
-			</p>
-		#ENDIF
+		<p>
+			Turning to look at the toy factory, you wonder if there might indeed be a way to bypass this locked door...
+		</p>
 	#ENDIF
 	]]>
 	</htmlContent>
@@ -906,16 +817,6 @@
 	
 	<!-- Second section of vents: -->
 	
-	<htmlContent tag="MAIN_FLOOR_VENT_LOCKED"><![CDATA[
-	<p>
-		Returning to where you and Fia entered the ventilation shaft, you discover that the metal cover has been bent back into its original position. What's more, a small group of red dolls are busily cleaning up the smashed bottles and spilt Succubus's Kiss. Having identified the unstable height of the stack of wooden crates as the cause of the spillage, the dolls have split it in two, and have placed half of the crates directly in front of the grate, preventing you from opening it.
-	</p>
-	<p>
-		It doesn't look like the dolls are going to be finished any time soon, so there's really no way for you to enter the vents from this part of the factory again...
-	</p>
-	]]>
-	</htmlContent>
-	
 	<htmlContent tag="MAIN_FLOOR_VENT_DISCOVERY"><![CDATA[
 	#IF(flags.hasFlag(FLAG_innoxia_doll_factory_vents_discovered_1))
 		<p>
@@ -989,6 +890,27 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="MAIN_FLOOR_VENT_LOCKED"><![CDATA[
+	<p>
+		Returning to the start of the ventilation shaft, you discover that the metal cover has been bent back into its original position. [pc.Stepping] up to the grate, you look through the gaps to see that a small group of red dolls have begun to clean up the smashed bottles and spilt liquid. Having identified the unstable height of the stack of wooden crates as the cause of the spillage, the dolls have split it in two, and have placed half of the crates directly in front of the grate, preventing you from pushing it open.
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_doll_factory_fia_horny))
+			[fia.speech(~Mmm!~ We'll have to turn back,)] Fia moans as she continues to struggle with her overwhelming lust.
+		#ELSE
+			[fia.speech(We'll have to turn back,)] Fia sighs as she sees that your way is blocked.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MAIN_FLOOR_VENT_LOCKED_BACK"><![CDATA[
+	<p>
+		Agreeing with Fia's statement, you turn around and head back down the maintenance shaft...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="VENTS_2"><![CDATA[
 	<p>
 		As you travel through the maintenance shaft, you pass numerous small ducts which branch off from the curved walls, and by peering down these smaller passageways, you're able to see rotating fans and flashes of light from deeper within the facility. Bored into the ceiling, several larger holes link your passage to the surface, and from up above you hear the steady background hum of huge fans as they tirelessly suck relatively fresh air down from Dominion.
@@ -1015,42 +937,6 @@
 		</p>
 		<p>
 			You're not sure if she's going to be able to continue at this rate...
-		</p>
-	#ENDIF
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="VENTS_2_LOCKED"><![CDATA[
-	#IF(pc.getLastCell().getPlaceType()==PLACE_TYPE_innoxia_dominion_sex_shop_factory_main_floor_event)
-		<p>
-			Wondering if the dolls will move out of the way and allow you to open the grate, you [pc.step] forwards and approach the ventilation shaft. The nearest doll immediately turns to look at you, and with a blank expression on her shiny face, she declares, [style.speechFeminineDoll(Please keep clear of this area. Failure to comply will result in Saellatrix being alerted.)]
-		</p>
-		<p>
-			Wanting to avoid that at all costs, you decide that it's best not to force these dolls out of your way...
-		</p>
-	#ELSE
-		<p>
-			Returning to the start of the ventilation shaft, you discover that the metal cover has been bent back into its original position. [pc.Stepping] up to the grate, you look through the gaps to see that a small group of red dolls have begun to clean up the smashed bottles and spilt Succubus's Kiss. Having identified the unstable height of the stack of wooden crates as the cause of the spillage, the dolls have split it in two, and have placed half of the crates directly in front of the grate, preventing you from pushing it open.
-		</p>
-		<p>
-			#IF(flags.hasFlag(FLAG_innoxia_doll_factory_fia_horny))
-				[fia.speech(~Mmm!~ We'll have to turn back,)] Fia moans as she continues to struggle with her overwhelming lust.
-			#ELSE
-				[fia.speech(We'll have to turn back,)] Fia sighs as she sees that your way is blocked.
-			#ENDIF
-		</p>
-	#ENDIF
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="VENTS_2_LOCKED_BACK"><![CDATA[
-	#IF(pc.getLastCell().getPlaceType()==PLACE_TYPE_innoxia_dominion_sex_shop_factory_main_floor_event)
-		<p>
-			[pc.Stepping] away from the red doll, you turn back towards the factory and wonder where to go next...
-		</p>
-	#ELSE
-		<p>
-			Agreeing with Fia's statement, you turn around and head back down the maintenance shaft...
 		</p>
 	#ENDIF
 	]]>
@@ -1175,94 +1061,45 @@
 	<!-- Slime milking: -->
 	
 	<htmlContent tag="SLIME_MILKING"><![CDATA[
-	#IF(pc.isDoll())
-		#IF(!flags.hasFlag(FLAG_innoxia_doll_factory_slimes_discovered))
+	#IF(!flags.hasFlag(FLAG_innoxia_doll_factory_slimes_discovered))
+		#IF(pc.getLastCell().getPlaceType()==PLACE_TYPE_innoxia_dominion_sex_shop_factory_vents_2)
 			<p>
-				Although you've already travelled through this area on your way to be dollified, you now have the opportunity to take a closer look at this part of the facility. Before you stretches a long room, which like the other areas of the factory has rough rock walls and a smooth concrete floor. Fluorescent arcane lights hang down at regular intervals from the high ceiling, which bathe the cavernous space in a bright white glow. A dazzling array of twisting metal pipes run down the entire length of the left-hand wall, but it's what's on the right that causes you to stop in your tracks.
+				Reaching the end of the ventilation shaft, you're confronted by a second metal grate. Stepping forwards, Fia pulls out her multi-tool, and with a quick bit of levering she's able to break two of the bolts which keep the cover in place. After helping her to bend it outwards, both you and Fia squeeze through the opening and enter the room beyond.
 			</p>
-			<p>
-				Dozens of huge, futanari slime-girls, with the shortest looking to be over [units.sizes(250)] tall, are lined up near the wall. Each of the slimes has been restrained via metal chains which span from the wall to the collars and cuffs around their necks, wrists, and ankles. Each one of these captives is made of clear slime, allowing you to see the dazzling array of colourful sex toys that have been inserted into their orifices. Enchanted to constantly vibrate, these toys are causing the slimes to repeatedly orgasm, and each time they do a huge amount of sexual fluids squirt from their spasming cunts, while thick, clear slime oozes like milk from their massive, puffy nipples. Sporting gigantic cocks with huge, heavy balls, the slimes shoot an absurd amount of sticky cum all over the floor every time they reach their climax. These fluids combine to run down the sloped floor into a grate, which is then linked to a pipe that sucks the mixture up and away into massive metal storage vats.
-			</p>
-			<p>
-				Like the dolls in the factory, these slimes pay absolutely no attention to you, although in this case it's due to the fact that they're blindfolded and moaning too loudly to hear you. As you look on, you see the slimes occasionally reach for a nearby feeding tube, and by following the pipes around the room you see that they link to a huge vat of bubbling pink liquid. A label on the side of this vat reminds the factory's workers to fill it with '75% Succubus's Kiss, 20% Addictive cum, 5% Rejuvenation potion'.
-			</p>
-			<p>
-				As you look at the orgasming slimes, you feel a desperate need to be used like they are. Your silicone pussy starts to drip from excitement as you imagine yourself in their place, and a quiet moan escapes from your 'o'-shaped mouth. Snapping out of your fantasy, you look away from the slimes and continue strutting down the corridor...
-			</p>
-		#ELSE
-			#IF(pc.getCellFromLocation(1, 0).getPlaceType()==PLACE_TYPE_innoxia_dominion_sex_shop_factory_door_2 || pc.getCellFromLocation(1, 0).getPlaceType()==PLACE_TYPE_innoxia_dominion_sex_shop_factory_door_2_unlocked)
-				<p>
-					As you approach the far end of the long room, you hear faint shouts calling out from somewhere behind you. Immediately recognising the voices as belonging to Angelixx and her sons, you realise that they must have returned to discover that you've escaped. For a moment, you feel a dark desire to stay still and allow yourself to be caught, and remain motionless as the voices start to get louder.
-				</p>
-				<p>
-					[angelixx.speech(...might be out in Dominion by now! We have to catch that bitch!)] Angelixx's voice is clearly audible by now as she and her sons rush to find you.
-				</p>
-				<p>
-					Snapping out of your unwanted fantasy of being caught and turned fully into a doll, you quickly unlock the metal door which stands before you and prepare to escape!
-				</p>
-			#ELSE
-				<p>
-					Before you stretches a long room, which like the other areas of the factory has rough rock walls and a smooth concrete floor. Fluorescent arcane lights hang down at regular intervals from the high ceiling, which bathe the cavernous space in a bright white glow. A dazzling array of twisting metal pipes run down the entire length of the left-hand wall, while on the right are dozens of huge, futanari slime-girls, with the shortest looking to be over [units.sizes(250)] tall.
-				</p>
-				<p>
-					Each of the slimes has been restrained via metal chains which span from the wall to the collars and cuffs around their necks, wrists, and ankles. Each one of these captives is made of clear slime, allowing you to see the dazzling array of colourful sex toys that have been inserted into their orifices. Enchanted to constantly vibrate, these toys are causing the slimes to repeatedly orgasm, and each time they do a huge amount of sexual fluids squirt from their spasming cunts, while thick, clear slime oozes like milk from their massive, puffy nipples. Sporting gigantic cocks with huge, heavy balls, the slimes shoot an absurd amount of sticky cum all over the floor every time they reach their climax. These fluids combine to run down the sloped floor into a grate, which is then linked to a pipe that sucks the mixture up and away into massive metal storage vats.
-				</p>
-				<p>
-					Like the dolls which you've passed, these slimes pay absolutely no attention to you, although in this case it's due to the fact that they're blindfolded and moaning too loudly to hear you. As you look on, you see the slimes occasionally reach for a nearby feeding tube, and by following the pipes around the room you see that they link to a huge vat of bubbling pink liquid. A label on the side of this vat reminds the factory's workers to fill it with '75% Succubus's Kiss, 20% Addictive cum, 5% Rejuvenation potion'.
-				</p>
-				<p>
-					As you look at the orgasming slimes, you feel a desperate need to be used like they are. Imagining yourself in their place, your plastic pussy starts to drip from excitement before you catch yourself and shake the fantasy from your head.
-				</p>
-			#ENDIF
 		#ENDIF
+		<p>
+			Before you stretches a long room, which like the other areas of the factory has rough rock walls and a smooth concrete floor. Fluorescent arcane lights hang down at regular intervals from the high ceiling, which bathe the cavernous space in a bright white glow. A dazzling array of twisting metal pipes run down the entire length of the right-hand wall, but it's what's on the left that causes you and Fia to stop in your tracks.
+		</p>
+		<p>
+			Dozens of huge, futanari slime-girls, with the shortest looking to be over [units.size(250)] tall, are lined up near the wall. Each of the slimes has been restrained via metal chains which span from the wall to the collars and cuffs around their necks, wrists, and ankles. Each one of these captives is made of clear slime, allowing you to see the dazzling array of colourful sex toys that have been inserted into their orifices. Enchanted to constantly vibrate, these toys are causing the slimes to repeatedly orgasm, and each time they do a huge amount of sexual fluids squirt from their spasming cunts, while thick, clear slime oozes like milk from their massive, puffy nipples. Sporting gigantic cocks with huge, heavy balls, the slimes shoot an absurd amount of sticky cum all over the floor every time they reach their climax. These fluids combine to run down the sloped floor into a grate, which is then linked to a pipe that sucks the mixture up and away into massive metal storage vats.
+		</p>
+		<p>
+			[fia.speech(Holy shit...)] Fia gasps, [fia.speech(Look at all these poor slimes...)]
+		</p>
+		<p>
+			Like the dolls which you've passed, these slimes pay absolutely no attention to you, although in this case it's due to the fact that they're blindfolded and moaning too loudly to hear you. As you look on, you see the slimes occasionally reach for a nearby feeding tube, and by following the pipes around the room you see that they link to a huge vat of bubbling pink liquid. A label on the side of this vat reminds the factory's workers to fill it with '75% Succubus's Kiss, 20% Addictive cum, 5% Rejuvenation potion'.
+		</p>
+		<p>
+			[fia.speech(Why are they milking these slimes like this?)] Fia asks, [fia.speech(Let's take a look around...)]
+		</p>
 	#ELSE
-		#IF(!flags.hasFlag(FLAG_innoxia_doll_factory_slimes_discovered))
-			#IF(pc.getLastCell().getPlaceType()==PLACE_TYPE_innoxia_dominion_sex_shop_factory_vents_2)
-				<p>
-					Reaching the end of the ventilation shaft, you're confronted by a second metal grate. Stepping forwards, Fia pulls out her multi-tool, and with a quick bit of levering she's able to break two of the bolts which keep the cover in place. After helping her to bend it outwards, both you and Fia squeeze through the opening and enter the room beyond.
-				</p>
+		<p>
+			Before you stretches a long room, which like the other areas of the factory has rough rock walls and a smooth concrete floor. Fluorescent arcane lights hang down at regular intervals from the high ceiling, which bathe the cavernous space in a bright white glow. A dazzling array of twisting metal pipes run down the entire length of the right-hand wall, while on the left are dozens of huge, futanari slime-girls, with the shortest looking to be over [units.size(250)] tall.
+		</p>
+		<p>
+			Each of the slimes has been restrained via metal chains which span from the wall to the collars and cuffs around their necks, wrists, and ankles. Each one of these captives is made of clear slime, allowing you to see the dazzling array of colourful sex toys that have been inserted into their orifices. Enchanted to constantly vibrate, these toys are causing the slimes to repeatedly orgasm, and each time they do a huge amount of sexual fluids squirt from their spasming cunts, while thick, clear slime oozes like milk from their massive, puffy nipples. Sporting gigantic cocks with huge, heavy balls, the slimes shoot an absurd amount of sticky cum all over the floor every time they reach their climax. These fluids combine to run down the sloped floor into a grate, which is then linked to a pipe that sucks the mixture up and away into massive metal storage vats.
+		</p>
+		<p>
+			#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_4))
+				[fia.speech(These are just some of the illegal slaves, with the rest of them having been turned into dolls...)] Fia mutters while shaking her head, [fia.speech(I don't know which of them have it worse...)]
+			#ELSE
+				[fia.speech(These must be the illegal slaves...)] Fia sighs, [fia.speech(There aren't enough slimes to account for the hundreds who've gone missing though. We'll surely find evidence of where they are further on...)]
 			#ENDIF
-			<p>
-				Before you stretches a long room, which like the other areas of the factory has rough rock walls and a smooth concrete floor. Fluorescent arcane lights hang down at regular intervals from the high ceiling, which bathe the cavernous space in a bright white glow. A dazzling array of twisting metal pipes run down the entire length of the right-hand wall, but it's what's on the left that causes you and Fia to stop in your tracks.
-			</p>
-			<p>
-				Dozens of huge, futanari slime-girls, with the shortest looking to be over [units.size(250)] tall, are lined up near the wall. Each of the slimes has been restrained via metal chains which span from the wall to the collars and cuffs around their necks, wrists, and ankles. Each one of these captives is made of clear slime, allowing you to see the dazzling array of colourful sex toys that have been inserted into their orifices. Enchanted to constantly vibrate, these toys are causing the slimes to repeatedly orgasm, and each time they do a huge amount of sexual fluids squirt from their spasming cunts, while thick, clear slime oozes like milk from their massive, puffy nipples. Sporting gigantic cocks with huge, heavy balls, the slimes shoot an absurd amount of sticky cum all over the floor every time they reach their climax. These fluids combine to run down the sloped floor into a grate, which is then linked to a pipe that sucks the mixture up and away into massive metal storage vats.
-			</p>
-			<p>
-				[fia.speech(No way...)] Fia gasps, [fia.speech(Look at all these poor slimes...)]
-			</p>
-			<p>
-				Like the dolls which you've passed, these slimes pay absolutely no attention to you, although in this case it's due to the fact that they're blindfolded and moaning too loudly to hear you. As you look on, you see the slimes occasionally reach for a nearby feeding tube, and by following the pipes around the room you see that they link to a huge vat of bubbling pink liquid. A label on the side of this vat reminds the factory's workers to fill it with '75% Succubus's Kiss, 20% Addictive cum, 5% Rejuvenation potion'.
-			</p>
-			<p>
-				[fia.speech(Why are they milking these slimes like this?)] Fia asks, [fia.speech(Let's take a look around...)]
-			</p>
-		#ELSE
-			<p>
-				Before you stretches a long room, which like the other areas of the factory has rough rock walls and a smooth concrete floor. Fluorescent arcane lights hang down at regular intervals from the high ceiling, which bathe the cavernous space in a bright white glow. A dazzling array of twisting metal pipes run down the entire length of the right-hand wall, while on the left are dozens of huge, futanari slime-girls, with the shortest looking to be over [units.size(250)] tall.
-			</p>
-			<p>
-				Each of the slimes has been restrained via metal chains which span from the wall to the collars and cuffs around their necks, wrists, and ankles. Each one of these captives is made of clear slime, allowing you to see the dazzling array of colourful sex toys that have been inserted into their orifices. Enchanted to constantly vibrate, these toys are causing the slimes to repeatedly orgasm, and each time they do a huge amount of sexual fluids squirt from their spasming cunts, while thick, clear slime oozes like milk from their massive, puffy nipples. Sporting gigantic cocks with huge, heavy balls, the slimes shoot an absurd amount of sticky cum all over the floor every time they reach their climax. These fluids combine to run down the sloped floor into a grate, which is then linked to a pipe that sucks the mixture up and away into massive metal storage vats.
-			</p>
-			<p>
-				#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_4))
-					[fia.speech(These are just some of the illegal slaves, with the rest of them having been turned into dolls...)] Fia mutters while shaking her head, [fia.speech(I don't know which of them have it worse...)]
-				#ELSE
-					[fia.speech(These must be the illegal slaves...)] Fia sighs, [fia.speech(There aren't enough slimes to account for the hundreds who've gone missing though. We'll surely find evidence of where they are further on...)]
-				#ENDIF
-			</p>
-			<p>
-				Like the dolls which you've passed, these slimes pay absolutely no attention to you, although in this case it's due to the fact that they're blindfolded and moaning too loudly to hear you. As you look on, you see the slimes occasionally reach for a nearby feeding tube, and by following the pipes around the room you see that they link to a huge vat of bubbling pink liquid. A label on the side of this vat reminds the factory's workers to fill it with '75% Succubus's Kiss, 20% Addictive cum, 5% Rejuvenation potion'.
-			</p>
-		#ENDIF
+		</p>
+		<p>
+			Like the dolls which you've passed, these slimes pay absolutely no attention to you, although in this case it's due to the fact that they're blindfolded and moaning too loudly to hear you. As you look on, you see the slimes occasionally reach for a nearby feeding tube, and by following the pipes around the room you see that they link to a huge vat of bubbling pink liquid. A label on the side of this vat reminds the factory's workers to fill it with '75% Succubus's Kiss, 20% Addictive cum, 5% Rejuvenation potion'.
+		</p>
 	#ENDIF
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="SLIME_MILKING_DOLL_CONTINUE"><![CDATA[
-	<p>
-		Having taken a good look at your surroundings, you quickly realise that Fia isn't hiding anywhere nearby. As such, you need to continue down this corridor-like room and search for her in the factory itself...
-	</p>
 	]]>
 	</htmlContent>
 	
@@ -1271,7 +1108,7 @@
 		Continuing forwards, you look around for any clue as to why these slimes are being milked like this. It's Fia who discovers the reason, however, for she soon calls out, [fia.speech([pc.name]! Come and take a look at this!)]
 	</p>
 	<p>
-		[pc.Stepping] over to the journalist's side, you see that she's pointing to a particular series of pipes that run along the right-hand wall. Moving her finger to show you where to look, she explains, [fia.speech(Look, the slime all flows into this tank, and from there it's combined with whatever liquid's being stored in that other tank. Once mixed together, it's fed up into those pipes, and all but one of those go off in the direction of the factory floor. Look what the pipes are labelled as: 'Premium Silicone-slime'...)]
+		[pc.Stepping] over to the journalist's side, you see that she's pointing to a particular series of pipes that run along the right-hand wall. Moving her finger to show you where to look, she explains, [fia.speech(Look, the slime all flows into this tank, and from there it's combined with whatever liquid's being stored in that tank. Once mixed together, it's fed up into those pipes, and all but one of those go off in the direction of the factory floor. Look what the pipes are labelled as: 'Premium Silicone-slime'...)]
 	</p>
 	<p>
 		Realising that this slime concoction is being used as the ingredient for the silicone sex toys that are being manufactured in the main part of the factory, you ask Fia if she's seen anything like this before.
@@ -1289,7 +1126,7 @@
 		Although there are dozens of these moaning, orgasming slimes, you quickly realise that there must still be hundreds of kidnapped refugees that aren't accounted for. Mentioning this to Fia, you tell her that you'll need to continue exploring the rest of the factory to find out what's happened to the rest of them.
 	</p>
 	<p>
-		[fia.speech(Hopefully they haven't all been sold, but even if they have we're sure to find some proof of it somewhere,)] your companion replies, [fia.speech(We can't do anything for these slimes at the moment, but once my article's published then the Enforcers will be here and they'll set them free. Come on, we need to keep moving.)]
+		[fia.speech(Hopefully they haven't all been sold, but even if they have we're sure to find some proof of it somewhere,)] your companion replies, [fia.speech(We can't do anything for these slimes at the moment, but once my article's published the Enforcers will be here and they'll set them free. Come on, we need to keep moving.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -1308,21 +1145,21 @@
 			[sleip.speech(Giving dolls their first fuck never gets old!)] Sleip loudly laughs. Lustfully staring at the black doll's ass as she struts over towards the door at the far end of the room, he states, [sleip.speech(That was our last slave, though...)]
 		</p>
 		<p>
-			[nir.speech(Didn't mum tell you? We're going to start on the alleyways beneath the harpy nests next week to start kidnapping there,)] Nir responds to his brother, [nir.speech(So we'll have more slaves to turn into dolls soon enough.)]
+			[nir.speech(Didn't mum tell you? We're going to Itza'aak next week to start kidnapping there,)] Nir responds to his brother, [nir.speech(So we'll have more slaves to turn into dolls soon enough.)]
 		</p>
 		<p>
 			[fia.speech(What are they saying?)] Fia quietly gasps in disbelief, [fia.speech(They must be joking...)]
 		</p>
 		#IF(game.isIncestEnabled())
 			<p>
-				[sleip.speech(Oh yeah, I think mum mentioned something about the harpy nests last night, but I was too busy emptying my balls in her cunt to listen,)] Sleip laughs, before running his large fingers through his mane-like hair and grunting in frustration, [sleip.speech(If Saellatrix hadn't turned up, we could have been double-teaming her right now...)]
+				[sleip.speech(Oh yeah, I think mum mentioned something about Itza'aak last night, but I was too busy emptying my balls in her cunt to listen,)] Sleip laughs, before running his large fingers through his mane-like hair and grunting in frustration, [sleip.speech(If Saellatrix hadn't turned up, we could have been double-teaming her right now...)]
 			</p>
 			<p>
 				[nir.speech(Well we haven't fucked these slimes in a while,)] Nir says, [nir.speech(They're no real substitute for mum, but I'm going to remind them what a real cock feels like.)]
 			</p>
 		#ELSE
 			<p>
-				[sleip.speech(Oh yeah, I think mum mentioned something about the harpy nests last night, but I was too busy emptying my balls in a slave's cunt to listen,)] Sleip laughs, before running his large fingers through his mane-like hair and grunting in frustration, [sleip.speech(If Saellatrix hadn't turned up, mum could have teleported us to the red light district and we could be double-teaming some whore right now...)]
+				[sleip.speech(Oh yeah, I think mum mentioned something about Itza'aak last night, but I was too busy emptying my balls in a slave's cunt to listen,)] Sleip laughs, before running his large fingers through his mane-like hair and grunting in frustration, [sleip.speech(If Saellatrix hadn't turned up, mum could have teleported us to the red light district and we could be double-teaming some whore right now...)]
 			</p>
 			<p>
 				[nir.speech(Well we haven't fucked these slimes in a while,)] Nir says, [nir.speech(They're a bit loose, but I'm going to remind them what a real cock feels like.)]
@@ -1545,7 +1382,7 @@
 	</p>
 	<p>
 		You try to struggle against the brothers as they start stripping you naked, but you're so fatigued that you barely slow them down at all.
-		#IF(game.isNonConEnabled() && sleip.isAttractedTo(pc))
+		#IF(game.isNonConEnabled())
 			#IF(pc.isAnyEquippedClothingSealed())
 				 Coming across your sealed clothing, Sleip channels his essences and breaks the enchantment, laughing as he tears the last of your clothing from your naked body,
 			#ELSE
@@ -1560,7 +1397,7 @@
 		#ENDIF
 		  [sleip.speech(Slaves aren't allowed to wear clothing, you dumb slut!)]
 	</p>
-	#IF(game.isNonConEnabled() && sleip.isAttractedTo(pc))
+	#IF(game.isNonConEnabled())
 		<p>
 			Leaning in over your shoulder, Nir snorts, [nir.speech(Now let's give you the rough, hard fucking you deserve, bitch!)]
 		</p>
@@ -1734,14 +1571,14 @@
 	
 	<htmlContent tag="SLEIP_NIR_COLLARED"><![CDATA[
 	<p>
-		As you begin to push yourself up off the ground, a thick strip of black leather quickly passes down over your vision. This is followed by a sudden, tight constriction around your neck, and you can't help but choke a little as Nir tightens your new collar and grunts, [nir.speech(You're mine now.)]
+		As you begin to push yourself up off the ground, a thick strip of black leather quickly passes down over your vision. This is followed by a sudden, tight constriction around your neck, and you can't help but choke a little as Nir tightens your new collar and grunts, [nir.speech(You're looking like a proper bitch now.)]
 	</p>
 	<p>
 		Attaching a long, black leash to the ring on the front of your tight collar, Sleip gives it a sharp tug, causing you to stumble forwards. Laughing at your discomfort, he commands,
 		#IF(pc.isTaur())
-			 [sleip.speech(Trot along in front of us like a good bitch.)]
+			 [sleip.speech(Trot along in front of us like a good bitch. We're going to take you to see mum.)]
 		#ELSE
-			 [sleip.speech(Crawl along like a good bitch.)]
+			 [sleip.speech(Crawl along like a good bitch. We're going to take you to see mum.)]
 		#ENDIF
 	</p>
 	]]>
@@ -1757,16 +1594,10 @@
 		 Thankfully, you're not subjected to this treatment for long, as after exiting the slime milking room, you pass down a short section of corridor and come to a halt in front of a door marked 'Restricted Area'.
 	</p>
 	<p>
-		[Nir.speech(Here we are, bitch,)] Nir grunts, [nir.speech(You're not getting away from us a second time.)]
+		[Nir.speech(Here we are, bitch,)] Nir grunts, [nir.speech(Now let's get you turned into a sex doll...)]
 	</p>
 	<p>
-		As he talks, his brother starts to punch a combination into the keypad on one side of the door. Before he's finished, however, the door swings open to reveal the familiar, youthful figure of Angelixx. Immediately flicking her [angelixx.eyes+] down to you, a  wicked smirk breaks out across her pretty face, and in a triumphant tone she tuts, [angelixx.speech(Well, well, well... You followed us all the way from from Elis, did you? Your meddling ends here. Let's get you turned into a dumb, obedient sex doll!)]
-	</p>
-	<p>
-		Seeing the shocked look on your face as she says this, the pretty succubus shows her sadistic side by taunting, [angelixx.speech(That's right, bitch; we kidnap people who nobody's going to miss and turn them into sex dolls. Every doll you've seen was once a person, and soon you'll be one too!)]
-	</p>
-	<p>
-		With that, Sleip and Nir grab hold of you and start to drag you forwards into the corridor...
+		As he talks, his brother starts to punch a combination into the keypad on one side of the door. Before he's finished, however, the door swings open to reveal the familiar, youthful figure of Angelixx. Immediately flicking her [angelixx.eyes+] down to you, a sadistic smirk breaks out across her pretty face...
 	</p>
 	]]>
 	</htmlContent>
@@ -1776,63 +1607,48 @@
 	
 	
 	<htmlContent tag="CORRIDOR"><![CDATA[
-	#IF(pc.isDoll())
-		<p>
-			Having escaped from the dollification chamber, you find yourself travelling down a narrow corridor. Once again, like all the other rooms in this subterranean facility, the walls and ceiling are made from roughly carved rock, while smooth concrete covers the floor. Dozens of metal pipes run along the ceiling, and in between them arcane lights hang down to illuminate your surroundings.
-		</p>
-		<p>
-			Your silicone feet quietly slap against the cold concrete floor as you seductively strut down the corridor. Suddenly becoming aware of your new gait, you try to walk in a less suggestive manner but find it an effort to do so. After a few steps, you give in and resign yourself to the fact that you now naturally walk like you're a model strutting down a catwalk.
-		</p>
-	#ELSE
-		<p>
-			Having passed through the slime milking room, you and Fia find yourself travelling down a narrow corridor. Once again, like all the other rooms in this subterranean facility, the walls and ceiling are made from roughly carved rock, while smooth concrete covers the floor. Dozens of metal pipes run along the ceiling, and in between them arcane lights hang down to illuminate your surroundings.
-		</p>
-		<p>
-			#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_4))
-				[fia.speech(We need to retrace our steps,)] Fia says as the two of you proceed down the passage, [fia.speech(The sooner we can get out of this place, the better...)]
-			#ELSE
-				[fia.speech(This place is huge,)] Fia sighs as the two of you proceed down the passage, [fia.speech(We're surely near the end now though...)]
-			#ENDIF
-		</p>
-	#ENDIF
+	<p>
+		Having passed through the slime milking room, you and Fia find yourself travelling down a narrow corridor. Once again, like all the other rooms in this subterranean facility, the walls and ceiling are made from roughly carved rock, while smooth concrete covers the floor. Dozens of metal pipes run along the ceiling, and in between them arcane lights hang down to illuminate your surroundings.
+	</p>
+	<p>
+		#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_4))
+			[fia.speech(We need to retrace our steps,)] Fia says as the two of you proceed down the passage, [fia.speech(The sooner we can get out of this place, the better...)]
+		#ELSE
+			[fia.speech(This place is huge,)] Fia sighs as the two of you proceed down the passage, [fia.speech(We're surely near the end now though...)]
+		#ENDIF
+	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="DOOR_3"><![CDATA[
-	#IF(pc.isDoll())
-		<p>
-			A sturdy metal door separates the dollification chamber from the rest of the factory, and its bulky appearance you realise that there's no chance you could ever force it open. Thankfully, in their haste to get you transformed into a doll, Angelixx and her sons have left the door unlocked, and you breathe a sigh of relief as you discover that you're able to simply push it open, allowing you to pass through and continue your escape!
-		</p>
-	#ELSE
-		<p>
-			A sturdy metal door blocks your way forwards. Reinforced with thick, riveted braces, and securely fixed into a solid metal frame, this door looks far stronger than the other two you've encountered. One quick glance is enough to tell you that there's no way to break through it without some serious equipment.
-		</p>
-		#IF(flags.hasFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_3))
-			#IF(pc.isQuestProgressLessThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_5))
-				<p>
-					[fia.speech(We should be able to open this now,)] Fia says as she steps up to the keypad that's fixed to the wall beside the door. Reaching up to it, she starts inputting the digits which you discovered in the office, speaking out-loud as she does so, [fia.speech(One... Three... Two... Five... Eight... That should be it!)] 
-				</p>
-				<p>
-					After pressing the green 'enter' button, the device makes a satisfying beep, and then a moment later you hear the sound of metal locks being slid back. Giving the door an experimental push, you discover that it's now unlocked, and as it swings open you see that there's an unremarkable corridor beyond, which after a short distance undergoes a sharp left-hand turn.
-				</p>
-				<p>
-					[fia.speech(This must lead to the doll factory,)] Fia anxiously whispers, [fia.speech(Let's go...)]
-				</p>
-			#ELSE
-				<p>
-					[fia.speech(It's still unlocked,)] Fia observes as you approach the door. Sure enough, the door is still partially open, allowing the two of you to pass through it without issue.
-				</p>
-				#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_4))
-					<p>
-						[fia.speech(I can't believe that they've been turning people into dolls,)] Fia says as you pass through the opening, [fia.speech(Dominion needs to know what Sae and Angelixx have been doing down here.)]
-					</p>
-				#ENDIF
-			#ENDIF
+	<p>
+		A sturdy metal door blocks your way forwards. Reinforced with thick, riveted braces, and securely fixed into a solid metal frame, this door looks far stronger than the other two you've encountered. One quick glance is enough to tell you that there's no way to break through it without some serious equipment.
+	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_3))
+		#IF(pc.isQuestProgressLessThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_5))
+			<p>
+				[fia.speech(We should be able to open this now,)] Fia says as she steps up to the keypad that's fixed to the wall beside the door. Reaching up to it, she starts inputting the digits which you discovered in the office, speaking out-loud as she does so, [fia.speech(One... Three... Two... Five... Eight... That should be it!)] 
+			</p>
+			<p>
+				After pressing the green 'enter' button, the device makes a satisfying beep, and then a moment later you hear the sound of metal locks being slid back. Giving the door an experimental push, you discover that it's now unlocked, and as it swings open you see that there's an unremarkable corridor beyond, which after a short distance undergoes a sharp left-hand turn.
+			</p>
+			<p>
+				[fia.speech(This must lead to the doll factory,)] Fia anxiously whispers, [fia.speech(Let's go...)]
+			</p>
 		#ELSE
 			<p>
-				[fia.speech(Look, there's a keypad here,)] Fia says as she points to the arcane device that's fixed to the wall beside the door. Taking a closer look at the device, she sighs, [fia.speech(It looks like the code's five numbers long. We'd be here for hours trying to guess it. Let's go back and see if we can find it written down somewhere...)] 
+				[fia.speech(It's still unlocked,)] Fia observes as you approach the door. Sure enough, the door is still partially open, allowing the two of you to pass through it without issue.
 			</p>
+			#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_4))
+				<p>
+					[fia.speech(I can't believe that they've been turning people into dolls,)] Fia says as you pass through the opening, [fia.speech(Dominion needs to know what Sae and Angelixx have been doing down here.)]
+				</p>
+			#ENDIF
 		#ENDIF
+	#ELSE
+		<p>
+			[fia.speech(Look, there's a keypad here,)] Fia says as she points to the arcane device that's fixed to the wall beside the door. Taking a closer look at the device, she sighs, [fia.speech(It looks like the code's five numbers long. We'd be here for hours trying to guess it. Let's go back and see if we can find it written down somewhere...)] 
+		</p>
 	#ENDIF
 	]]>
 	</htmlContent>
@@ -1848,45 +1664,33 @@
 	<!-- Cells: -->
 	
 	<htmlContent tag="CAGES"><![CDATA[
-	#IF(pc.isDoll())
+	<p>
+		Pushing open a rusty metal door, you and Fia find yourselves entering the a very disturbing room. A narrow path cuts through the middle of the large space before you, and on either side hundreds of thick iron bars have been bolted into the rock ceiling and concrete floor to form dozens of huge cages. A handful of dim, ceiling-mounted lights struggle to illuminate the huge room, which combined with the fact that every cage is completely empty, produces a very creepy atmosphere.
+	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_3))
 		<p>
-			Pushing open a rusty metal door, you find yourself entering a very disturbing room. A narrow path cuts through the middle of the large space before you, and on either side hundreds of thick iron bars have been bolted into the rock ceiling and concrete floor to form dozens of huge cages. A handful of dim, ceiling-mounted lights struggle to illuminate the huge room, which combined with the fact that every cage is completely empty, produces a very creepy atmosphere.
+			#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_4))
+				[fia.speech(Why are we back here?!)] Fia asks, [fia.speech(We need to escape!)]
+			#ELSE
+				[fia.speech(We've already got everything we can from this place,)] your companion states, [fia.speech(Let's get out of here and find that doll factory. I'm sure we'll find something which incriminates Sae in there...)]
+			#ENDIF
 		</p>
 		<p>
-			The sight of all these cages makes you think of your own fate if you're captured again and fully transformed into a doll. You'd be little more than an obedient slave for the rest of your existence, used as a sex toy by whoever ends up owning you. A shameful shiver of excitement rushes through your body as you imagine that being your fate, and for a moment you wish that Angelixx would make a sudden return and capture you.
-		</p>
-		<p>
-			Shaking your head to banish these submissive thoughts, you turn your attention to finding Fia. Taking a brief look around, you see absolutely no sign of the reporter, and so quickly turn to leave...
+			With nothing more to do in here, all that's left is for you turn around and go back the way you came...
 		</p>
 	#ELSE
 		<p>
-			Pushing open a rusty metal door, you and Fia find yourselves entering a very disturbing room. A narrow path cuts through the middle of the large space before you, and on either side hundreds of thick iron bars have been bolted into the rock ceiling and concrete floor to form dozens of huge cages. A handful of dim, ceiling-mounted lights struggle to illuminate the huge room, which combined with the fact that every cage is completely empty, produces a very creepy atmosphere.
+			[fia.speech(At least a hundred people could fit in here...)] Fia gasps as she steps forwards and looks around. Turning back to face you, she says exactly what you were just thinking, [fia.speech(This must be where the illegal slaves were held. We're too late though... They're all gone...)]
 		</p>
-		#IF(flags.hasFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_3))
-			<p>
-				#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_4))
-					[fia.speech(Why are we back here?!)] Fia asks, [fia.speech(We need to escape!)]
-				#ELSE
-					[fia.speech(We've already got everything we can from this place,)] your companion states, [fia.speech(Let's get out of here and find that doll factory. I'm sure we'll find something which incriminates Sae in there...)]
-				#ENDIF
-			</p>
-			<p>
-				With nothing more to do in here, all that's left is for you turn around and go back the way you came...
-			</p>
-		#ELSE
-			<p>
-				[fia.speech(At least a hundred people could fit in here...)] Fia gasps as she steps forwards and looks around. Turning back to face you, she says exactly what you were just thinking, [fia.speech(This must be where the illegal slaves were held. We're too late though... They're all gone...)]
-			</p>
-			<p>
-				Glancing around, you notice that a corner of the room has been partitioned off, and the door that's fixed into one side of it is partially open. Although there's no sign of the kidnapped refugees, you suggest to Fia that evidence of their fate might be found within that room.
-			</p>
-			<p>
-				[fia.speech(You're right! Come on, let's take a look,)] your companion says, before hurrying over to the open door. Following in her footsteps, the two of you discover that this small room is acting as an office. Loose papers and open folders litter several desks which have pushed up against the walls, offering hope of hard evidence for where the refugees have gone.
-			</p>
-			<p>
-				[fia.speech(Hey, look at this!)] Fia exclaims as she points to a note that's been pinned to a nearby noticeboard. Taking a look at this slip of paper, you read 'Nir! Stop forgetting the code! 1-3-2-5-8'. Tearing this note from the board and putting it in her pocket, Fia says, [fia.speech(Well, at least we can unlock that door now. Come on, [pc.name], let's search through these papers...)]
-			</p>
-		#ENDIF
+		<p>
+			Glancing around, you notice that a corner of the room has been partitioned off, and the door that's fixed into one side of it is partially open. Although there's no sign of the kidnapped refugees, you suggest to Fia that evidence of their fate might be found within that room.
+		</p>
+		<p>
+			[fia.speech(You're right! Come on, let's take a look,)] your companion says, before hurrying over to the open door. Following in her footsteps, the two of you discover that this small room is acting as an office. Loose papers and open folders litter several desks which have pushed up against the walls, offering hope of hard evidence for where the refugees have gone.
+		</p>
+		<p>
+			[fia.speech(Hey, look at this!)] Fia exclaims as she points to a note that's been pinned to a nearby noticeboard. Taking a look at this slip of paper, you read 'Nir! Stop forgetting the code! 1-3-2-5-8'. Tearing this note from the board and putting it in her pocket, Fia says, [fia.speech(Well, at least we can unlock that door now. Come on, [pc.name], let's search through these papers...)]
+		</p>
 	#ENDIF
 	]]>
 	</htmlContent>
@@ -1934,7 +1738,7 @@
 		<br/><span style='font-family:monospace; font-size:0.9em;'>Dollification performed by:</span> [style.italicsPinkLight(Angelixx)]
 		<br/><span style='font-family:monospace; font-size:0.9em;'>Doll serial number:</span> [style.italicsPinkLight(1719)]
 		<br/><span style='font-family:monospace; font-size:0.9em;'>Additional notes:</span>
-		[style.italicsPinkLight(
+		<br/>[style.italicsPinkLight(
 		<br/>19:43 - He really struggled, and even continued to resist after being transformed!
 		<br/>19:46 - The essence corruption is taking longer than expected - I think the machine needs fixing again.
 		<br/>19:52 - My boys haven't shown up, so I'm going to have to fuck <strike>him</strike> <b>her</b> myself.
@@ -1944,7 +1748,7 @@
 	</p>
 	<br/>
 	<p>
-		[fia.speech(They really <i>are</i> turning people into dolls here,)] Fia groans, [fia.speech(I can't believe that the silly rumour I started was actually the truth all along...)]
+		[fia.speech(They really <i>are</i> turning people into dolls here,)] Fia groans, [fia.speech(I can't believe that the silly rumour I started was actually the truth all along.)]
 	</p>
 	<p>
 		After flicking through the rest of the folders, your companion takes a couple of them as evidence. With such incriminating files now in her possession, you ask Fia if she's got all she needs to write her story and expose what's happened to all the people who've been illegally enslaved.
@@ -1988,7 +1792,7 @@
 	
 	<htmlContent tag="DOLL_MACHINE_DISCOVERY_2"><![CDATA[
 	<p>
-		[angelixx.speech(Well then my boys and I will just start kidnapping people from Dominion again, like you said we would,)] Angelixx sighs, [angelixx.speech(We'll be super careful this time, so just chill out, ok?)]
+		[angelixx.speech(Well then my boys and I will go to Itza'aak, like you said we would,)] Angelixx sighs, [angelixx.speech(Just chill out, ok?)]
 	</p>
 	<p>
 		[saellatrix.speech(Chill out? You cheeky little bitch. I should have broken you along with your twin,)] Saellatrix snaps, [saellatrix.speech(Remember how proud she was of her supposed purity? She's the biggest slut of them all now, and I'm sure she'd be ever so grateful if I broke you into being her personal pussy-cleaner.)]
@@ -1997,7 +1801,7 @@
 		[angelixx.speech(You promised you'd spare me if I served you, and I have, haven't I?!)] Angelixx asks in a flustered panic as she hears what it is that her sister's suggesting. Jumping up from the edge of the table, she desperately shouts, [angelixx.speech(Please, I won't let you down again! I promise! I'll get lots of slaves for you!)]
 	</p>
 	<p>
-		[saellatrix.speech(Oh, I know you will,)] Saellatrix replies in an icy tone. Stepping forwards to tower over her smaller sister, she smirks down at her and says in a triumphant tone, [saellatrix.speech(Now, let's go see mother so that you can tell her exactly how incompetent you are. I'm sure she'll be keen for me to break and enslave you like her other failed daughters, but I'll put in a good word for you. Just remember that I <i>own</i> you...)]
+		[saellatrix.speech(Oh, I know you will,)] Saellatrix replies in an icy tone. Stepping forwards to tower over her smaller sister, she smirks down at her and says in a triumphant tone, [saellatrix.speech(Now, let's go see mother so that you can tell her exactly how incompetent you are. I'm sure she'll be keen for me to break and enslave you like her other failed daughters, but I'll put in a good word for you...)]
 	</p>
 	<p>
 		As she speaks, you see a sinister smirk settle on Saellatrix's face. Her younger sister looks utterly defeated, but before she can say anything the two of them vanish in a flash of pink light as they teleport away to Lovienne's chambers.
@@ -2053,7 +1857,6 @@
 		<br/>- If subject's appearance differs from that of a DOLL BODY, connect D.E.C.K. (Appendix 4a) to subject's NECK PORT (Appendix 1c).
 		<br/>- Transform subject to look identical to a DOLL BODY.
 		<br/>- Disconnect D.E.C.K.
-		<br/>- Apply BARCODE TATTOO (Appendix 1d) to subject's forehead.
 	</p>
 	<p>
 		<b>Stage 3: Total Essence Extraction (p.20-41)</b>
@@ -2075,12 +1878,13 @@
 	</p>
 	<p>
 		<b>Stage 5: Final Processing (p.81-90)</b>
-		<br/>- If D.E.C.K. transformations were used to stimulate orgasm, connect D.E.C.K. (Appendix 4a) to subject's NECK PORT (Appendix 1c).
-		<br/>- Restore subject to look identical to a DOLL BODY.
+		<br/>- If orifices were used to stimulate orgasm, connect D.E.C.K. (Appendix 4a) to subject's NECK PORT (Appendix 1c).
+		<br/>- Restore all orifices' tightness.
 		<br/>- Disconnect D.E.C.K.
-		<br/>- Question subject to determine if dollification has been successful.
+		<br/>- Request humiliating performance from subject to test obedience.
 		<br/>- If subject is not obedient, essence corruption has failed, likely due to essences being injected not at the moment of subject's orgasm. Repeat process from the start of Stage 3. If process fails again, contact Saellatrix.
-		<br/>- If subject is obedient, remove subject's straps and command subject to line up in DOLL STORAGE AREA (Appendix 6a).
+		<br/>- If subject is obedient, apply BARCODE TATTOO (Appendix 1d) to subject's forehead.
+		<br/>- Remove subject's straps and command subject to line up in DOLL STORAGE AREA (Appendix 6a).
 	</p>
 	<p>
 		<b>Stage 6: Admin (p.91)</b>
@@ -2091,7 +1895,7 @@
 		---
 	</p>
 	<p>
-		[fia.speech(I feel sick,)] Fia quietly says as she reads over the doll transformation process. Turning away, she shakes her head and sighs, [fia.speech(All those poor people... I really didn't want to believe that Sae was turning people into dolls. Perhaps it's because I started that silly rumour about it all, or maybe because I didn't investigate all this in time to save anyone, but I somehow feel like I've helped Sae get away with it...)] 
+		[fia.speech(I feel sick,)] Fia quietly says as she reads how people have been transformed into dolls. Turning away, she shakes her head and sighs, [fia.speech(All those poor people... I really didn't want to believe that Sae was turning people into dolls. Perhaps it's because I started that silly rumour about it all, or maybe because I didn't investigate all this in time to save anyone, but I somehow feel like I've helped Sae get away with it...)] 
 	</p>
 	<p>
 		Reminding Fia that you're still in the lion's den, and that meditating on her culpability can wait for another time, you push the booklet into her hands and tell her to hold on to it. After all, Saellatrix's name is printed in the booklet several times, and having flicking through the pages you're sure that some handwriting you saw in the margins can be traced back to being hers. As such, it can be a vital piece of evidence to bring the succubus's illegal operation to light.
@@ -2123,27 +1927,15 @@
 	</htmlContent>
 	
 	<htmlContent tag="DOLL_MACHINE"><![CDATA[
-	#IF(pc.isDoll())
-		<p>
-			You find yourself standing in the huge, high-ceilinged room in which illegal slaves are transformed into obedient sex dolls. Instead of the usual rough rock walls and concrete floor, sleek, white, metal panels cover every surface. Dozens of shiny metal pipes have been neatly routed down from the ceiling to feed into two huge machines that sit next to one another on the far side of the room. Dials, buttons, and rudimentary display panels cover these bulky contraptions, giving you the impression that they're extremely sophisticated, and no doubt expensive, pieces of kit.
-		</p>
-		<p>
-			Several long, metal desks and a collection of cabinets are arranged around the edges of the room, while in the very middle, illuminated by the bright white glow of a dozen hanging lights, there's a large table with thick leather restraints fixed to its sides. A host of flexible tubes run from the complex machines to link up with a trio of mobile workbenches that are arranged around the central table. In all, this chamber looks more like a cross between an operating theatre and a NASA control room than anything you'd expect to see in an underground sex toy factory.
-		</p>
-		<p>
-			Your extracted essences are still swirling around within the glass container that's slotted into the front of the dollification machine. Unfortunately, the nearby button labelled 'Cancel dollification - Essence restoration' only causes one of the machine's screens to flash an error message which informs you that you need to be lying on the table for it to work. Obviously unable to press the button and lie on the table at the same time, you realise that you need to find Fia and get her to help you out...
-		</p>
-	#ELSE
-		<p>
-			At the end of the subterranean facility lies a huge, high-ceilinged room unlike any other that you've seen. Instead of the usual rough rock walls and concrete floor, sleek, white, metal panels cover every surface. Dozens of shiny metal pipes have been neatly routed down from the ceiling to feed into two huge machines that sit next to one another on the far side of the room. Dials, buttons, and rudimentary display panels cover these bulky contraptions, giving you the impression that they're extremely sophisticated, and no doubt expensive, pieces of kit.
-		</p>
-		<p>
-			Several long, metal desks and a collection of cabinets are arranged around the edges of the room, while in the very middle, illuminated by the bright white glow of a dozen hanging lights, there's a large table with thick leather restraints fixed to its sides. A host of flexible tubes run from the complex machines to link up with a trio of mobile workbenches that are arranged around the central table. In all, this final room looks more like a cross between an operating theatre and a NASA control room than anything you'd expect to see in an underground sex toy factory.
-		</p>
-		<p>
-			[fia.speech(What are we doing back here?!)] Fia exclaims, [fia.speech(We need to escape!)]
-		</p>
-	#ENDIF
+	<p>
+		At the end of the subterranean facility lies a huge, high-ceilinged room unlike any other that you've seen. Instead of the usual rough rock walls and concrete floor, sleek, white, metal panels cover every surface. Dozens of shiny metal pipes have been neatly routed down from the ceiling to feed into two huge machines that sit next to one another on the far side of the room. Dials, buttons, and rudimentary display panels cover these bulky contraptions, giving you the impression that they're extremely sophisticated, and no doubt expensive, pieces of kit.
+	</p>
+	<p>
+		Several long, metal desks and a collection of cabinets are arranged around the edges of the room, while in the very middle, illuminated by the bright white glow of a dozen hanging lights, there's a large table with thick leather restraints fixed to its sides. A host of flexible tubes run from the complex machines to link up with a trio of mobile workbenches that are arranged around the central table. In all, this final room looks more like a cross between an operating theatre and a NASA control room than anything you'd expect to see in an underground sex toy factory.
+	</p>
+	<p>
+		[fia.speech(What are we doing back here?!)] Fia exclaims, [fia.speech(We need to escape!)]
+	</p>
 	]]>
 	</htmlContent>
 

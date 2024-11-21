@@ -6475,7 +6475,7 @@ public class Perk {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
-					"[npc.Name] only [npc.verb(want)] one thing - to be fucked non-stop, no matter who's doing the fucking nor how rough they are.");
+					"[npc.Name] only wants one thing - to be fucked non-stop, no matter who's doing the fucking nor how rough they are.");
 		}
 	};
 
@@ -6507,7 +6507,7 @@ public class Perk {
 			Util.newArrayListOfValues(
 					"[style.colourTerrible(Cannot)] gain [style.colourFetish(fetishes)]",
 					"[style.colourFetish(Fetish desires)] are always [style.colourHuman(neutral)]",
-					"Indifferent to exhibitionism, clothing femininity, chastity, and being dirty"),
+					"[npc.Do] not feel embarrased at being publicly exposed or from clothing femininity"),
 			null, null, null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -6585,13 +6585,13 @@ public class Perk {
 			Util.newArrayListOfValues(PresetColour.BASE_PINK, PresetColour.GENERIC_ARCANE),
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(
-					"Do not need to eat, drink, nor sleep",
+					"Does not need to eat, drink, nor sleep",
 					"Gain [style.colourExcellent(1000)] "+Attribute.HEALTH_MAXIMUM.getColouredName("span")+" while exposed to an arcane storm"),
 			null, null, null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
-					"Instead of requiring calories from food or drink to function, [npc.name] passively [npc.verb(absorb)] background arcane energy to power [npc.herself]."
+					"Instead of requiring calories from food or drink to function, [npc.name] passively absorbs background arcane energy to power [npc.herself]."
 						+ " Thanks to this, arcane storms grant [npc.herHim] a significant amount of vitality.");
 		}
 	};

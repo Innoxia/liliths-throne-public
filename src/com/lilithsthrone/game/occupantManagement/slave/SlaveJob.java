@@ -522,6 +522,9 @@ public enum SlaveJob {
 			} else if(character.getHomeWorldLocation().equals(WorldType.getWorldTypeFromId("innoxia_dominion_sex_shop"))) {
 				return "Dolls cannot work while being stored at Lovienne's Luxuries. Move them into a doll closet first!";
 				
+			} else if(character.getHomeWorldLocation().equals(WorldType.getWorldTypeFromId("acexp_dungeon"))) {
+				return "Slaves cannot work while being held in a dungeon cell. Free them first!";
+				
 			} else {
 				return "This job is available!";
 			}

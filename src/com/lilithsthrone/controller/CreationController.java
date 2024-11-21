@@ -3243,57 +3243,16 @@ public class CreationController {
 						public void effects() {
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
 							CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
-							boolean preferZero = CharacterModificationUtils.tattoo.getCounter().getType().getNonRetroactiveOffset(BodyChanging.getTarget())==0 && CharacterModificationUtils.retroactiveApplicationPreferZeroStart;
-							CharacterModificationUtils.tattoo.getCounter().setType(counterType, BodyChanging.getTarget());
-							if(preferZero) {
-								CharacterModificationUtils.tattoo.getCounter().setRetroactiveApplicationOffset(BodyChanging.getTarget());
-							}
+							CharacterModificationUtils.tattoo.getCounter().setType(counterType);
 						}
 					});
 				}, false);
 				
 				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(
-						Util.capitaliseSentence(counterType.getName()),
-						counterType.getDescription()
-						+(!counterType.isRetroactiveApplicationAvailable()
-							?"<br/><i>This counter type cannot be set to 'Start at 0', and instead always displays the current value.</i>"
-							:""));
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(counterType.getName()), counterType.getDescription());
 				MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 			}
-		}
-		
-		
-		id = "TATTOO_COUNT_RETROACTIVE_ENABLED";
-		if (MainController.document.getElementById(id) != null) {
-			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
-					@Override
-					public void effects() {
-						Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
-						CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
-						CharacterModificationUtils.tattoo.getCounter().setRetroactiveApplicationOffset(0);
-						CharacterModificationUtils.retroactiveApplicationPreferZeroStart = false;
-					}
-				});
-			}, false);
-		}
-		id = "TATTOO_COUNT_RETROACTIVE_DISABLED";
-		if (MainController.document.getElementById(id) != null) {
-			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				if(CharacterModificationUtils.tattoo.getCounter().getType().isRetroactiveApplicationAvailable()) {
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
-						@Override
-						public void effects() {
-							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
-							CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
-							CharacterModificationUtils.tattoo.getCounter().setRetroactiveApplicationOffset(BodyChanging.getTarget());
-							CharacterModificationUtils.retroactiveApplicationPreferZeroStart = true;
-						}
-					});
-				}
-			}, false);
 		}
 		
 		for (TattooCountType countType : TattooCountType.values()) {

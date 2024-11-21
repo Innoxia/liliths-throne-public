@@ -251,9 +251,6 @@ public class Hair implements BodyPartInterface {
 				case SIDE_BRAIDS:
 					sb.append("styled into two braids which hang down on either side of [npc.her] face.");
 					break;
-				case SIDE_PARTED:
-					sb.append("styled into a side parting.");
-					break;
 			}
 		sb.append("</p>");
 		return UtilText.parse(owner, sb.toString());

@@ -36,7 +36,9 @@ public class OffspringSeed implements XMLSaving {
 	
 	// Core variables:
 	protected String id;
+	protected String owner;
 	protected Boolean fromPlayer;
+	protected Boolean fromSlave;
 	protected Boolean born;
 	protected NameTriplet nameTriplet;
 	protected String surname;
@@ -72,6 +74,9 @@ public class OffspringSeed implements XMLSaving {
 		this.fromPlayer = (npc.getMother()!=null && npc.getMother().isPlayer() ||
 				          (npc.getFather()!=null && npc.getFather().isPlayer()) ||
 						  (npc.getIncubator()!=null && npc.getIncubator().isPlayer()));
+		this.fromSlave = (npc.getMother()!=null && npc.getMother().getOwner().isPlayer())||
+		          		  (npc.getFather()!=null && npc.getFather().getOwner().isPlayer()) ||
+		          		  (npc.getIncubator()!=null && npc.getIncubator().getOwner().isPlayer());
 		this.born = false;
 		this.nameTriplet = npc.getNameTriplet();
 		this.surname = npc.getSurname();
@@ -151,6 +156,7 @@ public class OffspringSeed implements XMLSaving {
 	 */
 	public OffspringSeed(GameCharacter mother, GameCharacter father, Body fatherBody) {
 		this.fromPlayer = (mother.isPlayer() || (father!=null && father.isPlayer()));
+		this.fromSlave = (mother.getOwner().isPlayer() || (father!=null && father.getOwner().isPlayer()));
 		this.born = false;
 		
 		GenericAndrogynousNPC template = new GenericAndrogynousNPC();
@@ -239,6 +245,7 @@ public class OffspringSeed implements XMLSaving {
 		
 		XMLUtil.createXMLElementWithValue(doc, offspringSeedData, "id", this.getId());
 		XMLUtil.createXMLElementWithValue(doc, offspringSeedData, "fromPlayer", this.isFromPlayer().toString());
+		XMLUtil.createXMLElementWithValue(doc, offspringSeedData, "fromSlave", this.isFromSlave().toString());
 		XMLUtil.createXMLElementWithValue(doc, offspringSeedData, "born", this.isBorn().toString());
 		Element name = doc.createElement("name");
 		offspringSeedData.appendChild(name);
@@ -411,6 +418,30 @@ public class OffspringSeed implements XMLSaving {
 	public Boolean isFromPlayer() { return fromPlayer; }
 	
 	public void setFromPlayer(Boolean fromPlayer) {	this.fromPlayer = fromPlayer; }
+	
+	public Boolean isFromSlave() { return fromSlave; }
+	
+	public void setFromSlave(Boolean fromSlave) { this.fromSlave = fromSlave; }
+	
+	public void checkFromSlave() {
+			//System.out.println("Checking offspring with id: " + id + ", her mother is " + motherId + ", and her father is " + fatherId);
+			try {
+				if ((Main.game.getNPCById(motherId).getOwner() != null && Main.game.getNPCById(motherId).getOwner().isPlayer()) ||
+						(Main.game.getNPCById(fatherId).getOwner() != null && Main.game.getNPCById(fatherId).getOwner().isPlayer()) ||
+						(Main.game.getNPCById(incubatorId).getOwner() != null && Main.game.getNPCById(incubatorId).getOwner().isPlayer())) {
+					//System.out.println(id + " is a slave offspring");
+					setFromSlave(true);
+				}
+				else {
+					//System.out.println(id + " is not a slave offspring");
+					setFromSlave(false);
+				}
+			} catch (Exception e) {
+				//System.out.println(id + " is not a slave offspring");
+				setFromSlave(false);
+				e.printStackTrace();
+			}
+	}
 	
 	public Boolean isBorn() { return born; }
 	

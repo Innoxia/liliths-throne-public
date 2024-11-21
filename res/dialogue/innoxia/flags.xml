@@ -115,42 +115,6 @@
 			<flag dailyReset="false">doll_factory_search_table</flag>
 			<flag dailyReset="false">doll_factory_search_desk</flag>
 			
-			<flag dailyReset="false">doll_factory_seen_dollification_machine</flag>
-			
-			<flag dailyReset="false">doll_factory_player_dollified</flag>
-			<flag dailyReset="false">doll_factory_pre_dollification_feminine</flag>
-			
-			<flag dailyReset="false">doll_factory_ending_riot_witnessed</flag>
-			<flag dailyReset="false">doll_factory_ending_reopen_scene_seen</flag>
-			
-		<!-- Angelixx's apartment: -->
-			<flag dailyReset="false">sleip_nir_apartment_seen</flag>
-			<flag dailyReset="false">sleip_nir_apartment_lounge_seen</flag>
-			<flag resetHour="12">sleip_nir_conversation_talked</flag>
-			<flag resetHour="12">sleip_nir_leave_denied</flag>
-			<flag resetHour="12">angelixx_apartment_visited</flag>
-			
-			<flag resetHour="12">angelixx_bedroom_talked</flag>
-			<flag resetHour="12">angelixx_bedroom_flirted</flag>
-			<flag dailyReset="false">angelixx_demands_unlocked</flag>
-			<flag dailyReset="false">angelixx_club_jules_targeting_player</flag>
-			
-		<!-- meeting Fia: -->
-			<flag resetHour="12">fia_bar_seen</flag>
-			<flag dailyReset="false">inky_obtained</flag>
-			<flag resetHour="12">fia_talk_small_talk</flag>
-			<flag resetHour="12">fia_talk_background</flag>
-			<flag resetHour="12">fia_talk_newspaper</flag>
-			<flag resetHour="12">fia_bar_alcohol_refused</flag>
-			<flag resetHour="12">fia_condoms_taken</flag>
-			
-			<flag dailyReset="false">fia_talk_stories</flag>
-			<flag dailyReset="false">fia_story_slime_queen</flag>
-			<flag dailyReset="false">fia_story_vengar</flag>
-			<flag dailyReset="false">fia_story_hlf_base</flag>
-			<flag dailyReset="false">fia_stories_complete</flag>
-
-			
 			
 	
 	<!-- Submission:-->
@@ -208,9 +172,6 @@
 		<!-- Evelyx's Dairy: -->
 			<flag dailyReset="true">dale_talk_himself</flag>
 			<flag dailyReset="true">dale_talk_work</flag>
-			<flag dailyReset="false">dale_talk_work_revealed</flag>
-			<flag dailyReset="false">dale_talk_sleep</flag>
-			<flag dailyReset="false">dale_teddy_bear_given</flag>
 			<flag dailyReset="true">dale_talk_evelyx</flag>
 			<flag dailyReset="true">dale_talk_farm</flag>
 			<flag dailyReset="true">dale_talk_lunette</flag>
@@ -432,7 +393,6 @@
 		<!-- Sterope: -->
 			<flag dailyReset="false">sterope_unlocked</flag>
 			<flag dailyReset="false">sterope_met_in_tavern</flag>
-			<flag dailyReset="false">sterope_searching_for_taur</flag>
 			<flag resetHour="12">sterope_sex</flag>
 			<flag resetHour="12">sterope_with_centaur</flag>
 			<flag dailyReset="false">sterope_fully_furry</flag>
@@ -471,12 +431,12 @@
 			<flag dailyReset="false">sword_talk_human_rebellion</flag>
 			<flag dailyReset="false">sword_talk_hlf</flag>
 			<flag dailyReset="false">sword_history_revealed</flag>
-			<flag dailyReset="false">sword_talk_quest_complete</flag>
-			
 			
 			
 			
 		
+		
+	
 	
 	<!-- You can ignore this section, I just use it to track the ids of saved long values (using [#flags.setSavedLong(id, value)] calls)
 	
@@ -496,17 +456,8 @@
 	gym_perk_progress (Progress towards the perk unlock in Pix's gym)
 	boxing_perk_progress (Progress towards the boxing perk unlock in Pix's gym)
 	
-	saellatrix_tour_start (timing for Saellatrix's factory tour)
+	saellatrix_tour_start (timing fro Saellatrix's factory tour)
 	fia_factory_finished (time in seconds when finished the Fiammetta factory exploration quest)
-	player_saved_essence_count (used to restore essences after reverting dollification)
-	player_doll_number (the player's unique doll barcode number)
-	bad_end_dollification_events_count (used to track how many of the four events have been triggered during the dollification bad end)
-	bad_end_dollification_owner (used to track the final scene during the dollification bad end)
-	
-	sleip_nir_conversation_progress (used to track how long it takes before Sleip and Nir try to fuck player)
-	angelixx_club_progress (used to track progress through the clubbing scene with Angelixx)
-	
-	fia_whiskey_sips (tracking how many sips of whiskey the player has had when meeting Fia in a bar)
 	-->
 	
 </dialogueFlags>

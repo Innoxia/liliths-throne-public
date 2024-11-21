@@ -45,7 +45,7 @@ public class Testicle implements BodyPartInterface {
 		this.testicleSize = Math.max(0, Math.min(testicleSize, TesticleSize.SEVEN_ABSURD.getValue()));
 		this.cumStorage = cumStorage;
 		cumStored = cumStorage;
-		cumRegeneration = FluidRegeneration.CUM_REGEN_DEFAULT;
+		cumRegeneration = FluidRegeneration.CUM_REGEN_DEFAULT * testicleCount;
 		cumExpulsion = FluidExpulsion.THREE_LARGE.getMinimumValue();
 		
 		this.testicleCount = Math.max(MIN_TESTICLE_COUNT, Math.min(testicleCount, MAX_TESTICLE_COUNT));

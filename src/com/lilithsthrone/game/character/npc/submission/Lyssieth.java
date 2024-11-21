@@ -432,20 +432,14 @@ public class Lyssieth extends NPC {
 		// Change perk to demon version:
 		Main.game.getPlayer().handleDemonicTransformationPerkEffects();
 	}
-
-	public void setDaughterToFullDemon(Class<? extends NPC> daughterClass) {
-		setDaughterToFullDemon(daughterClass, true);
-	}
 	
-	public void setDaughterToFullDemon(Class<? extends NPC> daughterClass, boolean includeArousalChanges) {
+	public void setDaughterToFullDemon(Class<? extends NPC> daughterClass) {
 		setDaughterDemonicBodyParts(Main.game.getNpc(daughterClass));
 		
-		if(includeArousalChanges) {
-			Main.game.getNpc(Lilaya.class).setArousal(100);
-			Main.game.getPlayer().setArousal(100, true);
-			if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(Main.game.getNpc(DarkSiren.class))) {
-				Main.game.getNpc(DarkSiren.class).setArousal(100);
-			}
+		Main.game.getNpc(Lilaya.class).setArousal(100);
+		Main.game.getPlayer().setArousal(100, true);
+		if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(Main.game.getNpc(DarkSiren.class))) {
+			Main.game.getNpc(DarkSiren.class).setArousal(100);
 		}
 		
 		Main.game.getNpc(daughterClass).loadImages(true);
