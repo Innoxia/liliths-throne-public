@@ -178,7 +178,55 @@ public class PlaceUpgrade {
 			return new Value<>(true, "");
 		}
 	};
+
+	//**** DOLL CLOSET ****//
 	
+	public static final AbstractPlaceUpgrade LILAYA_DOLL_CLOSET = new AbstractPlaceUpgrade(true,
+			PresetColour.GENERIC_ARCANE,
+			"Doll Closet",
+			"Rose will clear all of the furniture out this room, allowing it to be used as a storage room for any sex dolls you own.",
+			"This room has been converted into a suitable place for storing your sex dolls.",
+			"You've had this room completely cleared, thereby enabling it to act as a storage room for any sex dolls you own.",
+			250,
+			0,
+			0,
+			12,
+			0,
+			0,
+			null) {
+		@Override
+		public boolean isSlaverUpgrade() {
+			return false;
+		}
+		
+		@Override
+		public String getSVGOverride() {
+			return AbstractPlaceType.getSVGOverride("dominion/lilayasHome/roomDoll", PresetColour.RACE_DOLL, PresetColour.BASE_WHITE, PresetColour.BASE_WHITE);
+		}
+		@Override
+		protected Value<Boolean, String> getExtraConditionalAvailability(Cell cell) {
+			if(cell.getPlace().getPlaceUpgrades().contains(LILAYA_ARTHUR_ROOM)) {
+				return new Value<>(false, "");
+			}
+			if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_DOLL_STORAGE)) {
+				return new Value<>(false, "To install a doll closet, you'd need to first get Lilaya's permission to make the upgrade.");
+			}
+			if(!Main.game.getCharactersTreatingCellAsHome(cell).isEmpty()) {
+				return new Value<>(false, "This room needs to be unoccupied in order to purchase this modification.");
+			}
+			return super.getExtraConditionalAvailability(cell);
+		}
+		
+		@Override
+		public void applyInstallationEffects(Cell c) {
+			GenericPlace place = c.getPlace();
+			for(AbstractPlaceUpgrade upgrade : PlaceUpgrade.getAllPlaceUpgrades()) {
+				if(upgrade != LILAYA_DOLL_CLOSET) {
+					place.removePlaceUpgrade(c, upgrade);
+				}
+			}
+		}
+	};
 	
 	//**** GUEST ROOM ****//
 	
@@ -1448,14 +1496,16 @@ public class PlaceUpgrade {
 	
 	static {
 		coreRoomUpgrades = Util.newArrayListOfValues(
+				PlaceUpgrade.LILAYA_DOLL_CLOSET,
 				PlaceUpgrade.LILAYA_GUEST_ROOM,
-				PlaceUpgrade.LILAYA_SPA,
 				
 				PlaceUpgrade.LILAYA_SLAVE_ROOM,
 				PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE,
 				PlaceUpgrade.LILAYA_SLAVE_ROOM_QUADRUPLE,
 				
 				PlaceUpgrade.LILAYA_SLAVE_LOUNGE,
+				
+				PlaceUpgrade.LILAYA_SPA,
 				
 				PlaceUpgrade.LILAYA_OFFICE,
 				PlaceUpgrade.LILAYA_MILKING_ROOM,

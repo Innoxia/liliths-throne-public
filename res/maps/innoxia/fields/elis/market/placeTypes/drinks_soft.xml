@@ -4,7 +4,6 @@
 	<name><![CDATA[Freshly Squeezed]]></name>
 	<tooltipDescription><![CDATA[A family of rabbit-morphs run this non-alcoholic drinks stall.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the Farmer's Market in Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<svgName>drinks</svgName>
 	<colour>BASE_YELLOW_PALE</colour>

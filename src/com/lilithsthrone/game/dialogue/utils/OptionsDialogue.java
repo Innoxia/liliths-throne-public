@@ -100,7 +100,6 @@ public class OptionsDialogue {
 								+ "If the game's resolution isn't fitting to your screen, press the keys: 'Windows' + 'Up Arrow' to maximise!"
 							+ "</p>"
 							:"")
-					+ "<br/>"
 					+ (Main.game.isStarted() || Main.getProperties().name.isEmpty()
 							?""
 							:"<h4 style='text-align:center;'>Last save:</h4>"
@@ -2515,8 +2514,9 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("BAD_END",
 					PresetColour.GENERIC_TERRIBLE,
 					"Bad Ends",
-					"Toggle the ability to trigger 'bad ends', which effectively end the game for your character when encountered."
-							+"<br/>[style.italicsMinorBad(Please note that bad ends involve non-con content, regardless of whether or not your non-con option is enabled.)]",
+					"Toggle the ability to trigger 'bad ends', which end the game for your character when encountered."
+							+"<br/>[style.italicsMinorBad(Please note that bad ends involve non-con content, and so ignore your non-con setting.)]"
+							+"<br/>[style.italicsTerrible(Please be aware that some bad ends are unaffected by this setting and are always present in the game.)]",
 					Main.getProperties().hasValue(PropertyValue.badEndContent)));
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("LEVEL_DRAIN",
 					PresetColour.GENERIC_TERRIBLE,
@@ -2813,6 +2813,17 @@ public class OptionsDialogue {
 					"When enabled, submissive characters in sex who have the 'unwilling fuck-toy' fetish will be able to engage in rape-play without first being given permission to do so.",
 					Main.getProperties().hasValue(PropertyValue.rapePlayAtSexStart)));
 			
+			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_PINK, "Full exposure descriptions", "Set how often revealed body parts are fully described during sex."));
+			for (int i = 2; i>=0; i--) {
+				UtilText.nodeContentSB.append("<div id='FULL_EXPOSURE_DESCRIPTIONS_"+i+"' class='normal-button"+(Main.getProperties().bypassSexActions == i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
+						+(Main.getProperties().fullExposureDescriptions == i
+						?"[style.boldGood("
+						:"[style.colourDisabled(")
+						+com.lilithsthrone.game.Properties.fullExposureDescriptionsLabels[i]+")]</div>");
+			}
+			UtilText.nodeContentSB.append("</div></div>");
+			
+			
 			return UtilText.nodeContentSB.toString();
 		}
 		
@@ -2898,6 +2909,22 @@ public class OptionsDialogue {
 			}
 			UtilText.nodeContentSB.append("</div></div>");
 			
+			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_BROWN_LIGHT, "Hair growth", "Select how often the player's hair will grow by 1cm. NPCs maintain their hair lengths, so this setting only affects you."));
+			int[] hairButtonOrder = new int[] {2, 1, 0, 3}; // Order buttons in this manner so that they appear to be a little more logical
+			for (int i : hairButtonOrder) {
+				boolean active = Main.getProperties().getHairGrowth() == i;
+				UtilText.nodeContentSB.append("<div id='HAIR_GROWTH_PREFERENCE_"+i+"' class='normal-button"+(Main.getProperties().getHairGrowth() == i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
+						+(i == 0
+								?"[style.bold"+(active?"Bad":"Disabled")+"(Never)]"
+								:(i == 1
+									?"[style.bold"+(active?"Size10":"Disabled")+"(Weekly)]"
+									:(i == 2
+										?"[style.bold"+(active?"Size5":"Disabled")+"(Daily)]"
+										:"[style.bold"+(active?"Size0":"Disabled")+"(Hourly)]")))
+						+"</div>");
+			}
+			UtilText.nodeContentSB.append("</div></div>");
+			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("HAIR_FACIAL",
 					PresetColour.BASE_LILAC_LIGHT,
 					"Facial hair",
@@ -2939,6 +2966,12 @@ public class OptionsDialogue {
 					"Scaly Hair",
 					"Toggles whether or not characters with a reptilian or amphibious head type will spawn with human-like hair on their heads.",
 					Main.getProperties().hasValue(PropertyValue.scalyHairContent)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv("LIP_LISP",
+					PresetColour.BASE_PINK_SALMON,
+					"Lip lisps",
+					"Toggles whether or not characters with very large lips will speak with a lisp.",
+					Main.getProperties().hasValue(PropertyValue.lipLispContent)));
 			
 			UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(
 					"PREGNANCY_BREAST_GROWTH",

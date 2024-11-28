@@ -91,6 +91,19 @@ public enum ItemTag {
 	
 	//-------------- WEAPONS & CLOTHING --------------//
 	
+	// ----- Weapon-specific tags: ----- //
+	WEAPON_FERAL_EQUIPPABLE( // Allows ferals to equip this weapon (as they cannot equip weapons by default)
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Can be equipped by ferals)]"),
+			false),
+	
+	WEAPON_BLADE, // Should be added to all weapons that use an arcane blade
+	
+	WEAPON_FIREARM, // Should be added to all weapons that should be considered to be a firearm
+	
+	WEAPON_UNARMED, // Should be added to all weapons that should use unarmed damage calculations instead of melee
+	//   ------------------------------ //
+	
 	/** Excludes this clothing from being randomly chosen to equip on an NPC in automatic outfit generation.
 	 *  Also excludes the clothing from randomly spawning as tile-exploration loot.
 	 *  This only really affects common-rarity clothing, as all clothing of a rarity higher than common are typically only able to be added to characters directly. */
@@ -119,15 +132,8 @@ public enum ItemTag {
 			Util.newArrayListOfValues(
 					"[style.colourSex(Cannot conceal any body parts)]"),
 			false),
-
-	WEAPON_FERAL_EQUIPPABLE( // Allows ferals to equip this weapon (as they cannot equip weapons by default)
-			Util.newArrayListOfValues(
-					"[style.colourFeral(Can be equipped by ferals)]"),
-			false),
 	
-	WEAPON_BLADE, // Should be added to all weapons that use an arcane blade
-	
-	WEAPON_UNARMED, // Should be added to all weapons that should use unarmed damage calculations instead of melee
+	IGNORE_HAIR_RESTRICTION, // If a piece of clothing has this tag, it can always be equipped into the HAIR slot, even if the equipping character has no hair.
 	
 	DRESS, // For helping to generate clothing in CharacterUtils
 	SWIMWEAR, // For helping to generate clothing in CharacterUtils
@@ -174,7 +180,9 @@ public enum ItemTag {
 					"[style.colourTerrible(Prevents combat escape)]"),
 			false),
 	
-	DISCARDED_WHEN_UNEQUIPPED( //  Makes the clothing be thrown away when unequipped. E.g. Condoms
+	DUPLICATE_WHEN_EQUIP,  // Instead of removing the clothing from the inventory it's in, duplicate the clothing and then equip the duplicate instead. This should probably be paired with DISCARDED_WHEN_UNEQUIPPED, and is used for the electrical tape roll.
+	
+	DISCARDED_WHEN_UNEQUIPPED( // Makes the clothing be thrown away when unequipped. E.g. Condoms
 			Util.newArrayListOfValues(
 					"[style.colourMinorBad(Discarded when unequipped)]"),
 			false),
@@ -207,6 +215,17 @@ public enum ItemTag {
 			false),
 	
 	// These 'FITS' tags are used to check for whether clothing is suitable for certain body parts. They should be pretty self-explanatory.
+	// Mouths (mouth clothing fits all mouth types by default, which is why there's no need for 'FITS_MUZZLES' or 'FITS_BEAKS'):
+	FITS_MUZZLES_EXCLUSIVE(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Only fits muzzles)]"),
+			false),
+	FITS_BEAKS_EXCLUSIVE(
+			Util.newArrayListOfValues(
+					"[style.colourFeral(Only fits beaks)]"),
+			false),
+	
+	// legs:
 	FITS_HOOFS_EXCLUSIVE(
 			Util.newArrayListOfValues(
 					"[style.colourFeral(Only fits hoofs)]"),
@@ -225,6 +244,7 @@ public enum ItemTag {
 					"[style.colourFeral(Fits talons)]"),
 			false),
 	
+	// Arms:
 	FITS_FEATHERED_ARM_WINGS_EXCLUSIVE(
 			Util.newArrayListOfValues(
 					"[style.colourTfGeneric(Only fits feathered arm-wings)]"),
@@ -249,7 +269,8 @@ public enum ItemTag {
 			Util.newArrayListOfValues(
 					"[style.colourTfGeneric(Fits arm-wings)]"),
 			false),
-	
+
+	// Bodies:
 	FITS_NON_BIPED_BODY_HUMANOID(
 			Util.newArrayListOfValues(
 					"[style.colourHuman(Fits humanoid parts of non-biped bodies)]"),
@@ -273,7 +294,8 @@ public enum ItemTag {
 	FITS_AVIAN_BODY(
 			Util.newArrayListOfValues(
 					"[style.colourTfGeneric(Only fits avian bodies)]"),false), //bird-taurs
-	
+
+	// Feral status:
 	// These tags are non-exclusive, so clothing with them can additionally be equipped by non-ferals:
 	FITS_FERAL_ALL_BODY(
 			Util.newArrayListOfValues(

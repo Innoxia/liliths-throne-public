@@ -325,17 +325,7 @@ public class Astrapi extends NPC {
 
 	@Override
 	public String getArtworkFolderName() {
-		if(Main.game.isUdderContentEnabled()) {
-			if(this.isVisiblyPregnant()) {
-				return "AstrapiCrotchBoobsPregnant";
-			}
-			return "AstrapiCrotchBoobs";
-		} else {
-			if(this.isVisiblyPregnant()) {
-				return "AstrapiPregnant";
-			}
-			return "Astrapi";
-		}
+		return "Astrapi";
 	}
 	
 	@Override

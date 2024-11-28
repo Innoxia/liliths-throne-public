@@ -129,6 +129,9 @@ public class BasicSlave extends NPC {
 	
 	@Override
 	public String getDescription() {
+		if(this.isSlave() && this.isDoll()) {
+			return super.getDescription();
+		}
 		if(this.isSlave()) {
 			return UtilText.parse(this, "Having run afoul of the law, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property.");
 			

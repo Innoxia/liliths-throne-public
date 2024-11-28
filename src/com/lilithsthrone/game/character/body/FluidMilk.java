@@ -2,10 +2,13 @@ package com.lilithsthrone.game.character.body;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -19,7 +22,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.3.8.2
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class FluidMilk implements FluidInterface {
@@ -27,7 +30,7 @@ public class FluidMilk implements FluidInterface {
 	
 	protected AbstractFluidType type;
 	protected FluidFlavour flavour;
-	protected List<FluidModifier> fluidModifiers;
+	protected Set<FluidModifier> fluidModifiers;
 	protected List<ItemEffect> transformativeEffects;
 	
 	protected boolean crotchMilk;
@@ -37,10 +40,18 @@ public class FluidMilk implements FluidInterface {
 		this.flavour = type.getFlavour();
 		transformativeEffects = new ArrayList<>();
 		
-		fluidModifiers = new ArrayList<>();
+		fluidModifiers = new HashSet<>();
 		fluidModifiers.addAll(type.getDefaultFluidModifiers());
 		
 		this.crotchMilk = crotchMilk;
+	}
+
+	public FluidMilk(FluidMilk milkToCopy) {
+		this.type = milkToCopy.type;
+		this.flavour = milkToCopy.flavour;
+		this.fluidModifiers = new HashSet<>(milkToCopy.fluidModifiers);
+		this.transformativeEffects = new ArrayList<>(milkToCopy.transformativeEffects);
+		this.crotchMilk = milkToCopy.crotchMilk;
 	}
 	
 	public Element saveAsXML(String rootElementName, Element parentElement, Document doc) {
@@ -49,11 +60,11 @@ public class FluidMilk implements FluidInterface {
 
 		XMLUtil.addAttribute(doc, element, "type", FluidType.getIdFromFluidType(this.type));
 		XMLUtil.addAttribute(doc, element, "flavour", this.flavour.toString());
-		
-		Element milkModifiers = doc.createElement("milkModifiers");
-		element.appendChild(milkModifiers);
+
 		for(FluidModifier fm : this.getFluidModifiers()) {
-			XMLUtil.addAttribute(doc, milkModifiers, fm.toString(), "true");
+			Element mod = doc.createElement("mod");
+			mod.setTextContent(fm.toString());
+			element.appendChild(mod);
 		}
 		
 		return element;
@@ -95,10 +106,18 @@ public class FluidMilk implements FluidInterface {
 		}
 		
 		Element milkModifiersElement = (Element)milk.getElementsByTagName("milkModifiers").item(0);
-		fluidMilk.fluidModifiers.clear();
 		if(milkModifiersElement!=null) {
-			Collection<FluidModifier> milkFluidModifiers = fluidMilk.fluidModifiers;
-			Body.handleLoadingOfModifiers(FluidModifier.values(), null, milkModifiersElement, milkFluidModifiers);
+			fluidMilk.fluidModifiers.clear();
+			if(milkModifiersElement!=null) {
+				Collection<FluidModifier> milkFluidModifiers = fluidMilk.fluidModifiers;
+				Body.handleLoadingOfModifiers(FluidModifier.values(), null, milkModifiersElement, milkFluidModifiers);
+			}
+		} else {
+			NodeList mods = milk.getElementsByTagName("mod");
+			for(int i = 0; i < mods.getLength(); i++) {
+				Element e = ((Element)mods.item(i));
+				fluidMilk.fluidModifiers.add(FluidModifier.valueOf(e.getTextContent()));
+			}
 		}
 		
 		return fluidMilk;
@@ -151,7 +170,7 @@ public class FluidMilk implements FluidInterface {
 	public String getDescriptor(GameCharacter gc) {
 		String modifierDescriptor = "";
 		if(!fluidModifiers.isEmpty()) {
-			modifierDescriptor = fluidModifiers.get(Util.random.nextInt(fluidModifiers.size())).getName();
+			modifierDescriptor = new ArrayList<>(fluidModifiers).get(Util.random.nextInt(fluidModifiers.size())).getName();
 		}
 		
 		return UtilText.returnStringAtRandom(
@@ -189,14 +208,20 @@ public class FluidMilk implements FluidInterface {
 			return UtilText.parse(owner,
 					"<p>"
 						+ "A soothing warmth spreads through [npc.namePos] [npc.crotchBoobs], causing [npc.herHim] to let out a contented little sigh.<br/>"
-						+ "[npc.NamePos] [npc.crotchMilk] now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>."
+						+ "[npc.NamePos] [npc.crotchMilk] "
+						+ (flavour==FluidFlavour.FLAVOURLESS
+							?"is now <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>"
+							:"now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>.")
 					+ "</p>");
 			
 		} else {
 			return UtilText.parse(owner,
 					"<p>"
 						+ "A soothing warmth spreads through [npc.namePos] [npc.breasts], causing [npc.herHim] to let out a contented little sigh.<br/>"
-						+ "[npc.NamePos] [npc.milk] now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>."
+						+ "[npc.NamePos] [npc.milk] "
+						+ (flavour==FluidFlavour.FLAVOURLESS
+							?"is now <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>"
+							:"now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>.")
 					+ "</p>");
 		}
 	}
@@ -519,7 +544,7 @@ public class FluidMilk implements FluidInterface {
 	/**
 	 * DO NOT MODIFY!
 	 */
-	public List<FluidModifier> getFluidModifiers() {
+	public Set<FluidModifier> getFluidModifiers() {
 		return fluidModifiers;
 	}
 	
@@ -528,7 +553,7 @@ public class FluidMilk implements FluidInterface {
 	}
 	
 	public float getValuePerMl() {
-		return 0.01f;
+		return 0.01f * type.getValueModifier();
 	}
 
 	public boolean isCrotchMilk() {

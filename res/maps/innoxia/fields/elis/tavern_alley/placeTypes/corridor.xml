@@ -4,7 +4,6 @@
 	<name><![CDATA[corridor]]></name>
 	<tooltipDescription><![CDATA[A narrow corridor links the VIP room to the main floor of 'The Crossed Blades' tavern.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the corridor at 'The Crossed Blades' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_GREY</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

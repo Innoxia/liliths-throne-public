@@ -77,6 +77,9 @@ public class LodgerImport extends NPC {
 	
 	@Override
 	public String getDescription() {
+		if(this.isSlave() && this.isDoll()) {
+			return super.getDescription();
+		}
 		return UtilText.parse(this, "You first met [npc.name] in Dominion's city hall, where [npc.she] was waiting for someone to offer [npc.herHim] lodgings...");
 	}
 	

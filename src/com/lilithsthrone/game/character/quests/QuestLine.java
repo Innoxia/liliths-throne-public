@@ -45,6 +45,10 @@ public enum QuestLine {
 			QuestType.SIDE,
 			QuestTree.accommodationTree),
 
+	SIDE_DOLL_STORAGE("Doll Storage", "Lilaya told you that you can use any spare room in which to store any dolls you buy...",
+			QuestType.SIDE,
+			QuestTree.dollStorageTree),
+
 	SIDE_HYPNO_WATCH("Arthur's Experiment", "You helped Arthur to complete his research into an orientation-changing Hypno-Watch, which is now in your possession!",
 			QuestType.SIDE,
 			QuestTree.hypnoWatchTree),
@@ -109,6 +113,10 @@ public enum QuestLine {
 	SIDE_LUNEXIS_ESCAPE("Serving Lunexis", "You obeyed your Mistress's orders and ensured that she was able to escape, thereby sealing your fate to become one of her personal cock-sleeves...",
 			QuestType.SIDE,
 			QuestTree.lunexisEscapeTree),
+
+	SIDE_DOLL_FACTORY("Dealing With Dolls", "You uncovered the truth behind how the premium sex dolls for sale in 'Lovienne's Luxury' are created...",
+			QuestType.SIDE,
+			QuestTree.dollFactoryTree),
 	
 	// Romance quests:
 	

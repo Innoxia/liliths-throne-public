@@ -193,8 +193,9 @@ public class OccupancyUtil implements XMLSaving {
 	}
 	
 	public void handleSlaveRemoval(GameCharacter character) {
-		// First end the job to apply any effects
+		// First end the job to apply any effects, then reset all job hour slots to IDLE
 		character.getSlaveJob(Main.game.getHourOfDay()).applyJobEndEffects(character);
+		character.setSlaveJob24Hours(SlaveJob.IDLE);
 		
 		charactersAtJob.values().forEach(list->list.remove(character.getId()));
 		charactersResting.remove(character);
@@ -324,15 +325,16 @@ public class OccupancyUtil implements XMLSaving {
 		
 		// First need to set correct jobs and handle miscellaneous updates:
 		List<NPC> charactersToSendToWork = new ArrayList<>();
-		for(String id : this.getAllCharacters()) {
+		for(String id : getAllCharacters()) {
 			try {
 				NPC character = (NPC) Main.game.getNPCById(id);
-
-				SlaveJob currentJob = character.getSlaveJob(hour);
 				
-				if(Main.game.getPlayer().hasCompanion(character)) {
+				if(Main.game.getPlayer().hasCompanion(character)
+						|| (!character.isSlave() && character.hasJob())) {
 					continue;
 				}
+
+				SlaveJob currentJob = character.getSlaveJob(hour);
 				
 				if(character.isVisiblyPregnant() && !character.hasStatusEffect(StatusEffect.PREGNANT_3) && character.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PREGNANCY_MOTHERS_MILK)) {
 					ItemEffectType.MOTHERS_MILK.applyEffect(null, null, null, 0, character, character, null);
@@ -379,6 +381,19 @@ public class OccupancyUtil implements XMLSaving {
 		// Send slaves to work after others have left, so that job rooms are emptied before trying to fill them:
 		for(NPC slave : charactersToSendToWork) {
 			updateJob(slave, hour, previousJobs);
+		}
+		
+		// Non-slave specific effects:
+		for(String id : Main.game.getPlayer().getFriendlyOccupants()) {
+			try {
+				NPC occupant = (NPC) Main.game.getNPCById(id);
+				SlaveJob currentJob = occupant.getSlaveJob(hour);
+				if(currentJob.hasFlag(SlaveJobFlag.EXPERIENCE_GAINS) && Math.random()<0.25f) {
+					occupant.incrementExperience(5, false);
+				}
+			} catch (Exception e) {
+				Util.logGetNpcByIdError("performHourlyUpdate(), getFriendlyOccupants() section 2.", id);
+			}
 		}
 		
 		// Now can apply changes and generate events based on who else is present in the job:
@@ -429,8 +444,7 @@ public class OccupancyUtil implements XMLSaving {
 				}
 				
 				// chance to gain experience based on profits
-				if(currentJob.hasFlag(SlaveJobFlag.EXPERIENCE_GAINS)
-						&& workQuality>Math.random()*4) {
+				if(currentJob.hasFlag(SlaveJobFlag.EXPERIENCE_GAINS) && workQuality>Math.random()*4) {
 					slave.incrementExperience(5, false);
 				}
 				
@@ -544,75 +558,77 @@ public class OccupancyUtil implements XMLSaving {
 					dailyEntry.addExtraEffect("[style.boldGood(Earned)] "+UtilText.formatAsMoney(dailyIncome.get(slave)));
 				}
 				
-				// Muscle:
-				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.EXERCISE_FORBIDDEN)) {
-					if(slave.getMuscleValue()>0) {
-						dailyEntry.addTag(SlaveEventTag.DAILY_MUSCLE_LOSS_LARGE, slave, true);
-					}
-					
-				} else if(slave.hasSlavePermissionSetting(SlavePermissionSetting.EXERCISE_REST)) {
-					if(slave.getMuscleValue()>Muscle.ONE_LIGHTLY_MUSCLED.getMaximumValue()) {
-						dailyEntry.addTag(SlaveEventTag.DAILY_MUSCLE_LOSS, slave, true);
+				if(!slave.isDoll()) { // Dolls do not gain/lose muscle or body size
+					// Muscle:
+					if(slave.hasSlavePermissionSetting(SlavePermissionSetting.EXERCISE_FORBIDDEN)) {
+						if(slave.getMuscleValue()>0) {
+							dailyEntry.addTag(SlaveEventTag.DAILY_MUSCLE_LOSS_LARGE, slave, true);
+						}
 						
-					} else if(slave.getMuscleValue()<Muscle.ONE_LIGHTLY_MUSCLED.getMinimumValue()) {
-						dailyEntry.addTag(SlaveEventTag.DAILY_MUSCLE_GAIN, slave, true);
-					}
-					
-				} else if(slave.hasSlavePermissionSetting(SlavePermissionSetting.EXERCISE_NORMAL)) {
-					if(slave.getMuscleValue()>Muscle.TWO_TONED.getMaximumValue()) {
-						dailyEntry.addTag(SlaveEventTag.DAILY_MUSCLE_LOSS, slave, true);
+					} else if(slave.hasSlavePermissionSetting(SlavePermissionSetting.EXERCISE_REST)) {
+						if(slave.getMuscleValue()>Muscle.ONE_LIGHTLY_MUSCLED.getMaximumValue()) {
+							dailyEntry.addTag(SlaveEventTag.DAILY_MUSCLE_LOSS, slave, true);
+							
+						} else if(slave.getMuscleValue()<Muscle.ONE_LIGHTLY_MUSCLED.getMinimumValue()) {
+							dailyEntry.addTag(SlaveEventTag.DAILY_MUSCLE_GAIN, slave, true);
+						}
 						
-					} else if(slave.getMuscleValue()<Muscle.TWO_TONED.getMinimumValue()) {
-						dailyEntry.addTag(SlaveEventTag.DAILY_MUSCLE_GAIN, slave, true);
-					}
-					
-				} else if(slave.hasSlavePermissionSetting(SlavePermissionSetting.EXERCISE_TRAINING)) {
-					if(slave.getMuscleValue()>Muscle.THREE_MUSCULAR.getMaximumValue()) {
-						dailyEntry.addTag(SlaveEventTag.DAILY_MUSCLE_LOSS, slave, true);
+					} else if(slave.hasSlavePermissionSetting(SlavePermissionSetting.EXERCISE_NORMAL)) {
+						if(slave.getMuscleValue()>Muscle.TWO_TONED.getMaximumValue()) {
+							dailyEntry.addTag(SlaveEventTag.DAILY_MUSCLE_LOSS, slave, true);
+							
+						} else if(slave.getMuscleValue()<Muscle.TWO_TONED.getMinimumValue()) {
+							dailyEntry.addTag(SlaveEventTag.DAILY_MUSCLE_GAIN, slave, true);
+						}
 						
-					} else if(slave.getMuscleValue()<Muscle.THREE_MUSCULAR.getMinimumValue()) {
-						dailyEntry.addTag(SlaveEventTag.DAILY_MUSCLE_GAIN, slave, true);
-					}
-					
-				} else if(slave.hasSlavePermissionSetting(SlavePermissionSetting.EXERCISE_BODY_BUILDING)) {
-					if(slave.getMuscleValue()<100) {
-						dailyEntry.addTag(SlaveEventTag.DAILY_MUSCLE_GAIN_LARGE, slave, true);
-					}
-				}
-				
-				// Body size:
-				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.FOOD_DIET_EXTREME)) {
-					if(slave.getBodySizeValue()>0) {
-						dailyEntry.addTag(SlaveEventTag.DAILY_BODY_SIZE_LOSS_LARGE, slave, true);
-					}
-					
-				} else if(slave.hasSlavePermissionSetting(SlavePermissionSetting.FOOD_DIET)) {
-					if(slave.getBodySizeValue()>BodySize.ONE_SLENDER.getMaximumValue()) {
-						dailyEntry.addTag(SlaveEventTag.DAILY_BODY_SIZE_LOSS, slave, true);
+					} else if(slave.hasSlavePermissionSetting(SlavePermissionSetting.EXERCISE_TRAINING)) {
+						if(slave.getMuscleValue()>Muscle.THREE_MUSCULAR.getMaximumValue()) {
+							dailyEntry.addTag(SlaveEventTag.DAILY_MUSCLE_LOSS, slave, true);
+							
+						} else if(slave.getMuscleValue()<Muscle.THREE_MUSCULAR.getMinimumValue()) {
+							dailyEntry.addTag(SlaveEventTag.DAILY_MUSCLE_GAIN, slave, true);
+						}
 						
-					} else if(slave.getBodySizeValue()<BodySize.ONE_SLENDER.getMinimumValue()) {
-						dailyEntry.addTag(SlaveEventTag.DAILY_BODY_SIZE_GAIN, slave, true);
+					} else if(slave.hasSlavePermissionSetting(SlavePermissionSetting.EXERCISE_BODY_BUILDING)) {
+						if(slave.getMuscleValue()<100) {
+							dailyEntry.addTag(SlaveEventTag.DAILY_MUSCLE_GAIN_LARGE, slave, true);
+						}
 					}
 					
-				} else if(slave.hasSlavePermissionSetting(SlavePermissionSetting.FOOD_NORMAL)) {
-					if(slave.getBodySizeValue()>BodySize.TWO_AVERAGE.getMaximumValue()) {
-						dailyEntry.addTag(SlaveEventTag.DAILY_BODY_SIZE_LOSS, slave, true);
+					// Body size:
+					if(slave.hasSlavePermissionSetting(SlavePermissionSetting.FOOD_DIET_EXTREME)) {
+						if(slave.getBodySizeValue()>0) {
+							dailyEntry.addTag(SlaveEventTag.DAILY_BODY_SIZE_LOSS_LARGE, slave, true);
+						}
 						
-					} else if(slave.getBodySizeValue()<BodySize.TWO_AVERAGE.getMinimumValue()) {
-						dailyEntry.addTag(SlaveEventTag.DAILY_BODY_SIZE_GAIN, slave, true);
-					}
-					
-				} else if(slave.hasSlavePermissionSetting(SlavePermissionSetting.FOOD_PLUS)) {
-					if(slave.getBodySizeValue()>BodySize.THREE_LARGE.getMaximumValue()) {
-						dailyEntry.addTag(SlaveEventTag.DAILY_BODY_SIZE_LOSS, slave, true);
+					} else if(slave.hasSlavePermissionSetting(SlavePermissionSetting.FOOD_DIET)) {
+						if(slave.getBodySizeValue()>BodySize.ONE_SLENDER.getMaximumValue()) {
+							dailyEntry.addTag(SlaveEventTag.DAILY_BODY_SIZE_LOSS, slave, true);
+							
+						} else if(slave.getBodySizeValue()<BodySize.ONE_SLENDER.getMinimumValue()) {
+							dailyEntry.addTag(SlaveEventTag.DAILY_BODY_SIZE_GAIN, slave, true);
+						}
 						
-					} else if(slave.getBodySizeValue()<BodySize.THREE_LARGE.getMinimumValue()) {
-						dailyEntry.addTag(SlaveEventTag.DAILY_BODY_SIZE_GAIN, slave, true);
-					}
-					
-				} else if(slave.hasSlavePermissionSetting(SlavePermissionSetting.FOOD_LAVISH)) {
-					if(slave.getBodySizeValue()<100) {
-						dailyEntry.addTag(SlaveEventTag.DAILY_BODY_SIZE_GAIN_LARGE, slave, true);
+					} else if(slave.hasSlavePermissionSetting(SlavePermissionSetting.FOOD_NORMAL)) {
+						if(slave.getBodySizeValue()>BodySize.TWO_AVERAGE.getMaximumValue()) {
+							dailyEntry.addTag(SlaveEventTag.DAILY_BODY_SIZE_LOSS, slave, true);
+							
+						} else if(slave.getBodySizeValue()<BodySize.TWO_AVERAGE.getMinimumValue()) {
+							dailyEntry.addTag(SlaveEventTag.DAILY_BODY_SIZE_GAIN, slave, true);
+						}
+						
+					} else if(slave.hasSlavePermissionSetting(SlavePermissionSetting.FOOD_PLUS)) {
+						if(slave.getBodySizeValue()>BodySize.THREE_LARGE.getMaximumValue()) {
+							dailyEntry.addTag(SlaveEventTag.DAILY_BODY_SIZE_LOSS, slave, true);
+							
+						} else if(slave.getBodySizeValue()<BodySize.THREE_LARGE.getMinimumValue()) {
+							dailyEntry.addTag(SlaveEventTag.DAILY_BODY_SIZE_GAIN, slave, true);
+						}
+						
+					} else if(slave.hasSlavePermissionSetting(SlavePermissionSetting.FOOD_LAVISH)) {
+						if(slave.getBodySizeValue()<100) {
+							dailyEntry.addTag(SlaveEventTag.DAILY_BODY_SIZE_GAIN_LARGE, slave, true);
+						}
 					}
 				}
 				
@@ -726,6 +742,10 @@ public class OccupancyUtil implements XMLSaving {
 					return events;
 					
 				case DINING_HALL:
+					//TODO
+					return events;
+					
+				case DOLL_STATUE:
 					//TODO
 					return events;
 					
@@ -1018,9 +1038,9 @@ public class OccupancyUtil implements XMLSaving {
 								case SEX_VAGINAL:
 									effectDescriptions.append(UtilText.parse(slave,
 											UtilText.returnStringAtRandom(
-													name+" came deep inside [npc.namePos] [npc.pussy+]!",
-													name+" fucked [npc.namePos] [npc.pussy+], before filling [npc.herHim] with [npc.cum+]!",
-													name+" filled [npc.namePos] [npc.pussy+] with cum!")));
+													name+" came deep inside [npc.namePos] [npc.pussy+], ",
+													name+" fucked [npc.namePos] [npc.pussy+], before filling [npc.herHim] with [npc.cum+], ",
+													name+" filled [npc.namePos] [npc.pussy+] with cum, ")));
 	
 									slave.calculateGenericSexEffects(false, true, null, subspecies, halfDemonSubspecies, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS));
 		
@@ -1029,12 +1049,12 @@ public class OccupancyUtil implements XMLSaving {
 										effects.add("<span style='color:"+PresetColour.CUM.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);
 										
-									} else if(!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PILLS_PROMISCUITY_PILLS)) {
-										effectDescriptions.append(UtilText.parse(slave, "resulting in a risk of pregnancy!"));
-										effects.add("<span style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Pregnancy Risk:</span> "+effectDescriptions.toString());
+									} else if(!slave.isImpregnationPhysicallyPossible()) {
+										effectDescriptions.append(UtilText.parse(slave, "but as [npc.sheIs] incapable of being impregnated, the only result is a fresh creampie..."));
+										effects.add("<span style='color:"+PresetColour.CUM.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);
 										
-									} else {
+									} else if(slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PILLS_PROMISCUITY_PILLS)) {
 										if(slave.isHasAnyPregnancyEffects()) {
 											effectDescriptions.append(UtilText.parse(slave,
 													"but as [npc.sheIs] on [#ITEM_innoxia_pills_sterility.getNamePlural(false)], there's no chance of [npc.herHim] getting pregnant."
@@ -1043,6 +1063,11 @@ public class OccupancyUtil implements XMLSaving {
 											effectDescriptions.append(UtilText.parse(slave, "but as [npc.sheIs] on [#ITEM_innoxia_pills_sterility.getNamePlural(false)], there's no chance of [npc.herHim] getting pregnant."));
 										}
 										effects.add("<span style='color:"+PresetColour.CUM.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
+										effectDescriptions.setLength(0);
+										
+									} else {
+										effectDescriptions.append(UtilText.parse(slave, "resulting in a risk of pregnancy!"));
+										effects.add("<span style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Pregnancy Risk:</span> "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);
 									}
 									
@@ -1212,11 +1237,11 @@ public class OccupancyUtil implements XMLSaving {
 								
 							case SEX_VAGINAL:
 								if(usingRealPartner) {
-									effectDescriptions.append(UtilText.parse(partner,
+									effectDescriptions.append(
 											UtilText.returnStringAtRandom(
 													partnerName+" came deep inside "+UtilText.parse(slave, "[npc.namePos] [npc.pussy+], "),
 													partnerName+" roughly fucked "+UtilText.parse(slave, "[npc.namePos] [npc.pussy+], "),
-													partnerName+" filled "+UtilText.parse(slave, "[npc.namePos] [npc.pussy+]")+UtilText.parse(partner," with [npc.her] [npc.cum+], "))));
+													partnerName+" filled "+UtilText.parse(slave, "[npc.namePos] [npc.pussy+]")+UtilText.parse(partner," with [npc.her] [npc.cum+], ")));
 	
 									slave.calculateGenericSexEffects(false, true, partner, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS));
 									
@@ -1225,12 +1250,12 @@ public class OccupancyUtil implements XMLSaving {
 										effects.add("<span style='color:"+PresetColour.CUM.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);
 										
-									} else if(!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PILLS_PROMISCUITY_PILLS)) {
-										effectDescriptions.append(UtilText.parse(slave, "resulting in a risk of pregnancy!"));
-										effects.add("<span style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Pregnancy Risk:</span> "+effectDescriptions.toString());
+									} else if(!slave.isImpregnationPhysicallyPossible()) {
+										effectDescriptions.append(UtilText.parse(slave, "but as [npc.sheIs] incapable of being impregnated, the only result is a fresh creampie..."));
+										effects.add("<span style='color:"+PresetColour.CUM.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);
 										
-									} else {
+									} else if(slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PILLS_PROMISCUITY_PILLS)) {
 										if(slave.isHasAnyPregnancyEffects()) {
 											effectDescriptions.append(UtilText.parse(slave, "but as [npc.sheIs] on [#ITEM_innoxia_pills_sterility.getNamePlural(false)], there's no chance of [npc.herHim] getting pregnant."
 														+ " ([npc.She] already has a risk of pregnancy from a previous encounter, however...)"));
@@ -1239,13 +1264,19 @@ public class OccupancyUtil implements XMLSaving {
 										}
 										effects.add("<span style='color:"+PresetColour.CUM.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);
+										
+									} else {
+										effectDescriptions.append(UtilText.parse(slave, "resulting in a risk of pregnancy!"));
+										effects.add("<span style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Pregnancy Risk:</span> "+effectDescriptions.toString());
+										effectDescriptions.setLength(0);
 									}
+									
 								} else {
 									effectDescriptions.append(UtilText.parse(slave,
 											UtilText.returnStringAtRandom(
-													partnerName+" came deep inside [npc.namePos] [npc.pussy+]!",
-													partnerName+" fucked [npc.namePos] [npc.pussy+], before filling [npc.herHim] with [npc.cum+]!",
-													partnerName+" filled [npc.namePos] [npc.pussy+] with cum!")));
+													partnerName+" came deep inside [npc.namePos] [npc.pussy+], ",
+													partnerName+" fucked [npc.namePos] [npc.pussy+], before filling [npc.herHim] with [npc.cum+], ",
+													partnerName+" filled [npc.namePos] [npc.pussy+] with cum, ")));
 
 									slave.calculateGenericSexEffects(false, true, null, partnerSubspecies, partnerHalfDemonSubspecies, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS));
 		
@@ -1254,12 +1285,12 @@ public class OccupancyUtil implements XMLSaving {
 										effects.add("<span style='color:"+PresetColour.CUM.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);
 										
-									} else if(!slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PILLS_PROMISCUITY_PILLS)) {
-										effectDescriptions.append(UtilText.parse(slave, "resulting in a risk of pregnancy!"));
-										effects.add("<span style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Pregnancy Risk:</span> "+effectDescriptions.toString());
+									} else if(!slave.isImpregnationPhysicallyPossible()) {
+										effectDescriptions.append(UtilText.parse(slave, "but as [npc.sheIs] incapable of being impregnated, the only result is a fresh creampie..."));
+										effects.add("<span style='color:"+PresetColour.CUM.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);
 										
-									} else {
+									} else if(slave.getSlavePermissionSettings().get(SlavePermission.PREGNANCY).contains(SlavePermissionSetting.PILLS_PROMISCUITY_PILLS)) {
 										if(slave.isHasAnyPregnancyEffects()) {
 											effectDescriptions.append(UtilText.parse(slave,
 													"but as [npc.sheIs] on [#ITEM_innoxia_pills_sterility.getNamePlural(false)], there's no chance of [npc.herHim] getting pregnant."
@@ -1268,6 +1299,11 @@ public class OccupancyUtil implements XMLSaving {
 											effectDescriptions.append(UtilText.parse(slave, "but as [npc.sheIs] on [#ITEM_innoxia_pills_sterility.getNamePlural(false)], there's no chance of [npc.herHim] getting pregnant."));
 										}
 										effects.add("<span style='color:"+PresetColour.CUM.toWebHexString()+";'>Pussy Creampie:</span> "+effectDescriptions.toString());
+										effectDescriptions.setLength(0);
+										
+									} else {
+										effectDescriptions.append(UtilText.parse(slave, "resulting in a risk of pregnancy!"));
+										effects.add("<span style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+";'>Pregnancy Risk:</span> "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);
 									}
 								}
@@ -1633,6 +1669,12 @@ public class OccupancyUtil implements XMLSaving {
 								"When Lilaya left to take a break, [npc1.name] used the opportunity to have some "+paceName+" sex with [npc2.name] on one of the lab's tables.")
 								+ "<br/>[style.italicsSex("+sexDescription+")]");
 				break;
+			case DOLL_STATUE:
+				descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
+								"While stationed as a statue, [npc1.name] caught sight of [npc2.name],"
+									+ " and couldn't resist pulling [npc2.herHim] into an empty room for some "+paceName+" sex.")
+									+ "<br/>[style.italicsSex("+sexDescription+")]");
+				break;
 			case LIBRARY:
 				descriptions = Util.newArrayListOfValues(UtilText.parse(slave, npc,
 								"[npc1.Name] pulled [npc2.name] behind one of the shelves in the Library, before having some "+paceName+" sex with [npc2.herHim].")
@@ -1711,7 +1753,8 @@ public class OccupancyUtil implements XMLSaving {
 				if(slave.hasStatusEffect(StatusEffect.PENT_UP_SLAVE)) { // They only want sex once a day, to stop the logs from being flooded
 					if(currentJob.hasFlag(SlaveJobFlag.INTERACTION_SEX)
 							&& slave.isAttractedTo(npc)
-							&& (npc.isAttractedTo(slave) || slave.isWillingToRape(npc))
+							&& (npc.isAttractedTo(slave)
+									|| (slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_RAPIST) && slave.isWillingToRape(npc)))
 							&& npc.hasSlavePermissionSetting(SlavePermissionSetting.SEX_RECEIVE_SLAVES)
 							&& slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_SLAVES)) {
 						
@@ -1729,7 +1772,8 @@ public class OccupancyUtil implements XMLSaving {
 					}
 				}
 				
-				if(currentJob.hasFlag(SlaveJobFlag.INTERACTION_BONDING)) {
+				if(currentJob.hasFlag(SlaveJobFlag.INTERACTION_BONDING)
+						&& (!npc.isDoll() || !slave.isDoll())) { // Two dolls should not bond with each other
 					// Generic affection event:
 					descriptions = new ArrayList<>();
 					

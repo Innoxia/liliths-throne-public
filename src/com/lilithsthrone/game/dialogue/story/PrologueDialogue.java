@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.game.Game;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
@@ -465,6 +466,10 @@ public class PrologueDialogue {
 						Main.game.applyStartingDateChange();
 
 						Main.game.getPlayer().addSpecialPerk(Perk.SPECIAL_PLAYER);
+
+						Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
+						Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
+						Main.game.getPlayer().setLustNoText(Main.game.getPlayer().getRestingLust());
 					}
 				};
 			} else {

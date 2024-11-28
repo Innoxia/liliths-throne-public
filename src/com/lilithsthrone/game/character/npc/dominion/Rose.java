@@ -76,7 +76,7 @@ public class Rose extends NPC {
 				"Rose is Lilaya's slave, and is the only other member of her household that you've ever seen."
 						+ " A partial cat-girl, Rose is treated with extreme fondness by Lilaya, and appears to be the only other person Lilaya has any regular contact with."
 						+ " Their relationship strays into something more than a master-slave arrangement, and Rose and Lilaya can often be seen hugging and whispering to one another.",
-				18, Month.MARCH, 5,
+				20, Month.MARCH, 5,
 				10, Gender.F_V_B_FEMALE, Subspecies.CAT_MORPH, RaceStage.PARTIAL_FULL,
 				new CharacterInventory(10), WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_ROSE, true);
 		

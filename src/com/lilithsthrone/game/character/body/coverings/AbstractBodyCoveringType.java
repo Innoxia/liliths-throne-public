@@ -4,18 +4,20 @@ import java.io.File;
 import java.rmi.AccessException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.function.Function;
 
-import com.lilithsthrone.main.Main;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.ColourListPresets;
 import com.lilithsthrone.utils.colours.PresetColour;
@@ -37,6 +39,7 @@ public abstract class AbstractBodyCoveringType {
 	private String nameSingular;
 	private List<CoveringModifier> naturalModifiers;
 	private List<CoveringModifier> extraModifiers;
+	private List<CoveringModifier> allModifiers;
 	private List<Colour> naturalColoursPrimary;
 	private List<Colour> dyeColoursPrimary;
 	private List<Colour> naturalColoursSecondary;
@@ -79,6 +82,12 @@ public abstract class AbstractBodyCoveringType {
 				this.allPatterns.put(entry.getKey(), entry.getValue());
 			}
 		}
+
+		allModifiers = new ArrayList<>();
+		Set<CoveringModifier> modSet = new HashSet<>();
+		modSet.addAll(this.naturalModifiers);
+		modSet.addAll(this.extraModifiers);
+		allModifiers.addAll(modSet);
 		
 		allColours = new ArrayList<>();
 		allPrimaryColours = new ArrayList<>();
@@ -172,6 +181,12 @@ public abstract class AbstractBodyCoveringType {
 				this.allPatterns.put(entry.getKey(), entry.getValue());
 			}
 		}
+		
+		allModifiers = new ArrayList<>();
+		Set<CoveringModifier> modSet = new HashSet<>();
+		modSet.addAll(this.naturalModifiers);
+		modSet.addAll(this.extraModifiers);
+		allModifiers.addAll(modSet);
 		
 		if(dyePatterns != null) {
 			for(Entry<CoveringPattern, Integer> entry : this.dyePatterns.entrySet()) {
@@ -317,6 +332,13 @@ public abstract class AbstractBodyCoveringType {
 						this.allPatterns.put(entry.getKey(), entry.getValue());
 					}
 				}
+				
+				allModifiers = new ArrayList<>();
+				Set<CoveringModifier> modSet = new HashSet<>();
+				modSet.addAll(this.naturalModifiers);
+				modSet.addAll(this.extraModifiers);
+				allModifiers.addAll(modSet);
+				
 				setupColourLists();
 				
 			} catch(Exception ex) {
@@ -458,5 +480,9 @@ public abstract class AbstractBodyCoveringType {
 
 	public List<CoveringModifier> getExtraModifiers() {
 		return extraModifiers;
+	}
+
+	public List<CoveringModifier> getAllModifiers() {
+		return allModifiers;
 	}
 }

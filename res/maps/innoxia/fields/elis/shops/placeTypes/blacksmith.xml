@@ -4,7 +4,6 @@
 	<name><![CDATA[The Ninth Strike]]></name>
 	<tooltipDescription><![CDATA[This arcane forge supplies most of Elis with their metalworking needs.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in 'The Ninth Strike' arcane forge]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>GENERIC_ARCANE</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

@@ -4,12 +4,11 @@
 	<name><![CDATA[Main floor]]></name>
 	<tooltipDescription><![CDATA[The majority of the floor area inside 'The Centaur's Sword' tavern is occupied by large, wooden tables.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the main floor area of 'The Centaur's Sword' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_BLACK</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>
 	<encounterType>null</encounterType>
-	<dialogue>innoxia_places_fields_elis_tavern_taur_tables</dialogue>
+	<dialogue>innoxia_places_fields_elis_tavern_taur_core_tables</dialogue>
 	<populationPresent>
 		<population startMinutes="900" endMinutes="1440">
 			<populationType plural="true" density="NUMEROUS">PERSON</populationType>

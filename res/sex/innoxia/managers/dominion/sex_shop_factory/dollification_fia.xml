@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexManager>
+	<deskName><![CDATA[table]]></deskName>
+	<title/>
+	<consensual><![CDATA[false]]></consensual>
+	<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+	<canSkipSex><![CDATA[false]]></canSkipSex>
+	<washingScene><![CDATA[false]]></washingScene>
+	<sadisticActionsAllowed><![CDATA[true]]></sadisticActionsAllowed>
+	<canItemsBeUsed><![CDATA[false]]></canItemsBeUsed>
+	<exposingReactions><![CDATA[false]]></exposingReactions>
+	<positionsAvailable/>
+	<publicSex>
+		<isPublic><![CDATA[false]]></isPublic>
+        <startingDescription/>
+        <randomDescriptions enabled="false"/>
+	</publicSex>
+	<characterInformationContainer>
+		<characterInformation>
+			<characterId>pc</characterId>
+			<slotsAvailable/>
+			<canStopSex><![CDATA[false]]></canStopSex>
+			<canChangePositions><![CDATA[false]]></canChangePositions>
+			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
+			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+            <sexPace locked="true"><![CDATA[DOM_ROUGH]]></sexPace>
+			<canSelfTransform><![CDATA[false]]></canSelfTransform>
+			<rapePlayBannedAtStart><![CDATA[true]]></rapePlayBannedAtStart>
+			<hidden><![CDATA[false]]></hidden>
+			<control/>
+			<sexClothingEquippable><![CDATA[false]]></sexClothingEquippable>
+			<selfClothingRemoval><![CDATA[false]]></selfClothingRemoval>
+			<partnerClothingRemoval><![CDATA[false]]></partnerClothingRemoval>
+			<startNaked><![CDATA[false]]></startNaked>
+			<exposeAtStart preferRemoval="false">
+				<coverableArea><![CDATA[
+					PENIS
+				]]></coverableArea>
+            </exposeAtStart>
+			<forcedCreampiesDisabled/>
+			<orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+			<orgasmCumTarget/>
+			<orgasmEncourageBehaviours/>
+			<concealedSlots/>
+			<preferredTarget><![CDATA[fia]]></preferredTarget>
+			<uniqueSexActions>
+				<sexAction>innoxia_dominion_sex_shop_factory_dollification_fia_fuck</sexAction>
+			</uniqueSexActions>
+            <preferences>
+                <character id="fia">
+                    <foreplay copyForMain="true">
+                        <performing><![CDATA[
+							PENETRATION_PENIS
+						]]></performing>
+                        <targeted><![CDATA[
+							ORIFICE_VAGINA
+						]]></targeted>
+                    </foreplay>
+                </character>
+            </preferences>
+			<sexTypesBanned/>
+			<areasBanned/>
+			<stopSexCondition/>
+			<dirtyTalk/>
+		</characterInformation>
+		
+		<characterInformation>
+			<characterId>fia</characterId>
+			<slotsAvailable/>
+			<canStopSex><![CDATA[false]]></canStopSex>
+			<canChangePositions><![CDATA[false]]></canChangePositions>
+			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
+			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+            <sexPace/>
+			<startingImmobilisation>
+				<applierId><![CDATA[pc]]></applierId>
+				<type><![CDATA[ROPE]]></type>
+			</startingImmobilisation>
+			<startingLubrications>
+				<lubedArea area="ORIFICE_VAGINA">
+					<lubrication>
+						<luberId><![CDATA[fia]]></luberId>
+						<type><![CDATA[GIRLCUM]]></type>
+					</lubrication>
+				</lubedArea>
+			</startingLubrications>
+			<canSelfTransform><![CDATA[false]]></canSelfTransform>
+			<hidden><![CDATA[false]]></hidden>
+			<control/>
+			<sexClothingEquippable><![CDATA[false]]></sexClothingEquippable>
+			<selfClothingRemoval><![CDATA[false]]></selfClothingRemoval>
+			<partnerClothingRemoval><![CDATA[false]]></partnerClothingRemoval>
+			<startNaked><![CDATA[false]]></startNaked>
+			<exposeAtStart/>
+			<forcedCreampiesDisabled/>
+			<orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+			<orgasmCumTarget/>
+			<orgasmCumTargetsBlocked/>
+			<orgasmEncourageBehaviours/>
+			<concealedSlots/>
+			<preferredTarget/>
+			<preferences/>
+			<uniqueSexActions>
+				<sexAction>innoxia_dominion_sex_shop_factory_dollification_fia_fucked</sexAction>
+				<sexAction>innoxia_dominion_sex_shop_factory_dollification_fia_orgasm</sexAction>
+			</uniqueSexActions>
+			<sexTypesBanned/>
+			<areasBanned/>
+			<stopSexCondition/>
+			<dirtyTalk/>
+		</characterInformation>
+		
+	</characterInformationContainer>
+	
+</sexManager>

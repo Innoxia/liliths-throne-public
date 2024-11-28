@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#!npc.isPlayer()]
+	]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>ZERO_NONE</arousalPerformer>
+	<arousalTarget>FIVE_EXTREME</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>
+	<associatedFetishes/>
+	<performingArea>PENETRATION_PENIS</performingArea>
+	<targetedArea>ORIFICE_VAGINA</targetedArea>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Emotionless fuck]]></title>
+	<tooltip><![CDATA[
+		Test out the bondage gear by roughly fucking this doll.
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<text><![CDATA[
+				The doll continues to rhythmically slam her strapon into your [pc.pussy+], making no sound or indication that she's enjoying herself whatsoever.
+			]]></text>
+			<text><![CDATA[
+				Ramming her dildo into your [pc.pussy+], the doll grips your legs and fucks you hard and fast. Her robotic movements betray no sign of arousal whatsoever, giving you the impression that you're being fucked by a machine.
+			]]></text>
+			<text><![CDATA[
+				Determined to test the limits of the bondage gear's durability, the doll roughly slams her dildo as hard as she can into your [pc.pussy+], before pulling back and ramming it inside of you once again.
+			]]></text>
+			<text><![CDATA[
+				The ropes holding you up off the ground creak from stress as the doll roughly fucks you with her strapon. Although she slams in and out of your pussy as though possessed with lust, she makes no sound or other such indication that she's actually enjoying this.
+			]]></text>
+			<text><![CDATA[
+				Without making a sound, the doll grips your legs and uses repeated thrusting motions to roughly fuck your [pc.pussy+].
+			]]></text>
+			<text><![CDATA[
+				Pulling her strapon out of your pussy, the doll slaps it against your [pc.labia+] several times, before violently slamming it back in and continuing to roughly fuck you.
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

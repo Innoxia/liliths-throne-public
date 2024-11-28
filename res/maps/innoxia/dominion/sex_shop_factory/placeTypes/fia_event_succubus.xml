@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>DOMINION</worldRegion>
+	<name><![CDATA[factory floor]]></name>
+	<tooltipDescription><![CDATA[Dozens of dolls are working hard to make sex toys in the main area of the factory.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in the factory beneath Lovienne's Luxuries]]></virginityLossDescription>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<colour>BASE_GREY</colour>
+	<backgroundColour>GENERIC_EXCELLENT</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_dominion_sex_shop_factory_bad_end_event_succubus</dialogue>
+	<populationPresent copyPlaceType="innoxia_dominion_sex_shop_factory_main_floor"/>
+	<furniturePresent>true</furniturePresent>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[true]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>NONE</teleportPermissions>
+	<weatherImmunities immuneToAll="true"/>
+	<applyInventoryInit/>
+</placeType>

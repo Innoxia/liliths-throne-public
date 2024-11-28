@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<worldType>
+	<worldRegion>DOMINION</worldRegion>
+	<name><![CDATA[Doll Factory]]></name>
+	<colour>BASE_MAGENTA</colour>
+	<sexBlockedReason><![CDATA[[npc.Name] cannot have sex here!]]></sexBlockedReason> 
+	<furniturePresent>true</furniturePresent>
+	<wallsPresent>true</wallsPresent>
+	<loiteringEnabled>false</loiteringEnabled>
+	<flightEnabled>false</flightEnabled>
+	<visibleFromStart>false</visibleFromStart>
+	<fullyRevealedFromStart>false</fullyRevealedFromStart>
+	<globalMapLocation>WORLD_MAP_DOMINION</globalMapLocation>
+	<standardPlace>innoxia_dominion_sex_shop_factory_storage_corridor</standardPlace>
+	<entryFromGlobalMapLocation>innoxia_dominion_sex_shop_factory_exit</entryFromGlobalMapLocation>
+	<teleportPermissions>NONE</teleportPermissions>
+	<places>
+		<place colour="#ffffff">GENERIC_IMPASSABLE</place>
+		
+		<place colour="#ff0000">innoxia_dominion_sex_shop_factory_exit</place>
+		
+		<place colour="#404040">innoxia_dominion_sex_shop_factory_vents</place>
+		<place colour="#202020">innoxia_dominion_sex_shop_factory_vents_2</place>
+		<place colour="#000000">innoxia_dominion_sex_shop_factory_vents_2_event</place>
+		<place colour="#808080">innoxia_dominion_sex_shop_factory_corridor</place>
+		
+		<place colour="#b9b9b9">innoxia_dominion_sex_shop_factory_storage_corridor</place>
+		<place colour="#bfff00">innoxia_dominion_sex_shop_factory_storage_crates</place>
+		<place colour="#ffff00">innoxia_dominion_sex_shop_factory_storage_dolls</place>
+		<place colour="#ffbf00">innoxia_dominion_sex_shop_factory_storage_event</place>
+		<place colour="#000077">innoxia_dominion_sex_shop_factory_door_1</place>
+		
+		<place colour="#0000ff">innoxia_dominion_sex_shop_factory_main_floor</place>
+		<place colour="#bf00ff">innoxia_dominion_sex_shop_factory_main_floor_event</place>
+		<place colour="#7700ff">innoxia_dominion_sex_shop_factory_main_machines</place>
+		
+		<place colour="#007f7f">innoxia_dominion_sex_shop_factory_door_2</place>
+		<place colour="#00ffff">innoxia_dominion_sex_shop_factory_slime_milking</place>
+		<place colour="#00bfbf">innoxia_dominion_sex_shop_factory_slime_milking_guards</place>
+		
+		<place colour="#ff7700">innoxia_dominion_sex_shop_factory_cages</place>
+		<place colour="#804080">innoxia_dominion_sex_shop_factory_door_3</place>
+		<place colour="#ff00ff">innoxia_dominion_sex_shop_factory_doll_machine</place>
+		
+	</places>
+</worldType>

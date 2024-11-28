@@ -81,7 +81,7 @@ public class Zaranix extends NPC {
 		super(isImported, new NameTriplet("Zaranix", "Zaranix", "Zaranix"), "Lyniximartu",
 				"Zaranix is one of the few demons that feels more comfortable in his incubus, rather than succubus, form."
 						+ " Muscular, tall, and handsome, Zaranix uses both his cunning mind and good looks to get what he wants.",
-				47, Month.JULY, 3,
+				204, Month.JULY, 3,
 				15,
 				null, null, null,
 				new CharacterInventory(10), WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_OFFICE, true);
@@ -96,7 +96,7 @@ public class Zaranix extends NPC {
 			resetBodyAfterVersion_2_10_5();
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11")) {
-			this.setAgeAppearanceDifferenceToAppearAsAge(32);
+			this.setAgeAppearanceAbsolute(32);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
 			this.resetPerksMap(true);
@@ -113,6 +113,9 @@ public class Zaranix extends NPC {
 			this.clearPenisModifiers();
 			this.addPenisModifier(PenetrationModifier.RIBBED);
 			this.setName(new NameTriplet("Zaranix", "Zaranix", "Zaranix"));
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.9.8")) {
+			this.setAge(204);
 		}
 	}
 
@@ -145,7 +148,7 @@ public class Zaranix extends NPC {
 		
 		// Body
 		// Add full body reset as this method is called after leaving Zaranix's house:
-		this.setAgeAppearanceDifferenceToAppearAsAge(32);
+		this.setAgeAppearanceAbsolute(32);
 		this.setBody(Gender.M_P_MALE, Subspecies.DEMON, RaceStage.GREATER, false);
 		this.setLegType(LegType.DEMON_COMMON);
 		this.setTailType(TailType.DEMON_COMMON);
@@ -261,7 +264,7 @@ public class Zaranix extends NPC {
 	
 	
 	public void transformFeminine() {
-		this.setAgeAppearanceDifferenceToAppearAsAge(32);
+		this.setAgeAppearanceAbsolute(32);
 		this.setBody(Gender.F_P_B_SHEMALE, Subspecies.DEMON, RaceStage.GREATER, false);
 		this.setLegType(LegType.DEMON_COMMON);
 		this.setTailType(TailType.DEMON_COMMON);

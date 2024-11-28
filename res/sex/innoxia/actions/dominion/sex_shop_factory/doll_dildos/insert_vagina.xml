@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		#IF(sex.getNumberOfOrgasms(pc)==0)
+			[#pc.getClothingInSlot(IS_VAGINA)==null && pc.getClothingInSlot(IS_MOUTH)!=null]
+		#ELSE
+			[#pc.getClothingInSlot(IS_VAGINA).getColour(0)==COLOUR_CLOTHING_PINK_LIGHT && pc.getClothingInSlot(IS_MOUTH).getColour(0)==COLOUR_CLOTHING_BLUE_VERY_DARK]
+		#ENDIF
+	]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>ZERO_NONE</arousalPerformer>
+	<arousalTarget>FIVE_EXTREME</arousalTarget>
+	<associatedCorruption>TWO_HORNY</associatedCorruption>
+	<associatedFetishes/>
+	<performingArea/>
+	<targetedArea/>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+		#IF(pc.getClothingInSlot(IS_VAGINA)==null)
+			[##var dollDildo = itemGen.generateClothing(CLOTHING_innoxia_vagina_insertable_dildo, COLOUR_CLOTHING_PINK_LIGHT, false)]
+			[##dollDildo.addEffect(ITEM_EFFECT_TYPE_CLOTHING, ENCHANTMENT_MODIFIER_CLOTHING_SPECIAL, ENCHANTMENT_MODIFIER_CLOTHING_VIBRATION, ENCHANTMENT_POTENCY_MAJOR_BOOST, 0)]
+			[##pc.equipClothingFromNowhere(dollDildo, IS_VAGINA, true, doll)]
+		#ELSE
+			[##pc.unequipClothingIntoVoid(IS_VAGINA, true, doll)]
+			[##pc.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_innoxia_vagina_equine_dildo, COLOUR_CLOTHING_BLACK, COLOUR_CLOTHING_DESATURATED_PINK_DARK, COLOUR_CLOTHING_DESATURATED_PINK_DARK, false), IS_VAGINA, true, doll)]
+			[##pc.getClothingInSlot(IS_VAGINA).setSticker('colour', 'two_soft')]
+		#ENDIF
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Pussy test]]></title>
+	<tooltip><![CDATA[
+		Test out the next dildo on the doll.
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getNumberOfOrgasms(pc)==0]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				The doll grabs a light pink insertable dildo from the table, before kneeling down between your legs and firmly pushing it into your pussy. As it's pushed fully inside of you, the toy starts to vibrate, which causes you to let out a delighted, muffled moan.
+				<br/>
+				Giving the dildo another push to make sure that it's fully inserted into your dripping cunt, the doll commands, [doll.speech(Focus on the pleasure and the strength of the vibrations.)]
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getNumberOfOrgasms(pc)>0]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Squatting down to pull the light pink insertable dildo out of your pussy, the doll makes an approving hum as she sees how wet you are. Grabbing
+				#IF(game.isAnalContentEnabled())
+					 a huge, equine dildo, similar to the ones you've got down your throat and up your ass but coloured a realistic-looking black-and-pink,
+				#ELSE
+					 a huge, equine dildo, similar to the one you've got down your throat but coloured a realistic-looking black-and-pink,
+				#ENDIF
+				 she wastes no time in ramming it balls-deep into your quivering plastic pussy. Bracing yourself with one arm placed down on the floor behind you, you shudder and moan in ecstasy as you feel the toy's wide, flared head stretching out your insides.
+				<br/>
+				[doll.speech(Now fuck yourself with this one,)] the doll commands in her expressionless voice, [doll.speech(and put some real force into it; these toys need to be checked for their durability.)]
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

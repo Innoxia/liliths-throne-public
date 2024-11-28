@@ -691,38 +691,73 @@
 	<!-- Won combat: -->
 	
 	<htmlContent tag="COMBAT_WON"><![CDATA[
-	<p>
-		Staggering back, the [npc.race] sinks down onto the ground,
-		#IF(!npc.isMute())
+	#IF(npc.hasFlag(NPC_FLAG_genericNPCBetrayedByPlayer))
+		<p>
+			[npc.Name] collapses to the floor, completely defeated. [npc.She] glances up at you for a moment, before casting [npc.her] gaze to the floor, and in that brief moment, you see that all of the hope and energy in [npc.namePos] face has totally vanished. Making a pitiful little whining noise, [npc.she] then bursts into tears, sobbing and wailing for a moment before wiping [npc.her] [npc.eyes] and looking up at you.
+		</p>
+		<p>
+			[npc.speech(J-Just take all my money and leave!)] [npc.she] pleads, throwing [npc.her]
+			#IF(npc.isFeminine())
+				 purse
+			#ELSE
+				 wallet
+			#ENDIF
+			 at your feet. [npc.speech(I thought you were different, but you just wanted to hurt me, like all the others!)]
+		</p>
+		#IF(game.isNonConEnabled())
+			<p>
+				You wonder if you should do as [npc.she] says, and leave [npc.herHim] alone. Then again, you <i>could</i> take advantage of [npc.her] weakened, vulnerable body...
+			</p>
+		#ENDIF
+		<p style='text-align:center;'>
+			[style.italicsBad(After betraying [npc.namePos] trust in such a brutal manner, you can be sure that this will be the last time you ever see [npc.herHim].)]
+		</p>
+	#ELSE
+		<p>
+			Staggering back, the [npc.race] sinks down onto the ground,
+			#IF(!npc.isMute())
+				#IF(npc.getPlayerSurrenderCount()>=4)
+					#IF(npc.isPostCombatWantsSex())
+						#IF(npc.isPostCombatRapePlay())
+							 before revealing [npc.her] desire to engage in some rape-play with you by [npc.moaning], [npc.speech(You don't have to be my bitch any more... I surrender... ~Mmm!~ You wouldn't rape me, would you? Please, anything but that... Come on, do it!)]
+						#ELSE
+							 before starting to touch [npc.herself] and desperately pant, [npc.speech(Fine, you don't have to be my bitch any more... I surrender... Please, just come and fuck me already!)]
+						#ENDIF
+					#ELSE
+						 panting, [npc.speech(Fine, you don't have to be my bitch any more... I surrender...)]
+					#ENDIF
+				#ELSE
+					#IF(npc.isPostCombatWantsSex())
+						#IF(npc.isPostCombatRapePlay())
+							 before revealing [npc.her] desire to engage in some rape-play with you by [npc.moaning], [npc.speech(I surrender... ~Mmm!~ You wouldn't rape me, would you? Please, anything but that... Come on, do it!)]
+						#ELSE
+							 before starting to touch [npc.herself] and desperately pant, [npc.speech(No more... I surrender... Please, just come and fuck me already!)]
+						#ENDIF
+					#ELSE
+						 panting, [npc.speech(No more... I surrender...)]
+					#ENDIF
+				#ENDIF
+			#ELSE
+				#IF(npc.isPostCombatWantsSex())
+					#IF(npc.isPostCombatRapePlay())
+						 before starting to touch [npc.herself] and let out a series of desperate, pleading whines. Putting on a show of trying to shuffle away from you, [npc.she] makes it clear that [npc.she] wants you to engage in some rape-play with [npc.herHim].
+					#ELSE
+						 before starting to touch [npc.herself] and let out a series of desperate, pleading whines.
+					#ENDIF
+				#ELSE
+					 holding up [npc.her] [npc.hands] in a clear sign of surrender.
+				#ENDIF
+			#ENDIF
+		</p>
+		<p>
 			#IF(npc.getPlayerSurrenderCount()>=4)
-				#IF(npc.isAttractedTo(pc))
-					 before starting to touch [npc.herself] and desperately pant, [npc.speech(Fine, you don't have to be my bitch any more... I surrender... Please, just come and fuck me already!)]
-				#ELSE
-					 panting, [npc.speech(Fine, you don't have to be my bitch any more... I surrender...)]
-				#ENDIF
+				Having broken free from being [npc.namePos] bitch, 
 			#ELSE
-				#IF(npc.isAttractedTo(pc))
-					 before starting to touch [npc.herself] and desperately pant, [npc.speech(No more... I surrender... Please, just come and fuck me already!)]
-				#ELSE
-					 panting, [npc.speech(No more... I surrender...)]
-				#ENDIF
+				Feeling encouraged by your triumph,
 			#ENDIF
-		#ELSE
-			#IF(npc.isAttractedTo(pc))
-				 before starting to touch [npc.herself] and let out a series of desperate, pleading whines.
-			#ELSE
-				 holding up [npc.her] [npc.hands] in a clear sign of surrender.
-			#ENDIF
-		#ENDIF
-	</p>
-	<p>
-		#IF(npc.getPlayerSurrenderCount()>=4)
-			Having broken free from being [npc.namePos] bitch, 
-		#ELSE
-			Feeling encouraged by your triumph,
-		#ENDIF
-		 you confidently [pc.step] forwards and wonder what to do with this defeated [npc.race]...
-	</p>
+			 you confidently [pc.step] forwards and wonder what to do with this defeated [npc.race]...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -730,13 +765,13 @@
 	<p>
 		Not wanting anything more to do with this [npc.race], you turn around and [pc.walk] off.
 		#IF(!npc.isMute())
-			#IF(npc.isAttractedTo(pc))
+			#IF(npc.isPostCombatWantsSex())
 				  Letting out a horny [npc.moan] as you [pc.step] past [npc.herHim], [npc.name] whines, [npc.speech(Fuck, I'm so horny! Damn it...)]
 			#ELSE
 				  Letting out a deep sigh as you [pc.step] past [npc.herHim], [npc.name] taunts, [npc.speech(You got lucky...)]
 			#ENDIF
 		#ELSE
-			#IF(npc.isAttractedTo(pc))
+			#IF(npc.isPostCombatWantsSex())
 				 Letting out a horny [npc.moan] as you [pc.step] past [npc.herHim], [npc.name] desperately intimates that [npc.she] wants you to fuck [npc.herHim].
 			#ELSE
 				 Letting out a deep sigh as you [pc.step] past [npc.herHim], [npc.name] taunts you by throwing up a rude hand gesture.
@@ -751,8 +786,12 @@
 	
 	<htmlContent tag="COMBAT_WON_SEX"><![CDATA[
 	<p>
-		#IF(npc.isAttractedTo(pc))
-			More than happy to give [npc.name] what [npc.she] wants, you [pc.step] up to [npc.herHim] and pull [npc.herHim] to [npc.her] [npc.feet]. Leaning forwards to plant a dominant kiss on [npc.her] [npc.lips+], you can't help but let out an eager [pc.moan] as you prepare to fuck [npc.herHim]...
+		#IF(npc.isPostCombatWantsSex())
+			#IF(npc.isPostCombatRapePlay())
+				Deciding to play along with [npc.name] as [npc.she] pretends to resist, you [pc.step] up to [npc.herHim] and pull [npc.herHim] to [npc.her] [npc.feet]. Ignoring [npc.her] protests, you lean forwards to plant a dominant kiss on [npc.her] [npc.lips+], and can't help but let out an eager [pc.moan] as you prepare to engage in some rape-play with [npc.herHim]...
+			#ELSE
+				More than happy to give [npc.name] what [npc.she] wants, you [pc.step] up to [npc.herHim] and pull [npc.herHim] to [npc.her] [npc.feet]. Leaning forwards to plant a dominant kiss on [npc.her] [npc.lips+], you can't help but let out an eager [pc.moan] as you prepare to fuck [npc.herHim]...
+			#ENDIF
 		#ELSE
 			Ignoring the fact that [npc.name] doesn't seem at all attracted to you, you [pc.step] up to [npc.herHim] and pull [npc.herHim] to [npc.her] [npc.feet]. Ignoring [npc.her] protests, you lean forwards to plant a dominant kiss on [npc.her] [npc.lips+], and can't help but let out an eager [pc.moan] as you prepare to rape [npc.herHim]...
 		#ENDIF
@@ -762,8 +801,12 @@
 	
 	<htmlContent tag="COMBAT_WON_SEX_GENTLE"><![CDATA[
 	<p>
-		#IF(npc.isAttractedTo(pc))
-			More than happy to give [npc.name] what [npc.she] wants, you [pc.step] up to [npc.herHim] and gently pull [npc.herHim] to [npc.her] [npc.feet]. Leaning forwards to plant a soft kiss on [npc.her] [npc.lips+], you can't help but let out a quiet [pc.moan] as you prepare to have sex with [npc.herHim]...
+		#IF(npc.isPostCombatWantsSex())
+			#IF(npc.isPostCombatRapePlay())
+				Deciding to play along with [npc.name] as [npc.she] pretends to resist, you [pc.step] up to [npc.herHim] and gently, yet firmly, pull [npc.herHim] to [npc.her] [npc.feet]. Ignoring [npc.her] protests, you lean forwards to plant a soft kiss on [npc.her] [npc.lips+], and can't help but let out a quiet [pc.moan] as you prepare to engage in some rape-play with [npc.herHim]...
+			#ELSE
+				More than happy to give [npc.name] what [npc.she] wants, you [pc.step] up to [npc.herHim] and gently pull [npc.herHim] to [npc.her] [npc.feet]. Leaning forwards to plant a soft kiss on [npc.her] [npc.lips+], you can't help but let out a quiet [pc.moan] as you prepare to have sex with [npc.herHim]...
+			#ENDIF
 		#ELSE
 			Ignoring the fact that [npc.name] doesn't seem at all attracted to you, you [pc.step] up to [npc.herHim] and gently, yet firmly, pull [npc.herHim] to [npc.her] [npc.feet]. Ignoring [npc.her] protests, you lean forwards to plant a soft kiss on [npc.her] [npc.lips+], and can't help but let out a quiet [pc.moan] as you prepare to rape [npc.herHim]...
 		#ENDIF
@@ -773,8 +816,12 @@
 	
 	<htmlContent tag="COMBAT_WON_SEX_ROUGH"><![CDATA[
 	<p>
-		#IF(npc.isAttractedTo(pc))
-			More than happy to give [npc.name] what [npc.she] wants, you [pc.step] up to [npc.herHim] and roughly pull [npc.herHim] to [npc.her] [npc.feet]. Leaning forwards to plant a forceful, dominant kiss on [npc.her] [npc.lips+], you can't help but let out an eager [pc.moan] as you prepare to fuck [npc.herHim]...
+		#IF(npc.isPostCombatWantsSex())
+			#IF(npc.isPostCombatRapePlay())
+				Deciding to play along with [npc.name] as [npc.she] pretends to resist, you [pc.step] up to [npc.herHim] and roughly pull [npc.herHim] to [npc.her] [npc.feet]. Ignoring [npc.her] protests, you lean forwards to plant a forceful, dominant kiss on [npc.her] [npc.lips+], and can't help but let out an eager [pc.moan] as you prepare to engage in some rape-play with [npc.herHim]...
+			#ELSE
+				More than happy to give [npc.name] what [npc.she] wants, you [pc.step] up to [npc.herHim] and roughly pull [npc.herHim] to [npc.her] [npc.feet]. Leaning forwards to plant a forceful, dominant kiss on [npc.her] [npc.lips+], you can't help but let out an eager [pc.moan] as you prepare to fuck [npc.herHim]...
+			#ENDIF
 		#ELSE
 			Ignoring the fact that [npc.name] doesn't seem at all attracted to you, you [pc.step] up to [npc.herHim] and roughly pull [npc.herHim] to [npc.her] [npc.feet]. Ignoring [npc.her] protests, you lean forwards to plant a forceful, dominant kiss on [npc.her] [npc.lips+], and can't help but let out an eager [pc.moan] as you prepare to rape [npc.herHim]...
 		#ENDIF
@@ -798,25 +845,43 @@
 	</htmlContent>
 	
 	<htmlContent tag="AFTER_SEX_DOM"><![CDATA[
-	<p>
-		Feeling satisfied from your dominant sex with the [npc.race], you [pc.step] away from [npc.herHim] and start to get your things back in order.
-		#IF(!npc.isMute())
-			#IF(npc.isSatisfiedFromLastSex())
-				 Feeling just as happy as you are, [npc.name] lets out a deep sigh and moans, [npc.speech(~Mmm!~ That was just what I needed...)]
-			#ELSE
-				 Not feeling as happy as you are, [npc.name] lets out a frustrated sigh and moans, [npc.speech(~Aah! I'm not satisfied from that!)]
-			#ENDIF
+	#IF(npc.hasFlag(NPC_FLAG_genericNPCBetrayedByPlayer))
+		#IF(game.isNonConEnabled())
+			<p>
+				As you step back from [npc.name], [npc.she] sinks to the floor, letting out a pitiful wail as [npc.she] realises that you've finished. Completely broken by the sudden betrayal and rape, [npc.she] starts uncontrollably sobbing and crying.
+			</p>
+			<p>
+				Letting out a triumphant laugh, you start gathering your things, but before taking your leave, you wonder if you should help yourself to any of [npc.namePos] belongings...
+			</p>
 		#ELSE
-			#IF(npc.isSatisfiedFromLastSex())
-				 Feeling just as happy as you are, [npc.name] lets out a deep sigh and moans in contentment to convey the fact that [npc.sheIs] satisfied.
-			#ELSE
-				 Not feeling as happy as you are, [npc.name] lets out a frustrated sigh and moans in annoyance to convey the fact that [npc.sheIs] not satisfied.
-			#ENDIF
+			<p>
+				As you step back from [npc.name], [npc.she] sinks to the floor, letting out a deep sigh as [npc.she] realises that you've finished. Still deeply upset at the way you betrayed [npc.her] trust, [npc.she] quickly starts gathering [npc.her] things, intent on leaving this place for good.
+			</p>
+			<p>
+				Similarly getting your things back in order, you wonder if you should help yourself to any of [npc.namePos] belongings before you move on...
+			</p>
 		#ENDIF
-	</p>
-	<p>
-		Continuing to get your things back in order, you brush yourself off and wonder what to do next. You could always help yourself to any items or cash that the [npc.race] is carrying, or instead simply set off and continue on your way... 
-	</p>
+	#ELSE
+		<p>
+			Feeling satisfied from your dominant sex with the [npc.race], you [pc.step] away from [npc.herHim] and start to get your things back in order.
+			#IF(!npc.isMute())
+				#IF(npc.isSatisfiedFromLastSex())
+					 Feeling just as happy as you are, [npc.name] lets out a deep sigh and moans, [npc.speech(~Mmm!~ That was just what I needed...)]
+				#ELSE
+					 Not feeling as happy as you are, [npc.name] lets out a frustrated sigh and moans, [npc.speech(~Aah! I'm not satisfied from that!)]
+				#ENDIF
+			#ELSE
+				#IF(npc.isSatisfiedFromLastSex())
+					 Feeling just as happy as you are, [npc.name] lets out a deep sigh and moans in contentment to convey the fact that [npc.sheIs] satisfied.
+				#ELSE
+					 Not feeling as happy as you are, [npc.name] lets out a frustrated sigh and moans in annoyance to convey the fact that [npc.sheIs] not satisfied.
+				#ENDIF
+			#ENDIF
+		</p>
+		<p>
+			Continuing to get your things back in order, you brush yourself off and wonder what to do next. You could always help yourself to any items or cash that the [npc.race] is carrying, or instead simply set off and continue on your way... 
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -851,13 +916,13 @@
 		</p>
 	#ELSE
 		<p>
-			Flashing you a look of confusion, the [npc.name] appears to have been caught off-guard by your question. With a suspicious look in [npc.her] [npc.eyes+], [npc.she] motions to make it clear to you that [npc.sheIs] unable to speak, before waiting to hear what it is you'll say next.
+			Flashing you a look of confusion, the [npc.race] appears to have been caught off-guard by your question. With a suspicious look in [npc.her] [npc.eyes+], [npc.she] motions to make it clear to you that [npc.sheIs] unable to speak, before waiting to hear what it is you'll say next.
 		</p>
 		<p>
-			Telling the [npc.race] that [npc.her] inability to speak isn't a problem, you reassure [npc.herHim] by saying that you have no intention of trying to trick [npc.herHim] or punish [npc.herHim] in any way for attacking you. Realising that it might take a while to try and figure out a way in which the two of you can communicate, you crouch down next to where [npc.name] is still sitting on the floor trying to catch [npc.her] breath.
+			Telling the [npc.race] that [npc.her] inability to speak isn't a problem, you reassure [npc.herHim] by saying that you have no intention of trying to trick [npc.herHim] or punish [npc.herHim] in any way for attacking you. Realising that it might take a while to try and figure out a way in which the two of you can communicate, you crouch down next to where the [npc.race] is still sitting on the floor trying to catch [npc.her] breath.
 		</p>
 		<p>
-			Through a series of gestures and questions, and with the help of a scarp of paper and a pencil, you manage to find out from the [npc.race] that [npc.sheHad] lost [npc.her] job out in the Foloi Fields when [npc.she] had to flee from Lunette's marauders. With no money, friends, or nearby relatives, there's been no way for [npc.herHim] to get food without mugging people, and so that's why [npc.she] ended up falling into a life of crime.
+			Through a series of gestures and questions, and with the help of a scarp of paper and a pencil, you manage to find out from the [npc.race] that [npc.she]'d lost [npc.her] job out in the Foloi Fields when [npc.she] had to flee from Lunette's marauders. With no money, friends, or nearby relatives, there's been no way for [npc.herHim] to get food without mugging people, and so that's why [npc.she] ended up falling into a life of crime.
 		</p>
 		<p>
 			Leaving judgement of [npc.her] actions for another time, you give this [npc.race] your name, before asking for [npc.hers]. The [npc.race] looks a little uncomfortable and initially refuses to give it to you, but after you've remained silent and given [npc.herHim] a moment in which to think, you're rewarded with a short scribble on the paper, which reads; '[npc.name]'.

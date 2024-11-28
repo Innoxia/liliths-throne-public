@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.race;
 
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 
 /**
@@ -263,5 +264,10 @@ public class FeralAttributes {
 	
 	public boolean isHairPresent() {
 		return hairPresent;
+	}
+	
+	public void applySpecialPreFeralTransformationChanges(Body targetBody) {
+		// Any changes which need to be made to the character before their feral TF can be added to this method
+		// This shouldn't need to be used except in very special cases, such as for demons transforming into demonic horses
 	}
 }

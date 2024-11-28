@@ -151,7 +151,7 @@
 			Dropping the name 'Axel', you tell the two guards that you're here to discuss the handling of protection money payments.
 		</p>
 		<p>
-			[npc2.speech(Axel, huh... You's better not be lyin' ta me,)] [npc.name] sneers, before taking a step back and waving you on, [npc.speech(We's got our eyes on you, so ya betta watch yerself in 'ere...)]
+			[npc.speech(Axel, huh... You's better not be lyin' ta me,)] [npc.name] sneers, before taking a step back and waving you on, [npc.speech(We's got our eyes on you, so ya betta watch yerself in 'ere...)]
 		</p>
 		<p>
 			Following [npc2.her] superior's lead, [npc2.name] steps aside, allowing you to freely enter the Rat Warrens...
@@ -2377,7 +2377,7 @@
 			#IF(game.isSillyModeEnabled())
 				 [vengar.speechNoEffects(Oh? You're approaching me? Instead of running away, you're coming right to me?)]
 			#ELSE
-				 [vengar.speechNoEffects(What's this? A stranger? Enterin' me 'all uninvited?! Get over 'ere an' explain yerself!)]
+				 [vengar.speechNoEffects(What's this? A stranger? Enterin' me den 'all uninvited?! Get over 'ere an' explain yerself!)]
 			#ENDIF
 		</p>
 	#ENDIF
@@ -2891,16 +2891,21 @@
 	</htmlContent>
 	
 	<htmlContent tag="VENGARS_HALL_SUB_SEX_REFUSED"><![CDATA[
-	<p>
-		#IF(pc.hasCompanions())
+	#IF(pc.hasCompanions())
+		<p>
 			Unwilling to give in to Vengar's outrageous request, you push yourself up onto your feet and tell your [npc.companion] to do the same, before turning to face the rat-boy and saying, [pc.speech(We've done as you asked, but that's going too far.)]
-		#ELSE
+		</p>
+		<p>
+			[vengar.speechNoEffects(Yeah, ya done enough, I were just seein' 'ow far I could push ya!)] Vengar laughs, before standing up and shouting out to the rats filling hall, [vengar.speechNoEffects(Treat these 'uns as me guests if ya see 'em walkin' around the Warrens from now on! We's got some things ta discuss in private, so you's lot get back on with whatever ya were doin'!)]
+		</p>
+	#ELSE
+		<p>
 			Unwilling to give in to Vengar's outrageous request, you push yourself up onto your feet, before turning to face the rat-boy and saying, [pc.speech(I've done as you asked, but that's going too far.)]
-		#ENDIF
-	</p>
-	<p>
-		[vengar.speechNoEffects(Yeah, ya done enough, I were just seein' 'ow far I could push ya!)] Vengar laughs, before standing up and shouting out to the rats filling hall, [vengar.speechNoEffects(Treat these 'uns as me guests if ya see 'em walkin' around the Warrens from now on! We's got some things ta discuss in private, so you's lot get back on with whatever ya were doin'!)]
-	</p>
+		</p>
+		<p>
+			[vengar.speechNoEffects(Yeah, ya done enough, I were just seein' 'ow far I could push ya!)] Vengar laughs, before standing up and shouting out to the rats filling hall, [vengar.speechNoEffects(Treat this 'un as me guest if ya see [pc.herHim] walkin' around the Warrens from now on! We's got some things ta discuss in private, so you's lot get back on with whatever ya were doin'!)]
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	

@@ -1,0 +1,1871 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<!-- Place type dialogues aren't used as player can't move freely around when in Angelixx's apartment -->
+	
+	<!-- Place type id: innoxia_angelixx_apartment_exit -->
+	<scene id="exit">
+		<content folderPath="txt/places/dominion/angelixx_apartment/generic">EXIT</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_angelixx_apartment_hallway -->
+	<scene id="hallway">
+		<content folderPath="txt/places/dominion/angelixx_apartment/generic">HALLWAY</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_angelixx_apartment_kitchen -->
+	<scene id="kitchen">
+		<content folderPath="txt/places/dominion/angelixx_apartment/generic">KITCHEN</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_angelixx_apartment_dining_room -->
+	<scene id="dining_room">
+		<content folderPath="txt/places/dominion/angelixx_apartment/generic">DINING_ROOM</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_angelixx_apartment_toilet -->
+	<scene id="toilet">
+		<content folderPath="txt/places/dominion/angelixx_apartment/generic">TOILET</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_angelixx_apartment_bathroom -->
+	<scene id="bathroom">
+		<content folderPath="txt/places/dominion/angelixx_apartment/generic">BATHROOM</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_angelixx_apartment_lounge -->
+	<scene id="lounge">
+		<content folderPath="txt/places/dominion/angelixx_apartment/generic">LOUNGE</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_angelixx_apartment_bedroom -->
+	<scene id="bedroom">
+		<content folderPath="txt/places/dominion/angelixx_apartment/generic">BEDROOM</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+	
+	<!-- Place type id: innoxia_angelixx_apartment_bedroom_angelixx -->
+	<scene id="bedroom_angelixx">
+		<content folderPath="txt/places/dominion/angelixx_apartment/generic">BEDROOM_ANGELIXX</content>
+		<secondsPassed><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses/>
+	</scene>
+
+	
+	
+	<!-- Start visit dialogue: -->
+	
+	<scene id="visit">
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_innoxia_angelixx_apartment_visited, true)]
+			[#pc.setLocation(WORLD_TYPE_innoxia_dominion_angelixx_apartment, PLACE_TYPE_innoxia_dominion_angelixx_apartment_exit)]
+			
+			#IF(RND.nextInt(100)<80)
+				[#angelixx.setLocation(pc)]
+				#IF(RND.nextInt(100)<50)
+					[#sleip.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
+				#ELSE
+					[#sleip.setLocation(WORLD_TYPE_innoxia_dominion_angelixx_apartment, PLACE_TYPE_innoxia_dominion_angelixx_apartment_lounge)]
+				#ENDIF
+				[#nir.setLocation(sleip)]
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'VISIT'))]
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'VISIT_ANGELIXX'))]
+			#ELSE
+				[#angelixx.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
+				[#sleip.equipClothing()]
+				[#nir.equipClothing()]
+				[#itemGen.generateItem('innoxia_race_dog_canine_crush').applyEffect(sleip, sleip)]
+				[#itemGen.generateItem('innoxia_race_dog_canine_crush').applyEffect(sleip, sleip)]
+				[#itemGen.generateItem('innoxia_race_dog_canine_crush').applyEffect(nir, nir)]
+				[#itemGen.generateItem('innoxia_race_dog_canine_crush').applyEffect(nir, nir)]
+				[#sleip.setLocation(pc)]
+				[#nir.setLocation(WORLD_TYPE_innoxia_dominion_angelixx_apartment, PLACE_TYPE_innoxia_dominion_angelixx_apartment_lounge)]
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'VISIT'))]
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'VISIT_SLEIP_NIR'))]
+				[#flags.setFlag(FLAG_innoxia_sleip_nir_apartment_seen, true)]
+			#ENDIF
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Invited in: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.getCharactersPresent().contains(angelixx))
+						#IF(sleip.getWorldLocation()==WORLD_TYPE_EMPTY)
+							Accept Angelixx's invitation to come in to her apartment.
+						#ELSE
+							As Angelixx's sons are here at the moment, she isn't interested in inviting you in.
+						#ENDIF
+					#ELSE
+						Accept Sleip's invitation to come in to the apartment.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.getCharactersPresent().contains(angelixx) && sleip.getWorldLocation()!=WORLD_TYPE_EMPTY)
+						null
+					#ELSE
+						#IF(game.getCharactersPresent().contains(angelixx))
+							innoxia_places_dominion_angelixx_apartment_generic_angelixx_bedroom
+						#ELSE
+							innoxia_places_dominion_angelixx_apartment_generic_sleip_nir
+						#ENDIF
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					#IF(!game.getCharactersPresent().contains(angelixx))
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'SLEIP_NIR_ENTER'))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'SLEIP_NIR_INTRO'))]
+						[#flags.setFlag(FLAG_innoxia_sleip_nir_apartment_lounge_seen, true)]
+						
+						[#game.getDialogueFlags().setSavedLong('sleip_nir_conversation_progress', 1)]
+					#ENDIF
+				]]></effects>
+			</response>
+			<!-- See Sleip & Nir -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.getCharactersPresent().contains(angelixx)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Sleip & Nir]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(sleip.getWorldLocation()==WORLD_TYPE_EMPTY)
+						As Sleip and Nir aren't here at the moment, you can't ask to see them.
+					#ELSE
+						Tell Angelixx that you're here to see her sons...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.getCharactersPresent().contains(angelixx) && sleip.getWorldLocation()!=WORLD_TYPE_EMPTY)
+						innoxia_places_dominion_angelixx_apartment_generic_sleip_nir
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<effects><![CDATA[
+					[#angelixx.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_HOLDING_CELL)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'SLEIP_NIR_START'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'SLEIP_NIR_INTRO'))]
+					[#flags.setFlag(FLAG_innoxia_sleip_nir_apartment_seen, true)]
+					[#flags.setFlag(FLAG_innoxia_sleip_nir_apartment_lounge_seen, true)]
+					
+					[#game.getDialogueFlags().setSavedLong('sleip_nir_conversation_progress', 1)]
+				]]></effects>
+			</response>
+			<!-- Clubbing: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.getCharactersPresent().contains(angelixx)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Go out]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(sleip.getWorldLocation()!=WORLD_TYPE_EMPTY)
+						Suggest to Angelixx that the two of you could go out somewhere together.
+					#ELSE
+						Angelixx doesn't look at all interested in going out at the moment.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.getCharactersPresent().contains(angelixx) && sleip.getWorldLocation()!=WORLD_TYPE_EMPTY)
+						innoxia_places_dominion_angelixx_apartment_generic_angelixx_go_out
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#sleip.returnToHome()]
+					[#nir.returnToHome()]
+				]]></effects>
+			</response>
+			<!-- Leave: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.getCharactersPresent().contains(angelixx))
+						Tell Angelixx that you were just dropping by to say hello, and now you have to leave.
+					#ELSE
+						Tell Sleip that you were just dropping by to say hello, and now you have to leave.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="DOMINION_DEMON_HOME_SEX_SHOP"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'VISIT_LEAVE'))]
+					[#pc.setLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_DEMON_HOME_SEX_SHOP)]
+					[#angelixx.returnToHome()]
+					[#sleip.returnToHome()]
+					[#nir.returnToHome()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Angelixx in apartment dialogues: -->
+	
+	<scene id="angelixx_bedroom">
+		<preParsingEffects><![CDATA[
+			[#pc.walkPathNoEffects(PLACE_TYPE_innoxia_dominion_angelixx_apartment_bedroom_angelixx, true, 1)]
+			[#angelixx.setLocation(pc)]
+			
+			[#flags.setFlag(FLAG_innoxia_angelixx_bedroom_talked, false)]
+			[#flags.setFlag(FLAG_innoxia_angelixx_bedroom_flirted, false)]
+			
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_BEDROOM'))]
+			#IF(pc.isVisiblyPregnant())
+				[#pc.setCharacterReactedToPregnancy(angelixx, true)]
+			#ENDIF
+			
+			[#angelixx.equipClothing()]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Talk: -->
+				<response>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Talk]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(!flags.hasFlag(FLAG_innoxia_angelixx_bedroom_talked))
+							Try to get to know Angelixx a little better.
+						#ELSE
+							You've already spent a little time talking with Angelixx, and she now quite clearly wants more than just conversation...
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(!flags.hasFlag(FLAG_innoxia_angelixx_bedroom_talked))
+							innoxia_places_dominion_angelixx_apartment_generic_angelixx_bedroom_talk
+						#ELSE
+							null
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#flags.setFlag(FLAG_innoxia_angelixx_bedroom_talked, true)]
+					]]></effects>
+				</response>
+			<!-- Flirt: -->
+				<response>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Flirt]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(!flags.hasFlag(FLAG_innoxia_angelixx_bedroom_flirted))
+							Tease Angelixx and flirt with her a little.
+						#ELSE
+							You've already flirted with Angelixx, and she doesn't look like she'll tolerate any more of it...
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(!flags.hasFlag(FLAG_innoxia_angelixx_bedroom_flirted))
+							innoxia_places_dominion_angelixx_apartment_generic_angelixx_bedroom_flirt
+						#ELSE
+							null
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#flags.setFlag(FLAG_innoxia_angelixx_bedroom_flirted, true)]
+					]]></effects>
+				</response>
+			<!-- Sex: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!angelixx.isTaur()]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[3]]></index>
+					<responseTitle><![CDATA[Fuck her]]></responseTitle>
+					<responseTooltip><![CDATA[Give Angelixx what she so desperately wants...]]></responseTooltip>
+					<nextDialogue/>
+					<effects/>
+					<sexVariablesWithManager enabled="true">
+						<id><![CDATA[innoxia_dominion_angelixx_apartment_angelixx_bedroom_sex]]></id>
+						<startingPosition><![CDATA[LYING_DOWN]]></startingPosition>
+						<dominants>
+							<character>
+								<id>pc</id>
+								<slot><![CDATA[LYING_DOWN_MISSIONARY]]></slot>
+							</character>
+						</dominants>
+						<submissives>
+							<character>
+								<id>angelixx</id>
+								<slot><![CDATA[LYING_DOWN_LYING_DOWN]]></slot>
+							</character>
+						</submissives>
+						<postSexDialogue><![CDATA[innoxia_places_dominion_angelixx_apartment_generic_angelixx_bedroom_after_sex]]></postSexDialogue>
+						<sexStartContent folderPath="txt/places/dominion/angelixx_apartment/generic">ANGELIXX_BEDROOM_SEX_START</sexStartContent>
+						<ongoingActionsAtStart/>
+					</sexVariablesWithManager>
+				</response>
+			<!-- Demands: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_angelixx_demands_unlocked)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[4]]></index>
+					<responseTitle><![CDATA[Demands]]></responseTitle>
+					<responseTooltip><![CDATA[As she seems to be willing to do anything to get you on her side, you think that you can make some demands of Angelixx...]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_places_dominion_angelixx_apartment_generic_angelixx_bedroom_demand]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'BEDROOM_ANGELIXX_DEMANDS'))]
+						[#flags.setFlag(FLAG_innoxia_angelixx_demands_unlocked, true)]
+					]]></effects>
+				</response>
+			<!-- Demands unlocked: -->
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_angelixx_demands_unlocked)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[6]]></index>
+					<responseTitle><![CDATA[
+						#IF(angelixx.getBreastRawSizeValue()>0)
+							Flat chest
+						#ELSE
+							A-cups
+						#ENDIF
+					]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(angelixx.getBreastRawSizeValue()>0)
+							Tell Angelixx that you'd prefer her with a perfectly flat chest.
+						#ELSE
+							Tell Angelixx that you've had enough of her flat chest, and she can give herself the little B-cup breasts she prefers.
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_places_dominion_angelixx_apartment_generic_angelixx_bedroom_demand]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_DEMAND_FLAT_CHEST'))]
+						#IF(angelixx.getBreastRawSizeValue()>0)
+							[#angelixx.setBreastSize(0)]
+						#ELSE
+							[#angelixx.setBreastSize(5)]
+						#ENDIF
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_DEMAND_FLAT_CHEST_END'))]
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_angelixx_demands_unlocked)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[7]]></index>
+					<responseTitle><![CDATA[
+						#IF(angelixx.getBreastRawSizeValue()!=10)
+							Big tits
+						#ELSE
+							A-cups
+						#ENDIF
+					]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(angelixx.getBreastRawSizeValue()!=10)
+							Tell Angelixx that you'd prefer her with a big pair of tits.
+						#ELSE
+							Tell Angelixx that you've had enough of her big tits, and she can give herself the little B-cup breasts she prefers.
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_places_dominion_angelixx_apartment_generic_angelixx_bedroom_demand]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_DEMAND_BIG_TITS'))]
+						#IF(angelixx.getBreastRawSizeValue()!=10)
+							[#angelixx.setBreastSize(10)]
+						#ELSE
+							[#angelixx.setBreastSize(5)]
+						#ENDIF
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_angelixx_demands_unlocked)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[8]]></index>
+					<responseTitle><![CDATA[
+						#IF(angelixx.hasPenis() && !angelixx.hasVagina())
+							Pussy only
+						#ELSE
+							Cock only
+						#ENDIF
+					]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(angelixx.hasPenis() && !angelixx.hasVagina())
+							Tell Angelixx to get rid of her cock and go back to only having a pussy.
+						#ELSE
+							Tell Angelixx that you'd prefer her to not have a pussy, and to instead have a cock for you to play with.
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_places_dominion_angelixx_apartment_generic_angelixx_bedroom_demand]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_DEMAND_COCK_ONLY'))]
+						#IF(angelixx.hasPenis() && !angelixx.hasVagina())
+							[#angelixx.setPenisType(PENIS_TYPE_NONE)]
+							[#angelixx.setVaginaType(VAGINA_TYPE_DEMON_COMMON)]
+						#ELSE
+							[#angelixx.growPenis()]
+							[#angelixx.setVaginaType(VAGINA_TYPE_NONE)]
+						#ENDIF
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_DEMAND_COCK_ONLY_END'))]
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_angelixx_demands_unlocked)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[9]]></index>
+					<responseTitle><![CDATA[
+						#IF((angelixx.hasPenis() && !angelixx.hasVagina()) || (!angelixx.hasPenis() && angelixx.hasVagina()))
+							Futa
+						#ELSE
+							Pussy only
+						#ENDIF
+					]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF((angelixx.hasPenis() && !angelixx.hasVagina()) || (!angelixx.hasPenis() && angelixx.hasVagina()))
+							Tell Angelixx that you want her to have both a cock and a pussy.
+						#ELSE
+							Tell Angelixx to get rid of her cock and go back to only having a pussy.
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_places_dominion_angelixx_apartment_generic_angelixx_bedroom_demand]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_DEMAND_FUTA'))]
+						#IF((angelixx.hasPenis() && !angelixx.hasVagina()) || (!angelixx.hasPenis() && angelixx.hasVagina()))
+							[#angelixx.setVaginaType(VAGINA_TYPE_DEMON_COMMON)]
+							[#angelixx.growPenis()]
+						#ELSE
+							[#angelixx.setPenisType(PENIS_TYPE_NONE)]
+							[#angelixx.setVaginaType(VAGINA_TYPE_DEMON_COMMON)]
+						#ENDIF
+					]]></effects>
+				</response>
+			<!-- Leave: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Angelixx that it's time for you to leave.
+				]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="DOMINION_DEMON_HOME_SEX_SHOP"/>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_DEMON_HOME_SEX_SHOP)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_LEAVE'))]
+					[#angelixx.returnToHome()]
+					[#angelixx.equipClothing()]
+					[#sleip.returnToHome()]
+					[#nir.returnToHome()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="angelixx_bedroom_talk">
+		<content folderPath="txt/places/dominion/angelixx_apartment/generic">BEDROOM_ANGELIXX_TALK</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_angelixx_apartment_generic_angelixx_bedroom"/>
+	</scene>
+	
+	<scene id="angelixx_bedroom_flirt">
+		<content folderPath="txt/places/dominion/angelixx_apartment/generic">BEDROOM_ANGELIXX_FLIRT</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_angelixx_apartment_generic_angelixx_bedroom"/>
+	</scene>
+	
+	<scene id="angelixx_bedroom_demand">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_angelixx_apartment_generic_angelixx_bedroom"/>
+	</scene>
+	
+	<scene id="angelixx_bedroom_after_sex">
+        <title><![CDATA[Finished]]></title>
+        <tooltip><![CDATA[Angelixx has had enough...]]></tooltip>
+		<content folderPath="txt/places/dominion/angelixx_apartment/generic">ANGELIXX_AFTER_SEX</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Goodbye]]></responseTitle>
+				<responseTooltip><![CDATA[It's time for you to leave.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="DOMINION_DEMON_HOME_SEX_SHOP"/>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_DEMON_HOME_SEX_SHOP)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_AFTER_SEX_LEAVE'))]
+					[#angelixx.returnToHome()]
+					[#angelixx.applyWash(true, true, null, 0)]
+					[#angelixx.equipClothing()]
+					[#sleip.returnToHome()]
+					[#nir.returnToHome()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Angelixx clubbing scenes: -->
+	
+	<scene id="angelixx_go_out">
+		<preParsingEffects><![CDATA[
+			[#angelixx.equipClubbingClothing()]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/angelixx_apartment/generic">ANGELIXX_GO_OUT</content>
+		<secondsPassed minutes="true"><![CDATA[
+			#IF(!game.isHourBetween(19, 12))
+				[#~~(game.getMinutesUntilTimeInMinutes(19 * 60))]
+			#ELSE
+				5
+			#ENDIF
+		]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Club: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Clubbing]]></responseTitle>
+				<responseTooltip><![CDATA[Head to the club with Angelixx.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_angelixx_apartment_generic_angelixx_club]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="angelixx_club">
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_NIGHTLIFE_CLUB, PLACE_TYPE_WATERING_HOLE_ENTRANCE)]
+			[#angelixx.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/angelixx_apartment/generic">ANGELIXX_CLUB</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter]]></responseTitle>
+				<responseTooltip><![CDATA[Head on in to the club.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_angelixx_apartment_generic_angelixx_club_start]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="angelixx_club_start">
+		<preParsingEffects><![CDATA[
+			[#pc.walkPathNoEffects(PLACE_TYPE_WATERING_HOLE_BAR, true, 1)]
+			[#angelixx.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/angelixx_apartment/generic">ANGELIXX_CLUB_START</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+                <responseTitle><![CDATA[
+					#IF(pc.getMoney()<400)
+						Pay ([style.moneyFormatUncoloured(400, span)])
+					#ELSE
+						Pay ([style.moneyFormat(400, span)])
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getMoney()<400)
+						You don't have enough flames to pay for the drinks which Angelixx has ordered...
+					#ELSE
+						Do as Angelixx says and pay for both of your drinks...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_angelixx_apartment_generic_angelixx_club_core]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_CLUB_START_PAY'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_CLUB_START_BOTH_DRINK'))]
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-400))]
+					[#game.appendToTextEndStringBuilder(angelixx.incrementAffection(pc, 2))]
+					[#game.getDialogueFlags().setSavedLong('angelixx_club_progress', 0)]
+					
+					[#game.appendToTextEndStringBuilder(angelixx.incrementAlcoholLevel(0.15))]
+					[#game.appendToTextEndStringBuilder(pc.incrementAlcoholLevel(0.15))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+                <responseTitle><![CDATA[Angelixx pays]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Angelixx that it was her decision to order these drinks, so she's going to have to pay for them.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_angelixx_apartment_generic_angelixx_club_core]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_CLUB_START_ANGELIXX_PAYS'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_CLUB_START_BOTH_DRINK'))]
+					[#game.getDialogueFlags().setSavedLong('angelixx_club_progress', 0)]
+					
+					[#game.appendToTextEndStringBuilder(angelixx.incrementAlcoholLevel(0.15))]
+					[#game.appendToTextEndStringBuilder(pc.incrementAlcoholLevel(0.15))]
+				]]></effects>
+			</response>
+			<!-- Don't drink -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+                <responseTitle><![CDATA[
+					#IF(pc.getMoney()<400)
+						Pay & abstain ([style.moneyFormatUncoloured(400, span)])
+					#ELSE
+						Pay & abstain ([style.moneyFormat(400, span)])
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getMoney()<400)
+						You don't have enough flames to pay for the drinks which Angelixx has ordered...
+					#ELSE
+						Do as Angelixx says and pay for both of your drinks, but don't drink the one that she's ordered for you...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_angelixx_apartment_generic_angelixx_club_core]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_CLUB_START_PAY_ABSTAIN'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_CLUB_START_SOLO_DRINK'))]
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(-400))]
+					[#game.appendToTextEndStringBuilder(angelixx.incrementAffection(pc, 2))]
+					[#game.getDialogueFlags().setSavedLong('angelixx_club_progress', 0)]
+					[#game.appendToTextEndStringBuilder(angelixx.incrementAlcoholLevel(0.25))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[7]]></index>
+                <responseTitle><![CDATA[Angelixx pays & abstain]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Angelixx that it was her decision to order these drinks, so she's going to have to pay for them. Also don't drink the cocktail that's she's ordered for you.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_angelixx_apartment_generic_angelixx_club_core]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_CLUB_START_ANGELIXX_PAYS_ABSTAIN'))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_CLUB_START_SOLO_DRINK'))]
+					[#game.getDialogueFlags().setSavedLong('angelixx_club_progress', 0)]
+					[#game.appendToTextEndStringBuilder(angelixx.incrementAlcoholLevel(0.25))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="angelixx_club_core">
+		<preParsingEffects><![CDATA[
+			[#game.getDialogueFlags().incrementSavedLong('angelixx_club_progress', 1)]
+			#IF(game.getDialogueFlags().getSavedLong('angelixx_club_progress')>=5)
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_CLUB_CORE_ANGELIXX_HORNY'))]
+			#ENDIF
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Dance: -->
+				<response>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Dance]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(game.getDialogueFlags().getSavedLong('angelixx_club_progress')>=5)
+							Angelixx wants to do something a little more exciting...
+						#ELSEIF(pc.getLocationPlaceType()==PLACE_TYPE_WATERING_HOLE_DANCE_FLOOR)
+							You've just spent some time dancing with Angelixx, so it's time to do something else...
+						#ELSE
+							Take Angelixx over to the dancefloor and have some fun.
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(pc.getLocationPlaceType()==PLACE_TYPE_WATERING_HOLE_DANCE_FLOOR || game.getDialogueFlags().getSavedLong('angelixx_club_progress')>=5)
+							null
+						#ELSE
+							innoxia_places_dominion_angelixx_apartment_generic_angelixx_club_core
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#pc.setRandomLocation(WORLD_TYPE_NIGHTLIFE_CLUB, PLACE_TYPE_WATERING_HOLE_DANCE_FLOOR, false)]
+						[#angelixx.setLocation(pc)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_CLUB_DANCE'))]
+					]]></effects>
+				</response>
+			<!-- Drink: -->
+				<response>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+					<responseTitle><![CDATA[
+						#IF(pc.getMoney()<400 || game.getDialogueFlags().getSavedLong('angelixx_club_progress')>=5 || pc.getLocationPlaceType()==PLACE_TYPE_WATERING_HOLE_BAR)
+							Drink ([style.moneyFormatUncoloured(400, span)])
+						#ELSE
+							Drink ([style.moneyFormat(400, span)])
+						#ENDIF
+					]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(game.getDialogueFlags().getSavedLong('angelixx_club_progress')>=5)
+							Angelixx wants to do something a little more exciting...
+						#ELSEIF(pc.getLocationPlaceType()==PLACE_TYPE_WATERING_HOLE_BAR)
+							You and Angelixx have just had a drink, so you'd better do something else before ordering another one...
+						#ELSEIF(pc.getMoney()<400)
+							You don't have enough flames to pay for the drinks which Angelixx wants...
+						#ELSE
+							Take Angelixx over to the bar and pay for both of your drinks...
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(pc.getMoney()<400 || game.getDialogueFlags().getSavedLong('angelixx_club_progress')>=5 || pc.getLocationPlaceType()==PLACE_TYPE_WATERING_HOLE_BAR)
+							null
+						#ELSE
+							innoxia_places_dominion_angelixx_apartment_generic_angelixx_club_core
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#pc.setRandomLocation(WORLD_TYPE_NIGHTLIFE_CLUB, PLACE_TYPE_WATERING_HOLE_BAR, false)]
+						[#angelixx.setLocation(pc)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_CLUB_DRINK'))]
+						[#game.appendToTextEndStringBuilder(pc.incrementMoney(-400))]
+						[#game.appendToTextEndStringBuilder(angelixx.incrementAffection(pc, 2))]
+						[#game.appendToTextEndStringBuilder(angelixx.incrementAlcoholLevel(0.15))]
+						[#game.appendToTextEndStringBuilder(pc.incrementAlcoholLevel(0.15))]
+					]]></effects>
+				</response>
+			<!-- Talk: -->
+				<response>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[3]]></index>
+					<responseTitle><![CDATA[Talk]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(game.getDialogueFlags().getSavedLong('angelixx_club_progress')>=5)
+							Angelixx wants to do something a little more exciting...
+						#ELSEIF(pc.getLocationPlaceType()==PLACE_TYPE_WATERING_HOLE_SEATING_AREA)
+							You and Angelixx have just spent some time talking, so it's time to do something else...
+						#ELSE
+							Take Angelixx over to the relative quiet of a seating area and talk to her for a little while...
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(game.getDialogueFlags().getSavedLong('angelixx_club_progress')>=5 || pc.getLocationPlaceType()==PLACE_TYPE_WATERING_HOLE_SEATING_AREA)
+							null
+						#ELSE
+							innoxia_places_dominion_angelixx_apartment_generic_angelixx_club_core
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#pc.setRandomLocation(WORLD_TYPE_NIGHTLIFE_CLUB, PLACE_TYPE_WATERING_HOLE_SEATING_AREA, false)]
+						[#angelixx.setLocation(pc)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_CLUB_TALK'))]
+					]]></effects>
+				</response>
+			<!-- Flirt: -->
+				<response>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[4]]></index>
+					<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+					<responseTitle><![CDATA[Flirt]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(game.getDialogueFlags().getSavedLong('angelixx_club_progress')>=5)
+							Angelixx wants to do something a little more exciting...
+						#ELSEIF(pc.getLocationPlaceType()==PLACE_TYPE_WATERING_HOLE_MAIN_AREA)
+							You and Angelixx have just spent some time flirting with one another, so it's time to do something else...
+						#ELSE
+							Flirt with Angelixx for a little while...
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(game.getDialogueFlags().getSavedLong('angelixx_club_progress')>=5 || pc.getLocationPlaceType()==PLACE_TYPE_WATERING_HOLE_MAIN_AREA)
+							null
+						#ELSE
+							innoxia_places_dominion_angelixx_apartment_generic_angelixx_club_core
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#pc.setRandomLocation(WORLD_TYPE_NIGHTLIFE_CLUB, PLACE_TYPE_WATERING_HOLE_MAIN_AREA, false)]
+						[#angelixx.setLocation(pc)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_CLUB_FLIRT'))]
+					]]></effects>
+				</response>
+			<!-- Ending actions: -->
+			<!-- Bathroom fuck: -->
+				<response>
+					<availabilityConditional><![CDATA[[#game.getDialogueFlags().getSavedLong('angelixx_club_progress')>=5]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[6]]></index>
+					<responseTitle><![CDATA[Bathroom fuck]]></responseTitle>
+					<responseTooltip><![CDATA[Take Angelixx into the club's bathrooms and fuck her in one of the stalls...]]></responseTooltip>
+					<nextDialogue/>
+					<effects><![CDATA[
+						[#pc.setLocation(WORLD_TYPE_NIGHTLIFE_CLUB, PLACE_TYPE_WATERING_HOLE_WATERING_HOLE_TOILETS)]
+						[#angelixx.setLocation(pc)]
+					]]></effects>
+					<sexVariablesWithManager enabled="true">
+						<id><![CDATA[innoxia_dominion_angelixx_apartment_club_bathroom]]></id>
+						<startingPosition><![CDATA[STANDING]]></startingPosition>
+						<dominants>
+							<character>
+								<id>pc</id>
+								<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+							</character>
+						</dominants>
+						<submissives>
+							<character>
+								<id>angelixx</id>
+								<slot><![CDATA[STANDING_STANDING_SUBMISSIVE]]></slot>
+							</character>
+						</submissives>
+						<postSexDialogue><![CDATA[innoxia_places_dominion_angelixx_apartment_generic_angelixx_club_bathroom_after_sex]]></postSexDialogue>
+						<sexStartContent folderPath="txt/places/dominion/angelixx_apartment/generic">ANGELIXX_CLUB_BATHROOM_SEX_START</sexStartContent>
+						<ongoingActionsAtStart/>
+					</sexVariablesWithManager>
+				</response>
+			<!-- Pose: -->
+				<response>
+					<availabilityConditional><![CDATA[[#game.getDialogueFlags().getSavedLong('angelixx_club_progress')>=5]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[7]]></index>
+					<colour><![CDATA[GENERIC_SEX]]></colour>
+					<responseTitle><![CDATA[Pose]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(!angelixx.hasVagina() && !game.isAnalContentEnabled())
+							Angelixx needs to have a pussy in order to attract a couple of strangers to get fucked by.
+						#ELSEIF((!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) && (!game.isAnalContentEnabled() || !pc.isAbleToAccessCoverableArea(CA_ANUS, true)))
+							You need to have an accessible pussy #IF(game.isAnalContentEnabled())or asshole#ENDIF in order to attract a couple of strangers to get fucked by.
+						#ELSE
+							Pose with Angelixx to try and attract a couple of strangers to get fucked by.<br/>[style.italicsSex(This could lead to being a submissive partner in a foursome with Angelixx and two strangers...)]
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF((!angelixx.hasVagina() && !game.isAnalContentEnabled()) || ((!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) && (!game.isAnalContentEnabled() || !pc.isAbleToAccessCoverableArea(CA_ANUS, true))))
+							null
+						#ELSE
+							innoxia_places_dominion_angelixx_apartment_generic_angelixx_club_pose
+						#ENDIF
+					]]></nextDialogue>
+				</response>
+			<!-- Jules: -->
+				<response>
+					<availabilityConditional><![CDATA[[#game.getDialogueFlags().getSavedLong('angelixx_club_progress')>=5]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[8]]></index>
+					<colour><![CDATA[GENERIC_SEX]]></colour>
+					<responseTitle><![CDATA[Jules]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(!pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+							You need to be able to access your mouth in order to repay Jules for letting the two of you into the club.
+						#ELSE
+							Go and repay Jules for letting the two of you into the club.<br/>[style.italicsSex(This will lead to being a submissive partner in a threesome with Angelixx and Jules...)]
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(!pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+							null
+						#ELSE
+							innoxia_places_dominion_angelixx_apartment_generic_angelixx_club_jules
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#pc.setLocation(WORLD_TYPE_NIGHTLIFE_CLUB, PLACE_TYPE_WATERING_HOLE_ENTRANCE)]
+						[#angelixx.setLocation(pc)]
+					]]></effects>
+				</response>
+			<!-- Leave: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Angelixx that you've had enough of this and leave the club.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="DOMINION_NIGHTLIFE_DISTRICT"/>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_NIGHTLIFE_DISTRICT)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_CLUB_LEAVE'))]
+					[#angelixx.returnToHome()]
+					[#angelixx.equipClothing()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="angelixx_club_bathroom_after_sex">
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_NIGHTLIFE_DISTRICT)]
+			[#angelixx.setLocation(pc)]
+		]]></preParsingEffects>
+        <title><![CDATA[Finished]]></title>
+        <tooltip><![CDATA[You've had enough of this...]]></tooltip>
+		<content folderPath="txt/places/dominion/angelixx_apartment/generic">ANGELIXX_CLUB_BATHROOM_AFTER_SEX</content>
+		<secondsPassed><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Walk home]]></responseTitle>
+				<responseTooltip><![CDATA[Walk Angelixx home...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_angelixx_apartment_generic_angelixx_walked_home]]></nextDialogue>
+			</response>
+			<!-- Leave: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Refuse]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Angelixx that she can find her own way back.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="DOMINION_NIGHTLIFE_DISTRICT"/>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_NIGHTLIFE_DISTRICT)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_CLUB_REFUSE_TO_WALK_HOME'))]
+					[#angelixx.returnToHome()]
+					[#angelixx.equipClothing()]
+					[#angelixx.applyWash(true, true, null, 0)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="angelixx_club_pose">
+		<preParsingEffects><![CDATA[
+			[#pc.setRandomLocation(WORLD_TYPE_NIGHTLIFE_CLUB, PLACE_TYPE_WATERING_HOLE_BAR, false)]
+			[#angelixx.setLocation(pc)]
+			[#angelixx.spawnClubStrangers()]
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_CLUB_POSE'))]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Flirt ([stranger1.name])]]></responseTitle>
+				<responseTooltip><![CDATA[Start flirting with [stranger1.name], leaving Angelixx to flirt with [stranger2.name].]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_angelixx_apartment_generic_angelixx_club_pose_flirt]]></nextDialogue>
+				<effects><![CDATA[
+					[#angelixx.setLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_NIGHTLIFE_DISTRICT)]
+					[#angelixx.setNearestLocation(PLACE_TYPE_DOMINION_BACK_ALLEYS)]
+					[#stranger2.setLocation(angelixx)]
+					[#game.setParserTarget('chosenStranger', stranger1)]
+					[#game.setParserTarget('angelixxStranger', stranger2)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Flirt ([stranger2.name])]]></responseTitle>
+				<responseTooltip><![CDATA[Start flirting with [stranger2.name], leaving Angelixx to flirt with [stranger1.name].]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_angelixx_apartment_generic_angelixx_club_pose_flirt]]></nextDialogue>
+				<effects><![CDATA[
+					[#angelixx.setLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_NIGHTLIFE_DISTRICT)]
+					[#angelixx.setNearestLocation(PLACE_TYPE_DOMINION_BACK_ALLEYS)]
+					[#stranger1.setLocation(angelixx)]
+					[#game.setParserTarget('chosenStranger', stranger2)]
+					[#game.setParserTarget('angelixxStranger', stranger1)]
+				]]></effects>
+			</response>
+			<!-- Leave: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Angelixx that you've had enough of this and leave the club.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="DOMINION_NIGHTLIFE_DISTRICT"/>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_NIGHTLIFE_DISTRICT)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_CLUB_POSE_LEAVE'))]
+					[#angelixx.returnToHome()]
+					[#angelixx.equipClothing()]
+					[#game.banishNPC(stranger1)]
+					[#game.banishNPC(stranger2)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="angelixx_club_pose_flirt">
+		<content folderPath="txt/places/dominion/angelixx_apartment/generic">ANGELIXX_CLUB_POSE_FLIRT</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<colour><![CDATA[GENERIC_SEX]]></colour>
+				<responseTitle><![CDATA[Go with [chosenStranger.name]]]></responseTitle>
+				<responseTooltip><![CDATA[Submissively allow [chosenStranger.name] to lead you outside, where you hope to be fucked alongside Angelixx and [angelixxStranger.she].]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_angelixx_apartment_generic_angelixx_club_pose_alleyway]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.setLocation(angelixx)]
+					[#chosenStranger.setLocation(pc)]
+					[#angelixx.displaceClothingForAccess(CA_VAGINA, null)]
+					[#angelixxStranger.displaceClothingForAccess(CA_PENIS, null)]
+				]]></effects>
+			</response>
+			<!-- Leave: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Tell [chosenStranger.name] that you've had enough of this and leave the club.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="DOMINION_NIGHTLIFE_DISTRICT"/>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_NIGHTLIFE_DISTRICT)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_CLUB_POSE_FLIRT_LEAVE'))]
+					[#angelixx.returnToHome()]
+					[#angelixx.equipClothing()]
+					[#game.banishNPC(stranger1)]
+					[#game.banishNPC(stranger2)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="angelixx_club_pose_alleyway">
+		<content folderPath="txt/places/dominion/angelixx_apartment/generic">ANGELIXX_CLUB_POSE_ALLEYWAY</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fucked]]></responseTitle>
+				<responseTooltip><![CDATA[[chosenStranger.Name] fucks you alongside Angelixx as she's fucked by [angelixxStranger.name]...]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_dominion_angelixx_apartment_club_alleyway_foursome]]></id>
+					<startingPosition><![CDATA[
+						#IF(chosenStranger.isTaur() || angelixxStranger.isTaur())
+							OVER_DESK
+						#ELSE
+							AGAINST_WALL
+						#ENDIF
+					]]></startingPosition>
+					<dominants>
+						<character>
+							<id>chosenStranger</id>
+							<slot><![CDATA[
+								#IF(chosenStranger.isTaur() || angelixxStranger.isTaur())
+									OVER_DESK_BETWEEN_LEGS
+								#ELSE
+									AGAINST_WALL_STANDING_WALL
+								#ENDIF
+							]]></slot>
+						</character>
+						<character>
+							<id>angelixxStranger</id>
+							<slot><![CDATA[
+								#IF(chosenStranger.isTaur() || angelixxStranger.isTaur())
+									OVER_DESK_BETWEEN_LEGS_TWO
+								#ELSE
+									AGAINST_WALL_STANDING_WALL_TWO
+								#ENDIF
+							]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[
+								#IF(chosenStranger.isTaur() || angelixxStranger.isTaur())
+									OVER_DESK_OVER_DESK_ON_FRONT
+								#ELSE
+									AGAINST_WALL_FACE_TO_WALL
+								#ENDIF
+							]]></slot>
+						</character>
+						<character>
+							<id>angelixx</id>
+							<slot><![CDATA[
+								#IF(chosenStranger.isTaur() || angelixxStranger.isTaur())
+									OVER_DESK_OVER_DESK_ON_FRONT_TWO
+								#ELSE
+									AGAINST_WALL_FACE_TO_WALL_TWO
+								#ENDIF
+							]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_angelixx_apartment_generic_angelixx_club_pose_alleyway_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/angelixx_apartment/generic">ANGELIXX_CLUB_POSE_ALLEYWAY_SEX_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<!-- Vaginal: -->
+							<action>
+								<condition><![CDATA[[#pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></condition>
+								<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+								<performer><![CDATA[chosenStranger]]></performer>
+								<target><![CDATA[pc]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+							<action>
+								<condition><![CDATA[[#angelixx.hasVagina()]]]></condition>
+								<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+								<performer><![CDATA[angelixxStranger]]></performer>
+								<target><![CDATA[angelixx]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+						<!-- Anal: -->
+							<action>
+								<condition><![CDATA[[#!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></condition>
+								<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
+								<performer><![CDATA[chosenStranger]]></performer>
+								<target><![CDATA[pc]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+							<action>
+								<condition><![CDATA[[#!angelixx.hasVagina()]]]></condition>
+								<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
+								<performer><![CDATA[angelixxStranger]]></performer>
+								<target><![CDATA[angelixx]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+						<!-- Kissing: -->
+							<action>
+								<condition><![CDATA[[#pc.isAbleToAccessCoverableArea(CA_MOUTH, true) && ((!chosenStranger.isTaur() && !angelixxStranger.isTaur()) || pc.isTaur()==angelixx.isTaur())]]]></condition>
+								<id><![CDATA[TongueMouth_KISS_START]]></id>
+								<performer><![CDATA[pc]]></performer>
+								<target><![CDATA[angelixx]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="angelixx_club_pose_alleyway_after_sex">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_CLUB_POSE_ALLEYWAY_AFTER_SEX'))]
+			[#game.banishNPC(stranger1)]
+			[#game.banishNPC(stranger2)]
+		]]></preParsingEffects>
+        <title><![CDATA[Finished]]></title>
+        <tooltip><![CDATA[[stranger1.Name] and [stranger2.name] have have their fun and bring an end to the sex...]]></tooltip>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Walk home]]></responseTitle>
+				<responseTooltip><![CDATA[Walk Angelixx home...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_angelixx_apartment_generic_angelixx_walked_home]]></nextDialogue>
+			</response>
+			<!-- Leave: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Refuse]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Angelixx that she can find her own way back.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="DOMINION_NIGHTLIFE_DISTRICT"/>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_NIGHTLIFE_DISTRICT)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_CLUB_REFUSE_TO_WALK_HOME'))]
+					[#angelixx.returnToHome()]
+					[#angelixx.equipClothing()]
+					[#angelixx.applyWash(true, true, null, 0)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="angelixx_club_jules">
+		<content folderPath="txt/places/dominion/angelixx_apartment/generic">ANGELIXX_CLUB_JULES</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Suck cock]]></responseTitle>
+				<responseTooltip><![CDATA[Join Angelixx in sucking Jules's cock...]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_dominion_angelixx_apartment_club_jules]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>jules</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+						</character>
+						<character>
+							<id>angelixx</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL_TWO]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_angelixx_apartment_generic_angelixx_club_jules_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/angelixx_apartment/generic">ANGELIXX_CLUB_JULES_SEX_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<!-- Oral: -->
+							<action>
+								<id><![CDATA[PenisMouth_GIVING_BLOWJOB_START]]></id>
+								<performer><![CDATA[pc]]></performer>
+								<target><![CDATA[jules]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+							<action>
+								<id><![CDATA[PenisMouth_GIVING_BLOWJOB_START_ADDITIONAL]]></id>
+								<performer><![CDATA[angelixx]]></performer>
+								<target><![CDATA[jules]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="angelixx_club_jules_after_sex">
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_NIGHTLIFE_DISTRICT)]
+			[#angelixx.setLocation(pc)]
+		]]></preParsingEffects>
+        <title><![CDATA[Finished]]></title>
+        <tooltip><![CDATA[Jules has had his fun, and is finished with the two of you...]]></tooltip>
+		<content folderPath="txt/places/dominion/angelixx_apartment/generic">ANGELIXX_CLUB_JULES_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Walk home]]></responseTitle>
+				<responseTooltip><![CDATA[Walk Angelixx home...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_angelixx_apartment_generic_angelixx_walked_home]]></nextDialogue>
+			</response>
+			<!-- Leave: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Refuse]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Angelixx that she can find her own way back.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="DOMINION_NIGHTLIFE_DISTRICT"/>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_NIGHTLIFE_DISTRICT)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'ANGELIXX_CLUB_REFUSE_TO_WALK_HOME'))]
+					[#angelixx.returnToHome()]
+					[#angelixx.equipClothing()]
+					[#angelixx.applyWash(true, true, null, 0)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="angelixx_walked_home">
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_DEMON_HOME_SEX_SHOP)]
+			[#angelixx.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/angelixx_apartment/generic">ANGELIXX_WALKED_HOME</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Now that Angelixx has returned home, you're left wondering what to do now...]]></responseTooltip>
+				<nextDialogue defaultPlaceType="DOMINION_DEMON_HOME_SEX_SHOP"/>
+				<effects><![CDATA[
+					[#angelixx.returnToHome()]
+					[#angelixx.applyWash(true, true, null, 0)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Sleip & Nir scenes: -->
+	
+	<scene id="sleip_nir">
+		<preParsingEffects><![CDATA[
+			#IF(pc.isVisiblyPregnant())
+				[#pc.setCharacterReactedToPregnancy(sleip, true)]
+				[#pc.setCharacterReactedToPregnancy(nir, true)]
+			#ENDIF
+			
+			#IF(game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')==1)
+				[#pc.walkPathNoEffects(PLACE_TYPE_innoxia_dominion_angelixx_apartment_lounge, true, 1)]
+				[#sleip.setLocation(pc)]
+				[#nir.setLocation(pc)]
+				
+				[#flags.setFlag(FLAG_innoxia_sleip_nir_conversation_talked, false)]
+				[#flags.setFlag(FLAG_innoxia_sleip_nir_leave_denied, false)]
+			#ENDIF
+			
+			#IF(!sleip.isAttractedTo(pc) && game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')>=3)
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'SLEIP_NIR_DEMAND_TF'))]
+			#ELSEIF(game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')>=5)
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'SLEIP_NIR_DEMAND_COCK_STROKING'))]
+				[#sleip.displaceClothingForAccess(CA_PENIS, null, true)]
+				[#nir.displaceClothingForAccess(CA_PENIS, null, true)]
+			#ENDIF
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Drink: -->
+				<response>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Drink beer]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF((sleip.isAttractedTo(pc) || game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')<3) && game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')<5)
+							Drink one of the bottles of beer that's on the coffee table.
+						#ELSE
+							You need to respond to Sleip's demand before you can do anything else...
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF((sleip.isAttractedTo(pc) || game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')<3) && game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')<5)
+							innoxia_places_dominion_angelixx_apartment_generic_sleip_nir
+						#ELSE
+							null
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'SLEIP_NIR_DRINK'))]
+						
+						[#game.appendToTextStartStringBuilder(itemGen.generateItem('innoxia_race_dog_canine_crush').applyEffect(pc, pc))]
+						[#itemGen.generateItem('innoxia_race_dog_canine_crush').applyEffect(sleip, sleip)]
+						[#itemGen.generateItem('innoxia_race_dog_canine_crush').applyEffect(nir, nir)]
+						[#game.getDialogueFlags().incrementSavedLong('sleip_nir_conversation_progress', 1)]
+					]]></effects>
+				</response>
+			<!-- Talk: -->
+				<response>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Talk]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_sleip_nir_conversation_talked))
+							You've already spent some time trying to make conversation with the nightmares...
+						#ELSEIF((sleip.isAttractedTo(pc) || game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')<3) && game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')<5)
+							Try and make conversation with the nightmares...
+						#ELSE
+							You need to respond to Sleip's demand before you can do anything else...
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_sleip_nir_conversation_talked))
+							null
+						#ELSEIF((sleip.isAttractedTo(pc) || game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')<3) && game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')<5)
+							innoxia_places_dominion_angelixx_apartment_generic_sleip_nir
+						#ELSE
+							null
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'SLEIP_NIR_TALK'))]
+						[#game.getDialogueFlags().incrementSavedLong('sleip_nir_conversation_progress', 1)]
+						[#flags.setFlag(FLAG_innoxia_sleip_nir_conversation_talked, true)]
+					]]></effects>
+				</response>
+			<!-- Flirt: -->
+				<response>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[3]]></index>
+					<responseTitle><![CDATA[Flirt]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')>=5)
+							The time for simply flirting appears to be over...
+						#ELSEIF(sleip.isAttractedTo(pc))
+							Start flirting with Sleip and Nir...
+						#ELSE
+							You can tell that Sleip and Nir aren't attracted to you, and so flirting with them isn't going to do any good...
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')>=5)
+							null
+						#ELSEIF(sleip.isAttractedTo(pc))
+							innoxia_places_dominion_angelixx_apartment_generic_sleip_nir
+						#ELSE
+							null
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'SLEIP_NIR_FLIRT'))]
+						[#game.getDialogueFlags().incrementSavedLong('sleip_nir_conversation_progress', 1)]
+					]]></effects>
+				</response>
+			<!-- Demands: -->
+				<!-- Feminine TF: -->
+					<response>
+						<availabilityConditional><![CDATA[[#!sleip.isAttractedTo(pc) && game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')>=3]]]></availabilityConditional>
+						<responseTabIndex><![CDATA[0]]></responseTabIndex>
+						<index><![CDATA[4]]></index>
+						<colour><![CDATA[FEMININE_PLUS]]></colour>
+						<responseTitle><![CDATA[
+							#IF(pc.isAbleToSelfTransform())
+								Transform
+							#ELSE
+								Drink potion
+							#ENDIF
+						]]></responseTitle>
+						<responseTooltip><![CDATA[
+							#IF(pc.isAbleToSelfTransform())
+								Do as Sleip says and use your abilities to transform yourself in the way that he wants.
+							#ELSE
+								Do as Sleip says and drink the potion that's normally given to dollification victims...
+							#ENDIF
+						]]></responseTooltip>
+						<nextDialogue><![CDATA[
+							innoxia_places_dominion_angelixx_apartment_generic_sleip_nir
+						]]></nextDialogue>
+						<effects><![CDATA[
+							#IF(pc.isAbleToSelfTransform())
+								[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'SLEIP_NIR_SELF_TF'))]
+								[#pc.setFemininity(100)]
+								#IF(!pc.hasBreasts())
+									[#pc.setBreastSize(CUP_SIZE_DD)]
+									#IF(pc.getNippleSize().getValue()<2)
+										[#pc.setNipplesSize(2)]
+									#ENDIF
+								#ENDIF
+								[#pc.setVaginaType(pc.getRace().getRacialBody().getVaginaType())]
+							#ELSE
+								[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'SLEIP_NIR_TF_POTION'))]
+								[#sleip.applyPlayerFeminineTf(pc)]
+							#ENDIF
+						]]></effects>
+					</response>
+				<!-- Orientation change as alternative to TF -->
+					<response>
+						<availabilityConditional><![CDATA[[#!sleip.isAttractedTo(pc) && game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')>=3 && pc.hasItemType(ITEM_ORIENTATION_HYPNO_WATCH)]]]></availabilityConditional>
+						<responseTabIndex><![CDATA[0]]></responseTabIndex>
+						<index><![CDATA[5]]></index>
+						<colour><![CDATA[ANDROGYNOUS]]></colour>
+						<responseTitle><![CDATA[Hypno-Watch]]></responseTitle>
+						<responseTooltip><![CDATA[Introduce Sleip and Nir to your hypno-watch to convince them that your body is just fine the way it is.]]></responseTooltip>
+						<nextDialogue><![CDATA[
+							innoxia_places_dominion_angelixx_apartment_generic_sleip_nir
+						]]></nextDialogue>
+						<effects><![CDATA[
+							[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'SLEIP_NIR_HYPNO_WATCH'))]
+							[#sleip.setSexualOrientation(ORIENTATION_AMBIPHILIC)]
+							[#nir.setSexualOrientation(ORIENTATION_AMBIPHILIC)]
+						]]></effects>
+					</response>
+				<!-- Stroke cocks: -->
+					<response>
+						<availabilityConditional><![CDATA[[#game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')>=5]]]></availabilityConditional>
+						<responseTabIndex><![CDATA[0]]></responseTabIndex>
+						<index><![CDATA[4]]></index>
+						<colour><![CDATA[GENERIC_SEX]]></colour>
+						<responseTitle><![CDATA[Stroke cocks]]></responseTitle>
+						<responseTooltip><![CDATA[Do as Nir says and start stroking his and Sleip's cocks.]]></responseTooltip>
+						<nextDialogue><![CDATA[innoxia_places_dominion_angelixx_apartment_generic_sleip_nir_sexual]]></nextDialogue>
+						<effects><![CDATA[
+							[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'SLEIP_NIR_HANDJOBS'))]
+							[#game.getDialogueFlags().setSavedLong('sleip_nir_conversation_progress', 5)]
+						]]></effects>
+					</response>
+			<!-- Leave: -->
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Sleip and Nir that it's time for you to leave.
+				]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="DOMINION_DEMON_HOME_SEX_SHOP"/>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_DEMON_HOME_SEX_SHOP)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'SLEIP_NIR_LEAVE'))]
+					[#angelixx.returnToHome()]
+					[#sleip.returnToHome()]
+					[#nir.returnToHome()]
+					
+					#IF(game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')>=5)
+						[#game.appendToTextEndStringBuilder(sleip.incrementAffection(pc, -5))]
+						[#game.appendToTextEndStringBuilder(nir.incrementAffection(pc, -5))]
+					#ENDIF
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sleip_nir_sexual">
+		<preParsingEffects><![CDATA[
+			#IF(game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')>=10)
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'SLEIP_NIR_SEXUAL_FUCK'))]
+			#ENDIF
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Get them hard]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')==5)
+						Stroke the nightmares' cocks to get them hard.
+					#ELSE
+						Sleip and Nir are already rock hard...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')==5)
+						innoxia_places_dominion_angelixx_apartment_generic_sleip_nir_sexual
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'SLEIP_NIR_SEXUAL_GET_HARD'))]
+					[#game.getDialogueFlags().incrementSavedLong('sleip_nir_conversation_progress', 1)]
+				]]></effects>
+			</response>
+			<!-- Focus: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')>5]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Cock focus]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')<10)
+						Focus on masturbating the nightmares' cocks as they continue groping you.
+					#ELSE
+						The time for foreplay is over.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')<10)
+						innoxia_places_dominion_angelixx_apartment_generic_sleip_nir_sexual
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'SLEIP_NIR_SEXUAL_FOCUS'))]
+					[#game.getDialogueFlags().incrementSavedLong('sleip_nir_conversation_progress', 1)]
+				]]></effects>
+			</response>
+			<!-- Balls: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')>5]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Balls focus]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')<10)
+						Move your focus down to the nightmares' big, heavy balls as they talk to one another.
+					#ELSE
+						The time for foreplay is over.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')<10)
+						innoxia_places_dominion_angelixx_apartment_generic_sleip_nir_sexual
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'SLEIP_NIR_SEXUAL_BALLS'))]
+					[#game.getDialogueFlags().incrementSavedLong('sleip_nir_conversation_progress', 1)]
+				]]></effects>
+			</response>
+			<!-- Kiss: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')>5]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Kiss Sleip]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')>=10)
+						The time for simply kissing is over.
+					#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_MOUTH, false))
+						Your mouth is blocked, so you can't kiss Sleip...
+					#ELSE
+						Lean over to kiss Sleip.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')<10 && pc.isAbleToAccessCoverableArea(CA_MOUTH, false))
+						innoxia_places_dominion_angelixx_apartment_generic_sleip_nir_sexual
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'SLEIP_NIR_SEXUAL_KISS_SLEIP'))]
+					[#game.getDialogueFlags().incrementSavedLong('sleip_nir_conversation_progress', 1)]
+					[#game.appendToTextEndStringBuilder(sleip.incrementAffection(pc, 5))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')>5]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Kiss Nir]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')>=10)
+						The time for simply kissing is over.
+					#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_MOUTH, false))
+						Your mouth is blocked, so you can't kiss Nir...
+					#ELSE
+						Lean over to kiss Nir.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')<10 && pc.isAbleToAccessCoverableArea(CA_MOUTH, false))
+						innoxia_places_dominion_angelixx_apartment_generic_sleip_nir_sexual
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'SLEIP_NIR_SEXUAL_KISS_NIR'))]
+					[#game.getDialogueFlags().incrementSavedLong('sleip_nir_conversation_progress', 1)]
+					[#game.appendToTextEndStringBuilder(nir.incrementAffection(pc, 5))]
+				]]></effects>
+			</response>
+			<!-- Fucked: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')>=10]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Fucked]]></responseTitle>
+				<responseTooltip><![CDATA[Let Sleip and Nir decide how best to fuck you...]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_dominion_angelixx_apartment_sleip_nir_submissive_sex]]></id>
+					<startingPosition><![CDATA[
+						#IF((pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) || (game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true)))
+							ALL_FOURS
+						#ELSE
+							STANDING
+						#ENDIF
+					]]></startingPosition>
+					<dominants>
+						<character>
+							<id>sleip</id>
+							<slot><![CDATA[
+								#IF((pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) || (game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true)))
+									ALL_FOURS_BEHIND
+								#ELSE
+									STANDING_STANDING_DOMINANT
+								#ENDIF
+							]]></slot>
+						</character>
+						<character>
+							<id>nir</id>
+							<slot><![CDATA[
+								#IF((pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) || (game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true)))
+									ALL_FOURS_IN_FRONT
+								#ELSE
+									STANDING_STANDING_DOMINANT_TWO
+								#ENDIF
+							]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[
+								#IF((pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) || (game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true)))
+									ALL_FOURS_ALL_FOURS
+								#ELSE
+									STANDING_PERFORMING_ORAL
+								#ENDIF
+							]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_angelixx_apartment_generic_sleip_nir_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/angelixx_apartment/generic">SLEIP_NIR_SEX_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<!-- Vaginal: -->
+							<action>
+								<condition><![CDATA[[#pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></condition>
+								<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+								<performer><![CDATA[sleip]]></performer>
+								<target><![CDATA[pc]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+						<!-- Anal: -->
+							<action>
+								<condition><![CDATA[[#(!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) && game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true)]]]></condition>
+								<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
+								<performer><![CDATA[sleip]]></performer>
+								<target><![CDATA[pc]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+						<!-- Oral: -->
+							<action>
+								<condition><![CDATA[[#pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]]]></condition>
+								<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+								<performer><![CDATA[nir]]></performer>
+								<target><![CDATA[pc]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+						<!-- Masturbation: -->
+							<action>
+								<condition><![CDATA[[#(!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) && (!game.isAnalContentEnabled() || !pc.isAbleToAccessCoverableArea(CA_ANUS, true))]]]></condition>
+								<id><![CDATA[FingerPenis_COCK_MASTURBATED_START]]></id>
+								<performer><![CDATA[sleip]]></performer>
+								<target><![CDATA[pc]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+							<action>
+								<condition><![CDATA[[#!pc.isAbleToAccessCoverableArea(CA_MOUTH, true)]]]></condition>
+								<id><![CDATA[FingerPenis_COCK_MASTURBATED_START]]></id>
+								<performer><![CDATA[nir]]></performer>
+								<target><![CDATA[pc]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<!-- Leave: -->
+			<response>
+				<availabilityConditional><![CDATA[[#!game.isNonConEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Sleip and Nir that it's time for you to leave.
+				]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="DOMINION_DEMON_HOME_SEX_SHOP"/>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_DEMON_HOME_SEX_SHOP)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'SLEIP_NIR_SEXUAL_LEAVE'))]
+					[#angelixx.returnToHome()]
+					[#sleip.returnToHome()]
+					[#nir.returnToHome()]
+					
+					#IF(game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')>=10)
+						[#game.appendToTextEndStringBuilder(sleip.incrementAffection(pc, -10))]
+						[#game.appendToTextEndStringBuilder(nir.incrementAffection(pc, -10))]
+					#ELSE
+						[#game.appendToTextEndStringBuilder(sleip.incrementAffection(pc, -5))]
+						[#game.appendToTextEndStringBuilder(nir.incrementAffection(pc, -5))]
+					#ENDIF
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isNonConEnabled()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_sleip_nir_leave_denied))
+						Tell Sleip and Nir that it's time for you to leave.
+					#ELSE
+						Sleip and Nir have made it clear that you're not allowed to leave before satisfying them.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(!flags.hasFlag(FLAG_innoxia_sleip_nir_leave_denied))
+						innoxia_places_dominion_angelixx_apartment_generic_sleip_nir_sexual
+					#ELSE
+						null
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'SLEIP_NIR_SEXUAL_LEAVE_DENIED'))]
+					[#flags.setFlag(FLAG_innoxia_sleip_nir_leave_denied, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sleip_nir_after_sex">
+        <title><![CDATA[Finished]]></title>
+        <tooltip><![CDATA[Having had enough, the nightmares step back...]]></tooltip>
+		<content folderPath="txt/places/dominion/angelixx_apartment/generic">SLEIP_NIR_AFTER_SEX</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Having had their fun with you, the nightmares have other things to do this evening, and so demand that you leave...]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="DOMINION_DEMON_HOME_SEX_SHOP"/>
+				<effects><![CDATA[
+					[#pc.setLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_DEMON_HOME_SEX_SHOP)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/angelixx_apartment/generic', 'SLEIP_NIR_AFTER_SEX_LEAVE'))]
+					[#sleip.applyWash(true, true, null, 0)]
+					[#nir.applyWash(true, true, null, 0)]
+					[#angelixx.returnToHome()]
+					[#sleip.returnToHome()]
+					[#nir.returnToHome()]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+</dialogueNodes>

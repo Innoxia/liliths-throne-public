@@ -423,11 +423,9 @@ public abstract class AbstractCombatMove {
         int behaviourMultiplier = 1;
         // Trying to figure out best use cases
         switch(type) {
-            default:
-                return (float)(Math.random()) - 0.2f * source.getSelectedMovesByType(type); // Other types are too nuanced in themselves to have a broad weight generation apply to them
             case ATTACK:
             	if(source.getCombatBehaviour()==CombatBehaviour.ATTACK) {
-            		behaviourMultiplier=2;
+            		behaviourMultiplier=10;
             	}
                 for(GameCharacter character : enemies) {
                     if(character.getHealthPercentage() < 0.2) {
@@ -438,7 +436,7 @@ public abstract class AbstractCombatMove {
                 
             case DEFEND:
             	if(source.getCombatBehaviour()==CombatBehaviour.DEFEND) {
-            		behaviourMultiplier=2;
+            		behaviourMultiplier=10;
             	}
                 if(source.getHealthPercentage() < 0.2) {
                     return (1.0f*behaviourMultiplier) + 0.5f*(float)(Math.random()) - 0.2f * source.getSelectedMovesByType(type);
@@ -447,7 +445,7 @@ public abstract class AbstractCombatMove {
                 
             case TEASE:
             	if(source.getCombatBehaviour()==CombatBehaviour.SEDUCE) {
-            		behaviourMultiplier=2;
+            		behaviourMultiplier=10;
             	}
                 float weight = (0.8f*behaviourMultiplier) + 0.2f*(float)(Math.random()) - 0.2f * source.getSelectedMovesByType(type);
                 for(GameCharacter character : enemies) {
@@ -459,10 +457,19 @@ public abstract class AbstractCombatMove {
                 if(source.getCorruptionLevel() == CorruptionLevel.FOUR_LUSTFUL || source.getCorruptionLevel() == CorruptionLevel.FIVE_CORRUPT) {
                     weight += 0.4f;
                 }
-            	if(!source.isAttractedTo(this.getPreferredTarget(source, enemies, allies))) {
+            	if(!source.isAttractedTo(this.getPreferredTarget(source, enemies, allies)) && source.getCombatBehaviour()!=CombatBehaviour.SEDUCE) {
             		weight*=0.5f; // 50% lower chance to use tease attacks if not attracted to the enemy.
             	}
                 return weight; // Attacks aren't sophisticated
+
+            case SPELL:
+            	if(source.getCombatBehaviour()==CombatBehaviour.SPELLS) {
+            		behaviourMultiplier=10;
+            	}
+                return behaviourMultiplier;
+                
+            default:
+                return (float)(Math.random()) - 0.2f * source.getSelectedMovesByType(type); // Other types are too nuanced in themselves to have a broad weight generation apply to them
         }
     }
 
@@ -755,6 +762,9 @@ public abstract class AbstractCombatMove {
     			dt = DamageType.valueOf(UtilText.parse(source, damageTypeString).trim());
     		} catch(Exception ex) {
 				System.err.println("CombatMove loading error: DamageType parsing not recognised! (Set to PHYSICAL)");
+    		}
+    		if(dt==DamageType.UNARMED) {
+    			return DamageType.UNARMED.getParentDamageType(source, null);
     		}
     		return dt;
     	}

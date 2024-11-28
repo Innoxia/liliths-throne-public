@@ -90,16 +90,16 @@ public class SexPosition {
 		@Override
 		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			if(Main.sex.getCharacterInPosition(SexSlotMasturbation.KNEELING)!=null) {
-				return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotMasturbation.KNEELING), "[npc.NameIs] kneeling on the floor, ready to masturbate.");
+				return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotMasturbation.KNEELING), "[npc.NameIsFull] kneeling on the floor, ready to masturbate.");
 			}
 			if(Main.sex.getCharacterInPosition(SexSlotMasturbation.STANDING)!=null) {
-				return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotMasturbation.STANDING), "[npc.NameIs] standing upright, ready to masturbate.");
+				return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotMasturbation.STANDING), "[npc.NameIsFull] standing upright, ready to masturbate.");
 			}
 			if(Main.sex.getCharacterInPosition(SexSlotMasturbation.SITTING)!=null) {
-				return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotMasturbation.SITTING), "[npc.NameIs] sitting down, ready to masturbate.");
+				return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotMasturbation.SITTING), "[npc.NameIsFull] sitting down, ready to masturbate.");
 			}
 			if(Main.sex.getCharacterInPosition(SexSlotMasturbation.KNEELING_PANTIES)!=null) {
-				return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotMasturbation.KNEELING_PANTIES), "[npc.NameIs] kneeling on the floor, ready to masturbate with the aid of Lilaya's panties.");
+				return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotMasturbation.KNEELING_PANTIES), "[npc.NameIsFull] kneeling on the floor, ready to masturbate with the aid of Lilaya's panties.");
 			}
 			
 			return UtilText.parse("You are ready to masturbate.");
@@ -876,6 +876,15 @@ public class SexPosition {
 					interactions.add(StandardSexActionInteractions.performingOral.getSexActionInteractions(slotOral, slotBack));
 				}
 			}
+
+			// Those standing beside one another can kiss:
+			for(int i=0;i<3;i++) {
+				interactions.add(StandardSexActionInteractions.besideOneAnother.getSexActionInteractions(backToWall.get(i), facingWall.get(i)));
+				
+				interactions.add(StandardSexActionInteractions.besideOneAnother.getSexActionInteractions(backToWall.get(i), backToWall.get(i+1)));
+				interactions.add(StandardSexActionInteractions.besideOneAnother.getSexActionInteractions(facingWall.get(i), facingWall.get(i+1)));
+				interactions.add(StandardSexActionInteractions.besideOneAnother.getSexActionInteractions(backToWall.get(i), facingWall.get(i+1)));
+			}
 			
 			return generateSlotTargetsMap(interactions);
 		}
@@ -1387,8 +1396,8 @@ public class SexPosition {
 
 			// Those on the desk can kiss the ones next to them:
 			for(int i=0;i<3;i++) {
-				interactions.add(StandardSexActionInteractions.besideOneAnotherOnDesk.getSexActionInteractions(onDeskBack.get(i), onDeskBack.get(i)));
-				interactions.add(StandardSexActionInteractions.besideOneAnotherOnDesk.getSexActionInteractions(onDeskFront.get(i), onDeskFront.get(i)));
+//				interactions.add(StandardSexActionInteractions.besideOneAnotherOnDesk.getSexActionInteractions(onDeskBack.get(i), onDeskBack.get(i)));
+//				interactions.add(StandardSexActionInteractions.besideOneAnotherOnDesk.getSexActionInteractions(onDeskFront.get(i), onDeskFront.get(i)));
 				interactions.add(StandardSexActionInteractions.besideOneAnotherOnDesk.getSexActionInteractions(onDeskBack.get(i), onDeskFront.get(i)));
 				
 				interactions.add(StandardSexActionInteractions.besideOneAnotherOnDesk.getSexActionInteractions(onDeskBack.get(i), onDeskBack.get(i+1)));
@@ -2911,6 +2920,13 @@ public class SexPosition {
 			
 			List<String> besideNames = new ArrayList<>();
 			GameCharacter mainBeside = null;
+
+			List<GameCharacter> lyingDownCharacters = new ArrayList<>();
+			for(Entry<GameCharacter, SexSlot> e : occupiedSlots.entrySet()) {
+				if(e.getValue().hasTag(SexSlotTag.LYING_DOWN)) {
+					lyingDownCharacters.add(e.getKey());
+				}
+			}
 			
 			int count=0;
 			for(List<SexSlot> positions : positionLists) {
@@ -2925,10 +2941,6 @@ public class SexPosition {
 				GameCharacter sixtyNine = null;
 				GameCharacter lapPillow = null;
 				GameCharacter performingOral = null;
-				
-				GameCharacter fallBackLyingDown1 = null;
-				GameCharacter fallBackLyingDown2 = null;
-				GameCharacter fallBackLyingDown3 = null;
 				
 				for(Entry<GameCharacter, SexSlot> e : occupiedSlots.entrySet()) {
 					if(e.getValue()==positions.get(0)) {
@@ -2975,52 +2987,33 @@ public class SexPosition {
 						}
 					}
 					
-					if(e.getValue()==SexSlotLyingDown.LYING_DOWN_THREE) {
-						fallBackLyingDown1 = e.getKey();
-					}
-					if(e.getValue()==SexSlotLyingDown.LYING_DOWN_TWO) {
-						fallBackLyingDown2 = e.getKey();
-					}
-					if(e.getValue()==SexSlotLyingDown.LYING_DOWN) {
-						fallBackLyingDown3 = e.getKey();
-					}
 				}
 				
-				boolean skipLyingdown = false;
-				if(lyingDown == null) {
-					skipLyingdown = true;
-					lyingDown = fallBackLyingDown1;
-				}
-				if(lyingDown == null) {
-					lyingDown = fallBackLyingDown2;
-				}
-				if(lyingDown == null) {
-					lyingDown = fallBackLyingDown3;
-				}
+				boolean skipLyingdown = count >= lyingDownCharacters.size();
 				
 				if(!skipLyingdown) {
 					switch(count) {
 						case 0:
-							sb.append(UtilText.parse(lyingDown,
-									(!lyingDown.isTaur()
+							sb.append(UtilText.parse(lyingDownCharacters.get(0),
+									(!lyingDownCharacters.get(0).isTaur()
 										?"[npc.NameIsFull] lying down on [npc.her] back, submissively exposing [npc.her] stomach, [npc.face], and groin. "
 										:"[npc.NameHasFull] lain down on [npc.her] feral [npc.legRace]'s body, before rolling over onto [npc.her] back in order to submissively expose [npc.her] stomach. ")));
 							break;
 						case 1:
-							sb.append(UtilText.parse(lyingDown, fallBackLyingDown3,
-									(!lyingDown.isTaur()
+							sb.append(UtilText.parse(lyingDownCharacters.get(1), lyingDownCharacters.get(0),
+									(!lyingDownCharacters.get(0).isTaur()
 										?" In a similar manner to [npc2.name], [npc.nameHasFull] dropped down to lie on [npc.her] back. "
 										:" In a similar manner to [npc2.name], [npc.nameHasFull] knelt down onto [npc.her] feral [npc.legRace]'s body, before rolling over and presenting [npc.her] underside. ")));
 							break;
 						case 2:
-							sb.append(UtilText.parse(Util.newArrayListOfValues(lyingDown, fallBackLyingDown3, fallBackLyingDown2),
-									(!lyingDown.isTaur()
+							sb.append(UtilText.parse(Util.newArrayListOfValues(lyingDownCharacters.get(2), lyingDownCharacters.get(1), lyingDownCharacters.get(0)),
+									(!lyingDownCharacters.get(0).isTaur()
 										?" Just like [npc2.name] and [npc3.name], [npc.nameHasFull] sunk down onto the floor, before lying down on [npc.her] back. "
 										:" Just like [npc2.name] and [npc3.name], [npc.nameHasFull] sunk down onto [npc.her] feral [npc.legRace]'s body, before rolling over onto [npc.her] back and presenting [npc.herself]. ")));
 							break;
 						case 3:
-							sb.append(UtilText.parse(Util.newArrayListOfValues(lyingDown, fallBackLyingDown3, fallBackLyingDown2, fallBackLyingDown1),
-									(!lyingDown.isTaur()
+							sb.append(UtilText.parse(Util.newArrayListOfValues(lyingDownCharacters.get(3), lyingDownCharacters.get(2), lyingDownCharacters.get(1), lyingDownCharacters.get(0)),
+									(!lyingDownCharacters.get(0).isTaur()
 										?" Finishing off the group of four, [npc.nameIsFull] lying down on [npc.her] back beside [npc2.name], [npc3.name], and [npc4.name]. "
 										:" Finishing off the group of four, [npc.nameIsFull] lying down beside [npc2.name], [npc3.name], and [npc4.name], and [npc.has] rolled over to present the underside of [npc.her] feral [npc.legRace]'s body. ")));
 							break;

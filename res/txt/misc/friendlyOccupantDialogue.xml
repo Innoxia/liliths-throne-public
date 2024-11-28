@@ -17,14 +17,34 @@
 	]]>
 	</htmlContent>
 
-	<htmlContent tag="OCCUPANT_START"><![CDATA[
+	<htmlContent tag="OCCUPANT_SLEEPING"><![CDATA[
 	<p>
-		#IF(npc.isSleepingAtHour())
-			Wanting to pay [npc.name] a visit to find out how [npc.sheIs] getting on, you knock on [npc.namePos] door and wait for an answer. Clearly having just woken [npc.herHim] up, you soon hear [npc.herHim] sleepily calling out, [npc.speech(Come on in...)]
+		The door to [npc.namePos] room is firmly shut, and considering the current time, you realise that [npc.she] must be sleeping. As such, you'll need to wake [npc.herHim] up if you wanted to interact with [npc.herHim], and doing so is sure to annoy [npc.herHim] at least a little...
+	</p>
+	#IF(npc.hasTrait(PERK_HEAVY_SLEEPER, true) && npc.isAttractedTo(pc) && npc.getSexConsensualCount(pc)>0)
+		<p>
+			Then again, as [npc.nameIsFull] a heavy sleeper, and as you know that [npc.she] wouldn't turn down an offer of sex, you could always sneak into [npc.her] room and try to fuck [npc.herHim] without waking [npc.herHim] up...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_ENTRY"><![CDATA[
+	<p>
+		#IF(npc.isAsleep())
+			Wanting to pay [npc.name] a visit to find out how [npc.sheIs] getting on, you knock on [npc.her] door and wait for an answer.
+			#IF(npc.hasPerkAnywhereInTree(PERK_HEAVY_SLEEPER))
+				 Being a very heavy sleeper, your knock isn't enough to wake [npc.herHim] up, and you have to pound on the door several more times before finally hearing movement on the other side.
+			#ENDIF
+			 Clearly having just woken [npc.herHim] up, you soon hear [npc.herHim] sleepily calling out, [npc.speech(Come on in...)]
 		#ELSE
 			Wanting to pay [npc.name] a visit to find out how [npc.sheIs] getting on, you knock on [npc.namePos] door, and after just a second, you hear [npc.herHim] call out, [npc.speech(Come on in!)]
 		#ENDIF
 	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_START"><![CDATA[
 	<p>
 		Doing as [npc.she] says, you push open the door and step inside [npc.her] room, greeting [npc.herHim] as you enter, [pc.speech(Hi, [npc.name].)]
 	</p>
@@ -164,30 +184,62 @@
 	<!-- Dominant sex actions: -->
 	
 	<htmlContent tag="SEX_START"><![CDATA[
-	<p>
-		[pc.speech(Don't think I don't see that look in your [npc.eye],)] you tease, stepping forwards and reaching out to take hold of [npc.namePos] [npc.hips+]. [pc.speech(You know I want it as well...)]
-	</p>
-	<p>
-		#IF (npc.getFetishDesire(FETISH_DOMINANT).getValue()>npc.getFetishDesire(FETISH_SUBMISSIVE).getValue())
-			#IF(npc.isFeminine())
-				[npc.speech(Am I really that easy to read?)] [npc.name] sensually replies, biting [npc.her] [npc.lip] and letting out a horny moan as [npc.she] steps forwards and wraps [npc.her] [npc.arms] around your back. [npc.speech(I just can't stop thinking about you...)]
+	#IF(npc.isAsleep())
+		<p>
+			#IF(flags.hasFlag(FLAG_innoxia_friendly_occupant_apartment))
+				Wanting to fuck [npc.name], but also not wanting to annoy [npc.herHim] by waking [npc.herHim] up, you decide to sneak into [npc.her] apartment and try to fuck [npc.herHim] in [npc.her] sleep. Remembering that [npc.sheHas] previously told you that [npc.she] hides a spare key beneath a nearby pot, you quickly retrieve it and unlock the front door, before slipping inside the apartment and making your way into [npc.namePos] bedroom.
 			#ELSE
-				[npc.speech(Am I really that easy to read?)] [npc.name] replies, smirking at you and letting out a hungry groan as [npc.she] steps forwards and wraps [npc.her] [npc.arms] around your back. [npc.speech(I just can't stop thinking about you...)]
+				Wanting to fuck [npc.name], but also not wanting to annoy [npc.herHim] by waking [npc.herHim] up, you decide to sneak into [npc.her] room and try to fuck [npc.herHim] in [npc.her] sleep. Making use of the fact that Rose has previously entrusted you with a master key which fits most of the locks in the mansion, you quietly unlock and open the door before slipping into [npc.namePos] room.
 			#ENDIF
-		#ELSE
-			#IF (npc.isFeminine())
-				[npc.speech(Am I really that easy to read?)] [npc.name] sensually replies, biting [npc.her] [npc.lip] and batting [npc.her] eyelids at you as [npc.she] steps forwards and submissively slips into your embrace. [npc.speech(I just can't stop thinking about you...)]
+		</p>
+		<p>
+			Making sure to stay quiet, you approach the [npc.race]'s bed to see if [npc.sheIs] really asleep or merely pretending. Coming to a halt beside [npc.herHim], you see that [npc.her] [npc.eyes] are closed and [npc.her] chest is slowly rising and falling in time with [npc.her] breathing. Wanting to make sure that [npc.she] isn't simply pretending to be asleep, you place [pc.a_hand] on [npc.her] thigh and slowly run your [pc.fingers+] up and over [npc.her] [npc.breasts+]. Despite your touch, [npc.she] doesn't react, revealing that [npc.she] is indeed asleep.
+		</p>
+		<p>
+			#IF(pc.getFetishDesire(FETISH_NON_CON_DOM).isPositive())
+				Grinning in devious delight at the prospect of fucking [npc.herHim] without [npc.herHim] even knowing, 
 			#ELSE
-				[npc.speech(Am I really that easy to read?)] [npc.name] replies, smirking at you and letting out a hungry groan as [npc.she] steps forwards and submissively slips into your embrace. [npc.speech(I just can't stop thinking about you...)]
+				Smiling to yourself as you prepare to take advantage of [npc.her] vulnerable position,
 			#ENDIF
-		#ENDIF
-	</p>
-	<p>
-		As [npc.namePos] warm body presses against yours, you dominantly pull [npc.herHim] in against you and kiss [npc.herHim] fully on the [npc.lips]. Opening [npc.her] mouth to allow your [pc.tongue] to slide in over [npc.hers], [npc.name] lets out a happy, muffled [npc.moan] as the two of you start making out with one another.
-	</p>
-	<p>
-		After just a moment, you find yourself wanting more than just a kiss, and after pulling back, you [pc.moan], [pc.speech(I've got an hour or two to spare, let's make the most of it...)]
-	</p>
+			 you experimentally reach down and grope [npc.namePos]
+			#IF(npc.hasPenis())
+				 [npc.cock+].
+			#ELSEIF(npc.hasVagina())
+				 [npc.pussy+].
+			#ELSE
+				 groin.
+			#ENDIF
+			 Being a very heavy sleeper, even this isn't enough to wake the [npc.race], and [npc.she] simply sighs in [npc.her] sleep in response to your lustful move.
+		</p>
+		<p>
+			Confident that [npc.she] won't wake up, you gently lower yourself down between your sleeping lover's [npc.legs] and prepare to fuck [npc.herHim] in [npc.her] sleep. So long as you remain gentle and don't shove anything down [npc.her] throat, you should be able to fuck [npc.herHim] without causing [npc.herHim] to wake up...
+		</p>
+	#ELSE
+		<p>
+			[pc.speech(Don't think I don't see that look in your [npc.eye],)] you tease, stepping forwards and reaching out to take hold of [npc.namePos] [npc.hips+]. [pc.speech(You know I want it as well...)]
+		</p>
+		<p>
+			#IF (npc.getFetishDesire(FETISH_DOMINANT).getValue()>npc.getFetishDesire(FETISH_SUBMISSIVE).getValue())
+				#IF(npc.isFeminine())
+					[npc.speech(Am I really that easy to read?)] [npc.name] sensually replies, biting [npc.her] [npc.lip] and letting out a horny moan as [npc.she] steps forwards and wraps [npc.her] [npc.arms] around your back. [npc.speech(I just can't stop thinking about you...)]
+				#ELSE
+					[npc.speech(Am I really that easy to read?)] [npc.name] replies, smirking at you and letting out a hungry groan as [npc.she] steps forwards and wraps [npc.her] [npc.arms] around your back. [npc.speech(I just can't stop thinking about you...)]
+				#ENDIF
+			#ELSE
+				#IF (npc.isFeminine())
+					[npc.speech(Am I really that easy to read?)] [npc.name] sensually replies, biting [npc.her] [npc.lip] and batting [npc.her] eyelids at you as [npc.she] steps forwards and submissively slips into your embrace. [npc.speech(I just can't stop thinking about you...)]
+				#ELSE
+					[npc.speech(Am I really that easy to read?)] [npc.name] replies, smirking at you and letting out a hungry groan as [npc.she] steps forwards and submissively slips into your embrace. [npc.speech(I just can't stop thinking about you...)]
+				#ENDIF
+			#ENDIF
+		</p>
+		<p>
+			As [npc.namePos] warm body presses against yours, you dominantly pull [npc.herHim] in against you and kiss [npc.herHim] fully on the [npc.lips]. Opening [npc.her] mouth to allow your [pc.tongue] to slide in over [npc.hers], [npc.name] lets out a happy, muffled [npc.moan] as the two of you start making out with one another.
+		</p>
+		<p>
+			After just a moment, you find yourself wanting more than just a kiss, and after pulling back, you [pc.moan], [pc.speech(I've got an hour or two to spare, let's make the most of it...)]
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -730,28 +782,60 @@
 	</htmlContent>
 	
 	<htmlContent tag="AFTER_SEX"><![CDATA[
-	<p>
-		You and [npc.name] collapse down onto [npc.her] bed together, before rolling over and gazing lovingly into one another's eyes. Lying like this for a moment, the two of you pant and sigh as you catch your breath, before eventually standing up and getting your things in order.
-	</p>
-	<p>
-		[npc.speech(That was fantastic, I really needed that,)] [npc.name] sighs, grinning at you as [npc.she] sits back down heavily on [npc.her] bed.
-	</p>
-	<p>
-		[pc.speech(Yeah, that was fun,)] you reply, returning [npc.her] smile as you recall how [npc.she] moaned and called out your name during [npc.her] orgasm.
-	</p>
+	#IF(npc.isAsleep())
+		<p>
+			Even after having sex with [npc.herHim], [npc.name] still shows no sign of waking up. Carefully standing up so as not to wake [npc.herHim], you [pc.step] back and look down at the sleeping [npc.race].
+		</p>
+		<p>
+			#IF(npc.isFeminine())
+				[npc.speech(~Mmm...~)] [npc.she] softly moans as [npc.she] turns onto [npc.her] side.
+			#ELSE
+				[npc.speech(~Aah...~)] [npc.she] softly groans as [npc.she] turns onto [npc.her] side.
+			#ENDIF
+		</p>
+		<p>
+			Having had your fun, and seeing no reason to wake [npc.herHim] up, you [pc.step] back and leave [npc.name] to continue sleeping... 
+		</p>
+	#ELSE
+		<p>
+			You and [npc.name] collapse down onto [npc.her] bed together, before rolling over and gazing lovingly into one another's eyes. Lying like this for a moment, the two of you pant and sigh as you catch your breath, before eventually standing up and getting your things in order.
+		</p>
+		<p>
+			[npc.speech(That was fantastic, I really needed that,)] [npc.name] sighs, grinning at you as [npc.she] sits back down heavily on [npc.her] bed.
+		</p>
+		<p>
+			[pc.speech(Yeah, that was fun,)] you reply, returning [npc.her] smile as you recall how [npc.she] moaned and called out your name during [npc.her] orgasm.
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AFTER_SEX_NO_ORGASM"><![CDATA[
-	<p>
-		You and [npc.name] collapse down onto [npc.her] bed together, before rolling over and gazing lovingly into one another's eyes. Lying like this for a moment, the two of you pant and sigh as you catch your breath, before eventually standing up and getting your things in order.
-	</p>
-	<p>
-		[npc.speech(That was fun, but you didn't really satisfy me,)] [npc.name] sighs, half-heartedly grinning at you as [npc.she] sits back down heavily on [npc.her] bed.
-	</p>
-	<p>
-		[pc.speech(Yeah, maybe next time,)] you reply, returning [npc.her] smile as you wonder if you'll let [npc.herHim] climax the next time the two of you have sex.
-	</p>
+	#IF(npc.isAsleep())
+		<p>
+			Even after having sex with [npc.herHim], [npc.name] still shows no sign of waking up. Carefully standing up so as not to wake [npc.herHim], you [pc.step] back and look down at the sleeping [npc.race].
+		</p>
+		<p>
+			#IF(npc.isFeminine())
+				[npc.speech(~Mmm...~)] [npc.she] softly moans as [npc.she] turns onto [npc.her] side.
+			#ELSE
+				[npc.speech(~Aah...~)] [npc.she] softly groans as [npc.she] turns onto [npc.her] side.
+			#ENDIF
+		</p>
+		<p>
+			Having had your fun, and seeing no reason to wake [npc.herHim] up, you [pc.step] back and leave [npc.name] to continue sleeping... 
+		</p>
+	#ELSE
+		<p>
+			You and [npc.name] collapse down onto [npc.her] bed together, before rolling over and gazing lovingly into one another's eyes. Lying like this for a moment, the two of you pant and sigh as you catch your breath, before eventually standing up and getting your things in order.
+		</p>
+		<p>
+			[npc.speech(That was fun, but you didn't really satisfy me,)] [npc.name] sighs, half-heartedly grinning at you as [npc.she] sits back down heavily on [npc.her] bed.
+		</p>
+		<p>
+			[pc.speech(Yeah, maybe next time,)] you reply, returning [npc.her] smile as you wonder if you'll let [npc.herHim] climax the next time the two of you have sex.
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -770,12 +854,21 @@
 	</htmlContent>
 	
 	<htmlContent tag="LEAVE_AFTER_SEX"><![CDATA[
-	<p>
-		As [npc.name] looks exhausted, you decide to take your leave and give [npc.herHim] some time to recover. Heading over to the door, you call out, [pc.speech(I'll be back later, [npc.name]. Maybe we can have some more fun when I return...)]
-	</p>
-	<p>
-		[npc.speech(Mmm, yeah, I'd like that!)] [npc.name] replies, smiling happily at you as you open [npc.her] bedroom's door and step out into the corridor beyond...
-	</p>
+	#IF(npc.isAsleep())
+		<p>
+			Having had your fun with [npc.name], you leave [npc.herHim] asleep on [npc.her] bed and quietly move over to the door. Stealing one last backwards glance at [npc.herHim], you [pc.step] out into the corridor and lock the door behind you.
+		</p>
+		<p>
+			Feeling more than a little pleased with yourself for having pulled off such a daring act, you let out a contented hum and wonder what to do next...
+		</p>
+	#ELSE
+		<p>
+			As [npc.name] looks exhausted, you decide to take your leave and give [npc.herHim] some time to recover. Heading over to the door, you call out, [pc.speech(I'll be back later, [npc.name]. Maybe we can have some more fun when I return...)]
+		</p>
+		<p>
+			[npc.speech(Mmm, yeah, I'd like that!)] [npc.name] replies, smiling happily at you as you open [npc.her] bedroom's door and step out into the corridor beyond...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -889,9 +982,29 @@
 	<p>
 		Finding yourself near to where [npc.name] lives, you decide to pay [npc.herHim] a visit. Cutting across the street towards [npc.her] apartment building, you push open the front door and step into the building's foyer, before heading over to the staircase and making your way up to the second floor.
 	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_APARTMENT_SLEEPING"><![CDATA[
 	<p>
-		#IF(npc.isSleepingAtHour())
-			Walking up to the door of [npc.namePos] flat, you give it a firm knock and wait for an answer. Clearly having just woken [npc.herHim] up, you soon hear [npc.herHim] sleepily calling out, [npc.speech(Hold on... I'm coming...)]
+		Considering the current time, you realise that [npc.name] must be asleep. As such, you'll need to wake [npc.herHim] up if you wanted to interact with [npc.herHim], and doing so is sure to annoy [npc.herHim] at least a little...
+	</p>
+	#IF(npc.hasTrait(PERK_HEAVY_SLEEPER, true) && npc.isAttractedTo(pc) && npc.getSexConsensualCount(pc)>0)
+		<p>
+			Then again, as [npc.nameIsFull] a heavy sleeper, and as you know that [npc.she] wouldn't turn down an offer of sex, you could always sneak into [npc.her] apartment and try to fuck [npc.herHim] without waking [npc.herHim] up...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OCCUPANT_APARTMENT_ENTRY"><![CDATA[
+	<p>
+		#IF(npc.isAsleep())
+			Walking up to the door of [npc.namePos] flat, you give it a firm knock and wait for an answer.
+			#IF(npc.hasPerkAnywhereInTree(PERK_HEAVY_SLEEPER))
+				 Being a very heavy sleeper, your knock isn't enough to wake [npc.herHim] up, and you have to pound on the door several more times before finally hearing movement on the other side.
+			#ENDIF
+			 Clearly having just woken [npc.herHim] up, you soon hear [npc.herHim] sleepily calling out, [npc.speech(Come on in...)]
 		#ELSE
 			Walking up to the door of [npc.namePos] flat, you give it a firm knock, smiling to yourself as you hear a muffled response from somewhere within, [npc.speech(Hold on! I'm coming!)]
 		#ENDIF
@@ -1174,38 +1287,79 @@
 	</htmlContent>
 	
 	<htmlContent tag="APARTMENT_AFTER_SEX"><![CDATA[
-	<p>
-		You and [npc.name] collapse down onto [npc.her] sofa together, before rolling over and gazing lovingly one another's eyes. Slumping down like this for a moment, the two of you pant and sigh as you catch your breath, before eventually standing up and getting your things in order.
-	</p>
-	<p>
-		[npc.speech(That was fantastic, I really needed that,)] [npc.name] sighs, grinning at you as [npc.she] sits back down heavily on [npc.her] sofa.
-	</p>
-	<p>
-		[pc.speech(Yeah, that was fun,)] you reply, returning [npc.her] smile as you recall how [npc.she] moaned and called out your name during [npc.her] orgasm.
-	</p>
+	#IF(npc.isAsleep())
+		<p>
+			Even after having sex with [npc.herHim], [npc.name] still shows no sign of waking up. Carefully standing up so as not to wake [npc.herHim], you [pc.step] back and look down at the sleeping [npc.race].
+		</p>
+		<p>
+			#IF(npc.isFeminine())
+				[npc.speech(~Mmm...~)] [npc.she] softly moans as [npc.she] turns onto [npc.her] side.
+			#ELSE
+				[npc.speech(~Aah...~)] [npc.she] softly groans as [npc.she] turns onto [npc.her] side.
+			#ENDIF
+		</p>
+		<p>
+			Having had your fun, and seeing no reason to wake [npc.herHim] up, you [pc.step] back and leave [npc.name] to continue sleeping... 
+		</p>
+	#ELSE
+		<p>
+			You and [npc.name] collapse down onto [npc.her] sofa together, before rolling over and gazing lovingly one another's eyes. Slumping down like this for a moment, the two of you pant and sigh as you catch your breath, before eventually standing up and getting your things in order.
+		</p>
+		<p>
+			[npc.speech(That was fantastic, I really needed that,)] [npc.name] sighs, grinning at you as [npc.she] sits back down heavily on [npc.her] sofa.
+		</p>
+		<p>
+			[pc.speech(Yeah, that was fun,)] you reply, returning [npc.her] smile as you recall how [npc.she] moaned and called out your name during [npc.her] orgasm.
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="APARTMENT_AFTER_SEX_NO_ORGASM"><![CDATA[
-	<p>
-		You and [npc.name] collapse down onto [npc.her] sofa together, before rolling over and gazing lovingly into one another's eyes. Slumping down like this for a moment, the two of you pant and sigh as you catch your breath, before eventually standing up and getting your things in order.
-	</p>
-	<p>
-		[npc.speech(That was fun, but you didn't really satisfy me,)] [npc.name] sighs, half-heartedly grinning at you as [npc.she] sits back down heavily on [npc.her] sofa.
-	</p>
-	<p>
-		[pc.speech(Yeah, maybe next time,)] you reply, returning [npc.her] smile as you wonder if you'll let [npc.herHim] climax the next time the two of you have sex.
-	</p>
+	#IF(npc.isAsleep())
+		<p>
+			Even after having sex with [npc.herHim], [npc.name] still shows no sign of waking up. Carefully standing up so as not to wake [npc.herHim], you [pc.step] back and look down at the sleeping [npc.race].
+		</p>
+		<p>
+			#IF(npc.isFeminine())
+				[npc.speech(~Mmm...~)] [npc.she] softly moans as [npc.she] turns onto [npc.her] side.
+			#ELSE
+				[npc.speech(~Aah...~)] [npc.she] softly groans as [npc.she] turns onto [npc.her] side.
+			#ENDIF
+		</p>
+		<p>
+			Having had your fun, and seeing no reason to wake [npc.herHim] up, you [pc.step] back and leave [npc.name] to continue sleeping... 
+		</p>
+	#ELSE
+		<p>
+			You and [npc.name] collapse down onto [npc.her] sofa together, before rolling over and gazing lovingly into one another's eyes. Slumping down like this for a moment, the two of you pant and sigh as you catch your breath, before eventually standing up and getting your things in order.
+		</p>
+		<p>
+			[npc.speech(That was fun, but you didn't really satisfy me,)] [npc.name] sighs, half-heartedly grinning at you as [npc.she] sits back down heavily on [npc.her] sofa.
+		</p>
+		<p>
+			[pc.speech(Yeah, maybe next time,)] you reply, returning [npc.her] smile as you wonder if you'll let [npc.herHim] climax the next time the two of you have sex.
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="APARTMENT_LEAVE_AFTER_SEX"><![CDATA[
-	<p>
-		As [npc.name] looks exhausted, you decide to take your leave and give [npc.herHim] some time to recover. Heading over to [npc.her] front door, you call out, [pc.speech(I'll be back another time, [npc.name]. Maybe we can have some more fun then...)]
-	</p>
-	<p>
-		[npc.speech(Mmm, yeah, I'd like that!)] [npc.name] replies, smiling happily at you as you open the door and take your leave. Smiling to yourself, you head back down the stairs before stepping out into the streets of Dominion one again, before preparing to continue on your journey...
-	</p>
+	#IF(npc.isAsleep())
+		<p>
+			Having had your fun with [npc.name], you leave [npc.herHim] asleep on [npc.her] bed and quietly exit [npc.her] bedroom. Stealthily [pc.walking] over to [npc.her] front door, you [pc.step] out of [npc.her] apartment and lock the door behind you, before returning the spare key to its secret resting place.
+		</p>
+		<p>
+			Feeling more than a little pleased with yourself for having pulled off such a daring act, you let out a contented hum and wonder what to do next...
+		</p>
+	#ELSE
+		<p>
+			As [npc.name] looks exhausted, you decide to take your leave and give [npc.herHim] some time to recover. Heading over to [npc.her] front door, you call out, [pc.speech(I'll be back another time, [npc.name]. Maybe we can have some more fun then...)]
+		</p>
+		<p>
+			[npc.speech(Mmm, yeah, I'd like that!)] [npc.name] replies, smiling happily at you as you open the door and take your leave. Smiling to yourself, you head back down the stairs before stepping out into the streets of Dominion one again, before preparing to continue on your journey...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	

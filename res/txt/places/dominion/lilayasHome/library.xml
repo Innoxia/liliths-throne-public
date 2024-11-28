@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dialogue>
-
+	
+	<htmlContent tag="LIBRARY"><![CDATA[
+	<p>
+		Pushing open the heavy wooden door, you find yourself walking into Lilaya's library. Much like her lab, all four walls are covered in shelving; each one of them is stacked full of what must be in total many thousands of books of all shapes and sizes. Much of the room is taken up by free-standing book cases, although there's a little space on one side of the room, where a couple of comfortable leather-bound chairs flank an ornate fireplace.
+	</p>
+	<p>
+		Walking down one of the aisles, you see a great deal of organisation has gone into the design of the room, and upon closer inspection, you see that the shelves are immaculately clean; evidence that a lot of care goes into its maintenance. As you walk, you scan the titles printed onto the spines of the books, but there's not really much that catches your eye. Only a few shelves really look to be of any interest, and you wonder if you should take some time to do a spot of reading.
+	</p>
+	<p>
+		On the back wall at the end of the shelves is a huge map of the city of Dominion. You wonder if you should take a picture of it with your phone's camera.
+	</p>
+	<p>
+		One of the library's aisles is dedicated to holding copies of the spell books that you've discovered and read in your travels. As you walk down this aisle, you see that the shelves in this section are fashioned out of shimmering purple energy, and seem to shift and move with a life of their own.
+	</p>
+	#IF(game.getNonCompanionCharactersPresent().isEmpty())
+		<p style='text-align:center;'>
+			[style.italicsDisabled(The library is deserted at the moment...)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="ARCANE_AROUSAL"><![CDATA[
 	<p>
 		Sliding the large leather-bound tome out from the bookshelf, you then walk over to sit down on one of the library's comfortable chairs. The spine creaks as you open the cover, and as you start reading, you quickly discover that this book is way above your level of understanding. You decide to persist, and by flipping through the pages and skimming over some of the more intelligible passages, you do manage to discover some things.
@@ -25,20 +46,20 @@
 		You take the hardback book out of the bookshelf and walk over to sit down on one of the library's comfortable chairs. Opening the cover and flipping through the pages reveals that most of this book is taken up by descriptions of trivial events and tedious demon politics. In general, however, it does provide a good insight into how this world is ruled, and you spend a short while reading through the pages as you familiarise yourself with Lilith's dynasty.
 	</p>
 	<p>
-		You already knew that the demon queen Lilith was the reigning monarch of this world, but what you find interesting is that there is no record of her predecessor.In fact, from what you're reading, it sounds as though Lilith has ruled this world since the beginning of recorded history. You wonder what sort of immense power she must possess in order to keep control for such a length of time.
+		You already knew that the demon queen Lilith was the reigning monarch of this world, but what you find interesting is that there is no record of her predecessor. In fact, from what you're reading, it sounds as though Lilith has ruled this world since the beginning of recorded history, and you can't help but wonder how she's managed to keep control for such a length of time.
 	</p>
 	<p>
-		Your question is half-answered as you turn the next few pages. It seems as though Lilith's offspring, referred to as lilin, act as regional rulers, and are unquestionably loyal to their mother. Each Lilin appears to be an immensely powerful demon in her own right, and you realise that with an army of these subordinates ruling over her domain, Lilith's power base is incredibly secure.
-	</p>
-	<p>
-		Apparently, all of the lilin in the world were once common races, who were corrupted by Lilith into their new forms. The book makes a prominent mention that there are seven exceptions to this; those being the seven of Lilith's natural-born daughters, who are referred to as the 'elder lilin'. In order of seniority, these seven elders are:
+		Your question is answered as you turn the next few pages. Instead of relying on her own immense power alone, Lilith has created a race of extremely powerful demons called 'lilin' who rule in her name. Seven of these lilin are described as being even more powerful than all the rest, and are referred to as the 'elder lilin'. These elder lilin are Lilith's natural-born daughters and are a result of Lilith choosing to impregnate herself. In order of seniority, these seven elder lilin are:
 		<br/><i>Lirecea, Lovienne, Lasielle, Lyssieth, Lunette, Lyxias, and Lisophia.</i>
 	</p>
 	<p>
-		The final part of the introduction describes how, in a way similar to their mother's, lilin usually corrupt their partners into demons before sex, so that the resulting offspring will be pure demons. Half-demons are considered to be lower in social standing than pure demons, with half-demons being born of a lilin and human being regarded as particularly shameful.
+		The rest of the lilin, of which there are hundreds, have been created in one of two ways. Many were corrupted from common races into lilin by Lilith herself, and as they were exceptional enough to draw the attention of the queen of demons herself, these lilin are regarded as being the highest-ranking of all, being lesser only to Lilith and the seven elders. The rest of the lilin were born in a natural manner from the coupling between Lilith, an elder lilin, or one of the already-existing lilin.
 	</p>
 	<p>
-		Apparently, although many Lilin end up giving birth to hundreds, if not thousands, of demons, it's incredibly rare for a lilin to publicly acknowledge any of her demonic children as her own. Recognised half-demons seem to be almost unheard of, with just a handful of mentions throughout the entire book.
+		The final part of the introduction describes how Lilith and the lilin usually corrupt their partners into demons before sex, so that the resulting offspring will be pure demons. Half-demons are considered to be lower in social standing than pure demons, with half-demons being born of a lilin and human being regarded as particularly shameful.
+	</p>
+	<p>
+		Apparently, although many lilin end up giving birth to hundreds, if not thousands, of demons, it's incredibly rare for a lilin to publicly acknowledge any of her demonic children as her own. Even if they're the rare sort of demon who prefers the form of an incubus to that of a succubus, a lilin's recognised offspring are always called daughters, and a recognised daughter of a lilin is considered to be at the very peak of society. Recognised half-demons seem to be almost unheard of, with just a handful of mentions throughout the entire book.
 	</p>
 	<p style='text-align:center;'>
 		In the book's centre-fold, there's a table which shows how demonic breeding works:
@@ -95,13 +116,13 @@
 	
 	<htmlContent tag="DOMINION_HISTORY"><![CDATA[
 	<p>
-		As you slide the history book out from the bookshelf and flip through the pages, you see that there's not much content in it, and most of the pages are taken up by large illustrations. Looking at the front cover again, you see that the title is in fact 'A horse-morph's guide to Dominion's history'. Tutting at the author's apparent assumption about the intelligence of horse-morphs, you nevertheless have a quick read through the book's pages.
+		As you slide the history book out from the bookshelf and flip through the pages, you see that the content is written in a very simplistic manner, and most of the pages are taken up by large illustrations. Looking at the front cover again, you see that the title is 'A horse-morph's guide to Dominion's history'. Tutting at the author's apparent assumption about the intelligence of horse-morphs, you nevertheless have a quick read through the book's pages.
 	</p>
 	<p>
 		There isn't really much useful information inside, and you quickly finish the book from cover to cover. There's an interesting passage about the construction of Dominion by Lilith and the demons many centuries ago, but it doesn't really go into any detail.
 	</p>
 	<p>
-		Apart from that, the only other part of the book that piques your interest is a small section justifying the practice of slavery as a necessary evil. The passage explains how demons, not including half-demons, are the only race which are almost never seen to be enslaved. Apparently, this is due to a non-demon owning a demonic slave being considered completely unacceptable in Dominion's society, and requires a very hard-to-obtain license. It also mentions that Enforcers are very hesitant to sign off on any demon enslavement order, as for all they know, the demon in question could turn out to be the favourite offspring of a lilin, who would be sure to bring their wrath down upon them...
+		Apart from that, the only other part of the book that piques your interest is a small section justifying the practice of slavery as a necessary evil. The passage explains how demons, not including half-demons, are the only race which are almost never seen to be enslaved. Apparently, this is due to the fact that a demonic slave being owned by a non-demon is considered completely unacceptable in Dominion's society, and requires a very hard-to-obtain license. It also mentions that Enforcers are very hesitant to sign off on any demon enslavement order, as for all they know, the demon in question could turn out to be the favourite offspring of a lilin, who would be sure to bring their wrath down upon them...
 	</p>
 	<p>
 		Other than that snippet of trivia, the book doesn't contain anything useful.
@@ -125,6 +146,41 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="FERAL_HISTORY"><![CDATA[
+	<p>
+		The title, 'The History of Ferals', that's printed down the spine of a blue, hardback book catches your attention, and so you slide it off the shelf and open it.
+	</p>
+	<p>
+		Skimming through the pages, you see that the first chapter covers the background of animals and animal rights within Lilith's Realm. The book explains how a spell that allows for organic matter replication was perfected many decades ago. With the ability to clone an animal's meat, there was no need to slaughter them or keep them in vast herds, and so today even the largest farms only keep a dozen or so animals. Driven by the empathy which animal-morphs feel for the creatures whose features they share, more and more rights were demanded for these animals, and now they enjoy legal protections which are almost of the same level as citizens of the Realm. Bestiality was always frowned upon, but with the expansion of animals' rights, it became a serious crime.
+	</p>
+	<p>
+		The next chapter describes how feral transformations came to be, which took place in the summer of 2005. With bestiality outlawed, the small percentage of the population who were attracted to animals spent many years seeking a way to transform themselves into bestial forms in order to satisfy their carnal desires. A lilin in the desert city of Thinis, who'd already broken societal norms by rejecting a feminine form and transforming himself into a jackal-boy, was the one to discover the secret behind this transformation. Named Anubis, this lilin found out that the powerful enchantment which facilitated a feral transformation could only be bound into objects of significant mass. Boulders were the obvious choice, and the thousands of huge lumps of rock which were enchanted by Anubis came to be known as 'beast stones'. Contact with a beast stone for ten minutes transformed an individual into the feral form of the animal they most closely resembled for four hours.
+	</p>
+	<p>
+		The next chapter describes what came next. Encouraged by a lilin, and eager to experience the wild, primal lust that accompanied the feral transformation, citizens all throughout the Realm started experimenting with beast stones. Within weeks, they stopped keeping their activities behind closed doors, and it became a common sight in every town and city in the Realm to see ferals roaming the streets in broad daylight. Incidents of innocent citizens being 
+		#IF(game.isNonConEnabled())
+			 exposed to feral sex, attacked by ferals, and even raped by them,
+		#ELSE
+			 exposed to feral sex and attacked by ferals
+		#ENDIF
+		 started to increase, but Lilith and the elder lilin chose not to act. After several months, during which time ferals had gained a reputation as being little better than lust-crazed beasts, Anubis managed to refine the enchantment and he created dozens of pebble-sized beast stones. Instead of touching them to activate their power, these small stones needed to be inserted inside someone to trigger the feral transformation. They were far more potent than the larger beast stones, as for each minute these smaller stones spent inside someone's body, they gained a year of a feral form.
+	</p>
+	<p>
+		The penultimate chapter describes the downfall of feral transformations. One of Lisophia's recognised daughters was an outspoken critic of ferals, and one day as she was walking to her mother's palace, she was attacked by Anubis and a pack of feral jackals. Having by now perfected the feral enchantment, Anubis forced his victim to kiss what he called a 'beast gem', and despite being a demon, she was permanently transformed into a feral jackal bitch.
+		#IF(game.isNonConEnabled())
+			 Right there in public, and to the shock and horror of bystanders, she was then raped by Anubis and his pack.
+		#ENDIF
+		 This proved to be the straw that broke the camel's back, for as word of what was happening reached Lisophia's palace, the elder demon teleported to the aid of her daughter. Although normally choosing to remain in the form of a demonic dragon-girl, Lisophia took on her true, demonic appearance, and in a furious rage she enslaved Anubis and every feral she could find.
+	</p>
+	<p>
+		The final chapter covers what happened after this incident. Word of Lisophia's actions quickly spread throughout Thinis, and public opinion, which was already turning against ferals, fully swung against Anubis and his enchantments. Those who loved their feral forms fled to Dominion and elsewhere in the Realm, but they found little acceptance there. All throughout the Realm, the news of Anubis's actions and Lisophia's vengeance had spread, and just as quickly as the craze had started, feral transformations completely vanished. They were never explicitly banned, but these days the only people still willing to experiment with feral forms are outcasts, degenerates, and those seeking the rush of breaking a taboo.
+	</p>
+	<p>
+		In the epilogue, the book says that Anubis was never seen again, but there's a rumour that those who displease Lisophia are given to her enslaved jackal and permanently transformed into one of his feral bitches.
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="DOMINION_MAP"><![CDATA[
 	<p>
 		Hanging on one of the walls of the library, a huge map of Dominion is displayed in a wooden frame. Using your phone, you take a picture of it for future reference.
@@ -143,7 +199,7 @@
 		The first half of the book is a rambling treatise seeking to justify slavery by positing that it's a natural part of societal hierarchies. After making the claim that slavery is morally justifiable from a philosophical point of view, the author of this book then attempts to champion slavery from a more practical point of view, arguing that the undesirable, criminal, and even unproductive elements of society are better off being put to use as slaves rather than being supported by the hard-working public.
 	</p>
 	<p>
-		After leafing through this lengthy opening to the book, you find that the rest of the pages are dedicated to the history and legal status of slaves in Lilith's Realm. Apparently, slavery has always been legal, and although there have been a couple of attempts to petition Lilith for a change in the law, these efforts ended with the petitioners becoming slaves themselves, which apparently did quite an excellent job of dissuading any further dissent over the matter. Reading on, you're somewhat surprised to read that only Lilith and the Elder Lilin are exempt from ever being enslaved, meaning that it's technically legal for even lilin to become slaves, although of course in practice this has never happened.
+		After leafing through this lengthy opening to the book, you find that the rest of the pages are dedicated to the history and legal status of slaves in Lilith's Realm. Apparently, slavery has always been legal, and although there have been a couple of attempts to petition Lilith for a change in the law, these efforts ended with the petitioners becoming slaves themselves, which apparently did quite an excellent job of dissuading any further dissent over the matter. Reading on, you're somewhat surprised to read that only Lilith and the elder lilin are exempt from ever being enslaved, meaning that it's technically legal for even lilin to become slaves, although of course in practice this has never happened.
 	</p>
 	<p>
 		The final part of the book deals with the somewhat prickly issue of demons being enslaved. Although it's perfectly legal, most non-demon slave owners would never choose to purchase a demon slave, due to the risk of potentially angering the demon's siblings, parents, or even the lilin at the head of their lineage. Other demons don't have the same reluctance to own demonic slaves, as it's widely considered to be socially acceptable for a demon to own another demon.

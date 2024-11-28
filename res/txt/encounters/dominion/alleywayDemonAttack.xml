@@ -1195,22 +1195,27 @@
 			[npc.Name] lets out a manic, passionate moan as [npc.she] collapses back against a nearby wall. Much to your surprise, the hungry look in [npc.her] eyes only seems to grow even fiercer in defeat, and [npc.she] pouts at you before starting to desperately plead for sex.
 		</p>
 		<p>
-			[npc.speech(Please! Let's just fuck already! I'll let you use my pussy! Or my mouth! Or even my ass! I just need to get off so badly!)] [npc.she] whines, letting out a little cry as [npc.she] hungrily looks up and down your body. [npc.speech(You know how demons can transform themselves, right? You want me to grow a cock? I can do that too! Anything! Please!)]
-		</p>
-		<p>
-			With that, [npc.she] reaches down between [npc.her] legs with both hands, clenching [npc.her] thighs down around [npc.her] exploratory [npc.fingers] as [npc.she] carries on whining and pleading for you to use [npc.herHim]. You wonder if you should help [npc.herHim] out, or just walk away and leave [npc.herHim] to get some release from the next person [npc.she] bumps in to.
+			#IF(npc.isPostCombatRapePlay())
+				[npc.speech(~Ooh!~ You're going to rape me, aren't you?!)] [npc.she] desperately squeals. Letting out a little cry as [npc.she] hungrily looks up and down your body, [npc.she] makes it clear that [npc.she] wants to engage in some rape-play with you by eagerly panting, [npc.speech(You know how demons can transform themselves, right? You want me to make my tits bigger, don't you?! You brute!)]
+			#ELSE
+				[npc.speech(Please! Let's just fuck already! I'll let you use my pussy! Or my mouth! Or even my ass! I just need to get off so badly!)] [npc.she] whines, letting out a little cry as [npc.she] hungrily looks up and down your body. [npc.speech(You know how demons can transform themselves, right? You want me to grow a cock? I can do that too! Anything! Please!)]
+			#ENDIF
 		</p>
 	#ELSE
 		<p>
 			[npc.Name] lets out a manic, frustrated groan as [npc.she] collapses back against a nearby wall. Much to your surprise, the lustful look in [npc.her] eyes only seems to grow even fiercer in defeat, and [npc.she] gazes hungrily at your body before starting to desperately plead for sex.
 		</p>
 		<p>
-			[npc.speech(Please! Let's just fuck already! I'll let you use my cock! Or my mouth! Or even my ass! I just need to get off so badly!)][npc.she] whines, letting out a little cry as [npc.she] continues, [npc.speech(You know how demons can transform themselves, right? You want me to grow a pussy? I can do that too! Anything! Please!)]
-		</p>
-		<p>
-			With that, [npc.she] reaches down between [npc.her] legs with both hands, clenching [npc.her] thighs down around [npc.her] exploratory [npc.fingers] as [npc.she] carries on whining and pleading for you to use [npc.herHim]. You wonder if you should help [npc.herHim] out, or just walk away and leave [npc.herHim] to get some release from the next person [npc.she] bumps in to.
+			#IF(npc.isPostCombatRapePlay())
+				[npc.speech(~Aah!~ You're going to rape me, aren't you?!)] [npc.she] desperately groans. Letting out a horny grunt as [npc.she] hungrily looks up and down your body, [npc.she] makes it clear that [npc.she] wants to engage in some rape-play with you by eagerly panting, [npc.speech(You know how demons can transform themselves, right? You want me to make my cock bigger, don't you?! You monster!)]
+			#ELSE
+				[npc.speech(Please! Let's just fuck already! I'll let you use my cock! Or my mouth! Or even my ass! I just need to get off so badly!)][npc.she] whines, letting out a little cry as [npc.she] continues, [npc.speech(You know how demons can transform themselves, right? You want me to grow a pussy? I can do that too! Anything! Please!)]
+			#ENDIF
 		</p>
 	#ENDIF
+	<p>
+		With that, [npc.she] reaches down between [npc.her] legs with both hands, clenching [npc.her] thighs down around [npc.her] exploratory [npc.fingers] as [npc.she] carries on whining and pleading for you to use [npc.herHim]. You wonder if you should help [npc.herHim] out, or just walk away and leave [npc.herHim] to get some release from the next person [npc.she] bumps in to.
+	</p>
 	]]>
 	</htmlContent>
 	

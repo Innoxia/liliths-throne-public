@@ -14,9 +14,9 @@
 	<p>
 		Pushing open the front door and entering the shop, you're greeted once again by the sight of the stunningly-beautiful matriarch sitting down behind the shop's counter.
 		#IF(pc.hasCompanion(scarlett))
-			 Betraying no sign of emotion on her gorgeous face, she pointedly stares at [scarlett.name] for a moment, before looking back at you and stating in her clam, melodic voice, 
+			 Betraying no sign of emotion on her gorgeous face, she pointedly stares at [scarlett.name] for a moment, before looking back at you and stating in her calm, melodic voice, 
 		#ELSE
-			 Betraying no sign of emotion on her gorgeous face, she states in her clam, melodic voice, 
+			 Betraying no sign of emotion on her gorgeous face, she states in her calm, melodic voice, 
 		#ENDIF
 		 [helena.speech(I do so hope that you aren't daring to return to me without being in possession of the paint which I ordered you to retrieve.)]
 	</p>
@@ -103,7 +103,7 @@
 		#ENDIF
 	</p>
 	<p>
-		[helena.speech(It would appear as though the commoners are beginning to take notice,)] the harpy observes, giving the briefest of nods towards the shop's large windows. Sure enough, as you look across, you see that a pretty squirrel-girl has stopped to take a closer look at the store, and as she peers through the windows and catches sight of Helena, she does a double-take and starts to stare at her in awe. Letting out an almost imperceptible sigh, the harpy reveals, [helena.speech(Thanks to my dear Scarlett's hard work this establishment has, up until now, had quite the poor reputation. As such, word of my presence here has thus far not spread, but it would appear as though that is about to change.)]
+		[helena.speech(It would appear as though the commoners are beginning to take notice,)] the harpy observes, giving the briefest of nods towards the shop's large windows. Sure enough, as you look across, you see that a pretty squirrel-girl has stopped to take a closer look at the store, and as she peers through the windows and catches sight of Helena, she does a double-take and starts to stare at her in awe. Letting out an almost imperceptible sigh, the harpy reveals, [helena.speech(Thanks to my dear Scarlett, this establishment has gained quite a poor reputation and is given a wide berth by members of the public. As such, word of my presence here has thus far not spread, but it would appear as though that is about to change.)]
 	</p>
 	<p>
 		[pc.speech(That will be good for your business though, won't it?)] you quite rightly observe.
@@ -731,7 +731,7 @@
 		</p>
 	#ELSE
 		<p>
-			Approaching the [natalya.race], you introduce yourself and explain that you've been instructed by Helena to receive a delivery of furniture for her. From the moment she caught sight of you, an arrogant smirk had settled on this demon's pretty face, and as you finish explaining the situation, she proudly boasts, [natalya.speech(My name is [natalya.name] [natalya.surname], and I hold the prestigious title of 'Stable Mistress' at the fine institution known throughout Lilith's Realm as 'Dominion Express'. Due to the exceptional circumstance of receiving a contract from Helena herself, I thought it prudent to oversee this delivery in person. Please inform her that I have arrived!)]
+			Approaching the [natalya.race], you introduce yourself and explain that you've been instructed by Helena to receive a delivery of furniture for her. From the moment she caught sight of you, an arrogant smirk had settled on this demon's pretty face, and as you finish explaining the situation, she proudly boasts, [natalya.speech(My name is [natalya.name(true)] [natalya.surname], and I hold the prestigious title of 'Stable Mistress' at the fine institution known throughout Lilith's Realm as 'Dominion Express'. Due to the exceptional circumstance of receiving a contract from Helena herself, I thought it prudent to oversee this delivery in person. Please inform her that I have arrived!)]
 		</p>
 		<p>
 			As you reveal that Helena has already left and will not be returning today, the small [natalya.race]'s smirk is quickly replaced by an irritated scowl. Letting out a loud tutting noise, she impatiently produces a trailing paper receipt from out of one of her blazer's pockets, before rudely thrusting it into your [pc.hands] and declaring, [natalya.speech(This is the list of everything that's to be delivered today. As you can no doubt see, there's plenty to be unloaded, so hurry up and get that door unlocked, then I'll command my big, strong boys... ~Ahem!~ That is, then I shall have the slaves here get to work.)]

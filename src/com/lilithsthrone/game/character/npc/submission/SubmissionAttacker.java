@@ -131,6 +131,7 @@ public class SubmissionAttacker extends NPC {
 			// PERSONALITY & BACKGROUND:
 			
 			Main.game.getCharacterUtils().setHistoryAndPersonality(this, true);
+			this.setOccupation(Occupation.NPC_MUGGER); // Submission attackers are all muggers
 			if((this.getSubspecies()==Subspecies.IMP || this.getSubspecies()==Subspecies.IMP_ALPHA)
 					&& !this.hasPersonalityTrait(PersonalityTrait.MUTE)
 					&& Math.random()<0.9f) {
@@ -202,6 +203,9 @@ public class SubmissionAttacker extends NPC {
 	
 	@Override
 	public String getDescription() {
+		if(this.isSlave() && this.isDoll()) {
+			return super.getDescription();
+		}
 		if(this.getHistory()==Occupation.NPC_PROSTITUTE) {
 			if(this.isSlave()) {
 				return (UtilText.parse(this,

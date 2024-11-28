@@ -7,7 +7,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.3.8.9
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class Torso implements BodyPartInterface {
@@ -18,6 +18,10 @@ public class Torso implements BodyPartInterface {
 		this.type = type;
 	}
 
+	public Torso(Torso torsoToCopy) {
+		this.type = torsoToCopy.type;
+	}
+	
 	@Override
 	public AbstractTorsoType getType() {
 		return type;

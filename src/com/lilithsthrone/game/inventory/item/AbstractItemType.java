@@ -101,6 +101,34 @@ public abstract class AbstractItemType extends AbstractCoreType {
 			Rarity rarity,
 			List<ItemEffect> effects,
 			List<ItemTag> itemTags) {
+		this(value,
+				determiner,
+				plural,
+				name,
+				namePlural,
+				description,
+				pathName,
+				initNewColourShades(
+					colourPrimary,
+					colourSecondary,
+					colourTertiary),
+				rarity,
+				effects,
+				itemTags);
+	}
+	
+	public AbstractItemType(
+			int value,
+			String determiner,
+			boolean plural,
+			String name,
+			String namePlural,
+			String description,
+			String pathName,
+			List<Colour> colourShades,
+			Rarity rarity,
+			List<ItemEffect> effects,
+			List<ItemTag> itemTags) {
 		this.determiner = determiner;
 		this.plural = plural;
 		this.mod = false;
@@ -143,25 +171,31 @@ public abstract class AbstractItemType extends AbstractCoreType {
 		enchantmentEffectId = null;
 		enchantmentItemTypeId = null;
 		
-		this.colourShades = new ArrayList<>();
-		
-		if (colourPrimary == null) {
-			this.colourShades.add(PresetColour.CLOTHING_BLACK);
-		} else {
-			this.colourShades.add(colourPrimary);
-		}
-		if (colourSecondary == null) {
-			this.colourShades.add(PresetColour.CLOTHING_BLACK);
-		} else {
-			this.colourShades.add(colourSecondary);
-		}
-		if (colourTertiary == null) {
-			this.colourShades.add(PresetColour.CLOTHING_BLACK);
-		} else {
-			this.colourShades.add(colourTertiary);
-		}
+		this.colourShades = colourShades;
 		
 		SVGString = null;
+	}
+	
+	private static List<Colour> initNewColourShades(Colour colourPrimary, Colour colourSecondary, Colour colourTertiary) {
+		List<Colour> newColourShades = new ArrayList<>();
+		
+		if (colourPrimary == null) {
+			newColourShades.add(PresetColour.CLOTHING_BLACK);
+		} else {
+			newColourShades.add(colourPrimary);
+		}
+		if (colourSecondary == null) {
+			newColourShades.add(PresetColour.CLOTHING_BLACK);
+		} else {
+			newColourShades.add(colourSecondary);
+		}
+		if (colourTertiary == null) {
+			newColourShades.add(PresetColour.CLOTHING_BLACK);
+		} else {
+			newColourShades.add(colourTertiary);
+		}
+		
+		return newColourShades;
 	}
 
 	public AbstractItemType(File itemXMLFile, String author, boolean mod) throws XMLLoadException { // Be sure to catch this exception correctly - if it's thrown mod is invalid and should not be continued to load
@@ -622,7 +656,7 @@ public abstract class AbstractItemType extends AbstractCoreType {
 						}
 
 						SVGString = svgBuilder.toString();
-						SVGString = SvgUtil.colourReplacement(this.getId(), colourShades, null, SVGString);
+						SVGString = SvgUtil.colourReplacement(this.getId(), getColourShades(), null, SVGString);
 						
 //						List<String> lines = Files.readAllLines(Paths.get(pathName));
 //						StringBuilder sb = new StringBuilder();
@@ -650,7 +684,7 @@ public abstract class AbstractItemType extends AbstractCoreType {
 							System.err.println("Error! AbstractItemType icon file does not exist (Trying to read from '"+svgPathInformation.get(0).getPathName()+"')!");
 						}
 						String s = Util.inputStreamToString(is);
-						SVGString = SvgUtil.colourReplacement(this.getId(), colourShades, null, s);
+						SVGString = SvgUtil.colourReplacement(this.getId(), getColourShades(), null, s);
 						is.close();
 					}
 				} catch (IOException e) {
@@ -700,11 +734,11 @@ public abstract class AbstractItemType extends AbstractCoreType {
 		return "This item cannot be used in this way!";
 	}
 	
-	public boolean isAbleToBeUsed(GameCharacter target) {
+	public boolean isAbleToBeUsed(GameCharacter user, GameCharacter target) {
 		return true;
 	}
 	
-	public String getUnableToBeUsedDescription(GameCharacter target) {
+	public String getUnableToBeUsedDescription(GameCharacter user, GameCharacter target) {
 		return "This item cannot be used in this way!";
 	}
 	

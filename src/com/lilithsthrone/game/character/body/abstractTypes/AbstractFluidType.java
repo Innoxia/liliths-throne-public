@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
+import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FluidTypeBase;
@@ -160,6 +161,10 @@ public abstract class AbstractFluidType implements BodyPartTypeInterface {
 		return super.toString();
 	}
 	
+	public String getId() {
+		return FluidType.getIdFromFluidType(this);
+	}
+	
 	@Override
 	public String getDeterminer(GameCharacter gc) {
 		return "some";
@@ -241,5 +246,9 @@ public abstract class AbstractFluidType implements BodyPartTypeInterface {
 	
 	public List<FluidModifier> getDefaultFluidModifiers() {
 		return defaultFluidModifiers;
+	}
+	
+	public float getValueModifier() {
+		return 1f;
 	}
 }

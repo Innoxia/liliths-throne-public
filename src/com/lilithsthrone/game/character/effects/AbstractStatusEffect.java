@@ -347,7 +347,7 @@ public abstract class AbstractStatusEffect {
 		return false;
 	}
 	
-	public int getApplicationLength() {
+	public int getApplicationLength(GameCharacter target) {
 		return applicationLength;
 	}
 

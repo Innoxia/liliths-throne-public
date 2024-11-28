@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<!-- Succubus sister content: -->
+	
+	<scene id="encounter">
+		<preParsingEffects><![CDATA[
+			[#saellatrix.generateSister()]
+			[#sister.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_sister">ENCOUNTER</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Hidden! -->
+				<response>
+					<availabilityConditional><![CDATA[[#!(pc.hasStatusEffect(SE_MARKED_BY_MUSK) || pc.hasStatusEffect(SE_SMOKING) || pc.hasStatusEffect(SE_RECENTLY_SMOKED) || pc.getAlcoholLevel().isGreaterThan(ALCOHOL_LEVEL_TWO_MERRY))]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Hide]]></responseTitle>
+					<responseTooltip><![CDATA[Hide and wait for the horny succubus to leave before continuing on your way through the factory...]]></responseTooltip>
+					<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_sister', 'ENCOUNTER_HIDE'))]
+						[#saellatrix.removeSister(sister)]
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#!(pc.hasStatusEffect(SE_MARKED_BY_MUSK) || pc.hasStatusEffect(SE_SMOKING) || pc.hasStatusEffect(SE_RECENTLY_SMOKED) || pc.getAlcoholLevel().isGreaterThan(ALCOHOL_LEVEL_TWO_MERRY))]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Confront]]></responseTitle>
+					<responseTooltip><![CDATA[Confront the horny succubus!]]></responseTooltip>
+					<colour><![CDATA[GENERIC_COMBAT]]></colour>
+					<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_sister_encounter_confrontation]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_sister', 'ENCOUNTER_CONFRONTATION'))]
+					]]></effects>
+				</response>
+			<!-- Detected! -->
+				<response>
+					<availabilityConditional><![CDATA[[#pc.hasStatusEffect(SE_MARKED_BY_MUSK) || pc.hasStatusEffect(SE_SMOKING) || pc.hasStatusEffect(SE_RECENTLY_SMOKED) || pc.getAlcoholLevel().isGreaterThan(ALCOHOL_LEVEL_TWO_MERRY)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Discovered!]]></responseTitle>
+					<responseTooltip><![CDATA[The horny succubus has detected you!]]></responseTooltip>
+					<colour><![CDATA[GENERIC_COMBAT]]></colour>
+					<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_sister_encounter_confrontation]]></nextDialogue>
+					<effects/>
+				</response>
+		</responses>
+	</scene>
+	
+	<scene id="encounter_confrontation">
+		<content folderPath="txt/places/dominion/sex_shop/factory_sister">SISTER_INTRO</content>
+		<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fight]]></responseTitle>
+				<responseTooltip><![CDATA[
+					There's nothing for it but to fight this succubus!
+				]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<combatVariables enabled="true">
+					<nextDialoguePlayerVictory><![CDATA[innoxia_places_dominion_sex_shop_factory_sister_combat_won]]></nextDialoguePlayerVictory>
+					<nextDialoguePlayerDefeat><![CDATA[innoxia_places_dominion_sex_shop_factory_sister_combat_lost]]></nextDialoguePlayerDefeat>
+					<allies/>
+					<enemies>
+						<enemy leader="true"><![CDATA[sister]]></enemy>
+					</enemies>
+					<openingDescriptions>
+						<combatant id="pc"><![CDATA[With the succubus advancing on you with a desperate, lustful look in her eyes, you prepare to defend yourself!]]></combatant>
+						<combatant id="sister"><![CDATA[[sister.speech(Mistress will reward me for catching you!)] the succubus happily exclaims, [sister.speech(Submit to me!)]]]></combatant>
+					</openingDescriptions>
+					<escapeBlocked><![CDATA[true]]></escapeBlocked>
+				</combatVariables>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="combat_won">
+		<content folderPath="txt/places/dominion/sex_shop/factory_sister">SISTER_COMBAT_WON</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#saellatrix.isAnySisterPresent()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Talk]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_doll_factory_sister_talked))
+						Trying to talk to the horny succubus isn't getting you anywhere...
+					#ELSE
+						Try to talk to the horny succubus.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_doll_factory_sister_talked))
+						null
+					#ELSE
+						innoxia_places_dominion_sex_shop_factory_sister_talk
+					#ENDIF
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_doll_factory_sister_talked, true)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#saellatrix.isAnySisterPresent()]]]></availabilityConditional> <!-- Have this conditional as this response is reused in other dialogue nodes where it's required -->
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Sex]]></responseTitle>
+				<responseTooltip><![CDATA[Give this horny succubus what she wants...]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					#IF(fia.getAffection(pc)>=-15)
+						[#game.appendToTextEndStringBuilder(fia.incrementAffection(pc, -5))]
+					#ELSEIF(fia.getAffection(pc)>-20)
+						[#game.appendToTextEndStringBuilder(fia.setAffection(pc, -20))]
+					#ENDIF
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_dominion_sex_shop_factory_succubus_generic_sex]]></id>
+					<startingPosition><![CDATA[
+						STANDING
+					]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[
+								STANDING_STANDING_DOMINANT
+							]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>sister</id>
+							<slot><![CDATA[
+								STANDING_PERFORMING_ORAL
+							]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_sister_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/sex_shop/factory_sister">SISTER_SEX_START</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="after_sex">
+        <title><![CDATA[Finished]]></title>
+        <tooltip><![CDATA[Having had enough, you bring an end to the sex...]]></tooltip>
+		<content folderPath="txt/places/dominion/sex_shop/factory_sister">SISTER_SEX_END</content>
+		<secondsPassed><![CDATA[60]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="default"/>
+	</scene>
+	
+	<scene id="talk">
+		<content folderPath="txt/places/dominion/sex_shop/factory_sister">SISTER_TALK</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>false</travelDisabled>
+		<responses copyFromDialogueId="default"/>
+	</scene>
+	
+	<scene id="combat_lost">
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_innoxia_doll_factory_fia_in_hiding, true)]
+			[#game.addSavedInventory(pc)]
+			[#pc.resetInventory(true, true)]
+			#IF(!game.isNonConEnabled())
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_sister', 'SISTER_COLLARED'))]
+			#ELSE
+				#IF(sister.hasFetish(FETISH_PENIS_GIVING))
+					[#game.appendToTextEndStringBuilder(pc.setVaginaDepth(ORIFICE_DEPTH_SEVEN_FATHOMLESS.getValue()))]
+					[#game.appendToTextEndStringBuilder(pc.setAssDepth(ORIFICE_DEPTH_SEVEN_FATHOMLESS.getValue()))]
+					[#game.appendToTextEndStringBuilder(pc.setFaceDepth(ORIFICE_DEPTH_SEVEN_FATHOMLESS.getValue()))]
+					[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_sister', 'SISTER_COMBAT_LOST_COCK_END'))]
+				#ENDIF
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_sister">SISTER_COMBAT_LOST</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#!game.isNonConEnabled() || (sister.hasFetish(FETISH_ORAL_GIVING) && !pc.hasPenisIgnoreDildo() && !pc.hasVagina())]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[
+					#IF(pc.isTaur())
+						Get moving
+					#ELSE
+						Crawl...
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.isTaur())
+						In your current state you have no choice but to carry the succubus on your back as she directs you deeper into the factory...
+					#ELSE
+						In your current state you have no choice but to crawl after the succubus as she leads you deeper into the factory...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_sister_travel]]></nextDialogue>
+				<effects/>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#game.isNonConEnabled() && (!sister.hasFetish(FETISH_ORAL_GIVING) || pc.hasPenisIgnoreDildo() || pc.hasVagina())]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Sex]]></responseTitle>
+				<responseTooltip><![CDATA[You can't summon the strength to resist this sexy succubus any longer...]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_dominion_sex_shop_factory_succubus_submissive_generic_sex]]></id>
+					<startingPosition><![CDATA[
+						#IF(sister.hasFetish(FETISH_ANAL_RECEIVING))
+							LYING_DOWN
+						#ELSEIF(sister.hasFetish(FETISH_PURE_VIRGIN))
+							LYING_DOWN
+						#ELSEIF(sister.hasFetish(FETISH_ORAL_GIVING))
+							LYING_DOWN
+						#ELSEIF(sister.hasFetish(FETISH_BREASTS_SELF))
+							#IF(pc.hasPenisIgnoreDildo() && game.isNipplePenEnabled())
+								AGAINST_WALL
+							#ELSEIF(game.isLactationContentEnabled())
+								LYING_DOWN
+							#ELSE
+								LYING_DOWN
+							#ENDIF
+						#ELSEIF(sister.hasFetish(FETISH_PENIS_GIVING))
+							ALL_FOURS
+						#ENDIF
+					]]></startingPosition>
+					<dominants>
+						<character>
+							<id>sister</id>
+							<slot><![CDATA[
+								#IF(sister.hasFetish(FETISH_ANAL_RECEIVING))
+									#IF(pc.hasPenisIgnoreDildo())
+										LYING_DOWN_COWGIRL
+									#ELSE
+										LYING_DOWN_FACE_SITTING_REVERSE
+									#ENDIF
+								#ELSEIF(sister.hasFetish(FETISH_PURE_VIRGIN))
+									#IF(pc.hasPenisIgnoreDildo())
+										LYING_DOWN_COWGIRL
+									#ELSE
+										LYING_DOWN_FACE_SITTING_REVERSE
+									#ENDIF
+								#ELSEIF(sister.hasFetish(FETISH_ORAL_GIVING))
+									LYING_DOWN_SIXTY_NINE
+								#ELSEIF(sister.hasFetish(FETISH_BREASTS_SELF))
+									#IF(pc.hasPenisIgnoreDildo() && game.isNipplePenEnabled())
+										AGAINST_WALL_PERFORMING_ORAL_WALL
+									#ELSEIF(game.isLactationContentEnabled())
+										LYING_DOWN_LAP_PILLOW
+									#ELSE
+										LYING_DOWN_FACE_SITTING_REVERSE
+									#ENDIF
+								#ELSEIF(sister.hasFetish(FETISH_PENIS_GIVING))
+									#IF(pc.hasVagina())
+										ALL_FOURS_BEHIND
+									#ELSEIF(game.isAnalContentEnabled())
+										ALL_FOURS_BEHIND
+									#ELSE
+										ALL_FOURS_IN_FRONT
+									#ENDIF
+								#ENDIF
+							]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[
+								#IF(sister.hasFetish(FETISH_ANAL_RECEIVING))
+									LYING_DOWN_LYING_DOWN
+								#ELSEIF(sister.hasFetish(FETISH_PURE_VIRGIN))
+									LYING_DOWN_LYING_DOWN
+								#ELSEIF(sister.hasFetish(FETISH_ORAL_GIVING))
+									LYING_DOWN_LYING_DOWN
+								#ELSEIF(sister.hasFetish(FETISH_BREASTS_SELF))
+									#IF(pc.hasPenisIgnoreDildo() && game.isNipplePenEnabled())
+										AGAINST_WALL_BACK_TO_WALL
+									#ELSEIF(game.isLactationContentEnabled())
+										LYING_DOWN_LYING_DOWN
+									#ELSE
+										LYING_DOWN_LYING_DOWN
+									#ENDIF
+								#ELSEIF(sister.hasFetish(FETISH_PENIS_GIVING))
+									ALL_FOURS_ALL_FOURS
+								#ENDIF
+							]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_sister_after_submissive_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/sex_shop/factory_sister">SISTER_SUBMISSIVE_SEX_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<!-- Anal: -->
+						<action>
+							<condition><![CDATA[[#sister.hasFetish(FETISH_ANAL_RECEIVING) && pc.hasPenisIgnoreDildo()]]]></condition>
+							<id><![CDATA[PenisAnus_USING_PENIS_START]]></id>
+							<performer><![CDATA[sister]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#sister.hasFetish(FETISH_ANAL_RECEIVING) && !pc.hasPenisIgnoreDildo()]]]></condition>
+							<id><![CDATA[TongueAnus_RECEIVING_ANILINGUS_START]]></id>
+							<performer><![CDATA[sister]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<!-- Vaginal: -->
+						<action>
+							<condition><![CDATA[[#sister.hasFetish(FETISH_PURE_VIRGIN) && pc.hasPenisIgnoreDildo()]]]></condition>
+							<id><![CDATA[PenisVagina_USING_PENIS_START]]></id>
+							<performer><![CDATA[sister]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#sister.hasFetish(FETISH_PURE_VIRGIN) && !pc.hasPenisIgnoreDildo()]]]></condition>
+							<id><![CDATA[TongueVagina_RECEIVING_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[sister]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<!-- Oral: -->
+						<action>
+							<condition><![CDATA[[#sister.hasFetish(FETISH_ORAL_GIVING) && pc.hasPenisIgnoreDildo()]]]></condition>
+							<id><![CDATA[PenisMouth_GIVING_BLOWJOB_START]]></id>
+							<performer><![CDATA[sister]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#sister.hasFetish(FETISH_ORAL_GIVING) && !pc.hasPenisIgnoreDildo()]]]></condition>
+							<id><![CDATA[TongueVagina_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[sister]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<!-- Breasts: -->
+						<action>
+							<condition><![CDATA[[#sister.hasFetish(FETISH_BREASTS_SELF) && (pc.hasPenisIgnoreDildo() && game.isNipplePenEnabled())]]]></condition>
+							<id><![CDATA[PenisNipple_USING_PENIS_START]]></id>
+							<performer><![CDATA[sister]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#sister.hasFetish(FETISH_BREASTS_SELF) && (!pc.hasPenisIgnoreDildo() || !game.isNipplePenEnabled()) && game.isLactationContentEnabled()]]]></condition>
+							<id><![CDATA[TongueNipple_BREASTFEED]]></id>
+							<performer><![CDATA[sister]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#sister.hasFetish(FETISH_BREASTS_SELF) && (!pc.hasPenisIgnoreDildo() || !game.isNipplePenEnabled()) && !game.isLactationContentEnabled()]]]></condition>
+							<id><![CDATA[TongueVagina_RECEIVING_CUNNILINGUS_START]]></id>
+							<performer><![CDATA[sister]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<!-- Cock: -->
+						<action>
+							<condition><![CDATA[[#sister.hasFetish(FETISH_PENIS_GIVING) && pc.hasVagina()]]]></condition>
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[sister]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#sister.hasFetish(FETISH_PENIS_GIVING) && !pc.hasVagina() && game.isAnalContentEnabled()]]]></condition>
+							<id><![CDATA[PenisAnus_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[sister]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+						<action>
+							<condition><![CDATA[[#sister.hasFetish(FETISH_PENIS_GIVING) && !pc.hasVagina() && !game.isAnalContentEnabled()]]]></condition>
+							<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+							<performer><![CDATA[sister]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="after_submissive_sex">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_sister', 'SISTER_COLLARED'))]
+		]]></preParsingEffects>
+        <title><![CDATA[Finished]]></title>
+        <tooltip><![CDATA[Having had enough, the succubus brings an end to the sex...]]></tooltip>
+		<content folderPath="txt/places/dominion/sex_shop/factory_sister">SISTER_SUBMISSIVE_SEX_END</content>
+		<secondsPassed><![CDATA[60]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[
+					#IF(pc.isTaur())
+						Get moving
+					#ELSE
+						Crawl...
+					#ENDIF
+				]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.isTaur())
+						In your current state you have no choice but to carry the succubus on your back as she directs you deeper into the factory...
+					#ELSE
+						In your current state you have no choice but to crawl after the succubus as she leads you deeper into the factory...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_sister_travel]]></nextDialogue>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="travel">
+		<preParsingEffects><![CDATA[
+			[#pc.walkPathNoEffects(PLACE_TYPE_innoxia_dominion_sex_shop_factory_door_3, false, 1)]
+			[#sleip.returnToHome()]
+			[#nir.returnToHome()]
+			[#sister.setLocation(pc)]
+			[#angelixx.setLocation(pc)]
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_sister', 'SISTER_TRAVEL'))]
+			[#flags.setFlag(FLAG_innoxia_doll_factory_slimes_discovered, true)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Nightmares]]></responseTitle>
+				<responseTooltip><![CDATA[You recognise the two nightmares from having encountered them during the SWORD raid in Elis.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_sister_travel_end]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="travel_end">
+		<preParsingEffects><![CDATA[
+			[#saellatrix.resetFactoryCharacters()]
+			[#sleip.setLocation(pc)]
+			[#nir.setLocation(pc)]
+			[#sleip.setPlayerKnowsName(true)]
+			[#nir.setPlayerKnowsName(true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_sister">SISTER_TRAVEL_END</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Captured]]></responseTitle>
+				<responseTooltip><![CDATA[You've been captured by Angelixx and her sons, and are now completely at their mercy...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_start]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

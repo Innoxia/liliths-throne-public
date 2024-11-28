@@ -90,16 +90,18 @@ public class LovingActions {
 					"Lifting [npc.her] [npc.hand], [npc.name] softly [npc.verb(trace)] [npc.her] [npc.fingers+] over [npc2.namePos] cheek in order to make [npc2.herHim] feel loved.",
 					"Seeking to put [npc2.name] at ease, [npc.name] [npc.verb(raise)] [npc.her] [npc.hand], before using [npc.her] [npc.fingers+] to lovingly caress [npc2.her] face."));
 			
-			if(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))!=SexPace.SUB_RESISTING) {
-				sb.append(UtilText.returnStringAtRandom(
-						" A happy [npc2.moan] escapes from [npc2.namePos] mouth in response to this contact, causing [npc.name] to smile in delight.",
-						" The happy sigh which escapes [npc2.namePos] mouth is more than enough to let [npc.name] know that [npc.her] gentle caress has had the desired effect.",
-						" In response to this, [npc2.name] [npc2.verb(let)] out a happy [npc2.moan], letting [npc.name] know that [npc.her] gesture is much appreciated."));
-			} else {
-				sb.append(UtilText.returnStringAtRandom(
-						" A protesting yelp escapes from [npc2.namePos] mouth as [npc2.she] [npc2.verb(continue)] to resist [npc.namePos] advances.",
-						" The frustrated exclamation which immediately escapes from [npc2.namePos] mouth is not what [npc.name] [npc.was] looking for, and [npc.she] can't help but sigh as [npc2.name] [npc2.verb(continue)] to resist.",
-						" After letting out a shocked cry, tears start to well up in [npc2.namePos] [npc2.eyes], letting [npc.name] know that [npc.her] advances are not having the effect which [npc.she] [npc.was] looking for."));
+			if(!isTargetedCharacterInanimate()) {
+				if(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))!=SexPace.SUB_RESISTING) {
+					sb.append(UtilText.returnStringAtRandom(
+							" A happy [npc2.moan] escapes from [npc2.namePos] mouth in response to this contact, causing [npc.name] to smile in delight.",
+							" The happy sigh which escapes [npc2.namePos] mouth is more than enough to let [npc.name] know that [npc.her] gentle caress has had the desired effect.",
+							" In response to this, [npc2.name] [npc2.verb(let)] out a happy [npc2.moan], letting [npc.name] know that [npc.her] gesture is much appreciated."));
+				} else {
+					sb.append(UtilText.returnStringAtRandom(
+							" A protesting yelp escapes from [npc2.namePos] mouth as [npc2.she] [npc2.verb(continue)] to resist [npc.namePos] advances.",
+							" The frustrated exclamation which immediately escapes from [npc2.namePos] mouth is not what [npc.name] [npc.was] looking for, and [npc.she] can't help but sigh as [npc2.name] [npc2.verb(continue)] to resist.",
+							" After letting out a shocked cry, tears start to well up in [npc2.namePos] [npc2.eyes], letting [npc.name] know that [npc.her] advances are not having the effect which [npc.she] [npc.was] looking for."));
+				}
 			}
 			
 			return sb.toString();
@@ -168,17 +170,19 @@ public class LovingActions {
 					"Wanting to show [npc2.name] that [npc2.sheIs] loved, [npc.name] [npc.verb(lean)] in towards [npc2.herHim], before planting a gentle kiss on [npc2.her] cheek.",
 					"Leaning in towards [npc2.name], [npc.name] [npc.verb(purse)] [npc.her] [npc.lips+], before planting a loving kiss on [npc2.her] cheek.",
 					"Seeking to remind [npc2.name] of how much [npc2.sheIsFull] loved, [npc.name] [npc.verb(lean)] in towards [npc2.herHim], before pursing [npc.her] [npc.lips+] and kissing [npc2.her] cheek."));
-			
-			if(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))!=SexPace.SUB_RESISTING) {
-				sb.append(UtilText.returnStringAtRandom(
-						" A happy [npc2.moan] escapes from [npc2.namePos] mouth in response to this contact, causing [npc.name] to smile in delight.",
-						" The happy sigh which escapes [npc2.namePos] mouth is more than enough to let [npc.name] know that [npc.her] kiss has had the desired effect.",
-						" In response to this, [npc2.name] [npc2.verb(let)] out a happy [npc2.moan], letting [npc.name] know that [npc.her] gesture is much appreciated."));
-			} else {
-				sb.append(UtilText.returnStringAtRandom(
-						" A protesting yelp escapes from [npc2.namePos] mouth as [npc2.she] [npc2.verb(continue)] to resist [npc.namePos] advances.",
-						" The frustrated exclamation which immediately escapes from [npc2.namePos] mouth is not what [npc.name] [npc.was] looking for, and [npc.she] can't help but sigh as [npc2.name] [npc2.verb(continue)] to resist.",
-						" After letting out a shocked cry, tears start to well up in [npc2.namePos] [npc2.eyes], letting [npc.name] know that [npc.her] advances are not having the effect which [npc.she] [npc.was] looking for."));
+
+			if(!isTargetedCharacterInanimate()) {
+				if(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))!=SexPace.SUB_RESISTING) {
+					sb.append(UtilText.returnStringAtRandom(
+							" A happy [npc2.moan] escapes from [npc2.namePos] mouth in response to this contact, causing [npc.name] to smile in delight.",
+							" The happy sigh which escapes [npc2.namePos] mouth is more than enough to let [npc.name] know that [npc.her] kiss has had the desired effect.",
+							" In response to this, [npc2.name] [npc2.verb(let)] out a happy [npc2.moan], letting [npc.name] know that [npc.her] gesture is much appreciated."));
+				} else {
+					sb.append(UtilText.returnStringAtRandom(
+							" A protesting yelp escapes from [npc2.namePos] mouth as [npc2.she] [npc2.verb(continue)] to resist [npc.namePos] advances.",
+							" The frustrated exclamation which immediately escapes from [npc2.namePos] mouth is not what [npc.name] [npc.was] looking for, and [npc.she] can't help but sigh as [npc2.name] [npc2.verb(continue)] to resist.",
+							" After letting out a shocked cry, tears start to well up in [npc2.namePos] [npc2.eyes], letting [npc.name] know that [npc.her] advances are not having the effect which [npc.she] [npc.was] looking for."));
+				}
 			}
 			
 			return sb.toString();
@@ -254,17 +258,19 @@ public class LovingActions {
 						" As it's possible that [npc.name] might be the "+fatherText+" of [npc2.namePos] offspring, [npc.she] [npc.verb(decide)] to give [npc.her] partner's belly a few extra gentle strokes.",
 						" As [npc.she] might be the "+fatherText+" of [npc2.namePos] offspring, [npc.name] [npc.verb(make)] sure to be extra gentle and loving while stroking [npc.her] partner's "+pregnantBellyDesc+"."));
 			}
-			
-			if(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))!=SexPace.SUB_RESISTING) {
-				sb.append(UtilText.returnStringAtRandom(
-						" A happy [npc2.moan] escapes from [npc2.namePos] mouth in response to this contact, causing [npc.name] to smile in delight.",
-						" The happy sigh which escapes [npc2.namePos] mouth is more than enough to let [npc.name] know that [npc.her] gentle caress has had the desired effect.",
-						" In response to this, [npc2.name] [npc2.verb(let)] out a happy [npc2.moan], letting [npc.name] know that [npc.her] gesture is much appreciated."));
-			} else {
-				sb.append(UtilText.returnStringAtRandom(
-						" A protesting yelp escapes from [npc2.namePos] mouth as [npc2.she] [npc2.verb(continue)] to resist [npc.namePos] advances.",
-						" The frustrated exclamation which immediately escapes from [npc2.namePos] mouth is not what [npc.name] [npc.was] looking for, and [npc.she] can't help but sigh as [npc2.name] [npc2.verb(continue)] to resist.",
-						" After letting out a shocked cry, tears start to well up in [npc2.namePos] [npc2.eyes], letting [npc.name] know that [npc.her] advances are not having the effect which [npc.she] [npc.was] looking for."));
+
+			if(!isTargetedCharacterInanimate()) {
+				if(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))!=SexPace.SUB_RESISTING) {
+					sb.append(UtilText.returnStringAtRandom(
+							" A happy [npc2.moan] escapes from [npc2.namePos] mouth in response to this contact, causing [npc.name] to smile in delight.",
+							" The happy sigh which escapes [npc2.namePos] mouth is more than enough to let [npc.name] know that [npc.her] gentle caress has had the desired effect.",
+							" In response to this, [npc2.name] [npc2.verb(let)] out a happy [npc2.moan], letting [npc.name] know that [npc.her] gesture is much appreciated."));
+				} else {
+					sb.append(UtilText.returnStringAtRandom(
+							" A protesting yelp escapes from [npc2.namePos] mouth as [npc2.she] [npc2.verb(continue)] to resist [npc.namePos] advances.",
+							" The frustrated exclamation which immediately escapes from [npc2.namePos] mouth is not what [npc.name] [npc.was] looking for, and [npc.she] can't help but sigh as [npc2.name] [npc2.verb(continue)] to resist.",
+							" After letting out a shocked cry, tears start to well up in [npc2.namePos] [npc2.eyes], letting [npc.name] know that [npc.her] advances are not having the effect which [npc.she] [npc.was] looking for."));
+				}
 			}
 			
 			return sb.toString();

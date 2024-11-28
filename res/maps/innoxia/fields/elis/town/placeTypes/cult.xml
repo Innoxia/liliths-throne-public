@@ -4,7 +4,6 @@
 	<name><![CDATA[cultist's chapel]]></name>
 	<tooltipDescription><![CDATA[The Cult of Lilith's presence in Elis takes the form of not only a large custom-built chapel, but also several ancillary buildings to either side of it.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[outside the cultist's chapel in Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_PINK</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

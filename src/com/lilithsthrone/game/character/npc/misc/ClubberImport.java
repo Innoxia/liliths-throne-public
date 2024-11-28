@@ -85,6 +85,9 @@ public class ClubberImport extends NPC {
 	
 	@Override
 	public String getDescription() {
+		if(this.isSlave() && this.isDoll()) {
+			return super.getDescription();
+		}
 		return UtilText.parse(this, "[npc.Name] is a resident of Dominion, who you met in one of the clubs in the city's Nightlife district.");
 	}
 	

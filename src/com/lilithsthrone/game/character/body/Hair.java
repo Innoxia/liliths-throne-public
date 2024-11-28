@@ -11,7 +11,7 @@ import com.lilithsthrone.utils.Units;
 
 /**
  * @since 0.1.0
- * @version 0.4.2
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class Hair implements BodyPartInterface {
@@ -32,6 +32,13 @@ public class Hair implements BodyPartInterface {
 		}
 	}
 
+	public Hair(Hair hairToCopy) {
+		this.type = hairToCopy.type;
+		this.length = hairToCopy.length;
+		this.style = hairToCopy.style;
+		this.neckFluff = hairToCopy.neckFluff;
+	}
+	
 	@Override
 	public AbstractHairType getType() {
 		return type;
@@ -243,6 +250,9 @@ public class Hair implements BodyPartInterface {
 					break;
 				case SIDE_BRAIDS:
 					sb.append("styled into two braids which hang down on either side of [npc.her] face.");
+					break;
+				case SIDE_PARTED:
+					sb.append("styled into a side parting.");
 					break;
 			}
 		sb.append("</p>");

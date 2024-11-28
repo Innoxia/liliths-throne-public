@@ -17,7 +17,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.?
- * @version 0.3.7
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class OrificeMouth implements OrificeInterface {
@@ -41,6 +41,18 @@ public class OrificeMouth implements OrificeInterface {
 		this.virgin = virgin;
 		
 		this.orificeModifiers = new HashSet<>(orificeModifiers);
+	}
+
+	public OrificeMouth(OrificeMouth orificeMouthToCopy) {
+		this.wetness = orificeMouthToCopy.wetness;
+		this.capacity = orificeMouthToCopy.capacity;
+		this.stretchedCapacity = orificeMouthToCopy.stretchedCapacity;
+		this.depth = orificeMouthToCopy.depth;
+		this.elasticity = orificeMouthToCopy.elasticity;
+		this.plasticity = orificeMouthToCopy.plasticity;
+		this.virgin = orificeMouthToCopy.virgin;
+		
+		this.orificeModifiers = new HashSet<>(orificeMouthToCopy.orificeModifiers);
 	}
 	
 	@Override
@@ -394,4 +406,7 @@ public class OrificeMouth implements OrificeInterface {
 		return orificeModifiers;
 	}
 
+	public void clearOrificeModifiers() {
+		orificeModifiers.clear();
+	}
 }

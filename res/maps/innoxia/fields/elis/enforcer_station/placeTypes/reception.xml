@@ -4,7 +4,6 @@
 	<name><![CDATA[Reception]]></name>
 	<tooltipDescription><![CDATA[The reception area in the Enforcer station holds a front desk and two worn seats for visitors to use while waiting.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[at the reception area in the Enforcer station in Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_BLUE_LIGHT</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

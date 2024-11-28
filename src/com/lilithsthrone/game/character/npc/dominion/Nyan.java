@@ -546,7 +546,7 @@ public class Nyan extends NPC {
 		Colour bangleColour = Util.randomItemFrom(Util.newArrayListOfValues(
 				PresetColour.CLOTHING_SILVER,
 				PresetColour.CLOTHING_ROSE_GOLD));
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_BANGLE, bangleColour, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_wrist_bangle", bangleColour, false), true, this);
 
 		// Socks:
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_trainer_socks", PresetColour.CLOTHING_BLACK, false), true, this);

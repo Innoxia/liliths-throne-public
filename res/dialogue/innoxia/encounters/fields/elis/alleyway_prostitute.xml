@@ -245,7 +245,7 @@
 						[#var weapon = game.getItemGen().generateWeapon('dsg_eep_pbweap_pbpistol')]
 					#ENDIF
 					[#game.addSpecialParsingString(weapon.getName(true, true), false)]
-					[#game.appendToTextEndStringBuilder(pc.addWeapon(weapon, false))]
+					[#game.appendToTextEndStringBuilder(pc.addWeapon(weapon, 1, false, true))]
 					
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/encounters/fields/elis/alleyway_prostitute', 'REMOVAL_PAID'))]
 					[#game.banishNPC(prostitute)]
@@ -435,7 +435,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[3]]></index>
 				<responseTitle><![CDATA[
-					Sex (gentle)
+					Gentle sex
 				]]></responseTitle>
 				<responseTooltip><![CDATA[It's clear that [npc.name] wants you to fuck [npc.herHim], so maybe you should give [npc.herHim] what [npc.she] wants...]]></responseTooltip>
 				<nextDialogue/>
@@ -463,7 +463,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[4]]></index>
 				<responseTitle><![CDATA[
-					Sex (rough)
+					Rough sex
 				]]></responseTitle>
 				<responseTooltip><![CDATA[
 					It's clear that [npc.name] wants you to fuck [npc.herHim], so maybe you should give [npc.herHim] what [npc.she] wants...

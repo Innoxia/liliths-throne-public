@@ -315,6 +315,13 @@ public enum TFModifier {
 			PresetColour.BASE_GREEN,
 			Rarity.COMMON),
 
+	CLOTHING_CREAMPIE_RETENTION("creampie retention",
+			"Prevents creampies from being absorbed over time.",
+			"creampie retention",
+			"modifier_circle_creampie_retention",
+			PresetColour.CUM,
+			Rarity.EPIC),
+
 	CLOTHING_VIBRATION("vibration",
 			"Makes this piece of clothing vibrate when worn.",
 			"vibration",
@@ -428,6 +435,13 @@ public enum TFModifier {
 			"modifier_circle_tf_penis",
 			PresetColour.TRANSFORMATION_SEXUAL,
 			Rarity.UNCOMMON),
+
+	TF_PENIS_URETHRA("penile urethra",
+			"Applies a transformative effect to your penile urethra.",
+			"cock urethras",
+			"modifier_circle_tf_penis",
+			PresetColour.TRANSFORMATION_SEXUAL,
+			Rarity.EPIC),
 	
 	TF_SKIN("torso",
 			"Applies a transformative effect to your torso.",
@@ -435,6 +449,13 @@ public enum TFModifier {
 			"modifier_circle_tf_skin",
 			PresetColour.TRANSFORMATION_GREATER,
 			Rarity.EPIC),
+	
+	TF_SPINNERET("spinneret",
+			"Applies a transformative effect to your spinneret.",
+			"spinnerets",
+			"modifier_circle_tf_spinneret",
+			PresetColour.TRANSFORMATION_SEXUAL,
+			Rarity.UNCOMMON),
 	
 	TF_TAIL("tail",
 			"Applies a transformative effect to your tail.",
@@ -456,6 +477,13 @@ public enum TFModifier {
 			"modifier_circle_tf_vagina",
 			PresetColour.TRANSFORMATION_SEXUAL,
 			Rarity.UNCOMMON),
+
+	TF_VAGINA_URETHRA("vaginal urethra",
+			"Applies a transformative effect to your vaginal urethra.",
+			"pussy urethras",
+			"modifier_circle_tf_vagina",
+			PresetColour.TRANSFORMATION_SEXUAL,
+			Rarity.EPIC),
 	
 	TF_WINGS("wings",
 			"Applies a transformative effect to your wings.",
@@ -1293,6 +1321,8 @@ public enum TFModifier {
 	TF_MOD_FLAVOUR_MILK(FluidFlavour.MILK, "flavours/cum"),
 	
 	TF_MOD_FLAVOUR_GIRLCUM(FluidFlavour.GIRL_CUM, "flavours/cum"),
+
+	TF_MOD_FLAVOUR_FLAVOURLESS(FluidFlavour.FLAVOURLESS, "flavours/flavourless"),
 	
 	TF_MOD_FLAVOUR_BUBBLEGUM(FluidFlavour.BUBBLEGUM, "flavours/bubblegum"),
 	
@@ -1412,12 +1442,17 @@ public enum TFModifier {
 	private static List<TFModifier> clothingPrimaryList = new ArrayList<>();
 	private static List<TFModifier> clothingAttributeList = new ArrayList<>();
 	private static List<TFModifier> clothingMajorAttributeList = new ArrayList<>();
+	private static List<TFModifier> clothingCreampieRetentionList = new ArrayList<>();
 	
 	private static List<TFModifier> tattooPrimaryList = new ArrayList<>();
 
 	private static List<TFModifier> weaponPrimaryList = new ArrayList<>();
 	private static List<TFModifier> weaponAttributeList = new ArrayList<>();
 	private static List<TFModifier> weaponMajorAttributeList = new ArrayList<>();
+
+	private static List<TFModifier> dollPrimaryList = new ArrayList<>();
+	private static List<TFModifier> dollSecondaryList = new ArrayList<>();
+	
 	
 	static {
 
@@ -1480,6 +1515,15 @@ public enum TFModifier {
 //		TFAttributeList.add(NONE);
 		TFAttributeList.add(ARCANE_BOOST);
 		
+		
+		clothingCreampieRetentionList.add(TF_FACE);
+		clothingCreampieRetentionList.add(TF_ASS);
+		clothingCreampieRetentionList.add(TF_VAGINA);
+		clothingCreampieRetentionList.add(TF_VAGINA_URETHRA);
+		clothingCreampieRetentionList.add(TF_BREASTS);
+		clothingCreampieRetentionList.add(TF_BREASTS_CROTCH);
+		clothingCreampieRetentionList.add(TF_PENIS_URETHRA);
+		clothingCreampieRetentionList.add(TF_SPINNERET);
 
 		TFBodyPartFetishList.add(TF_MOD_FETISH_ANAL_GIVING);
 		TFBodyPartFetishList.add(TF_MOD_FETISH_ANAL_RECEIVING);
@@ -1531,6 +1575,7 @@ public enum TFModifier {
 		clothingPrimaryList.add(TFModifier.CLOTHING_MAJOR_ATTRIBUTE);
 		clothingPrimaryList.add(TFModifier.CLOTHING_ATTRIBUTE);
 		clothingPrimaryList.add(TFModifier.CLOTHING_SPECIAL);
+		clothingPrimaryList.add(TFModifier.CLOTHING_CREAMPIE_RETENTION);
 		clothingPrimaryList.add(TFModifier.TF_MOD_FETISH_BODY_PART);
 		clothingPrimaryList.add(TFModifier.TF_MOD_FETISH_BEHAVIOUR);
 		clothingPrimaryList.add(TF_FACE);
@@ -1571,6 +1616,7 @@ public enum TFModifier {
 
 		tattooPrimaryList.add(TFModifier.CLOTHING_MAJOR_ATTRIBUTE);
 		tattooPrimaryList.add(TFModifier.CLOTHING_ATTRIBUTE);
+		tattooPrimaryList.add(TFModifier.CLOTHING_CREAMPIE_RETENTION);
 		tattooPrimaryList.add(TFModifier.TF_MOD_FETISH_BODY_PART);
 		tattooPrimaryList.add(TFModifier.TF_MOD_FETISH_BEHAVIOUR);
 		tattooPrimaryList.add(TF_FACE);
@@ -1679,7 +1725,7 @@ public enum TFModifier {
 	}
 	
 	private TFModifier(FluidFlavour flavour, String pathName, Colour colour) {
-		this.name = flavour.getName()+"-flavour";
+		this.name = flavour.getName()+(flavour==FluidFlavour.FLAVOURLESS?"":"-flavour");
 		this.description = "Applies an effect related to changing a fluid's flavour.";
 		this.descriptor = name;
 		this.rarity = Rarity.COMMON;
@@ -1830,6 +1876,22 @@ public enum TFModifier {
 		return clothingMajorAttributeList;
 	}
 
+	public static List<TFModifier> getClothingCreampieRetentionList() {
+		List<TFModifier> returnList = new ArrayList<>(clothingCreampieRetentionList);
+		if(!Main.game.isUdderContentEnabled()) {
+			returnList.remove(TFModifier.TF_BREASTS_CROTCH);
+		}
+		if(!Main.game.isNipplePenEnabled()) {
+			returnList.remove(TFModifier.TF_BREASTS);
+			returnList.remove(TFModifier.TF_BREASTS_CROTCH);
+		}
+		if(!Main.game.isUrethraEnabled()) {
+			returnList.remove(TFModifier.TF_PENIS_URETHRA);
+			returnList.remove(TFModifier.TF_VAGINA_URETHRA);
+		}
+		return returnList;
+	}
+	
 	public static List<TFModifier> getClothingPrimaryList() {
 		List<TFModifier> returnList = new ArrayList<>(clothingPrimaryList);
 		if(!Main.game.isBodyHairEnabled()) {
@@ -1856,5 +1918,13 @@ public enum TFModifier {
 	
 	public static List<TFModifier> getWeaponAttributeList() {
 		return weaponAttributeList;
+	}
+
+	public static List<TFModifier> getDollPrimaryList() {
+		return dollPrimaryList;
+	}
+
+	public static List<TFModifier> getDollSecondaryList() {
+		return dollSecondaryList;
 	}
 }

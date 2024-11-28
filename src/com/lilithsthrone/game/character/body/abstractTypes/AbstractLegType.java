@@ -692,6 +692,10 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 				if(!body.isShortStature()) {
 					newHeight = Math.max(Height.getShortStatureCutOff(), newHeight);
 				}
+				if(!body.isFairySized()) {
+					newHeight = Math.max(Height.getFairySizeCutOff(), newHeight);
+				}
+				newHeight = Math.max(newHeight, Height.NEGATIVE_TWO_MINIMUM.getMinimumValue()); // Do not reduce into tiny size
 				body.setHeight(newHeight);
 				String colouredHeightValue = "<span style='color:"+body.getHeight().getColour().toWebHexString()+";'>[npc.heightValue]</span>";
 				feralStringBuilder.append("<p>The reduced size of [npc.namePos] new lower body has resulted in [npc.herHim] getting shorter, so now when standing at full height [npc.she] [npc.verb(measure)] "+colouredHeightValue+".</p>");
@@ -951,6 +955,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 				
 			} else {
 				boolean virgin = body.getVagina().getType()!=VaginaType.NONE?body.getVagina().getOrificeVagina().isVirgin():true;
+				boolean hymen = body.getVagina().getType()!=VaginaType.NONE?body.getVagina().getOrificeVagina().hasHymen():true;
 				body.setVagina(
 						body.getVagina().getType()!=VaginaType.NONE && body.getVagina().getType()!=VaginaType.ONAHOLE
 							? new Vagina(
@@ -969,6 +974,7 @@ public abstract class AbstractLegType implements BodyPartTypeInterface {
 							: new Vagina(VaginaType.NONE, 0, 0, 0, 0, 0, 2, 3, 3, true));
 //				body.getVagina().getGirlcum().addFluidModifier(null, FluidModifier.MUSKY);
 				body.getVagina().getOrificeVagina().setVirgin(virgin);
+				body.getVagina().getOrificeVagina().setHymen(null, hymen);
 			}
 		}
  	}

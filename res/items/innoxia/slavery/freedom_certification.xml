@@ -12,7 +12,7 @@
 		<sexUse>false</sexUse>
 		<combatUseAllies>false</combatUseAllies>
 		<combatUseEnemies>false</combatUseEnemies>
-		<consumedOnUse>true</consumedOnUse>
+		<consumedOnUse>false</consumedOnUse>
 		
 		<rarity>LEGENDARY</rarity> 
 		

@@ -17,55 +17,59 @@
         <imageName>strapless_bodysuit.svg</imageName>
         <enchantmentLimit>1</enchantmentLimit>
         <effects/>
-        <blockedPartsList slot="STOMACH">
-            <blockedParts>
-                <displacementType>PULLS_DOWN</displacementType>
-                <clothingAccessRequired>
-                    <clothingAccess>CHEST</clothingAccess>
-                </clothingAccessRequired>
-                <blockedBodyParts>
-                    <bodyPart>BREASTS</bodyPart>
-                    <bodyPart>NIPPLES</bodyPart>
-                </blockedBodyParts>
-                <clothingAccessBlocked/>
-                <concealedSlots values="CONCEALED_BREASTS"/>
-            </blockedParts>
-            <blockedParts>
-                <displacementType>SHIFTS_ASIDE</displacementType>
-                <clothingAccessRequired>
-                    <clothingAccess>GROIN</clothingAccess>
-                </clothingAccessRequired>
-                <blockedBodyParts>
-                    <bodyPart>ANUS</bodyPart>
-                    <bodyPart>PENIS</bodyPart>
-                    <bodyPart>VAGINA</bodyPart>
-                </blockedBodyParts>
-                <clothingAccessBlocked>
-                    <clothingAccess>GROIN</clothingAccess>
-                    <clothingAccess>ANUS</clothingAccess>
-                </clothingAccessBlocked>
-                <concealedSlots values="CONCEALED_GENITALS"/>
-            </blockedParts>
-            <blockedParts>
-                <displacementType>REMOVE_OR_EQUIP</displacementType>
-                <clothingAccessRequired>
-                    <clothingAccess>CHEST</clothingAccess>
-                    <clothingAccess>GROIN</clothingAccess>
-                    <clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
-                    <clothingAccess>WAIST</clothingAccess>
-                </clothingAccessRequired>
-                <blockedBodyParts>
-                    <bodyPart>STOMACH</bodyPart>
-                    <bodyPart>BACK</bodyPart>
-                </blockedBodyParts>
-                <clothingAccessBlocked/>
-                <concealedSlots values="CONCEALED_STOMACH"/>
-            </blockedParts>
-        </blockedPartsList>
+		
+        <blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>GROIN</clothingAccess>
+					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>STOMACH</bodyPart>
+					<bodyPart>BACK</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_STOMACH"/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>SHIFTS_ASIDE</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>GROIN</clothingAccess>
+					<clothingAccess>ANUS</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_GENITALS"/>
+			</blockedParts>
+			<blockedParts>
+				<displacementType>PULLS_DOWN</displacementType> 
+				<clothingAccessRequired>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>NIPPLES</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_BREASTS"/>
+			</blockedParts>
+		</blockedPartsList>
+		
         <incompatibleSlots slot="STOMACH">
             <slot>GROIN</slot>
             <slot>CHEST</slot>
         </incompatibleSlots>
+		
         <primaryColours>
 			<colour>CLOTHING_BLACK</colour>
 		</primaryColours>

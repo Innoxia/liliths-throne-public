@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.utils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -12,6 +13,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AbstractAttribute;
@@ -78,6 +80,8 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.utils.time.DateAndTime;
+import com.lilithsthrone.utils.time.SolarElevationAngle;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
@@ -2961,6 +2965,8 @@ public class PhoneDialogue {
 		return Math.min(size, Main.getProperties().getItemsDiscoveredCount())+"/"+size;
 	}
 	
+	private static int encyclopediaItemIndex = 0;
+	
 	public static final DialogueNode ENCYCLOPEDIA = new DialogueNode("Encyclopedia", "", true) {
 		@Override
 		public String getContent() {
@@ -3030,6 +3036,7 @@ public class PhoneDialogue {
 						"Have a look at all the different items that you've encountered in your travels.", ITEM_CATALOGUE){
 					@Override
 					public void effects() {
+						encyclopediaItemIndex = 0;
 						Main.getProperties().setValue(PropertyValue.newItemDiscovered, false);
 					}
 				};
@@ -3382,45 +3389,91 @@ public class PhoneDialogue {
 				}
 			}
 			
-			sb.append("<div class='container-full-width'>");
-				sb.append("<p style='width:100%; text-align:center; padding:0 margin:0;'>");
-					sb.append("[style.boldBlueLight(Items ("+itemKnownCount+"/"+itemCount+"))]");
-				sb.append("</p>");
-				sb.append(sbItems.toString());
-			sb.append("</div>");
+			if(encyclopediaItemIndex==0) {
+				sb.append("<div class='container-full-width'>");
+					sb.append("<p style='width:100%; text-align:center; padding:0 margin:0;'>");
+						sb.append("[style.boldBlueLight(Items ("+itemKnownCount+"/"+itemCount+"))]");
+					sb.append("</p>");
+					sb.append(sbItems.toString());
+				sb.append("</div>");
+			}
 
-			sb.append("<div class='container-full-width'>");
-				sb.append("<p style='width:100%; text-align:center; padding:0 margin:0;'>");
-					sb.append("[style.boldOrange(Books ("+bookKnownCount+"/"+bookCount+"))]");
-				sb.append("</p>");
-				sb.append(sbBooks.toString());
-			sb.append("</div>");
+			if(encyclopediaItemIndex==1) {
+				sb.append("<div class='container-full-width'>");
+					sb.append("<p style='width:100%; text-align:center; padding:0 margin:0;'>");
+						sb.append("[style.boldOrange(Books ("+bookKnownCount+"/"+bookCount+"))]");
+					sb.append("</p>");
+					sb.append(sbBooks.toString());
+				sb.append("</div>");
+				
+				sb.append("<div class='container-full-width'>");
+					sb.append("<p style='width:100%; text-align:center; padding:0 margin:0;'>");
+						sb.append("[style.boldArcane(Essences ("+essenceKnownCount+"/"+essenceCount+"))]");
+					sb.append("</p>");
+					sb.append(sbEssences.toString());
+				sb.append("</div>");
+			}
 
-			sb.append("<div class='container-full-width'>");
-				sb.append("<p style='width:100%; text-align:center; padding:0 margin:0;'>");
-					sb.append("[style.boldArcane(Essences ("+essenceKnownCount+"/"+essenceCount+"))]");
-				sb.append("</p>");
-				sb.append(sbEssences.toString());
-			sb.append("</div>");
-
-			sb.append("<div class='container-full-width'>");
-				sb.append("<p style='width:100%; text-align:center; padding:0 margin:0;'>");
-					sb.append("[style.boldSpells(Spells ("+spellKnownCount+"/"+spellCount+"))]");
-				sb.append("</p>");
-				sb.append(sbSpells.toString());
-			sb.append("</div>");
+			if(encyclopediaItemIndex==2) {
+				sb.append("<div class='container-full-width'>");
+					sb.append("<p style='width:100%; text-align:center; padding:0 margin:0;'>");
+						sb.append("[style.boldSpells(Spells ("+spellKnownCount+"/"+spellCount+"))]");
+					sb.append("</p>");
+					sb.append(sbSpells.toString());
+				sb.append("</div>");
+			}
 			
 			return sb.toString();
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 0) {
+			if(index==1) {
+				return new Response("Items",
+						encyclopediaItemIndex==0
+							?"You're already viewing all of the items that you've discovered..."
+							:"View all of the items that you've discovered.",
+						encyclopediaItemIndex==0
+							?null
+							:ITEM_CATALOGUE){
+					@Override
+					public void effects() {
+						encyclopediaItemIndex = 0;
+					}
+				};
+				
+			} else if(index==2) {
+				return new Response("Books & essences",
+						encyclopediaItemIndex==1
+							?"You're already viewing all of the racial books and essences that you've discovered..."
+							:"View all of the racial books and essences that you've discovered.",
+						encyclopediaItemIndex==1
+							?null
+							:ITEM_CATALOGUE){
+					@Override
+					public void effects() {
+						encyclopediaItemIndex = 1;
+					}
+				};
+				
+			} else if(index==3) {
+				return new Response("Spell books",
+						encyclopediaItemIndex==2
+							?"You're already viewing all of the spell books that you've discovered..."
+							:"View all of the spell books that you've discovered.",
+						encyclopediaItemIndex==2
+							?null
+							:ITEM_CATALOGUE){
+					@Override
+					public void effects() {
+						encyclopediaItemIndex = 2;
+					}
+				};
+				
+			} else if (index == 0) {
 				return new Response("Back", "Return to the encyclopedia.", ENCYCLOPEDIA);
-			
-			} else {
-				return null;
 			}
+			return null;
 		}
 
 		@Override
@@ -3731,11 +3784,13 @@ public class PhoneDialogue {
 					+ "</details>");
 			
 			UtilText.nodeContentSB.append(PerkManager.MANAGER.getPerkTreeDisplay(Main.game.getPlayer(), true));
+			UtilText.nodeContentSB.append("</div>");
 			
-			UtilText.nodeContentSB.append("</div>"
-					+ "<div class='container-full-width' style='padding:8px; text-align:center;'>"
-						+ "[style.italicsBad(Please note that this perk tree is a work-in-progress. This is not the final version, and is just a proof of concept!)]"
-					+ "</div>");
+			if(!Main.game.getPlayer().isDoll()) {
+				UtilText.nodeContentSB.append("<div class='container-full-width' style='padding:8px; text-align:center;'>"
+							+ "[style.italicsBad(Please note that this perk tree is a work-in-progress. This is not the final version, and is just a proof of concept!)]"
+						+ "</div>");
+			}
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -4092,7 +4147,16 @@ public class PhoneDialogue {
 			if (index == 0) {
 				return new Response("Back", "Decide against loitering in this area.", MENU);
 			}
+			
 			if(index == 1) {
+				return new ResponseEffectsOnly("5 minutes", "Loiter in this area for the next five minutes.") {
+					@Override
+					public void effects() {
+						loiter(5);
+					}
+				};
+				
+			} else if(index == 2) {
 				return new ResponseEffectsOnly("15 minutes", "Loiter in this area for the next fifteen minutes.") {
 					@Override
 					public void effects() {
@@ -4100,7 +4164,15 @@ public class PhoneDialogue {
 					}
 				};
 				
-			} else if(index == 2) {
+			} else if(index == 3) {
+				return new ResponseEffectsOnly("30 minutes", "Loiter in this area for the next thirty minutes.") {
+					@Override
+					public void effects() {
+						loiter(30);
+					}
+				};
+				
+			} else if(index == 4) {
 				return new ResponseEffectsOnly("1 hour", "Loiter in this area for the next hour.") {
 					@Override
 					public void effects() {
@@ -4108,7 +4180,15 @@ public class PhoneDialogue {
 					}
 				};
 				
-			} else if(index == 3) {
+			} else if(index == 5) {
+				return new ResponseEffectsOnly("2 hours", "Loiter in this area for the next two hours.") {
+					@Override
+					public void effects() {
+						loiter(60*2);
+					}
+				};
+				
+			} else if(index == 6) {
 				return new ResponseEffectsOnly("4 hours", "Loiter in this area for the next four hours.") {
 					@Override
 					public void effects() {
@@ -4116,7 +4196,23 @@ public class PhoneDialogue {
 					}
 				};
 				
-			} else if(index == 4) {
+			} else if(index == 7) {
+				return new ResponseEffectsOnly("6 hours", "Loiter in this area for the next six hours.") {
+					@Override
+					public void effects() {
+						loiter(60*6);
+					}
+				};
+				
+			} else if(index == 8) {
+				return new ResponseEffectsOnly("8 hours", "Loiter in this area for the next eight hours.") {
+					@Override
+					public void effects() {
+						loiter(60*8);
+					}
+				};
+				
+			} else if(index == 9) {
 				return new ResponseEffectsOnly("12 hours", "Loiter in this area for the next twelve hours.") {
 					@Override
 					public void effects() {
@@ -4124,14 +4220,42 @@ public class PhoneDialogue {
 					}
 				};
 				
-			} else if(index == 5) {
+			} else if(index == 10) {
 				return new ResponseEffectsOnly("24 hours", "Loiter in this area for the next twenty-four hours.") {
 					@Override
 					public void effects() {
 						loiter(60*24);
 					}
 				};
+				
+			} else if(index==11) {
+				int timeUntilChange = Main.game.getMinutesUntilNextSunrise() + 5; // Add 5 minutes so that if the days are drawing in, you don't get stuck in a loop of always loitering to sunset/sunrise
+				LocalDateTime[] sunriseSunset = DateAndTime.getTimeOfSolarElevationChange(Main.game.getDateNow(), SolarElevationAngle.SUN_ALTITUDE_SUNRISE_SUNSET, Game.DOMINION_LATITUDE, Game.DOMINION_LONGITUDE);
+				return new ResponseEffectsOnly("Next sunrise",
+						"Loiter in this area for " + (timeUntilChange >= 60 ?timeUntilChange / 60 + " hours " : " ")
+							+ (timeUntilChange % 60 != 0 ? timeUntilChange % 60 + " minutes" : "")
+							+ " until five minutes past sunrise ("+Units.time(sunriseSunset[0].plusMinutes(5))+")."){
+					@Override
+					public void effects() {
+						loiter(timeUntilChange);
+					}
+				};
+				
+			} else if(index==12) {
+				int timeUntilChange = Main.game.getMinutesUntilNextSunset() + 5; // Add 5 minutes so that if the days are drawing in, you don't get stuck in a loop of always loitering to sunset/sunrise
+				LocalDateTime[] sunriseSunset = DateAndTime.getTimeOfSolarElevationChange(Main.game.getDateNow(), SolarElevationAngle.SUN_ALTITUDE_SUNRISE_SUNSET, Game.DOMINION_LATITUDE, Game.DOMINION_LONGITUDE);
+				return new ResponseEffectsOnly("Next sunset",
+						"Loiter in this area for " + (timeUntilChange >= 60 ?timeUntilChange / 60 + " hours " : " ")
+							+ (timeUntilChange % 60 != 0 ? timeUntilChange % 60 + " minutes" : "")
+							+ " until five minutes past sunrise ("+Units.time(sunriseSunset[1].plusMinutes(5))+")."){
+					@Override
+					public void effects() {
+						loiter(timeUntilChange);
+					}
+				};
+				
 			}
+			
 			return null;
 		}
 
@@ -4152,8 +4276,10 @@ public class PhoneDialogue {
 					"<i>You spend the next ").append(period).append("loitering about, doing nothing in particular...</i>").append("</p>");
 			Main.game.getPlayer().setActive(false);
 			Main.game.endTurn(60*minutes);
+			Main.game.endTurnTimeTakenAddition = Main.game.endTurnTimeTaken;
 			Main.game.getPlayer().setActive(true);
 			Main.game.setContent(new Response("", "", Main.game.getDefaultDialogue()));
+			Main.game.endTurnTimeTakenAddition = Main.game.endTurnTimeTaken;
 		}
 
 		@Override

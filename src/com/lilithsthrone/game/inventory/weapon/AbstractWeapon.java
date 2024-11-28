@@ -646,7 +646,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 	}
 
 	public String getSVGEquippedString(GameCharacter owner) {
-		return weaponType.getSVGEquippedImage(damageType, this.getColours());
+		return weaponType.getSVGEquippedImage(owner, damageType, this.getColours());
 	}
 
 	public List<Spell> getSpells() {
@@ -714,7 +714,10 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 	 */
 	public int getEnchantmentCapacityCost() {
 		Map<AbstractAttribute, Integer> noCorruption = new HashMap<>();
-		getAttributeModifiers().entrySet().stream().filter(ent -> ent.getKey()!=Attribute.FERTILITY && ent.getKey()!=Attribute.VIRILITY).forEach(ent -> noCorruption.put(ent.getKey(), ent.getValue()*(ent.getKey()==Attribute.MAJOR_CORRUPTION?-1:1)));
+		
+		getAttributeModifiers().entrySet().stream().filter(ent -> ent.getKey()!=Attribute.FERTILITY && ent.getKey()!=Attribute.VIRILITY)
+			.forEach(ent -> noCorruption.put(ent.getKey(), !ent.getKey().isAffectedByEnchantmentCost()?0:(ent.getValue()*(ent.getKey()==Attribute.MAJOR_CORRUPTION?-1:1))));
+		
 		return noCorruption.values().stream().reduce(0, (a, b) -> a + Math.max(0, b));
 	}
 	

@@ -305,7 +305,7 @@ public class EnchantmentDialogue {
 						+ "<div class='enchanting-ingredient' style='background-color:"+ingredient.getRarity().getBackgroundColour().toWebHexString()+";'>"
 						+ "<div class='enchanting-ingredient-content'>"+ingredient.getSVGString()+"</div>"
 						+ "<div class='overlay' id='INGREDIENT_ENCHANTING'  style='cursor:default;'></div>"
-						+ "<div class='enchanting-ingredient-count'><b>x" + count+ "</b></div>"
+						+ (ingredient instanceof Tattoo?"":"<div class='enchanting-ingredient-count'><b>x" + count+ "</b></div>") // If tattoo, don't show count (which will always be x1)
 						+ "</div>");
 			inventorySB.append("</div>");
 
@@ -1109,6 +1109,22 @@ public class EnchantmentDialogue {
 		}
 	}
 
+	public static LoadedEnchantment getCurrentEnchantmentAsLoadedEnchantment() {
+		if(EnchantmentDialogue.getIngredient() instanceof AbstractItem) {
+			return new LoadedEnchantment(outputName, ((AbstractItem)EnchantmentDialogue.getIngredient()).getItemType(), effects);
+			
+		} else if(EnchantmentDialogue.getIngredient() instanceof AbstractClothing) {
+			return new LoadedEnchantment(outputName, ((AbstractClothing)EnchantmentDialogue.getIngredient()).getClothingType(), effects);
+			
+		} else if(EnchantmentDialogue.getIngredient() instanceof AbstractWeapon) {
+			return new LoadedEnchantment(outputName, ((AbstractWeapon)EnchantmentDialogue.getIngredient()).getWeaponType(), effects);
+			
+		} else if(EnchantmentDialogue.getIngredient() instanceof Tattoo) {
+			return new LoadedEnchantment(outputName, ((Tattoo)EnchantmentDialogue.getIngredient()).getType(), effects);
+		}
+		return null;
+	}
+	
 	public static AbstractCoreItem getIngredient() {
 		return ingredient;
 	}
@@ -1257,6 +1273,8 @@ public class EnchantmentDialogue {
 	}
 
 	public static void setOutputName(String outputName) {
+		// Handle parsing:
+		outputName = outputName.replaceAll("\\[\\#(.*?)]", ""); // Remove game parsing
 		EnchantmentDialogue.outputName = outputName;
 	}
 

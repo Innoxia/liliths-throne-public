@@ -18,6 +18,7 @@ import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
@@ -482,6 +483,8 @@ public class DominionExpress {
 		npc.setLocation(Main.game.getPlayer(), false);
 		
 		npc.setLastTimeOrgasmedSeconds(Main.game.getSecondsPassed()-(25*60*60));
+		npc.removeCumModifier(FluidModifier.ADDICTIVE);
+		npc.removeCumModifier(FluidModifier.HALLUCINOGENIC);
 		
 		try {
 			Main.game.addNPC(npc, false);

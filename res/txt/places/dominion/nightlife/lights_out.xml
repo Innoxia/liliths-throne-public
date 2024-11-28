@@ -237,7 +237,7 @@
 		[partner.speech(I knew you'd be a good fuck as soon as I saw you sitting there at the bar,)] the [partner.race] teases, before making a quick excuse to leave, [partner.speech(I need to be on the other side of the city first thing tomorrow, so I've got to go.)]
 	</p>
 	<p>
-		Saying goodbye to the [partner.race], you use the bell pull in your room to summon Rose so that she can escort [partner.herHim] out of the house. As your partner [partner.steps] out of your room and disappears from sight, you're left wondering what to do next...
+		Saying goodbye to the [partner.race], you use the bell-pull in your room to summon Rose so that she can escort [partner.herHim] out of the house. As your partner [partner.steps] out of your room and disappears from sight, you're left wondering what to do next...
 	</p>
 	]]>
 	</htmlContent>
@@ -252,7 +252,7 @@
 	#IF(hannah.isVisiblyPregnant())
 		#IF(!hannah.isCharacterReactedToPregnancy(pc))
 			<p>
-				As you return her greeting and sit down beside the [hannah.race], you suddenly notice that's something's different. Hannah's toned six-pack has vanished, and in its place she's now sporting a swollen, [style.colourSex(pregnant belly)]. Seeing what it is you're looking at, the [hannah.race] reveals, [hannah.speech(Yeah, you got me pregnant. I guess it's kind of my fault for getting drunk and horny... Hey, want a feel?)]
+				As you return her greeting and sit down beside the [hannah.race], you suddenly notice that something's different. Hannah's toned six-pack has vanished, and in its place she's now sporting a swollen, [style.colourSex(pregnant belly)]. Seeing what it is you're looking at, the [hannah.race] reveals, [hannah.speech(Yeah, you got me pregnant. I guess it's kind of my fault for getting drunk and horny... Hey, want a feel?)]
 			</p>
 		#ELSE
 			<p>
@@ -337,7 +337,7 @@
 			Knowing from your previous discussion that she and Pix aren't in a relationship, you ask the [hannah.race] if that's still the case.
 		</p>
 		<p>
-			[hannah.speech(Yeah, we've never really been a couple, we just spend the night together every now and then,)] Hannah replies. Downing yet another shot that the bartender has poured for her, she flashes you a grin and somewhat-clumsily teases, [hannah.speech(But you knwo that there's someone else I've got my eye on at the moment... Someone who's pretty hot and knows the way to please me...)]
+			[hannah.speech(Yeah, we've never really been a couple, we just spend the night together every now and then,)] Hannah replies. Downing yet another shot that the bartender has poured for her, she flashes you a grin and somewhat-clumsily teases, [hannah.speech(But you know that there's someone else I've got my eye on at the moment... Someone who's pretty hot and knows the way to please me...)]
 		</p>
 		<p>
 			Although Hannah's sober state is to be a little prude, the several shots she's recently downed are making her show her true feelings, and you wonder whether or not to flirt back with her...
@@ -490,7 +490,7 @@
 		[hannah.speech(Thanks for last night, [pc.name],)] the [hannah.race] sighs, before clutching her head and groaning, [hannah.speech(Eugh... I drank too much again... See you at the gym or the bar again...)]
 	</p>
 	<p>
-		As she staggers out of the room, you call after Hannah to tell her to use one of the bell pulls to summon Rose, who'll give her a drink and let her out. Raising her paw-like hand to show that she's got the message, Hannah departs, leaving you with both the fond memory of last night, as well as with a noticeable smell of alcohol and sex...
+		As she staggers out of the room, you call after Hannah to tell her to use one of the bell-pulls to summon Rose, who'll give her a drink and let her out. Raising her paw-like hand to show that she's got the message, Hannah departs, leaving you with both the fond memory of last night, as well as with a noticeable smell of alcohol and sex...
 	</p>
 	]]>
 	</htmlContent>

@@ -100,7 +100,7 @@ public class ZaranixMaidKelly extends NPC {
 			resetBodyAfterVersion_2_10_5();
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11")) {
-			this.setAgeAppearanceDifferenceToAppearAsAge(18);
+			this.setAgeAppearanceAbsolute(18);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.3.6")) {
 			this.resetPerksMap(true);
@@ -146,7 +146,7 @@ public class ZaranixMaidKelly extends NPC {
 		
 		// Body:
 		// Add full body reset as this method is called after leaving Zaranix's house:
-		this.setAgeAppearanceDifferenceToAppearAsAge(18);
+		this.setAgeAppearanceAbsolute(18);
 		this.setBody(Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER, false);
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setWingType(WingType.NONE);

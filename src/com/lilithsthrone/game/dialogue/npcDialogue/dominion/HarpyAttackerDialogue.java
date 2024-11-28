@@ -768,6 +768,10 @@ public class HarpyAttackerDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			boolean noSex = getHarpy().isPostCombatNoSex();
+			boolean wantsSex = getHarpy().isPostCombatWantsSex();
+			boolean rapePlay = getHarpy().isPostCombatRapePlay();
+			
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way...", Main.game.getDefaultDialogue(false)){
 					@Override
@@ -779,11 +783,11 @@ public class HarpyAttackerDialogue {
 				};
 				
 			} else if (index == 2) {
-				if(!getHarpy().isAttractedTo(Main.game.getPlayer()) && !Main.game.isNonConEnabled()) {
+				if(noSex) {
 					return new Response("Sex", "[npc.Name] has no interest in having sex with you!", null);
 					
-				} else if(getHarpy().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
-					return new ResponseSex("Sex",
+				} else if(wantsSex) {
+					return new ResponseSex(rapePlay?"Rape-play":"Sex",
 							"Well, [npc.she] <i>is</i> asking for it!",
 							true, false,
 							new SMGeneric(
@@ -792,7 +796,7 @@ public class HarpyAttackerDialogue {
 									Main.game.getPlayer().getCompanions(),
 									null),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/harpyAttack", "AFTER_COMBAT_VICTORY_SEX", getAllCharacters()));
+							UtilText.parseFromXMLFile("encounters/dominion/harpyAttack", rapePlay?"AFTER_COMBAT_VICTORY_RAPE":"AFTER_COMBAT_VICTORY_SEX", getAllCharacters()));
 				} else {
 					return new ResponseSex(
 							"Rape [npc.herHim]",
@@ -809,11 +813,11 @@ public class HarpyAttackerDialogue {
 				}
 				
 			} else if (index == 3) {
-				if(!getHarpy().isAttractedTo(Main.game.getPlayer()) && !Main.game.isNonConEnabled()) {
+				if(noSex) {
 					return new Response("Gentle Sex", "[npc.Name] has no interest in having sex with you!", null);
 					
-				} else if(getHarpy().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
-					return new ResponseSex("Gentle sex",
+				} else if(wantsSex) {
+					return new ResponseSex(rapePlay?"Rape-play (gentle)":"Gentle sex",
 							"Well, [npc.she] <i>is</i> asking for it!",
 							true, false,
 							new SMGeneric(
@@ -823,7 +827,7 @@ public class HarpyAttackerDialogue {
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_GENTLE),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/harpyAttack", "AFTER_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()));
+							UtilText.parseFromXMLFile("encounters/dominion/harpyAttack", rapePlay?"AFTER_COMBAT_VICTORY_RAPE_GENTLE":"AFTER_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()));
 					
 				} else {
 					return new ResponseSex("Rape [npc.herHim] (gentle)",
@@ -841,11 +845,11 @@ public class HarpyAttackerDialogue {
 				}
 				
 			} else if (index == 4) {
-				if(!getHarpy().isAttractedTo(Main.game.getPlayer()) && !Main.game.isNonConEnabled()) {
+				if(noSex) {
 					return new Response("Rough Sex", "[npc.Name] has no interest in having sex with you!", null);
 					
-				} else if(getHarpy().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
-					return new ResponseSex("Rough sex",
+				} else if(wantsSex) {
+					return new ResponseSex(rapePlay?"Rape-play (rough)":"Rough sex",
 							"Well, [npc.she] <i>is</i> asking for it!",
 							true, false,
 							new SMGeneric(
@@ -855,7 +859,7 @@ public class HarpyAttackerDialogue {
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_ROUGH),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/harpyAttack", "AFTER_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()));
+							UtilText.parseFromXMLFile("encounters/dominion/harpyAttack", rapePlay?"AFTER_COMBAT_VICTORY_RAPE_ROUGH":"AFTER_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()));
 					
 				} else {
 					return new ResponseSex("Rape [npc.herHim] (rough)",
@@ -873,7 +877,7 @@ public class HarpyAttackerDialogue {
 				}
 				
 			} else if (index == 5) {
-				if(!getHarpy().isAttractedTo(Main.game.getPlayer())) {
+				if(!getHarpy().isAttractedTo(Main.game.getPlayer()) || getHarpy().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 					return new Response("Submit",
 							"You can't submit to [npc.herHim], as [npc.sheHasFull] no interest in having sex with you!",
 							null);

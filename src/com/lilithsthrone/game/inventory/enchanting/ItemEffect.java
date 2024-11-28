@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.XMLSaving;
 
@@ -249,10 +250,16 @@ public class ItemEffect implements XMLSaving {
 	
 	public String applyEffect(GameCharacter user, GameCharacter target, int secondsPassed) {
 		this.timer.incrementSecondsPassed(secondsPassed);
+		
 		if(target!=null
 				&& getItemEffectType()!=ItemEffectType.CLOTHING
 				&& getItemEffectType()!=ItemEffectType.TATTOO
 				&& getItemEffectType().getAssociatedRace()!=Race.DEMON) { // For debug demon TF options
+			
+			if(target.isDoll() && itemEffectType.getAssociatedRace()!=null) {
+				return UtilText.parse(target, "<p style='text-align:center;'>[style.colourDisabled(As [npc.sheIs] a sex doll, normal transformatives have no effect on [npc.name]...)]</p>");
+			}
+			
 			if((target.getSubspeciesOverrideRace()==Race.DEMON || (!target.isAbleToHaveRaceTransformed() && target.getRace()!=Race.SLIME))
 					&& (getSecondaryModifier()==TFModifier.TF_TYPE_1
 							|| getSecondaryModifier()==TFModifier.TF_TYPE_2
@@ -345,7 +352,7 @@ public class ItemEffect implements XMLSaving {
 							break;
 					}
 				}
- 				return AbstractItemEffectType.getRacialEffect(target.getRace(), getPrimaryModifier(), secondaryMod, getPotency(), user, target).applyEffect();
+ 				return AbstractItemEffectType.getRacialEffect(target.getRace()==Race.SLIME?target.getFleshSubspecies().getRace():target.getRace(), getPrimaryModifier(), secondaryMod, getPotency(), user, target).applyEffect();
 			}
 		}
 		return getItemEffectType().applyEffect(getPrimaryModifier(), getSecondaryModifier(), getPotency(), getLimit(), user, target, this.timer);

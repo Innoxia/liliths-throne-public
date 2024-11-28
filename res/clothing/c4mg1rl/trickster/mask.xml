@@ -44,9 +44,7 @@
 		</tertiaryColours>
 		<tertiaryColoursDye values="ALL_WITH_METALS"/>
 	
-		<itemTags> 
-			<tag>SOLD_BY_NYAN</tag>
-		</itemTags>
+		<itemTags/>
 	</coreAttributes>
 
 	<replacementText type="REMOVE_OR_EQUIP">

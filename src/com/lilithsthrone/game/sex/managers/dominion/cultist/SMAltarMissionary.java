@@ -14,7 +14,6 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.88
@@ -36,8 +35,7 @@ public class SMAltarMissionary extends SexManagerDefault {
 			return super.getPartnerSexAction(partner, sexActionPlayer);
 		}
 		
-		Value<ImmobilisationType, GameCharacter> value = Main.sex.getImmobilisationType(Main.sex.getCharacterPerformingAction());
-		if(value!=null && value.getKey()==ImmobilisationType.WITCH_SEAL) {
+		if(Main.sex.getImmobilisationTypes(Main.sex.getCharacterPerformingAction()).containsKey(ImmobilisationType.WITCH_SEAL)) {
 			return GenericActions.WITCH_SEALED;
 			
 		} else {

@@ -17,7 +17,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.?
- * @version 0.3.7
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class OrificePenisUrethra implements OrificeInterface {
@@ -41,6 +41,18 @@ public class OrificePenisUrethra implements OrificeInterface {
 		this.virgin = virgin;
 		
 		this.orificeModifiers = new HashSet<>(orificeModifiers);
+	}
+
+	public OrificePenisUrethra(OrificePenisUrethra orificePenisUrethraToCopy) {
+		this.wetness = orificePenisUrethraToCopy.wetness;
+		this.capacity = orificePenisUrethraToCopy.capacity;
+		this.stretchedCapacity = orificePenisUrethraToCopy.stretchedCapacity;
+		this.depth = orificePenisUrethraToCopy.depth;
+		this.elasticity = orificePenisUrethraToCopy.elasticity;
+		this.plasticity = orificePenisUrethraToCopy.plasticity;
+		this.virgin = orificePenisUrethraToCopy.virgin;
+		
+		this.orificeModifiers = new HashSet<>(orificePenisUrethraToCopy.orificeModifiers);
 	}
 	
 	@Override
@@ -427,6 +439,10 @@ public class OrificePenisUrethra implements OrificeInterface {
 
 	public Set<OrificeModifier> getOrificeModifiers() {
 		return orificeModifiers;
+	}
+
+	public void clearOrificeModifiers() {
+		orificeModifiers.clear();
 	}
 
 }

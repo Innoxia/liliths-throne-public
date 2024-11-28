@@ -84,6 +84,21 @@ public enum Height {
 	public boolean isShortStature() {
 		return this.getMinimumValue()<getShortStatureCutOff();
 	}
+
+	/**
+	 * If height is less than this value, then that height is short stature.
+	 */
+	public static int getFairySizeCutOff() {
+		return NEGATIVE_TWO_MINIMUM.getMinimumValue();
+	}
+	
+	public boolean isFairySized() {
+		return this.getMinimumValue()<getFairySizeCutOff();
+	}
+	
+	public static int getMaximumHeightForCharacterCreation() {
+		return 200;
+	}
 	
 	public static Height getHeightFromInt(int centimeters) {
 		for(Height cs : Height.values()) {

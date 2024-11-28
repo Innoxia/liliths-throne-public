@@ -105,6 +105,9 @@ public class FortressFemalesLeader extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8.5")) {
 			this.setTesticleCount(2);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.8.10")) {
+			this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, PresetColour.SKIN_PURPLE_LIGHT), true);
+		}
 	}
 
 	@Override
@@ -144,7 +147,7 @@ public class FortressFemalesLeader extends NPC {
 		
 		
 		// Body:
-		this.setAgeAppearanceDifferenceToAppearAsAge(18);
+		this.setAgeAppearanceAbsolute(18);
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setWingType(WingType.DEMON_COMMON);
 		this.setLegType(LegType.DEMON_COMMON);
@@ -159,7 +162,7 @@ public class FortressFemalesLeader extends NPC {
 		// Coverings:
 
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, PresetColour.EYE_BLUE));
-		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, PresetColour.COVERING_PURPLE_LIGHT), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, PresetColour.SKIN_PURPLE_LIGHT), true);
 		
 		this.setSkinCovering(new Covering(BodyCoveringType.HORN, PresetColour.COVERING_GREY), false);
 
@@ -235,7 +238,7 @@ public class FortressFemalesLeader extends NPC {
 		
 		if(settings.contains(EquipClothingSetting.ADD_ACCESSORIES)) {
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_finger_ring", PresetColour.CLOTHING_GOLD, false), true, this);
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_BANGLE, PresetColour.CLOTHING_GOLD, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_wrist_bangle", PresetColour.CLOTHING_GOLD, false), true, this);
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_ankle_anklet", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_GOLD, null, false), true, this);
 			
 			this.setPiercedEar(true);

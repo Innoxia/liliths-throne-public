@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.inventory.ColourReplacement;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
@@ -30,7 +31,7 @@ public enum SVGImages {
 			
 			fist,
 			
-			displacedIcon, concealedIcon, dirtyIcon, lipstickIcon, feminineWarningIcon, masculineWarningIcon, jinxedIcon, tattooSwitchTattoo, tattooSwitchClothing, scarIcon,
+			displacedIcon, concealedIcon, dirtyIcon, lipstickIcon, feminineWarningIcon, masculineWarningIcon, jinxedIcon, tattooSwitchTattoo, tattooSwitchClothing, tattooSwitchClothingHighlight, scarIcon,
 
 			menuIcon,
 			inventoryIcon, inventoryIconDisabled,
@@ -58,6 +59,7 @@ public enum SVGImages {
 			raceBackground,
 			raceBackgroundHalf,
 			raceBackgroundSlime,
+			raceBackgroundDoll,
 			raceBackgroundDemon,
 			raceUnknown,
 			raceDobermann,
@@ -164,9 +166,14 @@ public enum SVGImages {
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/tattooSwitchTattoo.svg");
 			tattooSwitchTattoo = Util.inputStreamToString(is);
+			tattooSwitchTattoo = setColour(tattooSwitchTattoo, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_WHITE, null);
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/tattooSwitchClothing.svg");
 			tattooSwitchClothing = Util.inputStreamToString(is);
+			tattooSwitchClothing = setColour(tattooSwitchClothing, PresetColour.CLOTHING_WHITE, PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_BLACK);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/tattooSwitchClothing.svg");
+			tattooSwitchClothingHighlight = Util.inputStreamToString(is);
+			tattooSwitchClothingHighlight = setColour(tattooSwitchClothingHighlight, PresetColour.CLOTHING_WHITE, PresetColour.GENERIC_EXCELLENT, PresetColour.CLOTHING_BLACK);
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/scar.svg");
 			scarIcon = Util.inputStreamToString(is);
@@ -329,6 +336,9 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackgroundSlime.svg");
 			raceBackgroundSlime = Util.inputStreamToString(is);
 
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackgroundDoll.svg");
+			raceBackgroundDoll = Util.inputStreamToString(is);
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/race/raceBackgroundDemon.svg");
 			raceBackgroundDemon = Util.inputStreamToString(is);
 			
@@ -887,7 +897,11 @@ public enum SVGImages {
 		return tattooSwitchTattoo;
 	}
 
-	public String getTattooSwitchClothing() {
+	public String getTattooSwitchClothing(GameCharacter characterBeingRendered) {
+		// Didn't look good
+//		if(characterBeingRendered.hasAnyTattoos()) {
+//			return tattooSwitchClothingHighlight;
+//		}
 		return tattooSwitchClothing;
 	}
 
@@ -1513,6 +1527,10 @@ public enum SVGImages {
 
 	public String getRaceBackgroundSlime() {
 		return raceBackgroundSlime;
+	}
+
+	public String getRaceBackgroundDoll() {
+		return raceBackgroundDoll;
 	}
 
 	public String getRaceBackgroundDemon() {

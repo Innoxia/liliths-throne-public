@@ -21,7 +21,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.3.7
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class Face implements BodyPartInterface {
@@ -50,6 +50,16 @@ public class Face implements BodyPartInterface {
 		tongue = new Tongue(type.getMouthType().getTongueType());
 	}
 
+	public Face(Face faceToCopy) {
+		this.type = faceToCopy.type;
+		this.piercedNose = faceToCopy.piercedNose;
+		this.facialHair = faceToCopy.facialHair;
+		
+		this.mouth = new Mouth(faceToCopy.mouth);
+		
+		this.tongue = new Tongue(faceToCopy.tongue);
+	}
+	
 	public Mouth getMouth() {
 		return mouth;
 	}

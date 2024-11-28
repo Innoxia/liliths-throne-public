@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>250</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[cuff choker necklace]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[cuff choker necklaces]]></namePlural>
+		<description><![CDATA[A solid band of metal with a gap at the back, allowing it to be fitted onto someone's neck.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+    <equipSlots>
+      <slot>NECK</slot>
+    </equipSlots>
+
+    <rarity>COMMON</rarity>
+	<clothingSet/>
+	<imageName>cuff_choker_necklace.svg</imageName>
+    <imageEquippedName/>
+	<effects/>
+	
+	<blockedPartsList slot="NECK">
+		<blockedParts>
+			<displacementType>REMOVE_OR_EQUIP</displacementType>
+			<clothingAccessRequired/>
+			<blockedBodyParts/>
+			<clothingAccessBlocked/>
+			<concealedSlots/>
+		</blockedParts>
+	</blockedPartsList>
+		
+	<incompatibleSlots/>
+	
+	<primaryColours values="ALL_METAL"/>
+	<primaryColoursDye values="ALL_WITH_METALS"/>
+	<secondaryColours/>
+	<secondaryColoursDye/>
+	<tertiaryColours/>
+	<tertiaryColoursDye/>
+
+	<itemTags>
+		<tag>SOLD_BY_NYAN</tag>
+	</itemTags>
+	</coreAttributes>
+
+  <replacementText slot="NECK" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] securely [npc.verb(slot)] the cuff choker necklace around [npc.her] neck.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] securely [npc.verb(slot)] the cuff choker necklace around [npc2.namePos] neck.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.name], before forcing the cuff choker necklace around [npc2.her] neck.]]>
+    </otherRough>
+  </replacementText>
+  <displacementText slot="NECK" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] [npc.her] cuff choker necklace off from around [npc.her] neck.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] [npc2.namePos] cuff choker necklace off from around [npc2.her] neck.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(pull)] [npc2.namePos] cuff choker necklace off from around [npc2.her] neck.]]>
+    </otherRough>
+  </displacementText>
+	
+</clothing>

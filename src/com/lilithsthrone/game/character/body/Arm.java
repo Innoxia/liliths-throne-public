@@ -13,7 +13,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class Arm implements BodyPartInterface {
@@ -29,6 +29,12 @@ public class Arm implements BodyPartInterface {
 		this.type = type;
 		this.armRows = armRows;
 		underarmHair = BodyHair.ZERO_NONE;
+	}
+
+	public Arm(Arm armToCopy) {
+		this.type = armToCopy.type;
+		this.armRows = armToCopy.armRows;
+		this.underarmHair = armToCopy.underarmHair;
 	}
 	
 	@Override

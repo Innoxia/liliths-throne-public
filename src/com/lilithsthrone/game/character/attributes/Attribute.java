@@ -22,7 +22,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 public class Attribute {
 
 	public static AbstractAttribute HEALTH_MAXIMUM = new AbstractAttribute(false,
-			0,
+			1,
 			1,
 			1000,
 			"health",
@@ -42,7 +42,7 @@ public class Attribute {
 	};
 
 	public static AbstractAttribute MANA_MAXIMUM = new AbstractAttribute(false,
-			0,
+			1,
 			1,
 			1000,
 			"aura",
@@ -260,6 +260,10 @@ public class Attribute {
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
 						"The total amount of clothing and tattoo enchantments [npc.nameIsFull] able to handle without incurring massive penalties.");
+		}
+		@Override
+		public boolean isAffectedByEnchantmentCost() {
+			return false;
 		}
 	};
 	

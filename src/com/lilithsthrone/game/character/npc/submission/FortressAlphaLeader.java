@@ -178,7 +178,7 @@ public class FortressAlphaLeader extends NPC {
 		
 		
 		// Body:
-		this.setAgeAppearanceDifferenceToAppearAsAge(20);
+		this.setAgeAppearanceAbsolute(20);
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setWingType(WingType.NONE);
 		this.setLegType(LegType.DEMON_COMMON);

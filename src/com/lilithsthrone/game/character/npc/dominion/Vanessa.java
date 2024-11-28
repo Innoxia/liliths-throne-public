@@ -56,7 +56,6 @@ import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
-import com.lilithsthrone.game.sex.managers.dominion.vanessa.SMVanessaOral;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
 import com.lilithsthrone.main.Main;
@@ -254,9 +253,6 @@ public class Vanessa extends NPC {
 	
 	@Override
 	public String getArtworkFolderName() {
-		if(this.isVisiblyPregnant()) {
-			return "VanessaPregnant";
-		}
 		return "Vanessa";
 	}
 	
@@ -315,10 +311,6 @@ public class Vanessa extends NPC {
 	
 	@Override
 	public void endSex() {
-		if(!(Main.sex.getSexManager() instanceof SMVanessaOral) || !Main.sex.isDom(Main.game.getNpc(Vanessa.class))) {
-			Main.game.getNpc(Vanessa.class).cleanAllDirtySlots(true);
-			Main.game.getNpc(Vanessa.class).equipClothing(Util.newArrayListOfValues(EquipClothingSetting.REPLACE_CLOTHING, EquipClothingSetting.ADD_ACCESSORIES));
-		}
 	}
 	
 	@Override

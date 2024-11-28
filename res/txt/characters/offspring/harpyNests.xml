@@ -499,7 +499,7 @@
 			Eventually, however, you run out of steam, and [npc.name] pushes [npc.herself] off of the wall, before turning to you. [npc.speech(Thanks for the lecture, [npc.pcName], I'll do my best to meet with your approval for the next time we see each other. Anyway, I don't like to stop and chat in the same place as I work, so let's go back to my place. Perhaps you can have fun lecturing me about the state of my apartment as well...)]
 		</p>
 	#ELSE
-		#IF(npc.getHistory()==OCCUPATION_NPC_PROSTITUTE)
+		#IF(npc.getHistory()==OCCUPATION_NPC_MUGGER)
 			<p>
 				As you look [npc.name] up and down, you find yourself shaking your head in utter disbelief. Looking into your [npc.relation(pc)]'s [npc.eyes], you frown in disapproval as you start to voice your concerns, [pc.speech([npc.Name]! Please don't tell me that you're still out here mugging people!)]
 			</p>

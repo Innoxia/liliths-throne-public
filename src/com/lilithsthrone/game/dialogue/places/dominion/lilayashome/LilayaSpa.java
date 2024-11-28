@@ -1092,7 +1092,7 @@ public class LilayaSpa {
 						}
 					};
 				} else {
-					return new Response("Manage room", "You'll either need a slaver license, or permission from Lilaya to house your friends, before you can access this menu!",  null);
+					return new Response("Manage room", "You need a slaver license or permission from Lilaya to house your friends or dolls in order to access this menu!",  null);
 				}
 				
 			} else if(index == 2) {
@@ -1104,7 +1104,7 @@ public class LilayaSpa {
 						}
 					};
 				} else {
-					return new Response("Manage people", "You'll either need a slaver license, or permission from Lilaya to house your friends, before you can access this menu!",  null);
+					return new Response("Manage people", "You need a slaver license or permission from Lilaya to house your friends or dolls in order to access this menu!",  null);
 				}
 				
 			} else if(index==3) {
@@ -1921,7 +1921,7 @@ public class LilayaSpa {
 							"Fucked",
 							UtilText.parse(massageSlave, "[npc.Name] has you pinned down on the lounger, ready to start fucking you..."),
 							true,
-							false,
+							!(massageSlave.isWillingToRape(Main.game.getPlayer()) && massageSlave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_RAPIST)),
 							new SexManagerDefault(Main.game.getPlayer().isTaur()?SexPosition.ALL_FOURS:SexPosition.LYING_DOWN,
 									Util.newHashMapOfValues(new Value<>(massageSlave, Main.game.getPlayer().isTaur()?SexSlotAllFours.BEHIND:SexSlotLyingDown.MISSIONARY)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), Main.game.getPlayer().isTaur()?SexSlotAllFours.ALL_FOURS:SexSlotLyingDown.LYING_DOWN))) {
@@ -1930,6 +1930,19 @@ public class LilayaSpa {
 							null,
 							AFTER_MASSAGE_SEX,
 							UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "SPA_MASSAGE_FUCKED", massageSlave));	
+					
+				} else if(index==2) {
+					if(massageSlave.isWillingToRape(Main.game.getPlayer()) && massageSlave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_RAPIST)) {
+						return new Response("Refuse",
+								UtilText.parse(massageSlave, "As you've given [npc.herHim] permission to rape, [npc.nameIsFull] not going to take no for an answer!"),
+								null);
+						
+					} else {
+						return new Response("Refuse",
+								UtilText.parse(massageSlave, "You really aren't in the mood right now, so firmly tell [npc.name] to stop."),
+								REFUSE_SLAVE_SEX);
+						
+					}
 				}
 				
 			} else {
@@ -2002,6 +2015,25 @@ public class LilayaSpa {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "AFTER_MASSAGE_SEX_FINISHED", massageSlave));
+					}
+				};
+			}
+			return null;
+		}
+	};
+
+	public static final DialogueNode REFUSE_SLAVE_SEX = new DialogueNode("", "", true) {
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "REFUSE_SLAVE_SEX", massageSlave);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Continue", "Now that you've told your slave to back off, you wonder what to do next...", SPA_CORE) {
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/spa", "REFUSE_SLAVE_SEX_FINISHED", massageSlave));
 					}
 				};
 			}

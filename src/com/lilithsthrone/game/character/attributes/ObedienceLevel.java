@@ -55,6 +55,10 @@ public enum ObedienceLevel {
 			return affectionLevel.getName();
 		}
 	}
+
+	public String getDescription(GameCharacter character, boolean withColour, boolean longDescription) {
+		return ObedienceLevel.getDescription(character, this, withColour, longDescription);
+	}
 	
 	public static String getDescription(GameCharacter character, ObedienceLevel affectionLevel, boolean withColour, boolean longDescription) {
 		StringBuilder sb = new StringBuilder();

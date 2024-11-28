@@ -4,7 +4,6 @@
 	<name><![CDATA[Cells]]></name>
 	<tooltipDescription><![CDATA[The cells in the Enforcer station are where the town's criminals are kept while awaiting trial.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the cells in the Enforcer station in Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_BROWN_DARK</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

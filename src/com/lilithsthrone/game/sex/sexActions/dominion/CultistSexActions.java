@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.sex.sexActions.dominion;
 
-import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.ImmobilisationType;
@@ -56,11 +55,10 @@ public class CultistSexActions {
 
 		@Override
 		public void applyEffects() {
-			Value<ImmobilisationType, GameCharacter> value = Main.sex.getImmobilisationType(Main.sex.getCharacterPerformingAction());
-			Value<ImmobilisationType, GameCharacter> value2 = Main.sex.getImmobilisationType(Main.sex.getCharacterTargetedForSexAction(this));
+			boolean performingSealed = Main.sex.getImmobilisationTypes(Main.sex.getCharacterPerformingAction()).containsKey(ImmobilisationType.WITCH_SEAL);
+			boolean targetedSealed = Main.sex.getImmobilisationTypes(Main.sex.getCharacterTargetedForSexAction(this)).containsKey(ImmobilisationType.WITCH_SEAL);
 			
-			if((value!=null && value.getKey()==ImmobilisationType.WITCH_SEAL)
-					|| (value2!=null && value2.getKey()==ImmobilisationType.WITCH_SEAL)) {
+			if((performingSealed) || (targetedSealed)) {
 				Main.sex.setSexManager(new SMAltarMissionarySealed(
 						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterPerformingAction(), SexSlotUnique.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS)),
 						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterTargetedForSexAction(this), SexSlotUnique.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR))));
@@ -109,11 +107,10 @@ public class CultistSexActions {
 
 		@Override
 		public void applyEffects() {
-			Value<ImmobilisationType, GameCharacter> value = Main.sex.getImmobilisationType(Main.sex.getCharacterPerformingAction());
-			Value<ImmobilisationType, GameCharacter> value2 = Main.sex.getImmobilisationType(Main.sex.getCharacterTargetedForSexAction(this));
+			boolean performingSealed = Main.sex.getImmobilisationTypes(Main.sex.getCharacterPerformingAction()).containsKey(ImmobilisationType.WITCH_SEAL);
+			boolean targetedSealed = Main.sex.getImmobilisationTypes(Main.sex.getCharacterTargetedForSexAction(this)).containsKey(ImmobilisationType.WITCH_SEAL);
 			
-			if((value!=null && value.getKey()==ImmobilisationType.WITCH_SEAL)
-					|| (value2!=null && value2.getKey()==ImmobilisationType.WITCH_SEAL)) {
+			if((performingSealed) || (targetedSealed)) {
 				Main.sex.setSexManager(new SMAltarMissionarySealed(
 						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterPerformingAction(), SexSlotUnique.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS)),
 						Util.newHashMapOfValues(new Value<>(Main.sex.getCharacterTargetedForSexAction(this), SexSlotUnique.MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR))));

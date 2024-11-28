@@ -3,21 +3,26 @@ package com.lilithsthrone.controller;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.w3c.dom.events.EventTarget;
 
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInformationEventListener;
+import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInventoryEventListener;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
+import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHall;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
+import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
+import com.lilithsthrone.game.dialogue.utils.CosmeticsDialogue;
 import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
@@ -29,6 +34,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.PresetColour;
+
 import javafx.stage.FileChooser;
 
 /**
@@ -466,6 +472,88 @@ public class FileController {
 			if (MainController.document.getElementById(id) != null) {
 				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setLoadedEnchantment(entry.getValue()));
 			}
+		}
+		id = "LOADED_ENCHANTMENT_CURRENT";
+		if (MainController.document.getElementById(id) != null) {
+			MainController.addTooltipListeners(id, new TooltipInformationEventListener().setLoadedEnchantment(EnchantmentDialogue.getCurrentEnchantmentAsLoadedEnchantment()));
+		}
+	}
+	
+	public static void initTattooSaveLoadListeners() {
+		String id;
+		for (File f : CosmeticsDialogue.getSavedTattoos()) {
+			String fileIdentifier = Util.getFileIdentifier(f);
+			String fileName = Util.getFileName(f);
+			
+			id = "OVERWRITE_"+fileIdentifier;
+			if (MainController.document.getElementById(id) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+					if (!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || CosmeticsDialogue.overwriteConfirmationName.equals(f.getName())) {
+						CosmeticsDialogue.overwriteConfirmationName = "";
+						CosmeticsDialogue.saveTattoo(fileName, true, CosmeticsDialogue.TATTOO_SAVE_LOAD);
+					} else {
+						CosmeticsDialogue.overwriteConfirmationName = f.getName();
+						CosmeticsDialogue.loadConfirmationName = "";
+						CosmeticsDialogue.deleteConfirmationName = "";
+						Main.game.setContent(new Response("Save/Load", "Open the save/load tattoo window.", CosmeticsDialogue.TATTOO_SAVE_LOAD));
+					}
+				}, false);
+				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Overwrite", ""));
+			}
+			id = "LOAD_"+fileIdentifier;
+			if (MainController.document.getElementById(id) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+					if (!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || CosmeticsDialogue.loadConfirmationName.equals(f.getName())) {
+						CosmeticsDialogue.loadConfirmationName = "";
+						Tattoo loadedTattoo = CosmeticsDialogue.loadTattoo(fileName);
+						CharacterModificationUtils.tattoo = loadedTattoo;
+						
+						Main.game.setContent(new Response("Save/Load", "Open the save/load tattoo window.", CosmeticsDialogue.getReturnToNodeFromTattooSaveLoad()));
+					} else {
+						CosmeticsDialogue.overwriteConfirmationName = "";
+						CosmeticsDialogue.loadConfirmationName = f.getName();
+						CosmeticsDialogue.deleteConfirmationName = "";
+						Main.game.setContent(new Response("Save/Load", "Open the save/load tattoo window.", CosmeticsDialogue.TATTOO_SAVE_LOAD));
+					}
+				}, false);
+				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Load", ""));
+			}
+			id = "DELETE_"+fileIdentifier;
+			if (MainController.document.getElementById(id) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+					if (!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || CosmeticsDialogue.deleteConfirmationName.equals(f.getName())) {
+						CosmeticsDialogue.deleteConfirmationName = "";
+						CosmeticsDialogue.deleteTattoo(fileName);
+						CosmeticsDialogue.initSaveLoadMenu();
+						Main.game.setContent(new Response("Save/Load", ".", CosmeticsDialogue.TATTOO_SAVE_LOAD));
+					} else {
+						CosmeticsDialogue.overwriteConfirmationName = "";
+						CosmeticsDialogue.loadConfirmationName = "";
+						CosmeticsDialogue.deleteConfirmationName = f.getName();
+						Main.game.setContent(new Response("Save/Load", ".", CosmeticsDialogue.TATTOO_SAVE_LOAD));
+					}
+				}, false);
+				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Delete", ""));
+			}
+		}
+		
+		id = "NEW_SAVE";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('new_save_name').value;");
+				CosmeticsDialogue.saveTattoo(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false, CosmeticsDialogue.TATTOO_SAVE_LOAD);
+			}, false);
+			MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Save", ""));
+		}
+		for (Entry<String, Tattoo> entry : CosmeticsDialogue.getLoadedTattoosMap().entrySet()) {
+			id = "LOADED_TATTOO_"+entry.getKey();
+			if (MainController.document.getElementById(id) != null) {
+				MainController.addTooltipListeners(id, new TooltipInventoryEventListener().setTattoo(CharacterModificationUtils.tattooInventorySlot, entry.getValue(), BodyChanging.getTarget(), BodyChanging.getTarget()));
+			}
+		}
+		id = "LOADED_TATTOO_CURRENT";
+		if (MainController.document.getElementById(id) != null) {
+			MainController.addTooltipListeners(id, new TooltipInventoryEventListener().setTattoo(CharacterModificationUtils.tattooInventorySlot, CharacterModificationUtils.tattoo, BodyChanging.getTarget(), BodyChanging.getTarget()));
 		}
 	}
 	

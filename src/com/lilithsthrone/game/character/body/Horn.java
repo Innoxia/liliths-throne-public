@@ -10,7 +10,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.1
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class Horn implements BodyPartInterface {
@@ -37,6 +37,13 @@ public class Horn implements BodyPartInterface {
 		hornsPerRow = type.getDefaultHornsPerRow();
 	}
 
+	public Horn(Horn hornToCopy) {
+		this.type = hornToCopy.type;
+		this.length = hornToCopy.length;
+		this.rows = hornToCopy.rows;
+		this.hornsPerRow = hornToCopy.hornsPerRow;
+	}
+	
 	@Override
 	public AbstractHornType getType() {
 		return type;

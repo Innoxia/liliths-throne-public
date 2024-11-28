@@ -24,7 +24,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.3.1
- * @version 0.3.7
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class BreastCrotch implements BodyPartInterface {
@@ -58,6 +58,21 @@ public class BreastCrotch implements BodyPartInterface {
 		nipples = new Nipples(type.getNippleType(), nippleSize, nippleShape, areolaeSize, areolaeShape, Lactation.getLactationFromInt(milkStorage).getAssociatedWetness().getValue(), capacity, depth, elasticity, plasticity, virgin, true);
 		
 		milk = new FluidMilk(type.getFluidType(), true);
+	}
+
+	public BreastCrotch(BreastCrotch breastCrotchToCopy) {
+		this.type = breastCrotchToCopy.type;
+		this.shape = breastCrotchToCopy.shape;
+		this.size = breastCrotchToCopy.size;
+		this.milkStorage = breastCrotchToCopy.milkStorage;
+		this.milkStored = breastCrotchToCopy.milkStored;
+		this.milkRegeneration = breastCrotchToCopy.milkRegeneration;
+		this.rows = breastCrotchToCopy.rows;
+		this.nippleCountPerBreast = breastCrotchToCopy.nippleCountPerBreast;
+		
+		this.nipples = new Nipples(breastCrotchToCopy.nipples);
+		
+		this.milk = new FluidMilk(breastCrotchToCopy.milk);
 	}
 	
 	@Override
@@ -111,6 +126,10 @@ public class BreastCrotch implements BodyPartInterface {
 		return nipples;
 	}
 
+	public void setMilk(FluidMilk milk) {
+		this.milk = milk;
+	}
+
 	public FluidMilk getMilk() {
 		return milk;
 	}
@@ -159,6 +178,10 @@ public class BreastCrotch implements BodyPartInterface {
 		list.add(this.getSize().getDescriptor());
 		
 		list.add(this.getShape().getDescriptor());
+		
+		if(owner.getBodyMaterial().getPartDescriptors()!=null && !owner.getBodyMaterial().getPartDescriptors().isEmpty()) {
+			list.add(Util.randomItemFrom(owner.getBodyMaterial().getPartDescriptors()));
+		}
 		
 		return Util.randomItemFrom(list);
 	}

@@ -91,7 +91,7 @@
 		
 			<!--Beret always-->
 			<uniqueClothing>
-				<clothing colour="CLOTHING_PURPLE_DARK" colourSecondary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_servequipset_enfberet_sword" isDirty="false">			
+				<clothing colour="CLOTHING_PURPLE_DARK" colourSecondary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_servequipset_enfberet" isDirty="false">			
 					<stickers>
 						<sticker category="flash">flash_oricl</sticker>
 					</stickers>

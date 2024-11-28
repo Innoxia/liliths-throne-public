@@ -177,11 +177,11 @@ public class Encounter {
 				
 				if(!hornySlaves.isEmpty()) {
 					Collections.shuffle(hornySlaves);
-					return SlaveEncountersDialogue.getSlaveUsesYou(hornySlaves.get(0));
+					return SlaveEncountersDialogue.getSlaveUsesYouDungeon(hornySlaves.get(0));
 					
 				} else if(!slaves.isEmpty()) {
 					Collections.shuffle(slaves);
-					return SlaveEncountersDialogue.getSlaveUsesYou(slaves.get(0));
+					return SlaveEncountersDialogue.getSlaveUsesYouDungeon(slaves.get(0));
 				}
 				
 				return null;

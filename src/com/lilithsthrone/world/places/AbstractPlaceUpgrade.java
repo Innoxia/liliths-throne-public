@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.effects.Perk;
-import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.sex.ImmobilisationType;
 import com.lilithsthrone.main.Main;
@@ -89,7 +88,7 @@ public abstract class AbstractPlaceUpgrade {
 	 * @return A value representing availability and reasoning of availability of this upgrade. If the key is false, and the value is an empty string, then this upgrade is not added to any of the available upgrade lists which are displayed in-game.
 	 */
 	public Value<Boolean, String> getAvailability(Cell cell) {
-		if(!(Main.game.getPlayer().isHasSlaverLicense() || (Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ACCOMMODATION) && !this.isSlaverUpgrade()))) {
+		if(!Main.game.getPlayer().isHasSlaverLicense() && this.isSlaverUpgrade()) {
 			return new Value<>(false, "You are unable to purchase this upgrade without a slaver license!");
 		}
 		

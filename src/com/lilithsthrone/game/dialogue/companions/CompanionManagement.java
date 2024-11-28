@@ -34,6 +34,7 @@ import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.CombatMovesSetup;
+import com.lilithsthrone.game.dialogue.utils.CosmeticsDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.SpellManagement;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -207,10 +208,14 @@ public class CompanionManagement {
 			headerSB.append("<div class='container-half-width' style='width:50%; margin:0;'>[style.boldArcane(General Permissions:)]<br/>");
 			int permissionCount=0;
 			for(SlavePermission permission : SlavePermission.values()) {
-				for(SlavePermissionSetting setting : permission.getSettings()) {
-					if(character.getSlavePermissionSettings().get(permission).contains(setting)) {
-						headerSB.append((permissionCount==0?"":", ")+"<span style='color:"+permission.getColour().toWebHexString()+";'>"+setting.getName()+"</span>");
-						permissionCount++;
+				if(permission.isAvailableForCharacter(character)) {
+					for(SlavePermissionSetting setting : permission.getSettings()) {
+						if(setting.isAvailableForCharacter(character)) {
+							if(character.getSlavePermissionSettings().get(permission).contains(setting)) {
+								headerSB.append((permissionCount==0?"":", ")+"<span style='color:"+permission.getColour().toWebHexString()+";'>"+setting.getName()+"</span>");
+								permissionCount++;
+							}
+						}
 					}
 				}
 			}
@@ -485,7 +490,7 @@ public class CompanionManagement {
 				} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kateIntroduced)) {
 					return new Response("Send to Kate",
 							UtilText.parse(characterSelected(), "Send [npc.name] to Kate's beauty salon, 'Succubi's secrets', to get [npc.her] appearance changed."),
-							SLAVE_MANAGEMENT_COSMETICS_HAIR) {
+							SLAVE_MANAGEMENT_COSMETICS_MAKEUP) {
 								@Override
 								public void effects() {
 									BodyChanging.setTarget(characterSelected());
@@ -572,7 +577,12 @@ public class CompanionManagement {
 				}
 				
 			} else if(index==14) {
-				if(!Main.game.getPlayer().hasItemType("innoxia_slavery_freedom_certification")) {
+				if(characterSelected().isDoll()) {
+					return new Response("Set free",
+							UtilText.parse(characterSelected(), "Dolls cannot be set free..."),
+							null);
+					
+				} else if(!Main.game.getPlayer().hasItemType("innoxia_slavery_freedom_certification")) {
 					return new Response("Set free",
 							UtilText.parse(characterSelected(),
 									"You do not have a Freedom Certification, so you cannot set [npc.name] free..."
@@ -634,9 +644,19 @@ public class CompanionManagement {
 						}
 					};
 				}
-				return new Response("Leave", "Exit the occupant management screen.", Main.game.getDefaultDialogue(false)) {
+				return new Response("Leave",
+						characterSelected()==null
+							?"Return to the previous dialogue."
+							:UtilText.parse(characterSelected(),
+								characterSelected().isDollStatue()
+									?"Leave [npc.name] frozen in place and continue on your way."
+									:(characterSelected().isAsleep()
+										?"Leave [npc.name] to sleep..."
+										:"Tell [npc.name] that you'll catch up with [npc.herHim] some other time.")),
+						Main.game.getDefaultDialogue(false)) {
 					@Override
 					public void effects() {
+						Main.game.setResponseTab(0);
 						Main.game.getDialogueFlags().setManagementCompanion(null);
 						coreNode = null;
 					}
@@ -691,7 +711,7 @@ public class CompanionManagement {
 				} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.kateIntroduced)) {
 					return new Response("Send to Kate",
 							UtilText.parse(characterSelected(), "Send [npc.name] to Kate's beauty salon, 'Succubi's secrets', to get [npc.her] appearance changed."),
-							SLAVE_MANAGEMENT_COSMETICS_HAIR) {
+							SLAVE_MANAGEMENT_COSMETICS_MAKEUP) {
 								@Override
 								public void effects() {
 									BodyChanging.setTarget(characterSelected());
@@ -799,9 +819,19 @@ public class CompanionManagement {
 						}
 					};
 				}
-				return new Response("Leave", "Exit the occupant management screen.", Main.game.getDefaultDialogue(false)) {
+				return new Response("Leave",
+							characterSelected()==null
+								?"Return to the previous dialogue."
+								:UtilText.parse(characterSelected(),
+										characterSelected().isDollStatue()
+											?"Leave [npc.name] frozen in place and continue on your way."
+											:(characterSelected().isAsleep()
+												?"Leave [npc.name] to sleep..."
+												:"Tell [npc.name] that you'll catch up with [npc.herHim] some other time.")),
+							Main.game.getDefaultDialogue(false)) {
 					@Override
 					public void effects() {
+						Main.game.setResponseTab(0);
 						Main.game.getDialogueFlags().setManagementCompanion(null);
 						coreNode = null;
 					}
@@ -887,12 +917,12 @@ public class CompanionManagement {
 					"<div class='container-full-width' style='text-align:center;'>");
 			
 			UtilText.nodeContentSB.append(
-							"<div class='container-full-width inner' style='text-align:center;'>"
+							"<div class='container-full-width inner' style='text-align:center;padding-left:2px;padding-right:2px;'>"
 							+ "<div style='width:100%;margin-top:8px;'><b>Available Jobs</b></div>");
 			for(SlaveJob job : SlaveJob.values()) {
-				if(character.isSlave() || job.hasFlag(SlaveJobFlag.GUEST_CAN_WORK)) {
+				if(!job.isHidden(character) && (character.isSlave() || job.hasFlag(SlaveJobFlag.GUEST_CAN_WORK))) {
 					UtilText.nodeContentSB.append(
-							"<div class='normal-button' id='"+job+"_ASSIGN' style='width:16%; margin:2px;color:"
+							"<div class='normal-button' id='"+job+"_ASSIGN' style='width:calc(16.6% - 2px); margin:1px;color:"
 									+job.getColour().toWebHexString()+";"+(Main.game.getDialogueFlags().getSlaveryManagerJobSelected()==job?"border-color:"+job.getColour().toWebHexString()+";":"")+"'>"
 									+Util.capitaliseSentence(job.getName(character))
 									+"</div>");
@@ -915,7 +945,7 @@ public class CompanionManagement {
 ////					background = "background: repeating-linear-gradient(135deg, "+c1+", "+c1+" 10px, "+c2+" 10px, "+c2+" 20px);";
 //				}
 				if((!jobSelected.isAvailable(i, character)
-							|| (!character.isSlave() && stamina-jobSelected.getHourlyStaminaDrain()+character.getSlaveJob(i).getHourlyStaminaDrain()<0f)
+							|| (!character.isSlave() && stamina-jobSelected.getHourlyStaminaDrain(character)+character.getSlaveJob(i).getHourlyStaminaDrain(character)<0f)
 							|| (!character.isSlave() && character.isSleepingAtHour(i)))
 						&& !jobSelected.equals(SlaveJob.IDLE)) { // Always allow idle job
 					UtilText.nodeContentSB.append(
@@ -938,7 +968,7 @@ public class CompanionManagement {
 			}
 			UtilText.nodeContentSB.append(
 								"<div style='width:100%;margin-top:8px;'>"
-									+"<i>[style.colourStamina(Current daily stamina:)] "+(stamina>=0?"[style.colourGood(":"[style.colourBad(")+stamina+")]/"+SlaveJob.BASE_STAMINA+"</i>"
+									+"<i>[style.colourStamina(Current daily stamina:)] "+(stamina>=0?"[style.colourGood(":"[style.colourBad(")+stamina+")]/"+character.getBaseStaminaForSlaveJobs()+"</i>"
 								+ "</div>");
 								for(SlaveJobHours preset : SlaveJobHours.values()) {
 									boolean jobDisabled = false;
@@ -960,7 +990,7 @@ public class CompanionManagement {
 											i = i+24; // Reset i to maintain the loop
 										}
 									}
-									if ((!character.isSlave() && jobSelected.getHourlyStaminaDrain()*preset.getLength()>stamina) || nonSlaveSleeping || jobDisabled) {
+									if ((!character.isSlave() && jobSelected.getHourlyStaminaDrain(character)*preset.getLength()>stamina) || nonSlaveSleeping || jobDisabled) {
 										UtilText.nodeContentSB.append("<div class='normal-button disabled' id='"+preset+"_TIME_DISABLED' style='width:16%; margin:2px;'>"+preset.getName()+"</div>");
 									} else {
 										UtilText.nodeContentSB.append("<div class='normal-button' id='"+preset+"_TIME' style='width:16%; margin:2px;'>"+preset.getName()+"</div>");
@@ -996,7 +1026,7 @@ public class CompanionManagement {
 						+ "</div>");
 			
 			for(SlaveJob job : SlaveJob.values()) {
-				if(!character.isSlave() && !job.hasFlag(SlaveJobFlag.GUEST_CAN_WORK)) {
+				if(job.isHidden(character) || (!character.isSlave() && !job.hasFlag(SlaveJobFlag.GUEST_CAN_WORK))) {
 					continue;
 				}
 				float affectionChange = job.getAffectionGain(character);
@@ -1157,34 +1187,37 @@ public class CompanionManagement {
 						+ "<h6 style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+"; text-align:center;'>Permissions</h6>");
 			
 			for(SlavePermission permission : SlavePermission.values()) {
-				UtilText.nodeContentSB.append("<div class='container-full-width inner' style='box-sizing:border-box; position:relative; width:98%; margin:4px 1%; background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";'>");
-				
-				// Job Settings:
-				for(SlavePermissionSetting setting : permission.getSettings()) {
-					boolean settingActive = character.getSlavePermissionSettings().get(permission).contains(setting);
+				if(permission.isAvailableForCharacter(character)) {
+					UtilText.nodeContentSB.append("<div class='container-full-width inner' style='box-sizing:border-box; position:relative; width:98%; margin:4px 1%; background:"+PresetColour.BACKGROUND_ALT.toWebHexString()+";'>");
 					
-					String id = (permission.isMutuallyExclusiveSettings()
-									?(settingActive?setting+"_REMOVE_ME":setting+"_ADD")
-									:(settingActive?setting+"_REMOVE":setting+"_ADD"));
-					
-					String style = "width:23%; margin:1%;";
-					if(permission.getSettings().size()==5) {
-						style = "width:18%; margin:1%;"; // These settings can fit 5 on a line
+					for(SlavePermissionSetting setting : permission.getSettings()) {
+						if(setting.isAvailableForCharacter(character)) {
+							boolean settingActive = character.getSlavePermissionSettings().get(permission).contains(setting);
+							
+							String id = (permission.isMutuallyExclusiveSettings()
+											?(settingActive?setting+"_REMOVE_ME":setting+"_ADD")
+											:(settingActive?setting+"_REMOVE":setting+"_ADD"));
+							
+							String style = "width:23%; margin:1%;";
+							if(permission.getSettings().size()==5) {
+								style = "width:18%; margin:1%;"; // These settings can fit 5 on a line
+							}
+							
+							UtilText.nodeContentSB.append(
+									"<div id='"+id+"' class='normal-button"+(settingActive?" selected":"")+"' style='"+style+"text-align:center;"
+												+(settingActive
+													?"border-color:"+permission.getColour().toWebHexString()+";"
+													:(permission.isMutuallyExclusiveSettings()
+															?""
+															:"border-color:"+permission.getColour().getShades()[0]+";"))+"'>"
+										+ (settingActive
+												?"<span style='color:"+permission.getColour().toWebHexString()+";margin:8px;'>"+setting.getName()+"</span>"
+												:"[style.colourDisabled("+setting.getName()+")]")
+									+ "</div>");
+						}
 					}
-					
-					UtilText.nodeContentSB.append(
-							"<div id='"+id+"' class='normal-button"+(settingActive?" selected":"")+"' style='"+style+"text-align:center;"
-										+(settingActive
-											?"border-color:"+permission.getColour().toWebHexString()+";"
-											:(permission.isMutuallyExclusiveSettings()
-													?""
-													:"border-color:"+permission.getColour().getShades()[0]+";"))+"'>"
-								+ (settingActive
-										?"<span style='color:"+permission.getColour().toWebHexString()+";margin:8px;'>"+setting.getName()+"</span>"
-										:"[style.colourDisabled("+setting.getName()+")]")
-							+ "</div>");
+					UtilText.nodeContentSB.append("</div>");
 				}
-				UtilText.nodeContentSB.append("</div>");
 			}
 			UtilText.nodeContentSB.append("</div>"
 					+ "<p id='hiddenFieldName' style='display:none;'></p>");
@@ -1225,16 +1258,22 @@ public class CompanionManagement {
 					SLAVE_MANAGEMENT_COSMETICS_HAIR);
 
 		} else if (index == 3) {
-				return new Response("Piercings",
-						"Kate offers a wide range of different piercings.",
-						SLAVE_MANAGEMENT_COSMETICS_PIERCINGS);
+			return new Response("Piercings",
+					"Kate offers a wide range of different piercings.",
+					SLAVE_MANAGEMENT_COSMETICS_PIERCINGS);
 
 		}  else if (index == 4) {
-				return new Response("Eyes",
-						"There's a special page near the front of the brochure, advertising Kate's ability to recolour a person's eyes."
-						+ " Just like skin recolourings, this is quite demanding on her aura, and is therefore very expensive.", SLAVE_MANAGEMENT_COSMETICS_EYES);
+			if(BodyChanging.getTarget().isDoll()) {
+				return new Response("Eyes", "Kate isn't able to recolour arcane silicone, so this option isn't available...", null);
+			}
+			return new Response("Eyes",
+					"There's a special page near the front of the brochure, advertising Kate's ability to recolour a person's eyes."
+					+ " Just like skin recolourings, this is quite demanding on her aura, and is therefore very expensive.", SLAVE_MANAGEMENT_COSMETICS_EYES);
 
 		} else if (index == 5) {
+			if(BodyChanging.getTarget().isDoll()) {
+				return new Response("Coverings", "Kate isn't able to recolour arcane silicone, so this option isn't available...", null);
+			}
 			return new Response("Coverings",
 					"There's a special page in the middle of the brochure, advertising Kate's special ability to harness the arcane in order to recolour a person's skin or fur."
 					+ " Apparently, this is quite demanding on her aura, and is therefore very expensive.",
@@ -1351,11 +1390,14 @@ public class CompanionManagement {
 					"<h6 style='text-align:center;'>"
 						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
 					+ "</h6>"
-					+CharacterModificationUtils.getKatesDivHairLengths(true, "Hair Length", "Hair length determines what hair styles [npc.namePos] able to have. The longer [npc.her] [npc.hair(true)], the more styles are available.")
+					
+					+ (BodyChanging.getTarget().isDoll()
+							?""
+							:CharacterModificationUtils.getKatesDivHairLengths(true, "Hair Length", "Hair length determines what hair styles [npc.namePos] able to have. The longer [npc.her] [npc.hair(true)], the more styles are available."))
 
 					+CharacterModificationUtils.getKatesDivHairStyles(true, "Hair Style", "Hair style availability is determined by [npc.namePos] [npc.hair(true)] length.")
 					
-					+(BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.SLIME
+					+(BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.SLIME && !BodyChanging.getTarget().isDoll()
 						?CharacterModificationUtils.getKatesDivCoveringsNew(
 								true, BodyChanging.getTarget().getHairType().getRace(), BodyChanging.getTarget().getCovering(BodyChanging.getTarget().getHairCovering()).getType(),
 								UtilText.parse(BodyChanging.getTarget(), "[npc.Hair] Colour"),
@@ -1555,33 +1597,35 @@ public class CompanionManagement {
 			UtilText.nodeContentSB.append("<h6 style='text-align:center;'>"
 						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
 					+ "</h6>"
-					+CharacterModificationUtils.getKatesDivAnalBleaching()
-
-					+(Main.game.isFacialHairEnabled()
-							? CharacterModificationUtils.getKatesDivFacialHair(true, "Facial hair", "The body hair found on [npc.namePos] face." 
-									+ (Main.game.isFemaleFacialHairEnabled() ? "" : " Feminine characters cannot grow facial hair."))
-							:"")
-					
-					+(Main.game.isPubicHairEnabled()
-							?CharacterModificationUtils.getKatesDivPubicHair(true, "Pubic hair", "The body hair found in the genital area; located on and around [npc.namePos] sex organs and crotch.")
-							:"")
-					
-					+(Main.game.isBodyHairEnabled()
-							?CharacterModificationUtils.getKatesDivUnderarmHair(true, "Underarm hair", "The body hair found in [npc.namePos] armpits.")
-							:"")
-					
-					+(Main.game.isAssHairEnabled()
-							?CharacterModificationUtils.getKatesDivAssHair(true, "Ass hair", "The body hair found around [npc.namePos] asshole.")
-							:"")
-					);
+					+CharacterModificationUtils.getKatesDivAnalBleaching());
 			
-			for(AbstractBodyCoveringType bct : BodyCoveringType.getAllBodyCoveringTypes()) {
-				if((Main.game.isFacialHairEnabled() && BodyChanging.getTarget().getFacialHairType().getType()==bct)
-						|| (Main.game.isBodyHairEnabled() && BodyChanging.getTarget().getUnderarmHairType().getType()==bct)
-						|| (Main.game.isAssHairEnabled() && BodyChanging.getTarget().getAssHairType().getType()==bct)
-						|| (Main.game.isPubicHairEnabled() && BodyChanging.getTarget().getPubicHairType().getType()==bct)) {
-					UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, Race.NONE, bct, "Body hair", "Your body hair.", true, true));
+			if(!BodyChanging.getTarget().isDoll()) {
+				UtilText.nodeContentSB.append((Main.game.isFacialHairEnabled()
+								? CharacterModificationUtils.getKatesDivFacialHair(true, "Facial hair", "The body hair found on [npc.namePos] face." 
+										+ (Main.game.isFemaleFacialHairEnabled() ? "" : " Feminine characters cannot grow facial hair."))
+								:"")
+						
+						+(Main.game.isPubicHairEnabled()
+								?CharacterModificationUtils.getKatesDivPubicHair(true, "Pubic hair", "The body hair found in the genital area; located on and around [npc.namePos] sex organs and crotch.")
+								:"")
+						
+						+(Main.game.isBodyHairEnabled()
+								?CharacterModificationUtils.getKatesDivUnderarmHair(true, "Underarm hair", "The body hair found in [npc.namePos] armpits.")
+								:"")
+						
+						+(Main.game.isAssHairEnabled()
+								?CharacterModificationUtils.getKatesDivAssHair(true, "Ass hair", "The body hair found around [npc.namePos] asshole.")
+								:"")
+						);
+			
+				for(AbstractBodyCoveringType bct : BodyCoveringType.getAllBodyCoveringTypes()) {
+					if((Main.game.isFacialHairEnabled() && BodyChanging.getTarget().getFacialHairType().getType()==bct)
+							|| (Main.game.isBodyHairEnabled() && BodyChanging.getTarget().getUnderarmHairType().getType()==bct)
+							|| (Main.game.isAssHairEnabled() && BodyChanging.getTarget().getAssHairType().getType()==bct)
+							|| (Main.game.isPubicHairEnabled() && BodyChanging.getTarget().getPubicHairType().getType()==bct)) {
+						UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivCoveringsNew(
+								true, Race.NONE, bct, "Body hair", "Your body hair.", true, true));
+					}
 				}
 			}
 			
@@ -1692,6 +1736,14 @@ public class CompanionManagement {
 					};
 				}
 			
+			} else if(index==2) {
+				return new Response("Save/Load", "Save/Load tattoo presets.", CosmeticsDialogue.TATTOO_SAVE_LOAD) {
+					@Override
+					public void effects() {
+						CosmeticsDialogue.initTattooSaveLoadDialogue(SLAVE_MANAGEMENT_TATTOOS_ADD);
+					}
+				};
+			
 			} else if(index==0) {
 				return new Response("Back", "Decide not to get this tattoo and return to the main selection screen.", SLAVE_MANAGEMENT_TATTOOS);
 			}
@@ -1735,7 +1787,7 @@ public class CompanionManagement {
 			
 			UtilText.nodeContentSB.append("</div>");
 			
-			if(!(characterSelected().isElemental())) {
+			if(!characterSelected().isElemental() && !characterSelected().isDoll()) {
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='padding:8px; text-align:center;'>"
 							+ "<i>Please note that this perk tree is a work-in-progress. This is not the final version, and is just a proof of concept!</i>"
 						+ "</div>");

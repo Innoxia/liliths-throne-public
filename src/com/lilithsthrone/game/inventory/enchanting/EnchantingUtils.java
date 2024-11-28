@@ -49,7 +49,11 @@ public class EnchantingUtils {
 
 		if(!EnchantmentDialogue.getOutputName().equals(ingredient.getName())) {
 			craftedItem.setName(EnchantmentDialogue.getOutputName());
+			
+		} else if(!ingredient.getName().equals(craftedItem.getName())) {
+			craftedItem.setName(ingredient.getName());
 		}
+		
 		craftedItem.setColour(0, ingredient.getEnchantmentEffect().getColour());
 		craftedItem.setSVGString(getSVGString(ingredient, effectsToBeAdded));
 		
@@ -71,6 +75,9 @@ public class EnchantingUtils {
 		
 		if(!EnchantmentDialogue.getOutputName().equals(ingredient.getName())) {
 			craftedClothing.setName(EnchantmentDialogue.getOutputName());
+			
+		} else if(!ingredient.getName().equals(craftedClothing.getName())) {
+			craftedClothing.setName(ingredient.getName());
 		}
 		
 		craftedClothing.setEnchantmentKnown(null, true);
@@ -100,6 +107,9 @@ public class EnchantingUtils {
 
 		if(!EnchantmentDialogue.getOutputName().equals(ingredient.getName())) {
 			newTattoo.setName(EnchantmentDialogue.getOutputName());
+			
+		} else if(!ingredient.getName().equals(newTattoo.getName())) {
+			newTattoo.setName(ingredient.getName());
 		}
 		
 		return newTattoo;
@@ -120,6 +130,9 @@ public class EnchantingUtils {
 
 		if(!EnchantmentDialogue.getOutputName().equals(ingredient.getName())) {
 			craftedWeapon.setName(EnchantmentDialogue.getOutputName());
+			
+		} else if(!ingredient.getName().equals(craftedWeapon.getName())) {
+			craftedWeapon.setName(ingredient.getName());
 		}
 		
 		return craftedWeapon;

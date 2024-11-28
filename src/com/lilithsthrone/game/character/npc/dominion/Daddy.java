@@ -156,7 +156,7 @@ public class Daddy extends NPC {
 		this.setWingType(WingType.NONE);
 		this.setHornType(HornType.NONE);
 		
-		this.setAgeAppearanceDifferenceToAppearAsAge(42);
+		this.setAgeAppearanceAbsolute(42);
 
 		if(this.getGenderIdentity().isFeminine()) { // For if they transform into shemale:
 			

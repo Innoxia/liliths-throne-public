@@ -5,7 +5,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.87
- * @version 0.3.9
+ * @version 0.4.9.1
  * @author Innoxia
  */
 public enum SlaveJobSetting {
@@ -36,8 +36,16 @@ public enum SlaveJobSetting {
 	TEST_SUBJECT_ALLOW_TRANSFORMATIONS_FEMALE(PresetColour.FEMININE, "Feminine TF", "TF (F)", "Allow this slave to receive feminine transformations."),
 	TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE(PresetColour.MASCULINE, "Masculine TF", "TF (M)", "Allow this slave to receive masculine transformations."),
 
-	SECURITY_ENTRANCE_PRIORITY(PresetColour.BASE_GOLD, "Entrance priority", "EP", "This slave will be chosen above others to be positioned at the entrance. (If multiple slaves have this permission, the one who gets there first will remain there.)"),
-	SECURITY_ANSWER_DOOR(PresetColour.BASE_GREEN_LIGHT, "Answer door", "AD", "If this slave is located at the entrance, they will answer the door instead of Rose."),
+	DOLL_STATUE_ARTISTIC(PresetColour.BASE_TAN, "Artistic", "DPAR", "Order this doll to strike an artistic pose when acting as a statue."),
+	DOLL_STATUE_ATTENTION(PresetColour.BASE_TAN, "At Attention", "DPAT", "Order this doll to stand at attention when acting as a statue."),
+	DOLL_STATUE_STANDING_SPLIT(PresetColour.BASE_TAN, "Standing Split", "DPSS", "Order this doll to perform a standing split when acting as a statue."),
+	DOLL_STATUE_MISSIONARY(PresetColour.BASE_TAN, "Missionary", "DPMI", "Order this doll to lie back in a missionary position when acting as a statue."),
+	DOLL_STATUE_ALL_FOURS(PresetColour.BASE_TAN, "All Fours", "DPAF", "Order this doll to get down on all fours when acting as a statue."),
+	DOLL_STATUE_SQUATTING(PresetColour.BASE_TAN, "Squatting", "DPSQ", "Order this doll to squat down with spread legs and hands behind their head when acting as a statue."),
+	DOLL_STATUE_BRIDGE(PresetColour.BASE_TAN, "Bridge", "DPBR", "Order this doll to perform an acrobatic bridge when acting as a statue."),
+
+	SECURITY_ENTRANCE_PRIORITY(PresetColour.BASE_GOLD, "Entrance Priority", "EP", "This slave will be chosen above others to be positioned at the entrance. (If multiple slaves have this permission, the one who gets there first will remain there.)"),
+	SECURITY_ANSWER_DOOR(PresetColour.BASE_GREEN_LIGHT, "Answer Door", "AD", "If this slave is located at the entrance, they will answer the door instead of Rose."),
 	
 	BEDROOM_GREETING(PresetColour.GENERIC_MINOR_GOOD, "Greeting", "BG", "Instruct this slave to greet you whenever you enter your room."),
 	BEDROOM_CLEAN(PresetColour.BASE_BLUE_LIGHT, "Cleaning", "BC", "Tell this slave to keep your room clean."),

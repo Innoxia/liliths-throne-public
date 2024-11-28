@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[abandoned bakery]]></name>
+	<tooltipDescription><![CDATA[An abandoned bakery sits deep within the narrow alleyways of northern Elis.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[near the abandoned bakery in Elis]]></virginityLossDescription>
+	<sexBlockedReason/>
+	<sexBlockedFromCharacterPresent>false</sexBlockedFromCharacterPresent>
+	<colour>BASE_GREY</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_fields_elis_abandoned_bakery_exterior</dialogue>
+	<populationPresent>
+		<population day="true">
+			<populationType plural="true" density="FEW">PERSON</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town"/>
+		</population>
+		<population day="true">
+			<populationType plural="false" density="OCCASIONAL">ENFORCER</populationType>
+			<subspeciesPresent worldType="innoxia_fields_elis_town">
+				<subspeciesToRemove>HUMAN</subspeciesToRemove>
+			</subspeciesPresent>
+		</population>
+	</populationPresent>
+	<furniturePresent>false</furniturePresent>
+	<loiteringEnabled>true</loiteringEnabled>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[[#!game.isDayTime()]]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>BOTH</teleportPermissions>
+	<weatherImmunities/>
+	<applyInventoryInit/>
+</placeType>

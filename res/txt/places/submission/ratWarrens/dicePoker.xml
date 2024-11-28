@@ -5,16 +5,16 @@
 	
 	<htmlContent tag="START"><![CDATA[
 	<p>
-		Walking up to one of the free tables in the [#SPECIAL_PARSE_0] section, you sit down opposite [npc.a_race].
+		You ask the barman about playing a game of dice poker, and with a grunt and a nod of his head, he gestures towards one of the tables on the far side of the room. Approaching this table, you sit down opposite [npc.a_race], who puts [npc.her] set of dice down on the surface in front of you and flashes you a nasty-looking grin.
 	</p>
 	<p>
-		[npc.speech(You think you can take me on, huh?)] [npc.she] taunts. [npc.speech(Don't start crying when I take all your cash!)]
+		[npc.speech(You think you can take me on, huh?)] [npc.she] taunts, [npc.speech(Don't start crying when I take all your cash!)]
 	</p>
 	<p>
 		You place the buy-in of [#SPECIAL_PARSE_1] on the table, and the [npc.race] does the same.
 	</p>
 	<p>
-		[npc.speech(The name's [npc.name], by the way. Now let's play.)]
+		[npc.speech(The name's [npc.name(true)], by the way. Now let's play.)]
 	</p>
 	]]>
 	</htmlContent>

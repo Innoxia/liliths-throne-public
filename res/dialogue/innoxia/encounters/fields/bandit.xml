@@ -171,7 +171,7 @@
 			
 			<!-- Sex, no pace: -->
 			<response>
-				<availabilityConditional><![CDATA[[#!attacker.isAttractedTo(pc) && !game.isNonConEnabled()]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#attacker.isPostCombatNoSex()]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Sex]]></responseTitle>
@@ -179,18 +179,22 @@
 				<nextDialogue><![CDATA[null]]></nextDialogue>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[[#attacker.isAttractedTo(pc) || game.isNonConEnabled()]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#!attacker.isPostCombatNoSex()]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[
-					#IF(attacker.isAttractedTo(pc))
-						Sex
+					#IF(attacker.isPostCombatWantsSex())
+						#IF(attacker.isPostCombatRapePlay())
+							Rape-play
+						#ELSE
+							Sex
+						#ENDIF
 					#ELSE
 						Rape
 					#ENDIF
 				]]></responseTitle>
 				<responseTooltip><![CDATA[
-					#IF(attacker.isAttractedTo(pc))
+					#IF(attacker.isPostCombatWantsSex())
 						Take advantage of your victory to have dominant sex with the bandit.
 					#ELSE
 						Take advantage of your victory to rape the bandit.
@@ -198,7 +202,7 @@
 				]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariables enabled="true">
-					<consensual><![CDATA[[#attacker.isAttractedTo(pc)]]]></consensual>
+					<consensual><![CDATA[[#attacker.isPostCombatWantsSex()]]]></consensual>
 					<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
 					<dominants>
 						<character><![CDATA[pc]]></character>
@@ -216,26 +220,30 @@
 			</response>
 			<!-- Sex, gentle: -->
 			<response>
-				<availabilityConditional><![CDATA[[#!attacker.isAttractedTo(pc) && !game.isNonConEnabled()]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#attacker.isPostCombatNoSex()]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[3]]></index>
-				<responseTitle><![CDATA[Sex (gentle)]]></responseTitle>
+				<responseTitle><![CDATA[Gentle sex]]></responseTitle>
 				<responseTooltip><![CDATA[You can tell that [attacker.name] isn't at all interested in having sex with you...]]></responseTooltip>
 				<nextDialogue><![CDATA[null]]></nextDialogue>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[[#attacker.isAttractedTo(pc) || game.isNonConEnabled()]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#!attacker.isPostCombatNoSex()]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[3]]></index>
 				<responseTitle><![CDATA[
-					#IF(attacker.isAttractedTo(pc))
-						Sex (gentle)
+					#IF(attacker.isPostCombatWantsSex())
+						#IF(attacker.isPostCombatRapePlay())
+							Rape-play (gentle)
+						#ELSE
+							Gentle sex
+						#ENDIF
 					#ELSE
 						Rape [attacker.herHim] (gentle)
 					#ENDIF
 				]]></responseTitle>
 				<responseTooltip><![CDATA[
-					#IF(attacker.isAttractedTo(pc))
+					#IF(attacker.isPostCombatWantsSex())
 						Take advantage of your victory to have gentle, dominant sex with the bandit.
 					#ELSE
 						Take advantage of your victory to rape the bandit.
@@ -243,7 +251,7 @@
 				]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariables enabled="true">
-					<consensual><![CDATA[[#attacker.isAttractedTo(pc)]]]></consensual>
+					<consensual><![CDATA[[#attacker.isPostCombatWantsSex()]]]></consensual>
 					<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
 					<dominants>
 						<character><![CDATA[pc]]></character>
@@ -263,26 +271,30 @@
 			</response>
 			<!-- Sex, rough: -->
 			<response>
-				<availabilityConditional><![CDATA[[#!attacker.isAttractedTo(pc) && !game.isNonConEnabled()]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#attacker.isPostCombatNoSex()]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[4]]></index>
-				<responseTitle><![CDATA[Sex (rough)]]></responseTitle>
+				<responseTitle><![CDATA[Rough sex]]></responseTitle>
 				<responseTooltip><![CDATA[You can tell that [attacker.name] isn't at all interested in having sex with you...]]></responseTooltip>
 				<nextDialogue><![CDATA[null]]></nextDialogue>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[[#attacker.isAttractedTo(pc) || game.isNonConEnabled()]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#!attacker.isPostCombatNoSex()]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[4]]></index>
 				<responseTitle><![CDATA[
-					#IF(attacker.isAttractedTo(pc))
-						Sex (rough)
+					#IF(attacker.isPostCombatWantsSex())
+						#IF(attacker.isPostCombatRapePlay())
+							Rape-play (rough)
+						#ELSE
+							Rough sex
+						#ENDIF
 					#ELSE
 						Rape [attacker.herHim] (rough)
 					#ENDIF
 				]]></responseTitle>
 				<responseTooltip><![CDATA[
-					#IF(attacker.isAttractedTo(pc))
+					#IF(attacker.isPostCombatWantsSex())
 						Take advantage of your victory to have rough, dominant sex with the bandit.
 					#ELSE
 						Take advantage of your victory to roughly rape the bandit.
@@ -290,7 +302,7 @@
 				]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariables enabled="true">
-					<consensual><![CDATA[[#attacker.isAttractedTo(pc)]]]></consensual>
+					<consensual><![CDATA[[#attacker.isPostCombatWantsSex()]]]></consensual>
 					<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
 					<dominants>
 						<character><![CDATA[pc]]></character>
@@ -311,7 +323,7 @@
 			
 			<!-- Submit: -->
 			<response>
-				<availabilityConditional><![CDATA[[#!attacker.isAttractedTo(pc)]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#!attacker.isAttractedTo(pc) || attacker.hasFlag(NPC_FLAG_genericNPCBetrayedByPlayer)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[5]]></index>
 				<responseTitle><![CDATA[Submit]]></responseTitle>
@@ -319,7 +331,7 @@
 				<nextDialogue><![CDATA[null]]></nextDialogue>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[[#attacker.isAttractedTo(pc)]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#attacker.isAttractedTo(pc) && !attacker.hasFlag(NPC_FLAG_genericNPCBetrayedByPlayer)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[5]]></index>
 				<responseTitle><![CDATA[Submit]]></responseTitle>

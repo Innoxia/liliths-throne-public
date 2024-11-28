@@ -274,9 +274,9 @@ public class SupplierPartner extends NPC {
 			return new Response("", "", KaysWarehouse.DOBERMANNS_COMBAT_PLAYER_VICTORY) {
 				@Override
 				public void effects() {
-					if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.RELATIONSHIP_NYAN_4_STOCK_ISSUES_SUPPLIERS_BEATEN)) {
-						KaysWarehouse.applySuppliersBeatenEffects();
-					}
+//					if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.RELATIONSHIP_NYAN_4_STOCK_ISSUES_SUPPLIERS_BEATEN)) {
+//						KaysWarehouse.applySuppliersBeatenEffects();
+//					}
 				}
 			};
 		} else {

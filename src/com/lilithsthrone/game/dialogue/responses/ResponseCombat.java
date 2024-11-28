@@ -39,6 +39,7 @@ public class ResponseCombat extends Response {
 
 	private Map<String, String> openingDescriptionsUsingIds;
 	private boolean escapeBlocked = false;
+	private boolean submitBlocked = false;
 	
 	
 	public ResponseCombat(String title, String tooltipText, NPC opponent) {
@@ -143,7 +144,8 @@ public class ResponseCombat extends Response {
 			List<String> enemiesIds,
 			Map<String, String> openingDescriptionsUsingIds,
 			String effectsResponse,
-			boolean escapeBlocked) {
+			boolean escapeBlocked,
+			boolean submitBlocked) {
 		super(title, tooltipText, null);
 		this.fromExternalFile = true;
 		
@@ -160,6 +162,7 @@ public class ResponseCombat extends Response {
 		this.effectsString = effectsResponse;
 		
 		this.escapeBlocked = escapeBlocked;
+		this.submitBlocked = submitBlocked;
 	}
 	
 	@Override
@@ -200,7 +203,7 @@ public class ResponseCombat extends Response {
 				openingDescriptions.put(UtilText.findFirstCharacterFromParserTarget(entry.getKey()), entry.getValue());
 			}
 			
-			Main.combat.initialiseCombat(allies, addElementalsToAllies, enemyLeader, enemies, openingDescriptions, escapeBlocked);
+			Main.combat.initialiseCombat(allies, addElementalsToAllies, enemyLeader, enemies, openingDescriptions, escapeBlocked, submitBlocked);
 			Main.combat.setPlayerPostVictoryDialogue(DialogueManager.getDialogueFromId(UtilText.parse(nextDialoguePlayerVictoryId).trim()));
 			Main.combat.setPlayerPostDefeatDialogue(DialogueManager.getDialogueFromId(UtilText.parse(nextDialoguePlayerDefeatId).trim()));
 			

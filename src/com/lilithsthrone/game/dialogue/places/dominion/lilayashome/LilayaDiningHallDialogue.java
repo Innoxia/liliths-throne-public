@@ -117,7 +117,7 @@ public class LilayaDiningHallDialogue {
 						}
 					};
 				} else {
-					return new Response("Manage room", "You'll either need a slaver license, or permission from Lilaya to house your friends, before you can access this menu!",  null);
+					return new Response("Manage room", "You need a slaver license or permission from Lilaya to house your friends or dolls in order to access this menu!",  null);
 				}
 				
 			} else if (index == 2) {
@@ -129,7 +129,7 @@ public class LilayaDiningHallDialogue {
 						}
 					};
 				} else {
-					return new Response("Manage people", "You'll either need a slaver license, or permission from Lilaya to house your friends, before you can access this menu!",  null);
+					return new Response("Manage people", "You need a slaver license or permission from Lilaya to house your friends or dolls in order to access this menu!",  null);
 				}
 				
 			} else if (index == 3) {

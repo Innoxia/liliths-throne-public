@@ -17,7 +17,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.4.0
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class Tail implements BodyPartInterface {
@@ -38,6 +38,13 @@ public class Tail implements BodyPartInterface {
 		this.lengthAsPercentageOfHeight = type.getDefaultLengthAsPercentageOfHeight();
 	}
 
+	public Tail(Tail tailToCopy) {
+		this.type = tailToCopy.type;
+		this.tailCount = tailToCopy.tailCount;
+		this.girth = tailToCopy.girth;
+		this.lengthAsPercentageOfHeight = tailToCopy.lengthAsPercentageOfHeight;
+	}
+	
 	@Override
 	public AbstractTailType getType() {
 		return type;

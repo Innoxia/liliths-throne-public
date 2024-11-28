@@ -4,7 +4,6 @@
 	<name><![CDATA[Themiscyra palace]]></name>
 	<tooltipDescription><![CDATA[The seat of government in Themiscyra, this classical palace sits atop a rocky hill and overlooks the entire town.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[outside the palace in Themiscyra]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>false</sexBlockedFromCharacterPresent>
 	<colour>BASE_TEAL</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

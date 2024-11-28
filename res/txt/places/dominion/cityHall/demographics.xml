@@ -419,7 +419,7 @@
 			Just as you start wondering what secret [vanessa.name] has to having such healthy skin, she moans down from above, [vanessa.speech(Mmm, this takes me back... When I was younger, I was very close friends with a really beautiful bee-girl, and she used to give me foot massages as well. And when I say a 'close' friend, I mean really close...)]
 		</p>
 		<p>
-			You look up at [vanessa.name] just in time to see her pulling up her skirt and spreading her legs. Suddenly presented with the fox-girl's lacy black panties, you see that there's a slightly darker patch right in the middle, but before you can react, [vanessa.name] moans once more, [vanessa.speech(You know, bee-girls <i>really</i> love the taste of honey, and my friend even went so far as to get me to drink a potion that would make a certain special area of mine taste just like it...)]
+			You look up at [vanessa.name] just in time to see her pulling up her skirt and spreading her legs. Suddenly presented with the fox-girl's lacy black panties, you see that there's a slightly darker patch right in the middle, but before you can react, [vanessa.name] moans once more, [vanessa.speech(You know, bee-girls <i>really</i> love the taste of honey, and to please her I drank a potion that made a certain special area of mine taste just like it...)]
 		</p>
 		<p>
 			As [vanessa.name] runs her hands down between her legs, you find yourself knowing exactly which 'special area' she's talking about. As starts touching herself in front of you, [vanessa.name] offers, [vanessa.speech(Perhaps you'd like a taste?)]
@@ -557,7 +557,7 @@
 			Just as you start wondering what secret [vanessa.name] has to having such healthy skin, she moans down from above, [vanessa.speech(Mmm, this takes me back... When I was younger, I was very close friends with a really beautiful bee-girl, and she used to give me massages like this as well. And when I say a 'close' friend, I mean really close...)]
 		</p>
 		<p>
-			You look up at [vanessa.name] just in time to see her pulling her skirt all the way up around her waist and spreading her legs. Suddenly presented with the fox-girl's lacy black panties, you see that there's a slightly darker patch right in the middle, but before you can react, [vanessa.name] moans once more, [vanessa.speech(You know, bee-girls <i>really</i> love the taste of honey, and my friend even went so far as to get me to drink a potion that would make a certain special area of mine taste just like it...)]
+			You look up at [vanessa.name] just in time to see her pulling her skirt all the way up around her waist and spreading her legs. Suddenly presented with the fox-girl's lacy black panties, you see that there's a slightly darker patch right in the middle, but before you can react, [vanessa.name] moans once more, [vanessa.speech(You know, bee-girls <i>really</i> love the taste of honey, and to please her I drank a potion that made a certain special area of mine taste just like it...)]
 		</p>
 		<p>
 			As [vanessa.name] runs her hands down between her legs, you find yourself knowing exactly which 'special area' she's talking about. As starts touching herself in front of you, [vanessa.name] offers, [vanessa.speech(Perhaps you'd like a taste?)]
@@ -584,7 +584,7 @@
 	
 	<htmlContent tag="START_ORAL"><![CDATA[
 	<p>
-		[pc.speech(Mmm, yes,)] you reply, lowering [vanessa.namePos] feet gently to the floor before shuffling forwards between her legs.
+		Eager to eat her out, you lower [vanessa.namePos] feet gently to the floor before quickly shuffling forwards between her legs.
 	</p>
 	<p>
 		[vanessa.speech(That's right,)] the elderly fox-girl teases, [vanessa.speech(come and get a taste of my honey...)]
@@ -598,64 +598,42 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="START_ORAL_FOOTJOB"><![CDATA[
+	<p>
+		Although you're eager to eat her out, you also want to feel [vanessa.namePos] feet rubbing against your [pc.cock+], and so you ask the elderly fox-girl if she'll give you a footjob.
+	</p>
+	<p>
+		[vanessa.speech(Oh, you like my feet that much, do you?)] she teases, before playfully dragging her slender feet over your groin and saying the words you longed to hear, [vanessa.speech(Get your cock out and I'll see what I can do.)]
+	</p>
+	<p>
+		Hastily doing as she asks, you pull out your [pc.cock+] and present it to [vanessa.namePos] feet. She immediately presses her soles against your hardening shaft, and as you let out [pc.a_moan+], she pulls her lacy black panties to one side. Presenting you with her dipping-wet pussy, she says, [vanessa.speech(Come and get a taste of my honey while I give you a footjob...)]
+	</p>
+	<p>
+		Doing as you're told, you shuffle forwards and bring your lips to [vanessa.namePos] hot cunt, before darting your tongue out and giving her labia a long, greedy lick. Immediately, the sweet taste of honey fills your mouth, but before you can react to this, you suddenly feel [vanessa.namePos] hands grab the back of your head, before firmly pulling your face into her groin.
+	</p>
+	<p>
+		[vanessa.speech(~Mmm!~ Yes! Get that tongue in deep!)] she cries, and as her feet continue stroking your cock, she grinds her pussy against your lips and gives you no choice but to eat her out...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="END_ORAL_SEX"><![CDATA[
 	<p>
-		Having had enough of being eaten out, [vanessa.name] releases her grip on the back of your head, before gently pushing you back and teasing, [vanessa.speech(I know you just orgasmed, but you're not done yet, are you?)]
+		#IF(sex.getSexTypeCount(vanessa, pc, sex.newSexType(PENETRATION_FOOT, PENETRATION_PENIS))>0)
+			Having had enough of giving you a footjob while being eaten out,
+		#ELSE
+			Having had enough of being eaten out,
+		#ENDIF
+		#IF(sex.getNumberOfOrgasms(pc)>0)
+			 [vanessa.name] releases her grip on the back of your head, before gently pushing you back and teasing, [vanessa.speech(I know you just orgasmed, but you're not done yet, are you?)]
+		#ELSE
+			 [vanessa.name] releases her grip on the back of your head, before gently pushing you back and teasing, [vanessa.speech(Now that I've had my fun, it's only fair that I return the favour...)]
+		#ENDIF
 	</p>
 	#IF(!pc.isTaur())
 		#IF(pc.hasPenis() && (pc.isAbleToAccessCoverableArea(CA_PENIS, true) || !pc.hasVagina()))
 			<p>
 				Before you can ask what she has in mind, the elderly fox-girl stands up and steps over to her desk, before sitting on top of it and spreading her legs for you.
-				#IF(vanessa.isVisiblyPregnant())
-					 [vanessa.speech(Come on, give my pussy a good, hard fuck! You can blow your load inside me all you want; I'm already pregnant, after all...)]
-				#ELSEIF(vanessa.hasStatusEffect(SE_BROODMOTHER_PILL) || vanessa.hasStatusEffect(SE_VIXENS_VIRILITY))
-					 [vanessa.speech(Come on, give my pussy a good, hard fuck! I'm pretty sure that pill you gave me is still having an effect, so if you blow your load inside me the you could end up getting me pregnant...)]
-				#ELSE
-					 [vanessa.speech(Come on, give my pussy a good, hard fuck! You can blow your load inside me all you want; I'm not going to get pregnant at my age...)]
-				#ENDIF
-			</p>
-		#ELSEIF(pc.hasVagina())
-			<p>
-				Before you can ask what she has in mind, the elderly fox-girl stands up, before taking hold of your hand and getting you to do the same. Stepping around in order to switch positions, [vanessa.name] pushes you back, getting you to sit down in the chair she's just vacated. Kneeling down #IF(pc.hasLegs())between your legs#ELSEin front of you#ENDIF, she looks up and asks, [vanessa.speech(You want me to eat you out, don't you?)]
-			</p>
-		#ELSE
-			<p>
-				Before you can ask what she has in mind, the elderly fox-girl stands up, before taking hold of your hand and getting you to do the same. Stepping around in order to switch positions, [vanessa.name] pushes you back, getting you to sit down in the chair she's just vacated. Kneeling down #IF(pc.hasLegs())between your legs#ELSEin front of you#ENDIF, she looks up and asks, [vanessa.speech(You want me to use my mouth on you, don't you?)]
-			</p>
-		#ENDIF
-	#ELSE
-		#IF(pc.hasPenis() && (pc.isAbleToAccessCoverableArea(CA_PENIS, true) || !pc.hasVagina()))
-			<p>
-				Before you can ask what she has in mind, the elderly fox-girl stands up and steps over to one side, before dropping down onto all fours and presenting herself to you.
-				#IF(vanessa.isVisiblyPregnant())
-					 [vanessa.speech(Come on, mount me and give my pussy a good, hard fuck! You can blow your load inside me all you want; I'm already pregnant, after all...)]
-				#ELSEIF(vanessa.hasStatusEffect(SE_BROODMOTHER_PILL) || vanessa.hasStatusEffect(SE_VIXENS_VIRILITY))
-					 [vanessa.speech(Come on, mount me and give my pussy a good, hard fuck! I'm pretty sure that pill you gave me is still having an effect, so if you blow your load inside me the you could end up getting me pregnant...)]
-				#ELSE
-					 [vanessa.speech(Come on, mount me and give my pussy a good, hard fuck! You can blow your load inside me all you want; I'm not going to get pregnant at my age...)]
-				#ENDIF
-			</p>
-		#ELSEIF(pc.hasVagina())
-			<p>
-				Before you can ask what she has in mind, the elderly fox-girl stands up, before taking hold of your hand and getting you to do the same. Stepping around behind you, [vanessa.name] traces her fingers over your [pc.pussy+], before sensually asking, [vanessa.speech(You want me to return the favour and eat you out, don't you?)]
-			</p>
-		#ELSE
-			<p>
-				Before you can ask what she has in mind, the elderly fox-girl stands up, before taking hold of your hand and getting you to do the same. Stepping around behind you, [vanessa.name] traces her fingers over your genderless mound, before sensually asking, [vanessa.speech(You want me to return the favour and pleasure you with my mouth, don't you?)]
-			</p>
-		#ENDIF
-	#ENDIF
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="END_ORAL_SEX_NO_ORGASM"><![CDATA[
-	<p>
-		Having had enough of being eaten out, [vanessa.name] releases her grip on the back of your head, before gently pushing you back and teasing, [vanessa.speech(Now that I've had my fun, it's only fair that I return the favour...)]
-	</p>
-	#IF(!pc.isTaur())
-		#IF(pc.hasPenis() && (pc.isAbleToAccessCoverableArea(CA_PENIS, true) || !pc.hasVagina()))
-			<p>
-				Before you can ask what she has in mind, the elderly fox-girl stands up and steps over to her desk, before sitting on top of it and spreading her legs at you.
 				#IF(vanessa.isVisiblyPregnant())
 					 [vanessa.speech(Come on, give my pussy a good, hard fuck! You can blow your load inside me all you want; I'm already pregnant, after all...)]
 				#ELSEIF(vanessa.hasStatusEffect(SE_BROODMOTHER_PILL) || vanessa.hasStatusEffect(SE_VIXENS_VIRILITY))

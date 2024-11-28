@@ -22,10 +22,29 @@ import com.lilithsthrone.utils.Util;
  * If sub, positional change is just a suggestion, which the NPC may refuse if they have other preferences.
  * 
  * @since 0.1.79
- * @version 0.3.1
+ * @version 0.4.9.5
  * @author Innoxia
  */
 public class ToiletStall {
+	
+	private static boolean checkBaseRequirements(PositioningData data, boolean request) {
+		return GenericPositioning.checkBaseRequirements(data, request);
+//		return Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
+//				&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(data.getPosition())
+//				&& !(Main.sex.getPosition() == data.getPosition()
+//					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==data.getPerformerSlots().get(0)
+//					&& Main.sex.getSexPositionSlot(Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()))==data.getPartnerSlots().get(0))
+//				&& data.getPosition().getMaximumSlots()>=Main.sex.getTotalParticipantCount(false)
+//				&& Main.sex.getTotalParticipantCount(false)==(data.getPerformerSlots().size()+data.getPartnerSlots().size())
+//				&& (request
+//						?Main.sex.getCharacterPerformingAction().isPlayer() && Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())!=SexControl.FULL
+//						:(Main.sex.getCharacterPerformingAction().isPlayer()
+//							?Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
+//							:!Main.sex.isCharacterForbiddenByOthersFromPositioning(Main.sex.getCharacterPerformingAction())))
+//				&& (!request && !Main.sex.getCharacterPerformingAction().isPlayer()
+//						?((NPC) Main.sex.getCharacterPerformingAction()).isHappyToBeInSlot(data.getPosition(), data.getPerformerSlots().get(0), data.getPartnerSlots().get(0), Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()))
+//						:true);
+	}
 
 	public static final SexAction PLAYER_POSITION_SWAP = new SexAction(
 			SexActionType.POSITIONING,
@@ -70,24 +89,6 @@ public class ToiletStall {
 			Main.sex.swapSexPositionSlots(Main.game.getPlayer(), Main.sex.getCharacterTargetedForSexAction(this));
 		}
 	};
-	
-	private static boolean checkBaseRequirements(PositioningData data, boolean request) {
-		return Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
-				&& Main.sex.getInitialSexManager().getAllowedSexPositions().contains(data.getPosition())
-				&& !(Main.sex.getPosition() == data.getPosition()
-					&& Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())==data.getPerformerSlots().get(0)
-					&& Main.sex.getSexPositionSlot(Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()))==data.getPartnerSlots().get(0))
-				&& data.getPosition().getMaximumSlots()>=Main.sex.getTotalParticipantCount(false)
-				&& Main.sex.getTotalParticipantCount(false)==(data.getPerformerSlots().size()+data.getPartnerSlots().size())
-				&& (request
-						?Main.sex.getCharacterPerformingAction().isPlayer() && Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())!=SexControl.FULL
-						:(Main.sex.getCharacterPerformingAction().isPlayer()
-							?Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
-							:!Main.sex.isCharacterForbiddenByOthersFromPositioning(Main.sex.getCharacterPerformingAction())))
-				&& (!request && !Main.sex.getCharacterPerformingAction().isPlayer()
-						?((NPC) Main.sex.getCharacterPerformingAction()).isHappyToBeInSlot(data.getPosition(), data.getPerformerSlots().get(0), data.getPartnerSlots().get(0), Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()))
-						:true);
-	}
 
 	public static final SexAction PLAYER_POSITION_FACE_TO_WALL = new SexAction(
 			SexActionType.POSITIONING,

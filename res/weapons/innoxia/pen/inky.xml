@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<weapon>
+	<coreAttributes>
+		<value>100000</value>
+		<melee>true</melee>
+		<twoHanded>false</twoHanded>
+		<determiner><![CDATA[the]]></determiner>
+		<name appendDamageName="false"><![CDATA[Inky's Pen]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Inky's Pens]]></namePlural>
+		<description><![CDATA[This fancy-looking fountain pen holds an incredibly powerful enchantment. When the cap is twisted three times before being taken off, an arcane entity known only as 'Inky' is unleashed upon the holder's enemies...]]></description>
+		<attackDescriptor>poke</attackDescriptor>
+		<attackTooltipDescription>Poke [npc2.name] with your pen.</attackTooltipDescription>
+		<rarity>LEGENDARY</rarity>
+		<weaponSet/>
+		<equipText><![CDATA[[npc.Name] [npc.verb(bring)] out Inky's pen and [npc.verb(get)] ready to use it in combat.]]></equipText>
+		<unequipText><![CDATA[[npc.Name] [npc.verb(put)] Inky's pen away.]]></unequipText>
+		<imageName>inky.svg</imageName> 
+		<imageEquippedName/>
+		<damage>1</damage> 
+		<arcaneCost>0</arcaneCost> 
+		<damageVariance>LOW</damageVariance> 
+		<availableDamageTypes>
+			<damageType>PHYSICAL</damageType>
+		</availableDamageTypes>
+		<spells/>
+		<combatMoves>
+			<move>INKY_SUMMON</move>
+		</combatMoves>
+		<effects/>
+		
+		<primaryColours>
+			<colour>CLOTHING_BLACK</colour>
+		</primaryColours> 
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours>
+			<colour>CLOTHING_BRASS</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
+		
+		<customColours>
+			<customColour c0="#6C5353" c1="#916F6F" c2="#AC9393" c3="#C8B7B7" c4="#E3DBDB">
+				<defaultColours>
+					<colour>CLOTHING_BRASS</colour>
+				</defaultColours> 
+				<extraColours values="ALL_WITH_METALS"/>
+			</customColour>
+		</customColours>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+	
+	<hitDescriptions>
+		<hitText><![CDATA[
+		[npc.Name] [npc.verb(thrust)] [npc.her] pen at [npc2.name], and although it strikes [npc2.her] body, it really doesn't cause much damage... 
+		]]></hitText>
+	</hitDescriptions>
+
+	<!-- Descriptions that are used when missing an enemy. One of the missText values will be randomly selected each time the attacker misses their target. Follow the same guidelines as equipText. -->
+	<missDescriptions>
+		<missText><![CDATA[
+		[npc.Name] [npc.verb(thrust)] [npc.her] pen at [npc2.name], but [npc.she] [npc.verb(miss)]... 
+		]]></missText>
+	</missDescriptions>
+	
+</weapon>

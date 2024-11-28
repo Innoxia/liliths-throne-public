@@ -226,9 +226,15 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		} else {
 			pattern = "none";
 		}
-		
+
+		// Only fill pattern colours with a random colour if they're visible with the currently selected pattern, otherwise fill the missing colours with the first of the defaults
+		// This prevents the issue where multiple clothing with apparently the same colour patterning wouldn't stack due to a 'hidden' pattern colour being different in each item of clothing
 		for(ColourReplacement cr : clothingType.getPatternColourReplacements()) {
-			patternColours.add(cr.getRandomOfDefaultColours());
+			if(Pattern.getPattern(pattern).isRecolourAvailable(cr)) {
+				patternColours.add(cr.getRandomOfDefaultColours());
+			} else {
+				patternColours.add(cr.getFirstOfDefaultColours());
+			}
 		}
 	}
 	
@@ -375,10 +381,13 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			innerElement.setAttribute("id", this.getPattern());
 			
 			for(int i=0; i<this.getPatternColours().size(); i++) {
-				Element colourElement = doc.createElement("colour");
-				innerElement.appendChild(colourElement);
-				colourElement.setAttribute("i", String.valueOf(i));
-				colourElement.setTextContent(this.getPatternColour(i).getId());
+				ColourReplacement cr = this.getClothingType().getPatternColourReplacement(i);
+				if(!cr.getAllColours().isEmpty() && Pattern.getPattern(this.getPattern()).isRecolourAvailable(cr)) { // Only save colours which are applicable to the current pattern
+					Element colourElement = doc.createElement("colour");
+					innerElement.appendChild(colourElement);
+					colourElement.setAttribute("i", String.valueOf(i));
+					colourElement.setTextContent(this.getPatternColour(i).getId());
+				}
 			}
 		}
 		
@@ -604,6 +613,12 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 					applyTertiaryLoad = false;
 				}
 			}
+
+			String loadedId = parentElement.getAttribute("id");
+			boolean swapPrimaryAndSecondary = false;
+			if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.9.13") && loadedId.equals("norin_piercings_heart_barbells")) {
+				swapPrimaryAndSecondary = true;
+			}
 			
 			Element colourElement = (Element) parentElement.getElementsByTagName("colours").item(0);
 			if(colourElement!=null) {
@@ -611,7 +626,15 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				for(int i=0; i<nodes.getLength(); i++) {
 					if((i!=1 || applySecondaryLoad) && (i!=2 || applyTertiaryLoad)) {
 						Element cElement = (Element) nodes.item(i);
-						clothing.setColour(Integer.valueOf(cElement.getAttribute("i")), PresetColour.getColourFromId(cElement.getTextContent()));
+						int colourIndex = Integer.valueOf(cElement.getAttribute("i"));
+						if(swapPrimaryAndSecondary) {
+							if(colourIndex==0) {
+								colourIndex = 1;
+							} else if(colourIndex==1) {
+								colourIndex = 0;
+							}
+						}
+						clothing.setColour(colourIndex, PresetColour.getColourFromId(cElement.getTextContent()));
 					}
 				}
 			}
@@ -695,6 +718,18 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				for(int i=0; i<nodes.getLength(); i++) {
 					Element cElement = (Element) nodes.item(i);
 					clothing.setPatternColour(Integer.valueOf(cElement.getAttribute("i")), PresetColour.getColourFromId(cElement.getTextContent()));
+				}
+				
+				// If any pattern colours are missing (i.e. were not saved due to the current pattern not needing them), then fill the missing colours with the first of the defaults
+				// This prevents the issue where multiple clothing with apparently the same colour patterning wouldn't stack due to a 'hidden' pattern colour being different in each item of clothing
+				int defaultPatternReplacementSize = clothing.getClothingType().getPatternColourReplacements().size();
+				if(nodes.getLength() < defaultPatternReplacementSize) {
+					for(int i=nodes.getLength(); i<defaultPatternReplacementSize; i++) {
+						ColourReplacement cr = clothing.getClothingType().getPatternColourReplacement(i);
+						if(cr.getAllColours().isEmpty() || !Pattern.getPattern(clothing.getPattern()).isRecolourAvailable(cr)) {
+							clothing.setPatternColour(i, cr.getFirstOfDefaultColours());
+						}
+					}
 				}
 				
 			} else {
@@ -889,12 +924,24 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	}
 
 	public void setPatternColours(List<Colour> patternColours) {
-		this.patternColours = new ArrayList<>(patternColours);
+		for(int i=0; i<patternColours.size(); i++) {
+			setPatternColour(i, patternColours.get(i));
+		}
 	}
 	
 	public void setPatternColour(int index, Colour colour) {
-		patternColours.remove(index);
-		patternColours.add(index, colour);
+		if(patternColours.size()>index) {
+			patternColours.remove(index);
+		}
+
+		// If the currently active pattern has this index as a visible colour, then set it as normal. Otherwise, set it to the first of the defaults
+		// This prevents the issue where multiple clothing with apparently the same colour patterning wouldn't stack due to a 'hidden' pattern colour being different in each item of clothing
+		ColourReplacement cr = clothingType.getPatternColourReplacements().get(index);
+		if(Pattern.getPattern(pattern).isRecolourAvailable(cr)) {
+			patternColours.add(index, colour);
+		} else {
+			patternColours.add(index, cr.getFirstOfDefaultColours());
+		}
 	}
 	
 	public void setSticker(StickerCategory stickerCategory, Sticker sticker) {
@@ -1528,7 +1575,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	 * null should be passed as the argument for 'slotToBeEquippedTo' in order to return non-slot-specific descriptions.
 	 * 
 	 * @param equippedToCharacter The character this clothing is equipped to.
-	 * @param slotToBeEquippedTo The slot for which this clothing's effects effects are to be described.
+	 * @param slotToBeEquippedTo The slot for which this clothing's effects are to be described.
 	 * @param verbose true if you want a lengthy description of each effect.
 	 * @return A List of Strings describing extra features of this ClothingType.
 	 */
@@ -1551,6 +1598,25 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				} else {
 					descriptionsList.add("[style.boldDirty(Dirty)]");
 				}
+			}
+		}
+		
+		if(slotToBeEquippedTo!=null && dirty && Main.game.isInSex()) {
+			Map<GameCharacter, Integer> cummedOnInfo = new HashMap<>();
+			for(Entry<GameCharacter, Map<InventorySlot, Integer>> entry : Main.sex.getAmountCummedOnByPartners(equippedToCharacter).entrySet()) {
+				for(Entry<InventorySlot, Integer> areas : entry.getValue().entrySet()) {
+					if(areas.getKey()==slotToBeEquippedTo) {
+						cummedOnInfo.put(entry.getKey(), areas.getValue());
+					}
+				}
+			}
+			if(!cummedOnInfo.isEmpty()) {
+				descriptionsList.add("[style.boldDirty(Fluids present:)]");
+				for(Entry<GameCharacter, Integer> entry : cummedOnInfo.entrySet()) {
+					descriptionsList.add(UtilText.parse(entry.getKey(), "[style.fluid("+entry.getValue()+")] of <span style='color:"+entry.getKey().getFemininity().getColour().toWebHexString()+";'>[npc.namePos]</span> [npc.cum+]!"));
+				}
+			} else {
+				descriptionsList.add("[style.italicsDisabled(No fluid is available...)]");
 			}
 		}
 
@@ -2160,19 +2226,27 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	}
 
 	public AbstractAttribute getCoreEnchantment() {
-		AbstractAttribute att = null;
+		AbstractAttribute attMax = null;
+		AbstractAttribute attMin = null;
 		int max = 0;
+		int min = 0;
 		for(Entry<AbstractAttribute, Integer> entry : getAttributeModifiers().entrySet()) {
-			att = entry.getKey();
-			if(Math.abs(entry.getValue()) > max) {
-				att = entry.getKey();
-				max = Math.abs(entry.getValue());
+			if(entry.getValue() > max) {
+				attMax = entry.getKey();
+				max = entry.getValue();
+			}
+			if(entry.getValue() < min) {
+				attMin = entry.getKey();
+				min = entry.getValue();
 			}
 		}
-		if(att==null) {
+		if(Math.abs(min)>max) {
+			attMax = attMin;
+		}
+		if(attMax==null) {
 			return Attribute.MAJOR_PHYSIQUE;
 		}
-		return att;
+		return attMax;
 	}
 	
 	public String getEnchantmentPostfix(boolean coloured, String tag) {
@@ -2199,8 +2273,12 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 						:this.getCoreEnchantment().getPositiveEnchantment();
 				return "of "+(coloured?"<"+tag+" style='color:"+this.getCoreEnchantment().getColour().toWebHexString()+";'>"+name+"</"+tag+">":name);
 				
+			} else if(this.getEffects().stream().anyMatch(ie->ie.getPrimaryModifier() == TFModifier.CLOTHING_CREAMPIE_RETENTION)) {
+				return "of "+(coloured?"<"+tag+" style='color:"+PresetColour.CUM.toWebHexString()+";'>plugging</"+tag+">":"plugging");
+				
 			} else if(this.getEffects().stream().anyMatch(ie->ie.getSecondaryModifier() != TFModifier.CLOTHING_VIBRATION)) {
 				return "of "+(coloured?"<"+tag+" style='color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>transformation</"+tag+">":"transformation");
+				
 			}
 		}
 		return "";
@@ -2264,6 +2342,13 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	public void addEffect(ItemEffect effect) {
 		effects.add(effect);
 	}
+	
+	/**
+	 * <b>Do not call when equipped to someone!</b> (It will not update the wearer's attributes.)
+	 */
+	public void addEffect(AbstractItemEffectType itemEffectType, TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit) {
+		effects.add(new ItemEffect(itemEffectType, primaryModifier, secondaryModifier, potency, limit));
+	}
 
 	/**
 	 * <b>Do not call when equipped to someone!</b> (It will not update the wearer's attributes.)
@@ -2298,7 +2383,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	 */
 	public int getEnchantmentCapacityCost() {
 		Map<AbstractAttribute, Integer> noCorruption = new HashMap<>();
-		getAttributeModifiers().entrySet().stream().filter(ent -> ent.getKey()!=Attribute.FERTILITY && ent.getKey()!=Attribute.VIRILITY).forEach(ent -> noCorruption.put(ent.getKey(), ent.getValue()*(ent.getKey()==Attribute.MAJOR_CORRUPTION?-1:1)));
+		
+		getAttributeModifiers().entrySet().stream().filter(ent -> ent.getKey()!=Attribute.FERTILITY && ent.getKey()!=Attribute.VIRILITY)
+			.forEach(ent -> noCorruption.put(ent.getKey(), !ent.getKey().isAffectedByEnchantmentCost()?0:(ent.getValue()*(ent.getKey()==Attribute.MAJOR_CORRUPTION?-1:1))));
+		
 		return noCorruption.values().stream().reduce(0, (a, b) -> a + Math.max(0, b));
 	}
 	
@@ -2426,6 +2514,13 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 		}
 		if(block!=null && Collections.disjoint(block.getRequiredTags(), tags)) {
 			return new Value<>(false, UtilText.parse("[style.colourBad(" + UtilText.parse(clothingOwner, block.getDescription()) + ")]"));
+		}
+
+		if(tags.contains(ItemTag.FITS_MUZZLES_EXCLUSIVE) && !clothingOwner.isFaceMuzzle()) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for muzzles, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
+		}
+		if(tags.contains(ItemTag.FITS_BEAKS_EXCLUSIVE) && !clothingOwner.isFaceBeak()) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for beaks, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
 		}
 		
 		if(tags.contains(ItemTag.FITS_TAUR_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL) {

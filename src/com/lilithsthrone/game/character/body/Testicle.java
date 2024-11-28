@@ -16,7 +16,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.3.8.8
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class Testicle implements BodyPartInterface {
@@ -55,6 +55,25 @@ public class Testicle implements BodyPartInterface {
 		cum = new FluidCum(type.getFluidType());
 	}
 
+	public Testicle(Testicle testicleToCopy) {
+		this.type = testicleToCopy.type;
+		this.testicleSize = testicleToCopy.testicleSize;
+		this.cumStorage = testicleToCopy.cumStorage;
+		this.cumStored = testicleToCopy.cumStored;
+		this.cumRegeneration = testicleToCopy.cumRegeneration;
+		this.cumExpulsion = testicleToCopy.cumExpulsion;
+		
+		this.testicleCount = testicleToCopy.testicleCount;
+		
+		this.internal = testicleToCopy.internal;
+		
+		this.cum = new FluidCum(testicleToCopy.cum);
+	}
+
+	public void setCum(FluidCum cum) {
+		this.cum = cum;
+	}
+	
 	public FluidCum getCum() {
 		return cum;
 	}

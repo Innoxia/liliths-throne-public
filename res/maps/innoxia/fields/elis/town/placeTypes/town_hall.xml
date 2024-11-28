@@ -4,7 +4,6 @@
 	<name><![CDATA[town hall]]></name>
 	<tooltipDescription><![CDATA[The town hall is by far the largest building in all of Elis, and thanks to its distinctive tower, it's also the tallest.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[outside of the town hall at Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_PURPLE_LIGHT</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

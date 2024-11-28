@@ -67,73 +67,76 @@ public class FingerFinger {
 				case SUB_RESISTING:
 					break;
 			}
-			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
-				case DOM_GENTLE:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" Happily wrapping [npc2.her] [npc2.fingers+] around [npc.namePos] [npc.hand] in return, [npc2.name] [npc2.verb(let)] out a gentle sigh.",
-							" Responding by gently wrapping [npc2.her] [npc2.fingers+] around [npc.namePos] [npc.hand], [npc2.name] happily [npc2.verb(engage)] in [npc.namePos] hand holding."));
-					break;
-				case DOM_ROUGH:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" Roughly squeezing [npc2.her] [npc2.fingers+] around [npc.namePos] [npc.hand] in return, [npc2.name] [npc2.verb(let)] out a dominant growl.",
-							" Responding by tightly squeezing [npc2.her] [npc2.fingers+] around [npc.namePos] [npc.hand], [npc2.name] roughly [npc2.verb(engage)] in [npc.namePos] hand holding."));
-					break;
-				case DOM_NORMAL:
-				case SUB_EAGER:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" Happily wrapping [npc2.her] [npc2.fingers+] around [npc.namePos] [npc.hand] in return, [npc2.name] [npc2.verb(let)] out a happy [npc2.moan].",
-							" Responding by eagerly wrapping [npc2.her] [npc2.fingers+] around [npc.namePos] [npc.hand], [npc2.name] happily [npc2.verb(engage)] in [npc.namePos] hand holding."));
-					break;
-				case SUB_NORMAL:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" Wrapping [npc2.her] [npc2.fingers+] around [npc.namePos] [npc.hand] in return, [npc2.name] [npc2.verb(let)] out [npc2.a_moan+].",
-							" Responding by wrapping [npc2.her] [npc2.fingers+] around [npc.namePos] [npc.hand], [npc2.name] [npc2.verb(engage)] in [npc.namePos] hand holding."));
-					break;
-				case SUB_RESISTING:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" Desperately trying to pull [npc2.her] [npc2.hand] away from [npc.nameHers], [npc2.name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(beg)] to be released.",
-							" Responding by frantically recoiling from [npc.namePos] unwanted advance, [npc2.name] [npc2.verb(start)] pleading to be left alone, all the while trying to pull [npc2.her] [npc2.hand] away from [npc.nameHers]."));
-					break;
+			if(!isTargetedCharacterInanimate()) {
+				switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
+					case DOM_GENTLE:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" Happily wrapping [npc2.her] [npc2.fingers+] around [npc.namePos] [npc.hand] in return, [npc2.name] [npc2.verb(let)] out a gentle sigh.",
+								" Responding by gently wrapping [npc2.her] [npc2.fingers+] around [npc.namePos] [npc.hand], [npc2.name] happily [npc2.verb(engage)] in [npc.namePos] hand holding."));
+						break;
+					case DOM_ROUGH:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" Roughly squeezing [npc2.her] [npc2.fingers+] around [npc.namePos] [npc.hand] in return, [npc2.name] [npc2.verb(let)] out a dominant growl.",
+								" Responding by tightly squeezing [npc2.her] [npc2.fingers+] around [npc.namePos] [npc.hand], [npc2.name] roughly [npc2.verb(engage)] in [npc.namePos] hand holding."));
+						break;
+					case DOM_NORMAL:
+					case SUB_EAGER:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" Happily wrapping [npc2.her] [npc2.fingers+] around [npc.namePos] [npc.hand] in return, [npc2.name] [npc2.verb(let)] out a happy [npc2.moan].",
+								" Responding by eagerly wrapping [npc2.her] [npc2.fingers+] around [npc.namePos] [npc.hand], [npc2.name] happily [npc2.verb(engage)] in [npc.namePos] hand holding."));
+						break;
+					case SUB_NORMAL:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" Wrapping [npc2.her] [npc2.fingers+] around [npc.namePos] [npc.hand] in return, [npc2.name] [npc2.verb(let)] out [npc2.a_moan+].",
+								" Responding by wrapping [npc2.her] [npc2.fingers+] around [npc.namePos] [npc.hand], [npc2.name] [npc2.verb(engage)] in [npc.namePos] hand holding."));
+						break;
+					case SUB_RESISTING:
+						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+								" Desperately trying to pull [npc2.her] [npc2.hand] away from [npc.nameHers], [npc2.name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(beg)] to be released.",
+								" Responding by frantically recoiling from [npc.namePos] unwanted advance, [npc2.name] [npc2.verb(start)] pleading to be left alone, all the while trying to pull [npc2.her] [npc2.hand] away from [npc.nameHers]."));
+						break;
+				}
 			}
-			
 			return UtilText.nodeContentSB.toString();
 		}
 	};
 	
 	private static String getTargetedCharacterResponse(SexAction action) {
-		switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(action))) {
-			case SUB_EAGER:
-			case DOM_NORMAL:
-				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-						" [npc2.Name] enthusiastically [npc2.verb(respond)] in kind, and [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(grip)] [npc.namePos] [npc.hand+] in [npc2.her] own.",
-						" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] eagerly [npc2.verb(grip)] [npc.namePos] [npc.hand+].",
-						" [npc2.Moaning] in delight, [npc2.name] eagerly [npc2.verb(grip)] [npc.namePos] [npc.hand+]."));
-				break;
-			case SUB_RESISTING:
-				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-						" Desperately trying, and failing, to pull [npc2.her] [npc2.hand] away from [npc.nameHers], [npc2.name] desperately [npc2.verb(beg)] for [npc.name] to get away from [npc2.herHim].",
-						" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips] as [npc2.she] weakly [npc2.verb(try)] to pull [npc2.her] [npc2.hand] away from [npc.nameHers].",
-						" [npc2.Sobbing] in distress, and with tears running down [npc2.her] [npc2.face],"
-								+ " [npc2.name] weakly [npc2.verb(struggle)] against [npc.name], pleading and crying for [npc.herHim] to let go of [npc2.her] [npc2.hand]."));
-				break;
-			case SUB_NORMAL:
-				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-						" [npc2.Name] [npc2.verb(respond)] in kind, and [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(grip)] [npc.namePos] [npc.hand+] in [npc2.her] own.",
-						" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] [npc2.verb(grip)] [npc.namePos] [npc.hand+].",
-						" Letting out [npc2.a_moan], [npc2.name] [npc2.verb(respond)] by gripping [npc.namePos] [npc.hand+]."));
-				break;
-			case DOM_GENTLE:
-				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-						" [npc2.Name] happily [npc2.verb(respond)] in kind, and [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] softly [npc2.verb(hold)] [npc.namePos] [npc.hand+] in [npc2.her] own.",
-						" [npc2.A_moan+] drifts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] gently [npc2.verb(hold)] [npc.namePos] [npc.hand+].",
-						" Letting out [npc2.a_moan], [npc2.name] [npc2.verb(respond)] by gently squeezing [npc.namePos] [npc.hand+]."));
-				break;
-			case DOM_ROUGH:
-				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-						" [npc2.Name] forcefully [npc2.verb(respond)] in kind, and [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] roughly [npc2.verb(squeeze)] [npc.namePos] [npc.hand+] in [npc2.her] own.",
-						" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] roughly [npc2.verb(squeeze)] [npc.namePos] [npc.hand+].",
-						" Letting out [npc2.a_moan], [npc2.name] [npc2.verb(respond)] by forcefully squeezing [npc.namePos] [npc.hand+]."));
-				break;
+		if(!action.isTargetedCharacterInanimate()) {
+			switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(action))) {
+				case SUB_EAGER:
+				case DOM_NORMAL:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" [npc2.Name] enthusiastically [npc2.verb(respond)] in kind, and [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(grip)] [npc.namePos] [npc.hand+] in [npc2.her] own.",
+							" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] eagerly [npc2.verb(grip)] [npc.namePos] [npc.hand+].",
+							" [npc2.Moaning] in delight, [npc2.name] eagerly [npc2.verb(grip)] [npc.namePos] [npc.hand+]."));
+					break;
+				case SUB_RESISTING:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" Desperately trying, and failing, to pull [npc2.her] [npc2.hand] away from [npc.nameHers], [npc2.name] desperately [npc2.verb(beg)] for [npc.name] to get away from [npc2.herHim].",
+							" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips] as [npc2.she] weakly [npc2.verb(try)] to pull [npc2.her] [npc2.hand] away from [npc.nameHers].",
+							" [npc2.Sobbing] in distress, and with tears running down [npc2.her] [npc2.face],"
+									+ " [npc2.name] weakly [npc2.verb(struggle)] against [npc.name], pleading and crying for [npc.herHim] to let go of [npc2.her] [npc2.hand]."));
+					break;
+				case SUB_NORMAL:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" [npc2.Name] [npc2.verb(respond)] in kind, and [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc2.verb(grip)] [npc.namePos] [npc.hand+] in [npc2.her] own.",
+							" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] [npc2.verb(grip)] [npc.namePos] [npc.hand+].",
+							" Letting out [npc2.a_moan], [npc2.name] [npc2.verb(respond)] by gripping [npc.namePos] [npc.hand+]."));
+					break;
+				case DOM_GENTLE:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" [npc2.Name] happily [npc2.verb(respond)] in kind, and [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] softly [npc2.verb(hold)] [npc.namePos] [npc.hand+] in [npc2.her] own.",
+							" [npc2.A_moan+] drifts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] gently [npc2.verb(hold)] [npc.namePos] [npc.hand+].",
+							" Letting out [npc2.a_moan], [npc2.name] [npc2.verb(respond)] by gently squeezing [npc.namePos] [npc.hand+]."));
+					break;
+				case DOM_ROUGH:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" [npc2.Name] forcefully [npc2.verb(respond)] in kind, and [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] roughly [npc2.verb(squeeze)] [npc.namePos] [npc.hand+] in [npc2.her] own.",
+							" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] roughly [npc2.verb(squeeze)] [npc.namePos] [npc.hand+].",
+							" Letting out [npc2.a_moan], [npc2.name] [npc2.verb(respond)] by forcefully squeezing [npc.namePos] [npc.hand+]."));
+					break;
+			}
 		}
 		return "";
 	}

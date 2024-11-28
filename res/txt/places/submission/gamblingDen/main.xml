@@ -602,7 +602,7 @@
 		[pc.speech(What's the matter?)] you ask, worried about [axel.name]'s sudden shift in tone, [pc.speech(And who's Vengar?)]
 	</p>
 	<p>
-		[axel.name] glances around nervously, before leaning in towards you and lowering his voice, [axel.speech(Y-You mean you're not working for him?)]
+		[axel.name] glances around nervously, before leaning in towards you and lowering his voice, [axel.speech(You mean you're not working for him?)]
 	</p>
 	<p>
 		[pc.speech(I don't even know who he is,)] you reply.

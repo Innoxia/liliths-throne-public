@@ -30,7 +30,7 @@ public enum TattooCountType {
 	WRITTEN("written out") {
 		@Override
 		public String convertInt(int input) {
-			return Util.intToString(input);
+			return Util.capitaliseSentence(Util.intToString(input));
 		}
 	};
 	

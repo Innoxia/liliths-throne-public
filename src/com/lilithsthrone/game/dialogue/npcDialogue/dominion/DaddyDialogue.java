@@ -366,6 +366,8 @@ public class DaddyDialogue {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("characters/dominion/daddy", "REFUSE_AFTER_RETURN"));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.rudeToDaddy, false);
 							Main.game.getDialogueFlags().setSavedLong(Daddy.DADDY_RESET_TIMER_ID, Main.game.getSecondsPassed());
+							
+							Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_DADDY);
 						}
 					};
 				}

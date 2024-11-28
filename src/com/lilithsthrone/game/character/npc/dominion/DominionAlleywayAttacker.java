@@ -206,6 +206,9 @@ public class DominionAlleywayAttacker extends NPC {
 	
 	@Override
 	public String getDescription() {
+		if(this.isSlave() && this.isDoll()) {
+			return super.getDescription();
+		}
 		if(this.getHistory()==Occupation.NPC_PROSTITUTE) {
 			if(this.isSlave()) {
 				return (UtilText.parse(this,

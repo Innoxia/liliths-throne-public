@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient15" x1="29.5" x2="44.125" y1="1025.5" y2="1003.4" gradientTransform="matrix(1.2884 0 0 1.2905 -9.225 -296.31)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#f55" offset="0"/>
+   <stop stop-color="#ff8080" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g transform="translate(0 -988.36)">
+  <ellipse cx="32" cy="1020.4" rx="30.383" ry="30.381" fill="url(#linearGradient15)" fill-rule="evenodd"/>
+  <g transform="translate(3.8199e-7 -2.624e-5)">
+   <path d="m15.075 1026.3 14.88 12.514" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+   <g fill="#fff">
+    <path d="m19.699 1025.1 10.658 8.9976 18.931-22.517c6.7432-8.0202-4.0379-16.955-10.683-8.9846z"/>
+    <g stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4">
+     <path d="m26.187 1016.8 11.144 9.4439"/>
+     <path d="m29.846 1012.5 11.144 9.4439"/>
+     <path d="m22.245 1021.5 11.144 9.4439"/>
+     <path d="m33.533 1008.1 11.144 9.4439"/>
+     <path d="m37.163 1003.8 11.144 9.4439"/>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>

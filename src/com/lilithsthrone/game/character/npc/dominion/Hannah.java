@@ -89,6 +89,9 @@ public class Hannah extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.7.11")) {
 			this.addSpecialPerk(Perk.MARTIAL_ARTIST);
 		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.8.8")) {
+			this.setVaginaClitorisSize(0);
+		}
 	}
 
 	@Override
@@ -191,7 +194,6 @@ public class Hannah extends NPC {
 		
 		// Vagina:
 		this.setVaginaVirgin(false);
-//		this.setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE); // Leave as default spotted hyena big clit
 		this.setVaginaLabiaSize(LabiaSize.TWO_AVERAGE);
 		this.setVaginaSquirter(false);
 		this.setVaginaCapacity(Capacity.TWO_TIGHT, true);
@@ -261,26 +263,36 @@ public class Hannah extends NPC {
 	
 	@Override
 	public void turnUpdate() {
-		if(Main.game.getPlayer().getWorldLocation()!=WorldType.getWorldTypeFromId("innoxia_dominion_shopping_arcade_gym")
-				&& Main.game.getDialogueFlags().hasFlag("innoxia_pix_had_tour")
-				&& !Main.game.getCharactersPresent().contains(this)) {
+		if(Main.game.getPlayer().getWorldLocation()!=WorldType.getWorldTypeFromId("innoxia_dominion_shopping_arcade_gym")) {
+			if(Main.game.getDialogueFlags().hasFlag("innoxia_pix_had_tour")
+					&& !Main.game.getCharactersPresent().contains(this)) {
+				if(Main.game.isHourBetween(8, 20)) {
+					if(this.getWorldLocation()!=WorldType.getWorldTypeFromId("innoxia_dominion_shopping_arcade_gym")) {
+						this.equipClothing(); // Make sure to equip workout clothing when going to gym
+					}
+					this.returnToHome();
+					
+				} else if(Main.game.isHourBetween(21, 24)
+						&& !Main.game.getDialogueFlags().hasFlag("innoxia_lights_out_hannah_left")
+						&& !Main.game.getDialogueFlags().hasFlag("innoxia_lights_out_hannah_last_night_sex")) {
+					if(this.getWorldLocation()!=WorldType.getWorldTypeFromId("innoxia_dominion_nightlife_lights_out")) {
+						this.equipBarClothing(); // Make sure to equip bar clothing when going to Lights Out
+					}
+					this.setLocation(WorldType.getWorldTypeFromId("innoxia_dominion_nightlife_lights_out"), PlaceType.getPlaceTypeFromId("innoxia_dominion_nightlife_lights_out_bar"));
+					
+				} else {
+					this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+				}
+			}
+			
+		} else { // Player is in the gym
 			if(Main.game.isHourBetween(8, 20)) {
 				if(this.getWorldLocation()!=WorldType.getWorldTypeFromId("innoxia_dominion_shopping_arcade_gym")) {
 					this.equipClothing(); // Make sure to equip workout clothing when going to gym
 				}
 				this.returnToHome();
-				
-			} else if(Main.game.isHourBetween(21, 24)
-					&& !Main.game.getDialogueFlags().hasFlag("innoxia_lights_out_hannah_left")
-					&& !Main.game.getDialogueFlags().hasFlag("innoxia_lights_out_hannah_last_night_sex")) {
-				if(this.getWorldLocation()!=WorldType.getWorldTypeFromId("innoxia_dominion_nightlife_lights_out")) {
-					this.equipBarClothing(); // Make sure to equip bar clothing when going to Lights Out
-				}
-				this.setLocation(WorldType.getWorldTypeFromId("innoxia_dominion_nightlife_lights_out"), PlaceType.getPlaceTypeFromId("innoxia_dominion_nightlife_lights_out_bar"));
-				
-			} else {
-				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 			}
+			
 		}
 	}
 	

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[[#pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></actionConditional>
+	<type>PREPARE_FOR_PARTNER_ORGASM</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>ZERO_NONE</arousalPerformer>
+	<arousalTarget>ZERO_NONE</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>
+	<associatedFetishes/>
+	<performingArea/>
+	<targetedArea/>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+		[##flags.setFlag(FLAG_innoxia_angelixx_club_jules_targeting_player, true)]
+		[##pc.displaceClothingForAccess(CA_VAGINA, null)]
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[
+		Offer pussy
+	]]></title>
+	<tooltip><![CDATA[
+		Offer Jules your pussy for him to cum inside.
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[true]]></descriptionConditional>
+			<text><![CDATA[
+				You offer your pussy.
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

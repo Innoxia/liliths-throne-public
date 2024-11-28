@@ -365,6 +365,11 @@
 	<p>
 		From previous explorations, you know that the rest of the house is furnished in much the same manner. You tried to count all the rooms once, but gave up after reaching well over one hundred. Despite its grand appearance and impressive size, the only member of staff you've ever seen is Lilaya's slave; the cat-girl maid called Rose. Lilaya herself spends almost every waking moment working in her lab, resulting in the house being eerily quiet for most of the time.
 	</p>
+	#IF(pc.getQuest(QUEST_LINE_SIDE_DOLL_FACTORY)==QUEST_DOLL_FACTORY_6)
+		<p style='text-align:center;'>
+			[style.italicsMinorBad(There's no message for you from Fiammetta yet. You're sure to hear from her soon, however...)]
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	

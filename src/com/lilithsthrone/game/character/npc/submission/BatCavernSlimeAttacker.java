@@ -137,6 +137,9 @@ public class BatCavernSlimeAttacker extends NPC {
 	
 	@Override
 	public String getDescription() {
+		if(this.isSlave() && this.isDoll()) {
+			return super.getDescription();
+		}
 		if(this.isSlave()) {
 			return (UtilText.parse(this,
 					"[npc.NamePos] days of getting high on mushrooms and attacking innocent travellers in the Bat Caverns are now over."

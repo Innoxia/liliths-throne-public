@@ -964,7 +964,19 @@
 		[npc.Name] collapses to the floor, completely defeated. As [npc.she] gazes up at you, desperately whimpering and biting [npc.her] [npc.lip], you see that [npc.she] still has a hungry, lustful look in [npc.her] [npc.eyes]. In defeat, [npc.namePos] arcane aura is completely overwhelmed by the power of your own, and, unable to control [npc.her] burning desire, [npc.she] reaches down to [npc.her] crotch and starts stroking [npc.herself], making pitiful little whining noises as [npc.she] squirms on the floor.
 	</p>
 	<p>
-		[npc.speech(~Aah!~ What are you waiting for?! Please! Come fuck me!)] [npc.she] pleads, bucking [npc.her] [npc.hips+] against [npc.her] [npc.hand] as [npc.she] continues touching [npc.herself].
+		#IF(npc.isMute())
+			#IF(npc.isPostCombatRapePlay())
+				Unable to speak, [npc.she] gives you a seductive look before putting on a show of trying to shuffle away from you, making it clear that [npc.she] wants you to engage in some rape-play with [npc.herHim].
+			#ELSE
+				Unable to speak, [npc.she] gives you a pleading look as [npc.she] continues to touch [npc.herself] to show that [npc.she] wants you to fuck [npc.herHim].
+			#ENDIF
+		#ELSE
+			#IF(npc.isPostCombatRapePlay())
+				[npc.speech(~Aah!~ What are you waiting for?! You're going to rape me, aren't you?!)] [npc.she] desperately [npc.moans], making it clear that [npc.she] wants you to engage in some rape-play with [npc.herHim].
+			#ELSE
+				[npc.speech(~Aah!~ What are you waiting for?! Please! Come fuck me!)] [npc.she] pleads, bucking [npc.her] [npc.hips+] against [npc.her] [npc.hand] as [npc.she] continues touching [npc.herself].
+			#ENDIF
+		#ENDIF
 	</p>
 	<p>
 		You wonder if you should indulge [npc.her] request. After all, [npc.she] <i>was</i> planning on doing the same to you, and [npc.she] quite clearly wants it. Then again, maybe it's best to just turn around and take your leave...

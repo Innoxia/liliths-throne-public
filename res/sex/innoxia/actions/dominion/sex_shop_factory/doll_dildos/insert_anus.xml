@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		#IF(!game.isAnalContentEnabled())
+			false
+		#ELSE
+			#IF(sex.getNumberOfOrgasms(pc)==0)
+				[#pc.getClothingInSlot(IS_ANUS)==null && pc.getClothingInSlot(IS_VAGINA)!=null && pc.getClothingInSlot(IS_MOUTH)!=null]
+			#ELSE
+				[#pc.getClothingInSlot(IS_ANUS).getColour(0)==COLOUR_CLOTHING_BLACK && pc.getClothingInSlot(IS_VAGINA).getColour(0)==COLOUR_CLOTHING_BLACK]
+			#ENDIF
+		#ENDIF
+	]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>ZERO_NONE</arousalPerformer>
+	<arousalTarget>FIVE_EXTREME</arousalTarget>
+	<associatedCorruption>TWO_HORNY</associatedCorruption>
+	<associatedFetishes/>
+	<performingArea/>
+	<targetedArea/>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+		#IF(pc.getClothingInSlot(IS_ANUS)==null)
+			[##pc.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_innoxia_vagina_equine_dildo, COLOUR_CLOTHING_BLACK, COLOUR_CLOTHING_RED_BRIGHT, COLOUR_CLOTHING_RED_BRIGHT, false), IS_ANUS, true, doll)]
+			[##pc.getClothingInSlot(IS_ANUS).setSticker('colour', 'two')]
+		#ELSE
+			[##pc.unequipClothingIntoVoid(IS_ANUS, true, doll)]
+			[##pc.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_innoxia_anus_ribbed_dildo, COLOUR_CLOTHING_PINK_DARK, false), IS_ANUS, true, doll)]
+		#ENDIF
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Anal test]]></title>
+	<tooltip><![CDATA[
+		Test out the next dildo on the doll.
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getNumberOfOrgasms(pc)==0]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				With your mouth and pussy filled, there's only one orifice free for receiving a dildo. Realising what it is that the red doll is about to do, you lift yourself up off your knees and reach back to spread your ass cheeks. The huge, [units.sizeShort(45)]-long dildo which she retrieves is shaped like a realistic horse's penis, and has been coloured black at the base and bright red towards the flared head. Stepping around behind you, the doll places the dildo on the floor, before pushing the head between your ass cheeks and commanding, [doll.speech(Bounce up and down on it.)]
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getNumberOfOrgasms(pc)>0]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Having saved the best for last, the doll grabs a truly gigantic ribbed dildo from off the table. Its bright pink, [units.sizeShort(56)] length is truly massive, and you can't help but feel a little nervous even as you obediently lift yourself up and allow the huge equine dildo to flop free from your ass. Replacing it with the gigantic ribbed dildo, the doll pushes the tip between your ass cheeks and once again commands in her emotionless voice, [doll.speech(Bounce up and down on this one too.)]
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

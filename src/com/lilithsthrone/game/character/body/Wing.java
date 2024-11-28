@@ -11,18 +11,22 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.8.2
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class Wing implements BodyPartInterface {
 
-	
 	protected AbstractWingType type;
 	protected int size;
 	
 	public Wing(AbstractWingType type, int size) {
 		this.type = type;
 		this.size = size;
+	}
+
+	public Wing(Wing wingToCopy) {
+		this.type = wingToCopy.type;
+		this.size = wingToCopy.size;
 	}
 
 	@Override

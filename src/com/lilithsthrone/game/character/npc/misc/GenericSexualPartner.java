@@ -75,7 +75,9 @@ public class GenericSexualPartner extends NPC {
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3,
 				null, null, null,
-				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
+				new CharacterInventory(10),
+				WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL,
+				false);
 
 		if(!isImported) {
 			this.setLocation(worldLocation, location, false);
@@ -115,8 +117,7 @@ public class GenericSexualPartner extends NPC {
 	
 			setName(Name.getRandomTriplet(this.getSubspecies()));
 			this.setPlayerKnowsName(false);
-			setDescription(UtilText.parse(this,
-					"[npc.Name] is a resident of Dominion, who's currently only interested in having sex."));
+			setDescription(UtilText.parse(this, "[npc.NameIsFull] [npc.a_race]."));
 			
 			// PERSONALITY & BACKGROUND:
 			

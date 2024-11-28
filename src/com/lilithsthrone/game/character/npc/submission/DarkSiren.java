@@ -268,7 +268,7 @@ public class DarkSiren extends NPC {
 		
 		// Body:
 		this.setSubspeciesOverride(Subspecies.HALF_DEMON);
-		this.setAgeAppearanceDifferenceToAppearAsAge(18);
+		this.setAgeAppearanceAbsolute(18);
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setTailGirth(PenetrationGirth.FOUR_GIRTHY);
 		this.setWingType(WingType.DEMON_COMMON);

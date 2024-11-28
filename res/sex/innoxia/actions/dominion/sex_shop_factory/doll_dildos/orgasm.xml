@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+
+	<buttonPriority>0</buttonPriority>
+	<actionConditional><![CDATA[
+		[#npc.isPlayer()]
+	]]></actionConditional>
+	<type>ORGASM</type>
+	<pace/>
+	<endsSex><![CDATA[
+		[#pc.getClothingInSlot(IS_MOUTH).getColour(0)==COLOUR_CLOTHING_BLUE_VERY_DARK]
+	]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>	
+	<associatedFetishes/>
+	<performingArea/>
+	<targetedArea/>	
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>	
+	<applyEffects><![CDATA[
+	]]></applyEffects>	
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>	
+	<areasCummedIn/>
+	<areasCummedOn/>
+	
+	<!-- Information displayed to the player: -->
+	
+	<title><![CDATA[
+		Climax
+	]]></title>
+	
+	<tooltip><![CDATA[
+		You orgasm on the doll's command.
+	]]></tooltip>
+	
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getNumberOfOrgasms(pc)==0]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Whether you wanted to obey or not, the doll's command comes just as you reach your orgasm. Pumping the dildo in and out of your
+				#IF(game.isAnalContentEnabled())
+					 throat while bouncing up and down on the silicone horse-cock that's stuffed deep in your ass,
+				#ELSE
+					 throat,
+				#ENDIF
+				 you let out a series of muffled, gargled moans as you feel your pussy clench down around the toy that's stuffed inside it. Climaxing while being used to test these dildos makes something click in your mind, and for a moment you find yourself unable to think of yourself as anything but an obedient sex doll. Clear fluids squirt out from your quivering cunt as you orgasm, and you continue to obediently fuck
+				#IF(game.isAnalContentEnabled())
+					 yourself with the dildos
+				#ELSE
+					 your throat with the dildo
+				#ENDIF
+				 while your legs tremble and your ecstatic moans come out in gargled bursts.
+				 
+				<br/><br/>
+				
+				[doll.speech(All of these dildos seem to be adequate, but I'll wait to hear your report before signing the designs off as having passed quality control,)] the red doll states as she observes your climax. Making a few notes on a nearby clipboard, she turns to face you and commands, [doll.speech(That's enough. Now stay still so I can swap in the other toys.)]
+				
+				<br/><br/>
+				
+				With your orgasm at an end, you obediently hold still as the doll reaches down towards you...
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getNumberOfOrgasms(pc)>0]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Without thinking, you instantly obey the doll. Allowing your climax to crash over you, a shuddering, muffled moan escapes from around the corners of the equine dildo that's shoved deep down your throat. Your hands continue to furiously slam the other silicone horse-cock in and out of your quivering cunt, 
+				#IF(game.isAnalContentEnabled())
+					 and you shudder and squeal in depraved delight as you force the entire length of the gigantic ribbed dildo into your ass.
+				#ELSE
+					 causing you to shudder and squeal in depraved delight.
+				#ENDIF
+				 The intensity of your orgasm causes your mind to blank out for a moment, and for a second you want nothing more than to be caught by Angelixx and fully turned into an obedient sex doll.
+				 
+				<br/><br/>
+				
+				The red doll watches you as you continue to fuck yourself with the 
+				#IF(game.isAnalContentEnabled())
+					 dildos
+				#ELSE
+					 dildo
+				#ENDIF
+				 throughout your orgasm, and then after making a few notes on her clipboard she states, [doll.speech(All toy designs have been tested. Stop what you're doing and place the dildos on the table.)]
+				
+				<br/><br/>
+				
+				The doll's command brings your blissful rapture to an abrupt end. Obediently doing as you're told, you immediately stop fucking yourself and start to remove the dildos from your well-fucked orifices...
+			]]></text>
+		</description>
+	</descriptions>
+	
+</sexAction>

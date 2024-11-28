@@ -650,6 +650,20 @@ public class OptionsController {
 				new Util.Value<>("AUTO_SEX_CLOTHING_MANAGEMENT", PropertyValue.autoSexClothingManagement),
 				new Util.Value<>("AUTO_SEX_CLOTHING_STRIP", PropertyValue.autoSexStrip),
 				new Util.Value<>("RAPE_PLAY_BY_DEFAULT", PropertyValue.rapePlayAtSexStart)));
+
+		String id = "";
+		for (int i = 0; i<3; i++) {
+			id = "FULL_EXPOSURE_DESCRIPTIONS_"+i;
+			if (MainController.document.getElementById(id) != null) {
+				int finalI = i;
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+					Main.getProperties().fullExposureDescriptions = finalI;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(Properties.fullExposureDescriptionsLabels[i], Properties.getFullExposureDescriptionsDescriptions[i]));
+			}
+		}
 	}
 	
 	public static void initBodiesListeners() {
@@ -684,6 +698,18 @@ public class OptionsController {
 						Properties.uddersLabels[i],
 						Properties.uddersDescriptions[i]
 								+"<br/><i>Characters can always gain udders/crotch-boobs via transformations after they've spawned.</i>"));
+			}
+		}
+
+		for (int i = 0; i<4; i++) {
+			id = "HAIR_GROWTH_PREFERENCE_"+i;
+			if (MainController.document.getElementById(id) != null) {
+				int finalI1 = i;
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+					Main.getProperties().setHairGrowth(finalI1);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
 			}
 		}
 		
@@ -924,7 +950,9 @@ public class OptionsController {
 				new Util.Value<>("HAIR_ASS", PropertyValue.assHairContent),
 				new Util.Value<>("FEMININE_BEARD", PropertyValue.feminineBeardsContent),
 				new Util.Value<>("FURRY_HAIR", PropertyValue.furryHairContent),
-				new Util.Value<>("SCALY_HAIR", PropertyValue.scalyHairContent)
+				new Util.Value<>("SCALY_HAIR", PropertyValue.scalyHairContent),
+				new Util.Value<>("LIP_LISP", PropertyValue.lipLispContent)
+				
 		));
 	}
 }

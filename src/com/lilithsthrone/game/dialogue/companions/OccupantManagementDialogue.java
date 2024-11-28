@@ -27,7 +27,9 @@ import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.utils.comparators.SlaveFemininityComparator;
 import com.lilithsthrone.utils.comparators.SlaveNameComparator;
+import com.lilithsthrone.utils.comparators.SlaveRaceComparator;
 import com.lilithsthrone.utils.comparators.SlaveRoomComparator;
 import com.lilithsthrone.utils.comparators.SlaveValueComparator;
 import com.lilithsthrone.world.AbstractWorldType;
@@ -1131,20 +1133,27 @@ public class OccupantManagementDialogue {
 			//UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>");
 			//UtilText.nodeContentSB.append(  "<h6 style='color:"+PresetColour.GENERIC_ARCANE.toWebHexString()+"'>Sorting</h6>");
 			String buttonStyle = "margin:2px; width:16%;";
-			UtilText.nodeContentSB.append(  "<div class='container-full-width inner' style='text-align:center'>");
-			UtilText.nodeContentSB.append(    "<div style='width:100%;font-weight:bold;margin-top:8px'>Sort By</div>");
-			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_BY_NONE' class='normal-button"+((sortingMethod==OccupantSortingMethod.NONE)?" selected":"")+"' style='"+buttonStyle+"'>None</div>");
-			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_BY_NAME' class='normal-button"+((sortingMethod==OccupantSortingMethod.NAME)?" selected":"")+"' style='"+buttonStyle+"'>Name</div>");
-			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_BY_ROOM' class='normal-button"+((sortingMethod==OccupantSortingMethod.ROOM)?" selected":"")+"' style='"+buttonStyle+"'>Room</div>");
-			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_BY_VALUE' class='normal-button"+((sortingMethod==OccupantSortingMethod.VALUE)?" selected":"")+"' style='"+buttonStyle+"'>Value</div>");
-//			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_BY_CUSTOM_CATEGORY' class='normal-button"+((sortingMethod==OccupantSortingMethod.CUSTOM_CATEGORY)?" selected":"")+"' style='"+buttonStyle+"'>Category</div>");
-//			UtilText.nodeContentSB.append(  "</div>");
-//			UtilText.nodeContentSB.append(  "<div class='container-full-width inner' style='text-align:center'>");
-//			UtilText.nodeContentSB.append(    "<div style='width:100%;font-weight:bold;margin-top:8px'>Order</div>");
-			UtilText.nodeContentSB.append(  "<div style='width:100%; height:0;'></div>");
-			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_ASC' class='normal-button"+((!reverseSortSlaves)?" selected":"")+"' style='"+buttonStyle+"'>Ascending</div>");
-			UtilText.nodeContentSB.append(    "<div id='SORT_SLAVES_DESC' class='normal-button"+((reverseSortSlaves)?" selected":"")+"' style='"+buttonStyle+"'>Descending</div>");
-			UtilText.nodeContentSB.append(  "</div>");
+			UtilText.nodeContentSB.append("<div class='container-full-width inner' style='text-align:center'>");
+			UtilText.nodeContentSB.append("<div style='width:100%;font-weight:bold;margin-top:8px'>Sort By</div>");
+			
+			for(OccupantSortingMethod method : OccupantSortingMethod.values()) {
+				UtilText.nodeContentSB.append("<div id='SORT_SLAVES_BY_"+method.toString()+"' class='normal-button"+((sortingMethod==method)?" selected":"")+"' style='"+buttonStyle+"'>"+Util.capitaliseSentence(method.getName())+"</div>");
+			}
+//			UtilText.nodeContentSB.append("<div id='SORT_SLAVES_BY_NONE' class='normal-button"+((sortingMethod==OccupantSortingMethod.NONE)?" selected":"")+"' style='"+buttonStyle+"'>None</div>");
+//			UtilText.nodeContentSB.append("<div id='SORT_SLAVES_BY_NAME' class='normal-button"+((sortingMethod==OccupantSortingMethod.NAME)?" selected":"")+"' style='"+buttonStyle+"'>Name</div>");
+//			UtilText.nodeContentSB.append("<div id='SORT_SLAVES_BY_FEMININITY' class='normal-button"+((sortingMethod==OccupantSortingMethod.FEMININITY)?" selected":"")+"' style='"+buttonStyle+"'>Femininity</div>");
+//			UtilText.nodeContentSB.append("<div id='SORT_SLAVES_BY_RACE' class='normal-button"+((sortingMethod==OccupantSortingMethod.RACE)?" selected":"")+"' style='"+buttonStyle+"'>Race</div>");
+//			UtilText.nodeContentSB.append("<div id='SORT_SLAVES_BY_ROOM' class='normal-button"+((sortingMethod==OccupantSortingMethod.ROOM)?" selected":"")+"' style='"+buttonStyle+"'>Room</div>");
+//			UtilText.nodeContentSB.append("<div id='SORT_SLAVES_BY_VALUE' class='normal-button"+((sortingMethod==OccupantSortingMethod.VALUE)?" selected":"")+"' style='"+buttonStyle+"'>Value</div>");
+			
+//			UtilText.nodeContentSB.append("<div id='SORT_SLAVES_BY_CUSTOM_CATEGORY' class='normal-button"+((sortingMethod==OccupantSortingMethod.CUSTOM_CATEGORY)?" selected":"")+"' style='"+buttonStyle+"'>Category</div>");
+//			UtilText.nodeContentSB.append("</div>");
+//			UtilText.nodeContentSB.append("<div class='container-full-width inner' style='text-align:center'>");
+//			UtilText.nodeContentSB.append("<div style='width:100%;font-weight:bold;margin-top:8px'>Order</div>");
+			UtilText.nodeContentSB.append("<div style='width:100%; height:0;'></div>");
+			UtilText.nodeContentSB.append("<div id='SORT_SLAVES_ASC' class='normal-button"+((!reverseSortSlaves)?" selected":"")+"' style='"+buttonStyle+"'>Ascending</div>");
+			UtilText.nodeContentSB.append("<div id='SORT_SLAVES_DESC' class='normal-button"+((reverseSortSlaves)?" selected":"")+"' style='"+buttonStyle+"'>Descending</div>");
+			UtilText.nodeContentSB.append("</div>");
 			//UtilText.nodeContentSB.append("<div>");
 			
 			UtilText.nodeContentSB.append(getSlaveryHeader());
@@ -1181,7 +1190,14 @@ public class OccupantManagementDialogue {
 					case VALUE:
 						ssm = new SlaveValueComparator();
 						break;
-					default:
+					case FEMININITY:
+						ssm = new SlaveFemininityComparator();
+						break;
+					case RACE:
+						ssm = new SlaveRaceComparator();
+						break;
+					case NONE:
+						ssm = null;
 						break;
 				}
 				if(ssm != null) {
@@ -1340,12 +1356,24 @@ public class OccupantManagementDialogue {
 				miscDialogueSB.append("<div id='"+slave.getId()+"_PERMISSIONS' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlavePermissions()+"</div></div>");
 				
 				miscDialogueSB.append("<div id='"+slave.getId()+"_INVENTORY' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getInventoryIcon()+"</div></div>");
-					
-				miscDialogueSB.append("<div "+((place.getCapacity()<=Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).size())
-							|| !place.isSlaveCell()
-							|| (slave.getLocation().equals(Main.game.getPlayer().getLocation()) && slave.getWorldLocation().equals(Main.game.getPlayer().getWorldLocation()))
-									?" id='"+slave.getId()+"_TRANSFER_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransferDisabled()+"</div></div>"
-									:" id='"+slave.getId()+"_TRANSFER' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransfer()+"</div></div>"));
+				
+				if(place.getCapacity()<=Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).size()) {
+					miscDialogueSB.append("<div id='"+slave.getId()+"_TRANSFER_DISABLED_FULL' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransferDisabled()+"</div></div>");
+				} else if(slave.isDoll()
+							?!place.getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_DOLL_CLOSET)
+							:!place.isSlaveCell() || place.getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_DOLL_CLOSET)) {
+					miscDialogueSB.append("<div id='"+slave.getId()+"_TRANSFER_DISABLED_INAPPPROPRIATE' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransferDisabled()+"</div></div>");
+				} else if(slave.getLocation().equals(Main.game.getPlayer().getLocation()) && slave.getWorldLocation().equals(Main.game.getPlayer().getWorldLocation())) {
+					miscDialogueSB.append("<div id='"+slave.getId()+"_TRANSFER_DISABLED_ALREADY_HERE' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransferDisabled()+"</div></div>");
+				} else {
+					miscDialogueSB.append("<div id='"+slave.getId()+"_TRANSFER' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransfer()+"</div></div>");
+				}
+				
+//				miscDialogueSB.append("<div "+((place.getCapacity()<=Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).size())
+//							|| !place.isSlaveCell()
+//							|| (slave.getLocation().equals(Main.game.getPlayer().getLocation()) && slave.getWorldLocation().equals(Main.game.getPlayer().getWorldLocation()))
+//									?" id='"+slave.getId()+"_TRANSFER_DISABLED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransferDisabled()+"</div></div>"
+//									:" id='"+slave.getId()+"_TRANSFER' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveTransfer()+"</div></div>"));
 			}
 			
 			if(Main.game.getDialogueFlags().getSlaveTrader()==null || !slave.isAbleToBeSold()) {

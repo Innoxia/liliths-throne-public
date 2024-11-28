@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.tags.BodyPartTag;
 import com.lilithsthrone.game.character.body.types.ArmType;
@@ -47,48 +48,47 @@ public class CMSpecialAttack {
             false,
 			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.DAZED, 1)),
             Util.newHashMapOfValues()) {
-
+        @Override
+        public DamageType getDamageType(int turnIndex, GameCharacter source) {
+        	return DamageType.UNARMED.getParentDamageType(source, null);
+    	}
+        @Override
         protected int getBaseDamage(GameCharacter source) {
             return (int) Math.max(1, (source.getUnarmedDamage() * 2 * (source.isLegMovementHindered()?0.1f:1)));
         }
-
-        //TODO shouldn't this be override with turnIndex???
-        protected int getDamage(int turnIndex, GameCharacter source, GameCharacter target) {
+        @Override
+        protected int getDamage(int turnIndex, GameCharacter source, GameCharacter target, boolean isCrit) {
             DamageType damageType = getDamageType(turnIndex, source);
             return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), false);
         }
-        
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
             return new Value<>(source.getLegType().getFootType().equals(FootType.HOOFS), "Available to characters with hoofs.");
         }
-
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, target,
             		"Deliver a powerful hoof-kick to " + (target==null?"[npc.her] target":"[npc2.name]") + ", dealing "
-            				+ getFormattedDamage(damageType, getDamage(turnIndex, source, target), target, false, isTargetAtMaximumLust(target)) + " damage."
+            				+ getFormattedDamage(damageType, getDamage(turnIndex, source, target, false), target, false, isTargetAtMaximumLust(target)) + " damage."
             				+ (source.isLegMovementHindered()?" [style.italicsMinorBad(Damage is reduced to 10% as [npc.her] clothing is hindering leg movement!)]":""));
         }
-
         @Override
         public String getDescription(int turnIndex, GameCharacter source) {
             DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] strong legs to deliver a powerful kick to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source), null, false, false) + " damage."
-            				+ "[style.italicsMinorBad(Damage is reduced to 10% if [npc.her] clothing hinders leg movement.)]");
+            				+ " [style.italicsMinorBad(Damage is reduced to 10% if [npc.her] clothing hinders leg movement.)]");
         }
-
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(turnIndex, source);
             boolean maxLust = isTargetAtMaximumLust(target);
-            Value<String, Integer> damageValue = damageType.damageTarget(source, target, getDamage(turnIndex, source, target));
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            Value<String, Integer> damageValue = damageType.damageTarget(source, target, getDamage(turnIndex, source, target, isCrit));
             Value<String, Integer> critDamageValue = new Value<>("", 0);
             if(isCrit) {
-            	critDamageValue = damageType.damageTarget(source, target, getDamage(turnIndex, source, target)/2); // Second kick damage from the crit.
+            	critDamageValue = damageType.damageTarget(source, target, getDamage(turnIndex, source, target, isCrit)/2); // Second kick damage from the crit.
             }
             
             return formatAttackOutcome(source, target,
@@ -102,16 +102,14 @@ public class CMSpecialAttack {
             			:null),
                 	"[npc2.Name] took an additional " + getFormattedDamage(damageType, critDamageValue.getValue(), target, true, maxLust) + " damage!");
         }
-
         @Override
         public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
         	return Util.newArrayListOfValues(
         			 "Hoof-kick fails to break "+(target!=null?UtilText.parse(target,"[npc.namePos]"):"the target's")+" shielding.");
         }
-        
         @Override
         public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-        	int damage = getDamage(turnIndex, source, target);
+        	int damage = getDamage(turnIndex, source, target, false);
             int potentialDamage = getDamageType(turnIndex, source).shieldCheckNoDamage(source, target, damage);
             if(potentialDamage<=0) {// != damage) {
                 return true;
@@ -131,40 +129,39 @@ public class CMSpecialAttack {
             true,
             false,
 			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.VULNERABLE, 2))) {
-
+        @Override
+        public DamageType getDamageType(int turnIndex, GameCharacter source) {
+        	return DamageType.UNARMED.getParentDamageType(source, null);
+    	}
+        @Override
         protected int getBaseDamage(GameCharacter source) {
             return (int) Math.max(1, ((source.getUnarmedDamage()*1.5f) * (source.isArmMovementHindered()?0.5f:1)));
         }
-
         @Override
         protected int getDamage(int turnIndex, GameCharacter source, GameCharacter target, boolean isCrit) {
             DamageType damageType = getDamageType(turnIndex, source);
             return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), isCrit);
         }
-        
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
             return new Value<>(source.getArmType().equals(ArmType.CAT_MORPH), "Available to characters with feline claws.");
         }
-
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
             DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, target,
-            		"Deliver a vicious slash to " + (target==null?"[npc.her] target":"[npc2.name]") + ", dealing "
+            		"Deliver a vicious scratch to " + (target==null?"[npc.her] target":"[npc2.name]") + ", dealing "
             				+ getFormattedDamage(damageType, getDamage(turnIndex, source, target, isCrit), target, false, isTargetAtMaximumLust(target)) + " damage."
             				+ (source.isArmMovementHindered()?" [style.italicsMinorBad(Damage is reduced to 50% as [npc.her] clothing is hindering arm movement!)]":""));
         }
-
         @Override
         public String getDescription(int turnIndex, GameCharacter source) {
             DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
-            		"[npc.Name] can use [npc.her] feline claws to deliver a vicious slash to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source), null, false, false) + " damage."
-            				+ "[style.italicsMinorBad(Damage is reduced to 50% if [npc.her] clothing hinders arm movement.)]");
+            		"[npc.Name] can use [npc.her] feline claws to deliver a vicious scratch to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source), null, false, false) + " damage."
+            				+ " [style.italicsMinorBad(Damage is reduced to 50% if [npc.her] clothing hinders arm movement.)]");
         }
-
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(turnIndex, source);
@@ -174,18 +171,25 @@ public class CMSpecialAttack {
             
             return formatAttackOutcome(source, target,
             		(source.isArmMovementHindered()
-            				?"As [npc.her] clothing is restricting [npc.her] arm movement, [npc.name] [npc.verb(struggle)] to land [npc.her] slashing attack, dealing only half damage to [npc2.name]..."
-            				:"Extending the claws on [npc.her] anthropomorphic cat-like hands, [npc.name] quickly [npc.verb(dash)] forwards, attempting to slash at [npc2.name]!")+damageValue.getKey(),
+            				?"As [npc.her] clothing is restricting [npc.her] arm movement, [npc.name] [npc.verb(struggle)] to land [npc.her] scratch attack, dealing only half damage to [npc2.name]..."
+            				:"Extending the claws on [npc.her] anthropomorphic cat-like hands, [npc.name] quickly [npc.verb(dash)] forwards, attempting to scratch [npc2.name]!")+damageValue.getKey(),
             		"[npc2.Name] took " + getFormattedDamage(damageType, damageValue.getValue(), target, true, maxLust) + " damage!",
             		(isCrit
-            			?"[npc.NamePos] slash is particularly effective!"
+            			?"[npc.NamePos] scratch is particularly effective!"
             			:null),
                 	"The duration of '"+StatusEffect.VULNERABLE.getName(target)+"' is doubled!");
         }
-        
         @Override
         public float getCritStatusEffectDurationMultiplier() {
         	return 2;
+        }
+        @Override
+        public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            return Util.newArrayListOfValues((target!=null?UtilText.parse(target,"[npc.NameHasFull]"):"Defender has")+" no "+getDamageType(0, source).getNameColoured()+" shielding.");
+        }
+        @Override
+        public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            return target.getShields(getDamageType(turnIndex, source))<=0;
         }
     };
 
@@ -200,6 +204,11 @@ public class CMSpecialAttack {
             true,
             false,
 			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.DAZED, 2))) {
+        @Override
+        public DamageType getDamageType(int turnIndex, GameCharacter source) {
+        	return DamageType.UNARMED.getParentDamageType(source, null);
+    	}
+        @Override
         protected int getBaseDamage(GameCharacter source) {
             return source.getUnarmedDamage()*3;
         }
@@ -273,22 +282,23 @@ public class CMSpecialAttack {
             true,
             false,
 			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.VULNERABLE, 1))) {
-
+        @Override
+        public DamageType getDamageType(int turnIndex, GameCharacter source) {
+        	return DamageType.UNARMED.getParentDamageType(source, null);
+    	}
+        @Override
         protected int getBaseDamage(GameCharacter source) {
             return (int) Math.max(1, source.getUnarmedDamage() * (source.isArmMovementHindered()?0.5f:1));
         }
-        
         @Override
         protected int getDamage(int turnIndex, GameCharacter source, GameCharacter target, boolean isCrit) {
             DamageType damageType = getDamageType(turnIndex, source);
             return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), isCrit);
         }
-        
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
             return new Value<>(source.getArmType().equals(ArmType.SQUIRREL_MORPH), "Available to characters who have squirrel claws.");
         }
-
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(turnIndex, source);
@@ -297,15 +307,13 @@ public class CMSpecialAttack {
             				+ getFormattedDamage(damageType, getDamage(turnIndex, source, target, false), target, false, isTargetAtMaximumLust(target)) + " damage."
             				+ (source.isArmMovementHindered()?" [style.italicsMinorBad(Damage is reduced to 50% as [npc.her] clothing is hindering arm movement!)]":""));
         }
-
         @Override
         public String getDescription(int turnIndex, GameCharacter source) {
             DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
-            		"[npc.Name] can use [npc.her] sharp claws to deliver a vicious slash to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source), null, false, false) + " damage."
-            				+ "[style.italicsMinorBad(Damage is reduced to 50% if [npc.her] clothing hinders arm movement.)]");
+            		"[npc.Name] can use [npc.her] sharp claws to deliver a vicious scratch to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source), null, false, false) + " damage."
+            				+ " [style.italicsMinorBad(Damage is reduced to 50% if [npc.her] clothing hinders arm movement.)]");
         }
-
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(turnIndex, source);
@@ -329,6 +337,14 @@ public class CMSpecialAttack {
             			:null),
                 	"[npc2.Name] took an additional "+getFormattedDamage(damageType, dealtCritDamage2, target, true, maxLust)+", and then another "+getFormattedDamage(damageType, dealtCritDamage3, target, true, maxLust)+" damage!");
         }
+        @Override
+        public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            return Util.newArrayListOfValues((target!=null?UtilText.parse(target,"[npc.NameHasFull]"):"Defender has")+" no "+getDamageType(0, source).getNameColoured()+" shielding.");
+        }
+        @Override
+        public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            return target.getShields(getDamageType(turnIndex, source))<=0;
+        }
     };
 
 	public static AbstractCombatMove WOLF_SAVAGE = new AbstractCombatMove(CombatMoveCategory.SPECIAL,
@@ -342,22 +358,23 @@ public class CMSpecialAttack {
             true,
             false,
 			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.CRIPPLE, 3))) {
-
+        @Override
+        public DamageType getDamageType(int turnIndex, GameCharacter source) {
+        	return DamageType.UNARMED.getParentDamageType(source, null);
+    	}
+		@Override
         protected int getBaseDamage(GameCharacter source) {
             return (int) Math.max(1, source.getUnarmedDamage() * 4 * (source.isArmMovementHindered()?0.5f:1));
         }
-
         @Override
         protected int getDamage(int turnIndex, GameCharacter source, GameCharacter target, boolean isCrit) {
             DamageType damageType = getDamageType(turnIndex, source);
             return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), isCrit);
         }
-        
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
             return new Value<>(source.getArmType().getRace().equals(Race.WOLF_MORPH), "Available to characters who have a wolf-morph's arms.");
         }
-
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
@@ -367,15 +384,13 @@ public class CMSpecialAttack {
             				+ getFormattedDamage(damageType, getDamage(turnIndex, source, target, isCrit), target, false, isTargetAtMaximumLust(target)) + " damage."
             				+ (source.isArmMovementHindered()?" [style.italicsMinorBad(Damage is reduced to 50% as [npc.her] clothing is hindering arm movement!)]":""));
         }
-
         @Override
         public String getDescription(int turnIndex, GameCharacter source) {
             DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] sharp claws to deliver a savage series of slashes to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source), null, false, false) + " damage."
-            				+ "[style.italicsMinorBad(Damage is reduced to 50% if [npc.her] clothing hinders arm movement.)]");
+            				+ " [style.italicsMinorBad(Damage is reduced to 50% if [npc.her] clothing hinders arm movement.)]");
         }
-
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(turnIndex, source);
@@ -393,18 +408,15 @@ public class CMSpecialAttack {
             			:null),
                     "The duration of '"+StatusEffect.CRIPPLE.getName(target)+"' is doubled!");
         }
-        
         @Override
         public float getCritStatusEffectDurationMultiplier() {
         	return 2;
         }
-
         @Override
         public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
         	return Util.newArrayListOfValues(
         			 "Used in the first turn of combat.");
         }
-        
         @Override
         public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
         	return Main.combat.getTurn()==0;
@@ -422,22 +434,23 @@ public class CMSpecialAttack {
             true,
             false,
 			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.DAZED, 2))) {
-
+        @Override
+        public DamageType getDamageType(int turnIndex, GameCharacter source) {
+        	return DamageType.UNARMED.getParentDamageType(source, null);
+    	}
+        @Override
         protected int getBaseDamage(GameCharacter source) {
             return source.getUnarmedDamage()*2;
         }
-
         @Override
         protected int getDamage(int turnIndex, GameCharacter source, GameCharacter target, boolean isCrit) {
             DamageType damageType = getDamageType(turnIndex, source);
             return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), isCrit);
         }
-        
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
             return new Value<>(source.getHornType().equals(HornType.REINDEER_RACK), "Available to characters who have antlers.");
         }
-
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
@@ -446,14 +459,12 @@ public class CMSpecialAttack {
             		"Deliver a powerful headbutt to " + (target==null?"[npc.her] target":"[npc2.name]") + ", dealing "
             				+ getFormattedDamage(damageType, getDamage(turnIndex, source, target, isCrit), target, false, isTargetAtMaximumLust(target)) + " damage.");
         }
-
         @Override
         public String getDescription(int turnIndex, GameCharacter source) {
             DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, 
             		"[npc.Name] can use [npc.her] antlers to deliver a powerful headbutt to [npc.her] target, dealing base " + getFormattedDamage(damageType, getBaseDamage(source), null, false, false) + " damage.");
         }
-
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(turnIndex, source);
@@ -469,7 +480,6 @@ public class CMSpecialAttack {
             			:null),
                     "The duration of '"+StatusEffect.DAZED.getName(target)+"' is doubled!");
         }
-        
         @Override
         public float getCritStatusEffectDurationMultiplier() {
         	return 2;
@@ -498,6 +508,11 @@ public class CMSpecialAttack {
             true,
             false,
 			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.DAZED, 2))) {
+        @Override
+        public DamageType getDamageType(int turnIndex, GameCharacter source) {
+        	return DamageType.UNARMED.getParentDamageType(source, null);
+    	}
+        @Override
         protected int getBaseDamage(GameCharacter source) {
             return source.getUnarmedDamage()*2;
         }
@@ -567,7 +582,10 @@ public class CMSpecialAttack {
             true,
             false,
 			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.CRIPPLE, 2))) {
-    	
+        @Override
+        public DamageType getDamageType(int turnIndex, GameCharacter source) {
+        	return DamageType.UNARMED.getParentDamageType(source, null);
+    	}
     	@Override
         public Map<AbstractStatusEffect, Integer> getStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
     		Map<AbstractStatusEffect, Integer> effects = Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.CRIPPLE, 2));
@@ -584,7 +602,6 @@ public class CMSpecialAttack {
         	}
     		return effects;
     	}
-    	
     	@Override
     	public float getWeight(GameCharacter source, List<GameCharacter> enemies, List<GameCharacter> allies) {
     		if(!source.isCoverableAreaExposed(CoverableArea.MOUTH)) {
@@ -592,17 +609,15 @@ public class CMSpecialAttack {
     		}
     		return super.getWeight(source, enemies, allies);
     	}
-    	
+    	@Override
         protected int getBaseDamage(GameCharacter source) {
             return source.getUnarmedDamage() * 2 * (!source.isCoverableAreaExposed(CoverableArea.MOUTH)?0:1);
         }
-
         @Override
         protected int getDamage(int turnIndex, GameCharacter source, GameCharacter target, boolean isCrit) {
             DamageType damageType = getDamageType(turnIndex, source);
             return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), isCrit);
         }
-        
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
             return new Value<>(
@@ -614,7 +629,6 @@ public class CMSpecialAttack {
 				)),
 				"Available to characters with an anthropomorphic face.");
         }
-
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
@@ -629,7 +643,6 @@ public class CMSpecialAttack {
                 					:"."))
             				+ (!source.isCoverableAreaExposed(CoverableArea.MOUTH)?" [style.italicsBad(Damage is reduced to 0% as [npc.her] clothing is blocking [npc.her] mouth!)]":""));
         }
-
         @Override
         public String getDescription(int turnIndex, GameCharacter source) {
             DamageType damageType = getDamageType(turnIndex, source);
@@ -642,7 +655,6 @@ public class CMSpecialAttack {
                 					:"."))
             				+ " [style.italicsBad(Damage is reduced to 0% if [npc.her] clothing is blocking [npc.her] mouth.)]");
         }
-        
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(turnIndex, source);
@@ -668,10 +680,20 @@ public class CMSpecialAttack {
             			:null),
                     "The duration of '"+StatusEffect.CRIPPLE.getName(target)+"' is doubled!");
         }
-        
         @Override
         public float getCritStatusEffectDurationMultiplier() {
         	return 2;
+        }
+        @Override
+        public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            return Util.newArrayListOfValues((target!=null?UtilText.parse(target,"[npc.NameHasFull]"):"Defender has")+" less than 25% "+Attribute.HEALTH_MAXIMUM.getColouredName("span")+" remaining.");
+        }
+        @Override
+        public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            if(target.getHealthPercentage()<0.25f) {
+                return true;
+            }
+            return false;
         }
     };
 
@@ -690,32 +712,32 @@ public class CMSpecialAttack {
             false,
             Util.newHashMapOfValues(),
             Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.VULNERABLE, 2))) {
-
+        @Override
+        public DamageType getDamageType(int turnIndex, GameCharacter source) {
+        	return DamageType.UNARMED.getParentDamageType(source, null);
+    	}
+        @Override
         protected int getBaseDamage(GameCharacter source) {
 //            return (int) Math.max(1, 20 * (source.isLegMovementHindered()?0.1f:1)); // kerambit damage
             return (int) Math.max(1, source.getUnarmedDamage() * 1.2f * (source.isLegMovementHindered()?0.1f:1));
         }
-
-        //TODO override as HORSE_KICK should be?
-        protected int getDamage(int turnIndex, GameCharacter source, GameCharacter target) {
+        @Override
+        protected int getDamage(int turnIndex, GameCharacter source, GameCharacter target, boolean isCrit) {
             DamageType damageType = getDamageType(turnIndex, source);
             return (int) Attack.calculateSpecialAttackDamage(source, target, getType(), damageType, getBaseDamage(source), getDamageVariance(), false);
         }
-
         @Override
         public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
             return new Value<>(source.getLegType().getFootType().equals(FootType.TALONS), "Available to characters with talons.");
         }
-
         @Override
         public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(turnIndex, source);
             return UtilText.parse(source, target,
                     "Deliver a powerful slash attack with [npc.her] talons to " + (target==null?"[npc.her] target":"[npc2.name]") + ", dealing "
-                            + getFormattedDamage(damageType, getDamage(turnIndex, source, target), target, false, isTargetAtMaximumLust(target)) + " damage."
+                            + getFormattedDamage(damageType, getDamage(turnIndex, source, target, false), target, false, isTargetAtMaximumLust(target)) + " damage."
                             + (source.isLegMovementHindered()?" [style.italicsMinorBad(Damage is reduced to 10% as [npc.her] clothing is hindering leg movement!)]":""));
         }
-
         @Override
         public String getDescription(int turnIndex, GameCharacter source) {
             DamageType damageType = getDamageType(turnIndex, source);
@@ -724,16 +746,15 @@ public class CMSpecialAttack {
                             + getFormattedDamage(damageType, getBaseDamage(source), null, false, false) + " damage."
                             + " [style.italicsMinorBad(Damage is reduced to 10% if [npc.her] clothing hinders leg movement.)]");
         }
-
         @Override
         public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             DamageType damageType = getDamageType(turnIndex, source);
             boolean maxLust = isTargetAtMaximumLust(target);
-            Value<String, Integer> damageValue = damageType.damageTarget(source, target, getDamage(turnIndex, source, target));
             boolean isCrit = canCrit(turnIndex, source, target, enemies, allies);
+            Value<String, Integer> damageValue = damageType.damageTarget(source, target, getDamage(turnIndex, source, target, isCrit));
             Value<String, Integer> critDamageValue = new Value<>("", 0);
             if(isCrit) {
-                critDamageValue = damageType.damageTarget(source, target, getDamage(turnIndex, source, target)/2); // Second slash damage from the crit.
+                critDamageValue = damageType.damageTarget(source, target, getDamage(turnIndex, source, target, isCrit)/2); // Second slash damage from the crit.
             }
 
             return formatAttackOutcome(source, target,
@@ -747,16 +768,14 @@ public class CMSpecialAttack {
                             :null),
                     "[npc2.Name] took an additional " + getFormattedDamage(damageType, critDamageValue.getValue(), target, true, maxLust) + " damage!");
         }
-
         @Override
         public List<String> getCritRequirements(GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
             return Util.newArrayListOfValues(
                     "Slashing with the talons breaks "+(target!=null?UtilText.parse(target,"[npc.namePos]"):"the target's")+" shielding.");
         }
-
         @Override
         public boolean canCrit(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-            int damage = getDamage(turnIndex, source, target);
+            int damage = getDamage(turnIndex, source, target, false);
             int potentialDamage = getDamageType(turnIndex, source).shieldCheckNoDamage(source, target, damage);
             if(potentialDamage>0) {
                 return true;

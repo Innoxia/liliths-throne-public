@@ -1106,12 +1106,12 @@ public class Util {
 		for(int i=0; i<finalSplitSentence.size(); i++) {
 			String s = finalSplitSentence.get(i);
 			if(s.matches(".*[a-zA-Z,]+.*")
-					&& !s.contains("#") && !s.contains("[") && !s.contains("(")
+					&& !s.contains("#") && !s.contains("[") && !s.contains("(") && !s.contains("~") 
 					&& !isEndOfSentence(s.charAt(s.length()-1))
 					&& (i==finalSplitSentence.size()-1 || !isEndOfSentence(finalSplitSentence.get(i+1).charAt(0)))) {
 				if(s.contains(",")) {
 					availableCommaIndexes.add(i);
-				} else {
+				} else if(!s.endsWith(". ")) {// Prevents insertions at the very start of new sentences
 					availableIndexes.add(i);
 				}
 				if(debug) {
@@ -1840,9 +1840,9 @@ public class Util {
 		}
 		if(stringMatchDistance>0) { // Only show error message if difference is more than just capitalisation differences
 			System.err.println("Warning: getClosestStringMatch() did not find an exact match for '"+input+"'; returning '"+closestString+"' instead. (Distance: "+stringMatchDistance+")");
-		}
-		if(Main.DEBUG) {
-			new IllegalArgumentException().printStackTrace(System.err);
+			if(Main.DEBUG) {
+				new IllegalArgumentException().printStackTrace(System.err);
+			}
 		}
 		return closestString;
 	}

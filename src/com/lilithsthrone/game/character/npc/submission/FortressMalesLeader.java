@@ -155,7 +155,7 @@ public class FortressMalesLeader extends NPC {
 		}
 		
 		// Body:
-		this.setAgeAppearanceDifferenceToAppearAsAge(35);
+		this.setAgeAppearanceAbsolute(35);
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setWingType(WingType.DEMON_COMMON);
 		this.setLegType(LegType.DEMON_COMMON);

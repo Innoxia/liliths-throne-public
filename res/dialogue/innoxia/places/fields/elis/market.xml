@@ -403,11 +403,11 @@
 				<nextDialogue/>
 				<effects><![CDATA[
 					#IF(nizhoni.hasGirlcumModifier(FLUID_MODIFIER_MUSKY))
-						[#pc.setMuskMarker(nizhoni.getId())]
+						[#pc.addMuskMarkerCharacter(nizhoni)]
 					#ENDIF
 				]]></effects>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_nizhoni_oral]]></id>
+					<id><![CDATA[innoxia_elis_market_nizhoni_oral]]></id>
 					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
 					<dominants>
 						<character>
@@ -462,11 +462,11 @@
 				<nextDialogue/>
 				<effects><![CDATA[
 					#IF(nizhoni.hasGirlcumModifier(FLUID_MODIFIER_MUSKY))
-						[#pc.setMuskMarker(nizhoni.getId())]
+						[#pc.addMuskMarkerCharacter(nizhoni)]
 					#ENDIF
 				]]></effects>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_nizhoni_vaginal]]></id>
+					<id><![CDATA[innoxia_elis_market_nizhoni_vaginal]]></id>
 					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
 					<dominants>
 						<character>
@@ -520,7 +520,7 @@
 				<responseTooltip><![CDATA[[pc.Step] up behind Nizhoni and fuck her ass.]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_nizhoni_anal]]></id>
+					<id><![CDATA[innoxia_elis_market_nizhoni_anal]]></id>
 					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
 					<dominants>
 						<character>
@@ -562,7 +562,7 @@
 					#ENDIF
 				]]></responseTooltip>
 				<nextDialogue stripContent="true"><![CDATA[
-					#IF(!pc.hasSpell(SPELL_SOOTHING_WATERS, true))
+					#IF(!nizhoni.hasGirlcumModifier(FLUID_MODIFIER_MUSKY) || !pc.hasSpell(SPELL_SOOTHING_WATERS, true))
 						null
 					#ELSE
 						innoxia_places_fields_elis_market_nizhoni_bins
@@ -642,65 +642,99 @@
 				]]></effects>
 			</response>
 			<!-- Prizes: -->
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[6]]></index>
-				<responseTitle><![CDATA[Meat hamper (1 ticket)]]></responseTitle>
-				<responseTooltip><![CDATA[
-					#IF(pc.hasItemType('innoxia_quest_faire_ticket'))
+			<!-- Meat Hamper: -->
+				<response>
+					<availabilityConditional><![CDATA[
+						[#!pc.hasItemType('innoxia_quest_faire_ticket')]
+					]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[6]]></index>
+					<responseTitle><![CDATA[Meat hamper (1 ticket)]]></responseTitle>
+					<responseTooltip><![CDATA[You need at least one Faire ticket to be able to get a prize from Moreno...]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[
+						[#pc.hasItemType('innoxia_quest_faire_ticket')]
+					]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[6]]></index>
+					<responseTitle><![CDATA[Meat hamper (1 ticket)]]></responseTitle>
+					<responseTooltip><![CDATA[
 						Trade in one of your Faire tickets for a meat hamper.
 						<br/><i>Faire tickets in your inventory: [style.boldGood([#pc.getItemCount(ITEM_innoxia_quest_faire_ticket)])]</i>
-					#ELSE
-						You need at least one Faire ticket to be able to get a prize from Moreno...
-					#ENDIF
-				]]></responseTooltip>
-				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_centre"/>
-				<effects><![CDATA[
-					[#pc.removeItemByType(ITEM_innoxia_quest_faire_ticket, 1, true)]
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_STRENGTH_PRIZE_MEAT'))]
-					[#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_race_panther_panthers_delight)))]
-					[#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_race_wolf_meat_and_marrow)))]
-					[#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_race_horse_equine_cider)))]
-				]]></effects>
-			</response>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[7]]></index>
-				<responseTitle><![CDATA[Wooden bat (1 ticket)]]></responseTitle>
-				<responseTooltip><![CDATA[
-					#IF(pc.hasItemType('innoxia_quest_faire_ticket'))
+					]]></responseTooltip>
+					<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_centre"/>
+					<effects><![CDATA[
+						[#pc.removeItemByType(ITEM_innoxia_quest_faire_ticket, 1, true)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_STRENGTH_PRIZE_MEAT'))]
+						[#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_race_panther_panthers_delight)))]
+						[#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_race_wolf_meat_and_marrow)))]
+						[#game.appendToTextStartStringBuilder(pc.addItem(itemGen.generateItem(ITEM_innoxia_race_horse_equine_cider)))]
+					]]></effects>
+				</response>
+			<!-- Wooden bat: -->
+				<response>
+					<availabilityConditional><![CDATA[
+						[#!pc.hasItemType('innoxia_quest_faire_ticket')]
+					]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[7]]></index>
+					<responseTitle><![CDATA[Wooden bat (1 ticket)]]></responseTitle>
+					<responseTooltip><![CDATA[You need at least one Faire ticket to be able to get a prize from Moreno...]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[
+						[#pc.hasItemType('innoxia_quest_faire_ticket')]
+					]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[7]]></index>
+					<responseTitle><![CDATA[Wooden bat (1 ticket)]]></responseTitle>
+					<responseTooltip><![CDATA[
 						Trade in one of your Faire tickets for a wooden bat.
 						<br/><i>Faire tickets in your inventory: [style.boldGood([#pc.getItemCount(ITEM_innoxia_quest_faire_ticket)])]</i>
-					#ELSE
-						You need at least one Faire ticket to be able to get a prize from Moreno...
-					#ENDIF
-				]]></responseTooltip>
-				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_centre"/>
-				<effects><![CDATA[
-					[#pc.removeItemByType(ITEM_innoxia_quest_faire_ticket, 1, true)]
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_STRENGTH_PRIZE_BAT_WOODEN'))]
-					[#game.appendToTextStartStringBuilder(pc.addWeapon(itemGen.generateWeapon(WEAPON_innoxia_bat_wooden, DAMAGE_TYPE_PHYSICAL)))]
-				]]></effects>
-			</response>
-			<response>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[8]]></index>
-				<responseTitle><![CDATA[Metal bat (1 ticket)]]></responseTitle>
-				<responseTooltip><![CDATA[
-					#IF(pc.hasItemType('innoxia_quest_faire_ticket'))
-						Trade in one of your Faire tickets for a metal bat.
-						<br/><i>Faire tickets in your inventory: [style.boldGood([#pc.getItemCount(ITEM_innoxia_quest_faire_ticket)])]</i>
-					#ELSE
-						You need at least one Faire ticket to be able to get a prize from Moreno...
-					#ENDIF
-				]]></responseTooltip>
-				<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_centre"/>
-				<effects><![CDATA[
-					[#pc.removeItemByType(ITEM_innoxia_quest_faire_ticket, 1, true)]
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_STRENGTH_PRIZE_BAT_METAL'))]
-					[#game.appendToTextStartStringBuilder(pc.addWeapon(itemGen.generateWeapon(WEAPON_innoxia_bat_metal, DAMAGE_TYPE_PHYSICAL)))]
-				]]></effects>
-			</response>
+					]]></responseTooltip>
+					<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_centre"/>
+					<effects><![CDATA[
+						[#pc.removeItemByType(ITEM_innoxia_quest_faire_ticket, 1, true)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_STRENGTH_PRIZE_BAT_WOODEN'))]
+						[#game.appendToTextStartStringBuilder(pc.addWeapon(itemGen.generateWeapon(WEAPON_innoxia_bat_wooden, DAMAGE_TYPE_PHYSICAL), 1, false, true))]
+					]]></effects>
+				</response>
+			<!-- Metal bat: -->
+				<response>
+					<availabilityConditional><![CDATA[
+						[#!pc.hasItemType('innoxia_quest_faire_ticket')]
+					]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[8]]></index>
+					<responseTitle><![CDATA[Metal bat (1 ticket)]]></responseTitle>
+					<responseTooltip><![CDATA[You need at least one Faire ticket to be able to get a prize from Moreno...]]></responseTooltip>
+					<nextDialogue><![CDATA[null]]></nextDialogue>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[
+						[#pc.hasItemType('innoxia_quest_faire_ticket')]
+					]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[8]]></index>
+					<responseTitle><![CDATA[Metal bat (1 ticket)]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(pc.hasItemType('innoxia_quest_faire_ticket'))
+							Trade in one of your Faire tickets for a metal bat.
+							<br/><i>Faire tickets in your inventory: [style.boldGood([#pc.getItemCount(ITEM_innoxia_quest_faire_ticket)])]</i>
+						#ELSE
+							You need at least one Faire ticket to be able to get a prize from Moreno...
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue stripContent="true" defaultPlaceType="innoxia_fields_elis_market_centre"/>
+					<effects><![CDATA[
+						[#pc.removeItemByType(ITEM_innoxia_quest_faire_ticket, 1, true)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'GAME_STRENGTH_PRIZE_BAT_METAL'))]
+						[#game.appendToTextStartStringBuilder(pc.addWeapon(itemGen.generateWeapon(WEAPON_innoxia_bat_metal, DAMAGE_TYPE_PHYSICAL), 1, false, true))]
+					]]></effects>
+				</response>
 		</responses>
 	</scene>
 	
@@ -856,7 +890,7 @@
 				]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_moreno_oral]]></id>
+					<id><![CDATA[innoxia_elis_market_moreno_oral]]></id>
 					<startingPosition><![CDATA[AGAINST_WALL]]></startingPosition>
 					<dominants>
 						<character>
@@ -913,7 +947,7 @@
 				]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_moreno_vaginal]]></id>
+					<id><![CDATA[innoxia_elis_market_moreno_vaginal]]></id>
 					<startingPosition><![CDATA[LYING_DOWN]]></startingPosition>
 					<dominants>
 						<character>
@@ -964,7 +998,7 @@
 				]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_moreno_anal]]></id>
+					<id><![CDATA[innoxia_elis_market_moreno_anal]]></id>
 					<startingPosition><![CDATA[LYING_DOWN]]></startingPosition>
 					<dominants>
 						<character>
@@ -1734,7 +1768,7 @@
 				<corruptionLevel><![CDATA[ONE_VANILLA]]></corruptionLevel>
 				<nextDialogue/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_heather_standard]]></id>
+					<id><![CDATA[innoxia_elis_market_heather_standard]]></id>
 					<startingPosition><![CDATA[STANDING]]></startingPosition>
 					<dominants>
 						<character>
@@ -1870,7 +1904,7 @@
 				<responseTooltip><![CDATA[Concentrate as hard as you can on imagining Heather dropping down onto [heather.her] knees before you and offering to perform oral.]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_heather_oral]]></id>
+					<id><![CDATA[innoxia_elis_market_heather_oral]]></id>
 					<startingPosition><![CDATA[
 						#IF(pc.isTaur())
 							STANDING
@@ -1949,7 +1983,7 @@
 				<responseTooltip><![CDATA[Concentrate as hard as you can on imagining Heather bending over the table and hiking up [heather.her] skirt so that you can fuck [heather.her] ass.]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_heather_anal]]></id>
+					<id><![CDATA[innoxia_elis_market_heather_anal]]></id>
 					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
 					<dominants>
 						<character>
@@ -2276,7 +2310,7 @@
 				<responseTooltip><![CDATA[Give [ziva.name] ten thousand flames in return for being allowed to perform cunnilingus on her.]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_ziva_cunnilingus]]></id>
+					<id><![CDATA[innoxia_elis_market_ziva_cunnilingus]]></id>
 					<startingPosition><![CDATA[AGAINST_WALL]]></startingPosition>
 					<dominants>
 						<character>
@@ -2328,7 +2362,7 @@
 				<responseTooltip><![CDATA[Give [ziva.name] ten thousand flames in return for being allowed to perform anilingus on her.]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_ziva_anilingus]]></id>
+					<id><![CDATA[innoxia_elis_market_ziva_anilingus]]></id>
 					<startingPosition><![CDATA[AGAINST_WALL]]></startingPosition>
 					<dominants>
 						<character>
@@ -2405,7 +2439,7 @@
 				]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_ziva_vaginal]]></id>
+					<id><![CDATA[innoxia_elis_market_ziva_vaginal]]></id>
 					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
 					<dominants>
 						<character>
@@ -2465,7 +2499,7 @@
 				]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_ziva_anal]]></id>
+					<id><![CDATA[innoxia_elis_market_ziva_anal]]></id>
 					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
 					<dominants>
 						<character>
@@ -2838,7 +2872,7 @@
 				<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
 				<nextDialogue/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_yui_armpits]]></id>
+					<id><![CDATA[innoxia_elis_market_yui_armpits]]></id>
 					<startingPosition><![CDATA[STANDING]]></startingPosition>
 					<dominants>
 						<character>
@@ -2888,7 +2922,7 @@
 				<responseTooltip><![CDATA[Tell Yui that you want to eat her out.]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_yui_face_sitting]]></id>
+					<id><![CDATA[innoxia_elis_market_yui_face_sitting]]></id>
 					<startingPosition><![CDATA[LYING_DOWN]]></startingPosition>
 					<dominants>
 						<character>
@@ -2924,7 +2958,7 @@
 				<responseTooltip><![CDATA[Tell Yui that you want to eat her ass.]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_yui_face_sitting_anal]]></id>
+					<id><![CDATA[innoxia_elis_market_yui_face_sitting_anal]]></id>
 					<startingPosition><![CDATA[LYING_DOWN]]></startingPosition>
 					<dominants>
 						<character>
@@ -2966,7 +3000,7 @@
 				<responseTooltip><![CDATA[Tell Yui that you're desperate to lick her sweaty feet...]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_yui_foot_worship]]></id>
+					<id><![CDATA[innoxia_elis_market_yui_foot_worship]]></id>
 					<startingPosition><![CDATA[SITTING]]></startingPosition>
 					<dominants>
 						<character>
@@ -3121,7 +3155,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Stay calm]]></responseTitle>
-				<responseTooltip><![CDATA[Stay clam and do your best to endure Mistress Yui's teasing.]]></responseTooltip>
+				<responseTooltip><![CDATA[Stay calm and do your best to endure Mistress Yui's teasing.]]></responseTooltip>
 				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
 				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_toys_demonstration_end]]></nextDialogue>
 				<effects><![CDATA[
@@ -3583,7 +3617,7 @@
 				<responseTooltip><![CDATA[[pc.Step] around the back of Kazik's stall with him and suck his cock.]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_kazik_oral]]></id>
+					<id><![CDATA[innoxia_elis_market_kazik_oral]]></id>
 					<startingPosition><![CDATA[AGAINST_WALL]]></startingPosition>
 					<dominants>
 						<character>
@@ -3626,7 +3660,7 @@
 				<responseTooltip><![CDATA[[pc.Step] around the back of Kazik's stall with him and let him fuck your pussy.]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_kazik_vaginal]]></id>
+					<id><![CDATA[innoxia_elis_market_kazik_vaginal]]></id>
 					<startingPosition><![CDATA[
 						#IF(pc.isTaur())
 							ALL_FOURS
@@ -3687,7 +3721,7 @@
 				<responseTooltip><![CDATA[[pc.Step] around the back of Kazik's stall with him and let him fuck your ass.]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_kazik_anal]]></id>
+					<id><![CDATA[innoxia_elis_market_kazik_anal]]></id>
 					<startingPosition><![CDATA[
 						#IF(pc.isTaur())
 							ALL_FOURS

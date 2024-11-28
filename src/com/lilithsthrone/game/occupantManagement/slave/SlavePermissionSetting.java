@@ -1,9 +1,12 @@
 package com.lilithsthrone.game.occupantManagement.slave;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -33,12 +36,66 @@ public enum SlavePermissionSetting {
 	// Sex:
 	
 	SEX_MASTURBATE(false, "Masturbation", "Allow this slave to masturbate."),
-	SEX_INITIATE_SLAVES(false, "Initiate Sex", "Allow this slave to initiate sex with any other slave that has the 'Sex Toy' permission enabled."),
-	SEX_INITIATE_PLAYER(false, "Use You", "Allow this slave to use you for sexual relief. This will allow them to initiate sex with you at any time."),
+	SEX_INITIATE_SLAVES(false, "Initiate Sex", "") {
+		@Override
+		public String getDescription() {
+			if(Main.game.isNonConEnabled()) {
+				return "Allow this slave to initiate sex with any other slave that has the 'Sex Toy' permission enabled."
+						+ " They will only initiate sex with slaves who they are attracted to, and if they do not have the 'Rapist' permission, then they will also only initiate sex with slaves who are attracted to them in turn."
+						+ " They will only have sex with slaves who they can find, either by working in the same location as them or by having the 'House Freedom' permission or both sharing the 'Outside Freedom' permission.";
+			}
+			return "Allow this slave to initiate sex with any other slave that has the 'Sex Toy' permission enabled."
+					+ " They will only initiate sex with slaves who they are attracted to, and who are attracted to them in turn."
+					+ " They will only have sex with slaves who they can find, either by working in the same location as them or by having the 'House Freedom' permission or both sharing the 'Outside Freedom' permission.";
+		}
+		@Override
+		public int getAdditionalDescriptionLines() {
+			return 6;
+		}
+	},
+	SEX_INITIATE_PLAYER(false, "Use You", "") {
+		@Override
+		public String getDescription() {
+			if(Main.game.isNonConEnabled()) {
+				return "Allow this slave to use you for sexual relief."
+						+ " This will allow them to proposition you for sex at any time, and if they have the 'Rapist' permission, then you will not be able to refuse their advances."
+						+ " They will also need the 'House Freedom' and/or 'Outside Freedom' to be able to find you within the mansion or out in Dominion's alleyways.";
+			}
+			return "Allow this slave to use you for sexual relief. This will allow them to proposition you for sex at any time."
+					+ "They will also need the 'House Freedom' and/or 'Outside Freedom' to be able to find you within the mansion or out in Dominion's alleyways.";
+		}
+		@Override
+		public int getAdditionalDescriptionLines() {
+			return 3;
+		}
+	},
+	SEX_RAPIST(false, "Rapist",
+			"Allow this slave to ignore the sexual preferences of others, including yourself."
+				+ " If this slave has a negative desire towards the '"+Fetish.FETISH_NON_CON_DOM.getName(null)+"' fetish,"
+						+ " or if they like their partner and their partner does not have a positive desire towards the '"+Fetish.FETISH_NON_CON_SUB.getName(null)+"' fetish, then even with this permission this slave will not rape their partner.") {
+		@Override
+		public boolean isAvailableForCharacter(GameCharacter character) {
+			return Main.game.isNonConEnabled();
+		}
+		@Override
+		public int getAdditionalDescriptionLines() {
+			return 3;
+		}
+	},
 	SEX_RECEIVE_SLAVES(false, "Sex Toy", "Allow this slave to be used for sexual relief by any of your slaves with the 'Initiate Sex' permission enabled."),
 	SEX_SAVE_VIRGINITY(true, "Save Virginity", "Do not let any other slaves take this slave's virginity during sex."),
-	SEX_IMPREGNATED(false, "Breeding Bitch", "Allow this slave to be impregnated during sexual events with any other slave that has the 'Slave Stud' permission enabled."),
-	SEX_IMPREGNATE(false, "Slave Stud", "Allow this slave to impregnate any other slave that has the 'Breeding Bitch' permission enabled during sexual events."),
+	SEX_IMPREGNATED(false, "Breeding Bitch", "Allow this slave to be impregnated during sexual events with any other slave that has the 'Slave Stud' permission enabled.") {
+		@Override
+		public boolean isAvailableForCharacter(GameCharacter character) {
+			return !character.isDoll();
+		}	
+	},
+	SEX_IMPREGNATE(false, "Slave Stud", "Allow this slave to impregnate any other slave that has the 'Breeding Bitch' permission enabled during sexual events.") {
+		@Override
+		public boolean isAvailableForCharacter(GameCharacter character) {
+			return !character.isDoll();
+		}	
+	},
 
 	
 	// Pills:
@@ -173,8 +230,16 @@ public enum SlavePermissionSetting {
 		return description;
 	}
 
+	public int getAdditionalDescriptionLines() {
+		return 0;
+	}
+	
 	public boolean isDefaultValue() {
 		return defaultValue;
+	}
+	
+	public boolean isAvailableForCharacter(GameCharacter character) {
+		return true;
 	}
 	
 }

@@ -4,7 +4,6 @@
 	<name><![CDATA[street]]></name>
 	<tooltipDescription><![CDATA[This section of street looks much the same as any other in Elis, except for a faintly familiar foul smell emanating from a basement entrance.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the streets of Elis near a smelly basement]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<svgName>dungeon_door</svgName>
 	<colour>BASE_WHITE</colour>

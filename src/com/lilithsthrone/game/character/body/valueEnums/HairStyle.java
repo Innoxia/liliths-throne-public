@@ -37,6 +37,8 @@ public enum HairStyle {
 	CURLY("curly", Femininity.ANDROGYNOUS, HairLength.ONE_VERY_SHORT),
 	STRAIGHT("straight", Femininity.ANDROGYNOUS, HairLength.ONE_VERY_SHORT),
 	SLICKED_BACK("slicked-back", Femininity.ANDROGYNOUS, HairLength.ONE_VERY_SHORT),
+	SIDE_PARTED("side-parted", Femininity.ANDROGYNOUS, HairLength.ONE_VERY_SHORT),
+	
 	SIDECUT("sidecut", Femininity.ANDROGYNOUS, HairLength.TWO_SHORT),
 	MOHAWK("mohawk", Femininity.ANDROGYNOUS, HairLength.TWO_SHORT),
 	DREADLOCKS("dreadlocks", Femininity.ANDROGYNOUS, HairLength.TWO_SHORT),

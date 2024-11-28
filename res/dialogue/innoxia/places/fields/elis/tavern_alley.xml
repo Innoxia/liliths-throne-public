@@ -41,6 +41,7 @@
 		]]></travelDisabled>
 		<responses>
 			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_oglix_introduced)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Bar]]></responseTitle>

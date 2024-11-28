@@ -56,6 +56,18 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 	
 	private static Map<Colour, String> SVGGlowMap = new HashMap<>();
 
+	public Tattoo(Tattoo tattooToCopy) {
+		this(tattooToCopy.type,
+				tattooToCopy.primaryColour,
+				tattooToCopy.secondaryColour,
+				tattooToCopy.tertiaryColour,
+				tattooToCopy.glowing,
+				new TattooWriting(tattooToCopy.writing),
+				new TattooCounter(tattooToCopy.counter));
+		this.effects = new ArrayList<>(tattooToCopy.effects);
+		this.attributeModifiers = new HashMap<>(tattooToCopy.attributeModifiers);
+	}
+	
 	public Tattoo(String typeId,
 			boolean glowing,
 			TattooWriting writing,
@@ -225,8 +237,8 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 			} catch(Exception ex) {
 			}
 			
-			Element element = (Element)parentElement.getElementsByTagName("effects").item(0);
-			if(element!=null) {
+			if(parentElement.getElementsByTagName("effects").item(0)!=null) {
+				Element element = (Element)parentElement.getElementsByTagName("effects").item(0);
 				NodeList nodeList = element.getElementsByTagName("effect");
 				for(int i = 0; i < nodeList.getLength(); i++){
 					Element e = ((Element)nodeList.item(i));
@@ -241,6 +253,7 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 			
 		} catch(Exception ex) {
 			System.err.println("Warning: An instance of Tattoo was unable to be imported!");
+			ex.printStackTrace();
 			return null;
 		}
 	}
@@ -346,6 +359,9 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 					
 				} else if(ie.getSecondaryModifier() == TFModifier.CLOTHING_SEALING) {
 					return "of "+(coloured?"<"+tag+" style='color:"+PresetColour.SEALED.toWebHexString()+";'>sealing</"+tag+">":"sealing");
+					
+				} else if(ie.getPrimaryModifier() == TFModifier.CLOTHING_CREAMPIE_RETENTION) {
+					return "of "+(coloured?"<"+tag+" style='color:"+PresetColour.CUM.toWebHexString()+";'>plugging</"+tag+">":"plugging");
 					
 				} else {
 					return "of "+(coloured?"<"+tag+" style='color:"+PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+";'>transformation</"+tag+">":"transformation");
@@ -483,19 +499,31 @@ public class Tattoo extends AbstractCoreItem implements XMLSaving {
 		this.counter = counter;
 	}
 
-	public void setCounter(TattooCounterType type, TattooCountType countType, Colour colour, boolean glow) {
-		this.counter = new TattooCounter(type, countType, colour, glow);
+	/**
+	 * Use this method if you want to manually set the offset for the counter (if you're using this method you probably don't want any offset and so will be using 0).
+	 */
+	public void setCounter(TattooCounterType type, TattooCountType countType, Colour colour, boolean glow, int retroactiveApplicationOffset) {
+		this.counter = new TattooCounter(type, countType, colour, glow, retroactiveApplicationOffset);
+	}
+
+	/**
+	 * Use this method if you want the tattoo's counter to be automatically offset (so it will start at 0 no matter what the bearer's past experiences should have incremented it to).
+	 */
+	public void setCounter(TattooCounterType type, TattooCountType countType, Colour colour, boolean glow, GameCharacter bearer) {
+		this.counter = new TattooCounter(type, countType, colour, glow, bearer);
 	}
 	
 	/**
 	 * For examples.
 	 */
 	public String getFormattedCounterOutput(int input) {
-		return "<span style='color:"+getCounter().getColour().toWebHexString()+";'>"+(getCounter().isGlow()?UtilText.applyGlow(getCounter().getCountType().convertInt(input), getCounter().getColour()):getCounter().getCountType().convertInt(input))+"</span>";
+		return "<span style='color:"+getCounter().getColour().toWebHexString()+";'>"
+					+(getCounter().isGlow()?UtilText.applyGlow(getCounter().getCountType().convertInt(input), getCounter().getColour()):getCounter().getCountType().convertInt(input))
+				+"</span>";
 	}
 	
 	public String getFormattedCounterOutput(GameCharacter equippedToCharacter) {
-		String convertedInt = getCounter().getCountType().convertInt(getCounter().getType().getCount(equippedToCharacter));
+		String convertedInt = getCounter().getCountType().convertInt(getCounter().getType().getCount(equippedToCharacter) + getCounter().getRetroactiveApplicationOffset());
 		return "<span style='color:"+getCounter().getColour().toWebHexString()+";'>"+(getCounter().isGlow()?UtilText.applyGlow(convertedInt, getCounter().getColour()):convertedInt)+"</span>";
 	}
 

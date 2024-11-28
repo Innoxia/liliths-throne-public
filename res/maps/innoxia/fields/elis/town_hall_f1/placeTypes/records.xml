@@ -4,7 +4,6 @@
 	<name><![CDATA[archives]]></name>
 	<tooltipDescription><![CDATA[Containing dozens of shelving units, this room holds records on the administrative history of Elis.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in one of the archive rooms in Elis's town hall tower]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_TEAL</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

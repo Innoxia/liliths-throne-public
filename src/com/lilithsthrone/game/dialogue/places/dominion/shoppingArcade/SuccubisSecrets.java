@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -34,6 +35,7 @@ import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.markings.TattooCounterType;
 import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.npc.dominion.Kate;
@@ -48,9 +50,12 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
+import com.lilithsthrone.game.dialogue.utils.CosmeticsDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.sex.ImmobilisationType;
+import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.universal.SMSitting;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
 import com.lilithsthrone.main.Main;
@@ -297,7 +302,9 @@ public class SuccubisSecrets {
 		return BASE_PIERCINGS_COST;
 	}
 	
-	
+	private static Kate getKate() {
+		return (Kate) Main.game.getNpc(Kate.class);
+	}
 	
 	public static final DialogueNode EXTERIOR = new DialogueNode("Succubi's Secrets (Exterior)", "-", false) {
 
@@ -367,7 +374,10 @@ public class SuccubisSecrets {
 		}
 	};
 	public static final DialogueNode SHOP_BEAUTY_SALON_WAKE = new DialogueNode("Succubi's Secrets", "-", true, true) {
-
+		@Override
+		public void applyPreParsingEffects() {
+			getKate().wakeUp();
+		}
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/succubisSecrets", "SHOP_BEAUTY_SALON_WAKE");
@@ -383,15 +393,15 @@ public class SuccubisSecrets {
 						true, true,
 						new SMSitting(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING_BETWEEN_LEGS)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexSlotSitting.SITTING))) {
+								Util.newHashMapOfValues(new Value<>(getKate(), SexSlotSitting.SITTING))) {
 							@Override
 							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
-								return Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), Util.newArrayListOfValues(CoverableArea.VAGINA)));
+								return Util.newHashMapOfValues(new Value<>(getKate(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
 							}
 						},
 						null,
 						null,
-						Kate.AFTER_SEX,
+						AFTER_SEX,
 						UtilText.parseFromXMLFile("places/dominion/shoppingArcade/succubisSecrets", "SHOP_BEAUTY_SALON_WAKE_START_SEX"));
 			}
 			return null;
@@ -399,7 +409,10 @@ public class SuccubisSecrets {
 	};
 	
 	public static final DialogueNode SHOP_BEAUTY_SALON_WATCH = new DialogueNode("Succubi's Secrets", "-", true, true) {
-
+		@Override
+		public void applyPreParsingEffects() {
+			getKate().wakeUp();
+		}
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/succubisSecrets", "SHOP_BEAUTY_SALON_WATCH");
@@ -415,15 +428,15 @@ public class SuccubisSecrets {
 						true, true,
 						new SMSitting(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING_BETWEEN_LEGS)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexSlotSitting.SITTING))) {
+								Util.newHashMapOfValues(new Value<>(getKate(), SexSlotSitting.SITTING))) {
 							@Override
 							public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
-								return Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), Util.newArrayListOfValues(CoverableArea.VAGINA)));
+								return Util.newHashMapOfValues(new Value<>(getKate(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
 							}
 						},
 						null,
 						null,
-						Kate.AFTER_SEX,
+						AFTER_SEX,
 						UtilText.parseFromXMLFile("places/dominion/shoppingArcade/succubisSecrets", "SHOP_BEAUTY_SALON_WATCH_START_SEX"));
 			}
 			return null;
@@ -446,18 +459,26 @@ public class SuccubisSecrets {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.kateIntroduced);
 					}
 				};
-				
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	
 	public static final DialogueNode SHOP_BEAUTY_SALON_ENTER = new DialogueNode("Succubi's Secrets", "-", true) {
-
+		@Override
+		public void applyPreParsingEffects() {
+			getKate().wakeUp();
+			Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/succubisSecrets", "SHOP_BEAUTY_SALON_ENTER"));
+			if(Main.game.getPlayer().isVisiblyPregnant()) {
+				Main.game.getPlayer().setCharacterReactedToPregnancy(getKate(), true);
+			}
+			if(getKate().isVisiblyPregnant()) {
+				getKate().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+			}
+		}
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/succubisSecrets", "SHOP_BEAUTY_SALON_ENTER");
+			return "";//UtilText.parseFromXMLFile("places/dominion/shoppingArcade/succubisSecrets", "SHOP_BEAUTY_SALON_ENTER");
 		}
 		
 		@Override
@@ -481,13 +502,7 @@ public class SuccubisSecrets {
 	
 	private static Response getMainResponse(int index) {
 		if(index == 1){
-			return new ResponseTrade("Trade with Kate", "There's a separate leaflet tucked into the back of the brochure. It informs you that Kate is a registered distributor for a large jewellery firm.", Main.game.getNpc(Kate.class)){
-				@Override
-				public void effects() {
-					if(Main.game.getNpc(Kate.class).isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy))
-						Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
-				}
-			};
+			return new ResponseTrade("Trade with Kate", "There's a separate leaflet tucked into the back of the brochure. It informs you that Kate is a registered distributor for a large jewellery firm.", getKate());
 			
 		} else if (index == 2) {
 			if(!Main.game.getPlayer().isAbleToWearMakeup()) {
@@ -496,51 +511,23 @@ public class SuccubisSecrets {
 			} else {
 				return new Response("Makeup",
 						"Kate offers a wide range of different cosmetic services, and several pages of the brochure are devoted to images displaying different styles and colours of lipstick, nail polish, and other forms of makeup.",
-						SHOP_BEAUTY_SALON_COSMETICS){
-					@Override
-					public void effects() {
-						if(Main.game.getNpc(Kate.class).isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
-							Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
-						}
-					}
-				};
+						SHOP_BEAUTY_SALON_COSMETICS);
 			}
 
 		} else if (index == 3) {
 			return new Response("Hair",
 					"There's a double-page spread of all the different dyes, styles, and lengths of hair that Kate's able to work with.",
-					SHOP_BEAUTY_SALON_HAIR){
-				@Override
-				public void effects() {
-					if(Main.game.getNpc(Kate.class).isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
-						Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
-					}
-				}
-			};
+					SHOP_BEAUTY_SALON_HAIR);
 
 		} else if (index == 4) {
 				return new Response("Piercings",
 						"Kate offers a wide range of different piercings.",
-						SHOP_BEAUTY_SALON_PIERCINGS){
-					@Override
-					public void effects() {
-						if(Main.game.getNpc(Kate.class).isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
-							Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
-						}
-					}
-				};
+						SHOP_BEAUTY_SALON_PIERCINGS);
 
 		}  else if (index == 5) {
 				return new Response("Eyes",
 						"There's a special page near the front of the brochure, advertising Kate's ability to recolour a person's eyes."
-						+ " Just like skin recolourings, this is quite demanding on her aura, and is therefore very expensive.", SHOP_BEAUTY_SALON_EYES){
-					@Override
-					public void effects() {
-						if(Main.game.getNpc(Kate.class).isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
-							Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
-						}
-					}
-				};
+						+ " Just like skin recolourings, this is quite demanding on her aura, and is therefore very expensive.", SHOP_BEAUTY_SALON_EYES);
 
 		} else if (index == 6) {
 			return new Response("Coverings",
@@ -550,10 +537,6 @@ public class SuccubisSecrets {
 				@Override
 				public void effects() {
 					initCoveringsMap(Main.game.getPlayer());
-					
-					if(Main.game.getNpc(Kate.class).isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
-						Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
-					}
 				}
 			};
 
@@ -566,30 +549,59 @@ public class SuccubisSecrets {
 
 		} else if (index == 9) {
 			return new ResponseSex("Sex",
-					"You roll your eyes as you reach the end of the brochure."
-							+ " On a double-page spread, there's an extremely lewd collection of pictures of Kate inserting her tail into her various orifices, with the suggestive caption 'Don't make me do it myself...'",
+					"At the end of the brochure, there's an extremely lewd collection of pictures of Kate inserting her tail into her various orifices, with the suggestive caption 'Don't make me do it myself...'",
 					true, true,
 					new SMSitting(
 							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING_BETWEEN_LEGS)),
-							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), SexSlotSitting.SITTING))) {
+							Util.newHashMapOfValues(new Value<>(getKate(), SexSlotSitting.SITTING))) {
 						@Override
 						public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
-							return Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Kate.class), Util.newArrayListOfValues(CoverableArea.VAGINA)));
+							return Util.newHashMapOfValues(new Value<>(getKate(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
 						}
 					},
 					null,
 					null,
-					Kate.AFTER_SEX_REPEATED,
-					UtilText.parseFromXMLFile("places/dominion/shoppingArcade/succubisSecrets", "SHOP_BEAUTY_SALON_MAIN_SEX")){
+					AFTER_SEX_REPEATED,
+					UtilText.parseFromXMLFile("places/dominion/shoppingArcade/succubisSecrets", "SHOP_BEAUTY_SALON_MAIN_SEX"));
+			
+		} else if(index==10) {
+			return new ResponseSex("Sleep sex",
+					"As she's such a deep sleeper, you're confident that you'd be able to fuck Kate without waking her up."
+							+ " All you'd need to do is wait for her to fall asleep and be gentle with her...",
+					true, false,
+					new SMSitting(
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.SITTING_BETWEEN_LEGS)),
+							Util.newHashMapOfValues(new Value<>(getKate(), SexSlotSitting.SITTING))) {
+						@Override
+						public Map<GameCharacter, List<CoverableArea>> exposeAtStartOfSexMap() {
+							return Util.newHashMapOfValues(new Value<>(getKate(), Util.newArrayListOfValues(CoverableArea.VAGINA)));
+						}
+						@Override
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								return SexPace.DOM_GENTLE;
+							}
+							return super.getStartingSexPaceModifier(character);
+						}
+						@Override
+						public Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> getStartingCharactersImmobilised() {
+							Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> map = new HashMap<>();
+							map.put(ImmobilisationType.SLEEP, new HashMap<>());
+							map.get(ImmobilisationType.SLEEP).put(Main.game.getPlayer(), Util.newHashSetOfValues(getKate()));
+							return map;
+						}
+					},
+					null,
+					null,
+					AFTER_SEX_REPEATED,
+					UtilText.parseFromXMLFile("places/dominion/shoppingArcade/succubisSecrets", "SHOP_BEAUTY_SALON_MAIN_SEX_SLEEP")){
 				@Override
 				public void effects() {
-					if(Main.game.getNpc(Kate.class).isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
-						Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
-					}
+					getKate().addStatusEffect(StatusEffect.SLEEPING_HEAVY, -1);
 				}
 			};
 			
-		} else if (index == 10
+		} else if (index == 11
 				&& Main.game.getPlayer().hasQuest(QuestLine.SIDE_BUYING_BRAX)
 				&& Main.game.getPlayer().getQuest(QuestLine.SIDE_BUYING_BRAX)==Quest.BUYING_BRAX_START
 				&& !Main.game.getPlayer().hasItemType(ItemType.CANDI_PERFUMES)) {
@@ -599,9 +611,6 @@ public class SuccubisSecrets {
 			return new Response("Candi's perfume", "Tell Kate that you're here to collect Candi's order of perfume.", SHOP_BEAUTY_SALON_CANDI_PERFUME) {
 				@Override
 				public void effects() {
-					if(Main.game.getNpc(Kate.class).isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
-						Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
-					}
 					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementMoney(-500));
 					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(Main.game.getItemGen().generateItem(ItemType.CANDI_PERFUMES), false));
 					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_BUYING_BRAX, Quest.BUYING_BRAX_DELIVER_PERFUME));
@@ -613,15 +622,11 @@ public class SuccubisSecrets {
 				@Override
 				public void effects() {
 					Main.game.setResponseTab(0);
-					if(Main.game.getNpc(Kate.class).isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
-						Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
-					}
 				}
 			};
-			
-		} else {
-			return null;
 		}
+		
+		return null;
 	}
 	
 	public static final DialogueNode SHOP_BEAUTY_SALON_CANDI_PERFUME = new DialogueNode("Succubi's Secrets", "-", true) {
@@ -931,7 +936,6 @@ public class SuccubisSecrets {
 	};
 	
 	public static final DialogueNode SHOP_BEAUTY_SALON_TATTOOS = new DialogueNode("Succubi's Secrets", "-", true) {
-
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
@@ -944,7 +948,6 @@ public class SuccubisSecrets {
 			
 			return UtilText.nodeContentSB.toString();
 		}
-		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 8) {
@@ -1022,6 +1025,14 @@ public class SuccubisSecrets {
 					};
 				}
 			
+			} else if(index==2) {
+				return new Response("Save/Load", "Save/Load tattoo presets.", CosmeticsDialogue.TATTOO_SAVE_LOAD) {
+					@Override
+					public void effects() {
+						CosmeticsDialogue.initTattooSaveLoadDialogue(SHOP_BEAUTY_SALON_TATTOOS_ADD);
+					}
+				};
+			
 			} else if(index==0) {
 				return new Response("Back", "Decide not to get this tattoo and return to the main selection screen.", SHOP_BEAUTY_SALON_TATTOOS);
 			}
@@ -1034,4 +1045,55 @@ public class SuccubisSecrets {
 			return true;
 		}
 	};
+	
+	// Sex:
+	
+	public static final DialogueNode AFTER_SEX = new DialogueNode("Finished", "", true, false) {
+		@Override
+		public String getDescription() {
+			return "[pc.Step] back and allow Kate to recover.";
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/succubisSecrets", "AFTER_SEX");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Services", "Read the brochure that Kate just handed to you.", SuccubisSecrets.SHOP_BEAUTY_SALON_MAIN){
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.kateIntroduced);
+					}
+				};
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode AFTER_SEX_REPEATED = new DialogueNode("Finished", "", true, false) {
+		@Override
+		public String getDescription() {
+			if(getKate().isAsleep()) {
+				return "[pc.Step] back and leave Kate to continue sleeping.";
+			}
+			return "[pc.Step] back and allow Kate to recover.";
+		}
+		public void applyPreParsingEffects() {
+			Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/succubisSecrets", "AFTER_SEX_REPEATED"));
+			getKate().wakeUp();
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Services", "Turn your attention back to the brochure.", SuccubisSecrets.SHOP_BEAUTY_SALON_MAIN);
+			}
+			return null;
+		}
+	};
+	
 }

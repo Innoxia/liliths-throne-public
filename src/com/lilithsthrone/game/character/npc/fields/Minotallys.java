@@ -218,7 +218,7 @@ public class Minotallys extends NPC {
 		
 		// Body:
 		this.setSubspeciesOverride(Subspecies.LILIN);
-		this.setAgeAppearanceDifferenceToAppearAsAge(20);
+		this.setAgeAppearanceAbsolute(20);
 //		this.setTailType(TailType.DEMON_COMMON);
 //		this.setWingType(WingType.DEMON_COMMON);
 		this.setHornType(HornType.STRAIGHT);
@@ -325,7 +325,7 @@ public class Minotallys extends NPC {
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_mini_skirt", PresetColour.CLOTHING_BLACK, false), true, this);
 		
 
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_BANGLE, PresetColour.CLOTHING_PLATINUM, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_wrist_bangle", PresetColour.CLOTHING_PLATINUM, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_finger_gemstone_ring", PresetColour.CLOTHING_PLATINUM, clothingColour, null, false), true, this);
 		this.setPiercedEar(true);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(earringId, PresetColour.CLOTHING_PLATINUM, false), true, this);
@@ -438,7 +438,7 @@ public class Minotallys extends NPC {
 		
 		// Body:
 		this.setSubspeciesOverride(Subspecies.LILIN);
-		this.setAgeAppearanceDifferenceToAppearAsAge(25);
+		this.setAgeAppearanceAbsolute(25);
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setTailGirth(PenetrationGirth.THREE_AVERAGE);
 		this.setWingType(WingType.DEMON_COMMON);

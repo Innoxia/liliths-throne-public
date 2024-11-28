@@ -159,14 +159,14 @@ public class DicePoker {
 		for(int i=0; i<progressDescriptions.length; i++) {
 			UtilText.nodeContentSB.append(
 					(i!=0
-						?"<div class='container-quarter-width inner' style='width:5%; margin:0; text-align:center;'>&gt;</div>"
+						?"<div class='container-quarter-width inner' style='width:5%; margin:0; text-align:center;'>"+(progress<i?"&gt;":"[style.colourDisabledDark(&gt;)]")+"</div>"
 						:"")
-					+ "<div class='container-quarter-width inner' style='width:13%; margin:0 2%; text-align:center;'>"
+					+ "<div class='container-quarter-width inner' style='box-sizing:border-box; width:13%; margin:0 2%; text-align:center; "+(progress==i?"border:1px solid #777;":"")+"'>"
 					+ (progress==i
 						?"[style.boldGood("+progressDescriptions[i]+")]"
-						:progress>i
+						:progress<i
 							?progressDescriptions[i]
-							:"[style.colourDisabled("+progressDescriptions[i]+")]")
+							:"[style.colourDisabledDark("+progressDescriptions[i]+")]")
 					+ "</div>");
 		}
 		UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"

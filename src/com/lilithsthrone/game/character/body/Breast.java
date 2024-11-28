@@ -21,7 +21,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.3.7
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class Breast implements BodyPartInterface {
@@ -52,14 +52,29 @@ public class Breast implements BodyPartInterface {
 		this.shape = shape;
 		this.size = size;
 		this.milkStorage = milkStorage;
-		milkStored = milkStorage;
-		milkRegeneration = FluidRegeneration.ONE_AVERAGE.getMedianRegenerationValuePerDay();
+		this.milkStored = milkStorage;
+		this.milkRegeneration = FluidRegeneration.ONE_AVERAGE.getMedianRegenerationValuePerDay();
 		this.rows = rows;
 		this.nippleCountPerBreast = nippleCountPerBreast;
 		
-		nipples = new Nipples(type.getNippleType(), nippleSize, nippleShape, areolaeSize, areolaeShape, Lactation.getLactationFromInt(milkStorage).getAssociatedWetness().getValue(), capacity, depth, elasticity, plasticity, virgin, false);
+		this.nipples = new Nipples(type.getNippleType(), nippleSize, nippleShape, areolaeSize, areolaeShape, Lactation.getLactationFromInt(milkStorage).getAssociatedWetness().getValue(), capacity, depth, elasticity, plasticity, virgin, false);
 		
-		milk = new FluidMilk(type.getFluidType(), false);
+		this.milk = new FluidMilk(type.getFluidType(), false);
+	}
+
+	public Breast(Breast breastToCopy) {
+		this.type = breastToCopy.type;
+		this.shape = breastToCopy.shape;
+		this.size = breastToCopy.size;
+		this.milkStorage = breastToCopy.milkStorage;
+		this.milkStored = breastToCopy.milkStored;
+		this.milkRegeneration = breastToCopy.milkRegeneration;
+		this.rows = breastToCopy.rows;
+		this.nippleCountPerBreast = breastToCopy.nippleCountPerBreast;
+		
+		this.nipples = new Nipples(breastToCopy.nipples);
+		
+		this.milk = new FluidMilk(breastToCopy.milk);
 	}
 	
 	@Override
@@ -101,6 +116,10 @@ public class Breast implements BodyPartInterface {
 		return nipples;
 	}
 
+	public void setMilk(FluidMilk milk) {
+		this.milk = milk;
+	}
+
 	public FluidMilk getMilk() {
 		return milk;
 	}
@@ -139,6 +158,10 @@ public class Breast implements BodyPartInterface {
 		list.add(type.getDescriptor(owner));
 		list.add(this.getSize().getDescriptor());
 		list.add(this.getShape().getDescriptor());
+		
+		if(owner.getBodyMaterial().getPartDescriptors()!=null && !owner.getBodyMaterial().getPartDescriptors().isEmpty()) {
+			list.add(Util.randomItemFrom(owner.getBodyMaterial().getPartDescriptors()));
+		}
 		
 		return Util.randomItemFrom(list);
 	}

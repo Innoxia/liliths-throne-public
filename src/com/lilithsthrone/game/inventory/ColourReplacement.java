@@ -1,9 +1,7 @@
 package com.lilithsthrone.game.inventory;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
@@ -54,7 +52,7 @@ public class ColourReplacement {
 			this.extraColours.addAll(extraColours);
 		}
 
-		Set<Colour> colourSet = new HashSet<>();
+		List<Colour> colourSet = new ArrayList<>();
 		this.allColours = new ArrayList<>(ColourListPresets.DEBUG_ALL);
 		if(defaultColours!=null) {
 			colourSet.addAll(defaultColours);
@@ -67,6 +65,10 @@ public class ColourReplacement {
 			if(!this.allColours.contains(c)) {
 				this.allColours.add(c);
 			}
+		}
+		// Remove duplicate lime green from index 0:
+		if(allColours.stream().filter(c->c==PresetColour.CLOTHING_GREEN_LIME).count()>1) {
+			allColours.remove(PresetColour.CLOTHING_GREEN_LIME);
 		}
 	}
 

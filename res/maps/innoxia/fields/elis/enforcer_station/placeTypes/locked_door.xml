@@ -4,7 +4,6 @@
 	<name><![CDATA[locked door]]></name>
 	<tooltipDescription><![CDATA[The door which leads into the rear section of the Enforcer station is kept locked.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[beside the locked door in the Enforcer station in Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_CRIMSON</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

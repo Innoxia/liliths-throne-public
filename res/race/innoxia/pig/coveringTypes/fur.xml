@@ -38,8 +38,6 @@
 		<colour>COVERING_TAN</colour>
 		<colour>COVERING_BROWN</colour>
 		<colour>COVERING_PINK_LIGHT</colour>
-		<colour>COVERING_PINK</colour>
-		<colour>COVERING_PINK_DARK</colour>
 	</naturalColoursPrimary>
 	<extraColoursPrimary values="allCoveringColours"/>
 	

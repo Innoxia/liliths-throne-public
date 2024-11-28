@@ -1,0 +1,1968 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!--
+		#IF(pc.getObedience() == OBEDIENCE_ZERO_FREE_WILLED)
+		#ELSEIF(pc.getObedience() == OBEDIENCE_POSITIVE_ONE_AGREEABLE)
+		#ELSEIF(pc.getObedience() == OBEDIENCE_POSITIVE_TWO_OBEDIENT)
+		#ELSEIF(pc.getObedience() == OBEDIENCE_POSITIVE_THREE_DISCIPLINED)
+		#ELSEIF(pc.getObedience() == OBEDIENCE_POSITIVE_FOUR_DUTIFUL)
+		#ELSEIF(pc.getObedience() == OBEDIENCE_POSITIVE_FIVE_SUBSERVIENT)
+		#ENDIF
+	-->
+	<htmlContent tag="GENERIC_OBEDIENCE_DESCRIPTION"><![CDATA[
+	<p style='text-align:center;'><i>
+		[#pc.getObedience().getDescription(pc, true, true)]
+	</i></p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="PLAYER_OBEDIENCE_POSTFIX"><![CDATA[
+	#IF(pc.isDoll())
+		<p style='text-align:center;'><i>
+			Obedience (<span style='color: [#pc.getObedience().getColour().toWebHexString()]''>[#~~pc.getObedienceValue()]</span>/100)
+			<br/>[#pc.getObedience().getDescription(pc, true, true)]
+			<br/>At [style.colourAffection5(100)], you will surrender to Angelixx!
+		</i></p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Player doll content: -->
+
+	<htmlContent tag="START"><![CDATA[
+	<p>
+		Turning her back on you, Angelixx happily skips down the corridor, leaving Sleip and Nir to pull you along after her. Half-dragged, half-pushed forwards, you turn a corner and
+		#IF(flags.hasFlag(FLAG_innoxia_doll_factory_seen_dollification_machine))
+			 find yourself once more entering the area which contains the dollification machines.
+		#ELSE
+			 are presented with an alarming sight.
+		#ENDIF
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_doll_factory_seen_dollification_machine))
+			As you're guided into the huge, high-ceilinged room, you get the opportunity to once again take a look around at your surroundings.
+		#ELSE
+			The huge, high-ceilinged room which you're guided into is unlike any other that you've seen so far. 
+		#ENDIF
+		 Instead of the usual rough rock walls and concrete floor, sleek, white, metal panels cover every surface. Dozens of shiny metal pipes have been neatly routed down from the ceiling to feed into two huge machines that sit next to one another on the far side of the room. Dials, buttons, and rudimentary display panels cover these bulky contraptions, giving you the impression that they're extremely sophisticated, and no doubt expensive, pieces of kit.
+	</p>
+	<p>
+		Several long, metal desks and a collection of cabinets are arranged around the edges of the room, while in the very middle, illuminated by the bright white glow of a dozen hanging lights, there's a large table with thick leather restraints fixed to its sides. A host of flexible tubes run from the complex machines to link up with a trio of mobile workbenches that are arranged around the central table. In all, this final room looks more like a cross between an operating theatre and a NASA control room than anything you'd expect to see in an underground sex toy factory.
+	</p>
+	<p>
+		[angelixx.speech(Let's get the bitch transformed,)] Angelixx states as you're dragged forwards. Grabbing a potion bottle from out of a nearby cabinet, she steps over to you and pulls out the stopper. Knowing what they have to do, Sleip and Nir hold you still and force your mouth open, allowing their mother to pour the transformative potion into your mouth and giggle, [angelixx.speech(Swallow it all, bitch, or else I'll make you regret it!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_TRANSFORMED"><![CDATA[
+	<p>
+		Holding your head back and keeping your mouth open, Sleip and Nir force you to accept the transformative potion into your mouth, and you find yourself having to swallow it in order to prevent choking. As you gulp down the sickly sweet liquid you feel a tingling sensation spread across your body, and as Angelixx tosses the now-empty bottle aside, you're hit by a stupefying burst of transformative power which, due to your already weakened state, causes you to momentarily pass out.
+	</p>
+	<p>
+		[angelixx.speech(Wake up, bitch!)] Angelixx snaps as she slaps your face to bring you back to consciousness. As the fog clears from your mind, you find yourself sitting on the cold concrete floor, and feel your eyes going wide as you look down and take stock of your new body.
+	</p>
+	<p>
+		With a pair of round, DD-cup breasts on your chest and a tight pussy between your legs, you see that you've been transformed into a very familiar-looking human woman. It takes you a moment to realise why you recognise your new form, but when it suddenly clicks that your body is identical to that of all the sex dolls which you've seen, you can't help but let out a shocked gasp. Not giving you any more time in which to take stock of your new form, Sleip reaches down to grab the back of your neck as he prepares to move you forwards, and as his large hand passes over your head you become aware of the fact that you're completely bald.
+	</p>
+	<p>
+		Giggling at the look of realisation upon your pretty face, Angelixx teases, [angelixx.speech(That's right, bitch, you've got the body of a doll. Now we just need to turn you into silicone! Get her strapped to the table, boys!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_TABLE"><![CDATA[
+	<p>
+		The nightmares drag you over to the large table in the middle of the room, and after throwing you down onto it on your back, they force your arms and legs down and secure thick leather straps around your wrists and ankles. Completely immobilised and at the mercy of Angelixx and her sons, all you can do is shout and struggle around on the table as the succubus laughs, [angelixx.speech(There's no escape for you now!)]
+	</p>
+	<p>
+		With that, Angelixx grabs a half-face mask from off of one of the nearby tables and securely fastens it into place around your mouth. Picking up a length of plastic tubing, she feeds it into a circular hole on your mask, before clamping it in place. Trailing the plastic tubing after her, she skips over to a vat of thick black goo, and after attaching the other end of the pipe to a valve fixed onto this container, she teases, [angelixx.speech(You saw our slime slaves in the previous room, didn't you? We process the milk and cum we collect from them into the raw material needed for making silicone sex toys.)]
+	</p>
+	<p>
+		Unable to talk with the mask covering your mouth, you continue to struggle as the succubus takes pleasure in revealing your fate, [angelixx.speech(When someone ingests this slime, they turn into a very special type of slime themselves; a sex doll!)]
+	</p>
+	<p>
+		Letting out another giggle, the succubus pulls a lever beside the vat of black fluid, and a stream of thick goop starts to flow down the connected pipe. There's absolutely nothing you can do as you watch the liquid fill the tube and then begin to ooze out into your mouth. As much as you try to resist, the pressure soon becomes too great for you to handle, and you're forced to swallow the thick, plastic-tasting slime...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_TABLE_PREGNANT"><![CDATA[
+	<p>
+		#IF(pc.isPregnant())
+			#IF(pc.hasAnyIncubationLitter())
+				Running a pregnancy tester over your stomach, Angelixx lets out an annoyed tut as she sees that not only you're incubating eggs, but also you're pregnant.
+			#ELSE
+				Running a pregnancy tester over your stomach, Angelixx lets out an annoyed tut as she sees that you're pregnant.
+			#ENDIF
+			#IF(pc.getPregnantLitter().getFather()==sleip)
+				 Looking over at Sleip, the succubus sighs, [angelixx.speech(You got this slut pregnant. Next time pull out, ok? It's such a bother having to deliver kids and then teleport them out of here...)]
+			#ELSEIF(pc.getPregnantLitter().getFather()==nir)
+				 Looking over at Nir, the succubus sighs, [angelixx.speech(You got this slut pregnant. Next time pull out, ok? It's such a bother having to deliver kids and then teleport them out of here...)]
+			#ELSE
+				 With a sigh, she says, [angelixx.speech(You just had to be pregnant, didn't you? It's such a bother having to deliver kids and then teleport them out of here...)]
+			#ENDIF
+		#ELSE
+			Angelixx lets out an annoyed tut as she sees that you're incubating eggs. With a sigh, she says, [angelixx.speech(You just had to be carrying eggs, didn't you? It's such a bother having to deliver kids and then teleport them out of here...)]
+		#ENDIF
+	</p>
+	<p>
+		[sleip.speech(I still don't get why we can't just turn the kids into dolls as well,)] Sleip grunts as he watches his mother walk over to one of the cabinets and grab several bottles of Mother's Milk.
+	<p>
+	<p>
+		[angelixx.speech(I've told you so many times,)] Angelixx replies in an annoyed tone as she walks back over to your side, [angelixx.speech(The Bureau of Demographics are able to track all births, and if they detect that offspring aren't leaving the place of their birth, then it's flagged as a potential source of illegal slavery. We don't want the Enforcers turning up and demanding to search the place, so I'll get this bitch's kids birthed and then teleport them off into Dominion.)]
+	</p>
+	<p>
+		Before you can react to this information, Angelixx shoves the neck of the first bottle of Mother's Milk into your mouth and forces you to drink. After that, you're made to drink another bottle, and then another.
+		#IF(pc.isPregnant())
+			 The liquid forces your pregnancy to advance, and as your belly swells up into a huge bump, you realise that you're now ready to give birth...
+		#ELSE
+			 The liquid forces the eggs within you to mature, and you realise that you're now ready to lay them...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_TABLE_BIRTHED"><![CDATA[
+	<p>
+		Focusing her arcane power into your body, Angelixx forces you to give birth. Letting out a desperate squeal, the intense sensation is too much for you to bear, and as you begin to birth your offspring, you find yourself slipping out of consciousness...
+	</p>
+	<p>
+		...
+	</p>
+	<p>
+		A short time later you open your eyes to discover that you're still strapped down to the table, and are no longer pregnant. Angelixx is standing beside you, and as you open your eyes she lets out a giggle and reveals, [angelixx.speech(I teleported your kids up to Dominion before they knew what was going on. I'm sure they'll be fine, but if not then that's really not my problem!)]
+	</p>
+	<p>
+		With that, Angelixx grabs a half-face mask from off of one of the nearby tables and securely fastens it into place around your mouth. Picking up a length of plastic tubing, she feeds it into a circular hole on your mask, before clamping it in place. Trailing the plastic tubing after her, she skips over to a vat of thick black goo, and after attaching the other end of the pipe to a valve fixed onto this container, she teases, [angelixx.speech(You saw our slime slaves in the previous room, didn't you? We process the milk and cum we collect from them into the raw material needed for making silicone sex toys.)]
+	</p>
+	<p>
+		Unable to talk with the mask covering your mouth, you continue to struggle as the succubus takes pleasure in revealing your fate, [angelixx.speech(When someone ingests this slime, they turn into a very special type of slime themselves; a sex doll!)]
+	</p>
+	<p>
+		Letting out another giggle, the succubus pulls a lever beside the vat of black fluid, and a stream of thick goop starts to flow down the connected pipe. There's absolutely nothing you can do as you watch the liquid fill the tube and then begin to ooze out into your mouth. As much as you try to resist, the pressure soon becomes too great for you to handle, and you're forced to swallow...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_DOLLIFIED"><![CDATA[
+	<p>
+		The thick, plastic-tasting slime clings to your throat and makes your insides tingle as you're forced to swallow it. Almost immediately you feel a sickly wave of energy pulse through your body, and you realise that the slime's transformative effects are already starting.
+	</p>
+	<p>
+		[angelixx.speech(That's it, keep drinking,)] Angelixx giggles as she watches you gulping down the thick black goo. Reaching forwards, she playfully pinches your nipples, sending a rush of shameful excitement through you as she reveals, [angelixx.speech(Stimulation makes the transformative process faster. See? Your nipples are already silicone!)]
+	</p>
+	<p>
+		Looking down over your mask, you feel your eyes widening in shock as you see that the succubus is telling the truth. Although they feel like normal, your hard nipples have quite clearly transformed into black silicone, and as Angelixx continues to tweak and pinch your teats the transformation rapidly spreads down to turn your breasts into a pair of perfect, artificial tits. Moving her fingers down, she teases your clit, and you shudder and squirm about on the table as your tight cunt quickly transforms to look like a silicone onahole.
+	</p>
+	<p>
+		[angelixx.speech(Good bitch, you've swallowed it all!)] the succubus happily exclaims, drawing your attention to the fact that the storage tank is now empty. Now that you've swallowed all of the transformative slime, Angelixx removes your mask, and you gasp as you realise that your mouth has also turned to silicone, and is now formed into a resting 'o' shape. Teasing her fingers up over your body, the succubus strokes your smooth, bald head and declares, [angelixx.speech(You look like every other sex doll now!)]
+	</p>
+	<p>
+		To your surprise, although your new body is giving you a strange new urge to submit and obey those around you, you're still almost completely your old self. With your mask now removed, you're able to talk, and shout, [pc.speech(You won't get away with this!)]
+	</p>
+	<p>
+		With your body now turned into that of a sex doll, your voice sounds strangely robotic, causing you to pause for a moment. Letting out a mocking laugh, Angelixx picks up an arcane tattoo gun from one of the nearby desks, and as Sleip holds your head still, she tattoos what you know must be a barcode onto your forehead.
+	</p>
+	<p>
+		[angelixx.speech(You're number [#SPECIAL_PARSE_0],)] she says as she finishes the tattoo. Smirking down at you, the succubus evilly sneers, [angelixx.speech(Now all that's left is to perform a total essence extraction to break your mind. Enjoy your last moments of having free will, bitch.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_ESSENCE_EXTRACTION"><![CDATA[
+	<p>
+		Unravelling a trio of thin cables from one of the large machines, Angelixx clips the ends of them to your nipples and clit, causing you to let out shocked gasps and squirm about on the table. Producing two more cables which end in small suction pads, she presses them against your temples where they stick into place against your smooth silicone skin. Satisfied that the cables are securely connected to your body, the succubus presses a button on the machine, which causes a large pylon-like structure to slowly descend from the ceiling. In the middle of this structure sits a large black crystal, and as the pylon comes to a shuddering halt, this crystal ends up positioned directly over your torso.
+	</p>
+	<p>
+		[angelixx.speech(This device took mother several decades to create,)] the succubus reveals as she points to the inky crystal. Taking pleasure in taunting you, she goes on to say, [angelixx.speech(Once activated, it'll not only drain you of all your essences, but also suck every last speck of arcane power from your aura. Once I've collected every last bit of essence from your aura, I'll corrupt it and re-introduce it to your body, breaking your mind and turning you fully into an obedient sex doll!)]
+	</p>
+	<p>
+		With that, she happily skips over to the machine, where Sleip and Nir join her in taking cover behind several large sheets of dark grey metal which fold out from the wall. Another press of a button, and the machine whirs into action. A sheen of purple energy flickers over the surface of the inky black crystal, and then a moment later a burst of bright pink light shoots down directly into your body. 
+	</p>
+	<p>
+		An intense, mind-numbing orgasm immediately hits you, and you can't stop yourself from screaming in ecstatic bliss as the crystal's energy forces you to climax. As you orgasm, streaks of bright purple energy shoot out from your body down the cables, and you gasp as you realise that what you're witnessing it all of your essences being sucked from your aura.
+	</p>
+	<p>
+		Suddenly, your intense pleasure is replaced with a hollow emptiness, and at that moment the purple sheen on the crystal disappears as the machine powers down. Although you're fundamentally still the same old you, the total absence of any power in your arcane aura leaves you feeling drained, allowing the urges of your silicone body to take a more prominent place in your mind. A part of you now wants to submit, to become an obedient doll, and to obey any command without question...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_ESSENCE_EXTRACTION_RESIST"><![CDATA[
+	<p>
+		Refusing to let this disturbing feeling take root, you shake your head and dispel any thoughts of submitting and being a good doll from your mind.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_ESSENCE_EXTRACTION_RELAX"><![CDATA[
+	<p>
+		Allowing yourself to relax and give in to this comforting feeling, you start to think of yourself as a good, obedient doll who should always obey her mistress.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_ESSENCE_EXTRACTION_END"><![CDATA[
+	<p>
+		[angelixx.speech(Feeling empty, doll? All of your essences, and the very essence of your aura, are right here!)] Angelixx giggles, snapping you out of your thoughts. Turning your head, you look over to see the succubus smirking as she leans against the huge dollification machine. Thanks to the fact that Angelixx is gently tapping it, your attention is drawn to a glass vial that's been inserted into a slot in the front of the metal contraption, and you see that it's filled with swirling pink energy. As the pylon above you retracts and the nightmares fold the protective sheets of metal away, Angelixx continues, [angelixx.speech(Now all that's left is to corrupt your essences and inject them back into you! That part of the process is permanent, so once that's done, you'll be a dumb, obedient sex doll forever!)]
+	</p>
+	<p>
+		Pulling down a large lever that's positioned beside the glass vial, the succubus lets out an excited giggle and steps back. Crackling purple energy ominously jolts down several conduits towards the glass vial, but just as it's about to make contact with the vessel that holds your essences, the dollification machine makes three loud bangs, and with that the energy vanishes. A puff of dark smoke rises from one side of the machine, and as an acrid, burning smell fills the room, Angelixx loudly curses, [angelixx.speech(Fuck! Did this bitch's essences rupture a core?)]
+	</p>
+	<p>
+		Hurrying over to lift a metal cover to investigate the source of the malfunction, Sleip shouts out, [sleip.speech(Shit... It's not one core, it's three!)]
+	</p>
+	<p>
+		Glaring at you in anger, the succubus hisses, [angelixx.speech(What's up with your freakish aura?! This has never happened before... But it's nothing I can't fix! You stay right there, comfortably strapped to the table, while my boys and I fetch some replacement cores. Savour these last moments, bitch; when we return we'll finish turning you into a dumb toy!)]
+	</p>
+	<p>
+		Turning to Sleip and Nir, the succubus beckons them forwards and says, [angelixx.speech(Come here, boys. I need you to help me carry the cores so we can get all three in one teleportation.)]
+	</p>
+	<p>
+		The two nightmares obediently step over to stand beside their mother, and then in a bright pink flash Angelixx teleports all three of them away to wherever they're going to get the replacement cores. Left alone in the dollification chamber, this seems like your only opportunity to try and escape.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_ESCAPE"><![CDATA[
+	<p>
+		Pulling against the restraints around your wrists and ankles, you quickly realise that there's no way you're going to be able to break free. As you feel the leather straps digging into your silicone skin, however, you suddenly recall that Angelixx told you that sex dolls are actually a very specialised form of slime. As such, although your transformative abilities are only able to be activated via a D.E.C.K. being connected to your neck port, you wonder if you could morph your body to allow you to slip free of your restraints.
+	</p>
+	<p>
+		A quick attempt to try and shrink your limbs ends in a disappointing failure, with an almost unnoticeable reduction in the length of your arms and legs being instantly reverted the moment you stop trying. Switching tactics, you put all of your focus into one of your arms, and with a huge amount of effort, you manage to make your hand just about slender enough to slip out of the leather strap, after which it immediately springs back to its original size.
+	</p>
+	<p>
+		With one hand now free, the rest of your escape is easy. Undoing the other three straps, you slide off the table and try not to dwell on how strange your new, silicone body feels as it moves. You're unable to ignore the reality of your situation for long, however, for you freeze as you catch a reflection of yourself in the mirrored surface of one of the nearby tables. Every part of your smooth, black body, from your DD-cup breasts to the barcode tattoo on your forehead, is indistinguishable from the countless hundreds of other sex dolls you've seen.
+	</p>
+	<p>
+		Turning away from your reflection, you hurry over to the dollification machine, hoping to find a way to regain your essences and reverse this alarming transformation. As you look over the controls, you breathe a sigh of relief as you see that there's a dust-covered button labelled 'Cancel dollification - Essence restoration'. Unfortunately, as you press this button one of the machine's screens flashes an error message which informs you that you need to be lying on the table for it to work. Obviously unable to press the button and lie on the table at the same time, you realise that you need to find Fia and get her to help you out...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<htmlContent tag="START_ESCAPE_CONTINUE"><![CDATA[
+	<p>
+		Stepping away from the dollification machine, you prepare to leave this place before Angelixx and her sons return...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_SURRENDER"><![CDATA[
+	<p>
+		Although you know that you should try to escape while you have the chance, you feel a strong desire to simply stay still and accept your fate. Your new silicone body feels better with each passing moment, and before you know it you're imagining how good it'd feel to have your tight, plastic pussy stuffed full of a nice, fat cock.
+	</p>
+	<p>
+		Suddenly becoming aware of what you're doing, you shake this unwanted fantasy from your head and tell yourself that you need to escape. Once again, however, you're then hit by a sudden, strong desire to submissively remain on the table and await your Mistress's return.
+	</p>
+	<p>
+		[pc.speech(My Mistress?)] you mutter out loud. As these words leave your lips, your body rewards you with a rush of pleasure and fills your mind with thoughts of eagerly submitting to Angelix. Impulsively wanting to experience this feeling again, you whine, [pc.speech(I'll obey Mistress...)]
+	</p>
+	<p>
+		With any thought of escaping being pushed to the very back of your mind, you allow yourself to sink into a succession of submissive fantasies. Feeling more and more comfortable in your new body, you soon find it hard to think of yourself as anything other than a sex doll. Obediently remaining on the table, with your pussy dripping from your lewd daydreams, you soon find yourself eagerly wishing for your Mistress's return so that she can finish transforming you into an obedient toy.
+	</p>
+	<p>
+		Just as you completely surrender to the desires of your new body, Angelixx and her sons reappear in a flash of pink light. The two nightmares immediately begin hauling a trio of bulky, battery-like contraptions over to the dollification machine, while their mother skips over to you and teases, [angelixx.speech(Ready to be turned into a dumb sex doll, bitch?)]
+	</p>
+	<p>
+		[pc.speech(Yes, Mistress...)] you obediently reply.
+	</p>
+	<p>
+		[angelixx.speech(Mistress? That's what I like to hear!)] the succubus giggles, before taking on a more serious tone and continuing, [angelixx.speech(As you're so keen to act like my obedient little slave, why don't you tell me exactly what you hoped to achieve by breaking into this factory while my boys fix the machine?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_SURRENDER_FIA"><![CDATA[
+	<p>
+		Completely surrendering to your fate, you obediently tell your Mistress what she wants to know. Betraying Fiammetta, you reveal that you came here with the journalist to gather evidence of illegal slavery and expose Saellatrix's crimes to all of Dominion.
+	</p>
+	<p>
+		[angelixx.speech(Wait, what?!)] your Mistress blurts out in shock as you tell her that you weren't alone. With a concerned look on her face, she quickly asks, [angelixx.speech(Where's your companion?! Is she still down here?!)]
+	</p>
+	<p>
+		[pc.speech(I don't know, Mistress,)] you truthfully reply.
+	</p>
+	<p>
+		[angelixx.speech(Useless doll!)] she snaps. Turning towards her sons, who're still working on fixing the machine, she shouts, [angelixx.speech(Boys! This bitch wasn't alone! There's another one sneaking around somewhere! Find her! Find her now!)]
+	</p>
+	<p>
+		Abandoning the repair works, Sleip and Nir immediately run off into the factory to track down your companion.
+	</p>
+	<p>
+		[angelixx.speech(Eugh, now <i>I</i> have to repair the machine,)] your Mistress tuts, before walking over to the huge dollification device and continuing the work which her sons have already started. Left lying there on the table, all you can do now is wait...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Leads into DOLLIFICATION_TABLE -->
+	<htmlContent tag="START_SURRENDER_END"><![CDATA[
+	<p>
+		With her existence now known, it doesn't take Sleip and Nir long to find Fia. With your mind still swimming with lewd, submissive fantasies, scarcely five minutes pass by before the nightmares burst back into the room.
+	</p>
+	<p>
+		[sleip.speech(We caught the bitch crawling behind one of the toy machines!)] Sleip triumphantly announces.
+	</p>
+	<p>
+		Turning your head, you look over to the door to see that your companion is being held between the two nightmares. Although she's desperately struggling against them, they're far too strong for her, and they effortlessly hold her still as she squirms about and shouts,
+		#IF(flags.hasFlag(FLAG_innoxia_doll_factory_pre_dollification_feminine))
+			 [fia.speech(Where's [pc.name]? What have you done with her?!)]
+		#ELSE
+			 [fia.speech(Where's [pc.name]? What have you done with him?!)]
+		#ENDIF
+	</p>
+	<p>
+		[angelixx.speech(Don't you recognise your friend? She's right here in front of you,)] Angelixx giggles as she skips over from the dollification machine. Turning towards you, she orders, [angelixx.speech('[pc.Name]', tell your friend what you are.)]
+	</p>
+	<p>
+		[pc.speech(I'm Mistress's obedient doll,)] you faithfully reply.
+	</p>
+	<p>
+		Letting out a sadistic laugh as she sees the look of horror on Fia's face, Angelixx turns towards her sons and commands, [angelixx.speech(Strip the bitch and lock her to those pipes. I've already fixed the machine, so we can get on with finishing this one's transformation.)]
+	</p>
+	<p>
+		Grabbing Fia's arms, Sleip holds them behind her back as Nir roughly tears off her clothes. Ignoring her furious curses and cries, the nightmare rubs his thick fingers over her tight cunt and greedily gropes her small breasts, before grunting, [nir.speech(You'll be moaning like a slut soon enough...)]
+	</p>
+	<p>
+		With that, Sleip drags your naked companion over to some nearby pipes, while Nir retrieves a pair of handcuffs from a nearby container. Locking her to the sturdy metal structure, the nightmares turn their attention back to you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- At end of milking area: -->
+	
+	<htmlContent tag="FACTORY_HIDE"><![CDATA[
+	<p>
+		You push open the metal door and rush through into the toy factory just in time. Behind you, a loud slamming noise lets you know that Angelixx and her sons have just burst through the double doors at the far end of the milking room. The sound of the nightmares' hooves clopping on the hard concrete grows louder as they sprint in your footsteps, and you realise that you only have a matter of seconds before you're caught.
+	</p>
+	<p>
+		Scanning your surroundings, you see that the only concealment within reach is a low stack of flattened carboard boxes in the nearby corner. With no other option available, you dive behind this inadequate hiding place and hope for the best. As you duck down behind the boxes, you discover that you're able to move your silicone body in ways a normal person never could. Contorting your limbs and flattening your back, you press yourself down against the cold concrete floor and so just about manage to duck out of sight. You quickly discover that you also have an ability to remain completely and utterly motionless, and so you don't make a single move as your three pursuers enter the factory after you.
+	</p>
+	<p>
+		[angelixx.speech(I can't fucking believe it!)] the exasperated voice of Angelixx shouts out as she bursts through the door. Clearly not having seen you, she says to her sons, [angelixx.speech(I'll search the factory, you two head upstairs and search the shop and the nearby streets. If she's got out into Dominion, you need to find her before she makes a scene!)]
+	</p>
+	<p>
+		[sleip.speech(You should order all these other dolls to help you search,)] Sleip grunts.
+	</p>
+	<p>
+		[angelixx.speech(Sae will be furious if production is slowed!)] Angelixx snaps in response, [angelixx.speech(Besides, I don't want to make a scene down here. If Sae comes down and sees all the dolls searching about, she'll find out that I let a doll escape! That'd be the end for me... You can't let Sae find out about this! Now go and find the bitch while I search for her down here! Oh, and activate your resonance stone if you find her. I'll do the same.)]
+	</p>
+	<p>
+		You hear the clopping sound of Sleip's and Nir's hooves as they run off to the elevator, leaving their mother behind to search the factory for you. Letting out an annoyed sigh, she storms off into the toy factory, oblivious to the fact that you were hiding right next to her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FACTORY_HIDE_CONTINUE"><![CDATA[
+	<p>
+		You wait in your contorted position until the sound of Angelixx's footsteps have faded away, and then stay still for another minute just to be sure that you won't be spotted when leaving your hiding place. It's at this moment that you realise that despite your contorted body and contact with the cold concrete floor, you're just as comfortable as if you were standing. For a moment you're tempted to remain here in place until Angelixx calls off the search, but the fact that Fia might be caught in the meantime forces you to make a move.
+	</p>
+	<p>
+		Slowly standing up, you look around for any sign of Angelixx. Thankfully, the succubus is nowhere to be seen, and so you set off into the factory to search for Fia, making sure to stay alert for any sign of your pursuer as you go...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Need to encounter these events to find Fia: -->
+	
+	<!-- Succubus encounter: -->
+	
+	<htmlContent tag="ENCOUNTER_SUCCUBUS"><![CDATA[
+	<p>
+		Approaching one of the corners of the toy factory, you suddenly hear a shuffling noise coming from behind a large stack of crates. Pausing to listen, you hear the same noise again, which is followed by a quiet, feminine sigh. Thinking that you're hearing Fia, you hurry to the end of the crates and peer around the corner.
+	</p>
+	<p>
+		Instead of the human journalist, however, you see
+		#IF(flags.hasFlag(FLAG_innoxia_doll_factory_succubus_seen_penis))
+			 a very familiar-looking succubus. Sitting on the edge of a crate with her back to you, the brown-skinned demon is using both hands to stroke her huge, thick, dog-like cock. A stream of musky, slimy precum is oozing out of the tapered tip of her throbbing scarlet shaft, and you find it hard to look away from her monstrous dick as you remember
+			#IF(sister.hasFoughtPlayer())
+				#IF(sister.getWonCombatCount()>0)
+					#IF(sister.getSexAsDomCount(pc)>0)
+						 how it felt to be fucked by it.
+					#ELSE
+						 how she defeated you in combat.
+					#ENDIF
+				#ELSE
+					#IF(sister.getSexAsSubCount(pc)>0)
+						 how you fucked her.
+					#ELSE
+						 defeated her in combat.
+					#ENDIF
+				#ENDIF
+			#ELSE
+				 when you saw her roaming around the factory before you were turned into a doll.
+			#ENDIF
+		#ELSE
+			 a skimpily-dressed succubus. Sitting on the edge of a crate with her back to you, the brown-skinned demon is using both hands to stroke her huge, thick, dog-like cock. A stream of musky, slimy precum is oozing out of the tapered tip of her throbbing scarlet shaft, and you find it hard to look away from her monstrous dick as you wonder how it would feel to get fucked by it.
+		#ENDIF
+	</p>
+	<p>
+		[sister.speech(I'm such a bad dog...)] the succubus quietly moans as she slides her slender fingers over the semi-inflated knot at the base of her cock. Lifting her other hand to pinch the ebony nipples which are perched on the tips of her [sister.cupSize]-cup tits, she pants, [sister.speech(Mistress said not to play with my cock... But it feels so good... Fuck!)]
+	</p>
+	<p>
+		As you watch this lewd display, you get a sudden, intense urge to step forwards and offer the succubus your body. Your horny little silicone pussy starts to get wet as you imagine that huge dog-dick being rammed deep inside of you, and a small part of your mind clicks into wanting nothing more than to be a dumb, obedient sex doll. It takes all of your effort to turn your head away, and after taking a few deep breaths to calm down you just about manage to suppress these disturbing thoughts.
+	</p>
+	<p>
+		Fia is clearly not here, so it'd be best for you to leave and continue your search for her elsewhere in the factory. Then again, you could always give in to your new body's desires...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_SUCCUBUS_IGNORE"><![CDATA[
+	<p>
+		Managing to control the lewd urges of your new body, you step away from the crates and prepare to continue your search for Fia. Just as you start to move, however, the succubus's increasingly-loud moans cause you to stop in your tracks.
+	</p>
+	<p>
+		[sister.speech(~Mmm!~ Fuck! Yes, I'm a bad dog! ~Ooh!~ Yes! Yes! Fuck!)] she squeals. This is followed by several deep grunts, and then another series of orgasmic squeals. This process repeats for a third time, after which there's a dull thud which you assume to be the sound of the succubus collapsing back on the crate in a post-orgasmic daze.
+	</p>
+	<p>
+		Although you know you should just leave, the combination of your curiosity and a desire to see the succubus's cock again leads you to step back and peer around the edge of the crates. As you do, you find yourself suddenly face-to-face with the brown-skinned succubus.
+		#IF(sister.hasFoughtPlayer())
+			 Obviously not recognising you in your new doll's body, she simply huffs,
+		#ELSE
+			 Looking you up and down, she huffs,
+		#ENDIF
+		 [sister.speech(Dumb doll, I could have done with you a minute ago... Wait, why are you even here? Nevermind, just clean up that mess I've made.)]
+	</p>
+	<p>
+		Barging past you, the succubus leaves you to carry out her order. Looking over to where she's just masturbated, you see that a huge quantity of slimy cum has been splattered all over the concrete floor. Taking a quick look around, you don't see any equipment with which to clean the floor. Just as you start to wonder how the succubus intends for you to clean up her mess, a dirty thought springs into your mind. You could always drop down and lick the cum up like the submissive slut you are. Performing degrading acts is just what dumb dolls like you are good for, after all.
+	</p>
+	<p>
+		Suddenly coming back to your senses, you realise that the succubus has already disappeared. There's no reason for you to carry out her order, let alone to do it in such a humiliating fashion...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_SUCCUBUS_WATCH"><![CDATA[
+	<p>
+		Although you manage to overcome your body's intense desire to be fucked by that huge, throbbing dog-dick, you can't bring yourself to leave and miss the show. Quickly stepping back to the edge of the crates, you peer around the corner and get a good view of the succubus as she wraps her hands around her cock and continues to jerk off.
+	</p>
+	<p>
+		[sister.speechNoEffects(Yes... ~Mmm!~ I'm a bad dog!)] she moans, [sister.speech(~Ooh!~ Sorry, Mistress, I need to cum! I know I'm bad! ~Mmm!~ Fuck!)]
+	</p>
+	<p>
+		You can't help but fantasise about that fat, scarlet cock being rammed deep into your hot little cunt, and stifle a moan as you continue to watch the show...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_SUCCUBUS_WATCH_END_SEX"><![CDATA[
+	<p>
+		Having finished masturbating, the succubus lets out one final sigh and groans, [sister.speech(~Mmm!~ Oh, I'm such a bad dog... I'll have to tell Mistress, and she'll punish me...)]
+	</p>
+	<p>
+		Suddenly standing up, the brown-skinned demon turns to leave, and in the process catches sight of you peering around the corner of the crates.
+		#IF(sister.hasFoughtPlayer())
+			 Obviously not recognising you in your new doll's body, she simply huffs,
+		#ELSE
+			 Looking you up and down, she huffs,
+		#ENDIF
+		 [sister.speech(Dumb doll, I could have done with you a minute ago... Wait, why are you even here? Nevermind, just clean up that mess I've made.)]
+	</p>
+	<p>
+		Barging past you, the succubus leaves you to carry out her order. Looking over to where she's just masturbated, you see that a huge quantity of slimy cum has been splattered all over the concrete floor. Taking a quick look around, you don't see any equipment with which to clean the floor. Just as you start to wonder how the succubus intends for you to clean up her mess, a dirty thought springs into your mind. You could always drop down and lick the cum up like the submissive slut you are. Performing degrading acts is just what dumb dolls like you are good for, after all.
+	</p>
+	<p>
+		Suddenly coming back to your senses, you realise that the succubus has already disappeared. There's no reason for you to carry out her order, let alone to do it in such a humiliating fashion...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_SUCCUBUS_ASSISTANCE"><![CDATA[
+	<p>
+		Giving in to your desire, you strut forwards and ask, [pc.speechNoEffects(Do you require assistance, Mistress?)]
+	</p>
+	<p>
+		Jumping to her hoofed feet, the succubus spins around to face you. Upon seeing that you're an ordinary-looking sex doll, a look of excitement flashes over her face, and without hesitation she grabs you and throws you face-first over the crate. Desperate to fuck you, she half-climbs on top of you and moans, [sister.speechNoEffects(~Ooh!~ Yes! You're just what I needed!)]
+	</p>
+	<p>
+		Frantically thrusting her hips, the succubus's cock slips down between your legs, and then slides up and over your ass. Pathetically whining in frustration as she misses your cunt, the succubus takes a moment to line the tapered tip of her throbbing, leaky cock up to your eager silicone pussy, and then with an almighty thrust of her hips she rams it forwards.
+	</p>
+	<p>
+		[pc.speechNoEffects(~Ooh!~ Fuck! Fuck!)] you can't help but squeal as you feel her huge, thick dog-dick ramming deep into your silicone cunt. Your labia, already coated in the succubus's musky, slimy precum, stretch wide as she forces the entire length of her scarlet cock inside of you. Your silicone tits crush down against the crate as she repositions herself and drops her weight down onto your back. Being so dominantly penetrated makes something click in your head, and you can't help but push your hips back and lewdly pant, [pc.speechNoEffects(Yes... Fuck me hard! ~Ooh!~ I'm your good doll...)]
+	</p>
+	<p>
+		[sister.speechNoEffects(Shut up and stay still, you worthless doll!)] the succubus snaps. Although your mind hasn't been transformed into that of an obedient toy, the dominant manner of the succubus's command makes you want to obey, and so you obediently freeze in place, remaining totally silent and unmoving as your partner pulls back and starts to frantically hump you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_SUCCUBUS_ASSISTANCE_END_SEX"><![CDATA[
+	<p>
+		Well and truly satisfied after blasting three huge loads of her slimy, musky cum deep into your cunt, the succubus slides her fat, softening cock out of your pussy and takes a step back. Continuing to obey the succubus's command, you remain totally silent and motionless as she bends down and grabs your ass with both hands. Sliding her thumbs down to your pussy, she spreads your labia and lets out a soft moan.
+	</p>
+	<p>
+		[sister.speech(~Mmm!~ I really stretched you out nicely, but you'll be tight and good as new in a minute or so,)] she giggles as she watches her cum dripping out of your #IF(game.isGapeContentEnabled())gaping#ELSEloose#ENDIF cunt. Standing back up and giving your smooth, silicone ass a hard slap, she commands, [sister.speech(Clean up the mess I made on the floor, bitch.)]
+	</p>
+	<p>
+		With that, the succubus turns and walks off, leaving you feeling like little more than a worthless onahole. Shuddering in masochistic pleasure, you stand up and look down to see that a huge pool of slimy cum has formed on the concrete floor between your legs. Taking a quick look around, you don't see any equipment with which to clean the floor. Just as you start to wonder how the succubus intends for you to clean up her mess, a dirty thought springs into your mind. You could always drop down and lick the cum up like the submissive slut you are. Performing degrading acts is just what dumb dolls like you are good for, after all.
+	</p>
+	<p>
+		Suddenly coming back to your senses, you realise that the succubus has already disappeared. There's no reason for you to carry out her order, let alone to do it in such a humiliating fashion...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_SUCCUBUS_CLEANUP_DUTY"><![CDATA[
+	<p>
+		The dirty, degrading desires of your silicone body win out against your sense of dignity. Stepping over to the pool of the succubus's cum, you drop down onto all fours and lower your head to the floor.
+	</p>
+	<p>
+		Imagining the succubus's fat, throbbing dog-cock as it spurts out a fresh load of slimy jizz, you let your tongue slide out of your mouth and start to lick up the cold, musky cum. Any sense of disgust you might once have felt at performing such a degrading act is replaced by an overwhelming, masochistic pleasure, and you can't help but moan in shameful delight as you swallow every drop of jizz which your tongue eagerly laps up.
+	</p>
+	<p>
+		Working your way over the floor, you make sure to lick up every last drop of the succubus's slimy cum. Only once the floor is completely clean do you finally stand up and prepare to continue your search for Fia...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_SUCCUBUS_CLEANUP_DUTY_END"><![CDATA[
+	<p>
+		With your task now finished, and your faux-stomach full of the succubus's cum, you leave this corner of the factory and continue your search for Fia...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_SUCCUBUS_CLEANUP_REFUSED"><![CDATA[
+	<p>
+		Refusing to succumb to the dirty, degrading desires of your silicone body, you turn away from the pool of succubus cum and continue your search for Fia...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Dildos encounter: -->
+	
+	<htmlContent tag="ENCOUNTER_DILDOS"><![CDATA[
+	<p>
+		A flash of movement between two nearby sex toy machines suddenly catches your attention. Not able to see much from your current location, you hurry forwards in the the hope that you've found where Fia has been hiding.
+	</p>
+	<p>
+		Instead of your companion, however, as you peer around the edge of the bulky machines, you see a red doll standing with her back to you. The flash of movement which you'd hoped was a sign of Fia is nothing more than the motion of this doll's arms as she busily rearranges
+		#IF(game.isAnalContentEnabled())
+			 six
+		#ELSE
+			 four
+		#ENDIF
+		 dildos of varying sizes, shapes, and colours which are lined up on the table before her. Seemingly satisfied with their order, the doll suddenly steps back and turns to leave, and at that moment she catches sight of you.
+	</p>
+	<p>
+		[doll.speech(Doll [#flags.getSavedLong('player_doll_number')]... You should be in storage,)] the doll states, having identified you via the barcode tattoo on your forehead. Gesturing to the floor beside the dildo-stacked table, she continues, [doll.speech(As you're here, you will assist me with quality control. Kneel down beside the table.)]
+	</p>
+	<p>
+		Despite the fact that your mind is still your own, you find yourself obediently stepping forwards and preparing to carry out this red doll's order. Managing to catch yourself after taking a few steps, you realise that you don't have to do what this doll says. Then again, perhaps it'd be more rewarding to submit and act like a good little sex toy...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_DILDOS_REFUSE"><![CDATA[
+	<p>
+		Refusing to submit to this red doll, you take a step back and offer an excuse, [pc.speech(I've been ordered to report to storage as quickly as possible, so I don't have time to assist you.)]
+	</p>
+	<p>
+		[doll.speech(Very well, I shall use another doll to assist me,)] she replies, before gesturing for you to leave and saying, [doll.speech(Don't keep Mistress waiting. Hurry off to storage.)]
+	</p>
+	<p>
+		Seizing this opportunity to escape without being subjected to whatever this doll had in mind for you, you turn and quickly leave this area...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_DILDOS_OBEY"><![CDATA[
+	<p>
+		The impulse to obey overwhelms your desire to leave and continue your search for Fia, and so you find yourself obediently stepping forwards and kneeling down beside the red doll and her table of dildos. Acting in such a submissive manner makes something in your head click, and try as you might, a small part of you now thinks of yourself as nothing more than a dumb sex doll.
+	</p>
+	<p>
+		[doll.speech(I will be testing these dildos by inserting them into your orifices,)] the red doll calmly states, [doll.speech(You are to focus on the pleasure and remember how each dildo feels. Then once I've finished you're to give me a report on your experiences.)]
+	</p>
+	<p>
+		Glancing over at the table, you feel a rush of excitement as you see how big some of the dildos are. Suppressing a quiet moan, you spread your knees a little and eagerly wait to see which of the toys you'll get to experience first...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_DILDOS_END_SEX"><![CDATA[
+	<p>
+		Sliding the dildos out of your well-fucked holes, you let out a little moan as you feel your #IF(game.isGapeContentEnabled())gaping#ELSEloose#ENDIF, silicone orifices quickly springing back to their original tightness. Standing up, you place the toys on the table, before turning to face the red doll.
+	</p>
+	<p>
+		[doll.speech(You will now give me your report,)] she states. Holding her clipboard in one hand and a pen in the other, she orders, [doll.speech(Start from the beginning and tell me on a scale of one to ten how good each toy felt, and if there were any issues with them which you noticed.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_DILDOS_END_SEX_REPORT"><![CDATA[
+	<p>
+		Giving the doll your report, you feel like a dirty slut as you give each toy a pleasure rating of at least an eight, with the larger toys scoring a perfect ten. The only issue which you report is that the vibrating dildo which was the first toy to be shoved into your horny pussy would have been better if the vibrations were more powerful.
+	</p>
+	<p>
+		[doll.speech(Very good, but while the vibrations might not have been enough for a doll, they should be adequate for a real person,)] the red doll says while writing down your scores. Placing her clipboard down on the table, she dismisses you with a wave and orders, [doll.speech(Return to storage. I've finished with you.)]
+	</p>
+	<p>
+		Despite the effort which you put into testing the dildos, you don't receive so much as a 'thank you' or 'good job', making you feel like nothing more than an object to be used and discarded. Trying not to dwell on this, you turn away from the red doll and prepare to leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_DILDOS_END"><![CDATA[
+	<p>
+		Leaving the red doll and her table of dildos behind, you continue your search for Fia...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Bondage encounter: -->
+	
+	<htmlContent tag="ENCOUNTER_BONDAGE"><![CDATA[
+	<p>
+		As you strut through the factory, you suddenly hear a series of muffled, feminine moans coming from behind a toy machine. Fearing that these noises might be coming from Fia, you hurry to the end of the machine and peek around the corner.
+	</p>
+	<p>
+		Thankfully, instead of Fia, you see that the owner of the moans is a black doll, who looks completely identical to you. She's been locked up in all manner of bondage gear, and is being suspended above the floor at waist height by several ropes which have been tied around her limbs and torso. At her rear end, a red doll is rhythmically whipping her ass with a riding crop, and accompanying each loud crack the black doll lets out a muffled moan.
+	</p>
+	<p>
+		Suddenly, you feel a hand close around your forearm, and you spin to the side to see a that it's a second red doll who's grabbed hold of you. Your new body turns out to be far weaker than that of the red doll, and you find yourself unable to stop her from twisting your arm behind your back and grabbing hold of your other wrist. Pushing you forwards, she states, [doll.speech(We requested a second doll for bondage gear quality control hours ago. Why are you so late?)]
+	</p>
+	<p>
+		Being handled in such a dominant manner gives you a rush of excitement, and for a moment you wish for nothing more than to be pinned down by this red doll and used in any way she desires. As she forces you to take a couple of steps towards the other black doll, you manage to push this fantasy out of your head and decide how to respond...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_BONDAGE_BOUND"><![CDATA[
+	<p>
+		You can't bring yourself to resist this dominant doll. The sensation of being completely and utterly at her mercy sends a rush of arousal through your body, and you find yourself meekly assuming the role of the doll's missing test subject by answering, [pc.speechNoEffects(I'm sorry that I'm late. I got lost...)]
+	</p>
+	<p>
+		[doll.speech(How ridiculous. Nevermind, you're here now, and our testing is still on schedule,)] the red doll replies. Pushing you forwards so that you're standing beside the other black doll, she releases you and orders, [doll.speech(Stand still while I equip this gear on you.)]
+	</p>
+	<p>
+		Totally submitting to the doll's commands, you feel a small part of your mind click into a different gear, and suddenly you find yourself unable to move even if you wanted to. Feeling completely in tune with your silicone body, you want nothing more than to be a good, obedient sex doll for whoever owns you, which at this moment is the strong, red doll.
+	</p>
+	<p>
+		Wasting no time at all, your temporary owner starts equipping all sorts of bondage gear on you. First, a ballgag is shoved into your 'o'-shaped mouth, and then a leather choker is tightly secured around your neck.
+		#IF(game.isAnalContentEnabled())
+			 A metal buttplug is unceremoniously shoved into your silicone asshole, and then a length of enchanted rope is pressed against your body; within moments it's looped around your limbs and torso and knotted itself into a tight-fitting karada which rubs against your wet pussy and keeps your new anal toy pressed into your butt.
+		#ELSE
+			 A length of enchanted rope is then pressed against your body, and within moments it's looped around your limbs and torso and knotted itself into a tight-fitting karada which rubs against your wet pussy and silicone asshole.
+		#ENDIF
+		 Leather restraints are fastened around your wrists, forcing your arms behind your back, while a similar pair which are joined by a long spreader bar are secured around your ankles. Finally, a pair of clover clamps are pinched down over your erect nipples, and then a blindfold plunges your world into one of darkness.
+	</p>
+	<p>
+		[doll.speech(Everything seems to be holding up so far,)] the red doll states, [doll.speech(Now to get you into the proper position.)]
+	</p>
+	<p>
+		You suddenly feel ropes being tied into your karada at several key positions. A moment later, you're forcefully yanked upwards, and although you're unable to see you can tell that you're now suspended in mid-air, much like the other black doll who's still being whipped beside you. With a few manipulations of the rope, the red doll turns you in mid-air so that you're positioned as though you're lying down on your stomach.
+	</p>
+	<p>
+		[doll.speech(Excellent, now keep struggling to help test out the equipment until I tell you to stop,)] the red doll commands. Obediently starting to squirm about and struggle against your bonds, you hear your owner stepping over to the other black doll and address her red colleague, [doll.speech(Keep whipping her ass while I try out these different ballgags on her.)]
+	</p>
+	<p>
+		With the red doll having turned her attention to the other test subject, you're left totally immobilised, blinded, and hanging in mid-air...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_BONDAGE_BOUND_WAIT"><![CDATA[
+	<p>
+		With your sight obscured by your blindfold, and no way to escape from your bonds, all there is for you to do is focus on the feeling of your bondage gear while listening to the moans of the black doll beside you. Happily obeying the red doll's command, you struggle against your bonds, moaning in masochistic pleasure as your movements cause your rope karada to rub against your pussy
+		#IF(game.isAnalContentEnabled())
+			 and grind your buttplug deep into your ass.
+		#ELSE
+			 and asshole.
+		#ENDIF
+		 Your [pc.cupSize]-cup tits droop down under the force of gravity and sway from side to side as you wriggle about, with the heavy clover clamps pinched onto your big black nipples helping to sag them down towards the floor.
+	</p>
+	<p>
+		The next half an hour passes in this manner, with the red dolls continuing to focus on the other black doll while you pathetically squirm about beside them. Finally, however, after she's satisfied herself with the testing of multiple types of ballgag, your owner steps back over to you and declares, [doll.speech(The gear appears to be holding up perfectly under normal conditions. Now for the stress test. Stop struggling.)]
+	</p>
+	<p>
+		Once again manipulating the ropes which are holding you up off the floor, the red doll flips you over so that your back is now facing the floor beneath you. Another pull on the ropes causes your legs, which are still forced open wide by your spreader bar, to be lifted up in the air. Loosening and parting the rope around your silicone cunt, the doll states, [doll.speech(I'm going to fuck your pussy as hard as I can. Please react in a natural manner so that I can check your bondage gear under typical circumstances.)]
+	</p>
+	<p>
+		With that, you suddenly feel the silicone head of a strap-on dildo sliding up and down over your black labia...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_BONDAGE_SEX"><![CDATA[
+	<p>
+		You let out a deep, muffled moan into your ballgag as you feel the red doll's strap-on pressing against your hot, wet cunt. This is what you were made for; to be dominated and tied up by your owner and fucked hard like the dumb sex toy you are. Although your spreader bar keeps your ankles a fixed distance form one another, you can still spread your knees, and do so to show the red doll how submissive and ready to be fucked you are. Letting out another muffled moan, you buck your hips to encourage her to penetrate you.
+	</p>
+	<p>
+		[doll.speech(You're an eager one,)] the red doll says, and for the first time you notice some emotion in the tone of her voice. Grabbing your waist with both hands, she lets out an eager little moan and teases, [doll.speech(I suppose work can sometimes be fun...)]
+	</p>
+	<p>
+		With that, she suddenly slams her hips forwards, driving her silicone strap-on as deep into your pussy as she possibly can. Your ecstatic moan is once again muffled into your ballgag, and with the blindfold still obscuring your vision, you're forced to focus purely on the physical pleasure as your owner fucks you hard and fast...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_BONDAGE_BOUND_AFTER_SEX"><![CDATA[
+	<p>
+		Having tested all of your bondage gear and made sure that it all held up during your orgasm, the red doll slides her strap-on dildo out of your twitching cunt and declares, [doll.speech(That was a great success.)]
+	</p>
+	<p>
+		Although you're still blindfolded, you can tell from the noises she makes that the red doll is taking off her strap-on and putting it away somewhere nearby. Expecting to be released, you relax and let out a satisfied, muffled moan.
+	</p>
+	<p>
+		[doll.speech(Don't get too comfortable,)] the red doll states, [doll.speech(We need to complete your post-orgasm punishment test.)]
+	</p>
+	<p>
+		Realising that you're about to be put through the same process which you saw being applied to the other black doll, you whimper in anticipation as your owner manipulates your ropes once again to flip you back over so that you're facing the floor. Stepping around behind you, she slides her smooth, silicone fingers over your round ass before addressing her colleague, [doll.speech(Please start the hour timer. Oh, and you can release the other doll now. Order her back to storage.)]
+	</p>
+	<p>
+		Turning her attention back to you, the red doll drags what you assume to be the tip of a riding crop over your exposed ass, before ordering, [doll.speech(Struggle and cry for me, doll. We need to really test that bondage gear.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_BONDAGE_BOUND_WAIT_MORE"><![CDATA[
+	<p>
+		Suddenly, a loud crack accompanies a burst of stinging pain in your right ass cheek, and you convulse in shock as your punishment starts. A moment later, another sharp swat of the riding crop introduces a flash of pain to your left cheek, and you can't help but let out a muffled cry and squirm about in your bindings.
+	</p>
+	<p>
+		After several more hits, you suddenly become aware that your silicone body doesn't really feel pain like your old body used to, and that you're reacting more on instinct than due to feeling any real discomfort. Upon realising this, you quickly discover that by focusing on the sensation of being whipped, you can make it feel more or less painful. Compelled by your body's urges, you focus on making your punishment painful enough to give you a sense of masochistic pleasure, and are soon moaning like a cheap whore as the red doll repeatedly swats your ass.
+	</p>
+	<p>
+		For the next hour, you continue to enjoy being punished so much that you manage to orgasm from it no less than three times. After each orgasm you find yourself wanting to experience more pain, and by the end of your punishment session you become shamefully aware of the fact that you're no longer choosing to lessen the pain that you feel.
+	</p>
+	<p>
+		[doll.speech(You really enjoyed that, I see,)] the red doll states as she finally brings an end to the whipping. Checking over your bondage gear, she says, [doll.speech(Everything looks to be in perfect condition. It all passes quality control. Now you're free to go.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_BONDAGE_BOUND_ENDING"><![CDATA[
+	<p>
+		Lowering you to the floor, the red doll unties the ropes and begins removing your bondage gear. Your blindfold and ballgag are the first to be removed, allowing you to let out a submissive moan as you see your owner standing over you. Ignoring your pathetic reaction, she unfastens your restraints, unclips the clover clamps from your nipples, and unties the karada. Finally, she
+		#IF(game.isAnalContentEnabled())
+			 pulls your buttplug out and
+		#ENDIF
+		 declares, [doll.speech(That's everything. Now return to storage.)]
+	</p>
+	<p>
+		Standing up, you look around to see that both the other black and red dolls have left, leaving just you and your owner here. Not wanting to disappoint her, you quickly turn away from her and prepare to leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_BONDAGE_ESCAPE"><![CDATA[
+	<p>
+		Not wanting to share the other black doll's fate, and with no hope of using physical fore to break free from the red doll's iron grip, you decide that the only way to get out of this tricky situation is to quickly concoct an excuse to be let go. Quickly making something up on the spot, you lie, [pc.speech(Mistress Angelixx ordered me to report to storage without delay. Please don't interfere with Mistress's orders.)]
+	</p>
+	<p>
+		Thankfully, this does the trick, for upon hearing that you're acting on Angelixx's orders, the doll immediately releases your arm and lets you go. Not yet finished with you, however, she scolds you, [doll.speech(You should have said so immediately! Besides, this isn't the way to storage... Why are you here? Are you disobeying Mistress?)]
+	</p>
+	<p>
+		[pc.speech(No, I... erm... had to take a detour to deliver some supplies first,)] you quickly reply. The red doll stares at you for a moment, seemingly trying to decide whether or not you're telling the truth, before abruptly turning her back on you and walking over to the other black doll.
+	</p>
+	<p>
+		[doll.speech(When you get to storage, please repeat my request for a second doll for bondage quality control. Any doll will do,)] the red doll calls back to you.
+	</p>
+	<p>
+		Not wanting to hang around here for a moment longer, you quickly turn and prepare to leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_BONDAGE_END"><![CDATA[
+	<p>
+		Worried that you might arouse the red doll's suspicion if you stay a moment longer, you hurry away from this bondage gear testing area and resume your search for Fia...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Doll encounter: -->
+	
+	<htmlContent tag="ENCOUNTER_DOLLS"><![CDATA[
+	<p>
+		Wondering if Fia is hiding in one of the far corners of the doll storage area, you continue pushing your way through the ranks of silent, motionless dolls. Your big, naked breasts and smooth, round ass rub against their equally-curvy bodies, and more than once you feel your new body getting aroused by this inadvertent physical contact. 
+	</p>
+	<p>
+		Just as you're reaching the rear of the storage area, where the layer of dust on the dolls is thick enough to suggest that they've been standing here for months if not years, several of them suddenly react to your presence. Stepping aside, they create a gap in their ranks just large enough to fit an extra doll, and with a nervous gulp you realise that they're giving you room to join them and become yet another silent sentinel.
+	</p>
+	<p>
+		Despite the urgency of your quest to find Fia and transform back into your old body, you feel a powerful desire to join these dolls. Without thinking, your body moves on its own, and before you know it you're stepping forwards to fill the gap. Catching yourself at the last moment, you step back and shake your head to dispel this strange urge to become a motionless doll. Not managing to entirely dispel this new nagging feeling that you're nothing more than an object, you try to summon the strength to turn around and leave...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_DOLLS_REFUSE"><![CDATA[
+	<p>
+		Not wanting to join these motionless sex dolls, you turn your back on the space which they've made for you and start pushing your way through their ranks once again. Seeing that you're leaving, the dolls move back to close up the gap, leaving no sign that you were ever there...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_DOLLS_TAKE_PLACE"><![CDATA[
+	<p>
+		The urge to take your place beside these dust-covered dolls proves to be strong for you to resist. Stepping forwards into the space they've made for you, you turn around and stand up straight, before dropping your hands down to your sides and lifting your chin. As you assume the exact same pose as that of the hundreds of other dolls in this storage area, you're immediately hit by a strong sense of belonging, and despite the fact that you're standing to attention, you feel surprisingly comfortable.
+	</p>
+	<p>
+		As you stand there, totally silent and motionless, you see that there's a large clock high up on the wall on the far side of the room. Your new body seems to enjoy being kept still, and a wave of soothing relaxation washes through you as you watch the clock's minute hand tick by. Before you know it ten minutes have passed by on the clock, but to you it's felt like no more than a few seconds since you took your place among your silicone clones.
+	</p>
+	<p>
+		A small voice at the back of your mind is telling you that you need to move and continue your search for Fia, but it'd be so easy to ignore it and remain in place...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_DOLLS_SNAP_OUT"><![CDATA[
+	<p>
+		Realising that you're in danger of wasting a great deal of time in which you could be searching for Fia, you summon the strength to shake your head and snap out of your trance. A small part of you feels like you're breaking some unwritten rule by moving and abandoning your station, Reminding yourself that you're not meant to be a sex doll, you manage to suppress any guilty feelings you have about leaving the other dolls behind and take a purposeful step away from them.
+	</p>
+	<p>
+		Not wanting to be tempted back into the sex dolls' ranks, you turn your back on the space which they've made for you and start pushing your way through them. Seeing that you're leaving, the dolls move back to close up the gap, leaving no sign that you were ever there...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_DOLLS_COMFORTABLE"><![CDATA[
+	<p>
+		The sensation of standing still and taking your place as just another anonymous sex doll sends waves of comforting pleasure through your body. The sensation is comparable to soaking in a warm, relaxing bath, and you absent-mindedly watch the minute hand of the clock continue to tick by as you allow yourself to drift into a stupefying trance.
+	</p>
+	<p>
+		Five minutes pass, then another ten, and before you know it you've spent almost half an hour standing here without making even the slightest movement. You know that you need to find Fia, but surely she can wait. It wouldn't hurt to stay here for another half an hour, or maybe even longer. You feel like such a good doll, obediently waiting here in storage until you're needed. There's really no rush....
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_DOLLS_STATUE"><![CDATA[
+	<p>
+		Falling deeper into a soothing, catatonic trance, time starts to lose all meaning for you. With a mild sense of curiosity, you watch as the minute hand of the clock seems to speed up until it appears to be ticking off seconds.
+	</p>
+	<p>
+		You feel as though you truly belong here. Your round, [pc.cupSize]-cup tits, with your big black nipples perched on their tips, are just about visible at the bottom of your vision, and you feel a comforting sense of sisterhood as you compare their identical form to those of the dolls within your field of view. You're a good doll, waiting here in storage like this. It might be months or even years before you're called forwards to be sold, but you like waiting. Eventually you'll be covered in dust like the dolls around you, but you don't mind. You're a good doll, waiting for your Mistress to order you forwards...
+	</p>
+	<p>
+		As the hour hand passes the two hour mark, your most recent thought triggers a nagging voice in the back of your head. Who is your Mistress? You don't remember being ordered here by anyone...
+	</p>
+	<p>
+		With a physical jolt that causes you to take a staggering half-step forwards, you snap out of your trance. You need to be looking for Fia! You can't believe that you allowed yourself to waste so much time by simply standing here, and feel a flush of shame as you realise that you were almost prepared to accept your fate as a dumb, obedient sex doll.
+	</p>
+	<p>
+		Not wanting to be tempted into wasting even more time, you turn your back on the space which you've occupied for over two hours and start pushing your way through the ranks of sex dolls. Seeing that you're leaving, the dolls move back to close up the gap, leaving no sign that you were ever there...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_DOLLS_END"><![CDATA[
+	<p>
+		Focusing on your task of finding Fia so that you can transform back into your old body, you keep a lookout for any sign of her as you continue on your way through the doll storage area...
+	</p>
+	]]>
+	</htmlContent>
+
+	
+	<!-- Angelixx encounters -->
+	
+	<htmlContent tag="ANGELIXX_ENCOUNTER"><![CDATA[
+	#IF(pc.getObedienceValue()==100)
+		<p>
+			As you continue searching the factory for Fia, you suddenly spot the familiar figure of Angelixx up ahead. Instead of rushing to hide, however, your first instinct is to stand to attention and wait for her to approach. You've learned to be a good, obedient doll, and you now want nothing more than to submit to your Mistress and let her finish your transformation.
+		</p>
+		<p>
+			Catching sight of you, your Mistress rushes forwards and shouts, [angelixx.speech(At last! I've got you now! Stop right there!)]
+		</p>
+	#ELSE
+		<p>
+			As you continue searching the factory for Fia, you suddenly spot the familiar figure of Angelixx up ahead. Immediately ducking behind the nearest available cover, you once again contort your body to squeeze down out of sight before remaining totally and utterly motionless. Your reaction proves to be the correct one, for a few moments later you hear the succubus's footsteps getting louder as she approaches your hiding place.
+		</p>
+		<p>
+			[angelixx.speech(
+			[style.random(
+			That bitch is going to pay for this...
+			|
+			Where is that bitch?
+			|
+			I can't fucking believe that she managed to escape...
+			|
+			Hopefully my boys find her soon...
+			|
+			She must be down here somewhere...
+			|
+			That fucking bitch...
+			|
+			She's got to be hiding somewhere down here...
+			)]
+			)] you hear her mutter.
+		</p>
+		<p>
+			#IF(pc.getObedienceValue()>=75)
+				As you hear Angelixx talk, you feel an overwhelming urge to reveal yourself and surrender to her. You want to be a good doll for Mistress...
+			#ELSEIF(pc.getObedienceValue()>=50)
+				As you hear Angelixx talk, you're gripped by a strong urge to reveal yourself and surrender to her. A part of you wants to be a good doll for Mistress...
+			#ELSE
+				As you hear Angelixx talk, your new body gives you a shameful urge urge to reveal yourself and surrender to her. A small part of you wants to be good doll for Mistress...
+			#ENDIF
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_ENCOUNTER_END"><![CDATA[
+	<p>
+		Knowing that your new body stands no chance against Angelixx in a fight, and that being caught will certainly result in your complete transformation into a sex doll, you remain completely silent and unmoving. Thankfully, your hiding place proves to be a good one, for you manage to avoid the succubus's detection as she walks past.
+	</p>
+	<p>
+		Your close proximity to Angelixx, and the associated feeling of danger, sends a rush of excitement through your silicone body. A voice in the back of your head tells you to be a good doll and submit to her, and you have to focus hard to keep yourself from moving and giving yourself away. Although you manage to suppress this voice and remain hidden, it doesn't entirely go away, leaving you feeling ever so slightly more submissive than before.
+	</p>
+	<p>
+		After staying still for a few minutes to make sure that Angelixx has gone, you slowly leave your hiding place. Seeing no sign of the succubus, you turn your attention back to your search for Fia...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_ENCOUNTER_SURRENDER"><![CDATA[
+	#IF(pc.getObedienceValue()==100)
+		<p>
+			Finding it impossible to think of yourself as anything other than a sex doll, you happily obey your Mistress and remain stationary as she hurries forwards and comes to a halt in front of you.
+		</p>
+		<p>
+			[angelixx.speech(You've accepted your fate then, bitch?)] your Mistress asks with a wicked smirk on her face.
+		</p>
+		<p>
+			[pc.speech(Yes, Mistress...)] you obediently reply.
+		</p>
+		<p>
+			Letting out a brief burst of triumphant laughter, the succubus sneers, [angelixx.speech(Mistress? That's what I like to hear! Now kneel before me, you dumb doll!)]
+		</p>
+	#ELSE
+		<p>
+			As Angelixx passes by, your new body projects a dark fantasy into your mind. You imagine yourself surrendering to the succubus and willingly completing your transformation into a dumb, obedient sex doll. You'd be sold, fucked hard, and spend the rest of your life as a submissive sex toy, always eager to please your owner.
+		</p>
+		<p>
+			A primal, shameful desire to live out this fantasy triumphs over the voice of reason, and in a moment of lust-fuelled madness, you make the decision to surrender yourself to Angelixx. As you stand up and step out of your hiding place, something clicks into place in your head, and you find yourself unable to see the startled succubus as anything but your rightful owner and Mistress.
+		</p>
+		<p>
+			[pc.speech(I'm sorry for running away, Mistress,)] you apologise.
+		</p>
+		<p>
+			It takes a moment for the look of surprise to vanish from Angelixx's face, but when it does it gives way to a wicked smirk. After letting out a brief burst of triumphant laughter, the succubus sneers, [angelixx.speech(Mistress? That's what I like to hear! Now kneel before me, you dumb doll!)]
+		</p>
+	#ENDIF
+	<p>
+		Obediently doing as you're told, you immediately drop down onto your knees before your Mistress. Pausing for a moment, the succubus produces a smooth, dark-purple ball from out of her hoodie's pocket, before twisting its two halves and then tucking it safely away again. Revealing the purpose of this device, your Mistress states, [angelixx.speech(There we go, now by boys know that I've found you. They'll take a few minutes to get here, though... While we wait, and seeing as you're so keen to act like my obedient little slave, why don't you tell me exactly what you hoped to achieve by breaking into this factory?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_ENCOUNTER_SURRENDER_REVEAL"><![CDATA[
+	<p>
+		Completely surrendering to your fate, you obediently tell your Mistress what she wants to know. Betraying Fiammetta, you reveal that you came here with the journalist to gather evidence of illegal slavery and expose Saellatrix's crimes to all of Dominion.
+	</p>
+	<p>
+		[angelixx.speech(Wait, what?!)] your Mistress blurts out in shock as you tell her that you weren't alone. With a concerned look on her face, she quickly asks, [angelixx.speech(Where's your companion?! Is she still down here?!)]
+	</p>
+	<p>
+		[pc.speech(I don't know, Mistress,)] you truthfully reply.
+	</p>
+	<p>
+		[angelixx.speech(Useless doll!)] she snaps.
+	</p>
+	<p>
+		At that moment, the loud clopping sound of hooves on concrete precedes the arrival of Sleip and Nir. As they come sprinting around a corner and catch sight of you and Angelixx, they slow to a walk and exchange smirks. Calling out as he and his brother approach, Nir observes, [nir.speech(You caught the bitch! Let's get her transformation finished!)]
+	</p>
+	<p>
+		Turning to face her sons, your Mistress has a slight tone of panic in her voice as she explains, [angelixx.speech(Boys, this bitch says that she's not alone! There's another one sneaking around somewhere! You have to find her! Find her now!)]
+	</p>
+	<p>
+		As the nightmares rush back off into the factory to search for Fia, your Mistress looks down at you and taunts, [angelixx.speech(My boys will find your friend, then we'll turn her into a doll as well... Why don't you give her a nice view for when she arrives? Bow down before me and lift your ass, doll.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_ENCOUNTER_SURRENDER_FIA"><![CDATA[
+	<p>
+		Already on your knees, it's a simple matter to obey your Mistress. Dropping your face down to the ground, you bow down before her and lift your round ass up into the air.
+	</p>
+	<p>
+		[angelixx.speech(You're already so obedient, and we haven't even finished your transformation yet!)] the succubus giggles as she watches you submit to her. Placing her foot on the back of your head, she pushes down and sadistically grinds your face into the ground as she taunts, [angelixx.speech(How pathetic! Now reach back and spread your ass! I want your pussy and asshole to be the first parts your new body that your friend sees.)]
+	</p>
+	<p>
+		Once again you obey without question, and as the sole of your Mistress's skater shoe continues to press your head down against the cold floor, you reach back with both hands and pull your silicone ass cheeks apart. With your [pc.pussy+] and [pc.asshole+] now fully on display, Angelixx laughs and takes her foot off your head, before stepping back and sitting on the edge of a nearby crate. Kicking her feet back and forth, she mutters to herself, [angelixx.speech(They'd better find her...)]
+	</p>
+	<p>
+		Clearly not seeing you as anything more than an object to be used at her whim, your Mistress pays you no further attention whatsoever, leaving you frozen in place as you wait for the return of Sleip and Nir...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_ENCOUNTER_SURRENDER_END"><![CDATA[
+	<p>
+		Instead of making you feel uncomfortable and question your decision to submit to your Mistress, her order for you to remain in your humiliating pose gives you a rush of masochistic pleasure, and you feel your silicone pussy starting to ache with need. You eagerly anticipate not only Fia catching sight of you like this, but also the reactions of your Mistress's sons. You soon find yourself lost in a fantasy where they're taking turns to fuck your tight, plastic cunt with their huge, throbbing horse-cocks, and with these lewd thoughts in your mind your twat quickly becomes dripping wet.
+	</p>
+	<p>
+		After ten minutes spent in your humiliating pose, you're snapped out of your daydreams by the deep voice of Sleip as he booms out from somewhere behind you, [sleip.speech(We found the bitch!)]
+	</p>
+	<p>
+		[fia.speech(Let me go! Fuck you!)] the familiar, feisty voice of Fia cries out.
+	</p>
+	<p>
+		Keeping your face planted against the ground, you can't see the nightmares' approach, but from the clopping sound of their hoofs on the concrete floor you can tell that they've stepped up right behind you. From their deep, horny grunts, you realise that they've taken note of your sopping wet pussy and exposed asshole. Sliding off the edge of the crate she's been perched upon, your Mistress addresses your companion and teases, [angelixx.speech(Your friend told us all about you, 'Fia'... Good job finding her, boys.)]
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_doll_factory_pre_dollification_feminine))
+			[fia.speech(Where's [pc.name]? What have you done with her?!)]
+		#ELSE
+			[fia.speech(Where's [pc.name]? What have you done with him?!)]
+		#ENDIF
+		 Fia asks, grunting as she fruitlessly struggles against Sleip and Nir. 
+	</p>
+	<p>
+		[angelixx.speech(Don't you recognise your friend? You keep looking down at her...)] Angelixx giggles, [angelixx.speech('[pc.Name]', stand up and give your friend a nice big kiss to say hello.)]
+	</p>
+	<p>
+		Obediently doing as you're told, you stand up and turn to face Fia, who you see has already been stripped naked by the nightmares who are flanking her. A look of horror is plastered across her pretty face, and as you step towards her she stutters in shock, [fia.speech(N-No... [pc.Name]? What have-)]
+	</p>
+	<p>
+		Only interested in obeying your Mistress's command, you silence Fia by grabbing her head and pressing your silicone lips over hers. Your [pc.cupSize]-cup breasts squish into her tiny tits as you force your tongue into her mouth, and to the sounds of Angelixx's giggles and her sons' horny grunts, you ignore Fia's weak struggles and start passionately kissing her.
+	</p>
+	<p>
+		[angelixx.speech(That's enough,)] Angelixx says after a few moments of watching your lewd display. Snapping her fingers, she commands, [angelixx.speech(Follow me, doll. It's time to get you and your friend turned fully into sex dolls!)]
+	</p>
+	<p>
+		Breaking off the kiss, you turn away from Fia and obediently follow your Mistress...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Fia final encounter -->
+	
+	<htmlContent tag="FIA_ENDING"><![CDATA[
+	<p>
+		As you set off once more on your search for the missing journalist, you suddenly hear a shuffling noise coming from somewhere nearby. Concerned that what you're hearing might be Angelixx, you approach the source of this strange sound with caution. Before you're able to get a view of whoever is responsible for making this noise, however, you're stopped in your tracks by a sudden metallic bang as a something's dropped onto the concrete floor.
+	</p>
+	<p>
+		[fia.speech(Shit,)] a very familiar voice hisses under her breath.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIA_ENDING_FOUND"><![CDATA[
+	<p>
+		Recognising that voice at once, you hurry forwards and, just as you expected, discover Fia bending down to pick up the flashlight she's just dropped. As she stands back up, she catches sight of you standing next to her and physically jumps into the air in shock.
+	</p>
+	<p>
+		[fia.speech(Argh!)] she lets out an involuntary cry, before covering her mouth and sheepishly looking around for any sign that she's been heard. Letting out a sigh of relief as she sees that her shout has gone undetected, she looks at you and hisses, [fia.speech(You made me jump... What's a doll like you doing here anyway? Nevermind, just go back to storage or whatever...)]
+	</p>
+	<p>
+		Remembering that you look completely indistinguishable from every other sex doll, you realise that Fia obviously hasn't recognised you. Lowering your voice in case Angelixx is nearby, you lean towards her and whisper, [pc.speech(Fia, it's me, [pc.name]. Angelixx transformed me into... well, a doll...)]
+	</p>
+	<p>
+		[fia.speech(<i>[pc.Name]?!</i>)] your companion gasps. Shaking her head in disbelief, she keeps the volume of her voice to a minimum as she asks, [fia.speech(That's really you? Angelixx turned you into a doll?! But... Oh shit... This is so fucked... What do we do?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIA_ENDING_EXPLAIN"><![CDATA[
+	<p>
+		Deciding that Fia needs to be brought up to speed with what's happened, you lead her over to a better hiding place nearby and then begin to tell her your story. You explain how Angelixx and her sons used the dollification machine to give you this silicone body, and then how it broke before your essences could be corrupted. Finally, you say that there's a way to release your essences, which you hope will allow you to reverse this transformation, but that you need Fia's help in order to do it.
+	</p>
+	<p>
+		[fia.speech(Ok... So we need to go back through the factory and get you to that machine?)] she asks. As you nod your head to confirm, she reveals, [fia.speech(While I was searching around to find out where you were taken, I've gathered more than enough evidence to convince my editor to publish a story on all of this. Let's get you transformed back to normal, get out of here, and then I can let all of Dominion know what's been going on down here!)]
+	</p>
+	<p>
+		Having found you and got a plan of action, Fia seems once again filled with resolve, and sets off into the factory to get you to the dollification machine.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIA_ENDING_ANGELIXX"><![CDATA[
+	<p>
+		Following in Fia's footsteps, you strut along behind her as she leads you around sex toy machines and past the white, yellow, and red dolls who tirelessly work down here. After avoiding a couple of the scantily-dressed succubi who act as overseers, you find yourself finally in sight of the door which links the factory to the slime milking chamber. As you approach it, the door suddenly swings open revealing the familiar figure of Angelixx.
+	</p>
+	<p>
+		[fia.speech(Hide!)] Fia hisses as she pulls you down into cover behind a couple of nearby crates. Peering through the gap between these metal boxes, you're able to get a good view of the succubus, who appears to have neither seen nor heard you. 
+	</p>
+	<p>
+		[angelixx.speech(That fucking bitch! I can't find her anywhere! Not anywhere!)] Angelixx cries. Pulling her hair in frustration, she starts pacing back and forth while talking to herself, [angelixx.speech(Calm down, just calm down... Sae doesn't know yet. There's still time to fix this! She has the body of a doll now, perhaps she'll simply obey my commands? Yes... All I need to do is call out for her to come to me! My sisters won't know who I'm talking to, so they won't be able to report this to Sae... It's perfect!)]
+	</p>
+	<p>
+		With a desperate look on her pretty face, she starts to walk forwards, calling out as she does so, [angelixx.speech(Doll [#flags.getSavedLong('player_doll_number')]! Come to me, right this instant!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIA_ENDING_ANGELIXX_HIDE"><![CDATA[
+	<p>
+		As Angelixx issues the command for you to reveal yourself to her, your body tingles with a desperate desire to obey. For a split second you want nothing more than to stand up, submit, and willingly become a dumb, obedient sex doll. Thankfully, this urge passes before you can act on it, and so you remain still and silent as the succubus passes by your hiding place.
+	</p>
+	<p>
+		[fia.speech(That was close,)] Fia whispers as Angelixx walks off into the factory, still calling out for you to reveal yourself. Touching your smooth, silicone arm in a gesture of reassurance, your companion stands up and says, [fia.speech(Let's hope she didn't lock that door...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIA_ENDING_FINAL"><![CDATA[
+	<p>
+		Luckily, in her state of exasperation, Angelixx has left the door unlocked, and so you and Fia are able to pass through without issue. Travelling past the moaning slimes, the two of you soon reach the dollification room.
+	</p>
+	<p>
+		[fia.speech(Right, let's get you turned back to normal and then get the hell out of here,)] your companion says, before looking over at the huge machine and asking, [fia.speech(So, what do you need me to do?)]
+	</p>
+	<p>
+		Guiding Fia over towards the dollification machine, you point out the glass vial which contains your essences and the nearby button marked 'Cancel dollification - Essence restoration'. You briefly inform her that the button won't do anything unless you're lying on the table, so she needs to wait until you're in position before pressing the button.
+	</p>
+	<p>
+		[fia.speech(Got it,)] Fia confidently replies, [fia.speech(Let's do this!)]
+	</p>
+	<p>
+		Quickly skipping over to the table, you lie down on it and give your companion a nod to show that you're ready.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIA_ENDING_FINAL_TF"><![CDATA[
+	<p>
+		Having already been shown what to do, Fia doesn't hesitate in pressing the button. The pylon-like structure which hangs from the ceiling swiftly drops down, before shooting a bright pink burst of energy directly down into your chest. Your essences swiftly drain from the glass vial, before flowing through the pink energy to reunite with your aura.
+	</p>
+	<p>
+		The sensation is unlike anything you've ever experienced before. It's as though you're taking in a deep breath for the first time in your life, but instead of air filling your lungs it's an invigorating energy which permeates your entire being. Your silicone body's shameful desire to submit and be turned fully into a sex doll vanishes, and as the last of your essences flow into you, a burst of dark purple energy zaps down from the pylon to strike you once again in the chest. With that, the pylon powers down and retracts into the ceiling, but just as you think that it's all over, the effects of that final burst of energy make themselves known. 
+	</p>
+	<p>
+		The nature of your smooth, black silicone skin starts to change, becoming a little rougher and starting to lighten in colour. Your entire body tingles all over, and with a shocked gasp you experience the very strange, uncomfortable sensation of your silicone body transforming and returning to being made of flesh and bone. With a final surge of transformative energy, your skin finishes changing colour to become [#pc.getCovering(BODY_COVERING_TYPE_HUMAN).getPrimaryColour().getName()], and with that you find yourself in the body of a human once again.
+	</p>
+	<p>
+		[fia.speech(Hey, it looks like it kind of worked,)] Fia says as she walks over to you. Pointing at your head, she states, [fia.speech(Although that barcode tattoo hasn't gone, and you kind of still look exactly the same as all the other dolls...)]
+	</p>
+	<p>
+		Instinctively lifting your hand to your forehead, you feel that you're still bald, and as you look down at your [pc.cupSize]-cup tits, you realise that Fia is right.
+	</p>
+	<p>
+		[fia.speech(Anyway, you can worry about transforming later. For now we need get out of here, but first, I found some things of yours,)] your companion reveals. Sliding off the table, you follow her to the side of the dollification machine, where she points to a metal chest. Opening the lid, she asks, [fia.speech(This <i>is</i> your stuff, right?)]
+	</p>
+	<p>
+		Looking down at the container, you see that it does indeed contain all of your belongings. Quickly taking back what's yours, you tell Fia that you're ready to escape.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIA_ENDING_FINAL_ESCAPE"><![CDATA[
+	<p>
+		Having recovered your essences and belongings, and escaped from your silicone body, all that's left is for you and Fia to get out of this place.
+		#IF(pc.hasSpell(SPELL_TELEPORT) && pc.hasSpellUpgrade(SPELL_UPGRADE_TELEPORT_2))
+			 Unfortunately, you can sense that the factory is shrouded in a specialised form of anti-teleportation spell, and although Angelixx knew how to bypass it, your own spell repeatedly fizzles out into nothing.
+		#ENDIF
+	</p>
+	<p>
+		[fia.speech(Let's be careful now,)] your companion cautions, [fia.speech(Angelixx isn't the only succubus we need to watch out for down here...)]
+	</p>
+	<p>
+		Not wanting to be captured again, you make sure to take extra care as the you and Fia sneak through the factory. Thankfully, the two of you manage to avoid Angelixx and her sisters, and son enough you find yourselves back at the elevator.
+	</p>
+	<p>
+		[fia.speech(You said that those two nightmares are out in Dominion searching for you?)] Fia asks as you reach the far side of the factory. Nodding as you confirm that that's what you overheard, your companion states, [fia.speech(Great, then we should be good to activate this elevator without being caught.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIA_ENDING_ANGELIXX_SURRENDER"><![CDATA[
+	#IF(pc.getObedienceValue()==100)
+		<p>
+			Feeling completely in tune with your new, silicone body, you can't help but think of yourself as an obedient sex doll, and so as Angelixx calls out her order, something clicks into place in your mind. Suddenly seeing the succubus as your Mistress, you feel an overwhelming need to obey her command, and as such you happily stand up and step out of your hiding place.
+		</p>
+		<p>
+			[pc.speech(I'm here, Mistress,)] you state as you step out in front of the startled succubus.
+		</p>
+	#ELSE
+		<p>
+			As Angelixx passes by, your new body projects a dark fantasy into your mind. You imagine yourself surrendering to the succubus and willingly completing your transformation into a dumb, obedient sex doll. You'd be sold, fucked hard, and spend the rest of your life as a submissive sex toy, always eager to please your owner.
+		</p>
+		<p>
+			A primal, shameful desire to live out this fantasy triumphs over the voice of reason, and in a moment of lust-fuelled madness, you make the decision to surrender yourself to Angelixx. As you stand up and step out of your hiding place, something clicks into place in your head, and you find yourself unable to see the startled succubus as anything but your rightful owner and Mistress.
+		</p>
+		<p>
+			[pc.speech(I'm here, Mistress,)] you state as you step out in front of her.
+		</p>
+	#ENDIF
+	<p>
+		[fia.speech(What are you doing?!)] Fia hisses and grabs your arm, but it's far too late. Angelixx has already seen you, and your companion tries to prevent your betrayal, she also catches sight of Fia.
+	</p>
+	<p>
+		[angelixx.speech(Boys! Where are you?! Help!)] the cowardly succubus cries as she sees taht you're not alone. Pulling a smooth, dark-purple ball from out of her hoodie's pocket, she fumbles with it for a moment, before twisting its two halves and triumphantly shouting at Fia, [angelixx.speech(My boys will be on their way now! Just gie up if you know what's good for you!)]
+	</p>
+	<p>
+		Although Angelixx doesn't seem to have any combat abilities whatsoever, Fia makes the decision that it's better to run than stand and fight. Turning her back on you, she sprints off into the factory.
+	</p>
+	<p>
+		[angelixx.speech(Kneel before me, you dumb doll!)] your Mistress snaps as she turns her attention to you.
+	</p>
+	<p>
+		Obediently doing as you're told, you immediately drop down onto your knees before the succubus. Now that she's no longer feeling threatened by Fia, she confidently sneers, [angelixx.speech(My boys will be here soon, then they'll find that friend of yours...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIA_ENDING_ANGELIXX_SURRENDER_NIGHTMARES"><![CDATA[
+	<p>
+		Pacing back and forth, your Mistress leaves you kneeling in place as the two of you await the arrival of her sons. You aren't left waiting for long, for within a few minutes the loud clopping sound of hooves on concrete precedes the arrival of Sleip and Nir. As they come sprinting around a corner and catch sight of you and Angelixx, they slow to a walk and exchange smirks. Calling out as he and his brother approach, Nir observes, [nir.speech(You caught the bitch! Let's get her transformation finished!)]
+	</p>
+	<p>
+		Turning to face her sons, your Mistress has a slight tone of panic in her voice as she explains, [angelixx.speech(Boys, this bitch wasn't alone! There's another one sneaking around down somewhere! You have to find her! Find her now!)]
+	</p>
+	<p>
+		As the nightmares rush back off into the factory to search for Fia, your Mistress looks down at you and taunts, [angelixx.speech(My boys will find your friend, then we'll turn her into a doll as well... Why don't you give her a nice view for when she arrives? Bow down before me and lift your ass, doll.)]
+	</p>
+	<p>
+		Already on your knees, it's a simple matter to obey your Mistress. Dropping your face down to the ground, you bow down before her and lift your round ass up into the air.
+	</p>
+	<p>
+		[angelixx.speech(You're already so obedient, and we haven't even finished your transformation yet!)] the succubus giggles as she watches you submit to her. Placing her foot on the back of your head, she pushes down and sadistically grinds your face into the ground as she taunts, [angelixx.speech(How pathetic! Now reach back and spread your ass! I want your pussy and asshole to be the first parts of you that your friend sees whens she returns.)]
+	</p>
+	<p>
+		Once again you obey without question, and as the sole of your Mistress's skater shoe continues to press your head down against the cold floor, you reach back with both hands and pull your silicone ass cheeks apart. With your [pc.pussy+] and [pc.asshole+] now fully on display, Angelixx laughs and takes her foot off your head, before stepping back and sitting on the edge of a nearby crate. Kicking her feet back and forth, she mutters to herself, [angelixx.speech(They'd better find her...)]
+	</p>
+	<p>
+		Clearly not seeing you as anything more than an object to be used at her whim, your Mistress pays you no further attention whatsoever, leaving you frozen in place as you wait for the return of Sleip and Nir...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="FIA_ENDING_ANGELIXX_SURRENDER_NIGHTMARES_END"><![CDATA[
+	<p>
+		Instead of making you feel uncomfortable and question your decision to submit to your Mistress, her order for you to remain in your humiliating pose gives you a rush of masochistic pleasure, and you feel your silicone pussy starting to ache with need. You eagerly anticipate not only Fia catching sight of you like this, but also the reactions of your Mistress's sons. You soon find yourself lost in a fantasy where they're taking turns to fuck your tight, plastic cunt with their huge, throbbing horse-cocks, and with these lewd thoughts in your mind your twat quickly becomes dripping wet.
+	</p>
+	<p>
+		After ten minutes spent in your humiliating pose, you're snapped out of your daydreams by the deep voice of Sleip as he booms out from somewhere behind you, [sleip.speech(We found the bitch!)]
+	</p>
+	<p>
+		[fia.speech(Let me go! Fuck you!)] the familiar, feisty voice of Fia cries out.
+	</p>
+	<p>
+		Keeping your face planted against the ground, you can't see the nightmares' approach, but from the clopping sound of their hoofs on the concrete floor you can tell that they've stepped up right behind you. From their deep, horny grunts, you realise that they've taken note of your sopping wet pussy and exposed asshole. Sliding off the edge of the crate she's been perched upon, your Mistress addresses your companion and teases, [angelixx.speech(Ready to become like your friend here?)]
+	</p>
+	<p>
+		[fia.speech(Fuck you!)] Fia shouts and grunts as she fruitlessly struggles against Sleip and Nir. 
+	</p>
+	<p>
+		[angelixx.speech(How rude,)] Angelixx giggles, before ordering you, [angelixx.speech(Doll, stand up and silence your friend by giving her a nice, big kiss.)]
+	</p>
+	<p>
+		Obediently doing as you're told, you stand up and turn to face Fia, who you see has already been stripped naked by the nightmares who are flanking her. A look of horror is plastered across her pretty face, and as you step towards her she stutters, [fia.speech(W-Wait... Stop it, [pc.Name]! You don't have to-)]
+	</p>
+	<p>
+		Only interested in obeying your Mistress's command, you silence Fia by grabbing her head and pressing your silicone lips over hers. Your [pc.cupSize]-cup breasts squish into her tiny tits as you force your tongue into her mouth, and to the sounds of Angelixx's giggles and her sons' horny grunts, you ignore Fia's weak struggles and start passionately kissing her.
+	</p>
+	<p>
+		[angelixx.speech(That's enough,)] Angelixx says after a few moments of watching your lewd display. Snapping her fingers, she commands, [angelixx.speech(Follow me, doll. It's time to get you and your friend turned fully into sex dolls!)]
+	</p>
+	<p>
+		Breaking off the kiss, you turn away from Fia and obediently follow your Mistress...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Final bad end content: -->
+	
+	<htmlContent tag="DOLLIFICATION"><![CDATA[
+	<p>
+		Strutting along behind your Mistress, you follow in her footsteps as she leads you back through the factory towards the dollification chamber. Behind you, Sleip and Nir drag Fia along with them, who continues to struggle and shout in a fruitless attempt to break free.
+	</p>
+	<p>
+		It doesn't take long before you've travelled across the factory, passed by the futanari slimes, and are once again stepping foot into the dollification chamber. Quite rightly seeing you as little more than as an obedient slave, your Mistress treats Fia as her first priority, and orders her sons, [angelixx.speech(Get that bitch locked up, then we can finish transforming this other one.)] 
+	</p>
+	<p>
+		Doing as their mother commands, Sleip drags Fia over to some nearby pipes, while his brother retrieves a pair of handcuffs from a nearby container. Ignoring her furious curses and cries, Nir locks your companion to the sturdy metal structure. Taking the opportunity to rub his thick fingers over her tight cunt and greedily grope her small breasts, he grunts, [nir.speech(You'll be moaning like a slut soon enough...)]
+	</p>
+	<p>
+		With Fia now taken care of, your Mistress and her sons turn their attention back to you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_TABLE"><![CDATA[
+	<p>
+		Turning to face you, your Mistress snaps her fingers and points at the table in the middle of the room, before ordering, [angelixx.speech(Get back in your place, bitch.)]
+	</p>
+	<p>
+		Happy to accept your fate and be completely transformed into a submissive sex doll, you step over to the table and lie down on it. Satisfied with your obedience, your Mistress turns to her sons and commands, [angelixx.speech(Get the bitch strapped in, just in case she suddenly gets second thoughts about submitting...)] 
+	</p>
+	<p>
+		As Sleip and Nir securely fasten the leather straps around your wrists and ankles, you look over to see your Mistress step up to the dollification machine and once again pull the large lever that's positioned beside the vial of your essences. Just like the first time, this lever causes crackling purple energy to ominously jolt down several conduits towards the glass vial. Just as the energy is about to make contact with the vessel that holds your essences, the machine makes a worrying grinding noise, and for a moment the energy seems to get stuck on the threshold of the glass vial.
+	</p>
+	<p>
+		[angelixx.speech(Don't you dare break again!)] your Mistress snaps at the machine. Almost as though it's heard her, the grinding noise suddenly vanishes, and with a bright purple flash, the energy shoots into the glass vial and vanishes with a puff of smoke. Almost instantly, your essences transform from a swirling multitude of wispy, pink lights into a gooey, black sludge. Pressing a few more buttons, the succubus causes the vial to be ejected from the machine, and with a triumphant smirk on her face she loads this vial into a syringe-like device.
+	</p>
+	<p>
+		[angelixx.speech(Once this is inside of you, there's no going back,)] Angelixx giggles as she steps forwards and lifts the syringe to show it to you. Instead of a needle on the end, there's a small suction cup, and as she presses it against the silicone skin between your breasts, she teases, [angelixx.speech(You'll be a dumb sex doll forever...)]
+	</p>
+	<p>
+		Instead of injecting the contents into you as you expected, Angelixx steps back, leaving the syringe stuck between your silicone tits. The reason for this delay is explained to you as she states, [angelixx.speech(What little that's left of your aura will reject your corrupted essences if I tried to inject them into you now. What we need is to weaken your aura first, and the easiest way to do that is to make you orgasm. Boys! It's time to make another doll!)]
+	</p>
+	<p>
+		#IF(!flags.hasFlag(FLAG_innoxia_doll_factory_sleip_nir_defeated) && sleip.getTotalTimesHadSex(pc)>0)
+			[sleip.speech(We've fucked this slut once already,)] Sleip grunts as he steps forwards, [sleip.speech(Let's see how good her pussy feels now that she's a doll.)]
+		#ELSEIF(flags.hasFlag(FLAG_innoxia_doll_factory_sleip_nir_defeated))
+			#IF(flags.hasFlag(FLAG_innoxia_doll_factory_sleip_nir_fucked))
+				[sleip.speech(This bitch fucked us earlier,)] Sleip angrily grunts, before addressing you, [sleip.speech(Time to get some revenge!)]
+			#ELSE
+				[sleip.speech(This bitch beat us earlier,)] Sleip angrily grunts, before addressing you, [sleip.speech(Time to get some revenge!)]
+			#ENDIF
+		#ELSE
+			[sleip.speech(I remember this bitch from Elis,)] Sleip angrily grunts, before addressing you, [sleip.speech(Time to get some revenge!)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_SEX_START"><![CDATA[
+	<p>
+		The nightmares' horse-like nostrils visibly dilate as they let out deep, horny snorts. Taking the lead, Sleip unzips his jeans and whips out his huge, equine cock. Jumping up onto the table, he kneels down between your legs, and as his thick, ebony dick starts to rise into an erection, he stuffs his fingers into your tight cunt. Curling them around inside your wet twat, he ignores your high-pitched moan and grunts, [sleip.speechNoEffects(Yeah, you're just like all the others... I've fucked this pussy hundreds of times.)]
+	</p>
+	<p>
+		His familiarity with the shape of your silicone pussy does nothing to lessen the nightmare's lust, and within a few seconds his animalistic horse-cock is rock hard. Pressing the wide, flared head against your [pc.labia+], he lets out a deep, rumbling growl and slams his hips forwards, driving his shaft deep into your horny cunt. Having your tight, plastic pussy penetrated for the first time in such a dominant fashion catapults you into a state of intense ecstasy. Throwing your head back, you cry, [pc.speechNoEffects(Yes! ~Ooh!~ Fuck! Yes!)]
+	</p>
+	<p>
+		As you look up at the ceiling, a shadow suddenly looms over you. While his brother was taking your silicone pussy's virginity, Nir was taking off his jeans and underwear, and now that he's ready to join in on the fun, he's stepped up onto the opposite end of the table and is kneeling down over your face. For a moment, you find yourself looking up at the underside of his thick, dark-skinned cock, before he pulls back a little and points the flared head down towards your mouth. Your 'o'-shaped lips happily stretch to accommodate the nightmare's girthy shaft as he impatiently rams it down your throat. His big, heavy balls slap down onto your face as he goes balls-deep on the first thrust, and you
+		#IF(game.isAnalContentEnabled())
+			 find yourself looking up at his puffy, dark-rimmed asshole and letting out a very muffled moan as he grunts, 
+		#ELSE
+			 can't help but let out a very muffled moan as he grunts,
+		#ENDIF
+		 [nir.speechNoEffects(~Mmm!~ That's it, bitch, swallow it!)]
+	</p>
+	<p>
+		As one, the brothers pull back and violently slam their cocks deep inside you once again. Spitroasted by these thick, equine dicks, you find yourself in a world of mind-numbing bliss, and eagerly squeeze your orifices down around their bestial shafts as they start roughly fucking you on the table. Slapping your bouncing, [pc.cupSize]-cup tits, Sleip grunts, [sleip.speechNoEffects(We'll make you cum in no time, slut!)]
+	</p>
+	<p>
+		Although you continue to happily wrap your lips around Nir's hot cock and squeeze your cunt down around Sleip's thick shaft, a tiny part of your mind feels a sudden rush of horror as the nightmare's words slowly sink into your head. For a moment you're painfully aware that they're trying to make you orgasm in order to finish your transformation into a sex doll. The feeling of the syringe's suction cup planted between your perfect, silicone tits serves as a constant reminder that these are your final moments of possessing free will.
+	</p>
+	<p>
+		[nir.speechNoEffects(Lick my balls, bitch!)] Nir demands as he suddenly slides his cock out of your throat. This command drives the small voice of panic back into the furthest depths of your mind, and as you obediently lap at his heavy, sweaty balls, you once again find yourself lost in a blissful daze.
+	</p>
+	<p>
+		[angelixx.speech(Hurry up and make the slut orgasm!)] Angelixx calls out from somewhere in the room, [angelixx.speech(We've still got this other bitch to process, and I have other work for you today!)]
+	</p>
+	<p>
+		Eager to please his mother, Nir returns the head of his cock to your lips before roughly ramming his shaft deep down your throat. As he and his brother fuck you hard and fast, you feel your inevitable orgasm rapidly approaching, and with it will come your permanent transformation into a dumb, obedient sex doll...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_AFTER_SEX"><![CDATA[
+	<p>
+		The two nightmares step back, and after smirking down at the cum oozing from your pussy and dribbling from the corners of your mouth, they exchange a high-five. Pulling up his underwear and zipping up his jeans, Sleip asks his brother, [sleip.speech(What'd this one get out of ten?)]
+	</p>
+	<p>
+		[nir.speech(Seven,)] Nir replies as he pulls on his jeans, [nir.speech(She had some good throat action but it feels better when they're struggling and choking right up to the point when they cum. What about her cunt?)]
+	</p>
+	<p>
+		[sleip.speech(She was a nine,)] Sleip says with an approving nod, [sleip.speech(She was gripping down on my cock like you wouldn't believe. Not the best I've ever had, but not far off.)]
+	</p>
+	<p>
+		[angelixx.speech(All finished now?)] your Mistress playfully asks her sons, before stepping forwards and leaning in over the table. Grabbing the empty syringe that's still stuck to your chest, she pulls it off with a loud popping noise. Smirking down at you, she asks, [angelixx.speech(What are you?)]
+	</p>
+	<p>
+		Knowing exactly what you are, you obediently respond, [pc.speech(I am your sex doll, Mistress.)]
+	</p>
+	<p>
+		[angelixx.speech(Are you sure? You were a real person just a moment ago, weren't you?)] your Mistress asks.
+	</p>
+	<p>
+		With your memories having been totally wiped as part of your transformation, you don't know what your Mistress is talking about. Not wanting to contradict her, you simply reply, [pc.speech(I don't recall that, Mistress, but if you'd like me to, I could roleplay that fantasy with you.)]
+	</p>
+	<p>
+		[angelixx.speech(No,)] your Mistress bluntly replies. With a sinister smirk on her pretty face, she idly pinches your big, black nipples as she reveals, [angelixx.speech(I'm going to turn your friend over there into a sex doll like you. What do you think about that?)]
+	</p>
+	<p>
+		[pc.speech(Mistress can do whatever she wants,)] you reply.
+	</p>
+	<p>
+		[angelixx.speech(That's right, I can!)] she laughs, before turning to her sons and saying, [angelixx.speech(There's no doubt; she's a real doll now, so release her and then get the other bitch transformed and strapped to the table.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_FIA"><![CDATA[
+	<p>
+		Your leather restraints are quickly unfastened by Sleip and Nir, and once you're free your Mistress clicks her fingers and orders, [angelixx.speech(Wait over here with me, doll.)]
+	</p>
+	<p>
+		Obediently strutting over to stand at your Mistress's side, you emotionlessly look on as her sons unlock Fia's handcuffs and drag her over to the table. She kicks and curses at the nightmares as Nir locks her arms behind her back and holds her still. Grabbing a transformation potion from out of a nearby cabinet, Sleip pinches the feisty journalist's nose and forces the neck of the bottle into her mouth. Although she tries to spit the liquid out, Sleip clamps his free hand over her mouth and keeps her nose pinched until she's forced to swallow.
+	</p>
+	<p>
+		[sleip.speech(Good girl!)] Sleip teases as he tosses the now-empty bottle aside. Grabbing Fia's small, B-cup tits, he lets out a horny grunt as they rapidly swell up into a perfect pair of DD-cup breasts. As the nightmare continues to play with her new tits, Fia's body grows a little in height and subtly shifts in its proportions. The next change catches her completely off-guard, and she lets out a shocked cry as all the hair on her body falls out, leaving her completely bald. Finally, her facial features undergo a slight reshaping, leaving her looking like your flesh-and-blood clone. 
+	</p>
+	<p>
+		[fia.speech([fia.pcName]! Don't just stand there! Help me!)] Fia shouts. You don't know who this '[fia.pcName]' is, and even if you did you'd never even think of moving without your Mistress's explicit command.
+	</p>
+	<p>
+		[angelixx.speech(Doll, the bitch is talking to you,)] Angelixx giggles. Slapping your ass, she orders, [angelixx.speech(Go and help her get strapped down to the table like she's asking for.)]
+	</p>
+	<p>
+		Moving to obey, you step forwards as Sleip and Nir throw Fia down onto the table. Doing as your Mistress commands, you tightly buckle the straps around Fia's wrists and ankles while the nightmares hold her down.
+	</p>
+	<p>
+		[angelixx.speech(Thanks, boys,)] your Mistress says as her sons step back. Motioning towards the door, she continues, [angelixx.speech(The new doll and I can take things from here. Sae said she wants ten new dolls by the end of the week, so I need you two in the alleyways. Remember, only take loners who nobody's going to miss.)]
+	</p>
+	<p>
+		[nir.speech(I wanted to fuck this one's cunt,)] Nir grunts and crosses his arms.
+	</p>
+	<p>
+		#IF(game.isIncestEnabled())
+			[angelixx.speech(Sorry, Nir, but I really need you to get to work,)] your Mistress pouts, before seductively biting her lip and teasing, [angelixx.speech(Catch three new dolls for me today, and you can fuck my pussy all night long...)]
+		#ELSE
+			[angelixx.speech(Sorry, Nir, but I really need you to get to work,)] your Mistress pouts, before promising, [angelixx.speech(You can fuck every new doll you catch for me today...)]
+		#ENDIF
+	</p>
+	<p>
+		With little more than a hungry grunt to acknowledge his mother's words, Nir turns and strides out of the room. Exchanging a smirk with your Mistress, Sleip follows his brother, leaving you and the succubus standing beside the bound figure of Fia.
+	</p>
+	<p>
+		[fia.speech([fia.pcName]! Snap out of it!)] the feisty human cries as she struggles against her bonds, [fia.speech(Please! Do something!)]
+	</p>
+	<p>
+		[angelixx.speech(She's just another dumb doll; she'll only do what I command her to,)] your Mistress says. Slapping your ass, she commands, [angelixx.speech(Use the wet wipes in that drawer to clean yourself up while I turn your friend into a doll.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_FIA_END"><![CDATA[
+	<p>
+		Doing as you're told, you strut over to the cabinet which your Mistress pointed to and retrieve a packet of wet wipes from the top drawer. As you set about wiping Nir's cum from your lips, you watch your Mistress grab a half-face mask from off of one of the nearby tables and securely fasten it into place around Fia's mouth. Using a length of plastic tubing to link this mask to a vat of thick black goo, she giggles and teases, [angelixx.speech(Ready to get your new body? You'll look just like your friend!)]
+	</p>
+	<p>
+		With an evil little laugh, the succubus pulls a lever beside the vat of black fluid, and you watch as a stream of thick goop flows down the connected pipe to ooze out into Fia's mouth. Wiping the last of Nir's cum from your face, you discard the wet wipe and grab another as Fia starts to gulp down the transformative liquid.
+	</p>
+	<p>
+		[angelixx.speech(Does it taste good? The secret ingredient is the milk and cum which we collect from our slimes!)] your Mistress giggles as she watches Fia gulping down the thick black goo. Skipping over to her, she starts playfully tweaking and pinching her big nipples as she says, [angelixx.speech(A little bit of processing, and we're able to turn their fluids into a silicone transformative! Stimulation speeds up the process... See? Your nipples are already silicone!)]
+	</p>
+	<p>
+		Moving your new wet wipe down to start cleaning Sleip's cum from your pussy, you continue to watch the show before you. After Fia's hard nipples have turned into black silicone, your Mistress grabs her round tits and starts massaging them, causing the transformation to rapidly spread down and turn the struggling journalist's breasts into a pair of perfect, artificial tits. Your Mistress then moves her attention down to Fia's clit, and she shudders and squirms about on the table as her tight cunt quickly transforms to look like a silicone onahole.
+	</p>
+	<p>
+		[angelixx.speech(Did you enjoy your meal?)] the succubus giggles as the last drop of the thick black goo is sucked out of the storage tank. Removing Fia's mask, your Mistress makes an approving hum as she sees that her mouth has turned to silicone, and is now formed into a resting 'o' shape. Teasing her fingers over Fia's body as every last part of it finishes turning into black silicone, she strokes her smooth, bald head and declares, [angelixx.speech(You look just like your friend now! Aren't you happy?)]
+	</p>
+	<p>
+		[fia.speech(Fuck you!)] Fia shouts in a robotic voice which sounds exactly like your own.
+	</p>
+	<p>
+		[angelixx.speech(You're number [#SPECIAL_PARSE_0],)] your Mistress declares as she picks up an arcane tattoo gun from one of the nearby desks. Jumping up onto the table, the succubus kneels down and clamps Fia's head between her knees to keep her still, before quickly tattooing a barcode onto her forehead. Smirking down at her victim, the succubus evilly sneers, [angelixx.speech(Now to perform a total essence extraction, then with the help of your friend I'll break your mind and turn you into another obedient sex doll!)]
+	</p>
+	<p>
+		Digging the wet wipe deep into your tight cunt, you scoop out the last few drops of Sleip's cum, before throwing the soiled cloth into a nearby bin. Having cleaned yourself up as your Mistress commanded, you await her next order...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_FIA_END_ESSENCE_EXTRACTION"><![CDATA[
+	<p>
+		Happily humming to herself, your Mistress unravels a trio of thin cables from one of the large machines, before clipping them to Fia's nipples and clit. Two more cables are then attached to the new doll's temples via small suction pads, after which the succubus presses a button on the machine which causes a large pylon-like structure to slowly descend from the ceiling. In the middle of this structure sits a large black crystal, and as the pylon comes to a shuddering halt, this crystal ends up positioned directly over Fia's torso.
+	</p>
+	<p>
+		[angelixx.speech(This is going to drain you of all your essences and suck every last speck of arcane power from your aura,)] your Mistress tells her new doll. Taking pleasure in taunting Fia, she goes on to say, [angelixx.speech(After that, I'll corrupt your essences and re-introduce them to your new body, which will break your mind and turn you fully into an obedient sex doll like your friend over there!)]
+	</p>
+	<p>
+		With that, she happily skips over to the machine, where she takes cover behind several large sheets of dark grey metal which fold out from the wall. Another press of a button, and the machine whirs into action. A sheen of purple energy flickers over the surface of the inky black crystal, and then a moment later a burst of bright pink light shoots down directly into Fia's body. 
+	</p>
+	<p>
+		The new doll squeals in ecstasy as the crystal's energy forces her to immediately orgasm. Although you're directly exposed to the crystal's power, the lack of an aura means that you're unaffected by its essence-stripping power, and so you comfortably watch as streaks of bright purple energy shoot out from Fia to travel down the cables attached to her body.
+	</p>
+	<p>
+		As suddenly as it appeared, the purple sheen on the crystal disappears and the machine powers down. The new doll appears to be completely exhausted from the experience, and stops struggling for the first time since being strapped down onto the table.
+	</p>
+	<p>
+		Pulling yet another lever on the dollification machine, your Mistress causes a burst of bright purple energy to shoot down into the glass vial which now holds Fia's extracted essences. Almost instantly, the swirling multitude of wispy, pink lights contained within this vial turn into a gooey, black sludge. Pressing a few more buttons, the succubus causes the vial to be ejected from the machine, and with a triumphant smirk on her face she loads this vial into a syringe-like device.
+	</p>
+	<p>
+		[angelixx.speech(Your essences were a lot easier to corrupt that your friend's,)] your Mistress giggles as she skips over to her new doll. Instead of a needle on the end of the syringe, there's a small suction cup, and as she presses it against the silicone skin between Fia's breasts, she teases, [angelixx.speech(All I need to do is inject these into you, and you'll be a dumb sex doll forever! In order to prevent your body from rejecting them, however, I need you to orgasm at the moment I inject them into you...)]
+	</p>
+	<p>
+		[fia.speech(You won't get away with this...)] Fia pants, before summoning enough energy to spit, [fia.speech(Fuck you!)]
+	</p>
+	<p>
+		[angelixx.speech(No, the one who's going to be fucked is you,)] your Mistress giggles, before turning to you and gesturing you to approach the table. As you strut over to stand beside your Mistress, she retrieves a D.E.C.K. from a nearby drawer, and after plugging it into the back of your neck she teases, [angelixx.speech(I think it's only fitting that your friend be the one to help finish your transformation...)] 
+	</p>
+	<p>
+		With that, your Mistress presses a couple of buttons on the device, and a moment later you feel a sharp shock jolting into your body via the cable that's plugged into your neck port. Your tight pussy immediately clenches shut, before disappearing and leaving behind nothing but a smooth mound. After a few more button presses, and another jolt into your body, a huge, equine-like cock grows out from your groin. A pair of massive, heavy balls droop down beneath your animalistic dick as it continues to grow and thicken into a silicone copy of Sleip's horse-like cock.
+	</p>
+	<p>
+		Unplugging the D.E.C.K.'s cable from your neck port, your Mistress teases her fingers down over your new shaft, before ordering, [angelixx.speech(Fuck this doll as fast and as hard as you can.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_FIA_SEX_START"><![CDATA[
+	<p>
+		[fia.speechNoEffects(Wait... [fia.pcName]?! Stop!)] the new doll cries out in alarm as you position yourself between her legs. Wriggling around beneath you, the doll shouts in panic, [fia.speechNoEffects(I'm not losing my virginity like this! Stop!)]
+	</p>
+	<p>
+		[angelixx.speechNoEffects(Still a virgin?)] your Mistress giggles as you line the wide, flared head of your thick, silicone dick up to the doll's tight pussy. Flashing you a smirk, she says, [angelixx.speechNoEffects(Remember, doll; as hard and as fast as you can!)]
+	</p>
+	<p>
+		Wanting nothing more than to obey your Mistress, you thrust your hips forwards with all the strength you can muster. The doll's protests immediately give way to a wild, shuddering scream as your huge, animalistic cock rams its way deep into her tight, virgin cunt. Not giving her a moment in which to recover, you immediately pull back, before once again thrusting your rock-hard cock balls-deep into her wet twat. Repeating this motion over and over again, you roughly pound the doll's pussy as fast as you can. 
+	</p>
+	<p>
+		Either due to the influence of her new body or as a result of her true, lustful nature, the doll's protests are soon puncuated by a series lewd moans. Over the rhythmic, wet squelching sound of her dripping cunt being pounded by your monstrous dick, she squeals, [fia.speechNoEffects(~Ooh!~ Fuck! ~Aah!~ Wait! ~Mmm!~ Stop!)]
+	</p>
+	<p>
+		[angelixx.speechNoEffects(You'll be cumming in no time!)] your Mistress sneers, before stepping back and waiting for the moment of her orgasm to arrive.
+	</p>
+	<p>
+		Thanks to the tireless, flexible nature of your silicone body, you're able to rapidly pump your cock in and out of the doll's cunt at a rate of three or four times a second. Melting under the relentless stimulation of this inhuman penetration, the doll's protests soon vanish entirely, and she whorishly moans, [fia.speechNoEffects(~Mmm!~ Yes! ~Ooh!~ Fuck me! ~Aah!~ More!)]
+	</p>
+	<p>
+		Although you've lost most of your emotions after being transformed into a sex doll, you're still able to feel sexual pleasure, and find yourself getting madly turned on as you continue to pound the doll's cunt. Although you're still primarily thrusting your hips in order to carry out your Mistress's order, a part of you is doing it to satisfy not only yourself but the moaning doll beneath you. Determined not to stop until told to, you continue fucking the doll as fast and as hard as you can...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_FIA_AFTER_SEX"><![CDATA[
+	<p>
+		As you step back, your Mistress moves over to the new doll and asks her the same question she asked of you when you were in her position, [angelixx.speech(What are you?)]
+	</p>
+	<p>
+		[fia.speech(I am your sex doll, Mistress,)] the doll replies in the exact same way that you did.
+	</p>
+	<p>
+		[angelixx.speech(Excellent!)] your Mistress giggles, before pulling the syringe off her chest with a loud popping noise. Idly pinching her big, black nipples, she asks, [angelixx.speech(Does the name 'Fia' ring a bell? What about being a journalist searching for evidence of illegal slavery?)]
+	</p>
+	<p>
+		[fia.speech(I haven't met this 'Fia' who you speak of,)] the doll replies, [fia.speech(Nor do I know anything about a journalist searching for evidence of illegal slavery.)]
+	</p>
+	<p>
+		[angelixx.speech(That's what I like to hear,)] your Mistress says with a note of satisfaction in her voice. Looking over at you, she first issues you a command, before turning back to the other doll and giving her an order of her own, [angelixx.speech(Release this doll, then present me with your neck port. As for you, clean yourself up with those wet wipes.)]
+	</p>
+	<p>
+		Doing as you're told, you unfasten the straps which are holding the new doll down on the table, before turning around and presenting the rear of your neck to your Mistress. Plugging a D.E.C.K. into you once again, she forces your body to self-transform, and you feel your cock shrink down and vanish to be replaced with a tight, silicone cunt. Now once more in the body of a female doll, you're identical in every way to the one who's cleaning your cum out of her cunt, with the sole exception being the number which forms part of the barcode tattoo on your forehead.
+	</p>
+	<p>
+		[angelixx.speech(Doll, do you recall who this other doll was?)] your Mistress suddenly asks of you.
+	</p>
+	<p>
+		Although you're sure that you've known the doll beside you for a little while, something in your mind shuts down your thoughts whenever you try to recall the details. Shaking your head, you apologise to the succubus, [pc.speech(I'm sorry, Mistress, but all I know is that she's a doll who was manufactured today.)]
+	</p>
+	<p>
+		[angelixx.speech(Perfect. Lovienne's dollification process really is a marvellous thing,)] your Mistress says, before waving the two of you away and ordering, [angelixx.speech(My elder sister, Saellatrix, is your new Mistress, so you'll obey all of her commands without question from now on. She wants you to line up beside the other dolls in the storage area and wait for her to fetch you. So go on, I'm finished with you. Get out of my sight.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_FINAL_STORAGE"><![CDATA[
+	<p>
+		Obediently doing as you're told, you and the other doll strut out of the dollification chamber together. Without exchanging a single word, you pass by the huge, orgasming slimes and enter the toy factory. Having the exact same gait as one another, your hips seductively sway in sync as you pass by the white, yellow, and red dolls to reach the door on the far side of the factory.
+	</p>
+	<p>
+		[style.speechFeminineHeavy(Making two dolls at once? Angelixx sure has been busy,)] a mocking, feminine voice suddenly calls out from behind you. The two of you turn towards the speaker to see a scantily-dressed succubus smirking at you. With a wave of her hand, she says, [style.speechFeminineHeavy(Keep moving, cunts.)]
+	</p>
+	<p>
+		Doing as you're told, the two of you strut through the door and leave the succubus behind. Entering the factory's storage area, you turn and strut over towards the hundreds of identical dolls on the right hand side of the room. Stepping forwards to take your place at the end of the nearest row of dolls, the two of you turn around and stand up straight, before dropping your hands down to your sides and lifting your chins. As you and the other doll assume the exact same pose as that of the hundreds of other dolls in this storage area, you're immediately hit by a strong sense of belonging, and despite the fact that you're standing to attention, you feel extremely comfortable and at ease.
+	</p>
+	<p>
+		As you stand there, totally silent and motionless, you see that there's a large clock high up on the wall on the far side of the room. Your silicone body seems to enjoy being kept still, and a wave of soothing relaxation washes through you as you watch the clock's minute hand tick by. Before you know it ten minutes have passed by on the clock, but to you it's felt like no more than a few seconds since you took your place among your silicone clones.
+	</p>
+	<p>
+		An hour passes in a flash, and then several more fly by. Soon the hour hand seems to be spinning as you remain totally and utterly silent and motionless, waiting for the order from your Mistress to be called forwards...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_FINAL_WAIT"><![CDATA[
+	<p>
+		Finding it to be effortless to act like an inanimate object, you remain frozen in place as the hours turn to days, and the days give way to weeks. Although you're completely unbothered by the passage of time, you're able to keep good track of it, and in what feels like just a matter of minutes you're counting off your first, second, and third month in storage.
+	</p>
+	<p>
+		During your time down here you've occasionally had to step to the side or move back or forwards a row in order to fill the gaps after one or more other dolls get called up to the store above. The doll who you arrived here with remains close by throughout these small movements, until one day in your fourth month of storage she's randomly selected to be taken up to be sold. Once again, you and the surrounding dolls move around a little after she's gone in order to close up your ranks, and you find yourself being moved back towards the dust-covered dolls at the rear.
+	</p>
+	<p>
+		It doesn't bother you in the slightest, but it seems that you're going to be down here for quite some time, and all you can do is wait...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_FINAL_WAIT_SUMMONED"><![CDATA[
+	<p>
+		A few days after your sixth month in storage, your Mistress, Saellatrix, makes an appearance. You've already seen her a dozen or so times, for she sometimes comes down to collect dolls herself instead of sending one of her golden doll assistants to do it for her. What makes this time different, however, is that your old Mistress, Angelixx, is by her side.
+	</p>
+	<p>
+		[saellatrix.speech(So, why do you think I've brought you down here?)] your Mistress asks.
+	</p>
+	<p>
+		[angelixx.speech(I know I've only made three dolls for you this week, but there's still hundreds here,)] Angelixx whines, [angelixx.speech(My boys and I are doing our best!)]
+	</p>
+	<p>
+		[saellatrix.speech(Ever since you were driven out of Elis, you've really been doing a good job of making new dolls, so it's not that,)] your Mistress praises her sister, before asking, [saellatrix.speech(Do you remember that meddling bitch who was there in Elis, and who you caught sneaking around down here?)]
+	</p>
+	<p>
+		[angelixx.speech(Yes, and I told you that I turned that bitch and her friend into dolls, and there weren't any more of them,)] Angelixx impatiently snaps, [angelixx.speech(You told me that it was all settled and that I did a good job!)]
+	</p>
+	<p>
+		[saellatrix.speech(Tell me what number that doll was,)] your Mistress demands.
+	</p>
+	<p>
+		[angelixx.speech(She's doll [#flags.getSavedLong('player_doll_number')],)] Angelixx replies, [angelixx.speech(but if you wanted her, she's probably sold by now.)]
+	</p>
+	<p>
+		[saellatrix.speech(Doll [#flags.getSavedLong('player_doll_number')]! Come here!)] your Mistress orders.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_FINAL_WAIT_END"><![CDATA[
+	<p>
+		Immediately breaking ranks, you obediently strut forwards through the lines of identical dolls and come to a halt before your Mistress. Turning to face her sister, your Mistress reveals, [saellatrix.speech(Shortly after you made this doll, Lilaya started telling me about a
+		#IF(flags.hasFlag(FLAG_innoxia_doll_factory_pre_dollification_feminine))
+			 'niece'
+		#ELSE
+			 'nephew'
+		#ENDIF
+		 of hers who'd gone missing. She was quite insistent on having me assist her in the search for them, and so I started looking into their last known movements. Do you know what I discovered?)]
+	</p>
+	<p>
+		[angelixx.speech(Wait, I didn't know who #IF(flags.hasFlag(FLAG_innoxia_doll_factory_pre_dollification_feminine))she#ELSEhe#ENDIF was! You can't blame this on me!)] Angelixx blurts out in a panic, having clearly deduced that your Mistress is talking about you. Grabbing her head in a show of exasperation, Angelixx asks, [angelixx.speech(What do you want me to do?! Dollification is permanent!)]
+	</p>
+	<p>
+		[saellatrix.speech(Well, this dumb doll isn't going to be telling anyone, and so only you and I know the truth,)] your Mistress says. Allowing a smirk to settle on her face, she threatens, [saellatrix.speech(I might be tempted to tell Lilaya what you did... That is, unless you don't mind telling mother that you want your recognition to be delayed by, let's say... five years?)]
+	</p>
+	<p>
+		[angelixx.speech(You!)] Angelixx furiously shouts, before realising the danger of her situation and reluctantly seething, [angelixx.speech(Fine! You scheming bitch... I'll do what you want...)] 
+	</p>
+	<p>
+		[saellatrix.speech(Good girl,)] your Mistress says in a triumphant tone. With a look of superiority on her beautiful face, she smirks down at her sister and continues, [saellatrix.speech(Now, I wouldn't want you getting rid of this doll under my nose and thereby disposing of the physical evidence I'd need to truly fuck you over, so I'll be selling her to a client today. If I ever discover that you're trying to find out who I sell her to, I'll make sure to tell Lilaya who was responsible for the disappearance of her
+		#IF(flags.hasFlag(FLAG_innoxia_doll_factory_pre_dollification_feminine))
+			 niece.
+		#ELSE
+			 nephew.
+		#ENDIF
+		 A recognised daughter of Lyssieth will surely have no trouble in having you enslaved, so unless you want to live out your days as Lilaya's pet, I suggest that you do everything I tell you to do.)]
+	</p>
+	<p>
+		After spending a moment silently glaring at her older sister, Angelixx decides that it's best not to respond, and turns to march off into the factory. Your Mistress watches her storm off, before clicking her fingers at you and commanding, [saellatrix.speech(Follow me, doll. Let's get you sold.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_FINAL_SHOP"><![CDATA[
+	<p>
+		Doing as you're told, you follow your Mistress into the elevator, and after a short but noisy ascent, you find yourself strutting along beside her as she leads you into the staff room at the rear of her store. Pointing to one side of the room, she orders, [saellatrix.speech(Wait there, and if you see Angelixx, immediately come and tell me.)]
+	</p>
+	<p>
+		With that, your Mistress exits through a door on the far side of the room, leaving you waiting for her return. Unlike your experience in the storage area, you don't have to wait for very long at all, for after just thirty minutes your Mistress returns.
+	</p>
+	<p>
+		[saellatrix.speech(I've sold you already,)] your Mistress smugly states.
+	</p>
+	<p>
+		Being no more than an obedient sex doll, the prospect of being sold doesn't bother you in the slightest, but you do feel a slight sense of curiosity as you wonder who's going to be your new Mistress or Master...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_FINAL_SOLD_INCUBUS"><![CDATA[
+	<p>
+		Retrieving an arcane tattoo gun from a locked cabinet behind the bar, your Mistress turns towards you and states, [saellatrix.speech(Your owner wants your tattoo removed. Come here.)]
+	</p>
+	<p>
+		Obediently stepping forwards, you remain still as your Mistress uses the tattoo gun to burn off the white barcode from your head. Picking up a D.E.C.K., she plugs the cable into your neck port and reveals, [saellatrix.speech(He also wants you looking like a bronze statue, with gold orifices...)]
+	</p>
+	<p>
+		As the succubus presses some buttons on the device, you suddenly feel a jolt of energy surging into your body via the cable attached to the back of your neck. Your skin tingles fr a moment, and then all of a sudden it changes from a slightly shiny black to a metallic-looking bronze. Another jolt of energy triggers the insides of your orifices to take on the appearance of metallic gold, and although you're definitely still made of silicone, you're left looking like you've been forged out of metal.
+	</p>
+	<p>
+		[saellatrix.speech(All done,)] your Mistress says as she unplugs the D.E.C.K. and puts it away. Snapping her fingers, she commands, [saellatrix.speech(Follow me. You're now owned by the incubus I'm about to show you to. He's your new Master.)]
+	</p>
+	<p>
+		Obediently following your old Mistress into the shop, you get your first glimpse of your new owner. [doll_owner.A_raceFull], wearing a polo shit, chinos, and a pair of aviator sunglasses, he gives off an air of supreme confidence.
+	</p>
+	<p>
+		[doll_owner.speech(Sae! You've done it again!)] he happily exclaims as he catches sight of you. Looking you up and down, he gives an approving nod and says, [doll_owner.speech(She's perfect. I'll take her back with me right away.)]
+	</p>
+	<p>
+		[saellatrix.speech(Of course, and as always, it's been a pleasure doing business with you,)] Saellatrix replies, before flashing your new Master a smile and playfully suggesting, [saellatrix.speech(Perhaps next time I'll finally manage to convince you to buy a pair of golden dolls.)]
+	</p>
+	<p>
+		[doll_owner.speech(And perhaps I'll relent if I see you at my party tonight,)] the incubus replies, before confidently stating, [doll_owner.speech(The guest are arriving at eight. Don't be late.)]
+	</p>
+	<p>
+		[saellatrix.speech(It sounds like I'm not being given a choice. Can I at least bring a friend?)] Saellatrix asks, before slapping your ass to make you step forwards towards the incubus.
+	</p>
+	<p>
+		[doll_owner.speech(Of course. I'll see you and your friend tonight,)] your new owner says with a smile on his face. Hooking one arm around your waist, he guides you to the door and says, [doll_owner.speech(My home is a short walk away. I'll get you set up with the others as soon as we arrive.)]
+	</p>
+	<p>
+		Wondering what your Master has in store for you, but knowing that it's not your place to ask, you silently walk alongside him as he leads you to your new home...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_FINAL_SOLD_INCUBUS_HOME"><![CDATA[
+	<p>
+		After a five minute walk at your new Master's side, the two of you come to an abrupt halt in front of a huge, four-story town house. The front door is immediately opened from the inside, and as your Master leads you inside, you pass by a cat-girl maid who curtseys and says, [style.speechFeminine(Welcome home, Sir.)]
+	</p>
+	<p>
+		As your Master pauses to greet the maid, you're given a moment in which to take in your surroundings. The vast, two-story hall which you've entered makes it clear that your Master is fabulously wealthy. Marble busts sit atop mahogany cabinets which are spaced in regular interval along the walls, while a huge, crystal chandelier hangs down from the intricately-moulded ceiling high above your head. A grand, red-carpeted staircase on the far side of the room sweeps around and offers a route to the upper floors of the house, while six double-doors on the ground floor present numerous other ways to traverse this gigantic residence.
+	</p>
+	<p>
+		What draws your attention the most, however, are the ten, squat plinths which are lined up in opposing pairs on both sides of the hallway. Atop nine of these plinths, metallic-looking sex dolls are arranged in a dazzling variety of poses. The tenth, empty plinth is what your Master suddenly leads you towards, and then a few seconds later he's slapping your ass and ordering, [doll_owner.speech(Stand on this and turn to face me.)]
+	</p>
+	<p>
+		Doing as you're told, you take your place on the plinth and turn to face your Master. After taking a minute to think about what pose you should assume, he finally gives you your instructions, which you obey without question, [doll_owner.speech(Kneel down and lift up your ass. Yes... Now stick it out a bit and bend your body down... Reach back and spread your ass... Perfect. Hold that position and don't move unless ordered to.)]
+	</p>
+	<p>
+		With that, your Master steps around behind you and you hear him unzipping his chinos. A moment later, you suddenly feel the hot head of his cock slide over your ass.
+		#IF(game.isAnalContentEnabled())
+			 Taking hold of his erect, demonic dick, your Master presses it between your spread cheeks, and a moment later his thick, throbbing shaft is being rammed deep into your silicone asshole. Grabbing hold of your wide hips, he starts fucking you hard and fast as you obediently remain frozen in place. After a minute of fucking your ass, he suddenly pulls out and slams his fat cock into your dripping cunt. It doesn't take long for your tight, wet orifices to bring your Master to a climax, and he grunts, [doll_owner.speech(Squeeze that pussy down, doll! ~Mmm!~ Milk me dry!)]
+		#ELSE
+			 Taking hold of his erect, demonic dick, your Master drags it down to press against your silicone labia, and a moment later his thick, throbbing shaft is being rammed deep into your plastic pussy. Grabbing hold of your wide hips, he starts fucking you hard and fast as you obediently remain frozen in place. It doesn't take long for your tight, wet cunt to bring your Master to a climax, and he grunts, [doll_owner.speech(Squeeze that pussy down, doll! ~Mmm!~ Milk me dry!)]
+		#ENDIF
+	</p>
+	<p>
+		Obeying his command, you squeeze your pussy down around his fat cock as he slams it ball-deep into your sopping-wet twat. A second later and you feel a hot load of demonic cum being blasted deep inside of you. Your own orgasm hits you at that moment, but as you've been ordered to remain still the only sign you show of reaching your climax is an intense, spasming contraction of your cunt.
+	</p>
+	<p>
+		[doll_owner.speech(You're a fine addition to my collection,)] your Master happily grunts as he pulls his softening cock out of your well-used pussy. As his wasted seed drips out of your barren hole, he says, [doll_owner.speech(The number one rule for you and all my other doll is to act as a statue and remain in whatever position I put you in. You're only to break this rule if I, one of my maids, or one of my guests orders you to act otherwise. Oh, and if a thief's ever foolish enough to break into my home then you can act to stop them as well.)]
+	</p>
+	<p>
+		Clearly having been waiting for your Master to finish with you, another cat-girl maid hurries over from near the staircase to report, [style.speechFeminine(Sir, all of the preparations for tonight's party are complete. Would you like me to clean this doll now?)]
+	</p>
+	<p>
+		[doll_owner.speech(Yes, and then come to me in my office so you can clean my cock,)] your Master playfully replies, before striding off to another part of the house.
+	</p>
+	<p>
+		Letting out an excited giggle, the cat-girl maid quickly wipes the cum from out of your exposed pussy and then eagerly hurries after your Master. Remaining motionless as you hold still in your lewd, kneeling pose, all there is for you to do is wait until you're ordered to move...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_FINAL_SOLD_INCUBUS_PARTY"><![CDATA[
+	<p>
+		Left to act like an inanimate statue, you once again find yourself able to remain perfectly still while experiencing no discomfort or boredom. After what feels like just a minute to you, but in reality is several hours, your Master finally makes a reappearance to check the poses of each of his sex dolls. Satisfied with each of you, he once again departs, and then a minute later a dozen cat-girl maids enter and line up along the walls of the halls. Each of them have exchanged their modest-looking maid uniforms for extremely slutty alternatives, and are holding silver platters upon each of which are perched numerous champagne flutes.
+	</p>
+	<p>
+		With everything in place, the front door is opened, and shortly thereafter the guests begin to arrive. From your position you can't quite see all of the guests who enter, but each one do you do catch sight of is a demon. As is the norm in Dominion, most of these demons are succubi, but there are significantly more incubi than you'd ordinarily expect to see.
+	</p>
+	<p>
+		Taking the offered drinks from the sluttily-dressed maids, the guests start to disperse throughout the huge hall. Their attention, much like yours when you first entered this place, is drawn to your Master's collection of sex dolls, of which you're now a permanent member. As they stop to gaze and comment on your golden pussy and asshole, you don't feel any sense of shame or embarrassment, and continue to obediently remain frozen in place for them to admire at their leisure.
+	</p>
+	<p>
+		[doll_owner.speech(Welcome one and all!)] the voice of your Master suddenly booms out through the hall. A chorus of cheers and wolf whistles breaks out from what's become a large crowd of guests as the incubus, completely naked except for a crown on his head, makes his dramatic entrance at the top of the grand staircase. Addressing all of the demons before him, he reveals, [doll_owner.speech(A selection of food is being served in the dining room, and as you've no doubt already noticed, drinks can be found everywhere. You're free to fuck my maids, my sex dolls, and of course, each other! There are only two rules; nothing is to be done without consent from everyone involved, <i>including my maids</i>, and demons are forbidden from wearing clothes! So go on, strip!)]
+	</p>
+	<p>
+		The crowd laughs, and then after a brief moment of uncertainty they start to undress. Within a couple of minutes everyone's completely naked, and then the guests start to filter through towards the dining room and other areas of the mansion. As you continue to hold your lewd pose, you hear a voice behind you muttering under her breath, [lilaya.speech(I didn't know it was going to be this kind of party... I feel awkward...)]
+	</p>
+	<p>
+		You instantly recognise the voice which answers as that of Saellatrix, and she gives a name to the first voice as she answers in her posh accent, [saellatrix.speech(You're not a half-demon any more, Lilaya, so there's no need to feel so self-conscious. You agreed with me that it'd be best for you to socialise more in demon society, and this is how it's done.)]
+	</p>
+	<p>
+		[lilaya.speech(I know, I know,)] Lilaya sighs, [lilaya.speech(I'm just not used to this... You'll stay with me tonight, won't you?)]
+	</p>
+	<p>
+		[saellatrix.speech(Of course I will,)] Saellatrix replies. There's a brief pause and the distinctive sound of a wet kiss, before she continues, [saellatrix.speech(You'll relax and get into the mood once you've had a drink or two. Come on, let me introduce you to our host, and with some luck we can convince him to open a bottle of that extortionately-priced wine you're so fond of...)]
+	</p>
+	<p>
+		In order to avoid a large group of guests, the two of them move around and pass by in front of you. You don't recognise the scarlet-skinned succubus at Saellatrix's side, but from the way your old Mistress is possessively holding her waist, you assume that the two of them must be some kind of a relationship. As they pass by, Saellatrix briefly flashes you a sly smirk as she moves her hand down a little to rest on Lilaya's ass, and then they're lost in the crowd as they head off to another part of the mansion. 
+	</p>
+	<p>
+		Although everyone's naked and there's a clear expectation of sex, the guests remain quite composed, and for the next hour or so they seem content to idly walk around and socialise. As the drinks begin to flow, however, the demons start getting more intimate with one another. A kiss here, a grope of an ass there, and suddenly a purple-skinned incubus kneels down before you and starts giving a blushing, [#GENDER_F_P_B_SHEMALE.getGenderName().getFeminine()] succubus a sloppy blowjob.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_FINAL_SOLD_INCUBUS_PARTY_ORGY"><![CDATA[
+	<p>
+		All at once, the party erupts into a full-blown orgy, and it doesn't take long before some of the guests are turning their attention to the sex dolls. The steel-skinned doll who's been posed opposite you is the first to be used, and you watch as she's ordered onto all fours by a petite, pink-skinned [#GENDER_F_P_V_B_FUTANARI.getGenderName().getFeminine()], who quickly drops down behind her chosen doll and starts desperately humping her shiny, silicone pussy. Encouraged by this lewd display, an ivory-skinned incubus kneels down behind you and traces his fingers over your
+		#IF(game.isAnalContentEnabled())
+			 butt, before lying back and ordering, [style.speechMasculineHeavy(Drop that tight little asshole down on my cock.)]
+		#ELSE
+			 spread pussy, before lying back and ordering, [style.speechMasculineHeavy(Drop that tight little cunt down on my cock.)]
+		#ENDIF
+	</p>
+	<p>
+		Obediently doing as you're told, you turn around and step over the incubus, before lowering yourself down and pushing his thick, throbbing dick into your
+		#IF(game.isAnalContentEnabled())
+			 silicone asshole.
+		#ELSE
+			 silicone pussy.
+		#ENDIF
+		 Letting out a whorish moan, a rush of incredible pleasure courses through your body as you start rhythmically bouncing up and down on your partner's cock. Grabbing your waist, he lustfully groans, [style.speechMasculineHeavy(~Mmm!~ Fuck! You're so tight... I'm not going to last long...)]
+	</p>
+	<p>
+		As you continue to ride the incubus's cock, you suddenly notice that a pair of large double doors before you have been opened wide, allowing you to see into one of the mansion's huge rooms. The orgy looks to be well under way in there, and among the dozens of demons fucking one another you see Saelatrix and Lilaya. The two of them are down on all fours facing one another, and are engaged in a sloppy, passionate kiss while being fucked from behind. A tall, muscular succubus is slamming in and out of your old Mistress's dripping pussy, while your new Master is burying his fat cock in Lilaya's cunt. This lewd display gets you even more turned on, and you quickly find yourself approaching your climax.
+	</p>
+	<p>
+		#IF(game.isAnalContentEnabled())
+			[style.speechMasculineHeavy(~Aah!~ That's it! Squeeze your asshole down!)] the incubus beneath you cries out. Eagerly obeying his order, you squeeze your tight, silicone ass down around his cock, and let out a desperate moan as you reach your climax at the same moment he does. Your plastic pussy spasms and squirts over your partner's stomach as his balls tense up and shoot a huge blast of hot, demonic cum deep into your ass. Grabbing your hips and pulling you firmly down into his groin, he groans, [style.speechMasculineHeavy(Fuck! Yes... ~Aah!~ Your ass is the best...)]
+		#ELSE
+			[style.speechMasculineHeavy(~Aah!~ That's it! Squeeze your pussy down!)] the incubus beneath you cries out. Eagerly obeying his order, you squeeze your tight, silicone cunt down around his cock, and let out a desperate moan as you reach your climax at the same moment he does. Your plastic pussy spasms and squirts over your partner's thick shaft as his balls tense up and shoot a huge blast of hot, demonic cum deep into your twat. Grabbing your hips and pulling you firmly down into his groin, he groans, [style.speechMasculineHeavy(Fuck! Yes... ~Aah!~ Your pussy is the best...)]
+		#ENDIF
+	</p>
+	<p>
+		Having had his fun, your partner quickly recovers and orders you to step back. As he stands up, he suddenly looks over to the silver doll who's still acting as a statue, and with a greedy grin on his face he says, [style.speechMasculineHeavy(It's boring with you just standing there. The two of you should make out with one another. Go on, do it, and use plenty of tongue!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_FINAL_SOLD_INCUBUS_PARTY_GAME"><![CDATA[
+	<p>
+		Obediently carrying out the incubus's order, you and the silver doll step towards one another and press your lips together. Your [pc.cupSize]-cup tits squish lewdly together as you grab hold of each other's heads and start passionately making out with one another. The party around you fades into a dim background noise as you and the silver doll focus on sliding and swirling your tongues together, and as such you're only vaguely aware of the approving comments the incubus makes before walking off to another part of the mansion.
+	</p>
+	<p>
+		[saellatrix.speechNoEffects(We need you for our game,)] Saellatrix teases in a slurred, drunk voice as she suddenly grabs your wrist and pulls you away from the doll. Turning to face your old Mistress, you see a drunken smirk on her face as she orders, [saellatrix.speechNoEffects(Come and sit on Lilaya's face.)]
+	</p>
+	<p>
+		Looking ahead as Saellatrix drags you into the adjoining room, you see Lilaya happily grinning your way as she sits on the edge of a large table. Curiously, there are two small piles of ornate metal chastity cages beside her, with one containing blue cages and the other pink. Bottles of wine, beer, and every type of spirit imaginable are scattered across the rest of the table, and from the drunken, slurred moan Lilaya lets out as you approach, you can tell that she's partly responsible for many of them being empty. Surrounding the table are over a dozen naked incubi and succubi, and between them they're sporting a dazzling variety of erect, demonic cocks.
+	</p>
+	<p>
+		Releasing your wrist as she reaches her companion, Saellatrix playfully pushes Lilaya back down onto the table, before gesturing for you to get into position. Doing as you're told, you step up onto the table and kneel down over Lilaya's face, before dropping down and smothering her mouth with your tight, wet pussy. The horny succubus immediately drives her tongue into your golden orifice, and as she hungrily explores your cunt you allow yourself to start making lewd, horny moans. Gripping the top of her head, you gently rock back and forth, grinding your silicone pussy against her [lilaya.lips+] as she eagerly eats you out.
+	</p>
+	<p>
+		[saellatrix.speechNoEffects(With the doll on her face, she can't see who's fucking her!)] Saellatrix declares to the crowd, before looking down between your thighs and saying, [saellatrix.speechNoEffects(Remember, Lilaya, you have to guess if it's an incubus or succubus who's fucking you; hold up a pink cage if you think it's a succubus and a blue cage if it's an incubus. If you get it right, they get locked up for the rest of the party! If you get it wrong, they get to creampie you! Then for the rest of the party you have to act as a slave for whoever gets you pregnant. Ready? Good! Everyone, take your breeder pills and let's get started!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_FINAL_SOLD_INCUBUS_PARTY_LATER"><![CDATA[
+	<p>
+		With that, Saellatrix steps out of your field of view, and then after all the demons have swallowed their breeder pills in order to make their cum extra virile, they get started. Just like Lilaya, you can't see what's happening between her legs, but from the intense, passionate moan which is suddenly muffled into your wet pussy, you can tell that Lilaya has just been penetrated. Her body rocks beneath you as her mysterious partner fucks her pussy hard, and after a few moments of having a cock violently slammed deep into her cunt, the succubus confidently holds up a blue cage.
+	</p>
+	<p>
+		[saellatrix.speechNoEffects(Lilaya! You don't recognise me?)] Saellatrix playfully whines behind you, which causes the rest of the demons to let out a chorus of laughs and comments on Lilaya's inability to recognise a cock that she's clearly quite intimate with. Patting her lover's thigh, your old Mistress calms the crowd by revealing, [lilaya.speechNoEffects(Well, I suppose it's not her fault; I <i>did</i> transform it into a fat, tentacled dog-cock to trick her... Now let's get the first load of cum into that fertile womb of yours!)]
+	</p>
+	<p>
+		With that, Lilaya's body starts rocking to the rhythm of Saellatrix's hips once again, and it doesn't take long before your old Mistress is moaning and emptying her balls into her companion's womb. Stepping back, she's immediately replaced by another mysterious demon, whose soft, gentle thrusts you can barely feel being transmitted through Lilaya's body. Continuing to lustfully eat you out, the succubus this time holds up a pink cage, which once again proves to be the wrong guess. A few moments later, Lilaya's womb is host to another demon's seed, and her pussy is being penetrated by another stranger.
+	</p>
+	<p>
+		This process continues for some time as the dozen or so demons take it in turns to fuck Lilaya, during which time the two of you experience several intense orgasms. Whether it's due to bad luck, the deceptive skills of the demons, or maybe even a desire to lose, Lilaya only manages to get three guesses right. As the last succubus, who was incorrectly guessed to be an incubus, empties her balls in Lilaya's cum-stuffed cunt, Saellatrix orders, [saellatrix.speechNoEffects(Get off her face now, doll. Sit up, Lilaya, and let's see who's going to be your owner for the rest of the party!)]
+	</p>
+	<p>
+		Obediently jumping off the table and standing to one side, you look on as Saellatrix swipes a pregnancy tester over Lilaya's stomach. The device lets out a beep, and after looking at the device's readout, Saellatrix declares to the crowd, [saellatrix.speechNoEffects(She's pregnant with triplets! I was really hoping I'd be the father, but the one who got her knocked up is Kiarillex!)]
+	</p>
+	<p>
+		A short, busty succubus, whose light pink skin is absolutely covered in tattoos, steps forwards with a big smirk on her face. Patting the thick, flaccid cock between her legs, she looks at Lilaya and demands, [style.speechFeminineHeavy(Crawl over her and lick all the cum off my cock, slave.)]
+	</p>
+	<p>
+		[lilaya.speechNoEffects(Yes, Mistress,)] Lilaya drunkenly slurs, before sliding off the edge of the table and crawling over to start licking her temporary owner's cock. Kiarillex's fat cock quickly rises into a huge, throbbing erection, and after grabbing Lilaya's horns she rams it down her throat.
+	</p>
+	<p>
+		At that moment, an incubus steps up behind you, and without a single word he pushes you down face-first over the table and drives his fat, knotted cock deep into your wet pussy. You feel a rush of intense excitement and orgasmic pleasure at being used in such a dominant manner, and as your silicone tits squish into the table-top, you arch your back and let out a horny moan...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_FINAL_SOLD_INCUBUS_PARTY_END"><![CDATA[
+	<p>
+		You spend the rest of the night being an accessory to the demon's increasingly-debauched party. Finding yourself constantly being used by one or more of your Master's guests, you experience every size and shape of demonic cock imaginable. Insatiably horny, the demons continue fucking until the early morning's light starts to illuminate the back of the curtains. 
+	</p>
+	<p>
+		With the coming of dawn, the party finally starts to wind down. With your last order having been to fuck yourself with a pair of massive horse-cock dildos, you find yourself bouncing up and down on the silicone toys as the first guests retrieve their clothes and leave. Having not seen them for the whole night after participating in their game, you suddenly spot Saellatrix and Lilaya entering your room. Your old Mistress looks to have got through the night mostly unscathed, but the same can't be said for her companion. Clearly having drunk a lot of Mother's Milk, her pregnant belly has distended out to a huge size, and both it and the rest of her body is covered in degrading words and lewd drawings.
+	</p>
+	<p>
+		[lilaya.speechNoEffects(She tattooed this one first,)] Lilaya sighs to her partner as she points to the words 'Kiarillex's cum claimed this womb' on her belly. Using one hand to support her back, she whines, [lilaya.speechNoEffects(Did she really have to write on me so much? It's going to take ages to have all these removed...)]
+	</p>
+	<p>
+		[saellatrix.speechNoEffects(Oh? That's not what you were saying a couple of hours ago,)] Saellatrix teases, [saellatrix.speechNoEffects(From what I recall, it was 'Yes, Mistress, mark me as yours!', and 'Add another tally mark!'.)]
+	</p>
+	<p>
+		[lilaya.speechNoEffects(Sae!)] Lilaya exclaims as she furiously blushes. Rubbing her free hand over her swollen belly, she asks, [lilaya.speechNoEffects(Are you going to help me find my clothes or not?)]
+	</p>
+	<p>
+		[saellatrix.speechNoEffects(I've just found them,)] Saellatrix reveals as she holds up a dress and set of lacy red lingerie. Possessively placing her hand on Lilaya's hips, she says in a decisive manner, [saellatrix.speechNoEffects(Come back to my place. I'll get you cleaned up, and I can convince you to do this again while I'm at it.)]
+	</p>
+	<p>
+		[lilaya.speechNoEffects(I never said I wouldn't do it again,)] Lilaya defensively mumbles as she allows Saellatrix to guide her out of the room.
+	</p>
+	<p>
+		Continuing to bounce up and down on the dildo, you feel an orgasm approaching, and you let out a lewd, shuddering moan as your silicone pussy squirts and spasms around the girthy toy. With the guests now only interested in collecting their belongings and taking their leave, you're left to passionately fuck yourself and experience several more climaxes before someone finally takes notice of you.
+	</p>
+	<p>
+		[style.speechFeminine(Stand up, doll, and let me clean you,)] a cat-girl maid, whose slutty uniform has been torn open to reveal her perky, B-cup tits, commands. Instantly obeying, you stand up and allow the maid to wipe your body down, and after she's done she orders, [style.speechFeminine(Return to your place in the hall and stand to attention.)] 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_FINAL_SOLD_INCUBUS_FINAL_END"><![CDATA[
+	<p>
+		Once again doing as you're told, you strut back into the hall and step up onto your plinth. Five of the other dolls are already here, and you copy their pose as you stand up straight to attention and remain totally silent and motionless.
+	</p>
+	<p>
+		The other four dolls soon arrive to take their place in the hall, and as the last of the guests leave the team of cat-girl maids begin their clean-up operation. Collecting discarded bottles and toys, sweeping up remnants of food, and mopping up sexual fluids, the maids display a level of efficiency which suggests that they've done this countless times before.
+	</p>
+	<p>
+		By mid-morning the mansion is once again spotless. Making his reappearance as he inspects his maid's work, your Master takes a few minutes to order each of his sex dolls into new poses, and as he steps in front of you he commands, [doll_owner.speechNoEffects(Squat down with your knees apart and put your hands behind your head.)]
+	</p>
+	<p>
+		Dropping down into the position your Master desires, you spread your knees apart to expose your pussy and slightly push out your chest as you place your hands on the back of your head. Nodding in approval, your Master moves on to pose the rest of the dolls, before leaving you in your new positions.
+	</p>
+	<p style='text-align:center;'>
+		...
+	</p>
+	<p>
+		Having had your mind and body permanently broken into that of an obedient sex doll, you feel content and very happy with your new life. Your Master hosts wild parties at least once every couple of weeks, during which you're invariably fucked by a wide variety of demons. In between these brief moments of intense pleasure, you're kept as a living statue, and obediently assume whatever lewd pose your Master asks of you. Now and again he decides to fuck one of you, or even select one or more of you to entertain his guests.
+	</p>
+	<p>
+		In this manner you live your new life as a sex doll. Not remembering anything from before you were created, you happily fulfil your role as one of your Master's most prized sex toys...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- Cut content -->
+	
+	<htmlContent tag="DOLLIFICATION_FINAL_SOLD_PIG"><![CDATA[
+	<p>
+		TODO - Pig-boy club owner. Uses you as fuck toy and symbol of wealth, has you pole dance in his lavish office which overlooks the club.
+	</p>
+	<p>
+		Has you transformed to have gold silicone skin and ruby red eyes.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_FINAL_SOLD_PIG_END"><![CDATA[
+	<p>
+		TODO - Owner fucks new employees, has you clean them out afterwards.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_FINAL_SOLD_TIGER"><![CDATA[
+	<p>
+		TODO - 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_FINAL_SOLD_TIGER_END"><![CDATA[
+	<p>
+		TODO - 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_FINAL_SOLD_FOX"><![CDATA[
+	<p>
+		TODO - 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_FINAL_SOLD_FOX_END"><![CDATA[
+	<p>
+		TODO - 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_FINAL_SOLD_DEER"><![CDATA[
+	<p>
+		TODO - 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLLIFICATION_FINAL_SOLD_DEER_END"><![CDATA[
+	<p>
+		TODO - 
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

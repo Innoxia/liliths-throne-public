@@ -4,7 +4,6 @@
 	<name><![CDATA[Storage Area]]></name>
 	<tooltipDescription><![CDATA[While most of this large room is filled by huge vats of milk, there's enough space to fit several desks, behind which the farm's workers fill out paperwork.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the storage area at Evelyx's Dairy]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_TAN</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

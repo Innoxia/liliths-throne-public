@@ -165,11 +165,15 @@
 						[style.colourBad(Your alarm is unset!)]
 					#ELSE
 						Rest for
-						#IF((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1) >= 60)
-							 [#~~((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1) / 60)] hours,
-						#ENDIF
-						#IF((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1) % 60 != 0)
-							 [#~~((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1) % 60)] minutes,
+						#IF(game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm'))==0)
+							 24 hours,
+						#ELSE
+							#IF(game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')) >= 60)
+								 [#~~((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm'))) / 60)] hours,
+							#ENDIF
+							#IF((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm'))) % 60 != 0)
+								 [#~~((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm'))) % 60)] minutes,
+							#ENDIF
 						#ENDIF
 						 until your alarm goes off. As well as replenishing your [#ATTRIBUTE_HEALTH_MAXIMUM.getName()] and [#ATTRIBUTE_MANA_MAXIMUM.getName()], you will also get the 'Well Rested' status effect.
 					#ENDIF
@@ -182,11 +186,19 @@
 					#ENDIF
 				]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[
-					[#~~(game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1)]
+					#IF(game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm'))==0)
+						1440
+					#ELSE
+						[#~~(game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')))]
+					#ENDIF
 				]]></secondsPassed>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_f1', 'ROOM_PLAYER_REST'))]
-					[#pc.applySleep(~~(game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1))]
+					#IF(game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm'))==0)
+						[#pc.applySleep(24*60)]
+					#ELSE
+						[#pc.applySleep(~~(game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm'))))]
+					#ENDIF
 				]]></effects>
 			</response>
 			
@@ -299,7 +311,7 @@
 				</requiredFetishes>
 				<corruptionLevel><![CDATA[TWO_HORNY]]></corruptionLevel>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_jess_peeping]]></id>
+					<id><![CDATA[innoxia_elis_jess_peeping]]></id>
 					<startingPosition><![CDATA[
 						#IF(ncom.getFetishDesire(FETISH_ANAL_GIVING).isPositive() || ncom.getFetishDesire(FETISH_DOMINANT).isPositive())
 							ALL_FOURS
@@ -371,7 +383,7 @@
 				</requiredFetishes>
 				<corruptionLevel><![CDATA[TWO_HORNY]]></corruptionLevel>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_jess_peeping]]></id>
+					<id><![CDATA[innoxia_elis_jess_peeping]]></id>
 					<startingPosition><![CDATA[LYING_DOWN]]></startingPosition>
 					<dominants>
 						<character>
@@ -419,7 +431,7 @@
 				</requiredFetishes>
 				<corruptionLevel><![CDATA[TWO_HORNY]]></corruptionLevel>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_jess_peeping]]></id>
+					<id><![CDATA[innoxia_elis_jess_peeping]]></id>
 					<startingPosition><![CDATA[LYING_DOWN]]></startingPosition>
 					<dominants>
 						<character>

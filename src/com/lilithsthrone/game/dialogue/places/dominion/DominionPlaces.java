@@ -44,6 +44,7 @@ import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.Weather;
+import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -103,9 +104,9 @@ public class DominionPlaces {
 								"<b style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+";'>[npc.NamePos] Apartment:</b><br/>"
 									+ "After moving out from Lilaya's home, [npc.name] has ended up living in an apartment building near to this location."));
 
-				if(npc.isSleepingAtHour(Main.game.getHourOfDay())) {
+				if(npc.isAsleep()) {
 					occupantSB.append(UtilText.parse(npc,
-							" If you wanted to, you could pay the [npc.race] a visit, but as [npc.sheIs] currently [style.colourSleep(sleeping)], [npc.she] will likely be annoyed at being woken up..."));
+							" If you wanted to, you could pay the [npc.race] a visit, but as [npc.sheIs] currently [style.colourSleep(sleeping)] you'll have to wake [npc.herHim] up..."));
 				} else {
 					occupantSB.append(UtilText.parse(npc, " If you wanted to, you could pay the [npc.race] a visit..."));
 				}
@@ -354,10 +355,6 @@ public class DominionPlaces {
 					@Override
 					public void effects() {
 						OccupantDialogue.initDialogue(npc, true, false);
-						if(npc.isSleepingAtHour(Main.game.getHourOfDay())) {
-							Main.game.appendToTextEndStringBuilder("<p style='text-align:center;'>[style.italicsMinorBad([npc.Name] doesn't appreciate being woken up...)]</p>");
-							Main.game.appendToTextEndStringBuilder(npc.incrementAffection(Main.game.getPlayer(), -1));
-						}
 					}
 				});
 			}
@@ -698,8 +695,68 @@ public class DominionPlaces {
 		}
 	};
 
+	private static Set<Integer> viewedNewsIndexes = new HashSet<>();
+	private static boolean viewedAllNews = false;
+	
+	private static String getRandomNewsText() {
+		List<AbstractSubspecies> possibleSubspecies = new ArrayList<>();
+		for(AbstractSubspecies s : Subspecies.allSubspecies) {
+			if(s.getMostCommonWorldRegions().contains(WorldRegion.DOMINION)) {
+				possibleSubspecies.add(s);
+			}
+		}
+		
+		String randomFemalePerson = Util.randomItemFrom(possibleSubspecies).getSingularFemaleName(null);
+		String randomMalePerson = Util.randomItemFrom(possibleSubspecies).getSingularMaleName(null);
+		
+		List<String> strings = Util.newArrayListOfValues(
+				"A rough-looking "+randomMalePerson+" unrolls a large scroll, before clearing his throat and calling out,"
+						+ " [maleNPC.speech(By decree of Lilith, and in the interests of Dominion's security,"
+							+ " any human seen walking the streets outside of daylight hours may legally be subjected to a full body search from any Enforcer.)]",
+					Util.capitaliseSentence(UtilText.addDeterminer(randomFemalePerson))+" holds up an official-looking piece of paper, complete with a red wax seal, and declares,"
+						+ " [femaleNPC.speech(A reward of two-hundred-thousand flames has been issued for any information leading to the arrest of the person or persons responsible"
+							+ " for distributing illegal newspapers in the districts beneath the Harpy Nests!)]",
+					"A rather wild-looking succubus, dressed in a very Halloween-esque witch's costume, points to different members of the crowd as she screams,"
+						+ " [femaleNPC.speech(I count no less than three demons in the crowd who are without a cultist's uniform!"
+							+ " What would Lilith say if she could see this now?!)]",
+					Util.capitaliseSentence(UtilText.addDeterminer(randomMalePerson))+" relays several boring, mundane pieces of news to the crowd."
+							+ " There's nothing that is of any interest to you, and you eventually turn away, having felt as though you just wasted your time.",
+					Util.capitaliseSentence(UtilText.addDeterminer(randomFemalePerson))+" relays several boring, mundane pieces of news to the crowd."
+							+ " There's nothing that is of any interest to you, and you eventually turn away, having felt as though you just wasted your time.",
+					Util.capitaliseSentence(UtilText.addDeterminer(randomMalePerson))+" is currently reading out a list of advertisements for shops in the local area."
+							+ " There's really nothing of interest to be heard, and you soon find yourself turning away and moving on.",
+					Util.capitaliseSentence(UtilText.addDeterminer(randomFemalePerson))+" is currently reading out a list of advertisements for shops in the local area."
+							+ " There's really nothing of interest to be heard, and you soon find yourself turning away and moving on.");
+		
+		List<Integer> availableIndexes = new ArrayList<>();
+		for(int i=0; i<strings.size(); i++) {
+			availableIndexes.add(i);
+		}
+		for(Integer i : viewedNewsIndexes) {
+			availableIndexes.remove(i);
+		}
+		if(availableIndexes.isEmpty()) {
+			viewedAllNews = true;
+			return "<p style='text-align:center;'>"
+						+ "[style.italicsDisabled(You've listened to everything that's being said...)]"
+					+ "</p>";
+			
+		} else {
+			int index = Util.randomItemFrom(availableIndexes);
+			viewedNewsIndexes.add(index);
+			
+			return "<p>"
+						+ strings.get(index)
+					+ "</p>";
+		}
+	}
 	
 	public static final DialogueNode DOMINION_PLAZA = new DialogueNode("Lilith's Plaza", "", false) {
+		@Override
+		public void applyPreParsingEffects() {
+			viewedNewsIndexes.clear();
+			viewedAllNews = false;
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 3*60;
@@ -712,8 +769,10 @@ public class DominionPlaces {
 		public Response getResponse(int responseTab, int index) {
 			if(index == 1) {
 				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-					return new Response(
-							"News", "Due to the ongoing arcane storm, there's nobody here at the moment...", null);
+					return new Response("News", "Due to the ongoing arcane storm, there's nobody here at the moment...", null);
+					
+				} else if(viewedAllNews) {
+					return new Response("News", "You've listened to everything that's being said...", null);
 					
 				} else {
 					return new Response(
@@ -721,41 +780,14 @@ public class DominionPlaces {
 							"Decide to stay a while and listen to one of the orators...", DOMINION_PLAZA_NEWS){
 								@Override
 								public void effects() {
-									List<AbstractSubspecies> possibleSubspecies = new ArrayList<>();
-									possibleSubspecies.add(Subspecies.CAT_MORPH);
-									possibleSubspecies.add(Subspecies.DOG_MORPH);
-									possibleSubspecies.add(Subspecies.HORSE_MORPH);
-									possibleSubspecies.add(Subspecies.WOLF_MORPH);
-									
-									String randomFemalePerson = possibleSubspecies.get(Util.random.nextInt(possibleSubspecies.size())).getSingularFemaleName(null);
-									String randomMalePerson = possibleSubspecies.get(Util.random.nextInt(possibleSubspecies.size())).getSingularMaleName(null);
-									
 									Main.game.getTextEndStringBuilder().append("<p>"
-											+UtilText.returnStringAtRandom(
-													"A rough-looking "+randomMalePerson+" unrolls a large scroll, before clearing his throat and calling out,"
-														+ " [maleNPC.speech(By decree of Lilith, and in the interests of Dominion's security,"
-															+ " any human seen walking the streets outside of daylight hours may legally be subjected to a full body search from any Enforcer.)]",
-													Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomFemalePerson))+" "+randomFemalePerson+" holds up an official-looking piece of paper, complete with a red wax seal, and declares,"
-														+ " [femaleNPC.speech(A reward of two-hundred-thousand flames has been issued for any information leading to the arrest of the person or persons responsible"
-															+ " for distributing illegal newspapers in the districts beneath the Harpy Nests!)]",
-													"A rather wild-looking succubus, dressed in a very Halloween-esque witch's costume, points to different members of the crowd as she screams,"
-														+ " [femaleNPC.speech(I count no less than three demons in the crowd who are without a cultist's uniform!"
-															+ " What would Lilith say if she could see this now?!)]",
-													Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomMalePerson))+" "+randomMalePerson+" relays several boring, mundane pieces of news to the crowd."
-															+ " There's nothing that is of any interest to you, and you eventually turn away, having felt as though you just wasted your time.",
-													Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomFemalePerson))+" "+randomFemalePerson+" relays several boring, mundane pieces of news to the crowd."
-															+ " There's nothing that is of any interest to you, and you eventually turn away, having felt as though you just wasted your time.",
-													Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomMalePerson))+" "+randomMalePerson+" is currently reading out a list of advertisements for shops in the local area."
-															+ " There's really nothing of interest to be heard, and you soon find yourself turning away and moving on.",
-													Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomFemalePerson))+" "+randomFemalePerson+" is currently reading out a list of advertisements for shops in the local area."
-															+ " There's really nothing of interest to be heard, and you soon find yourself turning away and moving on.")
+											+ getRandomNewsText()
 											+"</p>");
 								}
 							};
 				}
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	

@@ -15,7 +15,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.4
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class Leg implements BodyPartInterface {
@@ -27,7 +27,6 @@ public class Leg implements BodyPartInterface {
 	protected AbstractLegType type;
 	protected FootStructure footStructure;
 	protected LegConfiguration legConfiguration;
-	
 	protected int girth;
 	protected float lengthAsPercentageOfHeight;
 
@@ -39,6 +38,14 @@ public class Leg implements BodyPartInterface {
 		this.lengthAsPercentageOfHeight = LegConfiguration.getDefaultSerpentTailLengthMultiplier();
 	}
 
+	public Leg(Leg legToCopy) {
+		this.type = legToCopy.type;
+		this.legConfiguration = legToCopy.legConfiguration;
+		this.footStructure = legToCopy.footStructure;
+		this.girth = legToCopy.girth;
+		this.lengthAsPercentageOfHeight = legToCopy.lengthAsPercentageOfHeight;
+	}
+	
 	@Override
 	public AbstractLegType getType() {
 		return type;
@@ -155,11 +162,18 @@ public class Leg implements BodyPartInterface {
 		if(!Main.game.isStarted() || owner==null) {
 			this.type = type;
 			this.footStructure = type.getDefaultFootStructure(this.getLegConfiguration());
-			if(Main.game.isStarted() && !type.isLegConfigurationAvailable(this.getLegConfiguration())) {
-				this.getType().applyLegConfigurationTransformation(owner, RacialBody.valueOfRace(type.getRace()).getLegConfiguration(), true, true);
-			}
 			if(owner!=null) {
+				if(Main.game.isStarted() && !type.isLegConfigurationAvailable(this.getLegConfiguration())) {
+					this.getType().applyLegConfigurationTransformation(owner, RacialBody.valueOfRace(type.getRace()).getLegConfiguration(), true, true);
+				}
 				owner.postTransformationCalculation();
+				
+			} else {
+				if(Main.game.isStarted() && !type.isLegConfigurationAvailable(this.getLegConfiguration())) {
+					System.err.println("Leg.setType() was passed a null owner, and the type '"+type.getTransformName()+"' requires conversion of LegConfiguration from "
+							+ "'"+this.getLegConfiguration().getName()+"' to '"+RacialBody.valueOfRace(type.getRace()).getLegConfiguration().getName()+"'.");
+					this.setLegConfigurationForced(type, RacialBody.valueOfRace(type.getRace()).getLegConfiguration());
+				}
 			}
 			return "";
 		}

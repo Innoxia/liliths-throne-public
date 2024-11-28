@@ -88,14 +88,22 @@
 	
 	<htmlContent tag="COMBAT_WON"><![CDATA[	<p>		Staggering back, the [attacker.race] sinks down onto the ground,
 		#IF(!attacker.isMute())
-			#IF(attacker.isAttractedTo(pc))
-				 before starting to touch [attacker.herself] and desperately pant, [attacker.speech(No more... I surrender... Please, just come and fuck me already!)]
+			#IF(attacker.isPostCombatWantsSex())
+				#IF(attacker.isPostCombatRapePlay())
+					 before revealing [attacker.her] desire to engage in some rape-play with you by [attacker.moaning], [attacker.speech(I surrender... ~Mmm!~ You wouldn't rape me, would you? Please, anything but that... Come on, do it!)]
+				#ELSE
+					 before starting to touch [attacker.herself] and desperately pant, [attacker.speech(No more... I surrender... Please, just come and fuck me already!)]
+				#ENDIF
 			#ELSE
 				 panting, [attacker.speech(No more... I surrender...)]
 			#ENDIF
 		#ELSE
-			#IF(attacker.isAttractedTo(pc))
-				 before starting to touch [attacker.herself] and let out a series of desperate, pleading whines.
+			#IF(attacker.isPostCombatWantsSex())
+				#IF(attacker.isPostCombatRapePlay())
+					 before starting to touch [attacker.herself] and let out a series of desperate, pleading whines. Putting on a show of trying to shuffle away from you, [attacker.she] makes it clear that [attacker.she] wants you to engage in some rape-play with [attacker.herHim].
+				#ELSE
+					 before starting to touch [attacker.herself] and let out a series of desperate, pleading whines.
+				#ENDIF
 			#ELSE
 				 holding up [attacker.her] [attacker.hands] in a clear sign of surrender.
 			#ENDIF
@@ -108,13 +116,13 @@
 	<htmlContent tag="COMBAT_WON_END"><![CDATA[	<p>
 		Not wanting anything more to do with this [attacker.race], you turn around and [pc.walk] off.
 		#IF(!attacker.isMute())
-			#IF(attacker.isAttractedTo(pc))
+			#IF(attacker.isPostCombatWantsSex())
 				  Letting out a horny [attacker.moan] as you [pc.step] past [attacker.herHim], [attacker.name] whines, [attacker.speech(Fuck, I'm so horny! Damn it...)]
 			#ELSE
 				  Letting out a deep sigh as you [pc.step] past [attacker.herHim], [attacker.name] taunts, [attacker.speech(You got lucky...)]
 			#ENDIF
 		#ELSE
-			#IF(attacker.isAttractedTo(pc))
+			#IF(attacker.isPostCombatWantsSex())
 				 Letting out a horny [attacker.moan] as you [pc.step] past [attacker.herHim], [attacker.name] desperately intimates that [attacker.she] wants you to fuck [attacker.herHim].
 			#ELSE
 				 Letting out a deep sigh as you [pc.step] past [attacker.herHim], [attacker.name] taunts you by throwing up a rude hand gesture.
@@ -127,7 +135,12 @@
 	
 	<htmlContent tag="COMBAT_WON_SEX"><![CDATA[
 	<p>
-		#IF(attacker.isAttractedTo(pc))			More than happy to give [attacker.name] what [attacker.she] wants, you [pc.step] up to [attacker.herHim] and pull [attacker.herHim] to [attacker.her] [attacker.feet]. Leaning forwards to plant a dominant kiss on [attacker.her] [attacker.lips+], you can't help but let out an eager [pc.moan] as you prepare to fuck [attacker.herHim]...
+		#IF(attacker.isPostCombatWantsSex(pc))
+			#IF(attacker.isPostCombatRapePlay())
+				Deciding to play along with [attacker.name] as [attacker.she] pretends to resist, you [pc.step] up to [attacker.herHim] and pull [attacker.herHim] to [attacker.her] [attacker.feet]. Ignoring [attacker.her] protests, you lean forwards to plant a dominant kiss on [attacker.her] [attacker.lips+], and can't help but let out an eager [pc.moan] as you prepare to engage in some rape-play with [attacker.herHim]...
+			#ELSE
+				More than happy to give [attacker.name] what [attacker.she] wants, you [pc.step] up to [attacker.herHim] and pull [attacker.herHim] to [attacker.her] [attacker.feet]. Leaning forwards to plant a dominant kiss on [attacker.her] [attacker.lips+], you can't help but let out an eager [pc.moan] as you prepare to fuck [attacker.herHim]...
+			#ENDIF
 		#ELSE
 			Ignoring the fact that [attacker.name] doesn't seem at all attracted to you, you [pc.step] up to [attacker.herHim] and pull [attacker.herHim] to [attacker.her] [attacker.feet]. Ignoring [attacker.her] protests, you lean forwards to plant a dominant kiss on [attacker.her] [attacker.lips+], and can't help but let out an eager [pc.moan] as you prepare to rape [attacker.herHim]...
 		#ENDIF
@@ -136,8 +149,12 @@
 	
 	<htmlContent tag="COMBAT_WON_SEX_GENTLE"><![CDATA[
 	<p>
-		#IF(attacker.isAttractedTo(pc))
-			More than happy to give [attacker.name] what [attacker.she] wants, you [pc.step] up to [attacker.herHim] and gently pull [attacker.herHim] to [attacker.her] [attacker.feet]. Leaning forwards to plant a soft kiss on [attacker.her] [attacker.lips+], you can't help but let out a quiet [pc.moan] as you prepare to have sex with [attacker.herHim]...
+		#IF(attacker.isPostCombatWantsSex())
+			#IF(attacker.isPostCombatRapePlay())
+				Deciding to play along with [attacker.name] as [attacker.she] pretends to resist, you [pc.step] up to [attacker.herHim] and gently, yet firmly, pull [attacker.herHim] to [attacker.her] [attacker.feet]. Ignoring [attacker.her] protests, you lean forwards to plant a soft kiss on [attacker.her] [attacker.lips+], and can't help but let out a quiet [pc.moan] as you prepare to engage in some rape-play with [attacker.herHim]...
+			#ELSE
+				More than happy to give [attacker.name] what [attacker.she] wants, you [pc.step] up to [attacker.herHim] and gently pull [attacker.herHim] to [attacker.her] [attacker.feet]. Leaning forwards to plant a soft kiss on [attacker.her] [attacker.lips+], you can't help but let out a quiet [pc.moan] as you prepare to have sex with [attacker.herHim]...
+			#ENDIF
 		#ELSE
 			Ignoring the fact that [attacker.name] doesn't seem at all attracted to you, you [pc.step] up to [attacker.herHim] and gently, yet firmly, pull [attacker.herHim] to [attacker.her] [attacker.feet]. Ignoring [attacker.her] protests, you lean forwards to plant a soft kiss on [attacker.her] [attacker.lips+], and can't help but let out a quiet [pc.moan] as you prepare to rape [attacker.herHim]...
 		#ENDIF
@@ -146,8 +163,12 @@
 	
 	<htmlContent tag="COMBAT_WON_SEX_ROUGH"><![CDATA[
 	<p>
-		#IF(attacker.isAttractedTo(pc))
-			More than happy to give [attacker.name] what [attacker.she] wants, you [pc.step] up to [attacker.herHim] and roughly pull [attacker.herHim] to [attacker.her] [attacker.feet]. Leaning forwards to plant a forceful, dominant kiss on [attacker.her] [attacker.lips+], you can't help but let out an eager [pc.moan] as you prepare to fuck [attacker.herHim]...
+		#IF(attacker.isPostCombatWantsSex())
+			#IF(attacker.isPostCombatRapePlay())
+				Deciding to play along with [attacker.name] as [attacker.she] pretends to resist, you [pc.step] up to [attacker.herHim] and roughly pull [attacker.herHim] to [attacker.her] [attacker.feet]. Ignoring [attacker.her] protests, you lean forwards to plant a forceful, dominant kiss on [attacker.her] [attacker.lips+], and can't help but let out an eager [pc.moan] as you prepare to engage in some rape-play with [attacker.herHim]...
+			#ELSE
+				More than happy to give [attacker.name] what [attacker.she] wants, you [pc.step] up to [attacker.herHim] and roughly pull [attacker.herHim] to [attacker.her] [attacker.feet]. Leaning forwards to plant a forceful, dominant kiss on [attacker.her] [attacker.lips+], you can't help but let out an eager [pc.moan] as you prepare to fuck [attacker.herHim]...
+			#ENDIF
 		#ELSE
 			Ignoring the fact that [attacker.name] doesn't seem at all attracted to you, you [pc.step] up to [attacker.herHim] and roughly pull [attacker.herHim] to [attacker.her] [attacker.feet]. Ignoring [attacker.her] protests, you lean forwards to plant a forceful, dominant kiss on [attacker.her] [attacker.lips+], and can't help but let out an eager [pc.moan] as you prepare to rape [attacker.herHim]...
 		#ENDIF
@@ -168,24 +189,42 @@
 	</p>	]]>
 	</htmlContent>
 	
-	<htmlContent tag="AFTER_SEX_DOM"><![CDATA[	<p>
-		Feeling satisfied from your dominant sex with the [attacker.race], you [pc.step] away from [attacker.herHim] and start to get your things back in order.
-		#IF(!attacker.isMute())
-			#IF(attacker.isSatisfiedFromLastSex())
-				 Feeling just as happy as you are, [attacker.name] lets out a deep sigh and moans, [attacker.speech(~Mmm!~ That was just what I needed...)]
-			#ELSE
-				 Not feeling as happy as you are, [attacker.name] lets out a frustrated sigh and moans, [attacker.speech(~Aah! I'm not satisfied from that!)]
-			#ENDIF
+	<htmlContent tag="AFTER_SEX_DOM"><![CDATA[
+	#IF(attacker.hasFlag(NPC_FLAG_genericNPCBetrayedByPlayer))
+		#IF(game.isNonConEnabled())
+			<p>
+				As you step back from [attacker.name], [attacker.she] sinks to the floor, letting out a pitiful wail as [attacker.she] realises that you've finished. Completely broken by the sudden betrayal and rape, [attacker.she] starts uncontrollably sobbing and crying.
+			</p>
+			<p>
+				Letting out a triumphant laugh, you start gathering your things, but before taking your leave, you wonder if you should help yourself to any of [attacker.namePos] belongings...
+			</p>
 		#ELSE
-			#IF(attacker.isSatisfiedFromLastSex())
-				 Feeling just as happy as you are, [attacker.name] lets out a deep sigh and moans in contentment to convey the fact that [attacker.sheIs] satisfied.
+			<p>
+				As you step back from [attacker.name], [attacker.she] sinks to the floor, letting out a deep sigh as [attacker.she] realises that you've finished. Still deeply upset at the way you betrayed [attacker.her] trust, [attacker.she] quickly starts gathering [attacker.her] things, intent on leaving this place for good.
+			</p>
+			<p>
+				Similarly getting your things back in order, you wonder if you should help yourself to any of [attacker.namePos] belongings before you move on...
+			</p>
+		#ENDIF
+	#ELSE		<p>
+			Feeling satisfied from your dominant sex with the [attacker.race], you [pc.step] away from [attacker.herHim] and start to get your things back in order.
+			#IF(!attacker.isMute())
+				#IF(attacker.isSatisfiedFromLastSex())
+					 Feeling just as happy as you are, [attacker.name] lets out a deep sigh and moans, [attacker.speech(~Mmm!~ That was just what I needed...)]
+				#ELSE
+					 Not feeling as happy as you are, [attacker.name] lets out a frustrated sigh and moans, [attacker.speech(~Aah! I'm not satisfied from that!)]
+				#ENDIF
 			#ELSE
-				 Not feeling as happy as you are, [attacker.name] lets out a frustrated sigh and moans in annoyance to convey the fact that [attacker.sheIs] not satisfied.
-			#ENDIF
-		#ENDIF	</p>
-	<p>
-		Continuing to get your things back in order, you brush yourself off and wonder what to do next. You could always help yourself to any items or cash that the [attacker.race] is carrying, or instead simply set off and continue on your way... 
-	</p>	]]>
+				#IF(attacker.isSatisfiedFromLastSex())
+					 Feeling just as happy as you are, [attacker.name] lets out a deep sigh and moans in contentment to convey the fact that [attacker.sheIs] satisfied.
+				#ELSE
+					 Not feeling as happy as you are, [attacker.name] lets out a frustrated sigh and moans in annoyance to convey the fact that [attacker.sheIs] not satisfied.
+				#ENDIF
+			#ENDIF		</p>
+		<p>
+			Continuing to get your things back in order, you brush yourself off and wonder what to do next. You could always help yourself to any items or cash that the [attacker.race] is carrying, or instead simply set off and continue on your way...
+		</p>
+	#ENDIF	]]>
 	</htmlContent>
 	
 	<htmlContent tag="COMBAT_WON_TALK"><![CDATA[	<p>		Wanting to know why this [attacker.race] is attempting to rob innocent travellers of their possessions, you ask the bandit who [attacker.she] is and what led to [attacker.her] choosing a life of criminality. Clearly not wanting to discuss such personal matters with you, the [attacker.race] sneers at you for a moment, before

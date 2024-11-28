@@ -4,7 +4,6 @@
 	<name><![CDATA[Burgers, Fries, & Pies]]></name>
 	<tooltipDescription><![CDATA[A pair of portly pig-morphs run this hot food stall.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the Farmer's Market in Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<svgName>food</svgName>
 	<colour>BASE_GREEN</colour>

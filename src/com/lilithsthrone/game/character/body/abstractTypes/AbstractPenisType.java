@@ -346,10 +346,10 @@ public abstract class AbstractPenisType implements BodyPartTypeInterface {
 		}
 		
 		if(name.endsWith("-")) {
-			if(Math.random()<0.25f) { // 25% chance to return this '-' name.
+			if(Math.random()<0.25f && (!Main.game.isInSex() || Main.sex.getAllParticipants().size()<=2)) { // 25% chance to return this '-' name, so long as not in threesome+ sex scene, as otherwise parsing is weird (e.g. "wolf-cocks" for wolf & non-wolf)
 				return UtilText.parse(gc, name + Util.getRandomObjectFromWeightedMap(returnNames));
 			} else {
-				return UtilText.parse(gc, name + Util.getRandomObjectFromWeightedMap(returnNames));
+				return UtilText.parse(gc, Util.getRandomObjectFromWeightedMap(returnNames));
 			}
 		}
 		if(name.isEmpty()) {

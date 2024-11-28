@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body.coverings;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -53,6 +54,35 @@ public class BodyCoveringTemplateFactory {
 				PresetColour.dyeSlimeColours,
 				PresetColour.naturalSlimeColours,
 				PresetColour.dyeSlimeColours);
+	}
+
+	public static BodyCoveringTemplate createSilicone(CoveringPattern basePattern, Map<CoveringPattern, Integer> coverPatterns, boolean orificeCovering) {
+		return createSilicone("a layer of", "silicone", basePattern, coverPatterns, orificeCovering);
+	}
+	
+	public static BodyCoveringTemplate createSilicone(String determiner, String name, CoveringPattern basePattern, Map<CoveringPattern, Integer> coverPatterns, boolean orificeCovering) {
+		ArrayList<Colour> secondaryDyeColours = new ArrayList<>();
+		if(orificeCovering) {
+			secondaryDyeColours.add(PresetColour.ORIFICE_INTERIOR);
+		}
+		secondaryDyeColours.addAll(PresetColour.dyeSiliconeColours);
+		return new BodyCoveringTemplate(determiner,
+				false,
+				name,
+				name,
+				Util.newArrayListOfValues(CoveringModifier.SMOOTH),
+				Util.newArrayListOfValues(
+						CoveringModifier.GLOSSY,
+						CoveringModifier.GLITTERING,
+						CoveringModifier.MATTE,
+						CoveringModifier.SPARKLY,
+						CoveringModifier.METALLIC),
+				Util.newHashMapOfValues(new Value<>(basePattern, 1)),
+				coverPatterns,
+				PresetColour.naturalSiliconeColours,
+				PresetColour.dyeSiliconeColours,
+				PresetColour.naturalSiliconeColours,
+				secondaryDyeColours);
 	}
 	
 	public static BodyCoveringTemplate createFurSkin(List<CoveringModifier> modifiers, Map<CoveringPattern, Integer> patterns) {

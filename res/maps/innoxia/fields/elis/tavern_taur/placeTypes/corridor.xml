@@ -4,12 +4,11 @@
 	<name><![CDATA[corridor]]></name>
 	<tooltipDescription><![CDATA[A narrow corridor leads off from one side of the bar.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the corridor at 'The Centaur's Sword' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_GREY</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>
 	<encounterType>null</encounterType>
-	<dialogue>innoxia_places_fields_elis_tavern_taur_corridor</dialogue>
+	<dialogue>innoxia_places_fields_elis_tavern_taur_core_corridor</dialogue>
 	<populationPresent/>
 	<furniturePresent>false</furniturePresent>
 	<globalMapTile>false</globalMapTile>

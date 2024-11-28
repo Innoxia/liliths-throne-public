@@ -118,6 +118,9 @@ public class Properties {
 			"Neither randomly-generated taurs nor anthro-morphs will ever have udders or crotch-boobs.",
 			"Randomly-generated NPCs will only have udders or crotch-boobs if they have a non-bipedal body. (Default setting.)",
 			"Randomly-generated greater-anthro-morphs, as well as taurs, will have udders and crotch boobs."};
+
+	/** 0=off, 1=weekly, 2=daily, 3=hourly*/
+	private int hairGrowth = 1;
 	
 	public int autoSaveFrequency = 0;
 	public static String[] autoSaveLabels = new String[] {"Always", "Daily", "Weekly"};
@@ -133,6 +136,13 @@ public class Properties {
 			"Sex action corruption requirements may be bypassed if your corruption level is one level below the required corruption level of the action, but you will gain corruption if you do so.",
 			"All sex action corruption requirements may be bypassed, but you will gain corruption if you do so."};
 
+	public int fullExposureDescriptions = 2;
+	public static String[] fullExposureDescriptionsLabels = new String[] {"Never", "Once", "Always"};
+	public static String[] getFullExposureDescriptionsDescriptions = new String[] {
+			"Full descriptions for revealed body parts will never be shown during sex.",
+			"Full descriptions for revealed body parts will only be shown during sex if it's your first time seeing them.",
+			"Full descriptions for revealed body parts will always be shown during sex."};
+	
 	public int pregnancyDuration = 1;
 	
 	public int forcedTFPercentage = 40;
@@ -331,8 +341,10 @@ public class Properties {
 			createXMLElementWithValue(doc, settings, "taurFurryLevel", String.valueOf(taurFurryLevel));
 			createXMLElementWithValue(doc, settings, "multiBreasts", String.valueOf(multiBreasts));
 			createXMLElementWithValue(doc, settings, "udders", String.valueOf(udders));
+			createXMLElementWithValue(doc, settings, "hairGrowth", String.valueOf(hairGrowth));
 			createXMLElementWithValue(doc, settings, "autoSaveFrequency", String.valueOf(autoSaveFrequency));
 			createXMLElementWithValue(doc, settings, "bypassSexActions", String.valueOf(bypassSexActions));
+			createXMLElementWithValue(doc, settings, "fullExposureDescriptions", String.valueOf(fullExposureDescriptions));
 			createXMLElementWithValue(doc, settings, "pregnancyDuration", String.valueOf(pregnancyDuration));
 			createXMLElementWithValue(doc, settings, "forcedTFPercentage", String.valueOf(forcedTFPercentage));
 			createXMLElementWithValue(doc, settings, "randomRacePercentage", String.valueOf(randomRacePercentage)); 
@@ -752,6 +764,12 @@ public class Properties {
 					if(Main.isVersionOlderThan(versionNumber, "0.4.7.7")) {
 						values.add(PropertyValue.muskContent);
 					}
+					if(Main.isVersionOlderThan(versionNumber, "0.4.9.6")) {
+						values.add(PropertyValue.lipLispContent);
+					}
+					if(Main.isVersionOlderThan(versionNumber, "0.4.10.4")) {
+						values.add(PropertyValue.mapZoomedIn);
+					}
 					
 					
 				} else {
@@ -880,6 +898,12 @@ public class Properties {
 					udders = 1;
 				}
 
+				if(element.getElementsByTagName("hairGrowth").item(0)!=null) {
+					hairGrowth = Integer.valueOf(((Element)element.getElementsByTagName("hairGrowth").item(0)).getAttribute("value"));
+				} else {
+					hairGrowth = 1;
+				}
+				
 				if(element.getElementsByTagName("autoSaveFrequency").item(0)!=null) {
 					autoSaveFrequency = Integer.valueOf(((Element)element.getElementsByTagName("autoSaveFrequency").item(0)).getAttribute("value"));
 				} else {
@@ -890,6 +914,12 @@ public class Properties {
 					bypassSexActions = Integer.valueOf(((Element)element.getElementsByTagName("bypassSexActions").item(0)).getAttribute("value"));
 				} else {
 					bypassSexActions = 2;
+				}
+
+				if(element.getElementsByTagName("fullExposureDescriptions").item(0)!=null) {
+					fullExposureDescriptions = Integer.valueOf(((Element)element.getElementsByTagName("fullExposureDescriptions").item(0)).getAttribute("value"));
+				} else {
+					fullExposureDescriptions = 2;
 				}
 				
 				if(element.getElementsByTagName("clothingFemininityLevel").item(0)!=null) {
@@ -1305,8 +1335,10 @@ public class Properties {
 	public void resetContentOptions() {
 		autoSaveFrequency = 0;
 		bypassSexActions = 2;
+		fullExposureDescriptions = 2;
 		multiBreasts = 1;
 		udders = 1;
+		hairGrowth = 1;
 		pregnancyDuration = 1;
 		forcedTFPercentage = 40;
 		forcedFetishPercentage = 40;
@@ -1663,8 +1695,20 @@ public class Properties {
 	public int getUddersLevel() {
 		return udders;
 	}
-	
+
+	/** 0=off, 1=taur-only, 2=on*/
 	public void setUddersLevel(int udders) {
 		this.udders = udders;
 	}
+
+	/** 0=off, 1=weekly, 2=daily, 3=hourly*/
+	public int getHairGrowth() {
+		return hairGrowth;
+	}
+
+	/** 0=off, 1=weekly, 2=daily, 3=hourly*/
+	public void setHairGrowth(int hairGrowth) {
+		this.hairGrowth = hairGrowth;
+	}
+	
 }

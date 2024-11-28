@@ -4,7 +4,6 @@
 	<name><![CDATA[showers]]></name>
 	<tooltipDescription><![CDATA[Changing rooms and showers link the main area of the gym to the saunas and pool.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the showers at the gym, 'Pix's Playground']]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_BLUE</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

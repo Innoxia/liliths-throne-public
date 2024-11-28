@@ -4,7 +4,6 @@
 	<name><![CDATA[VIP deposit boxes]]></name>
 	<tooltipDescription><![CDATA[The VIP deposit boxes at the Bank of Dominion utilise teleportation to make sure that clients' items are available at every branch.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[at the VIP deposit boxes in the Bank of Dominion]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_GOLD</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

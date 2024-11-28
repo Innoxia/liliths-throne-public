@@ -8,6 +8,8 @@
 		i.e. 'elis_berries_found' will be identified as 'innoxia_elis_berries_found' during the game's runtime. -->
 	
 	<!-- Misc. encounters etc.: -->
+		<!-- For tracking whether or not the current dialogue is taking place in a friend's apartment (or in a room in the mansion) -->
+			<flag dailyReset="false">friendly_occupant_apartment</flag>
 		<!-- Alleyway attackers -->
 			<flag dailyReset="false">alleyway_submission_tattooed_pussy</flag>
 			<flag dailyReset="false">alleyway_submission_tattooed_ass</flag>
@@ -50,6 +52,106 @@
 			<flag dailyReset="false">lights_out_hannah_sex</flag>
 			<flag resetHour="20">lights_out_hannah_last_night_met</flag>
 			<flag resetHour="20">lights_out_hannah_last_night_sex</flag>
+		
+		<!-- Lovienne's Luxuries: -->
+			<flag dailyReset="false">sex_shop_display_on</flag>
+			<flag dailyReset="false">sex_shop_talk_background</flag>
+			<flag dailyReset="false">sex_shop_talk_lovienne</flag>
+			
+			<flag dailyReset="false">sex_shop_tour_obedience</flag>
+			<flag dailyReset="false">sex_shop_tour_power</flag>
+			<flag dailyReset="false">sex_shop_tour_silicone</flag>
+			<flag dailyReset="false">sex_shop_tour_realism</flag>
+			<flag dailyReset="false">sex_shop_saellatrix_following</flag>
+			<flag resetHour="8">sex_shop_daily_tour</flag>
+			<flag dailyReset="false">sex_shop_had_factory_tour</flag>
+			
+			<flag dailyReset="false">sex_shop_dolls_unlocked</flag>
+			<flag dailyReset="false">sex_shop_tour_question_toy_machines</flag>
+			<flag dailyReset="false">sex_shop_tour_question_doll_storage</flag>
+			
+			<flag dailyReset="false">sex_shop_oral_offer</flag>
+			<flag dailyReset="false">sex_shop_choker_snapped</flag>
+			<flag dailyReset="false">sex_shop_choker_survived</flag>
+			<flag dailyReset="false">sex_shop_discount</flag>
+			<flag dailyReset="false">sex_shop_penalty</flag>
+			<flag resetHour="8">sex_shop_saellatrix_sex</flag>
+			
+			<flag dailyReset="false">sex_shop_escorted_out</flag>
+			
+		<!-- Lovienne's Luxuries - Factory: -->
+			<flag dailyReset="false">doll_factory_intro_triggered</flag>
+			<flag dailyReset="false">doll_factory_encountered_locked_door_1</flag>
+			<flag dailyReset="false">doll_factory_unlocked_locked_door_1</flag>
+			<flag dailyReset="false">doll_factory_broken_locked_door_1</flag>
+			<flag dailyReset="false">doll_factory_vents_discovered_1</flag>
+			
+			<flag dailyReset="false">doll_factory_main_area_discovered</flag>
+			<flag dailyReset="false">doll_factory_encountered_locked_door_2</flag>
+			<flag dailyReset="false">doll_factory_unlocked_locked_door_2</flag>
+			<flag dailyReset="false">doll_factory_broken_locked_door_2</flag>
+			
+			<flag dailyReset="false">doll_factory_vents_event_triggered_2</flag>
+			<flag dailyReset="false">doll_factory_vents_discovered_2</flag>
+			<flag dailyReset="false">doll_factory_vents_locked_2</flag>
+			<flag dailyReset="false">doll_factory_fia_horny</flag>
+			
+			<flag dailyReset="false">doll_factory_succubus_seen_anal</flag>
+			<flag dailyReset="false">doll_factory_succubus_seen_virgin</flag>
+			<flag dailyReset="false">doll_factory_succubus_seen_oral</flag>
+			<flag dailyReset="false">doll_factory_succubus_seen_breasts</flag>
+			<flag dailyReset="false">doll_factory_succubus_seen_penis</flag>
+			
+			<flag dailyReset="false">doll_factory_sister_talked</flag>
+			<flag dailyReset="false">doll_factory_fia_in_hiding</flag>
+			
+			<flag dailyReset="false">doll_factory_slimes_discovered</flag>
+			<flag dailyReset="false">doll_factory_sleip_nir_seen</flag>
+			<flag dailyReset="false">doll_factory_sleip_nir_defeated</flag>
+			<flag dailyReset="false">doll_factory_sleip_nir_fucked</flag>
+			
+			<flag dailyReset="false">doll_factory_unlocked_locked_door_3</flag>
+			<flag dailyReset="false">doll_factory_search_machines</flag>
+			<flag dailyReset="false">doll_factory_search_table</flag>
+			<flag dailyReset="false">doll_factory_search_desk</flag>
+			
+			<flag dailyReset="false">doll_factory_seen_dollification_machine</flag>
+			
+			<flag dailyReset="false">doll_factory_player_dollified</flag>
+			<flag dailyReset="false">doll_factory_pre_dollification_feminine</flag>
+			
+			<flag dailyReset="false">doll_factory_ending_riot_witnessed</flag>
+			<flag dailyReset="false">doll_factory_ending_reopen_scene_seen</flag>
+			
+		<!-- Angelixx's apartment: -->
+			<flag dailyReset="false">sleip_nir_apartment_seen</flag>
+			<flag dailyReset="false">sleip_nir_apartment_lounge_seen</flag>
+			<flag resetHour="12">sleip_nir_conversation_talked</flag>
+			<flag resetHour="12">sleip_nir_leave_denied</flag>
+			<flag resetHour="12">angelixx_apartment_visited</flag>
+			
+			<flag resetHour="12">angelixx_bedroom_talked</flag>
+			<flag resetHour="12">angelixx_bedroom_flirted</flag>
+			<flag dailyReset="false">angelixx_demands_unlocked</flag>
+			<flag dailyReset="false">angelixx_club_jules_targeting_player</flag>
+			
+		<!-- meeting Fia: -->
+			<flag resetHour="12">fia_bar_seen</flag>
+			<flag dailyReset="false">inky_obtained</flag>
+			<flag resetHour="12">fia_talk_small_talk</flag>
+			<flag resetHour="12">fia_talk_background</flag>
+			<flag resetHour="12">fia_talk_newspaper</flag>
+			<flag resetHour="12">fia_bar_alcohol_refused</flag>
+			<flag resetHour="12">fia_condoms_taken</flag>
+			
+			<flag dailyReset="false">fia_talk_stories</flag>
+			<flag dailyReset="false">fia_story_slime_queen</flag>
+			<flag dailyReset="false">fia_story_vengar</flag>
+			<flag dailyReset="false">fia_story_hlf_base</flag>
+			<flag dailyReset="false">fia_stories_complete</flag>
+
+			
+			
 	
 	<!-- Submission:-->
 		<flag dailyReset="false">elizabeth_routine_started</flag>
@@ -106,6 +208,9 @@
 		<!-- Evelyx's Dairy: -->
 			<flag dailyReset="true">dale_talk_himself</flag>
 			<flag dailyReset="true">dale_talk_work</flag>
+			<flag dailyReset="false">dale_talk_work_revealed</flag>
+			<flag dailyReset="false">dale_talk_sleep</flag>
+			<flag dailyReset="false">dale_teddy_bear_given</flag>
 			<flag dailyReset="true">dale_talk_evelyx</flag>
 			<flag dailyReset="true">dale_talk_farm</flag>
 			<flag dailyReset="true">dale_talk_lunette</flag>
@@ -323,21 +428,62 @@
 		<flag dailyReset="false">elis_enforcers_talk_work</flag>
 		<flag dailyReset="false">elis_enforcers_talk_career</flag>
 		<flag dailyReset="false">elis_enforcers_talk_lunette</flag>
+		<flag dailyReset="false">elis_enforcers_talk_sword</flag>
 		<!-- Sterope: -->
 			<flag dailyReset="false">sterope_unlocked</flag>
 			<flag dailyReset="false">sterope_met_in_tavern</flag>
+			<flag dailyReset="false">sterope_searching_for_taur</flag>
 			<flag resetHour="12">sterope_sex</flag>
 			<flag resetHour="12">sterope_with_centaur</flag>
 			<flag dailyReset="false">sterope_fully_furry</flag>
+			<flag dailyReset="false">sterope_transformed_into_feral</flag>
 			<flag dailyReset="false">sterope_centaur_fucks_sterope_first</flag>
+			<flag dailyReset="false">sterope_had_centaur_threesome</flag>
+		<!-- SWORD -->
+			<flag dailyReset="false">elis_sword_met</flag>
+			<flag dailyReset="false">hammer_following</flag>
+			<flag dailyReset="false">ghost_following</flag>
+			<flag dailyReset="false">sword_mission_discuss_refugees</flag>
+			<flag dailyReset="false">sword_mission_discuss_plan</flag>
+			<flag dailyReset="false">sword_mission_discuss_succubus</flag>
+			
+			<flag dailyReset="false">sword_mission_talk_weapons</flag>
+			<flag dailyReset="false">sword_mission_talk_gang</flag>
+			<flag dailyReset="false">sword_mission_talk_succubus</flag>
+			<flag dailyReset="false">sword_mission_talk_backup</flag>
+			<flag dailyReset="false">sword_mission_talk_history</flag>
+			<flag dailyReset="false">sword_mission_chose_hammer</flag>
+			<flag dailyReset="false">sword_mission_fought</flag>
+			<flag dailyReset="false">sword_mission_reward</flag>
+			
+			<flag dailyReset="false">sword_mission_back_door</flag>
+			<flag dailyReset="false">sword_mission_kitchen</flag>
+			<flag dailyReset="false">sword_mission_shop_floor</flag>
+			<flag dailyReset="false">sword_mission_exit</flag>
+			<flag dailyReset="false">sword_mission_storage</flag>
+			<flag dailyReset="false">sword_mission_searched_storage</flag>
+			<flag dailyReset="false">sword_mission_bathroom</flag>
+			<flag dailyReset="false">sword_mission_react_needed</flag>
+			
+			<flag dailyReset="false">sword_talk_elis</flag>
+			<flag dailyReset="false">sword_talk_history</flag>
+			<flag dailyReset="false">sword_talk_oricl</flag>
+			<flag dailyReset="false">sword_talk_human_rebellion</flag>
+			<flag dailyReset="false">sword_talk_hlf</flag>
+			<flag dailyReset="false">sword_history_revealed</flag>
+			<flag dailyReset="false">sword_talk_quest_complete</flag>
+			
+			
+			
 			
 		
-		
-	
 	
 	<!-- You can ignore this section, I just use it to track the ids of saved long values (using [#flags.setSavedLong(id, value)] calls)
+	
 	meraxis_duel_player_wins (Meraxis duel player wins)
 	meraxis_duel_player_losses (Meraxis duel player losses)
+	
+	saellatrix_tour_start (Saellatrix factory tour timer)
 	
 	evelyx_work_level (The level of the player when working for Evelyx, from 0 to 2)
 	evelyx_work_hours (The number of hours that the player has worked in the current session during Evelyx milking)
@@ -349,6 +495,18 @@
 	
 	gym_perk_progress (Progress towards the perk unlock in Pix's gym)
 	boxing_perk_progress (Progress towards the boxing perk unlock in Pix's gym)
+	
+	saellatrix_tour_start (timing for Saellatrix's factory tour)
+	fia_factory_finished (time in seconds when finished the Fiammetta factory exploration quest)
+	player_saved_essence_count (used to restore essences after reverting dollification)
+	player_doll_number (the player's unique doll barcode number)
+	bad_end_dollification_events_count (used to track how many of the four events have been triggered during the dollification bad end)
+	bad_end_dollification_owner (used to track the final scene during the dollification bad end)
+	
+	sleip_nir_conversation_progress (used to track how long it takes before Sleip and Nir try to fuck player)
+	angelixx_club_progress (used to track progress through the clubbing scene with Angelixx)
+	
+	fia_whiskey_sips (tracking how many sips of whiskey the player has had when meeting Fia in a bar)
 	-->
 	
 </dialogueFlags>

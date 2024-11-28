@@ -191,7 +191,7 @@ public class Evelyx extends NPC {
 		
 		
 		// Body:
-		this.setAgeAppearanceDifferenceToAppearAsAge(18);
+		this.setAgeAppearanceAbsolute(18);
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setWingType(WingType.NONE);
 		this.setLegType(LegType.DEMON_HOOFED);
@@ -206,7 +206,7 @@ public class Evelyx extends NPC {
 		
 		// Coverings:
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, PresetColour.EYE_ORANGE));
-		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, PresetColour.COVERING_BLUE_LIGHT), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, PresetColour.SKIN_BLUE_LIGHT), true);
 		
 		this.setSkinCovering(new Covering(BodyCoveringType.HORN, CoveringPattern.OMBRE, CoveringModifier.SMOOTH, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_ORANGE, false), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, PresetColour.COVERING_ORANGE, false, PresetColour.COVERING_ORANGE, false), false);
@@ -1230,7 +1230,7 @@ public class Evelyx extends NPC {
 		princess.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.ZERO_HATE);
 		
 		// Body:
-		princess.setAgeAppearanceDifferenceToAppearAsAge(32);
+		princess.setAgeAppearanceAbsolute(32);
 		princess.setBody(Gender.F_P_V_B_FUTANARI, Subspecies.DEMON, RaceStage.GREATER, false);
 		princess.setWingType(WingType.NONE);
 		princess.setHornType(HornType.CURVED);
@@ -1344,7 +1344,7 @@ public class Evelyx extends NPC {
 		princess.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_axe_battle", DamageType.FIRE));
 		
 		princess.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_velvet_choker", PresetColour.CLOTHING_BLACK, false), true, princess);
-		princess.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_nipple_tape_crosses", PresetColour.CLOTHING_BLACK, false), true, princess);
+		princess.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_tape_roll", PresetColour.CLOTHING_BLACK, false), true, princess);
 		princess.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_wraps", PresetColour.CLOTHING_BLACK, false), true, princess);
 		
 		AbstractClothing ring = Main.game.getItemGen().generateClothing("innoxia_finger_gemstone_ring_unisex", PresetColour.CLOTHING_PLATINUM, PresetColour.CLOTHING_RED_VERY_DARK, null, false);

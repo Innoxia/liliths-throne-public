@@ -30,6 +30,7 @@ import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotTag;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -62,6 +63,14 @@ public interface SexManagerInterface {
 	
 	public boolean isAbleToSkipSexScene();
 
+	public default int getStartingLust(GameCharacter character) {
+		return -1;
+	}
+
+	public default int getStartingArousal(GameCharacter character) {
+		return -1;
+	}
+	
 	/**
 	 * @return The SexPace that this character should have at the start of this sex scene.
 	 *  Unlike the <i>getForcedSexPace(character)</i> method, this method does <b>not</b> lock the character into the specified sex pace for the duration of this sex scene.
@@ -77,6 +86,9 @@ public interface SexManagerInterface {
 		return null;
 	}
 	
+	/**
+	 * @return Maps ImmobilisationType -> character who applied the immobilisation -> characters immobilised in this manner
+	 */
 	public default Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> getStartingCharactersImmobilised() {
 		return new HashMap<>();
 	}
@@ -182,14 +194,24 @@ public interface SexManagerInterface {
 	}
 	
 	public default boolean isRapePlayBannedAtStart(GameCharacter character) {
-		return true;
+		return !Main.getProperties().hasValue(PropertyValue.rapePlayAtSexStart);
 	}
 	
 	public default boolean isSlotAvailable(GameCharacter character, SexSlot slot) {
+		if(character.isAsleep()) {
+			return slot==Main.sex.getSexPositionSlot(character); // If asleep, do not allow changing out of current slot
+		}
+		if(slot.hasTag(SexSlotTag.MATING_PRESS) && Main.sex.getAllParticipants(false).stream().anyMatch(c->c.isAsleep())) {
+			return false; // DO not allow mating press if characters are sleeping
+		}
 		return true;
 	}
 	
 	public default List<AbstractSexPosition> getAllowedSexPositions() {
+		if(Main.sex.getAllParticipants(false).stream().anyMatch(c->c.isAsleep())) {
+			return Util.newArrayListOfValues(Main.sex.getPosition()); // If asleep, do not allow changing out of current position
+		}
+		
 		List<AbstractSexPosition> positions = Util.newArrayListOfValues(
 				SexPosition.ALL_FOURS,
 				SexPosition.LYING_DOWN,
@@ -303,45 +325,55 @@ public interface SexManagerInterface {
 	}
 	
 	public default void initStartingLustAndArousal(GameCharacter character) {
-		float startingLust = character.getLust();
-		
-		character.setLustNoText(50);
-		character.setArousal(0);
-		if(Main.sex.isDom(character)) {
-			if(character.hasFetish(Fetish.FETISH_DOMINANT)) {
-				character.setLustNoText(85);
-				character.setArousal(10);
-			} else if(character.hasFetish(Fetish.FETISH_SUBMISSIVE)) {
-				character.setLustNoText(10);
-			}
+		if(getStartingLust(character)>=0) {
+			character.setLustNoText(getStartingLust(character));
+			character.setArousal(getStartingLust(character)*0.15f);
+			
 		} else {
-			if(character.hasFetish(Fetish.FETISH_SUBMISSIVE)) {
-				character.setLustNoText(85);
-				character.setArousal(10);
+			float startingLust = character.getLust();
+			
+			character.setLustNoText(50);
+			character.setArousal(0);
+			if(Main.sex.isDom(character)) {
+				if(character.hasFetish(Fetish.FETISH_DOMINANT)) {
+					character.setLustNoText(85);
+					character.setArousal(10);
+				} else if(character.hasFetish(Fetish.FETISH_SUBMISSIVE)) {
+					character.setLustNoText(10);
+				}
+			} else {
+				if(character.hasFetish(Fetish.FETISH_SUBMISSIVE)) {
+					character.setLustNoText(85);
+					character.setArousal(10);
+				}
 			}
-		}
-		if(character.getLust()<startingLust) {
-			character.setLustNoText(startingLust);
-			character.setArousal(startingLust*0.15f);
-		}
-		
-		if(Main.getProperties().hasValue(PropertyValue.nonConContent)) {
-			if(!character.isPlayer() && !Main.sex.isMasturbation()) {
-				int attracted = 0;
-				int unattracted = 0;
-				for(GameCharacter target : (Main.sex.isDom(character)?Main.sex.getSubmissiveParticipants(false).keySet():Main.sex.getDominantParticipants(false).keySet())) {
-					if(character.isAttractedTo(target)) {
-						attracted++;
-					} else {
-						unattracted++;
+			if(character.getLust()<startingLust) {
+				character.setLustNoText(startingLust);
+				character.setArousal(startingLust*0.15f);
+			}
+			
+			if(Main.getProperties().hasValue(PropertyValue.nonConContent)) {
+				if(!character.isPlayer() && !Main.sex.isMasturbation()) {
+					int attracted = 0;
+					int unattracted = 0;
+					for(GameCharacter target : (Main.sex.isDom(character)?Main.sex.getSubmissiveParticipants(false).keySet():Main.sex.getDominantParticipants(false).keySet())) {
+						if(character.isAttractedTo(target)) {
+							attracted++;
+						} else {
+							unattracted++;
+						}
+					}
+					if(attracted==0) {
+						character.setLustNoText(0); // If they aren't attracted to anyone, start resisting
+					} else if(unattracted>0) {
+						character.setLustNoText(character.getLust()/2); // If they are attracted to some, but not all, halve starting lust
 					}
 				}
-				if(attracted==0) {
-					character.setLustNoText(0); // If they aren't attracted to anyone, start resisting
-				} else if(unattracted>0) {
-					character.setLustNoText(character.getLust()/2); // If they are attracted to some, but not all, halve starting lust
-				}
 			}
+		}
+		
+		if(getStartingArousal(character)>=0) {
+			character.setArousal(getStartingArousal(character));
 		}
 	}
 	
@@ -623,7 +655,9 @@ public interface SexManagerInterface {
 			if(isCharactersReactingToExposedAreas()) {
 				for(GameCharacter reactor : charactersReacting) {
 					if(!reactor.equals(characterBeingRevealed) && !characterBeingRevealed.getInventorySlotsConcealed(reactor).containsKey(InventorySlot.ANUS)) {
-						reaction.append(reactor.getAssRevealDescription(characterBeingRevealed, reactor, locationSpecific));
+						reaction.append("<p>");
+							reaction.append(reactor.getAssRevealDescription(characterBeingRevealed, reactor, locationSpecific));
+						reaction.append("</p>");
 					}
 				}
 			}
@@ -649,7 +683,9 @@ public interface SexManagerInterface {
 			if(isCharactersReactingToExposedAreas()) {
 				for(GameCharacter reactor : charactersReacting) {
 					if(!reactor.equals(characterBeingRevealed) && !characterBeingRevealed.getInventorySlotsConcealed(reactor).containsKey(InventorySlot.VAGINA)) {
-						reaction.append(reactor.getVaginaRevealDescription(characterBeingRevealed, reactor));
+						reaction.append("<p>");
+							reaction.append(reactor.getVaginaRevealDescription(characterBeingRevealed, reactor));
+						reaction.append("</p>");
 					}
 				}
 			}
@@ -675,7 +711,9 @@ public interface SexManagerInterface {
 			if(isCharactersReactingToExposedAreas()) {
 				for(GameCharacter reactor : charactersReacting) {
 					if(!reactor.equals(characterBeingRevealed) && !characterBeingRevealed.getInventorySlotsConcealed(reactor).containsKey(InventorySlot.NIPPLE)) {
-						reaction.append(reactor.getBreastsRevealDescription(characterBeingRevealed, reactor));
+						reaction.append("<p>");
+							reaction.append(reactor.getBreastsRevealDescription(characterBeingRevealed, reactor));
+						reaction.append("</p>");
 					}
 				}
 			}
@@ -701,7 +739,9 @@ public interface SexManagerInterface {
 			if(isCharactersReactingToExposedAreas()) {
 				for(GameCharacter reactor : charactersReacting) {
 					if(!reactor.equals(characterBeingRevealed) && !characterBeingRevealed.getInventorySlotsConcealed(reactor).containsKey(InventorySlot.STOMACH)) {
-						reaction.append(reactor.getBreastsCrotchRevealDescription(characterBeingRevealed, reactor));
+						reaction.append("<p>");
+							reaction.append(reactor.getBreastsCrotchRevealDescription(characterBeingRevealed, reactor));
+						reaction.append("</p>");
 					}
 				}
 			}
@@ -727,7 +767,9 @@ public interface SexManagerInterface {
 			if(isCharactersReactingToExposedAreas()) {
 				for(GameCharacter reactor : charactersReacting) {
 					if(!reactor.equals(characterBeingRevealed) && !characterBeingRevealed.getInventorySlotsConcealed(reactor).containsKey(InventorySlot.PENIS)) {
-						reaction.append(reactor.getPenisRevealDescription(characterBeingRevealed, reactor));
+						reaction.append("<p>");
+							reaction.append(reactor.getPenisRevealDescription(characterBeingRevealed, reactor));
+						reaction.append("</p>");
 					}
 				}
 			}
@@ -748,7 +790,9 @@ public interface SexManagerInterface {
 			if(isCharactersReactingToExposedAreas()) {
 				for(GameCharacter reactor : charactersReacting) {
 					if(!reactor.equals(characterBeingRevealed) && !characterBeingRevealed.getInventorySlotsConcealed(reactor).containsKey(InventorySlot.VAGINA)) {
-						reaction.append(reactor.getMoundRevealDescription(characterBeingRevealed, reactor));
+						reaction.append("<p>");
+							reaction.append(reactor.getMoundRevealDescription(characterBeingRevealed, reactor));
+						reaction.append("</p>");
 					}
 				}
 			}
@@ -783,7 +827,7 @@ public interface SexManagerInterface {
 		return character.getSubmissiveTalk();
 	}
 	
-	public default GameCharacter getPreferredSexTarget(NPC character) {
+	public default GameCharacter getPreferredSexTarget(GameCharacter character) {
 		return character.getPreferredSexTarget();
 	}
 	

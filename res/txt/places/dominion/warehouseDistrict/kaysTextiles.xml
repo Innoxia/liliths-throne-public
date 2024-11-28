@@ -16,7 +16,7 @@
 	#IF(game.isExtendedWorkTime())
 		<p>
 			#IF(pc.getQuest(QUEST_LINE_RELATIONSHIP_NYAN_HELP)==QUEST_RELATIONSHIP_NYAN_3_STOCK_ISSUES_DOBERMANNS)
-				Although you've managed to discover that Wolfgang and Karl have seized control of Kay's business, you've yet to resolve the situation. Sooner or later, you're going to have to confront the two dobermanns again and convince them to leave Kay alone... 
+				Although you've managed to discover that Wolfgang and Karl have seized control of Kay's business, you've yet to resolve the situation. Sooner or later, you're going to have to confront the two dobermann-boys again and convince them to leave Kay alone... 
 			#ELSEIF(pc.isQuestProgressGreaterThan(QUEST_LINE_RELATIONSHIP_NYAN_HELP, QUEST_RELATIONSHIP_NYAN_3_STOCK_ISSUES_DOBERMANNS))
 				Having rescued [kay.namePos] business from Wolfgang and Karl, you've been given permission to come and go from the premises as you please. What's more, the thankful [kay.race] said that you could pay [kay.herHim] a personal visit whenever you feel like it...
 			#ELSE
@@ -65,7 +65,7 @@
 		[pc.Walking] over to stand before the receptionist's desk, you tell her that you're here regarding the halted shipments of enchanted goods to Nyan's Clothing Emporium, and that you'd like to see Kay himself as soon as possible. After looking you up and down, she lets out yet another weary sigh and slowly replies in a depressed tone, [style.speechFeminine(Sure, you can try to see Mr. Kay if you want to... Just go on ahead...)]
 	</p>
 	<p>
-		Motioning for you to continue on into the warehouse, the receptionist slouches down in her chair and casts her eyes downwards. Having secured an appointment with Kay, which you now know to be his surname, you prepare to set off into the building, but before you go, the receptionist seems to have a sudden change in attitude, and calls out, [style.speechFeminine(Hey, wait a sec! You look like you can take care of yourself, but I guess I should warn you anyway... There's a couple of dobermann bounty hunters up there who've effectively taken complete control of this place. They're not letting anyone see Mr. Kay, but maybe you can do something to get rid of them. If things continue like they are now, this place is going to go bust before long...)]
+		Motioning for you to continue on into the warehouse, the receptionist slouches down in her chair and casts her eyes downwards. Having secured an appointment with Kay, which you now know to be his surname, you prepare to set off into the building, but before you go, the receptionist seems to have a sudden change in attitude, and calls out, [style.speechFeminine(Hey, wait a sec! You look like you can take care of yourself, but I guess I should warn you anyway... There's a couple of dobermann-boy bounty hunters up there who've effectively taken complete control of this place. They're not letting anyone see Mr. Kay, but maybe you can do something to get rid of them. If things continue like they are now, this place is going to go bust before long...)]
 	</p>
 	<p>
 		Having received this warning, and now with a clue of what could have happened to Kay, you [pc.step] away from the receptionist's desk and prepare to head into the warehouse...
@@ -160,7 +160,7 @@
 		#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_RELATIONSHIP_NYAN_HELP, QUEST_RELATIONSHIP_NYAN_3_STOCK_ISSUES_DOBERMANNS))
 			Although the workers seem to be taking regular breaks to chat with one another, the rate at which they're pumping out new items of clothing is nothing short of astounding. With Wolfgang and Karl having been driven off, there's a happy, almost festive, mood in the air. Clearly having been told by [kay.name] that you're the one who saved them from the dobermann's tyranny, the textile workers offer you their jovial thanks and delightful smiles as you pass them by.
 		#ELSE
-			Although the workers are carrying out their tasks with an impressive level of efficiency, you can't help but notice how they all seem to look rather downcast. None of them ever stop to say anything to one another, and you can't help but notice how they sometimes cast a worried glance up at the overseer's station. The sooner that you're able to deal with the two dobermanns who've set up camp in there, the better it will be for everyone...
+			Although the workers are carrying out their tasks with an impressive level of efficiency, you can't help but notice how they all seem to look rather downcast. None of them ever stop to say anything to one another, and you can't help but notice how they sometimes cast a worried glance up at the overseer's station. The sooner that you're able to deal with the two dobermann-boys who've set up camp in there, the better it will be for everyone...
 		#ENDIF
 	</p>
 	]]>
@@ -181,7 +181,7 @@
 			#IF(game.getDialogueFlags().hasFlag(FLAG_suppliersEncountered))
 				 If you do decide to climb the stairs and head inside the overseer's station, you know that you'll be sure to encounter Wolfgang and Karl once again...
 			#ELSE
-				 If you do decide to climb the stairs and head inside the overseer's station, you know that you'll be sure to find the two dobermanns which the rabbit-girl receptionist warned you about...
+				 If you do decide to climb the stairs and head inside the overseer's station, you know that you'll be sure to find the two dobermann-boys which the rabbit-girl receptionist warned you about...
 			#ENDIF
 		#ENDIF
 	</p>
@@ -194,7 +194,7 @@
 	<htmlContent tag="DOBERMANNS"><![CDATA[
 	#IF(game.getDialogueFlags().hasFlag(FLAG_suppliersEncountered))
 		<p>
-			Although your last encounter with the dobermanns failed to result in the saving of Kay's business, you tell yourself that this time will be different. Climbing the stairs to the mezzanine floor, you once again deliver
+			Although your last encounter with the dobermann-boys failed to result in the saving of Kay's business, you tell yourself that this time will be different. Climbing the stairs to the mezzanine floor, you once again deliver
 			#IF(pc.isCowardly())
 				 a nervous knock to the door of the overseer's station. Shuffling your feet and taking a deep breath to calm yourself down, you wait until you hear Wolfgang's deep, gruff voice call out for you to enter before pushing the wooden door wide open and [pc.stepping] forwards into the room.
 			#ELSE
@@ -205,7 +205,7 @@
 			As you head into the overseer's station, you're greeted by the familiar sight of the haphazardly-arranged circle of its desks, chairs, and sofa. Countless empty beer bottles, pizza-boxes, and takeaway cartons of all kinds have been carelessly thrown into the corners of the room. The closed windows offer no ventilation nor escape for the thick fog of cigarette smoke which is hanging heavily in the still air.
 		</p>
 		<p>
-			Seemingly not at all bothered by the mess nor the choking atmosphere, the two dobermanns, who are once again sitting opposite one another in the middle of the circular arrangement of furniture, turn to look at you as you enter.
+			Seemingly not at all bothered by the mess nor the choking atmosphere, the two dobermann-boys, who are once again sitting opposite one another in the middle of the circular arrangement of furniture, turn to look at you as you enter.
 			#IF(pc.hasAnyEnforcerStatusEffect())
 				 Throwing down his hand of cards, Wolfgang looks you up and down, clearly taking note of the fact that you're wearing an Enforcer's uniform, before grunting, [wolfgang.speech(I don't give a shit if you're an Enforcer; you can't touch us! We've got a legally-binding contract to be here, so why don't you turn around and fuck off?)]
 			#ELSEIF(pc.getRace()==RACE_DEMON)
@@ -215,29 +215,29 @@
 			#ENDIF
 		</p>
 		<p>
-			Despite Wolfgang's insistence that what they're doing is legal, you can tell from the slightly concerned look on Karl's face that it's nothing but a bluff. Looking back and forth between the two dobermanns, you wonder how to handle the situation this time...
+			Despite Wolfgang's insistence that what they're doing is legal, you can tell from the slightly concerned look on Karl's face that it's nothing but a bluff. Looking back and forth between the two dobermann-boys, you wonder how to handle the situation this time...
 		</p>
 	#ELSE
 		<p>
-			Deciding that now's as good a time as any to confront the dobermanns and save Kay's business, you climb the stairs to the mezzanine floor and deliver
+			Deciding that now's as good a time as any to confront the dobermann-boys and save Kay's business, you climb the stairs to the mezzanine floor and deliver
 			#IF(pc.isCowardly())
-				 a nervous knock to the door of the overseer's station. As you do so, you notice that a sign has been crudely glued to the wall beside you, and in barely-legible handwriting, it declares that this business is 'Under the new management of Wolfgang and Karl', who you assume to be the two dobermanns the receptionist warned you about. Shuffling your feet in anticipation of the conflict ahead, you wait until you hear a deep, gruff voice call out for you to enter before pushing the wooden door wide open and [pc.stepping] forwards into the room.
+				 a nervous knock to the door of the overseer's station. As you do so, you notice that a sign has been crudely glued to the wall beside you, and in barely-legible handwriting, it declares that this business is 'Under the new management of Wolfgang and Karl', who you assume to be the two dobermann-boys the receptionist warned you about. Shuffling your feet in anticipation of the conflict ahead, you wait until you hear a deep, gruff voice call out for you to enter before pushing the wooden door wide open and [pc.stepping] forwards into the room.
 			#ELSE
-				 a sharp knock to the door of the overseer's station. As you do so, you notice that a sign has been crudely glued to the wall beside you, and in barely-legible handwriting, it declares that this business is 'Under the new management of Wolfgang and Karl', who you assume to be the two dobermanns the receptionist warned you about. Not waiting for a reply, you turn the handle and push the wooden door wide open, before [pc.stepping] forwards and entering the room.
+				 a sharp knock to the door of the overseer's station. As you do so, you notice that a sign has been crudely glued to the wall beside you, and in barely-legible handwriting, it declares that this business is 'Under the new management of Wolfgang and Karl', who you assume to be the two dobermann-boys the receptionist warned you about. Not waiting for a reply, you turn the handle and push the wooden door wide open, before [pc.stepping] forwards and entering the room.
 			#ENDIF
 		</p>
 		<p>
 			Although this overseer's station undoubtedly used to be kept just as tidy as the rest of the warehouse, its desks, chairs, and sofa have all been dragged into a haphazard circular arrangement. Countless empty beer bottles, pizza-boxes, and takeaway cartons of all kinds have been carelessly thrown into the corners of the room. The closed windows offer no ventilation nor escape for the thick fog of cigarette smoke which is hanging heavily in the still air.
 		</p>
 		<p>
-			The most striking feature in front of you, however, is the pair of black-and-brown-furred greater dobermann-boys who are sitting opposite one another in the middle of the circular arrangement of furniture. Clearly having interrupted their game of cards, your entry causes this muscular pair to menacingly growl in unison, showing off their rows of sharp canines in the process. The dobermann closest to you is a little taller and more muscular than the other, and you assume this one to be the leader, who therefore must be Wolfgang. His outfit of black jeans, shirt, and heavy work-boots is identical to that worn by his smaller companion, with the sole difference being that he's got a pair of gold-framed aviators pulled up onto his forehead.
+			The most striking feature in front of you, however, is the pair of black-and-brown-furred greater dobermann-boys who are sitting opposite one another in the middle of the circular arrangement of furniture. Clearly having interrupted their game of cards, your entry causes this muscular pair to menacingly growl in unison, showing off their rows of sharp canines in the process. The dobermann-boy closest to you is a little taller and more muscular than the other, and you assume this one to be the leader, who therefore must be Wolfgang. His outfit of black jeans, shirt, and heavy work-boots is identical to that worn by his smaller companion, with the sole difference being that he's got a pair of gold-framed aviators pulled up onto his forehead.
 		</p>
 		#IF(pc.hasAnyEnforcerStatusEffect())
 			<p>
 				It's Wolfgang who's first to speak, and after throwing his cards down on the table in front of him, he suddenly notices that you're wearing an Enforcer's uniform and grunts in surprise, [wolfgang.speech(An Enforcer, huh? There's no laws being broken here; we're hired on a contract that's going to run for at least another few months. We've got nothing to say to the likes of you, so how about you turn around and fuck off?)]
 			</p>
 			<p>
-				Despite Wolfgang's claim that what they're doing is legal, you can tell from the slightly worried look on Karl's face that it's nothing but a bluff. You're sure that it wouldn't be too hard to succeed with a bluff of your own, and by exploiting the fact that these dobermanns have mistaken you for an Enforcer, you could scare them off with the threat of arrest and potential enslavement...
+				Despite Wolfgang's claim that what they're doing is legal, you can tell from the slightly worried look on Karl's face that it's nothing but a bluff. You're sure that it wouldn't be too hard to succeed with a bluff of your own, and by exploiting the fact that these dobermann-boys have mistaken you for an Enforcer, you could scare them off with the threat of arrest and potential enslavement...
 			</p>
 		#ELSEIF(pc.getRace()==RACE_DEMON)
 			<p>
@@ -251,13 +251,13 @@
 				It's Wolfgang who's first to speak, and after throwing his cards down on the table in front of him, he rudely grunts, [wolfgang.speech(So who the fuck are you supposed to be?!)]
 			</p>
 			<p>
-				Seeing no reason to conceal your intentions, you tell the dobermanns that you're here to investigate why Kay has suddenly stopped communicating with his old clients. Knowing now that these two are responsible for this state of affairs, you tell them that they're going to have to leave the premises and leave Kay alone.
+				Seeing no reason to conceal your intentions, you tell the dobermann-boys that you're here to investigate why Kay has suddenly stopped communicating with his old clients. Knowing now that these two are responsible for this state of affairs, you tell them that they're going to have to leave the premises and leave Kay alone.
 			</p>
 			<p>
 				Letting out a deep, guttural laugh in response to your demand, Wolfgang spits on the floor and grunts, [wolfgang.speech(So, you're here to get rid of us, are you?! You ain't going to get far with that; we're hired here on a contract that's going to run for at least another few months. Everything's totally legal, so why don't you turn around and fuck off back to where you came from?)]
 			</p>
 			<p>
-				Despite Wolfgang's claim that what they're doing is legal, you can tell from the slightly concerned look on Karl's face that it's nothing but a bluff. Looking back and forth between the two dobermanns, you wonder how to handle this...
+				Despite Wolfgang's claim that what they're doing is legal, you can tell from the slightly concerned look on Karl's face that it's nothing but a bluff. Looking back and forth between the two dobermann-boys, you wonder how to handle this...
 			</p>
 		#ENDIF
 	#ENDIF
@@ -267,9 +267,9 @@
 	<htmlContent tag="DOBERMANNS_LEAVE"><![CDATA[
 	<p>
 		#IF(pc.isCowardly())
-			Suitably intimidated by the muscular dobermanns telling you to fuck off, you [pc.step] back towards the door, and before you're able to stop yourself, you're hurrying back down the staircase to the corridor below. Cursing yourself for being such a coward, you do your best to ignore the guttural laughter coming from the overseer's station and wonder what to do next...
+			Suitably intimidated by the muscular dobermann-boys telling you to fuck off, you [pc.step] back towards the door, and before you're able to stop yourself, you're hurrying back down the staircase to the corridor below. Cursing yourself for being such a coward, you do your best to ignore the guttural laughter coming from the overseer's station and wonder what to do next...
 		#ELSE
-			Deciding that this isn't the best time to be trying to confront these dobermanns, you [pc.step] back towards the door, before heading out and [pc.walking] back down the staircase to the corridor below. Telling yourself that you'll sort those two out sooner or later, you ignore the guttural laughter coming from the overseer's station and wonder what to do next...
+			Deciding that this isn't the best time to be trying to confront these dobermann-boys, you [pc.step] back towards the door, before heading out and [pc.walking] back down the staircase to the corridor below. Telling yourself that you'll sort those two out sooner or later, you ignore the guttural laughter coming from the overseer's station and wonder what to do next...
 		#ENDIF
 	</p>
 	]]>
@@ -284,19 +284,19 @@
 	</p>
 	<p>
 		#IF(pc.hasAnyEnforcerStatusEffect())
-			Picking up on what he's just said, you point out to Wolfgang that if 'what they're doing right now' isn't written in their contract, then they are potentially doing something illegal after all. Playing up to the fact that they've mistaken you for an Enforcer, you subtly suggest that everyone would like to avoid all of the work involved in making arrests. Seeing the worried look on Karl's face, you know that you've hit your mark, and once again ask the dobermanns if they'd like to take the easy way out and have the remainder of their contract paid off.
+			Picking up on what he's just said, you point out to Wolfgang that if 'what they're doing right now' isn't written in their contract, then they are potentially doing something illegal after all. Playing up to the fact that they've mistaken you for an Enforcer, you subtly suggest that everyone would like to avoid all of the work involved in making arrests. Seeing the worried look on Karl's face, you know that you've hit your mark, and once again ask the dobermann-boys if they'd like to take the easy way out and have the remainder of their contract paid off.
 		#ELSE
-			Picking up on what he's just said, you point out to Wolfgang that if 'what they're doing right now' isn't written in their contract, then they're sure to be found guilty of something if the Enforcers were ever to get involved. Subtly suggesting that everyone would like to avoid that particular legal process, you say how easy it would be for someone to walk over to the Enforcer HQ and bring this matter to the attention of the authorities. Seeing the worried look on Karl's face, you know that you've hit your mark, and once again ask the dobermanns if they'd like to have the remainder of their contract paid off.
+			Picking up on what he's just said, you point out to Wolfgang that if 'what they're doing right now' isn't written in their contract, then they're sure to be found guilty of something if the Enforcers were ever to get involved. Subtly suggesting that everyone would like to avoid that particular legal process, you say how easy it would be for someone to walk over to the Enforcer HQ and bring this matter to the attention of the authorities. Seeing the worried look on Karl's face, you know that you've hit your mark, and once again ask the dobermann-boys if they'd like to have the remainder of their contract paid off.
 		#ENDIF
 	</p>
 	<p>
 		Letting out a furious cross between a bark and a shout, Wolfgang slams the table with his fist, before standing up and striding towards you. Through clenched teeth, he snaps, [wolfgang.speech(We get the point! Fine, we'll have our contract paid off, but it's going to cost you [#SPECIAL_PARSE_0] flames!)]
 	</p>
 	<p>
-		Informing him that you'll have no problem in producing the funds, you wait until Karl has retrieved their contract of employment before agreeing to exchange it for [#SPECIAL_PARSE_0] of your flames. Quickly completing the transaction, you take possession of the contract as the dobermanns pocket the cash you've just given them. Just as Wolfgang said it was, the document looks very official, and holds the signatures of not only these two bounty hunters, but also Mr. Kay himself. Growling in annoyance as you tear the contract in two, Wolfgang turns to his companion and grunts, [wolfgang.speech(Come on then Karl, let's get out of here. Maybe there'll be some new bounties we can go after.)]
+		Informing him that you'll have no problem in producing the funds, you wait until Karl has retrieved their contract of employment before agreeing to exchange it for [#SPECIAL_PARSE_0] of your flames. Quickly completing the transaction, you take possession of the contract as the dobermann-boys pocket the cash you've just given them. Just as Wolfgang said it was, the document looks very official, and holds the signatures of not only these two bounty hunters, but also Mr. Kay himself. Growling in annoyance as you tear the contract in two, Wolfgang turns to his companion and grunts, [wolfgang.speech(Come on then Karl, let's get out of here. Maybe there'll be some new bounties we can go after.)]
 	</p>
 	<p>
-		Throwing one final glare your way, the two dobermann bounty hunters start to walk towards the door...
+		Throwing one final glare your way, the two dobermann-boy bounty hunters start to walk towards the door...
 	</p>
 	]]>
 	</htmlContent>
@@ -318,7 +318,7 @@
 		Requesting to see the contract of employment which Wolfgang previously mentioned, you wait as Karl fetches it and hands it over to you. Sure enough, it looks very official, and holds the signatures of not only these two bounty hunters, but also Mr. Kay himself. Growling in annoyance as you tear the contract in two, Wolfgang turns to his companion and grunts, [wolfgang.speech(Come on then Karl, let's get out of here. Maybe there'll be some new bounties we can go after.)]
 	</p>
 	<p>
-		Throwing one final glare your way, the two dobermann bounty hunters start to walk towards the door...
+		Throwing one final glare your way, the two dobermann-boy bounty hunters start to walk towards the door...
 	</p>
 	]]>
 	</htmlContent>
@@ -331,7 +331,7 @@
 		Having the most powerful of all aces up your sleeve, you can't help but smirk as you [pc.step] forwards and prepare to show these two lowly bounty hunters who you really are. Sensing that something's not quite right, Wolfgang stands up and glares at you, before grunting, [wolfgang.speech(What're you planning?! We're not going to be intimidated by the likes of you!)]
 	</p>
 	<p>
-		Deciding that now's the perfect time to reveal your true identity, you use your self-transformative powers to reshape your body into its demonic form. Unable to contain an amused laugh as you see the looks of shock and horror on the dobermanns' faces, you [pc.step] forwards and ask Wolfgang to repeat what he just said about not being intimidated by the likes of you.
+		Deciding that now's the perfect time to reveal your true identity, you use your self-transformative powers to reshape your body into its demonic form. Unable to contain an amused laugh as you see the looks of shock and horror on the dobermann-boys' faces, you [pc.step] forwards and ask Wolfgang to repeat what he just said about not being intimidated by the likes of you.
 	</p>
 	<p>
 		[wolfgang.speech(Hey, wait a minute, how was I supposed to know that you were a demon?!)] he demands, his voice betraying a tone of worry for the first time.
@@ -346,13 +346,13 @@
 		Smirking at his abrupt change in attitude, you refuse to move out of the way, and, seeing how far you can push these bullies, you demand that they hand over all of their ill-gotten gains. Frantically snapping his fingers at Karl, Wolfgang flashes you a smile and reassuringly replies, [wolfgang.speech(Of course, that'll be no problem. Karl here's got the money... Haven't you, Karl?!)] 
 	</p>
 	<p>
-		[karl.speech(Yeah, here it is, boss,)] Karl replies. Producing a small, cloth bag from beside where he was just sitting, the dobermann hurries forwards and hands it over to you, saying, [karl.speech(That's all we've got, it's about [#SPECIAL_PARSE_0] flames...)]
+		[karl.speech(Yeah, here it is, boss,)] Karl replies. Producing a small, cloth bag from beside where he was just sitting, the dobermann-boy hurries forwards and hands it over to you, saying, [karl.speech(That's all we've got, it's about [#SPECIAL_PARSE_0] flames...)]
 	</p>
 	<p>
-		Delighted with this unexpected windfall, you make one final request to the dobermanns; they're to hand over their contract of employment which Wolfgang previously mentioned. Desperate to do as you ask and escape your potential wrath, Wolfgang hands over the official-looking document, and you see that it holds the signatures of not only these two bounty hunters, but also Mr. Kay himself. Forcing himself to smile as you tear the contract in two, Wolfgang turns to his companion and hisses, [wolfgang.speech(Come on then Karl, we don't want to be annoying the nice friendly lilin for any longer... Let's get out of here!)]
+		Delighted with this unexpected windfall, you make one final request to the dobermann-boys; they're to hand over their contract of employment which Wolfgang previously mentioned. Desperate to do as you ask and escape your potential wrath, Wolfgang hands over the official-looking document, and you see that it holds the signatures of not only these two bounty hunters, but also Mr. Kay himself. Forcing himself to smile as you tear the contract in two, Wolfgang turns to his companion and hisses, [wolfgang.speech(Come on then Karl, we don't want to be annoying the nice friendly lilin for any longer... Let's get out of here!)]
 	</p>
 	<p>
-		Flashing you their best attempt at warm smiles, the two dobermann bounty hunters start to carefully walk around you and manoeuvre towards the door...
+		Flashing you their best attempt at warm smiles, the two dobermann-boy bounty hunters start to carefully walk around you and manoeuvre towards the door...
 	</p>
 	]]>
 	</htmlContent>
@@ -362,10 +362,10 @@
 	
 	<htmlContent tag="DOBERMANNS_DEMONIC_INTIMIDATION"><![CDATA[
 	<p>
-		Thinking that these lowly dobermanns aren't showing a [pc.daughter] of [#pc.getLilinMother().getName()] the respect you deserve, you [pc.step] forwards and prepare to let these two lowly bounty hunters know who you really are. Sensing that something's not quite right, Wolfgang stands up and glares at you, before grunting, [wolfgang.speech(What're you planning?! You may be a demon, but we're not going to be intimidated by any of your tricks!)]
+		Thinking that these lowly dobermann-boys aren't showing a [pc.daughter] of [#pc.getLilinMother().getName()] the respect you deserve, you [pc.step] forwards and prepare to let these two lowly bounty hunters know who you really are. Sensing that something's not quite right, Wolfgang stands up and glares at you, before grunting, [wolfgang.speech(What're you planning?! You may be a demon, but we're not going to be intimidated by any of your tricks!)]
 	</p>
 	<p>
-		Deciding that now's the perfect time to reveal your true identity, you use your self-transformative powers to reshape your body into your old human form. Unable to contain an amused laugh as you see the looks of shock and horror on the dobermanns' faces, you quickly transform back into your previous, demonic body, before [pc.stepping] forwards and asking Wolfgang to repeat what he just said about not being intimidated by the likes of you.
+		Deciding that now's the perfect time to reveal your true identity, you use your self-transformative powers to reshape your body into your old human form. Unable to contain an amused laugh as you see the looks of shock and horror on the dobermann-boys' faces, you quickly transform back into your previous, demonic body, before [pc.stepping] forwards and asking Wolfgang to repeat what he just said about not being intimidated by the likes of you.
 	</p>
 	<p>
 		[wolfgang.speech(Hey, wait a minute, how could you do that?!)] he demands, his voice betraying a tone of worry for the first time.
@@ -380,13 +380,13 @@
 		Smirking at his abrupt change in attitude, you refuse to move out of the way, and, seeing how far you can push these bullies, you demand that they hand over all of their ill-gotten gains. Frantically snapping his fingers at Karl, Wolfgang flashes you a smile and reassuringly replies, [wolfgang.speech(Of course, that'll be no problem. Karl here's got the money... Haven't you, Karl?!)] 
 	</p>
 	<p>
-		[karl.speech(Yeah, here it is, boss,)] Karl replies. Producing a small, cloth bag from beside where he was just sitting, the dobermann hurries forwards and hands it over to you, saying, [karl.speech(That's all we've got, it's about [#SPECIAL_PARSE_0] flames...)]
+		[karl.speech(Yeah, here it is, boss,)] Karl replies. Producing a small, cloth bag from beside where he was just sitting, the dobermann-boy hurries forwards and hands it over to you, saying, [karl.speech(That's all we've got, it's about [#SPECIAL_PARSE_0] flames...)]
 	</p>
 	<p>
-		Delighted with this unexpected windfall, you make one final request to the dobermanns; they're to hand over their contract of employment which Wolfgang previously mentioned. Desperate to do as you ask and escape your potential wrath, Wolfgang hands over the official-looking document, and you see that it holds the signatures of not only these two bounty hunters, but also Mr. Kay himself. Forcing himself to smile as you tear the contract in two, Wolfgang turns to his companion and hisses, [wolfgang.speech(Come on then Karl, we don't want to be annoying the nice friendly lilin for any longer... Let's get out of here!)]
+		Delighted with this unexpected windfall, you make one final request to the dobermann-boys; they're to hand over their contract of employment which Wolfgang previously mentioned. Desperate to do as you ask and escape your potential wrath, Wolfgang hands over the official-looking document, and you see that it holds the signatures of not only these two bounty hunters, but also Mr. Kay himself. Forcing himself to smile as you tear the contract in two, Wolfgang turns to his companion and hisses, [wolfgang.speech(Come on then Karl, we don't want to be annoying the nice friendly lilin for any longer... Let's get out of here!)]
 	</p>
 	<p>
-		Flashing you their best attempt at warm smiles, the two dobermann bounty hunters start to carefully walk around you and manoeuvre towards the door...
+		Flashing you their best attempt at warm smiles, the two dobermann-boy bounty hunters start to carefully walk around you and manoeuvre towards the door...
 	</p>
 	]]>
 	</htmlContent>
@@ -398,11 +398,11 @@
 	<p>
 		Deciding that the most fun way of resolving this conflict would be to seduce and fuck this hot pair of bounty hunters, you put on your most alluring look and slowly [pc.walk] towards where they're sitting.
 		#IF(pc.hasAnyEnforcerStatusEffect())
-			 Reassuring the two dobermanns that you're off-duty for the rest of today, you suggestively tease them by saying that Enforcers like to let themselves go just as much as anybody else.
+			 Reassuring the two dobermann-boys that you're off-duty for the rest of today, you suggestively tease them by saying that Enforcers like to let themselves go just as much as anybody else.
 		#ELSEIF(pc.getRace()==RACE_DEMON)
-			 Reassuring the two dobermanns that you're not going to make use of your demonic status to get them in trouble, you suggestively tease them by saying how your demonic body is always horny and hungry for a good fuck.
+			 Reassuring the two dobermann-boys that you're not going to make use of your demonic status to get them in trouble, you suggestively tease them by saying how your demonic body is always horny and hungry for a good fuck.
 		#ELSE
-			 Reassuring the two dobermanns that you've abandoned your plans of trying to get them to leave Kay alone, you start to suggestively tease and flirt with them.
+			 Reassuring the two dobermann-boys that you've abandoned your plans of trying to get them to leave Kay alone, you start to suggestively tease and flirt with them.
 		#ENDIF
 		 After suspiciously looking you up and down for a moment, Wolfgang lets out a deep grunt and motions for you to come and sit down next to him. Pleased to discover that even these brutes quickly let their guard down at the slightest suggestion of getting laid, you happily sit down in Wolfgang's lap, causing him to let out another deep, amused grunt and declare, [wolfgang.speech(Fuck! You're eager, aren't you?)]
 	</p>
@@ -416,7 +416,7 @@
 		[wolfgang.speech(Think of the money though, Karl,)] Wolfgang replies, [wolfgang.speech(The contract we got Kay to sign continues for another few months, and we're making bank every day by taking all the profits for ourselves!)]
 	</p>
 	<p>
-		Sensing that there's a point of discord between the two dobermanns, you pointedly express your sympathy for the two of them. After all, not being able to leave this room for so long will mean that they're not going to be able to enjoy the money that they're earning. What's more, it's a loss for all the single [pc.girls] in Dominion, who could have otherwise enjoyed a good, hard fuck from either one of them.
+		Sensing that there's a point of discord between the two dobermann-boys, you pointedly express your sympathy for the two of them. After all, not being able to leave this room for so long will mean that they're not going to be able to enjoy the money that they're earning. What's more, it's a loss for all the single [pc.girls] in Dominion, who could have otherwise enjoyed a good, hard fuck from either one of them.
 	</p>
 	<p>
 		[karl.speech([pc.SheIs] right!)] Karl exclaims, [karl.speech(This job fucking sucks; we should just leave it and go back to the usual bounty hunting.)] 
@@ -434,7 +434,7 @@
 		[karl.speech(Sounds good to me,)] Karl replies, before standing up and moving over to dominantly give your [pc.breasts+] a rough squeeze.
 	</p>
 	<p>
-		Feeling just as turned-on as these two dobermanns clearly are, and not wanting to risk the two of them changing their mind and choosing to remain here after all, you seductively bite your lip and wonder what to offer them...
+		Feeling just as turned-on as these two dobermann-boys clearly are, and not wanting to risk the two of them changing their mind and choosing to remain here after all, you seductively bite your lip and wonder what to offer them...
 	</p>
 	]]>
 	</htmlContent>
@@ -447,23 +447,23 @@
 		Wolfgang and Karl stagger back, before collapsing down onto the haphazardly-arranged collection of furniture in the middle of the room. Looking up and you and panting from exertion, Wolfgang begs, [wolfgang.speech(N-No more! Please!)]
 	</p>
 	<p>
-		[pc.Stepping] forwards with a triumphant smirk on your face, you look down at the defeated pair and demand to know where they're keeping the contract they were talking about earlier. Accepting their defeat, Wolfgang pulls the folded-up document out from one of his pockets and tosses it over to you. Taking a close look at the official-looking contract, you see that it holds the signatures of not only these two bounty hunters, but also Mr. Kay himself. Quickly tearing the contract in two, you tell the dobermanns that their fun is over.
+		[pc.Stepping] forwards with a triumphant smirk on your face, you look down at the defeated pair and demand to know where they're keeping the contract they were talking about earlier. Accepting their defeat, Wolfgang pulls the folded-up document out from one of his pockets and tosses it over to you. Taking a close look at the official-looking contract, you see that it holds the signatures of not only these two bounty hunters, but also Mr. Kay himself. Quickly tearing the contract in two, you tell the dobermann-boys that their fun is over.
 	</p>
 	<p>
 		[wolfgang.speech(Fine...)] Wolfgang pants, [wolfgang.speech(Just let us go...)]
 	</p>
 	<p>
-		Breathing a sigh of relief as you realise that your work here is done, you wonder whether you should take advantage of the dobermanns' defeated state, or instead do as Wolfgang asks and let them leave...
+		Breathing a sigh of relief as you realise that your work here is done, you wonder whether you should take advantage of the dobermann-boys' defeated state, or instead do as Wolfgang asks and let them leave...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="OFFICE_VICTORY_FUCK_THEM"><![CDATA[
 	<p>
-		The sight of these two dobermanns collapsed down before you is too much for you to resist. Deciding to have some fun, you step forwards and declare, [pc.speech(Unless you want to keep on fighting, you're going to get down on all fours and present yourselves to me!)]
+		The sight of these two dobermann-boys collapsed down before you is too much for you to resist. Deciding to have some fun, you step forwards and declare, [pc.speech(Unless you want to keep on fighting, you're going to get down on all fours and present yourselves to me!)]
 	</p>
 	<p>
-		Both Wolfgang and Karl let out a synchronised groan, but despite this reaction, they clearly realise that they have no choice in the matter and so reluctantly do as you say. Dropping down onto all fours, the two dobermanns shuffle around to present their asses towards you. As they do this, the power of your arcane aura starts to overwhelm their initial reluctance, and by the time they're fully in position they're excitedly panting in anticipation of what's to come.
+		Both Wolfgang and Karl let out a synchronised groan, but despite this reaction, they clearly realise that they have no choice in the matter and so reluctantly do as you say. Dropping down onto all fours, the two dobermann-boys shuffle around to present their asses towards you. As they do this, the power of your arcane aura starts to overwhelm their initial reluctance, and by the time they're fully in position they're excitedly panting in anticipation of what's to come.
 	</p>
 	<p>
 		Dropping down onto your knees behind them, you reach forwards and grope their asses, grinning to yourself as they respond by letting out a desperate whine. [pc.speech(Good boys! It's time to have some fun!)]
@@ -480,7 +480,7 @@
 	</p>
 	#IF(game.isNonConEnabled())
 		<p>
-			The two dobermanns move towards you, grinning lustfully as they gaze down at your vulnerable body. Letting out a deep, guttural growl, Wolfgang gloats, [wolfgang.speech(You really thought you could beat us?! Now, let's have you use your hot little body to apologise for causing us so much trouble!)]
+			The two dobermann-boys move towards you, grinning lustfully as they gaze down at your vulnerable body. Letting out a deep, guttural growl, Wolfgang gloats, [wolfgang.speech(You really thought you could beat us?! Now, let's have you use your hot little body to apologise for causing us so much trouble!)]
 		</p>
 		<p>
 			[karl.speech([pc.She] looks like [pc.sheIs] going to be a good fuck,)] Karl grunts, before reaching down to push you over onto all fours.
@@ -493,7 +493,7 @@
 		</p>
 	#ELSE
 		<p>
-			The two dobermanns move towards you, grinning lustfully as they gaze down at your vulnerable body. Letting out a deep, guttural growl, Wolfgang gloats, [wolfgang.speech(You really thought you could beat us?! Now, how about you use your hot little body to apologise for causing us so much trouble?!)]
+			The two dobermann-boys move towards you, grinning lustfully as they gaze down at your vulnerable body. Letting out a deep, guttural growl, Wolfgang gloats, [wolfgang.speech(You really thought you could beat us?! Now, how about you use your hot little body to apologise for causing us so much trouble?!)]
 		</p>
 		<p>
 			[karl.speech([pc.She] looks like [pc.she]'d be a good fuck,)] Karl grunts, before reaching down to push you over onto all fours and then asking, [karl.speech(So, what's it going to be? You hungry for dobermann cock, slut?)]
@@ -507,33 +507,33 @@
 	
 	<htmlContent tag="DOBERMANNS_COMBAT_PLAYER_LOSS_FUCKED"><![CDATA[
 	<p>
-		Turned on by the dominant dobermanns' behaviour, you push your [pc.hips+] back against Wolfgang and let out [pc.a_moan]. Grunting in delight at your response, the two dobermanns quickly pull out their huge, throbbing dog-cocks. Rubbing his hot shaft up and down over your ass, Wolfgang grunts, [wolfgang.speech(Ready for this, you horny slut?!)]
+		Turned on by the dominant dobermann-boys' behaviour, you push your [pc.hips+] back against Wolfgang and let out [pc.a_moan]. Grunting in delight at your response, the two dobermann-boys quickly pull out their huge, throbbing dog-cocks. Rubbing his hot shaft up and down over your ass, Wolfgang grunts, [wolfgang.speech(Ready for this, you horny slut?!)]
 	</p>
 	<p>
 		Pushing his own knotted, scarlet-coloured cock towards your face, Karl smirks down at you and adds, [karl.speech(Until we're satisfied, you belong to us, bitch!)]
 	</p>
 	<p>
-		Letting out another horny [pc.moan] in response to the dobermanns' insults, you prepare to be dominantly fucked by them...
+		Letting out another horny [pc.moan] in response to the dobermann-boys' insults, you prepare to be dominantly fucked by them...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="DOBERMANNS_COMBAT_PLAYER_LOSS_FUCKED_EAGER"><![CDATA[
 	<p>
-		Massively turned on by the dominant dobermanns' behaviour, you eagerly push your [pc.hips+] back against Wolfgang and let out [pc.a_moan+]. Grunting in delight at your enthusiastic response, the two dobermanns quickly pull out their huge, throbbing dog-cocks. Rubbing his hot shaft up and down over your ass, Wolfgang grunts, [wolfgang.speech(Ready for this, you horny slut?!)]
+		Massively turned on by the dominant dobermann-boys' behaviour, you eagerly push your [pc.hips+] back against Wolfgang and let out [pc.a_moan+]. Grunting in delight at your enthusiastic response, the two dobermann-boys quickly pull out their huge, throbbing dog-cocks. Rubbing his hot shaft up and down over your ass, Wolfgang grunts, [wolfgang.speech(Ready for this, you horny slut?!)]
 	</p>
 	<p>
 		Pushing his own knotted, scarlet-coloured cock towards your face, Karl smirks down at you and adds, [karl.speech(Until we're satisfied, you belong to us, bitch!)]
 	</p>
 	<p>
-		Letting out another desperately-horny [pc.moan] in response to the dobermanns' insults, you happily prepare to be dominantly fucked by them...
+		Letting out another desperately-horny [pc.moan] in response to the dobermann-boys' insults, you happily prepare to be dominantly fucked by them...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="DOBERMANNS_COMBAT_PLAYER_LOSS_THROWN_OUT"><![CDATA[
 	<p>
-		Not at all willing to submit to these dobermanns, and definitely not prepared to let them fuck you, you push both Wolfgang and Karl away from you and tell them in no uncertain terms to leave you alone. Grunting in annoyance at your hostile reaction, the two bounty hunters stand up, before Wolfgang exclaims, [wolfgang.speech(Fine! If you're not hungry for a good, hard fuck, then you can fuck off instead!)]
+		Not at all willing to submit to these dobermann-boys, and definitely not prepared to let them fuck you, you push both Wolfgang and Karl away from you and tell them in no uncertain terms to leave you alone. Grunting in annoyance at your hostile reaction, the two bounty hunters stand up, before Wolfgang exclaims, [wolfgang.speech(Fine! If you're not hungry for a good, hard fuck, then you can fuck off instead!)]
 	</p>
 	<p>
 		With that, Karl reaches down to roughly grab hold of you, and before you know what's going on, you're being dragged over to a door on one side of the room. As you get closer, you see that there's a sign affixed to it which declares it to be a fire escape. Before you have any time in which to react to your current situation, Wolfgang unlocks and pushes this door open, before stepping aside and allowing Karl to unceremoniously drag you down a series of hard metal steps, before hurling you to the ground.
@@ -546,13 +546,13 @@
 	
 	<htmlContent tag="DOBERMANNS_COMBAT_PLAYER_LOSS_FUCKED_RESIST"><![CDATA[
 	<p>
-		Not at all willing to submit to these dobermanns, and definitely not prepared to let them fuck you, you push both Wolfgang and Karl away from you and tell them in no uncertain terms to leave you alone. Grunting in amusement at your response, the two dobermanns show that they have no intention in respecting your wishes, as instead of leaving you alone, they quickly pull out their huge, throbbing dog-cocks. Rubbing his hot shaft up and down over your ass, Wolfgang grunts, [wolfgang.speech(You think you can get out of this that easily, you dumb slut?!)]
+		Not at all willing to submit to these dobermann-boys, and definitely not prepared to let them fuck you, you push both Wolfgang and Karl away from you and tell them in no uncertain terms to leave you alone. Grunting in amusement at your response, the two dobermann-boys show that they have no intention in respecting your wishes, as instead of leaving you alone, they quickly pull out their huge, throbbing dog-cocks. Rubbing his hot shaft up and down over your ass, Wolfgang grunts, [wolfgang.speech(You think you can get out of this that easily, you dumb slut?!)]
 	</p>
 	<p>
 		Slapping his own knotted, scarlet-coloured cock against your face, Karl evilly smirks down at you and adds, [karl.speech(Until we're satisfied, you belong to us, bitch!)]
 	</p>
 	<p>
-		Although you try your best to struggle free, you're already exhausted from losing your fight and so your efforts prove futile. Easily restraining you, the dobermanns continue to rub their cocks against your face and ass even as you do your best to resist being dominantly fucked by them...
+		Although you try your best to struggle free, you're already exhausted from losing your fight and so your efforts prove futile. Easily restraining you, the dobermann-boys continue to rub their cocks against your face and ass even as you do your best to resist being dominantly fucked by them...
 	</p>
 	]]>
 	</htmlContent>
@@ -564,44 +564,44 @@
 	#IF(game.getDialogueFlags().hasFlag(FLAG_dobermannDefeatPaid) || game.getDialogueFlags().hasFlag(FLAG_dobermannDefeatEnforcer) || game.getDialogueFlags().hasFlag(FLAG_dobermannDefeatSeduced))
 		#IF(game.getDialogueFlags().hasFlag(FLAG_dobermannDefeatSeduced))
 			<p>
-				Deciding that you'd enjoy using your mouth, you inform the dobermanns that you were really hoping to get a good taste of their cocks. This desire of yours proves to be warmly received by the two bounty hunters, who, after getting you to slide off the sofa and drop down onto your knees, both pull out their huge, throbbing dog-cocks and sit down in front of you.
+				Deciding that you'd enjoy using your mouth, you inform the dobermann-boys that you were really hoping to get a good taste of their cocks. This desire of yours proves to be warmly received by the two bounty hunters, who, after getting you to slide off the sofa and drop down onto your knees, both pull out their huge, throbbing dog-cocks and sit down in front of you.
 			</p>
 		#ELSE
 			<p>
-				Not wanting to miss your chance to have some fun with these two big, strong dobermanns, you quickly [pc.step] forwards and tease them by asking if they're really planning on leaving right away. After exchanging quick glances with one another, the bounty hunters turn to face you, before Wolfgang grunts, [wolfgang.speech(Don't play coy with us; tell us what you want, or else we're going.)]
+				Not wanting to miss your chance to have some fun with these two big, strong dobermann-boys, you quickly [pc.step] forwards and tease them by asking if they're really planning on leaving right away. After exchanging quick glances with one another, the bounty hunters turn to face you, before Wolfgang grunts, [wolfgang.speech(Don't play coy with us; tell us what you want, or else we're going.)]
 			</p>
 			<p>
-				Licking your [pc.lips+] and playfully sauntering up to them, you do as you're told and plainly inform the dobermanns that you were hoping to get a taste of their cocks before they left. This desire of yours proves to be warmly received by the two bounty hunters, who quickly lead you over to the nearby sofa, and after getting you to drop down onto your knees, they both pull out their huge, throbbing dog-cocks and sit down in front of you.
+				Licking your [pc.lips+] and playfully sauntering up to them, you do as you're told and plainly inform the dobermann-boys that you were hoping to get a taste of their cocks before they left. This desire of yours proves to be warmly received by the two bounty hunters, who quickly lead you over to the nearby sofa, and after getting you to drop down onto your knees, they both pull out their huge, throbbing dog-cocks and sit down in front of you.
 			</p>
 		#ENDIF
 		<p>
-			[wolfgang.speech(Got a taste for dog-cum, have you, slut?)] Wolfgang asks, before suddenly grabbing the back of your head and pulling you down into his groin. Opening wide, you take his scarlet-skinned cock into your mouth, and with a muffled, spluttering [pc.moan], you start passionately kissing and sucking on his hot shaft. Grunting in pleasure, the dobermann growls, [wolfgang.speech(Don't forget about Karl! Get started on giving him a handjob, bitch!)]
+			[wolfgang.speech(Got a taste for dog-cum, have you, slut?)] Wolfgang asks, before suddenly grabbing the back of your head and pulling you down into his groin. Opening wide, you take his scarlet-skinned cock into your mouth, and with a muffled, spluttering [pc.moan], you start passionately kissing and sucking on his hot shaft. Grunting in pleasure, the dobermann-boy growls, [wolfgang.speech(Don't forget about Karl! Get started on giving him a handjob, bitch!)]
 		</p>
 		<p>
-			Doing as you're told, you reach over and start jerking off Karl's huge, knotted dog-cock. Having got exactly what you wanted, you focus on getting these two dobermanns to cum for you...
+			Doing as you're told, you reach over and start jerking off Karl's huge, knotted dog-cock. Having got exactly what you wanted, you focus on getting these two dobermann-boys to cum for you...
 		</p>
 	#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_dobermannDefeatDemon))
 		<p>
-			Not wanting to miss your chance to have some fun with these two big, strong dobermanns, you quickly [pc.step] forwards and tease them by asking if they've ever had their cocks sucked by a horny demon. After exchanging quick glances with one another, the bounty hunters turn to face you, before Wolfgang grunts, [wolfgang.speech(This isn't some kind of trick, is it?)]
+			Not wanting to miss your chance to have some fun with these two big, strong dobermann-boys, you quickly [pc.step] forwards and tease them by asking if they've ever had their cocks sucked by a horny demon. After exchanging quick glances with one another, the bounty hunters turn to face you, before Wolfgang grunts, [wolfgang.speech(This isn't some kind of trick, is it?)]
 		</p>
 		<p>
-			Licking your [pc.lips+] and playfully sauntering up to them, you reassure the dobermanns that the only thing you're now interested in is getting a taste of their cocks. Your words prove to be warmly received by the two bounty hunters, who quickly lead you over to the nearby sofa, and after getting you to drop down onto your knees, they both pull out their huge, throbbing dog-cocks and sit down in front of you.
+			Licking your [pc.lips+] and playfully sauntering up to them, you reassure the dobermann-boys that the only thing you're now interested in is getting a taste of their cocks. Your words prove to be warmly received by the two bounty hunters, who quickly lead you over to the nearby sofa, and after getting you to drop down onto your knees, they both pull out their huge, throbbing dog-cocks and sit down in front of you.
 		</p>
 		<p>
-			[wolfgang.speech(Even demons get hungry for dog-cum, huh?)] Wolfgang grunts, before suddenly grabbing the back of your head and pulling you down into his groin. Opening wide, you take his scarlet-skinned cock into your mouth, and with a muffled, spluttering [pc.moan], you start passionately kissing and sucking on his hot shaft. Grunting in pleasure, the dobermann growls, [wolfgang.speech(Don't forget about Karl! I'd wager he's never had a handjob from a demon!)]
+			[wolfgang.speech(Even demons get hungry for dog-cum, huh?)] Wolfgang grunts, before suddenly grabbing the back of your head and pulling you down into his groin. Opening wide, you take his scarlet-skinned cock into your mouth, and with a muffled, spluttering [pc.moan], you start passionately kissing and sucking on his hot shaft. Grunting in pleasure, the dobermann-boy growls, [wolfgang.speech(Don't forget about Karl! I'd wager he's never had a handjob from a demon!)]
 		</p>
 		<p>
-			Taking the hint, you reach over and start happily jerking off Karl's huge, knotted dog-cock. Having got exactly what you wanted, you focus on getting these two dobermanns to cum for you...
+			Taking the hint, you reach over and start happily jerking off Karl's huge, knotted dog-cock. Having got exactly what you wanted, you focus on getting these two dobermann-boys to cum for you...
 		</p>
 	#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_dobermannDefeatCombat))
 		<p>
-			Wanting to have some fun by letting these defeated dobermanns take the dominant role, you inform them that you were really hoping to get a good taste of their cocks before they left. This desire of yours proves to be warmly received by the two bounty hunters, who quickly lead you over to the nearby sofa, and after getting you to drop down onto your knees, they both pull out their huge, throbbing dog-cocks and sit down in front of you.
+			Wanting to have some fun by letting these defeated dobermann-boys take the dominant role, you inform them that you were really hoping to get a good taste of their cocks before they left. This desire of yours proves to be warmly received by the two bounty hunters, who quickly lead you over to the nearby sofa, and after getting you to drop down onto your knees, they both pull out their huge, throbbing dog-cocks and sit down in front of you.
 		</p>
 		<p>
-			[wolfgang.speech(Want to apologise by letting me shoot my dog-cum down that pretty little throat of yours, huh, slut?)] Wolfgang asks, before suddenly grabbing the back of your head and pulling you down into his groin. Opening wide, you take his scarlet-skinned cock into your mouth, and with a muffled, spluttering [pc.moan], you start passionately kissing and sucking on his hot shaft. Grunting in pleasure, the dobermann growls, [wolfgang.speech(Don't forget about Karl! Get started on giving him a handjob, bitch!)]
+			[wolfgang.speech(Want to apologise by letting me shoot my dog-cum down that pretty little throat of yours, huh, slut?)] Wolfgang asks, before suddenly grabbing the back of your head and pulling you down into his groin. Opening wide, you take his scarlet-skinned cock into your mouth, and with a muffled, spluttering [pc.moan], you start passionately kissing and sucking on his hot shaft. Grunting in pleasure, the dobermann-boy growls, [wolfgang.speech(Don't forget about Karl! Get started on giving him a handjob, bitch!)]
 		</p>
 		<p>
-			Doing as you're told, you reach over and start jerking off Karl's huge, knotted dog-cock. Having got exactly what you wanted, you focus on getting these two dobermanns to cum for you...
+			Doing as you're told, you reach over and start jerking off Karl's huge, knotted dog-cock. Having got exactly what you wanted, you focus on getting these two dobermann-boys to cum for you...
 		</p>
 	#ENDIF
 	]]>
@@ -611,67 +611,67 @@
 	#IF(game.getDialogueFlags().hasFlag(FLAG_dobermannDefeatPaid) || game.getDialogueFlags().hasFlag(FLAG_dobermannDefeatEnforcer) || game.getDialogueFlags().hasFlag(FLAG_dobermannDefeatSeduced))
 		#IF(game.getDialogueFlags().hasFlag(FLAG_dobermannDefeatSeduced))
 			<p>
-				Deciding that you'd enjoy being penetrated at both ends, you inform the dobermanns that you were really hoping to get spit-roasted by them. This desire of yours proves to be warmly received by the two bounty hunters, who quickly push you down onto all fours and pull out their huge, throbbing dog-cocks. Wolfgang then immediately steps around to drop down onto his knees behind you, while Karl similarly sinks down onto the ground in front of your face.
+				Deciding that you'd enjoy being penetrated at both ends, you inform the dobermann-boys that you were really hoping to get spit-roasted by them. This desire of yours proves to be warmly received by the two bounty hunters, who quickly push you down onto all fours and pull out their huge, throbbing dog-cocks. Wolfgang then immediately steps around to drop down onto his knees behind you, while Karl similarly sinks down onto the ground in front of your face.
 			</p>
 		#ELSE
 			<p>
-				Not wanting to miss your chance to have some fun with these two big, strong dobermanns, you quickly [pc.step] forwards and tease them by asking if they're really planning on leaving right away. After exchanging quick glances with one another, the bounty hunters turn to face you, before Wolfgang grunts, [wolfgang.speech(Don't play coy with us; tell us what you want, or else we're going.)]
+				Not wanting to miss your chance to have some fun with these two big, strong dobermann-boys, you quickly [pc.step] forwards and tease them by asking if they're really planning on leaving right away. After exchanging quick glances with one another, the bounty hunters turn to face you, before Wolfgang grunts, [wolfgang.speech(Don't play coy with us; tell us what you want, or else we're going.)]
 			</p>
 			<p>
-				Licking your [pc.lips+] and playfully sauntering up to them, you do as you're told and plainly inform the dobermanns that you were hoping to get spit-roasted before they left. This desire of yours proves to be warmly received by the two bounty hunters, who quickly push you down onto all fours and pull out their huge, throbbing dog-cocks. Wolfgang then immediately steps around to drop down onto his knees behind you, while Karl similarly sinks down onto the ground in front of your face.
+				Licking your [pc.lips+] and playfully sauntering up to them, you do as you're told and plainly inform the dobermann-boys that you were hoping to get spit-roasted before they left. This desire of yours proves to be warmly received by the two bounty hunters, who quickly push you down onto all fours and pull out their huge, throbbing dog-cocks. Wolfgang then immediately steps around to drop down onto his knees behind you, while Karl similarly sinks down onto the ground in front of your face.
 			</p>
 		#ENDIF
 		<p>
 			[wolfgang.speech(Want a good double-stuffing of dog-cum, do you, slut?)] Wolfgang asks, before quickly gaining access to your
 			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-				 [pc.pussy+] and impatiently spreading your [pc.labia+] with both hands. Grunting in approval at what he sees, the dominant dobermann wastes no further time and immediately thrusts forwards, slamming his hot dog-cock deep into your [pc.pussy+].
+				 [pc.pussy+] and impatiently spreading your [pc.labia+] with both hands. Grunting in approval at what he sees, the dominant dobermann-boy wastes no further time and immediately thrusts forwards, slamming his hot dog-cock deep into your [pc.pussy+].
 			#ELSE
-				 [pc.asshole+] and impatiently spreading your [pc.assSize] ass cheeks with both hands. Grunting in approval at what he sees, the dominant dobermann wastes no further time and immediately thrusts forwards, slamming his hot dog-cock deep into your [pc.asshole+].
+				 [pc.asshole+] and impatiently spreading your [pc.assSize] ass cheeks with both hands. Grunting in approval at what he sees, the dominant dobermann-boy wastes no further time and immediately thrusts forwards, slamming his hot dog-cock deep into your [pc.asshole+].
 			#ENDIF
 		</p>
 		<p>
 			The sensation of suddenly being penetrated in such a forceful manner causes you to let out [pc.a_moan+], and as you do so, Karl takes full advantage of your open mouth by shuffling forwards and shoving his own huge dog-cock past your [pc.lips+]. Taking his scarlet-skinned cock into your mouth, you continue to let out a series of muffled, spluttering [pc.moans] as you start passionately kissing and sucking on his hot shaft. Grunting in pleasure, he growls, [karl.speech(That's right, take it deep!)]
 		</p>
 		<p>
-			Having got exactly what you wanted, you focus on the pleasure of being spit-roasted by these two dobermanns, eagerly anticipating the part where they fill each of your ends with their hot dog-cum...
+			Having got exactly what you wanted, you focus on the pleasure of being spit-roasted by these two dobermann-boys, eagerly anticipating the part where they fill each of your ends with their hot dog-cum...
 		</p>
 	#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_dobermannDefeatDemon))
 		<p>
-			Not wanting to miss your chance to have some fun with these two big, strong dobermanns, you quickly [pc.step] forwards and tease them by asking if they've ever spit-roasted a horny demon before. After exchanging quick glances with one another, the bounty hunters turn to face you, before Wolfgang grunts, [wolfgang.speech(This isn't some kind of trick, is it?)]
+			Not wanting to miss your chance to have some fun with these two big, strong dobermann-boys, you quickly [pc.step] forwards and tease them by asking if they've ever spit-roasted a horny demon before. After exchanging quick glances with one another, the bounty hunters turn to face you, before Wolfgang grunts, [wolfgang.speech(This isn't some kind of trick, is it?)]
 		</p>
 		<p>
-			Licking your [pc.lips+] and playfully sauntering up to them, you reassure the dobermanns that the only thing you're now interested in is getting stuffed by their cocks. Your words prove to be warmly received by the two bounty hunters, who quickly push you down onto all fours and pull out their huge, throbbing dog-cocks. Wolfgang then immediately steps around to drop down onto his knees behind you, while Karl similarly sinks down onto the ground in front of your face.
+			Licking your [pc.lips+] and playfully sauntering up to them, you reassure the dobermann-boys that the only thing you're now interested in is getting stuffed by their cocks. Your words prove to be warmly received by the two bounty hunters, who quickly push you down onto all fours and pull out their huge, throbbing dog-cocks. Wolfgang then immediately steps around to drop down onto his knees behind you, while Karl similarly sinks down onto the ground in front of your face.
 		</p>
 		<p>
 			[wolfgang.speech(Even demons enjoy a good double-stuffing of dog-cum, huh?)] Wolfgang grunts, before quickly gaining access to your
 			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-				 [pc.pussy+] and impatiently spreading your [pc.labia+] with both hands. Clearly having never seen a demon's pussy up close before, he spends a moment using his thick, paw-like fingers to experimentally prod and stroke your clit and inner walls. Grunting in approval both at what he sees and at the horny noises you're making, the dominant dobermann wastes no further time, and after grabbing hold of your [pc.hips+], he violently thrusts forwards and slams his hot dog-cock deep into your [pc.pussy+].
+				 [pc.pussy+] and impatiently spreading your [pc.labia+] with both hands. Clearly having never seen a demon's pussy up close before, he spends a moment using his thick, paw-like fingers to experimentally prod and stroke your clit and inner walls. Grunting in approval both at what he sees and at the horny noises you're making, the dominant dobermann-boy wastes no further time, and after grabbing hold of your [pc.hips+], he violently thrusts forwards and slams his hot dog-cock deep into your [pc.pussy+].
 			#ELSE
-				 [pc.asshole+] and impatiently spreading your [pc.assSize] ass cheeks with both hands. Clearly having never seen a demon's asshole up close before, he spends a moment using his thick, paw-like fingers to experimentally prod and stroke your rear-entrance. Grunting in approval both at what he sees and at the horny noises you're making, the dominant dobermann wastes no further time, and after grabbing hold of your [pc.hips+], he violently thrusts forwards and slams his hot dog-cock deep into your [pc.asshole+].
+				 [pc.asshole+] and impatiently spreading your [pc.assSize] ass cheeks with both hands. Clearly having never seen a demon's asshole up close before, he spends a moment using his thick, paw-like fingers to experimentally prod and stroke your rear-entrance. Grunting in approval both at what he sees and at the horny noises you're making, the dominant dobermann-boy wastes no further time, and after grabbing hold of your [pc.hips+], he violently thrusts forwards and slams his hot dog-cock deep into your [pc.asshole+].
 			#ENDIF
 		</p>
 		<p>
 			The sensation of suddenly being penetrated in such a forceful manner causes you to let out [pc.a_moan+], and as you do so, Karl takes full advantage of your open mouth by shuffling forwards and shoving his own huge dog-cock past your [pc.lips+]. Taking his scarlet-skinned cock into your mouth, you continue to let out a series of muffled, spluttering [pc.moans] as you start passionately kissing and sucking on his hot shaft. Grunting in pleasure, he growls, [karl.speech(That's right, show me what you demons can do!)]
 		</p>
 		<p>
-			Having got exactly what you wanted, you focus on the pleasure of being spit-roasted by these two dobermanns, eagerly anticipating the part where they fill each of your ends with their hot dog-cum...
+			Having got exactly what you wanted, you focus on the pleasure of being spit-roasted by these two dobermann-boys, eagerly anticipating the part where they fill each of your ends with their hot dog-cum...
 		</p>
 	#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_dobermannDefeatCombat))
 		<p>
-			Wanting to have some fun by letting these defeated dobermanns take the dominant role, you inform them that you were really hoping to get spit-roasted before they left. This desire of yours proves to be warmly received by the two bounty hunters, who quickly push you down onto all fours and pull out their huge, throbbing dog-cocks. Wolfgang then immediately steps around to drop down onto his knees behind you, while Karl similarly sinks down onto the ground in front of your face.
+			Wanting to have some fun by letting these defeated dobermann-boys take the dominant role, you inform them that you were really hoping to get spit-roasted before they left. This desire of yours proves to be warmly received by the two bounty hunters, who quickly push you down onto all fours and pull out their huge, throbbing dog-cocks. Wolfgang then immediately steps around to drop down onto his knees behind you, while Karl similarly sinks down onto the ground in front of your face.
 		</p>
 		<p>
 			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-				[wolfgang.speech(Want to apologise by letting me shoot my dog-cum into your hungry little cunt, huh, slut?)] Wolfgang grunts, before quickly gaining access to your [pc.pussy+] and impatiently spreading your [pc.labia+] with both hands. Grunting in approval at what he sees, the dominant dobermann wastes no further time and immediately thrusts forwards, slamming his hot dog-cock deep into your [pc.pussy+].
+				[wolfgang.speech(Want to apologise by letting me shoot my dog-cum into your hungry little cunt, huh, slut?)] Wolfgang grunts, before quickly gaining access to your [pc.pussy+] and impatiently spreading your [pc.labia+] with both hands. Grunting in approval at what he sees, the dominant dobermann-boy wastes no further time and immediately thrusts forwards, slamming his hot dog-cock deep into your [pc.pussy+].
 			#ELSE
-				[wolfgang.speech(Want to apologise by letting me shoot my dog-cum into your hungry little asshole, huh, slut?)] Wolfgang grunts, before quickly gaining access to your [pc.asshole+] and impatiently spreading your [pc.assSize] ass cheeks with both hands. Grunting in approval at what he sees, the dominant dobermann wastes no further time and immediately thrusts forwards, slamming his hot dog-cock deep into your [pc.asshole+].
+				[wolfgang.speech(Want to apologise by letting me shoot my dog-cum into your hungry little asshole, huh, slut?)] Wolfgang grunts, before quickly gaining access to your [pc.asshole+] and impatiently spreading your [pc.assSize] ass cheeks with both hands. Grunting in approval at what he sees, the dominant dobermann-boy wastes no further time and immediately thrusts forwards, slamming his hot dog-cock deep into your [pc.asshole+].
 			#ENDIF
 		</p>
 		<p>
 			The sensation of suddenly being penetrated in such a forceful manner causes you to let out [pc.a_moan+], and as you do so, Karl takes full advantage of your open mouth by shuffling forwards and shoving his own huge dog-cock past your [pc.lips+]. Taking his scarlet-skinned cock into your mouth, you continue to let out a series of muffled, spluttering [pc.moans] as you start passionately kissing and sucking on his hot shaft. Grunting in pleasure, he growls, [karl.speech(That's right, bitch, choke on it!)]
 		</p>
 		<p>
-			Having got exactly what you wanted, you focus on the pleasure of being spit-roasted by these two dobermanns, eagerly anticipating the part where they fill each of your ends with their hot dog-cum...
+			Having got exactly what you wanted, you focus on the pleasure of being spit-roasted by these two dobermann-boys, eagerly anticipating the part where they fill each of your ends with their hot dog-cum...
 		</p>
 	#ENDIF
 	]]>
@@ -681,85 +681,85 @@
 	#IF(game.getDialogueFlags().hasFlag(FLAG_dobermannDefeatPaid) || game.getDialogueFlags().hasFlag(FLAG_dobermannDefeatEnforcer) || game.getDialogueFlags().hasFlag(FLAG_dobermannDefeatSeduced))
 		#IF(game.getDialogueFlags().hasFlag(FLAG_dobermannDefeatSeduced))
 			<p>
-				Deciding that you'd enjoy getting stuffed with their cocks, you inform the dobermanns that you were really hoping to ride them. This desire of yours proves to be warmly received by the two bounty hunters, who quickly pull out their huge, throbbing dog-cocks. Wolfgang then immediately lies down on the sofa, pulling you down on top of him into the cowgirl position, while Karl sinks down behind you.
+				Deciding that you'd enjoy getting stuffed with their cocks, you inform the dobermann-boys that you were really hoping to ride them. This desire of yours proves to be warmly received by the two bounty hunters, who quickly pull out their huge, throbbing dog-cocks. Wolfgang then immediately lies down on the sofa, pulling you down on top of him into the cowgirl position, while Karl sinks down behind you.
 			</p>
 		#ELSE
 			<p>
-				Not wanting to miss your chance to have some fun with these two big, strong dobermanns, you quickly [pc.step] forwards and tease them by asking if they're really planning on leaving right away. After exchanging quick glances with one another, the bounty hunters turn to face you, before Wolfgang grunts, [wolfgang.speech(Don't play coy with us; tell us what you want, or else we're going.)]
+				Not wanting to miss your chance to have some fun with these two big, strong dobermann-boys, you quickly [pc.step] forwards and tease them by asking if they're really planning on leaving right away. After exchanging quick glances with one another, the bounty hunters turn to face you, before Wolfgang grunts, [wolfgang.speech(Don't play coy with us; tell us what you want, or else we're going.)]
 			</p>
 			<p>
-				Licking your [pc.lips+] and playfully sauntering up to them, you do as you're told and plainly inform the dobermanns that you were hoping to ride their cocks. This desire of yours proves to be warmly received by the two bounty hunters, who quickly pull out their huge, throbbing dog-cocks. Wolfgang then immediately lies down on the nearby sofa, pulling you down on top of him into the cowgirl position, while Karl sinks down behind you.
+				Licking your [pc.lips+] and playfully sauntering up to them, you do as you're told and plainly inform the dobermann-boys that you were hoping to ride their cocks. This desire of yours proves to be warmly received by the two bounty hunters, who quickly pull out their huge, throbbing dog-cocks. Wolfgang then immediately lies down on the nearby sofa, pulling you down on top of him into the cowgirl position, while Karl sinks down behind you.
 			</p>
 		#ENDIF
 		<p>
 			[wolfgang.speech(Want a good double-stuffing of dog-cum, do you, slut?)] Wolfgang asks, before quickly gaining access to your
 			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-				 [pc.pussy+] and impatiently spreading your [pc.labia+] with both hands. Grunting in approval at what he sees, the dominant dobermann wastes no further time, and after grabbing hold of your [pc.hips+], forcefully pulls you down and sinks his hot dog-cock deep into your [pc.pussy+].
+				 [pc.pussy+] and impatiently spreading your [pc.labia+] with both hands. Grunting in approval at what he sees, the dominant dobermann-boy wastes no further time, and after grabbing hold of your [pc.hips+], forcefully pulls you down and sinks his hot dog-cock deep into your [pc.pussy+].
 			#ELSE
-				 [pc.asshole+] and impatiently spreading your [pc.assSize] ass cheeks with both hands. Grunting in approval, the dominant dobermann wastes no further time, and after grabbing hold of your [pc.hips+], forcefully pulls you down and sinks his hot dog-cock deep into your [pc.asshole+].
+				 [pc.asshole+] and impatiently spreading your [pc.assSize] ass cheeks with both hands. Grunting in approval, the dominant dobermann-boy wastes no further time, and after grabbing hold of your [pc.hips+], forcefully pulls you down and sinks his hot dog-cock deep into your [pc.asshole+].
 			#ENDIF
 		</p>
 		<p>
 			#IF(!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-				Not wanting to miss out on the fun, Karl shuffles up close behind you, and after giving your [pc.ass+] a good grope, he pushes his cock up against Wolfgang's, and on his companion's next thrust, forces his cock into your asshole. The sensation of having your back-door stuffed full of two huge dog-cocks causes you to let out [pc.a_moan+], which is met by a synchronised pair of deep, amused grunts from the two dobermanns. Leaning into your back, Karl dominantly growls, [karl.speech(That's right, bitch, keep moaning like a whore!)]
+				Not wanting to miss out on the fun, Karl shuffles up close behind you, and after giving your [pc.ass+] a good grope, he pushes his cock up against Wolfgang's, and on his companion's next thrust, forces his cock into your asshole. The sensation of having your back-door stuffed full of two huge dog-cocks causes you to let out [pc.a_moan+], which is met by a synchronised pair of deep, amused grunts from the two dobermann-boys. Leaning into your back, Karl dominantly growls, [karl.speech(That's right, bitch, keep moaning like a whore!)]
 			#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_ANUS, true))
-				Not wanting to miss out on the fun, Karl shuffles up close behind you, and after giving your [pc.ass+] a good grope, he pushes his cock up against Wolfgang's, and on his companion's next thrust, forces his cock into your [pc.pussy+]. The sensation of having your cunt stuffed full of two huge dog-cocks causes you to let out [pc.a_moan+], which is met by a synchronised pair of deep, amused grunts from the two dobermanns. Leaning into your back, Karl dominantly growls, [karl.speech(That's right, bitch, keep moaning like a whore!)]
+				Not wanting to miss out on the fun, Karl shuffles up close behind you, and after giving your [pc.ass+] a good grope, he pushes his cock up against Wolfgang's, and on his companion's next thrust, forces his cock into your [pc.pussy+]. The sensation of having your cunt stuffed full of two huge dog-cocks causes you to let out [pc.a_moan+], which is met by a synchronised pair of deep, amused grunts from the two dobermann-boys. Leaning into your back, Karl dominantly growls, [karl.speech(That's right, bitch, keep moaning like a whore!)]
 			#ELSE
 				Not wanting to miss out on the fun, Karl shuffles up close behind you, and after giving your [pc.ass+] a good grope, he pushes the [karl.cockHead+] of his cock up against your [pc.asshole+]. On his companion's next thrust, he suddenly forces his cock into your asshole, causing you to let out [pc.a_moan+]. Leaning into your back, Karl dominantly growls, [karl.speech(That's right, bitch, keep moaning like a whore!)]
 			#ENDIF
 		</p>
 		<p>
-			Having got exactly what you wanted, you focus on the pleasure of taking both of the two dobermanns' cocks at once, eagerly anticipating the part where they fill you with their hot dog-cum...
+			Having got exactly what you wanted, you focus on the pleasure of taking both of the two dobermann-boys' cocks at once, eagerly anticipating the part where they fill you with their hot dog-cum...
 		</p>
 	#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_dobermannDefeatDemon))
 		<p>
-			Not wanting to miss your chance to have some fun with these two big, strong dobermanns, you quickly [pc.step] forwards and tease them by asking if they've ever spit-roasted a horny demon before. After exchanging quick glances with one another, the bounty hunters turn to face you, before Wolfgang grunts, [wolfgang.speech(This isn't some kind of trick, is it?)]
+			Not wanting to miss your chance to have some fun with these two big, strong dobermann-boys, you quickly [pc.step] forwards and tease them by asking if they've ever spit-roasted a horny demon before. After exchanging quick glances with one another, the bounty hunters turn to face you, before Wolfgang grunts, [wolfgang.speech(This isn't some kind of trick, is it?)]
 		</p>
 		<p>
-			Licking your [pc.lips+] and playfully sauntering up to them, you reassure the dobermanns that the only thing you're now interested in is getting stuffed by their cocks. Your words prove to be warmly received by the two bounty hunters, who quickly pull out their huge, throbbing dog-cocks. Wolfgang then immediately lies down on the nearby sofa, pulling you down on top of him into the cowgirl position, while Karl sinks down behind you.
+			Licking your [pc.lips+] and playfully sauntering up to them, you reassure the dobermann-boys that the only thing you're now interested in is getting stuffed by their cocks. Your words prove to be warmly received by the two bounty hunters, who quickly pull out their huge, throbbing dog-cocks. Wolfgang then immediately lies down on the nearby sofa, pulling you down on top of him into the cowgirl position, while Karl sinks down behind you.
 		</p>
 		<p>
 			[wolfgang.speech(Even demons enjoy a good double-stuffing of dog-cum, huh?)] Wolfgang grunts, before quickly gaining access to your
 			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-				 [pc.pussy+] and impatiently spreading your [pc.labia+] with both hands. Clearly having never seen a demon's pussy up close before, he spends a moment using his thick, paw-like fingers to experimentally prod and stroke your clit and inner walls. Grunting in approval both at what he sees and at the horny noises you're making, the dominant dobermann wastes no further time, and after grabbing hold of your [pc.hips+], he violently pulls you down and sinks his hot dog-cock deep into your [pc.pussy+].
+				 [pc.pussy+] and impatiently spreading your [pc.labia+] with both hands. Clearly having never seen a demon's pussy up close before, he spends a moment using his thick, paw-like fingers to experimentally prod and stroke your clit and inner walls. Grunting in approval both at what he sees and at the horny noises you're making, the dominant dobermann-boy wastes no further time, and after grabbing hold of your [pc.hips+], he violently pulls you down and sinks his hot dog-cock deep into your [pc.pussy+].
 			#ELSE
-				 [pc.asshole+] and impatiently spreading your [pc.assSize] ass cheeks with both hands. Clearly having never fucked demon's asshole before, he spends a moment using his thick, paw-like fingers to experimentally prod and stroke your rear-entrance. Grunting in approval both at what he feels and at the horny noises you're making, the dominant dobermann wastes no further time, and after grabbing hold of your [pc.hips+], he violently pulls you down and sinks his hot dog-cock deep into your [pc.asshole+].
+				 [pc.asshole+] and impatiently spreading your [pc.assSize] ass cheeks with both hands. Clearly having never fucked demon's asshole before, he spends a moment using his thick, paw-like fingers to experimentally prod and stroke your rear-entrance. Grunting in approval both at what he feels and at the horny noises you're making, the dominant dobermann-boy wastes no further time, and after grabbing hold of your [pc.hips+], he violently pulls you down and sinks his hot dog-cock deep into your [pc.asshole+].
 			#ENDIF
 		</p>
 		<p>
 			#IF(!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-				Not wanting to miss out on the fun, Karl shuffles up close behind you, and after giving your [pc.ass+] a good grope, he pushes his cock up against Wolfgang's, and on his companion's next thrust, forces his cock into your asshole. The sensation of having your back-door stuffed full of two huge dog-cocks causes you to let out [pc.a_moan+], which is met by a synchronised pair of deep, amused grunts from the two dobermanns. Leaning into your back, Karl dominantly growls, [karl.speech(It's good to know that my cock can make even demons moan like a whore!)]
+				Not wanting to miss out on the fun, Karl shuffles up close behind you, and after giving your [pc.ass+] a good grope, he pushes his cock up against Wolfgang's, and on his companion's next thrust, forces his cock into your asshole. The sensation of having your back-door stuffed full of two huge dog-cocks causes you to let out [pc.a_moan+], which is met by a synchronised pair of deep, amused grunts from the two dobermann-boys. Leaning into your back, Karl dominantly growls, [karl.speech(It's good to know that my cock can make even demons moan like a whore!)]
 			#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_ANUS, true))
-				Not wanting to miss out on the fun, Karl shuffles up close behind you, and after giving your [pc.ass+] a good grope, he pushes his cock up against Wolfgang's, and on his companion's next thrust, forces his cock into your [pc.pussy+]. The sensation of having your cunt stuffed full of two huge dog-cocks causes you to let out [pc.a_moan+], which is met by a synchronised pair of deep, amused grunts from the two dobermanns. Leaning into your back, Karl dominantly growls, [karl.speech(It's good to know that my cock can make even demons moan like a whore!)]
+				Not wanting to miss out on the fun, Karl shuffles up close behind you, and after giving your [pc.ass+] a good grope, he pushes his cock up against Wolfgang's, and on his companion's next thrust, forces his cock into your [pc.pussy+]. The sensation of having your cunt stuffed full of two huge dog-cocks causes you to let out [pc.a_moan+], which is met by a synchronised pair of deep, amused grunts from the two dobermann-boys. Leaning into your back, Karl dominantly growls, [karl.speech(It's good to know that my cock can make even demons moan like a whore!)]
 			#ELSE
 				Not wanting to miss out on the fun, Karl shuffles up close behind you, and after giving your [pc.ass+] a good grope, he pushes the [karl.cockHead+] of his cock up against your [pc.asshole+]. On his companion's next thrust, he suddenly forces his cock into your asshole, causing you to let out [pc.a_moan+]. Leaning into your back, Karl dominantly growls, [karl.speech(It's good to know that my cock can make even demons moan like a whore!)]
 			#ENDIF
 		</p>
 		<p>
-			Having got exactly what you wanted, you focus on the pleasure of taking both of the two dobermanns' cocks at once, eagerly anticipating the part where they fill you with their hot dog-cum...
+			Having got exactly what you wanted, you focus on the pleasure of taking both of the two dobermann-boys' cocks at once, eagerly anticipating the part where they fill you with their hot dog-cum...
 		</p>
 	#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_dobermannDefeatCombat))
 		<p>
-			Wanting to have some fun by letting these defeated dobermanns take the dominant role, you inform them that you were really hoping to ride their cocks before they left. This desire of yours proves to be warmly received by the two bounty hunters, who quickly pull out their huge, throbbing dog-cocks. Wolfgang then immediately lies down on the sofa, pulling you down on top of him into the cowgirl position, while Karl sinks down behind you.
+			Wanting to have some fun by letting these defeated dobermann-boys take the dominant role, you inform them that you were really hoping to ride their cocks before they left. This desire of yours proves to be warmly received by the two bounty hunters, who quickly pull out their huge, throbbing dog-cocks. Wolfgang then immediately lies down on the sofa, pulling you down on top of him into the cowgirl position, while Karl sinks down behind you.
 		</p>
 		<p>
 			#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-				[wolfgang.speech(Want to apologise by letting me shoot my dog-cum into your hungry little cunt, huh, slut?)] Wolfgang grunts, before quickly gaining access to your [pc.pussy+] and impatiently spreading your [pc.labia+] with both hands. Grunting in approval at what he sees, the dominant dobermann wastes no further time, and after grabbing hold of your [pc.hips+], forcefully pulls you down and sinks his hot dog-cock deep into your [pc.pussy+].
+				[wolfgang.speech(Want to apologise by letting me shoot my dog-cum into your hungry little cunt, huh, slut?)] Wolfgang grunts, before quickly gaining access to your [pc.pussy+] and impatiently spreading your [pc.labia+] with both hands. Grunting in approval at what he sees, the dominant dobermann-boy wastes no further time, and after grabbing hold of your [pc.hips+], forcefully pulls you down and sinks his hot dog-cock deep into your [pc.pussy+].
 			#ELSE
-				[wolfgang.speech(Want to apologise by letting me shoot my dog-cum into your hungry little asshole, huh, slut?)] Wolfgang grunts, before quickly gaining access to your [pc.asshole+] and impatiently spreading your [pc.assSize] ass cheeks with both hands. Grunting in approval, the dominant dobermann wastes no further time, and after grabbing hold of your [pc.hips+], forcefully pulls you down and sinks his hot dog-cock deep into your [pc.asshole+].
+				[wolfgang.speech(Want to apologise by letting me shoot my dog-cum into your hungry little asshole, huh, slut?)] Wolfgang grunts, before quickly gaining access to your [pc.asshole+] and impatiently spreading your [pc.assSize] ass cheeks with both hands. Grunting in approval, the dominant dobermann-boy wastes no further time, and after grabbing hold of your [pc.hips+], forcefully pulls you down and sinks his hot dog-cock deep into your [pc.asshole+].
 			#ENDIF
 		</p>
 		<p>
 			#IF(!pc.hasVagina() || !pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
-				Not wanting to miss out on the fun, Karl shuffles up close behind you, and after giving your [pc.ass+] a good grope, he pushes his cock up against Wolfgang's, and on his companion's next thrust, forces his cock into your asshole. The sensation of having your back-door stuffed full of two huge dog-cocks causes you to let out [pc.a_moan+], which is met by a synchronised pair of deep, amused grunts from the two dobermanns. Leaning into your back, Karl dominantly growls, [karl.speech(That's right, bitch, keep moaning like a whore!)]
+				Not wanting to miss out on the fun, Karl shuffles up close behind you, and after giving your [pc.ass+] a good grope, he pushes his cock up against Wolfgang's, and on his companion's next thrust, forces his cock into your asshole. The sensation of having your back-door stuffed full of two huge dog-cocks causes you to let out [pc.a_moan+], which is met by a synchronised pair of deep, amused grunts from the two dobermann-boys. Leaning into your back, Karl dominantly growls, [karl.speech(That's right, bitch, keep moaning like a whore!)]
 			#ELSEIF(!pc.isAbleToAccessCoverableArea(CA_ANUS, true))
-				Not wanting to miss out on the fun, Karl shuffles up close behind you, and after giving your [pc.ass+] a good grope, he pushes his cock up against Wolfgang's, and on his companion's next thrust, forces his cock into your [pc.pussy+]. The sensation of having your cunt stuffed full of two huge dog-cocks causes you to let out [pc.a_moan+], which is met by a synchronised pair of deep, amused grunts from the two dobermanns. Leaning into your back, Karl dominantly growls, [karl.speech(That's right, bitch, keep moaning like a whore!)]
+				Not wanting to miss out on the fun, Karl shuffles up close behind you, and after giving your [pc.ass+] a good grope, he pushes his cock up against Wolfgang's, and on his companion's next thrust, forces his cock into your [pc.pussy+]. The sensation of having your cunt stuffed full of two huge dog-cocks causes you to let out [pc.a_moan+], which is met by a synchronised pair of deep, amused grunts from the two dobermann-boys. Leaning into your back, Karl dominantly growls, [karl.speech(That's right, bitch, keep moaning like a whore!)]
 			#ELSE
 				Not wanting to miss out on the fun, Karl shuffles up close behind you, and after giving your [pc.ass+] a good grope, he pushes the [karl.cockHead+] of his cock up against your [pc.asshole+]. On his companion's next thrust, he suddenly forces his cock into your asshole, causing you to let out [pc.a_moan+]. Leaning into your back, Karl dominantly growls, [karl.speech(That's right, bitch, keep moaning like a whore!)]
 			#ENDIF
 		</p>
 		<p>
-			Having got exactly what you wanted, you focus on the pleasure of taking both of the two dobermanns' cocks at once, eagerly anticipating the part where they fill you with their hot dog-cum...
+			Having got exactly what you wanted, you focus on the pleasure of taking both of the two dobermann-boys' cocks at once, eagerly anticipating the part where they fill you with their hot dog-cum...
 		</p>
 	#ENDIF
 	]]>
@@ -769,17 +769,17 @@
 	#IF(game.getDialogueFlags().hasFlag(FLAG_dobermannDefeatPaid) || game.getDialogueFlags().hasFlag(FLAG_dobermannDefeatEnforcer) || game.getDialogueFlags().hasFlag(FLAG_dobermannDefeatSeduced))
 		#IF(game.getDialogueFlags().hasFlag(FLAG_dobermannDefeatSeduced))
 			<p>
-				Deciding that you'd like to give the dobermanns something a little different, you tell them that you were really hoping to have them fuck your nipples. Glancing at one another for a moment, Wolfgang muses, [wolfgang.speech(I've never fucked someone's nipples before... Sure, why not?)]
+				Deciding that you'd like to give the dobermann-boys something a little different, you tell them that you were really hoping to have them fuck your nipples. Glancing at one another for a moment, Wolfgang muses, [wolfgang.speech(I've never fucked someone's nipples before... Sure, why not?)]
 			</p>
 			<p>
-				Excited to be given the chance to show off what you can do, you quickly slide off the sofa and drop down onto your knees. Pulling out their huge, throbbing dog-cocks, the two dobermanns stand up in front of you and hungrily stare at your chest as you expose your [pc.nipples+] and lift your [pc.breasts+] towards them.
+				Excited to be given the chance to show off what you can do, you quickly slide off the sofa and drop down onto your knees. Pulling out their huge, throbbing dog-cocks, the two dobermann-boys stand up in front of you and hungrily stare at your chest as you expose your [pc.nipples+] and lift your [pc.breasts+] towards them.
 			</p>
 		#ELSE
 			<p>
-				Not wanting to miss your chance to have some fun with these two big, strong dobermanns, you quickly [pc.step] forwards and tease them by asking if they're really planning on leaving right away. After exchanging quick glances with one another, the bounty hunters turn to face you, before Wolfgang grunts, [wolfgang.speech(Don't play coy with us; tell us what you want, or else we're going.)]
+				Not wanting to miss your chance to have some fun with these two big, strong dobermann-boys, you quickly [pc.step] forwards and tease them by asking if they're really planning on leaving right away. After exchanging quick glances with one another, the bounty hunters turn to face you, before Wolfgang grunts, [wolfgang.speech(Don't play coy with us; tell us what you want, or else we're going.)]
 			</p>
 			<p>
-				Licking your [pc.lips+] and playfully sauntering up to them, you do as you're told and plainly inform the dobermanns that you were hoping to have them fuck your nipples. Glancing at one another for a moment, Wolfgang muses, [wolfgang.speech(I've never fucked someone's nipples before... Sure, why not?)]
+				Licking your [pc.lips+] and playfully sauntering up to them, you do as you're told and plainly inform the dobermann-boys that you were hoping to have them fuck your nipples. Glancing at one another for a moment, Wolfgang muses, [wolfgang.speech(I've never fucked someone's nipples before... Sure, why not?)]
 			</p>
 			<p>
 				Excited to be given the chance to show off what you can do, you quickly drop down onto your knees in front of the two bounty hunters. Pulling out their huge, throbbing dog-cocks, they stand in front of you and hungrily stare at your chest as you expose your [pc.nipples+] and lift your [pc.breasts+] towards them.
@@ -789,14 +789,14 @@
 			[wolfgang.speech(Want to get your tits stuffed full of dog-cum then, slut?)] Wolfgang asks, before suddenly grabbing your left breast with both hands and pulling it up towards his groin. Thrusting out your chest, you can't help but let out an excited [pc.moan] as the [wolfgang.cockHead+] of his scarlet-skinned cock teases over your [pc.nipple+]. Grunting in amusement at the noise you've just made, Wolfgang suddenly thrusts forwards, slamming his [wolfgang.cock+] deep into your [pc.breast+(true)].
 		</p>
 		<p>
-			Following his companion's lead, Karl grabs your right breast, and after taking a moment to experimentally push his paw-like fingers into your fuckable nipple, he lines his cock up to it and thrusts forwards. [pc.Moaning] in delight as the two dobermanns fuck your tits, you once again push out your chest and try to focus on getting them to cum for you...
+			Following his companion's lead, Karl grabs your right breast, and after taking a moment to experimentally push his paw-like fingers into your fuckable nipple, he lines his cock up to it and thrusts forwards. [pc.Moaning] in delight as the two dobermann-boys fuck your tits, you once again push out your chest and try to focus on getting them to cum for you...
 		</p>
 	#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_dobermannDefeatDemon))
 		<p>
-			Not wanting to miss your chance to have some fun with these two big, strong dobermanns, you quickly [pc.step] forwards and tease them by asking if they've ever fucked a horny demon's tits before. After exchanging quick glances with one another, the bounty hunters turn to face you, before Wolfgang grunts, [wolfgang.speech(This isn't some kind of trick, is it?)]
+			Not wanting to miss your chance to have some fun with these two big, strong dobermann-boys, you quickly [pc.step] forwards and tease them by asking if they've ever fucked a horny demon's tits before. After exchanging quick glances with one another, the bounty hunters turn to face you, before Wolfgang grunts, [wolfgang.speech(This isn't some kind of trick, is it?)]
 		</p>
 		<p>
-			Licking your [pc.lips+] and playfully sauntering up to them, you reassure the dobermanns that the only thing you're now interested in is getting them to fuck your nipples. Glancing at one another for a moment, Wolfgang muses, [wolfgang.speech(I've never fucked someone's nipples before... Sure, why not?)]
+			Licking your [pc.lips+] and playfully sauntering up to them, you reassure the dobermann-boys that the only thing you're now interested in is getting them to fuck your nipples. Glancing at one another for a moment, Wolfgang muses, [wolfgang.speech(I've never fucked someone's nipples before... Sure, why not?)]
 		</p>
 		<p>
 			Excited to be given the chance to show off what you can do, you quickly drop down onto your knees in front of the two bounty hunters. Pulling out their huge, throbbing dog-cocks, they stand in front of you and hungrily stare at your chest as you expose your [pc.nipples+] and lift your [pc.breasts+] towards them.
@@ -805,11 +805,11 @@
 			[wolfgang.speech(You demons are just as kinky as I'd heard,)] Wolfgang grunts, before suddenly grabbing your left breast with both hands and pulling it up towards his groin. Thrusting out your chest, you can't help but let out an excited [pc.moan] as the [wolfgang.cockHead+] of his scarlet-skinned cock teases over your [pc.nipple+]. Grunting in amusement at the noise you've just made, Wolfgang suddenly thrusts forwards, slamming his [wolfgang.cock+] deep into your [pc.breast+(true)].
 		</p>
 		<p>
-			Following his companion's lead, Karl grabs your right breast, and after taking a moment to experimentally push his paw-like fingers into your fuckable nipple, he lines his cock up to it and thrusts forwards. [pc.Moaning] in delight as the two dobermanns fuck your tits, you once again push out your chest and try to focus on getting them to cum for you...
+			Following his companion's lead, Karl grabs your right breast, and after taking a moment to experimentally push his paw-like fingers into your fuckable nipple, he lines his cock up to it and thrusts forwards. [pc.Moaning] in delight as the two dobermann-boys fuck your tits, you once again push out your chest and try to focus on getting them to cum for you...
 		</p>
 	#ELSEIF(game.getDialogueFlags().hasFlag(FLAG_dobermannDefeatCombat))
 		<p>
-			Wanting to have some fun by letting these defeated dobermanns take the dominant role, you inform them that you were really hoping to have them fuck your nipples before they left. Glancing at one another for a moment, Wolfgang muses, [wolfgang.speech(I've never fucked someone's nipples before... Sure, why not?)]
+			Wanting to have some fun by letting these defeated dobermann-boys take the dominant role, you inform them that you were really hoping to have them fuck your nipples before they left. Glancing at one another for a moment, Wolfgang muses, [wolfgang.speech(I've never fucked someone's nipples before... Sure, why not?)]
 		</p>
 		<p>
 			Excited to be given the chance to show off what you can do, you quickly drop down onto your knees in front of the two bounty hunters. Pulling out their huge, throbbing dog-cocks, they stand in front of you and hungrily stare at your chest as you expose your [pc.nipples+] and lift your [pc.breasts+] towards them.
@@ -818,7 +818,7 @@
 			[wolfgang.speech(Want to apologise by letting me shoot my dog-cum into those fat tits of yours, huh, slut?)] Wolfgang asks, before suddenly grabbing your left breast with both hands and pulling it up towards his groin. Thrusting out your chest, you can't help but let out an excited [pc.moan] as the [wolfgang.cockHead+] of his scarlet-skinned cock teases over your [pc.nipple+]. Grunting in amusement at the noise you've just made, Wolfgang suddenly thrusts forwards, slamming his [wolfgang.cock+] deep into your [pc.breast+(true)].
 		</p>
 		<p>
-			Following his companion's lead, Karl grabs your right breast, and after taking a moment to experimentally push his paw-like fingers into your fuckable nipple, he lines his cock up to it and thrusts forwards. [pc.Moaning] in delight as the two dobermanns fuck your tits, you once again push out your chest and try to focus on getting them to cum for you...
+			Following his companion's lead, Karl grabs your right breast, and after taking a moment to experimentally push his paw-like fingers into your fuckable nipple, he lines his cock up to it and thrusts forwards. [pc.Moaning] in delight as the two dobermann-boys fuck your tits, you once again push out your chest and try to focus on getting them to cum for you...
 		</p>
 	#ENDIF
 	]]>
@@ -829,7 +829,7 @@
 	
 	<htmlContent tag="AFTER_SEX_WILLING_DOMMED_THEM"><![CDATA[
 	<p>
-		Having had your fun, you disentangle yourself from your two partners and [pc.step] back, allowing Wolfgang and Karl to crawl away and collapse onto the nearby sofa. Grinning at the dobermanns, you get your things in order and then remind them that they're no longer welcome here.
+		Having had your fun, you disentangle yourself from your two partners and [pc.step] back, allowing Wolfgang and Karl to crawl away and collapse onto the nearby sofa. Grinning at the dobermann-boys, you get your things in order and then remind them that they're no longer welcome here.
 	</p>
 	<p>
 		Each letting out a deep groan, the bounty hunters grab their personal belongings and quickly move towards the exit. As they head towards the door, Wolfgang mutters to Karl, [wolfgang.speech(Come on, Karl, let's get out of here...)]
@@ -845,7 +845,7 @@
 		Karl likewise steps away from you, and after grabbing a bottle of Canine Crush and downing the entire thing, he loudly burps and exclaims, [karl.speech(I haven't had a fuck that good in weeks!)]
 	</p>
 	<p>
-		After flashing the dobermanns a smile and expressing your own satisfaction in how things turned out, you remind them that they'd better be on their way. Satisfied from the good, hard fuck you've just given them, they agree to do as you ask, and after grabbing their personal belongings, they quickly move towards the exit. As they head towards the door, Wolfgang calls out behind him, [wolfgang.speech(See you around, slut!)]
+		After flashing the dobermann-boys a smile and expressing your own satisfaction in how things turned out, you remind them that they'd better be on their way. Satisfied from the good, hard fuck you've just given them, they agree to do as you ask, and after grabbing their personal belongings, they quickly move towards the exit. As they head towards the door, Wolfgang calls out behind him, [wolfgang.speech(See you around, slut!)]
 	</p>
 	]]>
 	</htmlContent>
@@ -889,7 +889,7 @@
 		[kay.speech(Are they gone?)] a nervous, slightly-feminine voice calls out from behind this door. After you've quickly replied in the positive, the owner of this voice lets out a big sigh of relief, before pulling their door wide open and happily exclaiming in a refined, posh-sounding accent, [kay.speech(Thank goodness! I've barely been able to leave my office since- ~Ahem!~ Oh! ~Ahem!~ It's so smoky in here!)]
 	</p>
 	<p>
-		As he steps out from his office and hurries to open all of the windows, you're able to get your first good look at Kay. Standing at only [kay.heightValue], and with a [kay.bodyShape] frame, you can immediately see how Kay would have been physically bullied into submission by the two dobermanns you've just seen off. As the room's smoky atmosphere starts to clear, you're able to see that Kay is a partial cat-boy, and while he has a human face and body, he's in possession of a furry cat-tail, a pair of pointed cat-ears, and shoulder-length, fur-like hair which is being held back from his face by means of a headband. Matching the pale shade of his skin, the fur of Kay's cat-like features is white as snow, which serves to highlight the brilliant blue of his large, cat-like eyes.
+		As he steps out from his office and hurries to open all of the windows, you're able to get your first good look at Kay. Standing at only [kay.heightValue], and with a [kay.bodyShape] frame, you can immediately see how Kay would have been physically bullied into submission by the two dobermann-boys you've just seen off. As the room's smoky atmosphere starts to clear, you're able to see that Kay is a partial cat-boy, and while he has a human face and body, he's in possession of a furry cat-tail, a pair of pointed cat-ears, and shoulder-length, fur-like hair which is being held back from his face by means of a headband. Matching the pale shade of his skin, the fur of Kay's cat-like features is white as snow, which serves to highlight the brilliant blue of his large, cat-like eyes.
 	</p>
 	<p>
 		Although he's referred to as 'Mr.', and he's wearing a distinctly masculine suit, the shape of Kay's face and body is highly androgynous, which, combined with his soft, high-pitched voice, could easily fool someone into thinking that he's a girl in the right circumstances. His masculinity is further diminished by what follows next; as soon as he's finished opening the windows, he practically skips over to stand in front of you, and after joyously clasping his slender hands together, he looks
@@ -934,7 +934,7 @@
 		[kay.speech(Yes!)] Kay happily replies, [kay.speech(We've been saved by a brave [pc.race] who was sent here by none other than Nyan! Please, let the workers know that things are going to return to normal, and I'll be down to see them personally once I've finished my business up here.)]
 	</p>
 	<p>
-		Sitting down behind his desk, the androgynous cat-boy smiles at you once again and says, [kay.speech(Regretfully, those two dobermanns have left me temporarily impoverished, but I can at least offer you some kind of reward for your heroic deed! Although I'm proud of inventing those arcane weaving machines you no doubt saw on your way up here, they do have the occasional habit of failing to enchant the clothes which they create. While there's nothing otherwise wrong with these items of clothing, my clients are exclusively interested in enchantments, and so these surplus items are destined for disposal. I know that it's not much of a reward, but if you'd like, you're free to help yourself to as much of that surplus as you like. There's a crate in the storage area next to the reception in which you can find this surplus.)]
+		Sitting down behind his desk, the androgynous cat-boy smiles at you once again and says, [kay.speech(Regretfully, those two dobermann-boys have left me temporarily impoverished, but I can at least offer you some kind of reward for your heroic deed! Although I'm proud of inventing those arcane weaving machines you no doubt saw on your way up here, they do have the occasional habit of failing to enchant the clothes which they create. While there's nothing otherwise wrong with these items of clothing, my clients are exclusively interested in enchantments, and so these surplus items are destined for disposal. I know that it's not much of a reward, but if you'd like, you're free to help yourself to as much of that surplus as you like. There's a crate in the storage area next to the reception in which you can find this surplus.)]
 	</p>
 	<p>
 		Thanking the white-furred cat-boy for his offer, you take a moment in which to double-check with him that Nyan will start receiving her regular deliveries of enchanted clothing again. Having received Kay's assurance that things will go back to normal starting from tomorrow, you wonder whether you should immediately make your exit, or instead stay here for a little while longer. After all, the look of adoration on Kay's face is a sure sign that he'd love for you to stay and talk with him some more...
@@ -1043,9 +1043,9 @@
 	<htmlContent tag="OFFICE_TALK_KAY_INTERCOM"><![CDATA[
 	<p>
 		#IF(game.getDialogueFlags().getSavedLong('KAY_INTERCOM')>-1)
-			You end up mainly talking about the arcane intercom on [kay.namePos] desk again, and how there's a strict licensing procedure which needs to be followed in order to qualify for owning one. Apparently, [kay.name] heard from the bureaucrats involved that such intercom devices were illegally modified in the past to act as long-range communication devices, and were even apparently used by the Human Liberation Front during the fifth human rebellion. As such, these days only approved businesses are permitted to own any sort of arcane communications device.
+			You end up mainly talking about the arcane intercom on [kay.namePos] desk again, and how there's a strict licensing procedure which needs to be followed in order to qualify for owning one. Apparently, [kay.name] heard from the bureaucrats involved that such intercom devices were illegally modified in the past to act as long-range communication devices, and were even apparently used by the Human Liberation Front during the Fifth Human Rebellion. As such, these days only approved businesses are permitted to own any sort of arcane communications device.
 		#ELSE
-			You soon find yourselves talking about the arcane intercom on [kay.namePos] desk, and how there's a strict licensing procedure which needs to be followed in order to qualify for owning one. Apparently, [kay.name] heard from the bureaucrats involved that such intercom devices were illegally modified in the past to act as long-range communication devices, and were even apparently used by the Human Liberation Front during the fifth human rebellion. As such, these days only approved businesses are permitted to own any sort of arcane communications device.
+			You soon find yourselves talking about the arcane intercom on [kay.namePos] desk, and how there's a strict licensing procedure which needs to be followed in order to qualify for owning one. Apparently, [kay.name] heard from the bureaucrats involved that such intercom devices were illegally modified in the past to act as long-range communication devices, and were even apparently used by the Human Liberation Front during the Fifth Human Rebellion. As such, these days only approved businesses are permitted to own any sort of arcane communications device.
 		#ENDIF
 	</p>
 	]]>
@@ -1065,9 +1065,9 @@
 	<htmlContent tag="OFFICE_TALK_KAY_BOUNTY_HUNTERS"><![CDATA[
 	<p>
 		#IF(game.getDialogueFlags().getSavedLong('KAY_BOUNTY_HUNTERS')>-1)
-			You end up mainly talking about [kay.namePos] troubles with Wolfgang and Karl again, and you soon hear the same story about how the reason for their contract being drawn up was due to the fact that the [kay.race]'s business was being repeatedly targeted by thieves. Apparently, the Enforcers had more pressing concerns to deal with, and so [kay.name] decided to use [kay.her] initiative to hire some bounty hunters to catch whoever was stealing from [kay.herHim]. Although the dobermanns failed to catch the thief, their presence did seem to deter any future thefts, but despite this relative success, they proved to be far more trouble than they were worth.
+			You end up mainly talking about [kay.namePos] troubles with Wolfgang and Karl again, and you soon hear the same story about how the reason for their contract being drawn up was due to the fact that the [kay.race]'s business was being repeatedly targeted by thieves. Apparently, the Enforcers had more pressing concerns to deal with, and so [kay.name] decided to use [kay.her] initiative to hire some bounty hunters to catch whoever was stealing from [kay.herHim]. Although the dobermann-boys failed to catch the thief, their presence did seem to deter any future thefts, but despite this relative success, they proved to be far more trouble than they were worth.
 		#ELSE
-			You soon find yourselves talking about how [kay.namePos] troubles with Wolfgang and Karl began, and you soon learn that the reason for their contract being drawn up was due to the fact that the [kay.race]'s business was being repeatedly targeted by thieves. Apparently, the Enforcers had more pressing concerns to deal with, and so [kay.name] decided to use [kay.her] initiative to hire some bounty hunters to catch whoever was stealing from [kay.herHim]. Although the dobermanns failed to catch the thief, their presence did seem to deter any future thefts, but despite this relative success, they proved to be far more trouble than they were worth.
+			You soon find yourselves talking about how [kay.namePos] troubles with Wolfgang and Karl began, and you soon learn that the reason for their contract being drawn up was due to the fact that the [kay.race]'s business was being repeatedly targeted by thieves. Apparently, the Enforcers had more pressing concerns to deal with, and so [kay.name] decided to use [kay.her] initiative to hire some bounty hunters to catch whoever was stealing from [kay.herHim]. Although the dobermann-boys failed to catch the thief, their presence did seem to deter any future thefts, but despite this relative success, they proved to be far more trouble than they were worth.
 		#ENDIF
 	</p>
 	]]>

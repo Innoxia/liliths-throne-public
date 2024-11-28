@@ -150,7 +150,7 @@ public class Race {
 			Disposition.CIVILIZED,
 			RacialClass.MAMMAL,
 			CombatBehaviour.SEDUCE,
-			0.75f,
+			0.1f,
 			2,
 			3,
 			FurryPreference.MAXIMUM,
@@ -162,6 +162,9 @@ public class Race {
 		}
 		@Override
 		public String getName(Body body, boolean feral) {
+			if(feral) {
+				return "demonic-horse";
+			}
 			if(feral && body !=null && body.getHalfDemonSubspecies()!=null && body.getHalfDemonSubspecies()!=Subspecies.HUMAN) {
 				return "demonic-"+ body.getHalfDemonSubspecies().getFeralName(body);
 			}
@@ -169,6 +172,9 @@ public class Race {
 		}
 		@Override
 		public String getNamePlural(Body body, boolean feral) {
+			if(feral) {
+				return "demonic-horses";
+			}
 			if(feral && body !=null && body.getHalfDemonSubspecies()!=null && body.getHalfDemonSubspecies()!=Subspecies.HUMAN) {
 				return "demonic-"+ body.getHalfDemonSubspecies().getFeralNamePlural(body);
 			}
@@ -652,32 +658,6 @@ public class Race {
 		}
 	};
 
-	// SLIME:
-	public static AbstractRace SLIME = new AbstractRace("slime",
-			"slimes",
-			"slime",
-			"slimes",
-			"slime",
-			PresetColour.RACE_SLIME,
-			Disposition.NEUTRAL,
-			RacialClass.OTHER,
-			CombatBehaviour.BALANCED,
-			0.5f,
-			1,
-			1,
-			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM,
-			false) {
-		@Override
-		public boolean isAbleToSelfTransform() {
-			return true;
-		}
-		@Override
-		public AbstractRacialBody getRacialBody() {
-			return RacialBody.HUMAN;
-		}
-	};
-
 	// AVIAN:
 	public static AbstractRace HARPY = new AbstractRace("harpy",
 			"harpies",
@@ -718,9 +698,63 @@ public class Race {
 		}
 	};
 	
-
+	
+	// ********** SPECIAL RACES ********** //
+	
+	
+	// SLIME:
+	public static AbstractRace SLIME = new AbstractRace("slime",
+			"slimes",
+			"slime",
+			"slimes",
+			"slime",
+			PresetColour.RACE_SLIME,
+			Disposition.NEUTRAL,
+			RacialClass.OTHER,
+			CombatBehaviour.BALANCED,
+			0.5f,
+			1,
+			1,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM,
+			false) {
+		@Override
+		public boolean isAbleToSelfTransform() {
+			return true;
+		}
+		@Override
+		public AbstractRacialBody getRacialBody() {
+			return RacialBody.HUMAN;
+		}
+	};
+	
+	// DOLLS:
+	public static AbstractRace DOLL = new AbstractRace("doll",
+			"dolls",
+			"doll",
+			"dolls",
+			"doll",
+			PresetColour.RACE_DOLL,
+			Disposition.NEUTRAL,
+			RacialClass.OTHER,
+			CombatBehaviour.BALANCED,
+			0.5f,
+			1,
+			1,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM,
+			false) {
+		@Override
+		public boolean isAbleToSelfTransform() {
+			return false;
+		}
+		@Override
+		public AbstractRacialBody getRacialBody() {
+			return RacialBody.HUMAN;
+		}
+	};
+	
 	// ELEMENTALS:
-
 	public static AbstractRace ELEMENTAL = new AbstractRace("elemental",
 				"elementals",
 				"elemental",

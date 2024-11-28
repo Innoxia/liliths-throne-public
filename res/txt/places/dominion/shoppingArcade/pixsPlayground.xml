@@ -172,7 +172,7 @@
 			Proceeding forwards into the gym, you approach the reception desk, where you're greeted by a pretty rabbit-girl, [style.speechFeminine(Hello! Pix isn't here at the moment, but she'll be back at six o'clock.)]
 		</p>
 		<p>
-			#IF(!pc.hasItemType(ITEM_innoxia_quest_gym_membership_card))
+			#IF(pc.hasItemType(ITEM_innoxia_quest_gym_membership_card))
 				Showing the receptionist your membership card, the rabbit-girl smiles and waves you through, saying, [style.speechFeminine(Enjoy your session!)]
 			#ELSE
 				As she realises that you don't have a membership card to show her, the rabbit-girl says, [style.speechFeminine(It's one-hundred flames per session. Pix handles the memberships, so if you wanted to sign up to become a member of our gym, then please come back during the day.)]
@@ -1040,7 +1040,7 @@
 			#ENDIF
 		#ELSE
 			 [style.italicsMinorBad([units.time(8)]-[units.time(20)])].
-			#IF(!pc.hasItemType(ITEM_innoxia_quest_gym_membership_card))
+			#IF(pc.hasItemType(ITEM_innoxia_quest_gym_membership_card))
 				 Although you're a member of the gym, you can't get lessons at the moment as Hannah isn't here...
 			#ELSE
 				 Even if Hannah were here, which she's not, you wouldn't be able to get boxing lessons from her as you're not a member of the gym...

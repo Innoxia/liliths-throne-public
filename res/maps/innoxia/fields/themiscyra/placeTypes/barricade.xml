@@ -4,7 +4,6 @@
 	<name><![CDATA[burning barricade]]></name>
 	<tooltipDescription><![CDATA[Constructed and lit by the town's defenders, this burning barricade is producing a considerable amount of heat and smoke, making it impossible for you to pass.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[beside a burning barricade in Themiscyra]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_CRIMSON</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>
