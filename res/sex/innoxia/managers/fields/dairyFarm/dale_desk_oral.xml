@@ -21,7 +21,7 @@
 		<characterInformation>
 			<characterId>pc</characterId>
 			<slotsAvailable/>
-			<canStopSex><![CDATA[true]]></canStopSex>
+			<canStopSex ignoreDefaultBehaviour="true"><![CDATA[true]]></canStopSex>
 			<canChangePositions><![CDATA[false]]></canChangePositions>
 			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
 			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
@@ -87,6 +87,7 @@
 				</character>
 			</preferences>
 			<uniqueSexActions>
+				<sexAction>innoxia_fields_dairyFarm_dale_restart_blowjob</sexAction>
 				<sexAction>innoxia_fields_dairyFarm_dale_paperwork</sexAction>
 			</uniqueSexActions>
 			<sexTypesBanned/>

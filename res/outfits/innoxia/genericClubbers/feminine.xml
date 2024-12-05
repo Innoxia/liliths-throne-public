@@ -77,7 +77,7 @@
 			</acceptableFemininities>
 			<slot>HAIR</slot>
 			<rarity>COMMON</rarity>
-			<conditional><![CDATA[RND.nextInt(100)<=25 && npc.hasHair()]]></conditional>
+			<conditional><![CDATA[RND.nextInt(100)<=25 && npc.hasHair() && !clothing.getDefaultItemTags().contains(ITEM_TAG_IGNORE_HAIR_RESTRICTION)]]></conditional>
 			<primaryColours/>
 			<secondaryColours/>
 			<tertiaryColours/>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>0</buttonPriority>
+	<actionConditional><![CDATA[[#jules.getArousal()>80 && jules.getArousal()<=99]]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>TWO_HORNY</associatedCorruption>
+	<associatedFetishes>
+		<performer>
+			<fetish>FETISH_VAGINAL_GIVING</fetish>
+		</performer>
+		<target>
+			<fetish>FETISH_VAGINAL_RECEIVING</fetish>
+		</target>
+	</associatedFetishes>
+	<performingArea>PENETRATION_PENIS</performingArea>
+	<targetedArea>ORIFICE_MOUTH</targetedArea>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+		[##jules.setArousal(100)]
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	
+	<!-- Information displayed to the player: -->
+	
+	<title><![CDATA[Demand pussy]]></title>
+	
+	<tooltip><![CDATA[Tell these sluts that you're going to finish in one of their cunts.]]></tooltip>
+	
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[true]]></descriptionConditional>
+			<text><![CDATA[
+				Jules grunts that he's going to blow his load in one of you. Says to present him with a pussy to take his load.
+				
+				<br/><br/>
+			]]></text>
+		</description>
+	</descriptions>
+	
+</sexAction>

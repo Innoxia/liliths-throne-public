@@ -15,7 +15,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.3.7
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class Mouth implements BodyPartInterface {
@@ -31,6 +31,13 @@ public class Mouth implements BodyPartInterface {
 		orificeMouth = new OrificeMouth(wetness, capacity, depth, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());
 	}
 
+	public Mouth(Mouth mouthToCopy) {
+		this.type = mouthToCopy.type;
+		this.lipSize = mouthToCopy.lipSize;
+		this.orificeMouth = new OrificeMouth(mouthToCopy.orificeMouth);
+		this.piercedLip = mouthToCopy.piercedLip;
+	}
+	
 	@Override
 	public AbstractMouthType getType() {
 		return type;

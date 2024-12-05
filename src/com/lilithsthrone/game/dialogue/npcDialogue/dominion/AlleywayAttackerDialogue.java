@@ -773,6 +773,10 @@ public class AlleywayAttackerDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			boolean noSex = getMugger().isPostCombatNoSex();
+			boolean wantsSex = getMugger().isPostCombatWantsSex();
+			boolean rapePlay = getMugger().isPostCombatRapePlay();
+			
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way...", Main.game.getDefaultDialogue(false)){
 					@Override
@@ -784,11 +788,11 @@ public class AlleywayAttackerDialogue {
 				};
 				
 			} else if (index == 2) {
-				if(!getMugger().isAttractedTo(Main.game.getPlayer()) && !Main.game.isNonConEnabled()) {
+				if(noSex) {
 					return new Response("Sex", "[npc.Name] has no interest in having sex with you!", null);
 					
-				} else if(getMugger().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
-					return new ResponseSex("Sex",
+				} else if(wantsSex) {
+					return new ResponseSex(rapePlay?"Rape-play":"Sex",
 							"Well, [npc.she] <i>is</i> asking for it!",
 							true, false,
 							new SMGeneric(
@@ -797,7 +801,7 @@ public class AlleywayAttackerDialogue {
 									Main.game.getPlayer().getCompanions(),
 									null),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_SEX", getAllCharacters()));
+							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", rapePlay?"AFTER_COMBAT_VICTORY_RAPE":"AFTER_COMBAT_VICTORY_SEX", getAllCharacters()));
 				} else {
 					return new ResponseSex(
 							"Rape [npc.herHim]",
@@ -814,11 +818,11 @@ public class AlleywayAttackerDialogue {
 				}
 				
 			} else if (index == 3) {
-				if(!getMugger().isAttractedTo(Main.game.getPlayer()) && !Main.game.isNonConEnabled()) {
+				if(noSex) {
 					return new Response("Gentle Sex", "[npc.Name] has no interest in having sex with you!", null);
 					
-				} else if(getMugger().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
-					return new ResponseSex("Gentle sex",
+				} else if(wantsSex) {
+					return new ResponseSex(rapePlay?"Rape-play (gentle)":"Gentle sex",
 							"Well, [npc.she] <i>is</i> asking for it!",
 							true, false,
 							new SMGeneric(
@@ -828,7 +832,7 @@ public class AlleywayAttackerDialogue {
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_GENTLE),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()));
+							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", rapePlay?"AFTER_COMBAT_VICTORY_RAPE_GENTLE":"AFTER_COMBAT_VICTORY_SEX_GENTLE", getAllCharacters()));
 					
 				} else {
 					return new ResponseSex("Rape [npc.herHim] (gentle)",
@@ -846,11 +850,11 @@ public class AlleywayAttackerDialogue {
 				}
 				
 			} else if (index == 4) {
-				if(!getMugger().isAttractedTo(Main.game.getPlayer()) && !Main.game.isNonConEnabled()) {
+				if(noSex) {
 					return new Response("Rough Sex", "[npc.Name] has no interest in having sex with you!", null);
 					
-				} else if(getMugger().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
-					return new ResponseSex("Rough sex",
+				} else if(wantsSex) {
+					return new ResponseSex(rapePlay?"Rape-play (rough)":"Rough Sex",
 							"Well, [npc.she] <i>is</i> asking for it!",
 							true, false,
 							new SMGeneric(
@@ -860,7 +864,7 @@ public class AlleywayAttackerDialogue {
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_ROUGH),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", "AFTER_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()));
+							UtilText.parseFromXMLFile("encounters/dominion/alleywayAttack", rapePlay?"AFTER_COMBAT_VICTORY_RAPE_ROUGH":"AFTER_COMBAT_VICTORY_SEX_ROUGH", getAllCharacters()));
 					
 				} else {
 					return new ResponseSex("Rape [npc.herHim] (rough)",
@@ -878,7 +882,7 @@ public class AlleywayAttackerDialogue {
 				}
 				
 			} else if (index == 5) {
-				if(!getMugger().isAttractedTo(Main.game.getPlayer())) {
+				if(!getMugger().isAttractedTo(Main.game.getPlayer()) || getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 					return new Response("Submit",
 							"You can't submit to [npc.herHim], as [npc.sheHasFull] no interest in having sex with you!",
 							null);

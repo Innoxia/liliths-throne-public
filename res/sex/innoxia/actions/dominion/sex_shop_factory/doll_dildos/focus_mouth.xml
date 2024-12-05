@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		#IF(sex.getNumberOfOrgasms(pc)==0)
+			[#pc.getClothingInSlot(IS_MOUTH)!=null && pc.getClothingInSlot(IS_VAGINA)==null]
+		#ELSE
+			[#pc.getClothingInSlot(IS_MOUTH).getColour(0)==COLOUR_CLOTHING_BLUE_VERY_DARK && pc.getClothingInSlot(IS_VAGINA).getColour(0)==COLOUR_CLOTHING_PINK_LIGHT]
+		#ENDIF
+	]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>FIVE_EXTREME</arousalPerformer>
+	<arousalTarget>ZERO_NONE</arousalTarget>
+	<associatedCorruption>TWO_HORNY</associatedCorruption>
+	<associatedFetishes/>
+	<performingArea/>
+	<targetedArea/>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+		[##pc.setArousal(35)]
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[
+		#IF(sex.getNumberOfOrgasms(pc)==0)
+			Face-fuck
+		#ELSE
+			Massage dildo
+		#ENDIF
+	]]></title>
+	<tooltip><![CDATA[
+		#IF(sex.getNumberOfOrgasms(pc)==0)
+			Do as the doll commands and start pumping the dildo in and out of your throat.
+		#ELSE
+			Do as the doll commands and use your tongue to massage the underside of the dildo's shaft.
+		#ENDIF
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getNumberOfOrgasms(pc)==0]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Surrendering to the red doll's authority, you obediently take hold of the end of the dildo that's poking out between your plump, 'o'-shaped lips and pull it half-way out of your throat. A shiver of masochistic pleasure jolts through your silicone body as you take on the role of testing the doll's sex toys, and with an excited, muffled moan, you plunge the thick dildo back down your throat. Repeating this action, you start to rhythmically fuck your own face, drawing an approving nod from the red doll as a surge of intense arousal washes over you.
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getNumberOfOrgasms(pc)>0]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Submitting to the doll's command, you instantly start using your tongue to caress the underside of the huge, equine dildo that's hilted deep down your throat. The act of sliding your silicone tongue up and down the toy makes you wish that you were doing this to a real cock, and that you'd be rewarded with a blast of hot cum down your throat at the end of it. This intrusive thought briefly makes you question what's happening to you, but as you obediently continue massaging the silicone horse-cock you quickly sink into a blissful state of mind where all that matters is acting like a good, obedient sex doll.
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<scene id ="start">				
+		<author><![CDATA[DSG]]></author>			
+		<title><![CDATA[A gathered mob]]></title>			
+		<content folderPath="txt/dsg/encounters/fields/elis/market/eisek_initial">ENCOUNTER_START</content>		
+		<secondsPassed minutes="false"><![CDATA[30]]></secondsPassed>	
+		<travelDisabled><![CDATA[true]]></travelDisabled>	
+		<inventoryDisabled><![CDATA[true]]></inventoryDisabled>	
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>		
+		<responses>			
+			<response>					
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Approach]]></responseTitle>
+				<responseTooltip><![CDATA[Approach the stall and see what the mob is up to.]]></responseTooltip>
+				<colour><![CDATA[TEXT]]></colour>
+				<nextDialogue stripContent="false"><![CDATA[dsg_encounters_fields_elis_market_eisek_initial_approach]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_dsg_elis_eisek_introduced, true)]
+				]]></effects>				
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Back off]]></responseTitle>
+				<responseTooltip><![CDATA[People are avoiding the area for a reason.]]></responseTooltip>
+				<nextDialogue><![CDATA[dsg_encounters_fields_elis_market_eisek_initial_back_off]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#pc.setNearestLocation(PLACE_TYPE_innoxia_fields_elis_market_path)]
+				]]></effects>
+			</response>			
+		</responses>
+	</scene>
+	
+	<scene id ="back_off">				
+		<author><![CDATA[DSG]]></author>			
+		<title><![CDATA[Backing off...]]></title>		
+		<content folderPath="txt/dsg/encounters/fields/elis/market/eisek_initial">ENCOUNTER_BACK_OFF</content>		
+		<secondsPassed minutes="false"><![CDATA[30]]></secondsPassed>				
+		<continuesDialogue><![CDATA[true]]></continuesDialogue>	
+		<travelDisabled><![CDATA[true]]></travelDisabled>	
+		<inventoryDisabled><![CDATA[true]]></inventoryDisabled>	
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responses>			
+			<response>				
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Having backed off from the stall, you're now free to continue on your way...]]></responseTooltip>
+				<colour><![CDATA[TEXT]]></colour>
+				<nextDialogue stripContent="false"><![CDATA[default]]></nextDialogue>
+				<secondsPassed/>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id ="approach">				
+		<author><![CDATA[DSG]]></author>			
+		<title><![CDATA[Approach the mob]]></title>		
+		<content folderPath="txt/dsg/encounters/fields/elis/market/eisek_initial">ENCOUNTER_APPROACH</content>		
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>				
+		<travelDisabled><![CDATA[true]]></travelDisabled>	
+		<inventoryDisabled><![CDATA[true]]></inventoryDisabled>	
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>	
+		<responses>			
+			<response>
+				<availabilityConditional><![CDATA[[#!pc.getRace().equals(RACE_dsg_dragon)]]]></availabilityConditional>	
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Play along]]></responseTitle>
+				<responseTooltip><![CDATA[Play along and pretend that you know this [eisek.race].]]></responseTooltip>
+				<colour><![CDATA[TEXT]]></colour>
+				<nextDialogue stripContent="false"><![CDATA[dsg_encounters_fields_elis_market_eisek_initial_play_along]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(500))]
+					[#eisek.setPlayerKnowsName(true)]
+					[#flags.setFlag(FLAG_dsg_elis_eisek_introduced, true)]
+					[#game.appendToTextEndStringBuilder(eisek.incrementAffection(pc, 3))]
+				]]></effects>				
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.getRace().equals(RACE_dsg_dragon)]]]></availabilityConditional>	
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Well, that certainly was something...]]></responseTooltip>
+				<colour><![CDATA[TEXT]]></colour>
+				<nextDialogue stripContent="false"><![CDATA[dsg_encounters_fields_elis_market_eisek_initial_play_along]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(500))]
+					[#eisek.setPlayerKnowsName(true)]
+					[#flags.setFlag(FLAG_dsg_elis_eisek_introduced, true)]
+					[#flags.setFlag(FLAG_dsg_elis_eisek_introduced_as_dragon, true)]
+					[#game.appendToTextEndStringBuilder(eisek.incrementAffection(pc, 3))]
+				]]></effects>				
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!pc.getRace().equals(RACE_dsg_dragon)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Side with the mob]]></responseTitle>
+				<responseTooltip><![CDATA[There's no way you're going to let someone you don't even know take advantage of you.]]></responseTooltip>
+				<nextDialogue><![CDATA[dsg_encounters_fields_elis_market_eisek_initial_side_with_mob]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[					
+					[#game.getPlayerCell().getPlace().setPlaceType(PLACE_TYPE_dsg_fields_elis_market_produce_banished)]
+					[#eisek.setLocation(WORLD_TYPE_EMPTY, PLACE_TYPE_GENERIC_EMPTY_TILE)]
+					[#game.banishNPC(eisek)]
+					[#flags.setFlag(FLAG_dsg_elis_eisek_banished, true)]
+					[#flags.setSavedLong("elis_eisek_banished_date", game.getDayNumber())]
+				]]></effects>
+			</response>			
+		</responses>
+	</scene>
+	
+	<scene id ="side_with_mob">				
+		<author><![CDATA[DSG]]></author>			
+		<title><![CDATA[Siding with the mob]]></title>	
+		<content folderPath="txt/dsg/encounters/fields/elis/market/eisek_initial">ENCOUNTER_SIDE_WITH_MOB</content>		
+		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>				
+		<continuesDialogue><![CDATA[false]]></continuesDialogue>	
+		<travelDisabled><![CDATA[true]]></travelDisabled>	
+		<inventoryDisabled><![CDATA[true]]></inventoryDisabled>	
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>		
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Nothing left to see here, might as well move on.]]></responseTooltip>
+				<colour><![CDATA[TEXT]]></colour>
+				<nextDialogue><![CDATA[dsg_places_fields_elis_market_produce_banished_stall]]></nextDialogue>
+				<secondsPassed/>
+				<effects/>
+			</response>			
+		</responses>
+	</scene>
+	
+	<scene id ="play_along">				
+		<author><![CDATA[DSG]]></author>			
+		<title><![CDATA[Playing along]]></title>
+		<content folderPath="txt/dsg/encounters/fields/elis/market/eisek_initial">ENCOUNTER_PLAY_ALONG</content>		
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>		
+		<continuesDialogue><![CDATA[false]]></continuesDialogue>	
+		<travelDisabled><![CDATA[true]]></travelDisabled>	
+		<inventoryDisabled><![CDATA[true]]></inventoryDisabled>	
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responses copyFromDialogueId="dsg_characters_eisek_stall_talk_menu"/>
+	</scene>
+	
+</dialogueNodes>

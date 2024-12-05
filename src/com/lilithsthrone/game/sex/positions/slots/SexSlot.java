@@ -99,6 +99,11 @@ public class SexSlot {
 		if(Main.game.isInSex() && Main.sex.isMasturbation()) {
 			return UtilText.parse(endingCharacter, "Deciding that [npc.sheHas] had enough for now, [npc.name] [npc.verb(put)] an end to [npc.her] masturbation session and [npc.verb(prepare)] to continue on [npc.her] way.");
 		}
+
+		if(targetedCharacter.isAsleep()) {
+			return UtilText.parse(endingCharacter, targetedCharacter,
+					"With a satisfied sigh, [npc.name] [npc.verb(separate)] [npc.herself] from [npc2.name], making sure not to wake [npc2.herHim] up in the process.");
+		}
 		return UtilText.parse(endingCharacter, targetedCharacter,
 				"With a satisfied sigh, [npc.name] [npc.verb(disentangle)] [npc.herself] from [npc2.namePos] clutches, before stating that [npc.sheHas] had enough for now.");
 	}

@@ -161,15 +161,6 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Enter]]></responseTitle>
-				<responseTooltip><![CDATA[Head inside the Enforcer station...<br/>[style.italicsMinorBad(This will be added soon!)]]]></responseTooltip>
-				<nextDialogue><![CDATA[null]]></nextDialogue>
-			</response>
-			<!-- TODO: -->
-			<response>
-				<availabilityConditional><![CDATA[false]]></availabilityConditional>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
-				<responseTitle><![CDATA[Enter]]></responseTitle>
 				<responseTooltip><![CDATA[
 					#IF(game.isHourBetween(8, 20))
 						Head inside the Enforcer station...
@@ -651,7 +642,6 @@
 				<effects><![CDATA[
 					[#pc.setLocation(WORLD_TYPE_innoxia_fields_elis_tavern_alley, PLACE_TYPE_innoxia_fields_elis_tavern_alley_exit)]
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/tavern_alley', 'INITIAL_ENTRY'))]
-					[#oglix.initElemental()]
 					[#oglix.initBeerBitches()]
 					[#game.initGamblersInElisTavern()]
 				]]></effects>

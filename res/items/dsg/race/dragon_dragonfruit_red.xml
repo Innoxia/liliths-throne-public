@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <item>
 	<coreAttributes>
-		<authorTag><![CDATA[A faint inscription printed on the peel reads 'Picked by DSG Foodstuffs LLC']]></authorTag>
+		<authorTag><![CDATA[A faint wax stamp on the peel reads "Grown by the dragons of the DSG Farmer's Guild."]]></authorTag>
 		
-		<value>1000</value> 
+		<value>100</value> 
 		<determiner><![CDATA[]]></determiner>
 		<name><![CDATA[Red Dragonfruit]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[Red Dragonfruits]]></namePlural>
@@ -45,7 +45,6 @@
 		<itemTags>
 			<tag>FOOD_QUALITY</tag>
 			<tag>RACIAL_TF_ITEM</tag>
-			<tag>SOLD_BY_RALPH</tag>
 		</itemTags>
 	</coreAttributes>
 

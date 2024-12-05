@@ -179,6 +179,9 @@
 					#ENDIF
 				]]></nextDialogue>
 				<effects><![CDATA[
+					#IF(game.getCharactersPresent().contains(astrapi) && astrapi.isVisiblyPregnant())
+						[#astrapi.setCharacterReactedToPregnancy(pc, true)]
+					#ENDIF
 					[#flags.setFlag(FLAG_innoxia_centaur_travel_to_elis, false)]
 				]]></effects>
 			</response>
@@ -189,9 +192,18 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Decline]]></responseTitle>
-				<responseTooltip><![CDATA[Tell Astrapi that you don't want a ride to Dominion right now and exit the barn.]]></responseTooltip>
+				<responseTooltip><![CDATA[
+					#IF(game.getCharactersPresent().contains(astrapi))
+						Tell Astrapi that you don't want a ride to Dominion right now and exit the barn.
+					#ELSE
+						Tell Vronti that you don't want a ride to Dominion right now and exit the barn.
+					#ENDIF
+				]]></responseTooltip>
 				<nextDialogue><![CDATA[default]]></nextDialogue>
 				<effects><![CDATA[
+					#IF(game.getCharactersPresent().contains(astrapi) && astrapi.isVisiblyPregnant())
+						[#astrapi.setCharacterReactedToPregnancy(pc, true)]
+					#ENDIF
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/centaur_transport', 'LEAVE_BARN'))]
 					[#astrapi.returnToHome()]
 					[#vronti.returnToHome()]

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- STREET -->
+	
+	<htmlContent tag="STREET"><![CDATA[
+	<p>
+		You detect a faint odour emanating from a nearby building. It is unpleasant but also familiar. Upon closer inspection, the smell is coming from the building's basement, the door to which is down a short flight of stairs. This must be where that group of dragon-obsessed weirdos do their "LARP"ing or at least gather in numbers.
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

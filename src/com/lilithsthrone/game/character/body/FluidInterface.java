@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.body;
 
 import java.util.List;
+import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFluidType;
@@ -22,7 +23,7 @@ public interface FluidInterface extends BodyPartInterface {
 	public String setFlavour(GameCharacter owner, FluidFlavour flavour);
 	
 	
-	public List<FluidModifier> getFluidModifiers();
+	public Set<FluidModifier> getFluidModifiers();
 	
 	public boolean hasFluidModifier(FluidModifier fluidModifier);
 	

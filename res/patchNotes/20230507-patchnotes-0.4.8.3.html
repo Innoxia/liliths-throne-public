@@ -1,0 +1,68 @@
+<h2>v0.4.8.2</h2>
+
+<h3>Contributors:</h3>
+<ul>
+	<li>Fixed issue where player-summoned elementals were not considered part of the player's team for damage calculations, meaning for harder difficulty settings their damage was scaled the same as that of enemies. (by TractorsAttic)</li>
+	<li>Fixed parsing bug in Natalya's meeting scene during Helena's romance quest, and fixed a potential NullPointerException related to accessing character present IDs. (by Cognitive Mist)</li>
+	<li>Improved getSubspeciesFromBody() method, which makes loading save files significantly faster, especially for large saves in games with many modded subspecies. (PR#1754 by SightglassCat)</li>
+	<li>Added 'light red' and changed 'light pink' to 'pink' for salamander scale colours, added missing equip text for the nursing bra, and fixed some inconsistencies in Natayla's new content. (PR#1757 by MintyChip)</li>
+	<li>Added pattern support to both micro bikini clothing items. (PR#1759 by DSG)</li>
+	<li>Added two new clothing items; 'fedora' (head slot, androgynous, sold by Nyan); and 'trenchcoat' (over-torso slot, androgynous, sold by Nyan). (PR#1761 by DSG)</li>
+	<li>Fixed missing IDs and paths for anonymous-classed NPCs. (PR#1762 by SightglassCat)</li>
+	<li>Fixed incorrect references to horns in the antenna.xml race mod example file. (by MintyChip)</li>
+</ul>
+
+<h3>Image & Character Imports:</h3>
+<ul>
+	<li>PLEASE NOTE: All imported images for your player character will no longer work, due to the image folder location being changed.</li>
+	<li>Custom images for your player character are now stored in the same manner as custom images for non-unique NPCs, that is, in the 'data/images' folder instead of the 'res/images' folder. This allows you to have unique images for your player character in different save game files.</li>
+</ul>
+
+<h3>Clothing:</h3>
+<ul>
+	<li>The Butler's Jacket no longer obscures the finger slot.</li>
+	<li>Updated all of the old formatting for clothing displacement/removal text in clothing files.</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>Moved foot-to-mouth sex actions from the reverse cowgirl position to the cowgirl position.</li>
+	<li>Using an ovipositor to lay eggs in someone no longer requires the ovipositor-equipped character to have a vagina (this should only affect slimes, as they're the only race that can get pregnant without having a vagina).</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>Added text to make it more obvious that a slave is losing 1 affection towards you due to being woken up at the start of interacting with them while they're sleeping.</li>
+	<li>Elementals are now able to use the save/load transformation menu correctly.</li>
+	<li>When loading a TF preset the dialogue scene now moves back to the 'core' TF dialogue, so as to give an indication that the TF has been applied.</li>
+	<li>Made the layout of multi-breast option buttons slightly more logical.</li>
+	<li>If you've equipped sealed clothing with the 'servitude' enchantment, Lilaya's 'Sealed problem' action will no longer remove all the seals on your clothing, and will instead only remove the 'servitude' enchantments.</li>
+	<li>Compacted the layout of the 'subspecies knowledge' perks when viewing a character's perk tree.</li>
+	<li>The 'Dungeon Cell' tiles in Lilaya's basement no longer have an upkeep cost (they used to be 10 flames/day).</li>
+	<li>In 'Murk's Milker' bad end, the player's tattoos are now removed at the start of the bad end, so as to avoid unexpected transformations occurring during the bad end content.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Typo & parsing fixes and minor dialogue alterations.</li>
+	<li>Fixed bug where Hannah would not return to the bar after encountering her there for the first time.</li>
+	<li>Concealed subspecies bonus text no longer inadvertently reveals their race in the tooltip text.</li>
+	<li>If a character has the 'Serpent-tailed' leg configuration, any change to the length of their tail is now correctly restored when saving & loading games.</li>
+	<li>Added missing 'MURK_BACK' dialogue node in the pregnancy roulette scenes.</li>
+	<li>Removed references to the player impregnating Bunny if it was actually Loppy who ended up impregnating her during a threesome.</li>
+	<li>Fixed numerous instances of scripting errors related to the change of the NPC.hourlyUpdate() method to take in an int argument (showing as 'Scripting parsing error: X.hourlyUpdate()' in the error.log file).</li>
+	<li>Fixed bug where you could bypass the entry fee for Pix's gym if you talked to her and then simply moved forwards into the gym.</li>
+	<li>Saving a transformation preset for an elemental will no longer make the save/load transformation menu inaccessible.</li>
+	<li>Lilaya will now correctly transform her genitalia back to having a pussy and no cock after sex.</li>
+	<li>Fixed issue in Penelope's 'Posters' dialogue where you'd always tell her that you hadn't visited Pix's gym, even if you had.</li>
+	<li>Fixed bug where you could assign jobs to guests which were meant to be limited to slaves (which was done by selecting a job category while managing a slave's job, then managing a guest's job and assigning the still-selected job to them).</li>
+	<li>Natalya's sex scene in the park is no longer treated as being a public sex scene (as you're behind the bushes and so out of sight).</li>
+	<li>Fixed bug where slaves who had sex while working in the kitchen would generate the 'gardener' sex event description.</li>
+	<li>When/If you give Scarlett back to Helena, her tattoos are now removed. (This will retroactively apply when loading into this version.)</li>
+	<li>Astrapi's pregnancy reaction scene now correctly plays when encountering her at the Elis depot.</li>
+	<li>You can no longer teleport into the Crossed Blades tavern (to prevent the player from entering it outside of opening hours).</li>
+	<li>Natalya's post-anal-sex dialogue no longer references rimjobs.</li>
+	<li>Fixed bug where if you had a fetish temporarily granted via enchanted clothing, the fetish would be permanently applied to the wearer after saving & then loading the game.</li>
+	<li>You can no longer pay to have your 'penis' pierced if you have no penis but are wearing a strapon.</li>
+	<li>Fixed bug where fetishes were not being detected as being owned.</li>
+</ul>

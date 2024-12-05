@@ -11,10 +11,12 @@
 	<!-- Any special changes which should be applied to a newly-spawned character of this race.
 	This is applied *before* individual Subspecies' 'applySubspeciesChanges' method.
 	The character's body that's being changed can be accessed via using 'targetedBody'.
-	The code here is redundant, as clitoris girth is set to 4 in the racialBody.xml file, and modified in the spotted and striped subspecies files, but I've added it in here to show a working example. -->
-	<applyRaceChanges><![CDATA[
-		[#targetedBody.getVagina().getClitoris().setGirth(null, 4)]
-	]]></applyRaceChanges>
+	e.g.:
+		<applyRaceChanges><![CDATA[
+			[#targetedBody.getVagina().getClitoris().setGirth(null, 4)]
+		]]></applyRaceChanges>
+	-->
+	<applyRaceChanges/>
 	
 	<!-- The non-gendered name and plural name of this race when in anthropomorphic form. -->
 	<name><![CDATA[hyena-morph]]></name>

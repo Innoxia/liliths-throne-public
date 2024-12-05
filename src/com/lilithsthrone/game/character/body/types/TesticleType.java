@@ -58,7 +58,7 @@ public class TesticleType {
 	public static AbstractTesticleType EQUINE = new AbstractTesticleType(BodyCoveringType.PENIS, Race.HORSE_MORPH, FluidType.CUM_HORSE_MORPH, false) {
 	};
 
-	public static AbstractTesticleType REINDEER_MORPH = new AbstractTesticleType(BodyCoveringType.PENIS, Race.REINDEER_MORPH, FluidType.CUM_REINDEER_MORPH, false) {
+	public static AbstractTesticleType REINDEER_MORPH = new AbstractTesticleType(BodyCoveringType.REINDEER_FUR, Race.REINDEER_MORPH, FluidType.CUM_REINDEER_MORPH, false) {
 	};
 
 	public static AbstractTesticleType AVIAN = new AbstractTesticleType(BodyCoveringType.PENIS, Race.HARPY, FluidType.CUM_HARPY, true) {
@@ -70,7 +70,7 @@ public class TesticleType {
 	public static AbstractTesticleType RAT_MORPH = new AbstractTesticleType(BodyCoveringType.PENIS, Race.RAT_MORPH, FluidType.CUM_RAT_MORPH, false) {
 	};
 	
-	public static AbstractTesticleType RABBIT_MORPH = new AbstractTesticleType(BodyCoveringType.PENIS, Race.RABBIT_MORPH, FluidType.CUM_RABBIT_MORPH, false) {
+	public static AbstractTesticleType RABBIT_MORPH = new AbstractTesticleType(BodyCoveringType.RABBIT_FUR, Race.RABBIT_MORPH, FluidType.CUM_RABBIT_MORPH, false) {
 	};
 
 	public static AbstractTesticleType BAT_MORPH = new AbstractTesticleType(BodyCoveringType.PENIS, Race.BAT_MORPH, FluidType.CUM_BAT_MORPH, false) {

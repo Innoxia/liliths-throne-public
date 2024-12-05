@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<scene id="street">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[A Familiar Stench...]]></title>
+		<tooltip/>
+		<preParsingEffects><![CDATA[
+			[#game.getPlayerCell().getPlace().setPlaceType(PLACE_TYPE_innoxia_fields_elis_town_eisek_sillymode_dungeon_entrance)]
+			[#game.getPlayerCell().getPlace().setName(PLACE_TYPE_innoxia_fields_elis_town_eisek_sillymode_dungeon_entrance.getName())]
+			[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_basement_found, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/dsg/places/fields/elis/eisek_sillymode_dungeon_street">STREET</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>			
+			<response>				
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enter basement]]></responseTitle>
+				<responseTooltip><![CDATA[It's not like any of them were armed...at least that you could tell...<br/>[style.colourBad(You will not be able to leave the basement until you reach the end.)]]]></responseTooltip>
+				<colour><![CDATA[TEXT]]></colour>
+				<nextDialogue stripContent="false"><![CDATA[dsg_places_fields_elis_eisek_sillymode_dungeon_ambush]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+				[#pc.setLocation(WORLD_TYPE_dsg_fields_elis_eisek_sillymode_dungeon, PLACE_TYPE_dsg_fields_elis_eisek_sillymode_dungeon_entry)]
+				]]></effects>
+			</response>
+			<response>				
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Leave it]]></responseTitle>
+				<responseTooltip><![CDATA[You're not in the mood to go into the land of the basement dwellers right now.]]></responseTooltip>
+				<colour><![CDATA[TEXT]]></colour>
+				<nextDialogue stripContent="false"><![CDATA[default]]></nextDialogue>
+				<secondsPassed/>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+
+
+	<scene id ="combat">
+		<author><![CDATA[DSG]]></author>			
+		<title><![CDATA[Cardboard Warrior]]></title>
+		<tooltip/>				
+		<preParsingEffects><![CDATA[
+			[#game.addNPC('fields.SillyModeLARPAttacker', 'dsg_larpattacker')]
+			[#game.setActiveNPC(dsg_larpattacker)]
+			[#npc.setHistory(OCCUPATION_NPC_UNEMPLOYED)]
+			[#npc.equipClothing()]
+			[#npc.setLocation(pc, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/dsg/encounters/fields/elis/eisek_sillymode/dungeon">COMBAT</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue><![CDATA[false]]></continuesDialogue>	
+		<travelDisabled><![CDATA[true]]></travelDisabled>	
+		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>	
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responseTabs/>
+		<responses>			
+			<response>				
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fight]]></responseTitle>
+				<responseTooltip><![CDATA[Nobody who's dressed like this is going to defeat you!]]></responseTooltip>
+				<colour><![CDATA[GENERIC_COMBAT]]></colour>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+				<effects/>
+				<combatVariables enabled="true">
+					<nextDialoguePlayerVictory><![CDATA[dsg_encounters_fields_elis_eisek_sillymode_dungeon_combat_won]]></nextDialoguePlayerVictory>
+					<nextDialoguePlayerDefeat><![CDATA[dsg_encounters_fields_elis_eisek_sillymode_dungeon_combat_lost]]></nextDialoguePlayerDefeat>
+					<allies/>
+					<enemies>
+						<enemy leader="true"><![CDATA[dsg_larpattacker]]></enemy>
+					</enemies>
+					<openingDescriptions>
+						<combatant id="dsg_larpattacker"><![CDATA[[dsg_larpattacker.speech(You look like a tasty source of XP!)] [dsg_larpattacker.name] shouts.]]></combatant>
+					</openingDescriptions>
+					<escapeBlocked><![CDATA[true]]></escapeBlocked>
+				</combatVariables>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id ="combat_won">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Victory!]]></title>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/encounters/fields/elis/eisek_sillymode/dungeon">COMBAT_WON</content>
+		<secondsPassed minutes="false"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue><![CDATA[false]]></continuesDialogue>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
+		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Continue making your way through the dungeon.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					default
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.banishNPC(dsg_larpattacker)]
+				]]></effects>
+			</response>
+		</responses>			
+	</scene>
+	
+	<scene id ="combat_lost">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Defeat...]]></title>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/encounters/fields/elis/eisek_sillymode/dungeon">COMBAT_LOST</content>
+		<secondsPassed minutes="false"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue><![CDATA[false]]></continuesDialogue>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
+		<inventoryDisabled><![CDATA[false]]></inventoryDisabled>
+		<regenerationDisabled><![CDATA[false]]></regenerationDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Well...your opponent certainly seemed happy. Continue making your way through the dungeon.
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					default
+				]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.banishNPC(dsg_larpattacker)]
+				]]></effects>
+			</response>
+		</responses>			
+	</scene>
+	
+	<scene id="boss_battle">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Boss "Battle"]]></title>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/encounters/fields/elis/eisek_sillymode/dungeon">BOSS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>			
+			<response>				
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Prepare yourself!]]></responseTitle>
+				<responseTooltip><![CDATA[There's no telling what that orb could do!]]></responseTooltip>
+				<colour><![CDATA[TEXT]]></colour>
+				<nextDialogue stripContent="false"><![CDATA[dsg_encounters_fields_elis_eisek_sillymode_dungeon_boss_battle_two]]></nextDialogue>
+				<secondsPassed/>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="boss_battle_two">
+		<author><![CDATA[DSG]]></author>
+		<title><![CDATA[Boss "Battle"]]></title>
+		<tooltip/>
+		<preParsingEffects/>
+		<content folderPath="txt/dsg/encounters/fields/elis/eisek_sillymode/dungeon">BOSS_TWO</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>			
+			<response>				
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue...]]></responseTitle>
+				<responseTooltip><![CDATA[Some artefact this turned out to be.]]></responseTooltip>
+				<colour><![CDATA[TEXT]]></colour>
+				<nextDialogue stripContent="false"><![CDATA[default]]></nextDialogue>
+				<secondsPassed/>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.addItem(itemGen.generateItem(ITEM_dsg_quest_sm_magicorb), 1, false, true))]
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_EISEK_SILLYMODE, QUEST_EISEK_SILLYMODE_QUEST_STAGE_THREE))]
+					[#flags.setFlag(FLAG_dsg_elis_eisek_sillymode_boss_defeated, true)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

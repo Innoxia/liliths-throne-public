@@ -69,7 +69,7 @@
     <incompatibleSlots slot="VAGINA"/>
       
     <primaryColours values="ALL_METAL"/>
-    <primaryColoursDye values="ALL_METAL"/>
+	<primaryColoursDye values="ALL"/>
     <secondaryColours/>
     <secondaryColoursDye/>
     <tertiaryColours/>

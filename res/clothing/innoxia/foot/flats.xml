@@ -45,28 +45,28 @@
 		</itemTags>
 	</coreAttributes>
 
-  <replacementText type="REMOVE_OR_EQUIP">
-    <self>
-      <![CDATA[[npc.Name] [npc.verb(slip)] [npc.her] [npc.feet] into the heels.]]>
-    </self>
-    <other>
-      <![CDATA[[npc.Name] [npc.verb(slip)] [npc2.namePos] [npc2.feet] into the heels.]]>
-    </other>
-    <otherRough>
-      <![CDATA[[npc.Name] roughly [npc.verb(push)] [npc2.namePos] [npc2.feet] into the heels.]]>
-    </otherRough>
-  </replacementText>
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slip)] [npc.her] [npc.feet] into the heels.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(slip)] [npc2.namePos] [npc2.feet] into the heels.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(push)] [npc2.namePos] [npc2.feet] into the heels.]]>
+		</otherRough>
+	</replacementText>
 
-  <displacementText type="REMOVE_OR_EQUIP">
-    <self>
-      <![CDATA[[npc.Name] [npc.verb(slip)] off [npc.her] heels.]]>
-    </self>
-    <other>
-      <![CDATA[[npc.Name] [npc.verb(slip)] off [npc2.namePos] heels.]]>
-    </other>
-    <otherRough>
-      <![CDATA[[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] heels.]]>
-    </otherRough>
-  </displacementText>
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slip)] off [npc.her] heels.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(slip)] off [npc2.namePos] heels.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(pull)] off [npc2.namePos] heels.]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

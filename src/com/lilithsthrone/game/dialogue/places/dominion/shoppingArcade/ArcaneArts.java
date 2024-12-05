@@ -98,7 +98,7 @@ public class ArcaneArts {
 	}
 	
 	private static boolean isMuskMarked() {
-		return Main.game.getPlayer().getMuskMarkerCharacter()==getVicky();
+		return Main.game.getPlayer().isMarkedByMuskMarkerCharacter(getVicky());
 	}
 	
 	public static final DialogueNode EXTERIOR = new DialogueNode("Arcane Arts (Exterior)", "-", false) {
@@ -148,10 +148,10 @@ public class ArcaneArts {
 				Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/arcaneArts", "SHOP_WEAPONS"));
 			}
 			if(Main.game.getPlayer().isVisiblyPregnant()) {
-				getVicky().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
+				Main.game.getPlayer().setCharacterReactedToPregnancy(getVicky(), true);
 			}
 			if(getVicky().isVisiblyPregnant()) {
-				Main.game.getPlayer().setCharacterReactedToPregnancy(getVicky(), true);
+				getVicky().setCharacterReactedToPregnancy(Main.game.getPlayer(), true);
 			}
 		}
 		@Override
@@ -911,7 +911,7 @@ public class ArcaneArts {
 		public void applyPreParsingEffects() {
 			Main.game.getDialogueFlags().setFlag("innoxia_vicky_claimed", true);
 			if(Main.game.isMuskContentEnabled()) {
-				Main.game.getPlayer().setMuskMarker(getVicky().getId()); // Just to make sure that the player was marked
+				Main.game.getPlayer().addMuskMarkerCharacter(getVicky()); // Just to make sure that the player was marked
 			}
 		}
 		@Override

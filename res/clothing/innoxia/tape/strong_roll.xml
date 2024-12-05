@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>80</value>
+		<determiner><![CDATA[a roll of]]></determiner>
+		<name><![CDATA[duct tape]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[duct tape]]></namePlural>
+		<description><![CDATA[Backed with woven fabric and covered in plastic, this highly adhesive tape is easily strong enough to keep a person's arms, legs, or lips bound together...]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<equipSlots>
+			<slot>WRIST</slot>
+			<slot>ANKLE</slot>
+			<slot>MOUTH</slot>
+		</equipSlots>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>strong_roll.svg</imageName>
+		<imageEquippedName slot="WRIST">strong_binding.svg</imageEquippedName>
+		<imageEquippedName slot="ANKLE">strong_binding.svg</imageEquippedName>
+		<imageEquippedName slot="MOUTH">strong_single.svg</imageEquippedName>
+		<effects/>
+		
+		<blockedPartsList slot="WRIST"> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired>
+					<clothingAccess>WRISTS</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked>
+					<clothingAccess>WRISTS</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+
+		<blockedPartsList slot="ANKLE">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>CALVES</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked>
+					<clothingAccess>CALVES</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<blockedPartsList slot="MOUTH">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>MOUTH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots slot="WRIST"/>
+		<incompatibleSlots slot="ANKLE"/>
+		<incompatibleSlots slot="MOUTH"/>
+		
+		<primaryColours>
+			<colour>CLOTHING_SILVER</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours>
+			<colour>CLOTHING_DESATURATED_BROWN</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours>
+			<colour>CLOTHING_YELLOW_DESAT</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL"/>
+	
+		<itemTags>
+			<tag>DUPLICATE_WHEN_EQUIP</tag>
+			<tag>DISCARDED_WHEN_UNEQUIPPED</tag>
+			<tag>ENABLE_SEX_EQUIP</tag>
+			<tag>FITS_ARM_WINGS</tag>
+			<tag>SOLD_BY_RALPH</tag>
+			<tag>NO_RANDOM_SPAWN</tag>
+		</itemTags>
+		<itemTags slot="WRIST">
+			<tag>HINDERS_ARM_MOVEMENT</tag>
+		</itemTags>
+		<itemTags slot="ANKLE">
+			<tag>HINDERS_LEG_MOVEMENT</tag>
+		</itemTags>
+		<itemTags slot="MOUTH">
+			<tag>MUFFLES_SPEECH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText slot="WRIST" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(wrap)] the tape around [npc.her] wrists, effectively binding them together.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(wrap)] the tape around [npc2.namePos] wrists, effectively binding them together.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(wrap)] the tape around [npc2.namePos] wrists, effectively binding them together.]]>
+		</otherRough>
+	</replacementText>
+	<displacementText slot="WRIST" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(tear)] off the tape from around [npc.her] wrists.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(tear)] off the tape from around [npc2.namePos] wrists.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(tear)] off the tape from around [npc2.namePos] wrists.]]>
+		</otherRough>
+	</displacementText>
+
+	<replacementText slot="ANKLE" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(wrap)] the tape around [npc.her] ankles, effectively binding them together.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(wrap)] the tape around [npc2.namePos] ankles, effectively binding them together.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(wrap)] the tape around [npc2.namePos] ankles, effectively binding them together.]]>
+		</otherRough>
+	</replacementText>
+	<displacementText slot="ANKLE" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(tear)] off the tape from around [npc.her] ankles.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(tear)] off the tape from around [npc2.namePos] ankles.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(tear)] off the tape from around [npc2.namePos] ankles.]]>
+		</otherRough>
+	</displacementText>
+	
+	<replacementText slot="MOUTH" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(tear)] off a long piece of tape and [npc.verb(stick)] it over [npc.her] mouth.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(tear)] off a long piece of tape and [npc.verb(stick)] it over [npc2.namePos] mouth.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(tear)] off a long piece of tape and roughly [npc.verb(stick)] it over [npc2.namePos] mouth.]]>
+		</otherRough>
+	</replacementText>
+	<displacementText slot="MOUTH" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(wince)] as [npc.she] [npc.verb(peel)] the tape off [npc.her] mouth.]]>
+		</self>
+		<other>
+			<![CDATA[[npc2.Name] [npc2.verb(wince)] as [npc.name] [npc.verb(peel)] the tape off [npc2.her] mouth.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc2.Name] [npc2.verb(wince)] and [npc2.verb(let)] out a cry as [npc.name] roughly [npc.verb(rip)] the tape off [npc2.her] mouth.]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

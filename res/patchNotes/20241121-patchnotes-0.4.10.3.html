@@ -1,0 +1,110 @@
+<h2>v0.4.10.3</h2>
+
+<h3>Davyn's Artwork (https://twitter.com/davyndraw):</h3>
+<ul>
+	<li>Added artwork for Wes, including variations for if he's enslaved.</li>
+	<li>Added artwork for Elle, including variations for if she's enslaved.</li>
+</ul>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Added a new addEffect() method to AbstractClothing, allowing you to add effects to clothing within the parser.</li>
+	<li>Added parser hooks for TFModifier ('ENCHANTMENT_MODIFIER_' prefix) and TFPotency ('ENCHANTMENT_POTENCY_' prefix) so that you can use the new addEffect() method.</li>
+	<li>Fixed bug where if 'orgasmCumTargets' variable was used in custom sex managers, if the sex scene was initialised it would soft-lock when trying to initialise in repeated scenes.</li>
+	<li>Fixed issue where the 'orgasmEncourageBehaviours' variable in custom sex managers wouldn't work if you were trying to define how the performing character should react if they were also the one being penetrated.</li>
+	<li>The 'preferredTarget' attribute in sex manager files now works for the player character by setting that defined character as the one that's targeted by the player at the start of sex (but has no effect after that).</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>Added a new side quest involving Saellatrix and her shop, 'Lovienne's Luxuries'. This quest can be started after obtaining the 'Angelixx's Diary' item in Elis during the main quest by talking to the SWORD Enforcers in Elis. This quest contains a bad end.</li>
+	<li>The player's hair now grows at a rate of 1cm per week, which can be changed to 1cm per day or per hour, or disabled entirely, via the setting in 'Content Options', 'Bodies', 'Hair Growth'.</li>
+	<li>Added a small amount of content to Dale which ends with making him a heavy sleeper and being able to have sleep sex with him. (Talk to him about his work to see the new dialogue option appear.)</li>
+	<li>Added an option to receive a footjob while performing cunnilingus on Vanessa/Ms. Cunningham.</li>
+</ul>
+
+<h3>Clothing & Items:</h3>
+<ul>
+	<li>Added 'equine dildo' (androgynous, Vagina/Anus/Mouth slots, sold by Saellatrix, flared dildo with 54cm length and 'average' girth, five stickers to choose colour variations).</li>
+	<li>Added 'polo shirt' (masculine, torso slot, sold by Nyan).</li>
+	<li>Added 'chinos' (masculine, leg slot, sold by Nyan).</li>
+	<li>Added 'desaturated pink' and 'dark desaturated pink' colours for clothing.</li>
+	<li>Added 'dull' variations of all colours for clothing/weapons/tattoos.</li>
+	<li>The 'D.E.C.K.' item is now able to be sold.</li>
+	<li>Added more colours to the 'spiked collar' clothing item.</li>
+	<li>The 'chemise' is now correctly tagged as being transparent, as its description implies.</li>
+</ul>
+
+<h3>Tattoos:</h3>
+<ul>
+	<li>Added several new counter types related to orifice penetrations.</li>
+	<li>The option for anal and nipple-penetration tattoo counters are now correctly hidden when the associated content toggle is turned off.</li>
+	<li>You can now choose to start a tattoo's counter at 0, or instead choose the previous behaviour of starting with the counter showing all previous experiences.</li>
+</ul>
+
+<h3>Slave management:</h3>
+<ul>
+	<li>Added a 'Rapist' permission for slaves (if non-con is off then this permission is hidden, and the game will act as though it is disabled for all slaves).</li>
+	<li>Slaves will now only rape other slaves if they have the rapist permission, do not have a negative desire towards the non-con fetish, and do not like their target or the target has a positive desire towards the non-con victim fetish.</li>
+	<li>Slaves who have the 'Use You' permission will now only rape the player under the same set of circumstances as those listed above, otherwise the player is now able to turn down a slave who approaches them for sex.</li>
+	<li>Slaves can now ambush you for sex in the corridor tiles in Lilaya's dungeon.</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>Using quick sex now correctly applies cumming effects if interactions don't involve an orifice.</li>
+	<li>Quick sex now takes into account cum target preferences that are defined in the sex manager, and also applies additional slot dirtying for if the cumming character produces a lot of cum.</li>
+	<li>Characters standing beside one another in the 'against wall' position can now interact with one another via kissing and using full appendage interactions.</li>
+	<li>Maximum arousal gain per sex turn is now limited to 15, so sex should last a little longer (will be most noticeable in group sex, where the maximum arousal per turn was previously getting quite high and making sex end very quickly).</li>
+	<li>Dominant NPCs who don't have the 'giving oral' fetish are now less likely to perform oral on their submissive partners.</li>
+	<li>Using the 'Grow cock (self)' action during sex no longer resets your penis modifiers to their default values.</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>Generic naming for clothing based on enchantments (i.e. the 'of X' postfixes) now prioritise the positive attribute if a negative and positive attribute have the same magnitude.</li>
+	<li>Doll orifices now have access to 'flesh' colour as a secondary colour.</li>
+	<li>Characters can now be marked by up to five characters' musk at once (instead of just 1).</li>
+	<li>Removed the 'All' and 'All clothing' actions in the debug menu's item viewer (as there were too many items to display in one scene) and added a clothing femininity filter action.</li>
+	<li>Renamed the 'BDSM' status effect to 'Bound Bitch'.</li>
+	<li>Added options to pass time until the next sunrise and next sunset in the loiter menu.</li>
+	<li>Added a bar to the UI beneath the current time to give a visual depiction of daylight hours.</li>
+	<li>Added dialogue variations for mute slaves in the player-slave and slave-slave random sexual encounters.</li>
+	<li>Added 'side-parted' as a hairstyle.</li>
+	<li>Ferals with a leg configuration that has 'large genitals' (quadrupeds, arachnids, and avians) will now have larger penises (e.g. feral horses now have ~44cm penises by default instead of the previous ~22cm).</li>
+	<li>Reading 'Arcane Arousal' in Lilaya's library no longer increments your 'spell efficiency' attribute by 1 (this was the only place in the entire game where a non-corruption attribute could be increased and so it felt out of place).</li>
+	<li>Added a new book to Lilaya's library about the history of ferals.</li>
+</ul>
+
+<h3>Sterope's tavern content fixes:</h3>
+<ul>
+	<li>Improved dialogue flow, fixed some parsing, and improved some tooltip and action text.</li>
+	<li>The first time you meet Sterope in the tavern, a random centaur now always spawns (to more clearly display what kind of content should be expected in her scenes).</li>
+	<li>Both dominant and submissive feral sex content is unlocked after convincing Sterope to stay as a greater horse-girl (which can now be done in both post-submissive and post-dominant sex).</li>
+	<li>Fixed player's clothing disappearing when transforming.</li>
+	<li>Fixed player's feral clothing remaining equipped after feral sex.</li>
+	<li>Sterope has her addictions, hypnosis effects, and musk marking removed after her sex scenes have finished (so her scenes at work aren't affected).</li>
+	<li>Fixed issue where Sterope would sometimes revert to her partial furry form, even if you'd told her to remain as a greater horse-girl.</li>
+	<li>When transforming into a dominant feral, you now grow a penis with which to fuck Sterope.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Parsing and typo fixes.</li>
+	<li>Dolls can no longer gain fetishes from clothing or tattoos.</li>
+	<li>Fixed harpy skin colours using clothing colours instead of covering colours.</li>
+	<li>Fixed issue in modded sex managers where sex actions defined within a character's 'uniqueSexActions' element would sometimes be available for all characters in the sex scene, instead of just for the character who has the action within their 'uniqueSexActions' element.</li>
+	<li>Fixed bug where immobilisation descriptions for all immobilisation types would be displayed one after the other if immobilised during your partner's body part reveals in sex.</li>
+	<li>Dolls can no longer gain the 'Risk of pregnancy' status effect.</li>
+	<li>Fixed bug where changes to a character's inventory would affect copies located in Game.savedInventories (which could potentially have been causing bugs in content related to the bank, Murk, and Scarlett).</li>
+	<li>Fixed newly created anthropomorphic dolls always having human legs instead of the expected anthropomorphic racial type.</li>
+	<li>Fixed bug where at the start of sex scenes, the dialogue would sometimes start partially scrolled down.</li>
+	<li>Fluid recolouring now uses an accurate list of fluid colour values instead of the same one that's used for hair & fur.</li>
+	<li>Kalahari's tube top is now black, as it's shown in her artwork.</li>
+	<li>Fixed minor bug in Nyan's romance quest, where after defeating Wolfgang & Karl in combat, they would disappear before choosing to let them leave.</li>
+	<li>Fixed the subspecies requirement for some actions listing an incorrect subspecies (mainly displaying 'half-demon' instead of 'demon').</li>
+	<li>In Dale's under-desk blowjob scene, Dale will now restart the blowjob if he pulls out when orgasming.</li>
+	<li>You can now stop Dale's blowjob sex scene.</li>
+	<li>When choosing to be 'Mated' when working as a cow in Evelyx's Dairy, the NPC will now always creampie you if you aren't visibly pregnant and they're fucking your pussy.</li>
+	<li>Fixed issue where you could request a creampie or pullout from a sleeping character.</li>
+</ul>

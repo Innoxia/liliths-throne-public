@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<statusEffect>
+	
+	<renderingPriority>70</renderingPriority>
+	
+	<renderInEffectsPanel>true</renderInEffectsPanel>
+	
+	<category>DEFAULT</category>
+	<beneficial>BENEFICIAL</beneficial>
+	<combatEffect>false</combatEffect>
+	<sexEffect>false</sexEffect>
+	<tags/>
+	<name><![CDATA[Crag's Bounty]]></name>
+	<description><![CDATA[
+		Consuming mountain-grown produce wards [npc.name] from poison!
+	]]></description>
+	<imageName>fruit_buff_tangerine.svg</imageName>
+	<colourPrimary>GENERIC_GOOD</colourPrimary> 
+	<colourSecondary/> 
+	<colourTertiary/>
+	<attributeModifiers>
+		<modifier value="7.0">RESISTANCE_POISON</modifier>
+	</attributeModifiers>
+	<combatMoves/>
+	<spells/>
+	<extraEffects/>
+
+	<applicationCondition><![CDATA[
+		false
+	]]></applicationCondition>
+	<applyEffect/>
+	<applyRemovalEffect/>
+	<applyPostRemovalEffect/>
+	
+</statusEffect>

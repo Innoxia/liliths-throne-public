@@ -47,6 +47,11 @@
 	<!-- The affinity of the subspecies. Optional. Defaults to AMPHIBIOUS. -->
 	<!--<affinity>AMPHIBIOUS</affinity>-->
 	
+
+	<!-- Whether or not this is a subspecies with either arm or back wings (optional).
+	If set to false (the default) and the NPC or player is winged it will be displayed as winged subspecies (e. g. winged hyena-boy). -->
+	<winged>true</winged>
+	
 	<!-- Any special changes which should be applied to a newly-spawned character of this subspecies.
 	This is applied *after* the parent race's 'applyRaceChanges' method.
 	The character's body that's being changed can be accessed via using 'targetedBody'.

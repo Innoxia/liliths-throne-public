@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<encounterRoot>
+	
+	<additionalPlaceTypeTriggers>
+		<placeType>innoxia_dominion_sex_shop_factory_main_floor</placeType>
+		<placeType>innoxia_dominion_sex_shop_factory_main_machines</placeType>
+		<placeType>innoxia_dominion_sex_shop_factory_storage_corridor</placeType>
+		<placeType>innoxia_dominion_sex_shop_factory_storage_crates</placeType>
+		<!--
+		<placeType>innoxia_dominion_sex_shop_factory_storage_dolls</placeType>
+		<placeType>innoxia_dominion_sex_shop_factory_storage_event</placeType>
+		-->
+		<placeType>innoxia_dominion_sex_shop_factory_door_1_unlocked</placeType>
+	</additionalPlaceTypeTriggers>
+	
+	<possibleEncounters>
+		<encounter>
+			<name><![CDATA[Angelixx appears]]></name>
+			<chanceToTrigger opportunisticEncounter="false"><![CDATA[
+				#IF(pc.isDoll())
+					18
+				#ELSE
+					0
+				#ENDIF
+			]]></chanceToTrigger>
+			<dialogueReturned><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_angelixx_encounter]]></dialogueReturned>
+		</encounter>
+	</possibleEncounters>
+	
+</encounterRoot>

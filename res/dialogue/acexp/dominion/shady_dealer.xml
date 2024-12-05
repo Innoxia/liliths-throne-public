@@ -22,7 +22,7 @@
    			#IF(shadyDealerRnd<=8)
     		    [#AceXpShadyDealer.addItem(game.getItemGen().generateItem('MUSHROOM'), RND.nextInt(5)+1, false, false)]
     		#ENDIF
-   			#IF(RND.nextInt(10)<=7)
+   			#IF(shadyDealerRnd<=7 && pc.isQuestCompleted(QUEST_LINE_SIDE_SLIME_QUEEN))
     		    [#AceXpShadyDealer.addItem(game.getItemGen().generateItem('innoxia_race_slime_biojuice_canister'), RND.nextInt(3)+1, false, false)]
     		#ENDIF
    			#IF(shadyDealerRnd<=6)

@@ -1,0 +1,1886 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- HALLWAY -->
+	
+	<htmlContent tag="HALLWAY"><![CDATA[
+	<p>
+		TODO Hallway which leads through the apartment.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- ENTRANCE_HALL -->
+	
+	<htmlContent tag="EXIT"><![CDATA[
+	<p>
+		TODO Modestly-decorated entrance hall, though large enough to have a cloak-room built into one side.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- KITCHEN -->
+	
+	<htmlContent tag="KITCHEN"><![CDATA[
+	<p>
+		TODO Open-plan kitchen connected to dining room.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- DINING_ROOM -->
+	
+	<htmlContent tag="DINING_ROOM"><![CDATA[
+	<p>
+		TODO Spacious dining room, containing several cabinets and the expected table and chairs.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- TOILET -->
+	
+	<htmlContent tag="TOILET"><![CDATA[
+	<p>
+		TODO Small bathroom, containing just a toilet and sink.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- BATHROOM -->
+	
+	<htmlContent tag="BATHROOM"><![CDATA[
+	<p>
+		TODO The ensuite to Angelixx's bedroom. Very large bathtub takes up almost half of the room.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- LOUNGE -->
+	
+	<htmlContent tag="LOUNGE"><![CDATA[
+	<p>
+		TODO Lounge holds several plush sofas, each of which is covered in colourful cushions. Windows look down onto the courtyard behind the apartment building.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- BEDROOM -->
+	
+	<htmlContent tag="BEDROOM"><![CDATA[
+	<p>
+		TODO Sleip and Nir's bedroom. Contains two beds and furniture.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- BEDROOM_ANGELIXX -->
+	
+	<htmlContent tag="BEDROOM_ANGELIXX"><![CDATA[
+	<p>
+		TODO Angelixx's bedroom. Very messy.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- Visiting content: -->
+	
+	<htmlContent tag="VISIT"><![CDATA[
+	<p>
+		Knowing that Angelixx and her sons live in the apartment above Lovienne's Luxuries, and having been invited to visit them at any time, you decide to see if anyone's currently home. Opening the door that's positioned to the side of Saellatrix's shop, you travel up a narrow staircase and arrive at a second door. Although there's no sign to indicate who lives here, you know that this is Angelixx's apartment, and so you ring the nearby bell and [pc.step] back as you wait for someone to answer.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Angelixx's content: -->
+	
+	<htmlContent tag="VISIT_ANGELIXX"><![CDATA[
+	<p>
+		After just a few moments, you hear a bolt being slid back, and then the door swings inwards to reveal the familiar figure of Angelixx. As usual, the cute little succubus is wearing a light pink hoodie and a blue microskirt which flaps up to reveal her white-and-pink polkadot panties with every move she makes. As she sees that it's you, her blue eyes light up and her little wings wings flutter in excitement.
+	</p>
+	<p>
+		#IF(sleip.getWorldLocation()==WORLD_TYPE_EMPTY)
+			[angelixx.speech([pc.Name]! What great timing!)] she happily exclaims, [angelixx.speech(My boys have just gone out for the rest of the evening, so I'm home alone. Come on in!)]
+		#ELSE
+			[angelixx.speech([pc.Name]!)] she happily exclaims, before letting out a frustrated sigh and whining, [angelixx.speech(My boys are staying in tonight... I'd love to invite you in, but they'll just get in the way...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLEIP_NIR_START"><![CDATA[
+	<p>
+		Pleased to hear that Sleip and Nir are at home, you tell Angelixx that you're actually here to pay her sons a visit. Playfully pouting at you, she tuts, [angelixx.speech(I can't believe that you'd rather spend time with my boys than me... Well, I guess I'll give the three of you some space; I'm going clubbing, so tell my boys not to expect me back until early in the morning.)]
+	</p>
+	<p>
+		With that, the succubus turns and shouts, [angelixx.speech(Sleip! Nir! Someone's here to see you!)]
+	</p>
+	<p>
+		After just a few seconds, Sleip appears behind his mother. Wearing a [#sleip.getClothingInSlot(IS_TORSO_UNDER).getColourName()] [#sleip.getClothingInSlot(IS_TORSO_UNDER).getName()] and a pair of [#sleip.getClothingInSlot(IS_LEG).getColourName()] [#sleip.getClothingInSlot(IS_LEG).getName()], 
+		#IF(flags.hasFlag(FLAG_innoxia_sleip_nir_apartment_seen))
+			 you're able to see once again that his huge muscles are bulging beneath his clothes, causing the fabric of his [#sleip.getClothingInSlot(IS_TORSO_UNDER).getName()] to stretch over his pecs and around his biceps.
+		#ELSE
+			 you're seeing him for the first time without the stab-proof vest he and his brother wear while out of the house. His huge muscles bulge beneath his clothes, causing the fabric of his [#sleip.getClothingInSlot(IS_TORSO_UNDER).getName()] to stretch over his pecs and around his biceps.
+		#ENDIF
+	</p>
+	<p>
+		[angelixx.speech(I guess I'll give the three of you some space; I'm going clubbing, so don't expect me back until early in the morning,)] Angelixx says, before skipping past you and rapidly descending the stairs before heading on out into Dominion.
+	</p>
+	<p>
+		Left alone with Sleip, you find yourself being stared at by the horse-like demon. His red eyes and black fur, combined with his large, muscular stature, gives him an intimidating appearance, which is accentuated by his deep voice and curt manner of speech. His large hoofs clop loudly on the wooden floor as he steps back and grunts, [sleip.speech(You going to just stand there or come in?)]
+	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_sleip_nir_apartment_lounge_seen))
+		<p>
+			Accepting the nightmare's invitation, you [pc.step] forwards into the apartment. As you pass by the large, horse-like demon, you catch a whiff of cheap aftershave that fails to completely mask his masculine odour. The door is quickly shut and bolted behind you, and although you know that he's not going to assault you, it's hard not to feel threatened by the nightmare's dominating presence and predatory gaze.
+		</p>
+		<p>
+			As you enter the apartment, the nightmare grunts, [sleip.speech(Come on, this way.)]
+		</p>
+	#ELSE
+		<p>
+			Accepting the nightmare's invitation, you [pc.step] forwards into the apartment. As you pass by the large, horse-like demon, you catch a whiff of cheap aftershave that fails to completely mask his masculine odour. The door is quickly shut and bolted behind you, and for a brief moment you feel a rush of adrenaline as the nightmare's dominating presence and predatory gaze makes you feel like you're about to be attacked.
+		</p>
+		<p>
+			Either sensing what you're feeling, or perhaps to just make conversation, the nightmare grunts, [sleip.speech(Don't worry, mum's told us to treat you as a friend.)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="VISIT_LEAVE"><![CDATA[
+	#IF(game.getCharactersPresent().contains(angelixx))
+		<p>
+			Having second thoughts about spending any time with Angelixx, you tell the succubus that you were just dropping by to say hello, and now you've got to be going. Letting out a disappointed sigh and pouting at you, she whines, [angelixx.speech(Aww! [pc.Name], you're no fun!)]
+		</p>
+		<p>
+			Suddenly, the succubus darts forwards, and after quickly grabbing your [pc.arm] she grinds up against you and lets out a high-pitched giggle. Her small, [angelixx.cupSize]-cup breasts squish up against you as she bites her lip and teases, [angelixx.speech(The next time you visit, we need to have some fun together...)]
+		</p>
+		<p>
+			Just as quickly as she grabbed you, the playful succubus lets go and skips back into her apartment. With a little wave and a flutter of her white, feathered wings, she blows you a kiss and closes the door, bringing your visit to an end.
+		</p>
+	#ELSE
+		<p>
+			You're not really interested in seeing Sleip or Nir, and so you tell the nightmare that you were hoping to speak with Angelixx, but as she's not here you're going to be on your way. Letting out a dismissive grunt, Sleip closes the door, after which you hear a bolt being slid back into place.
+		</p>
+	#ENDIF
+	<p>
+		Turning away from the door to Angelixx's apartment, you travel back down the stairs and quickly find yourself [pc.stepping] back out onto the street outside Lovienne's Luxuries, wondering what to do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_BEDROOM"><![CDATA[
+	<p>
+		Accepting Angelixx's invitation, you [pc.step] forwards into her apartment and wait while she closes and bolts the door behind you. Excitedly grabbing your [pc.hand], she pulls you after her as she leads you down her apartment's short hallway, before abruptly stopping in front of a trio of doors at the far end. Coyly grinning at you, she says in a sweet, innocent-sounding voice, [angelixx.speech(Say here while I slip into something more comfortable. No peeking!)] 
+	</p>
+	<p>
+		With that, she disappears through one of the doors and closes it behind her so quickly that you don't manage to see what's on the other side. Doing as she asks, you wait in the corridor for her to change, and while you're waiting you take a quick peek through the other two doors to see that the rooms beyond are a damp-smelling bathroom and a horrifically messy bedroom that must belong to Sleip and Nir.
+	</p>
+	<p>
+		[angelixx.speech(Come in!)] Angelixx calls, bringing your snooping to an end. Pushing open the door through which she vanished, you find yourself [pc.stepping] into the succubus's bedroom. Just like her sons', Angelixx's bedroom is extremely untidy. Clothes, boots, bags, boxes, and empty bottles of perfume, wine, and water litter both the floor and the tops of her furniture. A narrow path through this debris leads to an ensuite bathroom on one side of the room and an unmade, king-sized bed on the other, upon which Angelixx is kneeling.
+	</p>
+	<p>
+		[angelixx.speech(You don't mind the mess, right?)] she sweetly asks. With your attention drawn away from the state of her room, you feel your heart beat faster as you see that the cute, youthful-looking succubus has stripped out of all of her clothes and replaced them with a sheer, light-pink chemise and a pair of pink-and-white-striped thigh-high socks. Her short, see-through chemise leaves both
+		#IF(angelixx.hasBreasts())
+			 her [angelixx.breastSize], [angelixx.cupSize]-cup breasts and
+		#ELSE
+			 the [angelixx.nipples+] on her flat chest and her
+		#ENDIF
+		 groin completely exposed, allowing you to see her
+		#IF(angelixx.hasVagina())
+			#IF(angelixx.hasPenis())
+				 tight pussy and tiny, feminine cock.
+			#ELSE
+				 tight pussy.
+			#ENDIF
+		#ELSE
+			 tiny, feminine cock.
+		#ENDIF
+	</p>
+	<p>
+		[angelixx.speech(I'm so happy you came to see me,)] she teases as she sees your eyes roam over her sexy body. Flashing you a disarming smile and letting out a cute giggle, she bites her lip and playfully asks, [angelixx.speech(So, what was it that you came here for?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_ANGELIXX_TALK"><![CDATA[
+	<p>
+		Although she clearly wants you to make a move on her, you really want to find out more about Angelixx, and so take this opportunity to ask her to tell you a little about herself.
+	</p>
+	<p>
+		[angelixx.speech(You didn't come here just to talk, right?)] the succubus impatiently whines, before saying, [angelixx.speech(Nobody really asks me about that kind of stuff...)]
+	</p>
+	<p>
+		Realising that she's being given an opportunity in which to get a lot of things off her chest, the succubus doesn't need to be prompted again before launching into a bit of a rant, [angelixx.speech(Well, you know how I work for Saellatrix, right? Well, she always talks down to me and treats me and my boys like crap, but we put up with it because she's a recognised daughter and I'm not. She protects us from my other sisters, who are the most cunning, evil-minded bitches in all of Dominion. The politicking to gain our mother's approval pretty much always ends in enslavement or utter humiliation, and I'd <i>really</i> rather avoid that. It might be years before mother considers me for recognition, but I know I can impress her one day!)]
+	</p>
+	<p>
+		Asking Angelixx if recognition from her mother is all she wants, you're reminded of the reason why this succubus is so keen to get so close to you as she exclaims, [angelixx.speech(Recognition is everything! You're going to help me with that when the time comes, right? You can talk to Lilaya and get her to vouch for me, and even though she's Lyssieth's daughter, mother will still value her support. You and Lilaya <i>will</i> support me when the time's right to petition my mother for recognition, won't you?)]
+	</p>
+	<p>
+		Feeling as though you can't really give any other answer, you reassure the cute succubus by telling her that you'll help her out when she's ready. Giving you a big smile in return, she seductively bites her lip and says, [angelixx.speech(Enough of this talking... Let's have some fun together...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_ANGELIXX_FLIRT"><![CDATA[
+	<p>
+		Wanting to prolong this moment a little, instead of making a move on Angelixx you decide to simply tease and flirt with her. Complimenting her choice of clothing, you tell the smiling succubus how cute and sexy she's looking.
+	</p>
+	<p>
+		Letting out a playful giggle, she slides off the bed and dashes forwards to grab hold of your [pc.arm]. The next thing you know, you've been pulled onto the bed beside her, and as she shuffles up against you on her knees, the cute succubus purposefully
+		#IF(angelixx.getBreastRawSizeValue()==0)
+			 grinds her flat chest
+		#ELSEIF(angelixx.getBreastRawSizeValue()==5)
+			 presses her small, A-cup breasts
+		#ELSE
+			 squishes her big, [angelixx.cupSize]-cup breasts
+		#ENDIF
+		 against you as she seductively pants, [angelixx.speech(How much longer are you going to resist pushing me down and fucking me hard?)]
+	</p>
+	<p>
+		Taking hold of your [pc.hand], she guides your touch down between her legs. Through the thin, sheer fabric of her chemise,
+		#IF(angelixx.hasPenis())
+			 your [pc.fingers] are able to feel her tiny, cute cock, and as you give it a good grope, Angelixx giggles, [angelixx.speech(You like the little cock you made me grow? Come on, [pc.name], fuck me already...)]
+		#ELSE
+			 your [pc.fingers] are able to feel her tight, hot twat, and as you give it a good grope, Angelixx giggles, [angelixx.speech(You like my little pussy? Come on, [pc.name], fuck me already...)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BEDROOM_ANGELIXX_DEMANDS"><![CDATA[
+	<p>
+		As Angelixx is obviously very keen to win you over and turn you into a close friend, you realise that you could use this to your advantage and make some demands of her.
+		#IF(flags.hasFlag(FLAG_innoxia_angelixx_bedroom_flirted))
+			 As she shuffles forwards on the bed and desperately presses her body against yours,
+		#ELSE
+			 Taking a [pc.step] towards the bed,
+		#ENDIF
+		 you playfully ask the cute succubus what she's willing to do to show you how sorry she is for her past behaviour.
+	</p>
+	<p>
+		[angelixx.speech(You mean you haven't forgiven me yet?)] she pouts. Letting out a playful whine, she runs her hands over her small breasts and down to her crotch, before letting out a thoughtful hum and saying, [angelixx.speech(I guess I could transform myself a little to make you happy? Nothing too extreme, but I suppose if you want my tits bigger or smaller then that'd be ok.)]
+	</p>
+	<p>
+		Telling Angelixx that that's a good start, you say that she'll have to do better than that if she really wants to get on your good side. Pouting at you, she offers, [angelixx.speech(Fine... I guess I could give myself a cock if you want? Nothing else though!)]
+	</p>
+	<p>
+		With Angelixx having offered to transform her breasts and genitals, you wonder whether to demand some changes of her right now, or perhaps to leave it for another time...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_BEDROOM_SEX_START"><![CDATA[
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_angelixx_bedroom_flirted))
+			Unable to resist the proximity of Angelixx's sexy, youthful figure as kneels down beside you on the bed, you take her in your [pc.arms]
+		#ELSE
+			Unable to resist the sight of Angelixx's sexy, youthful figure any longer, you get onto the bed beside her
+		#ENDIF
+		 and tell her that the time for teasing is over.
+		#IF(!pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+			 Moaning in desperation, the cute succubus leans forwards and kisses you, and as her soft lips press against your mouth, you eagerly respond and pull her into a deep, passionate kiss.
+		#ELSE
+			 Moaning in desperation, the cute succubus leans forwards and kisses you, and as her soft lips press against the [pc.faceSkin] of your [pc.face+], your [pc.hands] roam over her body and grope her [angelixx.breasts+].
+		#ENDIF
+	</p>
+	<p>
+		[angelixx.speech(Yes... Fuck me...)] she eagerly moans as she breaks off from the kiss. Lying back on the bed, she hikes up the bottom of her chemise and spreads her [angelixx.legs+] to present you with her
+		#IF(angelixx.hasVagina())
+			#IF(angelixx.hasPenis())
+				 [angelixx.pussy+] and tiny, feminine penis.
+			#ELSE
+				 [angelixx.pussy+].
+			#ENDIF
+			#IF(game.isAnalContentEnabled())
+				 Beneath her genitals, her [angelixx.asshole+] offers an alternative orifice for you to explore, and as she sees you gazing down between her legs she giggles,
+			#ELSE
+				 As she sees you gazing down between her legs, she giggles,
+			#ENDIF
+		#ELSE
+			#IF(game.isAnalContentEnabled())
+				 tiny, feminine penis and [angelixx.asshole+].
+			#ELSE
+				 tiny, feminine penis.
+			#ENDIF
+			 As she sees you gazing down between her legs, she giggles,
+		#ENDIF
+		#IF(angelixx.hasVagina())
+			 [angelixx.speech(I'm your submissive little slut... Creampie me as much as you want; Sleip and Nir are as much as I can handle, so I've used my arcane powers to make myself totally infertile...)]
+		#ELSE
+			 [angelixx.speech(I'm your submissive little slut...)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.isTaur())
+			Moving forwards, you rear up and mount Angelixx, who lets out an excited moan as you prepare to fuck her...
+		#ELSE
+			Moving forwards, you drop down between Angelixx's legs, and the horny little succubus once again lets out an eager moan as you prepare to fuck her...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_DEMAND_FLAT_CHEST"><![CDATA[
+	#IF(angelixx.getBreastRawSizeValue()>0)
+		<p>
+			Wanting Angelixx to have a perfectly flat chest, you tell her that you'd like her to shrink her breasts down as small as possible.
+		</p>
+		<p>
+			[angelixx.speech(I like having small tits as they make me look cute, but you want me to totally get rid of them?)] Angelixx asks as she runs her hands over her [angelixx.cupSize]-cup breasts. Pouting at you as you repeat your request, she whines, [angelixx.speech(Fine... But I'm keeping my nipples just the way they are!)]
+		</p>
+		<p>
+			With that, Angelixx's breasts rapidly shrink down until they've completely flattened down into a pair of soft, feminine-looking pecs. Through the sheer material of her chemise, you see that her [angelixx.nippleSize], puffy nipples and [angelixx.areolaeSize] areolae have remained unchanged, which together give a rather exotic, erotic quality to her now-flat chest.
+		</p>
+	#ELSE
+		<p>
+			Although you liked seeing Angelixx with a perfectly flat chest, you tell her that you'd like it if she went back to having the A-cups that she's most comfortable with.
+		</p>
+		<p>
+			[angelixx.speech(Sure thing,)] the cute succubus happily replies. Running her hands over her flat chest, she giggles, [angelixx.speech(This didn't really feel so bad...)]
+		</p>
+		<p>
+			With that, Angelixx's pecs rapidly swell up until they've formed a pair of small, A-cup breasts. Through the sheer material of her chemise, you see that her [angelixx.nippleSize], puffy nipples and [angelixx.areolaeSize] areolae have remained unchanged, and look more at home now that they're perched upon a pair of breasts.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_DEMAND_FLAT_CHEST_END"><![CDATA[
+	#IF(angelixx.getBreastRawSizeValue()==0)
+		<p>
+			#IF(angelixx.hasPenis())
+				[angelixx.speech(You've turned me into [angelixx.a_gender]...)] she whines, before biting her lip and coyly fluttering her eyelashes at you.
+			#ELSE
+				[angelixx.speech(Happy now?)] she playfully whines, before biting her lip and coyly fluttering her eyelashes at you.
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			[angelixx.speech(Happy now?)] she playfully teases, before biting her lip and coyly fluttering her eyelashes at you.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_DEMAND_BIG_TITS"><![CDATA[
+	#IF(angelixx.getBreastRawSizeValue()!=10)
+		<p>
+			As you allow your gaze to wander over Angelixx's
+			#IF(angelixx.getBreastRawSizeValue()==0)
+				 flat chest, you find yourself wishing that she had a more voluptuous figure. Telling her that you've grown tired of her flat chest, 
+			#ELSE
+				 tiny breasts, you find yourself wishing that she had a more voluptuous figure. Telling her that her tits are far too small, 
+			#ENDIF
+			 you ask the succubus to grow her breasts into a size similar to that of her older sister.
+		</p>
+		<p>
+			[angelixx.speech(There's no way I'm making them <i>that</i> big!)] she exclaims, before whining, [angelixx.speech(I have no idea how she doesn't get back pain from those things... I'll make my breasts bigger, but not super huge...)]
+		</p>
+		<p>
+			With that, Angelixx's
+			#IF(angelixx.getBreastRawSizeValue()==0)
+				 pecs
+			#ELSE
+				 small tits
+			#ENDIF
+			 rapidly swell up and inflate until they've formed a pair of modestly-sized, C-cup breasts. Motioning for her to keep going, you watch as the succubus continues to grow her tits, until stopping at big E-cups and moaning, [angelixx.speech(This is as far as I'll go... Fuck, they're so big and heavy! You really prefer them like this?)]
+		</p>
+	#ELSE
+		<p>
+			Although you liked seeing Angelixx with big tits, you tell her that you preferred her when she had smaller assets, before asking her to go back to the A-cups that she's most comfortable with.
+		</p>
+		<p>
+			[angelixx.speech(I was hoping you'd say that,)] the cute succubus happily replies. Running her hands over her big breasts, she giggles, [angelixx.speech(It's fun having big tits, but they kind of clash with the cute vibe I go for...)]
+		</p>
+		<p>
+			With that, Angelixx's large chest rapidly deflates and shrinks down until she's once again got a pair of small, A-cup breasts. Through the sheer material of her chemise, you see that her [angelixx.nippleSize], puffy nipples and [angelixx.areolaeSize] areolae have remained mostly unchanged, and give her small breasts a rather lewd appearance.
+		</p>
+	#ENDIF
+	<p>
+		The cute succubus can't help but grin as you tell her that she now looks perfect, and after flashing you a seductive smile, she teases, [angelixx.speech(So, are you going to fuck me now or what?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_DEMAND_COCK_ONLY"><![CDATA[
+	#IF(angelixx.hasPenis())
+		#IF(!angelixx.hasVagina())
+			<p>
+				No longer wanting Angelixx to have a cock, you tell her that she can get rid of it and give herself a pussy again.
+			</p>
+			<p>
+				[angelixx.speech(I kind of liked having this cute little thing,)] the succubus giggles as she flicks her tiny dick back and forth between her slender fingers. After letting out another giggle, she happily exclaims, [angelixx.speech(But nothing feels better than having my pussy fucked!)]
+			</p>
+			<p>
+				With her chemise's short hem leaving her groin fully on display, you watch as Angelixx's cock rapidly shrinks down and disappears. As it vanishes, a smooth slit starts to form between her legs, and within just a few seconds she's regained her tight, pretty pussy.
+			</p>
+			<p>
+				[angelixx.speech(Come here and fuck me,)] she moans as she slides her fingers over her newly-formed cunt...
+			</p>
+		#ELSE
+			<p>
+				No longer wanting Angelixx to have a pussy, you tell her that you want her to get rid of it and leave herself with only her cute, tiny cock between her legs.
+			</p>
+			<p>
+				[angelixx.speech(Aww, but getting fucked in my pussy is the best...)] the succubus whines. As you repeat your request, she relents with a sigh and tuts, [angelixx.speech(Fine... I guess I'll just have a cock from now on then...)]
+			</p>
+			<p>
+				With her chemise's short hem leaving her groin fully on display, you watch as Angelixx's labia press tightly together, and after letting out a high-pitched moan, her pussy seals up and vanishes. Left only with her cute, feminine cock, the succubus makes a pathetic tutting noise and idly flicks her tiny dick back and forth between her slender fingers.
+			</p>
+			<p>
+				[angelixx.speech(You'd better fuck me now that I've done this for you,)] she whines, before seductively biting her lip and fluttering her eyelashes at you...
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			No longer wanting Angelixx to have a pussy, you tell her that you want her to get rid of it and grow herself a cock to replace it.
+		</p>
+		<p>
+			[angelixx.speech(Just because I like having big, throbbing cocks between my legs, doesn't mean I want one myself!)] the succubus complains. Not taking no for an answer, you tell the succubus that you'd find her a lot more attractive if she does as you ask. Letting out a defeated sigh, she tuts and says, [angelixx.speech(Fine... As it's for you, [pc.name]... But don't expect me to have a big one! It'll have to be cute, so that it doesn't ruin my image...)]
+		</p>
+		<p>
+			With her chemise's short hem leaving her groin fully on display, you watch as Angelixx's labia press tightly together, and after letting out a high-pitched moan, her pussy seals up and vanishes. A moment later, a small bump starts to press out from her groin, before elongating and forming into a tiny, soft cock that's no longer than [units.size(4)]. Her vestigial balls hint at the fact that she's not going to produce much cum when she orgasms, and you doubt that anyone would get much pleasure from being fucked by that impotent little dick.
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_DEMAND_COCK_ONLY_END"><![CDATA[
+	#IF(angelixx.hasPenis())
+		#IF(angelixx.getBreastRawSizeValue()==0)
+			<p>
+				[angelixx.speech(You've turned me into [angelixx.a_gender]...)] she playfully whines, before biting her lip and coyly fluttering her eyelashes at you.
+			</p>
+		#ELSE
+			<p>
+				[angelixx.speech(Happy now?)] she playfully whines, before biting her lip and coyly fluttering her eyelashes at you.
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_DEMAND_FUTA"><![CDATA[
+	#IF(angelixx.hasPenis() && !angelixx.hasVagina())
+		<p>
+			Finding yourself missing Angelixx's tight, cute pussy, you tell her to use her transformative powers to give herself a cunt once again.
+		</p>
+		<p>
+			[angelixx.speech(You want me to keep this cute little thing as well?)] the succubus giggles as she flicks her tiny dick back and forth between her slender fingers. After you've told her that you want her to keep her cock, she happily moans, [angelixx.speech(Ok, hold on...)]
+		</p>
+		<p>
+			With her chemise's short hem leaving her groin fully on display, you watch as a smooth slit starts to form between Angelixx's legs, and within just a few seconds she's regained her tight, pretty pussy.
+		</p>
+		<p>
+			[angelixx.speech(Well, now that I've got everything you could want, it's time for you to fuck me,)] she excitedly moans as she slides her fingers over her tiny cock and newly-formed cunt...
+		</p>
+	#ELSEIF(!angelixx.hasPenis() && angelixx.hasVagina())
+		<p>
+			Although you like Angelixx's pussy, you want her to have a little more going on between her legs, and so you tell her that you want her to grow herself a cock.
+		</p>
+		<p>
+			[angelixx.speech(Just because I like having big, throbbing cocks between my legs, doesn't mean I want one myself!)] the succubus complains. Not taking no for an answer, you tell the succubus that you'd find her a lot more attractive if she does as you ask. Letting out a defeated sigh, she tuts and says, [angelixx.speech(Fine... As it's for you, [pc.name]... But don't expect me to have a big one! It'll have to be cute, so that it doesn't ruin my image...)]
+		</p>
+		<p>
+			With her chemise's short hem leaving her groin fully on display, you watch as a small bump starts to press out above Angelixx's pussy, before elongating and forming into a tiny, soft cock that's no longer than [units.size(4)].
+			#IF(game.isFutanariTesticlesEnabled())
+				 Her vestigial balls hint at the fact that she's not going to produce much cum when she orgasms, and you doubt that anyone would get much pleasure from being fucked by that impotent little dick.
+			#ELSE
+				 As the succubus experimentally flicks her new cock about between her fingers, you find yourself thinking that nobody would get much pleasure from being fucked by that impotent little dick.
+			#ENDIF
+		</p>
+		<p>
+			[angelixx.speech(Well, now that I've got everything you could want, it's time for you to fuck me,)] Angelixx excitedly moans as she lifts her chemise to playfully flash you her tight pussy and newly-formed, tiny cock...
+		</p>
+	#ELSE
+		<p>
+			No longer wanting Angelixx to have a cock, you tell her that she can get rid of it and go back to only having a pussy again.
+		</p>
+		<p>
+			[angelixx.speech(I kind of liked having this cute little thing,)] the succubus giggles as she flicks her tiny dick back and forth between her slender fingers. After letting out another giggle, she happily exclaims, [angelixx.speech(But nothing feels better than having my pussy fucked!)]
+		</p>
+		<p>
+			With her chemise's short hem leaving her groin fully on display, you watch as Angelixx's cock rapidly shrinks down and disappears, leaving her with only her tight, pretty pussy between her legs.
+		</p>
+		<p>
+			[angelixx.speech(Now come here and fuck me,)] she moans as she slides her fingers over her cunt...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_LEAVE"><![CDATA[
+	<p>
+		Resisting Angelixx's charms as she 
+		#IF(flags.hasFlag(FLAG_innoxia_angelixx_bedroom_flirted))
+			 presses herself up against you on the bed, you stand up and
+		#ELSE
+			 beckons you over to the bed, you [pc.step] back and
+		#ENDIF
+		 tell the cute succubus that you've got to go.
+	</p>
+	<p>
+		[angelixx.speech(No way!)] she exclaims in disappointment, before pathetically pouting at you and whining, [angelixx.speech(You don't really have to go, do you? You've only just arrived...)]
+	</p>
+	<p>
+		Repeating yourself to make it clear that you're leaving, you head on over to the door and say goodbye.
+	</p>
+	<p>
+		[angelixx.speech(Wait! I'll show you to the door,)] Angelixx says, before jumping off the bed and rushing forwards to grab your [pc.arm]. Her warm body presses against you as the two of you head down the short hallway, and after just a moment you arrive at the front door to the apartment. Releasing you, the succubus sighs,
+		#IF(game.isIncestEnabled())
+			 [angelixx.speech(I guess I'll have to wait for my boys to get home before I can have some fun tonight... You'll stay for longer next time, right?)]
+		#ELSE
+			 [angelixx.speech(I guess I'll be alone this evening... You'll stay for longer next time, right?)]
+		#ENDIF
+	</p>
+	<p>
+		Making a non-committal response, you say goodbye to Angelixx, who smiles and waves at you as she closes the door behind you. Travelling back down the stairs, you soon find yourself [pc.stepping] back out onto the street outside Lovienne's Luxuries, wondering what to do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_AFTER_SEX"><![CDATA[
+	<p>
+		Having had enough fun, you disentangle yourself from Angelixx and collapse down beside her onto her bed.
+	</p>
+	<p>
+		#IF(angelixx.isSatisfiedFromLastSex())
+			[angelixx.speech(That... was amazing...)] the cute succubus pants. You look across at her and watch as her [angelixx.breastSize], [angelixx.cupSize]-cup breasts rise and fall in time with her deep breaths. Turning her head to look at you, she giggles, [angelixx.speech(You should definitely come and visit me more often!)]
+		#ELSE
+			[angelixx.speech(That... was kinda fun...)] the cute succubus pants. You look across at her and watch as her [angelixx.breastSize], [angelixx.cupSize]-cup breasts rise and fall in time with her deep breaths. Turning her head to look at you, she playfully pouts and teases, [angelixx.speech(Next time, try to satisfy me before stopping...)]
+		#ENDIF
+	</p>
+	<p>
+		After giving you a moment in which to recover, Angelixx reveals, [angelixx.speech(My boys are going to be back in an hour or so, and they'll be annoying if they find me in bed with you...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_AFTER_SEX_LEAVE"><![CDATA[
+	<p>
+		Telling the cute succubus not to worry, you get off the bed and quickly gather your things, before heading on over to the bedroom door and saying goodbye.
+	</p>
+	<p>
+		[angelixx.speech(Wait! I'll show you out,)] Angelixx says, before jumping off the bed and rushing forwards to grab your [pc.arm]. Her warm body presses against you as the two of you head down the short hallway, and after just a moment you arrive at the front door to the apartment. Releasing you, the succubus smiles and says, [angelixx.speech(That was fun. Come back and see me again some time and we can do this again!)]
+	</p>
+	<p>
+		Telling her that you had fun too, you say goodbye to Angelixx, who sweetly smiles at you as she closes the door behind you. Travelling back down the stairs, you soon find yourself [pc.stepping] back out onto the street outside Lovienne's Luxuries, wondering what to do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	<!-- Angelixx clubbing content: -->
+	
+	<htmlContent tag="ANGELIXX_GO_OUT"><![CDATA[
+	<p>
+		Not wanting to let Sleip and Nir get in the way of your planned evening with Angelixx, you tell the succubus that you want to take her out somewhere. Her face instantly lights up as she hears you say this, and she does a cute little jump and claps her hands together in excitement.
+	</p>
+	<p>
+		[angelixx.speech(Let's go clubbing!)] she exclaims,
+		#IF(!game.isHourBetween(19, 12))
+			 before saying, [angelixx.speech(The clubs don't open until seven, though, so we can just chill in Demon Home until then, right? Wait here while I get changed!)]
+		#ELSE
+			 before saying, [angelixx.speech(Wait here while I get changed!)]
+		#ENDIF
+	</p>
+	<p>
+		With that, Angelixx closes the door on you, and you do as she say and wait at the top of the stairs for her to return. Thankfully she doesn't take too long, and after just a few minutes the excited succubus reappears. Having discarded her usual outfit, she's now wearing a light pink virgin-killer sweater, white thigh-high socks, and a pair of sneakers which match the colour of her sweater. Her blonde, twintail hair is held in place by white scrunchies, and as she gives you a playful twirl to show off, her exposed back reveals no bra strap. She's not wearing any kind of skirt or legwear, and is instead counting on the length of her sweater to keep her groin concealed. Her underwear don't stay a mystery for long, however, as she giggles and flashes you her lacy white panties, before playfully teasing, [angelixx.speech(These won't be staying on all night...)]
+	</p>
+	<p>
+		Grabbing you by the [pc.hand], the cute succubus eagerly pulls you along after her as she hurries down the steps and out into Demon Home.
+		#IF(!game.isHourBetween(19, 12))
+			 The two of you pass the time by walking around the local area, with Angelixx pointing out the homes of some of her sisters or other demons she knows. In what seems like no time at all, it's almost seven, and so Angelixx turns to you with an eager look in her big, [angelixx.eyeColour] eyes and exclaims,
+		#ELSE
+			 Turning to face you with an eager look in her big, [angelixx.eyeColour] eyes, Angelixx exclaims,
+		#ENDIF
+		 [angelixx.speech(Let's go, [pc.name]! Time to party!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB"><![CDATA[
+	<p>
+		Continuing to hold your hand, Angelixx happily skips along beside you as the two of you make your way through Dominion to the nightlife district. Looking across at the cute, innocent-looking succubus, it's hard to believe that she's responsible for kidnapping innocent people and permanently transforming them into sex dolls against their will. Her true, evil nature is completely masked by a façade of cute joy, and every time she flashes you a smile or excitedly speaks of the evening ahead, you forget all about who she really is.
+	</p>
+	<p>
+		[angelixx.speech(We're almost there!)] she happily exclaims as the two of you turn into the street which houses the vast majority of the city's clubs and bars.
+		#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+			 Due to the ongoing arcane storm, the place looks to be mostly deserted, with only a few demons to be seen confidently strutting to and from some of the clubs. Perhaps due to the storm and the resulting rush of people desperate to find a place in which to shelter, the clubs themselves are absolutely packed, with most bearing signs declaring that they're temporarily closed. Thankfully, the one which Angelixx has in mind is still open, and as she steers you towards it, you see that
+		#ELSE
+			 Bathed in the neon lights which cover each club's exterior, hundreds of revellers in varying states of sobriety noisily fill this area and inhibit your movement as you and Angelixx press forwards to reach your destination. Thankfully, it's situated not too far from the end of the street, and so after a few minutes of pushing and shoving your way through the crowd, you arrive at Angelixx's preferred establishment. As she steers you towards it, you see that
+		#ENDIF
+		#IF(flags.hasFlag(FLAG_julesIntroduced))
+			 it's none other than The Watering Hole, which you know quite well.
+		#ELSE
+			 it's sporting a sign which declares it to be 'The Watering Hole'.
+		#ENDIF
+		 Walking up to the entrance of the club, Angelixx pushes the front door open pulls you inside, giggling as she does so, [angelixx.speech(Now it's time to have some fun!)]
+	</p>
+	<p>
+		As the front door swings shut behind you, you find yourself standing in a large, well-lit entrance hall, and before you, a winding queue leads up to a pair of white doors. The walls have been decorated with savannah-themed murals, which, combined with the club's name, as well as the pair of imposing zebra-boy bouncers standing guard at the front of the queue, gives the club an African theme.
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_julesIntroduced))
+			The larger of the two zebra-boy bouncers catches sight of you and Angelixx as you enter, and by raising his voice to be heard over the background bass of the club's music system, he calls out, [jules.speech(Hey, babe! Back for another taste of my cock?!)]
+		#ELSE
+			Jules, the larger of the two zebra-boy bouncers who you're already familiar with, catches sight of you and Angelixx as you enter, and by raising his voice to be heard over the background bass of the club's music system, he calls out, [jules.speech(Hey, babe! Back for another taste of my cock?!)]
+		#ENDIF
+	</p>
+	<p>
+		Possessively holding on to your [pc.arm] as she pulls you past the queue to stand before the bouncer, Angelixx teases, [angelixx.speech(Hey, Jules! I've got [pc.name] here to please tonight, so you'll have to find some other slut to swallow that fat cock of yours.)]
+	</p>
+	<p>
+		#IF(game.getDialogueFlags().hasFlag(FLAG_suckedJulesCock))
+			[jules.speech(Who said I was talking to you? Your friend here loves the taste of my cock just as much as you do,)] Jules replies with a big smirk on his face. As Angelixx pouts at him, he laughs and steps aside, before motioning for the two of you to skip the queue and head on in.
+		#ELSE
+			[jules.speech(Well, if you're not willing, then I bet your friend here would love the taste of my cock just as much as you do,)] Jules replies with a big smirk on his face. As you start to make a reply to this, the zebra-boy laughs and steps aside, before motioning for the two of you to skip the queue and head on in.
+		#ENDIF
+		 As he opens the door for you with one of his muscular arms, he looks at Angelixx and grunts, [jules.speech(You know you never have to wait in the queue while I'm on the door, so in you go. Oh, and if you get a craving for cock later tonight, I guess I could share mine between the two of you.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_START"><![CDATA[
+	<p>
+		Passing by Jules as he holds the door open, you and Angelixx step into a dark, noisy world that's packed full of people of all different races. The dance floor in the middle of the club is illuminated by strobing, neon lights, while seating areas around the edges are bathed in the gentle, warm glow of low-hanging bulbs. The chatter, laughter, and shouting from the crowd is joined by loud, bassy background music, making it very hard to make out what anyone's saying even when you're standing right beside them.
+	</p>
+	<p>
+		Just like the entrance hall, the club's interior has an African theme to it, and although the lights are very dim, you can clearly see zebra-stripes, leopard-spots, and savannah-style trees painted onto the walls. The floor beneath your feet is covered in light wooden boards, which when combined with the light blue colour of the high ceiling, gives the club a surprisingly spacious feel to it.
+	</p>
+	<p>
+		Although you can't directly see the bar through the crowds in front of you, a wooden sign hanging from the ceiling on the far side of the club's huge interior tells you where it is. Struggling to make herself heard over the noise, Angelixx opts to simply point at this sign, before keeping a hold of your [pc.arm] as she guides you around the edge of the club and to the bar. Here you find yourselves a little further away from the club's speaker systems, allowing Angelixx to shout, [angelixx.speech(I'll order the drinks!)]
+	</p>
+	<p>
+	<p>
+		#IF(flags.hasFlag(FLAG_kalahariIntroduced))
+			Although you see the familiar figure of Kalahari working behind the bar, she's currently on the other end from where you and Angelixx are standing, and so it's one of the zebra-girls who answers Angelixx's call.
+		#ELSE
+			Although there's an energetic-looking lioness working behind the bar, she's currently on the other end from where you and Angelixx are standing, and so it's one of the zebra-girl barmaids who answers Angelixx's call.
+		#ENDIF
+		 You can't quite hear what it is that Angelixx is demanding, but it takes a minute for her to convey her order, after which the zebra-girl spends a couple more minutes mixing up two colourful cocktails. Placing them on the bartop, you hear her shout, [style.speechFeminine(That'll be four hundred flames, love!)]
+	</p>
+	<p>
+		Turning towards you, Angelixx gives you her sweetest, cutest smile and asks, [angelixx.speech(You'll pay for this, right, [pc.name]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_START_PAY"><![CDATA[
+	<p>
+		Any reluctance you might feel towards paying for drinks you didn't even order is instantly melted away by the cute, innocent look on Angelixx's face. Producing four hundred flames and handing them over to the barmaid, you take one of the glasses and join your partner in having your first drink of the evening. Leaning in towards you as you lift the glass to your lips, Angelixx happily exclaims, [angelixx.speech(Thanks for paying, [pc.name]! This is my favourite drink!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_START_ANGELIXX_PAYS"><![CDATA[
+	<p>
+		#IF(pc.getMoney()<400)
+			Although you might not have minded paying, you don't have the four hundred flames required to cover the bill. Shaking your head, you tell Angelixx that you can't pay,
+		#ELSE
+			If you'd have been the one to order, you wouldn't have asked for such expensive cocktails, and balk at the prospect of paying four hundred flames for two drinks. Shaking your head, you tell Angelixx that you're not paying,
+		#ENDIF
+		 to which she pouts and whines, [angelixx.speech(But I hate paying for my own drinks... Fine, I'll splash out this time, but I won't pay for any more drinks tonight!)]
+	</p>
+	<p>
+		Producing the four hundred flames from her purse, Angelixx hands them over to the barmaid, before picking up both glasses and passing one to you. Leaning in towards you as you lift the glass to your lips, Angelixx exclaims, [angelixx.speech(This is my favourite drink!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_START_BOTH_DRINK"><![CDATA[
+	<p>
+		As you take a mouthful of the brightly-coloured cocktail, you discover that it tastes like champagne mixed with a variety of citrus fruits. It's cold, bubbly, and absolutely delicious, and before you know it you've emptied your glass. Giggling as she sees how quickly you've drunk it, Angelixx happily shouts, [angelixx.speech(I knew you'd like it!)]
+	</p>
+	<p>
+		As the cute succubus finishes her own drink, you feel the alcohol entering your system, and while it's not extremely potent, you do start to feel a little tipsy. Putting her now-empty glass back on the bartop beside yours, Angelixx turns to face you and expectantly waits for you to decide what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_START_PAY_ABSTAIN"><![CDATA[
+	<p>
+		Any reluctance you might feel towards paying for drinks you didn't even order is instantly melted away by the cute, innocent look on Angelixx's face. Although you produce the four hundred flames and hand them over to the barmaid, you don't want to drink the cocktail, and so tell your partner that she can have both of them. Pouting at you as she hears this, the succubus whines [angelixx.speech(Aww... But this is my favourite drink! Well, thanks for paying, [pc.name]!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_START_ANGELIXX_PAYS_ABSTAIN"><![CDATA[
+	<p>
+		You don't like the look of the cocktails which Angelixx has ordered, and so with a shake of your head, you tell her that you're not paying for something you aren't going to drink. Pouting as she hears this, the succubus whines, [angelixx.speech(But I hate paying for my own drinks... Fine, I'll splash out this time, but I won't pay for any more drinks tonight!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_START_SOLO_DRINK"><![CDATA[
+	<p>
+		Picking up the first glass, Angelixx quickly downs the colourful cocktail, before grabbing the second and taking her time with this one. Sipping at the alcoholic beverage, she leans into you and uses her free hand to explore your body as she giggles, [angelixx.speech(You'll have a drink later, right?)]
+	</p>
+	<p>
+		Telling the cute succubus that you'll think about it, you watch as she finishes the drink in her hand and places the now-empty glass back on the bartop beside the first one. Turning back to face you, she expectantly waits for you to decide what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_CORE_ANGELIXX_HORNY"><![CDATA[
+	<p>
+		[angelixx.speech(Hey, [pc.name]!)] Angelixx suddenly exclaims, before playfully biting her lip and flashing you a seductive look. There's a noticeably horny tone in her voice as she desperately whines, [angelixx.speech(This has been fun and all, but I want more... Come on, let's fuck already!)]
+	</p>
+	<p>
+		There's no mistaking the actions and words of your partner; she's no longer going to want to do anything that doesn't involve sex...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_DANCE"><![CDATA[
+	<p>
+		Taking hold of Angelixx's waist, you lead her over to the dance floor, where the noise of the booming music makes it almost impossible to hear one another. Showing her enthusiasm without using words, the cute succubus turns to face you and excitedly pumps her arms in the air in time with the pounding rhythm of the music.
+	</p>
+	<p>
+		Within a few moments you find yourself in amongst the thick crowd of dancing clubbers, with Angelixx jumping and pumping her fists into the air before you. Your surroundings are illuminated solely by strobing neon lights, while your sense of smell is assaulted by a mix of sweat, beer, and perfume. Completely in her element, your demonic parter soon switches from making energetic jumps to performing a refined, sensual dance. Teasing other clubbers with her body, only to skip away whenever they try to make a move on her, the succubus dashes the hopes of anyone who thinks they stand a chance with her by grinding up against you and delivering a quick kiss to your [pc.lips+].
+	</p>
+	<p>
+		Pulling away before you can react to her sudden move, the cute succubus giggles and shouts to be heard over the deafening music, [angelixx.speech(I'm really feeling it tonight!)]
+	</p>
+	<p>
+		The next half an hour passes by in a blur as your senses are assaulted on all fronts. Eventually, both you and Angelixx need a break, and she leans against you, panting, as she waits to hear what you want to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_DRINK"><![CDATA[
+	<p>
+		Wanting a drink, you lead Angelixx through the club and return to the bar, where your companion quickly skips forwards and gets the attention of one of the zebra-girl barmaids. Ordering the same drinks as before, she turns to smile at you as a pair of brightly-coloured cocktails are placed on the bartop, and says, [angelixx.speech(You're paying, right?)]
+	</p>
+	<p>
+		Agreeing to pay for the drinks, you hand four hundred flames over to the barmaid, before taking your drinks and giving one to Angelixx. Unlike when you first entered the club, the two of you take your time to drink, and finding that the music isn't quite as loud in this part of the club, you manage to spend some time talking to one another.
+	</p>
+	<p>
+		After finishing your cocktail, which tastes of champagne and a mix of citrus fruits, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_TALK"><![CDATA[
+	<p>
+		Wanting to find a relatively quiet spot in which to take a break from the oppressive noise and throng of people, you lead Angelixx over to one of the seating areas which are positioned around the club's perimeter.
+		#IF(!pc.isTaur())
+			 Quickly claiming a vacant booth,
+		#ELSE
+			 Taking a quick look around the area, you manage to spot an empty extra-large booth, which appears to be specifically designed to seat people with lower bodies like yours. Claiming this booth,
+		#ENDIF
+		 you sit down on the curved leather sofa next to the cute succubus, who smiles and asks, [angelixx.speech(Having fun?)]
+	</p>
+	<p>
+		Replying in the affirmative, you ask Angelixx if she comes here often, and soon discover that she used to come here almost every evening, but these days she's only interested in coming here if it's with you. After that, she starts bitching about Saellatrix and how much she expects her to work, which then leads into the cute succubus reminding you of her evil acts by recounting an experience she had from earlier in the day while she was dollifying one of her victims. Showing absolutely no sign of remorse for what she does to innocent people, Angelixx giggles as she finishes her story and then launches into yet more bitching about Saellatrix and some of her other sisters who you've never met.
+	</p>
+	<p>
+		After putting up with Angelixx's rant for almost half an hour, you feel relieved when she finally stands up and says, [angelixx.speech(We didn't come here to sit down and talk! Let's have some fun!)]
+	</p>
+	<p>
+		Following the succubus's lead, you stand up and wonder what to do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_FLIRT"><![CDATA[
+	<p>
+		Walking around the edge of the the club so as to avoid the deafening music that's coming from the central dance floor, you tell Angelixx how cute and sexy she's looking tonight. After happily giggling and returning the compliment, the cute succubus seductively bites her lip and bats her eyelashes at you as you continue flirting with her.
+	</p>
+	<p>
+		After a few minutes of playfully teasing one another, Angelixx starts to get a little carried away, and with a horny moan she suddenly lifts the front of her virgin-killer sweater. Not content with simply flashing you her lacy white panties, she hooks her thumbs into the band of her underwear and pulls forwards, stretching the fabric and exposing her
+		#IF(angelixx.hasPenis())
+			 tiny, flaccid cock.
+		#ELSE
+			 tight pussy.
+		#ENDIF
+	</p>
+	<p>
+		[angelixx.speech(This is what you want, huh?)] she giggles as she sways her hips from side to side. Suddenly pulling her underwear and sweater back into their proper positions, she moans, [angelixx.speech(You can have it soon...)]
+	</p>
+	<p>
+		Letting out another giggle, the horny succubus grabs hold of your arm and waits to hear what you want to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_BATHROOM_SEX_START"><![CDATA[
+	<p>
+		Feeling just as horny and desperate as Angelixx appears to be, you take hold of her [angelixx.hand] and lead her across the club towards the bathrooms. Seeing where you're taking her, the cute succubus giggles, [angelixx.speech(I've been fucked in there so many times...)]
+	</p>
+	<p>
+		Puling your partner into an empty stall, you turn to face her, and before you can react she's leaning forwards and planting a big, wet kiss on your [pc.lips+]. Pulling Angelixx into you, the two of you are soon eagerly exchanging saliva while fondling and groping each other's bodies. Breaking off from the kiss, the cute, horny succubus moans, [angelixx.speechNoEffects(~Mmm!~ Yes! Fuck me hard!)]
+	</p>
+	<p>
+		Letting out a horny [pc.moan] of your own, you prepare to do just that...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_LEAVE"><![CDATA[
+	<p>
+		Finding the oppressive, noisy atmosphere of the club to be a huge turn-off, you shout to make yourself heard over the deafening music and tell Angelixx that you've got to get out of here.
+	</p>
+	<p>
+		[angelixx.speech(Aww... But I want to have more fun!)] Angelixx whines, before reluctantly saying, [angelixx.speech(If you're leaving, then I'm going to stay here and find someone to fuck. I'll see you some other time!)]
+	</p>
+	<p>
+		Saying a quick goodbye to the cute succubus, you leave her in the club and push your way through the crowd as you head towards the exit. Within a couple of minutes you're [pc.stepping] back out into Dominion, where you take a deep breath of relatively fresh air and wonder what to do with the rest of your evening...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_BATHROOM_AFTER_SEX"><![CDATA[
+	<p>
+		Having had your fun, you [pc.step] back from Angelixx and bring an end to the sex.
+	</p>
+	<p>
+		#IF(angelixx.isSatisfiedFromLastSex())
+			[angelixx.speech(~Mmm!~ Fuck... That was just what I needed...)] the cute succubus pants. 
+		#ELSE
+			[angelixx.speech(That... was kinda fun...)] the cute succubus pants, but you can tell from the tone in her voice that you haven't really satisfied her.
+		#ENDIF
+		Quickly getting her underwear and sweater back into their proper positions, she giggles, [angelixx.speech(Fucking me in the club toilets? You sure were desperate for
+			#IF(angelixx.hasPenis())
+				 this cute little cock you made me grow, huh?
+			#ELSE
+				 my hot little pussy, huh?
+			#ENDIF
+		)]
+	</p>
+	<p>
+		After telling Angelixx that she was just as desperate as you were, and receiving another giggle in response, you get your own things in order before opening the stall's door. A couple of clubbers give you and Angelixx knowing smirks as you [pc.walk] past them and exit the bathroom. Finding yourselves back in the club proper, Angelixx turns to you and declares, [angelixx.speech(That's enough for me for one night. Let's get out of here!)]
+	</p>
+	<p>
+		With your evening of clubbing now at an end, you escort Angelixx through the crowd and quickly arrive at the exit. A moment later and the two of you are [pc.stepping] back out into Dominion, where you take a deep breath of relatively fresh air. Grabbing hold of your arm, the cute little succubus at your side gives you a pleading look and asks in a sweet tone, [angelixx.speech(You're going to walk me home, right, [pc.name]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_POSE"><![CDATA[
+	<p>
+		Thinking that it'd be fun to attract a couple of strangers with whom you and Angelixx can have some fun, you ask the succubus if she'd be up for that.
+	</p>
+	#IF(pc.getLocationPlaceType()==PLACE_TYPE_WATERING_HOLE_BAR)
+		<p>
+			[angelixx.speech(Hell yeah!)] she excitedly replies, [angelixx.speech(Come on, let's pose right here at the bar and we'll get hit on in no time at all!)]
+		</p>
+		<p>
+			Leaning against the bar, you and Angelixx strike your most seductive poses and try to catch the eye of any passing couples.
+	#ELSE
+		<p>
+			[angelixx.speech(Hell yeah!)] she excitedly replies, [angelixx.speech(Come on, let's go pose at the bar and we'll get hit on in no time at all!)]
+		</p>
+		<p>
+			Making your way over to the bar, you and Angelixx strike your most seductive poses and try to catch the eye of any passing couples.
+	#ENDIF
+		 It doesn't take long before you're hit on, as after just a few minutes [stranger1.a_raceFull(true)] and [stranger2.a_raceFull(true)] notice your enticing poses and confidently approach you. Although they try to give you and Angelixx their best pickup lines, the club's background noise is too loud for you to make out what they're saying.
+	</p>
+	<p>
+		[stranger1.speech(I'm [stranger1.Name]!)] the [stranger1.race] shouts as you gesture for [stranger1.herHim] to speak up.
+	</p>
+	<p>
+		[stranger2.speech(And I'm [stranger2.Name]!)] the [stranger2.race] declares, before asking, [stranger2.speech(So, which one of you am I taking home tonight?)]
+	</p>
+	<p>
+		Angelixx giggles in response to [stranger2.namePos] question, giving you a moment in which to decide which of these two strangers you want to focus your attention on...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_POSE_LEAVE"><![CDATA[
+	<p>
+		You don't really like the look of either of these strangers, and so you shout to make yourself heard over the deafening music and tell Angelixx that you've got to get out of here.
+	</p>
+	<p>
+		[angelixx.speech(Aww... Well, ok then...)] Angelixx whines, before giggling, [angelixx.speech(I'm going to get double-teamed by these two! I'll see you another time!)]
+	</p>
+	<p>
+		Saying a quick goodbye to the cute succubus, you leave her to have her fun with the strangers and push your way through the crowd as you head towards the exit. Within a couple of minutes you're [pc.stepping] back out into Dominion, where you take a deep breath of relatively fresh air and wonder what to do with the rest of your evening...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_POSE_FLIRT"><![CDATA[
+	<p>
+		Deciding that you like the look of [chosenStranger.name], you beckon [chosenStranger.herHim] closer and start to playfully flirt with [chosenStranger.herHim].
+		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, false))
+			 Before you know it, [chosenStranger.her] [chosenStranger.hands] are all over your body and you're sharing your first passionate, sloppy kiss. Grinding against the [chosenStranger.race], you guide one of [chosenStranger.her] [chosenStranger.hands] down to your crotch, and [pc.moan] into [chosenStranger.her] mouth as [chosenStranger.she] starts to grope your
+		#ELSE
+			 Before you know it, [chosenStranger.her] [chosenStranger.hands] are all over your body and [chosenStranger.sheIs] telling you all of the lewd things that [chosenStranger.she] wants to do to you. Grinding against the [chosenStranger.race], you guide one of [chosenStranger.her] [chosenStranger.hands] down to your crotch, and let out [pc.a_moan+] as [chosenStranger.she] starts to grope your
+		#ENDIF
+		#IF(pc.hasPenis())
+			 [pc.cock+].
+		#ELSEIF(pc.hasVagina())
+			 [pc.pussy+].
+		#ELSE
+			 groin.
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, false))
+			As the two of you break off your kiss,
+		#ELSE
+			As [chosenStranger.name] continues to talk dirty to you,
+		#ENDIF
+		 you turn to Angelixx to see what she and [angelixxStranger.name] are doing. Much to your surprise, the two of them have vanished, but before you can ask where they've gone, [chosenStranger.name] laughs, [chosenStranger.speech(I guess [angelixxStranger.name] and your friend have started without us! Come on, let's go and find them so I can fuck you alongside them!)]
+	</p>
+	<p>
+		Dominantly taking hold of your waist, [chosenStranger.name] steers you away from the bar and starts to lead you out of the club...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_POSE_FLIRT_LEAVE"><![CDATA[
+	<p>
+		Suddenly deciding that you really don't want to be fucked by this [chosenStranger.race], you stop in your tracks and shout to [chosenStranger.name] that you've had enough and are leaving without [chosenStranger.herHim].
+	</p>
+	<p>
+		[chosenStranger.speech(Suit yourself,)] [chosenStranger.she] huffs. Releasing your waist, [chosenStranger.she] states, [chosenStranger.speech(I'm going to go and find that friend of yours and get some sloppy seconds off her.)]
+	</p>
+	<p>
+		With that, [chosenStranger.name] sets off through the crowd and hurries towards the exit, and after waiting for a few seconds so as to leave some distance between the two of you, you follow in [chosenStranger.her] wake. Within a couple of minutes you're [pc.stepping] back out into Dominion, where you take a deep breath of relatively fresh air and wonder what to do with the rest of your evening...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_POSE_ALLEYWAY"><![CDATA[
+	<p>
+		Allowing [chosenStranger.name] to lead you out of the club, you soon find yourself [pc.stepping] back out into Dominion, where you take a deep breath of relatively fresh air. With the [chosenStranger.race]'s [chosenStranger.arm] still around your waist, you're guided a short way down the street, and then after taking a sharp turn, you find yourself entering a dark alleyway. Before you can ask your new partner what you're doing here, [chosenStranger.she] says, [chosenStranger.speech(We'll find your friend down here for sure...)]
+	</p>
+	<p>
+		Sure enough, as you proceed down the alleyway, you suddenly hear moaning and wet slapping sounds coming from somewhere up ahead. Continuing forwards, you turn a corner and enter a small courtyard that's lit by a pair of dim lights which are attached to the wall above a club's fire exits.
+	#IF(chosenStranger.isTaur() || angelixxStranger.isTaur())
+			 The source of the moaning is revealed to be Angelixx, and you see that she's been bent, face-first, over a crate, and [angelixxStranger.name] is slamming [angelixxStranger.her] [angelixxStranger.cock+] in and out of the cute succubus's
+			#IF(angelixx.hasVagina())
+				 cunt.
+			#ELSE
+				 asshole.
+			#ENDIF
+		</p>
+		<p>
+			[chosenStranger.speech(You got started without me!)] the [chosenStranger.race] beside you calls out to [chosenStranger.her] friend as [chosenStranger.she] guides you over to the crate. Dominantly grabbing you, [chosenStranger.she] pushes you down beside Angelixx, before teasing, [chosenStranger.speech(We don't want your friend to have all the fun, do we?)]
+		</p>
+	#ELSE
+			 The source of the moaning is revealed to be Angelixx, and you see that she's been pushed, face-first, up against a wall, and [angelixxStranger.name] is slamming [angelixxStranger.her] [angelixxStranger.cock+] in and out of the cute succubus's
+			#IF(angelixx.hasVagina())
+				 cunt
+			#ELSE
+				 asshole
+			#ENDIF
+			 from behind.
+		</p>
+		<p>
+			[chosenStranger.speech(You got started without me!)] the [chosenStranger.race] beside you calls out to [chosenStranger.her] friend as [chosenStranger.she] guides you over to the wall. Dominantly grabbing you, [chosenStranger.she] pushes you up beside Angelixx, before teasing, [chosenStranger.speech(We don't want your friend to have all the fun, do we?)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_POSE_ALLEYWAY_SEX_START"><![CDATA[
+	<p>
+		You let out an excited [pc.moan] as [chosenStranger.name] positions you up against the wall beside Angelixx, who looks across at you and happily grins as [angelixxStranger.name] continues fucking her from behind.
+		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true) && ((!chosenStranger.isTaur() && !angelixxStranger.isTaur()) || pc.isTaur()==angelixx.isTaur()))
+			 Wanting to taste her lips, you lean across to deliver a kiss to the succubus, who eagerly parts her lips and returns your display of affection.
+		#ELSE
+			 Delivering a sudden, sharp slap to the succubus's ass, [angelixxStranger.name] slams [angelixxStranger.her] cock deep into Angelixx's
+			#IF(angelixx.hasVagina())
+				 pussy,
+			#ELSE
+				 asshole,
+			#ENDIF
+			 causing her grin to morph into an open-mouthed look of ecstasy.
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true) && ((!chosenStranger.isTaur() && !angelixxStranger.isTaur()) || pc.isTaur()==angelixx.isTaur()))
+			With you and Angelixx continuing to make out in front of [chosenStranger.herHim], [chosenStranger.name] impatiently pulls [chosenStranger.her] [chosenStranger.cock+] out, before hastily gaining
+		#ELSE
+			Eager to experience what Angelixx is feeling, you shake your [pc.ass+] at [chosenStranger.name], who impatiently pulls [chosenStranger.her] [chosenStranger.cock+] out and hastily gains
+		#ENDIF
+		#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+			 access to your [pc.pussy+]. Lining the [chosenStranger.cockHead+] of [chosenStranger.her] throbbing shaft up to your [pc.labia+], [chosenStranger.she] instantly thrusts forwards and rams [chosenStranger.her] [chosenStranger.cock+] into your horny pussy.
+		#ELSE
+			 access to your [pc.asshole+]. Lining the [chosenStranger.cockHead+] of [chosenStranger.her] throbbing shaft up to your [pc.asshole], [chosenStranger.she] instantly thrusts forwards and rams [chosenStranger.her] [chosenStranger.cock+] into your horny ass.
+		#ENDIF
+	</p>
+	<p>
+		You let out [pc.a_moan+] as you're penetrated by this total stranger, and happily gaze into Angelixx's eyes as she's fucked alongside you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_POSE_ALLEYWAY_AFTER_SEX"><![CDATA[
+	<p>
+		Having had their fun, [chosenStranger.name] and [angelixxStranger.name] bring an end to the sex and step back. Panting as you catch your breath, you look across at Angelixx and see a big, happy grin on her pretty face.
+	</p>
+	<p>
+		[angelixxStranger.speech(I told you they'd be easy,)] [angelixxStranger.name] laughs to [angelixxStranger.her] friend as [angelixxStranger.she] slaps Angelixx's ass. The succubus giggles as she hears this and raises her ass to receive another slap.
+	</p>
+	<p>
+		[chosenStranger.speech(Yeah, this slut was a good fuck,)] [chosenStranger.name] replies as [chosenStranger.she] gives your [pc.ass+] one last grope.
+	</p>
+	<p>
+		Laughing with one another about how easy it was to fuck you and Angelixx, [chosenStranger.name] and [angelixxStranger.name] walk off, leaving the two of you to recover in the alleyway.
+	</p>
+	<p>
+		[angelixx.speech(That was fun!)] Angelixx giggles as she gets her clothing back in order. Standing up, you smile at the cute little succubus as she gives you a pleading look and asks in a sweet tone, [angelixx.speech(You're going to walk me home now, right, [pc.name]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_JULES"><![CDATA[
+	<p>
+		As Angelixx says that she wants sex, your thoughts immediately turn to the zebra-boy who welcomed you to the club. As such, you suggest to the succubus that the two of you could take Jules up on his offer of sucking his cock.
+	</p>
+	<p>
+		[angelixx.speech(Fuck yeah!)] she happily replies, [angelixx.speech(He's got a really nice, fat cock!)]
+	</p>
+	<p>
+		Agreeing on how you want to end your evening, you and Angelixx return to the club's entrance, where you find Jules talking to his zebra-boy colleague. As he sees the two of you, he interrupts his conversation and asks with a big grin on his face, [jules.speech(Come to get a taste of my cock?)]
+	</p>
+	<p>
+		Telling him that that's exactly why you're here, you tease your [pc.fingers+] down over the zebra-boy's crotch and give his bulge a good grope. Giggling as she mimics your movements and grabs Jules's groin, Angelixx nods her head towards the queue of people waiting to get into the club and asks, [angelix.speech(Want us to suck your cock in front of everyone?)]
+	</p>
+	<p>
+		As his colleague shakes his head in disapproval, Jules points to a nearby door and grunts, [jules.speech(Let's go into that office...)]
+	</p>
+	<p>
+		Grabbing your waists, the zebra-boy steers you over to the door and ushers you into a small, dingy office. Not caring about your surroundings, you and Angelixx pounce on the hunky zebra-boy and tell him to get his cock out.
+	</p>
+	<p>
+		[jules.speech(Here you go,)] he grunts, and after pulling down his trousers, he whips out his massive, ebony horse-cock. Grunting as you and Angelixx eagerly start stroking it, he commands, [jules.speech(Get down and suck it, sluts.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_JULES_SEX_START"><![CDATA[
+	<p>
+		Doing as you're told, you and Angelixx kneel down before Jules. Leaning forwards into his groin, you each press your lips against his thick, throbbing dick and eagerly kiss and lick it. 
+	</p>
+	<p>
+		[angelixx.speech(Give it to me!)] Angelixx giggles, before opening her mouth and taking the wide, flared head of the zebra-boy's animalistic dick into her mouth. Wetly slurping on it, she swirls her tongue over Jules's puffy urethra while you lean forwards and kiss his big, heavy balls.
+	</p>
+	<p>
+		[jules.speech(Give the other slut a turn,)] Jules grunts, before pulling his cock out of Angelixx's mouth and pointing it at yours. Obediently parting your [pc.lips], you take his thick, throbbing dick into your mouth, and as Angelixx kisses his shaft, the two of you work together to give him a blowjob to remember...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_JULES_AFTER_SEX"><![CDATA[
+	<p>
+		As Jules says that he's finished, Angelixx giggles and teases, [angelixx.speech(You don't want to go for round two?)]
+	</p>
+	<p>
+		[jules.speech(I don't have time,)] he grunts, [jules.speech(The boss'll kill me if he finds out I've been fucking the customers again... Come on, let's go.)]
+	</p>
+	<p>
+		Angelixx playfully pouts at Jules, before you and her stand up and reluctantly walk back over to the door of the office. Slapping you both on your butts, the zebra-boy snorts, [jules.speech(Hurry it up, sluts!)]
+	</p>
+	<p>
+		Exiting the office before you get Jules into trouble, you and Angelixx say a quick goodbye to the zebra-boy before agreeing that you've had enough fun for one night. As you exit the club and [pc.step] back out into the street, the cute little succubus gives you a pleading look and asks in a sweet tone, [angelixx.speech(You're going to walk me home now, right, [pc.name]?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_WALKED_HOME"><![CDATA[
+	<p>
+		Telling Angelixx that you'll walk her home, you can't help but smile as she happily grabs your [pc.hand] and leans in against you as you set off towards Demon Home.
+	</p>
+	<p>
+		[angelixx.speech(That was a lot of fun,)] the cute succubus sighs, [angelixx.speech(Did you enjoy it too, [pc.name]?)]
+	</p>
+	<p>
+		Telling her that you've enjoyed the evening, you make some idle small talk as you escort Angelixx back home. Soon arriving outside Lovienne's Luxuries, you say goodbye and receive a quick kiss before your partner skips over to the door to her apartment. After giving you a happy little wave, she heads inside, leaving you wondering what to do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ANGELIXX_CLUB_REFUSE_TO_WALK_HOME"><![CDATA[
+	<p>
+		Not wanting to head on over to Demon Home, you tell Anelixx that you're going in the opposite direction, and so can't walk her home.
+	</p>
+	<p>
+		[angelixx.speech(Aww... I guess I'll have to walk home all alone,)] the cute succubus whines. After playfully pouting at you, she giggles and says, [angelixx.speech(I had a lot of fun tonight, [pc.name]. Let's do this again some time!)]
+	</p>
+	<p>
+		With that, Angelixx skips off, leaving you alone and wondering what to do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	
+	
+	<!-- Sleip & Nir's content: -->
+	
+	<htmlContent tag="VISIT_SLEIP_NIR"><![CDATA[
+	<p>
+		After thirty seconds or so, you hear a bolt being slid back, and then the door swings inwards. Instead of Angelixx, however, you find yourself face to face with her son, Sleip. Wearing a [#sleip.getClothingInSlot(IS_TORSO_UNDER).getColourName()] [#sleip.getClothingInSlot(IS_TORSO_UNDER).getName()] and a pair of [#sleip.getClothingInSlot(IS_LEG).getColourName()] [#sleip.getClothingInSlot(IS_LEG).getName()], 
+		#IF(flags.hasFlag(FLAG_innoxia_sleip_nir_apartment_seen))
+			 you're able to see once again that his huge muscles are bulging beneath his clothes, causing the fabric of his [#sleip.getClothingInSlot(IS_TORSO_UNDER).getName()] to stretch over his pecs and around his biceps.
+		#ELSE
+			 you're seeing him for the first time without the stab-proof vest he and his brother wear while out of the house. His huge muscles bulge beneath his clothes, causing the fabric of his [#sleip.getClothingInSlot(IS_TORSO_UNDER).getName()] to stretch over his pecs and around his biceps.
+		#ENDIF
+	</p>
+	<p>
+		[sleip.speech(Mum's not here,)] he grunts, revealing that you're not going to be seeing Angelixx this evening. The nightmare's red eyes and black fur, combined with his large, muscular stature, gives him an intimidating appearance, which is accentuated by his deep voice and curt manner of speech. His large hoofs clop loudly on the wooden floor as he steps back and grunts, [sleip.speech(You going to just stand there or come in?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLEIP_NIR_ENTER"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_sleip_nir_apartment_lounge_seen))
+		<p>
+			Accepting the nightmare's invitation, you [pc.step] forwards into the apartment. As you pass by the large, horse-like demon, you catch a whiff of cheap aftershave that fails to completely mask his masculine odour. The door is quickly shut and bolted behind you, and although you know that he's not going to assault you, it's hard not to feel threatened by the nightmare's dominating presence and predatory gaze.
+		</p>
+		<p>
+			As you enter the apartment, the nightmare grunts, [sleip.speech(Come on, this way.)]
+		</p>
+	#ELSE
+		<p>
+			Accepting the nightmare's invitation, you [pc.step] forwards into the apartment. As you pass by the large, horse-like demon, you catch a whiff of cheap aftershave that fails to completely mask his masculine odour. The door is quickly shut and bolted behind you, and for a brief moment you feel a rush of adrenaline as the nightmare's dominating presence and predatory gaze makes you feel like you're about to be attacked.
+		</p>
+		<p>
+			Either sensing what you're feeling, or perhaps to just make conversation, the nightmare grunts, [sleip.speech(Don't worry, mum's told us to treat you as a friend.)]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLEIP_NIR_INTRO"><![CDATA[
+	<p>
+		With that, he beckons you to follow him and leads you out of the entrance hall and through a nearby door into the lounge. You can immediately tell that nobody's in charge of keeping the place tidy, for an eclectic mix of clothing, bags, and other items have been piled up on two of the three sofas, leaving only a single option for seating. Although there's a window on the far side of the room, the blinds are shut, preventing you from looking out or anyone from seeing in. Empty beer bottles are overflowing from a large bin in the nearest corner of the room, while stains of all sorts mark the well-trodden carpet.
+	</p>
+	<p>
+		[nir.speech(Hey, [pc.name],)] the familiar figure of Nir calls out from the far end of the sofa. Just like his brother, the brown-furred nightmare's muscles are clearly visible beneath the fabric of his [#sleip.getClothingInSlot(IS_TORSO_UNDER).getColourName()] [#sleip.getClothingInSlot(IS_TORSO_UNDER).getName()], and as his orange eyes roam over your body, he
+		#IF(!flags.hasFlag(FLAG_innoxia_sleip_nir_apartment_lounge_seen))
+			#IF(flags.hasFlag(FLAG_innoxia_doll_factory_player_dollified))
+				 [nir.speech(No hard feelings about us turning you into a doll, right? Fair play on managing to escape from that. Anyway, grab a beer and sit down.)]
+			#ELSE
+				 [nir.speech(No hard feelings about anything, right? Mum said we're all good now. Anyway, grab a beer and sit down.)]
+			#ENDIF
+		#ELSE
+			#IF(pc.isVisiblyPregnant() && !pc.isCharacterReactedToPregnancy(nir))
+				 looks down at your pregnant belly and grunts,
+				#IF(pc.isCharacterPossiblyFather(nir.getId()))
+					 [nir.speech(I got you knocked up, huh? I don't want anything to do with the bastard, so don't ask me for anything.)]
+				#ELSEIF(pc.isCharacterPossiblyFather(sleip.getId()))
+					 [nir.speech(Sleip got you knocked up, huh? Whatever.)]
+				#ELSE
+					 [nir.speech(Someone got you knocked up, huh? Whatever.)]
+				#ENDIF
+			#ELSE
+				 grunts, [nir.speech(Grab a beer and sit down.)]
+			#ENDIF
+		#ENDIF
+	</p>
+	#IF(pc.isVisiblyPregnant() && !pc.isCharacterReactedToPregnancy(sleip))
+		<p>
+			Acknowledging your pregnancy for the first time, Sleip growls,
+			#IF(pc.isCharacterPossiblyFather(sleip.getId()))
+				 [sleip.speech(If the bastard's mine, I don't want anything to do with them. Don't ask me for flames or anything, bitch. Now grab a beer and come sit down.)]
+			#ELSEIF(pc.isCharacterPossiblyFather(nir.getId()))
+				 [sleip.speech(Next time it'll be my seed that claims your womb, bitch. Now grab a beer and come sit down.)]
+			#ELSE
+				 [sleip.speech(Don't think that that'll stop me from fucking your cunt. Now grab a beer and come sit down.)]
+			#ENDIF
+		</p>
+	#ENDIF
+	<p>
+		As you look over to the dozen or so bottles of Canine Crush that are lined up on the coffee table, Sleip pushes past you and sinks down onto the opposite end of the sofa. Thanks to its considerable length, there's enough space between the two nightmares on the sofa for
+		#IF(pc.isTaur())
+			 you, even with your tauric lower body.
+		#ELSE
+			 you.
+		#ENDIF
+		 Briefly glancing back at the other two sofas, you see that there's nowhere else to sit, and the reason for this is briefly explained by Nir, who grunts, [nir.speech(All that shit's the good-looking stuff we took from new dolls. We keep meaning to sell it, but never get around to it.)]
+	</p>
+	<p>
+		[sleip.speech(You gonna sit down or what?)] Sleip impatiently grunts. Having just been reminded of the fact that these two nightmares kidnap and transform innocent people into sex dolls, you briefly wonder what you're doing here, but as the black-furred nightmare fixes his gaze on you, you feel compelled to do as he says, and so quickly [pc.step] forwards and sit down between him and his brown-furred brother.
+	</p>
+	<p>
+		Now in close proximity to both Sleip and Nir, you find yourself enveloped in the scent of cheap aftershave, masculine body odour, and spilt beer. Finishing off the drink in his hands, Nir sends a now-empty bottle soaring above your head to loudly crash in the bin in the corner of the room. With that, the brothers pick up on a conversation that you'd interrupted by your arrival, leaving you wondering what to do...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLEIP_NIR_DRINK"><![CDATA[
+	<p>
+		Taking the nightmares up on their offer of a beer, you lean forwards and grab a bottle of Canine Crush off of the coffee table. A nearby bottle opener allows you to quickly remove the cap, and then you relax back onto the sofa while taking a swig of the alcoholic beverage. As you drink, the two nightmares continue to talk past you, and you listen to their conversation as you set about emptying the bottle in your [pc.hand].
+	</p>
+	<p>
+		You soon discover that the nightmares' preferred topic of conversation is that of their 'work' in Dominion. Discussing the innocent people that they've kidnapped from the city's alleyways and transformed into dolls earlier in the day, their detailed accounts of how it felt to fuck the unfortunate victims are punctuated by amused and horny grunts. It's abundantly clear that neither of them feels guilty or remorseful about what they do, and the more they talk, the more you realise just how wicked these brothers really are.
+	</p>
+	<p>
+		Not having anything to add to their conversation, you simply sit back and drink your beer as the two nightmares continue to talk about their recent kidnappings and how many people they've turned into new sex dolls today. Eventually you finish your bottle of beer, and as you reach forwards to put it down, Sleip grabs it off you and tosses it into the nearby bin. This action interrupts their conversation, leaving you wondering what to do to fill the sudden silence.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLEIP_NIR_TALK"><![CDATA[
+	<p>
+		Wanting to find out a little more about these two nightmares, you try to steer the conversation towards talking about their past. You start by asking them if they've always worked for Angelixx, to which Sleip replies, [sleip.speech(Yeah, mum was keen to get rid of me as soon as I was born, but I told her that I wanted a job and a roof over my head. You should have seen the look on her face! She'd never had a kid talk back to her before.)]
+	</p>
+	<p>
+		[nir.speech(She tried to pull the same shit with me, but Sleip needed a partner and told mum that I'd be working with him too,)] Nir adds, before briefly explaining, [nir.speech(I was born a month after Sleip, you see. Different father, but he was the same sort of dumb brute of a horse-morph slave as Sleip's.)]
+	</p>
+	<p>
+		[sleip.speech(Yeah, mum's always had a thing for horse-cock,)] Sleip continues, before giving you far more information than you'd asked for by revealing, [sleip.speech(She'd buy a new horse-boy slave, get him to rut her all week, then when she was bored of him she'd sell him and buy a different one.)]
+	</p>
+	<p>
+		[nir.speech(Soon after I was born she decided that she'd had enough of playing with slaves,)] Nir continues,
+		#IF(game.isIncestEnabled())
+			 [nir.speech(That's probably because by then she was getting all the horse-cock she could handle from Sleip and I. She also said she'd had enough kids, and after me she hasn't had another one.)]
+		#ELSE
+			 [nir.speech(She also said she'd had enough kids, and after me she hasn't had another one.)]
+		#ENDIF
+	</p>
+	<p>
+		Although you wanted to find out about the nightmares' past, they've revealed more about their mother than anything else. Before you can steer the topic back to them, Sleip grunts, [sleip.speech(I'm bored of this conversation.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLEIP_NIR_FLIRT"><![CDATA[
+	<p>
+		With these two fit, handsome nightmares either side of you, it's impossible to resist the urge to start flirting with them. Grabbing their attention by playfully commenting on how lucky you are to be spending the [style.afternoon] with such a hot pair of guys, you quickly find yourself being subjected to hungry, predatory stares and suggestive comments.
+		#IF(sleip.getTotalTimesHadSex(pc)>0)
+			 Having already had sex with the two of them before, you tease the brothers by asking them if they often think about the fun you've had together.
+		#ELSE
+			 Reminding them of the time you confronted them in Elis, you tease the brothers by asking them if they often think about the fun they could have had if they'd defeated you.
+		#ENDIF
+	</p>
+	<p>
+		Having been pushed too far by your teasing,
+		#IF(pc.hasBreasts())
+			 Sleip suddenly reaches up and dominantly grabs your [pc.breasts+], before giving them a rough squeeze and grunting,
+			#IF(pc.getBreastRawSizeValue()<CUP_SIZE_C)
+				 [sleip.speech(Nice tits, but they could be bigger...)]
+			#ELSEIF(pc.getBreastRawSizeValue()>=CUP_SIZE_DD)
+				 [sleip.speech(What fat fucking tits...)]
+			#ELSE
+				 [sleip.speech(Yeah, you've got real nice tits...)]
+			#ENDIF
+		#ELSE
+			Sleip suddenly places a hand on your thigh, before giving it a rough squeeze and grunting, [sleip.speech(You're a real tease, aren't you, slut?)]
+		#ENDIF
+	</p>
+	<p>
+		Before you can respond, Nir confidently drops his large hand down to your groin, before dominantly groping you and laughing,
+		#IF(pc.hasPenis())
+			 [nir.speech(Got a cock down here, huh?)]
+		#ELSEIF(pc.hasVagina())
+			 [nir.speech(This little cunt of yours ready to get fucked?)]
+		#ELSE
+			 [nir.speech(Ready to get fucked?)]
+		#ENDIF
+	</p>
+	<p>
+		Joining his brother in letting out a laugh, Sleip lets go of you and grabs another beer, before leaning back on the sofa and grunting, [sleip.speech(You'll get it soon, don't worry, slut.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLEIP_NIR_DEMAND_TF"><![CDATA[
+	#IF(pc.isAbleToSelfTransform())
+		<p>
+			[nir.speech(It's nice of you to drop by and say hi, [pc.name], but you aren't really the sort of company we enjoy,)] Nir suddenly grunts.
+		</p>
+		<p>
+			[sleip.speech(Yeah, we prefer our guests to look a little more feminine,)] Sleip clarifies, before stating,
+			#IF(!pc.hasBreasts())
+				 [sleip.speech(You can transform yourself. Give yourself a feminine body and a nice pair of tits. Oh, and make sure you've got a cunt for me to fuck.)]
+			#ELSE
+				 [sleip.speech(You can transform yourself. You've already got some tits, so you just need to give yourself a feminine body. Oh, and make sure you've got a cunt for me to fuck.)]
+			#ENDIF
+		</p>
+		<p>
+			Looking back across to Nir to see his reaction to what Sleip is demanding, you see him nod as he confirms, [nir.speech(Yeah, if you want to stay you'll need to have a real nice, fuckable body. So get transforming.)]
+		</p>
+		<p>
+			[sleip.speech(Or you can leave,)] Sleip grunts, [sleip.speech(but you want to stay and have some fun, don't you?)]
+		</p>
+		<p>
+			With the two predatory nightmares expectantly gazing at you, you wonder whether or not to transform yourself into a feminine form for them...
+		</p>
+	#ELSE
+		<p>
+			[nir.speech(It's nice of you to drop by and say hi, [pc.name], but you aren't really the sort of company we enjoy,)] Nir suddenly grunts.
+		</p>
+		<p>
+			[sleip.speech(Yeah, we prefer our guests to look a little more feminine,)] Sleip clarifies, before addressing his brother and saying, [sleip.speech(Nir, grab that potion we took from the factory. It's down the side of the sofa by you.)]
+		</p>
+		<p>
+			Looking back across to Nir, you see him reach down over the arm of the sofa and grab something, before lifting it and presenting it to you. Looking at what's in his hand, you see what's quite clearly a used, plastic water bottle that's been refilled with a bubbling pink liquid. Explaining the situation, Sleip grunts,
+			#IF(flags.hasFlag(FLAG_innoxia_doll_factory_player_dollified))
+				 [sleip.speech(You should recognise this potion, slut; it's the one we gave to you before turning you into a doll.)]
+			#ELSE
+				 [sleip.speech(That's the potion we give to new dolls to give them the proper body before turning them into silicone.)]
+			#ENDIF
+		</p>
+		#IF(pc.isAbleToHaveRaceTransformed())
+			<p>
+				[nir.speech(Yeah, it'll give you a real nice, fuckable body,)] Nir adds, [nir.speech(Don't worry, it won't turn you into silicone. Just drink it and we'll let you stay.)]
+			</p>
+		#ELSE
+			<p>
+				[nir.speech(Yeah, it'll give you a real nice, fuckable body,)] Nir adds, [nir.speech(Don't worry, as you're [pc.a_race] it won't do much to you. Just drink it and we'll let you stay.)]
+			</p>
+		#ENDIF
+		<p>
+			[sleip.speech(Or you can leave,)] Sleip grunts, [sleip.speech(but you want to stay and have some fun, don't you?)]
+		</p>
+		<p>
+			Unscrewing the lid, Nir thrusts the bottle towards you and motions for you to take it and drink...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLEIP_NIR_SELF_TF"><![CDATA[
+	<p>
+		Not wanting to leave, you decide to give the nightmares what they want. Focusing on your ability to self-transform, you morph your body into a more feminine form, but just as you think you're satisfied with you new look, Sleip grunts, [sleip.speech(Keep going, slut. I want you looking gorgeous, not like the average bitches we fuck into dolls.)]
+	</p>
+	<p>
+		Doing as you're told, you focus on your transformation and make yourself look as womanly and beautiful as you possibly can. Your effort draws out an approving grunt from Nir, who can't resist giving your new body a grope as he
+		#IF(!pc.hasBreasts())
+			 demands, [nir.speech(Grow yourself some nice, big tits.)]
+		#ELSEIF(!pc.hasVagina())
+			 demands, [nir.speech(Now give yourself a cunt for us to have some fun with.)]
+		#ELSE
+			 states, [nir.speech(That's better. Now you can stay.)]
+		#ENDIF
+	</p>
+	#IF(!pc.hasBreasts())
+		<p>
+			Once again doing as you're told, you focus on your chest and can't help but let out a feminine moan as you use your transformative abilities to grow yourself a pair of tits. Starting as two small mounds, you keep growing them until they've expanded into [pc.breastRows] of big, DD-cup tits.
+			#IF(pc.getNippleSize().getValue()<2)
+				 Not wanting your undersized nipples to look out of place on your new breasts, you make them swell up into big, erect teats, with the sensation once again causing you to let out a girly moan.
+			#ENDIF
+			 Grabbing your new tits, Sleip grunts,
+			#IF(!pc.hasVagina())
+				 [sleip.speech(Now give yourself a cunt for me to have some fun with.)]
+			#ELSE
+				 [sleip.speech(That's better. Now you can stay.)]
+			#ENDIF
+		</p>
+	#ENDIF
+	#IF(!pc.hasVagina())
+		<p>
+			Giving the nightmares what they want, you move your focus down to your groin, where you concentrate on reshaping your genitalia. Starting as a slender indentation, your new pussy rapidly takes shape, and after your new clit and labia have formed, you feel your transformation uncontrollably shooting up into your lower abdomen and giving you a fully-functional womb. Sliding his thick fingers down over your new cunt, Sleip approvingly grunts, [sleip.speech(That's a good slut...)]
+		</p>
+	#ENDIF
+	<p>
+		With your body now meeting the nightmares' approval, they sit back on the sofa and allow their predatory gaze to roam over your new, feminine figure. They seem content to wait a little longer before getting intimate with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLEIP_NIR_TF_POTION"><![CDATA[
+	<p>
+		Not wanting to leave, you decide to give the nightmares what they want. Taking the bottle from Nir, you bring it up to your [pc.lips]
+		#IF(!pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+			 and, with some difficulty considering that your mouth is blocked, somehow manage to
+		#ELSE
+			 and
+		#ENDIF
+		 gulp down the sickly-sweet liquid contained within.
+	</p>
+	#IF(pc.isAbleToHaveRaceTransformed())
+		<p>
+			No sooner have you handed the empty vessel back to Nir, who promptly throws it into the nearby bin, do you feel the potion's potent transformative effect surge through you. Letting out a shocked gasp, you
+			#IF(pc.getRace()==RACE_HUMAN)
+				 look down at your body as it rapidly transforms into a distinctly human form.
+			#ELSE
+				 grip the sofa and brace yourself as you transform.
+			#ENDIF
+			 A series of shocking jolts, followed by waves of numbing pressure, shoot through your body, and with each passing sensation more and more of you changes. Within less than a minute, you find yourself in a brand new body, and with another shocked gasp, you realise that you now look identical to one of Saellatrix's sex dolls, minus the part where you're made out of silicone. Completely bald, standing at [units.size(160)], and with a pair of perfectly-formed, DD-cup tits, if it wasn't for the fact that you're covered in  [#pc.getCovering(BODY_COVERING_TYPE_HUMAN).getPrimaryColour().getName()] skin, you'd be indistinguishable from one of the dolls that Sleip and Nir are so proficient at creating.
+		</p>
+		<p>
+			[sleip.speech(That's good,)] Sleip hungrily grunts. Grabbing your new tits and giving your new body a good grope, he boasts, [sleip.speech(I've fucked this body hundreds of times, and it never gets old.)]
+		</p>
+		<p>
+			[nir.speech(You'll have a nice set of fuck holes now,)] Nir chuckles, before grunting, [nir.speech(It'll feel real good to fuck any of your holes.)]
+		</p>
+	#ELSE
+		<p>
+			No sooner have you handed the empty vessel back to Nir, who promptly throws it into the nearby bin, do you feel the potion's potent transformative effect surge through you. Letting out a shocked gasp, you grip the sofa and brace yourself as you transform. A series of shocking jolts, followed by waves of numbing pressure, shoot through your body, and with each passing sensation you change to look more and more feminine. Due to the fact that you're [pc.a_race], the potion fails to transform you into a human,
+			#IF(pc.getBreastSize().getMeasurement()<9)
+				 but it does manage to give you a new pair of breasts. Rapidly swelling up on your chest, your new assets grow until they've expanded into [pc.breastRows] of big, DD-cup tits.
+			#ELSE
+				 and as your breasts are already bigger than what it would have given you, there's no change on your chest either.
+			#ENDIF
+		</p>
+		<p>
+			#IF(!pc.hasVagina())
+				#IF(pc.getBreastSize().getMeasurement()<9)
+					As you gasp and experimentally heft your new breasts,
+				#ELSE
+					As you gasp and lean back on the sofa,
+				#ENDIF
+				 you feel the potion's power shooting down into your groin, where it proceeds to rapidly reshape your genitalia. Starting as a slender indentation, your new pussy quickly takes shape, and after your new clit and labia have formed, you feel the transformation shooting up into your lower abdomen to give you a fully-functional womb. Sliding his thick fingers down over your new cunt, Sleip approvingly grunts, [sleip.speech(That's a good slut...)]
+			#ELSE
+				As you already have [pc.a_pussy+], the potion has no more changes in store for you, and you let out a deeply relieved sigh as your intense transformation finishes. Sliding his thick fingers down over your cunt, Sleip approvingly grunts, [sleip.speech(That's a good slut... Now you can stay.)]
+			#ENDIF
+		</p>
+	#ENDIF
+	<p>
+		With that, the two nightmares let out a laugh and sit back on the sofa. Allowing their predatory gaze to roam over your new, feminine figure, they seem content to wait a little longer before getting intimate with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLEIP_NIR_HYPNO_WATCH"><![CDATA[
+	<p>
+		Too attached to your body to willingly transform it just for Sleip and Nir's pleasure, you tell the nightmares that you have a better idea. Standing up, you take out your hypno-watch quickly make sure that it's set to apply an ambiphilic orientation change, before turning to face the two brothers.
+	</p>
+	<p>
+		[sleip.speech(If this is some kind of trick, you'll regret it,)] Sleip threatens, [sleip.speech(Just because mum said not to harm you, doesn't mean we'll let you do whatever you want.)]
+	</p>
+	<p>
+		You tell the brothers not to worry, and that this won't affect them beyond helping to expand their horizons. Although they both have deeply suspicious looks on both of their faces, the brothers nevertheless sit back on the sofa and allow you to proceed. Swinging the arcane device back and forth before them, you watch as Sleip and Nir's piercing gazes are replaced by blank, dazed looks. A moment later and the hypno-watch completes its task of rewiring the nightmares' minds, and as one they snap out of their trance and shake their heads.
+	</p>
+	<p>
+		[nir.speech(I don't know what that was all about,)] Nir grunts, before casting his eyes over your body and confirming that the hypno-watch has worked, [nir.speech(but you look really fuckable all of a sudden.)]
+	</p>
+	<p>
+		[sleip.speech(Yeah, I've never felt turned on by [pc.a_gender] before,)] Sleip adds, before musing, [sleip.speech(So that little trinket made us like guys as well as girls, huh? I feel like I would have pissed if you'd told me what you were going to do, but now I feel like this... I guess I don't care. You can stay, so come and sit back down.)]
+	</p>
+	<p>
+		Doing as you're told, you put your hypno-watch away and take your place between the nightmares. Although you can instantly feel the brothers' predatory gaze on your body, they seem content to wait a little longer before getting intimate with you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLEIP_NIR_DEMAND_COCK_STROKING"><![CDATA[
+	<p>
+		[sleip.speech(I'm getting bored, let's have some fun,)] Sleip suddenly declares. Standing up, he reaches down to his groin and unzips his [#sleip.getClothingInSlot(IS_LEG).getName()]. In one swift motion, he strips himself from the waist down, before tossing his clothes to one side and sitting back down beside you. You can't help but look down between his legs as he spreads them, and you gulp as you see a huge, thick sheath perched atop a pair of big, heavy balls. His genitalia, as his black fur would suggest, are ebony in colour, and you catch a distinctly musky, sweaty scent rising from his groin as he reaches down to give his balls a quick scratch.
+	</p>
+	<p>
+		Looking across to Nir to see his reaction to his brother's sudden disrobing, you see that he's performed the same series of actions, and you get a full, unobstructed view of his [nir.asshole+] as he steps back to take his previous position on the sofa. Keeping your eyes down, you see that Nir's dark-skinned genitalia are almost as large as his brother's, and you feel
+		#IF(pc.getBodyMaterial()==BODY_MATERIAL_FLESH)
+			 your heart excitedly beating in your chest
+		#ELSE
+			 a rush of excitement flow through you as
+		#ENDIF
+		 as you find yourself flanked by a pair of horse-like cocks and balls.
+	</p>
+	<p>
+		[nir.speech(Put those [pc.hands] of yours to use,)] Nir grunts at you, [nir.speech(Get us hard.)]
+	</p>
+	<p>
+		Flicking your gaze between the two nightmares' groins, you see the wide, horse-like heads of their bestial cocks start to push out from their thick sheaths. Although they're still mostly flaccid, the sheer girth of their flared cocks suggests how big their dicks are going to get when fully erect, and you feel another flutter of excitement as you imagine how they're going to look.
+	</p>
+	<p>
+		[sleip.speech(Come on, slut,)] Sleip impatiently grunts, [sleip.speech(This is what you came here for, right?
+		#IF(pc.getArmRows()>1)
+			 Now put all those extra [pc.hands] of yours to use and start jerking us off.
+		#ELSE
+			 Now start jerking us off.
+		#ENDIF
+		)]
+	</p>
+	<p>
+		#IF(game.isNonConEnabled())
+			From their dominant tones and posturing, you get the impression that [style.italicsTerrible(if you do what the nightmares ask, they won't allow you to leave until they're satisfied)]...
+		#ELSE
+			Looking down at the nightmares' animalistic genitalia, you wonder whether you should do as they ask or instead choose this moment to take your leave...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLEIP_NIR_HANDJOBS"><![CDATA[
+	<p>
+		Submitting to the nightmares' demand, you guide your [pc.hands] down between their legs and slide your [pc.fingers+] over their flaccid cocks. Dragging your touch down and around their thick sheaths, you can't help but let out an excited sigh as you feel how big and hot their horse-like genitals are.
+		#IF(game.isPubicHairEnabled())
+			 The nightmares' bushes of wiry public hair scratch against your [pc.armSkin] as you explore their bestial cocks, and as you rub the puffy little urethras in the middle of their flat heads, Sleip grunts,
+		#ELSE
+			 The nightmares let out approving grunts as you explore their bestial cocks, and as you rub the puffy little urethras in the middle of their flat heads, Sleip grunts,
+		#ENDIF
+		 [sleip.speech(That's it, slut... Get me nice and hard.)]
+	</p>
+	<p>
+		[nir.speech(You're good at this,)] Nir grunts, [nir.speech(I'll be rock-hard in no time at this rate...)]
+	</p>
+	<p>
+		Moving your [pc.fingers] down to explore their hot, heavy balls, you finish acquainting yourself with the brothers' genitals and prepare to focus on getting them hard... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLEIP_NIR_LEAVE"><![CDATA[
+	#IF(game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')>=5)
+		<p>
+			Finding the sight of the nightmares' horse-like genitalia to be too much for you, you stand up and tell the brothers that you've got to go.
+		</p>
+	#ELSE
+		<p>
+			Not wanting to spend any more time with these nightares, you stand up and tell the brothers that you've got to go.
+		</p>
+	#ENDIF
+	<p>
+		[sleip.speech(Suit yourself,)] Sleip grunts.
+	</p>
+	<p>
+		[nir.speech(Close the front door on your way out,)] Nir says, before turning to his brother and asking, [nir.speech(Want to go to the red light district and get a whore?)]
+	</p>
+	<p>
+		[sleip.speech(Let me finish this beer first,)] Sleip replies.
+	</p>
+	<p>
+		Not wanting to hear any more of their conversation, you quickly leave the lounge, before heading to the front door and exiting the apartment. Closing the door behind you as Nir asked, you travel back down the stairs and soon find yourself [pc.stepping] back out onto the street outside Lovienne's Luxuries, wondering what to do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLEIP_NIR_SEXUAL_GET_HARD"><![CDATA[
+	<p>
+		Encouraged by the nightmares' words, you
+		#IF(pc.getArmRows()>1)
+			 use all [pc.handCount] of your [pc.hands] to
+		#ENDIF
+		 take hold of the brothers' cocks as they push out of their sheaths and start to jerk them off. Swelling and growing larger in your grip, their thick dicks twitch and rapidly rise up into full, throbbing erections. Clearly having done a good job, your efforts are finally rewarded with streams of slimy, musky precum that suddenly ooze out of the nightmares' urethras to coat your [pc.fingers+].
+	</p>
+	<p>
+		[nir.speech(That's it, slut, keep going like that,)] Nir happily grunts. Reaching over to start groping and molesting your body as you jerk him off, the nightmare teases in his deep, rough voice,
+		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+			 [nir.speech(I'll be ramming my cock down your throat in a minute...)]
+		#ELSE
+			 [nir.speech(I'll be painting your face with my cum soon enough...)]
+		#ENDIF
+	</p>
+	<p>
+		As though he doesn't want to be out-doe by his younger brother, Sleip joins Nir in groping your body, and as his strong hands squeeze your [pc.breasts+], he growls,
+		#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+			#IF(pc.isVisiblyPregnant())
+				 [sleip.speech(Just because you've got a bastard in your belly, that won't stop me from giving your cunt a fat creampie, bitch.)]
+			#ELSE
+				 [sleip.speech(I hope your cunt's ready to get a fat creampie, bitch. Perhaps I'll end up putting a bastard in your belly.)]
+			#ENDIF
+		#ELSEIF(game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+			 [sleip.speech(I hope your ass is ready for a good, hard fucking, bitch.)]
+		#ELSE
+			 [sleip.speech(I'm going to cover you in my spunk, bitch.)]
+		#ENDIF
+	</p>
+	<p>
+		Continuing to stroke the nightmares' cocks as their own hands explore every inch of your body, you wonder how long it'll be before they make their move and start fucking you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLEIP_NIR_SEXUAL_FOCUS"><![CDATA[
+	<p>
+		As Sleip and Nir continue to grope your body, you decide to focus on stroking their fat, throbbing cocks. Sliding
+		#IF(pc.getArmRows()>1)
+			 all [pc.handCount] of
+		#ENDIF
+		 your [pc.hands] up and down around their hard shafts, you use their slippery precum as lubrication as you enthusiastically jerk them off.
+	</p>
+	<p>
+		As the two nightmares let out deep, horny grunts, you decide to give Sleip some extra attention. Tracing your [pc.fingers+] up a thick vein that runs up the underside of his equine cock, you tease the rim of his wide, flared head and can't help but grin as your touch makes him groan in pleasure. Wrapping your [pc.fingers] around his shaft, you feel it throbbing with an impatient need to be stuffed deep inside of you.
+	</p>
+	<p>
+		With his brother having received some extra care, you decide to turn your attention to Nir. Playfully running your touch around the thick sheath at the base of his fat dick, you take hold of his hard shaft and start pumping your hand up and down. His hot, throbbing cock eagerly twitches, and as you smear his slippery precum up and down around his dark-skinned dick, he lets out a low, rumbling grunt.
+	</p>
+	<p>
+		Returning to splitting your focus between the two nightmares, you continue jerking them off as they molest and grope your body...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLEIP_NIR_SEXUAL_BALLS"><![CDATA[
+	<p>
+		Wanting to give the nightmare's balls some attention, you drop your [pc.hands] down below the base of their rock-hard cocks.
+	</p>
+	<p>
+		Beginning by giving Nir's big, heavy balls your full attention, you caress them and playfully heft them in your palm. Letting out a deep grunt, he teases,
+		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+			 [nir.speech(I'll be emptying them down your throat soon enough...)]
+		#ELSE
+			 [nir.speech(I'll be emptying them all over your face in a minute...)]
+		#ENDIF
+	</p>
+	<p>
+		With the fate of Nir's cum being revealed to you, you turn towards his brother and focus on him. Sleip's fat, ebony balls are just as large as his brother's, and you find yourself letting out a horny whine as you imagine how much cum they produce. As you lovingly stroke and cup them in your [pc.hand], the black-furred nightmare grunts,
+		#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+			#IF(pc.isVisiblyPregnant())
+				 [sleip.speech(Like how heavy my balls are, bitch? All that cum's going deep in your pussy.)]
+			#ELSE
+				 [sleip.speech(Like how heavy my balls are, bitch? All that cum's going deep in your womb.)]
+			#ENDIF
+		#ELSEIF(game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+			 [sleip.speech(Like how heavy my balls are, bitch? All that cum's going deep in your ass.)]
+		#ELSE
+			 [sleip.speech(Like how heavy my balls are, bitch? All that cum's going all over #IF(pc.hasBreasts())your tits#ELSEyour chest#ENDIF.)]
+		#ENDIF
+	</p>
+	<p>
+		Having finished playing with the nightmares' balls, you move your [pc.hands] back to up take hold of their huge, horse-like cocks and continue jerking them off...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLEIP_NIR_SEXUAL_KISS_SLEIP"><![CDATA[
+	<p>
+		Wanting to give Sleip a display of affection, you turn towards him and lean forwards to try and kiss him. Before you're able to deliver your kiss, however, the black-furred nightmare sees what's coming and reaches up to grab your head in both of his large, strong hands.
+	</p>
+	<p>
+		[sleip.speech(Falling for me, huh, slut?)] he laughs, and as you open your mouth to respond, he suddenly pulls you forwards and presses his lips against yours. The next thing you know, the nightmare is dominantly thrusting his thick, muscular tongue into your mouth and bullying your own into limp submission. Suddenly finding yourself locked in Sleip's strong grip, all you can do is moan into his mouth and press yourself against him as he proceeds to tongue-fuck your throat.
+	</p>
+	<p>
+		After a minute or so of having your mouth claimed by the muscular nightmare, Sleip suddenly breaks off the kiss. Finally given a moment in which to catch your breath, you loudly inhale as the dominant demon grunts, [sleip.speech(You taste good, bitch.)]
+	</p>
+	<p>
+		Leaning back on the sofa and taking a moment in which to recover, you return your focus to stroking the brother's throbbing cocks...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLEIP_NIR_SEXUAL_KISS_NIR"><![CDATA[
+	<p>
+		Deciding that you'd like to show Nir how much you like him, you turn towards the brown-furred nightmare and lean forwards to give him a kiss. Seeing what it is that you're doing, he reaches up and grabs the back of your neck with one hand, and with his firm grip now controlling your head's movements, he gives you no opportunity in which to change your mind and forces your face towards his.
+	</p>
+	<p>
+		A moment later, and you find your [pc.lips+] pressed against Nir's. Although you initiated this move, the nightmare is now the one who's fully in control of the situation, and with his hand still firmly holding the back of your neck, he opens his mouth and impatiently presses his thick, strong tongue against your [pc.lips+].
+	</p>
+	<p>
+		Powerless to do anything but submit, you meekly part your lips and grant the nightmare access to your mouth. Taking full advantage of what you're offering, Nir's tongue thrusts forwards and begins to explore the insides of your mouth. Your own tongue takes a submissive, servile role as the two of you exchange saliva, and is quite roughly forced down to the bottom of your mouth as the nightmare forcefully fills your oral orifice with his powerful muscle.
+	</p>
+	<p>
+		After continuing to kiss you in this rough manner for several minutes, Nir's muffled grunts finally come to an end when he suddenly pulls back and releases your neck. Panting and gasping for breath as a trail of slimy saliva drools from the corners of your abused mouth, you return your focus to stroking the brothers' throbbing, horse-like cocks...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLEIP_NIR_SEXUAL_FUCK"><![CDATA[
+	<p>
+		[sleip.speech(Enough foreplay already!)] Sleip suddenly declares. Standing up, he turns to face you, and you find yourself staring at the wide, flared head of his huge, ebony cock as he dominantly declares,
+		#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+			 [sleip.speech(It's time for your cunt to get intimate with my cock, bitch.)]
+		#ELSEIF(game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+			 [sleip.speech(It's time for your ass to get intimate with my cock, bitch.)]
+		#ELSE
+			 [sleip.speech(It's time for you to milk my cock dry, bitch.)]
+		#ENDIF
+	</p>
+	<p>
+		With a deep, approving grunt, Nir gets yup off the sofa as well, and you suddenly find yourself confronted by the nightmare's thick, dark-skinned dick as he demands,
+		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+			 [nir.speech(Get ready to swallow my cock, slut!)]
+		#ELSE
+			 [nir.speech(I'm going to paint your face with my cum, slut!)]
+		#ENDIF
+	</p>
+	<p>
+		With the foreplay now well and truly over, the two nightmares move forwards and get ready to fuck you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLEIP_NIR_SEX_START"><![CDATA[
+	<p>
+		Submitting to Sleip and Nir, you allow them to move you into position as slimy precum impatiently drips from their thick, hard cocks. Manhandling you between them, they pull aside your clothes so quickly that it's obvious they've done this hundreds of times before. A moment later and you're being pushed down
+		#IF((pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) || (game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true)))
+			 onto all fours between the brothers, with Sleip taking position behind you and Nir in front.
+		#ELSE
+			 onto your knees before the brothers.
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+			Grabbing your [pc.hips+], Sleip lifts your ass, and a moment later you feel the wide, flared head of his bestial cock bump against your [pc.labia+]. A thick layer of slimy, musky precum is smeared over your exposed pussy as the nightmare lines his cock up for penetration, and as he does so he grunts, [sleip.speech(Your cunt belongs to me, bitch!)]
+		#ELSEIF(game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+			Grabbing your [pc.hips+], Sleip lifts your ass, and a moment later you feel the wide, flared head of his bestial cock bump against your [pc.asshole+]. A thick layer of slimy, musky precum is smeared over your exposed orifice as the nightmare lines his cock up for penetration, and as he does so he grunts,
+			#IF(pc.hasVagina())
+				 [sleip.speech(Shame you've got your cunt all locked up... At least your ass belongs to me, bitch!)]
+			#ELSE
+				 [sleip.speech(Your ass belongs to me, bitch!)]
+			#ENDIF
+		#ELSE
+			#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+				Stepping forwards, Nir presents you with the wide, flared head of his bestial cock, before grabbing hold of it and pressing it against your [pc.lips+]. A thick layer of slimy, musky precum is smeared over your lower face as the nightmare lines his cock up for penetration, and as he does so he grunts, [nir.speech(Open wide, bitch!)]
+			#ELSE
+				Stepping forwards, Nir presents you with the wide, flared head of his bestial cock, before grabbing hold of your wrist and guiding your hand up to it. A thick layer of slimy, musky precum is smeared over your [pc.fingers+] as the nightmare makes you give him a handjob, and as he does so he grunts, [nir.speech(You're all locked up, aren't you, bitch? Oh well, just jerk us off...)]
+			#ENDIF
+		#ENDIF
+	</p>
+	<p>
+		#IF((pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) || (game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true)))
+			#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+				As his brother prepares to fuck you, Nir steps forwards and presents you with the wide, flared head of his bestial cock, before grabbing hold of it and pressing it against your [pc.lips+]. Knowing what's expected of you, you open wide, and after grabbing the sides of your head, the nightmare thrusts forwards and rams his thick, dark shaft deep down your throat. Bucking his hips back, he slams forwards once again, and as he starts to fuck your face he eagerly grunts, [nir.speech(That's it, swallow my cock, slut!)]
+			#ELSE
+				As his brother prepares to fuck you, Nir steps forwards and presents you with the wide, flared head of his bestial cock, before grabbing hold of your wrist and guiding your hand up to it. A thick layer of slimy, musky precum is smeared over your [pc.fingers+] as the nightmare makes you give him a handjob, and as he does so he angrily grunts, [nir.speech(Shame you've got your mouth all locked up... Oh well, just jerk me off...)]
+			#ENDIF
+		#ELSE
+			#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
+				As Nir prepares to use your mouth, Sleip steps forwards and grabs hold of your wrist, before guiding your hand up to his thick, throbbing cock. Your [pc.fingers+] instinctively close around his hard shaft, and as you start to give him a handjob he grunts,
+			#ELSE
+				As you start stroking Nir's cock, Sleip steps forwards and grabs hold of your free hand, before placing it on his own throbbing dick. Your [pc.fingers+] instinctively close around his hard shaft, and as you start to jerk him off he grunts,
+			#ENDIF
+			 [sleip.speech(I wanted to give you a proper fucking, but this'll have to do...)]
+		#ENDIF
+	</p>
+	<p>
+		#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+			At that moment you feel the wide head of Sleip's bestial, ebony shaft pressing forwards, and your [pc.labia+] begin to submissively part before the pressure of the nightmare's throbbing cock. As soon as the head of his huge dick is pushed inside your pussy, Sleip suddenly grabs your [pc.hips+] and slams forwards. Ramming his massive cock deep inside your cunt, he starts to buck his hips forwards and back, fucking you hard and fast as he dominantly grunts, [sleip.speech(Yeah, bitch! Your cunt's all mine!)]
+		#ELSEIF(game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+			At that moment you feel the wide head of Sleip's bestial, ebony shaft pressing forwards, and your [pc.asshole+] begins to submissively spread before the pressure of the nightmare's throbbing cock. As soon as the head of his huge dick is pushed inside your ass, Sleip suddenly grabs your [pc.hips+] and slams forwards. Ramming his massive cock deep inside your asshole, he starts to buck his hips forwards and back, fucking you hard and fast as he dominantly grunts, [sleip.speech(Yeah, bitch! Your ass is all mine!)]
+		#ELSE
+			On your knees before the two nightmares, you submissively focus on pleasuring their huge, throbbing horse-cocks... 
+		#ENDIF
+	</p>
+	#IF((pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)) || (game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true)))
+		<p>
+			On all fours between the two nightmares, you focus on pleasuring their huge, throbbing horse-cocks... 
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLEIP_NIR_SEXUAL_LEAVE"><![CDATA[
+	#IF(game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')>=10)
+		<p>
+			Finding yourself confronted with the prospect of being fucked by these two nightmares, you suddenly find yourself wanting to be anywhere but here. Standing up, you push past Sleip as you tell him and his brother that you're going to leave.
+		</p>
+	#ELSE
+		<p>
+			You suddenly feel uncomfortable with what's happening and find yourself unwilling to go through with any more of this. Taking your [pc.hands] off Sleip and Nir's cocks, you break away from their groping hands and stand up, before telling them that you're leaving.
+		</p>
+	#ENDIF
+	<p>
+		[sleip.speech(Really, after all that?)] Sleip angrily grunts, [sleip.speech(Fine, fuck off then.)]
+	</p>
+	<p>
+		[nir.speech(Close the front door on your way out,)] Nir growls at you, before turning to his brother and asking, [nir.speech(Want to go to the red light district and get some whore to pick up where this slut left off?)]
+	</p>
+	<p>
+		[sleip.speech(Yeah, I really need to fuck some cunt now,)] Sleip replies, [sleip.speech(Let me finish this beer first though.)]
+	</p>
+	<p>
+		Not wanting to hear any more of their conversation, you quickly leave the lounge, before heading to the front door and exiting the apartment. Closing the door behind you as Nir asked, you travel back down the stairs and soon find yourself [pc.stepping] back out onto the street outside Lovienne's Luxuries, wondering what to do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLEIP_NIR_SEXUAL_LEAVE_DENIED"><![CDATA[
+	#IF(game.getDialogueFlags().getSavedLong('sleip_nir_conversation_progress')>=10)
+		<p>
+			Finding yourself confronted with the prospect of being fucked by these two nightmares, you suddenly find yourself wanting to be anywhere but here. Standing up, you try to push past Sleip as you tell him and his brother that you're going to leave.
+		</p>
+		<p>
+			[sleip.speech(You're not going anywhere,)] Sleip grunts, before grabbing hold of you and pulling you into his wide, muscular chest. As you begin to tell him what you think about what he's just said, you suddenly find your head being grabbed by his big, strong hands. Any further objections you might have are quickly silenced as the black-furred nightmare pulls you forwards into a rough, forceful kiss. His thick, strong tongue forces its way into your mouth, and you can't help but make muffled moaning sounds as he starts passionately making out with you.
+		</p>
+		<p>
+			Meanwhile, Nir grabs hold of your [pc.hips+] and presses his huge, erect cock against your [pc.ass+]. Finding yourself trapped between these two big, strong nightmares, you realise that there's little hope of escape, and so submissively hold still as they pin you in place between them.
+		</p>
+	#ELSE
+		<p>
+			You suddenly feel uncomfortable with what's happening and find yourself unwilling to go through with any more of this. Taking your [pc.hands] off Sleip and Nir's cocks, you tell them that you're leaving, before starting to stand up.
+		</p>
+		<p>
+			[sleip.speech(You're not going anywhere,)] Sleip grunts, before grabbing hold of you and pulling you back down onto the sofa. As you turn to face the nightmare in order to tell him what you think about what he's just said, you suddenly find your head being grabbed by his big, strong hands. Any further objections you might have are quickly silenced as the black-furred nightmare pulls you forwards into a rough, forceful kiss. His thick, strong tongue forces its way into your mouth, and you can't help but make muffled moaning sounds as he starts passionately making out with you.
+		</p>
+		<p>
+			Meanwhile, Nir grabs hold of your hands and guides your touch back down to his groin. Finding yourself trapped between these two big, strong nightmares, you realise that there's little hope of escape, and so submissively start stroking their cocks once again.
+		</p>
+	#ENDIF
+	<p>
+		After a minute of tongue-fucking your mouth and throat, Sleip finally releases your head and breaks off the kiss. As you pant and gasp for breath, he growls,
+		#IF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
+			 [sleip.speech(You can leave after I've emptied my balls in your cunt, bitch.)]
+		#ELSEIF(game.isAnalContentEnabled() && pc.isAbleToAccessCoverableArea(CA_ANUS, true))
+			 [sleip.speech(You can leave after I've emptied my balls in your ass, bitch.)]
+		#ELSE
+			 [sleip.speech(You can leave once we've had our fun, bitch.)]
+		#ENDIF
+	</p>
+	<p>
+		[nir.speech(That's right,)] Nir grunts, [nir.speech(You don't get to come in here and tease us like this and then just leave.)]
+	</p>
+	<p>
+		Having played along with the nightmares up until this point, it seems like you're going to be forced to go all the way with them...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLEIP_NIR_AFTER_SEX"><![CDATA[
+	<p>
+		Having had their fun and satisfied themselves with your body, Sleip and Nir step back and leave you to collapse down onto the floor. Panting for breath, you let out a horny [pc.moan] as you feel
+		#IF(pc.isCharactersCumInOrifice(ORIFICE_VAGINA, sleip))
+			#IF(pc.isVisiblyPregnant() || !pc.isImpregnationPhysicallyPossible() || !pc.isFertile())
+				 Sleip's hot, musky cum oozing out of your well-fucked cunt.
+			#ELSE
+				 Sleip's hot, virile cum oozing out of your fertile pussy, and you can't help but wonder if the nightmare has got you pregnant.
+			#ENDIF
+		#ELSEIF(pc.isCharactersCumInOrifice(ORIFICE_ANUS, sleip))
+			 Sleip's hot, musky cum oozing out of your well-fucked asshole.
+		#ELSE
+			 Sleip's hot, musky cum running over your body.
+		#ENDIF
+		#IF(pc.isCharactersCumInOrifice(ORIFICE_MOUTH, nir))
+			 With the taste of his brother's spunk fresh on your tongue, you slowly pick yourself up from the floor and start getting your things together.
+		#ELSE
+			 With his brother's spunk plastered all over your face, you slowly pick yourself up from the floor and start getting your things together.
+		#ENDIF
+	</p>
+	<p>
+		[nir.speech(That felt good,)] Nir grunts as he grabs another beer and sinks back down onto the sofa.
+	</p>
+	<p>
+		[sleip.speech(Yeah, [pc.sheIs] better than the dolls we fucked today, that's for sure,)] Sleip adds, before addressing you and grunting, [sleip.speech(We've got places to be tonight, so get your stuff and get out of here.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SLEIP_NIR_AFTER_SEX_LEAVE"><![CDATA[
+	#IF(RND.nextInt(100)<50)
+		<p>
+			No longer of interest to Sleip and Nir, you find yourself being kicked out of their apartment, which makes you feel more than a little used. Quickly gatehring your things, you say a quick goodbye and swiftly exit the lunge, before heading straight for the front door. Before you're able to get there, however, you're suddenly grabbed from behind, and you spin around to see Sleip's red eyes glaring at you.
+		</p>
+		<p>
+			#IF(pc.isCharactersCumInOrifice(ORIFICE_VAGINA, sleip))
+				[sleip.speech(Your cunt's something special,)] he crudely grunts, before demanding, [sleip.speech(Come back and see us again some time. I want to blow another load in that hot pussy of yours.)]
+			#ELSEIF(pc.isCharactersCumInOrifice(ORIFICE_ANUS, sleip))
+				[sleip.speech(Your asshole's something special,)] he crudely grunts, before demanding, [sleip.speech(Come back and see us again some time. I want to blow another load in that hot ass of yours.)]
+			#ELSE
+				[sleip.speech(You're a good fuck,)] he crudely grunts, before demanding, [sleip.speech(Come back and see us again some time. I want to blow another load over you.)]
+			#ENDIF
+		</p>
+		<p>
+			With that, the black-furred nightmare releases you and accompanies you over to the front door. Grunting a brief goodbye, he guides you out of the apartment and closes the door behind you. Travelling back down the stairs, you soon find yourself [pc.stepping] back out onto the street outside Lovienne's Luxuries, wondering what to do now...
+		</p>
+	#ELSE
+		<p>
+			No longer of interest to Sleip and Nir, you find yourself being kicked out of their apartment, which makes you feel more than a little used. Quickly gatehring your things, you say a quick goodbye and swiftly exit the lunge, before heading straight for the front door. Before you're able to get there, however, you're suddenly grabbed from behind, and you spin around to see a predatory grin on Nir's face.
+		</p>
+		<p>
+			#IF(pc.isCharactersCumInOrifice(ORIFICE_MOUTH, nir))
+				[nir.speech(You sure know how to suck cock,)] he crudely grunts, before demanding, [nir.speech(Come back and see us again some time. I want to fuck your face again.)]
+			#ELSE
+				[nir.speech(You're a good fuck,)] he crudely grunts, before demanding, [nir.speech(Come back and see us again some time. I want to give you another facial.)]
+			#ENDIF
+		</p>
+		<p>
+			With that, the brown-furred nightmare releases you and accompanies you over to the front door. Grunting a brief goodbye, he guides you out of the apartment and closes the door behind you. Travelling back down the stairs, you soon find yourself [pc.stepping] back out onto the street outside Lovienne's Luxuries, wondering what to do now...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

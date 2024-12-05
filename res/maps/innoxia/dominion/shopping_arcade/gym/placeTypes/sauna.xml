@@ -4,7 +4,6 @@
 	<name><![CDATA[saunas]]></name>
 	<tooltipDescription><![CDATA[A couple of saunas are located near to the pool.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the sauna at the gym, 'Pix's Playground']]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_CRIMSON</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

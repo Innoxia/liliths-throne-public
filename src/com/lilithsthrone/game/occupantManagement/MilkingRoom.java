@@ -487,7 +487,7 @@ public class MilkingRoom implements XMLSaving {
 	
 					milkyMilknessSB.append("<div class='container-half-width' style='margin:0; padding:2px; width:35%; background:transparent;'>");
 					FluidFlavour flavour = fluid.getFluid().getFlavour();
-					milkyMilknessSB.append("<span style='color:"+flavour.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(flavour.getName())+"-flavoured</span>.<br/>");
+					milkyMilknessSB.append("<span style='color:"+flavour.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(flavour.getName())+(flavour==FluidFlavour.FLAVOURLESS?"":"-flavoured")+"</span>.<br/>");
 						if(!fluid.getFluid().getFluidModifiers().isEmpty()) {
 							int i=0;
 							for(FluidModifier mod : fluid.getFluid().getFluidModifiers()) {

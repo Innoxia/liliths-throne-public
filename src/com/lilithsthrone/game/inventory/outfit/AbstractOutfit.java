@@ -20,6 +20,7 @@ import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.ColourReplacement;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
@@ -347,7 +348,7 @@ public abstract class AbstractOutfit {
 									String colourText = e.getAttribute("colour");
 									if(colourText.startsWith("presetColourGroup")) {
 										int index = Integer.valueOf(colourText.substring(colourText.length()-1))-1;
-										List<Colour> colours = presetColourGroups.get(index);
+										List<Colour> colours = new ArrayList<>(presetColourGroups.get(index));
 										colours.removeIf(c->!ac.getClothingType().getColourReplacement(0).getAllColours().contains(c));
 										if(!colours.isEmpty()) {
 											ac.setColour(0, Util.randomItemFrom(colours));
@@ -357,7 +358,7 @@ public abstract class AbstractOutfit {
 									colourText = e.getAttribute("colourSecondary");
 									if(colourText.startsWith("presetColourGroup")) {
 										int index = Integer.valueOf(colourText.substring(colourText.length()-1))-1;
-										List<Colour> colours = presetColourGroups.get(index);
+										List<Colour> colours = new ArrayList<>(presetColourGroups.get(index));
 										colours.removeIf(c->!ac.getClothingType().getColourReplacement(1).getAllColours().contains(c));
 										if(!colours.isEmpty()) {
 											ac.setColour(1, Util.randomItemFrom(colours));
@@ -367,7 +368,7 @@ public abstract class AbstractOutfit {
 									colourText = e.getAttribute("colourTertiary");
 									if(colourText.startsWith("presetColourGroup")) {
 										int index = Integer.valueOf(colourText.substring(colourText.length()-1))-1;
-										List<Colour> colours = presetColourGroups.get(index);
+										List<Colour> colours = new ArrayList<>(presetColourGroups.get(index));
 										colours.removeIf(c->!ac.getClothingType().getColourReplacement(2).getAllColours().contains(c));
 										if(!colours.isEmpty()) {
 											ac.setColour(2, Util.randomItemFrom(colours));
@@ -590,7 +591,14 @@ public abstract class AbstractOutfit {
 						if(character.getClothingInSlot(ct.getEquipSlots().get(0))==null
 								&& (ct.getEquipSlots().get(0).isCoreClothing() || settings.contains(EquipClothingSetting.ADD_ACCESSORIES))) {
 							if(!character.isSlotIncompatible(ct.getEquipSlots().get(0))) {
-								AbstractClothing clothing = Main.game.getItemGen().generateClothing(ct, ot.getColoursForClothingGeneration(), null);
+								List<Colour> coloursForGeneration = new ArrayList<>(ot.getColoursForClothingGeneration());
+								for(int i=0; i<coloursForGeneration.size(); i++) { // If the colour is not compatible with this clothing, then use a random default colour instead:
+									ColourReplacement colRep = ct.getColourReplacement(i);
+									if(colRep!=null && !colRep.getAllColours().contains(coloursForGeneration.get(i))) {
+										coloursForGeneration.add(i, ct.getColourReplacement(i).getRandomOfDefaultColours());
+									}
+								}
+								AbstractClothing clothing = Main.game.getItemGen().generateClothing(ct, coloursForGeneration, null);
 								
 								character.equipClothingOverride(
 										clothing,

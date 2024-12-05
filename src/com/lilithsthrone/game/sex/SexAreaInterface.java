@@ -3,6 +3,7 @@ package com.lilithsthrone.game.sex;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.2.7
@@ -40,4 +41,11 @@ public interface SexAreaInterface {
 	
 	public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea);
 	
+
+	public default boolean isCharacterInanimate(GameCharacter character) {
+		return character!=null
+				&& Main.game.isInSex()
+				&& Main.sex.isCharacterImmobilised(character)
+				&& Main.sex.isCharacterInanimateFromImmobilisation(character);
+	}
 }

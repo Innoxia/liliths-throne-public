@@ -273,7 +273,7 @@ public class RatWarrensDialogue {
 						human.useItem(milk, human, false);
 					}
 				}
-				human.setMuskMarker(Main.game.getNpc(Murk.class).getId());
+				human.addMuskMarkerCharacter(Main.game.getNpc(Murk.class));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1532,7 +1532,7 @@ public class RatWarrensDialogue {
 						return new Response("Loot bar", "You've already taken everything of value from behind the bar...", null);
 						
 					} else {
-						return new Response("Loot bar", "You've already taken everything of value from behind the bar...", DICE_DEN_LOOT) {
+						return new Response("Loot bar", "Take a look behind the bar and see if there's anything worth taking...", DICE_DEN_LOOT) {
 							@Override
 							public void effects() {
 								Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensLootedDiceDen, true);

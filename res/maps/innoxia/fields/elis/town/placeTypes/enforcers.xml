@@ -4,7 +4,6 @@
 	<name><![CDATA[Enforcer station]]></name>
 	<tooltipDescription><![CDATA[The Elis Enforcers are based out of a large, heavily-fortified building.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[outside the Enforcer station in Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>#2c5aa0</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

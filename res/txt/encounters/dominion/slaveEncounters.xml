@@ -7,13 +7,23 @@
 	
 	<htmlContent tag="SLAVE_USES_YOU"><![CDATA[
 	<p>
-		As you [pc.walk] down one of the many corridors in Lilaya's mansion, a figure suddenly jumps out at you from an open doorway! Taking you completely by surprise, you're unable to react, and you find yourself being pinned up against the wall as your assailant growls into your ear, [npc.speech(Who's the bitch now?!)]
+		As you [pc.walk] down one of the many corridors in Lilaya's mansion, a figure suddenly jumps out at you from an open doorway! Taking you completely by surprise, you're unable to react, and you find yourself being pinned up against the wall as your assailant
+		#IF(npc.isMute())
+			 hungrily growls into your ear.
+		#ELSE
+			 growls into your ear, [npc.speech(Who's the bitch now?!)]
+		#ENDIF
 	</p>
 	<p>
-		Looking into the grinning face of your slave, [npc.name], you let out a surprised cry as [npc.she] pulls you forwards into [npc.her] [npc.arms]. Before you can even start to say anything in response to this assault, [npc.name] clasps [npc.a_hand+] over your [pc.lips] and [npc.moans], [npc.speech(Right now, you're no better than a slave yourself! I'm going to have some fun with you!)]
+		Looking into the grinning face of your slave, [npc.name], you let out a surprised cry as [npc.she] pulls you forwards into [npc.her] [npc.arms]. Before you can even start to say anything in response to this assault, [npc.name] clasps [npc.a_hand+] over your [pc.lips] and
+		#IF(npc.isMute())
+			 holds you still.
+		#ELSE
+			 [npc.moans], [npc.speech(Right now, you're no better than a slave yourself! I'm going to have some fun with you!)]
+		#ENDIF
 	</p>
 	<p>
-		Being caught totally unawares, you're in no position to fight back, and are at the mercy of your supposed 'slave'...
+		Being caught totally unawares, you're in no position to fight back and find yourself at the mercy of your supposed 'slave'...
 	</p>
 	]]>
 	</htmlContent>
@@ -43,10 +53,45 @@
 	
 	<htmlContent tag="SLAVE_USES_YOU_POST_SEX"><![CDATA[
 	<p>
-		As [npc.name] steps back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you.  [npc.She] looks down at you with a very satisfied smirk on [npc.her] face, before sneering, [npc.speech(That was fun, <i>[npc.pcName]</i>!)]
+		As [npc.name] steps back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you.
+		#IF(npc.isMute())
+			#IF(npc.isSatisfiedFromLastSex())
+				 Looking up at your slave, you see that [npc.sheIs] looking down at you with a very satisfied smirk on [npc.her] face.
+			#ELSE
+				 Looking up at your slave, you see that [npc.sheIs] looking down at you with an annoyed frown on [npc.her] face.
+			#ENDIF
+		#ELSE
+			#IF(npc.isSatisfiedFromLastSex())
+				 [npc.She] looks down at you with a very satisfied smirk on [npc.her] face, before sneering, [npc.speech(That was fun, <i>[npc.pcName]</i>!)]
+			#ELSE
+				 [npc.She] looks down at you with an annoyed frown on [npc.her] face, before tutting, [npc.speech(Did you really have to end it so soon?)]
+			#ENDIF
+		#ENDIF
 	</p>
 	<p>
 		With that, [npc.she] walks off, leaving you panting on the floor. It takes a little while for you to recover from your ordeal, but eventually you feel strong enough to get your things in order and carry on your way.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- SLAVE_USES_YOU_REFUSED -->
+	
+	<htmlContent tag="SLAVE_USES_YOU_REFUSED"><![CDATA[
+	<p>
+		You really aren't in the mood for having sex with [npc.name] right now, and so you put a swift end to [npc.her] plans by firmly telling [npc.herHim] to stop.
+	</p>
+	<p>
+		#IF(npc.isMute())
+			Being mute, [npc.she] isn't able to reply to this, but makes [npc.her] displeasure known by giving you an annoyed look,
+		#ELSE
+			[npc.speech(Fine...)] [npc.she] reluctantly
+			#IF(npc.isFeminine())
+				 whines,
+			#ELSE
+				 grunts,
+			#ENDIF
+		#ENDIF
+		 before [npc.walking] off and leaving you to continue on your way...
 	</p>
 	]]>
 	</htmlContent>
@@ -56,10 +101,20 @@
 	
 	<htmlContent tag="SLAVE_USES_YOU_DUNGEON"><![CDATA[
 	<p>
-		As you [pc.walk] down the gloomy passageway which snakes its way through Lilaya's dungeon, a figure suddenly jumps out at you from a recessed doorway! Taking you completely by surprise, you're unable to react, and you find yourself being pinned up against the damp stone wall as your assailant growls into your ear, [npc.speech(Well, well, well, look who I found down here!)]
+		As you [pc.walk] down the gloomy passageway which snakes its way through Lilaya's dungeon, a figure suddenly jumps out at you from a recessed doorway! Taking you completely by surprise, you're unable to react, and you find yourself being pinned up against the damp stone wall as your assailant
+		#IF(npc.isMute())
+			 hungrily growls into your ear.
+		#ELSE
+			 growls into your ear, [npc.speech(Well, well, well, look who I found down here!)]
+		#ENDIF
 	</p>
 	<p>
-		Looking into the grinning face of your slave, [npc.name], you let out a surprised cry as [npc.she] pulls you forwards into [npc.her] [npc.arms]. Before you can even start to say anything in response to this assault, [npc.name] clasps [npc.a_hand+] over your [pc.lips] and [npc.moans], [npc.speech(Nobody's going to hear your cries for help down here! I'm going to have some fun with you!)]
+		Looking into the grinning face of your slave, [npc.name], you let out a surprised cry as [npc.she] pulls you forwards into [npc.her] [npc.arms]. Before you can even start to say anything in response to this assault, [npc.name] clasps [npc.a_hand+] over your [pc.lips] and
+		#IF(npc.isMute())
+			 holds you still.
+		#ELSE
+			 [npc.moans], [npc.speech(Nobody's going to hear your cries for help down here! I'm going to have some fun with you!)]
+		#ENDIF
 	</p>
 	<p>
 		Being caught totally unawares, you're in no position to fight back, and are at the mercy of your supposed 'slave'...
@@ -92,10 +147,45 @@
 	
 	<htmlContent tag="SLAVE_USES_YOU_DUNGEON_POST_SEX"><![CDATA[
 	<p>
-		As [npc.name] steps back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you. [npc.She] looks down at you with a very satisfied smirk on [npc.her] face, before sneering, [npc.speech(That was fun, <i>[npc.pcName]</i>!)]
+		As [npc.name] steps back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you.
+		#IF(npc.isMute())
+			#IF(npc.isSatisfiedFromLastSex())
+				 Looking up at your slave, you see that [npc.sheIs] looking down at you with a very satisfied smirk on [npc.her] face.
+			#ELSE
+				 Looking up at your slave, you see that [npc.sheIs] looking down at you with an annoyed frown on [npc.her] face.
+			#ENDIF
+		#ELSE
+			#IF(npc.isSatisfiedFromLastSex())
+				 [npc.She] looks down at you with a very satisfied smirk on [npc.her] face, before sneering, [npc.speech(That was fun, <i>[npc.pcName]</i>!)]
+			#ELSE
+				 [npc.She] looks down at you with an annoyed frown on [npc.her] face, before tutting, [npc.speech(Did you really have to end it so soon?)]
+			#ENDIF
+		#ENDIF
 	</p>
 	<p>
 		With that, [npc.she] walks off, leaving you panting on the floor of Lilaya's dungeon. It takes a little while for you to recover from your ordeal, but eventually you feel strong enough to get your things in order and carry on your way.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- SLAVE_USES_YOU_DUNGEON_REFUSED -->
+	
+	<htmlContent tag="SLAVE_USES_YOU_DUNGEON_REFUSED"><![CDATA[
+	<p>
+		You really aren't in the mood for having sex with [npc.name] right now, and so you put a swift end to [npc.her] plans by firmly telling [npc.herHim] to stop.
+	</p>
+	<p>
+		#IF(npc.isMute())
+			Being mute, [npc.she] isn't able to reply to this, but makes [npc.her] displeasure known by giving you an annoyed look,
+		#ELSE
+			[npc.speech(Fine...)] [npc.she] reluctantly
+			#IF(npc.isFeminine())
+				 whines,
+			#ELSE
+				 grunts,
+			#ENDIF
+		#ENDIF
+		 before [npc.walking] off and leaving you to continue on your way...
 	</p>
 	]]>
 	</htmlContent>
@@ -105,10 +195,20 @@
 	
 	<htmlContent tag="SLAVE_USES_YOU_STREETS"><![CDATA[
 	<p>
-		As you're walking down one of Dominion's busy streets, weaving your way around the crowds, you suddenly feel someone step up right behind you, and before you can react, they reach around and clasp [npc.a_hand+] over your mouth. You're taken completely by surprise, and before you're able to make any move, you hear the familiar voice of [npc.name], your slave, growling into your ear, [npc.speech(Well, well, well, look what I found!)]
+		As you're walking down one of Dominion's busy streets, weaving your way around the crowds, you suddenly feel someone step up right behind you, and before you can react, they reach around and clasp [npc.a_hand+] over your mouth. You're taken completely by surprise, and as you turn your head to get a look at your assailant, you see that it's none other than your slave, [npc.name].
+		#IF(npc.isMute())
+			 Pulling you back against [npc.her] body, [npc.she] hungrily growls into your [pc.ear(true)].
+		#ELSE
+			 Pulling you back against [npc.her] body, [npc.she] hungrily growls into your [pc.ear(true)], [npc.speech(Well, well, well, look what I found!)]
+		#ENDIF
 	</p>
 	<p>
-		Shifting [npc.her] grip from your mouth to take hold of your [pc.arm], [npc.name] spins you around, before pulling you forwards into [npc.her] [npc.arms]. Before you can even start to say anything in response to this assault, [npc.name] clasps [npc.her] [npc.hand] over your mouth once more and [npc.moans], [npc.speech(Right now, you're no better than a slave yourself! I'm going to have some fun with you!)]
+		Shifting [npc.her] grip from your mouth to take hold of your [pc.arm], [npc.name] spins you around, before pulling you forwards into [npc.her] [npc.arms]. Before you can even start to say anything in response to this assault, [npc.name] fixes you with a predatory gaze and
+		#IF(npc.isMute())
+			 dominantly holds you still.
+		#ELSE
+			 dominantly [npc.moans], [npc.speech(You're mine! I'm going to have some fun with you right here in front of everyone!)]
+		#ENDIF
 	</p>
 	<p>
 		As [npc.she] moves to start having sex with you, members of the surrounding crowd, including a pair of Enforcers, step forwards to watch. With no help coming your way, you realise that you're at the mercy of your supposed 'slave'...
@@ -142,10 +242,45 @@
 	
 	<htmlContent tag="SLAVE_USES_YOU_POST_SEX_STREETS"><![CDATA[
 	<p>
-		As [npc.name] steps back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you. [npc.She] looks down at you with a very satisfied smirk on [npc.her] face, before sneering, [npc.speech(That was fun, <i>[npc.pcName]</i>!)]
+		As [npc.name] steps back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you.
+		#IF(npc.isMute())
+			#IF(npc.isSatisfiedFromLastSex())
+				 Looking up at your slave, you see that [npc.sheIs] looking down at you with a very satisfied smirk on [npc.her] face.
+			#ELSE
+				 Looking up at your slave, you see that [npc.sheIs] looking down at you with an annoyed frown on [npc.her] face.
+			#ENDIF
+		#ELSE
+			#IF(npc.isSatisfiedFromLastSex())
+				 [npc.She] looks down at you with a very satisfied smirk on [npc.her] face, before sneering, [npc.speech(That was fun, <i>[npc.pcName]</i>!)]
+			#ELSE
+				 [npc.She] looks down at you with an annoyed frown on [npc.her] face, before tutting, [npc.speech(Did you really have to end it so soon?)]
+			#ENDIF
+		#ENDIF
 	</p>
 	<p>
 		With that, [npc.she] walks off, leaving you panting on the floor. It takes a little while for you to recover from your ordeal, but eventually you feel strong enough to get your things in order and carry on your way.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- SLAVE_USES_YOU_STREETS_REFUSED -->
+	
+	<htmlContent tag="SLAVE_USES_YOU_STREETS_REFUSED"><![CDATA[
+	<p>
+		You really aren't in the mood for having sex with [npc.name] right now, and so you put a swift end to [npc.her] plans by firmly telling [npc.herHim] to stop.
+	</p>
+	<p>
+		#IF(npc.isMute())
+			Being mute, [npc.she] isn't able to reply to this, but makes [npc.her] displeasure known by giving you an annoyed look,
+		#ELSE
+			[npc.speech(Fine...)] [npc.she] reluctantly
+			#IF(npc.isFeminine())
+				 whines,
+			#ELSE
+				 grunts,
+			#ENDIF
+		#ENDIF
+		 before [npc.walking] off and leaving you to continue on your way...
 	</p>
 	]]>
 	</htmlContent>
@@ -160,10 +295,20 @@
 		#ELSE
 			As you're walking down one of Dominion's deserted alleyways, you suddenly feel someone step up right behind you, and before you can react, they reach around and clasp [npc.a_hand+] over your mouth.
 		#ENDIF
-		 You're taken completely by surprise, and before you're able to make any move, you hear the familiar voice of [npc.name], your slave, growling into your ear, [npc.speech(Well, well, well, look what I found!)]
+		 You're taken completely by surprise, and as you turn your head to get a look at your assailant, you see that it's none other than your slave, [npc.name].
+		#IF(npc.isMute())
+			 Pulling you back against [npc.her] body, [npc.she] hungrily growls into your [pc.ear(true)].
+		#ELSE
+			 Pulling you back against [npc.her] body, [npc.she] hungrily growls into your [pc.ear(true)], [npc.speech(Well, well, well, look what I found!)]
+		#ENDIF
 	</p>
 	<p>
-		Shifting [npc.her] grip from your mouth to take hold of your [pc.arm], [npc.name] spins you around, before pulling you forwards into [npc.her] [npc.arms]. Before you can even start to say anything in response to this assault, [npc.name] clasps [npc.her] [npc.hand] over your mouth once more and [npc.moans], [npc.speech(Right now, you're no better than a slave yourself! I'm going to have some fun with you!)]
+		Shifting [npc.her] grip from your mouth to take hold of your [pc.arm], [npc.name] spins you around, before pulling you forwards into [npc.her] [npc.arms]. Before you can even start to say anything in response to this assault, [npc.name] fixes you with a predatory gaze and
+		#IF(npc.isMute())
+			 dominantly holds you still.
+		#ELSE
+			 dominantly [npc.moans], [npc.speech(You're mine! I'm going to have some fun with you!)]
+		#ENDIF
 	</p>
 	<p>
 		Being caught totally unawares, you're in no position to fight back, and are at the mercy of your supposed 'slave'...
@@ -197,10 +342,46 @@
 	
 	<htmlContent tag="SLAVE_USES_YOU_POST_SEX_ALLEYWAY"><![CDATA[
 	<p>
-		As [npc.name] steps back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you. [npc.She] looks down at you with a very satisfied smirk on [npc.her] face, before sneering, [npc.speech(That was fun, <i>[npc.pcName]</i>!)]
+		As [npc.name] steps back and sorts [npc.her] clothes out, you sink to the floor, totally worn out from [npc.her] dominant treatment of you.
+		#IF(npc.isMute())
+			#IF(npc.isSatisfiedFromLastSex())
+				 Looking up at your slave, you see that [npc.sheIs] looking down at you with a very satisfied smirk on [npc.her] face.
+			#ELSE
+				 Looking up at your slave, you see that [npc.sheIs] looking down at you with an annoyed frown on [npc.her] face.
+			#ENDIF
+		#ELSE
+			#IF(npc.isSatisfiedFromLastSex())
+				 [npc.She] looks down at you with a very satisfied smirk on [npc.her] face, before sneering, [npc.speech(That was fun, <i>[npc.pcName]</i>!)]
+			#ELSE
+				 [npc.She] looks down at you with an annoyed frown on [npc.her] face, before tutting, [npc.speech(Did you really have to end it so soon?)]
+			#ENDIF
+		#ENDIF
 	</p>
 	<p>
 		With that, [npc.she] walks off, leaving you panting on the floor. It takes a little while for you to recover from your ordeal, but eventually you feel strong enough to get your things in order and carry on your way.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- SLAVE_USES_YOU_ALLEYWAY_REFUSED -->
+	
+	<htmlContent tag="SLAVE_USES_YOU_ALLEYWAY_REFUSED"><![CDATA[
+	<p>
+		You really aren't in the mood for having sex with [npc.name] right now, and so you put a swift end to [npc.her] plans by firmly telling [npc.herHim] to stop.
+	</p>
+	<p>
+		#IF(npc.isMute())
+			Being mute, [npc.she] isn't able to reply to this, but makes [npc.her] displeasure known by giving you an annoyed look,
+		#ELSE
+			[npc.speech(Fine...)] [npc.she] reluctantly
+			#IF(npc.isFeminine())
+				 whines,
+			#ELSE
+				 grunts,
+			#ENDIF
+		#ENDIF
+		 before [npc.walking] off and leaving you to continue on your way...
 	</p>
 	]]>
 	</htmlContent>
@@ -260,25 +441,45 @@
 			 start fucking [npc2.name],
 		#ENDIF
 		 and as you watch,
-		#IF(npc.getAffectionLevel(npc2).isLessThan(AFFECTION_NEGATIVE_TWO_DISLIKE))
-			 [npc.she] leans in to snarl, [npc.speech(Glad I got a chance to catch you somewhere like this. It's time I show you your place!)]
-		#ELSEIF(npc.getAffectionLevel(npc2).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
-			 [npc.she] leans in to declare, [npc.speech([pc.Name] told me that if I wanted to fuck somebody, it had to be you...)]
-		#ELSEIF(npc.getAffectionLevel(npc2).isLessThan(AFFECTION_POSITIVE_FOUR_LOVE))
-			 [npc.she] leans in to [npc.moan], [npc.speech(I followed you all the way here, and now that there's nobody to interrupt us, it's time to give you a good fucking!)]
+		#IF(npc.isMute())
+			#IF(npc.getAffectionLevel(npc2).isLessThan(AFFECTION_NEGATIVE_TWO_DISLIKE))
+				 [npc.she] evilly snarls at the [npc2.race].
+			#ELSEIF(npc.getAffectionLevel(npc2).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
+				 [npc.she] hungrily grins at the [npc2.race].
+			#ELSE
+				 [npc.she] eagerly grins at the [npc2.race].
+			#ENDIF
 		#ELSE
-			 [npc.she] leans in to [npc.moan], [npc.speech(Fuck! I thought I'd never find you! I'm about to give you the fucking of a lifetime!)]
+			#IF(npc.getAffectionLevel(npc2).isLessThan(AFFECTION_NEGATIVE_TWO_DISLIKE))
+				 [npc.she] leans in to snarl, [npc.speech(Glad I got a chance to catch you somewhere like this. It's time I show you your place!)]
+			#ELSEIF(npc.getAffectionLevel(npc2).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
+				 [npc.she] leans in to declare, [npc.speech([pc.Name] told me that if I wanted to fuck somebody, it had to be you...)]
+			#ELSEIF(npc.getAffectionLevel(npc2).isLessThan(AFFECTION_POSITIVE_FOUR_LOVE))
+				 [npc.she] leans in to [npc.moan], [npc.speech(I followed you all the way here, and now that there's nobody to interrupt us, it's time to give you a good fucking!)]
+			#ELSE
+				 [npc.she] leans in to [npc.moan], [npc.speech(Fuck! I thought I'd never find you! I'm about to give you the fucking of a lifetime!)]
+			#ENDIF
 		#ENDIF
 	</p>
 	<p>
-		#IF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_NEGATIVE_TWO_DISLIKE) || (!npc2.isAttractedTo(npc) && game.isNonConEnabled()))
-			Angrily pushing back against [npc.name], [npc2.name] snaps, [npc2.speech(Well? Come on then, you fuck! We both know you aren't [npc.man] enough to do anything!)]
-		#ELSEIF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
-			Letting out an annoyed huff, [npc2.name] replies, [npc2.speech(Well, let's get started then, I have somewhere I want to be and you're wasting my time with talking!)]
-		#ELSEIF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_POSITIVE_FOUR_LOVE))
-			Seductively pushing back against [npc.name], [npc2.name] [npc2.moans], [npc2.speech(Come on then, fuck me already!)]
+		#IF(npc2.isMute())
+			#IF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_NEGATIVE_TWO_DISLIKE) || (!npc2.isAttractedTo(npc) && game.isNonConEnabled()))
+				Angrily pushing back against [npc.name], [npc2.name] furiously glares at the [npc.race] to let [npc.herHim] know exactly what [npc2.she] thinks of this.
+			#ELSEIF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
+				Letting out an annoyed huff, [npc2.name] coldly stares at the [npc.race] to let [npc.herHim] know exactly what [npc2.she] thinks of this.
+			#ELSE
+				Seductively pushing back against [npc.name], [npc2.name] smiles back at the [npc.race] to let [npc.herHim] know exactly what [npc2.she] thinks of this.
+			#ENDIF
 		#ELSE
-			Erotically pushing [npc2.her] body back against [npc.name], [npc2.name] desperately [npc2.moans], [npc2.speech(Hurry, hurry! I've been needing this for ages!)]
+			#IF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_NEGATIVE_TWO_DISLIKE) || (!npc2.isAttractedTo(npc) && game.isNonConEnabled()))
+				Angrily pushing back against [npc.name], [npc2.name] snaps, [npc2.speech(Well? Come on then, you fuck! We both know you aren't [npc.man] enough to do anything!)]
+			#ELSEIF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
+				Letting out an annoyed huff, [npc2.name] replies, [npc2.speech(Well, let's get started then, I have somewhere I want to be and you're wasting my time with talking!)]
+			#ELSEIF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_POSITIVE_FOUR_LOVE))
+				Seductively pushing back against [npc.name], [npc2.name] [npc2.moans], [npc2.speech(Come on then, fuck me already!)]
+			#ELSE
+				Erotically pushing [npc2.her] body back against [npc.name], [npc2.name] desperately [npc2.moans], [npc2.speech(Hurry, hurry! I've been needing this for ages!)]
+			#ENDIF
 		#ENDIF
 	</p>
 	<p>
@@ -298,12 +499,22 @@
 	<htmlContent tag="SLAVE_USES_OTHER_SLAVE_ALLEYWAY_START_SEX_DOM"><![CDATA[
 	<p>
 		Wanting to get in on the action, you make your presence known to your two slaves by [pc.stepping] around from behind the corner and [pc.walking] towards them. Catching sight of you, [npc.name] turns and
-		#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
-			 sneers at you, before stating, [npc.speech(I'd prefer to fuck [npc2.name] alone, but I guess I've got no choice but to let you join in...)]
-		#ELSEIF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_NEUTRAL)
-			 asks, [npc.speech(Are you going to join me, [pc.name]?)]
+		#IF(npc.isMute())
+			#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+				 silently sneers at you.
+			#ELSEIF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_NEUTRAL)
+				 silently stares at you.
+			#ELSE
+				 silently grins at you.
+			#ENDIF
 		#ELSE
-			 grins at you, before asking, [npc.speech(You'll join me for a good fuck, won't you, [pc.name]?)]
+			#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+				 sneers at you, before stating, [npc.speech(I'd prefer to fuck [npc2.name] alone, but I guess I've got no choice but to let you join in...)]
+			#ELSEIF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_NEUTRAL)
+				 asks, [npc.speech(Are you going to join me, [pc.name]?)]
+			#ELSE
+				 grins at you, before asking, [npc.speech(You'll join me for a good fuck, won't you, [pc.name]?)]
+			#ENDIF
 		#ENDIF
 	</p>
 	<p>
@@ -319,20 +530,38 @@
 	<htmlContent tag="SLAVE_USES_OTHER_SLAVE_ALLEYWAY_START_SEX_SUB"><![CDATA[
 	<p>
 		Wanting to get in on the action, you make your presence known to your two slaves by [pc.stepping] around from behind the corner and [pc.walking] towards them. Catching sight of you, [npc.name] turns and
-		#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
-			 sneers at you, before stating, [npc.speech(I'd prefer to fuck [npc2.name] alone, but I guess I've got no choice but to let you join in...)]
-		#ELSEIF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_NEUTRAL)
-			 asks, [npc.speech(Are you going to join me, [pc.name]?)]
+		#IF(npc.isMute())
+			#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+				 silently sneers at you.
+			#ELSEIF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_NEUTRAL)
+				 silently stares at you.
+			#ELSE
+				 silently grins at you.
+			#ENDIF
 		#ELSE
-			 grins at you, before asking, [npc.speech(You'll join me for a good fuck, won't you, [pc.name]?)]
+			#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+				 sneers at you, before stating, [npc.speech(I'd prefer to fuck [npc2.name] alone, but I guess I've got no choice but to let you join in...)]
+			#ELSEIF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_NEUTRAL)
+				 asks, [npc.speech(Are you going to join me, [pc.name]?)]
+			#ELSE
+				 grins at you, before asking, [npc.speech(You'll join me for a good fuck, won't you, [pc.name]?)]
+			#ENDIF
 		#ENDIF
 	</p>
 	<p>
 		Moving forwards to lean back against the wall beside [npc2.name], you tell [npc.name] that you were actually hoping for [npc.herHim] to dominate you. Flashing you a hungry grin as [npc.she] hears you say this, your slave
-		#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
-			 leans in to forcefully plant a rough kiss on your [pc.lips+], before pulling back and snarling, [npc.speech(Sure, I'll give you a good hate-fucking, bitch!)]
+		#IF(npc.isMute())
+			#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+				 leans in to forcefully plant a rough kiss on your [pc.lips+].
+			#ELSE
+				 leans in to plant a quick kiss on your [pc.lips+].
+			#ENDIF
 		#ELSE
-			 leans in to plant a quick kiss on your [pc.lips+], before pulling back and [npc.moaning], [npc.speech(Sure, I'll give you a good fucking, if that's what you're after!)]
+			#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+				 leans in to forcefully plant a rough kiss on your [pc.lips+], before pulling back and snarling, [npc.speech(Sure, I'll give you a good hate-fucking, bitch!)]
+			#ELSE
+				 leans in to plant a quick kiss on your [pc.lips+], before pulling back and [npc.moaning], [npc.speech(Sure, I'll give you a good fucking, if that's what you're after!)]
+			#ENDIF
 		#ENDIF
 	</p>
 	]]>
@@ -360,10 +589,18 @@
 		#IF(sex.isDom(pc))
 			<p>
 				As you and [npc.name] [pc.step] back and start to get your clothing in order, [npc2.name] lets out
-				#IF(npc2.isSatisfiedFromLastSex())
-					 a deeply satisfied [npc2.moan], and after sinking to the ground in exhaustion, [npc2.she] pants, [npc2.speech(Fuck... That was... Intense...)]
+				#IF(npc2.isMute())
+					#IF(npc2.isSatisfiedFromLastSex())
+						 a deeply satisfied [npc2.moan] and sinks to the ground in exhaustion.
+					#ELSE
+						 a frustrated whine and desperately pants as [npc2.she] sinks to the ground. 
+					#ENDIF
 				#ELSE
-					 a frustrated whine and sinks to the ground, before desperately panting, [npc2.speech(Fuck... You didn't give me enough...)]
+					#IF(npc2.isSatisfiedFromLastSex())
+						 a deeply satisfied [npc2.moan], and after sinking to the ground in exhaustion, [npc2.she] pants, [npc2.speech(Fuck... That was... Intense...)]
+					#ELSE
+						 a frustrated whine and sinks to the ground, before desperately panting, [npc2.speech(Fuck... You didn't give me enough...)]
+					#ENDIF
 				#ENDIF
 			</p>
 			<p>
@@ -372,10 +609,18 @@
 		#ELSE
 			<p>
 				Having had [npc.her] fun with you and [npc2.name], [npc.name] [npc.steps] back and lets out a satisfied sigh.
-				#IF(npc2.isSatisfiedFromLastSex())
-					 Joining you in sinking to the ground from exhaustion, [npc2.name] pants, [npc2.speech(Fuck... That was... Intense...)]
+				#IF(npc2.isMute())
+					#IF(npc2.isSatisfiedFromLastSex())
+						 Joining you in sinking to the ground from exhaustion, [npc2.name] lets out a deeply satisfied [npc2.moan].
+					#ELSE
+						 Joining you in sinking to the ground from exhaustion, [npc2.name] lets out a frustrated whine and starts desperately panting as [npc2.she] touches [npc2.herself].
+					#ENDIF
 				#ELSE
-					 Joining you in sinking to the ground from exhaustion, [npc2.name] lets out a frustrated whine and desperately pants, [npc2.speech(Fuck... You didn't give me enough...)]
+					#IF(npc2.isSatisfiedFromLastSex())
+						 Joining you in sinking to the ground from exhaustion, [npc2.name] pants, [npc2.speech(Fuck... That was... Intense...)]
+					#ELSE
+						 Joining you in sinking to the ground from exhaustion, [npc2.name] lets out a frustrated whine and desperately pants, [npc2.speech(Fuck... You didn't give me enough...)]
+					#ENDIF
 				#ENDIF
 			</p>
 			<p>
@@ -385,10 +630,18 @@
 	#ELSE
 		<p>
 			Having had [npc.her] fun with [npc2.name], [npc.name] [npc.steps] back and lets out a satisfied sigh.
-			#IF(npc2.isSatisfiedFromLastSex())
-				 Sinking to the ground from exhaustion, [npc2.name] pants, [npc2.speech(Fuck... That was... Intense...)]
+			#IF(npc2.isMute())
+				#IF(npc2.isSatisfiedFromLastSex())
+					 Joining you in sinking to the ground from exhaustion, [npc2.name] lets out a deeply satisfied [npc2.moan].
+				#ELSE
+					 Joining you in sinking to the ground from exhaustion, [npc2.name] lets out a frustrated whine and starts desperately panting as [npc2.she] touches [npc2.herself].
+				#ENDIF
 			#ELSE
-				 Letting out a frustrated whine and sinking to the ground, [npc2.name] desperately pants, [npc2.speech(Fuck... You didn't give me enough...)]
+				#IF(npc2.isSatisfiedFromLastSex())
+					 Sinking to the ground from exhaustion, [npc2.name] pants, [npc2.speech(Fuck... That was... Intense...)]
+				#ELSE
+					 Letting out a frustrated whine and sinking to the ground, [npc2.name] desperately pants, [npc2.speech(Fuck... You didn't give me enough...)]
+				#ENDIF
 			#ENDIF
 		</p>
 		<p>
@@ -464,25 +717,45 @@
 			 start fucking [npc2.name],
 		#ENDIF
 		 and as you watch,
-		#IF(npc.getAffectionLevel(npc2).isLessThan(AFFECTION_NEGATIVE_TWO_DISLIKE))
-			 [npc.she] reaches up to roughly squeeze [npc2.namePos] neck and snarl, [npc.speech(Hope you're ready for this, little slut. I've been waiting to get you all alone for myself!)]
-		#ELSEIF(npc.getAffectionLevel(npc2).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
-			 [npc.she] leans in to mutter, [npc.speech(Too bad it has to be you and me, huh? Still, it's nice to be able to get off once in a while.)]
-		#ELSEIF(npc.getAffectionLevel(npc2).isLessThan(AFFECTION_POSITIVE_FOUR_LOVE))
-			 [npc.she] leans in to [npc.moan], [npc.speech(Let's start this nice and slow, then we can change it up when you're ready.)]
+		#IF(npc.isMute())
+			#IF(npc.getAffectionLevel(npc2).isLessThan(AFFECTION_NEGATIVE_TWO_DISLIKE))
+				 [npc.she] evilly snarls at the [npc2.race].
+			#ELSEIF(npc.getAffectionLevel(npc2).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
+				 [npc.she] hungrily grins at the [npc2.race].
+			#ELSE
+				 [npc.she] eagerly grins at the [npc2.race].
+			#ENDIF
 		#ELSE
-			 [npc.she] leans in to [npc.moan], [npc.speech(~Ooh!~ [npc2.Name]! I need you so bad! Stay still so I can fuck you!)]
+			#IF(npc.getAffectionLevel(npc2).isLessThan(AFFECTION_NEGATIVE_TWO_DISLIKE))
+				 [npc.she] reaches up to roughly squeeze [npc2.namePos] neck and snarl, [npc.speech(Hope you're ready for this, little slut. I've been waiting to get you all alone for myself!)]
+			#ELSEIF(npc.getAffectionLevel(npc2).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
+				 [npc.she] leans in to mutter, [npc.speech(Too bad it has to be you and me, huh? Still, it's nice to be able to get off once in a while.)]
+			#ELSEIF(npc.getAffectionLevel(npc2).isLessThan(AFFECTION_POSITIVE_FOUR_LOVE))
+				 [npc.she] leans in to [npc.moan], [npc.speech(Let's start this nice and slow, then we can change it up when you're ready.)]
+			#ELSE
+				 [npc.she] leans in to [npc.moan], [npc.speech(~Ooh!~ [npc2.Name]! I need you so bad! Stay still so I can fuck you!)]
+			#ENDIF
 		#ENDIF
 	</p>
 	<p>
-		#IF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_NEGATIVE_TWO_DISLIKE) || (!npc2.isAttractedTo(npc) && game.isNonConEnabled()))
-			Angrily pushing back against [npc.name], [npc2.name] snaps, [npc2.speech(Come on, then! I always knew you were a freak! Let's get this over with!!)]
-		#ELSEIF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
-			Letting out an annoyed huff, [npc2.name] replies, [npc2.speech(Well, if you're gonna do it, then do it. Honestly, I really need this too!)]
-		#ELSEIF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_POSITIVE_FOUR_LOVE))
-			Seductively pushing back against [npc.name], [npc2.name] [npc2.moans], [npc2.speech(Come on then, fuck me already!)]
+		#IF(npc2.isMute())
+			#IF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_NEGATIVE_TWO_DISLIKE) || (!npc2.isAttractedTo(npc) && game.isNonConEnabled()))
+				Angrily pushing back against [npc.name], [npc2.name] furiously glares at the [npc.race] to let [npc.herHim] know exactly what [npc2.she] thinks of this.
+			#ELSEIF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
+				Letting out an annoyed huff, [npc2.name] coldly stares at the [npc.race] to let [npc.herHim] know exactly what [npc2.she] thinks of this.
+			#ELSE
+				Seductively pushing back against [npc.name], [npc2.name] smiles back at the [npc.race] to let [npc.herHim] know exactly what [npc2.she] thinks of this.
+			#ENDIF
 		#ELSE
-			Erotically pushing [npc2.her] body back against [npc.name], [npc2.name] desperately [npc2.moans], [npc2.speech(Hurry, hurry! I've been needing this for ages!)]
+			#IF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_NEGATIVE_TWO_DISLIKE) || (!npc2.isAttractedTo(npc) && game.isNonConEnabled()))
+				Angrily pushing back against [npc.name], [npc2.name] snaps, [npc2.speech(Come on, then! I always knew you were a freak! Let's get this over with!!)]
+			#ELSEIF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_POSITIVE_ONE_FRIENDLY))
+				Letting out an annoyed huff, [npc2.name] replies, [npc2.speech(Well, if you're gonna do it, then do it. Honestly, I really need this too!)]
+			#ELSEIF(npc2.getAffectionLevel(npc).isLessThan(AFFECTION_POSITIVE_FOUR_LOVE))
+				Seductively pushing back against [npc.name], [npc2.name] [npc2.moans], [npc2.speech(Come on then, fuck me already!)]
+			#ELSE
+				Erotically pushing [npc2.her] body back against [npc.name], [npc2.name] desperately [npc2.moans], [npc2.speech(Hurry, hurry! I've been needing this for ages!)]
+			#ENDIF
 		#ENDIF
 	</p>
 	<p>
@@ -502,12 +775,22 @@
 	<htmlContent tag="SLAVE_USES_OTHER_SLAVE_LILAYA_CORRIDOR_START_SEX_DOM"><![CDATA[
 	<p>
 		Wanting to get in on the action, you make your presence known to your two slaves by [pc.stepping] into the room and [pc.walking] towards them. Catching sight of you, [npc.name] turns and
-		#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
-			 sneers at you, before stating, [npc.speech(I'd prefer to fuck [npc2.name] alone, but I guess I've got no choice but to let you join in...)]
-		#ELSEIF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_NEUTRAL)
-			 asks, [npc.speech(Are you going to join me, [pc.name]?)]
+		#IF(npc.isMute())
+			#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+				 silently sneers at you.
+			#ELSEIF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_NEUTRAL)
+				 silently stares at you.
+			#ELSE
+				 silently grins at you.
+			#ENDIF
 		#ELSE
-			 grins at you, before asking, [npc.speech(You'll join me for a good fuck, won't you, [pc.name]?)]
+			#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+				 sneers at you, before stating, [npc.speech(I'd prefer to fuck [npc2.name] alone, but I guess I've got no choice but to let you join in...)]
+			#ELSEIF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_NEUTRAL)
+				 asks, [npc.speech(Are you going to join me, [pc.name]?)]
+			#ELSE
+				 grins at you, before asking, [npc.speech(You'll join me for a good fuck, won't you, [pc.name]?)]
+			#ENDIF
 		#ENDIF
 	</p>
 	<p>
@@ -523,20 +806,38 @@
 	<htmlContent tag="SLAVE_USES_OTHER_SLAVE_LILAYA_CORRIDOR_START_SEX_SUB"><![CDATA[
 	<p>
 		Wanting to get in on the action, you make your presence known to your two slaves by [pc.stepping] into the room and [pc.walking] towards them. Catching sight of you, [npc.name] turns and
-		#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
-			 sneers at you, before stating, [npc.speech(I'd prefer to fuck [npc2.name] alone, but I guess I've got no choice but to let you join in...)]
-		#ELSEIF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_NEUTRAL)
-			 asks, [npc.speech(Are you going to join me, [pc.name]?)]
+		#IF(npc.isMute())
+			#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+				 silently sneers at you.
+			#ELSEIF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_NEUTRAL)
+				 silently stares at you.
+			#ELSE
+				 silently grins at you.
+			#ENDIF
 		#ELSE
-			 grins at you, before asking, [npc.speech(You'll join me for a good fuck, won't you, [pc.name]?)]
+			#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+				 sneers at you, before stating, [npc.speech(I'd prefer to fuck [npc2.name] alone, but I guess I've got no choice but to let you join in...)]
+			#ELSEIF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_NEUTRAL)
+				 asks, [npc.speech(Are you going to join me, [pc.name]?)]
+			#ELSE
+				 grins at you, before asking, [npc.speech(You'll join me for a good fuck, won't you, [pc.name]?)]
+			#ENDIF
 		#ENDIF
 	</p>
 	<p>
 		Moving forwards to lean back against the wall beside [npc2.name], you tell [npc.name] that you were actually hoping for [npc.herHim] to dominate you. Flashing you a hungry grin as [npc.she] hears you say this, your slave
-		#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
-			 leans in to forcefully plant a rough kiss on your [pc.lips+], before pulling back and snarling, [npc.speech(Sure, I'll give you a good hate-fucking, bitch!)]
+		#IF(npc.isMute())
+			#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+				 leans in to forcefully plant a rough kiss on your [pc.lips+].
+			#ELSE
+				 leans in to plant a quick kiss on your [pc.lips+].
+			#ENDIF
 		#ELSE
-			 leans in to plant a quick kiss on your [pc.lips+], before pulling back and [npc.moaning], [npc.speech(Sure, I'll give you a good fucking, if that's what you're after!)]
+			#IF(npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
+				 leans in to forcefully plant a rough kiss on your [pc.lips+], before pulling back and snarling, [npc.speech(Sure, I'll give you a good hate-fucking, bitch!)]
+			#ELSE
+				 leans in to plant a quick kiss on your [pc.lips+], before pulling back and [npc.moaning], [npc.speech(Sure, I'll give you a good fucking, if that's what you're after!)]
+			#ENDIF
 		#ENDIF
 	</p>
 	]]>
@@ -564,10 +865,18 @@
 		#IF(sex.isDom(pc))
 			<p>
 				As you and [npc.name] [pc.step] back and start to get your clothing in order, [npc2.name] lets out
-				#IF(npc2.isSatisfiedFromLastSex())
-					 a deeply satisfied [npc2.moan], and after sinking to the ground in exhaustion, [npc2.she] pants, [npc2.speech(Fuck... That was... Intense...)]
+				#IF(npc2.isMute())
+					#IF(npc2.isSatisfiedFromLastSex())
+						 a deeply satisfied [npc2.moan] and sinks to the ground in exhaustion.
+					#ELSE
+						 a frustrated whine and desperately pants as [npc2.she] sinks to the ground. 
+					#ENDIF
 				#ELSE
-					 a frustrated whine and sinks to the ground, before desperately panting, [npc2.speech(Fuck... You didn't give me enough...)]
+					#IF(npc2.isSatisfiedFromLastSex())
+						 a deeply satisfied [npc2.moan], and after sinking to the ground in exhaustion, [npc2.she] pants, [npc2.speech(Fuck... That was... Intense...)]
+					#ELSE
+						 a frustrated whine and sinks to the ground, before desperately panting, [npc2.speech(Fuck... You didn't give me enough...)]
+					#ENDIF
 				#ENDIF
 			</p>
 			<p>
@@ -576,10 +885,18 @@
 		#ELSE
 			<p>
 				Having had [npc.her] fun with you and [npc2.name], [npc.name] [npc.steps] back and lets out a satisfied sigh.
-				#IF(npc2.isSatisfiedFromLastSex())
-					 Joining you in sinking to the ground from exhaustion, [npc2.name] pants, [npc2.speech(Fuck... That was... Intense...)]
+				#IF(npc2.isMute())
+					#IF(npc2.isSatisfiedFromLastSex())
+						 Joining you in sinking to the ground from exhaustion, [npc2.name] lets out a deeply satisfied [npc2.moan].
+					#ELSE
+						 Joining you in sinking to the ground from exhaustion, [npc2.name] lets out a frustrated whine and starts desperately panting as [npc2.she] touches [npc2.herself].
+					#ENDIF
 				#ELSE
-					 Joining you in sinking to the ground from exhaustion, [npc2.name] lets out a frustrated whine and desperately pants, [npc2.speech(Fuck... You didn't give me enough...)]
+					#IF(npc2.isSatisfiedFromLastSex())
+						 Joining you in sinking to the ground from exhaustion, [npc2.name] pants, [npc2.speech(Fuck... That was... Intense...)]
+					#ELSE
+						 Joining you in sinking to the ground from exhaustion, [npc2.name] lets out a frustrated whine and desperately pants, [npc2.speech(Fuck... You didn't give me enough...)]
+					#ENDIF
 				#ENDIF
 			</p>
 			<p>
@@ -589,10 +906,18 @@
 	#ELSE
 		<p>
 			Having had [npc.her] fun with [npc2.name], [npc.name] [npc.steps] back and lets out a satisfied sigh.
-			#IF(npc2.isSatisfiedFromLastSex())
-				 Sinking to the ground from exhaustion, [npc2.name] pants, [npc2.speech(Fuck... That was... Intense...)]
+			#IF(npc2.isMute())
+				#IF(npc2.isSatisfiedFromLastSex())
+					 Joining you in sinking to the ground from exhaustion, [npc2.name] lets out a deeply satisfied [npc2.moan].
+				#ELSE
+					 Joining you in sinking to the ground from exhaustion, [npc2.name] lets out a frustrated whine and starts desperately panting as [npc2.she] touches [npc2.herself].
+				#ENDIF
 			#ELSE
-				 Letting out a frustrated whine and sinking to the ground, [npc2.name] desperately pants, [npc2.speech(Fuck... You didn't give me enough...)]
+				#IF(npc2.isSatisfiedFromLastSex())
+					 Sinking to the ground from exhaustion, [npc2.name] pants, [npc2.speech(Fuck... That was... Intense...)]
+				#ELSE
+					 Letting out a frustrated whine and sinking to the ground, [npc2.name] desperately pants, [npc2.speech(Fuck... You didn't give me enough...)]
+				#ENDIF
 			#ENDIF
 		</p>
 		<p>

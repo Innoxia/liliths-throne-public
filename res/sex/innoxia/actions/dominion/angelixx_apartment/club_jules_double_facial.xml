@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+
+	<buttonPriority>0</buttonPriority>
+	<actionConditional><![CDATA[true]]></actionConditional>
+	<type>ORGASM</type>
+	<pace/>
+	<endsSex><![CDATA[true]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>TWO_HORNY</associatedCorruption>
+	<associatedFetishes>
+		<performer>
+			<fetish>FETISH_CUM_STUD</fetish>
+		</performer>
+		<target>
+			<fetish>FETISH_CUM_ADDICT</fetish>
+		</target>
+	</associatedFetishes>
+	<performingArea>PENETRATION_PENIS</performingArea>
+	<targetedArea>ORIFICE_MOUTH</targetedArea>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+		[##sex.applyCummedOnEffects(CA_MOUTH, jules, pc)]
+		[##sex.applyCummedOnEffects(CA_MOUTH, jules, angelixx)]
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+		[#pc.ingestFluid(jules, jules.getCum(), ORIFICE_MOUTH, 10)]
+		[#angelixx.ingestFluid(jules, jules.getCum(), ORIFICE_MOUTH, 10)]
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	
+	<!-- Information displayed to the player: -->
+	
+	<title><![CDATA[
+		Finish on their faces
+	]]></title>
+	<tooltip><![CDATA[Cum all over these sluts' faces.]]></tooltip>
+	
+	<descriptions>
+		<description>
+			<text><![CDATA[
+				Jules pulls his hips back, leaving you and Angelixx with nothing to suck on as he looks down at the two of you and grunts, [jules.speechNoEffects(Open wide, sluts!)]
+				
+				<br/><br/>Obeying the zebra-boy's command, the two of you press your cheeks against one another and open your mouths while looking up at him. Pleased with what he's seeing, Jules furiously strokes his throbbing, ebony cock and as his grunts get deeper and louder, he points the wide, flared head of his horse-like dick at your faces.
+				
+				<br/><br/>Without any further warning, a massive jet of hot, sticky cum bursts out of the zebra-boy's cock and splatters all over your face. Flinching and blinking as his slimy seed paints your face, you keep your mouth open and taste his salty spunk as some of it lands on your tongue.
+				
+				<br/><br/>[jules.speechNoEffects(That's it,)] the zebra-boy groans, [jules.speechNoEffects(Take my load, you dirty sluts!)]
+				
+				<br/><br/>After a few more spurts, Jules's balls run empty, and with one last grunt he pulls his softening cock away from your faces. Turning to look at Angelixx, you see that her face is coated in a layer of slimy zebra-spunk, and after swallowing what's in your mouth, you lean forwards and kiss her cum-covered lips. Giggling, she returns the kiss, and the two of you lick, suck, and slurp the cum off each other's faces.
+				
+				<br/><br/>[jules.speechNoEffects(Damn, you sluts are horny,)] Jules grunts, before bringing an end to your makeout session by declaring, [jules.speechNoEffects(I need to get back to work. Come on, let's go.)]
+			]]></text>
+		</description>
+	</descriptions>
+	
+</sexAction>

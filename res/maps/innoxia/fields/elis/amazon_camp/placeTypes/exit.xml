@@ -4,7 +4,6 @@
 	<name><![CDATA[Entrance]]></name>
 	<tooltipDescription><![CDATA[The entrance to the Amazons' camp is guarded by half a dozen feminine warriors at all times of the day and night.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[at the entrance to the Amazons' camp]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_RED</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

@@ -8,7 +8,18 @@ https://github.com/Innoxia/liliths-throne-public/tree/master/src/com/lilithsthro
 
 For generic characters (generated dynamically, e.g. slaves), you can create a "generic" folder (without quotation marks) and then create a subfolder using the in-game name of the character. The game will not check for duplicates, but reload images when you rename a character.
 
-Once you found or created the character's folder, create a new subdirectory called "custom". This is where you put your images. For the image names, there are two prefixes: If the name starts with "partial" or "naked", it can only be seen after having sex with the character. All other images can always be accessed.
+Once you found or created the character's folder, create a new subdirectory called "custom". This is where you put your images.
+
+For the image names, you can add one of two prefixes: If the name starts with "partial" or "naked", it can only be seen after having sex with the character. All other images can always be accessed.
+Also, when naming your images, there are certain key words which affect whether the image will be visible or not:
+	#vagina - This image will only be displayed if the character has a vagina.
+	#novagina - This image will only be displayed if the character does not have a vagina.
+	#penis - This image will only be displayed if the character has a penis (ignoring dildos).
+	#nopenis - This image will only be displayed if the character does not have a penis (ignoring dildos).
+	#preg - This image will only be displayed if the character is visibly pregnant.
+	#nopreg - This image will only be displayed if the character is not visibly pregnant.
+	#udders - This image will only be displayed if udder content is turned on AND the character has udders or crotch-boobs.
+	#noudders - This image will only be displayed if udder content is turned off OR the character does not have udders or crotch-boobs.
 
 For example, adding an own image for the unique character Scarlett requires the following:
 1) Go to the "Scarlett" folder and create a folder called "custom" inside it.

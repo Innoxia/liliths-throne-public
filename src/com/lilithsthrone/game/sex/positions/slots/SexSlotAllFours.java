@@ -55,6 +55,17 @@ public class SexSlotAllFours {
 					+" "+UtilText.parse(partner, "[npc.name]");
 		}
 		@Override
+		public String getOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
+			if(orgasmingCharacter.equals(targetedCharacter)) {
+				return "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.";
+			}
+			if(orgasmingCharacter.isFeral()) {
+				return "[npc.Name] [npc.verb(press)] [npc.her] weight down on top of [npc2.namePos] body, letting out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax."
+						+ " Giving in to [npc.her] feral instincts, [npc.she] firmly [npc.verb(bite)] down on [npc2.namePos] neck to prevent [npc2.herHim] from escaping as [npc.she] [npc.verb(orgasm)].";
+			}
+			return super.getOrgasmDescription(orgasmingCharacter, targetedCharacter);
+		}
+		@Override
 		public boolean isStanding(GameCharacter target) {
 			GameCharacter partner = getCharacterInSlot(ALL_FOURS);
 			return partner!=null && (partner.isSizeDifferenceTallerThan(target) || partner.isTaur());
@@ -75,6 +86,17 @@ public class SexSlotAllFours {
 						?"Mounting"
 						:standing?"Standing behind":"Kneeling behind")
 					+" "+UtilText.parse(partner, "[npc.name]");
+		}
+		@Override
+		public String getOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
+			if(orgasmingCharacter.equals(targetedCharacter)) {
+				return "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.";
+			}
+			if(orgasmingCharacter.isFeral()) {
+				return "[npc.Name] [npc.verb(press)] [npc.her] weight down on top of [npc2.namePos] body, letting out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax."
+						+ " Giving in to [npc.her] feral instincts, [npc.she] firmly [npc.verb(bite)] down on [npc2.namePos] neck to prevent [npc2.herHim] from escaping as [npc.she] [npc.verb(orgasm)].";
+			}
+			return super.getOrgasmDescription(orgasmingCharacter, targetedCharacter);
 		}
 		@Override
 		public boolean isStanding(GameCharacter target) {
@@ -99,6 +121,17 @@ public class SexSlotAllFours {
 					+" "+UtilText.parse(partner, "[npc.name]");
 		}
 		@Override
+		public String getOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
+			if(orgasmingCharacter.equals(targetedCharacter)) {
+				return "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.";
+			}
+			if(orgasmingCharacter.isFeral()) {
+				return "[npc.Name] [npc.verb(press)] [npc.her] weight down on top of [npc2.namePos] body, letting out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax."
+						+ " Giving in to [npc.her] feral instincts, [npc.she] firmly [npc.verb(bite)] down on [npc2.namePos] neck to prevent [npc2.herHim] from escaping as [npc.she] [npc.verb(orgasm)].";
+			}
+			return super.getOrgasmDescription(orgasmingCharacter, targetedCharacter);
+		}
+		@Override
 		public boolean isStanding(GameCharacter target) {
 			GameCharacter partner = getCharacterInSlot(ALL_FOURS_THREE);
 			return partner!=null && (partner.isSizeDifferenceTallerThan(target) || partner.isTaur());
@@ -119,6 +152,17 @@ public class SexSlotAllFours {
 						?"Mounting"
 						:standing?"Standing behind":"Kneeling behind")
 					+" "+UtilText.parse(partner, "[npc.name]");
+		}
+		@Override
+		public String getOrgasmDescription(GameCharacter orgasmingCharacter, GameCharacter targetedCharacter) {
+			if(orgasmingCharacter.equals(targetedCharacter)) {
+				return "[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.";
+			}
+			if(orgasmingCharacter.isFeral()) {
+				return "[npc.Name] [npc.verb(press)] [npc.her] weight down on top of [npc2.namePos] body, letting out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax."
+						+ " Giving in to [npc.her] feral instincts, [npc.she] firmly [npc.verb(bite)] down on [npc2.namePos] neck to prevent [npc2.herHim] from escaping as [npc.she] [npc.verb(orgasm)].";
+			}
+			return super.getOrgasmDescription(orgasmingCharacter, targetedCharacter);
 		}
 		@Override
 		public boolean isStanding(GameCharacter target) {

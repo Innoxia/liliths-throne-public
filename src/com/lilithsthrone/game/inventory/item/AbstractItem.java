@@ -168,7 +168,10 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 				boolean conditionalParsed = Boolean.valueOf(UtilText.parse(user, target, conditional).trim());
 				if(conditionalParsed) {
 					int time = entry.getValue().getValue();
-					target.addStatusEffect(se, time);
+					boolean added = target.addStatusEffect(se, time);
+					if(!added) {
+						continue;
+					}
 					String timeDesc = time+" turns";
 					if(!se.isCombatEffect()) {
 						int timeMinutes = (time/60);
@@ -394,13 +397,21 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	public String getUnableToBeUsedFromInventoryDescription() {
 		return itemType.getUnableToBeUsedFromInventoryDescription();
 	}
-	
-	public boolean isAbleToBeUsed(GameCharacter target) {
-		return itemType.isAbleToBeUsed(target);
+
+	public boolean isAbleToBeUsedWhileTrading() {
+		return itemType.isAbleToBeUsedWhileTrading();
 	}
 	
-	public String getUnableToBeUsedDescription(GameCharacter target) {
-		return itemType.getUnableToBeUsedDescription(target);
+	public String getUnableToBeUsedWhileTradingDescription() {
+		return itemType.getUnableToBeUsedWhileTradingDescription();
+	}
+	
+	public boolean isAbleToBeUsed(GameCharacter user, GameCharacter target) {
+		return itemType.isAbleToBeUsed(user, target);
+	}
+	
+	public String getUnableToBeUsedDescription(GameCharacter user, GameCharacter target) {
+		return itemType.getUnableToBeUsedDescription(user, target);
 	}
 
 	public boolean isAbleToBeUsedInCombatAllies(){
@@ -412,7 +423,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements XMLSaving
 	}
 
 	public boolean isAbleToBeUsedInSex(){
-		return !this.isBreakOutOfInventory() && itemType.isAbleToBeUsedInSex();
+		return /* !this.isBreakOutOfInventory() && */ itemType.isAbleToBeUsedInSex();
 	}
 	
 	public boolean isGift() {

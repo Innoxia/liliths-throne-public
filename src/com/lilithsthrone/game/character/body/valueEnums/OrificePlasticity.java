@@ -63,7 +63,7 @@ public enum OrificePlasticity {
 	/**Will recover none of its original size after sex.*/
 	SEVEN_MOULDABLE("mouldable",
 			"remains [style.italicsTerrible(permanently stretched)] [style.colourPlasticity(and recovers none of its original capacity)]",
-			"remains [style.italicsTerrible(permanently stretched)] [style.colourPlasticity(and recovers none of their original capacity)]",
+			"remain [style.italicsTerrible(permanently stretched)] [style.colourPlasticity(and recover none of their original capacity)]",
 			7, 1, 2/(60*60f*24), PresetColour.GENERIC_SIZE_EIGHT);
 
 	

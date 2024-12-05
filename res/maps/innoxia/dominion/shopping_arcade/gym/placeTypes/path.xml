@@ -4,7 +4,6 @@
 	<name><![CDATA[gym floor]]></name>
 	<tooltipDescription><![CDATA[The main floor of the gym connects the weights area, running machines, yoga studio, showers, and boxing ring.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the gym, 'Pix's Playground']]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_GREY</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

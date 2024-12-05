@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<subspecies>
+	<race>DOG_MORPH</race>
+	<colour>BASE_WHITE</colour>
+	<secondaryColour>BASE_BLACK</secondaryColour>
+	<tertiaryColour>BASE_BLACK</tertiaryColour>
+	<mainSubspecies>false</mainSubspecies>
+	<baseSlaveValue>20000</baseSlaveValue>
+	<attributeItemId>innoxia_race_dog_canine_crush</attributeItemId>
+	<transformativeItemId>innoxia_race_dog_canine_crunch</transformativeItemId>
+	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<nocturnality>DIURNAL</nocturnality>
+	<shortStature>false</shortStature>
+	<bipedalSubspecies>true</bipedalSubspecies>
+	<personalityChances>
+		<entry chance="0.5">CONFIDENT</entry>
+		<entry chance="0.25">BRAVE</entry>
+	</personalityChances>
+	<applySubspeciesChanges><![CDATA[
+		[#targetedBody.getEar().setType(null, EAR_TYPE_DOG_MORPH)]
+		
+		[#targetedBody.setCovering(BODY_COVERING_TYPE_HUMAN, COVERING_PATTERN_NONE, COVERING_MODIFIER_SMOOTH, COLOUR_SKIN_PALE, false, COLOUR_SKIN_PALE, false)]
+		[#targetedBody.setCovering(BODY_COVERING_TYPE_HAIR_HUMAN, COVERING_PATTERN_SPOTTED, COVERING_MODIFIER_SMOOTH, COLOUR_COVERING_WHITE, false, COLOUR_COVERING_BLACK, false)]
+		[#targetedBody.setCovering(BODY_COVERING_TYPE_BODY_HAIR_HUMAN, COVERING_PATTERN_NONE, COVERING_MODIFIER_COARSE, COLOUR_COVERING_BLACK, false, COLOUR_COVERING_BLACK, false)]
+		
+		[#targetedBody.setCovering(BODY_COVERING_TYPE_CANINE_FUR, COVERING_PATTERN_SPOTTED, COVERING_MODIFIER_SHORT, COLOUR_COVERING_WHITE, false, COLOUR_COVERING_BLACK, false)]
+		[#targetedBody.setCovering(BODY_COVERING_TYPE_HAIR_CANINE_FUR, COVERING_PATTERN_SPOTTED, COVERING_MODIFIER_FURRY, COLOUR_COVERING_WHITE, false, COLOUR_COVERING_BLACK, false)]
+		[#targetedBody.setCovering(BODY_COVERING_TYPE_BODY_HAIR_CANINE_FUR, COVERING_PATTERN_NONE, COVERING_MODIFIER_FURRY, COLOUR_COVERING_BLACK, false, COLOUR_COVERING_BLACK, false)]
+		[#targetedBody.updateCoverings(true, true, true, true)]
+	]]></applySubspeciesChanges>
+	<subspeciesWeighting><![CDATA[
+		#IF(targetedRace==RACE_DOG_MORPH
+			&& targetedBody.getEar().getType()==EAR_TYPE_DOG_MORPH
+			&& targetedBody.getCovering(BODY_COVERING_TYPE_CANINE_FUR, true).getPrimaryColour()==COLOUR_COVERING_WHITE
+			&& (targetedBody.getCovering(BODY_COVERING_TYPE_CANINE_FUR, true).getSecondaryColour()==COLOUR_COVERING_BLACK || targetedBody.getCovering(BODY_COVERING_TYPE_CANINE_FUR, true).getSecondaryColour()==COLOUR_COVERING_JET_BLACK)
+			&& targetedBody.getCovering(BODY_COVERING_TYPE_CANINE_FUR, true).getPattern()==COVERING_PATTERN_SPOTTED)
+			160
+		#ELSE
+			0
+		#ENDIF
+	]]></subspeciesWeighting>
+	<iconName displaySize="80">dalmatianIcon</iconName>
+	<backgroundName>background</backgroundName>
+	<bookIconName>dalmatianIcon</bookIconName>
+	<bookName>Canine Culture</bookName>
+	<basicDescriptionId>DOG_MORPH_BASIC</basicDescriptionId>
+	<advancedDescriptionId>DOG_MORPH_ADVANCED</advancedDescriptionId>
+	<defaultPreference>TWO_AVERAGE</defaultPreference>
+	<nameAnthro>
+		<namesDefault>
+			<name><![CDATA[dalmatian-morph]]></name>
+			<namePlural><![CDATA[dalmatian-morphs]]></namePlural>
+			<singularMaleName><![CDATA[dalmatian-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[dalmatian-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[dalmatian-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[dalmatian-girls]]></pluralFemaleName>
+		</namesDefault>
+	</nameAnthro>
+	<nameAnthroSillyMode>
+		<namesDefault>
+			<name><![CDATA[dalmatian-morph]]></name>
+			<namePlural><![CDATA[dalmatian-morphs]]></namePlural>
+			<singularMaleName><![CDATA[dalmatian-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[dalmatian-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[dalmatian-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[dalmatian-girls]]></pluralFemaleName>
+		</namesDefault>
+	</nameAnthroSillyMode>
+	<description><![CDATA[A dog-morph which resembles an anthropomorphised dalmatian. They are known as 'dalmatian-morphs' when bipedal, and 'dalmatiantaurs' when the lower body is that of an oversized feral dalmatian. To be identified as a dalmatian-morph, a character must be a dog-morph that has floppy ears and short, white fur, with either black or pitch black spots.]]></description>
+	<nameHalfDemon>
+		<namesDefault>
+			<name><![CDATA[hellhound]]></name>
+			<namePlural><![CDATA[hellhounds]]></namePlural>
+			<singularMaleName><![CDATA[hellhound]]></singularMaleName>
+			<singularFemaleName><![CDATA[hellhound]]></singularFemaleName>
+			<pluralMaleName><![CDATA[hellhounds]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[hellhounds]]></pluralFemaleName>
+		</namesDefault>
+	</nameHalfDemon>
+	<feralAttributes>
+		<feralName><![CDATA[dalmatian]]></feralName>
+		<feralNamePlural><![CDATA[dalmatians]]></feralNamePlural>
+		<feralSingularMaleName><![CDATA[dalmatian]]></feralSingularMaleName>
+		<feralSingularFemaleName><![CDATA[dalmatian]]></feralSingularFemaleName>
+		<feralPluralMaleName><![CDATA[dalmatians]]></feralPluralMaleName>
+		<feralPluralFemaleName><![CDATA[dalmatians]]></feralPluralFemaleName>
+		<legConfiguration>QUADRUPEDAL</legConfiguration>
+		<sizeHeight>true</sizeHeight>
+		<size>75</size>
+		<breastRowCount>0</breastRowCount>
+		<nipplesPerBreastCount>1</nipplesPerBreastCount>
+		<crotchBreastRowCount>4</crotchBreastRowCount>
+		<nipplesPerCrotchBreastCount>1</nipplesPerCrotchBreastCount>
+		<armsOrWingsPresent>false</armsOrWingsPresent>
+		<fingerActionsAvailable>false</fingerActionsAvailable>
+		<hairPresent>false</hairPresent>
+	</feralAttributes>
+	<statusEffectDescription><![CDATA[[npc.NamePos] dalmatian-like body is strong and full of energy. Friendly and loyal to those [npc.she] [npc.verb(know)] and [npc.verb(trust)], [npc.she] also [npc.has] a strong instinct to guard [npc.her] territory, as well as a natural resistance to fire.]]></statusEffectDescription>
+	<statusEffectAttributeModifiers>
+		<attribute value="15">MAJOR_PHYSIQUE</attribute>
+		<attribute value="5">RESISTANCE_PHYSICAL</attribute>
+		<attribute value="10">RESISTANCE_FIRE</attribute>
+	</statusEffectAttributeModifiers>
+	<extraEffects/>
+	<perkWeightings>
+		<category masculineWeighting="10" feminineWeighting="5">PHYSICAL</category>
+		<category masculineWeighting="1" feminineWeighting="1">LUST</category>
+		<category masculineWeighting="0" feminineWeighting="0">ARCANE</category>
+	</perkWeightings>
+	<regionLocations>
+		<region rarity="ONE_VERY_RARE">DOMINION</region>
+		<region rarity="ONE_VERY_RARE">FIELD_CITY</region>
+		<region rarity="THREE_UNCOMMON">SNOW</region>
+	</regionLocations>
+	<worldLocations>
+		<world rarity="ONE_VERY_RARE">NIGHTLIFE_CLUB</world>
+	</worldLocations>
+	<flags/>
+</subspecies>

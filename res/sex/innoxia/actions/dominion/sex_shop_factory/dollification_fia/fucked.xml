@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#!npc.isPlayer()]
+	]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>FIVE_EXTREME</arousalPerformer>
+	<arousalTarget>ZERO_NONE</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>
+	<associatedFetishes/>
+	<performingArea>ORIFICE_VAGINA</performingArea>
+	<targetedArea>PENETRATION_PENIS</targetedArea>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Give in...]]></title>
+	<tooltip><![CDATA[
+		You're completely immobilised and can do nothing but get fucked.
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<text><![CDATA[
+				Being completely immobilised due to the straps binding her wrists and ankles, all the doll can do is squirm about and moan as you continue to roughly fuck her pussy.
+			]]></text>
+			<text><![CDATA[
+				Being strapped down and barely able to move, the doll helplessly squirms about as your fat horse-cock slams deep into her pussy, moaning, [fia.speechNoEffects(More... ~Aah!~ Yes!)]
+			]]></text>
+			<text><![CDATA[
+				Letting out a series of lewd cries as you forcefully pound her [pc.pussy+] with your [pc.cock+], the doll exclaims, [fia.speechNoEffects(Yes, [fia.PcName]! Please! ~Mmm!~ Give it to me!)]
+			]]></text>
+			<text><![CDATA[
+				With no chance of being able to break free, the doll squirms about as you roughly fuck her [fia.pussy+] and desperately squeals, [fia.speechNoEffects(~Aah!~ Yes! Fuck me!)]
+			]]></text>
+			<text><![CDATA[
+				The doll's bindings leave her with no way to escape from her situation, and so all she can do is writhe about on the table and make horny squeals as you slam your [pc.cock+] in and out of her [fia.pussy+].
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

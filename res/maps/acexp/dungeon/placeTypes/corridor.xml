@@ -8,7 +8,7 @@
     <sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
     <colour>BASE_GREY</colour>
     <backgroundColour>MAP_BACKGROUND</backgroundColour>
-    <encounterType>null</encounterType>
+    <encounterType>LILAYAS_DUNGEON_PASSAGEWAY</encounterType>
     <dialogue>acexp_dominion_lilaya_dungeon_corridor</dialogue>
     <populationPresent/>
     <globalMapTile>false</globalMapTile>

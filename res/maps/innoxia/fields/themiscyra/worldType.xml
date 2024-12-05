@@ -3,7 +3,6 @@
 	<worldRegion>FIELDS</worldRegion>
 	<name><![CDATA[Themiscyra]]></name>
 	<colour>BASE_TEAL</colour>
-	<sexBlockedReason/>
 	<furniturePresent>false</furniturePresent>
 	<wallsPresent>true</wallsPresent>
 	<loiteringEnabled>false</loiteringEnabled>

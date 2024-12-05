@@ -41,44 +41,120 @@
 	</htmlContent>
 	
 	<htmlContent tag="RAPE_START"><![CDATA[
-	#IF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_GENERAL_CRAWLING))
-		#IF(!pc.isTaur())
-			<p>
-				As you've instructed [npc.name] to crawl everywhere [npc.she] goes, there's nothing stopping you from simply stepping around behind [npc.herHim] and dropping to your knees, ready to fuck [npc.herHim] in the doggy-style position. Reaching down to grab [npc.her] [npc.ass+], you [npc.moanVerb], [pc.speech(~Mmm!~ This is going to be good!)]
-			</p>
-			<p>
-				[npc.Name] tries to crawl away, but you keep a firm grip on [npc.her] [npc.hips+], preventing [npc.herHim] from escaping. Turning back to try and push you away, [npc.she] [npc.sobs+], [npc.speech(No! Stop! Leave me alone!)]
-			</p>
-		#ELSE
-			<p>
-				As you've instructed [npc.name] to crawl everywhere [npc.she] goes, there's nothing stopping you from simply stepping over the top of [npc.herHim] with your [pc.legConfiguration] lower body and mounting [npc.herHim]. Pressing your animalistic [pc.legRace]'s body down against [npc.her] back, you [npc.moanVerb], [pc.speech(~Mmm!~ Time to give you a good rutting!)]
-			</p>
-			<p>
-				[npc.Name] tries to crawl away, but with your large feral body over the top of [npc.herHim], you're easily able to prevent [npc.her] escape. Realising that any attempts to flee are useless, [npc.she] gives up and [npc.sobs+], [npc.speech(Please, don't do this! Leave me alone!)]
-			</p>
-		#ENDIF
+	#IF(npc.isAsleep())
+		<p>
+			Wanting to fuck your slave, you approach [npc.namePos] bed to see if [npc.sheIs] really asleep or merely pretending. Coming to a halt beside [npc.herHim], you see that [npc.her] [npc.eyes] are closed and [npc.her] chest is slowly rising and falling in time with [npc.her] breathing. Wanting to make sure that [npc.she] isn't simply pretending to be asleep, you place [pc.a_hand] on [npc.her] thigh and slowly run your [pc.fingers+] up and over [npc.her] [npc.breasts+]. Despite your touch, [npc.she] doesn't react, revealing that [npc.she] is indeed asleep.
+		</p>
+		<p>
+			Knowing that [npc.she] isn't attracted to you, and that [npc.she] would certainly try to resist your advances, you decide that it'd be best not to wake [npc.name].
+			#IF(pc.getFetishDesire(FETISH_NON_CON_DOM).isPositive())
+				 Grinning in devious delight at the prospect of raping [npc.herHim] without [npc.herHim] even knowing, 
+			#ELSE
+				 Smiling to yourself as you prepare to take advantage of [npc.her] vulnerable position,
+			#ENDIF
+			 you experimentally reach down and grope [npc.namePos]
+			#IF(npc.hasPenis())
+				 [npc.cock+].
+			#ELSEIF(npc.hasVagina())
+				 [npc.pussy+].
+			#ELSE
+				 groin.
+			#ENDIF
+			 Being a very heavy sleeper, even this isn't enough to wake your victim, and [npc.she] simply sighs in [npc.her] sleep in response to your lustful move.
+		</p>
+		<p>
+			#IF(pc.getFetishDesire(FETISH_SADIST).isPositive())
+				Although you're not sure if you'll be able to resist slapping [npc.herHim] awake half-way through fucking [npc.herHim],
+			#ELSE
+				Confident that [npc.she] won't wake up,
+			#ENDIF
+			 you gently lower yourself down between your sleeping slave's [npc.legs] and prepare to fuck [npc.herHim] in [npc.her] sleep. So long as you remain gentle and don't shove anything down [npc.her] throat, you should be able to fuck [npc.herHim] without causing [npc.herHim] to wake up...
+		</p>
 	#ELSE
-		<p>
-			Wanting to have some fun with your slave, you step forwards and pull [npc.name] into a dominant, passionate kiss. Almost immediately, [npc.she] desperately tries to push you away, but despite [npc.her] best efforts, all [npc.she] manages to do is temporarily pull away from your kiss. Using this opportunity to take a non-physical approach to deterring you from raping [npc.herHim], [npc.she] desperately pleads, [npc.speech(Please, don't do this! Leave me alone!)]
-		</p>
-	#ENDIF
-	<p>
-		#IF(pc.getFetishDesire(FETISH_SADIST).isPositive() || pc.getFetishDesire(FETISH_NON_CON_DOM).isPositive())
-			Smiling in delight as [npc.name] starts to cry, you cruelly tease, [pc.speech(That's right, wail and scream all you want; it's no fun if my victims enjoy it!)]
+		#IF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_GENERAL_CRAWLING))
+			#IF(!pc.isTaur())
+				<p>
+					As you've instructed [npc.name] to crawl everywhere [npc.she] goes, there's nothing stopping you from simply stepping around behind [npc.herHim] and dropping to your knees, ready to fuck [npc.herHim] in the doggy-style position. Reaching down to grab [npc.her] [npc.ass+], you [npc.moanVerb], [pc.speech(~Mmm!~ This is going to be good!)]
+				</p>
+				<p>
+					[npc.Name] tries to crawl away, but you keep a firm grip on [npc.her] [npc.hips+], preventing [npc.herHim] from escaping. Turning back to try and push you away, [npc.she] [npc.sobs+], [npc.speech(No! Stop! Leave me alone!)]
+				</p>
+			#ELSE
+				<p>
+					As you've instructed [npc.name] to crawl everywhere [npc.she] goes, there's nothing stopping you from simply stepping over the top of [npc.herHim] with your [pc.legConfiguration] lower body and mounting [npc.herHim]. Pressing your animalistic [pc.legRace]'s body down against [npc.her] back, you [npc.moanVerb], [pc.speech(~Mmm!~ Time to give you a good rutting!)]
+				</p>
+				<p>
+					[npc.Name] tries to crawl away, but with your large feral body over the top of [npc.herHim], you're easily able to prevent [npc.her] escape. Realising that any attempts to flee are useless, [npc.she] gives up and [npc.sobs+], [npc.speech(Please, don't do this! Leave me alone!)]
+				</p>
+			#ENDIF
 		#ELSE
-			Letting out a disappointed sigh as [npc.name] starts to cry, you say, [pc.speech(Hush now, [npc.name]. You know, it'd be a lot less stressful for you if you just accepted your fate already.)]
+			<p>
+				Wanting to have some fun with your slave, you step forwards and pull [npc.name] into a dominant, passionate kiss. Almost immediately, [npc.she] desperately tries to push you away, but despite [npc.her] best efforts, all [npc.she] manages to do is temporarily pull away from your kiss. Using this opportunity to take a non-physical approach to deterring you from raping [npc.herHim], [npc.she] desperately pleads, [npc.speech(Please, don't do this! Leave me alone!)]
+			</p>
 		#ENDIF
-	</p>
-	#IF(npc.getFetishDesire(FETISH_NON_CON_SUB).isPositive())
 		<p>
-			There seems to be something not quite right in the tone of [npc.namePos] voice, as though [npc.sheIs] not genuinely distressed by what's happening to [npc.herHim]. As one of [npc.her] frantic sobs momentarily turns into an excited squeal, you suddenly realise that [npc.sheIs] getting off on the fact that [npc.sheIs] being raped...
+			#IF(pc.getFetishDesire(FETISH_SADIST).isPositive() || pc.getFetishDesire(FETISH_NON_CON_DOM).isPositive())
+				Smiling in delight as [npc.name] starts to cry, you cruelly tease, [pc.speech(That's right, wail and scream all you want; it's no fun if my victims enjoy it!)]
+			#ELSE
+				Letting out a disappointed sigh as [npc.name] starts to cry, you say, [pc.speech(Hush now, [npc.name]. You know, it'd be a lot less stressful for you if you just accepted your fate already.)]
+			#ENDIF
 		</p>
+		#IF(npc.getFetishDesire(FETISH_NON_CON_SUB).isPositive())
+			<p>
+				There seems to be something not quite right in the tone of [npc.namePos] voice, as though [npc.sheIs] not genuinely distressed by what's happening to [npc.herHim]. As one of [npc.her] frantic sobs momentarily turns into an excited squeal, you suddenly realise that [npc.sheIs] getting off on the fact that [npc.sheIs] being raped...
+			</p>
+		#ENDIF
 	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="SEX_START"><![CDATA[
-	#IF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_GENERAL_CRAWLING))
+	#IF(npc.isAsleep())
+		<p>
+			Wanting to fuck your slave, you approach [npc.namePos] bed to see if [npc.sheIs] really asleep or merely pretending. Coming to a halt beside [npc.herHim], you see that [npc.her] [npc.eyes] are closed and [npc.her] chest is slowly rising and falling in time with [npc.her] breathing. Wanting to make sure that [npc.she] isn't simply pretending to be asleep, you place [pc.a_hand] on [npc.her] thigh and slowly run your [pc.fingers+] up and over [npc.her] [npc.breasts+]. Despite your touch, [npc.she] doesn't react, revealing that [npc.she] is indeed asleep.
+		</p>
+		<p>
+			Wanting to make the most of this opportunity, you decide not to wake [npc.name] and instead have some fun with [npc.herHim] while [npc.she] sleeps.
+			#IF(pc.getFetishDesire(FETISH_NON_CON_DOM).isPositive())
+				 Grinning in devious delight at the prospect of fucking [npc.herHim] without [npc.herHim] even knowing, 
+			#ELSE
+				 Smiling to yourself as you prepare to take advantage of [npc.her] vulnerable position,
+			#ENDIF
+			 you experimentally reach down and grope [npc.namePos]
+			#IF(npc.hasPenis())
+				 [npc.cock+].
+			#ELSEIF(npc.hasVagina())
+				 [npc.pussy+].
+			#ELSE
+				 groin.
+			#ENDIF
+			 Being a very heavy sleeper, even this isn't enough to wake the [npc.race], and [npc.she] simply sighs in [npc.her] sleep in response to your lustful move.
+		</p>
+		<p>
+			Confident that [npc.she] won't wake up, you gently lower yourself down between your sleeping slave's [npc.legs] and prepare to fuck [npc.herHim] in [npc.her] sleep. So long as you remain gentle and don't shove anything down [npc.her] throat, you should be able to fuck [npc.herHim] without causing [npc.herHim] to wake up...
+		</p>
+	#ELSEIF(npc.isDollStatue())
+		<p>
+			Finding yourself getting turned on by [npc.namePos] perfect impression of a lifeless statue, you [pc.step] forwards and lustfully grope [npc.her]
+			#IF(npc.hasBreasts())
+				 [npc.breasts+].
+			#ELSE
+				 [npc.ass+].
+			#ENDIF
+			 [npc.Her] complete lack of a reaction to your touch only serves to get you even more aroused, and you decide that the only thing for it is to give this doll a good fucking.
+		</p>
+		<p>
+			#IF(npc.hasSlaveJobSetting(SLAVE_JOB_DOLL_STATUE, SLAVE_JOB_SETTING_DOLL_STATUE_MISSIONARY) || npc.hasSlaveJobSetting(SLAVE_JOB_DOLL_STATUE, SLAVE_JOB_SETTING_DOLL_STATUE_BRIDGE))
+				As [npc.sheIs] already lying back with [npc.her] [npc.legs] spread, you simply drop down and prepare to fuck [npc.herHim] in the missionary position.
+			#ELSEIF(npc.hasSlaveJobSetting(SLAVE_JOB_DOLL_STATUE, SLAVE_JOB_SETTING_DOLL_STATUE_ALL_FOURS))
+				As [npc.sheIs] already down on all fours, you simply drop down behind [npc.herHim] and prepare to fuck [npc.herHim] doggy-style.
+			#ELSEIF(npc.hasSlaveJobSetting(SLAVE_JOB_DOLL_STATUE, SLAVE_JOB_SETTING_DOLL_STATUE_SQUATTING))
+				As [npc.sheIs] already squatting down on the floor, you simply [pc.step] forwards and prepare to receive oral from [npc.herHim].
+			#ELSE
+				[pc.Stepping] forwards, you press your body against [npc.hers] and prepare to fuck [npc.herHim].
+			#ENDIF
+		</p>
+	#ELSEIF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_GENERAL_CRAWLING))
 		<p>
 			[pc.speech(I know what it is you want,)] you tease, looking down at [npc.name], who, thanks to your order of having to crawl everywhere [npc.she] goes, is on all fours before you. [pc.speech(You just want your [pc.mistress] to give you some attention, don't you?)]
 		</p>
@@ -101,7 +177,7 @@
 			#ENDIF
 		</p>
 		<p>
-			Eager to do as [npc.she] asks, you prepare to start fucking your slave on the floor of [npc.her] room...
+			Eager to do as [npc.she] asks, you prepare to start fucking your slave...
 		</p>
 	#ELSE
 		<p>
@@ -134,7 +210,7 @@
 	
 		var positioning = "";
 		if(npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL) {
-			positioning = "onto [npc.her] hands and knees ";
+			positioning = "onto [npc.her] hands and knees";
 		}
 		var playerPositioning = "Falling to your knees in front of [npc.name], you say,";
 		if(pc.isTaur()) {
@@ -142,7 +218,26 @@
 		}
 	#ENDVAR
 	
-	#IF(!isRape)
+	#IF(npc.isDollStatue())
+		<p>
+			Finding yourself getting turned on by [npc.namePos] perfect impression of a lifeless statue, you [pc.step] forwards and lustfully grope [npc.her]
+			#IF(npc.hasBreasts())
+				 [npc.breasts+].
+			#ELSE
+				 [npc.ass+].
+			#ENDIF
+			 [npc.Her] complete lack of a reaction to your touch only serves to get you even more aroused, and you decide that the only thing for it is to give this doll a good fucking.
+		</p>
+		<p>
+			Pushing [npc.name] down [#positioning], you look over to one side and see [npc2.name] gazing greedily down at [npc.namePos] ass.
+			#IF(!npc2.isTaur())
+				 Wasting no time, [npc2.she] sinks down onto [npc2.her] knees behind [npc.name] and gets ready to fuck [npc.herHim].
+			#ELSE
+				 Wasting no time, [npc2.she] positions [npc2.her] [npc2.legConfiguration] body over the top of [npc.name] and gets ready to fuck [npc.herHim].
+			#ENDIF
+			 Taking your place in front of [npc.name], you prepare to spitroast [npc.herHim]...
+		</p>
+	#ELSEIF(!isRape)
 		<p>
 			[pc.speech(You know, I was thinking that the three of us could have some fun together,)] you tease, turning to face [npc.name]. [pc.speech(You want to show [npc2.name] and I what a horny little slave you are, don't you?)]
 		</p>
@@ -153,7 +248,7 @@
 			[pc.speech(Yes, I'd like that very much,)] you reply, [pc.speech(Get down on all fours now, so that we can all have some fun together.)]
 		</p>
 		<p>
-			Immediately doing as [npc.sheIs] asked, [npc.name] drops down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc.her] ass.
+			Immediately doing as [npc.sheIs] asked, [npc.name] drops down [#positioning] before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc.her] ass.
 			#IF(!npc2.isTaur())
 					 Sinking down onto [npc2.her] knees behind [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(Oh yeah, [pc.name] and I will show you a real good time, so you just relax and enjoy this.)]
 				</p>
@@ -187,7 +282,7 @@
 			#ENDIF
 		</p>
 		<p>
-			Grabbing hold of [npc.her] shoulders, you push [npc.name] down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc.her] ass.
+			Grabbing hold of [npc.her] shoulders, you push [npc.name] down [#positioning] before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc.her] ass.
 			#IF(!npc2.isTaur())
 					 Sinking down onto [npc2.her] knees behind [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(Oh yeah, [pc.name] and I will soon put you in your place!)]
 				</p>
@@ -221,7 +316,7 @@
 		
 		var positioning = "";
 		if(npc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL) {
-			positioning = "onto [npc.her] hands and knees ";
+			positioning = "onto [npc.her] hands and knees";
 		}
 		var playerPositioning = "Falling to your knees behind [npc.name], you say,";
 		var playerMounting = "take [npc.herHim]! Make sure to give me a good, hard fucking while I pleasure [npc2.name] with my mouth!";
@@ -231,7 +326,26 @@
 		}
 	#ENDVAR
 	
-	#IF(!isRape)
+	#IF(npc.isDollStatue())
+		<p>
+			Finding yourself getting turned on by [npc.namePos] perfect impression of a lifeless statue, you [pc.step] forwards and lustfully grope [npc.her]
+			#IF(npc.hasBreasts())
+				 [npc.breasts+].
+			#ELSE
+				 [npc.ass+].
+			#ENDIF
+			 [npc.Her] complete lack of a reaction to your touch only serves to get you even more aroused, and you decide that the only thing for it is to give this doll a good fucking.
+		</p>
+		<p>
+			Pushing [npc.name] down [#positioning], you look over to one side and see [npc2.name] gazing greedily down at [npc.namePos] ass.
+			#IF(!npc2.isTaur())
+				 Wasting no time, [npc2.she] sinks down onto [npc2.her] knees in front of [npc.name] and gets ready to use [npc.her] mouth.
+			#ELSE
+				 Wasting no time, [npc2.she] moves around in front of [npc.name] and turns [npc2.her] [npc2.legConfiguration] body to one side, presenting [npc2.her] groin and getting ready to receive oral.
+			#ENDIF
+			 Taking your place behind [npc.name], you prepare to spitroast [npc.herHim]...
+		</p>
+	#ELSEIF(!isRape)
 		<p>
 			[pc.speech(You know, I was thinking that the three of us could have some fun together,)] you tease, turning to face [npc.name]. [pc.speech(You want to show [npc2.name] and I what a horny little sub you are, don't you?)]
 		</p>
@@ -242,7 +356,7 @@
 			[pc.speech(Yes, I'd like that very much,)] you reply, [pc.speech(Get down on all fours now, so that we can all have some fun together.)]
 		</p>
 		<p>
-			Immediately doing as [npc.sheIs] asked, [npc.name] drops down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc.herHim].
+			Immediately doing as [npc.sheIs] asked, [npc.name] drops down [#positioning] before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc.herHim].
 			#IF(!npc2.isTaur())
 				 Sinking down onto [npc2.her] knees in front of [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(Oh yeah, [pc.name] and I will show you a real good time, so you just relax and enjoy this.)]
 			</p>
@@ -276,7 +390,7 @@
 			#ENDIF
 		</p>
 		<p>
-			Grabbing hold of [npc.her] shoulders, you push [npc.name] down [#positioning]before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc.herHim].
+			Grabbing hold of [npc.her] shoulders, you push [npc.name] down [#positioning] before you. Looking over to one side, you see [npc2.name] gazing greedily down at [npc.herHim].
 			#IF(!npc2.isTaur())
 				 Sinking down onto [npc2.her] knees in front of [npc.herHim], [npc2.she] [npc2.moans], [npc2.speech(Oh yeah, [pc.name] and I will soon put you in your place!)]
 			</p>
@@ -305,7 +419,14 @@
 	</htmlContent>
 	
 	<htmlContent tag="SEX_SIDE_BY_SIDE_START"><![CDATA[
-	#IF(npc.isAttractedTo(pc) && npc2.isAttractedTo(pc))
+	#IF(npc.isDollStatue() || npc2.isDollStatue())
+		<p>
+			Wanting nothing more than to fuck [npc.name] and [npc2.name], you grab hold of them and push them to the floor. Dropping down onto all fours beside on another, they assume just the position you were looking for, and eagerly drop down behind them.
+		</p>
+		<p>
+			Slapping each of their asses in turn, you suffle forwards and prepare to fuck them side-by-side...
+		</p>
+	#ELSEIF(npc.isAttractedTo(pc) && npc2.isAttractedTo(pc))
 		<p>
 			[pc.speech(You know, I was thinking that I could have some fun with the two of you at once...)] you tease, turning to face both [npc.name] and [npc2.name], before glaring dominantly at the two of them.
 		</p>
@@ -418,32 +539,44 @@
 
 	<!-- Description is more generic as with more than 2 characters the combinations of attracted/non-attracted would be quite complex to fully detail. -->
 	<htmlContent tag="SEX_GANGBANG_3"><![CDATA[
-	<p>
-		Wanting to have sex with everyone present, you tell [npc.name], [npc2.name], and [npc3.name] what's on your mind.
-	</p>
-	<p>
-		#IF(npc.isAttractedTo(pc) && npc2.isAttractedTo(pc) && npc3.isAttractedTo(pc))
-			As all three of them give positive responses,
-		#ELSE
-			Before any of them have any time in which to respond,
-		#ENDIF
-		 you [pc.step] forwards and prepare to get started...
-	</p>
+	#IF(npc.isDollStatue() || npc2.isDollStatue() || npc3.isDollStatue())
+		<p>
+			Wanting to have sex with everyone present, you advance on [npc.name], [npc2.name], and [npc3.name] with a lustful gleam in your [pc.eyes+]. Wanting to satiate your lewd desires as quickly as possible, you quickly [pc.step] forwards and prepare to get started...
+		</p>
+	#ELSE
+		<p>
+			Wanting to have sex with everyone present, you tell [npc.name], [npc2.name], and [npc3.name] what's on your mind.
+		</p>
+		<p>
+			#IF(npc.isAttractedTo(pc) && npc2.isAttractedTo(pc) && npc3.isAttractedTo(pc))
+				As all three of them give positive responses,
+			#ELSE
+				Before any of them have any time in which to respond,
+			#ENDIF
+			 you [pc.step] forwards and prepare to get started...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="SEX_GANGBANG_4"><![CDATA[
-	<p>
-		Wanting to have sex with everyone present, you tell [npc.name], [npc2.name], [npc3.name], and [npc4.name] what's on your mind.
-	</p>
-	<p>
-		#IF(npc.isAttractedTo(pc) && npc2.isAttractedTo(pc) && npc3.isAttractedTo(pc) && npc4.isAttractedTo(pc))
-			As all four of them give positive responses,
-		#ELSE
-			Before any of them have any time in which to respond,
-		#ENDIF
-		 you [pc.step] forwards and prepare to get started...
-	</p>
+	#IF(npc.isDollStatue() || npc2.isDollStatue() || npc3.isDollStatue() || npc4.isDollStatue())
+		<p>
+			Wanting to have sex with everyone present, you advance on [npc.name], [npc2.name], [npc3.name], and [npc4.name] with a lustful gleam in your [pc.eyes+]. Wanting to satiate your lewd desires as quickly as possible, you quickly [pc.step] forwards and prepare to get started...
+		</p>
+	#ELSE
+		<p>
+			Wanting to have sex with everyone present, you tell [npc.name], [npc2.name], [npc3.name], and [npc4.name] what's on your mind.
+		</p>
+		<p>
+			#IF(npc.isAttractedTo(pc) && npc2.isAttractedTo(pc) && npc3.isAttractedTo(pc) && npc4.isAttractedTo(pc))
+				As all four of them give positive responses,
+			#ELSE
+				Before any of them have any time in which to respond,
+			#ENDIF
+			 you [pc.step] forwards and prepare to get started...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -796,51 +929,123 @@
 	</htmlContent>
 	
 	<htmlContent tag="AFTER_SEX"><![CDATA[
-	#IF(!npc.isAttractedTo(pc) && game.isNonConEnabled())
-		<p>
-			You step back from [npc.name], smirking down at [npc.her] as [npc.she] collapses to the floor with a pathetic sob. Ignoring [npc.her] whines for the moment, you turn away and begin getting your things in order.
-		</p>
-		<p>
-			[pc.speech(Come on, [npc.name],)] you order once you're ready to go, [pc.speech(unless you want me to rape you again right now.)]
-		</p>
-		<p>
-			Letting out another pathetic cry at that prospect, [npc.name] hurries to gather [npc.her] things, before quickly running forwards to join you as you set off on your way once more...
-		</p>
+	#IF(npc.getPartyLeader()!=null && npc.getPartyLeader().isPlayer())
+		#IF(!npc.isAttractedTo(pc) && game.isNonConEnabled())
+			<p>
+				You step back from [npc.name], smirking down at [npc.her] as [npc.she] collapses to the floor with a pathetic sob. Ignoring [npc.her] whines for the moment, you turn away and begin getting your things in order.
+			</p>
+			<p>
+				[pc.speech(Come on, [npc.name],)] you order once you're ready to go, [pc.speech(unless you want me to rape you again right now.)]
+			</p>
+			<p>
+				Letting out another pathetic cry at that prospect, [npc.name] hurries to gather [npc.her] things, before quickly running forwards to join you as you set off on your way once more...
+			</p>
+		#ELSE
+			<p>
+				You step back from [npc.name], smirking down at [npc.her] as [npc.she] collapses to the floor with a deeply-satisfied sigh, [npc.speech(Oh, fuck, that was so good...)]
+			</p>
+			<p>
+				As [npc.she] sighs and pants from exertion, you turn away and begin getting your things in order, and once that's done, you step over towards your companion and command, [pc.speech(Come on, [npc.name], let's go.)]
+			</p>
+			<p>
+				[npc.speech(Yes, [pc.name]!)] [npc.she] quickly replies, before hurrying to gather [npc.her] things and then quickly running forwards to join you as you set off on your way once more...
+			</p>
+		#ENDIF
 	#ELSE
-		<p>
-			You step back from [npc.name], smirking down at [npc.her] as [npc.she] collapses to the floor with a deeply-satisfied sigh, [npc.speech(Oh, fuck, that was so good...)]
-		</p>
-		<p>
-			As [npc.she] sighs and pants from exertion, you turn away and begin getting your things in order, and once that's done, you step over towards your companion and command, [pc.speech(Come on, [npc.name], let's go.)]
-		</p>
-		<p>
-			[npc.speech(Yes, [pc.name]!)] [npc.she] quickly replies, before hurrying to gather [npc.her] things and then quickly running forwards to join you as you set off on your way once more...
-		</p>
+		#IF(npc.isAsleep())
+			<p>
+				Even after having sex with [npc.herHim], [npc.name] still shows no sign of waking up. Carefully standing up so as not to wake [npc.herHim], you [pc.step] back and look down at the sleeping [npc.race].
+			</p>
+			<p>
+				#IF(npc.isFeminine())
+					[npc.speech(~Mmm...~)] [npc.she] softly moans as [npc.she] turns onto [npc.her] side.
+				#ELSE
+					[npc.speech(~Aah...~)] [npc.she] softly groans as [npc.she] turns onto [npc.her] side.
+				#ENDIF
+			</p>
+			<p>
+				Having had your fun, and seeing no reason to wake [npc.herHim] up, you [pc.step] back and leave [npc.name] to continue sleeping... 
+			</p>
+		#ELSEIF(!npc.isAttractedTo(pc) && game.isNonConEnabled())
+			<p>
+				As you step back from [npc.name], [npc.she] sinks to the floor, letting out a thankful sob as [npc.she] realises that you've finished. Ignoring [npc.her] whines for the moment, you turn away and begin getting your things in order.
+			</p>
+			<p>
+				Letting out another pathetic cry, [npc.name] shuffles away from you as you look down at [npc.herHim] and wonder what to do next...
+			</p>
+		#ELSE
+			<p>
+				As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm#IF(sex.getNumberOfOrgasms(npc)>1)s#ENDIF. Looking up at you, a satisfied smile settles across [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted.
+			</p>
+			<p>
+				After quickly getting your things in order, you look down at [npc.name] and wonder what to do next...
+			</p>
+		#ENDIF
 	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AFTER_SEX_NO_ORGASM"><![CDATA[
-	#IF(!npc.isAttractedTo(pc) && game.isNonConEnabled())
-		<p>
-			You step back from [npc.name], smirking down at [npc.her] as [npc.she] collapses to the floor with a pathetic sob. Ignoring [npc.her] whines for the moment, you turn away and begin getting your things in order.
-		</p>
-		<p>
-			[pc.speech(Come on, [npc.name],)] you order once you're ready to go, [pc.speech(unless you want me to rape you again right now.)]
-		</p>
-		<p>
-			Letting out another pathetic cry at that prospect, [npc.name] hurries to gather [npc.her] things, before quickly running forwards to join you as you set off on your way once more...
-		</p>
+	#IF(npc.getPartyLeader()!=null && npc.getPartyLeader().isPlayer())
+		#IF(!npc.isAttractedTo(pc) && game.isNonConEnabled())
+			<p>
+				You step back from [npc.name], smirking down at [npc.her] as [npc.she] collapses to the floor with a pathetic sob. Ignoring [npc.her] whines for the moment, you turn away and begin getting your things in order.
+			</p>
+			<p>
+				[pc.speech(Come on, [npc.name],)] you order once you're ready to go, [pc.speech(unless you want me to rape you again right now.)]
+			</p>
+			<p>
+				Letting out another pathetic cry at that prospect, [npc.name] hurries to gather [npc.her] things, before quickly running forwards to join you as you set off on your way once more...
+			</p>
+		#ELSE
+			<p>
+				You step back from [npc.name], smirking down at [npc.her] as [npc.she] collapses to the floor with a protesting whine, [npc.speech(Aww... I'm not satisfied from that...)]
+			</p>
+			<p>
+				Ignoring [npc.her] complaints, you turn away and begin getting your things in order, and once that's done, you step over towards your companion and command, [pc.speech(Come on, [npc.name], let's go.)]
+			</p>
+			<p>
+				[npc.speech(Ok, [pc.name]...)] [npc.she] reluctantly replies, before hurrying to gather [npc.her] things and then quickly running forwards to join you as you set off on your way once more...
+			</p>
+		#ENDIF
 	#ELSE
-		<p>
-			You step back from [npc.name], smirking down at [npc.her] as [npc.she] collapses to the floor with a protesting whine, [npc.speech(Aww... I'm not satisfied from that...)]
-		</p>
-		<p>
-			Ignoring [npc.her] complaints, you turn away and begin getting your things in order, and once that's done, you step over towards your companion and command, [pc.speech(Come on, [npc.name], let's go.)]
-		</p>
-		<p>
-			[npc.speech(Ok, [pc.name]...)] [npc.she] reluctantly replies, before hurrying to gather [npc.her] things and then quickly running forwards to join you as you set off on your way once more...
-		</p>
+		#IF(npc.isAsleep())
+			<p>
+				Even after having sex with [npc.herHim], [npc.name] still shows no sign of waking up. Carefully standing up so as not to wake [npc.herHim], you [pc.step] back and look down at the sleeping [npc.race].
+			</p>
+			<p>
+				#IF(npc.isFeminine())
+					[npc.speech(~Mmm...~)] [npc.she] softly moans as [npc.she] turns onto [npc.her] side.
+				#ELSE
+					[npc.speech(~Aah...~)] [npc.she] softly groans as [npc.she] turns onto [npc.her] side.
+				#ENDIF
+			</p>
+			<p>
+				Having had your fun, and seeing no reason to wake [npc.herHim] up, you [pc.step] back and leave [npc.name] to continue sleeping... 
+			</p>
+		#ELSE
+			<p>
+				As you step back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that you've finished.
+				#IF(npc.hasSlavePermissionSetting(SLAVE_PERMISSION_SETTING_SEX_MASTURBATE))
+					#IF(npc.isTaur())
+						 Unable to reach back to [npc.her] groin, [npc.she] frantically starts rubbing [npc.her] rear-end up against a nearby piece of furniture in a desperate attempt to masturbate and finish what you started.
+					#ELSEIF(npc.hasLegs())
+						 [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+					#ELSE
+						 [npc.Her] [npc.hands] dart down to [npc.her] groin, and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started.
+					#ENDIF
+				#ELSE
+					 Forbidden from masturbating, all [npc.she] can do is fruitlessly rub [npc.her] thighs together and let out another frustrated groan.
+				#ENDIF
+			</p>
+			<p>
+				#IF(!npc.isAttractedTo(pc) && game.isNonConEnabled())
+					Trying not to look at you, [npc.she] mutters under [npc.her] breath, [npc.speech(Fuck... Why am I so horny?)]
+				#ELSE
+					[npc.speech([pc.Name]! I'm still horny!)] [npc.she] cries.
+				#ENDIF
+			</p>
+		#ENDIF
 	#ENDIF
 	]]>
 	</htmlContent>
@@ -855,6 +1060,18 @@
 	<htmlContent tag="AFTER_SEX_GANGBANG_4"><![CDATA[
 	<p>
 		Having had your fun, you disentangle yourself from [npc.name], [npc2.name], [npc3.name], and [npc4.name], before starting to get your things back in order. Grinning at your four partners, you tell them that you should do this again some time, before [pc.stepping] back and wondering what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="AFTER_SEX_CONTINUE"><![CDATA[
+	<p>
+		Having had your fun with your slave, you wonder what to do next.
+		#IF(npc.isAsleep())
+			 As [npc.sheIs] is still sleeping, you'll need to wake [npc.herHim] up before interacting with [npc.herHim]. Doing so is sure to annoy [npc.herHim] at least a little...
+		#ELSE
+			 Waiting to hear what your command will be, [npc.name] wonders whether you'll use [npc.herHim] again or do something else...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>

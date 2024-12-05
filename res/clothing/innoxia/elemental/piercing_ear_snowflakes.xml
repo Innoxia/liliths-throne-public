@@ -31,7 +31,7 @@
 		<incompatibleSlots/> 
 		
 		<primaryColours values="JUST_SILVER"/> 
-		<primaryColoursDye values="ALL_METAL"/>
+		<primaryColoursDye values="ALL_WITH_METALS"/>
 		<secondaryColours/>
 		<secondaryColoursDye/>
 		<tertiaryColours/>

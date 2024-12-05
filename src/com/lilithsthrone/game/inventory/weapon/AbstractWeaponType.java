@@ -84,7 +84,8 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	private List<String> oneShotEndTurnRecoveryDescriptions;
 	protected String hitEffect;
 	protected String criticalHitEffect;
-	
+
+	private String pathNamePrefix;
 	private String pathName;
 	private String pathNameEquipped;
 	
@@ -193,13 +194,15 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 				this.equipText = coreAttributes.getMandatoryFirstOf("equipText").getTextContent();
 				this.unequipText = coreAttributes.getMandatoryFirstOf("unequipText").getTextContent();
 				
-				this.pathName = weaponXMLFile.getParentFile().getAbsolutePath() + "/" + coreAttributes.getMandatoryFirstOf("imageName").getTextContent();
+				this.pathNamePrefix = weaponXMLFile.getParentFile().getAbsolutePath() + "/";
+				
+				this.pathName = pathNamePrefix + coreAttributes.getMandatoryFirstOf("imageName").getTextContent();
 
 				Predicate<Element> filterEmptyElements = element -> !element.getTextContent().isEmpty(); //helper function to filter out empty elements.
 				
 				this.pathNameEquipped = coreAttributes.getOptionalFirstOf("imageEquippedName")
 					.filter(filterEmptyElements)
-					.map(o -> weaponXMLFile.getParentFile().getAbsolutePath() + "/" + o.getTextContent())
+					.map(o -> o.getTextContent()) // weaponXMLFile.getParentFile().getAbsolutePath() + "/" + 
 					.orElse(pathName);
 
 				this.damage = Integer.valueOf(coreAttributes.getMandatoryFirstOf("damage").getTextContent());
@@ -765,12 +768,16 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		return pathName;
 	}
 
-	public String getEquippedPathName() {
-		return pathNameEquipped;
+	public String getEquippedPathName(GameCharacter characterEquippedTo) {
+		String parsedPath = UtilText.parse(characterEquippedTo, pathNameEquipped).trim();
+		if(parsedPath.isEmpty()) {
+			return null;
+		}
+		return pathNamePrefix + parsedPath;
 	}
 	
 	public boolean isEquippedSVGImageDifferent() {
-		return !getPathName().equals(getEquippedPathName());
+		return !getPathName().equals(pathNameEquipped);
 	}
 	
 	public int getDamage() {
@@ -847,9 +854,16 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		removeZeroList.remove(0);
 		return removeZeroList;
 	}
-	
+
 	private static String generateIdentifier(DamageType dt, List<Colour> colours) {
+		return generateIdentifier(null, dt, colours);
+	}
+	
+	private static String generateIdentifier(GameCharacter character, DamageType dt, List<Colour> colours) {
 		StringBuilder sb = new StringBuilder(dt.toString());
+		if(character!=null) {
+			sb.append(character.getId());
+		}
 		for(Colour c : colours) {
 			sb.append(c.getId());
 		}
@@ -942,15 +956,15 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 		return "";
 	}
 	
-	private void addSVGStringEquippedMapping(DamageType dt, List<Colour> colours, String s) {
-		SVGStringEquippedMap.put(generateIdentifier(dt, colours), s);
+//	private void addSVGStringEquippedMapping(GameCharacter character, DamageType dt, List<Colour> colours, String s) {
+//		SVGStringEquippedMap.put(generateIdentifier(character, dt, colours), s);
+//	}
+	
+	private String getSVGStringEquippedFromMap(GameCharacter character, DamageType dt, List<Colour> colours) {
+		return SVGStringEquippedMap.get(generateIdentifier(character, dt, colours));
 	}
 	
-	private String getSVGStringEquippedFromMap(DamageType dt, List<Colour> colours) {
-		return SVGStringEquippedMap.get(generateIdentifier(dt, colours));
-	}
-	
-	public String getSVGEquippedImage() {
+	public String getSVGEquippedImage(GameCharacter characterEquipped) {
 		DamageType dt = DamageType.PHYSICAL;
 		if (this.getAvailableDamageTypes() != null) {
 			if (!this.getAvailableDamageTypes().contains(dt)) {
@@ -964,10 +978,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			colours.add(cr.getFirstOfDefaultColours());
 		}
 		
-		return getSVGEquippedImage(dt, colours);
+		return getSVGEquippedImage(characterEquipped, dt, colours);
 	}
 	
-	public String getSVGEquippedImage(DamageType dt, List<Colour> colours) {
+	public String getSVGEquippedImage(GameCharacter characterEquipped, DamageType dt, List<Colour> colours) {
 		if(!isEquippedSVGImageDifferent()) {
 			return getSVGImage(dt, colours);
 		}
@@ -975,14 +989,14 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			return "";
 		}
 		
-		String stringFromMap = getSVGStringEquippedFromMap(dt, colours);
+		String stringFromMap = getSVGStringEquippedFromMap(characterEquipped, dt, colours);
 		if(stringFromMap!=null) {
 			return stringFromMap;
 		}
 		
 		try {
 			String s;
-			List<String> lines = Files.readAllLines(Paths.get(pathNameEquipped));
+			List<String> lines = Files.readAllLines(Paths.get(getEquippedPathName(characterEquipped)));
 			StringBuilder sb = new StringBuilder();
 			for(String line : lines) {
 				sb.append(line);
@@ -992,8 +1006,9 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 			List<Colour> coloursPlusDT = Util.newArrayListOfValues(dt.getColour());
 			coloursPlusDT.addAll(colours);
 			s = SvgUtil.colourReplacement(this.getId()+"Equipped", coloursPlusDT, this.getColourReplacements(true), s);
-			
-			addSVGStringEquippedMapping(dt, colours, s);
+
+			// Don't save icon as it can vary based on character changes...
+//			addSVGStringEquippedMapping(characterEquipped, dt, colours, s);
 			
 			return s;
 			
@@ -1005,14 +1020,14 @@ public abstract class AbstractWeaponType extends AbstractCoreType {
 	}
 	
 
-	public String getSVGEquippedImageDesaturated() {
+	public String getSVGEquippedImageDesaturated(GameCharacter characterEquipped) {
 		if(SVGStringEquippedDesaturated!=null) {
 			return SVGStringEquippedDesaturated;
 		}
 		
 		try {
 			String s;
-			List<String> lines = Files.readAllLines(Paths.get(pathNameEquipped));
+			List<String> lines = Files.readAllLines(Paths.get(getEquippedPathName(characterEquipped)));
 			StringBuilder sb = new StringBuilder();
 			for(String line : lines) {
 				sb.append(line);

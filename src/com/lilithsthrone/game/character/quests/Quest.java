@@ -48,7 +48,7 @@ public enum Quest {
 	MAIN_PROLOGUE(QuestType.MAIN, 1, 5) {
 		@Override
 		public String getName() {
-			return "Survive the evening";
+			return "Survive the Evening";
 		}
 		@Override
 		public String getDescription() {
@@ -66,7 +66,7 @@ public enum Quest {
 	MAIN_1_A_LILAYAS_TESTS(QuestType.MAIN, 1, 10) {
 		@Override
 		public String getName() {
-			return "Lilaya's tests";
+			return "Lilaya's Tests";
 		}
 		@Override
 		public String getDescription() {
@@ -153,7 +153,7 @@ public enum Quest {
 		@Override
 		public String getDescription() {
 			return "After finding Scarlett in Slaver Alley, you discovered that she's no longer in possession of Arthur."
-					+ " Before she'll tell you anything about it, she wants you to go the Harpy Nests and report to her matriarch, Helena, that her business is a complete failure";
+					+ " Before she'll tell you anything about it, she wants you to go to the Harpy Nests and report to her matriarch, Helena, that her business is a complete failure";
 		}
 		@Override
 		public String getCompletedDescription() {
@@ -398,7 +398,7 @@ public enum Quest {
 	MAIN_2_D_MEETING_A_LILIN(QuestType.MAIN, 1, 100) {
 		@Override
 		public String getName() {
-			return "Meeting A Lilin";
+			return "Meeting a Lilin";
 		}
 
 		@Override
@@ -541,36 +541,93 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_3_F_PREPARING_ELIS(QuestType.MAIN, 1, 25) {//TODO
+	MAIN_3_F_PREPARING_ELIS(QuestType.MAIN, 1, 25) {
 		@Override
 		public String getName() {
-			return "Defence of Elis";
+			return "Some Help from SWORD";
 		}
-
 		@Override
 		public String getDescription() {
-			return "[style.italicsMinorBad(This is where the main quest currently ends, but more main quest content will be coming in future updates!)]<br/>"
-					+ "With Lunette planning to attack Elis at some point in the near future, you've been tasked by Minotallys with helping get the town's defences in order."
-					+ " You need to travel to the Enforcer station in Elis and ask for their assistance.";
+			return "With Lunette planning to attack Elis at some point in the near future, you've told Minotallys that you'll help to get the town's defences in order."
+					+ " You need to travel to the Enforcer station in Elis and ask the group of SWORD Enforcers for their assistance.";
 		}
-
+		@Override
+		public String getCompletedDescription() {
+			return "You travelled to the Enforcer station in Elis and asked the group of SWORD Enforcers to help with getting the town's defences in order.";
+		}
+		@Override
+		public void applySkipQuestEffects() {
+			// TODO
+		}
+	},
+	
+	MAIN_3_G_SWORD_SCAPEGOAT(QuestType.MAIN, 1, 25) {
+		@Override
+		public String getName() {
+			return "SWORD's Scapegoat";
+		}
+		@Override
+		public String getDescription() {
+			return "The SWORD Enforcers told you that in order for them to help you, you first need to help them."
+					+ " You're to tag along on an operation to stop an elder lilin's daughter so that you can get them out of trouble if they're recognised."
+					+ " You need to meet them in the Enforcer station on a Tuesday evening, after [units.time(17)], to start the operation.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You met with the SWORD Enforcers on a Tuesday afternoon so that you could tag along on an operation to stop an elder lilin's daughter.";
+		}
+		@Override
+		public void applySkipQuestEffects() {
+			// TODO
+		}
+	},
+	
+	MAIN_3_H_SWORD_MISSION(QuestType.MAIN, 25, 250) {
+		@Override
+		public String getName() {
+			return "Stop the Succubus";
+		}
+		@Override
+		public String getDescription() {
+			return "You need to stay with the SWORD Enforcers as they clear the succubus's headquarters."
+					+ " You don't need to fight, but the Enforcers might appreciate it if you gave them some assistance.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You worked with the SWORD Enforcers to clear the succubus's headquarters."
+					+ " Although she managed to escape, you've put a decisive end to her illegal enslavement activities.";
+		}
+		@Override
+		public void applySkipQuestEffects() {
+			// TODO
+		}
+	},
+	
+	MAIN_3_I_ARION_REPORT(QuestType.MAIN, 1, 25) {//TODO
+		@Override
+		public String getName() {
+			return "Report to Minotallys";
+		}
+		@Override
+		public String getDescription() {
+			return "[style.italicsBad(This is as far as the main quest goes for now! It will be updated soon!)]"
+					+ "<br/>Now that the SWORD Enforcers are working on preparing the town's defences, you need to head back to the town hall to report this to Minotallys.";
+		}
 		@Override
 		public String getCompletedDescription() {
 			return "-";
 		}
 	},
 	
-	MAIN_3_G_TODO(QuestType.MAIN, 1, 25) {//TODO
+	MAIN_3_J_TODO(QuestType.MAIN, 1, 25) {//TODO
 		@Override
 		public String getName() {
 			return "";
 		}
-
 		@Override
 		public String getDescription() {
 			return "";
 		}
-
 		@Override
 		public String getCompletedDescription() {
 			return "-";
@@ -781,6 +838,23 @@ public enum Quest {
 		@Override
 		public String getCompletedDescription() {
 			return "Lilaya gave you permission to use the empty rooms to house your friends and family, on the condition that you pay for the expenses that are incurred.";
+		}
+	},
+
+	// Doll storage:
+	
+	SIDE_DOLL_STORAGE_ASK_FOR_SPACE(QuestType.SIDE, 1, 5) {
+		@Override
+		public String getName() {
+			return "Where do the dolls go?";
+		}
+		@Override
+		public String getDescription() {
+			return "Although Lilaya's mansion is full of empty rooms in which dolls could be stored, you'd better ask her for permission before bringing any home...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Lilaya gave you permission to use the empty rooms to store any dolls you buy.";
 		}
 	},
 	
@@ -1621,7 +1695,7 @@ public enum Quest {
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "You pulled the handle against your better judement.";
+			return "You pulled the handle against your better judgement.";
 		}
 	},
 
@@ -1778,6 +1852,226 @@ public enum Quest {
 		}
 	},
 
+	//Eisek Quests
+	
+	EISEK_STALL_QUEST_STAGE_ONE(QuestType.SIDE,
+			1,
+			10) {
+		@Override
+		public String getName() {
+			return "Gathering Materials";
+		}
+		@Override
+		public String getDescription() {
+			return "You've learned what Eisek needs to fix up his stall, as well as what he would like on a new sign. Now you just need to gather some materials from the merchants around town for a nice surprise. Maybe there's one that deals in fabric?";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You've ordered a new sign and some bolts of cloth from Monica.";
+		}
+	},
+	
+	EISEK_STALL_QUEST_STAGE_TWO(QuestType.SIDE,
+			1,
+			10) {
+		@Override
+		public String getName() {
+			return "Need an Awning Here";
+		}
+		@Override
+		public String getDescription() {
+			return "While you're waiting for Monica to finish your order, you need to find some wooden poles for the awning. Perhaps the local smithy could modify the haft of a polearm could be modified somehow?";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You've placed an order with Imsu and Hale for some modified axe hafts.";
+		}
+	},
+	
+	EISEK_STALL_QUEST_STAGE_THREE(QuestType.SIDE,
+			1,
+			10) {
+		@Override
+		public String getName() {
+			return "It's All Coming Together";
+		}
+		@Override
+		public String getDescription() {
+			return "You should check back in with Hale in a day and Monica in three days to see if your order is ready yet.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You've gathered all the materials.";
+		}
+	},
+	
+	EISEK_STALL_QUEST_STAGE_FOUR(QuestType.SIDE,
+			1,
+			10) {
+		@Override
+		public String getName() {
+			return "Putting it all together";
+		}
+		@Override
+		public String getDescription() {
+			return "You have what you need to improve Eisek's stall. Tell him about it the next time you see him.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "As far as you could tell, Eisek was overjoyed at what you've done for him and his stall looks better than ever.";
+		}
+	},
+	
+	EISEK_MOB_QUEST_STAGE_ONE(QuestType.SIDE,
+			10,
+			25) {
+		@Override
+		public String getName() {
+			return "One against Many";
+		}
+		@Override
+		public String getDescription() {
+			return "Eisek explained why there was a mob hounding him, but he doesn't know much about them. If you want to make sure they don't come back, you'll have to find them and confront them."
+					+ "<br/>As they seemed to be comprised of locals, maybe a search around town will do the trick.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Through a bit of luck and the mob putting up a big colourful poster, you've found and entered their meeting place.";
+		}
+	},
+	
+	EISEK_MOB_QUEST_STAGE_TWO(QuestType.SIDE,
+			10,
+			100) {
+		@Override
+		public String getName() {
+			return "Leave the Dragon Alone!";
+		}
+		@Override
+		public String getDescription() {
+			return "You've found where the mob has been meeting. Time to handle them!";
+		}
+		@Override
+		public String getCompletedDescription() {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_mob_quest_intimidate"))) {
+			    return "You decided to try and convince the mob to leave Eisek alone with your intimidating physique.";
+			} else if (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_mob_quest_intimidate_arcane"))) {
+			    return "You decided to try and convince the mob to leave Eisek alone with your arcane prowess.";
+			} else if (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_mob_quest_persuade"))) {
+			    if(!Main.game.isSillyModeEnabled()) {
+			    	return "You convinced the mob to leave Eisek alone with a heartfelt speech.";
+			    } else {
+			    	return "You destroyed the mob's arguments with FACTS and LOGIC.";
+			    }
+			} else if (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_mob_quest_seduce"))) {
+			    return "You convinced the mob to leave Eisek alone by using your mastery of lust magic to fuel an orgy.";
+			} else {
+			    return "You weren't able to convince the mob to leave Eisek alone.";
+			}
+		}
+	},
+	
+	EISEK_MOB_QUEST_STAGE_TWO_FAILED(QuestType.SIDE,
+			10,
+			0) {
+		@Override
+		public String getName() {
+			return "Tossed Out";
+		}
+		@Override
+		public String getDescription() {
+			return "You weren't able to convince the mob to leave Eisek alone. You should return to him with the bad news now that you weren't able to handle the mob.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You weren't able to convince the mob to leave Eisek alone.";
+		}
+	},
+	
+	EISEK_MOB_QUEST_STAGE_THREE_FAILED(QuestType.SIDE,
+			10,
+			0) {
+		@Override
+		public String getName() {
+			return "Bad News";
+		}
+		@Override
+		public String getDescription() {
+			return "";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Although he tried to hide it, Eisek seemed upset that the mob is still somewhere out there plotting against him.";
+		}
+	},
+	
+	EISEK_MOB_QUEST_STAGE_THREE(QuestType.SIDE,
+			10,
+			250) {
+		@Override
+		public String getName() {
+			return "Good News";
+		}
+		@Override
+		public String getDescription() {
+			return "You should return to Eisek with the good news now that you've handled the mob.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Although he tried to hide it, Eisek seemed pretty happy that the mob will now leave him alone. You even got some rare Dragonfruit.";
+		}
+	},
+	
+	EISEK_SILLYMODE_QUEST_STAGE_ONE(QuestType.SIDE,
+			1,
+			10) {
+		@Override
+		public String getName() {
+			return "Strange Crowd";
+		}
+		@Override
+		public String getDescription() {
+			return "You encountered a different sort of mob that was weirdly obsessed with Eisek. It ultimately came to nothing but you've decided to see what these strange people were all about.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You've entered some sort of basement where they've gathered.";
+		}
+	},
+	
+	EISEK_SILLYMODE_QUEST_STAGE_TWO(QuestType.SIDE,
+			1,
+			10) {
+		@Override
+		public String getName() {
+			return "Darkest Dungeon";
+		}
+		@Override
+		public String getDescription() {
+			return "You've followed the basement dwellers back to their basement and decided to have a look inside. Unfortunately they didn't appreciate your trespassing very much and have blocked off the way you came.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You're nearly at the exit, only one obstacle remains...";
+		}
+	},
+	
+	EISEK_SILLYMODE_QUEST_STAGE_THREE(QuestType.SIDE,
+			1,
+			10) {
+		@Override
+		public String getName() {
+			return "Dungeon Cleared";
+		}
+		@Override
+		public String getDescription() {
+			return "Having defeated the leader of this strange group, all that's left for you to leave.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You've successfully escaped the dungeon and shown a bunch of nerds who is the boss.";
+		}
+	},
 	
 	// Fetching beer barrels for Oglix:
 	
@@ -1849,6 +2143,164 @@ public enum Quest {
 			return getDescription();
 		}
 	},
+
+	
+	// Doll factory quests:
+	
+	DOLL_FACTORY_1(QuestType.SIDE, 30, 10) {
+		@Override
+		public String getName() {
+			return "Investigate Lovienne's Luxuries";
+		}
+		@Override
+		public String getDescription() {
+			return "Angelixx's diary revealed that the kidnapped refugees were being teleported to the shop 'Lovienne's Luxuries' in Dominion."
+					+ " If you're to discover what's happened to Angelixx's victims, then you'll need to investigate this store...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You travelled to the shop 'Lovienne's Luxuries' and attempted to discover if the refugees kidnapped by Angelixx were being taken there."
+					+ " Although you weren't able to discover anything, a reporter named Fiammetta approached you as you left and offered her help.";
+		}
+	},
+	
+	DOLL_FACTORY_2(QuestType.SIDE, 30, 10) {
+		@Override
+		public String getName() {
+			return "Breaking and Entering";
+		}
+		@Override
+		public String getDescription() {
+			return "Fiammetta knows a way into the rear of Lovienne's Luxuries, where she believes the kidnapped refugees are being held and used as slave labour."
+					+ " With no other way to gain entry and get to the bottom of what's happening in there, you agreed to her plan and said you'd meet her near the shop between [units.time(1)]-[units.time(4)].";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You met Fiametta outside Lovienne's Luxuries and managed to break in to the rear of the premises without setting off the alarm system.";
+		}
+	},
+	
+	DOLL_FACTORY_3(QuestType.SIDE, 30, 10) {
+		@Override
+		public String getName() {
+			return "Getting to the Bottom";
+		}
+		@Override
+		public String getDescription() {
+			return "Now that you've managed to gain entry to the back of Lovienne's Luxuries, you need to investigate and find out where the kidnapped refugees are.";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You discovered a large elevator in the rear of Lovienne's Luxuries, and after taking it down, you discovered a large facility hidden deep beneath Dominion.";
+		}
+	},
+	
+	DOLL_FACTORY_4(QuestType.SIDE, 30, 10) {
+		@Override
+		public String getName() {
+			return "Gather Evidence";
+		}
+		@Override
+		public String getDescription() {
+			return "You and Fiammetta need to find evidence of what's happened to the refugees."
+					+ " Ledgers, machine schematics, or other such documents are sure to be found somewhere in here...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You managed to gather hard evidence of Saellatrix's and Angelixx's involvement in kidnapping and illegal slavery, and also acquired the disturbing knowledge of how Lovienne's dolls are created.";
+		}
+	},
+	
+	DOLL_FACTORY_5(QuestType.SIDE, 30, 250) {
+		@Override
+		public String getName() {
+			return "Time to Leave";
+		}
+		@Override
+		public String getDescription() {
+			return "Now that Fia has obtained enough proof to get a story published, the two of you need to escape from the factory...";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You and Fia managed to escape from the lower factory.";
+		}
+	},
+	
+	DOLL_FACTORY_5_DOLLIFIED(QuestType.SIDE, 30, 250) {
+		@Override
+		public String getName() {
+			return "Dollified!";
+		}
+		@Override
+		public String getDescription() {
+			return "Having been caught, Angelixx has turned you into a doll! You desperately need to find Fia to undo this alarming transformation."
+					+ "<br/>[style.italics(You need to find and investigate the four)] [style.italicsExcellent(yellow)] [style.italics(tiles within the factory to find Fia.)]";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "After being transformed into a doll by Angelixx, you managed to find Fia and reverse the process, after which the two of you escaped from the factory.";
+		}
+	},
+	
+	DOLL_FACTORY_6(QuestType.SIDE, 30, 500) {
+		@Override
+		public String getName() {
+			return "Fiammetta's Message";
+		}
+		@Override
+		public String getDescription() {
+			return "Fiammetta has promised to write an article on everything the two of you have witnessed in Lovienne's Luxuries."
+					+ " She's promised to send a message to you once it's ready to be published."
+					+ "<br/>[style.italicsMinorGood(After a few days have passed, check in the entrance hall to Lilaya's mansion during daylight hours.)]";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "Instead of receiving Fiammetta's message, you encountered Saellatrix."
+					+ " Exploiting her intimate relationship with Lilaya, she put you on the spot and demanded that you sign a document declaring that Fiammetta is lying.";
+		}
+	},
+	
+	//TODO
+	
+	DOLL_FACTORY_7A(QuestType.SIDE, 30, 10) {
+		@Override
+		public String getName() {
+			return "Integrity Above All";
+		}
+		@Override
+		public String getDescription() {
+			return "You refused to make a deal with Saellatrix, and instead swore to tell the truth and back up all that Fiammetta has written in her article."
+					+ " Before swiftly leaving the mansion, Saellatrix mentioned that her store will be closed for a week or two while she waits for the public outrage to blow over."
+					+ "<br/>[style.italicsMinorGood(You should return to Lovienne's Luxuries once it's reopened to find out what's become of the dolls...)]";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You refused to make a deal with Saellatrix, and instead swore to tell the truth and back up all that Fiammetta has written in her article."
+					+ " Returning to Lovienne's Luxuries after it'd been closed for a week, you discovered that Angelixx was made to take all of the blame for illegal enslavement,"
+						+ " and that Saellatrix is now only allowed to transform the worst of criminals into dolls."
+					+ "<br/>"
+					+ "Furthermore, not wanting to have you as an enemy, Saellatrix was keen to keep you as a customer, and even allowed you to decide what to do with Angelixx...";
+		}
+	},
+	
+	DOLL_FACTORY_7B(QuestType.SIDE, 30, 10) {
+		@Override
+		public String getName() {
+			return "It's Just Good Business";
+		}
+		@Override
+		public String getDescription() {
+			return "You betrayed the trust of Fiammetta and signed a document which declares that the reporter is lying."
+					+ " Saellatrix was delighted by your decision, and asked you to return to her shop to talk more about your special rewards..."
+					+ "<br/>[style.italicsMinorGood(You should return to Lovienne's Luxuries once it's reopened after a couple of days...)]";
+		}
+		@Override
+		public String getCompletedDescription() {
+			return "You betrayed the trust of Fiammetta and signed the document declaring that the reporter is lying."
+					+ " In return, Saellatrix offered to convert any of your slaves into dolls in exchange for a small fee, or will instead pay you if you let her keep them to sell in her shop.";
+		}
+	},
+	
 	
 	// Romance quests:
 
@@ -2070,7 +2522,7 @@ public enum Quest {
 
 		@Override
 		public String getCompletedDescription() {
-			return "You returned to Helena's store to discover that everything is set up and ready for the harpy matriarch to start accepting customers. Before that, however, you need to help her with a couple mroe things...";
+			return "You returned to Helena's store to discover that everything is set up and ready for the harpy matriarch to start accepting customers. Before that, however, you need to help her with a couple more things...";
 		}
 	},
 

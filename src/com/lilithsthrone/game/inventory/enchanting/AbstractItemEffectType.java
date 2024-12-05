@@ -133,7 +133,10 @@ public abstract class AbstractItemEffectType {
 		for(Entry<AbstractStatusEffect, Integer> entry : getAppliedStatusEffects().entrySet()) {
 			AbstractStatusEffect se = entry.getKey();
 			int time = entry.getValue();
-			target.addStatusEffect(se, time);
+			boolean added = target.addStatusEffect(se, time);
+			if(!added) {
+				continue;
+			}
 			String timeDesc = time+" turns";
 			if(!se.isCombatEffect()) {
 				int timeMinutes = (time/60);
@@ -224,16 +227,10 @@ public abstract class AbstractItemEffectType {
 			subsPlusMain.addAll(additionalUnlockSubspecies);
 		}
 		
-		for(AbstractSubspecies subspecies : subsPlusMain) {
-			Main.getProperties().addRaceDiscovered(subspecies);
-			if(Main.getProperties().addAdvancedRaceKnowledge(subspecies) && ItemType.getLoreBook(subspecies)!=null) {
-				Main.game.addEvent(new EventLogEntryBookAddedToLibrary(ItemType.getLoreBook(subspecies)), true);
-			}
-		}
-		
+		String descriptionToReturn = "";
 		AbstractPerk perk = Perk.getSubspeciesRelatedPerk(mainSubspecies);
 		if(!reader.isPlayer() || ((PlayerCharacter) reader).addRaceDiscoveredFromBook(mainSubspecies) || !reader.hasPerkAnywhereInTree(perk)) {
-			return (withDescription
+			descriptionToReturn = (withDescription
 						?("<p style='text-align:center; font-size:110%;margin-bottom:0;padding-bottom:0;'><b>"+mainSubspecies.getBookName()+"</b></p>"
 							+ (mainSubspecies.getBookAuthor().isEmpty()?"":"<p style='text-align:center;margin-top:0;padding-top:0;'><b><i>by "+mainSubspecies.getBookAuthor()+"</i></b></p>")
 							+ mainSubspecies.getBasicDescription(null)
@@ -242,7 +239,7 @@ public abstract class AbstractItemEffectType {
 					+reader.addSpecialPerk(perk);
 			
 		} else {
-			return "<p style='text-align:center; font-size:110%;margin-bottom:0;padding-bottom:0;'><b>"+mainSubspecies.getBookName()+"</b></p>"
+			descriptionToReturn = "<p style='text-align:center; font-size:110%;margin-bottom:0;padding-bottom:0;'><b>"+mainSubspecies.getBookName()+"</b></p>"
 					+ (mainSubspecies.getBookAuthor().isEmpty()?"":"<p style='text-align:center;margin-top:0;padding-top:0;'><b><i>by "+mainSubspecies.getBookAuthor()+"</i></b></p>")
 					+ mainSubspecies.getBasicDescription(null)
 					+ mainSubspecies.getAdvancedDescription(null)
@@ -251,6 +248,14 @@ public abstract class AbstractItemEffectType {
 					+ "</p>";
 		}
 		
+		for(AbstractSubspecies subspecies : subsPlusMain) {
+			Main.getProperties().addRaceDiscovered(subspecies);
+			if(Main.getProperties().addAdvancedRaceKnowledge(subspecies) && ItemType.getLoreBook(subspecies)!=null) {
+				Main.game.addEvent(new EventLogEntryBookAddedToLibrary(ItemType.getLoreBook(subspecies)), true);
+			}
+		}
+		
+		return descriptionToReturn;
 	}
 	
 	protected static List<TFModifier> getClothingTFSecondaryModifiers(TFModifier primaryModifier) {
@@ -2665,6 +2670,7 @@ public abstract class AbstractItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_CUM, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_GIRLCUM, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_MILK, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_FLAVOURLESS, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_BEER, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_CHOCOLATE, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_FLAVOUR_HONEY, Util.newArrayListOfValues(TFPotency.MINOR_BOOST));
@@ -5245,6 +5251,8 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil("Makes cum taste like girlcum.") { @Override public String applyEffect() { return target.setCumFlavour(FluidFlavour.GIRL_CUM); } };
 					case TF_MOD_FLAVOUR_MILK:
 						return new RacialEffectUtil("Makes cum taste like milk.") { @Override public String applyEffect() { return target.setCumFlavour(FluidFlavour.MILK); } };
+					case TF_MOD_FLAVOUR_FLAVOURLESS:
+						return new RacialEffectUtil("Makes cum have no flavour.") { @Override public String applyEffect() { return target.setCumFlavour(FluidFlavour.FLAVOURLESS); } };
 					case TF_MOD_FLAVOUR_HONEY:
 						return new RacialEffectUtil("Makes cum taste like honey.") { @Override public String applyEffect() { return target.setCumFlavour(FluidFlavour.HONEY); } };
 					case TF_MOD_FLAVOUR_MINT:
@@ -5373,6 +5381,8 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil("Makes milk taste like girlcum.") { @Override public String applyEffect() { return target.setMilkFlavour(FluidFlavour.GIRL_CUM); } };
 					case TF_MOD_FLAVOUR_MILK:
 						return new RacialEffectUtil("Makes milk taste like milk.") { @Override public String applyEffect() { return target.setMilkFlavour(FluidFlavour.MILK); } };
+					case TF_MOD_FLAVOUR_FLAVOURLESS:
+						return new RacialEffectUtil("Makes milk have no flavour.") { @Override public String applyEffect() { return target.setMilkFlavour(FluidFlavour.FLAVOURLESS); } };
 					case TF_MOD_FLAVOUR_HONEY:
 						return new RacialEffectUtil("Makes milk taste like honey.") { @Override public String applyEffect() { return target.setMilkFlavour(FluidFlavour.HONEY); } };
 					case TF_MOD_FLAVOUR_MINT:
@@ -5501,6 +5511,8 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil("Makes udder-milk taste like girlcum.") { @Override public String applyEffect() { return target.setMilkCrotchFlavour(FluidFlavour.GIRL_CUM); } };
 					case TF_MOD_FLAVOUR_MILK:
 						return new RacialEffectUtil("Makes udder-milk taste like milk.") { @Override public String applyEffect() { return target.setMilkCrotchFlavour(FluidFlavour.MILK); } };
+					case TF_MOD_FLAVOUR_FLAVOURLESS:
+						return new RacialEffectUtil("Makes udder-milk have no flavour.") { @Override public String applyEffect() { return target.setMilkCrotchFlavour(FluidFlavour.FLAVOURLESS); } };
 					case TF_MOD_FLAVOUR_HONEY:
 						return new RacialEffectUtil("Makes udder-milk taste like honey.") { @Override public String applyEffect() { return target.setMilkCrotchFlavour(FluidFlavour.HONEY); } };
 					case TF_MOD_FLAVOUR_MINT:
@@ -5629,6 +5641,8 @@ public abstract class AbstractItemEffectType {
 						return new RacialEffectUtil("Makes girlcum taste like girlcum.") { @Override public String applyEffect() { return target.setGirlcumFlavour(FluidFlavour.GIRL_CUM); } };
 					case TF_MOD_FLAVOUR_MILK:
 						return new RacialEffectUtil("Makes girlcum taste like milk.") { @Override public String applyEffect() { return target.setGirlcumFlavour(FluidFlavour.MILK); } };
+					case TF_MOD_FLAVOUR_FLAVOURLESS:
+						return new RacialEffectUtil("Makes girlcum have no flavour.") { @Override public String applyEffect() { return target.setGirlcumFlavour(FluidFlavour.FLAVOURLESS); } };
 					case TF_MOD_FLAVOUR_HONEY:
 						return new RacialEffectUtil("Makes girlcum taste like honey.") { @Override public String applyEffect() { return target.setGirlcumFlavour(FluidFlavour.HONEY); } };
 					case TF_MOD_FLAVOUR_MINT:

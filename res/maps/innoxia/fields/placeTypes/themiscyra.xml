@@ -4,7 +4,6 @@
 	<name><![CDATA[Themiscyra]]></name>
 	<tooltipDescription><![CDATA[Hidden away deep in the Foloi forests, the town of Themiscyra is home to an all-female population, who are known as the Amazons.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[near Themiscyra]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>false</sexBlockedFromCharacterPresent>
 	<colour>BASE_BLUE_LIGHT</colour>
 	<backgroundColour>MAP_BACKGROUND_GREEN_DARK</backgroundColour>

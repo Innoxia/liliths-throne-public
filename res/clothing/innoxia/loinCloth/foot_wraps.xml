@@ -64,59 +64,28 @@
 		<itemTags/>
 	</coreAttributes>
 
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You take off your foot wraps.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You pull off [npc.name]'s foot wraps.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You grab hold of [npc.name]'s foot wraps and roughly pull them off.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] takes [npc.her] foot wraps off.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] pulls your foot wraps off.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] grabs hold of your foot wraps and roughly pulls them off.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] pulls [npc2.name]'s foot wraps off.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc.Name] grabs hold of [npc2.name]'s foot wraps and roughly pulls them off.
-		]]></NPCOtherNPCRough>
-	</displacementText>
-
-	<!-- 'replacementText' is used for equipping and replacements. -->
 	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You pull on the foot wraps.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You guide [npc.name]'s [npc.feet] into the foot wraps.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You hold [npc.name] still as you roughly force the foot wraps onto [npc.her] [npc.feet].
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] pulls on the foot wraps.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] guides your [pc.feet] into the foot wraps.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] holds you still as [npc.she] roughly forces the foot wraps onto your [pc.feet].
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] guides [npc2.name]'s [npc2.feet] into the foot wraps.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] holds [npc2.name] still as [npc1.she] roughly forces the foot wraps onto [npc2.her] [npc2.feet].
-		]]></NPCOtherNPCRough>
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(tie)] the foot wraps around [npc.her] [npc.feet].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(tie)] the foot wraps around [npc2.namePos] [npc2.feet].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(tie)] the foot wraps around [npc2.namePos] [npc2.feet].]]>
+		</otherRough>
 	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(untie)] the foot wraps from around [npc.her] [npc.feet].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(untie)] the foot wraps from around [npc2.namePos] [npc2.feet].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(untie)] the foot wraps from around [npc2.namePos] [npc2.feet].]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

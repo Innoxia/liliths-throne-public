@@ -49,6 +49,7 @@ public enum StartingSkinTone {
 			
 	LIGHT(Util.newArrayListOfValues(
 			PresetColour.SKIN_LIGHT,
+			PresetColour.SKIN_PORCELAIN,
 			PresetColour.SKIN_ROSY,
 			PresetColour.SKIN_PINK,
 			PresetColour.SKIN_BLUE,

@@ -12,6 +12,7 @@
 	<nocturnality>DIURNAL</nocturnality>
 	<shortStature>false</shortStature>
 	<bipedalSubspecies>true</bipedalSubspecies>
+	<winged>true</winged>
 	<applySubspeciesChanges/>
 	<subspeciesWeighting><![CDATA[
 		#IF(targetedRace==RACE_innoxia_raptor)

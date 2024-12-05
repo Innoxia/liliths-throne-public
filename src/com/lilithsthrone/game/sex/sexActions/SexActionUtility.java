@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.sex.sexActions;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -11,6 +12,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.sex.ArousalIncrease;
+import com.lilithsthrone.game.sex.ImmobilisationType;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotGeneric;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PositioningMenu;
@@ -238,16 +240,13 @@ public class SexActionUtility {
 		public String getActionTitle() {
 			return "Use item";
 		}
-
 		@Override
 		public String getActionDescription() {
 			return "See what items you could use.";
 		}
-		
 		@Override
 		public String getDescription() {
 			return Main.sex.getUsingItemText();
-				
 		}
 	};
 	
@@ -436,7 +435,7 @@ public class SexActionUtility {
 			return Main.sex.getItemUseInformation().getKey().useItem(item, Main.game.getPlayer(), false, false); // Append full use + effects
 		}
 		@Override
-		public boolean isAvailableDuringImmobilisation() {
+		public boolean isAvailableDuringImmobilisation(Collection<ImmobilisationType> types) {
 			return true;
 		}
 	};
@@ -475,7 +474,7 @@ public class SexActionUtility {
 			Main.sex.addItemUseDenial(Main.sex.getItemUseInformation().getKey(), Main.game.getPlayer(), Main.sex.getItemUseInformation().getValue().getValue().getItemType());
 		}
 		@Override
-		public boolean isAvailableDuringImmobilisation() {
+		public boolean isAvailableDuringImmobilisation(Collection<ImmobilisationType> types) {
 			return true;
 		}
 	};

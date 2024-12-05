@@ -14,6 +14,7 @@ import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.AnusType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
+import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -193,6 +194,9 @@ public abstract class AbstractAssType implements BodyPartTypeInterface {
 	 */
 	public AbstractBodyCoveringType getBodyCoveringType(Body body) {
 		if(body!=null) {
+			if(body.getLegConfiguration()!=LegConfiguration.BIPEDAL) {
+				return body.getLeg().getBodyCoveringType(body);
+			}
 			return body.getTorso().getBodyCoveringType(body);
 		}
 		return coveringType;

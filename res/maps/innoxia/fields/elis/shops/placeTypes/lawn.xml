@@ -4,7 +4,6 @@
 	<name><![CDATA[lawn]]></name>
 	<tooltipDescription><![CDATA[A strip of well maintained lawn runs down the middle of the 'Wall's End' shopping precinct, with nearby signs encouraging shoppers to sit on it and rest.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[on the lawn at the 'Wall's End' shopping precinct]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_GREEN</colour>
 	<backgroundColour>MAP_BACKGROUND_GREEN</backgroundColour>

@@ -4,7 +4,6 @@
 	<name><![CDATA[The Fashionable Moo]]></name>
 	<tooltipDescription><![CDATA[While there are several clothing stores found throughout Elis, this one stands out due to its owner's outgoing personality.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in 'The Fashionable Moo' clothing store]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_ROSE</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

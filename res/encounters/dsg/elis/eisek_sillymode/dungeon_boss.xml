@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<encounterRoot>
+	<additionalPlaceTypeTriggers>
+		<placeType>dsg_fields_elis_eisek_sillymode_dungeon_boss</placeType>
+	</additionalPlaceTypeTriggers>
+	
+	<possibleEncounters>
+		<encounter>
+			<name><![CDATA[A Boss "Battle"]]></name>
+			<chanceToTrigger opportunisticEncounter="false"><![CDATA[
+			#IF(!flags.hasFlag(FLAG_dsg_elis_eisek_sillymode_boss_defeated))
+				100
+			#ELSE
+				0
+			#ENDIF
+			]]></chanceToTrigger>
+			<dialogueReturned><![CDATA[dsg_encounters_fields_elis_eisek_sillymode_dungeon_boss_battle]]></dialogueReturned>
+		</encounter>
+	</possibleEncounters>
+	
+</encounterRoot>

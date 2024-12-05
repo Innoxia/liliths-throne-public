@@ -4,7 +4,6 @@
 	<name><![CDATA[reception area]]></name>
 	<tooltipDescription><![CDATA[The reception area is where gym members and guests check-in to gain access to the facilities.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the gym, 'Pix's Playground']]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_ORANGE</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

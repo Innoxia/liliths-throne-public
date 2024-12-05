@@ -17,7 +17,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.4.0
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class Tail implements BodyPartInterface {
@@ -38,6 +38,13 @@ public class Tail implements BodyPartInterface {
 		this.lengthAsPercentageOfHeight = type.getDefaultLengthAsPercentageOfHeight();
 	}
 
+	public Tail(Tail tailToCopy) {
+		this.type = tailToCopy.type;
+		this.tailCount = tailToCopy.tailCount;
+		this.girth = tailToCopy.girth;
+		this.lengthAsPercentageOfHeight = tailToCopy.lengthAsPercentageOfHeight;
+	}
+	
 	@Override
 	public AbstractTailType getType() {
 		return type;
@@ -408,11 +415,8 @@ public class Tail implements BodyPartInterface {
 		if(this.getType().getTags().contains(BodyPartTag.TAIL_NEVER_SUITABLE_FOR_PENETRATION)) {
 			return false;
 		}
-		if(this.getType().getTags().contains(BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION)) {
+		if(this.getType().getTags().contains(BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION) || Main.game.isFurryTailPenetrationContentEnabled()) {
 			return this.getType().isPrehensile() || this.getLengthAsPercentageOfHeight()>=0.5f;
-			
-		} else if(Main.game.isFurryTailPenetrationContentEnabled()) {
-			return this.getType().isPrehensile();
 		}
 		return false;
 	}

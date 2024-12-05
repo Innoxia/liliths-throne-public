@@ -1,19 +1,47 @@
 package com.lilithsthrone.game.occupantManagement.slave;
 
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.87
- * @version 0.3.9
+ * @version 0.4.9.1
  * @author Innoxia
  */
 public enum SlaveJobSetting {
 	
-	SEX_ORAL(PresetColour.GENERIC_SEX, "Allow Oral", "Oral", "Allow this slave to perform oral on others."),
-	SEX_VAGINAL(PresetColour.GENERIC_SEX, "Allow Vaginal", "Vaginal", "Allow this slave to receive vaginal sex."),
-	SEX_ANAL(PresetColour.GENERIC_SEX, "Allow Anal", "Anal", "Allow this slave to receive anal sex."),
-	SEX_NIPPLES(PresetColour.GENERIC_SEX, "Allow Nipples", "Nipples", "Allow this slave to receive penetrative nipple sex."),
+	// Sex as a sub settings:
+	SEX_ORAL(PresetColour.GENERIC_SEX, "Perform Oral", "Oral P", "Allow this slave to perform oral on others."),
+	SEX_VAGINAL(PresetColour.GENERIC_SEX, "Receive Vaginal", "Vaginal R", "Allow this slave to receive vaginal sex."),
+	SEX_ANAL(PresetColour.GENERIC_SEX, "Receive Anal", "Anal R", "Allow this slave to receive anal sex.") {
+		@Override
+		public boolean isAvailable() {
+			return Main.game.isAnalContentEnabled();
+		}
+	},
+	SEX_NIPPLES(PresetColour.GENERIC_SEX, "Receive Nipples", "Nipples R", "Allow this slave to receive penetrative nipple sex.") {
+		@Override
+		public boolean isAvailable() {
+			return Main.game.isNipplePenEnabled();
+		}
+	},
+
+	// Sex as a dom settings:
+	SEX_ORAL_DOM(PresetColour.GENERIC_SEX, "Receive Oral", "Oral R", "Allow this slave to receive oral sex from others."),
+	SEX_VAGINAL_DOM(PresetColour.GENERIC_SEX, "Perform Vaginal", "Vaginal P", "Allow this slave to perform vaginal sex on others."),
+	SEX_ANAL_DOM(PresetColour.GENERIC_SEX, "Perform Anal", "Anal P", "Allow this slave to perform anal sex on others.") {
+		@Override
+		public boolean isAvailable() {
+			return Main.game.isAnalContentEnabled();
+		}
+	},
+	SEX_NIPPLES_DOM(PresetColour.GENERIC_SEX, "Perform Nipples", "Nipples P", "Allow this slave to perform penetrative nipple sex on others.") {
+		@Override
+		public boolean isAvailable() {
+			return Main.game.isNipplePenEnabled();
+		}
+	},
 
 	
 	MILKING_NO_PREFERENCE(PresetColour.BASE_GREY, "No Preference", "NP", "Set this slave to work in any available milking room."),
@@ -36,8 +64,16 @@ public enum SlaveJobSetting {
 	TEST_SUBJECT_ALLOW_TRANSFORMATIONS_FEMALE(PresetColour.FEMININE, "Feminine TF", "TF (F)", "Allow this slave to receive feminine transformations."),
 	TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE(PresetColour.MASCULINE, "Masculine TF", "TF (M)", "Allow this slave to receive masculine transformations."),
 
-	SECURITY_ENTRANCE_PRIORITY(PresetColour.BASE_GOLD, "Entrance priority", "EP", "This slave will be chosen above others to be positioned at the entrance. (If multiple slaves have this permission, the one who gets there first will remain there.)"),
-	SECURITY_ANSWER_DOOR(PresetColour.BASE_GREEN_LIGHT, "Answer door", "AD", "If this slave is located at the entrance, they will answer the door instead of Rose."),
+	DOLL_STATUE_ARTISTIC(PresetColour.BASE_TAN, "Artistic", "DPAR", "Order this doll to strike an artistic pose when acting as a statue."),
+	DOLL_STATUE_ATTENTION(PresetColour.BASE_TAN, "At Attention", "DPAT", "Order this doll to stand at attention when acting as a statue."),
+	DOLL_STATUE_STANDING_SPLIT(PresetColour.BASE_TAN, "Standing Split", "DPSS", "Order this doll to perform a standing split when acting as a statue."),
+	DOLL_STATUE_MISSIONARY(PresetColour.BASE_TAN, "Missionary", "DPMI", "Order this doll to lie back in a missionary position when acting as a statue."),
+	DOLL_STATUE_ALL_FOURS(PresetColour.BASE_TAN, "All Fours", "DPAF", "Order this doll to get down on all fours when acting as a statue."),
+	DOLL_STATUE_SQUATTING(PresetColour.BASE_TAN, "Squatting", "DPSQ", "Order this doll to squat down with spread legs and hands behind their head when acting as a statue."),
+	DOLL_STATUE_BRIDGE(PresetColour.BASE_TAN, "Bridge", "DPBR", "Order this doll to perform an acrobatic bridge when acting as a statue."),
+
+	SECURITY_ENTRANCE_PRIORITY(PresetColour.BASE_GOLD, "Entrance Priority", "EP", "This slave will be chosen above others to be positioned at the entrance. (If multiple slaves have this permission, the one who gets there first will remain there.)"),
+	SECURITY_ANSWER_DOOR(PresetColour.BASE_GREEN_LIGHT, "Answer Door", "AD", "If this slave is located at the entrance, they will answer the door instead of Rose."),
 	
 	BEDROOM_GREETING(PresetColour.GENERIC_MINOR_GOOD, "Greeting", "BG", "Instruct this slave to greet you whenever you enter your room."),
 	BEDROOM_CLEAN(PresetColour.BASE_BLUE_LIGHT, "Cleaning", "BC", "Tell this slave to keep your room clean."),
@@ -94,6 +130,13 @@ public enum SlaveJobSetting {
 	
 	public String applyDailyEffects() {
 		return null;
+	}
+	
+	/**
+	 * @return true if this setting is displayed to the player. It will only be false if an associated content setting (e.g. anal, nipple pen) is turned off.
+	 */
+	public boolean isAvailable() {
+		return true;
 	}
 	
 }

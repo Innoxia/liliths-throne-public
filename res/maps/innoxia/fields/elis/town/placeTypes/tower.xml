@@ -4,7 +4,6 @@
 	<name><![CDATA[tower]]></name>
 	<tooltipDescription><![CDATA[At several points along the wall's perimeter, tall stone towers have been constructed, from the crenellated tops of which the surrounding lands can easily be surveyed.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in one of the towers along the walls of Elis]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_BLACK</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

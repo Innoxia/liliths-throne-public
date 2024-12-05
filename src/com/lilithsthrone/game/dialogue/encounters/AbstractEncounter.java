@@ -274,7 +274,10 @@ public abstract class AbstractEncounter {
 						&& slave.getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION
 						&& slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_OUTSIDE_FREEDOM)) {
 					for(NPC horny : hornySlaves.keySet()) {
-						if(!horny.equals(slave) && horny.isAttractedTo(slave)) {
+						if(!horny.equals(slave)
+								&& horny.isAttractedTo(slave)
+								&& (slave.isAttractedTo(horny)
+										|| (horny.hasSlavePermissionSetting(SlavePermissionSetting.SEX_RAPIST) && horny.isWillingToRape(slave)))) {
 							hornySlaves.get(horny).add(slave);
 						}
 					}
@@ -339,7 +342,10 @@ public abstract class AbstractEncounter {
 							|| slave.getSlaveJob(Main.game.getHourOfDay())==SlaveJob.CLEANING)
 						&& slave.getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) {
 					for(NPC horny : hornySlaves.keySet()) {
-						if(!horny.equals(slave) && horny.isAttractedTo(slave)) {
+						if(!horny.equals(slave)
+								&& horny.isAttractedTo(slave)
+								&& (slave.isAttractedTo(horny)
+										|| (horny.hasSlavePermissionSetting(SlavePermissionSetting.SEX_RAPIST) && horny.isWillingToRape(slave)))) {
 							hornySlaves.get(horny).add(slave);
 						}
 					}

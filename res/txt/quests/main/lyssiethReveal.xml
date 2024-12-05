@@ -239,9 +239,12 @@
 		[lyssieth.speech(Don't worry, I'll tell you everything,)] [lyssieth.name] says, [lyssieth.speech(but first, let us conclude the business regarding my daughter's return. You have something to say, don't you, [siren.name]?)]
 	</p>
 	<p>
-		#IF siren.getAffection(pc)>30
-		#THEN [siren.speech(Y-Yes, I suppose...)] [siren.name] says, blushing and looking at the floor. [siren.speech(Sorry for all the trouble I caused. And thank you... F-For saving me, that is...)]
-		#ELSE [siren.speech(Even though [pc.she] was going to leave me to be crushed? You're making <i>me</i> apologise?)] [siren.name] protests, but her mother just raises an eyebrow and starts tapping her foot on the floor. [siren.speech(Fine... Sorry, [pc.name], for all the trouble I caused...)]
+		#IF(siren.getAffection(pc)>30)
+			[siren.speech(Y-Yes, I suppose...)] [siren.name] says, blushing and looking at the floor. [siren.speech(Sorry for all the trouble I caused. And thank you... F-For saving me, that is...)]
+		#ELSEIF(flags.hasFlag(FLAG_meraxisTrickedWithRing))
+			[siren.speech(Even though [pc.she] tricked me into putting on your ring? You're making <i>me</i> apologise?)] [siren.name] protests, but her mother just raises an eyebrow and starts tapping her foot on the floor. [siren.speech(Fine... Sorry, [pc.name], for all the trouble I caused...)]
+		#ELSE
+			[siren.speech(Even though [pc.she] was going to leave me to be crushed? You're making <i>me</i> apologise?)] [siren.name] protests, but her mother just raises an eyebrow and starts tapping her foot on the floor. [siren.speech(Fine... Sorry, [pc.name], for all the trouble I caused...)]
 		#ENDIF
 	</p>
 	<p>
@@ -900,7 +903,7 @@
 		[lyssieth.speech([pc.Name]? Are you ok? [pc.Name]?)] you hear Lyssieth calling from somewhere far away. [lyssieth.speech([pc.Name]! Wake up!)]
 	</p>
 	<p>
-		Her voice suddenly increases in volume, and you open your eyes to discover that you're lying on the floor, with your head resting on Lyssieth's lap. [lyssieth.speech(Thank goodness! You're alright!)] She exclaims, relived to see that you've regained consciousness.
+		Her voice suddenly increases in volume, and you open your eyes to discover that you're lying on the floor, with your head resting on Lyssieth's lap. [lyssieth.speech(Thank goodness! You're alright!)] She exclaims, relieved to see that you've regained consciousness.
 	</p>
 	<p>
 		[pc.speech(Ow, my head,)] you complain, reaching up to rub at your temple.

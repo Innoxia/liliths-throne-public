@@ -33,6 +33,9 @@
 		<incompatibleSlots/>
 		
 		<primaryColours>
+			<colour>CLOTHING_ORANGE</colour>
+			<colour>CLOTHING_ORANGE_BRIGHT</colour>
+			<colour>CLOTHING_ORANGE_DARK</colour>
 			<colour>CLOTHING_TAN</colour>
 			<colour>CLOTHING_BROWN</colour>
 			<colour>CLOTHING_GREY</colour>

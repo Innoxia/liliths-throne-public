@@ -95,7 +95,7 @@ public class LilayaMilkingRoomDialogue {
 						}
 					};
 				} else {
-					return new Response("Manage room", "You'll either need a slaver license, or permission from Lilaya to house your friends, before you can access this menu!",  null);
+					return new Response("Manage room", "You need a slaver license or permission from Lilaya to house your friends or dolls in order to access this menu!",  null);
 				}
 				
 			}  else if (index == 2) {
@@ -107,7 +107,7 @@ public class LilayaMilkingRoomDialogue {
 						}
 					};
 				} else {
-					return new Response("Manage people", "You'll either need a slaver license, or permission from Lilaya to house your friends, before you can access this menu!",  null);
+					return new Response("Manage people", "You need a slaver license or permission from Lilaya to house your friends or dolls in order to access this menu!",  null);
 				}
 				
 			} else if(index>=3 && index<6) {
@@ -214,6 +214,12 @@ public class LilayaMilkingRoomDialogue {
 							UtilText.parse(getMilkingTarget(), "[npc.NameIsFull] unable to get access to [npc.her] cock, so [npc.she] can't be milked at the moment..."),
 							null);
 					
+				} else if(!getMilkingTarget().isAbleToOrgasm()) {
+					return new Response(
+							"Milk "+(getMilkingTarget().isPlayer()?"self":UtilText.parse(getMilkingTarget(), "[npc.NamePos]"))+" cum",
+							UtilText.parse(getMilkingTarget(), "[npc.NameIsFull] unable to orgasm, so can't be milked of [npc.her] cum!"),
+							null);
+					
 				} else if(charactersPresent.size()==8) {
 					return new Response(
 							"Milk "+(getMilkingTarget().isPlayer()?"self":UtilText.parse(getMilkingTarget(), "[npc.NamePos]"))+" cum",
@@ -297,6 +303,12 @@ public class LilayaMilkingRoomDialogue {
 					return new Response(
 							"Milk "+(getMilkingTarget().isPlayer()?"self":UtilText.parse(getMilkingTarget(), "[npc.NamePos]"))+" girlcum",
 							UtilText.parse(getMilkingTarget(), "[npc.NameIsFull] unable access to [npc.her] pussy, so can't be milked of [npc.her] girlcum at the moment..."),
+							null);
+					
+				} else if(!getMilkingTarget().isAbleToOrgasm()) {
+					return new Response(
+							"Milk "+(getMilkingTarget().isPlayer()?"self":UtilText.parse(getMilkingTarget(), "[npc.NamePos]"))+" girlcum",
+							UtilText.parse(getMilkingTarget(), "[npc.NameIsFull] unable to orgasm, so can't be milked of [npc.her] girlcum!"),
 							null);
 					
 				} else if(charactersPresent.size()==8) {

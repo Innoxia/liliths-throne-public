@@ -16,7 +16,7 @@ public enum SlaveJobFlag {
 	
 	INTERACTION_BONDING(PresetColour.AFFECTION, "Slave bonding", "Slaves who are assigned to this job are able to socialise with other slaves."),
 	
-	GUEST_CAN_WORK(PresetColour.GENERIC_NEUTRAL, "Guest worker", "Guests can be assigned to this job");
+	GUEST_CAN_WORK(PresetColour.GENERIC_NEUTRAL, "Guest worker", "Guests can be assigned to this job.");
 	
 	private Colour colour;
 	private String name;

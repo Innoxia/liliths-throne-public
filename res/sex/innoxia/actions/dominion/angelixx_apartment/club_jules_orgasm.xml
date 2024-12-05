@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+
+	<buttonPriority>0</buttonPriority>
+	<actionConditional><![CDATA[true]]></actionConditional>
+	<type>ORGASM</type>
+	<pace/>
+	<endsSex><![CDATA[true]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>TWO_HORNY</associatedCorruption>
+	<associatedFetishes>
+		<performer>
+			<fetish>FETISH_VAGINAL_GIVING</fetish>
+		</performer>
+		<target>
+			<fetish>FETISH_VAGINAL_RECEIVING</fetish>
+		</target>
+	</associatedFetishes>
+	<performingArea>PENETRATION_PENIS</performingArea>
+	<targetedArea>ORIFICE_MOUTH</targetedArea>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+		[##sex.stopAllOngoingActions(jules, PENETRATION_PENIS)]
+		#IF(flags.hasFlag(FLAG_innoxia_angelixx_club_jules_targeting_player))
+			[##sex.applyOngoingAction(jules, PENETRATION_PENIS, pc, ORIFICE_VAGINA, true)]
+		#ELSE
+			[##sex.applyOngoingAction(jules, PENETRATION_PENIS, angelixx, ORIFICE_VAGINA, true)]
+		#ENDIF
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn>
+		<orifice>ORIFICE_VAGINA</orifice>
+	</areasCummedIn>
+	
+	<areasCummedOn/>
+	
+	<!-- Information displayed to the player: -->
+	
+	<title><![CDATA[
+		#IF(flags.hasFlag(FLAG_innoxia_angelixx_club_jules_targeting_player))
+			Finish in [pc.namePos] pussy
+		#ELSE
+			Finish in Angelixx's pussy
+		#ENDIF
+	]]></title>
+	<tooltip><![CDATA[Cum deep in one of these slut's pussies.]]></tooltip>
+	
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#flags.hasFlag(FLAG_innoxia_angelixx_club_jules_targeting_player)]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				You present yourself to Jules. Angelixx guides his cock to your cunt before kissing you.
+				
+				<br/><br/>The zebra-boy rams his dick into your cunt, and with a deep grunt he thrusts into you as deep as he can.
+				
+				<br/><br/>He cums hard and stuffs your cunt/womb full of his seed.
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#!flags.hasFlag(FLAG_innoxia_angelixx_club_jules_targeting_player)]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				You present Angelixx to Jules. You guide his cock to Angelixx's cunt, before kissing the succubus.
+				
+				<br/><br/>The zebra-boy rams his dick into Angelixx's cunt, and with a deep grunt he thrusts into her as deep as he can. "Tight as ever, slut."
+				
+				<br/><br/>He cums hard and stuffs the succubus's cunt/womb full of his seed.
+			]]></text>
+		</description>
+	</descriptions>
+	
+</sexAction>

@@ -3,57 +3,70 @@
 <clothing>
 	<coreAtributes>
 		<clothingAuthorTag><![CDATA[Metallic embroidery on the underside of the headband reads 'MFD by DSG Costume Supply Co, Ltd'.]]></clothingAuthorTag>
-		<value>250</value> 
-		
+		<value>250</value>
 		<determiner><![CDATA[a]]></determiner>
-		
 		<name><![CDATA[bunny headband]]></name>
-		
-		<namePlural pluralByDefault="false"><![CDATA[bunny headbands]]></namePlural> 
-		
-		<description><![CDATA[A headband with stylised bunny ears attached to the top, designed to keep your hair pushed back out of your face.]]></description> 
-		
-		<physicalResistance>0</physicalResistance> 
-		
-		<femininity>ANDROGYNOUS</femininity> 
-		
-		<slot>HEAD</slot> 
-		
-		<rarity>COMMON</rarity> 
-		
-		<clothingSet/> 
-		
-		<imageName>bheadband.svg</imageName> 
-		
+		<namePlural pluralByDefault="false"><![CDATA[bunny headbands]]></namePlural>
+		<description><![CDATA[A headband with stylised bunny ears attached to the top, designed to keep your hair pushed back out of your face.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<slot>HEAD</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>bheadband.svg</imageName>
 		<imageEquippedName/>
-		
 		<effects/> 
 		
-		<blockedPartsList> 
+		<stickers>
+			<category id="Inserts" priority="1">
+				<sticker id="none" priority="1" defaultSticker="true" zLayer="1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[None]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="inserts" priority="2" defaultSticker="false" zLayer="1">
+					<stickerName><![CDATA[Detailed]]></stickerName>
+					<namePrefix priority="1"><![CDATA[detailed ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName>bheadband_inserts.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+			</category>
+		</stickers>
 		
+		<blockedPartsList> 
 			<blockedParts>
-			
 				<displacementType>REMOVE_OR_EQUIP</displacementType> 
-				
 				<clothingAccessRequired>
 					<clothingAccess>HEAD</clothingAccess>
-				</clothingAccessRequired>	
-				
+				</clothingAccessRequired>
 				<blockedBodyParts/>
-				
 				<clothingAccessBlocked/>
-				
 				<concealedSlots/>
 			</blockedParts>
-			
 		</blockedPartsList>
 		
 		<incompatibleSlots/> 
 		
-		<primaryColours values="ALL"/> 
-		<primaryColoursDye values="ALL"/>
-		<secondaryColours values="ALL"/>
+		<primaryColours values="ALL"/>
+		<primaryColoursDye/>
+		<secondaryColours values="JUST_GREY"/>
 		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours>
+			<colour>CLOTHING_PINK</colour>
+			<colour>CLOTHING_PINK_HOT</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL"/>
 		
 		<itemTags> 
 			<tag>SOLD_BY_NYAN</tag>

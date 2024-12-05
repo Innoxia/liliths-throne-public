@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
@@ -90,35 +89,14 @@ public class Library {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			List<NPC> charactersPresent = Main.game.getNonCompanionCharactersPresent();
+
+			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/lilayasHome/library", "LIBRARY"));
 			
-			UtilText.nodeContentSB.append("<p>"
-					+ "Pushing open the heavy wooden door, you find yourself walking into Lilaya's library."
-					+ " Much like her lab, all four walls are covered in shelving; stacked full of what must be thousands of books of all shapes and sizes."
-					+ " Much of the room is taken up by free-standing book cases, although there's a little space on one side of the room, where a couple of comfortable leather-bound chairs flank an ornate fireplace."
-				+ "</p>"
-				+ "<p>" //TODO
-					+ "Walking down one of the aisles, you see a great deal of organisation has gone into the design of the room, and upon closer inspection, you see that the shelves are immaculately clean;"
-					+ " evidence that a lot of care goes into its maintenance."
-					+ " As you walk, you scan the titles printed onto the spines of the books, but there's not really much that catches your eye."
-					+ " Only a few shelves really look to be of any interest, and you wonder if you should take some time to do a spot of reading."
-				+ "</p>"
-				+ "<p>"
-					+ "On the back wall at the end of the shelves is a huge map of the city of Dominion. You wonder if you should take a picture of it with your phone's camera."
-				+ "</p>"
-				+ "<p>"//TODO
-					+"One of the library's aisles is dedicated to holding copies of the spell books that you've discovered and read in your travels."
-					+ " As you walk down this aisle, you see that the shelves in this section are fashioned out of shimmering purple energy, and seem to shift and move with a life of their own."
-				+ "</p>");
-			
-			if(charactersPresent.isEmpty()) {
-				UtilText.nodeContentSB.append("<p>"
-							+ "The library is deserted at the moment..."
-						+ "</p>");
-			} else {
+			if(!charactersPresent.isEmpty()) {
 				for(NPC slave : charactersPresent) {
 					UtilText.nodeContentSB.append(LilayaHomeGeneric.getSlavePresentDescription(slave,
 							"is not even bothering to pretend that [npc.sheIs] working.",
-							"appears to be half-heartedly ordering some books.",
+							"appears to be half-heartedly rearranging some books.",
 							"is currently dusting the shelves and making sure that everything is in order.",
 							"is currently reorganising one of the shelves.",
 							"is dutifully making a catalogue of all the books available in the library."));
@@ -158,9 +136,6 @@ public class Library {
 					return new Response("Arcane Arousal", "A leather-bound tome that seems to offer an insight into how the arcane works.", ARCANE_AROUSAL) {
 						@Override
 						public void effects() {
-							if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.readBook1)) {
-								Main.game.getPlayer().incrementAttribute(Attribute.SPELL_COST_MODIFIER, 1f);//TODO replace with something else
-							}
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.readBook1, true);
 						}
 					};
@@ -198,7 +173,18 @@ public class Library {
 						}
 					};
 
-				} else if (index == 5) {
+				} else if(index==5) {
+					if(Main.game.getCurrentDialogueNode()==FERAL_HISTORY) {
+						return new Response("The History of Ferals", "You are already reading this book!", null);
+					}
+					return new Response("The History of Ferals", "A hardback book detailing the history of feral transformations in the society of Lilith's Realm.", FERAL_HISTORY) {
+						@Override
+						public void effects() {
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.readBook5, true);
+						}
+					};
+					
+				} else if (index == 6) {
 					if(Main.game.getCurrentDialogueNode()==DOMINION_MAP) {
 						return new Response("City Map", "You are already viewing the map of Dominion!", null);
 					}
@@ -214,7 +200,7 @@ public class Library {
 						}
 					};
 	
-				} else if (index == 6 && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_SLAVERY, Quest.SIDE_SLAVER_NEED_RECOMMENDATION)) {
+				} else if (index == 7 && Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_SLAVERY, Quest.SIDE_SLAVER_NEED_RECOMMENDATION)) {
 					if(Main.game.getCurrentDialogueNode()==SLAVERY_HISTORY) {
 						return new Response("People as Property", "You are already reading this book!", null);
 					}
@@ -226,7 +212,7 @@ public class Library {
 						}
 					};
 	
-				} else if (index == 7 && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.readBookSlavery)) {
+				} else if (index == 8 && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.readBookSlavery)) {
 					if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("acexp_dungeon_found"))) {
 						return new Response("Lilaya's dungeon",
 								"Pull the thick book bearing the title 'Lilaya's Dirty Secrets' to open the secret passage down to Lilaya's dungeon.",
@@ -248,8 +234,8 @@ public class Library {
 						};
 					}
 	
-				} else if(index>=8 && index-8<charactersPresent.size()) {
-					NPC slave = charactersPresent.get(index-8);
+				} else if(index>=9 && index-9<charactersPresent.size()) {
+					NPC slave = charactersPresent.get(index-9);
 					return LilayaHomeGeneric.interactWithNPC(slave);
 				}
 				
@@ -381,6 +367,21 @@ public class Library {
 		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/library", "PREGNANCY_INFO");
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return LIBRARY.getResponseTabTitle(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return LIBRARY.getResponse(responseTab, index);
+		}
+	};
+
+	public static final DialogueNode FERAL_HISTORY = new DialogueNode("", "", false) {
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/library", "FERAL_HISTORY");
 		}
 		@Override
 		public String getResponseTabTitle(int index) {

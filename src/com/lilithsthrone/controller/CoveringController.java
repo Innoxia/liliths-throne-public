@@ -34,7 +34,8 @@ public class CoveringController {
 				|| ScarlettsShop.isSlaveCustomisationMenu()
 				|| Main.game.getCurrentDialogueNode() == MiscDialogue.getMakeupDialogueForEqualityCheck()
 				|| Main.game.getCurrentDialogueNode() == RoomPlayer.AUNT_HOME_PLAYERS_ROOM_MAKEUP
-				|| Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.PHONE;
+				|| Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.PHONE
+				|| BodyChanging.getTarget().isDoll();
 	}
 	
 	public static void initCoveringChangeListeners() {

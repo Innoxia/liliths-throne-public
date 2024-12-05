@@ -45,6 +45,10 @@ public enum QuestLine {
 			QuestType.SIDE,
 			QuestTree.accommodationTree),
 
+	SIDE_DOLL_STORAGE("Doll Storage", "Lilaya told you that you can use any spare room in which to store any dolls you buy...",
+			QuestType.SIDE,
+			QuestTree.dollStorageTree),
+
 	SIDE_HYPNO_WATCH("Arthur's Experiment", "You helped Arthur to complete his research into an orientation-changing Hypno-Watch, which is now in your possession!",
 			QuestType.SIDE,
 			QuestTree.hypnoWatchTree),
@@ -82,13 +86,25 @@ public enum QuestLine {
 			QuestType.SIDE,
 			QuestTree.wesTree),
         
-    SIDE_REBEL_BASE("Grave Robbing", "You managed to escape the abandoned rebel hideout.",
-            QuestType.SIDE,
-            QuestTree.rebelBaseTree),
-    
-    SIDE_REBEL_BASE_FIREBOMBS("Spicy Meatballs", "You've gotten yourself a steady supply of Arcane Firebombs. At the usual premium, of course.",
-            QuestType.SIDE,
-            QuestTree.rebelBaseFirebombTree),
+	SIDE_REBEL_BASE("Grave Robbing", "You managed to escape the abandoned rebel hideout.",
+		QuestType.SIDE,
+		QuestTree.rebelBaseTree),
+
+	SIDE_REBEL_BASE_FIREBOMBS("Spicy Meatballs", "You've gotten yourself a steady supply of Arcane Firebombs. At the usual premium, of course.",
+		QuestType.SIDE,
+		QuestTree.rebelBaseFirebombTree),
+	
+	SIDE_EISEK_STALL("Fix 'Er Upper", "You've helped Eisek fix up his stall.",
+		    QuestType.SIDE,
+		    QuestTree.eisekStallTree),
+	
+	SIDE_EISEK_MOB("Mob Mentality", "You've convinced the mob that was hounding Eisek to leave him alone.",
+		    QuestType.SIDE,
+		    QuestTree.eisekMobTree),
+	
+	SIDE_EISEK_SILLYMODE("Dragon Enthusiasts", "You encountered a strange group of dragon obssessed weirdos and cleared their dungeon.",
+		    QuestType.SIDE,
+		    QuestTree.eisekSillyModeTree),
 
 	SIDE_OGLIX_BEER_BARRELS("Beer Bitch Bonanza", "You secured more barrels for Oglix, allowing you to send four criminals from the nearby alleyways to her to become new beer-bitches!",
 			QuestType.SIDE,
@@ -97,6 +113,10 @@ public enum QuestLine {
 	SIDE_LUNEXIS_ESCAPE("Serving Lunexis", "You obeyed your Mistress's orders and ensured that she was able to escape, thereby sealing your fate to become one of her personal cock-sleeves...",
 			QuestType.SIDE,
 			QuestTree.lunexisEscapeTree),
+
+	SIDE_DOLL_FACTORY("Dealing With Dolls", "You uncovered the truth behind how the premium sex dolls for sale in 'Lovienne's Luxury' are created...",
+			QuestType.SIDE,
+			QuestTree.dollFactoryTree),
 	
 	// Romance quests:
 	

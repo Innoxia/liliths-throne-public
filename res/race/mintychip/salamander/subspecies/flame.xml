@@ -46,6 +46,10 @@
 	
 	<!-- The affinity of the subspecies. Optional. Defaults to AMPHIBIOUS. -->
 	<!--<affinity>AMPHIBIOUS</affinity>-->
+
+	<!-- Whether or not this is a subspecies with either arm or back wings (optional).
+	If set to false (the default) and the NPC or player is winged it will be displayed as winged subspecies (e. g. winged hyena-boy). -->
+	<!--<winged>false</winged>-->
 	
 	<!-- You can leave this section blank if you want to, but if your subspecies should have a non-default chance of having a certain personality type, then you can define it here.
 	These chances are rolled after the base personality chances for this race have been rolled (as defined in the RacialBody.xml file).

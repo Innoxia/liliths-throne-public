@@ -5,7 +5,7 @@
 		<determiner><![CDATA[an]]></determiner>
 		<name><![CDATA[ear tag]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[ear tags]]></namePlural>
-		<description><![CDATA[A bright yellow, plastic tag, typically worn in a pierced ear by domestic animals so that they can be quickly and easily identified.]]></description>
+		<description><![CDATA[A rectangular, plastic tag, typically worn in a pierced ear by domestic animals so that they can be quickly and easily identified.]]></description>
 		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
 		<slot>PIERCING_EAR</slot>

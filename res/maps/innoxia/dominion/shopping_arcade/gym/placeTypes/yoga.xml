@@ -4,7 +4,6 @@
 	<name><![CDATA[yoga studio]]></name>
 	<tooltipDescription><![CDATA[Partitioned off from the rest of the gym, this sound-proof studio offers a quiet place in which yoga classes are held.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the yoga studio at the gym, 'Pix's Playground']]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_GREEN_LIGHT</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

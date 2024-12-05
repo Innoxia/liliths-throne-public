@@ -4,7 +4,6 @@
 	<name><![CDATA[Arion's room]]></name>
 	<tooltipDescription><![CDATA[Minotallys's faithful assistant never strays far from her side, even while sleeping.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in Arion's office in Elis's town hall]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<svgName>room</svgName>
 	<colour>BASE_LILAC</colour>

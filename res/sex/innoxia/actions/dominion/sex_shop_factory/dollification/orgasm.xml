@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+
+	<buttonPriority>0</buttonPriority>
+	<actionConditional><![CDATA[
+		[#npc.isPlayer()]
+	]]></actionConditional>
+	<type>ORGASM</type>
+	<pace/>
+	<endsSex><![CDATA[
+		true
+	]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>	
+	<associatedFetishes/>
+	<performingArea/>
+	<targetedArea/>	
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>	
+	<applyEffects><![CDATA[
+		[##saellatrix.completeDollBodySiliconeDollification(pc)]
+		
+		[##sex.incrementNumberOfOrgasms(sleip, 1)]
+		[##sleip.setArousal(0)]
+		[##pc.ingestFluid(sleip, sleip.getCum(), ORIFICE_VAGINA, sleip.getPenisRawOrgasmCumQuantity())]
+		
+		[##sex.incrementNumberOfOrgasms(nir, 1)]
+		[##nir.setArousal(0)]
+		[##pc.ingestFluid(nir, nir.getCum(), ORIFICE_MOUTH, nir.getPenisRawOrgasmCumQuantity())]
+		
+		[##fia.setPetName(pc, pc.getName(false))]
+		[##pc.setName('Doll')]
+		[##pc.setSurname(pc.getTattooInSlot(IS_EYES).getWriting().getText())]
+	]]></applyEffects>	
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>	
+	<areasCummedIn/>
+	<areasCummedOn/>
+	
+	<!-- Information displayed to the player: -->
+	
+	<title><![CDATA[
+		Orgasm
+	]]></title>
+	
+	<tooltip><![CDATA[
+		You can't do anything to prevent your orgasm!
+	]]></tooltip>
+	
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				true
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Sensing your imminent orgasm, Angelixx happily skips up beside you and takes hold of the syringe that's still stuck between your bouncing silicone breasts. Placing her thumb on the plunger, she giggles, [angelixx.speech(Go on, cum already! It's time to start your new life as a dumb sex doll!)]
+				
+				<br/><br/>
+				
+				With Sleip's and Nir's huge, throbbing horse-cocks slamming in and out of your wet pussy and stretched throat, you find it impossible to control your arousal. On Angelixx's command, you reach your climax, and as an overwhelming rush of intense pleasure crashes through your body, you feel your silicone cunt squirt and squeeze down around Sleip's thick shaft. Your desperate squeals are silenced due to Nir's throbbing shaft being rammed deep down your throat, and instead come out as lewd, muffled moans.
+				
+				<br/><br/>
+				
+				[angelixx.speech(Good doll!)] Angelixx giggles, before pushing down on the syringe to expel the inky-black, sludge-like energy which your essences have been corrupted into. The intensity of your orgasm is increased tenfold as your essences are reintroduced to the empty shell of your aura, and as you experience the stupefying bliss of the most intense climax imaginable, you're vaguely aware of a sickly, slimy warmth that's slowly oozing its way towards the solid core that's in the place your heart used to be. With the now-empty syringe still stuck between your perfect tits, Angelixx teases her slender fingers around your erect, black nipples and taunts, [angelixx.speech(Dumb bitch, thinking you could get the better of me and my boys... Now become a doll!)]
+				
+				<br/><br/>
+				
+				As those words enter your head, you feel your corrupted essences make one last desperate lurch through your body as they finally reach your core. An abyssal darkness momentarily consumes you, and in the final, brief moment of your existence as '[pc.name]', you experience a shameful rush of excitement as you realise that you're about to become a dumb, obedient sex toy.
+				
+				<br/><br/>
+				
+				As the darkness fades and your vision returns, all trace of your personality, identity, and free will have utterly vanished. Unable to think of yourself as anything other than an obedient sex doll, you're unable to see Angelixx as anything but your Mistress and rightful owner, and feel an instinctive desire to obey absolutely any order she gives you. An opportunity to do just that presents itself to you, for she giggles and commands, [angelixx.speech(You can thank my boys for their help by milking them dry.)]
+				
+				<br/><br/>
+				
+				Eager to please, you desperately start slurping on Nir's cock while expertly squeezing your cunt down around Slip's cock. Your rhythmic, indefatigable motions prove to be too much for them to endure, and within moments they're lustfully grunting as they orgasm in tandem. You continue to eagerly massage their cocks as they empty their balls into your pussy and down your throat. Desperate to carry out your Mistress's order, you greedily swallow Nir's cum while clenching your sopping wet cunt down around Sleip's cock in order to milk him dry.
+				
+				<br/><br/>
+				
+				Thanks to your efforts, the two nightmares soon finish pumping you full of their thick, musky jizz, before pulling their softening horse-cocks out of you and bringing an end to the sex...
+			]]></text>
+		</description>
+	</descriptions>
+	
+</sexAction>

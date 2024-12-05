@@ -21,6 +21,7 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
+import com.lilithsthrone.world.places.AbstractPlaceType;
 import com.lilithsthrone.world.places.AbstractPlaceUpgrade;
 import com.lilithsthrone.world.places.Aquatic;
 import com.lilithsthrone.world.places.Darkness;
@@ -173,6 +174,10 @@ public class Cell implements XMLSaving {
 			place.getPlaceType().applyInventoryInit(this.getInventory());
 		}
 	}
+	
+	public AbstractPlaceType getPlaceType() {
+		return getPlace().getPlaceType();
+	}
 
 	public boolean isLight() {
 		return !isDark();
@@ -294,6 +299,9 @@ public class Cell implements XMLSaving {
 	}
 
 	public Set<String> getCharactersPresentIds() {
+		if(charactersPresentIds==null) {
+			charactersPresentIds = Collections.synchronizedSet(new HashSet<>());
+		}
 		return charactersPresentIds;
 	}
 

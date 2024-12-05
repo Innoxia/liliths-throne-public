@@ -1,0 +1,2015 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<!-- Player doll content: -->
+	
+	<scene id="start">
+		<preParsingEffects><![CDATA[
+			[#game.getWorlds().get(WORLD_TYPE_innoxia_dominion_sex_shop_factory).getCell(2, 1).getPlace().setPlaceType(PLACE_TYPE_GENERIC_IMPASSABLE)]
+			[#game.getWorlds().get(WORLD_TYPE_innoxia_dominion_sex_shop_factory).getCell(0, 3).getPlace().setPlaceType(PLACE_TYPE_GENERIC_IMPASSABLE)]
+				
+			[#pc.setLocation(WORLD_TYPE_innoxia_dominion_sex_shop_factory, PLACE_TYPE_innoxia_dominion_sex_shop_factory_doll_machine)]
+			[#angelixx.setLocation(pc)]
+			[#sleip.setLocation(pc)]
+			[#nir.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">START</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Swallow]]></responseTitle>
+				<responseTooltip><![CDATA[You're forced to drink the transformation potion...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_start_transformed]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="start_transformed">
+		<preParsingEffects><![CDATA[
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'START_TRANSFORMED'))]
+			#IF(pc.isFeminine())
+				[#flags.setFlag(FLAG_innoxia_doll_factory_pre_dollification_feminine, true)]
+			#ENDIF
+			
+			[#saellatrix.initBodyForDollification(pc)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Strapped in]]></responseTitle>
+				<responseTooltip><![CDATA[The nightmares roughly push you towards the table...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_start_table]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="start_table">
+		<preParsingEffects><![CDATA[
+			#IF(pc.isPregnant() || pc.hasAnyIncubationLitter())
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'START_TABLE_PREGNANT'))]
+			#ELSE
+				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'START_TABLE'))]
+			#ENDIF
+			
+			[#itemGen.generateItem(ITEM_MOTHERS_MILK).applyEffect(angelixx, pc)]
+			[#itemGen.generateItem(ITEM_MOTHERS_MILK).applyEffect(angelixx, pc)]
+			[#itemGen.generateItem(ITEM_MOTHERS_MILK).applyEffect(angelixx, pc)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#!pc.isPregnant() && !pc.hasAnyIncubationLitter()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Swallow!]]></responseTitle>
+				<responseTooltip><![CDATA[You have no choice but to swallow the transformative liquid.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_start_dollified]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#pc.isPregnant() || pc.hasAnyIncubationLitter()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Give birth]]></responseTitle>
+				<responseTooltip><![CDATA[Having been forced to drink all of the Mother's Milk, Angelixx makes you give birth...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_start_table_birthed]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="start_table_birthed">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'START_TABLE_BIRTHED'))]
+			#IF(pc.isPregnant())
+				[#pc.endPregnancy(true)]
+			#ENDIF
+			#IF(pc.hasAnyIncubationLitter())
+				[#pc.endAllIncubationPregnancies(true)]
+			#ENDIF
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Swallow!]]></responseTitle>
+				<responseTooltip><![CDATA[You have no choice but to swallow the transformative liquid.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_start_dollified]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="start_dollified">
+		<preParsingEffects><![CDATA[
+			[#saellatrix.applyDollTattoo(pc)]
+			[#saellatrix.applyDollBodySiliconeDollification(pc)]
+			[#pc.removePersonalityTrait(PERSONALITY_TRAIT_MUTE)]
+			[#flags.setFlag(FLAG_innoxia_doll_factory_player_dollified, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">START_DOLLIFIED</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Essence extraction]]></responseTitle>
+				<responseTooltip><![CDATA[You don't like the sound of this 'Total Essence Extraction'...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_start_essence_extraction]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="start_essence_extraction">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'START_ESSENCE_EXTRACTION'))]
+			[#flags.setSavedLong('player_saved_essence_count', pc.getEssenceCount())]
+			[#pc.setEssenceCount(0)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Resist]]></responseTitle>
+				<responseTooltip><![CDATA[Try to snap out of it!]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_start_essence_extraction_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'START_ESSENCE_EXTRACTION_RESIST'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Relax]]></responseTitle>
+				<responseTooltip><![CDATA[Just relax for a moment...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_start_essence_extraction_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'START_ESSENCE_EXTRACTION_RELAX'))]
+					[#game.appendToTextStartStringBuilder(pc.incrementObedience(10))]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="start_essence_extraction_end">
+		<preParsingEffects><![CDATA[
+			[#angelixx.returnToHome()]
+			[#sleip.returnToHome()]
+			[#nir.returnToHome()]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">START_ESSENCE_EXTRACTION_END</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Escape]]></responseTitle>
+				<responseTooltip><![CDATA[With your three captors gone, you have a chance to try and escape!]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_start_escape]]></nextDialogue>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<colour><![CDATA[GENERIC_BAD_END]]></colour>
+				<responseTitle><![CDATA[Stay still]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Surrender to your fate as a sex doll...
+					<br/>[style.italicsBadEnd(This will lead into both you and Fia being fully transformed into dolls!)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_start_surrender]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="start_escape">
+		<preParsingEffects><![CDATA[
+			[#game.getWorlds().get(pc.getWorldLocation()).getCell(3, 2).getPlace().setPlaceType(PLACE_TYPE_innoxia_dominion_sex_shop_factory_fia_event_dildos)]
+			[#game.getWorlds().get(pc.getWorldLocation()).getCell(6, 0).getPlace().setPlaceType(PLACE_TYPE_innoxia_dominion_sex_shop_factory_fia_event_bondage)]
+			[#game.getWorlds().get(pc.getWorldLocation()).getCell(7, 4).getPlace().setPlaceType(PLACE_TYPE_innoxia_dominion_sex_shop_factory_fia_event_succubus)]
+			[#game.getWorlds().get(pc.getWorldLocation()).getCell(7, 7).getPlace().setPlaceType(PLACE_TYPE_innoxia_dominion_sex_shop_factory_fia_event_dolls)]
+			
+			[#pc.clearStatusEffectDescriptions()]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">START_ESCAPE</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[You need to find Fia and get her to help you operate the machine in order to reverse the dollification process.]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'START_ESCAPE_CONTINUE'))]
+					[#game.appendToTextStartStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_5_DOLLIFIED))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="start_surrender">
+		<preParsingEffects><![CDATA[
+			[#angelixx.setLocation(pc)]
+			[#sleip.setLocation(pc)]
+			[#nir.setLocation(pc)]
+			[#game.setBadEnd("Sex Doll")]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">START_SURRENDER</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Reveal all]]></responseTitle>
+				<responseTooltip><![CDATA[Tell your Mistress everything.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_start_surrender_fia]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="start_surrender_fia">
+		<preParsingEffects><![CDATA[
+			[#sleip.returnToHome()]
+			[#nir.returnToHome()]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">START_SURRENDER_FIA</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Wait]]></responseTitle>
+				<responseTooltip><![CDATA[Remain still as you wait for Sleip and Nir to return.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_start_surrender_end]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="start_surrender_end">
+		<preParsingEffects><![CDATA[
+			[#sleip.setLocation(pc)]
+			[#nir.setLocation(pc)]
+			[#fia.unequipAllClothingIntoVoid(true, true)]
+			[#fia.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">START_SURRENDER_END</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[It's time for your Mistress to finish your transformation...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_table]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- At end of milking area: -->
+	
+	<scene id="factory_hide">
+		<preParsingEffects><![CDATA[
+			#IF(game.getWorlds().get(pc.getWorldLocation()).getCell(PLACE_TYPE_innoxia_dominion_sex_shop_factory_door_2_unlocked)!=null)
+				[#game.getWorlds().get(pc.getWorldLocation()).getCell(PLACE_TYPE_innoxia_dominion_sex_shop_factory_door_2_unlocked).getPlace().setPlaceType(PLACE_TYPE_innoxia_dominion_sex_shop_factory_door_2)]
+				[#flags.setFlag(FLAG_innoxia_doll_factory_broken_locked_door_2, false)]
+				[#flags.setFlag(FLAG_innoxia_doll_factory_unlocked_locked_door_2, false)]
+			#ENDIF
+			[#pc.walkPathNoEffects(2, 1, false, 1)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">FACTORY_HIDE</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[You need to find Fia and get her to help you operate the machine in order to reverse the dollification process.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'FACTORY_HIDE_CONTINUE'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<!-- Angelixx encounter: -->
+	
+	<scene id="angelixx_encounter">
+		<preParsingEffects><![CDATA[
+			[#angelixx.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ANGELIXX_ENCOUNTER</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Hide]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getObedienceValue()==100)
+						You've allowed yourself to fall into the mindset of an obedient sex doll, and now can't bring yourself to hide from your Mistress!
+					#ELSE
+						As a doll, you find it effortless to remain completely and utterly still in order to remain hidden from Angelixx...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.getObedienceValue()==100)
+						null
+					#ELSE
+						innoxia_places_dominion_sex_shop_factory_bad_end_angelixx_encounter_end
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<colour><![CDATA[GENERIC_BAD_END]]></colour>
+				<responseTitle><![CDATA[Surrender]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getObedienceValue()==100)
+						You want to obey Mistress. You're a good doll.
+					#ELSE
+						Perhaps it would be best if you just gave up and surrendered to Angelixx....
+					#ENDIF
+					<br/>[style.italicsBadEnd(This will lead into both you and Fia being fully transformed into dolls!)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_angelixx_encounter_surrender]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="angelixx_encounter_end">
+		<preParsingEffects><![CDATA[
+			[#angelixx.returnToHome()]
+			[#game.appendToTextEndStringBuilder(pc.incrementObedience(5))]
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ANGELIXX_ENCOUNTER_END</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Angelixx has left, allowing you to continue your search for Fia...]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="angelixx_encounter_surrender">
+		<preParsingEffects><![CDATA[
+			[#game.setBadEnd("Sex Doll")]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ANGELIXX_ENCOUNTER_SURRENDER</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Reveal all]]></responseTitle>
+				<responseTooltip><![CDATA[Tell your Mistress everything.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_angelixx_encounter_surrender_reveal]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="angelixx_encounter_surrender_reveal">
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ANGELIXX_ENCOUNTER_SURRENDER_REVEAL</content>
+		<secondsPassed minutes="true"><![CDATA[3]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Bow down]]></responseTitle>
+				<responseTooltip><![CDATA[Do as you're told and bow down before your Mistress.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_angelixx_encounter_surrender_fia]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="angelixx_encounter_surrender_fia">
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ANGELIXX_ENCOUNTER_SURRENDER_FIA</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Wait]]></responseTitle>
+				<responseTooltip><![CDATA[Remain still as you wait for Sleip and Nir to return.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_angelixx_encounter_surrender_end]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="angelixx_encounter_surrender_end">
+		<preParsingEffects><![CDATA[
+			[#sleip.setLocation(pc)]
+			[#nir.setLocation(pc)]
+			[#fia.unequipAllClothingIntoVoid(true, true)]
+			[#fia.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ANGELIXX_ENCOUNTER_SURRENDER_END</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Obey]]></responseTitle>
+				<responseTooltip><![CDATA[Obey your Mistress and follow her to the dollification machine.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Core encounters: -->
+	
+	<!-- Succubus event: -->
+	
+	<scene id="event_succubus">
+		<preParsingEffects><![CDATA[
+			#IF(!flags.hasSavedLong('bad_end_dollification_events_count'))
+				[#flags.setSavedLong('bad_end_dollification_events_count', 1)]
+			#ELSE
+				[#flags.incrementSavedLong('bad_end_dollification_events_count', 1)]
+			#ENDIF
+			
+			[#saellatrix.generateSister(FETISH_PENIS_GIVING)]
+			[#sister.setLocation(pc)]
+			[#game.appendToTextEndStringBuilder(pc.incrementObedience(5))]
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_SUCCUBUS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Step away from the succubus and leave her alone.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_succubus_ending]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'ENCOUNTER_SUCCUBUS_IGNORE'))]
+					[#sister.returnToHome()]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Watch]]></responseTitle>
+				<responseTooltip><![CDATA[There's surely no harm in staying out of sight and watching what happens next...]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementObedience(10))]
+					[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_dominion_sex_shop_factory_watching_succubus]]></id>
+					<startingPosition><![CDATA[MASTURBATION]]></startingPosition>
+					<dominants>
+						<character>
+							<id>sister</id>
+							<slot><![CDATA[MASTURBATION_KNEELING]]></slot>
+						</character>
+					</dominants>
+					<submissives/>
+					<submissiveSpectators>
+						<character><![CDATA[pc]]></character>
+					</submissiveSpectators>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_succubus_after_watching]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_SUCCUBUS_WATCH</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[SelfFingerPenis_START_COCK_STROKING]]></id>
+							<performer><![CDATA[sister]]></performer>
+							<target><![CDATA[sister]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[false]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Offer help]]></responseTitle>
+				<responseTooltip><![CDATA[This is your purpose. To be a sex toy for those who need you. Strut forwards and offer the succubus the use of your body.]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementObedience(20))]
+					[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_dominion_sex_shop_factory_doll_sex_succubus]]></id>
+					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
+					<dominants>
+						<character>
+							<id>sister</id>
+							<slot><![CDATA[OVER_DESK_HUMPING]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[OVER_DESK_OVER_DESK_ON_FRONT]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_succubus_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_SUCCUBUS_ASSISTANCE</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[sister]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="event_succubus_after_watching">
+		<preParsingEffects><![CDATA[
+			[#sister.returnToHome()]
+		]]></preParsingEffects>
+        <title><![CDATA[Finished]]></title>
+        <tooltip><![CDATA[The succubus has had enough...]]></tooltip>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_SUCCUBUS_WATCH_END_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_sex_shop_factory_bad_end_event_succubus_ending"/>
+	</scene>
+	
+	<scene id="event_succubus_after_sex">
+		<preParsingEffects><![CDATA[
+			[#sister.returnToHome()]
+		]]></preParsingEffects>
+        <title><![CDATA[Finished]]></title>
+        <tooltip><![CDATA[The succubus has had enough...]]></tooltip>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_SUCCUBUS_ASSISTANCE_END_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_sex_shop_factory_bad_end_event_succubus_ending"/>
+	</scene>
+	
+	<scene id="event_succubus_ending">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Ending: -->
+				<response>
+					<availabilityConditional><![CDATA[[#flags.getSavedLong('bad_end_dollification_events_count')<4]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Leave]]></responseTitle>
+					<responseTooltip><![CDATA[Leave the cum for another doll to clean up...]]></responseTooltip>
+					<nextDialogue defaultPlaceType="innoxia_dominion_sex_shop_factory_main_floor"/>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'ENCOUNTER_SUCCUBUS_CLEANUP_REFUSED'))]
+						[#pc.getCell().getPlace().setPlaceType(PLACE_TYPE_innoxia_dominion_sex_shop_factory_main_floor)]
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#flags.getSavedLong('bad_end_dollification_events_count')>=4]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Leave]]></responseTitle>
+					<responseTooltip><![CDATA[Leave the cum for another doll to clean up...]]></responseTooltip>
+					<nextDialogue>innoxia_places_dominion_sex_shop_factory_bad_end_event_fia</nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'ENCOUNTER_SUCCUBUS_CLEANUP_REFUSED'))]
+						[#pc.getCell().getPlace().setPlaceType(PLACE_TYPE_innoxia_dominion_sex_shop_factory_main_floor)]
+					]]></effects>
+				</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Lick it up]]></responseTitle>
+				<responseTooltip><![CDATA[Get down on all fours and clean the floor with your tongue...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_succubus_clean]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="event_succubus_clean">
+		<preParsingEffects><![CDATA[
+			[#pc.ingestFluid(sister, sister.getCum(), ORIFICE_MOUTH, 500)]
+			[#game.appendToTextEndStringBuilder(pc.incrementObedience(15))]
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_SUCCUBUS_CLEANUP_DUTY</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.getSavedLong('bad_end_dollification_events_count')<4]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Now that you've cleaned up the cum you need to get back to searching for Fia...]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_dominion_sex_shop_factory_main_floor"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'ENCOUNTER_SUCCUBUS_CLEANUP_DUTY_END'))]
+					[#pc.getCell().getPlace().setPlaceType(PLACE_TYPE_innoxia_dominion_sex_shop_factory_main_floor)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.getSavedLong('bad_end_dollification_events_count')>=4]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Now that you've cleaned up the cum you need to get back to searching for Fia...]]></responseTooltip>
+				<nextDialogue>innoxia_places_dominion_sex_shop_factory_bad_end_event_fia</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'ENCOUNTER_SUCCUBUS_CLEANUP_DUTY_END'))]
+					[#pc.getCell().getPlace().setPlaceType(PLACE_TYPE_innoxia_dominion_sex_shop_factory_main_floor)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Dildo event: -->
+	
+	<scene id="event_dildos">
+		<preParsingEffects><![CDATA[
+			#IF(!flags.hasSavedLong('bad_end_dollification_events_count'))
+				[#flags.setSavedLong('bad_end_dollification_events_count', 1)]
+			#ELSE
+				[#flags.incrementSavedLong('bad_end_dollification_events_count', 1)]
+			#ENDIF
+			
+			[#saellatrix.initRedDoll('doll')]
+			[#game.appendToTextEndStringBuilder(pc.incrementObedience(5))]
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_DILDOS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Offer excuse]]></responseTitle>
+				<responseTooltip><![CDATA[Tell the doll that you've been commanded by Angelixx to head to storage, so you have no time for this.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_dildos_ending]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'ENCOUNTER_DILDOS_REFUSE'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Obey]]></responseTitle>
+				<responseTooltip><![CDATA[Obey the red doll and kneel down in front of her.]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(pc.incrementObedience(20))]
+					[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_dominion_sex_shop_factory_doll_dildos]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>doll</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_dildos_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_DILDOS_OBEY</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="event_dildos_after_sex">
+		<preParsingEffects><![CDATA[
+			[#pc.unequipAllClothingIntoVoid(true, true)]
+		]]></preParsingEffects>
+        <title><![CDATA[Finished]]></title>
+        <tooltip><![CDATA[The doll has finished with you...]]></tooltip>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_DILDOS_END_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Report]]></responseTitle>
+				<responseTooltip><![CDATA[Report on your experience to the doll.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_dildos_ending]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'ENCOUNTER_DILDOS_END_SEX_REPORT'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="event_dildos_ending">
+		<preParsingEffects><![CDATA[
+			[#game.banishNPC(doll)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.getSavedLong('bad_end_dollification_events_count')<4]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[You really need to get back to searching for Fia...]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_dominion_sex_shop_factory_main_machines"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'ENCOUNTER_DILDOS_END'))]
+					[#pc.getCell().getPlace().setPlaceType(PLACE_TYPE_innoxia_dominion_sex_shop_factory_main_machines)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.getSavedLong('bad_end_dollification_events_count')>=4]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[You really need to get back to searching for Fia...]]></responseTooltip>
+				<nextDialogue>innoxia_places_dominion_sex_shop_factory_bad_end_event_fia</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'ENCOUNTER_DILDOS_END'))]
+					[#pc.getCell().getPlace().setPlaceType(PLACE_TYPE_innoxia_dominion_sex_shop_factory_main_machines)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Bondage event: -->
+	
+	<scene id="event_bondage">
+		<preParsingEffects><![CDATA[
+			#IF(!flags.hasSavedLong('bad_end_dollification_events_count'))
+				[#flags.setSavedLong('bad_end_dollification_events_count', 1)]
+			#ELSE
+				[#flags.incrementSavedLong('bad_end_dollification_events_count', 1)]
+			#ENDIF
+			
+			[#saellatrix.initRedDoll('doll')]
+			[#game.appendToTextEndStringBuilder(pc.incrementObedience(5))]
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_BONDAGE</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Correct her]]></responseTitle>
+				<responseTooltip><![CDATA[Tell the doll that you aren't the one she's looking for, and that you have other business to attend to.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_bondage_ending]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'ENCOUNTER_BONDAGE_ESCAPE'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Submit]]></responseTitle>
+				<responseTooltip><![CDATA[Allow the doll to tie you up.]]></responseTooltip>
+				<colour><![CDATA[GENERIC_SEX]]></colour>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_bondage_bound]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="event_bondage_bound">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(pc.incrementObedience(20))]
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+			
+			[#pc.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_innoxia_bdsm_blindfold, COLOUR_CLOTHING_RED_BURGUNDY, COLOUR_CLOTHING_GOLD, null, false), true, doll)]
+			[#pc.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_innoxia_bdsm_ballgag, COLOUR_CLOTHING_RED, COLOUR_CLOTHING_BLACK, COLOUR_CLOTHING_STEEL, false), true, doll)]
+			[#pc.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_innoxia_bdsm_choker, COLOUR_CLOTHING_PINK_DARK, COLOUR_CLOTHING_PLATINUM, null, false), true, doll)]
+			[#pc.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_norin_clover_clamps_clover_clamps, COLOUR_CLOTHING_BRASS, false), true, doll)]
+			[#pc.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_innoxia_bdsm_karada, COLOUR_CLOTHING_RED_BURGUNDY, false), true, doll)]
+			[#pc.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_innoxia_bdsm_wrist_restraints, COLOUR_CLOTHING_PINK_HOT, COLOUR_CLOTHING_GOLD, null, false), true, doll)]
+			[#pc.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_innoxia_bdsm_spreaderbar, COLOUR_CLOTHING_PINK_HOT, COLOUR_CLOTHING_GOLD, null, false), true, doll)]
+			#IF(game.isAnalContentEnabled())
+				[#pc.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_innoxia_buttPlugs_butt_plug_heart, COLOUR_CLOTHING_SILVER, COLOUR_CLOTHING_PINK_HOT, null, false), true, doll)]
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_BONDAGE_BOUND</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Struggle...]]></responseTitle>
+				<responseTooltip><![CDATA[There's absolutely nothing you can do except struggle in your bonds like the red doll wants you to...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_bondage_bound_wait]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="event_bondage_bound_wait">
+		<preParsingEffects><![CDATA[
+			[#doll.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_innoxia_bdsm_penis_strapon, COLOUR_CLOTHING_PINK_HOT, COLOUR_CLOTHING_BLACK, COLOUR_CLOTHING_GOLD, false), true, doll)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_BONDAGE_BOUND_WAIT</content>
+		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fucked]]></responseTitle>
+				<responseTooltip><![CDATA[The red doll fucks you.]]></responseTooltip>
+				<nextDialogue/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_dominion_sex_shop_factory_doll_bondage]]></id>
+					<startingPosition><![CDATA[LYING_DOWN]]></startingPosition>
+					<dominants>
+						<character>
+							<id>doll</id>
+							<slot><![CDATA[LYING_DOWN_MISSIONARY]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[LYING_DOWN_LYING_DOWN]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_bondage_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_BONDAGE_SEX</sexStartContent>
+					<ongoingActionsAtStart>
+						<action>
+							<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+							<performer><![CDATA[doll]]></performer>
+							<target><![CDATA[pc]]></target>
+							<showDescription><![CDATA[false]]></showDescription>
+							<showEffects><![CDATA[true]]></showEffects>
+						</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="event_bondage_after_sex">
+        <title><![CDATA[Finished]]></title>
+        <tooltip><![CDATA[The doll has finished with you...]]></tooltip>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_BONDAGE_BOUND_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Punished]]></responseTitle>
+				<responseTooltip><![CDATA[You're powerless to resist as the red doll begins your punishment.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_bondage_bound_wait_more]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="event_bondage_bound_wait_more">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(pc.incrementObedience(5))]
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_BONDAGE_BOUND_WAIT_MORE</content>
+		<secondsPassed minutes="true"><![CDATA[60]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Released]]></responseTitle>
+				<responseTooltip><![CDATA[The doll is finally releasing you!]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_bondage_ending]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.unequipAllClothingIntoVoid(true, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'ENCOUNTER_BONDAGE_BOUND_ENDING'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="event_bondage_ending">
+		<preParsingEffects><![CDATA[
+			[#game.banishNPC(doll)]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.getSavedLong('bad_end_dollification_events_count')<4]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[You really need to get back to searching for Fia...]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_dominion_sex_shop_factory_main_machines"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'ENCOUNTER_BONDAGE_END'))]
+					[#pc.getCell().getPlace().setPlaceType(PLACE_TYPE_innoxia_dominion_sex_shop_factory_main_machines)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.getSavedLong('bad_end_dollification_events_count')>=4]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[You really need to get back to searching for Fia...]]></responseTooltip>
+				<nextDialogue>innoxia_places_dominion_sex_shop_factory_bad_end_event_fia</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'ENCOUNTER_BONDAGE_END'))]
+					[#pc.getCell().getPlace().setPlaceType(PLACE_TYPE_innoxia_dominion_sex_shop_factory_main_machines)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Doll event: -->
+	
+	<scene id="event_dolls">
+		<preParsingEffects><![CDATA[
+			#IF(!flags.hasSavedLong('bad_end_dollification_events_count'))
+				[#flags.setSavedLong('bad_end_dollification_events_count', 1)]
+			#ELSE
+				[#flags.incrementSavedLong('bad_end_dollification_events_count', 1)]
+			#ENDIF
+			[#game.appendToTextEndStringBuilder(pc.incrementObedience(5))]
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_DOLLS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Keep moving]]></responseTitle>
+				<responseTooltip><![CDATA[You don't want to join the ranks of these motionless dolls!]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_dolls_ending]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'ENCOUNTER_DOLLS_REFUSE'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Take place]]></responseTitle>
+				<responseTooltip><![CDATA[Perhaps you could rest here for a minute...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_dolls_take_place]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="event_dolls_take_place">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(pc.incrementObedience(5))]
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_DOLLS_TAKE_PLACE</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[No more]]></responseTitle>
+				<responseTooltip><![CDATA[This is dangerous, you need to snap out of it!]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_dolls_ending]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'ENCOUNTER_DOLLS_SNAP_OUT'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Remain still]]></responseTitle>
+				<responseTooltip><![CDATA[There's no harm in remaining here a little longer...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_dolls_comfortable]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="event_dolls_comfortable">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(pc.incrementObedience(5))]
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_DOLLS_COMFORTABLE</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Enough]]></responseTitle>
+				<responseTooltip><![CDATA[This is dangerous, you need to snap out of it!]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_dolls_ending]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'ENCOUNTER_DOLLS_SNAP_OUT'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Good doll]]></responseTitle>
+				<responseTooltip><![CDATA[You're a good doll, waiting here like this. You want to be a good doll...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_dolls_ending]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[145]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'ENCOUNTER_DOLLS_STATUE'))]
+					[#game.appendToTextEndStringBuilder(pc.incrementObedience(10))]
+					[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="event_dolls_ending">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.getSavedLong('bad_end_dollification_events_count')<4]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[You really need to get back to searching for Fia...]]></responseTooltip>
+				<nextDialogue defaultPlaceType="innoxia_dominion_sex_shop_factory_storage_dolls"/>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'ENCOUNTER_DOLLS_END'))]
+					[#pc.getCell().getPlace().setPlaceType(PLACE_TYPE_innoxia_dominion_sex_shop_factory_storage_dolls)]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.getSavedLong('bad_end_dollification_events_count')>=4]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[You really need to get back to searching for Fia...]]></responseTooltip>
+				<nextDialogue>innoxia_places_dominion_sex_shop_factory_bad_end_event_fia</nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'ENCOUNTER_DOLLS_END'))]
+					[#pc.getCell().getPlace().setPlaceType(PLACE_TYPE_innoxia_dominion_sex_shop_factory_storage_dolls)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Fia ending event: -->
+	
+	<scene id="event_fia">
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">FIA_ENDING</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fia?]]></responseTitle>
+				<responseTooltip><![CDATA[Approach the source of the noise and see if it's your lost companion.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_fia_found]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="event_fia_found">
+		<preParsingEffects><![CDATA[
+			[#fia.setLocation(pc)]
+			[#flags.setFlag(FLAG_innoxia_doll_factory_fia_in_hiding, false)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">FIA_ENDING_FOUND</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Explain]]></responseTitle>
+				<responseTooltip><![CDATA[Explain to Fia what happened to you.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_fia_explain]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="event_fia_explain">
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">FIA_ENDING_EXPLAIN</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Follow]]></responseTitle>
+				<responseTooltip><![CDATA[Follow Fia through the factory.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_fia_angelixx]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="event_fia_angelixx">
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_innoxia_dominion_sex_shop_factory, PLACE_TYPE_innoxia_dominion_sex_shop_factory_door_2)]
+			[#fia.setLocation(pc)]
+			[#angelixx.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">FIA_ENDING_ANGELIXX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Hide]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getObedienceValue()==100)
+						You've allowed yourself to fall into the mindset of an obedient sex doll, and now can't bring yourself to hide from your Mistress!
+					#ELSE
+						Remain hidden with Fia until Angelixx leaves...
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.getObedienceValue()==100)
+						null
+					#ELSE
+						innoxia_places_dominion_sex_shop_factory_bad_end_event_fia_angelixx_hide
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<colour><![CDATA[GENERIC_BAD_END]]></colour>
+				<responseTitle><![CDATA[Surrender]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(pc.getObedienceValue()==100)
+						Mistress is looking for you. Why are you hiding? Surrender yourself to her.
+					#ELSE
+						Perhaps it would be best if you just gave up and surrendered to Angelixx....
+					#ENDIF
+					<br/>[style.italicsBadEnd(This will lead into both you and Fia being fully transformed into dolls!)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_fia_angelixx_surrender]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="event_fia_angelixx_hide">
+		<preParsingEffects><![CDATA[
+			[#angelixx.returnToHome()]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">FIA_ENDING_ANGELIXX_HIDE</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Continue on your way to the dollification machine.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_fia_final]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="event_fia_final">
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_innoxia_dominion_sex_shop_factory, PLACE_TYPE_innoxia_dominion_sex_shop_factory_doll_machine)]
+			[#fia.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">FIA_ENDING_FINAL</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Transform]]></responseTitle>
+				<responseTooltip><![CDATA[Lie back and let Fia activate the machine to transform you back to normal.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_fia_final_tf]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="event_fia_final_tf">
+		<preParsingEffects><![CDATA[
+			[#pc.setBodyMaterial(BODY_MATERIAL_FLESH, true)]
+			[#pc.setInventory(game.getSavedInventories().get(pc.getId()))]
+			[#pc.setEssenceCount(flags.getSavedLong('player_saved_essence_count'))]
+			
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'FIA_ENDING_FINAL_TF'))]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Escape]]></responseTitle>
+				<responseTooltip><![CDATA[Now that you're no longer a doll, and Fia has all the evidence she needs, it's time for the two of you to escape!]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_fia_final_escape]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="event_fia_final_escape">
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_innoxia_dominion_sex_shop_factory, PLACE_TYPE_innoxia_dominion_sex_shop_factory_exit)]
+			[#fia.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">FIA_ENDING_FINAL_ESCAPE</content>
+		<secondsPassed minutes="true"><![CDATA[15]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Use the elevator to escape from the factory.]]></responseTooltip>
+				<nextDialogue>innoxia_places_dominion_sex_shop_factory_exit_escape</nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="event_fia_angelixx_surrender">
+		<preParsingEffects><![CDATA[
+			[#fia.returnToHome()]
+			[#game.setBadEnd("Sex Doll")]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">FIA_ENDING_ANGELIXX_SURRENDER</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Wait]]></responseTitle>
+				<responseTooltip><![CDATA[You obediently wait with your Mistress for the arrival of Sleip and Nir.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_fia_angelixx_surrender_nightmares]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="event_fia_angelixx_surrender_nightmares">
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">FIA_ENDING_ANGELIXX_SURRENDER_NIGHTMARES</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Stay still]]></responseTitle>
+				<responseTooltip><![CDATA[Remain in your humiliating pose while you wait for Fia to be caught...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_event_fia_angelixx_surrender_nightmares_end]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="event_fia_angelixx_surrender_nightmares_end">
+		<preParsingEffects><![CDATA[
+			[#sleip.setLocation(pc)]
+			[#nir.setLocation(pc)]
+			[#fia.setLocation(pc)]
+			[#fia.unequipAllClothingIntoVoid(true, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">FIA_ENDING_ANGELIXX_SURRENDER_NIGHTMARES_END</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Obey]]></responseTitle>
+				<responseTooltip><![CDATA[Obey your Mistress and follow her to the dollification machine.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<!-- Final dollification scenes: -->
+	
+	<scene id="dollification">
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_innoxia_dominion_sex_shop_factory, PLACE_TYPE_innoxia_dominion_sex_shop_factory_doll_machine)]
+			[#sleip.setLocation(pc)]
+			[#nir.setLocation(pc)]
+			[#fia.setLocation(pc)]
+			[#angelixx.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">DOLLIFICATION</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[It's time for your Mistress to finish your transformation...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_table]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="dollification_table">
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">DOLLIFICATION_TABLE</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fucked]]></responseTitle>
+				<responseTooltip><![CDATA[Sleip and Nir get their revenge on you...]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_dominion_sex_shop_factory_dollification]]></id>
+					<startingPosition><![CDATA[
+						LYING_DOWN
+					]]></startingPosition>
+					<dominants>
+						<character>
+							<id>sleip</id>
+							<slot><![CDATA[
+								LYING_DOWN_MISSIONARY
+							]]></slot>
+						</character>
+						<character>
+							<id>nir</id>
+							<slot><![CDATA[
+								LYING_DOWN_FACE_SITTING_REVERSE
+							]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[
+								LYING_DOWN_LYING_DOWN
+							]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/sex_shop/factory_bad_end">DOLLIFICATION_SEX_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<!-- Vaginal: -->
+							<action>
+								<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+								<performer><![CDATA[sleip]]></performer>
+								<target><![CDATA[pc]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+						<!-- Oral: -->
+							<action>
+								<id><![CDATA[PenisMouth_BLOWJOB_START]]></id>
+								<performer><![CDATA[nir]]></performer>
+								<target><![CDATA[pc]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="dollification_after_sex">
+		<preParsingEffects><![CDATA[
+			[#pc.setFaceCapacity(CAPACITY_TWO_TIGHT, true)]
+			[#pc.setVaginaCapacity(CAPACITY_TWO_TIGHT, true)]
+		]]></preParsingEffects>
+        <title><![CDATA[Dollified]]></title>
+        <tooltip><![CDATA[You've been completely transformed, both body and mind, into an obedient sex doll!]]></tooltip>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">DOLLIFICATION_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Released]]></responseTitle>
+				<responseTooltip><![CDATA[Your Masters release you.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_fia]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="dollification_fia">
+		<preParsingEffects><![CDATA[
+			[#saellatrix.initBodyForDollification(fia)]
+			[#sleip.returnToHome()]
+			[#nir.returnToHome()]
+			
+			#IF(fia.isPregnant())
+				[#fia.endPregnancy(true)]
+			#ENDIF
+			#IF(fia.hasAnyIncubationLitter())
+				[#fia.endAllIncubationPregnancies(true)]
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">DOLLIFICATION_FIA</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Clean up]]></responseTitle>
+				<responseTooltip><![CDATA[Obey your Mistress and clean yourself up while she transforms Fia into a doll.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_fia_tf]]></nextDialogue>
+				<effects><![CDATA[
+					[#pc.applyWash(true, true, null, 0)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="dollification_fia_tf">
+		<preParsingEffects><![CDATA[
+			[#saellatrix.applyDollBodySiliconeDollification(fia)]
+			[#saellatrix.applyDollTattoo(fia)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">DOLLIFICATION_FIA_END</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Wait]]></responseTitle>
+				<responseTooltip><![CDATA[Wait to see what your Mistress will ask of you next.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_fia_tf_essence_extraction]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	
+	<scene id="dollification_fia_tf_essence_extraction">
+		<preParsingEffects><![CDATA[
+			[#pc.setVaginaType(VAGINA_TYPE_NONE)]
+			[#pc.setPenisType(PENIS_TYPE_EQUINE)]
+			[#pc.setPenisSize(PENIS_LENGTH_SIX_GIGANTIC)]
+			[#pc.setPenisGirth(7)]
+			[#pc.setTesticleSize(5)]
+			[#pc.setInternalTesticles(false)]
+			[#pc.setPenisCumStorage(500)]
+			[#pc.fillCumToMaxStorage()]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">DOLLIFICATION_FIA_END_ESSENCE_EXTRACTION</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Hard fuck]]></responseTitle>
+				<responseTooltip><![CDATA[Obey Mistress and fuck Fia good and hard!]]></responseTooltip>
+				<nextDialogue/>
+				<effects/>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_dominion_sex_shop_factory_dollification_fia]]></id>
+					<startingPosition><![CDATA[
+						LYING_DOWN
+					]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[
+								LYING_DOWN_MISSIONARY
+							]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>fia</id>
+							<slot><![CDATA[
+								LYING_DOWN_LYING_DOWN
+							]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_fia_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/dominion/sex_shop/factory_bad_end">DOLLIFICATION_FIA_SEX_START</sexStartContent>
+					<ongoingActionsAtStart>
+						<!-- Vaginal: -->
+							<action>
+								<id><![CDATA[PenisVagina_PENIS_FUCKING_START]]></id>
+								<performer><![CDATA[pc]]></performer>
+								<target><![CDATA[fia]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+					</ongoingActionsAtStart>
+				</sexVariablesWithManager>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="dollification_fia_after_sex">
+		<preParsingEffects><![CDATA[
+			[#pc.setVaginaType(VAGINA_TYPE_HUMAN)]
+			[#pc.setPenisType(PENIS_TYPE_NONE)]
+			[#fia.setVaginaCapacity(CAPACITY_TWO_TIGHT, true)]
+		]]></preParsingEffects>
+        <title><![CDATA[Finished]]></title>
+        <tooltip><![CDATA[You've helped to transform Fia into an obedient sex doll just like you!]]></tooltip>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">DOLLIFICATION_FIA_AFTER_SEX</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Obey]]></responseTitle>
+				<responseTooltip><![CDATA[You clean the other doll then join her in obediently making your way to the storage area to line up alongside the other dolls.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_final_storage]]></nextDialogue>
+				<effects><![CDATA[
+					[#fia.applyWash(true,  true, null, 0)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="dollification_final_storage">
+		<preParsingEffects><![CDATA[
+			[#pc.setNearestLocation(WORLD_TYPE_innoxia_dominion_sex_shop_factory, PLACE_TYPE_innoxia_dominion_sex_shop_factory_storage_dolls)]
+			[#fia.setLocation(pc)]
+			[#angelixx.returnToHome()]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">DOLLIFICATION_FINAL_STORAGE</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Wait...]]></responseTitle>
+				<responseTooltip><![CDATA[Copying the hundreds of other dolls, you remain totally motionless and wait for an order from your Mistress...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_final_wait]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="dollification_final_wait">
+		<preParsingEffects><![CDATA[
+			[#fia.returnToHome()]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">DOLLIFICATION_FINAL_WAIT</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Waiting...]]></responseTitle>
+				<responseTooltip><![CDATA[You continue to wait for your Mistress to arrive...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_final_wait_summoned]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="dollification_final_wait_summoned">
+		<preParsingEffects><![CDATA[
+			[#angelixx.setLocation(pc)]
+			[#saellatrix.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">DOLLIFICATION_FINAL_WAIT_SUMMONED</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Obey]]></responseTitle>
+				<responseTooltip><![CDATA[Do as your Mistress commands and step forwards.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_final_shop]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="dollification_final_wait_end">
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">DOLLIFICATION_FINAL_WAIT_END</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Follow]]></responseTitle>
+				<responseTooltip><![CDATA[Follow your Mistress as she leads you up to the shop to be sold.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_final_shop]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="dollification_final_shop">
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_innoxia_dominion_sex_shop, PLACE_TYPE_innoxia_dominion_sex_shop_dolls)]
+			[#saellatrix.returnToHome()]
+			[#angelixx.returnToHome()]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">DOLLIFICATION_FINAL_SHOP</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Sold]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Oblivious to the fact that you were once a real person, someone's bought you!
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_final_sold]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setSavedLong('bad_end_dollification_owner', 1)]
+				]]></effects>
+			</response>
+			<!--
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Pig-boy]]></responseTitle>
+				<responseTooltip><![CDATA[
+					You're sold to a pig-boy club owner, who keeps you in his office and regularly fucks you.
+					<br/>
+					[style.italicsFeminine(You remain as a default female doll.)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_final_sold]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setSavedLong('bad_end_dollification_owner', 2)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[3]]></index>
+				<responseTitle><![CDATA[Tiger-girl]]></responseTitle>
+				<responseTooltip><![CDATA[
+					You're sold to a tiger-girl fashionista, who uses you as a mannequin during the day and a sex toy at night.
+					<br/>
+					[style.italicsFeminine(You remain as a default female doll.)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_final_sold]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setSavedLong('bad_end_dollification_owner', 3)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Fox-boy]]></responseTitle>
+				<responseTooltip><![CDATA[
+					You're sold to a fox-boy CEO, who has you work as his personal assistant.
+					<br/>
+					[style.italicsFeminineStrong(You're transformed to look like a MILF.)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_final_sold]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setSavedLong('bad_end_dollification_owner', 4)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Deer-girl]]></responseTitle>
+				<responseTooltip><![CDATA[
+					You're sold to a deer-girl who specialises in disciplining slaves, and uses you as a tool to assist her in her work.
+					<br/>
+					[style.italicsMasculine(You're transformed into a [#GENDER_M_P_MALE.getGenderName().getMasculine()] wolf-boy.)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_final_sold]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setSavedLong('bad_end_dollification_owner', 5)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[10]]></index>
+				<responseTitle><![CDATA[Random]]></responseTitle>
+				<responseTooltip><![CDATA[You're sold to one of the customers at random.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_final_sold]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setSavedLong('bad_end_dollification_owner', RND.nextInt(5)+1)]
+				]]></effects>
+			</response>
+			-->
+		</responses>
+	</scene>
+	
+	<scene id="dollification_final_sold">
+		<preParsingEffects><![CDATA[
+			[#saellatrix.applyDollificationBadEndSold()]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Follow]]></responseTitle>
+				<responseTooltip><![CDATA[You're taken home by your new owner.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_final_sold_incubus]]></nextDialogue>
+			</response>
+			<!--
+			<response>
+				<availabilityConditional><![CDATA[[#flags.getSavedLong('bad_end_dollification_owner')==2]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Sex toy]]></responseTitle>
+				<responseTooltip><![CDATA[You're kept in your Master's office and used as a sex toy.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_final_sold_end]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.getSavedLong('bad_end_dollification_owner')==3]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Punish Mistress]]></responseTitle>
+				<responseTooltip><![CDATA[Your Mistress uses you to indulge in her masochistic fantasies.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_final_sold_end]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.getSavedLong('bad_end_dollification_owner')==4]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Dominated]]></responseTitle>
+				<responseTooltip><![CDATA[Your Master interrupts your work whenever he feels the need to dominate you.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_final_sold_end]]></nextDialogue>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.getSavedLong('bad_end_dollification_owner')==5]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Punish slaves]]></responseTitle>
+				<responseTooltip><![CDATA[Your Mistress uses you to break unruly slaves.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_final_sold_end]]></nextDialogue>
+			</response>
+			-->
+		</responses>
+	</scene>
+	
+	<scene id="dollification_final_sold_incubus">
+		<preParsingEffects><![CDATA[
+			[#saellatrix.applyDollificationBadEndSoldMovement()]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">DOLLIFICATION_FINAL_SOLD_INCUBUS_HOME</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Party doll]]></responseTitle>
+				<responseTooltip><![CDATA[That evening you get your first experience of one of your Master's parties.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_final_sold_incubus_party]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="dollification_final_sold_incubus_party">
+		<preParsingEffects><![CDATA[
+			[#saellatrix.setLocation(pc)]
+			[#saellatrix.unequipAllClothingIntoVoid(true, true)]
+			[#lilaya.endPregnancy(true)]
+			#IF(lilaya.getRaceStage()!=RACE_STAGE_GREATER)
+				[#lyssieth.setDaughterToFullDemon(lilaya.class, false)]
+			#ENDIF
+			[#lilaya.setLocation(pc)]
+			[#lilaya.unequipAllClothingIntoVoid(true, true)]
+			[#doll_owner.unequipAllClothingIntoHoldingInventory(doll_owner, true, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">DOLLIFICATION_FINAL_SOLD_INCUBUS_PARTY</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Orgy]]></responseTitle>
+				<responseTooltip><![CDATA[The party quickly transforms into a full-blown orgy...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_final_sold_incubus_party_orgy]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="dollification_final_sold_incubus_party_orgy">
+		<preParsingEffects><![CDATA[
+			[#saellatrix.setAlcoholLevel(0.4)]
+			[#lilaya.setAlcoholLevel(0.6)]
+			[#doll_owner.setAlcoholLevel(0.4)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">DOLLIFICATION_FINAL_SOLD_INCUBUS_PARTY_ORGY</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Obey]]></responseTitle>
+				<responseTooltip><![CDATA[It seems like you're going to be taking a very active part in this orgy...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_final_sold_incubus_party_game]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="dollification_final_sold_incubus_party_game">
+		<preParsingEffects><![CDATA[
+			[#saellatrix.setAlcoholLevel(0.75)]
+			[#lilaya.setAlcoholLevel(0.95)]
+			[#doll_owner.setAlcoholLevel(0.6)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">DOLLIFICATION_FINAL_SOLD_INCUBUS_PARTY_GAME</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Face-sitting]]></responseTitle>
+				<responseTooltip><![CDATA[Sit on Lilaya's face while she and the demons play their game...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_final_sold_incubus_party_later]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="dollification_final_sold_incubus_party_later">
+		<preParsingEffects><![CDATA[
+			[#lilaya.guaranteePregnancyOnNextRoll()]
+			[#lilaya.rollForPregnancy(SUBSPECIES_DEMON, null, 500, true, FERTILISATION_NORMAL)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">DOLLIFICATION_FINAL_SOLD_INCUBUS_PARTY_LATER</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Fucked]]></responseTitle>
+				<responseTooltip><![CDATA[You're treated like what you are; an obedient sex doll who's here to be fucked.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_final_sold_incubus_party_end]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="dollification_final_sold_incubus_party_end">
+		<preParsingEffects><![CDATA[
+			[#lilaya.applyDollificationBadEndTattoos()]
+			[#itemGen.generateItem(ITEM_MOTHERS_MILK).applyEffect(lilaya, lilaya)]
+			[#itemGen.generateItem(ITEM_MOTHERS_MILK).applyEffect(lilaya, lilaya)]
+			[#itemGen.generateItem(ITEM_MOTHERS_MILK).applyEffect(lilaya, lilaya)]
+			
+			[#saellatrix.setAlcoholLevel(0.05)]
+			[#lilaya.setAlcoholLevel(0.1)]
+			[#lilaya.applyDollificationBadEndTattoos()]
+			[#doll_owner.setAlcoholLevel(0.05)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">DOLLIFICATION_FINAL_SOLD_INCUBUS_PARTY_END</content>
+		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Obey]]></responseTitle>
+				<responseTooltip><![CDATA[Return to your place in the hall...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_dollification_final_sold_end]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'DOLLIFICATION_FINAL_SOLD_INCUBUS_FINAL_END'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="dollification_final_sold_end">
+		<preParsingEffects><![CDATA[
+			[#saellatrix.returnToHome()]
+			[#lilaya.returnToHome()]
+			[#doll_owner.equipAllClothingFromHoldingInventory()]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[The End...]]></responseTitle>
+				<responseTooltip><![CDATA[[style.italicsBadEnd(With this end to your journey, the thread of prophecy is severed. Restore a saved game to restore the weave of fate, or persist in the doomed world you have created.)]]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+				<effects/>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

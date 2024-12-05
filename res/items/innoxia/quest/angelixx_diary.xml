@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>0</value> 
+		<determiner><![CDATA[]]></determiner>
+		<name><![CDATA[Angelixx's diary]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Angelixx's diaries]]></namePlural>
+		<description><![CDATA[A small, pink diary, with the name 'Angelixx' written on the front in flowing white script.]]></description> 
+		
+		<useDescriptor>read</useDescriptor>
+		
+		<sexUse>false</sexUse>
+		<combatUseAllies>false</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>false</consumedOnUse>
+		
+		<rarity>QUEST</rarity> 
+		
+		<imageName>angelixx_diary.svg</imageName> 
+		
+		<colourPrimary>CLOTHING_PINK</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[Reveals Angelixx's secrets]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+		<p style='text-align:center; margin-top:0; padding-top:0;'>
+			<i>
+				[#angelixx.getDiaryEntry()]
+			</i>
+		</p>
+		<p>
+			The content of this diary is completely at odds with its appearance, for Angelixx has used brightly-coloured gel pens to fill the pages with her extremely girly handwriting. She's even gone so far as to dot every 'i' with a little heart, and fill the margin of almost every page with hearts, flowers, and other such innocent illustrations.
+		</p>
+		]]></applyEffects>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+			[npc.Name] [npc.verb(release)] the diary's elasticated strap, allowing it to be opened. Stopping on a random page to read a paragraph, [npc.she] [npc.verb(see)] that the contents of this diary are far more lewd, and at times sinister, than anyone would expect from its appearance:
+		]]></selfUse>
+		<otherUse><![CDATA[
+			[npc.Name] [npc.verb(release)] the diary's elasticated strap, allowing it to be opened, before showing it off to [npc2.name]. Stopping on a random page to read a paragraph, [npc.she] [npc.verb(see)] that the contents of this diary are far more lewd, and at times sinister, than anyone would expect from its appearance:
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

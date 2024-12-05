@@ -3,13 +3,7 @@
 	
 	<htmlContent tag="NATALYA_ENCOUNTER_START"><![CDATA[
 	<p>
-		As you enter yet another of Dominion's many parks, you see a curious scene unfolding before you. Several centaur-pulled carts are lined up nearby, and the naked, muscular centaurs who are responsible for hauling them are busily unloading what look to be at least a hundred saplings. A team of fox, dog, and squirrel-morphs are getting to work planting these trees, while a smartly-dressed [natalya.race], who stands at a rather diminutive
-		#IF(game.isMetricSizes())
-			 hundred and seventy centimetres from head to hoof,
-		#ELSE
-			 five and a half feet from head to hoof,
-		#ENDIF
-		 is impatiently trotting up and down the path a short distance away. Noticing that the centaurs have heavy metal collars clasped around their necks, you realise that they're slaves, and that the [natalya.race] must be their overseer.
+		As you enter yet another of Dominion's many parks, you see a curious scene unfolding before you. Several centaur-pulled carts are lined up nearby, and the naked, muscular centaurs who are responsible for hauling them are busily unloading what look to be at least a hundred saplings. A team of fox, dog, and squirrel-morphs are getting to work planting these trees, while a smartly-dressed [natalya.race] is impatiently trotting up and down the path a short distance away. Noticing that the centaurs have heavy metal collars clasped around their necks, you realise that they're slaves, and that the [natalya.race] must be their overseer.
 	</p>
 	<p>
 		As she trots over to stand beside one of the carts, you're able to see that while the slaves under her command are almost
@@ -117,7 +111,7 @@
 		[natalya.speech(So that's what you were interested in, were you?)] she retorts. Flashing you a disgusted look, she pointedly asks, [natalya.speech(I bet you were imagining what my asshole looks like, weren't you? Admit it.)]
 	</p>
 	<p>
-		Seeing that she could potentially be backed up by half a dozen muscular centaurs, you decide that annoying this [natalya.race] would be a bad idea, and so simply go along with what she's saying. Admitting that you were imagining how her asshole looks, you apolise to her once again.  
+		Seeing that she could potentially be backed up by half a dozen muscular centaurs, you decide that annoying this [natalya.race] would be a bad idea, and so simply go along with what she's saying. Admitting that you were imagining how her asshole looks, you apologise to her once again.
 	</p>
 	<p>
 		[natalya.speech(I knew it,)] she triumphantly declares. Much to your surprise, the disgusted sneer on her face quickly transforms into a devious grin, and after quickly licking her lips she orders, [natalya.speech(Follow me, pervert. I'll have you submit to me and show you your true place, and then you can give me a proper apology...)]

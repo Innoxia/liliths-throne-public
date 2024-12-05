@@ -2,9 +2,10 @@ package com.lilithsthrone.game.inventory;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import com.lilithsthrone.main.Main;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -12,7 +13,10 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.3.8.2
@@ -24,6 +28,7 @@ public abstract class AbstractSetBonus {
 	private boolean mod;
 	private String name;
 	private int numberRequiredForCompleteSet;
+	private boolean countDuplicates;
 	private List<InventorySlot> blockedSlotsCountingTowardsFullSet;
 	private String statusEffectId;
 	private AbstractStatusEffect associatedStatusEffect;
@@ -31,6 +36,7 @@ public abstract class AbstractSetBonus {
 	public AbstractSetBonus(String name, AbstractStatusEffect associatedStatusEffect, int numberRequiredForCompleteSet, List<InventorySlot> blockedSlotsCountingTowardsFullSet) {
 		this.name = name;
 		this.numberRequiredForCompleteSet = numberRequiredForCompleteSet;
+		this.countDuplicates = true;
 		
 		if(blockedSlotsCountingTowardsFullSet==null) {
 			this.blockedSlotsCountingTowardsFullSet = new ArrayList<>();
@@ -55,7 +61,12 @@ public abstract class AbstractSetBonus {
 				
 				this.name = coreElement.getMandatoryFirstOf("name").getTextContent();
 				
-				this.numberRequiredForCompleteSet = Integer.valueOf(coreElement.getMandatoryFirstOf("numberRequiredForCompleteSet").getTextContent());
+				Element element = coreElement.getMandatoryFirstOf("numberRequiredForCompleteSet");
+				this.numberRequiredForCompleteSet = Integer.valueOf(element.getTextContent());
+				this.countDuplicates = true;
+				if(!element.getAttribute("countDuplicates").isEmpty()) {
+					this.countDuplicates = Boolean.valueOf(element.getAttribute("countDuplicates"));
+				}
 				
 				this.statusEffectId = coreElement.getMandatoryFirstOf("statusEffect").getTextContent();
 
@@ -87,37 +98,60 @@ public abstract class AbstractSetBonus {
 			}
 		}
 		
-		boolean atLeastOneClothingFound = false;
+		Set<AbstractClothingType> uniqueClothingTypes = new HashSet<>();
+		Set<AbstractWeaponType> uniqueWeaponTypes = new HashSet<>();
+		boolean atLeastOneFound = false;
+		
 		for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
-			if (c.getClothingType().getClothingSet() == this) {
+			AbstractClothingType type = c.getClothingType();
+			if (type.getClothingSet()==this && (isCountDuplicates() || !uniqueClothingTypes.contains(type))) {
 				setCount++;
-				atLeastOneClothingFound = true;
+				uniqueClothingTypes.add(type);
+				atLeastOneFound = true;
 			}
 		}
 		
 		int weaponSetCount = 0;
 		for(AbstractWeapon weapon : target.getMainWeaponArray()) {
-			if(weapon!=null && weapon.getWeaponType().getClothingSet() == this) {
-				weaponSetCount++;
-				atLeastOneClothingFound = true;
+			if(weapon!=null) {
+				AbstractWeaponType type = weapon.getWeaponType();
+				if(type.getClothingSet() == this
+						&& (isCountDuplicates() || !uniqueWeaponTypes.contains(type))) {
+					weaponSetCount++;
+					uniqueWeaponTypes.add(type);
+					atLeastOneFound = true;
+				}
 			}
 		}
 		for(AbstractWeapon weapon : target.getOffhandWeaponArray()) {
-			if(weapon!=null && weapon.getWeaponType().getClothingSet() == this) {
-				weaponSetCount++;
-				atLeastOneClothingFound = true;
+			if(weapon!=null) {
+				AbstractWeaponType type = weapon.getWeaponType();
+				if(type.getClothingSet() == this
+						&& (isCountDuplicates() || !uniqueWeaponTypes.contains(type))) {
+					weaponSetCount++;
+					uniqueWeaponTypes.add(type);
+					atLeastOneFound = true;
+				}
 			}
 		}
 		
 		setCount += Math.min(2, weaponSetCount);
 		
-		return atLeastOneClothingFound && setCount >= this.getNumberRequiredForCompleteSet();
+		return atLeastOneFound && setCount >= this.getNumberRequiredForCompleteSet();
 	}
 
 	public String getName() {
 		return name;
 	}
-
+	
+	/**
+	 * @return true if duplicate ClothingTypes or WeaponTypes will count towards the total for getNumberRequiredForCompleteSet().
+	 * <br/>This is true by default.
+	 */
+	public boolean isCountDuplicates() {
+		return countDuplicates;
+	}
+	
 	public int getNumberRequiredForCompleteSet() {
 		return numberRequiredForCompleteSet;
 	}

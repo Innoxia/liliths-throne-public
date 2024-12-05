@@ -277,6 +277,23 @@ public class Lab {
 			}
 		}
 		
+		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_DOLL_STORAGE) && !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_DOLL_STORAGE)) {
+			if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
+				generatedResponses.add(new Response("Doll storage", "You'll need to complete Lilaya's initial tests before you can ask her about storing sex dolls in the mansion!", null));
+				
+			} else {
+				generatedResponses.add(new Response("Doll storage", "Ask Lilaya if you can use one of the spare rooms in the mansion to store sex dolls.", LILAYA_DOLL_STORAGE){
+					@Override
+					public void effects() {
+						setEntryFlags();
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_DOLL_STORAGE, Quest.SIDE_UTIL_COMPLETE));
+					}
+				});
+			}
+		}
+		
+		
+		
 		if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.lilayaDateTalk)
 				&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.knowsDate)) {
 			generatedResponses.add(new Response("Current Date", "Ask Lilaya why the calendar in your room is three years ahead of the correct date.", LILAYA_CURRENT_DATE_TALK) {
@@ -393,12 +410,14 @@ public class Lab {
 				&& Main.game.getPlayer().getClothingCurrentlyEquipped().stream().anyMatch(c -> c.isSealed())) {
 			generatedResponses.add(new Response("Sealed problem",
 					"Tell Lilaya that you have some enchanted clothing sealed onto you, and that due to another enchantment on some of your clothing, you cannot remove it."
-							+ "<br/>[style.italicsMinorGood(Lilaya will unseal all your clothing!)]",
+							+ "<br/>[style.italicsMinorGood(Lilaya will remove the 'servitude' enchantment from all of your clothing!)]",
 						LAB_JINX_REMOVAL){
 				@Override
 				public void effects() {
 					for(AbstractClothing clothing : new ArrayList<>(Main.game.getPlayer().getClothingCurrentlyEquipped())) {
-						clothing.setSealed(false);
+						if(clothing.isSelfTransformationInhibiting()) {
+							clothing.removeServitudeEnchantment();
+						}
 					}
 				}
 			});
@@ -782,7 +801,7 @@ public class Lab {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Lyssieth", "Let Lilaya use the resonance stone to contact Lyssieth.", LyssiethPalaceDialogue.LILAYA_DEMON_TF_START){
+				return new Response("Teleported", "Lyssieth teleports the three of you back to her palace...", LyssiethPalaceDialogue.LILAYA_DEMON_TF_START){
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_OFFICE);
@@ -1562,15 +1581,26 @@ public class Lab {
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LILAYA_FRIEND_ACCOMMODATION");
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "You've now got Lilaya's permission to invite friends back home!", LAB_EXIT);
-
-			} else {
-				return null;
 			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode LILAYA_DOLL_STORAGE = new DialogueNode("", "", true, true) {
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/lab", "LILAYA_DOLL_STORAGE");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue", "You've now got Lilaya's permission to store dolls in her mansion!", LAB_EXIT);
+			}
+			return null;
 		}
 	};
 	

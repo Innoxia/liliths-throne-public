@@ -223,7 +223,7 @@ public class Lyssieth extends NPC {
 		
 		// Body:
 		this.setSubspeciesOverride(Subspecies.ELDER_LILIN);
-		this.setAgeAppearanceDifferenceToAppearAsAge(45);
+		this.setAgeAppearanceAbsolute(45);
 //		this.setTailType(TailType.DEMON_COMMON);
 //		this.setWingType(WingType.DEMON_COMMON);
 //		this.setHornType(HornType.CURLED);
@@ -432,14 +432,20 @@ public class Lyssieth extends NPC {
 		// Change perk to demon version:
 		Main.game.getPlayer().handleDemonicTransformationPerkEffects();
 	}
-	
+
 	public void setDaughterToFullDemon(Class<? extends NPC> daughterClass) {
+		setDaughterToFullDemon(daughterClass, true);
+	}
+	
+	public void setDaughterToFullDemon(Class<? extends NPC> daughterClass, boolean includeArousalChanges) {
 		setDaughterDemonicBodyParts(Main.game.getNpc(daughterClass));
 		
-		Main.game.getNpc(Lilaya.class).setArousal(100);
-		Main.game.getPlayer().setArousal(100, true);
-		if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(Main.game.getNpc(DarkSiren.class))) {
-			Main.game.getNpc(DarkSiren.class).setArousal(100);
+		if(includeArousalChanges) {
+			Main.game.getNpc(Lilaya.class).setArousal(100);
+			Main.game.getPlayer().setArousal(100, true);
+			if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(Main.game.getNpc(DarkSiren.class))) {
+				Main.game.getNpc(DarkSiren.class).setArousal(100);
+			}
 		}
 		
 		Main.game.getNpc(daughterClass).loadImages(true);
@@ -965,7 +971,7 @@ public class Lyssieth extends NPC {
 		
 		// Body:
 		this.setSubspeciesOverride(Subspecies.ELDER_LILIN);
-		this.setAgeAppearanceDifferenceToAppearAsAge(45);
+		this.setAgeAppearanceAbsolute(45);
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setTailGirth(PenetrationGirth.FOUR_GIRTHY);
 		this.setWingType(WingType.DEMON_COMMON);

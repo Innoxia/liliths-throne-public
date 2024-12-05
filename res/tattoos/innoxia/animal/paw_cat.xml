@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tattoo>
+	<coreAttributes>
+		<value>500</value> 
+		
+		<name><![CDATA[cat paw]]></name>
+		
+		<description><![CDATA[A stylised silhouette of a feline's paw-print.]]></description> 
+		<bodyOverviewDescription><![CDATA[a tattoo which depicts a stylised silhouette of a feline's paw-print]]></bodyOverviewDescription> 
+		
+		<imageName>paw_cat.svg</imageName> 
+		
+		<slotAvailability/>
+		
+		<primaryColours values="ALL" defaultColour="CLOTHING_TAN"/> 
+		<secondaryColours/>
+		<tertiaryColours/>
+		
+	</coreAttributes>
+	
+</tattoo>

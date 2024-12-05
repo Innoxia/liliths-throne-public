@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+ <g fill="none" stroke="#ffb380" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="7" y="7" width="50" height="50" rx="5" ry="5" stroke-width="4"/>
+  <circle cx="32" cy="32" r="17.64" stroke-width="3.3075"/>
+  <g stroke-width="1.1025">
+   <circle cx="32" cy="32" r="4.41"/>
+   <path d="m32.034 27.5c-0.12881-4.7553 4.232-11.022 7.0079-10.993"/>
+   <path d="m32.067 37.118c0.12881 4.7554-4.232 11.022-7.0079 10.993"/>
+   <path d="m36.86 32.293c4.7553-0.1288 11.022 4.232 10.993 7.0079"/>
+   <path d="m27.242 32.326c-4.7553 0.12881-11.022-4.232-10.993-7.0079"/>
+   <path d="m35.44 28.897c3.2715-3.4536 10.787-4.8016 12.728-2.8177"/>
+   <path d="m28.662 35.721c-3.2715 3.4536-10.787 4.8016-12.728 2.8177"/>
+   <path d="m35.463 35.698c3.4536 3.2715 4.8016 10.787 2.8177 12.728"/>
+   <path d="m28.638 28.92c-3.4536-3.2715-4.8016-10.787-2.8177-12.728"/>
+  </g>
+ </g>
+ <g fill="#ffb380" stroke="#ffb380" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="13.585" cy="13.336" r="1"/>
+  <circle cx="50.29" cy="13.398" r="1"/>
+  <circle cx="13.648" cy="50.415" r="1"/>
+  <circle cx="50.539" cy="50.477" r="1"/>
+ </g>
+</svg>

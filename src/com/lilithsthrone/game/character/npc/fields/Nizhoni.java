@@ -219,7 +219,7 @@ public class Nizhoni extends NPC {
 		this.equipClothingFromNowhere(dragonflies, true, this);
 
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_ankh_necklace", PresetColour.CLOTHING_BRONZE, PresetColour.CLOTHING_BRONZE, PresetColour.CLOTHING_BRONZE, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_BANGLE, PresetColour.CLOTHING_BRONZE, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_wrist_bangle", PresetColour.CLOTHING_BRONZE, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_finger_gemstone_ring", PresetColour.CLOTHING_BRONZE, PresetColour.CLOTHING_GREEN, null, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_ankle_anklet", PresetColour.CLOTHING_BRONZE, PresetColour.CLOTHING_BRONZE, null, false), true, this);
 

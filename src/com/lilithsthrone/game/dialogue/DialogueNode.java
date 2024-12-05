@@ -297,9 +297,14 @@ public abstract class DialogueNode {
 									if(combatElement.getOptionalFirstOf("escapeBlocked").isPresent()) {
 										escapeBlocked = Boolean.valueOf(UtilText.parse(combatElement.getMandatoryFirstOf("escapeBlocked").getTextContent()).trim());
 									}
+
+									boolean submitBlocked = false;
+									if(combatElement.getOptionalFirstOf("submitBlocked").isPresent()) {
+										submitBlocked = Boolean.valueOf(UtilText.parse(combatElement.getMandatoryFirstOf("submitBlocked").getTextContent()).trim());
+									}
 									
 									ResponseCombat combatResponse = new ResponseCombat(
-											responseTitle, responseTooltip, alliesIds, companionsAreAllies, elementalsAreAllies, enemyLeaderId, enemiesIds, openingDescriptions, effectsResponse, escapeBlocked);
+											responseTitle, responseTooltip, alliesIds, companionsAreAllies, elementalsAreAllies, enemyLeaderId, enemiesIds, openingDescriptions, effectsResponse, escapeBlocked, submitBlocked);
 									combatResponse.setNextDialoguePlayerVictoryId(nextDialoguePlayerVictory);
 									combatResponse.setNextDialoguePlayerDefeatId(nextDialoguePlayerDefeat);
 									combatResponse.setConditional(availabilityConditional);
@@ -755,6 +760,20 @@ public abstract class DialogueNode {
 	 */
 	public boolean isInventoryDisabled() {
 		return isTravelDisabled();
+	}
+
+	/**
+	 * @return True if this dialogue node disables inventory management. By default, this returns false. <b>This should only be used in very specific circumstances.</b>
+	 */
+	public boolean isInventoryForcedDisabledInSex() {
+		return false;
+	}
+
+	/**
+	 * @return True if this dialogue node disables phone use. By default, this returns false. <b>This should only be used in very specific circumstances.</b>
+	 */
+	public boolean isPhoneDisabled() {
+		return false;
 	}
 
 	/**

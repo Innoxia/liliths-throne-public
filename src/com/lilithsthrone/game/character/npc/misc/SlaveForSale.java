@@ -93,7 +93,10 @@ public class SlaveForSale extends NPC {
 					&& Math.random()<Main.getProperties().taurSpawnRate/100f
 					&& this.getLegConfiguration()!= LegConfiguration.QUADRUPEDAL) { // Do not reset this character's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
 				// Check for race's leg type as taur, otherwise NPCs which spawn with human legs won't be affected by taur conversion rate:
-				if(this.getRace().getRacialBody().getLegType().isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) {
+				if(this.getSubspecies()==Subspecies.HALF_DEMON && this.getLegType().isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) {
+					Main.game.getCharacterUtils().applyTaurConversion(this);
+					
+				} else if(this.getRace().getRacialBody().getLegType().isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) {
 					this.setLegType(this.getRace().getRacialBody().getLegType());
 					Main.game.getCharacterUtils().applyTaurConversion(this);
 				}
@@ -176,6 +179,9 @@ public class SlaveForSale extends NPC {
 	
 	@Override
 	public String getDescription() {
+		if(this.isSlave() && this.isDoll()) {
+			return super.getDescription();
+		}
 		if(this.isSlave()) {
 			return UtilText.parse(this, "For one reason or another, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property.");
 			

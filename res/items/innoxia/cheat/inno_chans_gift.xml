@@ -28,14 +28,16 @@
 		<enchantmentEffectId/>
 		
 		<effectTooltipLines>
-			<line><![CDATA[[style.boldBad(Does not affect unique characters)]]]></line>
+			<line><![CDATA[[style.boldBad(Does not affect unique characters or dolls)]]]></line>
 			<line><![CDATA[[style.boldTfGeneric(Transforms)] non-youko into [style.boldFox(youko)]]]></line>
 			<line><![CDATA[[style.boldTfGeneric(Grants)] youko an extra tail]]></line>
 		</effectTooltipLines>
 		
 		<applyEffects><![CDATA[
 		<p style='text-align:center'>
-			#IF(!npc.isPlayer() && npc.isUnique() && (!npc.isSlave() || npc.getOwner().isPlayer()))
+			#IF(npc.isDoll())
+				[style.italicsDisabled(This item does not work on dolls...)]
+			#ELSEIF(!npc.isPlayer() && npc.isUnique() && (!npc.isSlave() || npc.getOwner().isPlayer()))
 				[style.italicsDisabled(This item does not work on non-slave unique characters...)]
 			#ELSEIF(npc.getSubspecies()!=SUBSPECIES_FOX_ASCENDANT && npc.getSubspecies()!=SUBSPECIES_FOX_ASCENDANT_ARCTIC && npc.getSubspecies()!=SUBSPECIES_FOX_ASCENDANT_FENNEC)
 				[##game.getCharacterUtils().reassignBody(npc, npc.getBody(), npc.getGender(), SUBSPECIES_FOX_ASCENDANT, RACE_STAGE_PARTIAL_FULL, true)]

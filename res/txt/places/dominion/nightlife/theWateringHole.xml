@@ -73,15 +73,27 @@
 	<p>
 		From the amused smile on his face, you can tell that he's trying to trick you, but before you can offer a reply, he continues, [jules.speech(All you've got to do is come over here and suck my cock!)]
 	</p>
-	<p>
-		The other zebra-boy sighs and crosses his arms, before turning to his companion and berating him, [genericMale.speech(Come on Jules, knock it off. Kruger's already warned you about scaring the customers off.)]
-	</p>
-	<p>
-		[jules.speech(Ah, come on, I'm just teasing [pc.herHim],)] Jules laughs, before turning back towards you. [jules.speech(No harm meant!)]
-	</p>
-	<p>
-		It looks like you'll have to join the back of the queue and wait in line to get into the club, which you guess will take about half an hour. Then again, if you didn't want to wait, you could always take Jules up on his offer...
-	</p>
+	#IF(pc.getRace()==RACE_DEMON)
+		<p>
+			Before you can react, the other zebra-boy angrily punches his companion and berates him, [style.speechMasculine(What the fuck are you saying, Jules?! Can't you see [pc.sheIs] a demon?!)]
+		</p>
+		<p>
+			[jules.speech(Ah, come on, I'm just teasing [pc.herHim],)] Jules laughs, before turning back towards you. [jules.speech(No harm meant!)]
+		</p>
+		<p>
+			It looks like you'll have to join the back of the queue and wait in line to get into the club, which you guess will take about half an hour. Then again, you could use your status as a demon to cut the queue, or even take Jules up on his offer...
+		</p>
+	#ELSE
+		<p>
+			The other zebra-boy sighs and crosses his arms, before turning to his companion and berating him, [style.speechMasculine(Come on Jules, knock it off. Kruger's already warned you about scaring the customers off.)]
+		</p>
+		<p>
+			[jules.speech(Ah, come on, I'm just teasing [pc.herHim],)] Jules laughs, before turning back towards you. [jules.speech(No harm meant!)]
+		</p>
+		<p>
+			It looks like you'll have to join the back of the queue and wait in line to get into the club, which you guess will take about half an hour. Then again, if you didn't want to wait, you could always take Jules up on his offer...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -97,21 +109,38 @@
 			 [jules.speech(Hey, it's you again! You gonna suck my cock this time, or what?)]
 		#ENDIF
 	</p>
-	<p>
-		The other zebra-boy leans back against the wall and sighs, [genericMale.speech(Damn it, Jules...)]
-	</p>
-	<p>
-		It looks like you'll have to join the back of the queue and wait in line to get into the club, which you guess will take about half an hour. Then again, if you didn't want to wait, you could always take Jules up on his offer...
-	</p>
+	#IF(pc.getRace()==RACE_DEMON)
+		<p>
+			Before you can react, the other zebra-boy angrily berates Jules, [style.speechMasculine(You're going to get the two of us fired, you fucking idiot! Can't you see [pc.sheIs] a demon?!)]
+		</p>
+		<p>
+			[jules.speech(Relax, man, [pc.she] knows I'm just teasing [pc.herHim],)] Jules laughs.
+		</p>
+		<p>
+			It looks like you'll have to join the back of the queue and wait in line to get into the club, which you guess will take about half an hour. Then again, you could use your status as a demon to cut the queue, or even take Jules up on his offer...
+		</p>
+	#ELSE
+		<p>
+			The other zebra-boy leans back against the wall and sighs, [style.speechMasculine(Damn it, Jules...)]
+		</p>
+		<p>
+			It looks like you'll have to join the back of the queue and wait in line to get into the club, which you guess will take about half an hour. Then again, if you didn't want to wait, you could always take Jules up on his offer...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_ENTRANCE_START_BLOWJOB"><![CDATA[
 	<p>
-		[pc.speech(Sure, I don't mind doing that!)] you happily call out, before starting to make your way towards the large zebra-boy.
+		Deciding to take Jules up on his offer, you cut the queue and [pc.walk] up to the large zebra-boy, before telling him that you'll suck his cock.
 	</p>
 	<p>
-		[jules.speech(Hah! I told you I'd get my cock sucked tonight!)] Jules happily states to his partner, before turning back towards you. [jules.speech(Go on then, slut, get down on your knees.)]
+		#IF(pc.getRace()==RACE_DEMON)
+			[jules.speech(Hah! I told you I'd get my cock sucked tonight, and by a demon no less!)]
+		#ELSE
+			[jules.speech(Hah! I told you I'd get my cock sucked tonight!)]
+		#ENDIF
+		 Jules happily states to his partner, before turning back towards you and commanding, [jules.speech(Go on then, slut, get down on your knees.)]
 	</p>
 	<p>
 		Doing as you're told, you drop down onto your knees in front of Jules. You hear several of the people waiting in the queue behind you starting to gasp and laugh as you shuffle forwards and prepare to suck the zebra-boy's cock.
@@ -120,31 +149,66 @@
 		[jules.speech(Get it out for me,)] Jules commands, thrusting his hips forwards.
 	</p>
 	<p>
-		 You quickly move to do as you're told, and happily pull down his black jeans. Thanks to the pair of crotchless briefs that Jules is wearing, your move results in your face being just [unit.sizes] away from his rapidly-hardening horse-cock. Without any warning, the zebra-boy bucks his hips forwards, slapping his huge, fat cock against your face as he lets out a triumphant laugh, [jules.speech(Hah! Now let's find out how good you are at sucking cock!)]
+		You quickly move to do as you're told, and happily pull down his black jeans. Thanks to the pair of crotchless briefs that Jules is wearing, your move results in your face being just [unit.sizes] away from his huge, rapidly-hardening horse-cock. Without any warning, the zebra-boy bucks his hips forwards, slapping his fat, ebony shaft against your face as he lets out a triumphant laugh, [jules.speech(Hah! Now let's find out how good you are at sucking cock!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_ENTRANCE_JULES_SEX"><![CDATA[
+	<p>
+		Finding yourself back at the entrance to the club, you
+		#IF(flags.hasFlag(FLAG_fuckedJules))
+			 can't help but remember the 'proper fuck' Jules gave you in his office.
+		#ELSE
+			 remember Jules's offer of giving you a 'proper fuck'.
+		#ENDIF
+		 Deciding that the zebra-boy's fat cock is what you need right now, you [pc.step] out through the doors and immediately catch his eye.
+	</p>
+	<p>
+		[jules.speech(Leaving already?)] he asks, [jules.speech(Hey, how about another blowjob some time? You're not half bad at giving head.)]
+	</p>
+	<p>
+		[pc.Walking] over to Jules, you tell him that giving him a blowjob isn't going to cut it, and that a 'proper fuck' is what you need right now.
+	</p>
+	<p>
+		[jules.speech(Hey, cover for me for ten minutes while I bang this slut,)] Jules says to his colleague, before taking you by the [pc.hand(true)] and leading you over to a nearby door marked as 'Staff Only'.
+	</p>
+	<p>
+		[style.speechMasculine(For fuck's sake,)] the other zebra-boy sighs as Jules leads you into a small, dingy office. Calling out after you as the door swings shut, the bouncer shouts, [style.speechMasculine(Don't leave a mess in there this time!)]
+	</p>
+	<p>
+		Dominantly pulling you into his chest, Jules greedily gropes your body and grunts in a deep voice, [jules.speech(Time to give you a proper fucking, slut.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="AFTER_JULES_BLOWJOB"><![CDATA[
 	<p>
-		Having finished sucking his cock, you stand up in front of Jules, who grins at you as he steps to one side in order to let you pass. [jules.speech(Good job, slut. Go on in, I'm sure you'll find plenty more cocks to service inside.)]
-	</p>
-	<p>
-		Stepping through the double doors, you enter the club proper, which you discover to be absolutely packed with people of all different races. The chatter, laughter, and shouting from the crowd is joined by loud, bassy background music, making it very hard to make out what anyone's saying unless you're standing right beside them.
-	</p>
-	<p>
-		Just like the entrance hall, the main interior looks to have an African theme to it, and although the lights are very dim, you can clearly see zebra-stripes, leopard-spots, and savannah-style trees painted onto the walls. The floor beneath your feet is covered in light wooden boards, which, combined with the light blue colour of the high ceiling, gives the club a spacious feel to it.
-	</p>
-	<p>
-		Although you can't directly see it through the crowds in front of you, a wooden sign hanging from the ceiling on the far side of the club's huge interior tells you where the bar is. You wonder if you should go straight there and get a drink, or try to find someone to flirt with first...
+		Having finished sucking his cock, you stand up in front of Jules, who grins at you as he steps to one side in order to let you pass.
+		#IF(flags.hasFlag(FLAG_fuckedJules))
+			 [jules.speech(Good job, slut. Go on in, and if you can't find someone to fuck, then come and let me know and I'll give you a proper fuck again.)]
+		#ELSE
+			 [jules.speech(Good job, slut. Go on in, I'm sure you'll find plenty more cocks to service inside. If not, come and let me know and I'll give you a proper fuck.)]
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="WATERING_HOLE_ENTRANCE_PASSED"><![CDATA[
 	<p>
-		You find yourself standing beside the pair of white doors which lead back out into the club's entrance hall. From here, you could choose to take your leave, or turn around and head back into the club.
+		You find yourself standing beside the pair of white doors which lead back out into the club's entrance hall. From here you could choose to take your leave, or instead turn around and head back into the club.
 	</p>
+	#IF(!flags.hasFlag(FLAG_fuckedJulesTonight))
+		#IF(flags.hasFlag(FLAG_fuckedJules))
+			<p>
+				Having been given a 'proper fuck' by Jules on a previous occasion, you could return to the zebra-boy bouncer and tell him that you want a repeat performance...
+			</p>
+		#ELSEIF(flags.hasFlag(FLAG_suckedJulesCock))
+			<p>
+				Remembering that Jules had offered to give you a 'proper fuck' after giving him a blowjob, you could return to the zebra-boy bouncer and tell him that you want him...
+			</p>
+		#ENDIF
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -155,6 +219,20 @@
 	<p>
 		It takes about thirty minutes before you're standing before the pair of zebra-boy bouncers. After just a minute more, Jules steps to one side in order to let you pass. [jules.speech(Go on in then.)]
 	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_ENTRANCE_SKIP_QUEUE"><![CDATA[
+	<p>
+		Deciding to take advantage of your status as a demon, you stride forwards and coldly ask Jules if he has any idea who you are.
+	</p>
+	<p>
+		[jules.speech(Hey, I was just joking, I didn't mean to offend you,)] the zebra-boy sheepishly replies. Realising that he might be in serious trouble, he steps aside and waves you on through, saying as he does so, [jules.speech(I'm sorry, please go on in and have a good evening.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_ENTRANCE_END"><![CDATA[
 	<p>
 		Stepping through the double doors, you enter the club proper, which you discover to be absolutely packed with people of all different races. The chatter, laughter, and shouting from the crowd is joined by loud, bassy background music, making it very hard to make out what anyone's saying unless you're standing right beside them.
 	</p>
@@ -162,10 +240,43 @@
 		Just like the entrance hall, the main interior looks to have an African theme to it, and although the lights are very dim, you can clearly see zebra-stripes, leopard-spots, and savannah-style trees painted onto the walls. The floor beneath your feet is covered in light wooden boards, which, combined with the light blue colour of the high ceiling, gives the club a spacious feel to it.
 	</p>
 	<p>
-		Although you can't directly see it through the crowds in front of you, a wooden sign hanging from the ceiling on the far side of the club's huge interior tells you where the bar is. You wonder if you should go straight there and get a drink, or try to find someone to flirt with first...
+		Although you can't directly see the bar through the crowds in front of you, a wooden sign hanging from the ceiling on the far side of the club's huge interior tells you where it is. You wonder if you should go straight there and get a drink, or try to find someone to flirt with first...
 	</p>
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="AFTER_JULES_SEX"><![CDATA[
+	<p>
+		#IF(jules.isSatisfiedFromLastSex())
+			[jules.speech(Fuck, I needed that tonight. You're a decent lay, slut,)] Jules grunts as he brings an end to things.
+		#ELSE
+			[jules.speech(You're done already?! Fuck, you're a lousy lay, slut,)] Jules grunts in annoyance as you bring an end to things before he's had the chance to orgasm.
+		#ENDIF
+		 After quickly using some wet wipes to clean himself off, he pulls on his clothes and states, [jules.speech(I've got to get back to work, and I can't leave you in here. Hurry up and get ready.)]
+	</p>
+	<p>
+		Doing as you're told, you quickly get your things back in order, before exiting the dingy office via the same door through which you entered. Giving your [pc.ass+] a hard slap as he follows you out, Jules returns to his place at the doors to the club.
+	</p>
+	<p>
+		[jules.speech(Go on, you probably want a drink or something after that,)] Jules says to you, before holding open the door and gesturing for you to head inside.
+	</p>
+	<p>
+		[style.speechMasculine(How romantic,)] the other zebra-boy sarcastically chuckles.
+	</p>
+	<p>
+		Doing as Jules says, you pass him by and enter the club once again. The chatter, laughter, and shouting from the crowd is joined by loud, bassy background music, making it very hard to make out what anyone's saying unless you're standing right beside them.
+	</p>
+	<p>
+		Just like the entrance hall, the main interior looks to have an African theme to it, and although the lights are very dim, you can clearly see zebra-stripes, leopard-spots, and savannah-style trees painted onto the walls. The floor beneath your feet is covered in light wooden boards, which, combined with the light blue colour of the high ceiling, gives the club a spacious feel to it.
+	</p>
+	<p>
+		Although you can't directly see it through the crowds in front of you, a wooden sign hanging from the ceiling on the far side of the club's huge interior tells you where the bar is. You wonder if you should go straight there and get a drink, or try to find someone else to have some more fun with tonight...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Main club content: -->
 	
 	<htmlContent tag="WATERING_HOLE_MAIN"><![CDATA[
 	<p>
@@ -759,18 +870,25 @@
 	<htmlContent tag="WATERING_HOLE_SEATING_SEX_AS_DOM_REJECTED"><![CDATA[
 	<p>
 		Sliding around on the semi-circular sofa, you lean in against [npc.name], which causes [npc.herHim] to let out a frustrated sigh. Pushing you away,
-		#IF npc.isShy()
-		#THEN [npc.she] stutters, [npc.speech(P-Please stay on your side!)]
+		#IF(npc.isShy())
+			 [npc.she] stutters, [npc.speech(P-Please stay on your side!)]
 		#ELSE
-			#IF npc.isConfident()
-			#THEN [npc.she] scolds, [npc.speech(Hey! Calm down! Keep to your side of the sofa!)]
-			#ELSE [npc.she] frowns at you as [npc.she] tells you off, [npc.speech(Keep to your side of the sofa!)]
+			#IF(npc.isConfident())
+				 [npc.she] scolds, [npc.speech(Hey! Calm down! Keep to your side of the sofa!)]
+			#ELSE
+				 [npc.she] frowns at you as [npc.she] tells you off, [npc.speech(Keep to your side of the sofa!)]
 			#ENDIF
 		#ENDIF
 	</p>
-	<p>
-		Reluctantly doing as [npc.she] asks, you move back around to your initial position. Waiting a moment for [npc.name] to stop frowning at you, you wonder what to do next...
-	</p>
+	#IF(npc.hasFetish(FETISH_NON_CON_SUB))
+		<p>
+			Despite [npc.her] rejection of your advances, [npc.name] suddenly [npc.verb(let)] out a horny little moan, letting you know that [npc.sheHas] got a kink for being taken against [npc.her] will. Perhaps if you tried initiating sex with [npc.herHim] in a less public place, such as the toilets, [npc.she]'d engage in some rape-play with you...
+		</p>
+	#ELSE
+		<p>
+			Reluctantly doing as [npc.she] asks, you move back around to your initial position. Waiting a moment for [npc.name] to stop frowning at you, you wonder what to do next...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -1327,13 +1445,13 @@
 		In one corner of the club, there's a seating area which is quite unlike the others. Most of the frontage is blocked off by a dark glass wall, and the single opening is guarded by a pair of muscular lion bouncers. Looking through this opening reveals the interior to be furnished with numerous semi-circular booths, each one housing a polished black marble table and a long, curved leather sofa.
 	</p>
 	<p>
-		As you approach, one of the bouncers recognises you from before, and asks, [genericMale.speech(You're Kalahari's friend, right?)]
+		As you approach, one of the bouncers recognises you from before, and asks, [style.speechMasculineStrong(You're Kalahari's friend, right?)]
 	</p>
 	<p>
 		[pc.speech(Yeah, that's me,)] you reply.
 	</p>
 	<p>
-		[genericMale.speech(Kruger said you can head on in if you returned. I'm sure he'd like to talk to you,)] the bouncer explains, before stepping to one side in order to let you pass.
+		[style.speechMasculineStrong(Kruger said you can head on in if you returned. I'm sure he'd like to talk to you,)] the bouncer explains, before stepping to one side in order to let you pass.
 	</p>
 	<p>
 		You could head over to Kruger's booth, or turn back and return to the main part of the club...
@@ -1709,7 +1827,7 @@
 	
 	<htmlContent tag="WATERING_HOLE_TOILETS"><![CDATA[
 	<p>
-		The club's toilets are far larger and cleaner than those of a typical nightclub, with at least twenty individual stalls running down one wall. Opposite the stalls, sinks and mirrors provide a place for the club's revellers to clean themselves.
+		The club's toilets are far larger and cleaner than those of a typical nightclub, with at least twenty individual stalls running down one wall. Opposite the stalls, sinks and mirrors provide a place for the club's revellers to clean themselves, while plastered over the far wall there are a few dozen posters.
 	</p>
 	<p>
 		As you walk past one of the open stalls, you see that someone's cut glory holes in the walls to either side, and obscene writing is scrawled beside each one. From the splatters of cum on the floor, you can tell that this stall sees regular use...
@@ -1745,7 +1863,7 @@
 		#ENDIF
 	</p>
 	<p>
-		As [npc.she] sees the approach of your groin, [npc.name] lets out [npc.a_moan+], before shuffling closer to the wall and firmly pressing her open mouth up against the hole. 
+		As [npc.she] sees the approach of your groin, [npc.name] lets out [npc.a_moan+], before shuffling closer to the wall and firmly pressing [npc.her] open mouth up against the hole. 
 		#IF(!npc.isMute())
 			 Letting out [npc.a_moan+], [npc.she] impatiently encourages you to get started, [game.random(
 			[npc.speech(Oh yeah, come on! Let this whore show you what [npc.sheIs] capable of!)]
@@ -1838,6 +1956,39 @@
 	</p>
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_RAPE"><![CDATA[
+	<p>
+		Taking hold of [npc.namePos] [npc.hand], you pull [npc.herHim] over to one of the stalls in order to have sex with [npc.herHim], but as [npc.she] sees what you're doing [npc.she] angrily hisses under [npc.her] breath, [npc.speech(I'm <i>not</i> going to fuck you in a toilet... Stop it!)]
+	</p>
+	<p>
+		Despite [npc.her] words, there's a strong note of arousal in [npc.namePos] voice, which encourages you to forcefully pull [npc.herHim] into one of the stalls, before turning and locking the door behind you. A look of exaggerated horror flashes across [npc.her] face, but before [npc.she] can say anything else, you silence [npc.herHim] by roughly pressing your [pc.lips+] against [npc.her] mouth.
+	</p>
+	<p>
+		Weakly beating against you with [npc.her] fists, [npc.she] manages to break off the kiss and cry, [npc.speech(No! Please stop, [pc.name]! Don't rape me!)]
+	</p>
+	<p>
+		It's extremely obvious from the lewd tone of [npc.her] voice that this is exactly what [npc.name] wants, and as [npc.she] pretends to resist, you get ready to 'rape' [npc.her] right here in the toilets of the club...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_RAPE_PLAY"><![CDATA[
+	<p>
+		Taking hold of [npc.namePos] [npc.hand], you pull [npc.herHim] over to one of the stalls in order to have sex with [npc.herHim], and as [npc.she] sees what you're doing [npc.she] happily [npc.moansVerb], [npc.speech(Yes... Let's fuck!)]
+	</p>
+	<p>
+		Forcefully pulling [npc.herHim] into one of the stalls, you turn and lock the door behind you, before telling [npc.name] that you want [npc.herHim] to pretend that you're raping [npc.herHim]. Immediately playing along with your request, a look of exaggerated horror flashes across [npc.her] face and [npc.she] angrily hisses under [npc.her] breath, [npc.speech(I'm <i>not</i> going to fuck you in a toilet... Stop this!)]
+	</p>
+	<p>
+		Before [npc.she] can say anything else, you silence [npc.herHim] by roughly pressing your [pc.lips+] against [npc.her] mouth. Weakly beating against you with [npc.her] fists, [npc.she] manages to break off the kiss and cry, [npc.speech(No! Please stop, [pc.name]! Don't rape me!)]
+	</p>
+	<p>
+		It's extremely obvious from the lewd tone of [npc.her] voice that this is exactly what [npc.name] wants, and as [npc.she] pretends to resist, you get ready to 'rape' [npc.her] right here in the toilets of the club...
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	<htmlContent tag="WATERING_HOLE_TOILETS_AFTER_SEX"><![CDATA[
 	<p>
@@ -1953,6 +2104,28 @@
 	</p>
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_POSTERS"><![CDATA[
+	<p>
+		[pc.Walking] over to the far side of the room, you stop and take a look at the posters which are plastered all over the wall. Most of them are of a promotional nature, and display images of music bands, the newest cosmetic and clothing brands, or different types of food and drink.
+	</p>
+	<p>
+		A few of these posters have a more sinister nature, however, and you see that they're displaying mug shots of dangerous-looking criminals. Wanted for crimes ranging from robbery and #IF(game.isNonConEnabled())rape#ELSEassault#ENDIF to kidnapping and sedition, the posters promise that these criminals will be caught eventually, and anyone caught aiding them will join them in a punishment of lifetime enslavement.
+	</p>
+	<p>
+		The final poster of any note displays an idyllic scene of a happy family living in the countryside. The writing beneath promises a better life for anyone willing to leave Dominion and take the voyage over the 'Endless Sea' to the land beyond.
+		#IF(game.isPlotDiscovered())
+			 Knowing that this land must be mainland Europe, you can't help but doubt that the emigrating citizens of Dominion will have a life there similar to the one shown on the poster.
+		#ELSE
+			 Taking another look at the scene displayed upon the poster, you can't help but wonder what this promised land is like in reality.
+		#ENDIF
+	</p>
+	<p>
+		Having seen all there is, you [pc.step] away from the posters and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	<htmlContent tag="AUNT_HOME_PLAYERS_ROOM_CLUBBER_TAKEN_HOME"><![CDATA[
 	<p>
@@ -2132,12 +2305,13 @@
 		[pc.speech(Not likely,)] you reply, crossing your [pc.arms] and smirking at [npc.name]. [pc.speech(I just wanted to give you a good fuck. I'm not interested in seeing you again.)]
 	</p>
 	<p>
-		#IF npc.isShy()
-		#THEN[npc.speech(Y-You asshole! Y-You could at least pretend to care!)] [npc.name] stammers, tears welling up in [npc.her] [npc.eyes] as [npc.she] turns and runs over to the door.
+		#IF(npc.isShy())
+			[npc.speech(Y-You asshole! Y-You could at least pretend to care!)] [npc.name] stammers, tears welling up in [npc.her] [npc.eyes] as [npc.she] turns and runs over to the door.
 		#ELSE
-			#IF npc.isConfident()
-			#THEN[npc.speech(Fine. If that's the way it is, fuck you too, you fucking [pc.bitch].)] [npc.name] snaps, glaring down at you for a moment before turning on [npc.her] heel and heading over to the door.
-			#ELSE[npc.speech(Eugh. What [pc.a_bitch]. Fuck you too.)] [npc.name] snaps, before quickly turning and heading over to the door.
+			#IF(npc.isConfident())
+				[npc.speech(Fine. If that's the way it is, fuck you too, you fucking [pc.bitch].)] [npc.name] snaps, glaring down at you for a moment before turning on [npc.her] heel and heading over to the door.
+			#ELSE
+				[npc.speech(Eugh. What [pc.a_bitch]. Fuck you too.)] [npc.name] snaps, before quickly turning and heading over to the door.
 			#ENDIF
 		#ENDIF
 	</p>
@@ -2155,12 +2329,13 @@
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_BAR"><![CDATA[
 	<p>
-		#IF npc.isKind()
-		#THEN [npc.speech(It's pretty hot in here. Come on, let's go and get something to drink,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off in the direction of the bar. [npc.speech(I'll get you something nice!)]
+		#IF(npc.isKind())
+			[npc.speech(It's pretty hot in here. Come on, let's go and get something to drink,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off in the direction of the bar. [npc.speech(I'll get you something nice!)]
 		#ELSE
-			#IF npc.isSelfish()
-			#THEN [npc.speech(Fuck, it's boiling in here! Come on [pc.babe], I'm thirsty,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and pulling you along behind [npc.herHim] as [npc.she] sets off in the direction of the bar.
-			#ELSE [npc.speech(It's really hot in here. Come on, let's go and get something to drink,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off in the direction of the bar.
+			#IF(npc.isSelfish())
+				[npc.speech(Fuck, it's boiling in here! Come on [pc.babe], I'm thirsty,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and pulling you along behind [npc.herHim] as [npc.she] sets off in the direction of the bar.
+			#ELSE
+				[npc.speech(It's really hot in here. Come on, let's go and get something to drink,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off in the direction of the bar.
 			#ENDIF
 		#ENDIF
 	</p>
@@ -2172,12 +2347,13 @@
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_DANCE_FLOOR"><![CDATA[
 	<p>
-		#IF npc.isKind()
-		#THEN [npc.speech(Let's head over to the dance floor,)] [npc.name] suggests, before taking your [pc.hand] in [npc.hers] and setting off towards the middle of club's main floor. [npc.speech(I love dancing!)]
+		#IF(npc.isKind())
+			[npc.speech(Let's head over to the dance floor,)] [npc.name] suggests, before taking your [pc.hand] in [npc.hers] and setting off towards the middle of club's main floor. [npc.speech(I love dancing!)]
 		#ELSE
-			#IF npc.isSelfish()
-			#THEN [npc.speech(Come on [pc.babe], I want to see you shaking that hot body of yours for me,)] [npc.name] says, before grabbing your [pc.hand] and pulling you along behind [npc.herHim] as [npc.she] sets off in the direction of the dance floor. [npc.speech(And don't you try dancing off with someone else! You're mine for tonight!)]
-			#ELSE [npc.speech(Hey, [pc.name], let's go and check out the dance floor,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off towards the middle of club's main floor. [npc.speech(After all, dancing is what's going to the club's all about!)]
+			#IF(npc.isSelfish())
+				[npc.speech(Come on [pc.babe], I want to see you shaking that hot body of yours for me,)] [npc.name] says, before grabbing your [pc.hand] and pulling you along behind [npc.herHim] as [npc.she] sets off in the direction of the dance floor. [npc.speech(And don't you try dancing off with someone else! You're mine for tonight!)]
+			#ELSE
+				[npc.speech(Hey, [pc.name], let's go and check out the dance floor,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off towards the middle of club's main floor. [npc.speech(After all, dancing is what's going to the club's all about!)]
 			#ENDIF
 		#ENDIF
 	</p>
@@ -2189,12 +2365,13 @@
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_SEATING_AREA"><![CDATA[
 	<p>
-		#IF npc.isKind()
-		#THEN [npc.speech(I think we'd be able to talk with one another a little easier if we went and sat down,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off towards the nearest seating area. [npc.speech(We can also give our legs a rest for a while!)]
+		#IF(npc.isKind())
+			[npc.speech(I think we'd be able to talk with one another a little easier if we went and sat down,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off towards the nearest seating area. [npc.speech(We can also give our [npc.legs] a rest for a while!)]
 		#ELSE
-			#IF npc.isSelfish()
-			#THEN [npc.speech(My [npc.legs] are fucking killing me!)] [npc.name] complains, before grabbing your [pc.hand] and pulling you along behind [npc.herHim] as [npc.she] sets off towards the nearest seating area. [npc.speech(Come on, I want to sit down for a while!)]
-			#ELSE [npc.speech(Come on, [pc.name], let's go and sit down for a little while,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off towards the nearest seating area. [npc.speech(My [npc.legs] are aching from standing up for so long!)]
+			#IF(npc.isSelfish())
+				[npc.speech(My [npc.legs] are fucking killing me!)] [npc.name] complains, before grabbing your [pc.hand] and pulling you along behind [npc.herHim] as [npc.she] sets off towards the nearest seating area. [npc.speech(Come on, I want to sit down for a while!)]
+			#ELSE
+				[npc.speech(Come on, [pc.name], let's go and sit down for a little while,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off towards the nearest seating area. [npc.speech(My [npc.legs] are aching from standing up for so long!)]
 			#ENDIF
 		#ENDIF
 	</p>

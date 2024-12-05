@@ -1,0 +1,74 @@
+<h2>v0.4.8.10</h2>
+
+<h3>FriendlyAlienFriend's Artwork (https://twitter.com/thealienfriend):</h3>
+<ul>
+	<li>Added Oglix (with pregnant variations) and Golix artwork.</li>
+</ul>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Custom parser targets (i.e. the custom parser ID you assign to an NPC when creating them) are now saved and loaded correctly, meaning that custom NPCs can now be accessed via their custom ID after saving and loading. (More of a bugfix than an addition.)</li>
+	<li>Added 'IGNORE_HAIR_RESTRICTION' item tag, for use on clothing which should be able to be equipped into the HAIR slot even if the character has no hair.</li>
+	<li>Added 'WEAPON_FIREARM' item tag, which should be given to any weapon that should be regarded as being a firearm. (Weapons with this tag are affected by the new 'Firearms Mastery' perk which Ghost and Hammer have.)</li>
+	<li>Added a new 'submitBlocked' element to combat responses, allowing you to disable the option to submit during combat scenes.</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>Added the next section of the main quest, where you get the help from the SWORD Enforcers in Elis. (thanks to DSG for assistance with Enforcer lore)</li>
+	<li>At the nightclub, 'The Watering Hole', if you are a demon you can now skip the queue, and if you've sucked Jules's cock, you now can have sex with him in his office.</li>
+</ul>
+
+<h3>Clothing & Weapons:</h3>
+<ul>
+	<li>Added 'cuff choker necklace' (androgynous, neck slot, sold by Nyan).</li>
+	<li>Added 'triple cuff choker necklace' (feminine, neck slot, sold by Nyan).</li>
+	<li>Added 'balaclava' (androgynous, hair slot (so that it can be equipped with hats, eyewear, and mouth items), sold by Nyan). Muggers will now sometimes spawn wearing a balaclava instead of a bandana.</li>
+	<li>Added 'SWORD dagger' (melee, one-handed, 25 base damage with high variance, all damage types, not sold by anyone as it's a special reward).</li>
+	<li>Added 'leg warmers' (feminine, calves slot, sold by Nyan).</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>Characters now need to be visibly pregnant (i.e. progressed past the 'risk of pregnancy' stage) in order to lay eggs via ovipositor. (Remember that characters can use mother's milk to progress past this stage if you want to impregnate & lay eggs in the same sex scene.)</li>
+	<li>Added the 'Highly illegal' tag to the arcane revolver.</li>
+	<li>Friendly occupants now earn experience by working slave jobs (25% chance per hour to earn 5xp).</li>
+	<li>NPCs' elementals now show in the 'Characters Present' panel on the right of the screen, even when not active.</li>
+	<li>Catherine (the slime queen) now has barbell nipple piercings and a triple cuff choker necklace, as her artwork depicts.</li>
+	<li>You can no longer loiter in 'The Crossed Blades' tavern, as doing so could leave you in there during closing hours.</li>
+	<li>Added 'light purple' as a skin colour.</li>
+	<li>The default fetish preferences for the 'Bimbo' and 'Cross dressing' fetishes has been lowered. (This won't have any effect unless a new 'properties.xml' file is generated, i.e. only on a completely new game start.)</li>
+	<li>Changed the masculine/female race names for dobermanns from simply 'dobermann/dobermann' to 'dobermann-boy/dobermann-girl' to make them more consistent with other race names.</li>
+	<li>Changed the name postfix of ground floor maps from 'GF' to 'F0', and that of first floor maps from '1F' to 'F1'.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Parsing and typo fixes.</li>
+	<li>The awning poles, green cloth, and embroidered sign are now correctly removed from the player's inventory when completing Eisek's stall quest (these items are also removed from your inventory when loading into this version if you've already completed the quest).</li>
+	<li>The 'Clean her' option on Nizhoni is now correctly disabled after activating it.</li>
+	<li>Fixed issue where the next scene after going downstairs in Elis's town hall would be the scene at the top of the stairs instead of the bottom.</li>
+	<li>Fixed some dialogue bugs in Pix's gym where it would describe you as not being a member of the gym when you were and vice versa.</li>
+	<li>You will no longer obtain condoms used by NPCs in sex if either the player or the NPC is a spectator of the sex scene and the other one isn't.</li>
+	<li>The 'Trickster's Mask' is no longer sold by Nyan (the whole set will be added as a quest reward at a different location in a future version).</li>
+	<li>Fixed issue where Nyan was described as saying goodbye to you when you left her store while she wasn't there. </li>
+	<li>In double-penetration sex, penises no longer have their race prefix added to their name to prevent illogical parsing (e.g. 'wolf-cocks' was used for when a wolf and a non-wolf were penetrating).</li>
+	<li>The vagina and anus orifices for characters with a cloaca are now correctly treated as being blocked for the purpose of sex action availability when clothing is equipped into them.</li>
+	<li>Fixed issue with the 'Apple Pie à la Mode' item sometimes having incorrect colouring.</li>
+	<li>The 'Balls focus' sex action now requires the performing character to have a real penis (so this action won't be available for strap-ons anymore).</li>
+	<li>Fixed issue where half-demons could load full demon transformation presets but not half-demon ones.</li>
+	<li>NPCs which spawn at the bar in 'Lights Out' no longer have their genitals and all other concealed body parts revealed to you right from the start.</li>
+	<li>Fixed bug where you could get stuck in Desryth's apartment after rejecting him, then returning to meet him and rejecting him again.</li>
+	<li>Fixed bug where if you reloaded a game which was saved during the day, NPCs which had spawned in Elis's alleyway tiles at night would often despawn and disappear.</li>
+	<li>Fixed issue in sex actions involving urethral penetration of a penis where a pussy was being incorrectly referenced.</li>
+	<li>Condoms now correctly block access to the wearer's penile urethra.</li>
+	<li>The quick load feature should now work correctly for characters with a space in their name.</li>
+	<li>Fixed bug where if you enchanted an item which had been renamed, the item's name would be reset back to its default name.</li>
+	<li>Using the 'Quick sex' sex action now correctly increments your sex stats.</li>
+	<li>Fixed bug where Natalya's TF potion wouldn't work if you were a demonic slime.</li>
+	<li>Fixed background error being thrown when trying to delete Sterope's sexual partners (which would also leave random NPCs in the stables in the Centaur's Sword tavern - these excess NPCs will be cleaned up upon loading into this version).</li>
+	<li>Fixed bug where the 'lime green' colour for clothing would be shown twice in the dye menu, with the second instance not being responsive.</li>
+	<li>Fixed bug where you could knock on the door to Minotallys's office and have a conversation with her while she was asleep in her bedroom.</li>
+	<li>If you have more 'Quest' rarity items than your inventory tab can normally display, the UI will now display your extra quest items instead of hiding them from you.</li>
+	<li>Fixed bug where tooltips for perks weren't working in some character view windows.</li>
+</ul>

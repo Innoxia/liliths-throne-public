@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <g fill="#ffb380">
+  <g stroke="#ffb380">
+   <path d="m6.8457 34.444 0.14343 13.74" stroke-width="7.1185"/>
+   <path d="m7.0779 25.031 0.026741 15.573" stroke-linecap="round" stroke-width="7.6373"/>
+   <path d="m8.4064 39.755 49.528 0.06928" stroke-width="10.678"/>
+  </g>
+  <path d="m7.4146 20.196c6.2659-0.44244 5.1234 6.2562 4.879 13.11h19.177l-0.042546-16.881c-9.4566-0.2747-20.627 0.90555-24.012 3.7644z" fill-rule="evenodd"/>
+  <path d="m57.154 34.507-0.02431 13.326" stroke="#ffb380" stroke-width="7.1185"/>
+  <path d="m56.922 25.093-0.02673 15.573" stroke="#ffb380" stroke-linecap="round" stroke-width="7.6373"/>
+  <path d="m56.585 20.258c-6.2647-0.44244-5.1234 6.2562-4.879 13.11h-19.175l0.04133-16.881c9.4566-0.2747 20.627 0.90555 24.012 3.7644z" fill-rule="evenodd"/>
+ </g>
+</svg>

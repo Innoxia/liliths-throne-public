@@ -14,9 +14,9 @@
 	<p>
 		Pushing open the front door and entering the shop, you're greeted once again by the sight of the stunningly-beautiful matriarch sitting down behind the shop's counter.
 		#IF(pc.hasCompanion(scarlett))
-			 Betraying no sign of emotion on her gorgeous face, she pointedly stares at [scarlett.name] for a moment, before looking back at you and stating in her clam, melodic voice, 
+			 Betraying no sign of emotion on her gorgeous face, she pointedly stares at [scarlett.name] for a moment, before looking back at you and stating in her calm, melodic voice, 
 		#ELSE
-			 Betraying no sign of emotion on her gorgeous face, she states in her clam, melodic voice, 
+			 Betraying no sign of emotion on her gorgeous face, she states in her calm, melodic voice, 
 		#ENDIF
 		 [helena.speech(I do so hope that you aren't daring to return to me without being in possession of the paint which I ordered you to retrieve.)]
 	</p>
@@ -103,7 +103,7 @@
 		#ENDIF
 	</p>
 	<p>
-		[helena.speech(It would appear as though the commoners are beginning to take notice,)] the harpy observes, giving the briefest of nods towards the shop's large windows. Sure enough, as you look across, you see that a pretty squirrel-girl has stopped to take a closer look at the store, and as she peers through the windows and catches sight of Helena, she does a double-take and starts to stare at her in awe. Letting out an almost imperceptible sigh, the harpy reveals, [helena.speech(Thanks to my dear Scarlett's hard work this establishment has, up until now, had quite the poor reputation. As such, word of my presence here has thus far not spread, but it would appear as though that is about to change.)]
+		[helena.speech(It would appear as though the commoners are beginning to take notice,)] the harpy observes, giving the briefest of nods towards the shop's large windows. Sure enough, as you look across, you see that a pretty squirrel-girl has stopped to take a closer look at the store, and as she peers through the windows and catches sight of Helena, she does a double-take and starts to stare at her in awe. Letting out an almost imperceptible sigh, the harpy reveals, [helena.speech(Thanks to my dear Scarlett, this establishment has gained quite a poor reputation and is given a wide berth by members of the public. As such, word of my presence here has thus far not spread, but it would appear as though that is about to change.)]
 	</p>
 	<p>
 		[pc.speech(That will be good for your business though, won't it?)] you quite rightly observe.
@@ -694,7 +694,7 @@
 			 In another contrast to her naked slaves, this [natalya.race] is dressed to impress, as on the upper, humanoid part of her body, a very smart feminine blazer and shirt are restraining her round, [natalya.cupSize]-cup breasts, while a large, black skirt conceals whatever genitalia she might have at the rear of her feral horse's body. Her silken, black hair is tied up into a smart bun, which is being held in place by a pair of royal-purple hair sticks. Perched on the bridge of her cute feminine nose, she's wearing a pair of black, thick-rimmed glasses, and as she realises that the store in front of her is closed, she rolls her grey-green eyes and tuts, [natalya.speech(This is most unsatisfactory. I was assured that there'd be somebody here to receive me...)]
 		</p>
 		<p>
-			#IF(pc.hasFlag(FLAG_natalyaParkEncounter))
+			#IF(flags.hasFlag(FLAG_natalyaParkEncounter))
 				Although you recognise this [natalya.race] from the time you saw her in the park, you doubt that she'll remember you, and so as she turns away from the locked door, you realise that now's the moment to introduce yourself...
 			#ELSE
 				As the events in front of you have unfolded so quickly, you haven't had the opportunity to attract this small [natalya.race]'s attention, but as she turns away from the locked door, you realise that now's the moment to introduce yourself...
@@ -731,7 +731,7 @@
 		</p>
 	#ELSE
 		<p>
-			Approaching the [natalya.race], you introduce yourself and explain that you've been instructed by Helena to receive a delivery of furniture for her. From the moment she caught sight of you, an arrogant smirk had settled on this demon's pretty face, and as you finish explaining the situation, she proudly boasts, [natalya.speech(My name is [natalya.name] [natalya.surname], and I hold the prestigious title of 'Stable Mistress' at the fine institution known throughout Lilith's Realm as 'Dominion Express'. Due to the exceptional circumstance of receiving a contract from Helena herself, I thought it prudent to oversee this delivery in person. Please inform her that I have arrived!)]
+			Approaching the [natalya.race], you introduce yourself and explain that you've been instructed by Helena to receive a delivery of furniture for her. From the moment she caught sight of you, an arrogant smirk had settled on this demon's pretty face, and as you finish explaining the situation, she proudly boasts, [natalya.speech(My name is [natalya.name(true)] [natalya.surname], and I hold the prestigious title of 'Stable Mistress' at the fine institution known throughout Lilith's Realm as 'Dominion Express'. Due to the exceptional circumstance of receiving a contract from Helena herself, I thought it prudent to oversee this delivery in person. Please inform her that I have arrived!)]
 		</p>
 		<p>
 			As you reveal that Helena has already left and will not be returning today, the small [natalya.race]'s smirk is quickly replaced by an irritated scowl. Letting out a loud tutting noise, she impatiently produces a trailing paper receipt from out of one of her blazer's pockets, before rudely thrusting it into your [pc.hands] and declaring, [natalya.speech(This is the list of everything that's to be delivered today. As you can no doubt see, there's plenty to be unloaded, so hurry up and get that door unlocked, then I'll command my big, strong boys... ~Ahem!~ That is, then I shall have the slaves here get to work.)]
@@ -2132,7 +2132,7 @@
 		As you stand up and offer Helena your congratulations, you can't help but notice that she looks far happier than you've ever seen her. Allowing a big, beautiful smile to settle on her face, she happily turns to Scarlett first, and says, [helena.speech(My dear Scarlett, thank you for not causing a scene today, and for assisting [pc.name] in putting up all those wonderful decorations last night. As your reward, I shall forgive you for all of the annoyances you have caused me in the past. Now, you may return to the nest and take the rest of today off.)]
 	</p>
 	<p>
-		With a relieved look on her face, Scarlett offers Helena her thanks, before quickly exiting the room and leaving you the two of you alone together. Waiting until Scarlett has departed, the beautiful matriarch smiles at you and admits, [helena.speech(It must be said that without your help, [pc.name], none of this would have been possible. Not only will this business of mine now thrive, but I have also proven to my nest that I am capable of succeeding without their help, which has strengthened my already-unassailable position as the greatest of all the harpy matriarchs. As your reward, I shall grant you preferential treatment for the ordering of custom slaves.)] 
+		With a relieved look on her face, Scarlett offers Helena her thanks, before quickly exiting the room and leaving the two of you alone together. Waiting until Scarlett has departed, the beautiful matriarch smiles at you and admits, [helena.speech(It must be said that without your help, [pc.name], none of this would have been possible. Not only will this business of mine now thrive, but I have also proven to my nest that I am capable of succeeding without their help, which has strengthened my already-unassailable position as the greatest of all the harpy matriarchs. As your reward, I shall grant you preferential treatment for the ordering of custom slaves.)] 
 	</p>
 	<p>
 		As you start to thank Helena, she holds up her wing in a gesture to silence you, before saying in an uncharacteristically bashful tone, [helena.speech(It is I who am thanking you today, [pc.name]. Besides, I hadn't finished giving you your reward yet...)]

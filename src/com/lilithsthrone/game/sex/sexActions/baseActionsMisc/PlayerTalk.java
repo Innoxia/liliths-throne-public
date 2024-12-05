@@ -181,7 +181,6 @@ public class PlayerTalk {
 				}
 				
 			} else if(Main.sex.getSexPositionSlot(Main.game.getPlayer()).hasTag(SexSlotTag.SIXTY_NINE)) {
-				
 				switch(Main.sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:
 						return UtilText.returnStringAtRandom(

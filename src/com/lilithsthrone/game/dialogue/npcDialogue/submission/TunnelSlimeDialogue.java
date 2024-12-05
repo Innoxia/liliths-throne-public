@@ -582,6 +582,9 @@ public class TunnelSlimeDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			boolean noSex = getSlime().isPostCombatNoSex();
+			boolean wantsSex = getSlime().isPostCombatWantsSex();
+			boolean rapePlay = getSlime().isPostCombatRapePlay();
 		
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way...", Main.game.getDefaultDialogue(false)){
@@ -594,11 +597,11 @@ public class TunnelSlimeDialogue {
 				};
 				
 			} else if (index == 2) {
-				if(!getSlime().isAttractedTo(Main.game.getPlayer()) && !Main.game.isNonConEnabled()) {
+				if(noSex) {
 					return new Response("Sex", "[npc.Name] has no interest in having sex with you!", null);
 					
-				} else if(getSlime().isAttractedTo(Main.game.getPlayer())) {
-					return new ResponseSex("Sex",
+				} else if(wantsSex) {
+					return new ResponseSex(rapePlay?"Rape-play":"Sex",
 							"Well, [npc.she] <i>is</i> asking for it!",
 							true, false,
 							new SMGeneric(
@@ -607,7 +610,7 @@ public class TunnelSlimeDialogue {
 							null,
 							null),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_VICTORY_SEX", getSlime()));
+							UtilText.parseFromXMLFile("places/submission/tunnelSlime", rapePlay?"AFTER_COMBAT_VICTORY_RAPE":"AFTER_COMBAT_VICTORY_SEX", getSlime()));
 					
 				} else {
 					return new ResponseSex(
@@ -625,11 +628,11 @@ public class TunnelSlimeDialogue {
 				}
 				
 			} else if (index == 3) {
-				if(!getSlime().isAttractedTo(Main.game.getPlayer()) && !Main.game.isNonConEnabled()) {
+				if(noSex) {
 					return new Response("Gentle Sex", "[npc.Name] has no interest in having sex with you!", null);
 					
-				} else if(getSlime().isAttractedTo(Main.game.getPlayer())){
-					return new ResponseSex("Gentle sex",
+				} else if(wantsSex){
+					return new ResponseSex(rapePlay?"Rape-play (gentle)":"Gentle sex",
 							"Well, [npc.she] <i>is</i> asking for it!",
 							true, false,
 							new SMGeneric(
@@ -639,7 +642,7 @@ public class TunnelSlimeDialogue {
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_GENTLE),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_VICTORY_SEX_GENTLE", getSlime()));
+							UtilText.parseFromXMLFile("places/submission/tunnelSlime", rapePlay?"AFTER_COMBAT_VICTORY_RAPE_GENTLE":"AFTER_COMBAT_VICTORY_SEX_GENTLE", getSlime()));
 					
 				} else {
 					return new ResponseSex("Rape [npc.herHim] (gentle)", "[npc.She] needs to be punished for attacking you like that...",
@@ -656,11 +659,11 @@ public class TunnelSlimeDialogue {
 				}
 				
 			} else if (index == 4) {
-				if(!getSlime().isAttractedTo(Main.game.getPlayer()) && !Main.game.isNonConEnabled()) {
+				if(noSex) {
 					return new Response("Rough Sex", "[npc.Name] has no interest in having sex with you!", null);
 					
-				} else if(getSlime().isAttractedTo(Main.game.getPlayer())){
-					return new ResponseSex("Rough sex",
+				} else if(wantsSex){
+					return new ResponseSex(rapePlay?"Rape-play (rough)":"Rough sex",
 							"Well, [npc.she] <i>is</i> asking for it!",
 							true, false,
 							new SMGeneric(
@@ -670,7 +673,7 @@ public class TunnelSlimeDialogue {
 									null,
 									ResponseTag.START_PACE_PLAYER_DOM_ROUGH),
 							AFTER_SEX_VICTORY,
-							UtilText.parseFromXMLFile("places/submission/tunnelSlime", "AFTER_COMBAT_VICTORY_SEX_ROUGH", getSlime()));
+							UtilText.parseFromXMLFile("places/submission/tunnelSlime", rapePlay?"AFTER_COMBAT_VICTORY_RAPE_ROUGH":"AFTER_COMBAT_VICTORY_SEX_ROUGH", getSlime()));
 					
 				} else {
 					return new ResponseSex("Rape [npc.herHim] (rough)", "[npc.She] needs to be punished for attacking you like that...",
@@ -686,7 +689,7 @@ public class TunnelSlimeDialogue {
 				}
 				
 			} else if (index == 5) {
-				if(!getSlime().isAttractedTo(Main.game.getPlayer())) {
+				if(!getSlime().isAttractedTo(Main.game.getPlayer()) || getSlime().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
 					return new Response("Submit",
 							"You can't submit to [npc.name], as [npc.sheHasFull] no interest in having sex with you!",
 							null);

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<authorTag><![CDATA['Woven by the DSG Textile Guild' is printed on one end of the board.]]></authorTag>
+		
+		<value>20</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[bolt of green cloth]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[bolts of green cloth]]></namePlural>
+		<description><![CDATA[A cut of dark green fabric wrapped around cardboard for easy transport. You selected the colour based on Eisek's stated preferences.]]></description> 
+		
+		<useDescriptor>examine</useDescriptor>
+		
+		<sexUse>false</sexUse>
+		<combatUseAllies>false</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>false</consumedOnUse>
+		
+		<rarity>QUEST</rarity> 
+		
+		<imageName>fabricbolt.svg</imageName> 
+		
+		<colourPrimary>CLOTHING_GREEN_DARK</colourPrimary>
+		<colourSecondary>CLOTHING_DESATURATED_BROWN</colourSecondary>
+		<colourTertiary/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[One of [style.colourGood(three)] items that you need to fix up Eisek's stall.]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+		<p>
+			The cotton fabric is as simple as can be, dyed green and somewhat coarse but seems luxurious compared to the burlap that currently adorns Eisek's stall.
+		</p>
+		]]></applyEffects>
+		
+		<itemTags/>
+		
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(unroll)] the bolt to get a closer look at the fabric...
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(unroll)] the bolt to show it off to [npc2.name], who [npc.verb(lean)] in to get a closer look at the fabric...
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

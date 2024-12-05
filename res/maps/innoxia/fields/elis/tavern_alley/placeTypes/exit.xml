@@ -4,7 +4,6 @@
 	<name><![CDATA[entrance]]></name>
 	<tooltipDescription><![CDATA[The entrance to 'The Crossed Blades' tavern.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[at the entrance to 'The Crossed Blades' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_RED</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

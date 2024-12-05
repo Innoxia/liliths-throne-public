@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>1200</value>
+		<determiner><![CDATA[an]]></determiner>
+		<name><![CDATA[equine dildo]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[equine dildos]]></namePlural>
+		<description><![CDATA[A huge dildo, formed out of self-cleaning, arcane-cured silicone into the shape of a horse penis. True to the animal's anatomy, this dildo's [units.sizeShort(45)] length is sectioned into three parts; the balls and sheath at the base; a section of shaft in the middle; and a wide, flared head at the tip.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<equipSlots>
+			<slot>VAGINA</slot>
+			<slot>ANUS</slot>
+			<slot>MOUTH</slot>
+		</equipSlots>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>equine_dildo.svg</imageName>
+		<imageEquippedName/>
+		
+		<stickers>
+			<category id="colour" priority="1">
+				<categoryName><![CDATA[Colours]]></categoryName>
+				<sticker id="one" priority="1" defaultSticker="true" zLayer="-1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[One]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName zLayer="-1">equine_dildo_stickers/one_colour.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="two" priority="2" defaultSticker="true" zLayer="-1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[Two (hard)]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName zLayer="-1">equine_dildo_stickers/two_colours.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="two_soft" priority="2" defaultSticker="true" zLayer="-1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[Two (soft)]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName zLayer="-1">equine_dildo_stickers/two_colours_soft.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="three" priority="3" defaultSticker="false" zLayer="-1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[Three (hard)]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName zLayer="-1">equine_dildo_stickers/three_colours.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="three_soft" priority="3" defaultSticker="false" zLayer="-1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[Three (soft)]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName zLayer="-1">equine_dildo_stickers/three_colours_soft.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+			</category>
+		</stickers>
+		
+		<effects/>
+		
+		<blockedPartsList slot="VAGINA">
+			<blockedParts>
+			  <displacementType>REMOVE_OR_EQUIP</displacementType>
+			  <clothingAccessRequired>
+				<clothingAccess>VAGINA</clothingAccess>
+			  </clothingAccessRequired>
+			  <blockedBodyParts/>
+			  <clothingAccessBlocked/>
+			  <concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+
+		<blockedPartsList slot="ANUS">
+			<blockedParts>
+			  <displacementType>REMOVE_OR_EQUIP</displacementType>
+			  <clothingAccessRequired>
+				<clothingAccess>ANUS</clothingAccess>
+			  </clothingAccessRequired>
+			  <blockedBodyParts/>
+			  <clothingAccessBlocked/>
+			  <concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+
+		<blockedPartsList slot="MOUTH">
+			<blockedParts>
+			  <displacementType>REMOVE_OR_EQUIP</displacementType>
+			  <clothingAccessRequired>
+				<clothingAccess>MOUTH</clothingAccess>
+			  </clothingAccessRequired>
+			  <blockedBodyParts/>
+			  <clothingAccessBlocked/>
+			  <concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots slot="VAGINA"/>
+		<incompatibleSlots slot="ANUS"/>
+		<incompatibleSlots slot="MOUTH"/>
+		
+		<primaryColours>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_DESATURATED_BROWN_DARK</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_DESATURATED_PINK</colour>
+			<colour>CLOTHING_DESATURATED_PINK_DARK</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="ALL"/>
+		<tertiaryColoursDye/>
+	
+		<itemTags> <!-- tag values: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
+			<tag>SOLD_BY_FINCH</tag>
+			<tag>ENABLE_SEX_EQUIP</tag>
+			<tag>TRANSPARENT</tag>
+		</itemTags>
+		<itemTags slot="VAGINA">
+			<tag>PLUGS_VAGINA</tag>
+			<tag>REQUIRES_VAGINA</tag>
+		</itemTags>
+		<itemTags slot="ANUS">
+			<tag>PLUGS_ANUS</tag>
+		</itemTags>
+		<itemTags slot="MOUTH">
+			<tag>MUFFLES_SPEECH</tag>
+		</itemTags>
+	</coreAttributes>
+	
+	<sexAttributesSelf>
+		<penetration>
+			<length>45</length>
+			<girth>3</girth>
+			<modifiers>
+				<mod>SHEATHED</mod>
+				<mod>VEINY</mod>
+				<mod>FLARED</mod>
+			</modifiers>
+		</penetration>
+		<orifice/>
+	</sexAttributesSelf>
+	
+	<sexAttributesOther/>
+	
+	
+	<replacementText slot="VAGINA" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slide)] the huge equine dildo into [npc.her] [npc.vagina+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(push)] the huge equine dildo into [npc2.namePos] [npc2.vagina+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(force)] the huge equine dildo into [npc2.namePos] [npc2.vagina+].]]>
+		</otherRough>
+	</replacementText>
+	
+	<displacementText slot="VAGINA" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the huge equine dildo out of [npc.her] [npc.vagina+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the huge equine dildo out of [npc2.namePos] [npc2.vagina+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(grab)] [npc2.namePos] huge equine dildo and [npc.verb(yank)] it out of [npc2.her] [npc2.vagina+].]]>
+		</otherRough>
+	</displacementText>
+
+	<replacementText slot="ANUS" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slide)] the huge equine dildo into [npc.her] [npc.anus+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(push)] the huge equine dildo into [npc2.namePos] [npc2.anus+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(force)] the huge equine dildo into [npc2.namePos] [npc2.anus+].]]>
+		</otherRough>
+	</replacementText>
+	
+	<displacementText slot="ANUS" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the huge equine dildo out of [npc.her] [npc.anus+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the huge equine dildo out of [npc2.namePos] [npc2.anus+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(grab)] [npc2.namePos] huge equine dildo and [npc.verb(yank)] it out of [npc2.her] [npc2.anus+].]]>
+		</otherRough>
+	</displacementText>
+
+	<replacementText slot="MOUTH" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slide)] the huge equine dildo into [npc.her] [npc.mouth+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(push)] the huge equine dildo into [npc2.namePos] [npc2.mouth+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(force)] the huge equine dildo into [npc2.namePos] [npc2.mouth+].]]>
+		</otherRough>
+	</replacementText>
+	
+	<displacementText slot="MOUTH" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the huge equine dildo out of [npc.her] [npc.mouth+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the huge equine dildo out of [npc2.namePos] [npc2.mouth+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(grab)] [npc2.namePos] huge equine dildo and [npc.verb(yank)] it out of [npc2.her] [npc2.mouth+].]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

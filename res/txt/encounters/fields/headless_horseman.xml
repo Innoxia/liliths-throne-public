@@ -96,12 +96,12 @@
 		Although his physical appearance would suggest that he'd be a strong opponent, the headless horseman was no match for you, and after half-heartedly swinging his [headHorse.mainWeapon] at you one last time, he sinks down onto one knee and pants, [headHorse.speech(Wait... No more... I am defeated...)]
 	</p>
 	<p>
-		#IF(headHorse.getClothingInSlot(IS_HEAD).getClothingType()==CT_innoxia_head_jack_o_lantern)
+		#IF(headHorse.getClothingInSlot(IS_HEAD)!=null && headHorse.getClothingInSlot(IS_HEAD).getClothingType()==CT_innoxia_head_jack_o_lantern)
 			With the glowing Jack-o'-Lantern still securely in place on his head, your foe makes for a curious and frightening sight.
 		#ELSE
 			Although you've taken the glowing Jack-o'-Lantern off his head, your foe's glowing red eyes and pitch-black fur still gives him a fearsome look.
 		#ENDIF
-		  Despite his alarming appearance, however, he remains defeated and repeats his declaration of surrender, leaving you wondering what to do with him...
+		 Despite his alarming appearance, however, he remains defeated and repeats his declaration of surrender, leaving you wondering what to do with him...
 	</p>
 	]]>
 	</htmlContent>

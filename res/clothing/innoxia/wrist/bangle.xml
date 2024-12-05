@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>600</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[bangle]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[bangles]]></namePlural>
+		<description><![CDATA[A simple metal bangle that fits comfortably around the wearer's wrist or tail.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<equipSlots>
+		  <slot>WRIST</slot>
+		  <slot>TAIL</slot>
+		</equipSlots>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>bangle.svg</imageName>
+		<imageEquippedName/>
+		<effects/>
+		
+		<blockedPartsList slot="WRIST">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired> 
+					<clothingAccess>WRISTS</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<blockedPartsList slot="TAIL">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots slot="WRIST"/>
+		<incompatibleSlots slot="TAIL"/>
+		
+		<primaryColours values="ALL_METAL"/>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+	
+		<itemTags>
+			<tag>SOLD_BY_NYAN</tag>
+		</itemTags>
+	</coreAttributes>
+
+  <replacementText slot="WRIST" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the bangle into place around [npc.her] wrist.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the bangle into place around [npc2.namePos] wrist.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(push)] the bangle into place around [npc2.namePos] wrist.]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText slot="WRIST" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the bangle off [npc.her] wrist.]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the bangle off [npc2.namePos] wrist.]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(pull)] the bangle off [npc2.namePos] wrist.]]>
+    </otherRough>
+  </displacementText>
+  
+  <replacementText slot="TAIL" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the bangle into place around [npc.her] [npc.tail(true)].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the bangle into place around [npc2.namePos] [npc2.tail(true)].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] roughly [npc.verb(push)] the bangle into place around [npc2.namePos] [npc2.tail(true)].]]>
+    </otherRough>
+  </replacementText>
+
+  <displacementText slot="TAIL" type="REMOVE_OR_EQUIP">
+    <self>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the bangle off [npc.her] [npc.tail(true)].]]>
+    </self>
+    <other>
+      <![CDATA[[npc.Name] [npc.verb(slide)] the bangle off [npc2.namePos] [npc2.tail(true)].]]>
+    </other>
+    <otherRough>
+      <![CDATA[[npc.Name] [npc.verb(pull)] the bangle off [npc2.namePos] [npc2.tail(true)].]]>
+    </otherRough>
+  </displacementText>
+  
+</clothing>

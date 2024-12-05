@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#npc.isPlayer()]
+	]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>ZERO_NONE</arousalPerformer>
+	<arousalTarget>FIVE_EXTREME</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>
+	<associatedFetishes/>
+	<performingArea>PENETRATION_PENIS</performingArea>
+	<targetedArea>ORIFICE_VAGINA</targetedArea>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Hard fuck]]></title>
+	<tooltip><![CDATA[
+		Do as your Mistress commands and fuck the doll as fast and as hard as you can.
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<text><![CDATA[
+				You continue to roughly slam your fat horse-cock into the doll's [fia.pussy+], making sure to forcefully ram it all the way inside of her on each thrust.
+			]]></text>
+			<text><![CDATA[
+				Ramming your [pc.cock+] into the doll's [fia.pussy+], you grip her waist and fuck her hard and fast.
+			]]></text>
+			<text><![CDATA[
+				Determined to carry out your Mistress's order to the best of your ability, you roughly slam your [pc.cock+] as hard as you can into the doll's [fia.pussy+], before pulling back and ramming it deep inside of her once again.
+			]]></text>
+			<text><![CDATA[
+				The table which the doll is strapped down onto shakes and creaks beneath you as you forcefully fuck her with your [pc.cock+], making sure to be as rough as possible in order to please your Mistress.
+			]]></text>
+			<text><![CDATA[
+				Eager to please your Mistress, you grip the doll's waist and use fast, repeated thrusting motions to roughly fuck her [fia.pussy+].
+			]]></text>
+			<text><![CDATA[
+				Pistoning your [pc.cock+] in and out of the doll's pussy, you continue roughly fucking her as fast and as hard as you possibly can.
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

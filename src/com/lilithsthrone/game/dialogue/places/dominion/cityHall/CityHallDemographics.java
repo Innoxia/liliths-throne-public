@@ -19,12 +19,14 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.managers.dominion.vanessa.SMVanessaOral;
+import com.lilithsthrone.game.sex.managers.dominion.vanessa.SMVanessaOralFootjob;
 import com.lilithsthrone.game.sex.managers.dominion.vanessa.SMVanessaSex;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotAllFours;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotDesk;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotSitting;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotStanding;
+import com.lilithsthrone.game.sex.sexActions.baseActions.PenisFeet;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActions.TongueVagina;
 import com.lilithsthrone.main.Main;
@@ -40,6 +42,11 @@ import com.lilithsthrone.world.places.PlaceType;
  * @author Innoxia
  */
 public class CityHallDemographics {
+	
+	private static void applyLeavingEffects() {
+		Main.game.getNpc(Vanessa.class).applyWash(true, true, null, 0);
+		Main.game.getNpc(Vanessa.class).equipClothing();
+	}
 	
 	public static final DialogueNode CITY_HALL_DEMOGRAPHICS_ENTRANCE = new DialogueNode("Bureau of Demographics", "-", true) {
 		
@@ -77,6 +84,7 @@ public class CityHallDemographics {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setNearestLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_CORRIDOR, false);
+						applyLeavingEffects();
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "CITY_HALL_DEMOGRAPHICS_ENTRANCE_TURN_BACK"));
 					}
 				};
@@ -238,6 +246,7 @@ public class CityHallDemographics {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setNearestLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_CORRIDOR, false);
+						applyLeavingEffects();
 						Main.game.getNpc(Vanessa.class).setLocation(WorldType.CITY_HALL, PlaceType.CITY_HALL_ARCHIVES);
 					}
 				};
@@ -417,9 +426,9 @@ public class CityHallDemographics {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
-					return new Response("Perform cunnilingus", "You are unable to access your mouth, so cannot perform cunnilingus on [vanessa.name]!", null);
+					return new Response("Oral", "You are unable to access your mouth, so cannot perform cunnilingus on [vanessa.name]...", null);
 				}
-				return new ResponseSex("Perform cunnilingus",
+				return new ResponseSex("Oral",
 						"Shuffle forwards between [vanessa.namePos] legs and start eating her out.",
 						true, true,
 						new SMVanessaOral(
@@ -441,6 +450,39 @@ public class CityHallDemographics {
 				};
 				
 			} else if (index == 2) {
+				if(!Main.game.getPlayer().hasPenis()) {
+					return new Response("Oral & footjob", "You don't have a penis, so cannot receive a footjob from [vanessa.name]...", null);
+				}
+				if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+					return new Response("Oral & footjob", "You can't get access to your penis, so cannot receive a footjob from [vanessa.name]...", null);
+				}
+				if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+					return new Response("Oral & footjob", "You are unable to access your mouth, so cannot perform cunnilingus on [vanessa.name]...", null);
+				}
+				return new ResponseSex("Oral & footjob",
+						"Shuffle forwards between [vanessa.namePos] legs and start eating her out while she gives you a footjob.",
+						true, true,
+						new SMVanessaOralFootjob(
+								SexPosition.SITTING,
+								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Vanessa.class), SexSlotSitting.SITTING)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotSitting.PERFORMING_ORAL))),
+						null,
+						null,
+						END_ORAL_SEX,
+						UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "START_ORAL_FOOTJOB")) {
+					@Override
+					public List<InitialSexActionInformation> getInitialSexActions() {
+						return Util.newArrayListOfValues(
+								new InitialSexActionInformation(Main.game.getNpc(Vanessa.class), Main.game.getPlayer(), PenisFeet.FOOT_JOB_DOUBLE_GIVING_START, false, true),
+								new InitialSexActionInformation(Main.game.getPlayer(), Main.game.getNpc(Vanessa.class), TongueVagina.CUNNILINGUS_START, false, true));
+					}
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.vanessaFucked, true);
+					}
+				};
+				
+			} else if (index == 3) {
 				return new Response("Stop", "Stop giving [vanessa.name] a foot massage.", CITY_HALL_DEMOGRAPHICS_MAIN) {
 					@Override
 					public void effects() {
@@ -449,9 +491,10 @@ public class CityHallDemographics {
 					}
 				};
 				
-			} else {
-				return null;
 			}
+			
+			
+			return null;
 		}
 	};
 
@@ -543,15 +586,10 @@ public class CityHallDemographics {
 		}
 	};
 	
-	public static final DialogueNode END_ORAL_SEX = new DialogueNode("Pushed back", "[vanessa.Name] pushes you away from her pussy and grins down at you...", true) {
-		
+	public static final DialogueNode END_ORAL_SEX = new DialogueNode("Pushed back", "[vanessa.Name] pushes you away from her and grins down at you...", true) {
 		@Override
 		public String getContent() {
-			if(Main.sex.getNumberOfOrgasms(Main.game.getPlayer())>0) {
-				return UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "END_ORAL_SEX");
-			} else {
-				return UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "END_ORAL_SEX_NO_ORGASM");
-			}
+			return UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "END_ORAL_SEX");
 		}
 		
 		@Override
@@ -663,7 +701,7 @@ public class CityHallDemographics {
 				return new Response("Decline", "Tell [vanessa.name] that you've had enough for now.", CITY_HALL_DEMOGRAPHICS_MAIN) {
 					@Override
 					public void effects() {
-						Main.game.getNpc(Vanessa.class).endSex(); // Cleans & replaces clothing
+						Main.game.getNpc(Vanessa.class).equipClothing();
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/cityHall/demographics", "END_ORAL_SEX_DECLINE_MORE"));
 					}
 				};
@@ -674,6 +712,11 @@ public class CityHallDemographics {
 	};
 	
 	public static final DialogueNode END_SEX = new DialogueNode("Finished", "Having had enough sex for now, the two of you start to get your clothing back in order...", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getNpc(Vanessa.class).equipClothing();
+			Main.game.getNpc(Vanessa.class).applyWash(true, true, null, 0); // Wet wipes are mentioned in ending description
+		}
 		
 		@Override
 		public String getContent() {
@@ -691,6 +734,10 @@ public class CityHallDemographics {
 	};
 
 	public static final DialogueNode END_SEX_ORAL_RECEIVING = new DialogueNode("Finished", "Having had enough sex for now, the two of you start to get your clothing back in order...", true) {
+		@Override
+		public void applyPreParsingEffects() {
+			Main.game.getNpc(Vanessa.class).equipClothing();
+		}
 		
 		@Override
 		public String getContent() {

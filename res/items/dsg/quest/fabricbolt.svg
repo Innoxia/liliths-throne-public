@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256">
+    <defs>
+        <linearGradient id="innoGrad3">
+            <stop offset="0" stop-color="#f95"/>
+            <stop offset=".666" stop-color="#ffb380"/>
+            <stop offset="1" stop-color="#f95"/>
+        </linearGradient>
+        <linearGradient id="innoGrad2">
+            <stop offset="0" stop-color="#ff8080"/>
+            <stop offset=".906" stop-color="#ff8080"/>
+            <stop offset="1" stop-color="#f55"/>
+        </linearGradient>
+        <linearGradient id="innoGrad1">
+            <stop offset="0" stop-color="#f55"/>
+            <stop offset=".014" stop-color="#ff8080"/>
+            <stop offset=".75" stop-color="#ff8080"/>
+            <stop offset="1" stop-color="#f55"/>
+        </linearGradient>
+        <linearGradient id="linearGradient865" x1="162.177" x2="108.669" y1="190.353" y2="108.726" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad1"/>
+        <linearGradient id="linearGradient877" x1="52.144" x2="77.706" y1="78.742" y2="124.924" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad2"/>
+        <linearGradient id="linearGradient889" x1="43.099" x2="45.622" y1="131.018" y2="127.669" gradientUnits="userSpaceOnUse" xlink:href="#innoGrad3"/>
+    </defs>
+    <path fill="#f55" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width=".911" d="M141.911 201.445l-55.224-38.322 107.146-58.79 49.94 31.063z" transform="matrix(1.09809 0 0 1.09833 -17.874 -14.287)"/>
+    <path fill="url(#linearGradient865)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M44.168 141.402s67.802 46.527 87.841 61.263c3.5 2.575 7.184 1.783 5.948 4.301l111.854-72.543c1.038-2.564-2.136-1.89-6.857-4.518-27.667-15.411-90.02-48.912-90.02-48.912z"/>
+    <path fill="url(#linearGradient877)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M6.01 104.607c.67-1.89 2.375-1.493 4.987.32 6.726 4.668 21.315 14.747 31.364 21.955 6.456 4.63 7.847 16.078 1.809 14.52 2.262 3.22 14.09-5.606 31.477-15.101 32.558-17.778 75.794-42.302 78.982-44.395 5.389-6.403 2.2-12.854-5.377-16.555-9.88-4.827-9.913-4.76-32.265-16.276 0 0-1.579-.275-3.431.549-1.876.835-37.04 18.148-67.098 33.018C24.082 93.709 5.53 102.377 6.01 104.607z"/>
+    <path fill="#ff8080" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M44.168 141.402c6.04 1.557 4.648-9.891-1.808-14.522-9.984-7.16-24.72-17.347-31.364-21.954-2.692-1.867-4.305-2.243-4.987-.32 0 0 .043 4.165.14 7.46.054 1.8 1.428 3.453 2.605 4.165 3.478 2.106 35.414 25.17 35.414 25.17z"/>
+    <path fill="none" stroke="#000" stroke-miterlimit="10" stroke-width=".5" d="M8.027 114.592c-.919-.649-1.827-7.511-.317-7.1 1.51.413 34.59 23.752 34.59 23.752s2.334 1.1 2.333 5.036c-.001 2.514.077 3.66-2.832 2.272-1.24-.592-32.855-23.31-33.774-23.96z"/>
+    <path fill="none" stroke="#000" stroke-miterlimit="10" stroke-width=".5" d="M6.775 107.493s.282-1.402 1.518-.67c1.235.731 34.098 23.552 35.429 24.697.991.852 2.09 4.561 1.368 7.369-.524 2.033-2.854.177-3.478-.337-.643-.53-34.838-26.894-34.838-26.894v-4.165z"/>
+    <path fill="none" stroke="#000" stroke-miterlimit="10" stroke-width=".5" d="M6.565 106.852c.047-.594.74-1.52 1.791-.834 1.052.686 34.629 22.893 36.276 25.32 1.647 2.426 1.908 8.358.228 9.028-1.68.67-38.086-27.7-38.086-27.7s-.254-5.22-.209-5.814z"/>
+    <path fill="none" stroke="#000" stroke-miterlimit="10" stroke-width=".5" d="M6.56 105.433c-.178.275.417-1.465 2.202-.411 1.784 1.053 31.21 21.264 34.361 23.797 1.842 1.48 5.144 7.967 2.673 11.389-1.163 1.61-6.288-2.51-6.288-2.51L6.775 112.665z"/>
+    <path fill="url(#linearGradient889)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width=".911" d="M55.906 134.656l-1.187 4.5-32.272-23.57-.541-3.555 1.469-.562z" transform="matrix(1.09809 0 0 1.09833 -17.874 -14.287)"/>
+    <path fill="#ffb380" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width=".911" d="M55.906 134.656l.188 3.844-1.375.656-.375-3.875z" transform="matrix(1.09809 0 0 1.09833 -17.874 -14.287)"/>
+    <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M6.181 108.76l35.62 25.536"/>
+</svg>

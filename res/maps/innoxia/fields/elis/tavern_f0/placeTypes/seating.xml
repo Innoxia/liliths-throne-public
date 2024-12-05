@@ -4,7 +4,6 @@
 	<name><![CDATA[seating area]]></name>
 	<tooltipDescription><![CDATA[Sofas and coffee tables are arranged so as to form several cosy seating areas.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the seating area at 'The Red Dragon' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_BROWN</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

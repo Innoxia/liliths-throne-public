@@ -36,16 +36,6 @@ import com.lilithsthrone.utils.colours.PresetColour;
  */
 public class ClothingType {
 	
-	//TODO
-//	Replace tape crosses with special item "roll of tape"
-//		10 uses, and can:
-//			tape mouth
-//			bind wrists
-//			bind feet
-//			tape nipples
-//			tape pussy
-//			tape asshole
-	
 	public static AbstractClothingType TORSO_SLEEVELESS_TURTLENECK = new AbstractClothingType(350,
 			"a",
 			false,
@@ -1118,58 +1108,6 @@ public class ClothingType {
 				else
 					return UtilText.parse(clothingOwner, "You unfasten the strap on [npc.namePos] watch and take it off.");
 			}
-		}
-	};
-	
-	public static AbstractClothingType WRIST_BANGLE = new AbstractClothingType(600,
-			"a",
-			false,
-			"bangle",
-			"bangles",
-			"A simple metal bangle that fits comfortably around the wearer's wrist.",
-			0,
-			Femininity.FEMININE,
-			InventorySlot.WRIST,
-			Rarity.COMMON,
-			null,
-			"clothing/wrist_bangle",
-			null,
-			Util.newArrayListOfValues(
-					new BlockedParts(
-							DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(ClothingAccess.WRISTS),
-							null,
-							Util.newArrayListOfValues(ClothingAccess.WRISTS),
-							null)),
-			null,
-			ColourListPresets.ALL_METAL,
-			null,
-			null,
-			null,
-			null,
-			null,
-			Util.newArrayListOfValues(ItemTag.SOLD_BY_NYAN)){
-		
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You slide the bangle onto your wrist.",
-					"You slide the bangle onto [npc.namePos] wrist.",
-					null,
-					"[npc.Name] slides the bangle onto [npc.her] wrist.",
-					"[npc.Name] slides the bangle onto your wrist.",
-					null, null, null);
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, InventorySlot slotToEquipInto, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You slide your bangle off of your wrist.",
-					"You slide [npc.namePos] bangle off of [npc.her] wrist.",
-					null,
-					"[npc.Name] slides [npc.her] bangle off of [npc.her] wrist.",
-					"[npc.Name] slides your bangle off of your wrist.",
-					null, null, null);
 		}
 	};
 	
@@ -2723,7 +2661,9 @@ public class ClothingType {
 		oldIdConversionMap.put("CHEST_SWIMSUIT", "innoxia_chest_swimsuit");
 		oldIdConversionMap.put("CHEST_TUBE_TOP", "innoxia_chest_tube_top");
 
-		oldIdConversionMap.put("NIPPLE_TAPE_CROSSES", "innoxia_nipple_tape_crosses");
+//		oldIdConversionMap.put("NIPPLE_TAPE_CROSSES", "innoxia_nipple_tape_crosses");
+		oldIdConversionMap.put("NIPPLE_TAPE_CROSSES", "innoxia_tape_roll");
+		oldIdConversionMap.put("innoxia_nipple_tape_crosses", "innoxia_tape_roll");
 		
 		oldIdConversionMap.put("LEG_SKIRT", "innoxia_leg_skirt");
 		oldIdConversionMap.put("LEG_PENCIL_SKIRT", "innoxia_leg_pencil_skirt");
@@ -2799,6 +2739,8 @@ public class ClothingType {
 		oldIdConversionMap.put("SOCK_FISHNET_STOCKINGS", "innoxia_sock_fishnets");
 		oldIdConversionMap.put("SOCK_TOELESS_STRIPED_STOCKINGS", "innoxia_sock_toeless_striped_stockings");
 
+		oldIdConversionMap.put("WRIST_BANGLE", "innoxia_wrist_bangle");
+		
 		oldIdConversionMap.put("innoxia_insertableVibrator_insertable_vibrator", "innoxia_vagina_insertable_dildo");
 
 		oldIdConversionMap.put("dsg_eep_servequipset_enfdjacket_pc", "dsg_eep_servequipset_enfdjacket");
@@ -2993,7 +2935,7 @@ public class ClothingType {
 						ClothingType.getClothingTypeFromId("innoxia_leg_skirt"),
 						ClothingType.getClothingTypeFromId("innoxia_neck_heart_necklace"),
 						ClothingType.getClothingTypeFromId("innoxia_neck_ankh_necklace"),
-						ClothingType.getClothingTypeFromId("innoxia_nipple_tape_crosses"),
+						ClothingType.getClothingTypeFromId("innoxia_tape_roll"),
 						ClothingType.getClothingTypeFromId("innoxia_hand_fishnet_gloves"),
 						ClothingType.getClothingTypeFromId("innoxia_sock_fishnets"),
 						ClothingType.getClothingTypeFromId("innoxia_sock_pantyhose"),
@@ -3002,7 +2944,7 @@ public class ClothingType {
 						ClothingType.TORSO_FISHNET_TOP,
 						ClothingType.TORSO_KEYHOLE_CROPTOP,
 						ClothingType.TORSO_SHORT_CROPTOP,
-						ClothingType.WRIST_BANGLE,
+						ClothingType.getClothingTypeFromId("innoxia_wrist_bangle"),
 						ClothingType.WRIST_WOMENS_WATCH,
 						
 						ClothingType.getClothingTypeFromId("innoxia_piercing_ear_ring"),

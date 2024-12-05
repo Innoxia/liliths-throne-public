@@ -4,7 +4,6 @@
 	<name><![CDATA[dingy seating]]></name>
 	<tooltipDescription><![CDATA[Around the edges of 'The Crossed Blades' tavern, there are dingy seating areas, at which aggressive patrons like to sit.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in one of the dingy seating areas within 'The Crossed Blades' tavern]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_BROWN</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

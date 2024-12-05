@@ -26,6 +26,7 @@ import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisBreasts;
 import com.lilithsthrone.game.sex.sexActions.baseActions.PenisMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActions.TongueVagina;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
@@ -50,10 +51,36 @@ public class SMNyanSex extends SexManagerDefault {
 	}
 
 	public SexActionInterface getPartnerSexAction(NPC partner, SexActionInterface sexActionPlayer) {
+		// Threesome foreplay restart additional actions:
+		if(Main.sex.getAllParticipants().size()>=3
+				&& getSexControl(Main.game.getPlayer())!=SexControl.FULL
+				&& !partner.isPlayer()
+				&& !Main.sex.isOrificeNonSelfOngoingAction(partner, SexAreaOrifice.MOUTH)
+				&& !Main.sex.isPenetrationNonSelfOngoingAction(partner, SexAreaPenetration.TONGUE)) {
+			if(getForeplayPreference(partner, Main.game.getPlayer()).equals(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS))) {
+				if(Main.sex.getCharactersHavingOngoingActionWith(Main.game.getPlayer(), SexAreaPenetration.PENIS).isEmpty()) {
+					return PenisMouth.GIVING_BLOWJOB_START;
+				}
+				if(!Main.sex.getCharactersHavingOngoingActionWith(Main.game.getPlayer(), SexAreaPenetration.PENIS).contains(partner)) {
+					return PenisMouth.GIVING_BLOWJOB_START_ADDITIONAL;
+				}
+			}
+			if(getForeplayPreference(partner, Main.game.getPlayer()).equals(new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA))) {
+				if(Main.sex.getCharactersHavingOngoingActionWith(Main.game.getPlayer(), SexAreaOrifice.VAGINA).isEmpty()) {
+					return TongueVagina.CUNNILINGUS_START;
+				}
+				if(!Main.sex.getCharactersHavingOngoingActionWith(Main.game.getPlayer(), SexAreaOrifice.VAGINA).contains(partner)) {
+					return TongueVagina.CUNNILINGUS_START_ADDITIONAL;
+				}
+			}
+		}
+		
 		// To restart penetration actions if player pulled out during orgasm:
-		if(partner instanceof Nyan && getSexControl(Main.game.getPlayer())!=SexControl.FULL) {
+		if(Main.sex.getAllParticipants().size()==2
+				&& !partner.isPlayer()
+				&& getSexControl(Main.game.getPlayer())!=SexControl.FULL) {
 			if(getForeplayPreference(partner, Main.game.getPlayer()).equals(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS))
-					&& !Main.sex.isOrificeNonSelfOngoingAction(partner, SexAreaOrifice.MOUTH)) {
+					&& !Main.sex.getCharactersHavingOngoingActionWith(Main.game.getPlayer(), SexAreaPenetration.PENIS).isEmpty()) {
 				return PenisMouth.GIVING_BLOWJOB_START;
 			}
 			if(getForeplayPreference(partner, Main.game.getPlayer()).equals(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.BREAST, SexAreaPenetration.PENIS))

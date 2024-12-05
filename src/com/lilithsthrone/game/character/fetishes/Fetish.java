@@ -155,6 +155,9 @@ public class Fetish {
 		
 		@Override
 		public AbstractFetish getOpposite() { return Fetish.FETISH_VAGINAL_RECEIVING; }
+		
+		@Override
+		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_VAGINAL_RECEIVING = new AbstractFetish(60,
@@ -406,6 +409,9 @@ public class Fetish {
 		
 		@Override
 		public AbstractFetish getOpposite() { return Fetish.FETISH_LACTATION_SELF; }
+		
+		@Override
+		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_LACTATION_SELF = new AbstractFetish(60,
@@ -902,6 +908,9 @@ public class Fetish {
 		
 		@Override
 		public AbstractFetish getOpposite() { return Fetish.FETISH_PURE_VIRGIN; }
+		
+		@Override
+		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_PURE_VIRGIN = new AbstractFetish(60,
@@ -1864,6 +1873,11 @@ public class Fetish {
 				return broString;
 			}
 		}
+
+		@Override
+		public FetishPreference getFetishPreferenceDefault() {
+			return FetishPreference.TWO_DISLIKE;
+		}
 	};
 	
 	public static AbstractFetish FETISH_CROSS_DRESSER = new AbstractFetish(60,
@@ -1894,6 +1908,11 @@ public class Fetish {
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.ONE_VANILLA;
+		}
+
+		@Override
+		public FetishPreference getFetishPreferenceDefault() {
+			return FetishPreference.TWO_DISLIKE;
 		}
 	};
 	

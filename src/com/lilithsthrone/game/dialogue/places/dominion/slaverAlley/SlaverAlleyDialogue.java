@@ -658,6 +658,11 @@ public class SlaverAlleyDialogue {
 				return new Response("Slaver Alley", "Step through the gate and enter Slaver Alley.", PlaceType.SLAVER_ALLEY_ENTRANCE.getDialogue(false)){
 					@Override
 					public void effects() {
+						// If Sean is not introduced and the stocks slaves are not present, then this must be the first time the player has entered slaver alley, in which case the slaves need to be initialised:
+						if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.seanIntroduced) && !slavesInStocksPresent()) {
+							dailyReset();
+							stocksReset();
+						}
 						Main.game.getPlayer().setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_ENTRANCE, false);
 					}
 				};
@@ -1558,7 +1563,7 @@ public class SlaverAlleyDialogue {
 				UtilText.addSpecialParsingString(UtilText.formatAsMoney(biddingPrice, "span"), false);
 				UtilText.addSpecialParsingString(UtilText.formatAsMoney(biddingPrice+100, "span"), false);
 
-				return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "AUCTION_IMPORT_START", biddingNPC);
+				return UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "AUCTION_BIDDING_START", biddingNPC);
 				
 			} if(biddingRounds==biddingRoundsTotal) {
 				if(playerBidLeader) {

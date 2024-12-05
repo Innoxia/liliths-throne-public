@@ -434,6 +434,7 @@
 				]]></nextDialogue>
 				<effects><![CDATA[
 					[#flags.setFlag(FLAG_innoxia_dale_talk_work, true)]
+					[#flags.setFlag(FLAG_innoxia_dale_talk_work_revealed, true)]
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'RECEPTION_TALK_WORK'))]
 					#IF(dale.getAffection(pc)<40)
 						[#game.appendToTextStartStringBuilder(dale.incrementAffection(pc, 5))]
@@ -509,6 +510,65 @@
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'RECEPTION_TALK_LUNETTE'))]
 				]]></effects>
 			</response>
+			<!-- Dale sleep improvement -->
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_dale_talk_work_revealed) && !flags.hasFlag(FLAG_innoxia_dale_talk_sleep)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[6]]></index>
+					<responseTitle><![CDATA[Sleep]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(dale.getAffection(pc)<AFFECTION_POSITIVE_THREE_CARING.getMinimumValue())
+							You feel as though Dale doesn't quite like you enough to openly talk about how well he's sleeping...
+							<br/>[style.italicsBad(Requires Dale to have an affection of at least '[#AFFECTION_POSITIVE_THREE_CARING.getName()]' towards you.)]
+						#ELSE
+							You don't like the way Dale said he gets 'mostly' gets enough sleep, so ask him how many hours he's resting each night.
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue stripContent="true"><![CDATA[
+						#IF(dale.getAffection(pc)<AFFECTION_POSITIVE_THREE_CARING.getMinimumValue())
+							null
+						#ELSE
+							innoxia_places_fields_dairyFarm_reception_talk
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#flags.setFlag(FLAG_innoxia_dale_talk_sleep, true)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'RECEPTION_TALK_SLEEP'))]
+						#IF(dale.getAffection(pc)<60)
+							[#game.appendToTextStartStringBuilder(dale.incrementAffection(pc, 5))]
+						#ENDIF
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_dale_talk_sleep) && !dale.hasTrait(PERK_HEAVY_SLEEPER, true)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[6]]></index>
+					<responseTitle><![CDATA[Teddy bear]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(pc.hasItemType(ITEM_GIFT_TEDDY_BEAR))
+							Give Dale a teddy bear to help him sleep at night.
+						#ELSE
+							You don't have a teddy bear, so can't give one to Dale...
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue stripContent="true"><![CDATA[
+						#IF(pc.hasItemType(ITEM_GIFT_TEDDY_BEAR))
+							innoxia_places_fields_dairyFarm_reception_talk
+						#ELSE
+							null
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#flags.setFlag(FLAG_innoxia_dale_teddy_bear_given, true)]
+						[#dale.addTrait(PERK_HEAVY_SLEEPER)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'RECEPTION_TALK_TEDDY_BEAR'))]
+						[#pc.removeItemByType(ITEM_GIFT_TEDDY_BEAR)]
+						[#dale.addItem(itemGen.generateItem(ITEM_GIFT_TEDDY_BEAR), false, true)]
+						#IF(dale.getAffection(pc)<80)
+							[#game.appendToTextStartStringBuilder(dale.setAffection(pc, 80))]
+						#ENDIF
+					]]></effects>
+				</response>
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[0]]></index>
@@ -2095,11 +2155,15 @@
 						[style.colourBad(Your alarm is unset!)]
 					#ELSE
 						Rest for
-						#IF((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1) >= 60)
-							 [#~~((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1) / 60)] hours,
-						#ENDIF
-						#IF((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1) % 60 != 0)
-							 [#~~((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1) % 60)] minutes,
+						#IF(game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm'))==0)
+							 24 hours,
+						#ELSE
+							#IF((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm'))) >= 60)
+								 [#~~((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm'))) / 60)] hours,
+							#ENDIF
+							#IF((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm'))) % 60 != 0)
+								 [#~~((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm'))) % 60)] minutes,
+							#ENDIF
 						#ENDIF
 						 until your alarm goes off. As well as replenishing your [#ATTRIBUTE_HEALTH_MAXIMUM.getName()] and [#ATTRIBUTE_MANA_MAXIMUM.getName()], you will also get the 'Well Rested' status effect.
 					#ENDIF
@@ -2112,13 +2176,21 @@
 					#ENDIF
 				]]></nextDialogue>
 				<secondsPassed minutes="true"><![CDATA[
-					[#~~(game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1)]
+					#IF(game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm'))==0)
+						1440
+					#ELSE
+						[#~~(game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')))]
+					#ENDIF
 				]]></secondsPassed>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'DORMITORY_REST'))]
-					[#pc.applySleep(~~(game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1))]
-					#IF(((game.getHourOfDay() + ((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1)/60)) % 24 < 1) ||
-						((game.getHourOfDay() + ((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')+1)-1)/60)) % 24 >= 5))
+					#IF(game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm'))==0)
+						[#pc.applySleep(24*60)]
+					#ELSE
+						[#pc.applySleep(~~(game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm'))))]
+					#ENDIF
+					#IF(((game.getHourOfDay() + ((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')))/60)) % 24 < 1) ||
+						((game.getHourOfDay() + ((game.getMinutesUntilTimeInMinutes(flags.getSavedLong('player_phone_alarm')))/60)) % 24 >= 5))
 						[#dale.returnToHome()]
 					#ENDIF
 				]]></effects>
@@ -2416,7 +2488,7 @@
 					<submissives>
 						<character>
 							<id>pc</id>
-							<slot><![CDATA[LYING_DOWN_BESIDE]]></slot>
+							<slot><![CDATA[LYING_DOWN_LYING_DOWN_TWO]]></slot>
 						</character>
 					</submissives>
 					<postSexDialogue><![CDATA[innoxia_places_fields_dairyFarm_dormitory_dale_after_sex]]></postSexDialogue>
@@ -2426,6 +2498,7 @@
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'DORMITORY_DALE_SEX_START'))]
 					[#pc.setCharacterReactedToPregnancy(dale, true)]
+					[#dale.wakeUp()]
 				]]></effects>
 			</response>
 			<!-- Oral: -->
@@ -2475,6 +2548,7 @@
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'DORMITORY_DALE_SEX_START_ORAL'))]
 					[#pc.setCharacterReactedToPregnancy(dale, true)]
+					[#dale.wakeUp()]
 				]]></effects>
 			</response>
 			<!-- Sex: -->
@@ -2542,6 +2616,7 @@
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'DORMITORY_DALE_SEX_START_PUSSY'))]
 					[#pc.setCharacterReactedToPregnancy(dale, true)]
+					[#dale.wakeUp()]
 				]]></effects>
 			</response>
 			<!-- Anal: -->
@@ -2603,7 +2678,38 @@
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'DORMITORY_DALE_SEX_START_ANAL'))]
 					[#pc.setCharacterReactedToPregnancy(dale, true)]
+					[#dale.wakeUp()]
 				]]></effects>
+			</response>
+			<!-- Sleep sex: -->
+			<response>
+				<availabilityConditional><![CDATA[[#dale.hasTrait(PERK_HEAVY_SLEEPER, true)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[6]]></index>
+				<responseTitle><![CDATA[Sleep sex]]></responseTitle>
+				<responseTooltip><![CDATA[Thanks to the teddy bear you've given him, Dale is sleeping very heavily, and so if you're gentle, you could fuck him without waking him up...]]></responseTooltip>
+				<nextDialogue/>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_fields_dairyFarm_dale_sleep_sex]]></id>
+					<startingPosition><![CDATA[LYING_DOWN]]></startingPosition>
+					<dominants>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[LYING_DOWN_COWGIRL]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>dale</id>
+							<slot><![CDATA[LYING_DOWN_LYING_DOWN]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[innoxia_places_fields_dairyFarm_dormitory_dale_after_sex]]></postSexDialogue>
+					<sexStartContent folderPath="txt/places/fields/dairyFarm">DORMITORY_DALE_SLEEP_SEX_START</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+				<effects/>
 			</response>
 		</responses>
 	</scene>
@@ -2629,6 +2735,7 @@
 				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/dairyFarm', 'DORMITORY_DALE_AFTER_SEX_LEAVE'))]
+					[#dale.goToSleep()]
 				]]></effects>
 			</response>
 		</responses>

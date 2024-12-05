@@ -247,7 +247,7 @@ public class DominionPark {
 			if(index==2) {
 				return new Response("Leave",
 						"You don't think that you need to give this centauress an apology, so decide to simply turn around and continue on your way."
-							+ "<br/><i>You might encounter Natalya again somewhere else...</i>",
+							+ "<br/><i>You might encounter her again somewhere else...</i>",
 							NATALYA_ENCOUNTER_END_EARLY) {
 					@Override
 					public void effects() {
@@ -256,7 +256,7 @@ public class DominionPark {
 				};
 				
 			} else if(index==1) {
-				return new Response("Apologise", "Tell Natalya that you're sorry.", NATALYA_ENCOUNTER_APOLOGY);
+				return new Response("Apologise", "Tell her that you're sorry.", NATALYA_ENCOUNTER_APOLOGY);
 				
 			}
 			return null;
@@ -277,7 +277,7 @@ public class DominionPark {
 			if(index==2) {
 				return new Response("Leave",
 						"You've already given this centauress an apology and don't want to give another, so decide to simply turn around and continue on your way."
-							+ "<br/><i>You might encounter Natalya again somewhere else...</i>",
+							+ "<br/><i>You might encounter her again somewhere else...</i>",
 						NATALYA_ENCOUNTER_END_EARLY) {
 					@Override
 					public void effects() {
@@ -286,7 +286,7 @@ public class DominionPark {
 				};
 				
 			} else if(index==1) {
-				return new Response("Follow", "Do as Natalya says and follow her behind the bushes.<br/>[style.italicsSex(You get the feeling that you might see something quite lewd...)]", NATALYA_ENCOUNTER_BUSHES) {
+				return new Response("Follow", "Do as this centauress says and follow her behind the bushes.<br/>[style.italicsSex(You get the feeling that you might see something quite lewd...)]", NATALYA_ENCOUNTER_BUSHES) {
 					@Override
 					public void effects() {
 						Main.game.getNpc(Natalya.class).displaceClothingForAccess(CoverableArea.PENIS, null);
@@ -359,6 +359,10 @@ public class DominionPark {
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Natalya.class), SexSlotStanding.STANDING_DOMINANT)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.PERFORMING_ORAL))) {
+							@Override
+							public boolean isPublicSex() {
+								return false;
+							}
 							@Override
 							public SexControl getSexControl(GameCharacter character) {
 								if(character.isPlayer()) {

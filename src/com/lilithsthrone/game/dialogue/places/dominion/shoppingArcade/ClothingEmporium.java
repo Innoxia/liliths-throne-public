@@ -111,7 +111,7 @@ public class ClothingEmporium {
 		public Response getResponse(int responseTab, int index) {
 			if(responseTab==0) {
 				if (index == 1) {
-					if(Main.game.getHourOfDay()<9 || Main.game.getHourOfDay()>=20) {
+					if(!Main.game.isHourBetween(9, 20)) {
 						return new Response("Enter", "Nyan's Clothing Emporium is currently closed. You'll have to come back later...", null);
 						
 					} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.nyanIntroduced)) {

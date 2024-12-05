@@ -20,7 +20,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.4
- * @version 0.4
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class OrificeSpinneret implements OrificeInterface {
@@ -44,6 +44,18 @@ public class OrificeSpinneret implements OrificeInterface {
 		this.virgin = true;
 
 		this.orificeModifiers = new HashSet<>();
+	}
+
+	public OrificeSpinneret(OrificeSpinneret orificeSpinneretToCopy) {
+		this.wetness = orificeSpinneretToCopy.wetness;
+		this.capacity = orificeSpinneretToCopy.capacity;
+		this.stretchedCapacity = orificeSpinneretToCopy.stretchedCapacity;
+		this.depth = orificeSpinneretToCopy.depth;
+		this.elasticity = orificeSpinneretToCopy.elasticity;
+		this.plasticity = orificeSpinneretToCopy.plasticity;
+		this.virgin = orificeSpinneretToCopy.virgin;
+
+		this.orificeModifiers = new HashSet<>(orificeSpinneretToCopy.orificeModifiers);
 	}
 	
 	public String getDescriptor(GameCharacter owner) {

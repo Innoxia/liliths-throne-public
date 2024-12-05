@@ -91,11 +91,11 @@
 	<htmlContent tag="INTRO_EMPTY_ROOM_SEX_FEMALE_AS_MALE_START_SUB"><![CDATA[
 	#IF(pc.isFeminine() && !pc.isPenisBulgeVisible() && !pc.isTesticleBulgeVisible())
 		<p>
-			Not wanting to be the one to take the lead, you lean into [prologueFemale.namePos] [pc.breasts], before letting out a desperate [pc.moan] and begging her to fuck you. Smirking at your submissively display, [prologueFemale.name] presses her lips against yours, before thrusting her tongue into your mouth as she dominantly gropes and fondles your body. Never expecting something like this to happen today, you're glad that you always keep a condom in your purse 'just in case'. Now would be a good time to put it to use...
+			Not wanting to be the one to take the lead, you lean into [prologueFemale.namePos] [prologueFemale.breasts], before letting out a desperate [pc.moan] and begging her to fuck you. Smirking at your submissively display, [prologueFemale.name] presses her lips against yours, before thrusting her tongue into your mouth as she dominantly gropes and fondles your body. Never expecting something like this to happen today, you're glad that you always keep a condom in your purse 'just in case'. Now would be a good time to put it to use...
 		</p>
 	#ELSE
 		<p>
-			Not wanting to be the one to take the lead, you lean into [prologueFemale.namePos] [pc.breasts], before letting out a desperate [pc.moan] and begging her to fuck you. Smirking at your submissively display, [prologueFemale.name] presses her lips against yours, before thrusting her tongue into your mouth as she dominantly gropes and fondles your body. Breaking off the kiss for a moment, she pulls something out of her purse, before pushing it into your hands and saying, [prologueFemale.speech(I'd rather you didn't, but if you want to, you can wear this.)]
+			Not wanting to be the one to take the lead, you lean into [prologueFemale.namePos] [prologueFemale.breasts], before letting out a desperate [pc.moan] and begging her to fuck you. Smirking at your submissively display, [prologueFemale.name] presses her lips against yours, before thrusting her tongue into your mouth as she dominantly gropes and fondles your body. Breaking off the kiss for a moment, she pulls something out of her purse, before pushing it into your hands and saying, [prologueFemale.speech(I'd rather you didn't, but if you want to, you can wear this.)]
 		</p>
 		<p>
 			You look down to see that you've just been given a condom, still sealed in its small square packet...
@@ -110,7 +110,7 @@
 
 	<htmlContent tag="INTRO_EMPTY_ROOM_SEX_FEMALE_AS_FEMALE_START_SUB"><![CDATA[
 	<p>
-		Not wanting to be the one to take the lead, you lean into [prologueFemale.namePos] [pc.breasts], before letting out a desperate [pc.moan] and begging her to fuck you. Smirking at your submissively display, [prologueFemale.name] presses her lips against yours, before thrusting her tongue into your mouth as she dominantly gropes and fondles your body...
+		Not wanting to be the one to take the lead, you lean into [prologueFemale.namePos] [prologueFemale.breasts], before letting out a desperate [pc.moan] and begging her to fuck you. Smirking at your submissively display, [prologueFemale.name] presses her lips against yours, before thrusting her tongue into your mouth as she dominantly gropes and fondles your body...
 	</p>
 	]]>
 	</htmlContent>
@@ -852,7 +852,7 @@
 		[rose.speech(You mean the Enforcers? Why would they? Once the arcane seeps into a person's mind, they'll happily consent to anything,)] Rose replies, [rose.speech(So if you don't like it, then don't go outside during a storm. Oh, and don't wander off down alleyways. Although the main streets are safe, the less-travelled parts of Dominion are often home to the more... unsavoury sorts of people.)]
 	</p>
 	<p>
-		By this time, Rose has led you up the grand staircase in the entrance hall and down a long corridor. She suddenly stops by one of the doors, and, opening it, steps through. You follow her inside, and find yourself standing in a lavishly decorated bedroom. A king-sized bed sits on side of the room, flanked by a pair of finely-crafted drawers. An impressively-sized wardrobe and bookcase stand in the opposite corners, and between them, there's another door. On the far side of the room, a row of windows overlook a well-tended garden courtyard, and as you see a pink flash illuminate the neatly clipped hedgerows and colourful flower beds, you notice that no sound of the accompanying thunder manages to penetrate into the room.
+		By this time, Rose has led you up the grand staircase in the entrance hall and down a long corridor. She suddenly stops by one of the doors, and, opening it, steps through. You follow her inside, and find yourself standing in a lavishly decorated bedroom. A king-sized bed sits on one side of the room, flanked by a pair of finely-crafted drawers. An impressively-sized wardrobe and bookcase stand in the opposite corners, and between them, there's another door. On the far side of the room, a row of windows overlook a well-tended garden courtyard, and as you see a pink flash illuminate the neatly clipped hedgerows and colourful flower beds, you notice that no sound of the accompanying thunder manages to penetrate into the room.
 	</p>
 	<p>
 		[rose.speech(This is your room,)] Rose says, before walking over to the door next to the wardrobe, [rose.speech(and in here is your bathroom. If you leave your dirty clothes out here when you take a shower or bath, I'll have them cleaned by the time you're finished.)]

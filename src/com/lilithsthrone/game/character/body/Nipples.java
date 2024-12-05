@@ -22,7 +22,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.4
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class Nipples implements BodyPartInterface {
@@ -44,6 +44,17 @@ public class Nipples implements BodyPartInterface {
 		this.areolaeSize = areolaeSize;
 		orificeNipples = new OrificeNipples(wetness, capacity, depth, elasticity, plasticity, virgin, crotchNipples, type.getDefaultRacialOrificeModifiers());
 		this.crotchNipples = crotchNipples;
+	}
+
+	public Nipples(Nipples nipplesToCopy) {
+		this.type = nipplesToCopy.type;
+		this.nippleSize = nipplesToCopy.nippleSize;
+		this.nippleShape = nipplesToCopy.nippleShape;
+		this.areolaeShape = nipplesToCopy.areolaeShape;
+		this.areolaeSize = nipplesToCopy.areolaeSize;
+		this.orificeNipples = new OrificeNipples(nipplesToCopy.orificeNipples);
+		this.pierced = nipplesToCopy.pierced;
+		this.crotchNipples = nipplesToCopy.crotchNipples;
 	}
 	
 	@Override
@@ -149,6 +160,10 @@ public class Nipples implements BodyPartInterface {
 		
 		if(orificeNipples.getCapacity()!= Capacity.ZERO_IMPENETRABLE) {
 			descriptorList.add(Capacity.getCapacityFromValue(orificeNipples.getStretchedCapacity()).getDescriptor().replaceAll(" ", "-"));
+		}
+		
+		if(owner.getBodyMaterial().getPartDescriptors()!=null && !owner.getBodyMaterial().getPartDescriptors().isEmpty()) {
+			descriptorList.add(Util.randomItemFrom(owner.getBodyMaterial().getPartDescriptors()));
 		}
 		
 		descriptorList.removeIf(d->d==null || d.isEmpty());

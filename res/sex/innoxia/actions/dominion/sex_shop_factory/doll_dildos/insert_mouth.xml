@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		#IF(sex.getNumberOfOrgasms(pc)==0)
+			[#pc.getClothingInSlot(IS_MOUTH)==null]
+		#ELSE
+			[#pc.getClothingInSlot(IS_MOUTH).getColour(0)==COLOUR_CLOTHING_PURPLE_VERY_DARK]
+		#ENDIF
+	]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>ZERO_NONE</arousalPerformer>
+	<arousalTarget>FIVE_EXTREME</arousalTarget>
+	<associatedCorruption>TWO_HORNY</associatedCorruption>
+	<associatedFetishes/>
+	<performingArea/>
+	<targetedArea/>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+		#IF(pc.getClothingInSlot(IS_MOUTH)==null)
+			[##pc.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_norin_dildos_realistic_dildo, COLOUR_CLOTHING_PURPLE_VERY_DARK, false), IS_MOUTH, true, doll)]
+		#ELSE
+			[##pc.unequipClothingIntoVoid(IS_MOUTH, true, doll)]
+			[##pc.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_innoxia_vagina_equine_dildo, COLOUR_CLOTHING_BLUE_VERY_DARK, COLOUR_CLOTHING_BLUE, COLOUR_CLOTHING_BLUE_LIGHT, false), IS_MOUTH, true, doll)]
+			[##pc.getClothingInSlot(IS_MOUTH).setSticker('colour', 'three_soft')]
+		#ENDIF
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Oral test]]></title>
+	<tooltip><![CDATA[
+		Test out the next dildo on the doll.
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getNumberOfOrgasms(pc)==0]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Picking up a dark purple dildo from the table, the doll steps towards you and commands, [doll.speech(Open wide. This first one's going down your throat.)]
+				
+				<br/><br/>
+				
+				Committed to your course of action, you don't really have to do anything but remain still to obey the doll, as your plump lips are already formed into a resting 'o' shape. After carefully pushing the tip of the dildo into your mouth, the doll suddenly rams the entire length of it down your throat, causing you to let out a muffled, gargled cry.
+				
+				<br/><br/>
+				
+				[doll.speech(Fuck your throat with that toy,)] the red doll commands in an expressionless tone, before turning to the table to get the next dildo...
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getNumberOfOrgasms(pc)>0]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Pulling the dark purple dildo out of your mouth, the doll places it on the table and retrieves the next toy that's going down your throat.
+				#IF(pc.getClothingInSlot(IS_ANUS)==null)
+					 The huge, [units.sizeShort(45)]-long dildo which she retrieves is shaped like a realistic horse's penis, and has been coloured in shades of blue, from dark at the base to light at the wide, flared tip.
+				#ELSE
+					 The huge, equine dildo which she retrieves is similar to the one that's in your ass, but this particular toy has been coloured in shades of blue, from dark at the base to light at the wide, flared tip.
+				#ENDIF
+				 Treating you like nothing more than an object to be used for her tests, the doll unceremoniously pushes the head of the dildo past your 'o'-shaped lips and into your mouth, before using her palm to push on the flat base and force the entire length down your throat.
+				
+				<br/><br/>
+				
+				[doll.speech(Leave it like that and use your tongue to massage it,)] the red doll commands as she turns to retrieve the next toy.
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

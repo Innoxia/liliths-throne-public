@@ -80,7 +80,17 @@
 		<!-- The file name of this weapon's image when in the character's inventory. The only supported file type is .svg. I use the free program "Inkscape" to make .svg images for the game. -->
 		<imageName>dagger_sheathed.svg</imageName> 
 		
-		<!-- The file name of this weapon's image when equipped. Can be (and usually is) the same as the imageName (which in this example would be "dagger_sheathed.svg"). -->
+		<!-- The file name of this weapon's image when equipped. Can be (and usually is) the same as the imageName (which in this example would be "dagger_sheathed.svg").
+			This element supports parsing, with the character who's equipping the clothing using the parser tag 'npc'.
+				Example:
+					<imageEquippedName><![CDATA[
+						#IF(npc.isPlayer())
+							dagger_sheathed.svg
+						#ELSE
+							dagger.svg
+						#ENDIF
+					]]></imageEquippedName>
+			-->
 		<imageEquippedName>dagger.svg</imageEquippedName>
 		
 		<!-- How much natural physical resistance this weapon provides when equipped. Should only really be above 0 for shields or other such protective weapons. -->

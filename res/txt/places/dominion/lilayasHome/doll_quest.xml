@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- Dialogue in LilayaHomeGeneric.class -->
+	
+	<htmlContent tag="ENTRANCE_HALL_FIAMMETTA"><![CDATA[
+	<p>
+		As you [pc.walk] into the entrance hall, you see that Rose is patiently waiting on one side of the room. Catching sight of you, she immediately hurries forwards and performs a little curtsy, before saying, [rose.speech(Good [style.evening], [pc.sir]. A visitor has arrived to see you, and she's insisting that it's urgent business.)]
+	</p>
+	<p>
+		Wondering if it might be Fiammetta who's come to inform you of her progress on her article, you ask Rose who this visitor is.
+	</p>
+	<p>
+		[rose.speech(A succubus going by the name of Saellatrix,)] the cat-girl maid replies. Seeing the look of surprise on your face, she quickly reveals, [rose.speech(Mistress Lilaya was passing by just as Saellatrix arrived, and as the two of them are already well acquainted with one another, they both went to library to talk while waiting for your arrival.)]
+	</p>
+	<p>
+		You're not quite sure what to make of Saellatrix's sudden appearance here, but before you have any time in which to think on what it might mean, Rose gestures for you to follow her and says, [rose.speech(Please, [pc.sir], both Saellatrix and Mistress Lilaya wouldn't like to be kept waiting.)]
+	</p>
+	<p>
+		Concerned that something might have happened to Fia, you decide that it'd be best to do as Rose asks and meet with Saellatrix right away. [pc.Stepping] forwards, you allow Rose to lead the way as the two of you set off in the direction of the library...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Dialogues in res/dialogue/innoxia/places/dominion/lilayas_home/doll_quest -->
+	
+	<htmlContent tag="START"><![CDATA[
+	<p>
+		Following Rose down the corridor, you quickly arrive outside the door to the library. After stepping forwards to open it for you, Rose then moves aside, allowing you to enter the large room while she turns and walks off to another part of the mansion.
+	</p>
+	<p>
+		After quickly scanning your immediate surroundings, you see no sign of either Saellatrix or Lilaya. Realising that they must be out of sight down one of the many aisles formed by the tall bookcases which fill this room, you set off to find them. Your search ends just as it begins, however, for as soon as you begin to [pc.walk] forwards, you suddenly hear the familiar voice of Lilaya coming from an aisle just a short distance away. Although you can't quite make out what she's saying, there's no mistaking the horny tone of her voice, and as you draw nearer you hear her panting, [lilaya.speech(Sae... This isn't really the time for this...)]
+	</p>
+	<p>
+		Following the source of Lilaya's voice, you approach the end of the next aisle and take a look around the corner. A short distance away, the familiar figure of Saellatrix is dominantly pinning your demonic [lilaya.relation(pc)] back against a bookshelf. Showing her submissive nature, Lilaya meekly holds still and closes her eyes as the dark-red-skinned succubus leans forwards and presses her lips against hers, before starting to passionately kiss her.
+	</p>
+	<p>
+		Suddenly catching sight of you out of the corner of her eye, Saellatrix slightly turns her head your way. Continuing to make out with Lilaya, she narrows her gaze and gives you a smug look, before reaching up to dominantly squeeze your [lilaya.relation(pc)]'s [lilaya.cupSize]-cup breasts.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_INTERRUPT"><![CDATA[
+	<p>
+		You aren't going to stand by and watch as Saellatrix has her fun with your demonic [lilaya.relation(pc)]. [pc.Stepping] forwards, you loudly announce your arrival, which causes Saellatrix to break off the kiss with a loud, wet smack and tease, [saellatrix.speech(We can continue this another time...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_WAIT"><![CDATA[
+	<p>
+		Not wanting to interrupt, you wait at the end of the aisle while Saellatrix has her fun. Groping Lilaya's breasts, she keeps your demonic [lilaya.relation(pc)] pinned back against the bookshelf as she continues to thrust her tongue into her mouth. It takes several minutes for Saellatrix to bring an end to this impromptu make-out session, and when she finally does, she breaks off the kiss with a loud, wet smack and declares, [saellatrix.speech(It looks like [pc.name] is here.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START_END"><![CDATA[
+	<p>
+		Lilaya's eyes snap open, and as she turns to see you, her cheeks flush bright red. Clearly embarrassed to have been caught in the act, she stutters, [lilaya.speech(O-Oh! [pc.Name]! W-We were waiting for you, b-but Sae... Well.. N-Nevermind!)]
+	</p>
+	<p>
+		[saellatrix.speech(We were just having a little fun,)] the dark-red-skinned succubus says in her posh British accent. Stepping back and allowing Lilaya to move freely once more, she continues, [saellatrix.speech(Now that you're here, however, we can get down to business.)]
+	</p>
+	<p>
+		[lilaya.speech(That's right,)] Lilaya says as she brushes her skirt down. Turning to face you, and with her cheeks still flushed red, she says, [lilaya.speech(Sae has some troubling news, but I told her that you'll help.)]
+	</p>
+	<p>
+		Not liking the sound of this, you look at Saellatrix as she starts to talk...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="REVEAL"><![CDATA[
+	<p>
+		Instead of directly saying what it is she's here for, Saellatrix first points to the shelf behind Lilaya and says, [saellatrix.speech(You know, some of the books in here are banned...)]
+	</p>
+	<p>
+		[lilaya.speech(They're just for research! Mother said I could have th-)] Lilaya quickly starts to explain, but is cut off by Saellatrix's soft laugh.
+	</p>
+	<p>
+		[saellatrix.speech(I'm only teasing, Lilaya,)] she says, [saellatrix.speech(I know that you'd treat such material with due care, and besides, the rules are for the masses, not for we recognised daughters of elder lilin. The reason I mention those banned books is because it seems like lies are so easy to publish these days. Isn't that right, [pc.name]?)]
+	</p>
+	<p>
+		Not wanting to play along with her games, you ask Saellatrix what it is she wants.
+	</p>
+	<p>
+		[saellatrix.speech(I simply want to prevent more falsehoods from being shown to the public,)] she replies, [saellatrix.speech(You see, a most terrible lie is about to be published in that wretched newspaper, The Octogram Herald, and it's going to cause great damage to the reputation of my business, my mother, and I. What a shock I had when I discovered that a relative of my dear Lilaya is the one responsible for this lie being treated as the truth.)]
+	</p>
+	<p>
+		Although Lilaya doesn't notice it, you see a flash of anger in Saellatrix's [saellatrix.eyeColour] eyes as she fixes her gaze on you. Holding up a letter, she proclaims, [saellatrix.speech(As required by law, the editor of The Octogram Herald sent me word that an article involving me is about to be published. This article makes some outrageous claims about my business engaging in illegal slavery and forced transformation. Amongst the rest of the so-called evidence, apparently you are willing to testify that it's all true!)]
+	</p>
+	<p>
+		[lilaya.speech([pc.Name], there's no way that Sae has been doing any of this. I've known her for a long time, and she's always been a dear friend,)] Lilaya sighs. Clearly being on Saellatrix's side, your [lilaya.relation(pc)] crosses her arms and demands, [lilaya.speech(Please explain yourself.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="EXPLAIN"><![CDATA[
+	<p>
+		Wanting Lilaya to know the truth, you tell her how you and Fia snuck into the hidden factory beneath Lovienne's Luxuries. Ignoring Saellatrix as she starts pacing around in frustration, you go on to say that you and Fia found indisputable evidence that Saellatrix and her sister, Angelixx, have been illegally enslaving people and transforming them into sex dolls.
+	</p>
+	<p>
+		[lilaya.speech(Yes, Sae already told me about this 'Fiammetta' character,)] Lilaya says as you finish your story. Having already been exposed to Saellatrix's lies, your [lilaya.relation(pc)] doesn't seem to be sure of who to believe, and shakes her head as she reveals, [lilaya.speech(A few years ago, I spent a lot of time researching the possibility of dollification. It would require an unbelievably complex process to transform a person into a sex doll, and although it might be theoretically possible there's absolutely no way it could realistically be done... You don't sound like you're lying, but dollification is impossible... Surely... Sae, what's going on?)]
+	</p>
+	<p>
+		Lilaya turns to look at Saellatrix, and from the confident expression on the succubus's face, you realise that she must have already anticipated this... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SAELLATRIX_COUNTER"><![CDATA[
+	<p>
+		[saellatrix.speech(Fiammetta is a well-known confidence trickster, and unfortunately, if her victims aren't prepared, she's able to convince them to do anything she asks,)] Saellatrix confidently lies, [saellatrix.speech(I don't blame [pc.name] for being seduced and manipulated into doing her bidding; after all, Fiammetta is one of the most dangerous individuals in Dominion. By having [pc.name] support her fabricated story, she's going to get this lie published and in doing so secure a huge promotion and receive a seven-figure bonus.)]
+	</p>
+	<p>
+		[lilaya.speech(Well now it's your word against [pc.hers],)] Lilaya sighs at Saellatrix, before shaking her head once more and saying, [lilaya.speech(I really don't know what's going on. The two of you need to sort this out between yourselves... I'm going back to my lab.)]
+	</p>
+	<p>
+		[saellatrix.speech(Very well. Thank you for being here, Lilaya,)] Saellatrix says in a sweet voice, [saellatrix.speech(Oh, and I'll see you at my place next Monday? Be there at seven-thirty.)]
+	</p>
+	<p>
+		Nodding to Saellatrix, who's quite clearly a good friend of hers, Lilaya smiles at you and then swiftly walks off. Exiting the library, she leaves you alone with the succubus...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_LEFT"><![CDATA[
+	<p>
+		Although she immediately drops the lie which she'd been feeding to Lilaya, Saellatrix maintains her composure as she says, [saellatrix.speech(Fiammetta is under the protection of her newspaper and you're too well connected to make you disappear. Thankfully, there's another way to resolve this little problem. You're going to testify against that scheming bitch so that I can get the story blocked before it's published.)]
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_innoxia_doll_factory_player_dollified))
+			With your memory of being temporarily transformed into a doll fresh in your mind,
+		#ELSE
+			With your memory of the subterranean doll factory fresh in your mind,
+		#ENDIF
+		 you can't imagine why you'd do such a thing. Mimicking Lilaya's gesture, you shake your head and ask the succubus why she'd think that you'd betray Fia's trust like that.
+	</p>
+	<p>
+		[saellatrix.speech(Well, as you know the truth behind the dollification process, I can offer you something very special if you were to take my side,)] Saellatrix says. Allowing a sinister smile to settle on her beautiful face, she continues, [saellatrix.speech(I'll transform any of your slaves into dolls for you, and what's more, I'll only charge you what it costs me to make them. Instead of paying hundreds of thousands of flames, you'll be able to get dolls for just ten or twenty thousand. And if that's not enough for you, then perhaps you'd take my side for my sister, Angelixx? If you've taken a fancy to that slut then a few words in her ear will make her eager to spread her legs for you. Or perhaps those brutish sons of hers are more your thing? She'll tell them to fuck you, if that's what you want.)]
+	</p>
+	<p>
+		Pausing for a moment to let you think about what she's just said, Saellatrix produces a sheet of paper from an inner pocket of her blazer. As she holds it up, you see that it's titled as being a 'Declaration of Truth', with the writing beneath stating that Fiammetta's article is a lie. As you scan over the document, the succubus reveals, [saellatrix.speech(All you need to do is sign this. What do you even have to gain from taking Fiammetta's side? She's the one who's going to get all the recognition and flames from her editor. You think she'll let you fuck her if you act like her loyal dog? Don't be an idiot. I have much more to offer you than she does.)]
+	</p>
+	<p>
+		Although you're committed to helping Fia expose the crimes of Saellatrix, you can't help but recognise that there's a grain of truth in what this succubus is saying. It's unlikely that you're going to gain anything from continuing to support Fia, apart from the satisfaction of knowing that you've done the right thing.
+	</p>
+	<p>
+		[saellatrix.speech(I hope that you're not concerned about the slaves we turn into dolls,)] Saellatrix continues, [saellatrix.speech(Those who we transform are lucky, in a way. They never have to worry about food or shelter again, and live the rest of their lives in a blissful state of being fucked. There's really nothing wrong with what we're doing at all. Now sign this confession and I'll take care of the rest. That meddling reporter will pay...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SIDE_FIA"><![CDATA[
+	<p>
+		Not at all tempted by Saellatrix's offer, you firmly tell her that you're not going to betray Fia, and that if there's any justice then the Enforcers will shut down her business and arrest everyone involved.
+	</p>
+	<p>
+		[saellatrix.speech(Oh, there's no risk of anything happening to me or my business,)] the succubus states as she puts the document away. Although there's a slight look of annoyance in her eyes, she doesn't betray it in the tone of her voice as she calmly reveals, [saellatrix.speech(You've made a stupid decision, but it's not one I didn't expect. I've already got everything planned, so I'll be fine, as always. Angelixx, however... Not so much.)]
+	</p>
+	<p>
+		You ask what she's planning to do with her sister, but Saellatrix dismisses your question with an idle wave and states, [saellatrix.speech(My store will likely be closed for a week or so while I wait for the inevitable public outrage to blow over. There's no need for us to be on bad terms as a result of this; I could do without a relative of Lilaya being my enemy. Please do come back to my store once I reopen. You'll get the answer to your question then.)]
+	</p>
+	<p>
+		With that, the succubus confidently strides past you and swiftly exits the library. Having made your decision to support Fia, you know that her article will be published, and can't help but wonder what's now going to happen to Saellatrix's store...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SIDE_SAE"><![CDATA[
+	<p>
+		Tempted by Saellatrix's offer, you take a moment to think about the lack of reward offered by Fia. Deciding that it'd be best to support the recognised daughter of an elder lilin over a human reporter you barely know, you decide to betray your one-time companion. Having made up your mind, you tell Saellatrix that you'll do as she asks.
+	</p>
+	<p>
+		[saellatrix.speech(Oh? I'd already planned for you taking the side of your friend, but this really does make everything far easier for me,)] the succubus happily says. Confidently striding past you to the nearby corner of the room, she rings the bell-pull and then turns to explain, [saellatrix.speech(If you've never seen one of these documents before, it's both legally-binding and arcane-enchanted. Your signature will vanish unless it truthfully matches who you are, thereby guaranteeing its authenticity. As an extra layer of proof, these documents require the signature of a witness who can trace their ancestry back to an elder lilin. Due to a conflict of interest, my signature won't work, but thankfully there's another daughter of an elder lilin close by...)]
+	</p>
+	<p>
+		Having been summoned by the bell-pull, Rose suddenly enters the library, before hurrying forwards and curtsying to Saellatrix. Before she can ask what's required of her, the succubus snaps, [saellatrix.speech(Fetch your Mistress, slave, and be quick about it!)]
+	</p>
+	<p>
+		Obediently doing as she's told, Rose turns and hurries out of the room. With a minute to spare before Lilaya's arrival, Saellatrix turns to you once more and says, [saellatrix.speech(With this document, it'll be easy for me to prove that Fiammetta is a lying bitch, so there's no chance of her story being published. It'll be a little more difficult for me to get my hands on that scheming slut, so I'll have to close my store for a day or two while seduce and threaten the right people. Come and pay me a visit once I've reopened and we can talk more about the rewards I've promised you...)]
+	</p>
+	<p>
+		Before you can respond, Lilaya suddenly arrives. Quickly stepping over to the two of you, she asks, [lilaya.speech(Have you settled it?)]
+	</p>
+	<p>
+		[saellatrix.speech(Yes, I've managed to make your [pc.relation(lilaya)] see sense,)] Saellatrix confidently replies, [saellatrix.speech([pc.She]'ll sign this declaration of truth which states that Fiammetta is a liar, but we need your signature as a witness.)]
+	</p>
+	<p>
+		[lilaya.speech(I'd be happy to help,)] Lilaya says with a smile, [lilaya.speech(I care about the two of you, so I don't want you to be fighting.)]
+	</p>
+	<p>
+		Placing the document down on a nearby reading table, Saellatrix offers you a pen and gestures for you to sign it. Wanting to get this over with as quickly as possible, you quickly read over the document to make sure that you're not being tricked into anything. Suppressing your conscience and ignoring the fact that you're betraying not only Fia but all of the illegally-enslaved people who've been transformed into dolls, you sign the document. A moment later, Lilaya adds her own signature as a witness, and with that the deed is done.
+	</p>
+	<p>
+		[saellatrix.speech(Thank you both,)] Saellatrix says as she does her best to hide her victorious smirk, [saellatrix.speech(I hate to be rude, but I need to leave immediately to stop that story from being published. I'll see the two of you soon, I hope.)] 
+	</p>
+	<p>
+		[lilaya.speech(Allow me to walk you to the door,)] Lilaya says. Taking Saellatrix's side, she quickly exits the room with her, calling out behind her as she goes, [lilaya.speech(See you later, [pc.name]!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="END"><![CDATA[
+	<p>
+		Finding yourself alone in in the library, you take a minute to think about what you've just done. Swiftly coming to the conclusion that you've done the right thing, you wonder what to do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>

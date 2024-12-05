@@ -4,7 +4,6 @@
 	<name><![CDATA[Lunexis's tent]]></name>
 	<tooltipDescription><![CDATA[This tent is guarded by elite Amazon warriors, and has been enchanted to allow no sound to pass through its fabric.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in Lunexis's tent in the Amazons' camp]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_CRIMSON</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

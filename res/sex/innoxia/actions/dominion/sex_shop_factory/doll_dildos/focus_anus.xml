@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		#IF(sex.getNumberOfOrgasms(pc)==0)
+			[#pc.getClothingInSlot(IS_ANUS)!=null]
+		#ELSE
+			[#pc.getClothingInSlot(IS_ANUS).getColour(0)==COLOUR_CLOTHING_PINK_DARK]
+		#ENDIF
+	]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>FIVE_EXTREME</arousalPerformer>
+	<arousalTarget>ZERO_NONE</arousalTarget>
+	<associatedCorruption>TWO_HORNY</associatedCorruption>
+	<associatedFetishes/>
+	<performingArea/>
+	<targetedArea/>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+		[##pc.setArousal(100)]
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Ride dildo]]></title>
+	<tooltip><![CDATA[
+		Do as the doll commands and start bouncing up and down on the huge dildo.
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getNumberOfOrgasms(pc)==0]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Without thinking, you instantly obey the doll and sink down onto the huge, equine dildo. Forcing the entire length of the massive toy into your silicone ass, you can't help but let out a muffled, high-pitched whine. Your artificial asshole readily stretches to accommodate the huge dildo, and as you drop down to press your ass cheeks against the concrete floor, you feel the toy's flared head ramming its way deep into your fathomless orifice.
+				
+				<br/><br/>
+				
+				Now with all three of your holes being used to test sex toys, you truly feel like nothing more than a obedient sex doll. With this thought in your mind, you suddenly find yourself on the verge of a shameful climax.
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getNumberOfOrgasms(pc)>0]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				A soft, muffled moan escapes from around the huge, silicone horse-cock in your mouth as the doll orders you to ride the gigantic, ribbed dildo. Reaching back to spread your ass cheeks, you sink down onto it, moaning and groaning in pleasure as you feel each of the toy's thick ribs forcing their way into your asshole and then deep into your silicone orifice. Bottoming out, your ass cheeks slap against the cold concrete floor, at which point you lift yourself up and start to bounce up and down.
+				
+				<br/><br/>
+				
+				Letting go of your ass, you grab the end of the equine dildo that's stuffed deep in your cunt and continue to fuck your pussy while anally riding the massive, ribbed dildo. This intense stimulation very quickly pushes you to the edge of what you can handle, and you realise that you're about to orgasm!
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

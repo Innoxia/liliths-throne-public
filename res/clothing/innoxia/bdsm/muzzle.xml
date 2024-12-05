@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clothing>
+	<coreAttributes>
+		<value>1250</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[muzzle]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[muzzles]]></namePlural> 
+		<description><![CDATA[A wire cage basket muzzle, originally made for dogs and other such muzzled animals to prevent them from biting. Its design is such that it can be strapped around anyone's head, even if they don't have a muzzle.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<equipSlots>
+			<slot>MOUTH</slot>
+		</equipSlots>
+		<rarity>EPIC</rarity>
+		<clothingSet>innoxia_bdsm</clothingSet>
+		<imageName>muzzle.svg</imageName>
+		<imageEquippedName/>
+		<enchantmentLimit/>
+		
+		<effects> 
+			<effect itemEffectType="CLOTHING" limit="0" potency="BOOST" primaryModifier="CLOTHING_SPECIAL" secondaryModifier="CLOTHING_SEALING" timer="0"/>
+			<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_DRAIN" primaryModifier="CLOTHING_MAJOR_ATTRIBUTE" secondaryModifier="STRENGTH" timer="0"/>
+		</effects>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>MOUTH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/>
+		
+		<primaryColours values="ALL_METAL"/>
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours values="JUST_BLACK"/>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="JUST_STEEL"/>
+		<tertiaryColoursDye values="ALL_WITH_METALS"/>
+		
+		<itemTags> 
+			<tag>ENABLE_SEX_EQUIP</tag>
+			<tag>SOLD_BY_FINCH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slide)] the muzzle's cage over [npc.her] mouth, before reaching back and fastening the buckles to keep it in place.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(slide)] the muzzle's cage over [npc2.namePos] mouth, before reaching back and fastening the buckles to keep it in place.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(force)] the muzzle's cage over [npc2.namePos] mouth, before reaching back and tightly fastening the buckles to keep it in place.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(unfasten)] the muzzle's straps and [npc.verb(take)] it off.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(unfasten)] the muzzle's straps and [npc.verb(take)] it off.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] impatiently [npc.verb(unfasten)] the muzzle's straps and [npc.verb(yank)] it off.]]>
+		</otherRough>
+	</displacementText>
+</clothing>

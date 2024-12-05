@@ -11,7 +11,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.3.7
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class Eye implements BodyPartInterface {
@@ -20,7 +20,8 @@ public class Eye implements BodyPartInterface {
 	
 	protected AbstractEyeType type;
 	protected int eyePairs;
-	protected EyeShape irisShape, pupilShape;
+	protected EyeShape irisShape;
+	protected EyeShape pupilShape;
 	
 	public Eye(AbstractEyeType type) {
 		this.type = type;
@@ -29,6 +30,13 @@ public class Eye implements BodyPartInterface {
 		pupilShape = type.getDefaultPupilShape();
 	}
 
+	public Eye(Eye eyeToCopy) {
+		this.type = eyeToCopy.type;
+		this.eyePairs = eyeToCopy.eyePairs;
+		this.irisShape = eyeToCopy.irisShape;
+		this.pupilShape = eyeToCopy.pupilShape;
+	}
+	
 	@Override
 	public AbstractEyeType getType() {
 		return type;

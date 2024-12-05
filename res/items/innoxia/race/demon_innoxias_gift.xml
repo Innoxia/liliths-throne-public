@@ -31,14 +31,16 @@
 		<enchantmentEffectId>RACE</enchantmentEffectId>
 		
 		<effectTooltipLines>
-			<line><![CDATA[[style.boldBad(Does not affect unique characters)]]]></line>
+			<line><![CDATA[[style.boldBad(Does not affect unique characters or dolls)]]]></line>
 			<line><![CDATA[[style.boldTfGeneric(Transforms)] non-demons into [style.boldDemon(half-demons)]]]></line>
 			<line><![CDATA[[style.boldTfGeneric(Transforms)] half-demons into [style.boldDemon(demons)]]]></line>
 		</effectTooltipLines>
 		
 		<applyEffects><![CDATA[
 		<p style='text-align:center'>
-			#IF(!npc.isPlayer() && npc.isUnique() && (!npc.isSlave() || npc.getOwner().isPlayer()))
+			#IF(npc.isDoll())
+				[style.italicsDisabled(This item does not work on dolls...)]
+			#ELSEIF(!npc.isPlayer() && npc.isUnique() && (!npc.isSlave() || npc.getOwner().isPlayer()))
 				[style.italicsDisabled(This item does not work on non-slave unique characters...)]
 			#ELSEIF(npc.getSubspeciesOverride()==SUBSPECIES_HALF_DEMON)
 				[##npc.setBody(npc.getGender(), SUBSPECIES_DEMON, RACE_STAGE_GREATER, false)]

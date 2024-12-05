@@ -2,6 +2,7 @@ package com.lilithsthrone.game.sex.positions;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -89,16 +90,16 @@ public class SexPosition {
 		@Override
 		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			if(Main.sex.getCharacterInPosition(SexSlotMasturbation.KNEELING)!=null) {
-				return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotMasturbation.KNEELING), "[npc.NameIs] kneeling on the floor, ready to masturbate.");
+				return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotMasturbation.KNEELING), "[npc.NameIsFull] kneeling on the floor, ready to masturbate.");
 			}
 			if(Main.sex.getCharacterInPosition(SexSlotMasturbation.STANDING)!=null) {
-				return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotMasturbation.STANDING), "[npc.NameIs] standing upright, ready to masturbate.");
+				return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotMasturbation.STANDING), "[npc.NameIsFull] standing upright, ready to masturbate.");
 			}
 			if(Main.sex.getCharacterInPosition(SexSlotMasturbation.SITTING)!=null) {
-				return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotMasturbation.SITTING), "[npc.NameIs] sitting down, ready to masturbate.");
+				return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotMasturbation.SITTING), "[npc.NameIsFull] sitting down, ready to masturbate.");
 			}
 			if(Main.sex.getCharacterInPosition(SexSlotMasturbation.KNEELING_PANTIES)!=null) {
-				return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotMasturbation.KNEELING_PANTIES), "[npc.NameIs] kneeling on the floor, ready to masturbate with the aid of Lilaya's panties.");
+				return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotMasturbation.KNEELING_PANTIES), "[npc.NameIsFull] kneeling on the floor, ready to masturbate with the aid of Lilaya's panties.");
 			}
 			
 			return UtilText.parse("You are ready to masturbate.");
@@ -118,6 +119,10 @@ public class SexPosition {
 			}
 			
 			return generateSlotTargetsMap(interactions);
+		}
+		@Override
+		public boolean isSelfOralAvailable(GameCharacter autoOralCharacter) {
+			return true;
 		}
 	};
 	
@@ -598,6 +603,10 @@ public class SexPosition {
 			}
 			return null;
 		}
+		@Override
+		public boolean isSelfOralAvailable(GameCharacter autoOralCharacter) {
+			return true;
+		}
 	};
 	
 
@@ -867,6 +876,15 @@ public class SexPosition {
 					interactions.add(StandardSexActionInteractions.performingOral.getSexActionInteractions(slotOral, slotBack));
 				}
 			}
+
+			// Those standing beside one another can kiss:
+			for(int i=0;i<3;i++) {
+				interactions.add(StandardSexActionInteractions.besideOneAnother.getSexActionInteractions(backToWall.get(i), facingWall.get(i)));
+				
+				interactions.add(StandardSexActionInteractions.besideOneAnother.getSexActionInteractions(backToWall.get(i), backToWall.get(i+1)));
+				interactions.add(StandardSexActionInteractions.besideOneAnother.getSexActionInteractions(facingWall.get(i), facingWall.get(i+1)));
+				interactions.add(StandardSexActionInteractions.besideOneAnother.getSexActionInteractions(backToWall.get(i), facingWall.get(i+1)));
+			}
 			
 			return generateSlotTargetsMap(interactions);
 		}
@@ -901,6 +919,13 @@ public class SexPosition {
 						new Value<>(Torso.class, genericGroinForceCreampieAreas));
 			}
 			return null;
+		}
+		@Override
+		public boolean isSelfOralAvailable(GameCharacter autoOralCharacter) {
+			if(Main.sex.getSexPositionSlot(autoOralCharacter).hasTag(SexSlotTag.FACE_TO_WALL)) {
+				return false;
+			}
+			return true;
 		}
 	};
 	
@@ -1371,8 +1396,8 @@ public class SexPosition {
 
 			// Those on the desk can kiss the ones next to them:
 			for(int i=0;i<3;i++) {
-				interactions.add(StandardSexActionInteractions.besideOneAnotherOnDesk.getSexActionInteractions(onDeskBack.get(i), onDeskBack.get(i)));
-				interactions.add(StandardSexActionInteractions.besideOneAnotherOnDesk.getSexActionInteractions(onDeskFront.get(i), onDeskFront.get(i)));
+//				interactions.add(StandardSexActionInteractions.besideOneAnotherOnDesk.getSexActionInteractions(onDeskBack.get(i), onDeskBack.get(i)));
+//				interactions.add(StandardSexActionInteractions.besideOneAnotherOnDesk.getSexActionInteractions(onDeskFront.get(i), onDeskFront.get(i)));
 				interactions.add(StandardSexActionInteractions.besideOneAnotherOnDesk.getSexActionInteractions(onDeskBack.get(i), onDeskFront.get(i)));
 				
 				interactions.add(StandardSexActionInteractions.besideOneAnotherOnDesk.getSexActionInteractions(onDeskBack.get(i), onDeskBack.get(i+1)));
@@ -1454,6 +1479,13 @@ public class SexPosition {
 						new Value<>(Arm.class, genericFaceForceCreampieAreas));
 			}
 			return null;
+		}
+		@Override
+		public boolean isSelfOralAvailable(GameCharacter autoOralCharacter) {
+			if(Main.sex.getSexPositionSlot(autoOralCharacter).hasTag(SexSlotTag.OVER_DESK_FRONT)) {
+				return false;
+			}
+			return true;
 		}
 	};
 
@@ -1847,6 +1879,13 @@ public class SexPosition {
 			}
 			return super.getRestrictedPenetrationCounts(penetrator);
 		}
+		@Override
+		public boolean isSelfOralAvailable(GameCharacter autoOralCharacter) {
+			if(Main.sex.getSexPositionSlot(autoOralCharacter).hasTag(SexSlotTag.LOCKED_IN_STOCKS)) {
+				return false;
+			}
+			return true;
+		}
 	};
 	
 	public static final AbstractSexPosition MILKING_STALL = new AbstractSexPosition("Milking stall",
@@ -2239,6 +2278,13 @@ public class SexPosition {
 				return Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, -(penetrator.getArmRows()*2)));
 			}
 			return super.getRestrictedPenetrationCounts(penetrator);
+		}
+		@Override
+		public boolean isSelfOralAvailable(GameCharacter autoOralCharacter) {
+			if(Main.sex.getSexPositionSlot(autoOralCharacter).hasTag(SexSlotTag.LOCKED_IN_STOCKS)) {
+				return false;
+			}
+			return true;
 		}
 	};
 	
@@ -2642,6 +2688,17 @@ public class SexPosition {
 			}
 			return super.isActionBlocked(performer, target, action);
 		}
+		@Override
+		public boolean isSelfOralAvailable(GameCharacter autoOralCharacter) {
+			if(Main.sex.getSexPositionSlot(autoOralCharacter).hasTag(SexSlotTag.ALL_FOURS)
+					|| Main.sex.getSexPositionSlot(autoOralCharacter)==SexSlotAllFours.HUMPING
+					|| Main.sex.getSexPositionSlot(autoOralCharacter)==SexSlotAllFours.HUMPING_TWO
+					|| Main.sex.getSexPositionSlot(autoOralCharacter)==SexSlotAllFours.HUMPING_THREE
+					|| Main.sex.getSexPositionSlot(autoOralCharacter)==SexSlotAllFours.HUMPING_FOUR) {
+				return false;
+			}
+			return true;
+		}
 	};
 	
 	
@@ -2863,6 +2920,13 @@ public class SexPosition {
 			
 			List<String> besideNames = new ArrayList<>();
 			GameCharacter mainBeside = null;
+
+			List<GameCharacter> lyingDownCharacters = new ArrayList<>();
+			for(Entry<GameCharacter, SexSlot> e : occupiedSlots.entrySet()) {
+				if(e.getValue().hasTag(SexSlotTag.LYING_DOWN)) {
+					lyingDownCharacters.add(e.getKey());
+				}
+			}
 			
 			int count=0;
 			for(List<SexSlot> positions : positionLists) {
@@ -2877,10 +2941,6 @@ public class SexPosition {
 				GameCharacter sixtyNine = null;
 				GameCharacter lapPillow = null;
 				GameCharacter performingOral = null;
-				
-				GameCharacter fallBackLyingDown1 = null;
-				GameCharacter fallBackLyingDown2 = null;
-				GameCharacter fallBackLyingDown3 = null;
 				
 				for(Entry<GameCharacter, SexSlot> e : occupiedSlots.entrySet()) {
 					if(e.getValue()==positions.get(0)) {
@@ -2927,52 +2987,37 @@ public class SexPosition {
 						}
 					}
 					
-					if(e.getValue()==SexSlotLyingDown.LYING_DOWN_THREE) {
-						fallBackLyingDown1 = e.getKey();
-					}
-					if(e.getValue()==SexSlotLyingDown.LYING_DOWN_TWO) {
-						fallBackLyingDown2 = e.getKey();
-					}
-					if(e.getValue()==SexSlotLyingDown.LYING_DOWN) {
-						fallBackLyingDown3 = e.getKey();
-					}
 				}
 				
-				boolean skipLyingdown = false;
-				if(lyingDown == null) {
-					skipLyingdown = true;
-					lyingDown = fallBackLyingDown1;
-				}
-				if(lyingDown == null) {
-					lyingDown = fallBackLyingDown2;
-				}
-				if(lyingDown == null) {
-					lyingDown = fallBackLyingDown3;
+				if(lyingDown==null) {
+					// There always needs to be a character lying down, so if there are multiple characters in an oral position (or something similar), make the last encountered lyingDown character the focused one
+					lyingDown = lyingDownCharacters.get(lyingDownCharacters.size()-1);
 				}
 				
+				boolean skipLyingdown = count >= lyingDownCharacters.size();
 				if(!skipLyingdown) {
 					switch(count) {
 						case 0:
-							sb.append(UtilText.parse(lyingDown,
-									(!lyingDown.isTaur()
+							sb.append(UtilText.parse(lyingDownCharacters.get(0),
+									(!lyingDownCharacters.get(0).isTaur()
 										?"[npc.NameIsFull] lying down on [npc.her] back, submissively exposing [npc.her] stomach, [npc.face], and groin. "
 										:"[npc.NameHasFull] lain down on [npc.her] feral [npc.legRace]'s body, before rolling over onto [npc.her] back in order to submissively expose [npc.her] stomach. ")));
 							break;
 						case 1:
-							sb.append(UtilText.parse(lyingDown, fallBackLyingDown3,
-									(!lyingDown.isTaur()
+							sb.append(UtilText.parse(lyingDownCharacters.get(1), lyingDownCharacters.get(0),
+									(!lyingDownCharacters.get(0).isTaur()
 										?" In a similar manner to [npc2.name], [npc.nameHasFull] dropped down to lie on [npc.her] back. "
 										:" In a similar manner to [npc2.name], [npc.nameHasFull] knelt down onto [npc.her] feral [npc.legRace]'s body, before rolling over and presenting [npc.her] underside. ")));
 							break;
 						case 2:
-							sb.append(UtilText.parse(Util.newArrayListOfValues(lyingDown, fallBackLyingDown3, fallBackLyingDown2),
-									(!lyingDown.isTaur()
+							sb.append(UtilText.parse(Util.newArrayListOfValues(lyingDownCharacters.get(2), lyingDownCharacters.get(1), lyingDownCharacters.get(0)),
+									(!lyingDownCharacters.get(0).isTaur()
 										?" Just like [npc2.name] and [npc3.name], [npc.nameHasFull] sunk down onto the floor, before lying down on [npc.her] back. "
 										:" Just like [npc2.name] and [npc3.name], [npc.nameHasFull] sunk down onto [npc.her] feral [npc.legRace]'s body, before rolling over onto [npc.her] back and presenting [npc.herself]. ")));
 							break;
 						case 3:
-							sb.append(UtilText.parse(Util.newArrayListOfValues(lyingDown, fallBackLyingDown3, fallBackLyingDown2, fallBackLyingDown1),
-									(!lyingDown.isTaur()
+							sb.append(UtilText.parse(Util.newArrayListOfValues(lyingDownCharacters.get(3), lyingDownCharacters.get(2), lyingDownCharacters.get(1), lyingDownCharacters.get(0)),
+									(!lyingDownCharacters.get(0).isTaur()
 										?" Finishing off the group of four, [npc.nameIsFull] lying down on [npc.her] back beside [npc2.name], [npc3.name], and [npc4.name]. "
 										:" Finishing off the group of four, [npc.nameIsFull] lying down beside [npc2.name], [npc3.name], and [npc4.name], and [npc.has] rolled over to present the underside of [npc.her] feral [npc.legRace]'s body. ")));
 							break;
@@ -3367,6 +3412,27 @@ public class SexPosition {
 			}
 			
 			return super.isActionBlocked(performer, target, action);
+		}
+		@Override
+		public boolean isSelfOralAvailable(GameCharacter autoOralCharacter) {
+			if(Main.sex.getSexPositionSlot(autoOralCharacter).hasTag(SexSlotTag.LAP_PILLOW)
+					|| Main.sex.getSexPositionSlot(autoOralCharacter).hasTag(SexSlotTag.MATING_PRESS)
+					|| Main.sex.getSexPositionSlot(autoOralCharacter).hasTag(SexSlotTag.SIXTY_NINE)
+				|| (Main.sex.getSexPositionSlot(autoOralCharacter)==SexSlotLyingDown.LYING_DOWN
+						&& !Collections.disjoint(Main.sex.getAllOccupiedSlots(false).values(), Util.newArrayListOfValues(
+							SexSlotLyingDown.COWGIRL, SexSlotLyingDown.COWGIRL_REVERSE, SexSlotLyingDown.FACE_SITTING, SexSlotLyingDown.FACE_SITTING_REVERSE, SexSlotLyingDown.MATING_PRESS, SexSlotLyingDown.SIXTY_NINE)))
+				|| (Main.sex.getSexPositionSlot(autoOralCharacter)==SexSlotLyingDown.LYING_DOWN_TWO
+						&& !Collections.disjoint(Main.sex.getAllOccupiedSlots(false).values(), Util.newArrayListOfValues(
+							SexSlotLyingDown.COWGIRL_TWO, SexSlotLyingDown.COWGIRL_REVERSE_TWO, SexSlotLyingDown.FACE_SITTING_TWO, SexSlotLyingDown.FACE_SITTING_REVERSE_TWO, SexSlotLyingDown.MATING_PRESS_TWO, SexSlotLyingDown.SIXTY_NINE_TWO)))
+				|| (Main.sex.getSexPositionSlot(autoOralCharacter)==SexSlotLyingDown.LYING_DOWN_THREE
+						&& !Collections.disjoint(Main.sex.getAllOccupiedSlots(false).values(), Util.newArrayListOfValues(
+							SexSlotLyingDown.COWGIRL_THREE, SexSlotLyingDown.COWGIRL_REVERSE_THREE, SexSlotLyingDown.FACE_SITTING_THREE, SexSlotLyingDown.FACE_SITTING_REVERSE_THREE, SexSlotLyingDown.MATING_PRESS_THREE, SexSlotLyingDown.SIXTY_NINE_THREE)))
+				|| (Main.sex.getSexPositionSlot(autoOralCharacter)==SexSlotLyingDown.LYING_DOWN_FOUR
+						&& !Collections.disjoint(Main.sex.getAllOccupiedSlots(false).values(), Util.newArrayListOfValues(
+							SexSlotLyingDown.COWGIRL_FOUR, SexSlotLyingDown.COWGIRL_REVERSE_FOUR, SexSlotLyingDown.FACE_SITTING_FOUR, SexSlotLyingDown.FACE_SITTING_REVERSE_FOUR, SexSlotLyingDown.MATING_PRESS_FOUR, SexSlotLyingDown.SIXTY_NINE_FOUR)))) {
+				return false;
+			}
+			return true;
 		}
 	};
 	
@@ -3887,6 +3953,25 @@ public class SexPosition {
 			
 			return null;
 		}
+		@Override
+		public boolean isSelfOralAvailable(GameCharacter autoOralCharacter) {
+			if(Main.sex.getSexPositionSlot(autoOralCharacter).hasTag(SexSlotTag.SITTING_IN_LAP)
+					|| (Main.sex.getSexPositionSlot(autoOralCharacter)==SexSlotSitting.SITTING
+							&& !Collections.disjoint(Main.sex.getAllOccupiedSlots(false).values(), Util.newArrayListOfValues(
+									SexSlotSitting.SITTING_IN_LAP, SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL)))
+					|| Main.sex.getSexPositionSlot(autoOralCharacter)==SexSlotSitting.SITTING_TWO
+							&& !Collections.disjoint(Main.sex.getAllOccupiedSlots(false).values(), Util.newArrayListOfValues(
+									SexSlotSitting.SITTING_IN_LAP_TWO, SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL_TWO))
+					|| Main.sex.getSexPositionSlot(autoOralCharacter)==SexSlotSitting.SITTING_THREE
+							&& !Collections.disjoint(Main.sex.getAllOccupiedSlots(false).values(), Util.newArrayListOfValues(
+									SexSlotSitting.SITTING_IN_LAP_THREE, SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL_THREE))
+					|| Main.sex.getSexPositionSlot(autoOralCharacter)==SexSlotSitting.SITTING_FOUR
+							&& !Collections.disjoint(Main.sex.getAllOccupiedSlots(false).values(), Util.newArrayListOfValues(
+									SexSlotSitting.SITTING_IN_LAP_FOUR, SexSlotSitting.SITTING_TAUR_PRESENTING_ORAL_FOUR))) {
+				return false;
+			}
+			return true;
+		}
 	};
 	
 	
@@ -3956,6 +4041,19 @@ public class SexPosition {
 						&& action.getParticipantType()!=SexParticipantType.SELF)) {
 				return true;
 			}
+			List<SexActionInterface> blockedActions = Util.newArrayListOfValues(
+					PlayerTalk.PLAYER_OFFER_ANAL,
+					PlayerTalk.PLAYER_OFFER_NAIZURI,
+					PlayerTalk.PLAYER_OFFER_NIPPLE,
+					PlayerTalk.PLAYER_OFFER_ORAL,
+					PlayerTalk.PLAYER_OFFER_PAIZURI,
+					!Main.sex.isDom(performer)?null:PlayerTalk.PLAYER_OFFER_VAGINAL,
+					PlayerTalk.PLAYER_REQUEST_ANAL,
+					PlayerTalk.PLAYER_REQUEST_ORAL,
+					Main.sex.isDom(performer)?null:PlayerTalk.PLAYER_REQUEST_VAGINAL);
+			if(blockedActions.contains(action)) {
+				return true;
+			}
 			
 			return super.isActionBlocked(performer, target, action);
 		}
@@ -3967,6 +4065,10 @@ public class SexPosition {
 						new Value<>(Leg.class, genericGroinForceCreampieAreas));
 			}
 			return null;
+		}
+		@Override
+		public boolean isSelfOralAvailable(GameCharacter autoOralCharacter) {
+			return false;
 		}
 	};
 	
@@ -3984,11 +4086,11 @@ public class SexPosition {
 					PlayerTalk.PLAYER_OFFER_ANAL,
 					PlayerTalk.PLAYER_OFFER_NAIZURI,
 					PlayerTalk.PLAYER_OFFER_NIPPLE,
-					PlayerTalk.PLAYER_OFFER_ORAL,
+					!Main.sex.isDom(performer)?null:PlayerTalk.PLAYER_OFFER_ORAL,
 					PlayerTalk.PLAYER_OFFER_PAIZURI,
 					PlayerTalk.PLAYER_OFFER_VAGINAL,
 					PlayerTalk.PLAYER_REQUEST_ANAL,
-					PlayerTalk.PLAYER_REQUEST_ORAL,
+					Main.sex.isDom(performer)?null:PlayerTalk.PLAYER_REQUEST_ORAL,
 					PlayerTalk.PLAYER_REQUEST_VAGINAL);
 			if(blockedActions.contains(action)) {
 				return true;
@@ -4068,6 +4170,10 @@ public class SexPosition {
 			
 			return generateSlotTargetsMap(interactions);
 		}
+		@Override
+		public boolean isSelfOralAvailable(GameCharacter autoOralCharacter) {
+			return false;
+		}
 	};
 	
 	public static final AbstractSexPosition GLORY_HOLE_SEX = new AbstractSexPosition("Glory hole sex",
@@ -4130,6 +4236,10 @@ public class SexPosition {
 			interactions.add(StandardSexActionInteractions.performingOralGloryHole.getSexActionInteractions(SexSlotUnique.GLORY_HOLE_ANALLY_FUCKED, SexSlotUnique.GLORY_HOLE_RECEIVING_ORAL_ONE));
 			
 			return generateSlotTargetsMap(interactions);
+		}
+		@Override
+		public boolean isSelfOralAvailable(GameCharacter autoOralCharacter) {
+			return false;
 		}
 	};
 	

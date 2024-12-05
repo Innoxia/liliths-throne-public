@@ -3,10 +3,10 @@
 <clothing>
 	<coreAttributes>
 		<value>10000</value>
-		<determiner><![CDATA[a]]></determiner>
-		<name><![CDATA[breeder collar]]></name>
-		<namePlural pluralByDefault="false"><![CDATA[breeder collars]]></namePlural>
-		<description><![CDATA[A [style.glowPink(glowing pink)] leather collar, with bold metal lettering attached to the front spelling out the word 'BREEDER'.]]></description>
+		<determiner><![CDATA[an]]></determiner>
+		<name><![CDATA[collar]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[collars]]></namePlural>
+		<description><![CDATA[A [style.glowPink(glowing pink)] leather collar, with bold metal lettering attached to the front spelling out the word ]]></description>
 		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
     <equipSlots>
@@ -17,6 +17,105 @@
 	<clothingSet/>
 	<imageName>breeder_collar.svg</imageName>
     <imageEquippedName/>
+	
+	
+		<stickers>
+			<category id="txt" priority="1">
+				<categoryName><![CDATA[Text]]></categoryName>
+				<sticker id="breeder" priority="1" defaultSticker="true" zLayer="1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[Breeder]]></stickerName>
+					<namePrefix priority="1"><![CDATA[ornate <i>'Breeder'</i> ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i>'BREEDER'</i>.]]></descriptionModification>
+					<imageName zLayer="1" slot="NECK">breeder_collar_stickers/breeder.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="bimbo" priority="2" defaultSticker="false" zLayer="1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[Bimbo]]></stickerName>
+					<namePrefix priority="1"><![CDATA[ornate <i>'Bimbo'</i> ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i>'BIMBO'</i>.]]></descriptionModification>
+					<imageName zLayer="1" slot="NECK">breeder_collar_stickers/bimbo.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="bitch" priority="3" defaultSticker="false" zLayer="1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[Bitch]]></stickerName>
+					<namePrefix priority="1"><![CDATA[ornate <i>'Bitch'</i> ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i>'BITCH'</i>.]]></descriptionModification>
+					<imageName zLayer="1" slot="NECK">breeder_collar_stickers/bitch.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="slut" priority="4" defaultSticker="false" zLayer="1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[Slut]]></stickerName>
+					<namePrefix priority="1"><![CDATA[ornate <i>'Slut'</i> ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i>'SLUT'</i>.]]></descriptionModification>
+					<imageName zLayer="1" slot="NECK">breeder_collar_stickers/slut.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="cum_slut" priority="5" defaultSticker="false" zLayer="1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[Cum Slut]]></stickerName>
+					<namePrefix priority="1"><![CDATA[ornate <i>'Cum Slut'</i> ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i>'CUM SLUT'</i>.]]></descriptionModification>
+					<imageName zLayer="1" slot="NECK">breeder_collar_stickers/cum_slut.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="whore" priority="6" defaultSticker="false" zLayer="1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[Whore]]></stickerName>
+					<namePrefix priority="1"><![CDATA[ornate <i>'Whore'</i> ]]></namePrefix>
+					<namePostfix/>
+					<descriptionModification fullReplacement="false" priority="1"><![CDATA[<i>'WHORE'</i>.]]></descriptionModification>
+					<imageName zLayer="1" slot="NECK">breeder_collar_stickers/whore.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+			</category>
+			<category id="ring" priority="2">
+				<categoryName><![CDATA[Extras]]></categoryName>
+				<sticker id="present" priority="1" defaultSticker="true" zLayer="1" colourDisabled="" colourSelected="">
+					<stickerName><![CDATA[D-ring]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName zLayer="1" slot="NECK">breeder_collar_stickers/d_ring.svg</imageName>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+				<sticker id="none" priority="2" defaultSticker="false" zLayer="1" colourSelected="TEXT_GREY"> 
+					<stickerName><![CDATA[None]]></stickerName>
+					<namePrefix/>
+					<namePostfix/>
+					<descriptionModification/>
+					<imageName/>
+					<itemTagsAdded/>
+					<itemTagsRemoved/>
+					<unavailabilityText/>
+					<availabilityText/>
+				</sticker>
+			</category>
+		</stickers>
+	
 	<effects>
 		<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="FERTILITY" timer="0"/>
 		<effect itemEffectType="CLOTHING" limit="0" potency="MAJOR_BOOST" primaryModifier="CLOTHING_ATTRIBUTE" secondaryModifier="FERTILITY" timer="0"/>

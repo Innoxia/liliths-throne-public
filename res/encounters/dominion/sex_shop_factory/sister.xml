@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<encounterRoot>
+	
+	<additionalPlaceTypeTriggers>
+		<placeType>innoxia_dominion_sex_shop_factory_main_floor</placeType>
+		<placeType>innoxia_dominion_sex_shop_factory_main_machines</placeType>
+	</additionalPlaceTypeTriggers>
+	
+	<possibleEncounters>
+		<encounter>
+			<name><![CDATA[succubus overseer appears]]></name>
+			<chanceToTrigger opportunisticEncounter="false"><![CDATA[
+				#IF(!pc.isDoll() && saellatrix.isAnySistersAvailable() && !saellatrix.isAnySisterPresent() && flags.hasFlag(FLAG_innoxia_doll_factory_main_area_discovered))
+					25
+				#ELSE
+					0
+				#ENDIF
+			]]></chanceToTrigger>
+			<dialogueReturned><![CDATA[innoxia_places_dominion_sex_shop_factory_sister_encounter]]></dialogueReturned>
+		</encounter>
+	</possibleEncounters>
+	
+</encounterRoot>

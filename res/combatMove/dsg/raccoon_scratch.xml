@@ -29,9 +29,10 @@
 	
 	<!-- The type of damage that this move inflicts. 
 	The parsing target of 'npc' corresponds to the character who is performing the move (and so conditional statements can be used to affect what damage type is inflicted).
+	The UNARMED damage type is a special case, as it will automatically use the appropriate damage type based on the attacker's body and any other effects (such as being FIRE when under the effect of the Cloak of Flames spell).
 	All available values of DamageType can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/combat/DamageType.java -->
 	<damageType><![CDATA[
-		PHYSICAL
+		UNARMED
 	]]></damageType>
 	
 	<!-- The amount of damage this move does to the target, assuming that no modifiers are taken into account.

@@ -2,6 +2,7 @@ package com.lilithsthrone.controller;
 
 import org.w3c.dom.events.EventTarget;
 
+import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInformationEventListener;
 import com.lilithsthrone.controller.eventListeners.tooltips.TooltipInventoryEventListener;
 import com.lilithsthrone.game.character.markings.AbstractTattooType;
 import com.lilithsthrone.game.character.markings.TattooType;
@@ -15,6 +16,8 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.inventory.outfit.AbstractOutfit;
+import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.main.Main;
@@ -139,4 +142,26 @@ public class DebugController {
 			}
 		}
 	}
+
+	public static void initApplyOutfitListeners() {
+		for (AbstractOutfit ot : OutfitType.getAllOutfits()) {
+			String id = "OUTFIT_"+OutfitType.getIdFromOutfitType(ot);
+			if (MainController.document.getElementById(id) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+					DebugDialogue.applyOutfitToDoll(ot);
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+
+				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
+				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
+				TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Apply Outfit",
+						"Click to apply this outfit to the Dress-up doll."
+						+ " The outfit's femininity, outfit type, and conditional statement are all ignored for this purpose."
+						+ " The doll's leg configuration will change if needed."
+						+ " Click this multiple times to see many variations.");
+				MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
+			}
+		}
+	}
+	
 }

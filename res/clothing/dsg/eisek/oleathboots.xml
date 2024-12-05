@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAtributes>
+		<authorTag><![CDATA[Inside the tongue of each boot "Made by the DSG Tannery Guild" is burned into the leather.]]></authorTag>
+		<value>150</value>
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[leather boot]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[leather boots]]></namePlural>
+		<description><![CDATA[A pair of soft leather boots with folded over gussets. Although heavily worn, they have been well cared for.]]></description> 
+		<physicalResistance>0</physicalResistance>
+		<femininity>MASCULINE</femininity>
+		<slot>FOOT</slot>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>oleathboots.svg</imageName>
+		<imageEquippedName/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>FEET</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts/>
+				<clothingAccessBlocked>
+					<clothingAccess>FEET</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots/> 
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours>
+			<colour>CLOTHING_DESATURATED_BROWN</colour>
+		</primaryColours>		
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_DESATURATED_BROWN_DARK</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="JUST_STEEL"/>
+		<tertiaryColoursDye values="ALL_METAL"/>
+		
+		<itemTags> 
+			<tag>NO_RANDOM_SPAWN</tag>
+		</itemTags>
+	</coreAtributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(put)] the boots on and [npc.verb(adjust)] the laces until they're comfortable. [npc.She] then [npc.verb(tie)] them together into a sturdy knot.]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(put)] [npc2.namePos] [npc2.feet] into the boots and [npc.verb(adjust)] the laces until they're comfortable. [npc.She] then [npc.verb(tie)] them together into a strudy knot.]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(stuff)] [npc2.namePos] [npc2.feet] into the boots and [npc.verb(pull)] the laces as tightly as possible before tying a hasty knot.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+		  <![CDATA[[npc.Name] [npc.verb(untie)] the laces and pull the boots from [npc.her] [npc.feet].]]>
+		</self>
+		<other>
+		  <![CDATA[[npc.Name] [npc.verb(untie)] the laces and pull the boots from [npc2.namePos] [npc2.feet].]]>
+		</other>
+		<otherRough>
+		  <![CDATA[[npc.Name] [npc.verb(rip)] the lace open and yank the boots from [npc2.namePos] [npc2.feet].]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

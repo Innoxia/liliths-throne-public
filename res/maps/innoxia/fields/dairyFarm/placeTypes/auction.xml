@@ -4,7 +4,6 @@
 	<name><![CDATA[Auction Room]]></name>
 	<tooltipDescription><![CDATA[A luxuriously furnished room in which new slaves are auctioned off to the highest bidder.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the auction room at Evelyx's Dairy]]></virginityLossDescription>
-	<sexBlockedReason/>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_ORANGE</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>

@@ -1,5 +1,6 @@
 package com.lilithsthrone.rendering;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.PropertyValue;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
@@ -35,6 +37,7 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
+import com.lilithsthrone.game.dialogue.utils.DebugDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.MapTravelType;
@@ -65,6 +68,8 @@ import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.colours.BaseColour;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import com.lilithsthrone.utils.time.DateAndTime;
+import com.lilithsthrone.utils.time.SolarElevationAngle;
 import com.lilithsthrone.world.AbstractWorldType;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.World;
@@ -76,13 +81,12 @@ import com.lilithsthrone.world.population.Population;
 
 /**
  * @since 0.1.0
- * @version 0.4
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public enum RenderingEngine {
 	ENGINE;
 	
-	private static boolean zoomedIn = true;
 	private static boolean renderedDisabledMap = false;
 
 	private static int pageLeft = 0;
@@ -92,7 +96,7 @@ public enum RenderingEngine {
 	private boolean renderingTattoosRight = false;
 	
 	public static final int INVENTORY_PAGES = 5;
-	public static final int ITEMS_PER_PAGE = 24 + 6;
+	public static final int ITEMS_PER_PAGE = 6 * 5; // 6 items per row
 	
 	public static Colour[] orgasmColours = new Colour[]{
 			PresetColour.AROUSAL_STAGE_ZERO,
@@ -126,7 +130,7 @@ public enum RenderingEngine {
 	
 	public String getInventoryPanel(GameCharacter charactersInventoryToRender, boolean buyback) {
 		return "<div class='container-full-width' style='background:"+PresetColour.BACKGROUND_DARK.toWebHexString()+"'>"
-					+getInventoryDiv(Main.game.getPlayer(), false) + getInventoryDiv(charactersInventoryToRender, buyback)
+					+ getInventoryDiv(Main.game.getPlayer(), false) + getInventoryDiv(charactersInventoryToRender, buyback)
 				+"</div>";
 	}
 	
@@ -164,7 +168,7 @@ public enum RenderingEngine {
 			
 			equippedPanelSB.append("<div class='inventory-item-slot secondary' style='background-color:"+PresetColour.BACKGROUND.toWebHexString()+";'>"
 										+ "<div class='inventory-icon-content'>"
-											+SVGImages.SVG_IMAGE_PROVIDER.getTattooSwitchClothing()
+											+SVGImages.SVG_IMAGE_PROVIDER.getTattooSwitchClothing(charactersInventoryToRender)
 										+"</div>"
 									+ "<div class='overlay-inventory disabled'></div></div>");
 
@@ -224,7 +228,7 @@ public enum RenderingEngine {
 			String weaponCount = getThrownWeaponCountDiv(depletedWeapon, 0);
 			equippedPanelSB.append(
 					"<div class='inventory-item-slot" + getClassRarityIdentifier(depletedWeapon.getRarity()) + "' style='"+weaponStyle+"'>"
-						+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated()+"</div>"
+						+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated(charactersInventoryToRender)+"</div>"
 						+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_MAIN_1.toString() + "Slot'>"+weaponCount+"</div>"
 					+ "</div>");
 			
@@ -249,7 +253,7 @@ public enum RenderingEngine {
 				String weaponCount = getThrownWeaponCountDiv(depletedWeapon, 0);
 				equippedPanelSB.append(
 						"<div class='inventory-item-slot" + getClassRarityIdentifier(depletedWeapon.getRarity()) + "' style='"+weaponStyle+"'>"
-							+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated()+"</div>"
+							+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated(charactersInventoryToRender)+"</div>"
 							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_MAIN_2.toString() + "Slot'>"+weaponCount+"</div>"
 						+ "</div>");
 				
@@ -272,7 +276,7 @@ public enum RenderingEngine {
 				String weaponCount = getThrownWeaponCountDiv(depletedWeapon, 0);
 				equippedPanelSB.append(
 						"<div class='inventory-item-slot" + getClassRarityIdentifier(depletedWeapon.getRarity()) + "' style='"+weaponStyle+"'>"
-							+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated()+"</div>"
+							+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated(charactersInventoryToRender)+"</div>"
 							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_MAIN_3.toString() + "Slot'>"+weaponCount+"</div>"
 						+ "</div>");
 				
@@ -298,7 +302,7 @@ public enum RenderingEngine {
 			String weaponCount = getThrownWeaponCountDiv(depletedWeapon, 0);
 			equippedPanelSB.append(
 					"<div class='inventory-item-slot" + getClassRarityIdentifier(depletedWeapon.getRarity()) + "' style='"+weaponStyle+"'>"
-						+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated()+"</div>"
+						+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated(charactersInventoryToRender)+"</div>"
 						+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_OFFHAND_1.toString() + "Slot'>"+weaponCount+"</div>"
 					+ "</div>");
 			
@@ -325,7 +329,7 @@ public enum RenderingEngine {
 				String weaponCount = getThrownWeaponCountDiv(depletedWeapon, 0);
 				equippedPanelSB.append(
 						"<div class='inventory-item-slot" + getClassRarityIdentifier(depletedWeapon.getRarity()) + "' style='"+weaponStyle+"'>"
-							+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated()+"</div>"
+							+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated(charactersInventoryToRender)+"</div>"
 							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_OFFHAND_2.toString() + "Slot'>"+weaponCount+"</div>"
 						+ "</div>");
 				
@@ -350,7 +354,7 @@ public enum RenderingEngine {
 				String weaponCount = getThrownWeaponCountDiv(depletedWeapon, 0);
 				equippedPanelSB.append(
 						"<div class='inventory-item-slot" + getClassRarityIdentifier(depletedWeapon.getRarity()) + "' style='"+weaponStyle+"'>"
-							+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated()+"</div>"
+							+ "<div class='inventory-icon-content' style='opacity:0.5;'>"+depletedWeapon.getSVGEquippedImageDesaturated(charactersInventoryToRender)+"</div>"
 							+ "<div class='overlay-inventory' id='" + InventorySlot.WEAPON_OFFHAND_3.toString() + "Slot'>"+weaponCount+"</div>"
 						+ "</div>");
 				
@@ -491,7 +495,7 @@ public enum RenderingEngine {
 			equippedPanelSB.append("<div class='inventory-icon-content'>"
 										+(this.isRenderingTattoosLeft()
 											?SVGImages.SVG_IMAGE_PROVIDER.getTattooSwitchTattoo()
-											:SVGImages.SVG_IMAGE_PROVIDER.getTattooSwitchClothing())
+											:SVGImages.SVG_IMAGE_PROVIDER.getTattooSwitchClothing(charactersInventoryToRender))
 									+"</div>"
 									+ "<div class='overlay-inventory' id='TATTOO_SWITCH_LEFT'></div>");
 			
@@ -499,7 +503,7 @@ public enum RenderingEngine {
 			equippedPanelSB.append("<div class='inventory-icon-content"+getClassRarityIdentifier(Rarity.COMMON)+"'>"
 										+(this.isRenderingTattoosRight()
 												?SVGImages.SVG_IMAGE_PROVIDER.getTattooSwitchTattoo()
-												:SVGImages.SVG_IMAGE_PROVIDER.getTattooSwitchClothing())
+												:SVGImages.SVG_IMAGE_PROVIDER.getTattooSwitchClothing(charactersInventoryToRender))
 									+"</div>"
 									+ "<div class='overlay-inventory' id='TATTOO_SWITCH_RIGHT'></div>");
 		}
@@ -614,8 +618,18 @@ public enum RenderingEngine {
 					if(isSecondary) {
 						inventorySlotId = "inventory-item-slot secondary dark";
 					}
+					
+					//TODO Attempted to make tattoo background the same as skin colour, but skin colours are defined mainly for ease of reasing as text, and look bad as blocks of colour
+					// So if this was to be implemented, new colour values for all skin colours would be needed (to serve as block colours)
+					//String style = "style='background-image:-webkit-radial-gradient("+charactersInventoryToRender.getCovering(charactersInventoryToRender.getTorsoCovering()).getPrimaryColour().toWebHexString()+" 60%, #33333300 75%);'";
+					//String backgroundColour = "background-image:-webkit-radial-gradient("+charactersInventoryToRender.getCovering(charactersInventoryToRender.getTorsoCovering()).getPrimaryColour().toWebHexString()+" 75%, #33333300 85%);";
+					// background-color:"+charactersInventoryToRender.getCovering(charactersInventoryToRender.getTorsoCovering()).getPrimaryColour().toWebHexString()+"
+					//String style = "style='"+backgroundColour+" -webkit-box-shadow: inset 0 0 3px 2px #333333;'";
+					
+					String style = "";
+					
 					if(tattoo != null) {
-						equippedPanelSB.append("<div class='"+inventorySlotId + getClassRarityIdentifier(tattoo.getRarity()) +"'>");
+						equippedPanelSB.append("<div class='"+inventorySlotId + getClassRarityIdentifier(tattoo.getRarity()) +"' "+style+">");
 						equippedPanelSB.append("<div class='inventory-icon-content'>"+tattoo.getSVGImage(charactersInventoryToRender)+"</div>");
 						if(charactersInventoryToRender.getScarInSlot(invSlot)!=null) {
 							equippedPanelSB.append("<div class='scarIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getScarIcon() + "</div>");
@@ -635,7 +649,7 @@ public enum RenderingEngine {
 							equippedPanelSB.append("</div>");
 							
 						} else {
-							equippedPanelSB.append("<div class='"+inventorySlotId+"' id='" + invSlot.toString() + "Slot'>");
+							equippedPanelSB.append("<div class='"+inventorySlotId+"' id='" + invSlot.toString() + "Slot' "+style+">");
 							if(charactersInventoryToRender.getScarInSlot(invSlot)!=null) {
 								equippedPanelSB.append("<div class='scarIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getScarIcon() + "</div>");
 							}
@@ -696,11 +710,19 @@ public enum RenderingEngine {
 		boolean renderQuestTab = true;
 		boolean hasQuestItems = false;
 		if(charactersInventoryToRender == null) {
+			hasQuestItems = Main.game.getPlayerCell().getInventory().isAnyQuestItemPresent();
 			totalUniques = Main.game.getPlayerCell().getInventory().getUniqueItemCount() - Main.game.getPlayerCell().getInventory().getUniqueQuestItemCount()
 					+ Main.game.getPlayerCell().getInventory().getUniqueClothingCount() - Main.game.getPlayerCell().getInventory().getUniqueQuestClothingCount()
 					+ Main.game.getPlayerCell().getInventory().getUniqueWeaponCount() - Main.game.getPlayerCell().getInventory().getUniqueQuestWeaponCount();
 			pageIdMod = "INV_PAGE_RIGHT_";
+			// Reset page index if the number of items is too low to be displayed on that index:
+			if(pageRight!=5) { // So long as current page is not uniques
+				while(totalUniques<=pageRight*ITEMS_PER_PAGE && pageRight>0) {
+					pageRight--;
+				}
+			}
 			currentPage = pageRight;
+			
 		} else {
 //			renderQuestTab = charactersInventoryToRender.isPlayer();
 			hasQuestItems = charactersInventoryToRender.isCarryingQuestItems();
@@ -708,6 +730,18 @@ public enum RenderingEngine {
 					+ charactersInventoryToRender.getUniqueClothingCount() - charactersInventoryToRender.getUniqueQuestClothingCount()
 					+ charactersInventoryToRender.getUniqueWeaponCount() - charactersInventoryToRender.getUniqueQuestWeaponCount();
 			pageIdMod = (charactersInventoryToRender.isPlayer()?"INV_PAGE_LEFT_":"INV_PAGE_RIGHT_");
+			// Reset page index if the number of items is too low to be displayed on that index:
+			if(charactersInventoryToRender.isPlayer()?pageLeft!=5:pageRight!=5) { // So long as current page is not uniques
+				if(charactersInventoryToRender.isPlayer()) {
+					while(totalUniques<=pageLeft*ITEMS_PER_PAGE && pageLeft>0) {
+						pageLeft--;
+					}
+				} else {
+					while(totalUniques<=pageRight*ITEMS_PER_PAGE && pageRight>0) {
+						pageRight--;
+					}
+				}
+			}
 			currentPage = (charactersInventoryToRender.isPlayer()?pageLeft:pageRight);
 		}
 		
@@ -888,59 +922,89 @@ public enum RenderingEngine {
 		pageSB.setLength(0);
 		
 		if(charactersInventoryToRender == null) {
-			for(Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().entrySet()) {
-				if(uniqueItemCount >= page*ITEMS_PER_PAGE && uniqueItemCount < (page+1)*ITEMS_PER_PAGE) {
-					pageSB.append(getInventoryItemDiv(Main.game.getPlayerCell().getInventory(), entry.getKey(), entry.getValue(), idModifier+"WEAPON_"));
+			if(page==5) { // Quest:
+				for(Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().entrySet()) {
+					if(entry.getKey().getRarity()==Rarity.QUEST) {
+						pageSB.append(getInventoryItemDiv(Main.game.getPlayerCell().getInventory(), entry.getKey(), entry.getValue(), idModifier+"WEAPON_"));
+						uniqueItemCount++;
+					}
 				}
-				uniqueItemCount++;
-			}
-			
-			for(Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getAllClothingInInventory().entrySet()) {
-				if(uniqueItemCount >= page*ITEMS_PER_PAGE && uniqueItemCount < (page+1)*ITEMS_PER_PAGE) {
-					pageSB.append(getInventoryItemDiv(Main.game.getPlayerCell().getInventory(), entry.getKey(), entry.getValue(), idModifier+"CLOTHING_"));
+				
+				for(Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getAllClothingInInventory().entrySet()) {
+					if(entry.getKey().getRarity()==Rarity.QUEST) {
+						pageSB.append(getInventoryItemDiv(Main.game.getPlayerCell().getInventory(), entry.getKey(), entry.getValue(), idModifier+"CLOTHING_"));
+						uniqueItemCount++;
+					}
 				}
-				uniqueItemCount++;
-			}
-			
-			for(Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getAllItemsInInventory().entrySet()) {
-				if(uniqueItemCount >= page*ITEMS_PER_PAGE && uniqueItemCount < (page+1)*ITEMS_PER_PAGE) {
-					pageSB.append(getInventoryItemDiv(Main.game.getPlayerCell().getInventory(), entry.getKey(), entry.getValue(), idModifier+"ITEM_"));
+				
+				for(Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getAllItemsInInventory().entrySet()) {
+					if(entry.getKey().getRarity()==Rarity.QUEST) {
+						pageSB.append(getInventoryItemDiv(Main.game.getPlayerCell().getInventory(), entry.getKey(), entry.getValue(), idModifier+"ITEM_"));
+						uniqueItemCount++;
+					}
 				}
-				uniqueItemCount++;
+				
+			} else {
+				for(Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getAllWeaponsInInventory().entrySet()) {
+					if(entry.getKey().getRarity()!=Rarity.QUEST) {
+						if(uniqueItemCount >= page*ITEMS_PER_PAGE && uniqueItemCount < (page+1)*ITEMS_PER_PAGE) {
+							pageSB.append(getInventoryItemDiv(Main.game.getPlayerCell().getInventory(), entry.getKey(), entry.getValue(), idModifier+"WEAPON_"));
+						}
+						uniqueItemCount++;
+					}
+				}
+				
+				for(Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getAllClothingInInventory().entrySet()) {
+					if(entry.getKey().getRarity()!=Rarity.QUEST) {
+						if(uniqueItemCount >= page*ITEMS_PER_PAGE && uniqueItemCount < (page+1)*ITEMS_PER_PAGE) {
+							pageSB.append(getInventoryItemDiv(Main.game.getPlayerCell().getInventory(), entry.getKey(), entry.getValue(), idModifier+"CLOTHING_"));
+						}
+						uniqueItemCount++;
+					}
+				}
+				
+				for(Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getAllItemsInInventory().entrySet()) {
+					if(entry.getKey().getRarity()!=Rarity.QUEST) {
+						if(uniqueItemCount >= page*ITEMS_PER_PAGE && uniqueItemCount < (page+1)*ITEMS_PER_PAGE) {
+							pageSB.append(getInventoryItemDiv(Main.game.getPlayerCell().getInventory(), entry.getKey(), entry.getValue(), idModifier+"ITEM_"));
+						}
+						uniqueItemCount++;
+					}
+				}
 			}
 			
 		} else {
 			if(page==5) { // Quest:
 				for(Entry<AbstractWeapon, Integer> entry : charactersInventoryToRender.getAllWeaponsInInventory().entrySet()) {
-					if(entry.getKey().getRarity()==Rarity.QUEST && charactersInventoryToRender.isPlayer()) {
-						if(uniqueItemCount < ITEMS_PER_PAGE) {
+					if(entry.getKey().getRarity()==Rarity.QUEST) {
+//						if(uniqueItemCount < ITEMS_PER_PAGE) {
 							pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"WEAPON_"));
-						}
+//						}
 						uniqueItemCount++;
 					}
 				}
 				
 				for(Entry<AbstractClothing, Integer> entry : charactersInventoryToRender.getAllClothingInInventory().entrySet()) {
-					if(entry.getKey().getRarity()==Rarity.QUEST && charactersInventoryToRender.isPlayer()) {
-						if(uniqueItemCount < ITEMS_PER_PAGE) {
+					if(entry.getKey().getRarity()==Rarity.QUEST) {
+//						if(uniqueItemCount < ITEMS_PER_PAGE) {
 							pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"CLOTHING_"));
-						}
+//						}
 						uniqueItemCount++;
 					}
 				}
 				
 				for(Entry<AbstractItem, Integer> entry : charactersInventoryToRender.getAllItemsInInventory().entrySet()) {
-					if(entry.getKey().getRarity()==Rarity.QUEST && charactersInventoryToRender.isPlayer()) {
-						if(uniqueItemCount < ITEMS_PER_PAGE) {
+					if(entry.getKey().getRarity()==Rarity.QUEST) {
+//						if(uniqueItemCount < ITEMS_PER_PAGE) {
 							pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"ITEM_"));
-						}
+//						}
 						uniqueItemCount++;
 					}
 				}
 				
 			} else {
 				for(Entry<AbstractWeapon, Integer> entry : charactersInventoryToRender.getAllWeaponsInInventory().entrySet()) {
-					if(entry.getKey().getRarity()!=Rarity.QUEST || !charactersInventoryToRender.isPlayer()) {
+					if(entry.getKey().getRarity()!=Rarity.QUEST) {
 						if(uniqueItemCount >= page*ITEMS_PER_PAGE && uniqueItemCount < (page+1)*ITEMS_PER_PAGE) {
 							pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"WEAPON_"));
 						}
@@ -949,7 +1013,7 @@ public enum RenderingEngine {
 				}
 				
 				for(Entry<AbstractClothing, Integer> entry : charactersInventoryToRender.getAllClothingInInventory().entrySet()) {
-					if(entry.getKey().getRarity()!=Rarity.QUEST || !charactersInventoryToRender.isPlayer()) {
+					if(entry.getKey().getRarity()!=Rarity.QUEST ) {
 						if(uniqueItemCount >= page*ITEMS_PER_PAGE && uniqueItemCount < (page+1)*ITEMS_PER_PAGE) {
 							pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"CLOTHING_"));
 						}
@@ -958,7 +1022,7 @@ public enum RenderingEngine {
 				}
 				
 				for(Entry<AbstractItem, Integer> entry : charactersInventoryToRender.getAllItemsInInventory().entrySet()) {
-					if(entry.getKey().getRarity()!=Rarity.QUEST || !charactersInventoryToRender.isPlayer()) {
+					if(entry.getKey().getRarity()!=Rarity.QUEST) {
 						if(uniqueItemCount >= page*ITEMS_PER_PAGE && uniqueItemCount < (page+1)*ITEMS_PER_PAGE) {
 							pageSB.append(getInventoryItemDiv(charactersInventoryToRender, entry.getKey(), entry.getValue(), idModifier+"ITEM_"));
 						}
@@ -1341,7 +1405,7 @@ public enum RenderingEngine {
 			
 		} else {
 			uiAttributeSB.append("<div class='half-width-container' style='text-align:center; float:left; width:60%'>");
-				uiAttributeSB.append("<div class='overlay-alt' style='float:left;' id='DATE_DISPLAY_TOGGLE'>");
+				uiAttributeSB.append("<div class='overlay-alt' style='float:left; padding: 0 0 2px 0;' id='DATE_DISPLAY_TOGGLE'>");
 					uiAttributeSB.append("<div class='item-inline' style='float:left;'>"
 											+SVGImages.SVG_IMAGE_PROVIDER.getCalendarIcon()
 										+ "</div>");
@@ -1368,32 +1432,58 @@ public enum RenderingEngine {
 			uiAttributeSB.append("</div>");
 			
 			
-			uiAttributeSB.append("<div class='half-width-container' style='text-align:center; float:left; width:40%;'>"
-									+ "<div class='overlay-alt' style='padding: 6px 0;' id='TWENTY_FOUR_HOUR_TIME_TOGGLE'>");
-			
-			if(Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST)!=null
-					&& (Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getClothingType().equals(ClothingType.WRIST_WOMENS_WATCH)
-							|| Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getClothingType().equals(ClothingType.WRIST_MENS_WATCH))) {
-				uiAttributeSB.append(
+			uiAttributeSB.append("<div class='half-width-container' style='text-align:center; float:left; width:40%;'>");
+				uiAttributeSB.append("<div class='overlay-alt' style='padding: 6px 0 2px 0;' id='TWENTY_FOUR_HOUR_TIME_TOGGLE'>");
+					if(Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST)!=null
+							&& (Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getClothingType().equals(ClothingType.WRIST_WOMENS_WATCH)
+									|| Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getClothingType().equals(ClothingType.WRIST_MENS_WATCH))) {
+						uiAttributeSB.append(
+										"<div class='item-inline' style='float:left;'>"
+												+Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getSVGEquippedString(Main.game.getPlayer())
+										+ "</div>");
+						
+					} else {
+						uiAttributeSB.append(
 								"<div class='item-inline' style='float:left;'>"
-										+Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getSVGEquippedString(Main.game.getPlayer())
+										+SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()
 								+ "</div>");
-				
-			} else {
-				uiAttributeSB.append(
-						"<div class='item-inline' style='float:left;'>"
-								+SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()
-						+ "</div>");
-			}
-	
-			if(Main.game.isBadEnd()) {
-				uiAttributeSB.append("<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>??:??</span>");
-			} else {
-				uiAttributeSB.append(Units.time(Main.game.getDateNow()));
-			}
+					}
 			
-			uiAttributeSB.append("</div>"
-						+ "</div>");
+					if(Main.game.isBadEnd()) {
+						uiAttributeSB.append("<span style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>??:??</span>");
+					} else {
+						uiAttributeSB.append(Units.time(Main.game.getDateNow()));
+					}
+					
+					boolean showTimeBar = !Main.game.isBadEnd();
+					if(showTimeBar) {
+						LocalDateTime[] sunriseSunset = DateAndTime.getTimeOfSolarElevationChange(Main.game.getDateNow(), SolarElevationAngle.SUN_ALTITUDE_SUNRISE_SUNSET, Game.DOMINION_LATITUDE, Game.DOMINION_LONGITUDE);
+						float sunrisePercentage = ((sunriseSunset[0].getHour()*60*60 + sunriseSunset[0].getMinute()*60)/(24*60*60f)) * 100;
+						float sunsetPercentage = ((sunriseSunset[1].getHour()*60*60 + sunriseSunset[1].getMinute()*60)/(24*60*60f)) * 100;
+						float secondPercentage = (int)((Main.game.getDaySeconds()/(24*60*60f)) * 100);
+						String dayString = "8eb5cf";
+						String nightString = "494873";
+						float fadeWidth = 2;
+						
+						uiAttributeSB.append("<div style='position:relative; width:90%; margin:2px 5% 0 5%; padding:0; height:4px; border-radius:1px; background-image:"
+								+ " linear-gradient(90deg, #"+nightString+" "+(sunrisePercentage-fadeWidth)+"%, #"+dayString+" "+(sunrisePercentage+fadeWidth)+"%,"
+										+ " #"+dayString+" "+(sunsetPercentage-fadeWidth)+"%, #"+nightString+" "+(sunsetPercentage+fadeWidth)+"%);'>");
+							// Arrow:
+	//						uiAttributeSB.append("<div style='position:absolute; width:0; height:0; border-left:2px solid transparent; border-right:2px solid transparent; border-bottom:4px solid #ffffff;"
+	//								+ " margin-left:calc("+(secondPercentage)+"% - 1px); padding:0 0 0 0;'>");
+	//						uiAttributeSB.append("</div>");
+							// Line:
+							uiAttributeSB.append("<div style='box-sizing:border-box; position:absolute; width:3px; margin-left:calc("+(secondPercentage)+"% - 1px); padding:0; height:4px; border-radius:1px;"
+									+ " border-left:1px solid #000000; border-right:1px solid #000000; background-color:#ffffff;'>");
+							uiAttributeSB.append("</div>");
+						uiAttributeSB.append("</div>");
+						
+//						System.out.println(sunrisePercentage+" | "+sunsetPercentage + " | "+secondPercentage);
+					}
+
+					
+				uiAttributeSB.append("</div>");
+			uiAttributeSB.append("</div>");
 			
 		}
 		uiAttributeSB.append("</div>");
@@ -1425,7 +1515,7 @@ public enum RenderingEngine {
 		}
 		
 		if(Main.game.isInSex()) {
-			if(Main.sex.isMasturbation()) {
+			if(Main.sex.isMasturbation() && Main.sex.getTotalParticipantCount(true)==1) {
 				return null;
 			}
 			return Main.sex.getTargetedPartner(Main.game.getPlayer());
@@ -1459,6 +1549,7 @@ public enum RenderingEngine {
 				|| (getCharacterToRender()!=null
 					&& (Main.game.getCurrentDialogueNode().getDialogueNodeType() == DialogueNodeType.CHARACTERS_PRESENT
 						|| Main.game.getCurrentDialogueNode() == PhoneDialogue.CONTACTS_CHARACTER
+						|| Main.game.getCurrentDialogueNode() == DebugDialogue.OUTFIT_VIEWER
 						|| Main.game.getDialogueFlags().getManagementCompanion()!=null
 						|| (Main.game.getCurrentDialogueNode().getDialogueNodeType()==DialogueNodeType.INVENTORY && InventoryDialogue.getInventoryNPC()!=null)));
 	}
@@ -1580,6 +1671,11 @@ public enum RenderingEngine {
 			uiAttributeSB.append("<div class='attribute-container effects'>"
 								+ "<p style='text-align:center;padding:0;margin:0;'><b>Characters Present</b></p>");
 			List <NPC> charactersPresent = Main.game.getCharactersPresent();
+			for(GameCharacter c : Main.game.getCharactersPresent()) {
+				if(c.isElementalSummoned() && !c.getElemental().isActive()) {
+					charactersPresent.add(c.getElemental());
+				}
+			}
 			Set<AbstractSubspecies> subspeciesSet = new HashSet<>();
 			if(place.getPopulation()!=null) {
 				for(Population pop : place.getPopulation()) {
@@ -2065,10 +2161,10 @@ public enum RenderingEngine {
 //			renderedDisabledMap = true;
 //		}
 
-		int mapSize = zoomedIn ? 2 : 3;
-		float unit = zoomedIn ? 18f : 13.25f;
+		int mapSize = isZoomedIn() ? 2 : 3;
+		float unit = isZoomedIn() ? 18f : 13.25f;
 		
-		String tileWidthStyle = "width:" + unit + "%; border-width:1%; margin:"+(zoomedIn?1:0.5)+"%;";
+		String tileWidthStyle = "width:" + unit + "%; border-width:1%; margin:"+(isZoomedIn()?1:0.5)+"%;";
 		String tileMovementDisabledStyle = "border-color:#111;";
 		Vector2i playerPosition = Main.game.getPlayer().getLocation();
 		
@@ -2317,7 +2413,7 @@ public enum RenderingEngine {
 			}
 			
 			for(NPC gc : charactersHome) {
-				if(!charactersPresent.contains(gc) && (charactersHome.size()==1 || x!=0 || y!=0)) {
+				if(!charactersPresent.contains(gc) && (charactersHome.size()==1 || x!=0 || y!=0 || world.getWorldType()!=WorldType.DOMINION)) { // This check was added due to NPCs' home tiles being treated as the 0,0 cell in Dominion
 					mapIcons.add("<span style='opacity:0.5;'>"+gc.getHomeMapIcon()+"</span>");
 				}
 			}
@@ -2443,11 +2539,11 @@ public enum RenderingEngine {
 	}
 
 	public static boolean isZoomedIn() {
-		return zoomedIn;
+		return Main.getProperties().hasValue(PropertyValue.mapZoomedIn);
 	}
 
 	public static void setZoomedIn(boolean zoomedIn) {
-		RenderingEngine.zoomedIn = zoomedIn;
+		Main.getProperties().setValue(PropertyValue.mapZoomedIn, zoomedIn);
 	}
 
 	public static boolean isRenderedDisabledMap() {
@@ -2469,6 +2565,12 @@ public enum RenderingEngine {
 	}
 	
 	private static String getAttributeBar(String SVGImage, Colour barColour, float attributeValue, float attributeMaximum, String id) {
+		float width;
+		if(attributeMaximum==0) {
+			width = 0;
+		} else {
+			width = (attributeValue/attributeMaximum) * 100;
+		}
 		return "<div class='full-width-container' style='margin:8 0 0 0; margin:0; padding:0;'>"
 					+ "<div class='icon small'>"
 						+ "<div class='icon-content'>"
@@ -2476,7 +2578,7 @@ public enum RenderingEngine {
 						+ "</div>"
 					+ "</div>"
 					+ "<div class='barBackgroundAtt'>"
-						+ "<div style='width:" + (attributeValue/attributeMaximum) * 100 + "%; height:5vw; background:" + barColour.toWebHexString() + "; float:left; border-radius: 2px;'></div>"
+						+ "<div style='width:" + width + "%; height:5vw; background:" + barColour.toWebHexString() + "; float:left; border-radius: 2px;'></div>"
 					+ "</div>"
 					+ "<p style='text-align:center; margin:0; padding:0; line-height:12vw;'>"
 						+ (int) Math.ceil(attributeValue)
@@ -2486,6 +2588,12 @@ public enum RenderingEngine {
 	}
 	
 	private static String getAttributeBarHalf(String SVGImage, Colour barColour, float attributeValue, float attributeMaximum, String id) {
+		float width;
+		if(attributeMaximum==0) {
+			width = 0;
+		} else {
+			width = (attributeValue/attributeMaximum) * 100;
+		}
 		return "<div class='half-width-container' style='margin:8 0 0 0; margin:0; padding:0;'>"
 					+ "<div class='icon small' style='width:20%;'>"
 						+ "<div class='icon-content'>"
@@ -2493,7 +2601,7 @@ public enum RenderingEngine {
 						+ "</div>"
 					+ "</div>"
 					+ "<div class='barBackgroundAtt' style='width:50%;'>"
-						+ "<div style='width:" + (attributeValue/attributeMaximum) * 100 + "%; height:5vw; background:" + barColour.toWebHexString() + "; float:left; border-radius: 2px;'></div>"
+						+ "<div style='width:" + width + "%; height:5vw; background:" + barColour.toWebHexString() + "; float:left; border-radius: 2px;'></div>"
 					+ "</div>"
 					+ "<p style='text-align:center; margin:0; padding:0; line-height:12vw; color:" + barColour.toWebHexString() + ";'>"
 						+ (int) Math.ceil(attributeValue)
@@ -2503,6 +2611,12 @@ public enum RenderingEngine {
 	}
 	
 	private static String getAttributeBarThird(String SVGImage, Colour barColour, float attributeValue, float attributeMaximum, String id) {
+		float width;
+		if(attributeMaximum==0) {
+			width = 0;
+		} else {
+			width = (attributeValue/attributeMaximum) * 100;
+		}
 		return "<div class='half-width-container' style='width:33.3%; margin:8 0 0 0; margin:0; padding:0;'>"
 					+ "<div class='icon small' style='width:30%;'>"
 						+ "<div class='icon-content'>"
@@ -2510,7 +2624,7 @@ public enum RenderingEngine {
 						+ "</div>"
 					+ "</div>"
 					+ "<div class='barBackgroundAtt' style='width:30%;'>"
-						+ "<div style='width:" + (attributeValue/attributeMaximum) * 100 + "%; height:5vw; background:" + barColour.toWebHexString() + "; float:left; border-radius: 2px;'></div>"
+						+ "<div style='width:" + width + "%; height:5vw; background:" + barColour.toWebHexString() + "; float:left; border-radius: 2px;'></div>"
 					+ "</div>"
 					+ "<p style='text-align:center; margin:0; padding:0; line-height:12vw; color:" + barColour.toWebHexString() + ";'>"
 						+ (int) Math.ceil(attributeValue)
@@ -2682,7 +2796,7 @@ public enum RenderingEngine {
 				}
 			}
 			
-			if(!character.isPlayer()) {
+			if(!character.isPlayer() && !character.isDoll()) {
 				for (AbstractFetish f : character.getFetishes(true)) {
 					panelSB.append(
 						"<div class='icon effect'>"
@@ -3017,7 +3131,7 @@ public enum RenderingEngine {
 				}
 			}
 			
-			if(!character.isPlayer()) {
+			if(!character.isPlayer() && !character.isDoll()) {
 				for (AbstractFetish f : character.getFetishes(true)) {
 					panelSB.append(
 						"<div class='icon effect'>"
@@ -3046,50 +3160,90 @@ public enum RenderingEngine {
 	public static void setPage(GameCharacter charactersInventoryToRender, AbstractCoreItem item) {
 		int uniqueItemCount = 0;
 		
-		for(Entry<AbstractWeapon, Integer> entry : charactersInventoryToRender.getAllWeaponsInInventory().entrySet()) {
-			if(entry.getKey().getRarity()!=Rarity.QUEST || !charactersInventoryToRender.isPlayer()) {
-				uniqueItemCount++;
-				if(entry.getKey().equals(item)) {
-					if(charactersInventoryToRender.isPlayer()) {
-						setPageLeft(uniqueItemCount/ITEMS_PER_PAGE);
-						return;
-					} else {
+		if(item.getRarity()==Rarity.QUEST) {
+			if(charactersInventoryToRender!=null && charactersInventoryToRender.isPlayer()) {
+				setPageLeft(5);
+				return;
+			} else {
+				setPageRight(5);
+				return;
+			}
+		}
+		
+		if(charactersInventoryToRender==null) {
+			for(Entry<AbstractWeapon, Integer> entry : Main.game.getPlayer().getCell().getInventory().getAllWeaponsInInventory().entrySet()) {
+				if(entry.getKey().getRarity()!=Rarity.QUEST) {
+					if(entry.getKey().equals(item)) {
 						setPageRight(uniqueItemCount/ITEMS_PER_PAGE);
 						return;
 					}
+					uniqueItemCount++;
+				}
+			}
+			for(Entry<AbstractClothing, Integer> entry : Main.game.getPlayer().getCell().getInventory().getAllClothingInInventory().entrySet()) {
+				if(entry.getKey().getRarity()!=Rarity.QUEST) {
+					if(entry.getKey().equals(item)) {
+						setPageRight(uniqueItemCount/ITEMS_PER_PAGE);
+						return;
+					}
+					uniqueItemCount++;
+				}
+			}
+			for(Entry<AbstractItem, Integer> entry : Main.game.getPlayer().getCell().getInventory().getAllItemsInInventory().entrySet()) {
+				if(entry.getKey().getRarity()!=Rarity.QUEST) {
+					if(entry.getKey().equals(item)) {
+						setPageRight(uniqueItemCount/ITEMS_PER_PAGE);
+						return;
+					}
+					uniqueItemCount++;
+				}
+			}
+			
+		} else {
+			for(Entry<AbstractWeapon, Integer> entry : charactersInventoryToRender.getAllWeaponsInInventory().entrySet()) {
+				if(entry.getKey().getRarity()!=Rarity.QUEST || !charactersInventoryToRender.isPlayer()) {
+					if(entry.getKey().equals(item)) {
+						if(charactersInventoryToRender.isPlayer()) {
+							setPageLeft(uniqueItemCount/ITEMS_PER_PAGE);
+							return;
+						} else {
+							setPageRight(uniqueItemCount/ITEMS_PER_PAGE);
+							return;
+						}
+					}
+					uniqueItemCount++;
+				}
+			}
+			for(Entry<AbstractClothing, Integer> entry : charactersInventoryToRender.getAllClothingInInventory().entrySet()) {
+				if(entry.getKey().getRarity()!=Rarity.QUEST || !charactersInventoryToRender.isPlayer()) {
+					if(entry.getKey().equals(item)) {
+						if(charactersInventoryToRender.isPlayer()) {
+							setPageLeft(uniqueItemCount/ITEMS_PER_PAGE);
+							return;
+						} else {
+							setPageRight(uniqueItemCount/ITEMS_PER_PAGE);
+							return;
+						}
+					}
+					uniqueItemCount++;
+				}
+			}
+			for(Entry<AbstractItem, Integer> entry : charactersInventoryToRender.getAllItemsInInventory().entrySet()) {
+				if(entry.getKey().getRarity()!=Rarity.QUEST || !charactersInventoryToRender.isPlayer()) {
+					if(entry.getKey().equals(item)) {
+						if(charactersInventoryToRender.isPlayer()) {
+							setPageLeft(uniqueItemCount/ITEMS_PER_PAGE);
+							return;
+						} else {
+							setPageRight(uniqueItemCount/ITEMS_PER_PAGE);
+							return;
+						}
+					}
+					uniqueItemCount++;
 				}
 			}
 		}
 		
-		for(Entry<AbstractClothing, Integer> entry : charactersInventoryToRender.getAllClothingInInventory().entrySet()) {
-			if(entry.getKey().getRarity()!=Rarity.QUEST || !charactersInventoryToRender.isPlayer()) {
-				uniqueItemCount++;
-				if(entry.getKey().equals(item)) {
-					if(charactersInventoryToRender.isPlayer()) {
-						setPageLeft(uniqueItemCount/ITEMS_PER_PAGE);
-						return;
-					} else {
-						setPageRight(uniqueItemCount/ITEMS_PER_PAGE);
-						return;
-					}
-				}
-			}
-		}
-		
-		for(Entry<AbstractItem, Integer> entry : charactersInventoryToRender.getAllItemsInInventory().entrySet()) {
-			if(entry.getKey().getRarity()!=Rarity.QUEST || !charactersInventoryToRender.isPlayer()) {
-				uniqueItemCount++;
-				if(entry.getKey().equals(item)) {
-					if(charactersInventoryToRender.isPlayer()) {
-						setPageLeft(uniqueItemCount/ITEMS_PER_PAGE);
-						return;
-					} else {
-						setPageRight(uniqueItemCount/ITEMS_PER_PAGE);
-						return;
-					}
-				}
-			}
-		}
 	}
 
 	public static int getPageRight() {

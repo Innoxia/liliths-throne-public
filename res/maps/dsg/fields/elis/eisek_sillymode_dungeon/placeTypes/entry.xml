@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>FIELD_CITY</worldRegion>	
+	<name><![CDATA[Entryway]]></name>
+	<tooltipDescription><![CDATA[This door once led to the outside world, but the sheer amount of junk blocking it has made it impossible to open.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in the entryway to a strange basement]]></virginityLossDescription>	
+	<sexBlockedFromCharacterPresent/>
+	<svgName>dungeon_door</svgName>
+	<colour>BASE_WHITE</colour>
+	<backgroundColour>BASE_GREEN</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>dsg_places_fields_elis_eisek_sillymode_dungeon_entry</dialogue>
+	<loiteringEnabled>false</loiteringEnabled>
+	<globalMapTile>false</globalMapTile>	
+	<dangerous><![CDATA[true]]></dangerous>	
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<weatherImmunities immuneToAll="true"/>
+	<applyInventoryInit/>
+</placeType>

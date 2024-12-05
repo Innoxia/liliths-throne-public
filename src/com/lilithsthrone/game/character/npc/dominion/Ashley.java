@@ -103,7 +103,7 @@ public class Ashley extends NPC {
 		// Body:
 
 		// Core:
-		this.setAgeAppearanceDifferenceToAppearAsAge(25);
+		this.setAgeAppearanceAbsolute(25);
 		this.setHeight(186);
 		this.setFemininity(50);
 		this.setMuscle(Muscle.TWO_TONED.getMedianValue());

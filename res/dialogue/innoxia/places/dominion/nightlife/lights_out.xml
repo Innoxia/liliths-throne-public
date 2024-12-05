@@ -133,6 +133,10 @@
 					[#flags.setFlag(FLAG_innoxia_lights_out_hannah_kiss, false)]
 					[#flags.setFlag(FLAG_innoxia_lights_out_hannah_sex, false)]
 					[#flags.setFlag(FLAG_innoxia_lights_out_hannah_last_night_met, true)]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/nightlife/lights_out', 'BAR_HANNAH'))]
+					#IF(hannah.isVisiblyPregnant())
+						[#hannah.setCharacterReactedToPregnancy(pc, true)]
+					#ENDIF
 				]]></effects>
 			</response>
 		</responses>
@@ -242,7 +246,7 @@
 		<preParsingEffects><![CDATA[
 			[#game.addNPC('misc.GenericSexualPartner', 'partner')]
 			[#partner.resetBodyToGenderPreferences(false, false)]
-			[#partner.setLocation(pc, false)]
+			[#game.getCharacterUtils().randomiseBody(partner, true)]
 			[#partner.setPlayerKnowsName(true)]
 			[#partner.setSexualOrientation(ORIENTATION_AMBIPHILIC)]
 			[#partner.removePersonalityTrait(PERSONALITY_TRAIT_MUTE)]
@@ -251,6 +255,7 @@
 				[#partner.setMuscle(75)]
 			#ENDIF
 			[#game.getCharacterUtils().equipClothingFromOutfitType(partner, OUTFIT_TYPE_CLUBBING)]
+			[#partner.setLocation(pc, false)]
 		]]></preParsingEffects>
 		<content folderPath="txt/places/dominion/nightlife/lights_out">BAR_SIT_RELAX</content>
 		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
@@ -408,7 +413,7 @@
 	<!-- Hannah's scenes: -->
 	
 	<scene id="bar_hannah">
-		<content folderPath="txt/places/dominion/nightlife/lights_out">BAR_HANNAH</content>
+		<content/>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
 		<travelDisabled>true</travelDisabled>

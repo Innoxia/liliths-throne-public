@@ -49,7 +49,7 @@
 	
 	<!-- How these antennae are described in a character's description page. -->
 	<bodyDescription><![CDATA[
-	[npc.AntennaeDeterminer] [npc.antennaSize], [npc.antennaColour(true)] [npc.antennae] #IF(npc.getTotalHorns()==1)grows#ELSEgrow#ENDIF out of the #IF(npc.getHornsPerRow()==1)middle#ELSEsides#ENDIF of [npc.her] forehead.
+	[npc.AntennaeDeterminer] [npc.antennaSize], [npc.antennaColour(true)] [npc.antennae] #IF(npc.getTotalAntennae()==1)grows#ELSEgrow#ENDIF out of the #IF(npc.getAntennaePerRow()==1)middle#ELSEsides#ENDIF of [npc.her] forehead.
 	]]></bodyDescription>
 	
 </antenna>

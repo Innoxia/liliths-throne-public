@@ -102,10 +102,12 @@
 		ANY GRADIENTS THAT YOU USE SHOULD BE CALLED: "innoGrad1", "innoGrad2", etc.
 		You can see a visual representation of these colours here: https://www.lilithsthrone.com/wiki/doku.php?id=modding_wiki:modding:creating_clothes
 		Colour lists to be used can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/utils/colours/ColourListPresets.java -->
-		<primaryColours values="JUST_BLACK"/> 
-		<primaryColoursDye values="ALL"/>
+		<primaryColours>
+			<colour>CLOTHING_BLACK_STEEL</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL_WITH_METAL"/>
 		<secondaryColours values="JUST_GOLD"/>
-		<secondaryColoursDye values="ALL_METAL"/>
+		<secondaryColoursDye values="ALL_WITH_METAL"/>
 		
 		<!-- These tags determine where in the world your clothing can be found. Possible tags are found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/ItemTag.java -->
 		<itemTags> 
@@ -116,60 +118,28 @@
 
 	<!-- The following sections are for defining the descriptions of displacing or replacing your clothing. The attribute 'type' defines which DisplacementType your descriptions are applied to. For standard equipping and unequipping, use REMOVE_OR_EQUIP. Types can be found here: https://github.com/Innoxia/liliths-throne-public/blob/master/src/com/lilithsthrone/game/inventory/clothing/DisplacementType.java -->
 	
-	<!-- 'displacementText' is used for removal and displacement. -->
-	<displacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You take off your spiked collar.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You pull off [npc.name]'s spiked collar.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You pull off [npc.name]'s spiked collar.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] takes [npc.her] spiked collar off.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] pulls your spiked collar off.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] pulls your spiked collar off.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] pulls [npc2.name]'s spiked collar off.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] pulls [npc2.name]'s spiked collar off.
-		]]></NPCOtherNPCRough>
-	</displacementText>
-
-	<!-- 'replacementText' is used for equipping and replacements. -->
-	<replacementText type="REMOVE_OR_EQUIP">
-		<playerSelf><![CDATA[
-			You clasp the spiked collar around your neck.
-		]]></playerSelf>
-		<playerNPC><![CDATA[
-			You clasp the spiked collar around [npc.name]'s neck.
-		]]></playerNPC>
-		<playerNPCRough><![CDATA[
-			You clasp the spiked collar around [npc.name]'s neck.
-		]]></playerNPCRough>
-		<NPCSelf><![CDATA[
-			[npc.Name] clasps the spiked collar around [npc.her] neck.
-		]]></NPCSelf>
-		<NPCPlayer><![CDATA[
-			[npc.Name] clasps the spiked collar around your neck.
-		]]></NPCPlayer>
-		<NPCPlayerRough><![CDATA[
-			[npc.Name] clasps the spiked collar around your neck.
-		]]></NPCPlayerRough>
-		<NPCOtherNPC><![CDATA[
-			[npc1.Name] clasps the spiked collar around [npc2.Name]'s neck.
-		]]></NPCOtherNPC>
-		<NPCOtherNPCRough><![CDATA[
-			[npc1.Name] clasps the spiked collar around [npc2.Name]'s neck.
-		]]></NPCOtherNPCRough>
+	<replacementText slot="NECK" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(clasp)] the spiked collar around [npc.her] neck.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(clasp)] the spiked collar around [npc2.namePos] neck.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.name], before clasping the spiked collar around [npc2.her] neck.]]>
+		</otherRough>
 	</replacementText>
+	
+	<displacementText slot="NECK" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(unlock)] [npc.her] spiked collar, before taking it off from around [npc.her] neck.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(unlock)] [npc2.namePos] spiked collar, before taking it off from around [npc2.her] neck.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(unlock)] [npc2.namePos] spiked collar, before yanking it off from around [npc2.her] neck.]]>
+		</otherRough>
+	</displacementText>
 	
 </clothing>

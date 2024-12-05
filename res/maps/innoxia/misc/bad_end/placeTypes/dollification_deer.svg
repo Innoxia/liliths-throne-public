@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <g fill="none" stroke="#ffb380" stroke-linecap="round" stroke-linejoin="round">
+  <ellipse transform="rotate(.008)" cx="19.365" cy="52.34" rx="10.457" ry="5.4605" stroke-width="3.738"/>
+  <ellipse transform="rotate(.876)" cx="45.88" cy="48.812" rx="10.072" ry="5.0785" stroke-width="3.5377"/>
+  <g stroke-width=".75477">
+   <ellipse transform="matrix(.99961 .0279 -.12867 .99169 0 0)" cx="29.162" cy="44.881" rx="3.8653" ry="1.2815"/>
+   <ellipse transform="matrix(.99961 .0279 -.12867 .99169 0 0)" cx="33.383" cy="43.885" rx="3.8653" ry="1.2815"/>
+   <ellipse transform="matrix(.99961 .0279 -.12867 .99169 0 0)" cx="37.874" cy="42.985" rx="3.8653" ry="1.2815"/>
+   <ellipse transform="matrix(.99961 .0279 -.12867 .99169 0 0)" cx="42.84" cy="43" rx="3.8653" ry="1.2815"/>
+  </g>
+ </g>
+ <g stroke="#ffb380">
+  <path d="m22.892 13.613c-1.5227-2.5656-3.7957-5.6982-4.6028-7.3351-0.50881-1.0339 3.7969-2.0422 4.6808-0.60292l3.2497 5.2929z" fill="#ffb380" fill-rule="evenodd" stroke-width="1.2602"/>
+  <ellipse cx="30.823" cy="21.15" rx="8.3775" ry="9.0823" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="5.1845"/>
+  <path d="m39.179 13.731c1.5227-2.5656 3.7969-5.6982 4.6028-7.3364 0.50881-1.0327-3.7957-2.041-4.6808-0.60036l-3.2497 5.2916zm-16.344 15.197c-1.5227 2.5656-3.7969 5.6982-4.6041 7.3364-0.50757 1.0327 3.7969 2.041 4.6821 0.60036l3.2497-5.2916zm16.209-0.07826c1.5227 2.5656 3.7969 5.6982 4.6041 7.3364 0.50757 1.0327-3.7969 2.041-4.6821 0.60164l-3.2497-5.2916z" fill="#ffb380" fill-rule="evenodd" stroke-width="1.2602"/>
+ </g>
+</svg>

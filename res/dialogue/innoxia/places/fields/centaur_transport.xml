@@ -83,6 +83,7 @@
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[0]]></index>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 				<responseTitle><![CDATA[Leave]]></responseTitle>
 				<responseTooltip><![CDATA[
 					#IF(game.isHourBetween(5.75, 15))
@@ -226,6 +227,7 @@
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[0]]></index>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 				<responseTitle><![CDATA[Leave]]></responseTitle>
 				<responseTooltip><![CDATA[
 					#IF(game.isHourBetween(5.75, 15))
@@ -592,7 +594,7 @@
 				<nextDialogue/>
 				<effects/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_astrapi_oral_on_player]]></id>
+					<id><![CDATA[innoxia_fields_astrapi_oral_on_player]]></id>
 					<startingPosition><![CDATA[STANDING]]></startingPosition>
 					<dominants>
 						<character>
@@ -656,7 +658,7 @@
 				<nextDialogue/>
 				<effects/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_astrapi_titjob_for_player]]></id>
+					<id><![CDATA[innoxia_fields_astrapi_titjob_for_player]]></id>
 					<startingPosition><![CDATA[STANDING]]></startingPosition>
 					<dominants>
 						<character>
@@ -693,7 +695,7 @@
 				<nextDialogue/>
 				<effects/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_astrapi_oral_on_astrapi]]></id>
+					<id><![CDATA[innoxia_fields_astrapi_oral_on_astrapi]]></id>
 					<startingPosition><![CDATA[STANDING]]></startingPosition>
 					<dominants>
 						<character>
@@ -762,7 +764,7 @@
 				<nextDialogue/>
 				<effects/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_astrapi_fuck_astrapi]]></id>
+					<id><![CDATA[innoxia_fields_astrapi_fuck_astrapi]]></id>
 					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
 					<dominants>
 						<character>
@@ -833,7 +835,7 @@
 				<nextDialogue/>
 				<effects/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_astrapi_oral_on_astrapi_ass]]></id>
+					<id><![CDATA[innoxia_fields_astrapi_oral_on_astrapi_ass]]></id>
 					<startingPosition><![CDATA[STANDING]]></startingPosition>
 					<dominants>
 						<character>
@@ -915,7 +917,7 @@
 				<nextDialogue/>
 				<effects/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_astrapi_fuck_astrapi]]></id>
+					<id><![CDATA[innoxia_fields_astrapi_fuck_astrapi]]></id>
 					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
 					<dominants>
 						<character>
@@ -1171,7 +1173,7 @@
 				<nextDialogue/>
 				<effects/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_astrapi_abs_handjob]]></id>
+					<id><![CDATA[innoxia_fields_astrapi_abs_handjob]]></id>
 					<startingPosition><![CDATA[STANDING]]></startingPosition>
 					<dominants>
 						<character>
@@ -1212,6 +1214,7 @@
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 				<responseTitle><![CDATA[Leave]]></responseTitle>
 				<responseTooltip><![CDATA[Having finished helping her out, it's time to say goodbye to Astrapi.]]></responseTooltip>
 				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
@@ -1268,7 +1271,7 @@
 				<nextDialogue/>
 				<effects/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_astrapi_armpit]]></id>
+					<id><![CDATA[innoxia_fields_astrapi_armpit]]></id>
 					<startingPosition><![CDATA[STANDING]]></startingPosition>
 					<dominants>
 						<character>
@@ -1309,6 +1312,7 @@
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 				<responseTitle><![CDATA[Leave]]></responseTitle>
 				<responseTooltip><![CDATA[Having finished helping her out, it's time to say goodbye to Astrapi.]]></responseTooltip>
 				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
@@ -1540,7 +1544,7 @@
 					[#flags.setFlag(FLAG_innoxia_vronti_handjob_given, true)]
 				]]></effects>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_vronti_handjob]]></id>
+					<id><![CDATA[innoxia_fields_vronti_handjob]]></id>
 					<startingPosition><![CDATA[STANDING]]></startingPosition>
 					<dominants>
 						<character>
@@ -1593,7 +1597,7 @@
 					[#flags.setFlag(FLAG_innoxia_vronti_blowjob_given, true)]
 				]]></effects>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_vronti_blowjob]]></id>
+					<id><![CDATA[innoxia_fields_vronti_blowjob]]></id>
 					<startingPosition><![CDATA[STANDING]]></startingPosition>
 					<dominants>
 						<character>
@@ -1652,7 +1656,7 @@
 					[#flags.setFlag(FLAG_innoxia_vronti_sex_given, true)]
 				]]></effects>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_vronti_fucked]]></id>
+					<id><![CDATA[innoxia_fields_vronti_fucked]]></id>
 					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
 					<dominants>
 						<character>
@@ -1724,7 +1728,7 @@
 					[#flags.setFlag(FLAG_innoxia_vronti_anilingus_given, true)]
 				]]></effects>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_vronti_anilingus]]></id>
+					<id><![CDATA[innoxia_fields_vronti_anilingus]]></id>
 					<startingPosition><![CDATA[STANDING]]></startingPosition>
 					<dominants>
 						<character>
@@ -1735,7 +1739,7 @@
 					<submissives>
 						<character>
 							<id>pc</id>
-							<slot><![CDATA[PERFORMING_ORAL_BEHIND]]></slot>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL_BEHIND]]></slot>
 						</character>
 					</submissives>
 					<postSexDialogue><![CDATA[innoxia_places_fields_centaur_transport_vronti_post_sex]]></postSexDialogue>
@@ -1790,7 +1794,7 @@
 					[#flags.setFlag(FLAG_innoxia_vronti_anal_sex_given, true)]
 				]]></effects>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_vronti_fucked_anal]]></id>
+					<id><![CDATA[innoxia_fields_vronti_fucked_anal]]></id>
 					<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
 					<dominants>
 						<character>

@@ -1230,7 +1230,7 @@ public class RalphOral {
 							?"So you want a bigger discount, huh?! You know, it's a shame you insisted on the condom, but I'll still give you another twenty percent if you let me fuck you."
 							:(Main.game.getPlayer().isVisiblyPregnant()
 									?"So you want a bigger discount, huh?! You know, it's a shame you're already pregnant, but I'll still give you another twenty percent if you let me fuck you."
-									:"So you want a bigger discount, huh?! Well, you let me put a few little foals in this belly of yours, and I'll give you another twenty five percent!")
+									:"So you want a bigger discount, huh?! Well, you let me put a few foals in your belly, and I'll give you another twenty five percent!")
 						), Main.game.getNpc(Ralph.class))
 					+"<br/><br/>"
 					+ "By now, you don't really care about the discount, all you want is to feel that delicious cock sliding in between your legs."

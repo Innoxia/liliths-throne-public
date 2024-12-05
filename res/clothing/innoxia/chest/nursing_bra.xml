@@ -71,13 +71,13 @@
 
 	<displacementText type="REMOVE_OR_EQUIP">
 		<self>
-		  <![CDATA[[npc.Name] [npc.verb(unclip)] the cups of [npc.her] nursing bra and pulls them down, exposing [npc.her] [npc.nipples+].]]>
+		  <![CDATA[[npc.Name] [npc.verb(unclip)] the cups of [npc.her] nursing bra and [npc.verb(pull)] them down, exposing [npc.her] [npc.nipples+].]]>
 		</self>
 		<other>
-		  <![CDATA[[npc.Name] [npc.verb(unclip)] the cups of [npc2.namePos] nursing bra and pulls them down, exposing [npc2.her] [npc2.nipples+].]]>
+		  <![CDATA[[npc.Name] [npc.verb(unclip)] the cups of [npc2.namePos] nursing bra and [npc.verb(pull)] them down, exposing [npc2.her] [npc2.nipples+].]]>
 		</other>
 		<otherRough>
-		  <![CDATA[[npc.Name] roughly [npc.verb(unclip)] the cups of [npc2.namePos] nursing bra and pulls them down, exposing [npc2.her] [npc2.nipples+].]]>
+		  <![CDATA[[npc.Name] roughly [npc.verb(unclip)] the cups of [npc2.namePos] nursing bra and [npc.verb(pull)] them down, exposing [npc2.her] [npc2.nipples+].]]>
 		</otherRough>
 	</displacementText>
 	

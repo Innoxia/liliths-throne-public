@@ -33,8 +33,10 @@
 		<incompatibleSlots/> 
 		
 		<primaryColours values="JUST_COPPER"/> 
-		<primaryColoursDye values="ALL_METAL"/>
-		<secondaryColours values="JUST_ORANGE"/>
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours>
+			<colour>CLOTHING_YELLOW</colour>
+		</secondaryColours>
 		<secondaryColoursDye values="ALL"/>
 		<tertiaryColours/>
 		<tertiaryColoursDye/>

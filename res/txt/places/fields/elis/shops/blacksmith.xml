@@ -182,4 +182,39 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="TALK_ASK_AWNING_POLE"><![CDATA[
+	<p>
+		You notice polearms among the things that Imsu has for sale and enquire as to whether or not you could just buy the haft of one, maybe from an unfinished piece, and get it modified. The two baphomets briefly glance at one other as they hear your unusual request.
+	</p>
+	<p>
+		The black-furred Imsu is the first to speak, [imsu.speech(You could, yes. But unless that modification is a blade, it won't do you much good.)]
+	</p>
+	<p>
+		You elaborate that you need some folding wooden poles rather than a weapon to fix up a stall in the Farmer's Market. This time it's the grey-furred Hale who speaks, [hale.speech(Fair enough,. Leave it to me then, I'll do it for five hundred and fifty flames and it'll be ready by tomorrow. That brute over there only knows how to hammer metal flat.)]
+	</p>
+	<p>
+		Taking offence to the accusation, Imsu is quick to fire back at his counterpart, [imsu.speech(And I suppose you think these axes just grow on trees like this? Your head is harder than that of any axe I've ever made!)] 
+	</p>
+	<p>
+		Your order apparently placed, you should probably steer the conversation towards something else, or leave before you lose the baphomet pair to their argument.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TALK_PICKUP_ORDER"><![CDATA[
+	<p>
+		Hale proudly smirks when you ask about the order you placed and fishes out four sets of sturdy-looking wooden poles from among a pile of tools in the corner. With a flick of his wrist, he unfolds one to triple its previous length, easily tall enough for an awning.
+	</p>
+	<p>
+		[hale.speech(They're not quite as easy to fold back up,)] he says as he hands you one to inspect. The former axe hafts have been joined together with metal hinges and locking rings. The ends of each individual section have even been rounded to prevent binding. Impressive work for a shop that deals almost exclusively with metal. You hand over the payment while the grey-furred baphomet releases the locking rings on the example in his hands and folds it back up. Letting out an amused grunt, he states, [hale.speech(Definitely the strangest piece of work I've ever made here, but I rather enjoyed making it.)]
+	</p>
+	<p>
+		At this, Imsu can't help but get a word in, [imsu.speech(I'm sure you'd enjoy handling all sorts of strange poles, Hale.)]
+	</p>
+	<p>
+		If you were here to do anything else, you should do it now or leave before the argument starts...
+	</p>
+	]]>
+	</htmlContent>
+	
 </dialogue>

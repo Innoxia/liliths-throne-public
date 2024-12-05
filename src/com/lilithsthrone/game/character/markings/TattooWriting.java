@@ -25,14 +25,26 @@ public class TattooWriting implements XMLSaving {
 	private Colour colour;
 	private boolean glow;
 	private List<TattooWritingStyle> styles;
-	
+
+	public TattooWriting(TattooWriting tattooWritingToCopy) {
+		this(tattooWritingToCopy.text, tattooWritingToCopy.colour, tattooWritingToCopy.glow, new ArrayList<>(tattooWritingToCopy.styles));
+	}
+
 	public TattooWriting(String text, Colour colour, boolean glow, TattooWritingStyle... styles) {
+		this(text, colour, glow, new ArrayList<>());
+		this.styles = new ArrayList<>();
+		Collections.addAll(this.styles, styles);
+		this.styles.removeIf(e->e==null);
+	}
+	
+	public TattooWriting(String text, Colour colour, boolean glow, List<TattooWritingStyle> styles) {
 		this.text = text;
 		this.colour = colour;
 		this.glow = glow;
 		this.styles = new ArrayList<>();
-		Collections.addAll(this.styles, styles);
-		this.styles.removeIf(e->e==null);
+		if(styles!=null) {
+			this.styles.addAll(styles);
+		}
 	}
 	
 	public static List<Colour> getAvailableColours() {

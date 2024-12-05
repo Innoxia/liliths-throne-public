@@ -177,11 +177,11 @@ public class Encounter {
 				
 				if(!hornySlaves.isEmpty()) {
 					Collections.shuffle(hornySlaves);
-					return SlaveEncountersDialogue.getSlaveUsesYou(hornySlaves.get(0));
+					return SlaveEncountersDialogue.getSlaveUsesYouDungeon(hornySlaves.get(0));
 					
 				} else if(!slaves.isEmpty()) {
 					Collections.shuffle(slaves);
-					return SlaveEncountersDialogue.getSlaveUsesYou(slaves.get(0));
+					return SlaveEncountersDialogue.getSlaveUsesYouDungeon(slaves.get(0));
 				}
 				
 				return null;
@@ -358,11 +358,12 @@ public class Encounter {
 				Main.game.setActiveNPC(Main.game.getNpc(RentalMommy.class));
 				Main.game.getNpc(RentalMommy.class).setLocation(WorldType.DOMINION, Main.game.getPlayer().getLocation(), true);
 				
-				try {
-					Main.game.addNPC(Main.game.getActiveNPC(), false);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				// v0.4.8.4: RentalMommy.class is already initialised as a unique NPC, so this is not needed and was throwing an error.
+//				try {
+//					Main.game.addNPC(Main.game.getActiveNPC(), false);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
 				return Main.game.getActiveNPC().getEncounterDialogue();
 				
 			}

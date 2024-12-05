@@ -1957,6 +1957,7 @@ public class ImpCitadelDialogue {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/impCitadel"+getDialogueEncounterId(), "KEEP_CHALLENGE_RING_TRICK", getAllCharacters()));
 						Main.game.getTextEndStringBuilder().append(getBoss().incrementAffection(Main.game.getPlayer(), -50));
 						Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.LYSSIETHS_RING));
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.meraxisTrickedWithRing, true);
 						clearFortress(true);
 					}
 				};

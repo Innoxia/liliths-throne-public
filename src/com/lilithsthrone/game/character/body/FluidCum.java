@@ -1,10 +1,13 @@
 package com.lilithsthrone.game.character.body;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -16,18 +19,17 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.83
- * @version 0.3.8.2
+ * @version 0.4.9.7
  * @author Innoxia
  */
-public class FluidCum implements FluidInterface, XMLSaving {
+public class FluidCum implements FluidInterface {
 
 	protected AbstractFluidType type;
 	protected FluidFlavour flavour;
-	protected List<FluidModifier> fluidModifiers;
+	protected Set<FluidModifier> fluidModifiers;
 	protected List<ItemEffect> transformativeEffects;
 
 	public FluidCum(AbstractFluidType type) {
@@ -35,29 +37,35 @@ public class FluidCum implements FluidInterface, XMLSaving {
 		this.flavour = type.getFlavour();
 		transformativeEffects = new ArrayList<>();
 		
-		fluidModifiers = new ArrayList<>();
+		fluidModifiers = new HashSet<>();
 		fluidModifiers.addAll(type.getDefaultFluidModifiers());
 	}
 
-	public Element saveAsXML(Element parentElement, Document doc) {
-		Element element = doc.createElement("cum");
+	public FluidCum(FluidCum cumToCopy) {
+		this.type = cumToCopy.type;
+		this.flavour = cumToCopy.flavour;
+		this.fluidModifiers = new HashSet<>(cumToCopy.fluidModifiers);
+		this.transformativeEffects = new ArrayList<>(cumToCopy.transformativeEffects);
+	}
+	
+	public Element saveAsXML(String rootElementName, Element parentElement, Document doc) {
+		Element element = doc.createElement(rootElementName);
 		parentElement.appendChild(element);
 
 		XMLUtil.addAttribute(doc, element, "type", FluidType.getIdFromFluidType(this.type));
 		XMLUtil.addAttribute(doc, element, "flavour", this.flavour.toString());
-		
-		
-		Element cumModifiers = doc.createElement("cumModifiers");
-		element.appendChild(cumModifiers);
+
 		for(FluidModifier fm : this.getFluidModifiers()) {
-			XMLUtil.addAttribute(doc, cumModifiers, fm.toString(), "true");
+			Element mod = doc.createElement("mod");
+			mod.setTextContent(fm.toString());
+			element.appendChild(mod);
 		}
 		
 		return element;
 	}
 
-	public static FluidCum loadFromXML(Element parentElement, Document doc) {
-		return loadFromXML(parentElement, doc, null);
+	public static FluidCum loadFromXML(String rootElementName, Element parentElement, Document doc) {
+		return loadFromXML(rootElementName, parentElement, doc, null);
 	}
 	
 	/**
@@ -66,9 +74,8 @@ public class FluidCum implements FluidInterface, XMLSaving {
 	 * @param doc
 	 * @param baseType If you pass in a baseType, this method will ignore the saved type in parentElement.
 	 */
-	public static FluidCum loadFromXML(Element parentElement, Document doc, AbstractFluidType baseType) {
-		
-		Element cum = (Element)parentElement.getElementsByTagName("cum").item(0);
+	public static FluidCum loadFromXML(String rootElementName, Element parentElement, Document doc, AbstractFluidType baseType) {
+		Element cum = (Element)parentElement.getElementsByTagName(rootElementName).item(0);
 
 		AbstractFluidType fluidType = FluidType.CUM_HUMAN;
 		
@@ -91,11 +98,20 @@ public class FluidCum implements FluidInterface, XMLSaving {
 			fluidCum.flavour = FluidFlavour.valueOf(flavourId);
 		}
 		
+
 		Element cumModifiers = (Element)cum.getElementsByTagName("cumModifiers").item(0);
-		fluidCum.fluidModifiers.clear();
 		if(cumModifiers!=null) {
-			List<FluidModifier> fluidModifiers = fluidCum.fluidModifiers;
-			Body.handleLoadingOfModifiers(FluidModifier.values(), null, cumModifiers, fluidModifiers);
+			fluidCum.fluidModifiers.clear();
+			if(cumModifiers!=null) {
+				Set<FluidModifier> fluidModifiers = fluidCum.fluidModifiers;
+				Body.handleLoadingOfModifiers(FluidModifier.values(), null, cumModifiers, fluidModifiers);
+			}
+		} else {
+			NodeList mods = cum.getElementsByTagName("mod");
+			for(int i = 0; i < mods.getLength(); i++) {
+				Element e = ((Element)mods.item(i));
+				fluidCum.fluidModifiers.add(FluidModifier.valueOf(e.getTextContent()));
+			}
 		}
 		
 		return fluidCum;
@@ -148,7 +164,7 @@ public class FluidCum implements FluidInterface, XMLSaving {
 	public String getDescriptor(GameCharacter gc) {
 		String modifierDescriptor = "";
 		if(!fluidModifiers.isEmpty()) {
-			modifierDescriptor = fluidModifiers.get(Util.random.nextInt(fluidModifiers.size())).getName();
+			modifierDescriptor = new ArrayList<>(fluidModifiers).get(Util.random.nextInt(fluidModifiers.size())).getName();
 		}
 		
 		return UtilText.returnStringAtRandom(
@@ -187,7 +203,10 @@ public class FluidCum implements FluidInterface, XMLSaving {
 		return UtilText.parse(owner,
 				"<p>"
 					+ "A soothing warmth spreads down into [npc.namePos] [npc.balls+], causing [npc.herHim] to let out an involuntary [npc.moan].<br/>"
-					+ "[npc.NamePos] [npc.cum] now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>."
+					+ "[npc.NamePos] [npc.cum] "
+					+ (flavour==FluidFlavour.FLAVOURLESS
+						?"is now <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>"
+						:"now tastes of <b style='color:"+flavour.getColour().toWebHexString()+";'>"+flavour.getName()+"</b>.")
 				+ "</p>");
 	}
 	
@@ -359,7 +378,7 @@ public class FluidCum implements FluidInterface, XMLSaving {
 	/**
 	 * DO NOT MODIFY!
 	 */
-	public List<FluidModifier> getFluidModifiers() {
+	public Set<FluidModifier> getFluidModifiers() {
 		return fluidModifiers;
 	}
 
@@ -368,7 +387,7 @@ public class FluidCum implements FluidInterface, XMLSaving {
 	}
 
 	public float getValuePerMl() {
-		return 0.1f;
+		return 0.1f * type.getValueModifier();
 	}
 
 	@Override

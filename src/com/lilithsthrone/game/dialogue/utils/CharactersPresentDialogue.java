@@ -301,7 +301,7 @@ public class CharactersPresentDialogue {
 			
 			UtilText.nodeContentSB.append("</div>");
 			
-			if(!(characterViewed.isElemental())) {
+			if(!characterViewed.isElemental() && !characterViewed.isDoll()) {
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='padding:8px; text-align:center;'>"
 							+ "<i>Please note that this perk tree is a work-in-progress. This is not the final version, and is just a proof of concept!</i>"
 						+ "</div>");

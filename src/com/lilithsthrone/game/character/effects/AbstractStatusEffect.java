@@ -347,7 +347,7 @@ public abstract class AbstractStatusEffect {
 		return false;
 	}
 	
-	public int getApplicationLength() {
+	public int getApplicationLength(GameCharacter target) {
 		return applicationLength;
 	}
 
@@ -796,7 +796,7 @@ public abstract class AbstractStatusEffect {
 			if(penetration.appliesStretchEffects(character)) {
 				sb = new StringBuilder();
 				int length = (int) character.getPenetrationLengthInserted(penetration, target, orifice);
-				boolean knotting = Objects.equals(Main.sex.getCharacterKnotting(character), target);
+				boolean knotting = Objects.equals(Main.sex.getCharacterKnotting(character), target) && penetration==SexAreaPenetration.PENIS;
 				sb.append(UtilText.parse(character,
 						"<p style='text-align:center; margin:0; padding:0;'>"//TODO toy length/diameter
 							+ "<b style='color:"+character.getFemininity().getColour().toWebHexString()+";'>[npc.NamePos]</b> [style.boldSex("+Util.capitaliseSentence(penetration.getName(character, true))+")]:"

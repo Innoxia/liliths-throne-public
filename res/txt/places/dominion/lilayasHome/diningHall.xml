@@ -28,9 +28,9 @@
 		#ENDIF
 		before informing [npc.herHim] of what you want to eat.
 		#IF(npc.getObedienceBasic()==OBEDIENCE_BASIC_DISOBEDIENT && npc.getAffectionLevelBasic(pc)==AFFECTION_BASIC_DISLIKE)
-			 Although [npc.she] insolently tells you how much [npc.she] hates doing this sort of work, [npc.she] has no choice but to take your order. Scowling at you as [npc.she] departs, your slave hurries off to the kitchen to relay your choice to the chef.
+			 Although [npc.she] insolently tells you how much [npc.she] hates doing this sort of work, [npc.she] has no choice but to take your order. Scowling at you as [npc.she] departs, #IF(npc.isSlave())your slave#ELSE[npc.name]#ENDIF hurries off to the kitchen to relay your choice to the chef.
 		#ELSE
-			 After taking your order, your slave hurries off to the kitchen to relay your choice to the chef.
+			 After taking your order, #IF(npc.isSlave())your slave#ELSE[npc.name]#ENDIF hurries off to the kitchen to relay your choice to the chef.
 		#ENDIF
 	</p>
 	<p>
@@ -44,7 +44,7 @@
 	
 	<htmlContent tag="ROOM_DINING_HALL_RECEIVE_MEAL_DESSERT_COCK"><![CDATA[
 	<p>
-		Starting to feel a different sort of hunger, you reach across to give [npc.namePos] groin a grope as [npc.she] leans forwards to pick up your plate. Smirking as you feel [npc.her] shaft twitch in response to your touch, you tell your slave to go to the kitchen and have the chef turn [npc.her] cock into a dessert for you to enjoy.
+		Starting to feel a different sort of hunger, you reach across to give [npc.namePos] groin a grope as [npc.she] leans forwards to pick up your plate. Smirking as you feel [npc.her] shaft twitch in response to your touch, you tell #IF(npc.isSlave())your slave#ELSE[npc.name]#ENDIF to go to the kitchen and have the chef turn [npc.her] cock into a dessert for you to enjoy.
 	</p>
 	<p>
 		Doing as [npc.sheIs] told, [npc.name] picks up your plate and hurries away to the kitchen. A short while later [npc.she] returns, and you lick your [pc.lips] in anticipation as you see that [npc.her] cock is covered in whipped cream, [style.random(chocolate|caramel|strawberry)] sauce, and [style.random(sprinkles|has a cherry perched on top)].
@@ -62,7 +62,7 @@
 	
 	<htmlContent tag="ROOM_DINING_HALL_RECEIVE_MEAL_DESSERT_PUSSY"><![CDATA[
 	<p>
-		Starting to feel a different sort of hunger, you reach across to give [npc.namePos] groin a grope as [npc.she] leans forwards to pick up your plate. Smirking as [npc.she] lets out a surprised gasp, you tell your slave to go to the kitchen and have the chef turn [npc.her] pussy into a dessert for you to enjoy.
+		Starting to feel a different sort of hunger, you reach across to give [npc.namePos] groin a grope as [npc.she] leans forwards to pick up your plate. Smirking as [npc.she] lets out a surprised gasp, you tell #IF(npc.isSlave())your slave#ELSE[npc.name]#ENDIF to go to the kitchen and have the chef turn [npc.her] pussy into a dessert for you to enjoy.
 	</p>
 	<p>
 		Doing as [npc.sheIs] told, [npc.name] picks up your plate and hurries away to the kitchen. A short while later [npc.she] returns, and you lick your [pc.lips] in anticipation as you see that [npc.her] [npc.pussy] is covered in whipped cream, [style.random(chocolate|caramel|strawberry)] sauce, and [style.random(sprinkles|has a cherry perched on top)].
@@ -80,7 +80,7 @@
 	
 	<htmlContent tag="ROOM_DINING_HALL_RECEIVE_MEAL_DESSERT_ASS"><![CDATA[
 	<p>
-		Starting to feel a different sort of hunger, you reach across to give [npc.namePos] ass a slap as [npc.she] leans forwards to pick up your plate. Smirking as [npc.she] lets out a surprised gasp, you tell your slave to go to the kitchen and have the chef turn [npc.her] butt into a dessert for you to enjoy.
+		Starting to feel a different sort of hunger, you reach across to give [npc.namePos] ass a slap as [npc.she] leans forwards to pick up your plate. Smirking as [npc.she] lets out a surprised gasp, you tell #IF(npc.isSlave())your slave#ELSE[npc.name]#ENDIF to go to the kitchen and have the chef turn [npc.her] butt into a dessert for you to enjoy.
 	</p>
 	<p>
 		Doing as [npc.sheIs] told, [npc.name] picks up your plate and hurries away to the kitchen. A short while later [npc.she] returns, and you lick your [pc.lips] in anticipation as you see that [npc.her] rear end is covered in whipped cream, [style.random(chocolate|caramel|strawberry)] sauce, and [style.random(sprinkles|has a cherry perched on top)].
