@@ -3786,7 +3786,7 @@ It'd be even better if this could be extended to potions as well, allowing us to
 	after messing around a bit i noticed elasticity and plasticity don't work for the vagina's urethra, even with items. still see no rush, it's not a kink everyone's into and still works, just no super stretchy and instant recovery.
 
 	 It seems that slime offspring will be listed as slime offspring, with the mother's main attributes (angel, demon, feline, etc), but when meeting them out in the world, they are no longer slimes, but show up as human.
-	Has slime offspring been fixed yet? Sorry to be annoying but in the previous version they only ever showed up if you knocked up another slime and even then thwy end up as humans with slime skin. (Human trait and body but slime skin)
+	Has slime offspring been fixed yet? Sorry to be annoying but in the previous version they only ever showed up if you knocked up another slime and even then they end up as humans with slime skin. (Human trait and body but slime skin)
 
 	slime need to be naked
 
