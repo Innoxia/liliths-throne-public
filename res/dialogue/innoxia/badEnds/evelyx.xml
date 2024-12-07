@@ -114,7 +114,7 @@
 				<responseTooltip><![CDATA[The demonic centauresses start bidding against one another as they try to be the one to purchase you...]]></responseTooltip>
 				<nextDialogue>innoxia_badEnds_evelyx_auction_end</nextDialogue>
 				<effects><![CDATA[
-					[#game.addNPC('LunetteMelee', 'owner')]
+					[#game.addNPC('fields.LunetteMelee', 'owner')]
 					[#evelyx.badEndInitPrincess(owner)]
 					[#owner.setLocation(pc)]
 				]]></effects>

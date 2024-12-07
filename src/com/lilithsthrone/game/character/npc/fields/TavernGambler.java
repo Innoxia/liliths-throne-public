@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.character.npc.submission;
+package com.lilithsthrone.game.character.npc.fields;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,10 +14,9 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
 import com.lilithsthrone.game.character.npc.RandomNPC;
-import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Subspecies;
-import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.character.race.SubspeciesSpawnRarity;
 import com.lilithsthrone.game.dialogue.places.submission.dicePoker.DicePokerTable;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.outfit.OutfitType;
@@ -31,23 +30,23 @@ import com.lilithsthrone.world.places.PlaceType;
  * @version 0.3.5.5
  * @author Innoxia
  */
-public class GamblingDenPatron extends RandomNPC {
+public class TavernGambler extends RandomNPC {
 	
 	private DicePokerTable table;
 	
-	public GamblingDenPatron(NPCGenerationFlag... generationFlags) {
+	public TavernGambler(NPCGenerationFlag... generationFlags) {
 		this(false, DicePokerTable.COPPER, generationFlags);
 	}
 	
-	public GamblingDenPatron(boolean isImported) {
+	public TavernGambler(boolean isImported) {
 		this(isImported, DicePokerTable.COPPER);
 	}
 	
-	public GamblingDenPatron(DicePokerTable table, NPCGenerationFlag... generationFlags) {
+	public TavernGambler(DicePokerTable table, NPCGenerationFlag... generationFlags) {
 		this(false, table, generationFlags);
 	}
 	
-	public GamblingDenPatron(boolean isImported, DicePokerTable table, NPCGenerationFlag... generationFlags) {
+	public TavernGambler(boolean isImported, DicePokerTable table, NPCGenerationFlag... generationFlags) {
 		super(isImported, false, generationFlags);
 		
 		if (isImported) {
@@ -57,20 +56,17 @@ public class GamblingDenPatron extends RandomNPC {
 		// Pre-setup
 		this.table = table;
 		setLevel(Util.random.nextInt(4) + 5);
-		int slimeChance = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slimeQueenHelped) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_SLIME_QUEEN) ? 1000 : 500;
 		
 		Map<AbstractSubspecies, Integer> subspeciesMap = new HashMap<>();
 		for (AbstractSubspecies s : Subspecies.getAllSubspecies()) {
-			if (s == Subspecies.SLIME) {
-				AbstractSubspecies.addToSubspeciesMap(slimeChance, this.getGenderIdentity(), s, subspeciesMap);
-				
-			} else if (Subspecies.getWorldSpecies(WorldType.SUBMISSION, PlaceType.GAMBLING_DEN_GAMBLING, false, Subspecies.IMP, Subspecies.IMP_ALPHA).containsKey(s)) {
-				AbstractSubspecies.addToSubspeciesMap(
-						(int) (1000*Subspecies.getWorldSpecies(WorldType.SUBMISSION, PlaceType.GAMBLING_DEN_GAMBLING, false, Subspecies.IMP, Subspecies.IMP_ALPHA).get(s).getChanceMultiplier()), this.getGenderIdentity(), s, subspeciesMap);
-				
-			} else if (Subspecies.getWorldSpecies(WorldType.DOMINION, PlaceType.GAMBLING_DEN_GAMBLING, false, Subspecies.IMP, Subspecies.IMP_ALPHA).containsKey(s)) {
-				AbstractSubspecies.addToSubspeciesMap(
-						(int) (250*Subspecies.getWorldSpecies(WorldType.DOMINION, PlaceType.GAMBLING_DEN_GAMBLING, false, Subspecies.IMP, Subspecies.IMP_ALPHA).get(s).getChanceMultiplier()), this.getGenderIdentity(), s, subspeciesMap);
+			if (s.getSubspeciesOverridePriority()>0) { // Do not spawn demonic races, elementals, or youko
+				continue;
+			}
+			Map<AbstractSubspecies, SubspeciesSpawnRarity> subMap = Subspecies.getWorldSpecies(
+					WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_alley"),
+					PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_alley_dice_poker"), false);
+			if (subMap.containsKey(s)) {
+				AbstractSubspecies.addToSubspeciesMap((int) (10000*subMap.get(s).getChanceMultiplier()), this.getGenderIdentity(), s, subspeciesMap);
 			}
 		}
 		
@@ -81,7 +77,7 @@ public class GamblingDenPatron extends RandomNPC {
 				false,
 				false,
 				generationFlags);
-
+		
 		// Post-setup
 		this.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.TWO_NEUTRAL);
 		inventory.setMoney(750 + Util.random.nextInt(750));
@@ -122,16 +118,16 @@ public class GamblingDenPatron extends RandomNPC {
 	public void setTable(DicePokerTable table) {
 		this.table = table;
 	}
-
+	
 	@Override
 	public String getDescription() {
 		switch (table) {
 			case COPPER:
-				return (UtilText.parse(this, "[npc.Name] is a relative novice at dice poker, and chooses to play in the 'copper' section of the Gambling Den's poker hall."));
+				return (UtilText.parse(this, "[npc.Name] is a relative novice at dice poker, and chooses to play in the 'copper' section of the Crossed Blades poker hall."));
 			case SILVER:
-				return (UtilText.parse(this, "[npc.Name] has quite a lot of experience at dice poker, and chooses to play in the 'silver' section of the Gambling Den's poker hall."));
+				return (UtilText.parse(this, "[npc.Name] has quite a lot of experience at dice poker, and chooses to play in the 'silver' section of the Crossed Blades poker hall."));
 			case GOLD:
-				return (UtilText.parse(this, "[npc.Name] is an expert at dice poker, and chooses to play in the 'gold' section of the Gambling Den's poker hall."));
+				return (UtilText.parse(this, "[npc.Name] is an expert at dice poker, and chooses to play in the 'gold' section of the Crossed Blades poker hall."));
 		}
 		return "";
 	}

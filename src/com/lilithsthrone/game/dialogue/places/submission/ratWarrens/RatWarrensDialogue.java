@@ -113,7 +113,7 @@ public class RatWarrensDialogue {
 				rat.equipOffhandWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_bow_pistol_crossbow", DamageType.POISON, Util.newArrayListOfValues(PresetColour.CLOTHING_BLACK_STEEL, PresetColour.CLOTHING_GREEN_DRAB, PresetColour.CLOTHING_GUNMETAL)));
 				rat.incrementEssenceCount(8, false);
 				
-				rat = new RatGangMember(Gender.getGenderFromUserPreferences(false, false));
+				rat = new RatGangMember();
 				Main.game.addNPC(rat, false);
 				rat.setLevel(9);
 				rat.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_ENTRANCE, true);
@@ -135,7 +135,7 @@ public class RatWarrensDialogue {
 		// Spawn bar-tender:
 		if(Main.game.getCharactersPresent(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_DICE_DEN).isEmpty()) {
 			try {
-				NPC rat = new RatGangMember(Gender.getGenderFromUserPreferences(false, false));
+				NPC rat = new RatGangMember();
 				if(rat.hasVagina()) {
 					rat.setVaginaSquirter(true);
 				}
@@ -252,8 +252,9 @@ public class RatWarrensDialogue {
 		try {
 			String[] adjectives = new String[] {"brainwashed", "submissive", "obedient", "docile"};
 			for(int i=0;i<4;i++) {
-				NPC human = new RatWarrensCaptive(Gender.F_V_B_FEMALE);
+				NPC human = new RatWarrensCaptive();
 				Main.game.addNPC(human, false);
+				human.setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_ROOM, true);
 				human.setGenericName(adjectives[i]+" milker");
 				human.setAffection(Main.game.getNpc(Murk.class), 100);
 				Main.game.getNpc(Murk.class).calculateGenericSexEffects(true, true, human, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA), GenericSexFlag.NO_DESCRIPTION_NEEDED);
@@ -291,18 +292,16 @@ public class RatWarrensDialogue {
 		try {
 			List<String> adjectives = new ArrayList<>();
 			if(withLeader) {
-				NPC rat = new RatGangMember(Gender.getGenderFromUserPreferences(false, false));
+				NPC rat = new RatGangMember();
 				Main.game.addNPC(rat, false);
 				rat.setLevel(10);
-				rat.setLocation(Main.game.getPlayer(), true);
 				rat.addSpecialPerk(Perk.SPECIAL_HEALTH_FANATIC);
 				rat.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
 				rat.setGenericName(Util.randomItemFrom(Util.newArrayListOfValues("buff", "strong", "muscular", "muscly"))+" lieutenant");
 
-				rat = new RatGangMember(Gender.getGenderFromUserPreferences(false, false));
+				rat = new RatGangMember();
 				Main.game.addNPC(rat, false);
 				rat.setLevel(9);
-				rat.setLocation(Main.game.getPlayer(), true);
 				adjectives.add(Main.game.getCharacterUtils().setGenericName(rat, "sidekick", adjectives));
 				
 				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensEntranceGuardsFight, false);
@@ -321,7 +320,6 @@ public class RatWarrensDialogue {
 				NPC rat = new RatGangMember(Gender.getGenderFromUserPreferences(i==1, i==2));
 				Main.game.addNPC(rat, false);
 				rat.setLevel(8-i);
-				rat.setLocation(Main.game.getPlayer(), true);
 				adjectives.add(Main.game.getCharacterUtils().setGenericName(rat, Util.randomItemFrom(names), adjectives));
 			}
 		} catch (Exception e) {

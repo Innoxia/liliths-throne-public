@@ -273,7 +273,7 @@ public class Encounter {
 		@Override
 		protected DialogueNode initialiseEncounter(EncounterType node) {
 			if(node == EncounterType.DOMINION_STORM_ATTACK) {
-				NPC npc = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.DIRTY);
+				NPC npc = new DominionAlleywayAttacker(NPCGenerationFlag.DIRTY);
 				try {
 					Main.game.addNPC(npc, false);
 				} catch (Exception e) {
@@ -453,7 +453,7 @@ public class Encounter {
 					}
 				}
 				
-				NPC npc = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false));
+				NPC npc = new DominionAlleywayAttacker();
 				try {
 					Main.game.addNPC(npc, false);
 				} catch (Exception e) {
@@ -602,7 +602,7 @@ public class Encounter {
 					}
 				}
 				
-				Main.game.setActiveNPC(new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false)));
+				Main.game.setActiveNPC(new DominionAlleywayAttacker());
 				try {
 					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
@@ -716,7 +716,7 @@ public class Encounter {
 					}
 				}
 
-				Main.game.setActiveNPC(new HarpyNestsAttacker(Gender.getGenderFromUserPreferences(false, false)));
+				Main.game.setActiveNPC(new HarpyNestsAttacker());
 				
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
@@ -776,7 +776,7 @@ public class Encounter {
 					}
 				}
 				
-				Main.game.setActiveNPC(new HarpyNestsAttacker(Gender.getGenderFromUserPreferences(false, false)));
+				Main.game.setActiveNPC(new HarpyNestsAttacker());
 				
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
@@ -830,27 +830,27 @@ public class Encounter {
 					
 					try {
 						// Leader (alpha imp):
-						ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI, false);
+						ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI);
 						imp.setGenericName("alpha-imp leader");
 						imp.setLevel(8+Util.random.nextInt(5)); // 8-12
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
 						
 						// Alpha imp:
-						imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI, false);
+						imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_P_V_B_FUTANARI);
 						imp.setLevel(6+Util.random.nextInt(3)); // 6-8
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
 						
 						// Normal imp:
-						imp = new ImpAttacker(Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), false);
+						imp = new ImpAttacker(Subspecies.IMP);
 						impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 						imp.setLevel(3+Util.random.nextInt(4)); // 3-6
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
 
 						// Normal imp:
-						imp = new ImpAttacker(Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), false);
+						imp = new ImpAttacker(Subspecies.IMP);
 						impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 						imp.setLevel(3+Util.random.nextInt(4)); // 3-6
 						Main.game.addNPC(imp, false);
@@ -873,7 +873,7 @@ public class Encounter {
 
 					try {
 						// Leader (arcane alpha imp):
-						ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.getGenderFromUserPreferences(false, false), false);
+						ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA);
 						imp.setGenericName("alpha-imp arcanist");
 						imp.setAttribute(Attribute.MAJOR_ARCANE, 50);
 						imp.addSpell(Spell.ARCANE_AROUSAL);
@@ -885,21 +885,21 @@ public class Encounter {
 						impGroup.add(imp);
 						
 						// Normal imp:
-						imp = new ImpAttacker(Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), false);
+						imp = new ImpAttacker(Subspecies.IMP);
 						impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 						imp.setLevel(6+Util.random.nextInt(4)); // 6-8
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
 						
 						// Normal imp:
-						imp = new ImpAttacker(Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), false);
+						imp = new ImpAttacker(Subspecies.IMP);
 						impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 						imp.setLevel(3+Util.random.nextInt(4)); // 3-6
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
 
 						// Normal imp:
-						imp = new ImpAttacker(Subspecies.IMP, Gender.getGenderFromUserPreferences(false, false), false);
+						imp = new ImpAttacker(Subspecies.IMP);
 						impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 						imp.setLevel(3+Util.random.nextInt(4)); // 3-6
 						Main.game.addNPC(imp, false);
@@ -922,7 +922,7 @@ public class Encounter {
 
 					try {
 						// Leader (Alpha imp):
-						ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_V_B_FEMALE, false);
+						ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.F_V_B_FEMALE);
 						imp.setGenericName("alpha-imp leader");
 						imp.setLevel(12+Util.random.nextInt(7)); // 12-18
 						Main.game.addNPC(imp, false);
@@ -930,21 +930,21 @@ public class Encounter {
 						imp.setBreastSize(imp.getBreastSize().getMeasurement()+4);
 						
 						// Normal imp:
-						imp = new ImpAttacker(Subspecies.IMP, Gender.F_V_B_FEMALE, false);
+						imp = new ImpAttacker(Subspecies.IMP, Gender.F_V_B_FEMALE);
 						impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 						imp.setLevel(8+Util.random.nextInt(3)); // 8-10
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
 
 						// Normal imp:
-						imp = new ImpAttacker(Subspecies.IMP, Gender.F_V_B_FEMALE, false);
+						imp = new ImpAttacker(Subspecies.IMP, Gender.F_V_B_FEMALE);
 						impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 						imp.setLevel(6+Util.random.nextInt(3)); // 6-8
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
 
 						// Normal imp:
-						imp = new ImpAttacker(Subspecies.IMP, Gender.F_V_B_FEMALE, false);
+						imp = new ImpAttacker(Subspecies.IMP, Gender.F_V_B_FEMALE);
 						impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 						imp.setLevel(4+Util.random.nextInt(3)); // 4-6
 						Main.game.addNPC(imp, false);
@@ -967,28 +967,28 @@ public class Encounter {
 
 					try {
 						// Leader (Alpha imp):
-						ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.M_P_MALE, false);
+						ImpAttacker imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.M_P_MALE);
 						imp.setGenericName("alpha-imp leader");
 						imp.setLevel(12+Util.random.nextInt(7)); // 12-18
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
 						
 						// Alpha imp:
-						imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.M_P_MALE, false);
+						imp = new ImpAttacker(Subspecies.IMP_ALPHA, Gender.M_P_MALE);
 						impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 						imp.setLevel(8+Util.random.nextInt(3)); // 8-10
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
 						
 						// Normal imp:
-						imp = new ImpAttacker(Subspecies.IMP, Gender.M_P_MALE, false);
+						imp = new ImpAttacker(Subspecies.IMP, Gender.M_P_MALE);
 						impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 						imp.setLevel(6+Util.random.nextInt(3)); // 6-8
 						Main.game.addNPC(imp, false);
 						impGroup.add(imp);
 						
 						// Normal imp:
-						imp = new ImpAttacker(Subspecies.IMP, Gender.M_P_MALE, false);
+						imp = new ImpAttacker(Subspecies.IMP, Gender.M_P_MALE);
 						impAdjectives.add(Main.game.getCharacterUtils().setGenericName(imp, impAdjectives));
 						imp.setLevel(4+Util.random.nextInt(3)); // 4-6
 						Main.game.addNPC(imp, false);
@@ -1025,7 +1025,7 @@ public class Encounter {
 					}
 				}
 				
-				Main.game.setActiveNPC(new SubmissionAttacker(Gender.getGenderFromUserPreferences(false, false)));
+				Main.game.setActiveNPC(new SubmissionAttacker());
 				try {
 					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
@@ -1148,7 +1148,7 @@ public class Encounter {
 					}
 				}
 				
-				Main.game.setActiveNPC(new BatCavernLurkerAttacker(Gender.getGenderFromUserPreferences(false, false)));
+				Main.game.setActiveNPC(new BatCavernLurkerAttacker());
 				try {
 					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
@@ -1173,7 +1173,7 @@ public class Encounter {
 					}
 				}
 				
-				Main.game.setActiveNPC(new BatCavernSlimeAttacker(Gender.getGenderFromUserPreferences(false, false)));
+				Main.game.setActiveNPC(new BatCavernSlimeAttacker());
 				try {
 					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
@@ -1366,7 +1366,7 @@ public class Encounter {
 			}
 			
 			if(node == EncounterType.DOMINION_STORM_ATTACK && Main.game.getCurrentWeather() == Weather.MAGIC_STORM) {
-				NPC npc = new DominionAlleywayAttacker(Gender.getGenderFromUserPreferences(false, false), false, NPCGenerationFlag.DIRTY);
+				NPC npc = new DominionAlleywayAttacker(NPCGenerationFlag.DIRTY);
 				try {
 					Main.game.addNPC(npc, false);
 				} catch (Exception e) {

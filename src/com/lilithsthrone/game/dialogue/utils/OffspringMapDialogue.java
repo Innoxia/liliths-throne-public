@@ -2,7 +2,6 @@ package com.lilithsthrone.game.dialogue.utils;
 
 import java.util.List;
 
-import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.character.npc.misc.OffspringSeed;
@@ -162,11 +161,6 @@ public class OffspringMapDialogue {
 					@Override
 					public void effects() {
 						NPC npc = new NPCOffspring(offspring);
-
-						npc.setLocation(Main.game.getPlayer(), true);
-
-						npc.equipClothing(EquipClothingSetting.getAllClothingSettings());
-
 						Main.game.setActiveNPC(npc);
 
 						Main.game.getTextStartStringBuilder().append(

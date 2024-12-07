@@ -1,6 +1,5 @@
 package com.lilithsthrone.game.character.npc.submission;
 
-import java.time.Month;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,8 +17,8 @@ import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.markings.TattooType;
-import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
+import com.lilithsthrone.game.character.npc.RandomNPC;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
@@ -29,12 +28,9 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.character.race.SubspeciesPreference;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.companions.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.RatWarrensDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.outfit.OutfitType;
 import com.lilithsthrone.main.Main;
@@ -48,93 +44,78 @@ import com.lilithsthrone.world.places.PlaceType;
  * @version 0.3.5.5
  * @author Innoxia
  */
-public class RatGangMember extends NPC {
+public class RatGangMember extends RandomNPC {
 
-	public RatGangMember() {
-		this(Gender.getGenderFromUserPreferences(false, false), false);
+	public RatGangMember(NPCGenerationFlag... generationFlags) {
+		this(false, Gender.getGenderFromUserPreferences(false, false), generationFlags);
 	}
 	
-	public RatGangMember(Gender gender) {
-		this(gender, false);
+	public RatGangMember(Gender gender, NPCGenerationFlag... generationFlags) {
+		this(false, gender, generationFlags);
 	}
 	
 	public RatGangMember(boolean isImported) {
-		this(Gender.F_V_B_FEMALE, isImported);
+		this(isImported, Gender.F_V_B_FEMALE);
 	}
 	
-	public RatGangMember(Gender gender, boolean isImported) {
-		super(isImported, null, null, "",
-				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				5,
-				null, null, null,
-				new CharacterInventory(10), WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL, false);
+	public RatGangMember(boolean isImported, Gender gender, NPCGenerationFlag... generationFlags) {
+		super(isImported, false, generationFlags);
 
-		if(!isImported) {
-			// RACE:
-			
-			Map<AbstractSubspecies, Integer> subspeciesMap = new HashMap<>();
-			for(Entry<AbstractSubspecies, SubspeciesPreference> entry : gender.getGenderName().isHasPenis()?Main.getProperties().getSubspeciesMasculinePreferencesMap().entrySet():Main.getProperties().getSubspeciesFemininePreferencesMap().entrySet()) {
-				if(entry.getKey().getRace()==Race.RAT_MORPH) {
-					subspeciesMap.put(entry.getKey(), entry.getValue().getValue());
-				}
+		if (isImported) {
+			return;
+		}
+
+		// Pre-setup
+		Map<AbstractSubspecies, Integer> subspeciesMap = new HashMap<>();
+		for(Entry<AbstractSubspecies, SubspeciesPreference> entry : gender.getGenderName().isHasPenis()?Main.getProperties().getSubspeciesMasculinePreferencesMap().entrySet():Main.getProperties().getSubspeciesFemininePreferencesMap().entrySet()) {
+			if(entry.getKey().getRace()==Race.RAT_MORPH) {
+				subspeciesMap.put(entry.getKey(), entry.getValue().getValue());
 			}
-			AbstractSubspecies subspecies = Util.getRandomObjectFromWeightedMap(subspeciesMap);
-			if(subspecies==null) {
-				subspecies = Subspecies.RAT_MORPH;
-			}
-			RaceStage stage = RaceStage.getRaceStageFromUserPreferences(gender, subspecies);
-			if(stage==RaceStage.HUMAN) {
-				stage = RaceStage.PARTIAL;
-			}
-			
-			this.setBody(gender, subspecies, stage, true);
-			
-			Main.game.getCharacterUtils().addFetishes(this);
-			// Do not give a negative fetish desire towards these fetishes, as otherwise it ends up in the gang members being gentle in sex, which doesn't really fit, or not using appropriate actions:
-			AbstractFetish[] fetishes = new AbstractFetish[] {
-					Fetish.FETISH_NON_CON_DOM,
-					Fetish.FETISH_SADIST,
-					Fetish.FETISH_DOMINANT,
-					Fetish.FETISH_PENIS_GIVING,
-					Fetish.FETISH_ANAL_GIVING,
-					Fetish.FETISH_VAGINAL_GIVING,
-					Fetish.FETISH_VAGINAL_RECEIVING,
-					Fetish.FETISH_ORAL_RECEIVING};
-			for(AbstractFetish f : fetishes) {
-				if(this.getFetishDesire(f).isNegative()) {
-					this.setFetishDesire(f, FetishDesire.TWO_NEUTRAL);
-				}
-			}
-			
-			setName(Name.getRandomTriplet(this.getSubspecies()));
-			this.setPlayerKnowsName(false);
-			this.setGenericName("gang-member");
-			
-			Main.game.getCharacterUtils().randomiseBody(this, true);
-			
-			
-			// INVENTORY:
-			
-			resetInventory(true);
-			inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
-			Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
-	
-			equipClothing(EquipClothingSetting.getAllClothingSettings());
-			Main.game.getCharacterUtils().applyMakeup(this, true);
-			
-			// Set starting attributes based on the character's race
-			initPerkTreeAndBackgroundPerks();
-			this.setStartingCombatMoves();
-			loadImages();
-			
-			initHealthAndManaToMax();
-			this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
-			this.removePersonalityTrait(PersonalityTrait.LISP);
-			this.removePersonalityTrait(PersonalityTrait.STUTTER);
-			this.removePersonalityTrait(PersonalityTrait.MUTE);
+		}
+		AbstractSubspecies subspecies = Util.getRandomObjectFromWeightedMap(subspeciesMap);
+		if(subspecies==null) {
+			subspecies = Subspecies.RAT_MORPH;
+		}
+		RaceStage stage = RaceStage.getRaceStageFromUserPreferences(gender, subspecies);
+		if(stage==RaceStage.HUMAN) {
+			stage = RaceStage.PARTIAL;
 		}
 		
-		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
+		// Setup
+		setupNPC(subspecies,
+				stage,
+				Occupation.NPC_GANG_MEMBER,
+				false,
+				false,
+				false,
+				true,
+				true,
+				true,
+				true,
+				generationFlags);
+		
+		// Post-setup
+		this.setGenericName("gang-member");
+		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		this.addPersonalityTrait(PersonalityTrait.SLOVENLY);
+		this.removePersonalityTrait(PersonalityTrait.LISP);
+		this.removePersonalityTrait(PersonalityTrait.STUTTER);
+		this.removePersonalityTrait(PersonalityTrait.MUTE);
+		// Do not give a negative fetish desire towards these fetishes, as otherwise it ends up in the gang members being gentle in sex, which doesn't really fit, or not using appropriate actions:
+		AbstractFetish[] fetishes = new AbstractFetish[] {
+				Fetish.FETISH_NON_CON_DOM,
+				Fetish.FETISH_SADIST,
+				Fetish.FETISH_DOMINANT,
+				Fetish.FETISH_PENIS_GIVING,
+				Fetish.FETISH_ANAL_GIVING,
+				Fetish.FETISH_VAGINAL_GIVING,
+				Fetish.FETISH_VAGINAL_RECEIVING,
+				Fetish.FETISH_ORAL_RECEIVING};
+		for(AbstractFetish f : fetishes) {
+			if(this.getFetishDesire(f).isNegative()) {
+				this.setFetishDesire(f, FetishDesire.TWO_NEUTRAL);
+			}
+		}
 	}
 	
 	@Override
@@ -147,11 +128,6 @@ public class RatGangMember extends NPC {
 
 	@Override
 	public void setStartingBody(boolean setPersona) {
-		if(setPersona) {
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC); // Just to make player defeats easier to handle
-			
-			this.setHistory(Occupation.NPC_GANG_MEMBER);
-		}
 		if(this.hasPenis()) {
 			this.setPenisVirgin(false);
 		}
@@ -173,11 +149,6 @@ public class RatGangMember extends NPC {
 	}
 	
 	@Override
-	public boolean isUnique() {
-		return false;
-	}
-	
-	@Override
 	public String getDescription() {
 		if(this.isSlave()) {
 			return (UtilText.parse(this,
@@ -188,31 +159,7 @@ public class RatGangMember extends NPC {
 		}
 	}
 	
-	@Override
-	public void endSex() {
-	}
-
-	@Override
-	public boolean isClothingStealable() {
-		return true;
-	}
-	
-	@Override
-	public boolean isAbleToBeImpregnated() {
-		return true;
-	}
-	
-	@Override
-	public void changeFurryLevel(){
-	}
-	
-	@Override
-	public DialogueNode getEncounterDialogue() {
-		return null;
-	}
-
 	// Combat:
-	
 	@Override
 	public int getEscapeChance() {
 		return 0;

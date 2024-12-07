@@ -8,7 +8,6 @@ import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
-import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Angel;
 import com.lilithsthrone.game.character.npc.dominion.Bunny;
@@ -432,7 +431,7 @@ public class RedLightDistrict {
 					return new Response("Sell body (Sub)", "Tell Angel that you've like to act as the submissive partner, and then wait around for a client to show up.", ANGELS_KISS_SELL_SELF_SUB){
 						@Override
 						public void effects() {
-							NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+							NPC npc = new GenericSexualPartner();
 							if(Math.random()<0.4f) {
 								npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 							} else {
@@ -457,7 +456,7 @@ public class RedLightDistrict {
 					return new Response("Sell body (Dom)", "Tell Angel that you've like to act as the dominant partner, and then wait around for a client to show up.", ANGELS_KISS_SELL_SELF_DOM){
 						@Override
 						public void effects() {
-							NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
+							NPC npc = new GenericSexualPartner();
 							if(Math.random()<0.4f) {
 								npc.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 							} else {
@@ -1267,7 +1266,8 @@ public class RedLightDistrict {
 				}
 				
 			} else if(Math.random()<0.33f) { // Add client:
-				GenericSexualPartner partner = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, false), prostitute.getWorldLocation(), prostitute.getLocation(), false);
+				GenericSexualPartner partner = new GenericSexualPartner();
+				partner.setLocation(prostitute.getWorldLocation(), prostitute.getLocation(), false);
 				try {
 					Main.game.addNPC(partner, false, true);
 				} catch (Exception e) {

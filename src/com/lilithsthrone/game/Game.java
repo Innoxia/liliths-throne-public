@@ -137,8 +137,6 @@ import com.lilithsthrone.game.character.npc.fields.Dale;
 import com.lilithsthrone.game.character.npc.fields.Daphne;
 import com.lilithsthrone.game.character.npc.fields.Eisek;
 import com.lilithsthrone.game.character.npc.fields.Evelyx;
-import com.lilithsthrone.game.character.npc.fields.EvelyxMilker;
-import com.lilithsthrone.game.character.npc.fields.EvelyxSexualPartner;
 import com.lilithsthrone.game.character.npc.fields.Fae;
 import com.lilithsthrone.game.character.npc.fields.Farah;
 import com.lilithsthrone.game.character.npc.fields.FieldsBandit;
@@ -153,9 +151,6 @@ import com.lilithsthrone.game.character.npc.fields.Imsu;
 import com.lilithsthrone.game.character.npc.fields.Jess;
 import com.lilithsthrone.game.character.npc.fields.Kazik;
 import com.lilithsthrone.game.character.npc.fields.Kheiron;
-import com.lilithsthrone.game.character.npc.fields.Lunette;
-import com.lilithsthrone.game.character.npc.fields.LunetteMelee;
-import com.lilithsthrone.game.character.npc.fields.LunetteRanged;
 import com.lilithsthrone.game.character.npc.fields.Lunexis;
 import com.lilithsthrone.game.character.npc.fields.Minotallys;
 import com.lilithsthrone.game.character.npc.fields.Monica;
@@ -167,6 +162,7 @@ import com.lilithsthrone.game.character.npc.fields.Penelope;
 import com.lilithsthrone.game.character.npc.fields.Silvia;
 import com.lilithsthrone.game.character.npc.fields.Sleip;
 import com.lilithsthrone.game.character.npc.fields.Sterope;
+import com.lilithsthrone.game.character.npc.fields.TavernGambler;
 import com.lilithsthrone.game.character.npc.fields.Ursa;
 import com.lilithsthrone.game.character.npc.fields.Vronti;
 import com.lilithsthrone.game.character.npc.fields.Wynter;
@@ -2105,7 +2101,7 @@ public class Game implements XMLSaving {
 				}
 				
 
-				if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.9.10")) { 
+				if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.9.10")) {
 					for(NPC npc : Main.game.getAllNPCs()) {
 						if(!npc.isSlave()) {
 							for(int i=0; i<24; i++) {
@@ -2116,7 +2112,7 @@ public class Game implements XMLSaving {
 						}
 					}
 				}
-				
+
 				if(Main.isVersionOlderThan(loadingVersion, "0.4.9.11")) {
 					if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_C_SIRENS_FALL)) {
 						ImpFortressDialogue.clearFortress(WorldType.IMP_FORTRESS_ALPHA);
@@ -2124,7 +2120,7 @@ public class Game implements XMLSaving {
 						ImpFortressDialogue.clearFortress(WorldType.IMP_FORTRESS_MALES);
 					}
 				}
-				
+
 				if(debug) {
 					System.out.println("New NPCs finished");
 					System.out.println("All finished");
@@ -2146,7 +2142,7 @@ public class Game implements XMLSaving {
 		
 
 		Main.game.getPlayer().updateLocationListeners();
-		
+
 		Main.game.setRenderMap(true);
 		Main.game.setRenderAttributesSection(true);
 		
@@ -2708,7 +2704,7 @@ public class Game implements XMLSaving {
 				getNpc(Saellatrix.class).setMother(getNpc(Lovienne.class));
 				getNpc(Saellatrix.class).setAffection(getNpc(Lovienne.class), 100);
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -5326,33 +5322,15 @@ public class Game implements XMLSaving {
 	 * @return The ID of the NPC which is spawned as a result of calling this method.
 	 */
 	public String addNPC(String npcGenerationId, String parserTarget) throws Exception {
-		//TODO add npcGenerationId map
-		boolean forceImmediateAddition = true; // TODO this may need testing, but I'm 99% sure that immediate addition will be fine, and it should prevent potential issues with NPC removal when resting/loitering for multiple hours at a time
-		
-		NPC npc = null;
-		if(npcGenerationId.equalsIgnoreCase("GenericSexualPartner")) {
-			npc = new GenericSexualPartner();
-		} else if(npcGenerationId.equalsIgnoreCase("EvelyxSexualPartner")) {
-			npc = new EvelyxSexualPartner();
-		} else if(npcGenerationId.equalsIgnoreCase("LunetteMelee")) {
-			npc = new LunetteMelee();
-		} else if(npcGenerationId.equalsIgnoreCase("LunetteRanged")) {
-			npc = new LunetteRanged();
-		} else if(npcGenerationId.equalsIgnoreCase("FieldsBandit")) {
-			npc = new FieldsBandit();
-		} else if(npcGenerationId.equalsIgnoreCase("EvelyxMilker")) {
-			npc = new EvelyxMilker();
+		NPC npc;
+		try {
+			npc = (NPC) Class.forName("com.lilithsthrone.game.character.npc."+npcGenerationId).getConstructor().newInstance();
+		} catch (Exception ex) {
+			System.err.println("Failed to add NPC: "+npcGenerationId);
+			ex.printStackTrace();
+			return "";
 		}
-		if(npc==null) {
-			try {
-				npc = (NPC) Class.forName("com.lilithsthrone.game.character.npc."+npcGenerationId).getConstructor().newInstance();
-			} catch (Exception ex) {
-				System.err.println("Failed to add NPC: "+npcGenerationId);
-				ex.printStackTrace();
-				return "";
-			}
-		}
-		String idGenerated = addNPC(npc, false, forceImmediateAddition);
+		String idGenerated = addNPC(npc, false, true);
 		if(parserTarget!=null && !parserTarget.isEmpty()) {
 			ParserTarget.addAdditionalParserTarget(parserTarget, npc);
 		}
@@ -6300,7 +6278,7 @@ public class Game implements XMLSaving {
 	}
 	
 	public void spawnDomGloryHoleNPC(String genericName, String parserTarget) {
-		NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, true), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false, (s)->s.isNonBiped()) {
+		NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, true), (s)->s.isNonBiped()) {
 			@Override
 			public void turnUpdate() {
 				if(this.getGenitalArrangement()==GenitalArrangement.NORMAL) { // Hide ass areas if normal genitals (not entirely sure why this was added...)
@@ -6366,7 +6344,7 @@ public class Game implements XMLSaving {
 	}
 	
 	public void spawnSubGloryHoleNPC(String genericName, String parserTarget) {
-		NPC npc = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, false), Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false, (s)->s.isNonBiped());
+		NPC npc = new GenericSexualPartner((s)->s.isNonBiped());
 
 		npc.setRaceConcealed(true);
 		Main.game.getCharacterUtils().setGenericName(npc, genericName, Util.newArrayListOfValues());
@@ -6416,21 +6394,19 @@ public class Game implements XMLSaving {
 	}
 	
 	public void initGamblersInElisTavern() {
-		AbstractWorldType wt = WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_alley");
-		AbstractPlaceType pt = PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_alley_dice_poker");
-		
-		List<NPC> gamblersPresent = Main.game.getCharactersPresent(Main.game.getWorlds().get(wt).getCell(pt));
+		List<NPC> gamblersPresent = Main.game.getCharactersPresent(
+				Main.game.getWorlds().get(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_alley")).getCell(PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_alley_dice_poker")));
 		for(NPC npc : gamblersPresent) {
-			if(npc instanceof GamblingDenPatron) {
+			if(npc instanceof GamblingDenPatron || npc instanceof TavernGambler) {
 				Main.game.banishNPC(npc);
 			}
 		}
 		try {
-			Main.game.addNPC(new GamblingDenPatron(Gender.getGenderFromUserPreferences(false, false), DicePokerTable.COPPER, wt, pt, false), false);
-			Main.game.addNPC(new GamblingDenPatron(Gender.getGenderFromUserPreferences(false, false), DicePokerTable.COPPER, wt, pt, false), false);
-			Main.game.addNPC(new GamblingDenPatron(Gender.getGenderFromUserPreferences(false, false), DicePokerTable.SILVER, wt, pt, false), false);
-			Main.game.addNPC(new GamblingDenPatron(Gender.getGenderFromUserPreferences(false, false), DicePokerTable.SILVER, wt, pt, false), false);
-			Main.game.addNPC(new GamblingDenPatron(Gender.getGenderFromUserPreferences(false, false), DicePokerTable.GOLD, wt, pt, false), false);
+			Main.game.addNPC(new TavernGambler(DicePokerTable.COPPER), false);
+			Main.game.addNPC(new TavernGambler(DicePokerTable.COPPER), false);
+			Main.game.addNPC(new TavernGambler(DicePokerTable.SILVER), false);
+			Main.game.addNPC(new TavernGambler(DicePokerTable.SILVER), false);
+			Main.game.addNPC(new TavernGambler(DicePokerTable.GOLD), false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -6470,7 +6446,7 @@ public class Game implements XMLSaving {
 	public String getBookEffect(AbstractSubspecies mainSubspecies, boolean withDescription) {
 		return AbstractItemEffectType.getBookEffect(Main.game.getPlayer(), mainSubspecies, null, withDescription);
 	}
-	
+
 	// UtilText method access:
 	
 	public boolean isVowel(char c) {

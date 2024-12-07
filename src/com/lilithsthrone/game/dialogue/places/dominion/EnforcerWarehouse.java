@@ -1,14 +1,10 @@
 package com.lilithsthrone.game.dialogue.places.dominion;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.EnforcerWarehouseGuard;
 import com.lilithsthrone.game.character.npc.dominion.Sean;
@@ -16,10 +12,6 @@ import com.lilithsthrone.game.character.npc.submission.Claire;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
-import com.lilithsthrone.game.character.race.AbstractSubspecies;
-import com.lilithsthrone.game.character.race.FurryPreference;
-import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.spells.Spell;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -87,80 +79,13 @@ public class EnforcerWarehouse {
 	}
 	
 	private static EnforcerWarehouseGuard generateGuard(Occupation occupation) {
-		Gender gender = Gender.getGenderFromUserPreferences(false, false);
-		Map<AbstractSubspecies, Integer> subspeciesMap = new HashMap<>();
-		
-		// Make SWORD guards a predator subspecies:
-		List <AbstractSubspecies> subspeciesAvailable = Util.newArrayListOfValues(
-				Subspecies.getSubspeciesFromId("innoxia_panther_subspecies_tiger"),
-				Subspecies.getSubspeciesFromId("innoxia_panther_subspecies_lion"),
-				Subspecies.getSubspeciesFromId("innoxia_panther_subspecies_leopard"),
-				Subspecies.DOG_MORPH_DOBERMANN,
-				Subspecies.DOG_MORPH_GERMAN_SHEPHERD,
-				Subspecies.FOX_MORPH,
-				Subspecies.WOLF_MORPH);
-		
-		for(AbstractSubspecies subspecies : subspeciesAvailable) {
-			if(gender.isFeminine()) {
-				if(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(subspecies)!=FurryPreference.HUMAN
-						&& Main.getProperties().getSubspeciesFemininePreferencesMap().get(subspecies).getValue()>0) {
-					subspeciesMap.put(subspecies, Main.getProperties().getSubspeciesFemininePreferencesMap().get(subspecies).getValue());
-				}
-			} else {
-				if(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(subspecies)!=FurryPreference.HUMAN
-						&& Main.getProperties().getSubspeciesMasculinePreferencesMap().get(subspecies).getValue()>0) {
-					subspeciesMap.put(subspecies, Main.getProperties().getSubspeciesMasculinePreferencesMap().get(subspecies).getValue());
-				}
-			}
+		try {
+			EnforcerWarehouseGuard guard = new EnforcerWarehouseGuard(occupation);
+			Main.game.addNPC(guard, false);
+			return guard;
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		if(gender.isFeminine()) {
-			for(Entry<AbstractSubspecies, FurryPreference> entry : Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().entrySet()) {
-				if(entry.getValue() == FurryPreference.HUMAN) {
-					subspeciesMap.remove(entry.getKey());
-				}
-			}
-		} else {
-			for(Entry<AbstractSubspecies, FurryPreference> entry : Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().entrySet()) {
-				if(entry.getValue() == FurryPreference.HUMAN) {
-					subspeciesMap.remove(entry.getKey());
-				}
-			}
-		}
-		
-		int total = 0;
-		for(Integer i : subspeciesMap.values()) {
-			total += i;
-		}
-		
-		if(subspeciesMap.isEmpty() || total==0) {
-			try {
-				// If there is no suitable subspecies, use one at random and make them partial (as humans cannot be in SWORD):
-				EnforcerWarehouseGuard guard = new EnforcerWarehouseGuard(occupation, Util.randomItemFrom(subspeciesAvailable), RaceStage.PARTIAL, gender, false);
-				Main.game.addNPC(guard, false);
-				return guard;
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-		} else {
-			AbstractSubspecies species = Util.getRandomObjectFromWeightedMap(subspeciesMap);
-			RaceStage stage = RaceStage.GREATER;
-			if(gender.isFeminine()) {
-				stage = Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().get(species), gender, species);
-			} else {
-				stage = Main.game.getCharacterUtils().getRaceStageFromPreferences(Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().get(species), gender, species);
-			}
-			
-			try {
-				EnforcerWarehouseGuard guard = new EnforcerWarehouseGuard(occupation, species, stage, gender, false);
-				Main.game.addNPC(guard, false);
-				return guard;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	
 		return null;
 	}
 	

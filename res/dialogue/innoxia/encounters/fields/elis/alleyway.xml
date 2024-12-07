@@ -5,15 +5,7 @@
 
 	<scene id="start">
 		<preParsingEffects><![CDATA[
-			#IF(pc.getCell().getCharactersHomeIds().isEmpty())
-				[#game.addNPC('fields.ElisAlleywayAttacker', 'attacker')]
-			#ELSE
-				[#game.setParserTarget('attacker', game.getNPCById(pc.getCell().getCharactersHomeIds().iterator().next()))]
-			#ENDIF
 			[#game.setActiveNPC(attacker)]
-			[#npc.setHistory(OCCUPATION_NPC_MUGGER)]
-			[#npc.equipClothing()]
-			[#npc.setLocation(pc, true)]
 			[#npc.generatePostCombatPotions()]
 			[#flags.setFlag(FLAG_innoxia_elis_alleyway_talked, false)]
 			[#flags.setFlag(FLAG_innoxia_alleyway_transformations_applied, false)]

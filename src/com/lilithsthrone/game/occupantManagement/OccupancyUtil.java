@@ -1104,7 +1104,7 @@ public class OccupancyUtil implements XMLSaving {
 						eventGenerated = Util.getRandomObjectFromWeightedMap(weightedSettingsMap);
 //						eventGenerated = settingsEnabled.get(Util.random.nextInt(settingsEnabled.size()));
 					}
-					
+
 					boolean usingRealPartner = true;
 					if(hour!=Main.game.getHourOfDay()) {
 						usingRealPartner = false;
@@ -1116,7 +1116,7 @@ public class OccupancyUtil implements XMLSaving {
 					String partnerHer = "her";
 					String partnerHerHim = "her";
 					String partnerShe = "she";
-					
+
 					Gender partnerGender = Gender.getGenderFromUserPreferences(false, false);
 					Map<AbstractSubspecies, Integer> availablePartnerRaces = null;
 					AbstractSubspecies partnerSubspecies = Subspecies.HUMAN;
@@ -1130,7 +1130,7 @@ public class OccupancyUtil implements XMLSaving {
 					if(eventGenerated==SlaveJobSetting.SEX_ANAL || eventGenerated==SlaveJobSetting.SEX_VAGINAL || eventGenerated==SlaveJobSetting.SEX_NIPPLES || eventGenerated==SlaveJobSetting.SEX_ORAL) {
 						partnerGender = Gender.getGenderFromUserPreferences(false, true);
 					}
-					
+
 					if(usingRealPartner) {
 						partner = new GenericSexualPartner(partnerGender, slave.getWorldLocation(), slave.getLocation(), false);
 						try {
@@ -1216,7 +1216,7 @@ public class OccupancyUtil implements XMLSaving {
 									effects.add(UtilText.parse("[style.colourSexDom(Performed Anal:)] "+effectDescriptions.toString()));
 									effectDescriptions.setLength(0);
 									slave.calculateGenericSexEffects(false, true, partner, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS));
-									
+
 								} else {
 									effectDescriptions.append(UtilText.parse(slave,
 											UtilText.returnStringAtRandom(
@@ -1228,7 +1228,7 @@ public class OccupancyUtil implements XMLSaving {
 									slave.calculateGenericSexEffects(false, true, null, partnerSubspecies, partnerHalfDemonSubspecies, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS));
 								}
 								break;
-								
+
 							case SEX_ORAL:
 								if(usingRealPartner) {
 									if(partner.hasPenis()) {
@@ -1240,7 +1240,7 @@ public class OccupancyUtil implements XMLSaving {
 										effects.add("[style.colourSex(Gave Blowjob:)] "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);
 										slave.calculateGenericSexEffects(false, true, partner, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS));
-										
+
 									} else {
 										effectDescriptions.append(UtilText.parse(partner, slave,
 												UtilText.returnStringAtRandom(
@@ -1262,7 +1262,7 @@ public class OccupancyUtil implements XMLSaving {
 										effects.add("[style.colourSex(Gave Blowjob:)] "+effectDescriptions.toString());
 										effectDescriptions.setLength(0);
 										slave.calculateGenericSexEffects(false, true, null, partnerSubspecies, partnerHalfDemonSubspecies, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS));
-										
+
 									} else {
 										effectDescriptions.append(UtilText.parse(slave,
 												UtilText.returnStringAtRandom(
@@ -1288,7 +1288,7 @@ public class OccupancyUtil implements XMLSaving {
 										effects.add(UtilText.parse("[style.colourSexDom(Received Blowjob:)] "+effectDescriptions.toString()));
 										effectDescriptions.setLength(0);
 										slave.calculateGenericSexEffects(false, true, partner, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH));
-										
+
 									} else {
 										effectDescriptions.append(UtilText.parse(partner, slave,
 												UtilText.returnStringAtRandom(
@@ -1299,7 +1299,7 @@ public class OccupancyUtil implements XMLSaving {
 										effectDescriptions.setLength(0);
 										slave.calculateGenericSexEffects(false, true, partner, new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE));
 									}
-									
+
 								} else {
 									if(slavePenis && (slaveVagina?Math.random()<0.5f:true)) { // If slave has vagina available, 50/50 for oral type
 										effectDescriptions.append(UtilText.parse(slave,
@@ -1310,7 +1310,7 @@ public class OccupancyUtil implements XMLSaving {
 										effects.add(UtilText.parse("[style.colourSexDom(Received Blowjob:)] "+effectDescriptions.toString()));
 										effectDescriptions.setLength(0);
 										slave.calculateGenericSexEffects(false, true, null, partnerSubspecies, partnerHalfDemonSubspecies, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH));
-										
+
 									} else {
 										effectDescriptions.append(UtilText.parse(slave,
 												UtilText.returnStringAtRandom(
@@ -1358,7 +1358,7 @@ public class OccupancyUtil implements XMLSaving {
 									effects.add("[style.colourSexDom(Nipple Fuck:)] "+effectDescriptions.toString());
 									effectDescriptions.setLength(0);
 									slave.calculateGenericSexEffects(false, true, partner, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE));
-									
+
 								} else {
 									effectDescriptions.append(UtilText.parse(slave,
 											UtilText.returnStringAtRandom(
@@ -1370,7 +1370,7 @@ public class OccupancyUtil implements XMLSaving {
 									slave.calculateGenericSexEffects(false, true, null, partnerSubspecies, partnerHalfDemonSubspecies, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.NIPPLE));
 								}
 								break;
-								
+
 							case SEX_VAGINAL:
 								if(usingRealPartner) {
 									effectDescriptions.append(
@@ -1454,7 +1454,7 @@ public class OccupancyUtil implements XMLSaving {
 									effects.add(UtilText.parse("[style.colourSexDom(Fucked Pussy:)] "+effectDescriptions.toString()));
 									effectDescriptions.setLength(0);
 									slave.calculateGenericSexEffects(false, true, partner, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA));
-									
+
 								} else {
 									effectDescriptions.append(UtilText.parse(slave,
 											UtilText.returnStringAtRandom(
@@ -1466,7 +1466,7 @@ public class OccupancyUtil implements XMLSaving {
 									slave.calculateGenericSexEffects(false, true, null, partnerSubspecies, partnerHalfDemonSubspecies, new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA));
 								}
 								break;
-								
+
 							default:
 								break;
 						
@@ -1508,7 +1508,7 @@ public class OccupancyUtil implements XMLSaving {
 		if(Main.game.isNipplePenEnabled() && slave.isBreastFuckableNipplePenetration() && slave.hasSlaveJobSetting(currentJob, SlaveJobSetting.SEX_NIPPLES) && slave.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true)) {
 			settingsEnabled.add(SlaveJobSetting.SEX_NIPPLES);
 		}
-		
+
 		if(slave.hasPenis() && slave.hasSlaveJobSetting(currentJob, SlaveJobSetting.SEX_VAGINAL_DOM) && slave.isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
 			settingsEnabled.add(SlaveJobSetting.SEX_VAGINAL_DOM);
 		}

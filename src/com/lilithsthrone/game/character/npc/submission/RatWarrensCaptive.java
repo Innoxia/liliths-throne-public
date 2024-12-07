@@ -1,13 +1,7 @@
 package com.lilithsthrone.game.character.npc.submission;
 
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.lilithsthrone.game.character.body.valueEnums.*;
-import com.lilithsthrone.game.character.effects.Perk;
-import com.lilithsthrone.game.character.effects.PerkCategory;
-import com.lilithsthrone.game.character.effects.PerkManager;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -21,19 +15,35 @@ import com.lilithsthrone.game.character.body.Penis;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.FluidType;
+import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
+import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
+import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
+import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
+import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
+import com.lilithsthrone.game.character.body.valueEnums.Lactation;
+import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeDepth;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
+import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
+import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.PerkCategory;
+import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
-import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.persona.Name;
+import com.lilithsthrone.game.character.npc.NPCGenerationFlag;
+import com.lilithsthrone.game.character.npc.RandomNPC;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
-import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -47,63 +57,116 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.3.5.5
  * @version 0.3.9
  * @author Innoxia
  */
-public class RatWarrensCaptive extends NPC {
+public class RatWarrensCaptive extends RandomNPC {
 
-	public RatWarrensCaptive() {
-		this(Gender.getGenderFromUserPreferences(Femininity.FEMININE), false);
+	public RatWarrensCaptive(NPCGenerationFlag... generationFlags) {
+		this(false, generationFlags);
 	}
 	
-	public RatWarrensCaptive(Gender gender) {
-		this(gender, false);
-	}
-	
-	public RatWarrensCaptive(boolean isImported) {
-		this(Gender.F_V_B_FEMALE, isImported);
-	}
-	
-	public RatWarrensCaptive(Gender gender, boolean isImported) {
-		super(isImported, null, null, "",
-				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
-				5,
-				gender, Subspecies.HUMAN, RaceStage.HUMAN,
-				new CharacterInventory(10), WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_MILKING_ROOM, false);
-
-		if(!isImported) {
-			// RACE:
-			
-			setName(Name.getRandomTriplet(this.getSubspecies()));
-			this.setPlayerKnowsName(false);
-			this.setGenericName("captive");
-
-			Main.game.getCharacterUtils().randomiseBody(this, true);
-			setStartingBody(false);
-			
-			// INVENTORY:
-			
-			resetInventory(true);
-			inventory.setMoney(0);
-	
-//			Main.game.getCharacterUtils().applyMakeup(this, true);
-			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
-			
-			initPerkTreeAndBackgroundPerks();
-			this.removePersonalityTrait(PersonalityTrait.MUTE);
-			
-			this.setAttribute(Attribute.MAJOR_CORRUPTION, 50+Util.random.nextInt(26));
-			
-			this.setStartingCombatMoves();
-			
-			initHealthAndManaToMax();
+	public RatWarrensCaptive(boolean isImported, NPCGenerationFlag... generationFlags) {
+		super(isImported, false, generationFlags);
+		
+		if(isImported) {
+			return;
 		}
 		
-//		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE, true);
+		// Pre-setup
+		this.setGenderIdentity(Gender.F_V_B_FEMALE);
+		
+		// Setup
+		setupNPC(Subspecies.HUMAN,
+				RaceStage.HUMAN,
+				Occupation.NPC_CAPTIVE,
+				true,
+				false,
+				false,
+				false,
+				false,
+				false,
+				false,
+				generationFlags);
+		
+		// Post-setup
+		this.setGenericName("captive");
+		this.setSexualOrientation(SexualOrientation.AMBIPHILIC); // Just to make player easier to handle
+		this.removePersonalityTrait(PersonalityTrait.MUTE);
+		this.setAttribute(Attribute.MAJOR_CORRUPTION, 50+Util.random.nextInt(26));
+
+		this.clearFetishes();
+		this.clearFetishDesires();
+		this.addFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING);
+		this.addFetish(Fetish.FETISH_SUBMISSIVE);
+		this.addFetish(Fetish.FETISH_MASOCHIST);
+		this.addFetish(Fetish.FETISH_EXHIBITIONIST);
+		this.addFetish(Fetish.FETISH_BREASTS_SELF);
+		this.addFetish(Fetish.FETISH_LACTATION_SELF);
+		this.addFetish(Fetish.FETISH_SIZE_QUEEN);
+		this.addFetish(Fetish.FETISH_PENIS_RECEIVING);
+		this.addFetish(Fetish.FETISH_CUM_ADDICT);
+		this.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
+		this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
+		this.addFetish(Fetish.FETISH_ORAL_GIVING);
+
+		this.setFaceVirgin(false);
+		this.setAssVirgin(false);
+		this.setVaginaVirgin(false);
+	
+		// Milking:
+		this.setBreastSize(CupSize.FF.getMeasurement()+Util.random.nextInt(10));
+		this.setNippleSize(NippleSize.FOUR_MASSIVE);
+		this.setAreolaeSize(AreolaeSize.FOUR_MASSIVE);
+		this.setNippleCapacity(0, true);
+		
+		this.setMilkFlavour(Util.randomItemFrom(FluidFlavour.getUnnaturalFlavourings()));
+		this.setBreastMilkStorage(Lactation.SIX_EXTREME_AMOUNT_DRIPPING.getMedianValue()+Util.random.nextInt(Lactation.SIX_EXTREME_AMOUNT_DRIPPING.getMedianValue()));
+		this.setBreastLactationRegeneration(FluidRegeneration.THREE_RAPID.getMedianRegenerationValuePerDay()+Util.random.nextInt(FluidRegeneration.THREE_RAPID.getMedianRegenerationValuePerDay()));
+
+		if(this.getCovering(BodyCoveringType.NIPPLES).getPrimaryColour().getDarkerLinkedColours().contains(PresetColour.SKIN_DARK)) {
+			this.setSkinCovering(new Covering(BodyCoveringType.NIPPLES, PresetColour.SKIN_DARK), false);
+		}
+	
+		// Anus:
+		if(Main.game.isAnalContentEnabled()) {
+			this.addAssOrificeModifier(OrificeModifier.PUFFY);
+			this.setAssWetness(Wetness.FIVE_SLOPPY);
+			this.setAssDepth(OrificeDepth.FIVE_VERY_DEEP.getValue());
+			this.setAssCapacity(Penis.getGenericDiameter(38, PenetrationGirth.SEVEN_FAT), true);
+			this.setAssElasticity(OrificeElasticity.ZERO_UNYIELDING.getValue());
+			this.setAssPlasticity(OrificePlasticity.SEVEN_MOULDABLE.getValue());
+			if(Main.game.isAssHairEnabled()) {
+				this.setPubicHair(BodyHair.FOUR_NATURAL);
+			}
+			if(this.getCovering(BodyCoveringType.ANUS).getPrimaryColour().getDarkerLinkedColours().contains(PresetColour.SKIN_DARK)) {
+				this.setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_DARK), false);
+			}
+		}
+	
+		// Vagina:
+		this.addVaginaOrificeModifier(OrificeModifier.PUFFY);
+		this.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE);
+		
+		this.setVaginaWetness(Wetness.SEVEN_DROOLING);
+		this.setGirlcumFlavour(Util.randomItemFrom(FluidFlavour.getUnnaturalFlavourings()));
+		this.addGirlcumModifier(FluidModifier.MUSKY);
+		this.setVaginaSquirter(true);
+		
+		this.setVaginaDepth(OrificeDepth.FIVE_VERY_DEEP.getValue());
+		this.setVaginaElasticity(OrificeElasticity.ZERO_UNYIELDING.getValue());
+		this.setVaginaPlasticity(OrificePlasticity.SEVEN_MOULDABLE.getValue());
+		this.setVaginaCapacity(Penis.getGenericDiameter(38, PenetrationGirth.SEVEN_FAT), true);
+		
+		if(Main.game.isPubicHairEnabled()) {
+			this.setPubicHair(BodyHair.FOUR_NATURAL);
+		}
+		if(this.getCovering(BodyCoveringType.VAGINA).getPrimaryColour().getDarkerLinkedColours().contains(PresetColour.SKIN_DARK)) {
+			this.setSkinCovering(new Covering(BodyCoveringType.VAGINA, PresetColour.SKIN_DARK), false);
+		}
 	}
 	
 	@Override
@@ -141,90 +204,6 @@ public class RatWarrensCaptive extends NPC {
 		}
 	}
 	
-	@Override
-	public void setStartingBody(boolean setPersona) {
-		if(setPersona) {
-			this.setSexualOrientation(SexualOrientation.AMBIPHILIC); // Just to make player easier to handle
-			
-			this.setHistory(Occupation.NPC_CAPTIVE);
-			
-			this.clearFetishes();
-			this.clearFetishDesires();
-			
-			this.addFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING);
-			
-			this.addFetish(Fetish.FETISH_SUBMISSIVE);
-			this.addFetish(Fetish.FETISH_MASOCHIST);
-			this.addFetish(Fetish.FETISH_EXHIBITIONIST);
-			
-			this.addFetish(Fetish.FETISH_BREASTS_SELF);
-			this.addFetish(Fetish.FETISH_LACTATION_SELF);
-
-			this.addFetish(Fetish.FETISH_SIZE_QUEEN);
-			this.addFetish(Fetish.FETISH_PENIS_RECEIVING);
-			this.addFetish(Fetish.FETISH_CUM_ADDICT);
-			
-			this.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
-			this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
-			this.addFetish(Fetish.FETISH_ORAL_GIVING);
-		}
-
-		this.setFaceVirgin(false);
-		this.setAssVirgin(false);
-		this.setVaginaVirgin(false);
-		
-		// Milking:
-		this.setBreastSize(CupSize.FF.getMeasurement()+Util.random.nextInt(10));
-		this.setNippleSize(NippleSize.FOUR_MASSIVE);
-		this.setAreolaeSize(AreolaeSize.FOUR_MASSIVE);
-		this.setNippleCapacity(0, true);
-		
-		this.setMilkFlavour(Util.randomItemFrom(FluidFlavour.getUnnaturalFlavourings()));
-		this.setBreastMilkStorage(Lactation.SIX_EXTREME_AMOUNT_DRIPPING.getMedianValue()+Util.random.nextInt(Lactation.SIX_EXTREME_AMOUNT_DRIPPING.getMedianValue()));
-		this.setBreastLactationRegeneration(FluidRegeneration.THREE_RAPID.getMedianRegenerationValuePerDay()+Util.random.nextInt(FluidRegeneration.THREE_RAPID.getMedianRegenerationValuePerDay()));
-
-		if(this.getCovering(BodyCoveringType.NIPPLES).getPrimaryColour().getDarkerLinkedColours().contains(PresetColour.SKIN_DARK)) {
-			this.setSkinCovering(new Covering(BodyCoveringType.NIPPLES, PresetColour.SKIN_DARK), false);
-		}
-		
-		// Anus:
-		if(Main.game.isAnalContentEnabled()) {
-			this.addAssOrificeModifier(OrificeModifier.PUFFY);
-			this.setAssWetness(Wetness.FIVE_SLOPPY);
-			this.setAssDepth(OrificeDepth.FIVE_VERY_DEEP.getValue());
-			this.setAssCapacity(Penis.getGenericDiameter(38, PenetrationGirth.SEVEN_FAT), true);
-			this.setAssElasticity(OrificeElasticity.ZERO_UNYIELDING.getValue());
-			this.setAssPlasticity(OrificePlasticity.SEVEN_MOULDABLE.getValue());
-			if(Main.game.isAssHairEnabled()) {
-				this.setPubicHair(BodyHair.FOUR_NATURAL);
-			}
-			if(this.getCovering(BodyCoveringType.ANUS).getPrimaryColour().getDarkerLinkedColours().contains(PresetColour.SKIN_DARK)) {
-				this.setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_DARK), false);
-			}
-		}
-
-		// Vagina:
-		this.addVaginaOrificeModifier(OrificeModifier.PUFFY);
-		this.setVaginaLabiaSize(LabiaSize.FOUR_MASSIVE);
-		
-		this.setVaginaWetness(Wetness.SEVEN_DROOLING);
-		this.setGirlcumFlavour(Util.randomItemFrom(FluidFlavour.getUnnaturalFlavourings()));
-		this.addGirlcumModifier(FluidModifier.MUSKY);
-		this.setVaginaSquirter(true);
-		
-		this.setVaginaDepth(OrificeDepth.FIVE_VERY_DEEP.getValue());
-		this.setVaginaElasticity(OrificeElasticity.ZERO_UNYIELDING.getValue());
-		this.setVaginaPlasticity(OrificePlasticity.SEVEN_MOULDABLE.getValue());
-		this.setVaginaCapacity(Penis.getGenericDiameter(38, PenetrationGirth.SEVEN_FAT), true);
-		
-		if(Main.game.isPubicHairEnabled()) {
-			this.setPubicHair(BodyHair.FOUR_NATURAL);
-		}
-		if(this.getCovering(BodyCoveringType.VAGINA).getPrimaryColour().getDarkerLinkedColours().contains(PresetColour.SKIN_DARK)) {
-			this.setSkinCovering(new Covering(BodyCoveringType.VAGINA, PresetColour.SKIN_DARK), false);
-		}
-	}
-
 	@Override
 	public String getDescription() {
 		StringBuilder sb = new StringBuilder();
@@ -287,11 +266,6 @@ public class RatWarrensCaptive extends NPC {
 	}
 	
 	@Override
-	public boolean isUnique() {
-		return false;
-	}
-	
-	@Override
 	public void hourlyUpdate(int hour) {
 		if(this.getHomeWorldLocation()==WorldType.RAT_WARRENS) {
 			// If the player is not a captive, and Murk has not been enslaved, then keep rolling for sex effects:
@@ -306,28 +280,4 @@ public class RatWarrensCaptive extends NPC {
 			}
 		}
 	}
-	
-	@Override
-	public void endSex() {
-	}
-
-	@Override
-	public boolean isClothingStealable() {
-		return true;
-	}
-	
-	@Override
-	public boolean isAbleToBeImpregnated() {
-		return true;
-	}
-	
-	@Override
-	public void changeFurryLevel(){
-	}
-	
-	@Override
-	public DialogueNode getEncounterDialogue() {
-		return null;
-	}
-
 }

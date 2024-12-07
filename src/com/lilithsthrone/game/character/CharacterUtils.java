@@ -103,7 +103,6 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
 import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
-import com.lilithsthrone.game.character.persona.Name;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
@@ -272,13 +271,13 @@ public class CharacterUtils {
 	public Body generateBody(GameCharacter linkedCharacter, Gender startingGender, GameCharacter mother, GameCharacter father) {
 		return generateBody(linkedCharacter, startingGender, mother, father, father==null?null:father.getBody());
 	}
-	
+
 	public Body generateBody(GameCharacter linkedCharacter, Gender startingGender, GameCharacter mother, GameCharacter father, Body fatherBody) {
 		Body body = null;
 		boolean takesAfterMother = true;
 		boolean raceFromMother = true;
 		Body motherBody = mother.getBody();
-		
+
 		// If the mother is feral, preGeneratedBodies are not taken into account, as the offspring must be feral:
 		if(!mother.isFeral() && father!=null) {
 			body = AbstractSubspecies.getPreGeneratedBody(linkedCharacter, startingGender, motherBody, fatherBody);
@@ -287,7 +286,7 @@ public class CharacterUtils {
 		if(fatherBody==null) {
 			fatherBody = motherBody;
 		}
-		
+
 		AbstractRacialBody motherGenericBody = RacialBody.valueOfRace(body==null?motherBody.getTrueRace():body.getTrueRace());
 		AbstractRacialBody fatherGenericBody = RacialBody.valueOfRace(body==null?fatherBody.getTrueRace():body.getTrueRace());
 		AbstractSubspecies raceTakesAfter = mother.getTrueSubspecies();
@@ -367,20 +366,20 @@ public class CharacterUtils {
 		linkedCharacter.setGenderIdentity(startingGender);
 		body.setBodyMaterial(mother.getBodyMaterial());
 		
-		
+
 		applyGenetics(linkedCharacter, body, motherBody, fatherBody, raceFromMother);
-		
+
 		// The applyRaceChanges and applySpeciesChanges methods sometimes change covering colours and then call updateCoverings(), which will result in this character's covering colours being unrelated to genetics
 		// To fix, coverings are saved and then restored after the two methods have been called
 		Map<AbstractBodyCoveringType, Covering> preChangesCoverings = body.getCoverings();
 		raceTakesAfter.getRace().applyRaceChanges(body);
 		raceTakesAfter.applySpeciesChanges(body);
 		body.setCoverings(preChangesCoverings);
-		
-		
+
+
 		return body;
 	}
-	
+
 	/**
 	 * @param offspring The offspring GameCharacter.
 	 * @param body The body of the offspring to which genetics should be applied.
@@ -397,14 +396,14 @@ public class CharacterUtils {
 		boolean feminineGender = startingGender.isFeminine();
 		AbstractRacialBody motherGenericBody = RacialBody.valueOfRace(body==null?motherBody.getTrueRace():body.getTrueRace());
 		AbstractRacialBody fatherGenericBody = RacialBody.valueOfRace(body==null?fatherBody.getTrueRace():body.getTrueRace());
-		
-		
+
+
 		// Takes other features from the parent closest to their femininity:
 		if(Math.abs(motherBody.getFemininity()-body.getFemininity()) > Math.abs(fatherBody.getFemininity()-body.getFemininity())) {
 			takesAfterMother = false;
 		}
 		body.setTakesAfterMother(takesAfterMother); // Even if race is inherited from father, can still take most features from mother
-		
+
 		// Non-biped parents:
 		if(takesAfterMother) {
 			if(body.getLeg().getType().isLegConfigurationAvailable(motherBody.getLegConfiguration())) {
@@ -439,7 +438,7 @@ public class CharacterUtils {
 		}
 		
 		body.updateCoverings(false, false, true, false);
-		
+
 		// Iris colour:
 		if(Math.random()<=0.9f) {
 			if(Math.random()>=takesAfterMotherChance) {
@@ -454,7 +453,7 @@ public class CharacterUtils {
 								fatherBody.getCoveringFromType(fatherBody.getEye()).getSecondaryColour(), fatherBody.getCoveringFromType(fatherBody.getEye()).isSecondaryGlowing()));
 			}
 		}
-		
+
 		// Pupil colour:
 		if(Math.random()<=0.5f) {
 			if(Math.random()>=takesAfterMotherChance) {
@@ -1965,29 +1964,7 @@ public class CharacterUtils {
 		return adjective;
 	}
 	
-	public void randomiseBody(GameCharacter character, boolean randomiseAge) {
-		
-		if(randomiseAge) {
-			int dayOfMonth = character.getDayOfBirth();
-			if(character.getBirthMonth() == Month.FEBRUARY) { // Don't set a character's birthday to a leap day as otherwise it ends up causing messy issues.
-				dayOfMonth = Math.min(dayOfMonth, 28);
-			}
-			if(character.getSubspeciesOverride()!=null && character.getSubspeciesOverride().isDoesNotAge()) {
-				character.setBirthday(LocalDateTime.of(Main.game.getDateNow().getYear()-(Util.random.nextInt(101)-GameCharacter.MINIMUM_AGE), character.getBirthMonth(), dayOfMonth, 12, 0));
-			} else {
-				character.setBirthday(LocalDateTime.of(Main.game.getDateNow().getYear()-(AgeCategory.getAgeFromPreferences(character.getGender())-GameCharacter.MINIMUM_AGE), character.getBirthMonth(), dayOfMonth, 12, 0));
-			}
-			character.setConceptionDate(character.getBirthday().minusDays(15+Util.random.nextInt(30)));
-			
-			if(character.getRace()==Race.HARPY) {
-				character.setAgeAppearanceDifferenceToAppearAsAge(Math.min(character.getAgeValue(), 18+Util.random.nextInt(9)));
-			}
-			if(character.getSubspeciesOverride()!=null && character.getSubspeciesOverride().isDoesNotAge()) {
-				character.setAgeAppearanceAbsolute(Math.min(character.getAgeValue(), 18+Util.random.nextInt(19))); // Range of real age to 36
-				//System.out.println("Override: "+character.getAgeAppearanceAbsolute()+", "+character.getAgeValue());
-			}
-		}
-		
+	public void randomiseBody(GameCharacter character) {
 		// Piercings (in order of probability that they'll have them, based on some random website that orders popularity):
 		// All piercings are reliant on having ear piercings first:
 		if (Math.random() >= (character.isFeminine()?0.1f:0.9f) || character.hasFetish(Fetish.FETISH_MASOCHIST)) {
@@ -2262,6 +2239,25 @@ public class CharacterUtils {
 		character.getBody().calculateRace(character);
 	}
 	
+	public void randomiseAge(GameCharacter character) {
+		int dayOfMonth = character.getDayOfBirth();
+		if(character.getBirthMonth() == Month.FEBRUARY) { // Don't set a character's birthday to a leap day as otherwise it ends up causing messy issues.
+			dayOfMonth = Math.min(dayOfMonth, 28);
+		}
+        if(character.getSubspeciesOverride()!=null && character.getSubspeciesOverride().isDoesNotAge()) {
+            character.setBirthday(LocalDateTime.of(Main.game.getDateNow().getYear()-(Util.random.nextInt(101)-GameCharacter.MINIMUM_AGE), character.getBirthMonth(), dayOfMonth, 12, 0));
+            character.setAgeAppearanceAbsolute(Math.min(character.getAgeValue(), 18+Util.random.nextInt(19))); // Range of real age to 36
+        } else {
+            character.setBirthday(LocalDateTime.of(Main.game.getDateNow().getYear()-(AgeCategory.getAgeFromPreferences(character.getGender())-GameCharacter.MINIMUM_AGE), character.getBirthMonth(), dayOfMonth, 12, 0));
+        }
+		character.setBirthday(LocalDateTime.of(Main.game.getDateNow().getYear()-(AgeCategory.getAgeFromPreferences(character.getGender())-GameCharacter.MINIMUM_AGE), character.getBirthMonth(), dayOfMonth, 12, 0));
+		character.setConceptionDate(character.getBirthday().minusDays(15+Util.random.nextInt(30)));
+
+		if(character.getSubspeciesOverrideRace()==Race.DEMON || character.getRace()==Race.HARPY) {
+			character.setAgeAppearanceDifferenceToAppearAsAge(18+Util.random.nextInt(9));
+		}
+	}
+
 	private static int getRandomSexCount(GameCharacter character) {
 		// Count of how many times they have sex a year
 		int baseCount = 1;
@@ -2588,89 +2584,7 @@ public class CharacterUtils {
 			}
 		}
 	}
-	
-	/**
-	 * Sets the History for the supplied character.
-	 * @param character
-	 */
-	public void setHistoryAndPersonality(GameCharacter character, boolean lowlife) {
 
-		 //TODO Set personality based on history. (Or vice-versa, but one should lead to the other.)
-		
-		if(lowlife) {
-			// High chance to be slovenly:
-			if(Math.random()<0.25f) {
-				character.addPersonalityTrait(PersonalityTrait.SLOVENLY);
-			}
-			
-			double prostituteChance = 0.15f; // Base 0.15% chance for any random to be a prostitute.
-			 			
-			 if(character.isFeminine()) {
-				prostituteChance += 0.10f; // Bonus for femininity
-			 }
-			 
-			 prostituteChance += Math.min((character.body.getBreast().getRawSizeValue()-7)*0.02f, 0.35f); // Compare breast size to average.
-			 
-			 if(character.hasPenis()) {
-				prostituteChance += Math.min((character.body.getPenis().getRawLengthValue()-5)*0.01f, 0.10f); // Scaling based off of cock size. Very small cocks are a penalty.
-			 } 
-			 
-			 if(character.hasVagina()) {
-				prostituteChance += 0.15f; // Bonus for vagina.
-			 }
-			 
-			 if(character.body.getBreast().getNipples().getOrificeNipples().getRawCapacityValue() >= 4) {
-				prostituteChance += 0.05f; //Bonus for fuckable nipples.
-			 }
-			 
-			 if(character.hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
-				prostituteChance = 0.03f; // addFetishes() can be called before or after this method. This is a catch for the case where addFetishes() is called before.
-			 }
-			 
-			 prostituteChance = Math.min(prostituteChance, 0.3f); // Prostitutes can only ever spawn at a maximum of a 30% chance.
-
-			if (Math.random() < prostituteChance) {
-				character.setHistory(Occupation.NPC_PROSTITUTE);
-				initProstitute(character);
-
-			} else {
-				character.setHistory(Occupation.NPC_MUGGER);
-			}
-			
-		} else {
-			List<Occupation> histories = Occupation.getAvailableHistories(character);
-			histories.removeIf((his) -> his.isLowlife());
-			character.setHistory(Util.randomItemFrom(histories));
-		}
-	}
-	
-	public static void initProstitute(GameCharacter character) {
-		character.removePersonalityTrait(PersonalityTrait.PRUDE);
-		character.removePersonalityTrait(PersonalityTrait.INNOCENT);
-
-		character.setAssVirgin(false);
-		character.setAssCapacity(character.getAssRawCapacityValue()
-				* 1.2f,
-				true);
-
-		if(character.hasVagina()) {
-			character.setVaginaVirgin(false);
-			character.setVaginaCapacity(character.getVaginaRawCapacityValue()
-					* 1.2f,
-					true);
-		}
-
-		if(character.hasPenis()) {
-			character.setPenisVirgin(false);
-		}
-
-		character.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-		character.setName(Name.getRandomProstituteTriplet());
-		character.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"),
-				character,
-				false);
-	}
-	
 	private static List<AbstractFetish> getAllowedFetishes(GameCharacter character) {
 		List<AbstractFetish> allowedFetishes = new ArrayList<>();
 		

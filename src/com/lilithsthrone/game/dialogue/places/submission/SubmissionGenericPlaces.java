@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.submission.Claire;
 import com.lilithsthrone.game.character.npc.submission.DarkSiren;
@@ -309,11 +308,11 @@ public class SubmissionGenericPlaces {
 						}
 						
 						try {
-							Main.game.addNPC(new GamblingDenPatron(Gender.getGenderFromUserPreferences(false, false), DicePokerTable.COPPER, false), false);
-							Main.game.addNPC(new GamblingDenPatron(Gender.getGenderFromUserPreferences(false, false), DicePokerTable.COPPER, false), false);
-							Main.game.addNPC(new GamblingDenPatron(Gender.getGenderFromUserPreferences(false, false), DicePokerTable.SILVER, false), false);
-							Main.game.addNPC(new GamblingDenPatron(Gender.getGenderFromUserPreferences(false, false), DicePokerTable.SILVER, false), false);
-							Main.game.addNPC(new GamblingDenPatron(Gender.getGenderFromUserPreferences(false, false), DicePokerTable.GOLD, false), false);
+							Main.game.addNPC(new GamblingDenPatron(DicePokerTable.COPPER), false);
+							Main.game.addNPC(new GamblingDenPatron(DicePokerTable.COPPER), false);
+							Main.game.addNPC(new GamblingDenPatron(DicePokerTable.SILVER), false);
+							Main.game.addNPC(new GamblingDenPatron(DicePokerTable.SILVER), false);
+							Main.game.addNPC(new GamblingDenPatron(DicePokerTable.GOLD), false);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

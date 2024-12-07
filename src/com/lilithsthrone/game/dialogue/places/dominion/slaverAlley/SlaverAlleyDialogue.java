@@ -150,7 +150,7 @@ public class SlaverAlleyDialogue {
 
 		// Anal stall:
 		for (int i=0; i<3; i++) {
-			NPC slave = new SlaveForSale(Gender.getGenderFromUserPreferences(false, false), false);
+			NPC slave = new SlaveForSale();
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -188,7 +188,7 @@ public class SlaverAlleyDialogue {
 
 		// Oral stall:
 		for (int i=0; i<3; i++) {
-			NPC slave = new SlaveForSale(Gender.getGenderFromUserPreferences(false, false), false);
+			NPC slave = new SlaveForSale();
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -321,7 +321,7 @@ public class SlaverAlleyDialogue {
 		banishSlavesInStocks();
 		
 		for(int i=0; i<4; i++) {
-			SlaveInStocks slave = new SlaveInStocks(Gender.getGenderFromUserPreferences(false, false));
+			SlaveInStocks slave = new SlaveInStocks();
 			try {
 				Main.game.addNPC(slave, false);
 			} catch (Exception e) {
@@ -380,7 +380,7 @@ public class SlaverAlleyDialogue {
 				g = Gender.getGenderFromUserPreferences(false, true);
 			}
 		}
-		NPC partner = new GenericSexualPartner(g, WorldType.SLAVER_ALLEY, Main.game.getPlayer().getLocation(), false);
+		NPC partner = new GenericSexualPartner(g);
 		setupPartner(partner);
 		try {
 			Main.game.addNPC(partner, false);
@@ -391,7 +391,7 @@ public class SlaverAlleyDialogue {
 		
 		if(Math.random()<0.25f || forceTwoPartners) { // Second partner:
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slaverAlleyTwoPartners, true);
-			partner = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, true), WorldType.SLAVER_ALLEY, Main.game.getPlayer().getLocation(), false);
+			partner = new GenericSexualPartner(Gender.getGenderFromUserPreferences(false, true));
 			setupPartner(partner);
 			try {
 				Main.game.addNPC(partner, false);
@@ -1159,7 +1159,6 @@ public class SlaverAlleyDialogue {
 						Main.game.getPlayer().getLocationPlaceType()==PlaceType.SLAVER_ALLEY_CAFE_2 || Main.game.getPlayer().getLocationPlaceType()==PlaceType.SLAVER_ALLEY_CAFE_3
 							?Gender.M_P_MALE
 							:Gender.F_V_B_FEMALE,
-						false,
 						false);
 				try {
 					Main.game.addNPC(slave, false);
@@ -2570,7 +2569,7 @@ public class SlaverAlleyDialogue {
 					}
  					@Override
 					public void effects() {
- 						SlaveInStocks tempSlave = new SlaveInStocks(Gender.getGenderFromUserPreferences(false, false));
+ 						SlaveInStocks tempSlave = new SlaveInStocks();
 						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slaverAlleyTookPlace)) {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "PUBLIC_STOCKS_COMPLAIN_TAKE_PLACE_REPEAT", tempSlave));
 						}
@@ -2607,8 +2606,8 @@ public class SlaverAlleyDialogue {
 					}
  					@Override
 					public void effects() {
- 						SlaveInStocks tempSlave = new SlaveInStocks(Gender.getGenderFromUserPreferences(false, false));
- 						SlaveInStocks tempSlave2 = new SlaveInStocks(Gender.getGenderFromUserPreferences(false, false));
+ 						SlaveInStocks tempSlave = new SlaveInStocks();
+ 						SlaveInStocks tempSlave2 = new SlaveInStocks();
  						
 						if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slaverAlleyTookPlace)) {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "PUBLIC_STOCKS_COMPLAIN_TAKE_PLACE_BOTH_REPEAT", tempSlave, tempSlave2));
