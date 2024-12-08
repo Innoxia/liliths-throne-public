@@ -138,7 +138,7 @@ public class RalphsSnacks {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseTrade("Trade with Ralph (food)", "Go and ask Ralph about the special consumable food items on display.", getRalph()) {
+				return new ResponseTrade("Deli", "Go and ask Ralph about the special consumable delicatessen on display.", getRalph()) {
 					@Override
 					public void effects() {
 						getRalph().clearNonEquippedInventory(false);
@@ -154,7 +154,7 @@ public class RalphsSnacks {
 				};
 
 			} else if (index == 2) {
-					return new ResponseTrade("Trade with Ralph (drink)", "Go and ask Ralph about the special consumable drink items on display.", getRalph()){
+					return new ResponseTrade("Beverages", "Go and ask Ralph about the special consumable beverages on display.", getRalph()){
 						@Override
 						public void effects() {
 							getRalph().clearNonEquippedInventory(false);
@@ -170,7 +170,7 @@ public class RalphsSnacks {
 					};
 
 			} else if (index == 3) {
-					return new ResponseTrade("Trade with Ralph (other)", "Go and ask Ralph about the other items on display.", getRalph()){
+					return new ResponseTrade("Sundries", "Go and ask Ralph about the other items on display.", getRalph()){
 						@Override
 						public void effects() {
 							getRalph().clearNonEquippedInventory(false);
