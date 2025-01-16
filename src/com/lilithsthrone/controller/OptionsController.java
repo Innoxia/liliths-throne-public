@@ -36,6 +36,8 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
+import static com.lilithsthrone.game.settings.ConfigOptions.*;
+
 /**
  * @since 0.4.6.4
  * @version 0.4.6.4
@@ -378,41 +380,27 @@ public class OptionsController {
 	}
 	
 	public static void initUnitListeners() {
-		createToggleListener("AUTO_LOCALE_ON", PropertyValue.autoLocale, true, ()->{
+		AUTO_LOCALE.addListener();
+		/*createToggleListener("AUTO_LOCALE_ON", PropertyValue.autoLocale, true, ()->{
 			Units.FORMATTER.updateSettings();
 			Units.FORMATTER.updateFormats(true);
 		});
 		createToggleListener("AUTO_LOCALE_OFF", PropertyValue.autoLocale, false, ()->{
 			Units.FORMATTER.updateSettings();
 			Units.FORMATTER.updateFormats(false);
-			
-		});
-		createToggleListener("METRIC_SIZES_ON", PropertyValue.metricSizes, true, MainController::overrideAutoLocale);
-		createToggleListener("METRIC_SIZES_OFF", PropertyValue.metricSizes, false, MainController::overrideAutoLocale);
-		createToggleListener("METRIC_FLUIDS_ON", PropertyValue.metricFluids, true, MainController::overrideAutoLocale);
-		createToggleListener("METRIC_FLUIDS_OFF", PropertyValue.metricFluids, false, MainController::overrideAutoLocale);
-		createToggleListener("METRIC_WEIGHTS_ON", PropertyValue.metricWeights, true, MainController::overrideAutoLocale);
-		createToggleListener("METRIC_WEIGHTS_OFF", PropertyValue.metricWeights, false, MainController::overrideAutoLocale);
-		
-		Runnable updater = ()->{
-			MainController.overrideAutoLocale();
-			Units.FORMATTER.updateTimeFormat(false);
-		};
-		createToggleListener("TWENTYFOUR_HOUR_TIME_ON", PropertyValue.twentyFourHourTime, true, updater);
-		createToggleListener("TWENTYFOUR_HOUR_TIME_OFF", PropertyValue.twentyFourHourTime, false, updater);
-		
-		updater = ()->{
-			MainController.overrideAutoLocale();
-			Units.FORMATTER.updateDateFormat(false);
-		};
-		createToggleListener("INTERNATIONAL_DATE_ON", PropertyValue.internationalDate, true, updater);
-		createToggleListener("INTERNATIONAL_DATE_OFF", PropertyValue.internationalDate, false, updater);
+		});*/
+		METRIC_SIZES.addListener();
+		METRIC_FLUIDS.addListener();
+		METRIC_WEIGHTS.addListener();
+
+		TWENTYFOUR_HOUR_TIME.addListener();
+		INTERNATIONAL_DATE.addListener();
 	}
 	
 	static void createMultipleToggleListeners(Map<String, PropertyValue> options) {
 		for (Map.Entry<String, PropertyValue> entry : options.entrySet()) {
-			OptionsController.createToggleListener(entry.getKey()+"_ON", entry.getValue(), true, null);
-			OptionsController.createToggleListener(entry.getKey()+"_OFF", entry.getValue(), false, null);
+			OptionsController.createToggleListener(entry.getKey() + "_ON", entry.getValue(), true, null);
+			OptionsController.createToggleListener(entry.getKey() + "_OFF", entry.getValue(), false, null);
 		}
 	}
 	
@@ -462,14 +450,13 @@ public class OptionsController {
 				}, false);
 			}
 		}
-		
-		createMultipleToggleListeners(Util.newHashMapOfValues(
-				new Util.Value<>("ARTWORK", PropertyValue.artwork),
-				new Util.Value<>("THUMBNAIL", PropertyValue.thumbnail),
-				new Util.Value<>("SHARED_ENCYCLOPEDIA", PropertyValue.sharedEncyclopedia),
-				new Util.Value<>("WEATHER_INTERRUPTION", PropertyValue.weatherInterruptions),
-				new Util.Value<>("DIALOGUE_COPY", PropertyValue.automaticDialogueCopy),
-				new Util.Value<>("SILLY", PropertyValue.sillyMode)));
+
+		ARTWORK.addListener();
+		THUMBNAIL.addListener();
+		SHARED_ENCYCLOPEDIA.addListener();
+		WEATHER_INTERRUPTION.addListener();
+		DIALOGUE_COPY.addListener();
+		SILLY.addListener();
 	}
 	
 	public static void initGameplayListeners() {
@@ -499,41 +486,10 @@ public class OptionsController {
 				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(Main.getProperties().clothingFemininityTitles[i], Main.getProperties().clothingFemininityDescriptions[i]));
 			}
 		}
-		
-		id = "PREGNANCY_DURATION_ON";
-		if (MainController.document.getElementById(id) != null) {
-			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				Main.getProperties().pregnancyDuration = Math.min(40, Main.getProperties().pregnancyDuration+1);
-				Main.saveProperties();
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			}, false);
-		}
-		id = "PREGNANCY_DURATION_OFF";
-		if (MainController.document.getElementById(id) != null) {
-			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				Main.getProperties().pregnancyDuration = Math.max(1, Main.getProperties().pregnancyDuration-1);
-				Main.saveProperties();
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			}, false);
-		}
-		
-		id = "FORCED_TF_ON";
-		if (MainController.document.getElementById(id) != null) {
-			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				Main.getProperties().forcedTFPercentage = Math.min(100, Main.getProperties().forcedTFPercentage+10);
-				Main.saveProperties();
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			}, false);
-		}
-		id = "FORCED_TF_OFF";
-		if (MainController.document.getElementById(id) != null) {
-			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				Main.getProperties().forcedTFPercentage = Math.max(0, Main.getProperties().forcedTFPercentage-10);
-				Main.saveProperties();
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			}, false);
-		}
-		
+
+		PREGNANCY_DURATION.addListener();
+		FORCED_TF.addListener();
+
 		// Forced TF racial limits:
 		for (FurryPreference fp : FurryPreference.values()) {
 			id = "FORCED_TF_FURRY_LIMIT_"+fp;
@@ -584,24 +540,9 @@ public class OptionsController {
 			MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(
 					ftt.getName(), ftt.getDescription()));
 		}
-		
-		id = "FORCED_FETISH_ON";
-		if (MainController.document.getElementById(id) != null) {
-			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				Main.getProperties().forcedFetishPercentage = Math.min(100, Main.getProperties().forcedFetishPercentage+10);
-				Main.saveProperties();
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			}, false);
-		}
-		id = "FORCED_FETISH_OFF";
-		if (MainController.document.getElementById(id) != null) {
-			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				Main.getProperties().forcedFetishPercentage = Math.max(0, Main.getProperties().forcedFetishPercentage-10);
-				Main.saveProperties();
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-			}, false);
-		}
-		
+
+		FORCED_FETISH.addListener();
+
 		// Forced Fetish Tendency setting events
 		for (ForcedFetishTendency fft : ForcedFetishTendency.values()) {
 			id = "FORCED_FETISH_TENDENCY_"+fft;
@@ -615,41 +556,38 @@ public class OptionsController {
 			MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(
 					fft.getName(), fft.getDescription()));
 		}
-		
-		createMultipleToggleListeners(Util.newHashMapOfValues(
-				new Util.Value<>("ENCHANTMENT_LIMITS", PropertyValue.enchantmentLimits),
-				new Util.Value<>("BAD_END", PropertyValue.badEndContent),
-				new Util.Value<>("LEVEL_DRAIN", PropertyValue.levelDrain),
-				new Util.Value<>("OPPORTUNISTIC_ATTACKERS", PropertyValue.opportunisticAttackers),
-				new Util.Value<>("OFFSPRING_ENCOUNTERS", PropertyValue.offspringEncounters),
-				new Util.Value<>("SPITTING_ENABLED", PropertyValue.spittingEnabled),
-				new Util.Value<>("COMPANION", PropertyValue.companionContent)));
+		ENCHANTMENT_LIMITS.addListener();
+		BAD_END.addListener();
+		LEVEL_DRAIN.addListener();
+		OPPORTUNISTIC_ATTACKERS.addListener();
+		OFFSPRING_ENCOUNTERS.addListener();
+		SPITTING_ENABLED.addListener();
+		COMPANION.addListener();
 	}
 	
 	public static void initSexListeners() {
-		createMultipleToggleListeners(Util.newHashMapOfValues(
-				new Util.Value<>("NON_CON", PropertyValue.nonConContent),
-				new Util.Value<>("SADISTIC_SEX", PropertyValue.sadisticSexContent),
-				new Util.Value<>("LIPSTICK_MARKING", PropertyValue.lipstickMarkingContent),
-				new Util.Value<>("VOLUNTARY_NTR", PropertyValue.voluntaryNTR),
-				new Util.Value<>("INVOLUNTARY_NTR", PropertyValue.involuntaryNTR),
-				new Util.Value<>("INCEST", PropertyValue.incestContent),
-				new Util.Value<>("LACTATION", PropertyValue.lactationContent),
-				new Util.Value<>("SEXUAL_UDDERS", PropertyValue.udderContent),
-				new Util.Value<>("URETHRAL", PropertyValue.urethralContent),
-				new Util.Value<>("NIPPLE_PEN", PropertyValue.nipplePenContent),
-				new Util.Value<>("ANAL", PropertyValue.analContent),
-				new Util.Value<>("GAPE", PropertyValue.gapeContent),
-				new Util.Value<>("PENETRATION_LIMITATION", PropertyValue.penetrationLimitations),
-				new Util.Value<>("PENETRATION_LIMITATION_DYNAMIC", PropertyValue.elasticityAffectDepth),
-				new Util.Value<>("FOOT", PropertyValue.footContent),
-				new Util.Value<>("ARMPIT", PropertyValue.armpitContent),
-				new Util.Value<>("MUSK", PropertyValue.muskContent),
-				new Util.Value<>("FURRY_TAIL_PENETRATION", PropertyValue.furryTailPenetrationContent),
-				new Util.Value<>("INFLATION_CONTENT", PropertyValue.inflationContent),
-				new Util.Value<>("AUTO_SEX_CLOTHING_MANAGEMENT", PropertyValue.autoSexClothingManagement),
-				new Util.Value<>("AUTO_SEX_CLOTHING_STRIP", PropertyValue.autoSexStrip),
-				new Util.Value<>("RAPE_PLAY_BY_DEFAULT", PropertyValue.rapePlayAtSexStart)));
+		NON_CON.addListener();
+		SADISTIC_SEX.addListener();
+		LIPSTICK_MARKING.addListener();
+		VOLUNTARY_NTR.addListener();
+		INVOLUNTARY_NTR.addListener();
+		INCEST.addListener();
+		LACTATION.addListener();
+		SEXUAL_UDDERS.addListener();
+		URETHRAL.addListener();
+		NIPPLE_PEN.addListener();
+		ANAL.addListener();
+		GAPE.addListener();
+		PENETRATION_LIMITATION.addListener();
+		PENETRATION_LIMITATION_DYNAMIC.addListener();
+		FOOT.addListener();
+		ARMPIT.addListener();
+		MUSK.addListener();
+		FURRY_TAIL_PENETRATION.addListener();
+		INFLATION_CONTENT.addListener();
+		AUTO_SEX_CLOTHING_MANAGEMENT.addListener();
+		AUTO_SEX_CLOTHING_STRIP.addListener();
+		RAPE_PLAY_BY_DEFAULT.addListener();
 
 		String id = "";
 		for (int i = 0; i<3; i++) {
@@ -712,7 +650,7 @@ public class OptionsController {
 				}, false);
 			}
 		}
-		
+
 		id = "PREGNANCY_BREAST_GROWTH_ON";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
@@ -778,7 +716,7 @@ public class OptionsController {
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
-		
+
 		id = "PREGNANCY_LACTATION_ON";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
@@ -936,23 +874,20 @@ public class OptionsController {
 				}, false);
 			}
 		}
-		
-		createMultipleToggleListeners(Util.newHashMapOfValues(
-				new Util.Value<>("AGE", PropertyValue.ageContent),
-				new Util.Value<>("FERAL", PropertyValue.feralContent),
-				new Util.Value<>("CUM_REGENERATION", PropertyValue.cumRegenerationContent),
-				new Util.Value<>("FUTA_BALLS", PropertyValue.futanariTesticles),
-				new Util.Value<>("CLOACA", PropertyValue.bipedalCloaca),
-				new Util.Value<>("VESTIGIAL_MULTI_BREAST", PropertyValue.vestigialMultiBreasts),
-				new Util.Value<>("HAIR_FACIAL", PropertyValue.facialHairContent),
-				new Util.Value<>("HAIR_PUBIC", PropertyValue.pubicHairContent),
-				new Util.Value<>("HAIR_BODY", PropertyValue.bodyHairContent),
-				new Util.Value<>("HAIR_ASS", PropertyValue.assHairContent),
-				new Util.Value<>("FEMININE_BEARD", PropertyValue.feminineBeardsContent),
-				new Util.Value<>("FURRY_HAIR", PropertyValue.furryHairContent),
-				new Util.Value<>("SCALY_HAIR", PropertyValue.scalyHairContent),
-				new Util.Value<>("LIP_LISP", PropertyValue.lipLispContent)
-				
-		));
+
+		AGE.addListener();
+		FERAL.addListener();
+		CUM_REGENERATION.addListener();
+		FUTA_BALLS.addListener();
+		CLOACA.addListener();
+		VESTIGIAL_MULTI_BREAST.addListener();
+		HAIR_FACIAL.addListener();
+		HAIR_PUBIC.addListener();
+		HAIR_BODY.addListener();
+		HAIR_ASS.addListener();
+		FEMININE_BEARD.addListener();
+		FURRY_HAIR.addListener();
+		SCALY_HAIR.addListener();
+		LIP_LISP.addListener();
 	}
 }

@@ -1710,5 +1710,23 @@ public class Properties {
 	public void setHairGrowth(int hairGrowth) {
 		this.hairGrowth = hairGrowth;
 	}
-	
+
+	public void setIntByRef(String str, int val) {
+		try {
+			this.getClass().getField(str).setInt(this, val);
+		} catch (IllegalAccessException | NoSuchFieldException e) {
+			System.err.println("Failed to set integer by reference! VariableName: " + str + " to Value: " + val);
+			e.printStackTrace();
+		} // #Mandatory
+	}
+
+	public int getIntByRef(String str) {
+		try {
+			return this.getClass().getField(str).getInt(this);
+		} catch (IllegalAccessException | NoSuchFieldException e) {
+			System.err.println("Failed to get integer by reference! VariableName: " + str);
+			e.printStackTrace();
+		} // #Mandatory
+		return -1;
+	}
 }

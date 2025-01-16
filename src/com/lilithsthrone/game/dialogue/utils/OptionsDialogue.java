@@ -57,6 +57,8 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
+import static com.lilithsthrone.game.settings.ConfigOptions.*;
+
 /**
  * @since 0.1.0
  * @version 0.4.2
@@ -1954,41 +1956,12 @@ public class OptionsDialogue {
 
 							+ "<span style='height:16px;width:800px;float:left;'></span>");
 
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("AUTO_LOCALE",
-					PresetColour.BASE_BLUE_LIGHT,
-					"Automatic",
-					"When enabled, the system locale is used. Otherwise, the following options are applied.",
-					Main.getProperties().hasValue(PropertyValue.autoLocale)));
-
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("METRIC_SIZES",
-					PresetColour.BASE_BLUE_STEEL,
-					"Metric sizes",
-					"The game will use metres and centimetres instead of feet and inches.",
-					Main.getProperties().hasValue(PropertyValue.metricSizes)));
-
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("METRIC_FLUIDS",
-					PresetColour.BASE_BLUE_STEEL,
-					"Metric fluids",
-					"The game will use litres and millilitres instead of gallons and ounces.",
-					Main.getProperties().hasValue(PropertyValue.metricFluids)));
-
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("METRIC_WEIGHTS",
-					PresetColour.BASE_BLUE_STEEL,
-					"Metric weights",
-					"The game will use kilograms and grams instead of pounds and ounces.",
-					Main.getProperties().hasValue(PropertyValue.metricWeights)));
-
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("TWENTYFOUR_HOUR_TIME",
-					PresetColour.BASE_LILAC_LIGHT,
-					"24 hour time",
-					"The time will be displayed as 24 hours instead of AM/PM.",
-					Main.getProperties().hasValue(PropertyValue.twentyFourHourTime)));
-
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("INTERNATIONAL_DATE",
-					PresetColour.BASE_LILAC_LIGHT,
-					"International date",
-					"The abbreviated date will be displayed as day.month.year instead of month/day/year.",
-					Main.getProperties().hasValue(PropertyValue.internationalDate)));
+			UtilText.nodeContentSB.append(AUTO_LOCALE.getDiv());
+			UtilText.nodeContentSB.append(METRIC_SIZES.getDiv());
+			UtilText.nodeContentSB.append(METRIC_FLUIDS.getDiv());
+			UtilText.nodeContentSB.append(METRIC_WEIGHTS.getDiv());
+			UtilText.nodeContentSB.append(TWENTYFOUR_HOUR_TIME.getDiv());
+			UtilText.nodeContentSB.append(INTERNATIONAL_DATE.getDiv());
 
 			return UtilText.nodeContentSB.toString();
 		}
@@ -2442,16 +2415,10 @@ public class OptionsDialogue {
 						+com.lilithsthrone.game.Properties.autoSaveLabels[i]+")]</div>");
 			}
 			UtilText.nodeContentSB.append("</div></div>");
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("ARTWORK",
-					PresetColour.BASE_BLUE_LIGHT,
-					"Artwork",
-					"Enables artwork to be displayed in characters' information screens.",
-					Main.getProperties().hasValue(PropertyValue.artwork)));
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("THUMBNAIL",
-					PresetColour.BASE_BLUE_STEEL,
-					"Thumbnails",
-					"Enables tooltips containing thumbnail images of the character.",
-					Main.getProperties().hasValue(PropertyValue.thumbnail)));
+
+			UtilText.nodeContentSB.append(ARTWORK.getDiv());
+			UtilText.nodeContentSB.append(THUMBNAIL.getDiv());
+
 			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_AQUA, "Preferred Artist", "Which artist's work is used by default."));
 			List<Artist> artists = new ArrayList<>(Artwork.allArtists);
 			Collections.reverse(artists);// So that they're in alphabetical order
@@ -2468,27 +2435,11 @@ public class OptionsDialogue {
 				}
 			}
 			UtilText.nodeContentSB.append("</div></div>");
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("SHARED_ENCYCLOPEDIA",
-					PresetColour.GENERIC_EXCELLENT,
-					"Shared Encyclopedia",
-					"When enabled, your character will use the shared Encyclopedia (whose entries are unlocked across any playthrough). If disabled, unlocked Encyclopedia entries are only shown if your current character has discovered them.",
-					Main.getProperties().hasValue(PropertyValue.sharedEncyclopedia)));
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("WEATHER_INTERRUPTION",
-					PresetColour.GENERIC_ARCANE,
-					"Storm interruptions",
-					"When enabled, arcane storms will interrupt dialogue to let you know that they've started.",
-					Main.getProperties().hasValue(PropertyValue.weatherInterruptions)));
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("DIALOGUE_COPY",
-					PresetColour.BASE_BLUE_STEEL,
-					"Automatic text copying",
-					"When enabled, the current scene's text will automatically be copied to your system's clipboard every time a new scene is loaded."
-							+" This option is so that you can easily paste the game's text into text readers without needing to select and copy the scene's text every time.",
-					Main.getProperties().hasValue(PropertyValue.automaticDialogueCopy)));
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("SILLY",
-					PresetColour.GENERIC_GOOD,
-					"Silly mode",
-					"This enables funny flavour text throughout the game.",
-					Main.getProperties().hasValue(PropertyValue.sillyMode)));
+
+			UtilText.nodeContentSB.append(SHARED_ENCYCLOPEDIA.getDiv());
+			UtilText.nodeContentSB.append(WEATHER_INTERRUPTION.getDiv());
+			UtilText.nodeContentSB.append(DIALOGUE_COPY.getDiv());
+			UtilText.nodeContentSB.append(SILLY.getDiv());
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -2508,35 +2459,13 @@ public class OptionsDialogue {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("ENCHANTMENT_LIMITS",
-					PresetColour.GENERIC_ARCANE,
-					"Enchantment Capacity",
-					"Toggle the 'enchantment capacity' mechanic, which restricts how many enchanted items you can wear. This is on by default, and you will potentially break the balance of the game's combat by turning it off.",
-					Main.getProperties().hasValue(PropertyValue.enchantmentLimits)));
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("BAD_END",
-					PresetColour.GENERIC_TERRIBLE,
-					"Bad Ends",
-					"Toggle the ability to trigger 'bad ends', which end the game for your character when encountered."
-							+"<br/>[style.italicsMinorBad(Please note that bad ends involve non-con content, and so ignore your non-con setting.)]",
-//							+"<br/>[style.italicsTerrible(Please be aware that some bad ends are unaffected by this setting and are always present in the game.)]"
-					Main.getProperties().hasValue(PropertyValue.badEndContent)));
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("LEVEL_DRAIN",
-					PresetColour.GENERIC_TERRIBLE,
-					"Level Drain",
-					"Toggle the use of the 'orgasmic level drain' perk by unique NPCs (such as some scenes with Amber), which causes them to drain your level for each orgasm you have in sex with them.",
-					Main.getProperties().hasValue(PropertyValue.levelDrain)));
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("OPPORTUNISTIC_ATTACKERS",
-					PresetColour.BASE_CRIMSON,
-					"Opportunistic attackers",
-					"This makes random attacks more likely when you're high on lust, low on health, covered in fluids, exposed, or drunk.",
-					Main.game.isOpportunisticAttackersEnabled()));
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("OFFSPRING_ENCOUNTERS",
-					PresetColour.BASE_INDIGO,
-					"Offspring Encounters",
-					"This enables you to randomly encounter your offspring throught the world."
-					+ "<br/><i>This setting has no effect on the Offspring Map, nor on offspring who you've already met.</i>",
-					Main.game.isOffspringEncountersEnabled()));
+
+			UtilText.nodeContentSB.append(ENCHANTMENT_LIMITS.getDiv());
+
+			UtilText.nodeContentSB.append(BAD_END.getDiv());
+			UtilText.nodeContentSB.append(LEVEL_DRAIN.getDiv());
+			UtilText.nodeContentSB.append(OPPORTUNISTIC_ATTACKERS.getDiv());
+			UtilText.nodeContentSB.append(OFFSPRING_ENCOUNTERS.getDiv());
 			
 			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_BLUE_LIGHT, "Clothing Femininity", "This sets the limitations of clothings' femininity values."));
 			for (int i=Main.getProperties().clothingFemininityTitles.length-1; i>=0; i--) {
@@ -2562,31 +2491,11 @@ public class OptionsDialogue {
 			}
 			UtilText.nodeContentSB.append("</div></div>");
 			
-			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
-					"PREGNANCY_DURATION",
-					PresetColour.BASE_PINK_DEEP,
-					"Pregnancy duration",
-					"This sets the maximum time it takes for a pregnancy to progress from conception to birth.",
-					Main.getProperties().pregnancyDuration+" week"+(Main.getProperties().pregnancyDuration == 1?"":"s"),
-					Main.getProperties().pregnancyDuration,
-					1,
-					40));
+			UtilText.nodeContentSB.append(PREGNANCY_DURATION.getDiv());
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("SPITTING_ENABLED",
-					PresetColour.BASE_BLUE,
-					"Rejecting TF potions",
-					"Forced TF potions may be spat out if this is enabled.",
-					!Main.game.isSpittingDisabled()));
+			UtilText.nodeContentSB.append(SPITTING_ENABLED.getDiv());
 			
-			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
-					"FORCED_TF",
-					PresetColour.TRANSFORMATION_GENERIC,
-					"Forced TF",
-					"This sets the amount of NPCs spawning with the '"+Fetish.FETISH_TRANSFORMATION_GIVING.getName(null)+"' fetish, which causes them to forcibly transform you after beating you in combat.",
-					Main.getProperties().forcedTFPercentage+"%",
-					Main.getProperties().forcedTFPercentage,
-					0,
-					100));
+			UtilText.nodeContentSB.append(FORCED_TF.getDiv());
 			
 			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_GREEN, "Forced TF Racial Limits", "This allows you to set the maximum furry limit of what an NPC will forcibly transform you into."));
 			for (FurryPreference fp : Util.newArrayListOfValues(FurryPreference.REDUCED,
@@ -2624,15 +2533,7 @@ public class OptionsDialogue {
 			}
 			UtilText.nodeContentSB.append("</div></div>");
 			
-			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
-					"FORCED_FETISH",
-					PresetColour.FETISH,
-					"Forced Fetishes",
-					"This sets the amount of NPCs spawning with the '"+Fetish.FETISH_KINK_GIVING.getName(null)+"' fetish, which causes them to try and forcibly give you fetishes after beating you in combat.",
-					Main.getProperties().forcedFetishPercentage+"%",
-					Main.getProperties().forcedFetishPercentage,
-					0,
-					100));
+			UtilText.nodeContentSB.append(FORCED_FETISH.getDiv());
 			
 			
 			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.FETISH, "Forced Fetish Tendency",
@@ -2654,12 +2555,7 @@ public class OptionsDialogue {
 			}
 			UtilText.nodeContentSB.append("</div></div>");
 			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("COMPANION",
-					PresetColour.BASE_GREEN_LIGHT,
-					"Companions",
-					"Enable the ability to add slaves or friendly occupants as your companion."
-							+"<br/>[style.boldBad(Warning:)] This is an experimental feature, and support for companions was dropped in v0.3.9, so there will be no special dialogue or actions involving your companions outside of Dominion.",
-					Main.getProperties().hasValue(PropertyValue.companionContent)));
+			UtilText.nodeContentSB.append(COMPANION.getDiv());
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -2679,143 +2575,31 @@ public class OptionsDialogue {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("NON_CON",
-					PresetColour.BASE_CRIMSON,
-					"Non-consent",
-					"This enables the 'resist' pace in sex scenes, which contains some more extreme non-consensual descriptions, as well as dialogue references and actions related to this content."
-							+"<br/>[style.italicsMinorBad(Please note that bad ends involve non-con content, regardless of whether or not this option is enabled.)]",
-					Main.getProperties().hasValue(PropertyValue.nonConContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("SADISTIC_SEX",
-					PresetColour.BASE_RED,
-					"Sadistic sex",
-					"This unlocks 'sadistic' sex actions, such as choking, slapping, and spitting on partners in sex.",
-					Main.getProperties().hasValue(PropertyValue.sadisticSexContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("LIPSTICK_MARKING",
-					PresetColour.BASE_RED_DARK,
-					"Lipstick marking",
-					"This enables lipstick marking of bodyparts via kisses during sex.",
-					Main.getProperties().hasValue(PropertyValue.lipstickMarkingContent)));
-			
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("VOLUNTARY_NTR",
-					PresetColour.GENERIC_MINOR_BAD,
-					"Voluntary NTR",
-					"When enabled, you will get the option to offer certain enemies sex with your companions as a way to avoid combat.",
-					Main.getProperties().hasValue(PropertyValue.voluntaryNTR)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("INVOLUNTARY_NTR",
-					PresetColour.GENERIC_BAD,
-					"Involuntary NTR",
-					"When enabled, enemies might choose to only have sex with your companion after beating your party in combat."
-							+" When disabled, all post-combat-loss sex scenes will involve you.",
-					Main.getProperties().hasValue(PropertyValue.involuntaryNTR)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("INCEST",
-					PresetColour.BASE_ROSE,
-					"Incest",
-					"This will enable sexual actions between characters who are related to one another.",
-					Main.getProperties().hasValue(PropertyValue.incestContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("LACTATION",
-					PresetColour.BASE_YELLOW_LIGHT,
-					"Lactation",
-					"This enables lactation content.",
-					Main.getProperties().hasValue(PropertyValue.lactationContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("SEXUAL_UDDERS",
-					PresetColour.BASE_ORANGE_LIGHT,
-					"Crotch-boob & udder content",
-					"This enables crotch-boob & udder-related sex actions and allows crotch-boob & udder transformations to be inflicted upon the player.",
-					Main.getProperties().hasValue(PropertyValue.udderContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("URETHRAL",
-					PresetColour.BASE_PINK_DEEP,
-					"Urethral content",
-					"This enables urethral transformations and penetrations.",
-					Main.getProperties().hasValue(PropertyValue.urethralContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("NIPPLE_PEN",
-					PresetColour.BASE_PINK_DEEP,
-					"Nipple penetrations",
-					"This enables nipple-penetration transformations and sex actions.",
-					Main.getProperties().hasValue(PropertyValue.nipplePenContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("ANAL",
-					PresetColour.BASE_ORANGE,
-					"Anal content",
-					"When disabled, removes all anal-related actions from being available during sex.",
-					Main.getProperties().hasValue(PropertyValue.analContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("GAPE",
-					PresetColour.BASE_PINK_DEEP,
-					"Gape content",
-					"When disabled, changes descriptions of gaping orifices to simply be 'loose', and also hides any special gape-related content.",
-					Main.getProperties().hasValue(PropertyValue.gapeContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("PENETRATION_LIMITATION",
-					PresetColour.BASE_PINK_DEEP,
-					"Penetrative size-difference",
-					"When enabled, orifices will have a limited depth to them, meaning that penetrative objects (penises and tails) can be too long to fit all the way inside.",
-					Main.getProperties().hasValue(PropertyValue.penetrationLimitations)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("PENETRATION_LIMITATION_DYNAMIC",
-					PresetColour.BASE_PINK_DEEP,
-					"Elasticity depth effects",
-					"When enabled, if an orifice has an elasticity of at least 'limber', the maximum 'uncomfortable depth' value will be increased, with greater elasticity values increasing it further."
-							+" (Note: Only applies when 'Penetrative size-difference' is also turned on.)",
-					Main.getProperties().hasValue(PropertyValue.elasticityAffectDepth)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("FOOT",
-					PresetColour.BASE_TAN,
-					"Foot content",
-					"When disabled, removes all foot-related actions from being available during sex.",
-					Main.getProperties().hasValue(PropertyValue.footContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("ARMPIT",
-					PresetColour.BASE_PINK_LIGHT,
-					"Armpit content",
-					"When disabled, removes all armpit-related actions from being available during sex.",
-					Main.getProperties().hasValue(PropertyValue.armpitContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("MUSK",
-					PresetColour.BASE_YELLOW_LIGHT,
-					"Musk content",
-					"When disabled, some scenes will either have reduced musk content or be omitted entirely, and the 'marked by musk' status effect will be disabled.",
-					Main.getProperties().hasValue(PropertyValue.muskContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("FURRY_TAIL_PENETRATION",
-					PresetColour.BASE_MAGENTA,
-					"Furry tail penetrations",
-					"This marks all tail types as being suitable for penetration, thereby enabling furry tails to engage in penetrative actions in sex.",
-					Main.getProperties().hasValue(PropertyValue.furryTailPenetrationContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("INFLATION_CONTENT",
-					PresetColour.CUM,
-					"Cum inflation",
-					"This enables cum inflation mechanics.",
-					Main.getProperties().hasValue(PropertyValue.inflationContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("AUTO_SEX_CLOTHING_MANAGEMENT",
-					PresetColour.BASE_BLUE_STEEL,
-					"Post-sex clothing replacement",
-					"Enables equipped clothing to be automatically pulled back into their pre-sex states after sex scenes.",
-					Main.getProperties().hasValue(PropertyValue.autoSexClothingManagement)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("AUTO_SEX_CLOTHING_STRIP",
-					PresetColour.BASE_PINK_LIGHT,
-					"Automatic stripping",
-					"When enabled, all non-spectating characters which you are allowed to strip during sex (including yourself) will start sex naked.",
-					Main.getProperties().hasValue(PropertyValue.autoSexStrip)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("RAPE_PLAY_BY_DEFAULT",
-					PresetColour.BASE_CRIMSON,
-					"Rape-play allowed by default",
-					"When enabled, submissive characters in sex who have the 'unwilling fuck-toy' fetish will be able to engage in rape-play without first being given permission to do so.",
-					Main.getProperties().hasValue(PropertyValue.rapePlayAtSexStart)));
-			
+
+			UtilText.nodeContentSB.append(NON_CON.getDiv());
+			UtilText.nodeContentSB.append(SADISTIC_SEX.getDiv());
+			UtilText.nodeContentSB.append(LIPSTICK_MARKING.getDiv());
+
+			UtilText.nodeContentSB.append(VOLUNTARY_NTR.getDiv());
+			UtilText.nodeContentSB.append(INVOLUNTARY_NTR.getDiv());
+			UtilText.nodeContentSB.append(INCEST.getDiv());
+			UtilText.nodeContentSB.append(LACTATION.getDiv());
+			UtilText.nodeContentSB.append(SEXUAL_UDDERS.getDiv());
+			UtilText.nodeContentSB.append(URETHRAL.getDiv());
+			UtilText.nodeContentSB.append(NIPPLE_PEN.getDiv());
+			UtilText.nodeContentSB.append(ANAL.getDiv());
+			UtilText.nodeContentSB.append(GAPE.getDiv());
+			UtilText.nodeContentSB.append(PENETRATION_LIMITATION.getDiv());
+			UtilText.nodeContentSB.append(PENETRATION_LIMITATION_DYNAMIC.getDiv());
+			UtilText.nodeContentSB.append(FOOT.getDiv());
+			UtilText.nodeContentSB.append(ARMPIT.getDiv());
+			UtilText.nodeContentSB.append(MUSK.getDiv());
+			UtilText.nodeContentSB.append(FURRY_TAIL_PENETRATION.getDiv());
+			UtilText.nodeContentSB.append(INFLATION_CONTENT.getDiv());
+			UtilText.nodeContentSB.append(AUTO_SEX_CLOTHING_MANAGEMENT.getDiv());
+			UtilText.nodeContentSB.append(AUTO_SEX_CLOTHING_STRIP.getDiv());
+			UtilText.nodeContentSB.append(RAPE_PLAY_BY_DEFAULT.getDiv());
+
 			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_PINK, "Full exposure descriptions", "Set how often revealed body parts are fully described during sex."));
 			for (int i = 2; i>=0; i--) {
 				UtilText.nodeContentSB.append("<div id='FULL_EXPOSURE_DESCRIPTIONS_"+i+"' class='normal-button"+(Main.getProperties().bypassSexActions == i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
@@ -2845,47 +2629,13 @@ public class OptionsDialogue {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("AGE",
-					PresetColour.AGE_TWENTIES,
-					"Age",
-					"This enables descriptions of the age that characters appear to be.",
-					Main.getProperties().hasValue(PropertyValue.ageContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("FERAL",
-					PresetColour.BASE_TAN,
-					"Feral",
-					"This enables feral content, which contains sexual and non-sexual interactions with sapient characters who have fully-animal bodies.",
-					Main.getProperties().hasValue(PropertyValue.feralContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("CUM_REGENERATION",
-					PresetColour.CUM,
-					"Cum Regeneration",
-					"This enables cum regeneration related content, such as decreasing quantity for multiple orgasms in one session and the full balls status effect."
-							+"<br>When disabled, balls will always be treated as full, but without any negative effects.",
-					Main.getProperties().hasValue(PropertyValue.cumRegenerationContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("FUTA_BALLS",
-					PresetColour.BASE_PINK,
-					"Futanari Testicles",
-					"When enabled, futanari NPCs will be able to have external testicles. When disabled, they are locked to always being internal.",
-					Main.getProperties().hasValue(PropertyValue.futanariTesticles)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("CLOACA",
-					PresetColour.BASE_PINK_LIGHT,
-					"Bipedal Cloacas",
-					"When enabled, certain bipedal races (such as harpies and alligator-morphs) will have cloacas."
-							+" When disabled, all bipeds with cloacas will be treated as having a regular genitalia configuration."
-							+" Some special races, such as lamia, always have cloacas, and are not affected by this.",
-					Main.getProperties().hasValue(PropertyValue.bipedalCloaca)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("VESTIGIAL_MULTI_BREAST",
-					PresetColour.BASE_PURPLE_LIGHT,
-					"Vestigial Multi-breasts",
-					"When enabled, characters who have multiple rows of breasts will have the rows beneath their top one described as being vestigial in size."
-							+" When disabled, breast rows will be described as being one cup size smaller than the one above them.",
-					Main.getProperties().hasValue(PropertyValue.vestigialMultiBreasts)));
-			
+
+			UtilText.nodeContentSB.append(AGE.getDiv());
+			UtilText.nodeContentSB.append(FERAL.getDiv());
+			UtilText.nodeContentSB.append(CUM_REGENERATION.getDiv());
+			UtilText.nodeContentSB.append(FUTA_BALLS.getDiv());
+			UtilText.nodeContentSB.append(CLOACA.getDiv());
+			UtilText.nodeContentSB.append(VESTIGIAL_MULTI_BREAST.getDiv());
 			
 			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.NIPPLES, "Multi-breasts", "Choose whether randomly-generated furry characters should be given multiple rows of breasts."));
 			int[] buttonOrder = new int[] {2, 1, 0, 3}; // Order buttons in this manner so that they appear to be a little more logical
@@ -2927,55 +2677,17 @@ public class OptionsDialogue {
 						+"</div>");
 			}
 			UtilText.nodeContentSB.append("</div></div>");
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("HAIR_FACIAL",
-					PresetColour.BASE_LILAC_LIGHT,
-					"Facial hair",
-					"This enables facial hair descriptions and content.",
-					Main.getProperties().hasValue(PropertyValue.facialHairContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("HAIR_PUBIC",
-					PresetColour.BASE_LILAC,
-					"Pubic hair",
-					"This enables pubic hair descriptions and content.",
-					Main.getProperties().hasValue(PropertyValue.pubicHairContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("HAIR_BODY",
-					PresetColour.BASE_PURPLE,
-					"Underarm hair",
-					"This enables underarm hair descriptions and content.",
-					Main.getProperties().hasValue(PropertyValue.bodyHairContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("HAIR_ASS",
-					PresetColour.BASE_PURPLE_DARK,
-					"Ass hair",
-					"This enables ass hair descriptions and content.",
-					Main.getProperties().hasValue(PropertyValue.assHairContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("FEMININE_BEARD",
-					PresetColour.BASE_BLUE_STEEL,
-					"Feminine beards",
-					"This enables feminine characters to grow beards.",
-					Main.getProperties().hasValue(PropertyValue.feminineBeardsContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("FURRY_HAIR",
-					PresetColour.CLOTHING_DESATURATED_BROWN,
-					"Furry hair",
-					"Toggles whether or not characters with a furry head type will spawn with human-like hair on their heads.",
-					Main.getProperties().hasValue(PropertyValue.furryHairContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("SCALY_HAIR",
-					PresetColour.BASE_GREEN_DARK,
-					"Scaly Hair",
-					"Toggles whether or not characters with a reptilian or amphibious head type will spawn with human-like hair on their heads.",
-					Main.getProperties().hasValue(PropertyValue.scalyHairContent)));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceDiv("LIP_LISP",
-					PresetColour.BASE_PINK_SALMON,
-					"Lip lisps",
-					"Toggles whether or not characters with very large lips will speak with a lisp.",
-					Main.getProperties().hasValue(PropertyValue.lipLispContent)));
-			
+
+			UtilText.nodeContentSB.append(HAIR_FACIAL.getDiv());
+			UtilText.nodeContentSB.append(HAIR_PUBIC.getDiv());
+			UtilText.nodeContentSB.append(HAIR_BODY.getDiv());
+			UtilText.nodeContentSB.append(HAIR_ASS.getDiv());
+			UtilText.nodeContentSB.append(FEMININE_BEARD.getDiv());
+			UtilText.nodeContentSB.append(FURRY_HAIR.getDiv());
+			UtilText.nodeContentSB.append(SCALY_HAIR.getDiv());
+			UtilText.nodeContentSB.append(LIP_LISP.getDiv());
+
+
 			UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(
 					"PREGNANCY_BREAST_GROWTH",
 					PresetColour.BASE_PINK,
