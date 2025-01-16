@@ -41,6 +41,7 @@ import com.lilithsthrone.game.dialogue.utils.MapTravelType;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.utils.CreditsSlot;
+import com.lilithsthrone.utils.SaveBackups;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Generation;
@@ -72,6 +73,7 @@ public class Main extends Application {
 	public static Game game;
 	public static Sex sex;
 	public static Combat combat;
+	private static final boolean BACKUP_SAVES = true; /* Change this to an option */
 
 	public static TransformerFactory transformerFactory = TransformerFactory.newInstance();
 	private static DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -903,7 +905,10 @@ public class Main extends Application {
 		if(name.isEmpty()) {
 			return;
 		}
-		
+
+		if (BACKUP_SAVES)
+			SaveBackups.backupSave(name);
+
 		Game.exportGame(name, allowOverwrite, isAutoSave);
 
 		try {
