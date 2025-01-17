@@ -18,6 +18,10 @@ public class MultiSliderOption {
         this(id, colour, title, var1Name, var2Name, description, display, minVal, 0, maxSteps, valPerStep, field, minVal, 0, maxSteps, valPerStep, fieldAlt);
     }
 
+    public MultiSliderOption(String id, Colour colour, String title, String var1Name, String var2Name, String description, String display, int minStep, int minVal, int maxSteps, int valPerStep, String field, String fieldAlt) {
+        this(id, colour, title, var1Name, var2Name, description, display, minVal, minStep, maxSteps, valPerStep, field, minVal, minStep, maxSteps, valPerStep, fieldAlt);
+    }
+
     public MultiSliderOption(String id, Colour colour, String title, String var1Name, String var2Name, String description, String display, int minVal, int maxSteps, int valPerStep, String field, int minValAlt, int maxStepsAlt, int valPerStepAlt, String fieldAlt) {
         this(id, colour, title, var1Name, var2Name, description, display, minVal, 0, maxSteps, valPerStep, field, minValAlt, 0, maxStepsAlt, valPerStepAlt, fieldAlt);
     }
@@ -67,14 +71,14 @@ public class MultiSliderOption {
                 "</div>" +
                 "<div class='container-half-width' style='width:calc(43% - 16px); padding:0;'>" +
                 "<div class='container-full-width' style='width:100%; padding:0;'>" +
-                "<div class='container-full-width' style='text-align:center; float:right; width:55%; margin: 0px; margin-top:-2%;'>" +
+                "<div class='container-full-width' style='text-align:center; float:right; width:55%; margin: 0px; margin-top:-5%; z-index: 2; background-color: transparent; pointer-events: none;'>" +
                 valueName + ": " +
                 "<b id='" + id + "' style='text-align: center;'>" + SliderOption.getValueForDisplay(valueDisplay, fieldName) + "</b>" +
                 "</div>" +
                 SliderOption.getSlider(id, minStep, maxStep, valPerStep, fieldName) +
                 "</div>" +
                 "<div class='container-full-width' style='width:100%; padding:0;'>" +
-                "<div class='container-full-width' style='text-align:center; float:right; width:55%; margin: 0px; margin-top:-2%;'>" +
+                "<div class='container-full-width' style='text-align:center; float:right; width:55%; margin: 0px; margin-top:-2%; z-index: 2; background-color: transparent; pointer-events: none;'>" +
                 valueNameAlt + ": " +
                 "<b id='" + id + "_ALT' style='text-align: center;'>" + SliderOption.getValueForDisplay(valueDisplay, fieldNameAlt) + "</b>" +
                 "</div>" +

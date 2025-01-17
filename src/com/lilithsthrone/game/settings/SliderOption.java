@@ -37,8 +37,8 @@ public class SliderOption {
     }
 
     public static String getSlider(String id, int minStep, int maxStep, int valPerStep, String fieldName) {
-        return "<div class='container-full-width' style='float:right; margin-bottom:-1%; margin-top:-1%'>" +
-                "<input style='float:right; width:55%;' type=\"range\" min=" + minStep + " max=" + maxStep + " value=" + Math.round(Main.getProperties().getIntByRef(fieldName) / (float) valPerStep) + " class=\"slider\" id=" + id + "_SLIDER>" +
+        return "<div class='container-full-width' style='float:right; margin-bottom:-5%; margin-top:-5%'>" +
+                "<input style='float:right; width:55%;' type=\"range\" min=" + minStep + " max=" + maxStep + " value=" + Math.round((Main.getProperties().getIntByRef(fieldName)) / (float) valPerStep) + " class=\"slider\" id=" + id + "_SLIDER>" +
                 "</div>";
     }
 
@@ -56,7 +56,7 @@ public class SliderOption {
                 "<b style='text-align:center; margin-bottom: 3px; color:" + colour.toWebHexString() + ";'>" + title + "</b><b>:</b> " + description +
                 "</div>" +
                 "<div class='container-half-width' style='width:calc(45% - 16px);'>" +
-                "<div id='" + id + "' class='container-full-width' style='text-align:center; float:right; width:55%; margin-bottom: 0px; margin-top:-1%;'>" +
+                "<div id='" + id + "' class='container-full-width' style='text-align:center; float:right; width:55%; margin-bottom: 0px; margin-top:-1%; z-index: 2; background-color: transparent; pointer-events: none;'>" +
                 "<b>" + getValueForDisplay(valueDisplay, field) + "</b>" +
                 "</div>" +
                 getSlider(id, minStep, maxSteps, valPerStep, field) +
@@ -100,7 +100,8 @@ public class SliderOption {
     static void addSliderListeners(String elementID, String fieldName, int settingValueMulti, int floor, String display) {
         if (MainController.document.getElementById(elementID + "_SLIDER") == null) return;
         ((EventTarget) MainController.document.getElementById(elementID + "_SLIDER")).addEventListener("input", e -> {
-            int newVal = Math.max(floor, Integer.parseInt(Main.mainController.getWebEngine().executeScript("document.getElementById('" + elementID + "_SLIDER" + "').value;").toString()) * settingValueMulti);
+            int parsed = Integer.parseInt(Main.mainController.getWebEngine().executeScript("document.getElementById('" + elementID + "_SLIDER" + "').value;").toString());
+            int newVal = Math.max(floor, parsed * settingValueMulti);
             Main.getProperties().setIntByRef(fieldName, newVal);
             /* Doing this allows us to change the value live, instead of redrawing the page every time */
             Main.mainController.getWebEngine().executeScript("document.getElementById('" + elementID + "').innerHTML = \"<b>" + getValueForDisplay(display, newVal) + "</b>\";");

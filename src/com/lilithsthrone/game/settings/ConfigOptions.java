@@ -2,12 +2,89 @@ package com.lilithsthrone.game.settings;
 
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.game.PropertyValue;
+import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.Lactation;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Units;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.PresetColour;
 
 public class ConfigOptions {
+    /* Multi-Slider Options */
+    public static final MultiSliderOption PREGNANCY_LACTATION = new MultiSliderOption(
+            "PREGNANCY_LACTATION",
+            PresetColour.BASE_YELLOW,
+            "Average Pregnancy Lactation",
+            "Breasts",
+            "Udders",
+            "Set the <b>average</b> increase in lactation that characters will gain as a result of each pregnancy. Actual lactation increase will be within " + Units.fluid(Main.getProperties().pregnancyLactationIncreaseVariance) + " of this value.",
+            "%UNIT_VOLUME",
+            0,
+            20,
+            50,
+            "pregnancyLactationIncrease",
+            "pregnancyUdderLactationIncrease"
+    );
+    public static final MultiSliderOption PREGNANCY_LACTATION_LIMIT = new MultiSliderOption(
+            "PREGNANCY_LACTATION_LIMIT",
+            PresetColour.BASE_YELLOW_LIGHT,
+            "Pregnancy Lactation Limit",
+            "Breasts",
+            "Udders",
+            "Set the maximum limit of lactation that characters will gain from pregnancies.",
+            "%UNIT_VOLUME",
+            0,
+            Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue(),
+            50,
+            "pregnancyLactationLimit",
+            "pregnancyUdderLactationLimit"
+    );
+    public static final MultiSliderOption BREAST_SIZE_PREFERENCE = new MultiSliderOption(
+            "BREAST_SIZE_PREFERENCE",
+            PresetColour.NIPPLES,
+            "Cup Size Preference",
+            "Breasts",
+            "Udders",
+            "Affects randomly-generated NPCs' cup sizes (will not be reduced to below AA-cup).",
+            "%VALUE",
+            -20,
+            -20,
+            20,
+            1,
+            "breastSizePreference",
+            "udderSizePreference"
+    );
+    public static final MultiSliderOption PREGNANCY_BREAST_GROWTH = new MultiSliderOption(
+            "PREGNANCY_BREAST_GROWTH",
+            PresetColour.BASE_PINK,
+            "Average Pregnancy Breast Growth",
+            "Breasts",
+            "Udders",
+            "Set the <b>average</b> cup size growth that characters will gain from each pregnancy. Actual breast growth will be within "+Util.intToString(Main.getProperties().pregnancyBreastGrowthVariance)+" sizes of this value.",
+            "%VALUE cup$",
+            0,
+            10,
+            1,
+            "pregnancyBreastGrowth",
+            "pregnancyUdderGrowth"
+    );
+
+    public static final MultiSliderOption PREGNANCY_BREAST_GROWTH_LIMIT = new MultiSliderOption(
+            "PREGNANCY_BREAST_GROWTH_LIMIT",
+            PresetColour.BASE_PINK_LIGHT,
+            "Pregnancy Breast Growth Limit",
+            "Breasts",
+            "Udders",
+            "Set the maximum limit of cup size that characters' breasts will grow to from pregnancies.",
+            "%CUP_SIZE",
+            0,
+            CupSize.getCupSizeFromInt(100).getMeasurement(),
+            1,
+            "pregnancyBreastGrowthLimit",
+            "pregnancyUdderGrowthLimit"
+    );
 
     /* SLIDER OPTIONS */
     public static final SliderOption PREGNANCY_DURATION = new SliderOption(
@@ -42,6 +119,31 @@ public class ConfigOptions {
             100,
             5,
             "forcedFetishPercentage");
+
+    public static final SliderOption PENIS_SIZE_PREFERENCE = new SliderOption(
+            "PENIS_SIZE_PREFERENCE",
+            PresetColour.PENIS,
+            "Penis Size Preference",
+            "Affects randomly-generated NPCs' penis sizes (will not be reduced to below "+Units.size(8)+").",
+            "%UNIT_SIZE",
+            -20,
+            -20,
+            20,
+            1,
+            "penisSizePreference");
+
+    public static final SliderOption TRAP_PENIS_SIZE_PREFERENCE = new SliderOption(
+            "TRAP_PENIS_SIZE_PREFERENCE",
+            PresetColour.BASE_PINK_LIGHT,
+            Util.capitaliseSentence(Gender.N_P_TRAP.getName())+" penis size",
+            "The penis size of randomly-generated "+Gender.N_P_TRAP.getName()+"s. 100% represents an unaltered size. Testicle size and cum production will also be altered in proportion to this setting.",
+            "%VALUE%",
+            -90,
+            -9,
+            10,
+            10,
+            "trapPenisSizePreference");
+
     /* TOGGLE OPTIONS */
     public static final ToggleOption AUTO_LOCALE = new ToggleOption(
             "AUTO_LOCALE",

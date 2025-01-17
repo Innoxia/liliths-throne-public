@@ -2688,85 +2688,16 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.append(LIP_LISP.getDiv());
 
 
-			UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(
-					"PREGNANCY_BREAST_GROWTH",
-					PresetColour.BASE_PINK,
-					"Average Pregnancy Breast Growth",
-					"Set the <b>average</b> cup size growth that characters will gain from each pregnancy. Actual breast growth will be within "+Util.intToString(Main.getProperties().pregnancyBreastGrowthVariance)+" sizes of this value.",
-					Main.getProperties().pregnancyBreastGrowth == 0
-							?"[style.boldDisabled(Disabled)]"
-							:Main.getProperties().pregnancyBreastGrowth+" cup"+(Main.getProperties().pregnancyBreastGrowth != 1?"s":""),
-					Main.getProperties().pregnancyBreastGrowth, 0, 10,
-					Main.getProperties().pregnancyUdderGrowth == 0
-							?"[style.boldDisabled(Disabled)]"
-							:Main.getProperties().pregnancyUdderGrowth+" cup"+(Main.getProperties().pregnancyUdderGrowth != 1?"s":""),
-					Main.getProperties().pregnancyUdderGrowth, 0, 10));
-			
-			UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(
-					"PREGNANCY_BREAST_GROWTH_LIMIT",
-					PresetColour.BASE_PINK_LIGHT,
-					"Pregnancy Breast Growth Limit",
-					"Set the maximum limit of cup size that characters' breasts will grow to from pregnancies.",
-					CupSize.getCupSizeFromInt(Main.getProperties().pregnancyBreastGrowthLimit).getCupSizeName()+"-cup",
-					Main.getProperties().pregnancyBreastGrowthLimit, 0, 100,
-					CupSize.getCupSizeFromInt(Main.getProperties().pregnancyUdderGrowthLimit).getCupSizeName()+"-cup",
-					Main.getProperties().pregnancyUdderGrowthLimit, 0, 100));
-			
-			UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(
-					"PREGNANCY_LACTATION",
-					PresetColour.BASE_YELLOW,
-					"Average Pregnancy Lactation",
-					"Set the <b>average</b> increase in lactation that characters will gain as a result of each pregnancy. Actual lactation increase will be within "
-							+Units.fluid(Main.getProperties().pregnancyLactationIncreaseVariance)+" of this value.",
-					Main.getProperties().pregnancyLactationIncrease == 0
-							?"[style.boldDisabled(Disabled)]"
-							:Units.fluid(Main.getProperties().pregnancyLactationIncrease),
-					Main.getProperties().pregnancyLactationIncrease, 0, 1000,
-					Main.getProperties().pregnancyUdderLactationIncrease == 0
-							?"[style.boldDisabled(Disabled)]"
-							:Units.fluid(Main.getProperties().pregnancyUdderLactationIncrease),
-					Main.getProperties().pregnancyUdderLactationIncrease, 0, 1000));
-			
-			UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(
-					"PREGNANCY_LACTATION_LIMIT",
-					PresetColour.BASE_YELLOW_LIGHT,
-					"Pregnancy Lactation Limit",
-					"Set the maximum limit of lactation that characters will gain from pregnancies.",
-					Units.fluid(Main.getProperties().pregnancyLactationLimit, Units.ValueType.PRECISE, Units.UnitType.SHORT),
-					Main.getProperties().pregnancyLactationLimit, 0, Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue(),
-					Units.fluid(Main.getProperties().pregnancyUdderLactationLimit, Units.ValueType.PRECISE, Units.UnitType.SHORT),
-					Main.getProperties().pregnancyUdderLactationLimit, 0, Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue()));
-			
-			UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(
-					"BREAST_SIZE_PREFERENCE",
-					PresetColour.NIPPLES,
-					"Cup Size Preference",
-					"Affects randomly-generated NPCs' cup sizes (will not be reduced to below AA-cup).",
-					(Main.getProperties().breastSizePreference>=0?"+":"")+Main.getProperties().breastSizePreference,
-					Main.getProperties().breastSizePreference, -20, 20,
-					(Main.getProperties().udderSizePreference>=0?"+":"")+Main.getProperties().udderSizePreference,
-					Main.getProperties().udderSizePreference, -20, 20));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
-					"PENIS_SIZE_PREFERENCE",
-					PresetColour.PENIS,
-					"Penis Size Preference",
-					"Affects randomly-generated NPCs' penis sizes (will not be reduced to below "+Units.size(8)+").",
-					(Main.getProperties().penisSizePreference>=0?"+":"")+Units.size(Main.getProperties().penisSizePreference, Units.ValueType.PRECISE, Units.UnitType.SHORT),
-					Main.getProperties().penisSizePreference,
-					-20,
-					20));
-			
-			UtilText.nodeContentSB.append(getContentPreferenceVariableDiv(
-					"TRAP_PENIS_SIZE_PREFERENCE",
-					PresetColour.BASE_PINK_LIGHT,
-					Util.capitaliseSentence(Gender.N_P_TRAP.getName())+" penis size",
-					"The penis size of randomly-generated "+Gender.N_P_TRAP.getName()+"s. 100% represents an unaltered size. Testicle size and cum production will also be altered in proportion to this setting.",
-					(100+Main.getProperties().trapPenisSizePreference)+"%",
-					Main.getProperties().trapPenisSizePreference,
-					-90,
-					100));
-			
+			UtilText.nodeContentSB.append(PREGNANCY_BREAST_GROWTH.getDiv());
+			UtilText.nodeContentSB.append(PREGNANCY_BREAST_GROWTH_LIMIT.getDiv());
+
+			UtilText.nodeContentSB.append(PREGNANCY_LACTATION.getDiv());
+			UtilText.nodeContentSB.append(PREGNANCY_LACTATION_LIMIT.getDiv());
+			UtilText.nodeContentSB.append(BREAST_SIZE_PREFERENCE.getDiv());
+
+			UtilText.nodeContentSB.append(PENIS_SIZE_PREFERENCE.getDiv());
+			UtilText.nodeContentSB.append(TRAP_PENIS_SIZE_PREFERENCE.getDiv());
+
 			UtilText.nodeContentSB.append(getSkinColourContentPreferenceVariableDiv(
 					"SKIN_COLOUR_PREFERENCE",
 					PresetColour.RACE_HUMAN,
