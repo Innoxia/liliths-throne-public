@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import com.lilithsthrone.game.inventory.item.AbstractItem;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -254,6 +255,7 @@ public abstract class AbstractCombatMove {
 				this.damageTypeString = coreElement.getMandatoryFirstOf("damageType").getTextContent();
 				this.baseDamageString = coreElement.getMandatoryFirstOf("baseDamage").getTextContent();
 				this.blockString = coreElement.getMandatoryFirstOf("blockAmount").getTextContent();
+				System.err.println(this.blockString + " " + this.name);
 				this.cooldown = 1; // Backup in case cooldownString fails to load
 				this.cooldownString = coreElement.getMandatoryFirstOf("cooldown").getTextContent();
 				this.APcost = 1; // Backup in case APCostString fails to load
@@ -621,8 +623,12 @@ public abstract class AbstractCombatMove {
      * @return The string that describes the action that has been performed.
      */
     public void performOnSelection(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-        // Nothing. Override it.
-    }
+		//Support for blockAmount in modded combatActions
+		DamageType dt =this.getDamageType(turnIndex, source);
+		if(isMod() && this.getBlock(source, false)>0) {
+			source.setShields(dt, source.getShields(dt) + getBlock(source, canCrit(turnIndex, source, target, enemies, allies)));
+		}
+	}
     
     /**
      * Applies the reverse of the performOnSelection() method. Override whenever performOnSelection() is overridden. This is performed during deselection of the action and not during the turn.
@@ -633,7 +639,11 @@ public abstract class AbstractCombatMove {
      * @return The string that describes the action that has been performed.
      */
     public void performOnDeselection(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-        // Nothing. Override it.
+		//Support for blockAmount in modded combatActions
+		if(isMod() && this.getBlock(source, false)>0) {
+			source.setShields(damageType, source.getShields(damageType) - getBlock(source, canCrit(turnIndex, source, target, enemies, allies)));
+		}
+
     }
 
     //TODO is this needed when the performOnDeselection() method above exists?
