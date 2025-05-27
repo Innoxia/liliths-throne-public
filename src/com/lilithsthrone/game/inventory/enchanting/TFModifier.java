@@ -93,6 +93,13 @@ public enum TFModifier {
 			PresetColour.BASE_BROWN,
 			Rarity.LEGENDARY),
 	
+	PERSONALITY_TRAIT_SPEECH_UWU("uwu speech",
+			"Applies an effect related to a person speaking with an uwu accent.",
+			"uwu",
+			"modifier_circle_speech",
+			PresetColour.BASE_PINK_DEEP,
+			Rarity.LEGENDARY),
+	
 	// Attributes:
 
 	HEALTH_MAXIMUM(AttributeCategory.STRENGTH,

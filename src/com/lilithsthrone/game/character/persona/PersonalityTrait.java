@@ -376,7 +376,7 @@ public enum PersonalityTrait {
 			"[style.italicsBad(All of [npc.namePos] in-game speech will be removed!)]", PresetColour.BASE_CRIMSON) {
 		@Override
 		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
-			return Util.newArrayListOfValues(LISP, STUTTER, SLOVENLY);
+			return Util.newArrayListOfValues(LISP, STUTTER, SLOVENLY, UWU);
 		}
 		@Override
 		public String getAdditionDescription(GameCharacter target) {
@@ -425,7 +425,38 @@ public enum PersonalityTrait {
 								:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorGood(no longer speaking in a slovenly manner)]!")
 						+ "</p>");
 		}
-	},;
+	},
+	
+	UWU(false,
+			PersonalityCategory.SPEECH,
+			"uwu",
+			"[npc.Name] [npc.verb(speak)] with an uwu speech quirk, [npc.her] speech can often be very hard to understand.",
+			"[style.italicsBad(All of [npc.namePos] in-game speech will be affected by this!)]", PresetColour.BASE_PINK_DEEP) {
+		@Override
+		public List<PersonalityTrait> getMutuallyExclusiveSettings() {
+			return Util.newArrayListOfValues(MUTE);
+		}
+		
+		@Override
+		public String getAdditionDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (target.hasPersonalityTrait(SLOVENLY)
+							?"[style.colourDisabled([npc.Name] already speaks with an uwu speech quirk, so nothing happens...)]"
+							:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorBad(speaking with an uwu speech quirk)]!")
+							+ "</p>");
+		}
+		@Override
+		public String getRemovalDescription(GameCharacter target) {
+			return UtilText.parse(target,
+					"<p style='text-align:center;'>"
+							+ (!target.hasPersonalityTrait(UWU)
+							?"[style.colourDisabled([npc.Name] already [npc.do]n't speak with an uwu speech quirk, so nothing happens...)]"
+							:"[npc.Name] [npc.verb(find)] [npc.herself] [style.colourMinorGood(no longer speaking with an uwu speech quirk)]!")
+							+ "</p>");
+		}
+	},
+	;
 	
 	private boolean specialRequirements;
 	private PersonalityCategory personalityCategory;
