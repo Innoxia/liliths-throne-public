@@ -7,7 +7,7 @@
 		<determiner><![CDATA[a cup of]]></determiner>
 		<name><![CDATA[Two-Tone Slushie]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[Grogs]]></namePlural>
-		<description><![CDATA[A kiwi-and-strawberry flavored two-tone slushie. The label depicts a gryphon-girl wearing only an apron handing a fountain cup resembling this one out towards an imaginary customer.]]></description> 
+		<description><![CDATA[A kiwi-and-strawberry flavoured two-tone slushie. The label depicts a gryphon-girl wearing only an apron handing a fountain cup resembling this one out towards an imaginary customer.]]></description> 
 		
 		<useDescriptor>drink</useDescriptor>
 		

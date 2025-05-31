@@ -883,7 +883,7 @@ public class OptionsDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			// Load the presets if uninitialized
+			// Load the presets if uninitialised
 			if (presets == null) loadPresets();
 
 			if (index == 0) {

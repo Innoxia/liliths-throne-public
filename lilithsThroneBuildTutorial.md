@@ -159,7 +159,7 @@ Alternatively, you can use a fully local copy:
 Your IDE should now load the project tree with resources, sources, etc. and generate project files as needed. Next, you need to create run configurations:
 1. For the default quick start, press [Ctrl + Shift + A] and search for "Edit Configurations". Open the action with that name.
 1. In the dialogue, click the "+" in the top left corner and choose "Application".
-1. Pick a name for the configuration that you will recognize (e.g. "Build and run").
+1. Pick a name for the configuration that you will recognise (e.g. "Build and run").
 1. Click the "..." next to the "Main class" text field and search for "Main". Pick the class with that name (com.lilithsthrone.main) and click "OK".
 1. Click "Apply" and/or "OK".
 
@@ -177,7 +177,7 @@ Note that the "data" directory (that stores settings and save games) may be over
 
 ### Common issues
 
-#### The Main class isn't recognized and unresolved symbol errors for Java
+#### The Main class isn't recognised and unresolved symbol errors for Java
 
 The importer sometimes fails to set the correct JDK for your project.
 1. Open the "Project Structure" dialogue (the default keybind is [Ctrl + Shift + Alt + S] or search for it with [Ctrl + Shift + A]).

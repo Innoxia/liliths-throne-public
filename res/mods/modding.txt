@@ -79,7 +79,7 @@ Once you have made your .svg images, you can optimise them (so that the game run
 
 1) All <flowRoot> elements should be manually removed (open your svg file in a text editor to do this). These are randomly added by Inkscape when dragging things in the editor and serve no purpose since they technically don't even exist in SVG 1.1, which all the files use.
 
-2) Automated optimization can be done using SVGO (note 1), a relatively simple command line tool. The configuration used is included (note 2) and contains instructions on how to use it.
+2) Automated optimisation can be done using SVGO (note 1), a relatively simple command line tool. The configuration used is included (note 2) and contains instructions on how to use it.
 
 note 1: https://github.com/svg/svgo
 

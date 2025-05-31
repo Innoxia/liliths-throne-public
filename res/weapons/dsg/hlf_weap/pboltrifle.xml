@@ -8,7 +8,7 @@
 		<determiner><![CDATA[a]]></determiner>
 		<name appendDamageName="true"><![CDATA[pepperball bolt-action rifle]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[pepperball bolt-action rifle]]></namePlural>
-		<description><![CDATA[The bolt-action predecessor to the modern pepperball rifle, it uses gelatin instead of solid capsules which reduce its damage. Although it bears Enforcer markings, they have been scratched out and replaced with insignia you don't recognize.]]></description>
+		<description><![CDATA[The bolt-action predecessor to the modern pepperball rifle, it uses gelatin instead of solid capsules which reduce its damage. Although it bears Enforcer markings, they have been scratched out and replaced with insignia you don't recognise.]]></description>
 		<attackDescriptor>shoot</attackDescriptor>
 		<attackTooltipDescription><![CDATA[Shoot [npc2.name] with your rifle.]]></attackTooltipDescription>
 		<rarity>RARE</rarity>

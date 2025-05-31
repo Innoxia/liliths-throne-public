@@ -6,7 +6,7 @@
 		<determiner><![CDATA[a pair of]]></determiner>
 		<name><![CDATA[kitty stockings]]></name>
 		<namePlural pluralByDefault="true"><![CDATA[kitty stockings]]></namePlural>
-		<description><![CDATA[A pair of thigh-high stockings with a stylized cat face printed on them and a pair of stylized cat ears attached.]]></description>
+		<description><![CDATA[A pair of thigh-high stockings with a stylised cat face printed on them and a pair of stylised cat ears attached.]]></description>
 		<physicalResistance>0</physicalResistance>
 		<femininity>FEMININE</femininity>
 		<slot>SOCK</slot> 

@@ -5,13 +5,13 @@
 	--------
 	
 	loading a savegame with a new version doesn't work (not that surprising) but the menu is still available and if you turn off confirmation you get stuck in the load menu,
-	 I d recomment not to show saves of incompatible versions  or display them as disabled with a note or smth.
+	 I d recommend not to show saves of incompatible versions  or display them as disabled with a note or smth.
 	
 	you still haven't put in a way to change the keybinds for the third row of commands.
 	
 	Perhaps adding a �cute� element to responses under the different Talks to include hearts?
 
-	dnieing selfaction still has no effect :/
+	denying selfaction still has no effect :/
 
 	NPCs don�t have pace change mechanic it seems. I am certain you�ll work on that, just putting it out there.
 	
@@ -35,7 +35,7 @@
 	apparently no way to be a subby male if you win and forfeit
 	
 	multiple TF potion
-		there was a little bit of gender pronoun confusion, since it seemed to apply the feminity change before writing out the actual transformation
+		there was a little bit of gender pronoun confusion, since it seemed to apply the femininity change before writing out the actual transformation
 	
 	UI: Status effects & Fetishes are causing the UI to be pushed behind the map/clothing panel.
 	
@@ -126,7 +126,7 @@
 	Spell cost reduction does not affect the cost of the main hand weapon's associated attack spell, but all other spell costs are reduced normally.
 		Correction: It's the fireball spell itself that does not conform to spell cost reduction.
 		
-	(Possibly referring to brax) -> NPC also refuse feminization potion still, despite being available and noted as usable in sex, they never work
+	(Possibly referring to brax) -> NPC also refuse feminisation potion still, despite being available and noted as usable in sex, they never work
 	
 	Futa enemy -> im stroking her penis -> she says: "go on keep using your fingers"
 	
@@ -142,9 +142,9 @@
 	Pulling aside backless panties with nothing else equipped gets rid of the exposed breasts status
 		Actually, it's just being completely exposed in general
 		I think it's trying to merge the statuses into one, but it doesn't increase the penalty
-		Or maybe it's supposed to get rid of the exposed breasts status effect when you wear backless panties, but it doesnt?
+		Or maybe it's supposed to get rid of the exposed breasts status effect when you wear backless panties, but it doesn't?
 	
-	(Maybe fixed) I just ran into a horse girl thats wearing assless chaps and backless panties but I don't know what her asshole looks like
+	(Maybe fixed) I just ran into a horse girl that's wearing assless chaps and backless panties but I don't know what her asshole looks like
 	
 	Nyan responds to you going back to the general choice of which type of clothing as if you just entered the back warehouse
 	

@@ -111,17 +111,17 @@
 	
 	<nameAnthro>
 		<namesDefault>
-			<name><![CDATA[samoyed-morph]]></name>
-			<namePlural><![CDATA[samoyed-morphs]]></namePlural>
-			<singularMaleName><![CDATA[samoyed-boy]]></singularMaleName>
-			<singularFemaleName><![CDATA[samoyed-girl]]></singularFemaleName>
-			<pluralMaleName><![CDATA[samoyed-boys]]></pluralMaleName>
-			<pluralFemaleName><![CDATA[samoyed-girls]]></pluralFemaleName>
+			<name><![CDATA[Samoyed-morph]]></name>
+			<namePlural><![CDATA[Samoyed-morphs]]></namePlural>
+			<singularMaleName><![CDATA[Samoyed-boy]]></singularMaleName>
+			<singularFemaleName><![CDATA[Samoyed-girl]]></singularFemaleName>
+			<pluralMaleName><![CDATA[Samoyed-boys]]></pluralMaleName>
+			<pluralFemaleName><![CDATA[Samoyed-girls]]></pluralFemaleName>
 		</namesDefault>
 	</nameAnthro>
 	
 	<!-- A brief description and identification requirements of this subspecies. -->
-	<description><![CDATA[A smart, industrious subspecies of dog-morph with a pelt that can endure the coldest climates. Known as a 'samoyed-morph' when bipedal, and a 'samoyedtaur' when the lower body is that of a typically-oversized feral samoyed. To be identified as a samoyed-morph, a character must be a dog-morph with fluffy, un-patterned white fur.]]></description>
+	<description><![CDATA[A smart, industrious subspecies of dog-morph with a pelt that can endure the coldest climates. Known as a 'Samoyed-morph' when bipedal, and a 'Samoyedtaur' when the lower body is that of a typically-oversized feral Samoyed. To be identified as a Samoyed-morph, a character must be a dog-morph with fluffy, un-patterned white fur.]]></description>
 	
 	<nameHalfDemon>
 		<namesDefault>
@@ -137,12 +137,12 @@
 	<!-- Attributes related to this subspecies when in a feral form. -->
 	<feralAttributes>
 		<!-- Naming: -->
-		<feralName><![CDATA[samoyed]]></feralName>
-		<feralNamePlural><![CDATA[samoyeds]]></feralNamePlural>
-		<feralSingularMaleName><![CDATA[samoyed]]></feralSingularMaleName>
-		<feralSingularFemaleName><![CDATA[samoyed]]></feralSingularFemaleName>
-		<feralPluralMaleName><![CDATA[samoyeds]]></feralPluralMaleName>
-		<feralPluralFemaleName><![CDATA[samoyeds]]></feralPluralFemaleName>
+		<feralName><![CDATA[Samoyed]]></feralName>
+		<feralNamePlural><![CDATA[Samoyeds]]></feralNamePlural>
+		<feralSingularMaleName><![CDATA[Samoyed]]></feralSingularMaleName>
+		<feralSingularFemaleName><![CDATA[Samoyed]]></feralSingularFemaleName>
+		<feralPluralMaleName><![CDATA[Samoyeds]]></feralPluralMaleName>
+		<feralPluralFemaleName><![CDATA[Samoyeds]]></feralPluralFemaleName>
 		
 		<!-- The leg configuration that a feral form of this subspecies has.
 		This determines their overall body shape. -->
@@ -173,7 +173,7 @@
 	
 	<!-- The description which is shown to the player in this subspecies' status effect tooltip. -->
 	<statusEffectDescription><![CDATA[
-		[npc.NamePos] samoyed-like body is hearty and well protected against the cold, and [npc.she] [npc.verb(tend)] to find purpose and comfort in doing work.
+		[npc.NamePos] Samoyed-like body is hearty and well protected against the cold, and [npc.she] [npc.verb(tend)] to find purpose and comfort in doing work.
 	]]></statusEffectDescription>
 	
 	<!-- The core attributes which a character of this subspecies benefits from.

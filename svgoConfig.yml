@@ -29,7 +29,7 @@ plugins:
   - removeUselessDefs
   - cleanupNumericValues
   - cleanupListOfValues
-  # Prevent converting colors to names for color replacement
+  # Prevent converting colours to names for colour replacement
   - convertColors:
       shortname: false
   - removeUnknownsAndDefaults

@@ -7,7 +7,7 @@
 		<determiner><![CDATA[a]]></determiner>
 		<name><![CDATA[kitty headband]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[cat headbands]]></namePlural>
-		<description><![CDATA[A headband with stylized cat ears attached to the top, designed to keep the wearer's hair pushed back out of their face.]]></description>
+		<description><![CDATA[A headband with stylised cat ears attached to the top, designed to keep the wearer's hair pushed back out of their face.]]></description>
 		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
 		<slot>HEAD</slot>

@@ -144,7 +144,7 @@ public class BodyCoveringType {
 						CoveringModifier.SHORT,
 						CoveringModifier.SHAGGY),
 				Util.newArrayListOfValues(
-						CoveringModifier.FLUFFY), // Put it as non-standard covering so that dog-morphs doen't spawn as samoyed-morphs.
+						CoveringModifier.FLUFFY), // Put it as non-standard covering so that dog-morphs don't spawn as Samoyed-morphs.
 				Util.newHashMapOfValues(
 						new Value<>(CoveringPattern.NONE, 30),
 						new Value<>(CoveringPattern.SPOTTED, 5),

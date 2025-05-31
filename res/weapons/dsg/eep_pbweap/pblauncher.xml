@@ -16,7 +16,7 @@
 		
 		<namePlural pluralByDefault="false"><![CDATA[pepper grenade launchers]]></namePlural> 
 		
-		<description><![CDATA[Originally designed to disperse pepper oil more efficiently via airburst, it was soon found that the residual heat from the bursting charge turned the aerosolized oil into a small explosive cloud. Despite being a serious design flaw, the Enforcers asked that it not be fixed.]]></description> 
+		<description><![CDATA[Originally designed to disperse pepper oil more efficiently via airburst, it was soon found that the residual heat from the bursting charge turned the aerosolised oil into a small explosive cloud. Despite being a serious design flaw, the Enforcers asked that it not be fixed.]]></description> 
 		
 		<attackDescriptor>shoot</attackDescriptor>
 		

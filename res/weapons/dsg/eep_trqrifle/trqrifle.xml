@@ -16,7 +16,7 @@
 		
 		<namePlural pluralByDefault="false"><![CDATA[revolving tranquiliser rifles]]></namePlural> 
 		
-		<description><![CDATA[Firing aura-piercing fin-stabilized discarding sabot darts filled with a potent sleeping potion, this rifle is not a true sniping weapon. Rather, it is designed to extend the reach of a standard Enforcer squad. Unlike most dart rifles, it uses a six-shot revolving autoloader.]]></description> 
+		<description><![CDATA[Firing aura-piercing fin-stabilised discarding sabot darts filled with a potent sleeping potion, this rifle is not a true sniping weapon. Rather, it is designed to extend the reach of a standard Enforcer squad. Unlike most dart rifles, it uses a six-shot revolving autoloader.]]></description> 
 		
 		<attackDescriptor>shoot</attackDescriptor>
 		

@@ -8,7 +8,7 @@
 		<determiner><![CDATA[a]]></determiner>
 		<name appendDamageName="true"><![CDATA[pepperball revolver]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[pepperball revolver]]></namePlural>
-		<description><![CDATA[This weapon appears to have been hand modified from something else and shows signs of having sat in pockets rather than in holsters. Stamped on the body is an insignia that you don't recognize.]]></description>
+		<description><![CDATA[This weapon appears to have been hand modified from something else and shows signs of having sat in pockets rather than in holsters. Stamped on the body is an insignia that you don't recognise.]]></description>
 		<attackDescriptor>shoot</attackDescriptor>
 		<attackTooltipDescription><![CDATA[Shoot [npc2.name] with your revolver.]]></attackTooltipDescription>
 		<rarity>RARE</rarity>

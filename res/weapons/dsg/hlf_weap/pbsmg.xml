@@ -8,7 +8,7 @@
 		<determiner><![CDATA[a]]></determiner>
 		<name appendDamageName="true"><![CDATA[pepperball submachine gun]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[pepperball submachine gun]]></namePlural>
-		<description><![CDATA[Although this weapon looks masterfully crafted, it nonetheless bears all the signs of having been made by hand rather than manufactured. Stamped on the body is an insignia that you don't recognize.]]></description>
+		<description><![CDATA[Although this weapon looks masterfully crafted, it nonetheless bears all the signs of having been made by hand rather than manufactured. Stamped on the body is an insignia that you don't recognise.]]></description>
 		<attackDescriptor>shoot</attackDescriptor>
 		<attackTooltipDescription><![CDATA[Shoot [npc2.name] with your submachine gun.]]></attackTooltipDescription>
 		<rarity>RARE</rarity>
