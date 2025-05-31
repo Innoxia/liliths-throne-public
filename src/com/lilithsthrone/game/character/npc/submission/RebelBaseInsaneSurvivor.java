@@ -74,7 +74,7 @@ public class RebelBaseInsaneSurvivor extends NPC {
 				(Main.game.getDateNow().getYear() - RECRUITMENT_YEAR) + 18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				5,
 				gender, Subspecies.HUMAN, RaceStage.HUMAN,
-				new CharacterInventory(10), WorldType.REBEL_BASE, PlaceType.REBEL_BASE_SLEEPING_AREA, false);
+				new CharacterInventory(false, 10), WorldType.REBEL_BASE, PlaceType.REBEL_BASE_SLEEPING_AREA, false);
         
         if(!isImported) {
             this.setLocation(Main.game.getPlayer(), true);

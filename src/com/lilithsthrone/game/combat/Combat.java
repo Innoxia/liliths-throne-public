@@ -1993,67 +1993,71 @@ public class Combat {
 	}
 	
 	public void addAlly(NPC ally) {
-		allies.add(ally);
-		allCombatants.add(ally);
-		ally.resetMoveCooldowns();
-		
-		predictionContent.put(ally, new ArrayList<>());
-		itemsToBeUsed.put(ally, new ArrayList<>());
-		manaBurnStack.put(ally, new Stack<>());
-		statusEffectsToApply.put(ally, new HashMap<>());
-		combatContent.put(ally, new ArrayList<>());
-		activeCombatants.add(ally);
-		
-		resetWeaponsThrownDuringTurn(ally);
-		resetWeaponsThrownDuringCombat(ally);
-		resetThrownWeaponsDepleted(ally);
-		
-		if(Main.game.isInCombat()) {
-			List<GameCharacter> npcAllies = getAllies(ally);
-			List<GameCharacter> npcEnemies = getEnemies(ally);
+		if(!allies.contains(ally)) {
+			allies.add(ally);
+			allCombatants.add(ally);
+			ally.resetMoveCooldowns();
 			
-			applyNewTurnShielding(ally);
-			ally.setRemainingAP(ally.getMaxAP(), npcEnemies, npcAllies);
+			predictionContent.put(ally, new ArrayList<>());
+			itemsToBeUsed.put(ally, new ArrayList<>());
+			manaBurnStack.put(ally, new Stack<>());
+			statusEffectsToApply.put(ally, new HashMap<>());
+			combatContent.put(ally, new ArrayList<>());
+			activeCombatants.add(ally);
 			
-			npcAllies.removeIf((c)->isCombatantDefeated(c));
-			npcEnemies.removeIf((c)->isCombatantDefeated(c));
+			resetWeaponsThrownDuringTurn(ally);
+			resetWeaponsThrownDuringCombat(ally);
+			resetThrownWeaponsDepleted(ally);
 			
-			// Figures out new moves for NPCs:
-			ally.selectMoves(npcEnemies, npcAllies);
-			predictionContent.put(ally, ally.getMovesPredictionString(npcEnemies, npcAllies));
+			if(Main.game.isInCombat()) {
+				List<GameCharacter> npcAllies = getAllies(ally);
+				List<GameCharacter> npcEnemies = getEnemies(ally);
+				
+				applyNewTurnShielding(ally);
+				ally.setRemainingAP(ally.getMaxAP(), npcEnemies, npcAllies);
+				
+				npcAllies.removeIf((c)->isCombatantDefeated(c));
+				npcEnemies.removeIf((c)->isCombatantDefeated(c));
+				
+				// Figures out new moves for NPCs:
+				ally.selectMoves(npcEnemies, npcAllies);
+				predictionContent.put(ally, ally.getMovesPredictionString(npcEnemies, npcAllies));
+			}
 		}
 	}
 	
 	public void addEnemy(NPC enemy) {
-		enemies.add(enemy);
-		allCombatants.add(enemy);
-		enemy.resetMoveCooldowns();
-		enemy.setFoughtPlayerCount(enemy.getFoughtPlayerCount()+1);
-		
-		predictionContent.put(enemy, new ArrayList<>());
-		itemsToBeUsed.put(enemy, new ArrayList<>());
-		manaBurnStack.put(enemy, new Stack<>());
-		statusEffectsToApply.put(enemy, new HashMap<>());
-		combatContent.put(enemy, new ArrayList<>());
-		activeCombatants.add(enemy);
-
-		resetWeaponsThrownDuringTurn(enemy);
-		resetWeaponsThrownDuringCombat(enemy);
-		resetThrownWeaponsDepleted(enemy);
-		
-		if(Main.game.isInCombat()) {
-			List<GameCharacter> npcAllies = getAllies(enemy);
-			List<GameCharacter> npcEnemies = getEnemies(enemy);
+		if(!enemies.contains(enemy)) {
+			enemies.add(enemy);
+			allCombatants.add(enemy);
+			enemy.resetMoveCooldowns();
+			enemy.setFoughtPlayerCount(enemy.getFoughtPlayerCount()+1);
 			
-			applyNewTurnShielding(enemy);
-			enemy.setRemainingAP(enemy.getMaxAP(), npcEnemies, npcAllies);
+			predictionContent.put(enemy, new ArrayList<>());
+			itemsToBeUsed.put(enemy, new ArrayList<>());
+			manaBurnStack.put(enemy, new Stack<>());
+			statusEffectsToApply.put(enemy, new HashMap<>());
+			combatContent.put(enemy, new ArrayList<>());
+			activeCombatants.add(enemy);
+	
+			resetWeaponsThrownDuringTurn(enemy);
+			resetWeaponsThrownDuringCombat(enemy);
+			resetThrownWeaponsDepleted(enemy);
 			
-			npcAllies.removeIf((c)->isCombatantDefeated(c));
-			npcEnemies.removeIf((c)->isCombatantDefeated(c));
-			
-			// Figures out new moves for NPCs:
-			enemy.selectMoves(npcEnemies, npcAllies);
-			predictionContent.put(enemy, enemy.getMovesPredictionString(npcEnemies, npcAllies));
+			if(Main.game.isInCombat()) {
+				List<GameCharacter> npcAllies = getAllies(enemy);
+				List<GameCharacter> npcEnemies = getEnemies(enemy);
+				
+				applyNewTurnShielding(enemy);
+				enemy.setRemainingAP(enemy.getMaxAP(), npcEnemies, npcAllies);
+				
+				npcAllies.removeIf((c)->isCombatantDefeated(c));
+				npcEnemies.removeIf((c)->isCombatantDefeated(c));
+				
+				// Figures out new moves for NPCs:
+				enemy.selectMoves(npcEnemies, npcAllies);
+				predictionContent.put(enemy, enemy.getMovesPredictionString(npcEnemies, npcAllies));
+			}
 		}
 	}
 	

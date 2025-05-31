@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#flags.hasFlag(FLAG_innoxia_callie_natalya_decoration_finished) && !sex.isCharacterWantingToStopSex(npc)]
+	]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>
+	<associatedFetishes/>
+	<performingArea/>
+	<targetedArea/>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Enjoy anilingus]]></title>
+	<tooltip><![CDATA[
+		Enjoy the feeling of having your ass eaten by [pc.name].
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<text><![CDATA[
+				#IF(npc==natalya)
+					[natalya.speech(That's it, filly, keep eating my ass!)] Mistress Natalya moans.
+				#ELSE
+					[callie.speech(Don't stop!)] Callie happily squeals as you continue eating her ass.
+				#ENDIF
+			]]></text>
+			<text><![CDATA[
+				#IF(npc==natalya)
+					Mistress Natalya lets out a series of [natalya.moans+] as you continue to perform anilingus on her.
+				#ELSE
+					Callie lustfully pants and moans as you kiss and lick her puffy, ebony asshole.
+				#ENDIF
+			]]></text>
+			<text><![CDATA[
+				#IF(npc==natalya)
+					Mistress Natalya pushes her ass back against your face and lets out [natalya.a_moan+] as you kiss her hot, puffy doughnut.
+				#ELSE
+					Callie [callie.moansVerb+] and reaches back to spread her ass cheeks as you slide your [pc.tongue+] over her [callie.asshole+].
+				#ENDIF
+			]]></text>
+			<text><![CDATA[
+				#IF(npc==natalya)
+					The flared head of Mistress Natalya's huge, ebony horse-cock engorges and her shaft twitches and throbs as she lets out a series of [natalya.moans+].
+				#ELSE
+					Rock-hard and constantly twitching, the state of Callie's huge, ebony horse-cock makes it clear that she's loving every moment of this.
+				#ENDIF
+			]]></text>
+			<text><![CDATA[
+				#IF(npc==natalya)
+					Mistress Natalya lets out [natalya.a_moan+] and eagerly bucks her feral hindquarters back into your face as you perform oral on her [natalya.asshole+].
+				#ELSE
+					[callie.A_moan+] bursts out from between Callie's lips as you continue to perform oral on her [callie.asshole+].
+				#ENDIF
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

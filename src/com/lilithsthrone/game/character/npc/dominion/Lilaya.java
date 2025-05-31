@@ -106,7 +106,7 @@ public class Lilaya extends NPC {
 				48, Month.DECEMBER, 28, // Note that Lilaya's age is always set to 22 years older than the player in CharacterCreation.applyGameStart(), so the age of 48 here doesn't mean much.
 				25,
 				Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.PARTIAL_FULL,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.LILAYAS_HOUSE_FIRST_FLOOR,
 				PlaceType.LILAYA_HOME_ROOM_LILAYA,
 				true);

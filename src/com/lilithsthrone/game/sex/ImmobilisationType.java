@@ -2,7 +2,7 @@ package com.lilithsthrone.game.sex;
 
 /**
  * @since 0.4
- * @version 0.4.9.1
+ * @version 0.4.10.7
  * @author Innoxia
  */
 public enum ImmobilisationType {
@@ -12,6 +12,9 @@ public enum ImmobilisationType {
 
 	/** Generic bondage type, representing being tied up with metallic chains. */
 	CHAINS(false),
+
+	/** Generic bondage type, representing being locked into stocks. */
+	STOCKS(false),
 	
 	/** From the spell granted by the witch's broom. */
 	WITCH_SEAL(false),

@@ -129,7 +129,7 @@
 	
 	<scene id="teleported">
 		<preParsingEffects><![CDATA[
-			[#pc.unequipAllClothingIntoVoid(true, true)]
+			[#pc.resetInventory(true)]
 			[#lunexis.applyCollar(pc)]
 			
 			[#lunexis.equipClothing()]

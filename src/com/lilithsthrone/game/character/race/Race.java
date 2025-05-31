@@ -163,6 +163,9 @@ public class Race {
 		@Override
 		public String getName(Body body, boolean feral) {
 			if(feral) {
+				if(body!=null && body.getHalfDemonSubspecies()!=null && body.getHalfDemonSubspecies()!=Subspecies.HUMAN) {
+					return "demonic-"+ body.getHalfDemonSubspecies().getFeralName(body);
+				}
 				if(body!=null) {
 					AbstractRace r = body.getLegType().getRace();
 					LegConfiguration legConfiguration = body.getLegConfiguration();
@@ -183,16 +186,16 @@ public class Race {
 							return "demonic-"+r.getName(body, true);
 					}
 				}
-				return "demonic-horse";
-			}
-			if(feral && body !=null && body.getHalfDemonSubspecies()!=null && body.getHalfDemonSubspecies()!=Subspecies.HUMAN) {
-				return "demonic-"+ body.getHalfDemonSubspecies().getFeralName(body);
+//				return "demonic-horse";
 			}
 			return super.getName(body, feral);
 		}
 		@Override
 		public String getNamePlural(Body body, boolean feral) {
 			if(feral) {
+				if(body!=null && body.getHalfDemonSubspecies()!=null && body.getHalfDemonSubspecies()!=Subspecies.HUMAN) {
+					return "demonic-"+ body.getHalfDemonSubspecies().getFeralNamePlural(body);
+				}
 				if(body!=null) {
 					AbstractRace r = body.getLegType().getRace();
 					LegConfiguration legConfiguration = body.getLegConfiguration();
@@ -213,10 +216,7 @@ public class Race {
 							return "demonic-"+r.getNamePlural(body, true);
 					}
 				}
-				return "demonic-horses";
-			}
-			if(feral && body !=null && body.getHalfDemonSubspecies()!=null && body.getHalfDemonSubspecies()!=Subspecies.HUMAN) {
-				return "demonic-"+ body.getHalfDemonSubspecies().getFeralNamePlural(body);
+//				return "demonic-horses";
 			}
 			return super.getNamePlural(body, feral);
 		}
@@ -803,7 +803,7 @@ public class Race {
 				PresetColour.SPELL_SCHOOL_ARCANE,
 				Disposition.NEUTRAL,
 				RacialClass.OTHER,
-				CombatBehaviour.BALANCED,
+				CombatBehaviour.SPELLS,
 				0.5f,
 				1,
 				1,

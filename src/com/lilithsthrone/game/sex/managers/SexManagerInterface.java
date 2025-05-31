@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -528,7 +529,7 @@ public interface SexManagerInterface {
 		if(!subspeciesSet.isEmpty()) {
 			List<AbstractRace> racesPresent = new ArrayList<>();
 			for(AbstractSubspecies species : subspeciesSet) {
-				if(!racesPresent.contains(species.getRace())) {
+				if(!racesPresent.contains(species.getRace()) && species!=Subspecies.HALF_DEMON) { // Exclude half-demons as they're most likely going to be a half-demon of a specific race which can't be represented here
 					racesPresent.add(species.getRace());
 				}
 			}

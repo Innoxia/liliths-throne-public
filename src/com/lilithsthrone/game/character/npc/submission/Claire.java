@@ -76,7 +76,7 @@ public class Claire extends NPC {
 					+ " As a result of this, she seems to be in multiple places at once, and whenever you enter one of these Enforcer posts, Claire is sure to already be there.",
 				31, Month.DECEMBER, 14,
 				10, Gender.F_V_B_FEMALE, Subspecies.CAT_MORPH, RaceStage.GREATER,
-				new CharacterInventory(30), WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, true);
+				new CharacterInventory(false, 30), WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, true);
 		
 		if(!isImported) {
 			this.setPlayerKnowsName(false);

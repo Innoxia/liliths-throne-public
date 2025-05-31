@@ -106,8 +106,8 @@ public class FluidMilk implements FluidInterface {
 		}
 		
 		Element milkModifiersElement = (Element)milk.getElementsByTagName("milkModifiers").item(0);
+		fluidMilk.fluidModifiers.clear();
 		if(milkModifiersElement!=null) {
-			fluidMilk.fluidModifiers.clear();
 			if(milkModifiersElement!=null) {
 				Collection<FluidModifier> milkFluidModifiers = fluidMilk.fluidModifiers;
 				Body.handleLoadingOfModifiers(FluidModifier.values(), null, milkModifiersElement, milkFluidModifiers);

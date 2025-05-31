@@ -69,6 +69,7 @@ import com.lilithsthrone.game.dialogue.npcDialogue.offspring.GenericOffspringDia
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHall;
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallDemographics;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaDressingRoomDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaMilkingRoomDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.places.dominion.nightlife.NightlifeDistrict;
@@ -300,6 +301,10 @@ public class MainController implements Initializable {
 	}
 
 	public boolean isInventoryDisabled() {
+		if(Main.game.isBadEnd()) {
+			return false;
+		}
+		
 		if(!Main.game.isInNewWorld() && !Main.game.isInSex()) {
 			return true;
 		}
@@ -508,16 +513,20 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
-
-							int rndInt = Util.random.nextInt();
-							System.out.println(rndInt+ " = " +Util.intToIndividualNumbersString(rndInt));
 							
-							if(Main.game.isInSex()) {
+							LilayaDressingRoomDialogue.calculateOutfitAvailability();
+							
+//							System.out.println(ClothingType.getAllClothing().size());
+							
+//							int rndInt = Util.random.nextInt();
+//							System.out.println(rndInt+ " = " +Util.intToIndividualNumbersString(rndInt));
+							
+//							if(Main.game.isInSex()) {
 //								System.out.println(Main.sex.getInitialSexManager().isHidden(Main.game.getPlayer()));
 //								Main.sex.getTargetedPartner(Main.game.getPlayer()).setForeplayPreference(Main.game.getPlayer(), new SexType(SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE));
 //								Main.sex.getTargetedPartner(Main.game.getPlayer()).setMainSexPreference(Main.game.getPlayer(), new SexType(SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH));
 //								Main.sex.recalculateSexActions();
-							}
+//							}
 							
 //							for(GameCharacter partner : Main.sex.getAllParticipants()) {
 //								if(!partner.isPlayer()) {
@@ -619,12 +628,12 @@ public class MainController implements Initializable {
 //								if(npc.isUnique() && !npc.hasArtwork()
 ////										&& (npc.getWorldLocation().getWorldRegion()==WorldRegion.DOMINION)
 ////										&& npc.isFeminine()
-//										&& npc.getFaceType().getBodyCoveringType(npc).getCategory()==BodyCoveringCategory.MAIN_SKIN
+////										&& npc.getFaceType().getBodyCoveringType(npc).getCategory()==BodyCoveringCategory.MAIN_SKIN
 ////										&& npc.isAbleToBeImpregnated()
 ////										&& npc.isFeminine()
 ////										&& (npc.getClass().getName().contains("dominion.") || npc.getClass().getName().contains("submission."))
 //										) {
-//									System.out.println(npc.getNameIgnoresPlayerKnowledge() + " "+npc.getClass().getName().split(".npc.")[1]);// + " " + npc.getSurname());
+//									System.out.println(UtilText.parse(npc, "[npc.Race] ([npc.raceStage]) [npc.name(true)] [npc.surname]")+" | "+npc.getClass().getName().split(".npc.")[1]+" ("+npc.getHomeWorldLocation().getName()+")");
 //								}
 //							}
 							
@@ -980,7 +989,6 @@ public class MainController implements Initializable {
 							}
 						}
 						
-						
 						if(((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('offspringPetNameInput') === document.activeElement"))) {
 							allowInput = false;
 							if (event.getCode() == KeyCode.ENTER) {
@@ -1009,6 +1017,29 @@ public class MainController implements Initializable {
 										Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()));
 									}
 									
+								}
+							}
+						}
+
+						if(Main.game.getCurrentDialogueNode() == LilayaDressingRoomDialogue.OUTFIT_EDITOR){
+							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('outfit_name') === document.activeElement")) {
+								allowInput = false;
+								if (event.getCode() == KeyCode.ENTER) {
+									enterConsumed = true;
+									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('outfit_name').value;");
+									LilayaDressingRoomDialogue.setOutfitName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+									Main.game.setContent(new Response("Outfit editor", "", Main.game.getCurrentDialogueNode()));
+								}
+							}
+						}
+						if(Main.game.getCurrentDialogueNode() == LilayaDressingRoomDialogue.OUTFIT_EDITOR_ITEM_ENCHANT){
+							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('output_name') === document.activeElement")) {
+								allowInput = false;
+								if (event.getCode() == KeyCode.ENTER) {
+									enterConsumed = true;
+									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('output_name').value;");
+									LilayaDressingRoomDialogue.setOutputName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+									Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 								}
 							}
 						}
@@ -1547,6 +1578,15 @@ public class MainController implements Initializable {
 			}
 		} else if (currentNode.equals(BodyChanging.BODY_CHANGING_SAVE_LOAD)) {
 			FileController.initBodySaveLoadListeners();
+		} else if(currentNode.equals(LilayaDressingRoomDialogue.OUTFITS)) {
+			FileController.initOutfitListeners();
+		} else if(currentNode.equals(LilayaDressingRoomDialogue.OUTFIT_EDITOR)
+				|| currentNode.equals(LilayaDressingRoomDialogue.OUTFIT_EDITOR_ITEM_CHOICE)) {
+			MiscController.initDressingRoomListeners();
+		} else if(currentNode.equals(LilayaDressingRoomDialogue.OUTFIT_EDITOR_ITEM_DYE)) {
+			MiscController.initDressingRoomDyeListeners();
+		} else if(currentNode.equals(LilayaDressingRoomDialogue.OUTFIT_EDITOR_ITEM_ENCHANT)) {
+			MiscController.initDressingRoomEnchantmentListeners();
 		} else if (currentNode.equals(CharacterCreation.BACKGROUND_SELECTION_MENU)) {
 			CreationController.initBackgroundSelectionListeners();
 		} else if (currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_COSMETICS_OTHER)) {
@@ -2584,10 +2624,15 @@ public class MainController implements Initializable {
 						
 						Set<AbstractSubspecies> subspecies = new HashSet<>();
 						subspecies.addAll(pop.getSpecies().keySet());
-						TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(
-								"Races Present",
-								Util.subspeciesToStringList(subspecies, true)+".",
-								16 + ((subspecies.size()/3)*16));
+						TooltipInformationEventListener el;
+						if(subspecies.isEmpty()) {
+							el = new TooltipInformationEventListener().setInformation("Races Present", "[style.colourDisabled(Unknown)]");
+						} else {
+							el = new TooltipInformationEventListener().setInformation(
+									"Races Present",
+									Util.subspeciesToStringList(subspecies, true)+".",
+									16 + ((subspecies.size()/3)*16));
+						}
 						addEventListener(documentRight, id, "mouseenter", el, false);
 					}
 					i++;

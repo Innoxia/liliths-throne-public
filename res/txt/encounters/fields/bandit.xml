@@ -242,7 +242,7 @@
 		#IF(pc.hasFetish(FETISH_SADIST))
 			Slapping the [attacker.race] across the face, you repeat your question, but once again [attacker.she] refuses to play along.
 		#ELSE
-			Trying a different approach, you promise the [attacker.race] a reward if she tells you what you want to know, but once again she refuses to play along.
+			Trying a different approach, you promise the [attacker.race] a reward if [attacker.she] tells you what you want to know, but once again [attacker.she] refuses to play along.
 		#ENDIF
 		 As you're clearly not going to be able to find out anything from this uncooperative [attacker.race], you give up on your line of questioning and wonder what to do with [attacker.herHim]...	</p>	]]>
 	</htmlContent>

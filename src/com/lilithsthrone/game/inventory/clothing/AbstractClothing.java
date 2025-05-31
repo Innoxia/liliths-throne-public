@@ -1642,7 +1642,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				List<InventorySlot> incompSlots = getIncompatibleSlots(null, slotToBeEquippedTo);
 				if(!incompSlots.isEmpty()) {
 					if(verbose) {
-						descriptionsList.add((plural?"They [style.boldBad(block":"It [style.boldBad(blocks")+")] the "+Util.inventorySlotsToStringList(incompSlots)+" slot"+(incompSlots.size()==1?"s":"")+"!");
+						descriptionsList.add((plural?"They [style.boldBad(block":"It [style.boldBad(blocks")+")] the "+Util.inventorySlotsToStringList(incompSlots)+" slot"+(incompSlots.size()!=1?"s":"")+"!");
 					} else {
 						for(InventorySlot slot : incompSlots) {
 							descriptionsList.add("[style.boldBad(Blocks " + Util.capitaliseSentence(slot.getName()) + ")]");
@@ -1696,7 +1696,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 				List<InventorySlot> incompSlots = getIncompatibleSlots(equippedToCharacter, slotToBeEquippedTo);
 				if(!incompSlots.isEmpty()) {
 					if(verbose) {
-						descriptionsList.add((plural?"They [style.boldBad(block":"It [style.boldBad(blocks")+")] the "+Util.inventorySlotsToStringList(incompSlots)+" slot"+(incompSlots.size()==1?"s":"")+"!");
+						descriptionsList.add((plural?"They [style.boldBad(block":"It [style.boldBad(blocks")+")] the "+Util.inventorySlotsToStringList(incompSlots)+" slot"+(incompSlots.size()!=1?"s":"")+"!");
 					} else {
 						for(InventorySlot slot : incompSlots) {
 							descriptionsList.add("[style.boldBad(Blocks " + Util.capitaliseSentence(slot.getName()) + ")]");
@@ -2184,15 +2184,12 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 	public String setEnchantmentKnown(GameCharacter owner, boolean enchantmentKnown) {
 		StringBuilder sb = new StringBuilder();
 		
-		if(owner!=null) {
-			if(owner.removeClothing(this)) {
-				AbstractClothing c = new AbstractClothing(this) {};
-				c.enchantmentKnown = enchantmentKnown;
-				owner.addClothing(c, false);
-				enchantmentRemovedClothing = c;
-			} else {
-				this.enchantmentKnown = enchantmentKnown;
-			}
+		if(owner!=null && owner.removeClothing(this)) {
+			AbstractClothing c = new AbstractClothing(this) {};
+			c.enchantmentKnown = enchantmentKnown;
+			owner.addClothing(c, false);
+			enchantmentRemovedClothing = c;
+				
 		} else {
 			this.enchantmentKnown = enchantmentKnown;
 		}
@@ -2523,6 +2520,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements XMLSa
 			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for beaks, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
 		}
 		
+		
+		if(tags.contains(ItemTag.FITS_BIPEDS) && clothingOwner.getLegConfiguration()!=LegConfiguration.BIPEDAL) {
+			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for bipedal bodies, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
+		}
 		if(tags.contains(ItemTag.FITS_TAUR_BODY) && clothingOwner.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL) {
 			return new Value<>(false, UtilText.parse(clothingOwner,"The "+this.getName()+" "+(plural?"are":"is")+" only suitable for taur bodies, and as such, [npc.name] cannot wear "+(plural?"them":"it")+"."));
 		}

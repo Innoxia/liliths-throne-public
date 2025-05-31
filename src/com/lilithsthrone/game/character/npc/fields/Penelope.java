@@ -84,7 +84,7 @@ public class Penelope extends NPC {
 				"A beautiful border collie-girl, who is the owner and manager of Elis's spa; 'Woolly Heaven'.",
 				29, Month.FEBRUARY, 21, 
 				15, Gender.F_P_V_B_FUTANARI, Subspecies.DOG_MORPH_BORDER_COLLIE, RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_shops"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_shops_spa"),
 				true);
 

@@ -1335,10 +1335,11 @@ public enum SexAreaOrifice implements SexAreaInterface {
 			false) {
 		@Override
 		public String getName(GameCharacter owner, boolean standardName) {
+			// Changed from "ass cheeks" to "ass" in v0.4.10.8
 			if(standardName) {
-				return "ass cheeks";
+				return "ass";
 			}
-			return "ass cheeks";
+			return "ass";
 //			return owner.getAssName(false);
 		}
 		@Override

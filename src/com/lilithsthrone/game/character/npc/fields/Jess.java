@@ -83,7 +83,7 @@ public class Jess extends NPC {
 				+ " Of course, if some more intimate entertainment is desired, she's always willing to negotiate the price...",
 				22, Month.MARCH, 7,
 				10, Gender.F_V_B_FEMALE, Subspecies.FOX_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"),
 				PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f1_room_sex"),
 				true);

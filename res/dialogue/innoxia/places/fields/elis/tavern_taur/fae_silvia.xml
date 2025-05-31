@@ -347,8 +347,8 @@
 			<response>
 				<availabilityConditional><![CDATA[[#game.isAnalContentEnabled() && !pc.isAbleToAccessCoverableArea(CA_ANUS, true)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[3]]></index>
-				<responseTitle><![CDATA[Doggy-styled]]></responseTitle>
+				<index><![CDATA[4]]></index>
+				<responseTitle><![CDATA[Doggy-styled (anal)]]></responseTitle>
 				<responseTooltip><![CDATA[As you can't gain access to your asshole, you cannot get anally doggy-styled...]]></responseTooltip>
 				<nextDialogue><![CDATA[null]]></nextDialogue>
 			</response>
@@ -517,7 +517,7 @@
 							<showEffects><![CDATA[true]]></showEffects>
 						</action>
 						<action>
-							<condition><![CDATA[[#(!pc.hasPenisIgnoreDildo() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)) && pc.hasVagina()]]]></condition>
+							<condition><![CDATA[[#(!pc.hasPenisIgnoreDildo() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)) && pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></condition>
 							<id><![CDATA[TongueVagina_CUNNILINGUS_START]]></id>
 							<performer><![CDATA[silvia]]></performer>
 							<target><![CDATA[pc]]></target>
@@ -573,7 +573,7 @@
 							<showEffects><![CDATA[true]]></showEffects>
 						</action>
 						<action>
-							<condition><![CDATA[[#(!pc.hasPenisIgnoreDildo() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)) && pc.hasVagina()]]]></condition>
+							<condition><![CDATA[[#(!pc.hasPenisIgnoreDildo() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)) && pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></condition>
 							<id><![CDATA[TongueVagina_CUNNILINGUS_START]]></id>
 							<performer><![CDATA[silvia]]></performer>
 							<target><![CDATA[pc]]></target>

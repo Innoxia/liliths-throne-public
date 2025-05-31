@@ -570,6 +570,7 @@ public class CharacterModificationUtils {
 				int i=0;
 				for(AbstractFetish fetish : Fetish.getAllFetishes()) {
 					if((fetish.isAvailable(BodyChanging.getTarget()) || (fetish==Fetish.FETISH_PURE_VIRGIN && Main.game.getPlayer().hasVagina())) // Always allow virgin fetish so that players can start as broken virgin
+							&& fetish.isContentEnabled()
 							&& fetish.getFetishesForAutomaticUnlock().isEmpty()) {
 						contentSB.append("<div class='container-full-width inner' style='width:100%; margin:0; padding:0; background:"+(i%2==0?PresetColour.BACKGROUND:PresetColour.BACKGROUND_ALT).toWebHexString()+";'>");
 						
@@ -994,7 +995,7 @@ public class CharacterModificationUtils {
 				BodyChanging.getTarget().getAppearsAsAgeValue()>=(BodyChanging.getTarget().getAgeValue()+BodyChanging.getTarget().getAgeDifferenceUpperLimit()))
 				
 				+ applyWrapper("Birthday",
-						UtilText.parse(BodyChanging.getTarget(), "[npc.NamePos] birthday can not ever be changed, but by transforming [npc.her] body, [npc.she] may appear to be younger or older than [npc.she] really [npc.is]."),
+						UtilText.parse(BodyChanging.getTarget(), "[npc.NamePos] birthday can never be changed, but by transforming [npc.her] body, [npc.she] may appear to be younger or older than [npc.she] really [npc.is]."),
 						"BIRTHDAY",
 						"<p style='text-align:center; margin:0; padding:0;'>"
 							+ BodyChanging.getTarget().getBirthdayString()

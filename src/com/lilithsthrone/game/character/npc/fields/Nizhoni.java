@@ -75,7 +75,7 @@ public class Nizhoni extends NPC {
 				19, Month.JUNE, 3,
 				15,
 				Gender.F_V_B_FEMALE, Subspecies.getSubspeciesFromId("dsg_raccoon_subspecies_raccoon"), RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_market"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_market_centre"),
 				true);
 

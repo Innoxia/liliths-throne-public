@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -65,6 +66,7 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJobSetting;
 import com.lilithsthrone.game.sex.GenericSexFlag;
+import com.lilithsthrone.game.sex.ImmobilisationType;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -510,6 +512,14 @@ public class SlaverAlleyDialogue {
 								new Value<>(randomSexPartners.get(0), SexSlotStocks.BEHIND_STOCKS),
 								new Value<>(randomSexPartners.get(1), SexSlotStocks.RECEIVING_ORAL)),
 				Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStocks.LOCKED_IN_STOCKS))) {
+			@Override
+			public Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> getStartingCharactersImmobilised() {
+				return Util.newHashMapOfValues(
+						new Value<>(ImmobilisationType.STOCKS,
+								Util.newHashMapOfValues(
+										new Value<>(randomSexPartners.get(0),
+												Util.newHashSetOfValues(Main.game.getPlayer())))));
+			}
 			@Override
 			public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
 				return getMainSexPreference(character, targetedCharacter);
@@ -1700,7 +1710,10 @@ public class SlaverAlleyDialogue {
 			}
 
 			UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "PUBLIC_STOCKS_ENFORCER"));
-			
+
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.slaverAlleySlavesFreed)) {
+				UtilText.nodeContentSB.append(UtilText.parseFromXMLFile("places/dominion/slaverAlley/genericDialogue", "PUBLIC_STOCKS_FREED_ENDING"));
+			}
 			return UtilText.nodeContentSB.toString();
 		}
 
@@ -1744,7 +1757,16 @@ public class SlaverAlleyDialogue {
 										ownedByPlayer || slave.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ANAL),
 										ownedByPlayer || slave.hasSlaveJobSetting(SlaveJob.PUBLIC_STOCKS, SlaveJobSetting.SEX_ORAL),
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStocks.BEHIND_STOCKS)),
-										Util.newHashMapOfValues(new Value<>(slave, SexSlotStocks.LOCKED_IN_STOCKS))),
+										Util.newHashMapOfValues(new Value<>(slave, SexSlotStocks.LOCKED_IN_STOCKS))) {
+									@Override
+									public Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> getStartingCharactersImmobilised() {
+										return Util.newHashMapOfValues(
+												new Value<>(ImmobilisationType.STOCKS,
+														Util.newHashMapOfValues(
+																new Value<>(Main.game.getPlayer(),
+																		Util.newHashSetOfValues(slave)))));
+									}
+								},
 								Util.newArrayListOfValues(companion),
 								null,
 								AFTER_STOCKS_SEX,
@@ -1791,7 +1813,16 @@ public class SlaverAlleyDialogue {
 										Util.newHashMapOfValues(
 												new Value<>(Main.game.getPlayer(), SexSlotStocks.BEHIND_STOCKS),
 												new Value<>(companion, SexSlotStocks.RECEIVING_ORAL)),
-										Util.newHashMapOfValues(new Value<>(slave, SexSlotStocks.LOCKED_IN_STOCKS))),
+										Util.newHashMapOfValues(new Value<>(slave, SexSlotStocks.LOCKED_IN_STOCKS))) {
+									@Override
+									public Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> getStartingCharactersImmobilised() {
+										return Util.newHashMapOfValues(
+												new Value<>(ImmobilisationType.STOCKS,
+														Util.newHashMapOfValues(
+																new Value<>(Main.game.getPlayer(),
+																		Util.newHashSetOfValues(slave)))));
+									}
+								},
 								null,
 								null,
 								AFTER_STOCKS_SEX,
@@ -2048,6 +2079,14 @@ public class SlaverAlleyDialogue {
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Sean.class), SexSlotStocks.BEHIND_STOCKS)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStocks.LOCKED_IN_STOCKS))) {
 							@Override
+							public Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> getStartingCharactersImmobilised() {
+								return Util.newHashMapOfValues(
+										new Value<>(ImmobilisationType.STOCKS,
+												Util.newHashMapOfValues(
+														new Value<>(Main.game.getNpc(Sean.class),
+																Util.newHashSetOfValues(Main.game.getPlayer())))));
+							}
+							@Override
 							public SexControl getSexControl(GameCharacter character) {
 								if(character.isPlayer()) {
 									return SexControl.NONE;
@@ -2218,6 +2257,14 @@ public class SlaverAlleyDialogue {
 								SexPosition.STOCKS,
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Sean.class), SexSlotStocks.BEHIND_STOCKS)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStocks.LOCKED_IN_STOCKS))) {
+							@Override
+							public Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> getStartingCharactersImmobilised() {
+								return Util.newHashMapOfValues(
+										new Value<>(ImmobilisationType.STOCKS,
+												Util.newHashMapOfValues(
+														new Value<>(Main.game.getNpc(Sean.class),
+																Util.newHashSetOfValues(Main.game.getPlayer())))));
+							}
 							@Override
 							public SexControl getSexControl(GameCharacter character) {
 								if(character.isPlayer()) {
@@ -2863,6 +2910,7 @@ public class SlaverAlleyDialogue {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.slaverAlleySlavesFreed, true);
+						Main.game.getDialogueFlags().setSavedLong("slaver_alley_slaves_freed_time", Main.game.getSecondsPassed());
 						Main.game.getNpc(Sean.class).setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS);
 					}
 				};
@@ -2993,6 +3041,14 @@ public class SlaverAlleyDialogue {
 									SexPosition.STOCKS,
 									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Sean.class), SexSlotStocks.BEHIND_STOCKS)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStocks.LOCKED_IN_STOCKS))) {
+								@Override
+								public Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> getStartingCharactersImmobilised() {
+									return Util.newHashMapOfValues(
+											new Value<>(ImmobilisationType.STOCKS,
+													Util.newHashMapOfValues(
+															new Value<>(Main.game.getNpc(Sean.class),
+																	Util.newHashSetOfValues(Main.game.getPlayer())))));
+								}
 								@Override
 								public SexControl getSexControl(GameCharacter character) {
 									if(character.isPlayer()) {
@@ -3213,6 +3269,14 @@ public class SlaverAlleyDialogue {
 									SexPosition.STOCKS,
 									Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Sean.class), SexSlotStocks.BEHIND_STOCKS)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStocks.LOCKED_IN_STOCKS))) {
+								@Override
+								public Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> getStartingCharactersImmobilised() {
+									return Util.newHashMapOfValues(
+											new Value<>(ImmobilisationType.STOCKS,
+													Util.newHashMapOfValues(
+															new Value<>(Main.game.getNpc(Sean.class),
+																	Util.newHashSetOfValues(Main.game.getPlayer())))));
+								}
 								@Override
 								public SexControl getSexControl(GameCharacter character) {
 									if(character.isPlayer()) {

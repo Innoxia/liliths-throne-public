@@ -520,27 +520,22 @@ public class LilayaMilkingRoomDialogue {
 	};
 	
 	public static final DialogueNode MILKED = new DialogueNode("Room", ".", true) {
-
 		@Override
 		public int getSecondsPassed() {
 			return 60*60;
 		}
-		
 		@Override
 		public boolean isRegenerationDisabled() {
 			return true;
 		}
-		
 		@Override
 		public String getLabel() {
 			return Main.game.getPlayer().getLocationPlace().getName();
 		}
-		
 		@Override
 		public String getContent() {
 			return "";
 		}
-
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
@@ -553,6 +548,40 @@ public class LilayaMilkingRoomDialogue {
 			} else {
 				return null;
 			}
+		}
+	};
+	
+	/**
+	 * Used in OccupantController when a character consumes fluids.
+	 */
+	public static final DialogueNode INGEST = new DialogueNode("Room", ".", true) {
+		@Override
+		public int getSecondsPassed() {
+			return 5*60;
+		}
+		@Override
+		public boolean isRegenerationDisabled() {
+			return true;
+		}
+		@Override
+		public String getLabel() {
+			return Main.game.getPlayer().getLocationPlace().getName();
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Continue", "You wonder what do do next...", INGEST) {
+					@Override
+					public DialogueNode getNextDialogue() {
+						return Main.game.getDefaultDialogue(false);
+					}
+				};
+			}
+			return null;
 		}
 	};
 }

@@ -1993,7 +1993,7 @@ public class ScarlettsShop {
 									
 									Main.game.addSavedInventory(Main.game.getNpc(Scarlett.class));
 									int essences = Main.game.getNpc(Scarlett.class).getEssenceCount();
-									Main.game.getNpc(Scarlett.class).setInventory(new CharacterInventory(0));
+									Main.game.getNpc(Scarlett.class).setInventory(new CharacterInventory(false, 0));
 									Main.game.getNpc(Scarlett.class).setEssenceCount(essences);
 								}
 							};
@@ -2030,7 +2030,7 @@ public class ScarlettsShop {
 									
 									Main.game.addSavedInventory(Main.game.getNpc(Scarlett.class));
 									int essences = Main.game.getNpc(Scarlett.class).getEssenceCount();
-									Main.game.getNpc(Scarlett.class).setInventory(new CharacterInventory(0));
+									Main.game.getNpc(Scarlett.class).setInventory(new CharacterInventory(false, 0));
 									Main.game.getNpc(Scarlett.class).setEssenceCount(essences);
 								}
 							};

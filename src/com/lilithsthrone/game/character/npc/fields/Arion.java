@@ -61,7 +61,7 @@ public class Arion extends NPC {
 				"The ever-present assistant to Minotallys, Arion is fiercely protective of his superior.",
 				26, Month.FEBRUARY, 26,
 				20, Gender.M_P_MALE, Subspecies.HORSE_MORPH_ALICORN, RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_town_hall_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_hall_f1_assistant_room"),
 				true);
 		

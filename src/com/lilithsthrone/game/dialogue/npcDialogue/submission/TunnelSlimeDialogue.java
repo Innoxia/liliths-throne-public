@@ -587,7 +587,19 @@ public class TunnelSlimeDialogue {
 			boolean rapePlay = getSlime().isPostCombatRapePlay();
 		
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way...", Main.game.getDefaultDialogue(false)){
+				return new Response("Continue",
+						"Carry on your way..."
+							+ (getSlime().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)
+									?UtilText.parse(getSlime(), "<br/>[style.italicsBad([npc.Name] will be permanently removed from the game.)]")
+									:""),
+						Main.game.getDefaultDialogue(false)){
+					@Override
+					public Colour getHighlightColour() {
+						if(getSlime().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+							return PresetColour.GENERIC_NPC_REMOVAL;
+						}
+						return super.getHighlightColour();
+					}
 					@Override
 					public void effects() {
 						if(getSlime().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {

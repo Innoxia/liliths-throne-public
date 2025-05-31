@@ -59,7 +59,7 @@
 		[npc.Name] [npc.verb(swipe)] [npc.her] broom at [npc2.name] and [npc.verb(manage)] to whack [npc2.her] [npc2.arm]!
 		]]></hitText>
 		<hitText><![CDATA[
-		[npc.Name] [npc.verb(swing)] [npc.her] broom at [npc2.name] and [npc.verb(hit)] [npc2.her] in the chest!
+		[npc.Name] [npc.verb(swing)] [npc.her] broom at [npc2.name] and [npc.verb(hit)] [npc2.herHim] in the chest!
 		]]></hitText>
 	</hitDescriptions>
 

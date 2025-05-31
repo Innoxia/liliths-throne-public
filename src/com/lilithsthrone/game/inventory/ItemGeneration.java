@@ -143,6 +143,10 @@ public class ItemGeneration {
 	
 	// Clothing generation:
 	
+	public AbstractClothing generateClothing(AbstractClothing clothingToCopy) {
+		return new AbstractClothing(clothingToCopy) {};
+	}
+	
 	public AbstractClothing generateClothing(String clothingTypeId, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour, boolean allowRandomEnchantment) {
 		return this.generateClothing(ClothingType.getClothingTypeFromId(clothingTypeId), primaryColour, secondaryColour, tertiaryColour, allowRandomEnchantment);
 	}

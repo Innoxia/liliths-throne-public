@@ -34,6 +34,8 @@ import com.lilithsthrone.utils.Util;
 public class SexActionExternal extends SexAction {
 	
 	private int renderingPriority = 0;
+	
+	private String categoryString;
 	private String actionConditional;
 	private String endsSexString;
 	private String priorityString;
@@ -81,6 +83,10 @@ public class SexActionExternal extends SexAction {
 				
 				if(elementPresentAndNotEmpty(coreElement, "buttonPriority")) {
 					renderingPriority = Integer.valueOf(coreElement.getMandatoryFirstOf("buttonPriority").getTextContent().trim());
+				}
+				
+				if(elementPresentAndNotEmpty(coreElement, "category")) {
+					categoryString = coreElement.getMandatoryFirstOf("category").getTextContent().trim();
 				}
 				
 				if(elementPresentAndNotEmpty(coreElement, "actionConditional")) {
@@ -319,5 +325,14 @@ public class SexActionExternal extends SexAction {
 			}
 		}
 		return "[style.italicsRed(Error: No suitable description found for this action!)]";
+	}
+	
+	@Override
+	public SexActionCategory getCategory() {
+		if(categoryString!=null && !categoryString.isEmpty()) {
+			return SexActionCategory.valueOf(UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getCharacterTargetedForSexAction(this), categoryString).trim());
+		}
+		
+		return super.getCategory();
 	}
 }

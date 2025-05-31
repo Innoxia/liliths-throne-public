@@ -100,8 +100,8 @@ public class FluidCum implements FluidInterface {
 		
 
 		Element cumModifiers = (Element)cum.getElementsByTagName("cumModifiers").item(0);
+		fluidCum.fluidModifiers.clear();
 		if(cumModifiers!=null) {
-			fluidCum.fluidModifiers.clear();
 			if(cumModifiers!=null) {
 				Set<FluidModifier> fluidModifiers = fluidCum.fluidModifiers;
 				Body.handleLoadingOfModifiers(FluidModifier.values(), null, cumModifiers, fluidModifiers);

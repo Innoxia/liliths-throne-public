@@ -74,7 +74,7 @@ public class Flash extends NPC {
 				Gender.M_P_MALE,
 				Subspecies.getSubspeciesFromId("innoxia_badger_subspecies_badger"),
 				RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_f1"),
 				PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_f1_room_owner"),
 				true);

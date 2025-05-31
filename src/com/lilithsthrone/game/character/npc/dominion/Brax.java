@@ -95,7 +95,7 @@ public class Brax extends NPC {
 				"Holding the rank of Inspector, Brax is a high-ranking Enforcer. Muscular, handsome, and with an incredibly dominant personality, he's the focus of every female Enforcer's attention.",
 				30, Month.NOVEMBER, 27,
 				10, Gender.M_P_MALE,
-				Subspecies.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_BRAXS_OFFICE, true);
+				Subspecies.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(false, 10), WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_BRAXS_OFFICE, true);
 		
 		if(!isImported) {
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 25);
@@ -518,7 +518,7 @@ public class Brax extends NPC {
 				minimumEffects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_TAIL, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), ""));
 				minimumEffects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), ""));
 				minimumEffects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HORNS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), ""));
-				minimumEffects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ANTENNA, TFModifier.TF_TYPE_1, TFPotency.MINOR_BOOST, 1), ""));
+				minimumEffects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ANTENNA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), ""));
 				minimumEffects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_WINGS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), ""));
 			case HUMAN:
 				break;

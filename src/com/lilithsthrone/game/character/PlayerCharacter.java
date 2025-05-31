@@ -44,6 +44,7 @@ import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.character.npc.submission.DarkSiren;
+import com.lilithsthrone.game.character.npc.submission.Elizabeth;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
@@ -132,7 +133,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	
 	public PlayerCharacter(NameTriplet nameTriplet, int level, LocalDateTime birthday, Gender gender, AbstractSubspecies startingSubspecies, RaceStage stage, AbstractWorldType startingWorld, AbstractPlaceType startingPlace) {
-		super(nameTriplet, "", "", level, Main.game.getDateNow().minusYears(22), gender, startingSubspecies, stage, new CharacterInventory(0), startingWorld, startingPlace);
+		super(nameTriplet, "", "", level, Main.game.getDateNow().minusYears(22), gender, startingSubspecies, stage, new CharacterInventory(false, 0), startingWorld, startingPlace);
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		
@@ -921,9 +922,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		}
 		if(Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth")) {
 			if(character instanceof Lyssieth) {
-				return Util.newHashSetOfValues(Relationship.Parent);
+				return Util.newHashSetOfValues(Relationship.Child);
 			}
-			if(character instanceof DarkSiren) {
+			if(character instanceof DarkSiren || character instanceof Elizabeth) {
 				return Util.newHashSetOfValues(Relationship.HalfSibling);
 			}
 		}

@@ -82,7 +82,7 @@ public class Vanessa extends NPC {
 						+ " Although getting on years, she's aged remarkably well, and has a refined, elegant beauty about her.",
 				55, Month.SEPTEMBER, 26,
 				10, Gender.F_V_B_FEMALE, Subspecies.FOX_MORPH, RaceStage.PARTIAL,
-				new CharacterInventory(10), WorldType.CITY_HALL, PlaceType.CITY_HALL_ARCHIVES, true);
+				new CharacterInventory(false, 10), WorldType.CITY_HALL, PlaceType.CITY_HALL_ARCHIVES, true);
 		
 		if(!isImported) {
 			this.setPlayerKnowsName(false);

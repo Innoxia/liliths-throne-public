@@ -50,7 +50,7 @@ public class SMStocks extends SexManagerDefault {
 			}
 		}
 	}
-
+	
 	@Override
 	public boolean isAbleToRemoveSelfClothing(GameCharacter character){
 		return getDominants().containsKey(character);

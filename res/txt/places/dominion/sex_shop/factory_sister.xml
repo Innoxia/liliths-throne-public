@@ -509,7 +509,7 @@
 				#IF(pc.hasVagina())
 					 [pc.pussy+],
 				#ELSE
-					 [#pc.asshole+],
+					 [pc.asshole+],
 				#ENDIF
 				 making you let out involuntary [pc.moans] and whimpers. Her mocking sneers and triumphant giggles add to your burning shame, as does the occasional swat of her riding crop, and you try not to think about what's going to happen to you as you carry your tormentor deeper into the factory...
 			</p>
@@ -540,7 +540,7 @@
 				#IF(pc.hasVagina())
 					 [pc.pussy+],
 				#ELSE
-					 [#pc.asshole+],
+					 [pc.asshole+],
 				#ENDIF
 				 making you let out involuntary [pc.moans] and whimpers. Her mocking sneers and triumphant giggles add to your burning shame, as does the occasional swat of her riding crop, and you try not to think about what's going to happen to you as you're led deeper into the factory...
 			</p>

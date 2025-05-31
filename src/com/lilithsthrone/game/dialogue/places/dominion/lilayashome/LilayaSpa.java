@@ -745,7 +745,7 @@ public class LilayaSpa {
 			if(soloSlave) {
 				sb.append("[style.boldMinorGood(Slaves Present)]<b>:</b>"
 						+ "<br/>");
-				sb.append(UtilText.parse(slavesPresent, "Sitting on one of the loungers positioned beside the pools, your slave, "+Util.stringsToStringList(names, false)+", is waiting for you to give [npc.her] an order."));
+				sb.append(UtilText.parse(slavesPresent, "Sitting on one of the loungers positioned beside the pools, your slave, "+Util.stringsToStringList(names, false)+", is waiting for you to give [npc.herHim] an order."));
 				if(slavesPresent.get(0).hasSlaveJobSetting(SlaveJob.SPA, SlaveJobSetting.SPA_BATHING)) {
 					sb.append(UtilText.parse(slavesPresent,
 							"</p>"

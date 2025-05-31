@@ -86,7 +86,7 @@ public class Hammer extends NPC {
 				69, Month.DECEMBER, 1,
 				40,
 				Gender.M_P_MALE, Subspecies.WOLF_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_enforcer_station"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_enforcer_station_sword"),
 				true);
 		if(!isImported) {

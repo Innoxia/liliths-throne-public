@@ -16,6 +16,7 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Lab;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaDiningHallDialogue;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaDressingRoomDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaMilkingRoomDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaOfficeDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaSlaveLoungeDialogue;
@@ -1146,6 +1147,55 @@ public class PlaceUpgrade {
 			0,
 			null) {
 	};
+
+	
+	//**** DRESSING ROOM UPGRADES ****//
+	
+	public static final AbstractPlaceUpgrade LILAYA_DRESSING_ROOM = new AbstractPlaceUpgrade(true,
+			PresetColour.BASE_GOLD,
+			"Dressing Room",
+			"Although there's more than enough space in every bedroom for a wardrobe or two, dedicating an entire room to storing clothes will allow you to easily pick out and store outfits."
+					+ " [style.italicsGood(This will grant you access to 'Outfit management' for both yourself and your slaves.)]",
+			"This particular room has been converted into a dressing room, and has enough wardrobe space to hold hundreds of items of clothing."
+					+ " [style.italicsGood(You have gained access to 'Outfit management' for both yourself and your slaves!)]",
+			"You've had this particular room converted into a dedicated dressing room."
+					+ " Dozens of wardrobes provide storage space for hundreds of items of clothing, and from here you can pick out outfits for both you and your slaves to wear.",
+			5000,
+			250,
+			50,
+			0,
+			0,
+			0,
+			null) {
+		@Override
+		public DialogueNode getRoomDialogue(Cell c) {
+			return LilayaDressingRoomDialogue.ROOM_DRESSING_ROOM;
+		}
+		@Override
+		public String getSVGOverride() {
+			return AbstractPlaceType.getSVGOverride("dominion/lilayasHome/roomDressingRoom", PresetColour.BASE_GOLD);
+		}
+		@Override
+		protected Value<Boolean, String> getExtraConditionalAvailability(Cell cell) {
+			if(cell.getPlace().getPlaceUpgrades().contains(LILAYA_ARTHUR_ROOM)) {
+				return new Value<>(false, "");
+			}
+			if(!Main.game.getCharactersTreatingCellAsHome(cell).isEmpty()) {
+				return new Value<>(false, "This room needs to be unoccupied in order to purchase this modification.");
+			}
+			return super.getExtraConditionalAvailability(cell);
+		}
+		
+		@Override
+		public void applyInstallationEffects(Cell c) {
+			GenericPlace place = c.getPlace();
+			for(AbstractPlaceUpgrade upgrade : PlaceUpgrade.getAllPlaceUpgrades()) {
+				if(upgrade != LILAYA_DRESSING_ROOM) {
+					place.removePlaceUpgrade(c, upgrade);
+				}
+			}
+		}
+	};
 	
 
 	//**** SPA UPGRADES ****//
@@ -1315,7 +1365,8 @@ public class PlaceUpgrade {
 	public static final AbstractPlaceUpgrade LILAYA_SPA_BAR = new AbstractPlaceUpgrade(false,
 			PresetColour.BASE_ORANGE,
 			"Bar",
-			"",
+			"Have a bar constructed within the pool area of the spa, which will be kept stocked full of both hard and soft drinks."
+					+ " Refrigeration and restocking costs mean that it won't be cheap to maintain, however...",
 			"",
 			"",
 			15_000,
@@ -1508,6 +1559,8 @@ public class PlaceUpgrade {
 				PlaceUpgrade.LILAYA_SPA,
 				
 				PlaceUpgrade.LILAYA_OFFICE,
+				PlaceUpgrade.LILAYA_DRESSING_ROOM,
+				
 				PlaceUpgrade.LILAYA_MILKING_ROOM,
 				PlaceUpgrade.LILAYA_DINING_HALL,
 				

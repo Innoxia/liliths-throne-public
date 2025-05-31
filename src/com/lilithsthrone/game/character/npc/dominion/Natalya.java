@@ -102,7 +102,7 @@ public class Natalya extends NPC {
 				84, Month.OCTOBER, 12,
 				15,
 				null, null, null,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.DOMINION_EXPRESS, PlaceType.DOMINION_EXPRESS_OFFICE_STABLE,
 				true);
 		

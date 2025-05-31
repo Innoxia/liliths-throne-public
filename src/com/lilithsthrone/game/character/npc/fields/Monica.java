@@ -97,7 +97,7 @@ public class Monica extends NPC {
 				27, Month.FEBRUARY, 28,
 				15,
 				Gender.F_V_B_FEMALE, Subspecies.COW_MORPH, RaceStage.PARTIAL,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_shops"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_shops_clothing"),
 				true);
 

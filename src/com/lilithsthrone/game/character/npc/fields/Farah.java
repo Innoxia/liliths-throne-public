@@ -71,7 +71,7 @@ public class Farah extends NPC {
 				47, Month.NOVEMBER, 26, 
 				10,
 				Gender.F_V_B_FEMALE, Subspecies.getSubspeciesFromId("innoxia_sheep_subspecies_sheep"), RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE,
 				true);
 		if(!isImported) {

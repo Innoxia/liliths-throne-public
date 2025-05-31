@@ -65,7 +65,7 @@ public class Felicia extends NPC {
                 Month.FEBRUARY, 17,
                 10,
                 Gender.F_B_DOLL, Subspecies.getSubspeciesFromId("dsg_dog_subspecies_samoyed"), RaceStage.GREATER,
-                new CharacterInventory(10),
+                new CharacterInventory(false, 10),
                 WorldType.FELICIA_APARTMENT, PlaceType.FELICIA_APARTMENT_LIVING_AREA,
                 true);
         

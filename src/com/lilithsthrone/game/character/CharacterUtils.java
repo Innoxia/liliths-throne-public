@@ -279,9 +279,9 @@ public class CharacterUtils {
 		boolean raceFromMother = true;
 		Body motherBody = mother.getBody();
 		
-		// If the mother is feral, preGeneratedBodies are not taken into account, as the offspring must be feral:
+		// If the mother is feral, preGeneratedBodies are not taken into account, as the offspring must be a taur of the mother's species:
 		if(!mother.isFeral() && father!=null) {
-			body = AbstractSubspecies.getPreGeneratedBody(linkedCharacter, startingGender, motherBody, fatherBody);
+			body = AbstractSubspecies.getPreGeneratedBody(linkedCharacter, startingGender, mother, motherBody, fatherBody);
 		}
 
 		if(fatherBody==null) {
@@ -303,70 +303,79 @@ public class CharacterUtils {
 			AbstractRacialBody startingBodyType = RacialBody.HUMAN;
 			RaceStage stage = RaceStage.HUMAN;
 			
-			// Core body type is random:
-			if((fatherHuman && !motherHuman) || (Math.random()<=0.5 && (!fatherHuman?!motherHuman:motherHuman))) {
-				if(mother.isTaur()) {
-					if(mother.getArmRace()!=Race.HUMAN) {
-						startingBodyType = motherGenericBody;
-						stage = mother.getRaceStage();
-					}
-				} else {
-					startingBodyType = motherGenericBody;
-					stage = mother.getRaceStage();
-				}
-				
-			} else {
-				if(fatherBody.isTaur()) {
-					if(fatherBody.getArmType().getRace()!=Race.HUMAN) {
-						startingBodyType = fatherGenericBody;
-						stage = fatherBody.getRaceStage();
-					}
-				} else {
-					startingBodyType = fatherGenericBody;
-					stage = fatherBody.getRaceStage();
-				}
-				raceTakesAfter = fatherBody.getTrueSubspecies();
-				takesAfterMother = false;
-				raceFromMother = false;
-			}
-			
-			if(!takesAfterMother && fatherBody.isFeral()) { // Offspring from a feral father are always fully furry
+			if(mother.isFeral()) {
+				// If mother is feral, offspring should be tauric equivalent of that race
+				startingBodyType = motherGenericBody;
 				stage = RaceStage.GREATER;
 				
 			} else {
-				// If one partner is a human, race stage has a 66% chance to be lowered.
-				if((motherHuman && !fatherHuman) || (!motherHuman && fatherHuman)) {
-					if(stage == RaceStage.GREATER) {
-						double rnd = Math.random();
-						if(rnd<0.33) {
-							stage = RaceStage.PARTIAL_FULL;
-						} else if(rnd<0.66) {
-							stage = RaceStage.LESSER;
+				// Core body type is random:
+				if((fatherHuman && !motherHuman) || (Math.random()<=0.5 && (!fatherHuman?!motherHuman:motherHuman))) {
+					if(mother.isTaur()) {
+						if(mother.getArmRace()!=Race.HUMAN) {
+							startingBodyType = motherGenericBody;
+							stage = mother.getRaceStage();
 						}
-						
-					} else if(stage == RaceStage.LESSER) {
-						double rnd = Math.random();
-						if(rnd<0.33) {
-							stage = RaceStage.PARTIAL;
-						} else if(rnd<0.66) {
-							stage = RaceStage.PARTIAL_FULL;
+					} else {
+						startingBodyType = motherGenericBody;
+						stage = mother.getRaceStage();
+					}
+					
+				} else {
+					if(fatherBody.isTaur()) {
+						if(fatherBody.getArmType().getRace()!=Race.HUMAN) {
+							startingBodyType = fatherGenericBody;
+							stage = fatherBody.getRaceStage();
 						}
-						
-					} else if(stage == RaceStage.PARTIAL_FULL) {
-						double rnd = Math.random();
-						if(rnd<0.66) {
-							stage = RaceStage.PARTIAL;
+					} else {
+						startingBodyType = fatherGenericBody;
+						stage = fatherBody.getRaceStage();
+					}
+					raceTakesAfter = fatherBody.getTrueSubspecies();
+					takesAfterMother = false;
+					raceFromMother = false;
+				}
+				
+				if(!takesAfterMother && fatherBody.isFeral()) { // Offspring from a feral father are always fully furry
+					stage = RaceStage.GREATER;
+					
+				} else {
+					// If one partner is a human, race stage has a 66% chance to be lowered.
+					if((motherHuman && !fatherHuman) || (!motherHuman && fatherHuman)) {
+						if(stage == RaceStage.GREATER) {
+							double rnd = Math.random();
+							if(rnd<0.33) {
+								stage = RaceStage.PARTIAL_FULL;
+							} else if(rnd<0.66) {
+								stage = RaceStage.LESSER;
+							}
+							
+						} else if(stage == RaceStage.LESSER) {
+							double rnd = Math.random();
+							if(rnd<0.33) {
+								stage = RaceStage.PARTIAL;
+							} else if(rnd<0.66) {
+								stage = RaceStage.PARTIAL_FULL;
+							}
+							
+						} else if(stage == RaceStage.PARTIAL_FULL) {
+							double rnd = Math.random();
+							if(rnd<0.66) {
+								stage = RaceStage.PARTIAL;
+							}
 						}
 					}
 				}
 			}
 			
 			body = generateBody(linkedCharacter, startingGender, startingBodyType, stage);
+			if(mother.isFeral()) {
+				body.applyLegConfigurationTransformation(mother.getLegType(), mother.getLegConfiguration(), true);
+			}
 		}
 		
 		linkedCharacter.setGenderIdentity(startingGender);
 		body.setBodyMaterial(mother.getBodyMaterial());
-		
 		
 		applyGenetics(linkedCharacter, body, motherBody, fatherBody, raceFromMother);
 		
@@ -376,7 +385,6 @@ public class CharacterUtils {
 		raceTakesAfter.getRace().applyRaceChanges(body);
 		raceTakesAfter.applySpeciesChanges(body);
 		body.setCoverings(preChangesCoverings);
-		
 		
 		return body;
 	}
@@ -940,9 +948,10 @@ public class CharacterUtils {
 			}
 		}
 		
-		if(motherBody.isFeral()) { // Feral mothers always birth feral offspring. This is done after the genetics section to make sure that the feral offspring is not modified in an unintended manner (such as making them as tall as the father).
-			body.setFeral(offspring, motherBody.getTrueSubspecies()); // Feral offspring should always be the race of the feral mother to avoid very odd birthings (e.g. elephants born from a wolf)
-		}
+		// Removed in 0.4.10.8 and changed so that feral mothers give birth to tauric equivalents
+//		if(motherBody.isFeral()) { // Feral mothers always birth feral offspring. This is done after the genetics section to make sure that the feral offspring is not modified in an unintended manner (such as making them as tall as the father).
+//			body.setFeral(offspring, motherBody.getTrueSubspecies()); // Feral offspring should always be the race of the feral mother to avoid very odd birthings (e.g. elephants born from a wolf)
+//		}
 		
 		if(!body.isFeral()
 				&& (Main.getProperties().getUddersLevel()==0
@@ -1251,26 +1260,32 @@ public class CharacterUtils {
 		// Handling slimes:
 		if(isSlime && (linkedCharacter==null || !linkedCharacter.isUnique())) {
 			List<AbstractSubspecies> potentialSubspecies = new ArrayList<>();
-			for(AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
-				// Special races that slimes do not spawn as are slimes any Subspecies which sets an override (so demons, elementals, or Youko):
-				if(subspecies!=Subspecies.SLIME && subspecies.getSubspeciesOverridePriority()==0) {
-					if(startingGender.isFeminine()) {
-						for(Entry<AbstractSubspecies, FurryPreference> entry : Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().entrySet()) {
-							if(entry.getValue() != FurryPreference.HUMAN) {
-								potentialSubspecies.add(subspecies);
+
+			if(Util.random.nextInt(100) + 1 <= Main.getProperties().humanSpawnRate) {
+				potentialSubspecies.add(Subspecies.HUMAN);
+				
+			} else {
+				for(AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
+					// Special races that slimes do not spawn as are slimes any Subspecies which sets an override (so demons, elementals, or Youko):
+					if(subspecies!=Subspecies.SLIME && subspecies.getSubspeciesOverridePriority()==0) {
+						if(startingGender.isFeminine()) {
+							for(Entry<AbstractSubspecies, FurryPreference> entry : Main.getProperties().getSubspeciesFeminineFurryPreferencesMap().entrySet()) {
+								if(entry.getValue() != FurryPreference.HUMAN) {
+									potentialSubspecies.add(subspecies);
+								}
 							}
-						}
-					} else {
-						for(Entry<AbstractSubspecies, FurryPreference> entry : Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().entrySet()) {
-							if(entry.getValue() != FurryPreference.HUMAN) {
-								potentialSubspecies.add(subspecies);
+						} else {
+							for(Entry<AbstractSubspecies, FurryPreference> entry : Main.getProperties().getSubspeciesMasculineFurryPreferencesMap().entrySet()) {
+								if(entry.getValue() != FurryPreference.HUMAN) {
+									potentialSubspecies.add(subspecies);
+								}
 							}
 						}
 					}
 				}
-			}
-			if(potentialSubspecies.isEmpty()) {
-				potentialSubspecies.add(Subspecies.HUMAN);
+				if(potentialSubspecies.isEmpty()) {
+					potentialSubspecies.add(Subspecies.HUMAN);
+				}
 			}
 			species = Util.randomItemFrom(potentialSubspecies);
 			
@@ -1411,6 +1426,7 @@ public class CharacterUtils {
 	
 	/**
 	 * If you are wanting to change a newly-spawned NPC's body, then <b>you should consider using GameCharacter.setBody() instead</b>, as that method can also apply personality changes.
+	 * <br/>This method maintains the character's pierced areas.
 	 */
 	public Body reassignBody(GameCharacter linkedCharacter, Body body, Gender startingGender, AbstractSubspecies species, RaceStage stage, boolean removeDemonOverride) {
 		if(removeDemonOverride) {
@@ -1423,8 +1439,9 @@ public class CharacterUtils {
 		boolean hasPenis = startingGender.getGenderName().isHasPenis();
 		boolean hasBreasts = startingGender.getGenderName().isHasBreasts();
 		boolean[] virginities = null;
+		boolean[] piercings = null;
 		
-		// Save virginities to be restored after body reset:
+		// Save virginities & piercings to be restored after body reset:
 		if(linkedCharacter!=null) {
 			virginities = new boolean[] {
 				linkedCharacter.isAnalVirgin(),
@@ -1438,6 +1455,17 @@ public class CharacterUtils {
 				linkedCharacter.isVaginaUrethraVirgin(),
 				linkedCharacter.isVaginaVirgin(),
 				linkedCharacter.hasHymen()
+			};
+			piercings = new boolean[] {
+				linkedCharacter.isPiercedEar(),
+				linkedCharacter.isPiercedLip(),
+				linkedCharacter.isPiercedNavel(),
+				linkedCharacter.isPiercedNipple(),
+				linkedCharacter.isPiercedNippleCrotch(),
+				linkedCharacter.isPiercedNose(),
+				linkedCharacter.isPiercedTongue(),
+				linkedCharacter.isPiercedVagina(),
+				linkedCharacter.isPiercedPenis()
 			};
 		}
 		
@@ -1579,10 +1607,7 @@ public class CharacterUtils {
 					|| (body.getLeg().getLegConfiguration()==LegConfiguration.BIPEDAL && body.getRaceStage()!=RaceStage.GREATER))) {
 			body.getBreastCrotch().setType(null, BreastType.NONE);
 		}
-		
-		if(linkedCharacter!=null) {
-			linkedCharacter.postTransformationCalculation();
-		}
+
 
 		if(linkedCharacter!=null) {
 			linkedCharacter.setAnalVirgin(virginities[0]);
@@ -1596,6 +1621,20 @@ public class CharacterUtils {
 			linkedCharacter.setVaginaUrethraVirgin(virginities[8]);
 			linkedCharacter.setVaginaVirgin(virginities[9]);
 			linkedCharacter.setHymen(virginities[10]);
+			
+			linkedCharacter.setPiercedEar(piercings[0]);
+			linkedCharacter.setPiercedLip(piercings[1]);
+			linkedCharacter.setPiercedNavel(piercings[2]);
+			linkedCharacter.setPiercedNipples(piercings[3]);
+			linkedCharacter.setPiercedNipplesCrotch(piercings[4]);
+			linkedCharacter.setPiercedNose(piercings[5]);
+			linkedCharacter.setPiercedTongue(piercings[6]);
+			linkedCharacter.setPiercedVagina(piercings[7]);
+			linkedCharacter.setPiercedPenis(piercings[8]);
+		}
+		
+		if(linkedCharacter!=null) {
+			linkedCharacter.postTransformationCalculation();
 		}
 		
 		return body;

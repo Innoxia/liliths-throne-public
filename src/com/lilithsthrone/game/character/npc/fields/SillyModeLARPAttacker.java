@@ -68,7 +68,7 @@ public class SillyModeLARPAttacker extends NPC {
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3,
 				null, null, null,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("dsg_fields_elis_eisek_sillymode_dungeon"),
 				PlaceType.getPlaceTypeFromId("dsg_fields_elis_eisek_sillymode_dungeon_passage"),
 				false,

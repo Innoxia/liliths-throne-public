@@ -1489,7 +1489,7 @@ public class ClothingEmporium {
 		}
 	};
 	
-	public static final DialogueNode ROMANCE_GIFT = new DialogueNode("", "", true, true) {
+	public static final DialogueNode ROMANCE_GIFT = new DialogueNode("Give gift", "", true, true) {
 		@Override
 		public String getContent() {
 			return "";

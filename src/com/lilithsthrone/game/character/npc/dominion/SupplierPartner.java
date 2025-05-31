@@ -66,7 +66,7 @@ public class SupplierPartner extends NPC {
 				28, Month.AUGUST, 8,
 				10,
 				null, null, null,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.TEXTILES_WAREHOUSE,
 				PlaceType.TEXTILE_WAREHOUSE_OVERSEER_STATION,
 				true);

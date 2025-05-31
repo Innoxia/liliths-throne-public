@@ -1204,7 +1204,7 @@
 		#ELSE
 			 gasp,
 		#ENDIF
-		 you press your [pc.lips] against [npc.hers] and give [npc.her] a passionate kiss.
+		 you press your [pc.lips] against [npc.hers] and give [npc.herHim] a passionate kiss.
 	</p>
 	<p>
 		Just as you expected, [npc.name] happily leans into your body, allowing you to slip a [pc.hand(true)] around to grab [npc.her] [npc.ass+] and give it a good squeeze. Your intimate physical contact causes [npc.name] to completely lose control of [npc.herself], and [npc.she] eagerly throws [npc.her] [npc.arms] around you as [npc.she] passionately returns your kiss. After a few moments of this, you pull back from the kiss, before wondering how best to fuck this horny [npc.race]...
@@ -1246,7 +1246,7 @@
 			</p>
 		#ELSEIF(npc.getAffection(pc)<30)
 			<p>
-				Wanting to know if [npc.name] has started to get [npc.her] affairs in order, you give [npc.her] a warm smile as you ask how things have been going for [npc.herHim] recently.
+				Wanting to know if [npc.name] has started to get [npc.her] affairs in order, you give [npc.herHim] a warm smile as you ask how things have been going for [npc.herHim] recently.
 			</p>
 			<p>
 				[npc.speech(Well, my life sure could be going better,)] [npc.name] replies, half-heartedly laughing as [npc.she] does [npc.her] best to make light of [npc.her] dire situation. [npc.speech(I mean, I'm fine, I get enough to eat and stuff, but it's really hard to keep going sometimes, you know?)]
@@ -1343,7 +1343,7 @@
 			</p>
 		#ELSEIF(npc.getAffection(pc)<30)
 			<p>
-				Wanting to know if [npc.name] has started to get [npc.her] affairs in order, you give [npc.her] a warm smile as you ask how things have been going for [npc.herHim] recently.
+				Wanting to know if [npc.name] has started to get [npc.her] affairs in order, you give [npc.herHim] a warm smile as you ask how things have been going for [npc.herHim] recently.
 			</p>
 			<p>
 				<i>'Things could be better,'</i> [npc.name] replies by once again writing on a slip of paper. Half-heartedly smiling as [npc.she] does [npc.her] best to make light of [npc.her] dire situation, she adds, <i>'I'm fine. I get enough to eat and stuff, but it's really hard to keep going sometimes...'</i>
@@ -1654,7 +1654,7 @@
 		#ENDIF
 	</p>
 	<p>
-		Committed to giving [npc.name] a sound beating, you tell [npc.herHim] that you're not letting [npc.herHim] go until you've taught [npc.her] a lesson. [pc.Stepping] forwards in an aggressive manner, you prepare to attack [npc.herHim].
+		Committed to giving [npc.name] a sound beating, you tell [npc.herHim] that you're not letting [npc.herHim] go until you've taught [npc.herHim] a lesson. [pc.Stepping] forwards in an aggressive manner, you prepare to attack [npc.herHim].
 	</p>
 	<p>
 		#IF(!npc.isMute())

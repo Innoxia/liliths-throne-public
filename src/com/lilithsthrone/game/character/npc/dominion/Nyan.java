@@ -110,7 +110,7 @@ public class Nyan extends NPC {
 						+ " She's extremely shy, and gets very nervous when having to talk to people.",
 				21, Month.APRIL, 12,
 				10, Gender.F_V_B_FEMALE, Subspecies.CAT_MORPH, RaceStage.LESSER,
-				new CharacterInventory(10), WorldType.NYANS_APARTMENT, PlaceType.NYAN_APARTMENT_NYAN_BEDROOM, true);
+				new CharacterInventory(false, 10), WorldType.NYANS_APARTMENT, PlaceType.NYAN_APARTMENT_NYAN_BEDROOM, true);
 		
 		commonFemaleClothing = new ArrayList<>();
 		commonFemaleUnderwear = new ArrayList<>();

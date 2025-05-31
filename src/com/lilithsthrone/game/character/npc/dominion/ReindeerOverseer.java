@@ -63,7 +63,7 @@ public class ReindeerOverseer extends NPC {
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				10,
 				null, null, null,
-				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_STREET, false);
+				new CharacterInventory(false, 10), WorldType.DOMINION, PlaceType.DOMINION_STREET, false);
 
 		if(!isImported) {
 			

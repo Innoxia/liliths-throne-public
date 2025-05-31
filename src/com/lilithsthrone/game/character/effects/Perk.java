@@ -1754,9 +1754,9 @@ public class Perk {
 			"perks/elemental_damage",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.DAMAGE_FIRE, 5),
-					new Value<>(Attribute.DAMAGE_ICE, 5),
-					new Value<>(Attribute.DAMAGE_POISON, 5)),
+					new Value<>(Attribute.DAMAGE_FIRE, 25),
+					new Value<>(Attribute.DAMAGE_ICE, 25),
+					new Value<>(Attribute.DAMAGE_POISON, 25)),
 			null) {
 
 		@Override
@@ -1772,9 +1772,9 @@ public class Perk {
 			"perks/elemental_damage",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.DAMAGE_FIRE, 5),
-					new Value<>(Attribute.DAMAGE_ICE, 5),
-					new Value<>(Attribute.DAMAGE_POISON, 5)),
+					new Value<>(Attribute.DAMAGE_FIRE, 25),
+					new Value<>(Attribute.DAMAGE_ICE, 25),
+					new Value<>(Attribute.DAMAGE_POISON, 25)),
 			null) {
 
 		@Override
@@ -1790,9 +1790,9 @@ public class Perk {
 			"perks/elemental_damage",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.DAMAGE_FIRE, 5),
-					new Value<>(Attribute.DAMAGE_ICE, 5),
-					new Value<>(Attribute.DAMAGE_POISON, 5)),
+					new Value<>(Attribute.DAMAGE_FIRE, 25),
+					new Value<>(Attribute.DAMAGE_ICE, 25),
+					new Value<>(Attribute.DAMAGE_POISON, 25)),
 			null) {
 
 		@Override
@@ -1808,9 +1808,9 @@ public class Perk {
 			"perks/elemental_defence",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.RESISTANCE_FIRE, 1),
-					new Value<>(Attribute.RESISTANCE_ICE, 1),
-					new Value<>(Attribute.RESISTANCE_POISON, 1)),
+					new Value<>(Attribute.RESISTANCE_FIRE, 10),
+					new Value<>(Attribute.RESISTANCE_ICE, 10),
+					new Value<>(Attribute.RESISTANCE_POISON, 10)),
 			null) {
 
 		@Override
@@ -3090,7 +3090,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameHasFull] a considerable amount of experience with wielding melee weapons, making [npc.her] a fearsome foe to face when armed with a weapon of [npc.her] choice.");
+			return UtilText.parse(owner, "[npc.NameHasFull] a considerable amount of experience with wielding melee weapons, making [npc.herHim] a fearsome foe to face when armed with a weapon of [npc.her] choice.");
 		}
 		@Override
 		public boolean isHiddenPerk() {
@@ -3114,7 +3114,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameHasFull] a considerable amount of experience with wielding ranged weapons, making [npc.her] a fearsome foe to face when armed with a weapon of [npc.her] choice.");
+			return UtilText.parse(owner, "[npc.NameHasFull] a considerable amount of experience with wielding ranged weapons, making [npc.herHim] a fearsome foe to face when armed with a weapon of [npc.her] choice.");
 		}
 		@Override
 		public boolean isHiddenPerk() {

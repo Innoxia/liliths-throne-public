@@ -68,7 +68,7 @@ public class Callie extends NPC {
 				"Callie is the owner of the bakery, 'The Creamy Bakey', which is to be found in the north-west of Dominion.",
 				26, Month.JUNE, 11,
 				10, Gender.F_P_B_SHEMALE, Subspecies.HORSE_MORPH, RaceStage.PARTIAL_FULL,
-				new CharacterInventory(250),
+				new CharacterInventory(false, 250),
 				WorldType.getWorldTypeFromId("nnxx_callie_bakery"), PlaceType.getPlaceTypeFromId("nnxx_callie_bakery_counter"),
 				true);
 		if(!isImported) {
@@ -317,5 +317,30 @@ public class Callie extends NPC {
 		Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("nnxx/callie_bakery", "TRANSACTION_COMPLETE"));
 	}
 	
+	public int getFlamesToNextUpgrade() {
+		int totalDonated = (int) Main.game.getDialogueFlags().getSavedLong("nnxx_callie_total_donated");
+		
+		if(totalDonated<3_000) {
+			return 3_000 - totalDonated;
+		}
+		if(!Main.game.getDialogueFlags().hasFlag("nnxx_callie_upgrade_1")) {
+			// If haven't upgraded yet, don't allow more donations until it's complete
+			return 0;
+		}
+		
+		if(totalDonated<50_000) {
+			return 50_000 - totalDonated;
+		}
+		if(!Main.game.getDialogueFlags().hasFlag("nnxx_callie_upgrade_2")) {
+			// If haven't upgraded yet, don't allow more donations until it's complete
+			return 0;
+		}
+		
+		if(totalDonated<100_000) {
+			return 100_000 - totalDonated;
+		}
+		
+		return 0;
+	}
 
 }

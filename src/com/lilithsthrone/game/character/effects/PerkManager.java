@@ -13,6 +13,7 @@ import java.util.Set;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Pathing;
@@ -605,7 +606,49 @@ public enum PerkManager {
 			}
 		}
 		
-		if(!character.isElemental()) { // Elementals always start with an empty perk tree
+		if(character.isElemental()) {
+			// If the elemental has a summoner who isn't a player, then init the perk tree to fill out perks of the elemental's type
+			if(((Elemental)character).getSummoner()!=null && !((Elemental)character).getSummoner().isPlayer()) {
+				PerkCategory associatedPerkCategory = PerkCategory.LUST;
+				switch(((Elemental)character).getCurrentSchool()) {
+					case AIR:
+						associatedPerkCategory = PerkCategory.ARCANE_AIR;
+						break;
+					case ARCANE:
+						associatedPerkCategory = PerkCategory.LUST;
+						break;
+					case EARTH:
+						associatedPerkCategory = PerkCategory.PHYSICAL_EARTH;
+						break;
+					case FIRE:
+						associatedPerkCategory = PerkCategory.ARCANE_FIRE;
+						break;
+					case WATER:
+						associatedPerkCategory = PerkCategory.PHYSICAL_WATER;
+						break;
+				}
+				
+//				System.out.println(character.getName()+"x 1 "+associatedPerkCategory);
+				
+				outerloop:
+				for(Entry<Integer, Map<PerkCategory, List<TreeEntry<PerkCategory, AbstractPerk>>>> entry : MANAGER.elementalPerkTree.entrySet()) {
+					for(Entry<PerkCategory, List<TreeEntry<PerkCategory, AbstractPerk>>> innerEntry : entry.getValue().entrySet()) {
+						for(TreeEntry<PerkCategory, AbstractPerk> treeEntry : innerEntry.getValue()) {
+							if(treeEntry.getEntry().getPerkCategory()==associatedPerkCategory) {
+//								System.out.println(character.getName()+"x add "+treeEntry.getEntry().getName(character));
+								if(character.getPerkPoints()>0) {
+									character.addPerk(treeEntry.getRow(), treeEntry.getEntry());
+								} else {
+									break outerloop;
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			
+		} else {
 			if(!character.isPlayer() && autoSelectPerks) {
 				// For each required perk, add it (along with all the perks on the path):
 				if(requiredPerks!=null) {

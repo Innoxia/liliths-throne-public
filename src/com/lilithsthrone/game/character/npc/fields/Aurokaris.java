@@ -90,7 +90,7 @@ public class Aurokaris extends NPC {
 				19, Month.JANUARY, 1,
 				25,
 				Gender.F_V_B_FEMALE, Subspecies.COW_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_themiscyra"), PlaceType.getPlaceTypeFromId("innoxia_fields_themiscyra_palace"),
 				true);
 		

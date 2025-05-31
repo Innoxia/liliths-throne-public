@@ -388,6 +388,7 @@ public abstract class AbstractCombatMove {
 		return UtilText.parse(source, target, sb.toString());
 	}
     
+	//FIXME this doesn't work. Setting spells to return a ridiculous weight still doesn't make characters use spells, even when the blunder check is removed.
     /**
      * Returns weight of the action.
      *  Used in calculations for AI to pick certain actions.
@@ -464,7 +465,7 @@ public abstract class AbstractCombatMove {
 
             case SPELL:
             	if(source.getCombatBehaviour()==CombatBehaviour.SPELLS) {
-            		behaviourMultiplier=10;
+            		behaviourMultiplier=100000;
             	}
                 return behaviourMultiplier;
                 

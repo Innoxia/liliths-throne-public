@@ -19,29 +19,33 @@
 	
 	<htmlContent tag="DONATION_PROGRESS"><![CDATA[
 	<p style='text-align:center;'>
-		You have donated a total of [style.moneyFormat([#flags.getSavedLong('nnxx_callie_total_donated')], b)] to Callie!
-		<br/>
+		#IF(flags.getSavedLong('nnxx_callie_total_donated')<100000)
+			You have donated a total of [style.moneyFormat([#flags.getSavedLong('nnxx_callie_total_donated')], b)] to Callie!
+			<br/>
+		#ENDIF
 		#IF(flags.getSavedLong('nnxx_callie_total_donated')>=100000)
 			#IF(flags.hasFlag(FLAG_nnxx_callie_upgrade_3))
-				[style.italicsExcellent(You've donated so much that future sex will be free!)]
+				[style.italicsExcellent(You've donated so much that Callie is giving you a 20% discount, stocking more doughnuts, and providing free sex!)]
 			#ELSE
-				[style.italicsExcellent(You've donated so much that, starting from tomorrow, future sex will be free!)]
+				[style.italicsExcellent(You've donated so much that, starting from tomorrow, Callie will give you a 20% discount, stock more doughnuts, and provide free sex!)]
 			#ENDIF
-			<br/>[style.italics(This is the maximum donation level...)]
+			<br/>[style.italics(This is the maximum donation level.)]
 		#ELSEIF(flags.getSavedLong('nnxx_callie_total_donated')>=50000)
 			#IF(flags.hasFlag(FLAG_nnxx_callie_upgrade_2))
 				[style.italicsGood(You've donated enough for Callie to give you a 20% discount and stock more doughnuts!)]
+				<br/>[style.italics(The next donation level is 100,000 flames...)]
 			#ELSE
 				[style.italicsGood(You've donated enough for Callie to give you a 20% discount and stock more doughnuts, starting from tomorrow!)]
+				<br/>[style.italics(The next donation level will be 100,000 flames...)]
 			#ENDIF
-			<br/>[style.italics(The next donation level is 100,000 flames...)]
 		#ELSEIF(flags.getSavedLong('nnxx_callie_total_donated')>=3000)
 			#IF(flags.hasFlag(FLAG_nnxx_callie_upgrade_1))
 				[style.italicsMinorGood(You've donated enough for Callie to start stocking more doughnuts!)]
+				<br/>[style.italics(The next donation level is 50,000 flames...)]
 			#ELSE
 				[style.italicsMinorGood(You've donated enough for Callie to start stocking more doughnuts by tomorrow!)]
+				<br/>[style.italics(The next donation level will be 50,000 flames...)]
 			#ENDIF
-			<br/>[style.italics(The next donation level is 50,000 flames...)]
 		#ELSE
 			[style.italics(You haven't yet donated enough for Callie to make any changes to her store...)]
 			<br/>[style.italics(The next donation level is 3,000 flames...)]
@@ -428,6 +432,27 @@
 	</p>
 	]]></htmlContent>
 	
+	<htmlContent tag="DONATION"><![CDATA[
+	<p>
+		Wanting to help Callie out and give her some financial support, you ask her how big of a tip she'd need before being able to improve her store.
+	</p>
+	<p>
+		#IF(flags.hasFlag(FLAG_nnxx_callie_daily_fucked))
+			[callie.speech(Hey, I already said you've had enough for today,)] she laughs as she misinterprets your question as a request for more sex. Quickly clarifying that all you're interested in this time is topping up her tip jar, you ask her again how much she'd need, to which the horse-girl replies, [callie.speech(Oh, well I guess [style.intToString([#callie.getFlamesToNextUpgrade()])] is what I'd need. I can't count on you coming back every day and paying for sex, though, so I don't expect to get that any time soon.)]
+		#ELSE
+			[callie.speech(Well, I guess [style.intToString([#callie.getFlamesToNextUpgrade()])] is what I'd need. I can't count on you coming back every day and paying for sex, though, so I don't expect to get that any time soon,)] she replies.
+		#ENDIF
+	</p>
+	<p>
+		Producing [style.intToString([#callie.getFlamesToNextUpgrade()])] flames, you place the money in Callie's tip jar and tell her that you're happy to help her improve her business.
+	</p>
+	<p>
+		[callie.speech(Are you serious?)] the horse-girl asks, wide-eyed, as she watches you fill her tip jar. After you've confirmed that the money is for her, she happily beams at you and gleefully declares, [callie.speech(That's such a great help, thank you so muhc, [pc.name]! You should see an improvement in here as soon as tomorrow!)]
+	</p>
+	<p>
+		Taking the tip jar off the counter, Callie safely locks it away beneath the counter, before leaning forwards and flashing you her cleavage as she asks, [callie.speech(So, can I get you a doughnut?)]
+	</p>
+	]]></htmlContent>
 	
 	<!-- Seating area: -->
 	
@@ -437,6 +462,113 @@
 	</p>
 	<p>
 		There's really not much for you to do here except turn around and head back over to Callie's counter...
+	</p>
+	]]></htmlContent>
+	
+	
+	<!-- Natalya encounter content: -->
+	
+	
+	<htmlContent tag="NATALYA_ENTRY"><![CDATA[
+	
+	<p>
+		Deciding that you'd like to visit Callie's shop once again, you push open the door to 'The Creamy Bakey' and [pc.step] inside. Thanks to the upgrades to her store, there are normally several customers present at this time of day, but it seems like you've arrived during an unusual lull in business. A couple of customers depart as you enter, leaving the interior deserted save for two people.
+	</p>
+	<p>
+		One of these people is, of course, the owner of this business. Callie looks over to you from behind the counter and gives you a smile and a wave. The other person, who's standing in front of the horse-girl, is none other than Mistress Natalya. Turning to see who it is that Callie is waving to, the centauress looks over her shoulder, and upon recognising you, she flashes you a grin.
+	</p>
+	]]></htmlContent>
+	
+	<htmlContent tag="NATALYA_START"><![CDATA[
+	<p>
+		Heading over to the counter, you say hello to Callie and Mistress Natalya.
+	</p>
+	#IF(!flags.hasFlag(FLAG_innoxia_callie_natalya_encountered))
+		<p>
+			[callie.speech(This is the [pc.race] who I was just telling you about,)] Callie says to your Mistress. Not knowing about the relationship between the two of you, she continues, [callie.speech([pc.Name] here really helped me to turn my business around. Without [pc.herHim], I may even have closed this place down by now!)]
+		</p>
+		<p>
+			[natalya.speech(Oh, I know this filly very well indeed,)] Mistress Natalya states, before smirking and teasing, [natalya.speech([pc.SheIs] normally eating a different type of doughnut to the ones you sell here. [pc.She] really is quite good with that [pc.tongue] of [pc.hers]...)]
+		</p>
+		<p>
+			[callie.speech(I've already experienced that first-hand!)] Callie laughs. Smiling at the centauress, she asks, [callie.speech(I guess I've got you to thank for training [pc.herHim] to be so good at eating ass? Hey! I've got an idea! Have you ever had your 'doughnut' iced before?)]
+		</p>
+		<p>
+			[natalya.speech(I can't say that I have...)] Mistress Natalya replies, before checking the time on her watch and saying, [natalya.speech(If that's an offer, then I have an hour or so to kill.)]
+		</p>
+		<p>
+			[callie.speech(Well, it looks like I don't have any other customers, so how about we have some fun?)] Callie replies, before looking over at you and saying, [callie.speech(Lock the front door, [pc.name]. It's your lucky day; you'll get two doughnuts to ice and eat!)]
+		</p>
+	#ELSE
+		<p>
+			[natalya.speech(I was hoping to see you here again, filly,)] Mistress Natalya says to you, before turning back to Callie and asking, [natalya.speech(Is your offer of having my doughnut iced still on? I have an hour or so to kill...)]
+		</p>
+		<p>
+			[callie.speech(Well, it looks like I don't have any other customers, and I'm in the mood for some anal action, so let's do it!)] Callie eagerly replies, before looking over at you and saying, [callie.speech(Lock the front door, [pc.name]. It's your lucky day; you'll get two doughnuts to ice and eat!)]
+		</p>
+	#ENDIF
+	]]></htmlContent>
+	
+	<htmlContent tag="NATALYA_ESCAPE"><![CDATA[
+	<p>
+		Although you've been happy to perform anilingus on Callie and Mistress Natalya in the past, you really aren't in the mood for it right now. As such, you quickly make an excuse to leave, and before either of them can say anything to stop you, you're souting out a rushed apology and darting out of the front door.
+	</p>
+	<p>
+		Quickly hurrying a short way down the street, you duck into the end of a dark alleyway and peek back around the corner. A couple of minutes pass, and then you see Mistress Natalya leaving the shop. Carrying a brown paper bag that's stuffed full of doughnuts, she trots off down the street and quickly vanishes from your sight.
+	</p>
+	<p>
+		If you still wanted to, you could always return to 'The Creamy Bakey' and pay Callie a visit, knowing that this time she's sure to be alone...
+	</p>
+	]]></htmlContent>
+	
+	<htmlContent tag="NATALYA_ANILINGUS_START"><![CDATA[
+	<p>
+		Doing as you're told, you quickly lock the front door and flip the sign over to show 'closed'. Turning back to face the shop, you see that Callie has already stepped around to the other side of the counter, and is holding a couple of piping bags and three pots of sprinkles in her hands.
+	</p>
+	<p>
+		[callie.speech(Take these, [pc.name],)] she says as you [pc.step] over to her. Taking the icing supplies from the smiling horse-girl, you listen as she instructs, [callie.speech(One bag's got white icing, the other's pink. There should be enough left in each of them to cover one doughnut. After that, choose some sprinkles to finish us off, then you can get to eating!)]
+	</p>
+	<p>
+		With that, she turns around and bends over to lean down against the counter-top. Stepping over to get closer to the horse-girl, Mistress Natalya positions her big ass so that it's next to Callie's. Looking back over her shoulder, she sharply commands, [natalya.speech(Lift my skirt, filly, and get Callie's trousers pulled down! You know the drill. Kiss our assholes to demonstrate your subservience, then you can get on with icing them.)]
+	</p>
+	<p>
+		Obediently carrying out your Mistress's instructions, you flip up her skirt to reveal her hindquarters. Her big, puffy, ebony asshole is nestled between her hindquarters, and beneath that her feral, equine cock and pair of huge, heavy balls sway slightly as she pushes her ass back out towards you. Doing what's expected of you, you drop down behind your Mistress and lean forwards to plant a big, wet kiss on her musky anus, before shuffling over to Callie.
+	</p>
+	<p>
+		[callie.speech(You've done this a lot, huh?)] the horse-girl giggles as you pull down her trousers. Her own puffy, ebony doughnut is similar in appearance to Mistress Natalya's, although as it's positioned on an anthro's body instead of a feral, it's a little smaller. Her horse-like cock and balls are also the same colour and shape as Mistress Natalya's genitals, but again they're smaller than the centauress's counterparts. As you lean forwards to plant a passionate kiss on Callie's hot asshole, she moans, [callie.speech(~Mmm!~ That's it... Now get our doughnuts iced you tease...)]
+	</p>
+	<p>
+		Looking down at the two piping bags in your [pc.hands], you wonder which asshole should be painted white and which one should be pink...
+	</p>
+	]]></htmlContent>
+	
+	<htmlContent tag="NATALYA_AFTER_ANILINGUS"><![CDATA[
+	<p>
+		With both Callie and Mistress Natalya having cum hard just from the feeling of your [pc.tongue] in their ass, they let out satisfied sighs and exchange a nod with one another. Looking back over her shoulder, your Mistress commands, [natalya.speech(Give us each one more kiss, filly, then we're done here.)] 
+	</p>
+	<p>
+		Doing as you're told, you plant one last wet kiss on both of the puffy, ebony doughnuts before you, after which you stand up and pull Mistress Natalya's skirt back down to cover her rear end. As Callie pulls up her trousers, she smirks at you and asks, [callie.speech(Did you enjoy eating our iced doughnuts, [pc.name]?)]
+	</p>
+	<p>
+		You eagerly reply in the affirmative, after which Mistress Natalya lets out a short laugh and states, [natalya.speech(Of course [pc.she] enjoyed it. All of my fillies have been trained to love eating horse ass. Now, I'll take a dozen of your doughnuts, then I must be on my way.)]
+	</p>
+	<p>
+		Callie quickly packs twelve doughnuts into a paper bag, before taking payment from your Mistress and wishing her a good evening. Turning to face you, the centauress smiles and says, [natalya.speech(That was a good performance, filly. I expect to see you at the warehouse again soon. There are plenty of centaur slaves who need servicing, after all.)]
+	</p>
+	]]></htmlContent>
+	
+	<htmlContent tag="NATALYA_AFTER_ANILINGUS_CONTINUE"><![CDATA[
+	<p>
+		Before she unlocks the door and leaves, you manage to call out a brief goodbye to Mistress Natalya. As the centauress trots off down the street, you turn back towards Callie, and see that she's carrying a mop and bucket. As she quickly cleans up the cummy mess which she and your Mistress made all over the floor, she asks, [callie.speech(Would you mind re-opening my shop? I might still get a few customers today.)]
+	</p>
+	<p>
+		Doing as the horse-girl asks, you flip over the sign in the door so that it displays 'open' to members of the public. Returning to the counter as Callie finishes cleaning up, you look down at the iced doughnuts on display and get a flashback to how Callie's and Natalya's iced assholes looked. Seeing what it is you're looking at, Callie laughs and teases, [callie.speech(Wishing you had our doughnuts to eat all over again? Don't worry, I'm sure Natalya will be back at some point. Give it a few days, and you'll probably find her here again.)]
+	</p>
+	<p>
+		Nodding in agreement, you ask Callie if she had fun. Happily smiling at you, she replies, [callie.speech(I sure did! You were great back there, [pc.name]. Now, I've got no more time for sex today, but if you wanted a real doughnut, perhaps you'd like to select one?)]
+	</p>
+	<p>
+		Looking down at the goods on offer, you wonder what to do next...
 	</p>
 	]]></htmlContent>
 	

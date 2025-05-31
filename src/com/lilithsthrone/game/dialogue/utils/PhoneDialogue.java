@@ -3086,6 +3086,20 @@ public class PhoneDialogue {
 	private static Map<String, List<InventorySlot>> clothingSlotCategories;
 	private static String clothingSlotKey;
 	
+	/**
+	 * @return A list of all clothing which is available to the player in a normal game. i.e. A list of all clothing excluding silly mode or cheat items.
+	 */
+	public static List<AbstractClothingType> getClothingDiscoveredList() {
+		return clothingDiscoveredList;
+	}
+
+	/**
+	 * @return A list of all weapons which are available to the player in a normal game. i.e. A list of all weapons excluding silly mode or cheat items.
+	 */
+	public static List<AbstractWeaponType> getWeaponsDiscoveredList() {
+		return weaponsDiscoveredList;
+	}
+	
 	static {
 		itemsDiscoveredList.addAll(ItemType.getAllItems());
 		itemsDiscoveredList.removeIf((it) -> it.getItemTags().contains(ItemTag.CHEAT_ITEM) || it.getItemTags().contains(ItemTag.SILLY_MODE));
@@ -3190,9 +3204,10 @@ public class PhoneDialogue {
 								+ "</div>";
 				sbDamageTypes.setLength(0);
 				if(discovered) {
+					float width = weaponType.getAvailableDamageTypes().size()>4?(72/weaponType.getAvailableDamageTypes().size()):18;
 					for(DamageType dt : weaponType.getAvailableDamageTypes()) {
 						sbDamageTypes.append("<div class='square-button' "+(discovered?"id='"+(weaponType.getId()+"_"+dt.toString())+"'":"")
-												+ " style='cursor:default; width:18%; margin:1%; padding:0; background-color:"+dt.getMultiplierAttribute().getColour().toWebHexString()+";'>"
+												+ " style='cursor:default; width:"+width+"%; margin:1%; padding:0; background-color:"+dt.getMultiplierAttribute().getColour().toWebHexString()+";'>"
 											+ "</div>");
 					}
 				}
@@ -3273,13 +3288,13 @@ public class PhoneDialogue {
 					continue;
 				}
 				boolean discovered = Main.getProperties().isClothingDiscovered(clothingType);
-				String entry = "<div class='inventory-item-slot unequipped' style='background-color:"+clothingType.getRarity().getBackgroundColour().toWebHexString()+"; width:8%;'>"
-									+ "<div class='inventory-icon-content'>"+(discovered?clothingType.getSVGImageRandomColour(true, false, false):"")+"</div>"
-									+ "<div class='overlay"+(discovered?"' id='"+clothingType.getId()+"'":" disabled-dark'")+" style='cursor:default;'></div>"
-								+ "</div>";
 				
 				for(InventorySlot slot : clothingType.getEquipSlots()) {
 					if(slots.contains(slot)) {
+						String entry = "<div class='inventory-item-slot unequipped' style='background-color:"+clothingType.getRarity().getBackgroundColour().toWebHexString()+"; width:8%;'>"
+								+ "<div class='inventory-icon-content'>"+(discovered?clothingType.getSVGImageRandomColour(slot, true, false, false):"")+"</div>"
+								+ "<div class='overlay"+(discovered?"' id='"+clothingType.getId()+"_"+slot.toString()+"'":" disabled-dark'")+" style='cursor:default;'></div>"
+							+ "</div>";
 						sbMap.get(slot).append(entry);
 						discoveredMap.put(slot, new Value<>(discoveredMap.get(slot).getKey()+(discovered?1:0), discoveredMap.get(slot).getValue()+1));
 					}

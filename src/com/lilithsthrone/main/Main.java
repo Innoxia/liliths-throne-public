@@ -85,7 +85,7 @@ public class Main extends Application {
 	
 	public static final String AUTHOR = "Innoxia";
 	public static final String GAME_NAME = "Lilith's Throne";
-	public static final String VERSION_NUMBER = "0.4.10.6"; // Remember to do the stuff below!
+	public static final String VERSION_NUMBER = "0.4.10.8"; // Remember to do the stuff below!
 	/*
 	 * BEFORE BUILDING:
 	 * update pom.xml!

@@ -334,7 +334,11 @@ public class LilayaHomeGeneric {
 			if(charactersPresent.contains(character) || (character.getHomeCell().equals(Main.game.getPlayerCell()) && Main.game.getPlayer().getCompanions().contains(character))) {
 				return interactWithNPC(character);
 			} else {
-				return new Response(UtilText.parse(character, "[npc.Name]"), UtilText.parse(character, "Although this is [npc.namePos] room, [npc.sheIs] out at work at the moment."), null);
+				return new Response(UtilText.parse(character, "[npc.Name]"), 
+						UtilText.parse(character, "Although this is [npc.namePos] room, [npc.sheIs] "
+								+(character.getLocationPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_SLAVE_LOUNGE)
+										?"relaxing in a slave lounge at the moment."
+										:"out at work at the moment.")), null);
 			}
 		}
 		

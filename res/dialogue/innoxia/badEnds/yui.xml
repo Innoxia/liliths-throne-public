@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+	
+	<scene id="sign_contract">
+		<preParsingEffects><![CDATA[
+			[#game.setBadEnd("Yui's Toy")]
+		]]></preParsingEffects>
+		<content folderPath="txt/badEnds/yui">SIGN_CONTRACT</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Strip]]></responseTitle>
+				<responseTooltip><![CDATA[Strip naked and put on your latex outfit.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_badEnds_yui_strip]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="strip">
+		<preParsingEffects><![CDATA[
+			[#yui.equipGearAlleyway(pc, 1)]
+			[#yui.equipDildo(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/badEnds/yui">STRIP</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Wait]]></responseTitle>
+				<responseTooltip><![CDATA[Tied up and put on display, all you can do now is wait...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_badEnds_yui_wait]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="wait">
+		<preParsingEffects><![CDATA[
+			[#yui.removeDildo(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/badEnds/yui">WAIT</content>
+		<secondsPassed minutes="true"><![CDATA[
+			[#~~(game.getMinutesUntilTimeInMinutes(1080))]
+		]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Home]]></responseTitle>
+				<responseTooltip><![CDATA[You're taken to your new home.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_badEnds_yui_home]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="home">
+		<preParsingEffects><![CDATA[
+			[#yui.applyBadEndLocationChange()]
+		]]></preParsingEffects>
+		<content folderPath="txt/badEnds/yui">HOME</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Broken in]]></responseTitle>
+				<responseTooltip><![CDATA[Mistress Yui's other toys break you in.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_badEnds_yui_broken_in]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="broken_in">
+		<content folderPath="txt/badEnds/yui">BROKEN_IN</content>
+		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Clean up]]></responseTitle>
+				<responseTooltip><![CDATA[Take a shower and get ready for the clients to arrive.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_badEnds_yui_after_fucked]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="after_fucked">
+		<content folderPath="txt/badEnds/yui">AFTER_FUCKED</content>
+		<secondsPassed minutes="true"><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[New life]]></responseTitle>
+				<responseTooltip><![CDATA[You start your new life as Mistress Yui's toy.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_badEnds_yui_final]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="final">
+		<content folderPath="txt/badEnds/yui">FINAL</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[The End...]]></responseTitle>
+				<responseTooltip><![CDATA[[style.italicsBadEnd(With this end to your journey, the thread of prophecy is severed. Restore a saved game to restore the weave of fate, or persist in the doomed world you have created.)]]]></responseTooltip>
+				<nextDialogue>null</nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	
+</dialogueNodes>

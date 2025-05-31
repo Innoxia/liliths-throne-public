@@ -29,12 +29,14 @@ import com.lilithsthrone.utils.colours.Colour;
 
 /**
  * @since 0.4.6.4
- * @version 0.4.6.4
+ * @version 0.4.10.8
  * @author Maxis010, Innoxia
  */
 public class InventoryController {
 	
 	public static void initInventoryListeners() {
+		
+		// Pages:
 		for (int i = 0; i<RenderingEngine.INVENTORY_PAGES; i++) {
 			MainController.setInventoryPageLeft(i);
 			MainController.setInventoryPageRight(i);
@@ -43,8 +45,43 @@ public class InventoryController {
 		MainController.setInventoryPageLeft(5);
 		MainController.setInventoryPageRight(5);
 		
+		// Floor pages:
+		//SCROLL_LEFT_DOUBLE
+		String id = "FLOOR_SCROLL_LEFT_DOUBLE";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				RenderingEngine.setPageRight(RenderingEngine.getPageRight()-5);
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+//				System.out.println("<<");
+			}, false);
+		}
+		id = "FLOOR_SCROLL_LEFT";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				RenderingEngine.setPageRight(RenderingEngine.getPageRight()-1);
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+//				System.out.println("<");
+			}, false);
+		}
+		id = "FLOOR_SCROLL_RIGHT";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				RenderingEngine.setPageRight(Math.min(RenderingEngine.getPageRight()+1, RenderingEngine.getMaximumFloorPageIndex()));
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+//				System.out.println(">");
+			}, false);
+		}
+		id = "FLOOR_SCROLL_RIGHT_DOUBLE";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				RenderingEngine.setPageRight(Math.min(RenderingEngine.getPageRight()+5, RenderingEngine.getMaximumFloorPageIndex()));
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+//				System.out.println(">>");
+			}, false);
+		}
+		
+		
 		// Player:
-		String id;
 		for (Map.Entry<AbstractWeapon, Integer> entry : Main.game.getPlayer().getAllWeaponsInInventory().entrySet()) {
 			id = "PLAYER_WEAPON_"+entry.getKey().hashCode();
 			if (MainController.document.getElementById(id) != null) {

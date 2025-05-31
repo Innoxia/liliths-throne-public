@@ -76,7 +76,7 @@ public class Jules extends NPC {
 				Gender.M_P_MALE,
 				Subspecies.HORSE_MORPH_ZEBRA,
 				RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.NIGHTLIFE_CLUB,
 				PlaceType.WATERING_HOLE_ENTRANCE,
 				true);

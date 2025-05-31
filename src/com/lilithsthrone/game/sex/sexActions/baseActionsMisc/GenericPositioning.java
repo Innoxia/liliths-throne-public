@@ -443,7 +443,8 @@ public class GenericPositioning {
 					
 					&& Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
 					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
-					&& Main.sex.getCharacterPerformingAction().isPlayer();
+					&& Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.getInitialSexManager().isSlotAvailable(Main.sex.getCharacterTargetedForSexAction(this), SexSlotStanding.PERFORMING_ORAL_BEHIND);
 		}
 		@Override
 		public String getActionTitle() {
@@ -537,7 +538,8 @@ public class GenericPositioning {
 					
 					&& Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
 					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
-					&& Main.sex.getCharacterPerformingAction().isPlayer();
+					&& Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.getInitialSexManager().isSlotAvailable(Main.sex.getCharacterTargetedForSexAction(this), SexSlotStanding.PERFORMING_ORAL);
 		}
 		@Override
 		public String getActionTitle() {
@@ -913,7 +915,8 @@ public class GenericPositioning {
 					
 					&& Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
 					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
-					&& Main.sex.getCharacterPerformingAction().isPlayer();
+					&& Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.getInitialSexManager().isSlotAvailable(Main.sex.getCharacterPerformingAction(), SexSlotStanding.PERFORMING_ORAL_BEHIND);
 		}
 		@Override
 		public String getActionTitle() {
@@ -1011,7 +1014,8 @@ public class GenericPositioning {
 					
 					&& Main.sex.isPositionChangingAllowed(Main.sex.getCharacterPerformingAction())
 					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction())==SexControl.FULL
-					&& Main.sex.getCharacterPerformingAction().isPlayer();
+					&& Main.sex.getCharacterPerformingAction().isPlayer()
+					&& Main.sex.getInitialSexManager().isSlotAvailable(Main.sex.getCharacterPerformingAction(), SexSlotStanding.PERFORMING_ORAL);
 		}
 		@Override
 		public String getActionTitle() {
@@ -2564,7 +2568,43 @@ public class GenericPositioning {
 			GenericPositioning.setNewSexManager(data, false);
 		}
 	};
-	
+
+//	public static final SexAction SWITCH_DESK_ORAL_TO_SEX = new SexAction(
+//			SexActionType.POSITIONING,
+//			ArousalIncrease.ONE_MINIMUM,
+//			ArousalIncrease.ONE_MINIMUM,
+//			CorruptionLevel.ZERO_PURE,
+//			null,
+//			SexParticipantType.NORMAL) {
+//		
+//		private PositioningData data = new PositioningData(
+//				SexPosition.OVER_DESK,
+//				Util.newArrayListOfValues(
+//						SexSlotDesk.BETWEEN_LEGS),
+//				Util.newArrayListOfValues(
+//						SexSlotDesk.OVER_DESK_ON_FRONT));
+//
+//		@Override
+//		public boolean isBaseRequirementsMet() {
+//			return checkBaseRequirements(data, false);
+//		}
+//		@Override
+//		public String getActionTitle() {
+//			return "Switch to sex";
+//		}
+//		@Override
+//		public String getActionDescription() {
+//			return "Get [npc2.name] to sit down on a nearby surface, before stepping over [npc2.herHim] with your lower animalistic body, ready to start fucking [npc2.herHim].";
+//		}
+//		@Override
+//		public String getDescription() {
+//			return "Switch test!";
+//		}
+//		@Override
+//		public void applyEffects() {
+//			GenericPositioning.setNewSexManager(data, false);
+//		}
+//	};
 	
 	public static final SexAction PARTNER_POSITION_RESPONSE = new SexAction(
 			SexActionType.SPECIAL,

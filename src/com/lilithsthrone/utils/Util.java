@@ -1437,6 +1437,7 @@ public class Util {
 	}
 
 	private static String[] sexSounds = new String[] { " ~Aah!~", " ~Mmm!~", " ~Ooh!~" };
+	private static String[] sexSoundsResisting = new String[] { " ~Aah!~", " ~No!~", " ~Eugh!~" };
 	/**
 	 * Turns a normal sentence into a sexy sentence.<br/>
 	 * Example:<br/>
@@ -1450,8 +1451,8 @@ public class Util {
 	 * @return
 	 *            modified sentence
 	 */
-	public static String addSexSounds(String sentence, int frequency) {
-		return insertIntoSentences(sentence, frequency, sexSounds);
+	public static String addSexSounds(String sentence, int frequency, boolean resisting) {
+		return insertIntoSentences(sentence, frequency, resisting?sexSoundsResisting:sexSounds);
 	}
 
 	private static String[] drunkSounds = new String[] { " ~Hic!~" };

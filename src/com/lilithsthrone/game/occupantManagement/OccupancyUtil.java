@@ -462,8 +462,8 @@ public class OccupancyUtil implements XMLSaving {
 			
 			// Washing body:
 			if(slave.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_BODY)
-					&& !isAtWork
-					&& !slave.getDirtySlots().isEmpty()
+					&& (!isAtWork || !currentJob.hasFlag(SlaveJobFlag.CLEANING_UNAVAILABLE))
+					&& (!slave.getDirtySlots().isEmpty() || (slave.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_THOROUGH) && !slave.getMuskMarkerCharacters().isEmpty()))
 					&& !Main.game.getCharactersPresent().contains(slave)) {
 				SlaveryEventLogEntry entry = new SlaveryEventLogEntry(hour,
 						slave,
@@ -471,7 +471,10 @@ public class OccupancyUtil implements XMLSaving {
 						SlaveEvent.WASHED_BODY,
 						null,
 						true);
-				
+
+				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_THOROUGH) && !slave.getMuskMarkerCharacters().isEmpty()) {
+					entry.addTag(SlaveEventTag.WASHED_BODY_REMOVED_MUSK, slave, true);
+				}
 				if(slave.hasStatusEffect(StatusEffect.CREAMPIE_ANUS)) {
 					entry.addTag(SlaveEventTag.WASHED_BODY_ANAL_CREAMPIE, slave, true);
 				}
@@ -545,6 +548,33 @@ public class OccupancyUtil implements XMLSaving {
 					}
 				}
 			}
+
+			if(hour%24==12) { // At midday:
+				SlaveryEventLogEntry dailyEntry = new SlaveryEventLogEntry(hour,
+						slave,
+						null,
+						SlaveEvent.MIDDAY_UPDATE,
+						null,
+						true);
+				// Pills:
+				if(slave.getSlavePermissionSettings().get(SlavePermission.SEX).contains(SlavePermissionSetting.SEX_LUBE_PILL)) {
+					dailyEntry.addTag(SlaveEventTag.DAILY_PILL_USE_LUBE, slave, true);
+				}
+				if(slave.getSlavePermissionSettings().get(SlavePermission.PILLS).contains(SlavePermissionSetting.PILLS_PROMISCUITY_PILLS)) {
+					dailyEntry.addTag(SlaveEventTag.DAILY_PILL_USE_STERILITY, slave, true);
+				}
+				if(slave.getSlavePermissionSettings().get(SlavePermission.PILLS).contains(SlavePermissionSetting.PILLS_VIXENS_VIRILITY)) {
+					dailyEntry.addTag(SlaveEventTag.DAILY_PILL_USE_FERTILITY, slave, true);
+				}
+				if(slave.getSlavePermissionSettings().get(SlavePermission.PILLS).contains(SlavePermissionSetting.PILLS_BROODMOTHER)) {
+					dailyEntry.addTag(SlaveEventTag.DAILY_PILL_USE_BROODMOTHER, slave, true);
+				}
+				
+				if(dailyEntry.getTags()!=null || dailyEntry.getExtraEffects()!=null) {
+					Main.game.addSlaveryEvent(day, dailyEntry);
+				}
+			}
+			
 			
 			if(hour%24==0) { // At the start of a new day:
 				SlaveryEventLogEntry dailyEntry = new SlaveryEventLogEntry(hour,
@@ -557,6 +587,20 @@ public class OccupancyUtil implements XMLSaving {
 				// Payments:
 				if(dailyIncome.containsKey(slave)) {
 					dailyEntry.addExtraEffect("[style.boldGood(Earned)] "+UtilText.formatAsMoney(dailyIncome.get(slave)));
+				}
+				
+				// Pills:
+				if(slave.getSlavePermissionSettings().get(SlavePermission.SEX).contains(SlavePermissionSetting.SEX_LUBE_PILL)) {
+					dailyEntry.addTag(SlaveEventTag.DAILY_PILL_USE_LUBE, slave, true);
+				}
+				if(slave.getSlavePermissionSettings().get(SlavePermission.PILLS).contains(SlavePermissionSetting.PILLS_PROMISCUITY_PILLS)) {
+					dailyEntry.addTag(SlaveEventTag.DAILY_PILL_USE_STERILITY, slave, true);
+				}
+				if(slave.getSlavePermissionSettings().get(SlavePermission.PILLS).contains(SlavePermissionSetting.PILLS_VIXENS_VIRILITY)) {
+					dailyEntry.addTag(SlaveEventTag.DAILY_PILL_USE_FERTILITY, slave, true);
+				}
+				if(slave.getSlavePermissionSettings().get(SlavePermission.PILLS).contains(SlavePermissionSetting.PILLS_BROODMOTHER)) {
+					dailyEntry.addTag(SlaveEventTag.DAILY_PILL_USE_BROODMOTHER, slave, true);
 				}
 				
 				if(!slave.isDoll()) { // Dolls do not gain/lose muscle or body size

@@ -5,7 +5,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.3.8.6
- * @version 0.3.8.6
+ * @version 0.4.10.7
  * @author Innoxia
  */
 public enum SlaveJobFlag {
@@ -16,7 +16,11 @@ public enum SlaveJobFlag {
 	
 	INTERACTION_BONDING(PresetColour.AFFECTION, "Slave bonding", "Slaves who are assigned to this job are able to socialise with other slaves."),
 	
-	GUEST_CAN_WORK(PresetColour.GENERIC_NEUTRAL, "Guest worker", "Guests can be assigned to this job.");
+	GUEST_CAN_WORK(PresetColour.GENERIC_NEUTRAL, "Guest worker", "Guests can be assigned to this job."),
+
+	CLEANING_UNAVAILABLE(PresetColour.DIRTY, "Cleaning unavailable", "Slaves will be unable to clean themselves while working this job."),
+
+	SPECIAL_UNIFORM(PresetColour.GENERIC_MINOR_BAD, "Special uniform", "Slaves cannot be outfitted via the dressing room while working this job.");
 	
 	private Colour colour;
 	private String name;

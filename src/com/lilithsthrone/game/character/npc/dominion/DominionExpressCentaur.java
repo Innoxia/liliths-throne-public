@@ -58,7 +58,7 @@ public class DominionExpressCentaur extends NPC {
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3,
 				null, null, null,
-				new CharacterInventory(10), WorldType.DOMINION_EXPRESS, PlaceType.DOMINION_EXPRESS_STABLES, false);
+				new CharacterInventory(false, 10), WorldType.DOMINION_EXPRESS, PlaceType.DOMINION_EXPRESS_STABLES, false);
 
 		if(!isImported) {
 			setLevel(8 + Util.random.nextInt(5)); // 8-12

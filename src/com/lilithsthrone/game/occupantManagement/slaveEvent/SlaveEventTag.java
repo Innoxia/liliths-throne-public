@@ -1,11 +1,12 @@
 package com.lilithsthrone.game.occupantManagement.slaveEvent;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.2.2
- * @version 0.3.5
+ * @version 0.4.10.7
  * @author Innoxia
  */
 public enum SlaveEventTag {
@@ -16,8 +17,48 @@ public enum SlaveEventTag {
 	
 	WASHED_BODY_NIPPLE_CREAMPIE("<span style='color:"+PresetColour.BASE_AQUA.toWebHexString()+";'>Cleaned Nipple Creampie</span>"),
 
+	WASHED_BODY_REMOVED_MUSK("<span style='color:"+PresetColour.BASE_AQUA.toWebHexString()+";'>Removed Musky Odours</span>") {
+		@Override
+		public void applyEffects(GameCharacter character) {
+			character.clearMuskMarkers();
+			character.calculateStatusEffects(0);
+		}
+	},
+	
 	WASHED_CLOTHES("<span style='color:"+PresetColour.BASE_AQUA.toWebHexString()+";'>Cleaned Clothes</span>"),
+	
+	
+	// Pills:
 
+	DAILY_PILL_USE_LUBE("[style.colourSex(Swallowed [#ITEM_innoxia_pills_lubrication.getName(false)])]") {
+		@Override
+		public void applyEffects(GameCharacter character) {
+			character.useItem(Main.game.getItemGen().generateItem("innoxia_pills_lubrication"), character, false);
+		}
+	},
+	
+	DAILY_PILL_USE_STERILITY("[style.colourSex(Swallowed [#ITEM_innoxia_pills_sterility.getName(false)])]") {
+		@Override
+		public void applyEffects(GameCharacter character) {
+			character.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"), character, false);
+		}
+	},
+	
+	DAILY_PILL_USE_FERTILITY("[style.colourSex(Swallowed [#ITEM_innoxia_pills_fertility.getName(false)])]") {
+		@Override
+		public void applyEffects(GameCharacter character) {
+			character.useItem(Main.game.getItemGen().generateItem("innoxia_pills_fertility"), character, false);
+		}
+	},
+
+	DAILY_PILL_USE_BROODMOTHER("[style.colourSex(Swallowed [#ITEM_innoxia_pills_broodmother.getName(false)])]") {
+		@Override
+		public void applyEffects(GameCharacter character) {
+			character.useItem(Main.game.getItemGen().generateItem("innoxia_pills_broodmother"), character, false);
+		}
+	},
+	
+	
 	// Muscle:
 	
 	DAILY_MUSCLE_LOSS_LARGE("[style.boldShrink(-5)] [style.boldMuscleZero(Muscle Size)]") {

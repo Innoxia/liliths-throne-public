@@ -76,6 +76,22 @@ public class OptionsController {
 	}
 	
 	public static void initGenderListeners() {
+		// OFFSPRING_GENDER_PREF_
+		for(int i=com.lilithsthrone.game.Properties.offspringGenderName.length-1; i>=0; i--) {
+			String id = "OFFSPRING_GENDER_PREF_"+i;
+			int javaWooooooooooooooooooooooooooooooooOOOOOoooOOOOOoooOOOOOOooOOOOOooo = i;
+			if (MainController.document.getElementById(id) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+					Main.getProperties().offspringGenderLevel = javaWooooooooooooooooooooooooooooooooOOOOOoooOOOOOoooOOOOOOooOOOOOooo;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(
+						Util.capitaliseSentence(Properties.offspringGenderName[i]),
+						Properties.offspringGenderDescription[i]));
+			}
+		}
+		
 		for (Gender g : Gender.values()) {
 			for (ContentPreferenceValue preference : ContentPreferenceValue.values()) {
 				if (MainController.document.getElementById(preference+"_"+g) != null) {
@@ -453,10 +469,18 @@ public class OptionsController {
 		}
 		
 		for (Artist artist : Artwork.allArtists) {
-			id = "ARTIST_"+artist.getFolderName();
+			id = "ARTIST_"+artist.getFolderName()+"_UP";
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					Main.getProperties().preferredArtist = artist.getFolderName();
+					Main.getProperties().modifyArtistPriority(artist.getFolderName(), -1);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "ARTIST_"+artist.getFolderName()+"_DOWN";
+			if (MainController.document.getElementById(id) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+					Main.getProperties().modifyArtistPriority(artist.getFolderName(), 1);
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);

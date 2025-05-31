@@ -531,6 +531,7 @@ public class DebugDialogue {
 					return new Response("Brax's revenge", "Brax cums in your vagina!", DEBUG_MENU){
 						@Override
 						public void effects() {
+							Main.game.getPlayer().guaranteePregnancyOnNextRoll();
 							if(Main.game.getPlayer().hasHymen()) {
 								Main.game.getPlayer().setVaginaVirgin(false);
 								SexType sexType = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS);
@@ -544,6 +545,7 @@ public class DebugDialogue {
 					return new Response("Lilaya's hypocrisy", "Lilaya cums in your vagina!", DEBUG_MENU){
 						@Override
 						public void effects() {
+							Main.game.getPlayer().guaranteePregnancyOnNextRoll();
 							if(Main.game.getPlayer().hasHymen()) {
 								Main.game.getPlayer().setVaginaVirgin(false);
 								SexType sexType = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS);
@@ -1072,6 +1074,8 @@ public class DebugDialogue {
 				
 				UtilText.nodeContentSB.append("<span style='color:"+os.getFemininity().getColour().toWebHexString()+";'>"+os.getName()+" "+os.getSurname()+"</span>");
 				
+				UtilText.nodeContentSB.append(" (<i style='color:"+os.getGender().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(os.getGender().getName())+"</i>)");
+				
 				UtilText.nodeContentSB.append(" ("+os.getSubspecies().getName(os.getBody()));
 				if(os.getSubspecies()==Subspecies.HALF_DEMON) {
 					UtilText.nodeContentSB.append("/"+os.getHalfDemonSubspecies().getName(os.getBody()));
@@ -1494,7 +1498,7 @@ public class DebugDialogue {
 							inventorySB.append("<br/>");
 							inventorySB.append("Femininity: <span style='color:"+outfit.getFemininity().getColour().toWebHexString()+";'>"+outfit.getFemininity().toString()+"</span>");
 							inventorySB.append("<br/>");
-							inventorySB.append("Conditional: <span style='font-family:monospace; font-size:0.75em;'>"+outfit.getConditional()+"</span>");
+							inventorySB.append("Conditional: <span style='font-family:monospace; font-size:0.85em; background:"+PresetColour.BACKGROUND_DARK.toWebHexString()+"; padding:2px;'>"+outfit.getConditional()+"</span>");
 							
 							inventorySB.append("<br/>");
 							inventorySB.append("Leg configurations: ");
@@ -1594,6 +1598,7 @@ public class DebugDialogue {
 	};
 	
 	private static NPC attacker;
+	private static RaceStage attackerRaceStage;
 	private static AbstractSubspecies attackerSubspecies;
 	private static AbstractSubspecies attackerHalfDemonSubspecies;
 	private static void initAttacker() {
@@ -1673,6 +1678,14 @@ public class DebugDialogue {
 					}
 					@Override
 					public void effects() {
+						attackerRaceStage = RaceStage.PARTIAL;
+						if(responseTab==1) {
+							attackerRaceStage = RaceStage.PARTIAL_FULL;
+						} else if(responseTab==2) {
+							attackerRaceStage = RaceStage.LESSER;
+						} else if(responseTab==3) {
+							attackerRaceStage = RaceStage.GREATER;
+						}
 						if(subspecies==Subspecies.HALF_DEMON || responseTab==4) {
 							attackerSubspecies = Subspecies.HALF_DEMON;
 							attackerHalfDemonSubspecies = responseTab==4?subspecies:Subspecies.HUMAN;
@@ -1732,19 +1745,12 @@ public class DebugDialogue {
 									false);
 						} else {
 							attacker.setSubspeciesOverride(null);
-							RaceStage stage = responseTab==0
-									?RaceStage.PARTIAL
-									:(responseTab==1
-										?RaceStage.PARTIAL_FULL
-										:(responseTab==2
-											?RaceStage.LESSER
-											:RaceStage.GREATER));
 							
 							if(attackerSubspecies==Subspecies.DEMON) {
-								stage = RaceStage.GREATER;
+								attackerRaceStage = RaceStage.GREATER;
 							}
 							
-							attacker.setBody(gender, attackerSubspecies, stage, true);
+							attacker.setBody(gender, attackerSubspecies, attackerRaceStage, true);
 							
 //							Main.game.getCharacterUtils().reassignBody(
 //									attacker,

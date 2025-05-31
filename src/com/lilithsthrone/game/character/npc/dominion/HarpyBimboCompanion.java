@@ -74,7 +74,7 @@ public class HarpyBimboCompanion extends NPC {
 						+ " Just like most of the harpies in Brittany's nest, she's a ditzy bimbo, and does absolutely anything her matriarch orders her to.",
 				22, Month.JULY, 6,
 				5, Gender.F_V_B_FEMALE, Subspecies.HARPY, RaceStage.LESSER,
-				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_YELLOW, true);
+				new CharacterInventory(false, 30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_YELLOW, true);
 		
 	}
 	

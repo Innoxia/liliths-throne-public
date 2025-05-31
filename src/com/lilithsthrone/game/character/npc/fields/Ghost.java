@@ -88,7 +88,7 @@ public class Ghost extends NPC {
 				67, Month.JULY, 11,
 				42,
 				Gender.F_V_B_FEMALE, Subspecies.getSubspeciesFromId("dsg_otter_subspecies_otter"), RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_enforcer_station"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_enforcer_station_sword"),
 				true);
 		if(!isImported) {

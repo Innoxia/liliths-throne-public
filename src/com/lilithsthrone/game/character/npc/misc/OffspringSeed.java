@@ -193,12 +193,20 @@ public class OffspringSeed implements XMLSaving {
 		} else {
 			this.setSurname(""); // To make sure that surname is not null for the following check: this.surname.contains("martu")
 		}
-		
-		Gender gender = Gender.getGenderFromUserPreferences(Math.random()<mother.getRace().getChanceForMaleOffspring()?Femininity.MASCULINE:Femininity.FEMININE);
+
+		Gender gender;
+		if(Main.getProperties().isOffspringGenderUsingPreferences(mother)) {
+			gender = Gender.getGenderFromUserPreferences(false, false);
+		} else {
+			gender = Gender.getBasicGender(
+					Math.random()<mother.getRace().getChanceForMaleOffspring()
+						?Femininity.MASCULINE
+						:Femininity.FEMININE);
+		}
 		
 		Body preGeneratedBody;
 //		if(father!=null) {
-			preGeneratedBody = AbstractSubspecies.getPreGeneratedBody(template, gender, mother.getBody(), fatherBody);
+			preGeneratedBody = AbstractSubspecies.getPreGeneratedBody(template, gender, mother, mother.getBody(), fatherBody);
 //		} else {
 //			preGeneratedBody = AbstractSubspecies.getPreGeneratedBody(template, gender, mother.getTrueSubspecies(), mother.getHalfDemonSubspecies(), fatherBody.getSubspecies(), fatherBody.getHalfDemonSubspecies());
 //		}

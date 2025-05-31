@@ -2590,7 +2590,7 @@
 		<content folderPath="txt/places/fields/elis/market">TOYS</content>
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<travelDisabled><![CDATA[
-			[#!yui.isPlayerKnowsName() && game.isHourBetween(8, 18)]
+			[#game.isHourBetween(8, 18) && (!yui.isPlayerKnowsName() || (flags.hasFlag(FLAG_innoxia_yui_dungeon_completed_stage_1) && !flags.hasFlag(FLAG_innoxia_yui_public_toy_unlocked)))]
 		]]></travelDisabled>
 		<responses>
 			<!-- Closed: -->
@@ -2604,7 +2604,7 @@
 			</response>
 			<!-- Open and introduced: -->
 			<response>
-				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && yui.isPlayerKnowsName()]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && yui.isPlayerKnowsName() && (!flags.hasFlag(FLAG_innoxia_yui_dungeon_completed_stage_1) || flags.hasFlag(FLAG_innoxia_yui_public_toy_unlocked))]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Trade]]></responseTitle>
@@ -2616,7 +2616,7 @@
 			</response>
 			<!-- Open and not introduced: -->
 			<response>
-				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && !yui.isPlayerKnowsName()]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && !yui.isPlayerKnowsName() && (!flags.hasFlag(FLAG_innoxia_yui_dungeon_completed_stage_1) || flags.hasFlag(FLAG_innoxia_yui_public_toy_unlocked))]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Introduction]]></responseTitle>
@@ -2626,9 +2626,21 @@
 					[#yui.setPlayerKnowsName(true)]
 				]]></effects>
 			</response>
+			<!-- Open and offer of becoming her toy: -->
+			<response>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && yui.isPlayerKnowsName() && (flags.hasFlag(FLAG_innoxia_yui_dungeon_completed_stage_1) && !flags.hasFlag(FLAG_innoxia_yui_public_toy_unlocked))]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[More info]]></responseTitle>
+				<responseTooltip><![CDATA[Ask Yui what this new job will involve.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_public_toy_offer]]></nextDialogue>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_innoxia_yui_public_toy_unlocked, true)]
+				]]></effects>
+			</response>
 			<!-- Submit: -->
 			<response>
-				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && yui.isPlayerKnowsName()]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && yui.isPlayerKnowsName() && (!flags.hasFlag(FLAG_innoxia_yui_dungeon_completed_stage_1) || flags.hasFlag(FLAG_innoxia_yui_public_toy_unlocked))]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
 				<colour><![CDATA[GENERIC_SEX]]></colour>
@@ -2657,10 +2669,56 @@
 					[#flags.setFlag(FLAG_innoxia_elis_market_yui_domination_complete, true)]
 				]]></effects>
 			</response>
+			<!-- Living toy bad end: (REMOVED)
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_yui_public_toy_completed)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[5]]></index>
+				<responseTitle><![CDATA[Living toy]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Mistress Yui that you want to become her living toy.
+					
+					#IF(!pc.hasFetish(FETISH_MASOCHIST))
+						<br/>As you're [style.italicsBad(not a masochist)], you've got a bad feeling about this and [style.italicsBad(decide not to meet with Yui)]...
+					#ELSEIF(pc.isAnyEquippedClothingSealed() || pc.isHasAnyPregnancyEffects() || pc.getDirtySlots().size()>0 || (!game.isAnalContentEnabled() && !pc.hasVagina()) || pc.getLegConfiguration()!=LEG_CONFIGURATION_BIPEDAL)
+						<br/>As you have
+						#IF(pc.isAnyEquippedClothingSealed())
+							 [style.italicsSealed(sealed)] clothing equipped,
+						#ENDIF
+						#IF(pc.isHasAnyPregnancyEffects())
+							#IF(pc.isAnyEquippedClothingSealed() && pc.getDirtySlots().size()==0)
+								 and
+							#ENDIF
+							 a [style.italicsSex(pregnancy-related status effect)] active,
+						#ENDIF
+						#IF(pc.getDirtySlots().size()>0)
+							#IF(pc.isAnyEquippedClothingSealed() || pc.isHasAnyPregnancyEffects())
+								 and
+							#ENDIF
+							 [style.italicsDirty(dirty inventory slots)], 
+						#ENDIF
+						#IF(pc.getLegConfiguration()!=LEG_CONFIGURATION_BIPEDAL)
+							#IF(pc.isAnyEquippedClothingSealed() || pc.isHasAnyPregnancyEffects() || pc.getDirtySlots().size()>0 || (!game.isAnalContentEnabled() && !pc.hasVagina()))
+								 and
+							#ENDIF
+							 [style.italicsTfGeneric(a non-bipedal lower body)], 
+						#ENDIF
+						 [style.italicsBad(Yui won't make you her toy)]!
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[
+					#IF(pc.isAnyEquippedClothingSealed() || pc.isHasAnyPregnancyEffects() || pc.getDirtySlots().size()>0 || pc.getLegConfiguration()!=LEG_CONFIGURATION_BIPEDAL)
+						null
+					#ELSE
+						innoxia_places_fields_elis_market_toys_living_toy_contract
+					#ENDIF
+				]]></nextDialogue>
+			</response>
+			 -->
 			<!-- Demonstrations: -->
 			<!-- Ball gag: -->
 			<response>
-				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && yui.isPlayerKnowsName()]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && yui.isPlayerKnowsName() && (!flags.hasFlag(FLAG_innoxia_yui_dungeon_completed_stage_1) || flags.hasFlag(FLAG_innoxia_yui_public_toy_unlocked))]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[6]]></index>
 				<colour><![CDATA[GENERIC_SEX]]></colour>
@@ -2698,7 +2756,7 @@
 			</response>
 			<!-- Caged: -->
 			<response>
-				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && yui.isPlayerKnowsName()]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && yui.isPlayerKnowsName() && (!flags.hasFlag(FLAG_innoxia_yui_dungeon_completed_stage_1) || flags.hasFlag(FLAG_innoxia_yui_public_toy_unlocked))]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[7]]></index>
 				<colour><![CDATA[GENERIC_SEX]]></colour>
@@ -2737,7 +2795,7 @@
 			</response>
 			<!-- Vaginal fucked: -->
 			<response>
-				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && yui.isPlayerKnowsName()]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && yui.isPlayerKnowsName() && (!flags.hasFlag(FLAG_innoxia_yui_dungeon_completed_stage_1) || flags.hasFlag(FLAG_innoxia_yui_public_toy_unlocked))]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[8]]></index>
 				<colour><![CDATA[GENERIC_SEX]]></colour>
@@ -2776,7 +2834,7 @@
 			</response>
 			<!-- Anal beads: -->
 			<response>
-				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && yui.isPlayerKnowsName()]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#game.isHourBetween(8, 18) && yui.isPlayerKnowsName() && (!flags.hasFlag(FLAG_innoxia_yui_dungeon_completed_stage_1) || flags.hasFlag(FLAG_innoxia_yui_public_toy_unlocked))]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[9]]></index>
 				<colour><![CDATA[GENERIC_SEX]]></colour>
@@ -2821,6 +2879,51 @@
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
 		<continuesDialogue>true</continuesDialogue>
 		<responses copyFromDialogueId="innoxia_places_fields_elis_market_toys"/>
+	</scene>
+	
+	<scene id="public_toy_offer">
+		<content folderPath="txt/places/fields/elis/market">TOYS_PUBLIC_TOY_OFFER</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<travelDisabled><![CDATA[false]]></travelDisabled>
+		<continuesDialogue>true</continuesDialogue>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_market_toys"/>
+	</scene>
+	
+	<scene id="toys_living_toy_contract">
+		<content folderPath="txt/places/fields/elis/market">TOYS_LIVING_TOY_CONTRACT</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<travelDisabled><![CDATA[true]]></travelDisabled>
+		<continuesDialogue>false</continuesDialogue>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<colour><![CDATA[GENERIC_BAD_END]]></colour>
+				<requiredFetishes>
+					<fetish><![CDATA[FETISH_SUBMISSIVE]]></fetish>
+					<fetish><![CDATA[FETISH_MASOCHIST]]></fetish>
+				</requiredFetishes>
+				<corruptionLevel><![CDATA[FIVE_CORRUPT]]></corruptionLevel>
+				<responseTitle><![CDATA[Sign it]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Sign yourself into slavery and become Mistress Yui's living toy.
+					<br/>[style.italicsBadEnd(This will be the end of your adventure!)]
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_badEnds_yui_sign_contract]]></nextDialogue>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Refuse]]></responseTitle>
+				<responseTooltip><![CDATA[
+					Tell Mistress Yui that you need more time to think about it.
+				]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_toys]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_LIVING_TOY_CONTRACT_REFUSE'))]
+				]]></effects>
+			</response>
+		</responses>
 	</scene>
 	
 	<scene id="toys_domination">
@@ -3053,10 +3156,40 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Continue]]></responseTitle>
-				<responseTooltip><![CDATA[[pc.Step] around to the other side of the stall.]]></responseTooltip>
+				<responseTooltip><![CDATA[Wait for Yui to release you and then [pc.step] around to the other side of the stall.]]></responseTooltip>
 				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_toys]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_AFTER_DOMINATION_END'))]
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_yui_dungeon_unlocked)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Beg for more]]></responseTitle>
+				<responseTooltip><![CDATA[You want to be tied up and dominated more! Beg for Yui to keep you tied up and punish you some more.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_toys_after_domination_beg_for_more]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="toys_after_domination_beg_for_more">
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_innoxia_yui_dungeon_unlocked, true)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/fields/elis/market">TOYS_AFTER_DOMINATION_BEG_FOR_MORE</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[With the promise of more punishment awaiting you in the south-western tower, you obediently wait for Yui to release you and then [pc.step] around to the other side of the stall.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_toys]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_AFTER_DOMINATION_BEG_FOR_MORE_END'))]
 				]]></effects>
 			</response>
 		</responses>
@@ -3065,6 +3198,7 @@
 	<scene id="toys_demonstration_ballgag">
 		<preParsingEffects><![CDATA[
 			[#pc.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_innoxia_bdsm_ballgag, COLOUR_CLOTHING_PINK_HOT, false), true, yui)]
+			[#pc.addToUnlockKeyMap(pc.getId(), IS_MOUTH)]
 			[#pc.getClothingInSlot(IS_MOUTH).setName("Yui's demo ball gag")]
 		]]></preParsingEffects>
 		<content folderPath="txt/places/fields/elis/market">TOYS_DEMONSTRATION_BALLGAG</content>
@@ -3108,6 +3242,7 @@
 	<scene id="toys_demonstration_chastity_cage">
 		<preParsingEffects><![CDATA[
 			[#pc.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_innoxia_bdsm_chastity_cage, COLOUR_CLOTHING_PINK_HOT, false), true, yui)]
+			[#pc.addToUnlockKeyMap(pc.getId(), IS_PENIS)]
 			[#yui.unequipClothingIntoVoid(yui.getClothingInSlot(IS_GROIN), true, yui)]
 			[#pc.getClothingInSlot(IS_PENIS).setName("Yui's demo chastity cage")]
 		]]></preParsingEffects>
@@ -3121,7 +3256,7 @@
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Stay still]]></responseTitle>
 				<responseTooltip><![CDATA[Be a good [pc.girl] for Mistress Yui and stay still so that she can easily lock your cock into chastity.]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_toys_demonstration_chastity_cage_locked_up]]></nextDialogue>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_toys_demonstration_chastity_cage_locked_up]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_DEMONSTRATION_CHASTITY_SUBMIT'))]
 					#IF(yui.getAffection(pc)<40)
@@ -3134,7 +3269,7 @@
 				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Resist]]></responseTitle>
 				<responseTooltip><![CDATA[Refuse to do as Mistress Yui asks and try to resist having your cock locked into chastity.]]></responseTooltip>
-				<nextDialogue stripContent="true"><![CDATA[innoxia_places_fields_elis_market_toys_demonstration_chastity_cage_locked_up]]></nextDialogue>
+				<nextDialogue><![CDATA[innoxia_places_fields_elis_market_toys_demonstration_chastity_cage_locked_up]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_DEMONSTRATION_CHASTITY_RESIST'))]
 					#IF(yui.getAffection(pc)>-40)
@@ -3182,6 +3317,7 @@
 		<preParsingEffects><![CDATA[
 			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/fields/elis/market', 'TOYS_DEMONSTRATION_DILDO'))]
 			[#pc.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_norin_dildos_realistic_dildo, COLOUR_CLOTHING_PINK_HOT, false), true, yui)]
+			[#pc.addToUnlockKeyMap(pc.getId(), IS_VAGINA)]
 			[#pc.getClothingInSlot(IS_VAGINA).setSealed(true)]
 			[#pc.getClothingInSlot(IS_VAGINA).setName("Yui's demo dildo")]
 		]]></preParsingEffects>
@@ -3226,6 +3362,7 @@
 	<scene id="toys_demonstration_anal_beads">
 		<preParsingEffects><![CDATA[
 			[#pc.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_norin_anal_beads_anal_beads, COLOUR_CLOTHING_PINK_HOT, false), true, yui)]
+			[#pc.addToUnlockKeyMap(pc.getId(), IS_ANUS)]
 			[#pc.getClothingInSlot(IS_ANUS).setSealed(true)]
 			[#pc.getClothingInSlot(IS_ANUS).setName("Yui's demo anal beads")]
 		]]></preParsingEffects>

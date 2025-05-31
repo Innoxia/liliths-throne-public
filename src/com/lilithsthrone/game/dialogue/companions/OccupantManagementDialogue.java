@@ -1124,8 +1124,6 @@ public class OccupantManagementDialogue {
 						"</div>");
 			}
 			
-			
-			
 			// Your slaves:
 			UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
 					+ "<h6 style='color:"+PresetColour.GENERIC_GOOD.toWebHexString()+"; text-align:center;'>Slaves Owned</h6>");
@@ -1173,7 +1171,7 @@ public class OccupantManagementDialogue {
 							return (NPC)Main.game.getNPCById(npcid);
 						} catch (Exception e) {
 							// Should never happen. Just satisfying Java's pickiness.
-							System.err.println("Main.game.getNPCById("+npcid+") returning null 2nd instance in method: SLAVE_LIST.getResponse()");
+							System.err.println("Main.game.getNPCById("+npcid+") returning null in: SLAVE_LIST.getContent()");
 							return null;
 						}
 					})
@@ -1225,8 +1223,85 @@ public class OccupantManagementDialogue {
 		}
 
 		@Override
+		public String getResponseTabTitle(int index) {
+			if(index == 0) {
+				return UtilText.parse("[style.colourCompanion(Manage)]");
+			} else if(index==1
+					&& (Main.game.getCurrentDialogueNode()==CompanionManagement.SLAVE_MANAGEMENT_JOBS
+						|| Main.game.getCurrentDialogueNode()==CompanionManagement.SLAVE_MANAGEMENT_PERMISSIONS)) {
+				return UtilText.parse("[style.colourBlueLight(Change slave)]");
+			}
+			return null;
+		}
+		
+		@Override
 		public Response getResponse(int responseTab, int index) {
-			return CompanionManagement.getManagementResponses(index);
+			if(responseTab==0) {
+				return CompanionManagement.getManagementResponses(index);
+			
+			} else { // Slave selection:
+				List<NPC> slaves = Main.game.getPlayer().getSlavesOwned().stream()
+					.filter(npcid -> Main.game.isCharacterExisting(npcid))
+					.map(npcid -> {
+						try {
+							return (NPC)Main.game.getNPCById(npcid);
+						} catch (Exception e) {
+							// Should never happen. Just satisfying Java's pickiness.
+							System.err.println("Main.game.getNPCById("+npcid+") returning null in: SLAVE_LIST.getResponse()");
+							return null;
+						}
+					})
+					.filter(npc -> npc != null)
+					.collect(Collectors.toList());
+				Comparator<NPC> ssm = null;
+				switch(sortingMethod) {
+					case NAME:
+						ssm = new SlaveNameComparator();
+						break;
+					case ROOM:
+						ssm = new SlaveRoomComparator();
+						break;
+					case VALUE:
+						ssm = new SlaveValueComparator();
+						break;
+					case FEMININITY:
+						ssm = new SlaveFemininityComparator();
+						break;
+					case RACE:
+						ssm = new SlaveRaceComparator();
+						break;
+					case NONE:
+						ssm = null;
+						break;
+				}
+				if(ssm != null) {
+					if(reverseSortSlaves) {
+						ssm = Collections.reverseOrder(ssm);
+					}
+					Collections.sort(slaves, ssm);
+				}
+				int i = 0;
+				for(NPC slave : slaves) {
+					i++;
+					if(i==index) {
+						return new Response(
+								UtilText.parse(slave, "<span style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</span>"),
+								UtilText.parse(slave, "Select [npc.name], your [npc.raceFull(true)] slave."),
+								Main.game.getCurrentDialogueNode()) {
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().setManagementCompanion(slave);
+							}
+						};
+					}
+				}
+				
+				if(index==0) {
+					return CompanionManagement.getManagementResponses(index);
+				}
+				
+				return null;
+			}
 		}
 	};
 	
@@ -1339,8 +1414,11 @@ public class OccupantManagementDialogue {
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 							+ (Main.game.getDialogueFlags().getSlaveTrader()!=null
 								?(slaveOwned
-										?UtilText.formatAsMoney((int) (slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()), "b", PresetColour.GENERIC_ARCANE)
-										:UtilText.formatAsMoney((int) (slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getSellModifier(null)), "b", PresetColour.GENERIC_ARCANE))
+										?UtilText.formatAsMoney((int) (slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getBuyModifier()), "b", PresetColour.TEXT)
+										:UtilText.formatAsMoney((int) (slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getSellModifier(null)), "b",
+												(slave.getValueAsSlave(true)*Main.game.getDialogueFlags().getSlaveTrader().getSellModifier(null))>Main.game.getPlayer().getMoney()
+													?PresetColour.GENERIC_BAD
+													:PresetColour.TEXT))
 								:UtilText.formatAsMoney(slave.getValueAsSlave(true)))+"<br/>"
 							+ "<b>"+Util.capitaliseSentence(slave.getSlaveJob(Main.game.getHourOfDay()).getName(slave))+" (now)</b><br/>"
 							+ UtilText.formatAsMoney(SlaveJob.getFinalDailyIncomeAfterModifiers(slave))+"/day"

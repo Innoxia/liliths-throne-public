@@ -83,7 +83,7 @@ public class SlimeQueen extends NPC {
 				"The self-proclaimed Slime Queen, Catherine, is a gigantic female slime, who wants to turn as many people into her subjects as possible.",
 				38, Month.JANUARY, 29,
 				15, Gender.F_V_B_FEMALE, Subspecies.SLIME, RaceStage.HUMAN,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.SLIME_QUEENS_LAIR_FIRST_FLOOR, PlaceType.SLIME_QUEENS_LAIR_SLIME_QUEEN, true);
 		
 		if(!isImported) {

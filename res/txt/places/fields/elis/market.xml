@@ -2070,9 +2070,102 @@
 				<p>
 					You once again find yourself standing before the stall 'Yui's Toys'. Its dark-purple awning and curtains, combined with the black cloth draped over its counter, gives business a very ominous appearance. Yui herself, the demonic, yellow-and-black striped spider-girl, is standing behind the counter, and fixes her eight glowing-crimson eyes on your face as you draw near.
 				</p>
-				<p>
-					[yui.speech(Back for some of my toys, are you?)] she asks. Swiftly smacking her riding crop down against the counter-top, she flashes you a wild, sadistic grin and teases, [yui.speech(Or are you here for some punishment?)] 
-				</p>
+				#IF(flags.hasFlag(FLAG_innoxia_yui_dungeon_completed_stage_1) && !flags.hasFlag(FLAG_innoxia_yui_public_toy_unlocked))
+					<p>
+						[yui.speech(Come here, toy,)] she orders. Swiftly smacking her riding crop down against the counter-top, she flashes you a wild, sadistic grin and snaps, [yui.speech(Move it!)]
+					</p>
+					<p>
+						Submissively hurrying forwards, you hold still as the dominant [yui.race] leans forwards over the counter-top and teases the tip of her riding crop over your face. Letting out an approving hum, she reveals, [yui.speech(Several of my clients expressed how pleased they were with your performance in my dungeon. I must admit, you've got a natural talent for being a submissive fuck toy...)]
+					</p>
+					<p>
+						You let out a horny little whimper as your Mistress lightly whacks your cheek with her riding crop, and obediently remain standing in place as she stops talking. A silence falls between the two of you, and as Mistress Yui's glowing red eyes burrow into your head, you feel your heart beating loudly within your chest.
+					</p>
+					<p>
+						[yui.speech(I've got another job for you,)] she suddenly says. Once again she flashes you a wicked-looking grin, before stating, [yui.speech(You seem to love degrading, rough sex, so you're the prefect candidate. Would you like to know more?)]
+					</p>
+				#ELSE
+					<p>
+						#IF(!flags.hasFlag(FLAG_innoxia_yui_dungeon_unlocked))
+							[yui.speech(Back for some of my toys, are you?)] she asks.
+							#IF(flags.hasFlag(FLAG_innoxia_elis_market_yui_domination_complete))
+								 Sliding the tip of her riding crop over the counter-top, she flashes you a sadistic grin and teases, [yui.speech(You've already received your daily punishment, so there'll be no more until tomorrow.)]
+							#ELSE
+								 Swiftly smacking her riding crop down against the counter-top, she flashes you a wild, sadistic grin and teases, [yui.speech(Or are you here for some punishment?)]
+							#ENDIF
+						#ELSEIF(!flags.hasFlag(FLAG_innoxia_yui_dungeon_completed_stage_1))
+							[yui.speech(Here to buy some of my toys, are you?)] she asks, before suddenly striking her riding crop down against the counter-top with a loud smack. Ignoring the passersby who turn their heads towards the source of the noise, the [yui.race] flashes you a wild, sadistic grin and says in a threatening tone,
+							#IF(flags.hasFlag(FLAG_innoxia_yui_dungeon_refused))
+								 [yui.speech(I still can't believe that you refused my offer... I'm willing to forgive you, though. Come back to the south-western tower between eight and eleven on a Monday or Wednesday and I'll let you change your mind. Remember, you need to not be wearing any sealed clothing, not be pregnant, and be clean. Otherwise, I won't show myself.)]
+							#ELSE
+								 [yui.speech(I hope you haven't forgotten about my offer... Meet me at the south-western tower between eight and eleven on a Monday or Wednesday and I'll have something special to offer you. Remember, you need to not be wearing any sealed clothing, not be pregnant, and be clean. Otherwise, I won't show myself.)]
+							#ENDIF
+						#ELSE
+							[yui.speech(Well, well, well. My favourite toy's come back to visit [pc.her] Mistress,)] the [yui.race] sneers. [pc.Stepping] forwards, you submissively obey as Yui motions for you to turn around. Delivering a quick smack with her riding crop to your [pc.ass+], she sadistically sneers, [yui.speech(I expect to see you at the tower again, toy. You made me quite a few flames last time, and word of your submissive enthusiasm has spread to my other clients. There's a long list of people who want to spend an hour with 'the new [pc.race]' in my basement...)]
+						#ENDIF
+					</p>
+					#IF(flags.hasFlag(FLAG_innoxia_yui_public_toy_unlocked))
+						#IF(true)
+							<p>
+								Before you can respond, an evil grin spreads across Yui's spider-like face, and she asks, [yui.speech(
+								#IF(game.getDayOfWeek()==DOW_FRIDAY)
+									Or perhaps you're planning on finding me at 'The Crossed Blades' later?
+								#ELSE
+									Or perhaps you're planning on finding me at 'The Crossed Blades' on Friday?
+								#ENDIF
+								#IF(flags.hasFlag(FLAG_innoxia_yui_public_toy_completed))
+									 You want to act like a worthless little cock-sleeve again, don't you?
+								#ELSE
+									 You want to find out what I have in store for you there, don't you?
+								#ENDIF
+								)]
+							</p>
+							<p>
+								Feeling very small before your Mistress, you make a submissive noise to signal that you'll do as she says, before looking down at the toys on display and wondering what to do next...
+							</p>
+						#ELSE
+							<p>
+								TODO OLD BE CONTENT, THIS SHOULDN'T BE SEEN
+								<br/>
+								Before you can respond, an evil grin spreads across Yui's spider-like face, and she asks, [yui.speech(Or maybe you're here to become one of my living toys? You've proven yourself to be just the right sort of masochistic, submissive slut, so all it would take is your complete submission and then you'll be my toy forever.)]
+							</p>
+							#IF(pc.isAnyEquippedClothingSealed() || pc.isHasAnyPregnancyEffects() || pc.getDirtySlots().size()>0 || pc.getLegConfiguration()!=LEG_CONFIGURATION_BIPEDAL)
+								<p>
+									Making a dismissive gesture at you with two of her six hands, the [yui.race] tuts and continues, [yui.speech(At least, that's what I'd say if you were truly ready to become my toy. Remember my rules, toy? They still apply, and I'm not interested in claiming you in your current state...)]
+								</p>
+								<p>
+									Remembering the rules which Mistress Yui previously set out, you realise that you're not complying with them.
+									#IF(pc.isAnyEquippedClothingSealed())
+										 You [style.colourBad(have)] sealed clothing equipped,
+									#ELSE
+										 You [style.colourGood(don't have)] sealed clothing equipped,
+									#ENDIF
+									#IF(pc.isHasAnyPregnancyEffects())
+										 you [style.colourBad(have)] a pregnancy-related status effect active,
+									#ELSE
+										 you [style.colourGood(don't have)] a pregnancy-related status effect active,
+									#ENDIF
+									#IF(pc.getDirtySlots().size()>0)
+										 you [style.colourBad(have)] dirty inventory slots,
+									#ELSE
+										 you [style.colourGood(don't have)] dirty inventory slots,
+									#ENDIF
+									#IF(pc.getLegConfiguration()!=LEG_CONFIGURATION_BIPEDAL)
+										 and you [style.colourBad(don't have)] a bipedal lower body...
+									#ELSE
+										 and you [style.colourGood(have)] a bipedal lower body...
+									#ENDIF
+								</p>
+								<p>
+									[yui.speech(If you truly wish to become my living toy, then come back once you've sorted yourself out,)] the demonic spider-girl flatly says.
+								</p>
+							#ELSE
+								<p>
+									Gesturing for you to step closer, the [yui.race] teases, [yui.speech(Are you truly ready to become my toy? Say the word, and I'll show you the contract which I need you to sign...)]
+								</p>
+							#ENDIF
+						#ENDIF
+					#ENDIF
+				#ENDIF
 			#ENDIF
 		#ELSE
 			#IF(game.getHourOfDay()>=18)
@@ -2084,14 +2177,64 @@
 					In stark contrast to the colourful canvas seen throughout most of the Farmer's Market, the awning which covers the stall in front of you is a dark shade of purple. The counter upon which dozens of sex toys are on display is draped in a black cloth, which combined with the dark purple curtains that hang from three of the stall's four sides, gives this business a very ominous appearance. Thick strands of white spider webbing have not only been spun into webs in each of the corners of this stall, but also have been skilfully woven into the words 'Yui's Toys'.
 				</p>
 				<p>
-					You almost don't notice this stall's unusual décor, as your attention is immediately drawn to the demonic spider-girl who's standing behind the counter. Although she's standing at a relatively small [yui.heightValue], this [yui.race] gives off an incredibly threatening vibe. It's not the striking, black-and-yellow stripes of her chitinous skin that sends a shudder down your spine, nor the jet-black leather fetish gear that she's wearing, nor even the fact that she's got six arms that are all quickly moving as they play with strands of thin spider webbing shot out of the spinneret at the end of her bulbous, spider-like tail. What really makes you stop dead in your tracks is the fact that this spider-girl has eight glowing-crimson eyes spread across her upper face, each one of which is gazing at you with a look of petrifying malice.
+					You almost don't notice this stall's unusual décor, as your attention is immediately drawn to the person who's standing behind the counter. Although she possesses the feminine, fully-anthropomorphic form of a spider, she's no mere spider-girl, but is instead a half-demon spider-morph known as a [yui.race].
 				</p>
 				<p>
-					[yui.speech(Don't you know that it's rude to stare?)] she asks, her voice dripping with patronising amusement. Using one of her six arms to tuck a loose strand of her black-and-red head back into her bun, this small spider-girl leans forwards over her counter and beckons you forwards. With a thin smirk on her pretty face, she demands, [yui.speech(So go on then, tell me who you are.)]
+					Although she's standing at a relatively small [yui.heightValue] tall, this [yui.race] gives off an incredibly threatening vibe. It's not the striking, black-and-yellow stripes of her chitinous skin that sends a shudder down your spine, nor the jet-black leather fetish gear that she's wearing, nor even the fact that she's got six arms that are all quickly moving as they play with strands of thin spider webbing shot out of the spinneret at the end of her bulbous, spider-like tail. What really makes you stop dead in your tracks is the fact that this [yui.race] has eight glowing-crimson eyes spread across her upper face, each one of which is gazing at you with a look of petrifying malice.
+				</p>
+				<p>
+					[yui.speech(Don't you know that it's rude to stare?)] she asks, her voice dripping with patronising amusement. Using one of her six arms to tuck a loose strand of her black-and-red head back into her bun, this small [yui.race] leans forwards over her counter and beckons you forwards. With a thin smirk on her pretty face, she demands, [yui.speech(So go on then, tell me who you are.)]
 				</p>
 			#ENDIF
 		#ENDIF
 	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_PUBLIC_TOY_OFFER"><![CDATA[
+	<p>
+		Nodding your head, you ask Mistress Yui what this new job will involve.
+	</p>
+	<p>
+		[yui.speech(You'll be acting as a cock-sleeve for a gang of thugs. You like the sound of that? If so, then meet me outside 'The Crossed Blades' tavern in the alleyways here in northern Elis. I'll be there between eight and eleven every Friday evening,)] she says, before sternly stating, [yui.speech(Just like the sessions in my basement, there are certain rules you need to follow for me to show myself. You know three of them already; don't be wearing any sealed clothing, don't be pregnant, and be clean. This time, there's also another rule for you. The gang likes their cock-sleeves to be bipeds,
+		#IF(pc.getLegConfiguration()==LEG_CONFIGURATION_BIPEDAL)
+			 so make sure that you've still got two legs before seeking me out.
+		#ELSE
+			 so make sure that you've transformed to have two legs before seeking me out.
+		#ENDIF
+		 I'll tell you exactly what I expect of you once you're there.)]
+	</p>
+	<p>
+		With that, Mistress Yui lowers her riding crop, before taking a step back and gesturing to the toys that she's got for sale. With her glowing red eyes staring directly at you, she asks,
+		#IF(flags.hasFlag(FLAG_innoxia_elis_market_yui_domination_complete))
+			 [yui.speech(So, are you here to buy anything? You've already received your daily punishment, so there'll be no more until tomorrow.)]
+		#ELSE
+			 [yui.speech(So, are you here to buy anything? Or are you here for some punishment?)]
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_LIVING_TOY_CONTRACT"><![CDATA[
+	<p>
+		TODO you say you want to be toy
+	</p>
+	<p>
+		Yui presents contract and shows pink latex outfit. Says she's had your collar enchanted to make sure that you love being used in every way imaginable
+	</p>
+	<p>
+		Mistress Yui makes it very clear that this means you're going to be her fuck-toy slave forever.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_LIVING_TOY_CONTRACT_REFUSE"><![CDATA[
+	<p>
+		TODO you refuse
+	</p>
+	<p>
+		Mistress Yui says she understands. let her know if you change your mind.
+	</p>
 	]]>
 	</htmlContent>
 	
@@ -2106,7 +2249,7 @@
 		As if this wasn't enough to reveal to you that she has some strong sadistic urges, Yui bites her lip and continues, [yui.speech(You can also trade in a Faire ticket to have a very personal demonstration of one of my sex toys. I'll tie you up and give you some real punishment... ~Mmm!~ Yes, I can tell that your squirming and screams will be simply delicious...)]
 	</p>
 	<p>
-		With the sadistic spider-girl hungrily gazing at you with her eight glowing-crimson eyes, you wonder what to do next...
+		With the sadistic [yui.race] hungrily gazing at you with her eight glowing-crimson eyes, you wonder what to do next...
 	</p>
 	]]>
 	</htmlContent>
@@ -2157,7 +2300,7 @@
 		[pc.speech(No, Mistress Yui,)] you reply.
 	</p>
 	<p>
-		Looking down at you with her eight glowing eyes, Yui lets out another high-pitched laugh, before dropping down and attaching her sticky web to several points of your body. Shooting several other threads up at the metal frame of her stall, the small spider-girl starts pulling on her webbing, and before you can react, you find yourself being lifted off the ground and spun around over and over again in mid-air. Stopping your dizzying rotation with a forceful slap, Yui once again laughs and orders, [yui.speech(Try to move, toy.)]
+		Looking down at you with her eight glowing eyes, Yui lets out another high-pitched laugh, before dropping down and attaching her sticky web to several points of your body. Shooting several other threads up at the metal frame of her stall, the small [yui.race] starts pulling on her webbing, and before you can react, you find yourself being lifted off the ground and spun around over and over again in mid-air. Stopping your dizzying rotation with a forceful slap, Yui once again laughs and orders, [yui.speech(Try to move, toy.)]
 	</p>
 	<p>
 		Doing as you're told, you try to move your [pc.arms] and [pc.legs], but quickly discover that they're completely wrapped up in strong, sticky webbing. Sadistically grinning at you as she watches you struggle, Yui pulls on a strand of webbing with two of her six arms, which causes you to tumble down to the floor. Dropping down and using her many limbs to reposition you into a kneeling pose, the small [yui.race] grabs a small, padded seat from under her counter and sits down on it. Kicking off her heavy, gothic boots to reveal her latex stockings, she lifts her feet and places them down onto your still-exposed [pc.hands].
@@ -2204,7 +2347,7 @@
 		[pc.speech(No, Mistress Yui,)] you reply.
 	</p>
 	<p>
-		Smirking down at you and biting her lip, Yui lets out another high-pitched laugh, before dropping down and attaching her sticky web to several points of your body. Shooting several other threads up at the metal frame of her stall, the small spider-girl starts pulling on her webbing, and before you can react, you find yourself being lifted off the ground and spun around over and over again in mid-air. Stopping your dizzying rotation with a forceful slap, Yui once again laughs and orders, [yui.speech(Try to move, toy.)]
+		Smirking down at you and biting her lip, Yui lets out another high-pitched laugh, before dropping down and attaching her sticky web to several points of your body. Shooting several other threads up at the metal frame of her stall, the small [yui.race] starts pulling on her webbing, and before you can react, you find yourself being lifted off the ground and spun around over and over again in mid-air. Stopping your dizzying rotation with a forceful slap, Yui once again laughs and orders, [yui.speech(Try to move, toy.)]
 	</p>
 	<p>
 		Doing as you're told, you try to move your [pc.arms] and [pc.legs], but quickly discover that they're completely wrapped up in strong, sticky webbing. Sadistically grinning at you as she watches you struggle, Yui pulls on a strand of webbing with two of her six arms, which causes you to stand up straight in front of her. Lifting one of her arms, she presents you with her sweaty armpit and sneers, [yui.speech(This is what you wanted, then? You filthy little toy...)]
@@ -2235,7 +2378,7 @@
 		[pc.speech(No, Mistress Yui,)] you reply.
 	</p>
 	<p>
-		Smirking down at you and biting her lip, Yui lets out another high-pitched laugh, before dropping down and attaching her sticky web to several points of your body. Shooting several other threads up at the metal frame of her stall, the small spider-girl starts pulling on her webbing, and before you can react, you find yourself being lifted off the ground and spun around over and over again in mid-air. Stopping your dizzying rotation with a forceful slap, Yui once again laughs and orders, [yui.speech(Try to move, toy.)]
+		Smirking down at you and biting her lip, Yui lets out another high-pitched laugh, before dropping down and attaching her sticky web to several points of your body. Shooting several other threads up at the metal frame of her stall, the small [yui.race] starts pulling on her webbing, and before you can react, you find yourself being lifted off the ground and spun around over and over again in mid-air. Stopping your dizzying rotation with a forceful slap, Yui once again laughs and orders, [yui.speech(Try to move, toy.)]
 	</p>
 	<p>
 		Doing as you're told, you try to move your [pc.arms] and [pc.legs], but quickly discover that they're completely wrapped up in strong, sticky webbing. Sadistically grinning at you as she watches you struggle, Yui grabs a padded bench from under her counter, before pulling on a strand of webbing with two of her six arms, which causes you to tumble down onto this seat. Using her many limbs to reposition you so that you're lying down on your back, the small [yui.race] steps over the top of you and roughly plants her latex panties down over your face.
@@ -2322,18 +2465,45 @@
 	<p>
 		[yui.speech(It would be fun to keep you as my toy,)] she muses with an evil smirk on her face, [yui.speech(but I've already got a few tied up and waiting to be played with back home. I suppose I'll let you go...)]
 	</p>
-	<p>
-		With a flick of her wrists, the [yui.race] severs the webbing that's been binding your cocoon in place, and as the strands fall away from your body, you suddenly find yourself able to move freely again. Reaching under the counter, Yui produces a Faire ticket, and as she hands it to you, she says, [yui.speech(There you go, toy. It should really be reward enough just getting to be dominated by me, but the tourism board thinks otherwise... Now go on, back around to the other side of my counter.)]
-	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="TOYS_AFTER_DOMINATION_END"><![CDATA[
 	<p>
-		Doing as Mistress Yui says, you [pc.step] back around to the other side of the counter. Quickly clearing up the remains of the cocoon which you were encased in just moments ago, the sadistic spider-girl crosses all six of her arms, and with a sly smirk on her face, asks, [yui.speech(So, would you like to buy something, 'toy'? Oh, and don't get too addicted to being dominated by me; I limit these little sessions to one per person per day.)]
+		With a flick of her wrists, the [yui.race] severs the webbing that's been binding your cocoon in place, and as the strands fall away from your body, you suddenly find yourself able to move freely again. Reaching under the counter, Yui produces a Faire ticket, and as she hands it to you, she says, [yui.speech(There you go, toy. It should really be reward enough just getting to be dominated by me, but the tourism board thinks otherwise... Now go on, back around to the other side of my counter.)]
+	</p>
+	<p>
+		Doing as Mistress Yui says, you [pc.step] back around to the other side of the counter. Quickly clearing up the remains of the cocoon which you were encased in just moments ago, the sadistic [yui.race] crosses all six of her arms, and with a sly smirk on her face, asks, [yui.speech(So, would you like to buy something, 'toy'? Oh, and don't get too addicted to being dominated by me; I limit these little sessions to one per person per day.)]
 	</p>
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="TOYS_AFTER_DOMINATION_BEG_FOR_MORE"><![CDATA[
+	<p>
+		You've been enjoying yourself so much that the prospect of bringing this punishment session to an end fills you with a dreadful sense of disappointment. Still bound up in Mistress Yui's webbing, you pathetically squirm about and beg for her to keep you tied up and punish you some more.
+	</p>
+	<p>
+		[yui.speech(Oh my... I knew you were a pathetic little sub the moment I laid eyes on you, but this really is too much,)] the [yui.race] sneers. Pulling on a thread, she forces you to bow down to her, and after roughly placing one of her black, chitinous feet down on the back of your head, she firmly states, [yui.speech(You don't get to choose whether or not your punishment ends, toy. I've decided that I've had enough, so I'm going to release you. If you're still desperate to be treated like a pathetic toy, then you can come back tomorrow and we can repeat this whole process. Or maybe... Maybe you'd like to perform a little job for me?)]
+	</p>
+	<p>
+		Seizing upon Mistress Yui's hint at there being another way to receive this form of punishment, you eagerly reply that you'll work for her.
+	</p>
+	<p>
+		[yui.speech(Well, if you want the full details, come and find me at the south-western tower here in Elis. I'll be there between eight and eleven in the evening every Monday and Wednesday,)] she reveals, [yui.speech(I'll be waiting for you there, so don't disappoint me. Oh, and you need to not be wearing any sealed clothing, not be pregnant, and be clean. Otherwise, I won't show myself. Now, it's time for you to go.)] 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TOYS_AFTER_DOMINATION_BEG_FOR_MORE_END"><![CDATA[
+	<p>
+		With a flick of her wrists, the [yui.race] severs the webbing that's been binding your cocoon in place, and as the strands fall away from your body, you suddenly find yourself able to move freely again. Reaching under the counter, Yui produces a Faire ticket, and as she hands it to you, she says, [yui.speech(There you go, toy. It should really be reward enough just getting to be dominated by me, but the tourism board thinks otherwise... Now go on, back around to the other side of my counter.)]
+	</p>
+	<p>
+		Doing as Mistress Yui says, you [pc.step] back around to the other side of the counter. Quickly clearing up the remains of the cocoon which you were encased in just moments ago, the sadistic [yui.race] crosses all six of her arms, and with a sly smirk on her face, asks, [yui.speech(So, would you like to buy something, 'toy'? Or will the next business we have with one another occur at the south-western tower? Remember, I'll be there between eight and eleven in the evening every Monday and Wednesday. Don't wear any sealed clothing, don't be pregnant, and be clean, otherwise I'll have nothing to offer you...)]
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	<!-- Ball gag: -->
 	<htmlContent tag="TOYS_DEMONSTRATION_BALLGAG"><![CDATA[
@@ -2354,7 +2524,7 @@
 	
 	<htmlContent tag="TOYS_DEMONSTRATION_BALLGAG_OBEY"><![CDATA[
 	<p>
-		Happy to do as you're told, you muster what little amount of control you're left with within Yui's cocoon and obediently raise your ass towards the passing shoppers behind you. Stepping around beside you, the sadistic spider-girl uses her riding crop to deliver another sharp, stinging slap to your exposed butt, and as she hears your cry being muffled by the ball gag that's in your mouth, she teases, [yui.speech(Go on, toy, scream and squirm all you want... ~Mmm!~ I'm going to enjoy humiliating you...)]
+		Happy to do as you're told, you muster what little amount of control you're left with within Yui's cocoon and obediently raise your ass towards the passing shoppers behind you. Stepping around beside you, the sadistic [yui.race] uses her riding crop to deliver another sharp, stinging slap to your exposed butt, and as she hears your cry being muffled by the ball gag that's in your mouth, she teases, [yui.speech(Go on, toy, scream and squirm all you want... ~Mmm!~ I'm going to enjoy humiliating you...)]
 	</p>
 	<p>
 		With that, Yui starts using her riding crop to relentlessly swat your ass, and as her painful blows alternate between your cheeks, you can't help but [pc.moan] and cry out into your ball gag. Your public display of complete submission soon starts to draw a crowd, and you hear several shoppers loudly laughing and commenting on your predicament. This public attention suits Yui's business well, as her demonstration leads to several shoppers asking to buy the same style of ball gag that you're currently wearing.
@@ -2364,7 +2534,7 @@
 	
 	<htmlContent tag="TOYS_DEMONSTRATION_BALLGAG_RESIST"><![CDATA[
 	<p>
-		Unwilling to do as you're told, you muster what little amount of control you're left with within Yui's cocoon and try to move your ass away from the passing shoppers behind you. Stepping around beside you, the sadistic spider-girl uses her riding crop to deliver another sharp, stinging slap to your exposed butt, and as she hears your cry being muffled by the ball gag that's in your mouth, she teases, [yui.speech(Did you really think that you'd avoid your fate, toy? Go on, scream and squirm all you want... ~Mmm!~ I'm going to enjoy humiliating you...)]
+		Unwilling to do as you're told, you muster what little amount of control you're left with within Yui's cocoon and try to move your ass away from the passing shoppers behind you. Stepping around beside you, the sadistic [yui.race] uses her riding crop to deliver another sharp, stinging slap to your exposed butt, and as she hears your cry being muffled by the ball gag that's in your mouth, she teases, [yui.speech(Did you really think that you'd avoid your fate, toy? Go on, scream and squirm all you want... ~Mmm!~ I'm going to enjoy humiliating you...)]
 	</p>
 	<p>
 		With that, Yui tugs on a couple of threads, and you feel your ass being lifted up against your will. Letting out an amused giggle, the demonic spider-girl starts using her riding crop to relentlessly swat your ass, and as her painful blows alternate between your cheeks, you can't help but [pc.moan] and cry out into your ball gag. Your public display of complete submission soon starts to draw a crowd, and you hear several shoppers loudly laughing and commenting on your predicament. This public attention suits Yui's business well, as her demonstration leads to several shoppers asking to buy the same style of ball gag that you're currently wearing.
@@ -2380,7 +2550,7 @@
 		With a level of finesse clearly having been gained from performing this routine countless times before, Yui swipes her fingers this way and that, severing the threads holding you in place. As the cocoon falls away from your body, you find yourself tumbling down onto the floor, but with the ballgag still locked in place, you're only able to let out a muffled yelp.
 	</p>
 	<p>
-		[yui.speech(Your little performance helped me sell lots of ballgags. As a reward, I'll let you keep the one that you're wearing,)] Yui says, before swiping her riding crop down to deliver one final strike to your still-exposed ass. As you stand up on trembling [pc.legs], the sadistic spider-girl flashes you a wicked grin and snaps, [yui.speech(Now get back to the other side of the counter.)]
+		[yui.speech(Your little performance helped me sell lots of ballgags. As a reward, I'll let you keep the one that you're wearing,)] Yui says, before swiping her riding crop down to deliver one final strike to your still-exposed ass. As you stand up on trembling [pc.legs], the sadistic [yui.race] flashes you a wicked grin and snaps, [yui.speech(Now get back to the other side of the counter.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -2388,7 +2558,7 @@
 	<!-- Chastity: -->
 	<htmlContent tag="TOYS_DEMONSTRATION_CHASTITY"><![CDATA[
 	<p>
-		Wanting Yui to demonstrate the proper use of a chastity cage, you hand over one of your Faire tickets and tell her what you'd like. An amused smirk settles on the spider-girl's face as she hears what it is you're after, and she narrows her eight, glowing-crimson eyes at you as she orders, [yui.speech(Come around to my side of the counter, toy.)]
+		Wanting Yui to demonstrate the proper use of a chastity cage, you hand over one of your Faire tickets and tell her what you'd like. An amused smirk settles on the [yui.race]'s face as she hears what it is you're after, and she narrows her eight, glowing-crimson eyes at you as she orders, [yui.speech(Come around to my side of the counter, toy.)]
 	</p>
 	<p>
 		Doing as you're told, you [pc.step] around to the other side of the stall's counter. Reaching back to the spinneret at the tip of her large, spider-like tail, Yui starts to pull out a long, sticky silken thread. Without any warning, she starts patting this sticky thread onto your body, before grabbing hold of you and spinning you around. Before you know what's happening, Yui's tightly wrapped you up in a cocoon, and after pulling on a couple of threads, she lifts you up off the ground.
@@ -2428,13 +2598,13 @@
 		Reaching down to her groin, Yui unzips her latex panties and slowly slides them down her legs before completely taking them off. As she exposes her tight pussy, you see that a copious amount of slimy girlcum is literally dripping from it, and as she sees you staring, she laughs and teases, [yui.speech(What's the matter, toy? You want to get a closer look at my hot little cunt?)]
 	</p>
 	<p>
-		Before you can reply, the spider-girl manipulates her threads and suddenly tilts you back and drops you down towards the ground, stopping your fall just before you hit the floor. Stepping forwards and straddling your face, Yui presents you with her sopping-wet pussy. As you look up at her tight, wet cunt, the spider-girl reaches down to tease her fingers over her labia, which causes a significant amount of slimy girlcum to drool out and drip down all over your face. Almost immediately, you feel your cock straining against your chastity cage as it tries to get an erection, which causes you to let out a frustrated [pc.moan].
+		Before you can reply, the [yui.race] manipulates her threads and suddenly tilts you back and drops you down towards the ground, stopping your fall just before you hit the floor. Stepping forwards and straddling your face, Yui presents you with her sopping-wet pussy. As you look up at her tight, wet cunt, she reaches down to tease her fingers over her labia, which causes a significant amount of slimy girlcum to drool out and drip down all over your face. Almost immediately, you feel your cock straining against your chastity cage as it tries to get an erection, which causes you to let out a frustrated [pc.moan].
 	</p>
 	<p>
 		[yui.speech(Oh, you're trying to get hard already? I haven't even started yet! How pathetic...)] Yui sadistically teases, [yui.speech(Seeing as you're so desperate already, I suppose I should move on to the main performance...)]
 	</p>
 	<p>
-		With that, the spider-girl moves away from your face, and down towards your groin. Dropping down over your caged cock, she once again starts teasing her fingers over her pussy, which causes yet more girlcum to leak out and drip down directly onto your caged cock. As you feel the hot, slimy liquid drooling down over your groin, you let out an incredibly frustrated whine, which causes Yui to laugh, [yui.speech(See, toy? This is what a cage is for; I can tease you as much as I want, and there's never any threat of having your disgusting cock being shoved inside of me!)]
+		With that, the [yui.race] moves away from your face, and down towards your groin. Dropping down over your caged cock, she once again starts teasing her fingers over her pussy, which causes yet more girlcum to leak out and drip down directly onto your caged cock. As you feel the hot, slimy liquid drooling down over your groin, you let out an incredibly frustrated whine, which causes Yui to laugh, [yui.speech(See, toy? This is what a cage is for; I can tease you as much as I want, and there's never any threat of having your disgusting cock being shoved inside of me!)]
 	</p>
 	<p>
 		Dropping her hips down, Yui presses her hot, wet cunt down against your chastity cage, before starting to grind up and down over it. As her hot juices continue to leak down all over your groin, she glares down at you with her eight, glowing-crimson eyes and sadistically teases, [yui.speech(Just imagine... If you weren't caged, your cock would be thrusting inside of my hot, wet pussy right now... ~Mmm!~ Can you imagine it, toy? Imagine how it would feel to have my tight cunt gripping down around your hard cock... ~Mmm!~ But as you're caged, all you can do is imagine it... You're never going to be allowed to fuck my pussy, even though it's practically kissing your cock and begging for you to be inside of it...)]
@@ -2458,7 +2628,7 @@
 	
 	<htmlContent tag="TOYS_DEMONSTRATION_CHASTITY_END"><![CDATA[
 	<p>
-		As the sadistic spider-girl continues to grind her dripping cunt over your caged cock, you hear the animated chatter of numerous members of the public getting louder. Before long, there's a sizeable crowd gathered around Yui's stall, and as they watch, they loudly laugh and comment on your predicament. This public attention suits Yui's business well, as her demonstration leads to several of these shoppers asking to buy the same style of chastity cage that you're currently wearing.
+		As the sadistic [yui.race] continues to grind her dripping cunt over your caged cock, you hear the animated chatter of numerous members of the public getting louder. Before long, there's a sizeable crowd gathered around Yui's stall, and as they watch, they loudly laugh and comment on your predicament. This public attention suits Yui's business well, as her demonstration leads to several of these shoppers asking to buy the same style of chastity cage that you're currently wearing.
 	</p>
 	<p>
 		After a good fifteen minutes of being publicly humiliated in this fashion, and with your only respite from the teasing being the brief pauses as Yui deals with interested customers, the [yui.race] lets out a satisfied sigh and declares, [yui.speech(I've had my fun, toy. Play time's over.)]
@@ -2467,7 +2637,7 @@
 		With a level of finesse clearly having been gained from performing this routine countless times before, Yui swipes her fingers this way and that, severing the threads holding you in place. As the cocoon falls away from your body, you find yourself tumbling down onto the floor.
 	</p>
 	<p>
-		[yui.speech(Your little performance helped me sell lots of cages. As a reward, I'll let you keep the one that you're wearing,)] Yui says, before swiping her riding crop down to deliver a sharp swat to your side. As you stand up on trembling [pc.legs], the sadistic spider-girl flashes you a wicked grin and snaps, [yui.speech(Now get back to the other side of the counter.)]
+		[yui.speech(Your little performance helped me sell lots of cages. As a reward, I'll let you keep the one that you're wearing,)] Yui says, before swiping her riding crop down to deliver a sharp swat to your side. As you stand up on trembling [pc.legs], the sadistic [yui.race] flashes you a wicked grin and snaps, [yui.speech(Now get back to the other side of the counter.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -2475,7 +2645,7 @@
 	<!-- Dildo: -->
 	<htmlContent tag="TOYS_DEMONSTRATION_DILDO"><![CDATA[
 	<p>
-		Wanting Yui to demonstrate the proper use of a dildo, you hand over one of your Faire tickets and tell her what you'd like. An amused smirk settles on the spider-girl's face as she hears what it is you're after, and she narrows her eight, glowing-crimson eyes at you as she orders, [yui.speech(Come around to my side of the counter, toy.)]
+		Wanting Yui to demonstrate the proper use of a dildo, you hand over one of your Faire tickets and tell her what you'd like. An amused smirk settles on the [yui.race]'s face as she hears what it is you're after, and she narrows her eight, glowing-crimson eyes at you as she orders, [yui.speech(Come around to my side of the counter, toy.)]
 	</p>
 	<p>
 		Doing as you're told, you [pc.step] around to the other side of the stall's counter. Reaching back to the spinneret at the tip of her large, spider-like tail, Yui starts to pull out a long, sticky silken thread. Without any warning, she starts patting this sticky thread onto your body, before grabbing hold of you and spinning you around. Before you know what's happening, Yui's tightly wrapped you up in a cocoon, and after pulling on a couple of threads, she lifts you up off the ground.
@@ -2511,7 +2681,7 @@
 	
 	<htmlContent tag="TOYS_DEMONSTRATION_DILDO_PUSH_BACK"><![CDATA[
 	<p>
-		Driven to please Mistress Yui by the incredible feeling of the hot pink dildo being pushed half-way into your hot pussy, you desperately push back and force the rest of the toy into your hungry cunt. As you squeal and moan in pleasure, the spider-girl teases, [yui.speech(That's a good toy! Take it deep!)]
+		Driven to please Mistress Yui by the incredible feeling of the hot pink dildo being pushed half-way into your hot pussy, you desperately push back and force the rest of the toy into your hungry cunt. As you squeal and moan in pleasure, the [yui.race] teases, [yui.speech(That's a good toy! Take it deep!)]
 	</p>
 	<p>
 		With that, she starts to pull the dildo back out of your pussy, before suddenly and roughly shoving it back in as deep as it will go. Letting out a wild [pc.moan], you buck your hips in time with Yui's movements as she starts to repeatedly pump the dildo in and out of your quivering cunt. Sneering in sadistic delight, she delivers a sharp slap to your exposed ass, before turning to the passing members of the public behind you and calling out, [yui.speech(Step up, don't be shy! Come and see how fun it is to play with dildos!)]
@@ -2521,7 +2691,7 @@
 	
 	<htmlContent tag="TOYS_DEMONSTRATION_DILDO_PULL_AWAY"><![CDATA[
 	<p>
-		Not wanting to take it any deeper, you try to pull away from the dildo that's been pushed half-way into your hot pussy. Letting out an annoyed tut as she sees that you're refusing to obey her commands, Mistress Yui pushes forwards and roughly forces the rest of the toy into your hungry cunt. As you squeal in surprise, the spider-girl sneers, [yui.speech(Bad toy! You really think you get to choose what happens?! Your dirty pussy's going to take this dildo as deep as it can, and there's nothing you can do to stop it!)]
+		Not wanting to take it any deeper, you try to pull away from the dildo that's been pushed half-way into your hot pussy. Letting out an annoyed tut as she sees that you're refusing to obey her commands, Mistress Yui pushes forwards and roughly forces the rest of the toy into your hungry cunt. As you squeal in surprise, the [yui.race] sneers, [yui.speech(Bad toy! You really think you get to choose what happens?! Your dirty pussy's going to take this dildo as deep as it can, and there's nothing you can do to stop it!)]
 	</p>
 	<p>
 		With that, she starts to pull the dildo back out of your pussy, before suddenly and roughly shoving it back in as deep as it will go. Letting out a wild [pc.moan], you desperately try, and fail, to pull away from Yui as she starts to repeatedly pump the dildo in and out of your quivering cunt. Sneering in sadistic delight, she delivers a sharp slap to your exposed ass, before turning to the passing members of the public behind you and calling out, [yui.speech(Step up, don't be shy! Come and see how fun it is to play with dildos!)]
@@ -2531,7 +2701,7 @@
 	
 	<htmlContent tag="TOYS_DEMONSTRATION_DILDO_END"><![CDATA[
 	<p>
-		As the sadistic spider-girl continues to pump the pink dildo in and out of your [pc.pussy+], you hear the animated chatter of numerous members of the public coming from somewhere behind you. Before long, there's a sizeable crowd gathered around Yui's stall, and as they watch, they loudly laugh and comment on your predicament. This public attention suits Yui's business well, as her demonstration leads to several of these shoppers asking to buy the same style of dildo that's being shoved deep into your exposed cunt.
+		As the sadistic [yui.race] continues to pump the pink dildo in and out of your [pc.pussy+], you hear the animated chatter of numerous members of the public coming from somewhere behind you. Before long, there's a sizeable crowd gathered around Yui's stall, and as they watch, they loudly laugh and comment on your predicament. This public attention suits Yui's business well, as her demonstration leads to several of these shoppers asking to buy the same style of dildo that's being shoved deep into your exposed cunt.
 	</p>
 	<p>
 		After a good fifteen minutes of being publicly humiliated in this fashion, and with your only respite from the teasing being the brief pauses as Yui deals with interested customers, the [yui.race] lets out a satisfied sigh and declares, [yui.speech(I've had my fun, toy. Play time's over.)]
@@ -2540,7 +2710,7 @@
 		With a level of finesse clearly having been gained from performing this routine countless times before, Yui swipes her fingers this way and that, severing the threads holding you in place. As the cocoon falls away from your body, you find yourself tumbling down onto the floor, and with a gasp you realise that the hot pink dildo is still completely inserted into your pussy.
 	</p>
 	<p>
-		[yui.speech(Your little performance helped me sell lots of dildos. As a reward, I'll let you keep the one that you've been enjoying,)] Yui says, before swiping her riding crop down to deliver a sharp swat to your side. As you stand up on trembling [pc.legs], you realise that the dildo that's still inserted into your pussy is carrying a sealing enchantment, for as you reach down and take hold of it, you find that you're unable to pull it out of your abused cunt. Letting out an amused laugh as she watches you try to remove the dildo, the sadistic spider-girl sneers, [yui.speech(You won't be getting rid of it in a hurry! Now get back to the other side of the counter.)]
+		[yui.speech(Your little performance helped me sell lots of dildos. As a reward, I'll let you keep the one that you've been enjoying,)] Yui says, before swiping her riding crop down to deliver a sharp swat to your side. As you stand up on trembling [pc.legs], you realise that the dildo that's still inserted into your pussy is carrying a sealing enchantment, for as you reach down and take hold of it, you find that you're unable to pull it out of your abused cunt. Letting out an amused laugh as she watches you try to remove the dildo, the sadistic [yui.race] sneers, [yui.speech(You won't be getting rid of it in a hurry! Now get back to the other side of the counter.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -2548,7 +2718,7 @@
 	<!-- Anal beads: -->
 	<htmlContent tag="TOYS_DEMONSTRATION_ANAL_BEADS"><![CDATA[
 	<p>
-		Wanting Yui to demonstrate the proper use of anal beads, you hand over one of your Faire tickets and tell her what you'd like. An amused smirk settles on the spider-girl's face as she hears what it is you're after, and she narrows her eight, glowing-crimson eyes at you as she orders, [yui.speech(Come around to my side of the counter, toy.)]
+		Wanting Yui to demonstrate the proper use of anal beads, you hand over one of your Faire tickets and tell her what you'd like. An amused smirk settles on the [yui.race]'s face as she hears what it is you're after, and she narrows her eight, glowing-crimson eyes at you as she orders, [yui.speech(Come around to my side of the counter, toy.)]
 	</p>
 	<p>
 		Doing as you're told, you [pc.step] around to the other side of the stall's counter. Reaching back to the spinneret at the tip of her large, spider-like tail, Yui starts to pull out a long, sticky silken thread. Without any warning, she starts patting this sticky thread onto your body, before grabbing hold of you and spinning you around. Before you know what's happening, Yui's tightly wrapped you up in a cocoon, and after pulling on a couple of threads, she lifts you up off the ground.
@@ -2573,7 +2743,7 @@
 	
 	<htmlContent tag="TOYS_DEMONSTRATION_ANAL_BEADS_RELAX"><![CDATA[
 	<p>
-		Driven to please Mistress Yui by the incredible feeling of the first bead being pushed into your ass, you do as you're told and relax your asshole. As you do this, the spider-girl starts to push the next bead into your [pc.asshole+], teasing, [yui.speech(That's a good toy! Take them all!)]
+		Driven to please Mistress Yui by the incredible feeling of the first bead being pushed into your ass, you do as you're told and relax your asshole. As you do this, the [yui.race] starts to push the next bead into your [pc.asshole+], teasing, [yui.speech(That's a good toy! Take them all!)]
 	</p>
 	<p>
 		With that, she continues pushing bead after bead into your ass, causing you to let out a series of [pc.moans+]. Sneering in sadistic delight after inserting the last of the beads, Yui delivers a sharp slap to your exposed ass, before turning to the passing members of the public behind you and calling out, [yui.speech(Step up, don't be shy! Come and see how fun it is to play with anal beads!)]
@@ -2583,7 +2753,7 @@
 	
 	<htmlContent tag="TOYS_DEMONSTRATION_ANAL_BEADS_CLENCH"><![CDATA[
 	<p>
-		Not wanting to take any more of the beads, you try to pull away from Yui and firmly clench your asshole shut. Letting out an annoyed tut as she sees that you're refusing to obey her commands, Mistress Yui pushes forwards and roughly forces the next bead into your reluctant asshole. As you squeal in surprise, the spider-girl sneers, [yui.speech(Bad toy! You really think you get to choose what happens?! Your ass is going to take all of these beads, and there's nothing you can do to stop it!)]
+		Not wanting to take any more of the beads, you try to pull away from Yui and firmly clench your asshole shut. Letting out an annoyed tut as she sees that you're refusing to obey her commands, Mistress Yui pushes forwards and roughly forces the next bead into your reluctant asshole. As you squeal in surprise, the [yui.race] sneers, [yui.speech(Bad toy! You really think you get to choose what happens?! Your ass is going to take all of these beads, and there's nothing you can do to stop it!)]
 	</p>
 	<p>
 		With that, she starts to force bead after bead into your ass, causing you to let out a series of [pc.moans+]. Sneering in sadistic delight after forcefully inserting the last of the beads, Yui delivers a sharp slap to your exposed ass, before turning to the passing members of the public behind you and calling out, [yui.speech(Step up, don't be shy! Come and see how fun it is to play with anal beads!)]
@@ -2593,7 +2763,7 @@
 	
 	<htmlContent tag="TOYS_DEMONSTRATION_ANAL_BEADS_END"><![CDATA[
 	<p>
-		As the sadistic spider-girl starts to slowly pull the beads out of your [pc.asshole+], you hear the animated chatter of numerous members of the public coming from somewhere behind you. Before long, there's a sizeable crowd gathered around Yui's stall, and as they watch the spider-girl start to push the beads back inside of your ass, they loudly laugh and comment on your predicament. This public attention suits Yui's business well, as her demonstration leads to several of these shoppers asking to buy the same style of beads that are being shoved deep into your exposed asshole.
+		As the sadistic [yui.race] starts to slowly pull the beads out of your [pc.asshole+], you hear the animated chatter of numerous members of the public coming from somewhere behind you. Before long, there's a sizeable crowd gathered around Yui's stall, and as they watch her start to push the beads back inside of your ass, they loudly laugh and comment on your predicament. This public attention suits Yui's business well, as her demonstration leads to several of these shoppers asking to buy the same style of beads that are being shoved deep into your exposed asshole.
 	</p>
 	<p>
 		After a good fifteen minutes of being publicly humiliated in this fashion, and with your only respite from the teasing being the brief pauses as Yui deals with interested customers, the [yui.race] lets out a satisfied sigh and declares, [yui.speech(I've had my fun, toy. Play time's over.)]
@@ -2602,14 +2772,14 @@
 		With a level of finesse clearly having been gained from performing this routine countless times before, Yui swipes her fingers this way and that, severing the threads holding you in place. As the cocoon falls away from your body, you find yourself tumbling down onto the floor, and with a gasp you realise that the hot pink anal beads are still completely inserted into your ass.
 	</p>
 	<p>
-		[yui.speech(Your little performance helped me sell lots of beads. As a reward, I'll let you keep the ones that you've been enjoying,)] Yui says, before swiping her riding crop down to deliver a sharp swat to your side. As you stand up on trembling [pc.legs], you realise that the beads that are still inserted into your ass are carrying a sealing enchantment, for as you reach down and take hold of the exposed end of them, you find that you're unable to pull them out of your abused asshole. Letting out an amused laugh as she watches you try to remove the beads, the sadistic spider-girl sneers, [yui.speech(You won't be getting rid of those in a hurry! Now get back to the other side of the counter.)]
+		[yui.speech(Your little performance helped me sell lots of beads. As a reward, I'll let you keep the ones that you've been enjoying,)] Yui says, before swiping her riding crop down to deliver a sharp swat to your side. As you stand up on trembling [pc.legs], you realise that the beads that are still inserted into your ass are carrying a sealing enchantment, for as you reach down and take hold of the exposed end of them, you find that you're unable to pull them out of your abused asshole. Letting out an amused laugh as she watches you try to remove the beads, the sadistic [yui.race] sneers, [yui.speech(You won't be getting rid of those in a hurry! Now get back to the other side of the counter.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="TOYS_AFTER_DEMONSTRATION"><![CDATA[
 	<p>
-		Doing as you're told, and with the demonstration toy still in your possession, you [pc.step] back around to the other side of Yui's counter. Playfully weaving a strand of her web between all six of her hands, the sadistic spider-girl flashes you a devious grin and asks, [yui.speech(So, what do you want now? I only do one of those demonstrations per day, so if you want some more fun, you'll have to come back tomorrow...)]
+		Doing as you're told, and with the demonstration toy still in your possession, you [pc.step] back around to the other side of Yui's counter. Playfully weaving a strand of her web between all six of her hands, the sadistic [yui.race] flashes you a devious grin and asks, [yui.speech(So, what do you want now? I only do one of those demonstrations per day, so if you want some more fun, you'll have to come back tomorrow...)]
 	</p>
 	<p>
 		Looking over the display of sex toys that are arrayed across the stall's counter, you wonder whether to buy anything from the demonic spider-girl or turn around and take your leave...

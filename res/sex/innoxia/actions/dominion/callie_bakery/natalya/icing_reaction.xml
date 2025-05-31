@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#(flags.hasFlag(FLAG_innoxia_callie_natalya_icing_white) || flags.hasFlag(FLAG_innoxia_callie_natalya_icing_pink)) && !flags.hasFlag(FLAG_innoxia_callie_natalya_sprinkles_chocolate) && !flags.hasFlag(FLAG_innoxia_callie_natalya_sprinkles_multi) && !flags.hasFlag(FLAG_innoxia_callie_natalya_sprinkles_stars)]
+	]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>
+	<associatedFetishes/>
+	<performingArea/>
+	<targetedArea/>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Iced!]]></title>
+	<tooltip><![CDATA[
+		The filly slut has covered your asshole in icing!
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<text><![CDATA[
+				#IF(npc==natalya)
+					[natalya.speechNoEffects(You're doing well so far, filly,)] Mistress Natalya hums, [natalya.speechNoEffects(Now get those sprinkles on!)]
+					
+				#ELSE
+					[callie.speechNoEffects(This is the best part,)] Callie excitedly says, before giggling and correcting herself, [callie.speechNoEffects(Actually, the best part's going to be eating them, isn't it?)]
+				#ENDIF
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

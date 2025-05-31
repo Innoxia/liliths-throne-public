@@ -1549,13 +1549,13 @@
 					<dominants>
 						<character>
 							<id>pc</id>
-							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
 						</character>
 					</dominants>
 					<submissives>
 						<character>
 							<id>vronti</id>
-							<slot><![CDATA[STANDING_PERFORMING_ORAL]]></slot>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
 						</character>
 					</submissives>
 					<postSexDialogue><![CDATA[innoxia_places_fields_centaur_transport_vronti_post_sex]]></postSexDialogue>
@@ -1646,7 +1646,7 @@
 				<nextDialogue>null</nextDialogue>
 			</response>
 			<response>
-				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_vronti_blowjob_given) && pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></availabilityConditional>
+				<availabilityConditional><![CDATA[[#(flags.hasFlag(FLAG_innoxia_vronti_blowjob_given) || flags.hasFlag(FLAG_innoxia_vronti_anilingus_given)) && pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[3]]></index>
 				<responseTitle><![CDATA[Fucked]]></responseTitle>
@@ -1732,14 +1732,14 @@
 					<startingPosition><![CDATA[STANDING]]></startingPosition>
 					<dominants>
 						<character>
-							<id>vronti</id>
-							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL_BEHIND]]></slot>
 						</character>
 					</dominants>
 					<submissives>
 						<character>
-							<id>pc</id>
-							<slot><![CDATA[STANDING_PERFORMING_ORAL_BEHIND]]></slot>
+							<id>vronti</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
 						</character>
 					</submissives>
 					<postSexDialogue><![CDATA[innoxia_places_fields_centaur_transport_vronti_post_sex]]></postSexDialogue>

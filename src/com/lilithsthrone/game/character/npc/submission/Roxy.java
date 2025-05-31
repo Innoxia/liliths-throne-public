@@ -108,7 +108,7 @@ public class Roxy extends NPC {
 					+ " She has some particularly vulgar mannerisms, and has little patience for any of her customers.",
 				33, Month.AUGUST, 2,
 				15, Gender.F_V_B_FEMALE, Subspecies.RAT_MORPH, RaceStage.GREATER,
-				new CharacterInventory(30), WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_TRADER, true);
+				new CharacterInventory(false, 30), WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_TRADER, true);
 
 		buyModifier=0.3f;
 		sellModifier=2.5f;

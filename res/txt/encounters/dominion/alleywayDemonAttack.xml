@@ -1433,7 +1433,7 @@
 	
 	<htmlContent tag="AFTER_COMBAT_VICTORY_TALK"><![CDATA[
 	<p>
-		Having handily defeated [npc.her] in combat, this [npc.race] no longer poses any threat to you, and so you decide to use this opportunity to try and talk to [npc.herHim]. [pc.Stepping] forwards, you tell [npc.herHim] that you have no interest in hurting [npc.herHim], and that you just want to know why [npc.she] attacked you. 
+		Having handily defeated [npc.herHim] in combat, this [npc.race] no longer poses any threat to you, and so you decide to use this opportunity to try and talk to [npc.herHim]. [pc.Stepping] forwards, you tell [npc.herHim] that you have no interest in hurting [npc.herHim], and that you just want to know why [npc.she] attacked you. 
 	</p>
 	<p>
 		Caught off-guard by your unexpected questioning, the [npc.race] takes a moment in which to respond, but after shuffling around on the spot for a moment, she eventually whines,

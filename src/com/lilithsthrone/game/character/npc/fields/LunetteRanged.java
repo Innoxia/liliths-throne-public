@@ -79,7 +79,7 @@ public class LunetteRanged extends NPC {
 				Util.random.nextInt(100)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				30,
 				null, null, null,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL,
 				false);
 

@@ -81,7 +81,7 @@ public class Axel extends NPC {
 					+ " Despite his large and menacing figure, he's very kind and understanding, and always tries his best to satisfy his customers.",
 				36, Month.JANUARY, 10,
 				15, Gender.M_P_MALE, Subspecies.ALLIGATOR_MORPH, RaceStage.GREATER,
-				new CharacterInventory(30), WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_ENTRANCE, true);
+				new CharacterInventory(false, 30), WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_ENTRANCE, true);
 		
 		if(!isImported) {
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 15);

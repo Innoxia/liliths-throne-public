@@ -1030,10 +1030,11 @@ public class Body implements XMLSaving {
 					+ "<br/>bleached: "+importedAss.anus.bleached
 					+ "<br/>assHair: "+importedAss.anus.assHair
 					+"<br/>Modifiers:");
+			
+			Collection<OrificeModifier> anusModifiers = importedAss.anus.orificeAnus.orificeModifiers;
+			anusModifiers.clear();
 			if(Main.isVersionOlderThan(version, "0.4.9.7")) {
 				Element anusModifiersElement = (Element)anus.getElementsByTagName("anusModifiers").item(0);
-				Collection<OrificeModifier> anusModifiers = importedAss.anus.orificeAnus.orificeModifiers;
-				anusModifiers.clear();
 				if(anusModifiersElement!=null) {
 					if(anusModifiersElement.hasAttribute("EXTRA_DEEP")) {
 						importedAss.anus.orificeAnus.setDepth(null, depth+2);
@@ -1129,10 +1130,10 @@ public class Body implements XMLSaving {
 				+ "<br/>areolaeShape: "+importedBreast.nipples.getAreolaeShape()
 				+"<br/>Modifiers:");
 
+		Collection<OrificeModifier> nippleOrificeModifiers = importedBreast.nipples.orificeNipples.orificeModifiers;
+		nippleOrificeModifiers.clear();
 		if(Main.isVersionOlderThan(version, "0.4.9.7")) {
 			Element nippleModifiersElement = (Element)nipples.getElementsByTagName("nippleModifiers").item(0);
-			Collection<OrificeModifier> nippleOrificeModifiers = importedBreast.nipples.orificeNipples.orificeModifiers;
-			nippleOrificeModifiers.clear();
 			if(nippleModifiersElement!=null) {
 				if(nippleModifiersElement.hasAttribute("EXTRA_DEEP")) {
 					importedBreast.nipples.orificeNipples.setDepth(null, depth+2);
@@ -1258,10 +1259,10 @@ public class Body implements XMLSaving {
 				+ "<br/>lipSize: "+importedFace.mouth.getLipSize()
 				+ "<br/>Modifiers: ");
 
+		Collection<OrificeModifier> mouthOrificeModifiers = importedFace.mouth.orificeMouth.orificeModifiers;
+		mouthOrificeModifiers.clear();
 		if(Main.isVersionOlderThan(version, "0.4.9.7")) {
 			Element mouthModifiersElement = (Element)mouth.getElementsByTagName("mouthModifiers").item(0);
-			Collection<OrificeModifier> mouthOrificeModifiers = importedFace.mouth.orificeMouth.orificeModifiers;
-			mouthOrificeModifiers.clear();
 			if(mouthModifiersElement!=null) {
 				if(mouthModifiersElement.hasAttribute("EXTRA_DEEP")) {
 					importedFace.mouth.orificeMouth.setDepth(null, depth+2);
@@ -1287,10 +1288,10 @@ public class Body implements XMLSaving {
 					+ "<br/>tongueLength: "+importedFace.tongue.getTongueLength()
 					+ "<br/>Modifiers: ");
 
+			Collection<TongueModifier> tongueModifiers = importedFace.tongue.tongueModifiers;
+			tongueModifiers.clear();
 			if(Main.isVersionOlderThan(version, "0.4.9.7")) {
 				Element tongueModifiersElement = (Element)tongue.getElementsByTagName("tongueModifiers").item(0);
-				Collection<TongueModifier> tongueModifiers = importedFace.tongue.tongueModifiers;
-				tongueModifiers.clear();
 				if(tongueModifiersElement!=null) {
 					handleLoadingOfModifiers(TongueModifier.values(), log, tongueModifiersElement, tongueModifiers);
 				}
@@ -1477,9 +1478,9 @@ public class Body implements XMLSaving {
 				+ "<br/>pierced: "+importedPenis.isPierced()
 				+ "<br/>Penis Modifiers: ");
 
+		Collection<PenetrationModifier> penisModifiers = importedPenis.penisModifiers;
+		penisModifiers.clear();
 		if(Main.isVersionOlderThan(version, "0.4.9.7")) {
-			Collection<PenetrationModifier> penisModifiers = importedPenis.penisModifiers;
-			penisModifiers.clear();
 			Element penisModifiersElement = (Element)penis.getElementsByTagName("penisModifiers").item(0);
 			if (penisModifiersElement != null) {
 				handleLoadingOfModifiers(PenetrationModifier.values(), log, penisModifiersElement, penisModifiers);
@@ -1518,10 +1519,10 @@ public class Body implements XMLSaving {
 				+ "<br/>virgin: "+importedPenis.orificeUrethra.isVirgin()
 				+ "<br/>Urethra Modifiers:");
 
+		Collection<OrificeModifier> urethraOrificeModifiers = importedPenis.orificeUrethra.orificeModifiers;
+		urethraOrificeModifiers.clear();
 		if(Main.isVersionOlderThan(version, "0.4.9.7")) {
 			Element urethraModifiersElement = (Element)penis.getElementsByTagName("urethraModifiers").item(0);
-			Collection<OrificeModifier> urethraOrificeModifiers = importedPenis.orificeUrethra.orificeModifiers;
-			urethraOrificeModifiers.clear();
 			if (urethraModifiersElement != null) {
 				if(urethraModifiersElement.hasAttribute("EXTRA_DEEP")) {
 					importedPenis.orificeUrethra.setDepth(null, depth+2);
@@ -1598,10 +1599,10 @@ public class Body implements XMLSaving {
 			
 			importedSpinneret.stretchedCapacity = handleCapacityLoading(Float.valueOf(spinneret.getAttribute("stretchedCapacity")));
 
+			Collection<OrificeModifier> spinneretOrificeModifiers = importedSpinneret.orificeModifiers;
+			spinneretOrificeModifiers.clear();
 			if(Main.isVersionOlderThan(version, "0.4.9.7")) {
 				Element spinneretModifiers = (Element)spinneret.getElementsByTagName("spinneretModifiers").item(0);
-				Collection<OrificeModifier> spinneretOrificeModifiers = importedSpinneret.orificeModifiers;
-				spinneretOrificeModifiers.clear();
 				if(spinneretModifiers!=null) {
 					handleLoadingOfModifiers(OrificeModifier.values(), log, spinneretModifiers, spinneretOrificeModifiers);
 				}
@@ -1698,10 +1699,10 @@ public class Body implements XMLSaving {
 				Integer.valueOf(vagina.getAttribute("plasticity")),
 				Boolean.valueOf(vagina.getAttribute("virgin")));
 
+		Collection<PenetrationModifier> clitModifiers = importedVagina.clitoris.clitModifiers;
+		clitModifiers.clear();
 		if(Main.isVersionOlderThan(version, "0.4.9.7")) {
 			try {
-				Collection<PenetrationModifier> clitModifiers = importedVagina.clitoris.clitModifiers;
-				clitModifiers.clear();
 				Element clitModifiersElement = (Element)vagina.getElementsByTagName("clitModifiers").item(0);
 				if (clitModifiersElement != null) {
 					handleLoadingOfModifiers(PenetrationModifier.values(), log, clitModifiersElement, clitModifiers);
@@ -1751,10 +1752,10 @@ public class Body implements XMLSaving {
 				+ "<br/>stretchedCapacity: "+importedVagina.orificeVagina.getStretchedCapacity()
 				+ "<br/>virgin: "+importedVagina.orificeVagina.isVirgin());
 
+		Collection<OrificeModifier> vaginaOrificeModifiers = importedVagina.orificeVagina.orificeModifiers;
+		vaginaOrificeModifiers.clear();
 		if(Main.isVersionOlderThan(version, "0.4.9.7")) {
 			Element vaginaModifiers = (Element)vagina.getElementsByTagName("vaginaModifiers").item(0);
-			Collection<OrificeModifier> vaginaOrificeModifiers = importedVagina.orificeVagina.orificeModifiers;
-			vaginaOrificeModifiers.clear();
 			if(vaginaModifiers!=null) {
 				if(vaginaModifiers.hasAttribute("EXTRA_DEEP")) {
 					importedVagina.orificeVagina.setDepth(null, depth+2);
@@ -1787,10 +1788,10 @@ public class Body implements XMLSaving {
 				importedVagina.orificeUrethra.virgin = true;
 			}
 
+			Collection<OrificeModifier> vaginaUrethraOrificeModifiers = importedVagina.orificeUrethra.orificeModifiers;
+			vaginaUrethraOrificeModifiers.clear();
 			if(Main.isVersionOlderThan(version, "0.4.9.7")) {
 				Element urethraModifiersElement = (Element)vagina.getElementsByTagName("urethraModifiers").item(0);
-				Collection<OrificeModifier> vaginaUrethraOrificeModifiers = importedVagina.orificeUrethra.orificeModifiers;
-				vaginaUrethraOrificeModifiers.clear();
 				if (urethraModifiersElement != null) {
 					if(urethraModifiersElement.hasAttribute("EXTRA_DEEP")) {
 						importedVagina.orificeUrethra.setDepth(null, depth+2);
@@ -2020,15 +2021,15 @@ public class Body implements XMLSaving {
 					+"<br/>Modifiers:");
 
 
+			Collection<OrificeModifier> crotchNippleOrificeModifiers = importedCrotchBreast.nipples.orificeNipples.orificeModifiers;
+			crotchNippleOrificeModifiers.clear();
 			if(Main.isVersionOlderThan(version, "0.4.9.7")) {
 				Element nippleModifiersElement = (Element)nipples.getElementsByTagName("nippleModifiers").item(0);
-				Collection<OrificeModifier> nippleOrificeModifiers = importedCrotchBreast.nipples.orificeNipples.orificeModifiers;
-				nippleOrificeModifiers.clear();
 				if (nippleModifiersElement != null) {
 					if(nippleModifiersElement.hasAttribute("EXTRA_DEEP")) {
 						importedCrotchBreast.nipples.orificeNipples.setDepth(null, depth+2);
 					}
-					handleLoadingOfModifiers(OrificeModifier.values(), log, nippleModifiersElement, nippleOrificeModifiers);
+					handleLoadingOfModifiers(OrificeModifier.values(), log, nippleModifiersElement, crotchNippleOrificeModifiers);
 				}
 				
 			} else {
@@ -6566,6 +6567,8 @@ public class Body implements XMLSaving {
 	 * @param subspecies Pass in the AbstractSubspecies to which this character should be transformed into a feral version of. Pass in null to transform back from feral to a standard anthro.
 	 */
 	public void setFeral(GameCharacter target, AbstractSubspecies subspecies) {
+		LegConfiguration initialLegConfiguration = target.getLegConfiguration(); // For use in pregnant feral reversion (into taur)
+		
 		AbstractSubspecies targetSubspecies = subspecies == null ? getSubspecies() : subspecies;
 		FeralAttributes attributes = targetSubspecies.getFeralAttributes(this);
 		if(attributes==null) {
@@ -6584,6 +6587,11 @@ public class Body implements XMLSaving {
 				false);
 		
 		if (subspecies == null) {
+			// If the target is pregnant as a feral, then feral reversion should always go into the tauric (or equivalent) lower body to better handle taur offspring
+			if(target.isPregnant() && target.getLegConfiguration()!=initialLegConfiguration) {
+				target.setLegConfiguration(initialLegConfiguration, true);
+			}
+			
 			return; 
 		}
 		

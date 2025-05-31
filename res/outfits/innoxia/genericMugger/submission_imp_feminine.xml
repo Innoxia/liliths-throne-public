@@ -45,15 +45,20 @@
 		
 		<condGenericTunnels constant="true"><![CDATA[!condTunnelsAlpha && !condTunnelsFemales && !condTunnelsMales && !condTunnelsDemon]]></condGenericTunnels>
 		
-		
 		<presetColourGroup1>
 			<randomColour>CLOTHING_BLACK</randomColour>
 			<randomColour>CLOTHING_GREEN_DRAB</randomColour>
 			<randomColour>CLOTHING_OLIVE</randomColour>
 			<randomColour>CLOTHING_DESATURATED_BROWN</randomColour>
-			<randomColour>CLOTHING_PURPLE_VERY_DARK</randomColour>
-			<randomColour>CLOTHING_RED_VERY_DARK</randomColour>
+			<randomColour>CLOTHING_DESATURATED_BROWN_DARK</randomColour>
 		</presetColourGroup1>
+		
+		<presetColourGroup2>
+			<randomColour>CLOTHING_RED</randomColour>
+			<randomColour>CLOTHING_ORANGE</randomColour>
+			<randomColour>CLOTHING_PURPLE_LIGHT</randomColour>
+			<randomColour>CLOTHING_PINK</randomColour>
+		</presetColourGroup2>
 		
         <mainWeapons>
 			<weapon>
@@ -116,12 +121,12 @@
 				<type>innoxia_impArcanist_arcanist_hat</type>
 			</types>
 			<primaryColours>
-				<colour>presetColourGroup1</colour>
+				<colour>presetColourGroup2</colour>
 			</primaryColours>
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
-		
+		<!--
 		<clothingType>
 			<conditional><![CDATA[!condExhibitionist]]></conditional>
 			<types>
@@ -144,7 +149,7 @@
 			<secondaryColours/>
 			<tertiaryColours/>
 		</clothingType>
-		
+		 -->
 		<clothingType>
 			<conditional><![CDATA[!condExhibitionist]]></conditional>
 			<types>

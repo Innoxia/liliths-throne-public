@@ -141,7 +141,7 @@ public class Minotallys extends NPC {
 				643, Month.MAY, 18,
 				250,
 				Gender.F_V_B_FEMALE, Subspecies.COW_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_town_hall_f1"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_hall_f1_minotallys_room"),
 				true);
 		if(!isImported) {

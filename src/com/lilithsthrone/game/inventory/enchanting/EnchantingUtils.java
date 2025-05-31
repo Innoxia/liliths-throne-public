@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.markings.AbstractTattooType;
 import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.combat.spells.SpellSchool;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaDressingRoomDialogue;
 import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -73,7 +74,10 @@ public class EnchantingUtils {
 		craftedClothing.setPattern(((AbstractClothing)ingredient).getPattern());
 		craftedClothing.setPatternColours(((AbstractClothing)ingredient).getPatternColours());
 		
-		if(!EnchantmentDialogue.getOutputName().equals(ingredient.getName())) {
+		if(Main.game.getCurrentDialogueNode()==LilayaDressingRoomDialogue.OUTFIT_EDITOR_ITEM_ENCHANT) {
+			craftedClothing.setName(LilayaDressingRoomDialogue.getOutputName());
+			
+		} else if(!EnchantmentDialogue.getOutputName().equals(ingredient.getName())) {
 			craftedClothing.setName(EnchantmentDialogue.getOutputName());
 			
 		} else if(!ingredient.getName().equals(craftedClothing.getName())) {
@@ -128,7 +132,10 @@ public class EnchantingUtils {
 		
 		craftedWeapon.setEffects(effectsToBeAdded);
 
-		if(!EnchantmentDialogue.getOutputName().equals(ingredient.getName())) {
+		if(Main.game.getCurrentDialogueNode()==LilayaDressingRoomDialogue.OUTFIT_EDITOR_ITEM_ENCHANT && !LilayaDressingRoomDialogue.getOutputName().equals(ingredient.getName())) {
+			craftedWeapon.setName(LilayaDressingRoomDialogue.getOutputName());
+			
+		} else if(!EnchantmentDialogue.getOutputName().equals(ingredient.getName())) {
 			craftedWeapon.setName(EnchantmentDialogue.getOutputName());
 			
 		} else if(!ingredient.getName().equals(craftedWeapon.getName())) {

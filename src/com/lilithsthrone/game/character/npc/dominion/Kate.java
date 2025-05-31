@@ -100,7 +100,7 @@ public class Kate extends NPC {
 						+ " Despite being incredibly good at what she does, she's exceedingly lazy, and prefers to keep the exterior of her shop looking run-down so as to scare off potential customers.",
 				361, Month.SEPTEMBER, 9,
 				10, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_KATES_SHOP, true);
+				new CharacterInventory(false, 10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_KATES_SHOP, true);
 		
 		if(!isImported) {
 			dailyUpdate();

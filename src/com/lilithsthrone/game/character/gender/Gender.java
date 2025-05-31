@@ -158,6 +158,44 @@ public enum Gender {
 		return genderPreferenceDefault;
 	}
 	
+	/**
+	 * @return Either a futanari, a shemale, a female, or a male, based on whether a vagina or penis are required. <b>Does not use the player's gender preferences.</b>
+	 */
+	public static Gender getBasicGender(boolean requiresVagina, boolean requiresPenis) {
+		if(Math.random()>0.5f || requiresVagina) {
+			if(requiresVagina && requiresPenis) {
+				return Gender.F_P_V_B_FUTANARI;
+				
+			} else if(requiresPenis) {
+				return Gender.F_P_B_SHEMALE;
+			}
+			return Gender.F_V_B_FEMALE;
+			
+		} else {
+			return Gender.M_P_MALE;
+		}
+	}
+
+	/**
+	 * @return Either a female, male, tomboy, or trap based on femininity. <b>Does not use the player's gender preferences.</b>
+	 */
+	public static Gender getBasicGender(Femininity femininity) {
+		switch(femininity) {
+			case ANDROGYNOUS:
+				if(Math.random()<0.5f) {
+					return Gender.N_V_B_TOMBOY;
+				}
+				return Gender.N_P_TRAP;
+			case MASCULINE:
+			case MASCULINE_STRONG:
+				return Gender.M_P_MALE;
+			case FEMININE:
+			case FEMININE_STRONG:
+			default:
+				return Gender.F_V_B_FEMALE;
+		}
+	}
+	
 	public static Gender getGenderFromUserPreferences(boolean requiresVagina, boolean requiresPenis) {
 		Map<Gender, Integer> genderMap = new HashMap<>();
 		
@@ -170,18 +208,7 @@ public enum Gender {
 		}
 		
 		if(genderMap.isEmpty()) {
-			if(Math.random()>0.5f || requiresVagina) {
-				if(requiresVagina && requiresPenis) {
-					return Gender.F_P_V_B_FUTANARI;
-					
-				} else if(requiresPenis) {
-					return Gender.F_P_B_SHEMALE;
-				}
-				return Gender.F_V_B_FEMALE;
-				
-			} else {
-				return Gender.M_P_MALE;
-			}
+			return getBasicGender(requiresVagina, requiresPenis);
 		}
 		
 		return Util.getRandomObjectFromWeightedMap(genderMap);
@@ -198,11 +225,7 @@ public enum Gender {
 		}
 		
 		if(genderMap.isEmpty()) {
-			if(femininity.isFeminine()) {
-				return Gender.F_V_B_FEMALE;
-			} else {
-				return Gender.M_P_MALE;
-			}
+			return getBasicGender(femininity);
 		}
 		
 		return Util.getRandomObjectFromWeightedMap(genderMap);

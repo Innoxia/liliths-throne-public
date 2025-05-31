@@ -808,9 +808,9 @@ public class TooltipInformationEventListener implements EventListener {
 
 				if(owner.isRaceConcealed()) {
 					tooltipSB.setLength(0);
-					tooltipSB.append("<div class='title' style='color:" + PresetColour.RACE_UNKNOWN.toWebHexString() + ";'>"
-							+ "Unknown Race!"
-							+ "</div>");
+					tooltipSB.append("<div class='title' style='color:" + PresetColour.RACE_UNKNOWN.toWebHexString() + ";'>");
+						tooltipSB.append("Unknown Race!");
+					tooltipSB.append("</div>");
 
 					int knownAreas = 0;
 					if(Main.game.getPlayer().isKnowsCharacterArea(CoverableArea.ANUS, owner)) {

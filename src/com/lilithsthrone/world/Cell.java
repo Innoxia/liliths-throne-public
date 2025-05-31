@@ -58,7 +58,7 @@ public class Cell implements XMLSaving {
 		travelledTo = false;
 		place = new GenericPlace(type.getStandardPlace());
 		
-		inventory = new CharacterInventory(0, CELL_MAXIMUM_INVENTORY_SPACE);
+		inventory = new CharacterInventory(true, 0, CELL_MAXIMUM_INVENTORY_SPACE);
 	}
 
 	@Override
@@ -112,6 +112,7 @@ public class Cell implements XMLSaving {
 		try {
 			Node invNode = parentElement.getElementsByTagName("characterInventory").item(0);
 			if(invNode!=null) {
+				CharacterInventory.loadingFromFloorBackupCheck = true;
 				cell.setInventory(CharacterInventory.loadFromXML(((Element)invNode), doc));
 			}
 			if(refundMoney>0) {
@@ -273,7 +274,7 @@ public class Cell implements XMLSaving {
 				}
 			}
 			
-			this.inventory = new CharacterInventory(0, 48);
+			this.inventory = new CharacterInventory(true, 0, 48);
 			
 			for(AbstractItem item : itemsToSave) {
 				this.inventory.addItem(item);
@@ -286,7 +287,7 @@ public class Cell implements XMLSaving {
 			}
 			
 		} else {
-			this.inventory = new CharacterInventory(0, 48);
+			this.inventory = new CharacterInventory(true, 0, 48);
 		}
 	}
 

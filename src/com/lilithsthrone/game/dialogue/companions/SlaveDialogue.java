@@ -834,14 +834,14 @@ public class SlaveDialogue {
 					}
 				}
 			UtilText.nodeContentSB.append("</p>");
-
+			
 			if(!getSlave().isAsleep() && !isDollStatue()) {
 				UtilText.nodeContentSB.append(getSlaveStartCoreContent());
 			}
 			
 			return UtilText.parse(getSlave(), UtilText.nodeContentSB.toString());
 		}
-
+		
 		@Override
 		public String getResponseTabTitle(int index) {
 			if(index == 0) {
@@ -2220,7 +2220,7 @@ public class SlaveDialogue {
 				
 			} else {
 				UtilText.nodeContentSB.append("<p>"
-							+ "You decide to try and make some small talk with [npc.name], and ask [npc.her] a series of questions ranging from how [npc.sheIs] finding life as your slave,"
+							+ "You decide to try and make some small talk with [npc.name], and ask [npc.herHim] a series of questions ranging from how [npc.sheIs] finding life as your slave,"
 							+ " to what [npc.she] thinks of the peculiar arcane weather here in Dominion.");
 				
 				switch(AffectionLevelBasic.getAffectionLevelFromValue(getSlave().getAffection(Main.game.getPlayer()))) {

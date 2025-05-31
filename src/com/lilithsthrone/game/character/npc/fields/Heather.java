@@ -100,7 +100,7 @@ public class Heather extends NPC {
 				24, Month.MAY, 7,
 				5,
 				Gender.N_P_TRAP, Subspecies.HUMAN, RaceStage.HUMAN,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_market"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_market_fortunes"),
 				true);
 

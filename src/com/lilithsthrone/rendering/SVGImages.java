@@ -35,9 +35,13 @@ public enum SVGImages {
 
 			menuIcon,
 			inventoryIcon, inventoryIconDisabled,
+			equipIcon,
+			editClothingIcon,
 			questInventoryIcon, questInventoryIconDisabled,
-			journalIcon, peopleIcon, zoomInIcon, zoomOutIcon, copyIcon, exportIcon, calendarIcon, informationIcon, addIcon,
-
+			journalIcon, peopleIcon, zoomInIcon, zoomOutIcon, copyIcon, pasteIcon, exportIcon, calendarIcon, informationIcon, addIcon,
+			deniedIcon, deniedIconDisabled,
+			eyeIcon,
+			
 			diskSave, diskSaveDisabled, diskSaveConfirm, diskOverwrite,
 			diskLoad, diskLoadConfirm, diskLoadDisabled, diskLoadQuick,
 			diskDelete, diskDeleteConfirm,
@@ -188,6 +192,15 @@ public enum SVGImages {
 			inventoryIconDisabled = Util.inputStreamToString(is);
 			inventoryIconDisabled = setColour(inventoryIconDisabled, PresetColour.BASE_PITCH_BLACK);
 
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/equip.svg");
+			equipIcon = Util.inputStreamToString(is);
+			equipIcon = setColour(equipIcon, PresetColour.CLOTHING_BLUE_LIGHT);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/editClothing.svg");
+			editClothingIcon = Util.inputStreamToString(is);
+			editClothingIcon = setColour(editClothingIcon, PresetColour.CLOTHING_GREY_LIGHT);
+			
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/questInventory.svg");
 			questInventoryIcon = Util.inputStreamToString(is);
 			questInventoryIcon = setColour(questInventoryIcon, PresetColour.BASE_BLACK);
@@ -256,9 +269,14 @@ public enum SVGImages {
 			zoomInIcon = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/zoomOut.svg");
 			zoomOutIcon = Util.inputStreamToString(is);
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/copy.svg");
 			copyIcon = Util.inputStreamToString(is);
 			copyIcon = setColour(copyIcon, PresetColour.BASE_BLACK);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/paste.svg");
+			pasteIcon = Util.inputStreamToString(is);
+			pasteIcon = setColour(pasteIcon, PresetColour.BASE_BLACK);
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/export.svg");
 			exportIcon = Util.inputStreamToString(is);
@@ -271,26 +289,41 @@ public enum SVGImages {
 			addIcon = Util.inputStreamToString(is);
 			addIcon = setColour(addIcon, PresetColour.BASE_BLACK);
 			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/denied.svg");
+			deniedIcon = Util.inputStreamToString(is);
+			deniedIcon = setColour(deniedIcon, PresetColour.GENERIC_TERRIBLE);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/denied.svg");
+			deniedIconDisabled = Util.inputStreamToString(is);
+			deniedIconDisabled = setColour(deniedIconDisabled, PresetColour.BASE_BLACK);
+			
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/eye.svg");
+			eyeIcon = Util.inputStreamToString(is);
+			eyeIcon = setColour(eyeIcon, PresetColour.BASE_GREY);
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/calendar.svg");
 			calendarIcon = Util.inputStreamToString(is);
 			calendarIcon = setColour(calendarIcon, PresetColour.BASE_CRIMSON);
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskSave.svg");
 			diskSave = Util.inputStreamToString(is);
-			diskSave = setColour(diskSave, PresetColour.BASE_BLACK, PresetColour.BASE_YELLOW_LIGHT, PresetColour.BASE_GREY);
+			diskSave = setColour(diskSave, PresetColour.BASE_BLUE_STEEL, PresetColour.BASE_YELLOW_LIGHT, PresetColour.BASE_GREY);
+//			diskSave = setColour(diskSave, PresetColour.BASE_BLACK, PresetColour.BASE_YELLOW_LIGHT, PresetColour.BASE_GREY);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskSave.svg");
 			diskSaveDisabled = Util.inputStreamToString(is);
-			diskSaveDisabled = setColour(diskSaveDisabled, PresetColour.BASE_GREY, PresetColour.BASE_GREY, PresetColour.BASE_GREY);
+			diskSaveDisabled = setColour(diskSaveDisabled, PresetColour.BASE_BLACK, PresetColour.BASE_BLACK, PresetColour.BASE_BLACK);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskSave.svg");
 			diskOverwrite = Util.inputStreamToString(is);
-			diskOverwrite = setColour(diskOverwrite, PresetColour.BASE_BLACK, PresetColour.BASE_YELLOW_LIGHT, PresetColour.BASE_GREY);
+			diskOverwrite = setColour(diskOverwrite, PresetColour.BASE_BLUE_STEEL, PresetColour.BASE_YELLOW_LIGHT, PresetColour.BASE_GREY);
+//			diskOverwrite = setColour(diskOverwrite, PresetColour.BASE_BLACK, PresetColour.BASE_YELLOW_LIGHT, PresetColour.BASE_GREY);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskSave.svg");
 			diskSaveConfirm = Util.inputStreamToString(is);
-			diskSaveConfirm = setColour(diskSaveConfirm, PresetColour.GENERIC_EXCELLENT, PresetColour.BASE_YELLOW_LIGHT, PresetColour.BASE_GREY);
+			diskSaveConfirm = setColour(diskSaveConfirm, PresetColour.BASE_AQUA, PresetColour.BASE_YELLOW_LIGHT, PresetColour.BASE_GREY);
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskLoad.svg");
 			diskLoad = Util.inputStreamToString(is);
-			diskLoad = setColour(diskLoad, PresetColour.BASE_BLUE_LIGHT);
+			diskLoad = setColour(diskLoad, PresetColour.BASE_YELLOW_LIGHT);
+//			diskLoad = setColour(diskLoad, PresetColour.BASE_BLUE_LIGHT);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskLoad.svg");
 			diskLoadConfirm = Util.inputStreamToString(is);
 			diskLoadConfirm = setColour(diskLoadConfirm, PresetColour.GENERIC_EXCELLENT);
@@ -302,12 +335,12 @@ public enum SVGImages {
 			diskLoadQuick = setColour(diskLoadQuick, PresetColour.BASE_WHITE);
 			
 			
-			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskDelete.svg");
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/dustbin.svg"); // diskDelete
 			diskDelete = Util.inputStreamToString(is);
-			diskDelete = setColour(diskDelete, PresetColour.BASE_CRIMSON);
-			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskDelete.svg");
+			diskDelete = setColour(diskDelete, PresetColour.BASE_RED_LIGHT); // BASE_GREY BASE_CRIMSON
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/dustbin.svg");
 			diskDeleteConfirm = Util.inputStreamToString(is);
-			diskDeleteConfirm = setColour(diskDeleteConfirm, PresetColour.GENERIC_EXCELLENT);
+			diskDeleteConfirm = setColour(diskDeleteConfirm, PresetColour.BASE_CRIMSON); // BASE_CRIMSON GENERIC_EXCELLENT
 			
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/map/playerIcon.svg");
@@ -921,6 +954,14 @@ public enum SVGImages {
 		return inventoryIconDisabled;
 	}
 
+	public String getEquipIcon() {
+		return equipIcon;
+	}
+
+	public String getEditClothingIcon() {
+		return editClothingIcon;
+	}
+	
 	public String getQuestInventoryIcon() {
 		return questInventoryIcon;
 	}
@@ -956,6 +997,10 @@ public enum SVGImages {
 	public String getCopyIcon() {
 		return copyIcon;
 	}
+
+	public String getPasteIcon() {
+		return pasteIcon;
+	}
 	
 	public String getExportIcon() {
 		return exportIcon;
@@ -969,6 +1014,18 @@ public enum SVGImages {
 		return addIcon;
 	}
 
+	public String getDeniedIcon() {
+		return deniedIcon;
+	}
+
+	public String getDeniedIconDisabled() {
+		return deniedIconDisabled;
+	}
+	
+	public String getEyeIcon() {
+		return eyeIcon;
+	}
+	
 	public String getCalendarIcon() {
 		return calendarIcon;
 	}

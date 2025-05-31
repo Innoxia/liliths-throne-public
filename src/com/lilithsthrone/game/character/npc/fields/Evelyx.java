@@ -128,7 +128,7 @@ public class Evelyx extends NPC {
 				"The owner and namesake of the farm 'Evelyne's Dairy', this succubus is extremely arrogant and rude, and will do whatever it takes to make the most amount of money possible.",
 				76, Month.JULY, 2,
 				25, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_dairyFarm"), PlaceType.getPlaceTypeFromId("innoxia_fields_dairyFarm_manager"),
 				true);
 		

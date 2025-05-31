@@ -326,7 +326,7 @@
 		#IF(pc.hasFetish(FETISH_SADIST))
 			Slapping the [attacker.race] across the face, you repeat your question, but once again the [attacker.race] refuses to play along and snaps, [attacker.speech(Hit me all you like, I'm not telling you anything!)]
 		#ELSE
-			Trying a different approach, you promise the [attacker.race] a reward if she tells you what you want to know, but once again she refuses to play along and snaps, [attacker.speech(Your tricks won't work on me, I'm not telling you anything!)]
+			Trying a different approach, you promise the [attacker.race] a reward if [attacker.she] tells you what you want to know, but once again [attacker.she] refuses to play along and snaps, [attacker.speech(Your tricks won't work on me, I'm not telling you anything!)]
 		#ENDIF
 	</p>
 	<p>

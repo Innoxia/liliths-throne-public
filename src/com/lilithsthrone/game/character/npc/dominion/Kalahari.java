@@ -76,7 +76,7 @@ public class Kalahari extends NPC {
 				Gender.F_V_B_FEMALE,
 				Subspecies.getSubspeciesFromId("innoxia_panther_subspecies_lion"),
 				RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.NIGHTLIFE_CLUB,
 				PlaceType.WATERING_HOLE_BAR,
 				true);

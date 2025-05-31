@@ -30,11 +30,12 @@
 	
 	<scene id="start_transformed">
 		<preParsingEffects><![CDATA[
-				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'START_TRANSFORMED'))]
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'START_TRANSFORMED'))]
 			#IF(pc.isFeminine())
 				[#flags.setFlag(FLAG_innoxia_doll_factory_pre_dollification_feminine, true)]
 			#ENDIF
 			
+			[#pc.setObedience(0)]
 			[#saellatrix.initBodyForDollification(pc)]
 		]]></preParsingEffects>
 		<content/>
@@ -164,8 +165,10 @@
 				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_start_essence_extraction_end]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'START_ESSENCE_EXTRACTION_RELAX'))]
-					[#game.appendToTextStartStringBuilder(pc.incrementObedience(10))]
-					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+					#IF(game.isBadEndsEnabled())
+						[#game.appendToTextStartStringBuilder(pc.incrementObedience(10))]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+					#ENDIF
 				]]></effects>
 			</response>
 		</responses>
@@ -190,6 +193,7 @@
 				<nextDialogue><![CDATA[innoxia_places_dominion_sex_shop_factory_bad_end_start_escape]]></nextDialogue>
 			</response>
 			<response>
+				<availabilityConditional><![CDATA[[#game.isBadEndsEnabled()]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
 				<colour><![CDATA[GENERIC_BAD_END]]></colour>
@@ -342,14 +346,14 @@
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Hide]]></responseTitle>
 				<responseTooltip><![CDATA[
-					#IF(pc.getObedienceValue()==100)
+					#IF(pc.getObedienceValue()==100 && game.isBadEndsEnabled())
 						You've allowed yourself to fall into the mindset of an obedient sex doll, and now can't bring yourself to hide from your Mistress!
 					#ELSE
 						As a doll, you find it effortless to remain completely and utterly still in order to remain hidden from Angelixx...
 					#ENDIF
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[
-					#IF(pc.getObedienceValue()==100)
+					#IF(pc.getObedienceValue()==100 && game.isBadEndsEnabled())
 						null
 					#ELSE
 						innoxia_places_dominion_sex_shop_factory_bad_end_angelixx_encounter_end
@@ -357,6 +361,7 @@
 				]]></nextDialogue>
 			</response>
 			<response>
+				<availabilityConditional><![CDATA[[#game.isBadEndsEnabled()]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
 				<colour><![CDATA[GENERIC_BAD_END]]></colour>
@@ -377,8 +382,10 @@
 	<scene id="angelixx_encounter_end">
 		<preParsingEffects><![CDATA[
 			[#angelixx.returnToHome()]
-			[#game.appendToTextEndStringBuilder(pc.incrementObedience(5))]
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+			#IF(game.isBadEndsEnabled())
+				[#game.appendToTextEndStringBuilder(pc.incrementObedience(5))]
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+			#ENDIF
 		]]></preParsingEffects>
 		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ANGELIXX_ENCOUNTER_END</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
@@ -482,8 +489,10 @@
 			
 			[#saellatrix.generateSister(FETISH_PENIS_GIVING)]
 			[#sister.setLocation(pc)]
-			[#game.appendToTextEndStringBuilder(pc.incrementObedience(5))]
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+			#IF(game.isBadEndsEnabled())
+				[#game.appendToTextEndStringBuilder(pc.incrementObedience(5))]
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+			#ENDIF
 		]]></preParsingEffects>
 		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_SUCCUBUS</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
@@ -508,8 +517,10 @@
 				<responseTooltip><![CDATA[There's surely no harm in staying out of sight and watching what happens next...]]></responseTooltip>
 				<nextDialogue/>
 				<effects><![CDATA[
-					[#game.appendToTextEndStringBuilder(pc.incrementObedience(10))]
-					[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+					#IF(game.isBadEndsEnabled())
+						[#game.appendToTextEndStringBuilder(pc.incrementObedience(10))]
+						[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+					#ENDIF
 				]]></effects>
 				<sexVariablesWithManager enabled="true">
 					<id><![CDATA[innoxia_dominion_sex_shop_factory_watching_succubus]]></id>
@@ -544,8 +555,10 @@
 				<responseTooltip><![CDATA[This is your purpose. To be a sex toy for those who need you. Strut forwards and offer the succubus the use of your body.]]></responseTooltip>
 				<nextDialogue/>
 				<effects><![CDATA[
-					[#game.appendToTextEndStringBuilder(pc.incrementObedience(20))]
-					[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+					#IF(game.isBadEndsEnabled())
+						[#game.appendToTextEndStringBuilder(pc.incrementObedience(20))]
+						[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+					#ENDIF
 				]]></effects>
 				<sexVariablesWithManager enabled="true">
 					<id><![CDATA[innoxia_dominion_sex_shop_factory_doll_sex_succubus]]></id>
@@ -648,8 +661,10 @@
 	<scene id="event_succubus_clean">
 		<preParsingEffects><![CDATA[
 			[#pc.ingestFluid(sister, sister.getCum(), ORIFICE_MOUTH, 500)]
-			[#game.appendToTextEndStringBuilder(pc.incrementObedience(15))]
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+			#IF(game.isBadEndsEnabled())
+				[#game.appendToTextEndStringBuilder(pc.incrementObedience(15))]
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+			#ENDIF
 		]]></preParsingEffects>
 		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_SUCCUBUS_CLEANUP_DUTY</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
@@ -694,8 +709,10 @@
 			#ENDIF
 			
 			[#saellatrix.initRedDoll('doll')]
-			[#game.appendToTextEndStringBuilder(pc.incrementObedience(5))]
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+			#IF(game.isBadEndsEnabled())
+				[#game.appendToTextEndStringBuilder(pc.incrementObedience(5))]
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+			#ENDIF
 		]]></preParsingEffects>
 		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_DILDOS</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
@@ -719,8 +736,10 @@
 				<responseTooltip><![CDATA[Obey the red doll and kneel down in front of her.]]></responseTooltip>
 				<nextDialogue/>
 				<effects><![CDATA[
-					[#game.appendToTextEndStringBuilder(pc.incrementObedience(20))]
-					[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+					#IF(game.isBadEndsEnabled())
+						[#game.appendToTextEndStringBuilder(pc.incrementObedience(20))]
+						[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+					#ENDIF
 				]]></effects>
 				<sexVariablesWithManager enabled="true">
 					<id><![CDATA[innoxia_dominion_sex_shop_factory_doll_dildos]]></id>
@@ -816,8 +835,10 @@
 			#ENDIF
 			
 			[#saellatrix.initRedDoll('doll')]
-			[#game.appendToTextEndStringBuilder(pc.incrementObedience(5))]
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+			#IF(game.isBadEndsEnabled())
+				[#game.appendToTextEndStringBuilder(pc.incrementObedience(5))]
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+			#ENDIF
 		]]></preParsingEffects>
 		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_BONDAGE</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
@@ -847,8 +868,10 @@
 	
 	<scene id="event_bondage_bound">
 		<preParsingEffects><![CDATA[
-			[#game.appendToTextEndStringBuilder(pc.incrementObedience(20))]
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+			#IF(game.isBadEndsEnabled())
+				[#game.appendToTextEndStringBuilder(pc.incrementObedience(20))]
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+			#ENDIF
 			
 			[#pc.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_innoxia_bdsm_blindfold, COLOUR_CLOTHING_RED_BURGUNDY, COLOUR_CLOTHING_GOLD, null, false), true, doll)]
 			[#pc.equipClothingFromNowhere(itemGen.generateClothing(CLOTHING_innoxia_bdsm_ballgag, COLOUR_CLOTHING_RED, COLOUR_CLOTHING_BLACK, COLOUR_CLOTHING_STEEL, false), true, doll)]
@@ -942,8 +965,10 @@
 	
 	<scene id="event_bondage_bound_wait_more">
 		<preParsingEffects><![CDATA[
-			[#game.appendToTextEndStringBuilder(pc.incrementObedience(5))]
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+			#IF(game.isBadEndsEnabled())
+				[#game.appendToTextEndStringBuilder(pc.incrementObedience(5))]
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+			#ENDIF
 		]]></preParsingEffects>
 		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_BONDAGE_BOUND_WAIT_MORE</content>
 		<secondsPassed minutes="true"><![CDATA[60]]></secondsPassed>
@@ -1009,8 +1034,10 @@
 			#ELSE
 				[#flags.incrementSavedLong('bad_end_dollification_events_count', 1)]
 			#ENDIF
-			[#game.appendToTextEndStringBuilder(pc.incrementObedience(5))]
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+			#IF(game.isBadEndsEnabled())
+				[#game.appendToTextEndStringBuilder(pc.incrementObedience(5))]
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+			#ENDIF
 		]]></preParsingEffects>
 		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_DOLLS</content>
 		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
@@ -1039,8 +1066,10 @@
 	
 	<scene id="event_dolls_take_place">
 		<preParsingEffects><![CDATA[
-			[#game.appendToTextEndStringBuilder(pc.incrementObedience(5))]
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+			#IF(game.isBadEndsEnabled())
+				[#game.appendToTextEndStringBuilder(pc.incrementObedience(5))]
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+			#ENDIF
 		]]></preParsingEffects>
 		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_DOLLS_TAKE_PLACE</content>
 		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
@@ -1069,8 +1098,10 @@
 	
 	<scene id="event_dolls_comfortable">
 		<preParsingEffects><![CDATA[
-			[#game.appendToTextEndStringBuilder(pc.incrementObedience(5))]
-			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+			#IF(game.isBadEndsEnabled())
+				[#game.appendToTextEndStringBuilder(pc.incrementObedience(5))]
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+			#ENDIF
 		]]></preParsingEffects>
 		<content folderPath="txt/places/dominion/sex_shop/factory_bad_end">ENCOUNTER_DOLLS_COMFORTABLE</content>
 		<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
@@ -1096,8 +1127,10 @@
 				<secondsPassed minutes="true"><![CDATA[145]]></secondsPassed>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'ENCOUNTER_DOLLS_STATUE'))]
-					[#game.appendToTextEndStringBuilder(pc.incrementObedience(10))]
-					[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+					#IF(game.isBadEndsEnabled())
+						[#game.appendToTextEndStringBuilder(pc.incrementObedience(10))]
+						[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'GENERIC_OBEDIENCE_DESCRIPTION'))]
+					#ENDIF
 				]]></effects>
 			</response>
 		</responses>
@@ -1206,14 +1239,14 @@
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Hide]]></responseTitle>
 				<responseTooltip><![CDATA[
-					#IF(pc.getObedienceValue()==100)
+					#IF(pc.getObedienceValue()==100 && game.isBadEndsEnabled())
 						You've allowed yourself to fall into the mindset of an obedient sex doll, and now can't bring yourself to hide from your Mistress!
 					#ELSE
 						Remain hidden with Fia until Angelixx leaves...
 					#ENDIF
 				]]></responseTooltip>
 				<nextDialogue><![CDATA[
-					#IF(pc.getObedienceValue()==100)
+					#IF(pc.getObedienceValue()==100 && game.isBadEndsEnabled())
 						null
 					#ELSE
 						innoxia_places_dominion_sex_shop_factory_bad_end_event_fia_angelixx_hide
@@ -1221,6 +1254,7 @@
 				]]></nextDialogue>
 			</response>
 			<response>
+				<availabilityConditional><![CDATA[[#game.isBadEndsEnabled()]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
 				<colour><![CDATA[GENERIC_BAD_END]]></colour>

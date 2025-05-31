@@ -4,7 +4,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 
 /**
  * @since 0.2.2
- * @version 0.4
+ * @version 0.4.10.7
  * @author Innoxia
  */
 public enum SlaveEvent {
@@ -24,6 +24,8 @@ public enum SlaveEvent {
 			character.calculateStatusEffects(0);
 		}
 	},
+
+	MIDDAY_UPDATE(SlaveEventType.MISCELLANEOUS, "Midday Update", ""),
 	
 	DAILY_UPDATE(SlaveEventType.MISCELLANEOUS, "Daily Update", ""),
 

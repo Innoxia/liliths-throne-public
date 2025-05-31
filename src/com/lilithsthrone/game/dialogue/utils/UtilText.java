@@ -113,6 +113,7 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
+import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
@@ -206,11 +207,14 @@ import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
 import com.lilithsthrone.game.settings.ForcedFetishTendency;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.sex.GenericSexFlag;
+import com.lilithsthrone.game.sex.LubricationType;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.positions.AbstractSexPosition;
+import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlot;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotManager;
 import com.lilithsthrone.game.sex.sexActions.baseActions.ToyVagina;
@@ -535,7 +539,7 @@ public class UtilText {
 					
 				} else if(Main.game.isInSex() && Main.sex.getAllParticipants().contains(target)) {
 					if(Main.sex.isCharacterEngagedInOngoingAction(target)) {
-						modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
+						modifiedSentence = Util.addSexSounds(modifiedSentence, 6, Main.sex.getSexPace(target)==SexPace.SUB_RESISTING);
 					}
 					
 				}
@@ -9978,6 +9982,9 @@ public class UtilText {
 		for(CupSize cupSize : CupSize.values()) {
 			engine.put("CUP_SIZE_"+cupSize.toString(), cupSize);
 		}
+		for(HairLength hairLength : HairLength.values()) {
+			engine.put("HAIR_LENGTH_"+hairLength.toString(), hairLength);
+		}
 		for(FootStructure footStructure : FootStructure.values()) {
 			engine.put("FOOT_STRUCTURE_"+footStructure.toString(), footStructure);
 		}
@@ -10211,8 +10218,14 @@ public class UtilText {
 		for(OrgasmCumTarget oct : OrgasmCumTarget.values()) {
 			engine.put("OCT_"+oct.toString(), oct);
 		}
+		for(Entry<String, AbstractSexPosition> position : SexPosition.idToSexPositionMap.entrySet()) {
+			engine.put("SEX_POSITION_"+position.getKey(), position.getValue());
+		}
 		for(Entry<String, SexSlot> slot : SexSlotManager.getIdToSexSlotMap().entrySet()) {
 			engine.put("SEX_SLOT_"+slot.getKey(), slot.getValue());
+		}
+		for(LubricationType lube : LubricationType.values()) {
+			engine.put("LUBRICATION_"+lube.toString(), lube);
 		}
 		
 		

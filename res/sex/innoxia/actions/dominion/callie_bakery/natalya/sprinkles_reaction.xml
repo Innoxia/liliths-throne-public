@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#(flags.hasFlag(FLAG_innoxia_callie_natalya_sprinkles_chocolate) || flags.hasFlag(FLAG_innoxia_callie_natalya_sprinkles_multi) || flags.hasFlag(FLAG_innoxia_callie_natalya_sprinkles_stars)) && !flags.hasFlag(FLAG_innoxia_callie_natalya_decoration_finished)]
+	]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>
+	<associatedFetishes/>
+	<performingArea/>
+	<targetedArea/>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Decorated doughnut]]></title>
+	<tooltip><![CDATA[
+		The filly slut has turned your asshole into a fancy doughnut!
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<text><![CDATA[
+				#IF(npc==natalya)
+					[natalya.speechNoEffects(Filly! Fetch me a mirror and show me what it looks like!)] Mistress Natalya demands. Callie helpfully points to one side of the counter, and you quickly discover and retrieve a small mirror from the place where the horse-girl motioned towards. Holding this mirror bahind your Mistress's feral equine rump, you enable her to turn her head and see the state of her asshole.
+					
+					<br/><br/>
+					
+					[natalya.speechNoEffects(Excellent job, filly!)] the centauress happily declares, before flashing you a horny grin and teasing, [natalya.speechNoEffects(Now you can eat it!)]
+					
+				#ELSE
+					[callie.speechNoEffects(Great job, [pc.name],)] Callie giggles, before biting her lip and moaning, [callie.speechNoEffects(Now for the best part...)]
+				#ENDIF
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

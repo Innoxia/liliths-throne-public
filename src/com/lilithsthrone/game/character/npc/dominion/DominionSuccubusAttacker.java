@@ -61,7 +61,7 @@ public class DominionSuccubusAttacker extends NPC {
 		super(isImported, null, null, "",
 				Util.random.nextInt(50)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				5, Gender.getGenderFromUserPreferences(Femininity.FEMININE), Subspecies.DEMON, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
+				new CharacterInventory(false, 10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
 
 		if(!isImported) {
 			this.setLocation(Main.game.getPlayer(), true);

@@ -73,7 +73,7 @@ public class Angel extends NPC {
 						+ " A beautiful, blonde-haired human, Angel acts in a friendly and professional manner at all times.",
 				34, Month.JANUARY, 4,
 				10, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN,
-				new CharacterInventory(30), WorldType.ANGELS_KISS_GROUND_FLOOR, PlaceType.ANGELS_KISS_OFFICE, true);
+				new CharacterInventory(false, 30), WorldType.ANGELS_KISS_GROUND_FLOOR, PlaceType.ANGELS_KISS_OFFICE, true);
 
 	}
 	

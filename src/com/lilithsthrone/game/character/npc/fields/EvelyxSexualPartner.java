@@ -56,7 +56,7 @@ public class EvelyxSexualPartner extends NPC {
 				25, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				10,
 				null, null, null,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_dairyFarm"), PlaceType.getPlaceTypeFromId("innoxia_fields_dairyFarm_exit"),
 				false);
 

@@ -254,6 +254,13 @@ input:focus {
 .container-full-width.inner {
 	background:#DDD;
 }
+.container-full-width.light {
+	background:#fdfdfd;
+}
+.container-full-width .hover-enabled:hover{
+	background:#ffffff;
+	cursor:pointer;
+}
 .container-half-width{
 	float:left;
 	background:#fcfcfc;
@@ -982,9 +989,14 @@ position:relative;
 	position:relative;
 	float:left;
 	border-radius: 5px;
-	width:18%;
+	width:14.66%;
 	margin:1%;
 	-webkit-box-sizing: border-box;
+}
+.inventory-item-slot.floor {
+	/* Needs to be the same height as the inventory icons in the left panel, which are 1/6 width of an 8% width div, so in total each of the left inventory icon boxes are 14.161% wide/high. As such, the height of the 1/7 inventory boxes needs to be the same measurement, hence the top/bottom margins being 0.9376%, as 12.2857 + 0.9376 + 0.9376 = 14.161 */
+	width:12.2857%; /* 1/7th of 100% minus margin size of 2% (1% each side) */
+	margin:0.9376% 1%;
 }
 .inventory-item-slot :hover {
 	opacity:1;
@@ -1015,6 +1027,62 @@ position:relative;
 	  #ddd 20px
 	);
 }
+/* For if inventory-item-slot class is used as a button: */
+.inventory-item-slot-button {
+	display:inline-block;
+	position:relative;
+	float:left;
+	border-radius: 5px;
+	width:14.66%;
+	margin:1%;
+	-webkit-box-sizing: border-box;
+	
+	background: -webkit-gradient(
+		linear, left top, left bottom,
+		from(#ddd),
+		color-stop(0.50, #bbb),
+		color-stop(0.92, #aaa),
+		to(#999));
+	text-shadow:
+		1px 1px 2px rgba(000,000,000,0.7),
+		0px 1px 0px rgba(000,000,000,0.4);
+	
+	border:solid 2px #eee;
+	cursor:pointer;
+}
+.inventory-item-slot-button:after{
+	content: "";
+	display: block;
+	padding-bottom: 100%;
+}
+.inventory-item-slot-button.disabled {
+	background: #ccc;
+	border-color:#ddd;
+	cursor:default;
+}
+.inventory-item-slot-button.disabled:hover {
+	background: #ccc;
+	border-color:#ddd;
+}
+.inventory-item-slot-button:hover {
+	background: -webkit-gradient(
+		linear, left top, left bottom,
+		from(#eee),
+		color-stop(0.50, #ccc),
+		color-stop(0.92, #bbb),
+		to(#aaa));
+	border-color:#fff;
+}
+.inventory-item-slot-button:active {
+	background: -webkit-gradient(
+		linear, left top, left bottom,
+		from(#999),
+		color-stop(0.50, #bbb),
+		color-stop(0.92, #ccc),
+		to(#888));
+	border-color:#fff;
+}
+
 .inventory-icon-content {
 	position: absolute;
 	width: 100%;
@@ -1077,6 +1145,48 @@ position:relative;
 	text-shadow: 2px 0 0 #fcfcfc, -2px 0 0 #fcfcfc, 0 2px 0 #fcfcfc, 0 -2px 0 #fcfcfc, 1px 1px #fcfcfc, -1px -1px 0 #fcfcfc, 1px -1px 0 #fcfcfc, -1px 1px 0 #fcfcfc;
 }
 
+.common {
+	background-color:#BDBDC1;
+}
+.common:hover{
+	background-color:#CFCFD3;
+}
+.uncommon {
+	background-color:#3D5C47;
+}
+.uncommon:hover{
+	background-color:#5A8767;
+}
+.rare {
+	background-color:#B4D0EE;
+}
+.rare:hover{
+	background-color:#C1DAF1;
+}
+.epic {
+	background-color:#DDC1E2;
+}
+.epic:hover{
+	background-color:#ECDCEF;
+}
+.legendary {
+	background-color:#F1DEA7;
+}
+.legendary:hover{
+	background-color:#F7EAC5;
+}
+.quest {
+	background-color:#BEE4E4;
+}
+.quest:hover{
+	background-color:#E0F1F1;
+}
+.jinxed {
+	background-color:#E3B5B5;
+}
+.jinxed:hover{
+	background-color:#F3E3E3;
+}
 
 /***********************************************************/
 /*INDIVIDUAL ITEM VIEW*/

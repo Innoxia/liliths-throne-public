@@ -83,7 +83,7 @@ public class HazmatRat extends NPC {
 				"Is this a rat-morph that's inside the vending machine?! Surely not...",
 				30, Month.JANUARY, 1,
 				15, Gender.M_P_MALE, Subspecies.RAT_MORPH, RaceStage.GREATER,
-				new CharacterInventory(500),
+				new CharacterInventory(false, 500),
 				WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL,
 				false);
 

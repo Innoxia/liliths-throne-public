@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<authorTag><![CDATA[A note at the bottom of the label informs you that this product was imported by 'Phlarx Pharmaceuticals'.]]></authorTag>
+		<value>2400</value>
+		<determiner><![CDATA[a bottle of]]></determiner>
+		<name><![CDATA[sybaritic potion]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[sybaritic potions]]></namePlural>
+		<description><![CDATA[A tiny geometric glass bottle bearing a black label embossed with gold foil that reads 'Sybaritic Energizing Philter'. The fine print below issues a warning that it may cause imbibers to become distressed if not provided with prompt sexual relief.]]></description>
+		<useDescriptor>swallow</useDescriptor>
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		<rarity>EPIC</rarity>
+		<imageName>refractory.svg</imageName>
+		<colourPrimary>CLOTHING_PURPLE_ROYAL</colourPrimary>
+		<colourSecondary>CLOTHING_BLACK</colourSecondary>
+		<colourTertiary>CLOTHING_GOLD</colourTertiary>
+		<associatedRace/>
+		<enchantmentItemTypeId/>
+		<enchantmentEffectId/>
+		<statusEffects>
+			<effect seconds="14400" conditional="[#!game.isInSex()]">DESPERATELY_HORNY</effect> <!-- applied for 4 hours -->
+		</statusEffects>
+		<effectTooltipLines>
+			<line><![CDATA[During [style.colourSex(sex)]:]]></line>
+			<line><![CDATA[[style.colourExcellent(Increases)] desired [style.colourLust(orgasms)] by [style.colourGood(3)]-[style.colourGood(5)]]]></line>
+			<line><![CDATA[Out of sex:]]></line>
+		</effectTooltipLines>
+		<applyEffects><![CDATA[
+			#IF(game.isInSex())
+				<p style='margin-bottom:0; padding-bottom:0;'>
+					As the contents of the small bottle disappear between [npc.herPos] [npc.lips+], [npc.namePos] [npc.eyes] flash soft pink for an instant, before returning to [npc.irisColour]. With a sudden, [npc.moan+] and an excited shiver, [npc.herPos] movements intensify as if [npc.sheHasFull] been pent up for far too long.
+				</p>
+				[##
+					var boost = 3 + RND.nextInt(3); /* randomly select 3, 4, or 5 */
+					sex.incrementNumberOfAdditionalOrgasms(npc, boost);
+				]
+				<p style='margin-bottom:0; padding-bottom:0;text-align:center;'>
+					[style.italicsExcellent([npc.NamePos] desired number of orgasms has been increased by [#~~boost]!)]
+				</p>
+			#ELSE
+				<p style='margin-bottom:0; padding-bottom:0;'>
+					As the contents of the small bottle disappear between [npc.herPos] [npc.lips+], [npc.namePos] [npc.verb(feel)] a sensation similar to static electricity surging through [npc.her] body. Experiencing a rush of intense, stupefying arousal, [npc.she] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(find)] [npc.herself] struggling to think of anything but sex.
+				</p>
+			#ENDIF
+		]]></applyEffects>
+		<itemTags>
+			<tag>ALL_AREAS_SPAWN</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+	<useDescriptions>
+		<selfUse><![CDATA[
+			[npc.Name] [npc.verb(remove)] the cap and [npc.verb(glance)] down at the refractory philter in [npc.herPos] palm. Before [npc.she] [npc.verb(realize)] what [npc.sheIsFull] doing, the bottle is inverted above [npc.herPos] mouth.
+		]]></selfUse>
+		<otherUse><![CDATA[
+			[npc.Name] [npc.verb(remove)] the cap and quickly [npc.verb(press)] the refractory philter into [npc2.namePos] palm. Before [npc2.she] [npc2.verb(realize)] what [npc2.sheIsFull] doing, the bottle is inverted above [npc2.herPos] mouth.
+		]]></otherUse>
+	</useDescriptions>
+</item>

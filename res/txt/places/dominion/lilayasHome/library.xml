@@ -90,7 +90,7 @@
 			<td style='font-weight:bold;'>Imp</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td><td>[style.boldBad(Ip)]</td>
 		</tr>
 		</table>
-		<br/><br/>
+		<br/>
 		[style.boldtfGreater(Ln)] = Lilin&nbsp;&nbsp;&nbsp;&nbsp;
 		[style.boldtfLesser(Dn)] = Demon&nbsp;&nbsp;&nbsp;&nbsp;
 		[style.boldtfMinor(Hdn)] = Half-demon&nbsp;&nbsp;&nbsp;&nbsp;
@@ -98,6 +98,11 @@
 		[style.boldtfGeneric(Nd)] = Non-demon (non-human)&nbsp;&nbsp;&nbsp;&nbsp;
 		[style.boldHuman(Hn)] = Human&nbsp;&nbsp;&nbsp;&nbsp;
 		[style.boldBad(Ip)] = Imp
+		<br/>
+		<br/>
+		#IF(game.isFeralContentEnabled())
+			<i>[style.colourFeral(Feral mothers)] always give birth to the tauric version of their subspecies, such as centaurs for feral horses and driders for feral spiders.</i>
+		#ENDIF
 	</p>
 	<p>
 		After this, the book goes on to describe human half-demons as being particularly despised in the demon's social hierarchy. It explains that this is due to the fact that they are the only demon-kind to produce imp offspring, and imps are considered to be the lowest of all (even below humans). While still of a higher social standing than any non-demon, human half-demons are typically treated very poorly by their 'purer' relatives, who will often insult them with terms such as 'imp-breeder', 'imp-factory', 'imp-fucker', or other such profanities.
@@ -170,7 +175,7 @@
 		#IF(game.isNonConEnabled())
 			 Right there in public, and to the shock and horror of bystanders, she was then raped by Anubis and his pack.
 		#ENDIF
-		 This proved to be the straw that broke the camel's back, for as word of what was happening reached Lisophia's palace, the elder demon teleported to the aid of her daughter. Although normally choosing to remain in the form of a demonic dragon-girl, Lisophia took on her true, demonic appearance, and in a furious rage she enslaved Anubis and every feral she could find.
+		 This proved to be the straw that broke the camel's back, for as word of what was happening reached Lisophia's palace, the elder demon teleported to the aid of her daughter. Although normally choosing to remain in the form of a dragon-girl, Lisophia took on her true, demonic appearance, and in a furious rage she enslaved Anubis and every feral she could find.
 	</p>
 	<p>
 		The final chapter covers what happened after this incident. Word of Lisophia's actions quickly spread throughout Thinis, and public opinion, which was already turning against ferals, fully swung against Anubis and his enchantments. Those who loved their feral forms fled to Dominion and elsewhere in the Realm, but they found little acceptance there. All throughout the Realm, the news of Anubis's actions and Lisophia's vengeance had spread, and just as quickly as the craze had started, feral transformations completely vanished. They were never explicitly banned, but these days the only people still willing to experiment with feral forms are outcasts, degenerates, and those seeking the rush of breaking a taboo.

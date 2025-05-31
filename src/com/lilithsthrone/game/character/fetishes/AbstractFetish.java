@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
@@ -227,6 +228,18 @@ public abstract class AbstractFetish {
 	
 	public boolean isTopFetish() {
 		return false;
+	}
+	
+	/**
+	 * @return TFModifier.TF_MOD_FETISH_BODY_PART if this is a body-part associated fetish (anal, breasts, oral, etc.), or TFModifier.TF_MOD_FETISH_BEHAVIOUR if it's a behavioural fetish (bimbo, dominant, bondage, etc.).
+	 */
+	public TFModifier getAssociatedTFModifier() {
+		for(TFModifier mod : TFModifier.getTFBehaviouralFetishList()) {
+			if(mod.getFetish()==this) {
+				return TFModifier.TF_MOD_FETISH_BEHAVIOUR;
+			}
+		}
+		return TFModifier.TF_MOD_FETISH_BODY_PART;
 	}
 	
 	public int getRenderingPriority() {

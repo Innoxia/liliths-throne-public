@@ -778,7 +778,19 @@ public class AlleywayAttackerDialogue {
 			boolean rapePlay = getMugger().isPostCombatRapePlay();
 			
 			if (index == 1) {
-				return new Response("Continue", "Carry on your way...", Main.game.getDefaultDialogue(false)){
+				return new Response("Continue",
+						"Carry on your way..."
+							+ (getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)
+								?UtilText.parse(getMugger(), "<br/>[style.italicsBad([npc.Name] will be permanently removed from the game.)]")
+								:""),
+						Main.game.getDefaultDialogue(false)){
+					@Override
+					public Colour getHighlightColour() {
+						if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {
+							return PresetColour.GENERIC_NPC_REMOVAL;
+						}
+						return super.getHighlightColour();
+					}
 					@Override
 					public void effects() {
 						if(getMugger().hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer)) {

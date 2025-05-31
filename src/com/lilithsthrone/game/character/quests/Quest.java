@@ -500,7 +500,8 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "You agreed to travel to Themiscyra with Meraxis and find out whether or not the town is being threatened by Lunette's army.";
+			return "You agreed to travel to Themiscyra with Meraxis and find out whether or not the town is being threatened by Lunette's army."
+					+ " When you're ready, you need to meet with Meraxis and have her guide you there.";
 		}
 
 		@Override

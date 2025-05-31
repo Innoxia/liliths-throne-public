@@ -93,7 +93,7 @@ public class Sterope extends NPC {
 				33, Month.DECEMBER, 2,
 				15,
 				Gender.F_V_B_FEMALE, Subspecies.HORSE_MORPH, RaceStage.PARTIAL,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_enforcer_station"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_enforcer_station_reception"),
 				true);
 	}

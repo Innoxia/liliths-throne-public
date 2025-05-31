@@ -64,7 +64,12 @@
 			<br/>All I'm good for now is being the next lucky #IF(pc.getSexualOrientation().isAttractedToMasculine())guy#ELSEgirl#ENDIF's fuck-toy...)]
 	</p>
 	<p>
-		You're vaguely aware of [npc.name] [npc.moaning] somewhere in the background, completely oblivious to how hard you've been hit by the loss of your virginity. With a shuddering sigh, you decide to resign yourself to the fact that you're now nothing more than a [style.boldTerrible(broken virgin)]...
+		#IF(npc.isAsleep())
+			As [npc.sheIs] deeply asleep, [npc.nameIsFull] completely oblivious to how hard you've been hit by the loss of your virginity.
+		#ELSE
+			You're vaguely aware of [npc.name] [npc.moaning] somewhere in the background, completely oblivious to how hard you've been hit by the loss of your virginity.
+		#ENDIF
+		 With a shuddering sigh, you decide to resign yourself to the fact that you're now nothing more than a [style.boldTerrible(broken virgin)]...
 	</p>
 	]]></htmlContent>
 	
@@ -98,7 +103,12 @@
 			<br/>All I'm good for now is being the next lucky #IF(pc.getSexualOrientation().isAttractedToMasculine())guy#ELSEgirl#ENDIF's cum dump...)]
 	</p>
 	<p>
-		You're vaguely aware of [npc.name] [npc.moaning] somewhere in the background, completely oblivious to how hard you've been hit by the loss of your virginity. With absolutely nothing that you can do about it, you decide to resign yourself to the fact that you're now nothing more than a [style.boldTerrible(broken virgin)]...
+		#IF(npc.isAsleep())
+			As [npc.sheIs] deeply asleep, [npc.nameIsFull] completely oblivious to how hard you've been hit by the loss of your virginity.
+		#ELSE
+			You're vaguely aware of [npc.name] [npc.moaning] somewhere in the background, completely oblivious to how hard you've been hit by the loss of your virginity.
+		#ENDIF
+		 With absolutely nothing that you can do about it, you decide to resign yourself to the fact that you're now nothing more than a [style.boldTerrible(broken virgin)]...
 	</p>
 	]]></htmlContent>
 	
@@ -131,7 +141,7 @@
 			<br/>All I'm good for now is being the next lucky #IF(pc.getSexualOrientation().isAttractedToMasculine())guy#ELSEgirl#ENDIF's cum dump...)]
 	</p>
 	<p>
-		You're vaguely aware of [npc.name] [npc.moaning] somewhere in the background, completely oblivious to how hard you've been hit by the loss of your virginity. With absolutely nothing that you can do about it, you decide to resign yourself to the fact that you're now nothing more than a [style.boldTerrible(broken virgin)]...
+		Completely oblivious to how hard you're going to be hit by the loss of your virginity when you wake up, [npc.name] continues fucking you. Your dreams continue to present you with lewd scenes, and deep down inside you begin to accept your place as a [style.boldTerrible(broken virgin)]...
 	</p>
 	]]></htmlContent>
 	
@@ -160,9 +170,21 @@
 	<htmlContent tag="VIRGINITY_LOSS_ANAL"><![CDATA[
 	<p>
 		#IF(game.isInSex() && !sex.hasLubricationTypeFromAnyone(pc, ORIFICE_ANUS))
-			You let out a painful cry as you feel [npc.namePos] [#SPECIAL_PARSE_0] push into your dry [pc.asshole]. Squirming and shuffling in discomfort, your cries grow louder and louder as [npc.name] starts fucking your [pc.ass]; the lack of lubrication turning your first anal experience into one of mind-numbing agony.
+			You let out a painful cry as you feel [npc.namePos] [#SPECIAL_PARSE_0] push into your dry [pc.asshole]. Squirming and shuffling in discomfort, your cries grow louder and louder as
+			#IF(npc.isAsleep())
+				 you start riding [npc.name];
+			#ELSE
+				 [npc.name] starts fucking your [pc.ass];
+			#ENDIF
+			 the lack of lubrication turning your first anal experience into one of mind-numbing agony.
 		#ELSE
-			You let out a painful cry as you feel [npc.namePos] [#SPECIAL_PARSE_0] push into your [pc.asshole+]. Squirming and shuffling in discomfort, you continue letting out little whimpers as [npc.name] starts fucking your [pc.ass]. Thankfully, your [pc.asshole] was lubricated beforehand, and you dread to think of how painful your first anal experience would have been otherwise.
+			You let out a painful cry as you feel [npc.namePos] [#SPECIAL_PARSE_0] push into your [pc.asshole+]. Squirming and shuffling in discomfort, you continue letting out little whimpers as
+			#IF(npc.isAsleep())
+				 you start riding [npc.name].
+			#ELSE
+				 [npc.name] starts fucking your [pc.ass].
+			#ENDIF
+			 Thankfully, your [pc.asshole] was lubricated beforehand, and you dread to think of how painful your first anal experience would have been otherwise.
 		#ENDIF
 	</p>
 	#IF(pc.hasFetish(FETISH_MASOCHIST))
@@ -171,13 +193,19 @@
 		</p>
 	#ENDIF
 	<p>
-		#IF(npc.hasFetish(FETISH_SADIST))
+		#IF(npc.hasFetish(FETISH_SADIST) && !npc.isAsleep())
 			With tears welling up in your [pc.eyes], you let out another painful wail as [npc.name] draws [npc.her] [#SPECIAL_PARSE_0] back, before violently thrusting deep inside you once again. [npc.She] lets out an evil laugh as [npc.she] causes you to writhe about in pain, [npc.her] sadistic nature fuelling [npc.her] rough thrusts into your [pc.asshole] as [npc.she] ruthlessly fucks your [pc.ass].
 		#ELSE
-			With tears welling up in your [pc.eyes], you let out another painful wail as [npc.name] draws [npc.her] [#SPECIAL_PARSE_0] back, before thrusting deep inside you once again. This time, the pain isn't as extreme as before, and you realise that you're starting to get used to the feeling of being fucked in the ass.
+			With tears welling up in your [pc.eyes], you let out another painful wail as
+			#IF(npc.isAsleep())
+				 you spear your [pc.ass] on [npc.namePos] [#SPECIAL_PARSE_0].
+			#ELSE
+				 [npc.name] draws [npc.her] [#SPECIAL_PARSE_0] back, before thrusting deep inside you once again.
+			#ENDIF
+			 This time, the pain isn't as extreme as before, and you realise that you're starting to get used to the feeling of being fucked in the ass.
 		#ENDIF
 	</p>
-	#IF(npc.hasFetish(FETISH_DEFLOWERING) && !npc.isMute() && !npc.isDoll())
+	#IF(npc.hasFetish(FETISH_DEFLOWERING) && !npc.isMute() && !npc.isDoll() && !npc.isAsleep())
 		<p>
 			[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your anal virginity for me! Remember this moment, remember that <i>my</i> [#SPECIAL_PARSE_0] was the one that turned you into #IF(pc.isFeminine())a horny buttslut#ELSEa little fucktoy#ENDIF!)]
 		</p>
@@ -300,35 +328,52 @@
 	
 	<htmlContent tag="VIRGINITY_LOSS_VAGINAL"><![CDATA[
 	<p>
+		#IF(npc.isAsleep())
+			As you force [npc.namePos] [#SPECIAL_PARSE_0] deep into your 
+		#ELSE
+			As [npc.name] drives [npc.her] [#SPECIAL_PARSE_0] deep into your 
+		#ENDIF
 		#IF(game.isInSex() && !sex.hasLubricationTypeFromAnyone(pc, ORIFICE_VAGINA))
 			#IF(pc.hasHymen())
-				As [npc.name] drives [npc.her] [#SPECIAL_PARSE_0] deep into your dry [pc.pussy], your vision suddenly explodes in stars, and a painful, high-pitched shriek escapes from between your [pc.lips]. Being penetrated without any form of lubrication would be uncomfortable at the best of times, but due to the fact that [npc.nameHasFull] also just torn through your hymen, it's more than just a little discomfort, and your shriek turns into a shuddering cry as you shuffle about in pure agony.
+				 dry [pc.pussy], your vision suddenly explodes in stars, and a painful, high-pitched shriek escapes from between your [pc.lips]. Being penetrated without any form of lubrication would be uncomfortable at the best of times, but due to the fact that [npc.nameHasFull] also just torn through your hymen, it's more than just a little discomfort, and your shriek turns into a shuddering cry as you shuffle about in pure agony.
 			#ELSE
-				As [npc.name] drives [npc.her] [#SPECIAL_PARSE_0] deep into your dry [pc.pussy], you can't help but let out an uncomfortable groan. Being penetrated without any form of lubrication would be uncomfortable at the best of times, but due to the fact that this is the moment in which [npc.name] is taking your virginity, you're entirely unused to the sensation you're currently experiencing, and find it to be extremely unpleasant.
+				dry [pc.pussy], you can't help but let out an uncomfortable groan. Being penetrated without any form of lubrication would be uncomfortable at the best of times, but due to the fact that this is the moment in which [npc.name] is taking your virginity, you're entirely unused to the sensation you're currently experiencing, and find it to be extremely unpleasant.
 			#ENDIF
 		#ELSE
 			#IF(pc.hasHymen())
-				As [npc.name] drives [npc.her] [#SPECIAL_PARSE_0] deep into your [pc.pussy+], your vision suddenly narrows down, and a painful, desperate wail escapes from between your [pc.lips]. Luckily, your pussy was lubricated before being penetrated, but due to the fact that [npc.nameHasFull] also just torn through your hymen, it isn't enough to completely prevent the pain you now feel in your groin, and your wail turns into a shuddering moan as you shuffle about in discomfort.
+				[pc.pussy+], your vision suddenly narrows down, and a painful, desperate wail escapes from between your [pc.lips]. Luckily, your pussy was lubricated before being penetrated, but due to the fact that [npc.nameHasFull] also just torn through your hymen, it isn't enough to completely prevent the pain you now feel in your groin, and your wail turns into a shuddering moan as you shuffle about in discomfort.
 			#ELSE
-				As [npc.name] drives [npc.her] [#SPECIAL_PARSE_0] deep into your [pc.pussy+], your vision suddenly narrows down, and a lewd [pc.moan] bursts out from between your [pc.lips]. As you're well lubricated, and you've already lost your hymen, the first experience of having your virgin pussy penetrated is not at all an unpleasant one, and you let out a second eager [pc.moan] as you focus on the amazing feeling of [npc.namePos] [#SPECIAL_PARSE_0] thrusting into it.
+				[pc.pussy+], your vision suddenly narrows down, and a lewd [pc.moan] bursts out from between your [pc.lips]. As you're well lubricated, and you've already lost your hymen, the first experience of having your virgin pussy penetrated is not at all an unpleasant one, and you let out a second eager [pc.moan] as you focus on the amazing feeling of [npc.namePos] [#SPECIAL_PARSE_0] thrusting into it.
 			#ENDIF
 		#ENDIF
 	</p>
 	<p>
 		#IF(pc.hasHymen())
-			#IF(npc.hasFetish(FETISH_SADIST))
+			#IF(npc.hasFetish(FETISH_SADIST) && !npc.isAsleep())
 				[npc.She] lets out an evil laugh as [npc.she] causes you to writhe about in pain, [npc.her] sadistic nature fuelling [npc.her] rough thrusts into your pussy as [npc.she] ruthlessly tears through your hymen.
 			#ENDIF
 			#IF(pc.hasFetish(FETISH_MASOCHIST))
 				 Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure. The agony between your legs is pure bliss, and you focus on the pain as you squeal and moan in a delightful haze of overwhelming ecstasy.  Unfortunately for your masochistic desires, your hymen is now torn, and so the pain isn't as extreme as before, but even without this, you find yourself starting to let out lustful [pc.moans].
 			#ELSE
-				 Instinctively trying to clench your legs together, you let out another painful wail as [npc.name] draws [npc.her] [#SPECIAL_PARSE_0] back, before thrusting deep inside you once again. As your hymen is now torn, the pain isn't as extreme as before, and your pained cries start to turn into lustful [pc.moans].
+				 Instinctively trying to clench your legs together, you let out another painful wail as
+				#IF(npc.isAsleep())
+					 you spear yourself on [npc.namePos] [#SPECIAL_PARSE_0].
+				#ELSE
+					 [npc.name] draws [npc.her] [#SPECIAL_PARSE_0] back, before thrusting deep inside you once again.
+				#ENDIF
+				 As your hymen is now torn, the pain isn't as extreme as before, and your pained cries start to turn into lustful [pc.moans].
 			#ENDIF
 		#ELSE
-			Starting to get into the flow of things, you let out [pc.a_moan+] as [npc.name] draws [npc.her] [#SPECIAL_PARSE_0] back, before thrusting deep inside you once again. As [npc.she] starts fucking you, you can't help but let out a series of extremely lewd, lustful [pc.moans].
+			Starting to get into the flow of things, you let out [pc.a_moan+] as
+			#IF(npc.isAsleep())
+				 you spear yourself again and again on [npc.namePos] [#SPECIAL_PARSE_0]. As you start riding your sleeping partner, you can't help but let out a series of extremely lewd, lustful [pc.moans].
+			#ELSE
+				 [npc.name] draws [npc.her] [#SPECIAL_PARSE_0] back, before thrusting deep inside you once again. As [npc.she] starts fucking you, you can't help but let out a series of extremely lewd, lustful [pc.moans].
+			#ENDIF
+			
 		#ENDIF
 	</p>
-	#IF(!npc.isMute() && !npc.isDoll())
+	#IF(!npc.isMute() && !npc.isDoll() && !npc.isAsleep())
 		<p>
 			#IF(game.isInSex())
 				#IF(sex.getSexPace(npc)==SEX_PACE_DOM_GENTLE)

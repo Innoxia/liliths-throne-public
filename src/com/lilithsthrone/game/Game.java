@@ -1033,6 +1033,7 @@ public class Game implements XMLSaving {
 					for (int i=0; i < nodes.getLength(); i++) {
 						Element savedInventory = (Element) nodes.item(i);
 						String id = savedInventory.getAttribute("character");
+						CharacterInventory.loadingFromFloorBackupCheck = false;
 						CharacterInventory inventory = CharacterInventory.loadFromXML((Element) savedInventory.getElementsByTagName("characterInventory").item(0), doc);
 						savedInventories.put(id, inventory);
 					}
@@ -1291,6 +1292,13 @@ public class Game implements XMLSaving {
 					vec.setX(vec.getX()-1);
 					Main.game.getWorlds().get(WorldType.DOMINION).getCell(vec).getPlace().setPlaceType(PlaceType.DOMINION_BANK);
 					Main.game.getWorlds().get(WorldType.DOMINION).getCell(vec).getPlace().setName(PlaceType.DOMINION_BANK.getName());
+				}
+
+				if(Main.isVersionOlderThan(loadingVersion, "0.4.10.8")) {
+					// Replace tower in Elis with Yui's tower:
+					Cell towerCell = Main.game.getWorlds().get(WorldType.getWorldTypeFromId("innoxia_fields_elis_town")).getClosestCell(new Vector2i(0, 0), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_tower"));
+					towerCell.getPlace().setPlaceType(PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_tower_yui"));
+					towerCell.getPlace().setName(PlaceType.getPlaceTypeFromId("innoxia_fields_elis_town_tower_yui").getName());
 				}
 				
 				if(debug) {
@@ -2124,6 +2132,11 @@ public class Game implements XMLSaving {
 						ImpFortressDialogue.clearFortress(WorldType.IMP_FORTRESS_MALES);
 					}
 				}
+
+				if(Main.isVersionOlderThan(loadingVersion, "0.4.10.8")) {
+					Main.game.getDialogueFlags().setFlag(DialogueFlagValue.dressingRoomAutoClean, true);
+				}
+				
 				
 				if(debug) {
 					System.out.println("New NPCs finished");
@@ -2630,7 +2643,7 @@ public class Game implements XMLSaving {
 
 			// The Crossed Blades:
 			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Oglix.class))) { addNPC(new Oglix(), false); addedNpcs.add(Oglix.class); }
-			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Golix.class))) { addNPC(new Golix(), false); addedNpcs.add(Golix.class); }
+			if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Golix.class))) { addNPC(new Golix(Gender.F_P_B_SHEMALE, Main.game.getNpc(Oglix.class), false), false); addedNpcs.add(Golix.class); }
 			if(addedNpcs.contains(Oglix.class)) {
 				Main.game.getNpc(Oglix.class).setAffection(Main.game.getNpc(Kheiron.class), AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
 				Main.game.getNpc(Kheiron.class).setAffection(Main.game.getNpc(Oglix.class), AffectionLevel.NEGATIVE_THREE_STRONG_DISLIKE.getMedianValue());
@@ -2808,6 +2821,12 @@ public class Game implements XMLSaving {
 			System.out.println("imp tunnels reset");
 		}
 		
+		if(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_DRESSING_ROOM)
+				&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.dressingRoomAutoClean)) {
+			Main.game.getPlayerCell().getInventory().cleanAllClothing(true);
+		}
+		
+		
 		// Do the player's companion check before anything else, as if a companion leaves, then the follow-up check to send to work needs to be performed.
 		List<GameCharacter> companions = new ArrayList<>(Main.game.getPlayer().getCompanions());
 		for(GameCharacter companion : companions) {
@@ -2833,7 +2852,7 @@ public class Game implements XMLSaving {
 		if(slavesUpdated) {
 			for(int i=1; i <= hoursPassed; i++) {
 				Main.game.getPlayer().performHourlyFluidsCheck();
-				occupancyUtil.performHourlyUpdate(this.getDayNumber((startHour*60*60) + (i*60)), (hourStartTo24+i)%24);
+				occupancyUtil.performHourlyUpdate(this.getDayNumber((startHour*60*60) + (i*60*60)), (hourStartTo24+i)%24);
 				for(String slaveId : occupancyUtil.getAllCharacters()) { // Update slaves' status effects per hour to give them a chance to refill fluids and such.
 					try {
 						Main.game.getNPCById(slaveId).calculateStatusEffects(3600);
@@ -2859,10 +2878,13 @@ public class Game implements XMLSaving {
 		
 		// If the time has passed midnight on this turn:
 		boolean newDay = getDayNumber(getSecondsPassed()) != getDayNumber(getSecondsPassed() - secondsPassedThisTurn);
-		
+
+		// Reset stocks each day, or if the player has freed the slaves then rest after 6 hours (without resetting close to midnight to prevent a quick double-reset)
+		pendingSlaveInStocksReset = Main.game.getDialogueFlags().hasSavedLong("slaver_alley_slaves_freed_time")
+				?((Main.game.getSecondsPassed() - secondsPassedThisTurn - Main.game.getDialogueFlags().getSavedLong("slaver_alley_slaves_freed_time") > 6*60*60) && !Main.game.isHourBetween(20, 01))
+				:newDay;
 		if(newDay) {
 			pendingSlaveShopsReset = true;
-			pendingSlaveInStocksReset = true;
 			Main.game.getPlayer().resetDaysOrgasmCount();
 			
 			for(String id : Main.game.getPlayer().getFriendlyOccupants()) {
@@ -2882,22 +2904,21 @@ public class Game implements XMLSaving {
 			VengarCaptiveDialogue.applyDailyReset();
 			calculateBankInterest();
 		}
-		// v0.4.8.4: Only generating slaves when the player enters slaver alley is marginally better performance-wise, but creates the issue of the newly-generated slaves not being saved, so I removed this check.
-//		if (WorldType.SLAVER_ALLEY.getPlacesMap().values().contains(Main.game.getPlayer().getLocationPlaceType())) {
-			if (pendingSlaveShopsReset
-					&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_STALL_ANAL)
-					&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_STALL_FEMALES)
-					&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_STALL_MALES)
-					&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_STALL_ORAL)
-					&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_STALL_VAGINAL)) {
-				SlaverAlleyDialogue.dailyReset();
-				pendingSlaveShopsReset = false;
-			}
-			if (pendingSlaveInStocksReset && !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS)) {
-				SlaverAlleyDialogue.stocksReset();
-				pendingSlaveInStocksReset = false;
-			}
-//		}
+		// v0.4.8.4: Only generating slaves when the player enters slaver alley is marginally better performance-wise, but creates the issue of the newly-generated slaves not being saved, so don't include that check
+		if (pendingSlaveShopsReset
+				&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_STALL_ANAL)
+				&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_STALL_FEMALES)
+				&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_STALL_MALES)
+				&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_STALL_ORAL)
+				&& !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_STALL_VAGINAL)) {
+			SlaverAlleyDialogue.dailyReset();
+			pendingSlaveShopsReset = false;
+		}
+		if (pendingSlaveInStocksReset && !Main.game.getPlayer().getLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS)) {
+			SlaverAlleyDialogue.stocksReset();
+			pendingSlaveInStocksReset = false;
+			Main.game.getDialogueFlags().removeSavedLong("slaver_alley_slaves_freed_time");
+		}
 		
 		// Angels Kiss update
 		for(int i=1; i <= hoursPassed; i++) {
@@ -2926,11 +2947,15 @@ public class Game implements XMLSaving {
 			// Non-slave NPCs clean clothes:
 			if(inGame) {
 				if(!Main.game.getCharactersPresent().contains(npc)) {
-					if(!npc.isSlave() || npc.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES)) {
+					if(!npc.isSlave() || (!npc.getOwner().isPlayer() && npc.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES))) {
 						npc.cleanAllClothing(true, false);
 					}
-					if(!npc.isSlave() || npc.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_BODY)) {
+					if(!npc.isSlave() || (!npc.getOwner().isPlayer() && npc.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_BODY))) {
 						npc.cleanAllDirtySlots(true);
+						// Do not remove odours as that would interfere with fetish content
+//						if(npc.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_THOROUGH)) {
+//							npc.clearMuskMarkers();
+//						}
 					}
 				}
 			}
@@ -3019,21 +3044,13 @@ public class Game implements XMLSaving {
 				}
 				
 				if(!npc.isDoll()) { // Dolls do not need to take pills of any sort
-					// Prostitutes stay on slut pills to avoid pregnancies, and, if the NPC is male, to avoid knocking up their clients
+					// Prostitutes stay on slut pills to avoid pregnancies (as mother or father)
 					if((!npc.isPregnant()
 							&& !npc.isSlave()
 							&& npc.getHistory()==Occupation.NPC_PROSTITUTE
 							&& !npc.hasStatusEffect(StatusEffect.PROMISCUITY_PILL)
-							&& !npc.getLocation().equals(Main.game.getPlayer().getLocation()))
-						|| (npc.isSlave() && npc.getSlavePermissionSettings().get(SlavePermission.PILLS).contains(SlavePermissionSetting.PILLS_PROMISCUITY_PILLS))) {
+							&& !npc.getLocation().equals(Main.game.getPlayer().getLocation()))) {
 						npc.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"), npc, false);
-					}
-					
-					if(npc.isSlave() && npc.getSlavePermissionSettings().get(SlavePermission.PILLS).contains(SlavePermissionSetting.PILLS_VIXENS_VIRILITY)) {
-						npc.useItem(Main.game.getItemGen().generateItem("innoxia_pills_fertility"), npc, false);
-					}
-					if(npc.isSlave() && npc.getSlavePermissionSettings().get(SlavePermission.PILLS).contains(SlavePermissionSetting.PILLS_BROODMOTHER)) {
-						npc.useItem(Main.game.getItemGen().generateItem("innoxia_pills_broodmother"), npc, false);
 					}
 				}
 			}
@@ -3750,7 +3767,7 @@ public class Game implements XMLSaving {
 
 //				Main.mainController.unbindListeners();
 				setMainContentRegex(
-						((node.isContinuesDialogue() || response.isForceContinue()) && isContentScroll(node)
+						((node.isContinuesDialogue() || response.isForceContinue()) && isContentScroll(response, node)
 							?"<body onLoad='scrollToElement()'>"
 							+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;}</script>"
 						:"<body>"),
@@ -3881,7 +3898,7 @@ public class Game implements XMLSaving {
 						positionAnchor++;
 					}
 					
-					pastDialogueSB.append(UtilText.parse("<hr id='position" + positionAnchor + "'><p class='option-disabled'>&gt " + currentDialogueNode.getLabel() + "</p>"));
+					pastDialogueSB.append(UtilText.parse("<hr id='position" + positionAnchor + "'><p class='option-disabled'>&gt " + node.getLabel() + "</p>"));
 				}
 				
 				dialogueParsed = UtilText.parse(
@@ -4002,11 +4019,11 @@ public class Game implements XMLSaving {
 
 		//-------------------- MEMORY LEAK PROBLEM
 		setMainContentRegex(node.isContinuesDialogue() || response.isForceContinue()
-				?(isContentScroll(node)
+				?(isContentScroll(response, node)
 					?"<body onLoad='scrollToElement()'>"
 						+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;}</script>"
 					:"<body>")
-				:(isContentScroll(node)
+				:(isContentScroll(response, node)
 					?"<body onLoad='scrollToElement()'>"
 						+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = "+currentPosition+";}</script>"
 					:"<body>"),
@@ -4044,7 +4061,10 @@ public class Game implements XMLSaving {
 						&& !node.equals(InventoryDialogue.DYE_WEAPON));
 	}
 	
-	private static boolean isContentScroll(DialogueNode node) {
+	private static boolean isContentScroll(Response response, DialogueNode node) {
+		if((response!=null && response.isIgnoreContentScroll()) || node.isIgnoreContentScroll()) {
+			return false;
+		}
 		if(node==Main.sex.SEX_DIALOGUE && Main.sex.getTurn()==1) {
 			return false;
 		}
@@ -6449,7 +6469,7 @@ public class Game implements XMLSaving {
 			CharacterInventory bankInventory = Main.game.getWorlds().get(entry.getKey()).getCell(entry.getValue()).getInventory();
 			if(!bankInventory.isEmpty()) {
 				inventory = CharacterInventory.getCopyOfInventory(bankInventory);
-				Main.game.getWorlds().get(entry.getKey()).getCell(entry.getValue()).setInventory(new CharacterInventory(0));
+				Main.game.getWorlds().get(entry.getKey()).getCell(entry.getValue()).setInventory(new CharacterInventory(true, 0));
 				break;
 			}
 		}

@@ -72,7 +72,7 @@ public class Ziva extends NPC {
 				49, Month.OCTOBER, 2,
 				15,
 				Gender.F_V_B_FEMALE, Subspecies.getSubspeciesFromId("innoxia_goat_subspecies_goat"), RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_market"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_market_kissing"),
 				true);
 		

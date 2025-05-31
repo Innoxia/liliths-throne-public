@@ -954,7 +954,7 @@
 	
 	<htmlContent tag="OFFSPRING_ENCOUNTER_SCOLD"><![CDATA[
 	<p>
-		Unimpressed by [npc.namePos] method of making a living, you decide to scold [npc.her] in the hopes that [npc.she]'ll change [npc.her] ways,
+		Unimpressed by [npc.namePos] method of making a living, you decide to scold [npc.herHim] in the hopes that [npc.she]'ll change [npc.her] ways,
 		#IF(npc.getHistory()==OCCUPATION_NPC_PROSTITUTE) 
 			 [pc.speech(I really don't want my [npc.daughter] working as a prostitute. You need to start thinking about getting a real job, [npc.name]!)]
 		#ELSE

@@ -148,6 +148,7 @@ public class Penis implements BodyPartInterface {
 				}
 			} else {
 				list.add("soft");
+				list.add("flaccid");
 				if(owner.isErectionPreventedPhysically()) {
 					list.add("caged");
 					list.add("imprisoned");

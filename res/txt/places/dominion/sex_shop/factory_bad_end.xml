@@ -11,14 +11,16 @@
 		#ENDIF
 	-->
 	<htmlContent tag="GENERIC_OBEDIENCE_DESCRIPTION"><![CDATA[
-	<p style='text-align:center;'><i>
-		[#pc.getObedience().getDescription(pc, true, true)]
-	</i></p>
+	#IF(game.isBadEndsEnabled())
+		<p style='text-align:center;'><i>
+			[#pc.getObedience().getDescription(pc, true, true)]
+		</i></p>
+	#ENDIF
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="PLAYER_OBEDIENCE_POSTFIX"><![CDATA[
-	#IF(pc.isDoll())
+	#IF(pc.isDoll() && game.isBadEndsEnabled())
 		<p style='text-align:center;'><i>
 			Obedience (<span style='color: [#pc.getObedience().getColour().toWebHexString()]''>[#~~pc.getObedienceValue()]</span>/100)
 			<br/>[#pc.getObedience().getDescription(pc, true, true)]
@@ -861,7 +863,7 @@
 	<!-- Angelixx encounters -->
 	
 	<htmlContent tag="ANGELIXX_ENCOUNTER"><![CDATA[
-	#IF(pc.getObedienceValue()==100)
+	#IF(pc.getObedienceValue()==100 && game.isBadEndsEnabled())
 		<p>
 			As you continue searching the factory for Fia, you suddenly spot the familiar figure of Angelixx up ahead. Instead of rushing to hide, however, your first instinct is to stand to attention and wait for her to approach. You've learned to be a good, obedient doll, and you now want nothing more than to submit to your Mistress and let her finish your transformation.
 		</p>
@@ -892,12 +894,16 @@
 			)] you hear her mutter.
 		</p>
 		<p>
-			#IF(pc.getObedienceValue()>=75)
-				As you hear Angelixx talk, you feel an overwhelming urge to reveal yourself and surrender to her. You want to be a good doll for Mistress...
-			#ELSEIF(pc.getObedienceValue()>=50)
-				As you hear Angelixx talk, you're gripped by a strong urge to reveal yourself and surrender to her. A part of you wants to be a good doll for Mistress...
+			#IF(game.isBadEndsEnabled())
+				#IF(pc.getObedienceValue()>=75)
+					As you hear Angelixx talk, you feel an overwhelming urge to reveal yourself and surrender to her. You want to be a good doll for Mistress...
+				#ELSEIF(pc.getObedienceValue()>=50)
+					As you hear Angelixx talk, you're gripped by a strong urge to reveal yourself and surrender to her. A part of you wants to be a good doll for Mistress...
+				#ELSE
+					As you hear Angelixx talk, your new body gives you a shameful urge to reveal yourself and surrender to her. A small part of you wants to be good doll for Mistress...
+				#ENDIF
 			#ELSE
-				As you hear Angelixx talk, your new body gives you a shameful urge urge to reveal yourself and surrender to her. A small part of you wants to be good doll for Mistress...
+				You can't help but shudder as you hear Angelixx's voice. Desperate not to be caught and fully transformed into a doll, you remain hidden...
 			#ENDIF
 		</p>
 	#ENDIF

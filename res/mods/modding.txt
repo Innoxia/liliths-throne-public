@@ -83,6 +83,6 @@ Once you have made your .svg images, you can optimise them (so that the game run
 
 note 1: https://github.com/svg/svgo
 
-note 2: https://github.com/Innoxia/liliths-throne-public/blob/83f67383dc826b097de428813dd93e82a00350f0/svgoConfig.yml
+note 2: https://github.com/Innoxia/liliths-throne-public/blob/dev/svgoConfig.yml
 
 3) Alternatively, if you use Inkscape, there is a pre-installed plugin. An optimized file can be created using "Save as" and selecting "Optimized SVG" as the file type. Make sure to uncheck the export options "Collapse groups" in the options tab, "Shorten IDs" in the id tab, and add "patternLayer" to the list of preserved ids. (Thanks to DJ Addi for this.)

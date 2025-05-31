@@ -57,7 +57,7 @@ public class EnchantmentController {
 		AbstractItemEffectType effect = EnchantmentDialogue.getIngredient().getEnchantmentEffect();
 		int maxLimit = effect.getMaximumLimit();
 		int currentLimit = EnchantmentDialogue.getLimit();
-		
+
 		if (currentLimit>0) {
 			id = "LIMIT_MINIMUM";
 			if (MainController.document.getElementById(id) != null) {

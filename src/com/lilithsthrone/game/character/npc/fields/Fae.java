@@ -54,6 +54,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -91,7 +92,7 @@ public class Fae extends NPC {
 				30, Month.JANUARY, 19,
 				15,
 				Gender.F_P_V_B_FUTANARI, Subspecies.FOX_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_market"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_market_clothing"),
 				true);
 
@@ -357,7 +358,7 @@ public class Fae extends NPC {
 
 	@Override
 	public void applyItemTransactionEffects(AbstractCoreItem itemSold, int quantity, int individualPrice, boolean soldToPlayer) {
-		if(soldToPlayer) {
+		if(soldToPlayer && !InventoryDialogue.isBuyback()) {
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.removeTraderDescription, true);
 			UtilText.addSpecialParsingString(itemSold.getName(), true);
 			

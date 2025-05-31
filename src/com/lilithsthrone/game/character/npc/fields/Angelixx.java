@@ -108,7 +108,7 @@ public class Angelixx extends NPC {
 				"Although she appears as a young, innocent succubus, Angelixx is an extremely powerful and dangerous pawn of her mother, the elder lilin Lovienne.",
 				52, Month.MAY, 17,
 				30, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_dominion_angelixx_apartment"), PlaceType.getPlaceTypeFromId("innoxia_dominion_angelixx_apartment_bedroom_angelixx"),
 				true);
 		

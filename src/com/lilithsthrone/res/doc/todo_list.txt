@@ -5,167 +5,754 @@ In this text file I keep track of reported bugs and features that I am working o
 Not everything in this file is up-to-date, and everything is subject to change at a later date.
 
 	Patch notes:
-	
-	
+
+	Pusspuss's Artwork (https://twitter.com/PusspussARTZ):
+		Added Hannah artwork (with pregnant variations, multi-breast variations, and different variations based on whether you're seeing her in the gym or in the bar, Light's Out).
+
+	Engine/Modding:
+		Character sex preference code is now parsed on each call instead of once when initialised, allowing you to make more complex sex preferences.
+		Added 'FITS_BIPEDS' as an item tag to allow clothing to be tagged as only being able to fit bipedal bodies.
+		Added a 'category' element to custom sex actions, allowing you to set which response tab you want your action to be placed into.
+		Added a parser hook for LubricationType, using the prefix 'LUBRICATION_'.
+
+	Gameplay:
+		Re-enabled feral impregnation, with the offspring of ferals now always being the tauric equivalent of the mother (e.g. centaurs for feral horse, driders for feral spider, etc.).
+		Added a small amount of extra content for Yui (the demonic spider-girl in the Farmer's Market in Elis) - after choosing to 'Get dominated' by her, a new action, 'Beg for more', will lead into the new content.
+		After having sex with Callie once, you can now directly give her donations to progress to the next level of her store upgrades.
+		Added a small piece of content for Callie's shop, 'The Creamy Bakey'; if you've completed Natalya's quest, are wearing a filly choker, have performed anilingus on Callie at least once, and have upgraded her shop to the maximum level, then when entering her store you can encounter Natalya in there and have an anilingus-focused threesome.
+		Added a new option, 'Offspring using gender preferences' (accessed via 'Content options'->'Gender preferences'), which allows you to define whether or not you want offspring to use your preferences when determining their gender.
+
+	Inventory:
+		Floor tiles now all have unlimited inventory space.
+		All weapons, clothing, and items which have a rarity of 'Quest' are now sorted to always be at the top of the 'Items Present' list.
+
+	Clothing:
+		Added 'latex catsuit' clothing item (epic rarity, torso slot, 'latex lover' clothing set, sold by Saellatrix).
+		Added 'latex hood' clothing item (epic rarity, torso slot, 'latex lover' clothing set, sold by Saellatrix).
+		The 'full chastity belt' clothing item now correctly blocks access to the wearer's anus.
+		Slightly updated the 'blazer' clothing image, limited the colours which it can spawn as, and added secondary and tertiary colouring options.
+
+	Items:
+		Added 'lube pill' item (lubricates entire body in sex scenes, sold by Ralph).
+		Slightly improved icons for pill items.
+
+	Sex:
+		Made some minor improvements to the resisting variations when asking an orgasming partner to pull out.
+		Added a small change to the 'Orgasms' status effect icon and text when the linked character is satisfied from the number of orgasms they've received during the sex scene.
+		When unrestricting control of a submissive partner in sex, if they decide to then immobilise you (via constriction, cocoon, or Witch's Seal), you now retain the ability to modify their permissions and to stop the sex scene.
+		NPCs with a positive desire towards the 'cum stud' fetish no longer always choose to creampie.
+
+	Slave management:
+		Non-doll slaves can no longer be assigned the 'statue' job.
+		Added more functionality to the 'Manage people' menu, where if you're in the Job or Permission management screen, a tab appears which allows you to quickly switch between slaves.
+		Added copy & paste buttons to the Job Schedule, Job Settings, and Permissions sections of the slave management UI, allowing you to quickly copy & paste your settings between slaves.
+		Added new 'Lube pills' permission under the 'Sex' permission category, which makes your slave stay on lube pills.
+		Slaves will now consume pills via permission settings twice per day (at midday and midnight), which will be shown in the office's occupancy ledger, instead of having them invisibly applied at the end of every turn.
+
+	Other:
+		Characters who are infertile (via the barren trait or menopause) will no longer gain the 'risk of pregnancy' status effect, nor will anyone who receives a creampie from a character with the 'sterile' trait.
+		Elementals which are summoned by an NPC now have perks and spells automatically assigned to them based on their form (i.e. stone elementals will get earth spells/perks, fire elementals will get fire spells/perks, etc.).
+		Slightly altered the randomised colours for imps' clothing and arcanist hats in Submission random encounters.
+		When Yui equips clothing onto you as part of her demonstration scenes, you are now given the associated key to unlock them.
+		The 'Human Spawn Rate' setting (in Content Options -> Furry Preferences) now affects the subspecies of spawned slimes (i.e if your Human Spawn Rate is set to 50%, half of all slimes will have human bodies, 100% and all slimes will have human bodies, etc.).
+		Changed the 'artist priority' setting from a single artist preference to a priority list of all artists, with default ordering based on the number of artworks each artist has in the game (and your preferred artist will be placed at the top when loading into this version).
+		The clothing icons shown the encyclopedia are now displayed based on their appearance when equipped into the associated slot (e.g. the 'electrical tape' will show as two crosses when viewed in the 'nipple' slot section).
+		During bad ends you can now open your inventory to view your clothing (but cannot manipulate it in any way).
+		Added a minor variation to virginity loss text for when Sleip fucks you as a doll.
+		Improved the racial icon for owl-morphs.
+
 	Bugs:
-		Fixed issue where demons were being affected by menopause.
-	
-	
-	
-	
-	
-	[x] Cannot start sex with Lunexis in Amazon Camp?
-	[x] New update has a bug where demons are menopausal despite menopause not affecting demons in lore
-	
-	
-	
-	[] PRs
-		[] PR 1782
-			[] add NPC preference behaviour
-			[] check quick sex handling
-		[] item parsing PR for glow colour
-			[] collar glow as extra
-			[] naming/description for tape?
-	
-	[] if have time (unlikely), add a bug
-		[] moth?
-	
-	[] Check NPC sex count generation when spawning them
-		
-	[] SlaveDialogue.java needs a full slave.isMute() pass
-		
-	[] if a character cannot see during sex, change the reaction text to areas being revealed
-	
-	[] add beanie hat and bobble hat
-	
-	[] watering hole needs better tail legConfiguration support
-	
-	[] shady dealer should sell HLF stuff?
-		[] should be locked behind quest -> unlocked after bat cavern encounter
-	
-	[] Scarlett when freed doesn't really act in a way that reflects her affection for you.
-	
-	[] emails
-	
-	[] artwork poll
-	
-	[] suggestions channel
-	
-	[] invisibility spell to avoid encounters
-	
-	[] need footless tights
-	
-	[] enchantment to prevent orgasm?
-	
-	[] Add hair growth to all body hair too
-		[] change body hair names to lengths instead of styles
-		
+		Typo fixes and some minor scene improvements (Enforcer HQ corridor).
+		Fixed issue where the doll bad end content would break if you'd previously gained 100 obedience during Murk's bad end content.
+		Fixed bug where fetish-altering potions which were forced onto you (either after losing to an NPC in combat or after surrendering to them) would apply random fetish effects instead of the targeted ones which the NPC wanted (which was resulting in a never-ending process of fetishes being forced onto you after combat/surrender).
+		NPCs who are forcing transformations on the player will no longer try to shrink or grow crotch-boobs if the player doesn't have crotch-boobs.
+		Fixed bug where a character's default modifiers for milk, cum, and girlcum would always be restored when loading a game, even if they'd previously transformed them away.
+		Fixed bug where Oglix's elemental, Golix, wouldn't be present during any of her scenes.
+		In the fight vs Silence (which occurs if you defeat Shadow before defeating Silence), her elemental will no longer be duplicated.
+		Fixed bug where resetting your body via the debug menu would unequip all of your piercings.
+		Fixed bug where turning imps into slimes would make their minimum/maximum heights revert to standard values, allowing them to be transformed to normal heights and then reverted to flesh to make them into demons.
+		When accessing a slave's job or permissions via the button within the main slave management UI, the job/permission screen will no longer start partially scrolled down.
+		Fixed bug where most of Yui's scene where she locks the player in chastity was missing.
+		Fixed bug in sex where NPCs would sometimes fail to remove their partner's clothing which was blocking access to the sex area they wanted to interact with.
+		Fixed bug in sex scenes where clothing removals were meant to be restricted, where after changing position the clothing removal restrictions would be lost.
+		Text for a character's ass and anus becoming lubricated in sex scenes will no longer be shown if your anal content setting is turned off.
+		Fixed bug in the occupancy ledger, where filtering slave events by day would sometimes show events that didn't occur during that day (this isn't a retroactive fix, but newly-generated events going forwards will be placed under the correct day within the occupancy ledger).
+		The 'Kiss cheek' action is now correctly disabled while immobilised (to bring it in line with the behaviour of other 'loving' actions).
+		Fixed bug where offspring you enslaved and transformed into dolls would still be affected by incest, therefore
+		Fixed bug where after befriending a randomly-generated NPC, and then enslaving them, they would always use the resisting pace in sex scenes no matter their affection towards you.
+		After betraying an NPC, the 'Continue' action is now coloured red like the other removal ones to make it clear that they're about to be removed from the game.
+		Fixed bug in Nyan's blowjob sex scene, where she could get stuck repeatedly using the 'perform blowjob' sex action, which would make it impossible to end the sex scene.
+		When equipping a clothing item which doesn't get removed on equip (such as the new tape items), any hidden enchantments will now be revealed on the underlying item (e.g. the roll of tape) instead of only on the applied item (e.g. the tape in an inventory slot).
+		The 'Calming suggestion' and 'Lustful suggestion' sex actions are no longer available if the target is sleeping.
+		Fixed bug where the 'Arcane storm (protected)' status effect was only applying to interior locations within Dominion.
+		You no longer earn Faire tickets from using the buyback menu with Fae & Siliva.
+		Stopped background errors from being generated when mousing over an NPC's equipped clothing and weapons while in the buyback menu.
+		Fixed several issues with Vronti's sex scenes: incorrect position slots when performing a handjob; being able to swap into slots which were meant to be blocked; the vaginal sex option not being available after performing anilingus.
+		Fixed bug where if you tried equipping a clothing item which doesn't get removed on equip (such as the new tape items) into a blocked slot, the clothing would be duplicated.
+		Fixed issue where Fae & Silvia's sex scenes would softlock and throw background errors.
+		In the morning oral sex scene with Fae & Silvia (after they sleep over in your room), Silvia no longer starts the sex scene performing cunnilingus if your pussy is blocked.
+		Fixed bug where tooltips would not work for clothing items in the encyclopedia if they were present in more than one section (e.g. the 'electrical tape' item being present within the 'anus' and 'vagina' sections).
+		The bar upgrade in the spa is no longer missing a description in its information tooltip.
+		Fixed bug in sex scenes in which clothing unequipping was meant to be disabled, where you were still able to 'Discard/Drop/Store' the clothing.
+		The two tiles within 'The Creamy Bakey' map are now correctly treated as being indoors, and so characters within it are immune to weather effects.
+		Fixed inventory rendering issues in light mode.
+
+
+	[x] Bugs
+		[x] if you have 100 obedience from Murks capture, it carries over into the doll factory and can lead to a soft lock if you get dollified. You’ll be stuck with 100 Obedience instantly
+		[-] Astrapi has crotch boobs even though i have crotch boobs disabled
+		[x] After you finish Brax's quest when wandering around the halls of the enforce HQ the player still keeps an eye out for his office
+		[x] If you have barren activated and your fertility is reduced to below 0, you will still get the "Risk of Pregnancy" status effect despite there being no actual risk
+		[x] Surrendering to NPCs with Kink Advocate say the correct lines when forcing vial (ex: “Wouldn’t it feel better to just submit?” for Submissive fetish), but apply random fetish.
+		[x] Cum and girl-cum (and milk?) have their default modifiers reset when loading a game
+		[x] When performing Nai/Paizuri on a Resisting NPC. They will plead for you not to cum inside them rather than demanding you don't cum on their breasts, as it was previously
+		[x] NPCs who transform player shrink crotch boobs een when don't have crotch boobs...
+		[-] Creampie retention enchantment (to retain stomach creampie) persists when clothing taken off (tattoo check too?)
+		[x] sex noises (Mmm!) should all be "Aah!/No!" if resisting
+		[x] Brax: "on the verge of being enslaved"?
+		[x] You then Choose to Surrender and swallow the Potion, he Says come back for more.
+			 Youre then already basicly Stuck in an Endless Cycle of Adjusting with every Potion, after he got your Bodie right it endlessely adds a Fetish or multiple and then Removes the same Fetish just a bit later.
+		[x] bug with missing Golix?
+			[x] Golix doesn't change to active form when having sex...
+		[x] Golix issues
+			[x] random demon surname
+			[x] no perks
+		[x] Does Silence's elemental have any perks?
+		[x] test Silence elemental
+			[x] perks & spells
+			[x] elemental is duplicated...
+		[x] test player elemental level up
+		[x] even though transformations no longer reset piercings, equipped clothing is still removed...
+	[-] fix harpy nest public sex descriptions
+	[x] "Pulling your tongue back into your mouth, you start to eagerly kiss and lick the harpy's feminine underarm"
+	[x] It's possible to turn imps into slimes, increase their height, and then use a flesh potion to make them true demons.
+		[-] You can also turn a half-demon into a slime, give them different animal parts, and then use a flesh potion to make them a different type of half-demon.
+	[x] when a character is satisfied in sex, change 'Orgasms' SE icon colour to show it
+	[x] imps clothing
+		[x] underwear as well as loincloths
+		[x] bad colouring
+	[-] if you give your slave a Spinnerette, it can be Angelic: this allows you to then slowly, arduously, make your slave an Angel by constantly flickering between Spinnerette and other items.
+	[x] a nice QoL upgrade would be being able to go to the next or previous slave in the list without exiting the permissions menu, that way the player can quickly check the permissions (and make changes if needed) of every slave
+		[x] add tab in generic management menu for slaves
+			[x] when clicked, change slave and reload current dialogue
+			[x] tab for office management, tab for interaction management
+				[x] Management (green colour copy from other)
+		[x] copy-paste slave settings
+			[x] at top right of sections have two buttons
+				[x] Copy Permissions/Job Settings
+				[x] Paste Permissions/Job Settings
+			[x] permissions
+			[x] job settings
+				[x] times
+				[x] permissions
+		[x] test
+			[x] job schedule
+				[x] test incompatible job pasting
+			[x] job settings
+				[x] incorrect tooltip text
+				[x] underlying set duplicated
+			[x] permissions
+				[x] not working
+	[x] When selecting statue job, then going back to another slave, you can assign the statue job...
+		[x] add availability check
+		[x] reset job selection if unavailable
+	[x] Scroll back to top when going from slave list to jobs/permissions
+	[x] check copy & paste for occupants
+		[x] not taking into account sleep hours
+		[x] can paste non-guest jobs
+	[x] artwork
+		[x] Hannah
+			[#hannah.guaranteePregnancyOnNextRoll()]
+			[#hannah.rollForPregnancy(pc, pc.getBody(), 100, true, FERTILISATION_NORMAL, ATTRIBUTE_VIRILITY)]
+	[x] SHEEP DETAILS!!!!!!!!!!!!!!!!!!
+	[x] Yui should give key to gear player keeps
+	[x] add lube pill
+		[x] applies status effect
+		[x] instantly lubricates orifices in sex
+			[x] also non-pen orifices?
+		[x] add NPC use like with other pills
+		[x] add as slave permission
+			[x] permissions should be able to apply addition effects
+			[x] move pill use from main game loop to occupant management
+				[x] add to events
+			[x] add pill use via permission
+				[x] test
+		[x] need text at start of sex
+		[x] need item use variation if in sex
+		[x] improve lube text to factor in content preferences
+	[x] slave log doesn't work properly for days ('yesterday' showed 11:00-04:00 ???)
+	[x] Yui bondage room
+		[x] add basement map (3 tiles L-shape; stairs, bondage bench, toy cabinet)
+		[x] After domination, can beg for more (if a masochist)
+			[x] She says you don't get to decide, but if you're desperate, she asks if you want to be pimped out as a fuck-toy - she gets the money, you and her clients get the pleasure
+			[x] if agree, she says to meet her at the SW tower between 20:00-23:00
+				[x] conditions:
+					[x] don't come wearing any sealed gear
+					[x] don't be pregnant
+					[x] be clean (musk is fine)
+			[x] arrive and taken down to a basement somewhere
+			[x] stripped and dressed up in latex fetish gear
+				[x] collar which grants masochist and submissive (and prevents self-TF)
+				[x] tied up (variations for quadrupedal, arachnid and tail lower bodies)
+			[x] fed succubus's kiss, teased
+				[x] brings you to the brink of orgasm then stops
+			[x] left alone in the dark
+			[x] Customer enters
+				[x] hide customer
+				[x] teaser
+					[x] teasing
+					[x] spanking
+					[x] kissing
+				[x] master
+					[x] whipping
+					[x] dildo-fuck
+					[x] nipple clamps or milking
+				[x] breeder (player has pussy)
+					[x] clit pinching
+					[x] breeder pill
+					[x] pussy spanking
+				[x] fucked
+					[x] start as eager
+					[x] prevent clothing removal
+					[x] swap from oral
+						[x] add functionality for custom sex action change position
+					[x] give client 3 orgasm target
+					[x] add behaviour for orgasms: oral, then vaginal, then anal
+						[x] need to make preference parse each check
+					[x] NPC not removing butt-plug...
+					[x] can remove self-clothing????
+						[x] not maintained when sex manager switches...
+				[x] need to clear the status effect interrupt about clothing cleaning before restoring clothing
+				[x] too clean after sex?
+			[x] better to unequip clothing and weapons to toy cabinet
+			[x] more customers
+			[x] Yui releases you and takes back gear, step out of basement to see it's pre-dawn
+		[x] complete writing
+			[x] intro scenes
+			[x] sex scenes
+				[x] starting lubrication saliva for preg
+					[x] test
+			[x] anal bead handling in sex action
+			[x] finishing scenes
+			[x] ended with open cup bra in inventory...
+		[x] test
+			[x] rename to dungeon?
+	[x] slimes spawn as furries even if human spawn rates are set to 100%
+	[x] To Themiscyra quest desc. should say to talk to Meraxis to get there
+	[x] Meraxis Takhashi talk line should grey out when being shown (test others too)
+	[x] Unrestrict Control, melusine with bondage applier fetish might as well be the dominant now.
+			But unfortunately since she's classified as the submissive, she never gets to say when sex is over.
+			But being constricted means you can't say when it's over either
+			So get stuck in sex with only quick sex able to end it
+		[x] also can't change other control levels
+	[x] add option to make offspring use gender preferences instead of subspecies values
+		Gender gender = Gender.getGenderFromUserPreferences(Math.random()<mother.getRace().getChanceForMaleOffspring()?Femininity.MASCULINE:Femininity.FEMININE);
+		[x] Gender ratio options:
+			[x] Race-specific
+			[x] Player pregnancies use gender preferences
+			[x] Non-player pregnancies use gender preferences
+			[x] Always use gender preferences
+		[x] test
+	[x] there's an issue with the dolls. It still comes up as "rape" even after their transformation?
+		[x] To be more specific, when I send someone in to become a doll and have sex with them. It's like "rape play" is locked on
+		[x] when you dollify your offspring
+	[x] does the genericNPCBetrayedByPlayer flag get reset? (it would cause resisting sex)
+	[x] after NPC betrayal, the 'Continue' action should be red like the normal removal ones
+	[x] bug reports
+		[-] chastity belt force equip from NPCs should only be on non-penis characters
+			[x] also chastity belt allows anus clothing?
+		[x] this bug (I'm getting it with Nyan) where your partner won't orgasm, it only gives you "Prepare" as an action and then clicking it advances one turn but does nothing else
+			[x] in Nyans blowjob scene, if player orgasms first it happens -> Nyan keeps on 'Performing blowjob'
+		[x] Error after finishing threesome with resident offspring and a slave in Node: 'Finish'
+			Only happens when initiating through the offspring's sex menu
+			com.lilithsthrone.game.dialogue.companions.OccupantDialogue$11.getContent(OccupantDialogue.java:1405)
+		[-] after kelly removed her dress and bra, i got "you don't know what her nipples look like"; rn i'm in missionary topping her
+		[x] when tape is used, enchantment is revealed, but not on original item
+		[x] giving gift shows action text as default scene title
+		[x] Despite PC being asleep - sex partner can still do "calming suggestion" move, with the PC replying as if they are awake, when they still are not
+		[x] Doing the "Dragon Enthusiasts" quest in Elis, and I've got just one problem with it. There seems to be no roof in the 'dungeon' the arcane storm is reaching through the roof.
+		[x] You can cheese Faire tickets by using the buy back menu with Silvia and Fae
+		[x] Mousing over NPC equipped clothing while in buyback menu throws 'That's not a buyback item' error
+		[x] Vronti start/stop handjob?
+			[x] position is completely wrong (Vronti performing oral???)
+			[x] swapping slot available even though slots are banned
+			[x] when vaginal not available option completely vanishes
+		[-] Somehow Jhortrax had Hyorlyss's buttplug in his inventory after I defeated him
+		[x] Electrical Tape duplicates when attempting to equip to a body part blocked by a sealed item (chastity belt)
+		[-] Quick sex with Fae can get you pregnant even if you have no vagina
+			[x] null at:
+				at com.lilithsthrone.game.sex.managers.SexManagerExternal$CharacterBehaviour.getSexPreference(SexManagerExternal.java:729)
+				at com.lilithsthrone.game.sex.managers.SexManagerExternal.getMainSexPreference(SexManagerExternal.java:1776)
+		[x] Sleepover morning oral with Fae & Silvia works even if areas blocked (vaginal receiving cunnilingus from Silvia even though chastity belt equipped)...
+		[x] Sex options with Fae & Siliva disappear (anal) instead of showing disabled
+		[x] Tape Crosses keep getting 'forgotten' from item encyclopedia when you reload a save. (And it reads them if you click on them again.) Also, enchanting them and saving the enchantment shows them as being electrical tape rather than tape crosses.
+			[x] show clothing icon based on slot in encyclopedia
+			[x] also in encyclopedia if clothing is shown more than once (i.e. in two different slots) then the tooltip doesn't work for the second one
+		[x] no description for the bar upgrade for the spa
+	[x] artist preference ordering
+
+	[x] Yui
+		[x] Make bondage days Monday & Wednesday
+		[x] Public abuse
+			[x] After bondage, she says if you really love being tied up and publicly fucked you could become her newest toy, but need to test you first
+			[x] Arrive outside the alleyway tavern at midday on Friday (make Yui absent from stall at that time)
+				[x] she'll check if you're there on her lunch break
+			[x] More rules for you (in addition to old rules):
+				[x] Bipedal (she's already got a taur, lamia twins, and an arachne)
+				[x] Pussy (if anal disabled)
+			[x] Change to same time as tower
+			[x] taken into the nearby alleyway
+				[x] Yui knows that this alleyway gets lots of traffic to and from the tavern
+			[x] stripped & equipped:
+				[x] add latex body suit
+				[x] add latex hood
+					[x] ponytail (sticker)
+			[x] tied up with legs pulled apart and back (if hyperflexibility, legs behind head)
+			[x] Fucked by stranger
+			[x] Gang discovers
+				[x] fucked
+					[x] they mug people in-between fucking you
+				[x] victim made to clean you
+			[x] can skip night or keep doing sex scenes until time is past 05:00
+			[x] Yui releases at dawn
+			[x] says she'll do this to you again next Friday if you want
+			[x] or if you're ready to become her toy, come and talk to her at her stall
+			[x] test all
+			[x] complete writing
+				[x] initial meeting
+					[x] continue dialogue broken
+				[x] prep for sex
+				[x] initial sex scene
+					[x] in sex scene, can't unequip, but can drop?!
+				[x] muffled speech is not good to read so change it
+				[x] gang scenes
+				[x] need gang present in characters present
+				[x] need public sex for oral scenes describing gang
+				[x] make sure that the initial gang member creampies (and has big cum amount)
+				[x] orientation broken
+				[x] always creampies?
+				[x] post-sex scenes
+				[x] final Yui scenes
+			[x] final test
+				[x] add flags for completed
+				[x] no repeat
+		[x] make alleyway repeatable
+			[x] Change reasoning to:
+				[x] gang pays Yui to deliver bound sluts to their territory
+			[x] Make initial offer just reference deal with gang
+			[x] sometimes victims can spawn consecutively
+			[x] dialogue at stall
+			[x] test repeatable
+				[x] add dialogue variations
+		[-] Yui's toy (bad end)
+			[] at stall, Yui says to sign a contract into slavery (non-transferable, so she'll always own you)
+				[] no preg, bipedal
+				[] shows off your enchanted latex outfit which you'll be wearing
+			[] she'll add you to her toys which her special clients pay to use
+			[] put on same latex outfit as public fuck
+				[] this time they're sealed
+				[] bound under counter until work day finished
+			[] led through streets to Yui's home
+			[] claimed by other toys
+				[] bimbo nympho wolf-taur (her seat slave)
+				[] androgynous herm lamia twins (constricted and double-teamed)
+				[] pierced masculine arachne (suspended via webbing and punished and fucked)
+			[] Every evening through the night is a BDSM orgy
+			[] sleep through day, dreaming of putting your latex gear back on
+			[] used as sex toy for Yui's clients, involved in many sessions both solo, with other toys, and sometimes with Yui herself
+				[] Yui treats you all very well
+	[x] during bad end allow inventory view
+		[x] make sure all interaction is disabled
+			[x] override response to just show a greyed-out button
+		[x] test all bad ends for inventory removal
+			[x] Lunexis
+	[x] Sleip virginity loss override for when doll
+	[x] Improve owl-morph icon
+	[x] Callie
+		[x] add tip jar interaction
+		[x] Natalya scene
+			[x] If filly, and free sex unlocked, and anilingus performed
+			[x] Enter and see Natalya talking to Callie
+			[x] Last customer leaves as you enter, leaving just the three of you in the store
+			###
+			[x] Natalya says that you like eating other kinds of doughnuts
+			[x] Callie says she's discovered that for herself, before asking Natalya if she's got some time to kill
+			[x] Natalya says she has an hour, Callie asks if she's ever had her doughnut iced before
+			[x] Natalya smirks and says she wants to try it
+			###
+			[x] Leave (event can trigger again later)
+			## CHANGE - to both iced and anilingus on both
+				pink or white, choose which goes on nat
+			[x] Agree
+				[x] Callie gives you several piping bags filled with icing and pots of sprinkles
+				[x] ice them
+					[x] white icing
+					[x] pink icing
+				[x] sprinkles
+					[x] chocolate
+					[x] stars
+					[x] multi-coloured
+				[x] start anilingus
+				[x] ongoing actions
+					[x] player (switch to targeted npc each action)
+						[x] Anilingus
+						[x] orgasm prepare - Tongue her (switch to anilingus on npc)
+					[x] NPC
+						[x] enjoy anilingus
+				[x] add field for sex actions to force a specific tab (move sex actions to misc. tab)
+			[x] handle repeats
+			[x] writing
+			[x] test
+	[x] Check angelixx custom sex actions "You offer your pussy."
+		[x] 'angelix' parsing bug
+
+	[] Sterope expansion
+		[x] re-enable feral pregnancy
+		[x] test content
+			[x] when feral TF, even if horse-girl you drink potion?
+			[x] need to add conditional for potion TF for feral
+		[x] handle Sterope and player feral pregnancy properly
+			[x] make ferals birth taurs
+			[x] when feral TF ends, if pregnant stay as taur
+			[x] add this to book
+		[] need to prolong sub sex
+			[] left tied up while dom drinks/toilet/fetches gf to watch
+			[] then one of:
+				[] 33% toys:
+					[] pussy toy play then anal fuck
+					[] anal toy play then pussy fuck
+				[] 33% fuck
+				[] 33% special
+					[] eat Sterope's creampie (or just oral) while being fucked
+					[] reversed
+					[] anilingus while partner goes balls-deep in Sterope
+					[] reversed
+
+	[] Lilaya's mansion wardrobe room upgrade
+		[x] finish enchantment
+			[x] if click on existing item, go straight to enchantment screen
+		[x] bug where override button disabled and it says haven't modified outfit even though it has been
+			[x] when overriding with a different name?
+		[x] add small X at top right of clothing items to quickly delete
+		[x] in clothing/weapon enchant screen, add 'Icon: ON/OFF' button to set as default icon for outfit
+		[-] implement player usage
+			[x] when equip outfit, discarded items are dropped
+			[x] all items to be stored in tile?
+		[x] tooltips
+		[x] Make outfit 'Equip' & 'Edit' buttons into simply 'View'
+		[x] Add 'Buy (COST)' action
+			[x] then choose equip target for player and all slaves
+		[x] make tile have limitless inventory
+			[-] prevent room removal while items in tile
+			[x] all floor tiles should have infinite inventory
+				[x] issue with RenderingEngine.setPage() resetting right page when selecting items
+				[x] items rendered in right panel should sort with quest items first
+				[x] button improvements
+					[x] hover
+					[x] border
+					[x] sizing
+				[x] light theme too
+		[x] outfit should save game ID, add option to show all outfits or only those created in this game
+		[x] reset delete confirmation when open menu
+		[x] remove view button, make entire row the button?
+		[x] make delete button a dustbin
+		[x] if outfit is on floor, allow 'buy', but also allow 'equip' button
+			[x] finish detection method, weapons need checking
+			[x] add button
+			[x] outfit details should show how many are available too
+			[x] test
+		[x] dirty clothing for equip detection method
+			[x] add option to auto-clean clothing in area
+		[x] after outfit equip, return to outfit list as it feels like a smoother menu transition
+		[x] what about replacing sealed items?
+		[x] for slave equip, make sure slave job clothing requirements are handled (milking)
+			[-] move removed clothing to dressing room & replace held items list with new outfit
+			[x] Instead, add tag for job making clothing changes and grey-out name if they're at the job (so future jobs can handle this easily)
+		[x] some small issues with overwrite and back/cancel buttons when changing name of an existing outfit
+			[x] when save as new, swap detection to that new file name
+		[-] name entry should update with any changes
+		[x] need option for new outfit from currently equipped
+		[x] make sure uniques and legendaries aren't available
+		[x] make delete icon light red
+		[x] latex catsuit has T-shirt unequip lines...
+		[x] enchantment limits don't work
+		[-] give warning for buy/equip that the outfit isn't saved yet
+
+		[] add text at bottom to say outfit equipped
+			[] improve to show items not equipped
+
+		[] outfits with enchantments should cost essences as well
+
+		[] adjust so it's a normal-priced room upgrade
+			[] when installed, Rose points out that one of the wardrobes is a very special custom design for Lyssieth
+				[] they have a very special enchantment which allows the user to create and item of clothing they can imagine
+				[] Lyssieth had a better, more extensive suite of enchanted wardrobes made for her shortly after receiving this one, so she left it here
+				[] For non-lilins, the enchantment doesn't have that same amount of power, and Lilaya was annoyed to discover that it can 'only' replicate clothing which you've seen before
+				[] Lilaya siphoned out the essences which kept the enchantment running for one of her experiments, and it will cost a huge amount of specially-refined essences to restore its functionality
+				[] If you want to use it, then Rose can arrange for it to be fixed, but it won't be cheap. She quickly makes some calculations on a notepad, before smirking at you and taking her leave.
+				[] Costs something big
+			[] Lilin's wardrobe
+			[] add the TODO text when purchasing an outfit
+
+		[] check GameCharacter.loadOutfit
+
+
+	[] male/female/herm earrings
+
+	[] beanie
+
+	[] When shared encyclopedia setting on, make sure clothing is still unlocked for the active game's save file
+
+	[] Ralph big discount make him kick off trousers
+
 	[] artwork
 		[] Natalya
 		[] Monica
-		
-	[] Helena mentions "I can always have you transformed later on if need be", is this implemented?
-		
-	[] Yui bondage room
-		[] She says that some evenings there's fun to be had around down the side of the south-east tower
-			[] If there's a red light, make sure that you've got a thousand flames before approaching it
-			[] Enter BDSM dungeon
-				[] use toys on eager masochistic slut
-					[] riding crop
-					[] dildos
-		[] If you willingly stay in bondage past closing time, she asks if you want to be pimped out as a fuck-toy
-			[] if agree, she takes you to a basement somewhere
-			[] stripped and dressed up in latex fetish gear
-				[] collar which grants masochist, submissive, bondage bitch, and all body part fetishes (and prevents self-TF)
-				[] bdsm hood (zip mouth)
-					[] stickers for ponytail, eye slots, mouth zipper/open/closed
-			[] fed succubus's kiss and teased
-			[] vibrating dildo in pussy/ass and left alone in the dark
-			[] Customer enters
-				[] teaser
-					[] teasing
-					[] spanking
-					[] kissing
-				[] master
-					[] whipping
-					[] dildo-fuck
-					[] nipple clamps or milking
-				[] breeder
-					[] clit pinching
-					[] breeder pill
-					[] dildo-fuck
-				[] fucked
-		
-	
+
+	##########
+
+	[] Rose encounter
+		[] if had sex with Lilaya >3 times in one day
+			OR if impregnated Lilaya >3 times
+			OR masturbate in hallway of mansion
+		[] Rose ambushes player and says that they're taking too much of Lilaya's time
+		[] offers to help relieve the player
+			[] handjob/fingering
+			[] afterwards, says to call for her if you're feeling horny so you don't bother Lilaya
+
+	[] Enchanting expansion
+		[] Can combine a huge number of essences (something obscene like 100k) into a prime essence
+		[] Also get a prime essence after defeating each lilin
+		[] Can apply prime essence to an item to make its enchantments cost 25% of normal capacity
+
+	[] Sterope endings
+		[] sub BE route
+			[] If double feral sex once, spawn unique centaur
+				[] as encounter when in taur tavern and Sterope is present
+			[] unique centaur Helios
+				[] Lunette's son
+				[] glowing red/yellow hair and cock
+			[] drags you over to Sterope and says that he's heard how the two of you like being fucked as mares, he's going to rut you
+			[] have to feral TF for him
+			[] after sex, he leads the two of you through the tavern and makes you give a double blowjob while he drinks at the bar
+				[] Kheiron eventually asks to leave
+			[] mounts you both in public square, huge creampies leaking as trot back to stables
+			[] invites you both to his manor in the fields for a weekend, but says that you'll have to spend the whole time as ferals
+				[] get 'trained' in his stable until the next evening
+				[] a dozen other ferals, half of them pregnant, call you the new girls
+				[] get fucked a lot and give double blowjob during dinner party
+			[] tells you at the end that he'll add you to his harem, doesn't take no for an answer
+				[] refuse, cannot re-encounter
+				[] accept, BE
+				[] stable floor is an enchanted beast stone to make sure you stay as ferals
+		[] dom Sterope mare route
+			[] After fuck as feral, next time she defaults to wanting to feral TF
+			[] After second feral sex, she opens up about how much she loves it
+				[] Wishes that she could quit job and live as a feral
+			[] Can then talk to Astrapi about getting a mare to help with transport
+				[] she agrees, saying that she's got goods that need transporting, so although a mare would make people uncomfortable (feral aversion for most people), she'd be suitable for that
+				[] trouble is, marauders would attack a mare
+			[] Next time with Sterope, say you've got a job for a mare lined up
+				[] Convince her to remain as feral
+				[] She quits as Enforcer and beast stone is kept in transport warehouse, sleeps while touching it
+				[] Becomes known throughout fields as a willing cock-sleeve for marauders
+			[] can visit and fuck at Elis transport warehouse
+			[] encounter in fields where she's being mounted
+
+	[] make it possible to impreg Belle and Daphne
+		[] after impregnating Farah, the other two get a little jealous or something and you can convince them to try it too
+
+
+	MAXIS PR MERGES
+
+	WIKI
+
+	[] add toy use in sex
+		[] use generic tags to determine available sex actions
+			[] dildo
+			[] beads
+			[] clamps
+
+	[] snow in Elis
+
+	[] Items present hash-out when unavailable
+		[] use same style for map - add tooltip?
+
+	[] Move sexual enchantment effects to new primary modifier
+
+	[] Lubricate fingers disable if fingers already lubricated
+
+	[] PRs
+		[] 1785
+		[] 1799
+		[] 1789
+		[] 1782
+			[] add NPC preference behaviour
+			[] check quick sex handling
+			[] Frottage orgasm
+		[] PR 1438
+			[] collar glow as extra
+			[] naming/description for tape?
+
+	[] old bugs
+
+	[] Investigate half-demon essence necessity
+
+	[] emails
+
+	[] TFGS
+	[] blog
+
+	[] Innocent/lewd/prude should affect dirty talk
+	[] character creation penis size should be variable instead of buttons
+
+	[] sex should start using resting lust as minimum?
+		[] improve lust SE tooltips
+
+	[] When changing multi breast settings, retroactively change all unique NPCs? (and crotch boobs?)
+		[] also when loading in?
+
+	[] slave behaviour permissions do nothing at the moment (in SlaveDialogue.java, search 'What can I do for you')
+
+	#####################
+
+	[] wiki
+		[] mediawiki setup
+
+	[] Maxis DMs
+	[] A Fox submission
+	[] Dwight submission
+
+	[] blog, wiki & mod sharing on website
+
+	#####################
+
+	[] if have time (unlikely), add a bug
+		[] moth?
+
+	[] Check NPC sex count generation when spawning them
+
+	[] SlaveDialogue.java needs a full slave.isMute() pass
+
+	[] if a character cannot see during sex, change the reaction text to areas being revealed
+
+	[] add beanie hat and bobble hat
+
+	[] watering hole needs better tail legConfiguration support
+
+	[] shady dealer should sell HLF stuff?
+		[] should be locked behind quest -> unlocked after bat cavern encounter
+		[] shady deal scene where they say a small earthquake in the bat caverns opened a passage and a stash of weapons was found
+
+	[] Scarlett when freed doesn't really act in a way that reflects her affection for you.
+
+	[] suggestions channel
+
+	[] need footless tights
+
+	[] enchantment to prevent orgasm?
+
+	[] Add hair growth to all body hair too
+		[] change body hair names to lengths instead of styles
+
+	[] Helena:
+		[] Need Helena dirty talk override
+		[] you should probably tell the user they can't take Helena's virginity if they don't have a penis (as I usually grow one during the scene), cuz it only told me I should set up the roses and all which I had already done
+		[] Need Hotel restaurant tile?
+		[] Helena-Scarlett threesome option?
+
+		Add nice way to lose virginity for Helena (and other pure virgins?)
+		Public fucking of broken Helena
+
+		Helena sex without her becoming a total slut
+		Suggestion: When non-sadistically deflowering Helena, she should get the Size Queen Fetish if the player is big enough that it's necessary for her comfort.
+		Make a non-sloot Helena ending
+			like pretending like nothing happened to others but when she sees you her plume slowly puffs or something like that then go all lovey dovey in private
+
+		[] Helena mentions "I can always have you transformed later on if need be", is this implemented?
+
+	[] Need pure virginity loss to someone they love variation
+		[] remove fetish if virginity loss is to someone they at least love
+		[] generic dialogue
+		[] Helena dialogue
+		[] Aurokaris dialogue
+
+	[] Improve harpy bad ends
+
+
 	[] When cum inside penile urethra, add cum exchange mechanic
 		[] applies 'tainted seed' status effect -> offspring will be a default of the seed's race
 		[] tie-in with side quest to help humans take down an arrogant demon (who gains tainted human seed)
-	
+
 	[x] breeder collar stickers
 		[x] breeder
 		[x] bimbo
 		[x] bitch
-	
+
 	[] Fetish.isAvailable() is only used for virgin fetish and it seems to do very little (doesn't stop you from obtaining it even if requirements are not met). Remove it?
-	
+
 	[] penetration modifiers should +/- arousal in sex
 		[] make it into a status effect which adds arousal based on modifiers
-			
+
 	[] add slave room sleep suppressor
-	
+
 	[] The text during the teleportation quest hinted that there would be a future quest where you could acquire all the heavy gear/weaponry
 		[] Improve it
-			
+
 	[] when using items, keep item selected if have another in inventory
-	
+
 	[] full flaccid cock handling
 		[] icon change
-		[] prevent penetrative actions
+		[] handle penetrative actions
+			[] allow actions, but with variations (penis-vagina, rubbing soft cock against pussy)
+			[] prevent creampie orgasms
+			[] does not take virginity
 		[] action variations
 		[] orgasm handling
-	
+		[] need cloaca sex interactions for if penis isn't erect
+		[] add enchantment for insertables and prevents erections, and tag for vibration_enabled
+
+
 	[] NPCs with kink fetish just constantly spam kink potions forever (add a cooldown?)
-	
+
 	[] Incest encounter with father/mother and a son/daughter
 		[] player fucked
 		[] parent fucked
 		[] offspring fucked
-	
+
 	[] map rework
-	
+
 	[] Imp fortresses
 		[] after reset, add initial dialogue where they say that they're waiting for their leader's return
 		[] add sparring actions
-	
+
 	[] There's nothing that saliva, strong tongue, or long tongues even does
 		[] Add 'tongue-fuck' sex action for characters with long tongues
 			[] use modifiers for variations
-	
+
 	[] Silent slaves still speak in slave interaction scenes
-	
+
 	[] Nyan to give free dye brush with every nth purchase
-		
-	[] a nice QoL upgrade would be being able to go to the next or previous slave in the list without exiting the permissions menu, that way the player can quickly check the permissions (and make changes if needed) of every slave
-	
+
 	[] randomise character creation
 		[] add race TF option when entering new world
-	
+
 	[] Somehow NPCs aren't being generated, 2 bug reports:
 		1. Marauder encounter in foloi fields/woods, the scene story says greater cat boy. when fight, it shows an actual greater cat boy instead of the marauder. somehow the cat boy name is always Quentin Lewis.
-			I noticed this too. Seems to just display the last encountered NPC, in that case a Marauder. Only for encounters in the overworks. (Foloi fields/woods) 
+			I noticed this too. Seems to just display the last encountered NPC, in that case a Marauder. Only for encounters in the overworks. (Foloi fields/woods)
 		2. Random encounters in Elis' LARP basement softlock the scene
-	
+
 	[] Cell upgrade - Cum diet
-	
+
 	[] add HLF uniform reaction when meeting SWORD
-	
+
 	[] add 'tear' as a displacement option
 		[] 1 essence to repair
 		[] persist when unequipped
 		[] displaced icon to be scarlet if torn
-	
+
 	[] multi-turn cast for chuuni spell
-	
+
 	[] add more tattoos
 		[] kiss
 		[] bird
@@ -173,116 +760,58 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] lock
 		[] key
 		[] flames
-		
+
 	[] major bug fixes
-	
+
 	[] club partners don't offer drinks as much as they should
-	
+
 	[] loosen the conditions for sleep sex to occur
-	
+
 	[] deep sleeper suggestion
-	
+
 	[] in prologue, Lilith should react to player sex
-	
+
 	[] You added finger insemination via scooping cum. But wouldn't it be possible to do this same thing via other orifices?
 	 like a mouth full of cum then performing cunnilingus on a pussy putting some cum inside, or tribbing where one pussy full of cum is dripping cum into the other pussy
-	
-	#####################
-	
-	[] wiki
-		[] mediawiki setup
-		
-	[] developers chat
-		[] PRs
-			PR#1745
-		
-	[] Maxis DMs
-	[] A Fox submission
-	[] Dwight submission
-	
-	[] blog, wiki & mod sharing on website
-	
-	#####################
-	
+
 	[] make the weather be based on the season
 		[] and region
-	
-	[] inventory UI change idea
-		[] remove page buttons
-		[] remove last row, add 1 column
-		[] page movement beneath grid in format: <---[4]-S>
-		[] beneath flames, add filter system
-			[] Type filter above: Weapons | Clothing | Items
-			[] Rarity filter below: Common | Uncommon | Rare | Epic | Legendary
-			
+
 	[] double penis modifier
 		[] sex actions
-	
+
 	[] mental state - already have gender identity saved so use it for this
 		[] add subspecies identity
 		[] more time spent in a body not aligned mentally changes mental state
 		[] have debuff SEs (for gender and subspecies) which reduces over time
 			[] interruptable SE events to resist or give in
-	
+
 	[] fluids supply/demand
-	
+
 	[] arcane branding iron - applies branding 'scar' at cost of essence
-	
+
 	[] Hannah shouldn't drink while pregnant
 		[] need non-drinking variations for all scenes
-	
+
 	[] Shadow & Silence!
-	
+	[] 3 sheep more preg scenes
+
 	[] Need non-crime alternative for offspring
-	
+
 	[] demon tail ovipositor sometimes not working (pegging)?
-	
+
 	[] if player has TF (self) fetish, make sealing gear that bondage kink npcs apply on defeat have some kind of slow transformative effect
-	
+
 	[] also make it so random cursed clothing can have TF effects
-	
+
 	[] gential slit option
-	
+
 	[] feral wolves too small?
-	
-	[] copy-paste slave settings
-		[] implement as save/load
-		[] when loading, check which parts you want loaded
-			[] job
-			[] permissions
-	[] also add rooms having permission/job settings and those settings to apply to all slaves in that room
-			
+
 	[] You can cheat from getting a hole penetrated by fingering yourself there.
-		You do have a move in sex scenes to get the the sub fingering themselves to stop but it uses up their turn to stop them from fingering. so as long as the PC cotiniously finger themselves they dont need anything like sealed clothing to stop penetrations. 
+		You do have a move in sex scenes to get the the sub fingering themselves to stop but it uses up their turn to stop them from fingering. so as long as the PC cotiniously finger themselves they dont need anything like sealed clothing to stop penetrations.
 		[] Add a 'restrict partner's self actions' for NPCs for X turns if they can't access?
-		
-	[] Sterope expansion
-		[] re-enable feral pregnancy and handle Sterope and player feral pregnancy properly
-		[] need to prolong sub sex
-			[] add safeword?
-			[] remain tied up after sex
-				[] punished more
-				[] partner leaves ties up with toys inserted
-			[] partner returns and more sex
-				[] eat Sterope's creampie while being fucked
-				[] anilingus or blowjob while partner whips Sterope
-				[] Sterope licks up cum/foot worship while partner dildo-fucks player
-		[] If double feral sex once, spawn unique centaur
-			[] either as encounter when in taur tavern and Sterope is present
-			[] or in Enforcer HQ (if Helios is to be Enforcer chief)
-		[] unique centaur Helios
-			[] glowing yellow hair and fire gloves
-			[] Maybe make him Sterope's boss, Enforcer Chief Superintendent(?)
-		[] drags you over to Sterope and says that he's heard how the two of you like being fucked as mares
-		[] have to feral TF for him
-		[] after sex, he leads the two of you through the tavern and makes you give a double blowjob while he drinks at the bar
-			[] kheiron eventually asks to leave
-		[] next time, invited to his manor but have to feral TF for 24 hours
-			[] get 'trained' in his stable until the next evening
-		[] next time, he says he'll keep you as his mares
-			[] after sex, taken back to his stables - floor is an enchanted beast stone to make sure you stay as ferals
-		[] Bad end
-	
+
 	[] Demon TF content
 		[] If Lilaya is also demon, she approaches player and expresses an interest in socialising with demons
 		[] Can join her and go to demonic events
@@ -295,12 +824,14 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[] Zaranix event
 			[] After raising demon reputation can host party at mansion
 				[] Invite named demons
-			
+
 	[] Underground club (small content addition for wild group sex)
 		[] Encounter in Submission provides instructions to find secret club
 		[] Every night drug-fuelled rave
+			[] mushrooms
+			[] add drugs
 		[] Turns into orgy
-		
+
 	[] The Minotaur side quest
 		[] In Amazon camp (after Themiscyra MQ), Amazon says how they wouldn't have been defeated if they had their sacred weapon
 			[] Weapon is a gigantic kopis that could only be wielded by the largest, strongest Amazonians
@@ -331,38 +862,55 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[] None
 					[] Gain some flames, friend leaves to save her herself
 					[] Returning to labyrinth and sneaking down passage allows player to see both Amazonians being fucked by king
-		
-	
+
+	[] Sealed clothing alternative
+		[] Seal removal is immense (10_000+ essences)
+		[] Seal is broken if condition is fulfilled
+			[] Conditions
+				[] Body parts - breast size, cock size, etc.
+				[] Sex experience - perform sex action, lose virginity, etc.
+				[] Fluids - ingest fluid
+
+	[] Heather content
+		[] If masculine, she sees in her crystal ball you meeting her ex in Dominion
+		[] Gives you ex's address if you wanted the fortune to come true
+		[] Meet ex (human futa)
+		[] Can date her
+
 	[] Ralph's player-orgasm sex action dirties Ralph's underwear
-	
+
 	[] Silence scream post-Shadow defeat is parsed to ...
-	
+
 	[x] revisit desryth, reject him, stuck in his apartment
-	
+
 	[] penile virginity loss to Aurokaris apparently ended up being to Harely in Diana's nest
-	
+
 	[] Lyssieth image height too small
-	
+
 	[] prioritise res races over mod folder - or mod folder different ids
-	
+
 	[] reduce anal fingering frequency
-	
+
 	[] With a high enough Affection, the PC can walk into Meraxis' room while she's sleeping and she won't get mad.
 	 PC would slip under the covers and spoon the little thing, forcing her to let out a soft, content coo and almost immediately start to fall back asleep
-	
+
 	[] random voyeur encounters in alleyways
-	
+
 	[] Subjective Appearance
 		Trait
 		+5% Lust damage
 		Androphilic NPCs always think you are masculine
 		Gynephilic NPCs always think you are feminine
 		You cloak yourself with subtle illusions, allowing others to interpret your appearance differently according to their own desires.
-	
-	[] add an option for when Lyssieth asks what the player's plan is about Lilith "Marry her. T'was for a brief moment but gazing upon Lilith's beauty while she was escaping was love at first sight" 
+
+	[] add an option for when Lyssieth asks what the player's plan is about Lilith "Marry her. T'was for a brief moment but gazing upon Lilith's beauty while she was escaping was love at first sight"
 		and a silly mode "I can fix her. What others see as evil you know is just a damaged and hurting person and you've taken up the task nobody else is brave to do."
-	
+
 	[] Dominion gym
+		[] Sauna
+			[] Salamander sex
+		[] Swimming pool
+			[] Shark race, pool sex
 		[] post-workout changing room
 			[] get hit on
 			[] sex in changing room
@@ -387,14 +935,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 								[] quickly leave, with Brahman saying to return whenever you want
 							[] beg to be impregnated
 								[] He fucks player and creampies
-	
-	[] Rose encounter
-		[] if had sex with Lilaya >3 times in one day OR if impregnated Lilaya >3 times and she's not a demon
-		[] Rose ambushes player and says that they're taking too much of Lilaya's time
-		[] offers to help relieve the player
-			[] handjob/fingering
-			[] afterwards, says to call for her if you're feeling horny so you don't bother Lilaya
-	
+
 	[] Bank
 		[] have personal clerk assigned to you (smart incubus)
 		[] talk
@@ -410,12 +951,12 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[] Sends bounty hunters after player
 					[] They take payment from player's inventory
 					[] Also lewds
-	
+
 	[] Felicia
-	
+
 	[] Elemental spell side quest
 		[] Start with Arcane in Dominion
-	
+
 	[] PRs
 		[] #1724
 		[] #1438
@@ -440,20 +981,20 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] #1658 - MintyChip races
 
 	###################
-	
+
 	[] language/translation support
-	
+
 	did i ever suggest a "drink until full term" option for mothers milk? cause if not, there it is.
 	also it seems like irresistible requests doesn't work for things like "object to rough"
 	also also, there should be an option outside of rough sex to a partner the option to use their full penis length even in a situation where it would cause discomfort
 	I'd suggest it as something the player can request as well but idk if that's even needed given the freedom the player has.
-	
+
 	[] The transformation from surrender options does not work when it is a canine subspecies
 		Issue with subspecies transformations in general - covering types need some kind of TF catch
 		Need to add subspecies TF effects
 			Under 'core'
 			Only works if target is already of the subspecies's race
-				
+
 	Add perks:
 		Regeneration (passive health recovery rate doubled)
 		Second wind (can choose not to orgasm, and instead reset arousal in sex)
@@ -465,7 +1006,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Spider-morphs & arachne in forests
 
 	[] "getMinimumDepthForSizeUncomfortable seems to be broken"
-	
+
 	[] Shadow/Silence
 		[] Bounty hunter board
 			[] Generic
@@ -492,11 +1033,11 @@ Not everything in this file is up-to-date, and everything is subject to change a
 						[] can slip feminising potion in his drink
 						[] or continue as normal
 				[] harpy nest monitoring
-	
+
 	[] Finch
 
 	[] Wynter
-	
+
 	[] Nizhoni's friend -> fast food stall
 		[] End states are:
 			[] A Friend no longer fucking Nizhoni
@@ -522,7 +1063,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 					[] Clean his cock, cums over both of you
 					[] Makes you eat his creampie out of Nizhoni while he creampies you
 					[] Fucks you both side by side
-	
+
 	[] Imp king side quest
 		[] Available after Meraxis has left the fortress
 			[] after 2 weeks, fortress becomes 'crudely-repaired'
@@ -535,10 +1076,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] king has staff with ominous purple stone set in the top
 			[] gloats about how he stole it from Lilith's tower
 			[] if lose to king, get TF'd into imp concubine bad end
-	
+
 	[] Red light district improvements
 		[] Video recorder
-			[] Gained via side quest with alpha imp 
+			[] Gained via side quest with alpha imp
 				[] activate during sex
 				[] Saves sex scene as xml file
 					[] Save characters
@@ -725,12 +1266,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 
 	[] The options for slaves to take pills or mothers milk don't actually consume any items from the slaves or the player. I'll add that to the tooltips to make it clear.
 
-	[] Need pure virginity loss to someone they love variation
-		[] remove fetish if virginity loss is to someone they at least love
-		[] generic dialogue
-		[] Helena dialogue
-		[] Aurokaris dialogue
-
 	[] Sex additions:
 		[] Finger urethra insertion
 		[] Lick fluids off partner actions
@@ -749,6 +1284,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] It is still odd, that aside horse-taurs and snake taurs (centaur, unitaur, lamia, melusine, etc.)  no other taur NPC inflicts a taur TF on the PC. , you never get TFed into any other taur
 
 	[] add self-cleaning clothing enchantment (handle dirtying when covering dirty orifice)
+	[] add clothing scent marking (after X hours, clothing smells of wearer)
+		[] can then make Lilaya panties mechanics generic for any clothing
 
 	[] Angel should reward us if we manage to get 10 prostitutes working for her at angel's kiss not counting slaves. But, she should give you a partnership arrangement if you have a certain number of slaves working at angel's kiss
 
@@ -757,7 +1294,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] birthing scene expansion
 			[] Like give belly rubs, suck teats, kiss them, rub clit, hold hands, that kind of stuff. Maybe doing that helps them birth faster
 			[] use modified sex scene system for it
-	
+
 	[] add more pregnant interactions for offspring/occupants
 
 	[] save the time at the game's start as a unique ID and use that for the quick/auto save file identifiers
@@ -802,7 +1339,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[] Threesome
 				[] Anal/Oral/Pussy/Foot/Armpit focus
 			[] After doing five special clients, get well-known and (rarely) be approached on street and asked to fuck
-	
+
 	[] Add 'corkscrew' penis modifier
 		[] And glue as a fluid mod (congealing)? IE like how pig cum hardens in contact with air to seal up the female's vagina and trap the rest of the cum inside
 
@@ -817,12 +1354,15 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] cute pawprint pattern pajamas
 			[] pajamas
 			[] pawprint pattern
+		[] bdsm hood (zip mouth)
+			[] stickers for ponytail, eye slots, mouth zipper/open/closed
+			[] add item tag for faux hair (allow hair-pulling in sex)
 
 
 	[] add generic tentacle legs for slime and demon(tentacle-girl/boy)
 
 	[] serpent-serpent sex position 'mating coil'
-	
+
 	[] need mute dialogue handling for offspring encounters
 
 	[] Skull head option for demons, preferably able to take morph type into account
@@ -830,7 +1370,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] meraxis
 		[] cock content
 		[] strip dice poker in tavern to "steal" clothing
-	
+
 	[] Elis Gym
 		[] Extremely fit hellhound
 		[] Talk
@@ -849,7 +1389,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 				[] if player wins, can choose what to do
 					[] mating press
 					[] cowgirl
-			
+
 	[] Ceridwen
 		[] Offer to help
 			[] She says that she had a succubus security guard who all the mice liked who used to cover the day shift, but she disappeared a while ago
@@ -873,8 +1413,8 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[] Post-quest
 			[] Ceridwen invites player to home (in wood tile in Elis)
 			[] Can have sex
-	
-			
+
+
 	[] cuddle actions?
 
 	[] dungeon additions
@@ -893,7 +1433,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] bondage applier fetishists should apply bdsm gear during sex
 
 	[] take slave and/or nightclub date back to spa
-	
+
 	[] make it so you can toggle whether your own children can be found in random encounters
 
 	[] We currently have permissions for slaves to *rape you, but what about having them have permission to just proposition you without force?
@@ -915,7 +1455,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[] Armpit worship (they lick player's armpits before fucking them)
 
 	[] Bad end losing at the slime queen where you're forced to pretend to invade and rape her every week
-	
+
 	[] Monica milking cow roleplay
 		[] She has old milk maid uniform
 		[] Wears it and can milk/fuck her
@@ -939,8 +1479,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[] if an npc has toeless stockings on during a footjob it describes them pushing the stocking up against the dick
 
 	[] NPC modding support
-
-	[] Natalya encounter without needing Helena quest
 
 	[] boxing gloves mod
 	[] latex leggings
@@ -1014,10 +1552,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 			[] Test multiple arm rows detection
 
 	Make the rough/resist pace different from rape so the slime queen isn't such a turn off.
-
-	Helena sex without her becoming a total slut
-	Suggestion: When non-sadistically deflowering Helena, she should get the Size Queen Fetish if the player is big enough that it's necessary for her comfort.
-	Make a non-sloot Helena ending
 
 	Finger urethra insertion
 
@@ -1384,12 +1918,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Starting receive oral says it will stop some ongoing actions, even though none are ongoing...
 		Immediately after switching position
 
-	Add nice way to lose virginity for Helena (and other pure virgins?)
-	Public fucking of broken Helena
 
-	remove steal/vaccum succ
+	remove steal/vacuum succ
 		add arcane webbing
-	make vaccum upgrades do -1AP
+	make vacuum upgrades do -1AP
 
 	If exposed and sit on bar stool in club, add event where someone fucks you from behind
 
@@ -1456,7 +1988,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Need to go over all Rose scenes to make sure she acts in the correct manner
 
 	Make knotting persist for several turns
-	
+
 	finally this is a UI thing, but I think that players should be notified when certain stats have hit their limit of 100 or something, took me a while to realise that I was over boosting certain stats
 	Remove dropoff, make them percentages for easier comprehension
 
@@ -1544,7 +2076,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	I've run into half-demon pegasi and unicorns, never alicorns
 
 	you get jumped and ur catgirl gf is just jacking off in the corner
-	
+
 	allow hypno watch usage on non-unique NPCs
 
 	set weapon damage as tier constants
@@ -1579,11 +2111,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	 slaves should have a rule that makes them remove all clothing and keep it in their inventory
 
 
-	[] Need Helena dirty talk override
-	[] you should probably tell the user they can't take Helena's virginity if they don't have a penis (as I usually grow one during the scene), cuz it only told me I should set up the roses and all which I had already done
-	[] Need Hotel restaurant tile?
-	[] Helena-Scarlett threesome option?
-
 	Expand clothing modding possibilities by adding hooks for:
 	equip/use Initial time
 	equip/use Total time
@@ -1596,7 +2123,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	- Mute attackers need dialogue variations
 	- Roxy recognise if you've consumed a bottle of Angel's Nectar to cure the addiction to her at the very least
 	- You can instantly re-encounter clubbing partners...
-	
+
 	bring back a way to have dom sex with your partner and the loser as both subs?
 		I used to do it by fucking partner, then changing position so that the mugger is forced to join, but now it's only possible to have dominant sex with one or the either
 
@@ -1972,8 +2499,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 
 	release/free slaves
 
-	add enchantment for insertables and prevents erections, and tag for vibration_enabled
-
 	Add taur variations to Amber walkies scenes
 
 	need to add interaction with offspring on mother's and father's days
@@ -2043,7 +2568,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	- ImpFortress sex is broken (the companion position has access to nothing)
 
 	- companion cumming with a strap-on breaks the game (no commands available) and you have to load
-	
+
 	- still can't find the offspring of your slaves (though you can cheat it somewhat)
 
 	- still can't let your companion use the stocks
@@ -2296,7 +2821,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	Add TF feeding to Karl and WOlfgang
 
 	need to add generic sex NPCS to NPC list (for stocks slaves and in slave jobs)
-	
+
 	Separate the oral fetishes as such that kissing is separate from the other oral fetishes.
 
 	wash companions option
@@ -2358,8 +2883,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Need to refactor self-interactions to be player/NPC
 
 	Denial sex orgasm
-	
-	need cloaca sex interactions for if penis isn't erect
 
 	CrotchBreasts
 		moo milker
@@ -2475,9 +2998,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	please get a clothing tag marking something as visibly immodest / revealing
 
 	Make alleyway succubi immune to enslavement with explanation
-	
-	need foot structure potions	
-	
+
+	need foot structure potions
+
 	System that tracks the (for the lack of a better word) compatibleness of orifices and penetrative equipment.
 	For example: Too smol 'gina + too big cock = penetration impossible. Too small cock + too big vagina = next to no arousal gain from penetrative action for both partners. Gotta have the right tool for the job.
 	(same system could be used for anal and nipple penetrations. I think oral should always be viable.)
@@ -2645,7 +3168,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	maps
 
 	angel wings not able to be recoloured?
-	
+
 	NPCs use hair pull too much
 		make it so if your character dislikes the masochist fetish, they won't use it (unless it's non-con and they are sadists)
 
@@ -2683,9 +3206,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	youko morphs have no background, making them hard to spot (on world map)
 
 	Horn grabs doggy&oral, and deepthroat pace variations
-	
+
 	[] a slider for npc's spawning with cosmetics such as piercings, scars, and tattoos would be nice
-	
+
 	On game load, dialogue is parsed before characters are placed there, causing errors
 
 	Need to split noncon and go over all encounters
@@ -3099,10 +3622,10 @@ my character is a guy, so this is super confusing lol
 
 	I also noticed that Amber is always the dominant partner even though you didn't chose submit and her lines are submissive but she talks like dominant one after the scene is done
 	 as well as her ending the scene in the first place after she climaxed one time
-	
+
 	Add to character creation:
 		Scars
-	
+
 	Pregnancy bugs?
 
 	AI
@@ -3160,7 +3683,7 @@ my character is a guy, so this is super confusing lol
 
 	When you import a character who's wearing jinxed clothing, the quest for unjinxing/enchanting is unavailable.
 	 The quest itself shows up on a page before you have the option to skip the prologue or not, and wearing another piece of jinxed clothing doesn't retrigger the quest
-	
+
 	@SuppressWarnings("deprecation")
 
 	Changing virility of partner affects cum already in vagina...
@@ -3171,18 +3694,18 @@ my character is a guy, so this is super confusing lol
 			 and noticed that the body part size reached the max almost immediately, while almost no progress had been made on the fluid.  Then I compared that to heights as well.
 	Hmm, it's probably better for it to be less than 5%, since it would always take 20 ticks or less to fully transform something.
 	 Mind you, most of the transformations are finished long before 20 ticks, except for those fluid and height based ones.
-	
+
 	Add attackers wanting multiple orgasms
 
 	Not sure what's causing it, but I'm getting a bug where my slaves are listed as pregnant by the tracker, but don't gain the pregnancy buff/debuff,
 		 and are permanently stuck as "ready to give birth", they're even getting milk, but are in no way in game or description, pregnant.
 		To clarify: Other NPC's can get pregnant and give birth, but not my slaves for some reason.
 	Edit: Slaves CAN give birth, but the tracker still thinks they're heavily pregnant, even after birth
-	
+
 	Need to add way to get scars
-	
+
 	make DOMINION_ALLEYWAY_SPAWN, SUBMISSION_TUNNEL_SPAWN work for clothing
-	
+
 	Add flying ability like teleport
 
 	'free scarlett' action does not send Scarlett back to Alexa's nest
@@ -3274,7 +3797,7 @@ my character is a guy, so this is super confusing lol
 	sex doesn't end when you offer your body to attackers until you orgasm
 
 	Remove the affection changes at the start of sex now that affection gets modified at the end of sex based on our performance durring the act.
-	
+
 	doesn't look like its been reported but I've ran into a bug involving condoms and having sex with 2 partners.
 	 If one partner is fucking your pussy and is wearing a condom when he cums, he can't get you pregnant, but somehow the other person who isn't fucking your pussy and hadn't came yet, can impregnate you.
 
@@ -4046,8 +4569,6 @@ It'd be even better if this could be extended to potions as well, allowing us to
 
 	Exhibitionist counter - prude
 
-	erection & pregnancy work
-
 	totalCumLoss = baseCumLoss + max(0, decayRate*(cumVolume -  orificeCapacity))
 
 	-Maybe reduce chance of a character spreading their ass for you when they're actively penetrating you? xP
@@ -4092,8 +4613,8 @@ It'd be even better if this could be extended to potions as well, allowing us to
 		all that sort of stuff ^^
 		also regarding lust system, you could get to know other fetishes lets say if you do some side quests to lilyana or lets say steal some of her device a bit later in game (such as googles)  that allow you to see a few fetishes of other characters
 		making it easier
-	 
-	
+
+
 	The molesting of the submissive by the dominant through their clothing and the addition of jockstraps to give a male version of backless undergarments
 
 	Oh, and I'll also get the kink generation sorted out soon; at the moment it's almost completely random. ^^
@@ -4264,7 +4785,7 @@ The Arcane stat could have a multiplier on essence received alongside its other 
 
 
 	Combat & sex bugs
-	
+
 	Pictures!
 
 	INTRO
@@ -5917,10 +6438,10 @@ BlobHyperSweats1
 		Because I gave it to a slave and she only sometimes resists
 
 	day 0, I go outside (on the storm) got attacked by a cow girl, non consensual activated, maximum difficulty, I got smashed, but on the sex, the ask to be freed give the dirty talk description on hover (but give the good action)
-	
-	
+
+
 	------------
-	
+
 	Slaves still aren't interacting correctly outside of work/between jobs.
 
 	Move urethral stuff to generic genitals
@@ -7481,11 +8002,11 @@ It lacks something before the period.
 	I'll be adding more orgasm options (including NPC using ass/pussy-to-mouth) both this and next week! :3
 
 	And I'm also planning on expanding those harpy punishment scenes to be a little longer and more interactive in the future. ^^
-	
-	
-	
+
+
+
 	I dropped stolen panties (with almost full inventory) and game just closed. Fucking hell.
-	
+
 	Despite putting in the settings, a 0-spawn rate for males, when I come across my kids in alleyways, most of them appear as males.
 
 	I was considering using stamina in sex to determine for how long you can keep on going (with the option to drink stamina restoration potions for those that want to get to 60 orgasms).
@@ -7695,7 +8216,7 @@ When you defeat them you will get the option to "reclaim" giving you back only i
 	Thigh sex and hotdogging
 
 	Forced jinxed clothing
-	
+
 	Add clothing preview to debug
 
 	status effect for stuffed with toys
@@ -8221,7 +8742,7 @@ When it should be an indication that I'm gaining testicles, and the three messag
 	Kate:
 		Hair style
 		Eye shapes.
-	
+
 	Gate options in screen again
 		Tidy up fetishes:
 		non-con tease
@@ -8502,7 +9023,7 @@ When it should be an indication that I'm gaining testicles, and the three messag
 	Clothing enchanting
 		Maybe locks a character to a certain TF
 		Or makes them always use a certain pace
-	
+
 	+ tit fucking
 	+ hotdogging
 	+ thigh sex
@@ -8525,7 +9046,7 @@ When it should be an indication that I'm gaining testicles, and the three messag
 	  Without getting too brutal you could say something along the lines of "Your reluctant partner lay panting in your combined fluids, their trembles a mark of their attempted resistance and ultimate failure to do so" or something.
 
 	It seems that hitting enter after typing in a name on the save game screen glitches it out.  You need to click off of the text box.
-	
+
 	You cant get rid of harpies although i have not tested after the harpy quest is finished
 
 	Buy all not showing up?
@@ -8771,7 +9292,7 @@ Also noticed the Stop partner self action option disappears.
 
 
 	fondling balls is associated to oral fetish
-	
+
 	: I could add a 1-turn check so that if you've displaced that clothing, they prefer to displace on that same turn
 	: I should also add a 'forbid self-clothing interaction' action
 
@@ -8807,7 +9328,7 @@ Also noticed the Stop partner self action option disappears.
 	Could there be a fun stat for how many undies or jewelry stolen?
 
 	also a rape fetish for NPCs that makes them always resist
-	
+
 	It'd be interesting if perks like cum addict and nympho had a bonus if they were satisfied recently, and a penalty if you've gone a while without cum/sex
 
 	After giving a random npc mother's milk, the dialogue description's 3rd paragraph is addressing the PC instead of the npc: "You eagerly... overwhelms your senses... Before you know...." Etc.
@@ -8905,7 +9426,7 @@ Also noticed the Stop partner self action option disappears.
 	Add an option 0 'Leave' for Bree's options
 
 	Add search (option 6) to harpy nests.
-	
+
 	Harpy encounters
 
 	Taking virginity NPC reactions
@@ -9265,8 +9786,8 @@ Also noticed the Stop partner self action option disappears.
 		Scarlett quest progress
 
 		----------
-	
-		
+
+
 	Also, it'd be nice to be able to fuck Kate without her asking us to if we have high enough corruption
 		Requirements: Cock, corruption>50
 		Surprise penetration
@@ -9523,7 +10044,7 @@ Also noticed the Stop partner self action option disappears.
 		Rough/ignore all requests.
 
 	Brax secretary TF warning
-	
+
 	 I'll also add more detailed body options, so you'll be able to customise all your starting body sizes/capacities/elasticities etc.
 
 	Mutual orgasms (cum inside and pull out)

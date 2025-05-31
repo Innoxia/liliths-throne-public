@@ -298,7 +298,9 @@ public class SexManagerExternal extends SexManagerDefault {
 		
 		/** Maps target id to a Value of performing-targeted area IDs */
 		public Map<String, Value<String, String>> sexPreferenceIds;
-		public Map<GameCharacter, SexType> sexPreferences;
+
+		/** Maps target id to a Value of performing-targeted area IDs */
+		public Map<GameCharacter, Value<String, String>> sexPreferences;
 		
 		// SexTypes banned:
 		/** Maps performing area IDs to targeted area IDs */
@@ -459,14 +461,12 @@ public class SexManagerExternal extends SexManagerDefault {
 			sexPreferences = new HashMap<>();
 			if(sexPreferenceIds!=null) {
 				for(Entry<String, Value<String, String>> entry : sexPreferenceIds.entrySet()) {
-					String performing = UtilText.parse(entry.getValue().getKey()).trim();
-					String targeted = UtilText.parse(entry.getValue().getValue()).trim();
+					String performing = entry.getValue().getKey();
+					String targeted = entry.getValue().getValue();
 					if(!performing.isEmpty() && !targeted.isEmpty()) {
 						sexPreferences.put(
 								UtilText.findFirstCharacterFromParserTarget(entry.getKey()),
-								new SexType(SexParticipantType.NORMAL,
-										getSexArea(performing),
-										getSexArea(targeted)));
+								new Value<>(performing, targeted));
 					}
 				}
 			}
@@ -725,8 +725,14 @@ public class SexManagerExternal extends SexManagerDefault {
 		}
 		
 		public SexType getSexPreference(GameCharacter partner) {
-			if(sexPreferences!=null) {
-				return sexPreferences.get(partner);
+			if(sexPreferences!=null && sexPreferences.containsKey(partner)) {
+				String performing = UtilText.parse(sexPreferences.get(partner).getKey()).trim();
+				String targeted = UtilText.parse(sexPreferences.get(partner).getValue()).trim();
+				if(!performing.isEmpty() && !targeted.isEmpty()) {
+					return new SexType(SexParticipantType.NORMAL,
+									getSexArea(performing),
+									getSexArea(targeted));
+				}
 			}
 			return null;
 		}
