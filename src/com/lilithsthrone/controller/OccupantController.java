@@ -2,6 +2,7 @@ package com.lilithsthrone.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.w3c.dom.events.EventTarget;
 
@@ -192,7 +193,7 @@ public class OccupantController {
 				new Util.Value<>(CoverableArea.VAGINA, SexAreaOrifice.VAGINA),
 				new Util.Value<>(CoverableArea.ANUS, SexAreaOrifice.ANUS));
 		
-		for (Map.Entry<CoverableArea, SexAreaOrifice> area : areas.entrySet()) {
+		for (Entry<CoverableArea, SexAreaOrifice> area : areas.entrySet()) {
 			String id = idModifier+"_"+area.getKey()+"_"+fluid.hashCode();
 			if (MainController.document.getElementById(id) != null) {
 				float milkAmount = Math.min(fluid.getMillilitres(), MilkingRoom.INGESTION_AMOUNT);
@@ -283,12 +284,12 @@ public class OccupantController {
 						}
 						
 						String ingestion;
-						try {
-							GameCharacter c = fluid.getFluidCharacter();
-							ingestion = MilkingRoom.getTargetedCharacter().ingestFluid(c, fluid.getFluid(), area.getValue(), milkAmount);
-						} catch (Exception e1) {
+//						try {
+//							GameCharacter c = fluid.getFluidCharacter();
+//							ingestion = MilkingRoom.getTargetedCharacter().ingestFluid(c, fluid.getBody(), fluid.getFluid(), area.getValue(), milkAmount);
+//						} catch (Exception e1) {
 							ingestion = MilkingRoom.getTargetedCharacter().ingestFluid(fluid, area.getValue(), milkAmount);
-						}
+//						}
 						if (!ingestion.isEmpty()) {
 							Main.game.getTextEndStringBuilder().append("</p>"
 									+"<p>"
@@ -302,7 +303,7 @@ public class OccupantController {
 						
 						room.incrementFluidStored(fluid, -milkAmount);
 						
-						Main.game.setContent(new Response("", "", LilayaMilkingRoomDialogue.MILKED));
+						Main.game.setContent(new Response("", "", LilayaMilkingRoomDialogue.INGEST));
 						
 					}, false);
 				}
@@ -365,6 +366,63 @@ public class OccupantController {
 	
 	public static void initSlaveJobListeners() {
 		String id;
+		
+		// Copy & paste settings:
+		// Schedule:
+		id = "copySlaveJobSchedule";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				CompanionManagement.copyJobSchedule();
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+			MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Copy Job Schedule",
+					UtilText.parse(CompanionManagement.characterSelected(),
+							"Copy [npc.namePos] job schedule, which will then enable you to paste this exact same schedule onto other slaves within their own job management screen.")));
+		}
+		id = "pasteSlaveJobSchedule";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				if(CompanionManagement.isJobSchedulePasteAvailable()) {
+					boolean fullyPasted = CompanionManagement.pasteJobSchedule();
+					if(fullyPasted) {
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					} else {
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), PresetColour.GENERIC_BAD, "Some jobs were unable to be pasted!");
+					}
+				}
+			}, false);
+			MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Paste Job Schedule",
+					UtilText.parse(CompanionManagement.characterSelected(),
+							CompanionManagement.isJobSchedulePasteAvailable()
+								?"Paste the currently copied job schedule, thereby making [npc.name] have the exact same job schedule as the one which you've copied."
+								:"You haven't copied a job schedule yet, so you can't paste it to replace [npc.namePos]...")));
+		}
+		// Job settings:
+		id = "copySlaveJobSettings";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				CompanionManagement.copyJobSettings();
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+			MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Copy Job Settings",
+					UtilText.parse(CompanionManagement.characterSelected(),
+							"Copy [npc.namePos] job settings, which will then enable you to paste these exact same settings onto other slaves within their own job management screen.")));
+		}
+		id = "pasteSlaveJobSettings";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				if(CompanionManagement.isJobSettingsPasteAvailable()) {
+					CompanionManagement.pasteJobSettings();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}
+			}, false);
+			MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Paste Job Settings",
+					UtilText.parse(CompanionManagement.characterSelected(),
+							CompanionManagement.isJobSettingsPasteAvailable()
+								?"Paste the currently copied job settings, thereby making [npc.name] have the exact same job settings as those which you've copied."
+								:"You haven't copied a set of job settings yet, so you can't paste them to replace [npc.namePos]...")));
+		}
+		
 		// Job hours:
 		for (int i = 0; i<24; i++) {
 			id = i+"_WORK";
@@ -497,10 +555,37 @@ public class OccupantController {
 	}
 	
 	public static void initSlavePermissionsListeners() {
+		// Copy & paste settings:
+		// Permissions:
+		String id = "copyPermissions";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				CompanionManagement.copyPermissions();
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+			MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Copy Permissions",
+					UtilText.parse(CompanionManagement.characterSelected(),
+							"Copy [npc.namePos] permissions, which will then enable you to paste these exact same permissions onto other slaves within their own permissions management screen.")));
+		}
+		id = "pastePermissions";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				if(CompanionManagement.isPermissionsPasteAvailable()) {
+					CompanionManagement.pastePermissions();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}
+			}, false);
+			MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Paste Permissions",
+					UtilText.parse(CompanionManagement.characterSelected(),
+							CompanionManagement.isPermissionsPasteAvailable()
+								?"Paste the currently copied permissions, thereby making [npc.name] have the exact same permissions as those which you've copied."
+								:"You haven't copied a set of permissions yet, so you can't paste them to replace [npc.namePos]...")));
+		}
+		
 		// Permissions:
 		for (SlavePermission permission : SlavePermission.values()) {
 			for (SlavePermissionSetting setting : permission.getSettings()) {
-				String id = setting+"_ADD";
+				id = setting+"_ADD";
 				if (MainController.document.getElementById(id) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 						Main.game.getDialogueFlags().getManagementCompanion().addSlavePermissionSetting(permission, setting);
@@ -512,7 +597,8 @@ public class OccupantController {
 									+" [style.italicsMinorGood(Click to apply this permission.)]"
 									+(permission.isMutuallyExclusiveSettings()
 									?" [style.italicsMinorBad(Only one permission in this category can be active at once.)]"
-									:"")));
+									:""),
+							91 + (setting.getAdditionalDescriptionLines()*16)));
 				}
 				
 				id = setting+"_REMOVE";
@@ -524,7 +610,8 @@ public class OccupantController {
 					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(
 							"<b style='color:"+permission.getColour().toWebHexString()+";'>"+permission.getName()+":</b> "+setting.getName(),
 							setting.getDescription()
-									+" [style.italicsMinorBad(Click to revoke this permission.)]"));
+									+" [style.italicsMinorBad(Click to revoke this permission.)]",
+							91 + (setting.getAdditionalDescriptionLines()*16)));
 				}
 				
 				id = setting+"_REMOVE_ME";
@@ -532,7 +619,8 @@ public class OccupantController {
 					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(
 							"<b style='color:"+permission.getColour().toWebHexString()+";'>"+permission.getName()+":</b> "+setting.getName(),
 							setting.getDescription()
-									+" [style.italicsMinorBad(You cannot revoke permissions in this category. Select a different one instead.)]"));
+									+" [style.italicsMinorBad(You cannot revoke permissions in this category. Select a different one instead.)]",
+							91 + (setting.getAdditionalDescriptionLines()*16)));
 				}
 			}
 		}
@@ -622,6 +710,10 @@ public class OccupantController {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 						Main.game.setContent(new Response("", "", CompanionManagement.getSlaveryManagementSlaveJobsDialogue(slave)) {
 							@Override
+							public boolean isIgnoreContentScroll() {
+								return true;
+							}
+							@Override
 							public void effects() {
 								CompanionManagement.initManagement(Main.game.getCurrentDialogueNode(), CompanionManagement.getDefaultResponseTab(), slave);
 								Main.game.setResponseTab(CompanionManagement.getDefaultResponseTab());
@@ -636,6 +728,10 @@ public class OccupantController {
 				if (MainController.document.getElementById(id) != null) {
 					((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 						Main.game.setContent(new Response("", "", CompanionManagement.getSlaveryManagementSlavePermissionsDialogue(slave)) {
+							@Override
+							public boolean isIgnoreContentScroll() {
+								return true;
+							}
 							@Override
 							public void effects() {
 								CompanionManagement.initManagement(Main.game.getCurrentDialogueNode(), CompanionManagement.getDefaultResponseTab(), slave);

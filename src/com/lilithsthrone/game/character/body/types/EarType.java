@@ -190,7 +190,7 @@ public class EarType {
 				+ "#ENDIF"
 				+ " and as the transformation finishes, [npc.she] experimentally [npc.verb(twitch)] [npc.her] new cow-like ears back and forth.<br/>"
 				+ "[npc.Name] now [npc.has] [style.boldCow(cow-like ears)], which are [npc.materialCompositionDescriptor] [npc.earFullDescription].",
-			"[npc.She] [npc.has] a pair of #IF(npc.isPiercedEar()) pierced,#ENDIF cow-like ears, which are positioned high up on [npc.her] head and are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].") {
+			"[npc.She] [npc.has] a pair of #IF(npc.isPiercedEar()) pierced,#ENDIF cow-like ears, which are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].") {
 	};
 
 	public static AbstractEarType CAT_MORPH = new AbstractEarType(BodyCoveringType.FELINE_FUR,

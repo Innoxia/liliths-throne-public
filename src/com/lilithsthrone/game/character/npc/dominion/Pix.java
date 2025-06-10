@@ -74,7 +74,7 @@ public class Pix extends NPC {
 				"An extremely energetic border collie-girl, who is the owner and manager of the Shopping Arcade's gym; 'Pix's Playground'.",
 				29, Month.FEBRUARY, 21, 
 				10, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH_BORDER_COLLIE, RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_dominion_shopping_arcade_gym"), PlaceType.getPlaceTypeFromId("innoxia_dominion_shopping_arcade_gym_reception"),
 				true);
 		

@@ -1754,9 +1754,9 @@ public class Perk {
 			"perks/elemental_damage",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.DAMAGE_FIRE, 5),
-					new Value<>(Attribute.DAMAGE_ICE, 5),
-					new Value<>(Attribute.DAMAGE_POISON, 5)),
+					new Value<>(Attribute.DAMAGE_FIRE, 25),
+					new Value<>(Attribute.DAMAGE_ICE, 25),
+					new Value<>(Attribute.DAMAGE_POISON, 25)),
 			null) {
 
 		@Override
@@ -1772,9 +1772,9 @@ public class Perk {
 			"perks/elemental_damage",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.DAMAGE_FIRE, 5),
-					new Value<>(Attribute.DAMAGE_ICE, 5),
-					new Value<>(Attribute.DAMAGE_POISON, 5)),
+					new Value<>(Attribute.DAMAGE_FIRE, 25),
+					new Value<>(Attribute.DAMAGE_ICE, 25),
+					new Value<>(Attribute.DAMAGE_POISON, 25)),
 			null) {
 
 		@Override
@@ -1790,9 +1790,9 @@ public class Perk {
 			"perks/elemental_damage",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.DAMAGE_FIRE, 5),
-					new Value<>(Attribute.DAMAGE_ICE, 5),
-					new Value<>(Attribute.DAMAGE_POISON, 5)),
+					new Value<>(Attribute.DAMAGE_FIRE, 25),
+					new Value<>(Attribute.DAMAGE_ICE, 25),
+					new Value<>(Attribute.DAMAGE_POISON, 25)),
 			null) {
 
 		@Override
@@ -1808,9 +1808,9 @@ public class Perk {
 			"perks/elemental_defence",
 			PresetColour.ATTRIBUTE_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<>(Attribute.RESISTANCE_FIRE, 1),
-					new Value<>(Attribute.RESISTANCE_ICE, 1),
-					new Value<>(Attribute.RESISTANCE_POISON, 1)),
+					new Value<>(Attribute.RESISTANCE_FIRE, 10),
+					new Value<>(Attribute.RESISTANCE_ICE, 10),
+					new Value<>(Attribute.RESISTANCE_POISON, 10)),
 			null) {
 
 		@Override
@@ -2559,7 +2559,9 @@ public class Perk {
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.DAMAGE_LUST, 5),
 					new Value<>(Attribute.RESISTANCE_LUST, -2)),
-			Util.newArrayListOfValues("Doubles <span style='color:" + PresetColour.GENERIC_ARCANE.toWebHexString()+ ";'>arcane essence gain</span> from each orgasm")) {
+			Util.newArrayListOfValues(
+					"[style.colourExcellent(x2)] [style.colourArcane(essence gain)] from orgasming",
+					"Gain [style.colourSex(pent-up)] and [style.colourSex(chastity)] status effects [style.colourTerrible(2x faster)]")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -3088,7 +3090,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameHasFull] a considerable amount of experience with wielding melee weapons, making [npc.her] a fearsome foe to face when armed with a weapon of [npc.her] choice.");
+			return UtilText.parse(owner, "[npc.NameHasFull] a considerable amount of experience with wielding melee weapons, making [npc.herHim] a fearsome foe to face when armed with a weapon of [npc.her] choice.");
 		}
 		@Override
 		public boolean isHiddenPerk() {
@@ -3112,7 +3114,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameHasFull] a considerable amount of experience with wielding ranged weapons, making [npc.her] a fearsome foe to face when armed with a weapon of [npc.her] choice.");
+			return UtilText.parse(owner, "[npc.NameHasFull] a considerable amount of experience with wielding ranged weapons, making [npc.herHim] a fearsome foe to face when armed with a weapon of [npc.her] choice.");
 		}
 		@Override
 		public boolean isHiddenPerk() {
@@ -3210,7 +3212,7 @@ public class Perk {
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "[npc.NameHasFull] received formal training in martial arts, allowing [npc.herHim] to deal just as much damage in unarmed combat as [npc.her] strongest foe.");
+			return UtilText.parse(owner, "[npc.NameHasFull] received formal training in martial arts, making [npc.herHim] an extremely dangerous individual even while unarmed.");
 		}
 		@Override
 		public boolean isHiddenPerk() {
@@ -6473,7 +6475,7 @@ public class Perk {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
-					"[npc.Name] only wants one thing - to be fucked non-stop, no matter who's doing the fucking nor how rough they are.");
+					"[npc.Name] only [npc.verb(want)] one thing - to be fucked non-stop, no matter who's doing the fucking nor how rough they are.");
 		}
 	};
 
@@ -6505,7 +6507,7 @@ public class Perk {
 			Util.newArrayListOfValues(
 					"[style.colourTerrible(Cannot)] gain [style.colourFetish(fetishes)]",
 					"[style.colourFetish(Fetish desires)] are always [style.colourHuman(neutral)]",
-					"[npc.Do] not feel embarrased at being publicly exposed or from clothing femininity"),
+					"Indifferent to exhibitionism, clothing femininity, chastity, and being dirty"),
 			null, null, null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -6583,13 +6585,13 @@ public class Perk {
 			Util.newArrayListOfValues(PresetColour.BASE_PINK, PresetColour.GENERIC_ARCANE),
 			Util.newHashMapOfValues(),
 			Util.newArrayListOfValues(
-					"Does not need to eat, drink, nor sleep",
+					"Do not need to eat, drink, nor sleep",
 					"Gain [style.colourExcellent(1000)] "+Attribute.HEALTH_MAXIMUM.getColouredName("span")+" while exposed to an arcane storm"),
 			null, null, null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return UtilText.parse(owner,
-					"Instead of requiring calories from food or drink to function, [npc.name] passively absorbs background arcane energy to power [npc.herself]."
+					"Instead of requiring calories from food or drink to function, [npc.name] passively [npc.verb(absorb)] background arcane energy to power [npc.herself]."
 						+ " Thanks to this, arcane storms grant [npc.herHim] a significant amount of vitality.");
 		}
 	};

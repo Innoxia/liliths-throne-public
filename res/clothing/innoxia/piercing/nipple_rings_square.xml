@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>350</value>
+		<determiner><![CDATA[a pair of]]></determiner>
+		<name><![CDATA[square nipple ring]]></name>
+		<namePlural pluralByDefault="true"><![CDATA[square nipple rings]]></namePlural>
+		<description><![CDATA[A pair of metal nipple rings, which are fashioned into a square instead of a more typical circle. To wear them, the bar at the top is removed and slid through a nipple piercing, then the U-shaped part is snapped back into place.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<equipSlots>
+			<slot>PIERCING_NIPPLE</slot>
+		</equipSlots>
+		<rarity>COMMON</rarity>
+		<clothingSet/> 
+		<imageName>nipple_rings_square.svg</imageName>
+		<imageEquippedName/>
+		<effects/>
+
+		<blockedPartsList slot="PIERCING_NIPPLE">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired/>
+				<blockedBodyParts/>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots slot="PIERCING_NIPPLE"/>
+		
+		<primaryColours values="ALL_METAL"/> 
+		<primaryColoursDye/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_KATE</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText slot="PIERCING_NIPPLE" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(detach)] the topmost bar from the square nipple rings, before sliding them through [npc.her] nipple piercings and then clipping the U-shaped parts back into place.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(detach)] the topmost bar from the square nipple rings, before sliding them through [npc2.namePos] nipple piercings and then clipping the U-shaped parts back into place.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(detach)] the topmost bar from the square nipple rings, before sliding them through [npc2.namePos] nipple piercings and then clipping the U-shaped parts back into place.]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText slot="PIERCING_NIPPLE" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(unclip)] the U-shaped parts of [npc.her] square nipple rings, before sliding the bars out of [npc.her] nipple piercings and then reassembling the two parts.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(unclip)] the U-shaped parts of [npc2.namePos] square nipple rings, before sliding the bars out of [npc2.her] nipple piercings and then reassembling the two parts.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(unclip)] the U-shaped parts of [npc2.namePos] square nipple rings, before yanking the bars out of [npc2.her] nipple piercings and then reassembling the two parts.]]>
+		</otherRough>
+	</displacementText>
+  
+  
+</clothing>

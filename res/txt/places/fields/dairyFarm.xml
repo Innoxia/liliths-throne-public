@@ -365,16 +365,66 @@
 		[dale.speech(Well, I don't really know anything special about Lunette herself, other than what anyone else could tell you about her,)] he replies, before glancing around and lowering his voice to reveal, [dale.speech(As for why this farm isn't attacked like most of the others in the Fields... Well, I probably shouldn't be telling you this, but I heard from one of the other workers that Evelyx has some kind of deal with Lunette...)]
 	</p>
 	<p>
-		Wanting to know more, you ask the donkey-boy what kind of deal that would be. Nervously glancing back over his shoulder to make sure that nobody's eavesdropping, he speculates, [dale.speech(I don't know what goes on in there, but it's definitely got something to do with the fourth barn we have here. I regularly attend to some of the cows in all three of the other barns, but as far as I know, nobody who works here has ever been inside the fourth one. We've know that some of Lunette's daughters are given regular access to it, but what goes on inside, nobody knows...)]
+		Wanting to know more, you ask the donkey-boy what kind of deal that would be. Nervously glancing back over his shoulder to make sure that nobody's eavesdropping, he speculates, [dale.speech(I don't know what goes on in there, but it's definitely got something to do with the fourth barn we have here. I regularly attend to some of the cows in all three of the other barns, but as far as I know, nobody who works here has ever been inside the fourth one. I know that some of Lunette's daughters are given regular access to it, but what goes on inside, nobody knows...)]
 	</p>
 	<p>
-		After taking a moment to think about whether or not to say any more, the donkey-boy runs his hand over his tall ears, before leaning in close to you and practically whispering, [dale.speech(Of course, there's the matter of what happened to the receptionist whose job I took... One of the other workers told me that in the days before she disappeared, this receptionist was asking a lot of questions about that fourth barn. Although everyone calls him crazy, this worker swears that he saw Evelyx leading the receptionist towards the fourth barn on the night that she vanished...)]
+		After taking a moment to think about whether or not to say any more, the donkey-boy runs his hand over his tall ears, before leaning in close to you and practically whispering, [dale.speech(Of course, there's the matter of what happened to the receptionist whose job I took... One of the cows told me that in the days before she disappeared, this receptionist was asking a lot of questions about that fourth barn. Just between us, this cow swore to me that she saw Evelyx leading the receptionist towards the fourth barn on the night that she vanished...)]
 	</p>
 	<p>
 		Clearly thinking that he's already said too much, Dale sits back up and clears his throat, before saying, [dale.speech(Anyway, it's best not to ask too many questions about Lunette. She's bad news, and the less I or anyone else has to do with her, the better.)]
 	</p>
 	<p>
 		Thanking Dale for the information, you wonder what to ask about next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_TALK_SLEEP"><![CDATA[
+	<p>
+		You've come to know Dale quite well, and you can tell that he likes you a lot too, and so you find yourself feeling more and more concerned about his health. You don't like the way he said he 'mostly' gets enough sleep, and although he told you not to worry about him, you can't help but feel like he's working far too hard. As such, you ask him how much he slept last night.
+	</p>
+	<p>
+		[dale.speech(Oh, about the same as normal,)] he replies with a smile on his face. That isn't good enough for you, and so you ask him exactly how many hours of sleep he got, to which he sighs and admits, [dale.speech(Well, I guess about two hours in total?)]
+	</p>
+	<p>
+		You tell Dale that just a couple of hours of sleep is unacceptable, and ask him why he's sleeping so little.
+	</p>
+	<p>
+		[dale.speech(I've never needed much sleep, but four hours is what I'd consider perfect,)] he reveals, [dale.speech(I'm sleeping less than I normally would because I keep getting woken up by the sound of the cows coming and going from their dorm, and it takes me a while to get back to sleep. I never used to be such a light sleeper, but I guess it's because I don't have... Well...)]
+	</p>
+	<p>
+		Dale suddenly seems embarrassed about something and stops talking, but as he likes you so much, you're sure that you can get him to reveal what it is he's holding back from you. Asking him why he doesn't sleep as well as he used to, you can't help but smile as he reveals a secret.
+	</p>
+	<p>
+		[dale.speech(Fine, I guess I can tell you, [pc.name],)] he sighs, [dale.speech(Before moving out here, I've always slept with at least one stuffed toy, but I left all of them back at my apartment, and I just can't sleep properly without them...)]
+	</p>
+	<p>
+		You ask Dale if it'd help him if you were to go and fetch his stuffed toys for him, but he shakes his head and says, [dale.speech(Thank you, [pc.name], but no. I just know that the cows who work here would find them irresistibly cute and insist on being allowed to sleep with them. The cows wouldn't mean any harm, but I'd be stressing out about my toys getting damaged all the time, so it's better that they stay locked up in my apartment.)]
+	</p>
+	<p>
+		Before you can respond, Dale makes it clear that he doesn't want to talk about this subject any more by firmly stating, [dale.speech(I appreciate your concern, [pc.name], but don't worry about me. I'm fine, honestly. Now, is there anything else I can do for you?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RECEPTION_TALK_TEDDY_BEAR"><![CDATA[
+	<p>
+		Wanting to surprise Dale with your gift, you tell the donkey-boy that you've got something special for him, and instruct him to close his eyes.
+	</p>
+	<p>
+		[dale.speech(What's this all about, [pc.name]?)] he asks. Despite his question, he trusts you enough to do as you ask without waiting for an answer, and so he shuts his eyes tight and waits for you to say that he can open them again.
+	</p>
+	<p>
+		Producing the teddy bear toy, you place it on the desk in front of the donkey-boy, before telling him that he can look. Dale's expression quickly cycles through surprise, disbelief, and then finally happiness. Failing to contain a huge smile, he picks up the teddy bear and asks, [dale.speech(You got this for me?)]
+	</p>
+	<p>
+		Replying in the affirmative, you tell him that you were hoping it would allow him to sleep a little better.
+	</p>
+	<p>
+		[dale.speech(I don't know what to say...)] he replies. You can tell that Dale is genuinely moved by your gift, and after pausing for a moment, he looks up at you and says in a warm tone, [dale.speech(Thank you so much, [pc.name], this really means so much to me.)]
+	</p>
+	<p>
+		Smiling happily at the donkey-boy, you tell him that it was your pleasure, and that you hope the teddy bear will allow him to have some more restful nights. Hugging the toy for a moment, he carefully puts it away under his desk, before giving you a loving smile and asking, [dale.speech(Is there anything I can do for you, [pc.name]?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -748,7 +798,7 @@
 			Having changed your mind about your final promotion, you tell Dale that you'd like to have another meeting with Evelyx about it. Although he flashes you a worried look, Dale nevertheless reaches forwards and presses a button on the arcane intercom that's sitting on his desk. After emitting a short, loud buzzing noise, a posh, feminine voice speaks through it and impatiently snaps, [evelyx.speech(What is it, Dale?)]
 		</p>
 		<p>
-			[dale.speech(I have your employee, [pc.name], here in reception again, Ma'am,)] Dale replies,[dale.speech([pc.She] says that [pc.sheHad] changed [pc.her] mind about receiving [pc.her] final promotion, and would like to speak with you about it again.)]
+			[dale.speech(I have your employee, [pc.name], here in reception again, Ma'am,)] Dale replies,[dale.speech([pc.She] says that [pc.she]'d changed [pc.her] mind about receiving [pc.her] final promotion, and would like to speak with you about it again.)]
 		</p>
 		<p>
 			[evelyx.speech(That dumb cow has changed [pc.her] mind, has [pc.she]?)] Evelyx's voice icily crackles out from the intercom, and after letting out a frustrated sigh, she says, [evelyx.speech(Fine, I'll see [pc.herHim] again, but make [pc.herHim] wait another thirty minutes first to put [pc.herHim] in [pc.her] place.)]
@@ -1031,7 +1081,7 @@
 			[evelyx.speech(What?! You really thought that it was a good idea to waste my time with this?!)] Evelyx's voice angrily crackles out from the intercom, but in just a moment she completely reverses her attitude and asks in a curious tone, [evelyx.speech(Hold on, is [pc.she] willing to pay for this? If so, then maybe we can strike a deal...)]
 		</p>
 		<p>
-			Not wanting to miss what might be your only opportunity to obtain Monica's breast pump, you nod your head to Dale, who conveys to his boss that you are indeed willing to pay to get your [pc.hands] on that item. A smug-sounding laugh comes through over the intercom, followed by the short order, [evelyx.speech(Send [pc.her] in after fifteen minutes. I'll have that breast pump ready and waiting for [pc.herHim].)]
+			Not wanting to miss what might be your only opportunity to obtain Monica's breast pump, you nod your head to Dale, who conveys to his boss that you are indeed willing to pay to get your [pc.hands] on that item. A smug-sounding laugh comes through over the intercom, followed by the short order, [evelyx.speech(Send [pc.herHim] in after fifteen minutes. I'll have that breast pump ready and waiting for [pc.herHim].)]
 		</p>
 		<p>
 			As the intercom clicks off, Dale motions towards the sofas on the other side of the reception and says, [dale.speech(If you'll first wait for fifteen minutes, I'll show you to Evelyx's office.)] 
@@ -1765,7 +1815,11 @@
 		Feeling horny and wanting Dale to help you get some relief, you head back out into the corridor, and after carefully checking to make sure that nobody's watching, you ignore the 'Non-cow Employees Only' sign on the door and quickly slip into the other dormitory. Once inside, you look around to make sure that Dale is the only person in here, and after making sure that the two of you are alone, you stealthily approach the bunk bed in which the donkey-boy is sleeping.
 	</p>
 	<p>
-		Whether thanks to your stealth or the fact that he's a heavy sleeper, Dale doesn't wake from his slumber as you [pc.step] over to his bed. Looking down on his sleeping face, you can't help but excitedly bite your lip in anticipation of what you're about to do. Allowing your gaze to wander down, you see that the donkey-boy's sheets are half-pulled back, allowing you to watch his muscular pecs rise and fall in time with his deep, slow breaths.
+		#IF(dale.hasTrait(PERK_HEAVY_SLEEPER, true))
+			Thanks to the teddy bear that he's tightly hugging, Dale is once again sleeping very deeply, and so doesn't wake from his slumber as you [pc.step] over to his bed. Looking down on his anthropomorphic, donkey-like face, you can't help but excitedly bite your lip in anticipation of what you're about to do. Allowing your gaze to wander down, you see that his sheets are half-pulled back, allowing you to watch his muscular pecs rise and fall in time with his deep, slow breaths.
+		#ELSE
+			Thanks to your stealth, Dale doesn't wake from his slumber as you quietly [pc.step] over to his bed. Looking down on his sleeping face, you can't help but excitedly bite your lip in anticipation of what you're about to do. Allowing your gaze to wander down, you see that the donkey-boy's sheets are half-pulled back, allowing you to watch his muscular pecs rise and fall in time with his deep, slow breaths.
+		#ENDIF
 	</p>
 	<p>
 		Looking down between his legs, you see Dale's huge, sheathed cock bulging out from beneath the thin sheets. The sight of this, combined with the heady, masculine scent that's emanating from the sleeping donkey-boy, drives you wild with lust, and you can't help but let out a quiet, horny [pc.moan] as you wonder how you're going to fuck him...
@@ -1969,34 +2023,83 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="DORMITORY_DALE_AFTER_SEX"><![CDATA[
+	<htmlContent tag="DORMITORY_DALE_SLEEP_SEX_START"><![CDATA[
 	<p>
-		Letting out a pair of synchronised sighs, you and Dale bring an end to the sex. Lying back on his bed and heavily panting for breath, the donkey-boy grunts, [dale.speech(Wow... That was great...)]
+		Lustfully gazing down at Dale's hot body, you feel an overwhelming urge to have sex with him, but at the same time you deeply care about his health and find yourself worrying about how much sleep he's getting. It's at that moment that you realise that you can get what you want without compromising the donkey-boy's rest. If you were to be very gentle, you could fuck him without waking him up.
 	</p>
 	<p>
-		Letting out a satisfied moan as you
-		#IF(sex.getSexTypeCount(dale, pc, sex.newSexType(PENETRATION_PENIS, ORIFICE_ANUS))>0)
-			#IF(pc.getTotalFluidInArea(ORIFICE_ANUS)>0)
-				 feel cum drooling out of your well-fucked asshole,
-			#ELSE
-				 feel your well-fucked asshole continuing to quiver and contract,
-			#ENDIF
-		#ELSEIF(sex.getSexTypeCount(dale, pc, sex.newSexType(PENETRATION_PENIS, ORIFICE_VAGINA))>0)
-			#IF(pc.getTotalFluidInArea(ORIFICE_VAGINA)>0)
-				 feel cum drooling out of your well-fucked pussy,
-			#ELSE
-				 feel your well-fucked pussy continuing to quiver and contract,
-			#ENDIF
-		#ELSEIF(sex.getSexTypeCount(dale, pc, sex.newSexType(PENETRATION_PENIS, ORIFICE_MOUTH))>0)
-			 swallow down the mixture of cum and saliva that's still in your mouth,
+		Slowly peeling back the sheets, you can't help but let out a desperate little whine as you reveal Dale's huge, sheathed cock. His big balls, heavy with his virile seed, are irresistible, and you gently caress them as you carefully slip down into his bed. Just as you'd hoped, the teddy bear that he's hugging tightly to his chest is granting him a deep, heavy sleep, and even as you slide over the top of him and drop into a cowgirl position, he shows no sign of waking up.
+	</p>
+	<p>
+		Gently grinding your
+		#IF(pc.hasVagina())
+			 pussy
 		#ELSE
-			 nuzzle into his muscular chest,
+			 ass
 		#ENDIF
-		 you tell Dale that you had a lot of fun as well, before thanking him for giving you what you wanted. Flashing you a grin as he pulls on his underwear, the donkey-boy sleepily sighs, [dale.speech(Yeah, that sure was a fun way to wake up... Now I need to... Get some sleep...)]
+		 down against his dark-skinned donkey-dick, your excitement grows as his cock rises up into a throbbing erection. Letting out a quiet, happy moan, you look down at your donkey-boy lover and get ready to have some stealthy sleep sex with him...
 	</p>
-	<p>
-		With that, the donkey-boy's head rolls to one side, and within a matter of seconds, he's deeply snoring away as he sinks back into a heavy sleep. All thoughts of spending the night sleeping by his side are quickly dispelled from your mind, as you suddenly hear someone out in the corridor bumping into the door to this dormitory. Remembering that you're not supposed to be in here, you slowly get up off the bed so as to not wake Dale, before preparing to sneak back out to the other dormitory...
-	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DORMITORY_DALE_AFTER_SEX"><![CDATA[
+	#IF(dale.isAsleep())
+		<p>
+			Letting out a quiet, satisfied sigh, you bring an end to the sex. With the donkey-boy still fastly asleep, you can't help but smirk as you reflect on the fact that you've just had sex with him without him even knowing about it.
+		</p>
+		<p>
+			As you carefully separate yourself from Dale, you
+			#IF(sex.getSexTypeCount(dale, pc, sex.newSexType(PENETRATION_PENIS, ORIFICE_ANUS))>0)
+				#IF(pc.getTotalFluidInArea(ORIFICE_ANUS)>0)
+					 feel cum drooling out of your well-fucked asshole,
+				#ELSE
+					 feel your well-fucked asshole continuing to quiver and contract,
+				#ENDIF
+			#ELSEIF(sex.getSexTypeCount(dale, pc, sex.newSexType(PENETRATION_PENIS, ORIFICE_VAGINA))>0)
+				#IF(pc.getTotalFluidInArea(ORIFICE_VAGINA)>0)
+					 feel cum drooling out of your well-fucked pussy,
+				#ELSE
+					 feel your well-fucked pussy continuing to quiver and contract,
+				#ENDIF
+			#ELSEIF(sex.getSexTypeCount(dale, pc, sex.newSexType(PENETRATION_PENIS, ORIFICE_MOUTH))>0)
+				 swallow down the mixture of cum and saliva that's still in your mouth,
+			#ELSE
+				 nuzzle into his muscular chest,
+			#ENDIF
+			 and for a moment you're tempted to wake him and tell him what you've just done. Deciding that his sleep is too important to interrupt, you manage to extract yourself from the donkey-boy's bed without waking him up.
+		</p>
+		<p>
+			Smiling down at your snoring lover, you watch as he hugs the teddy bear you gave to him in his sleep. You're tempted to get back into his bed and sleep by his side, but this fantasy is quickly dispelled from your mind as you suddenly hear someone out in the corridor bumping into the door to this dormitory. Remembering that you're not supposed to be in here, you prepare to sneak back out to the other dormitory...
+		</p>
+	#ELSE
+		<p>
+			Letting out a pair of synchronised sighs, you and Dale bring an end to the sex. Lying back on his bed and heavily panting for breath, the donkey-boy grunts, [dale.speech(Wow... That was great...)]
+		</p>
+		<p>
+			Letting out a satisfied moan as you
+			#IF(sex.getSexTypeCount(dale, pc, sex.newSexType(PENETRATION_PENIS, ORIFICE_ANUS))>0)
+				#IF(pc.getTotalFluidInArea(ORIFICE_ANUS)>0)
+					 feel cum drooling out of your well-fucked asshole,
+				#ELSE
+					 feel your well-fucked asshole continuing to quiver and contract,
+				#ENDIF
+			#ELSEIF(sex.getSexTypeCount(dale, pc, sex.newSexType(PENETRATION_PENIS, ORIFICE_VAGINA))>0)
+				#IF(pc.getTotalFluidInArea(ORIFICE_VAGINA)>0)
+					 feel cum drooling out of your well-fucked pussy,
+				#ELSE
+					 feel your well-fucked pussy continuing to quiver and contract,
+				#ENDIF
+			#ELSEIF(sex.getSexTypeCount(dale, pc, sex.newSexType(PENETRATION_PENIS, ORIFICE_MOUTH))>0)
+				 swallow down the mixture of cum and saliva that's still in your mouth,
+			#ELSE
+				 nuzzle into his muscular chest,
+			#ENDIF
+			 you tell Dale that you had a lot of fun as well, before thanking him for giving you what you wanted. Flashing you a grin as he pulls the sheets back up to cover his sheathed donkey-dick, he sleepily sighs, [dale.speech(Yeah, that sure was a fun way to wake up... Now I need to... Get some sleep...)]
+		</p>
+		<p>
+			With that, the donkey-boy's head rolls to one side, and within a matter of seconds, he's snoring away as he swiftly falls asleep. All thoughts of spending the night sleeping by his side are quickly dispelled from your mind, as you suddenly hear someone out in the corridor bumping into the door to this dormitory. Remembering that you're not supposed to be in here, you slowly get up off the bed so as to not wake Dale, before preparing to sneak back out to the other dormitory...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	

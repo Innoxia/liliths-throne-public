@@ -72,7 +72,7 @@ public class Kheiron extends NPC {
 				"The owner of the tavern 'The Centaur's Sword' in Elis, this huge, muscular centaur is known throughout town as being remarkably kind and wise.",
 				45, Month.OCTOBER, 11,
 				25, Gender.M_P_MALE, Subspecies.CENTAUR, RaceStage.PARTIAL_FULL,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_taur"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_taur_bar"),
 				true);
 		
@@ -249,7 +249,7 @@ public class Kheiron extends NPC {
 		if(Main.game.isLightTheme()) {
 			return "#2b4a8a";
 		}
-		return "#6a87c3";
+		return "#99aacc";
 	}
 	
 	@Override

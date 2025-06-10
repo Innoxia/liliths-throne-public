@@ -8,7 +8,7 @@
 	<colour>BASE_RED</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>
 	<encounterType>null</encounterType>
-	<dialogue>innoxia_places_fields_elis_tavern_taur_exit</dialogue>
+	<dialogue>innoxia_places_fields_elis_tavern_taur_core_exit</dialogue>
 	<populationPresent copyPlaceType="innoxia_fields_elis_tavern_taur_tables"/>
 	<furniturePresent>true</furniturePresent>
 	<globalMapTile>false</globalMapTile>

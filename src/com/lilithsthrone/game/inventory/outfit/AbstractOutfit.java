@@ -415,7 +415,7 @@ public abstract class AbstractOutfit {
 					clothingList.removeIf(c->c.getDefaultItemTags().contains(ItemTag.NO_RANDOM_SPAWN));
 					
 					for(AbstractClothingType ct : clothingList) {
-						AbstractClothing defaultClothingExample = Main.game.getItemGen().generateClothing(ct);
+						AbstractClothing defaultClothingExample = Main.game.getItemGen().generateClothing(ct, false);
 						// Check for required tags:
 						try {
 							if(genericClothingType.getOptionalFirstOf("itemTags").isPresent()) {
@@ -552,7 +552,7 @@ public abstract class AbstractOutfit {
 							.stream()
 							.map( e -> {
 								AbstractClothingType ct = ClothingType.getClothingTypeFromId(e.getTextContent());
-								AbstractClothing defaultClothingExample = Main.game.getItemGen().generateClothing(ct);
+								AbstractClothing defaultClothingExample = Main.game.getItemGen().generateClothing(ct, false);
 								if(!defaultClothingExample.isAbleToBeEquipped(character, ct.getEquipSlots().get(0)).getKey()) {
 									return null;
 								}

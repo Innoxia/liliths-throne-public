@@ -222,7 +222,7 @@
 					&& pc.getAttributeValue(ATTRIBUTE_MAJOR_ARCANE) < 30]
 				]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[1]]></index>
+				<index><![CDATA[5]]></index>
 				<responseTitle><![CDATA[Intimidate?]]></responseTitle>
 				<responseTooltip><![CDATA[They will leave Eisek alone, or uh...]]></responseTooltip>
 				<colour><![CDATA[GENERIC_BAD]]></colour>

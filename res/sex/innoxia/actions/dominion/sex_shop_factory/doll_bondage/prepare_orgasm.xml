@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#!npc.isPlayer()]
+	]]></actionConditional>
+	<type>PREPARE_FOR_PARTNER_ORGASM</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[NORMAL]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>
+	<associatedFetishes/>
+	<performingArea/>
+	<targetedArea/>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[
+		Allow orgasm
+	]]></title>
+	<tooltip><![CDATA[
+		Give the horny doll permission to orgasm.
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<text><![CDATA[
+				[doll.speechNoEffects(The test is almost complete, I just need you to orgasm,)] the doll states as she sees that you're about to climax. In her expressionless voice, she commands, [doll.speechNoEffects(Go on then, cum!)]
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

@@ -770,6 +770,34 @@
 	</htmlContent>
 	
 	
+	<!-- REFUSE_SLAVE_SEX -->
+
+	<htmlContent tag="REFUSE_SLAVE_SEX"><![CDATA[
+	<p>
+		You really aren't in the mood for having sex with [npc.name] right now, and so you put a swift end to [npc.her] plans by firmly telling [npc.herHim] to stop.
+	</p>
+	<p>
+		[npc.speech(Fine...)] [npc.she] reluctantly
+		#IF(npc.isFeminine())
+			 whines.
+		#ELSE
+			 grunts.
+		#ENDIF
+	</p>
+	<p>
+		Not wanting to give your slave another opportunity to pounce on you, you put an end to the massage by standing up and telling [npc.name] that you've got other things to be getting on with...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="REFUSE_SLAVE_SEX_FINISHED"><![CDATA[
+	<p>
+		[pc.Stepping] away from the lounger, you take a look around your private spa and wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<!-- Guest content: -->
 	
 	<htmlContent tag="SPA_GUEST_INVITE"><![CDATA[

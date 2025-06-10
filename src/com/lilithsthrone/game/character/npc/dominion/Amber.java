@@ -107,10 +107,10 @@ public class Amber extends NPC {
 	public Amber(boolean isImported) {
 		super(isImported, new NameTriplet("Amber"), "Lireceamartu",
 				"The highest-ranking of Zaranix's maids, Amber is clearly outraged by the fact that you're wandering around her master's house unsupervised.",
-				39, Month.OCTOBER, 17,
+				117, Month.OCTOBER, 17,
 				15,
 				null, null, null,
-				new CharacterInventory(10), WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, true);
+				new CharacterInventory(false, 10), WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, true);
 		
 	}
 	
@@ -151,6 +151,9 @@ public class Amber extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.7.11")) {
 			this.addSpecialPerk(Perk.MARTIAL_ARTIST);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.9.8")) {
+			this.setAge(117);
 		}
 	}
 

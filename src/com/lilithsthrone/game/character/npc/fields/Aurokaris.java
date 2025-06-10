@@ -90,7 +90,7 @@ public class Aurokaris extends NPC {
 				19, Month.JANUARY, 1,
 				25,
 				Gender.F_V_B_FEMALE, Subspecies.COW_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_themiscyra"), PlaceType.getPlaceTypeFromId("innoxia_fields_themiscyra_palace"),
 				true);
 		
@@ -99,7 +99,6 @@ public class Aurokaris extends NPC {
 			this.setPlayerKnowsName(false);
 		}
 	}
-	
 	
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
@@ -255,7 +254,7 @@ public class Aurokaris extends NPC {
 
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("norin_hair_accessories_hair_celtic_barrette", PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_SILVER, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_finger_wrap_ring", PresetColour.CLOTHING_SILVER, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_BANGLE, PresetColour.CLOTHING_SILVER, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_wrist_bangle", PresetColour.CLOTHING_SILVER, false), true, this);
 		
 		this.setPiercedEar(true);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_hoops", PresetColour.CLOTHING_SILVER, false), true, this);

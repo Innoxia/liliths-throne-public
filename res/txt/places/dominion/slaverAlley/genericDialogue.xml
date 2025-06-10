@@ -268,7 +268,7 @@
 	
 	<htmlContent tag="MARKET_STALL_ANAL"><![CDATA[
 	<p>
-		On one of the three sides of the square, a shop proudly displays an ass-shaped sign bearing the words, 'The Rear Entrance'. Knowing exactly what sort of slaves must be sold in there, you take a look through the large glass windows as you pass. Sure enough, you see that the slaves on display are all making sure to show off their asses, each of which is decorated by either a plain or jewelled butt-plug.
+		On one of the three sides of the square, a shop proudly displays an ass-shaped sign bearing the words, 'The Rear Entrance'. Knowing exactly what sort of slaves must be sold in there, you take a look through the large glass windows as you pass. Sure enough, you see that the slaves on display are all making sure to show off their asses, each of which is decorated by either a plain or jewelled buttplug.
 	</p>
 	<p>
 		As you walk past the front door, a short cat-boy darts out to block your path, before placing his hands on his hips and grinning cheekily at you. [genericMale.speech(You like butts, right?! Come on inside! We've got the best asses in all of Dominion, and each and every one of our slaves have been specially trained to love anal sex!)]
@@ -1078,7 +1078,7 @@
 		The collection of twenty-or-so public stocks, positioned right in the middle of a wide courtyard, is the first thing anyone sees when entering Slaver Alley. Used as a means of punishment for disobedient slaves, each one of the devices consists of a wooden frame, with holes for securing the occupant's arms and head. A small sign positioned next to each one informs members of the public as to what kinds of use have been permitted by the slave's owner.
 	</p>
 	<p>
-		Although quite a few of the stocks are currently occupied, all of the slaves have been marked as unavailable for public use. Knowing that this is thanks to your earlier actions, you can't help but smile to yourself as you pass by...
+		Although quite a few of the stocks are currently occupied, all of the slaves have been marked as unavailable for public use. Knowing that this is thanks to your earlier actions, you can't help but smile to yourself as you pass by.
 	</p>
 	]]>
 	</htmlContent>
@@ -1093,6 +1093,14 @@
 	</p>
 	]]>
 	</htmlContent>
+	
+	<htmlContent tag="PUBLIC_STOCKS_FREED_ENDING"><![CDATA[
+	<p style='text-align:center;'>
+		[style.italicsMinorBad(Although you've set some slaves free, it won't be long before another group are locked into the stocks...)]
+	</p>
+	]]>
+	</htmlContent>
+	
 	
 	<htmlContent tag="PUBLIC_STOCKS_SEX_SOLO"><![CDATA[
 	<p>
@@ -2540,7 +2548,7 @@
 		Handing over [sean.namePos] keys, you step aside as he strides forwards into the square and takes charge of the situation. From what you can make out of the snippets of conversation you overhear between the [sean.race] and the private security guards, the public stocks are to be closed for the remainder of the day, and it's to be assumed that some kind of saboteur snuck in and picked the locks on all the stocks, before disappearing without a trace.
 	</p>
 	<p>
-		A few minutes later, and the guards once again allow traffic to pass through the square once more. As you amble forwards amongst the crowds, you're pleased to see that the stocks which contain the slaves who refused to escape have all been marked as unavailable for public use. With your work here being done, you wonder what to do next...
+		A few minutes later, and the guards once again allow traffic to pass through the square. As you amble forwards amongst the crowds, you're pleased to see that the stocks which contain the slaves who refused to escape have all been marked as unavailable for public use. With your work here being done, you wonder what to do next...
 	</p>
 	]]>
 	</htmlContent>

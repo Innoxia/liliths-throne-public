@@ -81,10 +81,10 @@ public class Zaranix extends NPC {
 		super(isImported, new NameTriplet("Zaranix", "Zaranix", "Zaranix"), "Lyniximartu",
 				"Zaranix is one of the few demons that feels more comfortable in his incubus, rather than succubus, form."
 						+ " Muscular, tall, and handsome, Zaranix uses both his cunning mind and good looks to get what he wants.",
-				47, Month.JULY, 3,
+				204, Month.JULY, 3,
 				15,
 				null, null, null,
-				new CharacterInventory(10), WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_OFFICE, true);
+				new CharacterInventory(false, 10), WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_OFFICE, true);
 		
 	}
 	
@@ -113,6 +113,9 @@ public class Zaranix extends NPC {
 			this.clearPenisModifiers();
 			this.addPenisModifier(PenetrationModifier.RIBBED);
 			this.setName(new NameTriplet("Zaranix", "Zaranix", "Zaranix"));
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.9.8")) {
+			this.setAge(204);
 		}
 	}
 

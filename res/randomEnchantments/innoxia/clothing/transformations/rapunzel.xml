@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<enchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	<applyDefaultSeal><![CDATA[true]]></applyDefaultSeal>
+	
+	<spawnWeighting><![CDATA[
+		100
+	]]></spawnWeighting>
+	
+	<namePrefix/>
+	<namePostfix><![CDATA[of Rapunzel]]></namePostfix>
+	<nameOverride/>
+	
+	<conditionalPreParsing/>
+	
+	<itemEffects>
+		<effect limit="350" mod1="TF_HAIR" mod2="TF_MOD_SIZE" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+</enchantment>

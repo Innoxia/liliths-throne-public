@@ -17,6 +17,10 @@
 		<preParsingEffects><![CDATA[
 			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/nnxx/callie_bakery', 'ENTRY_REPEAT'))]
 			[#flags.setFlag(FLAG_nnxx_callie_upgrade_reaction_pending, false)]
+			
+			#IF(flags.getSavedLong('nnxx_callie_total_donated')>0)
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/nnxx/callie_bakery', 'DONATION_PROGRESS'))]
+			#ENDIF
 		]]></preParsingEffects>
 		<content/>
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
@@ -25,7 +29,32 @@
 		<responses copyFromDialogueId="nnxx_callie_bakery_counter"/>
 	</scene>
 	
+	<scene id="entry_natalya">
+		<preParsingEffects><![CDATA[
+			[#natalya.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/nnxx/callie_bakery">NATALYA_ENTRY</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Approach]]></responseTitle>
+				<responseTooltip><![CDATA[Head on over to the counter and say hello to Callie and Mistress Natalya.]]></responseTooltip>
+				<nextDialogue><![CDATA[nnxx_callie_bakery_natalya_start]]></nextDialogue> <!-- Natalya content is at the end of the file -->
+				<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+			</response>
+		</responses>
+	</scene>
+	
 	<scene id="counter">
+		<preParsingEffects><![CDATA[
+			#IF(flags.getSavedLong('nnxx_callie_total_donated')>0)
+				[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/nnxx/callie_bakery', 'DONATION_PROGRESS'))]
+			#ENDIF
+		]]></preParsingEffects>
 		<content folderPath="txt/nnxx/callie_bakery">COUNTER</content>
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
@@ -84,6 +113,42 @@
 					#ENDIF
 				]]></nextDialogue>
 			</response>
+			<!-- Donations: -->
+				<response>
+					<availabilityConditional><![CDATA[
+						[#flags.getSavedLong('nnxx_callie_total_donated')>0 && !flags.hasFlag(FLAG_nnxx_callie_upgrade_3)]
+					]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[5]]></index>
+					<responseTitle><![CDATA[
+						#IF(callie.getFlamesToNextUpgrade()>0 && pc.getMoney()>=callie.getFlamesToNextUpgrade())
+							Donate ([style.moneyFormat([#callie.getFlamesToNextUpgrade()], span)])
+						#ELSE
+							Donate ([style.moneyFormatUncoloured([#callie.getFlamesToNextUpgrade()], span)])
+						#ENDIF
+					]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(callie.getFlamesToNextUpgrade()==0)
+							You've donated enough flames for Callie to be able to upgrade her store, so it's best to wait until tomorrow before giving her any more money.
+						#ELSEIF(pc.getMoney()<callie.getFlamesToNextUpgrade())
+							You don't have enough flames to donate to Callie in order for her to be able to upgrade her store...
+						#ELSE
+							Donate enough flames in order for Callie to be able to upgrade her store.
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue stripContent="true"><![CDATA[
+						#IF(callie.getFlamesToNextUpgrade()>0 && pc.getMoney()>=callie.getFlamesToNextUpgrade())
+							nnxx_callie_bakery_counter
+						#ELSE
+							null
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/nnxx/callie_bakery', 'DONATION'))]
+						[#game.appendToTextEndStringBuilder(pc.incrementMoney(-callie.getFlamesToNextUpgrade()))]
+						[#flags.incrementSavedLong('nnxx_callie_total_donated', callie.getFlamesToNextUpgrade())]
+					]]></effects>
+				</response>
 			<!-- Leave: -->
 			<response>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
@@ -209,6 +274,9 @@
 	</scene>
 	
 	<scene id="after_anilingus">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/nnxx/callie_bakery', 'DONATION_PROGRESS'))]
+		]]></preParsingEffects>
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[Callie has had enough of having her doughnut eaten...]]></tooltip>
 		<content folderPath="txt/nnxx/callie_bakery">AFTER_SEX_ANILINGUS</content>
@@ -417,6 +485,9 @@
 	</scene>
 	
 	<scene id="after_sex">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextEndStringBuilder(game.parseFromFile('txt/nnxx/callie_bakery', 'DONATION_PROGRESS'))]
+		]]></preParsingEffects>
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[Callie has had enough and brings an end to the sex...]]></tooltip>
 		<content folderPath="txt/nnxx/callie_bakery">AFTER_SEX</content>
@@ -444,6 +515,92 @@
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>false</travelDisabled>
 		<responses/>
+	</scene>
+	
+	
+	<!-- Natalya encounter content: -->
+	
+	
+	<scene id="natalya_start">
+		<preParsingEffects><![CDATA[
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/nnxx/callie_bakery', 'NATALYA_START'))]
+			[#flags.setFlag(FLAG_innoxia_callie_natalya_encountered, true)]
+			[#flags.setSavedLong('callie_natalya_encounter_time', game.getSecondsPassed())]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA['Doughnut' tasting]]></responseTitle>
+				<responseTooltip><![CDATA[Lock the front door and get ready to eat some horse-ass.<br/>[style.italicsSex(This will involve performing anilingus on both Callie and Mistress Natalya.)]]]></responseTooltip>
+				<nextDialogue/>
+				<effects><![CDATA[
+					[#flags.setFlag(FLAG_nnxx_callie_daily_fucked, true)]
+				]]></effects>
+				<sexVariablesWithManager enabled="true">
+					<id><![CDATA[innoxia_dominion_callie_bakery_natalya_anilingus]]></id>
+					<startingPosition><![CDATA[STANDING]]></startingPosition>
+					<dominants>
+						<character>
+							<id>natalya</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT]]></slot>
+						</character>
+						<character>
+							<id>callie</id>
+							<slot><![CDATA[STANDING_STANDING_DOMINANT_TWO]]></slot>
+						</character>
+					</dominants>
+					<submissives>
+						<character>
+							<id>pc</id>
+							<slot><![CDATA[STANDING_PERFORMING_ORAL_BEHIND]]></slot>
+						</character>
+					</submissives>
+					<postSexDialogue><![CDATA[nnxx_callie_bakery_natalya_after_anilingus]]></postSexDialogue>
+					<sexStartContent folderPath="txt/nnxx/callie_bakery">NATALYA_ANILINGUS_START</sexStartContent>
+					<ongoingActionsAtStart/>
+				</sexVariablesWithManager>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Make up an excuse to leave and quickly escape.]]></responseTooltip>
+				<nextDialogue stripContent="true" defaultPlaceType="DOMINION_CALLIE_BAKERY"/>
+				<secondsPassed minutes="true"><![CDATA[10]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/nnxx/callie_bakery', 'NATALYA_ESCAPE'))]
+					[#pc.setNearestLocation(WORLD_TYPE_DOMINION, PLACE_TYPE_DOMINION_CALLIE_BAKERY)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="natalya_after_anilingus">
+		<title><![CDATA[Finished]]></title>
+		<tooltip><![CDATA[Mistress Natalya has had enough.]]></tooltip>
+		<content folderPath="txt/nnxx/callie_bakery">NATALYA_AFTER_ANILINGUS</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Having finished performing anilingus on Mistress Natalya, you say goodbye to her and wonder what to do next...]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[nnxx_callie_bakery_counter]]></nextDialogue>
+				<effects><![CDATA[
+					[#natalya.returnToHome()]
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/nnxx/callie_bakery', 'NATALYA_AFTER_ANILINGUS_CONTINUE'))]
+				]]></effects>
+			</response>
+		</responses>
 	</scene>
 	
 </dialogueNodes>

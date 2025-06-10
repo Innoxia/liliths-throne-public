@@ -2,7 +2,7 @@
 <placeType>
 	<worldRegion>DOMINION</worldRegion>
 	<name><![CDATA[corridor]]></name>
-	<tooltipDescription><![CDATA[This corridor in the rear of the building leads directly to the staff room.]]></tooltipDescription>
+	<tooltipDescription><![CDATA[This corridor in the rear of the building links the shop floor with the factory and the 'staff-only' area.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the back of Lovienne's Luxuries]]></virginityLossDescription>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_GREY</colour>

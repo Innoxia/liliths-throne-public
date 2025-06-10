@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<enchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	<applyDefaultSeal><![CDATA[true]]></applyDefaultSeal>
+	
+	<spawnWeighting><![CDATA[
+		100
+	]]></spawnWeighting>
+	
+	<namePrefix/>
+	<namePostfix><![CDATA[of nausea]]></namePostfix>
+	<nameOverride/>
+	
+	<conditionalPreParsing/>
+	
+	<itemEffects>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="STRENGTH" potency="MINOR_DRAIN" timer="0" type="CLOTHING"/>
+		
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="HEALTH_MAXIMUM" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="HEALTH_MAXIMUM" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="HEALTH_MAXIMUM" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="HEALTH_MAXIMUM" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="HEALTH_MAXIMUM" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="HEALTH_MAXIMUM" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="HEALTH_MAXIMUM" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="HEALTH_MAXIMUM" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="HEALTH_MAXIMUM" potency="MINOR_DRAIN" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+</enchantment>

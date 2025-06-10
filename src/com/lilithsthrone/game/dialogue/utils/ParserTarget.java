@@ -1550,7 +1550,7 @@ public class ParserTarget {
 		}
 	};
 
-	public static AbstractParserTarget FIAMMETTA = new AbstractParserTarget(Util.newArrayListOfValues("fiammetta"), "") {
+	public static AbstractParserTarget FIAMMETTA = new AbstractParserTarget(Util.newArrayListOfValues("fiammetta", "fia"), "") {
 		public String getDescription() {
 			return Main.game.getNpc(Fiammetta.class).getDescription();
 		}

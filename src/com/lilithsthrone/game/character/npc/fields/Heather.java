@@ -100,7 +100,7 @@ public class Heather extends NPC {
 				24, Month.MAY, 7,
 				5,
 				Gender.N_P_TRAP, Subspecies.HUMAN, RaceStage.HUMAN,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_market"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_market_fortunes"),
 				true);
 
@@ -283,7 +283,8 @@ public class Heather extends NPC {
 								TattooCounterType.CUM_TAKEN_ANUS,
 								TattooCountType.NUMBERS,
 								PresetColour.CLOTHING_PINK_HOT,
-								false)));
+								false,
+								0)));
 		}
 	}
 	
@@ -393,7 +394,7 @@ public class Heather extends NPC {
 		cage.setName("Heather's Destiny");
 		this.addClothing(cage, false);
 
-		AbstractClothing bangle = Main.game.getItemGen().generateClothing(ClothingType.WRIST_BANGLE,
+		AbstractClothing bangle = Main.game.getItemGen().generateClothing(ClothingType.getClothingTypeFromId("innoxia_wrist_bangle"),
 				Util.newArrayListOfValues(PresetColour.CLOTHING_SILVER),
 				Util.newArrayListOfValues(
 						new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, TFPotency.DRAIN, 0),

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<enchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	<applyDefaultSeal><![CDATA[true]]></applyDefaultSeal>
+	
+	<spawnWeighting><![CDATA[
+		100
+	]]></spawnWeighting>
+	
+	<namePrefix/>
+	<namePostfix><![CDATA[of recklessness]]></namePostfix>
+	<nameOverride/>
+	
+	<conditionalPreParsing/>
+	
+	<itemEffects>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_UNARMED" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_UNARMED" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_UNARMED" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_UNARMED" potency="MINOR_BOOST" timer="0" type="CLOTHING"/>
+		
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_MELEE_WEAPON" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_MELEE_WEAPON" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_MELEE_WEAPON" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_MELEE_WEAPON" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_MELEE_WEAPON" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_RANGED_WEAPON" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_RANGED_WEAPON" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_RANGED_WEAPON" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_RANGED_WEAPON" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_RANGED_WEAPON" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_PHYSICAL" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_PHYSICAL" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_PHYSICAL" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_PHYSICAL" potency="MINOR_DRAIN" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+</enchantment>

@@ -77,7 +77,7 @@ public class RentalMommy extends NPC {
 				45, Month.JULY, 3,
 				15,
 				null, null, null,
-				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+				new CharacterInventory(false, 10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
 
 		if(!isImported) {
 			// RACE & NAME:

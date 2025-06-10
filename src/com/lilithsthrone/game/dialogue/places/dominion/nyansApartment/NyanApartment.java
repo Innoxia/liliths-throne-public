@@ -1335,6 +1335,10 @@ public class NyanApartment {
 										new Value<>(getNyan(), SexSlotLyingDown.LYING_DOWN),
 										new Value<>(getNyanMum(), SexSlotLyingDown.LYING_DOWN_TWO))) {
 							@Override
+							public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
+								return getMainSexPreference(character, targetedCharacter);
+							}
+							@Override
 							public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								if(character.isPlayer()) {
 									return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA);
@@ -1384,6 +1388,10 @@ public class NyanApartment {
 										new Value<>(getNyan(), SexSlotLyingDown.LYING_DOWN),
 										new Value<>(getNyanMum(), SexSlotLyingDown.LYING_DOWN_TWO))) {
 							@Override
+							public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
+								return getMainSexPreference(character, targetedCharacter);
+							}
+							@Override
 							public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 								if(character.isPlayer()) {
 									return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA);
@@ -1430,6 +1438,10 @@ public class NyanApartment {
 													new Value<>(getNyan(), Main.game.getPlayer().isTaur()?SexSlotStanding.PERFORMING_ORAL:SexSlotSitting.PERFORMING_ORAL),
 													new Value<>(getNyanMum(), Main.game.getPlayer().isTaur()?SexSlotStanding.PERFORMING_ORAL_TWO:SexSlotSitting.PERFORMING_ORAL_TWO))) {
 										@Override
+										public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
+											return getMainSexPreference(character, targetedCharacter);
+										}
+										@Override
 										public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 											if(character.isPlayer()) {
 												return new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH);
@@ -1475,6 +1487,10 @@ public class NyanApartment {
 											Util.newHashMapOfValues(
 													new Value<>(getNyan(), Main.game.getPlayer().isTaur()?SexSlotStanding.PERFORMING_ORAL_BEHIND:SexSlotLyingDown.MISSIONARY_ORAL),
 													new Value<>(getNyanMum(), Main.game.getPlayer().isTaur()?SexSlotStanding.PERFORMING_ORAL_BEHIND_TWO:SexSlotLyingDown.MISSIONARY_ORAL_TWO))) {
+										@Override
+										public SexType getForeplayPreference(GameCharacter character, GameCharacter targetedCharacter) {
+											return getMainSexPreference(character, targetedCharacter);
+										}
 										@Override
 										public SexType getMainSexPreference(GameCharacter character, GameCharacter targetedCharacter) {
 											if(character.isPlayer()) {

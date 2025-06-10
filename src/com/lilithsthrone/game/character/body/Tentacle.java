@@ -16,7 +16,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.2.8
- * @version 0.3.8.9
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class Tentacle implements BodyPartInterface {
@@ -37,6 +37,13 @@ public class Tentacle implements BodyPartInterface {
 		this.lengthAsPercentageOfHeight = type.getDefaultLengthAsPercentageOfHeight();
 	}
 
+	public Tentacle(Tentacle tentacleToCopy) {
+		this.type = tentacleToCopy.type;
+		this.tentacleCount = tentacleToCopy.tentacleCount;
+		this.girth = tentacleToCopy.girth;
+		this.lengthAsPercentageOfHeight = tentacleToCopy.lengthAsPercentageOfHeight;
+	}
+	
 	@Override
 	public AbstractTentacleType getType() {
 		return type;

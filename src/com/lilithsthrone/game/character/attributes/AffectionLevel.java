@@ -76,7 +76,7 @@ public enum AffectionLevel {
 				sb.append(UtilText.parse(character, target, "[npc.Name] "+applyColourWrapper("[npc.verb(hate)]", affectionLevel, withColour)+" [npc2.name]."));
 				break;
 			case NEGATIVE_THREE_STRONG_DISLIKE:
-				sb.append(UtilText.parse(character, target, "[npc.Name] strongly "+applyColourWrapper("[npc.verb(dislike)]", affectionLevel, withColour)+" [npc2.name]."));
+				sb.append(UtilText.parse(character, target, "[npc.Name] "+applyColourWrapper("[npc.verb(strongly dislike)]", affectionLevel, withColour)+" [npc2.name]."));
 				break;
 			case NEGATIVE_TWO_DISLIKE:
 				sb.append(UtilText.parse(character, target, "[npc.Name] "+applyColourWrapper("[npc.verb(dislike)]", affectionLevel, withColour)+" [npc2.name]."));

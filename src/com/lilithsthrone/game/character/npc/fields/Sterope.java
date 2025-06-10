@@ -40,6 +40,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -70,6 +71,7 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -91,7 +93,7 @@ public class Sterope extends NPC {
 				33, Month.DECEMBER, 2,
 				15,
 				Gender.F_V_B_FEMALE, Subspecies.HORSE_MORPH, RaceStage.PARTIAL,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_enforcer_station"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_enforcer_station_reception"),
 				true);
 	}
@@ -254,7 +256,9 @@ public class Sterope extends NPC {
 			if(this.getLocationPlaceType()!=PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_taur_stable")) { // Only equip when not in stable:
 				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_plunge_club_dress", PresetColour.CLOTHING_PINK_HOT, PresetColour.CLOTHING_ROSE_GOLD, null, false), true, this);
 				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_thong", PresetColour.CLOTHING_PINK_HOT, false), true, this);
-				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_strappy_sandals", PresetColour.CLOTHING_PINK_HOT, PresetColour.CLOTHING_TAN, PresetColour.CLOTHING_SILVER, false), true, this);
+				if(InventorySlot.FOOT.getBodyPartClothingBlock(this)==null) {
+					this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_strappy_sandals", PresetColour.CLOTHING_PINK_HOT, PresetColour.CLOTHING_TAN, PresetColour.CLOTHING_SILVER, false), true, this);
+				}
 			}
 			
 			AbstractClothing choker = Main.game.getItemGen().generateClothing("innoxia_bdsm_choker", PresetColour.CLOTHING_PINK_HOT, PresetColour.CLOTHING_SILVER, null, false);
@@ -283,7 +287,9 @@ public class Sterope extends NPC {
 		} else { // Enforcer uniform:
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_panties", PresetColour.CLOTHING_PINK, false), true, this);
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_fullcup_bra", PresetColour.CLOTHING_PINK, false), true, this);
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_pantyhose", PresetColour.CLOTHING_BLACK, false), true, this);
+			if(InventorySlot.FOOT.getBodyPartClothingBlock(this)==null) {
+				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_pantyhose", PresetColour.CLOTHING_BLACK, false), true, this);
+			}
 			
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfskirt", PresetColour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_flsldshirt", PresetColour.CLOTHING_PINK, false), true, this);
@@ -299,8 +305,10 @@ public class Sterope extends NPC {
 			
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfdbelt", PresetColour.CLOTHING_DESATURATED_BROWN, false), true, this);
 
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfpumps", PresetColour.CLOTHING_BLACK, false), true, this);
-
+			if(InventorySlot.FOOT.getBodyPartClothingBlock(this)==null) {
+				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eep_servequipset_enfpumps", PresetColour.CLOTHING_BLACK, false), true, this);
+			}
+			
 			AbstractClothing hat = Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_bwhat", PresetColour.CLOTHING_BLACK, false);
 			hat.setSticker("badge", "badge_elis");
 			this.equipClothingFromNowhere(hat, true, this);
@@ -360,12 +368,15 @@ public class Sterope extends NPC {
 	
 	@Override
 	public void hourlyUpdate(int hour) {
-		if(!Main.game.getCharactersPresent().contains(this)) {
+		if(!Main.game.getCharactersPresent().contains(this) && !Main.game.getDialogueFlags().hasFlag("innoxia_sterope_searching_for_taur")) {
 			// Increasing chance per hour of Sterope leaving with a centaur:
 			if(!Main.game.getDialogueFlags().hasFlag("innoxia_sterope_with_centaur")
 					&& !Main.game.getDialogueFlags().hasFlag("innoxia_sterope_sex")
-					&& ((hour==22 && Math.random()<0.5f) || hour==23)) {
+					&& (Main.game.getDialogueFlags().hasFlag("innoxia_sterope_met_in_tavern")
+						?((hour==22 && Math.random()<0.5f) || hour==23)
+						:hour==0)) {
 				try {
+					//System.out.println("Spawned! @ "+hour);
 					String centaurID = Main.game.addNPC("misc.GenericSexualPartner", "centaur");
 					NPC centaur = (NPC) Main.game.getNPCById(centaurID);
 					this.initCentaur(centaur);
@@ -379,7 +390,7 @@ public class Sterope extends NPC {
 			} else if((hour>=1 && hour<8) && Main.game.getDialogueFlags().hasFlag("innoxia_sterope_with_centaur")) { // After 1 in the morning, Sterope finishes sex with centaur
 				Main.game.getDialogueFlags().setFlag("innoxia_sterope_sex", true);
 				try {
-					NPC centaur = Main.game.getCharactersPresent(this.getCell()).stream().filter(npc -> npc instanceof GenericSexualPartner).findFirst().get();
+					NPC centaur = Main.game.getNonCompanionCharactersPresent(this.getCell()).stream().filter(npc -> npc instanceof GenericSexualPartner).findFirst().get();
 					Main.game.banishNPC(centaur);
 					
 					// This will now work as parsing targets are saved as of v0.4.9, but the above code has been left to cover older versions:
@@ -402,8 +413,10 @@ public class Sterope extends NPC {
 	public void turnUpdate() {
 		if(!Main.game.getCharactersPresent().contains(this)) {
 			if(Main.game.isHourBetween(8, 20)) {
-				this.returnToHome(); // Enforcer station
-				this.equipClothing();
+				if(this.getWorldLocation()!=WorldType.getWorldTypeFromId("innoxia_fields_elis_enforcer_station")) {
+					this.returnToHome(); // Enforcer station
+					this.equipClothing();
+				}
 				
 			} else if(Main.game.isHourBetween(21, 00)
 					&& Main.game.getDialogueFlags().hasFlag("innoxia_sterope_unlocked")
@@ -533,9 +546,13 @@ public class Sterope extends NPC {
 	}
 	
 	public void resetToStartingBody() {
-		this.setBody(Gender.F_V_B_FEMALE, Subspecies.HORSE_MORPH, RaceStage.PARTIAL, false);
-		setStartingBody(false); // Sets covering colours, breast size, etc.
-		resetJewelleryPostTransformation();
+		if(Main.game.getDialogueFlags().hasFlag("innoxia_sterope_fully_furry")) {
+			applyTransformation();
+		} else {
+			this.setBody(Gender.F_V_B_FEMALE, Subspecies.HORSE_MORPH, RaceStage.PARTIAL, false);
+			setStartingBody(false); // Sets covering colours, breast size, etc.
+			resetJewelleryPostTransformation();
+		}
 	}
 	
 	private void resetJewelleryPostTransformation() {
@@ -578,8 +595,13 @@ public class Sterope extends NPC {
 	}
 	
 	public void applyTack(GameCharacter equipper, GameCharacter target) {
+		Colour mainColour = PresetColour.CLOTHING_PINK_HOT;
+		if(target.isPlayer()) {
+			mainColour = PresetColour.CLOTHING_PURPLE;
+		}
+		
 		// Bridle:
-		AbstractClothing bridle = Main.game.getItemGen().generateClothing("innoxia_feral_bridle", PresetColour.CLOTHING_PINK_HOT, PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_WHITE, false);
+		AbstractClothing bridle = Main.game.getItemGen().generateClothing("innoxia_feral_bridle", mainColour, PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_WHITE, false);
 		bridle.clearEffects();
 		bridle.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_BONDAGE_VICTIM, TFPotency.MAJOR_BOOST, 0));
 		bridle.setName("Bridle of Bondage");
@@ -587,7 +609,7 @@ public class Sterope extends NPC {
 		
 		// Saddle:
 		AbstractClothing saddle = Main.game.getItemGen().generateClothing(
-				ClothingType.getClothingTypeFromId("innoxia_feral_saddle"), Util.newArrayListOfValues(PresetColour.CLOTHING_PINK_HOT, PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_WHITE), null);
+				ClothingType.getClothingTypeFromId("innoxia_feral_saddle"), Util.newArrayListOfValues(mainColour, PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_WHITE), null);
 		saddle.clearEffects();
 		saddle.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_SUBMISSIVE, TFPotency.MAJOR_BOOST, 0));
 		saddle.setName("Saddle of Submission");
@@ -601,7 +623,7 @@ public class Sterope extends NPC {
 		target.equipClothingFromNowhere(horseshoes, true, equipper);
 		
 		// Tail bandage:
-		AbstractClothing bandage = Main.game.getItemGen().generateClothing("innoxia_feral_bandage", PresetColour.CLOTHING_PINK_HOT, false);
+		AbstractClothing bandage = Main.game.getItemGen().generateClothing("innoxia_feral_bandage", mainColour, false);
 		bandage.clearEffects();
 		bandage.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_MOD_FETISH_BEHAVIOUR, TFModifier.TF_MOD_FETISH_EXHIBITIONIST, TFPotency.MAJOR_BOOST, 0));
 		bandage.setName("Bandage of Betrayal");
@@ -628,7 +650,7 @@ public class Sterope extends NPC {
 	
 	public void wearDildo() {
 		AbstractClothing dildo = Main.game.getItemGen().generateClothing("norin_dildos_realistic_dildo", PresetColour.CLOTHING_PINK_HOT, false);
-		dildo.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_VIBRATION, TFPotency.MAJOR_BOOST, 0));
+		dildo.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEXUAL, TFModifier.CLOTHING_VIBRATION, TFPotency.MAJOR_BOOST, 0));
 		dildo.setName("Sterope's cunt filler");
 		this.equipClothingFromNowhere(dildo, true, this);
 	}
@@ -637,5 +659,15 @@ public class Sterope extends NPC {
 		AbstractClothing beads = Main.game.getItemGen().generateClothing("norin_anal_beads_anal_beads", PresetColour.CLOTHING_PINK_HOT, false);
 		beads.setName("Sterope's anal beads");
 		this.equipClothingFromNowhere(beads, true, this);
+	}
+	
+	public void applyPostSexCleaning(boolean includePlayer) {
+		this.applyWash(true, false, StatusEffect.CLEANED_SHOWER, 240);
+		this.clearMuskMarkers();
+		this.removeStatusEffect(StatusEffect.PSYCHOACTIVE);
+		this.clearAddictions();
+		if(includePlayer) {
+			Main.game.getPlayer().applyWash(true, false, StatusEffect.CLEANED_SHOWER, 240);
+		}
 	}
 }

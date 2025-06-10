@@ -227,7 +227,7 @@ public class FingerPenis {
 				case DOM_NORMAL:
 					return (UtilText.returnStringAtRandom(
 							" [npc2.Name] [npc2.verb(buck)] [npc2.her] [npc2.hips] out in response,"
-									+ " letting out a delighted [npc2.moan] as [npc2.she] [npc2.verb(start)] enthusiastically imploring [npc.name] to continue giving [npc2.her] a handjob.",
+									+ " letting out a delighted [npc2.moan] as [npc2.she] [npc2.verb(start)] enthusiastically imploring [npc.name] to continue giving [npc2.herHim] a handjob.",
 		
 							" A delighted [npc2.moan] bursts out from between [npc2.namePos] [npc2.lips],"
 									+ " and [npc2.she] [npc2.verb(start)] eagerly thrusting [npc2.her] [npc2.hips] out against [npc.namePos] touch as [npc2.she] [npc2.verb(beg)] [npc.herHim] to continue giving [npc2.herHim] a handjob.",

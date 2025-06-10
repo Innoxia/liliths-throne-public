@@ -63,7 +63,7 @@ public class Ashley extends NPC {
 				Gender.N_P_TRAP,
 				Subspecies.ANGEL,
 				RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.SHOPPING_ARCADE,
 				PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP,
 				true);

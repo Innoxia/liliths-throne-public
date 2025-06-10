@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<value>40</value>
+		<determiner><![CDATA[a roll of]]></determiner>
+		<name><![CDATA[electrical tape]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[electrical tapes]]></namePlural>
+		<description><![CDATA[This shiny tape is of the sort that's typically used by electricians. Although it holds enough adhesive to stick to most surfaces, it isn't particularly strong, and could comfortably be stuck to skin, fur, or hair without fear of a painful removal.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<equipSlots>
+			<slot>NIPPLE</slot>
+			<slot>MOUTH</slot>
+			<slot>VAGINA</slot>
+			<slot>ANUS</slot>
+		</equipSlots>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>roll.svg</imageName>
+		<imageEquippedName slot="NIPPLE">nipple_crosses.svg</imageEquippedName>
+		<imageEquippedName slot="MOUTH">cross.svg</imageEquippedName>
+		<imageEquippedName slot="VAGINA">single.svg</imageEquippedName>
+		<imageEquippedName slot="ANUS">single.svg</imageEquippedName>
+		<effects/>
+		
+		<blockedPartsList slot="NIPPLE">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>NIPPLES</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+				<concealedSlots>
+					<slot>NIPPLE</slot>
+					<slot>PIERCING_NIPPLE</slot>
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<blockedPartsList slot="MOUTH">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>MOUTH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<blockedPartsList slot="VAGINA">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>GROIN</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>VAGINA</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<blockedPartsList slot="ANUS">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>GROIN</clothingAccess>
+					<clothingAccess>ANUS</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>ANUS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots slot="MOUTH"/>
+		<incompatibleSlots slot="NIPPLE"/>
+		<incompatibleSlots slot="VAGINA"/>
+		<incompatibleSlots slot="ANUS"/>
+		
+		<primaryColours>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_RED_BRIGHT</colour>
+			<colour>CLOTHING_ORANGE_BRIGHT</colour>
+			<colour>CLOTHING_GREEN_LIME</colour>
+			<colour>CLOTHING_BLUE_LIGHT</colour>
+			<colour>CLOTHING_PINK_HOT</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL_WITH_METALS"/>
+		<secondaryColours>
+			<colour>CLOTHING_DESATURATED_BROWN</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+	
+		<itemTags>
+			<tag>DUPLICATE_WHEN_EQUIP</tag>
+			<tag>DISCARDED_WHEN_UNEQUIPPED</tag>
+			<tag>ENABLE_SEX_EQUIP</tag>
+			<tag>SOLD_BY_RALPH</tag>
+			<tag>NO_RANDOM_SPAWN</tag>
+		</itemTags>
+		<itemTags slot="MOUTH">
+			<tag>MUFFLES_SPEECH</tag>
+		</itemTags>
+		<itemTags slot="NIPPLE">
+			<tag>SEALS_NIPPLES</tag>
+		</itemTags>
+		<itemTags slot="VAGINA">
+			<tag>REQUIRES_VAGINA</tag>
+			<tag>SEALS_VAGINA</tag>
+		</itemTags>
+		<itemTags slot="ANUS">
+			<tag>SEALS_ANUS</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText slot="MOUTH" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(tear)] off two long pieces of tape and [npc.verb(stick)] them over [npc.her] mouth.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(tear)] off two long pieces of tape and [npc.verb(stick)] them over [npc2.namePos] mouth.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(tear)] off two long pieces of tape and roughly [npc.verb(stick)] them over [npc2.namePos] mouth.]]>
+		</otherRough>
+	</replacementText>
+	<displacementText slot="MOUTH" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(wince)] as [npc.she] [npc.verb(peel)] the tape off [npc.her] mouth.]]>
+		</self>
+		<other>
+			<![CDATA[[npc2.Name] [npc2.verb(wince)] as [npc.name] [npc.verb(peel)] the tape off [npc2.her] mouth.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc2.Name] [npc2.verb(wince)] and [npc2.verb(let)] out a cry as [npc.name] roughly [npc.verb(rip)] the tape off [npc2.her] mouth.]]>
+		</otherRough>
+	</displacementText>
+
+	<replacementText slot="NIPPLE" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(tear)] off pieces of tape and [npc.verb(join)] them together into tape crosses, before sticking them over [npc.her] [npc.nipples].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(tear)] off pieces of tape and [npc.verb(join)] them together into tape crosses, before sticking them over [npc2.namePos] [npc2.nipples].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(tear)] off pieces of tape and [npc.verb(join)] them together into tape crosses, before roughly sticking them over [npc2.namePos] [npc2.nipples].]]>
+		</otherRough>
+	</replacementText>
+	<displacementText slot="NIPPLE" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(wince)] as [npc.she] [npc.verb(peel)] the tape crosses off [npc.her] [npc.nipples].]]>
+		</self>
+		<other>
+			<![CDATA[[npc2.Name] [npc2.verb(wince)] as [npc.name] [npc.verb(peel)] the tape crosses off [npc2.her] [npc2.nipples].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc2.Name] [npc2.verb(wince)] and [npc2.verb(let)] out a cry as [npc.name] roughly [npc.verb(tear)] the tape crosses off [npc2.her] [npc2.nipples].]]>
+		</otherRough>
+	</displacementText>
+	
+	<replacementText slot="VAGINA" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(tear)] off a piece of tape and [npc.verb(stick)] it over [npc.her] [npc.pussy+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(tear)] off a piece of tape and [npc.verb(stick)] it over [npc2.namePos] [npc2.pussy+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(tear)] off a piece of tape and roughly [npc.verb(stick)] it over [npc2.namePos] [npc2.pussy+].]]>
+		</otherRough>
+	</replacementText>
+	<displacementText slot="VAGINA" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(wince)] as [npc.she] [npc.verb(peel)] off the tape that was covering [npc.her] [npc.pussy+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc2.Name] [npc2.verb(wince)] as [npc.name] [npc.verb(peel)] off the tape that was covering [npc2.namePos] [npc2.pussy+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc2.Name] [npc2.verb(wince)] and [npc2.verb(let)] out a cry as [npc.name] roughly [npc.verb(tear)] off the tape that was covering [npc2.her] [npc2.pussy+].]]>
+		</otherRough>
+	</displacementText>
+	
+	<replacementText slot="ANUS" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(tear)] off a piece of tape and [npc.verb(stick)] it over [npc.her] [npc.asshole+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(tear)] off a piece of tape and [npc.verb(stick)] it over [npc2.namePos] [npc2.asshole+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(tear)] off a piece of tape and roughly [npc.verb(stick)] it over [npc2.namePos] [npc2.asshole+].]]>
+		</otherRough>
+	</replacementText>
+	<displacementText slot="ANUS" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(wince)] as [npc.she] [npc.verb(peel)] off the tape that was covering [npc.her] [npc.asshole+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc2.Name] [npc2.verb(wince)] as [npc.name] [npc.verb(peel)] off the tape that was covering [npc2.namePos] [npc2.asshole+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc2.Name] [npc2.verb(wince)] and [npc2.verb(let)] out a cry as [npc.name] roughly [npc.verb(tear)] off the tape that was covering [npc2.her] [npc2.asshole+].]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>

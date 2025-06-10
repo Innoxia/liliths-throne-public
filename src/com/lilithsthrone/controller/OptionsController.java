@@ -76,6 +76,22 @@ public class OptionsController {
 	}
 	
 	public static void initGenderListeners() {
+		// OFFSPRING_GENDER_PREF_
+		for(int i=com.lilithsthrone.game.Properties.offspringGenderName.length-1; i>=0; i--) {
+			String id = "OFFSPRING_GENDER_PREF_"+i;
+			int javaWooooooooooooooooooooooooooooooooOOOOOoooOOOOOoooOOOOOOooOOOOOooo = i;
+			if (MainController.document.getElementById(id) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+					Main.getProperties().offspringGenderLevel = javaWooooooooooooooooooooooooooooooooOOOOOoooOOOOOoooOOOOOOooOOOOOooo;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(
+						Util.capitaliseSentence(Properties.offspringGenderName[i]),
+						Properties.offspringGenderDescription[i]));
+			}
+		}
+		
 		for (Gender g : Gender.values()) {
 			for (ContentPreferenceValue preference : ContentPreferenceValue.values()) {
 				if (MainController.document.getElementById(preference+"_"+g) != null) {
@@ -453,10 +469,18 @@ public class OptionsController {
 		}
 		
 		for (Artist artist : Artwork.allArtists) {
-			id = "ARTIST_"+artist.getFolderName();
+			id = "ARTIST_"+artist.getFolderName()+"_UP";
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					Main.getProperties().preferredArtist = artist.getFolderName();
+					Main.getProperties().modifyArtistPriority(artist.getFolderName(), -1);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "ARTIST_"+artist.getFolderName()+"_DOWN";
+			if (MainController.document.getElementById(id) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+					Main.getProperties().modifyArtistPriority(artist.getFolderName(), 1);
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
@@ -700,6 +724,18 @@ public class OptionsController {
 								+"<br/><i>Characters can always gain udders/crotch-boobs via transformations after they've spawned.</i>"));
 			}
 		}
+
+		for (int i = 0; i<4; i++) {
+			id = "HAIR_GROWTH_PREFERENCE_"+i;
+			if (MainController.document.getElementById(id) != null) {
+				int finalI1 = i;
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+					Main.getProperties().setHairGrowth(finalI1);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+		}
 		
 		id = "PREGNANCY_BREAST_GROWTH_ON";
 		if (MainController.document.getElementById(id) != null) {
@@ -938,7 +974,9 @@ public class OptionsController {
 				new Util.Value<>("HAIR_ASS", PropertyValue.assHairContent),
 				new Util.Value<>("FEMININE_BEARD", PropertyValue.feminineBeardsContent),
 				new Util.Value<>("FURRY_HAIR", PropertyValue.furryHairContent),
-				new Util.Value<>("SCALY_HAIR", PropertyValue.scalyHairContent)
+				new Util.Value<>("SCALY_HAIR", PropertyValue.scalyHairContent),
+				new Util.Value<>("LIP_LISP", PropertyValue.lipLispContent)
+				
 		));
 	}
 }

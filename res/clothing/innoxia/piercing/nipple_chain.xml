@@ -42,7 +42,7 @@
 					<availabilityText/>
 				</sticker>
 			</category>
-			<category id="third_chain" priority="1">
+			<category id="third_chain" priority="2">
 				<categoryName><![CDATA[Third chain]]></categoryName>
 				<sticker id="none" priority="0" defaultSticker="true" zLayer="1">
 					<stickerName><![CDATA[None]]></stickerName>

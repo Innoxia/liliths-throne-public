@@ -270,8 +270,8 @@
 			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'SWORD'))]
 			[#flags.setFlag(FLAG_innoxia_sword_mission_react_needed, false)]
 			
-			[#flags.setFlag(FLAG_innoxia_sword_history_revealed, false)]
 			[#flags.setFlag(FLAG_innoxia_sword_talk_elis, false)]
+			[#flags.setFlag(FLAG_innoxia_sword_talk_history, false)]
 			[#flags.setFlag(FLAG_innoxia_sword_talk_oricl, false)]
 			[#flags.setFlag(FLAG_innoxia_sword_talk_human_rebellion, false)]
 			[#flags.setFlag(FLAG_innoxia_sword_talk_hlf, false)]
@@ -481,15 +481,39 @@
 					[#flags.setFlag(FLAG_innoxia_sword_talk_hlf, true)]
 				]]></effects>
 			</response>
-			<response>
-				<availabilityConditional><![CDATA[[#pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_H_SWORD_MISSION) && !flags.hasFlag(FLAG_innoxia_sword_mission_reward) && !pc.hasQuest(QUEST_LINE_SIDE_DOLL_FACTORY)]]]></availabilityConditional>
-				<responseTabIndex><![CDATA[0]]></responseTabIndex>
-				<index><![CDATA[6]]></index>
-				<responseTitle><![CDATA[Angelixx's diary]]></responseTitle>
-				<responseTooltip><![CDATA[Ask the Enforcers if they've discovered anything from the contents of Angelixx's diary.<br/>[style.italicsBad(This will be added soon!)]]]></responseTooltip>
-				<colour><![CDATA[QUEST_SIDE]]></colour>
-				<nextDialogue><![CDATA[null]]></nextDialogue><!-- TODO innoxia_places_fields_elis_enforcer_station_sword_angelixx_diary -->
-			</response>
+			<!-- Angelixx: -->
+				<response>
+					<availabilityConditional><![CDATA[[#pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_H_SWORD_MISSION) && !flags.hasFlag(FLAG_innoxia_sword_mission_reward) && !pc.hasQuest(QUEST_LINE_SIDE_DOLL_FACTORY)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[6]]></index>
+					<responseTitle><![CDATA[Angelixx's diary]]></responseTitle>
+					<responseTooltip><![CDATA[Ask the Enforcers if they've discovered anything from the contents of Angelixx's diary.]]></responseTooltip>
+					<colour><![CDATA[QUEST_SIDE]]></colour>
+					<nextDialogue><![CDATA[innoxia_places_fields_elis_enforcer_station_sword_angelixx_diary]]></nextDialogue>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#pc.isQuestCompleted(QUEST_LINE_SIDE_DOLL_FACTORY) && pc.hasQuestInLine(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_7A) && !flags.hasFlag(FLAG_innoxia_sword_talk_quest_complete)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[6]]></index>
+					<responseTitle><![CDATA[Refugees' fate]]></responseTitle>
+					<responseTooltip><![CDATA[Tell the Enforcers that Angelixx and Saellatrix were transforming the kidnapped refugees into sex dolls, and that with the help of a reporter named Fiammetta you put a stop to it.]]></responseTooltip>
+					<nextDialogue stripContent="true"><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_sword_talk_quest_complete))
+							null
+						#ELSE
+							innoxia_places_fields_elis_enforcer_station_sword_talk
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/enforcer_station', 'SWORD_TALK_ANGELIXX_QUEST_COMPLETE'))]
+						[#flags.setFlag(FLAG_innoxia_sword_talk_elis, false)]
+						[#flags.setFlag(FLAG_innoxia_sword_talk_history, false)]
+						[#flags.setFlag(FLAG_innoxia_sword_talk_oricl, false)]
+						[#flags.setFlag(FLAG_innoxia_sword_talk_human_rebellion, false)]
+						[#flags.setFlag(FLAG_innoxia_sword_talk_hlf, false)]
+						[#flags.setFlag(FLAG_innoxia_sword_talk_quest_complete, true)]
+					]]></effects>
+				</response>
 		</responses>
 	</scene>
 	

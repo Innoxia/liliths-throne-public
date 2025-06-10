@@ -4,6 +4,7 @@ import java.time.Month;
 
 import com.lilithsthrone.game.character.npc.dominion.Daddy;
 import com.lilithsthrone.game.character.npc.dominion.Felicia;
+import com.lilithsthrone.game.character.npc.dominion.Fiammetta;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -16,6 +17,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGr
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.Weather;
@@ -409,20 +411,109 @@ public class DemonHome {
 
 	public static final DialogueNode DEMON_HOME_SEX_SHOP = new DialogueNode("", "", false) {
 		@Override
+		public void applyPreParsingEffects() {
+            if(Main.game.getPlayer().getQuest(QuestLine.SIDE_DOLL_FACTORY)==Quest.DOLL_FACTORY_7A && !Main.game.getDialogueFlags().hasFlag("innoxia_doll_factory_ending_riot_witnessed")) {
+            	Main.game.getNpc(Fiammetta.class).setLocation(Main.game.getPlayer());
+            	Main.game.appendToTextEndStringBuilder(Main.game.getPlayer().incrementMoney(50_000));
+            }
+            if(Main.game.getPlayer().getQuest(QuestLine.SIDE_DOLL_FACTORY)==Quest.DOLL_FACTORY_7A
+            		&& Main.game.getSecondsPassed() - Main.game.getDialogueFlags().getSavedLong("doll_quest_choice_time") < (7 * 24 * 60 * 60)) {
+            	int daysToGo = 7 - (int) (((Main.game.getSecondsPassed() - Main.game.getDialogueFlags().getSavedLong("doll_quest_choice_time")) / (24 * 60 * 60)));
+            	if(daysToGo<=1) {
+                	UtilText.addSpecialParsingString("[style.italicsGood(Lovienne's Luxuries will reopen in a day or so.)]", true);
+            	} else {
+                	UtilText.addSpecialParsingString("[style.italicsMinorGood(Lovienne's Luxuries will reopen in about "+daysToGo+" days...)]", true);
+            	}
+            }
+            if(Main.game.getPlayer().getQuest(QuestLine.SIDE_DOLL_FACTORY)==Quest.DOLL_FACTORY_7B
+            		&& Main.game.getSecondsPassed() - Main.game.getDialogueFlags().getSavedLong("doll_quest_choice_time") < (1 * 24 * 60 * 60)) {
+            	UtilText.addSpecialParsingString("[style.italicsGood(Lovienne's Luxuries will reopen in a day or so.)]", true);
+            }
+		}
+		@Override
+		public boolean isTravelDisabled() {
+			if(Main.game.getPlayer().getQuest(QuestLine.SIDE_DOLL_FACTORY)==Quest.DOLL_FACTORY_7A) {
+				if(Main.game.getSecondsPassed() - Main.game.getDialogueFlags().getSavedLong("doll_quest_choice_time") < (7 * 24 * 60 * 60)) {
+					return !Main.game.getDialogueFlags().hasFlag("innoxia_doll_factory_ending_riot_witnessed");
+				} else {
+					return !Main.game.getDialogueFlags().hasFlag("innoxia_doll_factory_ending_reopen_scene_seen");
+				}
+			}
+			return false;
+		}
+		@Override
 		public int getSecondsPassed() {
 			return DominionPlaces.TRAVEL_TIME_STREET;
 		}
 		@Override
 		public String getContent() {
-			StringBuilder sb = new StringBuilder();
-			sb.append(UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "DEMON_HOME_SEX_SHOP"));
-//			sb.append(getAdditionalDescriptions());
-			return sb.toString();
+			if(Main.game.getPlayer().getQuest(QuestLine.SIDE_DOLL_FACTORY)==Quest.DOLL_FACTORY_7A) {
+				if(Main.game.getSecondsPassed() - Main.game.getDialogueFlags().getSavedLong("doll_quest_choice_time") < (7 * 24 * 60 * 60)) {
+					return UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "DEMON_HOME_SEX_SHOP_RIOT");
+				}
+				if(!Main.game.getDialogueFlags().hasFlag("innoxia_doll_factory_ending_reopen_scene_seen")) {
+					return UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "DEMON_HOME_SEX_SHOP_RIOT_ENDED");
+				}
+			}
+			
+			if(Main.game.getPlayer().getQuest(QuestLine.SIDE_DOLL_FACTORY)==Quest.DOLL_FACTORY_7B
+					&& (Main.game.getSecondsPassed() - Main.game.getDialogueFlags().getSavedLong("doll_quest_choice_time") < (1 * 24 * 60 * 60))) {
+				return UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "DEMON_HOME_SEX_SHOP_FIA_CLOSED");
+			}
+			
+			return UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "DEMON_HOME_SEX_SHOP");
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				if(!Main.game.isHourBetween(11, 23)) {
+				if(Main.game.getPlayer().getQuest(QuestLine.SIDE_DOLL_FACTORY)==Quest.DOLL_FACTORY_7A
+						&& ((Main.game.getSecondsPassed() - Main.game.getDialogueFlags().getSavedLong("doll_quest_choice_time") < (7 * 24 * 60 * 60))// 7 days
+							|| !Main.game.getDialogueFlags().hasFlag("innoxia_doll_factory_ending_riot_witnessed")
+							|| !Main.game.getDialogueFlags().hasFlag("innoxia_doll_factory_ending_reopen_scene_seen"))) {
+					if(!Main.game.getDialogueFlags().hasFlag("innoxia_doll_factory_ending_riot_witnessed")) {
+						return new Response("Goodbye",
+								"Say goodbye to Fiammetta.",
+								DEMON_HOME_SEX_SHOP_RIOT_CONTINUE) {
+							@Override
+							public void effects() {
+								Main.game.getNpc(Fiammetta.class).returnToHome();
+								Main.game.getDialogueFlags().setFlag("innoxia_doll_factory_ending_riot_witnessed", true);
+								// If enough time has passed to reopen, reset timer so one more day is needed
+								if(Main.game.getSecondsPassed() - Main.game.getDialogueFlags().getSavedLong("doll_quest_choice_time") >= (7 * 24 * 60 * 60)) {
+									Main.game.getDialogueFlags().setSavedLong("doll_quest_choice_time", Main.game.getSecondsPassed() - (6 * 24 * 60 * 60));
+								}
+							}
+						};
+						
+					} else if((Main.game.getSecondsPassed() - Main.game.getDialogueFlags().getSavedLong("doll_quest_choice_time") >= (7 * 24 * 60 * 60))
+							&& !Main.game.getDialogueFlags().hasFlag("innoxia_doll_factory_ending_reopen_scene_seen")) {
+						return new Response("Continue",
+								"Continue on your way.",
+								DEMON_HOME_SEX_SHOP) {
+							@Override
+							public void effects() {
+								Main.game.getDialogueFlags().setFlag("innoxia_doll_factory_ending_reopen_scene_seen", true);
+							}
+						};
+						
+					} else {
+						int daysRemaining = 7 - (int) ((Main.game.getSecondsPassed() - (Main.game.getDialogueFlags().getSavedLong("doll_quest_choice_time"))) / (24 * 60 * 60));
+						
+						return new Response("Lovienne's Luxuries",
+								"Due to the public unrest, Lovienne's Luxuries is currently [style.colourBad(closed)]."
+									+ "<br/>[style.italicsMinorGood(It's likely to reopen within "+Util.intToString(daysRemaining)+" "+(daysRemaining<=1?"day":"days")+" or so...)]",
+								null);
+					}
+					
+				} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_DOLL_FACTORY)==Quest.DOLL_FACTORY_7B
+						&& Main.game.getDialogueFlags().hasSavedLong("doll_quest_choice_time")
+						&& (Main.game.getSecondsPassed() - Main.game.getDialogueFlags().getSavedLong("doll_quest_choice_time") < (1 * 24 * 60 * 60))) { // 1 day
+					return new Response("Lovienne's Luxuries",
+							"Due to having to deal with the situation with Fiammetta's article, Lovienne's Luxuries is currently [style.colourBad(closed)]."
+								+ "<br/>[style.italicsMinorGood(It's likely to reopen within a day or two...)]",
+							null);
+					
+				} else if(!Main.game.isHourBetween(11, 23)) {
 					return new Response("Lovienne's Luxuries",
 							"Lovienne's Luxuries is open between [units.time(11)]-[units.time(23)], and as such is currently [style.colourBad(closed)].",
 							null);
@@ -438,10 +529,103 @@ public class DemonHome {
 					};
 					
 				}
-
-			} else {
-				return null;
+				
+			} else if(index==2) {
+				if(Main.game.getPlayer().getQuest(QuestLine.SIDE_DOLL_FACTORY)==Quest.DOLL_FACTORY_7A
+						&& ((Main.game.getSecondsPassed() - Main.game.getDialogueFlags().getSavedLong("doll_quest_choice_time") < (7 * 24 * 60 * 60))// 7 days
+								|| !Main.game.getDialogueFlags().hasFlag("innoxia_doll_factory_ending_riot_witnessed")
+								|| !Main.game.getDialogueFlags().hasFlag("innoxia_doll_factory_ending_reopen_scene_seen"))
+						&& !Main.game.getDialogueFlags().hasFlag("innoxia_doll_factory_ending_riot_witnessed")) {
+					return null; // If talking to Fia, don't show 'Fia' action
+				}
+				
+				if(Main.game.getPlayer().getQuest(QuestLine.SIDE_DOLL_FACTORY)==Quest.DOLL_FACTORY_7A
+						&& (Main.game.getSecondsPassed() - Main.game.getDialogueFlags().getSavedLong("doll_quest_choice_time") >= (7 * 24 * 60 * 60))
+						&& !Main.game.getDialogueFlags().hasFlag("innoxia_doll_factory_ending_reopen_scene_seen")) {
+					return null; // If this is the 'riot end' scene, don't show the 'Fia' action
+				}
+				
+				if(Main.game.getPlayer().getQuest(QuestLine.SIDE_DOLL_FACTORY)==Quest.DOLL_FACTORY_2) {
+					if(!Main.game.isHourBetween(1, 4)) {
+						return new Response("Find Fia",
+								"You need to wait until it's between [units.time(1)]-[units.time(4)] to break into Lovienne's Luxuries with Fia...",
+								null);
+						
+					} else if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+						return new Response("Find Fia",
+								"Although you're here at the right time, between [units.time(1)]-[units.time(4)], Fia can't show up due to the ongoing arcane storm...",
+								null);
+						
+					} else {
+						return new Response("Find Fia",
+								"Look for Fia so that the two of you can break into Lovienne's Luxuries and search for evidence of where the kidnapped people are being held."
+									+"<br/>[style.italicsCombat(Be prepared, for this will start a lengthy section of the side quest during which there may be difficult fights!)]",
+								DialogueManager.getDialogueFromId("innoxia_places_dominion_sex_shop_factory_meet_fia_start"));
+					}
+					
+				} else if(Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_DOLL_FACTORY, Quest.DOLL_FACTORY_7A)) {
+					if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_DOLL_FACTORY)) {
+						return new Response("Fia",
+								"Fia hasn't come out of hiding yet, and will only do so after Loveinne's Luxuries reopens..."
+									+ (!Main.game.getDialogueFlags().hasFlag("innoxia_doll_factory_ending_reopen_scene_seen")
+											?"<br/>[style.italics(Fia will return after you've entered the newly-reopened Loveinne's Luxuries.)]"
+											:""),
+								null);
+					} else {
+						if(!Main.game.isHourBetween(19, 00)) {
+							return new Response("Fia",
+									"Fia isn't around at this time..."
+									+ "<br/><i>Return between the hours of [units.time(19)]-[units.time(00)] to find Fia.</i>",
+									null);
+							
+						} else if(Main.game.getDialogueFlags().hasFlag("innoxia_fia_bar_seen")) {
+							return new Response("Find Fia",
+									"You've already met Fia this evening, and won't be able to find her again until tomorrow.",
+									null);
+								
+						} else {
+							return new Response("Fia",
+									"Look for Fia in the nearby bars.",
+									DialogueManager.getDialogueFromId("innoxia_places_dominion_demon_home_fia_start"));
+						}
+					}
+					
+				} else if(Main.game.getPlayer().hasQuestInLine(QuestLine.SIDE_DOLL_FACTORY, Quest.DOLL_FACTORY_7B) && Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_DOLL_FACTORY)) {
+					if(!Main.game.isHourBetween(16, 22)) {
+						return new Response("Angelixx",
+								"Angelixx and her sons are out at 'work' at this time, so you'll have to come back later if you wanted to see them."
+								+ "<br/><i>Return between the hours of [units.time(16)]-[units.time(22)] to meet Angelixx and her sons.</i>",
+								null);
+						
+					} else if(Main.game.getDialogueFlags().hasFlag("innoxia_angelixx_apartment_visited")) {
+							return new Response("Angelixx",
+									"You've already paid a visit to Angelixx's apartment this evening, and can't do so again until tomorrow.",
+									null);
+							
+					} else {
+						return new Response("Angelixx",
+								"Head up to Angelixx's apartment and pay her and her sons a visit.",
+								DialogueManager.getDialogueFromId("innoxia_places_dominion_angelixx_apartment_generic_visit"));
+					}
+				}
 			}
+			return null;
+		}
+	};
+	
+
+	public static final DialogueNode DEMON_HOME_SEX_SHOP_RIOT_CONTINUE = new DialogueNode("", "", false, true) {
+		@Override
+		public int getSecondsPassed() {
+			return DominionPlaces.TRAVEL_TIME_STREET;
+		}
+		@Override
+		public String getContent() {
+			return UtilText.parseFromXMLFile("places/dominion/dominionPlaces", "DEMON_HOME_SEX_SHOP_RIOT_CONTINUE");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return DEMON_HOME_SEX_SHOP.getResponse(responseTab, index);
 		}
 	};
 }

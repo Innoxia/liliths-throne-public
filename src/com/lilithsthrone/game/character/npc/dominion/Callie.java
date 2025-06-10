@@ -44,7 +44,6 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -69,7 +68,7 @@ public class Callie extends NPC {
 				"Callie is the owner of the bakery, 'The Creamy Bakey', which is to be found in the north-west of Dominion.",
 				26, Month.JUNE, 11,
 				10, Gender.F_P_B_SHEMALE, Subspecies.HORSE_MORPH, RaceStage.PARTIAL_FULL,
-				new CharacterInventory(250),
+				new CharacterInventory(false, 250),
 				WorldType.getWorldTypeFromId("nnxx_callie_bakery"), PlaceType.getPlaceTypeFromId("nnxx_callie_bakery_counter"),
 				true);
 		if(!isImported) {
@@ -226,7 +225,7 @@ public class Callie extends NPC {
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_tight_jeans", PresetColour.CLOTHING_WHITE, false), true, this);
 //		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_panties", PresetColour.CLOTHING_WHITE, false), true, this);
 		
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_BANGLE, PresetColour.CLOTHING_ROSE_GOLD, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_wrist_bangle", PresetColour.CLOTHING_ROSE_GOLD, false), true, this);
 		
 		this.setPiercedEar(true);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_ring", PresetColour.CLOTHING_ROSE_GOLD, false), true, this);
@@ -318,5 +317,30 @@ public class Callie extends NPC {
 		Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("nnxx/callie_bakery", "TRANSACTION_COMPLETE"));
 	}
 	
+	public int getFlamesToNextUpgrade() {
+		int totalDonated = (int) Main.game.getDialogueFlags().getSavedLong("nnxx_callie_total_donated");
+		
+		if(totalDonated<3_000) {
+			return 3_000 - totalDonated;
+		}
+		if(!Main.game.getDialogueFlags().hasFlag("nnxx_callie_upgrade_1")) {
+			// If haven't upgraded yet, don't allow more donations until it's complete
+			return 0;
+		}
+		
+		if(totalDonated<50_000) {
+			return 50_000 - totalDonated;
+		}
+		if(!Main.game.getDialogueFlags().hasFlag("nnxx_callie_upgrade_2")) {
+			// If haven't upgraded yet, don't allow more donations until it's complete
+			return 0;
+		}
+		
+		if(totalDonated<100_000) {
+			return 100_000 - totalDonated;
+		}
+		
+		return 0;
+	}
 
 }

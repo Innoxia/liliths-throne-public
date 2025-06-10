@@ -8,7 +8,7 @@
 	<colour>BASE_BLACK</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>
 	<encounterType>null</encounterType>
-	<dialogue>innoxia_places_fields_elis_tavern_taur_tables</dialogue>
+	<dialogue>innoxia_places_fields_elis_tavern_taur_core_tables</dialogue>
 	<populationPresent>
 		<population startMinutes="900" endMinutes="1440">
 			<populationType plural="true" density="NUMEROUS">PERSON</populationType>

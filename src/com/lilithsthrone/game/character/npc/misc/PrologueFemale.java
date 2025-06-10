@@ -69,7 +69,7 @@ public class PrologueFemale extends NPC {
 				Gender.F_V_B_FEMALE,
 				Subspecies.HUMAN,
 				RaceStage.HUMAN,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.EMPTY,
 				PlaceType.GENERIC_HOLDING_CELL,
 				false);
@@ -201,6 +201,16 @@ public class PrologueFemale extends NPC {
 	public boolean isUnique() {
 		return true;
 	}
+
+	@Override
+	public boolean isAbleToBeImpregnated() {
+		return true;
+	}
+
+//	@Override
+//	public boolean isSilentlyInfertile() {
+//		return true;
+//	}
 	
 	@Override
 	public void endSex() {

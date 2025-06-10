@@ -801,7 +801,7 @@ public class Lab {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Lyssieth", "Let Lilaya use the resonance stone to contact Lyssieth.", LyssiethPalaceDialogue.LILAYA_DEMON_TF_START){
+				return new Response("Teleported", "Lyssieth teleports the three of you back to her palace...", LyssiethPalaceDialogue.LILAYA_DEMON_TF_START){
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_OFFICE);

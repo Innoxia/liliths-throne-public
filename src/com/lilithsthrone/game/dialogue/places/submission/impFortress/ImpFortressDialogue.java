@@ -284,9 +284,14 @@ public class ImpFortressDialogue {
 			// Make sure everything is reset:
 			clearFortress(fortress);
 			resetGuards(fortress);
-
-			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressAlphaDefeated, false);
-			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressAlphaPacified, false);
+			
+			if(!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_B_SIRENS_CALL)) {
+				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressAlphaDefeated, false);
+				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressAlphaPacified, false);
+			} else {
+				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressAlphaDefeated, true);
+				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressAlphaPacified, true);
+			}
 			
 			List<GameCharacter> impGroup = new ArrayList<>();
 			try {
@@ -332,17 +337,19 @@ public class ImpFortressDialogue {
 			// Move boss back to fortress:
 			Main.game.getNpc(FortressAlphaLeader.class).setLocation(WorldType.IMP_FORTRESS_ALPHA, PlaceType.FORTRESS_ALPHA_KEEP);
 			Main.game.getNpc(FortressAlphaLeader.class).equipClothing(Util.newArrayListOfValues(EquipClothingSetting.REPLACE_CLOTHING, EquipClothingSetting.ADD_WEAPONS, EquipClothingSetting.ADD_ACCESSORIES));
-			
-			// Move NPCs into hiding:
-			Cell[][] cells = Main.game.getWorlds().get(WorldType.SUBMISSION).getCellGrid();
-			for(int i=0; i< cells.length;i++) {
-				for(int j=0; j< cells[i].length;j++) {
-					Cell cell = cells[j][i];
-					if(cell.getPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_ALPHA)) {
-						for(GameCharacter character : Main.game.getCharactersPresent(cell)) {
-							if(!Main.game.getPlayer().getCompanions().contains(character)) {
-								character.setHomeLocation(WorldType.SUBMISSION, character.getLocation());
-								character.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+
+			if(!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_B_SIRENS_CALL)) {
+				// Move NPCs into hiding:
+				Cell[][] cells = Main.game.getWorlds().get(WorldType.SUBMISSION).getCellGrid();
+				for(int i=0; i< cells.length;i++) {
+					for(int j=0; j< cells[i].length;j++) {
+						Cell cell = cells[j][i];
+						if(cell.getPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_ALPHA)) {
+							for(GameCharacter character : Main.game.getCharactersPresent(cell)) {
+								if(!Main.game.getPlayer().getCompanions().contains(character)) {
+									character.setHomeLocation(WorldType.SUBMISSION, character.getLocation());
+									character.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+								}
 							}
 						}
 					}
@@ -353,9 +360,14 @@ public class ImpFortressDialogue {
 			// Make sure everything is reset:
 			clearFortress(fortress);
 			resetGuards(fortress);
-			
-			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressFemalesDefeated, false);
-			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressFemalesPacified, false);
+
+			if(!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_B_SIRENS_CALL)) {
+				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressFemalesDefeated, false);
+				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressFemalesPacified, false);
+			} else {
+				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressFemalesDefeated, true);
+				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressFemalesPacified, true);
+			}
 			
 			List<GameCharacter> impGroup = new ArrayList<>();
 			try {
@@ -401,17 +413,19 @@ public class ImpFortressDialogue {
 			// Move boss back to fortress:
 			Main.game.getNpc(FortressFemalesLeader.class).setLocation(WorldType.IMP_FORTRESS_FEMALES, PlaceType.FORTRESS_FEMALES_KEEP);
 			Main.game.getNpc(FortressFemalesLeader.class).equipClothing(Util.newArrayListOfValues(EquipClothingSetting.REPLACE_CLOTHING, EquipClothingSetting.ADD_WEAPONS, EquipClothingSetting.ADD_ACCESSORIES));
-			
-			// Move NPCs into hiding:
-			Cell[][] cells = Main.game.getWorlds().get(WorldType.SUBMISSION).getCellGrid();
-			for(int i=0; i< cells.length;i++) {
-				for(int j=0; j< cells[i].length;j++) {
-					Cell cell = cells[j][i];
-					if(cell.getPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES)) {
-						for(GameCharacter character : Main.game.getCharactersPresent(cell)) {
-							if(!Main.game.getPlayer().getCompanions().contains(character)) {
-								character.setHomeLocation(WorldType.SUBMISSION, character.getLocation());
-								character.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+
+			if(!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_B_SIRENS_CALL)) {
+				// Move NPCs into hiding:
+				Cell[][] cells = Main.game.getWorlds().get(WorldType.SUBMISSION).getCellGrid();
+				for(int i=0; i< cells.length;i++) {
+					for(int j=0; j< cells[i].length;j++) {
+						Cell cell = cells[j][i];
+						if(cell.getPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_FEMALES)) {
+							for(GameCharacter character : Main.game.getCharactersPresent(cell)) {
+								if(!Main.game.getPlayer().getCompanions().contains(character)) {
+									character.setHomeLocation(WorldType.SUBMISSION, character.getLocation());
+									character.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+								}
 							}
 						}
 					}
@@ -422,9 +436,14 @@ public class ImpFortressDialogue {
 			// Make sure everything is reset:
 			clearFortress(fortress);
 			resetGuards(fortress);
-			
-			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressMalesDefeated, false);
-			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressMalesPacified, false);
+
+			if(!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_B_SIRENS_CALL)) {
+				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressMalesDefeated, false);
+				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressMalesPacified, false);
+			} else {
+				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressMalesDefeated, true);
+				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.impFortressMalesPacified, true);
+			}
 			
 			List<GameCharacter> impGroup = new ArrayList<>();
 			try {
@@ -471,23 +490,24 @@ public class ImpFortressDialogue {
 			// Move boss back to fortress:
 			Main.game.getNpc(FortressMalesLeader.class).setLocation(WorldType.IMP_FORTRESS_MALES, PlaceType.FORTRESS_MALES_KEEP);
 			Main.game.getNpc(FortressMalesLeader.class).equipClothing(Util.newArrayListOfValues(EquipClothingSetting.REPLACE_CLOTHING, EquipClothingSetting.ADD_WEAPONS, EquipClothingSetting.ADD_ACCESSORIES));
-			
-			// Move NPCs into hiding:
-			Cell[][] cells = Main.game.getWorlds().get(WorldType.SUBMISSION).getCellGrid();
-			for(int i=0; i< cells.length;i++) {
-				for(int j=0; j< cells[i].length;j++) {
-					Cell cell = cells[j][i];
-					if(cell.getPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_MALES)) {
-						for(GameCharacter character : Main.game.getCharactersPresent(cell)) {
-							if(!Main.game.getPlayer().getCompanions().contains(character)) {
-								character.setHomeLocation(WorldType.SUBMISSION, character.getLocation());
-								character.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+
+			if(!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_2_B_SIRENS_CALL)) {
+				// Move NPCs into hiding:
+				Cell[][] cells = Main.game.getWorlds().get(WorldType.SUBMISSION).getCellGrid();
+				for(int i=0; i< cells.length;i++) {
+					for(int j=0; j< cells[i].length;j++) {
+						Cell cell = cells[j][i];
+						if(cell.getPlace().getPlaceType().equals(PlaceType.SUBMISSION_IMP_TUNNELS_MALES)) {
+							for(GameCharacter character : Main.game.getCharactersPresent(cell)) {
+								if(!Main.game.getPlayer().getCompanions().contains(character)) {
+									character.setHomeLocation(WorldType.SUBMISSION, character.getLocation());
+									character.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+								}
 							}
 						}
 					}
 				}
 			}
-			
 		}
 	}
 	

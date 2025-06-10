@@ -9,7 +9,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.attributes.AbstractAttribute;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.LegType;
@@ -55,7 +55,6 @@ import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.sex.PregnancyDescriptor;
 import com.lilithsthrone.main.Main;
@@ -83,7 +82,7 @@ public class Silvia extends NPC {
 				31, Month.MAY, 1,
 				15,
 				Gender.F_P_V_B_FUTANARI, Subspecies.FOX_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_market"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_market_clothing"),
 				true);
 
@@ -226,7 +225,7 @@ public class Silvia extends NPC {
 
 		//this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_head_headband", PresetColour.CLOTHING_WHITE, false), true, this);
 		
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_BANGLE, PresetColour.CLOTHING_SILVER, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_wrist_bangle", PresetColour.CLOTHING_SILVER, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_finger_gemstone_ring", PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_PINK, null, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_ankle_anklet", PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_SILVER, null, false), true, this);
 
@@ -313,11 +312,12 @@ public class Silvia extends NPC {
 		return true;
 	}
 
+
 	@Override
-	public String rollForPregnancy(GameCharacter partner, float cumQuantity, boolean directSexInsemination, FertilisationType fertilisationType, AbstractAttribute virilityAttribute) {
-		if(!partner.isPlayer()) { // Only the player can impregnate Fae & Silvia
+	public String rollForPregnancy(GameCharacter partner, Body partnerBody, float cumQuantity, boolean isPartnerVirile, float partnerVirility, boolean directSexInsemination, FertilisationType fertilisationType) {
+		if(partner!=null && !partner.isPlayer()) { // Only the player can impregnate Fae & Silvia
 			return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner, directSexInsemination);
 		}
-		return super.rollForPregnancy(partner, cumQuantity, directSexInsemination, fertilisationType, virilityAttribute);
+		return super.rollForPregnancy(partner, partnerBody, cumQuantity, isPartnerVirile, partnerVirility, directSexInsemination, fertilisationType);
 	}
 }

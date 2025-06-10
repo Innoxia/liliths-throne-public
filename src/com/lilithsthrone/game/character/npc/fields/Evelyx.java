@@ -128,7 +128,7 @@ public class Evelyx extends NPC {
 				"The owner and namesake of the farm 'Evelyne's Dairy', this succubus is extremely arrogant and rude, and will do whatever it takes to make the most amount of money possible.",
 				76, Month.JULY, 2,
 				25, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_dairyFarm"), PlaceType.getPlaceTypeFromId("innoxia_fields_dairyFarm_manager"),
 				true);
 		
@@ -1344,7 +1344,7 @@ public class Evelyx extends NPC {
 		princess.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_axe_battle", DamageType.FIRE));
 		
 		princess.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_velvet_choker", PresetColour.CLOTHING_BLACK, false), true, princess);
-		princess.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_nipple_tape_crosses", PresetColour.CLOTHING_BLACK, false), true, princess);
+		princess.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_tape_roll", PresetColour.CLOTHING_BLACK, false), true, princess);
 		princess.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_wraps", PresetColour.CLOTHING_BLACK, false), true, princess);
 		
 		AbstractClothing ring = Main.game.getItemGen().generateClothing("innoxia_finger_gemstone_ring_unisex", PresetColour.CLOTHING_PLATINUM, PresetColour.CLOTHING_RED_VERY_DARK, null, false);

@@ -1240,7 +1240,7 @@ public class KaysWarehouse {
 					return new Response("[pc.Mistress]", "Get [kay.name] to call you '[pc.Mistress]'.<br/>[style.colourMinorGood(This can be changed at any time after this scene.)]", KAY_OFFICE_DOMINATE_UTIL_EMPTY) {
 						@Override
 						public void effects() {
-							Main.game.getNpc(Kay.class).setPetName(Main.game.getPlayer(), new NameTriplet("Master", "", "Mistress"));
+							Main.game.getNpc(Kay.class).setPetName(Main.game.getPlayer(), new NameTriplet("master", "", "mistress"));
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_PET_NAME"));
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_END"));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kaySubmitted, true);
@@ -1251,7 +1251,7 @@ public class KaysWarehouse {
 					return new Response("[pc.Maam]", "Get [kay.name] to call you '[pc.Maam]'.<br/>[style.colourMinorGood(This can be changed at any time after this scene.)]", KAY_OFFICE_DOMINATE_UTIL_EMPTY) {
 						@Override
 						public void effects() {
-							Main.game.getNpc(Kay.class).setPetName(Main.game.getPlayer(), new NameTriplet("Sir", "", "Maam"));
+							Main.game.getNpc(Kay.class).setPetName(Main.game.getPlayer(), new NameTriplet("sir", "", "ma'am"));
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_PET_NAME"));
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_END"));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kaySubmitted, true);
@@ -1274,7 +1274,7 @@ public class KaysWarehouse {
 					return new Response("[pc.Mommy]", "Get [kay.name] to call you '[pc.Mommy]'.<br/>[style.colourMinorGood(This can be changed at any time after this scene.)]", KAY_OFFICE_DOMINATE_UTIL_EMPTY) {
 						@Override
 						public void effects() {
-							Main.game.getNpc(Kay.class).setPetName(Main.game.getPlayer(), new NameTriplet("Daddy", "", "Mommy"));
+							Main.game.getNpc(Kay.class).setPetName(Main.game.getPlayer(), new NameTriplet("daddy", "", "mommy"));
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_PET_NAME"));
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/kaysTextiles", "KAY_OFFICE_DOMINATE_END"));
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.kaySubmitted, true);

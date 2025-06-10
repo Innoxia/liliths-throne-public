@@ -85,7 +85,7 @@ public class Vengar extends NPC {
 				"",
 				27, Month.JUNE, 2,
 				25, Gender.M_P_MALE, Subspecies.RAT_MORPH, RaceStage.GREATER,
-				new CharacterInventory(500), WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL, true);
+				new CharacterInventory(false, 500), WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL, true);
 		
 		if(!isImported) {
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 50);

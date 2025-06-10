@@ -18,7 +18,7 @@
 		
 		<imageName>pill.svg</imageName> 
 		
-		<colourPrimary>CLOTHING_BLUE</colourPrimary>
+		<colourPrimary>CLOTHING_BLUE_GREY</colourPrimary>
 		<colourSecondary/>
 		<colourTertiary/>
 		
@@ -45,10 +45,10 @@
 
 	<useDescriptions>
 		<selfUse><![CDATA[
-		[npc.Name] [npc.verb(pop)] a sterility pill out of its little foil wrapper, before quickly placing it in [npc.her] mouth and swallowing it down.
+		[npc.Name] [npc.verb(pop)] the sterility pill out of its little foil wrapper, before quickly placing it in [npc.her] mouth and swallowing it down.
 		]]></selfUse>
 		<otherUse><![CDATA[
-		[npc.Name] [npc.verb(pop)] a sterility pill out of its little foil wrapper, before bringing it up to [npc2.namePos] [npc2.lips], forcing it into [npc2.her] mouth, and making sure that [npc2.she] [npc2.verb(swallow)] it down.
+		[npc.Name] [npc.verb(pop)] the sterility pill out of its little foil wrapper, before bringing it up to [npc2.namePos] [npc2.lips], forcing it into [npc2.her] mouth, and making sure that [npc2.she] [npc2.verb(swallow)] it down.
 		]]></otherUse>
 	</useDescriptions>
 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<enchantment>
+	<positiveEnchantment><![CDATA[true]]></positiveEnchantment>
+	<applyDefaultSeal><![CDATA[false]]></applyDefaultSeal>
+	
+	<spawnWeighting><![CDATA[
+		100
+	]]></spawnWeighting>
+	
+	<namePrefix/>
+	<namePostfix><![CDATA[of seduction]]></namePostfix>
+	<nameOverride/>
+	
+	<conditionalPreParsing/>
+	
+	<itemEffects>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_LUST" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_LUST" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_LUST" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_LUST" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_LUST" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_LUST" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_LUST" potency="BOOST" timer="0" type="CLOTHING"/>
+		
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_LUST" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_LUST" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_LUST" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_LUST" potency="MINOR_BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+</enchantment>

@@ -386,7 +386,7 @@ public class ScarlettsShop {
 		SuccubisSecrets.initCoveringsMap(slave);
 	}
 	
-	private static boolean isFilly() {
+	private static boolean isMule() {
 		return Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_NATALYA) || Main.game.getPlayer().hasQuest(QuestLine.ROMANCE_NATALYA) || Main.game.getPlayer().hasItemType(ItemType.NATALYA_BUSINESS_CARD);
 	}
 	
@@ -1507,10 +1507,10 @@ public class ScarlettsShop {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response(
-						isFilly()
+						isMule()
 							?"Greet Natalya"
 							:"Introduction",
-						isFilly()
+						isMule()
 							?"Greet your Mistress and tell her that you're here to take delivery of the furniture which must be in the back of the cart."
 							:"Introduce yourself as the person this [natalya.race] is looking for, and then proceed to take delivery of the furniture which must be in the back of the cart.",
 						ROMANCE_PAINTING_FURNITURE_DELIVERY) {
@@ -1571,7 +1571,7 @@ public class ScarlettsShop {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(isFilly()) {
+			if(isMule()) {
 				if(index==1) {
 					return new Response("Follow",
 							"Follow Mistress Natalya down the alleyway to see what she requires of you.",
@@ -1995,7 +1995,7 @@ public class ScarlettsShop {
 									
 									Main.game.addSavedInventory(Main.game.getNpc(Scarlett.class));
 									int essences = Main.game.getNpc(Scarlett.class).getEssenceCount();
-									Main.game.getNpc(Scarlett.class).setInventory(new CharacterInventory(0));
+									Main.game.getNpc(Scarlett.class).setInventory(new CharacterInventory(false, 0));
 									Main.game.getNpc(Scarlett.class).setEssenceCount(essences);
 								}
 							};
@@ -2032,7 +2032,7 @@ public class ScarlettsShop {
 									
 									Main.game.addSavedInventory(Main.game.getNpc(Scarlett.class));
 									int essences = Main.game.getNpc(Scarlett.class).getEssenceCount();
-									Main.game.getNpc(Scarlett.class).setInventory(new CharacterInventory(0));
+									Main.game.getNpc(Scarlett.class).setInventory(new CharacterInventory(false, 0));
 									Main.game.getNpc(Scarlett.class).setEssenceCount(essences);
 								}
 							};
@@ -2961,7 +2961,7 @@ public class ScarlettsShop {
 	public static final DialogueNode HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY = new DialogueNode("Customise Slave", "", true) {
 		@Override
 		public int getSecondsPassed() {
-			return 10;
+			return 0;
 		}
 		@Override
 		public String getHeaderContent() {
@@ -3044,55 +3044,100 @@ public class ScarlettsShop {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY) {
 					return new Response("Personality", "You are already customising your slave's personality!", null);
 				}
-				return new Response("Personality", "Customise aspects of your slave's personality.", HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY);
+				return new Response("Personality", "Customise aspects of your slave's personality.", HELENAS_SHOP_CUSTOM_SLAVE_PERSONALITY) {
+					@Override
+					public int getSecondsPassed() {
+						return 10;
+					}
+				};
 				
 			} else if(index==2) {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_CORE) {
 					return new Response("Body", "You are already customising core aspects of your slave's body!", null);
 				}
-				return new Response("Body", "Customise core aspects of your slave's body.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_CORE);
+				return new Response("Body", "Customise core aspects of your slave's body.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_CORE) {
+					@Override
+					public int getSecondsPassed() {
+						return 10;
+					}
+				};
 				
 			} else if(index==3) {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_EYES) {
 					return new Response("Eyes", "You are already customising the aspects of your slave's eyes!", null);
 				}
-				return new Response("Eyes", "Customise aspects of your slave's eyes.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_EYES);
+				return new Response("Eyes", "Customise aspects of your slave's eyes.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_EYES) {
+					@Override
+					public int getSecondsPassed() {
+						return 10;
+					}
+				};
 				
 			} else if(index==4) {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_HAIR) {
 					return new Response("Hair", "You are already customising the aspects of your slave's hair!", null);
 				}
-				return new Response("Hair", "Customise aspects of your slave's hair.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_HAIR);
+				return new Response("Hair", "Customise aspects of your slave's hair.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_HAIR) {
+					@Override
+					public int getSecondsPassed() {
+						return 10;
+					}
+				};
 				
 			} else if(index==5) {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_HEAD) {
 					return new Response("Head", "You are already customising the aspects of your slave's head and face!", null);
 				}
-				return new Response("Head", "Customise aspects of your slave's head and face.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_HEAD);
+				return new Response("Head", "Customise aspects of your slave's head and face.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_HEAD) {
+					@Override
+					public int getSecondsPassed() {
+						return 10;
+					}
+				};
 				
 			} else if(index==6) {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_ASS) {
 					return new Response("Ass", "You are already customising the aspects of your slave's hips and ass!", null);
 				}
-				return new Response("Ass", "Customise aspects of your slave's hips and ass.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_ASS);
+				return new Response("Ass", "Customise aspects of your slave's hips and ass.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_ASS) {
+					@Override
+					public int getSecondsPassed() {
+						return 10;
+					}
+				};
 				
 			} else if(index==7) {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS) {
 					return new Response("Breasts", "You are already customising the aspects of your slave's breasts!", null);
 				}
-				return new Response("Breasts", "Customise aspects of your slave's breasts.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS);
+				return new Response("Breasts", "Customise aspects of your slave's breasts.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS) {
+					@Override
+					public int getSecondsPassed() {
+						return 10;
+					}
+				};
 				
 			} else if(index==8) {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_VAGINA) {
 					return new Response("Vagina", "You are already customising the aspects of your slave's vagina!", null);
 				}
-				return new Response("Vagina", "Customise aspects of your slave's vagina.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_VAGINA);
+				return new Response("Vagina", "Customise aspects of your slave's vagina.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_VAGINA) {
+					@Override
+					public int getSecondsPassed() {
+						return 10;
+					}
+				};
 				
 			} else if(index==9) {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_PENIS) {
 					return new Response("Penis", "You are already customising the aspects of your slave's penis!", null);
 				}
-				return new Response("Penis", "Customise aspects of your slave's penis.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_PENIS);
+				return new Response("Penis", "Customise aspects of your slave's penis.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_PENIS) {
+					@Override
+					public int getSecondsPassed() {
+						return 10;
+					}
+				};
 				
 			} else if(index==10) {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_SPINNERET) {
@@ -3103,7 +3148,12 @@ public class ScarlettsShop {
 							"Your slave does not have a spinneret!<br/><i>Spinnerets are gained via certain tail or leg types.</i>",
 							null);
 				}
-				return new Response("Spinneret", "Customise aspects of your slave's penis.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_SPINNERET);
+				return new Response("Spinneret", "Customise aspects of your slave's penis.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_SPINNERET) {
+					@Override
+					public int getSecondsPassed() {
+						return 10;
+					}
+				};
 				
 			} else if(index==11) {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS_CROTCH) {
@@ -3119,13 +3169,23 @@ public class ScarlettsShop {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_MAKEUP) {
 					return new Response("Makeup", "You are already customising your slave's makeup!", null);
 				}
-				return new Response("Makeup", "Customise your slave's makeup.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_MAKEUP);
+				return new Response("Makeup", "Customise your slave's makeup.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_MAKEUP) {
+					@Override
+					public int getSecondsPassed() {
+						return 10;
+					}
+				};
 				
 			} else if(index==13) {
 				if(Main.game.getCurrentDialogueNode()==HELENAS_SHOP_CUSTOM_SLAVE_BODY_PIERCINGS) {
 					return new Response("Piercings", "You are already customising your slave's piercings!", null);
 				}
-				return new Response("Piercings", "Customise your slave's piercings.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_PIERCINGS);
+				return new Response("Piercings", "Customise your slave's piercings.", HELENAS_SHOP_CUSTOM_SLAVE_BODY_PIERCINGS) {
+					@Override
+					public int getSecondsPassed() {
+						return 10;
+					}
+				};
 				
 			} else if(index==14) {
 				return new Response("[style.colourMinorGood(Finalise order)]",
@@ -3145,7 +3205,7 @@ public class ScarlettsShop {
 	public static final DialogueNode HELENAS_SHOP_CUSTOM_SLAVE_BODY_CORE = new DialogueNode("Customise Slave", "", true) {
 		@Override
 		public int getSecondsPassed() {
-			return 10;
+			return 0;
 		}
 		@Override
 		public String getHeaderContent() {
@@ -3169,7 +3229,7 @@ public class ScarlettsShop {
 	public static final DialogueNode HELENAS_SHOP_CUSTOM_SLAVE_BODY_EYES = new DialogueNode("Customise Slave", "", true) {
 		@Override
 		public int getSecondsPassed() {
-			return 10;
+			return 0;
 		}
 		@Override
 		public String getHeaderContent() {
@@ -3193,7 +3253,7 @@ public class ScarlettsShop {
 	public static final DialogueNode HELENAS_SHOP_CUSTOM_SLAVE_BODY_HAIR = new DialogueNode("Customise Slave", "", true) {
 		@Override
 		public int getSecondsPassed() {
-			return 10;
+			return 0;
 		}
 		@Override
 		public String getHeaderContent() {
@@ -3217,7 +3277,7 @@ public class ScarlettsShop {
 	public static final DialogueNode HELENAS_SHOP_CUSTOM_SLAVE_BODY_HEAD = new DialogueNode("Customise Slave", "", true) {
 		@Override
 		public int getSecondsPassed() {
-			return 10;
+			return 0;
 		}
 		@Override
 		public String getHeaderContent() {
@@ -3241,7 +3301,7 @@ public class ScarlettsShop {
 	public static final DialogueNode HELENAS_SHOP_CUSTOM_SLAVE_BODY_ASS = new DialogueNode("Customise Slave", "", true) {
 		@Override
 		public int getSecondsPassed() {
-			return 10;
+			return 0;
 		}
 		@Override
 		public String getHeaderContent() {
@@ -3265,7 +3325,7 @@ public class ScarlettsShop {
 	public static final DialogueNode HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS = new DialogueNode("Customise Slave", "", true) {
 		@Override
 		public int getSecondsPassed() {
-			return 10;
+			return 0;
 		}
 		@Override
 		public String getHeaderContent() {
@@ -3289,7 +3349,7 @@ public class ScarlettsShop {
 	public static final DialogueNode HELENAS_SHOP_CUSTOM_SLAVE_BODY_VAGINA = new DialogueNode("Customise Slave", "", true) {
 		@Override
 		public int getSecondsPassed() {
-			return 10;
+			return 0;
 		}
 		@Override
 		public String getHeaderContent() {
@@ -3313,7 +3373,7 @@ public class ScarlettsShop {
 	public static final DialogueNode HELENAS_SHOP_CUSTOM_SLAVE_BODY_PENIS = new DialogueNode("Customise Slave", "", true) {
 		@Override
 		public int getSecondsPassed() {
-			return 10;
+			return 0;
 		}
 		@Override
 		public String getHeaderContent() {
@@ -3337,7 +3397,7 @@ public class ScarlettsShop {
 	public static final DialogueNode HELENAS_SHOP_CUSTOM_SLAVE_BODY_BREASTS_CROTCH = new DialogueNode("Customise Slave", "", true) {
 		@Override
 		public int getSecondsPassed() {
-			return 10;
+			return 0;
 		}
 		@Override
 		public String getHeaderContent() {
@@ -3361,7 +3421,7 @@ public class ScarlettsShop {
 	public static final DialogueNode HELENAS_SHOP_CUSTOM_SLAVE_BODY_SPINNERET = new DialogueNode("Customise Slave", "", true) {
 		@Override
 		public int getSecondsPassed() {
-			return 10;
+			return 0;
 		}
 		@Override
 		public String getHeaderContent() {
@@ -3385,7 +3445,7 @@ public class ScarlettsShop {
 	public static final DialogueNode HELENAS_SHOP_CUSTOM_SLAVE_BODY_MAKEUP = new DialogueNode("Customise Slave", "", true) {
 		@Override
 		public int getSecondsPassed() {
-			return 10;
+			return 0;
 		}
 		@Override
 		public String getHeaderContent() {
@@ -3421,7 +3481,7 @@ public class ScarlettsShop {
 	public static final DialogueNode HELENAS_SHOP_CUSTOM_SLAVE_BODY_PIERCINGS = new DialogueNode("Customise Slave", "", true) {
 		@Override
 		public int getSecondsPassed() {
-			return 10;
+			return 0;
 		}
 		@Override
 		public String getHeaderContent() {

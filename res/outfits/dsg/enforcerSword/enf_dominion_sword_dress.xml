@@ -4,7 +4,7 @@
 
 	<coreAttributes>
 		<!-- Names are only used for debugging purposes. Still, in case the name is used elsewhere later on, it's best to give your outfit a suitable (lowercase) name.-->
-		<name><![CDATA[Special Weapons and Operations Response Department Enforcer dress uniform]]></name>
+		<name><![CDATA[SWORD Enforcer dress uniform]]></name>
 		
 		<!-- Again, descriptions are only used for debugging purposes. Still, in case the name is used elsewhere later on, it's best to give your outfit a suitable description.-->
 		<description><![CDATA[Enforcer dress uniform with SWORD colours.]]></description>
@@ -91,7 +91,7 @@
 		
 			<!--Beret always-->
 			<uniqueClothing>
-				<clothing colour="CLOTHING_GREY" colourSecondary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_servequipset_enfberet_sword" isDirty="false">				
+				<clothing colour="CLOTHING_GREY" colourSecondary="CLOTHING_BLACK" enchantmentKnown="true" id="dsg_eep_servequipset_enfberet" isDirty="false">				
 					<stickers>
 						<sticker category="flash">flash_sword</sticker>
 					</stickers>

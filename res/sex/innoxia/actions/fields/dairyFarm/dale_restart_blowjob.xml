@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#!npc.isPlayer() && !sex.isCharacterWantingToStopSex(npc)]
+	]]></actionConditional>
+	<type>START_ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>TWO_LOW</arousalTarget>
+	<associatedCorruption>ONE_VANILLA</associatedCorruption>
+	<associatedFetishes>
+		<performer>
+			<fetish>FETISH_ORAL_RECEIVING</fetish>
+		</performer>
+		<target>
+			<fetish>FETISH_ORAL_GIVING</fetish>
+		</target>
+	</associatedFetishes>
+	<performingArea>PENETRATION_PENIS</performingArea>
+	<targetedArea>ORIFICE_MOUTH</targetedArea>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Restart blowjob]]></title>
+	<tooltip><![CDATA[
+		This feels too good to stop now!
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getNumberOfOrgasms(dale)==1]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Although he was initially against the idea of receiving a blowjob, Dale is now eager for you to suck his cock. With your [pc.lips+] no longer wrapped around his thick, dark dick, he pushes his flared head against your mouth and grunts under his breath, [dale.speechNoEffects(Keep going, [pc.name]...)]
+				<br/><br/>
+				More than happy to do as he asks, you slide your [pc.tongue+] over his hot, throbbing cock before taking it into your mouth and continuing to give your donkey-boy lover an enthusiastic blowjob...
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getNumberOfOrgasms(dale)!=1]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				With his initial hesitation now completely forgotten, Dale lets out a disappointed grunt as he feels that your [pc.lips+] are no longer wrapped around his thick cock. Grabbing his hot, dark-skinned dick in one hand, he pushes his wide, flared head against your mouth and groans, [dale.speechNoEffects(Don't stop now, [pc.name]...)]
+				<br/><br/>
+				Happy to see how enthusiastic Dale is, you eagerly plant a wet kiss on the underside of his hot, musky shaft, before parting your [pc.lips] and taking his throbbing cock into your mouth...
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

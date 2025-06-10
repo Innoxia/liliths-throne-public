@@ -78,29 +78,29 @@ public enum DamageType {
 				return FIRE;
 			}
 
-			if(source.isElemental()) {
-				switch(source.getBodyMaterial()) {
-					case AIR:
-						return POISON;
-					case ARCANE:
-						return LUST;
-					case FIRE:
-						return FIRE;
-					case FLESH:
-					case SLIME:
-						return PHYSICAL;
-					case RUBBER:
-					case STONE:
-						return PHYSICAL;
-					case ICE:
-					case WATER:
-						return ICE;
-					default:
-						return PHYSICAL;
-				}
-			}
+//			if(source.isElemental()) {
+//				switch(source.getBodyMaterial()) {
+//					case AIR:
+//						return POISON;
+//					case ARCANE:
+//						return LUST;
+//					case FIRE:
+//						return FIRE;
+//					case FLESH:
+//					case SLIME:
+//						return PHYSICAL;
+//					case RUBBER:
+//					case STONE:
+//						return PHYSICAL;
+//					case ICE:
+//					case WATER:
+//						return ICE;
+//					default:
+//						return PHYSICAL;
+//				}
+//			}
 
-			return PHYSICAL; // Normal characters deal physical damage with their melee strikes.
+			return source.getBodyMaterial().getUnarmedDamageType();
 		}
 	},
 
@@ -155,7 +155,15 @@ public enum DamageType {
 	public String getName() {
 		return name;
 	}
-
+	
+	public String getNameColoured() {
+		return getNameColoured("span");
+	}
+	
+	public String getNameColoured(String tag) {
+		return "<"+tag+" style='color:" + this.getMultiplierAttribute().getColour().toWebHexString() + ";'>"+this.getName()+"</"+tag+">";
+	}
+	
 	public Colour getColour() {
 		return colour;
 	}

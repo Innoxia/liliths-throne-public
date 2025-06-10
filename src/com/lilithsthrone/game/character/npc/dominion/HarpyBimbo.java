@@ -83,7 +83,7 @@ public class HarpyBimbo extends NPC {
 						+ " As a result, Brittany's flock is primarily made up of bleach-blonde bimbos.",
 				24, Month.MARCH, 17,
 				7, Gender.F_V_B_FEMALE, Subspecies.HARPY, RaceStage.LESSER,
-				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_YELLOW, true);
+				new CharacterInventory(false, 30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_YELLOW, true);
 		
 		if(!isImported) {
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 10);

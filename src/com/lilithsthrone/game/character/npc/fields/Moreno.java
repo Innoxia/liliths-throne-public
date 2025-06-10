@@ -57,7 +57,7 @@ public class Moreno extends NPC {
 				"On every day but Wednesday and Saturday, Moreno operates the strength tester game in the centre of Elis's Farmer's Market.",
 				31, Month.AUGUST, 28,
 				25, Gender.M_P_MALE, Subspecies.HORSE_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_market"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_market_centre"),
 				true);
 

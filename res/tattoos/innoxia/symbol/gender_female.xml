@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tattoo>
+	<coreAttributes>
+		<value>500</value> 
+		
+		<name><![CDATA[female glyph]]></name>
+		
+		<description><![CDATA[This glyph represents the female sex and gender.]]></description> 
+		<bodyOverviewDescription><![CDATA[a tattoo which depicts a female symbol]]></bodyOverviewDescription> 
+		
+		<imageName>gender_female.svg</imageName> 
+		
+		<slotAvailability/>
+		
+		<primaryColours values="ALL" defaultColour="CLOTHING_PINK_LIGHT"/> 
+		<secondaryColours/> 
+		<tertiaryColours/> 
+		
+	</coreAttributes>
+	
+</tattoo>

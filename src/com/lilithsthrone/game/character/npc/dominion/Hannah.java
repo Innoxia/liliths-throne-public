@@ -77,7 +77,7 @@ public class Hannah extends NPC {
 				31, Month.AUGUST, 22,
 				40,
 				Gender.F_V_B_FEMALE, Subspecies.getSubspeciesFromId("innoxia_hyena_subspecies_spotted"), RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_dominion_shopping_arcade_gym"), PlaceType.getPlaceTypeFromId("innoxia_dominion_shopping_arcade_gym_boxing"),
 				true);
 	}
@@ -255,6 +255,43 @@ public class Hannah extends NPC {
 	public boolean isUnique() {
 		return true;
 	}
+
+	@Override
+	public String getArtworkFolderName() {
+
+		if(this.getWorldLocation()==WorldType.getWorldTypeFromId("innoxia_dominion_shopping_arcade_gym")) {
+			return "Hannah";
+		} else {
+			return "HannahCasual";
+		}
+		
+//		if(this.getWorldLocation()==WorldType.getWorldTypeFromId("innoxia_dominion_shopping_arcade_gym")) {
+//			if(this.getBreastRows()>1) {
+//				if(this.isVisiblyPregnant()) {
+//					return "HannahMultiBoobPregnant/gym";
+//				}
+//				return "HannahMultiBoob/gym";
+//			} else {
+//				if(this.isVisiblyPregnant()) {
+//					return "HannahPregnant/gym";
+//				}
+//				return "Hannah/gym";
+//			}
+//			
+//		} else {
+//			if(this.getBreastRows()>1) {
+//				if(this.isVisiblyPregnant()) {
+//					return "HannahMultiBoobPregnant";
+//				}
+//				return "HannahMultiBoob";
+//			} else {
+//				if(this.isVisiblyPregnant()) {
+//					return "HannahPregnant";
+//				}
+//				return "Hannah";
+//			}
+//		}
+	}
 	
 	@Override
 	public String getSpeechColour() {
@@ -263,26 +300,39 @@ public class Hannah extends NPC {
 	
 	@Override
 	public void turnUpdate() {
-		if(Main.game.getPlayer().getWorldLocation()!=WorldType.getWorldTypeFromId("innoxia_dominion_shopping_arcade_gym")
-				&& Main.game.getDialogueFlags().hasFlag("innoxia_pix_had_tour")
-				&& !Main.game.getCharactersPresent().contains(this)) {
+		if(Main.game.getPlayer().getWorldLocation()!=WorldType.getWorldTypeFromId("innoxia_dominion_shopping_arcade_gym")) {
+			if(Main.game.getDialogueFlags().hasFlag("innoxia_pix_had_tour")
+					&& !Main.game.getCharactersPresent().contains(this)) {
+				if(Main.game.isHourBetween(8, 20)) {
+					if(this.getWorldLocation()!=WorldType.getWorldTypeFromId("innoxia_dominion_shopping_arcade_gym")) {
+						this.equipClothing(); // Make sure to equip workout clothing when going to gym
+						this.returnToHome();
+						updateImages();
+					}
+					
+				} else if(Main.game.isHourBetween(21, 24)
+						&& !Main.game.getDialogueFlags().hasFlag("innoxia_lights_out_hannah_left")
+						&& !Main.game.getDialogueFlags().hasFlag("innoxia_lights_out_hannah_last_night_sex")) {
+					if(this.getWorldLocation()!=WorldType.getWorldTypeFromId("innoxia_dominion_nightlife_lights_out")) {
+						this.equipBarClothing(); // Make sure to equip bar clothing when going to Lights Out
+						this.setLocation(WorldType.getWorldTypeFromId("innoxia_dominion_nightlife_lights_out"), PlaceType.getPlaceTypeFromId("innoxia_dominion_nightlife_lights_out_bar"));
+						updateImages();
+					}
+					
+				} else {
+					this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
+				}
+			}
+			
+		} else { // Player is in the gym
 			if(Main.game.isHourBetween(8, 20)) {
 				if(this.getWorldLocation()!=WorldType.getWorldTypeFromId("innoxia_dominion_shopping_arcade_gym")) {
 					this.equipClothing(); // Make sure to equip workout clothing when going to gym
+					this.returnToHome();
+					updateImages();
 				}
-				this.returnToHome();
-				
-			} else if(Main.game.isHourBetween(21, 24)
-					&& !Main.game.getDialogueFlags().hasFlag("innoxia_lights_out_hannah_left")
-					&& !Main.game.getDialogueFlags().hasFlag("innoxia_lights_out_hannah_last_night_sex")) {
-				if(this.getWorldLocation()!=WorldType.getWorldTypeFromId("innoxia_dominion_nightlife_lights_out")) {
-					this.equipBarClothing(); // Make sure to equip bar clothing when going to Lights Out
-				}
-				this.setLocation(WorldType.getWorldTypeFromId("innoxia_dominion_nightlife_lights_out"), PlaceType.getPlaceTypeFromId("innoxia_dominion_nightlife_lights_out_bar"));
-				
-			} else {
-				this.setLocation(WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL);
 			}
+			
 		}
 	}
 	

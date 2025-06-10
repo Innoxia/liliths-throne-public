@@ -125,7 +125,7 @@
 			</p>
 		#ELSE
 			<p>
-				[sterope.speech([pc.Name], is it?)] she replies in a flat tone. Her professional attitude borders on being cold and aloof, and with a slightly disdainful look on her face, she taps the nameplate on her chest and reveals, [sterope.speech(I'm Constable Hippos, but the higher-ups have ruled that members of the public should call us by our first names, so that's 'Sterope' to you. Do you have a crime to report? Or is there something else you're hoping that I can help you with?)]
+				[sterope.speech([pc.Name], is it?)] she replies in a flat tone. Her professional attitude borders on being cold and aloof, and with a slightly disdainful look on her face, she taps the nameplate on her chest and reveals, [sterope.speech(I'm Constable Hippos, but to build trust with members of the public we've all been instructed to use our first names, so that's 'Sterope' to you. Do you have a crime to report? Or is there something else you're hoping that I can help you with?)]
 			</p>
 			<p>
 				Impatiently tapping her fingernails on the desk a couple of times, Sterope waits to hear what it is that you're here for...
@@ -163,7 +163,7 @@
 		[sterope.speech(I don't see how that's any of your business,)] Sterope coldly replies, before sighing, [sterope.speech(You're lucky that the higher-ups have ordered us to be friendly with members of the public.)]
 	</p>
 	<p>
-		If this is her being friendly, you can't help but wonder what Sterope would be like normally as she prepares to reveal her past to you.
+		If this is her being friendly, you can't help but wonder what Sterope would normally be like as she prepares to reveal her past to you.
 	</p>
 	<p>
 		[sterope.speech(If you must know, I joined the Enforcers when I was just nineteen, and I've been stationed here in Elis for almost my entire career,)] she says, before going on to state, [sterope.speech(I've been offered a promotion several times, but I've no interest in going through officer school, and I like my job here. I think that's all you need to know.)]
@@ -189,7 +189,7 @@
 	</p>
 	<p>
 		#IF(flags.hasFlag(FLAG_innoxia_sterope_unlocked))
-			Before you can tease her about what she's just said, Sterope flashes you a stern look and hisses, [sterope.speech(Don't say a word...)]
+			Before you can tease her about what she's just said, Sterope flashes you a stern look and hisses, [sterope.speech(Don't say a word... Remember, I'm in 'The Centaur's Sword' every evening after nine...)]
 		#ELSE
 			It seems as though the horse-girl has inadvertently revealed a secret desire of hers. Perhaps you could push her a little further and get her to admit this desire to you?
 		#ENDIF
@@ -227,7 +227,7 @@
 		Seizing upon what Sterope has just said, you tease the horse-girl by asking her if she thinks about succutaurs turning people into submissive, worthless cock-sleeves often. Although she blushes a little as you say this, Sterope maintains her composure and looks down her nose at you as she prepares her response.
 	</p>
 	<p>
-		[sterope.speech(I'm on duty at the moment, so this sort of conversation is entirely unacceptable,)] she cooly states, before glancing around to make sure that no other Enforcers are nearby. Satisfied that nobody's going to overhear her, she says under her breath, [sterope.speech(If you like that sort of thing, then you can find me in 'The Centaur's Sword' after nine each evening...)]
+		[sterope.speech(I'm on duty at the moment, so this sort of conversation is entirely unacceptable,)] she coolly states, before glancing around to make sure that no other Enforcers are nearby. Satisfied that nobody's going to overhear her, she says under her breath, [sterope.speech(If you like that sort of thing, I'm in 'The Centaur's Sword' every evening. Look for me after nine.)]
 	</p>
 	<p>
 		Before you can ask her any more about this, the Enforcer clears her throat and asks in a stern tone, [sterope.speech(Is there anything else I can help you with?)]
@@ -237,7 +237,7 @@
 	
 	<htmlContent tag="RECEPTION_SWORD"><![CDATA[
 	<p>
-		Wanting to meet with the SWORD Enforcers who are staioned here as soon as possible, you tell Sterope that you've been sent by Minotallys herself to make contact with them. The horse-girl flashes you a suspicious look, before flatly stating, [sterope.speech(I find that hard to believe. I'll need some proof.)]
+		Wanting to meet with the SWORD Enforcers who are stationed here as soon as possible, you tell Sterope that you've been sent by Minotallys herself to make contact with them. The horse-girl flashes you a suspicious look, before flatly stating, [sterope.speech(I find that hard to believe. I'll need some proof.)]
 	</p>
 	<p>
 		Taking out your town hall access card, you show it to the distrustful Enforcer, who snatches it from your [pc.hand(true)] and closely inspects it. Letting out an annoyed hum, she hands it back to you, before saying, [sterope.speech(Fine, you can head on through. They're in the room at the far end of the corridor, but don't expect a warm welcome.)]
@@ -487,7 +487,7 @@
 
 	<htmlContent tag="SWORD_CONVINCE_END"><![CDATA[
 	<p>
-		As all of the Enforcers remain stationary as the wolf-boy says this, you point out that that they aren't making a move to arrest you.
+		As all of the Enforcers remain stationary as the wolf-boy says this, you point out that they aren't making a move to arrest you.
 	</p>
 	<p>
 		[hammer.speech(We're not interested in enforcing Lilith's laws any more,)] the wolf-boy growls, his grin vanishing as quickly as it appeared, [hammer.speech(We do what we can to help the ordinary citizens of the realm. We'll help you, but not for Lyssieth or Minotallys or any other lilin. We'll do it to help bring an end to the suffering that the folk of the Fields have endured for years.)]
@@ -790,7 +790,7 @@
 		[hammer.speech(You'd think they were just humans, given what they called themselves,)] Hammer replies, [hammer.speech(but they consisted of every race you could think of. Anyone opposed to Lilith's rule, as well as opportunistic criminals, joined the HLF in the hopes that they could overthrow the lilin and create a new system of governance.)]
 	</p>
 	<p>
-		[ghost.speech(The core of the HLF, what we were ended up labelling as the 'regulars' were the real threat, especially during that first year,)] Ghost adds, [ghost.speech(They were the die-hard revolutionaries, utterly committed to the cause, well trained, and completely fearless. The vast majority of them were humans, equipped with stolen Enforcer weapons and having their own uniforms, logistics networks, and command structures. Thankfully there weren't too many of them.)]
+		[ghost.speech(The core of the HLF, what we ended up labelling as the 'regulars', were the real threat, especially during that first year,)] Ghost adds, [ghost.speech(They were the die-hard revolutionaries, utterly committed to the cause, well trained, and completely fearless. The vast majority of them were humans, equipped with stolen Enforcer weapons and having their own uniforms, logistics networks, and command structures. Thankfully there weren't too many of them.)]
 	</p>
 	<p>
 		[hammer.speech(Then they had the irregulars,)] Hammer grunts, [hammer.speech(Committed to the cause, although varying in competence, they were the ones who stuck to guerilla warfare. Blending in with the civilian population before performing hit and run attacks, they left the serious offensive operations to the regulars.)]
@@ -823,23 +823,23 @@
 		[ghost.speech(She's a nasty piece of work,)] Ghost says of the succubus as she walks over to a nearby filing cabinet and produces the diary from within. Holding up the little pink book, she reveals, [ghost.speech(Remember how she tried to act all sweet and innocent when we met her? She's really a massive slut, and treats people like dirt.)]
 	</p>
 	<p>
-		[hammer.speech(There's nothing in there to tell us what's happening to the refugees,)] Hammer grunts, [hammer.speech(but there is an entry which mentions that Angelixx was teleporting them to her mother's shop.)]
+		[hammer.speech(There's nothing in there to tell us what's happening to the refugees,)] Hammer grunts, [hammer.speech(but there is an entry which mentions that Angelixx was teleporting them to her sister's shop in Dominion's Demon Home district.)]
 	</p>
 	<p>
-		[ghost.speech(That'd be 'Lovienne's Luxuries',)] Ghost says, [ghost.speech(As we told you before, Dominion's outside of our jurisdiction, and if we're caught trying to take down another elder lilin's daughter it'd be the end for us. We've stopped Angelixx's operations here in Elis, and that's all we can do.)]
+		[ghost.speech(That'd be 'Lovienne's Luxuries', which is run by Saellatrix; unlike Angelixx, she's a recognised daughter of Lovienne,)] Ghost says, before regretfully sighing, [ghost.speech(Dominion's outside of our jurisdiction, and if we're caught investigating a recognised daughter of an elder lilin then it'd certainly be the end for us. We've stopped Angelixx's operations here in Elis, and that's all we can do.)]
 	</p>
 	<p>
-		[hammer.speech(Perhaps you can do something about it,)] Hammer says to you, before motioning for Ghost to give you the diary. [hammer.speech(We're not asking you to go after Angelixx, but with her diary as proof of her involvement, the opportunity's there.)]
+		[hammer.speech(Perhaps you can do something about it,)] Hammer says to you, before motioning for Ghost to give you the diary. [hammer.speech(We're not asking you to go after Angelixx or confront her sister, but with this diary as proof of Angelixx's deeds, the opportunity's there.)]
 	</p>
 	<p>
-		Holding out the diary towards you, the otter-girl says, [ghost.speech(Be careful if you do decide to take this further. Angelixx is a coward and not much of a physical threat, but she's got others who do the fighting for her. She's also a manipulative bitch; don't trust anything she says.)]
+		Holding out the diary towards you, the otter-girl says, [ghost.speech(Be careful if you do decide to take this further. Angelixx is a coward and not much of a physical threat, but she's got others who do the fighting for her. She's also a manipulative bitch; don't trust anything she says. As for Saellatrix, you don't get to be recognised by an elder lilin without being extremely dangerous and utterly ruthless, so I'd avoid any kind of conflict with her if possible.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="SWORD_ANGELIXX_DIARY_TAKE"><![CDATA[
 	<p>
-		With no obligation to pursue Angelixx and investigate her mother's store, you decide that there's no harm in taking the diary. Putting the small, pink notebook in your inventory, you tell the Enforcers that you'll look into it if you get the chance.
+		As there's no obligation being placed on you to pursue Angelixx and investigate her sister's store, you decide that there's no harm in taking the diary. Putting the small, pink notebook in your inventory, you tell the Enforcers that you'll look into it if you get the chance.
 	</p>
 	<p>
 		[ghost.speech(We won't be there to back you up this time, so don't take any risks,)] Ghost says with a smile.
@@ -848,13 +848,47 @@
 		[hammer.speech([pc.Name] can handle [pc.herself] just fine,)] Hammer grunts, before looking at you and saying, [hammer.speech(If you take Angelixx down, make sure to come back and tell us about it. I'd like to know if the bitch got what was coming to her.)]
 	</p>
 	<p>
-		[ghost.speech(You may have visited it already, but I'd start by taking another look around Lovienne's shop if I were you,)] Ghost suggests, [ghost.speech(We know that the refugees were teleported there, so it's likely that they're either being kept there and used as slave labour or sold off from that location. Either way, there's bound to be signs of them there if you look hard enough.)]
+		[ghost.speech(You may have visited it already, but I'd start by taking a look around 'Lovienne's Luxuries' if I were you,)] Ghost suggests, [ghost.speech(We know that the refugees were teleported there, so it's likely that they're either being kept there and used as slave labour or sold off from that location. Either way, there's bound to be signs of them there if you look hard enough.)]
 	</p>
 	<p>
 		[hammer.speech(Don't bother with the Enforcers in Dominion,)] Hammer warns, [hammer.speech(They won't lift a finger to go after a daughter of an elder lilin unless you've got substantial, concrete evidence of illegal enslavement; that diary won't be enough for them. Worse, they might even report you to Lovienne directly, then it'd all be over for you.)]
 	</p>
 	<p>
 		Thanking the Enforcers for the advice, you wonder what to do next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SWORD_TALK_ANGELIXX_QUEST_COMPLETE"><![CDATA[
+	<p>
+		Wanting to let these Enforcers know what came of your investigation into Angelixx's diary, you ask them if they've got a minute to hear about what you've been up to.
+	</p>
+	<p>
+		[ghost.speech(You really went after that bitch?)] Ghost asks.
+	</p>
+	<p>
+		[hammer.speech(I hope she got what she deserved,)] Hammer grunts, [hammer.speech(Tell us what you found, [pc.name].)]
+	</p>
+	<p>
+		Starting from when you took Angelixx's diary to Saellatrix and confronted her with it, you recount how you met Fiammetta and together the two of you explored the factory beneath Lovienne's Luxuries. Although they don't interrupt your tale, the Enforcers' expressions get darker and angrier as they hear about how the kidnapped refugees were being permanently transformed into sex dolls. You finish your story by saying that the crimes of Saellatrix, Angelixx, and her sons were exposed in an article published in The Octogram Herald, and although Angelixx, Sleip, and Nir have suffered terrible punishments, Saellatrix pretty much got away with everything.
+	</p>
+	<p>
+		[hammer.speech(Of course the recognised daughter of Lovienne didn't get punished,)] Hammer furiously growls as you finish your tale. Clenching his fist, he slams it on the table next to him, and with his wolf-like face turning up into a toothy snarl, he snaps, [hammer.speech(I'm going to Dominion tonight! I'll make her pay for what's she done!)]
+	</p>
+	<p>
+		[ghost.speech(You're not going anywhere!)] Ghost firmly states. Although she's much smaller and far less physically intimidating than Hammer, the wolf-boy instantly stops snarling as the otter-girl rebukes him. With her hands on her hips, she says, [ghost.speech(You've got Elis to protect, you big idiot! You know that you don't stand a chance against a demon of Saellatrix's power, so all you'd do is throw yourself away when this town needs you the most. Get a grip!)]
+	</p>
+	<p>
+		The rest of the Enforcers bear silent witness to Hammer's apology as he mumbles, [hammer.speech(You're right, Ghost, as always... It's just the injustice of it all that sickens me...)]
+	</p>
+	<p>
+		[ghost.speech(We all feel the same way,)] the otter-girl says, [ghost.speech(One day things will change. The best we can do is to try to help those who need us here in Elis.)]
+	</p>
+	<p>
+		Turning to face you, she continues, [ghost.speech(You did all you could, [pc.name]. It's sad that it was too late for those who were already transformed, but at least there'll be no more victims. Thanks for letting us know about it, and at least Angelixx and those terrible sons of hers got what was coming to them.)]
+	</p>
+	<p>
+		Giving the otter-girl a brief nod, you wonder what to do now...
 	</p>
 	]]>
 	</htmlContent>

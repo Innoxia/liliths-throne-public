@@ -92,7 +92,7 @@ public class DarkSiren extends NPC {
 				new NameTriplet("Meraxis"), "Lyssiethmartuilani",
 				"The ruler of Submission's central imp citadel, 'The Dark Siren' is an incredibly powerful arcane user...",
 				26, Month.OCTOBER, 13,
-				30, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.PARTIAL_FULL, new CharacterInventory(10), WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP, true);
+				30, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.PARTIAL_FULL, new CharacterInventory(false, 10), WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_DEMON_KEEP, true);
 
 		if(!isImported) {
 			this.setPlayerKnowsName(false);

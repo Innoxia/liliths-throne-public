@@ -80,7 +80,7 @@ public class Ceridwen extends NPC {
 				32, Month.DECEMBER, 30,
 				20,
 				Gender.F_V_B_FEMALE, Subspecies.getSubspeciesFromId("innoxia_raptor_subspecies_owl"), RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_shops"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_shops_convenience"),
 				true);
 		
@@ -257,7 +257,7 @@ public class Ceridwen extends NPC {
 					}
 					
 				} else {
-					this.addClothing(Main.game.getItemGen().generateClothing(clothing), false);
+					this.addClothing(Main.game.getItemGen().generateClothing(clothing, false), false);
 				}
 			}
 		}

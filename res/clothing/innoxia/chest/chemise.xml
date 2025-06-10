@@ -44,6 +44,7 @@
 		<tertiaryColoursDye/>
 		
 		<itemTags>
+			<tag>TRANSPARENT</tag>
 			<tag>SOLD_BY_NYAN</tag>
 		</itemTags>
 	</coreAttributes>

@@ -619,7 +619,7 @@
 				<responseTooltip><![CDATA[Monica is clearly extremely turned on. You could offer to help her get some sexual relief...]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariablesWithManager enabled="true">
-					<id><![CDATA[innoxia_monica_generic]]></id>
+					<id><![CDATA[innoxia_elis_monica_generic]]></id>
 					<startingPosition><![CDATA[OVER_DESK]]></startingPosition>
 					<dominants>
 						<character>

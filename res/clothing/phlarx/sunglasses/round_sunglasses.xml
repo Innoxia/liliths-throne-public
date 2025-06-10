@@ -43,7 +43,6 @@
 		<tertiaryColoursDye values="ALL_WITH_METALS"/>
 		<itemTags>
 			<tag>SOLD_BY_NYAN</tag>
-			<tag>DOMINION_ALLEYWAY_SPAWN</tag>
 		</itemTags>
 	</coreAttributes>
 	<displacementText type="REMOVE_OR_EQUIP">

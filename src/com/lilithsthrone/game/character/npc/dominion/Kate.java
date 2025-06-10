@@ -47,6 +47,9 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.markings.Tattoo;
+import com.lilithsthrone.game.character.markings.TattooCountType;
+import com.lilithsthrone.game.character.markings.TattooCounter;
+import com.lilithsthrone.game.character.markings.TattooCounterType;
 import com.lilithsthrone.game.character.markings.TattooType;
 import com.lilithsthrone.game.character.markings.TattooWriting;
 import com.lilithsthrone.game.character.markings.TattooWritingStyle;
@@ -95,9 +98,9 @@ public class Kate extends NPC {
 		super(isImported, new NameTriplet("Kate"), "Lasiellemartu",
 				"Kate is a demon who owns the beauty salon 'Succubi's Secrets'."
 						+ " Despite being incredibly good at what she does, she's exceedingly lazy, and prefers to keep the exterior of her shop looking run-down so as to scare off potential customers.",
-				37, Month.SEPTEMBER, 9,
+				361, Month.SEPTEMBER, 9,
 				10, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_KATES_SHOP, true);
+				new CharacterInventory(false, 10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_KATES_SHOP, true);
 		
 		if(!isImported) {
 			dailyUpdate();
@@ -125,6 +128,12 @@ public class Kate extends NPC {
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.9.3")) {
 			this.resetPerksMap(true);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.9.8")) {
+			this.setAge(361);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.9.9")) {
+			this.addTattoo(InventorySlot.GROIN, getKatesGroinTattoo());
 		}
 	}
 
@@ -170,24 +179,7 @@ public class Kate extends NPC {
 
 		if(this.getTattooInSlot(InventorySlot.GROIN)==null) {
 			try {
-				Tattoo tat = new Tattoo(
-						TattooType.getTattooTypeFromId("innoxia_heartWomb_heart_womb"),
-						PresetColour.CLOTHING_PINK,
-						PresetColour.CLOTHING_PINK_LIGHT,
-						PresetColour.CLOTHING_PURPLE,
-						true,
-						new TattooWriting(
-								"Breed me!",
-								PresetColour.CLOTHING_PINK_LIGHT,
-								true,
-								TattooWritingStyle.ITALICISED),
-						null);
-				
-				for(int i=0; i<10; i++) {
-					tat.addEffect(new ItemEffect(ItemEffectType.TATTOO, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0));
-				}
-				
-				this.addTattoo(InventorySlot.GROIN, tat);
+				this.addTattoo(InventorySlot.GROIN, getKatesGroinTattoo());
 				
 				this.addTattoo(InventorySlot.TORSO_OVER,
 						new Tattoo(
@@ -466,8 +458,8 @@ public class Kate extends NPC {
 	
 	@Override
 	public String getCondomEquipEffects(AbstractClothingType condomClothingType, GameCharacter equipper, GameCharacter target, boolean rough) {
-		if(!target.equals(equipper) && Main.game.isInSex()) {
-			if(!target.isPlayer()) {
+		if(Main.game.isInSex() && !target.isAsleep()) {
+			if(!target.equals(equipper) && !target.isPlayer()) {
 				if(condomClothingType.equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))) {
 					return null;
 				}
@@ -476,7 +468,8 @@ public class Kate extends NPC {
 							+ " Quickly ripping it out of its little foil wrapper, [kate.she] rolls it down the length of [kate.her] [kate.cock+] as [kate.she] whines at you,"
 							+ " [kate.speech(Do I really have to? It feels so much better without one...)]"
 						+ "</p>";
-			} else {
+			}
+			if(target.equals(equipper) && target.isPlayer()) {
 				AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
 				if(clothing!=null && clothing.isCondom()) {
 					target.unequipClothingIntoVoid(clothing, true, equipper);
@@ -484,15 +477,15 @@ public class Kate extends NPC {
 				}
 				if(condomClothingType.equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))) {
 					return UtilText.parse(equipper, target,
-							"[npc.Name] [npc.verb(direct)] [npc.her] spinneret at [npc2.namePos] [npc2.cock], but, sensing what [npc.sheIs] about to do, Kate slaps it away and laughs,"
-							+ " [kate.speech(No way! It's no fun if I don't get any cum!)]");
+							"You direct your spinneret at your own [npc.cock], with the intention of weaving a silky web condom around it, but as Kate sees what it is you're about to do, she firmly slaps it away and giggles,"
+							+ " [kate.speech(Don't do that! It's no fun if I don't get any cum!)]");
 				}
 				return "<p>"
 							+ "As you pull out a condom, a worried frown flashes across Kate's face, "
 							+ "[kate.speech(Oh! Erm, let me put that on for you!)]"
 							+"<br/>"
-							+ "Before you can react, Kate snatches the condom out of your hands, and with a devious smile, uses her sharp little canines to bite a big hole straight through the centre."
-							+ " She laughs at your shocked reaction, "
+							+ "Before you can react, Kate snatches the condom out of your hands, and with a devious smile, uses her sharp little canines to [style.colourBad(tear a big hole in it)]."
+							+ " She laughs at your shocked reaction and declares, "
 							+ "[kate.speech(It's no fun if I don't get any cum!)]"
 						+ "</p>";
 			}
@@ -516,5 +509,30 @@ public class Kate extends NPC {
 
 		String returnedLine = speech.get(Util.random.nextInt(speech.size()));
 		return UtilText.parse(this, target, "[npc.speech("+returnedLine+")]");
+	}
+	
+	private Tattoo getKatesGroinTattoo() {
+		Tattoo tat = new Tattoo(
+				TattooType.getTattooTypeFromId("innoxia_heartWomb_heart_womb"),
+				PresetColour.CLOTHING_PINK,
+				PresetColour.CLOTHING_PINK_LIGHT,
+				PresetColour.CLOTHING_PURPLE,
+				true,
+				new TattooWriting(
+						"Breed me!",
+						PresetColour.CLOTHING_PINK_LIGHT,
+						true,
+						TattooWritingStyle.ITALICISED),
+				new TattooCounter(
+						TattooCounterType.CURRENT_PREGNANCY,
+						TattooCountType.NUMBERS,
+						PresetColour.CLOTHING_PINK_LIGHT,
+						true,
+						0));
+		
+		for(int i=0; i<10; i++) {
+			tat.addEffect(new ItemEffect(ItemEffectType.TATTOO, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.FERTILITY, TFPotency.MAJOR_BOOST, 0));
+		}
+		return tat;
 	}
 }

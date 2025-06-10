@@ -85,7 +85,8 @@ public class SexPositionUnique {
 	public static final AbstractSexPosition UNDER_DESK_RALPH = new AbstractSexPosition("Under desk",
 			2,
 			false,
-			null, Util.newArrayListOfValues(RalphOral.class)) {
+			null,
+			Util.newArrayListOfValues(RalphOral.class)) {
 		@Override
 		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			return "You're kneeling under Ralph's counter, with your face just [unit.sizes] away from his crotch.";
@@ -104,9 +105,30 @@ public class SexPositionUnique {
 				return Util.newHashMapOfValues(
 						new Value<>(Arm.class, genericFaceForceCreampieAreas));
 			}
+			return null;
+		}
+	};
+
+	public static final AbstractSexPosition OVER_DESK_RALPH = new AbstractSexPosition("Over desk",
+			2,
+			false,
+			null,
+			Util.newArrayListOfValues(RalphOral.class)) {
+		@Override
+		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
+			return "You're bent over Ralph's counter, with the horse-boy standing right behind you.";
+		}
+		@Override
+		public Map<SexSlot, Map<SexSlot, SexActionInteractions>> getSlotTargets() {
+			List<Value<SexSlot, Map<SexSlot, SexActionInteractions>>> interactions = new ArrayList<>();
+			interactions.add(StandardSexActionInteractions.performingOralRalph.getSexActionInteractions(SexSlotUnique.RALPH_SUB_SEX, SexSlotUnique.RALPH_DOM_SEX));
+			return generateSlotTargetsMap(interactions);
+		}
+		@Override
+		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
 			// The character being fucked can use their legs to force a creampie:
-			if(Main.sex.getSexPositionSlot(cumTarget)==SexSlotUnique.RALPH_SUB
-					&& Main.sex.getSexPositionSlot(cumProvider)==SexSlotUnique.RALPH_DOM) {
+			if(Main.sex.getSexPositionSlot(cumTarget)==SexSlotUnique.RALPH_SUB_SEX
+					&& Main.sex.getSexPositionSlot(cumProvider)==SexSlotUnique.RALPH_DOM_SEX) {
 					return Util.newHashMapOfValues(
 							new Value<>(Leg.class, genericGroinForceCreampieAreas));
 				}

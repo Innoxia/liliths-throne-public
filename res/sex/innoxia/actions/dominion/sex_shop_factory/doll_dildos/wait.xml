@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#pc.getClothingInSlot(IS_MOUTH)==null || (pc.getClothingInSlot(IS_MOUTH).getColour(0)==COLOUR_CLOTHING_PURPLE_VERY_DARK && sex.getNumberOfOrgasms(pc)>0)]
+	]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>ZERO_NONE</arousalPerformer>
+	<arousalTarget>ZERO_NONE</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>
+	<associatedFetishes/>
+	<performingArea/>
+	<targetedArea/>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Wait]]></title>
+	<tooltip><![CDATA[
+		Obediently wait for the doll's next command.
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getNumberOfOrgasms(pc)==0]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Kneeling down on the floor in front of the red doll, you obediently stay still and wait to see which toy she'll test on you first...
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getNumberOfOrgasms(pc)>0]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				With toys stuffed in each of your three orifices, you try to ignore the feeling of your slick juices trickling down your thigh as you obediently stay still and wait for the red doll's next command...
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

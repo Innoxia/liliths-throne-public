@@ -1,8 +1,18 @@
 package com.lilithsthrone.game.sex.sexActions.baseActions;
 
+import java.util.Map.Entry;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
@@ -16,10 +26,153 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.79
- * @version 0.2.8
+ * @version 0.4.9.8
  * @author Innoxia
  */
 public class FingerVagina {
+	
+	public static final SexAction FINGER_INSEMINATION_ONGOING = new SexAction(
+			SexActionType.ONGOING,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
+			CorruptionLevel.THREE_DIRTY,
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public String getActionTitle() {
+			return "Finger insemination";
+		}
+		@Override
+		public String getActionDescription() {
+			return "Make [npc2.name] scoop up the cum on your body and push it deep into your cunt.";
+		}
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Main.sex.getTotalAmountCummedOn(Main.sex.getCharacterPerformingAction())>0
+					&& (Main.sex.getCharacterPerformingAction().isPlayer()
+							|| (!Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative() && !Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_CUM_ADDICT).isNegative()));
+		}
+		private String getRandomCharacterCumDescription(boolean withName) {
+			Set<GameCharacter> charactersCummedOnPerformer = Main.sex.getAmountCummedOnByPartners(Main.sex.getCharacterPerformingAction()).keySet();
+			
+			GameCharacter character = Util.randomItemFrom(charactersCummedOnPerformer);
+			
+			if(character==Main.sex.getCharacterPerformingAction()) {
+				return UtilText.parse(character, (withName?"[npc.her] own ":"")+"[npc.cum+]");
+			} else {
+				return UtilText.parse(character, (withName?"[npc.namePos] ":"")+"[npc.cum+]");
+			}
+		}
+		@Override
+		public String getDescription() {
+			return "As [npc.name] [npc.verb(feel)] "+getRandomCharacterCumDescription(true)+" sliding down over [npc.her] [npc.skin], a fun idea suddenly springs into [npc.her] mind."
+						+ " Reaching down, [npc.she] [npc.verb(take)] hold of [npc2.namePos] [npc2.hand], grinning devilishly as [npc2.she] [npc2.verb(pull)] [npc2.her] [npc2.fingers] out of [npc.her] [npc.pussy+]."
+						+ " Guiding [npc2.her] [npc2.fingers] to the "+getRandomCharacterCumDescription(false)+" that's splattered over [npc.her] body, [npc.she] [npc.verb(get)] [npc2.herHim] to scoop up some of the fresh seed."
+						+ " Once [npc.sheIs] satisfied that [npc2.sheHas] collected enough, [npc.she] [npc.verb(push)] [npc2.her] [npc.fingers] back into [npc.her] hungry pussy."
+						+ "<br/>"
+						+ "[npc.Name] [npc.verb(grin)] as [npc.she] [npc.verb(feel)] the "+getRandomCharacterCumDescription(false)+" on [npc2.namePos] fingers being pushed deep into [npc.her] cunt,"
+							+ " and [npc.moansVerb+] as [npc2.name] [npc.verb(start)] fingering [npc.herHim] once again, using the slick cum as lubricant."
+						+ " Grinding [npc.her] hips against [npc2.namePos] [npc2.hand], [npc.name] [npc.verb(let)] out a desperate, shuddering [npc.moan] at the feeling of being inseminated.";
+		}
+		@Override
+		public String applyEffectsString() {
+			StringBuilder sb = new StringBuilder();
+			Map<GameCharacter, Integer> cumProvidersToTotalCum = new HashMap<>();
+			for(Entry<GameCharacter, Map<InventorySlot, Integer>> cumDetails : new HashMap<>(Main.sex.getAmountCummedOnByPartners(Main.sex.getCharacterPerformingAction())).entrySet()) {
+				for(Entry<InventorySlot, Integer> areaDetails : cumDetails.getValue().entrySet()) {
+					int amountOfCumUsed = Math.min(5, areaDetails.getValue());
+					cumProvidersToTotalCum.putIfAbsent(cumDetails.getKey(), 0);
+					cumProvidersToTotalCum.put(cumDetails.getKey(), cumProvidersToTotalCum.get(cumDetails.getKey())+amountOfCumUsed);
+					Main.sex.incrementAmountCummedOn(cumDetails.getKey(), Main.sex.getCharacterPerformingAction(), areaDetails.getKey(), -amountOfCumUsed); // Remove the cum
+				}
+			}
+			for(Entry<GameCharacter, Integer> e : cumProvidersToTotalCum.entrySet()) {
+				sb.append(Main.sex.getCharacterPerformingAction().ingestFluid(e.getKey(), e.getKey().getCum(), SexAreaOrifice.VAGINA, e.getValue()));
+			}
+			
+			return sb.toString();
+		}
+		@Override
+		public List<AbstractFetish> getExtraFetishes(GameCharacter character) {
+			if(character==Main.sex.getCharacterPerformingAction()) {
+				return Util.newArrayListOfValues(Fetish.FETISH_CUM_ADDICT, Fetish.FETISH_PREGNANCY);
+			} else if(character==Main.sex.getCharacterTargetedForSexAction(this)) {
+				return Util.newArrayListOfValues(Fetish.FETISH_CUM_STUD, Fetish.FETISH_IMPREGNATION);
+			}
+			return null;
+		}
+	};
+	public static final SexAction FINGER_INSEMINATION_START = new SexAction(
+			SexActionType.START_ONGOING,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
+			CorruptionLevel.THREE_DIRTY,
+			Util.newHashMapOfValues(new Value<>(SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER)),
+			SexParticipantType.NORMAL) {
+		@Override
+		public String getActionTitle() {
+			return "Finger insemination";
+		}
+		@Override
+		public String getActionDescription() {
+			return "Make [npc2.name] scoop up the cum on your body and push it deep into your cunt.";
+		}
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Main.sex.getTotalAmountCummedOn(Main.sex.getCharacterPerformingAction())>0
+					&& (Main.sex.getCharacterPerformingAction().isPlayer()
+							|| (!Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative() && !Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_CUM_ADDICT).isNegative()));
+		}
+		private String getRandomCharacterCumDescription(boolean withName) {
+			Set<GameCharacter> charactersCummedOnPerformer = Main.sex.getAmountCummedOnByPartners(Main.sex.getCharacterPerformingAction()).keySet();
+			
+			GameCharacter character = Util.randomItemFrom(charactersCummedOnPerformer);
+			
+			if(character==Main.sex.getCharacterPerformingAction()) {
+				return UtilText.parse(character, (withName?"[npc.her] own ":"")+"[npc.cum+]");
+			} else {
+				return UtilText.parse(character, (withName?"[npc.namePos] ":"")+"[npc.cum+]");
+			}
+		}
+		@Override
+		public String getDescription() {
+			return "As [npc.name] [npc.verb(feel)] "+getRandomCharacterCumDescription(true)+" sliding down over [npc.her] [npc.skin], a fun idea suddenly springs into [npc.her] mind,"
+						+ " and [npc.she] devilishly [npc.verb(grin)] as [npc.she] [npc.verb(take)] hold of [npc2.namePos] [npc2.hand]."
+					+ " Guiding [npc2.her] [npc2.fingers] to the "+getRandomCharacterCumDescription(false)+" that's splattered over [npc.her] body, [npc.she] [npc.verb(get)] [npc2.herHim] to scoop up some of the fresh seed."
+					+ " Once [npc.sheIs] satisfied that [npc2.sheHas] collected enough, [npc.she] [npc.verb(push)] [npc2.her] [npc.fingers] into [npc.her] hungry pussy."
+					+ "<br/>"
+					+ "[npc.Name] [npc.verb(grin)] as [npc.she] [npc.verb(feel)] the "+getRandomCharacterCumDescription(false)+" on [npc2.namePos] fingers being pushed deep into [npc.her] cunt,"
+						+ " and [npc.moansVerb+] as [npc2.name] [npc.verb(start)] fingering [npc.herHim], using the slick cum as lubricant."
+					+ " Grinding [npc.her] hips against [npc2.namePos] [npc2.hand], [npc.name] [npc.verb(let)] out a desperate, shuddering [npc.moan] at the feeling of being inseminated.";
+		}
+		@Override
+		public String applyEffectsString() {
+			StringBuilder sb = new StringBuilder();
+			Map<GameCharacter, Integer> cumProvidersToTotalCum = new HashMap<>();
+			for(Entry<GameCharacter, Map<InventorySlot, Integer>> cumDetails : new HashMap<>(Main.sex.getAmountCummedOnByPartners(Main.sex.getCharacterPerformingAction())).entrySet()) {
+				for(Entry<InventorySlot, Integer> areaDetails : cumDetails.getValue().entrySet()) {
+					int amountOfCumUsed = Math.min(5, areaDetails.getValue());
+					cumProvidersToTotalCum.putIfAbsent(cumDetails.getKey(), 0);
+					cumProvidersToTotalCum.put(cumDetails.getKey(), cumProvidersToTotalCum.get(cumDetails.getKey())+amountOfCumUsed);
+					Main.sex.incrementAmountCummedOn(cumDetails.getKey(), Main.sex.getCharacterPerformingAction(), areaDetails.getKey(), -amountOfCumUsed); // Remove the cum
+				}
+			}
+			for(Entry<GameCharacter, Integer> e : cumProvidersToTotalCum.entrySet()) {
+				sb.append(Main.sex.getCharacterPerformingAction().ingestFluid(e.getKey(), e.getKey().getCum(), SexAreaOrifice.VAGINA, e.getValue()));
+			}
+			
+			return sb.toString();
+		}
+		@Override
+		public List<AbstractFetish> getExtraFetishes(GameCharacter character) {
+			if(character==Main.sex.getCharacterPerformingAction()) {
+				return Util.newArrayListOfValues(Fetish.FETISH_CUM_ADDICT, Fetish.FETISH_PREGNANCY);
+			} else if(character==Main.sex.getCharacterTargetedForSexAction(this)) {
+				return Util.newArrayListOfValues(Fetish.FETISH_CUM_STUD, Fetish.FETISH_IMPREGNATION);
+			}
+			return null;
+		}
+	};
 	
 	public static final SexAction STROKE_PUSSY = new SexAction(
 			SexActionType.REQUIRES_NO_PENETRATION,

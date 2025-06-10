@@ -20,13 +20,22 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.4.6.4
- * @version 0.4.6.4
+ * @version 0.4.10.9
  * @author Maxis010, Innoxia
  */
 public class EnchantmentController {
 	static void initEnchantmentMenuListeners() {
+		String id = "apply_enchanted_item_name";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('output_name').value;");
+				EnchantmentDialogue.setOutputName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+		}
+		
 		// Tooltips:
-		String id = "MOD_PRIMARY_ENCHANTING";
+		id = "MOD_PRIMARY_ENCHANTING";
 		if (MainController.document.getElementById(id) != null) {
 			MainController.addTooltipListeners(id,
 					new TooltipInventoryEventListener().setTFModifier(EnchantmentDialogue.getPrimaryMod()),
@@ -57,7 +66,7 @@ public class EnchantmentController {
 		AbstractItemEffectType effect = EnchantmentDialogue.getIngredient().getEnchantmentEffect();
 		int maxLimit = effect.getMaximumLimit();
 		int currentLimit = EnchantmentDialogue.getLimit();
-		
+
 		if (currentLimit>0) {
 			id = "LIMIT_MINIMUM";
 			if (MainController.document.getElementById(id) != null) {
@@ -154,7 +163,7 @@ public class EnchantmentController {
 		}
 		
 		// Choosing a primary modifier:
-		for (TFModifier tfMod : EnchantmentDialogue.getIngredient().getEnchantmentEffect().getPrimaryModifiers()) {
+		for (TFModifier tfMod : EnchantmentDialogue.getIngredient().getEnchantmentEffect().getPrimaryModifiers(EnchantmentDialogue.getIngredient())) {
 			id = "MOD_PRIMARY_"+tfMod.hashCode();
 			if (MainController.document.getElementById(id) != null) {
 				MainController.addTooltipListeners(id,

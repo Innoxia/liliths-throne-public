@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#npc.isPlayer()]
+	]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>FIVE_EXTREME</arousalPerformer>
+	<arousalTarget>ZERO_NONE</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>
+	<associatedFetishes/>
+	<performingArea>ORIFICE_VAGINA</performingArea>
+	<targetedArea>PENETRATION_PENIS</targetedArea>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Fucked]]></title>
+	<tooltip><![CDATA[
+		You're completely immobilised and can do nothing but get fucked.
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<text><![CDATA[
+				Being completely immobilised due to the ropes binding your limbs, all you can do is let out muffled moans as the doll continues to roughly fuck your pussy.
+			]]></text>
+			<text><![CDATA[
+				Being suspended off the floor by the ropes which bind you, there's nothing you can do but focus on the intense pleasure of the doll's dildo as she roughly slams it deep into your [pc.pussy+].
+			]]></text>
+			<text><![CDATA[
+				Unable to speak due to the ballgag in your mouth, you let out a series of very muffled moans as the doll forcefully pounds your [pc.pussy+] with her strap-on.
+			]]></text>
+			<text><![CDATA[
+				With no chance of being able to move or speak, you're forced to focus entirely on the pleasure of the doll's strap-on as it slams in and out of your [pc.pussy+].
+			]]></text>
+			<text><![CDATA[
+				Your bindings leave you with no way to actively contribute to the sex, and so all you can do is make muffled moans as the doll rams her dildo in and out of your [pc.pussy+].
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

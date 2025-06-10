@@ -73,7 +73,7 @@ public class CandiReceptionist extends NPC {
 				+ " A completely brain-dead bimbo, Candi seems to only ever be interested in three things; applying makeup, flirting, and fucking.",
 				24, Month.JUNE, 11,
 				5, Gender.F_V_B_FEMALE, Subspecies.CAT_MORPH, RaceStage.LESSER,
-				new CharacterInventory(30), WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_RECEPTION_DESK, true);
+				new CharacterInventory(false, 30), WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_RECEPTION_DESK, true);
 		
 	}
 	

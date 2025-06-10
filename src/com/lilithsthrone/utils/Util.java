@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -680,7 +681,9 @@ public class Util {
 		}
 		
 		if(integer>=100) {
-			if(integer>=1000 && integer%1000 != 0) {
+			if(integer>=1000
+					&& integer%1000 != 0
+					&& ((integer/100)%10!=0)) {
 				intToString+=", ";
 			}
 			integer = integer % 1000;
@@ -706,6 +709,39 @@ public class Util {
 		}
 		
 		return intToString;
+	}
+
+	/**
+	 * Converts an integer (positive or negative) to a series of numbers expressed as a String, with each number linked by a dash.
+	 * @param integer
+	 * @return e.g. 17904 will output "one-seven-nine-zero-four", -8201 will output "negative eight-two-zero-one"
+	 */
+	public static String intToIndividualNumbersString(int integer) {
+		LinkedList<String> stringStack = new LinkedList<>();
+		boolean negative = false;
+		
+		if(integer<0) {
+			negative = true;
+			integer = Math.abs(integer);
+		}
+		
+		while(integer > 0) {
+			stringStack.push(numbersLessThanTwenty[integer%10]);
+			integer /= 10;
+		}
+
+		StringBuilder sb = new StringBuilder();
+		if(negative) {
+			sb.append("negative ");
+		}
+		while(!stringStack.isEmpty()) {
+			sb.append(stringStack.pop());
+			if(!stringStack.isEmpty()) {
+				sb.append("-");
+			}
+		}
+		
+		return sb.toString();
 	}
 	
 	private static String[] primarySequence = {
@@ -851,6 +887,19 @@ public class Util {
 			numeralSB.append("... (Total: "+integer+")");
 		}
 		
+		return numeralSB.toString();
+	}
+
+	private static String[] zhengPhase = {"丨","丄","上","止"};
+
+	public static String intToZheng(int integer, int max) {
+		StringBuilder numeralSB = new StringBuilder();
+		int limit = Math.min(integer, max);
+		for(int i=0; i<limit/5; i++) numeralSB.append("正");
+
+		if(limit%5 != 0) numeralSB.append(zhengPhase[limit%5-1]);
+
+		if(limit<integer) numeralSB.append("... (Total: "+integer+")");
 		return numeralSB.toString();
 	}
 	
@@ -1106,12 +1155,12 @@ public class Util {
 		for(int i=0; i<finalSplitSentence.size(); i++) {
 			String s = finalSplitSentence.get(i);
 			if(s.matches(".*[a-zA-Z,]+.*")
-					&& !s.contains("#") && !s.contains("[") && !s.contains("(")
+					&& !s.contains("#") && !s.contains("[") && !s.contains("(") && !s.contains("~") 
 					&& !isEndOfSentence(s.charAt(s.length()-1))
 					&& (i==finalSplitSentence.size()-1 || !isEndOfSentence(finalSplitSentence.get(i+1).charAt(0)))) {
 				if(s.contains(",")) {
 					availableCommaIndexes.add(i);
-				} else {
+				} else if(!s.endsWith(". ")) {// Prevents insertions at the very start of new sentences
 					availableIndexes.add(i);
 				}
 				if(debug) {
@@ -1390,6 +1439,7 @@ public class Util {
 	}
 
 	private static String[] sexSounds = new String[] { " ~Aah!~", " ~Mmm!~", " ~Ooh!~" };
+	private static String[] sexSoundsResisting = new String[] { " ~Aah!~", " ~No!~", " ~Eugh!~" };
 	/**
 	 * Turns a normal sentence into a sexy sentence.<br/>
 	 * Example:<br/>
@@ -1403,8 +1453,8 @@ public class Util {
 	 * @return
 	 *            modified sentence
 	 */
-	public static String addSexSounds(String sentence, int frequency) {
-		return insertIntoSentences(sentence, frequency, sexSounds);
+	public static String addSexSounds(String sentence, int frequency, boolean resisting) {
+		return insertIntoSentences(sentence, frequency, resisting?sexSoundsResisting:sexSounds);
 	}
 
 	private static String[] drunkSounds = new String[] { " ~Hic!~" };
@@ -1840,9 +1890,9 @@ public class Util {
 		}
 		if(stringMatchDistance>0) { // Only show error message if difference is more than just capitalisation differences
 			System.err.println("Warning: getClosestStringMatch() did not find an exact match for '"+input+"'; returning '"+closestString+"' instead. (Distance: "+stringMatchDistance+")");
-		}
-		if(Main.DEBUG) {
-			new IllegalArgumentException().printStackTrace(System.err);
+			if(Main.DEBUG) {
+				new IllegalArgumentException().printStackTrace(System.err);
+			}
 		}
 		return closestString;
 	}

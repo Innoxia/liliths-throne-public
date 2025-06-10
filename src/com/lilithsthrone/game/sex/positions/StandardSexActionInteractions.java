@@ -1567,7 +1567,8 @@ public class StandardSexActionInteractions {
 								SexActionPresets.appendagesToAllAreas),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.FLOOR),
-						null))));
+						Util.newArrayListOfValues(
+								OrgasmCumTarget.FLOOR)))));
 			}
 	};
 	

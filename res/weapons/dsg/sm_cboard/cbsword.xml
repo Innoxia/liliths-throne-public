@@ -62,8 +62,9 @@
 		</secondaryColours> 
 		<secondaryColoursDye values="ALL"/>
 		
-		<itemTags/>
-		
+		<itemTags> 
+			<tag>REMOVE_FROM_DRESSING_ROOM_OUTFITS</tag>
+		</itemTags>
 	</coreAttributes>
 	
 	<hitDescriptions>

@@ -32,22 +32,22 @@
 	</p>
 	<p>
 		#IF(pc.getClothingInSlot(IS_NECK)!=null && pc.getClothingInSlot(IS_NECK).getClothingType().getId().equals('innoxia_neck_filly_choker'))
-			[natalya.speech(Good filly, I see that you're wearing your collar,)] she remarks, before snapping,
+			[natalya.speech(Good [style.mule], I see that you're wearing your collar,)] she remarks, before snapping,
 		#ELSE
-			[natalya.speech(Bad filly, I see that you're not wearing your collar,)] she growls, before snapping,
+			[natalya.speech(Bad [style.mule], I see that you're not wearing your collar,)] she growls, before snapping,
 		#ENDIF
 		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
-			 [natalya.speech(Your timing is excellent. I was just thinking how good it'd be to have some dirty filly slut give me a good rimjob. Follow me, filly.)]
+			 [natalya.speech(Your timing is excellent. I was just thinking how good it'd be to have some dirty [style.mule] slut give me a good rimjob. Follow me, [style.mule].)]
 		#ELSE
-			 [natalya.speech(Your timing is excellent, although it's a shame that your mouth appears to be inaccessible. I was just thinking how good it'd be to have some dirty filly slut give me a good rimjob, but a handjob will have to do. Follow me, filly.)]
+			 [natalya.speech(Your timing is excellent, although it's a shame that your mouth appears to be inaccessible. I was just thinking how good it'd be to have some dirty [style.mule] slut give me a good rimjob, but a handjob will have to do. Follow me, [style.mule].)]
 		#ENDIF
 	</p>
 	<p>
 		Obediently following your Mistress behind a cluster of nearby bushes, you find that your position conceals the two of you from the rest of the park, offering you complete privacy. Wasting no time, the [natalya.race] hikes up her skirt, presenting you with both her puffy, ebony-skinned asshole and huge, rapidly-hardening horse-cock.
 		#IF(pc.isAbleToAccessCoverableArea(CA_MOUTH, true))
-			 Bucking her hips back towards you, she impatiently snaps, [natalya.speech(You know the drill, filly. Kiss my ass and then get your tongue in there!)]
+			 Bucking her hips back towards you, she impatiently snaps, [natalya.speech(You know the drill, [style.mule]. Kiss my ass and then get your tongue in there!)]
 		#ELSE
-			 Bucking her hips back towards you, she impatiently snaps, [natalya.speech(You know the drill, filly. Your mouth may be covered, but I'll accept you burying your face in my ass instead of a kiss. After that, drop down and start stroking my cock!)]
+			 Bucking her hips back towards you, she impatiently snaps, [natalya.speech(You know the drill, [style.mule]. Your mouth may be covered, but I'll accept you burying your face in my ass instead of a kiss. After that, drop down and start stroking my cock!)]
 		#ENDIF
 	</p>
 	]]>
@@ -58,20 +58,20 @@
 		Performing the customary display of submission, you obediently lean in to plant a big, wet kiss on Natalya's puffy asshole. Knowing how quickly she can get annoyed, you don't waste any time and quickly move on to passionately licking and making out with her musky doughnut.
 	</p>
 	<p>
-		[natalya.speech(Yes, filly! ~Mmm!~ That's it!)] she moans as your [pc.lips] press lewdly against her rear entrance. Darting out your [pc.tongue+], you start eagerly giving your Mistress a rimjob, causing her to let out a series of lewd, high-pitched moans...
+		[natalya.speech(Yes, [style.mule]! ~Mmm!~ That's it!)] she moans as your [pc.lips] press lewdly against her rear entrance. Darting out your [pc.tongue+], you start eagerly giving your Mistress a rimjob, causing her to let out a series of lewd, high-pitched moans...
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="NATALYA_ENCOUNTER_START_FILLY_HANDJOB"><![CDATA[
 	<p>
-		Although not able to kiss it as per the customary display of submission, you obediently lean in to press your face against Natalya's puffy asshole. Knowing how quickly she can get annoyed, you don't waste any time and quickly move on to drop down beside her. Reaching up to take hold of her thick, throbbing horse-cock, you wrap your [pc.fingers] around her huge, hot shaft and give it a loving stroke. As a thick, musky spurt of precum oozes out of the flared head of her horse-like cock, she calls out, [natalya.speechNoEffects(~Ooh!~ Yes! Keep stroking it like that, filly! ~Mmm!~)]
+		Although not able to kiss it as per the customary display of submission, you obediently lean in to press your face against Natalya's puffy asshole. Knowing how quickly she can get annoyed, you don't waste any time and quickly move on to drop down beside her. Reaching up to take hold of her thick, throbbing horse-cock, you wrap your [pc.fingers] around her huge, hot shaft and give it a loving stroke. As a thick, musky spurt of precum oozes out of the flared head of her horse-like cock, she calls out, [natalya.speechNoEffects(~Ooh!~ Yes! Keep stroking it like that, [style.mule]! ~Mmm!~)]
 	</p>
 	<p>
 		Once again doing as you're told, you use your [pc.hands] to enthusiastically stroke your Mistress's cock. Running your touch down to the leaky head, you allow the slimy precum to drool out all over your [pc.fingers], before massaging it down the length of her throbbing shaft.
 	</p>
 	<p>
-		[natalya.speechNoEffects(~Aah!~ Fuck! That's a good filly! ~Ooh!~ Keep going!)] Natalya moans as you settle into a steady rhythm of rubbing your [pc.hands] up and down the length of her musky precum-coated cock...
+		[natalya.speechNoEffects(~Aah!~ Fuck! That's a good [style.mule]! ~Ooh!~ Keep going!)] Natalya moans as you settle into a steady rhythm of rubbing your [pc.hands] up and down the length of her musky precum-coated cock...
 	</p>
 	]]>
 	</htmlContent>
@@ -131,10 +131,10 @@
 		Deciding to obey, you tell the [natalya.race] that you'll do what she wants. After flashing you a smirk, she reaches into the nearby cart and produces a large carrier bag, before trotting off and leading you over to some nearby bushes. Following her around to the other side of the foliage, you find that your position conceals the two of you from the rest of the park, offering you complete privacy.
 	</p>
 	<p>
-		[natalya.speech(This is what you wanted to see then?)] the [natalya.race] says, before reaching back and hiking up her skirt. As you're positioned behind her, you get an unobstructed line of sight to her now-exposed rear end, and as she swishes her tail to one side, you see that she's got the puffy, feral horse-anus you were expecting. Instead of the pussy that you were expecting beneath this, however, she has a pair of huge, dangling balls and a massive, feral horse-cock that's beginning to push out of its sheath. Matching the shade of the horse-like hair which covers her feral lower body, her animalistic genitalia are mostly dark black in colour, although there is a small amount of pale lilac mottling on her shaft. Bucking her hips a couple of times, the demon relaxes and contracts her ebony-skinned doughnut as she throws the carries bag to your feet and teases, [natalya.speech(Open it, filly, and take out what's inside.)]
+		[natalya.speech(This is what you wanted to see then?)] the [natalya.race] says, before reaching back and hiking up her skirt. As you're positioned behind her, you get an unobstructed line of sight to her now-exposed rear end, and by swishing her tail to one side, she grants you a view of her puffy, feral horse-anus. Instead of the pussy that you were expecting beneath this, however, she has a pair of huge, dangling balls and a massive, bestial horse-cock that's beginning to push out of its sheath. Matching the shade of the horse-like hair which covers her feral lower body, her animalistic genitalia are mostly dark black in colour, although there is a small amount of pale lilac mottling on her shaft. Bucking her hips a couple of times, the demon relaxes and contracts her ebony-skinned doughnut as she throws the carrier bag to your feet and teases, [natalya.speech(Open it and take out what's inside.)]
 	</p>
 	<p>
-		Doing as you're told once again, you open the bag to see that it contains a gigantic, [style.size(56)] ribbed dildo. Stomping her rear hoofs down against the grass, she pushes her hips back and demands, [natalya.speech(Submit to me, filly. Submit to me and call me 'Mistress Natalya', and then I'll allow you to shove my toy into my ass. After that, I think I'll empty my balls onto your face.)]
+		Doing as you're told once again, you open the bag to see that it contains a gigantic, [style.size(56)] ribbed dildo. Stomping her rear hoofs down against the grass, she pushes her hips back and demands, [natalya.speech(Submit to me, slut. Submit to me and call me 'Mistress Natalya', and then I'll allow you to shove my toy into my ass. After that, I think I'll empty my balls onto your face.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -148,7 +148,7 @@
 	
 	<htmlContent tag="NATALYA_ENCOUNTER_BUSHES_SUBMIT"><![CDATA[
 	<p>
-		Doing as you're told, you completely submit to the [natalya.race] and call her 'Mistress Natalya'. After briefly smirking at your surrender, she impatiently snaps, [natalya.speech(Go on then, filly, shove that toy into my ass! Oh, and don't you <i>dare</i> touch my asshole! That's reserved for my fully trained fillies, and while I'm confident that I'll have you join their ranks some day, you're not there yet.)]
+		Doing as you're told, you completely submit to the [natalya.race] and call her 'Mistress Natalya'. After briefly smirking at your surrender, she impatiently snaps, [natalya.speech(Go on then, bitch, shove that toy into my ass! Oh, and don't you <i>dare</i> touch my asshole! That's reserved for my fully trained [style.mules], and while I'm confident that I'll have you join their ranks some day, you're not there yet.)]
 	</p>
 	<p>
 		With that, Natalya lifts her hips and relaxes her puffy, ebony-skinned asshole, presenting herself fully to you so that you can do as she says. As you lift the gigantic dildo up to her rear entrance, you suddenly notice the true, demonic nature of her asshole, for although it looks like a regular horse anus at first glance, you now see that its surface is beginning to glisten with clear, slimy lubricant.
@@ -157,20 +157,20 @@
 		Pushing the tip of the dildo into her demonic hole, you manage to draw a lewd, high-pitched moan from between Natalya's lips. Panting and sighing, the [natalya.race] looks back over her shoulder and bites her lip as you force the first of the dildo's three bulbous ribs past the puffy rim of her asshole and into her slimy rear entrance. At this moment, the dildo reveals itself to be enchanted and starts vigorously vibrating, causing Natalya to let out another shuddering moan. Unable to cope with the pleasure, she impatiently pushes her hips back, forcing you to obscenely stretch out the lithe [natalya.race]'s puffy asshole as you shove the remaining two ribs of the dildo inside of her.
 	</p>
 	<p>
-		By now, a thick stream of precum is drooling out of her massive, fully-erect horse-cock. Moaning in delight as her vibrating toy stimulated the insides of her asshole, she demands, [natalya.speech(Get down and stroke my cock, filly! ~Mmm!~ Fuck! I'm going to give you a facial you'll never forget!)]
+		By now, a thick stream of precum is drooling out of her massive, fully-erect horse-cock. Moaning in delight as her vibrating toy stimulated the insides of her asshole, she demands, [natalya.speech(Get down and stroke my cock, slut! ~Mmm!~ Fuck! I'm going to give you a facial you'll never forget!)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="NATALYA_ENCOUNTER_BUSHES_SUBMIT_START_SEX"><![CDATA[
 	<p>
-		As Natalya's throbbing cock continues to leak musky precum all over the floor, you obediently drop down beside her and reach up to take hold of her thick, throbbing horse-cock. Wrapping your [pc.fingers] around her huge, hot shaft, you give it a loving stroke, and can't help but gasp in surprise as it instantly jumps up in excitement. In a further display of exhilaration, Natalya starts rapidly pawing at the ground with one of her front hoofs, and as a thick, musky spurt of precum oozes out of the flared head of her horse-like cock, she calls out, [natalya.speechNoEffects(~Ooh!~ Yes! Keep stroking it like that, filly! ~Mmm!~ You're forbidden from using anything but your hands! ~Aah!~ I'll train you into a good, obedient filly!)]
+		As Natalya's throbbing cock continues to leak musky precum all over the floor, you obediently drop down beside her and reach up to take hold of her thick, throbbing horse-cock. Wrapping your [pc.fingers] around her huge, hot shaft, you give it a loving stroke, and can't help but gasp in surprise as it instantly jumps up in excitement. In a further display of exhilaration, Natalya starts rapidly pawing at the ground with one of her front hoofs, and as a thick, musky spurt of precum oozes out of the flared head of her horse-like cock, she calls out, [natalya.speechNoEffects(~Ooh!~ Yes! Keep stroking it like that, slut! ~Mmm!~ You're forbidden from using anything but your hands! ~Aah!~ I'll train you into a good, obedient [style.mule]!)]
 	</p>
 	<p>
 		Once again doing as you're told, you use your [pc.hands] to enthusiastically stroke your Mistress's cock. Running your touch down to the leaky head, you allow the slimy precum to drool out all over your [pc.fingers], before massaging it down the length of her throbbing shaft.
 	</p>
 	<p>
-		[natalya.speechNoEffects(~Aah!~ Fuck! That's a good filly! ~Ooh!~ Keep going!)] Natalya moans as you settle into a steady rhythm of rubbing your [pc.hands] up and down the length of her musky precum-coated cock...
+		[natalya.speechNoEffects(~Aah!~ Fuck! You'll make a good [style.mule]! ~Ooh!~ Keep going!)] Natalya moans as you settle into a steady rhythm of rubbing your [pc.hands] up and down the length of her musky precum-coated cock...
 	</p>
 	]]>
 	</htmlContent>
@@ -178,27 +178,27 @@
 	<htmlContent tag="NATALYA_ENCOUNTER_BUSHES_SUBMIT_POST_SEX"><![CDATA[
 	#IF(game.getDialogueFlags().hasFlag(FLAG_playerReceivedNatalyaFacial))
 		<p>
-			Now that Natalya has had her fun, she smirks down at you and arrogantly remarks, [natalya.speech(With a little more training, you'll make a fine filly. Now, remove my dildo for me; I want to hurry back and check on my boys.)]
+			Now that Natalya has had her fun, she smirks down at you and arrogantly remarks, [natalya.speech(With a little more training, you'll make a fine [style.mule]. Now, remove my dildo for me; I want to hurry back and check on my boys.)]
 		</p>
 		<p>
-			Turning her feral horse-like body around, Natalya flicks her tail to one side and presents you with her puffy, horse-like asshole. The massive ribbed dildo is still buried deep inside of it, and as you move forwards, you hear that it's still incessantly buzzing away as it vibrates inside of your Mistress's butt. As you reach forwards and take hold of the base, Natalya lets out a deep moan and commands, [natalya.speech(Pull it out slowly, filly! ~Ooh!~ And remember that you're forbidden from touching my ass! ~Mmm!~ That will be a reward later on in your training!)]
+			Turning her feral horse-like body around, Natalya flicks her tail to one side and presents you with her puffy, horse-like asshole. The massive ribbed dildo is still buried deep inside of it, and as you move forwards, you hear that it's still incessantly buzzing away as it vibrates inside of your Mistress's butt. As you reach forwards and take hold of the base, Natalya lets out a deep moan and commands, [natalya.speech(Pull it out slowly, slut! ~Ooh!~ And remember that you're forbidden from touching my ass! ~Mmm!~ That will be a reward later on in your training!)]
 		</p>
 		<p>
 			Eager to obey Natalya's order, you set to work on slowly pulling the huge dildo out of her ass. Her puffy rear entrance lewdly spreads out around each of the three thick ridges as you gently slide the massive toy out of her, causing a series of deeply erotic moans to drift out of her mouth. As the dildo finally slips free, you can't help but let out a hungry [pc.moan] of your own as you find yourself staring at your Mistress's puffy, glistening asshole.
 		</p>
 	#ELSE
 		<p>
-			Although Natalya has had her fun, she is quite clearly displeased with your refusal to receive her facial, and arrogantly remarks, [natalya.speech(I'll work on your disobedience later, filly. For now, just remove my dildo for me; I want to hurry back and check on my boys.)]
+			Although Natalya has had her fun, she is quite clearly displeased with your refusal to receive her facial, and arrogantly remarks, [natalya.speech(I'll work on your disobedience later, bitch. For now, just remove my dildo for me; I want to hurry back and check on my boys.)]
 		</p>
 		<p>
-			Turning her feral horse-like body around, Natalya flicks her tail to one side and presents you with her puffy, horse-like asshole. The massive ribbed dildo is still buried deep inside of it, and as you move forwards, you hear that it's still incessantly buzzing away as it vibrates inside of your Mistress's butt. As you reach forwards and take hold of the base, Natalya lets out a deep moan and commands, [natalya.speech(Pull it out slowly, filly! ~Ooh!~ And remember that you're forbidden from touching my ass! ~Mmm!~ Bad [pc.girls] like you aren't deserving of it!)]
+			Turning her feral horse-like body around, Natalya flicks her tail to one side and presents you with her puffy, horse-like asshole. The massive ribbed dildo is still buried deep inside of it, and as you move forwards, you hear that it's still incessantly buzzing away as it vibrates inside of your Mistress's butt. As you reach forwards and take hold of the base, Natalya lets out a deep moan and commands, [natalya.speech(Pull it out slowly, slut! ~Ooh!~ And remember that you're forbidden from touching my ass! ~Mmm!~ Bad [pc.girls] like you aren't deserving of it!)]
 		</p>
 		<p>
 			Not wanting to annoy Natalya any more than you've already done so, you set to work on slowly pulling the huge dildo out of her ass. Her puffy rear entrance lewdly spreads out around each of the three thick ridges as you gently slide the massive toy out of her, causing a series of deeply erotic moans to drift out of her mouth. As the dildo finally slips free, you can't help but let out a hungry [pc.moan] of your own as you find yourself staring at your Mistress's puffy, glistening asshole.
 		</p>
 	#ENDIF
 	<p>
-		Before you're tempted to touch it, Natalya quickly pulls her skirt back down to conceal her lower body, depriving you of the erotic sight of both her slutty asshole and massive horse-like cock. Grabbing the dildo from out of your [pc.hands], she returns it to the carrier bag and trots off, calling over her shoulder as she goes, [natalya.speech(Come on, filly! Follow your Mistress!)]
+		Before you're tempted to touch it, Natalya quickly pulls her skirt back down to conceal her lower body, depriving you of the erotic sight of both her slutty asshole and massive horse-like cock. Grabbing the dildo from out of your [pc.hands], she returns it to the carrier bag and trots off, calling over her shoulder as she goes, [natalya.speech(Come on, bitch! Follow your Mistress!)]
 	</p>
 	<p>
 		There's little else for you to do except obey Natalya's command and follow her back to where you first saw her...
@@ -211,10 +211,10 @@
 		As you trail along in your Mistress's wake, she purposefully swishes her tail back in your direction, wafting the heady, potent musk still being given off by her cock back in your direction. For the first time since meeting her, she turns to give you the briefest glimpse of a genuine smile, before trotting along and leading you back over to the carts.
 	</p>
 	<p>
-		As you head back to where you first saw your new Mistress, you see that Natalya's centaur slaves are obediently standing in front of the now-empty carts, stoically staring straight ahead as they await their owner's return. Quickly trotting over to them, your Mistress sets about strapping each of them into their harnesses. Exactly like she was doing to you just moments ago, Natalya makes a show of flicking her horse-like tail in their direction, and as one of the centaurs breathes in her musky scent, he starts restlessly pawing the ground. Putting an immediate stop to this excitable behaviour by flashing him a furious glare, the small [natalya.race] tightly buckles up his harness before turning back to address you, [natalya.speech(Filly! My boys and I shall be on our way now, but before we go, I have something for you.)]
+		As you head back to where you first saw your new Mistress, you see that Natalya's centaur slaves are obediently standing in front of the now-empty carts, stoically staring straight ahead as they await their owner's return. Quickly trotting over to them, your Mistress sets about strapping each of them into their harnesses. Exactly like she was doing to you just moments ago, Natalya makes a show of flicking her horse-like tail in their direction, and as one of the centaurs breathes in her musky scent, he starts restlessly pawing the ground. Putting an immediate stop to this excitable behaviour by flashing him a furious glare, the small [natalya.race] tightly buckles up his harness before turning back to address you, [natalya.speech([style.Mule]! My boys and I shall be on our way now, but before we go, I have something for you.)]
 	</p>
 	<p>
-		Reaching into one of her blazer's pockets, she produces a business card and carelessly tosses it for you to catch as she declares, [natalya.speech(The address at which you may find me is printed on that business card; I expect to see you there at some point in the future so that I may continue with your training. Do not disappoint me, filly.)]
+		Reaching into one of her blazer's pockets, she produces a business card and carelessly tosses it for you to catch as she declares, [natalya.speech(The address at which you may find me is printed on that business card; I expect to see you there at some point in the future so that I may train you into one of my obedient [style.mules]. Do not disappoint me, bitch.)]
 	</p>
 	<p>
 		With that, the haughty [natalya.race] trots off to the cart at the front of the queue, making a point of going the long way around so as to walk in front of each of her centaurs and flick her tail in their direction one last time. As she passes, you hear her tease under her breath, [natalya.speech(One of you will be getting some of this later...)]
@@ -234,10 +234,10 @@
 	
 	<htmlContent tag="AFTER_FILLY_SEX_ANAL"><![CDATA[
 	<p>
-		Having had her fun, Natalya orders, [natalya.speech(Kiss my ass one last time, then we're done here, filly.)]
+		Having had her fun, Natalya orders, [natalya.speech(Kiss my ass one last time, then we're done here, [style.mule].)]
 	</p>
 	<p>
-		Doing as you're told, you plant one last, passionate kiss on your Mistress's musky, ebony-skinned doughnut, before [pc.stepping] back and allowing her to pull her skirt back down. Snapping her fingers, she commands, [natalya.speech(Follow me, filly. Let's see if my boys have finished their work.)]
+		Doing as you're told, you plant one last, passionate kiss on your Mistress's musky, ebony-skinned doughnut, before [pc.stepping] back and allowing her to pull her skirt back down. Snapping her fingers, she commands, [natalya.speech(Follow me, [style.mule]. Let's see if my boys have finished their work.)]
 	</p>
 	<p>
 		Once more obediently doing as you're told, you fall in behind your Mistress as she returns to the spot where you first saw her.
@@ -247,10 +247,10 @@
 	
 	<htmlContent tag="AFTER_FILLY_SEX_HANDJOB"><![CDATA[
 	<p>
-		Having had her fun, Natalya throws a wet wipe down to you and orders, [natalya.speech(Clean my cock, then we're done here, filly.)]
+		Having had her fun, Natalya throws a wet wipe down to you and orders, [natalya.speech(Clean my cock, then we're done here, [style.mule].)]
 	</p>
 	<p>
-		Doing as you're told, you tear open the packet and pull out the wet wipe, before dutifully managing to clean most, but not all, of the slimy, musky cum from off of her thick, softening shaft. Once done, you stand up and [pc.step] back, allowing her to pull her skirt back down. Snapping her fingers, she commands, [natalya.speech(Follow me, filly. Let's see if my boys have finished their work.)]
+		Doing as you're told, you tear open the packet and pull out the wet wipe, before dutifully managing to clean most, but not all, of the slimy, musky cum from off of her thick, softening shaft. Once done, you stand up and [pc.step] back, allowing her to pull her skirt back down. Snapping her fingers, she commands, [natalya.speech(Follow me, [style.mule]. Let's see if my boys have finished their work.)]
 	</p>
 	<p>
 		Once more obediently doing as you're told, you fall in behind your Mistress as she returns to the spot where you first saw her.
@@ -260,7 +260,7 @@
 	
 	<htmlContent tag="NATALYA_ENCOUNTER_FILLY_END"><![CDATA[
 	<p>
-		As you trail along in your Mistress's wake, she purposefully swishes her tail back in your direction, wafting the heady, potent musk still being given off by her cock back in your direction. As you head back to where you first saw your Mistress, you see that Natalya's centaur slaves are obediently standing in front of the now-empty carts, stoically staring straight ahead as they await their owner's return. Quickly trotting over to them, your Mistress sets about strapping each of them into their harnesses. Exactly like she was doing to you just moments ago, Natalya makes a show of flicking her horse-like tail in their direction, and as one of the centaurs breathes in her musky scent, he starts restlessly pawing the ground. Putting an immediate stop to this excitable behaviour by flashing him a furious glare, the small [natalya.race] tightly buckles up his harness before turning back to address you, [natalya.speech(Filly! My boys and I shall be on our way now, but we expect to see you again soon. I'm sure some of my boys would love to have you service them.)]
+		As you trail along in your Mistress's wake, she purposefully swishes her tail back in your direction, wafting the heady, potent musk still being given off by her cock back in your direction. As you head back to where you first saw your Mistress, you see that Natalya's centaur slaves are obediently standing in front of the now-empty carts, stoically staring straight ahead as they await their owner's return. Quickly trotting over to them, your Mistress sets about strapping each of them into their harnesses. Exactly like she was doing to you just moments ago, Natalya makes a show of flicking her horse-like tail in their direction, and as one of the centaurs breathes in her musky scent, he starts restlessly pawing the ground. Putting an immediate stop to this excitable behaviour by flashing him a furious glare, the small [natalya.race] tightly buckles up his harness before turning back to address you, [natalya.speech([style.Mule]! My boys and I shall be on our way now, but we expect to see you again soon. I'm sure some of my boys would love to have you service them.)]
 	</p>
 	<p>
 		With that, the haughty [natalya.race] trots off to the cart at the front of the queue, making a point of going the long way around so as to walk in front of each of her centaurs and flick her tail in their direction one last time. As she passes, you hear her tease under her breath, [natalya.speech(One of you will be getting some of this later...)]

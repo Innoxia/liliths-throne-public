@@ -133,22 +133,42 @@
 	</p>
 	<p>
 		[kheiron.speech(Oh, she's here every evening, usually after about nine,)] the centaur responds,
-		#IF(pc.isTaur())
-			 before looking you up and down and grunting in amusement, [kheiron.speech(As you're a taur yourself, you'd better watch out. That girl's got a thing for our kind, and makes it her mission to end every evening by being led off to the stable by a taur.)]
+		#IF(sterope.getLocationPlaceType()==PLACE_TYPE_innoxia_fields_elis_tavern_taur_stable || (game.isHourBetween(21, 2) && sterope.getWorldLocation()!=WORLD_TYPE_innoxia_fields_elis_tavern_taur))
+			 before pointing to an empty table and revealing, [kheiron.speech(She was sitting over there earlier, but it looks like she's gone now.)]
+		#ELSEIF(sterope.getLocationPlaceType()==PLACE_TYPE_innoxia_fields_elis_tavern_taur_tables)
+			 before pointing to a table nearby and saying, [kheiron.speech(Look, there she is now.)]
 		#ELSE
-			 before grunting, [kheiron.speech(That girl's got a thing for taurs, and makes it her mission to end every evening by being led off to the stable by one.)]
+			 before revealing, [kheiron.speech(I never see her in here at any other time, so if you wanted to meet her here, then I suggest you arrive at nine.)]
 		#ENDIF
 	</p>
 	<p>
-		Before you get the chance to ask him anything about the stable he's just mentioned, Kheiron explains, [kheiron.speech(The stable's out back, behind the locked door near the toilets. It was standing empty before Sterope convinced me to rent it out to her. Although she's tried to get me in there, she's not my type, so I don't know for sure what she gets up to in there.)]
+		#IF(sterope.getLocationPlaceType()==PLACE_TYPE_innoxia_fields_elis_tavern_taur_tables)
+			Looking over in the direction that Kheiron's pointing, you see Sterope sitting all alone. Wanting to find out more about the [sterope.race], you turn back to Kheiron and ask him what he knows about her.
+		#ELSE
+			Thanking Kheiron for the information, you ask him if he knows much about the [sterope.race].
+		#ENDIF
+		#IF(pc.isTaur())
+			 Looking you up and down, he grunts in amusement and replies, [kheiron.speech(Well, as you're a taur yourself, you'd better watch out for her. That girl's got a thing for our kind, and makes it her mission to end every evening by being led off to the stable by a taur.
+			#IF(sterope.getLocationPlaceType()==PLACE_TYPE_innoxia_fields_elis_tavern_taur_stable)
+				 In fact, I'd bet that she's in there right now.
+			#ENDIF)]
+		#ELSE
+			 Letting out an amused grunt, he replies, [kheiron.speech(That girl's got a thing for taurs, and makes it her mission to end every evening by being led off to the stable by one.
+			#IF(sterope.getLocationPlaceType()==PLACE_TYPE_innoxia_fields_elis_tavern_taur_stable)
+				 In fact, I'd bet that she's in there right now.
+			#ENDIF)]
+		#ENDIF
+	</p>
+	<p>
+		Curious to hear more about this stable that he's just mentioned, you ask Kheiron about it, and he explains, [kheiron.speech(The stable's out back, behind the locked door near the toilets. It was standing empty before Sterope convinced me to rent it out to her. She's tried to get me in there on more than on occasion, but I don't want to get involved with an Enforcer so I always turn her down. I don't know for sure what she gets up to in there, but it's not too hard to guess...)]
 	</p>
 	<p>
 		#IF(pc.isInnocent())
-			Your innocent speculation that perhaps she's got some kind of Enforcer assignment that requires her to interrogate taurs is met by a loud laugh from Kheiron.
+			You innocently suggest that she might just want somewhere quiet where she can talk, which elicits a loud laugh from Kheiron. Shaking his head, he grunts in amusement,
 		#ELSE
-			Your speculation that she's probably having a good time, seeing that she comes back for more every evening, is met by a loud laugh from Kheiron.
+			You make a brief comment about how she must be having a lot of fun in there if she comes back every evening, which elicits an amused grunt from Kheiron. Shaking his head, he says,
 		#ENDIF
-		 Shaking his head, he grunts in amusement, [kheiron.speech(She's getting what she wants in there, all right. Honestly, the less I know about it, the better. So long as she keeps paying rent, she can do whatever she pleases.)]
+		  [kheiron.speech(Honestly, the less I know about it, the better. So long as she keeps paying rent, she can do whatever she wants in there.)]
 	</p>
 	<p>
 		Sensing that there's no more to be said on this topic, you wonder what to ask Kheiron next...
@@ -771,7 +791,7 @@
 		Accepting Fae's invitation, you sit between the two sisters, and the moment that you do so, they shuffle forwards and start playfully brushing up against you. Seeming to have a little more confidence than she did while at work, Silvia teases, [silvia.speech(You know, [pc.name], Fae and I were just talking about how good you are at kissing. I was wondering if you were good at other stuff, too...)]
 	</p>
 	<p>
-		[fae.speech(Why don't you just say you want to fuck [pc.her]?)] Fae says to her sister, [fae.speech(That's why we're all here, isn't it?)]
+		[fae.speech(Why don't you just say you want to fuck [pc.herHim]?)] Fae says to her sister, [fae.speech(That's why we're all here, isn't it?)]
 	</p>
 	<p>
 		Letting out a giggle, Silvia nods her head and bats her eyelids at you. Finally given a moment in which to make a move, you wonder whether to take things slow or start by diving right in and kissing the horny sisters...
@@ -1060,7 +1080,7 @@
 	<p>
 		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
 			As you start to suck Fae's cock, Silvia lets out a hungry moan, and the next thing you know you're feeling her [silvia.lips+] planting a big, wet kiss on the [pc.cockHead] of your own cock. Letting out a happy giggle as she watches your cock stand to attention, Fae's blue-eyed sister opens wide and takes your [pc.cock+] into her mouth. With you sucking Fae's cock, and Silvia doing the same to yours, you lie back and enjoy this unexpected form of a morning wakeup...
-		#ELSEIF(pc.hasVagina())
+		#ELSEIF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
 			As you start to suck Fae's cock, Silvia lets out a hungry moan, and the next thing you know you're feeling her [silvia.lips+] planting a big, wet kiss on your [pc.labia+]. Letting out a happy giggle as she slides her tongue over the length of your pussy, Fae's blue-eyed sister leans forwards and presses her mouth against your exposed cunt. With you sucking Fae's cock, and Silvia starting to eat you out, you lie back and enjoy this unexpected form of a morning wakeup...
 		#ELSE
 			[silvia.speech(I can't do anything down here...)] Silvia calls out as you start to suck Fae's cock. With no way to perform oral on you, Silvia simply lets out a frustrated sigh and watches as her sister fucks your throat...
@@ -1076,7 +1096,7 @@
 	<p>
 		#IF(pc.hasPenisIgnoreDildo() && pc.isAbleToAccessCoverableArea(CA_PENIS, true))
 			As you start to service Fae's pussy, Silvia lets out a hungry moan, and the next thing you know you're feeling her [silvia.lips+] planting a big, wet kiss on the [pc.cockHead] of your [pc.cock+]. Letting out a happy giggle as she watches your cock stand to attention, Fae's blue-eyed sister opens wide and takes your [pc.cock+] into her mouth. With you licking and kissing Fae's cunt, and Silvia starting to give you a blowjob, you lie back and enjoy this unexpected form of a morning wakeup...
-		#ELSEIF(pc.hasVagina())
+		#ELSEIF(pc.hasVagina() && pc.isAbleToAccessCoverableArea(CA_VAGINA, true))
 			As you start to service Fae's pussy, Silvia lets out a hungry moan, and the next thing you know you're feeling her [silvia.lips+] planting a big, wet kiss on your [pc.labia+]. Letting out a happy giggle as she slides her tongue over the length of your pussy, Fae's blue-eyed sister leans forwards and presses her mouth against your exposed cunt. With you licking and kissing Fae's cunt, and Silvia doing the same to yours, you lie back and enjoy this unexpected form of a morning wakeup...
 		#ELSE
 			[silvia.speech(I can't do anything down here...)] Silvia calls out as you start to service Fae's pussy. With no way to perform oral on you, Silvia simply lets out a frustrated sigh and watches as her sister sits on your face...
@@ -1138,7 +1158,13 @@
 	</p>
 	#IF(game.getCharactersPresent().contains(sterope))
 		<p>
-			Although she's almost unrecognisable from how she appears while on duty, you notice that one of the people sitting at a nearby table is none other than the [sterope.race] Enforcer, Sterope. Instead of her smart uniform, she's wearing a hot pink plunge-neck clubbing dress, strappy sandals, and a whole host of rose gold jewellery. Around her neck she's wearing a bdsm-style leather collar, and although you're not close enough to see what's written on its tag, you get the impression that it's something degrading. Pink nail polish, as well as a heavy layer of pink lipstick, finishes off her rather slutty look.
+			Although she's almost unrecognisable from how she appears while on duty, you notice that one of the people sitting at a nearby table is none other than the [sterope.race] Enforcer, Sterope. Instead of her smart uniform, she's wearing a hot pink plunge-neck clubbing
+			#IF(sterope.getRaceStage()!=RACE_STAGE_GREATER)
+				 dress, strappy sandals, and
+			#ELSE
+				 dress and
+			#ENDIF
+			 a whole host of rose gold jewellery. Around her neck she's wearing a bdsm-style leather collar, and although you're not close enough to see what's written on its tag, you get the impression that it's something degrading. Pink nail polish, as well as a heavy layer of pink lipstick, finishes off her rather slutty look.
 		</p>
 		<p>
 			She appears to be alone at the moment, and so if you wanted to, you could freely [pc.walk] up to her and say hello...
@@ -1270,13 +1296,13 @@
 			#ENDIF
 		</p>
 	#ELSE
-		#IF(sterope.getSexCount(pc).getTotalTimesHadSex()>0)
+		#IF(sterope.getSexCount(pc).getTotalTimesHadSex()>0 || flags.hasFlag(FLAG_innoxia_sterope_had_centaur_threesome))
 			<p>
 				Deciding to see what Sterope is up to this evening, you head on over to the [sterope.race]'s table.
 				#IF(pc.isTaur())
-					  Catching sight of you, she looks you up and down with a hungry gleam in her [sterope.eyes+], before greeting you, [sterope.speech(Hi, [pc.name]. You know, I'm kind of into taurs... And we both know you're kind of into me...)]
+					 Catching sight of you, she looks you up and down with a hungry gleam in her [sterope.eyes+], before greeting you, [sterope.speech(Hi, [pc.name]. You know, I'm kind of into taurs... And we both know you're kind of into me...)]
 				#ELSE
-					  Catching sight of you, she looks you up and down, before sighing and greeting you, [sterope.speech(Hi, [pc.name]. You know, I'm normally only into taurs, but thinking back on the last evening we spent together, I think I can make an exception for you...)]
+					 Catching sight of you, she looks you up and down, before sighing and greeting you, [sterope.speech(Hi, [pc.name]. You know, I'm normally only into taurs, but thinking back on the last evening we spent together, I think I can make an exception for you...)]
 				#ENDIF
 			</p>
 			<p>
@@ -1378,32 +1404,99 @@
 	
 	<!-- STEROPE_ATTRACT_TAUR -->
 	
-	<htmlContent tag="STEROPE_ATTRACT_TAUR"><![CDATA[
+	<htmlContent tag="STEROPE_ATTRACT_TAUR_START"><![CDATA[
 	<p>
-		Wanting a repeat of the threesome you and Sterope previously had, you tell the [sterope.race] that you aren't here to claim her, but instead were hoping to join her in the stable in a submissive role.
+		#IF(flags.hasFlag(FLAG_innoxia_sterope_had_centaur_threesome))
+			Wanting a repeat of the threesome you and Sterope previously had, you tell the [sterope.race] that you aren't here to claim her, but instead were hoping to join her in the stable in a submissive role.
+		#ELSE
+			Wanting to join Sterope in being submissively fucked by a strong, dominant taur, you tell the [sterope.race] that you aren't here to claim her, but instead were hoping to be a part of a threesome.
+		#ENDIF
 	</p>
 	<p>
-		[sterope.speech(You want it, you'll have to earn it,)] Sterope states, before gesturing to the room and ordering, [sterope.speech(Get a taur to come over here and claim us, and you can tag along for a good, hard fuck.)]
+		[sterope.speech(If you want to join me, then you'll have to earn it,)] Sterope states, before gesturing around at the crowded tavern and saying in a disgusted tone, [sterope.speech(There are so many taurs in here, but most of them are friendly, respectful people. They're not at all the sort of partner I'm looking for!)]
 	</p>
 	<p>
-		Eagerly doing as you're told, you look around the tavern, trying to find a taur who's both alone and who seems to be looking for company. Thankfully, you quickly spot [centaur.a_fullRace(true)] who's drinking alone at a table nearby. Catching [centaur.her] eye, you flash your potential partner a coy look, before gesturing for [centaur.herHim] to come on over.
+		You ask Sterope what it is that you need to do, to which she grins and says, [sterope.speech(You need to go and find us a taur who's willing to treat us like dirt and give us the rough, degrading fuck we deserve. You find us one of those taurs, and I'll let you join in for a threesome.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STEROPE_ATTRACT_TAUR1"><![CDATA[
+	<p>
+		Eagerly doing as you're told, you [pc.step] away from Sterope's table and start wandering through the tavern on your search for the right sort of taur. Narrowing down your search to those who are sitting alone, you quickly find out that Sterope was right. None of them seem to have the sort of mean, dominant look that the [sterope.race] is looking for, and one even politely asks if you'd like to join him for a drink. Waving him off, you continue your search, and are quickly rewarded for your efforts as you find what you're looking for.
 	</p>
 	<p>
-		[centaur.speech(You two looking for a good time?)] [centaur.she] asks as [centaur.she] [centaur.walks] up to where you and Sterope are sitting.
+		Sitting alone at a table, [centaur_potential1.a_raceFull(true)] finishes the last of [centaur_potential1.her] drink and loudly slams [centaur_potential1.her] empty bottle down onto the wooden surface in front of [centaur_potential1.herHim]. Catching you looking at [centaur_potential1.herHim], [centaur_potential1.she] stares back at you and growls, [centaur_potential1.speech(What are you looking at, slut? Want a taste of my cock?)]
 	</p>
 	<p>
-		[sterope.speech(That depends,)] the [sterope.race] replies, [sterope.speech(on whether or not you want to tie us up, spank us, and give us the hardest, roughest fucking of our lives.)]
+		This seems to be just the sort of dominant taur that Sterope's looking for, but you could always keep searching for another one...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STEROPE_ATTRACT_TAUR2"><![CDATA[
+	<p>
+		[pc.Stepping] away from the [centaur_potential1.race]'s table, you continue your search. Wandering over to another part of the tavern, you encounter several more taurs, but none of them seem to have the mean, dominant streak that Sterope is looking for. 
+	</p>
+	<p>
+		[centaur_potential2.speech(Get over here, bitch,)] a [centaur_potential1.feminine] voice suddenly calls out from your side. Turning towards the source of the voice, you see [centaur_potential2.a_raceFull(true)] grinning at you. Before you can reply, [centaur_potential2.she] repeats [centaur_potential2.her] demand, [centaur_potential2.speech(You look like you need a good fuck, so what are you waiting for? Get over here. Now.)]
+	</p>
+	<p>
+		This [centaur_potential2.race] is exactly what Sterope is looking for, and you wonder whether to invite [centaur_potential2.herHim] to meet your companion or instead search the last part of the tavern for another taur...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STEROPE_ATTRACT_TAUR3"><![CDATA[
+	<p>
+		Telling the [centaur_potential2.race] that you might be back later, you quickly [pc.walk] over to the last part of the tavern which you haven't searched yet. Unlike your previous explorations, you immediately find the sort of taur that you're looking for.
+	</p>
+	<p>
+		[centaur_potential3.A_raceFull(true)] is returning to [centaur_potential3.her] table with a drink in [centaur_potential3.her] [centaur_potential3.hand], and as [centaur_potential3.she] passes by a pretty
+		 [style.random(dog-girl,|cat-girl,|human,|rabbit-girl,)]
+		 [centaur_potential3.she] lustfully gropes her ass and growls, [centaur_potential3.speech(You look like you need a good, hard fuck!)]
+	</p>
+	<p>
+		The [centaur_potential3.race]'s victim lets out a little eek and runs away, and then suddenly [centaur_potential3.her] attention is on you. Lecherously gazing at you, [centaur_potential3.she] asks, [centaur_potential3.speech(How about you, slut? Want to get fucked?!)]
+	</p>
+	<p>
+		Having found three suitable taurs, all that's left now is for you to decide which one of them you want to join your threesome...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STEROPE_ATTRACT_TAUR_GIVE_UP"><![CDATA[
+	<p>
+		You suddenly start to have second thoughts about joining Sterope for a threesome with a mean taur, and so you tell her that you've changed your mind, before saying goodbye and [pc.stepping] away from her table.
+	</p>
+	<p>
+		[sterope.speech(Suit yourself, but don't blame me if you change your mind later and come back to find that I'm gone,)] the [sterope.race] states, [sterope.speech(I'm going with the first taur who hits on me.)]
+	</p>
+	<p>
+		Continuing to put some distance between yourself and Sterope's table, you wonder where to go next...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STEROPE_ATTRACT_TAUR_SUBMIT"><![CDATA[
+	<p>
+		Deciding to invite the [centaur.race] over to meet Sterope, you flash your potential partner a coy look, before asking [centaur.herHim] if [centaur.she]'d be interested in a threesome.
+	</p>
+	<p>
+		[centaur.speech(Where's the other slut then?)] [centaur.she] asks as [centaur.she] [centaur.walks] up to you. As you begin to lead your new partner back across the tavern, [centaur.she] grabs your ass and hungrily growls into your [pc.ear], [centaur.speech(I'm going to fuck you good and hard...)]
+	</p>
+	<p>
+		Leading the [centaur.race] back to Sterope, you sit down at the [sterope.race]'s table and say that you've found a taur to fuck the two of you. Looking up at your companion, she says, [sterope.speech(If you want to flirt, make small talk, or waste our time in some other way then you can turn around and fuck off. If you want to tie us up, spank us, and give us the hardest, roughest fucking of our lives, then take a seat.)]
 	</p>
 	<p>
 		Letting out a hungry growl, the [centaur.race] sits down between the two of you, and within moments [centaur.her] [centaur.hands] are roughly groping Sterope's [sterope.breasts+]. From the lewd noises and submissive comments the [sterope.race] starts making, it seems as though she's happy with your choice of taur.
 	</p>
 	<p>
-		Turning to you, [centaur.name] grabs your [pc.breasts+] and starts giving you the same treatment, before asking, [centaur.speech(You're the one who called me over, so are you going to submit to me like your slut of a friend here?)]
+		Turning to you, [centaur.name] grabs your [pc.breasts+] and starts giving you the same treatment, before asking, [centaur.speech(So, where do you two sluts want to get fucked?)]
 	</p>
 	]]>
 	</htmlContent>
 	
-	<!-- TODO -->
 	
 	<!-- STEROPE_STABLES -->
 	
@@ -1418,7 +1511,11 @@
 		Following your partner inside, you lock the door behind you, before taking a good look at your surroundings. The stable appears to be nothing more than what you'd expect, and comes complete with the usual wooden stalls, hay-covered stone floor, and a couple of wooden tables. Beside one of these tables, there's a good deal of rope sitting on top of a wooden chest, and you realise that this is what's to be used to tie Sterope up.
 	</p>
 	<p>
-		Turning your attention back to the [sterope.race], you see her slipping out of her dress, before kicking off her strappy heels and sliding her thong down her legs. After removing her earrings, she ends up being completely naked, except for the pink leather collar around her neck and the multitude of other piercings over her body. Playfully teasing her fingers over her [sterope.breasts+] and [sterope.pussy+], she winks at you and lets out a playful giggle.
+		Turning your attention back to the [sterope.race], you see her slipping out of her dress, before
+		#IF(sterope.getRaceStage()!=RACE_STAGE_GREATER)
+			 kicking off her strappy sandals and
+		#ENDIF
+		 sliding her thong down her legs. After removing her earrings, she ends up being completely naked, except for the pink leather collar around her neck and the multitude of other piercings over her body. Playfully teasing her fingers over her [sterope.breasts+] and [sterope.pussy+], she winks at you and lets out a playful giggle.
 	</p>
 	#IF(sterope.getRaceStage()!=RACE_STAGE_GREATER)
 		<p>
@@ -1430,9 +1527,9 @@
 	#ELSEIF(game.isFeralContentEnabled())
 		<p>
 			#IF(flags.hasFlag(FLAG_innoxia_sterope_transformed_into_feral))
-				[sterope.speech(I'd like to transform into a mare again...)] she breathlessly moans as she throws the sheet off of a small boulder in one corner of the stable. As the beast stone is revealed, she reminds you, [sterope.speech(These used to be super popular years ago, but they fell out of favour and are now pretty taboo. For every ten minutes spent touching it, you get transformed into a feral form for four hours. Fifteen minutes should be enough for me to turn into a mare until morning... That is, if you're up for it?)]
+				[sterope.speech(I'd like to transform into a mare again...)] she breathlessly moans as she throws the sheet off of a small boulder in one corner of the stable. As the beast stone is revealed, she reminds you, [sterope.speech(These used to be super popular years ago, but they fell out of favour and are now pretty taboo. For every ten minutes spent touching it, you get transformed into a feral form for four hours. A few minutes should be enough for me to turn into a mare for an hour, and I can touch it again for a little longer if my time starts to run out... That is, if you're up for it?)]
 			#ELSE
-				[sterope.speech(Having spent time in my new form, I feel like I need to transform more...)] she breathlessly moans as she runs her hands over her anthropomorphic body. Excitedly biting her lip, she throws a sheet off of what turns out to be a small boulder in one corner of the stable, before revealing, [sterope.speech(A beast stone. They used to be super popular years ago, but they fell out of favour and are now pretty taboo. For every ten minutes spent touching it, you get transformed into a feral form for four hours. Fifteen minutes should be enough for me to turn into a mare until morning... That is, if you're up for it?)]
+				[sterope.speech(Having spent time in my new form, I feel like I need to transform more...)] she breathlessly moans as she runs her hands over her anthropomorphic body. Excitedly biting her lip, she throws a sheet off of what turns out to be a small boulder in one corner of the stable, before revealing, [sterope.speech(A beast stone. They used to be super popular years ago, but they fell out of favour and are now pretty taboo. For every ten minutes spent touching it, you get transformed into a feral form for four hours. A few minutes should be enough for me to turn into a mare for an hour, and I can touch it again for a little longer if my time starts to run out... That is, if you're up for it?)]
 			#ENDIF
 		</p>
 		#IF(pc.getTrueRace()!=RACE_HORSE_MORPH && !pc.isAbleToHaveRaceTransformed())
@@ -1441,8 +1538,8 @@
 			</p>
 		#ELSE
 			<p>
-				#IF(pc.getTrueRace()!=RACE_HORSE_MORPH)
-					As you look over at the beast stone, Sterope produces a potion from out of the chest. Enthusiastically clutching it in her hands, she offers, [sterope.speech(If you drink this, it'll turn you into a greater #IF(pc.isFeminine())horse-girl,#ELSEhorse-boy,#ENDIF and then you can join me in touching the beast stone. We could fuck as animals all night long...)]
+				#IF(pc.getTrueRace()!=RACE_HORSE_MORPH || !pc.hasPenisIgnoreDildo())
+					As you look over at the beast stone, Sterope produces a potion from out of the chest. Enthusiastically clutching it in her hands, she offers, [sterope.speech(If you drink this, it'll turn you into a greater #IF(pc.isFeminine())horse-girl with a nice, big cock,#ELSEhorse-boy,#ENDIF and then you can join me in touching the beast stone. We could fuck as animals all night long...)]
 				#ELSE
 					As you look over at the beast stone, Sterope makes another suggestion, [sterope.speech(You could always join me in touching the beast stone... We could fuck as animals all night long...)]
 				#ENDIF
@@ -1508,10 +1605,10 @@
 	
 	<htmlContent tag="STEROPE_STABLES_TRANSFORM_FERAL"><![CDATA[
 	<p>
-		Liking the sound of getting to fuck Sterope in the form of a feral mare, you tell her to touch the beast stone. Letting out an excited whimper, she takes off her leather collar and obediently drops to her knees beside the small boulder, before placing one of her hands on it. A faint purple glow washes over the [sterope.race]'s body, and she excitedly moans, [sterope.speech(I'll be ready in fifteen minutes...)]
+		Liking the sound of getting to fuck Sterope in the form of a feral mare, you tell her to touch the beast stone. Letting out an excited whimper, she takes off her leather collar and obediently drops to her knees beside the small boulder, before placing one of her hands on it. A faint purple glow washes over the [sterope.race]'s body, and she excitedly moans, [sterope.speech(I'll be ready in a few minutes...)]
 	</p>
 	<p>
-		Eagerly anticipating what's to come, you pace around the stable as you wait for the fifteen minutes to pass. Finally, Sterope calls out, [sterope.speech(I'm ready now!)]
+		Eagerly anticipating what's to come, you pace around the stable until Sterope suddenly calls out, [sterope.speech(I'm ready now!)]
 	</p>
 	<p>
 		Returning to where she's kneeling down on the floor, you watch as the [sterope.race] lets go of the beast stone. The purple glow which was surrounding her suddenly shoots into her body, and she lets out a desperate, shuddering moan as she starts to transform.
@@ -1543,7 +1640,7 @@
 	<htmlContent tag="STEROPE_STABLES_TRANSFORM_FERAL_BOTH"><![CDATA[
 	<p>
 		Liking the sound of transforming into a feral #IF(pc.isFeminine())mare#ELSEstallion#ENDIF and then getting to fuck Sterope in the form of a feral mare,
-		#IF(pc.getTrueRace()!=RACE_HORSE_MORPH)
+		#IF(pc.getTrueRace()!=RACE_HORSE_MORPH || !pc.hasPenisIgnoreDildo())
 			 you take the transformative potion and drink it all in one long gulp. Sterope playfully bites her lip and lets out an eager moan as you tell her that you'll join her in touching the beast stone.
 		#ELSE
 			 you tell her that you'll join her in touching the beast stone.
@@ -1553,12 +1650,16 @@
 		<p>
 			As you finish saying this, you feel your transformation begin. Horse-like hair quickly grows to cover your entire body, before your feet transform and shift into hoofs. A horse-like tail grows out from just above your ass, while your face pushes out into a long muzzle. Your ears drift up to sit on top of your head and grow up into horse ears, before your head finishes its transformation into becoming that of an anthropomorphised horse.
 		</p>
+	#ELSEIF(!pc.hasPenisIgnoreDildo())
+		<p>
+			As you finish saying this, your transformation suddenly begins. A tingling sensation spreads throughout your groin, and with [pc.a_moan+], you feel a sensitive bump starting to grow out between your legs. Within seconds this bump has formed into a thick, horse-like cock, and you can't help but groan as you experimentally touch it.
+		</p>
 	#ENDIF
 	<p>
 		Eagerly anticipating what's to come, Sterope takes off her leather collar and quickly drops to her knees beside the small boulder, before placing one of her hands on it. A faint purple glow washes over the [sterope.race]'s body, and she excitedly moans, [sterope.speech(Come on, [pc.name]. Join me...)]
 	</p>
 	<p>
-		Doing as she says, you join Sterope in touching the beast stone, and as you place your horse-like hand on its cool surface, you feel a surge of arcane energy wash over you. Along with Sterope, you maintain contact with the beast stone for fifteen minutes, before letting go of it at the same time. The purple glow which was surrounding both of you suddenly shoots into your bodies, and you each let out desperate, shuddering cries as you start to transform.
+		Doing as she says, you join Sterope in touching the beast stone, and as you place your horse-like hand on its cool surface, you feel a surge of arcane energy wash over you. Along with Sterope, you maintain contact with the beast stone for a few minutes, before letting go of it at the same time. The purple glow which was surrounding both of you suddenly shoots into your bodies, and you each let out desperate, shuddering cries as you start to transform.
 	</p>
 	<p>
 		Your transformation starts with a second pair of horse legs growing out of your lower stomach. Accompanying this alarming change, your ass begins to swell and grow in size. Within seconds, your lower body from the waist down has transformed into the form of a full-sized horse. You gasp as your arms then rapidly shrink into your torso, before your upper body shrinks down and transforms into a long, thick neck. Your horse-like face then increases in size, losing its anthropomorphic qualities as it transforms into that of a feral horse.
@@ -1761,7 +1862,7 @@
 	
 	<htmlContent tag="STEROPE_STABLES_CLOTHING_BLINDFOLD"><![CDATA[
 	<p>
-		Thinking that it would be good to deprive Sterope of her vision, you grab the bindfold from out of the chest. Dropping it down over her face, you tightly secure the straps at the back to hold it in place.
+		Thinking that it would be good to deprive Sterope of her vision, you grab the blindfold from out of the chest. Dropping it down over her face, you tightly secure the straps at the back to hold it in place.
 	</p>
 	<p>
 		[sterope.speech(~Aah!~ I'll be your good slut...)] the horny [sterope.race] moans as her world is plunged into darkness. Giving her [sterope.ass+] a hard slap, you tell her what a worthless cunt she is, which makes her let out another lewd squeal.
@@ -2010,7 +2111,7 @@
 		Despite her earlier amorous behaviour, now that she's got what she wanted out of this evening, Sterope assumes the cold, aloof attitude she has while at work. Ignoring or rejecting all of your attempts to start conversation or begin another session of lewd activities, the mare impatiently stomps her hoofs and trots back and forth as she waits for the feral transformation to end.
 	</p>
 	<p>
-		[sterope.speech(Kheiron wasn't happy when I first walked through the tavern in this form,)] she says after some time, [sterope.speech(Something about the customers feeling uncomfortable. So now I have to wait in here like this... Eugh... Getting fucked as a mare is the best, but this part of it sucks.)]
+		[sterope.speech(Kheiron wasn't happy when I first walked through the tavern in this form,)] she says after some time, [sterope.speech(Something about the customers feeling uncomfortable. So now I have to wait in here like this... Eugh... Getting fucked as a mare is the best, but this part of it sucks. I should have touched the beast stone for a little less time...)]
 	</p>
 	<p>
 		Thankfully, the two of you don't have to wait for much longer, for after a few more minutes you feel your transformation reversing. The process of turning from a quadrupedal animal back into a humanoid is a disorienting blur. A loss of coordination in your limbs is followed by an extreme bout of dizziness, and although you're vaguely aware of your body reshaping as your limbs return to their previous shape, you're mostly oblivious as to what's going on until it's all over.
@@ -2092,13 +2193,6 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STEROPE_ATTRACT_TAUR_SUBMIT"><![CDATA[
-	<p>
-		Turned on by the [centaur.race]'s dominant attitude, you find yourself letting out a submissive [pc.moan], before telling [centaur.herHim] that you'll willingly submit to [centaur.herHim]. Grinning as [centaur.she] hears this, [centaur.name] grunts, [centaur.speech(If that's the case, then I'll fuck you alongside this other bitch.)]
-	</p>
-	]]>
-	</htmlContent>
-	
 	<htmlContent tag="STEROPE_CENTAUR_SUBMIT_END"><![CDATA[
 	<p>
 		Eager to get started, Sterope desperately pants, [sterope.speech(Come on, I've rented the stable behind this place. Take us there, tie us up, and fuck us hard!)]
@@ -2125,49 +2219,63 @@
 		Pushing you inside and then following after, [centaur.name] locks the door behind you, giving you a chance to take a good look at your surroundings. The stable appears to be nothing more than what you'd expect, and comes complete with the usual wooden stalls, hay-covered stone floor, and a couple of wooden tables. Beside one of these tables, there's a good deal of rope sitting on top of a wooden chest, and you realise that this is what's to be used to tie both you and Sterope up.
 	</p>
 	<p>
-		As the dominant [centaur.race] finishes locking the door, Sterope quickly slips out of her dress, before kicking off her strappy heels and sliding her thong down her legs. After removing her earrings, she ends up being completely naked, except for the pink leather collar around her neck and the multitude of other piercings over her body. Playfully teasing her fingers over her [sterope.breasts+] and [sterope.pussy+], she winks at [centaur.name] and lets out a playful giggle.
+		As the dominant [centaur.race] finishes locking the door, Sterope quickly slips out of her dress, before
+		#IF(sterope.getRaceStage()!=RACE_STAGE_GREATER)
+			 kicking off her strappy sandals and
+		#ENDIF
+		 sliding her thong down her legs. After removing her earrings, she ends up being completely naked, except for the pink leather collar around her neck and the multitude of other piercings over her body. Playfully teasing her fingers over her [sterope.breasts+] and [sterope.pussy+], she winks at [centaur.name] and lets out a playful giggle.
 	</p>
-	#IF(sterope.getRaceStage()!=RACE_STAGE_GREATER)
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STEROPE_CENTAUR_SUBMIT_STABLES_TRANSFORM"><![CDATA[
+	<p>
+		[sterope.speech(I'm kind of into transformations,)] she coyly teases as she opens the chest and produces a glass bottle. Excitedly drinking its contents, she giggles, [sterope.speech(It makes it sexier being dominated when I'm turned into more of an animal...)]
+	</p>
+	<p>
+		Right before your eyes, you watch [sterope.skinColour] horse-like hair spread all over Sterope's body. Her legs transform into anthropomorphic equine ones, complete with hoofs, and after the her arms and torso have transformed into their horse-like counterparts, her face begins to change. Elongating and transforming into a muzzle, her face takes on the look of an anthropomorphic horse. The transformation is over almost as quickly as it began, and now standing before you is [sterope.a_raceFull(true)].
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STEROPE_CENTAUR_SUBMIT_STABLES_END"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_sterope_fully_furry) && game.isFeralContentEnabled() && (pc.getTrueRace()==RACE_HORSE_MORPH || pc.isAbleToHaveRaceTransformed()))
 		<p>
-			[sterope.speech(I'm kind of into transformations,)] she coyly teases as she opens the chest and produces a glass bottle. Excitedly drinking its contents, she giggles, [sterope.speech(It makes it sexier being dominated when I'm turned into more of an animal...)]
-		</p>
-		<p>
-			Right before your eyes, you watch [sterope.skinColour] horse-like hair spread all over Sterope's body. Her legs transform into anthropomorphic equine ones, complete with hoofs, and after the her arms and torso have transformed into their horse-like counterparts, her face begins to change. Elongating and transforming into a muzzle, her face takes on the look of an anthropomorphic horse. The transformation is over almost as quickly as it began, and now standing before you is [sterope.a_raceFull(true)].
-		</p>
-	#ENDIF
-	#IF(flags.hasFlag(FLAG_innoxia_sterope_transformed_into_feral) && game.isFeralContentEnabled())
-		<p>
-			[sterope.speech(Let's transform into mares so that we can get rutted like real animals...)] she breathlessly moans to you as she throws the sheet off of a small boulder in one corner of the stable. As the beast stone is revealed, she reveals to the [centaur.race], [sterope.speech(These used to be super popular years ago, but they fell out of favour and are now pretty taboo. For every ten minutes spent touching it, you get transformed into a feral form for four hours. Fifteen minutes should be enough for the two of us to turn into mares until morning...)]
-		</p>
-		<p>
-			#IF(sterope.getRaceStage()!=RACE_STAGE_GREATER)
-				Producing a transformative potion,
+			#IF(flags.hasFlag(FLAG_innoxia_sterope_transformed_into_feral))
+				[sterope.speech(Let's transform into mares so that we can get rutted like real animals...)] she breathlessly moans to you as she throws the sheet off of a small boulder in one corner of the stable. As the beast stone is revealed, she reveals to the [centaur.race], [sterope.speech(These used to be super popular years ago, but they fell out of favour and are now pretty taboo. For every ten minutes spent touching it, you get transformed into a feral form for four hours. A few minutes should be enough for the two of us to turn into mares for an hour, and we can touch it again for a little longer if our time starts to run out...)]
 			#ELSE
-				Producing another transformative potion,
+				[sterope.speech(Having spent time in my new form, I feel like I need to transform more...)] she breathlessly moans as she runs her hands over her anthropomorphic body. Excitedly biting her lip, she throws a sheet off of what turns out to be a small boulder in one corner of the stable, before revealing, [sterope.speech(This is a beast stone. They used to be super popular years ago, but they fell out of favour and are now pretty taboo. For every ten minutes spent touching it, you get transformed into a feral form for four hours. A few minutes should be enough for the two of us to turn into mares for an hour, and we can touch it again for a little longer if our time starts to run out... That is, if you're up for it?)]
 			#ENDIF
-			 she holds it out to you and says, [sterope.speech(Come on, [pc.name], drink this and join me in touching the stone, then we can spend the night as mares together...)]
+		</p>
+		<p>
+			[centaur.speech(Yeah, turn into mares for me, you dirty sluts!)] [centaur.name] eagerly grunts.
+		</p>
+		<p>
+			#IF(pc.getTrueRace()!=RACE_HORSE_MORPH)
+				As you look over at the beast stone, Sterope produces a potion from out of the chest. Enthusiastically clutching it in her hands, she offers, [sterope.speech(If you drink this, it'll turn you into a greater horse-girl, and then you can join me in touching the beast stone. We could get fucked as animals all night long...)]
+			#ELSE
+				As you look over at the beast stone, Sterope moans, [sterope.speech(Come on, [pc.name]... Join me in touching the beast stone... We could get fucked as animals all night long...)]
+			#ENDIF
+		</p>
+		<p>
+			As Sterope and [centaur.name] impatiently wait to hear what your choice will be, you wonder whether nor not to transform into a feral mare for the rest of the night...
 		</p>
 	#ELSEIF(pc.getTrueRace()!=RACE_HORSE_MORPH && pc.isAbleToHaveRaceTransformed())
 		<p>
-			#IF(sterope.getRaceStage()!=RACE_STAGE_GREATER)
-				Producing a transformative potion and holding it out to you,
-			#ELSE
-				Producing another transformative potion and holding it out to you,
-			#ENDIF
-			 Sterope offers, [sterope.speech(You can join me in becoming a greater horse-girl, [pc.name]. Come on, it'll be hot to get fucked side-by-side while in that form...)]
+			Producing a transformative potion and holding it out to you, Sterope offers, [sterope.speech(You can join me in becoming a greater horse-girl, [pc.name]. Come on, it'll be hot to get fucked side-by-side while in that form...)]
 		</p>
 	#ELSE
 		<p>
-			Coyly shuffling her hoofs around on the stone floor, Sterope lets out a horny little neigh, before begging, [sterope.speech(Come on, us up and punish us!)]
+			Coyly shuffling her hoofs around on the stone floor, Sterope lets out a horny little neigh, before begging, [sterope.speech(Come on, tie us up and punish us!)]
 		</p>
 	#ENDIF
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="STEROPE_CENTAUR_SUBMIT_STABLES_NO_TF"><![CDATA[
-	#IF(pc.getTrueRace()!=RACE_HORSE_MORPH || (flags.hasFlag(FLAG_innoxia_sterope_transformed_into_feral) && game.isFeralContentEnabled()))
+	#IF(pc.getTrueRace()!=RACE_HORSE_MORPH || game.isFeralContentEnabled())
 		<p>
-			You're really not interested in being transformed into a greater horse-girl, and so you tell Sterope that you don't want the potion. Although she briefly pouts, the horse-girl doesn't seem too bothered by your refusal, and simply puts the bottle back into the chest, before turning to face [centaur.name] and tease, [sterope.speech(So, what are you waiting for?)] 
+			You're really not interested in transforming, and so you tell Sterope that you don't want the potion. Although she briefly pouts, the horse-girl doesn't seem too bothered by your refusal, and simply puts the bottle back into the chest, before turning to face [centaur.name] and tease, [sterope.speech(So, what are you waiting for?)] 
 		</p>
 	#ENDIF
 	<p>
@@ -2181,12 +2289,16 @@
 	
 	<htmlContent tag="STEROPE_CENTAUR_SUBMIT_STABLES_TF"><![CDATA[
 	<p>
-		Liking the sound of transforming into a greater horse-girl, you take the transformative potion from Sterope and drink it all in one long gulp. The [sterope.race] playfully bites her lip and excitedly moans, [sterope.speech(~Mmm!~ Yes, now we can both get fucked like animals...)]
+		#IF(flags.hasFlag(FLAG_innoxia_sterope_fully_furry) && game.isFeralContentEnabled())
+			You really aren't interested in transforming into a feral mare, and so tell Sterope that you won't be turning into a horse tonight. You are, however, keen to transform into a greater horse-girl, and so you take the transformative potion from the greater horse-girl and drink it all in one long gulp. The [sterope.race] playfully bites her lip and excitedly moans, [sterope.speech(~Mmm!~ Yes, that's so hot...)]
+		#ELSE
+			Liking the sound of transforming into a greater horse-girl, you take the transformative potion from Sterope and drink it all in one long gulp. The [sterope.race] playfully bites her lip and excitedly moans, [sterope.speech(~Mmm!~ Yes, now we can both get fucked like animals...)]
+		#ENDIF
 	</p>
 	<p>
 		As she finishes saying this, you feel your transformation begin. Horse-like hair quickly grows to cover your entire body, before your feet transform and shift into hoofs. A horse-like tail grows out from just above your ass, while your face pushes out into a long muzzle. Your ears drift up to sit on top of your head and grow up into horse ears, before your head finishes its transformation into becoming that of an anthropomorphised horse.
 		#IF(!pc.isFeminine())
-			 A high-pitched moan escapes from your lips as you feel your facial features and body shape morphing and becoming more feminine formin appearance.
+			 A high-pitched moan escapes from your lips as you feel your facial features and body shape morphing and becoming more feminine in appearance.
 		#ENDIF
 		#IF(!pc.hasBreasts())
 			 [centaur.Name] grunts in approval as a pair of breasts swell out from your chest, and before you can react, the [centaur.race] is roughly groping and squeezing them.
@@ -2212,33 +2324,39 @@
 	</htmlContent>
 	
 	<htmlContent tag="STEROPE_CENTAUR_SUBMIT_STABLES_FERAL_TF"><![CDATA[
-	<p>
-		Liking the sound of being transformed into a feral mare alongside Sterope, you take the transformative potion from her and drink it all in one long gulp. The [sterope.race] playfully bites her lip and excitedly moans, [sterope.speech(~Mmm!~ Yes, now we can both get fucked as animals...)]
-	</p>
-	<p>
-		As she finishes saying this, you feel your transformation begin. Horse-like hair quickly grows to cover your entire body, before your feet transform and shift into hoofs. A horse-like tail grows out from just above your ass, while your face pushes out into a long muzzle. Your ears drift up to sit on top of your head and grow up into horse ears, before your head finishes its transformation into becoming that of an anthropomorphised horse.
-		#IF(!pc.isFeminine())
-			 A high-pitched moan escapes from your lips as you feel your facial features and body shape morphing and becoming more feminine formin appearance.
-		#ENDIF
-		#IF(!pc.hasBreasts())
-			 [centaur.Name] grunts in approval as a pair of breasts swell out from your chest, and before you can react, the [centaur.race] is roughly groping and squeezing them.
-		#ENDIF
-		#IF(pc.hasPenis())
-			 Finally, you can't help but let out a desperate squeal as your cock rapidly shrinks down and
-			#IF(pc.hasVagina())
-				 disappears, leaving you with just your puffy, horse-like pussy.
-			#ELSE
-				 disappears, before being replaced by a puffy, horse-like pussy.
+	#IF(pc.getTrueRace()!=RACE_HORSE_MORPH)
+		<p>
+			Liking the sound of being transformed into a feral mare alongside Sterope, you take the transformative potion from her and drink it all in one long gulp. The [sterope.race] playfully bites her lip and excitedly moans, [sterope.speech(~Mmm!~ Yes, now we can both get fucked as animals...)]
+		</p>
+		<p>
+			As she finishes saying this, you feel your transformation begin. Horse-like hair quickly grows to cover your entire body, before your feet transform and shift into hoofs. A horse-like tail grows out from just above your ass, while your face pushes out into a long muzzle. Your ears drift up to sit on top of your head and grow up into horse ears, before your head finishes its transformation into becoming that of an anthropomorphised horse.
+			#IF(!pc.isFeminine())
+				 A high-pitched moan escapes from your lips as you feel your facial features and body shape morphing and becoming more feminine in appearance.
 			#ENDIF
-		#ELSEIF(!pc.hasVagina())
-			 Finally, you can't help but let out a desperate squeal as a vertical slit in your crotch pulls inwards and forms into a puffy, horse-like pussy.
-		#ENDIF
-	</p>
+			#IF(!pc.hasBreasts())
+				 [centaur.Name] grunts in approval as a pair of breasts swell out from your chest, and before you can react, the [centaur.race] is roughly groping and squeezing them.
+			#ENDIF
+			#IF(pc.hasPenis())
+				 Finally, you can't help but let out a desperate squeal as your cock rapidly shrinks down and
+				#IF(pc.hasVagina())
+					 disappears, leaving you with just your puffy, horse-like pussy.
+				#ELSE
+					 disappears, before being replaced by a puffy, horse-like pussy.
+				#ENDIF
+			#ELSEIF(!pc.hasVagina())
+				 Finally, you can't help but let out a desperate squeal as a vertical slit in your crotch pulls inwards and forms into a puffy, horse-like pussy.
+			#ENDIF
+		</p>
+	#ELSE
+		<p>
+			Liking the sound of being transformed into a feral mare alongside Sterope, you tell her that you'll transform into an animal alongside her. The [sterope.race] playfully bites her lip and excitedly moans, [sterope.speech(~Mmm!~ Yes, this is going to be so hot...)]
+		</p>
+	#ENDIF
 	<p>
 		Eagerly anticipating what's to come, Sterope takes off her leather collar and quickly drops to her knees beside the beast stone, before placing one of her hands on it. A faint purple glow washes over the [sterope.race]'s body, and she excitedly moans, [sterope.speech(Come on, [pc.name]. Join me...)]
 	</p>
 	<p>
-		Doing as she says, you join Sterope in touching the beast stone, and as you place your horse-like hand on its cool surface, you feel a surge of arcane energy wash over you. Along with Sterope, you maintain contact with the beast stone for fifteen minutes, before letting go of it at the same time. The purple glow which was surrounding both of you suddenly shoots into your bodies, and you each let out desperate, shuddering cries as you start to transform.
+		Doing as she says, you join Sterope in touching the beast stone, and as you place your [pc.hand+] on its cool surface, you feel a surge of arcane energy wash over you. Along with Sterope, you maintain contact with the beast stone for a few minutes, before letting go of it at the same time. The purple glow which was surrounding both of you suddenly shoots into your bodies, and you each let out desperate, shuddering cries as you start to transform.
 	</p>
 	<p>
 		Your transformation starts with a second pair of horse legs growing out of your lower stomach. Accompanying this alarming change, your ass begins to swell and grow in size. Within seconds, your lower body from the waist down has transformed into the form of a full-sized horse. You gasp as your arms then rapidly shrink into your torso, before your upper body shrinks down and transforms into a long, thick neck. Your horse-like face then increases in size, losing its anthropomorphic qualities as it transforms into that of a feral mare. As a slight breeze passes over your fully-feral mare pussy, you find yourself letting out a primal, animalistic neigh, before finding your voice and telling [centaur.name] that you and Sterope are ready to be fucked hard.
@@ -2635,12 +2753,66 @@
 	]]>
 	</htmlContent>
 	
-	<htmlContent tag="STEROPE_CENTAUR_AFTER_SEX_FINAL_SHOWER_LEAVE"><![CDATA[
+	<htmlContent tag="STEROPE_CENTAUR_AFTER_SEX_FINAL_SHOWER_END"><![CDATA[
 	<p>
 		Stepping over to the pile of her clothing, Sterope starts to get dressed, and as she does so, she simply says, [sterope.speech(We're done here. If you visit me while at work again, don't you dare mention my private life. If you do, then you'll never get to do this with me again.)]
 	</p>
+	#IF(sterope.getRaceStage()==RACE_STAGE_GREATER && !flags.hasFlag(FLAG_innoxia_sterope_fully_furry))
+		<p>
+			As you tell her that you'll refrain from mentioning this while she's at work, the [sterope.race] grabs a transformative potion from out of a nearby box. Realising that she's about to drink it and transform back into a lesser horse-girl, you wonder whether you should try and convince her to remain in her current form...
+		</p>
+	#ELSE
+		<p>
+			As you get dressed, you tell Sterope that you'll refrain from mentioning this while she's at work. With nothing more to do here now that the two of you have had your fun, all that's left is to head back out into the tavern...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<htmlContent tag="STEROPE_CENTAUR_AFTER_SEX_FINAL_SHOWER_LEAVE"><![CDATA[
+	#IF(sterope.getRaceStage()==RACE_STAGE_GREATER && !flags.hasFlag(FLAG_innoxia_sterope_fully_furry))
+		<p>
+			Deciding not to interfere with her preferences, you watch as Sterope drinks the transformation potion. The fur on her arms, legs, and torso begins to fade away, and as her horse-like head transforms back into her previous, human one, she's left as the same lesser horse-girl you first saw in the Enforcer station.
+		</p>
+		<p>
+			As you [pc.step] over towards the door to leave, Sterope skips in front of you, before turning to flash you a smirk and tease, [sterope.speech(I had a lot of fun this evening, [pc.name]. We should do this again some time...)]
+		</p>
+		<p>
+			With that, she swiftly hurries through the door and takes her leave. Following in her footsteps, you [pc.step] back out into the tavern and wonder what to do next...
+		</p>
+	#ELSE
+		<p>
+			As you [pc.step] over towards the door to leave, Sterope skips in front of you, before turning to flash you a smirk and tease, [sterope.speech(I had a lot of fun this evening, [pc.name]. We should do this again some time...)]
+		</p>
+		<p>
+			With that, she swiftly hurries through the door and takes her leave. Following in her footsteps, you [pc.step] back out into the tavern and wonder what to do next...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STEROPE_CENTAUR_AFTER_SEX_FINAL_SHOWER_LEAVE_STAY_TRANSFORMED"><![CDATA[
 	<p>
-		As you get dressed, you tell Sterope that you'll refrain from mentioning this while she's at work. With nothing more to do here now that the two of you have had your fun, all that's left is to head back out into the tavern...
+		You like Sterope in her greater horse-girl form, and so before she can drink the contents of the bottle, you ask her why she doesn't stay in her current form.
+	</p>
+	<p>
+		[sterope.speech(Everyone knows me as a lesser horse-girl, and I don't want them asking too many questions if I suddenly change my appearance,)] she replies.
+	</p>
+	<p>
+		Smirking at her, you say that it'd be super hot if she fully accepted her true place as a horny, submissive mare, and chose to never return to her old body. This seems to trigger something inside her, for as she looks down at the potion in her hand, she bites her lip and lets out a quiet whimper.
+	</p>
+	<p>
+		[sterope.speech(Yes, you're right,)] she sighs, [sterope.speech(I'm just a horny mare, and should have the body to match... )]
+	</p>
+	<p>
+		With that, she opens the bottle and pours the liquid down the shower's drain, before tossing the empty vessel to one side. Sliding her hands over her furry body, she moans, [sterope.speech(Yes... I'm a horny, slutty mare... A worthless cunt who gets tied up and fucked <i>hard</i> every night...)]
+	</p>
+	<p>
+		Playfully teasing her by saying that her new body will help her to remember that, you tell Sterope that you'd love to do this again some time with her. Managing to get her lust under control, she smiles at you and says, [sterope.speech(Yes, we should do this again some time, [pc.name].)]
+	</p>
+	<p>
+		With that, she swiftly hurries through the door and takes her leave. Following in her footsteps, you [pc.step] back out into the tavern and wonder what to do next...
 	</p>
 	]]>
 	</htmlContent>
@@ -2652,7 +2824,7 @@
 		Readily submitting to [centaur.name], you and Sterope allow [centaur.herHim] to tie your hoofs to rings that have been set into the floor. Immobilised and unable to resist, all you can do is turn your head and look back at the [centaur.race] as [centaur.she] kicks open the nearby chest and exclaims in a wicked tone, [centaur.speech(Looks like I've got the equipment to turn you into real mares!)]
 	</p>
 	<p>
-		Leaning down, [centaur.name] produces a set of pink straps and buckles from out of the chest. As [centaur.she] untangles them, you see that these straps are in fact two sets of identical tack equipment. Saddles, reins, bridles, and tail wraps are quickly revealed, and you let out a submissive whinny as [centaur.she] roughly forces them onto you.
+		Leaning down, [centaur.name] produces a set of pink and purple straps and buckles from out of the chest. As [centaur.she] untangles them, you see that these straps are in fact two sets of identical tack equipment, with one being hot pink and the other purple. Saddles, reins, bridles, and tail wraps are quickly revealed, and you let out a submissive whinny as [centaur.she] roughly forces the purple set onto you.
 	</p>
 	<p>
 		First the saddle is placed onto your back and secured into place, and as the straps are fastened, you feel the saddles' enchantment making you even more submissive than before. The bridle's bit is then forced into your mouth, and as [centaur.name] secures it into place around your horse's muzzle, another enchantment makes you suddenly feel extremely turned on at being tied up and bound in place. Next your tail is tied up with the wrap so that it's standing up and leaving your puffy asshole and feral mare-cunt completely exposed. Again, an enchantment in this tail wrap makes you love the idea of being an exhibitionist, and you can't help but whinny in excitement as [centaur.name] stops to take a good look at your animalistic genitals. Finally, your hoofs are forced down onto four horse shoes, which attach themselves to you and make you have a sudden craving to be abused and treated like dirt.
@@ -2783,12 +2955,36 @@
 	</htmlContent>
 	
 	<htmlContent tag="STEROPE_CENTAUR_FERAL_AFTER_SEX_FINAL_LEAVE"><![CDATA[
-	<p>
-		Thankfully, the two of you don't have to wait for long before your feral transformation reverts, for after just a couple of minutes you feel your body begin to tingle. The process of turning from a quadrupedal animal back into a humanoid is a disorienting blur. A loss of coordination in your limbs is followed by an extreme bout of dizziness, and although you're vaguely aware of your body reshaping as your limbs return to their previous shape, you're mostly oblivious as to what's going on until it's all over.
-	</p>
-	<p>
-		[sterope.speech(You'll get used to it,)] you hear Sterope say as your head finally clears. Looking up at her from your position sitting on the floor, you see that she's returned to her horse-girl form, and has already got dressed. Dropping her cold act for a moment, she smirks and teases, [sterope.speech(I had a lot of fun this evening, [pc.name]. We should do this again some time...)]
-	</p>
+	#IF(pc.isPregnant())
+		<p>
+			Thankfully, the two of you don't have to wait for long before your feral transformation reverts, for after just a couple of minutes you feel your body begin to tingle. Instead of transforming all the way back into a horse-morph, however, your feral head and neck morph into a humanoid upper body, leaving you as a centaur.
+		</p>
+		<p>
+			[sterope.speech(You got knocked up then,)] Sterope idly observes as she witnesses your transformation, [sterope.speech(You'll be giving birth to a centaur soon. Or maybe even two? In any case, the feral transformation doesn't get fully reversed if you get pregnant as a mare, so you'll have to buy some potions if you want to get your old body back.)]
+		</p>
+		#IF(sterope.isPregnant())
+			<p>
+				Turning your head back to look at your companion, you see that she's also stuck as a centauress, and has already gathered her belongings and got dressed. Letting out a sigh, she laments, [sterope.speech(I'll have to visit the clinic and get some Mother's Milk. It's kind of annoying having to deal with pregnancies before work, but I still had a lot of fun this evening, [pc.name]. We should do this again some time...)]
+			</p>
+		#ELSE
+			<p>
+				Turning your head back to look at your companion, you see that she's returned to her horse-girl form, and has already got dressed. Patting the flank of your still-feral lower body, she smirks and teases, [sterope.speech(I had a lot of fun this evening, [pc.name]. We should do this again some time...)]
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			Thankfully, the two of you don't have to wait for long before your feral transformation reverts, for after just a couple of minutes you feel your body begin to tingle. The process of turning from a quadrupedal animal back into a humanoid is a disorienting blur. A loss of coordination in your limbs is followed by an extreme bout of dizziness, and although you're vaguely aware of your body reshaping as your limbs return to their previous shape, you're mostly oblivious as to what's going on until it's all over.
+		</p>
+		#IF(sterope.isPregnant())
+			<p>
+				Turning your head back to look at your companion, you see that she hasn't transformed all the way back into a horse-girl, and has instead been left as a centauress. Gathering her belongings and getting dressed, she lets out a sigh and laments, [sterope.speech(The feral transformation doesn't get fully reversed if you get pregnant as a mare, so I'll have to visit the clinic and get some Mother's Milk, then after giving birth I'll transform back into a horse-girl. It's kind of annoying having to deal with all of that, but I still had a lot of fun this evening, [pc.name]. We should do this again some time...)]
+			</p>
+		#ELSE
+			<p>
+				[sterope.speech(You'll get used to it,)] you hear Sterope say as your head finally clears. Looking up at her from your position sitting on the floor, you see that she's returned to her horse-girl form, and has already got dressed. Dropping her cold act for a moment, she smirks and teases, [sterope.speech(I had a lot of fun this evening, [pc.name]. We should do this again some time...)]
+			</p>
+		#ENDIF
+	#ENDIF
 	<p>
 		With that, she swiftly departs, leaving you to look yourself over and discover that you've been left in the body of [pc.a_fullRace(true)]. Gathering your things, you follow Sterope back out into the tavern and wonder what to do next...
 	</p>

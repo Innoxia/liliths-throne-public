@@ -20,10 +20,14 @@
 			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
 			<showStartingExposedDescriptions><![CDATA[true]]></showStartingExposedDescriptions>
 			<sexPace locked="false"><![CDATA[SUB_NORMAL]]></sexPace>
+			<startingImmobilisation>
+				<applierId><![CDATA[rose]]></applierId>
+				<type><![CDATA[STOCKS]]></type>
+			</startingImmobilisation>
 			<canSelfTransform><![CDATA[true]]></canSelfTransform>
 			<hidden><![CDATA[false]]></hidden>
 			<control><![CDATA[SELF]]></control>
-			<sexClothingEquippable><![CDATA[true]]></sexClothingEquippable>
+			<sexClothingEquippable><![CDATA[false]]></sexClothingEquippable>
 			<selfClothingRemoval><![CDATA[false]]></selfClothingRemoval>
 			<partnerClothingRemoval><![CDATA[false]]></partnerClothingRemoval>
 			<startNaked><![CDATA[true]]></startNaked>

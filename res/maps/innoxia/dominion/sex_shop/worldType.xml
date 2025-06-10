@@ -36,6 +36,7 @@
 		<place colour="#ff7fff">innoxia_dominion_sex_shop_staff_room</place>
 		<place colour="#00ff00">innoxia_dominion_sex_shop_back_door</place>
 		<place colour="#bfbfbf">innoxia_dominion_sex_shop_corridor</place>
+		<place colour="#d9d9d9">innoxia_dominion_sex_shop_elevator_corridor</place>
 		<place colour="#ff00ff">innoxia_dominion_sex_shop_elevator</place>
 	</places>
 </worldType>

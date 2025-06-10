@@ -16,7 +16,9 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.settings.DifficultyLevel;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
 
 /**
@@ -128,6 +130,8 @@ public class ItemEffect implements XMLSaving {
 			secondaryMod = parentElement.getAttribute("secondaryModifier"); // Support for effects prior to 0.3.1.5
 		}
 		
+		TFPotency loadedPotency = parentElement.getAttribute("potency").equals("null")?null:TFPotency.valueOf(parentElement.getAttribute("potency"));
+		
 //		if(itemEffectType.equals("RACE_DEMON")) {
 //			throw new NullPointerException();
 //		}
@@ -160,7 +164,14 @@ public class ItemEffect implements XMLSaving {
 					}
 				}
 				break;
+			case "CLOTHING_SPECIAL":
+				if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.10.10")
+						&& (secondaryMod.equalsIgnoreCase("CLOTHING_VIBRATION") || secondaryMod.equalsIgnoreCase("CLOTHING_ORGASM_PREVENTION"))) {
+					primaryMod = "CLOTHING_SEXUAL";
+				}
+				break;
 		}
+
 		switch(secondaryMod) {
 			case "TF_MOD_FETISH_SEEDER":
 				secondaryMod = "TF_MOD_FETISH_IMPREGNATION";
@@ -180,11 +191,17 @@ public class ItemEffect implements XMLSaving {
 			case "TF_MOD_ORIFICE_DEEP_2":
 				secondaryMod = "TF_MOD_DEPTH_2";
 				break;
+			case "CLOTHING_SEALING":
+				if(loadedPotency==TFPotency.MAJOR_BOOST || loadedPotency==TFPotency.BOOST) {
+					loadedPotency = TFPotency.MINOR_BOOST;
+				}
+				break;
 		}
 		
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.1") && itemEffectType=="TF_TAIL" && primaryMod=="TF_MOD_SIZE") { // Girth TF was moved from TF_MOD_SIZE to TF_MOD_SIZE_SECONDARY in v0.4
 			primaryMod = "TF_MOD_SIZE_SECONDARY";
 		}
+		
 		
 		ItemEffect ie;
 		try { // Wrap this in a try, as the TFModifier.valueOf might fail, due to removing Broodmother/Seeder fetish modifiers in 0.2.7.5, and then critical chance in 0.3.3.5.
@@ -204,7 +221,7 @@ public class ItemEffect implements XMLSaving {
 					ItemEffectType.getItemEffectTypeFromId(itemEffectType),
 					primary,
 					secondary,
-					(parentElement.getAttribute("potency").equals("null")?null:TFPotency.valueOf(parentElement.getAttribute("potency"))),
+					loadedPotency,
 					Integer.valueOf(parentElement.getAttribute("limit")));
 			
 		} catch(Exception ex) {
@@ -411,7 +428,11 @@ public class ItemEffect implements XMLSaving {
 	public TFPotency getPotency() {
 		return potency;
 	}
-
+	
+	public void setPotency(TFPotency potency) {
+		this.potency = potency;
+	}
+	
 	public int getLimit() {
 		return limit;
 	}
@@ -428,4 +449,45 @@ public class ItemEffect implements XMLSaving {
 		this.timer = timer;
 	}
 	
+	/**
+	 * @return An ItemEffect which seals clothing onto the wearer. The strength of the seal is modified by the difficulty level, the player's level, and random chance.
+	 */
+	public static ItemEffect getDefaultSealEffect() {
+		TFPotency potency = TFPotency.MINOR_BOOST;
+
+		int level = Main.game.getPlayer().getLevel();
+		
+		// If level scaling is on, then strength scales, being more likely to scale the higher the player's level:
+		if(Main.getProperties().difficultyLevel!=DifficultyLevel.NORMAL) {
+			int scalingFactor = level - (Util.random.nextInt(20)+1);
+			if(scalingFactor>0) {
+				if(scalingFactor>25) {
+					potency = TFPotency.MAJOR_DRAIN;
+					
+				} else if(scalingFactor>10) {
+					potency = TFPotency.DRAIN;
+					
+				} else {
+					potency = TFPotency.MINOR_DRAIN;
+				}
+			}
+			
+		}
+		
+		// If level scaling did not modify the potency, then use a random chance instead (so yes, difficulties other than NORMAL have two chances to get a higher seal strength):
+		if(potency==TFPotency.MINOR_BOOST){
+			if(level>=5) { // only start hitting the player with stronger seals over level 5
+				double random = Math.random();
+				if(random<0.01) { // 1% of maximum seal
+					potency = TFPotency.MAJOR_DRAIN;
+				} else if(random<0.05) { // 4% of large seal
+					potency = TFPotency.DRAIN;
+				} else if(random<0.25) { // 20% of bigger seal
+					potency = TFPotency.MINOR_DRAIN;
+				}
+			}
+		}
+		
+		return new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_SEALING, potency, 0);
+	}
 }

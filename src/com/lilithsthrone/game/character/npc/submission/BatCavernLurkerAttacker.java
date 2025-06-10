@@ -55,7 +55,7 @@ public class BatCavernLurkerAttacker extends NPC {
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3,
 				null, null, null,
-				new CharacterInventory(10), WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_DARK, false);
+				new CharacterInventory(false, 10), WorldType.BAT_CAVERNS, PlaceType.BAT_CAVERN_DARK, false);
 
 		if(!isImported) {
 			this.setLocation(Main.game.getPlayer(), true);
@@ -153,6 +153,9 @@ public class BatCavernLurkerAttacker extends NPC {
 	
 	@Override
 	public String getDescription() {
+		if(this.isSlave() && this.isDoll()) {
+			return super.getDescription();
+		}
 		if(this.isSlave()) {
 			return (UtilText.parse(this,
 					"[npc.NamePos] days of attacking innocent travellers in the Bat Caverns are now over. Having run afoul of the law, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property."));

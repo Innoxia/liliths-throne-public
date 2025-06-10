@@ -63,6 +63,7 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
+import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
@@ -87,6 +88,7 @@ import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.markings.AbstractTattooType;
+import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.markings.TattooCountType;
 import com.lilithsthrone.game.character.markings.TattooCounter;
 import com.lilithsthrone.game.character.markings.TattooCounterType;
@@ -734,29 +736,46 @@ public class CreationController {
 		String id = "HEIGHT_INCREASE";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().incrementHeight(1, BodyChanging.isDebugMenu());
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				if(BodyChanging.getTarget().getHeightValue()
+						< (Main.game.isInNewWorld()
+								?BodyChanging.getTarget().getMaximumHeight()
+								:Height.getMaximumHeightForCharacterCreation())) {
+					BodyChanging.getTarget().incrementHeight(1, BodyChanging.isDebugMenu());
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}
 			}, false);
 		}
 		id = "HEIGHT_INCREASE_LARGE";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().incrementHeight(5, BodyChanging.isDebugMenu());
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				if(BodyChanging.getTarget().getHeightValue()
+						< (Main.game.isInNewWorld()
+								?BodyChanging.getTarget().getMaximumHeight()
+								:Height.getMaximumHeightForCharacterCreation())) {
+					BodyChanging.getTarget().incrementHeight(5, BodyChanging.isDebugMenu());
+					if(!Main.game.isInNewWorld() && BodyChanging.getTarget().getHeightValue()>Height.getMaximumHeightForCharacterCreation()) {
+						BodyChanging.getTarget().setHeight(Height.getMaximumHeightForCharacterCreation());
+					}
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}
 			}, false);
 		}
 		id = "HEIGHT_DECREASE";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().incrementHeight(-1, BodyChanging.isDebugMenu());
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				if(BodyChanging.getTarget().getHeightValue()>BodyChanging.getTarget().getMinimumHeight()) {
+					BodyChanging.getTarget().incrementHeight(-1, BodyChanging.isDebugMenu());
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}
 			}, false);
 		}
 		id = "HEIGHT_DECREASE_LARGE";
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-				BodyChanging.getTarget().incrementHeight(-5, BodyChanging.isDebugMenu());
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				if(BodyChanging.getTarget().getHeightValue()>BodyChanging.getTarget().getMinimumHeight()) {
+					BodyChanging.getTarget().incrementHeight(-5, BodyChanging.isDebugMenu());
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}
 			}, false);
 		}
 	}
@@ -2657,6 +2676,7 @@ public class CreationController {
 				BodyChanging.getTarget().setFemininity(Femininity.ANDROGYNOUS.getMedianFemininity());
 				if (!Main.game.isInNewWorld() && BodyChanging.getTarget().isPlayer()) {
 					CharacterCreation.getDressed();
+					CharacterCreation.resetFemininityAppearance();
 				}
 				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
@@ -2668,6 +2688,7 @@ public class CreationController {
 					BodyChanging.getTarget().setFemininity(Femininity.MASCULINE_STRONG.getMedianFemininity());
 					if (!Main.game.isInNewWorld() && BodyChanging.getTarget().isPlayer()) {
 						CharacterCreation.getDressed();
+						CharacterCreation.resetFemininityAppearance();
 					}
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
@@ -2679,6 +2700,7 @@ public class CreationController {
 					BodyChanging.getTarget().setFemininity(Femininity.MASCULINE.getMedianFemininity());
 					if (!Main.game.isInNewWorld() && BodyChanging.getTarget().isPlayer()) {
 						CharacterCreation.getDressed();
+						CharacterCreation.resetFemininityAppearance();
 					}
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
@@ -2690,6 +2712,7 @@ public class CreationController {
 					BodyChanging.getTarget().setFemininity(Femininity.FEMININE.getMedianFemininity());
 					if (!Main.game.isInNewWorld() && BodyChanging.getTarget().isPlayer()) {
 						CharacterCreation.getDressed();
+						CharacterCreation.resetFemininityAppearance();
 					}
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
@@ -2701,6 +2724,7 @@ public class CreationController {
 					BodyChanging.getTarget().setFemininity(Femininity.FEMININE_STRONG.getMedianFemininity());
 					if (!Main.game.isInNewWorld() && BodyChanging.getTarget().isPlayer()) {
 						CharacterCreation.getDressed();
+						CharacterCreation.resetFemininityAppearance();
 					}
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
@@ -2985,6 +3009,23 @@ public class CreationController {
 							});
 						}
 					}, false);
+					StringBuilder sb = new StringBuilder();
+					boolean confirm = Main.getProperties().hasValue(PropertyValue.tattooRemovalConfirmations);
+					if (Main.game.isInNewWorld()) {
+						if (Main.game.getPlayer().getMoney()>=100) {
+							sb.append("It will cost "+UtilText.formatAsMoney(100, "span")+" to remove this tattoo!");
+						} else {
+							sb.append("You don't have the required "+UtilText.formatAsMoney(100, "span")+" to remove this tattoo!");
+							confirm = false;
+						}
+					} else {
+						sb.append("Remove this tattoo.");
+					}
+					if(confirm) {
+						sb.append(" (<i>You will need to click twice to remove it.</i>)");
+					}
+					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Remove tattoo", sb.toString(), 32));
+					
 				} else {
 					DialogueNode nextDialogue;
 					if (currentNode.equals(CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_TATTOOS)) {
@@ -3007,23 +3048,35 @@ public class CreationController {
 							}
 						});
 					}, false);
+					MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Add tattoo", "Click to proceed to the tattoo customisation screen.", 16));
 				}
-				StringBuilder sb = new StringBuilder();
-				boolean confirm = Main.getProperties().hasValue(PropertyValue.tattooRemovalConfirmations);
-				if (Main.game.isInNewWorld()) {
-					if (Main.game.getPlayer().getMoney()>=100) {
-						sb.append("It will cost "+UtilText.formatAsMoney(100, "span")+" to remove this tattoo!");
-					} else {
-						sb.append("You don't have the required "+UtilText.formatAsMoney(100, "span")+" to remove this tattoo!");
-						confirm = false;
-					}
+			}
+			
+			id = "TATTOO_MODIFY_"+invSlot;
+			if (MainController.document.getElementById(id) != null) {
+				DialogueNode nextDialogue;
+				if (currentNode.equals(CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_TATTOOS)) {
+					nextDialogue = CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_TATTOOS_ADD;
+				} else if (currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_TATTOOS)) {
+					nextDialogue = CompanionManagement.SLAVE_MANAGEMENT_TATTOOS_ADD;
+				} else if (currentNode.equals(CosmeticsDialogue.BEAUTICIAN_TATTOOS)) {
+					nextDialogue = CosmeticsDialogue.BEAUTICIAN_TATTOOS_ADD;
+				} else if (currentNode.equals(SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS)) {
+					nextDialogue = SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS_ADD;
 				} else {
-					sb.append("Remove this tattoo.");
+					throw new NullPointerException("This node doesn't have a nextDialogue assigned");
 				}
-				if (confirm) {
-					sb.append(" (<i>You will need to click twice to remove it.</i>)");
-				}
-				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Remove tattoo", sb.toString()));
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+					Main.game.setContent(new Response("", "", nextDialogue) {
+						@Override
+						public void effects() {
+							SuccubisSecrets.invSlotTattooToRemove = null;
+							CharacterModificationUtils.resetTattooVariables(invSlot);
+							CharacterModificationUtils.tattoo = new Tattoo(BodyChanging.getTarget().getTattooInSlot(invSlot));
+						}
+					});
+				}, false);
+				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Modify tattoo", "Click to proceed to the tattoo customisation screen.", 16));
 			}
 			
 			id = "TATTOO_ENCHANT_"+invSlot.toString();
@@ -3036,6 +3089,7 @@ public class CreationController {
 						}
 					});
 				}, false);
+				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Enchant tattoo", "Click to proceed to the tattoo enchantment screen.", 16));
 			}
 		}
 	}
@@ -3204,16 +3258,57 @@ public class CreationController {
 						public void effects() {
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
 							CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
-							CharacterModificationUtils.tattoo.getCounter().setType(counterType);
+							boolean preferZero = CharacterModificationUtils.tattoo.getCounter().getType().getNonRetroactiveOffset(BodyChanging.getTarget())==0 && CharacterModificationUtils.retroactiveApplicationPreferZeroStart;
+							CharacterModificationUtils.tattoo.getCounter().setType(counterType, BodyChanging.getTarget());
+							if(preferZero) {
+								CharacterModificationUtils.tattoo.getCounter().setRetroactiveApplicationOffset(BodyChanging.getTarget());
+							}
 						}
 					});
 				}, false);
 				
 				MainController.addEventListener(MainController.document, id, "mousemove", MainController.moveTooltipListener, false);
 				MainController.addEventListener(MainController.document, id, "mouseleave", MainController.hideTooltipListener, false);
-				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(counterType.getName()), counterType.getDescription());
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(
+						Util.capitaliseSentence(counterType.getName()),
+						counterType.getDescription()
+						+(!counterType.isRetroactiveApplicationAvailable()
+							?"<br/><i>This counter type cannot be set to 'Start at 0', and instead always displays the current value.</i>"
+							:""));
 				MainController.addEventListener(MainController.document, id, "mouseenter", el, false);
 			}
+		}
+		
+		
+		id = "TATTOO_COUNT_RETROACTIVE_ENABLED";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
+					@Override
+					public void effects() {
+						Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
+						CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+						CharacterModificationUtils.tattoo.getCounter().setRetroactiveApplicationOffset(0);
+						CharacterModificationUtils.retroactiveApplicationPreferZeroStart = false;
+					}
+				});
+			}, false);
+		}
+		id = "TATTOO_COUNT_RETROACTIVE_DISABLED";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				if(CharacterModificationUtils.tattoo.getCounter().getType().isRetroactiveApplicationAvailable()) {
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()) {
+						@Override
+						public void effects() {
+							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('tattoo_name').value;");
+							CharacterModificationUtils.tattoo.getWriting().setText(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+							CharacterModificationUtils.tattoo.getCounter().setRetroactiveApplicationOffset(BodyChanging.getTarget());
+							CharacterModificationUtils.retroactiveApplicationPreferZeroStart = true;
+						}
+					});
+				}
+			}, false);
 		}
 		
 		for (TattooCountType countType : TattooCountType.values()) {

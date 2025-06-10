@@ -374,6 +374,13 @@ public class Response {
 	public void setForceContinue(boolean forceContinue) {
 		this.forceContinue = forceContinue;
 	}
+
+	/**
+	 * @return true if this Response should never keep the scroll bar in the same relative position when loaded. Will almost always be {@code false}.
+	 */
+	public boolean isIgnoreContentScroll() {
+		return false;
+	}
 	
 	public final void applyEffects() {
 		effects();
@@ -590,7 +597,7 @@ public class Response {
 			SB.append(" (Subspecies): ");
 			List<String> subspeciesList = new ArrayList<>();
 			for(AbstractSubspecies subspecies : getSubspeciesRequired()) {
-				subspeciesList.add("<span style='color:"+subspecies.getColour(Main.game.getPlayer()).toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getName(Main.game.getPlayer().getBody()))+"</span>");
+				subspeciesList.add("<span style='color:"+subspecies.getColour(Main.game.getPlayer()).toWebHexString()+";'>"+Util.capitaliseSentence(subspecies.getName(null))+"</span>");
 			}
 			SB.append(Util.stringsToStringChoice(subspeciesList, false));
 		}

@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
+import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -24,7 +25,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.8.8
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class Penis implements BodyPartInterface {
@@ -32,6 +33,7 @@ public class Penis implements BodyPartInterface {
 	public static final float TWO_PENIS_SIZE_MULTIPLIER = 1.6f;
 
 	protected AbstractPenisType type;
+	protected AbstractPenisType previousType;
 	protected int length;
 	protected int girth;
 	protected boolean pierced;
@@ -60,6 +62,20 @@ public class Penis implements BodyPartInterface {
 		this.penisModifiers.addAll(type.getDefaultRacialPenetrationModifiers());
 	}
 
+	public Penis(Penis penisToCopy) {
+		this.type = penisToCopy.type;
+		this.length = penisToCopy.length;
+		this.girth = penisToCopy.girth;
+		this.pierced = penisToCopy.pierced;
+		this.virgin = penisToCopy.virgin;
+		
+		this.testicle = new Testicle(penisToCopy.testicle);
+		
+		this.orificeUrethra = new OrificePenisUrethra(penisToCopy.orificeUrethra);
+		
+		this.penisModifiers = new HashSet<>(penisToCopy.penisModifiers);
+	}
+	
 	@Override
 	public AbstractPenisType getType() {
 		return type;
@@ -132,6 +148,7 @@ public class Penis implements BodyPartInterface {
 				}
 			} else {
 				list.add("soft");
+				list.add("flaccid");
 				if(owner.isErectionPreventedPhysically()) {
 					list.add("caged");
 					list.add("imprisoned");
@@ -190,8 +207,21 @@ public class Penis implements BodyPartInterface {
 
 		return Util.randomItemFrom(list);
 	}
-	
+
 	public String setType(GameCharacter owner, AbstractPenisType type) {
+		return setType(owner, type, true);
+	}
+	
+	/**
+	 * @param owner The GameCharacter whose penis this is.
+	 * @param type The type of penis which should be applied.
+	 * @param applyExtraEffects true if you want the default behaviour of the penis type applying its default appearance.
+	 * @return A description of the transformation.
+	 */
+	public String setType(GameCharacter owner, AbstractPenisType type, boolean applyExtraEffects) {
+		if(type==PenisType.NONE) {
+			setPreviousType(this.type);
+		}
 		if(this.type==PenisType.NONE) {
 			this.orificeUrethra.setStretchedCapacity(this.orificeUrethra.getRawCapacityValue());
 		}
@@ -216,12 +246,13 @@ public class Penis implements BodyPartInterface {
 		}
 		
 		StringBuilder sb = new StringBuilder();
-		
-		if(!owner.hasPenisIgnoreDildo()) {
-			if(length<1) {
-				length = 1;
-			}
-			sb.append(
+
+		sb.append("<p>");
+			if(!owner.hasPenisIgnoreDildo()) {
+				if(length<1 && applyExtraEffects) {
+					length = 1;
+				}
+				sb.append(
 					"[npc.Name] [npc.verb(feel)] an intense heat building up in [npc.her] groin, and [npc.she] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(feel)] the [npc.skin] "
 								+ (owner.hasVagina()
 										? (!owner.isTaur()
@@ -237,59 +268,75 @@ public class Penis implements BodyPartInterface {
 									: "in the middle of [npc.her] groin,")
 							+ " and with a sudden splitting sensation, the bump pushes out and forms into a penis.");
 			
-			if(owner.isInternalTesticles()) {
-				sb.append(
-						" As [npc.her] new cock flops down "
-							+ (owner.hasVagina()
-								? (!owner.isTaur()
-										?"to bump against [npc.her] pussy, [npc.she] [npc.verb(feel)] [npc.a_balls] growing within [npc.her] groin,"
-										:"beneath [npc.her] pussy, [npc.she] [npc.verb(feel)] [npc.a_balls] growing within [npc.her] groin,")
-								: "between [npc.her] legs, [npc.she] [npc.verb(feel)] [npc.a_balls] growing within [npc.her] groin,")
-						+ " and [npc.she] [npc.verb(let)] out an unwitting [npc.moan] as [npc.her] new sexual organ finishes growing.<br/>");
+				if(owner.isInternalTesticles()) {
+					sb.append(
+							" As [npc.her] new cock flops down "
+								+ (owner.hasVagina()
+									? (!owner.isTaur()
+											?"to bump against [npc.her] pussy, [npc.she] [npc.verb(feel)] [npc.a_balls] growing within [npc.her] groin,"
+											:"beneath [npc.her] pussy, [npc.she] [npc.verb(feel)] [npc.a_balls] growing within [npc.her] groin,")
+									: "between [npc.her] legs, [npc.she] [npc.verb(feel)] [npc.a_balls] growing within [npc.her] groin,")
+							+ " and [npc.she] [npc.verb(let)] out an unwitting [npc.moan] as [npc.her] new sexual organ finishes growing.<br/>");
+				} else {
+					sb.append(
+							" As [npc.her] new cock flops down "
+								+ (owner.hasVagina()
+									? (!owner.isTaur()
+											?"to bump against [npc.her] pussy, [npc.she] [npc.verb(feel)] [npc.a_balls] pushing out between [npc.her] two sexes,"
+											:"beneath [npc.her] pussy, [npc.she] [npc.verb(feel)] [npc.a_balls] pushing out between [npc.her] two sexes,")
+									: "between [npc.her] legs, [npc.she] [npc.verb(feel)] [npc.a_balls] push out underneath the base of [npc.her] new shaft,")
+							+ " and [npc.she] [npc.verb(let)] out an unwitting [npc.moan] as [npc.her] new sexual organ finishes growing.<br/>");
+				}
+				
 			} else {
 				sb.append(
-						" As [npc.her] new cock flops down "
-							+ (owner.hasVagina()
-								? (!owner.isTaur()
-										?"to bump against [npc.her] pussy, [npc.she] [npc.verb(feel)] [npc.a_balls] pushing out between [npc.her] two sexes,"
-										:"beneath [npc.her] pussy, [npc.she] [npc.verb(feel)] [npc.a_balls] pushing out between [npc.her] two sexes,")
-								: "between [npc.her] legs, [npc.she] [npc.verb(feel)] [npc.a_balls] push out underneath the base of [npc.her] new shaft,")
-						+ " and [npc.she] [npc.verb(let)] out an unwitting [npc.moan] as [npc.her] new sexual organ finishes growing.<br/>");
+						"[npc.Name] [npc.verb(let)] out a gasp as [npc.she] [npc.verb(feel)] [npc.her] [npc.cock] suddenly stand to attention,"
+								+ " and before [npc.sheIs] able to try and get [npc.her] unexpected erection under control, [npc.her] gasp turns into [npc.a_moan+] as [npc.her] cock starts to transform.<br/>");
+			}
+		sb.append("</p>");
+		
+		if(applyExtraEffects) {
+			// Parse existing content before transformation:
+			String s = UtilText.parse(owner, sb.toString());
+			sb.setLength(0);
+			sb.append(s);
+			sb.append("<p>");
+				sb.append(this.type.applyAdditionalTransformationEffects(owner, false));
+				this.type = type;
+				testicle.setType(owner, type.getTesticleType());
+				owner.resetAreaKnownByCharacters(CoverableArea.PENIS);
+				owner.resetAreaKnownByCharacters(CoverableArea.TESTICLES);
+				sb.append(this.type.getTransformationDescription(owner));
+				sb.append(this.type.applyAdditionalTransformationEffects(owner, true));
+			sb.append("</p>");
+			
+			if(type!=PenisType.NONE) { // Don't remove modifiers for NONE so that they can be 'restored' if applyExtraEffects==false
+				penisModifiers.clear();
+				penisModifiers.addAll(type.getDefaultRacialPenetrationModifiers());
+				
+				sb.append("<p>");
+					sb.append("Any old modifiers which [npc.her] penis might have had have [style.boldShrink(transformed away)]!");
+					if(!penisModifiers.isEmpty()) {
+						sb.append("<br/>Instead, [npc.her] new cock is:");
+						for(PenetrationModifier pm : penisModifiers) {
+							sb.append("<br/>[style.boldGrow("+Util.capitaliseSentence(pm.getName())+")]");
+						}
+					}
+				sb.append("</p>");
 			}
 			
 		} else {
-			sb.append(
-					"[npc.Name] [npc.verb(let)] out a gasp as [npc.she] [npc.verb(feel)] [npc.her] [npc.cock] suddenly stand to attention,"
-							+ " and before [npc.sheIs] able to try and get [npc.her] unexpected erection under control, [npc.her] gasp turns into [npc.a_moan+] as [npc.her] cock starts to transform.<br/>");
-		}
-		
-
-		// Parse existing content before transformation:
-		String s = UtilText.parse(owner, sb.toString());
-		sb.setLength(0);
-		sb.append("<p>");
-			sb.append(s);
-			sb.append(this.type.applyAdditionalTransformationEffects(owner, false));
 			this.type = type;
 			testicle.setType(owner, type.getTesticleType());
-			owner.resetAreaKnownByCharacters(CoverableArea.PENIS);
-			owner.resetAreaKnownByCharacters(CoverableArea.TESTICLES);
-			sb.append(this.type.getTransformationDescription(owner));
-			sb.append(this.type.applyAdditionalTransformationEffects(owner, true));
-		sb.append("</p>");
-		
-		penisModifiers.clear();
-		penisModifiers.addAll(type.getDefaultRacialPenetrationModifiers());
-
-		sb.append("<p>");
-			sb.append("Any old modifiers which [npc.her] penis might have had have [style.boldShrink(transformed away)]!");
-			if(!penisModifiers.isEmpty()) {
-				sb.append("<br/>Instead, [npc.her] new cock is:");
-				for(PenetrationModifier pm : penisModifiers) {
-					sb.append("<br/>[style.boldGrow("+Util.capitaliseSentence(pm.getName())+")]");
-				}
-			}
-		sb.append("</p>");
+			AbstractRace penisRace = type.getRace();
+			
+			sb.append("<p>");
+				sb.append("[npc.She] now [npc.has] "+UtilText.generateSingularDeterminer(penisRace.getName(true))+" <b style='color:"+penisRace.getColour().toWebHexString()+";'>"+penisRace.getName(true)+"-like penis</b>,"
+						+ " [npc.materialDescriptor] [npc.penisFullDescription(true)].");
+				sb.append("<br/>[npc.She] [npc.has] <b style='color:"+penisRace.getColour().toWebHexString()+";'>[npc.ballsCount]#IF(npc.isInternalTesticles()) internal#ENDIF balls</b>,"
+						+ " [npc.materialDescriptor] [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] <b style='color:"+penisRace.getColour().toWebHexString()+";'>"+penisRace.getName(true)+" cum</b>.");
+			sb.append("</p>");
+		}
 		
 		String postTF = owner.postTransformationCalculation(false); // Calculate this before parsing, as it updates covering colours
 		
@@ -297,6 +344,14 @@ public class Penis implements BodyPartInterface {
 				+ "<p>"
 					+ postTF
 				+ "</p>";
+	}
+
+	public AbstractPenisType getPreviousType() {
+		return previousType;
+	}
+
+	public void setPreviousType(AbstractPenisType previousType) {
+		this.previousType = previousType;
 	}
 	
 	// Girth:

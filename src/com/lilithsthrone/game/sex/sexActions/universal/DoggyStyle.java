@@ -729,8 +729,8 @@ public class DoggyStyle {
 		}
 		@Override
 		public String getDescription() {
-			boolean immobile = Main.sex.isCharacterImmobilised(Main.sex.getCharacterTargetedForSexAction(this)) && Main.sex.getImmobilisationType(Main.sex.getCharacterTargetedForSexAction(this)).getKey()==ImmobilisationType.COMMAND;
-			boolean immobileSleep = Main.sex.isCharacterImmobilised(Main.sex.getCharacterTargetedForSexAction(this)) && Main.sex.getImmobilisationType(Main.sex.getCharacterTargetedForSexAction(this)).getKey()==ImmobilisationType.SLEEP;
+			boolean immobile = Main.sex.getImmobilisationTypes(Main.sex.getCharacterTargetedForSexAction(this)).containsKey(ImmobilisationType.COMMAND);
+			boolean immobileSleep = Main.sex.getImmobilisationTypes(Main.sex.getCharacterTargetedForSexAction(this)).containsKey(ImmobilisationType.SLEEP);
 
 			StringBuilder sb = new StringBuilder();
 			
@@ -739,10 +739,10 @@ public class DoggyStyle {
 							?" an alpha treats their submissive little beta. "
 							:" a real dom treats their submissive bitch. "));
 			
-			if(immobile) {
-				sb.append("Letting out [npc.a_moan+], [npc.name] [npc.verb(slam)] [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.ass+], grinning devilishly as [npc2.she] [npc2.verb(continue)] acting like an inanimate sex doll.");
-			} else if(immobileSleep) {
+			if(immobileSleep) {
 				sb.append("Letting out [npc.a_moan+], [npc.name] [npc.verb(slam)] [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.ass+], grinning devilishly as [npc2.she] [npc2.verb(wake)] up and [npc2.verb(let)] out [npc2.a_moan+].");
+			} else if(immobile) {
+				sb.append("Letting out [npc.a_moan+], [npc.name] [npc.verb(slam)] [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.ass+], grinning devilishly as [npc2.she] [npc2.verb(continue)] acting like an inanimate sex doll.");
 			} else {
 				sb.append("Letting out [npc.a_moan+], [npc.name] [npc.verb(slam)] [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.ass+], grinning devilishly as [npc2.she] [npc2.verb(let)] out [npc2.a_moan+].");
 			}
@@ -897,8 +897,8 @@ public class DoggyStyle {
 		}
 		@Override
 		public String getDescription() {
-			boolean immobile = Main.sex.isCharacterImmobilised(Main.sex.getCharacterTargetedForSexAction(this)) && Main.sex.getImmobilisationType(Main.sex.getCharacterTargetedForSexAction(this)).getKey()==ImmobilisationType.COMMAND;
-			boolean immobileSleep = Main.sex.isCharacterImmobilised(Main.sex.getCharacterTargetedForSexAction(this)) && Main.sex.getImmobilisationType(Main.sex.getCharacterTargetedForSexAction(this)).getKey()==ImmobilisationType.SLEEP;
+			boolean immobile = Main.sex.getImmobilisationTypes(Main.sex.getCharacterTargetedForSexAction(this)).containsKey(ImmobilisationType.COMMAND);
+			boolean immobileSleep = Main.sex.getImmobilisationTypes(Main.sex.getCharacterTargetedForSexAction(this)).containsKey(ImmobilisationType.SLEEP);
 
 			StringBuilder sb = new StringBuilder();
 			
@@ -907,10 +907,10 @@ public class DoggyStyle {
 							?" an alpha treats their submissive little beta. "
 							:" a real dom treats their submissive bitch. "));
 			
-			if(immobile) {
-				sb.append("Letting out [npc.a_moan+], [npc.name] [npc.verb(slam)] [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.pussy+], grinning devilishly as [npc2.she] [npc2.verb(continue)] acting like an inanimate sex doll.");
-			} else if(immobileSleep) {
+			if(immobileSleep) {
 				sb.append("Letting out [npc.a_moan+], [npc.name] [npc.verb(slam)] [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.pussy+], grinning devilishly as [npc2.she] [npc2.verb(wake)] up and [npc2.verb(let)] out [npc2.a_moan+].");
+			} else if(immobile) {
+				sb.append("Letting out [npc.a_moan+], [npc.name] [npc.verb(slam)] [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.pussy+], grinning devilishly as [npc2.she] [npc2.verb(continue)] acting like an inanimate sex doll.");
 			} else {
 				sb.append("Letting out [npc.a_moan+], [npc.name] [npc.verb(slam)] [npc.her] [npc.cock+] deep into [npc2.namePos] [npc2.pussy+], grinning devilishly as [npc2.she] [npc2.verb(let)] out [npc2.a_moan+].");
 			}

@@ -60,6 +60,8 @@ import com.lilithsthrone.world.World;
  */
 public class CharacterInventory implements XMLSaving {
 	
+	public static boolean loadingFromFloorBackupCheck = false;
+	
 	private final AbstractInventory<AbstractWeapon, AbstractWeaponType> weaponSubInventory;
 	private final AbstractInventory<AbstractClothing, AbstractClothingType> clothingSubInventory;
 	private final AbstractInventory<AbstractItem, AbstractItemType> itemSubInventory;
@@ -86,19 +88,23 @@ public class CharacterInventory implements XMLSaving {
 	// ClothingSets being worn:
 	private final Map<AbstractSetBonus, Integer> clothingSetCount;
 
-	private int maxInventorySpace;
+	/** Determines whether or not this inventory is assigned to a floor tile. */
+	private boolean floorInventory;
+	
+	@SuppressWarnings("unused")
+	private int maxInventorySpace; // TODO use :3
 
-	public CharacterInventory(int money) {
-		this(money, 32);
+	public CharacterInventory(boolean floorInventory, int money) {
+		this(floorInventory, money, 32);
 	}
 		
-	public CharacterInventory(int money, int maxInventorySpace) {
+	public CharacterInventory(boolean floorInventory, int money, int maxInventorySpace) {
+		this.floorInventory = floorInventory;
 		this.money = money;
 
 		weaponSubInventory = new AbstractInventory<>(new InventoryWeaponComparator(), AbstractWeapon::getWeaponType);
 		clothingSubInventory = new AbstractInventory<>(new InventoryClothingComparator(), AbstractClothing::getClothingType);
 		itemSubInventory = new AbstractInventory<>(new InventoryItemComparator(), AbstractItem::getItemType);
-		
 		
 		dirtySlots = new HashSet<>();
 		
@@ -118,43 +124,54 @@ public class CharacterInventory implements XMLSaving {
 		this.maxInventorySpace = maxInventorySpace;
 	}
 	
-	public CharacterInventory(CharacterInventory inventoryToCopy) {
-		this.money = inventoryToCopy.money;
-
-		weaponSubInventory = new AbstractInventory<>(inventoryToCopy.weaponSubInventory);
-		clothingSubInventory = new AbstractInventory<>(inventoryToCopy.clothingSubInventory);
-		itemSubInventory = new AbstractInventory<>(inventoryToCopy.itemSubInventory);
+	public static CharacterInventory getCopyOfInventory(CharacterInventory inventoryToCopy) {
+		Document doc = Main.getDocBuilder().newDocument();
+		Element mainNode = doc.createElement("mainNode");
+		inventoryToCopy.saveAsXML(mainNode, doc);
+		CharacterInventory newInventory = loadFromXML(mainNode, doc);
 		
-		dirtySlots = new HashSet<>(inventoryToCopy.getDirtySlots());
-		
-		essenceCount = inventoryToCopy.essenceCount;
-
-		unlockKeyMap = new HashMap<>(inventoryToCopy.unlockKeyMap);
-		
-		mainWeapon = new AbstractWeapon[Arm.MAXIMUM_ROWS];
-		for(int i=0; i<mainWeapon.length; i++) {
-			mainWeapon[i] = inventoryToCopy.mainWeapon[i];
-		}
-		offhandWeapon = new AbstractWeapon[Arm.MAXIMUM_ROWS];
-		for(int i=0; i<offhandWeapon.length; i++) {
-			offhandWeapon[i] = inventoryToCopy.offhandWeapon[i];
-		}
-		
-		clothingCurrentlyEquipped = new ArrayList<>(inventoryToCopy.clothingCurrentlyEquipped);
-		clothingSetCount = new HashMap<>(inventoryToCopy.clothingSetCount);
-		
-		this.maxInventorySpace = inventoryToCopy.maxInventorySpace;
-		
-		this.blockingClothing = inventoryToCopy.blockingClothing;
-
-		this.extraBlockedParts = inventoryToCopy.extraBlockedParts;
+		return newInventory;
 	}
+	
+//	public CharacterInventory(CharacterInventory inventoryToCopy) {
+//		this.money = inventoryToCopy.money;
+//
+//		weaponSubInventory = new AbstractInventory<>(inventoryToCopy.weaponSubInventory);
+//		clothingSubInventory = new AbstractInventory<>(inventoryToCopy.clothingSubInventory);
+//		itemSubInventory = new AbstractInventory<>(inventoryToCopy.itemSubInventory);
+//		
+//		dirtySlots = new HashSet<>(inventoryToCopy.getDirtySlots());
+//		
+//		essenceCount = inventoryToCopy.essenceCount;
+//
+//		unlockKeyMap = new HashMap<>(inventoryToCopy.unlockKeyMap);
+//		
+//		mainWeapon = new AbstractWeapon[Arm.MAXIMUM_ROWS];
+//		for(int i=0; i<mainWeapon.length; i++) {
+//			mainWeapon[i] = inventoryToCopy.mainWeapon[i];
+//		}
+//		offhandWeapon = new AbstractWeapon[Arm.MAXIMUM_ROWS];
+//		for(int i=0; i<offhandWeapon.length; i++) {
+//			offhandWeapon[i] = inventoryToCopy.offhandWeapon[i];
+//		}
+//		
+//		clothingCurrentlyEquipped = new ArrayList<>(inventoryToCopy.clothingCurrentlyEquipped);
+//		clothingSetCount = new HashMap<>(inventoryToCopy.clothingSetCount);
+//		
+//		this.maxInventorySpace = inventoryToCopy.maxInventorySpace;
+//		
+//		this.blockingClothing = inventoryToCopy.blockingClothing;
+//
+//		this.extraBlockedParts = inventoryToCopy.extraBlockedParts;
+//	}
 	
 	@Override
 	public Element saveAsXML(Element parentElement, Document doc) {
 		Element characterInventory = doc.createElement("characterInventory");
 		parentElement.appendChild(characterInventory);
-		XMLUtil.createXMLElementWithValue(doc, characterInventory, "maxInventorySpace", String.valueOf(this.getMaximumInventorySpace()));
+		
+		XMLUtil.createXMLElementWithValue(doc, characterInventory, "floorInventory", String.valueOf(floorInventory));
+		//XMLUtil.createXMLElementWithValue(doc, characterInventory, "maxInventorySpace", String.valueOf(this.getMaximumInventorySpace()));
 		XMLUtil.createXMLElementWithValue(doc, characterInventory, "money", String.valueOf(this.getMoney()));
 		XMLUtil.createXMLElementWithValue(doc, characterInventory, "essenceCount", String.valueOf(this.getEssenceCount()));
 		
@@ -255,11 +272,18 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	public static CharacterInventory loadFromXML(Element parentElement, Document doc) {
-		CharacterInventory inventory = new CharacterInventory(0);
+		CharacterInventory inventory = new CharacterInventory(false, 0);
 		
 //		if(parentElement.getElementsByTagName("maxInventorySpace").item(0)!=null) {
 //			inventory.setMaximumInventorySpace(Integer.valueOf(((Element)parentElement.getElementsByTagName("maxInventorySpace").item(0)).getAttribute("value")));
 //		}
+		
+		try {
+			inventory.floorInventory = Boolean.valueOf(((Element)parentElement.getElementsByTagName("floorInventory").item(0)).getAttribute("value"));
+		} catch(Exception ex) {
+			inventory.floorInventory = CharacterInventory.loadingFromFloorBackupCheck;
+		}
+		
 		inventory.setMoney(Integer.valueOf(((Element)parentElement.getElementsByTagName("money").item(0)).getAttribute("value")));
 		
 		if(parentElement.getElementsByTagName("essences").item(0)!=null) { // Old version support.
@@ -498,7 +522,14 @@ public class CharacterInventory implements XMLSaving {
 		return false;
 	}
 	
+	/**
+	 * @return Limitation calculated from <code>RenderingEngine.INVENTORY_PAGES * RenderingEngine.ITEMS_PER_PAGE</code>, if the inventory belongs to a character.
+	 * <br/>If the inventory belongs to a floor tile, then the limit is <code>Integer.MAX_VALUE</code>.
+	 */
 	public int getMaximumInventorySpace() {
+		if(floorInventory) {
+			return Integer.MAX_VALUE;
+		}
 		return RenderingEngine.INVENTORY_PAGES * RenderingEngine.ITEMS_PER_PAGE;
 	}
 	
@@ -973,7 +1004,7 @@ public class CharacterInventory implements XMLSaving {
 	}
 	
 	/**
-	 * @return true if one of the clothings in this inventory has the same type as the Clothing provided.
+	 * @return true if one item of clothing in this inventory has the same type as the type provided.
 	 */
 	public boolean hasClothingType(AbstractClothingType type, boolean includeEquipped) {
 		return clothingSubInventory.hasItemType(type) || (includeEquipped && hasEquippedClothingType(type));
@@ -985,6 +1016,21 @@ public class CharacterInventory implements XMLSaving {
 	
 	public boolean removeClothingByType(AbstractClothingType clothingType) {
 		return clothingSubInventory.removeItemByType(clothingType, 1);
+	}
+	
+	public boolean removeClothingByName(String nameToMatch) {
+		AbstractClothing clothing = null;
+		for(AbstractClothing c : getAllClothingInInventory().keySet()) {
+			if(c.getName().equalsIgnoreCase(nameToMatch)) {
+				clothing = c;
+				break;
+			}
+		}
+		if(clothing!=null) {
+			removeClothing(clothing, 1);
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean removeAllClothingByRarity(Rarity rarity) {
@@ -1111,13 +1157,14 @@ public class CharacterInventory implements XMLSaving {
 		if(getClothingInSlot(slot)!=null) {
 			visibleClothing.add(getClothingInSlot(slot));
 		}
-		
+
 		if(getInventorySlotsConcealed(character).get(slot)!=null) {
 			visibleClothing.addAll(getInventorySlotsConcealed(character).get(slot));
 		}
-		
+
 		if(!visibleClothing.isEmpty()) {
 			List<InventorySlot> slotsToCheck = visibleClothing.stream().map(c -> c.getSlotEquippedTo()).collect(Collectors.toList());
+			Set<InventorySlot> slotsAlreadyChecked = new HashSet<>(slotsToCheck);
 			
 			while(!slotsToCheck.isEmpty()) {
 				for(InventorySlot checkSlot : new ArrayList<>(slotsToCheck)) {
@@ -1126,7 +1173,10 @@ public class CharacterInventory implements XMLSaving {
 						visibleClothing = visibleClothing.stream().filter(cl -> cl.getSlotEquippedTo()!=checkSlot).collect(Collectors.toList()); // Remove clothing which is concealed
 						for(AbstractClothing c : checkClothingSlot) {
 							visibleClothing.add(c);
-							slotsToCheck.add(c.getSlotEquippedTo());
+							if(!slotsAlreadyChecked.contains(c.getSlotEquippedTo())) {
+								slotsToCheck.add(c.getSlotEquippedTo());
+								slotsAlreadyChecked.add(c.getSlotEquippedTo());
+							}
 						}
 					}
 					slotsToCheck.remove(checkSlot);
@@ -1160,6 +1210,10 @@ public class CharacterInventory implements XMLSaving {
 		return clothingSetCount.get(clothingSet);
 	}
 
+	public boolean isFloorInventory() {
+		return floorInventory;
+	}
+	
 	// Lasciate ogne speranza, voi ch'entrate //
 
 	private StringBuilder tempSB;
@@ -1342,10 +1396,10 @@ public class CharacterInventory implements XMLSaving {
 											
 										} else {
 											equipTextSB.append(characterClothingOwner.isPlayer()
-													?"Your <b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>" + equippedClothing.getName() + "</b> "
+													?"<br/>Your <b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>" + equippedClothing.getName() + "</b> "
 														+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " preventing you from being able to equip the "+newClothing.getName()+"!"
 													:UtilText.parse(characterClothingOwner,
-															"[npc.NamePos] <b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>" + equippedClothing.getName() + "</b> "
+															"<br/>[npc.NamePos] <b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>" + equippedClothing.getName() + "</b> "
 																	+ (equippedClothing.getClothingType().isPlural() ? "are" : "is") + " preventing [npc.herHim] from being able to equip the "+newClothing.getName()+"!"));
 											blockingClothing = equippedClothing;
 											return false;
@@ -1357,17 +1411,18 @@ public class CharacterInventory implements XMLSaving {
 										} else {
 											if(equippedClothing.isSealed()) {
 												equipTextSB.append(characterClothingOwner.isPlayer()
-														?"You can't equip the " + newClothing.getName() + " because your <b style='color:" + PresetColour.SEALED.toWebHexString() + ";'>sealed</b> "
+														?"<br/>You can't equip the " + newClothing.getName() + " because your <b style='color:" + PresetColour.SEALED.toWebHexString() + ";'>sealed</b> "
 															+equippedClothing.getName()+ " "+(equippedClothing.getClothingType().isPlural()?"are":"is")+" in the way!"
 														:UtilText.parse(characterClothingOwner,
-																"[npc.Name] can't equip the " + newClothing.getName() + " because [npc.her] <b style='color:" + PresetColour.SEALED.toWebHexString() + ";'>sealed</b> "
+																"<br/>[npc.Name] can't equip the " + newClothing.getName() + " because [npc.her] <b style='color:" + PresetColour.SEALED.toWebHexString() + ";'>sealed</b> "
 																		+equippedClothing.getName()+ " "+(equippedClothing.getClothingType().isPlural()?"are":"is")+" in the way!"));
 												
 											} else {
 												equipTextSB.append(characterClothingOwner.isPlayer()
-														?"You can't equip the " + newClothing.getName() + " because your "+equippedClothing.getName()+ " "+(equippedClothing.getClothingType().isPlural()?"are":"is")+" in the way!"
+														?"<br/>You can't equip the " + newClothing.getName() + " because your "+equippedClothing.getName()+ " "+(equippedClothing.getClothingType().isPlural()?"are":"is")+" in the way!"
 														:UtilText.parse(characterClothingOwner,
-																"[npc.Name] can't equip the " + newClothing.getName() + " because [npc.her] "+equippedClothing.getName()+ " "+(equippedClothing.getClothingType().isPlural()?"are":"is")+" in the way!"));
+																"<br/>[npc.Name] can't equip the " + newClothing.getName() + " because [npc.her] "
+																		+equippedClothing.getName()+ " "+(equippedClothing.getClothingType().isPlural()?"are":"is")+" in the way!"));
 											}
 											blockingClothing = equippedClothing;
 											return false;
@@ -2061,6 +2116,8 @@ public class CharacterInventory implements XMLSaving {
  			List<BlockedParts> blockedPartsMap = clothing.getBlockedPartsMap(character, clothing.getSlotEquippedTo());
  			if(blockedPartsMap==null) {
  				System.err.println("Clothing error in getBlockingCoverableAreaClothingList(): blockedPartsMap is returning null!");
+ 				System.err.println(clothing.getName()+" | "+clothing.getClothingType().getId() + " ("+clothing.getSlotEquippedTo()+")");
+ 				new IllegalArgumentException().printStackTrace();
  				continue;
  			}
 			for (BlockedParts bp : blockedPartsMap) {

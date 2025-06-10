@@ -44,6 +44,7 @@ import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.character.npc.misc.NPCOffspring;
 import com.lilithsthrone.game.character.npc.submission.DarkSiren;
+import com.lilithsthrone.game.character.npc.submission.Elizabeth;
 import com.lilithsthrone.game.character.npc.submission.Lyssieth;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
@@ -132,7 +133,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	
 	public PlayerCharacter(NameTriplet nameTriplet, int level, LocalDateTime birthday, Gender gender, AbstractSubspecies startingSubspecies, RaceStage stage, AbstractWorldType startingWorld, AbstractPlaceType startingPlace) {
-		super(nameTriplet, "", "", level, Main.game.getDateNow().minusYears(22), gender, startingSubspecies, stage, new CharacterInventory(0), startingWorld, startingPlace);
+		super(nameTriplet, "", "", level, Main.game.getDateNow().minusYears(22), gender, startingSubspecies, stage, new CharacterInventory(false, 0), startingWorld, startingPlace);
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		
@@ -763,7 +764,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	}
 
 	@Override
-	protected void updateLocationListeners() {
+	public void updateLocationListeners() {
 		if (playerLocationChangeEventListeners != null)
 			for (CharacterChangeEventListener eventListener : playerLocationChangeEventListeners)
 				eventListener.onChange();
@@ -849,6 +850,23 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		}
 	}
 	
+	public void discoverSurroundingCells() {
+		Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).setDiscovered(true);
+		Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).setTravelledTo(true);
+		if (Main.game.getPlayer().getLocation().getY() < Main.game.getActiveWorld().WORLD_HEIGHT - 1) {
+			Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() + 1).setDiscovered(true);
+		}
+		if (Main.game.getPlayer().getLocation().getY() != 0) {
+			Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() - 1).setDiscovered(true);
+		}
+		if (Main.game.getPlayer().getLocation().getX() < Main.game.getActiveWorld().WORLD_WIDTH - 1) {
+			Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX() + 1, Main.game.getPlayer().getLocation().getY()).setDiscovered(true);
+		}
+		if (Main.game.getPlayer().getLocation().getX() != 0) {
+			Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX() - 1, Main.game.getPlayer().getLocation().getY()).setDiscovered(true);
+		}
+	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -904,9 +922,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		}
 		if(Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth")) {
 			if(character instanceof Lyssieth) {
-				return Util.newHashSetOfValues(Relationship.Parent);
+				return Util.newHashSetOfValues(Relationship.Child);
 			}
-			if(character instanceof DarkSiren) {
+			if(character instanceof DarkSiren || character instanceof Elizabeth) {
 				return Util.newHashSetOfValues(Relationship.HalfSibling);
 			}
 		}
@@ -968,6 +986,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		this.relationshipQuestUpdated = relationshipQuestUpdated;
 	}
 
+	/**
+	 * This is only used in OccupancyUtil for a very specific purpose and unless the player is sleeping or loitering, it should return true.
+	 * <br/>It doesn't really matter if it's true or false if the player is not within Lilaya's mansion at the time of sleeping or loitering.
+	 * @return true if the player's presence should prevent slaves and occupants from leaving their tile.
+	 */
 	public boolean isActive() { return isActive; }
 
 	public void setActive(boolean active) { this.isActive = active; }
@@ -1124,7 +1147,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isAbleToAccessRoomManagement() {
-		return isHasSlaverLicense() || isQuestCompleted(QuestLine.SIDE_ACCOMMODATION);
+		return isHasSlaverLicense()
+				|| isQuestCompleted(QuestLine.SIDE_ACCOMMODATION)
+				|| isQuestCompleted(QuestLine.SIDE_DOLL_STORAGE)
+				;
 	}
 
 	/**
@@ -1438,7 +1464,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	
 	@Override
 	public boolean isAbleToBeEgged() {
-		return !this.isDoll();
+		return !this.hasPerkAnywhereInTree(Perk.DOLL_PHYSICAL_2);
 	}
 	
 	// This behaviour is overridden for unique scenes in which the player's orgasm requires special dialogue or effects.
@@ -1854,7 +1880,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			return UtilText.parseFromXMLFile("characters/player/virginity", "VIRGINITY_LOSS_PURE_SELF", characterPenetrating);
 			
 		} else {
-			boolean immobile = Main.sex.getAllParticipants().contains(this) && Main.sex.isCharacterImmobilised(this) && Main.sex.getImmobilisationType(this).getKey()==ImmobilisationType.COMMAND;
+			boolean immobile = Main.sex.getAllParticipants().contains(this)
+					&& Main.sex.isCharacterImmobilised(this)
+					&& (Main.sex.getImmobilisationTypes(this).containsKey(ImmobilisationType.COMMAND) || Main.sex.getImmobilisationTypes(this).containsKey(ImmobilisationType.SLEEP));
 			
 			if(immobile) {
 				if(this.isAsleep()) {
@@ -1879,7 +1907,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			sb.append(UtilText.parseFromXMLFile("characters/player/virginity", "VIRGINITY_LOSS_ANAL_SELF", characterPenetrating));
 			
 		} else {
-			boolean immobile = Main.sex.getAllParticipants().contains(this) && Main.sex.isCharacterImmobilised(this) && Main.sex.getImmobilisationType(this).getKey()==ImmobilisationType.COMMAND;
+			boolean immobile = Main.sex.getAllParticipants().contains(this)
+					&& Main.sex.isCharacterImmobilised(this)
+					&& (Main.sex.getImmobilisationTypes(this).containsKey(ImmobilisationType.COMMAND) || Main.sex.getImmobilisationTypes(this).containsKey(ImmobilisationType.SLEEP));
 			
 			if((characterPenetrating instanceof NPC) && ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.ANUS)!=null) {
 				return ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.ANUS);
@@ -1910,18 +1940,19 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		StringBuilder sb = new StringBuilder();
 		
 		String penetrationName = "";
+		// Use simple names as parsed names with descriptors sounds awkward when NPC says it
 		switch(penetration) {
 			case CLIT:
-				penetrationName = "[npc.clit+]";
+				penetrationName = "clit";
 				break;
 			case PENIS:
-				penetrationName = "[npc.penis+]";
+				penetrationName = "cock";
 				break;
 			case TAIL:
-				penetrationName = "[npc.tail+]";
+				penetrationName = "tail";
 				break;
 			case TENTACLE:
-				penetrationName = "[npc.tentacle+]";
+				penetrationName = "tentacle";
 				break;
 			default:
 				break;
@@ -1932,7 +1963,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			sb.append(UtilText.parseFromXMLFile("characters/player/virginity", "VIRGINITY_LOSS_VAGINAL_SELF", characterPenetrating));
 			
 		} else {
-			boolean immobile = Main.sex.getAllParticipants().contains(this) && Main.sex.isCharacterImmobilised(this) && Main.sex.getImmobilisationType(this).getKey()==ImmobilisationType.COMMAND;
+			boolean immobile = Main.sex.getAllParticipants().contains(this)
+					&& Main.sex.isCharacterImmobilised(this)
+					&& Main.sex.isCharacterInanimateFromImmobilisation(this);
 			
 			if((characterPenetrating instanceof NPC) && ((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.VAGINA)!=null) {
 				sb.append(((NPC)characterPenetrating).getSpecialPlayerVirginityLoss(characterPenetrating, penetration, this, SexAreaOrifice.VAGINA));

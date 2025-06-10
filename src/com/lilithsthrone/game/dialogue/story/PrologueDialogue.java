@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.game.Game;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
@@ -222,7 +223,7 @@ public class PrologueDialogue {
 	};
 	
 
-	public static final DialogueNode AFTER_SEX = new DialogueNode("In the Museum", "Now that you've had your fun, you really should go and find your aunt Lily...", true) {
+	public static final DialogueNode AFTER_SEX = new DialogueNode("Finished", "Now that you've had your fun, you really should go and find your aunt Lily...", true) {
 
 		@Override
 		public String getContent() {
@@ -451,7 +452,6 @@ public class PrologueDialogue {
 				return new Response("Wake up", "You slowly start to regain consciousness.", INTRO_NEW_WORLD_1){
 					@Override
 					public void effects() {
-						
 						Main.game.setWeatherInSeconds(Weather.MAGIC_STORM, 5*60*60);
 
 						Main.game.setRenderMap(true);
@@ -465,6 +465,14 @@ public class PrologueDialogue {
 						Main.game.applyStartingDateChange();
 
 						Main.game.getPlayer().addSpecialPerk(Perk.SPECIAL_PLAYER);
+
+						Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
+						Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
+						Main.game.getPlayer().setLustNoText(Main.game.getPlayer().getRestingLust());
+
+						if(femalePrologueNPC()) {
+							Main.game.getNpc(PrologueFemale.class).endPregnancy(false); // This is to clear the pregnancy stats from the player's phone menu
+						}	
 					}
 				};
 			} else {

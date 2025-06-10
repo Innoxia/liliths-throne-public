@@ -698,7 +698,7 @@
 			#IF(game.isBadEndsEnabled())
 				[#game.setBadEnd("Lunexis's Cock-sleeve")]
 				
-				[#pc.unequipAllClothingIntoVoid(true, true)]
+				[#pc.resetInventory(true)]
 				[#meraxis.unequipAllClothingIntoVoid(true, true)]
 				[#ursa.unequipAllClothingIntoVoid(true, true)]
 				[#aurokaris.unequipAllClothingIntoVoid(true, true)]

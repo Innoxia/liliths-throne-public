@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<enchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	<applyDefaultSeal><![CDATA[true]]></applyDefaultSeal>
+	
+	<spawnWeighting><![CDATA[
+		100
+	]]></spawnWeighting>
+	
+	<namePrefix><![CDATA[Size Queen's]]></namePrefix>
+	<namePostfix/>
+	<nameOverride/>
+	
+	<conditionalPreParsing><![CDATA[
+		[#flags.setInt('rapidTF', RND.nextInt(100))]
+	]]></conditionalPreParsing>
+	
+	<!-- 66% chance of normal TF speed (daily TFs) -->
+	<itemEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('rapidTF')>=33]
+		]]></conditional>
+		<effect limit="6" mod1="TF_VAGINA" mod2="TF_MOD_DEPTH" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="15" mod1="TF_VAGINA" mod2="TF_MOD_CAPACITY" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="6" mod1="TF_FACE" mod2="TF_MOD_DEPTH" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="15" mod1="TF_FACE" mod2="TF_MOD_CAPACITY" potency="BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	<itemEffects>
+		<conditional><![CDATA[
+			[#game.isAnalContentEnabled() && flags.getInt('rapidTF')>=33]
+		]]></conditional>
+		<effect limit="6" mod1="TF_ASS" mod2="TF_MOD_DEPTH" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="15" mod1="TF_ASS" mod2="TF_MOD_CAPACITY" potency="BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	<!-- 33% chance of rapid TF (hourly instead of daily) -->
+	<itemEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('rapidTF')<33]
+		]]></conditional>
+		<effect limit="6" mod1="TF_VAGINA" mod2="TF_MOD_DEPTH" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="15" mod1="TF_VAGINA" mod2="TF_MOD_CAPACITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="6" mod1="TF_FACE" mod2="TF_MOD_DEPTH" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="15" mod1="TF_FACE" mod2="TF_MOD_CAPACITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	<itemEffects>
+		<conditional><![CDATA[
+			[#game.isAnalContentEnabled() && flags.getInt('rapidTF')<33]
+		]]></conditional>
+		<effect limit="6" mod1="TF_ASS" mod2="TF_MOD_DEPTH" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="15" mod1="TF_ASS" mod2="TF_MOD_CAPACITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	<itemEffects>
+		<effect limit="0" mod1="TF_MOD_FETISH_BEHAVIOUR" mod2="TF_MOD_FETISH_SIZE_QUEEN" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	
+</enchantment>

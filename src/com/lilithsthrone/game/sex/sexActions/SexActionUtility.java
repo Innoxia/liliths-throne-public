@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.sex.sexActions;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -434,7 +435,7 @@ public class SexActionUtility {
 			return Main.sex.getItemUseInformation().getKey().useItem(item, Main.game.getPlayer(), false, false); // Append full use + effects
 		}
 		@Override
-		public boolean isAvailableDuringImmobilisation(ImmobilisationType type) {
+		public boolean isAvailableDuringImmobilisation(Collection<ImmobilisationType> types) {
 			return true;
 		}
 	};
@@ -473,7 +474,7 @@ public class SexActionUtility {
 			Main.sex.addItemUseDenial(Main.sex.getItemUseInformation().getKey(), Main.game.getPlayer(), Main.sex.getItemUseInformation().getValue().getValue().getItemType());
 		}
 		@Override
-		public boolean isAvailableDuringImmobilisation(ImmobilisationType type) {
+		public boolean isAvailableDuringImmobilisation(Collection<ImmobilisationType> types) {
 			return true;
 		}
 	};
@@ -555,7 +556,12 @@ public class SexActionUtility {
 
 		@Override
 		public String getDescription() {
-			return "";
+			try {
+				return PositioningMenu.positioningSB.toString();
+			} catch(Exception ex) {
+				System.err.println("POSITION_SELECTION: positioningSB does not exist!");
+				return "";
+			}
 		}
 		
 		@Override

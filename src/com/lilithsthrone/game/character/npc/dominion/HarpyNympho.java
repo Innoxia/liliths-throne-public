@@ -81,7 +81,7 @@ public class HarpyNympho extends NPC {
 						+ " As a result, her flock serves as her personal harem; it's members constantly trying to sate their matriarch's never-ending lust.",
 				22, Month.APRIL, 13,
 				7, Gender.F_V_B_FEMALE, Subspecies.HARPY, RaceStage.LESSER,
-				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_PINK, true);
+				new CharacterInventory(false, 30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_PINK, true);
 		
 	}
 
@@ -224,7 +224,7 @@ public class HarpyNympho extends NPC {
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_crotchless_panties", PresetColour.CLOTHING_PINK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_open_cup_bra", PresetColour.CLOTHING_PINK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_ankle_anklet", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_GOLD, null, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_BANGLE, PresetColour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_wrist_bangle", PresetColour.CLOTHING_GOLD, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_finger_ring", PresetColour.CLOTHING_GOLD, false), true, this);
 
 		this.setPiercedEar(true);

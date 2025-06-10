@@ -23,7 +23,6 @@ import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
-import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
@@ -60,12 +59,14 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
 import com.lilithsthrone.game.inventory.enchanting.PossibleItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
+import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.item.TransformativePotion;
@@ -100,10 +101,10 @@ public class Natalya extends NPC {
 		super(isImported, new NameTriplet("Natalya"), "Lunettemartu",
 				"Holding the prestigious title of 'Stable Mistress' at the delivery company, 'Dominion Express', Natalya is responsible for the training and care of over fifty centaur slaves."
 					+ " While she tries her best to remain calm and professional at all times, her lustful demonic urges sometimes get the better of her...",
-				42, Month.OCTOBER, 12,
+				84, Month.OCTOBER, 12,
 				15,
 				null, null, null,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.DOMINION_EXPRESS, PlaceType.DOMINION_EXPRESS_OFFICE_STABLE,
 				true);
 		
@@ -119,14 +120,23 @@ public class Natalya extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.5")) {
 			this.setLocation(WorldType.DOMINION_EXPRESS, PlaceType.DOMINION_EXPRESS_OFFICE_STABLE, true);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.8")) {
-			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_bdsm_riding_crop", DamageType.PHYSICAL));
-		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.20")) {
 			this.setStartingBody(false);
 		}
-		if(this.getClothingInSlot(InventorySlot.LEG)==null) {
-			this.equipClothing(EquipClothingSetting.getAllClothingSettings());
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.9.6")) {
+			if(this.getClothingInSlot(InventorySlot.LEG)==null) {
+				this.equipClothing(EquipClothingSetting.getAllClothingSettings());
+			}
+			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_bdsm_riding_crop", DamageType.PHYSICAL));
+			this.setHeight(186);
+			this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_EBONY), false);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.9.8")) {
+			this.setAge(84);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.10.9")) {
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, PresetColour.EYE_GREEN));
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_SCLERA, PresetColour.EYE_BLACK));
 		}
 	}
 
@@ -174,19 +184,21 @@ public class Natalya extends NPC {
 		this.setBreastCrotchType(BreastType.NONE);
 		
 		// Core:
-		this.setHeight(172);
+		this.setHeight(186);
 		this.setFemininity(80);
 		this.setMuscle(Muscle.TWO_TONED.getMedianValue());
 		this.setBodySize(BodySize.ONE_SLENDER.getMedianValue());
 		
 		// Coverings:
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, PresetColour.EYE_GREY_GREEN));
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, PresetColour.EYE_GREEN));
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_SCLERA, PresetColour.EYE_BLACK));
+		
 		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, PresetColour.SKIN_LILAC_LIGHT), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, PresetColour.COVERING_BLACK), true);
 
 		this.setSkinCovering(new Covering(BodyCoveringType.NIPPLES, PresetColour.SKIN_LILAC), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.ANUS, PresetColour.SKIN_EBONY), false);
-		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, CoveringPattern.MOTTLED, PresetColour.SKIN_EBONY, false, PresetColour.SKIN_LILAC_LIGHT, false), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_EBONY), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.MOUTH, PresetColour.SKIN_LILAC), false);
 		this.setSkinCovering(new Covering(BodyCoveringType.HORN, PresetColour.COVERING_BLACK), false);
 		
@@ -281,6 +293,10 @@ public class Natalya extends NPC {
 		
 		this.setPiercedEar(true);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ear_ball_studs", PresetColour.CLOTHING_SILVER, false), true, this);
+
+		if(settings.contains(EquipClothingSetting.ADD_WEAPONS)) {
+			this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("innoxia_bdsm_riding_crop", DamageType.PHYSICAL));
+		}
 	}
 
 	@Override
@@ -294,6 +310,11 @@ public class Natalya extends NPC {
 	@Override
 	public boolean isUnique() {
 		return true;
+	}
+
+	@Override
+	public String getArtworkFolderName() {
+		return "Natalya";
 	}
 	
 	@Override
@@ -346,10 +367,43 @@ public class Natalya extends NPC {
 		return SexPace.SUB_EAGER;
 	}
 	
+	@Override
+	public Value<Boolean, String> getItemUseEffects(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target) {
+		if(!user.equals(target)) { // Item is not being self-used:
+			String itemName = item.getName();
+			return new Value<>(false,
+					UtilText.parse(user, target,
+						"[npc.Name] [npc.verb(take)] out "+UtilText.generateSingularDeterminer(itemName)+" "+itemName+" from [npc.her] inventory and [npc.verb(try)] to give it to [npc2.name],"
+							+ " but [npc2.she] dismisses it with an angry shout, [npc2.speech(Put that away, you stupid slut!)]"));
+		}
+		return super.getItemUseEffects(item, itemOwner, user, target);
+	}
+	
+	@Override
+	public String getCondomEquipEffects(AbstractClothingType condomClothingType, GameCharacter equipper, GameCharacter target, boolean rough) {
+		if(!target.equals(equipper) && equipper.isPlayer() && !target.isPlayer() && Main.game.isInSex()) {
+			AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
+			if(clothing!=null && clothing.isCondom()) {
+				target.unequipClothingIntoVoid(clothing, true, equipper);
+				target.getInventory().resetEquipDescription();
+			}
+			if(condomClothingType.equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))) {
+				return UtilText.parse(equipper, target,
+						"You direct your spinneret at [npc2.namePos] [npc2.cock], with the intention of weaving a silky web condom around it, but as she sees what it is you're about to do, Natalya angrily slaps it away and shouts,"
+						+ " [natalya.speech(How dare you! Keep that filthy little web-spinner to yourself!)]");
+			}
+			return UtilText.parse(equipper, target,
+					"Not wanting [npc2.name] to cum on or inside of you, you pull out a condom and quickly extract it from its foil packaging."
+						+ " Seeing what it is you're doing, Natalya lets out a furious shout, before snatching the condom out of your [pc.hands] and [style.colourBad(tearing it in half)]."
+						+ " Glaring at you, she snaps, [kate.speech(You disrespectful slut! You'll take "+(target instanceof Natalya?"my":"[npc2.namePos]")+" cum and you'll love it!)]");
+		}
+		return null;
+	}
+	
 	public void insertDildo() {
 		AbstractClothing dildo = Main.game.getItemGen().generateClothing("innoxia_anus_ribbed_dildo", PresetColour.CLOTHING_BLACK, false);
 		
-		dildo.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SPECIAL, TFModifier.CLOTHING_VIBRATION, TFPotency.MAJOR_BOOST, 0));
+		dildo.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_SEXUAL, TFModifier.CLOTHING_VIBRATION, TFPotency.MAJOR_BOOST, 0));
 		dildo.setName("Natalya's "+UtilText.applyVibration("vibrating", dildo.getRarity().getColour())+" dildo");
 		
 		this.equipClothingFromNowhere(dildo, true, this);

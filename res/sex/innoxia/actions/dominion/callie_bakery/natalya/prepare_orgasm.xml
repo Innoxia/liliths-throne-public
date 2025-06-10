@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#flags.hasFlag(FLAG_innoxia_callie_natalya_decoration_finished)]
+	]]></actionConditional>
+	<type>PREPARE_FOR_PARTNER_ORGASM</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>ZERO_NONE</arousalPerformer>
+	<arousalTarget>ZERO_NONE</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>
+	<associatedFetishes/>
+	<performingArea/>
+	<targetedArea/>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+		[##sex.applyOngoingAction(pc, PENETRATION_TONGUE, npc2, ORIFICE_ANUS, true)]
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[
+		Make her cum
+	]]></title>
+	<tooltip><![CDATA[
+		Tongue [npc2.namePos] puffy asshole and make her cum from receiving anilingus.
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<text><![CDATA[
+				#IF(npc2==natalya)
+					You can sense that Mistress Natalya is rapidly approaching her climax, and you're determined to make her cum from the feeling of your [pc.tongue+] in her ebony doughnut. Grabbing hold of her hindquarters, you bury your face in her feral horse's ass and press your [pc.lips+] against her puffy asshole. Passionately making out with her feral anus, you greedily tongue her hot hole, and are rewarded for your efforts by hearing a series of increasingly-lewd moans burst out from between her lips.
+					
+					<br/><br/>
+					
+					[natalya.speechNoEffects(~Ooh!~ Oh fuck!)] your Mistress exclaims, [natalya.speechNoEffects(That's it, [style.mule]! ~Mmm!~ Yes! Make me cum!)]
+					
+				#ELSE
+					From her increasingly-horny moans and high-pitched squeals, it's obvious that Callie is rapidly approaching her climax. Determined to make her cum from the feeling of your [pc.tongue+] in her ebony doughnut, you grab hold of her thighs and bury your face in her ass. Pressing your [pc.lips+] against her puffy asshole, you passionately make out with her equine anus, and as you greedily tongue her hot hole, her huge horse-cock wildly twitches in time with her frantic moans.
+					
+					<br/><br/>
+					
+					[callie.speechNoEffects(~Aah!~ Yes!)] the horse-girl exclaims, [natalya.speechNoEffects(Keep going! ~Ooh!~ I'm... I'm going to cum!)]
+				#ENDIF
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

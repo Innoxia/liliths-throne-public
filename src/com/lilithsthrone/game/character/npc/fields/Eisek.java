@@ -79,7 +79,7 @@ public class Eisek extends NPC {
 			25, Month.FEBRUARY, 9,
 			20,
 			Gender.M_P_MALE, Subspecies.getSubspeciesFromId("dsg_dragon_subspecies_dragon"), RaceStage.GREATER,
-			new CharacterInventory(10),
+			new CharacterInventory(false, 10),
 			WorldType.getWorldTypeFromId("innoxia_fields_elis_market"),
 			PlaceType.getPlaceTypeFromId("dsg_fields_elis_market_produce"),
 			true);

@@ -46,8 +46,21 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
 			if(performer==target) {
-				System.err.println("SexAreaPenetration.PENIS getSexDescription() error: Does not support self actions!");
-				return "";
+				//TODO Improve
+				if(targetArea.isPenetration()) {
+					if(pastTense) {
+						sb.append("[npc.Name] [npc.sexPaceVerb] rubbed [npc.her] [npc.cock+] against [npc.her] "+targetArea.getName(performer)+".");
+					} else {
+						sb.append("[npc.NameIs] [npc.sexPaceVerb] rubbing [npc.her] [npc.cock+] against [npc.her] "+targetArea.getName(performer)+".");
+					}
+				}
+				if(targetArea.isOrifice()) {
+					if(pastTense) {
+						sb.append("[npc.Name] [npc.sexPaceVerb] fucked [npc.her] "+targetArea.getName(performer)+".");
+					} else {
+						sb.append("[npc.NameIs] [npc.sexPaceVerb] fucking [npc.her] "+targetArea.getName(performer)+".");
+					}
+				}
 			}
 			
 			if(targetArea.isPenetration()) {
@@ -973,8 +986,21 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
 			if(performer==target) {
-				System.err.println("SexAreaPenetration.CLIT getSexDescription() error: Does not support self actions!");
-				return "";
+				//TODO Improve
+				if(targetArea.isPenetration()) {
+					if(pastTense) {
+						sb.append("[npc.Name] [npc.sexPaceVerb] rubbed [npc.her] [npc.clit+] against [npc.her] "+targetArea.getName(performer)+".");
+					} else {
+						sb.append("[npc.NameIs] [npc.sexPaceVerb] rubbing [npc.her] [npc.clit+] against [npc.her] "+targetArea.getName(performer)+".");
+					}
+				}
+				if(targetArea.isOrifice()) {
+					if(pastTense) {
+						sb.append("[npc.Name] [npc.sexPaceVerb] clit-fucked [npc.her] "+targetArea.getName(performer)+".");
+					} else {
+						sb.append("[npc.NameIs] [npc.sexPaceVerb] clit-fucking [npc.her] "+targetArea.getName(performer)+".");
+					}
+				}
 			}
 			
 			if(targetArea.isPenetration()) {
@@ -1650,8 +1676,21 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
 			if(performer==target) {
-				System.err.println("SexAreaPenetration.TONGUE getSexDescription() error: Does not support self actions!");
-				return "";
+				//TODO Improve
+				if(targetArea.isPenetration()) {
+					if(pastTense) {
+						sb.append("[npc.Name] [npc.sexPaceVerb] sucked [npc.her] own "+targetArea.getName(performer)+".");
+					} else {
+						sb.append("[npc.NameIs] [npc.sexPaceVerb] sucking [npc.her] own "+targetArea.getName(performer)+".");
+					}
+				}
+				if(targetArea.isOrifice()) {
+					if(pastTense) {
+						sb.append("[npc.Name] [npc.sexPaceVerb] licked and kissed [npc.her] "+targetArea.getName(performer)+".");
+					} else {
+						sb.append("[npc.NameIs] [npc.sexPaceVerb] licking and kissing [npc.her] "+targetArea.getName(performer)+".");
+					}
+				}
 			}
 
 			if(targetArea.isPenetration()) {
@@ -2082,7 +2121,7 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		}
 		@Override
 		public CoverableArea getRelatedCoverableArea(GameCharacter owner) {
-			return CoverableArea.NONE;
+			return CoverableArea.HANDS;
 		}
 		@Override
 		public InventorySlot getRelatedInventorySlot(GameCharacter owner) {
@@ -2092,8 +2131,21 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
 			if(performer==target) {
-				System.err.println("SexAreaPenetration.FINGER getSexDescription() error: Does not support self actions!");
-				return "";
+				//TODO Improve
+				if(targetArea.isPenetration()) {
+					if(pastTense) {
+						sb.append("[npc.Name] [npc.sexPaceVerb] stroked [npc.her] "+targetArea.getName(performer)+".");
+					} else {
+						sb.append("[npc.NameIs] [npc.sexPaceVerb] stroking [npc.her] "+targetArea.getName(performer)+".");
+					}
+				}
+				if(targetArea.isOrifice()) {
+					if(pastTense) {
+						sb.append("[npc.Name] [npc.sexPaceVerb] fingered [npc.her] "+targetArea.getName(performer)+".");
+					} else {
+						sb.append("[npc.NameIs] [npc.sexPaceVerb] fingering [npc.her] "+targetArea.getName(performer)+".");
+					}
+				}
 			}
 			
 			if(targetArea.isPenetration()) {
@@ -2539,8 +2591,21 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
 			if(performer==target) {
-				System.err.println("SexAreaPenetration.FOOT getSexDescription() error: Does not support self actions!");
-				return "";
+				//TODO Improve
+				if(targetArea.isPenetration()) {
+					if(pastTense) {
+						sb.append("[npc.Name] [npc.sexPaceVerb] slid [npc.her] [npc.feet+] up and down around [npc.her] own "+targetArea.getName(performer)+".");
+					} else {
+						sb.append("[npc.NameIs] [npc.sexPaceVerb] sliding [npc.her] [npc.feet+] up and down around [npc.her] own "+targetArea.getName(performer)+".");
+					}
+				}
+				if(targetArea.isOrifice()) {
+					if(pastTense) {
+						sb.append("[npc.Name] [npc.sexPaceVerb] pushed [npc.her] [npc.feet+] against [npc.her] own "+targetArea.getName(performer)+".");
+					} else {
+						sb.append("[npc.NameIs] [npc.sexPaceVerb] pushing [npc.her] [npc.feet+] against [npc.her] own "+targetArea.getName(performer)+".");
+					}
+				}
 			}
 
 			if(targetArea.isPenetration()) {
@@ -2709,8 +2774,21 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
 			if(performer==target) {
-				System.err.println("SexAreaPenetration.TAIL getSexDescription() error: Does not support self actions!");
-				return "";
+				//TODO Improve
+				if(targetArea.isPenetration()) {
+					if(pastTense) {
+						sb.append("[npc.Name] [npc.sexPaceVerb] rubbed [npc.her] [npc.tail+] against [npc.her] "+targetArea.getName(performer)+".");
+					} else {
+						sb.append("[npc.NameIs] [npc.sexPaceVerb] rubbing [npc.her] [npc.tail+] against [npc.her] "+targetArea.getName(performer)+".");
+					}
+				}
+				if(targetArea.isOrifice()) {
+					if(pastTense) {
+						sb.append("[npc.Name] [npc.sexPaceVerb] tail-fucked [npc.her] "+targetArea.getName(performer)+".");
+					} else {
+						sb.append("[npc.NameIs] [npc.sexPaceVerb] tail-fucking [npc.her] "+targetArea.getName(performer)+".");
+					}
+				}
 			}
 
 			if(targetArea.isPenetration()) {
@@ -3194,8 +3272,21 @@ public enum SexAreaPenetration implements SexAreaInterface {
 		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
 			StringBuilder sb = new StringBuilder();
 			if(performer==target) {
-				System.err.println("SexAreaPenetration.TENTACLE getSexDescription() error: Does not support self actions!");
-				return "";
+				//TODO Improve
+				if(targetArea.isPenetration()) {
+					if(pastTense) {
+						sb.append("[npc.Name] [npc.sexPaceVerb] rubbed [npc.her] [npc.tentacle+] against [npc.her] "+targetArea.getName(performer)+".");
+					} else {
+						sb.append("[npc.NameIs] [npc.sexPaceVerb] rubbing [npc.her] [npc.tentacle+] against [npc.her] "+targetArea.getName(performer)+".");
+					}
+				}
+				if(targetArea.isOrifice()) {
+					if(pastTense) {
+						sb.append("[npc.Name] [npc.sexPaceVerb] tentacle-fucked [npc.her] "+targetArea.getName(performer)+".");
+					} else {
+						sb.append("[npc.NameIs] [npc.sexPaceVerb] tentacle-fucking [npc.her] "+targetArea.getName(performer)+".");
+					}
+				}
 			}
 			
 			if(targetArea.isPenetration()) {

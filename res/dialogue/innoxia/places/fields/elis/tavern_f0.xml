@@ -1060,7 +1060,15 @@
 		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
 		<continuesDialogue>false</continuesDialogue>
 		<travelDisabled>true</travelDisabled>
-		<responses copyFromDialogueId="innoxia_places_fields_elis_tavern_f0_meraxis_approach"/>
+		<responses copyFromDialogueId="innoxia_places_fields_elis_tavern_f0_meraxis_approach">
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Takahashi]]></responseTitle>
+				<responseTooltip><![CDATA[You're already asking Meraxis about Takahashi...]]></responseTooltip>
+				<nextDialogue><![CDATA[null]]></nextDialogue>
+			</response>
+		</responses>
 	</scene>
 	
 	<scene id="lunexis_plan">

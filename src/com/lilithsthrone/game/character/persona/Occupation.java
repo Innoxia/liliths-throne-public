@@ -102,12 +102,12 @@ public enum Occupation {
 	NPC_AMAZONIAN_QUEEN(Perk.JOB_AMAZONIAN_QUEEN, "Amazon Queen", "[npc.NameIsFull] the queen of the Amazons, and as such [npc.has] considerable strength and combat abilities.", OccupationTag.HAS_PREREQUISITES),
 	NPC_AMAZONIAN(Perk.JOB_AMAZONIAN, "Amazon", "[npc.NameIsFull] an Amazon, and as such [npc.has] spent much time training for combat.", OccupationTag.HAS_PREREQUISITES),
 
-	NPC_PUGILIST(Perk.JOB_PUGILIST, "pugilist", "[npc.NameIsFull] a professional boxer, and as such is a fearsome opponent in a fight."),
+	NPC_PUGILIST(Perk.JOB_PUGILIST, "pugilist", "[npc.NameIsFull] a professional boxer, and as such is a fearsome opponent in a fight.", OccupationTag.HAS_PREREQUISITES),
 
-	NPC_LILIN_PAWN(Perk.JOB_ELDER_LILIN_PAWN, "elder lilin's helper", "[npc.NameIsFull] carrying out orders on behalf of a lilin."),
+	NPC_LILIN_PAWN(Perk.JOB_ELDER_LILIN_PAWN, "elder lilin's helper", "[npc.NameIsFull] carrying out orders on behalf of a lilin.", OccupationTag.HAS_PREREQUISITES),
 
-	NPC_SEX_DOLL(Perk.JOB_SEX_DOLL, "sex doll", "[npc.NameIsFull] a very realistic-looking sex doll."),
-	
+	NPC_SEX_DOLL(Perk.JOB_SEX_DOLL, "sex doll", "[npc.NameIsFull] a very realistic-looking sex doll.", OccupationTag.HAS_PREREQUISITES),
+
 	// NPC generic histories:
 
 	NPC_UNEMPLOYED(Perk.JOB_UNEMPLOYED, "unemployed", "[npc.NameIsFull] unemployed.", OccupationTag.HAS_PREREQUISITES),
@@ -236,7 +236,7 @@ public enum Occupation {
 	
 	NPC_MODEL(Perk.JOB_MISC, "model", "-"),
 
-	NPC_TRADER(Perk.JOB_NPC_SHOP_MANAGER, "trader", "[npc.Name] is a trader and makes a living by buying and selling various goods."),
+	NPC_TRADER(Perk.JOB_NPC_SHOP_MANAGER, "trader", "[npc.Name] is a trader and makes a living by buying and selling various goods.", OccupationTag.HAS_PREREQUISITES),
 	
 	
 	

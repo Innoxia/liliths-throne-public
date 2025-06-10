@@ -1213,7 +1213,7 @@
 	<p>
 		Giving her what she wants, you move forwards and plant several passionate kisses on her [lunexis.ass+], before burying your face between her cheeks and thrusting your tongue into her asshole.
 		#IF(pc.getClothingInSlot(IS_NECK)!=null && pc.getClothingInSlot(IS_NECK).getClothingType().getId().equals('innoxia_neck_filly_choker'))
-			 Thanks to your training as one of Natalya's fillies, your skills quickly cause the centauress to let out a series of incredibly lewd moans, before panting, [lunexis.speech(Fuck... ~Mmm!~ Oh, fuck! You're so good at this! Oh yeah... Tongue my asshole, you dirty slut!)]
+			 Thanks to your training as one of Natalya's [style.mules], your skills quickly cause the centauress to let out a series of incredibly lewd moans, before panting, [lunexis.speech(Fuck... ~Mmm!~ Oh, fuck! You're so good at this! Oh yeah... Tongue my asshole, you dirty slut!)]
 		#ELSE
 			 Letting out a desperate moan, she demands, [lunexis.speech(Oh yeah, keep going! Tongue my asshole, you dirty slut!)]
 		#ENDIF

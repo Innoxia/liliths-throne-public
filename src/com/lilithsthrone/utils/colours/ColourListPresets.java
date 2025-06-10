@@ -270,6 +270,8 @@ public class ColourListPresets {
 			PresetColour.CLOTHING_PURPLE,
 			PresetColour.CLOTHING_PURPLE_LIGHT,
 			PresetColour.CLOTHING_PERIWINKLE,
+			PresetColour.CLOTHING_DESATURATED_PINK_DARK,
+			PresetColour.CLOTHING_DESATURATED_PINK,
 			PresetColour.CLOTHING_PINK_LIGHT,
 			PresetColour.CLOTHING_PINK,
 			PresetColour.CLOTHING_PINK_HOT,
@@ -330,6 +332,8 @@ public class ColourListPresets {
 			PresetColour.CLOTHING_PURPLE,
 			PresetColour.CLOTHING_PURPLE_LIGHT,
 			PresetColour.CLOTHING_PERIWINKLE,
+			PresetColour.CLOTHING_DESATURATED_PINK_DARK,
+			PresetColour.CLOTHING_DESATURATED_PINK,
 			PresetColour.CLOTHING_PINK_LIGHT,
 			PresetColour.CLOTHING_PINK,
 			PresetColour.CLOTHING_PINK_HOT,
@@ -423,6 +427,23 @@ public class ColourListPresets {
 		ALL_WITH_SKIN_COLOURS = new ArrayList<>(allSkinColours);
 		ALL_WITH_SKIN_COLOURS.addAll(ALL);
 		ALL_WITH_SKIN_COLOURS.removeIf(c->c.isMetallic() || c.isRainbow());
+		
+		List<Colour> desaturatedColours = new ArrayList<>();
+		for(Colour c : ALL) {
+			if(!(c.getColor().getRed()==c.getColor().getGreen() && c.getColor().getGreen()==c.getColor().getBlue())) {
+				Colour desatColour = c.getDesaturatedVersion();
+				
+				desaturatedColours.add(desatColour);
+				PresetColour.addColourToIds(desatColour);
+				
+//				System.out.println(c.getName());
+			}
+		}
+		for(Colour c : desaturatedColours) {
+//			System.out.println("D : "+c.getName());
+			ALL.add(c);
+			ALL_WITH_METALS.add(c);
+		}
 	}
 
 	private static Map<String, ArrayList<Colour>> idToColourListMap = new HashMap<>();

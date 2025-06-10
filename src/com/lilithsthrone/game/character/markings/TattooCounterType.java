@@ -1,6 +1,8 @@
 package com.lilithsthrone.game.character.markings;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -27,6 +29,10 @@ public enum TattooCounterType {
 		public int getCount(GameCharacter bearer) {
 			return 0;
 		}
+		@Override
+		public boolean isRetroactiveApplicationAvailable() {
+			return false;
+		}
 	},
 
 	
@@ -34,6 +40,10 @@ public enum TattooCounterType {
 		@Override
 		public int getCount(GameCharacter bearer) {
 			return bearer.getValueAsSlave(false); 
+		}
+		@Override
+		public boolean isRetroactiveApplicationAvailable() {
+			return false;
 		}
 	},
 	
@@ -58,6 +68,74 @@ public enum TattooCounterType {
 		}
 	},
 
+	PUSSY_FUCKED("pussy penetrated", "Keeps a count of how many times the bearer's pussy has been penetrated.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			return bearer.getTotalTimesOrificePenetrated(SexAreaOrifice.VAGINA);
+		}
+	},
+
+	ANUS_FUCKED("anus penetrated", "Keeps a count of how many times the bearer's asshole has been penetrated.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			return bearer.getTotalTimesOrificePenetrated(SexAreaOrifice.ANUS);
+		}
+		@Override
+		public boolean isAvailable() {
+			return Main.game.isAnalContentEnabled();
+		}
+	},
+	
+	ORAL_FUCKED("mouth penetrated", "Keeps a count of how many times the bearer's mouth has been penetrated.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			return bearer.getTotalTimesOrificePenetrated(SexAreaOrifice.MOUTH);
+		}
+	},
+	
+	NIPPLES_FUCKED("nipples penetrated", "Keeps a count of how many times the bearer's nipples have been penetrated.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			return bearer.getTotalTimesOrificePenetrated(SexAreaOrifice.NIPPLE);
+		}
+		@Override
+		public boolean isAvailable() {
+			return Main.game.isNipplePenEnabled();
+		}
+	},
+	
+	NIPPLES_CROTCH_FUCKED("crotch-nipples penetrated", "Keeps a count of how many times the bearer's crotch-nipples have been penetrated.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			return bearer.getTotalTimesOrificePenetrated(SexAreaOrifice.NIPPLE_CROTCH);
+		}
+		@Override
+		public boolean isAvailable() {
+			return Main.game.isNipplePenEnabled() && Main.game.isUdderContentEnabled();
+		}
+	},
+
+	PENIS_PENETRATIONS("penis penetrations", "Keeps a count of how many times the bearer's penis has penetrated orifices.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			return bearer.getTotalTimesPenetratedOrifices(SexAreaPenetration.PENIS);
+		}
+	},
+
+	TAIL_PENETRATIONS("tail penetrations", "Keeps a count of how many times the bearer's tail has penetrated orifices.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			return bearer.getTotalTimesPenetratedOrifices(SexAreaPenetration.TAIL);
+		}
+	},
+
+	TENTACLE_PENETRATIONS("tentacle penetrations", "Keeps a count of how many times the bearer's tentacles have penetrated orifices.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			return bearer.getTotalTimesPenetratedOrifices(SexAreaPenetration.TENTACLE);
+		}
+	},
+	
 	CUM_GIVEN("total creampies given", "Keeps a count of how many times the bearer has cummed inside someone.") {
 		@Override
 		public int getCount(GameCharacter bearer) {
@@ -77,6 +155,10 @@ public enum TattooCounterType {
 		public int getCount(GameCharacter bearer) {
 			return bearer.getTotalCumCountInArea(SexAreaOrifice.ANUS, true, false);
 		}
+		@Override
+		public boolean isAvailable() {
+			return Main.game.isAnalContentEnabled();
+		}
 	},
 
 	CUM_GIVEN_ORAL("oral loads given", "Keeps a count of how many times the bearer has cummed down someone's throat.") {
@@ -86,10 +168,36 @@ public enum TattooCounterType {
 		}
 	},
 
+	CUM_GIVEN_NIPPLES("nipple creampies given", "Keeps a count of how many times the bearer has cummed into someone's nipples.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			return bearer.getTotalCumCountInArea(SexAreaOrifice.NIPPLE, true, false);
+		}
+		@Override
+		public boolean isAvailable() {
+			return Main.game.isNipplePenEnabled();
+		}
+	},
+
+	CUM_GIVEN_NIPPLES_CROTCH("crotch-nipple creampies given", "Keeps a count of how many times the bearer has cummed into someone's crotch-nipple.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			return bearer.getTotalCumCountInArea(SexAreaOrifice.NIPPLE_CROTCH, true, false);
+		}
+		@Override
+		public boolean isAvailable() {
+			return Main.game.isNipplePenEnabled() && Main.game.isUdderContentEnabled();
+		}
+	},
+
 	CUM_GIVEN_FEET("footjob climaxes received", "Keeps a count of how many times the bearer has cummed onto their partner's feet.") {
 		@Override
 		public int getCount(GameCharacter bearer) {
 			return bearer.getTotalCumCountInArea(SexAreaPenetration.FOOT, true, false);
+		}
+		@Override
+		public boolean isAvailable() {
+			return Main.game.isFootContentEnabled();
 		}
 	},
 	
@@ -98,6 +206,7 @@ public enum TattooCounterType {
 		public int getCount(GameCharacter bearer) {
 			return bearer.getTotalCumCount(false, true);
 		}
+
 	},
 
 	CUM_TAKEN_PUSSY("pussy creampies received", "Keeps a count of how many times the bearer has taken a load of cum in their pussy.") {
@@ -112,6 +221,10 @@ public enum TattooCounterType {
 		public int getCount(GameCharacter bearer) {
 			return bearer.getTotalCumCountInArea(SexAreaOrifice.ANUS, false, true);
 		}
+		@Override
+		public boolean isAvailable() {
+			return Main.game.isAnalContentEnabled();
+		}
 	},
 
 	CUM_TAKEN_ORAL("loads swallowed", "Keeps a count of how many times the bearer has swallowed a load of cum.") {
@@ -121,10 +234,36 @@ public enum TattooCounterType {
 		}
 	},
 
+	CUM_TAKEN_NIPPLES("nipple creampies received", "Keeps a count of how many times the bearer has taken a load of cum in their nipples.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			return bearer.getTotalCumCountInArea(SexAreaOrifice.NIPPLE, false, true);
+		}
+		@Override
+		public boolean isAvailable() {
+			return Main.game.isNipplePenEnabled();
+		}
+	},
+
+	CUM_TAKEN_NIPPLES_CROTCH("crotch-nipple creampies received", "Keeps a count of how many times the bearer has taken a load of cum in their crotch-nipples.") {
+		@Override
+		public int getCount(GameCharacter bearer) {
+			return bearer.getTotalCumCountInArea(SexAreaOrifice.NIPPLE_CROTCH, false, true);
+		}
+		@Override
+		public boolean isAvailable() {
+			return Main.game.isNipplePenEnabled() && Main.game.isUdderContentEnabled();
+		}
+	},
+
 	CUM_TAKEN_FEET("footjob climaxes given", "Keeps a count of how many times the bearer has had their partner cum over their feet.") {
 		@Override
 		public int getCount(GameCharacter bearer) {
 			return bearer.getTotalCumCountInArea(SexAreaPenetration.FOOT, false, true); 
+		}
+		@Override
+		public boolean isAvailable() {
+			return Main.game.isFootContentEnabled();
 		}
 	},
 	
@@ -237,6 +376,10 @@ public enum TattooCounterType {
 			
 			return count; 
 		}
+		@Override
+		public boolean isAvailable() {
+			return Main.game.isAnalContentEnabled();
+		}
 	},
 	
 	VIRGINITIES_TAKEN_ORAL("oral deflowerments", "Keeps a count of how many oral virginities the bearer has taken.") {
@@ -314,6 +457,10 @@ public enum TattooCounterType {
 				return 0;
 			}
 			return bearer.getPregnantLitter().getTotalLitterCount();
+		}
+		@Override
+		public boolean isRetroactiveApplicationAvailable() {
+			return false;
 		}
 	},
 
@@ -418,6 +565,10 @@ public enum TattooCounterType {
 				return Math.round(Units.mlToOz(bearer.getTotalFluidInArea(SexAreaOrifice.VAGINA)));
 			}
 		}
+		@Override
+		public boolean isRetroactiveApplicationAvailable() {
+			return false;
+		}
 	},
 	
 	CUM_IN_ASS("cum in ass", "Displays how much cum is currently in the bearer's ass (in "+(Main.getProperties().hasValue(PropertyValue.metricFluids)?"mL":"oz")+").") {
@@ -428,6 +579,14 @@ public enum TattooCounterType {
 			} else {
 				return Math.round(Units.mlToOz(bearer.getTotalFluidInArea(SexAreaOrifice.ANUS)));
 			}
+		}
+		@Override
+		public boolean isAvailable() {
+			return Main.game.isAnalContentEnabled();
+		}
+		@Override
+		public boolean isRetroactiveApplicationAvailable() {
+			return false;
 		}
 	},
 	
@@ -440,8 +599,11 @@ public enum TattooCounterType {
 				return Math.round(Units.mlToOz(bearer.getTotalFluidInArea(SexAreaOrifice.MOUTH)));
 			}
 		}
-	},
-	;
+		@Override
+		public boolean isRetroactiveApplicationAvailable() {
+			return false;
+		}
+	};
 	
 	private String name;
 	private String description;
@@ -459,5 +621,33 @@ public enum TattooCounterType {
 
 	public String getDescription() {
 		return description;
+	}
+	
+	public boolean isRetroactiveApplicationAvailable() {
+		return true;
+	}
+
+	/**
+	 * @return The negative int which should be applied in order to start this TattooCounter at 0 (i.e. a value for removing retroactive application)
+	 */
+	public int getNonRetroactiveOffset(GameCharacter bearer) {
+		if(!isRetroactiveApplicationAvailable()) {
+			return 0;
+		}
+		return -getCount(bearer);
+	}
+	
+	public boolean isAvailable() {
+		return true;
+	}
+	
+	public static List<TattooCounterType> getTattooCounterTypesWithContentFiltersApplied() {
+		List<TattooCounterType> returnList = new ArrayList<>();
+		for(TattooCounterType tct : TattooCounterType.values()) {
+			if(tct.isAvailable()) {
+				returnList.add(tct);
+			}
+		}
+		return returnList;
 	}
 }

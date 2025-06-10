@@ -2,6 +2,7 @@ package com.lilithsthrone.game.character.npc.submission;
 
 import java.time.Month;
 import java.util.List;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -9,6 +10,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.HornType;
@@ -45,6 +47,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
+import com.lilithsthrone.game.character.persona.Relationship;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -77,7 +80,7 @@ public class Elizabeth extends NPC {
 				new NameTriplet("Elizabeth"), "Lyssiethmartu",
 				"An unrecognised daughter of Lyssieth, Elizabeth is captain of her mother's royal guard. She is tasked with protecting the entrance to Lyssieth's palace.",
 				23, Month.JUNE, 22,
-				25, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.PARTIAL_FULL, new CharacterInventory(10), WorldType.SUBMISSION, PlaceType.SUBMISSION_LILIN_PALACE_GATE, true);
+				25, Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.PARTIAL_FULL, new CharacterInventory(false, 10), WorldType.SUBMISSION, PlaceType.SUBMISSION_LILIN_PALACE_GATE, true);
 
 		if(!isImported) {
 			this.setPlayerKnowsName(false);
@@ -260,6 +263,14 @@ public class Elizabeth extends NPC {
 	@Override
 	public boolean isAbleToBeImpregnated() {
 		return true;
+	}
+
+	@Override
+	public Set<Relationship> getRelationshipsTo(GameCharacter character, Relationship... excludedRelationships) {
+		if(character.isPlayer() && Main.game.getDialogueFlags().hasFlag("innoxia_child_of_lyssieth")) {
+			return Util.newHashSetOfValues(Relationship.HalfSibling);
+		}
+		return super.getRelationshipsTo(character, excludedRelationships);
 	}
 	
 	@Override

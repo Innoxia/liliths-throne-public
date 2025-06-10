@@ -75,7 +75,7 @@ public class HarpyDominantCompanion extends NPC {
 						+ " Just like most of the harpies in her mistress's nest, she does absolutely anything Diana orders her to do, which often involves administering humiliating punishments...",
 				19, Month.JUNE, 14,
 				5, Gender.M_P_MALE, Subspecies.HARPY, RaceStage.LESSER,
-				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_RED, true);
+				new CharacterInventory(false, 30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_RED, true);
 		
 	}
 	

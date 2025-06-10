@@ -41,6 +41,7 @@
 		]]></travelDisabled>
 		<responses>
 			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_oglix_introduced)]]]></availabilityConditional>
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[1]]></index>
 				<responseTitle><![CDATA[Bar]]></responseTitle>
@@ -2024,7 +2025,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Watch]]></responseTitle>
-				<responseTooltip><![CDATA[Watch Oglix's elemental fuck [attacker.race]...]]></responseTooltip>
+				<responseTooltip><![CDATA[Watch Oglix's elemental fuck the [attacker.race]...]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariablesWithManager enabled="true">
 					<id><![CDATA[innoxia_elis_tavern_alley_after_brawl_watch]]></id>
@@ -2181,7 +2182,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[2]]></index>
 				<responseTitle><![CDATA[Watch]]></responseTitle>
-				<responseTooltip><![CDATA[Watch Oglix's elemental fuck [attacker.race]...]]></responseTooltip>
+				<responseTooltip><![CDATA[Watch Oglix's elemental fuck the [attacker.race]...]]></responseTooltip>
 				<nextDialogue/>
 				<sexVariablesWithManager enabled="true">
 					<id><![CDATA[innoxia_elis_tavern_alley_after_brawl_watch]]></id>

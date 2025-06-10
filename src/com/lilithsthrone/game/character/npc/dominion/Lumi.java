@@ -76,7 +76,7 @@ public class Lumi extends NPC {
 				Gender.F_V_B_FEMALE,
 				Subspecies.HUMAN,
 				RaceStage.HUMAN,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.EMPTY,
 				PlaceType.GENERIC_HOLDING_CELL,
 				true);

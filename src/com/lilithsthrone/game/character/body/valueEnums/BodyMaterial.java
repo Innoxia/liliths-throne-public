@@ -7,7 +7,20 @@ import java.util.Map;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType;
+import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
+import com.lilithsthrone.game.character.body.types.BreastType;
+import com.lilithsthrone.game.character.body.types.PenisType;
+import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.AbstractFetish;
+import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.combat.DamageType;
+import com.lilithsthrone.game.occupantManagement.slave.SlavePermission;
+import com.lilithsthrone.game.occupantManagement.slave.SlavePermissionSetting;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
@@ -547,5 +560,207 @@ public enum BodyMaterial {
 	 */
 	public boolean isOrificesLimitedDepth() {
 		return this==FLESH;
+	}
+	
+	/**
+	 * Turns character into a doll.
+	 */
+	public static void applyGenericSiliconeBodyChange(GameCharacter doll) {
+		doll.removeStatusEffect(StatusEffect.PREGNANT_0);
+		
+		// Standard attributes
+		doll.setHeight(160);
+		doll.setMuscle(Muscle.TWO_TONED.getMedianValue());
+		doll.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+		if(doll.isFeminine()) {
+			doll.setFemininity(100);
+		}
+		doll.setArmRows(1);
+		if(doll.getLegConfiguration()!=LegConfiguration.BIPEDAL) {
+			doll.setLegConfiguration(doll.getLegType().getRace().getRacialBody().getLegType(), LegConfiguration.BIPEDAL, false);
+		}
+//		doll.setLegConfiguration(doll.getTrueRace().getRacialBody().getLegType(), LegConfiguration.BIPEDAL, false);
+		// Why was this added? Commented out in 0.4.10.4
+//		doll.setTailType(TailType.NONE);
+//		doll.setHornType(HornType.NONE);
+//		doll.setAntennaType(AntennaType.NONE);
+//		doll.setWingType(WingType.NONE);
+		
+		// Sexual orifices:
+		doll.completeVirginityReset();
+		
+		// Breasts:
+		doll.setBreastSize(CupSize.DD);
+		doll.setBreastShape(BreastShape.ROUND);
+		doll.setBreastRows(1);
+		doll.setBreastMilkStorage(0);
+		doll.setBreastCrotchMilkStorage(0);
+		
+		// Nipples:
+		doll.setNippleSize(NippleSize.TWO_BIG);
+		doll.setNippleShape(NippleShape.NORMAL);
+		doll.setAreolaeSize(AreolaeSize.TWO_BIG);
+		doll.setAreolaeShape(AreolaeShape.NORMAL);
+		doll.setNippleCountPerBreast(1);
+		doll.setNippleCapacity(Capacity.ONE_EXTREMELY_TIGHT.getMedianValue(), true);
+		doll.setNippleElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
+		doll.setNipplePlasticity(OrificePlasticity.ZERO_RUBBERY.getValue());
+		doll.clearNippleOrificeModifiers();
+		doll.addNippleOrificeModifier(OrificeModifier.RIBBED);
+		doll.clearMilkModifiers();
+		doll.addMilkModifier(FluidModifier.MINERAL_OIL);
+		doll.addMilkModifier(FluidModifier.SLIMY);
+		doll.setMilkFlavour(FluidFlavour.FLAVOURLESS);
+		doll.getCovering(BodyCoveringType.MILK).setPrimaryColour(PresetColour.COVERING_CLEAR);
+		boolean hadCrotchBoobs = doll.hasBreastsCrotch();
+		if(!hadCrotchBoobs) {
+			doll.setBreastCrotchType(BreastType.HORSE_MORPH);
+		}
+		doll.setNippleCrotchElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
+		doll.setNippleCrotchPlasticity(OrificePlasticity.ZERO_RUBBERY.getValue());
+		doll.clearNippleCrotchOrificeModifiers();
+		doll.addNippleCrotchOrificeModifier(OrificeModifier.RIBBED);
+		doll.clearMilkCrotchModifiers();
+		doll.addMilkCrotchModifier(FluidModifier.MINERAL_OIL);
+		doll.addMilkCrotchModifier(FluidModifier.SLIMY);
+		doll.setMilkCrotchFlavour(FluidFlavour.FLAVOURLESS);
+		if(!hadCrotchBoobs) {
+			doll.setBreastCrotchType(BreastType.NONE);
+		}
+		
+		// Ass:
+		doll.setAssCapacity(Capacity.TWO_TIGHT, true);
+		doll.setAssElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
+		doll.setAssPlasticity(OrificePlasticity.ZERO_RUBBERY.getValue());
+		doll.setAssWetness(Wetness.THREE_WET);
+		doll.clearAssOrificeModifiers();
+		doll.addAssOrificeModifier(OrificeModifier.RIBBED);
+		
+		// Tongue:
+		doll.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
+		doll.resetTongueModifiers();
+		// Face:
+		doll.setFaceCapacity(Capacity.TWO_TIGHT, true);
+		doll.setFaceElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
+		doll.setFacePlasticity(OrificePlasticity.ZERO_RUBBERY.getValue());
+		doll.setFaceWetness(Wetness.THREE_WET.getValue());
+		doll.clearFaceOrificeModifiers();
+		doll.addFaceOrificeModifier(OrificeModifier.RIBBED);
+		// Eyes:
+		doll.setIrisShape(EyeShape.ROUND);
+		
+		// Vagina:
+		boolean hadVagina = doll.hasVagina();
+		if(!hadVagina) {
+			doll.setVaginaType(VaginaType.HUMAN);
+		}
+		doll.setClitorisGirth(PenetrationGirth.ZERO_THIN.getValue());
+		doll.setVaginaClitorisSize(ClitorisSize.ZERO_AVERAGE.getMedianValue());
+		doll.resetClitorisModifiers();
+		doll.setVaginaLabiaSize(LabiaSize.ZERO_TINY);
+		doll.setVaginaCapacity(Capacity.TWO_TIGHT, true);
+		doll.setVaginaElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
+		doll.setVaginaPlasticity(OrificePlasticity.ZERO_RUBBERY.getValue());
+		doll.setVaginaUrethraCapacity(Capacity.ONE_EXTREMELY_TIGHT.getMedianValue(), true);
+		doll.setVaginaUrethraElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
+		doll.setVaginaUrethraPlasticity(OrificePlasticity.ZERO_RUBBERY.getValue());
+		doll.clearVaginaUrethraOrificeModifiers();
+		doll.clearGirlcumModifiers();
+		doll.addGirlcumModifier(FluidModifier.MINERAL_OIL);
+		doll.addGirlcumModifier(FluidModifier.SLIMY);
+		doll.setGirlcumFlavour(FluidFlavour.FLAVOURLESS);
+		doll.getCovering(BodyCoveringType.GIRL_CUM).setPrimaryColour(PresetColour.COVERING_CLEAR);
+		doll.setHymen(false);
+		doll.setVaginaWetness(Wetness.THREE_WET);
+		doll.setVaginaSquirter(true);
+		doll.clearVaginaOrificeModifiers();
+		doll.addVaginaOrificeModifier(OrificeModifier.RIBBED);
+		if(!hadVagina) {
+			doll.setVaginaType(VaginaType.NONE);
+		}
+		
+		// Penis:
+		boolean hadPenis = doll.hasPenis();
+		if(!hadPenis) {
+			doll.setPenisType(PenisType.HUMAN);
+		}
+		doll.setPenisSize(PenisLength.THREE_LARGE.getMedianValue());
+		doll.setTesticleSize(TesticleSize.THREE_LARGE);
+		if(doll.hasVagina()) {
+			doll.setInternalTesticles(true);
+		} else {
+			doll.setInternalTesticles(false);
+		}
+		doll.setPenisCapacity(Capacity.ONE_EXTREMELY_TIGHT.getMedianValue(), true);
+		doll.setUrethraElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
+		doll.setUrethraPlasticity(OrificePlasticity.ZERO_RUBBERY.getValue());
+		doll.clearUrethraOrificeModifiers();
+		doll.clearCumModifiers();
+		doll.addCumModifier(FluidModifier.MINERAL_OIL);
+		doll.addCumModifier(FluidModifier.SLIMY);
+		doll.setCumFlavour(FluidFlavour.FLAVOURLESS);
+		doll.getCovering(BodyCoveringType.CUM).setPrimaryColour(PresetColour.COVERING_CLEAR);
+		doll.setPenisCumStorage(250);
+		if(!hadPenis) {
+			doll.setPenisType(PenisType.NONE);
+		}
+		
+		// Spinneret:
+		boolean hadSpinneret = doll.hasSpinneret();
+		AbstractTailType originalTail = doll.getTailType();
+		if(!hadSpinneret) {
+			doll.setTailType(TailType.getTailTypeFromId("charisma_spider_tail"));
+		}
+		doll.setSpinneretCapacity(Capacity.ONE_EXTREMELY_TIGHT.getMedianValue(), true);
+		doll.setSpinneretElasticity(OrificeElasticity.FIVE_STRETCHY.getValue());
+		doll.setSpinneretPlasticity(OrificePlasticity.ZERO_RUBBERY.getValue());
+		doll.setSpinneretWetness(Wetness.THREE_WET.getValue());
+		if(!hadSpinneret) {
+			doll.setTailType(originalTail);
+		}
+		
+		// Remove all hair:
+		doll.setHairLength(0);
+		doll.setFacialHair(0);
+		doll.setUnderarmHair(0);
+		doll.setPubicHair(0);
+		doll.setAssHair(0);
+	}
+	
+	public static void applyGenericSiliconeMentalChange(GameCharacter doll) {
+		// Birthday of a doll is when they're created
+		doll.setBirthday(Main.game.getDateNow());
+		// Personality:
+		doll.clearPersonalityTraits();
+		// Banish elemental:
+		doll.setElementalSummoned(false);
+		// Level 1, no experience, no essences:
+		doll.setLevel(1);
+		doll.setExperience(0);
+		doll.setEssenceCount(0);
+		// Occupation & perks:
+		doll.setOccupation(Occupation.NPC_SEX_DOLL);
+		doll.resetPerksMap(false, false);
+		doll.resetSpecialPerksMap();
+		doll.setupPerks(true);
+		// Status effects:
+		doll.removeStatusEffect(StatusEffect.RECOVERING_AURA);
+		// Fetish removals:
+		doll.clearFetishes();
+		doll.clearFetishDesires();
+		doll.applyFetishLossEffectsForAllClothingAndTattoos(); // Apply fetish loss effects from tattoos and clothing (dolls are not affected by them)
+		for(AbstractFetish f : Fetish.allFetishes) {
+			doll.setFetishExperience(f, 0);
+		}
+		// Fluid effects:
+		doll.setAlcoholLevel(0);
+		doll.removeStatusEffect(StatusEffect.PSYCHOACTIVE);
+		doll.clearAddictions();
+		// Slavery:
+		doll.setObedience(100);
+		doll.addSlavePermissionSetting(SlavePermission.PILLS, SlavePermissionSetting.PILLS_NO_PILLS);
+		doll.addSlavePermissionSetting(SlavePermission.SLEEPING, SlavePermissionSetting.SLEEPING_DEFAULT);
+		doll.addSlavePermissionSetting(SlavePermission.DIET, SlavePermissionSetting.FOOD_NORMAL);
+		doll.addSlavePermissionSetting(SlavePermission.EXERCISE, SlavePermissionSetting.EXERCISE_NORMAL);
 	}
 }

@@ -139,21 +139,33 @@ public class TentacleAnus {
 						break;
 					case SUB_RESISTING:
 						if(Main.sex.getCharacterTargetedForSexAction(this).isAssVirgin()) {
-							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-									" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] at the thought of what's about to happen, [npc2.speech(No! Don't! Please! I-I've never done anal before! You can't do this!)]",
-	
-									" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob], before pleading, [npc2.speech(Please! Don't do this! I've never done anal before!)]",
-	
-									" [npc2.Name] [npc2.sobVerb] in distress at the thought of what's about to happen, before desperately begging, [npc2.speech(No! Stop! I don't want to lose my anal virginity!)]"));
+							if(Main.sex.getCharacterTargetedForSexAction(this).isMute()) {
+								UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+										" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] at the thought of being about to lose [npc2.her] anal virginity.",
+										" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob] as [npc2.she] [npc2.verb(realise)] that [npc2.she] might be about to lose [npc2.her] anal virginity.",
+										" [npc2.Name] [npc2.sobVerb] in distress at the thought of losing [npc2.her] anal virginity to [npc.namePos] [npc.tentacle+]."));
+								
+							} else {
+								UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+										" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] at the thought of what's about to happen, [npc2.speech(No! Stop! I've never done anal before!)]",
+										" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob], before pleading, [npc2.speech(Please! Don't do this! I've never done anal before!)]",
+										" [npc2.Name] [npc2.sobVerb] in distress at the thought of what's about to happen, before desperately begging, [npc2.speech(No! Stop! I don't want to lose my anal virginity!)]"));
+							}
 							
 						} else {
-							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-									" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] [npc2.verb(try)] to pull [npc2.her] [npc2.assCloaca] away from [npc.namePos] [npc.tentacle(true)],"
-											+ " [npc2.speech(No! Don't! Please, get away from me!)]",
-	
-									" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob], before pleading, [npc2.speech(Please! Don't do this! Leave me alone!)]",
-	
-									" [npc2.Name] [npc2.sobVerb] in distress as [npc2.name] [npc2.verb(beg)], [npc2.speech(No! Stop! Get away from there!)]"));
+							if(Main.sex.getCharacterTargetedForSexAction(this).isMute()) {
+								UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+										" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] [npc2.verb(try)] to pull [npc2.her] [npc2.assCloaca] away from [npc.namePos] [npc.tentacle].",
+										" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob] as [npc2.she] [npc2.verb(struggle)] against [npc.name].",
+										" [npc2.Name] [npc2.sobVerb] in distress as [npc2.she] [npc2.verb(try)] to pull away from [npc.namePos] [npc.tentacle]."));
+								
+							} else {
+								UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+										" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] [npc2.verb(try)] to pull [npc2.her] [npc2.assCloaca] away from [npc.namePos] [npc.tentacle(true)],"
+												+ " [npc2.speech(No! Don't! Please, get away from me!)]",
+										" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob], before pleading, [npc2.speech(Please! Don't do this! Leave me alone!)]",
+										" [npc2.Name] [npc2.sobVerb] in distress as [npc2.name] [npc2.verb(beg)], [npc2.speech(No! Stop! Get away from there!)]"));
+							}
 						}
 						break;
 					default:

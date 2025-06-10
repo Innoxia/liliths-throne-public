@@ -126,7 +126,7 @@
 			
 			<!--Masculine PC jacket -->
 			<uniqueClothing>
-				<conditional><![CDATA[(condSpringOrAutumn && (!condFeminine) && condConstable]]></conditional>
+				<conditional><![CDATA[condSpringOrAutumn && (!condFeminine) && condConstable]]></conditional>
 				<clothing colour="CLOTHING_BLACK" colourSecondary="CLOTHING_BLUE" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_servequipset_enfdjacket" isDirty="false">
 					<stickers>
 						<sticker category="collar">tab_pc</sticker>
@@ -224,7 +224,7 @@
 			
 			<!--Masculine long sleeved shirt-->
 			<uniqueClothing>
-				<conditional><![CDATA[(condSpringOrAutumn || condWinter) && (!condFeminine)]]></conditional>
+				<conditional><![CDATA[(condSpringOrAutumn || condWinter) && !condFeminine]]></conditional>
 				<clothing colour="CLOTHING_BLUE" colourSecondary="CLOTHING_BLACK" colourTertiary="CLOTHING_GOLD" enchantmentKnown="true" id="dsg_eep_ptrlequipset_lsldshirt" isDirty="false"></clothing>
 			</uniqueClothing>
 			

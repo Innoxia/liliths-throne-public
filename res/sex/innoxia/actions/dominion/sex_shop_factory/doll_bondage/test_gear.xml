@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#!npc.isPlayer() && sex.getLastUsedSexAction(doll).getId()!='innoxia_dominion_sex_shop_factory_doll_bondage_test_gear']
+	]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>ZERO_NONE</arousalPerformer>
+	<arousalTarget>FIVE_EXTREME</arousalTarget>
+	<associatedCorruption>TWO_HORNY</associatedCorruption>
+	<associatedFetishes/>
+	<performingArea/>
+	<targetedArea/>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[
+		Test gear
+	]]></title>
+	<tooltip><![CDATA[
+		Use this opportunity to test the bondage gear's durability.
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<text><![CDATA[
+				[style.random(
+					Using this opportunity to test the durability of your bondage gear, 
+					|
+					Wanting to test the limits of your bondage gear, 
+					|
+					Deciding that now's the time to test out some of your bondage gear, 
+					|
+					Taking a moment to test the durability of your bondage gear, 
+				)]
+				the doll
+				[style.random(
+					 hilts her dildo deep in your pussy and 
+					|
+					 reaches up and 
+					|
+					 slams her strap-on deep into your cunt and 
+					|
+					stops fucking you for a moment and 
+				)]
+				[style.random(
+					roughly pulls on your nipple clamps. Your moans are muffled into your ballgag as your silicone nipples are painfully pinched and tugged on, and you squirm about in your bindings as the doll continues to yank on the clamps.
+					|
+					grabs your leather choker. Yanking on it, she causes you to choke and splutter, which does nothing to deter her from tightly squeezing it around your neck.
+					|
+					takes hold of your spreader bar. Yanking it up and backwards, she forces your ankles to be pulled back behind your head, which thanks to your flexible silicone body doesn't cause you any discomfort.
+					|
+					pulls on the ropes of your karada. Tightening them around the base of your [pc.cupSize]-cup breasts, she painfully constricts your tits, forcing them to deform and swell outwards.
+				)]
+				
+				<br/><br/>
+				
+				Satisfied with how the bondage gear is holding up, she returns her focus to roughly fucking you with her strap-on.
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

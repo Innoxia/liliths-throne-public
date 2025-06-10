@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>DOMINION</worldRegion>
+	<name><![CDATA[corridor]]></name>
+	<tooltipDescription><![CDATA[This corridor in the rear of the building links the elevator to the staff room.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in the back of Lovienne's Luxuries]]></virginityLossDescription>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<colour>BASE_GREY</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_dominion_sex_shop_generic_elevator_corridor</dialogue>
+	<populationPresent/>
+	<furniturePresent>true</furniturePresent>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[DAYLIGHT]]></darkness>
+	<teleportPermissions>NONE</teleportPermissions>
+	<weatherImmunities immuneToAll="true"/>
+	<applyInventoryInit/>
+</placeType>

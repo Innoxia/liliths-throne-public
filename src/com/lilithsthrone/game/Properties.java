@@ -1,10 +1,13 @@
 package com.lilithsthrone.game;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -21,6 +24,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.controller.xmlParsing.XMLUtil;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.AgeCategory;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.fetishes.AbstractFetish;
@@ -50,12 +54,14 @@ import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
 import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.Artist;
+import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
 /**
  * @since 0.1.0
- * @version 0.4.2
+ * @version 0.4.10.8
  * @author Innoxia, Maxis
  */
 public class Properties {
@@ -67,7 +73,7 @@ public class Properties {
 	public String race = "";
 	public String quest = "";
 	public String versionNumber = "";
-	public String preferredArtist = "jam";
+	public List<String> artistPriority = new ArrayList<>();
 
 	public String badEndTitle = "";
 	
@@ -76,6 +82,7 @@ public class Properties {
 	public int money = 0;
 	public int arcaneEssences = 0;
 	
+	// Taur furry options:
 	public static final String[] taurFurryLevelName = new String[] {
 			"Untouched",
 			"Human",
@@ -92,6 +99,19 @@ public class Properties {
 			"If an NPC is generated as a taur, they will always have the upper-body of a greater morph, spawning in with furry ears, eyes, horns, antenna, breasts, arms, skin/fur, and face."};
 	public int taurFurryLevel = 2;
 
+	// Offspring gender options:
+	public static final String[] offspringGenderName = new String[] {
+			"No offspring",
+			"Self-offspring",
+			"NPC-offspring",
+			"All offspring"};
+	public static final String[] offspringGenderDescription = new String[] {
+			"The gender of all offspring birthed throughout the game by both NPCs and the player will use gender ratios which are derived from their race.",
+			"The gender of offspring birthed by the player will use the gender preferences that you've defined on this page. Offspring birthed by NPCs will use gender ratios which are derived from the offspring's race.",
+			"The gender of offspring birthed by NPCs will use the gender preferences that you've defined on this page. Offspring birthed by the player will use gender ratios which are derived from the offspring's race.",
+			"The gender of all offspring birthed throughout the game by both NPCs and the player will use the gender preferences that you've defined on this page."};
+	public int offspringGenderLevel = 0;
+	
 	public int humanSpawnRate = 5;
 	public int taurSpawnRate = 5;
 	public int halfDemonSpawnRate = 5;
@@ -118,6 +138,9 @@ public class Properties {
 			"Neither randomly-generated taurs nor anthro-morphs will ever have udders or crotch-boobs.",
 			"Randomly-generated NPCs will only have udders or crotch-boobs if they have a non-bipedal body. (Default setting.)",
 			"Randomly-generated greater-anthro-morphs, as well as taurs, will have udders and crotch boobs."};
+
+	/** 0=off, 1=weekly, 2=daily, 3=hourly*/
+	private int hairGrowth = 1;
 	
 	public int autoSaveFrequency = 0;
 	public static String[] autoSaveLabels = new String[] {"Always", "Daily", "Weekly"};
@@ -290,6 +313,13 @@ public class Properties {
 		clothingDiscovered = new HashSet<>();
 		subspeciesDiscovered = new HashSet<>();
 		subspeciesAdvancedKnowledge = new HashSet<>();
+		
+		artistPriority = new ArrayList<>();
+		List<Artist> artists = new ArrayList<>(Artwork.allArtists);
+		Collections.sort(artists, (e1, e2)->e2.getArtworkCount()-e1.getArtworkCount());
+		for(Artist a : artists) {
+			artistPriority.add(a.getFolderName());
+		}
 	}
 	
 	public void savePropertiesAsXML(){
@@ -327,7 +357,9 @@ public class Properties {
 			properties.appendChild(settings);
 			createXMLElementWithValue(doc, settings, "fontSize", String.valueOf(fontSize));
 			
-			createXMLElementWithValue(doc, settings, "preferredArtist", preferredArtist);
+//			createXMLElementWithValue(doc, settings, "preferredArtist", preferredArtist);
+			
+			
 			if(!badEndTitle.isEmpty()) {
 				createXMLElementWithValue(doc, settings, "badEndTitle", badEndTitle);
 			}
@@ -338,6 +370,7 @@ public class Properties {
 			createXMLElementWithValue(doc, settings, "taurFurryLevel", String.valueOf(taurFurryLevel));
 			createXMLElementWithValue(doc, settings, "multiBreasts", String.valueOf(multiBreasts));
 			createXMLElementWithValue(doc, settings, "udders", String.valueOf(udders));
+			createXMLElementWithValue(doc, settings, "hairGrowth", String.valueOf(hairGrowth));
 			createXMLElementWithValue(doc, settings, "autoSaveFrequency", String.valueOf(autoSaveFrequency));
 			createXMLElementWithValue(doc, settings, "bypassSexActions", String.valueOf(bypassSexActions));
 			createXMLElementWithValue(doc, settings, "fullExposureDescriptions", String.valueOf(fullExposureDescriptions));
@@ -368,6 +401,22 @@ public class Properties {
 			createXMLElementWithValue(doc, settings, "difficultyLevel", difficultyLevel.toString());
 			createXMLElementWithValue(doc, settings, "AIblunderRate", String.valueOf(AIblunderRate));
 			
+			
+			// Artist priority:
+			Element artistPriorityElement = doc.createElement("artistPriority");
+			properties.appendChild(artistPriorityElement);
+			for(int i=0; i<artistPriority.size(); i++) {
+				Element element = doc.createElement("artist");
+				artistPriorityElement.appendChild(element);
+				
+				Attr name = doc.createAttribute("id");
+				name.setValue(artistPriority.get(i));
+				element.setAttributeNode(name);
+
+				Attr order = doc.createAttribute("order");
+				order.setValue(String.valueOf(i));
+				element.setAttributeNode(order);
+			}
 			
 			
 			// Game key binds:
@@ -760,6 +809,12 @@ public class Properties {
 					if(Main.isVersionOlderThan(versionNumber, "0.4.7.7")) {
 						values.add(PropertyValue.muskContent);
 					}
+					if(Main.isVersionOlderThan(versionNumber, "0.4.9.6")) {
+						values.add(PropertyValue.lipLispContent);
+					}
+					if(Main.isVersionOlderThan(versionNumber, "0.4.10.4")) {
+						values.add(PropertyValue.mapZoomedIn);
+					}
 					
 					
 				} else {
@@ -813,10 +868,6 @@ public class Properties {
 				element = (Element) nodes.item(0);
 				fontSize = Integer.valueOf(((Element)element.getElementsByTagName("fontSize").item(0)).getAttribute("value"));
 				
-				if(element.getElementsByTagName("preferredArtist").item(0)!=null) {
-					preferredArtist =((Element)element.getElementsByTagName("preferredArtist").item(0)).getAttribute("value");
-				}
-
 				if(element.getElementsByTagName("badEndTitle").item(0)!=null) {
 					badEndTitle =((Element)element.getElementsByTagName("badEndTitle").item(0)).getAttribute("value");
 				}
@@ -888,6 +939,12 @@ public class Properties {
 					udders = 1;
 				}
 
+				if(element.getElementsByTagName("hairGrowth").item(0)!=null) {
+					hairGrowth = Integer.valueOf(((Element)element.getElementsByTagName("hairGrowth").item(0)).getAttribute("value"));
+				} else {
+					hairGrowth = 1;
+				}
+				
 				if(element.getElementsByTagName("autoSaveFrequency").item(0)!=null) {
 					autoSaveFrequency = Integer.valueOf(((Element)element.getElementsByTagName("autoSaveFrequency").item(0)).getAttribute("value"));
 				} else {
@@ -963,6 +1020,38 @@ public class Properties {
 				try {
 					trapPenisSizePreference = Integer.valueOf(((Element)element.getElementsByTagName("trapPenisSizePreference").item(0)).getAttribute("value"));
 				}catch(Exception ex) {
+				}
+				
+				// Artist priority:
+				artistPriority = new ArrayList<>();
+				List<Artist> artists = new ArrayList<>(Artwork.allArtists);
+				artists.remove(Artwork.customArtist);
+				Collections.sort(artists, (e1, e2)->e2.getArtworkCount()-e1.getArtworkCount());
+				for(Artist a : artists) {
+					artistPriority.add(a.getFolderName());
+				}
+				
+				if(element.getElementsByTagName("preferredArtist").item(0)!=null) {
+					// Old version support:
+					String priorityname = ((Element)element.getElementsByTagName("preferredArtist").item(0)).getAttribute("value");
+					artistPriority.remove(priorityname);
+					artistPriority.add(0, priorityname);
+				}
+
+				nodes = doc.getElementsByTagName("artistPriority");
+				element = (Element) nodes.item(0);
+				if(element!=null && element.getElementsByTagName("artist")!=null) {
+					Map<String, Integer> loadedArtists = new HashMap<>();
+					for(int i=0; i<element.getElementsByTagName("artist").getLength(); i++){
+						Element e = ((Element)element.getElementsByTagName("artist").item(i));
+						
+						loadedArtists.put(e.getAttribute("id"), Integer.valueOf(e.getAttribute("order")));
+						artistPriority.remove(e.getAttribute("id"));
+					}
+					//TODO test
+					loadedArtists.entrySet().stream()
+						    .sorted(Map.Entry.comparingByValue())
+						    .forEach(entry -> artistPriority.add(entry.getKey()));
 				}
 				
 				// Keys:
@@ -1322,6 +1411,7 @@ public class Properties {
 		fullExposureDescriptions = 2;
 		multiBreasts = 1;
 		udders = 1;
+		hairGrowth = 1;
 		pregnancyDuration = 1;
 		forcedTFPercentage = 40;
 		forcedFetishPercentage = 40;
@@ -1599,6 +1689,7 @@ public class Properties {
 	}
 
 	public void resetGenderPreferences() {
+		offspringGenderLevel = 0;
 		genderPreferencesMap = new EnumMap<>(Gender.class);
 		for(Gender g : Gender.values()) {
 			genderPreferencesMap.put(g, g.getGenderPreferenceDefault().getValue());
@@ -1678,8 +1769,56 @@ public class Properties {
 	public int getUddersLevel() {
 		return udders;
 	}
-	
+
+	/** 0=off, 1=taur-only, 2=on*/
 	public void setUddersLevel(int udders) {
 		this.udders = udders;
+	}
+
+	/** 0=off, 1=weekly, 2=daily, 3=hourly*/
+	public int getHairGrowth() {
+		return hairGrowth;
+	}
+
+	/** 0=off, 1=weekly, 2=daily, 3=hourly*/
+	public void setHairGrowth(int hairGrowth) {
+		this.hairGrowth = hairGrowth;
+	}
+	
+	public boolean isOffspringGenderUsingPreferences(GameCharacter mother) {
+		if(offspringGenderLevel==3) {
+			return true;
+		}
+		if(mother!=null) {
+			if(mother.isPlayer()) {
+				return offspringGenderLevel==1;
+			} else {
+				return offspringGenderLevel==2;
+			}
+		}
+		return false;
+	}
+	
+	public List<String> getArtistPriority() {
+		return artistPriority;
+	}	
+	
+	/**
+	 * Moves the artist's priority up or down based on modification. Maximum priority is at 0.
+	 */
+	public void modifyArtistPriority(String artist, int modification) {
+		int index = artistPriority.indexOf(artist);
+		artistPriority.remove(artist);
+		index += modification;
+		index = Math.max(0, Math.min(index, artistPriority.size()));
+		artistPriority.add(index, artist);
+	}
+	
+	/**
+	 * @return The priority of this artist for rendering order. Maximum is 1000, which decreases as priority reduces.
+	 * <br/><i>(The returned value is probably going to be in a very limited range, such as ~995-1000. 1000 is used as a safe buffer amount.)</i>
+	 */
+	public int getArtistPriority(String artist) {
+		return 1000 - artistPriority.indexOf(artist);
 	}
 }

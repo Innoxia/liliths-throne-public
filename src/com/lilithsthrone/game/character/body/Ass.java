@@ -13,7 +13,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.4
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class Ass implements BodyPartInterface {
@@ -30,6 +30,14 @@ public class Ass implements BodyPartInterface {
 		this.hipSize = hipSize;
 		
 		anus = new Anus(type.getAnusType(), wetness, capacity, depth, elasticity, plasticity, virgin);
+	}
+
+	public Ass(Ass assToCopy) {
+		this.type = assToCopy.type;
+		this.assSize = assToCopy.assSize;
+		this.hipSize = assToCopy.hipSize;
+		
+		this.anus = new Anus(assToCopy.anus);
 	}
 	
 	public Anus getAnus() {

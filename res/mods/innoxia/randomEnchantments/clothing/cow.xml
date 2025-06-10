@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<enchantment>
+
+	<!-- true if this enchantment is intended for a positive random enchantment, or false if it's negative.
+		Transformative effects should be considered to be negative. -->
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	
+	<!-- The 'applyDefaultSeal' element defines whether or not a seal should be automatically applied to this enchantment.
+		If positiveEnchantment is true, then the default seal is none at all.
+		If positiveEnchantment is false, then the default seal will be selected based on difficulty, player level, and random chance.
+		There must always be a seal for negative enchantments, so if you define this as a negative enchantment and set 'applyDefaultSeal' to false, then make sure to add a CLOTHING_SEALING enchantment in 'itemEffects', otherwise a default seal will be added. -->
+	<applyDefaultSeal><![CDATA[true]]></applyDefaultSeal>
+	
+	<!-- This should return a positive integer value.
+		A default random enchantment has a weighting of 100.
+		Random enchantments in the base game will typically be in the range of 0-100, with some being up to 1000.
+		Use a weighting of 0 if you want it to never be selected.
+		Do not define a value of more than Integer.MAX_VALUE, which is 2,147,483,647.
+		You can use the 'clothing' parsing target to reference the type of the clothing which is being enchanted, which is an instance of AbstractClothingType. -->
+	<spawnWeighting><![CDATA[
+		#IF(clothing.getCoreFemininityRestriction()==FEMININITY_FEMININE || clothing.getCoreFemininityRestriction()==FEMININITY_FEMININE_STRONG)
+			100
+		#ELSE
+			10
+		#ENDIF
+	]]></spawnWeighting>
+	<!-- In the example above, this enchantment will only be randomly chosen if the clothing which it's being applied to is feminine.
+		A returned weighting of 0 means that it will never be chosen. -->
+	
+	
+	<!-- The contents of this block are parsed before any of the 'name' elements are parsed, and before any of the conditional checks in the 'itemEffects' element are parsed.
+		As such, this can be used for setting up variables which need to be referenced in multiple 'conditional' elements.
+		You can omit this field or leave it blank; it's just an optional extra for if you want to set up more complex conditional checks. -->
+	<conditionalPreParsing><![CDATA[
+		[#flags.setInt('rapidTF', RND.nextInt(100))]
+	]]></conditionalPreParsing>
+	
+	<!-- The clothing's name will be generic until its enchantment has been revealed, then the defined fields below will be applied to grant it its full name. -->
+	<!-- namePrefix assigns text before the clothing's type name.
+		The 'rapidTF' variable which was defined above is used throughout many conditional checks in this file to see if this enchantment is a stronger version.
+		If this element returns nothing, or if only whitespace is returned, then no prefix will be added. -->
+	<namePrefix><![CDATA[
+		#IF(flags.getInt('rapidTF')<33)
+			Powerful
+		#ENDIF
+	]]></namePrefix>
+	<!-- namePostfix assigns text after the clothing's type name.
+		e.g. A namePostfix of 'of the cow', when applied to a ring, would result in the name being 'Ring of the cow' -->
+	<namePostfix><![CDATA[of the cow]]></namePostfix>
+	<!-- namePrefix and namePostfix can be used in combination with each other.
+		So, for example, if you define them as so:
+			<namePrefix><![CDATA[Holy]]></namePrefix> 
+			<namePostfix><![CDATA[of fertility]]></namePostfix> 
+		Then a ring would end up being called 'Holy ring of fertility'-->
+	
+	
+	<!-- nameOverride defines a full name for this clothing.
+		It is *incompatible* with namePrefix and namePostfix, and takes priority over them.
+		So if you define a value for namePrefix, namePostfix, and nameOverride, only the value in nameOverride will be used.
+		You can leave this field blank to ignore it, as is shown in this file, but if you want to use it, then define it like so:
+			<nameOverride><![CDATA[Cow-maker]]></nameOverride>
+			This example above would result in this clothing, no matter what type it is, being called 'Cow-maker' -->
+	<nameOverride/>
+	
+	
+	
+	<!-- The 'itemEffects' elements, of which there can be multiple, define which effects should be added to the clothing if this enchantment is chosen.
+		Each 'itemEffects' element can contain a 'conditional' element.
+		You can easily generate the XML for these effects by: Enchanting an item of clothing in-game, saving your game, then searching in your save file for where your enchanted clothing is and copy-pasting the 'effect' XML elements from there.
+			If your character is holding the enchanted item, then search your save file for: '<id value="PlayerCharacter"/>' and then scroll down to the '<characterInventory>' section and find the item somewhere in there.
+		Don't worry about the value which the 'timer' attribute displays, as it's reset to 0 when loading this file. -->
+		
+	<!-- The 'rapidTF' variable which was set in the 'conditionalPreParsing' element above is now used to give a 66% chance of a normal TF speed (BOOST and DRAIN results in daily TFs) for the effects on this enchantment. -->
+	<itemEffects>
+		<!-- The effects within this <itemEffects> element will only be added if the conditional element is missing, if it's blank, or if it returns true.
+			You can use the 'clothing' parsing target to reference the type of the clothing which is being enchanted, which is an instance of AbstractClothingType. -->
+		<conditional><![CDATA[
+			[#flags.getInt('rapidTF')>=33]
+		]]></conditional>
+		<effect limit="75" mod1="TF_CORE" mod2="TF_MOD_FEMININITY" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="25" mod1="TF_CORE" mod2="TF_MOD_SIZE_SECONDARY" potency="DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="16" mod1="TF_BREASTS" mod2="TF_MOD_SIZE" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="75" mod1="TF_CORE" mod2="TF_MOD_SIZE_TERTIARY" potency="BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	<!-- The 'rapidTF' variable is used again to get a 33% chance of a rapid TF speed (MAJOR_BOOST and MAJOR_DRAIN results in hourly TFs) -->
+	<itemEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('rapidTF')<33]
+		]]></conditional>
+		<effect limit="75" mod1="TF_CORE" mod2="TF_MOD_FEMININITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="25" mod1="TF_CORE" mod2="TF_MOD_SIZE_SECONDARY" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="16" mod1="TF_BREASTS" mod2="TF_MOD_SIZE" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="75" mod1="TF_CORE" mod2="TF_MOD_SIZE_TERTIARY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	<!-- The 'conditional' elements should be used if some of the effects you're adding might conflict with the player's content settings.
+		Common settings to check are game.isNonConEnabled(), game.isAnalContentEnabled(), and game.isFootContentEnabled() 
+		There are also some other checks which are used fequently; you can find these methods in this file: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/Game.java -->
+	<itemEffects>
+		<!-- So long as the text returned by the 'conditional' element is "true", then you can use whatever formatting works.
+			This is a more verbose example than the ones above for the purpose of demonstration, but it'd probably be best to use the shorter format for readability, which would look like this: [#game.isLactationContentEnabled() && flags.getInt('rapidTF')>=33] -->
+		<conditional><![CDATA[
+			#IF(game.isLactationContentEnabled() && flags.getInt('rapidTF')>=33)
+				true
+			#ELSE
+				false
+			#ENDIF
+		]]></conditional>
+		<effect limit="500" mod1="TF_BREASTS" mod2="TF_MOD_WETNESS" potency="BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	<itemEffects>
+		<conditional><![CDATA[
+			#IF(game.isLactationContentEnabled() && flags.getInt('rapidTF')<33)
+				true
+			#ELSE
+				false
+			#ENDIF
+		]]></conditional>
+		<effect limit="500" mod1="TF_BREASTS" mod2="TF_MOD_WETNESS" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+</enchantment>

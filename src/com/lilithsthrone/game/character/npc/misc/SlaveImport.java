@@ -38,7 +38,7 @@ public class SlaveImport extends NPC {
 		super(isImported, new NameTriplet("Slave"), "", "-",
 				18, Month.JUNE, 10,
 				1, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN,
-				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+				new CharacterInventory(false, 0), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
 	}
 	
 	@Override
@@ -98,6 +98,9 @@ public class SlaveImport extends NPC {
 	
 	@Override
 	public String getDescription() {
+		if(this.isSlave() && this.isDoll()) {
+			return super.getDescription();
+		}
 		return UtilText.parse(this, "As a slave, [npc.name] is no more than someone's property. The first time you saw [npc.herHim], [npc.she] was being sold in Slaver Alley.");
 	}
 	

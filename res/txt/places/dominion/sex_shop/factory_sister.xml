@@ -1,0 +1,740 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- Saellatrix's succubus sister content: -->
+
+	<htmlContent tag="ENCOUNTER"><![CDATA[
+	<p>
+		As you and Fia continue on your way through the factory, you suddenly get the feeling that something's not quite right. Sure enough, a [sister.skinColour]-skinned succubus suddenly steps out from behind a machine just a short way in front of you. A riding crop is clutched in one of her hands, and a sadistic smirk flashes across her pretty face as she violently swats the nearest doll's ass.
+	</p>
+	<p>
+		For a moment the succubus has her back to you, and thanks to her skimpy fishnet outfit you can see that she's sporting a series of tattoos on her back. The topmost one between her shoulder blades is that of a gold pentagram, and beneath it the words 'Property of Saellatrix' make it clear that she's a slave. Beneath that, running down her lower back, golden writing lists her supposed 'Crimes', which consist of 'Scheming against Saellatrix', 'Attempting to gain Lovienne's recognition', and
+		#IF(sister.hasFetish(FETISH_ANAL_RECEIVING))
+			 'Telling Saellatrix to kiss my ass'.
+		#ELSEIF(sister.hasFetish(FETISH_PURE_VIRGIN))
+			 'Boasting about my pretty, virgin pussy'. As she turns to the side, you see that she's sporting a huge number of tattooed tally marks all around her groin, and above them you manage to make out the pink text, '&#8595; Free Fuck &#8595;'.
+		#ELSEIF(sister.hasFetish(FETISH_ORAL_GIVING))
+			 'Refused to suck Saellatrix's cock'. As she turns to the side, you see that she's sporting a huge number of tattooed tally marks all over her breasts, and above them you manage to make out the pink text, '&#8593; Fuck Hole &#8593;'.
+		#ELSEIF(sister.hasFetish(FETISH_BREASTS_SELF))
+			 'Called Saellatrix a dumb tit cow'. As she turns to the side, you see that she's sporting a huge number of tattooed tally marks all over her huge breasts, and above them you manage to make out the pink text, 'Tit Cow'.
+		#ELSEIF(sister.hasFetish(FETISH_PENIS_GIVING))
+			 'Called Saellatrix's cock disgusting'. As she turns to the side, you see that she's sporting a huge number of tattooed tally marks all around her groin, and above them you manage to make out the pink text, 'Get knotted, bitch!'.
+		#ENDIF
+	</p>
+	<p>
+		[fia.speech(Hide!)] Fia hisses at you, before darting behind a nearby stack of crates and disappearing from sight.
+	</p>
+	#IF(pc.hasStatusEffect(SE_MARKED_BY_MUSK))
+		<p>
+			Before you have the chance to do so, the succubus sniffs the air and exclaims, [sister.speech(What's that musky scent?! Someone's here!)]
+		</p>
+	#ELSEIF(pc.hasStatusEffect(SE_SMOKING) || pc.hasStatusEffect(SE_RECENTLY_SMOKED))
+		<p>
+			Before you have the chance to do so, the succubus sniffs the air and exclaims, [sister.speech(What's that smell of smoke?! Someone's here!)]
+		</p>
+	#ELSEIF(pc.getAlcoholLevel().isGreaterThan(ALCOHOL_LEVEL_TWO_MERRY))
+		<p>
+			As you try to follow Fia's lead, you drunkenly stumble into a nearby crate, causing a loud crash in the process. The succubus spins towards you and shouts, [sister.speech(What's that noise?! Someone's here!)]
+		</p>
+	#ELSE
+		<p>
+			The succubus doesn't seem to have detected your presence, and so you have the opportunity to hide with Fia and wait until she leaves. Instead, if you wanted to fight, you could confront her...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>	
+	
+	<htmlContent tag="ENCOUNTER_HIDE"><![CDATA[
+	<p>
+		Deciding that it's best to follow Fia's lead, you duck out of sight behind the nearest sex toy machine. The succubus pauses for a moment, but after glancing around, she continues on her way and quickly disappears from sight.
+	</p>
+	<p>
+		[fia.speech(Phew... That was close,)] Fia sighs as she leaves her hiding place. Motioning for you to lead the way, she says, [fia.speech(Come on, let's keep moving.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ENCOUNTER_CONFRONTATION"><![CDATA[
+	<p>
+		Not wanting to hide from just one succubus, you instead [pc.step] forwards into her line of sight and prepare for a confrontation.
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Intro description: -->
+	
+	<htmlContent tag="SISTER_INTRO"><![CDATA[
+	<p>
+		[sister.speech(What have we here?)] the succubus asks as she steps towards you. A sadistic smirk quickly settles on her beautiful face, and with a wild, desperate gleam in her [sister.eyeColour] eyes, she maniacally giggles, [sister.speech(A new toy, just for me?! ~Ooh!~ I'm going to have so much fun with you!)]
+	</p>
+	#IF(sister.hasFetish(FETISH_ANAL_RECEIVING))
+		<p>
+			As she slowly struts forwards, you're able to get a good look at the purple-skinned succubus. To really show off the fact that she's a slave, she's wearing what appears to be an enchanted choker, and has had her head shaved and her horns shrunk down to little nubs. Wearing skimpy, black fishnet clothing and a microskirt too short to keep anything hidden, she may as well be naked, allowing you to see that she's got an 'anal-only' pastie stuck over her pussy.
+		</p>
+		<p>
+			Making it clear that this item isn't just for show, she spins around and bends over, before reaching back and pulling her ass cheeks apart. Her puffy, ebony-rimmed asshole looks more like a lewd sexual orifice than most pussies, and you watch as a slick stream of natural lubrication drools out of it to drip down her thighs.
+		</p>
+		<p>
+			[sister.speech(Come on, babe, just give up and submit to my ass,)] she playfully teases. As she spreads her glistening doughnut with her slender fingers, you see that the words 'Butt Slut' are inked on her ass, along with a huge number of tally marks to show how many people have fucked her juicy#IF(game.isGapeContentEnabled()), gaping#ENDIF asshole. Standing up and turning to face you, the succubus moans, [sister.speech(Oh, you want to do this hard way, do you? It'll end the same way; with me sitting on your face and your tongue in my ass!)]
+		</p>
+	#ELSEIF(sister.hasFetish(FETISH_PURE_VIRGIN))
+		<p>
+			As she slowly struts forwards, you're able to get a good look at the pale-skinned succubus. To really show off the fact that she's a slave, she's wearing what appears to be an enchanted choker, and has had her head shaved and her horns shrunk down to little nubs. Wearing skimpy, hot pink fishnet clothing and a microskirt too short to keep anything hidden, she may as well be naked, but it's not her body that draws your attention, as instead you find yourself looking at a face almost identical to that of Angelixx.
+		</p>
+		<p>
+			[sister.speech(Oh, you recognise me?)] she giggles, [sister.speech(Or, rather, you've seen my twin, Angelixx? Well, I promise you, babe, my cute, tight little pussy's far better than hers. Take a look for yourself!)]
+		</p>
+		<p>
+			With that, she pulls up the front of her microskirt and drops one hand down between her legs, before using her fingers to spread her juicy, dripping cunt. Despite her promise, the succubus's pussy looks far from cute and tight, for her big, dark labia part to reveal a #IF(game.isGapeContentEnabled())gaping#ELSEloose#ENDIF orifice, which from the multitude of tally marks around her groin looks to have been fucked hundreds of times.
+		</p>
+		<p>
+			Dropping her skirt, she moans, [sister.speech(Not interested, huh? Well, it's not like you have any choice in the matter! You'll be #IF(pc.hasPenisIgnoreDildo())fucking#ELSEeating#ENDIF my pussy soon enough!)]
+		</p>
+	#ELSEIF(sister.hasFetish(FETISH_ORAL_GIVING))
+		<p>
+			As she slowly struts forwards, you're able to get a good look at the blue-skinned succubus. To really show off the fact that she's a slave, she's wearing what appears to be an enchanted choker, and has had her head shaved and her horns shrunk down to little nubs. Wearing skimpy, white fishnet clothing and a microskirt too short to keep anything hidden, she may as well be naked, but it's not her sexy body that you find yourself staring at.
+		</p>
+		<p>
+			After licking her [sister.lips+], the succubus slowly allows her tongue to slide out of her mouth. Bifurcated at the end, and covered in squirming little tentacles, more and more of her tongue slithers down towards her [sister.breasts+]. Long enough to seductively lick her own nipples, the demon flicks her tongue left and right, before suddenly pulling it back up into her mouth. Giggling at the surprised look on your face, she moans, [sister.speech(~Mmm!~ I promise I don't bite... Come here and let me get a taste of you...)]
+		</p>
+		<p>
+			Around the succubus's neck, you see that she's sporting a huge number of tattooed tally marks, and just above her choker you see that the words '&#8593; Fuck Hole &#8593;' have been inked into her skin. It's clear that these marks represent the number of sexual partners she's had, which must be at least three hundred. Seeing that you haven't yet submitted to her, the demon impatiently sighs, [sister.speech(If you're not going to submit, then I'll have to do this the hard way! You'll be mine soon enough...)]
+		</p>
+	#ELSEIF(sister.hasFetish(FETISH_BREASTS_SELF))
+		<p>
+			As she slowly struts forwards, you're able to get a good look at the ivory-skinned succubus. To really show off the fact that she's a slave, she's wearing what appears to be an enchanted choker, and has had her head shaved and her horns shrunk down to little nubs. Wearing skimpy, dark-purple fishnet clothing and a microskirt too short to keep anything hidden, she may as well be naked.
+		</p>
+		<p>
+			It's impossible not to stare at the succubus's chest as she slowly struts towards you. Sporting three pairs of massive, [sister.cupSize]-cup tits, her fishnet clothing leaves them fully on display. Her fat, puffy nipples are ebony in colour, making a stark contrast to the ivory skin which covers her gigantic breasts. Reaching up to playfully tug on the delicate steel chains which connect the rings pierced through each of her thick teats, the succubus reveals that she's somewhat of a bimbo by moaning, [sister.speechNoEffects(Heya! You're here to, like, submit and worship my tits, right? ~Mmm!~ Like, it'd feel sooo good! Go on, babe, just give up!)]
+		</p>
+		<p>
+			With your gaze continuing to be drawn to her chest, you see that the words 'Tit Cow' have been tattooed onto her breasts, along with hundreds of tally marks keeping count of how many sexual partners she's had.
+			#IF(pc.hasPenisIgnoreDildo() && game.isNipplePenEnabled())
+				 Sinking her slender fingers into her nipples, she spreads them wide, showing off the fact that they've been transformed into fuckable orifices. Moaning as she fingers her tits,
+			#ELSEIF(game.isLactationContentEnabled())
+				 Squeezing her slender fingers around her nipples, she causes a stream of thick, musky milk to ooze forth. Moaning as she milks herself,
+			#ELSE
+				 With one hand, she squeezes her slender fingers around her nipples, while with the other she reaches down to play with her wet pussy. Moaning as she touches herself,
+			#ENDIF
+			 the succubus impatiently huffs, [sister.speechNoEffects(This is, like, taking too long! You're gonna submit to me, and, like, do what I say and stuff!)]
+		</p>
+	#ELSEIF(sister.hasFetish(FETISH_PENIS_GIVING))
+		<p>
+			As she slowly struts forwards, you're able to get a good look at the brown-skinned succubus. To really show off the fact that she's a slave, she's wearing what appears to be an enchanted choker, and has had her head shaved and her horns shrunk down to little nubs. Wearing skimpy, black fishnet clothing and a microskirt too short to keep anything hidden, she may as well be naked, allowing you to see that she's got a gigantic, [sister.penisLengthValue] cock between her legs.
+		</p>
+		<p>
+			Pushing out of its sheath, her massive dick is bright red, and as it swells to its full, erect size, you see that its tapered head and fat knot at the base make it look like a demonic version of a dog cock. A stream of slimy precum eagerly drools from the tip, which runs down over her gold cock piercing to drip messily to the floor. Sliding her slender fingers down the length of her throbbing shaft, the succubus moans, [sister.speech(~Mmm!~ You look like a bitch who needs to be knotted...)]
+		</p>
+		<p>
+			Beneath her massive, twitching cock, you see that the succubus's balls are truly huge. Heavy with seed, they ponderously swing back and forth as the succubus struts forwards. Above her cock, you see that the words 'Get knotted, bitch!' have been tattooed in bright red ink into her skin, along with hundreds of tally marks keeping count of the number of people she's fucked. Excitedly tweaking her erect nipples, she teases, [sister.speech(I'm going to break you, bitch! This is going to be such fun!)]
+		</p>
+	#ENDIF
+	<p>
+		It looks like you're going to have fight this crazy succubus!
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SISTER_DEFEATED"><![CDATA[
+	#IF(saellatrix.isAnySisterPresent())
+		<p>
+			The succubus who you fought and defeated is still in this area. Having fallen into a trance-like state of total submission after being beaten in combat, the [sister.skinColour]-skinned demon confuses you for a minion of Saellatrix and averts her eyes as you approach, moaning, [sister.speech(I'm being a good pet for Mistress! Thank you for showing me my true place!)]
+		</p>
+		#IF(sister.hasFetish(FETISH_ANAL_RECEIVING))
+			<p>
+				Down on all fours, the anal-obsessed succubus has lowered her torso to the floor while sticking her hips up in the air. With her [sister.ass+] on full display, she's reaching back to pump her entire fist in and out of her puffy, #IF(game.isGapeContentEnabled())gaping#ELSEloose#ENDIF asshole. A stream of natural lubricant drips from her ebony-rimmed rear entrance to add to the growing pool of sexual fluids between her knees.
+			</p>
+			<p>
+				[sister.speech(Yes! ~Ooh!~ I'm a dirty little buttslut, unworthy of mother's name!)] she instinctively recites as she reaches her climax. The glistening, doughnut-like rim of her asshole squeezes down around her forearm, and her legs shake as she orgasms from anal stimulation alone. Sticking her ass up in the air as high as she can, she squeals, [sister.speech(~Aah!~ Fuck! ~Ooh!~ Use my ass! Fuck my butt! ~Mmm!~ I love being Mistress's buttslut slave! I'm unworthy of mother's name!)]
+			</p>
+		#ELSEIF(sister.hasFetish(FETISH_PURE_VIRGIN))
+			<p>
+				Lying back on the ground, the promiscuous succubus has spread her legs wide to grant an unobstructed view of her genitals. With light skin and blue eyes, she bears a striking resemblance to Angelixx, and even having been shaved bald and with her horns transformed into pathetic little nubs, her pretty, youthful features would be enough to beguile any admirer.
+			</p>
+			<p>
+				It's not her similarity to Angelixx which causes you to stop and stare, however, but the fact that the slender, delicate fingers of her right hand are buried knuckle-deep in her #IF(game.isGapeContentEnabled())gaping#ELSEloose#ENDIF, dark-lipped pussy. Slick, musky juices drool out around her frantically-pumping digits to run over her dark, meaty labia and splatter messily over the floor.
+				#IF(game.isPubicHairEnabled())
+					 A wild bush of black pubes and a large, thick clit finish
+				#ELSE
+					 A large, thick clit finishes
+				#ENDIF
+				 off the look which Saellatrix must have been going for, leaving her sister's tired, ugly pussy looking remarkably out-of-place in contrast to her youthful, pretty body.
+			</p>
+			<p>
+				[sister.speech(Yes! ~Ooh!~ I'm a filthy slut, unworthy of mother's name!)] she instinctively recites as she reaches her climax. Continuing to furiously masturbate through her orgasm, she squeals in delight as several big squirts of girlcum spray out onto the floor between her legs. Allowing her tongue to loll out of her mouth and rolling her eyes back in ecstasy, she moans, [sister.speech(~Aah!~ Fuck! ~Ooh!~ Fuck my pussy! Anyone can use it! ~Mmm!~ I love being Mistress's public cocksleeve slave! I'm unworthy of mother's name!)]
+			</p>
+		#ELSEIF(sister.hasFetish(FETISH_ORAL_GIVING))
+			<p>
+				Sitting on the floor with her hoofed feet flat on the ground and her knees pointing up in the air, the succubus demonstrates an extraordinary level of flexibility by bending down far enough to bring her head to her groin. Pressing her huge lips against her wet cunt, she eagerly thrusts her lengthy tongue deep inside her demonic pussy and squeals in delight as she performs autocunnilingus.
+			</p>
+			<p>
+				[sister.speech(Yes! ~Ooh!~ I'm a hungry little bitch, unworthy of mother's name!)] she instinctively recites as she reaches her climax. Gripping her ankles to steady herself, her legs shake and her quivering pussy squirts all over her face as she moans, [sister.speech(~Aah!~ Fuck! ~Ooh!~ I'll eat pussy! I'll suck cock! ~Mmm!~ I love being Mistress's oral slave! I'm unworthy of mother's name!)]
+			</p>
+		#ELSEIF(sister.hasFetish(FETISH_BREASTS_SELF))
+			<p>
+				Leaning back against a nearby wall, the succubus runs her slender fingers over her six colossal tits, letting out a soft moan as she hefts each one. With your attention drawn to her massive mammaries, you find yourself thinking how at-odds they look compared to the rest of her body. Her striking jade-green eyes, flawless ivory skin, and beautiful face all suggest that her tits should be nothing less than perfect. The reality is quite different, however, for the nipples that are perched upon the pointy tips of each of her gigantic breasts are quite jarring in appearance.
+			</p>
+			<p>
+				Puffed up into huge, thick teats, her nipples have darkened into a deep shade of [sister.nippleColour], and are surrounding by huge, similarly-coloured areolae. Juxtaposed against her smooth, ivory skin, the succubus's puffy, blackened nipples look like they should be on someone at least twice her age. She doesn't seem at all bothered by their unsightly appearance, however, for she continues drawing your attention to them by shamelessly pinching and tweaking each of them in turn, and each time she does so her moans increase in intensity.
+			</p>
+			#IF(game.isLactationContentEnabled())
+				<p>
+					With each eager squeeze between her soft fingertips, the demon's thick nipples excrete a spurt of milk, which dribbles down over her massive, pointy tits.
+					#IF(game.isNipplePenEnabled())
+						 Rubbing her milk over one of her nipples, she suddenly plunges her fingers inside of it, before spreading it open to show off he fact that it serves as a #IF(game.isGapeContentEnabled())gaping,#ELSEloose,#ENDIF fuckable orifice. Repeating this move with another one of her huge teats, and then another, she makes it clear that all of her nipples can be penetrated.
+					#ENDIF
+				</p>
+			#ELSEIF(game.isNipplePenEnabled())
+				<p>
+					Focusing her attention on one of her nipples, she suddenly plunges her fingers inside of it, before spreading it open to show off he fact that it serves as a #IF(game.isGapeContentEnabled())gaping,#ELSEloose,#ENDIF fuckable orifice. Repeating this move with another one of her huge teats, and then another, she makes it clear that all of her nipples can be penetrated.
+				</p>
+			#ENDIF
+			<p>
+				[sister.speechNoEffects(Yes! ~Ooh!~ I'm, like, totally a worthless whore, unworthy of mother's name!)] she instinctively recites as she reaches her climax. Orgasming from simply stimulating her breasts, she squeals, [sister.speechNoEffects(~Aah!~ Fuck! ~Ooh!~ I'm a dumb slut! Fuck my tits! ~Mmm!~ I, like, super love being Mistress's tit cow slave! I'm so unworthy of mother's name!)]
+			</p>
+		#ELSEIF(sister.hasFetish(FETISH_PENIS_GIVING))
+			<p>
+				Kneeling on the floor with her knees spread wide, the succubus's massive balls are comfortably resting on the floor while she frantically slides both of her hands up and down around her gigantic, demonic cock. The most striking feature of her huge, [sister.penisLengthValue] cock, other than its size, is the fact that it looks like a demonic version of a dog's cock. Knotted, tapered at the end, and with a thick sheath at its base, her animalistic member is also clearly demonic in design, for it's lined with hard, fleshy ribs, while a series of little squirming tentacles coat its surface.
+			</p>
+			<p>
+				[sister.speech(Yes! ~Ooh!~ I'm a bad dog, unworthy of mother's name!)] she instinctively recites as her fat knot suddenly swells up. Leaning back and using one hand to steady herself against the ground, she thrusts her hips up in the air as a massive blast of musky, slimy cum shoots out to messily splatter all over the floor in front of her. Uncontrollably bucking her hips as she orgasms, her legs shake and her canine cock continues to blast ropes of hot, sticky cum into the air as she groans, [sister.speech(~Aah!~ Fuck! ~Ooh!~ Let me stick my nasty dog-dick in someone! ~Mmm!~ I love being Mistress's doggy slave! I'm unworthy of mother's name!)]
+			</p>
+		#ENDIF
+		<p>
+			[fia.speech(I feel kind of sorry for her,)] Fia says as she witnesses the succubus's self-deprecating behaviour. Shaking her head, she mutters, [fia.speech(I know Sae has a sadistic streak, but she must have really taken it to the next level to break her sister like this... Come on, [pc.name], I can't watch any more...)]
+		</p>
+		<p>
+			As your companion turns her back on the succubus, you wonder whether to follow her example, or to instead tell her to wait for you up ahead while you have some fun with this submissive slut...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SISTER_TALK"><![CDATA[
+	<p>
+		Thinking that you might be able to get some information from this moaning succubus, you ask her where the kidnapped refugees are.
+	</p>
+	<p>
+		[sister.speech(I'm a good pet for Mistress!)] she answers, before whining, [sister.speech(Please fuck me! ~Mmm!~ Fuck me good and hard!)]
+	</p>
+	<p>
+		Trying a different question, you ask the demon if she's seen Angelixx recently. Again, the response you get is nothing but horny pleas to be fucked.
+	</p>
+	<p>
+		[fia.speech(This isn't getting us anywhere,)] Fia sighs, [fia.speech(We should find the evidence we need and get out of here before she recovers...)]
+	</p>
+	<p>
+		It really doesn't look like she's going to recover any time soon, but you agree with the reporter's assessment that asking questions is a waste of time. You could continue on your way, or spend some time giving this succubus what she wants...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SISTER_COMBAT_WON"><![CDATA[
+	<p>
+		Unable to continue fighting any longer, the succubus staggers back and sinks to the floor.
+	</p>
+	<p>
+		[sister.speech(You... Mistress sent you, didn't she?!)] the defeated demon frantically asks. Before you can answer, she prostrates herself before you and pants, [sister.speech(Please... Punish me for my insolence! I... I'm a worthless slave!)]
+	</p>
+	<p>
+		Rolling over and starting to lewdly touch herself, your opponent seems to be completely convinced that you're a pawn of Saellatrix. Lost in her fantasy, she desperately moans, [sister.speech(I'll be a good girl! ~Ooh!~ Yes, fuck me! I'll show you how good I am! Please tell Mistress that I'm good!)]
+	</p>
+	<p>
+		[fia.speech(Poor thing,)] Fia tuts as she reappears from her hiding place. Turning to face you, she says, [fia.speech(Come on, [pc.name], she's not going to be any threat for a while. Let's carry on...)]
+	</p>
+	<p>
+		Looking back down at the masturbating succubus, you wonder whether to leave her behind, or to instead have some fun with her first...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SISTER_SEX_START"><![CDATA[
+	<p>
+		Wanting to fuck this horny succubus, you [pc.step] forwards and tell her of your intentions. Letting out an excited squeal, she pants, [sister.speech(~Ooh!~ Yes! Fuck me!)]
+	</p>
+	<p>
+		[fia.speech(We don't have time for this!)] Fia exclaims in a frustrated tone. Shaking her head, she turns her back on you and walks off, muttering, [fia.speech(I'm not getting involved. Come find me once you're done...)]
+	</p>
+	<p>
+		With that, you're left alone with the horny, eager succubus. Pushing herself up onto her knees, she shuffles forwards and moans, [sister.speech(Come on! Fuck me!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SISTER_SEX_END"><![CDATA[
+	<p>
+		Having had your fun, you [pc.step] back from the succubus and bring an end to the sex.
+		#IF(sister.isSatisfiedFromLastSex())
+			 Letting out a satisfied moan, your partner sighs, [sister.speech(~Ooh!~ That was so good... ~Mmm!~ I want more!)]
+		#ELSE
+			 Letting out a frustrated groan, your partner tuts, [sister.speech(~Aah!~ You didn't even satisfy me... ~Mmm!~ Let's do it again!)]
+		#ENDIF
+	</p>
+	<p>
+		At that moment Fia reappears, and with a disapproving shake of her head, she crosses her arms and asks,
+		#IF(pc.isQuestProgressGreaterThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_4))
+			 [fia.speech(Happy now? Can we please get out of this place already?)]
+		#ELSE
+			 [fia.speech(Happy now? Can we please carry on?)]
+		#ENDIF
+	</p>
+	<p>
+		After quickly getting your things back in order, you look over at the succubus to see that she's already masturbating once again. It looks like she'll be happy to go for another round of sex at any time, but perhaps you should do as Fia suggests and continue on your way instead... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<htmlContent tag="SISTER_COMBAT_LOST"><![CDATA[
+	<p>
+		Unable to continue fighting the succubus any longer, you stagger back and crash into one of the sex toy machines, utterly defeated.
+	</p>
+	<p>
+		[sister.speech(There we go, it's easier to just submit, isn't it?)] your opponent giggles, before skipping forwards and grabbing hold of you. Pressing her [sister.lips+] against your mouth, she gives you a deep, passionate kiss, before breaking off and moaning, [sister.speech(~Mmm!~ Now let's make you a little more comfortable...)]
+	</p>
+	<p>
+		With that, the succubus quickly starts stripping you naked, continuing to moan and giggle to herself as she works.
+		#IF(pc.isAnyEquippedClothingSealed())
+			 Coming across your sealed clothing, she tuts a couple of times, before channelling her essences and breaking the enchantment.
+		#ENDIF
+		 With skilled movements suggesting that she's done this countless times before, the demon only takes a minute to get rid of all of your clothes, and then takes the opportunity to lustfully grope your naked body.
+	</p>
+	#IF(!game.isNonConEnabled())
+		<p>
+			[sister.speech(I want to fuck you so badly,)] the succubus whines, [sister.speech(but Mistress said she'd punish me if I had sex without her permission... I'll just have to take you directly to Angelixx...)]
+		</p>
+	#ELSE
+		#IF(sister.hasFetish(FETISH_ANAL_RECEIVING))
+			#IF(pc.hasPenisIgnoreDildo())
+				<p>
+					[sister.speech(Now let's get that yummy cock of yours up my ass!)] she excitedly exclaims, before pushing you down onto your back. Dropping down on top of you, she positions her juicy, puffy asshole over your shaft and moans, [sister.speech(~Mmm!~ This'll be so much fun!)]
+				</p>
+			#ELSE
+				<p>
+					[sister.speech(Now let's get your tongue in my ass!)] she excitedly exclaims, before pushing you down onto your back. Dropping down on top your face, she positions her juicy, puffy asshole over your face and moans, [sister.speech(~Mmm!~ This'll be so much fun!)]
+				</p>
+			#ENDIF
+		#ELSEIF(sister.hasFetish(FETISH_PURE_VIRGIN))
+			#IF(pc.hasPenisIgnoreDildo())
+				<p>
+					[sister.speech(Now let's get that yummy cock of yours in my hot, wet pussy!)] she excitedly exclaims, before pushing you down onto your back. Dropping down on top of you, she positions her [sister.pussy+] over your shaft and moans, [sister.speech(~Mmm!~ This'll be so much fun!)]
+				</p>
+			#ELSE
+				<p>
+					[sister.speech(Now let's get your tongue in my hot, wet pussy!)] she excitedly exclaims, before pushing you down onto your back. Dropping down on top your face, she positions her [sister.pussy+] over your face and moans, [sister.speech(~Mmm!~ This'll be so much fun!)]
+				</p>
+			#ENDIF
+		#ELSEIF(sister.hasFetish(FETISH_ORAL_GIVING))
+			#IF(pc.hasPenisIgnoreDildo())
+				<p>
+					[sister.speech(I'm going to suck that yummy cock of yours dry!)] she excitedly exclaims, before pushing you down onto your back. Dropping down on top of you in the sixty-nine position, she hovers her [sister.pussy+] over your face as she lowers her [sister.lips+] towards your cock and moans, [sister.speech(~Mmm!~ This'll be so much fun!)]
+				</p>
+			#ELSEIF(pc.hasVagina())
+				<p>
+					[sister.speech(I'm going to get my tongue deep inside that yummy little pussy of yours!)] she excitedly exclaims, before pushing you down onto your back. Dropping down on top of you in the sixty-nine position, she hovers her [sister.pussy+] over your face as she lowers her [sister.lips+] towards your cunt and moans, [sister.speech(~Mmm!~ This'll be so much fun!)]
+				</p>
+			#ELSE
+				<p>
+					[sister.speech(Eugh... You don't have a pussy or a cock, so what am I meant to do?!)] the succubus whines, [sister.speech(I'll just have to take you directly to Angelixx...)]
+				</p>
+			#ENDIF
+		#ELSEIF(sister.hasFetish(FETISH_BREASTS_SELF))
+			#IF(pc.hasPenisIgnoreDildo() && game.isNipplePenEnabled())
+				<p>
+					[sister.speechNoEffects(I'm, like, gonna milk your balls into my tits!)] she excitedly exclaims, before pinning you against a stack of crates and kneeling down before you. Lifting her huge tits up towards your cock, she presses her fuckable nipple against your [pc.cockHead+] and moans, [sister.speechNoEffects(~Mmm!~ This'll be, like, super fun!)]
+				</p>
+			#ELSEIF(game.isLactationContentEnabled())
+				<p>
+					[sister.speechNoEffects(My tits feel, like, so super full of milk today! You're gonna be a good [pc.girl] and suck me dry, ok?!)] she excitedly exclaims, before pushing you down onto your back. Kneeling down beside your face, she pulls your head onto her thighs and looks down at you over her massive tits as she moans, [sister.speechNoEffects(~Mmm!~ This'll be, like, super fun!)]
+				</p>
+			#ELSE
+				<p>
+					[sister.speechNoEffects(Now, like, let's get your tongue in my super hot, wet pussy!)] she excitedly exclaims, before pushing you down onto your back. Dropping down on top your face, she positions her [sister.pussy+] over your face and moans, [sister.speechNoEffects(~Mmm!~ This'll be, like, super fun!)]
+				</p>
+			#ENDIF
+		#ELSEIF(sister.hasFetish(FETISH_PENIS_GIVING))
+			<p>
+				[sister.speech(You're my bitch now, so you'd better start acting like one!)] she snarls, before roughly pushing you to the floor and forcing you onto all fours. Producing a small bottle of bright pink liquid, she reveals, [sister.speech(I want to get my fat knot inside you, and this little potion'll help with that!)]
+			</p>
+			<p>
+				Pulling out the cork and tossing it to one side, the succubus roughly forces the neck the bottle into your mouth. Roughly pinching your nose, she holds you still and forces you to swallow every last drop of the potion.
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SISTER_COMBAT_LOST_COCK_END"><![CDATA[
+	<p>
+		Your orifices continue to tingle as your transformations come to an end, and you can't help but [pc.moan] as you feel your holes stretching deeper and deeper inside of you. Slapping your ass hard, the succubus eagerly exclaims, [sister.speech(That's it, moan for me you bitch! ~Mmm!~ I can't wait to ram my fat knot inside you!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SISTER_SUBMISSIVE_SEX_START"><![CDATA[
+		#IF(sister.hasFetish(FETISH_ANAL_RECEIVING))
+			#IF(pc.hasPenisIgnoreDildo())
+				<p>
+					Before you can do or say anything, the succubus drops down onto your cock, forcing it into her [sister.asshole+]. The little tentacles which line her orifice start massaging your shaft as you're forced to penetrate her, causing you to let out an involuntary [pc.moan].
+				</p>
+				<p>
+					[sister.speech(~Mmm!~ Feels good, doesn't it?)] your partner giggles. Allowing a wicked smirk to settle on her pretty face, she declares, [sister.speech(I'll milk your balls into my ass, then once I've had my fun I'll deliver you to Angelixx!)]
+				</p>
+			#ELSE
+				<p>
+					Before you can do or say anything, the succubus drops down onto your face, smothering your mouth with her [sister.asshole+]. Bucking her hips back and forth, she grinds her [sister.ass+] up and down over your face, causing your [pc.moans+] to come out as muffled whimpers.
+				</p>
+				<p>
+					[sister.speech(~Mmm!~ Tastes good, doesn't it?)] your partner giggles. Allowing a wicked smirk to settle on her pretty face, she declares, [sister.speech(I'll have you worship my ass for a while, then once I've had my fun I'll deliver you to Angelixx!)]
+				</p>
+			#ENDIF
+		#ELSEIF(sister.hasFetish(FETISH_PURE_VIRGIN))
+			#IF(pc.hasPenisIgnoreDildo())
+				<p>
+					Before you can do or say anything, the succubus drops down onto your cock, forcing it into her [sister.pussy+]. The little tentacles which line her orifice start massaging your shaft as you're forced to penetrate her, causing you to let out an involuntary [pc.moan].
+				</p>
+				<p>
+					[sister.speech(~Mmm!~ Feels good, doesn't it?)] your partner giggles. Allowing a wicked smirk to settle on her pretty face, she declares, [sister.speech(I'll milk your balls into my pussy, then once I've had my fun I'll deliver you to Angelixx!)]
+				</p>
+			#ELSE
+				<p>
+					Before you can do or say anything, the succubus drops down onto your face, smothering your mouth with her [sister.pussy+]. Bucking her hips back and forth, she grinds her [sister.labia+] up and down over your face, causing your [pc.moans+] to come out as muffled whimpers.
+				</p>
+				<p>
+					[sister.speech(~Mmm!~ Tastes good, doesn't it?)] your partner giggles. Allowing a wicked smirk to settle on her pretty face, she declares, [sister.speech(I'll have you eat me out for a while, then once I've had my fun I'll deliver you to Angelixx!)]
+				</p>
+			#ENDIF
+		#ELSEIF(sister.hasFetish(FETISH_ORAL_GIVING))
+			#IF(pc.hasPenisIgnoreDildo())
+				<p>
+					Before you can do or say anything, the succubus allows her absurdly long tongue to loll out of her mouth and starts slowly licking your [pc.cock+]. Her slimy saliva soon coats your throbbing shaft, and as she swirls the bifurcated tip of her tongue around the [pc.cockHead+] of your erect dick, you can't help but let out [pc.a_moan+].
+				</p>
+				<p>
+					[sister.speech(~Mmm!~ You like that?)] your partner giggles. Allowing a wicked smirk to settle on her pretty face, she declares, [sister.speech(I'll milk your balls dry, then once I've had my fun I'll deliver you to Angelixx! Feel free to eat me out, but I don't care if you don't want to; all I need is a taste of your cock and I'll be squirting over your face soon enough...)]
+				</p>
+				<p>
+					With that, she parts her [sister.lips+] and takes your [pc.cock+] into her mouth, before bobbing her head up and down as she starts to give you a sloppy blowjob...
+				</p>
+			#ELSEIF(pc.hasVagina())
+				<p>
+					Before you can do or say anything, the succubus allows her absurdly long tongue to loll out of her mouth and starts slowly licking your [pc.pussy+]. Her slimy saliva soon coats your [pc.labia+], and as she swirls the bifurcated tip of her tongue around your [pc.clit+], you can't help but let out [pc.a_moan+].
+				</p>
+				<p>
+					[sister.speech(~Mmm!~ You like that?)] your partner giggles. Allowing a wicked smirk to settle on her pretty face, she declares, [sister.speech(I'll make you cum from this, then once I've had my fun I'll deliver you to Angelixx! Feel free to eat me out, but I don't care if you don't want to; all I need is a taste of your pussy and I'll be squirting over your face soon enough...)]
+				</p>
+				<p>
+					With that, she presses her [sister.lips+] against your [pc.labia+] and thrusts her [sister.tongue+] into your [pc.pussy+], before starting to greedily eat you out...
+				</p>
+			#ENDIF
+		#ELSEIF(sister.hasFetish(FETISH_BREASTS_SELF))
+			#IF(pc.hasPenisIgnoreDildo() && game.isNipplePenEnabled())
+				<p>
+					Before you can do or say anything, the succubus grabs your cock, and after jerking it a few times to make sure you're rock hard, she leans forwards and presses it against one of her puffy nipples. Her [sister.nipple+] readily parts as your [pc.cockHead+] pushes into it, and with a little thrust of her chest, your partner forces your shaft into her fuckable orifice.
+				</p>
+				<p>
+					[sister.speechNoEffects(~Mmm!~ You like that?)] she giggles. Allowing a wicked smirk to settle on her pretty face, she declares, [sister.speechNoEffects(I'll, like, milk your balls into my tits, then once I've had my fun with you I'm gonna deliver you to Angelixx!)]
+				</p>
+			#ELSEIF(game.isLactationContentEnabled())
+				<p>
+					With your head in her lap, you look up at the succubus as she guides one of her thick, puffy nipples towards your mouth. Letting out a little giggle, she reveals, [sister.speechNoEffects(Mistress said, like, my milk is super worthless and only good for the lowest of slaves, and I guess that now includes you! So go on, drink up, bitch!)]
+				</p>
+				<p>
+					As she squeezes a trickle of thick, musky liquid from her puffy, ebony teat, you realise what the succubus means, but before you can complain she quickly forces her nipple into your mouth. Forcefully breastfeeding you, she moans, [sister.speechNoEffects(~Mmm!~ Good bitch... That's it, like, drink my worthless milk, and once I've had my fun with you I'm gonna deliver you to Angelixx!)]
+				</p>
+			#ELSE
+				<p>
+					Before you can do or say anything, the succubus drops down onto your face, smothering your mouth with her [sister.pussy+]. Bucking her hips back and forth, she grinds her [sister.labia+] up and down over your face, causing your [pc.moans+] to come out as muffled whimpers.
+				</p>
+				<p>
+					[sister.speechNoEffects(~Mmm!~ Tastes super good, doesn't it?)] your partner giggles. Allowing a wicked smirk to settle on her pretty face, she declares, [sister.speechNoEffects(I'll, like, have you eat me out for a while, y'know? Once I've had my fun with you I'll, like, deliver you to Angelixx!)]
+				</p>
+			#ENDIF
+		#ELSEIF(sister.hasFetish(FETISH_PENIS_GIVING))
+			#IF(pc.hasVagina())
+				<p>
+					Before you can do or say anything, the succubus drops down behind you and presses her massive, dog-like dick against your pussy. Sliding the pointed tip of her canine cock over your [pc.labia+], she grabs your [pc.hips] and giggles, [sister.speech(Mistress says I'm a bad dog whenever I hump bitches like you... ~Mmm!~ But Mistress isn't here!)]
+				</p>
+				<p>
+					With that, she thrusts forwards and rams her throbbing cock deep into your [pc.pussy+]. Roughly gripping your hips, she starts rapidly humping you, moaning in ecstasy as she fucks you hard and fast...
+				</p>
+			#ELSEIF(game.isAnalContentEnabled())
+				<p>
+					Before you can do or say anything, the succubus drops down behind you and rubs her massive, dog-like dick against your [pc.ass+]. Sliding the pointed tip of her canine cock over your [pc.asshole+], she grabs your [pc.hips] and giggles, [sister.speech(Mistress says I'm a bad dog whenever I hump bitches like you... ~Mmm!~ But Mistress isn't here!)]
+				</p>
+				<p>
+					With that, she thrusts forwards and rams her throbbing cock deep into your [pc.asshole+]. Roughly gripping your hips, she starts rapidly humping you, moaning in ecstasy as she fucks you hard and fast...
+				</p>
+			#ELSE
+				<p>
+					[sister.speech(Typical...)] the succubus tuts in annoyance, [sister.speech(Mistress hasn't given me a slave to fuck for over a week, and now that I have a bitch to hump [pc.she] doesn't even have a pussy!)]
+				</p>
+				<p>
+					Dropping down in front of you, she presses her massive, dog-like dick against against your [pc.lips+] and giggles, [sister.speech(Mistress says I'm a bad dog whenever I fuck bitches like you... ~Mmm!~ But Mistress isn't here!)]
+				</p>
+				<p>
+					With that, she thrusts forwards and rams her throbbing cock into your mouth. Roughly grabbing your head in both hands, she starts rapidly fucking your face, moaning in ecstasy as she slams her canine cock down your throat...
+				</p>
+			#ENDIF
+		#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SISTER_SUBMISSIVE_SEX_END"><![CDATA[
+	<p>
+		Having had her fun, the succubus pushes you to the floor and energetically jumps to her hoofed feet. While she seems to have gained a lot of energy from her dominant performance, you feel completely worn out, and all you can do is lie there, panting for breath.
+	</p>
+	<p>
+		[sister.speech(I bet that was the best sex of your life, wasn't it? Look, here you are,)] she teases as she points to a newly tattooed tally mark that's appeared on her skin. Seeing the hundreds of other tally marks beside yours, you realise that you're just another number to the succubus, and she confirms this by smirking down at you and saying, [sister.speech(As far as I'm concerned, you're just another forgettable fuck. Don't bother telling me your name; I'm not going to remember it.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SISTER_COLLARED"><![CDATA[
+	#IF(pc.isTaur())
+		<p>
+			Not having the energy to reply or try to escape, you're left powerless as the succubus steps over to a nearby crate and rips off the lid. Rummaging around for a moment, she lets out a happy cry as she finds what she was looking for, and turns to face you with a bright pink collar in her hands. Within seconds she's tightly fastened the collar around your neck, and then she jumps onto your back and swings her riding crop down hard on your [pc.ass+]. In a sharp tone, she commands, [sister.speech(Giddy up, bitch!)]
+		</p>
+		#IF(game.isNonConEnabled() && (pc.hasVagina() || game.isAnalContentEnabled()))
+			<p>
+				Not having much say in the matter, you stand up with the succubus on your back and start [pc.walking] forwards. Giggling as you carry her on your back, your passenger snakes her tail down behind you, and you gasp as you feel the spaded tip
+				#IF(pc.hasVagina())
+					 press against your [pc.labia+]. After giving your flank another stinging whack with her riding crop, the succubus rams her tail into your [pc.pussy+], ignoring your shuddering gasp as she declares, [sister.speech(Forwards, slut!)]
+				#ELSE
+					 slide down over your [pc.ass+]. After giving your flank another stinging whack with her riding crop, the succubus rams her tail into your [pc.asshole+], ignoring your shuddering gasp as she declares, [sister.speech(Forwards, buttslut!)]
+				#ENDIF
+			</p>
+			<p>
+				Feeling completely drained of energy, you're powerless to resist, and so you're forced to obediently trot forwards with the succubus on your back. With each step she plunges her tail in and out of your
+				#IF(pc.hasVagina())
+					 [pc.pussy+],
+				#ELSE
+					 [pc.asshole+],
+				#ENDIF
+				 making you let out involuntary [pc.moans] and whimpers. Her mocking sneers and triumphant giggles add to your burning shame, as does the occasional swat of her riding crop, and you try not to think about what's going to happen to you as you carry your tormentor deeper into the factory...
+			</p>
+		#ELSE
+			<p>
+				Feeling completely drained of energy, you're powerless to resist, and so you're forced to obediently trot forwards with the succubus on your back. Her mocking sneers and triumphant giggles add to your burning shame, as does the occasional swat of her riding crop, and you try not to think about what's going to happen to you as you carry your tormentor deeper into the factory...
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			Not having the energy to reply or try to escape, you're left powerless as the succubus steps over to a nearby crate and rips off the lid. Rummaging around for a moment, she lets out a happy cry as she finds what she was looking for, and turns to face you with a bright pink collar and matching leash in her hands. Within seconds she's tightly fastened the collar around your neck, and after connecting it to the leash, she gives it a tug and giggles, [sister.speech(Heel, bitch!)]
+		</p>
+		<p>
+			You try to stand up, but the succubus swings her riding crop down hard on your [pc.ass+], before pushing you down and snapping, [sister.speech(Bitches don't stand up! Crawl like the dog you are!)]
+		</p>
+		#IF(game.isNonConEnabled() && (pc.hasVagina() || game.isAnalContentEnabled()))
+			<p>
+				Not having much say in the matter, you resign yourself to having to do as the succubus says and begin to crawl forwards. Giggling as you act like an animal, your tormentor snakes her tail down behind you, and you gasp as you feel the spaded tip
+				#IF(pc.hasVagina())
+					 press against your [pc.labia+]. After giving your leash another sharp tug, the succubus rams her tail into your [pc.pussy+],
+				#ELSE
+					 slide down over your [pc.ass+]. After giving your leash another sharp tug, the succubus rams her tail into your [pc.asshole+],
+				#ENDIF
+				 ignoring your shuddering gasp as she commands, [sister.speech(Heel, bitch!)]
+			</p>
+			<p>
+				Feeling completely drained of energy, you're powerless to resist, and so you're forced to obediently crawl alongside the succubus. With each step she plunges her tail in and out of your
+				#IF(pc.hasVagina())
+					 [pc.pussy+],
+				#ELSE
+					 [pc.asshole+],
+				#ENDIF
+				 making you let out involuntary [pc.moans] and whimpers. Her mocking sneers and triumphant giggles add to your burning shame, as does the occasional swat of her riding crop, and you try not to think about what's going to happen to you as you're led deeper into the factory...
+			</p>
+		#ELSE
+			<p>
+				Feeling completely drained of energy, you're powerless to resist, and so you're forced to obediently crawl alongside the succubus. Her mocking sneers and triumphant giggles add to your burning shame, as does the occasional swat of her riding crop, and you try not to think about what's going to happen to you as you're led deeper into the factory...
+			</p>
+		#ENDIF
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SISTER_TRAVEL"><![CDATA[
+	#IF(game.isNonConEnabled() && (pc.hasVagina() || game.isAnalContentEnabled()))
+		<p>
+			The next few minutes are a humiliating blur of forced exhibitionism as the succubus
+			#IF(pc.isTaur())
+				 on your back makes you trot
+			#ELSE
+				 makes you crawl by her side
+			#ENDIF
+			 around the factory. Seeking out her sisters who work down here alongside her, your tormentor shows you off to them, drawing their attention to her tail as it pumps in and out of your
+			#IF(pc.hasVagina())
+				[pc.pussy+].
+			#ELSE
+				[pc.asshole+].
+			#ENDIF
+			 Enviously gazing at your naked body with lustful gleams in their predatory eyes, the other succubi snarl and spit insults at your conqueror as she denies their requests to fuck you.
+		</p>
+		#IF(!flags.hasFlag(FLAG_innoxia_doll_factory_slimes_discovered))
+			<p>
+				Leaving her sisters behind, the succubus steers you through a door on the far side of the factory and into a long room, which like the other areas of the factory has rough rock walls and a smooth concrete floor. Fluorescent arcane lights hang down at regular intervals from the high ceiling, which bathe the cavernous space in a bright white glow. A dazzling array of twisting metal pipes run down the entire length of the right-hand wall, but it's what's on the left that causes you to stare in shock.
+			</p>
+			<p>
+				Dozens of huge, futanari slime-girls, with the shortest looking to be over [units.size(250)] tall, are lined up near the wall. Each of the slimes has been restrained via metal chains which span from the wall to the collars and cuffs around their necks, wrists, and ankles. Each one of these captives is made of clear slime, allowing you to see the dazzling array of colourful sex toys that have been inserted into their orifices. Enchanted to constantly vibrate, these toys are causing the slimes to repeatedly orgasm, and each time they do a huge amount of sexual fluids squirt from their spasming cunts, while thick, clear slime oozes like milk from their massive, puffy nipples. Sporting gigantic cocks with huge, heavy balls, the slimes shoot an absurd amount of sticky cum all over the floor every time they reach their climax. These fluids combine to run down the sloped floor into a grate, which is then linked to a pipe that sucks the mixture up and away into massive metal storage vats.
+			</p>
+			<p>
+				#IF(pc.isTaur())
+					As you trot
+				#ELSE
+					As you crawl
+				#ENDIF
+				 past the orgasming slimes, your tormentor giggles, [sister.speech(I bet you wish you were one of them, don't you, #IF(pc.isTaur())slut#ELSEbitch#ENDIF? Well, I think Angelixx has enough slimes, so it's a different fate for you!)]
+			</p>
+		#ELSE
+			<p>
+				Leaving her sisters behind, the succubus steers you through a door on the far side of the factory and into the slime milking room.
+				#IF(flags.hasFlag(FLAG_innoxia_doll_factory_sleip_nir_defeated))
+					 There's no sign of Sleip or Nir in here, and you realise that someone must have come along and freed them from their chains.
+				#ELSEIF(flags.hasFlag(FLAG_innoxia_doll_factory_sleip_nir_seen))
+					 There's no sign of Sleip or Nir in here, and you realise that they must have finished fucking the slimes and left.
+				#ENDIF
+				#IF(pc.isTaur())
+					 As you trot
+				#ELSE
+					 As you crawl
+				#ENDIF
+				 past the orgasming slimes, your tormentor giggles, [sister.speech(I bet you wish you were one of them, don't you, #IF(pc.isTaur())slut#ELSEbitch#ENDIF? Well, I think Angelixx has enough slimes, so it's a different fate for you!)]
+			</p>
+		#ENDIF
+		</p>
+			Quickly passing through this area, you
+			#IF(pc.isTaur())
+				 carry your rider down a short section of corridor and finally come to a halt in front of a door marked 'Restricted Area'. Remaining on your back
+			#ELSE
+				 stay by your conqueror's side as she leads you down a short section of corridor, before finally coming to a halt in front of a door marked 'Restricted Area'. Remaining by your side
+			#ENDIF
+			 with her tail pumping in and out of your
+			#IF(pc.hasVagina())
+				 [pc.pussy+],
+			#ELSE
+				 [pc.asshole+],
+			#ENDIF
+			 the succubus
+			#IF(pc.isTaur())
+				 leans down and begins to punch
+			#ELSE
+				 begins to punch
+			#ENDIF
+			 a combination into the keypad on one side of the door. Before she's finished, however, the door swings open to reveal the familiar, youthful figure of Angelixx. Casting her [angelixx.eyes+] over your body, a wicked smirk breaks out across her pretty face, and in a triumphant tone she tuts, [angelixx.speech(Well, well, well... You followed me all the way from Elis, did you? Your meddling ends here.)]
+		</p>
+		<p>
+			#IF(pc.isTaur())
+				[sister.speech(Cum for your new Mistress, slut!)] the succubus on your back giggles.
+			#ELSE
+				[sister.speech(Cum for your new Mistress, bitch!)] the succubus giggles.
+			#ENDIF
+			 Slamming her tail deep into your
+			#IF(pc.hasVagina())
+				 dripping [pc.pussy+], she reaches #IF(pc.isTaur())around#ELSEdown#ENDIF to playfully pinch your [pc.nipples+].
+			#ELSE
+				 [pc.asshole+], she reaches #IF(pc.isTaur())around#ELSEdown#ENDIF to playfully pinch your [pc.nipples+].
+			#ENDIF
+			 Pushed to the edge by this intense stimulation, you shamefully climax in front of Angelixx, whose mocking laughter causes your cheeks to burn red from humiliation.
+		</p>
+		<p>
+			#IF(pc.isTaur())
+				[sister.speech(Enjoy your new life, slut,)] the succubus sneers as she slides off your back.
+			#ELSE
+				[sister.speech(Enjoy your new life, bitch,)] the succubus sneers as she passes your leash over to Angelixx.
+			#ENDIF
+			 Giving your ass one final swat with her riding crop, she struts off back to the factory. As she leaves, you hear her saying, [sister.speech(Hello, boys. Your mother has a new slave...)]
+		</p>
+		<p>
+			Turning your head, you see two very familiar nightmares walking towards you...
+		</p>
+	#ELSE
+		<p>
+			The next few minutes are a humiliating blur of forced exhibitionism as the succubus
+			#IF(pc.isTaur())
+				 on your back makes you trot
+			#ELSE
+				 makes you crawl by her side
+			#ENDIF
+			 around the factory. Seeking out her sisters who work down here alongside her, your tormentor shows you off to them while making degrading remarks about your situation. Enviously gazing at your naked body with lustful gleams in their predatory eyes, the other succubi snarl and spit insults at your conqueror as she denies their requests to fuck you.
+		</p>
+		#IF(!flags.hasFlag(FLAG_innoxia_doll_factory_slimes_discovered))
+			<p>
+				Leaving her sisters behind, the succubus steers you through a door on the far side of the factory and into a long room, which like the other areas of the factory has rough rock walls and a smooth concrete floor. Fluorescent arcane lights hang down at regular intervals from the high ceiling, which bathe the cavernous space in a bright white glow. A dazzling array of twisting metal pipes run down the entire length of the right-hand wall, but it's what's on the left that causes you to stare in shock.
+			</p>
+			<p>
+				Dozens of huge, futanari slime-girls, with the shortest looking to be over [units.size(250)] tall, are lined up near the wall. Each of the slimes has been restrained via metal chains which span from the wall to the collars and cuffs around their necks, wrists, and ankles. Each one of these captives is made of clear slime, allowing you to see the dazzling array of colourful sex toys that have been inserted into their orifices. Enchanted to constantly vibrate, these toys are causing the slimes to repeatedly orgasm, and each time they do a huge amount of sexual fluids squirt from their spasming cunts, while thick, clear slime oozes like milk from their massive, puffy nipples. Sporting gigantic cocks with huge, heavy balls, the slimes shoot an absurd amount of sticky cum all over the floor every time they reach their climax. These fluids combine to run down the sloped floor into a grate, which is then linked to a pipe that sucks the mixture up and away into massive metal storage vats.
+			</p>
+			<p>
+				#IF(pc.isTaur())
+					As you trot
+				#ELSE
+					As you crawl
+				#ENDIF
+				 past the orgasming slimes, your tormentor giggles, [sister.speech(I bet you wish you were one of them, don't you, #IF(pc.isTaur())slut#ELSEbitch#ENDIF? Well, I think Angelixx has enough slimes, so it's a different fate for you!)]
+			</p>
+		#ELSE
+			<p>
+				Leaving her sisters behind, the succubus steers you through a door on the far side of the factory and into the slime milking room.
+				#IF(flags.hasFlag(FLAG_innoxia_doll_factory_sleip_nir_defeated))
+					 There's no sign of Sleip or Nir in here, and you realise that someone must have come along and freed them from their chains.
+				#ELSEIF(flags.hasFlag(FLAG_innoxia_doll_factory_sleip_nir_seen))
+					 There's no sign of Sleip or Nir in here, and you realise that they must have finished fucking the slimes and left.
+				#ENDIF
+				#IF(pc.isTaur())
+					 As you trot
+				#ELSE
+					 As you crawl
+				#ENDIF
+				 past the orgasming slimes, your tormentor giggles, [sister.speech(I bet you wish you were one of them, don't you, #IF(pc.isTaur())slut#ELSEbitch#ENDIF? Well, I think Angelixx has enough slimes, so it's a different fate for you!)]
+			</p>
+		#ENDIF
+		</p>
+			Quickly passing through this area, you 
+			#IF(pc.isTaur())
+				 carry your rider down a short section of corridor and finally come to a halt in front of a door marked 'Restricted Area'. Remaining on your back,
+			#ELSE
+				 stay by your conqueror's side as she leads you down a short section of corridor, before finally coming to a halt in front of a door marked 'Restricted Area'. Remaining by your side,
+			#ENDIF
+			 the succubus leans down to punch a combination into the keypad on one side of the door. Before she's finished, however, the door swings open to reveal the familiar, youthful figure of Angelixx. Casting her [angelixx.eyes+] over your body, a wicked smirk breaks out across her pretty face, and in a triumphant tone she tuts, [angelixx.speech(Well, well, well... You followed me all the way from Elis, did you? Your meddling ends here.)]
+		</p>
+		<p>
+			#IF(pc.isTaur())
+				[sister.speech(Enjoy your new life, slut,)] the succubus sneers as she slides off your back.
+			#ELSE
+				[sister.speech(Enjoy your new life, bitch,)] the succubus sneers as she passes your leash over to Angelixx.
+			#ENDIF
+			 Giving your ass one final swat with her riding crop, she struts off back to the factory. As she leaves, you hear her saying, [sister.speech(Hello, boys. Your mother has a new slave...)]
+		</p>
+		<p>
+			Turning your head, you see two very familiar nightmares walking towards you...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SISTER_TRAVEL_END"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_doll_factory_sleip_nir_defeated))
+		<p>
+			Looking back over your shoulder, you see the two familiar nightmares, who appear to have recovered from their ordeal at your hands, confidently striding towards you. Looking at her sons, Angelixx says in her sweet, innocent-sounding voice, [angelixx.speech(Feeling better now, boys? Look what good timing you have! A new slave was just delivered to me, and look who it is!)]
+		</p>
+		<p>
+			[sleip.speech(Hey, Nir, would you look at that,)] the brutish nightmare grunts to his brown-haired brother, [sleip.speech(We won't have to go searching for that cunt after all.)]
+		</p>
+	#ELSE
+		<p>
+			Looking back over your shoulder, you see the two familiar nightmares, who you first encountered during the SWORD raid in Elis, confidently striding towards you. Looking at the black-haired one, Angelixx says in her sweet, innocent-sounding voice, [angelixx.speech(Sleip! You found your brother at last, and look what good timing you have! A new slave was just delivered to me, and look who it is! You remember this slut from Elis?)]
+		</p>
+		<p>
+			[sleip.speech(Hey, Nir, would you look at that,)] the brutish nightmare grunts to his brown-haired brother, [sleip.speech(It's that bitch who was there with that wolf-boy and otter slut back in Elis. Not so tough without your friends, are you, cunt?)]
+		</p>
+	#ENDIF
+	<p>
+		Stepping forwards to either side of you, the nightmares get a quick spot of revenge by both leaning down to violently slap your exposed ass. Laughing at your pained gasps, Nir grunts, [nir.speech(We're going to break you for what you did to us.)]
+	</p>
+	<p>
+		[angelixx.speech(Let's not be hasty,)] Angelixx giggles, [angelixx.speech(You boys can punish her all you want during the dollification process. You hear that, you stupid little bitch? We're going to turn you into a dumb, obedient sex doll!)]
+	</p>
+	]]>
+	</htmlContent>
+
+</dialogue>

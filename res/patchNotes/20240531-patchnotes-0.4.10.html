@@ -1,0 +1,132 @@
+<h2>v0.4.10</h2>
+
+<h3>FriendlyAlienFriend's Artwork (https://twitter.com/thealienfriend):</h3>
+<ul>
+	<li>Added Lunexis artwork (with pregnant and crotch-boob variations).</li>
+</ul>
+
+<h3>Pusspuss's Artwork (https://twitter.com/PusspussARTZ):</h3>
+<ul>
+	<li>Added Yui artwork (with pregnant variations).</li>
+</ul>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Added support for multiple 'startingImmobilisation' elements per character in modded sex managers.</li>
+	<li>In modded combat moves, you can now use 'UNARMED' as a damage type to automatically use the correct damage type based on the attacker's body.</li>
+	<li>Added a new 'Outfit' action to the debug menu's 'Item view' tab, allowing you to apply any outfit to a generic doll for testing purposes.</li>
+	<li>Added a new 'Combat moves' action to the debug menu's 'Misc.' tab, allowing you to see all combat moves and their IDs.</li>
+	<li>Added 'KNOT' as a new OrgasmBehaviour (for use in modded sex managers).</li>
+	<li>Added hook for OrificeDepth enum to parsing engine, with 'ORIFICE_DEPTH_' prefixes.</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>The map for 'Lovienne's Luxuries' needed to be regenerated as part of this update, so it will have been reset to be as though you haven't explored it yet.</li>
+</ul>
+
+<h3>Images:</h3>
+<ul>
+	<li>Increased the size of the artwork images shown in characters' body overview tooltip.</li>
+	<li>Added several new keywords for image file names to help filter images when in-game (keywords and their behaviour can be seen in res/images/characters/modding.txt).</li>
+</ul>
+
+<h3>Clothing:</h3>
+<ul>
+	<li>Added 'muzzle' (androgynous, BDSM set, mouth slot, blocks mouth, sold by Saellatrix).</li>
+	<li>Added 'bar gag' (androgynous, BDSM set, mouth slot, blocks mouth, sold by Saellatrix).</li>
+	<li>Updated the 'strapless bodysuit' to use the same blocking logic as 'lowback bodysuit', which should fix some issues with NPCs struggling to displace it (such as when combined with pantyhose).</li>
+	<li>The 'Thin bangles' and 'Bangle' can now be worn in the tail slot as well as the wrist slot.</li>
+	<li>The 'Bangle' is now androgynous instead of feminine.</li>
+	<li>The 'strapless strap-on' now has a base rarity of 'common' instead of 'epic'.</li>
+	<li>Added an 'Inserts' sticker option to the 'bunny headband' (thanks to DSG).</li>
+	<li>Swapped the primary and secondary colours for the 'heart-shaped barbells' clothing (this will automatically be applied to your old barbells so you don't need to manually fix them when loading into this version).</li>
+	<li>Added stickers to the 'breeder collar' to enable you to set the text to 'breeder' (default), 'bimbo', 'bitch', 'slut', 'cum slut', or 'whore', and changed the name to 'ornate collar'.</li>
+</ul>
+
+<h3>Items:</h3>
+<ul>
+	<li>Saellatrix now sells Silic Oil (this was previously unobtainable unless spawned via debug menu). </li>
+	<li>Changed colour of the rejuvenation potion to be light blue.</li>
+</ul>
+
+<h3>Mystery Kink rework:</h3>
+<ul>
+	<li>'Mystery Kink' is now called 'Succubus's Kiss', and has a new icon.</li>
+	<li>Instead of adding/removing a random fetish, 'Succubus's Kiss' now gives +50 lust (and +50 arousal during sex).</li>
+	<li>It retains its old enchantment mechanics (to create fetish potions), and can now also be enchanted with an empty primary and secondary modifier to give it the same 'adding/removing a random fetish' which Mystery Kink used to have by default.</li>
+</ul>
+
+<h3>Combat:</h3>
+<ul>
+	<li>Many special combat moves which previously did physical damage, or were incorrectly applying 'unarmed' damage, are now correctly using the appropriate damage type based on the attacker's body type or whether they're under the effects of cloak of flames.</li>
+	<li>The 'scratch' and 'squirrel scratch' special attacks now critically hit when the defender has no shielding.</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>Added tail-to-nipple, tail-to-crotch-nipple, tentacle-to-nipple, and tentacle-to-crotch-nipple sex actions, allowing you to penetrate fuckable nipples with tails and tentacles.</li>
+	<li>Characters will no longer desire to perform tail-to-breast or tentacle-to-breast sex types during sex, as those sex types are now covered instead by the newly added tail/tentacle actions.</li>
+	<li>Characters will no longer perform deep penetrations on sleeping size queens or masochists.</li>
+	<li>Added support for characters to be immobilised in multiple ways during sex (for example, sleeping slaves in a cell with chains will now start sex being both asleep and chained up).</li>
+	<li>Sleeping characters no longer lose affection towards partners at the end of sex due to non-con or failure to satisfy.</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>The 'bonding' slave interaction event will no longer occur between two dolls (as it doesn't make sense for dolls to attempt to bond with one another).</li>
+	<li>The 'News' action at Dominion's central plaza now randomly shows each news variation once before being disabled (and is enabled again when leaving and re-entering the tile).</li>
+	<li>Lunexis now has two pairs of breasts instead of three.</li>
+	<li>Changed the colour and name of the default orifice-interior colour from 'fleshy-pink' to 'flesh'.</li>
+	<li>When debug mode is enabled, dying clothing and dying/reforging weapons no longer requires dye brushes or reforge hammers.</li>
+	<li>Renamed a few slave jobs to better reflect the job that the slave is performing (such as 'bedroom' -> 'bedroom servant').</li>
+	<li>Imp fortresses no longer undergo a complete reset after you've defeated them all plus Meraxis. Instead, they will return to their fortress ~5 days after defeating Meraxis, but their surrounding tunnels will remain pacified. This is retroactively applied when loading into this version.</li>
+	<li>Removed pink and dark pink from pig-morphs' natural fur colours, as they seemed to be too pink to be believable as a natural colour.</li>
+	<li>Made it slightly more obvious when a character is bald in the overview appearance tooltip (when hovering over a character's race icon by their name).</li>
+	<li>Slightly improved tooltip UI for clothing with fetish effects.</li>
+	<li>NPCs' relationships with other NPCs will now be displayed in their character information screen, provided that you have met the other NPC.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Parsing and typo fixes.</li>
+	<li>Fixed bug where guests in the mansion would always stay in their room, even if they had a job.</li>
+	<li>If you have an item of clothing which provides vaginal or vaginal urethra cum retention, then creampies in those orifices will be reduced to the maximum of 250mL when becoming pregnant, instead of being expelled entirely.</li>
+	<li>Fixed several incorrect descriptions during sex related to sleeping characters.</li>
+	<li>Fixed incorrect descriptions for when encouraging creampie/knot/pullout for self-penetrating characters.</li>
+	<li>When setting a slave free, their assigned hourly slave jobs are now reset to IDLE (and when loading into this version, guests who have an incompatible slave job assigned to an hour slot will have that job reset to IDLE).</li>
+	<li>Fixed issue where using a used condom on an NPC while not in sex would either not work or possibly soft-lock the game.</li>
+	<li>Fixed bug where a character's girlcum was being treated as musky only if their cum was musky, instead of whether or not their girlcum had the 'musky' fluid modifier.</li>
+	<li>Bimbo sentence parsing no longer inserts bimbo additions around noises denoted by '~' (e.g. ~Mmm!~).</li>
+	<li>Fixed background errors being thrown due to missing 'sexBlockedReason' elements in worldType files.</li>
+	<li>Fixed issue where the 'pugilist', 'elder lilin's helper', and 'sex doll' jobs were available for guests in the mansion.</li>
+	<li>Random NPCs will no longer be sleeping during their encounters with you, nor will your elementals sometimes be asleep.</li>
+	<li>Fixed issue where it was possible to have no actions available, causing you to get stuck, in Eisek's 'Confront the mob' scene.</li>
+	<li>Damage calculations in combat now correctly take into account the attacker's unarmed damage type.</li>
+	<li>Fixed the 'scold' greeting for offspring having the prostitute scene trigger for mugger offspring and vice versa.</li>
+	<li>Fixed issue where Submission attackers could spawn with the prostitute occupation, instead of all being muggers as intended.</li>
+	<li>Unlocking doll closets before obtaining a slaver license or permission to house friendly occupants now correctly grants you access to room management menus in Lilaya's mansion.</li>
+	<li>Fixed bug where 'Anthro Special' dolls would always spawn with no tail, even if their species should have a tail.</li>
+	<li>Fixed bug where if you chose to buy an 'Anthro Special' doll and proceeded to select a subspecies, then switched back to the DD or HH option, the purchased doll would be of the subspecies you originally selected instead of a default human.</li>
+	<li>Removed races which were incompatible with doll bodies from the list when purchasing an anthro doll from Saellatrix (e.g. snow-leopards require fluffy fur, which is unavailable for dolls).</li>
+	<li>Clothing enchanted with the 'cum retention' behaviour now correctly has the generic name postfix of 'plugging' instead of 'transformation'.</li>
+	<li>Fixed issue where clothing with the same colour patterns would sometimes not stack with one another, which was due to one or more hidden pattern colours being different.</li>
+	<li>Fixed bug where you couldn't rehouse purchased dolls, even if the targeted room had a doll closet upgrade.</li>
+	<li>Fixed bug where the action to enter Dominion Express was duplicated when it was meant to be disabled, allowing you to enter the building during closing hours.</li>
+	<li>Doll sex events no longer describe a risk of pregnancy (as dolls cannot be impregnated).</li>
+	<li>Penile and vaginal urethra status effects during sex will no longer be displayed if the character does not have a penis or vagina, respectively.</li>
+	<li>Fixed bug where you could transform an imp into a demon by shrinking them below the minimum height value when transforming their leg configuration from quadrupedal to bipedal.</li>
+	<li>When starting a new game, your aura will no longer be stuck at 0 until you sleep.</li>
+	<li>When starting a new game, your core health and arcane values will now be correctly set to 1.</li>
+	<li>Sleeping characters and immobile dolls will no longer use items during sex scenes.</li>
+	<li>When a character is switched from a normal sex slot to a spectator slot, all ongoing actions involving that character are now correctly stopped.</li>
+	<li>Hannah will now correctly turn up to work at the gym at 08:00 without needing you to exit and re-enter the gym first.</li>
+	<li>Fixed issue where cumming on an armpit or marking it with heavy lipstick would cum on/mark the target's legs instead of their torso.</li>
+	<li>Fixed bug where you could get prizes from Moreno in Elis's Farmer's Market even if you had no faire tickets, and also a bug where the metal and wooden bat prizes would not actually give you a bat.</li>
+	<li>Random NPCs in the club will no longer spawn wearing a balaclava.</li>
+	<li>Fixed a few background errors being thrown when generating some clothing outfits.</li>
+	<li>Lunexis now has the correct surname to indicate she's a direct daughter of Lunette.</li>
+	<li>Fixed issue where a character could be identified as an aunt/uncle to their own child (even if the child was a result of sibling incest, having the parents tagged as aunts/uncles seemed unnecessary).</li>
+	<li>Fixed bug where the dialogue would sometimes be partially scrolled down when starting a sex scene.</li>
+	<li>Fixed issue with Sleip and Nir having some incorrect covering colours.</li>
+</ul>

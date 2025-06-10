@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<enchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	<applyDefaultSeal><![CDATA[true]]></applyDefaultSeal>
+	
+	<spawnWeighting><![CDATA[
+		100
+	]]></spawnWeighting>
+	
+	<namePrefix><![CDATA[Lilith's]]></namePrefix>
+	<namePostfix/>
+	<nameOverride/>
+	
+	<conditionalPreParsing/>
+	
+	<itemEffects>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_LUST" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_LUST" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_LUST" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_LUST" potency="MINOR_DRAIN" timer="0" type="CLOTHING"/>
+		
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="FERTILITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="FERTILITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="FERTILITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="FERTILITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="FERTILITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="FERTILITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="FERTILITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="FERTILITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="FERTILITY" potency="MINOR_BOOST" timer="0" type="CLOTHING"/>
+		
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="VIRILITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="VIRILITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="VIRILITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="VIRILITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="VIRILITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="VIRILITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="VIRILITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="VIRILITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="VIRILITY" potency="MINOR_BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+</enchantment>

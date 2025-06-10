@@ -1,12 +1,12 @@
 package com.lilithsthrone.game.inventory;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TreeMap;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -67,7 +67,7 @@ public abstract class AbstractCoreItem implements XMLSaving {
 		this.rarity = rarity;
 		this.SVGString = SVGString;
 
-		this.attributeModifiers = new HashMap<>();
+		this.attributeModifiers = new TreeMap<>();
 		this.itemTags = new HashSet<>();
 		
 		if (attributeModifiers != null) {
@@ -158,7 +158,7 @@ public abstract class AbstractCoreItem implements XMLSaving {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getNamePlural() {
 		return namePlural;
 	}
@@ -223,7 +223,7 @@ public abstract class AbstractCoreItem implements XMLSaving {
 	}
 
 	public void setAttributeModifiers(Map<AbstractAttribute, Integer> attributeModifiers) {
-		this.attributeModifiers = attributeModifiers;
+		this.attributeModifiers = new TreeMap<>(attributeModifiers);
 	}
 	
 	public List<ItemEffect> getEffects() {

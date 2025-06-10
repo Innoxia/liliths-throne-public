@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<worldType>
+	<worldRegion>DOMINION</worldRegion>
+	<name><![CDATA[Angelixx's Apartment]]></name>
+	<colour>BASE_PINK_LIGHT</colour>
+	<sexBlockedReason><![CDATA[[npc.Name] cannot have sex here!]]></sexBlockedReason> 
+	<furniturePresent>true</furniturePresent>
+	<wallsPresent>true</wallsPresent>
+	<loiteringEnabled>false</loiteringEnabled>
+	<flightEnabled>false</flightEnabled>
+	<visibleFromStart>true</visibleFromStart>
+	<fullyRevealedFromStart>false</fullyRevealedFromStart>
+	<globalMapLocation>WORLD_MAP_DOMINION</globalMapLocation>
+	<standardPlace>innoxia_dominion_angelixx_apartment_hallway</standardPlace>
+	<entryFromGlobalMapLocation>innoxia_dominion_angelixx_apartment_exit</entryFromGlobalMapLocation>
+	<teleportPermissions>NONE</teleportPermissions>
+	<places>
+		<place colour="#ffffff">GENERIC_IMPASSABLE</place>
+		
+		<place colour="#808080">innoxia_dominion_angelixx_apartment_hallway</place>
+		
+		<place colour="#00ff00">innoxia_dominion_angelixx_apartment_exit</place>
+		<place colour="#ff8000">innoxia_dominion_angelixx_apartment_dining_room</place>
+		<place colour="#ffff00">innoxia_dominion_angelixx_apartment_kitchen</place>
+		<place colour="#00ff80">innoxia_dominion_angelixx_apartment_lounge</place>
+		
+		<place colour="#ff0000">innoxia_dominion_angelixx_apartment_bedroom</place>
+		<place colour="#ff00ff">innoxia_dominion_angelixx_apartment_bedroom_angelixx</place>
+		<place colour="#00ffff">innoxia_dominion_angelixx_apartment_toilet</place>
+		<place colour="#0000ff">innoxia_dominion_angelixx_apartment_bathroom</place>
+	</places>
+</worldType>

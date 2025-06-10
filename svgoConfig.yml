@@ -1,7 +1,7 @@
 # Lilith's Throne SVGO configuration
 #
 # To use SVGO, Node.js (https://nodejs.org/en/) is required.
-# It can then be installed using "npm install -g svgo" from the command line.
+# It can then be installed using "npm install -g svgo@1.3.2" from the command line.
 #
 # Usage follows with "svgo --config=svgoConfig.yml target.svg", where absolute 
 # paths may be required if the config file or the target file are not located 

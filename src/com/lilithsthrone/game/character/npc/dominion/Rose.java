@@ -45,15 +45,15 @@ import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
-import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
-import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.dominion.SMRoseHands;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.PresetColour;
@@ -76,9 +76,9 @@ public class Rose extends NPC {
 				"Rose is Lilaya's slave, and is the only other member of her household that you've ever seen."
 						+ " A partial cat-girl, Rose is treated with extreme fondness by Lilaya, and appears to be the only other person Lilaya has any regular contact with."
 						+ " Their relationship strays into something more than a master-slave arrangement, and Rose and Lilaya can often be seen hugging and whispering to one another.",
-				18, Month.MARCH, 5,
+				20, Month.MARCH, 5,
 				10, Gender.F_V_B_FEMALE, Subspecies.CAT_MORPH, RaceStage.PARTIAL_FULL,
-				new CharacterInventory(10), WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_ROSE, true);
+				new CharacterInventory(false, 10), WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_ROSE, true);
 		
 	}
 	
@@ -302,46 +302,37 @@ public class Rose extends NPC {
 	
 	@Override
 	public void endSex() {
-//		if(this.getClothingInSlot(InventorySlot.PENIS)!=null) {
-//			this.unequipClothingIntoVoid(this.getClothingInSlot(InventorySlot.PENIS), true, this);
-//			if(this.getClothingInSlot(InventorySlot.GROIN)==null) {
-//				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_vstring", PresetColour.CLOTHING_BLACK, false), true, this);
-//			}
-//			this.replaceAllClothing();
-//		}
 		this.equipClothing();
 	}
 	
-	public static final DialogueNode END_HAND_SEX = new DialogueNode("Recover", "Both you and Rose and exhausted from your hand-holding session.", true) {
+	public void initKittyScene() {
+		// Both of them should already be on the player's tile, but just in case...
+		Main.game.getNpc(Lilaya.class).setLocation(Main.game.getPlayer());
+		this.setLocation(Main.game.getPlayer());
 		
-		@Override
-		public String getContent() {
-			return "<p>"
-						+ "Rose staggers over and retrieves her little feather-duster, casting a sultry look back your way before biting her lip and hurrying off to another part of the house, no doubt to recover from your extreme hand-holding session."
-					+ "</p>"
-					+ "<p>"
-						+ "With an exhausted sigh, you collapse down onto the room's bed, your thoughts dwelling on the amazing experience you've just had."
-					+ "</p>";
-		}
+		Main.game.getNpc(Lilaya.class).unequipAllClothingIntoVoid(true, true);
 		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Continue", "You've finally recovered from your intense hand-holding session with Rose.", RoomPlayer.ROOM){
-					@Override
-					public void effects() {
-						Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
-					}
-					
-					@Override
-					public DialogueNode getNextDialogue() {
-						return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true);
-					}
-				};
-			} else {
-				return null;
-			}
-		}
-	};
+		Main.game.getNpc(Lilaya.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_ckls_ckls_bra", PresetColour.CLOTHING_BLACK, false), true, this);
+		Main.game.getNpc(Lilaya.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_ckls_ckls_gloves", PresetColour.CLOTHING_BLACK, false), true, this);
+		Main.game.getNpc(Lilaya.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_ckls_ckls_panties", PresetColour.CLOTHING_BLACK, PresetColour.CLOTHING_PINK_LIGHT, PresetColour.CLOTHING_BLACK, false), true, this);
+		Main.game.getNpc(Lilaya.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_ckls_ckls_stockings", PresetColour.CLOTHING_BLACK, false), true, this);
+		Main.game.getNpc(Lilaya.class).equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_ckls_ckls_headband", PresetColour.CLOTHING_BLACK, false), true, this);
+		
+		this.unequipAllClothingIntoVoid(true, true);
+		
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_lacy_plunge_bra", PresetColour.CLOTHING_RED_BURGUNDY, false), true, this);
+		AbstractClothing thong = Main.game.getItemGen().generateClothing("innoxia_groin_crotchless_thong", PresetColour.CLOTHING_RED_BURGUNDY, false);
+		thong.setPattern(Pattern.getPatternIdByName("irbynx_leopard_printed"));
+		thong.setPatternColours(Util.newArrayListOfValues(PresetColour.CLOTHING_RED, PresetColour.CLOTHING_RED_DARK, PresetColour.CLOTHING_RED));
+		this.equipClothingFromNowhere(thong, true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_velvet_choker", PresetColour.CLOTHING_BLACK, false), true, this);
+	}
+	
+	public void endKittyScene() {
+		Main.game.getNpc(Lilaya.class).equipClothing();
+		this.equipClothing();
+		// Remove Lilaya's frustrated status effect, as she will be orgasming immediately after this scene ends:
+		Main.game.getNpc(Lilaya.class).setLastTimeOrgasmedSeconds(Main.game.getSecondsPassed());
+	}
 
 }

@@ -67,7 +67,7 @@
 		As you take a closer look at [brax.namePos] office, you notice that the scantily-clad models in every single poster are wolf-girls. Shifting your gaze to look past [brax.namePos] desk for a moment, your eyes are drawn to a glass display cabinet sitting just behind him, and you see that it's full of small, half-naked wolf-girl figurines. From your observations of [brax.namePos] office, it's safe to assume that he has a thing for females of the same race as him.
 	</p>
 	<p>
-		Deciding to take a bold course of action, you use your deduction as inspiration to make up a story right there on the spot, [pc.speech(Well, after I informed the cat-girl at the front desk that I'm the owner of the establishment 'The She-wolf's Den', she said that you'd probably want to talk to me in person.)]
+		Deciding to take a bold course of action, you use your deduction as inspiration to make up a story right there on the spot, [pc.speech(Well, after I informed the cat-girl at the front desk that I'm the owner of the establishment 'The She-Wolf's Den', she said that you'd probably want to talk to me in person.)]
 	</p>
 	<p>
 		Just as you're kicking yourself for thinking up such a ridiculous name, you notice [brax.namePos] snarl fading away, and you struggle to keep your composure as he impatiently blurts out, [brax.speech(Wait, what's all this about a she-wolf's den?)]
@@ -133,7 +133,7 @@
 
 	<htmlContent tag="INTERIOR_BRAX_LIE_BLUFFING_SUCCESS"><![CDATA[
 	<p>
-		You barely have time to say goodbye to your gullible friend before he bounds out of the door, muttering about how he won't need 'that slut downstairs' any more.
+		You barely have time to say goodbye to your gullible friend before he bounds out of the door, muttering about how he won't need 'that slut on the front desk' any more.
 	</p>
 	<p>
 		You finally have a moment to read over the piece of paper [brax.name] gave to you, and as you do so, you can't help but let out an annoyed sigh. It looks like Arthur is going to be one difficult person to track down, as the paper says:
@@ -462,7 +462,7 @@
 			You cry out as Brax roughly drags you across the room to his desk. Fishing about in one of the drawers, he quickly finds one of his transformative potions, and with a light clink of glass, places yet another very delicate-looking bottle on the desk in front of you.
 		</p>
 		<p>
-			[brax.speech(That ungrateful slut downstairs still doesn't want to be a wolf-girl...)] Brax says, pulling out the glass stopper before roughly shoving the bottle's neck down your throat, [brax.speech(So this one's all for you! Drink it down bitch!!)]
+			[brax.speech(That ungrateful slut on the front desk still doesn't want to be a wolf-girl...)] Brax says, pulling out the glass stopper before roughly shoving the bottle's neck down your throat, [brax.speech(So this one's all for you! Drink it down bitch!!)]
 		</p>
 		<p>
 			With the bottle's transformative liquid already pouring out into your mouth, you find yourself having to make the decision of whether to spit it out, or do as the dominant wolf-boy says and swallow it all down...
@@ -478,7 +478,7 @@
 			You cry out as Brax roughly drags you across the room to his desk. Fishing about in one of the drawers, he quickly finds what he's looking for, and, with a light clink of glass, places a very delicate-looking bottle on the desk in front of you.
 		</p>
 		<p>
-			[brax.speech(I got this made up for that useless bimbo you saw downstairs, but the ungrateful slut said she didn't want to be a wolf-girl...)] Brax says, pulling out the glass stopper before roughly shoving the bottle's neck down your throat, [brax.speech(That's right, drink it all down... Oh fuck, this is gonna be good!)]
+			[brax.speech(I got this made up for that useless bimbo you saw on the front desk, but the ungrateful slut said she didn't want to be a wolf-girl...)] Brax says, pulling out the glass stopper before roughly shoving the bottle's neck down your throat, [brax.speech(That's right, drink it all down... Oh fuck, this is gonna be good!)]
 		</p>
 		<p>
 			With the bottle's transformative liquid already pouring out into your mouth, you find yourself having to make the decision of whether to spit it out, or do as the dominant wolf-boy says and swallow it all down...
@@ -544,7 +544,7 @@
 		</p>
 	#ELSEIF(properties.getForcedTFPreference() == FURRY_PREF_REDUCED)
 		<p>
-			As you see your new reflection, you let out a little gasp. Brax has transformed you into his perfect vision of a lesser wolf-girl, and your yellow, predatory eyes open wide in shock as you feel the weight of your [pc.breastRows] [pc.breastSize], [pc.cupSize]-cup tits. White fur covers your wolf-like arms and legs, and you notice that your face and the skin covering your torso are the only parts of your that haven't transformed into anthropomorphic wolf-like counterparts. Up on top of your head, the same white, wolf-like fur is covering your new pair of upright ears, while just above your [pc.ass+], a long, shaggy wolf's tail drops down to almost brush the floor.
+			As you see your new reflection, you let out a little gasp. Brax has transformed you into his perfect vision of a lesser wolf-girl, and your yellow, predatory eyes open wide in shock as you feel the weight of your [pc.breastRows] [pc.breastSize], [pc.cupSize]-cup tits. White fur covers your wolf-like arms and legs, and you notice that your face and the skin covering your torso are the only parts of your body that haven't transformed into anthropomorphic wolf-like counterparts. Up on top of your head, the same white, wolf-like fur is covering your new pair of upright ears, while just above your [pc.ass+], a long, shaggy wolf's tail drops down to almost brush the floor.
 		</p>
 	#ELSE
 		<p>
@@ -615,7 +615,7 @@
 		Brax is completely exhausted, and collapses harmlessly to the floor as he passes out. Letting out a triumphant laugh, you look down at your latest sexual conquest, smirking in satisfaction as you see the happy smile covering his unconscious face.
 	</p>
 	<p>
-		Taking one last look around Brax's office, you notice that there's a neatly-folded spare uniform lying on top of a cabinet. Thinking of how you could have a little memento of your time with Brax, <b>you think to take a spare uniform</b> before heading downstairs and back outside.
+		Taking one last look around Brax's office, you notice that there's a neatly-folded spare uniform lying on top of a cabinet. Thinking of how you could have a little memento of your time with Brax, <b>you think to take a spare uniform</b> before heading back outside.
 	</p>
 	]]>
 	</htmlContent>

@@ -99,17 +99,17 @@ public class EnchantmentDialogue {
 		
 		ItemEffect effect = getCurrentEffect();
 		
-		int displaySlots = Math.max(32, 8*(int)Math.ceil(Math.max(ingredient.getEnchantmentEffect().getPrimaryModifiers().size(), ingredient.getEnchantmentEffect().getSecondaryModifiers(ingredient, primaryMod).size())/8f));
+		int displaySlots = Math.max(32, 8*(int)Math.ceil(Math.max(ingredient.getEnchantmentEffect().getPrimaryModifiers(ingredient).size(), ingredient.getEnchantmentEffect().getSecondaryModifiers(ingredient, primaryMod).size())/8f));
 		
 		// Primary mods:
 		inventorySB.append("<div class='container-half-width' style='padding-bottom:0;'>");
-		for (TFModifier tfMod : ingredient.getEnchantmentEffect().getPrimaryModifiers()) {
+		for (TFModifier tfMod : ingredient.getEnchantmentEffect().getPrimaryModifiers(ingredient)) {
 			inventorySB.append("<div class='modifier-icon' style='width:11.5%; background-color:"+tfMod.getRarity().getBackgroundColour().toWebHexString()+";'>"
 					+ "<div class='modifier-icon-content'>"+tfMod.getSVGString()+"</div>"
 					+ "<div class='overlay' id='MOD_PRIMARY_"+tfMod.hashCode()+"'></div>"
 					+ "</div>");
 		}
-		for (int i = displaySlots; i > ingredient.getEnchantmentEffect().getPrimaryModifiers().size(); i--) {
+		for (int i = displaySlots; i > ingredient.getEnchantmentEffect().getPrimaryModifiers(ingredient).size(); i--) {
 			inventorySB.append("<div class='modifier-icon empty' style='width:11.5%;'></div>");
 		}
 		
@@ -249,8 +249,8 @@ public class EnchantmentDialogue {
 								}
 								inventorySB.append("<br/>"
 										+ (cost>0
-												?"[style.colourEnchantment("+Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+" cost)]: [style.boldBad("+cost+")]"
-												:Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+" cost: [style.boldDisabled(0)]"));
+												?"[style.colourEnchantment("+Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+")]: "+UtilText.formatAsEnchantmentCapacity(cost, "b")
+												:Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+": [style.colourDisabled("+UtilText.formatAsEnchantmentCapacityUncoloured(cost, "b")+")]"));
 							}
 						}
 					}
@@ -305,21 +305,27 @@ public class EnchantmentDialogue {
 						+ "<div class='enchanting-ingredient' style='background-color:"+ingredient.getRarity().getBackgroundColour().toWebHexString()+";'>"
 						+ "<div class='enchanting-ingredient-content'>"+ingredient.getSVGString()+"</div>"
 						+ "<div class='overlay' id='INGREDIENT_ENCHANTING'  style='cursor:default;'></div>"
-						+ "<div class='enchanting-ingredient-count'><b>x" + count+ "</b></div>"
+						+ (ingredient instanceof Tattoo?"":"<div class='enchanting-ingredient-count'><b>x" + count+ "</b></div>") // If tattoo, don't show count (which will always be x1)
 						+ "</div>");
 			inventorySB.append("</div>");
 
 			// Effects:
 			inventorySB.append("<div class='container-half-width' style='width:58%; margin:0 1%;'>");
+//			inventorySB.append("<form style='padding:0; margin:0 0 4px 0; text-align:center;'><input type='text' id='output_name' value='" +UtilText.parseForHTMLDisplay(outputName)+"' style='padding:0;margin:0;width:80%; text-align:center;'></form>");
+
+				inventorySB.append("<form style='padding:0; margin:0 0 4px 0; float:left; width:90%; text-align:center;'>");
+					inventorySB.append("<input type='text' id='output_name' value='" +UtilText.parseForHTMLDisplay(outputName)+"' style='padding:0;margin:0;width:100%;text-align:center;'>");
+				inventorySB.append("</form>");
+				inventorySB.append("<div class='normal-button' id='apply_enchanted_item_name' style='float:left; width:9.5%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>");
+					inventorySB.append("&#10003;");
+				inventorySB.append("</div>");
+			
 				inventorySB.append("<b>Effects (</b>"
 									+ (effects.size()>=ingredient.getEnchantmentLimit()?"<b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>":"<b>")+""
 											+ effects.size()+"/"+ingredient.getEnchantmentLimit()+"</b><b>)</b> | Cost: "
 												+ (ingredient instanceof Tattoo
 														?UtilText.formatAsMoney(EnchantingUtils.getCost(ingredient, effects)*EnchantingUtils.FLAME_COST_MODIFER, "b")
-														:UtilText.formatAsEssences(EnchantingUtils.getCost(ingredient, effects), "b", false))
-												+"<br/>"
-											+"<form style='padding:0; margin:0 0 4px 0; text-align:center;'><input type='text' id='output_name' value='" +UtilText.parseForHTMLDisplay(outputName)+"' style='padding:0;margin:0;width:80%;'></form>"
-								);
+														:UtilText.formatAsEssences(EnchantingUtils.getCost(ingredient, effects), "b", false)));
 			
 				if(effects.isEmpty()) {
 					inventorySB.append("<br/><span style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No effects added</span>");
@@ -378,8 +384,8 @@ public class EnchantmentDialogue {
 								|| (ingredient instanceof Tattoo)) {
 							inventorySB.append("<br/>"
 									+ (cost>0
-											?"[style.colourEnchantment("+Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+" cost)]: [style.boldBad("+cost+")]"
-											:Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+" cost: [style.boldDisabled(0)]"));
+											?"[style.colourEnchantment("+Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+")]: "+UtilText.formatAsEnchantmentCapacity(cost, "b")
+											:Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+": [style.colourDisabled("+UtilText.formatAsEnchantmentCapacityUncoloured(cost, "b")+")]"));
 						}
 					}
 				}
@@ -718,8 +724,8 @@ public class EnchantmentDialogue {
 			EnchantmentDialogue.effects = new ArrayList<>();
 		}
 		
-		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getPrimaryModifiers().contains(EnchantmentDialogue.primaryMod)) {
-			EnchantmentDialogue.primaryMod = EnchantmentDialogue.ingredient.getEnchantmentEffect().getPrimaryModifiers().get(0);
+		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getPrimaryModifiers(ingredient).contains(EnchantmentDialogue.primaryMod)) {
+			EnchantmentDialogue.primaryMod = EnchantmentDialogue.ingredient.getEnchantmentEffect().getPrimaryModifiers(ingredient).get(0);
 		}
 		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.ingredient, EnchantmentDialogue.primaryMod).contains(EnchantmentDialogue.secondaryMod)) {
 			EnchantmentDialogue.secondaryMod = EnchantmentDialogue.ingredient.getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.ingredient, EnchantmentDialogue.primaryMod).get(0);
@@ -1038,7 +1044,7 @@ public class EnchantmentDialogue {
 	}
 
 	public static LoadedEnchantment loadEnchant(String name) {
-		if (isLoadEnchantAvailable(name)) {
+		if (isLoadEnchantAvailable(name)) { // ????????????? you just repeat the check below immediately afterwards...
 			File file = new File("data/enchantments/"+name+".xml");
 
 			if (file.exists()) {
@@ -1109,6 +1115,22 @@ public class EnchantmentDialogue {
 		}
 	}
 
+	public static LoadedEnchantment getCurrentEnchantmentAsLoadedEnchantment() {
+		if(EnchantmentDialogue.getIngredient() instanceof AbstractItem) {
+			return new LoadedEnchantment(outputName, ((AbstractItem)EnchantmentDialogue.getIngredient()).getItemType(), effects);
+			
+		} else if(EnchantmentDialogue.getIngredient() instanceof AbstractClothing) {
+			return new LoadedEnchantment(outputName, ((AbstractClothing)EnchantmentDialogue.getIngredient()).getClothingType(), effects);
+			
+		} else if(EnchantmentDialogue.getIngredient() instanceof AbstractWeapon) {
+			return new LoadedEnchantment(outputName, ((AbstractWeapon)EnchantmentDialogue.getIngredient()).getWeaponType(), effects);
+			
+		} else if(EnchantmentDialogue.getIngredient() instanceof Tattoo) {
+			return new LoadedEnchantment(outputName, ((Tattoo)EnchantmentDialogue.getIngredient()).getType(), effects);
+		}
+		return null;
+	}
+	
 	public static AbstractCoreItem getIngredient() {
 		return ingredient;
 	}
@@ -1257,6 +1279,8 @@ public class EnchantmentDialogue {
 	}
 
 	public static void setOutputName(String outputName) {
+		// Handle parsing:
+		outputName = outputName.replaceAll("\\[\\#(.*?)]", ""); // Remove game parsing
 		EnchantmentDialogue.outputName = outputName;
 	}
 

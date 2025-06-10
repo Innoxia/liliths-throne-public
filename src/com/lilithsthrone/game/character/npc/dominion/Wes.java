@@ -79,7 +79,7 @@ public class Wes extends NPC {
 				38, Month.MARCH, 28,
 				20,
 				Gender.M_P_MALE, Subspecies.FOX_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_REQUISITIONS,
 				true);
 		
@@ -248,13 +248,17 @@ public class Wes extends NPC {
 	}
 
 	@Override
-	public String getArtworkFolderName() {
-		return this.getNameIgnoresPlayerKnowledge();
+	public boolean isUnique() {
+		return true;
 	}
 	
 	@Override
-	public boolean isUnique() {
-		return true;
+	public String getArtworkFolderName() {
+		if(isSlave()) {
+			return "WesSlave";
+		} else {
+			return "Wes";
+		}
 	}
 	
 	@Override

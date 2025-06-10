@@ -16,7 +16,7 @@
 	<dangerous><![CDATA[false]]></dangerous>
 	<itemsDisappear><![CDATA[true]]></itemsDisappear>
 	<aquatic><![CDATA[LAND]]></aquatic>
-	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<darkness><![CDATA[DAYLIGHT]]></darkness>
 	<teleportPermissions>NONE</teleportPermissions>
 	<weatherImmunities immuneToAll="true"/>
 	<applyInventoryInit/>

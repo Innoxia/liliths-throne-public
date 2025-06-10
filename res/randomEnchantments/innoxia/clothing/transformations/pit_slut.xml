@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<enchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	<applyDefaultSeal><![CDATA[true]]></applyDefaultSeal>
+	
+	<spawnWeighting><![CDATA[
+		#IF(game.isArmpitContentEnabled())
+			100
+		#ELSE
+			0
+		#ENDIF
+	]]></spawnWeighting>
+	
+	<namePrefix><![CDATA[Pit slut's]]></namePrefix>
+	<namePostfix/>
+	<nameOverride/>
+	
+	<conditionalPreParsing/>
+	
+	<itemEffects>
+		<effect limit="0" mod1="TF_MOD_FETISH_BODY_PART" mod2="TF_MOD_FETISH_ARMPIT_GIVING" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_MOD_FETISH_BODY_PART" mod2="TF_MOD_FETISH_ORAL_GIVING" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_MOD_FETISH_BODY_PART" mod2="TF_MOD_FETISH_ARMPIT_RECEIVING" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_MOD_FETISH_BODY_PART" mod2="TF_MOD_FETISH_ORAL_RECEIVING" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_MOD_FETISH_BODY_PART" mod2="TF_MOD_FETISH_PENIS_RECEIVING" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+</enchantment>

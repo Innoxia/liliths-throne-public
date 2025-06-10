@@ -101,6 +101,10 @@ public abstract class SexAction implements SexActionInterface {
 		this.participantType = participantType;
 		this.associatedSexPace = associatedSexPace;
 	}
+
+	public String getId() {
+		return SexActionManager.getIdFromSexAction(this);
+	}
 	
 	public boolean isMod() {
 		return mod;

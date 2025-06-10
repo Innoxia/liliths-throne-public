@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.occupantManagement.slave;
 
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 
@@ -10,10 +11,37 @@ import com.lilithsthrone.utils.colours.PresetColour;
  */
 public enum SlaveJobSetting {
 	
-	SEX_ORAL(PresetColour.GENERIC_SEX, "Allow Oral", "Oral", "Allow this slave to perform oral on others."),
-	SEX_VAGINAL(PresetColour.GENERIC_SEX, "Allow Vaginal", "Vaginal", "Allow this slave to receive vaginal sex."),
-	SEX_ANAL(PresetColour.GENERIC_SEX, "Allow Anal", "Anal", "Allow this slave to receive anal sex."),
-	SEX_NIPPLES(PresetColour.GENERIC_SEX, "Allow Nipples", "Nipples", "Allow this slave to receive penetrative nipple sex."),
+	// Sex as a sub settings:
+	SEX_ORAL(PresetColour.GENERIC_SEX, "Perform Oral", "Oral P", "Allow this slave to perform oral on others."),
+	SEX_VAGINAL(PresetColour.GENERIC_SEX, "Receive Vaginal", "Vaginal R", "Allow this slave to receive vaginal sex."),
+	SEX_ANAL(PresetColour.GENERIC_SEX, "Receive Anal", "Anal R", "Allow this slave to receive anal sex.") {
+		@Override
+		public boolean isAvailable() {
+			return Main.game.isAnalContentEnabled();
+		}
+	},
+	SEX_NIPPLES(PresetColour.GENERIC_SEX, "Receive Nipples", "Nipples R", "Allow this slave to receive penetrative nipple sex.") {
+		@Override
+		public boolean isAvailable() {
+			return Main.game.isNipplePenEnabled();
+		}
+	},
+
+	// Sex as a dom settings:
+	SEX_ORAL_DOM(PresetColour.GENERIC_SEX, "Receive Oral", "Oral R", "Allow this slave to receive oral sex from others."),
+	SEX_VAGINAL_DOM(PresetColour.GENERIC_SEX, "Perform Vaginal", "Vaginal P", "Allow this slave to perform vaginal sex on others."),
+	SEX_ANAL_DOM(PresetColour.GENERIC_SEX, "Perform Anal", "Anal P", "Allow this slave to perform anal sex on others.") {
+		@Override
+		public boolean isAvailable() {
+			return Main.game.isAnalContentEnabled();
+		}
+	},
+	SEX_NIPPLES_DOM(PresetColour.GENERIC_SEX, "Perform Nipples", "Nipples P", "Allow this slave to perform penetrative nipple sex on others.") {
+		@Override
+		public boolean isAvailable() {
+			return Main.game.isNipplePenEnabled();
+		}
+	},
 
 	
 	MILKING_NO_PREFERENCE(PresetColour.BASE_GREY, "No Preference", "NP", "Set this slave to work in any available milking room."),
@@ -102,6 +130,13 @@ public enum SlaveJobSetting {
 	
 	public String applyDailyEffects() {
 		return null;
+	}
+	
+	/**
+	 * @return true if this setting is displayed to the player. It will only be false if an associated content setting (e.g. anal, nipple pen) is turned off.
+	 */
+	public boolean isAvailable() {
+		return true;
 	}
 	
 }

@@ -240,7 +240,7 @@
 		Just like the entrance hall, the main interior looks to have an African theme to it, and although the lights are very dim, you can clearly see zebra-stripes, leopard-spots, and savannah-style trees painted onto the walls. The floor beneath your feet is covered in light wooden boards, which, combined with the light blue colour of the high ceiling, gives the club a spacious feel to it.
 	</p>
 	<p>
-		Although you can't directly see it through the crowds in front of you, a wooden sign hanging from the ceiling on the far side of the club's huge interior tells you where the bar is. You wonder if you should go straight there and get a drink, or try to find someone to flirt with first...
+		Although you can't directly see the bar through the crowds in front of you, a wooden sign hanging from the ceiling on the far side of the club's huge interior tells you where it is. You wonder if you should go straight there and get a drink, or try to find someone to flirt with first...
 	</p>
 	]]>
 	</htmlContent>
@@ -870,18 +870,25 @@
 	<htmlContent tag="WATERING_HOLE_SEATING_SEX_AS_DOM_REJECTED"><![CDATA[
 	<p>
 		Sliding around on the semi-circular sofa, you lean in against [npc.name], which causes [npc.herHim] to let out a frustrated sigh. Pushing you away,
-		#IF npc.isShy()
-		#THEN [npc.she] stutters, [npc.speech(P-Please stay on your side!)]
+		#IF(npc.isShy())
+			 [npc.she] stutters, [npc.speech(P-Please stay on your side!)]
 		#ELSE
-			#IF npc.isConfident()
-			#THEN [npc.she] scolds, [npc.speech(Hey! Calm down! Keep to your side of the sofa!)]
-			#ELSE [npc.she] frowns at you as [npc.she] tells you off, [npc.speech(Keep to your side of the sofa!)]
+			#IF(npc.isConfident())
+				 [npc.she] scolds, [npc.speech(Hey! Calm down! Keep to your side of the sofa!)]
+			#ELSE
+				 [npc.she] frowns at you as [npc.she] tells you off, [npc.speech(Keep to your side of the sofa!)]
 			#ENDIF
 		#ENDIF
 	</p>
-	<p>
-		Reluctantly doing as [npc.she] asks, you move back around to your initial position. Waiting a moment for [npc.name] to stop frowning at you, you wonder what to do next...
-	</p>
+	#IF(npc.hasFetish(FETISH_NON_CON_SUB))
+		<p>
+			Despite [npc.her] rejection of your advances, [npc.name] suddenly [npc.verb(let)] out a horny little moan, letting you know that [npc.sheHas] got a kink for being taken against [npc.her] will. Perhaps if you tried initiating sex with [npc.herHim] in a less public place, such as the toilets, [npc.she]'d engage in some rape-play with you...
+		</p>
+	#ELSE
+		<p>
+			Reluctantly doing as [npc.she] asks, you move back around to your initial position. Waiting a moment for [npc.name] to stop frowning at you, you wonder what to do next...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -1950,6 +1957,39 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="WATERING_HOLE_TOILETS_RAPE"><![CDATA[
+	<p>
+		Taking hold of [npc.namePos] [npc.hand], you pull [npc.herHim] over to one of the stalls in order to have sex with [npc.herHim], but as [npc.she] sees what you're doing [npc.she] angrily hisses under [npc.her] breath, [npc.speech(I'm <i>not</i> going to fuck you in a toilet... Stop it!)]
+	</p>
+	<p>
+		Despite [npc.her] words, there's a strong note of arousal in [npc.namePos] voice, which encourages you to forcefully pull [npc.herHim] into one of the stalls, before turning and locking the door behind you. A look of exaggerated horror flashes across [npc.her] face, but before [npc.she] can say anything else, you silence [npc.herHim] by roughly pressing your [pc.lips+] against [npc.her] mouth.
+	</p>
+	<p>
+		Weakly beating against you with [npc.her] fists, [npc.she] manages to break off the kiss and cry, [npc.speech(No! Please stop, [pc.name]! Don't rape me!)]
+	</p>
+	<p>
+		It's extremely obvious from the lewd tone of [npc.her] voice that this is exactly what [npc.name] wants, and as [npc.she] pretends to resist, you get ready to 'rape' [npc.her] right here in the toilets of the club...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WATERING_HOLE_TOILETS_RAPE_PLAY"><![CDATA[
+	<p>
+		Taking hold of [npc.namePos] [npc.hand], you pull [npc.herHim] over to one of the stalls in order to have sex with [npc.herHim], and as [npc.she] sees what you're doing [npc.she] happily [npc.moansVerb], [npc.speech(Yes... Let's fuck!)]
+	</p>
+	<p>
+		Forcefully pulling [npc.herHim] into one of the stalls, you turn and lock the door behind you, before telling [npc.name] that you want [npc.herHim] to pretend that you're raping [npc.herHim]. Immediately playing along with your request, a look of exaggerated horror flashes across [npc.her] face and [npc.she] angrily hisses under [npc.her] breath, [npc.speech(I'm <i>not</i> going to fuck you in a toilet... Stop this!)]
+	</p>
+	<p>
+		Before [npc.she] can say anything else, you silence [npc.herHim] by roughly pressing your [pc.lips+] against [npc.her] mouth. Weakly beating against you with [npc.her] fists, [npc.she] manages to break off the kiss and cry, [npc.speech(No! Please stop, [pc.name]! Don't rape me!)]
+	</p>
+	<p>
+		It's extremely obvious from the lewd tone of [npc.her] voice that this is exactly what [npc.name] wants, and as [npc.she] pretends to resist, you get ready to 'rape' [npc.her] right here in the toilets of the club...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<htmlContent tag="WATERING_HOLE_TOILETS_AFTER_SEX"><![CDATA[
 	<p>
 		Having had your fun with [npc.name], the two of you collapse back against the toilet stall's walls, panting from exertion.
@@ -2265,12 +2305,13 @@
 		[pc.speech(Not likely,)] you reply, crossing your [pc.arms] and smirking at [npc.name]. [pc.speech(I just wanted to give you a good fuck. I'm not interested in seeing you again.)]
 	</p>
 	<p>
-		#IF npc.isShy()
-		#THEN[npc.speech(Y-You asshole! Y-You could at least pretend to care!)] [npc.name] stammers, tears welling up in [npc.her] [npc.eyes] as [npc.she] turns and runs over to the door.
+		#IF(npc.isShy())
+			[npc.speech(Y-You asshole! Y-You could at least pretend to care!)] [npc.name] stammers, tears welling up in [npc.her] [npc.eyes] as [npc.she] turns and runs over to the door.
 		#ELSE
-			#IF npc.isConfident()
-			#THEN[npc.speech(Fine. If that's the way it is, fuck you too, you fucking [pc.bitch].)] [npc.name] snaps, glaring down at you for a moment before turning on [npc.her] heel and heading over to the door.
-			#ELSE[npc.speech(Eugh. What [pc.a_bitch]. Fuck you too.)] [npc.name] snaps, before quickly turning and heading over to the door.
+			#IF(npc.isConfident())
+				[npc.speech(Fine. If that's the way it is, fuck you too, you fucking [pc.bitch].)] [npc.name] snaps, glaring down at you for a moment before turning on [npc.her] heel and heading over to the door.
+			#ELSE
+				[npc.speech(Eugh. What [pc.a_bitch]. Fuck you too.)] [npc.name] snaps, before quickly turning and heading over to the door.
 			#ENDIF
 		#ENDIF
 	</p>
@@ -2288,12 +2329,13 @@
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_BAR"><![CDATA[
 	<p>
-		#IF npc.isKind()
-		#THEN [npc.speech(It's pretty hot in here. Come on, let's go and get something to drink,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off in the direction of the bar. [npc.speech(I'll get you something nice!)]
+		#IF(npc.isKind())
+			[npc.speech(It's pretty hot in here. Come on, let's go and get something to drink,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off in the direction of the bar. [npc.speech(I'll get you something nice!)]
 		#ELSE
-			#IF npc.isSelfish()
-			#THEN [npc.speech(Fuck, it's boiling in here! Come on [pc.babe], I'm thirsty,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and pulling you along behind [npc.herHim] as [npc.she] sets off in the direction of the bar.
-			#ELSE [npc.speech(It's really hot in here. Come on, let's go and get something to drink,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off in the direction of the bar.
+			#IF(npc.isSelfish())
+				[npc.speech(Fuck, it's boiling in here! Come on [pc.babe], I'm thirsty,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and pulling you along behind [npc.herHim] as [npc.she] sets off in the direction of the bar.
+			#ELSE
+				[npc.speech(It's really hot in here. Come on, let's go and get something to drink,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off in the direction of the bar.
 			#ENDIF
 		#ENDIF
 	</p>
@@ -2305,12 +2347,13 @@
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_DANCE_FLOOR"><![CDATA[
 	<p>
-		#IF npc.isKind()
-		#THEN [npc.speech(Let's head over to the dance floor,)] [npc.name] suggests, before taking your [pc.hand] in [npc.hers] and setting off towards the middle of club's main floor. [npc.speech(I love dancing!)]
+		#IF(npc.isKind())
+			[npc.speech(Let's head over to the dance floor,)] [npc.name] suggests, before taking your [pc.hand] in [npc.hers] and setting off towards the middle of club's main floor. [npc.speech(I love dancing!)]
 		#ELSE
-			#IF npc.isSelfish()
-			#THEN [npc.speech(Come on [pc.babe], I want to see you shaking that hot body of yours for me,)] [npc.name] says, before grabbing your [pc.hand] and pulling you along behind [npc.herHim] as [npc.she] sets off in the direction of the dance floor. [npc.speech(And don't you try dancing off with someone else! You're mine for tonight!)]
-			#ELSE [npc.speech(Hey, [pc.name], let's go and check out the dance floor,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off towards the middle of club's main floor. [npc.speech(After all, dancing is what's going to the club's all about!)]
+			#IF(npc.isSelfish())
+				[npc.speech(Come on [pc.babe], I want to see you shaking that hot body of yours for me,)] [npc.name] says, before grabbing your [pc.hand] and pulling you along behind [npc.herHim] as [npc.she] sets off in the direction of the dance floor. [npc.speech(And don't you try dancing off with someone else! You're mine for tonight!)]
+			#ELSE
+				[npc.speech(Hey, [pc.name], let's go and check out the dance floor,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off towards the middle of club's main floor. [npc.speech(After all, dancing is what's going to the club's all about!)]
 			#ENDIF
 		#ENDIF
 	</p>
@@ -2322,12 +2365,13 @@
 	
 	<htmlContent tag="WATERING_HOLE_DOM_PARTNER_CHANGE_LOCATION_SEATING_AREA"><![CDATA[
 	<p>
-		#IF npc.isKind()
-		#THEN [npc.speech(I think we'd be able to talk with one another a little easier if we went and sat down,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off towards the nearest seating area. [npc.speech(We can also give our legs a rest for a while!)]
+		#IF(npc.isKind())
+			[npc.speech(I think we'd be able to talk with one another a little easier if we went and sat down,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off towards the nearest seating area. [npc.speech(We can also give our [npc.legs] a rest for a while!)]
 		#ELSE
-			#IF npc.isSelfish()
-			#THEN [npc.speech(My [npc.legs] are fucking killing me!)] [npc.name] complains, before grabbing your [pc.hand] and pulling you along behind [npc.herHim] as [npc.she] sets off towards the nearest seating area. [npc.speech(Come on, I want to sit down for a while!)]
-			#ELSE [npc.speech(Come on, [pc.name], let's go and sit down for a little while,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off towards the nearest seating area. [npc.speech(My [npc.legs] are aching from standing up for so long!)]
+			#IF(npc.isSelfish())
+				[npc.speech(My [npc.legs] are fucking killing me!)] [npc.name] complains, before grabbing your [pc.hand] and pulling you along behind [npc.herHim] as [npc.she] sets off towards the nearest seating area. [npc.speech(Come on, I want to sit down for a while!)]
+			#ELSE
+				[npc.speech(Come on, [pc.name], let's go and sit down for a little while,)] [npc.name] says, before taking your [pc.hand] in [npc.hers] and setting off towards the nearest seating area. [npc.speech(My [npc.legs] are aching from standing up for so long!)]
 			#ENDIF
 		#ENDIF
 	</p>

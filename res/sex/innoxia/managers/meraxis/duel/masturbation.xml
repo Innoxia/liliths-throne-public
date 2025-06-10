@@ -161,6 +161,13 @@
 			
 			<!-- Whether or not this character is able to stop this sex scene.
 				If false, this will override behaviour derived from this character's SexControl level, effectively restricting the ability to end sex no matter what control they have.
+				If true, then this character will use the default behaviour from the isCharacterAbleToStopSex() method in SexManagerInterface.
+					i.e. The character will be able to stop sex if:
+						They are a dominant participant
+						OR The sex is consensual and the character has SexControl.FULL
+						OR The character is the player and they are a hidden spectator of the sex scene.
+				If you want to force the character to be able to stop sex, then define the 'ignoreDefaultBehaviour' attribute to be "true", like this:
+					<canStopSex ignoreDefaultBehaviour="true"><![CDATA[true]]></canStopSex>
 				OPTIONAL: Default true
 				PARSER: Initial -->
 			<canStopSex><![CDATA[true]]></canStopSex>
@@ -186,9 +193,24 @@
 				PARSER: Initial -->
 			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
 			
+			<!-- A value, bound between 0 and 100, which sets this character's lust at the start of sex.
+					This will affect the default sex pace which they start in (unless you've specified a sexPace below, which overrides default behaviour).
+				e.g.
+					<startingLust>80</startingLust>
+				OPTIONAL: Default is whatever this character's lust value was when entering the sex scene.
+				PARSER: Initial -->
+			<startingLust/>
+			
+			<!-- A value, bound between 0 and 100, which sets this character's arousal at the start of sex.
+				e.g.
+					<startingArousal>25</startingArousal>
+				OPTIONAL: Default is based on the character's lust value (typical value is 0.15 * startingLust).
+				PARSER: Initial -->
+			<startingArousal/>
+			
 			<!-- The pace which this character should start in.
 				The optional attribute 'locked' determines whether this character should be locked into this sex pace for the entire scene or not (defaults to false).
-				OPTIONAL: Default is calculated based on the character's lust at the time sex starts.
+				OPTIONAL: The default sex pace is calculated based on the character's lust at the time sex starts.
 				PARSER: Initial -->
 			<sexPace locked="false"><![CDATA[DOM_NORMAL]]></sexPace>
 			
@@ -200,6 +222,9 @@
 						<applierId><![CDATA[lilaya]]></applierId>
 						<type><![CDATA[WITCH_SEAL]]></type>
 					</startingImmobilisation>
+				Please note that you can add multiple 'startingImmobilisation' elements to make this character begin sex under the effects of multiple ImmobilisationTypes.
+					If defining multiple 'startingImmobilisation' elements, please be aware that each element must have a unique 'type'.
+					If two 'startingImmobilisation' elements have the same 'type', only one will be used at the start of sex.
 				OPTIONAL: Default is no immobilisation type applied at the start of sex.
 				PARSER: Initial -->
 			<startingImmobilisation/>
@@ -241,8 +266,9 @@
 			<canSelfTransform><![CDATA[true]]></canSelfTransform>
 	
 			<!-- Whether or not this character starts the sex scene being banned from rape-play (i.e. going into the 'resisting' pace in consensual sex scenes due to having the 'unwilling fuck-toy' fetish).
-				The default is true, thereby making it so NPCs don't start sex resisting, as it without a scene which leads into it (such as that with the slime queen), the resisting behaviour is quite jarring.
-				OPTIONAL: Default true
+				The default is based on the player's 'Rape-play allowed by default' content setting.
+				By default that's false, thereby making it so NPCs don't start sex resisting, as it without a scene which leads into it (such as that with the slime queen), the resisting behaviour is quite jarring.
+				OPTIONAL: Default based on 'Rape-play allowed by default' content setting
 				PARSER: Initial -->
 			<rapePlayBannedAtStart><![CDATA[true]]></rapePlayBannedAtStart>
 			
@@ -348,9 +374,13 @@
 			</orgasmCumTargetsBlocked>
 			
 			<!-- How this character reacts to someone else reaching their orgasm, defined as an OrgasmEncourageBehaviour.
-				For the values NO_ENCOURAGE, CREAMPIE, or PULL_OUT, the character will use GENERIC_PREPARATION_PREPARE, GENERIC_PREPARATION_ENCOURAGE_CREAMPIE, or GENERIC_PREPARATION_ENCOURAGE_PULL_OUT, respectively.
+				If the target is a different character from this one:
+					For the values CREAMPIE, PULL_OUT, or KNOT, the character will use GENERIC_PREPARATION_ENCOURAGE_CREAMPIE, or GENERIC_PREPARATION_ENCOURAGE_PULL_OUT, GENERIC_PREPARATION_ENCOURAGE_KNOT, respectively.
+				Else the target is this character:
+					For the values CREAMPIE, PULL_OUT, or KNOT, the character will use GENERIC_PREPARATION_ASK_FOR_CREAMPIE, or GENERIC_PREPARATION_ASK_FOR_PULL_OUT, GENERIC_PREPARATION_ASK_FOR_KNOT, respectively.
+				If the value NO_ENCOURAGE is used, the character will use their default behaviour.
 				The attribute 'orgasming' should refer to the id of the character who's orgasming.
-				The attribute 'target' should refer to the id of the character who's being targeted by the orgasming character.
+				The attribute 'target' should refer to the id of the character who's being penetrated by the orgasming character.
 					e.g. <orgasmEncourageBehaviours>
 							<behaviour orgasming="meraxis" target="pc"><![CDATA[
 								#IF(meraxis.getSubspecies()==SUBSPECIES_DEMON)
@@ -377,7 +407,8 @@
 			<concealedSlots/>
 			
 			<!-- You can set a preferred partner to be targeted during sex for this character here.
-				Please note that this doesn't have any effect on the player character, and is ignored when this character is reacting to orgasming characters.
+				This behaviour is ignored when this character is reacting to orgasming characters.
+				This works for the player character by setting the defined character as the one that's targeted by the player at the start of sex (but has no effect after that).
 					Example: <preferredTarget><![CDATA[meraxis]]></preferredTarget>
 				OPTIONAL: Default is that this character has no targeting preference
 				PARSER: Every check -->
@@ -402,7 +433,7 @@
 				Note: You can define the optional boolean attribute 'copyForMain' in the 'foreplay' element, which when set to true will make this character use the defined foreplay preferences as their main sex preference as well, allowing you to omit the 'mainSex' element entirely.
 					e.g.: <foreplay copyForMain="true">
 				OPTIONAL: Default is that preferences are calculated from available areas, fetishes, and the player's content options
-				PARSER: Initial -->
+				PARSER: Every check -->
 			<preferences/>
 			
 			<!-- You can define unique sex actions for this character to have available to them here.

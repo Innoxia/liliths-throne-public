@@ -17,7 +17,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.3.7
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class Tongue implements BodyPartInterface {
@@ -37,6 +37,15 @@ public class Tongue implements BodyPartInterface {
 		this.tongueModifiers = new HashSet<>(type.getDefaultRacialTongueModifiers());
 	}
 
+	public Tongue(Tongue tongueToCopy) {
+		this.type = tongueToCopy.type;
+		this.pierced = tongueToCopy.pierced;
+		
+		this.tongueLength = tongueToCopy.tongueLength;
+		
+		this.tongueModifiers = new HashSet<>(tongueToCopy.tongueModifiers);
+	}
+	
 	@Override
 	public AbstractTongueType getType() {
 		return type;

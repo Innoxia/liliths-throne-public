@@ -14,6 +14,9 @@ import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.body.Body;
+import com.lilithsthrone.game.character.body.FluidCum;
+import com.lilithsthrone.game.character.body.FluidGirlCum;
+import com.lilithsthrone.game.character.body.FluidMilk;
 import com.lilithsthrone.game.character.body.LegConfigurationAffinity;
 import com.lilithsthrone.game.character.body.Wing;
 import com.lilithsthrone.game.character.body.abstractTypes.AbstractFaceType;
@@ -23,6 +26,7 @@ import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.character.body.types.FaceType;
+import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
@@ -5367,6 +5371,10 @@ public class Subspecies {
 		public void applySpeciesChanges(Body body) {
 			// Doll subspecies are set in the Main.game.getCharacterUtils().generateBody() method
 			body.setBodyMaterial(BodyMaterial.SILICONE);
+			body.getBreast().setMilk(new FluidMilk(FluidType.MILK_DOLL, false));
+			body.getBreastCrotch().setMilk(new FluidMilk(FluidType.MILK_DOLL, true));
+			body.getPenis().getTesticle().setCum(new FluidCum(FluidType.CUM_DOLL));
+			body.getVagina().setGirlcum(new FluidGirlCum(FluidType.GIRL_CUM_DOLL));
 		}
 		@Override
 		public String getName(Body body) {
@@ -6024,6 +6032,13 @@ public class Subspecies {
 			for(Entry<WorldRegion, SubspeciesSpawnRarity> type : species.getRegionLocations().entrySet()) {
 				regionSpecies.putIfAbsent(type.getKey(), new HashMap<>());
 				regionSpecies.get(type.getKey()).put(species, type.getValue());
+				try {
+					if(type.getKey()==WorldRegion.DOMINION
+							&& (species.getRace()==Race.DEMON || species.getStatusEffectAttributeModifiers(null).get(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue())) {
+						dominionStormImmuneSpecies.put(species, type.getValue());
+					}
+				} catch(Exception ex) {	
+				}
 			}
 			
 			for(Entry<AbstractWorldType, SubspeciesSpawnRarity> type : species.getWorldLocations().entrySet()) {
@@ -6031,7 +6046,8 @@ public class Subspecies {
 				worldSpecies.get(type.getKey()).put(species, type.getValue());
 				
 				try {
-					if(type.getKey()==WorldType.DOMINION && species.getRace()==Race.DEMON && species.getStatusEffectAttributeModifiers(null).get(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue()) {
+					if(type.getKey()==WorldType.DOMINION
+							&& (species.getRace()==Race.DEMON || species.getStatusEffectAttributeModifiers(null).get(Attribute.MAJOR_ARCANE)>=IntelligenceLevel.TWO_SMART.getMinimumValue())) {
 						dominionStormImmuneSpecies.put(species, type.getValue());
 					}
 				} catch(Exception ex) {	
@@ -6043,6 +6059,10 @@ public class Subspecies {
 				placeSpecies.get(type.getKey()).put(species, type.getValue());
 			}
 		}
+		
+//		for(AbstractSubspecies s : dominionStormImmuneSpecies.keySet()) {
+//			System.out.println(s.getName(null));
+//		}
 		
 		for(List<AbstractSubspecies> e : subspeciesFromRace.values()) {
 			e.sort((s1, s2) -> s1.getName(null).compareTo(s2.getName(null)));
@@ -6117,7 +6137,7 @@ public class Subspecies {
 	}
 
 	/**
-	 * @param onlyCoreRaceSpecies true if only core Subspecies should be returned. (e.g. Cat-morph would be returned, but not Lion-morph, Tiger-morph, etc.)
+	 * @param onlyCoreRaceSpecies true if only core Subspecies should be returned. (e.g. Cat-morph would be returned, but not caracal-morph, lynx-morph, etc.)
 	 * @param subspeciesToExclude Any Subspecies that should be excluded from the returned map.
 	 */
 	public static Map<AbstractSubspecies, SubspeciesSpawnRarity> getDominionStormImmuneSpecies(boolean onlyCoreRaceSpecies, AbstractSubspecies... subspeciesToExclude) {

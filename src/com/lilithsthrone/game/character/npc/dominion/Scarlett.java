@@ -86,7 +86,7 @@ public class Scarlett extends NPC {
 						+ " Rude, loud, and quick to anger, Scarlett isn't a very pleasant person to have to deal with.",
 				23, Month.NOVEMBER, 14,
 				5, Gender.M_P_MALE, Subspecies.HARPY, RaceStage.LESSER,
-				new CharacterInventory(30), WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
+				new CharacterInventory(false, 30), WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
 		
 	}
 	
@@ -119,7 +119,7 @@ public class Scarlett extends NPC {
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.20")) {
 			this.setSkinCovering(new Covering(BodyCoveringType.HARPY_SKIN, PresetColour.SKIN_EBONY), false);
 		}
-		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.8.2") && (!this.isSlave() || !this.getOwner().isPlayer())) {
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.8.2") && (!this.isSlave() || !this.getOwnerId().equals("PlayerCharacter"))) { // Use ID as player may not be fully initialised yet
 			this.clearTattoosAndScars();
 		}
 	}

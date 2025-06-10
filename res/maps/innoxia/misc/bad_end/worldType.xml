@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<worldType>
+	<worldRegion>DOMINION</worldRegion>
+	<name><![CDATA[Unknown]]></name>
+	<colour>BASE_GREY</colour>
+	<sexBlockedReason><![CDATA[[npc.Name] cannot have sex here!]]></sexBlockedReason> 
+	<furniturePresent>true</furniturePresent>
+	<wallsPresent>true</wallsPresent>
+	<loiteringEnabled>false</loiteringEnabled>
+	<flightEnabled>false</flightEnabled>
+	<visibleFromStart>true</visibleFromStart>
+	<fullyRevealedFromStart>false</fullyRevealedFromStart>
+	<globalMapLocation>WORLD_MAP_DOMINION</globalMapLocation>
+	<standardPlace>innoxia_misc_bad_end_default</standardPlace>
+	<entryFromGlobalMapLocation>innoxia_misc_bad_end_default</entryFromGlobalMapLocation>
+	<teleportPermissions>NONE</teleportPermissions>
+	<places>
+		<place colour="#ffffff">GENERIC_IMPASSABLE</place>
+		
+		<place colour="#808080">innoxia_misc_bad_end_default</place>
+	</places>
+</worldType>

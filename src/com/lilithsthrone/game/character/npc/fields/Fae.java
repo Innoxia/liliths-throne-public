@@ -4,14 +4,13 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lilithsthrone.rendering.Pattern;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.attributes.AbstractAttribute;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.types.LegType;
@@ -55,6 +54,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
+import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -67,6 +67,7 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.sex.PregnancyDescriptor;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.PresetColour;
@@ -91,7 +92,7 @@ public class Fae extends NPC {
 				30, Month.JANUARY, 19,
 				15,
 				Gender.F_P_V_B_FUTANARI, Subspecies.FOX_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_market"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_market_clothing"),
 				true);
 
@@ -237,7 +238,7 @@ public class Fae extends NPC {
 		this.equipClothingFromNowhere(scrunchie, true, this);
 
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_neck_gemstone_necklace", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_WHITE, null, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_BANGLE, PresetColour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_wrist_bangle", PresetColour.CLOTHING_GOLD, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_finger_ring", PresetColour.CLOTHING_GOLD, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_ankle_anklet", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_GOLD, null, false), true, this);
 
@@ -357,7 +358,7 @@ public class Fae extends NPC {
 
 	@Override
 	public void applyItemTransactionEffects(AbstractCoreItem itemSold, int quantity, int individualPrice, boolean soldToPlayer) {
-		if(soldToPlayer) {
+		if(soldToPlayer && !InventoryDialogue.isBuyback()) {
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.removeTraderDescription, true);
 			UtilText.addSpecialParsingString(itemSold.getName(), true);
 			
@@ -380,10 +381,10 @@ public class Fae extends NPC {
 	}
 
 	@Override
-	public String rollForPregnancy(GameCharacter partner, float cumQuantity, boolean directSexInsemination, FertilisationType fertilisationType, AbstractAttribute virilityAttribute) {
-		if(!partner.isPlayer()) { // Only the player can impregnate Fae & Silvia
+	public String rollForPregnancy(GameCharacter partner, Body partnerBody, float cumQuantity, boolean isPartnerVirile, float partnerVirility, boolean directSexInsemination, FertilisationType fertilisationType) {
+		if(partner!=null && !partner.isPlayer()) { // Only the player can impregnate Fae & Silvia
 			return PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner, directSexInsemination);
 		}
-		return super.rollForPregnancy(partner, cumQuantity, directSexInsemination, fertilisationType, virilityAttribute);
+		return super.rollForPregnancy(partner, partnerBody, cumQuantity, isPartnerVirile, partnerVirility, directSexInsemination, fertilisationType);
 	}
 }

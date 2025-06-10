@@ -46,6 +46,6 @@ public interface SexAreaInterface {
 		return character!=null
 				&& Main.game.isInSex()
 				&& Main.sex.isCharacterImmobilised(character)
-				&& (Main.sex.getImmobilisationType(character).getKey()==ImmobilisationType.COMMAND || Main.sex.getImmobilisationType(character).getKey()==ImmobilisationType.SLEEP);
+				&& Main.sex.isCharacterInanimateFromImmobilisation(character);
 	}
 }

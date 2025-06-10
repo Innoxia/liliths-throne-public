@@ -69,7 +69,7 @@ public class SupplierLeader extends NPC {
 				30, Month.DECEMBER, 4,
 				12,
 				null, null, null,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.TEXTILES_WAREHOUSE,
 				PlaceType.TEXTILE_WAREHOUSE_OVERSEER_STATION,
 				true);
@@ -279,9 +279,9 @@ public class SupplierLeader extends NPC {
 			return new Response("", "", KaysWarehouse.DOBERMANNS_COMBAT_PLAYER_VICTORY) {
 				@Override
 				public void effects() {
-					if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.RELATIONSHIP_NYAN_4_STOCK_ISSUES_SUPPLIERS_BEATEN)) {
-						KaysWarehouse.applySuppliersBeatenEffects();
-					}
+//					if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.RELATIONSHIP_NYAN_HELP, Quest.RELATIONSHIP_NYAN_4_STOCK_ISSUES_SUPPLIERS_BEATEN)) {
+//						KaysWarehouse.applySuppliersBeatenEffects();
+//					}
 				}
 			};
 		} else {

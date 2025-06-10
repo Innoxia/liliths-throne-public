@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#!npc.isPlayer()]
+	]]></actionConditional>
+	<type>PREPARE_FOR_PARTNER_ORGASM</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[NORMAL]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>
+	<associatedFetishes/>
+	<performingArea/>
+	<targetedArea/>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[
+		Allow orgasm
+	]]></title>
+	<tooltip><![CDATA[
+		Give the horny doll permission to orgasm.
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getNumberOfOrgasms(pc)==0]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Seeing that you're on the verge of an orgasm, the red doll looks down at you and commands, [doll.speech(Keep fucking yourself while you orgasm... So go on then, cum!)]
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getNumberOfOrgasms(pc)>=1]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Seeing that you're about to orgasm again, the red doll looms over you and states, [doll.speech(We're almost finished. Cum again and then the testing will be complete. So go on, doll, cum!)]
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

@@ -4,7 +4,8 @@
 	
 	<statusEffect>SET_DAISHO</statusEffect>
 	
-	<numberRequiredForCompleteSet>2</numberRequiredForCompleteSet>
+	<!-- 'countDuplicates' is set to false so that a character needs a katana and a wakizashi to complete the set bonus. Wielding two katanas or two wakizashis will not work. -->
+	<numberRequiredForCompleteSet countDuplicates="false">2</numberRequiredForCompleteSet>
 	
 	<blockedSlotsCountingTowardsFullSet/>
 	

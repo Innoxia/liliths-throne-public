@@ -10,7 +10,7 @@
 		<physicalResistance>50</physicalResistance> 
 		<femininity>ANDROGYNOUS</femininity> 
 		<slot>TORSO_OVER</slot> 
-		<rarity>COMMON</rarity> 
+		<rarity>QUEST</rarity> 
 		<clothingSet/> 
 		<imageName>vending_machine.svg</imageName> 
 		<imageEquippedName/> 

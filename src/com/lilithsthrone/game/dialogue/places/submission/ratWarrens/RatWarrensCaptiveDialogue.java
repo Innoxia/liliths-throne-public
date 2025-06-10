@@ -874,7 +874,7 @@ public class RatWarrensCaptiveDialogue {
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_MORNING_ENDURE", getMilkers()));
 						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(5));
-						Main.game.getPlayer().setMuskMarker(getMurk().getId());
+						Main.game.getPlayer().addMuskMarkerCharacter(getMurk());
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_MORNING_MUSK_APPLIED", getMilkers()));
 					}
 				};
@@ -888,7 +888,7 @@ public class RatWarrensCaptiveDialogue {
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_MORNING_COMPLIMENT", getMilkers()));
 						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(10));
-						Main.game.getPlayer().setMuskMarker(getMurk().getId());
+						Main.game.getPlayer().addMuskMarkerCharacter(getMurk());
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_MORNING_MUSK_APPLIED", getMilkers()));
 					}
 				};
@@ -902,7 +902,7 @@ public class RatWarrensCaptiveDialogue {
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_MORNING_RESIST", getMilkers()));
 						Main.game.getTextEndStringBuilder().append(incrementPlayerObedience(-10));
-						Main.game.getPlayer().setMuskMarker(getMurk().getId());
+						Main.game.getPlayer().addMuskMarkerCharacter(getMurk());
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/submission/ratWarrens/captive", "CAPTIVE_DAY_1_MORNING_MUSK_APPLIED", getMilkers()));
 					}
 				};
@@ -2650,8 +2650,8 @@ public class RatWarrensCaptiveDialogue {
 	public static final DialogueNode BAD_END = new DialogueNode("[style.boldBadEnd(Bad End: Murk's Milker)]", "", true) {
 		@Override
 		public void applyPreParsingEffects() {
-			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.badEnd, true);
-			Main.getProperties().badEndTitle = "Murk's Milker";
+			Main.game.setBadEnd("Murk's Milker");
+			
 			Main.game.getPlayer().setName(new NameTriplet("Horny milker"));
 		}
 		@Override
@@ -3240,6 +3240,7 @@ public class RatWarrensCaptiveDialogue {
 					public void effects() {
 						RatWarrensCaptiveDialogue.restoreInventories();
 						Main.game.getPlayer().setCaptive(false);
+						Main.game.getPlayer().setObedience(0);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.ratWarrensSilenceIntroduced, true);
 						Main.game.getPlayer().setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_ENTRANCE);
 						Main.game.getNpc(Shadow.class).setLocation(WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_ENTRANCE);

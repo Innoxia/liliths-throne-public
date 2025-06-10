@@ -46,6 +46,8 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.CombatBehaviour;
@@ -86,7 +88,7 @@ public class Ghost extends NPC {
 				67, Month.JULY, 11,
 				42,
 				Gender.F_V_B_FEMALE, Subspecies.getSubspeciesFromId("dsg_otter_subspecies_otter"), RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_enforcer_station"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_enforcer_station_sword"),
 				true);
 		if(!isImported) {
@@ -333,6 +335,10 @@ public class Ghost extends NPC {
 
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_trainer_socks", PresetColour.CLOTHING_WHITE, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_flats", PresetColour.CLOTHING_BLACK, false), true, this);
+
+		if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_3_I_ARION_REPORT)) {
+			this.resetAreasKnownByCharactersMap();
+		}
 	}
 
 	public void equipOpsGear() {
@@ -359,6 +365,10 @@ public class Ghost extends NPC {
 		this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("dsg_hlf_weap_pbrevolver"));
 		this.setEssenceCount(250);
 		this.equipOffhandWeaponFromNowhere(getDagger());
+
+		if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_3_I_ARION_REPORT)) {
+			this.resetAreasKnownByCharactersMap();
+		}
 	}
 	
 	public AbstractWeapon getDagger() {

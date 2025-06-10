@@ -3,6 +3,8 @@ package com.lilithsthrone.game.combat.moves;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
@@ -272,6 +274,52 @@ public class CMWeaponSpecials {
             return formatAttackOutcome(source, target,
             		attackDesc.toString(),
             		attackEffects.toString(),
+            		null,
+                	null);
+        }
+    };
+
+    public static AbstractCombatMove INKY_SUMMON = new AbstractCombatMove(CombatMoveCategory.SPECIAL,
+            "summon Inky",
+            100,
+            1,
+            CombatMoveType.ATTACK,
+            DamageType.LUST,
+            "statusEffects/inky_summon",
+            Util.newArrayListOfValues(PresetColour.BASE_PURPLE),
+            false,
+            true,
+            false,
+			Util.newHashMapOfValues(new Value<AbstractStatusEffect, Integer>(StatusEffect.INKY_ATTACK, 6))) {
+        @Override
+        public Value<Boolean, String> isAvailableFromSpecialCase(GameCharacter source) {
+            return new Value<>(source.hasWeaponEquipped(WeaponType.getWeaponTypeFromId("innoxia_pen_inky")), "Available to characters who have Inky's pen.");
+        }
+        @Override
+        public String getPrediction(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            return UtilText.parse(source, target,
+            		"Unleash Inky on [npc2.name]. The little arcane entity will happily inflict "+getFormattedDamage(DamageType.LUST, 15, null, false, false)+" damage every turn and reduce [npc2.her] actions points by 1!");
+        }
+        @Override
+        public String getDescription(int turnIndex, GameCharacter source) {
+            return UtilText.parse(source,
+            		"Unleash Inky on your target. The little arcane entity will happily inflict "+getFormattedDamage(DamageType.LUST, 15, null, false, false)+" damage every turn and reduce their actions points by 1!");
+        }
+        @Override
+        public String perform(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
+            
+            return formatAttackOutcome(source, target,
+            		"Twisting the cap of [npc.her] pen three times, [npc.name] [npc.verb(pull)] it off to reveal something very special."
+            				+ " Dripping off the exposed nib, a blob of purple liquid rapidly swells and forms into a small, octopus-like creature."
+            				+ " This arcane being, known only as Inky, levitates up into the air, and with hearts in is eyes, it looks at [npc2.name] and makes a happy little moaning noise."
+            				+ "<br/><br/>"
+            				+ "Flying directly towards [npc2.name], Inky wraps its tentacles around [npc2.herHim], and with more joyous little squishing noises, it starts lewdly humping and groping [npc2.herHim]."
+            				+ " It very quickly becomes apparent that any attempt of [npc2.namePos] to pull this arcane creature off of [npc2.herHim] are doomed to failure."
+            				+ " Each time [npc2.she] [npc2.verb(try)] to grab the small octopus, [npc2.her] [npc.hands] simply slip through its liquid body, which elicits cute, gurgling laughter from the horny creature."
+            				+ "<br/><br/>"
+            				+ "Although Inky's tentacles are both extremely distracting and arousing, there's nothing [npc2.name] can do to stop it,"
+            					+ " and so [npc2.she] [npc2.verb(try)] to ignore it as [npc2.she] [npc.verb(wait)] for its arcane power to run out...",
+            		"Inky is now giving [npc2.name] its intimate attention!",
             		null,
                 	null);
         }

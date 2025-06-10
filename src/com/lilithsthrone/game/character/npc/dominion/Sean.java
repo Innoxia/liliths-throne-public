@@ -82,7 +82,7 @@ public class Sean extends NPC {
 				"",
 				28, Month.MAY, 3,
 				15, Gender.M_P_MALE,
-				Subspecies.RABBIT_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS, true);
+				Subspecies.RABBIT_MORPH, RaceStage.GREATER, new CharacterInventory(false, 10), WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS, true);
 		
 		if(!isImported) {
 			this.setPlayerKnowsName(false);

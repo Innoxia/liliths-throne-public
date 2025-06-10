@@ -183,22 +183,21 @@ public class PartnerTalk {
 				}
 				
 			} else if(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)).hasTag(SexSlotTag.LYING_DOWN)) {
-				
 				switch(Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())) {
 					case DOM_GENTLE:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name] looks back at [npc2.name] as [npc2.she] [npc2.verb(lie)] beneath [npc.herHim], and speaks down to [npc2.herHim], ",
-								"Looking back at [npc2.name] as [npc2.she] [npc2.verb(lie)] beneath [npc.herHim], [npc.name] speaks down to [npc2.herHim], ")
+								"[npc.Name] looks down at [npc2.name] as [npc2.she] [npc2.verb(lie)] beneath [npc.herHim], and speaks down to [npc2.herHim], ",
+								"Looking down at [npc2.name] as [npc2.she] [npc2.verb(lie)] beneath [npc.herHim], [npc.name] speaks down to [npc2.herHim], ")
 								+ Main.sex.getDirtyTalk(Main.sex.getCharacterPerformingAction());
 					case DOM_ROUGH:
 						return UtilText.returnStringAtRandom(
-								"[npc.Name] looks back at [npc2.name] as [npc2.she] [npc2.verb(lie)] beneath [npc.herHim], and growls down to [npc2.herHim], ",
-								"Looking back at [npc2.name] as [npc2.she] [npc2.verb(lie)] beneath [npc.herHim], [npc.name] growls down to [npc2.herHim], ")
+								"[npc.Name] looks down at [npc2.name] as [npc2.she] [npc2.verb(lie)] beneath [npc.herHim], and growls down to [npc2.herHim], ",
+								"Looking down at [npc2.name] as [npc2.she] [npc2.verb(lie)] beneath [npc.herHim], [npc.name] growls down to [npc2.herHim], ")
 								+ Main.sex.getDirtyTalk(Main.sex.getCharacterPerformingAction());
 					default: 
 						return UtilText.returnStringAtRandom(
-								"[npc.Name] looks back at [npc2.name] as [npc2.she] [npc2.verb(lie)] beneath [npc.herHim], and [npc.moansVerb] down to [npc2.herHim], ",
-								"Looking back at [npc2.name] as [npc2.she] [npc2.verb(lie)] beneath [npc.herHim], [npc.name] [npc.moansVerb] down to [npc2.herHim], ")
+								"[npc.Name] looks down at [npc2.name] as [npc2.she] [npc2.verb(lie)] beneath [npc.herHim], and [npc.moansVerb] down to [npc2.herHim], ",
+								"Looking down at [npc2.name] as [npc2.she] [npc2.verb(lie)] beneath [npc.herHim], [npc.name] [npc.moansVerb] down to [npc2.herHim], ")
 								+ Main.sex.getDirtyTalk(Main.sex.getCharacterPerformingAction());
 				}
 				

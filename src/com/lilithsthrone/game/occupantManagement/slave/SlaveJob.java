@@ -337,7 +337,8 @@ public enum SlaveJob {
 			null,
 			null,
 			Util.newArrayListOfValues(
-					SlaveJobFlag.EXPERIENCE_GAINS),
+					SlaveJobFlag.EXPERIENCE_GAINS,
+					SlaveJobFlag.CLEANING_UNAVAILABLE),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB) {
 		@Override
 		public float getAffectionGain(GameCharacter slave) {
@@ -393,7 +394,8 @@ public enum SlaveJob {
 							SlaveJobSetting.DOLL_STATUE_BRIDGE))),
 			Util.newArrayListOfValues(
 					SlaveJobSetting.DOLL_STATUE_ARTISTIC),
-			Util.newArrayListOfValues(),
+			Util.newArrayListOfValues(
+					SlaveJobFlag.CLEANING_UNAVAILABLE),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_CORRIDOR) {
 		@Override
 		public boolean isHidden(GameCharacter character) {
@@ -401,13 +403,15 @@ public enum SlaveJob {
 		}
 		@Override
 		public boolean isAvailable(int hour, GameCharacter character) {
-			return !character.getHomeWorldLocation().equals(WorldType.getWorldTypeFromId("innoxia_dominion_sex_shop"));
+			return character.isDoll() && !character.getHomeWorldLocation().equals(WorldType.getWorldTypeFromId("innoxia_dominion_sex_shop"));
 		}
 		@Override
 		public String getAvailabilityText(int hour, GameCharacter character) {
+			if(!character.isDoll()) {
+				return "Only dolls can work as a statue...";
+			}
 			if(character.getHomeWorldLocation().equals(WorldType.getWorldTypeFromId("innoxia_dominion_sex_shop"))) {
 				return "Dolls cannot work while being stored at Lovienne's Luxuries. Move them into a doll closet first!";
-				
 			}
 			return "This job is available!";
 		}
@@ -429,8 +433,8 @@ public enum SlaveJob {
 			0.5f,
 			5,
 			2f,
-			"public use",
-			"public use",
+			"public fucktoy",
+			"public fucktoy",
 			"Assign this slave to be locked in the public-use stocks in slaver ally.",
 			-5f, 1f,
 			0,
@@ -447,7 +451,8 @@ public enum SlaveJob {
 			null,
 			null,
 			Util.newArrayListOfValues(
-					SlaveJobFlag.EXPERIENCE_GAINS),
+					SlaveJobFlag.EXPERIENCE_GAINS,
+					SlaveJobFlag.CLEANING_UNAVAILABLE),
 			WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS) {
 		@Override
 		public float getAffectionGain(GameCharacter slave) {
@@ -476,7 +481,11 @@ public enum SlaveJob {
 					SlaveJobSetting.SEX_ORAL,
 					SlaveJobSetting.SEX_VAGINAL,
 					SlaveJobSetting.SEX_ANAL,
-					SlaveJobSetting.SEX_NIPPLES),
+					SlaveJobSetting.SEX_NIPPLES,
+					SlaveJobSetting.SEX_ORAL_DOM,
+					SlaveJobSetting.SEX_VAGINAL_DOM,
+					SlaveJobSetting.SEX_ANAL_DOM,
+					SlaveJobSetting.SEX_NIPPLES_DOM),
 			Util.newArrayListOfValues(
 					SlaveJobSetting.SEX_ORAL,
 					SlaveJobSetting.SEX_VAGINAL,
@@ -563,7 +572,9 @@ public enum SlaveJob {
 					SlaveJobSetting.MILKING_NO_PREFERENCE),
 			Util.newArrayListOfValues(
 					SlaveJobFlag.EXPERIENCE_GAINS,
-					SlaveJobFlag.INTERACTION_BONDING),
+					SlaveJobFlag.INTERACTION_BONDING,
+					SlaveJobFlag.CLEANING_UNAVAILABLE,
+					SlaveJobFlag.SPECIAL_UNIFORM),
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
 			PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR) {
 		@Override
@@ -818,12 +829,13 @@ public enum SlaveJob {
 			return 4;
 		}
 		
-		@Override
-		public boolean isAvailable(int hour, GameCharacter character) {
-			return !character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION)
-					&& !character.getHomeWorldLocation().equals(WorldType.getWorldTypeFromId("innoxia_dominion_sex_shop"))
-					&& Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, SlaveJob.OFFICE) < getSlaveLimit();
-		}
+//		@Override
+//		public boolean isAvailable(int hour, GameCharacter character) {
+//			return character.getSlaveJob(hour)==this
+//					|| (!character.getHomeLocationPlace().getPlaceType().equals(PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION)
+//						&& !character.getHomeWorldLocation().equals(WorldType.getWorldTypeFromId("innoxia_dominion_sex_shop"))
+//						&& Main.game.getOccupancyUtil().getCharactersWorkingJob(hour, SlaveJob.OFFICE) < getSlaveLimit());
+//		}
 	
 		public String getAvailabilityText(int hour, GameCharacter character) {
 			if(!isAvailable(hour, character)) {
@@ -879,8 +891,8 @@ public enum SlaveJob {
 			0.05f,
 			4,
 			0,
-			"bedroom",
-			"bedroom",
+			"bedroom slave",
+			"bedroom slave",
 			"Assign this slave to wait upon you in your bedroom.",
 			0, 0.25f,
 			0,
@@ -912,8 +924,8 @@ public enum SlaveJob {
 			0.05f,
 			8,
 			1.5f,
-			"Spa pools",
-			"Spa pools",
+			"Spa servant",
+			"Spa servant",
 			"Assign this slave to your private spa, ready to give you a massage or tend to any of your needs.",
 			0.5f, -0.1f,
 			0,
@@ -968,8 +980,8 @@ public enum SlaveJob {
 			0.05f,
 			2,
 			2f,
-			"Spa desk",
-			"Spa desk",
+			"Spa clerk",
+			"Spa clerk",
 			"Assign this slave to work on the reception desk of your private spa.",
 			0, 0.05f,
 			0,
@@ -1406,7 +1418,7 @@ public enum SlaveJob {
 		} else if(character.getHomeWorldLocation().equals(WorldType.getWorldTypeFromId("innoxia_dominion_sex_shop"))) {
 			return "Dolls cannot work while being stored at Lovienne's Luxuries. Move them into a doll closet first!";
 			
-		} else if(!character.isSlave() && character.isSleepingAtHour(hour)){
+		} else if(!character.isSlave() && character.isSleepingAtHour(hour)) {
 			return UtilText.parse(character, "[npc.Name] is sleeping at this hour, and as [npc.she] is not your slave, you cannot force [npc.herHim] to work at this time!");
 			
 		} else {

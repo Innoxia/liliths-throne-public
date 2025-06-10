@@ -110,7 +110,7 @@ public class Nyan extends NPC {
 						+ " She's extremely shy, and gets very nervous when having to talk to people.",
 				21, Month.APRIL, 12,
 				10, Gender.F_V_B_FEMALE, Subspecies.CAT_MORPH, RaceStage.LESSER,
-				new CharacterInventory(10), WorldType.NYANS_APARTMENT, PlaceType.NYAN_APARTMENT_NYAN_BEDROOM, true);
+				new CharacterInventory(false, 10), WorldType.NYANS_APARTMENT, PlaceType.NYAN_APARTMENT_NYAN_BEDROOM, true);
 		
 		commonFemaleClothing = new ArrayList<>();
 		commonFemaleUnderwear = new ArrayList<>();
@@ -546,7 +546,7 @@ public class Nyan extends NPC {
 		Colour bangleColour = Util.randomItemFrom(Util.newArrayListOfValues(
 				PresetColour.CLOTHING_SILVER,
 				PresetColour.CLOTHING_ROSE_GOLD));
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_BANGLE, bangleColour, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_wrist_bangle", bangleColour, false), true, this);
 
 		// Socks:
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_trainer_socks", PresetColour.CLOTHING_BLACK, false), true, this);

@@ -90,16 +90,16 @@ public class SexPosition {
 		@Override
 		public String getDescription(Map<GameCharacter, SexSlot> occupiedSlots) {
 			if(Main.sex.getCharacterInPosition(SexSlotMasturbation.KNEELING)!=null) {
-				return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotMasturbation.KNEELING), "[npc.NameIs] kneeling on the floor, ready to masturbate.");
+				return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotMasturbation.KNEELING), "[npc.NameIsFull] kneeling on the floor, ready to masturbate.");
 			}
 			if(Main.sex.getCharacterInPosition(SexSlotMasturbation.STANDING)!=null) {
-				return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotMasturbation.STANDING), "[npc.NameIs] standing upright, ready to masturbate.");
+				return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotMasturbation.STANDING), "[npc.NameIsFull] standing upright, ready to masturbate.");
 			}
 			if(Main.sex.getCharacterInPosition(SexSlotMasturbation.SITTING)!=null) {
-				return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotMasturbation.SITTING), "[npc.NameIs] sitting down, ready to masturbate.");
+				return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotMasturbation.SITTING), "[npc.NameIsFull] sitting down, ready to masturbate.");
 			}
 			if(Main.sex.getCharacterInPosition(SexSlotMasturbation.KNEELING_PANTIES)!=null) {
-				return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotMasturbation.KNEELING_PANTIES), "[npc.NameIs] kneeling on the floor, ready to masturbate with the aid of Lilaya's panties.");
+				return UtilText.parse(Main.sex.getCharacterInPosition(SexSlotMasturbation.KNEELING_PANTIES), "[npc.NameIsFull] kneeling on the floor, ready to masturbate with the aid of Lilaya's panties.");
 			}
 			
 			return UtilText.parse("You are ready to masturbate.");
@@ -876,6 +876,15 @@ public class SexPosition {
 					interactions.add(StandardSexActionInteractions.performingOral.getSexActionInteractions(slotOral, slotBack));
 				}
 			}
+
+			// Those standing beside one another can kiss:
+			for(int i=0;i<3;i++) {
+				interactions.add(StandardSexActionInteractions.besideOneAnother.getSexActionInteractions(backToWall.get(i), facingWall.get(i)));
+				
+				interactions.add(StandardSexActionInteractions.besideOneAnother.getSexActionInteractions(backToWall.get(i), backToWall.get(i+1)));
+				interactions.add(StandardSexActionInteractions.besideOneAnother.getSexActionInteractions(facingWall.get(i), facingWall.get(i+1)));
+				interactions.add(StandardSexActionInteractions.besideOneAnother.getSexActionInteractions(backToWall.get(i), facingWall.get(i+1)));
+			}
 			
 			return generateSlotTargetsMap(interactions);
 		}
@@ -1387,8 +1396,8 @@ public class SexPosition {
 
 			// Those on the desk can kiss the ones next to them:
 			for(int i=0;i<3;i++) {
-				interactions.add(StandardSexActionInteractions.besideOneAnotherOnDesk.getSexActionInteractions(onDeskBack.get(i), onDeskBack.get(i)));
-				interactions.add(StandardSexActionInteractions.besideOneAnotherOnDesk.getSexActionInteractions(onDeskFront.get(i), onDeskFront.get(i)));
+//				interactions.add(StandardSexActionInteractions.besideOneAnotherOnDesk.getSexActionInteractions(onDeskBack.get(i), onDeskBack.get(i)));
+//				interactions.add(StandardSexActionInteractions.besideOneAnotherOnDesk.getSexActionInteractions(onDeskFront.get(i), onDeskFront.get(i)));
 				interactions.add(StandardSexActionInteractions.besideOneAnotherOnDesk.getSexActionInteractions(onDeskBack.get(i), onDeskFront.get(i)));
 				
 				interactions.add(StandardSexActionInteractions.besideOneAnotherOnDesk.getSexActionInteractions(onDeskBack.get(i), onDeskBack.get(i+1)));
@@ -2980,8 +2989,12 @@ public class SexPosition {
 					
 				}
 				
-				boolean skipLyingdown = count >= lyingDownCharacters.size();
+				if(lyingDown==null) {
+					// There always needs to be a character lying down, so if there are multiple characters in an oral position (or something similar), make the last encountered lyingDown character the focused one
+					lyingDown = lyingDownCharacters.get(lyingDownCharacters.size()-1);
+				}
 				
+				boolean skipLyingdown = count >= lyingDownCharacters.size();
 				if(!skipLyingdown) {
 					switch(count) {
 						case 0:

@@ -79,7 +79,7 @@ public class Loppy extends NPC {
 						+ " Just like her younger sister, Bunny, Loppy is a rabbit-morph, and seems to genuinely love her line of work.",
 				22, Month.JANUARY, 7,
 				10, Gender.F_P_V_B_FUTANARI, Subspecies.RABBIT_MORPH_LOP, RaceStage.PARTIAL,
-				new CharacterInventory(30), WorldType.ANGELS_KISS_FIRST_FLOOR, PlaceType.ANGELS_KISS_BEDROOM_LOPPY, true);
+				new CharacterInventory(false, 30), WorldType.ANGELS_KISS_FIRST_FLOOR, PlaceType.ANGELS_KISS_BEDROOM_LOPPY, true);
 	}
 
 	@Override

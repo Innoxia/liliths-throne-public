@@ -142,21 +142,33 @@ public class ClitNipple {
 						break;
 					case SUB_RESISTING:
 						if(Main.sex.getCharacterTargetedForSexAction(this).isNippleVirgin()) {
-							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-									" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] at the thought of what's about to happen, [npc2.speech(No! Don't! Please! I-I've never done this before! Don't take my nipple virginity!)]",
-	
-									" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob], before pleading, [npc2.speech(Please! Don't do this! My nipples have never been penetrated before!)]",
-	
-									" [npc2.Name] [npc2.sobsVerb] in distress at the thought of what's about to happen, before desperately begging, [npc2.speech(No! Stop! I don't want to lose my nipple virginity!)]"));
+							if(Main.sex.getCharacterTargetedForSexAction(this).isMute()) {
+								UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+										" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] at the thought of being about to lose [npc2.her] nipple virginity.",
+										" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob] as [npc2.she] [npc2.verb(realise)] that [npc2.she] might be about to lose [npc2.her] nipple virginity.",
+										" [npc2.Name] [npc2.sobVerb] in distress at the thought of losing [npc2.her] nipple virginity to [npc.namePos] [npc.clit+]."));
+								
+							} else {
+								UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+										" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] at the thought of what's about to happen, [npc2.speech(No! Stop! I've never had my nipples fucked before!)]",
+										" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob], before pleading, [npc2.speech(Please! Don't do this! My nipples haven't been fucked before!)]",
+										" [npc2.Name] [npc2.sobsVerb] in distress at the thought of what's about to happen, before desperately begging, [npc2.speech(No! Stop! I don't want to lose my nipple virginity!)]"));
+							}
 							
 						} else {
-							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-									" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] [npc2.verb(try)] to pull [npc2.her] [npc2.nipple(true)] away from [npc.namePos] [npc.clit],"
-											+ " [npc2.speech(No! Don't! Please, get away from me!)]",
-	
-									" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob], before pleading, [npc2.speech(Please! Don't do this! Leave me alone!)]",
-	
-									" [npc2.Name] [npc2.sobsVerb] in distress as [npc2.she] [npc2.verb(beg)], [npc2.speech(No! Stop! Get away from there!)]"));
+							if(Main.sex.getCharacterTargetedForSexAction(this).isMute()) {
+								UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+										" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] [npc2.verb(try)] to pull [npc2.her] [npc2.nipple(true)] away from [npc.namePos] [npc.clit].",
+										" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob] as [npc2.she] [npc2.verb(struggle)] against [npc.name].",
+										" [npc2.Name] [npc2.sobVerb] in distress as [npc2.she] [npc2.verb(try)] to pull away from [npc.name]."));
+								
+							} else {
+								UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+										" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] [npc2.verb(try)] to pull [npc2.her] [npc2.nipple(true)] away from [npc.namePos] [npc.clit],"
+												+ " [npc2.speech(No! Don't! Please, get away from me!)]",
+										" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob], before pleading, [npc2.speech(Please! Don't do this! Leave me alone!)]",
+										" [npc2.Name] [npc2.sobsVerb] in distress as [npc2.she] [npc2.verb(beg)], [npc2.speech(No! Stop! Get away from there!)]"));
+							}
 						}
 						break;
 					default:
@@ -694,7 +706,7 @@ public class ClitNipple {
 							+ " [npc.name] [npc.verb(start)] enthusiastically rocking [npc.her] [npc.hips] back and forth, letting out [npc.a_moan+] with every thrust as [npc.she] happily [npc.verb(fuck)] [npc2.namePos] [npc2.breasts].",
 
 					"Enthusiastically pushing [npc.her] [npc.clit+] deep into [npc2.namePos] [npc2.nipple+],"
-							+ " [npc.name] frantically thrusting [npc.her] [npc.hips] forwards, letting out [npc.a_moan+] as [npc.she] greedily [npc.verb(fuck)] [npc2.herHim].",
+							+ " [npc.name] frantically [npc.verb(thrust)] [npc.her] [npc.hips] forwards, letting out [npc.a_moan+] as [npc.she] greedily [npc.verb(fuck)] [npc2.herHim].",
 
 					"Thrusting [npc.her] [npc.clit+] deep into [npc2.namePos] [npc2.nipple+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(start)] to eagerly pump [npc.her] [npc.hips] back and forth,"
 							+ " breathing in [npc2.namePos] [npc2.scent] as [npc.she] desperately [npc.verb(fuck)] [npc2.herHim]."));

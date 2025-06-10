@@ -6,8 +6,10 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
@@ -17,6 +19,7 @@ import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
+import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
@@ -25,8 +28,11 @@ import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeDepth;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
+import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
+import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.Perk;
@@ -40,12 +46,18 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
+import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.PresetColour;
@@ -65,10 +77,10 @@ public class Fiammetta extends NPC {
 	
 	public Fiammetta(boolean isImported) {
 		super(isImported, new NameTriplet("Fiammetta"), "Sciarra",
-				"Fiammetta is a human who travelled to Dominion from a village near Thinis to find her friend.",
+				"Fiammetta is a human reporter who works for Dominion's only newspaper; The Octogram Herald.",
 				23, Month.JULY, 14,
 				15, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN,
-				new CharacterInventory(30),
+				new CharacterInventory(false, 30),
 				WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL,
 				true);
 
@@ -77,6 +89,10 @@ public class Fiammetta extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.10.3") && !this.isDoll()) {
+			setStartingBody(true);
+		}
 	}
 
 	@Override
@@ -98,13 +114,13 @@ public class Fiammetta extends NPC {
 		if(setPersona) {
 			this.setPersonalityTraits(
 					PersonalityTrait.KIND,
-					PersonalityTrait.CONFIDENT,
-					PersonalityTrait.BRAVE);
+					PersonalityTrait.CONFIDENT);
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
 			this.setHistory(Occupation.NPC_JOURNALIST);
 			
+			this.clearFetishes();
 			// For the 'Lusty maiden' fetish:
 			this.addFetish(Fetish.FETISH_PURE_VIRGIN);
 			this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
@@ -112,7 +128,7 @@ public class Fiammetta extends NPC {
 			this.addFetish(Fetish.FETISH_BREASTS_SELF);
 			
 			this.setFetishDesire(Fetish.FETISH_ARMPIT_RECEIVING, FetishDesire.THREE_LIKE);
-			this.setFetishDesire(Fetish.FETISH_LEG_LOVER, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_STRUTTER, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_DOMINANT, FetishDesire.THREE_LIKE);
 			
 			this.setFetishDesire(Fetish.FETISH_MASOCHIST, FetishDesire.ZERO_HATE);
@@ -150,7 +166,8 @@ public class Fiammetta extends NPC {
 		// Face:
 		this.setFaceVirgin(false);
 		this.setLipSize(LipSize.TWO_FULL);
-		this.setFaceCapacity(Capacity.TWO_TIGHT, true);
+		this.setFaceCapacity(Capacity.THREE_SLIGHTLY_LOOSE, true);
+		this.setFaceDepth(OrificeDepth.FOUR_DEEP.getValue());
 		// Throat settings and modifiers
 		this.setTongueLength(TongueLength.ZERO_NORMAL.getMedianValue());
 		// Tongue modifiers
@@ -166,9 +183,10 @@ public class Fiammetta extends NPC {
 		// Ass:
 		this.setAssVirgin(false);
 		this.setAssBleached(false);
-		this.setAssSize(AssSize.THREE_NORMAL);
-		this.setHipSize(HipSize.THREE_GIRLY);
-		this.setAssCapacity(Capacity.TWO_TIGHT, true);
+		this.setAssSize(AssSize.FOUR_LARGE);
+		this.setHipSize(HipSize.FOUR_WOMANLY);
+		this.setAssCapacity(Capacity.THREE_SLIGHTLY_LOOSE, true);
+		this.setAssDepth(OrificeDepth.THREE_SPACIOUS.getValue());
 		this.setAssWetness(Wetness.ZERO_DRY);
 		this.setAssElasticity(OrificeElasticity.THREE_FLEXIBLE.getValue());
 		this.setAssPlasticity(OrificePlasticity.FOUR_ACCOMMODATING.getValue());
@@ -194,7 +212,7 @@ public class Fiammetta extends NPC {
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
 		this.unequipAllClothingIntoVoid(true, true);
-
+		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_head_headband", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_boyshorts", PresetColour.CLOTHING_GREY, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_sports_bra", PresetColour.CLOTHING_GREY, false), true, this);
@@ -228,5 +246,83 @@ public class Fiammetta extends NPC {
 		return null;
 	}
 
+	@Override
+	public boolean isAbleToBeImpregnated() {
+		return true;
+	}
 
+	@Override
+	public void turnUpdate() {
+		if((Main.game.getPlayer().getWorldLocation()==WorldType.getWorldTypeFromId("innoxia_dominion_sex_shop") || Main.game.getPlayer().getWorldLocation()==WorldType.getWorldTypeFromId("innoxia_dominion_sex_shop_factory"))
+				&& Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.SIDE_DOLL_FACTORY, Quest.DOLL_FACTORY_2)
+				&& Main.game.getPlayer().isQuestProgressLessThan(QuestLine.SIDE_DOLL_FACTORY, Quest.DOLL_FACTORY_6)
+				&& !Main.game.isBadEnd()) {
+			if(Main.game.getDialogueFlags().hasFlag("innoxia_doll_factory_fia_in_hiding")) {
+				this.returnToHome();
+			} else {
+				this.setLocation(Main.game.getPlayer(), false);
+			}
+		}
+	}
+	
+	@Override
+	public SexPace getSexPaceDomPreference() {
+		return SexPace.DOM_NORMAL;
+	}
+	
+	/**
+	 * Sets up Fia's friend for the start of the factory quest
+	 */
+	public void initFriend(GameCharacter friend) {
+		friend.setBody(Gender.M_P_MALE, RacialBody.RAT_MORPH, RaceStage.GREATER, true);
+		friend.setAge(37);
+		friend.setHeight(182);
+		friend.setBodySize(BodySize.THREE_LARGE.getMedianValue());
+		friend.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
+		
+		friend.setSexualOrientation(SexualOrientation.GYNEPHILIC);
+		
+		friend.setPenisVirgin(false);
+		
+		friend.setEyeCovering(new Covering(BodyCoveringType.EYE_RAT, PresetColour.EYE_GREY_GREEN));
+		friend.setSkinCovering(new Covering(BodyCoveringType.RAT_FUR, PresetColour.COVERING_GREY), true);
+		friend.setSkinCovering(new Covering(BodyCoveringType.HAIR_RAT_FUR, PresetColour.BASE_GREY_DARK), false);
+		friend.setSkinCovering(new Covering(BodyCoveringType.BODY_HAIR_RAT_FUR, PresetColour.COVERING_DARK_GREY), false);
+		
+		friend.setPenisSize(PenisLength.THREE_LARGE.getMedianValue());
+		friend.setTesticleSize(TesticleSize.THREE_LARGE);
+		friend.setPenisCumStorage(CumProduction.FIVE_HUGE.getMedianValue());
+		
+		// Fetishes:
+		friend.clearFetishes();
+		friend.clearFetishDesires();
+		
+		friend.addFetish(Fetish.FETISH_ANAL_GIVING);
+		friend.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+		friend.addFetish(Fetish.FETISH_BREASTS_OTHERS);
+
+		friend.setFetishDesire(Fetish.FETISH_ARMPIT_GIVING, FetishDesire.THREE_LIKE);
+		friend.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.THREE_LIKE);
+		friend.setFetishDesire(Fetish.FETISH_CUM_STUD, FetishDesire.THREE_LIKE);
+		
+		// Inventory:
+		friend.resetInventory(true);
+		AbstractClothing boxers = Main.game.getItemGen().generateClothing("innoxia_groin_boxers", PresetColour.CLOTHING_PINK_DARK, false);
+		boxers.setPattern(Pattern.getPatternIdByName("polka_dots_big"));
+		boxers.setPatternColour(0, PresetColour.CLOTHING_PINK);
+		boxers.setPatternColour(1, PresetColour.CLOTHING_WHITE);
+		friend.equipClothingFromNowhere(boxers, true, this);
+
+		friend.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_cargo_trousers", PresetColour.CLOTHING_BLACK, false), true, friend);
+		friend.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_GREY_DARK, false), true, friend);
+		friend.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_work_boots", PresetColour.CLOTHING_DESATURATED_BROWN_DARK, false), true, friend);
+
+		friend.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_tshirt", PresetColour.CLOTHING_BLUE_NAVY, false), true, friend);
+		friend.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torsoOver_ribbed_jumper", PresetColour.CLOTHING_GREEN_DRAB, false), true, friend);
+		
+		friend.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_head_cap", PresetColour.CLOTHING_BLUE_NAVY, false), true, friend);
+
+		friend.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_MENS_WATCH, PresetColour.CLOTHING_BLACK_STEEL, false), true, friend);
+		
+	}
 }

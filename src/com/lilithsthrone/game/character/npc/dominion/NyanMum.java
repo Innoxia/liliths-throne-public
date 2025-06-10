@@ -82,7 +82,7 @@ public class NyanMum extends NPC {
 				Gender.F_V_B_FEMALE,
 				Subspecies.getSubspeciesFromId("innoxia_cat_subspecies_cougar"),
 				RaceStage.LESSER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.NYANS_APARTMENT,
 				PlaceType.NYAN_APARTMENT_SPARE_BEDROOM,
 				true);

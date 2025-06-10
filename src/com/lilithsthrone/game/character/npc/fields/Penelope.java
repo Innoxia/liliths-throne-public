@@ -84,7 +84,7 @@ public class Penelope extends NPC {
 				"A beautiful border collie-girl, who is the owner and manager of Elis's spa; 'Woolly Heaven'.",
 				29, Month.FEBRUARY, 21, 
 				15, Gender.F_P_V_B_FUTANARI, Subspecies.DOG_MORPH_BORDER_COLLIE, RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_shops"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_shops_spa"),
 				true);
 
@@ -238,7 +238,7 @@ public class Penelope extends NPC {
 
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_platform_boots", PresetColour.CLOTHING_RED_BURGUNDY, false), true, this);
 		
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_BANGLE, PresetColour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_wrist_bangle", PresetColour.CLOTHING_GOLD, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_finger_wrap_ring", PresetColour.CLOTHING_GOLD, false), true, this);
 
 		this.setPiercedEar(true);
@@ -377,8 +377,8 @@ public class Penelope extends NPC {
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("phlarx_dresses_ballgown", PresetColour.CLOTHING_BLUE_LIGHT, PresetColour.CLOTHING_SILVER, PresetColour.CLOTHING_SILVER, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_elbow_length_gloves", PresetColour.CLOTHING_BLUE_LIGHT, false), true, this);
 
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_strapless_bra", PresetColour.CLOTHING_RED_BURGUNDY, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_lacy_thong", PresetColour.CLOTHING_RED_BURGUNDY, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_chest_strapless_bra", PresetColour.CLOTHING_BLACK, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_lacy_thong", PresetColour.CLOTHING_BLACK, false), true, this);
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_heels", PresetColour.CLOTHING_BLUE_LIGHT, false), true, this);
 		
@@ -428,7 +428,7 @@ public class Penelope extends NPC {
 		thong.setPatternColour(1, PresetColour.CLOTHING_ORANGE_BRIGHT);
 		this.equipClothingFromNowhere(thong, true, this);
 		
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_BANGLE, PresetColour.CLOTHING_ROSE_GOLD, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_wrist_bangle", PresetColour.CLOTHING_ROSE_GOLD, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_ankle_anklet", PresetColour.CLOTHING_ROSE_GOLD, PresetColour.CLOTHING_ROSE_GOLD, null, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_finger_wrap_ring", PresetColour.CLOTHING_ROSE_GOLD, false), true, this);
 		

@@ -17,7 +17,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.?
- * @version 0.3.7
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class OrificeVagina implements OrificeInterface {
@@ -47,6 +47,21 @@ public class OrificeVagina implements OrificeInterface {
 		
 		hymen = virgin;
 		squirter = wetness > Wetness.THREE_WET.getValue();
+	}
+
+	public OrificeVagina(OrificeVagina orificeVaginaToCopy) {
+		this.wetness = orificeVaginaToCopy.wetness;
+		this.capacity = orificeVaginaToCopy.capacity;
+		this.stretchedCapacity = orificeVaginaToCopy.stretchedCapacity;
+		this.depth = orificeVaginaToCopy.depth;
+		this.elasticity = orificeVaginaToCopy.elasticity;
+		this.plasticity = orificeVaginaToCopy.plasticity;
+		this.virgin = orificeVaginaToCopy.virgin;
+
+		this.orificeModifiers = new HashSet<>(orificeVaginaToCopy.orificeModifiers);
+		
+		this.hymen = orificeVaginaToCopy.hymen;
+		this.squirter = orificeVaginaToCopy.squirter;
 	}
 	
 	@Override

@@ -2757,7 +2757,7 @@ public enum Spell {
 			false,
 			"Lightning Overcharge",
 			"arcane_lightning_sphere_overcharge",
-			"By drawing a considerable amount of aura from its wielder, the arcane lightning globe can discharge a huge burst of arousing arcane lightning, hitting everyone, [style.colourBad(including the caster)], in its immediate vicinity.",
+			"By drawing a huge amount of aura from its wielder, the arcane lightning globe can discharge a massive burst of arousing arcane lightning, hitting everyone, [style.colourBad(including the caster)], in its immediate vicinity.",
 			30,
 			DamageVariance.HIGH,
 			250,

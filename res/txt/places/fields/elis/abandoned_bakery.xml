@@ -54,9 +54,34 @@
 	<p>
 		[hammer.speech(Only on ops like this, where we can't risk being recognised,)] Hammer replies, [hammer.speech(This thing's a bit of relic; they were phased out of Enforcer service in the late eighties. They fire tear gas grenades, which are good enough, but the modern pepper grenade launcher is far more effective. See this marking on the side?)]
 	</p>
-	<p>
-		You take a closer look at the side of the shotgun as Hammer holds it towards you. The Enforcer's five-pointed star symbol has been scratched out, and beside it a striking arrow within a circle has been carved into the metal.
-	</p>
+	#IF(pc.hasWeaponType(WEAPON_dsg_hlf_weap_gbshotgun, true) || pc.hasWeaponType(WEAPON_dsg_hlf_weap_pbsmg, true) || pc.hasWeaponType(WEAPON_dsg_hlf_weap_pboltrifle, true) || pc.hasWeaponType(WEAPON_dsg_hlf_weap_pbrevolver, true))
+		<p>
+			#IF(pc.hasWeaponTypeEquipped(WEAPON_dsg_hlf_weap_gbshotgun))
+				Showing Hammer your own shotgun, which is exactly the same as his, you compare the markings and see that they're identical. Letting out an amused grunt, the wolf-boy asks, [hammer.speech(You ever wonder what that symbol means?)]
+			#ELSEIF(pc.hasWeaponTypeEquipped(WEAPON_dsg_hlf_weap_pbsmg))
+				Showing Hammer your pepperball submachine gun, you compare the markings and see that they're identical. Letting out an amused grunt, the wolf-boy asks, [hammer.speech(You ever wonder what that symbol means?)]
+			#ELSEIF(pc.hasWeaponTypeEquipped(WEAPON_dsg_hlf_weap_pboltrifle))
+				Showing Hammer your pepperball bolt-action rifle, you compare the markings and see that they're identical. Letting out an amused grunt, the wolf-boy asks, [hammer.speech(You ever wonder what that symbol means?)]
+			#ELSEIF(pc.hasWeaponTypeEquipped(WEAPON_dsg_hlf_weap_pbrevolver))
+				Showing Hammer your pepperball revolver, you compare the markings and see that they're identical. Letting out an amused grunt, the wolf-boy asks, [hammer.speech(You ever wonder what that symbol means?)]
+			#ELSEIF(pc.hasWeaponType(WEAPON_dsg_hlf_weap_gbshotgun, false))
+				Showing Hammer your own shotgun, which is exactly the same as his, you compare the markings and see that they're identical. Letting out an amused grunt, the wolf-boy asks, [hammer.speech(You ever wonder what that symbol means?)]
+			#ELSEIF(pc.hasWeaponType(WEAPON_dsg_hlf_weap_pbsmg, false))
+				Showing Hammer your pepperball submachine gun, you compare the markings and see that they're identical. Letting out an amused grunt, the wolf-boy asks, [hammer.speech(You ever wonder what that symbol means?)]
+			#ELSEIF(pc.hasWeaponType(WEAPON_dsg_hlf_weap_pboltrifle, false))
+				Showing Hammer your pepperball bolt-action rifle, you compare the markings and see that they're identical. Letting out an amused grunt, the wolf-boy asks, [hammer.speech(You ever wonder what that symbol means?)]
+			#ELSEIF(pc.hasWeaponType(WEAPON_dsg_hlf_weap_pbrevolver, false))
+				Showing Hammer your pepperball revolver, you compare the markings and see that they're identical. Letting out an amused grunt, the wolf-boy asks, [hammer.speech(You ever wonder what that symbol means?)]
+			#ENDIF
+		</p>
+		<p>
+			Taking a closer look at both your and Hammer's weapons, you see that they each bear an Enforcer's five-pointed star symbol, both of which have been scratched out. A new marking has been carved into each weapon, which both look like a striking arrow within a circle.
+		</p>
+	#ELSE
+		<p>
+			You take a closer look at the side of the shotgun as Hammer holds it towards you. The Enforcer's five-pointed star symbol has been scratched out, and beside it a striking arrow within a circle has been carved into the metal.
+		</p>
+	#ENDIF
 	<p>
 		[hammer.speech(That's one of the symbols the HLF used,)] the wolf-boy reveals, [hammer.speech(The 'Human Liberation Front' got their hands on a lot of Enforcer gear back in the Fifth Human Rebellion. This one was used against us until the owner's jaw felt my fist. It went 'missing' from the evidence room many years ago, so it can't be traced back to us.)]
 	</p>
@@ -64,16 +89,27 @@
 		[ghost.speech(I prefer a more subtle approach,)] Ghost says as she unsheathes her dagger and shows off its wicked, poison-enchanted ethereal blade. Patting the revolver at her hip, she adds, [ghost.speech(When I can't get up close and personal, this does the trick. Like Hammer's shotgun, this was in the hands of the HLF; I picked it up off a particularly stubborn human on Green Grass Hill...)]
 	</p>
 	<p>
-		[hammer.speech(We never recovered even half of the weapons that the HLF had,)] Hammer says, [hammer.speech(Thousands are thought to be in the hands of gangs all across the realm, so us using them tonight won't identify us as Enforcers.)]
+		[hammer.speech(We never recovered even half of the weapons that the HLF had,)] Hammer says,
+		#IF(pc.hasWeaponType(WEAPON_dsg_hlf_weap_gbshotgun, true) || pc.hasWeaponType(WEAPON_dsg_hlf_weap_pbsmg, true) || pc.hasWeaponType(WEAPON_dsg_hlf_weap_pboltrifle, true) || pc.hasWeaponType(WEAPON_dsg_hlf_weap_pbrevolver, true))
+			 [hammer.speech(So I'm not particularly surprised to see that you've got one. There are thousands of these things in the hands of gangs all across the realm, so us using them tonight won't identify us as Enforcers. Oh, and don't worry about us confiscating that from you; I'm just glad to see that it's being used on the side of good. Better that than rotting in some evidence locker for decades...)]
+		#ELSE
+			 [hammer.speech(Thousands are thought to be in the hands of gangs all across the realm, so us using them tonight won't identify us as Enforcers.)]
+		#ENDIF
 	</p>
 	<p>
-		You point out that their weapons might not, but they're wearing what's clearly Enforcer gear. Surely that'll be enough to identify them to the gang members.
+		#IF(pc.hasWeaponType(WEAPON_dsg_hlf_weap_gbshotgun, true) || pc.hasWeaponType(WEAPON_dsg_hlf_weap_pbsmg, true) || pc.hasWeaponType(WEAPON_dsg_hlf_weap_pboltrifle, true) || pc.hasWeaponType(WEAPON_dsg_hlf_weap_pbrevolver, true))
+			You point out that while your weapons might not identify you as Enforcers, both Hammer and Ghost are wearing what's clearly Enforcer gear. Surely that'll be enough to identify them to the gang members.
+		#ELSE
+			You point out that their weapons might not, but they're wearing what's clearly Enforcer gear. Surely that'll be enough to identify them to the gang members.
+		#ENDIF
 	</p>
 	<p>
 		[ghost.speech(All the serious gangs are wearing SWORD gear,)] Ghost replies with a weary smirk on her face. [ghost.speech(Too many Enforcer quartermasters over the years have become very wealthy while marking down an abnormally high amount of equipment as being 'destroyed in the line of duty'. The gang we're going to be dealing with tonight will think that we're a serious rival operation from Dominion.)]
 	</p>
 	#IF(pc.hasQuestInLine(QUEST_LINE_SIDE_WES, QUEST_WES_3_WES))
-		[hammer.speech(I heard some fox in 1st Battalion put a stop to that in Dominion. Was a local boy from around here too. Good on him,)] Hammer says. Recognising the fact that he's talking about Wes, you tell the Enforcers that you helped the fox-boy he's talking about. Hammer gives an approving nod in response, before grunting, [hammer.speech(Good to hear that there's still at least one guy who's doing something about the corruption in Dominion.)]
+		<p>
+			[hammer.speech(I heard some fox in 1st Battalion put a stop to that in Dominion. Was a local boy from around here too. Good on him,)] Hammer says. Recognising the fact that he's talking about Wes, you tell the Enforcers that you helped the fox-boy he's talking about. Hammer gives an approving nod in response, before grunting, [hammer.speech(Good to hear that there's still at least one guy who's doing something about the corruption in Dominion.)]
+		</p>
 	#ENDIF
 	<p>
 		Thinking that it must be challenging to come up against gangs who have the same kit as them, you ask the Enforcers if the proliferation of SWORD equipment to gangs makes their job a lot harder.
@@ -152,7 +188,7 @@
 		[hammer.speech(Snatching people off the streets for saying something bad about Lilith isn't what I signed up for,)] Hammer grunts, [hammer.speech(ORICL should do their own dirty work...)]
 	</p>
 	<p>
-		[ghost.speech(Our unit's all on the same page on that one,)] Ghost says, before taking another look through the hole in the wall and sighing, [hammer.speech(No sign of Angelixx yet...)]
+		[ghost.speech(Our unit's all on the same page on that one,)] Ghost says, before taking another look through the hole in the wall and sighing, [ghost.speech(No sign of Angelixx yet...)]
 	</p>
 	]]>
 	</htmlContent>
@@ -197,7 +233,7 @@
 		Thinking that it would be better to rely on Ghost and her combination of wicked-looking dagger and revolver, you tell the otter-girl that you'll go with her. Giving you a brief nod, Hammer opens the door and rushes across the street to the bakery's front door, while Ghost motions for you to follow her and slips off down an alleyway to one side of the building.
 	</p>
 	<p>
-		[hammer.speech(Stay quiet,)] the otter-girl whispers as you catch up with her. Doing your best to move stealthily, you follow Ghost as she sneaks through the shadows and around the corner to the rear of the bakery. Just as with the front of the building, the gang has neglected to post a sentry, and so Ghost is able to get to the back door without issue. Producing a lockpick, she has the door open in seconds, and uses a hand signal to gesture for you to follow her inside.
+		[ghost.speech(Stay quiet,)] the otter-girl whispers as you catch up with her. Doing your best to move stealthily, you follow Ghost as she sneaks through the shadows and around the corner to the rear of the bakery. Just as with the front of the building, the gang has neglected to post a sentry, and so Ghost is able to get to the back door without issue. Producing a lockpick, she has the door open in seconds, and uses a hand signal to gesture for you to follow her inside.
 	</p>
 	<p>
 		Sliding her dagger out of its sheath, the otter-girl silently slips into the shadowy interior...
@@ -298,7 +334,7 @@
 			 used to enter the bakery is found here.
 		</p>
 		<p>
-			Slumped down on the floor on one side of the room is a huge, muscular alligator-boy. Having been on the receiving end of Ghost's dagger, he;'s not likely to be getting up any time soon.
+			Slumped down on the floor on one side of the room is a huge, muscular alligator-boy. Having been on the receiving end of Ghost's dagger, he's not likely to be getting up any time soon.
 		</p>
 		<p>
 			[ghost.speech(Come on, we need to go the other way,)] Ghost hisses, before turning to return to the kitchen...

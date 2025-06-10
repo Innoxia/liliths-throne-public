@@ -108,7 +108,7 @@ public class Roxy extends NPC {
 					+ " She has some particularly vulgar mannerisms, and has little patience for any of her customers.",
 				33, Month.AUGUST, 2,
 				15, Gender.F_V_B_FEMALE, Subspecies.RAT_MORPH, RaceStage.GREATER,
-				new CharacterInventory(30), WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_TRADER, true);
+				new CharacterInventory(false, 30), WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_TRADER, true);
 
 		buyModifier=0.3f;
 		sellModifier=2.5f;
@@ -280,7 +280,7 @@ public class Roxy extends NPC {
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_ringed_barbell", PresetColour.CLOTHING_GOLD, false), InventorySlot.PIERCING_VAGINA, true, this);
 
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_ankle_anklet", PresetColour.CLOTHING_GOLD, PresetColour.CLOTHING_GOLD, null, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_BANGLE, PresetColour.CLOTHING_GOLD, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_wrist_bangle", PresetColour.CLOTHING_GOLD, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_finger_ring", PresetColour.CLOTHING_GOLD, false), true, this);
 
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_head_headband", PresetColour.CLOTHING_BLACK, false), true, this);

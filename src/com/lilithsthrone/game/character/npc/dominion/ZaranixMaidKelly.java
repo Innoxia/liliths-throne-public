@@ -86,7 +86,7 @@ public class ZaranixMaidKelly extends NPC {
 				26, Month.SEPTEMBER, 20,
 				10,
 				null, null, null,
-				new CharacterInventory(10), WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_MAID, true);
+				new CharacterInventory(false, 10), WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_MAID, true);
 
 		this.setPlayerKnowsName(true);
 		

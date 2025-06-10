@@ -14,7 +14,7 @@ import com.lilithsthrone.utils.colours.Colour;
  * @version 0.4
  * @author Innoxia
  */
-public abstract class AbstractAttribute {
+public abstract class AbstractAttribute implements Comparable<AbstractAttribute>{
 
 	private boolean percentage;
 	private int baseValue;
@@ -72,6 +72,16 @@ public abstract class AbstractAttribute {
 //		throw new IllegalAccessError();
 		return Attribute.getIdFromAttribute(this);
 	}
+	
+	@Override
+	public int compareTo(AbstractAttribute other) {
+	    return getOrderPriority()-other.getOrderPriority();
+	}
+	
+	/**
+	 * The lower the returned int, the closer to the front of the list it is when sorted.
+	 */
+	public abstract int getOrderPriority();
 	
 	public boolean hasStatusEffect() {
 		return false;
@@ -176,6 +186,13 @@ public abstract class AbstractAttribute {
 		return negativeEnchantment;
 	}
 
+	/**
+	 * @return true if this Attribute applies an enchantment cost to clothing/weapons which modify it (true is default behaviour).
+	 */
+	public boolean isAffectedByEnchantmentCost() {
+		return true;
+	}
+	
 	public String getSVGString() {
 		return SVGString;
 	}

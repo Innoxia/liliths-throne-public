@@ -77,7 +77,7 @@ public class LilayaSlaveLoungeDialogue {
 						}
 					};
 				} else {
-					return new Response("Manage room", "You'll either need a slaver license, or permission from Lilaya to house your friends, before you can access this menu!",  null);
+					return new Response("Manage room", "You need a slaver license or permission from Lilaya to house your friends or dolls in order to access this menu!",  null);
 				}
 				
 			}  else if (index == 2) {
@@ -89,7 +89,7 @@ public class LilayaSlaveLoungeDialogue {
 						}
 					};
 				} else {
-					return new Response("Manage people", "You'll either need a slaver license, or permission from Lilaya to house your friends, before you can access this menu!",  null);
+					return new Response("Manage people", "You need a slaver license or permission from Lilaya to house your friends or dolls in order to access this menu!",  null);
 				}
 				
 			}
@@ -101,7 +101,11 @@ public class LilayaSlaveLoungeDialogue {
 					return LilayaHomeGeneric.interactWithNPC(character);
 					
 				} else {
-					return new Response(UtilText.parse(character, "[npc.Name]"), UtilText.parse(character, "Although this is [npc.namePos] room, [npc.sheIs] out at work at the moment."), null);
+					return new Response(UtilText.parse(character, "[npc.Name]"), 
+							UtilText.parse(character, "Although this is [npc.namePos] room, [npc.sheIs] "
+									+(character.getLocationPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_SLAVE_LOUNGE)
+											?"relaxing in a slave lounge at the moment."
+											:"out at work at the moment.")), null);
 				}
 			}
 			

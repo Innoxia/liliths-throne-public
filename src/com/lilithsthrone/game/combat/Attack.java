@@ -248,7 +248,7 @@ public enum Attack {
 					attackType,
 					weapon,
 					(weapon == null
-						? attacker.getBodyMaterial().getUnarmedDamageType()
+						? DamageType.UNARMED.getParentDamageType(attacker, defender)
 						: weapon.getDamageType()),
 					baseDamage * (weapon == null
 										? 1f - DamageVariance.MEDIUM.getPercentage()
@@ -282,7 +282,13 @@ public enum Attack {
 		float damage = 0;
 		
 		if(attackType == MAIN || attackType == OFFHAND) {
-			damage = getModifiedDamage(attacker, defender, attackType, weapon, (weapon == null ? attacker.getBodyMaterial().getUnarmedDamageType() : weapon.getDamageType()),
+			damage = getModifiedDamage(attacker,
+					defender,
+					attackType,
+					weapon,
+					(weapon == null
+						? DamageType.UNARMED.getParentDamageType(attacker, defender)
+						: weapon.getDamageType()),
 					baseDamage * (weapon == null ? 1f + DamageVariance.MEDIUM.getPercentage() : 1f + weapon.getWeaponType().getDamageVariance().getPercentage()));
 			
 		} else {

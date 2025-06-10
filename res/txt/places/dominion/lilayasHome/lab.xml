@@ -1018,7 +1018,7 @@
 			<p>
 				Once again, you find yourself surrounded by the shimmering pink outline of your arcane aura. This time, however, you see a strange ball of energy orbiting your body, which looks to be the same sort of size as the shard of energy that you remember shooting into you. Looking up at Lilaya, you see that her cheeks have completely drained of colour, and she's looking down at you with an extremely worried expression on her face.
 			</p>
-		#ELSEIF(SPECIAL_PARSE_0=="false")
+		#ELSEIF(!pc.isAnyEquippedClothingSealed())
 			<p>
 				[pc.speech(That's good to hear, so what would I need to do if it happens again?)] you ask.
 			</p>
@@ -1689,7 +1689,7 @@
 		Wanting to find out if Lilaya would be ok with you storing sex dolls here in her mansion, you start by asking her if she's ever visited Lovienne's Luxuries before.
 	</p>
 	<p>
-		[lilaya.speech(Yes, I've been there before; Saellatrix and I know each other,)] Lilaya responds, before revealing, [lilaya.speech(I first met her when I attended her recognition ceremony. She had quite a vulgar display set up in the centre of the ballroom; about twenty or so of her unrecognised sisters were stripped naked and presenting themselves to us, and once Lovienne had finished her vow, Saellatrix invited all of the guests to use them in any way they wanted. Of course I didn't partake in that...)]
+		[lilaya.speech(Yes, I've been there before; Saellatrix and I know each other quite well,)] Lilaya responds, before revealing, [lilaya.speech(I first met her when I attended her recognition ceremony. She had quite a vulgar display set up in the centre of the ballroom; about twenty or so of her unrecognised sisters were stripped naked and presenting themselves to us, and once Lovienne had finished her vow, Saellatrix invited all of the guests to use them in any way they wanted. Of course I didn't partake in that...)]
 	</p>
 	<p>
 		[rose.speech(And yet I seem to recall that you didn't come home that night,)] Rose quips, causing Lilaya to blush.

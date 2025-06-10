@@ -89,7 +89,7 @@ public class Takahashi extends NPC {
 				"",
 				23, Month.NOVEMBER, 27,
 				20, Gender.F_V_B_FEMALE, Subspecies.FOX_ASCENDANT, RaceStage.PARTIAL_FULL,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.IMP_FORTRESS_DEMON, PlaceType.FORTRESS_LAB,
 				true);
 		

@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<scene id="start">
+		<preParsingEffects><![CDATA[
+			[#fia.setLocation(pc)]
+			[#flags.setFlag(FLAG_innoxia_fia_bar_seen, true)]
+			[#flags.setSavedLong('fia_whiskey_sips', 0)]
+			#IF(!flags.hasFlag(FLAG_innoxia_inky_obtained))
+				[#fia.unequipAllWeaponsIntoVoid(false)]
+				[#fia.equipOffhandWeaponFromNowhere(itemGen.generateWeapon('innoxia_pen_inky'))]
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/demon_home/fia">START</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_inky_obtained)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[0]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Say goodbye to Fia and leave the bar.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/demon_home/fia', 'LEAVE'))]
+					[#fia.returnToHome()]
+				]]></effects>
+			</response>
+			<!-- Inky! -->
+				<response>
+					<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_inky_obtained)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Pen]]></responseTitle>
+					<responseTooltip><![CDATA[Take the pen from Fia...]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_places_dominion_demon_home_fia_inky]]></nextDialogue>
+				</response>
+			<!-- Talking: -->
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_inky_obtained)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Small talk]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_fia_talk_small_talk))
+							You've already spent some time making small talk with Fia...
+						#ELSE
+							Spend some time chatting with Fia...
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_fia_talk_small_talk))
+							null
+						#ELSE
+							innoxia_places_dominion_demon_home_fia_talk
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#flags.setFlag(FLAG_innoxia_fia_talk_small_talk, true)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/demon_home/fia', 'TALK_SMALL_TALK'))]
+						[#game.appendToTextEndStringBuilder(fia.incrementAffection(pc, 5))]
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_inky_obtained)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Background]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_fia_talk_background))
+							You've already asked Fia about her background...
+						#ELSE
+							Ask Fia how she came to be a reporter...
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_fia_talk_background))
+							null
+						#ELSE
+							innoxia_places_dominion_demon_home_fia_talk
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#flags.setFlag(FLAG_innoxia_fia_talk_background, true)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/demon_home/fia', 'TALK_BACKGROUND'))]
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_inky_obtained)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[3]]></index>
+					<responseTitle><![CDATA[Newspaper]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_fia_talk_newspaper))
+							You've already asked Fia about where she works...
+						#ELSE
+							Ask Fia about the newspaper company she works for...
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_fia_talk_newspaper))
+							null
+						#ELSE
+							innoxia_places_dominion_demon_home_fia_talk
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#flags.setFlag(FLAG_innoxia_fia_talk_newspaper, true)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/demon_home/fia', 'TALK_NEWSPAPER'))]
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_inky_obtained) && !flags.hasFlag(FLAG_innoxia_fia_talk_stories)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[4]]></index>
+					<responseTitle><![CDATA[Stories]]></responseTitle>
+					<responseTooltip><![CDATA[Ask Fia about the stories she's currently working on.]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_places_dominion_demon_home_fia_talk]]></nextDialogue>
+					<effects><![CDATA[
+						[#flags.setFlag(FLAG_innoxia_fia_talk_stories, true)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/demon_home/fia', 'TALK_STORIES'))]
+					]]></effects>
+				</response>
+				<!-- Whiskey -->
+					<response>
+						<availabilityConditional><![CDATA[[#flags.getSavedLong('fia_whiskey_sips')<5 && flags.hasFlag(FLAG_innoxia_inky_obtained)]]]></availabilityConditional>
+						<responseTabIndex><![CDATA[0]]></responseTabIndex>
+						<index><![CDATA[5]]></index>
+						<responseTitle><![CDATA[Whiskey]]></responseTitle>
+						<responseTooltip><![CDATA[Sip your whiskey.]]></responseTooltip>
+						<nextDialogue><![CDATA[innoxia_places_dominion_demon_home_fia_talk]]></nextDialogue>
+						<effects><![CDATA[
+							[#flags.incrementSavedLong("fia_whiskey_sips", 1)]
+							[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/demon_home/fia', 'WHISKEY_SIP'))]
+							[#game.appendToTextEndStringBuilder(pc.incrementAlcoholLevel(0.075))]
+						]]></effects>
+					</response>
+					<response>
+						<availabilityConditional><![CDATA[[#flags.getSavedLong('fia_whiskey_sips')>=5 && flags.hasFlag(FLAG_innoxia_inky_obtained)]]]></availabilityConditional>
+						<responseTabIndex><![CDATA[0]]></responseTabIndex>
+						<index><![CDATA[5]]></index>
+						<responseTitle><![CDATA[Whiskey (#IF(pc.getMoney()>=120 && !flags.hasFlag(FLAG_innoxia_fia_bar_alcohol_refused))[style.moneyFormat(120, span)]#ELSE[style.moneyFormatUncoloured(120, span)]#ENDIF)]]></responseTitle>
+						<responseTooltip><![CDATA[#IF(pc.getMoney()<120)You can't afford any more whiskey...#ELSEIF(flags.hasFlag(FLAG_innoxia_fia_bar_alcohol_refused))The barman is unwilling to serve you any more alcohol tonight...#ELSEYou've run out of whiskey so decide to order some more.#ENDIF]]></responseTooltip>
+						<nextDialogue stripContent="true"><![CDATA[#IF(pc.getMoney()>=120 && !flags.hasFlag(FLAG_innoxia_fia_bar_alcohol_refused))innoxia_places_dominion_demon_home_fia_talk#ELSEnull#ENDIF]]></nextDialogue>
+						<effects><![CDATA[
+							[#flags.setSavedLong('fia_whiskey_sips', 0)]
+							#IF(pc.getAlcoholLevelValue()>=0.5)
+								[#flags.setFlag(FLAG_innoxia_fia_bar_alcohol_refused, true)]
+							#ENDIF
+							[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/demon_home/fia', 'WHISKEY_ORDER'))]
+							[#game.appendToTextStartStringBuilder(pc.incrementMoney(-120))]
+						]]></effects>
+					</response>
+			<!-- Stories -->
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_fia_talk_stories)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[6]]></index>
+					<responseTitle><![CDATA[
+						#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_SLIME_QUEEN))
+							Slime Queen
+						#ELSE
+							???
+						#ENDIF
+					]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_fia_story_slime_queen))
+							You've already told Fia about your encounter with the Slime Queen in Submission.
+						#ELSEIF(!pc.isQuestCompleted(QUEST_LINE_SIDE_SLIME_QUEEN))
+							Completing a side quest in Submission will give you a story that you can tell to Fia.
+							<br/>[style.italicsSlime(This side quest involves slimes...)]
+						#ELSE
+							Tell Fia about your encounter with the Slime Queen in Submission.
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(!pc.isQuestCompleted(QUEST_LINE_SIDE_SLIME_QUEEN) || flags.hasFlag(FLAG_innoxia_fia_story_slime_queen))
+							null
+						#ELSE
+							innoxia_places_dominion_demon_home_fia_story
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#flags.setFlag(FLAG_innoxia_fia_story_slime_queen, true)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/demon_home/fia', 'STORY_SLIME_QUEEN'))]
+						[#game.appendToTextEndStringBuilder(fia.incrementAffection(pc, 5))]
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_fia_talk_stories)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[7]]></index>
+					<responseTitle><![CDATA[
+						#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_VENGAR))
+							Vengar
+						#ELSE
+							???
+						#ENDIF
+					]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(flags.hasFlag(FLAG_innoxia_fia_story_vengar))
+							You've already told Fia about your encounter with Vengar's gang in Submission.
+						#ELSEIF(!pc.isQuestCompleted(QUEST_LINE_SIDE_VENGAR))
+							Completing a side quest in Submission will give you a story that you can tell to Fia.
+							<br/>[style.italicsRat(This side quest involves a gang of rat-morphs...)]
+						#ELSE
+							Tell Fia about your encounter with Vengar's gang in Submission.
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(!pc.isQuestCompleted(QUEST_LINE_SIDE_VENGAR) || flags.hasFlag(FLAG_innoxia_fia_story_vengar))
+							null
+						#ELSE
+							innoxia_places_dominion_demon_home_fia_story
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#flags.setFlag(FLAG_innoxia_fia_story_vengar, true)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/demon_home/fia', 'STORY_VENGAR'))]
+						[#game.appendToTextEndStringBuilder(fia.incrementAffection(pc, 5))]
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_fia_talk_stories)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[8]]></index>
+					<responseTitle><![CDATA[
+						#IF(pc.isQuestCompleted(QUEST_LINE_SIDE_REBEL_BASE))
+							Bat Cavern cave
+						#ELSE
+							???
+						#ENDIF
+					]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(pc.isQuestFailed(QUEST_LINE_SIDE_REBEL_BASE))
+							As you left the cave before exploring it fully, there's not much to tell Fia about...
+						#ELSEIF(flags.hasFlag(FLAG_innoxia_fia_story_hlf_base))
+							You've already told Fia about your encounter with the crazy survivor in a hidden cave in Submission.
+						#ELSEIF(!pc.isQuestCompleted(QUEST_LINE_SIDE_REBEL_BASE))
+							Completing a side quest in Submission will give you a story that you can tell to Fia.
+							<br/>[style.italicsHuman(This side quest involves fully exploring a hidden cave...)]
+						#ELSE
+							Tell Fia about your encounter with the crazy survivor in a hidden cave in Submission.
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue><![CDATA[
+						#IF(!pc.isQuestCompleted(QUEST_LINE_SIDE_REBEL_BASE) || flags.hasFlag(FLAG_innoxia_fia_story_hlf_base) || pc.isQuestFailed(QUEST_LINE_SIDE_REBEL_BASE))
+							null
+						#ELSE
+							innoxia_places_dominion_demon_home_fia_story
+						#ENDIF
+					]]></nextDialogue>
+					<effects><![CDATA[
+						[#flags.setFlag(FLAG_innoxia_fia_story_hlf_base, true)]
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/demon_home/fia', 'STORY_HLF_BASE'))]
+						[#game.appendToTextEndStringBuilder(fia.incrementAffection(pc, 5))]
+					]]></effects>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_fia_stories_complete)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[9]]></index>
+					<responseTitle><![CDATA[Adventures]]></responseTitle>
+					<responseTooltip><![CDATA[As you've told Fia all of your stories about Submission, you could try telling her about some of your recent adventures.]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_places_dominion_demon_home_fia_story]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/demon_home/fia', 'STORY_GENERIC'))]
+					]]></effects>
+				</response>
+		</responses>
+	</scene>
+	
+	<scene id="inky">
+		<preParsingEffects><![CDATA[
+			[#flags.setFlag(FLAG_innoxia_inky_obtained, true)]
+			[#game.appendToTextEndStringBuilder(pc.addWeapon(itemGen.generateWeapon(WEAPON_innoxia_pen_inky, DAMAGE_TYPE_PHYSICAL), 1, false, true))]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/demon_home/fia">INKY</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_demon_home_fia_start"/>
+	</scene>
+	
+	<scene id="talk">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_demon_home_fia_start"/>
+	</scene>
+	
+	<scene id="story">
+		<content folderPath="txt/places/dominion/demon_home/fia">STORY_END</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_fia_stories_complete)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Flames]]></responseTitle>
+				<responseTooltip><![CDATA[Tell Fia that you're happy with the flames.]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/demon_home/fia', 'STORY_REWARD_FLAMES'))]
+					[#game.appendToTextEndStringBuilder(pc.incrementMoney(5000))]
+					#IF(flags.hasFlag(FLAG_innoxia_fia_story_slime_queen) && flags.hasFlag(FLAG_innoxia_fia_story_vengar) && (flags.hasFlag(FLAG_innoxia_fia_story_hlf_base) || pc.isQuestFailed(QUEST_LINE_SIDE_REBEL_BASE)))
+						[#flags.setFlag(FLAG_innoxia_fia_stories_complete, true)]
+					#ENDIF
+				]]></effects>
+			</response>
+			<response>
+				<availabilityConditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_fia_stories_complete)]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Decline]]></responseTitle>
+				<responseTooltip><![CDATA[Turn down Fia's offer of sex and say that you need to leave...]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/demon_home/fia', 'STORY_SEX_DECLINED'))]
+					[#fia.returnToHome()]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Sex]]></responseTitle>
+				<responseTooltip><![CDATA[
+					#IF(flags.hasFlag(FLAG_innoxia_fia_stories_complete))
+						Accept Fia's offer of sex...
+					#ELSE
+						Tell Fia that she can keep the flames; it's her that you want.
+					#ENDIF
+				]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_demon_home_fia_sex_options]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="sex_options">
+		<preParsingEffects><![CDATA[
+			#IF(fia.getClothingInSlot(IS_FOOT)!=null)
+				[#fia.unequipClothingIntoVoid(fia.getClothingInSlot(IS_FOOT), true, fia)]
+			#ENDIF
+			#IF(fia.getClothingInSlot(IS_TORSO_OVER)!=null)
+				[#fia.unequipClothingIntoVoid(fia.getClothingInSlot(IS_TORSO_OVER), true, fia)]
+			#ENDIF
+			#IF(fia.getClothingInSlot(IS_TORSO_UNDER)!=null)
+				[#fia.unequipClothingIntoVoid(fia.getClothingInSlot(IS_TORSO_UNDER), true, fia)]
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/demon_home/fia">SEX_OPTIONS</content>
+		<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<!-- Generic sex -->
+				<response>
+					<requiredFetishes/>
+					<corruptionLevel><![CDATA[ONE_VANILLA]]></corruptionLevel>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[1]]></index>
+					<responseTitle><![CDATA[Sex]]></responseTitle>
+					<responseTooltip><![CDATA[Embrace Fia and have sex with her...]]></responseTooltip>
+					<nextDialogue/>
+					<sexVariablesWithManager enabled="true">
+						<id><![CDATA[innoxia_dominion_demon_home_fia_generic]]></id>
+						<startingPosition><![CDATA[LYING_DOWN]]></startingPosition>
+						<dominants>
+							<character>
+								<id>pc</id>
+								<slot><![CDATA[
+									LYING_DOWN_MISSIONARY
+								]]></slot>
+							</character>
+						</dominants>
+						<submissives>
+							<character>
+								<id>fia</id>
+								<slot><![CDATA[
+									LYING_DOWN_LYING_DOWN
+								]]></slot>
+							</character>
+						</submissives>
+						<submissiveSpectators/>
+						<postSexDialogue><![CDATA[innoxia_places_dominion_demon_home_fia_after_sex]]></postSexDialogue>
+						<sexStartContent folderPath="txt/places/dominion/demon_home/fia">FIA_SEX_START</sexStartContent>
+						<ongoingActionsAtStart/>
+					</sexVariablesWithManager>
+				</response>
+			<!-- Intercrural: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!pc.hasPenis() || !pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Pussy tease]]></responseTitle>
+					<responseTooltip><![CDATA[
+						#IF(!pc.hasPenis())
+							You don't have a penis, so you can't tease Fia's forbidden, virgin pussy...
+						#ELSE
+							You can't gain access to your penis, so you can't tease Fia's forbidden, virgin pussy...
+						#ENDIF
+					]]></responseTooltip>
+					<nextDialogue>null</nextDialogue>
+				</response>
+				<response>
+					<availabilityConditional><![CDATA[[#pc.hasPenis() && pc.isAbleToAccessCoverableArea(CA_PENIS, true)]]]></availabilityConditional>
+					<requiredFetishes>
+						<fetish><![CDATA[FETISH_LEG_LOVER]]></fetish>
+					</requiredFetishes>
+					<corruptionLevel><![CDATA[ONE_VANILLA]]></corruptionLevel>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[2]]></index>
+					<responseTitle><![CDATA[Pussy tease]]></responseTitle>
+					<responseTooltip><![CDATA[Get Fia to tease your cock over her forbidden, virgin pussy before fucking her thighs...]]></responseTooltip>
+					<nextDialogue/>
+					<sexVariablesWithManager enabled="true">
+						<id><![CDATA[innoxia_dominion_demon_home_fia_intercrural]]></id>
+						<startingPosition><![CDATA[ALL_FOURS]]></startingPosition>
+						<dominants>
+							<character>
+								<id>pc</id>
+								<slot><![CDATA[
+									ALL_FOURS_BEHIND
+								]]></slot>
+							</character>
+						</dominants>
+						<submissives>
+							<character>
+								<id>fia</id>
+								<slot><![CDATA[
+									ALL_FOURS_ALL_FOURS
+								]]></slot>
+							</character>
+						</submissives>
+						<submissiveSpectators/>
+						<postSexDialogue><![CDATA[innoxia_places_dominion_demon_home_fia_after_sex]]></postSexDialogue>
+						<sexStartContent folderPath="txt/places/dominion/demon_home/fia">FIA_SEX_START_INTERCRURAL</sexStartContent>
+						<ongoingActionsAtStart>
+							<action>
+								<id><![CDATA[PenisThighs_THIGH_FUCKING_START]]></id>
+								<performer><![CDATA[pc]]></performer>
+								<target><![CDATA[fia]]></target>
+								<showDescription><![CDATA[false]]></showDescription>
+								<showEffects><![CDATA[true]]></showEffects>
+							</action>
+						</ongoingActionsAtStart>
+					</sexVariablesWithManager>
+				</response>
+			<!-- Condoms: -->
+				<response>
+					<availabilityConditional><![CDATA[[#!flags.hasFlag(FLAG_innoxia_fia_condoms_taken)]]]></availabilityConditional>
+					<responseTabIndex><![CDATA[0]]></responseTabIndex>
+					<index><![CDATA[3]]></index>
+					<responseTitle><![CDATA[Condoms]]></responseTitle>
+					<responseTooltip><![CDATA[Take a few of the condoms that are on the bedside table.]]></responseTooltip>
+					<nextDialogue><![CDATA[innoxia_places_dominion_demon_home_fia_condoms]]></nextDialogue>
+					<effects><![CDATA[
+						[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/demon_home/fia', 'SEX_OPTIONS_TAKE_CONDOMS'))]
+						[#game.appendToTextStartStringBuilder(pc.addClothing(itemGen.generateClothing('innoxia_penis_condom_strong', COLOUR_CLOTHING_SILVER, false), 3, false, true))]
+						[#flags.setFlag(FLAG_innoxia_fia_condoms_taken, true)]
+					]]></effects>
+				</response>
+		</responses>
+	</scene>
+	
+	<scene id="condoms">
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[1]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses copyFromDialogueId="innoxia_places_dominion_demon_home_fia_sex_options"/>
+	</scene>
+	
+	<scene id="after_sex">
+		<preParsingEffects><![CDATA[
+			[#fia.applyWash(true, true, null, 0)]
+			[#fia.equipClothing()]
+		]]></preParsingEffects>
+        <title><![CDATA[Finished]]></title>
+        <tooltip><![CDATA[Having had enough, you bring an end to the sex...]]></tooltip>
+		<content folderPath="txt/places/dominion/demon_home/fia">AFTER_SEX</content>
+		<secondsPassed><![CDATA[30]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Leave]]></responseTitle>
+				<responseTooltip><![CDATA[Say goodbye to Fia and leave...]]></responseTooltip>
+				<nextDialogue stripContent="true"><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/demon_home/fia', 'AFTER_SEX_END'))]
+					[#fia.returnToHome()]
+					
+					#IF(flags.hasFlag(FLAG_innoxia_fia_story_slime_queen) && flags.hasFlag(FLAG_innoxia_fia_story_vengar) && flags.hasFlag(FLAG_innoxia_fia_story_hlf_base))
+						[#flags.setFlag(FLAG_innoxia_fia_stories_complete, true)]
+					#ENDIF
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

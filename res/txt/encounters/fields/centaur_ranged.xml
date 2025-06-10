@@ -164,7 +164,7 @@
 	<p>
 		Quickly moving to do as she commands, you open your mouth and press your [pc.lips+] against the [attacker.race]'s asshole. Darting out your [pc.tongue+], you lick her puffy, horse-like butt as you greedily start performing anilingus.
 		#IF(pc.getClothingInSlot(IS_NECK)!=null && pc.getClothingInSlot(IS_NECK).getClothingType().getId().equals('innoxia_neck_filly_choker'))
-			 Thanks to your training as one of Natalya's fillies, your skills seem to please the sadistic centauress, who moans, [attacker.speech(Fuck... ~Mmm!~ You're good at this, slut! Oh yeah... Give it to me!)]
+			 Thanks to your training as one of Natalya's [style.mules], your skills seem to please the sadistic centauress, who moans, [attacker.speech(Fuck... ~Mmm!~ You're good at this, slut! Oh yeah... Give it to me!)]
 		#ELSE
 			 Despite your best efforts, however, the sadistic centauress doesn't seem to be getting what she wants from you, and snarls, [attacker.speech(You can do better than that, slut! I'll teach you how to properly service a horse's ass!)]
 		#ENDIF
@@ -326,7 +326,7 @@
 		#IF(pc.hasFetish(FETISH_SADIST))
 			Slapping the [attacker.race] across the face, you repeat your question, but once again the [attacker.race] refuses to play along and snaps, [attacker.speech(Hit me all you like, I'm not telling you anything!)]
 		#ELSE
-			Trying a different approach, you promise the [attacker.race] a reward if she tells you what you want to know, but once again she refuses to play along and snaps, [attacker.speech(Your tricks won't work on me, I'm not telling you anything!)]
+			Trying a different approach, you promise the [attacker.race] a reward if [attacker.she] tells you what you want to know, but once again [attacker.she] refuses to play along and snaps, [attacker.speech(Your tricks won't work on me, I'm not telling you anything!)]
 		#ENDIF
 	</p>
 	<p>

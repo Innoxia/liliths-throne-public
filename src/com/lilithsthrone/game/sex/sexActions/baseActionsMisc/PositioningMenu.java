@@ -52,7 +52,7 @@ public class PositioningMenu {
 	private static GameCharacter targetedCharacter;
 	private static List<SexSlot> availableSlots;
 	
-	private static StringBuilder positioningSB = new StringBuilder();
+	public static StringBuilder positioningSB = new StringBuilder();
 	
 	public static void setNewSexManager() {
 		Map<GameCharacter, SexSlot> dominants = new HashMap<>();
@@ -583,9 +583,8 @@ public class PositioningMenu {
 									+(Main.sex.isMasturbation()
 										?"you move around until you've assumed the posture you had in mind..."
 										:(Main.sex.getAllParticipants(false).size()==2
-											?UtilText.parse(Main.sex.getTargetedPartner(Main.game.getPlayer()), "you manoeuvre [npc.name] into [npc.her] new place")
-											:"you manoeuvre your partners into their new places")
-										+", before assuming the posture you had in mind..."));
+											?UtilText.parse(Main.sex.getTargetedPartner(Main.game.getPlayer()), "you manoeuvre [npc.name] into [npc.her] new place...")
+											:"you manoeuvre your partners into their new places...")));
 
 						SexActionUtility.POSITION_SELECTION.applyEffects();
 						Main.sex.endSexTurn(SexActionUtility.POSITION_SELECTION);

@@ -273,7 +273,7 @@ public class RatWarrensDialogue {
 						human.useItem(milk, human, false);
 					}
 				}
-				human.setMuskMarker(Main.game.getNpc(Murk.class).getId());
+				human.addMuskMarkerCharacter(Main.game.getNpc(Murk.class));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -371,7 +371,7 @@ public class RatWarrensDialogue {
 		Main.game.addSavedInventory(character);
 		
 		int essences = character.getEssenceCount();
-		character.setInventory(new CharacterInventory(0));
+		character.setInventory(new CharacterInventory(false, 0));
 		character.setEssenceCount(essences);
 
 		Main.game.getPlayer().setCaptive(true);
@@ -3774,6 +3774,7 @@ public class RatWarrensDialogue {
 		@Override
 		public void applyPreParsingEffects() {
 			Spell.ELEMENTAL_AIR.applyEffect(Main.game.getNpc(Silence.class), Main.game.getNpc(Silence.class), true, false);
+			((Silence)Main.game.getNpc(Silence.class)).initElemental();
 			Main.game.getNpc(Silence.class).setHealthPercentage(1);
 			Main.game.getNpc(Silence.class).setManaPercentage(1);
 			Main.game.getNpc(Silence.class).addStatusEffect(StatusEffect.SPECIAL_SILENCE_TRANCE, 8*60*60);

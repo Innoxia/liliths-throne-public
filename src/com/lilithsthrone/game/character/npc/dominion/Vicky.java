@@ -183,7 +183,7 @@ public class Vicky extends NPC {
 				"Vicky is the owner of the shop 'Arcane Arts'. Her manner of staring at anyone who enters her shop is quite unsettling, and you feel as though she's ready to pounce on you at any moment...",
 				37, Month.MAY, 26,
 				10, Gender.F_P_V_B_FUTANARI,
-				Subspecies.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_VICKYS_SHOP, true);
+				Subspecies.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(false, 10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_VICKYS_SHOP, true);
 
 		weaponsForSale = new HashMap<>();
 		itemsForSale = new HashMap<>();
@@ -513,7 +513,7 @@ public class Vicky extends NPC {
 				itemsForSale.put(Main.game.getItemGen().generateItem((AbstractItemType) type), 2+Util.random.nextInt(5));
 				
 			} else if(type instanceof AbstractClothingType) {
-				clothingForSale.put(Main.game.getItemGen().generateClothing((AbstractClothingType) type), 2+Util.random.nextInt(5));
+				clothingForSale.put(Main.game.getItemGen().generateClothing((AbstractClothingType) type, false), 2+Util.random.nextInt(5));
 			}
 			count++;
 			if(count>=this.getMaximumInventorySpace()-requiredRoomForMiscItems) {

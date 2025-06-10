@@ -99,6 +99,7 @@ public class RoomPlayer {
 		Main.game.getPlayer().setActive(false);
 		Main.game.endTurn(sleepTimeInMinutes*60);
 		Main.game.getPlayer().setActive(true);
+		Main.game.endTurnTimeTakenAddition = Main.game.endTurnTimeTaken;
 
 		slavesPresentWhenWaking = slavesInRoom(Main.game.getHourOfDay());
 		slavesToWakePlayer = slavesInRoom(Main.game.getHourOfDay()).stream().filter((npc) -> npc.hasSlaveJobSetting(SlaveJob.BEDROOM, SlaveJobSetting.BEDROOM_WAKE_UP)).collect(Collectors.toList());
@@ -195,7 +196,7 @@ public class RoomPlayer {
 						}
 					};
 				} else {
-					return new Response("Manage people", "You'll either need a slaver license, or permission from Lilaya to house your friends, before you can access this menu!",  null);
+					return new Response("Manage people", "You need a slaver license or permission from Lilaya to house your friends or dolls in order to access this menu!",  null);
 				}
 				
 			} else if (index == 8) {
@@ -217,15 +218,19 @@ public class RoomPlayer {
 				long alarmTime = Main.game.getDialogueFlags().getSavedLong("player_phone_alarm");
 				if(alarmTime >= 0) {
 					String alarmTimeStr = Main.game.getDisplayTime(LocalTime.ofSecondOfDay(alarmTime*60));
-					int timeUntilAlarm = Main.game.getMinutesUntilTimeInMinutes((int)alarmTime-1)+1; // -1+1 is so we get 1440 instead of 0
+					int timeUntilAlarm = Main.game.getMinutesUntilTimeInMinutes((int)alarmTime);
+					
 					return new Response("Rest until alarm (" + alarmTimeStr + ")",
-							"Rest for " + (timeUntilAlarm >= 60 ? timeUntilAlarm / 60 + " hours, " : "")
-									+ (timeUntilAlarm % 60 != 0 ? timeUntilAlarm % 60 + " minutes, " : "")
+							"Rest for "
+									+ (timeUntilAlarm==0
+										?"24 hours"
+										:((timeUntilAlarm >= 60 ? timeUntilAlarm / 60 + " hours, " : "")
+												+ (timeUntilAlarm % 60 != 0 ? timeUntilAlarm % 60 + " minutes, " : "")))
 									+ "until your alarm goes off. As well as replenishing your " + Attribute.HEALTH_MAXIMUM.getName() + " and " + Attribute.MANA_MAXIMUM.getName() + ", you will also get the 'Well Rested' status effect.",
 							AUNT_HOME_PLAYERS_ROOM_SLEEP) {
 						@Override
 						public void effects() {
-							sleepTimeInMinutes = timeUntilAlarm;
+							sleepTimeInMinutes = timeUntilAlarm==0?24*60:timeUntilAlarm;
 							RoomPlayer.applySleep(sleepTimeInMinutes);
 						}
 					};
@@ -1689,14 +1694,16 @@ public class RoomPlayer {
 					} else {
 						sb.append(UtilText.parse(hornySlaves,
 								"<p>"
-									+ "[npc.speech(~Mmm!~ That's right... I've got you now...)]"
+									+ (soloHornySex
+											?"[npc.speech(~Mmm!~ That's right... I've got you now...)]"
+											:"[npc2.speech(~Mmm!~ That's right... I've got you now...)] the voice of [npc2.name] penetrates into your sleeping mind.")
 								+ "</p>"
 								+ "<p>"
 									+ "For a moment, you aren't quite sure if you're dreaming or not, but then you suddenly feel a strange weight shifting on top of you, which instantly jolts you awake."
 									+ (soloHornySex
 											?" Opening your eyes, you see [npc.name] sitting on your chest, grinning hungrily down at you."
 											:" Opening your eyes, you see "+Util.stringsToStringList(hornyNames, false)+" leaning over you, each of them with a hungry grin on their faces.")
-									+ " With a horny [npc.moan], [npc.name] is the first to speak again, and says,"
+									+ " With a horny [npc.moan], [npc.name] eagerly exclaims,"
 									+ " [npc.speech(Good "+morningString+", [pc.name]! I hope you're ready to fuck!)]"
 								+ "</p>"));
 					}
@@ -1735,17 +1742,16 @@ public class RoomPlayer {
 		public Response getResponse(int responseTab, int index) {
 			List<GameCharacter> hornySlaves = slavesWantingToSexPlayer(Main.game.getHourOfDay());
 			if(!hornySlaves.isEmpty()) {
+				boolean soloSex = hornySlaves.size()==1;
+				List<String> names = new ArrayList<>();
+				hornySlaves.stream().forEach((npc) -> names.add(npc.getName()));
+				List<GameCharacter> spectators = new ArrayList<>(slavesInRoom(Main.game.getHourOfDay()));
+				spectators.removeAll(hornySlaves);
+				
+				UtilText.addSpecialParsingString(String.valueOf(soloSex), true);
+				UtilText.addSpecialParsingString(Util.stringsToStringList(names, false), false);
+				
 				if(index==1) {
-					boolean soloSex = hornySlaves.size()==1;
-					List<String> names = new ArrayList<>();
-					hornySlaves.stream().forEach((npc) -> names.add(npc.getName()));
-					
-					List<GameCharacter> spectators = new ArrayList<>(slavesInRoom(Main.game.getHourOfDay()));
-					spectators.removeAll(hornySlaves);
-
-					UtilText.addSpecialParsingString(String.valueOf(soloSex), true);
-					UtilText.addSpecialParsingString(Util.stringsToStringList(names, false), false);
-					
 					if(Main.game.getPlayer().hasTrait(Perk.HEAVY_SLEEPER, true)) {
 						return new ResponseSex("Sleep sex",
 								(soloSex
@@ -1794,8 +1800,8 @@ public class RoomPlayer {
 								(soloSex
 									?UtilText.parse(hornySlaves.get(0), "[npc.Name] forces [npc.herself] on you...")
 									:Util.stringsToStringList(names, false)+" force themselves on you..."),
-								false,
-								false,
+								!hornySlaves.stream().anyMatch(s->s.isWillingToRape(Main.game.getPlayer()) && s.hasSlavePermissionSetting(SlavePermissionSetting.SEX_RAPIST)),
+								!hornySlaves.stream().anyMatch(s->s.isWillingToRape(Main.game.getPlayer()) && s.hasSlavePermissionSetting(SlavePermissionSetting.SEX_RAPIST)),
 								new SMGeneric(
 										hornySlaves,
 										Util.newArrayListOfValues(Main.game.getPlayer()),
@@ -1804,6 +1810,27 @@ public class RoomPlayer {
 										ResponseTag.PREFER_MISSIONARY),
 								POST_WAKE_UP_SEX,
 								UtilText.parseFromXMLFile("places/dominion/lilayasHome/playersRoom", "BED_SEX_START", hornySlaves));
+					}
+					
+				} else if(index==2) {
+					if(Main.game.getPlayer().hasTrait(Perk.HEAVY_SLEEPER, true)) {
+						return new Response("Refuse",
+								"As you're deeply asleep, you can't say no!",
+								null);
+						
+					} else if(hornySlaves.stream().anyMatch(s->s.isWillingToRape(Main.game.getPlayer()) && s.hasSlavePermissionSetting(SlavePermissionSetting.SEX_RAPIST))) {
+						GameCharacter rapist = hornySlaves.stream().filter(s->s.isWillingToRape(Main.game.getPlayer()) && s.hasSlavePermissionSetting(SlavePermissionSetting.SEX_RAPIST)).findFirst().get();
+						return new Response("Refuse",
+								UtilText.parse(rapist, "As you've given [npc.herHim] permission to rape, [npc.nameIsFull] not going to take no for an answer!"),
+								null);
+						
+					} else {
+						return new Response("Refuse",
+								(soloSex
+										?UtilText.parse(hornySlaves.get(0), "You really aren't in the mood right now, so firmly tell [npc.name] to stop.")
+										:"You really aren't in the mood right now, so firmly tell "+ Util.stringsToStringList(names, false)+" to stop."),
+								REFUSE_SLAVE_SEX);
+						
 					}
 				}
 				return null;
@@ -1827,8 +1854,6 @@ public class RoomPlayer {
 			
 			UtilText.addSpecialParsingString(String.valueOf(soloSex), true);
 			UtilText.addSpecialParsingString(Util.stringsToStringList(names, false), false);
-			
-			System.out.println("Sleeping? "+Main.game.getPlayer().isAsleep());//TODO why false?
 			
 			Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("places/dominion/lilayasHome/playersRoom", "POST_WAKE_UP_SEX", hornySlaves));
 			
@@ -1856,6 +1881,39 @@ public class RoomPlayer {
 			return getResponseRoom(responseTab, index);
 		}
 
+		@Override
+		public boolean isInventoryDisabled() {
+			return false;
+		}
+	};
+	
+	public static final DialogueNode REFUSE_SLAVE_SEX = new DialogueNode("", "", false) {
+		@Override
+		public void applyPreParsingEffects() {
+			List<GameCharacter> hornySlaves = new ArrayList<>(slavesWantingToSexPlayer(Main.game.getHourOfDay()));
+			boolean soloSex = hornySlaves.size()==1;
+			List<String> names = new ArrayList<>();
+			hornySlaves.stream().forEach((npc) -> names.add(npc.getName()));
+			
+			UtilText.addSpecialParsingString(String.valueOf(soloSex), true);
+			UtilText.addSpecialParsingString(Util.stringsToStringList(names, false), false);
+			
+			Main.game.appendToTextStartStringBuilder(UtilText.parseFromXMLFile("places/dominion/lilayasHome/playersRoom", "REFUSE_SLAVE_SEX", hornySlaves));
+			
+			Main.game.getPlayer().wakeUp();
+		}
+		@Override
+		public String getContent() {
+			return "";
+		}
+		@Override
+		public String getResponseTabTitle(int index) {
+			return LilayaHomeGeneric.getLilayasHouseStandardResponseTabs(index);
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return getResponseRoom(responseTab, index);
+		}
 		@Override
 		public boolean isInventoryDisabled() {
 			return false;

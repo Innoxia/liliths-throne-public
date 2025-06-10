@@ -78,7 +78,7 @@ public class Epona extends NPC {
 						+ " Obsessed with breeding, she absolutely loves her job, and gets incredibly excited when a new round is about to start.",
 				28, Month.MAY, 28,
 				15, Gender.F_P_V_B_FUTANARI, Subspecies.HORSE_MORPH, RaceStage.GREATER,
-				new CharacterInventory(30), WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE, true);
+				new CharacterInventory(false, 30), WorldType.GAMBLING_DEN, PlaceType.GAMBLING_DEN_PREGNANCY_ROULETTE, true);
 		
 		if(!isImported) {
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 20);

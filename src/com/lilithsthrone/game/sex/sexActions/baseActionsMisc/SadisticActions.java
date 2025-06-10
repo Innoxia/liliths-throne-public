@@ -24,10 +24,14 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.3.4
- * @version 0.4
+ * @version 0.4.10.7
  * @author Innoxia
  */
 public class SadisticActions {
+	
+	
+	// ASS ACTIONS:
+	
 	
 	/**
 	 * A non-sadistic version of 'slap ass'.
@@ -293,6 +297,10 @@ public class SadisticActions {
 			}
 		}
 	};
+	
+	
+	// FACE ACTIONS:
+	
 	
 	public static final SexAction SLAP_FACE = new SexAction(
 			SexActionType.REQUIRES_EXPOSED,
@@ -611,4 +619,262 @@ public class SadisticActions {
 		}
 	};
 	
+	
+	// PUSSY ACTIONS:
+	
+	
+	public static final SexAction SLAP_PUSSY = new SexAction(
+			SexActionType.REQUIRES_EXPOSED,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.FOUR_LUSTFUL,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA)),
+			SexParticipantType.NORMAL,
+			SexPace.DOM_ROUGH) {
+		@Override
+		public boolean isSadisticAction() {
+			return true;
+		}
+		@Override
+		public boolean isBaseRequirementsMet() {
+			boolean fingerPussy = false;
+			boolean fingerPussyReversed = false;
+			try {
+				fingerPussy = Main.sex.getPosition().getSlotTargets().get(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())).get(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)))
+						.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaOrifice.VAGINA);
+			} catch(Exception ex) {
+				// No available finger-pussy actions, so unavailable
+			}
+			try {
+				fingerPussyReversed = Main.sex.getPosition().getSlotTargets().get(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this))).get(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()))
+						.getInteractions().get(SexAreaOrifice.VAGINA).contains(SexAreaPenetration.FINGER);
+			} catch(Exception ex) {
+				// No available pussy-finger actions, so unavailable
+			}
+			return SexAreaOrifice.VAGINA.isFree(Main.sex.getCharacterTargetedForSexAction(this))
+					&& !Main.sex.isDom(Main.sex.getCharacterTargetedForSexAction(this))
+					&& (fingerPussy || fingerPussyReversed)
+					&& (Main.sex.getCharacterPerformingAction().isPlayer() || Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST));
+			
+		}
+		@Override
+		public String getActionTitle() {
+			return "Slap pussy";
+		}
+		@Override
+		public String getActionDescription() {
+			return "Give [npc2.namePos] pussy a few sharp slaps.";
+		}
+		@Override
+		public SexActionCategory getCategory() {
+			return SexActionCategory.SEX;
+		}
+		@Override
+		public String getDescription() {
+			StringBuilder sb = new StringBuilder();
+
+			sb.append(UtilText.returnStringAtRandom(
+					"[npc.Name] [npc.verb(tease)] [npc.her] [npc.fingers+] over [npc2.namePos] [npc2.pussy+], before suddenly delivering a series of sharp, painful slaps to [npc2.her] feminine sex.",
+					"Dropping [npc.her] [npc.hand] down to [npc2.namePos] groin, [npc.name] [npc.verb(start)] roughly slapping [npc2.her] [npc2.pussy+].",
+					"Reaching down to [npc2.namePos] groin, [npc.name] forcefully [npc.verb(grope)] [npc2.herHim] for a moment, before suddenly delivering a series of sharp slaps to [npc2.her] [npc2.pussy+]."));
+			
+			if(!isTargetedCharacterInanimate()) {
+				if(Main.sex.getCharacterTargetedForSexAction(this).getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive() && Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))!=SexPace.SUB_RESISTING) {
+					sb.append(UtilText.returnStringAtRandom(
+							" A clearly aroused yelp escapes from [npc2.namePos] mouth at the moment of contact, letting [npc.name] know that [npc2.sheIs] deriving masochistic pleasure from having [npc2.her] [npc2.pussy] slapped.",
+							" The horny squeal that escapes [npc2.namePos] mouth is enough to let anyone realise that [npc2.sheIs] getting turned on from having [npc2.her] [npc2.pussy] abused.",
+							" Instead of a painful cry, [npc2.name] [npc2.verb(let)] out a horny moan, letting [npc.name] know that [npc2.sheIs] a masochist who's getting turned on by having [npc.her] [npc2.pussy] slapped."));
+				} else {
+					if(Main.sex.getCharacterTargetedForSexAction(this).isFeminine()) {
+						sb.append(UtilText.returnStringAtRandom(
+								" A protesting yelp escapes from [npc2.namePos] mouth, and [npc2.she] [npc2.verb(squirm)] and [npc2.verb(squeal)] in discomfort as [npc2.her] [npc2.pussy] is continuously slapped.",
+								" [npc2.Name] [npc2.verb(writhe)] around under the painful blows, and [npc2.verb(let)] out a series of pained shrieks as [npc2.her] [npc2.pussy] is subjected to [npc.namePos] abuse.",
+								" After letting out a shocked cry, tears well up in [npc2.namePos] [npc2.eyes] as [npc2.she] [npc2.verb(struggle)] and [npc2.verb(cry)] for [npc.name] to stop slapping [npc2.her] [npc2.pussy]."));
+						
+					} else {
+						sb.append(UtilText.returnStringAtRandom(
+								" A protesting growl escapes from [npc2.namePos] mouth, and [npc2.she] [npc2.verb(squirm)] and [npc2.verb(grunt)] in discomfort as [npc2.her] [npc2.pussy] is continuously slapped.",
+								" [npc2.Name] [npc2.verb(writhe)] around under the painful blows, and [npc2.verb(let)] out a series of pained grunts as [npc2.her] [npc2.pussy] is subjected to [npc.namePos] abuse.",
+								" After letting out a shocked cry, [npc2.name] [npc2.verb(struggle)] and [npc2.verb(shout)] for [npc.name] to leave [npc2.her] [npc2.pussy] alone."));
+					}
+				}
+			}
+			
+			return sb.toString();
+		}
+	};
+
+	public static final SexAction PINCH_CLIT = new SexAction(
+			SexActionType.REQUIRES_EXPOSED,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.FOUR_LUSTFUL,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaPenetration.CLIT)),
+			SexParticipantType.NORMAL,
+			SexPace.DOM_ROUGH) {
+		@Override
+		public boolean isSadisticAction() {
+			return true;
+		}
+		@Override
+		public boolean isBaseRequirementsMet() {
+			boolean fingerPussy = false;
+			boolean fingerPussyReversed = false;
+			try {
+				fingerPussy = Main.sex.getPosition().getSlotTargets().get(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())).get(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)))
+						.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaPenetration.CLIT);
+			} catch(Exception ex) {
+				// No available finger-pussy actions, so unavailable
+			}
+			try {
+				fingerPussyReversed = Main.sex.getPosition().getSlotTargets().get(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this))).get(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()))
+						.getInteractions().get(SexAreaPenetration.CLIT).contains(SexAreaPenetration.FINGER);
+			} catch(Exception ex) {
+				// No available pussy-finger actions, so unavailable
+			}
+			return SexAreaPenetration.CLIT.isFree(Main.sex.getCharacterTargetedForSexAction(this))
+					&& !Main.sex.isDom(Main.sex.getCharacterTargetedForSexAction(this))
+					&& (fingerPussy || fingerPussyReversed)
+					&& (Main.sex.getCharacterPerformingAction().isPlayer() || Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST));
+			
+		}
+		@Override
+		public String getActionTitle() {
+			return "Pinch clit";
+		}
+		@Override
+		public String getActionDescription() {
+			return "Cruelly pinch [npc2.namePos] [npc.clit+].";
+		}
+		@Override
+		public SexActionCategory getCategory() {
+			return SexActionCategory.SEX;
+		}
+		@Override
+		public String getDescription() {
+			StringBuilder sb = new StringBuilder();
+
+			sb.append(UtilText.returnStringAtRandom(
+					"[npc.NamePos] [npc.fingers+] home in on [npc2.namePos] [npc2.pussy+], and without warning [npc.she] [npc.verb(start)] to painfully pinch and cruelly flick [npc2.her] [npc2.clit+].",
+					"After dominantly pushing [npc.her] [npc.hand] into [npc2.namePos] groin, [npc.name] suddenly [npc.verb(pinch)] [npc2.her] [npc2.clit+] hard, before forcefully flicking it several times in quick succession.",
+					"Reaching down to [npc2.namePos] groin, [npc.name] [npc.verb(give)] [npc2.her] [npc2.clit+] a few rough flicks, before painfully pinching and tugging at it."));
+			
+			if(!isTargetedCharacterInanimate()) {
+				if(Main.sex.getCharacterTargetedForSexAction(this).getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive() && Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))!=SexPace.SUB_RESISTING) {
+					sb.append(UtilText.returnStringAtRandom(
+							" A lewd [npc.moan] bursts out from [npc.namePos] mouth, letting [npc2.name] know that [npc.sheIs] deriving masochistic pleasure from having [npc2.her] [npc2.clit] abused.",
+							" The horny [npc.moan] which explodes from [npc2.namePos] mouth is enough to let anyone realise that [npc2.sheIs] getting turned on from having [npc2.her] [npc2.clit] punished.",
+							" Instead of a painful cry, [npc2.name] [npc2.verb(let)] out a horny moan, making it obvious that [npc2.sheIs] a masochist who's getting turned on by having [npc.her] [npc2.clit] abused."));
+				} else {
+					if(Main.sex.getCharacterTargetedForSexAction(this).isFeminine()) {
+						sb.append(UtilText.returnStringAtRandom(
+								" A protesting cry bursts out from [npc2.namePos] mouth, and [npc2.she] [npc2.verb(squirm)] and [npc2.verb(squeal)] in pain as [npc2.her] [npc2.clit] is roughly abused.",
+								" [npc2.Name] [npc2.verb(writhe)] around under this painful treatment, and [npc2.verb(let)] out a series of protesting shrieks as [npc2.her] [npc2.clit] is subjected to [npc.namePos] abuse.",
+								" After letting out a shocked cry, tears well up in [npc2.namePos] [npc2.eyes] as [npc2.she] [npc2.verb(struggle)] and [npc2.verb(cry)] for [npc.name] to stop punishing [npc2.her] [npc2.clit]."));
+						
+					} else {
+						sb.append(UtilText.returnStringAtRandom(
+								" A protesting growl escapes from [npc2.namePos] mouth, and [npc2.she] [npc2.verb(squirm)] and [npc2.verb(grunt)] in discomfort as [npc2.her] [npc2.clit] is roughly abused.",
+								" [npc2.Name] [npc2.verb(writhe)] around under this painful treatment, and [npc2.verb(let)] out a series of protesting grunts as [npc2.her] [npc2.clit] is subjected to [npc.namePos] abuse.",
+								" After letting out a shocked cry, [npc2.name] [npc2.verb(struggle)] and [npc2.verb(shout)] for [npc.name] to leave [npc2.her] [npc2.clit] alone."));
+					}
+				}
+			}
+			
+			return sb.toString();
+		}
+	};
+
+	
+	// COCK ACTIONS:
+	
+	
+	public static final SexAction SLAP_COCK = new SexAction(
+			SexActionType.REQUIRES_EXPOSED,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.FOUR_LUSTFUL,
+			Util.newHashMapOfValues(new Value<>(SexAreaPenetration.FINGER, SexAreaPenetration.PENIS)),
+			SexParticipantType.NORMAL,
+			SexPace.DOM_ROUGH) {
+		@Override
+		public boolean isSadisticAction() {
+			return true;
+		}
+		@Override
+		public boolean isBaseRequirementsMet() {
+			boolean fingerPenis = false;
+			boolean fingerPenisReversed = false;
+			try {
+				fingerPenis = Main.sex.getPosition().getSlotTargets().get(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction())).get(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this)))
+						.getInteractions().get(SexAreaPenetration.FINGER).contains(SexAreaPenetration.PENIS);
+			} catch(Exception ex) {
+				// No available finger-penis actions, so unavailable
+			}
+			try {
+				fingerPenisReversed = Main.sex.getPosition().getSlotTargets().get(Main.sex.getSexPositionSlot(Main.sex.getCharacterTargetedForSexAction(this))).get(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()))
+						.getInteractions().get(SexAreaPenetration.PENIS).contains(SexAreaPenetration.FINGER);
+			} catch(Exception ex) {
+				// No available penis-finger actions, so unavailable
+			}
+			return SexAreaPenetration.PENIS.isFree(Main.sex.getCharacterTargetedForSexAction(this))
+					&& !Main.sex.isDom(Main.sex.getCharacterTargetedForSexAction(this))
+					&& (fingerPenis || fingerPenisReversed)
+					&& (Main.sex.getCharacterPerformingAction().isPlayer() || Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_SADIST));
+			
+		}
+		@Override
+		public String getActionTitle() {
+			return "Slap cock";
+		}
+		@Override
+		public String getActionDescription() {
+			return "Punish [npc2.namePos] cock by giving it several sharp slaps.";
+		}
+		@Override
+		public SexActionCategory getCategory() {
+			return SexActionCategory.SEX;
+		}
+		@Override
+		public String getDescription() {
+			StringBuilder sb = new StringBuilder();
+
+			if(Main.sex.getCharacterTargetedForSexAction(this).isInternalTesticles()) {
+				sb.append(UtilText.returnStringAtRandom(
+						"[npc.Name] [npc.verb(tease)] [npc.her] [npc.fingers+] over [npc2.namePos] [npc2.cock+], before suddenly delivering a series of sharp, painful slaps to it.",
+						"Dropping [npc.her] [npc.hand] down to [npc2.namePos] groin, [npc.name] [npc.verb(start)] roughly slapping [npc2.her] [npc2.cock+].",
+						"Reaching down to [npc2.namePos] groin, [npc.name] forcefully [npc.verb(grope)] [npc2.her] [npc2.cock+] for a moment, before suddenly delivering a series of sharp slaps to it."));
+				
+			} else {
+				sb.append(UtilText.returnStringAtRandom(
+						"[npc.Name] [npc.verb(tease)] [npc.her] [npc.fingers+] over [npc2.namePos] [npc2.balls+], before suddenly delivering a series of sharp, painful slaps to [npc2.her] [npc2.cock+].",
+						"Dropping [npc.her] [npc.hand] down to [npc2.namePos] groin, [npc.name] [npc.verb(start)] roughly slapping [npc2.her] [npc2.cock+].",
+						"Reaching down to [npc2.namePos] groin, [npc.name] forcefully [npc.verb(grope)] [npc2.her] [npc2.balls+] for a moment, before suddenly delivering a series of sharp slaps to [npc2.her] [npc2.cock+]."));
+			}
+			
+			if(!isTargetedCharacterInanimate()) {
+				if(Main.sex.getCharacterTargetedForSexAction(this).getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive() && Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))!=SexPace.SUB_RESISTING) {
+					sb.append(UtilText.returnStringAtRandom(
+							" A clearly aroused yelp escapes from [npc2.namePos] mouth at the moment of contact, letting [npc.name] know that [npc2.sheIs] deriving masochistic pleasure from having [npc2.her] [npc2.cock] slapped.",
+							" The horny squeal that escapes [npc2.namePos] mouth is enough to let anyone realise that [npc2.sheIs] getting turned on from having [npc2.her] [npc2.cock] abused.",
+							" Instead of a painful cry, [npc2.name] [npc2.verb(let)] out a horny moan, letting [npc.name] know that [npc2.sheIs] a masochist who's getting turned on by having [npc.her] [npc2.cock] slapped."));
+				} else {
+					if(Main.sex.getCharacterTargetedForSexAction(this).isFeminine()) {
+						sb.append(UtilText.returnStringAtRandom(
+								" A protesting yelp escapes from [npc2.namePos] mouth, and [npc2.she] [npc2.verb(squirm)] and [npc2.verb(squeal)] in discomfort as [npc2.her] [npc2.cock] is continuously slapped.",
+								" [npc2.Name] [npc2.verb(writhe)] around under the painful blows, and [npc2.verb(let)] out a series of pained shrieks as [npc2.her] [npc2.cock] is subjected to [npc.namePos] abuse.",
+								" After letting out a shocked cry, tears well up in [npc2.namePos] [npc2.eyes] as [npc2.she] [npc2.verb(struggle)] and [npc2.verb(cry)] for [npc.name] to stop slapping [npc2.her] [npc2.cock]."));
+						
+					} else {
+						sb.append(UtilText.returnStringAtRandom(
+								" A protesting growl escapes from [npc2.namePos] mouth, and [npc2.she] [npc2.verb(squirm)] and [npc2.verb(grunt)] in discomfort as [npc2.her] [npc2.cock] is continuously slapped.",
+								" [npc2.Name] [npc2.verb(writhe)] around under the painful blows, and [npc2.verb(let)] out a series of pained grunts as [npc2.her] [npc2.cock] is subjected to [npc.namePos] abuse.",
+								" After letting out a shocked cry, [npc2.name] [npc2.verb(struggle)] and [npc2.verb(shout)] for [npc.name] to leave [npc2.her] [npc2.cock] alone."));
+					}
+				}
+			}
+			
+			return sb.toString();
+		}
+	};
 }

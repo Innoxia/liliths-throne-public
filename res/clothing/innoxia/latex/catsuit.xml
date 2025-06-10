@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<value>2400</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[latex catsuit]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[latex catsuits]]></namePlural>
+		<description><![CDATA[This item of fetish clothing covers almost all of the wearer's body. The hands, feet, and head are left exposed, and thanks to a cut-out in the groin area, so are the wearer's genitals and asshole.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>FEMININE</femininity>
+		<slot>TORSO_UNDER</slot>
+		<rarity>EPIC</rarity>
+		<clothingSet>sage_ltxset</clothingSet> 
+		<imageName>catsuit.svg</imageName>
+		<imageEquippedName/>
+		<effects/>
+		
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired> 
+					<clothingAccess>FEET</clothingAccess>
+					<clothingAccess>LEGS_UP_TO_GROIN</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+					<bodyPart>BACK</bodyPart>
+					<bodyPart>ARMPITS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots>
+					<slot>STOMACH</slot>
+					<slot>CHEST</slot>
+					<slot>NIPPLE</slot>
+					<slot>PIERCING_NIPPLE</slot>
+					<slot>PIERCING_STOMACH</slot>
+					<slot>PIERCING_STOMACH</slot>
+				</concealedSlots>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots>
+			<slot>CHEST</slot>
+		</incompatibleSlots>
+		
+		<primaryColours values="JUST_BLACK"/> 
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags> 
+			<tag>SOLD_BY_FINCH</tag>
+			<tag>FITS_BIPEDS</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+	<self>
+		<![CDATA[With some effort and much stretching of latex, [npc.name] [npc.verb(manage)] to squeeze into the skin-tight catsuit.]]>
+	</self>
+	<other>
+		<![CDATA[With some effort and much stretching of latex, [npc.name] [npc.verb(manage)] to squeeze [npc2.name] into the skin-tight catsuit.]]>
+	</other>
+	<otherRough>
+		<![CDATA[With some effort and much stretching of latex, [npc.name] [npc.verb(manage)] to roughly force [npc2.name] into the skin-tight catsuit.]]>
+	</otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+	<self>
+		<![CDATA[Although it takes quite a lot of effort, [npc.name] [npc.verb(manage)] to pull off [npc.her] skin-tight latex catsuit.]]>
+	</self>
+	<other>
+		<![CDATA[Although it takes quite a lot of effort, [npc.name] [npc.verb(manage)] to pull off [npc2.namePos] skin-tight latex catsuit.]]>
+	</other>
+	<otherRough>
+		<![CDATA[Although it takes quite a lot of effort and force, [npc.name] [npc.verb(manage)] to pull off [npc2.namePos] skin-tight latex catsuit.]]>
+	</otherRough>
+	</displacementText>
+  
+</clothing>

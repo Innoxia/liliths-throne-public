@@ -1,5 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-    <g style="line-height:125%">
-        <path fill="#ff8080" stroke="#000" stroke-width="1.4641" style="-inkscape-font-specification:'sans-serif Bold'" d="M53.521 54.2H40.825l-9.18-14.012-9.35 14.012H10.17L25.27 32.754 10.485 11.62h12.668l8.864 13.269L41.14 11.62h12.154l-14.87 20.704L53.52 54.2z" font-family="sans-serif" font-size="40" font-weight="700" letter-spacing="0" word-spacing="0"/>
-    </g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+ <g transform="matrix(1.2763 0 0 1.2763 -8.5094 -10.002)" stroke-width=".78353">
+  <path d="m53.521 54.2h-12.696l-9.18-14.012-9.35 14.012h-12.125l15.1-21.446-14.785-21.134h12.668l8.864 13.269 9.123-13.269h12.154l-14.87 20.704 15.096 21.876z" fill="#ff8080" font-family="sans-serif" font-size="40px" font-weight="700" letter-spacing="0" stroke="#000" stroke-width=".78353" word-spacing="0"/>
+ </g>
 </svg>

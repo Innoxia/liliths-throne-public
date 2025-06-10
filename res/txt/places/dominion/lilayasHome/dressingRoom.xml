@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<!-- Room upgrades: -->
+	
+	<htmlContent tag="INSTALLATION"><![CDATA[
+	<p>
+		Using the bell-pull in the corner of the room, you summon Rose to your location. It takes her less than a minute to arrive, and as she enters your presence she performs a curtsy and asks, [rose.speech(What can I do for you, [pc.sir]?)]
+	</p>
+	<p>
+		You briefly explain how you were thinking of turning this room into a dedicated dressing room, before asking if it would be possible to get some wardrobes and dressers brought in here.
+	</p>
+	<p>
+		[rose.speech(Of course, we have a number of suitable items of furniture in storage,)] Rose replies, before excusing herself by stating, [rose.speech(I will require Mistress Lilaya's assistance. Please wait here; I shall return in just a moment.)]
+	</p>
+	<p>
+		True to her word, it only takes a couple of minutes for the cat-girl maid to return. Striding behind her is your demonic [lilaya.relation(pc)], and thanks to a telekinetic spell, a line of wardrobes, dressers, mirrors, chairs, and tables are floating in the air behind her. She pushes her glasses up onto the bridge of her nose as she enters the room, and after clearing her throat she
+		#IF(lilaya.getLocationPlaceType()==PLACE_TYPE_LILAYA_HOME_ROOM_ROSE)
+			 tuts, [lilaya.speech(Did you really have to wake me up for this? Oh well, it will take just a moment...)]
+		#ELSE
+			 says, [lilaya.speech(Hello, [pc.name]. So, you want this to be your dressing room? Very well, this will take just a moment...)]
+		#ENDIF
+	</p>
+	<p>
+		Continuing to use her telekinetic spell, Lilaya uses the furniture she's brought along with her to rapidly transform your surroundings into an impressive dressing room. Looking around at the wardrobes and dressers, you imagine that there's now enough storage space in here to hold many hundreds of outfits. Curiously, your [lilaya.relation(pc)] has left a rather conspicuous gap in the furniture arrangement, and as you draw her attention to it, she gives you a rather smug smirk.
+	</p>
+	<p>
+		[lilaya.speech(Did you think that I'd made a mistake?)] she asks in a playful tone. Stepping out of the room for a moment, she once again casts her spell and retrieves the final piece of furniture. A huge wardrobe, ornately carved out of ivory and decorated with gold, floats in the air before her, and after placing it into the gap she'd left for it, she turns to face you and explains, [lilaya.speech(This was made for
+			#IF(flags.hasFlag(FLAG_innoxia_child_of_lyssieth))
+				 our mommy... I-I mean, for our mother.
+			#ELSEIF(game.isPlotDiscovered())
+				 Lyssieth.
+			#ELSE
+				 my mother; the elder lilin, Lyssieth.
+			#ENDIF
+			 It's not only an extravagant piece of furniture, but it holds an exceptionally powerful enchantment. If you place your hand on the door and imagine what clothing you'd like to see when you open it, then the wardrobe will create it for you. Unfortunately, it does have a couple of limitations; it can only create what you've physically seen before, and the enchantment loses power every time it's used. It needs regularly topping up with essences to keep it working. Due to those drawbacks, mommy had a better version of it made shortly after it was created, so she left it here and forgot about it.)]
+	</p>
+	<p>
+		Impressed by the power of this wardrobe, you ask Lilaya if you can try it out. Shaking her head, she replies, [lilaya.speech(I already extracted all of the enchantment's essences for use in some of my experiments, so it doesn't work right now. I could re-activate the enchantment, but it will take many thousands of essences to do so. If you want it to be fixed, then I guess... Maybe... Yes... I think a quarter of a million flames should cover the costs. And no, I can't offer you a better price; I'm not charging you for my time and effort, your flames will all be spent on the essences required to fix it.)] 
+	</p>
+	<p>
+		Before you can react to the extortionate cost of getting Lyssieth's wardrobe fixed, the room suddenly shakes. The sound of a loud bang from somewhere else in the mansion accompanies this mini-earthquake, and Lilaya happily claps her hands together and exclaims, [lilaya.speech(It sounds like my experiment's worked! Come on, Rose, I'll need your help to clean up! See you later, [pc.name]!)]
+	</p>
+	<p>
+		With that, Lilaya and Rose swiftly exit your new dressing room, leaving you looking at Lyssieth's wardrobe wondering if it'd be worth paying a quarter of a million flames to get it fixed...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="WARDROBE_ACTIVATION"><![CDATA[
+	<p>
+		Prepared to pay what Lilaya has asked for in exchange for getting the enchantment on Lyssieth's wardrobe re-activated, you set aside a quarter of a million flames and use the room's bell-pull to summon Rose. The cat-girl maid arrives within seconds, and upon seeing the money which you've gathered, she curtsies and then correctly surmises, [rose.speech(You'd like Mistress Lilaya to fix the enchantment on Lyssieth's wardrobe? Please wait here while I inform her.)]
+	</p>
+	<p>
+		After swiftly gathering up the flames which you've provided, Rose exits the way she came, leaving you waiting for her return. A couple of minutes later, she steps into the room behind your [lilaya.relation(pc)], who smiles at you and says, [lilaya.speech(Those flames you've provided should cover the cost of the essences I'm about to use. So, shall I get started?)]
+	</p>
+	<p>
+		You reply in the affirmative, after which Lilaya steps over to the ivory-and-gold wardrobe and places one of her [lilaya.hands+] on it. A stream of bright purple light begins to flow down through her arm, and as she re-activates her mother's enchanted artefact, she reveals, [lilaya.speech(It's quite trivial for me to fix this enchantment, but I could never create it from scratch. It took a true genius to make this wardrobe...)]
+	</p>
+	<p>
+		As Lilaya continues with the process of fixing the wardrobe's enchantment, you comment on how expensive it must have been to commission.
+	</p>
+	<p>
+		[lilaya.speech(Yes it was, but mommy didn't pay the creator in flames, land, essences, or anything like that. The artist responsible for this creation, who was a reclusive succubus of no particular importance, instead asked for a single favour; to be given an audience with Lilith herself. Mommy agreed upon the condition that she be taught the secret behind the wardrobe's enchantment. The artist shared her secrets with mommy, was granted an audience with Lilith, and was never seen again...)]
+	</p>
+	<p>
+		At that moment, the purple light stops flowing down Lilaya's arm, and she lets out a satisfied sigh as she takes her hand off the wardrobe. Pushing her glasses up onto the bridge of her nose, she declares, [lilaya.speech(All done! Now, as I told you before, the wardrobe consumes essences from its enchantment in order to create items. So, in order to keep it working, you'll need to leave me enough flames to cover the cost of the consumed essences each time you use it. Oh, and if you want to create enchanted items, then the wardrobe will need to draw essences directly out of your aura. You'll figure it out once you start using it. Now, let me just demonstrate how it's done...)]
+	</p>
+	<p>
+		Once again placing her hand on the wardrobe, Lilaya pauses for a moment as she imagines the clothing she wants to discover within it, and then throws open the doors. Inside, neatly arranged on coat hangers, is a full set of black-and-pink kitty lingerie. Letting out a cheeky giggle, she swiftly retrieves this skimpy outfit, but her playful mannerisms are quickly dispelled when she turns around to see how Rose is glaring at her.
+	</p>
+	<p>
+		[lilaya.speech(W-Well, anyway, that's how it's done,)] Lilaya sheepishly says as she attempts to hide the sexy lingerie behind her back.
+	</p>
+	<p>
+		You thank your [lilaya.relation(pc)] for restoring the wardrobe's functionality, and for demonstrating how to use it. Smiling at you, she makes her exit, and as she and Rose leave, you overhear the cat-girl maid hissing at her Mistress, [rose.speech(If you think I'm going to wear that, you can think again. You'll look rather good in it though...)]
+	</p>
+	<p>
+		With that, the two of them exit your dressing room, leaving you wondering whether you should try out Lyssieth's wardrobe right away...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Outfits: -->
+	
+	<htmlContent tag="OUTFIT_PURCHASE"><![CDATA[
+	<p>
+		Placing your hand on Lyssieth's wardrobe, you imagine the outfit which you'd like to discover within. You feel a surge of power emanating from within the ivory-and-gold creation as its enchantment creates the outfit which you
+		#IF(pc.getSlavesOwned().size()>0)
+			 desire.
+		#ELSE
+			 desire...
+		#ENDIF
+	</p>
+	#IF(pc.getSlavesOwned().size()>0)
+		<p>
+			Now all you need to decide is whether to equip this outfit yourself, or to instead get one of your slaves to wear it...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OUTFIT_OWNED"><![CDATA[
+	<p>
+		As you already own every component of your desired outfit, there's no need for you to spend money or essences on Lyssieth's wardrobe. Instead, you retrieve the items you require from elsewhere in your dressing
+		#IF(pc.getSlavesOwned().size()>0)
+			 room.
+		#ELSE
+			 room...
+		#ENDIF
+	</p>
+	#IF(pc.getSlavesOwned().size()>0)
+		<p>
+			Now all you need to decide is whether to equip this outfit yourself, or to instead get one of your slaves to wear it...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="OUTFIT_NOTHING"><![CDATA[
+	<p>
+		Deciding that the best outfit is nothing at all, you don't even need to use Lyssieth's wardrobe to get what you want...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

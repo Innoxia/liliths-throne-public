@@ -21,151 +21,6 @@ import com.lilithsthrone.utils.colours.PresetColour;
  */
 public class Attribute {
 
-	public static AbstractAttribute HEALTH_MAXIMUM = new AbstractAttribute(false,
-			0,
-			1,
-			1000,
-			"health",
-			"Health",
-			"healthIcon",
-			PresetColour.ATTRIBUTE_HEALTH,
-			"health",
-			"sickness",
-			null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner,
-					"The amount of stamina and determination [npc.name] [npc.has]. [npc.She] will be defeated in combat if this reaches 0.<br/>"
-						+ "Extra health is added to the 'bonus' value from:<br/>"
-						+"<b>"+ GameCharacter.HEALTH_CALCULATION + "</b>");
-		}
-	};
-
-	public static AbstractAttribute MANA_MAXIMUM = new AbstractAttribute(false,
-			0,
-			1,
-			1000,
-			"aura",
-			"Aura",
-			"manaIcon",
-			PresetColour.ATTRIBUTE_MANA,
-			"aura-boost",
-			"aura-drain",
-			null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner,
-					"A measure of the amount of arcane energy [npc.name] [npc.has] in [npc.her] aura.<br/>"
-						+ "Extra aura is added to the 'bonus' value from:<br/>"
-						+ "<b>" + GameCharacter.MANA_CALCULATION + "</b>");
-		}
-	};
-
-	public static AbstractAttribute EXPERIENCE = new AbstractAttribute(false,
-			0,
-			0,
-			1000000,
-			"experience",
-			"Experience",
-			"experienceIcon",
-			PresetColour.GENERIC_EXPERIENCE,
-			"learning",
-			"forgetfulness",
-			null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner,
-					"How much progress [npc.name] [npc.has] made to the next level.");
-		}
-	};
-
-	public static AbstractAttribute ACTION_POINTS = new AbstractAttribute(false,
-			0,
-			0,
-			10,
-			"action points",
-			"Action points",
-			"action_points",
-			PresetColour.GENERIC_ACTION_POINTS,
-			"initiative",
-			"lethargy",
-			null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner,
-					"How many action points [npc.nameHasFull] available to spend on moves in combat.");
-		}
-	};
-	
-	public static AbstractAttribute AROUSAL = new AbstractAttribute(false,
-			0,
-			0,
-			100,
-			"arousal",
-			"Arousal",
-			"arousalIcon",
-			PresetColour.ATTRIBUTE_AROUSAL,
-			"long-lasting",
-			"prematurity",
-			null) {
-		@Override
-		public boolean hasStatusEffect() {
-			return true;
-		}
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if(owner.isPlayer())
-				return "How aroused you currently are. You will orgasm when your arousal maxes out.";
-			else
-				return UtilText.parse(owner,
-						"How aroused [npc.name] is. [npc.She] will orgasm when [npc.her] arousal maxes out.");
-		}
-	};
-	
-	public static AbstractAttribute LUST = new AbstractAttribute(false,
-			0,
-			0,
-			100,
-			"lust",
-			"Lust",
-			"arousalIcon",
-			PresetColour.ATTRIBUTE_LUST,
-			"passion",
-			"indifference",
-			null) {
-		@Override
-		public boolean hasStatusEffect() {
-			return true;
-		}
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if(owner.isPlayer()) {
-				return "How desperate for sexual contact you are. Your lust will move towards your resting lust value over time.<br/>"
-						+ "<b>Resting Lust = " + GameCharacter.RESTING_LUST_CALCULATION + "</b>";
-			} else {
-				return UtilText.parse(owner,
-						"How desperate for sexual contact [npc.name] is.");
-			}
-		}
-	};
-	
-	public static AbstractAttribute RESTING_LUST = new AbstractAttribute(false,
-			0,
-			0,
-			80,
-			"resting lust",
-			"Resting lust",
-			"arousalIcon",
-			PresetColour.ATTRIBUTE_LUST,
-			"passion",
-			"indifference",
-			null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "The amount of lust which [npc.name] naturally gravitates towards over a period of time.");
-		}
-	};
-
 	public static AbstractAttribute MAJOR_PHYSIQUE = new AbstractAttribute(false,
 			0,
 			0,
@@ -187,6 +42,10 @@ public class Attribute {
 			return UtilText.parse(owner,
 					"A measure of how physically healthy [npc.name] [npc.is], physique <b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>passively increases</b> [npc.her]"
 							+ " <b style='color:" + PresetColour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>maximum health</b>.");
+		}
+		@Override
+		public int getOrderPriority() {
+			return 10;
 		}
 	};
 
@@ -211,6 +70,10 @@ public class Attribute {
 			return UtilText.parse(owner,
 						"A measure of [npc.namePos] affinity with the arcane. This <b style='color:" + PresetColour.GENERIC_GOOD.toWebHexString() + ";'>passively increases</b> [npc.her]"
 								+ " <b style='color:" + PresetColour.ATTRIBUTE_MANA.toWebHexString() + ";'>maximum aura</b>.");
+		}
+		@Override
+		public int getOrderPriority() {
+			return 20;
 		}
 	};
 
@@ -240,17 +103,114 @@ public class Attribute {
 						"Corruption is a measure of [npc.namePos] perversion and depravity. It does <i>not</i> reflect how good or evil [npc.she] is.");
 			}
 		}
+		@Override
+		public int getOrderPriority() {
+			return 30;
+		}
+	};
+
+	public static AbstractAttribute HEALTH_MAXIMUM = new AbstractAttribute(false,
+			1,
+			1,
+			1000,
+			"health",
+			"Health",
+			"healthIcon",
+			PresetColour.ATTRIBUTE_HEALTH,
+			"health",
+			"sickness",
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"The amount of stamina and determination [npc.name] [npc.has]. [npc.She] will be defeated in combat if this reaches 0.<br/>"
+						+ "Extra health is added to the 'bonus' value from:<br/>"
+						+"<b>"+ GameCharacter.HEALTH_CALCULATION + "</b>");
+		}
+
+		@Override
+		public int getOrderPriority() {
+			return 40;
+		}
+	};
+
+	public static AbstractAttribute MANA_MAXIMUM = new AbstractAttribute(false,
+			1,
+			1,
+			1000,
+			"aura",
+			"Aura",
+			"manaIcon",
+			PresetColour.ATTRIBUTE_MANA,
+			"aura-boost",
+			"aura-drain",
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"A measure of the amount of arcane energy [npc.name] [npc.has] in [npc.her] aura.<br/>"
+						+ "Extra aura is added to the 'bonus' value from:<br/>"
+						+ "<b>" + GameCharacter.MANA_CALCULATION + "</b>");
+		}
+
+		@Override
+		public int getOrderPriority() {
+			return 50;
+		}
 	};
 	
-	// Miscellaneous attributes:
+	public static AbstractAttribute EXPERIENCE = new AbstractAttribute(false,
+			0,
+			0,
+			1000000,
+			"experience",
+			"Experience",
+			"experienceIcon",
+			PresetColour.GENERIC_EXPERIENCE,
+			"learning",
+			"forgetfulness",
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"How much progress [npc.name] [npc.has] made to the next level.");
+		}
 
+		@Override
+		public int getOrderPriority() {
+			return 60;
+		}
+	};
+
+	public static AbstractAttribute ACTION_POINTS = new AbstractAttribute(false,
+			0,
+			0,
+			10,
+			"action points",
+			"Action points",
+			"action_points",
+			PresetColour.GENERIC_ACTION_POINTS,
+			"initiative",
+			"lethargy",
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"How many action points [npc.nameHasFull] available to spend on moves in combat.");
+		}
+
+		@Override
+		public int getOrderPriority() {
+			return 70;
+		}
+	};
 
 	public static AbstractAttribute ENCHANTMENT_LIMIT = new AbstractAttribute(false,
 			0,
 			0,
 			1000,
-			"enchantment capacity",
-			"Enchantment capacity",
+			"enchantment instability",
+			"Enchantment instability",
 			"enchantmentLimitIcon",
 			PresetColour.GENERIC_ENCHANTMENT,
 			"harnessing",
@@ -261,12 +221,97 @@ public class Attribute {
 			return UtilText.parse(owner,
 						"The total amount of clothing and tattoo enchantments [npc.nameIsFull] able to handle without incurring massive penalties.");
 		}
+		@Override
+		public boolean isAffectedByEnchantmentCost() {
+			return false;
+		}
+		@Override
+		public int getOrderPriority() {
+			return 80;
+		}
 	};
+
+	// Sexual attributes:
 	
-	public static AbstractAttribute FERTILITY = new AbstractAttribute(true, 10, -100, 100, "fertility", "Fertility", "shieldIcon", PresetColour.GENERIC_SEX, "fertility", "infertility", null) {
+	public static AbstractAttribute LUST = new AbstractAttribute(false,
+			0,
+			0,
+			100,
+			"lust",
+			"Lust",
+			"arousalIcon",
+			PresetColour.ATTRIBUTE_LUST,
+			"passion",
+			"indifference",
+			null) {
+		@Override
+		public boolean hasStatusEffect() {
+			return true;
+		}
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Increases the likelihood of becoming pregnant.";
+			if(owner.isPlayer()) {
+				return "How desperate for sexual contact you are. Your lust will move towards your resting lust value over time.<br/>"
+						+ "<b>Resting Lust = " + GameCharacter.RESTING_LUST_CALCULATION + "</b>";
+			} else {
+				return UtilText.parse(owner,
+						"How desperate for sexual contact [npc.name] is.");
+			}
+		}
+		@Override
+		public int getOrderPriority() {
+			return 100;
+		}
+	};
+	
+	public static AbstractAttribute RESTING_LUST = new AbstractAttribute(false,
+			0,
+			0,
+			80,
+			"resting lust",
+			"Resting lust",
+			"arousalIcon",
+			PresetColour.ATTRIBUTE_LUST,
+			"passion",
+			"indifference",
+			null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner, "The amount of lust which [npc.name] naturally gravitates towards over a period of time.");
+		}
+
+		@Override
+		public int getOrderPriority() {
+			return 110;
+		}
+	};
+	
+	public static AbstractAttribute AROUSAL = new AbstractAttribute(false,
+			0,
+			0,
+			100,
+			"arousal",
+			"Arousal",
+			"arousalIcon",
+			PresetColour.ATTRIBUTE_AROUSAL,
+			"long-lasting",
+			"prematurity",
+			null) {
+		@Override
+		public boolean hasStatusEffect() {
+			return true;
+		}
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if(owner.isPlayer())
+				return "How aroused you currently are. You will orgasm when your arousal maxes out.";
+			else
+				return UtilText.parse(owner,
+						"How aroused [npc.name] is. [npc.She] will orgasm when [npc.her] arousal maxes out.");
+		}
+		@Override
+		public int getOrderPriority() {
+			return 120;
 		}
 	};
 	
@@ -275,24 +320,162 @@ public class Attribute {
 		public String getDescription(GameCharacter owner) {
 			return "Increases the likelihood of impregnating someone.";
 		}
+
+		@Override
+		public int getOrderPriority() {
+			return 130;
+		}
 	};
 	
-	public static AbstractAttribute SPELL_COST_MODIFIER = new AbstractAttribute(true, 0, 0, 80, "spell efficiency", "Spell efficiency", "shieldIcon", PresetColour.ATTRIBUTE_MANA, "proficiency", "incompetence", null) {
+	public static AbstractAttribute FERTILITY = new AbstractAttribute(true, 10, -100, 100, "fertility", "Fertility", "shieldIcon", PresetColour.GENERIC_SEX, "fertility", "infertility", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Reduces the cost of casting spells.";
+			return "Increases the likelihood of becoming pregnant.";
+		}
+
+		@Override
+		public int getOrderPriority() {
+			return 140;
 		}
 	};
 
 	// Combat attributes:
 
+	public static AbstractAttribute SPELL_COST_MODIFIER = new AbstractAttribute(true, 0, 0, 80, "spell efficiency", "Spell efficiency", "shieldIcon", PresetColour.ATTRIBUTE_MANA, "proficiency", "incompetence", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Reduces the cost of casting spells.";
+		}
+
+		@Override
+		public int getOrderPriority() {
+			return 200;
+		}
+	};
+	
 	public static AbstractAttribute CRITICAL_DAMAGE = new AbstractAttribute(true, 150, 100, 500, "critical power", "Critical power", "shieldIcon", PresetColour.ATTRIBUTE_HEALTH, "impact", "failure", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point gives 1% extra critical power.";
 		}
+
+		@Override
+		public int getOrderPriority() {
+			return 210;
+		}
 	};
 	
+	// Damages:
+
+	public static AbstractAttribute DAMAGE_UNARMED = new AbstractAttribute(true, 0, -80, 100, "unarmed damage", "Unarmed damage", "swordIcon", PresetColour.DAMAGE_TYPE_UNARMED, "martial arts", "martial incompetence", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases damage dealt from unarmed attacks, including special attacks obtained from non-human bodyparts.";
+		}
+
+		@Override
+		public int getOrderPriority() {
+			return 220;
+		}
+	};
+	
+	public static AbstractAttribute DAMAGE_MELEE_WEAPON = new AbstractAttribute(true, 0, -80, 100, "melee weapon damage", "Melee Weapon damage", "swordIcon", PresetColour.DAMAGE_TYPE_MELEE, "melee mastery", "melee incompetence", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases damage dealt from attacks by melee weapons.";
+		}
+
+		@Override
+		public int getOrderPriority() {
+			return 230;
+		}
+	};
+	
+	public static AbstractAttribute DAMAGE_RANGED_WEAPON = new AbstractAttribute(true, 0, -80, 100, "ranged weapon damage", "Ranged weapon damage", "swordIcon", PresetColour.DAMAGE_TYPE_RANGED, "ranged mastery", "ranged incompetence", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases damage dealt from attacks by ranged weapons.";
+		}
+
+		@Override
+		public int getOrderPriority() {
+			return 240;
+		}
+	};
+	
+	public static AbstractAttribute DAMAGE_SPELLS = new AbstractAttribute(true, 0, -80, 100, "spell damage", "Spell damage", "swordIcon", PresetColour.ATTRIBUTE_MANA, "arcane power", "arcane dulling", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases spell damage.";
+		}
+
+		@Override
+		public int getOrderPriority() {
+			return 250;
+		}
+	};
+
+	public static AbstractAttribute DAMAGE_PHYSICAL = new AbstractAttribute(true, 0, -80, 100, "physical damage", "Physical damage", "swordIcon", PresetColour.DAMAGE_TYPE_PHYSICAL, "force", "softness", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases physical damage.";
+		}
+
+		@Override
+		public int getOrderPriority() {
+			return 260;
+		}
+	};
+	
+	public static AbstractAttribute DAMAGE_LUST = new AbstractAttribute(true, 0, -80, 100, "lust damage", "Lust damage", "swordIcon", PresetColour.GENERIC_SEX, "seduction", "repulsion", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases lust damage.";
+		}
+
+		@Override
+		public int getOrderPriority() {
+			return 270;
+		}
+	};
+	
+	public static AbstractAttribute DAMAGE_FIRE = new AbstractAttribute(true, 0, -80, 100, "fire damage", "Fire damage", "swordIcon", PresetColour.DAMAGE_TYPE_FIRE, "inferno", "dying embers", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases fire damage.";
+		}
+
+		@Override
+		public int getOrderPriority() {
+			return 280;
+		}
+	};
+	
+	public static AbstractAttribute DAMAGE_ICE = new AbstractAttribute(true, 0, -80, 100, "cold damage", "Cold damage", "swordIcon", PresetColour.DAMAGE_TYPE_COLD, "blizzard", "slush", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases cold damage.";
+		}
+
+		@Override
+		public int getOrderPriority() {
+			return 290;
+		}
+	};
+	
+	public static AbstractAttribute DAMAGE_POISON = new AbstractAttribute(true, 0, -80, 100, "poison damage", "Poison damage", "swordIcon", PresetColour.DAMAGE_TYPE_POISON, "venom", "dilution", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases poison damage.";
+		}
+
+		@Override
+		public int getOrderPriority() {
+			return 300;
+		}
+	};
+	
+
 	public static AbstractAttribute ENERGY_SHIELDING = new AbstractAttribute(false, 0, -100, 500, "health shielding", "Health shielding", "shieldIcon", PresetColour.ATTRIBUTE_HEALTH, "endurance", "vulnerability", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -305,6 +488,10 @@ public class Attribute {
 		@Override
 		public String getInfiniteDescription() {
 			return "[style.colourExcellent(Immune)] to [style.colourHealth(all damage)]";
+		}
+		@Override
+		public int getOrderPriority() {
+			return 400;
 		}
 	};
 
@@ -324,6 +511,10 @@ public class Attribute {
 		public String getInfiniteDescription() {
 			return "[style.colourExcellent(Immune)] to [style.colourPhysical(physical damage)]";
 		}
+		@Override
+		public int getOrderPriority() {
+			return 410;
+		}
 	};
 	
 	public static AbstractAttribute RESISTANCE_LUST = new AbstractAttribute(false, 0, -100, 500, "lust shielding", "Lust shielding", "shieldIcon", PresetColour.GENERIC_SEX, "chastity", "temptation", null) {
@@ -338,6 +529,10 @@ public class Attribute {
 		@Override
 		public String getInfiniteDescription() {
 			return "[style.colourExcellent(Immune)] to [style.colourLust(lust damage)]";
+		}
+		@Override
+		public int getOrderPriority() {
+			return 420;
 		}
 	};
 	
@@ -354,6 +549,10 @@ public class Attribute {
 		public String getInfiniteDescription() {
 			return "[style.colourExcellent(Immune)] to [style.colourFire(fire damage)]";
 		}
+		@Override
+		public int getOrderPriority() {
+			return 430;
+		}
 	};
 	
 	public static AbstractAttribute RESISTANCE_ICE = new AbstractAttribute(false, 0, -100, 500, "cold shielding", "Cold shielding", "shieldIcon", PresetColour.DAMAGE_TYPE_COLD, "warmth", "frostbite", null) {
@@ -368,6 +567,10 @@ public class Attribute {
 		@Override
 		public String getInfiniteDescription() {
 			return "[style.colourExcellent(Immune)] to [style.colourIce(ice damage)]";
+		}
+		@Override
+		public int getOrderPriority() {
+			return 440;
 		}
 	};
 	
@@ -384,71 +587,9 @@ public class Attribute {
 		public String getInfiniteDescription() {
 			return "[style.colourExcellent(Immune)] to [style.colourPoison(poison damage)]";
 		}
-	};
-
-	
-	// Damages:
-
-	public static AbstractAttribute DAMAGE_UNARMED = new AbstractAttribute(true, 0, -80, 100, "unarmed damage", "Unarmed damage", "swordIcon", PresetColour.DAMAGE_TYPE_UNARMED, "martial arts", "martial incompetence", null) {
 		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases damage dealt from unarmed attacks, including special attacks obtained from non-human bodyparts.";
-		}
-	};
-	
-	public static AbstractAttribute DAMAGE_MELEE_WEAPON = new AbstractAttribute(true, 0, -80, 100, "melee weapon damage", "Melee Weapon damage", "swordIcon", PresetColour.DAMAGE_TYPE_MELEE, "melee mastery", "melee incompetence", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases damage dealt from attacks by melee weapons.";
-		}
-	};
-	
-	public static AbstractAttribute DAMAGE_RANGED_WEAPON = new AbstractAttribute(true, 0, -80, 100, "ranged weapon damage", "Ranged weapon damage", "swordIcon", PresetColour.DAMAGE_TYPE_RANGED, "ranged mastery", "ranged incompetence", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases damage dealt from attacks by ranged weapons.";
-		}
-	};
-	
-	public static AbstractAttribute DAMAGE_SPELLS = new AbstractAttribute(true, 0, -80, 100, "spell damage", "Spell damage", "swordIcon", PresetColour.ATTRIBUTE_MANA, "arcane power", "arcane dulling", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases spell damage.";
-		}
-	};
-
-	public static AbstractAttribute DAMAGE_PHYSICAL = new AbstractAttribute(true, 0, -80, 100, "physical damage", "Physical damage", "swordIcon", PresetColour.DAMAGE_TYPE_PHYSICAL, "force", "softness", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases physical damage.";
-		}
-	};
-	
-	public static AbstractAttribute DAMAGE_LUST = new AbstractAttribute(true, 0, -80, 100, "lust damage", "Lust damage", "swordIcon", PresetColour.GENERIC_SEX, "seduction", "repulsion", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases lust damage.";
-		}
-	};
-	
-	public static AbstractAttribute DAMAGE_FIRE = new AbstractAttribute(true, 0, -80, 100, "fire damage", "Fire damage", "swordIcon", PresetColour.DAMAGE_TYPE_FIRE, "inferno", "dying embers", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases fire damage.";
-		}
-	};
-	
-	public static AbstractAttribute DAMAGE_ICE = new AbstractAttribute(true, 0, -80, 100, "cold damage", "Cold damage", "swordIcon", PresetColour.DAMAGE_TYPE_COLD, "blizzard", "slush", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases cold damage.";
-		}
-	};
-	
-	public static AbstractAttribute DAMAGE_POISON = new AbstractAttribute(true, 0, -80, 100, "poison damage", "Poison damage", "swordIcon", PresetColour.DAMAGE_TYPE_POISON, "venom", "dilution", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases poison damage.";
+		public int getOrderPriority() {
+			return 450;
 		}
 	};
 	
@@ -497,10 +638,16 @@ public class Attribute {
 //			return "Increases damage vs horse-morphs.";
 //		}
 //	};
-	public static AbstractAttribute DAMAGE_IMP = new AbstractAttribute(true, 0, -100, 100, "imp damage", "Imp damage", "swordIcon", PresetColour.RACE_IMP, "impish-obliteration", "impish-mercy", null) {
+	
+	public static AbstractAttribute DAMAGE_ELDER_LILIN = new AbstractAttribute(true, 0, -100, 100, "elder lilin damage", "Elder lilin damage", "swordIcon", PresetColour.RACE_LILIN, "elder-lilin-obliteration", "elder-lilin-mercy", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Increases damage vs imps.";
+			return "Increases damage vs elder lilin.";
+		}
+
+		@Override
+		public int getOrderPriority() {
+			return 1000;
 		}
 	};
 
@@ -509,14 +656,25 @@ public class Attribute {
 		public String getDescription(GameCharacter owner) {
 			return "Increases damage vs lilin.";
 		}
-	};
 
-	public static AbstractAttribute DAMAGE_ELDER_LILIN = new AbstractAttribute(true, 0, -100, 100, "elder lilin damage", "Elder lilin damage", "swordIcon", PresetColour.RACE_LILIN, "elder-lilin-obliteration", "elder-lilin-mercy", null) {
 		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Increases damage vs elder lilin.";
+		public int getOrderPriority() {
+			return 1100;
 		}
 	};
+	
+	public static AbstractAttribute DAMAGE_IMP = new AbstractAttribute(true, 0, -100, 100, "imp damage", "Imp damage", "swordIcon", PresetColour.RACE_IMP, "impish-obliteration", "impish-mercy", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Increases damage vs imps.";
+		}
+
+		@Override
+		public int getOrderPriority() {
+			return 1200;
+		}
+	};
+
 //	public static AbstractAttribute DAMAGE_REINDEER_MORPH = new AbstractAttribute(true, 0, -100, 100, "reindeer-morph damage", "Reindeer-morph damage", "swordIcon", PresetColour.RACE_REINDEER_MORPH, "reindeer-morph-obliteration", "reindeer-morph-mercy", null) {
 //		@Override
 //		public String getDescription(GameCharacter owner) {

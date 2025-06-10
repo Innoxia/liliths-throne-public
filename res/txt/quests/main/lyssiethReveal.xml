@@ -239,9 +239,12 @@
 		[lyssieth.speech(Don't worry, I'll tell you everything,)] [lyssieth.name] says, [lyssieth.speech(but first, let us conclude the business regarding my daughter's return. You have something to say, don't you, [siren.name]?)]
 	</p>
 	<p>
-		#IF siren.getAffection(pc)>30
-		#THEN [siren.speech(Y-Yes, I suppose...)] [siren.name] says, blushing and looking at the floor. [siren.speech(Sorry for all the trouble I caused. And thank you... F-For saving me, that is...)]
-		#ELSE [siren.speech(Even though [pc.she] was going to leave me to be crushed? You're making <i>me</i> apologise?)] [siren.name] protests, but her mother just raises an eyebrow and starts tapping her foot on the floor. [siren.speech(Fine... Sorry, [pc.name], for all the trouble I caused...)]
+		#IF(siren.getAffection(pc)>30)
+			[siren.speech(Y-Yes, I suppose...)] [siren.name] says, blushing and looking at the floor. [siren.speech(Sorry for all the trouble I caused. And thank you... F-For saving me, that is...)]
+		#ELSEIF(flags.hasFlag(FLAG_meraxisTrickedWithRing))
+			[siren.speech(Even though [pc.she] tricked me into putting on your ring? You're making <i>me</i> apologise?)] [siren.name] protests, but her mother just raises an eyebrow and starts tapping her foot on the floor. [siren.speech(Fine... Sorry, [pc.name], for all the trouble I caused...)]
+		#ELSE
+			[siren.speech(Even though [pc.she] was going to leave me to be crushed? You're making <i>me</i> apologise?)] [siren.name] protests, but her mother just raises an eyebrow and starts tapping her foot on the floor. [siren.speech(Fine... Sorry, [pc.name], for all the trouble I caused...)]
 		#ENDIF
 	</p>
 	<p>

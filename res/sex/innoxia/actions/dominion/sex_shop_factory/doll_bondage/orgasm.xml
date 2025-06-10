@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+
+	<buttonPriority>0</buttonPriority>
+	<actionConditional><![CDATA[
+		[#npc.isPlayer()]
+	]]></actionConditional>
+	<type>ORGASM</type>
+	<pace/>
+	<endsSex><![CDATA[
+		true
+	]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>	
+	<associatedFetishes/>
+	<performingArea/>
+	<targetedArea/>	
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>	
+	<applyEffects><![CDATA[
+	]]></applyEffects>	
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>	
+	<areasCummedIn/>
+	<areasCummedOn/>
+	
+	<!-- Information displayed to the player: -->
+	
+	<title><![CDATA[
+		Orgasm
+	]]></title>
+	
+	<tooltip><![CDATA[
+		You orgasm on the doll's command.
+	]]></tooltip>
+	
+	<descriptions>
+		<description>
+			<text><![CDATA[
+				Thanks in part to the effect that your new body is having on your mind, you were up until now happily going along with everything without questioning it. As the doll commands you to orgasm, however, you suddenly find yourself keenly aware of what's happening to you. Treated as nothing more than an object to be used to test bondage gear, you've been obediently acting like a sex doll, and now find yourself struggling to snap out of it. Already at the edge of your climax, you can't disobey the red doll even if you wanted to, and before you know it you're hit by an intense, shameful orgasm.
+				
+				<br/><br/>
+				
+				Your pussy clenches hard and squirts all over the doll's strap-on as she continues to roughly fuck you through your climax. Your ecstatic moans are muffled into your ballgag and come out as little more than quiet whimpers as an explosion of pleasure rushes through your trembling body. Orgasming in such a degrading situation makes something click in your head, and you find yourself wanting nothing more than to be a good doll. Jolts of intense pleasure rush through you as your pussy continues to quiver and squeeze down around the red doll's dildo, and for a moment you secretly wish that Angelixx would arrive and complete your transformation into an obedient little sex toy.
+				
+				<br/><br/>
+				
+				[doll.speechNoEffects(Excellent,)] the doll states as you begin to come down from the highs of your climax. Reaching up to give your ropes one last tug, she declares, [doll.speechNoEffects(All of the bondage gear has passed quality control.)]
+				
+				<br/><br/>
+				
+				With that, she slides her dildo out of your still-trembling pussy, and then a moment later you hear her silicone feet slapping against the concrete floor as she walks away. Although you're desperate to experience that all over again, it seems like the doll has finished with you...
+			]]></text>
+		</description>
+	</descriptions>
+	
+</sexAction>

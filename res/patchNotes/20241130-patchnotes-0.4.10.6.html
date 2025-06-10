@@ -1,0 +1,129 @@
+<h2>v0.4.10.6</h2>
+
+<h3>Emergency bug fix from 0.4.10.5:</h3>
+<ul>
+	<li>Fixed bug where interacting with any demonic taurs would often freeze the game.</li>
+</ul>
+
+
+<h3>Contributors:</h3>
+<ul>
+	<li>Fixed an erroneous error message in the Util.getClosestStringMatch() function. (by AceXP)</li>
+	<li>Improved error.log information to include build type. (by CognitiveMist)</li>
+	<li>Improved Maven Compatibility Across JDK Versions. (PR#1745 by NoHornyOnMain)</li>
+	<li>Fixed game crashing on leap days. (PR#1814 by Miigon)</li>
+	<li>Cached compiled Javascript objects for improved performance (PR#1802 by tarbh-uisge) (Also thanks to CognitiveMist for PR#1442 which implemented the bulk of the original code which this PR uses.)</li>
+	<li>Documentation: Specify svgo version compatible with svgoConfig.yml (PR#1813 by CognitiveMist)</li>
+	<li>Implemented a few minor bug fixes (which could cause background errors or softlocks). (PR#1821 by CognitiveMist)</li>
+	<li>Sanitized quicksave file name to prevent loading issues when playing as a character whose name contains a space or period. (PR#1781 by SightglassCat)</li>
+	<li>Enhancement: Store minimap zoom level in the game properties (so your zoom level will be remembered when restarting the game). (PR#1832 by CognitiveMist)</li>
+	<li>Added 'Chinese characters tally' as new tattoo counter type. (PR#1805 by CKRainbow)</li>
+	<li>Bugfix: pressing enter when naming enchant or tattoo undoes the last character. (PR#1834 by CognitiveMist)</li>
+</ul>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Improved the debug menu's 'Spawn attacker' action so that you can choose the gender of the spawned attacker.</li>
+	<li>When debug mode is turned on, the time it takes to end each turn is displayed in the title of the window.</li>
+	<li>Added 'DUPLICATE_WHEN_EQUIP' as an ItemTag, which is used for the new electrical tape clothing item.</li>
+	<li>Added 'countDuplicates' attribute to the 'numberRequiredForCompleteSet' value in SetBonus files, allowing you to define whether or not you want duplicates of clothing or weapon types to count towards the required number of items to activate the set bonus. (See 'res/mods/innoxia/setBonuses/template.xml' for more info.)</li>
+</ul>
+
+<h3>Clothing:</h3>
+<ul>
+	<li>Added 'square nipple rings' (androgynous, nipple piercing slot, sold by Kate).</li>
+	<li>Added 'electrical tape' (androgynous, mouth/nipple/vagina/anus slots, sold by Ralph).</li>
+	<li>Removed 'tape crosses' as they're now a part of the new 'electrical tape' clothing item. Any existing 'tape crosses' in your save file will be converted into 'electrical tape' when loading into this version.</li>
+	<li>Added 'duct tape' (androgynous, wrist/ankle/mouth slots, sold by Ralph).</li>
+	<li>Added more recolouring options to the sun and snowflake themed accessories.</li>
+</ul>
+
+<h3>Slaves:</h3>
+<ul>
+	<li>Added 4 new job permissions to the prostitute job, allowing your slaves to act as dominant partners while working as a prostitute.</li>
+	<li>When working as a prostitute, slaves can now perform cunnilingus as well as blowjobs when the oral permission is activated.</li>
+	<li>Improved the formatting of prostitute events in the occupancy manager.</li>
+	<li>Prostitute and public fucktoy slaves will no longer engage in anal sex if your anal content setting is disabled.</li>
+	<li>Job settings for slaves now respect your content options (e.g. if you have anal content turned off, you won't see the 'Allow anal' setting for the prostitute or public fucktoy jobs.)</li>
+	<li>If your slaves are given the 'Silence' permission, they are now treated as though they're mute, and cannot speak during sex. (They will continue to talk during non-sex interactions as I still need to add mute behaviour for most slave scenes...)</li>
+	<li>When interacting with one of your owned dolls, if either you or the doll has a D.E.C.K. in your inventories, then you can now use the 'Transformations' action instead of accessing the inventory and manually using the D.E.C.K. on them.</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>Further improved the 'Grow cock' sex action, so if a character has a penis, and then that penis is removed, the 'Grow cock' action in sex will restore that character's previous penis instead of generating a generic new one for them.</li>
+	<li>The 'Grow cock' action when performed on a partner is now no longer available if your partner is resisting.</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>When in a feral form, you can no longer get pregnant (this is a temporary change to fix some issues with Sterope's content, but I will soon re-enable feral pregnancies and fix her content properly).</li>
+	<li>The DECK can now transform dolls' wings, horns, antennae, and tails.</li>
+	<li>Split the item view in the encyclopedia into three separate screens to make navigation a little easier.</li>
+	<li>NPCs with the bondage applier fetish will no longer spawn with enslavement clothing in their inventory (such as the metal collar), as they are not able to enslave others.</li>
+	<li>Character height is now limited to 200cm during character creation, and the UI for height selection has been slightly improved.</li>
+	<li>Updated the starting jewellery for piercing slots in the character creation based on femininity.</li>
+	<li>Increased Rose's starting age from 18 to 20 (as I felt like she'd need more time to build up her relationship with Lilaya).</li>
+	<li>Oglix now has the tribal tattoo and scars which are shown in her artwork.</li>
+	<li>Submissive NPCs at the Watering Hole who have the 'unwilling fuck-toy' fetish will now engage in rape-play in the toilets.</li>
+	<li>Added a small dialogue variation to the scene with Hammer & Ghost just before the raid, where if you ask them about their weapons while carrying an HLF weapon yourself, Hammer will comment on it.</li>
+	<li>You can now take the 'vaginal virginity' fetish during character creation even if you set vaginal sex experience to a non-zero value, allowing you to start the game with the 'broken virgin' debuff if you want to.</li>
+	<li>Rabbit and reindeer balls are now covered in their associated fur instead of sharing the same characteristics (such as colour) with their penis.</li>
+	<li>Slightly improved the 'Glacial' and 'Radiant' status effect icons.</li>
+	<li>In Dominion, the generic population in the 'Characters present' window now changes at night.</li>
+	<li>When changing femininity during character creation, your character's body will slightly adjust to reflect these changes (penis and breast sizes are affected, but can always be changed in the following customisation menus).</li>
+	<li>When NPCs engage in generic sex (such as when working as a prostitute or as a slave in the stocks), each instance of this sex will be counted as a unique partner for the purposes of tattoo counters.</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Typo and parsing fixes.</li>
+	<li>Fixed issue where you were unable to buy a DECK from Saellatrix, even if you had enough money to do so.</li>
+	<li>Prevented game logic parsing commands from executing when typed into an item's name field in the enchantment menu.</li>
+	<li>Fixed bug where anthro dolls would never spawn with wings, horns, antennae, or tails.</li>
+	<li>Fixed issue where you couldn't interact with dolls who were stationed on staircase tiles.</li>
+	<li>Interest on your savings is now correctly calculated for the flames which you store in the bank at Elis.</li>
+	<li>Fixed incorrect description in the 'Heavily pregnant' status effect update, where it would only recognise that you lay eggs if you had a harpy vagina, instead of any egg-laying vagina.</li>
+	<li>Fixed page title during character creation's tattoo addition showing an incorrect location name.</li>
+	<li>NPCs will no longer spawn with birthdays in the future.</li>
+	<li>Fixed bug where using the alarm to sleep would not work if the current time was either the same as your alarm's time, or 1 minute past the alarm's time. (Fixed in all locations where you can use your alarm: in your room at Lilaya's mansion, in your room at The Red Dragon, or at Evelyx's dairy.)</li>
+	<li>Fixed bug where you'd get to know what Hammer & Ghost looked like naked when they changed into their civilian and fully-geared-up outfits, even though they didn't strip naked.</li>
+	<li>You can now transform breast rows in the self-TF menu if your multi-breast settings are set to anything other than 'Disabled', as the setting tooltips imply.</li>
+	<li>Fixed issue where body content preferences were not taken into account in a few places (which was affecting skin colour, breast rows, and crotch boobs).</li>
+	<li>Fixed bug where the 'Bar' action in The Crossed Blades would always be available, even if you'd already introduced yourself to Golix.</li>
+	<li>Using the 'Quick sex' action now correctly results in a character cumming on their partner's breasts if they are engaged in paizuri (or any penis on non-penetrable orifice) for the main sex preference.</li>
+	<li>Fixed bug where items of clothing could be mentioned multiple times when being described as being cummed on at the end of quick sex.</li>
+	<li>Fixed bug where time was inadvertently passing when selecting options in Helena's slave customisation menu.</li>
+	<li>Using a condom while trading with an NPC will no longer softlock the scene and duplicate the condom.</li>
+	<li>Fixed issue where using a used condom and then backing out before choosing an orifice would make the condom disappear from your inventory until the scene changed.</li>
+	<li>Fixed bug where creampie actions could sometimes result in all sex participants cumming into the targeted character regardless of whether or not they were penetrating them or even if they had a penis (this bug was always encountered when using autofellatio and deepthroating yourself when spectating an ongoing sex scene).</li>
+	<li>When in hiding while spectating a sex scene, you can no longer manipulate the participants' clothes or give them items.</li>
+	<li>Added missing generic 'shoppers' population for Nyan's store tile (only present when not in storeroom with Nyan).</li>
+	<li>Fixed cow ears being described as being high up on your head (as through they were pointed ears like a fox's).</li>
+	<li>The generic 'trader' occupation is no longer available as a job suggestion to friendly occupants.</li>
+	<li>Fixed bug where random NPCs would never spawn as half-demon taurs, no matter what you'd set your half-demon and taur preferences to be.</li>
+	<li>Fixed bug where half-demon taurs would always have their genitals referred to as being those of a 'demonic-horse', instead of a 'demonic-LEG_RACE'.</li>
+	<li>Fixed bug where slimes would always spawn as 'human' slimes, instead of representing your subspecies preferences. (i.e. Slimes will now spawn with a body drawn from the full range of subspecies that are enabled in your content settings.)</li>
+	<li>When squirting during orgasm, the text now correctly describes the orgasming character as the one whose clothing is being dirtied (instead of a random NPC).</li>
+	<li>Fixed multiple parsing errors being displayed when receiving oral sex from Nyan & Leotie.</li>
+	<li>In Nyan & Leotie oral threesome, when blowjob or cunnilingus is somehow ended, and they aren't involved in an ongoing oral action, they will now restart the blowjob/cunnilingus.</li>
+	<li>In sex, when a character joins in on an ongoing action (double-blowjob, double-cunnilingus, double-penetration), then any other ongoing actions using the associated sex areas are now correctly stopped. (e.g. Nipple kissing into double blowjob would not stop the ongoing nipple kissing.)</li>
+	<li>Fixed bug in sex where starting an ongoing action involving the MOUTH area would not stop any ongoing TONGUE actions, and vice versa.</li>
+	<li>Fixed bug where using an enslavement item on an NPC who wasn't able to be enslaved would still add them as your slave and teleport them to slaver alley (this bug was present for the two imps who guard each of the fortresses in Submission).</li>
+	<li>Fixed issue where the 'Furry tail penetrations' content setting would only allow furry tails to be used in sex if they were prehensile, instead of following the same rules as non-furry tails (which is if they're prehensile OR if they're longer than 50% of the character's height).</li>
+	<li>When bidding on a slave at the auction block in slaver alley, the correct opening scene is now displayed, instead of the generic import information text.</li>
+	<li>Sex area tooltips will no longer state that non-penis penetrations are swollen due to a knot during the turn when an orgasming character is knotting an orifice.</li>
+	<li>Fixed bug where when a character knotted their partner (which requires them to insert their penis as deep as possible) all other ongoing penetrations would also be inserted as deep as possible, even if the orgasming character wouldn't ordinarily want to do that.</li>
+	<li>When leaving the Centaur Carriage Depot, only 2 minutes now pass instead of an hour.</li>
+	<li>A character now needs both a katana and a wakizashi to complete the 'daisho' set bonus. Wielding two katanas or two wakizashis will no longer work.</li>
+	<li>Fixed bug in the doll side quest, where if you're a doll, you were able to reset the perk tree and buy perks, and were therefore able to obtain all of the perks which were meant to be disabled during that quest.</li>
+	<li>Fixed bug where after learning a spell upgrade, you could continue to click on the owned upgrade which would keep on deducting your spell points.</li>
+	<li>When meeting Fia before starting the main part of the doll quest, the characters present window no longer lists a large nubmer of generic characters as being present.</li>
+	<li>Fixed bug where no subspecies were added to the 'storm immune' subspecies list, which resulted in there being no generic characters present during an arcane storm even though demons were described as being in the area.</li>
+	<li>Fixed bug in the new side quest's bad end where both your and Fiammetta's serial numbers would be identical.</li>
+	<li>Fixed issue with Vronti's blowjob and handjob sex scenes where both of you would start in incorrect positions and background errors would be thrown.</li>
+	<li>Feet and toes for characters with tails instead of legs are now correctly referred to as tails/tips instead of feet/toes.</li>
+	<li>Added missing 'porcelain' skin colour to the possible varieties which characters can spawn with.</li>
+	<li>When starting a new game, your character is no longer influenced by your penis and breast size preferences, so as to keep the starting values for penis and breast sizes within the intended range.</li>
+	<li>Fixed bug where trying to get Kate to modify a tattoo which didn't have any writing nor a counter would not work and throw background errors.</li>
+</ul>

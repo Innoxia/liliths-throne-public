@@ -139,7 +139,11 @@ public class DialogueManager {
 		addHardCodedDialogueId("MARKET_STALL_CAFE_INTERIOR_NO_CONTENT", SlaverAlleyDialogue.MARKET_STALL_CAFE_INTERIOR_NO_CONTENT);
 
 		addHardCodedDialogueId("DOLL_BROCHURE", MiscDialogue.DOLL_BROCHURE);
+		addHardCodedDialogueId("SLAVE_DOLLIFICATION", MiscDialogue.SLAVE_DOLLIFICATION);
 		
+		addHardCodedDialogueId("SAELLATRIX_DOLL_CORE", MiscDialogue.SAELLATRIX_DOLL_CORE);
+		addHardCodedDialogueId("SAELLATRIX_DOLL_PUSSY", MiscDialogue.SAELLATRIX_DOLL_PUSSY);
+		addHardCodedDialogueId("SAELLATRIX_DOLL_ASS", MiscDialogue.SAELLATRIX_DOLL_ASS);
 		
 		// Modded dialogue types:
 		

@@ -249,7 +249,7 @@
 		[claire.speech(That's a member of SWORD, all right,)] the cat-girl whispers in your ear, [claire.speech(just look at all that gear [npc.sheIs] wearing...)]
 	</p>
 	<p>
-		Sure enough, as you take another look at the [npc.race] Enforcer, you take note of the fact that [npc.sheIs] not only wearing a very militarised uniform, complete with armoured vest and helmet, but [npc.she] also has what looks to be a rifle of some sort slung over [npc.her] shoulder. Although [npc.sheIs] no threat at the moment, due to being concerned only with trying to score a bullseye on her makeshift dartboard, you imagine that [npc.she]'d be a very dangerous opponent if you were to drawn into a fight with [npc.herHim].
+		Sure enough, as you take another look at the [npc.race] Enforcer, you take note of the fact that [npc.sheIs] not only wearing a very militarised uniform, complete with armoured vest and helmet, but [npc.she] also has what looks to be a rifle of some sort slung over [npc.her] shoulder. Although [npc.sheIs] no threat at the moment, due to being concerned only with trying to score a bullseye on [npc.her] makeshift dartboard, you imagine that [npc.she]'d be a very dangerous opponent if you were to drawn into a fight with [npc.herHim].
 	</p>
 	<p>
 		[claire.speech(SWORD are known for being trigger-happy maniacs at the best of times,)] Claire whispers with a sense of urgency in her voice, [claire.speech(There's no way we can sneak past [npc.herHim], and [npc.she]'ll probably just shoot us if [npc.she] sees us. Come on, let's find another way around...)]

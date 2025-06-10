@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<value>500</value>
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[polo shirt]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[polo shirts]]></namePlural> 
+		<description><![CDATA[A short-sleeved, collared shirt made from knitted cotton.]]></description> 
+		<physicalResistance>0</physicalResistance> 
+		<femininity>MASCULINE</femininity> 
+		<slot>TORSO_UNDER</slot> 
+		<rarity>COMMON</rarity> 
+		<clothingSet/> 
+		<imageName>polo_shirt.svg</imageName>
+		<imageEquippedName/>
+		<effects/>
+		
+		<blockedPartsList> 
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType> 
+				<clothingAccessRequired> 
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+					<clothingAccess>HEAD</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>ARMPITS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+					<bodyPart>BACK</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours>
+			<colour>CLOTHING_WHITE</colour>
+			<colour>CLOTHING_BLUE_GREY</colour>
+			<colour>CLOTHING_BLUE_LIGHT</colour>
+			<colour>CLOTHING_BLUE_NAVY</colour>
+			<colour>CLOTHING_YELLOW</colour>
+			<colour>CLOTHING_ORANGE</colour>
+			<colour>CLOTHING_PINK_LIGHT</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours values="JUST_WHITE"/>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours values="JUST_WHITE"/>
+		<tertiaryColoursDye values="ALL"/>
+		<customColours>
+			<customColour c0="#ABC837" c1="#BCD35F" c2="#CDDE87" c3="#DDE9AF" c4="#EEF4D7">
+				<defaultColours>
+					<colour>CLOTHING_WHITE</colour>
+				</defaultColours> 
+				<extraColours values="ALL"/>
+			</customColour>
+		</customColours>
+		
+		<itemTags> 
+			<tag>SOLD_BY_NYAN</tag>
+			<tag>FITS_ARM_WINGS</tag>
+		</itemTags>
+	</coreAttributes>
+	
+</clothing>

@@ -55,6 +55,7 @@ public enum PropertyValue {
 	feminineBeardsContent(false),
 	furryHairContent(true),
 	scalyHairContent(false),
+	lipLispContent(false),
 	
 	nonConContent(true, true),
 	incestContent(true, true),
@@ -92,7 +93,8 @@ public enum PropertyValue {
 	newWeaponDiscovered(false),
 	newClothingDiscovered(false),
 	newItemDiscovered(false),
-	newRaceDiscovered(false);
+	newRaceDiscovered(false),
+	mapZoomedIn(true);
 
 	private boolean defaultValue;
 	private boolean fetishRelated;

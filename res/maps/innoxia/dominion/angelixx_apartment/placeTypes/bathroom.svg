@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+ <g stroke="#ffb380" stroke-linecap="round" stroke-linejoin="round">
+  <g stroke-dashoffset="5.4">
+   <path d="m7.0142 38.101 49.972-0.12672" fill="none" stroke-width="2.5526"/>
+   <path d="m8.9274 40.278s-0.029106 12.397 1.72 13.118c7.1601 2.9496 35.722 2.6228 42.567-0.75677 3.3703-1.6641 2.3567-12.238 2.3567-12.238z" fill="#ffb380" stroke-width="1.2763"/>
+   <g transform="matrix(1.2763 0 0 1.2763 -9.5034 -9.0425)" fill="none" stroke-width="2">
+    <path d="m17.797 52.463 0.86291-2.2532"/>
+    <path d="m47.95 51.912-0.86291-2.2532"/>
+    <path d="m15.064 36.619 0.04794-21.045c0.01025-4.4992 7.729-4.8211 8.8688-1.4861"/>
+   </g>
+  </g>
+  <g transform="matrix(1.2763 0 0 1.2763 -9.5034 -9.0425)" fill="#ffb380">
+   <path d="m22.447 18.45c-2.1492-3.8877 5.1163-5.7779 6.0404-2.2532z" stroke-dashoffset="5.4" stroke-width="2"/>
+   <g stroke-dasharray="1.5, 1.5" stroke-width=".5">
+    <path d="m23.453 20.248v4.2666"/>
+    <path d="m28.895 18.306 2.9243 3.3078"/>
+    <path d="m26.066 19.265 1.5341 3.979"/>
+   </g>
+  </g>
+ </g>
+</svg>

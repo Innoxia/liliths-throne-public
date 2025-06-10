@@ -82,7 +82,7 @@ public class HarpyDominant extends NPC {
 						+ " As cruel as harpies come, Diana rules her flock with an iron fist, harshly punishing any harpies that try to challenge her dominance.",
 				33, Month.OCTOBER, 2,
 				7, Gender.F_V_B_FEMALE, Subspecies.HARPY, RaceStage.LESSER,
-				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_RED, true);
+				new CharacterInventory(false, 30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_RED, true);
 		
 	}
 
@@ -334,7 +334,7 @@ public class HarpyDominant extends NPC {
 			target.equipClothingFromNowhere(choker, true, target);
 
 //			target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("sage_latex_croptop", PresetColour.CLOTHING_PURPLE_VERY_DARK, PresetColour.CLOTHING_STEEL, null, false), true, target);
-			target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_nipple_tape_crosses", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, target);
+			target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_tape_roll", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, target);
 			target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("sage_latex_corset", PresetColour.CLOTHING_PURPLE_VERY_DARK, PresetColour.CLOTHING_STEEL, null, false), true, target);
 			target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("sage_latex_stockings_open", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, target);
 			target.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_bdsm_wrist_bracelets", PresetColour.CLOTHING_PURPLE_VERY_DARK, false), true, target);

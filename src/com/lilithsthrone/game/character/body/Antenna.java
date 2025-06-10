@@ -10,7 +10,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.4
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class Antenna implements BodyPartInterface {
@@ -30,6 +30,13 @@ public class Antenna implements BodyPartInterface {
 		antennaePerRow = type.getDefaultAntennaePerRow();
 	}
 
+	public Antenna(Antenna antennaToCopy) {
+		this.type = antennaToCopy.type;
+		this.length = antennaToCopy.length;
+		this.rows = antennaToCopy.rows;
+		this.antennaePerRow = antennaToCopy.antennaePerRow;
+	}
+	
 	@Override
 	public AbstractAntennaType getType() {
 		return type;

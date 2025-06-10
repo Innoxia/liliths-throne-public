@@ -134,7 +134,7 @@ public enum LustLevel {
 	public boolean isResistingFromRapePlay(GameCharacter character) {
 		return !Main.sex.isDom(character)
 				&& (character.hasFetish(Fetish.FETISH_NON_CON_SUB) && !Main.sex.isCharacterBannedFromRapePlay(character))
-				&& !((character instanceof NPC) && ((NPC)character).hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer))
+				&& !((character instanceof NPC) && ((NPC)character).hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer) && !character.isSlave() && !Main.game.getPlayer().getFriendlyOccupants().contains(character.getId()))
 				&& getSexPaceSubmissive()!=SexPace.SUB_RESISTING;
 	}
 	
@@ -164,7 +164,7 @@ public enum LustLevel {
 		} else {
 			pace = getSexPaceSubmissive();
 			if((character.hasFetish(Fetish.FETISH_NON_CON_SUB) && !Main.sex.isCharacterBannedFromRapePlay(character))
-					|| ((character instanceof NPC) && ((NPC)character).hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer))) {
+					|| ((character instanceof NPC) && ((NPC)character).hasFlag(NPCFlagValue.genericNPCBetrayedByPlayer) && !character.isSlave() && !Main.game.getPlayer().getFriendlyOccupants().contains(character.getId()))) {
 				pace = SexPace.SUB_RESISTING;
 			}
 		}

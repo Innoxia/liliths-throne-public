@@ -58,15 +58,16 @@ public class Warehouses {
 					responses.add(new Response("Dominion Express",
 									"Dominion Express is currently closed to visiting members of the public. If you wanted to meet with Natalya again, you'll have to return here between the hours of [unit.time(6)]-[unit.time(22)].",
 									null));
+				} else {
+					responses.add(new Response("Dominion Express",
+									"Enter the main warehouse of Natalya's delivery company, Dominion Express.",
+									DominionExpress.INITIAL_ENTRANCE) {
+								@Override
+								public void effects() {
+									Main.game.getPlayer().setLocation(WorldType.DOMINION_EXPRESS, PlaceType.DOMINION_EXPRESS_EXIT);
+								}
+							});
 				}
-				responses.add(new Response("Dominion Express",
-								"Enter the main warehouse of Natalya's delivery company, Dominion Express.",
-								DominionExpress.INITIAL_ENTRANCE) {
-							@Override
-							public void effects() {
-								Main.game.getPlayer().setLocation(WorldType.DOMINION_EXPRESS, PlaceType.DOMINION_EXPRESS_EXIT);
-							}
-						});
 			}
 			
 			// Nyan quest:

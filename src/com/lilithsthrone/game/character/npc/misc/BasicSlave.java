@@ -53,7 +53,7 @@ public class BasicSlave extends NPC {
 				21, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(27),
 				3,
 				null, null, null,
-				new CharacterInventory(0),
+				new CharacterInventory(false, 0),
 				WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL,
 				false);
 
@@ -129,6 +129,9 @@ public class BasicSlave extends NPC {
 	
 	@Override
 	public String getDescription() {
+		if(this.isSlave() && this.isDoll()) {
+			return super.getDescription();
+		}
 		if(this.isSlave()) {
 			return UtilText.parse(this, "Having run afoul of the law, [npc.sheIs] now a slave, and is no more than [npc.her] owner's property.");
 			

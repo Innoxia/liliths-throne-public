@@ -289,7 +289,7 @@
 	<p>
 		Deciding to push your luck and ask the horseman to try something different,
 		#IF(pc.getClothingInSlot(IS_NECK)!=null && pc.getClothingInSlot(IS_NECK).getClothingType().getId().equals('innoxia_neck_filly_choker'))
-			 you show off your filly choker to him, before quickly explaining that you have experience with using your mouth to submissively service horse ass.
+			 you show off your [style.mule] choker to him, before quickly explaining that you have experience with using your mouth to submissively service horse ass.
 		#ELSE
 			 you tell him that you'd like to use your mouth to submissively service his horse ass.
 		#ENDIF

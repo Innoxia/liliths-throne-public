@@ -22,6 +22,37 @@
 
 	<!-- For hard-coded doll brochure dialogue nodes (com/lilithsthrone/game/dialogue/utils/MiscDialogue.java): -->
 	
+	
+	<htmlContent tag="SLAVE_DOLLIFICATION"><![CDATA[
+	<p>
+		Deciding to take Saellatrix up on her special offer, you tell the succubus that you want her to transform one of your slaves into a sex doll.
+	</p>
+	<p>
+		[saellatrix.speech(Creating a doll for you would be my pleasure,)] Saellatrix says in a sinister tone, before flashing you a smirk and stating, [saellatrix.speech(I can offer all of the same options as for a regular doll. Take a look through the brochure and let me know what you want.)] 
+	</p>
+	<p>
+		Placing the black-and-gold booklet down on the counter before you, the succubus opens it
+		#IF(flags.hasFlag(FLAG_innoxia_sex_shop_discount))
+			 and tuts, [saellatrix.speech(I haven't forgotten about the extra discount you earned. I shouldn't really be giving it to you, considering the huge discount I'm already applying to this service, but I'm not one to break my word.)]
+		#ELSEIF(flags.hasFlag(FLAG_innoxia_sex_shop_penalty))
+			 and boasts, [saellatrix.speech(Don't forget how you lost our wager; I'll still apply the huge discount I originally offered you for this service, but all of the discounted prices are then doubled. You'll be paying extra until you finally submit to me...)]
+		#ELSE
+			 and says in a polite voice, [saellatrix.speech(Please do take your time. Oh, and all of the prices in this particular brochure reflect the huge discount which I'm offering you for this service.)]
+		#ENDIF
+	</p>
+	<p>
+		As you look down at the brochure, Saellatrix says, [saellatrix.speech(Of course you'll also have to let me know which slave of yours is destined to become a dumb fuck toy. After you've made your choices I'll teleport over to Lilaya's place and fetch them.)] 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLL_BROCHURE_SLAVE"><![CDATA[
+	<p>
+		You tell Saellatrix that [npc.name], your [npc.raceFull(true)] slave, is the one you want transformed into a sex doll. Nodding to acknowledge your choice, the succubus gestures to the brochure and waits for you to make your choices...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="DOLL_BROCHURE"><![CDATA[
 	<p>
 		Wanting to see the prices and options for purchasing a doll, you ask Saellatrix if you can take a look at the sales brochure.
@@ -44,7 +75,7 @@
 		After you've told Saellatrix what options you'd like for your doll order, she asks in an approving tone, [saellatrix.speech(You'd like a special edition anthro doll? What an excellent choice. What race would you like it to be?)]
 	</p>
 	<p>
-		Producing a list of available races from under the counter, the succubus places it down before you and states, [saellatrix.speech(For obvious reasons, slimes aren't available. We also don't have any angel dolls, nor demons or dragons. Our manufacturing process isn't tooled for those races at the moment, but hopefully we'll be able to provide dolls in those styles at some point in the future.)]
+		Producing a list of available races from under the counter, the succubus places it down before you and states, [saellatrix.speech(For obvious reasons, slimes aren't available. We also don't have any angel, demon, or dragon dolls. Several other races are incompatible with the nature of our dolls' silicone bodies, so what you see on the list is everything we're able to provide. Hopefully we'll be able to offer a wider selection of races at some point in the future.)]
 	</p>
 	<p>
 		Looking down at the list of races which are available, you make your choice...
@@ -61,7 +92,7 @@
 	
 	<htmlContent tag="DOLL_BROCHURE_FINISHED_SPECIAL"><![CDATA[
 	<p>
-		After you've told Saellatrix what race you'd like your doll to be, she says in a rather insincere tone, [saellatrix.speech(Very well. Now let me just write this down...)]
+		After you've told Saellatrix what race you'd like your doll to be, she says in a rather insincere tone, [saellatrix.speech(An excellent choice. Now let me just write this all down...)]
 	</p>
 	]]>
 	</htmlContent>
@@ -105,8 +136,96 @@
 			No clothing is to be provided,
 		#ELSEIF([#SPECIAL_PARSE_4]==1)
 			Your doll will be delivered in rainbow gloves and stockings,
-		#ELSE
+		#ELSEIF([#SPECIAL_PARSE_4]==2)
 			Your doll will be delivered in cat-style lingerie,
+		#ELSE
+			Your doll will be delivered in a maid uniform,
+		#ENDIF
+		#IF([#SPECIAL_PARSE_5])
+			 and she'll come equipped with a selection of toys.
+		#ELSE
+			 and you don't want the toy set.
+		#ENDIF
+		#IF([#SPECIAL_PARSE_6])
+			 We'll have the barcode on her head removed before delivery,
+		#ELSE
+			 The barcode on her head isn't to be removed,
+		#ENDIF
+		#IF([#SPECIAL_PARSE_7])
+			 and we'll plug her into a D.E.C.K. and give her a head of hair.
+		#ELSE
+			 and we're not to use a D.E.C.K. to give her any hair.
+		#ENDIF
+		 Is that all correct so far?
+		)]
+	</p>
+	<p>
+		Confirming that that's what you want, you listen as Saellatrix makes the final notes, continuing to speak out loud as she does so, [saellatrix.speech(
+		#IF([#SPECIAL_PARSE_8])
+			Speaking of a D.E.C.K., you want to purchase one with your doll order.
+		#ELSE
+			Speaking of a D.E.C.K., you don't want to purchase one with your doll order.
+		#ENDIF
+		#IF([#SPECIAL_PARSE_9])
+			 You've also chosen my favourite option; you want me to fuck your doll before delivery. I do always enjoy growing a nice, big cock and pounding a doll's holes before shipping them off.
+		#ELSE
+			 You've also decided not to go for my favourite option; you don't want your doll fucked before delivery.
+		#ENDIF
+		 Ok, so that'll be [#SPECIAL_PARSE_10] flames, please.
+		#IF([#SPECIAL_PARSE_8])
+			 I'll fetch you a D.E.C.K. as soon as I've received payment.
+		#ENDIF
+		)]
+	</p>
+	<p>
+		With that, the succubus looks expectantly at you, waiting for you to produce the flames...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLL_BROCHURE_FINISHED_SLAVE"><![CDATA[
+	<p>
+		#IF([#SPECIAL_PARSE_0]==0)
+			[saellatrix.speech(You want your slave turned into a standard DD model,)]
+		#ELSEIF([#SPECIAL_PARSE_0]==1)
+			[saellatrix.speech(You want slave turned into a premium HH model,)]
+		#ELSE
+			[saellatrix.speech(You want slave turned into a special edition [#SPECIAL_PARSE_1] model,)]
+		#ENDIF
+		 the succubus says while writing down your preferences,
+		#IF([#SPECIAL_PARSE_2]==0)
+			[saellatrix.speech(with the default pussy-only option,
+		#ELSEIF([#SPECIAL_PARSE_2]==1)
+			[saellatrix.speech(with the option of having no pussy and a cock,
+		#ELSE
+			[saellatrix.speech(with the option of having both a pussy and a cock,
+		#ENDIF
+		 and I'll give the slut
+		#IF([#SPECIAL_PARSE_3]==0)
+			 the default body of an eighteen year old.
+		#ELSEIF([#SPECIAL_PARSE_3]==1)
+			 an aged body of a twenty-five year old.
+		#ELSEIF([#SPECIAL_PARSE_3]==2)
+			 an aged body of a thirty-five year old.
+		#ELSEIF([#SPECIAL_PARSE_3]==3)
+			 an aged body of a forty-five year old.
+		#ELSEIF([#SPECIAL_PARSE_3]==4)
+			 an aged body of a fifty-five year old.
+		#ELSEIF([#SPECIAL_PARSE_3]==5)
+			 an aged body of a sixty-five year old.
+		#ENDIF
+		)]
+	</p>
+	<p>
+		Pausing briefly to push her thick-rimmed glasses up her nose, Saellatrix then quickly jots down your other choices while speaking out loud, [saellatrix.speech(
+		#IF([#SPECIAL_PARSE_4]==0)
+			No clothing is to be provided,
+		#ELSEIF([#SPECIAL_PARSE_4]==1)
+			Your doll will be delivered in rainbow gloves and stockings,
+		#ELSEIF([#SPECIAL_PARSE_4]==2)
+			Your doll will be delivered in cat-style lingerie,
+		#ELSE
+			Your doll will be delivered in a maid uniform,
 		#ENDIF
 		#IF([#SPECIAL_PARSE_5])
 			 and she'll come equipped with a selection of toys.
@@ -151,26 +270,87 @@
 	</htmlContent>
 	
 	<htmlContent tag="DOLL_BROCHURE_END"><![CDATA[
-	<p>
-		Producing the flames which Saellatrix is asking for, you hand them over to the succubus, who says in a slightly condescending manner, [saellatrix.speech(I'm sure that you'll enjoy your purchase. We'll have your doll brought out and kept in the storage area over there.)]
-	</p>
-	<p>
-		After pointing over to the other side of the shop to show you where she means, Saellatrix then says, [saellatrix.speech(We'll hold onto your doll until you're ready to take delivery of it. Thank you for your purchase.)]
-	</p>
 	#IF([#SPECIAL_PARSE_0])
 		<p>
-			Bending down to unlock a cabinet beneath her counter, Saellatrix produces the D.E.C.K. you've ordered and sets it down on the surface before you. Looking down at it, you see that it's one of this world's very rare examples of a computer-like device, complete with a durable-looking touchscreen and a thick cable which ends in a three-pronged plug. As you take possession of this device, Saellatrix smugly states, [saellatrix.speech(That's the very latest in cutting-edge technology. Plug it in to a doll's port on the rear of their neck, and you can use the screen to transform them.)]
+			Producing the flames which Saellatrix is asking for, you hand them over to the succubus, who says in a slightly condescending manner, [saellatrix.speech(I'm sure that you'll enjoy your purchase. Before I retrieve your new doll, I'll get your D.E.C.K. for you.)]
+		</p>
+		<p>
+			Bending down to unlock a cabinet beneath her counter, Saellatrix produces the D.E.C.K. you've ordered and sets it down on the surface before you. Looking down at it, you see that it's one of this world's very rare examples of a computer-like device, complete with a durable-looking touchscreen and a thick cable which ends in a three-pronged plug. As you take possession of this device, Saellatrix smugly states, [saellatrix.speech(That's the very latest in cutting-edge technology. Plug it in to a doll's port on the rear of their neck, and you can use the screen to transform them. Now please wait here while I fetch a doll which matches your specifications.)]
+		</p>
+	#ELSE
+		<p>
+			Producing the flames which Saellatrix is asking for, you hand them over to the succubus, who says in a slightly condescending manner, [saellatrix.speech(I'm sure that you'll enjoy your purchase. Please wait here while I fetch a doll which matches your specifications.)]
 		</p>
 	#ENDIF
 	<p>
-		Pushing her thick-rimmed glasses up her nose once more, the succubus asks, [saellatrix.speech(Will that be all, or would you like to purchase anything else?)]
+		With that, Saellatrix turns and exits via the door behind the counter, leaving you to wait for her return...
 	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLL_BROCHURE_END_FINAL"><![CDATA[
+	<p>
+		With Saellatrix having gone to fetch your new doll, there's little else for you to do but wait around until she returns. It takes fifteen minutes for the succubus to reappear through the door behind her counter, and when she does, you see that a doll matching your specifications is walking along behind her.
+	</p>
+	<p>
+		[saellatrix.speech(I do apologise for the wait. Here's your new doll,)] the busty succubus declares as you [pc.step] back over to the counter. As you take a good look at your new purchase, Saellatrix addresses your doll and states, [saellatrix.speech(This is your new owner, [pc.name]. You are to obey all of [pc.her] commands from now on. Please go and wait in the holding area until your new [pc.master] is ready to take you home.)]
+	</p>
+	<p>
+		The doll obediently walks past you and heads over to the other side of the shop where dozens of other sex dolls are lined up. Gesturing for you to follow your new doll, Saellatrix accompanies you over to the holding area and explains, [saellatrix.speech(We'll keep your new doll here until you're ready to take delivery. Thank you for purchasing a doll; I'm certain that you'll be very pleased with your new purchase. If there's anything else I can do for you today, then please let me know.)]
+	</p>
+	<p>
+		With that, the succubus struts back over to her counter, leaving you in the holding area with your new doll...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLL_BROCHURE_END_SLAVE"><![CDATA[
+	<p>
+		Producing the flames which Saellatrix is asking for, you hand them over to the succubus, who smirks and asks, [saellatrix.speech(So it's '[npc.name]' who's the lucky slut you want turned into a dumb fuck toy?)]
+	</p>
+	<p>
+		Confirming that she's got the right slave, you ask Saellatrix when she's going to transform your slave.
+	</p>
+	#IF([#SPECIAL_PARSE_0])
+		<p>
+			Pushing her thick-rimmed glasses up her nose once more, the succubus replies in her posh accent, [saellatrix.speech(Well, there's no time like the present. I'll teleport to Lilaya's place and grab [npc.herHim], then teleport down to the factory. I'll have [npc.herHim] strapped onto the table and at my mercy before [npc.she] knows what's happening. First, however, I'll get your D.E.C.K. for you.)]
+		</p>
+		<p>
+			Bending down to unlock a cabinet beneath her counter, Saellatrix produces the D.E.C.K. you've ordered and sets it down on the surface before you. Looking down at it, you see that it's one of this world's very rare examples of a computer-like device, complete with a durable-looking touchscreen and a thick cable which ends in a three-pronged plug. As you take possession of this device, Saellatrix smugly states, [saellatrix.speech(That's the very latest in cutting-edge technology. Plug it in to a doll's port on the rear of their neck, and you can use the screen to transform them. Now please wait right here until I return.)]
+		</p>
+	#ELSE
+		<p>
+			Pushing her thick-rimmed glasses up her nose once more, the succubus replies in her posh accent, [saellatrix.speech(Well, there's no time like the present. I'll teleport to Lilaya's place and grab the slut, then teleport down to the factory. I'll have [npc.herHim] strapped onto the table and at my mercy before [npc.she] knows what's happening. Please wait right here until I return.)]
+		</p>
+	#ENDIF
+	<p>
+		With that, the succubus vanishes in a flash of pink light, leaving you to wait for her to return with your new doll...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLL_BROCHURE_END_SLAVE_FINAL"><![CDATA[
+	<p>
+		With Saellatrix having gone to create your new doll, there's little else for you to do but wait around until she returns. It takes half an hour for the succubus to reappear through the door behind her counter, and when she does, you see that a doll matching your specifications is walking along behind her.
+	</p>
+	<p>
+		[saellatrix.speech(I do apologise for the wait. I retrieved the slave you specified, and here [npc.she] is,)] the busty succubus declares as you [pc.step] back over to the counter. As you take a good look at your slave's new body, Saellatrix addresses your doll and states, [saellatrix.speech(This is your owner, [pc.name]. You are to obey all of [pc.her] commands from now on. Please go and wait in the holding area until your [pc.master] is ready to take you home.)]
+	</p>
+	<p>
+		The doll obediently walks past you and heads over to the other side of the shop where dozens of other sex dolls are lined up. Gesturing for you to follow your new doll, Saellatrix accompanies you over to the holding area and explains, [saellatrix.speech(We'll keep your doll here until you're ready to take delivery of [npc.herHim]. If you have any other slaves you'd like turned into sex toys, then please let me know.)]
+	</p>
+	<p>
+		With that, the succubus struts back over to her counter, leaving you in the holding area with your new doll...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DOLL_BROCHURE_NEW_DOLL_END"><![CDATA[
 	<p style='text-align:center;'><i>
 		To take delivery of your doll, you need to install a doll closet in Lilaya's mansion, then once located in that closet's tile, you can move your doll there via the management screen.
 	</i></p>
 	]]>
 	</htmlContent>
-	
 	
 	
 	<!-- Main shop scenes: -->
@@ -186,9 +366,25 @@
 			 a big-chested succubus wearing a smart black blazer.
 		#ENDIF
 	</p>
-	<p>
-		There are several dozen shoppers within the store, and from their smart outfits and the way they hold themselves, they all give off the impression of being very wealthy. To either side of the entrance, and scattered throughout the store, are tall, muscular wolf-boy security guards. With such a heavy security presence, you're convinced that this store's clientèle must be very important and wealthy indeed.
-	</p>
+	#IF(pc.getQuest(QUEST_LINE_SIDE_DOLL_FACTORY)==QUEST_DOLL_FACTORY_7A)
+		<p>
+			Noticing your entry, the succubus leaves her counter and confidently struts towards you. Flashing you an insincere smile as she quickly covers the shop floor, she comes to a halt and says, [saellatrix.speech(Hello once again, [pc.name]. As I said to you before, there's no need for us to be enemies. You're a relative of Lilaya, so I'd prefer it if we could get along. Now please follow me and I'll tell you how I've dealt with that meddling reporter's story.)]
+		</p>
+		<p>
+			With that, the busty succubus turns around and begins to strut back towards the counter, leaving you to follow in her wake...
+		</p>
+	#ELSEIF(pc.getQuest(QUEST_LINE_SIDE_DOLL_FACTORY)==QUEST_DOLL_FACTORY_7B)
+		<p>
+			Noticing your entry, the succubus leaves her counter and confidently struts towards you. Flashing you a warm smile as she quickly covers the shop floor, she comes to a halt and says, [saellatrix.speech(Why hello, [pc.name]. Thank you once again for taking my side; you made the right choice. Please follow me.)]
+		</p>
+		<p>
+			With that, the busty succubus turns around and begins to strut back towards the counter, leaving you to follow in her wake...
+		</p>
+	#ELSE
+		<p>
+			There are several dozen shoppers within the store, and from their smart outfits and the way they hold themselves, they all give off the impression of being very wealthy. To either side of the entrance, and scattered throughout the store, are tall, muscular wolf-boy security guards. With such a heavy security presence, you're convinced that this store's clientèle must be very important and wealthy indeed.
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 
@@ -216,7 +412,7 @@
 
 	<htmlContent tag="FLOOR"><![CDATA[
 	<p>
-		The main floor of the store is filled with glass shelving units, upon which countless types of sex toys are on display. You pass by dildos, vibrators, and butt-plugs of all shapes, sizes, and colours, before entering an aisle which specialises in latex fetish gear. After that, there's another section dedicated to sex toys, and then you're passing by collars, restraints, and other such BDSM accessories.
+		The main floor of the store is filled with glass shelving units, upon which countless types of sex toys are on display. You pass by dildos, vibrators, and buttplugs of all shapes, sizes, and colours, before entering an aisle which specialises in latex fetish gear. After that, there's another section dedicated to sex toys, and then you're passing by collars, restraints, and other such BDSM accessories.
 	</p>
 	<p>
 		If there's anything which takes your fancy, it'd be best to head on over to the counter to complete your purchase...
@@ -254,6 +450,19 @@
 	<p>
 		As well as these three dolls, you see that a fourth is squatting on the floor in front of the display. Unlike all of the others, who are coloured black, this doll is bright pink, and has a glossy, shiny finish to her which makes her appear to be made out of latex. Beneath the white barcode that's tattooed onto her forehead, the words 'DEMONSTRATION MODEL - NOT FOR SALE' have been inked into her skin.
 	</p>
+	#IF(game.getCharactersPresent().contains(angelixx))
+		<p>
+			#IF(angelixx.isDoll())
+				A second doll in this area also has that tattoo. Angelixx, having been transformed into a silicone sex doll, is also serving as a demonstration model, and is bent over a padded table with her exposed pussy and asshole fully on display.
+			#ELSE
+				In addition to these sex dolls, Angelixx, having been broken into an obedient slave, is serving as a public fuck toy in this area. Bent over a padded table with her exposed pussy and asshole fully on display, she's waiting for a paying customer to fuck her.
+			#ENDIF
+		</p>
+	#ELSEIF(game.getCharactersPresent().contains(fia))
+		<p>
+			A second doll in this area also has that tattoo. Fiammetta, having been transformed into a silicone sex doll, is also serving as a demonstration model, and is bent over a padded table with her exposed pussy and asshole fully on display.
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 
@@ -363,6 +572,202 @@
 	]]>
 	</htmlContent>
 
+	
+	<!-- Angelixx: -->
+	
+	<htmlContent tag="DISPLAY_ANGELIXX"><![CDATA[
+	<p>
+		Finding yourself interested in Angelixx, you approach the cute succubus and see that she's still bent down, face-first, over a padded table, so that her exposed pussy and asshole are fully on display to the rest of the store. Her torso and arms are tied down to the solid piece of furniture via several strong lengths of rope, but even without those bonds you can't image that she'd try and escape.
+	</p>
+	<p>
+		Although she's blindfolded, the slave must have heard your approach, and despite having a ballgag stuffed in her mouth she manages to make a lewd, inviting moan as she lifts her ass and wiggles her hips in your direction. The sign that's hanging on the wall nearby declares that she's a 'Complimentary fuck-toy for paying customers only', but having been granted permission from Saellatrix to use her whenever you want, you could [pc.step] forwards and give this fallen succubus what she wants...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DISPLAY_ANGELIXX_START_SEX"><![CDATA[
+	<p>
+		Whether due to a desire to get some revenge, wanting to liven up her day, or perhaps just feeling like you need a good fuck, you decide to make use of Angelixx's body. [pc.Stepping] up behind her, you trace your [pc.fingers+] over the [angelixx.skinColour] skin of her ass, and as she lets out another sensual moan you wonder how you're going to use her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DISPLAY_ANGELIXX_BACK"><![CDATA[
+	<p>
+		Having second thoughts about using Angelixx, you [pc.step] away from her and decide to do something else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DISPLAY_ANGELIXX_AFTER_SEX"><![CDATA[
+	<p>
+		Deciding that you've had enough, you [pc.step] back and bring an end to the show that the two of you have been putting on for the rest of the store's customers.
+		#IF(angelixx.isSatisfiedFromLastSex())
+			 Clearly having had a good time, Angelixx manages to let out a deep, satisfied sigh around the ballgag that's stuffed in her mouth.
+		#ELSE
+			 Although she's expected to act like an obedient sex slave, Angelixx can't help but let out a slightly frustrated sigh as she realises that you've finished without satisfying her.
+		#ENDIF
+	</p>
+	<p>
+		Quickly getting your things back in order, you look down at the enslaved succubus and briefly think about how far she's fallen. Wondering if you'll return and make use of her again some time, you turn away from Angelixx and prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DISPLAY_ANGELIXX_AFTER_SEX_END"><![CDATA[
+	<p>
+		Having satisfied yourself with Angelixx's body, you [pc.step] away from her and decide to do something else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<!-- Angelixx/Fia as dolls: -->
+	
+	<htmlContent tag="DISPLAY_ANGELIXX_DOLL"><![CDATA[
+	<p>
+		Finding yourself interested in Angelixx, you approach the sex doll and see that she's still bent down, face-first, over a padded table, so that her exposed pussy and asshole are fully on display to the rest of the store. A sign on the wall beside her makes it clear what her new purpose in life is, for it reads 'Complimentary fuck-toy for paying customers only. Try the customisation features!'.
+	</p>
+	<p>
+		The customisation features are accessed via a D.E.C.K. that's slotted into a bracket on the wall beneath the sign. A cable links this device to Angelixx's neck port, and as you take a closer look at the screen, you see that you're able to transform the properties of her silicone body, as well as all parts of her pussy and asshole.
+	</p>
+	<p>
+		Remembering how she was the first time you saw her, it's hard to believe that Angelixx is now no more than an obedient, silicone sex toy. As she feels your lingering presence, she submissively spreads her legs a little and lifts her ass to encourage you to [pc.step] forwards and fuck her. Glancing down at the doll's tight
+		#IF(game.isAnalContentEnabled())
+			 pussy and inviting asshole,
+		#ELSE
+			 pussy,
+		#ENDIF
+		 you wonder whether you should use her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DISPLAY_ANGELIXX_DOLL_RESET"><![CDATA[
+	<p>
+		Wanting to transform Angelixx back to how she was the first time you saw her in her new body, you navigate through the D.E.C.K.'s screens and press the large 'Reset' button. Within a few seconds, Angelixx's silicone body has shifted and transformed back into its default, light purple form.
+	</p>
+	<p>
+		Eager for you to put her to use, the doll submissively spreads her legs a little and lifts her ass to encourage you to [pc.step] forwards and fuck her. Glancing down at Angelixx's tight
+		#IF(game.isAnalContentEnabled())
+			 pussy and inviting asshole,
+		#ELSE
+			 pussy,
+		#ENDIF
+		 you wonder whether you should use her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DISPLAY_ANGELIXX_DOLL_START_SEX"><![CDATA[
+	<p>
+		Whether due to a desire to get some revenge, wanting to liven up her day, or perhaps just feeling like you need a good fuck, you decide to make use of Angelixx's sexy silicone body. [pc.Stepping] up behind her, you trace your [pc.fingers+] over the smooth, [angelixx.skinColour] skin of her ass, causing her to let out a robotic, sensual moan. Grinning down at her, you wonder how you're going to put her to use...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DISPLAY_ANGELIXX_DOLL_BACK"><![CDATA[
+	<p>
+		Having second thoughts about using Angelixx, you [pc.step] away from her and decide to do something else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DISPLAY_ANGELIXX_DOLL_AFTER_SEX"><![CDATA[
+	<p>
+		Deciding that you've had enough, you [pc.step] back and bring an end to the show that the two of you have been putting on for the rest of the store's customers.
+		#IF(angelixx.isSatisfiedFromLastSex())
+			 Clearly having had a good time, the sex doll lets out a robotic-sounding, satisfied sigh, before lifting her hips and shuffling about to get back into position for her next partner.
+		#ELSE
+			 Although you doubt that you did enough to really satisfy her, the sex doll lets out a happy, robotic-sounding sigh, before lifting her hips and shuffling about to get back into position for her next partner.
+		#ENDIF
+	</p>
+	<p>
+		Quickly getting your things back in order, you look down at the sex doll and briefly think about how far she's fallen. Wondering if you'll return and make use of her again some time, you turn away from Angelixx and prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DISPLAY_ANGELIXX_DOLL_AFTER_SEX_END"><![CDATA[
+	<p>
+		Having satisfied yourself with Angelixx's silicone body, you [pc.step] away from her and decide to do something else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<htmlContent tag="DISPLAY_FIA_DOLL"><![CDATA[
+	<p>
+		Finding yourself interested in Fia, you approach the sex doll and see that she's still bent down, face-first, over a padded table, so that her exposed pussy and asshole are fully on display to the rest of the store. A sign on the wall beside her makes it clear what her new purpose in life is, for it reads 'Complimentary fuck-toy for paying customers only. Try the customisation features!'.
+	</p>
+	<p>
+		The customisation features are accessed via a D.E.C.K. that's slotted into a bracket on the wall beneath the sign. A cable links this device to Fia's neck port, and as you take a closer look at the screen, you see that you're able to transform the properties of her silicone body, as well as all parts of her pussy and asshole.
+	</p>
+	<p>
+		Remembering how she was the first time you saw her, it's hard to believe that Fia is now no more than an obedient, silicone sex toy. As she feels your lingering presence, she submissively spreads her legs a little and lifts her ass to encourage you to [pc.step] forwards and fuck her. Glancing down at the doll's tight
+		#IF(game.isAnalContentEnabled())
+			 pussy and inviting asshole,
+		#ELSE
+			 pussy,
+		#ENDIF
+		 you wonder whether you should use her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DISPLAY_FIA_DOLL_RESET"><![CDATA[
+	<p>
+		Wanting to transform Fia back to how she was the first time you saw her in her new body, you navigate through the D.E.C.K.'s screens and press the large 'Reset' button. Within a few seconds, Fia's silicone body has shifted and transformed back into its default, light purple form.
+	</p>
+	<p>
+		Eager for you to put her to use, the doll submissively spreads her legs a little and lifts her ass to encourage you to [pc.step] forwards and fuck her. Glancing down at Fia's tight
+		#IF(game.isAnalContentEnabled())
+			 pussy and inviting asshole,
+		#ELSE
+			 pussy,
+		#ENDIF
+		 you wonder whether you should use her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DISPLAY_FIA_DOLL_START_SEX"><![CDATA[
+	<p>
+		Whether due to a desire to get some revenge, wanting to liven up her day, or perhaps just feeling like you need a good fuck, you decide to make use of Fia's sexy silicone body. [pc.Stepping] up behind her, you trace your [pc.fingers+] over the smooth, [fia.skinColour] skin of her ass, causing her to let out a robotic, sensual moan. Grinning down at her, you wonder how you're going to put her to use...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DISPLAY_FIA_DOLL_BACK"><![CDATA[
+	<p>
+		Having second thoughts about using Fia, you [pc.step] away from her and decide to do something else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DISPLAY_FIA_DOLL_AFTER_SEX"><![CDATA[
+	<p>
+		Deciding that you've had enough, you [pc.step] back and bring an end to the show that the two of you have been putting on for the rest of the store's customers.
+		#IF(fia.isSatisfiedFromLastSex())
+			 Clearly having had a good time, the sex doll lets out a robotic-sounding, satisfied sigh, before lifting her hips and shuffling about to get back into position for her next partner.
+		#ELSE
+			 Although you doubt that you did enough to really satisfy her, the sex doll lets out a happy, robotic-sounding sigh, before lifting her hips and shuffling about to get back into position for her next partner.
+		#ENDIF
+	</p>
+	<p>
+		Quickly getting your things back in order, you look down at the sex doll and briefly think about how far she's fallen. Wondering if you'll return and make use of her again some time, you turn away from Fia and prepare to continue on your way...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DISPLAY_FIA_DOLL_AFTER_SEX_END"><![CDATA[
+	<p>
+		Having satisfied yourself with Fia's silicone body, you [pc.step] away from her and decide to do something else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
 	<!-- Dolls: -->
 	
 	<htmlContent tag="DOLLS"><![CDATA[
@@ -522,7 +927,7 @@
 		Pushing her to find out more about her background, you ask the succubus what she did before setting up this shop.
 	</p>
 	<p>
-		[saellatrix.speech(The usual,)] she replies with a wave of her hand, [saellatrix.speech(Playing politics and crushing my siblings until I caught my mother's eye. From there it was a simple matter to get recognised, really. When I showed up to a ball with two dozen of my sisters willingly crawling behind me in chains, mother knew that I was worthy of her. After I was recognised, she told me that she'd perfected a method of creating sex dolls, and just needed somewhere to sell them. Hence, here I am. Satisfied now?)]
+		[saellatrix.speech(Oh, I first made a name for myself as a rather celebrated slave trainer, but that was a long time ago,)] she replies with a wave of her hand, before continuing, [saellatrix.speech(After a while I started taking an interest in demonic politics, and after crushing several of my siblings I caught my mother's eye. From there it was a simple matter to get recognised, really. When I showed up to a ball with a dozen of my enslaved sisters willingly pulling my carriage, mother knew that I was worthy of her. After I was recognised, she told me that she'd perfected a method of creating sex dolls, and just needed somewhere to sell them. Hence, here I am. Satisfied now?)]
 	</p>
 	<p>
 		From the tone in Saellatrix's voice, you can tell that her patience is starting to wear thin. Thinking that it's best not to ask any more questions on this subject, you wonder what to say next...
@@ -544,10 +949,117 @@
 		[saellatrix.speech(Oh, I see, so you already do know about Lovienne. You just wanted to hear some juicy gossip from a recognised daughter of hers, is that it?)] she asks. Tutting at you before you can answer, Saellatrix goes on, [saellatrix.speech(Well, I suppose I could always confirm a couple of rumours which seem to have spread through the whole of Dominion. Yes, Lasielle does absolutely anything which mother asks of her, and no, the fact that they're sisters doesn't stop them from fucking each other senseless.)]
 	</p>
 	<p>
-		A slight smirk flashes across Saellatrix's face as she finishes saying that, before revealing one last detail, [saellatrix.speech(Oh, and that other rumour is quite true as well; mother is Lilith's favourite, and often spends the night in her chambers. As to what they do in there together, well, I'm sure you can use your imagination.)]
+		A slight smirk flashes across Saellatrix's face as she finishes saying that, before revealing one last detail, [saellatrix.speech(By the way, that other rumour is quite true as well; mother is Lilith's favourite, and often spends the night in her chambers. As to what they do in there together, well, I'm sure you can use your imagination.)]
 	</p>
 	<p>
 		Crossing her arms beneath her massive breasts, Saellatrix looks down her nose at you and stops talking, making it clear that she doesn't want to talk with you about her mother any more...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Doll quest: -->
+	
+	<htmlContent tag="COUNTER_ANGELIXX_DIARY"><![CDATA[
+	<p>
+		Even after having had the factory tour, you've got no clue as to where the kidnapped refugees might be. Running out of options, you decide to confront Saellatrix with the contents of Angelixx's diary, and after producing the little pink book, you tell the succubus that her sister has written about teleporting illegally enslaved refugees here.
+	</p>
+	<p>
+		[saellatrix.speech(Angelixx has always had a fanciful imagination, so I wouldn't believe anything that she's written in her diary if I were you,)] the succubus calmly responds. Her normal, posh accent doesn't betray any hint of emotion as she tries to gain the initiative by asking, [saellatrix.speech(How did you obtain my sister's diary? I doubt that she would have simply given it away, and the last time I checked, theft was a serious crime.)]
+	</p>
+	<p>
+		Not wanting to be accused of a crime by such a powerful, high-ranking demon, you defend yourself by telling Saellatrix that Angelixx had abandoned it. Hoping to try and get some information on where her sister might be hiding, you tell the succubus that you'll give it back to Angelixx if you can meet her.
+	</p>
+	<p>
+		[saellatrix.speech(Don't try to make demands of me,)] Saellatrix icily responds. Taking you by surprise, she displays her proficiency with the arcane, and with a simple telekinetic spell, she pulls the diary from out of your grip. A triumphant sneer settles on her face as she securely locks the diary away in a drawer beneath the counter, before shouting, [saellatrix.speech(Security!)]
+	</p>
+	<p>
+		Before you can react, a pair of burly wolf-boys have flanked you and grabbed you by the [pc.arms]. Shaking her head, Saellatrix sighs, [saellatrix.speech(I'll hear no more nonsense about the fantasies my sister writes in her silly little diary. My boys here will show you out, and when you return, the two of us will pretend that this little incident never happened.)]
+	</p>
+	<p>
+		Not giving you a chance to respond, the succubus nods to her security guards, and they begin to firmly lead you over to the exit...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COUNTER_ANGELIXX_DIARY_THROWN_OUT"><![CDATA[
+	<p>
+		Leading you across the shop floor in a matter of seconds, the two wolf-boys open the door and give you a forceful shove to encourage you to leave. Not wanting to make a scene, and with nothing to gain by protesting against this treatment, you [pc.step] out into Demon Home and hear the door swing shut behind you.
+	</p>
+	#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+		<p>
+			As a lightning flash illuminates your surroundings in a pinkish hue, you look across the street to see a familiar person waving at you from within a packed bar. The person in question is Fiammetta, the reporter who you briefly met in Lovienne's Luxuries while Saellatrix was showing you her dolls. Clearly being unable to leave the bar due to the ongoing storm, the short, black-haired woman remains where she is while energetically motioning for you to come over to her.
+		</p>
+		<p>
+			Deciding that you've got nothing to lose by listening to what it is she has to say, you cross the street and enter the bar. No sooner has the sound-proof door swung shut behind you, Fiammetta has bounded over to you and excitedly asks, [fiammetta.speech(You got banned from her shop as well?! I saw you get thrown out!)]
+		</p>
+	#ELSE
+		<p>
+			As you [pc.step] out into the street, you suddenly see a familiar person skipping directly towards you. The person in question is Fiammetta, the reporter who you briefly met in Lovienne's Luxuries while Saellatrix was showing you her dolls. Skidding to a halt right in front of you, the short, black-haired woman excitedly asks, [fiammetta.speech(You got banned from her shop as well?! I saw you get thrown out!)]
+		</p>
+	#ENDIF
+	<p>
+		Telling her that you're not banned, just momentarily not welcome, you ask Fiammetta why she's so excited about it.
+	</p>
+	<p>
+		[fiammetta.speech(Heh, well if you're on Sae's bad side, I figured that you might want to get back at her by helping me out with something,)] she reveals. Letting out a little sigh, she crosses her arms under her small, B-cup breasts  and says, [fia.speech(Apart from insults, there are only a few things you can say to Sae to get her to kick you out like that, and I doubt you were standing there calling her a bitch. You asked her about how her dolls are <i>really</i> made, or if she has anything to do with the disappearances that started here in Dominion and then moved to Elis. Am I right?)]
+	</p>
+	<p>
+		Seeing an opportunity to find out more about the kidnapped refugees, you briefly tell Fiammetta about Angelixx's involvement, and what you read in her diary.
+	</p>
+	<p>
+		[fia.speech(I knew she was the one behind it! Angelixx is providing her sister with a supply of illegal slaves!)] the reporter exclaims, before telling you her side of the story, [fia.speech(I started investigating a series of disappearances here in Dominion over a year ago, but just as I began to hear the name 'Angelixx', the gang she was supposedly leading suddenly vanished, and the disappearances stopped. The next thing I heard, it was now refugees over in Elis who were going missing, and then a former member of Angelixx's gang told me that the missing people are in Sae's shop...)]
+	</p>
+	<p>
+		Recalling what Fiammetta said when you first met her, you ask her if there might be any truth behind the rumour of dolls being made from real people.
+	</p>
+	<p>
+		[fia.speech(Oh, no, I'm certain that Sae's only motive is to make a killing from what must be one of Dominion's largest illegal slave trade networks. Besides, I was the one who started that rumour about dolls being people!)] she laughs, before explaining her motive for doing such a thing, [fia.speech(I was at a dead end in my investigation and thought that kicking the hornet's nest might get the Enforcers involved, and then they might discover Sae's illegal slave trade. That didn't happen. All that my rumour achieved was Sae throwing together an obviously fake factory and then offering tours of it to placate the public. I guess she didn't want any potential rivals seeing her real factory and then copying her method of making dolls.)]
+	</p>
+	<p>
+		Having heard enough of all this for now, you ask Fiammetta what it is that she wanted your help with.
+	</p>
+	<p>
+		[fiammetta.speech(I'm going to find where Sae's keeping those kidnapped people!)] she confidently replies, before imagining the headlines out-loud, [fiammetta.speech('Saellatrix Selling Illegal Slaves', or 'Recognised Daughter of Lovienne Responsible for Kidnappings'. It'd be the scandal of the decade, and I'd be the one to break the story! But I can't do it alone; I need a partner in crime. Interested? There'll be fifty thousand flames in it for you if we find what we're looking for in there...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COUNTER_ANGELIXX_DIARY_THROWN_OUT_END"><![CDATA[
+	<p>
+		Wondering what Fiammetta's plan is, you ask her what she's got in mind.
+	</p>
+	<p>
+		[fia.speech(I knew you'd be up for it!)] she exclaims in premature excitement. Leaning in close, she grins and whispers, [fia.speech(We're going to break into Sae's shop in the dead of night, sneak into whatever offices she has, and find evidence of where she's keeping all those illegal slaves.)]
+	</p>
+	<p>
+		Although you do want to find out what Angelixx and Saellatrix have done with all the kidnapped people from Dominion and Elis, the fact that you'll be committing a crime against one of the most important people in all the Realm causes you to hesitate. As Saellatrix has the same social standing as Lilaya, your demonic aunt might not be able to get you out of this if you're caught in the act.
+	</p>
+	<p>
+		[fia.speech(Don't worry, I've already cased the joint, and all but one of the security guards are off duty between one and four in the morning. So as long as we can sneak past just one guard then there's no way we'll be caught,)] the reporter says as she senses your unease, [fia.speech(Besides, if we do get caught, you can deal with one guard, can't you? That's why I need a partner, after all; I couldn't put up much of a fight if I got caught, so I'm not going in there alone. It'd be no good you going in there solo either, as I need to be the one to see and report on what's down there. The only way the Enforcers would move against Sae would be if the public knew she was behind an illegal enslavement operation.)]
+	</p>
+	<p>
+		Seeing the logic in Fiammetta's assessment, you agree that the two of you should investigate this matter together.
+	</p>
+	<p>
+		[fia.speech(Great! So I'll meet you here between one and four then. Any day'll do; I'm near here every night visiting the bars to try and find leads on new stories. Sound good?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COUNTER_ANGELIXX_DIARY_THROWN_OUT_END_CONTINUE"><![CDATA[
+	<p>
+		Seeing no other way to find out what's happened to the kidnapped refugees, you agree to Fiammetta's plan.
+	</p>
+	<p>
+		[fia.speech(Awesome!)] she happily cries, [fia.speech(Seeing as we're going to be partners in crime, you can call me 'Fia' from now on; that's what all my friends call me.)]
+	</p>
+	<p>
+		Telling Fia that you'll meet her again soon, you say goodbye to your new friend
+		#IF(game.getCurrentWeather()==WEATHER_MAGIC_STORM)
+			 and exit the bar, before wondering what to do now...
+		#ELSE
+			 and begin to [pc.walk] down the street, wondering what to do next...
+		#ENDIF
 	</p>
 	]]>
 	</htmlContent>
@@ -599,7 +1111,7 @@
 		[saellatrix.speech(Cunt, get over here!)] Saellatrix sharply commands the doll she just pushed over. Immediately doing as she's asked, the doll skips forwards to stand before the succubus, the pink dildos lodged deep in her tits continuing to vibrate as she awaits her next order. Instead of a command, however, she receives a sharp slap across her face. From the sadistic grin on her face, you see that Saellatrix is relishing this opportunity to abuse one of the dolls, and she happily lifts her hand to slap the unfortunate automaton again, and again, and again. Seemingly getting a little carried away, the succubus then grabs the doll by the throat, and after slamming it to the floor, she snaps, [saellatrix.speech(Lick my shoes, cunt, and thank me for the privilege!)]
 	</p>
 	<p>
-		Submissively crawling into position, the doll drops her head down and starts greedily licking Saellatrix's heels, saying in-between licks, [style.speechFeminineDoll(Thank you mistress...)]
+		Submissively crawling into position, the doll drops her head down and starts greedily licking Saellatrix's heels, saying in-between licks, [style.speechFeminineDoll(Thank you, mistress...)]
 	</p>
 	<p>
 		After letting the doll continue with this for a moment, Saellatrix kicks her away and orders her to return to the display. As the doll obediently hurries back to her previous position, the succubus turns to face you and asks, [saellatrix.speech(Was that a good enough demonstration? All dolls are incapable of refusing commands from their owners, or even understanding the concept of freedom. They don't have a personality, will never object to being fucked or abused, and are incapable of feeling embarrassed.)]
@@ -649,7 +1161,7 @@
 		Wondering if there's any possibility of damaging the dolls by treating them in such a rough manner, you ask Saellatrix if it's a good idea to be abusing the dolls in such a manner.
 	</p>
 	<p>
-		[saellatrix.speech(Oh, this is nothing for them,)] Saellatrix softly laughs in her posh accent, [saellatrix.speech(Our dolls have no internal components; they're just pure silicone with deep orifices, so there's no chance of breaking them. As they lack organs or anything of the sort, they're also immune to alcohol, addictive fluids, and psychedelics. Oh, and obviously they also can't get pregnant, so you can cum in them as much as you want without worrying about spawning some wretched bastard.)]
+		[saellatrix.speech(This is nothing for them,)] Saellatrix softly laughs in her posh accent, [saellatrix.speech(Our dolls have no internal components; they're just pure silicone with deep orifices, so there's no chance of breaking them. As they lack organs or anything of the sort, they're also immune to alcohol, addictive fluids, and psychedelics. Oh, and obviously they also can't get pregnant, so you can cum in them as much as you want without worrying about spawning some wretched bastard.)]
 	</p>
 	<p>
 		Giving the doll a quick slap across her tits, Saellatrix asks, [saellatrix.speech(So, shall we head back to the counter and discuss prices?)]
@@ -694,22 +1206,35 @@
 	
 	<htmlContent tag="COUNTER_DOLL_TOUR_INTERRUPTION"><![CDATA[
 	<p>
-		Having seen and heard enough, you tell Saellatrix to lead the way back to the counter. As she turns around, however, she finds that her passage is blocked by a short, fiery-looking young woman. With curly, black hair and tanned skin, she has a very Mediterranean look to her. Not wearing any makeup, and dressed in a black hoodie, daisy dukes, and a pair of sturdy-looking work boots, you get the impression that she doesn't care too much for fashion, and comes across as a bit of a tomboy. In her hands she's holding a notepad and pen, seemingly ready to write down anything which anybody says.
+		Having seen and heard enough, you tell Saellatrix to lead the way back to the counter. As she turns around, however, she finds that her passage is blocked by a short, fiery-looking young woman. With curly, black hair and tanned skin, she has a very Mediterranean appearance. Not wearing any makeup, and dressed in a baggy hoodie, daisy dukes, and a pair of sturdy-looking work boots, you get the impression that she doesn't care too much for fashion, and comes across as a bit of a tomboy. In her hands she's holding a notepad and pen, and looks to be ready to write down anything which anybody says.
 	</p>
 	<p>
-		[fiammetta.speech(A quick statement is all I need,)] she says in an energetic, almost accusatory manner. Saellatrix appears to be momentarily stunned by this woman's sudden appearance, giving the stranger time to look at you with her big, brown eyes and ask in an animated manner, [fiammetta.speech(Have you heard of the accusations against this establishment? Do you think that the sex dolls sold here are made by transforming people?)]
+		[fiammetta.speech(Hey, Sae! Can I get the statement you promised me now? Are the sex dolls you sell here made by transforming people?)] she asks Saellatrix in an energetic, accusatory manner.
 	</p>
 	<p>
-		[saellatrix.speech(Security!)] Saellatrix shouts, although her call wasn't needed, as a pair of wolf-boy security guards are already rushing towards the loud woman. Swiftly grabbing her by the arms, the wolf-boys drag her out the front door and throw her into the street.
+		[saellatrix.speech(How <i>dare</i> you address me in such a manner!)] Saellatrix furiously replies.
 	</p>
 	<p>
-		[saellatrix.speech(I do apologise about that,)] the succubus says, [saellatrix.speech(You've just witnessed the reason why I've got so many security guards working here. A group of conspiracy theorists somehow managed to convince themselves that these dolls are real people who we've transformed into dolls. The Octogram Herald got wind of it, and now they keep on sending journalists to harass me. If that wretched newspaper didn't have the protection of Lilith herself I'd have had it shut down long ago...)]
+		Laughing off the succubus's response, the stranger turns and locks her big, brown eyes onto you, before asking in an animated manner, [fiammetta.speech(Are you a new customer? I'm Fiammetta; a reporter with The Octogram Herald. Have you heard of the accusations against this establishment? Would you buy a doll if it was a transformed person?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="COUNTER_DOLL_TOUR_INTERRUPTION_NEXT"><![CDATA[
+	<p>
+		Surprised by the woman's words, you ask her what she means about people being turned into dolls. Before she can respond, however, Saellatrix shouts, [saellatrix.speech(Security!)]
+	</p>
+	<p>
+		A pair of wolf-boy security guards immediately rush forwards and grab the reporter by the arms, before swiftly dragging her out of the front door and throwing her into the street.
+	</p>
+	<p>
+		[saellatrix.speech(I do apologise about that,)] Saellatrix sighs, [saellatrix.speech(You've just witnessed the reason why I've got so many security guards working here. A group of conspiracy theorists somehow managed to convince themselves that these dolls are real people who we've transformed into dolls. The Octogram Herald got wind of it, and now that detestable journalist keeps on harassing me. If that wretched newspaper didn't have the protection of Lilith herself I'd have had it shut down long ago...)]
 	</p>
 	<p>
 		Feeling a little disconcerted by this turn of events, you look over at the realistic sex dolls, then ask Saellatrix why anyone would think that they're transformed people.
 	</p>
 	<p>
-		[saellatrix.speech(It started with a couple of lunatics claiming that their wretched friends were kidnapped and sent here,)] she sighs, [saellatrix.speech(Then they started ranting and raving to random people in the street, claiming that we'd transformed their friends into sex dolls. Needless to say, we had to have the Enforcers arrest them, but the outrageous rumours they'd made up wouldn't go away. In the end we had to start offering public tours of our factory to show everyone how our dolls are made. Although that move managed to bring a halt to the rumours, the wretched press haven't dropped the story yet...)]
+		[saellatrix.speech(I have no idea how that rumour got started,)] she sighs, [saellatrix.speech(but people love a conspiracy to believe in, and there's a never-ending stream of lunatics willing to believe that these sex dolls were once people. I have friends in high places, and so the Enforcers have been instructed to arrest anyone caught repeating such slander, but the rumour just won't go away. I've even had to start offering public tours of my factory to show everyone how our dolls are made, but even so, that loathsome reporter you just saw hasn't dropped her story yet...)]
 	</p>
 	<p>
 		Curious about these factory tours, you ask Saellatrix if she's still running them.
@@ -919,7 +1444,7 @@
 				Snatching the choker from the doll who rushed to retrieve it for her, Saellatrix quickly bends its metal clasp back into position, before fitting it around her neck once more. Strutting around to your side of the bar, the succubus lets out a thoughtful hum and says, [saellatrix.speech(Now that I think about it, I really would rather not give you that discount. How about I offer you an alternative...)]
 			</p>
 			<p>
-				Shrugging off her feminine blazer, the succubus unbuttons her shirt and tosses it to one side, leaving her wearing nothing above her waist but a black, lacy plunge bra. This quickly follows her shirt to the floor, leaving her huge, [saellatrix.cupSize]-cup breasts completely exposed. In contrast to the dark red skin which covers the rest of her body, both her massive, puffy nipples are the large areolae which surround them are ebony in colour. Around the rim of her left areola, the words 'Fuck Hole' have been tattooed in black ink, while 'Cock Sleeve' has been similarly written around the right one.
+				Shrugging off her feminine blazer, the succubus unbuttons her shirt and tosses it to one side, leaving her wearing nothing above her waist but a black, lacy plunge bra. This quickly follows her shirt to the floor, leaving her huge, [saellatrix.cupSize]-cup breasts completely exposed. In contrast to the dark red skin which covers the rest of her body, both her massive, puffy nipples and the large areolae which surround them are ebony in colour. Around the rim of her left areola, the words 'Fuck Hole' have been tattooed in black ink, while 'Cock Sleeve' has been similarly written around the right one.
 			</p>
 			<p>
 				[saellatrix.speech(Instead of giving you that discount, why don't I let you fuck my tits?)] she offers, pushing her fingers into her right nipple to demonstrate that they're penetrable orifices. Squatting down in front of you, she grabs your cock and pushes out her chest, rubbing your shaft over each of her nipples in turn. Looking up, she seductively teases, [saellatrix.speech(Go on, you know you'd rather have this. You can fuck my pussy and ass as well, if you'd like...)]
@@ -1289,54 +1814,413 @@
 	
 	<!-- Staff area dialogues: -->
 	
-	<htmlContent tag="STAFF_DOOR"><![CDATA[
-	<p>
-		TODO
-	</p>
-	]]>
-	</htmlContent>
-
-	<htmlContent tag="STAFF_ROOM"><![CDATA[
-	<p>
-		TODO
-	</p>
-	]]>
-	</htmlContent>
-
 	<htmlContent tag="CORRIDOR"><![CDATA[
 	<p>
-		TODO
+		As you return to the door through which you entered the factory, Saellatrix states, [saellatrix.speech(You still have some time left, but if you've seen enough then we can end this tour right now.)] 
+	</p>
+	<p>
+		Waiting expectantly to hear your reply, the succubus taps her foot and lets out an impatient sigh.
 	</p>
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="CORRIDOR_FACTORY_TOUR_CONTINUE"><![CDATA[
 	<p>
-		TODO
+		Not yet wanting to end the tour of the factory, you tell Saellatrix that you'd like to continue.
+	</p>
+	<p>
+		[saellatrix.speech(Then why did you return here?)] she pointedly asks. Not waiting for a reply, she turns and starts to walk back into the main area of the factory, calling back to you as she goes, [saellatrix.speech(Come on then, you don't have much time left.)]
 	</p>
 	]]>
 	</htmlContent>
 
 	<htmlContent tag="CORRIDOR_FACTORY_TOUR_END"><![CDATA[
 	<p>
-		TODO
+		Having seen enough, you tell Saellatrix that you'd like to end the tour. Clearly impatient to be getting back to the shop floor, the succubus quickly steps past you, and you can't help but glance down at her sizeable rear end as her strutting gait causes it to hypnotically sway from side to side.
+	</p>
+	<p>
+		[saellatrix.speech(If you see one of those wretched journalists, then you can tell them that there's nothing suspicious going on in here,)] Saellatrix says as she comes to a halt beside the door and turns to face you. Allowing her spaded tail to flick up and scratch an itch on one of her thick thighs, she sighs, [saellatrix.speech(Although the outrageous rumours about us transforming people into sex dolls have been quelled, those vultures from The Octogram Herald won't stop harassing me. Now that you've seen how we make the dolls, you'll be able to tell those hacks the truth if you see them.)]
+	</p>
+	<p>
+		Only after you've made a non-committal response does Saellatrix open the door, before leading you back to the counter and saying, [saellatrix.speech(If you'd like another tour of the factory then just let me know. Not today, though. Anyway, would you like to buy something? A doll, perhaps?)]
 	</p>
 	]]>
 	</htmlContent>
 	
+	<!-- Only accessible during the factory quest: -->
+	
+	<htmlContent tag="STAFF_DOOR"><![CDATA[
+	<p>
+		The door in front of you isn't locked, but as you turn the handle and peer into the corridor beyond, you suddenly freeze in your tracks. Although it's faint, you can hear someone making noises somewhere within the shop floor. 
+	</p>
+	<p>
+		[fia.speech(That must be the other security guard... It sounds like he's having a really good time with that demo doll...)] Fia whispers from behind you. Sure enough, as you listen more closely, you're able to hear a steady stream of horny grunts and wet smacking sounds.
+	</p>
+	<p>
+		[fia.speech(There's nothing that way but the fake factory and the shop floor,)] Fia whispers, before tugging on your [pc.arm(true)] and saying, [fia.speech(Come on, let's go back the other way...)]
+	</p>
+	]]>
+	</htmlContent>
 
+	<htmlContent tag="STAFF_ROOM"><![CDATA[
+	<p>
+		[fia.speech(Woah, look at this place,)] Fia mutters as the two of you enter the store's staff room.
+		#IF(pc.getTotalTimesHadSex(saellatrix)>0)
+			 Having already been shown this room by Saellatrix herself, your surroundings come as no surprise to you, but it's still impressive to see what the succubus has done with the place.
+		#ENDIF
+	</p>
+	<p>
+		Unlike the basic sort of facilities found in most rooms of this type, the space before you has the appearance of a very upmarket bar. The beam from Fia's flashlight passes over several black designer sofas, before reflecting off a trio of expensive-looking chandeliers and then wandering over the polished marble floor to illuminate a fully-stocked bar on the far side of the room. Standing behind this bar are two golden sex dolls, but thankfully neither of them react to your sudden appearance, and remain completely and utterly motionless.
+	</p>
+	<p>
+		[fia.speech(That's kind of creepy,)] Fia mutters, [fia.speech(Come on, there's nothing for us in here, let's keep moving...)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="STAFF_DOOR_BACK"><![CDATA[
+	<p>
+		Not wanting to bump into the security guard, and with nothing to be gained from going through the door, you turn around and head back into the staff room...
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="BACK_DOOR"><![CDATA[
 	<p>
-		TODO
+		Thanks to the access card which Fia obtained from her friend, the two of you have been able to gain access to Lovienne's Luxuries. Standing beside the door via which you've entered the property, the two of you now have but one way to go in order to find the evidence you need to prove that Saellatrix and Angelixx are dealing in illegal slaves...
 	</p>
 	]]>
 	</htmlContent>
-
+	
+	<htmlContent tag="ELEVATOR_CORRIDOR"><![CDATA[
+	<p>
+		A pair of doors on either side of the staff room's bar lead into a short, undecorated corridor. In stark contrast to the luxurious room which its connected to, this corridor has a concrete floor, bare brick walls, and a maze of pipes running along the ceiling.
+	</p>
+	<p>
+		[fia.speech(That looks promising,)] Fia says as she points her flashlight towards an industrial elevator located at the far end of the corridor. Looking over at you, she guesses, [fia.speech(I bet that'll take us down to some offices, or even the real factory where Sae has her sex dolls made. I'm sure there'll be evidence of where those illegal slaves are down there...)]
+	</p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="ELEVATOR"><![CDATA[
 	<p>
-		TODO
+		A large, industrial elevator is positioned at the end of the corridor. As you and Fia approach, the doors slide open, bathing your surroundings in a cold, sterile light.
+	</p>
+	<p>
+		[fia.speech(Come on, [pc.name],)] your companion says, [fia.speech(We need to find out what's down there...)]
+	</p>
+	<p>
+		Stepping forwards, Fia eagerly motions for you to follow her...
 	</p>
 	]]>
 	</htmlContent>
 
+	
+	<!-- Doll quest dialogues: -->
+	
+	<htmlContent tag="QUEST_FINISH"><![CDATA[
+	#IF(pc.getQuest(QUEST_LINE_SIDE_DOLL_FACTORY)==QUEST_DOLL_FACTORY_7A)
+		<p>
+			Wanting to find out how Saellatrix has avoided being arrested by the Enforcers, you follow her as she confidently struts across the room towards her desk. As she walks, she says back over her shoulder, [saellatrix.speech(Everything looks just the same as before, doesn't it? The only visible change which my customers might notice is that my pair of security guards at the front door have been replaced by demonic Enforcers.)] 
+		</p>
+		<p>
+			Arriving at her desk, she turns to face you with a slightly forced smirk on her beautiful face. Clearly taking some pride in how she's pulled it off, she pauses for dramatic effect and puffs up her chest before explaining, [saellatrix.speech(As soon as I was made aware of the article your friend was writing, I pulled in a few favours from some very senior Enforcers. As well as protecting my store from those thuggish 'protesters', they made sure that no charges would be pressed against me or my business. In exchange, I offered them three scapegoats who they could pin all of the blame on. All of that was the easy part; with the Enforcers having shut down my factory and released the slimes I was milking, it was significantly harder to find a way to restart doll production, but I'm pleased to say that the dollification machine is once again running at full capacity.)]
+		</p>
+		<p>
+			Surprised to hear that the Enforcers have allowed Saellatrix to continue transforming people into dolls, you ask her how she managed it.
+		</p>
+		<p>
+			[saellatrix.speech(Well, now that members of the public know about the dollification process, I had to make my offer palatable not only to the Enforcers, but also the general population,)] she replies, before revealing, [saellatrix.speech(There are some slaves who simply can't be tamed, and others who've committed such heinous crimes that slavery isn't punishment enough for them. I offered to deal with these slaves by taking ownership of them and transforming them into obedient sex dolls. Unfortunately, the Enforcers insisted that I have to buy them for their free market value, so while I'm still able to make new sex dolls, they're nowhere near as profitable for me as they once were.)]
+		</p>
+		<p>
+			Looking over at the stock of sex dolls in the corner of the store, you ask Saellatrix what was done about those innocent people who were already transformed into dolls.
+		</p>
+		<p>
+			[saellatrix.speech(The dollification process is permanent, so there's nothing I could do to turn them back,)] the succubus dismisses your question with an idle wave of her hand. Letting out a tut, she goes on to reveal, [saellatrix.speech(When they heard that, the protesters and the Enforcers demanded that I give reparations to the relatives of those who'd been transformed. I'd built up quite a fortune from this business, but those payouts set me back to square one. My finances also haven't been helped by the fact that I had to buy new slaves to replace the slimes I was forced to set free.)]
+		</p>
+		<p>
+			Not letting her previous mention of 'scapegoats' escape your notice, you ask the succubus who was made to take the blame.
+		</p>
+		<p>
+			[saellatrix.speech(Oh, I'm sure you can already guess, but one of them is right here,)] she replies with a soft laugh. Reaching down beneath her desk, she lifts up the looped end of a leather leash, and as she tugs on it she continues to look at you and say, [saellatrix.speech(As I told you before, I'd like to stay in Lilaya's good books, and that means being on good terms with you. Despite all you've done to sabotage my business, I'll continue to sell you dolls, and as a peace offering I'll allow you to decide the fate of this slut...)]
+		</p>
+	#ELSE
+		<p>
+			Wanting to discover what happened after the last time you saw Saellatrix, you follow the busty succubus as she struts across the shop floor to take her usual place behind the counter. Turning to smile at you, she gestures around the room and states, [saellatrix.speech(Thanks to my swift intervention, and the declaration of truth which you so graciously signed, my business is able to continue as normal. I have every intention of honouring my end of the bargain; if you'd like to send me any slaves which you've grown tired of, then I'll transform them into dolls for a fraction of the usual cost.)]
+		</p>
+		<p>
+			As you thank Saellatrix for offering you this new service, you can't help but think back to the dollification machine you saw in the factory beneath her shop. Needing to know, you ask the succubus if she's still creating new dolls in the same way as before.
+		</p>
+		<p>
+			[saellatrix.speech(What, by kidnapping innocent citizens and transforming them against their will? Absolutely; my profits would suffer if I were to do it any other way,)] Saellatrix replies in her posh accent. Cutting off any objections you may or may not have been about to voice, she continues in a firm tone, [saellatrix.speech(You made your choice, so now you have to live with it. I still have your signed declaration of truth, so if you ever get a pang of conscience and think about reporting me to the Enforcers, just know that it would be trivial for me to turn the situation around and pin most of the blame on you. There have been many in the past who've tried to fuck me, and without exception I've been the one to fuck them. Just like that bitch of a reporter...)]
+		</p>
+		<p>
+			A nasty smirk settles on Saellatrix's face as she mentions Fiammetta, and you realise that she wants you to ask what she's done to her...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEST_FINISH_JUSTICE"><![CDATA[
+	<p>
+		Looking down over the top of the desk, you see that the leash in Saellatrix's hand is attached to a gold metal slave collar that's clasped around a very familiar succubus's neck. From her pair of tiny, white-feathered wings, her head of blonde hair, and her small, [angelixx.cupSize]-cup breasts, there's no mistaking Angelixx's body. As she looks up, you not only recognise her pretty face but also see that she's wearing a blindfold and ballgag.
+	</p>
+	<p>
+		[saellatrix.speech(One of the main reasons I had Angelixx and her sons do all the dirty work was so that it'd be a trivial matter to pin all of the blame on them if the details of our business were made public,)] Saellatrix says. With an evil smirk on her face, she goes on to reveal, [saellatrix.speech(Mother was already starting to take note of Angelixx, so I had to find a way to remove her sooner or later. This unfortunate situation presented me with the opportunity to do so, and now I no longer have to worry about another sister of mine being recognised and so competing with me for mother's affection.)]
+	</p>
+	<p>
+		Wondering what's happened to Sleip and Nir, you open your mouth to ask Saellatrix what she's done with Angelixx's sons, but before you've got a single word out, the succubus anticipates your question and reveals, [saellatrix.speech(I personally transformed her brutish sons into sex dolls, which were then given to the protesters as a peace offering. The Enforcers said that the crowd were demanding that Angelixx should share their fate, but I wanted to keep her as a slave.)]
+	</p>
+	<p>
+		You somehow doubt that this scheming succubus made that decision due to having a soft spot for her sister, and so you ask Saellatrix why she decided to spare Angelixx. 
+	</p>
+	<p>
+		[saellatrix.speech(Did I ever tell you that I first made a name for myself as a slave trainer?)] Saellatrix asks. Not waiting for a reply, and with an evil look in her [saellatrix.eyeColour] eyes, the succubus continues, [saellatrix.speech(Perhaps you saw some of my sisters while you were snooping about in my factory. Although I left my first profession a long time ago, I still enjoy breaking people and turning them into obedient little pets, and so I wanted to keep Angelixx and have some fun training her. She was so defiant and angry when I took ownership of her, and crushing her spirit and breaking her down into an obedient, empty shell of her former self was exquisitely satisfying. From there, I built her back up into loving me and being desperate to make me happy. Isn't that right, slut?)]
+	</p>
+	<p>
+		As she directs this question to Angelixx, Saellatrix bends down to unbuckle and remove her ballgag. Able to speak for the first time in who knows how long, the first words out of Angelixx's mouth attest to her owner's expertise, for she enthusiastically replies without a hint of insincerity in her voice, [angelixx.speechNoEffects(Yes, Mistress, I love you! Please, let me do anything to please you!)]
+	</p>
+	<p>
+		[saellatrix.speech(What if I wanted you to be turned into a sex doll?)] Saellatrix asks with an evil sneer on her face.
+	</p>
+	<p>
+		[angelixx.speechNoEffects(Yes, Mistress, please transform me into an obedient doll!)] Angelixx pathetically whines.
+	</p>
+	<p>
+		With her point proven, Saellatrix bends down to push the ballgag back into her slave's mouth and fasten it in place. Turning to you, she says, [saellatrix.speech(As I previously mentioned, I'll allow you to decide the fate of this slut as a peace offering. Either way, I'm going to keep her in my store so that she can be offered as a fuck toy to paying customers, but what I'd like you to decide is if I should turn her into a sex doll or not. I would so love to transform the stupid slut into nothing more than a sex toy, but it'd also be ever so sweet to keep her as she is, knowing that somewhere deep inside of her she's fully aware of how far she'll fallen...)]
+	</p>
+	<p>
+		With that, the succubus expectantly looks at you, before briefly stating, [saellatrix.speech(If you want her kept as a slave, don't expect me to transform her into a sex doll later on. Whatever you decide, it's final.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEST_FINISH_ANGELIXX_SLAVE"><![CDATA[
+	<p>
+		Not wanting Angelixx to lose her personality and be transformed into just one of countless obedient sex dolls, you tell Saellatrix that she should keep her as a slave.
+	</p>
+	<p>
+		[saellatrix.speech(Yes, it would be best for her to remain aware of all she's lost and how far she's fallen,)] the succubus sadistically replies. Giving Angelixx's leash a sharp tug, she snaps down to her slave, [saellatrix.speech(This way, slut. Time to settle in to your new home.)]
+	</p>
+	<p>
+		Stepping out from behind her counter, Saellatrix leads her enslaved sister over to the display area in the nearby corner of her shop. Following the two of them as they pass by the trio of display dolls and the shiny pink demo doll, you see that a padded table has been brought into this area and bolted to the floor.
+	</p>
+	<p>
+		[saellatrix.speech(Stand up, slut. Good, now bend over this table,)] Saellatrix orders her slave. Angelixx obediently does as she's told, and after standing up, she bends down, face-first, over the padded table, so that her exposed pussy and asshole are fully on display to the rest of the store. Pulling several lengths of rope out from under this table, Saellatrix swiftly binds her slave to the table, before stepping back and giving her round ass a wickedly-sharp slap. Smirking down at her sister as she lets out a surprised yelp, the busty succubus declares, [saellatrix.speech(During the store's opening hours, you'll remain here and enjoy being fucked by any of my paying customers. At night, depending on your performance, you'll either return to your cage or be allowed to sleep at the foot of my bed.)]
+	</p>
+	<p>
+		Having informed her slave what's expected of her, Saellatrix steps over to the nearby wall and flips a sign which reads 'Complimentary fuck-toy for paying customers only.'. Turning at last to face you, she says, [saellatrix.speech(You don't need to buy anything. This slut's holes are free for you to use at any time, so long as you don't do anything to jeopardise my relationship with Lilaya.)]
+	</p>
+	<p>
+		With that, Saellatrix gives Angelixx's ass another sharp slap, and as she struts off to return to her desk she calls after her, [saellatrix.speech(Have fun!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEST_FINISH_ANGELIXX_SLAVE_END"><![CDATA[
+	<p>
+		With Saellatrix having walked back over to her desk, you're left alone with Angelixx. The enslaved succubus lets out a quiet, muffled moan as she wriggles about and settles down into a more comfortable position on the table. Resting her head on the padded surface, her small breasts squish down into the table top as she relaxes and waits for the first customer to use her.
+	</p>
+	<p>
+		Remembering how she was the last time you saw her, it's hard to believe that Angelixx is now no more than her sister's slave. What's more, she seems to have fully embraced her new position, and as she feels your lingering presence, she submissively spreads her legs a little and lifts her ass. Glancing down at the succubus's tight
+		#IF(game.isAnalContentEnabled())
+			 pussy and inviting asshole,
+		#ELSE
+			 pussy,
+		#ENDIF
+		 you wonder whether you should be the first to use her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEST_FINISH_ANGELIXX_DOLL"><![CDATA[
+	<p>
+		Wanting Angelixx to suffer what she's done to so many other people, you tell Saellatrix that she should turn her into a sex doll.
+	</p>
+	<p>
+		[saellatrix.speech(Yes, that would be a fitting end for her,)] the busty succubus replies, before giving Angelixx's leash a sharp tug and speaking down to her, [saellatrix.speech(Did you hear that, slut? [pc.Name] wants you turned into a dumb, obedient sex doll. Are you ready for that?)]
+	</p>
+	<p>
+		With her mouth obstructed by the ballgag she's wearing, Angelixx is only able to let out a muffled moan in response to her sister's question. Despite this, however, you can tell from the tone of her lewd noise that she's more than agreeable to this outcome. Wondering what Saellatrix must have done to turn her sister into such an obedient slave, you ask the busty succubus when she'll perform the transformation.
+	</p>
+	<p>
+		[saellatrix.speech(Why, straight away, of course)] Saellatrix replies. Flashing you a smirk, she anticipates your next question and states, [saellatrix.speech(I think you've snooped around in my factory enough, so no, you can't watch. We'll be back in a moment, so please stay here and await our return.)]
+	</p>
+	<p>
+		A bright pink flash fills the store as Saellatrix teleports herself and her slave down into the factory, leaving you standing there to wait for their return...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEST_FINISH_ANGELIXX_DOLL_WAIT"><![CDATA[
+	<p>
+		Now alone and with some time in which to think, you start to wonder if you've made the right decision, but it's too late for Angelixx's fate to be changed now. Telling yourself that being transformed into a sex doll is the least that Angelixx deserves for all that she's done, you aimlessly wander around the store as you wait for Saellatrix to return.
+	</p>
+	<p>
+		It takes fifteen minutes for the busty succubus to reappear, and this time she does so via the door behind her counter instead of by teleporting. A light purple sex doll obediently struts after her, and although you knew that this was going to happen, it still feels surreal to see that Angelixx has been reduced to nothing more than a silicone sex toy.
+	</p>
+	<p>
+		[saellatrix.speech(I do apologise for the wait. The transformation took little more than a few minutes, but then I indulged myself in taking every virginity her new body had to offer,)] Saellatrix says as you [pc.step] back over to the desk. Reaching up to give the new sex doll's big nipples a quick pinch, Saellatrix draws your attention to the fact that Angelixx's breasts are smaller than the DD-cups found on all the other dolls. Smirking at you, Saellatrix says, [saellatrix.speech(I decided to keep the slut's tits the same size that they always were. Not as a favour to her, of course, but to mark her as being lesser than even a standard sex doll. Do you hear that, doll? Do you like being the lowest of all sex dolls?)]
+	</p>
+	<p>
+		[angelixx.speech(Yes, Mistress,)] Angelixx obediently replies.
+	</p>
+	<p>
+		[saellatrix.speech(Good,)] Saellatrix laughs, before sadistically slapping her transformed sister hard across the face and saying, [saellatrix.speech(Now let's get you set up.)] 
+	</p>
+	<p>
+		Stepping out from behind her counter, Saellatrix leads Angelixx over to the display area in the nearby corner of her shop. Following the two of them as they pass by the trio of display dolls and the shiny pink demo doll, you see that a padded table has been brought into this area and bolted to the floor.
+	</p>
+	<p>
+		[saellatrix.speech(Bend over this table, doll,)] Saellatrix orders. Angelixx obediently does as she's told, and bends down, face-first, over the padded table, so that her exposed pussy and asshole are fully on display to the rest of the store. Stepping back, Saellatrix gives her sister's round ass a wickedly-sharp slap and smirks down at her as she lets out a robotic-sounding yelp. Giving her ass a second slap, the busty succubus declares, [saellatrix.speech(You'll remain here and enjoy being fucked by any of my paying customers. Now to get the D.E.C.K. set up...)]
+	</p>
+	<p>
+		It seems as though Saellatrix hasn't finished with her sister just yet... 
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEST_FINISH_ANGELIXX_DOLL_SETUP"><![CDATA[
+	<p>
+		Reaching down to retrieve something from behind Angelixx's table, Saellatrix straightens back up with a robust-looking console in her hands. Reaching up to slot this device into place on a specially-made bracket that's fixed to the wall, the busty succubus turns to face you and explains, [saellatrix.speech(I modified this D.E.C.K. earlier so that it only has options for transforming a doll's colourations and the attributes for their pussy and ass. Hopefully once customers have experienced this, they'll be more willing to buy a fully-functional D.E.C.K. of their own. Now to just plug it in...)]
+	</p>
+	<p>
+		Grabbing the extended lead that's hanging out of this modified device, Saellatrix plugs it into Angelixx's neck port. After quickly tapping through some commands on the console's interface, the succubus flips a sign on the wall which reads 'Complimentary fuck-toy for paying customers only. Try the customisation features!', and then turns to face you and says, [saellatrix.speech(You don't need to buy anything. This slut's holes are free for you to use at any time, so long as you don't do anything to jeopardise my relationship with Lilaya.)]
+	</p>
+	<p>
+		With that, Saellatrix gives Angelixx's ass another sharp slap, and as she struts off to return to her desk she calls after her, [saellatrix.speech(Have fun!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEST_FINISH_ANGELIXX_DOLL_END"><![CDATA[
+	<p>
+		With Saellatrix having walked back over to her desk, you're left alone with Angelixx. Keeping her head up and blankly staring forwards into space, her small breasts squish down into the table top as she remains silent and unmoving, obediently waiting for customers to approach and use her.
+	</p>
+	<p>
+		Remembering how she was the first time you saw her, it's hard to believe that Angelixx is now no more than a silicone sex toy. As she feels your lingering presence, she submissively spreads her legs a little and lifts her ass to encourage you to [pc.step] forwards and fuck her. Glancing down at the doll's tight
+		#IF(game.isAnalContentEnabled())
+			 pussy and inviting asshole,
+		#ELSE
+			 pussy,
+		#ENDIF
+		 you wonder whether you should be the first to use her...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<htmlContent tag="QUEST_FINISH_FIA_DOLL"><![CDATA[
+	<p>
+		Wanting to know how Saellatrix dealt with Fiammetta, you ask the smirking succubus what she's done with the reporter. Letting out a soft laugh, she boasts, [saellatrix.speech(With your signed declaration, and the support of Lilaya and a few other recognised daughters of elder lilin, I was able to convince the editor of that wretched newspaper that Fia was a liar. Needless to say, she was fired and told never to show her face in Demon Home ever again. You know, Dominion is a dangerous place for people without friends, and doubly so for those foolish enough to have made an enemy of a powerful demon. You should have seen the look on her face when she found me waiting for her in her apartment...)]
+	</p>
+	<p>
+		Pausing for a moment as she relishes this memory, Saellatrix gives you an opportunity in which to speak, and so you ask her what she's done to Fia.
+	</p>
+	<p>
+		[saellatrix.speech(I simply gave her a fitting punishment,)] the succubus smugly replies in her posh-sounding voice, [saellatrix.speech(Nobody's going to miss her or come looking for her now that she's known to be a liar and an enemy of mine. Those who remember her will assume that she's left Dominion in disgrace, but in reality I've decided to keep the bitch here in my store. Why don't you come and say hello to her?)]
+	</p>
+	<p>
+		Not giving you a chance to refuse, the succubus steps out from behind her counter and confidently struts over to the display area in the nearby corner of her shop. Following her as she passes by the trio of display dolls and the shiny pink demo doll, you see that a padded table has been brought into this area and bolted to the floor. A sex doll is obediently bending over this piece of furniture face-first, and is lifting her ass to present her exposed pussy and asshole. Although she has the exact same proportions as every other doll in here, with a curvy figure and DD-cup breasts, this particular doll is a shade of light purple instead of the usual black.
+	</p>
+	<p>
+		It's to this doll that Saellatrix strides, and as she comes to a halt beside the table, the succubus turns to face you with a wicked smirk on her beautiful face and softly laughs, [saellatrix.speech(Say hello to Fiammetta! I reintroduced the bitch to the dollification machine, and although Angelixx and her boys were eager to help, I insisted on transforming her myself.)]
+	</p>
+	<p>
+		Although you decided to take Saellatrix's side, you didn't know that this would be Fia's fate, and for a moment you don't quite know how to react. As such you simply stand and stare as the succubus slides her slender fingers over Fia's silicone pussy. Cruelly pinching her clit, she lets out a sadistic laugh as she reveals, [saellatrix.speech(The bitch was experienced at sucking dick and taking it in the ass, but her pussy hadn't ever been fucked, did you know that? I grew myself a huge, fat cock and told her that because she'd tried to fuck me, it was only fair that I got to fuck her. It was a truly cathartic experience to take her virginity, and after keeping her on the edge for almost an hour, I finally gave her the orgasm which transformed her into a doll.)]
+	</p>
+	<p>
+		As you look down at the sex doll, you momentarily reflect on the fact that the person you once knew as Fia has gone. Her personality has been wiped away by the dollification process, and now all that remains is an obedient sex toy. Knowing that nothing can be done to change the reporter's fate, you simply ask Saellatrix what she plans to do with Fia now that she's a doll.
+	</p>
+	<p>
+		[saellatrix.speech(She'll serve as a public fuck toy for my paying customers. I was just about to finish setting her up when I saw you approaching my store,)] the succubus replies.
+	</p>
+	<p>
+		Before you can comment on this, a youthful, feminine voice, which you instantly recognise as belonging to Saellatrix's younger sister, happily calls out from behind you, [angelixx.speech(Heya, [pc.name]!)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEST_FINISH_FIA_DOLL_ANGELIXX"><![CDATA[
+	<p>
+		Turning to face Angelixx, you see the pretty succubus happily skipping forwards with a big smile on her cute, youthful face. Her tiny white wings briefly flutter in excitement as she skids to a halt in front of you and exclaims, [angelixx.speech(I'm so happy I caught you here!)]
+	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_doll_factory_player_dollified))
+		<p>
+			Before you can stop her, she's grabbing your arm and rubbing up against you, but this gesture isn't simply a show of affection, for she leans in to your ear and whispers quietly enough for Saellatrix not to overhear, [angelixx.speech(Sae mustn't know that I transformed you into a doll! Please don't tell her!)]
+		</p>
+	#ENDIF
+	<p>
+		[saellatrix.speech(I told Angelixx everything that's happened,)] Saellatrix
+		#IF(flags.hasFlag(FLAG_innoxia_doll_factory_player_dollified))
+			 says as her younger sister releases your arm and steps back with an innocent look on her face.
+		#ELSE
+			 says.
+		#ENDIF
+		 Throwing an amused smirk your way, the busty succubus continues, [saellatrix.speech(I also let her know that you're a relative of Lilaya, and someone who I consider to be very important.)]
+	</p>
+	<p>
+		[angelixx.speech(That's right! I'm so sorry for setting my boys on you before,)] Angelixx exclaims in a sweet tone, before pouting and batting her long eyelashes at you. If you weren't already aware of the succubus's true character you'd likely think that she was a cute, friendly demon, but knowing her as you do it's hard for you to see her as anything but an evil little monster.
+	</p>
+	<p>
+		[angelixx.speech(Come on! I really mean it!)] the pretty succubus sighs in exasperation as she doesn't get the response from you that she was hoping for. Grabbing hold of your [pc.arm], she explains, [angelixx.speech(I never knew that you're Lilaya's [pc.niece]. If I'd known who you are, I would have acted totally different right from the moment I first saw you. You'll forgive me, right?)] 
+	</p>
+	<p>
+		Although the reason for her shift in attitude is as shallow as it gets, and her true character is irredeemably evil, it seems as though Angelixx does genuinely want you to like her now. Even if it's only so that she can gain a small advantage in demonic politics via your relationship with Lilaya, this pretty little succubus seems eager to become your new friend...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEST_FINISH_FIA_DOLL_ANGELIXX_FORGIVE"><![CDATA[
+	<p>
+		As you've already thrown your lot in with Saellatrix, who's just as guilty as her younger sister, you don't see any reason to shun Angelixx. As such, you tell the cute succubus that you forgive her.
+	</p>
+	<p>
+		[angelixx.speech(You're so kind, [pc.name]!)] she happily exclaims, before lowering her voice and saying, [angelixx.speech(I have to work on catching new dolls from the alleyways during the day, but my boys and I should be at home in the afternoons and evenings. Oh, my apartment is right above this shop, by the way. Come and see me some time and we can have a little fun together.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEST_FINISH_FIA_DOLL_ANGELIXX_REFUSE"><![CDATA[
+	<p>
+		Although you chose to side with Saellatrix, you can't bring yourself to forgive her younger sister's behaviour. Making her let go of your arm, you tell the succubus that you're not interested in whatever plans she has for you.
+	</p>
+	<p>
+		[angelixx.speech(Aww, don't be so mean, [pc.name]!)] she pathetically whines, before lowering her voice and saying, [angelixx.speech(I have to work on catching new dolls from the alleyways during the day, but my boys and I should be at home in the afternoons and evenings. Oh, my apartment is right above this shop, by the way. Please come and see me some time and I'm sure that I can do <i>something</i> to make you change your mind.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEST_FINISH_FIA_DOLL_ANGELIXX_REPLY_ENDING"><![CDATA[
+	<p>
+		With that, Angelixx skips off out of the shop, leaving her older sister to remark, [saellatrix.speech(I told you that a few words was all it'd take to get that slut eager to spread her legs for you. I like to keep her close so that I can keep an eye on her, and so as she just said, I've given her the use of the apartment above this shop. Pay her a visit some time and I'm sure that you'll have her underwear down around her ankles within five minutes.)]
+	</p>
+	<p>
+		With her younger sister having now left, Saellatrix bends down behind Fia's table and straightens back up a moment later with a robust-looking console in her hands. Reaching up to slot this device into place on a specially-made bracket that's fixed to the wall, Saellatrix turns to face you and explains, [saellatrix.speech(I modified this D.E.C.K. earlier so that it only has options for transforming a doll's colourations and the attributes for their pussy and ass. Hopefully once customers have experienced this, they'll be more willing to buy a fully-functional D.E.C.K. of their own. Now to just plug it in...)]
+	</p>
+	<p>
+		Grabbing the extended lead that's hanging out of this modified device, Saellatrix plugs it into Fia's neck port. After quickly tapping through some commands on the console's interface, the succubus flips a sign on the wall which reads 'Complimentary fuck-toy for paying customers only. Try the customisation features!', and then turns to face you and says, [saellatrix.speech(You don't need to buy anything. This slut's holes are free for you to use at any time. Now she can spend the rest of her life getting fucked. Come and see over at the desk if you want to buy a doll or have me turn one of your slaves into one...)]
+	</p>
+	<p>
+		With that, she turns her back on you and walks off...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="QUEST_FINISH_FIA_DOLL_ANGELIXX_END"><![CDATA[
+	<p>
+		With Saellatrix having walked back over to her desk, you're left alone with Fia. Keeping her head up and blankly staring forwards into space, her DD-cup breasts squish down into the table top as she remains silent and unmoving, obediently waiting for customers to approach and use her.
+	</p>
+	<p>
+		Remembering how she was during your exploration of the factory beneath your [pc.feet], it's hard to believe that Fia is now no more than a silicone sex toy. As she feels your lingering presence, she submissively spreads her legs a little and lifts her ass to encourage you to [pc.step] forwards and fuck her. Glancing down at the doll's tight
+		#IF(game.isAnalContentEnabled())
+			 pussy and inviting asshole,
+		#ELSE
+			 pussy,
+		#ENDIF
+		 you wonder whether you should be the first to use her...
+	</p>
+	]]>
+	</htmlContent>
+	
 </dialogue>

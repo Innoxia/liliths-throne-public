@@ -16,6 +16,9 @@ import com.lilithsthrone.game.character.npc.dominion.Natalya;
 import com.lilithsthrone.game.character.npc.dominion.Wes;
 import com.lilithsthrone.game.character.npc.submission.DarkSiren;
 import com.lilithsthrone.game.character.npc.submission.Elizabeth;
+import com.lilithsthrone.game.character.npc.submission.FortressAlphaLeader;
+import com.lilithsthrone.game.character.npc.submission.FortressFemalesLeader;
+import com.lilithsthrone.game.character.npc.submission.FortressMalesLeader;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
@@ -28,11 +31,11 @@ import com.lilithsthrone.game.dialogue.encounters.AbstractEncounter;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.npcDialogue.dominion.DaddyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.DemonHome;
+import com.lilithsthrone.game.dialogue.places.dominion.DominionPark;
 import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.places.dominion.EnforcerWarehouse;
 import com.lilithsthrone.game.dialogue.places.dominion.HomeImprovements;
 import com.lilithsthrone.game.dialogue.places.dominion.LilithsTower;
-import com.lilithsthrone.game.dialogue.places.dominion.DominionPark;
 import com.lilithsthrone.game.dialogue.places.dominion.RedLightDistrict;
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHall;
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallDemographics;
@@ -275,13 +278,23 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			List<Population> pop = new ArrayList<>();
 			
-			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-				pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.COUPLE, Subspecies.getDominionStormImmuneSpecies(true)));
-				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getDominionStormImmuneSpecies(true, Subspecies.HUMAN)));
+			if(Main.game.isDayTime()) {
+				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+					pop.add(new Population(true, PopulationType.PERSON, PopulationDensity.COUPLE, Subspecies.getDominionStormImmuneSpecies(true)));
+					pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getDominionStormImmuneSpecies(true, Subspecies.HUMAN)));
+				} else {
+					pop.add(new Population(true, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+					pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
+					pop.add(new Population(true, PopulationType.CENTAUR_CARTS, PopulationDensity.NUMEROUS, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.TEN))));
+				}
 			} else {
-				pop.add(new Population(true, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
-				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
-				pop.add(new Population(true, PopulationType.CENTAUR_CARTS, PopulationDensity.NUMEROUS, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.TEN))));
+				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+					pop.add(new Population(false, PopulationType.PERSON, PopulationDensity.OCCASIONAL, Subspecies.getDominionStormImmuneSpecies(true)));
+					pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getDominionStormImmuneSpecies(true, Subspecies.HUMAN)));
+				} else {
+					pop.add(new Population(false, PopulationType.PERSON, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+					pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
+				}
 			}
 			
 			return pop;
@@ -304,15 +317,31 @@ public class PlaceType {
 		}
 		@Override
 		public List<Population> getPopulation() {
-			if(Main.game.getCurrentWeather()!=Weather.MAGIC_STORM) {
-				List<Population> pop = Util.newArrayListOfValues(new Population(true, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
-				pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
-				pop.add(new Population(true, PopulationType.CENTAUR_CARTS, PopulationDensity.NUMEROUS, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.TEN))));
-				return pop;
-				
+			List<Population> pop = new ArrayList<>();
+			
+			if(Main.game.isDayTime()) {
+				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+					if(Main.game.getNonCompanionCharactersPresent().isEmpty() || !Main.game.getCurrentDialogueNode().isTravelDisabled()) {
+						pop.add(new Population(false, PopulationType.PERSON, PopulationDensity.OCCASIONAL, Subspecies.getDominionStormImmuneSpecies(true)));
+					}
+					
+				} else {
+					pop.add(new Population(true, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+					pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
+					pop.add(new Population(true, PopulationType.CENTAUR_CARTS, PopulationDensity.NUMEROUS, Util.newHashMapOfValues(new Value<>(Subspecies.CENTAUR, SubspeciesSpawnRarity.TEN))));
+				}
 			} else {
-				return new ArrayList<>();
+				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+					if(Main.game.getNonCompanionCharactersPresent().isEmpty() || !Main.game.getCurrentDialogueNode().isTravelDisabled()) {
+						pop.add(new Population(false, PopulationType.PERSON, PopulationDensity.OCCASIONAL, Subspecies.getDominionStormImmuneSpecies(true)));
+					}
+				} else {
+					pop.add(new Population(true, PopulationType.CROWD, PopulationDensity.SPARSE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+					pop.add(new Population(false, PopulationType.ENFORCER, PopulationDensity.OCCASIONAL, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
+				}
 			}
+			
+			return pop;
 		}
 	};
 	
@@ -481,6 +510,25 @@ public class PlaceType {
 			DemonHome.DEMON_HOME_SEX_SHOP,
 			Darkness.ALWAYS_LIGHT,
 			null, "in the streets of Demon Home") {
+		@Override
+		public List<Population> getPopulation() {
+			if(Main.game.getDialogueFlags().hasFlag("innoxia_doll_factory_exterior_population_hidden")) {
+				return super.getPopulation();
+			}
+			
+			if(Main.game.getPlayer().getQuest(QuestLine.SIDE_DOLL_FACTORY)==Quest.DOLL_FACTORY_7A) {
+				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+					return Util.newArrayListOfValues(
+							new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getDominionStormImmuneSpecies(true)),
+							new Population(true, PopulationType.ENFORCER, PopulationDensity.DOZENS, Subspecies.getDominionStormImmuneSpecies(true, Subspecies.HUMAN)));
+				} else {
+					return Util.newArrayListOfValues(
+							new Population(false, PopulationType.CROWD, PopulationDensity.DENSE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)),
+							new Population(true, PopulationType.ENFORCER, PopulationDensity.DOZENS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true, Subspecies.HUMAN)));
+				}
+			}
+			return DOMINION_PLAZA.getPopulation();
+		}
 	}.initMapBackgroundColour(PresetColour.MAP_BACKGROUND_PINK);
 	
 	public static final AbstractPlaceType DOMINION_SHOPPING_ARCADE = new AbstractPlaceType(
@@ -1045,6 +1093,10 @@ public class PlaceType {
 				return PresetColour.BASE_GREEN_LIGHT;
 			}
 			return PresetColour.BASE_CRIMSON;
+		} 
+		@Override
+		public List<Population> getPopulation() {
+			return Util.newArrayListOfValues(new Population(false, PopulationType.ENFORCER, PopulationDensity.ONE, Util.newHashMapOfValues(new Value<>(Subspecies.HORSE_MORPH, SubspeciesSpawnRarity.TEN))));
 		}
 	}.initWeatherImmune();
 	
@@ -1074,8 +1126,7 @@ public class PlaceType {
 			PresetColour.BASE_CRIMSON,
 			EnforcerHQDialogue.LOCKED_DOOR,
 			Darkness.ALWAYS_LIGHT,
-			null, "in the Enforcer HQ")
-			.initWeatherImmune();
+			null, "in the Enforcer HQ").initWeatherImmune();
 
 	public static final AbstractPlaceType ENFORCER_HQ_LOCKED_DOOR_EDGE = new AbstractPlaceType(
 			WorldRegion.DOMINION,
@@ -1750,8 +1801,8 @@ public class PlaceType {
 
 	public static final AbstractPlaceType DOMINION_EXPRESS_FILLY_STATION = new AbstractPlaceType(
 			WorldRegion.DOMINION,
-			"Filly Rewards Station",
-			"Set into a small alcove on one side of the warehouse corridor, there's a curious-looking arcane vending machine, which is clearly marked as a 'Filly Rewards Station'.",
+			"[style.Mule] Rewards Station",
+			"Set into a small alcove on one side of the warehouse corridor, there's a curious-looking arcane vending machine, which is clearly marked as a '[style.Mule] Rewards Station'.",
 			"dominion/dominionExpress/fillyStation",
 			PresetColour.BASE_PINK_LIGHT,
 			DominionExpress.FILLY_STATION,
@@ -1985,6 +2036,9 @@ public class PlaceType {
 				
 			} else if(upgrades.contains(PlaceUpgrade.LILAYA_SLAVE_LOUNGE)) {
 				return PlaceUpgrade.getSlaveLoungeUpgrades();
+				
+			} else if(upgrades.contains(PlaceUpgrade.LILAYA_DRESSING_ROOM)) {
+				return PlaceUpgrade.getDressingRoomUpgrades();
 			}
 			
 			return PlaceUpgrade.getCoreRoomUpgrades();
@@ -2889,8 +2943,17 @@ public class PlaceType {
 			PresetColour.BASE_ROSE,
 			ClothingEmporium.EXTERIOR,
 			Darkness.ALWAYS_LIGHT,
-			null, "in her store"
-			).initWeatherImmune();
+			null,
+			"in her store") {
+		@Override
+		public List<Population> getPopulation() {
+			if(Main.game.isHourBetween(9, 20) && !Main.game.getCurrentDialogueNode().isTravelDisabled()) { // Travel disabled indicates that the player is in the storeroom with Nyan
+				return Util.newArrayListOfValues(new Population(true, PopulationType.SHOPPER, PopulationDensity.DOZENS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+			} else {
+				return new ArrayList<>();
+			}
+		}
+	}.initWeatherImmune();
 	
 	public static final AbstractPlaceType SHOPPING_ARCADE_VICKYS_SHOP = new AbstractPlaceType(
 			WorldRegion.DOMINION,
@@ -3580,6 +3643,14 @@ public class PlaceType {
 		public List<Population> getPopulation() {
 			return Util.newArrayListOfValues(new Population(false, PopulationType.CROWD, PopulationDensity.SPARSE, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
 		}
+		@Override
+		public boolean isLoiteringEnabledOverride() {
+			return true;
+		}
+		@Override
+		public boolean isLoiteringEnabled() {
+			return true;
+		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
 	
 	public static final AbstractPlaceType BOUNTY_HUNTER_LODGE_BOUNTY_BOARD = new AbstractPlaceType(
@@ -3611,6 +3682,14 @@ public class PlaceType {
 		@Override
 		public List<Population> getPopulation() {
 			return Util.newArrayListOfValues(new Population(true, PopulationType.PERSON, PopulationDensity.NUMEROUS, Subspecies.getWorldSpecies(WorldType.DOMINION, this, true)));
+		}
+		@Override
+		public boolean isLoiteringEnabledOverride() {
+			return true;
+		}
+		@Override
+		public boolean isLoiteringEnabled() {
+			return true;
 		}
 	}.initWeatherImmune(Weather.MAGIC_STORM);
 
@@ -3653,8 +3732,16 @@ public class PlaceType {
 			BountyHunterLodge.UPSTAIRS_CORRIDOR,
 			Darkness.ALWAYS_LIGHT,
 			null,
-			"in 'The Rusty Collar'")
-		.initWeatherImmune(Weather.MAGIC_STORM);
+			"in 'The Rusty Collar'") {
+		@Override
+		public boolean isLoiteringEnabledOverride() {
+			return true;
+		}
+		@Override
+		public boolean isLoiteringEnabled() {
+			return true;
+		}
+	}.initWeatherImmune(Weather.MAGIC_STORM);
 
 	public static final AbstractPlaceType BOUNTY_HUNTER_LODGE_UPSTAIRS_STAIRS = new AbstractPlaceType(
 			WorldRegion.DOMINION,
@@ -3703,7 +3790,7 @@ public class PlaceType {
 			null,
 			"in 'The Rusty Collar'")
 		.initWeatherImmune(Weather.MAGIC_STORM);
-	
+
 	
 	// Watering hole:
 	
@@ -4035,7 +4122,7 @@ public class PlaceType {
 	public static final AbstractPlaceType NYAN_APARTMENT_HALLWAY = new AbstractPlaceType(
 			WorldRegion.DOMINION,
 			"Hallway",
-			"The wide, carpeted hallways connects the rooms in Helena's apartment.",
+			"The wide, carpeted hallways connect the rooms in Nyan's apartment.",
 			null,
 			PresetColour.BASE_BLACK,
 			NyanApartment.HALLWAY,
@@ -4303,7 +4390,7 @@ public class PlaceType {
 			null, "in Submission") {
 		@Override
 		public String getSVGString(Set<AbstractPlaceUpgrade> upgrades) {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressAlphaDefeated)) {
+			if(Main.game.getNpc(FortressAlphaLeader.class).getWorldLocation()!=WorldType.IMP_FORTRESS_ALPHA) {
 				return getSVGOverride("submission/impFortress1", PresetColour.BASE_GREEN_LIGHT);
 			}
 			return getSVGOverride("submission/impFortress1", PresetColour.BASE_CRIMSON);
@@ -4570,7 +4657,7 @@ public class PlaceType {
 			null, "in Submission") {
 		@Override
 		public String getSVGString(Set<AbstractPlaceUpgrade> upgrades) {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressFemalesDefeated)) {
+			if(Main.game.getNpc(FortressFemalesLeader.class).getWorldLocation()!=WorldType.IMP_FORTRESS_FEMALES) {
 				return getSVGOverride("submission/impFortress3", PresetColour.BASE_GREEN_LIGHT);
 			}
 			return getSVGOverride("submission/impFortress3", PresetColour.BASE_PINK);
@@ -4646,7 +4733,7 @@ public class PlaceType {
 			null, "in Submission") {
 		@Override
 		public String getSVGString(Set<AbstractPlaceUpgrade> upgrades) {
-			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.impFortressMalesDefeated)) {
+			if(Main.game.getNpc(FortressMalesLeader.class).getWorldLocation()!=WorldType.IMP_FORTRESS_MALES) {
 				return getSVGOverride("submission/impFortress4", PresetColour.BASE_GREEN_LIGHT);
 			}
 			return getSVGOverride("submission/impFortress4", PresetColour.BASE_BLUE);

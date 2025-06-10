@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		#IF(sex.getNumberOfOrgasms(pc)==0)
+			[#pc.getClothingInSlot(IS_VAGINA)!=null && pc.getClothingInSlot(IS_ANUS)==null]
+		#ELSE
+			[#pc.getClothingInSlot(IS_VAGINA).getColour(0)==COLOUR_CLOTHING_BLACK && (pc.getClothingInSlot(IS_ANUS)==null || pc.getClothingInSlot(IS_ANUS).getColour(0)==COLOUR_CLOTHING_BLACK)]
+		#ENDIF
+	]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>FIVE_EXTREME</arousalPerformer>
+	<arousalTarget>ZERO_NONE</arousalTarget>
+	<associatedCorruption>TWO_HORNY</associatedCorruption>
+	<associatedFetishes/>
+	<performingArea/>
+	<targetedArea/>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+		#IF(!game.isAnalContentEnabled())
+			[##pc.setArousal(100)]
+		#ELSE
+			[##pc.setArousal(70)]
+		#ENDIF
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[
+		#IF(sex.getNumberOfOrgasms(pc)==0)
+			Focus
+		#ELSE
+			Hard fuck
+		#ENDIF
+	]]></title>
+	<tooltip><![CDATA[
+		Do as the doll commands and focus on the pleasure of the vibrating dildo in your pussy.
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getNumberOfOrgasms(pc)==0]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Obediently doing as you're told, you focus on the pleasure of the vibrating toy that the doll has stuffed deep in your [pc.pussy+]. Being used as no more than an object to test sex toys fills you with an intense, submissive pleasure that would be troubling if it didn't feel so good. For a moment you can think of yourself as nothing more than a mindless sex doll, willing to do anything that's asked of you. As you snap out of this brief fantasy, you're once again hit by an intense rush of arousal, and you realise that it won't take much more to push you to the brink of an orgasm. 
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#sex.getNumberOfOrgasms(pc)>0]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Yet again, you obediently do as the doll commands, and after leaning back on your knees, you get a good grip on the equine dildo's fat balls with both hands and pull it half-way out of your stretched twat. Wanting to push both the toy and your new body to their limits, you slam the huge toy back into your pussy as hard as you can. Moaning in depraved joy as you force the toy deep into your wet orifice, you quickly draw it out and repeat the process, fucking your abused cunt as hard and as fast as you can. As your slick juices coat the thick shaft and drip down onto the floor between your legs, you find yourself once again rapidly approaching your climax.
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

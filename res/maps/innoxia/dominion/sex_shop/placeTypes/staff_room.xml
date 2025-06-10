@@ -2,7 +2,7 @@
 <placeType>
 	<worldRegion>DOMINION</worldRegion>
 	<name><![CDATA[staff room]]></name>
-	<tooltipDescription><![CDATA[Filled with sofas, drinks machines, and other such luxuries, this room is where the shop's employees go to relax.]]></tooltipDescription>
+	<tooltipDescription><![CDATA[Black designer sofas have been placed around the edges of this luxurious staff room, while a fully-stocked bar is staffed by a couple of golden sex dolls.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the staff room in Lovienne's Luxuries]]></virginityLossDescription>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>BASE_ORANGE</colour>
@@ -22,7 +22,7 @@
 	<dangerous><![CDATA[false]]></dangerous>
 	<itemsDisappear><![CDATA[true]]></itemsDisappear>
 	<aquatic><![CDATA[LAND]]></aquatic>
-	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<darkness><![CDATA[DAYLIGHT]]></darkness>
 	<teleportPermissions>NONE</teleportPermissions>
 	<weatherImmunities immuneToAll="true"/>
 	<applyInventoryInit/>

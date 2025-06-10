@@ -92,6 +92,8 @@ public class PopulationType {
 	public static AbstractPopulationType COCK_SLEEVE = new AbstractPopulationType("cock-sleeve", "cock-sleeves") {};
 
 	public static AbstractPopulationType DOLL = new AbstractPopulationType("doll", "dolls") {};
+
+	public static AbstractPopulationType OVERSEER = new AbstractPopulationType("overseer", "overseers") {};
 	
 	
 	private static List<AbstractPopulationType> allPopulationTypes = new ArrayList<>();

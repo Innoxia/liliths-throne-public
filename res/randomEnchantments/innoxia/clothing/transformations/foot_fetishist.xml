@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<enchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	<applyDefaultSeal><![CDATA[true]]></applyDefaultSeal>
+	
+	<spawnWeighting><![CDATA[
+		#IF(game.isFootContentEnabled())
+			100
+		#ELSE
+			0
+		#ENDIF
+	]]></spawnWeighting>
+	
+	<namePrefix><![CDATA[Foot fiend's]]></namePrefix>
+	<namePostfix/>
+	<nameOverride/>
+	
+	<conditionalPreParsing/>
+	
+	<itemEffects>
+		<effect limit="0" mod1="TF_MOD_FETISH_BODY_PART" mod2="TF_MOD_FETISH_FOOT_RECEIVING" potency="MAJOR_BOOST" timer="638" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_MOD_FETISH_BODY_PART" mod2="TF_MOD_FETISH_PENIS_GIVING" potency="MAJOR_BOOST" timer="638" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_MOD_FETISH_BODY_PART" mod2="TF_MOD_FETISH_ORAL_GIVING" potency="MAJOR_BOOST" timer="638" type="CLOTHING"/>
+	</itemEffects>
+	
+</enchantment>

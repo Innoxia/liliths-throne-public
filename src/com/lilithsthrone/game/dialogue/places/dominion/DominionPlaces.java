@@ -10,6 +10,7 @@ import java.util.Set;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.dominion.Callie;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.Nyan;
 import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
@@ -38,12 +39,17 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Season;
 import com.lilithsthrone.world.Weather;
+import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -144,8 +150,8 @@ public class DominionPlaces {
 		AbstractClothing collar = Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK);
 		if(collar!=null && collar.getClothingType().getId().equals("innoxia_neck_filly_choker")) {
 			mommySB.append("<p>");
-				mommySB.append("[style.boldPinkLight(Filly Choker:)]<br/>");
-				mommySB.append("By wearing your filly choker, you're signalling to any passing centaur slaves from Dominion Express that you're available to sexually service them.");
+				mommySB.append("[style.boldPinkLight([style.Mule] Choker:)]<br/>");
+				mommySB.append("By wearing your [style.mule] choker, you're signalling to any passing centaur slaves from Dominion Express that you're available to sexually service them.");
 				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
 					mommySB.append(" As there's an ongoing arcane storm, however, there's [style.colourMinorBad(zero chance)] that you'll encounter any of them...");
 				} else if(!Main.game.isExtendedWorkTime()) {
@@ -190,8 +196,7 @@ public class DominionPlaces {
 							"You've already taken Nyan and [nyanmum.name] out for a date this weekend. You'll have to wait until next weekend before taking them out again...",
 							null));
 					
-				} else if((Main.game.getDayOfWeek()==DayOfWeek.FRIDAY || Main.game.getDayOfWeek()==DayOfWeek.SATURDAY)
-						&& (Main.game.getHourOfDay()>=18 && Main.game.getHourOfDay()<23)) {
+				} else if((Main.game.getDayOfWeek()==DayOfWeek.FRIDAY || Main.game.getDayOfWeek()==DayOfWeek.SATURDAY) && (Main.game.isHourBetween(20, 23))) {
 					if(Main.game.getNpc(Nyan.class).getWorldLocation()!=WorldType.NYANS_APARTMENT) {
 						mommyResponses.add(new Response("Double date ("+UtilText.formatAsMoneyUncoloured(dateCost, "span")+")",
 								"Nyan and [nyanmum.name] are not at home at the moment. You'll have to come back after their work day ends...",
@@ -228,9 +233,9 @@ public class DominionPlaces {
 									?"[style.italicsMinorGood(Saturday)]"
 									:"[style.italicsMinorBad(Saturday)]")
 								+", and between the hours of "
-								+ (Main.game.getHourOfDay()>=18 && Main.game.getHourOfDay()<23
-									?"[style.italicsMinorGood([unit.time(18)]-[unit.time(23)])]"
-									:"[style.italicsMinorBad([unit.time(18)]-[unit.time(23)])]")
+								+ (Main.game.isHourBetween(20, 23)
+									?"[style.italicsMinorGood([unit.time(20)]-[unit.time(23)])]"
+									:"[style.italicsMinorBad([unit.time(20)]-[unit.time(23)])]")
 								+" in order to take Nyan and [nyanmum.name] out for a date!",
 							null));
 				}
@@ -296,12 +301,29 @@ public class DominionPlaces {
 			int hourClose = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("nnxx_callie_upgrade_2"))?17:15;
 			
 			if(Main.game.isHourBetween(hourOpen, hourClose) && Main.game.getDayOfWeek()!=DayOfWeek.SUNDAY) {
+				DialogueNode initNode = DialogueManager.getDialogueFromId("nnxx_callie_bakery_entry_first_time");
+				if(Main.game.getDialogueFlags().hasFlag("nnxx_callie_introduced")) {
+					AbstractClothing playerNeckClothing = Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK);
+					if(Main.game.getDialogueFlags().hasFlag("nnxx_callie_upgrade_3")
+							&& !Main.game.getDialogueFlags().hasFlag("nnxx_callie_upgrade_reaction_pending")
+							&& Main.game.getPlayer().getSexCount(Main.game.getNpc(Callie.class), new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS))>0
+							&& Main.game.getNpc(Callie.class).isAttractedTo(Main.game.getPlayer())
+							&& Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_NATALYA)
+							&& (playerNeckClothing!=null && playerNeckClothing.getClothingType().getId().equals("innoxia_neck_filly_choker"))
+							&& Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)
+							&& (!Main.game.getDialogueFlags().hasFlag("innoxia_callie_natalya_encountered")
+									|| Main.game.getSecondsPassed() - Main.game.getDialogueFlags().getSavedLong("callie_natalya_encounter_time") >= 60*60*24*3)) {
+						initNode = DialogueManager.getDialogueFromId("nnxx_callie_bakery_entry_natalya"); // Can be encountered every three days
+						
+					} else {
+						initNode = DialogueManager.getDialogueFromId("nnxx_callie_bakery_entry");
+					}
+				}
+				
 				mommyResponses.add(new Response("The Creamy Bakey",
 						"Head over to the nearby bakery, 'The Creamy Bakey', and take a look inside."
 								+ "<br/><i>The bakery is open from [style.italicsMinorGood([unit.time("+hourOpen+")]-[unit.time("+hourClose+")])].</i>",
-						Main.game.getDialogueFlags().hasFlag("nnxx_callie_introduced")
-							?DialogueManager.getDialogueFromId("nnxx_callie_bakery_entry")
-							:DialogueManager.getDialogueFromId("nnxx_callie_bakery_entry_first_time")) {
+								initNode) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(WorldType.getWorldTypeFromId("nnxx_callie_bakery"), PlaceType.getPlaceTypeFromId("nnxx_callie_bakery_counter"));
@@ -694,8 +716,68 @@ public class DominionPlaces {
 		}
 	};
 
+	private static Set<Integer> viewedNewsIndexes = new HashSet<>();
+	private static boolean viewedAllNews = false;
+	
+	private static String getRandomNewsText() {
+		List<AbstractSubspecies> possibleSubspecies = new ArrayList<>();
+		for(AbstractSubspecies s : Subspecies.allSubspecies) {
+			if(s.getMostCommonWorldRegions().contains(WorldRegion.DOMINION)) {
+				possibleSubspecies.add(s);
+			}
+		}
+		
+		String randomFemalePerson = Util.randomItemFrom(possibleSubspecies).getSingularFemaleName(null);
+		String randomMalePerson = Util.randomItemFrom(possibleSubspecies).getSingularMaleName(null);
+		
+		List<String> strings = Util.newArrayListOfValues(
+				"A rough-looking "+randomMalePerson+" unrolls a large scroll, before clearing his throat and calling out,"
+						+ " [maleNPC.speech(By decree of Lilith, and in the interests of Dominion's security,"
+							+ " any human seen walking the streets outside of daylight hours may legally be subjected to a full body search from any Enforcer.)]",
+					Util.capitaliseSentence(UtilText.addDeterminer(randomFemalePerson))+" holds up an official-looking piece of paper, complete with a red wax seal, and declares,"
+						+ " [femaleNPC.speech(A reward of two-hundred-thousand flames has been issued for any information leading to the arrest of the person or persons responsible"
+							+ " for distributing illegal newspapers in the districts beneath the Harpy Nests!)]",
+					"A rather wild-looking succubus, dressed in a very Halloween-esque witch's costume, points to different members of the crowd as she screams,"
+						+ " [femaleNPC.speech(I count no less than three demons in the crowd who are without a cultist's uniform!"
+							+ " What would Lilith say if she could see this now?!)]",
+					Util.capitaliseSentence(UtilText.addDeterminer(randomMalePerson))+" relays several boring, mundane pieces of news to the crowd."
+							+ " There's nothing that is of any interest to you, and you eventually turn away, having felt as though you just wasted your time.",
+					Util.capitaliseSentence(UtilText.addDeterminer(randomFemalePerson))+" relays several boring, mundane pieces of news to the crowd."
+							+ " There's nothing that is of any interest to you, and you eventually turn away, having felt as though you just wasted your time.",
+					Util.capitaliseSentence(UtilText.addDeterminer(randomMalePerson))+" is currently reading out a list of advertisements for shops in the local area."
+							+ " There's really nothing of interest to be heard, and you soon find yourself turning away and moving on.",
+					Util.capitaliseSentence(UtilText.addDeterminer(randomFemalePerson))+" is currently reading out a list of advertisements for shops in the local area."
+							+ " There's really nothing of interest to be heard, and you soon find yourself turning away and moving on.");
+		
+		List<Integer> availableIndexes = new ArrayList<>();
+		for(int i=0; i<strings.size(); i++) {
+			availableIndexes.add(i);
+		}
+		for(Integer i : viewedNewsIndexes) {
+			availableIndexes.remove(i);
+		}
+		if(availableIndexes.isEmpty()) {
+			viewedAllNews = true;
+			return "<p style='text-align:center;'>"
+						+ "[style.italicsDisabled(You've listened to everything that's being said...)]"
+					+ "</p>";
+			
+		} else {
+			int index = Util.randomItemFrom(availableIndexes);
+			viewedNewsIndexes.add(index);
+			
+			return "<p>"
+						+ strings.get(index)
+					+ "</p>";
+		}
+	}
 	
 	public static final DialogueNode DOMINION_PLAZA = new DialogueNode("Lilith's Plaza", "", false) {
+		@Override
+		public void applyPreParsingEffects() {
+			viewedNewsIndexes.clear();
+			viewedAllNews = false;
+		}
 		@Override
 		public int getSecondsPassed() {
 			return 3*60;
@@ -708,8 +790,10 @@ public class DominionPlaces {
 		public Response getResponse(int responseTab, int index) {
 			if(index == 1) {
 				if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-					return new Response(
-							"News", "Due to the ongoing arcane storm, there's nobody here at the moment...", null);
+					return new Response("News", "Due to the ongoing arcane storm, there's nobody here at the moment...", null);
+					
+				} else if(viewedAllNews) {
+					return new Response("News", "You've listened to everything that's being said...", null);
 					
 				} else {
 					return new Response(
@@ -717,41 +801,14 @@ public class DominionPlaces {
 							"Decide to stay a while and listen to one of the orators...", DOMINION_PLAZA_NEWS){
 								@Override
 								public void effects() {
-									List<AbstractSubspecies> possibleSubspecies = new ArrayList<>();
-									possibleSubspecies.add(Subspecies.CAT_MORPH);
-									possibleSubspecies.add(Subspecies.DOG_MORPH);
-									possibleSubspecies.add(Subspecies.HORSE_MORPH);
-									possibleSubspecies.add(Subspecies.WOLF_MORPH);
-									
-									String randomFemalePerson = possibleSubspecies.get(Util.random.nextInt(possibleSubspecies.size())).getSingularFemaleName(null);
-									String randomMalePerson = possibleSubspecies.get(Util.random.nextInt(possibleSubspecies.size())).getSingularMaleName(null);
-									
 									Main.game.getTextEndStringBuilder().append("<p>"
-											+UtilText.returnStringAtRandom(
-													"A rough-looking "+randomMalePerson+" unrolls a large scroll, before clearing his throat and calling out,"
-														+ " [maleNPC.speech(By decree of Lilith, and in the interests of Dominion's security,"
-															+ " any human seen walking the streets outside of daylight hours may legally be subjected to a full body search from any Enforcer.)]",
-													Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomFemalePerson))+" "+randomFemalePerson+" holds up an official-looking piece of paper, complete with a red wax seal, and declares,"
-														+ " [femaleNPC.speech(A reward of two-hundred-thousand flames has been issued for any information leading to the arrest of the person or persons responsible"
-															+ " for distributing illegal newspapers in the districts beneath the Harpy Nests!)]",
-													"A rather wild-looking succubus, dressed in a very Halloween-esque witch's costume, points to different members of the crowd as she screams,"
-														+ " [femaleNPC.speech(I count no less than three demons in the crowd who are without a cultist's uniform!"
-															+ " What would Lilith say if she could see this now?!)]",
-													Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomMalePerson))+" "+randomMalePerson+" relays several boring, mundane pieces of news to the crowd."
-															+ " There's nothing that is of any interest to you, and you eventually turn away, having felt as though you just wasted your time.",
-													Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomFemalePerson))+" "+randomFemalePerson+" relays several boring, mundane pieces of news to the crowd."
-															+ " There's nothing that is of any interest to you, and you eventually turn away, having felt as though you just wasted your time.",
-													Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomMalePerson))+" "+randomMalePerson+" is currently reading out a list of advertisements for shops in the local area."
-															+ " There's really nothing of interest to be heard, and you soon find yourself turning away and moving on.",
-													Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomFemalePerson))+" "+randomFemalePerson+" is currently reading out a list of advertisements for shops in the local area."
-															+ " There's really nothing of interest to be heard, and you soon find yourself turning away and moving on.")
+											+ getRandomNewsText()
 											+"</p>");
 								}
 							};
 				}
-			} else {
-				return null;
 			}
+			return null;
 		}
 	};
 	

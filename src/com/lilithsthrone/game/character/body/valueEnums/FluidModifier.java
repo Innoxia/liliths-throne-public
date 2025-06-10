@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.body.valueEnums;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.FluidInterface;
 import com.lilithsthrone.game.character.effects.Addiction;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
@@ -129,7 +130,7 @@ public enum FluidModifier {
 			"Psychoactive fluids will cause anyone who ingests them to experience a hallucinogenic trip, causing their view of sexual organs to be distorted as well as opening them up to the possibility of being hypnotically manipulated.") {
 		@Override
 		public String applyEffects(GameCharacter target, GameCharacter fluidProvider, float millilitres, FluidInterface fluid) {
-			if(target.isDoll()) {
+			if(target.hasPerkAnywhereInTree(Perk.DOLL_PHYSICAL_3)) {
 				return "";
 			}
 			target.addPsychoactiveFluidIngested(fluid.getType());

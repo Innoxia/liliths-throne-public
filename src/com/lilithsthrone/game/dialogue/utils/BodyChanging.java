@@ -510,7 +510,7 @@ public class BodyChanging {
 							
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformFemininityChoiceDiv()
-							+ CharacterModificationUtils.getHeightChoiceDiv()
+							+ CharacterModificationUtils.getHeightChoiceDiv(false)
 						+"</div>"
 							
 						+ "<div class='cosmetics-container' style='background:transparent;'>"
@@ -576,7 +576,7 @@ public class BodyChanging {
 						
 						+"<div style='clear:left;'>"
 							+ CharacterModificationUtils.getSelfTransformFemininityChoiceDiv()
-							+ CharacterModificationUtils.getHeightChoiceDiv()
+							+ CharacterModificationUtils.getHeightChoiceDiv(false)
 						+"</div>"
 						
 						+ (BodyChanging.getTarget().isElemental()
@@ -676,7 +676,7 @@ public class BodyChanging {
 						
 					+"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformFemininityChoiceDiv()
-						+ CharacterModificationUtils.getHeightChoiceDiv()
+						+ CharacterModificationUtils.getHeightChoiceDiv(false)
 					+"</div>"
 						
 					+ "<div class='cosmetics-container' style='background:transparent;'>"
@@ -699,13 +699,25 @@ public class BodyChanging {
 					+"</div>"
 					
 					+"<div style='clear:left;'>"
+						+ CharacterModificationUtils.getSelfTransformTailChoiceDiv(
+								Util.newArrayListOfValues(Race.NONE, BodyChanging.getTarget().getFleshSubspecies().getRace()),
+								false)
 						+ CharacterModificationUtils.getSelfTransformTailLengthDiv()
+					+"</div>"
+
+					+"<div style='clear:left;'>"
+						+ CharacterModificationUtils.getSelfTransformTailCountDiv()
 						+ CharacterModificationUtils.getSelfTransformTailGirthDiv()
 					+"</div>"
 						
 					+"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformTentacleLengthDiv()
 						+ CharacterModificationUtils.getSelfTransformTentacleGirthDiv()
+					+"</div>"
+					
+					+"<div style='clear:left;'>"
+						+ CharacterModificationUtils.getSelfTransformWingChoiceDiv(Util.newArrayListOfValues(Race.NONE, BodyChanging.getTarget().getFleshSubspecies().getRace()), false)
+						+ CharacterModificationUtils.getSelfTransformWingSizeDiv()
 					+"</div>");
 				
 			// Slime/debug:
@@ -723,7 +735,7 @@ public class BodyChanging {
 						
 					+"<div style='clear:left;'>"
 						+ CharacterModificationUtils.getSelfTransformFemininityChoiceDiv()
-						+ CharacterModificationUtils.getHeightChoiceDiv()
+						+ CharacterModificationUtils.getHeightChoiceDiv(false)
 					+"</div>"
 						
 					+ "<div class='cosmetics-container' style='background:transparent;'>"
@@ -1179,7 +1191,7 @@ public class BodyChanging {
 								"Lip & Throat colour",
 								UtilText.parse(BodyChanging.getTarget(),
 										"The natural colour of [npc.namePos] "+(getTarget().getFaceType() == FaceType.HARPY?"beak":"lips")+" (top options) and [npc.her] throat (bottom options)."
-										+ "Lipstick can be used to conceal [npc.her] natural lip colour."),
+										+ " Lipstick can be used to conceal [npc.her] natural lip colour."),
 								true, true)
 
 						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getTongueType().getRace(), BodyChanging.getTarget().getCovering(BodyCoveringType.TONGUE).getType(),
@@ -1253,7 +1265,7 @@ public class BodyChanging {
 								"Lip & Throat colour",
 								UtilText.parse(BodyChanging.getTarget(),
 										"The natural colour of [npc.namePos] "+(getTarget().getFaceType() == FaceType.HARPY?"beak":"lips")+" (top options) and [npc.her] throat (bottom options)."
-										+ "Lipstick can be used to conceal [npc.her] natural lip colour."),
+										+ " Lipstick can be used to conceal [npc.her] natural lip colour."),
 								true, true)
 						
 						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getTongueType().getRace(), BodyChanging.getTarget().getCovering(BodyCoveringType.TONGUE).getType(),
@@ -1351,9 +1363,19 @@ public class BodyChanging {
 				UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
 						+ UtilText.parse(BodyChanging.getTarget(), "<i>With the D.E.C.K.'s cable plugged into the port on the rear of [npc.namePos] neck, you're able to customise [npc.her] head and face...</i>")
 						+ "</div>"
+						
+						+"<div style='clear:left;'>"
+							+ CharacterModificationUtils.getSelfTransformHornChoiceDiv(Util.newArrayListOfValues(Race.NONE, BodyChanging.getTarget().getFleshSubspecies().getRace()))
+							+ CharacterModificationUtils.getSelfTransformHornSizeDiv()
+						+"</div>"
 
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformHornSizeDiv()
+							+ CharacterModificationUtils.getSelfTransformHornCountDiv()
+							+ CharacterModificationUtils.getSelfTransformHornsPerRowCountDiv()
+						+"</div>"
+
+						+ "<div style='clear:left;'>"
+							+ CharacterModificationUtils.getSelfTransformAntennaChoiceDiv((getMinorPartsDemonRaces(true)))
 							+ CharacterModificationUtils.getSelfTransformAntennaSizeDiv()
 						+"</div>"
 						
@@ -1392,7 +1414,7 @@ public class BodyChanging {
 								"Lip & Throat colour",
 								UtilText.parse(BodyChanging.getTarget(),
 										"The natural colour of [npc.namePos] "+(getTarget().getFaceType() == FaceType.HARPY?"beak":"lips")+" (top options) and [npc.her] throat (bottom options)."
-										+ "Lipstick can be used to conceal [npc.her] natural lip colour."),
+										+ " Lipstick can be used to conceal [npc.her] natural lip colour."),
 								true, true)
 						
 						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getTongueType().getRace(), BodyChanging.getTarget().getCovering(BodyCoveringType.TONGUE).getType(),

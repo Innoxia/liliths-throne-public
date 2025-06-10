@@ -165,8 +165,16 @@ public class Artwork {
 	
 	private List<String> getFilteredImages(List<String> images) {
 		List<String> filteredImages = new ArrayList<>(images);
-		filteredImages.removeIf(s -> s.contains("penis") && !character.hasPenisIgnoreDildo());
-		filteredImages.removeIf(s -> s.contains("vagina") && !character.hasVagina());
+		if(Main.game.isStarted()) {
+			filteredImages.removeIf(s -> s.toLowerCase().contains("#penis") && !character.hasPenisIgnoreDildo());
+			filteredImages.removeIf(s -> s.toLowerCase().contains("#nopenis") && character.hasPenisIgnoreDildo());
+			filteredImages.removeIf(s -> s.toLowerCase().contains("#vagina") && !character.hasVagina());
+			filteredImages.removeIf(s -> s.toLowerCase().contains("#novagina") && character.hasVagina());
+			filteredImages.removeIf(s -> s.toLowerCase().contains("#preg") && !character.isVisiblyPregnant());
+			filteredImages.removeIf(s -> s.toLowerCase().contains("#nopreg") && character.isVisiblyPregnant());
+			filteredImages.removeIf(s -> s.toLowerCase().contains("#udders") && (!Main.game.isUdderContentEnabled() || !character.hasBreastsCrotch()));
+			filteredImages.removeIf(s -> s.toLowerCase().contains("#noudders") && Main.game.isUdderContentEnabled() && character.hasBreastsCrotch());
+		}
 		return filteredImages;
 	}
 	

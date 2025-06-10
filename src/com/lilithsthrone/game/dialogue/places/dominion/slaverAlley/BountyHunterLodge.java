@@ -9,6 +9,8 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.SupplierLeader;
 import com.lilithsthrone.game.character.npc.dominion.SupplierPartner;
+import com.lilithsthrone.game.character.npc.fields.Angelixx;
+import com.lilithsthrone.game.character.npc.fields.Sleip;
 import com.lilithsthrone.game.character.npc.submission.Silence;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNode;
@@ -510,4 +512,72 @@ public class BountyHunterLodge {
 			return null;
 		}
 	};
+	
+	// Content for Angelixx & sons was moved out of here, but these locations should still work fine
+	
+	public static final DialogueNode UPSTAIRS_ROOM_ANGELIXX = new DialogueNode("", "", false) {
+		@Override
+		public int getSecondsPassed() {
+			return 1*60;
+		}
+		@Override
+		public String getContent() {
+			if(Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).contains(Main.game.getNpc(Angelixx.class))) {
+				return UtilText.parseFromXMLFile("places/dominion/slaverAlley/bountyHunterLodge", "UPSTAIRS_ROOM_ANGELIXX");
+			}
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/bountyHunterLodge", "UPSTAIRS_ROOM");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				if(Main.game.isHourBetween(9, 18)) {
+					return new Response("Angelixx",
+							"Knock on the door to meet with Angelixx."
+							+ "<br/>[style.italicsMinorBad(This content will be added soon!)]",
+							null);
+					
+				} else {
+					return new Response("Angelixx",
+							"Angelixx isn't around at this time..."
+							+ "<br/><i>Return between the hours of [units.time(9)]-[units.time(18)] to meet Angelixx.</i>",
+							null);
+				}
+			}
+			return null;
+		}
+	};
+	
+	public static final DialogueNode UPSTAIRS_ROOM_SLEIP_NIR = new DialogueNode("", "", false) {
+		@Override
+		public int getSecondsPassed() {
+			return 1*60;
+		}
+		@Override
+		public String getContent() {
+			if(Main.game.getCharactersTreatingCellAsHome(Main.game.getPlayerCell()).contains(Main.game.getNpc(Sleip.class))) {
+				return UtilText.parseFromXMLFile("places/dominion/slaverAlley/bountyHunterLodge", "UPSTAIRS_ROOM_SLEIP_NIR");
+			}
+			return UtilText.parseFromXMLFile("places/dominion/slaverAlley/bountyHunterLodge", "UPSTAIRS_ROOM");
+		}
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				if(Main.game.isHourBetween(9, 18)) {
+					return new Response("Sleip & Nir",
+							"Knock on the door to meet with Sleip and Nir."
+							+ "<br/>[style.italicsMinorBad(This content will be added soon!)]",
+							null);
+					
+				} else {
+					return new Response("Sleip & Nir",
+							"Sleip and Nir aren't around at this time..."
+							+ "<br/><i>Return between the hours of [units.time(9)]-[units.time(18)] to meet Angelixx.</i>",
+							null);
+				}
+			}
+			return null;
+		}
+	};
+	
+	
 }

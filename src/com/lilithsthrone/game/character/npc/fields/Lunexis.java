@@ -63,6 +63,7 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.pregnancy.FertilisationType;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
@@ -98,13 +99,13 @@ public class Lunexis extends NPC {
 	}
 	
 	public Lunexis(boolean isImported) {
-		super(isImported, new NameTriplet("Lunexis"), "Lunettemartu",
+		super(isImported, new NameTriplet("Lunexis"), "Lunettemartuilani",
 				"One of Lunette's recognised daughters, Lunexis is particularly strong, dominant, and brutal."
 						+ " Delighting in destruction, chaos, and mayhem, she is used by her elder lilin mother as a living weapon, who tasks her with destroying towns and villages which have displeased her.",
-				48, Month.JANUARY, 15,
+				517, Month.JANUARY, 15,
 				35,
 				null, null, null,
-				new CharacterInventory(10_000),
+				new CharacterInventory(false, 10_000),
 				WorldType.getWorldTypeFromId("innoxia_fields_themiscyra"), PlaceType.getPlaceTypeFromId("innoxia_fields_themiscyra_plaza"),
 				true);
 		
@@ -119,6 +120,16 @@ public class Lunexis extends NPC {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.4.5")) {
 			setupPerks(true);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.9.8")) {
+			this.setAge(517);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.9.13")) {
+			this.setBreastRows(2);
+			this.setPiercedPenis(true);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_penis_ring", PresetColour.CLOTHING_GOLD, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_wrist_thin_bangles", PresetColour.CLOTHING_GOLD, false), InventorySlot.TAIL, true, this);
+			this.setSurname("Lunettemartuilani");
 		}
 	}
 
@@ -224,7 +235,7 @@ public class Lunexis extends NPC {
 		// Chest:
 		this.setNippleVirgin(false);
 		this.setBreastSize(CupSize.F.getMeasurement());
-		this.setBreastRows(3);
+		this.setBreastRows(2);
 		this.setBreastShape(BreastShape.ROUND);
 		this.setNippleSize(NippleSize.THREE_LARGE);
 		this.setAreolaeSize(AreolaeSize.THREE_LARGE);
@@ -299,8 +310,9 @@ public class Lunexis extends NPC {
 
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_head_circlet", PresetColour.CLOTHING_GOLD, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_wraps", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_wrist_thin_bangles", PresetColour.CLOTHING_GOLD, false), true, this);
 		
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_wrist_thin_bangles", PresetColour.CLOTHING_GOLD, false), InventorySlot.WRIST, true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_wrist_thin_bangles", PresetColour.CLOTHING_GOLD, false), InventorySlot.TAIL, true, this);
 		
 		// Piercings:
 		
@@ -315,6 +327,9 @@ public class Lunexis extends NPC {
 		nippleChains.setSticker("third_chain", "add2");
 		this.equipClothingFromNowhere(nippleChains, true, this);
 
+		this.setPiercedPenis(true);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_penis_ring", PresetColour.CLOTHING_GOLD, false), true, this);
+		
 		this.setPiercedTongue(true);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_piercing_basic_barbell", PresetColour.CLOTHING_GOLD, false), true, this);
 
@@ -328,6 +343,11 @@ public class Lunexis extends NPC {
 	@Override
 	public boolean isUnique() {
 		return true;
+	}
+
+	@Override
+	public String getArtworkFolderName() {
+		return "Lunexis";
 	}
 	
 	@Override
@@ -629,7 +649,7 @@ public class Lunexis extends NPC {
 							PresetColour.CLOTHING_PURPLE,
 							false,
 							new TattooWriting("Choke Me!", PresetColour.CLOTHING_PURPLE, false, TattooWritingStyle.BOLD),
-							new TattooCounter(TattooCounterType.SEX_SUB, TattooCountType.NUMBERS, PresetColour.CLOTHING_PURPLE, false)));
+							new TattooCounter(TattooCounterType.SEX_SUB, TattooCountType.NUMBERS, PresetColour.CLOTHING_PURPLE, false, meraxis)));
 			meraxis.addTattoo(InventorySlot.WRIST,
 					new Tattoo(
 							"innoxia_hearts_hearts",
@@ -645,7 +665,7 @@ public class Lunexis extends NPC {
 							PresetColour.CLOTHING_PINK_HOT,
 							false,
 							new TattooWriting("~Fill Me Up~", PresetColour.CLOTHING_PINK_HOT, false, TattooWritingStyle.ITALICISED),
-							new TattooCounter(TattooCounterType.CUM_TAKEN, TattooCountType.NUMBERS, PresetColour.CLOTHING_PINK_HOT, false)));
+							new TattooCounter(TattooCounterType.CUM_TAKEN, TattooCountType.NUMBERS, PresetColour.CLOTHING_PINK_HOT, false, meraxis)));
 			meraxis.addTattoo(InventorySlot.CHEST,
 					new Tattoo(
 							"innoxia_hearts_hearts",
@@ -654,7 +674,7 @@ public class Lunexis extends NPC {
 							PresetColour.CLOTHING_PURPLE,
 							false,
 							new TattooWriting("~Slap My Tits~", PresetColour.CLOTHING_PINK_HOT, false, TattooWritingStyle.ITALICISED),
-							new TattooCounter(TattooCounterType.UNIQUE_SEX_PARTNERS, TattooCountType.NUMBERS, PresetColour.CLOTHING_PINK_HOT, false)));
+							new TattooCounter(TattooCounterType.UNIQUE_SEX_PARTNERS, TattooCountType.NUMBERS, PresetColour.CLOTHING_PINK_HOT, false, meraxis)));
 			meraxis.addTattoo(InventorySlot.NIPPLE,
 					new Tattoo(
 							"innoxia_knot_spiral",
@@ -688,7 +708,7 @@ public class Lunexis extends NPC {
 							PresetColour.CLOTHING_PURPLE,
 							false,
 							new TattooWriting("Foal Factory", PresetColour.CLOTHING_PURPLE, false),
-							new TattooCounter(TattooCounterType.OFFSPRING_BIRTHED, TattooCountType.NUMBERS, PresetColour.CLOTHING_PURPLE, false)));
+							new TattooCounter(TattooCounterType.OFFSPRING_BIRTHED, TattooCountType.NUMBERS, PresetColour.CLOTHING_PURPLE, false, meraxis)));
 			meraxis.addTattoo(InventorySlot.FINGER,
 					new Tattoo(
 							"innoxia_symbol_lines",
@@ -729,7 +749,7 @@ public class Lunexis extends NPC {
 							PresetColour.CLOTHING_PINK_HOT,
 							false,
 							new TattooWriting("~Knock Me Up~", PresetColour.CLOTHING_PINK_HOT, false, TattooWritingStyle.ITALICISED),
-							new TattooCounter(TattooCounterType.PREGNANCY, TattooCountType.TALLY, PresetColour.CLOTHING_PINK_HOT, false)));
+							new TattooCounter(TattooCounterType.PREGNANCY, TattooCountType.TALLY, PresetColour.CLOTHING_PINK_HOT, false, meraxis)));
 			meraxis.addTattoo(InventorySlot.ANUS,
 					new Tattoo(
 							"innoxia_symbol_pentagram",
@@ -738,14 +758,14 @@ public class Lunexis extends NPC {
 							PresetColour.CLOTHING_PURPLE,
 							false,
 							new TattooWriting("Rough Anal Only!", PresetColour.CLOTHING_RED, false, TattooWritingStyle.BOLD),
-							new TattooCounter(TattooCounterType.CUM_TAKEN_ANUS, TattooCountType.NUMBERS, PresetColour.CLOTHING_RED, false)));
+							new TattooCounter(TattooCounterType.CUM_TAKEN_ANUS, TattooCountType.NUMBERS, PresetColour.CLOTHING_RED, false, meraxis)));
 			meraxis.addTattoo(InventorySlot.VAGINA,
 					new Tattoo(
 							"innoxia_animal_hoof",
 							PresetColour.CLOTHING_PURPLE_DARK,
 							false,
 							new TattooWriting("Break This Cunt!", PresetColour.CLOTHING_PURPLE, false, TattooWritingStyle.BOLD),
-							new TattooCounter(TattooCounterType.CUM_TAKEN_PUSSY, TattooCountType.NUMBERS, PresetColour.CLOTHING_PURPLE, false)));
+							new TattooCounter(TattooCounterType.CUM_TAKEN_PUSSY, TattooCountType.NUMBERS, PresetColour.CLOTHING_PURPLE, false, meraxis)));
 		// Increment stats for tattoo counters:
 			applyTrainingSexCounts(meraxis, new SexType(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), 1);
 			applyTrainingSexCounts(meraxis, new SexType(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS), 0.75f);
@@ -758,7 +778,7 @@ public class Lunexis extends NPC {
 			applyTrainingSexCounts(meraxis, new SexType(SexAreaOrifice.ARMPITS, SexAreaPenetration.PENIS), 0.05f);
 			for(int i=0; i<2+Util.random.nextInt(3); i++) {
 				meraxis.guaranteePregnancyOnNextRoll();
-				meraxis.rollForPregnancy(Subspecies.DEMON, Subspecies.HORSE_MORPH, 2500, true);
+				meraxis.rollForPregnancy(Subspecies.DEMON, Subspecies.HORSE_MORPH, 2500, true, FertilisationType.NORMAL);
 				meraxis.endPregnancy(true);
 			}
 	}
@@ -802,7 +822,7 @@ public class Lunexis extends NPC {
 			applyTrainingSexCountsAurokaris(aurokaris, new SexType(SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS), 0.1f);
 			
 			aurokaris.guaranteePregnancyOnNextRoll();
-			aurokaris.rollForPregnancy(Subspecies.DEMON, Subspecies.HORSE_MORPH, 2500, true);
+			aurokaris.rollForPregnancy(Subspecies.DEMON, Subspecies.HORSE_MORPH, 2500, true, FertilisationType.NORMAL);
 			ItemEffectType.MOTHERS_MILK.applyEffect(null, null, null, 0, aurokaris, aurokaris, null);
 			ItemEffectType.MOTHERS_MILK.applyEffect(null, null, null, 0, aurokaris, aurokaris, null);
 			ItemEffectType.MOTHERS_MILK.applyEffect(null, null, null, 0, aurokaris, aurokaris, null);

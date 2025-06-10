@@ -178,7 +178,7 @@ public abstract class AbstractItemEffectType {
 		return new HashMap<>();
 	}
 	
-	public List<TFModifier> getPrimaryModifiers() {
+	public List<TFModifier> getPrimaryModifiers(AbstractCoreItem targetItem) {
 		return new ArrayList<>();
 	}
 	
@@ -227,16 +227,10 @@ public abstract class AbstractItemEffectType {
 			subsPlusMain.addAll(additionalUnlockSubspecies);
 		}
 		
-		for(AbstractSubspecies subspecies : subsPlusMain) {
-			Main.getProperties().addRaceDiscovered(subspecies);
-			if(Main.getProperties().addAdvancedRaceKnowledge(subspecies) && ItemType.getLoreBook(subspecies)!=null) {
-				Main.game.addEvent(new EventLogEntryBookAddedToLibrary(ItemType.getLoreBook(subspecies)), true);
-			}
-		}
-		
+		String descriptionToReturn = "";
 		AbstractPerk perk = Perk.getSubspeciesRelatedPerk(mainSubspecies);
 		if(!reader.isPlayer() || ((PlayerCharacter) reader).addRaceDiscoveredFromBook(mainSubspecies) || !reader.hasPerkAnywhereInTree(perk)) {
-			return (withDescription
+			descriptionToReturn = (withDescription
 						?("<p style='text-align:center; font-size:110%;margin-bottom:0;padding-bottom:0;'><b>"+mainSubspecies.getBookName()+"</b></p>"
 							+ (mainSubspecies.getBookAuthor().isEmpty()?"":"<p style='text-align:center;margin-top:0;padding-top:0;'><b><i>by "+mainSubspecies.getBookAuthor()+"</i></b></p>")
 							+ mainSubspecies.getBasicDescription(null)
@@ -245,7 +239,7 @@ public abstract class AbstractItemEffectType {
 					+reader.addSpecialPerk(perk);
 			
 		} else {
-			return "<p style='text-align:center; font-size:110%;margin-bottom:0;padding-bottom:0;'><b>"+mainSubspecies.getBookName()+"</b></p>"
+			descriptionToReturn = "<p style='text-align:center; font-size:110%;margin-bottom:0;padding-bottom:0;'><b>"+mainSubspecies.getBookName()+"</b></p>"
 					+ (mainSubspecies.getBookAuthor().isEmpty()?"":"<p style='text-align:center;margin-top:0;padding-top:0;'><b><i>by "+mainSubspecies.getBookAuthor()+"</i></b></p>")
 					+ mainSubspecies.getBasicDescription(null)
 					+ mainSubspecies.getAdvancedDescription(null)
@@ -254,6 +248,14 @@ public abstract class AbstractItemEffectType {
 					+ "</p>";
 		}
 		
+		for(AbstractSubspecies subspecies : subsPlusMain) {
+			Main.getProperties().addRaceDiscovered(subspecies);
+			if(Main.getProperties().addAdvancedRaceKnowledge(subspecies) && ItemType.getLoreBook(subspecies)!=null) {
+				Main.game.addEvent(new EventLogEntryBookAddedToLibrary(ItemType.getLoreBook(subspecies)), true);
+			}
+		}
+		
+		return descriptionToReturn;
 	}
 	
 	protected static List<TFModifier> getClothingTFSecondaryModifiers(TFModifier primaryModifier) {
@@ -662,7 +664,8 @@ public abstract class AbstractItemEffectType {
 			case TF_BREASTS:
 				switch(secondaryModifier) {
 					case TF_MOD_SIZE:
-						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "cup size", CupSize.getCupSizeFromInt(limit).getCupSizeName()+"-cup"));
+						CupSize cupSize = CupSize.getCupSizeFromInt(limit);
+						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "cup size", cupSize.getCupSizeName()+(cupSize==CupSize.FLAT?"":"-cup")));
 						break;
 					case TF_MOD_SIZE_SECONDARY:
 						descriptions.add(getClothingTFChangeDescriptionEntry(potency, "nipple size", NippleSize.getNippleSizeFromInt(limit).getName()));

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>DOMINION</worldRegion>
+	<name><![CDATA[Hallway]]></name>
+	<tooltipDescription><![CDATA[The narrow, carpeted hallways connect the rooms in Angelixx's apartment.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in the hallway at Angelixx's apartment]]></virginityLossDescription>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<colour>BASE_BLACK</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_dominion_angelixx_apartment_generic_hallway</dialogue>
+	<populationPresent/>
+	<furniturePresent>true</furniturePresent>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>NONE</teleportPermissions>
+	<weatherImmunities immuneToAll="true"/>
+	<applyInventoryInit/>
+</placeType>

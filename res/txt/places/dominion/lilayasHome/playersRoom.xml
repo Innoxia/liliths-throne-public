@@ -240,4 +240,42 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="REFUSE_SLAVE_SEX"><![CDATA[
+	#IF([#SPECIAL_PARSE_0])
+		<p>
+			You really aren't in the mood for having sex with [npc.name] right now, and so you put a swift end to [npc.her] plans by firmly telling [npc.herHim] to stop.
+		</p>
+		<p>
+			[npc.speech(Fine...)] [npc.she] reluctantly
+			#IF(npc.isFeminine())
+				 whines.
+			#ELSE
+				 grunts.
+			#ENDIF
+		</p>
+		<p>
+			Not wanting to give your slave another opportunity to pounce on you, you quickly get out of bed. With a sigh and stretch of your [pc.arms], you allow [#SPECIAL_PARSE_1] to assist you as you gather your things, and with one final stretch, you get ready to set out once more...
+		</p>
+	#ELSE
+		<p>
+			You really aren't in the mood for having sex with [#SPECIAL_PARSE_1] right now, and so you put a swift end to their plans by firmly telling them to stop.
+		</p>
+		<p>
+			[npc.speech(Fine...)] [npc.name] reluctantly
+			#IF(npc.isFeminine())
+				 whines.
+			#ELSE
+				 grunts.
+			#ENDIF
+		</p>
+		<p>
+			[npc2.speech(There's always next time...)] [npc2.name] says.
+		</p>
+		<p>
+			Not wanting to give your slaves another opportunity to pounce on you, you quickly get out of bed. With a sigh and stretch of your [pc.arms], you allow them to assist you as you gather your things, and with one final stretch, you get ready to set out once more...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
 </dialogue>

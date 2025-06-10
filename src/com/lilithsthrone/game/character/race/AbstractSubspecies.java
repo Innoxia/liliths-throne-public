@@ -25,6 +25,7 @@ import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.character.body.valueEnums.Affinity;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -930,9 +931,9 @@ public abstract class AbstractSubspecies {
 	}
 	
 
-	public static Body getPreGeneratedBody(GameCharacter linkedCharacter, Gender startingGender, GameCharacter mother, GameCharacter father) {
-		return getPreGeneratedBody(linkedCharacter, startingGender, mother.getTrueSubspecies(), mother.getHalfDemonSubspecies(), father.getTrueSubspecies(), father.getHalfDemonSubspecies());
-	}
+//	public static Body getPreGeneratedBody(GameCharacter linkedCharacter, Gender startingGender, GameCharacter mother, GameCharacter father) {
+//		return getPreGeneratedBody(linkedCharacter, startingGender, mother.getTrueSubspecies(), mother.getHalfDemonSubspecies(), father.getTrueSubspecies(), father.getHalfDemonSubspecies());
+//	}
 	
 	/**
 	 * Only used for subspecies that have special offspring generation - i.e. demons.<br/>
@@ -973,73 +974,92 @@ public abstract class AbstractSubspecies {
 	 */
 	public static Body getPreGeneratedBody(GameCharacter linkedCharacter,
 			Gender startingGender,
-			AbstractSubspecies motherSubspecies,
-			AbstractSubspecies motherHalfDemonSubspecies,
-			AbstractSubspecies fatherSubspecies,
-			AbstractSubspecies fatherHalfDemonSubspecies) {
+			GameCharacter mother,
+			Body motherBody,
+			Body fatherBody
+//			AbstractSubspecies motherSubspecies,
+//			AbstractSubspecies motherHalfDemonSubspecies,
+//			AbstractSubspecies fatherSubspecies,
+//			AbstractSubspecies fatherHalfDemonSubspecies
+			) {
+
+		AbstractSubspecies motherSubspecies = motherBody.getTrueSubspecies();
+		AbstractSubspecies motherHalfDemonSubspecies = motherBody.getHalfDemonSubspecies();
+		AbstractSubspecies fatherSubspecies = fatherBody.getTrueSubspecies();
+		AbstractSubspecies fatherHalfDemonSubspecies = fatherBody.getHalfDemonSubspecies();
+		
 		
 		if(startingGender==null) {
-			startingGender = Math.random()>0.5f?Gender.F_V_B_FEMALE:Gender.M_P_MALE;
+			if(Main.getProperties().isOffspringGenderUsingPreferences(mother)) {
+				startingGender = Gender.getGenderFromUserPreferences(false, false);
+			} else {
+				startingGender = Gender.getBasicGender(
+						Math.random()<motherSubspecies.getRace().getChanceForMaleOffspring()
+							?Femininity.MASCULINE
+							:Femininity.FEMININE);
+			}
 		}
+		
+		Body preGeneratedBody = null;
 		
 		// Any type of demonic mother will result in special cases for offspring:
 		if(motherSubspecies==Subspecies.ELDER_LILIN || motherSubspecies==Subspecies.LILIN || motherSubspecies==Subspecies.DEMON) {
 			if(fatherSubspecies==Subspecies.ELDER_LILIN || fatherSubspecies==Subspecies.LILIN) {
 				if(motherSubspecies==Subspecies.ELDER_LILIN || motherSubspecies==Subspecies.LILIN) {
-					return Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.LILIN, RaceStage.GREATER);
+					preGeneratedBody = Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.LILIN, RaceStage.GREATER);
 				} else {
-					return Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, RaceStage.GREATER);
+					preGeneratedBody = Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, RaceStage.GREATER);
 				}
 				
 			} else if(fatherSubspecies==Subspecies.DEMON) {
-				return Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, RaceStage.GREATER);
+				preGeneratedBody = Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, RaceStage.GREATER);
 				
 			} else if(fatherSubspecies==Subspecies.HALF_DEMON) {
-				return Main.game.getCharacterUtils().generateHalfDemonBody(linkedCharacter, startingGender, fatherHalfDemonSubspecies, true);
+				preGeneratedBody = Main.game.getCharacterUtils().generateHalfDemonBody(linkedCharacter, startingGender, fatherHalfDemonSubspecies, true);
 				
 			} else if(fatherSubspecies==Subspecies.IMP || fatherSubspecies==Subspecies.IMP_ALPHA) {
-				return Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP_ALPHA, RaceStage.GREATER);
+				preGeneratedBody = Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP_ALPHA, RaceStage.GREATER);
 				
 			} else {
-				return Main.game.getCharacterUtils().generateHalfDemonBody(linkedCharacter, startingGender, fatherSubspecies, true);
+				preGeneratedBody = Main.game.getCharacterUtils().generateHalfDemonBody(linkedCharacter, startingGender, fatherSubspecies, true);
 			}
 			
 		} else if(motherSubspecies==Subspecies.HALF_DEMON) {
 			if(motherHalfDemonSubspecies==Subspecies.HUMAN) {
 				if(fatherSubspecies==Subspecies.ELDER_LILIN || fatherSubspecies==Subspecies.LILIN || fatherSubspecies==Subspecies.DEMON || fatherSubspecies==Subspecies.HALF_DEMON) {
 					if(fatherSubspecies==Subspecies.HALF_DEMON && fatherHalfDemonSubspecies==Subspecies.HUMAN) {
-						return Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP, RaceStage.GREATER);	
+						preGeneratedBody = Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP, RaceStage.GREATER);	
 					} else {
-						return Main.game.getCharacterUtils().generateHalfDemonBody(linkedCharacter, startingGender, motherHalfDemonSubspecies, true);
+						preGeneratedBody = Main.game.getCharacterUtils().generateHalfDemonBody(linkedCharacter, startingGender, motherHalfDemonSubspecies, true);
 					}
 				} else {
-					return Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP, RaceStage.GREATER);
+					preGeneratedBody = Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP, RaceStage.GREATER);
 				}
 				
 			} else {
 				if(fatherSubspecies==Subspecies.ELDER_LILIN || fatherSubspecies==Subspecies.LILIN || fatherSubspecies==Subspecies.DEMON) {
-					return Main.game.getCharacterUtils().generateHalfDemonBody(linkedCharacter, startingGender, motherHalfDemonSubspecies, true);
+					preGeneratedBody = Main.game.getCharacterUtils().generateHalfDemonBody(linkedCharacter, startingGender, motherHalfDemonSubspecies, true);
 					
 				} else if(fatherSubspecies==Subspecies.HALF_DEMON) { // If both are non-human half-demons, it's random as to whose species is birthed
 					if(Math.random()<0.5f || fatherHalfDemonSubspecies==Subspecies.HUMAN) {
-						return Main.game.getCharacterUtils().generateHalfDemonBody(linkedCharacter, startingGender, motherHalfDemonSubspecies, true);
+						preGeneratedBody = Main.game.getCharacterUtils().generateHalfDemonBody(linkedCharacter, startingGender, motherHalfDemonSubspecies, true);
 					} else {
-						return Main.game.getCharacterUtils().generateHalfDemonBody(linkedCharacter, startingGender, fatherHalfDemonSubspecies, true);
+						preGeneratedBody = Main.game.getCharacterUtils().generateHalfDemonBody(linkedCharacter, startingGender, fatherHalfDemonSubspecies, true);
 					}
 					
 				} else if(fatherSubspecies==Subspecies.IMP || fatherSubspecies==Subspecies.IMP_ALPHA) {
-					return Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP_ALPHA, RaceStage.GREATER);
+					preGeneratedBody = Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP_ALPHA, RaceStage.GREATER);
 					
 				} else {
-					return Main.game.getCharacterUtils().generateHalfDemonBody(linkedCharacter, startingGender, motherHalfDemonSubspecies, true);
+					preGeneratedBody = Main.game.getCharacterUtils().generateHalfDemonBody(linkedCharacter, startingGender, motherHalfDemonSubspecies, true);
 				}
 			}
 			
 		} else if(motherSubspecies==Subspecies.IMP_ALPHA || motherSubspecies==Subspecies.IMP) {
 			if(fatherSubspecies==Subspecies.IMP) {
-				return Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP, RaceStage.GREATER);
+				preGeneratedBody = Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP, RaceStage.GREATER);
 			} else {
-				return Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP_ALPHA, RaceStage.GREATER);
+				preGeneratedBody = Main.game.getCharacterUtils().generateBody(linkedCharacter, startingGender, RacialBody.DEMON, Subspecies.IMP_ALPHA, RaceStage.GREATER);
 			}
 			
 		} else {
@@ -1050,12 +1070,16 @@ public abstract class AbstractSubspecies {
 					|| fatherSubspecies==Subspecies.IMP
 					|| fatherSubspecies==Subspecies.IMP_ALPHA) {
 					// Just return this method, but with mother & father swapped, as all demonic offspring types are unaffected by who is the mother or father:
-				return getPreGeneratedBody(linkedCharacter, startingGender, fatherSubspecies, fatherHalfDemonSubspecies, motherSubspecies, motherHalfDemonSubspecies);
-				
-			} else {
-				return null;
+				preGeneratedBody = getPreGeneratedBody(linkedCharacter, startingGender, null, fatherBody, motherBody);
 			}
 		}
+		
+		// Apply genetics:
+		if(preGeneratedBody!=null) {
+			Main.game.getCharacterUtils().applyGenetics(linkedCharacter, preGeneratedBody, motherBody, fatherBody, preGeneratedBody.getRace()==motherBody.getRace());
+		}
+		
+		return preGeneratedBody;
 	}
 	
 	public boolean isShortStature() {

@@ -82,7 +82,7 @@ public class Imsu extends NPC {
 				43, Month.FEBRUARY, 4,
 				25,
 				Gender.M_P_MALE, Subspecies.getSubspeciesFromId("innoxia_goat_subspecies_goat"), RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_shops"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_shops_blacksmith"),
 				true);
 

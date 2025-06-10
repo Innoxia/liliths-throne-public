@@ -1,11 +1,13 @@
 package com.lilithsthrone.game.character.npc.fields;
 
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
 import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
@@ -15,10 +17,12 @@ import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
+import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkCategory;
@@ -31,8 +35,10 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -44,6 +50,7 @@ import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -62,10 +69,10 @@ public class Nir extends NPC {
 	public Nir(boolean isImported) {
 		super(isImported, new NameTriplet("Nir"), "Loviennemartu",
 				"Nir is one of two nightmare bodyguards who protect Angelixx at all times.",
-				28, Month.AUGUST, 28,
+				28, Month.SEPTEMBER, 9,
 				20, Gender.M_P_MALE, Subspecies.HORSE_MORPH, RaceStage.GREATER,
-				new CharacterInventory(30),
-				WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL,
+				new CharacterInventory(false, 30),
+				WorldType.getWorldTypeFromId("innoxia_dominion_angelixx_apartment"), PlaceType.getPlaceTypeFromId("innoxia_dominion_angelixx_apartment_bedroom"),
 				true);
 		if(!isImported) {
 			this.setPlayerKnowsName(false);
@@ -76,6 +83,25 @@ public class Nir extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.9.13")) {
+			this.setBirthday(LocalDateTime.of(birthday.getYear(), Month.SEPTEMBER, 9, 0, 0, 0));
+			this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, PresetColour.SKIN_DARK), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, PresetColour.COVERING_BROWN), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_DARK), false);
+			this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_DARK), false);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.10.2") && !this.isDoll()) {
+			this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_ORAL_RECEIVING, FetishDesire.TWO_NEUTRAL);
+			this.setLocation(WorldType.getWorldTypeFromId("innoxia_dominion_angelixx_apartment"), PlaceType.getPlaceTypeFromId("innoxia_dominion_angelixx_apartment_bedroom"), true);
+
+			this.clearPenisModifiers();
+			this.addPenisModifier(PenetrationModifier.FLARED);
+			this.addPenisModifier(PenetrationModifier.VEINY);
+			this.addPenisModifier(PenetrationModifier.SHEATHED);
+			this.addCumModifier(FluidModifier.MUSKY);
+		}
 	}
 
 	@Override
@@ -93,7 +119,6 @@ public class Nir extends NPC {
 
 	@Override
 	public void setStartingBody(boolean setPersona) {
-		
 		// Persona:
 
 		if(setPersona) {
@@ -112,7 +137,7 @@ public class Nir extends NPC {
 			this.addFetish(Fetish.FETISH_DEFLOWERING);
 
 			this.setFetishDesire(Fetish.FETISH_INCEST, FetishDesire.THREE_LIKE);
-			this.setFetishDesire(Fetish.FETISH_VAGINAL_GIVING, FetishDesire.THREE_LIKE);
+			this.setFetishDesire(Fetish.FETISH_ORAL_RECEIVING, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_SADIST, FetishDesire.THREE_LIKE);
 			this.setFetishDesire(Fetish.FETISH_ANAL_GIVING, FetishDesire.THREE_LIKE);
 
@@ -139,8 +164,10 @@ public class Nir extends NPC {
 		// Coverings:
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, PresetColour.EYE_ORANGE));
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HORSE_MORPH, PresetColour.EYE_ORANGE));
+		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, PresetColour.SKIN_DARK), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.HORSE_HAIR, PresetColour.COVERING_BROWN), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_DARK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_DARK), false);
+		this.setSkinCovering(new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_DARK), false);
 
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HORSE_HAIR, PresetColour.COVERING_BROWN_DARK), true);
 		this.setHairLength(HairLength.TWO_SHORT);
@@ -198,7 +225,11 @@ public class Nir extends NPC {
 		this.setTesticleSize(TesticleSize.FOUR_HUGE);
 		this.setPenisCumStorage(380);
 		this.fillCumToMaxStorage();
-		// Leave cum as normal value
+		this.clearPenisModifiers();
+		this.addPenisModifier(PenetrationModifier.FLARED);
+		this.addPenisModifier(PenetrationModifier.VEINY);
+		this.addPenisModifier(PenetrationModifier.SHEATHED);
+		this.addCumModifier(FluidModifier.MUSKY);
 		
 		// Vagina:
 		// No vagina
@@ -212,12 +243,35 @@ public class Nir extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_groin_jockstrap", PresetColour.CLOTHING_GREY, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_jeans", PresetColour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hips_leather_belt", PresetColour.CLOTHING_BLACK, false), true, this);
+
+		if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_DOLL_FACTORY)) {
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_jeans", PresetColour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hips_leather_belt", PresetColour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_tshirt", PresetColour.CLOTHING_GREEN_DRAB, false), true, this);
+			
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_stpvest", false), true, this);
+			
+		} else { // Randomise clothing when meeting in apartment
+			Colour torsoColour = Util.randomItemFromValues(
+					PresetColour.CLOTHING_WHITE,
+					PresetColour.CLOTHING_GREEN_DRAB,
+					PresetColour.CLOTHING_KHAKI);
+			String torsoId = Util.randomItemFromValues(
+					"innoxia_torso_polo_shirt",
+					"innoxia_torso_tshirt");
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(torsoId, torsoColour, false), true, this);
+
+			Colour legColour = Util.randomItemFromValues(
+					PresetColour.CLOTHING_BLACK,
+					PresetColour.CLOTHING_GREY_DARK);
+			String legId = Util.randomItemFromValues(
+					"innoxia_leg_jeans",
+					"innoxia_leg_jeans",
+					"innoxia_leg_chinos");
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hips_leather_belt", PresetColour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(legId, legColour, false), true, this);
+		}
 		
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_tshirt", PresetColour.CLOTHING_GREEN_DRAB, false), true, this);
-		
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("dsg_eep_ptrlequipset_stpvest", false), true, this);
 		
 		AbstractClothing necklace = Main.game.getItemGen().generateClothing("innoxia_neck_horseshoe_necklace", PresetColour.CLOTHING_RED_DARK, PresetColour.CLOTHING_STEEL, null, false);
 		necklace.addEffect(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_DRAIN, 0));
@@ -251,11 +305,29 @@ public class Nir extends NPC {
 	public boolean isUnique() {
 		return true;
 	}
-	
+
+	@Override
+	public String getSpeechColour() {
+		if(Main.game.isLightTheme()) {
+			return "#2f2b27";
+		}
+		return "#ae9f93";
+	}
+
 	@Override
 	public boolean isAbleToBeImpregnated() {
 		return true;
 	}
+	
+//	@Override
+//	public Set<Relationship> getRelationshipsTo(GameCharacter character, Relationship... excludedRelationships) {
+//		if(character instanceof Sleip) {
+//			Set<Relationship> result = new LinkedHashSet<>();
+//			result.add(Relationship.Sibling);
+//			return result;
+//		}
+//		return super.getRelationshipsTo(character, excludedRelationships);
+//	}
 	
 	@Override
 	public void changeFurryLevel(){
@@ -270,4 +342,9 @@ public class Nir extends NPC {
 	public void endSex() {
 	}
 
+	// combat behaviour is attacking
+	@Override
+	public CombatBehaviour getCombatBehaviour() {
+		return CombatBehaviour.ATTACK;
+	}
 }

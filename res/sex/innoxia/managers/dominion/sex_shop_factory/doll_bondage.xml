@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexManager>
+	<wallName/>
+	<deskName><![CDATA[table]]></deskName>
+	<title/>
+	<consensual><![CDATA[true]]></consensual>
+	<subHasEqualControl><![CDATA[false]]></subHasEqualControl>
+	<canSkipSex><![CDATA[true]]></canSkipSex>
+	<washingScene><![CDATA[false]]></washingScene>
+	<sadisticActionsAllowed><![CDATA[true]]></sadisticActionsAllowed>
+	<canItemsBeUsed><![CDATA[true]]></canItemsBeUsed>
+	<exposingReactions><![CDATA[true]]></exposingReactions>
+	<positionsAvailable/>
+	<publicSex>
+		<isPublic><![CDATA[false]]></isPublic>
+        <startingDescription/>
+        <randomDescriptions enabled="false"/>
+	</publicSex>
+	<characterInformationContainer>
+		<characterInformation>
+			<characterId>pc</characterId>
+			<slotsAvailable/>
+			<canStopSex><![CDATA[false]]></canStopSex>
+			<canChangePositions><![CDATA[false]]></canChangePositions>
+			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
+			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+			<sexPace/>
+			<startingImmobilisation>
+				<applierId><![CDATA[doll]]></applierId>
+				<type><![CDATA[ROPE]]></type>
+			</startingImmobilisation>
+			<startingLubrications>
+				<lubedArea area="ORIFICE_VAGINA">
+					<lubrication>
+						<luberId><![CDATA[pc]]></luberId>
+						<type><![CDATA[GIRLCUM]]></type>
+					</lubrication>
+				</lubedArea>
+			</startingLubrications>
+			<canSelfTransform><![CDATA[false]]></canSelfTransform>
+			<hidden><![CDATA[false]]></hidden>
+			<control/>
+			<sexClothingEquippable><![CDATA[false]]></sexClothingEquippable>
+			<selfClothingRemoval><![CDATA[false]]></selfClothingRemoval>
+			<partnerClothingRemoval><![CDATA[false]]></partnerClothingRemoval>
+			<startNaked><![CDATA[false]]></startNaked>
+			<exposeAtStart/>
+			<forcedCreampiesDisabled/>
+			<orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+			<orgasmCumTarget/>
+			<orgasmCumTargetsBlocked/>
+			<orgasmEncourageBehaviours/>
+			<concealedSlots/>
+			<preferredTarget/>
+			<preferences/>
+			<uniqueSexActions>
+				<sexAction>innoxia_dominion_sex_shop_factory_doll_bondage_fucked</sexAction>
+				<sexAction>innoxia_dominion_sex_shop_factory_doll_bondage_orgasm</sexAction>
+			</uniqueSexActions>
+			<sexTypesBanned/>
+			<areasBanned/>
+			<stopSexCondition/>
+			<dirtyTalk/>
+		</characterInformation>
+		
+		<characterInformation>
+			<characterId>doll</characterId>
+			<slotsAvailable/>
+			<canStopSex><![CDATA[true]]></canStopSex>
+			<canChangePositions><![CDATA[false]]></canChangePositions>
+			<endSexAffectionChanges><![CDATA[false]]></endSexAffectionChanges>
+			<showStartingExposedDescriptions><![CDATA[false]]></showStartingExposedDescriptions>
+			<sexPace locked="true"><![CDATA[DOM_ROUGH]]></sexPace>
+			<canSelfTransform><![CDATA[false]]></canSelfTransform>
+			<rapePlayBannedAtStart><![CDATA[true]]></rapePlayBannedAtStart>
+			<hidden><![CDATA[false]]></hidden>
+			<control/>
+			<sexClothingEquippable><![CDATA[true]]></sexClothingEquippable>
+			<selfClothingRemoval><![CDATA[true]]></selfClothingRemoval>
+			<partnerClothingRemoval><![CDATA[true]]></partnerClothingRemoval>
+			<startNaked><![CDATA[false]]></startNaked>
+			<exposeAtStart/>
+			<forcedCreampiesDisabled/>
+			<orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+			<orgasmCumTarget/>
+			<orgasmEncourageBehaviours/>
+			<concealedSlots/>
+			<preferredTarget/>
+			<uniqueSexActions>
+				<sexAction>innoxia_dominion_sex_shop_factory_doll_bondage_emotionless_fuck</sexAction>
+				<sexAction>innoxia_dominion_sex_shop_factory_doll_bondage_test_gear</sexAction>
+				<sexAction>innoxia_dominion_sex_shop_factory_doll_bondage_prepare_orgasm</sexAction>
+			</uniqueSexActions>
+            <preferences>
+                <character id="pc">
+                    <foreplay copyForMain="true">
+                        <performing><![CDATA[
+							PENETRATION_PENIS
+						]]></performing>
+                        <targeted><![CDATA[
+							ORIFICE_VAGINA
+						]]></targeted>
+                    </foreplay>
+                </character>
+            </preferences>
+			<sexTypesBanned/>
+			<areasBanned/>
+			<stopSexCondition/>
+			<dirtyTalk/>
+		</characterInformation>
+	</characterInformationContainer>
+		
+</sexManager>

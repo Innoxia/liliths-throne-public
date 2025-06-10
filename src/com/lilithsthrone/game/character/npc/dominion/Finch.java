@@ -72,7 +72,7 @@ public class Finch extends NPC {
 				27, Month.SEPTEMBER, 29,
 				10,
 				Gender.M_P_MALE,
-				Subspecies.CAT_MORPH, RaceStage.PARTIAL_FULL, new CharacterInventory(10),
+				Subspecies.CAT_MORPH, RaceStage.PARTIAL_FULL, new CharacterInventory(false, 10),
 				WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
 		
 	}

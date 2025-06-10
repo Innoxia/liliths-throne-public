@@ -20,6 +20,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.InitialSexActionInformation;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
  * @since 0.1.0
@@ -763,6 +764,20 @@ public abstract class DialogueNode {
 	}
 
 	/**
+	 * @return True if this dialogue node disables inventory management. By default, this returns false. <b>This should only be used in very specific circumstances.</b>
+	 */
+	public boolean isInventoryForcedDisabledInSex() {
+		return false;
+	}
+
+	/**
+	 * @return True if this dialogue node disables phone use. By default, this returns false. <b>This should only be used in very specific circumstances.</b>
+	 */
+	public boolean isPhoneDisabled() {
+		return false;
+	}
+
+	/**
 	 * @return True if health and aura regeneration is disabled in this dialogue node.
 	 */
 	public boolean isRegenerationDisabled() {
@@ -804,6 +819,13 @@ public abstract class DialogueNode {
 	}
 
 	/**
+	 * @return true if this DialogueNode should never keep the scroll bar in the same relative position when loaded. Will almost always be {@code false}.
+	 */
+	public boolean isIgnoreContentScroll() {
+		return false;
+	}
+	
+	/**
 	 * @return Whether the content of the dialogue should run through the parser. Will almost always be {@code true}.
 	 */
 	public boolean isContentParsed() {
@@ -844,6 +866,10 @@ public abstract class DialogueNode {
 	public final void specialPreParsingEffects() {
 		if(Main.game.isStarted()) {
 			Main.game.getDialogueFlags().setFlag(DialogueFlagValue.coveringChangeListenersRequired, false);
+			if(Main.game.getPlayerCell().getPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_DRESSING_ROOM)
+					&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.dressingRoomAutoClean)) {
+				Main.game.getPlayerCell().getInventory().cleanAllClothing(true);
+			}
 		}
 	}
 }

@@ -1216,7 +1216,7 @@
 		 [attacker.speech(What do you think you're doing?! You've disturbed my drink! How are you going to apologise?!)]
 	</p>
 	<p>
-		With this [attacker.name] blocking your way, it looks like you're going to have to take action...
+		With [attacker.name] blocking your way, it looks like you're going to have to take action...
 	</p>
 	]]>
 	</htmlContent>
@@ -1275,7 +1275,7 @@
 	
 	<htmlContent tag="SEATING_ATTACKED_START_ORAL"><![CDATA[
 	<p>
-		Giving the [attacker.race] a coy look, you sensually suggest that you could give [attacker.herHim] a very special type of apology. Either from the alcohol in [attacker.her] system or simply from a lack of understanding, the [attacker.race] grunts, [attacker.speech(what are you talking about?)]
+		Giving the [attacker.race] a coy look, you sensually suggest that you could give [attacker.herHim] a very special type of apology. Either from the alcohol in [attacker.her] system or simply from a lack of understanding, the [attacker.race] grunts, [attacker.speech(What are you talking about?)]
 	</p>
 	<p>
 		After you've bluntly stating that you're willing to get under [attacker.her] table and
@@ -1307,14 +1307,14 @@
 			Letting [attacker.namePos] [attacker.cock+] slide out of your mouth, you start to crawl out from under the table. Blocking your exit with one of [attacker.her] [attacker.legs], the [attacker.race] grunts down to you, [attacker.speech(Where do you think you're going? Clean my cock off, slut.)]
 		</p>
 		<p>
-			Returning to lean back in to the [attacker.race]'s crotch, you do as you're told and lick all of the cum and saliva off of [attacker.her] softening cock. Satisfied with your obedience, [attacker.name] lets out an approving grunt and orders, [attacker.speech(Now get out of my sight, bitch.)]
+			Leaning back in to the [attacker.race]'s crotch, you do as you're told and lick all of the cum and saliva off of [attacker.her] softening cock. Satisfied with your obedience, [attacker.name] lets out an approving grunt and orders, [attacker.speech(Now get out of my sight, bitch.)]
 		</p>
 	#ELSE
 		<p>
 			Pulling back from [attacker.namePos] [attacker.pussy+], you start to crawl out from under the table. Blocking your exit with one of [attacker.her] [attacker.legs], the [attacker.race] grunts down to you, [attacker.speech(Where do you think you're going? Give my cunt a kiss goodbye, slut.)]
 		</p>
 		<p>
-			Returning to lean back in to the [attacker.race]'s crotch, you do as you're told and plant one last, wet kiss on [attacker.her] [attacker.labia+]. Satisfied with your obedience, [attacker.name] lets out an approving grunt and orders, [attacker.speech(Now get out of my sight, bitch.)]
+			Leaning back in to the [attacker.race]'s crotch, you do as you're told and plant one last, wet kiss on [attacker.her] [attacker.labia+]. Satisfied with your obedience, [attacker.name] lets out an approving grunt and orders, [attacker.speech(Now get out of my sight, bitch.)]
 		</p>
 	#ENDIF
 	]]>
@@ -1460,7 +1460,7 @@
 		The [attacker.race] staggers back, defeated, right into the waiting arms of Oglix. Looking around, you see that the brawl has come to a complete end, and you and this [attacker.race] were the last two to have been fighting.
 	</p>
 	<p>
-		[oglix.speech(Looks like someone needs to be punished!)] Oglix growls, before hurling [attacker.name] face-down over a nearby table. Glancing back over at you, she narrows her eyes and grunts, [oglix.speech(I saw that you were forced to defend yourself from [attacker.herHim], so you won't be punished, unlike [attacker.name] here...)]
+		[oglix.speech(Looks like someone needs to be punished!)] Oglix growls, before hurling your attacker face-down over a nearby table. Glancing back over at you, she narrows her eyes and grunts, [oglix.speech(I saw that you were forced to defend yourself from [attacker.herHim], so you won't be punished, unlike [attacker.name] here...)]
 	</p>
 	<p>
 		Turning her attention back to the [attacker.race], who you've just heard is called '[attacker.name]', Oglix delivers a sharp slap to [attacker.her] rear end, before booming in a voice loud enough for the whole tavern to hear, [oglix.speech(A good, hard fuck from my elemental will put you in your place! Everyone! This is what happens to people who keep on fighting after I've said to stop! Golix, give [attacker.herHim] a good, hard fuck! I don't want [attacker.herHim] to forget this lesson!)]

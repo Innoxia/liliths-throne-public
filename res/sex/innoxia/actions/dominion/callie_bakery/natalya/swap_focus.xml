@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#flags.hasFlag(FLAG_innoxia_callie_natalya_decoration_finished)]
+	]]></actionConditional>
+	<category>MISCELLANEOUS</category>
+	<type>START_ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>
+	<associatedFetishes/>
+	<performingArea>PENETRATION_TONGUE</performingArea>
+	<targetedArea>ORIFICE_ANUS</targetedArea>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Swap focus]]></title>
+	<tooltip><![CDATA[
+		Move over to be focusing more on [npc2.name].
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<text><![CDATA[
+				Deciding that you should give [npc2.name] a little more attention, you shuffle over to position yourself behind her.
+				#IF(npc2==natalya)
+					 Now giving your Mistress most of your attention, you can't help but let out a happy [pc.moan] as she looks back at you over her shoulder and says, [natalya.speech(Good [style.mule]... Keep eating my ass!)]
+				#ELSE
+					 Now giving Callie most of your attention, you can't help but let out a happy [pc.moan] as she looks back at you over her shoulder and exclaims, [callie.speech(That feels so good! Don't stop!)]
+				#ENDIF
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+
+	<buttonPriority>0</buttonPriority>
+	<actionConditional><![CDATA[
+		[#!npc.isPlayer()]
+	]]></actionConditional>
+	<type>ORGASM</type>
+	<pace/>
+	<endsSex><![CDATA[
+		true
+	]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>	
+	<associatedFetishes/>
+	<performingArea/>
+	<targetedArea/>	
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>	
+	<applyEffects><![CDATA[
+		[##saellatrix.completeDollBodySiliconeDollification(fia)]
+		
+		[##sex.incrementNumberOfOrgasms(pc, 1)]
+		[##pc.setArousal(0)]
+		[##fia.ingestFluid(pc, pc.getCum(), ORIFICE_VAGINA, pc.getPenisRawOrgasmCumQuantity())]
+		
+		[##fia.setName('Doll')]
+		[##fia.setSurname(fia.getTattooInSlot(IS_EYES).getWriting().getText())]
+	]]></applyEffects>	
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>	
+	<areasCummedIn/>
+	<areasCummedOn/>
+	
+	<!-- Information displayed to the player: -->
+	
+	<title><![CDATA[
+		Orgasm
+	]]></title>
+	
+	<tooltip><![CDATA[
+		You can't do anything to prevent your orgasm!
+	]]></tooltip>
+	
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				true
+			]]></descriptionConditional>
+			<text><![CDATA[
+				Seeing that the doll beneath you is about to orgasm, Angelixx skips forwards and grabs the syringe that's stuck to her chest. Letting out a giggle, she asks in a sickly-sweet voice, [angelixx.speech(Ready to become a doll?)]
+				
+				<br/><br/>
+				
+				With your huge horse-cock continuing to slam deep into her silicone pussy, the doll is unable to get her arousal under control, and despite her previous protests, she gives in to her new body's lust and desperately squeals, [fia.speechNoEffects(Yes! ~Aah!~ Fuck! ~Ooh!~ Give it to me!)]
+				
+				<br/><br/>
+				
+				You feel the doll's pussy clenching down around your thick shaft as her submissive words trigger her orgasm, and a moment later her spasming cunt squirts a jet of clear fluids out around your dick. Throwing her head back, she lets out an ecstatic squeal and writhes around on the table as you continue to relentlessly hammer her cunt through her intense climax.
+				
+				<br/><br/>
+				
+				[angelixx.speech(That's it, cum for me, you dumb doll!)] Angelixx gloats, before pushing down on the syringe and forcing the inky black essences into the doll's body. Her squeals increase in intensity as her corrupted essences are forced back inside of her, and she instinctively pushes out her chest as Angelixx roughly pinches her big, black nipples and cruelly teases, [angelixx.speech(Say goodbye to your free will, you stupid slut! It's time to start your new life as a doll!)]
+				
+				<br/><br/>
+				
+				As the corrupted essences reach the doll's core, the spark of life in her silicone eyes dulls, and her squeals become less passionate and more robotic-sounding. Stepping around behind you, your Mistress gives your ass a sharp slap and commands, [angelixx.speech(Give this new doll her first creampie!)]
+				
+				<br/><br/>
+				
+				Already on the verge of an orgasm, your Mistress's command sends you over the edge, and you hilt your huge, equine shaft deep in the doll's cunt. A moment later, and you're shooting a huge quantity of [pc.cum+] into her hungry pussy. Joining her lewd squeals with horny moans of your own, the two of you orgasm together while your Mistress looks on and giggles at the show you're putting on for her.
+				
+				<br/><br/>
+				
+				[angelixx.speech(That's enough, step back and give me some room,)] Angelixx commands as you finish pumping the doll full of your slimy cum. Instantly obeying your Mistress, you pull your softening horse-cock out of the doll and bring an end to the sex...
+			]]></text>
+		</description>
+	</descriptions>
+	
+</sexAction>

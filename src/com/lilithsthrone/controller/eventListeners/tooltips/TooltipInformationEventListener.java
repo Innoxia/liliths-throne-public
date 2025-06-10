@@ -803,14 +803,14 @@ public class TooltipInformationEventListener implements EventListener {
 
 				Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
-			} else if (attribute == Attribute.EXPERIENCE) {
+			} else if (attribute == Attribute.EXPERIENCE) { //TODO
 				// Special tooltip for experience/transformation combo:
 
 				if(owner.isRaceConcealed()) {
 					tooltipSB.setLength(0);
-					tooltipSB.append("<div class='title' style='color:" + PresetColour.RACE_UNKNOWN.toWebHexString() + ";'>"
-							+ "Unknown Race!"
-							+ "</div>");
+					tooltipSB.append("<div class='title' style='color:" + PresetColour.RACE_UNKNOWN.toWebHexString() + ";'>");
+						tooltipSB.append("Unknown Race!");
+					tooltipSB.append("</div>");
 
 					int knownAreas = 0;
 					if(Main.game.getPlayer().isKnowsCharacterArea(CoverableArea.ANUS, owner)) {
@@ -887,13 +887,12 @@ public class TooltipInformationEventListener implements EventListener {
 					int crotchBreastAddition = crotchBreasts?24:0;
 					int spinneretAddition = spinneret?24:0;
 					
-					
 					int[] dimensions = new int[]{419, elemental?108+(((Elemental)owner).getSummoner().isPlayer()?28:0):(508+crotchBreastAddition+spinneretAddition)};
 					int imagePadding = 0;
 					int imageWidth = 0;
 					if (displayImage) {
 						// Add the scaled width to the tooltip dimensions
-						int[] scaledSize = image.getAdjustedSize(300, 445);
+						int[] scaledSize = image.getAdjustedSize(380, 445);//300x was old dimension
 						imageWidth = scaledSize[0];
 						dimensions[0] += scaledSize[0];
 						// ... and place it in the bottom right corner of the tooltip
@@ -987,8 +986,8 @@ public class TooltipInformationEventListener implements EventListener {
 						}
 						
 						// PARTIAL:
-						if (owner.getHairRawLengthValue() == 0 && owner.isFaceBaldnessNatural()) {
-							tooltipSB.append(getEmptyBodyPartDiv("Hair", "None"));
+						if (owner.getHairRawLengthValue() == 0) {
+							tooltipSB.append(getEmptyBodyPartDiv("Hair", owner.isFaceBaldnessNatural()?"None":"Bald"));
 						} else {
 							tooltipSB.append(getBodyPartDiv(owner,
 									Util.capitaliseSentence(owner.getHairLength().getDescriptor())+" "+owner.getHairStyle().getName(owner)+" "+owner.getHairName(), owner.getHairRace(), owner.getHairCovering(), owner.isHairFeral()));
@@ -1146,7 +1145,7 @@ public class TooltipInformationEventListener implements EventListener {
 						tooltipSB.append("</div>"
 								+ "<div style='float: left;'>"
 									+ "<img id='CHARACTER_IMAGE' style='"+(revealed?"":"-webkit-filter: brightness(0%);")
-										+" width: auto; height: auto; max-width: 300; max-height: 445; padding-top: " + imagePadding + "px;' src='" + image.getThumbnailString()+ "'/>"
+										+" width: auto; height: auto; max-width: 380; max-height: 445; padding-top: " + imagePadding + "px;' src='" + image.getThumbnailString()+ "'/>"
 										+(revealed?"":"<p style='position:absolute; top:33%; right:0; width:"+imageWidth+"; font-weight:bold; text-align:center; color:"+PresetColour.BASE_GREY.toWebHexString()+";'>Unlocked through sex!</p>")
 								+ "</div>");
 					}
@@ -1357,7 +1356,7 @@ public class TooltipInformationEventListener implements EventListener {
 										:"This slot is currently hidden from view by [npc.namePos] <b>"+Util.clothesToStringList(clothingVisible, false)+"</b>.")))
 					+ "</div>"));
 			
-		} else if(slaveJob!=null) {//TODO
+		} else if(slaveJob!=null) {
 			int yIncrease = 0;
 
 			// Title:
@@ -1750,11 +1749,11 @@ public class TooltipInformationEventListener implements EventListener {
 						"<div class='description' style='height:"+(descriptionHeightOverride>0?(descriptionHeightOverride+26):"176")+"px;'>"+description+"</div>"));
 				
 			} else {
-				Main.mainController.setTooltipSize(360, descriptionHeightOverride>0?descriptionHeightOverride+64+32:175);
+				Main.mainController.setTooltipSize(360, descriptionHeightOverride>0?descriptionHeightOverride+64+20:175);
 
 				Main.mainController.setTooltipContent(UtilText.parse(
 						"<div class='title'>"+title+"</div>"
-						+ "<div class='description' "+(descriptionHeightOverride>0?"style='height:"+(descriptionHeightOverride+26)+"px;'":"")+">" + description + "</div>"));
+						+ "<div class='description' "+(descriptionHeightOverride>0?"style='min-height:0; height:"+(descriptionHeightOverride+16)+"px;'":"")+">" + description + "</div>"));
 			}
 		}
 
@@ -1891,7 +1890,7 @@ public class TooltipInformationEventListener implements EventListener {
 
 	private String getEmptyBodyPartDiv(String name, String description, String size) {
 		return "<div class='subTitle' style='font-weight:normal; text-align:left; margin-top:2px; white-space: nowrap;'>"
-					+ name +(size!=null?" ("+size+"): ":": ")+ "<span style='color:" + PresetColour.TEXT_GREY.toWebHexString() + ";'>"+description+"</span>"
+					+ "[style.colourDisabled("+name +(size!=null?" ("+size+")":"")+ ": "+description+")]"
 			+ "</div>";
 	}
 

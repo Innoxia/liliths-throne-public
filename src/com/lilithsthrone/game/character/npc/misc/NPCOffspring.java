@@ -47,13 +47,13 @@ public class NPCOffspring extends NPC {
 	public NPCOffspring(boolean isImported) {
 		super(isImported, null, null, "",
 				18, Month.JUNE, 15,
-				3, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
+				3, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(false, 10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 	}
 	
 	public NPCOffspring(OffspringSeed os) {
 		super(false, os.nameTriplet, os.surname, os.description,
 				0, os.getBirthday().getMonth(), os.getBirthday().getDayOfMonth(),
-				1, os.body.getGender(), os.subspecies, os.body.getRaceStage(), new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
+				1, os.body.getGender(), os.subspecies, os.body.getRaceStage(), new CharacterInventory(false, 10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 		
 		this.birthday = LocalDateTime.of(os.getBirthday().getYear(), this.getBirthday().getMonth(), this.getBirthday().getDayOfMonth(), this.getBirthday().getHour(), this.getBirthday().getMinute());
 		this.conceptionDate = os.conceptionDate;
@@ -198,21 +198,30 @@ public class NPCOffspring extends NPC {
 		if(this.getMother()==null || this.getFather()==null) {
 			return "";
 		}
-		return (UtilText.parse(this,
-				"[npc.Name] is your [npc.daughter], who you "+
-						(this.getMother()!=null && this.getMother().isPlayer()
-								? getMatingDescription(getMother(), getFather(), "mothered")
-								: getMatingDescription(getFather(), getMother(), "fathered")
-						)+"."
-						+ getRelationshipFromPlayer()
-						+ " [npc.She] was conceived on "+Units.date(this.getConceptionDate(), Units.DateType.LONG)+", and "
-						+(daysToBirth==0
-							?"later that same day "
-							:daysToBirth>1?Util.intToString(daysToBirth)+" days later ":Util.intToString(daysToBirth)+" day later ")
-						+(this.getMother()!=null && this.getMother().isPlayer()
-							?(this.getIncubator()!=null && !this.getIncubator().isPlayer()?this.getIncubator().getName():"you")+" gave birth to [npc.herHim]."
-							:" [npc.she] was born.")
-						+ " You first encountered [npc.herHim] prowling the alleyways of Dominion, and, through some arcane-influenced instinct, you both recognised your relationship at first sight."));
+
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("[npc.Name] is your [npc.daughter], who you "+
+				(this.getMother()!=null && this.getMother().isPlayer()
+						? getMatingDescription(getMother(), getFather(), "mothered")
+						: getMatingDescription(getFather(), getMother(), "fathered")
+				)+"."
+				+ getRelationshipFromPlayer()
+				+ " [npc.She] was conceived on "+Units.date(this.getConceptionDate(), Units.DateType.LONG)+", and "
+				+(daysToBirth==0
+					?"later that same day "
+					:daysToBirth>1?Util.intToString(daysToBirth)+" days later ":Util.intToString(daysToBirth)+" day later ")
+				+(this.getMother()!=null && this.getMother().isPlayer()
+					?(this.getIncubator()!=null && !this.getIncubator().isPlayer()?this.getIncubator().getName():"you")+" gave birth to [npc.herHim]."
+					:" [npc.she] was born."));
+
+		if(this.isSlave() && this.isDoll()) {
+			sb.append(" After enslaving [npc.herHim], you had [npc.herHim] permanently transformed into an obedient sex doll at Lovienne's Luxuries.");
+		} else {
+			sb.append(" You first encountered [npc.herHim] prowling the alleyways of Dominion, and, through some arcane-influenced instinct, you both recognised your relationship at first sight.");
+		}
+		
+		return UtilText.parse(this, sb.toString());
 	}
 	
 	@Override

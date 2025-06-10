@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.sex.sexActions;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -17,9 +18,9 @@ import com.lilithsthrone.game.character.body.coverings.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -84,22 +85,28 @@ public interface SexActionInterface {
 	/**
 	 * If the performing character is immobilised, then this action is only available if it's a SexActionType of: SPEECH, SPEECH_WITH_ALTERNATIVE, PREPARE_FOR_PARTNER_ORGASM, or ORGASM.
 	 * <br/>ONGOING SexActionTypes are also available, but only so long as the performing areas doesn't include a virginity-taking penetration type.
+	 * <br/><b>COMMAND</b> and <b>SLEEP</b> ImmobilisationTypes prevent SexActionType.ONGOING
+	 * <br/>If any type returns true for isSilence(), then SexActionType.SPEECH and SexActionType.SPEECH_WITH_ALTERNATIVE are banned
 	 * @return
 	 */
-	public default boolean isAvailableDuringImmobilisation(ImmobilisationType type) {
+	public default boolean isAvailableDuringImmobilisation(Collection<ImmobilisationType> types) {
 		if(this.getActionType()==SexActionType.ONGOING) {
-			if(type==ImmobilisationType.COMMAND || type==ImmobilisationType.SLEEP) {
+			if(types.contains(ImmobilisationType.SLEEP) || types.contains(ImmobilisationType.COMMAND)) {
 				return false;
 			}
 			for(SexAreaInterface sa : this.getPerformingCharacterAreas()) {
 				if(sa.isPenetration() && ((SexAreaPenetration)sa).isTakesVirginity()) {
-					return false;
+					// Allow penetration-on-penetration actions, such as handjobs
+					if(!this.getTargetedCharacterAreas().stream().anyMatch(targetedArea -> targetedArea.isPenetration() && ((SexAreaPenetration)sa).isTakesVirginity())) {
+						return false;
+					}
 				}
 			}
 			return true;
 		}
-		return (this.getActionType()==SexActionType.SPEECH && !type.isSilence())
-				|| (this.getActionType()==SexActionType.SPEECH_WITH_ALTERNATIVE && !type.isSilence())
+		boolean anySilences = types.stream().anyMatch(type->type.isSilence());
+		return (this.getActionType()==SexActionType.SPEECH && !anySilences)
+				|| (this.getActionType()==SexActionType.SPEECH_WITH_ALTERNATIVE && !anySilences)
 				|| this.getActionType()==SexActionType.PREPARE_FOR_PARTNER_ORGASM
 				|| this.getActionType()==SexActionType.ORGASM;
 	}
@@ -112,7 +119,7 @@ public interface SexActionInterface {
 		return target!=null
 				&& Main.game.isInSex()
 				&& Main.sex.isCharacterImmobilised(target)
-				&& (Main.sex.getImmobilisationType(target).getKey()==ImmobilisationType.COMMAND || Main.sex.getImmobilisationType(target).getKey()==ImmobilisationType.SLEEP);
+				&& Main.sex.isCharacterInanimateFromImmobilisation(target);
 	}
 	
 	/**
@@ -356,35 +363,83 @@ public interface SexActionInterface {
 			stopSB.append(s);
 		}
 		
-		if(getActionType()==SexActionType.START_ONGOING) {
+		//TODO bugged!
+		// If starting a new ongoing action, then stop ongoing actions which involve the areas associated with this sex action
+		// TONGUE & MOUTH are associated with one another, so need a special catch for that
+		if(getActionType()==SexActionType.START_ONGOING || getActionType()==SexActionType.START_ADDITIONAL_ONGOING) {
 			for(Entry<SexAreaInterface, SexAreaInterface> entry : getSexAreaInteractions().entrySet()) {
 				try {
 					if(!entry.getKey().isFree(Main.sex.getCharacterPerformingAction())) {
 						Map<GameCharacter, Set<SexAreaInterface>> map = Main.sex.getOngoingActionsMap(Main.sex.getCharacterPerformingAction()).get(entry.getKey());
 						Entry<GameCharacter, Set<SexAreaInterface>> firstEntry = map.entrySet().iterator().next();
-						stopSB.append(Main.sex.stopOngoingAction(
-								Main.sex.getCharacterPerformingAction(),
-								entry.getKey(),
-								firstEntry.getKey(),
-								firstEntry.getValue().iterator().next(),
-								false));
+						// Only stop the action if it's engaged with an area that isn't the one involved in the additional ongoing:
+						if(getActionType()!=SexActionType.START_ADDITIONAL_ONGOING || !firstEntry.getValue().contains(entry.getValue())) {
+							stopSB.append(Main.sex.stopOngoingAction(
+									Main.sex.getCharacterPerformingAction(),
+									entry.getKey(),
+									firstEntry.getKey(),
+									firstEntry.getValue().iterator().next(),
+									false));
+						}
 					}
 				} catch(Exception ex) {
 					// No first entry in iterator found
 				}
 				try {
-					if(!entry.getValue().isFree(Main.sex.getCharacterTargetedForSexAction(this))) {
-						Map<GameCharacter, Set<SexAreaInterface>> map = Main.sex.getOngoingActionsMap(Main.sex.getCharacterTargetedForSexAction(this)).get(entry.getValue());
-						Entry<GameCharacter, Set<SexAreaInterface>> firstEntry = map.entrySet().iterator().next();
-						stopSB.append(Main.sex.stopOngoingAction(
-								firstEntry.getKey(),
-								firstEntry.getValue().iterator().next(),
-								Main.sex.getCharacterTargetedForSexAction(this),
-								entry.getValue(),
-								false));
+					if(entry.getKey()==SexAreaPenetration.TONGUE || entry.getKey()==SexAreaOrifice.MOUTH) {
+						SexAreaInterface associatedOral = entry.getKey()==SexAreaOrifice.MOUTH?SexAreaPenetration.TONGUE:SexAreaOrifice.MOUTH;
+						if(!associatedOral.isFree(Main.sex.getCharacterPerformingAction())) {
+							Map<GameCharacter, Set<SexAreaInterface>> map = Main.sex.getOngoingActionsMap(Main.sex.getCharacterPerformingAction()).get(associatedOral);
+							if(!map.isEmpty()) {
+								Entry<GameCharacter, Set<SexAreaInterface>> firstEntry = map.entrySet().iterator().next();
+								// Only stop the action if it's engaged with an area that isn't the one involved in the additional ongoing:
+								if(getActionType()!=SexActionType.START_ADDITIONAL_ONGOING || !firstEntry.getValue().contains(entry.getValue())) {
+									stopSB.append(Main.sex.stopOngoingAction(
+											Main.sex.getCharacterPerformingAction(),
+											associatedOral,
+											firstEntry.getKey(),
+											firstEntry.getValue().iterator().next(),
+											false));
+								}
+							}
+						}
 					}
 				} catch(Exception ex) {
 					// No first entry in iterator found
+				}
+				if(getActionType()!=SexActionType.START_ADDITIONAL_ONGOING) {
+					try {
+					// Do not stop ongoing for the targeted character if this is START_ADDITIONAL_ONGOING
+						if(!entry.getValue().isFree(Main.sex.getCharacterTargetedForSexAction(this))) {
+							Map<GameCharacter, Set<SexAreaInterface>> map = Main.sex.getOngoingActionsMap(Main.sex.getCharacterTargetedForSexAction(this)).get(entry.getValue());
+							Entry<GameCharacter, Set<SexAreaInterface>> firstEntry = map.entrySet().iterator().next();
+							stopSB.append(Main.sex.stopOngoingAction(
+									firstEntry.getKey(),
+									firstEntry.getValue().iterator().next(),
+									Main.sex.getCharacterTargetedForSexAction(this),
+									entry.getValue(),
+									false));
+						}
+					} catch(Exception ex) {
+						// No first entry in iterator found
+					}
+					try {
+						if(entry.getValue()==SexAreaPenetration.TONGUE || entry.getValue()==SexAreaOrifice.MOUTH) {
+							SexAreaInterface associatedOral = entry.getValue()==SexAreaOrifice.MOUTH?SexAreaPenetration.TONGUE:SexAreaOrifice.MOUTH;
+							if(!associatedOral.isFree(Main.sex.getCharacterTargetedForSexAction(this))) {
+								Map<GameCharacter, Set<SexAreaInterface>> map = Main.sex.getOngoingActionsMap(Main.sex.getCharacterTargetedForSexAction(this)).get(associatedOral);
+								Entry<GameCharacter, Set<SexAreaInterface>> firstEntry = map.entrySet().iterator().next();
+								stopSB.append(Main.sex.stopOngoingAction(
+										firstEntry.getKey(),
+										firstEntry.getValue().iterator().next(),
+										Main.sex.getCharacterTargetedForSexAction(this),
+										associatedOral,
+										false));
+							}
+						}
+					} catch(Exception ex) {
+						// No first entry in iterator found
+					}
 				}
 			}
 		}
@@ -460,7 +515,7 @@ public interface SexActionInterface {
 		StringBuilder sb = new StringBuilder();
 		GameCharacter characterTargeted = Main.sex.getCharacterTargetedForSexAction(this);
 		if(this.isSadisticAction()) {
-			if(!characterTargeted.getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive() && !characterTargeted.isDoll()) {
+			if(!characterTargeted.getFetishDesire(Fetish.FETISH_MASOCHIST).isPositive() && !characterTargeted.hasPerkAnywhereInTree(Perk.DOLL_LUST_1)) {
 				sb.append("<p style='text-align:center'>"
 							+ "[style.colourBad([npc2.Name] [npc2.verb(find)] this sadistic action to be a huge turn-off!)]"
 							+ characterTargeted.incrementLust(-15, false)
@@ -545,8 +600,12 @@ public interface SexActionInterface {
 			}
 		}
 		
-		if(Main.sex.isCharacterImmobilised(performingCharacter) && !isAvailableDuringImmobilisation(Main.sex.getImmobilisationType(performingCharacter).getKey())) {
-			return false;
+		// If the performing character is immobilised in a way which prevents this action from being used, then it's disabled, unless it ends sex
+		// The logic being: if the character has enough control to ordinarily end sex, immobilisation shouldn't prevent it
+		if(Main.sex.isCharacterImmobilised(performingCharacter)
+				&& !this.isAvailableDuringImmobilisation(Main.sex.getImmobilisationTypes(performingCharacter).keySet())
+				&& !this.endsSex()) {
+				return false;
 		}
 		
 		boolean analAllowed = Main.game.isAnalContentEnabled() || (!this.getPerformingCharacterOrifices().contains(SexAreaOrifice.ANUS) && !this.getTargetedCharacterOrifices().contains(SexAreaOrifice.ANUS));
@@ -724,6 +783,7 @@ public interface SexActionInterface {
 			// Forbid self actions if control is limited to NONE:
 			if(this.getParticipantType()==SexParticipantType.SELF
 					&& !this.getActionType().isOrgasmOption()
+					&& !this.endsSex() // Still allow action if it's an 'end sex' action (otherwise being immobilised as a dom makes it so nobody can end sex)
 					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction()).getValue()<SexControl.SELF.getValue()) {
 				return null;
 			}
@@ -838,7 +898,7 @@ public interface SexActionInterface {
 			if(getSexPace()==SexPace.SUB_RESISTING) {
 				if((Main.sex.isConsensual() && !Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_NON_CON_SUB))
 						|| !Main.game.isNonConEnabled()
-						|| Main.sex.getCharacterPerformingAction().isDoll()) {
+						|| Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.DOLL_LUST_1)) {
 					return null;
 				}
 			}
@@ -1151,13 +1211,13 @@ public interface SexActionInterface {
 			} else if(getActionType()==SexActionType.SPEECH
 					|| getActionType()==SexActionType.SPEECH_WITH_ALTERNATIVE) {
 				// Check penetrations:
-				if(Main.sex.getCharacterPerformingAction().hasPersonalityTrait(PersonalityTrait.MUTE)) {//Sex.isOngoingActionsBlockingSpeech(Main.sex.getCharacterPerformingAction())) {
+				if(Main.sex.getCharacterPerformingAction().isMute()) {//Sex.isOngoingActionsBlockingSpeech(Main.sex.getCharacterPerformingAction())) {
 					return convertToNullResponse();
 				}
 				
 				return convertToResponse();
 				
-			} else { // ONGOING (and others?):
+			} else { // SexActionType.ONGOING (and others?):
 				if(!this.getSexAreaInteractions().isEmpty()) {
 					boolean ongoingFound = false;
 					// TODO check

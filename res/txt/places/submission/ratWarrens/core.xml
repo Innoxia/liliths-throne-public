@@ -151,7 +151,7 @@
 			Dropping the name 'Axel', you tell the two guards that you're here to discuss the handling of protection money payments.
 		</p>
 		<p>
-			[npc2.speech(Axel, huh... You's better not be lyin' ta me,)] [npc.name] sneers, before taking a step back and waving you on, [npc.speech(We's got our eyes on you, so ya betta watch yerself in 'ere...)]
+			[npc.speech(Axel, huh... You's better not be lyin' ta me,)] [npc.name] sneers, before taking a step back and waving you on, [npc.speech(We's got our eyes on you, so ya betta watch yerself in 'ere...)]
 		</p>
 		<p>
 			Following [npc2.her] superior's lead, [npc2.name] steps aside, allowing you to freely enter the Rat Warrens...
@@ -1709,7 +1709,7 @@
 		</p>
 	#ENDIF
 	<p>
-		As [npc.name] cleans [npc.herself] up a little, you walk around to the other side of the bar and collect the money which you paid for the glass of rum. After just a moment more, your [npc.companion] walks around to return to your side, and after throwing [npc.her] a lustful grin, [npc2.name] turns to you and says, [npc2.speech(Ya welcome ta buy another drink whenever ya want! Perhaps next time yer gonna be the one who's down on yer knees, eh?!)]
+		As [npc.name] cleans [npc.herself] up a little, you walk around to the other side of the bar and collect the money which you paid for the glass of rum. After just a moment more, your [npc.companion] walks around to return to your side, and after throwing [npc.herHim] a lustful grin, [npc2.name] turns to you and says, [npc2.speech(Ya welcome ta buy another drink whenever ya want! Perhaps next time yer gonna be the one who's down on yer knees, eh?!)]
 	</p>
 	<p>
 		With the [npc2.race]'s cackling laughter ringing out over the counter-top, you wonder what to do next...
@@ -2377,7 +2377,7 @@
 			#IF(game.isSillyModeEnabled())
 				 [vengar.speechNoEffects(Oh? You're approaching me? Instead of running away, you're coming right to me?)]
 			#ELSE
-				 [vengar.speechNoEffects(What's this? A stranger? Enterin' me 'all uninvited?! Get over 'ere an' explain yerself!)]
+				 [vengar.speechNoEffects(What's this? A stranger? Enterin' me den 'all uninvited?! Get over 'ere an' explain yerself!)]
 			#ENDIF
 		</p>
 	#ENDIF
@@ -2891,16 +2891,21 @@
 	</htmlContent>
 	
 	<htmlContent tag="VENGARS_HALL_SUB_SEX_REFUSED"><![CDATA[
-	<p>
-		#IF(pc.hasCompanions())
+	#IF(pc.hasCompanions())
+		<p>
 			Unwilling to give in to Vengar's outrageous request, you push yourself up onto your feet and tell your [npc.companion] to do the same, before turning to face the rat-boy and saying, [pc.speech(We've done as you asked, but that's going too far.)]
-		#ELSE
+		</p>
+		<p>
+			[vengar.speechNoEffects(Yeah, ya done enough, I were just seein' 'ow far I could push ya!)] Vengar laughs, before standing up and shouting out to the rats filling hall, [vengar.speechNoEffects(Treat these 'uns as me guests if ya see 'em walkin' around the Warrens from now on! We's got some things ta discuss in private, so you's lot get back on with whatever ya were doin'!)]
+		</p>
+	#ELSE
+		<p>
 			Unwilling to give in to Vengar's outrageous request, you push yourself up onto your feet, before turning to face the rat-boy and saying, [pc.speech(I've done as you asked, but that's going too far.)]
-		#ENDIF
-	</p>
-	<p>
-		[vengar.speechNoEffects(Yeah, ya done enough, I were just seein' 'ow far I could push ya!)] Vengar laughs, before standing up and shouting out to the rats filling hall, [vengar.speechNoEffects(Treat these 'uns as me guests if ya see 'em walkin' around the Warrens from now on! We's got some things ta discuss in private, so you's lot get back on with whatever ya were doin'!)]
-	</p>
+		</p>
+		<p>
+			[vengar.speechNoEffects(Yeah, ya done enough, I were just seein' 'ow far I could push ya!)] Vengar laughs, before standing up and shouting out to the rats filling hall, [vengar.speechNoEffects(Treat this 'un as me guest if ya see [pc.herHim] walkin' around the Warrens from now on! We's got some things ta discuss in private, so you's lot get back on with whatever ya were doin'!)]
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -3747,7 +3752,7 @@
 		Instead of launching into her next attack and attempting to avenge her companion, Silence staggers back, looking like she's about to collapse herself. Staring down at the defeated form of Shadow with an anguished grimace on her face, the albino rat-girl grabs hold of the shard of demonstone hung around her neck, before looking up and furiously scowling at you. Before you can react, Silence's eyes suddenly become wreathed in phantasmal, purple flames, and with an upwards swipe of her free hand, she casts what turns out to be an immensely powerful spell.
 	</p>
 	<p>
-		At first, the only sign of any spell being cast is an unnatural gust of wind which suddenly blows throughout the grand hall. Quickly increasing in strength, this arcane wind causes the fires burning in the hall's hearths to gutter and flicker, before they suddenly change colour into bright greens and purples. Reaching upwards with her free hand, Silence suddenly clenches her fist, and right there, before your eyes, the ethereal form of a demonic wind elemental takes shape. Speaking through this arcane creature, Silence projects a chilling, grief-stricken voice throughout the hall, [silence.speechNoEffects(You'll pay for what you've done!)]
+		At first, the only sign of any spell being cast is an unnatural gust of wind which suddenly blows throughout the grand hall. Quickly increasing in strength, this arcane wind causes the fires burning in the hall's hearths to gutter and flicker, before they suddenly change colour into bright greens and purples. Reaching upwards with her free hand, Silence suddenly clenches her fist, and right there, before your eyes, the ethereal form of a demonic wind elemental takes shape. Speaking through this arcane creature, Silence projects a chilling, grief-stricken voice throughout the hall, [silence.thought(You'll pay for what you've done!)]
 	</p>
 	<p>
 		With flickering arcane flames still streaming from her glowing pink eyes, Silence is joined by this elemental as she once again launches into attacking you!

@@ -1976,6 +1976,14 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return femininityRestriction;
 	}
 	
+	/**
+	 * @return This clothing's associated femininity, ignoring the effects of the player's gameplay settings.
+	 * <br/>This should only be used for special checks, and you should instead be using <code>getFemininityRestriction()</code> in most instances.
+	 */
+	public Femininity getCoreFemininityRestriction() {
+		return femininityRestriction;
+	}
+	
 	@Deprecated
 	public InventorySlot getSlot() {
 		return equipSlots.get(0);
@@ -1989,14 +1997,14 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	 * <b>You should probably be using AbstractClothing's version of this!</b>
 	 */
 	public boolean isConcealsSlot(GameCharacter character, InventorySlot slotToCheck) {
-		return Main.game.getItemGen().generateClothing(this).isConcealsSlot(character, this.getEquipSlots().get(0), slotToCheck);
+		return Main.game.getItemGen().generateClothing(this, false).isConcealsSlot(character, this.getEquipSlots().get(0), slotToCheck);
 	}
 
 	/**
 	 * <b>You should probably be using AbstractClothing's version of this!</b>
 	 */
 	public boolean isConcealsCoverableArea(GameCharacter character, CoverableArea area) {
-		return Main.game.getItemGen().generateClothing(this).isConcealsCoverableArea(character, this.getEquipSlots().get(0), area);
+		return Main.game.getItemGen().generateClothing(this, false).isConcealsCoverableArea(character, this.getEquipSlots().get(0), area);
 	}
 	
 	public String getPathName() {
@@ -2090,7 +2098,21 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		return getSVGImage(null, this.getEquipSlots().get(0), colours, false, null, new ArrayList<>(), null);
 	}
 
+	public String getSVGImage(InventorySlot slotEquippedTo) {
+		List<Colour> colours = new ArrayList<>();
+		
+		for(ColourReplacement cr : this.getColourReplacements()) {
+			colours.add(cr.getFirstOfDefaultColours());
+		}
+		
+		return getSVGImage(null, slotEquippedTo, colours, false, null, new ArrayList<>(), null);
+	}
+	
 	public String getSVGImageRandomColour(boolean randomPrimary, boolean randomSecondary, boolean randomTertiary) {
+		return getSVGImageRandomColour(this.getEquipSlots().get(0), randomPrimary, randomSecondary, randomTertiary);
+	}
+	
+	public String getSVGImageRandomColour(InventorySlot slotEquippedTo, boolean randomPrimary, boolean randomSecondary, boolean randomTertiary) {
 		List<Colour> colours = new ArrayList<>();
 		
 		for(int i=0; i<this.getColourReplacements().size(); i++) {
@@ -2105,7 +2127,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 		}
 		
-		return getSVGImage(null, this.getEquipSlots().get(0), colours, false, null, new ArrayList<>(), null);
+		return getSVGImage(null, slotEquippedTo, colours, true, null, new ArrayList<>(), null);
 	}
 	
 	/**
@@ -2181,20 +2203,22 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 					} else {
 						List<Colour> condomColours = new ArrayList<>();
 						// Draw all backs:
-						for(AbstractItem item : character.getAllItemsInInventory().keySet()) {
-							if(item.getItemType().equals(ItemType.CONDOM_USED)) {
-								for(int count=0; count<character.getItemCount(item); count++) {
-									if(condomColours.size()<8) {
-										condomColours.add(item.getColour(0));
-										
-										is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_"+condomColours.size()+"_back.svg");
-										s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
-										s = getSVGWithHandledPattern(s, pattern, patternColours);
-										s = SvgUtil.colourReplacement(this.getId(),
-												Util.newArrayListOfValues(item.getColour(0)),
-												Util.newArrayListOfValues(new ColourReplacement(true, ColourReplacement.DEFAULT_PRIMARY_REPLACEMENTS, ColourListPresets.ALL, null)),
-												s);
-										is.close();
+						if(character!=null) {
+							for(AbstractItem item : character.getAllItemsInInventory().keySet()) {
+								if(item.getItemType().equals(ItemType.CONDOM_USED)) {
+									for(int count=0; count<character.getItemCount(item); count++) {
+										if(condomColours.size()<8) {
+											condomColours.add(item.getColour(0));
+											
+											is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_"+condomColours.size()+"_back.svg");
+											s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
+											s = getSVGWithHandledPattern(s, pattern, patternColours);
+											s = SvgUtil.colourReplacement(this.getId(),
+													Util.newArrayListOfValues(item.getColour(0)),
+													Util.newArrayListOfValues(new ColourReplacement(true, ColourReplacement.DEFAULT_PRIMARY_REPLACEMENTS, ColourListPresets.ALL, null)),
+													s);
+											is.close();
+										}
 									}
 								}
 							}
@@ -2229,7 +2253,6 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			}
 			
 		} else {
-			
 			// Handle empty stickers when defaults are needed:
 			HashMap<String, String> handledStickers = new HashMap<>(stickers);
 			for(Entry<StickerCategory, List<Sticker>> entry : this.getStickers().entrySet()) {

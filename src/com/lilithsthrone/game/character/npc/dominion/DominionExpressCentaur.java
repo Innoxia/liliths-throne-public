@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.EquipClothingSetting;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -22,7 +23,11 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.main.Main;
@@ -58,7 +63,7 @@ public class DominionExpressCentaur extends NPC {
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3,
 				null, null, null,
-				new CharacterInventory(10), WorldType.DOMINION_EXPRESS, PlaceType.DOMINION_EXPRESS_STABLES, false);
+				new CharacterInventory(false, 10), WorldType.DOMINION_EXPRESS, PlaceType.DOMINION_EXPRESS_STABLES, false);
 
 		if(!isImported) {
 			setLevel(8 + Util.random.nextInt(5)); // 8-12
@@ -233,5 +238,51 @@ public class DominionExpressCentaur extends NPC {
 		}
 		
 		return super.getDirtyTalk();
+	}
+	
+	private boolean isSadistSlaveInNatalyaTrainingScene() {
+		try {
+			return this.id.equals(Main.game.getDialogueFlags().getSadistNatalyaSlave());
+		} catch(Exception ex) {
+			return false;
+		}
+	}
+
+	@Override
+	public Value<Boolean, String> getItemUseEffects(AbstractItem item, GameCharacter itemOwner, GameCharacter user, GameCharacter target) {
+		if(isSadistSlaveInNatalyaTrainingScene()) {
+			if(!user.equals(target)) { // Item is not being self-used:
+				String itemName = item.getName();
+				return new Value<>(false,
+						UtilText.parse(user, target,
+							"[npc.Name] [npc.verb(take)] out "+UtilText.generateSingularDeterminer(itemName)+" "+itemName+" from [npc.her] inventory and [npc.verb(try)] to give it to [npc2.name],"
+								+ " but [npc2.she] dismisses it with an angry shout, [npc2.speech(Put that away, you stupid slut!)]"));
+			}
+		}
+		return super.getItemUseEffects(item, itemOwner, user, target);
+	}
+	
+	@Override
+	public String getCondomEquipEffects(AbstractClothingType condomClothingType, GameCharacter equipper, GameCharacter target, boolean rough) {
+		if(isSadistSlaveInNatalyaTrainingScene()) {
+			if(!target.equals(equipper) && equipper.isPlayer() && !target.isPlayer() && Main.game.isInSex()) {
+				AbstractClothing clothing = target.getClothingInSlot(InventorySlot.PENIS);
+				if(clothing!=null && clothing.isCondom()) {
+					target.unequipClothingIntoVoid(clothing, true, equipper);
+					target.getInventory().resetEquipDescription();
+				}
+				if(condomClothingType.equals(ClothingType.getClothingTypeFromId("innoxia_penis_condom_webbing"))) {
+					return UtilText.parse(equipper, target,
+							"[npc.Name] [npc.verb(direct)] [npc.her] spinneret at [npc2.namePos] [npc2.cock], but, sensing what [npc.sheIs] about to do, [npc2.name] [npc2.verb(slap)] it away and [npc2.verb(growl)],"
+							+ " [npc2.speech(I'm not wearing a condom for this!)]");
+				}
+				return UtilText.parse(equipper, target,
+						"[npc.Name] [npc.verb(hold)] out a condom to [npc2.name], but instead of setting about rolling it down over [npc2.her] [npc2.cock] as [npc.she]'d hoped,"
+								+ " [npc2.name] [npc2.verb(let)] out an annoyed growl and [npc2.verb(tear)] the packet in two!"
+						+ " With yet another growl, [npc2.she] states,"
+						+ " [npc2.speech(I'm not wearing a condom for this!)]");
+			}
+		}
+		return null;
 	}
 }

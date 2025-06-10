@@ -16,7 +16,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.3.7
+ * @version 0.4.9.7
  * @author Innoxia
  */
 public class Anus implements BodyPartInterface {
@@ -36,6 +36,15 @@ public class Anus implements BodyPartInterface {
 		assHair = BodyHair.ZERO_NONE;
 	}
 
+	public Anus(Anus anusToCopy) {
+		this.type = anusToCopy.type;
+		
+		this.orificeAnus = new OrificeAnus(anusToCopy.orificeAnus);
+		
+		this.bleached = anusToCopy.bleached;
+		this.assHair = anusToCopy.assHair;
+	}
+	
 	@Override
 	public String getDeterminer(GameCharacter gc) {
 		return type.getDeterminer(gc);

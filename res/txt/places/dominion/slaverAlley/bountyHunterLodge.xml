@@ -453,4 +453,48 @@
 	]]>
 	</htmlContent>
 	
+	
+	<!-- UPSTAIRS_ROOM_ANGELIXX -->
+	
+	<htmlContent tag="UPSTAIRS_ROOM_ANGELIXX"><![CDATA[
+	<p>
+		The wooden door before you, like all of the others up here on the tavern's first floor, has sign on it which declares the room to be occupied. At this bottom of this sign, the name 'Angelixx' has been written in pink marker pen, and around it the succubus has drawn a series of hearts and kisses.
+	</p>
+	<p>
+		#IF(game.getCharactersPresent().contains(angelixx))
+			At this time of day, Angelixx should be in her room, so if you wanted to talk to her, all you'd need to do is knock on her door...
+		#ELSE
+			At this time, Angelixx and her sons are out somewhere in Dominion, either partying or hunting for people to turn into new dolls. As such, if you wanted to talk to her, you'll have to come back here at another time...
+		#ENDIF
+	</p>
+	#IF(!game.getCharactersPresent().contains(angelixx))
+		<p style='text-align:center;'>
+			[style.italicsMinorBad(Angelixx is present here between [units.time(16)]-[units.time(8)])]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	
+	<!-- UPSTAIRS_ROOM_SLEIP_NIR -->
+	
+	<htmlContent tag="UPSTAIRS_ROOM_SLEIP_NIR"><![CDATA[
+	<p>
+		The wooden door before you, like all of the others up here on the tavern's first floor, has sign on it which declares the room to be occupied. At this bottom of this sign, the initials 'S & N', which you know refers to 'Sleip & Nir', have been printed in black marker pen, and beneath this the words 'Fuck off' have been scrawled.
+	</p>
+	<p>
+		#IF(game.getCharactersPresent().contains(sleip))
+			At this time of day, the nightmares should be in their room, so if you wanted to talk to them, all you'd need to do is knock on their door...
+		#ELSE
+			At this time, the nightmares and their mother are out somewhere in Dominion, either partying or hunting for people to turn into new dolls. As such, if you wanted to talk to them, you'll have to come back here at another time...
+		#ENDIF
+	</p>
+	#IF(!game.getCharactersPresent().contains(sleip))
+		<p style='text-align:center;'>
+			[style.italicsMinorBad(Sleip and Nir are present here between [units.time(16)]-[units.time(8)])]
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
 </dialogue>

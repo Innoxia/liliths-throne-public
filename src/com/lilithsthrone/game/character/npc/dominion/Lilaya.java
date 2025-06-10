@@ -52,6 +52,11 @@ import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.markings.Tattoo;
+import com.lilithsthrone.game.character.markings.TattooCountType;
+import com.lilithsthrone.game.character.markings.TattooCounter;
+import com.lilithsthrone.game.character.markings.TattooCounterType;
+import com.lilithsthrone.game.character.markings.TattooWriting;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
@@ -69,6 +74,9 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
+import com.lilithsthrone.game.sex.SexAreaOrifice;
+import com.lilithsthrone.game.sex.SexAreaPenetration;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.sexActions.dominion.SALilayaSpecials;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -95,10 +103,10 @@ public class Lilaya extends NPC {
 						+ " Although she still exists in this world, she isn't your aunt any more, and in this reality, she's a half-demon called 'Lilaya'."
 						+ " Whereas your old aunt was a researcher at the city museum, Lilaya is a privately-funded researcher of the arcane."
 						+ " Due to her demonic appearance and the fact that she's the daughter of the Lilin Lyssieth, people usually regard Lilaya with a mixture of fear and respect.",
-				48, Month.DECEMBER, 28,
+				48, Month.DECEMBER, 28, // Note that Lilaya's age is always set to 22 years older than the player in CharacterCreation.applyGameStart(), so the age of 48 here doesn't mean much.
 				25,
 				Gender.F_V_B_FEMALE, Subspecies.DEMON, RaceStage.PARTIAL_FULL,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.LILAYAS_HOUSE_FIRST_FLOOR,
 				PlaceType.LILAYA_HOME_ROOM_LILAYA,
 				true);
@@ -572,6 +580,102 @@ public class Lilaya extends NPC {
 		
 		String returnedLine = speech.get(Util.random.nextInt(speech.size()));
 		return UtilText.parse(this, target, "[npc.speech("+returnedLine+")]");
+	}
+
+	
+	// Bad end content:
+	
+	public void applyDollificationBadEndTattoos() {
+		this.addTattoo(InventorySlot.TORSO_OVER,
+				new Tattoo(
+						"innoxia_misc_none",
+						PresetColour.CLOTHING_BLACK,
+						false,
+						new TattooWriting("Pull my hair!", PresetColour.CLOTHING_BLACK, false),
+						null));
+		this.addTattoo(InventorySlot.TORSO_UNDER,
+				new Tattoo(
+						"innoxia_misc_none",
+						PresetColour.CLOTHING_BLACK,
+						false,
+						new TattooWriting("Slap my ass!", PresetColour.CLOTHING_BLACK, false),
+						null));
+		this.addTattoo(InventorySlot.ANUS,
+				new Tattoo(
+						"innoxia_misc_none",
+						PresetColour.CLOTHING_BLACK,
+						false,
+						new TattooWriting("Buttslut whore", PresetColour.CLOTHING_BLACK, false),
+						new TattooCounter(TattooCounterType.ANUS_FUCKED, TattooCountType.TALLY, PresetColour.CLOTHING_BLACK, false, this)));
+		this.addTattoo(InventorySlot.CHEST,
+				new Tattoo(
+						"innoxia_misc_none",
+						PresetColour.CLOTHING_BLACK,
+						false,
+						new TattooWriting("Fuck my fat fucking tits", PresetColour.CLOTHING_BLACK, false),
+						new TattooCounter(TattooCounterType.NIPPLES_FUCKED, TattooCountType.TALLY, PresetColour.CLOTHING_BLACK, false, this)));
+		this.addTattoo(InventorySlot.GROIN,
+				new Tattoo(
+						"innoxia_misc_none",
+						PresetColour.CLOTHING_BLACK,
+						false,
+						new TattooWriting("Free fuck", PresetColour.CLOTHING_BLACK, false),
+						new TattooCounter(TattooCounterType.PUSSY_FUCKED, TattooCountType.TALLY, PresetColour.CLOTHING_BLACK, false, this)));
+		this.addTattoo(InventorySlot.STOMACH,
+				new Tattoo(
+						"innoxia_misc_none",
+						PresetColour.CLOTHING_BLACK,
+						false,
+						new TattooWriting("Kiarillex's cum claimed this womb", PresetColour.CLOTHING_BLACK, false),
+						null));
+		this.addTattoo(InventorySlot.LEG,
+				new Tattoo(
+						"innoxia_misc_none",
+						PresetColour.CLOTHING_BLACK,
+						false,
+						new TattooWriting("Sex slave", PresetColour.CLOTHING_BLACK, false),
+						null));
+		this.addTattoo(InventorySlot.FOOT,
+				new Tattoo(
+						"innoxia_misc_none",
+						PresetColour.CLOTHING_BLACK,
+						false,
+						new TattooWriting("Cum on my feet", PresetColour.CLOTHING_BLACK, false),
+						new TattooCounter(TattooCounterType.CUM_TAKEN_FEET, TattooCountType.TALLY, PresetColour.CLOTHING_BLACK, false, this)));
+		this.addTattoo(InventorySlot.NECK,
+				new Tattoo(
+						"innoxia_misc_none",
+						PresetColour.CLOTHING_BLACK,
+						false,
+						new TattooWriting("Owned by Kiarillex", PresetColour.CLOTHING_BLACK, false),
+						null));
+		this.addTattoo(InventorySlot.VAGINA,
+				new Tattoo(
+						"innoxia_misc_none",
+						PresetColour.CLOTHING_BLACK,
+						false,
+						new TattooWriting("Cum dump cunt", PresetColour.CLOTHING_BLACK, false),
+						new TattooCounter(TattooCounterType.CUM_TAKEN_PUSSY, TattooCountType.TALLY, PresetColour.CLOTHING_BLACK, false, this)));
+		
+		// Increment stats for tattoo counters:
+		applyDemonSexCounts(new SexType(SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS), 1);
+		applyDemonSexCounts(new SexType(SexAreaOrifice.ANUS, SexAreaPenetration.PENIS), 0.75f);
+		applyDemonSexCounts(new SexType(SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS), 0.8f);
+		applyDemonSexCounts(new SexType(SexAreaOrifice.NIPPLE, SexAreaPenetration.PENIS), 0.25f);
+		applyDemonSexCounts(new SexType(SexAreaPenetration.FOOT, SexAreaPenetration.PENIS), 0.25f);
+	}
+
+	private void applyDemonSexCounts(SexType sexType, float frequency) {
+		// Fucked by up to 30-50 different centauresses in this SexType:
+		int demonPartnerCount = (int) ((30 + Util.random.nextInt(50)) * frequency);
+		
+		for(int i=0; i<demonPartnerCount; i++) {
+			String demonId = "partyDemon"+i;
+			int sexCount = 1 + Util.random.nextInt(3);
+			this.setSexAsSubCountById(demonId, sexCount);
+			this.setSexCountById(demonId, sexType, sexCount);
+			this.setCumCountById(demonId, sexType, (Math.random()<0.75f?1:0)+Util.random.nextInt(sexCount));
+		}
 	}
 
 }

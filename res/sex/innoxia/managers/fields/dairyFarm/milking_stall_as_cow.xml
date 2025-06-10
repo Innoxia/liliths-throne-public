@@ -118,7 +118,13 @@
 				<coverableArea><![CDATA[PENIS]]></coverableArea>
 			</exposeAtStart>
 			<forcedCreampiesDisabled/>
-			<orgasmBehaviour><![CDATA[DEFAULT]]></orgasmBehaviour>
+			<orgasmBehaviour><![CDATA[
+				#IF(!pc.isVisiblyPregnant() && sex.getOngoingCharactersUsingAreas(pc, ORIFICE_VAGINA, PENETRATION_PENIS).contains(partner))
+					CREAMPIE
+				#ELSE
+					DEFAULT
+				#ENDIF
+			]]></orgasmBehaviour>
 			<orgasmCumTarget/>
 			<orgasmCumTargetsBlocked/>
 			<orgasmEncourageBehaviours/>

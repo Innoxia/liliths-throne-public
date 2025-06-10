@@ -44,6 +44,8 @@ import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.persona.Occupation;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.CombatBehaviour;
@@ -84,7 +86,7 @@ public class Hammer extends NPC {
 				69, Month.DECEMBER, 1,
 				40,
 				Gender.M_P_MALE, Subspecies.WOLF_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_enforcer_station"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_enforcer_station_sword"),
 				true);
 		if(!isImported) {
@@ -325,6 +327,10 @@ public class Hammer extends NPC {
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_sock_socks", PresetColour.CLOTHING_BLACK, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_foot_work_boots", PresetColour.CLOTHING_DESATURATED_BROWN, false), true, this);
+
+		if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_3_I_ARION_REPORT)) {
+			this.resetAreasKnownByCharactersMap();
+		}
 	}
 	
 	public void equipOpsGear() {
@@ -350,6 +356,10 @@ public class Hammer extends NPC {
 		
 		this.equipMainWeaponFromNowhere(Main.game.getItemGen().generateWeapon("dsg_hlf_weap_gbshotgun"));
 		this.setEssenceCount(250);
+
+		if(Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_3_I_ARION_REPORT)) {
+			this.resetAreasKnownByCharactersMap();
+		}
 	}
 	
 	public AbstractWeapon getDagger() {

@@ -68,7 +68,7 @@ public class SillyModeLARPAttacker extends NPC {
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3,
 				null, null, null,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("dsg_fields_elis_eisek_sillymode_dungeon"),
 				PlaceType.getPlaceTypeFromId("dsg_fields_elis_eisek_sillymode_dungeon_passage"),
 				false,
@@ -100,7 +100,10 @@ public class SillyModeLARPAttacker extends NPC {
 			if(Math.random()<Main.getProperties().taurSpawnRate/100f
 					&& this.getLegConfiguration()!=LegConfiguration.QUADRUPEDAL) { // Do not reset this character's taur body if they spawned as a taur (as otherwise subspecies-specific settings get overridden by global taur settings)
 				// Check for race's leg type as taur, otherwise NPCs which spawn with human legs won't be affected by taur conversion rate:
-				if(this.getRace().getRacialBody().getLegType().isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) {
+				if(this.getSubspecies()==Subspecies.HALF_DEMON && this.getLegType().isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) {
+					Main.game.getCharacterUtils().applyTaurConversion(this);
+					
+				} else if(this.getRace().getRacialBody().getLegType().isLegConfigurationAvailable(LegConfiguration.QUADRUPEDAL)) {
 					this.setLegType(this.getRace().getRacialBody().getLegType());
 					Main.game.getCharacterUtils().applyTaurConversion(this);
 				}

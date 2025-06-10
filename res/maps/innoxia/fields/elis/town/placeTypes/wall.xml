@@ -2,7 +2,7 @@
 <placeType>
 	<worldRegion>FIELD_CITY</worldRegion>
 	<name><![CDATA[wall]]></name>
-	<tooltipDescription><![CDATA[A crenellated stone wall surrounds the town of Elis, grating it exceptional protection against marauding bandits.]]></tooltipDescription>
+	<tooltipDescription><![CDATA[A crenellated stone wall surrounds the town of Elis, granting it exceptional protection against marauding bandits.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[on the walls of Elis]]></virginityLossDescription>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
 	<colour>#ac9a8c</colour>

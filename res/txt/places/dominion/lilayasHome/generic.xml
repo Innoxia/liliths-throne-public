@@ -147,47 +147,6 @@
 	</htmlContent>
 	
 	
-	<!-- ROOM_ROSE -->
-	
-	<htmlContent tag="ROOM_ROSE"><![CDATA[
-	<p>
-		Evidence of Rose's close relationship with Lilaya is apparent as you approach the cat-girl's room. Hanging on the door, there's a little home-made sign bearing her name, and underneath, in flowing handwriting which you recognise as Lilaya's, a little message reads: <i>'My loving Mistress'</i>
-	</p>
-	#IF(game.isExtendedWorkTime())
-		<p>
-			The door appears to be locked at the moment, and there's no sound of anyone stirring within. Rose seems to only allow herself some rest when she's sure that nobody else is around who might need her, so she's probably off in another part of the house at the moment.
-		</p>
-		<p>
-			You notice that there's a little bell set into the wall beside her door, and you wonder if you should try ringing it to get Rose to come up to her room.
-		</p>
-	#ELSE
-		<p>
-			The door appears to be locked at the moment, and you can hear the faint sound of movement coming from within. Considering what time it currently is, you assume that the cat-girl maid must be sleeping in there.
-		</p>
-		<p>
-			You notice that there's a little bell set into the wall beside her door, and, sure enough, a little sign has been hung beneath it, which reads: [style.italicsBad(Please do not disturb.)]
-		</p>
-		<p>
-			It looks like you'll have to return during daylight hours if you wanted to talk to Rose about anything...
-		</p>
-	#ENDIF
-	]]>
-	</htmlContent>
-	
-	<htmlContent tag="ROOM_ROSE_INITIAL_CALL"><![CDATA[
-	<p>
-		Deciding that you'd like to talk to Rose, you decide to push the little bell that's situated beside her bedroom's door, causing a faint ringing noise to echo up from somewhere else in the house. Despite the enormous size of Lilaya's home, Rose never seems to be far away, and you soon hear her walking down the corridor as she rushes to respond to your call.
-	</p>
-	<p>
-		As she approaches, you see her cat-like tail swishing from side to side, and you notice one of her ears twitch as she sees you standing outside her bedroom waiting for her. Realising that you're obviously wanting to have a talk, she curtsies before issuing a greeting.
-	</p>
-	<p>
-		[rose.speech(Good [style.morning],)] she says, [rose.speech(How may I help you?)]
-	</p>
-	]]>
-	</htmlContent>
-	
-	
 	<!-- ROSE -->
 	
 	<htmlContent tag="ROSE_TALK_LILAYA"><![CDATA[
@@ -365,6 +324,11 @@
 	<p>
 		From previous explorations, you know that the rest of the house is furnished in much the same manner. You tried to count all the rooms once, but gave up after reaching well over one hundred. Despite its grand appearance and impressive size, the only member of staff you've ever seen is Lilaya's slave; the cat-girl maid called Rose. Lilaya herself spends almost every waking moment working in her lab, resulting in the house being eerily quiet for most of the time.
 	</p>
+	#IF(pc.getQuest(QUEST_LINE_SIDE_DOLL_FACTORY)==QUEST_DOLL_FACTORY_6)
+		<p style='text-align:center;'>
+			[style.italicsMinorBad(There's no message for you from Fiammetta yet. You're sure to hear from her soon, however...)]
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	

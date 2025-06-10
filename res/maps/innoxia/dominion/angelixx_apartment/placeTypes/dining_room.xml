@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>DOMINION</worldRegion>
+	<name><![CDATA[Dining Room]]></name>
+	<tooltipDescription><![CDATA[This open-plan dining room is joined to the kitchen, and contains several cabinets, as well as the expected table and chairs.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in the dining room at Angelixx's apartment]]></virginityLossDescription>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<colour>BASE_BLUE_STEEL</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_dominion_angelixx_apartment_generic_dining_room</dialogue>
+	<populationPresent/>
+	<furniturePresent>true</furniturePresent>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions>NONE</teleportPermissions>
+	<weatherImmunities immuneToAll="true"/>
+	<applyInventoryInit/>
+</placeType>

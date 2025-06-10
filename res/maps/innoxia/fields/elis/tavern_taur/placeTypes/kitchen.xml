@@ -8,7 +8,7 @@
 	<colour>BASE_TAN</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>
 	<encounterType>null</encounterType>
-	<dialogue>innoxia_places_fields_elis_tavern_taur_kitchen</dialogue>
+	<dialogue>innoxia_places_fields_elis_tavern_taur_core_kitchen</dialogue>
 	<populationPresent/>
 	<furniturePresent>true</furniturePresent>
 	<globalMapTile>false</globalMapTile>

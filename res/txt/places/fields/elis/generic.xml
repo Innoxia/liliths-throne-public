@@ -130,7 +130,7 @@
 		While nowhere near as huge or imposing as its Dominion counterpart, the building which houses the Elis Enforcers is nevertheless a suitably large and official-looking one. Although it's of the same timber-framed style as most of the other structures in the town, the Enforcer station differs from those around it by nature of the fact that it sits back from the road, and is separated from where you're standing by an attractive knot garden. If it wasn't for the large sign declaring this to be the Enforcer's headquarters for the Elis region, as well as the Enforcers themselves occasionally coming and going from the main entrance, you could easily be mistaken for thinking that this building was simply a wealthy resident's manor.
 	</p>
 	<p>
-		#IF(game.isLunetteDefeated())
+		#IF(!game.isLunetteDefeated())
 			With Lunette's destruction of the Fields causing serious issues both within and without the walls of Elis, the Enforcers which you see all seem to have a melancholy look about them.
 		#ELSE
 			With Lunette having been defeated, and Elis now experiencing a level of peace and security which hasn't been felt for many years, all of the Enforcers you see have a relaxed, friendly look about them.
@@ -149,9 +149,9 @@
 	<p>
 		Just like those out in the rest of the Foloi Fields, the fields surrounding Elis
 		#IF(game.getSeason()==SEASON_WINTER)
-			 are primarily given over to the production of crops, which at this time of year include, among many others, things such as
-		#ELSE
 			 have been ploughed and slurried in preparation for the coming year.
+		#ELSE
+			 are primarily given over to the production of crops, which at this time of year include, among many others, things such as
 		#ENDIF
 		#IF(game.getSeason()==SEASON_SPRING)
 			 potatoes, rhubarb, and cauliflower. Although not as common as these crop fields, there's also a significant amount of land dedicated to fruit orchards, which at this time of year are filled with beautifully-blossoming trees.
@@ -480,6 +480,63 @@
 			</i>
 		</p>
 	#ENDIF
+	
+	#IF(flags.hasFlag(FLAG_innoxia_yui_public_toy_unlocked))
+		<p>
+			#IF(flags.hasFlag(FLAG_innoxia_yui_public_toy_unavailable_today))
+				Although this is the place where Yui wants to meet you, you've already refused her offer today, so she won't show up again until next Friday...
+			#ELSE
+				This is the place where Yui wants to meet you
+				#IF(game.isHourBetween(20, 23))
+					 between [style.colourMinorGood([units.time(20)]-[units.time(23)])] on a
+				#ELSE
+					 between [style.colourMinorBad([units.time(20)]-[units.time(23)])] on a
+				#ENDIF
+				#IF(game.getDayOfWeek()==DOW_FRIDAY)
+					 [style.colourMinorGood(Friday)].
+				#ELSE
+					 [style.colourMinorBad(Friday)].
+				#ENDIF
+				#IF(game.isHourBetween(20, 23) && game.getDayOfWeek()==DOW_FRIDAY)
+					 As such, you could remain here and wait for her to appear and make contact with you.
+				#ELSE
+					 As such, you're not going to be able to meet with her at the moment, but if you were to return here at the appropriate time, you could make contact with her.
+				#ENDIF
+			#ENDIF
+		</p>
+		#IF(!flags.hasFlag(FLAG_innoxia_yui_public_toy_unavailable_today) && (!pc.hasFetish(FETISH_MASOCHIST) || pc.isAnyEquippedClothingSealed() || pc.isHasAnyPregnancyEffects() || pc.getDirtySlots().size()>0 || (!game.isAnalContentEnabled() && !pc.hasVagina()) || pc.getLegConfiguration()!=LEG_CONFIGURATION_BIPEDAL))
+			<p>
+				#IF(!pc.hasFetish(FETISH_MASOCHIST))
+					As you think about Yui's sadistic nature, you realise that whatever offer she's going to make is sure to involve putting you in a situation where you'll be abused. As you're [style.italicsBad(not a masochist)], you've got a bad feeling about this and [style.italicsBad(decide not to meet with Yui)]...
+				#ELSE
+					Remembering Yui's conditions for your meeting, you realise that she's not going to show up.
+					#IF(pc.isAnyEquippedClothingSealed())
+						 You [style.colourBad(have)] sealed clothing equipped,
+					#ELSE
+						 You [style.colourGood(don't have)] sealed clothing equipped,
+					#ENDIF
+					#IF(pc.isHasAnyPregnancyEffects())
+						 you [style.colourBad(have)] a pregnancy-related status effect active,
+					#ELSE
+						 you [style.colourGood(don't have)] a pregnancy-related status effect active,
+					#ENDIF
+					#IF(pc.getDirtySlots().size()>0)
+						 you [style.colourBad(have)] dirty inventory slots,
+					#ELSE
+						 you [style.colourGood(don't have)] dirty inventory slots,
+					#ENDIF
+					#IF(!game.isAnalContentEnabled() && !pc.hasVagina())
+						 you [style.colourGood(don't have)] a pussy,
+					#ENDIF
+					#IF(pc.getLegConfiguration()!=LEG_CONFIGURATION_BIPEDAL)
+						 and you [style.colourBad(don't have)] a bipedal lower body...
+					#ELSE
+						 and you [style.colourGood(have)] a bipedal lower body...
+					#ENDIF
+				#ENDIF
+			</p>
+		#ENDIF
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -511,9 +568,77 @@
 	<p>
 		Constructed out of the same large, stone blocks as the connecting walls, this square tower is three stories tall. A wide, spiral staircase links all three of its floors, as well as providing access to the flat wooden platform which serves as the roof. Unlike the town's walls, this tall vantage point is manned by a member of the town guard, who's able to look over the crenellated walls and survey the surrounding landscape for any sign of approaching bandits or raiders.
 	</p>
-	<p>
-		Access to this tower is completely unrestricted, and there seems to always be at least one member of the public who's decided to travel up to the top in order to enjoy the view or keep the guard company. With little to keep you here, you quickly find yourself leaving the tower behind as you continue on your way...
-	</p>
+	#IF(pc.getLocationPlaceType()==PLACE_TYPE_innoxia_fields_elis_town_tower_yui && flags.hasFlag(FLAG_innoxia_yui_dungeon_unlocked))
+		<p>
+			Access to this tower is completely unrestricted, and there seems to always be at least one member of the public who's decided to travel up to the top in order to enjoy the view or keep the guard company.
+		</p>
+		<p>
+			#IF(flags.hasFlag(FLAG_innoxia_yui_dungeon_unavailable_today))
+				Although you know that that this is where Yui has her secret bondage basement, you've already refused her offer this evening, so she won't show up again until
+				#IF(game.getDayOfWeek()==DOW_MONDAY)
+					 Wednesday...
+				#ELSE
+					 Monday...
+				#ENDIF
+			#ELSE
+				#IF(flags.hasFlag(FLAG_innoxia_yui_dungeon_refused) || flags.hasFlag(FLAG_innoxia_yui_dungeon_completed_stage_1))
+					Knowing that this is where Yui has her secret bondage basement, you can expect to find her here
+				#ELSE
+					This is the tower which Yui told you about, and she said to expect to find her here
+				#ENDIF
+				#IF(game.isHourBetween(20, 23))
+					 between [style.colourMinorGood([units.time(20)]-[units.time(23)])] every
+				#ELSE
+					 between [style.colourMinorBad([units.time(20)]-[units.time(23)])] every
+				#ENDIF
+				#IF(game.getDayOfWeek()==DOW_MONDAY)
+					 [style.colourMinorGood(Monday)] and Wednesday.
+				#ELSEIF(game.getDayOfWeek()==DOW_WEDNESDAY)
+					 Monday and [style.colourMinorGood(Wednesday)].
+				#ELSE
+					 [style.colourMinorBad(Monday and Wednesday)].
+				#ENDIF
+				#IF(game.isHourBetween(20, 23) && (game.getDayOfWeek()==DOW_MONDAY || game.getDayOfWeek()==DOW_WEDNESDAY))
+					 As such, you could remain here and wait for her to appear and make contact with you in order to 
+				#ELSE
+					 As such, you're not going to be able to meet with her at the moment, but if you were to return here at the appropriate time, you could 
+				#ENDIF
+				#IF(flags.hasFlag(FLAG_innoxia_yui_dungeon_refused) || flags.hasFlag(FLAG_innoxia_yui_dungeon_completed_stage_1))
+					 accept her offer again...
+				#ELSE
+					 find out what her offer is...
+				#ENDIF
+			#ENDIF
+		</p>
+		#IF(!flags.hasFlag(FLAG_innoxia_yui_dungeon_unavailable_today) && (!pc.hasFetish(FETISH_MASOCHIST) || pc.isAnyEquippedClothingSealed() || pc.isHasAnyPregnancyEffects() || pc.getDirtySlots().size()>0))
+			<p>
+				#IF(!pc.hasFetish(FETISH_MASOCHIST))
+					As you think about Yui's sadistic nature, you realise that whatever offer she's going to make is sure to involve putting you in a situation where you'll be abused. As you're [style.italicsBad(not a masochist)], you've got a bad feeling about this and [style.italicsBad(decide not to meet with Yui)]...
+				#ELSE
+					Remembering Yui's conditions for your meeting, you realise that she's not going to show up.
+					#IF(pc.isAnyEquippedClothingSealed())
+						 You [style.colourBad(have)] sealed clothing equipped,
+					#ELSE
+						 You [style.colourGood(don't have)] sealed clothing equipped,
+					#ENDIF
+					#IF(pc.isHasAnyPregnancyEffects())
+						 you [style.colourBad(have)] a pregnancy-related status effect active,
+					#ELSE
+						 you [style.colourGood(don't have)] a pregnancy-related status effect active,
+					#ENDIF
+					#IF(pc.getDirtySlots().size()>0)
+						 and you [style.colourBad(have)] dirty inventory slots...
+					#ELSE
+						 and you [style.colourGood(don't have)] dirty inventory slots...
+					#ENDIF
+				#ENDIF
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			Access to this tower is completely unrestricted, and there seems to always be at least one member of the public who's decided to travel up to the top in order to enjoy the view or keep the guard company. With little to keep you here, you quickly find yourself leaving the tower behind as you continue on your way...
+		</p>
+	#ENDIF
 	]]>
 	</htmlContent>
 	
@@ -566,7 +691,7 @@
 		Due to there being no imminent threat of attack, there are no guards or Enforcers manning the parapets, and with no signs prohibiting access to members of the public, you're able to freely head up and travel along the wide, wooden walkway. Although there's a road running parallel to the wall, it seems a lot more interesting to travel along this elevated platform, which seems to be the opinion of several other residents of Elis, who have similarly decided to take the high road.
 	</p>
 	<p>
-		Looking over the stone crenelations, 
+		Looking over the stone crenellations, 
 		#IF(game.isDayTime())
 			 you're able to get a fine view of the surrounding fields and woodland.
 		#ELSE

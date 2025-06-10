@@ -431,25 +431,25 @@ public class FootMouth {
 					foundFootType = true;
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"With [npc.a_moan+], [npc.name] [npc.eagerly] [npc.verb(push)] [npc2.namePos] head down to [npc.her] hard hoofs, before getting [npc2.herHim] to kiss them and start orally worshipping [npc.her] [npc.feet+].",
-							"Pushing [npc2.namePos] head down to [npc.her] hard hoofs, [npc.name] can't help but [npc.moan+] as [npc.she] [npc.verb(make)] [npc2.herHim] kiss and orally worship [npc.her] [npc.feet+]."));
+							"Pushing [npc2.namePos] head down to [npc.her] hard hoofs, [npc.name] can't help but [npc.moanVerb+] as [npc.she] [npc.verb(make)] [npc2.herHim] kiss and orally worship [npc.her] [npc.feet+]."));
 					
 				} else if(Main.sex.getCharacterPerformingAction().getLegType().getFootType().equals(FootType.TALONS)) {
 					foundFootType = true;
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"With [npc.a_moan+], [npc.name] [npc.eagerly] [npc.verb(push)] [npc2.namePos] head down to [npc.her] bird-like feet, before getting [npc2.herHim] to kiss [npc.her] talons and start orally worshipping [npc.her] [npc.feet+].",
-							"Pushing [npc2.namePos] head down to [npc.her] bird-like feet, [npc.name] can't help but [npc.moan+] as [npc.she] [npc.verb(make)] [npc2.herHim] kiss [npc.her] talons and orally worship [npc.her] [npc.feet+]."));
+							"Pushing [npc2.namePos] head down to [npc.her] bird-like feet, [npc.name] can't help but [npc.moanVerb+] as [npc.she] [npc.verb(make)] [npc2.herHim] kiss [npc.her] talons and orally worship [npc.her] [npc.feet+]."));
 					
 				} else if(Main.sex.getCharacterPerformingAction().getLegType().getFootType().equals(FootType.TENTACLE)) {
 					foundFootType = true;
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"With [npc.a_moan+], [npc.name] [npc.eagerly] [npc.verb(push)] [npc2.namePos] head down to [npc.her] tentacles, before getting [npc2.herHim] to kiss and start orally worshipping them.",
-							"Pushing [npc2.namePos] head down to [npc.her] tentacles, [npc.name] can't help but [npc.moan+] as [npc.she] [npc.verb(make)] [npc2.herHim] kiss and orally worship them."));
+							"Pushing [npc2.namePos] head down to [npc.her] tentacles, [npc.name] can't help but [npc.moanVerb+] as [npc.she] [npc.verb(make)] [npc2.herHim] kiss and orally worship them."));
 				}
 			}
 			if(!foundFootType) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"With [npc.a_moan+], [npc.name] [npc.eagerly] [npc.verb(push)] [npc2.namePos] head down to [npc.her] [npc.feet], before getting [npc2.herHim] to kiss them and start orally worshipping them.",
-						"Pushing [npc2.namePos] head down to [npc.her] [npc.feet], [npc.name] can't help but [npc.moan+] as [npc.she] [npc.verb(make)] [npc2.herHim] kiss and orally worship them."));
+						"Pushing [npc2.namePos] head down to [npc.her] [npc.feet], [npc.name] can't help but [npc.moanVerb+] as [npc.she] [npc.verb(make)] [npc2.herHim] kiss and orally worship them."));
 			}
 
 			if(!isTargetedCharacterInanimate()) {

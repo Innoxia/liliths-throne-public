@@ -27,58 +27,13 @@
 		</effectTooltipLines>
 		
 		<applyEffects><![CDATA[
-		<p>
-			You open the diary and flick through it, noticing immediately that Angelixx has exclusively used brightly-coloured gel pens to fill the pages. The succubus's handwriting is very girly, and you see that she's gone so far as to dot every 'i' with a little heart. The margin of almost every page is decorated with hearts, flowers, and other such illustrations.
-		</p>
-		<p>
-			Stopping on a random page to read a paragraph, you see that the contents of this diary are far more lewd, and at times sinister, than anyone would expect from its appearance:
-		</p>
 		<p style='text-align:center; margin-top:0; padding-top:0;'>
 			<i>
-			[style.random(
-			A cat-girl pushed me out of the way today and called me a 'silly little girl'. Luckily my boys were nearby, and so I had them take her down an alley and double-team her. I ordered them to cum all over her and then asked her who the silly-looking one was now.
-			<br/>(01/14)
-			|
-			This evening I got hit on again at the bar. He was a big, handsome zebra-boy, and I kind of have a weakness for all horse-morphs, so I let him take me back to his grotty little apartment and rail me hard on his bed. His fat fucking cock stretched me out so good, and after giving me a creampie he made me suck him off. Fuck, I'm getting horny thinking about it... I think I'll call a slave to come and pound me on the bed...
-			<br/>(02/14)
-			|
-			Mother wants me to increase the number of kidnappings, but insists that they be loners who won't have friends or family to report their disappearance. My gang's doing all they can, doesn't she know how hard it is?! At this rate I'll have to go back to seducing loners in the alleyways, and that'll seriously eat into the time I get to spend with my boys...
-			<br/>(03/14)
-			|
-			My good boys, Sleip and Nir, captured three refugees today! As a reward, I told them to come to my room at midnight, where I'd dressed up in their favourite lingerie and had a slave tie me to the bed. Fuck, they pounded me so hard for the rest of the night, I can barely walk this morning...
-			<br/>(04/14)
-			|
-			As I was teleporting the refugees to mother's shop, one of them called me a stupid little bitch. Fuck, that pissed me off. I got my boys to double-penetrate her dirty little cunt while I carried on teleporting the others. By the time I'd finished, the cunt's cunt was a gaping, cum-filled mess. I promised her that this was just a taste of her new life, before teleporting her too...
-			<br/>(05/14)
-			|
-			I went to the bank today, and the asshole in the lobby told me to go to the back of the queue. I told him who the fuck I am, and he realised his mistake. Too late! I got the stupid prick fired, and after making a potion to turn him into a big-titted horse-girl, I sent Sleip and Nir after 'her' to make sure 'she' learnt 'her' lesson...
-			<br/>(06/14)
-			|
-			That centaur who made me his cock-sleeve yesterday ended up getting me pregnant with triplets... Eugh... Horse-morphs are one thing, but pushing out demonic centaurs is really fucking tiring. I'll get some Mother's Milk later and get it over and done with. It kind of ruins my whole look when I'm pregnant anyway...
-			<br/>(07/14)
-			|
-			Mother sent Saellatrix to see me today. That bitch kept on telling me to increase the number of kidnappings. She was so dominant and direct in her behaviour that I couldn't help but get turned on, and when she grew herself a fat cock, I couldn't resist! She pinned me down and fucked me raw while my boys just stood there and watched...
-			<br/>(08/14)
-			|
-			Some of my gang members have disappeared... It's got to be the Enforcers who got them, or maybe it's a rival gang? Fuck, I'm not cut out for some kind of gang war! I'll seduce one of the Enforcers tonight and see what I can learn. Perhaps that big, hunky horse-boy who I've seen doing patrols?
-			<br/>(09/14)
-			|
-			Tonight I found that big, handsome horse-boy Enforcer I'd seen doing patrols. He was harder to seduce than I expected, and I had to fall back on telepathy to get him aroused. Oh well, I got what I wanted in the end. He didn't have any information on who was responsible for attacking my gang, but I did get his massive, fat cock balls-deep in my hot little pussy...
-			<br/>(10/14)
-			|
-			I got mugged in the alleyway today! A couple of dog-boys demanded flames from me, and one of them had an Enforcer's pistol! I know I could have beaten them, but I just couldn't move... After they took my flames, they said they'd give me their knots in exchange. Fuck, that got me wet, and so I let them rail me doggy-style right there on the floor...
-			<br/>(11/14)
-			|
-			I saw that assistant of Minotallys's today in the Farmer's Market. Alicorns really do it for me, so I ambushed him by the kissing booth stall and seduced him. Sure, I had to use arcane arousal *and* telepathy, but I got him in the end. We found a quiet spot behind a nearby building, where he insisted on starting by eating me out. He actually managed to get me to orgasm with just his tongue, and then a dozen or so more times when his fat horse-cock was balls-deep in my sloppy cunt...
-			<br/>(12/14)
-			|
-			Mother called me back to Dominion today to see her, and I decided to take a carriage instead of teleporting. The big, hunky centaur who was pulling it was called 'Vronti', and I tried everything to get him to stop and fuck me raw with his massive horse-cock. I could barely get a word out of him, though. Fuck! I had a centaur rail me just now and I was thinking of Vronti the whole time...
-			<br/>(13/14)
-			|
-			Nir recruited a new member into the gang today. I don't normally pay much attention to new recruits, but this one's a big, dumb brute of a donkey-boy. I wanted him so badly that I let him pull me into that filthy bathroom at our HQ and fuck me hard up against the wall. His fat cock felt as good as I'd hoped, but the dumb, horny idiot tore my favourite pair of panties in two in his haste to get to my pussy....
-			<br/>(14/14)
-			)]
+				[#angelixx.getDiaryEntry()]
 			</i>
+		</p>
+		<p>
+			The content of this diary is completely at odds with its appearance, for Angelixx has used brightly-coloured gel pens to fill the pages with her extremely girly handwriting. She's even gone so far as to dot every 'i' with a little heart, and fill the margin of almost every page with hearts, flowers, and other such innocent illustrations.
 		</p>
 		]]></applyEffects>
 		
@@ -88,10 +43,10 @@
 
 	<useDescriptions>
 		<selfUse><![CDATA[
-		[npc.Name] [npc.verb(release)] the diary's elasticated strap, allowing it to be opened...
+			[npc.Name] [npc.verb(release)] the diary's elasticated strap, allowing it to be opened. Stopping on a random page to read a paragraph, [npc.she] [npc.verb(see)] that the contents of this diary are far more lewd, and at times sinister, than anyone would expect from its appearance:
 		]]></selfUse>
 		<otherUse><![CDATA[
-		[npc.Name] [npc.verb(release)] the diary's elasticated strap, allowing it to be opened, before showing it off to [npc2.name]...
+			[npc.Name] [npc.verb(release)] the diary's elasticated strap, allowing it to be opened, before showing it off to [npc2.name]. Stopping on a random page to read a paragraph, [npc.she] [npc.verb(see)] that the contents of this diary are far more lewd, and at times sinister, than anyone would expect from its appearance:
 		]]></otherUse>
 	</useDescriptions>
 

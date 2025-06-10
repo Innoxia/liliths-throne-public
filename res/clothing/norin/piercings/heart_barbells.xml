@@ -38,9 +38,9 @@
 		<incompatibleSlots/> <!-- slot(s) not compatible -->
 		
 		<primaryColours values="ALL_METAL"/>
-		<primaryColoursDye values="ALL_METAL"/>
+		<primaryColoursDye values="ALL_WITH_METALS"/>
 		<secondaryColours values="ALL_METAL"/>
-		<secondaryColoursDye values="ALL_METAL"/>
+		<secondaryColoursDye values="ALL_WITH_METALS"/>
 		<tertiaryColours/>
 		<tertiaryColoursDye/>
 		

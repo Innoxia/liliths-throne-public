@@ -47,7 +47,9 @@
 		
 	<primaryColours values="JUST_COPPER"/>
 	<primaryColoursDye values="ALL_WITH_METALS"/>
-	<secondaryColours values="JUST_ORANGE"/>
+	<secondaryColours>
+		<colour>CLOTHING_YELLOW</colour>
+	</secondaryColours>
 	<secondaryColoursDye values="ALL"/>
 	<tertiaryColours values="JUST_COPPER"/>
 	<tertiaryColoursDye values="ALL_WITH_METALS"/>

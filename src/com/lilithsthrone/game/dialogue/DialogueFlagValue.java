@@ -35,6 +35,9 @@ public class DialogueFlagValue {
 	
 	// Misc.:
 	public static AbstractDialogueFlagValue quickTrade = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue dressingRoomAutoClean = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue dressingRoomLyssiethsWardrobeActivated = new AbstractDialogueFlagValue();
+	
 	/** This is reset to false every time a transaction occurs, and should only be set to true in an NPC's applyItemTransactionEffects() method to prevent their default getTraderDescription() text from being displayed. */
 	public static AbstractDialogueFlagValue removeTraderDescription = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue stormTextUpdateRequired = new AbstractDialogueFlagValue();
@@ -98,8 +101,6 @@ public class DialogueFlagValue {
 	public static AbstractDialogueFlagValue ashleySexToysDiscovered = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue ashleyAttitude = new AbstractDialogueFlagValue();
 	
-	public static AbstractDialogueFlagValue reactedToKatePregnancy = new AbstractDialogueFlagValue();
-	
 	// Nyan:
 	public static AbstractDialogueFlagValue nyanHiding = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue nyanDating = new AbstractDialogueFlagValue();
@@ -149,6 +150,7 @@ public class DialogueFlagValue {
 	public static AbstractDialogueFlagValue readBook2 = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue readBook3 = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue readBook4 = new AbstractDialogueFlagValue();
+	public static AbstractDialogueFlagValue readBook5 = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue readBookSlavery = new AbstractDialogueFlagValue();
 	
 	public static AbstractDialogueFlagValue arthursPackageObtained = new AbstractDialogueFlagValue();
@@ -370,6 +372,9 @@ public class DialogueFlagValue {
 	public static AbstractDialogueFlagValue impCitadelTreasurySearched = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue impCitadelLaboratorySearched = new AbstractDialogueFlagValue();
 
+	public static AbstractDialogueFlagValue meraxisTrickedWithRing = new AbstractDialogueFlagValue();
+	
+
 	public static AbstractDialogueFlagValue impCitadelPrisonerMale = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue impCitadelPrisonerFemale = new AbstractDialogueFlagValue();
 	public static AbstractDialogueFlagValue impCitadelPrisonerAlpha = new AbstractDialogueFlagValue();
@@ -519,6 +524,7 @@ public class DialogueFlagValue {
 		// Removed flags:
 		if(id.equals("ratWarrensRaid")
 				|| id.equals("suppliersTriedConvincing")
+				|| id.equals("reactedToKatePregnancy")
 				// Reset gym flags so that the new gym starts out as a fresh start for versions loaded from prior to 0.4.7.8:
 				|| id.equals("gymIsMember")
 				|| id.equals("gymIntroduced")

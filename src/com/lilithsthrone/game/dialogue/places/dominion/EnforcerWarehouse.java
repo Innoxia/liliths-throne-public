@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -44,6 +45,7 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.sex.ImmobilisationType;
 import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.managers.dominion.SMClaireWarehouse;
@@ -1247,6 +1249,14 @@ public class EnforcerWarehouse {
 											:SexSlotStocks.RECEIVING_ORAL)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStocks.LOCKED_IN_STOCKS))) {
 							@Override
+							public Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> getStartingCharactersImmobilised() {
+								return Util.newHashMapOfValues(
+										new Value<>(ImmobilisationType.STOCKS,
+												Util.newHashMapOfValues(
+														new Value<>(arrestingGuard,
+																Util.newHashSetOfValues(Main.game.getPlayer())))));
+							}
+							@Override
 							public boolean isCharacterStartNaked(GameCharacter character) {
 								return character.isPlayer();
 							}
@@ -1345,6 +1355,14 @@ public class EnforcerWarehouse {
 										new Value<>(randomSexPartners.get(0), SexSlotStocks.BEHIND_STOCKS),
 										new Value<>(randomSexPartners.get(1), SexSlotStocks.RECEIVING_ORAL)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStocks.LOCKED_IN_STOCKS))) {
+							@Override
+							public Map<ImmobilisationType, Map<GameCharacter, Set<GameCharacter>>> getStartingCharactersImmobilised() {
+								return Util.newHashMapOfValues(
+										new Value<>(ImmobilisationType.STOCKS,
+												Util.newHashMapOfValues(
+														new Value<>(randomSexPartners.get(0),
+																Util.newHashSetOfValues(Main.game.getPlayer())))));
+							}
 							@Override
 							public boolean isCharacterStartNaked(GameCharacter character) {
 								return character.isPlayer();

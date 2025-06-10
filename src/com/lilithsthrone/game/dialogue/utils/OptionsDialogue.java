@@ -100,7 +100,6 @@ public class OptionsDialogue {
 								+ "If the game's resolution isn't fitting to your screen, press the keys: 'Windows' + 'Up Arrow' to maximise!"
 							+ "</p>"
 							:"")
-					+ "<br/>"
 					+ (Main.game.isStarted() || Main.getProperties().name.isEmpty()
 							?""
 							:"<h4 style='text-align:center;'>Last save:</h4>"
@@ -1170,12 +1169,10 @@ public class OptionsDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 0) {
+			if(index == 0) {
 				return new Response("Back", "Go back to the options menu.", MENU);
-				
-			}else {
-				return null;
 			}
+			return null;
 		}
 
 		@Override
@@ -1192,14 +1189,33 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append(
-					"<div class='container-full-width'>"
-					+ "These options will determine the gender encounter rates of random NPCs."
-					+ " Some NPCs, such as random succubi attackers, have restrictions on their gender, but your preferences will be taken into account wherever possible.<br/>"
-					+ "<b>A visual representation of the encounter chances can be seen in the bars at the bottom of each section.</b>"
-					+ " (The different shades of each gender are solely for recognition in the bars, and don't mean anything other than that.)"
-					+ "<br/>"
-					+ "A character is considered to have breasts if they are at least an AA-cup."
-					+ "</div>");
+					"<details>"
+						+ "<summary>[style.boldFeminine(Click for more info.)]</summary>"
+						+ "These options will determine the gender encounter rates of random NPCs."
+						+ " Some NPCs, such as random succubi attackers, have restrictions on their gender, but your preferences will be taken into account wherever possible.<br/>"
+						+ "<b>A visual representation of the encounter chances can be seen in the bars at the bottom of each section.</b>"
+						+ " (The different shades of each gender are solely for recognition in the bars, and don't mean anything other than that.)"
+						+ "<br/>"
+						+ "A character is considered to have breasts if they are at least an AA-cup."
+					+ "</details>");
+			
+			// Offspring preferences:
+
+			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.ANDROGYNOUS, "Offspring using gender preferences", "Define which offspring use your gender preferences."));
+				int[] orderOptions = new int[] {3, 0, 2, 1};
+				for(int i : orderOptions) {
+					UtilText.nodeContentSB.append(
+							(Main.getProperties().offspringGenderLevel==i
+								?"<div id='OFFSPRING_GENDER_PREF_"+i+"' class='normal-button selected' style='width:48%; margin:1%; text-align:center; float:right; color:"+PresetColour.ANDROGYNOUS.toWebHexString()+";'>"
+									+ com.lilithsthrone.game.Properties.offspringGenderName[i]
+									+ "</div>"
+								:"<div id='OFFSPRING_GENDER_PREF_"+i+"' class='normal-button' style='width:48%; margin:1%; text-align:center; float:right;'>"
+									+ "[style.colourDisabled("+com.lilithsthrone.game.Properties.offspringGenderName[i]+")]"
+									+ "</div>"));
+				}
+			UtilText.nodeContentSB.append("</div></div>");
+			
+			// Gender preferences:
 			
 			UtilText.nodeContentSB.append(getGenderPreferencesPanel(PronounType.MASCULINE));
 			UtilText.nodeContentSB.append(getGenderPreferencesPanel(PronounType.NEUTRAL));
@@ -1316,12 +1332,13 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append(
-					"<div class='container-full-width'>"
-					+ "These options will determine the sexual orientation encounter rates of random NPCs."
-					+ " Note that the race and femininity of NPCs can have an influence on their orientation, and that some NPCs have pre-determined orientations, but your preferences will be taken into account wherever possible.</br>"
-					+ "<b>A visual representation of the encounter chances can be seen in the bars at the bottom.</b>"
-					+ " (The different shades of each orientation are solely for recognition in the bars, and don't mean anything other than that.)"
-					+ "</div>"
+					"<details>"
+						+ "<summary>[style.boldAndrogynous(Click for more info.)]</summary>"
+						+ "These options will determine the sexual orientation encounter rates of random NPCs."
+						+ " Note that the race and femininity of NPCs can have an influence on their orientation, and that some NPCs have pre-determined orientations, but your preferences will be taken into account wherever possible.</br>"
+						+ "<b>A visual representation of the encounter chances can be seen in the bars at the bottom.</b>"
+						+ " (The different shades of each orientation are solely for recognition in the bars, and don't mean anything other than that.)"
+					+ "</details>"
 		
 					+ "<div class='container-full-width' style='text-align:center;'>");
 			
@@ -1366,13 +1383,14 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append(
-					"<div class='container-full-width'>"
-							+ "These options will determine the likelihood of random NPCs having these fetishes & preferences."
-							+ " Some races are more likely to get specific fetishes, but your preferences will be taken into account wherever possible.<br/>"
-							+ " Content settings will enable/disable related fetishes."
-							+ "</div>"
+					"<details>"
+						+ "<summary>[style.boldFetish(Click for more info.)]</summary>"
+						+ "These options will determine the likelihood of random NPCs having these fetishes & preferences."
+						+ " Some races are more likely to get specific fetishes, but your preferences will be taken into account wherever possible.<br/>"
+						+ " Content settings will enable/disable related fetishes."
+					+ "</details>"
 							
-							+ "<div class='container-full-width' style='text-align:center;'>");
+					+ "<div class='container-full-width' style='text-align:center;'>");
 			for(AbstractFetish fetish : Fetish.getAllFetishes()) {
 				if(fetish.getFetishesForAutomaticUnlock().isEmpty()) {
 					UtilText.nodeContentSB.append(getFetishPreferencesPanel(fetish));
@@ -1549,11 +1567,12 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append(
-					"<div class='container-full-width'>"
-					+ "These options will determine the age encounter rates of random NPCs, based on their femininity."
-					+ " Some NPCs, such as demons and harpies, may appear to be younger than they actually are, but your preferences will be taken into account wherever possible.<br/>"
-					+ "<b>A visual representation of the age chances can be seen in the bars at the bottom of each section.</b>"
-					+ "</div>");
+					"<details>"
+						+ "<summary>[style.boldAge(Click for more info.)]</summary>"
+						+ "These options will determine the age encounter rates of random NPCs, based on their femininity."
+						+ " Some NPCs, such as demons and harpies, may appear to be younger than they actually are, but your preferences will be taken into account wherever possible.<br/>"
+						+ "<b>A visual representation of the age chances can be seen in the bars at the bottom of each section.</b>"
+					+ "</details>");
 			
 			UtilText.nodeContentSB.append(getAgePreferencesPanel(PronounType.MASCULINE));
 			UtilText.nodeContentSB.append(getAgePreferencesPanel(PronounType.NEUTRAL));
@@ -1661,15 +1680,15 @@ public class OptionsDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append(
-					"<div class='container-full-width'>"
+					"<details>"
+						+ "<summary>[style.boldHuman(Click for more info.)]</summary>"
 						+ "These options determine the amount of furry content that you'll encounter in the game."
-						+ " The 'Human encounters' option determines what the chance is for random NPCs to be fully human."
-						+ " <b>These options only affect random NPCs at the moment, but I'll do my best to add reduced-furry versions of each major NPC as well!</b>"
+						+ " <i>These options only affect random NPCs at the moment, but reduced-furry versions of each major NPC may be added later on in development.</i>"
 						
 						+ "<br/>[style.italicsGood(Hover over the buttons to see what each option means!)]"
 						
 						+ "<br/>Please note that some races, such as demons and harpies, are limited in their available furry preference options."
-					+ "</div>"
+					+ "</details>"
 							
 					+ "<span style='height:16px;width:800px;float:left;'></span>");
 					
@@ -1820,6 +1839,9 @@ public class OptionsDialogue {
 							Main.getProperties().setFeminineSubspeciesPreference(subspecies, subspecies.getSubspeciesPreferenceDefault());
 							Main.getProperties().setMasculineSubspeciesPreference(subspecies, subspecies.getSubspeciesPreferenceDefault());
 						}
+						Main.getProperties().humanSpawnRate = 5;
+						Main.getProperties().taurSpawnRate = 5;
+						Main.getProperties().halfDemonSpawnRate = 5;
 						Main.saveProperties();
 					}
 				};
@@ -2450,19 +2472,35 @@ public class OptionsDialogue {
 					"Thumbnails",
 					"Enables tooltips containing thumbnail images of the character.",
 					Main.getProperties().hasValue(PropertyValue.thumbnail)));
-			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_AQUA, "Preferred Artist", "Which artist's work is used by default."));
+			
+//			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_AQUA, "Preferred Artist", "Which artist's work is used by default."));
+			
+			UtilText.nodeContentSB.append("<div class='container-full-width' style='padding:0; margin:2px 0;'>"
+				+ "<div class='container-half-width' style='width:calc(55% - 16px);'>"
+					+ "<b style='text-align:center; color:"+PresetColour.BASE_AQUA.toWebHexString()+";'>Preferred Artist</b><b>:</b> "
+					+ "Which artist's work is used by default."
+				+ "</div>"
+				+ "<div class='container-half-width' style='width:calc(45% - 16px);'>");
+			
 			List<Artist> artists = new ArrayList<>(Artwork.allArtists);
-			Collections.reverse(artists);// So that they're in alphabetical order
-			for (Artist artist : artists) {
+			artists.remove(Artwork.customArtist);
+			Collections.sort(artists, (e1, e2)->Main.getProperties().getArtistPriority(e2.getFolderName())-Main.getProperties().getArtistPriority(e1.getFolderName()));
+			
+			for(int i=0; i<artists.size(); i++) {
+				Artist artist = artists.get(i);
 				if (!artist.getName().equals("Custom")) {
-					UtilText.nodeContentSB.append(
-							(Main.getProperties().preferredArtist.equals(artist.getFolderName())
-									?"<div id='ARTIST_"+artist.getFolderName()+"' class='normal-button selected' style='width:75%; text-align:center; float:right;'>"
-									+"<b style='color:"+artist.getColour().toWebHexString()+";'>"+artist.getName()+"</b>"
-									+"</div>"
-									:"<div id='ARTIST_"+artist.getFolderName()+"' class='normal-button' style='width:75%; text-align:center; float:right;'>"
-									+"[style.boldDisabled("+artist.getName()+")]"
-									+"</div>"));
+					UtilText.nodeContentSB.append("<div style='width:100%;  margin:1px 0; border-radius:4px; background-color:"+PresetColour.BACKGROUND.toWebHexString()+";'>");
+						UtilText.nodeContentSB.append("<div "+(i==0?"":"id='ARTIST_"+artist.getFolderName()+"_UP'")+" class='normal-button"+(i==0?" disabled":"")+"' style='width:10%; margin:0; text-align:center;'>");
+							UtilText.nodeContentSB.append("&#8593;");
+						UtilText.nodeContentSB.append("</div>");
+						UtilText.nodeContentSB.append("<div "+(i==artists.size()-1?"":"id='ARTIST_"+artist.getFolderName()+"_DOWN'")
+									+" class='normal-button"+(i==artists.size()-1?" disabled":"")+"' style='width:10%; margin:0; text-align:center; float:right;'>"
+								+"&#8595;"
+							+"</div>");
+						UtilText.nodeContentSB.append("<div style='width:80%; margin:0; text-align:center; float:right;'>"
+								+"<span style='color:"+artist.getColour().toWebHexString()+";'>"+artist.getName()+"</span> ("+artist.getArtworkCount()+")"
+							+"</div>");
+					UtilText.nodeContentSB.append("</div>");
 				}
 			}
 			UtilText.nodeContentSB.append("</div></div>");
@@ -2509,14 +2547,15 @@ public class OptionsDialogue {
 			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("ENCHANTMENT_LIMITS",
 					PresetColour.GENERIC_ARCANE,
-					"Enchantment Capacity",
-					"Toggle the 'enchantment capacity' mechanic, which restricts how many enchanted items you can wear. This is on by default, and you will potentially break the balance of the game's combat by turning it off.",
+					"Enchantment Instability",
+					"Toggle the '"+Attribute.ENCHANTMENT_LIMIT.getName()+"' mechanic, which restricts how many enchanted items you can wear. This is on by default, and you will potentially break the balance of the game's combat by turning it off.",
 					Main.getProperties().hasValue(PropertyValue.enchantmentLimits)));
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("BAD_END",
 					PresetColour.GENERIC_TERRIBLE,
 					"Bad Ends",
-					"Toggle the ability to trigger 'bad ends', which effectively end the game for your character when encountered."
-							+"<br/>[style.italicsMinorBad(Please note that bad ends involve non-con content, regardless of whether or not your non-con option is enabled.)]",
+					"Toggle the ability to trigger 'bad ends', which end the game for your character when encountered."
+							+"<br/>[style.italicsMinorBad(Please note that bad ends involve non-con content, and so ignore your non-con setting.)]",
+//							+"<br/>[style.italicsTerrible(Please be aware that some bad ends are unaffected by this setting and are always present in the game.)]"
 					Main.getProperties().hasValue(PropertyValue.badEndContent)));
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("LEVEL_DRAIN",
 					PresetColour.GENERIC_TERRIBLE,
@@ -2535,7 +2574,7 @@ public class OptionsDialogue {
 					+ "<br/><i>This setting has no effect on the Offspring Map, nor on offspring who you've already met.</i>",
 					Main.game.isOffspringEncountersEnabled()));
 			
-			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_BLUE_LIGHT, "Clothing Femininity", "This sets the limitations of clothings' femininity values."));
+			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_BLUE_LIGHT, "Clothing Femininity", "This sets the limitations of clothing femininity values."));
 			for (int i=Main.getProperties().clothingFemininityTitles.length-1; i>=0; i--) {
 				if (Main.getProperties().getClothingFemininityLevel() == i) {
 					UtilText.nodeContentSB.append("<div id='CLOTHING_FEMININITY_"+i
@@ -2909,6 +2948,22 @@ public class OptionsDialogue {
 			}
 			UtilText.nodeContentSB.append("</div></div>");
 			
+			UtilText.nodeContentSB.append(getCustomContentPreferenceDivStart(PresetColour.BASE_BROWN_LIGHT, "Hair growth", "Select how often the player's hair will grow by 1cm. NPCs maintain their hair lengths, so this setting only affects you."));
+			int[] hairButtonOrder = new int[] {2, 1, 0, 3}; // Order buttons in this manner so that they appear to be a little more logical
+			for (int i : hairButtonOrder) {
+				boolean active = Main.getProperties().getHairGrowth() == i;
+				UtilText.nodeContentSB.append("<div id='HAIR_GROWTH_PREFERENCE_"+i+"' class='normal-button"+(Main.getProperties().getHairGrowth() == i?" selected":"")+"' style='width:calc(33% - 8px); margin-right:8px; text-align:center; float:right;'>"
+						+(i == 0
+								?"[style.bold"+(active?"Bad":"Disabled")+"(Never)]"
+								:(i == 1
+									?"[style.bold"+(active?"Size10":"Disabled")+"(Weekly)]"
+									:(i == 2
+										?"[style.bold"+(active?"Size5":"Disabled")+"(Daily)]"
+										:"[style.bold"+(active?"Size0":"Disabled")+"(Hourly)]")))
+						+"</div>");
+			}
+			UtilText.nodeContentSB.append("</div></div>");
+			
 			UtilText.nodeContentSB.append(getContentPreferenceDiv("HAIR_FACIAL",
 					PresetColour.BASE_LILAC_LIGHT,
 					"Facial hair",
@@ -2950,6 +3005,12 @@ public class OptionsDialogue {
 					"Scaly Hair",
 					"Toggles whether or not characters with a reptilian or amphibious head type will spawn with human-like hair on their heads.",
 					Main.getProperties().hasValue(PropertyValue.scalyHairContent)));
+			
+			UtilText.nodeContentSB.append(getContentPreferenceDiv("LIP_LISP",
+					PresetColour.BASE_PINK_SALMON,
+					"Lip lisps",
+					"Toggles whether or not characters with very large lips will speak with a lisp.",
+					Main.getProperties().hasValue(PropertyValue.lipLispContent)));
 			
 			UtilText.nodeContentSB.append(getBreastsContentPreferenceVariableDiv(
 					"PREGNANCY_BREAST_GROWTH",

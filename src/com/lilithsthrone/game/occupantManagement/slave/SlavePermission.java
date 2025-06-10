@@ -37,9 +37,11 @@ public enum SlavePermission {
 	SEX(PresetColour.GENERIC_SEX,
 			"Sex",
 			Util.newArrayListOfValues(
+					SlavePermissionSetting.SEX_LUBE_PILL,
 					SlavePermissionSetting.SEX_MASTURBATE,
 					SlavePermissionSetting.SEX_INITIATE_SLAVES,
 					SlavePermissionSetting.SEX_INITIATE_PLAYER,
+					SlavePermissionSetting.SEX_RAPIST,
 					SlavePermissionSetting.SEX_RECEIVE_SLAVES,
 					SlavePermissionSetting.SEX_SAVE_VIRGINITY,
 					SlavePermissionSetting.SEX_IMPREGNATED,
@@ -49,8 +51,8 @@ public enum SlavePermission {
 	PILLS(PresetColour.BASE_PURPLE_LIGHT,
 			"Pills",
 			Util.newArrayListOfValues(
-					SlavePermissionSetting.PILLS_PROMISCUITY_PILLS,
 					SlavePermissionSetting.PILLS_NO_PILLS,
+					SlavePermissionSetting.PILLS_PROMISCUITY_PILLS,
 					SlavePermissionSetting.PILLS_VIXENS_VIRILITY,
 					SlavePermissionSetting.PILLS_BROODMOTHER),
 			true) {
@@ -107,7 +109,8 @@ public enum SlavePermission {
 			"Cleanliness",
 			Util.newArrayListOfValues(
 					SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES,
-					SlavePermissionSetting.CLEANLINESS_WASH_BODY),
+					SlavePermissionSetting.CLEANLINESS_WASH_BODY,
+					SlavePermissionSetting.CLEANLINESS_WASH_THOROUGH),
 			false),
 	
 	SLEEPING(PresetColour.BASE_PURPLE_LIGHT,

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>DOMINION</worldRegion>
+	<name><![CDATA[maintenance passage]]></name>
+	<tooltipDescription><![CDATA[A maintenance passage provides access to the ventilation ducts which keep the factory supplied with relatively fresh air from the surface.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in the vents in the factory beneath Lovienne's Luxuries]]></virginityLossDescription>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<svgName>vents</svgName>
+	<colour>BASE_GREY_DARK</colour>
+	<backgroundColour>MAP_BACKGROUND_DARK</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_dominion_sex_shop_factory_vents_2</dialogue>
+	<populationPresent/>
+	<furniturePresent>true</furniturePresent>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[true]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_DARK]]></darkness>
+	<teleportPermissions>NONE</teleportPermissions>
+	<weatherImmunities immuneToAll="true"/>
+	<applyInventoryInit/>
+</placeType>

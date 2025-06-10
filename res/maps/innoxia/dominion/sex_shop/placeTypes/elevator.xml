@@ -5,7 +5,7 @@
 	<tooltipDescription><![CDATA[A large, industrial elevator, which links the rear of the shop to the subterranean doll factory.]]></tooltipDescription>
 	<virginityLossDescription><![CDATA[in the elevator in Lovienne's Luxuries]]></virginityLossDescription>
 	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
-	<colour>BASE_MAGENTA</colour>
+	<colour>BASE_GREEN_LIME</colour>
 	<backgroundColour>MAP_BACKGROUND</backgroundColour>
 	<encounterType>null</encounterType>
 	<dialogue>innoxia_places_dominion_sex_shop_generic_elevator</dialogue>

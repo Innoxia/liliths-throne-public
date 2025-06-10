@@ -96,48 +96,65 @@ public class PenisAss {
 			}
 
 			if(!isTargetedCharacterInanimate()) {
-				switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
-					case DOM_GENTLE:
-						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" A soft [npc2.moan] drifts out from between [npc2.namePos] [npc2.lips+], [npc2.speech(Yes, use my ass!)]",
-		
-								" [npc2.Name] [npc2.verb(let)] out a gentle [npc2.moan], before pleading, [npc2.speech(Go on, use my ass!)]",
-		
-								" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(beg)], [npc2.speech(Yes! Fuck my ass!)]"));
-						break;
-					case DOM_ROUGH:
-						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+], [npc2.speech(Go on! Use my ass! Put some effort in!)]",
-		
-								" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before growling, [npc2.speech(That's right, use my ass, bitch!)]",
-		
-								" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(demand)], [npc2.speech(Fuck my ass! Do it right now!)]"));
-						break;
-					case DOM_NORMAL:
-					case SUB_EAGER:
-						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+], [npc2.speech(Yes! Use my ass! I need to please your cock!)]",
-	
-								" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before pleading, [npc2.speech(Go on! Please! Use my ass already!)]",
-	
-								" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(beg)], [npc2.speech(Yes! Fuck my ass! I need your cock!)]"));
-						break;
-					case SUB_RESISTING:
+				if(Main.sex.getCharacterTargetedForSexAction(this).isMute()) {
+					switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
+						case DOM_GENTLE:
 							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-									" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+], [npc2.speech(No! Don't! Please! Get away from me!)]",
-	
-									" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob], before pleading, [npc2.speech(Please! Don't do this! Leave me alone!)]",
-	
-									" [npc2.Name] [npc2.sobsVerb] in distress as [npc2.she] [npc2.verb(beg)], [npc2.speech(No! Stop! Get away from there!)]"));
-						break;
-					case SUB_NORMAL:
-						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" [npc2.A_moan+] drifts out from between [npc2.namePos] [npc2.lips+], [npc2.speech(That's right, use my ass!)]",
-	
-								" [npc2.Name] [npc2.verb(let)] out a [npc2.moan], before pleading, [npc2.speech(Please! Use my ass!)]",
-	
-								" [npc2.Name] [npc2.moanVerb] out loud as [npc2.she] [npc2.verb(beg)], [npc2.speech(Come on, use my ass already!)]"));
-						break;
+									" A soft [npc2.moan] drifts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] [npc.verb(anticipate)] [npc.namePos] [npc.cock+] being thrust into [npc2.her] [npc2.ass+].",
+									" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] [npc.verb(prepare)] to feel [npc.namePos] [npc.cock+] being pushed into [npc2.her] [npc2.ass+].",
+									" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(anticipate)] [npc.namePos] [npc.cock+] being rammed deep into [npc2.her] [npc2.ass+]."));
+							break;
+						case DOM_ROUGH:
+						case SUB_NORMAL:
+						case DOM_NORMAL:
+						case SUB_EAGER:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] eagerly [npc.verb(anticipate)] [npc.namePos] [npc.cock+] being thrust into [npc2.her] [npc2.ass+].",
+									" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] eagerly [npc.verb(prepare)] to feel [npc.namePos] [npc.cock+] being pushed into [npc2.her] [npc2.ass+].",
+									" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(anticipate)] [npc.namePos] [npc.cock+] being rammed deep into [npc2.her] [npc2.ass+]."));
+							break;
+						case SUB_RESISTING:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] [npc.verb(dread)] the feeling of [npc.namePos] [npc.cock+] being thrust into [npc2.her] [npc2.ass+].",
+									" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc2.she] [npc.verb(anticipate)] [npc.namePos] [npc.cock+] being pushed into [npc2.her] [npc2.ass+].",
+									" [npc2.Name] [npc2.sobsVerb] in distress as [npc2.she] [npc2.verb(anticipate)] [npc.namePos] [npc.cock+] being rammed deep into [npc2.her] [npc2.ass+]."));
+							break;
+					}
+					
+				} else {
+					switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
+						case DOM_GENTLE:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" A soft [npc2.moan] drifts out from between [npc2.namePos] [npc2.lips+], [npc2.speech(Yes, use my ass!)]",
+									" [npc2.Name] [npc2.verb(let)] out a gentle [npc2.moan], before pleading, [npc2.speech(Go on, use my ass!)]",
+									" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(beg)], [npc2.speech(Yes! Fuck my ass!)]"));
+							break;
+						case DOM_ROUGH:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+], [npc2.speech(Go on! Use my ass! Put some effort in!)]",
+									" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before growling, [npc2.speech(That's right, use my ass, bitch!)]",
+									" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(demand)], [npc2.speech(Fuck my ass! Do it right now!)]"));
+							break;
+						case DOM_NORMAL:
+						case SUB_EAGER:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+], [npc2.speech(Yes! Use my ass! I need to please your cock!)]",
+									" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before pleading, [npc2.speech(Go on! Please! Use my ass already!)]",
+									" [npc2.Name] [npc2.moanVerb] in delight as [npc2.she] [npc2.verb(beg)], [npc2.speech(Yes! Fuck my ass! I need your cock!)]"));
+							break;
+						case SUB_RESISTING:
+								UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+										" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+], [npc2.speech(No! Don't! Please! Get away from me!)]",
+										" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob], before pleading, [npc2.speech(Please! Don't do this! Leave me alone!)]",
+										" [npc2.Name] [npc2.sobsVerb] in distress as [npc2.she] [npc2.verb(beg)], [npc2.speech(No! Stop! Get away from there!)]"));
+							break;
+						case SUB_NORMAL:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" [npc2.A_moan+] drifts out from between [npc2.namePos] [npc2.lips+], [npc2.speech(That's right, use my ass!)]",
+									" [npc2.Name] [npc2.verb(let)] out a [npc2.moan], before pleading, [npc2.speech(Please! Use my ass!)]",
+									" [npc2.Name] [npc2.moanVerb] out loud as [npc2.she] [npc2.verb(beg)], [npc2.speech(Come on, use my ass already!)]"));
+							break;
+					}
 				}
 			}
 			
@@ -257,48 +274,65 @@ public class PenisAss {
 			}
 
 			if(!isTargetedCharacterInanimate()) {
-				switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
-					case DOM_GENTLE:
-						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" A soft [npc2.moan] bursts out from between [npc2.her] [npc2.lips+], [npc2.speech(Please! Let me fuck your ass!)]",
-	
-								" [npc2.Name] [npc2.verb(let)] out a gentle [npc2.moan], before pleading with [npc.name], [npc2.speech(Yes, I want to fuck your ass!)]",
-	
-								" [npc2.Name] softly [npc2.moansVerb] in delight as [npc2.she] [npc2.verb(beg)], [npc2.speech(Yes! Let me fuck you! Please!)]"));
-						break;
-					case DOM_ROUGH:
-						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" [npc2.A_moan+] bursts out from between [npc2.her] [npc2.lips+], [npc2.speech(Oh, you dirty slut! You want me to fuck your ass?!)]",
-	
-								" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before growling at [npc.name], [npc2.speech(You want me to pound your ass, you dirty slut?!)]",
-	
-								" [npc2.Name] [npc2.moansVerb] in delight, before snarling, [npc2.speech(You want your ass fucked, slut?!)]"));
-						break;
-					case SUB_EAGER:
-					case DOM_NORMAL:
-						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" [npc2.A_moan+] bursts out from between [npc2.her] [npc2.lips+], [npc2.speech(Yes! I want to fuck your ass!)]",
-	
-								" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before addressing [npc.name], [npc2.speech(Yes! Your ass could do with a good fucking!)]",
-	
-								" [npc2.Name] [npc2.moansVerb] in delight as [npc2.she] [npc2.verb(call)] out to [npc.name], [npc2.speech(I need to fuck your ass!)]"));
-						break;
-					case SUB_NORMAL:
-						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" [npc2.A_moan+] drifts out from between [npc2.her] [npc2.lips+], [npc2.speech(Yes, let me fuck your ass!)]",
-	
-								" [npc2.Name] [npc2.verb(let)] out a [npc2.moan], before calling out, [npc2.speech(Please! I want to fuck your ass!)]",
-	
-								" [npc2.Name] [npc2.moansVerb] out loud as [npc2.she] speaks to [npc.herHim], [npc2.speech(Come on, [npc.verb(let)] me fuck you already!)]"));
-						break;
-					case SUB_RESISTING:
-						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" [npc2.A_sob+] bursts out from between [npc2.her] [npc2.lips+], [npc2.speech(No! Don't! Please! Get away from me!)]",
-	
-								" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob], before pleading, [npc2.speech(Please! Don't do this! Leave me alone!)]",
-	
-								" [npc2.Name] [npc2.sobsVerb] in distress as [npc2.she] [npc2.verb(beg)], [npc2.speech(No! Stop! Get away from there!)]"));
-						break;
+				if(Main.sex.getCharacterTargetedForSexAction(this).isMute()) {
+					switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
+						case DOM_GENTLE:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" A soft [npc2.moan] drifts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] [npc2.verb(anticipate)] the feeling of sinking [npc2.her] [npc2.cock+] into [npc.namePos] [npc.ass+].",
+									" [npc2.Name] [npc2.verb(let)] out a gentle [npc2.moan] as [npc2.she] [npc2.verb(prepare)] to ram [npc2.her] [npc2.cock+] into [npc.namePos] [npc.ass+].",
+									" [npc2.Name] softly [npc2.moansVerb] in delight as [npc2.she] [npc2.verb(anticipate)] the feeling of fucking [npc.namePos] [npc.ass+]."));
+							break;
+						case DOM_ROUGH:
+						case SUB_EAGER:
+						case DOM_NORMAL:
+						case SUB_NORMAL:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" [npc2.A_moan+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] eagerly [npc2.verb(anticipate)] the feeling of sinking [npc2.her] [npc2.cock+] into [npc.namePos] [npc.ass+].",
+									" [npc2.Name] [npc2.verb(let)] out [npc2.a_moan+] as [npc2.she] eagerly [npc2.verb(prepare)] to ram [npc2.her] [npc2.cock+] into [npc.namePos] [npc.ass+].",
+									" [npc2.Name] excitedly [npc2.moansVerb] in delight as [npc2.she] [npc2.verb(anticipate)] the feeling of fucking [npc.namePos] [npc.ass+]."));
+							break;
+						case SUB_RESISTING:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] [npc.verb(dread)] the possibility of being forced to fuck [npc.namePos] [npc.ass+].",
+									" [npc2.Name] [npc2.verb(let)] out [npc2.a_sob+] as [npc2.she] [npc.verb(anticipate)] [npc2.her] [npc2.cock+] being pushed into [npc.namePos] [npc.ass+].",
+									" [npc2.Name] [npc2.sobsVerb] in distress as [npc2.she] [npc2.verb(anticipate)] [npc2.her] [npc2.cock+] being forced into [npc.namePos] [npc.ass+]."));
+							break;
+					}
+					
+				} else {
+					switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
+						case DOM_GENTLE:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" A soft [npc2.moan] drifts out from between [npc2.her] [npc2.lips+], [npc2.speech(Please! Let me fuck your ass!)]",
+									" [npc2.Name] [npc2.verb(let)] out a gentle [npc2.moan], before pleading with [npc.name], [npc2.speech(Yes, I want to fuck your ass!)]",
+									" [npc2.Name] softly [npc2.moansVerb] in delight as [npc2.she] [npc2.verb(beg)], [npc2.speech(Yes! Let me fuck you! Please!)]"));
+							break;
+						case DOM_ROUGH:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" [npc2.A_moan+] bursts out from between [npc2.her] [npc2.lips+], [npc2.speech(Oh, you dirty slut! You want me to fuck your ass?!)]",
+									" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before growling at [npc.name], [npc2.speech(You want me to pound your ass, you dirty slut?!)]",
+									" [npc2.Name] [npc2.moansVerb] in delight, before snarling, [npc2.speech(You want your ass fucked, slut?!)]"));
+							break;
+						case SUB_EAGER:
+						case DOM_NORMAL:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" [npc2.A_moan+] bursts out from between [npc2.her] [npc2.lips+], [npc2.speech(Yes! I want to fuck your ass!)]",
+									" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.moan], before addressing [npc.name], [npc2.speech(Yes! Your ass could do with a good fucking!)]",
+									" [npc2.Name] [npc2.moansVerb] in delight as [npc2.she] [npc2.verb(call)] out to [npc.name], [npc2.speech(I need to fuck your ass!)]"));
+							break;
+						case SUB_NORMAL:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" [npc2.A_moan+] drifts out from between [npc2.her] [npc2.lips+], [npc2.speech(Yes, let me fuck your ass!)]",
+									" [npc2.Name] [npc2.verb(let)] out a [npc2.moan], before calling out, [npc2.speech(Please! I want to fuck your ass!)]",
+									" [npc2.Name] [npc2.moansVerb] out loud as [npc2.she] speaks to [npc.herHim], [npc2.speech(Come on, [npc.verb(let)] me fuck you already!)]"));
+							break;
+						case SUB_RESISTING:
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" [npc2.A_sob+] bursts out from between [npc2.her] [npc2.lips+], [npc2.speech(No! Don't! Please! Get away from me!)]",
+									" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob], before pleading, [npc2.speech(Please! Don't do this! Leave me alone!)]",
+									" [npc2.Name] [npc2.sobsVerb] in distress as [npc2.she] [npc2.verb(beg)], [npc2.speech(No! Stop! Get away from there!)]"));
+							break;
+					}
 				}
 			}
 			

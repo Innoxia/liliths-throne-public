@@ -79,7 +79,7 @@ public class LunetteMelee extends NPC {
 				Util.random.nextInt(100)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				30,
 				null, null, null,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL,
 				false);
 
@@ -268,7 +268,7 @@ public class LunetteMelee extends NPC {
 			if(Math.random()<0.5f) {
 				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_WRISTBANDS, clothingColour, false), true, this);
 			} else {
-				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.WRIST_BANGLE, accessoryColour, false), true, this);
+				this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_wrist_bangle", accessoryColour, false), true, this);
 			}
 		}
 		

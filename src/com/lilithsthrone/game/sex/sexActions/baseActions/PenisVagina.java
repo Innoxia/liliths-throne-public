@@ -161,26 +161,44 @@ public class PenisVagina {
 
 			if(!isTargetedCharacterInanimate()) {
 				if((Main.sex.getCharacterTargetedForSexAction(this).isVaginaVirgin() || Main.sex.getCharacterTargetedForSexAction(this).hasHymen()) && Main.sex.getCharacterTargetedForSexAction(this).hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
-					switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
-						case SUB_RESISTING:
-							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-									" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] at the thought of what's about to happen, [npc2.speech(No! Don't! Please! I-I'm a virgin! You can't do this!)]",
-									" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob], before pleading, [npc2.speech(Please! Don't do this! I'm still a virgin!)]",
-									" [npc2.Name] [npc2.sobsVerb] in distress at the thought of what's about to happen, before desperately begging, [npc2.speech(No! Stop! I don't want to lose my virginity!)]"));
-							break;
-						default:
-							if(Main.sex.isDom(Main.sex.getCharacterTargetedForSexAction(this))) {
+					if(Main.sex.getCharacterTargetedForSexAction(this).isMute()) {
+						switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
+							case SUB_RESISTING:
 								UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-										" Treasuring [npc2.her] virginity above all else, [npc2.name] [npc2.verb(order)], [npc2.speech(Don't go any further than that! I'm not prepared to lose my virginity!)]",
-										" Horrified at the prospect of losing [npc2.her] precious virginity, [npc2.name] [npc2.verb(snap)], [npc2.speech(Don't do it! I'm not losing my virginity like this!)]",
-										" Recoiling from [npc.namePos] touch, [npc2.name] [npc2.verb(warn)], [npc2.speech(Don't you dare go any further than that! I'm not losing my virginity here!)]"));
-							} else {
+										" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] at the thought of being about to lose [npc2.her] virginity.",
+										" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob] as [npc2.she] [npc2.verb(realise)] that [npc2.she] might be about to lose [npc2.her] virginity.",
+										" [npc2.Name] [npc2.sobVerb] in distress at the thought of losing [npc2.her] virginity to [npc.namePos] [npc.cock+]."));
+								break;
+							default:
 								UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-										" Treasuring [npc2.her] virginity above all else, [npc2.name] frantically [npc2.verb(plead)], [npc2.speech(Don't go any further! Please, I don't want to lose my virginity!)]",
-										" Horrified at the prospect of losing [npc2.her] precious virginity, [npc2.name] desperately [npc2.verb(cry)] out, [npc2.speech(Stop! Don't do it! I don't want to lose my virginity!)]",
-										" Recoiling from [npc.namePos] touch, [npc2.name] desperately [npc2.verb(beg)], [npc2.speech(No! Stop! I don't want to lose my virginity!)]"));
-							}
-							break;
+										" Treasuring [npc2.her] virginity above all else, [npc2.name] [npc2.verb(pull)] [npc2.her] [npc2.pussy] away from [npc.namePos] [npc.cock+].",
+										" Horrified at the prospect of losing [npc2.her] precious virginity, [npc2.name] [npc2.verb(pull)] [npc2.her] [npc2.pussy] away from [npc.namePos] [npc.cock+].",
+										" Recoiling from [npc.namePos] touch, [npc2.name] [npc2.verb(make)] it clear that [npc2.she] [npc2.do]n't want to lose [npc2.her] virginity by pulling [npc2.her] [npc2.pussy] away from [npc.namePos] [npc.cock+]."));
+								break;
+						}
+						
+					} else {
+						switch(Main.sex.getSexPace(Main.sex.getCharacterTargetedForSexAction(this))) {
+							case SUB_RESISTING:
+								UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+										" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] at the thought of what's about to happen, [npc2.speech(No! Stop it! I'm still a virgin!)]",
+										" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob], before pleading, [npc2.speech(Please! Don't do this! I'm still a virgin!)]",
+										" [npc2.Name] [npc2.sobsVerb] in distress at the thought of what's about to happen, before desperately begging, [npc2.speech(No! Stop! I don't want to lose my virginity!)]"));
+								break;
+							default:
+								if(Main.sex.isDom(Main.sex.getCharacterTargetedForSexAction(this))) {
+									UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+											" Treasuring [npc2.her] virginity above all else, [npc2.name] [npc2.verb(order)], [npc2.speech(Don't go any further than that! I'm not prepared to lose my virginity!)]",
+											" Horrified at the prospect of losing [npc2.her] precious virginity, [npc2.name] [npc2.verb(snap)], [npc2.speech(Don't do it! I'm not losing my virginity like this!)]",
+											" Recoiling from [npc.namePos] touch, [npc2.name] [npc2.verb(warn)], [npc2.speech(Don't you dare go any further than that! I'm not losing my virginity here!)]"));
+								} else {
+									UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+											" Treasuring [npc2.her] virginity above all else, [npc2.name] frantically [npc2.verb(plead)], [npc2.speech(Don't go any further! Please, I don't want to lose my virginity!)]",
+											" Horrified at the prospect of losing [npc2.her] precious virginity, [npc2.name] desperately [npc2.verb(cry)] out, [npc2.speech(Stop! Don't do it! I don't want to lose my virginity!)]",
+											" Recoiling from [npc.namePos] touch, [npc2.name] desperately [npc2.verb(beg)], [npc2.speech(No! Stop! I don't want to lose my virginity!)]"));
+								}
+								break;
+						}
 					}
 					
 				} else {
@@ -216,17 +234,33 @@ public class PenisVagina {
 							break;
 						case SUB_RESISTING:
 							if(Main.sex.getCharacterTargetedForSexAction(this).isVaginaVirgin()) {
-								UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-										" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] at the thought of what's about to happen, [npc2.speech(No! Don't! Please! I-I'm a virgin! You can't do this!)]",
-										" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob], before pleading, [npc2.speech(Please! Don't do this! I'm still a virgin!)]",
-										" [npc2.Name] [npc2.sobsVerb] in distress at the thought of what's about to happen, before desperately begging, [npc2.speech(No! Stop! I don't want to lose my virginity!)]"));
+								if(Main.sex.getCharacterTargetedForSexAction(this).isMute()) {
+									UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+											" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] at the thought of being about to lose [npc2.her] virginity.",
+											" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob] as [npc2.she] [npc2.verb(realise)] that [npc2.she] might be about to lose [npc2.her] virginity.",
+											" [npc2.Name] [npc2.sobVerb] in distress at the thought of losing [npc2.her] virginity to [npc.namePos] [npc.cock+]."));
+									
+								} else {
+									UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+											" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] at the thought of what's about to happen, [npc2.speech(No! Don't do it! I'm still a virgin!)]",
+											" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob], before pleading, [npc2.speech(Please! Don't do this! I'm still a virgin!)]",
+											" [npc2.Name] [npc2.sobsVerb] in distress at the thought of what's about to happen, before desperately begging, [npc2.speech(No! Stop! I don't want to lose my virginity!)]"));
+								}
 								
 							} else {
-								UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-										" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] [npc2.verb(try)] to pull [npc2.her] [npc2.pussy] away from [npc.namePos] [npc.cock],"
-												+ " [npc2.speech(No! Don't! Please, get away from me!)]",
-										" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob], before pleading, [npc2.speech(Please! Don't do this! Leave me alone!)]",
-										" [npc2.Name] [npc2.sobsVerb] in distress as [npc2.she] [npc2.verb(beg)], [npc2.speech(No! Stop! Get away from there!)]"));
+								if(Main.sex.getCharacterTargetedForSexAction(this).isMute()) {
+									UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+											" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] [npc2.verb(try)] to pull [npc2.her] [npc2.pussy] away from [npc.namePos] [npc.cock].",
+											" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob] as [npc2.she] [npc2.verb(struggle)] against [npc.name].",
+											" [npc2.Name] [npc2.sobVerb] in distress as [npc2.she] [npc2.verb(try)] to pull away from [npc.namePos] [npc.cock+]."));
+									
+								} else {
+									UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+											" [npc2.A_sob+] bursts out from between [npc2.namePos] [npc2.lips+] as [npc2.she] [npc2.verb(try)] to pull [npc2.her] [npc2.pussy] away from [npc.namePos] [npc.cock],"
+													+ " [npc2.speech(No! Don't! Please, get away from me!)]",
+											" [npc2.Name] [npc2.verb(let)] out a desperate [npc2.sob], before pleading, [npc2.speech(Please! Don't do this! Leave me alone!)]",
+											" [npc2.Name] [npc2.sobsVerb] in distress as [npc2.she] [npc2.verb(beg)], [npc2.speech(No! Stop! Get away from there!)]"));
+								}
 							}
 							break;
 					}
@@ -425,19 +459,28 @@ public class PenisVagina {
 						break;
 				}
 				if((Main.sex.getCharacterPerformingAction().isVaginaVirgin() || Main.sex.getCharacterPerformingAction().hasHymen()) && Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" As [npc.she] [npc.verb(treasure)] [npc.her] precious virginity above all else, [npc.name] [npc.verb(make)] it very clear that [npc.she] [npc.do]n't want [npc2.name] to actually penetrate [npc.herHim] by [npc.moaning],",
-							" Not at all ready to lose [npc.her] precious virginity, [npc.name] [npc.verb(make)] it very clear that [npc.she] [npc.do]n't want to be penetrated by [npc.moaning],"));
-					if(Main.sex.isDom(Main.sex.getCharacterPerformingAction())) {
+					if(Main.sex.getCharacterPerformingAction().isMute()) {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" [npc.speech(You like the feel of that? Well, it's all that you're going to get; I'm not losing my virginity like this!)]",
-								" [npc.speech(This is all you're going to get! I'm not going to let you actually take my virginity!)]",
-								" [npc.speech(You're going to have to make do with just this! I'm not going to let you actually take my virginity!)]"));
+								" Treasuring [npc.her] virginity above all else, [npc.name] then quickly [npc.verb(pull)] [npc.her] [npc.pussy] away from [npc2.namePos] [npc2.cock+].",
+								" Not at all ready to lose [npc.her] precious virginity, [npc.name] then quickly [npc.verb(pull)] [npc.her] [npc.pussy] away from [npc2.namePos] [npc2.cock+].",
+								" As [npc.she] [npc.verb(treasure)] [npc.her] precious virginity above all else,"
+										+ " [npc.name] [npc.verb(make)] it clear that [npc.she] [npc.do]n't actually want to be penetrated by pulling [npc.her] [npc.pussy] away from [npc2.namePos] [npc2.cock+]."));
+							
 					} else {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								" [npc.speech(You're satisfied with just the feel of my pussy, aren't you?! I don't want to actually lose my virginity!)]",
-								" [npc.speech(This is enough for you, isn't it? Please don't take my virginity...)]",
-								" [npc.speech(You can make do with just this, can't you! I don't want you to actually take my virginity!)]"));
+								" As [npc.she] [npc.verb(treasure)] [npc.her] precious virginity above all else, [npc.name] [npc.verb(make)] it very clear that [npc.she] [npc.do]n't want [npc2.name] to actually penetrate [npc.herHim] by [npc.moaning],",
+								" Not at all ready to lose [npc.her] precious virginity, [npc.name] [npc.verb(make)] it very clear that [npc.she] [npc.do]n't want to be penetrated by [npc.moaning],"));
+						if(Main.sex.isDom(Main.sex.getCharacterPerformingAction())) {
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" [npc.speech(You like the feel of that? Well, it's all that you're going to get; I'm not losing my virginity like this!)]",
+									" [npc.speech(This is all you're going to get! I'm not going to let you actually take my virginity!)]",
+									" [npc.speech(You're going to have to make do with just this! I'm not going to let you actually take my virginity!)]"));
+						} else {
+							UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+									" [npc.speech(You're satisfied with just the feel of my pussy, aren't you?! I don't want to actually lose my virginity!)]",
+									" [npc.speech(This is enough for you, isn't it? Please don't take my virginity...)]",
+									" [npc.speech(You can make do with just this, can't you! I don't want you to actually take my virginity!)]"));
+						}
 					}
 				}
 			}

@@ -1532,7 +1532,9 @@ public class NightlifeDistrict {
 								WATERING_HOLE_SEATING_SEX_AS_DOM_REJECTED) {
 							@Override
 							public void effects() {
-								Main.game.getTextEndStringBuilder().append(getClubbersPresent().get(0).incrementAffection(Main.game.getPlayer(), -25));
+								if(!getClubbersPresent().get(0).hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+									Main.game.getTextEndStringBuilder().append(getClubbersPresent().get(0).incrementAffection(Main.game.getPlayer(), -25));
+								}
 								Main.game.getTextEndStringBuilder().append(getClubberStatus(WATERING_HOLE_SEATING_SEX_AS_DOM_REJECTED.getSecondsPassed(), false));
 							}
 							@Override
@@ -3718,19 +3720,68 @@ public class NightlifeDistrict {
 								UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_TOILETS_SEX", getClubbersPresent()));
 						
 					} else {
-						return new Response("Stall sex",
-								UtilText.parse(getClubbersPresent(), "Try and get [npc.name] to have sex in one of the toilet's stalls.</br>[style.italicsBad([npc.She] might not react well to this!)]"),
-								WATERING_HOLE_TOILETS_SEX_REJECTED) {
-							@Override
-							public void effects() {
-								Main.game.getTextEndStringBuilder().append(getClubbersPresent().get(0).incrementAffection(Main.game.getPlayer(), -25));
-								Main.game.getTextEndStringBuilder().append(getClubberStatus(WATERING_HOLE_TOILETS_SEX_REJECTED.getSecondsPassed(), false));
-							}
-							@Override
-							public boolean isSexHighlight() {
-								return true;
-							}
-						};
+						if(getClubbersPresent().get(0).hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+							return new ResponseSex("Stall 'rape'", UtilText.parse(getClubbersPresent(),
+										"Although [npc.she] [npc.do]n't seem interested in having sex right now, [npc.namePos] '"+Fetish.FETISH_NON_CON_SUB.getName(getClubbersPresent().get(0))+"' fetish"
+												+ " means that [npc.she]'ll engage in some rape-play with you in one of the toilet's stalls."),
+									false, false,
+									new SMStallSex(
+											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
+											Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotStanding.STANDING_SUBMISSIVE))) {
+										@Override
+										public boolean isPublicSex() {
+											return false;
+										}
+										@Override
+										public boolean isRapePlayBannedAtStart(GameCharacter character) {
+											return false;
+										}
+									},
+									null,
+									null,
+									WATERING_HOLE_TOILETS_AFTER_SEX,
+									UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_TOILETS_RAPE", getClubbersPresent()));
+							
+						} else {
+							return new Response("Stall sex",
+									UtilText.parse(getClubbersPresent(), "Try and get [npc.name] to have sex in one of the toilet's stalls.</br>[style.italicsBad([npc.She] might not react well to this!)]"),
+									WATERING_HOLE_TOILETS_SEX_REJECTED) {
+								@Override
+								public void effects() {
+									Main.game.getTextEndStringBuilder().append(getClubbersPresent().get(0).incrementAffection(Main.game.getPlayer(), -25));
+									Main.game.getTextEndStringBuilder().append(getClubberStatus(WATERING_HOLE_TOILETS_SEX_REJECTED.getSecondsPassed(), false));
+								}
+								@Override
+								public boolean isSexHighlight() {
+									return true;
+								}
+							};
+						}
+					}
+					
+				} else if(index==4) {
+					// If the partner wants normal sex, add the option for rape play to index 4 instead of 3:
+					if(likesSex(getPartner(), false) && getClubbersPresent().get(0).hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+						return new ResponseSex("Stall 'rape'", UtilText.parse(getClubbersPresent(),
+								"Although [npc.she]'d be happy to have regular sex with you, you could take advantage of [npc.namePos] '"+Fetish.FETISH_NON_CON_SUB.getName(getClubbersPresent().get(0))+"' fetish"
+										+ " to get [npc.herHim] to engage in some rape-play in one of the toilet's stalls."),
+							false, false,
+							new SMStallSex(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotStanding.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(getPartner(), SexSlotStanding.STANDING_SUBMISSIVE))) {
+								@Override
+								public boolean isPublicSex() {
+									return false;
+								}
+								@Override
+								public boolean isRapePlayBannedAtStart(GameCharacter character) {
+									return false;
+								}
+							},
+							null,
+							null,
+							WATERING_HOLE_TOILETS_AFTER_SEX,
+							UtilText.parseFromXMLFile("places/dominion/nightlife/theWateringHole", "WATERING_HOLE_TOILETS_RAPE_PLAY", getClubbersPresent()));
 					}
 				}
 				

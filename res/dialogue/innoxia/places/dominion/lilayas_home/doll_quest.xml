@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<!--
+	Removed content for Lilaya's panties removal, kept as a reference for potential clothing removal in future.
+	
+	[#lilaya.unequipClothingIntoVoid(IS_GROIN, true, saellatrix)]
+	#IF(!pc.getCell().getInventory().isInventoryFull())
+		[#var c = itemGen.generateClothing('innoxia_groin_panties', COLOUR_CLOTHING_BLACK, false); c.setName("Lilaya's panties"); pc.getCell().getInventory().addClothing(c)]
+	#ENDIF
+	
+	[#pc.getCell().getInventory().removeClothingByName("Lilaya's panties")]
+	-->
+
+	<!-- Meeting with Saellatrix: -->
+	
+	<scene id="start">
+		<preParsingEffects><![CDATA[
+			[#pc.setLocation(WORLD_TYPE_LILAYAS_HOUSE_GROUND_FLOOR, PLACE_TYPE_LILAYA_HOME_LIBRARY)]
+			[#rose.returnToHome()]
+			[#lilaya.setLocation(pc)]
+			[#saellatrix.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/lilayasHome/doll_quest">START</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Interrupt]]></responseTitle>
+				<responseTooltip><![CDATA[Interrupt Saellatrix and Lilaya to tell them that you're here to see them.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_lilayas_home_doll_quest_start_intro]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/lilayasHome/doll_quest', 'START_INTERRUPT'))]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Wait]]></responseTitle>
+				<responseTooltip><![CDATA[Wait for Saellatrix to finish with Lilaya...]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_lilayas_home_doll_quest_start_intro]]></nextDialogue>
+				<secondsPassed minutes="true"><![CDATA[5]]></secondsPassed>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/lilayasHome/doll_quest', 'START_WAIT'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="start_intro">
+		<content folderPath="txt/places/dominion/lilayasHome/doll_quest">START_END</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Listen]]></responseTitle>
+				<responseTooltip><![CDATA[Hear what it is that Saellatrix has to say to you.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_lilayas_home_doll_quest_reveal]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="reveal">
+		<content folderPath="txt/places/dominion/lilayasHome/doll_quest">REVEAL</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Explain]]></responseTitle>
+				<responseTooltip><![CDATA[Explain to Lilaya what you and FIammetta found beneath Saellatrix's shop.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_lilayas_home_doll_quest_explain]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="explain">
+		<content folderPath="txt/places/dominion/lilayasHome/doll_quest">EXPLAIN</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Her excuse]]></responseTitle>
+				<responseTooltip><![CDATA[Hear how Saellatrix thinks she'll be able to get out of this.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_lilayas_home_doll_quest_counter]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="counter">
+		<content folderPath="txt/places/dominion/lilayasHome/doll_quest">SAELLATRIX_COUNTER</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Alone]]></responseTitle>
+				<responseTooltip><![CDATA[Now that you're alone with Saellatrix, you hope that she's going to drop the act.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_lilayas_home_doll_quest_lilaya_leaves]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="lilaya_leaves">
+		<preParsingEffects><![CDATA[
+			[#lilaya.returnToHome()]
+			[#lilaya.equipClothing()]
+		]]></preParsingEffects>
+		<content folderPath="txt/places/dominion/lilayasHome/doll_quest">LILAYA_LEFT</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Loyal to Fia]]></responseTitle>
+				<responseTooltip><![CDATA[Refuse to betray Fia's trust and tell Saellatrix that she deserves to be behind bars.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_lilayas_home_doll_quest_choice]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/lilayasHome/doll_quest', 'SIDE_FIA'))]
+					[#flags.setSavedLong('doll_quest_choice_time', game.getSecondsPassed())]
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_7A))]
+					[#game.appendToTextEndStringBuilder(saellatrix.setAffection(pc, -50))]
+					[#pc.incrementKarma(50)]
+				]]></effects>
+			</response>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[2]]></index>
+				<responseTitle><![CDATA[Betray Fia]]></responseTitle>
+				<responseTooltip><![CDATA[Perhaps it'd be best to side with a recognised daughter of an elder lilin rather than stay loyal to a no-name reporter.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_places_dominion_lilayas_home_doll_quest_choice]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/lilayasHome/doll_quest', 'SIDE_SAE'))]
+					[#flags.setSavedLong('doll_quest_choice_time', game.getSecondsPassed())]
+					[#game.appendToTextEndStringBuilder(pc.setQuestProgress(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_7B))]
+					[#game.appendToTextEndStringBuilder(saellatrix.setAffection(pc, 50))]
+					[#pc.incrementKarma(-500)]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="choice">
+		<preParsingEffects><![CDATA[
+			[#saellatrix.returnToHome()]
+		]]></preParsingEffects>
+		<content/>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>true</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Now left alone in the library, you think over your decision before continuing on your way...]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+				<effects><![CDATA[
+					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/lilayasHome/doll_quest', 'END'))]
+				]]></effects>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

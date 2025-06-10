@@ -3,8 +3,11 @@ package com.lilithsthrone.game.occupantManagement.slave;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -16,7 +19,7 @@ public enum SlavePermissionSetting {
 
 	// General/Misc.:
 	
-	GENERAL_SILENCE(false, "Silence", "Forbid this slave from talking."),
+	GENERAL_SILENCE(false, "Silence", "Forbid this slave from talking. [style.italics(This slave will be treated as though they're mute while this permission is active.)]"),
 	GENERAL_CRAWLING(false, "Crawling", "Forbid this slave from walking, forcing them to crawl around on all fours."),
 	GENERAL_HOUSE_FREEDOM(false, "House Freedom", "Grant this slave the freedom to walk around Lilaya's house in their free time."),
 	GENERAL_OUTSIDE_FREEDOM(false, "Outside Freedom", "Grant this slave the freedom to leave Lilaya's house in their free time."),
@@ -33,9 +36,63 @@ public enum SlavePermissionSetting {
 	
 	// Sex:
 	
+	SEX_LUBE_PILL(false, "Lube pills", "Keep this slave on lube pills, which will result in their entire body being lubricated in sex scenes.") {
+		@Override
+		public void applyEffectsOnAddition(GameCharacter character) {
+			character.useItem(Main.game.getItemGen().generateItem("innoxia_pills_lubrication"), character, false);
+		}
+		@Override
+		public void applyEffectsOnRemoval(GameCharacter character) {
+			character.removeStatusEffect(StatusEffect.LUBE_PILL);
+		}
+	},
 	SEX_MASTURBATE(false, "Masturbation", "Allow this slave to masturbate."),
-	SEX_INITIATE_SLAVES(false, "Initiate Sex", "Allow this slave to initiate sex with any other slave that has the 'Sex Toy' permission enabled."),
-	SEX_INITIATE_PLAYER(false, "Use You", "Allow this slave to use you for sexual relief. This will allow them to initiate sex with you at any time."),
+	SEX_INITIATE_SLAVES(false, "Initiate Sex", "") {
+		@Override
+		public String getDescription() {
+			if(Main.game.isNonConEnabled()) {
+				return "Allow this slave to initiate sex with any other slave that has the 'Sex Toy' permission enabled."
+						+ " They will only initiate sex with slaves who they are attracted to, and if they do not have the 'Rapist' permission, then they will also only initiate sex with slaves who are attracted to them in turn."
+						+ " They will only have sex with slaves who they can find, either by working in the same location as them or by having the 'House Freedom' permission or both sharing the 'Outside Freedom' permission.";
+			}
+			return "Allow this slave to initiate sex with any other slave that has the 'Sex Toy' permission enabled."
+					+ " They will only initiate sex with slaves who they are attracted to, and who are attracted to them in turn."
+					+ " They will only have sex with slaves who they can find, either by working in the same location as them or by having the 'House Freedom' permission or both sharing the 'Outside Freedom' permission.";
+		}
+		@Override
+		public int getAdditionalDescriptionLines() {
+			return 6;
+		}
+	},
+	SEX_INITIATE_PLAYER(false, "Use You", "") {
+		@Override
+		public String getDescription() {
+			if(Main.game.isNonConEnabled()) {
+				return "Allow this slave to use you for sexual relief."
+						+ " This will allow them to proposition you for sex at any time, and if they have the 'Rapist' permission, then you will not be able to refuse their advances."
+						+ " They will also need the 'House Freedom' and/or 'Outside Freedom' to be able to find you within the mansion or out in Dominion's alleyways.";
+			}
+			return "Allow this slave to use you for sexual relief. This will allow them to proposition you for sex at any time."
+					+ "They will also need the 'House Freedom' and/or 'Outside Freedom' to be able to find you within the mansion or out in Dominion's alleyways.";
+		}
+		@Override
+		public int getAdditionalDescriptionLines() {
+			return 3;
+		}
+	},
+	SEX_RAPIST(false, "Rapist",
+			"Allow this slave to ignore the sexual preferences of others, including yourself."
+				+ " If this slave has a negative desire towards the '"+Fetish.FETISH_NON_CON_DOM.getName(null)+"' fetish,"
+						+ " or if they like their partner and their partner does not have a positive desire towards the '"+Fetish.FETISH_NON_CON_SUB.getName(null)+"' fetish, then even with this permission this slave will not rape their partner.") {
+		@Override
+		public boolean isAvailableForCharacter(GameCharacter character) {
+			return Main.game.isNonConEnabled();
+		}
+		@Override
+		public int getAdditionalDescriptionLines() {
+			return 3;
+		}
+	},
 	SEX_RECEIVE_SLAVES(false, "Sex Toy", "Allow this slave to be used for sexual relief by any of your slaves with the 'Initiate Sex' permission enabled."),
 	SEX_SAVE_VIRGINITY(true, "Save Virginity", "Do not let any other slaves take this slave's virginity during sex."),
 	SEX_IMPREGNATED(false, "Breeding Bitch", "Allow this slave to be impregnated during sexual events with any other slave that has the 'Slave Stud' permission enabled.") {
@@ -53,6 +110,8 @@ public enum SlavePermissionSetting {
 
 	
 	// Pills:
+
+	PILLS_NO_PILLS(true, "No Pills", "Don't give this slave any sort of fertility modification pills, resulting in a natural chance of them getting pregnant."),
 	
 	PILLS_PROMISCUITY_PILLS(false, "", "") {
 		@Override
@@ -63,9 +122,15 @@ public enum SlavePermissionSetting {
 		public String getDescription() {
 			return UtilText.parse("Keep this slave on [#ITEM_innoxia_pills_sterility.getNamePlural(false)], greatly reducing both their fertility and virility.");
 		}
+		@Override
+		public void applyEffectsOnAddition(GameCharacter character) {
+			character.useItem(Main.game.getItemGen().generateItem("innoxia_pills_sterility"), character, false);
+		}
+		@Override
+		public void applyEffectsOnRemoval(GameCharacter character) {
+			character.removeStatusEffect(StatusEffect.PROMISCUITY_PILL);
+		}
 	},
-	
-	PILLS_NO_PILLS(true, "No Pills", "Don't give this slave any sort of fertility modification pills, resulting in a natural chance of them getting pregnant."),
 	
 	PILLS_VIXENS_VIRILITY(false, "", "") {
 		@Override
@@ -75,6 +140,14 @@ public enum SlavePermissionSetting {
 		@Override
 		public String getDescription() {
 			return UtilText.parse("Keep this slave on [#ITEM_innoxia_pills_fertility.getNamePlural(false)], greatly increasing both their fertility and virility.");
+		}
+		@Override
+		public void applyEffectsOnAddition(GameCharacter character) {
+			character.useItem(Main.game.getItemGen().generateItem("innoxia_pills_fertility"), character, false);
+		}
+		@Override
+		public void applyEffectsOnRemoval(GameCharacter character) {
+			character.removeStatusEffect(StatusEffect.VIXENS_VIRILITY);
 		}
 	},
 
@@ -86,6 +159,14 @@ public enum SlavePermissionSetting {
 		@Override
 		public String getDescription() {
 			return UtilText.parse("Keep this slave on [#ITEM_innoxia_pills_broodmother.getNamePlural(false)], massively increasing both their fertility and virility and [style.colourExcellent(doubling)] how many offspring they conceive.");
+		}
+		@Override
+		public void applyEffectsOnAddition(GameCharacter character) {
+			character.useItem(Main.game.getItemGen().generateItem("innoxia_pills_broodmother"), character, false);
+		}
+		@Override
+		public void applyEffectsOnRemoval(GameCharacter character) {
+			character.removeStatusEffect(StatusEffect.BROODMOTHER_PILL);
 		}
 	},
 	
@@ -153,16 +234,32 @@ public enum SlavePermissionSetting {
 					+ " eventually making them <b style='color:"+Muscle.FOUR_RIPPED.getColour().toWebHexString()+";'>"+Muscle.FOUR_RIPPED.getName(false)+"</b>."),
 	
 	
-	// Claenliness:
+	// Cleanliness:
 	
 	CLEANLINESS_WASH_CLOTHES(true, "Wash Clothing", "Tell this slave to keep their clothing washed and clean."),
 	CLEANLINESS_WASH_BODY(true, "Wash Body", "Tell this slave to keep their body washed and clean, which will keep their orifices free of creampies."),
+	CLEANLINESS_WASH_THOROUGH(false, "Remove Odours", "When this slave washes their body, they will also remove any musky odours they might be marked with."),
 	
 	
 	// Sleeping:
-	SLEEPING_DEFAULT(true, "Sleep Whenever", "Tell this slave to sleep whenever they like, which will be during the night for diurnal races and during the day for nocturnal races."),
-	SLEEPING_NIGHT(false, "Sleep At Night", "Tell this slave to sleep during the night. This will have neither a positive nor negative effect on them."),
-	SLEEPING_DAY(false, "Sleep During Day", "Tell this slave to sleep during the day. This will have neither a positive nor negative effect on them.")
+	SLEEPING_DEFAULT(true, "Sleep Whenever", "Tell this slave to sleep whenever they like, which will be during the night for diurnal races and during the day for nocturnal races.") {
+		@Override
+		public void applyEffectsOnAddition(GameCharacter character) {
+			character.recalculateSleepHours();
+		}
+	},
+	SLEEPING_NIGHT(false, "Sleep At Night", "Tell this slave to sleep during the night. This will have neither a positive nor negative effect on them.") {
+		@Override
+		public void applyEffectsOnAddition(GameCharacter character) {
+			character.recalculateSleepHours();
+		}
+	},
+	SLEEPING_DAY(false, "Sleep During Day", "Tell this slave to sleep during the day. This will have neither a positive nor negative effect on them.") {
+		@Override
+		public void applyEffectsOnAddition(GameCharacter character) {
+			character.recalculateSleepHours();
+		}
+	},
 	
 	;
 	
@@ -184,6 +281,10 @@ public enum SlavePermissionSetting {
 		return description;
 	}
 
+	public int getAdditionalDescriptionLines() {
+		return 0;
+	}
+	
 	public boolean isDefaultValue() {
 		return defaultValue;
 	}
@@ -192,4 +293,9 @@ public enum SlavePermissionSetting {
 		return true;
 	}
 	
+	public void applyEffectsOnAddition(GameCharacter character) {
+	}
+
+	public void applyEffectsOnRemoval(GameCharacter character) {
+	}
 }

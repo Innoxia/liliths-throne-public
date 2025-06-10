@@ -83,7 +83,7 @@ public class Wynter extends NPC {
 					+ " After drinking too much and starting a highly-destructive brawl in the tavern, 'The Crossed Blades', she now also has to work there as a waitress in the VIP lounge until she's earned enough to pay for the damage she caused.",
 				27, Month.MAY, 22,
 				30, Gender.F_V_B_FEMALE, Subspecies.RABBIT_MORPH, RaceStage.GREATER,
-				new CharacterInventory(30),
+				new CharacterInventory(false, 30),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_alley"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_alley_vip"),
 				true);
 	}
@@ -231,7 +231,7 @@ public class Wynter extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 		
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_FISHNET_TOP, PresetColour.CLOTHING_BLUE_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_nipple_tape_crosses", PresetColour.CLOTHING_BLUE_LIGHT, false), true, this);
+		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_tape_roll", PresetColour.CLOTHING_BLUE_LIGHT, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_hand_fishnet_gloves", PresetColour.CLOTHING_BLUE_LIGHT, false), true, this);
 		this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.HIPS_CONDOMS, PresetColour.CLOTHING_BLUE_LIGHT, false), true, this);
 		

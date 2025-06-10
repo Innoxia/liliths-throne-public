@@ -11,9 +11,21 @@
 	<dialogue>innoxia_places_dominion_sex_shop_generic_exit</dialogue>
 	<populationPresent>
 		<population>
+			<conditional><![CDATA[
+				[#!pc.isQuestProgressGreaterThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_6)]
+			]]></conditional>
 			<populationType plural="true" density="COUPLE">SECURITY_GUARD</populationType>
 			<subspeciesPresent>
 				<subspecies>WOLF_MORPH</subspecies>
+			</subspeciesPresent>
+		</population>
+		<population>
+			<conditional><![CDATA[
+				[#pc.isQuestProgressGreaterThan(QUEST_LINE_SIDE_DOLL_FACTORY, QUEST_DOLL_FACTORY_6)]
+			]]></conditional>
+			<populationType plural="true" density="COUPLE">ENFORCER</populationType>
+			<subspeciesPresent>
+				<subspecies>DEMON</subspecies>
 			</subspeciesPresent>
 		</population>
 	</populationPresent>

@@ -29,6 +29,11 @@ body{
 		opacity:1;
     }
 }
+hr{
+	height:2px;
+	border-width:0;
+	background-color:#434347;
+}
 
 div {
 	float:left;
@@ -303,6 +308,9 @@ h6{
 	margin:0;
 	padding:0;
 	cursor:pointer;
+}
+.overlay.no-pointer{
+	cursor:default;
 }
 
 /*ITEM VIEW SPECIFIC*/

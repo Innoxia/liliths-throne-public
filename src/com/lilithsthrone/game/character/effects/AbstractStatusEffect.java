@@ -84,6 +84,7 @@ public abstract class AbstractStatusEffect {
 	private List<ItemTag> tags;
 
 	protected String SVGString;
+	protected String pathNameUsedForRender;
 
 	protected List<String> extraEffects;
 
@@ -142,7 +143,8 @@ public abstract class AbstractStatusEffect {
 		this.description = ""; // As all new status effects should be added via xml files, this shouldn't be an issue.
 		
 		this.pathName = pathName;
-		SVGString = null;
+		this.SVGString = null;
+		this.pathNameUsedForRender = null;
 		
 		this.colourShades = Util.newArrayListOfValues(colourShade, colourShadeSecondary, colourShadeTertiary);
 		
@@ -225,7 +227,8 @@ public abstract class AbstractStatusEffect {
 				this.description = coreElement.getMandatoryFirstOf("description").getTextContent();
 
 				this.pathName = XMLFile.getParentFile().getAbsolutePath() + "/" + coreElement.getMandatoryFirstOf("imageName").getTextContent();
-				SVGString = null;
+				this.SVGString = null;
+				this.pathNameUsedForRender = null;
 				
 				Colour colourShade = PresetColour.getColourFromId(coreElement.getMandatoryFirstOf("colourPrimary").getTextContent());
 				Colour colourShadeSecondary = null;
@@ -347,7 +350,7 @@ public abstract class AbstractStatusEffect {
 		return false;
 	}
 	
-	public int getApplicationLength() {
+	public int getApplicationLength(GameCharacter target) {
 		return applicationLength;
 	}
 
@@ -539,13 +542,17 @@ public abstract class AbstractStatusEffect {
 	public List<String> getExtraEffects(GameCharacter target) {
 		return extraEffects;
 	}
-
+	
+	public String getPathName(GameCharacter owner) {
+		return pathName;
+	}
+	
 	public String getSVGString(GameCharacter owner) {
-		if(SVGString==null) {
-			if(pathName!=null && !pathName.isEmpty()) {
+		if(SVGString==null || pathNameUsedForRender!=getPathName(owner)) {
+			if(getPathName(owner)!=null && !getPathName(owner).isEmpty()) {
 				try {
 					if(isFromExternalFile()) {
-						List<String> lines = Files.readAllLines(Paths.get(pathName));
+						List<String> lines = Files.readAllLines(Paths.get(getPathName(owner)));
 						StringBuilder sb = new StringBuilder();
 						for(String line : lines) {
 							sb.append(line);
@@ -554,17 +561,19 @@ public abstract class AbstractStatusEffect {
 						SVGString = SvgUtil.colourReplacement(this.getId(), colourShades, null, SVGString);
 						
 					} else {
-						String path = "/com/lilithsthrone/res/statusEffects/" + pathName + ".svg";
-						if(pathName.startsWith("res/")) {
-							path = "/com/lilithsthrone/"+pathName+".svg";
+						String path = "/com/lilithsthrone/res/statusEffects/" + getPathName(owner) + ".svg";
+						if(getPathName(owner).startsWith("res/")) {
+							path = "/com/lilithsthrone/"+getPathName(owner)+".svg";
 						}
 						InputStream is = this.getClass().getResourceAsStream(path);
 						if(is==null) {
-							System.err.println("Error! StatusEffect icon file does not exist (Trying to read from '"+pathName+"')!");
+							System.err.println("Error! StatusEffect icon file does not exist (Trying to read from '"+getPathName(owner)+"')!");
 						}
 						SVGString = SvgUtil.colourReplacement(this.getId(), colourShades, null, Util.inputStreamToString(is));
 						is.close();
 					}
+					pathNameUsedForRender = getPathName(owner);
+					
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -796,7 +805,7 @@ public abstract class AbstractStatusEffect {
 			if(penetration.appliesStretchEffects(character)) {
 				sb = new StringBuilder();
 				int length = (int) character.getPenetrationLengthInserted(penetration, target, orifice);
-				boolean knotting = Objects.equals(Main.sex.getCharacterKnotting(character), target);
+				boolean knotting = Objects.equals(Main.sex.getCharacterKnotting(character), target) && penetration==SexAreaPenetration.PENIS;
 				sb.append(UtilText.parse(character,
 						"<p style='text-align:center; margin:0; padding:0;'>"//TODO toy length/diameter
 							+ "<b style='color:"+character.getFemininity().getColour().toWebHexString()+";'>[npc.NamePos]</b> [style.boldSex("+Util.capitaliseSentence(penetration.getName(character, true))+")]:"

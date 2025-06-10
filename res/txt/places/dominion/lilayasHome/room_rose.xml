@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+
+	<htmlContent tag="ROOM_ROSE"><![CDATA[
+	<p>
+		Evidence of Rose's close relationship with Lilaya is apparent as you approach the cat-girl's room. Hanging on the door, there's a little home-made sign bearing her name, and underneath, in flowing handwriting which you recognise as Lilaya's, a little message reads: <i>'My loving Mistress'</i>
+	</p>
+	#IF(game.isExtendedWorkTime())
+		<p>
+			The door appears to be locked at the moment, and there's no sound of anyone stirring within. Rose seems to only allow herself some rest when she's sure that nobody else is around who might need her, so she's probably off in another part of the house at the moment.
+		</p>
+		<p>
+			You notice that there's a little bell set into the wall beside her door, and you wonder if you should try ringing it to get Rose to come up to her room.
+		</p>
+	#ELSE
+		<p>
+			The door appears to be locked at the moment, and you can hear the faint sound of movement coming from within. Although there's definitely someone inside, a sign has been hung beneath the little bell which is set into the wall beside her door, and this sign reads: [style.italicsBad(Please do not disturb.)]
+		</p>
+		<p>
+			It looks like you'll have to return during daylight hours if you wanted to talk to Rose about anything...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="ROOM_ROSE_INITIAL_CALL"><![CDATA[
+	<p>
+		Deciding that you'd like to talk to Rose, you decide to push the little bell that's situated beside her bedroom's door, causing a faint ringing noise to echo up from somewhere else in the house. Despite the enormous size of Lilaya's home, Rose never seems to be far away, and you soon hear her walking down the corridor as she rushes to respond to your call.
+	</p>
+	<p>
+		As she approaches, you see her cat-like tail swishing from side to side, and you notice one of her ears twitch as she sees you standing outside her bedroom waiting for her. Realising that you're obviously wanting to have a talk, she curtsies before issuing a greeting.
+	</p>
+	<p>
+		[rose.speech(Good [style.morning],)] she says, [rose.speech(How may I help you?)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- Kitty scenes: -->
+	
+	<htmlContent tag="ROOM_ROSE_KITTY"><![CDATA[
+	<p>
+		Evidence of Rose's close relationship with Lilaya is apparent as you approach the cat-girl's room. Hanging on the door, there's a little home-made sign bearing her name, and underneath, in flowing handwriting which you recognise as Lilaya's, a little message reads: <i>'My loving Mistress'</i>
+	</p>
+	<p>
+		The door appears to be locked at the moment, and you can hear the faint sound of movement coming from within. Although there's definitely someone inside, a sign has been hung beneath the little bell which is set into the wall beside her door, and this sign reads: [style.italicsBad(Please do not disturb.)]
+	</p>
+	<p>
+		Wanting to respect the cat-girl maid's request, you turn away from the door to her bedroom, but as you do, a very strange, animalistic cry causes you to freeze in your tracks, [lilaya.speech(<i>Meow!</i>)]
+	</p>
+	<p>
+		It sounded like a cat, but it was far too loud to have been made by a normal kitty. What's more, there was a rather human-like quality to it, and although you aren't quite sure where this strange noise came from, you instinctively turn back to look at the door to Rose's room.
+	</p>
+	<p>
+		[lilaya.speech(<i>Meow! Meow!</i>)]
+	</p>
+	<p>
+		This time you're sure; the meowing is being made by a feminine voice, not an actual animal, and it's definitely coming from within Rose's room. You can't imagine that the cat-girl maid would ever embarrass herself by making that noise unless she was in serious distress. You could always try to take a look through the keyhole to make sure she's not in trouble in there...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_KITTY"><![CDATA[
+	<p>
+		You don't want to be responsible for ignoring Rose's cries for help, but you also don't want to knock on the door and embarrass her if she's making those noises for some other reason. Wanting to make sure that she genuinely does require assistance before acting, you put your eye to the keyhole and manage to get a good view of what's happening on the other side of the door.
+	</p>
+	<p>
+		[lilaya.speech(<i>Meow!</i>)] the feline cry calls out as you peep into Rose's room. Instead of being made by the cat-girl as you expected, however, you're able to see that it's none other than your [lilaya.relation(pc)] who's making these embarrassing noises. Dressed up in the black-and-pink kitty lingerie which she summoned from Lyssieth's wardrobe, Lilaya is shamefully crawling around on all fours on the carpeted floor of Rose's bedroom. The maid herself is wearing nothing but a black choker, a lacy burgundy bra, and a matching crotchless thong. Sitting on a large, comfortable-looking armchair that's placed on one side of her impressively-sized and opulently-furnished bedroom, the maid is idly drinking a glass of red wine while her owner crawls around like an animal in front of her.
+	</p>
+	<p>
+		[rose.speech(It really does amuse me to think that you expected <i>me</i> to wear that outfit,)] Rose smugly states as she watches your [lilaya.relation(pc)] humiliate herself. After taking another sip of wine, she allows her sadistic streak to be shown as she snaps, [rose.speech(I ordered you to keep meowing for me! Don't make me punish you again!)]
+	</p>
+	<p>
+		[lilaya.speech(<i>Meow! Meow! Meow!</i>)] Lilaya frantically calls out as she continues crawling around on all fours. From the performance you're witnessing, you'd never guess that Rose is the slave and Lilaya her owner. The [lilaya.race] continues to crawl around and meow as her maid slowly finishes her wine and then places her now-empty glass on the table beside her.
+	</p>
+	<p>
+		[rose.speech(That's my good kitty,)] Rose says with more than a hint of amusement in her voice. Leaning back in her armchair, she spreads her legs to grant both Lilaya and you a clear, unobstructed view of her tight, slick pussy. Placing her hands down on the armrests, she smirks down at Lilaya and says, [rose.speech(You can have your reward now. Get that tongue of yours in deep; I want to cum <i>hard</i> tonight.)]
+	</p>
+	<p>
+		Letting out an excited little meow, your [lilaya.relation(pc)] hastily crawls over to kneel before Rose. You could continue to watch as she performs cunnilingus on her cat-girl maid, or instead leave and give them some privacy...
+	</p>
+	]]>
+	</htmlContent>
+
+	<htmlContent tag="LILAYA_KITTY_LEAVE"><![CDATA[
+	<p>
+		You feel a little uncomfortable watching your [lilaya.relation(pc)] and her lover like this, and so you pull back from the keyhole and stand up. Turning around, you [pc.step] away from the door and wonder what to do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_KITTY_SEX_START"><![CDATA[
+	<p>
+		You're mesmerised by the show your [lilaya.relation(pc)] and her maid are unknowingly putting on for you, and continue to watch through the keyhole as things get more intimate between them.
+	</p>
+	<p>
+		[rose.speech(That's my good kitty cat...)] Rose sighs as Lilaya leans forwards between her legs. Pressing her [lilaya.lips+] against her maid's perfect pussy, the [lilaya.race] makes lewd, wet smacking noises as she starts passionately making out with Rose's irresistible cunt. Clearly being an expert at orally pleasuring her mistress, Lilaya draws a series of increasingly-lewd moans out of her partner. Unable to maintain her composure for long, Rose gasps and grabs your [lilaya.relation(pc)] by the horns. Grinding her face into her groin, Rose cries out, [rose.speech(Yes! ~Ooh!~ Serve your Mistress! More! Give me more!)]
+	</p>
+	<p>
+		Eager to obey and submissively service her maid, Lilaya enthusiastically eats Rose out while you continue to watch through the keyhole...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="LILAYA_KITTY_AFTER_SEX"><![CDATA[
+	<p>
+		Satisfied, Rose slumps back into her armchair and pants, [rose.speech(That's my good pet... You've pleased your Mistress...)]
+	</p>
+	<p>
+		Pulling back from between Rose's legs, Lilaya looks up at her maid with a big, happy smile on her face. Returning this expression with an amused smirk, Rose lets out a soft little laugh and says, [rose.speech(Yes, yes, it's your turn now... And what's with those puppy-dog eyes? You're supposed to be a cat tonight, remember? Now go and hang your costume up, then present yourself on my bed. If you want to act like a dog, then I think I'll use the wolf-cock strapon on you tonight...)]
+	</p>
+	<p>
+		Upon hearing this, Lilaya lets out a happy little cry. Leaping to her feet, she quickly strips out of her kitty lingerie and skips over right towards you! You're certain that she's about to throw open the door and discover you, but instead she hangs her outfit on a hook on the other side of the door. Her stockings fall in such a way as to cover the keyhole, and you're left with nothing to watch as you hear your [lilaya.relation(pc)] happily declaring, [lilaya.speech(The wolf's my favourite!)]
+	</p>
+	<p>
+		[rose.speech(You say that about all of them, you slut...)] Rose teases. After that, there's the sound of drawers opening and closing, and then creaking springs as Rose joins Lilaya on the bed. A series of lewd moans, desperate cries, and ecstatic squeals soon start ringing out, but with nothing for you to see, you find this to be frustrating more than anything else.
+	</p>
+	<p>
+		With the show now being over, you pull back from the keyhole and stand up. Turning away from the door, you wonder what to do now...
+	</p>
+	]]>
+	</htmlContent>
+	
+</dialogue>
