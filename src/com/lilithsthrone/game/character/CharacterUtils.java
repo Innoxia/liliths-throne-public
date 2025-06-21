@@ -2123,12 +2123,43 @@ public class CharacterUtils {
 			character.setBreastSize(Math.max(CupSize.AA.getMeasurement(), character.getBreastSize().getMeasurement() -2 + Util.random.nextInt(5))); // Random size between -2 and +2 of base value.
 			if(Math.random()<=0.015f || character.hasFetish(Fetish.FETISH_LACTATION_SELF)) {
 				character.setBreastMilkStorage((int)((character.getBreastSize().getMeasurement() * 5)*(1+(Math.random()*2))));
-				if(Math.random()<=0.025f) {
-					character.addMilkModifier(FluidModifier.ADDICTIVE);
+			int FMR3 = Util.random.nextInt(400);
+			while(FMR3 > 389) {
+				switch(FMR3) {
+					case 390:
+						character.addMilkModifier(FluidModifier.ADDICTIVE);
+						break;
+					case 391:
+						FMR3 = 391; //dummy option so ALCOHOLIC could still roll ADDICTIVE
+						break;
+					case 392:
+						character.addMilkModifier(FluidModifier.ALCOHOLIC);
+						FMR3 = 393;
+						break;
+					case 393:
+						character.addMilkModifier(FluidModifier.ALCOHOLIC_WEAK);
+						break;
+					case 394:
+						character.addMilkModifier(FluidModifier.BUBBLING);
+						break;
+					case 395:
+						character.addMilkModifier(FluidModifier.HALLUCINOGENIC);
+						break;
+					case 396:
+						character.addMilkModifier(FluidModifier.MINERAL_OIL);
+						break;
+					case 397:
+						character.addMilkModifier(FluidModifier.MUSKY);
+						break;
+					case 398:
+						character.addMilkModifier(FluidModifier.STICKY);
+						break;
+					case 399:
+						character.addMilkModifier(FluidModifier.VISCOUS);
+						break;
 				}
-				if(Math.random()<=0.025f) {
-					character.addMilkModifier(FluidModifier.HALLUCINOGENIC);
-				}
+				FMR3 -= Util.random.nextInt(5) + 1;
+			}
 			}
 			if(character.getNippleShape()==NippleShape.NORMAL
 					&& Math.random()<0.025) {
@@ -2150,13 +2181,43 @@ public class CharacterUtils {
 			}
 			
 			if(Math.random()<=0.015f || character.hasFetish(Fetish.FETISH_LACTATION_SELF)) {
-				character.setBreastCrotchMilkStorage((int)((character.getBreastCrotchSize().getMeasurement() * 5)*(1+(Math.random()*2))));
-				if(Math.random()<=0.025f) {
-					character.addMilkCrotchModifier(FluidModifier.ADDICTIVE);
+			int FMR3 = Util.random.nextInt(400);
+			while(FMR3 > 389) {
+				switch(FMR3) {
+					case 390:
+						character.addMilkModifier(FluidModifier.ADDICTIVE);
+						break;
+					case 391:
+						FMR3 = 391; //dummy option so ALCOHOLIC could still roll ADDICTIVE
+						break;
+					case 392:
+						character.addMilkModifier(FluidModifier.ALCOHOLIC);
+						FMR3 = 393;
+						break;
+					case 393:
+						character.addMilkModifier(FluidModifier.ALCOHOLIC_WEAK);
+						break;
+					case 394:
+						character.addMilkModifier(FluidModifier.BUBBLING);
+						break;
+					case 395:
+						character.addMilkModifier(FluidModifier.HALLUCINOGENIC);
+						break;
+					case 396:
+						character.addMilkModifier(FluidModifier.MINERAL_OIL);
+						break;
+					case 397:
+						character.addMilkModifier(FluidModifier.MUSKY);
+						break;
+					case 398:
+						character.addMilkModifier(FluidModifier.STICKY);
+						break;
+					case 399:
+						character.addMilkModifier(FluidModifier.VISCOUS);
+						break;
 				}
-				if(Math.random()<=0.025f) {
-					character.addMilkCrotchModifier(FluidModifier.HALLUCINOGENIC);
-				}
+				FMR3 -= Util.random.nextInt(5) + 1;
+			}
 			}
 			if(character.getNippleCrotchShape()==NippleShape.INVERTED
 					&& character.getBreastCrotchShape()!=BreastShape.UDDERS) {
@@ -2244,11 +2305,42 @@ public class CharacterUtils {
 				character.fillCumToMaxStorage();
 			}
 			
-			if(Math.random()<=0.02f) {
-				character.addCumModifier(FluidModifier.ADDICTIVE);
-			}
-			if(Math.random()<=0.02f) {
-				character.addCumModifier(FluidModifier.HALLUCINOGENIC);
+			int FMR3 = Util.random.nextInt(400);
+			while(FMR3 > 389) {
+				switch(FMR3) {
+					case 390:
+						character.addMilkModifier(FluidModifier.ADDICTIVE);
+						break;
+					case 391:
+						FMR3 = 391; //dummy option so ALCOHOLIC could still roll ADDICTIVE
+						break;
+					case 392:
+						character.addMilkModifier(FluidModifier.ALCOHOLIC);
+						FMR3 = 393;
+						break;
+					case 393:
+						character.addMilkModifier(FluidModifier.ALCOHOLIC_WEAK);
+						break;
+					case 394:
+						character.addMilkModifier(FluidModifier.BUBBLING);
+						break;
+					case 395:
+						character.addMilkModifier(FluidModifier.HALLUCINOGENIC);
+						break;
+					case 396:
+						character.addMilkModifier(FluidModifier.MINERAL_OIL);
+						break;
+					case 397:
+						character.addMilkModifier(FluidModifier.MUSKY);
+						break;
+					case 398:
+						character.addMilkModifier(FluidModifier.STICKY);
+						break;
+					case 399:
+						character.addMilkModifier(FluidModifier.VISCOUS);
+						break;
+				}
+				FMR3 -= Util.random.nextInt(5) + 1;
 			}
 		}
 		
@@ -2280,11 +2372,42 @@ public class CharacterUtils {
 				}
 			}
 			character.setVaginaWetness(character.getVaginaWetness().getValue() -1 + Util.random.nextInt(3)); // +1 or -1 either way
-			if(Math.random()<=0.02f) {
-				character.addGirlcumModifier(FluidModifier.ADDICTIVE);
-			}
-			if(Math.random()<=0.02f) {
-				character.addGirlcumModifier(FluidModifier.HALLUCINOGENIC);
+			int FMR3 = Util.random.nextInt(400);
+			while(FMR3 > 389) {
+				switch(FMR3) {
+					case 390:
+						character.addMilkModifier(FluidModifier.ADDICTIVE);
+						break;
+					case 391:
+						FMR3 = 391; //dummy option so ALCOHOLIC could still roll ADDICTIVE
+						break;
+					case 392:
+						character.addMilkModifier(FluidModifier.ALCOHOLIC);
+						FMR3 = 393;
+						break;
+					case 393:
+						character.addMilkModifier(FluidModifier.ALCOHOLIC_WEAK);
+						break;
+					case 394:
+						character.addMilkModifier(FluidModifier.BUBBLING);
+						break;
+					case 395:
+						character.addMilkModifier(FluidModifier.HALLUCINOGENIC);
+						break;
+					case 396:
+						character.addMilkModifier(FluidModifier.MINERAL_OIL);
+						break;
+					case 397:
+						character.addMilkModifier(FluidModifier.MUSKY);
+						break;
+					case 398:
+						character.addMilkModifier(FluidModifier.STICKY);
+						break;
+					case 399:
+						character.addMilkModifier(FluidModifier.VISCOUS);
+						break;
+				}
+				FMR3 -= Util.random.nextInt(5) + 1;
 			}
 		}
 		

@@ -2884,6 +2884,16 @@ public class Game implements XMLSaving {
 				}
 			}
 		}
+		float SPTT = secondsPassedThisTurn;
+		float GTFIA = Main.game.getPlayer().getTotalFluidInArea(SexAreaOrifice.VAGINA);
+		float BCLPS = 20000 / 60;
+		if(Util.random.nextInt(40) <= 1 && SPTT > 4 && GTFIA > 1) {
+			Main.game.getPlayer().performHourlyFluidsCheck();
+		}
+		while(SPTT > 1860 && GTFIA > 60) {
+			SPTT -= 1800;
+			GTFIA -= BCLPS;
+		}
 		if(!Main.game.getPlayer().getLocationPlace().getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_MILKING_ROOM)) {
 			MilkingRoom.setTargetedCharacter(Main.game.getPlayer());
 		}
@@ -3252,7 +3262,7 @@ public class Game implements XMLSaving {
 					// Hourly effects:
 					npc.hourlyUpdate(incrementedHourOfDay);
 					if(inGame) {
-						npc.performHourlyFluidsCheck();
+						npc.NPCperformHourlyFluidsCheck();
 					}
 					
 					// New day effects:

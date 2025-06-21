@@ -13,6 +13,7 @@ import java.util.Set;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.main.Main;
@@ -21,6 +22,7 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.colours.Colour;
 import com.lilithsthrone.utils.colours.PresetColour;
+import java.util.stream.Collectors;
 
 /**
  * Singleton enforced by Enum. Because everyone loves Enums.
@@ -686,13 +688,24 @@ public enum PerkManager {
 				if(character.getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
 					deniedPerks.add(Perk.FEMALE_ATTRACTION);
 				}
-				if(!character.getFetishDesire(Fetish.FETISH_IMPREGNATION).isPositive()) {
+				if(character.getFetishDesire(Fetish.FETISH_IMPREGNATION) == FetishDesire.TWO_NEUTRAL && Util.random.nextInt(20) < 15) {
 					deniedPerks.add(Perk.VIRILITY_BOOST);
 				}
-				if(!character.getFetishDesire(Fetish.FETISH_PREGNANCY).isPositive()) {
+				if(character.getFetishDesire(Fetish.FETISH_IMPREGNATION) == FetishDesire.ONE_DISLIKE && Util.random.nextInt(20) < 17) {
+					deniedPerks.add(Perk.VIRILITY_BOOST);
+				}
+				if(character.getFetishDesire(Fetish.FETISH_IMPREGNATION) == FetishDesire.ZERO_HATE && Util.random.nextInt(20) < 19) {
+					deniedPerks.add(Perk.VIRILITY_BOOST);
+				}
+				if(character.getFetishDesire(Fetish.FETISH_PREGNANCY) == FetishDesire.TWO_NEUTRAL && Util.random.nextInt(20) < 15) {
 					deniedPerks.add(Perk.FERTILITY_BOOST);
 				}
-				
+				if(character.getFetishDesire(Fetish.FETISH_PREGNANCY) == FetishDesire.ONE_DISLIKE && Util.random.nextInt(20) < 17) {
+					deniedPerks.add(Perk.FERTILITY_BOOST);
+				}
+				if(character.getFetishDesire(Fetish.FETISH_PREGNANCY) == FetishDesire.ZERO_HATE && Util.random.nextInt(20) < 19) {
+					deniedPerks.add(Perk.FERTILITY_BOOST);
+				}
 				// Add seed based on name so that it's always the same for uniques randomly generating perks:
 				Random rnd = new Random((character.getId()).hashCode());
 				
@@ -746,10 +759,18 @@ public enum PerkManager {
 					}
 				}
 
-				// Make sure higher level traits are selected:
-				traits.sort((t1, t2) -> t1.getRow()>t2.getRow()?-1:(t1.getRow()<t2.getRow()?1:0));
-				for(TreeEntry<PerkCategory, AbstractPerk> trait : traits) {
-					character.addTrait(trait.getEntry());
+				List<TreeEntry<PerkCategory, AbstractPerk>> virilityAndFertilityTraits = traits.stream()
+						.filter(trait -> trait.getEntry().getPerkCategory() == PerkCategory.LUST
+							&& (trait.getEntry().equals(Perk.FETISH_BROODMOTHER)
+							 || trait.getEntry().equals(Perk.FETISH_SEEDER)))
+				.collect(Collectors.toList());
+				for (TreeEntry<PerkCategory, AbstractPerk> trait : virilityAndFertilityTraits) {
+				character.addTrait(trait.getEntry());
+				}
+				traits.removeAll(virilityAndFertilityTraits);
+				Collections.shuffle(traits);
+				for (TreeEntry<PerkCategory, AbstractPerk> trait : traits) {
+				character.addTrait(trait.getEntry());
 				}
 			}
 		}

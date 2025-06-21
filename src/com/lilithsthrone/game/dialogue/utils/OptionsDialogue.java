@@ -740,9 +740,18 @@ public class OptionsDialogue {
 								Main.getProperties().difficultyLevel = DifficultyLevel.NIGHTMARE;
 								break;
 							case NIGHTMARE:
+								Main.getProperties().difficultyLevel = DifficultyLevel.ELITE;
+								break;
+							case ELITE:
+								Main.getProperties().difficultyLevel = DifficultyLevel.MASTER;
+								break;
+							case MASTER:
 								Main.getProperties().difficultyLevel = DifficultyLevel.HELL;
 								break;
 							case HELL:
+								Main.getProperties().difficultyLevel = DifficultyLevel.BALANCED;
+								break;
+							case BALANCED:
 								Main.getProperties().difficultyLevel = DifficultyLevel.NORMAL;
 								break;
 						}

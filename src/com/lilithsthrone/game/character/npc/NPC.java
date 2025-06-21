@@ -48,8 +48,13 @@ import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
+import static com.lilithsthrone.game.character.body.valueEnums.OrificeModifier.MUSCLE_CONTROL;
+import static com.lilithsthrone.game.character.body.valueEnums.OrificeModifier.PUFFY;
+import static com.lilithsthrone.game.character.body.valueEnums.OrificeModifier.RIBBED;
+import static com.lilithsthrone.game.character.body.valueEnums.OrificeModifier.TENTACLED;
 import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
+import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.AbstractFetish;
@@ -1764,49 +1769,70 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		//----- Minor body part variation based on fetishes ------
 		
-		//Ass:
-		if(hasFetish(Fetish.FETISH_ANAL_GIVING)) {
-			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.THREE_DIRTY.getMinimumValue()) {
-				body.getAss().getAnus().getOrificeAnus().addOrificeModifier(null, OrificeModifier.RIBBED);
-				body.getAss().getAnus().getOrificeAnus().addOrificeModifier(null, OrificeModifier.MUSCLE_CONTROL);
-				body.getAss().getAnus().getOrificeAnus().addOrificeModifier(null, OrificeModifier.PUFFY);
-			}
-			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.FOUR_LUSTFUL.getMinimumValue()) {
-				body.getAss().getAnus().getOrificeAnus().addOrificeModifier(null, OrificeModifier.TENTACLED);
-			}
-			
-			body.getAss().setAssSize(null, AssSize.FIVE_HUGE.getValue());
-			body.getAss().setHipSize(null, HipSize.FIVE_VERY_WIDE.getValue());
-		}
+//		//Ass:
+//		if(hasFetish(Fetish.FETISH_ANAL_GIVING)) {
+//			body.getAss().setAssSize(null, AssSize.FIVE_HUGE.getValue());
+//			body.getAss().setHipSize(null, HipSize.FIVE_VERY_WIDE.getValue());
+//			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.TWO_HORNY.getMinimumValue()) {
+//			body.getAss().getAnus().getOrificeAnus().addOrificeModifier(null, OrificeModifier.PUFFY);
+//			}
+//			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.THREE_DIRTY.getMinimumValue()) {
+//			body.getAss().getAnus().getOrificeAnus().addOrificeModifier(null, OrificeModifier.RIBBED);
+//			}
+//			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.FOUR_LUSTFUL.getMinimumValue()) {
+//			body.getAss().getAnus().getOrificeAnus().addOrificeModifier(null, OrificeModifier.MUSCLE_CONTROL);
+//			}
+//			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.FIVE_CORRUPT.getMinimumValue()) {
+//			body.getAss().getAnus().getOrificeAnus().addOrificeModifier(null, OrificeModifier.TENTACLED);
+//			}
+//		}
 		
 		//Breasts:
-		if(hasFetish(Fetish.FETISH_BREASTS_OTHERS) && this.getGenderPreference().getGenderName().isHasBreasts()) {
-			body.getBreast().setSize(null, (int) (body.getBreast().getRawSizeValue()*1.5f));
+		if(hasFetish(Fetish.FETISH_LACTATION_OTHERS) && this.getGenderPreference().getGenderName().isHasBreasts()) {
+			body.getBreast().setMilkStorage(null, (int) (body.getBreast().getRawMilkStorageValue()*1.5f));
 		}
+//		if(hasFetish(Fetish.FETISH_BREASTS_OTHERS) && this.getGenderPreference().getGenderName().isHasBreasts()) {
+//			body.getBreast().setSize(null, (int) (body.getBreast().getRawSizeValue()*1.5f));
+//			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.TWO_HORNY.getMinimumValue()) {
+//			body.getBreast().getNipples().getOrificeNipples().addOrificeModifier(null, OrificeModifier.PUFFY);
+//			}
+//			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.THREE_DIRTY.getMinimumValue()) {
+//			body.getBreast().getNipples().getOrificeNipples().addOrificeModifier(null, OrificeModifier.RIBBED);
+//			}
+//			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.FOUR_LUSTFUL.getMinimumValue()) {
+//			body.getBreast().getNipples().getOrificeNipples().addOrificeModifier(null, OrificeModifier.MUSCLE_CONTROL);
+//			}
+//			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.FIVE_CORRUPT.getMinimumValue()) {
+//			body.getBreast().getNipples().getOrificeNipples().addOrificeModifier(null, OrificeModifier.TENTACLED);
+//			}
+//		}
 		
-		// Removing crotch-boobs:
-		if(applyingCrotchBoobTF && target.getBreastCrotchType()!=body.getBreastCrotch().getType() && body.getBreastCrotch().getType()==BreastType.NONE) {
+		//Crotch-Breast:
+		if(applyingCrotchBoobTF && target.getBreastCrotchType() != body.getBreastCrotch().getType() && body.getBreastCrotch().getType()==BreastType.NONE) {
 			possibleEffects.add(new PossibleItemEffect(
 				new ItemEffect(getItemEnchantmentEffect(itemType, body.getBreastCrotch()), TFModifier.TF_BREASTS_CROTCH, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1),
 				"Let's get rid of those filthy crotch-boobs!"));
 			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 		}
 		
-		// Face:
-		if(hasFetish(Fetish.FETISH_ORAL_RECEIVING)) {
-			body.getFace().getMouth().getOrificeMouth().addOrificeModifier(null, OrificeModifier.PUFFY);
-			body.getFace().getMouth().setLipSize(null, LipSize.FOUR_HUGE.getValue());
-			
-			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.THREE_DIRTY.getMinimumValue()) {
-				body.getFace().getMouth().getOrificeMouth().addOrificeModifier(null, OrificeModifier.RIBBED);
-				body.getFace().getMouth().getOrificeMouth().addOrificeModifier(null, OrificeModifier.MUSCLE_CONTROL);
-			}
-			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.FOUR_LUSTFUL.getMinimumValue()) {
-				body.getFace().getMouth().getOrificeMouth().addOrificeModifier(null, OrificeModifier.TENTACLED);
-			}
-		}
+//		// Face:
+//		if(hasFetish(Fetish.FETISH_ORAL_RECEIVING)) {
+//			body.getFace().getMouth().setLipSize(null, LipSize.FOUR_HUGE.getValue());
+//			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.TWO_HORNY.getMinimumValue()) {
+//			body.getFace().getMouth().getOrificeMouth().addOrificeModifier(null, OrificeModifier.PUFFY);
+//			}
+//			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.THREE_DIRTY.getMinimumValue()) {
+//			body.getFace().getMouth().getOrificeMouth().addOrificeModifier(null, OrificeModifier.RIBBED);
+//			}
+//			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.FOUR_LUSTFUL.getMinimumValue()) {
+//			body.getFace().getMouth().getOrificeMouth().addOrificeModifier(null, OrificeModifier.MUSCLE_CONTROL);
+//			}
+//			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.FIVE_CORRUPT.getMinimumValue()) {
+//			body.getFace().getMouth().getOrificeMouth().addOrificeModifier(null, OrificeModifier.TENTACLED);
+//			}
+//		}
 		
-		// Hair:
+//		// Hair:
 //		if(this.getGenderPreference().isFeminine()) {
 //			body.getHair().setLength(null, body.getHair().getRawLengthValue());
 //			
@@ -1814,260 +1840,75 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 //			body.getHair().setLength(null, body.getHair().getRawLengthValue());
 //		}
 		
-		// Penis:
-		if(body.getPenis().getType()!=PenisType.NONE) {
-			if(this.getGenderPreference()==Gender.F_P_TRAP) {
-				body.getPenis().setPenisLength(null, PenisLength.ONE_TINY.getMedianValue());
-				body.getPenis().getTesticle().setTesticleSize(null, TesticleSize.ONE_TINY.getValue());
-				body.getPenis().getTesticle().setCumStorage(null, CumProduction.ONE_TRICKLE.getMedianValue());
-			}
-		}
+//		// Penis:
+//		if(hasFetish(Fetish.FETISH_SIZE_QUEEN) && this.getGenderPreference().getGenderName().isHasPenis()) {
+//			body.getPenis().setPenisLength(null, (int) (body.getPenis().getRawLengthValue()*1.5f));
+//		}
+//		if(hasFetish(Fetish.FETISH_PENIS_RECEIVING) && this.getGenderPreference().getGenderName().isHasPenis()) {
+//			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.TWO_HORNY.getMinimumValue()) {
+//			body.getPenis().addPenisModifier(null,PenetrationModifier.VEINY);
+//			}
+//			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.THREE_DIRTY.getMinimumValue()) {
+//			body.getPenis().addPenisModifier(null,PenetrationModifier.RIBBED);
+//			}
+//			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.FOUR_LUSTFUL.getMinimumValue()) {
+//			body.getPenis().addPenisModifier(null,PenetrationModifier.TENTACLED);
+//			}
+//		}
+//		if (hasFetish(Fetish.FETISH_PENIS_RECEIVING) && this.getGenderPreference().getGenderName().isHasPenis() && hasFetish(Fetish.FETISH_PREGNANCY) && this.getGenderPreference().getGenderName().isHasPenis()) {
+//			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.FIVE_CORRUPT.getMinimumValue()) {
+//			body.getPenis().addPenisModifier(null,PenetrationModifier.OVIPOSITOR);
+//			}
+//		}
 		
-		// Vagina:
-		if(body.getVagina().getType()!=VaginaType.NONE) {
-			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.THREE_DIRTY.getMinimumValue()) {
-				body.getVagina().getOrificeVagina().addOrificeModifier(null, OrificeModifier.RIBBED);
-				body.getVagina().getOrificeVagina().addOrificeModifier(null, OrificeModifier.MUSCLE_CONTROL);
-			}
-			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.FOUR_LUSTFUL.getMinimumValue()) {
-				body.getVagina().getOrificeVagina().addOrificeModifier(null, OrificeModifier.TENTACLED);
-			}
-		}
+//		// Vagina:
+//		if(hasFetish(Fetish.FETISH_VAGINAL_GIVING) && this.getGenderPreference().getGenderName().isHasVagina()) {
+//			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.TWO_HORNY.getMinimumValue()) {
+//			body.getVagina().getOrificeVagina().addOrificeModifier(null, OrificeModifier.PUFFY);
+//			}
+//			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.THREE_DIRTY.getMinimumValue()) {
+//			body.getVagina().getOrificeVagina().addOrificeModifier(null, OrificeModifier.RIBBED);
+//			}
+//			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.FOUR_LUSTFUL.getMinimumValue()) {
+//			body.getVagina().getOrificeVagina().addOrificeModifier(null, OrificeModifier.MUSCLE_CONTROL);
+//			}
+//			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.FIVE_CORRUPT.getMinimumValue()) {
+//			body.getVagina().getOrificeVagina().addOrificeModifier(null, OrificeModifier.TENTACLED);
+//			}
+//		}
+//		if(hasFetish(Fetish.FETISH_VAGINAL_GIVING) && this.getGenderPreference().getGenderName().isHasVagina() && hasFetish(Fetish.FETISH_PREGNANCY) && this.getGenderPreference().getGenderName().isHasVagina()) {
+//			if(this.getAttributeValue(Attribute.MAJOR_CORRUPTION) >= CorruptionLevel.FIVE_CORRUPT.getMinimumValue()) {
+//			body.getVagina().getOrificeVagina().addOrificeModifier(null, OrificeModifier.EGG_LAYER);
+//			}
+//		}
 		
 		//-----------
-		
-		
-		//--- CORE ---//
-		
-		// Height:
-		if(target.getHeightValue() + 10 < body.getHeightValue()) {
-			possibleEffects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
-				"Let's make you taller!"));
-			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-			
-		} else if(target.getHeightValue() - 10 > body.getHeightValue()) {
-			possibleEffects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1),
-				"Let's make you shorter!"));
-			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-		}
-		
-		// Muscle:
-		if(target.getMuscleValue() > body.getMuscle()
-				&& target.getMuscle() != Muscle.valueOf(body.getMuscle())) {
-			possibleEffects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_DRAIN, 1),
-				"You're too muscly for me!"));
-			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-			
-		} else if(target.getMuscleValue() < body.getMuscle()
-				&& target.getMuscle() != Muscle.valueOf(body.getMuscle())) {
-			possibleEffects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
-				"You need to have more muscle!"));
-			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-		}
-
-		// Body size:
-		if(target.getBodySizeValue() > body.getBodySize()
-				&& target.getBodySize() != BodySize.valueOf(body.getBodySize())) {
-			possibleEffects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MAJOR_DRAIN, 1),
-				"Let's slim you down a bit!"));
-			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-			
-		} else if(target.getBodySizeValue() < body.getBodySize()
-				&& target.getBodySize() != BodySize.valueOf(body.getBodySize())) {
-			possibleEffects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MAJOR_BOOST, 1),
-				"You're far too slim for my liking!"));
-			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-		}
-		
-		// Femininity:
-		if(target.getFemininityValue() < body.getFemininity()
-				&& Femininity.valueOf(target.getFemininityValue()) != Femininity.valueOf(body.getFemininity())) {
-			possibleEffects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.MAJOR_BOOST, 1),
-				"I'm gonna need you to be more feminine!"));
-			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-			
-		} else if(target.getFemininityValue() > body.getFemininity()
-				&& Femininity.valueOf(target.getFemininityValue()) != Femininity.valueOf(body.getFemininity())
-				&& !Femininity.valueOf(body.getFemininity()).isFeminine()) {
-			possibleEffects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.MAJOR_DRAIN, 1),
-				"I'm gonna need you to be more of a man!"));
-			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-		}
-		
-
-		//--- BREASTS ---//
-		
-		// Breast size:
-		if(target.getBreastSize().getMeasurement() + 3 <= body.getBreast().getSize().getMeasurement()) {
-			possibleEffects.add(new PossibleItemEffect(
-					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
-					"Your breasts need to be a lot bigger!"));
-				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-			
-		} else if(target.getBreastSize().getMeasurement() + 2 <= body.getBreast().getSize().getMeasurement()) {
-			possibleEffects.add(new PossibleItemEffect(
-					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1),
-					"Your breasts need to be bigger!"));
-				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-				
-		} else if(target.getBreastSize().getMeasurement() + 1 <= body.getBreast().getSize().getMeasurement()) {
-			possibleEffects.add(new PossibleItemEffect(
-					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_BOOST, 1),
-					"Your breasts need to be a little bigger!"));
-				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-				
-		} else if(target.getBreastSize().getMeasurement() >= body.getBreast().getSize().getMeasurement() - 3) {
-			possibleEffects.add(new PossibleItemEffect(
-					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1),
-					"Your breasts are far too big!"));
-				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-				
-		} else if(target.getBreastSize().getMeasurement() >= body.getBreast().getSize().getMeasurement() - 2) {
-			possibleEffects.add(new PossibleItemEffect(
-					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1),
-					"Your breasts are too big!"));
-				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-				
-		} else if(target.getBreastSize().getMeasurement() >= body.getBreast().getSize().getMeasurement() - 1) {
-			possibleEffects.add(new PossibleItemEffect(
-					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_DRAIN, 1),
-					"Your breasts are a little too big!"));
-				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-		}
-
-		
-		//--- CROTCH-BOOBS---//
-		
-		if(applyingCrotchBoobTF && body.getBreastCrotch().getType()!=BreastType.NONE) {
-			if(target.getBreastCrotchSize().getMeasurement() + 3 <= body.getBreastCrotch().getSize().getMeasurement()) {
-				possibleEffects.add(new PossibleItemEffect(
-						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
-						"Your crotch-boobs need to be a lot bigger!"));
-					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-				
-			} else if(target.getBreastCrotchSize().getMeasurement() + 2 <= body.getBreastCrotch().getSize().getMeasurement()) {
-				possibleEffects.add(new PossibleItemEffect(
-						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1),
-						"Your crotch-boobs need to be bigger!"));
-					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-					
-			} else if(target.getBreastCrotchSize().getMeasurement() + 1 <= body.getBreastCrotch().getSize().getMeasurement()) {
-				possibleEffects.add(new PossibleItemEffect(
-						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_BOOST, 1),
-						"Your crotch-boobs need to be a little bigger!"));
-					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-					
-			} else if(target.getBreastCrotchSize().getMeasurement() >= body.getBreastCrotch().getSize().getMeasurement() - 3) {
-				possibleEffects.add(new PossibleItemEffect(
-						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1),
-						"Your crotch-boobs are far too big!"));
-					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-					
-			} else if(target.getBreastCrotchSize().getMeasurement() >= body.getBreastCrotch().getSize().getMeasurement() - 2) {
-				possibleEffects.add(new PossibleItemEffect(
-						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1),
-						"Your crotch-boobs are too big!"));
-					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-					
-			} else if(target.getBreastCrotchSize().getMeasurement() >= body.getBreastCrotch().getSize().getMeasurement() - 1) {
-				possibleEffects.add(new PossibleItemEffect(
-						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_DRAIN, 1),
-						"Your crotch-boobs are a little too big!"));
-					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-			}
-		}
-
-		//--- ASS ---//
-		
-		// Ass size:
-		if(target.getAssSize().getValue() + 1 < body.getAss().getAssSize().getValue()) {
-			possibleEffects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1),
-				"Your ass needs to be bigger"));
-			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-			
-		} else if(target.getAssSize().getValue() - 1 > body.getAss().getAssSize().getValue()) {
-			possibleEffects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1),
-				"Your ass is too big!"));
-			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-		}
-		
-		// Capacity:
-		if(target.getAssRawCapacityValue()+10 < body.getAss().getAnus().getOrificeAnus().getRawCapacityValue()) {
-			possibleEffects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_CAPACITY, TFPotency.BOOST, 1),
-				"Your ass is too tight for my liking!"));
-			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-			
-		} else if(target.getAssRawCapacityValue()-20 > body.getAss().getAnus().getOrificeAnus().getRawCapacityValue()) {
-			possibleEffects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_CAPACITY, TFPotency.MAJOR_DRAIN, 1),
-				"Your ass is far too loose!"));
-			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-		}
-		
-		// Wetness:
-		if(target.getAssWetness().getValue() < body.getAss().getAnus().getOrificeAnus().getWetness(null).getValue()) {
-			possibleEffects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_WETNESS, TFPotency.MINOR_BOOST, 1),
-				"Your ass is too dry!"));
-			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-		}
-		
-		// Hip size:
-		if(target.getHipSize().getValue() + 1 < body.getAss().getHipSize().getValue()) {
-			possibleEffects.add(new PossibleItemEffect(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.BOOST, 1),
-				"Your hips need to be wider!"));
-			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-			
-		} else if(target.getHipSize().getValue() - 1 > body.getAss().getHipSize().getValue()) {
-			possibleEffects.add(new PossibleItemEffect(
-				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.DRAIN, 1),
-				"Your hips are too wide!"));
-			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-		}
-
-
-		//--- HAIR ---//
-		
-		// Hair length:
-		// Same as with breast size, since target hair size might be 0cm (= no hair) and steps reduced to 5cm from 15cm.
-		boolean doubleApplication = Math.abs(target.getHairRawLengthValue() - body.getHair().getRawLengthValue()) > 20;
-		for(int i=0; i<(doubleApplication?2:1); i++) {
-			boolean majorChange = Math.abs(target.getHairRawLengthValue() - body.getHair().getRawLengthValue()) > (i==0&&doubleApplication?30:15);
-			if(target.getHairRawLengthValue() + 6 < body.getHair().getRawLengthValue()) {
-				possibleEffects.add(new PossibleItemEffect(
-					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, majorChange?TFPotency.MAJOR_BOOST:TFPotency.BOOST, 1),
-					i==0
-						?("Your [pc.hair(true)] "+(target.getHairType().isDefaultPlural(target)?"are":"is")+" too short!")
-						:"Let's make your [pc.hair(true)] even longer!"));
-				
-			} else if(target.getHairRawLengthValue() > body.getHair().getRawLengthValue()) {
-				possibleEffects.add(new PossibleItemEffect(
-					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, majorChange?TFPotency.MAJOR_DRAIN:TFPotency.DRAIN, 1),
-					i==0
-						?("Your [pc.hair(true)] "+(target.getHairType().isDefaultPlural(target)?"are":"is")+" too long!")
-						:"Let's make your [pc.hair(true)] even shorter!"));
-			}
-		}
-		if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 		
 		//--- FACE ---//
 		
 		// Lip size:
-		if(target.getLipSize().getValue() + 1 < body.getFace().getMouth().getLipSize().getValue()) {
+		if(target.getLipSize().getValue() + 2 < body.getFace().getMouth().getLipSize().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+				"Your [pc.lips] are way too small!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getLipSize().getValue() + 1 < body.getFace().getMouth().getLipSize().getValue()) {
 			possibleEffects.add(new PossibleItemEffect(
 				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1),
 				"Your [pc.lips] are too small!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getLipSize().getValue() < body.getFace().getMouth().getLipSize().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_BOOST, 1),
+				"Your [pc.lips] are a little bit too small!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getLipSize().getValue() - 2 > body.getFace().getMouth().getLipSize().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1),
+				"Your [pc.lips] are way too big!"));
 			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 			
 		} else if(target.getLipSize().getValue() - 1 > body.getFace().getMouth().getLipSize().getValue()) {
@@ -2075,97 +1916,3516 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1),
 				"Your [pc.lips] are too big!"));
 			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getLipSize().getValue() > body.getFace().getMouth().getLipSize().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_DRAIN, 1),
+				"Your [pc.lips] are a little bit too big!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 		}
 		
+		// Throat Orifice Modifier:
+		if(!target.getFaceOrificeModifiers().contains(PUFFY) && body.getFace().getMouth().getOrificeMouth().getOrificeModifiers().contains(PUFFY)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_ORIFICE_PUFFY, TFPotency.MINOR_BOOST, 1),
+				"I like puffy lips!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+		} else if(target.getFaceOrificeModifiers().contains(PUFFY) && !body.getFace().getMouth().getOrificeMouth().getOrificeModifiers().contains(PUFFY)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_ORIFICE_PUFFY, TFPotency.MINOR_DRAIN, 1),
+				"I dislike puffy lips!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+		}
+		if(!target.getFaceOrificeModifiers().contains(RIBBED) && body.getFace().getMouth().getOrificeMouth().getOrificeModifiers().contains(RIBBED)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_ORIFICE_RIBBED, TFPotency.MINOR_BOOST, 1),
+				"I want your throat to be ribbed!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+		} else if(target.getFaceOrificeModifiers().contains(RIBBED) && !body.getFace().getMouth().getOrificeMouth().getOrificeModifiers().contains(RIBBED)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_ORIFICE_RIBBED, TFPotency.MINOR_DRAIN, 1),
+				"I don't want your throat to be ribbed!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+		}
+		if(!target.getFaceOrificeModifiers().contains(MUSCLE_CONTROL) && body.getFace().getMouth().getOrificeMouth().getOrificeModifiers().contains(MUSCLE_CONTROL)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_ORIFICE_MUSCLED, TFPotency.MINOR_BOOST, 1),
+				"I want you to be able to control your muscles within your throat!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+		} else if(target.getFaceOrificeModifiers().contains(MUSCLE_CONTROL) && !body.getFace().getMouth().getOrificeMouth().getOrificeModifiers().contains(MUSCLE_CONTROL)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_ORIFICE_MUSCLED, TFPotency.MINOR_DRAIN, 1),
+				"I don't want you to be able to control your muscles within your throat!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+		}
+		if(!target.getFaceOrificeModifiers().contains(TENTACLED) && body.getFace().getMouth().getOrificeMouth().getOrificeModifiers().contains(TENTACLED)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_ORIFICE_TENTACLED, TFPotency.MINOR_BOOST, 1),
+				"I like tentacles in your throat!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+		} else if(target.getFaceOrificeModifiers().contains(TENTACLED) && !body.getFace().getMouth().getOrificeMouth().getOrificeModifiers().contains(MUSCLE_CONTROL)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_ORIFICE_TENTACLED, TFPotency.MINOR_DRAIN, 1),
+				"I dislike tentacles in your throat!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+		}
+		// Throat capacity:
+		if(target.getFaceRawCapacityValue() + 8 < body.getFace().getMouth().getOrificeMouth().getRawCapacityValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_CAPACITY, TFPotency.MAJOR_BOOST, 1),
+				"Your throat is way too tight for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getFaceRawCapacityValue() + 3 < body.getFace().getMouth().getOrificeMouth().getRawCapacityValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_CAPACITY, TFPotency.BOOST, 1),
+				"Your throat is too tight for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getFaceRawCapacityValue() < body.getFace().getMouth().getOrificeMouth().getRawCapacityValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_CAPACITY, TFPotency.MINOR_BOOST, 1),
+				"Your throat is a little bit too tight for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getFaceRawCapacityValue() - 8 > body.getFace().getMouth().getOrificeMouth().getRawCapacityValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_CAPACITY, TFPotency.MAJOR_DRAIN, 1),
+				"Your throat is way too loose for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getFaceRawCapacityValue() - 3 > body.getFace().getMouth().getOrificeMouth().getRawCapacityValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_CAPACITY, TFPotency.DRAIN, 1),
+				"Your throat is too loose for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getFaceRawCapacityValue() > body.getFace().getMouth().getOrificeMouth().getRawCapacityValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_CAPACITY, TFPotency.MINOR_DRAIN, 1),
+				"Your throat is a little bit too loose for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+		}
+		// Throat depth:
+		if(target.getFaceDepth().getValue() + 2 < body.getFace().getMouth().getOrificeMouth().getDepth(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_DEPTH, TFPotency.MAJOR_BOOST, 1),
+				"Your throat is way too tight for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getFaceDepth().getValue() + 1 < body.getFace().getMouth().getOrificeMouth().getDepth(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_DEPTH, TFPotency.BOOST, 1),
+				"Your throat is too tight for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getFaceDepth().getValue() < body.getFace().getMouth().getOrificeMouth().getDepth(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_DEPTH, TFPotency.MINOR_BOOST, 1),
+				"Your throat is a little bit too tight for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getFaceDepth().getValue() - 2 > body.getFace().getMouth().getOrificeMouth().getDepth(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_DEPTH, TFPotency.MAJOR_DRAIN, 1),
+				"Your throat is way too loose for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getFaceDepth().getValue() - 1 > body.getFace().getMouth().getOrificeMouth().getDepth(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_DEPTH, TFPotency.DRAIN, 1),
+				"Your throat is too loose for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getFaceDepth().getValue() > body.getFace().getMouth().getOrificeMouth().getDepth(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_DEPTH, TFPotency.MINOR_DRAIN, 1),
+				"Your throat is a little bit too loose for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+		}
+		// Throat elasticity:
+		if(target.getFaceElasticity().getValue() + 2 < body.getFace().getMouth().getOrificeMouth().getElasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_ELASTICITY, TFPotency.MAJOR_BOOST, 1),
+				"Your throat is way too rigid for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getFaceElasticity().getValue() + 1 < body.getFace().getMouth().getOrificeMouth().getElasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_ELASTICITY, TFPotency.BOOST, 1),
+				"Your throat is too rigid for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getFaceElasticity().getValue() < body.getFace().getMouth().getOrificeMouth().getElasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_ELASTICITY, TFPotency.MINOR_BOOST, 1),
+				"Your throat is a little bit too rigid for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getFaceElasticity().getValue() - 2 > body.getFace().getMouth().getOrificeMouth().getElasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_ELASTICITY, TFPotency.MAJOR_DRAIN, 1),
+				"Your throat is way too elastic for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getFaceElasticity().getValue() - 1 > body.getFace().getMouth().getOrificeMouth().getElasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_ELASTICITY, TFPotency.DRAIN, 1),
+				"Your throat is too elastic for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getFaceElasticity().getValue() > body.getFace().getMouth().getOrificeMouth().getElasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_ELASTICITY, TFPotency.MINOR_DRAIN, 1),
+				"Your throat is a little bit too elastic for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+		}
+		// Throat plasticity:
+		if(target.getFacePlasticity().getValue() + 2 < body.getFace().getMouth().getOrificeMouth().getPlasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_PLASTICITY, TFPotency.MAJOR_BOOST, 1),
+				"Your throat is way too stiff for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getFacePlasticity().getValue() + 1 < body.getFace().getMouth().getOrificeMouth().getPlasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_PLASTICITY, TFPotency.BOOST, 1),
+				"Your throat is too stiff for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getFacePlasticity().getValue() < body.getFace().getMouth().getOrificeMouth().getPlasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_PLASTICITY, TFPotency.MINOR_BOOST, 1),
+				"Your throat is a little bit too stiff for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getFacePlasticity().getValue() - 2 > body.getFace().getMouth().getOrificeMouth().getPlasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_PLASTICITY, TFPotency.MAJOR_DRAIN, 1),
+				"Your throat is way too plastic for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getFacePlasticity().getValue() - 1 > body.getFace().getMouth().getOrificeMouth().getPlasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_PLASTICITY, TFPotency.DRAIN, 1),
+				"Your throat is too plastic for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getFacePlasticity().getValue() > body.getFace().getMouth().getOrificeMouth().getPlasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_PLASTICITY, TFPotency.MINOR_DRAIN, 1),
+				"Your throat is a little bit too plastic for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+		}
+		// Saliva production:
+		if(target.getFaceWetness().getValue() + 2 < body.getFace().getMouth().getOrificeMouth().getWetness(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+				"Your mouth need to produce way more saliva!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getFaceWetness().getValue() + 1 < body.getFace().getMouth().getOrificeMouth().getWetness(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_WETNESS, TFPotency.BOOST, 1),
+				"Your mouth need to produce more saliva!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getFaceWetness().getValue() < body.getFace().getMouth().getOrificeMouth().getWetness(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_WETNESS, TFPotency.MINOR_BOOST, 1),
+				"Your mouth need to produce a little bit more saliva!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getFaceWetness().getValue() - 2 > body.getFace().getMouth().getOrificeMouth().getWetness(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_DRAIN, 1),
+				"Your mouth need to produce way less saliva!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getFaceWetness().getValue() - 1 > body.getFace().getMouth().getOrificeMouth().getWetness(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_WETNESS, TFPotency.DRAIN, 1),
+				"Your mouth need to produce less saliva!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getFaceWetness().getValue() > body.getFace().getMouth().getOrificeMouth().getWetness(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_WETNESS, TFPotency.MINOR_DRAIN, 1),
+				"Your mouth need to produce a little bit less saliva!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+		}
+		// Tongue length:
+		if(target.getTongueLengthValue() + 8 < body.getFace().getTongue().getTongueLengthValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
+				"Your tounge are way too small!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getLipSize().getValue() + 3 < body.getFace().getMouth().getLipSize().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.BOOST, 1),
+				"Your tounge are too small!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getLipSize().getValue() < body.getFace().getMouth().getLipSize().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MINOR_BOOST, 1),
+				"Your tounge are a little bit too small!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getLipSize().getValue() - 8 > body.getFace().getMouth().getLipSize().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_DRAIN, 1),
+				"Your tounge are way too big!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getLipSize().getValue() - 3 > body.getFace().getMouth().getLipSize().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.DRAIN, 1),
+				"Your tounge are too big!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getLipSize().getValue() > body.getFace().getMouth().getLipSize().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MINOR_DRAIN, 1),
+				"Your tounge are a little bit too big!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+		}
+		// Tongue Modifier:
+		if(!target.hasTongueModifier(TongueModifier.RIBBED) && body.getFace().getTongue().hasTongueModifier(TongueModifier.RIBBED)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_TONGUE_RIBBED, TFPotency.MINOR_BOOST, 1),
+				"I want your tongue to be ribbed!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+		} else if(target.hasTongueModifier(TongueModifier.RIBBED) && !body.getFace().getTongue().hasTongueModifier(TongueModifier.RIBBED)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_TONGUE_RIBBED, TFPotency.MINOR_DRAIN, 1),
+				"I don't want your tongue to be ribbed!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+		}
+		if(!target.hasTongueModifier(TongueModifier.TENTACLED) && body.getFace().getTongue().hasTongueModifier(TongueModifier.TENTACLED)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_TONGUE_TENTACLED, TFPotency.MINOR_BOOST, 1),
+				"I like tentacles in your tongue!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+		} else if(target.hasTongueModifier(TongueModifier.TENTACLED) && !body.getFace().getTongue().hasTongueModifier(TongueModifier.TENTACLED)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_TONGUE_TENTACLED, TFPotency.MINOR_DRAIN, 1),
+				"I dislike tentacles in your tongue!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+		}
+		if(!target.hasTongueModifier(TongueModifier.WIDE) && body.getFace().getTongue().hasTongueModifier(TongueModifier.WIDE)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_TONGUE_WIDE, TFPotency.MINOR_BOOST, 1),
+				"Lets make your tongue wide!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+		} else if(target.hasTongueModifier(TongueModifier.WIDE) && !body.getFace().getTongue().hasTongueModifier(TongueModifier.WIDE)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_TONGUE_WIDE, TFPotency.MINOR_DRAIN, 1),
+				"Lets revert your tongue back to normal!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+		}
+		if(!target.hasTongueModifier(TongueModifier.FLAT) && body.getFace().getTongue().hasTongueModifier(TongueModifier.FLAT)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_TONGUE_FLAT, TFPotency.MINOR_BOOST, 1),
+				"Lets make your tongue flat!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+		} else if(target.hasTongueModifier(TongueModifier.FLAT) && !body.getFace().getTongue().hasTongueModifier(TongueModifier.FLAT)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_TONGUE_FLAT, TFPotency.MINOR_DRAIN, 1),
+				"Lets revert your tongue back to normal!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+		}
+		if(!target.hasTongueModifier(TongueModifier.STRONG) && body.getFace().getTongue().hasTongueModifier(TongueModifier.STRONG)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_TONGUE_STRONG, TFPotency.MINOR_BOOST, 1),
+				"Lets make your tongue stonger!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+		} else if(target.hasTongueModifier(TongueModifier.STRONG) && !body.getFace().getTongue().hasTongueModifier(TongueModifier.STRONG)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.TF_MOD_TONGUE_STRONG, TFPotency.MINOR_DRAIN, 1),
+				"Lets revert your tongue back to normal!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+		}
 		
-		//--- PENIS ---//
+		//--- CORE ---//
 		
-		if(target.getPenisType()!=PenisType.NONE && body.getPenis().getType()!=PenisType.NONE) {
-			// Cum production:
-			if(target.getPenisRawCumStorageValue() < body.getPenis().getTesticle().getRawCumStorageValue()) {
+		// Height:
+		if(target.getHeightValue() + 8 < body.getHeightValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+				"Let's make you way taller!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getHeightValue() + 3 < body.getHeightValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1),
+				"Let's make you taller!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getHeightValue() < body.getHeightValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_BOOST, 1),
+				"Let's make you a little bit taller!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getHeightValue() - 8 > body.getHeightValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1),
+				"Let's make you way shorter!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getHeightValue() - 3 > body.getHeightValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1),
+				"Let's make you shorter!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getHeightValue() > body.getHeightValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_DRAIN, 1),
+				"Let's make you a little bit shorter!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		
+		// Muscle:
+		if(target.getMuscleValue() + 8 < body.getMuscle()
+				&& target.getMuscle() != Muscle.valueOf(body.getMuscle())) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
+				"You need to have way more muscle!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getMuscleValue() + 3 < body.getMuscle()
+				&& target.getMuscle() != Muscle.valueOf(body.getMuscle())) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.BOOST, 1),
+				"You need to have more muscle!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getMuscleValue() < body.getMuscle()
+				&& target.getMuscle() != Muscle.valueOf(body.getMuscle())) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MINOR_BOOST, 1),
+				"You need to have a little bit more muscle!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getMuscleValue() - 8 > body.getMuscle()
+				&& target.getMuscle() != Muscle.valueOf(body.getMuscle())) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_DRAIN, 1),
+				"You're way too muscly for me!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getMuscleValue() - 3 > body.getMuscle()
+				&& target.getMuscle() != Muscle.valueOf(body.getMuscle())) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.DRAIN, 1),
+				"You're too muscly for me!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getMuscleValue() > body.getMuscle()
+				&& target.getMuscle() != Muscle.valueOf(body.getMuscle())) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MINOR_DRAIN, 1),
+				"You're a little bit too muscly for me!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		
+		// Body size:
+		if(target.getBodySizeValue() + 8 < body.getBodySize()
+				&& target.getBodySize() != BodySize.valueOf(body.getBodySize())) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MAJOR_BOOST, 1),
+				"You're way too slim for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getBodySizeValue() + 3 < body.getBodySize()
+				&& target.getBodySize() != BodySize.valueOf(body.getBodySize())) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.BOOST, 1),
+				"You're too slim for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getBodySizeValue() < body.getBodySize()
+				&& target.getBodySize() != BodySize.valueOf(body.getBodySize())) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MINOR_BOOST, 1),
+				"You're a little bit too slim for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getBodySizeValue() - 8 > body.getBodySize()
+				&& target.getBodySize() != BodySize.valueOf(body.getBodySize())) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MAJOR_DRAIN, 1),
+				"Let's slim you down way more!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+		} else if(target.getBodySizeValue() - 3 > body.getBodySize()
+				&& target.getBodySize() != BodySize.valueOf(body.getBodySize())) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.DRAIN, 1),
+				"Let's slim you down!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getBodySizeValue() > body.getBodySize()
+				&& target.getBodySize() != BodySize.valueOf(body.getBodySize())) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MINOR_DRAIN, 1),
+				"Let's slim you down a little bit!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		
+		// Femininity:
+		if(target.getFemininityValue() < body.getFemininity()) {
+			if(target.getFemininityValue() + 8 < body.getFemininity()
+					&& Femininity.valueOf(target.getFemininityValue()) != Femininity.valueOf(body.getFemininity())) {
 				possibleEffects.add(new PossibleItemEffect(
-					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
-					"Mmm! You're gonna make lots of cum for me!"));
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.MAJOR_BOOST, 1),
+					"I'm gonna need you to be way more feminine!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			} else if(target.getFemininityValue() + 3 < body.getFemininity()
+					&& Femininity.valueOf(target.getFemininityValue()) != Femininity.valueOf(body.getFemininity())) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.BOOST, 1),
+					"I'm gonna need you to be more feminine!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			} else if(target.getFemininityValue() < body.getFemininity()
+					&& Femininity.valueOf(target.getFemininityValue()) != Femininity.valueOf(body.getFemininity())) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.MINOR_BOOST, 1),
+					"I'm gonna need you to be a little more feminine!"));
 				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 			}
-			// Size:
+		} else if(target.getFemininityValue() > body.getFemininity()) {
+			if(target.getFemininityValue() - 8 > body.getFemininity()
+					&& Femininity.valueOf(target.getFemininityValue()) != Femininity.valueOf(body.getFemininity())
+					&& !Femininity.valueOf(body.getFemininity()).isFeminine()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.MAJOR_DRAIN, 1),
+					"I'm gonna need you to be way more masculine!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			} else if(target.getFemininityValue() - 3 > body.getFemininity()
+					&& Femininity.valueOf(target.getFemininityValue()) != Femininity.valueOf(body.getFemininity())
+					&& !Femininity.valueOf(body.getFemininity()).isFeminine()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.DRAIN, 1),
+					"I'm gonna need you to be more masculine!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			} else if(target.getFemininityValue() > body.getFemininity()
+					&& Femininity.valueOf(target.getFemininityValue()) != Femininity.valueOf(body.getFemininity())
+					&& !Femininity.valueOf(body.getFemininity()).isFeminine()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.MINOR_DRAIN, 1),
+					"I'm gonna need you to be a little more masculine!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			}
+		}
+		
+		//--- ARMS ---//
+		
+		//--- LEGS ---//
+		
+		//--- EARS ---//
+		
+		//--- EYES ---//
+		
+		//--- HAIR ---//
+		
+		// Hair length:
+		// Same as with breast size, since target hair size might be 0cm (= no hair) and steps reduced to 5cm from 15cm.
+		boolean doubleApplication = Math.abs(target.getHairRawLengthValue() - body.getHair().getRawLengthValue()) > 20;
+		for(int i=0; i<(doubleApplication?2:1); i++) {
+			if(target.getHairRawLengthValue() + 8 < body.getHair().getRawLengthValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+					i==0
+						?("Your [pc.hair(true)] "+(target.getHairType().isDefaultPlural(target)?"are":"is")+" way too short!")
+						:"Let's make your [pc.hair(true)] even more longer!"));
+				
+			} else if(target.getHairRawLengthValue() + 3 < body.getHair().getRawLengthValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1),
+					i==0
+						?("Your [pc.hair(true)] "+(target.getHairType().isDefaultPlural(target)?"are":"is")+" too short!")
+						:"Let's make your [pc.hair(true)] more longer!"));
+				
+			} else if(target.getHairRawLengthValue() < body.getHair().getRawLengthValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_BOOST, 1),
+					i==0
+						?("Your [pc.hair(true)] "+(target.getHairType().isDefaultPlural(target)?"are a":"is")+" little bit too short!")
+						:"Let's make your [pc.hair(true)] a little bit longer!"));
+				
+			} else if(target.getHairRawLengthValue() - 8 > body.getHair().getRawLengthValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1),
+					i==0
+						?("Your [pc.hair(true)] "+(target.getHairType().isDefaultPlural(target)?"are":"is")+" way too long!")
+						:"Let's make your [pc.hair(true)] even more shorter!"));
+				
+			} else if(target.getHairRawLengthValue() - 3 > body.getHair().getRawLengthValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1),
+					i==0
+						?("Your [pc.hair(true)] "+(target.getHairType().isDefaultPlural(target)?"are":"is")+" too long!")
+						:"Let's make your [pc.hair(true)] more shorter!"));
+				
+			} else if(target.getHairRawLengthValue() > body.getHair().getRawLengthValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_DRAIN, 1),
+					i==0
+						?("Your [pc.hair(true)] "+(target.getHairType().isDefaultPlural(target)?"are a":"is")+" little bit too long!")
+						:"Let's make your [pc.hair(true)] a little bit shorter!"));
+				}
+			}
+		if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+		
+		//--- ANTENNA ---//
+		
+		//--- HORNS ---//
+		
+		//--- TAIL ---//
+		
+		//--- TENTACLE ---//
+		
+		//--- WINGS ---//
+		
+		//--- ASS ---//
+		
+		// Ass size:
+		if(target.getAssSize().getValue() + 2 < body.getAss().getAssSize().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+				"Your ass needs to be way bigger"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssSize().getValue() + 1 < body.getAss().getAssSize().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1),
+				"Your ass needs to be bigger"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssSize().getValue() < body.getAss().getAssSize().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_BOOST, 1),
+				"Your ass needs to be a little bit bigger"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssSize().getValue() - 2 > body.getAss().getAssSize().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1),
+				"Your ass is way too big!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssSize().getValue() - 1 > body.getAss().getAssSize().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1),
+				"Your ass is too big!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssSize().getValue() > body.getAss().getAssSize().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_DRAIN, 1),
+				"Your ass is a little bit too big!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		
+		// Hip size:
+		if(target.getHipSize().getValue() + 2 < body.getAss().getHipSize().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
+				"Your hips need to be way wider!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getHipSize().getValue() + 1 < body.getAss().getHipSize().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.BOOST, 1),
+				"Your hips need to be wider!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getHipSize().getValue() < body.getAss().getHipSize().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MINOR_BOOST, 1),
+				"Your hips need to be a little bit wider!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getHipSize().getValue() - 2 > body.getAss().getHipSize().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_DRAIN, 1),
+				"Your hips are way too wide!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getHipSize().getValue() - 1 > body.getAss().getHipSize().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.DRAIN, 1),
+				"Your hips are too wide!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getHipSize().getValue() > body.getAss().getHipSize().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MINOR_DRAIN, 1),
+				"Your hips are a little bit too wide!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		
+		// Anal capacity:
+		if(target.getAssRawCapacityValue() + 8 < body.getAss().getAnus().getOrificeAnus().getRawCapacityValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_CAPACITY, TFPotency.MAJOR_BOOST, 1),
+				"Your ass is way too tight for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssRawCapacityValue() + 3 < body.getAss().getAnus().getOrificeAnus().getRawCapacityValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_CAPACITY, TFPotency.BOOST, 1),
+				"Your ass is too tight for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssRawCapacityValue() < body.getAss().getAnus().getOrificeAnus().getRawCapacityValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_CAPACITY, TFPotency.MINOR_BOOST, 1),
+				"Your ass is a little bit too tight for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssRawCapacityValue() - 8 > body.getAss().getAnus().getOrificeAnus().getRawCapacityValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_CAPACITY, TFPotency.MAJOR_DRAIN, 1),
+				"Your ass is way too loose for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+		} else if(target.getAssRawCapacityValue() - 3 > body.getAss().getAnus().getOrificeAnus().getRawCapacityValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_CAPACITY, TFPotency.DRAIN, 1),
+				"Your ass is too loose for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssRawCapacityValue() > body.getAss().getAnus().getOrificeAnus().getRawCapacityValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_CAPACITY, TFPotency.MINOR_DRAIN, 1),
+				"Your ass is a little bit too loose for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		
+		// Anal depth:
+		if(target.getAssDepth().getValue() + 2 < body.getAss().getAnus().getOrificeAnus().getDepth(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_DEPTH, TFPotency.MAJOR_BOOST, 1),
+				"Your ass is way too shallow for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssDepth().getValue() + 1 < body.getAss().getAnus().getOrificeAnus().getDepth(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_DEPTH, TFPotency.BOOST, 1),
+				"Your ass is too shallow for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssDepth().getValue() < body.getAss().getAnus().getOrificeAnus().getDepth(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_DEPTH, TFPotency.MINOR_BOOST, 1),
+				"Your ass is a little bit too shallow for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssDepth().getValue() - 2 > body.getAss().getAnus().getOrificeAnus().getDepth(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_DEPTH, TFPotency.MAJOR_DRAIN, 1),
+				"Your ass is way too deep for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssDepth().getValue() - 1 > body.getAss().getAnus().getOrificeAnus().getDepth(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_DEPTH, TFPotency.DRAIN, 1),
+				"Your ass is too deep for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssDepth().getValue() > body.getAss().getAnus().getOrificeAnus().getDepth(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_DEPTH, TFPotency.MINOR_DRAIN, 1),
+				"Your ass is a little bit too deep for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		
+		// Anal elasticity:
+		if(target.getAssElasticity().getValue() + 2 < body.getAss().getAnus().getOrificeAnus().getElasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_ELASTICITY, TFPotency.MAJOR_BOOST, 1),
+				"Your ass is way too rigid for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssElasticity().getValue() + 1 < body.getAss().getAnus().getOrificeAnus().getElasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_ELASTICITY, TFPotency.BOOST, 1),
+				"Your ass is too rigid for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssElasticity().getValue() < body.getAss().getAnus().getOrificeAnus().getElasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_ELASTICITY, TFPotency.MINOR_BOOST, 1),
+				"Your ass is a little bit too rigid for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssElasticity().getValue() - 2 > body.getAss().getAnus().getOrificeAnus().getElasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_ELASTICITY, TFPotency.MAJOR_DRAIN, 1),
+				"Your ass is way too elastic for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssElasticity().getValue() - 1 > body.getAss().getAnus().getOrificeAnus().getElasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_ELASTICITY, TFPotency.DRAIN, 1),
+				"Your ass is too elastic for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssElasticity().getValue() > body.getAss().getAnus().getOrificeAnus().getElasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_ELASTICITY, TFPotency.MINOR_DRAIN, 1),
+				"Your ass is a little bit too elastic for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		
+		// Anal plasticity:
+		if(target.getAssPlasticity().getValue() + 2 < body.getAss().getAnus().getOrificeAnus().getPlasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_PLASTICITY, TFPotency.MAJOR_BOOST, 1),
+				"Your ass is way too stiff for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssPlasticity().getValue() + 1 < body.getAss().getAnus().getOrificeAnus().getPlasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_PLASTICITY, TFPotency.BOOST, 1),
+				"Your ass is too stiff for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssPlasticity().getValue() < body.getAss().getAnus().getOrificeAnus().getPlasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_PLASTICITY, TFPotency.MINOR_BOOST, 1),
+				"Your ass is a little bit too stiff for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssPlasticity().getValue() - 2 > body.getAss().getAnus().getOrificeAnus().getPlasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_PLASTICITY, TFPotency.MAJOR_DRAIN, 1),
+				"Your ass is way too plastic for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssPlasticity().getValue() - 1 > body.getAss().getAnus().getOrificeAnus().getPlasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_PLASTICITY, TFPotency.DRAIN, 1),
+				"Your ass is too plastic for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssPlasticity().getValue() > body.getAss().getAnus().getOrificeAnus().getPlasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_PLASTICITY, TFPotency.MINOR_DRAIN, 1),
+				"Your ass is a little bit too plastic for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		
+		// Anal wetness:
+		if(target.getAssWetness().getValue() + 2 < body.getAss().getAnus().getOrificeAnus().getWetness(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+				"Your ass is way too dry!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssWetness().getValue() + 1 < body.getAss().getAnus().getOrificeAnus().getWetness(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_WETNESS, TFPotency.BOOST, 1),
+				"Your ass is too dry!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssWetness().getValue() < body.getAss().getAnus().getOrificeAnus().getWetness(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_WETNESS, TFPotency.MINOR_BOOST, 1),
+				"Your ass is a little bit too dry!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssWetness().getValue() - 2 > body.getAss().getAnus().getOrificeAnus().getWetness(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_DRAIN, 1),
+				"Your ass is way too wet!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssWetness().getValue() - 1 > body.getAss().getAnus().getOrificeAnus().getWetness(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_WETNESS, TFPotency.DRAIN, 1),
+				"Your ass is too wet!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssWetness().getValue() > body.getAss().getAnus().getOrificeAnus().getWetness(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_WETNESS, TFPotency.MINOR_DRAIN, 1),
+				"Your ass is a little bit way too wet!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		
+		// Anal modifications:
+		if(!target.getAssOrificeModifiers().contains(PUFFY) && body.getAss().getAnus().getOrificeAnus().getOrificeModifiers().contains(PUFFY)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_ORIFICE_PUFFY, TFPotency.MINOR_BOOST, 1),
+				"I like puffy ass!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssOrificeModifiers().contains(PUFFY) && !body.getAss().getAnus().getOrificeAnus().getOrificeModifiers().contains(PUFFY)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_ORIFICE_PUFFY, TFPotency.MINOR_DRAIN, 1),
+				"I dislike puffy ass!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		if(!target.getAssOrificeModifiers().contains(RIBBED) && body.getAss().getAnus().getOrificeAnus().getOrificeModifiers().contains(RIBBED)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_ORIFICE_RIBBED, TFPotency.MINOR_BOOST, 1),
+				"I want your ass to be internally ribbed!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssOrificeModifiers().contains(RIBBED) && !body.getAss().getAnus().getOrificeAnus().getOrificeModifiers().contains(RIBBED)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_ORIFICE_RIBBED, TFPotency.MINOR_DRAIN, 1),
+				"I don't want your ass to be internally ribbed!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		if(!target.getAssOrificeModifiers().contains(MUSCLE_CONTROL) && body.getAss().getAnus().getOrificeAnus().getOrificeModifiers().contains(MUSCLE_CONTROL)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_ORIFICE_MUSCLED, TFPotency.MINOR_BOOST, 1),
+				"I want you to be able to control your muscles within your ass!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssOrificeModifiers().contains(MUSCLE_CONTROL) && !body.getAss().getAnus().getOrificeAnus().getOrificeModifiers().contains(MUSCLE_CONTROL)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_ORIFICE_MUSCLED, TFPotency.MINOR_DRAIN, 1),
+				"I don't want you to be able to control your muscles within your ass!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		if(!target.getAssOrificeModifiers().contains(TENTACLED) && body.getAss().getAnus().getOrificeAnus().getOrificeModifiers().contains(TENTACLED)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_ORIFICE_TENTACLED, TFPotency.MINOR_BOOST, 1),
+				"I like tentacles in your ass!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAssOrificeModifiers().contains(TENTACLED) && !body.getAss().getAnus().getOrificeAnus().getOrificeModifiers().contains(TENTACLED)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.TF_MOD_ORIFICE_TENTACLED, TFPotency.MINOR_DRAIN, 1),
+				"I dislike tentacles in your ass!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		
+		//--- BREASTS ---//
+		
+		//Remove Breast:
+		if(target.getBreastSize().getMeasurement() > body.getBreast().getSize().getMeasurement() && body.getBreast().getSize().getMeasurement() == 0) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1),
+				"Your breasts need to be flat!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		
+		// Breast size:
+		} else if(target.getBreastSize().getMeasurement() < body.getBreast().getSize().getMeasurement()) {
+			if(target.getBreastSize().getMeasurement() + 2 < body.getBreast().getSize().getMeasurement()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+					"Your breasts need to be way bigger!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+				
+			} else if(target.getBreastSize().getMeasurement() + 1 < body.getBreast().getSize().getMeasurement()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1),
+					"Your breasts need to be bigger!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			} else if(target.getBreastSize().getMeasurement() < body.getBreast().getSize().getMeasurement()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_BOOST, 1),
+					"Your breasts need to be a little bigger!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			}
+		} else if(target.getBreastSize().getMeasurement() < body.getBreast().getSize().getMeasurement()) {
+			if(target.getBreastSize().getMeasurement() - 2 > body.getBreast().getSize().getMeasurement()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1),
+					"Your breasts are way too big!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			} else if(target.getBreastSize().getMeasurement() - 1 > body.getBreast().getSize().getMeasurement()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1),
+					"Your breasts are too big!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			} else if(target.getBreastSize().getMeasurement() > body.getBreast().getSize().getMeasurement()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_DRAIN, 1),
+					"Your breasts are a little too big!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			}
+		}
+		
+		// Nipple size:
+		if(target.getNippleSize().getValue() + 2 < body.getBreast().getNipples().getNippleSizeValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
+				"Your nipples need to be way bigger!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleSize().getValue() + 1 < body.getBreast().getNipples().getNippleSizeValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.BOOST, 1),
+				"Your nipples need to be bigger!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleSize().getValue() < body.getBreast().getNipples().getNippleSizeValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MINOR_BOOST, 1),
+				"Your nipples need to be a little bigger!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleSize().getValue() - 2 > body.getBreast().getNipples().getNippleSizeValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_DRAIN, 1),
+				"Your nipples are way too big!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleSize().getValue() - 1 > body.getBreast().getNipples().getNippleSizeValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.DRAIN, 1),
+				"Your nipples are too big!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleSize().getValue() > body.getBreast().getNipples().getNippleSizeValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MINOR_DRAIN, 1),
+				"Your nipples are a little too big!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		
+		// Areolae size:
+		if(target.getAreolaeSize().getValue() + 2 < body.getBreast().getNipples().getAreolaeSizeValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MAJOR_BOOST, 1),
+				"Your areolae need to be way bigger!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAreolaeSize().getValue() + 1 < body.getBreast().getNipples().getAreolaeSizeValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.BOOST, 1),
+				"Your areolae need to be bigger!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAreolaeSize().getValue() < body.getBreast().getNipples().getAreolaeSizeValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MINOR_BOOST, 1),
+				"Your areolae need to be a little bigger!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAreolaeSize().getValue() - 2 > body.getBreast().getNipples().getAreolaeSizeValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MAJOR_DRAIN, 1),
+				"Your areolae are way too big!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAreolaeSize().getValue() - 1 > body.getBreast().getNipples().getAreolaeSizeValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.DRAIN, 1),
+				"Your areolae are too big!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAreolaeSize().getValue() > body.getBreast().getNipples().getAreolaeSizeValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MINOR_DRAIN, 1),
+				"Your areolae are a little too big!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		
+		// Breast shape:
+		if(target.getBreastShape() != body.getBreast().getShape()) {
+				switch (body.getBreast().getShape()){
+				case ROUND:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_BREAST_SHAPE_ROUND, TFPotency.MINOR_BOOST, 1),
+				"Your breasts need to be round!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getBreastShape() != body.getBreast().getShape()) {
+				switch (body.getBreast().getShape()){
+				case POINTY:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_BREAST_SHAPE_POINTY, TFPotency.MINOR_BOOST, 1),
+				"Your breasts need to be pointy!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getBreastShape() != body.getBreast().getShape()) {
+				switch (body.getBreast().getShape()){
+				case PERKY:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_BREAST_SHAPE_PERKY, TFPotency.MINOR_BOOST, 1),
+				"Your breasts need to be perky!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getBreastShape() != body.getBreast().getShape()) {
+				switch (body.getBreast().getShape()){
+				case SIDE_SET:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_BREAST_SHAPE_SIDESET, TFPotency.MINOR_BOOST, 1),
+				"Your breasts need to be side set!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			}
+		} else if(target.getBreastShape() != body.getBreast().getShape()) {
+				switch (body.getBreast().getShape()){
+				case WIDE:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_BREAST_SHAPE_WIDE, TFPotency.MINOR_BOOST, 1),
+				"Your breasts need to be wide!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			}
+		} else if(target.getBreastShape() != body.getBreast().getShape()) {
+				switch (body.getBreast().getShape()){
+				case NARROW:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_BREAST_SHAPE_NARROW, TFPotency.MINOR_BOOST, 1),
+				"Your breasts need to be narrow!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			}
+		}
+		
+		// Nipple shape:
+		if(target.getNippleShape() != body.getBreast().getNipples().getNippleShape()) {
+				switch (body.getBreast().getNipples().getNippleShape()){
+				case NORMAL:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_NIPPLE_NORMAL, TFPotency.MINOR_BOOST, 1),
+				"Your nipples need to be normal!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getNippleShape() != body.getBreast().getNipples().getNippleShape()) {
+				switch (body.getBreast().getNipples().getNippleShape()){
+				case INVERTED:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_NIPPLE_INVERTED, TFPotency.MINOR_BOOST, 1),
+				"Your nipples need to be inverted!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getNippleShape() != body.getBreast().getNipples().getNippleShape()) {
+				switch (body.getBreast().getNipples().getNippleShape()){
+				case VAGINA:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_NIPPLE_VAGINA, TFPotency.MINOR_BOOST, 1),
+				"Your nipples need to be shaped like pussies!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getNippleShape() != body.getBreast().getNipples().getNippleShape()) {
+				switch (body.getBreast().getNipples().getNippleShape()){
+				case LIPS:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_NIPPLE_LIPS, TFPotency.MINOR_BOOST, 1),
+				"Your nipples need to be shaped like lips!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		}
+		
+		// Areolae shape:
+		if(target.getAreolaeShape() != body.getBreast().getNipples().getAreolaeShape()) {
+				switch (body.getBreast().getNipples().getAreolaeShape()){
+				case NORMAL:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_AREOLAE_CIRCLE, TFPotency.MINOR_BOOST, 1),
+				"Your areolae need to be normal!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getAreolaeShape() != body.getBreast().getNipples().getAreolaeShape()) {
+				switch (body.getBreast().getNipples().getAreolaeShape()){
+				case STAR:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_AREOLAE_STAR, TFPotency.MINOR_BOOST, 1),
+				"Your areolae need to be star shaped!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getAreolaeShape() != body.getBreast().getNipples().getAreolaeShape()) {
+				switch (body.getBreast().getNipples().getAreolaeShape()){
+				case HEART:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_AREOLAE_HEART, TFPotency.MINOR_BOOST, 1),
+				"Your areolae need to be  heart shaped!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		}
+		
+		// Nipple capacity:
+		if(target.getNippleRawCapacityValue() + 8 < body.getBreast().getNipples().getOrificeNipples().getRawCapacityValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_CAPACITY, TFPotency.MAJOR_BOOST, 1),
+				"Your nipples are way too tight for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleRawCapacityValue() + 3 < body.getBreast().getNipples().getOrificeNipples().getRawCapacityValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_CAPACITY, TFPotency.BOOST, 1),
+				"Your nipples are too tight for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleRawCapacityValue() < body.getBreast().getNipples().getOrificeNipples().getRawCapacityValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_CAPACITY, TFPotency.MINOR_BOOST, 1),
+				"Your nipples are a little too tight for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleRawCapacityValue() - 8 > body.getBreast().getNipples().getOrificeNipples().getRawCapacityValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_CAPACITY, TFPotency.MAJOR_DRAIN, 1),
+				"Your nipples are way too loose for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleRawCapacityValue() - 3 > body.getBreast().getNipples().getOrificeNipples().getRawCapacityValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_CAPACITY, TFPotency.DRAIN, 1),
+				"Your nipples are too loose for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleRawCapacityValue() > body.getBreast().getNipples().getOrificeNipples().getRawCapacityValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_CAPACITY, TFPotency.MINOR_DRAIN, 1),
+				"Your nipples are a little too loose for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		
+		// Nipple depth:
+		if(target.getNippleDepth().getValue() + 2 < body.getBreast().getNipples().getOrificeNipples().getDepth(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_DEPTH, TFPotency.MAJOR_BOOST, 1),
+				"Your nipple is way too shallow for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleDepth().getValue() + 1 < body.getBreast().getNipples().getOrificeNipples().getDepth(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_DEPTH, TFPotency.BOOST, 1),
+				"Your nipples are too shallow for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleDepth().getValue() + 1 < body.getBreast().getNipples().getOrificeNipples().getDepth(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_DEPTH, TFPotency.MINOR_BOOST, 1),
+				"Your nipples are a little too shallow for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleDepth().getValue() + 1 < body.getBreast().getNipples().getOrificeNipples().getDepth(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_DEPTH, TFPotency.MAJOR_DRAIN, 1),
+				"Your nipples are way too deep for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleDepth().getValue() + 1 < body.getBreast().getNipples().getOrificeNipples().getDepth(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_DEPTH, TFPotency.DRAIN, 1),
+				"Your nipples are too deep for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleDepth().getValue() + 1 < body.getBreast().getNipples().getOrificeNipples().getDepth(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_DEPTH, TFPotency.MINOR_DRAIN, 1),
+				"Your nipples are a little too deep for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		
+		// Nipple elacticity:
+		if(target.getNippleElasticity().getValue() + 2 < body.getBreast().getNipples().getOrificeNipples().getElasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_ELASTICITY, TFPotency.MAJOR_BOOST, 1),
+				"Your nipples are way too rigid for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleElasticity().getValue() + 1 < body.getBreast().getNipples().getOrificeNipples().getElasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_ELASTICITY, TFPotency.BOOST, 1),
+				"Your nipples are too rigid for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleElasticity().getValue() + 1 < body.getBreast().getNipples().getOrificeNipples().getElasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_ELASTICITY, TFPotency.MINOR_BOOST, 1),
+				"Your nipples are a little too rigid for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleElasticity().getValue() + 1 < body.getBreast().getNipples().getOrificeNipples().getElasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_ELASTICITY, TFPotency.MAJOR_DRAIN, 1),
+				"Your nipples re way too elastic for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleElasticity().getValue() + 1 < body.getBreast().getNipples().getOrificeNipples().getElasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_ELASTICITY, TFPotency.DRAIN, 1),
+				"Your nipples are too elastic for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleElasticity().getValue() + 1 < body.getBreast().getNipples().getOrificeNipples().getElasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_ELASTICITY, TFPotency.MINOR_DRAIN, 1),
+				"Your nipples are a little too elastic for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		
+		// Nipple placticity:
+		if(target.getNipplePlasticity().getValue() + 2 < body.getBreast().getNipples().getOrificeNipples().getPlasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_PLASTICITY, TFPotency.MAJOR_BOOST, 1),
+				"Your nipples are way too stiff for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNipplePlasticity().getValue() + 1 < body.getBreast().getNipples().getOrificeNipples().getPlasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_PLASTICITY, TFPotency.BOOST, 1),
+				"Your nipples are too stiff for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNipplePlasticity().getValue() + 1 < body.getBreast().getNipples().getOrificeNipples().getPlasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_PLASTICITY, TFPotency.MINOR_BOOST, 1),
+				"Your nipples are a little too stiff for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNipplePlasticity().getValue() + 1 < body.getBreast().getNipples().getOrificeNipples().getPlasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_PLASTICITY, TFPotency.MAJOR_DRAIN, 1),
+				"Your nipples are way too plastic for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNipplePlasticity().getValue() + 1 < body.getBreast().getNipples().getOrificeNipples().getPlasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_PLASTICITY, TFPotency.DRAIN, 1),
+				"Your nipples are too plastic for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNipplePlasticity().getValue() + 1 < body.getBreast().getNipples().getOrificeNipples().getPlasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_PLASTICITY, TFPotency.MINOR_DRAIN, 1),
+				"Your nipples are a little too plastic for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		
+		// Milk Storage:
+		if(target.getBreastRawStoredMilkValue() + 25 < body.getBreast().getRawMilkStorageValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+				"You need to store way more milk in your breasts!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getBreastRawStoredMilkValue() + 8 < body.getBreast().getRawMilkStorageValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_WETNESS, TFPotency.BOOST, 1),
+				"You need to store more milk in your breasts!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getBreastRawStoredMilkValue() < body.getBreast().getRawMilkStorageValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_WETNESS, TFPotency.MINOR_BOOST, 1),
+				"You need to store a little bit more milk in your breasts!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getBreastRawStoredMilkValue() - 25 > body.getBreast().getRawMilkStorageValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_DRAIN, 1),
+				"You're storing way too much milk in your breasts for me!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getBreastRawStoredMilkValue() - 8 > body.getBreast().getRawMilkStorageValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_WETNESS, TFPotency.DRAIN, 1),
+				"You're storing too much milk in your breasts for me!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getBreastRawStoredMilkValue() > body.getBreast().getRawMilkStorageValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_WETNESS, TFPotency.MINOR_DRAIN, 1),
+				"You're storing a little bit too much milk in your breasts for me"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+		}
+		
+		// Milk regeneration:
+		if(target.getBreastRawLactationRegenerationValue() + 250 < body.getBreast().getRawLactationRegenerationValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_REGENERATION, TFPotency.MAJOR_BOOST, 1),
+				"ou need to be producing way more milk in your breasts!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getBreastRawLactationRegenerationValue() + 50 < body.getBreast().getRawLactationRegenerationValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_REGENERATION, TFPotency.BOOST, 1),
+				"You need to be producing more milk in your breasts!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getBreastRawLactationRegenerationValue() < body.getBreast().getRawLactationRegenerationValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_REGENERATION, TFPotency.MINOR_BOOST, 1),
+				"You need to be producing a little bit more milk in your breasts!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getBreastRawLactationRegenerationValue() - 250 > body.getBreast().getRawLactationRegenerationValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_REGENERATION, TFPotency.MAJOR_DRAIN, 1),
+				"You're producing way too much milk in your breasts for me!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getBreastRawLactationRegenerationValue() - 50 > body.getBreast().getRawLactationRegenerationValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_REGENERATION, TFPotency.DRAIN, 1),
+				"You're producing too much milk for in your breasts me!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getBreastRawLactationRegenerationValue() > body.getBreast().getRawLactationRegenerationValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_REGENERATION, TFPotency.MINOR_DRAIN, 1),
+				"You're producing a little bit too much milk in your breasts for me!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+		}
+		
+		// Nipple orifice modifier:
+		if(!target.getNippleOrificeModifiers().contains(PUFFY) && body.getBreast().getNipples().getOrificeNipples().getOrificeModifiers().contains(PUFFY)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_ORIFICE_PUFFY, TFPotency.MINOR_BOOST, 1),
+				"I like puffy nipples!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleOrificeModifiers().contains(PUFFY) && !body.getBreast().getNipples().getOrificeNipples().getOrificeModifiers().contains(PUFFY)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_ORIFICE_PUFFY, TFPotency.MINOR_DRAIN, 1),
+				"I dislike puffy nipples!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		if(!target.getNippleOrificeModifiers().contains(RIBBED) && body.getBreast().getNipples().getOrificeNipples().getOrificeModifiers().contains(RIBBED)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_ORIFICE_RIBBED, TFPotency.MINOR_BOOST, 1),
+				"I want your nipples to be internally ribbed!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleOrificeModifiers().contains(RIBBED) && !body.getBreast().getNipples().getOrificeNipples().getOrificeModifiers().contains(RIBBED)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_ORIFICE_RIBBED, TFPotency.MINOR_DRAIN, 1),
+				"I don't want your nipples to be internally ribbed!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		if(!target.getNippleOrificeModifiers().contains(MUSCLE_CONTROL) && body.getBreast().getNipples().getOrificeNipples().getOrificeModifiers().contains(MUSCLE_CONTROL)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_ORIFICE_MUSCLED, TFPotency.MINOR_BOOST, 1),
+				"I want you to be able to control your muscles within your nipples!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleOrificeModifiers().contains(MUSCLE_CONTROL) && !body.getBreast().getNipples().getOrificeNipples().getOrificeModifiers().contains(MUSCLE_CONTROL)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_ORIFICE_MUSCLED, TFPotency.MINOR_DRAIN, 1),
+				"I don't want you to be able to control your muscles within your nipples!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		if(!target.getNippleOrificeModifiers().contains(TENTACLED) && body.getBreast().getNipples().getOrificeNipples().getOrificeModifiers().contains(TENTACLED)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_ORIFICE_TENTACLED, TFPotency.MINOR_BOOST, 1),
+				"I like tentacles in your nipples!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleOrificeModifiers().contains(TENTACLED) && !body.getBreast().getNipples().getOrificeNipples().getOrificeModifiers().contains(TENTACLED)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.TF_MOD_ORIFICE_TENTACLED, TFPotency.MINOR_DRAIN, 1),
+				"I dislike tentacles in your nipples!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		
+		// Milk Flavour:
+		if(target.getMilkFlavour() != body.getBreast().getMilk().getFlavour()) {
+				switch (body.getBreast().getMilk().getFlavour()){
+				case CUM:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK, TFModifier.TF_MOD_FLAVOUR_CUM, TFPotency.MINOR_BOOST, 1),
+				"I would like your breast milk to taste like cum!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkFlavour() != body.getBreast().getMilk().getFlavour()) {
+				switch (body.getBreast().getMilk().getFlavour()){
+				case GIRL_CUM:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK, TFModifier.TF_MOD_FLAVOUR_GIRLCUM, TFPotency.MINOR_BOOST, 1),
+				"I would like your breast milk to taste like girl cum!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkFlavour() != body.getBreast().getMilk().getFlavour()) {
+				switch (body.getBreast().getMilk().getFlavour()){
+				case MILK:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK, TFModifier.TF_MOD_FLAVOUR_MILK, TFPotency.MINOR_BOOST, 1),
+				"I would like your breast milk to taste like normal milk!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkFlavour() != body.getBreast().getMilk().getFlavour()) {
+				switch (body.getBreast().getMilk().getFlavour()){
+				case FLAVOURLESS:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK, TFModifier.TF_MOD_FLAVOUR_FLAVOURLESS, TFPotency.MINOR_BOOST, 1),
+				"I would like your breast milk to be tasteless!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkFlavour() != body.getBreast().getMilk().getFlavour()) {
+				switch (body.getBreast().getMilk().getFlavour()){
+				case BEER:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK, TFModifier.TF_MOD_FLAVOUR_BEER, TFPotency.MINOR_BOOST, 1),
+				"I would like your breast milk to taste like beer!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkFlavour() != body.getBreast().getMilk().getFlavour()) {
+				switch (body.getBreast().getMilk().getFlavour()){
+				case CHOCOLATE:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK, TFModifier.TF_MOD_FLAVOUR_CHOCOLATE, TFPotency.MINOR_BOOST, 1),
+				"I would like your breast milk to taste like chocolate!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkFlavour() != body.getBreast().getMilk().getFlavour()) {
+				switch (body.getBreast().getMilk().getFlavour()){
+				case HONEY:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK, TFModifier.TF_MOD_FLAVOUR_HONEY, TFPotency.MINOR_BOOST, 1),
+				"I would like your breast milk to taste like honey!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkFlavour() != body.getBreast().getMilk().getFlavour()) {
+				switch (body.getBreast().getMilk().getFlavour()){
+				case MINT:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK, TFModifier.TF_MOD_FLAVOUR_MINT, TFPotency.MINOR_BOOST, 1),
+				"I would like your breast milk to taste like mint!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkFlavour() != body.getBreast().getMilk().getFlavour()) {
+				switch (body.getBreast().getMilk().getFlavour()){
+				case PINEAPPLE:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK, TFModifier.TF_MOD_FLAVOUR_PINEAPPLE, TFPotency.MINOR_BOOST, 1),
+				"I would like your milk to taste like pineapple!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkFlavour() != body.getBreast().getMilk().getFlavour()) {
+				switch (body.getBreast().getMilk().getFlavour()){
+				case BUBBLEGUM:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK, TFModifier.TF_MOD_FLAVOUR_BUBBLEGUM, TFPotency.MINOR_BOOST, 1),
+				"I would like your milk to taste like bubblegum!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkFlavour() != body.getBreast().getMilk().getFlavour()) {
+				switch (body.getBreast().getMilk().getFlavour()){
+				case STRAWBERRY:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK, TFModifier.TF_MOD_FLAVOUR_STRAWBERRY, TFPotency.MINOR_BOOST, 1),
+				"I would like your milk to taste like strawberry!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkFlavour() != body.getBreast().getMilk().getFlavour()) {
+				switch (body.getBreast().getMilk().getFlavour()){
+				case CHERRY:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK, TFModifier.TF_MOD_FLAVOUR_CHERRY, TFPotency.MINOR_BOOST, 1),
+				"I would like your milk to taste like cherry!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkFlavour() != body.getBreast().getMilk().getFlavour()) {
+				switch (body.getBreast().getMilk().getFlavour()){
+				case VANILLA:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK, TFModifier.TF_MOD_FLAVOUR_VANILLA, TFPotency.MINOR_BOOST, 1),
+				"I would like your milk to taste like vanilla!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkFlavour() != body.getBreast().getMilk().getFlavour()) {
+				switch (body.getBreast().getMilk().getFlavour()){
+				case COFFEE:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK, TFModifier.TF_MOD_FLAVOUR_COFFEE, TFPotency.MINOR_BOOST, 1),
+				"I would like your milk to taste like coffee!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkFlavour() != body.getBreast().getMilk().getFlavour()) {
+				switch (body.getBreast().getMilk().getFlavour()){
+				case TEA:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK, TFModifier.TF_MOD_FLAVOUR_TEA, TFPotency.MINOR_BOOST, 1),
+				"I would like your milk to taste like TEA!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkFlavour() != body.getBreast().getMilk().getFlavour()) {
+				switch (body.getBreast().getMilk().getFlavour()){
+				case MAPLE:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK, TFModifier.TF_MOD_FLAVOUR_MAPLE, TFPotency.MINOR_BOOST, 1),
+				"I would like your milk to taste like maple!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkFlavour() != body.getBreast().getMilk().getFlavour()) {
+				switch (body.getBreast().getMilk().getFlavour()){
+				case CINNAMON:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK, TFModifier.TF_MOD_FLAVOUR_CINNAMON, TFPotency.MINOR_BOOST, 1),
+				"I would like your milk to taste like cinnamon!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkFlavour() != body.getBreast().getMilk().getFlavour()) {
+				switch (body.getBreast().getMilk().getFlavour()){
+				case LEMON:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK, TFModifier.TF_MOD_FLAVOUR_LEMON, TFPotency.MINOR_BOOST, 1),
+				"I would like your milk to taste like lemon!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkFlavour() != body.getBreast().getMilk().getFlavour()) {
+				switch (body.getBreast().getMilk().getFlavour()){
+				case ORANGE:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK, TFModifier.TF_MOD_FLAVOUR_ORANGE, TFPotency.MINOR_BOOST, 1),
+				"I would like your milk to taste like orange!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkFlavour() != body.getBreast().getMilk().getFlavour()) {
+				switch (body.getBreast().getMilk().getFlavour()){
+				case GRAPE:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK, TFModifier.TF_MOD_FLAVOUR_GRAPE, TFPotency.MINOR_BOOST, 1),
+				"I would like your milk to taste like grape!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkFlavour() != body.getBreast().getMilk().getFlavour()) {
+				switch (body.getBreast().getMilk().getFlavour()){
+				case MELON:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK, TFModifier.TF_MOD_FLAVOUR_MELON, TFPotency.MINOR_BOOST, 1),
+				"I would like your milk to taste like melon!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkFlavour() != body.getBreast().getMilk().getFlavour()) {
+				switch (body.getBreast().getMilk().getFlavour()){
+				case COCONUT:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK, TFModifier.TF_MOD_FLAVOUR_COCONUT, TFPotency.MINOR_BOOST, 1),
+				"I would like your milk to taste like coconut!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkFlavour() != body.getBreast().getMilk().getFlavour()) {
+				switch (body.getBreast().getMilk().getFlavour()){
+				case BLUEBERRY:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK, TFModifier.TF_MOD_FLAVOUR_BLUEBERRY, TFPotency.MINOR_BOOST, 1),
+				"I would like your milk to taste like blueberry!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkFlavour() != body.getBreast().getMilk().getFlavour()) {
+				switch (body.getBreast().getMilk().getFlavour()){
+				case BANANA:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK, TFModifier.TF_MOD_FLAVOUR_BANANA, TFPotency.MINOR_BOOST, 1),
+				"I would like your milk to taste like banana!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		}
+		
+		//--- CROTCH-BOOBS---//
+		
+		//Remove crotch breast:
+		if(target.getBreastCrotchSize().getMeasurement() > body.getBreastCrotch().getSize().getMeasurement() && body.getBreastCrotch().getSize().getMeasurement() == 0) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1),
+				"I don't want crotch breasts on you!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		
+		// Crotch breast size:
+		} else if(target.getBreastCrotchSize().getMeasurement() < body.getBreastCrotch().getSize().getMeasurement()) {
+			if(target.getBreastCrotchSize().getMeasurement() + 2 < body.getBreastCrotch().getSize().getMeasurement()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+					"Your crotch breasts need to be way bigger!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			} else if(target.getBreastCrotchSize().getMeasurement() + 1 < body.getBreastCrotch().getSize().getMeasurement()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1),
+					"Your crotch breasts need to be bigger!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			} else if(target.getBreastCrotchSize().getMeasurement() < body.getBreastCrotch().getSize().getMeasurement()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_BOOST, 1),
+					"Your crotch breasts need to be a little bigger!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			}
+		} else if(target.getBreastCrotchSize().getMeasurement() > body.getBreastCrotch().getSize().getMeasurement()) {
+			if(target.getBreastCrotchSize().getMeasurement() - 2 > body.getBreastCrotch().getSize().getMeasurement()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1),
+					"Your crotch breasts are way too big!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			} else if(target.getBreastCrotchSize().getMeasurement() - 1 > body.getBreastCrotch().getSize().getMeasurement()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1),
+					"Your crotch breasts are too big!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			} else if(target.getBreastCrotchSize().getMeasurement() > body.getBreastCrotch().getSize().getMeasurement()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_DRAIN, 1),
+					"Your crotch breasts are a little too big!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			}
+		}
+		
+		// Crotch nipple size:
+		if(target.getNippleCrotchSize().getValue() + 2 < body.getBreastCrotch().getNipples().getNippleSizeValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
+				"Your crotch nipples need to be way bigger!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchSize().getValue() + 1 < body.getBreastCrotch().getNipples().getNippleSizeValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.BOOST, 1),
+				"Your crotch nipples need to be bigger!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchSize().getValue() < body.getBreastCrotch().getNipples().getNippleSizeValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MINOR_BOOST, 1),
+				"Your crotch nipples need to be a little bigger!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchSize().getValue() - 2 > body.getBreastCrotch().getNipples().getNippleSizeValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_DRAIN, 1),
+				"Your crotch nipples are way too big!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchSize().getValue() - 1 > body.getBreastCrotch().getNipples().getNippleSizeValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.DRAIN, 1),
+				"Your crotch nipples are too big!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchSize().getValue() > body.getBreastCrotch().getNipples().getNippleSizeValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MINOR_DRAIN, 1),
+				"Your crotch nipples are a little too big!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		
+		// Crotch areolae size:
+		if(target.getAreolaeCrotchSize().getValue() + 2 < body.getBreastCrotch().getNipples().getAreolaeSizeValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MAJOR_BOOST, 1),
+				"Your crotch areolae need to be way bigger!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAreolaeCrotchSize().getValue() + 1 < body.getBreastCrotch().getNipples().getAreolaeSizeValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.BOOST, 1),
+				"Your crotch areolae need to be bigger!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAreolaeCrotchSize().getValue() < body.getBreastCrotch().getNipples().getAreolaeSizeValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MINOR_BOOST, 1),
+				"Your crotch areolae need to be a little bigger!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAreolaeCrotchSize().getValue() - 2 > body.getBreastCrotch().getNipples().getAreolaeSizeValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MAJOR_DRAIN, 1),
+				"Your crotch areolae are way too big!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAreolaeCrotchSize().getValue() - 1 > body.getBreastCrotch().getNipples().getAreolaeSizeValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.DRAIN, 1),
+				"Your crotch areolae are too big!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getAreolaeCrotchSize().getValue() > body.getBreastCrotch().getNipples().getAreolaeSizeValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MINOR_DRAIN, 1),
+				"Your crotch areolae are a little too big!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		
+		// Crotch breast shape:
+		if(target.getBreastCrotchShape() != body.getBreastCrotch().getShape()) {
+				switch (body.getBreastCrotch().getShape()){
+				case UDDERS:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_BREAST_SHAPE_ROUND, TFPotency.MINOR_BOOST, 1),
+				"Your crotch breasts need to be udders!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		}else if(target.getBreastCrotchShape() != body.getBreastCrotch().getShape()) {
+				switch (body.getBreastCrotch().getShape()){
+				case ROUND:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_BREAST_SHAPE_ROUND, TFPotency.MINOR_BOOST, 1),
+				"Your crotch breasts need to be round!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getBreastCrotchShape() != body.getBreastCrotch().getShape()) {
+				switch (body.getBreastCrotch().getShape()){
+				case POINTY:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_BREAST_SHAPE_POINTY, TFPotency.MINOR_BOOST, 1),
+				"Your crotch breasts need to be pointy!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getBreastCrotchShape() != body.getBreastCrotch().getShape()) {
+				switch (body.getBreastCrotch().getShape()){
+				case PERKY:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_BREAST_SHAPE_PERKY, TFPotency.MINOR_BOOST, 1),
+				"Your crotch breasts need to be perky!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getBreastCrotchShape() != body.getBreastCrotch().getShape()) {
+				switch (body.getBreastCrotch().getShape()){
+				case SIDE_SET:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_BREAST_SHAPE_SIDESET, TFPotency.MINOR_BOOST, 1),
+				"Your crotch breasts need to be side set!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			}
+		} else if(target.getBreastCrotchShape() != body.getBreastCrotch().getShape()) {
+				switch (body.getBreastCrotch().getShape()){
+				case WIDE:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_BREAST_SHAPE_WIDE, TFPotency.MINOR_BOOST, 1),
+				"Your crotch breasts need to be wide!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			}
+		} else if(target.getBreastCrotchShape() != body.getBreastCrotch().getShape()) {
+				switch (body.getBreastCrotch().getShape()){
+				case NARROW:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_BREAST_SHAPE_NARROW, TFPotency.MINOR_BOOST, 1),
+				"Your crotch breasts need to be narrow!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			}
+		}
+		
+		// Crotch nipple shape:
+		if(target.getNippleCrotchShape() != body.getBreastCrotch().getNipples().getNippleShape()) {
+				switch (body.getBreastCrotch().getNipples().getNippleShape()){
+				case NORMAL:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_NIPPLE_NORMAL, TFPotency.MINOR_BOOST, 1),
+				"Your crotch nipples need to be normal!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getNippleCrotchShape() != body.getBreastCrotch().getNipples().getNippleShape()) {
+				switch (body.getBreastCrotch().getNipples().getNippleShape()){
+				case INVERTED:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_NIPPLE_INVERTED, TFPotency.MINOR_BOOST, 1),
+				"Your crotch nipples need to be inverted!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getNippleCrotchShape() != body.getBreastCrotch().getNipples().getNippleShape()) {
+				switch (body.getBreastCrotch().getNipples().getNippleShape()){
+				case VAGINA:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_NIPPLE_VAGINA, TFPotency.MINOR_BOOST, 1),
+				"Your crotch nipples need to be shaped like pussies!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getNippleCrotchShape() != body.getBreastCrotch().getNipples().getNippleShape()) {
+				switch (body.getBreastCrotch().getNipples().getNippleShape()){
+				case LIPS:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_NIPPLE_LIPS, TFPotency.MINOR_BOOST, 1),
+				"Your crotch nipples need to be shaped like lips!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		}
+		
+		// Crotch areolae shape:
+		if(target.getAreolaeCrotchShape() != body.getBreastCrotch().getNipples().getAreolaeShape()) {
+				switch (body.getBreastCrotch().getNipples().getAreolaeShape()){
+				case NORMAL:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_AREOLAE_CIRCLE, TFPotency.MINOR_BOOST, 1),
+				"Your crotch areolae need to be normal!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getAreolaeCrotchShape() != body.getBreastCrotch().getNipples().getAreolaeShape()) {
+				switch (body.getBreastCrotch().getNipples().getAreolaeShape()){
+				case STAR:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_AREOLAE_STAR, TFPotency.MINOR_BOOST, 1),
+				"Your crotch areolae need to be star shaped!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getAreolaeCrotchShape() != body.getBreastCrotch().getNipples().getAreolaeShape()) {
+				switch (body.getBreastCrotch().getNipples().getAreolaeShape()){
+				case HEART:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_AREOLAE_HEART, TFPotency.MINOR_BOOST, 1),
+				"Your crotch areolae need to be  heart shaped!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		}
+		
+		// Crotch nipple capacity:
+		if(target.getNippleCrotchRawCapacityValue() + 8 < body.getBreastCrotch().getNipples().getOrificeNipples().getRawCapacityValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_CAPACITY, TFPotency.MAJOR_BOOST, 1),
+				"Your crotch nipples are way too tight for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchRawCapacityValue() + 3 < body.getBreastCrotch().getNipples().getOrificeNipples().getRawCapacityValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_CAPACITY, TFPotency.BOOST, 1),
+				"Your crotch nipples are too tight for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchRawCapacityValue() < body.getBreastCrotch().getNipples().getOrificeNipples().getRawCapacityValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_CAPACITY, TFPotency.MINOR_BOOST, 1),
+				"Your crotch nipples are a little too tight for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchRawCapacityValue() - 8 > body.getBreastCrotch().getNipples().getOrificeNipples().getRawCapacityValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_CAPACITY, TFPotency.MAJOR_DRAIN, 1),
+				"Your crotch nipples are way too loose for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchRawCapacityValue() - 3 > body.getBreastCrotch().getNipples().getOrificeNipples().getRawCapacityValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_CAPACITY, TFPotency.DRAIN, 1),
+				"Your crotch nipples are too loose for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchRawCapacityValue() > body.getBreastCrotch().getNipples().getOrificeNipples().getRawCapacityValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_CAPACITY, TFPotency.MINOR_DRAIN, 1),
+				"Your crotch nipples are a little too loose for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		
+		// Crotch nipple depth:
+		if(target.getNippleCrotchDepth().getValue() + 2 < body.getBreastCrotch().getNipples().getOrificeNipples().getDepth(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_DEPTH, TFPotency.MAJOR_BOOST, 1),
+				"Your crotch nipple is way too shallow for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchDepth().getValue() + 1 < body.getBreastCrotch().getNipples().getOrificeNipples().getDepth(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_DEPTH, TFPotency.BOOST, 1),
+				"Your crotch nipples are too shallow for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchDepth().getValue() + 1 < body.getBreastCrotch().getNipples().getOrificeNipples().getDepth(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_DEPTH, TFPotency.MINOR_BOOST, 1),
+				"Your crotch nipples are a little too shallow for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchDepth().getValue() + 1 < body.getBreastCrotch().getNipples().getOrificeNipples().getDepth(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_DEPTH, TFPotency.MAJOR_DRAIN, 1),
+				"Your crotch nipples are way too deep for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchDepth().getValue() + 1 < body.getBreastCrotch().getNipples().getOrificeNipples().getDepth(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_DEPTH, TFPotency.DRAIN, 1),
+				"Your crotch nipples are too deep for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchDepth().getValue() + 1 < body.getBreastCrotch().getNipples().getOrificeNipples().getDepth(null).getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_DEPTH, TFPotency.MINOR_DRAIN, 1),
+				"Your crotch nipples are a little too deep for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		
+		// Crotch nipple elacticity:
+		if(target.getNippleCrotchElasticity().getValue() + 2 < body.getBreastCrotch().getNipples().getOrificeNipples().getElasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_ELASTICITY, TFPotency.MAJOR_BOOST, 1),
+				"Your crotch nipples are way too rigid for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchElasticity().getValue() + 1 < body.getBreastCrotch().getNipples().getOrificeNipples().getElasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_ELASTICITY, TFPotency.BOOST, 1),
+				"Your crotch nipples are too rigid for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchElasticity().getValue() + 1 < body.getBreastCrotch().getNipples().getOrificeNipples().getElasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_ELASTICITY, TFPotency.MINOR_BOOST, 1),
+				"Your crotch nipples are a little too rigid for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchElasticity().getValue() + 1 < body.getBreastCrotch().getNipples().getOrificeNipples().getElasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_ELASTICITY, TFPotency.MAJOR_DRAIN, 1),
+				"Your crotch nipples re way too elastic for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchElasticity().getValue() + 1 < body.getBreastCrotch().getNipples().getOrificeNipples().getElasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_ELASTICITY, TFPotency.DRAIN, 1),
+				"Your crotch nipples are too elastic for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchElasticity().getValue() + 1 < body.getBreastCrotch().getNipples().getOrificeNipples().getElasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_ELASTICITY, TFPotency.MINOR_DRAIN, 1),
+				"Your crotch nipples are a little too elastic for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		
+		// Crotch nipple placticity:
+		if(target.getNippleCrotchPlasticity().getValue() + 2 < body.getBreastCrotch().getNipples().getOrificeNipples().getPlasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_PLASTICITY, TFPotency.MAJOR_BOOST, 1),
+				"Your crotch nipples are way too stiff for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchPlasticity().getValue() + 1 < body.getBreastCrotch().getNipples().getOrificeNipples().getPlasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_PLASTICITY, TFPotency.BOOST, 1),
+				"Your crotch nipples are too stiff for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchPlasticity().getValue() + 1 < body.getBreastCrotch().getNipples().getOrificeNipples().getPlasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_PLASTICITY, TFPotency.MINOR_BOOST, 1),
+				"Your crotch nipples are a little too stiff for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchPlasticity().getValue() + 1 < body.getBreastCrotch().getNipples().getOrificeNipples().getPlasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_PLASTICITY, TFPotency.MAJOR_DRAIN, 1),
+				"Your crotch nipples are way too plastic for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchPlasticity().getValue() + 1 < body.getBreastCrotch().getNipples().getOrificeNipples().getPlasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_PLASTICITY, TFPotency.DRAIN, 1),
+				"Your crotch nipples are too plastic for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchPlasticity().getValue() + 1 < body.getBreastCrotch().getNipples().getOrificeNipples().getPlasticity().getValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_PLASTICITY, TFPotency.MINOR_DRAIN, 1),
+				"Your crotch nipples are a little too plastic for my liking!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		
+		// Crotch milk storage:
+		if(target.getBreastCrotchRawStoredMilkValue() + 25 < body.getBreastCrotch().getRawMilkStorageValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+				"You need to store way more milk in your crotch!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getBreastCrotchRawStoredMilkValue() + 8 < body.getBreastCrotch().getRawMilkStorageValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_WETNESS, TFPotency.BOOST, 1),
+				"You need to store more milk in your crotch!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getBreastCrotchRawStoredMilkValue() < body.getBreastCrotch().getRawMilkStorageValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_WETNESS, TFPotency.MINOR_BOOST, 1),
+				"You need to store a little bit more milk in your crotch!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getBreastCrotchRawStoredMilkValue() - 25 > body.getBreastCrotch().getRawMilkStorageValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_DRAIN, 1),
+				"You're storing way too much milk in your crotch for me!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getBreastCrotchRawStoredMilkValue() - 8 > body.getBreastCrotch().getRawMilkStorageValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_WETNESS, TFPotency.DRAIN, 1),
+				"You're storing too much milk in your crotch for me!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getBreastCrotchRawStoredMilkValue() > body.getBreastCrotch().getRawMilkStorageValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_WETNESS, TFPotency.MINOR_DRAIN, 1),
+				"You're storing a little bit too much milk in your crotch for me"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+		}
+		
+		// Crotch milk regeneration:
+		if(target.getBreastCrotchRawLactationRegenerationValue() + 250 < body.getBreastCrotch().getRawLactationRegenerationValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_REGENERATION, TFPotency.MAJOR_BOOST, 1),
+				"ou need to be producing way more milk!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getBreastCrotchRawLactationRegenerationValue() + 50 < body.getBreastCrotch().getRawLactationRegenerationValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_REGENERATION, TFPotency.BOOST, 1),
+				"You need to be producing more milk!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getBreastCrotchRawLactationRegenerationValue() < body.getBreastCrotch().getRawLactationRegenerationValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_REGENERATION, TFPotency.MINOR_BOOST, 1),
+				"You need to be producing a little bit more milk!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getBreastCrotchRawLactationRegenerationValue() - 250 > body.getBreastCrotch().getRawLactationRegenerationValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_REGENERATION, TFPotency.MAJOR_DRAIN, 1),
+				"You're producing way too much milk for me!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getBreastCrotchRawLactationRegenerationValue() - 50 > body.getBreastCrotch().getRawLactationRegenerationValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_REGENERATION, TFPotency.DRAIN, 1),
+				"You're producing too much milk for me!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getBreastCrotchRawLactationRegenerationValue() > body.getBreastCrotch().getRawLactationRegenerationValue()) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_REGENERATION, TFPotency.MINOR_DRAIN, 1),
+				"You're producing a little bit too much milk for me!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+		}
+		
+		// Crotch nipple orifice modifier:
+		if(!target.getNippleCrotchOrificeModifiers().contains(PUFFY) && body.getBreastCrotch().getNipples().getOrificeNipples().getOrificeModifiers().contains(PUFFY)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_ORIFICE_PUFFY, TFPotency.MINOR_BOOST, 1),
+				"I like puffy bipples!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchOrificeModifiers().contains(PUFFY) && !body.getBreastCrotch().getNipples().getOrificeNipples().getOrificeModifiers().contains(PUFFY)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_ORIFICE_PUFFY, TFPotency.MINOR_DRAIN, 1),
+				"I dislike puffy nipples!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		if(!target.getNippleCrotchOrificeModifiers().contains(RIBBED) && body.getBreastCrotch().getNipples().getOrificeNipples().getOrificeModifiers().contains(RIBBED)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_ORIFICE_RIBBED, TFPotency.MINOR_BOOST, 1),
+				"I want your nipples to be internally ribbed!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchOrificeModifiers().contains(RIBBED) && !body.getBreastCrotch().getNipples().getOrificeNipples().getOrificeModifiers().contains(RIBBED)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_ORIFICE_RIBBED, TFPotency.MINOR_DRAIN, 1),
+				"I don't want your nipples to be internally ribbed!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		if(!target.getNippleCrotchOrificeModifiers().contains(MUSCLE_CONTROL) && body.getBreastCrotch().getNipples().getOrificeNipples().getOrificeModifiers().contains(MUSCLE_CONTROL)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_ORIFICE_MUSCLED, TFPotency.MINOR_BOOST, 1),
+				"I want you to be able to control your muscles within your nipples!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchOrificeModifiers().contains(MUSCLE_CONTROL) && !body.getBreastCrotch().getNipples().getOrificeNipples().getOrificeModifiers().contains(MUSCLE_CONTROL)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_ORIFICE_MUSCLED, TFPotency.MINOR_DRAIN, 1),
+				"I don't want you to be able to control your muscles within your nipples!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		if(!target.getNippleCrotchOrificeModifiers().contains(TENTACLED) && body.getBreastCrotch().getNipples().getOrificeNipples().getOrificeModifiers().contains(TENTACLED)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_ORIFICE_TENTACLED, TFPotency.MINOR_BOOST, 1),
+				"I like tentacles in your nipples!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		} else if(target.getNippleCrotchOrificeModifiers().contains(TENTACLED) && !body.getBreastCrotch().getNipples().getOrificeNipples().getOrificeModifiers().contains(TENTACLED)) {
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS_CROTCH, TFModifier.TF_MOD_ORIFICE_TENTACLED, TFPotency.MINOR_DRAIN, 1),
+				"I dislike tentacles in your nipples!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+		}
+		
+		// Udder/Crotch milk flavour:
+		if(target.getMilkCrotchFlavour() != body.getBreastCrotch().getMilk().getFlavour()) {
+				switch (body.getBreastCrotch().getMilk().getFlavour()){
+				case CUM:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK_CROTCH, TFModifier.TF_MOD_FLAVOUR_CUM, TFPotency.MINOR_BOOST, 1),
+				"I would like your crotch breast milk to taste like cum!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkCrotchFlavour() != body.getBreastCrotch().getMilk().getFlavour()) {
+				switch (body.getBreastCrotch().getMilk().getFlavour()){
+				case GIRL_CUM:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK_CROTCH, TFModifier.TF_MOD_FLAVOUR_GIRLCUM, TFPotency.MINOR_BOOST, 1),
+				"I would like your crotch breast milk to taste like girl cum!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkCrotchFlavour() != body.getBreastCrotch().getMilk().getFlavour()) {
+				switch (body.getBreastCrotch().getMilk().getFlavour()){
+				case MILK:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK_CROTCH, TFModifier.TF_MOD_FLAVOUR_MILK, TFPotency.MINOR_BOOST, 1),
+				"I would like your crotch breast milk to taste like normal milk!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkCrotchFlavour() != body.getBreastCrotch().getMilk().getFlavour()) {
+				switch (body.getBreastCrotch().getMilk().getFlavour()){
+				case FLAVOURLESS:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK_CROTCH, TFModifier.TF_MOD_FLAVOUR_FLAVOURLESS, TFPotency.MINOR_BOOST, 1),
+				"I would like your crotch breast milk to be tasteless!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkCrotchFlavour() != body.getBreastCrotch().getMilk().getFlavour()) {
+				switch (body.getBreastCrotch().getMilk().getFlavour()){
+				case BEER:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK_CROTCH, TFModifier.TF_MOD_FLAVOUR_BEER, TFPotency.MINOR_BOOST, 1),
+				"I would like your crotch breast milk to taste like beer!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkCrotchFlavour() != body.getBreastCrotch().getMilk().getFlavour()) {
+				switch (body.getBreastCrotch().getMilk().getFlavour()){
+				case CHOCOLATE:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK_CROTCH, TFModifier.TF_MOD_FLAVOUR_CHOCOLATE, TFPotency.MINOR_BOOST, 1),
+				"I would like your crotch breast milk to taste like chocolate!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkCrotchFlavour() != body.getBreastCrotch().getMilk().getFlavour()) {
+				switch (body.getBreastCrotch().getMilk().getFlavour()){
+				case HONEY:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK_CROTCH, TFModifier.TF_MOD_FLAVOUR_HONEY, TFPotency.MINOR_BOOST, 1),
+				"I would like your crotch breast milk to taste like honey!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkCrotchFlavour() != body.getBreastCrotch().getMilk().getFlavour()) {
+				switch (body.getBreastCrotch().getMilk().getFlavour()){
+				case MINT:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK_CROTCH, TFModifier.TF_MOD_FLAVOUR_MINT, TFPotency.MINOR_BOOST, 1),
+				"I would like your crotch breast milk to taste like mint!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkCrotchFlavour() != body.getBreastCrotch().getMilk().getFlavour()) {
+				switch (body.getBreastCrotch().getMilk().getFlavour()){
+				case PINEAPPLE:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK_CROTCH, TFModifier.TF_MOD_FLAVOUR_PINEAPPLE, TFPotency.MINOR_BOOST, 1),
+				"I would like your crotch breast milk to taste like pineapple!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkCrotchFlavour() != body.getBreastCrotch().getMilk().getFlavour()) {
+				switch (body.getBreastCrotch().getMilk().getFlavour()){
+				case BUBBLEGUM:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK_CROTCH, TFModifier.TF_MOD_FLAVOUR_BUBBLEGUM, TFPotency.MINOR_BOOST, 1),
+				"I would like your crotch breast milk to taste like bubblegum!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkCrotchFlavour() != body.getBreastCrotch().getMilk().getFlavour()) {
+				switch (body.getBreastCrotch().getMilk().getFlavour()){
+				case STRAWBERRY:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK_CROTCH, TFModifier.TF_MOD_FLAVOUR_STRAWBERRY, TFPotency.MINOR_BOOST, 1),
+				"I would like your crotch breast milk to taste like strawberry!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkCrotchFlavour() != body.getBreastCrotch().getMilk().getFlavour()) {
+				switch (body.getBreastCrotch().getMilk().getFlavour()){
+				case CHERRY:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK_CROTCH, TFModifier.TF_MOD_FLAVOUR_CHERRY, TFPotency.MINOR_BOOST, 1),
+				"I would like your crotch breast milk to taste like cherry!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkCrotchFlavour() != body.getBreastCrotch().getMilk().getFlavour()) {
+				switch (body.getBreastCrotch().getMilk().getFlavour()){
+				case VANILLA:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK_CROTCH, TFModifier.TF_MOD_FLAVOUR_VANILLA, TFPotency.MINOR_BOOST, 1),
+				"I would like your crotch breast milk to taste like vanilla!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkCrotchFlavour() != body.getBreastCrotch().getMilk().getFlavour()) {
+				switch (body.getBreastCrotch().getMilk().getFlavour()){
+				case COFFEE:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK_CROTCH, TFModifier.TF_MOD_FLAVOUR_COFFEE, TFPotency.MINOR_BOOST, 1),
+				"I would like your crotch breast milk to taste like coffee!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkCrotchFlavour() != body.getBreastCrotch().getMilk().getFlavour()) {
+				switch (body.getBreastCrotch().getMilk().getFlavour()){
+				case TEA:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK_CROTCH, TFModifier.TF_MOD_FLAVOUR_TEA, TFPotency.MINOR_BOOST, 1),
+				"I would like your crotch breast milk to taste like TEA!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkCrotchFlavour() != body.getBreastCrotch().getMilk().getFlavour()) {
+				switch (body.getBreastCrotch().getMilk().getFlavour()){
+				case MAPLE:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK_CROTCH, TFModifier.TF_MOD_FLAVOUR_MAPLE, TFPotency.MINOR_BOOST, 1),
+				"I would like your crotch breast milk to taste like maple!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkCrotchFlavour() != body.getBreastCrotch().getMilk().getFlavour()) {
+				switch (body.getBreastCrotch().getMilk().getFlavour()){
+				case CINNAMON:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK_CROTCH, TFModifier.TF_MOD_FLAVOUR_CINNAMON, TFPotency.MINOR_BOOST, 1),
+				"I would like your crotch breast milk to taste like cinnamon!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkCrotchFlavour() != body.getBreastCrotch().getMilk().getFlavour()) {
+				switch (body.getBreastCrotch().getMilk().getFlavour()){
+				case LEMON:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK_CROTCH, TFModifier.TF_MOD_FLAVOUR_LEMON, TFPotency.MINOR_BOOST, 1),
+				"I would like your crotch breast milk to taste like lemon!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkCrotchFlavour() != body.getBreastCrotch().getMilk().getFlavour()) {
+				switch (body.getBreastCrotch().getMilk().getFlavour()){
+				case ORANGE:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK_CROTCH, TFModifier.TF_MOD_FLAVOUR_ORANGE, TFPotency.MINOR_BOOST, 1),
+				"I would like your crotch breast milk to taste like orange!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkCrotchFlavour() != body.getBreastCrotch().getMilk().getFlavour()) {
+				switch (body.getBreastCrotch().getMilk().getFlavour()){
+				case GRAPE:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK_CROTCH, TFModifier.TF_MOD_FLAVOUR_GRAPE, TFPotency.MINOR_BOOST, 1),
+				"I would like your crotch breast milk to taste like grape!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkCrotchFlavour() != body.getBreastCrotch().getMilk().getFlavour()) {
+				switch (body.getBreastCrotch().getMilk().getFlavour()){
+				case MELON:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK_CROTCH, TFModifier.TF_MOD_FLAVOUR_MELON, TFPotency.MINOR_BOOST, 1),
+				"I would like your crotch breast milk to taste like melon!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkCrotchFlavour() != body.getBreastCrotch().getMilk().getFlavour()) {
+				switch (body.getBreastCrotch().getMilk().getFlavour()){
+				case COCONUT:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK_CROTCH, TFModifier.TF_MOD_FLAVOUR_COCONUT, TFPotency.MINOR_BOOST, 1),
+				"I would like your crotch breast milk to taste like coconut!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkCrotchFlavour() != body.getBreastCrotch().getMilk().getFlavour()) {
+				switch (body.getBreastCrotch().getMilk().getFlavour()){
+				case BLUEBERRY:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK_CROTCH, TFModifier.TF_MOD_FLAVOUR_BLUEBERRY, TFPotency.MINOR_BOOST, 1),
+				"I would like your crotch breast milk to taste like blueberry!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		} else if(target.getMilkCrotchFlavour() != body.getBreastCrotch().getMilk().getFlavour()) {
+				switch (body.getBreastCrotch().getMilk().getFlavour()){
+				case BANANA:
+			possibleEffects.add(new PossibleItemEffect(
+				new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_MILK_CROTCH, TFModifier.TF_MOD_FLAVOUR_BANANA, TFPotency.MINOR_BOOST, 1),
+				"I would like your crotch breast milk to taste like banana!"));
+			if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			break;
+			}
+		}
+		
+		//--- PENIS ---//
+		if(target.getPenisType() != PenisType.NONE && body.getPenis().getType() != PenisType.NONE) {
+			// Penis length:
 			if(target.getPenisRawSizeValue() < body.getPenis().getRawLengthValue()) {
-				if(body.getPenis().getRawLengthValue() - target.getPenisRawSizeValue() > 5) {
+				if(target.getPenisRawSizeValue() + 8 < body.getPenis().getRawLengthValue()) {
 					possibleEffects.add(new PossibleItemEffect(
-						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1),
+						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
 						"Your cock needs to be a lot bigger!"));
 					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-				} else {
+					
+				} else if(target.getPenisRawSizeValue() + 5 < body.getPenis().getRawLengthValue()) {
+					possibleEffects.add(new PossibleItemEffect(
+						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1),
+						"Your cock needs to be bigger!"));
+					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+					
+				} else if(target.getPenisRawSizeValue() < body.getPenis().getRawLengthValue()) {
 					possibleEffects.add(new PossibleItemEffect(
 						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_BOOST, 1),
 						"Your cock needs to be a little bigger!"));
 					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+					
 				}
-				
 			} else if(target.getPenisRawSizeValue() > body.getPenis().getRawLengthValue()) {
-				if(target.getPenisRawSizeValue() - body.getPenis().getRawLengthValue() > 5) {
+				if(target.getPenisRawSizeValue() - 8 > body.getPenis().getRawLengthValue()) {
 					possibleEffects.add(new PossibleItemEffect(
-						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1),
+						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1),
 						"Your cock needs to be a lot smaller!"));
 					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-				} else {
+					
+				} else if(target.getPenisRawSizeValue() - 5 > body.getPenis().getRawLengthValue()) {
+					possibleEffects.add(new PossibleItemEffect(
+						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1),
+						"Your cock needs to be smaller!"));
+					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+					
+				} else if(target.getPenisRawSizeValue() > body.getPenis().getRawLengthValue()) {
 					possibleEffects.add(new PossibleItemEffect(
 						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_DRAIN, 1),
 						"Your cock needs to be a little smaller!"));
 					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 				}
 			}
+			
 			// Penis girth:
-			if(target.getPenisRawGirthValue() < body.getPenis().getRawGirthValue()) {
+			if(target.getPenisRawGirthValue() + 2 < body.getPenis().getRawGirthValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
+					"I want your cock to be way more nice and thick!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getPenisRawGirthValue() + 1 < body.getPenis().getRawGirthValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.BOOST, 1),
+					"I want your cock to be nice and thick!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getPenisRawGirthValue() < body.getPenis().getRawGirthValue()) {
 				possibleEffects.add(new PossibleItemEffect(
 					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MINOR_BOOST, 1),
-					"I want your cock to be nice and thick!"));
+					"I want your cock to be a little bit more nice and thick!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getPenisRawGirthValue() - 2 > body.getPenis().getRawGirthValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_DRAIN, 1),
+					"Your cock's far too thick!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getPenisRawGirthValue() - 1 > body.getPenis().getRawGirthValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.DRAIN, 1),
+					"Your cock's too thick!"));
 				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 				
 			} else if(target.getPenisRawGirthValue() > body.getPenis().getRawGirthValue()) {
 				possibleEffects.add(new PossibleItemEffect(
 					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MINOR_DRAIN, 1),
-					"Your cock's far too thick!"));
+					"Your cock's a little too thick!"));
 				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 			}
+			
 			// Ball size:
-			if(target.getTesticleSize().getValue() < body.getPenis().getTesticle().getTesticleSize().getValue()) {
+			if(target.getTesticleSize().getValue() + 2 < body.getPenis().getTesticle().getTesticleSize().getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MAJOR_BOOST, 1),
+					"Your balls need to be way bigger than that!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getTesticleSize().getValue() + 1 < body.getPenis().getTesticle().getTesticleSize().getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.BOOST, 1),
+					"Your balls need to be bigger than that!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getTesticleSize().getValue() < body.getPenis().getTesticle().getTesticleSize().getValue()) {
 				possibleEffects.add(new PossibleItemEffect(
 					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MINOR_BOOST, 1),
-					"Your balls need to be bigger than that!"));
+					"Your balls need to be bit bigger than that!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getTesticleSize().getValue() - 2 > body.getPenis().getTesticle().getTesticleSize().getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MAJOR_DRAIN, 1),
+					"Your balls shouldn't be way too big!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getTesticleSize().getValue() - 1 > body.getPenis().getTesticle().getTesticleSize().getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.DRAIN, 1),
+					"Your balls shouldn't be too big!"));
 				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 				
 			} else if(target.getTesticleSize().getValue() > body.getPenis().getTesticle().getTesticleSize().getValue()) {
 				possibleEffects.add(new PossibleItemEffect(
-					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MINOR_DRAIN, 1), "Your balls shouldn't be so big!"));
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MINOR_DRAIN, 1),
+					"Your balls shouldn't be tiny bit big!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			}
+			
+			// Cum storage:
+			if(target.getPenisRawCumStorageValue() + 25 < body.getPenis().getTesticle().getRawCumStorageValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					"Mmm! You're gonna make way more amount of cum for me!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			} else if(target.getPenisRawCumStorageValue() + 8 < body.getPenis().getTesticle().getRawCumStorageValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_WETNESS, TFPotency.BOOST, 1),
+					"Mmm! You're gonna make more amount of cum for me!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			} else if(target.getPenisRawCumStorageValue() < body.getPenis().getTesticle().getRawCumStorageValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_WETNESS, TFPotency.MINOR_BOOST, 1),
+					"Mmm! You're gonna make bit more amount of cum for me!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			}else if(target.getPenisRawCumStorageValue() - 25 > body.getPenis().getTesticle().getRawCumStorageValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_DRAIN, 1),
+					"You're making way too much amount of cum, let's reduce that!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			} else if(target.getPenisRawCumStorageValue() - 8 > body.getPenis().getTesticle().getRawCumStorageValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_WETNESS, TFPotency.DRAIN, 1),
+					"You're making too much amount of cum, let's reduce that!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			} else if(target.getPenisRawCumStorageValue() > body.getPenis().getTesticle().getRawCumStorageValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_WETNESS, TFPotency.MINOR_DRAIN, 1),
+					"You're making bit too much amount of cum, let's reduce that!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			}
+			
+			// Cum regeneration:
+			if(target.getPenisRawCumProductionRegenerationValue() + 250 < body.getPenis().getTesticle().getRawCumProductionRegenerationValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_REGENERATION, TFPotency.MAJOR_BOOST, 1),
+					"Be a good [pc.genderAppears] and make way more cum for me!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			} else if(target.getPenisRawCumProductionRegenerationValue() + 50 < body.getPenis().getTesticle().getRawCumProductionRegenerationValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_REGENERATION, TFPotency.BOOST, 1),
+					"Be a good [pc.genderAppears] and make more cum for me!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			} else if(target.getPenisRawCumProductionRegenerationValue() < body.getPenis().getTesticle().getRawCumProductionRegenerationValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_REGENERATION, TFPotency.MINOR_BOOST, 1),
+					"Be a good [pc.genderAppears] and make a bit more cum for me!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			}else if(target.getPenisRawCumProductionRegenerationValue() - 250 > body.getPenis().getTesticle().getRawCumProductionRegenerationValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_REGENERATION, TFPotency.MAJOR_DRAIN, 1),
+					"You're making way too much cum!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			} else if(target.getPenisRawCumProductionRegenerationValue() - 50 > body.getPenis().getTesticle().getRawCumProductionRegenerationValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_REGENERATION, TFPotency.DRAIN, 1),
+					"You're making too much cum!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			} else if(target.getPenisRawCumProductionRegenerationValue() > body.getPenis().getTesticle().getRawCumProductionRegenerationValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_REGENERATION, TFPotency.MINOR_DRAIN, 1),
+					"You're making a bit too much cum!"));
 				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 			}
+			
+			// Cum expulsion:
+			if(target.getPenisRawCumExpulsionValue() + 8 < body.getPenis().getTesticle().getRawCumExpulsionValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_CUM_EXPULSION, TFPotency.MAJOR_BOOST, 1),
+					"You need to spew out way more cum out of your dick!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			} else if(target.getPenisRawCumExpulsionValue() + 3 < body.getPenis().getTesticle().getRawCumExpulsionValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_CUM_EXPULSION, TFPotency.BOOST, 1),
+					"You need to spew out more cum out of your dick!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			} else if(target.getPenisRawCumExpulsionValue() < body.getPenis().getTesticle().getRawCumExpulsionValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_CUM_EXPULSION, TFPotency.MINOR_BOOST, 1),
+					"You need to spew out little bit more cum out of your dick!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			}else if(target.getPenisRawCumExpulsionValue() - 8 > body.getPenis().getTesticle().getRawCumExpulsionValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_CUM_EXPULSION, TFPotency.MAJOR_DRAIN, 1),
+					"You're spewing far too much cum for me to handle!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			} else if(target.getPenisRawCumExpulsionValue() - 3 > body.getPenis().getTesticle().getRawCumExpulsionValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_CUM_EXPULSION, TFPotency.DRAIN, 1),
+					"You're spewing too much cum for me to handle!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			} else if(target.getPenisRawCumExpulsionValue() > body.getPenis().getTesticle().getRawCumExpulsionValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_CUM_EXPULSION, TFPotency.MINOR_DRAIN, 1),
+					"You're spewing little too much cum for me to handle!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			}
+			
+			// Cum Flavour:
+			if(target.getCumFlavour() != body.getPenis().getTesticle().getCum().getFlavour()) {
+					switch (body.getPenis().getTesticle().getCum().getFlavour()){
+					case CUM:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_FLAVOUR_CUM, TFPotency.MINOR_BOOST, 1),
+					"I would like your cum to taste like cum!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getCumFlavour() != body.getPenis().getTesticle().getCum().getFlavour()) {
+					switch (body.getPenis().getTesticle().getCum().getFlavour()){
+					case GIRL_CUM:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_FLAVOUR_GIRLCUM, TFPotency.MINOR_BOOST, 1),
+					"I would like your cum to taste like girl cum!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getCumFlavour() != body.getPenis().getTesticle().getCum().getFlavour()) {
+					switch (body.getPenis().getTesticle().getCum().getFlavour()){
+					case MILK:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_FLAVOUR_MILK, TFPotency.MINOR_BOOST, 1),
+					"I would like your cum to taste like normal milk!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getCumFlavour() != body.getPenis().getTesticle().getCum().getFlavour()) {
+					switch (body.getPenis().getTesticle().getCum().getFlavour()){
+					case FLAVOURLESS:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_FLAVOUR_FLAVOURLESS, TFPotency.MINOR_BOOST, 1),
+					"I would like your cum to be tasteless!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getCumFlavour() != body.getPenis().getTesticle().getCum().getFlavour()) {
+					switch (body.getPenis().getTesticle().getCum().getFlavour()){
+					case BEER:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_FLAVOUR_BEER, TFPotency.MINOR_BOOST, 1),
+					"I would like your cum to taste like beer!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getCumFlavour() != body.getPenis().getTesticle().getCum().getFlavour()) {
+					switch (body.getPenis().getTesticle().getCum().getFlavour()){
+					case CHOCOLATE:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_FLAVOUR_CHOCOLATE, TFPotency.MINOR_BOOST, 1),
+					"I would like your cum to taste like chocolate!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getCumFlavour() != body.getPenis().getTesticle().getCum().getFlavour()) {
+					switch (body.getPenis().getTesticle().getCum().getFlavour()){
+					case HONEY:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_FLAVOUR_HONEY, TFPotency.MINOR_BOOST, 1),
+					"I would like your cum to taste like honey!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getCumFlavour() != body.getPenis().getTesticle().getCum().getFlavour()) {
+					switch (body.getPenis().getTesticle().getCum().getFlavour()){
+					case MINT:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_FLAVOUR_MINT, TFPotency.MINOR_BOOST, 1),
+					"I would like your cum to taste like mint!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getCumFlavour() != body.getPenis().getTesticle().getCum().getFlavour()) {
+					switch (body.getPenis().getTesticle().getCum().getFlavour()){
+					case PINEAPPLE:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_FLAVOUR_PINEAPPLE, TFPotency.MINOR_BOOST, 1),
+					"I would like your cum to taste like pineapple!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getCumFlavour() != body.getPenis().getTesticle().getCum().getFlavour()) {
+					switch (body.getPenis().getTesticle().getCum().getFlavour()){
+					case BUBBLEGUM:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_FLAVOUR_BUBBLEGUM, TFPotency.MINOR_BOOST, 1),
+				"I would like your cum to taste like bubblegum!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getCumFlavour() != body.getPenis().getTesticle().getCum().getFlavour()) {
+					switch (body.getPenis().getTesticle().getCum().getFlavour()){
+					case STRAWBERRY:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_FLAVOUR_STRAWBERRY, TFPotency.MINOR_BOOST, 1),
+					"I would like your cum to taste like strawberry!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getCumFlavour() != body.getPenis().getTesticle().getCum().getFlavour()) {
+					switch (body.getPenis().getTesticle().getCum().getFlavour()){
+					case CHERRY:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_FLAVOUR_CHERRY, TFPotency.MINOR_BOOST, 1),
+					"I would like your cum to taste like cherry!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getCumFlavour() != body.getPenis().getTesticle().getCum().getFlavour()) {
+					switch (body.getPenis().getTesticle().getCum().getFlavour()){
+					case VANILLA:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_FLAVOUR_VANILLA, TFPotency.MINOR_BOOST, 1),
+					"I would like your cum to taste like vanilla!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getCumFlavour() != body.getPenis().getTesticle().getCum().getFlavour()) {
+					switch (body.getPenis().getTesticle().getCum().getFlavour()){
+					case COFFEE:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_FLAVOUR_COFFEE, TFPotency.MINOR_BOOST, 1),
+					"I would like your cum to taste like coffee!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getCumFlavour() != body.getPenis().getTesticle().getCum().getFlavour()) {
+					switch (body.getBreast().getMilk().getFlavour()){
+					case TEA:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_FLAVOUR_TEA, TFPotency.MINOR_BOOST, 1),
+					"I would like your cum to taste like TEA!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getCumFlavour() != body.getPenis().getTesticle().getCum().getFlavour()) {
+					switch (body.getPenis().getTesticle().getCum().getFlavour()){
+					case MAPLE:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_FLAVOUR_MAPLE, TFPotency.MINOR_BOOST, 1),
+					"I would like your cum to taste like maple!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getCumFlavour() != body.getPenis().getTesticle().getCum().getFlavour()) {
+					switch (body.getPenis().getTesticle().getCum().getFlavour()){
+					case CINNAMON:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_FLAVOUR_CINNAMON, TFPotency.MINOR_BOOST, 1),
+					"I would like your cum to taste like cinnamon!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getCumFlavour() != body.getPenis().getTesticle().getCum().getFlavour()) {
+					switch (body.getPenis().getTesticle().getCum().getFlavour()){
+					case LEMON:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_FLAVOUR_LEMON, TFPotency.MINOR_BOOST, 1),
+					"I would like your cum to taste like lemon!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getCumFlavour() != body.getPenis().getTesticle().getCum().getFlavour()) {
+					switch (body.getPenis().getTesticle().getCum().getFlavour()){
+					case ORANGE:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_FLAVOUR_ORANGE, TFPotency.MINOR_BOOST, 1),
+					"I would like your cum to taste like orange!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getCumFlavour() != body.getPenis().getTesticle().getCum().getFlavour()) {
+					switch (body.getPenis().getTesticle().getCum().getFlavour()){
+					case GRAPE:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_FLAVOUR_GRAPE, TFPotency.MINOR_BOOST, 1),
+					"I would like your cum to taste like grape!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getCumFlavour() != body.getPenis().getTesticle().getCum().getFlavour()) {
+					switch (body.getPenis().getTesticle().getCum().getFlavour()){
+					case MELON:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_FLAVOUR_MELON, TFPotency.MINOR_BOOST, 1),
+					"I would like your cum to taste like melon!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getCumFlavour() != body.getPenis().getTesticle().getCum().getFlavour()) {
+					switch (body.getPenis().getTesticle().getCum().getFlavour()){
+					case COCONUT:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_FLAVOUR_COCONUT, TFPotency.MINOR_BOOST, 1),
+					"I would like your cum to taste like coconut!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getCumFlavour() != body.getPenis().getTesticle().getCum().getFlavour()) {
+					switch (body.getPenis().getTesticle().getCum().getFlavour()){
+					case BLUEBERRY:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_FLAVOUR_BLUEBERRY, TFPotency.MINOR_BOOST, 1),
+					"I would like your cum to taste like blueberry!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getCumFlavour() != body.getPenis().getTesticle().getCum().getFlavour()) {
+					switch (body.getPenis().getTesticle().getCum().getFlavour()){
+					case BANANA:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_FLAVOUR_BANANA, TFPotency.MINOR_BOOST, 1),
+					"I would like your cum to taste like banana!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			}
+			
 		}
-
 		
 		//--- VAGINA ---//
-		
-		if(target.getVaginaType()!=VaginaType.NONE && body.getVagina().getType()!=VaginaType.NONE) {
-			// Capacity:
-			if(target.getVaginaRawCapacityValue()+10 < body.getVagina().getOrificeVagina().getRawCapacityValue()) {
+		if(target.getVaginaType() != VaginaType.NONE && body.getVagina().getType() != VaginaType.NONE) {
+			// Clitoris length:
+			if(target.getVaginaRawClitorisSizeValue() < body.getVagina().getClitoris().getRawClitorisSizeValue()) {
+				if(target.getVaginaRawClitorisSizeValue() + 8 < body.getVagina().getClitoris().getRawClitorisSizeValue()) {
+					possibleEffects.add(new PossibleItemEffect(
+						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_BOOST, 1),
+						"Your clit needs to be a lot bigger!"));
+					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+					
+				} else if(target.getVaginaRawClitorisSizeValue() + 5 < body.getVagina().getClitoris().getRawClitorisSizeValue()) {
+					possibleEffects.add(new PossibleItemEffect(
+						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_SIZE, TFPotency.BOOST, 1),
+						"Your clit needs to be bigger!"));
+					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+					
+				} else if(target.getVaginaRawClitorisSizeValue() < body.getVagina().getClitoris().getRawClitorisSizeValue()) {
+					possibleEffects.add(new PossibleItemEffect(
+						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_BOOST, 1),
+						"Your clit needs to be a little bigger!"));
+					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+					
+				}
+			} else if(target.getVaginaRawClitorisSizeValue() > body.getVagina().getClitoris().getRawClitorisSizeValue()) {
+				if(target.getVaginaRawClitorisSizeValue() - 8 > body.getVagina().getClitoris().getRawClitorisSizeValue()) {
+					possibleEffects.add(new PossibleItemEffect(
+						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_SIZE, TFPotency.MAJOR_DRAIN, 1),
+						"Your clit needs to be a lot smaller!"));
+					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+					
+				} else if(target.getVaginaRawClitorisSizeValue() - 5 > body.getVagina().getClitoris().getRawClitorisSizeValue()) {
+					possibleEffects.add(new PossibleItemEffect(
+						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1),
+						"Your clit needs to be smaller!"));
+					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+					
+				} else if(target.getVaginaRawClitorisSizeValue() > body.getVagina().getClitoris().getRawClitorisSizeValue()) {
+					possibleEffects.add(new PossibleItemEffect(
+						new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_SIZE, TFPotency.MINOR_DRAIN, 1),
+						"Your clit needs to be a little smaller!"));
+					if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				}
+			}
+			
+			// Clitoris girth:
+			if(target.getClitorisRawGirthValue() + 2 < body.getVagina().getClitoris().getRawGirthValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_BOOST, 1),
+					"I want your clit to be way more nice and thick!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getClitorisRawGirthValue() + 1 < body.getVagina().getClitoris().getRawGirthValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.BOOST, 1),
+					"I want your clit to be nice and thick!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getClitorisRawGirthValue() < body.getVagina().getClitoris().getRawGirthValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MINOR_BOOST, 1),
+					"I want your clit to be a little bit more nice and thick!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getClitorisRawGirthValue() - 2 > body.getVagina().getClitoris().getRawGirthValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MAJOR_DRAIN, 1),
+					"Your clit's far too thick!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getClitorisRawGirthValue() - 1 > body.getVagina().getClitoris().getRawGirthValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.DRAIN, 1),
+					"Your clit's too thick!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getClitorisRawGirthValue() > body.getVagina().getClitoris().getRawGirthValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.MINOR_DRAIN, 1),
+					"Your clit's a little too thick!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			}
+			
+			// Labia size:
+			if(target.getVaginaLabiaSize().getValue() + 2 < body.getVagina().getLabiaSize().getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MAJOR_BOOST, 1),
+					"Your labia need to be way bigger than that!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaLabiaSize().getValue() + 1 < body.getVagina().getLabiaSize().getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.BOOST, 1),
+					"Your labia need to be bigger than that!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaLabiaSize().getValue() < body.getVagina().getLabiaSize().getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MINOR_BOOST, 1),
+					"Your labia need to be bit bigger than that!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaLabiaSize().getValue() - 2 > body.getVagina().getLabiaSize().getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MAJOR_DRAIN, 1),
+					"Your labia shouldn't be way too big!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaLabiaSize().getValue() - 1 > body.getVagina().getLabiaSize().getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.DRAIN, 1),
+					"Your labia shouldn't be too big!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaLabiaSize().getValue() > body.getVagina().getLabiaSize().getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.MINOR_DRAIN, 1),
+					"Your labia shouldn't be tiny bit big!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			}
+			
+			// Squirter:
+			if(!target.isVaginaSquirter() && body.getVagina().getOrificeVagina().isSquirter()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_VAGINA_SQUIRTER, TFPotency.MINOR_BOOST, 1),
+					"I would love to see you squirting!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.isVaginaSquirter() && !body.getVagina().getOrificeVagina().isSquirter()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_VAGINA_SQUIRTER, TFPotency.MINOR_DRAIN, 1),
+					"I want you to stop squirting!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			}
+			
+			// Vagina capacity:
+			if(target.getVaginaRawCapacityValue() + 8 < body.getVagina().getOrificeVagina().getRawCapacityValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_CAPACITY, TFPotency.MAJOR_BOOST, 1),
+					"Your pussy's way too tight for my liking!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaRawCapacityValue() + 3 < body.getVagina().getOrificeVagina().getRawCapacityValue()) {
 				possibleEffects.add(new PossibleItemEffect(
 					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_CAPACITY, TFPotency.BOOST, 1),
 					"Your pussy's too tight for my liking!"));
 				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 				
-			} else if(target.getVaginaRawCapacityValue()-20 > body.getVagina().getOrificeVagina().getRawCapacityValue()) {
+			} else if(target.getVaginaRawCapacityValue() < body.getVagina().getOrificeVagina().getRawCapacityValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_CAPACITY, TFPotency.MINOR_BOOST, 1),
+					"Your pussy's little bit too tight for my liking!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaRawCapacityValue() - 8 > body.getVagina().getOrificeVagina().getRawCapacityValue()) {
 				possibleEffects.add(new PossibleItemEffect(
 					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_CAPACITY, TFPotency.MAJOR_DRAIN, 1),
 					"Your pussy's far too loose!"));
 				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
-			}
-			// Wetness:
-			if(target.getVaginaWetness().getValue() < body.getVagina().getOrificeVagina().getWetness(null).getValue()) {
+				
+			} else if(target.getVaginaRawCapacityValue() - 3 > body.getVagina().getOrificeVagina().getRawCapacityValue()) {
 				possibleEffects.add(new PossibleItemEffect(
-					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MINOR_BOOST, 1),
-					"Your pussy isn't wet enough!"));
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_CAPACITY, TFPotency.DRAIN, 1),
+					"Your pussy's too loose!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaRawCapacityValue() > body.getVagina().getOrificeVagina().getRawCapacityValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_CAPACITY, TFPotency.MINOR_DRAIN, 1),
+					"Your pussy's little bit too loose!"));
 				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
 			}
+			
+			// Vagina depth:
+			if(target.getVaginaDepth().getValue() + 2 < body.getVagina().getOrificeVagina().getDepth(null).getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_DEPTH, TFPotency.MAJOR_BOOST, 1),
+					"Your crotch nipple is way too shallow for my liking!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			
+			} else if(target.getVaginaDepth().getValue() + 1 < body.getVagina().getOrificeVagina().getRawCapacityValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_DEPTH, TFPotency.BOOST, 1),
+					"Your pussy's too shallow for my liking!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaDepth().getValue() < body.getVagina().getOrificeVagina().getRawCapacityValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_DEPTH, TFPotency.MINOR_BOOST, 1),
+					"Your pussy's little bit shallow for my liking!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaDepth().getValue() - 2 > body.getVagina().getOrificeVagina().getRawCapacityValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_DEPTH, TFPotency.MAJOR_DRAIN, 1),
+					"Your pussy's far too loose!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaDepth().getValue() - 1 > body.getVagina().getOrificeVagina().getRawCapacityValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_DEPTH, TFPotency.DRAIN, 1),
+					"Your pussy's too loose!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaDepth().getValue() > body.getVagina().getOrificeVagina().getRawCapacityValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_DEPTH, TFPotency.MINOR_DRAIN, 1),
+					"Your pussy's little bit too loose!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			}
+			
+			// Vagina elasticity:
+			if(target.getVaginaElasticity().getValue() + 2 < body.getVagina().getOrificeVagina().getElasticity().getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_ELASTICITY, TFPotency.MAJOR_BOOST, 1),
+					"Your vagina is way too rigid for my liking!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaElasticity().getValue() + 1 < body.getVagina().getOrificeVagina().getElasticity().getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_ELASTICITY, TFPotency.BOOST, 1),
+					"Your vagina is too rigid for my liking!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaElasticity().getValue() < body.getVagina().getOrificeVagina().getElasticity().getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_ELASTICITY, TFPotency.MINOR_BOOST, 1),
+					"Your vagina is a little bit too rigid for my liking!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaElasticity().getValue() - 2 > body.getVagina().getOrificeVagina().getElasticity().getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_ELASTICITY, TFPotency.MAJOR_DRAIN, 1),
+					"Your vagina is way too elastic for my liking!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaElasticity().getValue() - 1 > body.getVagina().getOrificeVagina().getElasticity().getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_ELASTICITY, TFPotency.DRAIN, 1),
+					"Your vagina is too elastic for my liking!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaElasticity().getValue() > body.getVagina().getOrificeVagina().getElasticity().getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_ELASTICITY, TFPotency.MINOR_DRAIN, 1),
+					"Your vagina is a little bit too elastic for my liking!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			}
+			
+			// Vagina plasticity:
+			if(target.getVaginaPlasticity().getValue() + 2 < body.getVagina().getOrificeVagina().getPlasticity().getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_PLASTICITY, TFPotency.MAJOR_BOOST, 1),
+					"Your vagina is way too stiff for my liking!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaPlasticity().getValue() + 1 < body.getVagina().getOrificeVagina().getPlasticity().getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_PLASTICITY, TFPotency.BOOST, 1),
+					"Your vagina is too stiff for my liking!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaPlasticity().getValue() < body.getVagina().getOrificeVagina().getPlasticity().getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_PLASTICITY, TFPotency.MINOR_BOOST, 1),
+					"Your vagina is a little bit too stiff for my liking!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaPlasticity().getValue() - 2 > body.getVagina().getOrificeVagina().getPlasticity().getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_PLASTICITY, TFPotency.MAJOR_DRAIN, 1),
+					"Your vagina is way too plastic for my liking!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaPlasticity().getValue() - 1 > body.getVagina().getOrificeVagina().getPlasticity().getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_PLASTICITY, TFPotency.DRAIN, 1),
+					"Your vagina is too plastic for my liking!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaPlasticity().getValue() > body.getVagina().getOrificeVagina().getPlasticity().getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_PLASTICITY, TFPotency.MINOR_DRAIN, 1),
+					"Your vagina is a little bit too plastic for my liking!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+			}
+			
+			// Wetness:
+			if(target.getVaginaWetness().getValue() + 2 < body.getVagina().getOrificeVagina().getWetness(null).getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1),
+					"Your pussy is way too dry!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaWetness().getValue() + 1 < body.getVagina().getOrificeVagina().getWetness(null).getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.BOOST, 1),
+					"Your pussy is too dry!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaWetness().getValue() < body.getVagina().getOrificeVagina().getWetness(null).getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MINOR_BOOST, 1),
+					"Your pussy is little bit too dry!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaWetness().getValue() - 2 > body.getVagina().getOrificeVagina().getWetness(null).getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_DRAIN, 1),
+					"Your pussy is drooling way too much!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaWetness().getValue() - 1 > body.getVagina().getOrificeVagina().getWetness(null).getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.DRAIN, 1),
+					"Your pussy is drooling too much!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaWetness().getValue() > body.getVagina().getOrificeVagina().getWetness(null).getValue()) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MINOR_DRAIN, 1),
+					"Your pussy is drooling little bit too much!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			}
+			
+		// Vaginal orifice modifications:
+			if(!target.getVaginaOrificeModifiers().contains(PUFFY) && body.getVagina().getOrificeVagina().getOrificeModifiers().contains(PUFFY)) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_ORIFICE_PUFFY, TFPotency.MINOR_BOOST, 1),
+					"I like puffy pussy!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaOrificeModifiers().contains(PUFFY) && !body.getVagina().getOrificeVagina().getOrificeModifiers().contains(PUFFY)) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_ORIFICE_PUFFY, TFPotency.MINOR_DRAIN, 1),
+					"I dislike puffy pussy!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			}
+			if(!target.getVaginaOrificeModifiers().contains(RIBBED) && body.getVagina().getOrificeVagina().getOrificeModifiers().contains(RIBBED)) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_ORIFICE_RIBBED, TFPotency.MINOR_BOOST, 1),
+					"I want your pussy to be internally ribbed!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaOrificeModifiers().contains(RIBBED) && !body.getVagina().getOrificeVagina().getOrificeModifiers().contains(RIBBED)) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_ORIFICE_RIBBED, TFPotency.MINOR_DRAIN, 1),
+					"I don't want your pussy to be internally ribbed!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			}
+			if(!target.getVaginaOrificeModifiers().contains(MUSCLE_CONTROL) && body.getVagina().getOrificeVagina().getOrificeModifiers().contains(MUSCLE_CONTROL)) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_ORIFICE_MUSCLED, TFPotency.MINOR_BOOST, 1),
+					"I want you to be able to control your muscles within your pussy!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaOrificeModifiers().contains(MUSCLE_CONTROL) && !body.getVagina().getOrificeVagina().getOrificeModifiers().contains(MUSCLE_CONTROL)) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_ORIFICE_MUSCLED, TFPotency.MINOR_DRAIN, 1),
+					"I don't want you to be able to control your muscles within your pussy!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			}
+			if(!target.getVaginaOrificeModifiers().contains(TENTACLED) && body.getVagina().getOrificeVagina().getOrificeModifiers().contains(TENTACLED)) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_ORIFICE_TENTACLED, TFPotency.MINOR_BOOST, 1),
+					"I like tentacles in your pussy!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			} else if(target.getVaginaOrificeModifiers().contains(TENTACLED) && !body.getVagina().getOrificeVagina().getOrificeModifiers().contains(TENTACLED)) {
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_ORIFICE_TENTACLED, TFPotency.MINOR_DRAIN, 1),
+					"I dislike tentacles in your pussy!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				
+			}
+			
+		// Girl cum Flavour:
+			if(target.getGirlcumFlavour() != body.getVagina().getGirlcum().getFlavour()) {
+					switch (body.getVagina().getGirlcum().getFlavour()){
+					case CUM:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_GIRLCUM, TFModifier.TF_MOD_FLAVOUR_CUM, TFPotency.MINOR_BOOST, 1),
+					"I would like your pussy cum to taste like cum!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getGirlcumFlavour() != body.getVagina().getGirlcum().getFlavour()) {
+					switch (body.getVagina().getGirlcum().getFlavour()){
+					case GIRL_CUM:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_GIRLCUM, TFModifier.TF_MOD_FLAVOUR_GIRLCUM, TFPotency.MINOR_BOOST, 1),
+					"I would like your pussy cum to taste like girl cum!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getGirlcumFlavour() != body.getVagina().getGirlcum().getFlavour()) {
+					switch (body.getVagina().getGirlcum().getFlavour()){
+					case MILK:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_GIRLCUM, TFModifier.TF_MOD_FLAVOUR_MILK, TFPotency.MINOR_BOOST, 1),
+					"I would like your pussy cum to taste like normal milk!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getGirlcumFlavour() != body.getVagina().getGirlcum().getFlavour()) {
+					switch (body.getVagina().getGirlcum().getFlavour()){
+					case FLAVOURLESS:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_GIRLCUM, TFModifier.TF_MOD_FLAVOUR_FLAVOURLESS, TFPotency.MINOR_BOOST, 1),
+					"I would like your pussy cum to be tasteless!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getGirlcumFlavour() != body.getVagina().getGirlcum().getFlavour()) {
+					switch (body.getVagina().getGirlcum().getFlavour()){
+					case BEER:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_GIRLCUM, TFModifier.TF_MOD_FLAVOUR_BEER, TFPotency.MINOR_BOOST, 1),
+					"I would like your pussy cum to taste like beer!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getGirlcumFlavour() != body.getVagina().getGirlcum().getFlavour()) {
+					switch (body.getVagina().getGirlcum().getFlavour()){
+					case CHOCOLATE:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_GIRLCUM, TFModifier.TF_MOD_FLAVOUR_CHOCOLATE, TFPotency.MINOR_BOOST, 1),
+					"I would like your pussy cum to taste like chocolate!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getGirlcumFlavour() != body.getVagina().getGirlcum().getFlavour()) {
+					switch (body.getVagina().getGirlcum().getFlavour()){
+					case HONEY:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_GIRLCUM, TFModifier.TF_MOD_FLAVOUR_HONEY, TFPotency.MINOR_BOOST, 1),
+					"I would like your pussy cum to taste like honey!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getGirlcumFlavour() != body.getVagina().getGirlcum().getFlavour()) {
+					switch (body.getVagina().getGirlcum().getFlavour()){
+					case MINT:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_GIRLCUM, TFModifier.TF_MOD_FLAVOUR_MINT, TFPotency.MINOR_BOOST, 1),
+					"I would like your pussy cum to taste like mint!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getGirlcumFlavour() != body.getVagina().getGirlcum().getFlavour()) {
+					switch (body.getVagina().getGirlcum().getFlavour()){
+					case PINEAPPLE:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_GIRLCUM, TFModifier.TF_MOD_FLAVOUR_PINEAPPLE, TFPotency.MINOR_BOOST, 1),
+					"I would like your pussy cum to taste like pineapple!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getGirlcumFlavour() != body.getVagina().getGirlcum().getFlavour()) {
+					switch (body.getVagina().getGirlcum().getFlavour()){
+					case BUBBLEGUM:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_GIRLCUM, TFModifier.TF_MOD_FLAVOUR_BUBBLEGUM, TFPotency.MINOR_BOOST, 1),
+					"I would like your pussy cum to taste like bubblegum!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getGirlcumFlavour() != body.getVagina().getGirlcum().getFlavour()) {
+					switch (body.getVagina().getGirlcum().getFlavour()){
+					case STRAWBERRY:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_GIRLCUM, TFModifier.TF_MOD_FLAVOUR_STRAWBERRY, TFPotency.MINOR_BOOST, 1),
+					"I would like your pussy cum to taste like strawberry!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getGirlcumFlavour() != body.getVagina().getGirlcum().getFlavour()) {
+					switch (body.getVagina().getGirlcum().getFlavour()){
+					case CHERRY:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_GIRLCUM, TFModifier.TF_MOD_FLAVOUR_CHERRY, TFPotency.MINOR_BOOST, 1),
+					"I would like your pussy cum to taste like cherry!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getGirlcumFlavour() != body.getVagina().getGirlcum().getFlavour()) {
+					switch (body.getVagina().getGirlcum().getFlavour()){
+					case VANILLA:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_GIRLCUM, TFModifier.TF_MOD_FLAVOUR_VANILLA, TFPotency.MINOR_BOOST, 1),
+					"I would like your pussy cum to taste like vanilla!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getGirlcumFlavour() != body.getVagina().getGirlcum().getFlavour()) {
+					switch (body.getVagina().getGirlcum().getFlavour()){
+					case COFFEE:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_GIRLCUM, TFModifier.TF_MOD_FLAVOUR_COFFEE, TFPotency.MINOR_BOOST, 1),
+					"I would like your pussy cum to taste like coffee!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getGirlcumFlavour() != body.getVagina().getGirlcum().getFlavour()) {
+					switch (body.getVagina().getGirlcum().getFlavour()){
+					case TEA:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_GIRLCUM, TFModifier.TF_MOD_FLAVOUR_TEA, TFPotency.MINOR_BOOST, 1),
+					"I would like your pussy cum to taste like TEA!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getGirlcumFlavour() != body.getVagina().getGirlcum().getFlavour()) {
+					switch (body.getVagina().getGirlcum().getFlavour()){
+					case MAPLE:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_GIRLCUM, TFModifier.TF_MOD_FLAVOUR_MAPLE, TFPotency.MINOR_BOOST, 1),
+					"I would like your pussy cum to taste like maple!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getGirlcumFlavour() != body.getVagina().getGirlcum().getFlavour()) {
+					switch (body.getVagina().getGirlcum().getFlavour()){
+					case CINNAMON:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_GIRLCUM, TFModifier.TF_MOD_FLAVOUR_CINNAMON, TFPotency.MINOR_BOOST, 1),
+					"I would like your pussy cum to taste like cinnamon!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getGirlcumFlavour() != body.getVagina().getGirlcum().getFlavour()) {
+					switch (body.getVagina().getGirlcum().getFlavour()){
+					case LEMON:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_GIRLCUM, TFModifier.TF_MOD_FLAVOUR_LEMON, TFPotency.MINOR_BOOST, 1),
+					"I would like your pussy cum to taste like lemon!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getGirlcumFlavour() != body.getVagina().getGirlcum().getFlavour()) {
+					switch (body.getVagina().getGirlcum().getFlavour()){
+					case ORANGE:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_GIRLCUM, TFModifier.TF_MOD_FLAVOUR_ORANGE, TFPotency.MINOR_BOOST, 1),
+					"I would like your pussy cum to taste like orange!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getGirlcumFlavour() != body.getVagina().getGirlcum().getFlavour()) {
+					switch (body.getVagina().getGirlcum().getFlavour()){
+					case GRAPE:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_GIRLCUM, TFModifier.TF_MOD_FLAVOUR_GRAPE, TFPotency.MINOR_BOOST, 1),
+					"I would like your pussy cum to taste like grape!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getGirlcumFlavour() != body.getVagina().getGirlcum().getFlavour()) {
+					switch (body.getVagina().getGirlcum().getFlavour()){
+					case MELON:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_GIRLCUM, TFModifier.TF_MOD_FLAVOUR_MELON, TFPotency.MINOR_BOOST, 1),
+					"I would like your pussy cum to taste like melon!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getGirlcumFlavour() != body.getVagina().getGirlcum().getFlavour()) {
+					switch (body.getVagina().getGirlcum().getFlavour()){
+					case COCONUT:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_GIRLCUM, TFModifier.TF_MOD_FLAVOUR_COCONUT, TFPotency.MINOR_BOOST, 1),
+					"I would like your pussy cum to taste like coconut!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getGirlcumFlavour() != body.getVagina().getGirlcum().getFlavour()) {
+					switch (body.getVagina().getGirlcum().getFlavour()){
+					case BLUEBERRY:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_GIRLCUM, TFModifier.TF_MOD_FLAVOUR_BLUEBERRY, TFPotency.MINOR_BOOST, 1),
+					"I would like your pussy cum to taste like blueberry!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+			} else if(target.getGirlcumFlavour() != body.getVagina().getGirlcum().getFlavour()) {
+					switch (body.getVagina().getGirlcum().getFlavour()){
+					case BANANA:
+				possibleEffects.add(new PossibleItemEffect(
+					new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_GIRLCUM, TFModifier.TF_MOD_FLAVOUR_BANANA, TFPotency.MINOR_BOOST, 1),
+					"I would like your pussy cum to taste like banana!"));
+				if(possibleEffects.size()>=numberOfTransformations) { return new TransformativePotion(itemType, possibleEffects, body); }
+				break;
+				}
+				
+			}
+			
 		}
 		
 		if(possibleEffects.isEmpty()) {

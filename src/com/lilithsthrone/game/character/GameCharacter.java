@@ -20781,8 +20781,37 @@ public abstract class GameCharacter implements XMLSaving {
 	public void resetAllPregnancyReactions() {
 		pregnancyReactions.clear();
 	}
+	public static float VMOD = 0;
 	
 	public void performHourlyFluidsCheck() {
+		for(Entry<SexAreaOrifice, List<FluidStored>> entry : this.fluidsStoredMap.entrySet()) {
+			for(FluidStored fs : entry.getValue()) {
+				if(fs.getFluid().getFluidModifiers().contains(FluidModifier.ADDICTIVE)) {
+					addAddiction(new Addiction(fs.getFluid().getType(), Main.game.getMinutesPassed(), fs.getCharactersFluidID()));
+				}
+				if(fs.getFluid().getFluidModifiers().contains(FluidModifier.HALLUCINOGENIC)) {
+					this.addStatusEffect(StatusEffect.PSYCHOACTIVE, 6*60*60);
+				}
+				if(fs.getFluid().getFluidModifiers().contains(FluidModifier.ALCOHOLIC_WEAK)) {
+					this.incrementAlcoholLevel(1*0.15f);
+				}
+				if(fs.getFluid().getFluidModifiers().contains(FluidModifier.ALCOHOLIC)) {
+					this.incrementAlcoholLevel(1*0.3f);
+				}
+				if(fs.getFluid().getFluidModifiers().contains(FluidModifier.VISCOUS)) {
+					VMOD += Util.random.nextInt(6000) + 2000;
+				} else {
+					VMOD -= Util.random.nextInt(3000) + 1000;
+				}
+				VMOD = Math.max(0, Math.min(VMOD, 40000));
+			}
+		}
+		
+		// Impregnation:
+		performImpregnationCheck(false);
+	}
+	
+	public void NPCperformHourlyFluidsCheck() {
 		if(!this.hasPerkAnywhereInTree(Perk.DOLL_PHYSICAL_3)) {
 			for(Entry<SexAreaOrifice, List<FluidStored>> entry : this.fluidsStoredMap.entrySet()) {
 				for(FluidStored fs : entry.getValue()) {
@@ -22465,14 +22494,21 @@ public abstract class GameCharacter implements XMLSaving {
 				return level;
 				
 			} else {
-				if(Main.getProperties().difficultyLevel == DifficultyLevel.HELL) {
-					if(level < Main.game.getPlayer().getLevel() * 2) {
-						return Main.game.getPlayer().getLevel() * 2;
-					} else {
-						return level;
-					}
+				if(Main.getProperties().difficultyLevel == DifficultyLevel.ELITE
+					|| Main.getProperties().difficultyLevel == DifficultyLevel.MASTER
+					|| Main.getProperties().difficultyLevel == DifficultyLevel.HELL
+					|| Main.getProperties().difficultyLevel == DifficultyLevel.BALANCED) {
+				if(level < Main.game.getPlayer().getLevel() * 2) {
+					this.setLevel(Main.game.getPlayer().getLevel() * 2);
+					this.levelUp();
+					return level;
+				} else {
+					return level;
+				}
 				} else if(level < Main.game.getPlayer().getLevel()) {
-					return Main.game.getPlayer().getLevel();
+					this.setLevel(Main.game.getPlayer().getLevel());
+					this.levelUp();
+					return level;
 				} else {
 					return level;
 				}

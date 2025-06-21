@@ -11,14 +11,21 @@ import com.lilithsthrone.utils.colours.PresetColour;
 public enum DifficultyLevel {
 	
 	NORMAL("Human", "The way the game is meant to be played. No level scaling and no damage modifications.", PresetColour.RACE_HUMAN, false, 1, 1),
-
-	LEVEL_SCALING("Morph", "Enemies level up alongside your character, but do normal damage.", PresetColour.RACE_CAT_MORPH, true, 1, 1),
 	
-	HARD("Demon", "Enemies level up alongside your character and do 200% damage.", PresetColour.RACE_DEMON, true, 2, 1),
+	LEVEL_SCALING("Lesser Morph", "Enemies level up alongside your character, but do normal damage.", PresetColour.RACE_CAT_MORPH, true, 1, 1),
 	
-	NIGHTMARE("Lilin", "Enemies level up alongside your character, do 200% damage, and take only 50% damage from all sources.", PresetColour.BASE_PURPLE, true, 2, 0.5f),
+	HARD("Greater Morph", "Enemies level up alongside your character and do 200% damage.", PresetColour.TRANSFORMATION_GREATER, true, 2, 1),
 	
-	HELL("Lilith", "Enemies are always 2x your character's level, do 400% damage, and take only 25% damage from all sources. Be prepared to lose. A lot.", PresetColour.BASE_CRIMSON, true, 4, 0.25f);
+	NIGHTMARE("Imp", "Enemies level up alongside your character, do 200% damage, and take only 50% damage from all sources.", PresetColour.BASE_YELLOW, true, 2, 0.5f),
+	
+	ELITE("Demon", "Enemies are always 2x your character's level, do 200% damage, and take only 50% damage from all sources.", PresetColour.BASE_GOLD, true, 2, 0.5f),
+	
+	MASTER("Lilin", "Enemies are always 2x your character's level, do 400% damage, and take only 50% damage from all sources.", PresetColour.BASE_PURPLE, true, 4, 0.5f),
+	
+	HELL("Lilith", "Enemies are always 2x your character's level, do 400% damage, and take only 25% damage from all sources.", PresetColour.BASE_CRIMSON, true, 4, 0.25f),
+	
+	BALANCED("My preference", "Enemies are always 2x your character's level, and do 150% damage.", PresetColour.BASE_BLUE, true, 1.5f, 1);
+	
 
 	private String name;
 	private String description;

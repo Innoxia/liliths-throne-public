@@ -3040,7 +3040,16 @@ public class GenericActions {
 			SexParticipantType.NORMAL) {
 		@Override
 		public SexActionPriority getPriority() {
-			return SexActionPriority.HIGH;
+			if(Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_BONDAGE_APPLIER)) {
+				return SexActionPriority.HIGH;
+			}
+			if(Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_BONDAGE_APPLIER).isNegative() || Main.sex.getCharacterPerformingAction().getFetishDesire(Fetish.FETISH_NON_CON_DOM).isNegative()) {
+				return SexActionPriority.LOW;
+			}
+			if(Math.random()<0.3f) {
+				return SexActionPriority.NORMAL;
+			}
+			return SexActionPriority.LOW;
 		}
 		@Override
 		public SexActionCategory getCategory() {
@@ -3060,7 +3069,7 @@ public class GenericActions {
 		}
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Main.sex.getCharacterPerformingAction().isPlayer() || Main.sex.getCharacterPerformingAction().hasFetish(Fetish.FETISH_BONDAGE_APPLIER))
+			return (Main.sex.getCharacterPerformingAction().isPlayer() || Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())==SexPace.DOM_NORMAL || Main.sex.getSexPace(Main.sex.getCharacterPerformingAction())==SexPace.DOM_ROUGH)
 					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction()).getValue()>=SexControl.FULL.getValue()
 					&& !Main.sex.isCharacterImmobilised(Main.sex.getCharacterTargetedForSexAction(this));
 		}
