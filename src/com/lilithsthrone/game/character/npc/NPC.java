@@ -164,7 +164,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			AbstractPlaceType startingPlace,
 			boolean addedToContacts,
 			NPCGenerationFlag... generationFlags) {
-		super(nameTriplet, surname, description, level,
+		super(isImported,
+				nameTriplet, surname, description, level,
 				age<MINIMUM_AGE
 					?LocalDateTime.of(Main.game.getStartingDate().getYear()-age, birthMonth, (birthMonth==Month.FEBRUARY&&birthDay==29?28:birthDay), 12, 0)
 					:LocalDateTime.of(Main.game.getStartingDate().getYear()-(age-MINIMUM_AGE), birthMonth, (birthMonth==Month.FEBRUARY&&birthDay==29?28:birthDay), 12, 0),

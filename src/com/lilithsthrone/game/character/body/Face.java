@@ -148,7 +148,7 @@ public class Face implements BodyPartInterface {
 		sb.append("</p>");
 		
 		return UtilText.parse(owner, sb.toString())
-				+ "<br/><br/>"
+				+ "<p>"
 				+ owner.postTransformationCalculation()
 				+ "</p>";
 	}

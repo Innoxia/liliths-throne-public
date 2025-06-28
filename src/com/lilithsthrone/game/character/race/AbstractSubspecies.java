@@ -778,24 +778,25 @@ public abstract class AbstractSubspecies {
 	/**
 	 * Changes that should be applied to characters of this species upon generation. Called <b>after</b> this Subspecies' Race.applyRaceChanges().
 	 */
-	public void applySpeciesChanges(Body body) {
+	public String applySpeciesChanges(GameCharacter target, Body body) {
 		// Removed check for Main.game.isStarted() in v0.4.2.5 as it was causing NPCs to spawn in as incorrect subspecies
 		// Tested from new game and everything worked fine, but also added try/catch block to make sure that any unexpected errors don't cause the game to lock up
 		if(this.isFromExternalFile()) {
 			try {
 				UtilText.setBodyForParsing("targetedBody", body);
-				UtilText.parse(applySubspeciesChanges);
+				return UtilText.parse(target, applySubspeciesChanges);
 			} catch(Exception ex) {
 				ex.printStackTrace();
 			}
 		}
+		return "";
 	}
 
 	/**
 	 * Changes that should be applied to any offspring of this species.
 	 */
-	public void applyOffspringSpeciesChanges(Body body) {
-		applySpeciesChanges(body);
+	public void applyOffspringSpeciesChanges(GameCharacter target, Body body) {
+		applySpeciesChanges(target, body);
 	}
 
 	public static AbstractSubspecies getMainSubspeciesOfRace(AbstractRace race) {

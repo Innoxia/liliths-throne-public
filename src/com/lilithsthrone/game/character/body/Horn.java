@@ -140,7 +140,7 @@ public class Horn implements BodyPartInterface {
 
 	public String setHornRows(GameCharacter owner, int rows) {
 		rows = Math.max(1, Math.min(rows, MAXIMUM_ROWS));
-		if(owner==null) {
+		if(!Main.game.isStarted() || owner==null) {
 			this.rows = rows;
 			return "";
 		}

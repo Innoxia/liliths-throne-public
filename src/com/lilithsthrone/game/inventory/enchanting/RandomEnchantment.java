@@ -262,7 +262,7 @@ public class RandomEnchantment {
 		allPositiveClothingEnchantments = new ArrayList<>();
 		allNegativeClothingEnchantments = new ArrayList<>();
 		
-		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/randomEnchantments");
+		Map<String, Map<String, File>> filesMap = Util.getExternalFilesById("res/randomEnchantments/innoxia/clothing");
 		for(Entry<String, Map<String, File>> entry : filesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
 				try {
@@ -272,16 +272,16 @@ public class RandomEnchantment {
 					} else {
 						allNegativeClothingEnchantments.add(enchantment);
 					}
-//					System.out.println("res randomEnchantment: "+innerEntry.getKey());
+					System.out.println("res randomEnchantment: "+innerEntry.getKey());
 				} catch(Exception ex) {
-					System.err.println("Loading RandomEnchantment failed at 'getAllRandomEnchantments' (RES). File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Loading RandomEnchantment failed at 'initAllRandomEnchantments' (RES). File path: "+innerEntry.getValue().getAbsolutePath());
 					System.err.println("Actual exception: ");
 					ex.printStackTrace(System.err);
 				}
 			}
 		}
 
-		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/randomEnchantments");
+		Map<String, Map<String, File>> moddedFilesMap = Util.getExternalModFilesById("/randomEnchantments/clothing");
 		for(Entry<String, Map<String, File>> entry : moddedFilesMap.entrySet()) {
 			for(Entry<String, File> innerEntry : entry.getValue().entrySet()) {
 				try {
@@ -291,9 +291,9 @@ public class RandomEnchantment {
 					} else {
 						allNegativeClothingEnchantments.add(enchantment);
 					}
-//					System.out.println("modded randomEnchantment: "+innerEntry.getKey());
+					System.out.println("modded randomEnchantment: "+innerEntry.getKey());
 				} catch(Exception ex) {
-					System.err.println("Loading RandomEnchantment failed at 'getAllRandomEnchantments' (MODS). File path: "+innerEntry.getValue().getAbsolutePath());
+					System.err.println("Loading RandomEnchantment failed at 'initAllRandomEnchantments' (MODS). File path: "+innerEntry.getValue().getAbsolutePath());
 					System.err.println("Actual exception: ");
 					ex.printStackTrace(System.err);
 				}

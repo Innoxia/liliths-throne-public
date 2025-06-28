@@ -542,6 +542,7 @@ public abstract class GameCharacter implements XMLSaving {
 	protected static List<CharacterChangeEventListener> playerInventoryChangeEventListeners = new ArrayList<>();
 	
 	protected GameCharacter(
+			boolean isImported,
 			NameTriplet nameTriplet,
 			String surname,
 			String description,
@@ -738,9 +739,9 @@ public abstract class GameCharacter implements XMLSaving {
 		} else {
 			setHistory(Occupation.NPC_UNEMPLOYED);	
 		}
-		
+
 		// Set the character's starting body based on their gender and race:
-		if(startingSubspecies!=null) {
+		if(!isImported && startingSubspecies!=null) {
 			setBody(startingGender, startingSubspecies, stage, !this.isUnique());
 		}
 		
@@ -775,13 +776,15 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		dice = null;
 		
-		if(startingSubspecies!=null) {
+		if(!isImported && startingSubspecies!=null) {
 			calculateStatusEffects(0);
 		}
-		initPerkTreeAndBackgroundPerks();
-
+		if(!isImported) {
+			initPerkTreeAndBackgroundPerks();
+		}
+		
 		artworkList = new ArrayList<>();
-		if(isUnique()) {
+		if(!isImported && isUnique()) {
 			loadImages();
 		}
 	}
@@ -26543,6 +26546,10 @@ public abstract class GameCharacter implements XMLSaving {
 		return postTransformationCalculation(true);
 	}
 	public String postTransformationCalculation(boolean displayColourDiscovered) {
+		if(body==null) {
+			return ""; // Character not initialised yet, so just return an empty String and don't worry about it :)
+		}
+		
 		StringBuilder postTFSB = new StringBuilder();
 		// If this is the first time getting this covering type:
 		for(BodyPartInterface bp : this.getAllBodyParts()) {
@@ -27221,6 +27228,10 @@ public abstract class GameCharacter implements XMLSaving {
 	 * @return Formatted description of height change.
 	 */
 	public String setHeight(int height, boolean ignoreHeightRestrictions) {
+		if(this.getBody()==null) {
+			return "";
+		}
+		
 		if(!ignoreHeightRestrictions) {
 			height = Math.min(getMaximumHeight(), Math.max(getMinimumHeight(), height));
 		}
@@ -28657,6 +28668,9 @@ public abstract class GameCharacter implements XMLSaving {
 		return setBreastLactationRegeneration(getBreastRawLactationRegenerationValue() + increment);
 	}
 	// Breast size:
+	public CupSize getCupSize() {
+		return getBreastSize();
+	}
 	public CupSize getBreastSize() {
 		return body.getBreast().getSize();
 	}
@@ -28665,6 +28679,9 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	public String setBreastSize(int size) {
 		return body.getBreast().setSize(this, size);
+	}
+	public String setCupSize(CupSize size) {
+		return setBreastSize(size);
 	}
 	public String setBreastSize(CupSize size) {
 		return body.getBreast().setSize(this, size.getMeasurement());

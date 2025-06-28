@@ -32,7 +32,7 @@ public enum ItemTag {
 
 	// Items with these tags can randomly spawn in encounters in the commented area
 	// Please note that due to legacy issues, clothing and weapons only use the 'DOMINION_ALLEYWAY_SPAWN' tag to determine whether or not it can randomly spawn in any area.
-		// This will liekly be changed at a later date, so please use the appropriate area spawn tag for your clothing/weapon, even though it does nothing for now
+		// This will likely be changed at a later date, so please use the appropriate area spawn tag for your clothing/weapon, even though it does nothing for now
 	ALL_AREAS_SPAWN, // Every area in the game
 	DOMINION_ALLEYWAY_SPAWN, // Dominion
 	SUBMISSION_TUNNEL_SPAWN, // Submission (excluding Bat Caverns)

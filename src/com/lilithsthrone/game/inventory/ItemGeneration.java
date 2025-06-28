@@ -14,6 +14,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffectType;
+import com.lilithsthrone.game.inventory.enchanting.RandomPotionEnchantment;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractFilledBreastPump;
@@ -32,7 +33,7 @@ import com.lilithsthrone.utils.colours.ColourListPresets;
 
 /**
  * @since 0.3.9
- * @version 0.4
+ * @version 0.4.11.4
  * @author Innoxia
  */
 public class ItemGeneration {
@@ -55,6 +56,9 @@ public class ItemGeneration {
 		return new AbstractFilledBreastPump(ItemType.MOO_MILKER_FULL, colour, character, milk, quantity) {};
 	}
 	
+	public String applyRandomPotionEffect(GameCharacter target) {
+		return RandomPotionEnchantment.applyRandomPotionEffect(target);
+	}
 	
 	
 	// Weapon generation:

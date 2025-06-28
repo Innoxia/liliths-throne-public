@@ -224,7 +224,7 @@ public class CharacterUtils {
 	}
 	
 	public PlayerCharacter startLoadingCharacterFromXML(){
-		return new PlayerCharacter(new NameTriplet("Player"), 1, null, Gender.M_P_MALE, Subspecies.HUMAN, RaceStage.HUMAN, WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
+		return new PlayerCharacter(true, new NameTriplet("Player"), 1, null, Gender.M_P_MALE, Subspecies.HUMAN, RaceStage.HUMAN, WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
 	}
 	
 	public PlayerCharacter loadCharacterFromXML(File xmlFile, PlayerCharacter importedCharacter, CharacterImportSetting... settings){
@@ -385,7 +385,7 @@ public class CharacterUtils {
 		// To fix, coverings are saved and then restored after the two methods have been called
 		Map<AbstractBodyCoveringType, Covering> preChangesCoverings = body.getCoverings();
 		raceTakesAfter.getRace().applyRaceChanges(body);
-		raceTakesAfter.applySpeciesChanges(body);
+		raceTakesAfter.applySpeciesChanges(linkedCharacter, body);
 		body.setCoverings(preChangesCoverings);
 		
 		return body;
@@ -1208,7 +1208,7 @@ public class CharacterUtils {
 		setBodyHair(body);
 		
 		halfSubspecies.getRace().applyRaceChanges(body);
-		halfSubspecies.applySpeciesChanges(body);
+		halfSubspecies.applySpeciesChanges(linkedCharacter, body);
 
 		return body;
 	}
@@ -1415,7 +1415,7 @@ public class CharacterUtils {
 							startingBodyType.getCumProduction(),
 							startingBodyType.getTesticleQuantity()))
 					.horn(new Horn((stage.isHornFurry()?startingBodyType.getRandomHornType(false):HornType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleHornLength() : startingBodyType.getMaleHornLength())))
-					.antenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getRandomrAntennaType(false):AntennaType.NONE, (startingGender.isFeminine() ? startingBodyType.getFemaleAntennaLength() : startingBodyType.getMaleAntennaLength())))
+					.antenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getRandomAntennaType(false):AntennaType.NONE, (startingGender.isFeminine() ? startingBodyType.getFemaleAntennaLength() : startingBodyType.getMaleAntennaLength())))
 					.tail(new Tail(stage.isTailFurry()?startingBodyType.getRandomTailType(false):TailType.NONE))
 					.tentacle(new Tentacle(stage.isTentacleFurry()?startingBodyType.getTentacleType():TentacleType.NONE))
 					.wing(new Wing((stage.isWingFurry()?startingBodyType.getRandomWingType(false):WingType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleWingSize() : startingBodyType.getMaleWingSize())))
@@ -1448,15 +1448,15 @@ public class CharacterUtils {
 		if(species!=null) {
 			if(stage!=RaceStage.HUMAN) {
 				species.getRace().applyRaceChanges(body);
-				species.applySpeciesChanges(body);
+				species.applySpeciesChanges(linkedCharacter, body);
 			}
 			if(isSlime) {
 				Race.SLIME.applyRaceChanges(body);
-				Subspecies.SLIME.applySpeciesChanges(body);
+				Subspecies.SLIME.applySpeciesChanges(linkedCharacter, body);
 			}
 			if(isDoll) {
 				Race.DOLL.applyRaceChanges(body);
-				Subspecies.DOLL.applySpeciesChanges(body);
+				Subspecies.DOLL.applySpeciesChanges(linkedCharacter, body);
 			}
 		}
 		
@@ -1622,7 +1622,7 @@ public class CharacterUtils {
 		
 		body.setHorn(new Horn((stage.isHornFurry()?startingBodyType.getRandomHornType(false):HornType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleHornLength() : startingBodyType.getMaleHornLength())));
 		
-		body.setAntenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getRandomrAntennaType(false):AntennaType.NONE, (startingGender.isFeminine() ? startingBodyType.getFemaleAntennaLength() : startingBodyType.getMaleAntennaLength())));
+		body.setAntenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getRandomAntennaType(false):AntennaType.NONE, (startingGender.isFeminine() ? startingBodyType.getFemaleAntennaLength() : startingBodyType.getMaleAntennaLength())));
 		
 		body.setTail(new Tail(stage.isTailFurry()?startingBodyType.getRandomTailType(false):TailType.NONE));
 
@@ -1637,7 +1637,7 @@ public class CharacterUtils {
 		
 		if(species!=null && stage!=RaceStage.HUMAN) {
 			species.getRace().applyRaceChanges(body);
-			species.applySpeciesChanges(body);
+			species.applySpeciesChanges(linkedCharacter, body);
 		}
 		body.calculateRace(linkedCharacter);
 		// To add or remove youko perks
@@ -2339,7 +2339,7 @@ public class CharacterUtils {
 		character.setVaginaStretchedCapacity(character.getVaginaRawCapacityValue());
 
 		character.getRace().applyRaceChanges(character.getBody());
-		character.getSubspecies().applySpeciesChanges(character.getBody());
+		character.getSubspecies().applySpeciesChanges(character, character.getBody());
 		character.getBody().calculateRace(character);
 	}
 	

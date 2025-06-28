@@ -26,7 +26,6 @@ import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 
-import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -98,6 +97,8 @@ import com.lilithsthrone.game.character.body.types.TongueType;
 import com.lilithsthrone.game.character.body.types.TorsoType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
+import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BodyShape;
@@ -115,10 +116,13 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FootStructure;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
+import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
+import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
+import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeDepth;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
@@ -126,7 +130,9 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenetrationModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisLength;
+import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
+import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
@@ -183,6 +189,7 @@ import com.lilithsthrone.game.dialogue.DialogueManager;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.encounters.AbstractEncounter;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
+import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.AbstractSetBonus;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.InventorySlot;
@@ -10045,6 +10052,11 @@ public class UtilText {
 		engine.put("flags", Main.game.getDialogueFlags());
 		engine.put("dialogueManager", Main.game.getDialogueManager());
 		
+		 // When accessing static methods, use .static before any method calls, e.g. [#util.static.capitaliseSentence('apple')]
+		engine.put("util", Util.class);
+		engine.put("utilText", UtilText.class);
+		engine.put("subspecies", Subspecies.class);
+		
 		// Java classes:
 		for(Month month : Month.values()) {
 			engine.put("MONTH_"+month, month);
@@ -10148,11 +10160,26 @@ public class UtilText {
 		for(CupSize cupSize : CupSize.values()) {
 			engine.put("CUP_SIZE_"+cupSize.toString(), cupSize);
 		}
+		for(NippleSize nippleSize : NippleSize.values()) {
+			engine.put("NIPPLE_SIZE_"+nippleSize.toString(), nippleSize);
+		}
+		for(AreolaeSize areolaeSize : AreolaeSize.values()) {
+			engine.put("AREOLAE_SIZE_"+areolaeSize.toString(), areolaeSize);
+		}
 		for(HairLength hairLength : HairLength.values()) {
 			engine.put("HAIR_LENGTH_"+hairLength.toString(), hairLength);
 		}
+		for(LipSize lipSize : LipSize.values()) {
+			engine.put("LIP_SIZE_"+lipSize.toString(), lipSize);
+		}
 		for(FootStructure footStructure : FootStructure.values()) {
 			engine.put("FOOT_STRUCTURE_"+footStructure.toString(), footStructure);
+		}
+		for(AssSize assSize : AssSize.values()) {
+			engine.put("ASS_SIZE_"+assSize.toString(), assSize);
+		}
+		for(HipSize hipSize : HipSize.values()) {
+			engine.put("HIP_SIZE_"+hipSize.toString(), hipSize);
 		}
 		for(GenitalArrangement genArrangement : GenitalArrangement.values()) {
 			engine.put("GENITALS_"+genArrangement.toString(), genArrangement);
@@ -10160,6 +10187,10 @@ public class UtilText {
 		for(PenisLength penisLength : PenisLength.values()) {
 			engine.put("PENIS_LENGTH_"+penisLength.toString(), penisLength);
 		}
+		for(TesticleSize testicleSize : TesticleSize.values()) {
+			engine.put("TESTICLE_SIZE_"+testicleSize.toString(), testicleSize);
+		}
+		
 		for(BodyMaterial material : BodyMaterial.values()) {
 			engine.put("BODY_MATERIAL_"+material.toString(), material);
 		}
@@ -10226,6 +10257,9 @@ public class UtilText {
 		}
 		for(OrificePlasticity plasticity : OrificePlasticity.values()) {
 			engine.put("PLASTICITY_"+plasticity.toString(), plasticity);
+		}
+		for(Wetness wetness : Wetness.values()) {
+			engine.put("WETNESS_"+wetness.toString(), wetness);
 		}
 		for(EyeShape eyeShape : EyeShape.values()) {
 			engine.put("EYE_SHAPE_"+eyeShape.toString(), eyeShape);

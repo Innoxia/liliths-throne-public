@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>100</value>
+		<determiner><![CDATA[a bottle of]]></determiner>
+		<name><![CDATA[Cultist's Mystery Potion]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Cultist's Mystery Potions]]></namePlural>
+		<description><![CDATA[
+			An ornate glass bottle, filled with a considerable amount of rainbow-coloured liquid. A label attached to the neck of the bottle reads:
+			<br/>[style.italicsArcane(Accept this gift from the Cult of Lilith! Your queen demands your transformation, so drink it all and praise Lilith!)]
+		]]></description>
+		<useDescriptor>drink</useDescriptor>
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		<breakOutOfInventory>true</breakOutOfInventory>
+		
+		<rarity>JINXED</rarity>
+		
+		<imageName>cultist_potion.svg</imageName>
+		<colourPrimary>CLOTHING_PINK_HOT</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<associatedRace/>
+		<enchantmentItemTypeId/>
+		<enchantmentEffectId/>
+		
+		<statusEffects/>
+		
+		<effectTooltipLines>
+			<line><![CDATA[Applies a completely [style.colourArcane(random)] [style.colourTfGeneric(transformation)]]]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[#itemGen.applyRandomPotionEffect(npc)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>DRINK</tag>
+			<tag>ALL_AREAS_SPAWN</tag>
+		</itemTags>
+		
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+			[npc.Name] [npc.verb(pull)] out the stopper from the Cultist's Mystery Potion bottle and instantly [npc.verb(recoil)] as an overwhelming myriad of sweet, sour, bitter, and pungent smells assault [npc.her] senses. Despite [npc.her] better judgement, [npc.she] [npc.verb(bring)] the bottle to [npc.her] [npc.lips+] and [npc.verb(swallow)] down every last drop of the concoction, discovering in the process that its taste is every bit as wild and varied as its aroma.
+		]]></selfUse>
+		<otherUse><![CDATA[
+			[npc.Name] [npc.verb(pull)] out the stopper from the Cultist's Mystery Potion bottle, before bringing it up to [npc2.namePos] waiting [npc2.lips]. [npc2.She] [npc2.verb(recoil)] as an overwhelming myriad of sweet, sour, bitter, and pungent smells assault [npc2.her] senses, but [npc2.she] nevertheless [npc2.verb(swallow)] down every last drop of the concoction, discovering in the process that its taste is every bit as wild and varied as its aroma.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

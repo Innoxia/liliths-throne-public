@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<potionEnchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	
+	<spawnWeighting><![CDATA[
+		50
+	]]></spawnWeighting>
+	
+	<conditionalPreParsing><![CDATA[
+		[#flags.setInt('extremeTF', RND.nextInt(100))]
+	]]></conditionalPreParsing>
+	
+	<applicationSpeechStart><![CDATA[
+		Dominion needs more bimbos!
+	]]></applicationSpeechStart>
+	
+	<applicationSpeechEnd><![CDATA[
+		Now get out there and use your hot pussy to milk some big, throbbing cocks!
+	]]></applicationSpeechEnd>
+	
+	<potionEffects>
+		<conditional/>
+		<effect><![CDATA[
+			[#npc.addFetish(FETISH_BIMBO)]
+			[#npc.setFemininity(100)]
+		]]></effect>
+	</potionEffects>
+	
+	<!-- 66% chance of normal TF -->
+	<potionEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('extremeTF')<=66]
+		]]></conditional>
+		<effect><![CDATA[
+			#IF(npc.getLipSizeValue()<LIP_SIZE_FIVE_MASSIVE.getValue())
+				[#npc.setLipSize(LIP_SIZE_FIVE_MASSIVE)]
+			#ENDIF
+			[#npc.addFaceOrificeModifier(ORIFICE_MODIFIER_PUFFY)]
+			#IF(npc.getHairRawLengthValue()<75)
+				[#npc.setHairLength(75)]
+			#ENDIF
+			
+			#IF(npc.getAssSize().getValue()<ASS_SIZE_SIX_MASSIVE.getValue())
+				[#npc.setAssSize(ASS_SIZE_SIX_MASSIVE)]
+			#ENDIF
+			#IF(npc.getHipSize().getValue()<HIP_SIZE_SIX_EXTREMELY_WIDE.getValue())
+				[#npc.setHipSize(HIP_SIZE_SIX_EXTREMELY_WIDE)]
+			#ENDIF
+			
+			#IF(npc.getBreastSize().getValue()<CUP_SIZE_KK.getValue())
+				[#npc.setCupSize(CUP_SIZE_KK)]
+			#ENDIF
+		]]></effect>
+	</potionEffects>
+	
+	<!-- 33% chance of extreme TF -->
+	<potionEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('extremeTF')>66]
+		]]></conditional>
+		<effect><![CDATA[
+			[#npc.setLipSize(LIP_SIZE_SEVEN_ABSURD)]
+			[#npc.addFaceOrificeModifier(ORIFICE_MODIFIER_PUFFY)]
+			#IF(npc.getHairRawLengthValue()<75)
+				[#npc.setHairLength(75)]
+			#ENDIF
+			
+			[#npc.setAssSize(ASS_SIZE_SEVEN_GIGANTIC)]
+			[#npc.setHipSize(HIP_SIZE_SEVEN_ABSURDLY_WIDE)]
+			
+			#IF(npc.getBreastSize().getValue()<CUP_SIZE_N.getValue())
+				[#npc.setCupSize(CUP_SIZE_N)]
+			#ENDIF
+		]]></effect>
+	</potionEffects>
+	
+	<potionEffects>
+		<conditional/>
+		<effect><![CDATA[
+			[#npc.setNippleSize(NIPPLE_SIZE_FOUR_MASSIVE)]
+			[#npc.setAreolaeSize(AREOLAE_SIZE_FOUR_MASSIVE)]
+			[#npc.addNippleOrificeModifier(ORIFICE_MODIFIER_PUFFY)]
+			
+			[#npc.setPenisType(PENIS_TYPE_NONE)]
+			
+			#IF(npc.getRaceStage().isVaginaFurry())
+				[#npc.setVaginaType(npc.getTrueRace().getRacialBody().getVaginaType())]
+			#ELSE
+				[#npc.setPenisType(RACE_HUMAN.getRacialBody().getVaginaType())]
+			#ENDIF
+			[#npc.setVaginaWetness(WETNESS_SEVEN_DROOLING)]
+		]]></effect>
+	</potionEffects>
+	
+</potionEnchantment>
