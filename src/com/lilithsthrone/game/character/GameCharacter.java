@@ -25606,7 +25606,7 @@ public abstract class GameCharacter implements XMLSaving {
 	}
 	
 	public boolean isFeral() {
-		return getBody().isFeral();
+		return getBody()!=null && getBody().isFeral();
 	}
 
 	public boolean isFeralConfigurationAvailable() {

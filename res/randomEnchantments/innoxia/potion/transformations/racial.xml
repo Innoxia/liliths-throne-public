@@ -29,7 +29,7 @@
 	]]></conditionalPreParsing>
 	
 	<applicationSpeechStart><![CDATA[
-		It's time for you to get a new look! How about... Hmm... Oh, I know! You can be
+		It's time for you to get a new look! How about... Hmm... Oh, I know! Being
 		#IF(flags.getObject('potionRaceStage')!=RACE_STAGE_HUMAN)
 			 [#utilText.static.generateSingularDeterminer(flags.getObject('potionRaceStage').getName())]
 			#IF(flags.getObject('potionRaceStage')==RACE_STAGE_PARTIAL)
@@ -40,7 +40,8 @@
 		#ELSE
 			[#utilText.static.generateSingularDeterminer(flags.getString('potionRaceName'))]
 		#ENDIF
-		 <span style='color:[#flags.getObject('potionSubspecies').getColour(npc).toWebHexString()];'>[#flags.getString('potionRaceName')]</span>!
+		 <span style='color:[#flags.getObject('potionSubspecies').getColour(npc).toWebHexString()];'>[#flags.getString('potionRaceName')]</span>
+		 would suit you perfectly!
 	]]></applicationSpeechStart>
 	
 	<applicationSpeechEnd/>
@@ -115,7 +116,7 @@
 			#ENDIF
 			
 			[##flags.getObject('potionSubspecies').getRace().applyRaceChanges(npc.getBody())]
-			[##flags.getObject('potionSubspecies').applySpeciesChanges(npc.getBody())]
+			[##flags.getObject('potionSubspecies').applySpeciesChanges(npc, npc.getBody())]
 			[##npc.getBody().calculateRace(npc)]
 			
 		]]></effect>

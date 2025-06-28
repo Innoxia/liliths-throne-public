@@ -84,8 +84,8 @@ public class Tail implements BodyPartInterface {
 	}
 
 	public String setType(GameCharacter owner, AbstractTailType type) {
-		if(!Main.game.isStarted() || owner==null) {
-			if(owner!=null && !owner.getLegConfiguration().isAbleToGrowTail()) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
+			if(owner!=null && owner.getBody()!=null && !owner.getLegConfiguration().isAbleToGrowTail()) {
 				type = TailType.NONE;
 			}
 			if(this.getLengthAsPercentageOfHeight()==this.getType().getDefaultLengthAsPercentageOfHeight()) {
@@ -190,7 +190,7 @@ public class Tail implements BodyPartInterface {
 
 	public String setTailCount(GameCharacter owner, int tailCount, boolean overrideYoukoLimitations) {
 		tailCount = Math.max(1, Math.min(tailCount, MAXIMUM_COUNT));
-		if(!Main.game.isStarted() || owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
 			this.tailCount = tailCount;
 			return "";
 		}
@@ -323,7 +323,7 @@ public class Tail implements BodyPartInterface {
 	 * Sets the girth. Value is bound to >=0 && <=PenisGirth.FOUR_FAT.getValue()
 	 */
 	public String setTailGirth(GameCharacter owner, int girth) {
-		if(owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner) || owner.getBody()==null) {
 			this.girth = Math.max(0, Math.min(girth, PenetrationGirth.getMaximum()));
 			return "";
 		}
@@ -368,7 +368,7 @@ public class Tail implements BodyPartInterface {
 	 * Sets the tails' length as a percentage of the owner's height. Value is bound to >=0.05f && <=2.5f
 	 */
 	public String setLengthAsPercentageOfHeight(GameCharacter owner, float lengthAsPercentageOfHeight) {
-		if(owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner) || owner.getBody()==null) {
 			this.lengthAsPercentageOfHeight = Math.max(LENGTH_PERCENTAGE_MIN, Math.min(lengthAsPercentageOfHeight, LENGTH_PERCENTAGE_MAX));
 			return "";
 		}
@@ -459,7 +459,7 @@ public class Tail implements BodyPartInterface {
 	
 	@Override
 	public boolean isFeral(GameCharacter owner) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Tail.class) && getType().getRace().isFeralPartsAvailable());

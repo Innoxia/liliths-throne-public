@@ -3575,8 +3575,8 @@ public class Subspecies {
 			sb.append(body.getHorn().setType(target, HornType.NONE));
 			sb.append(body.getWing().setType(target, WingType.NONE));
 			sb.append(body.getLeg().setType(target, LegType.HORSE_MORPH));
-			if(target!=null) {
-				sb.append(target.setLegConfiguration(LegConfiguration.QUADRUPEDAL, true));
+			if(target!=null && target.getBody()!=null) {
+				sb.append(target.setLegConfiguration(LegType.HORSE_MORPH, LegConfiguration.QUADRUPEDAL, true));
 			} else {
 				LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.QUADRUPEDAL, true);
 			}
@@ -3660,8 +3660,8 @@ public class Subspecies {
 			
 			sb.append(body.getHorn().setType(target, HornType.NONE));
 			sb.append(body.getLeg().setType(target, LegType.HORSE_MORPH));
-			if(target!=null) {
-				sb.append(target.setLegConfiguration(LegConfiguration.QUADRUPEDAL, true));
+			if(target!=null && target.getBody()!=null) {
+				sb.append(target.setLegConfiguration(LegType.HORSE_MORPH, LegConfiguration.QUADRUPEDAL, true));
 			} else {
 				LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.QUADRUPEDAL, true);
 			}
@@ -3759,8 +3759,8 @@ public class Subspecies {
 			sb.append(body.getHorn().setHornsPerRow(target, 1));
 			sb.append(body.getHorn().setHornLength(target, HornLength.TWO_LONG.getMedianValue()));
 			sb.append(body.getLeg().setType(target, LegType.HORSE_MORPH));
-			if(target!=null) {
-				sb.append(target.setLegConfiguration(LegConfiguration.QUADRUPEDAL, true));
+			if(target!=null && target.getBody()!=null) {
+				sb.append(target.setLegConfiguration(LegType.HORSE_MORPH, LegConfiguration.QUADRUPEDAL, true));
 			} else {
 				LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.QUADRUPEDAL, true);
 			}
@@ -3851,8 +3851,8 @@ public class Subspecies {
 			sb.append(body.getHorn().setHornsPerRow(target, 1));
 			sb.append(body.getHorn().setHornLength(target, HornLength.TWO_LONG.getMedianValue()));
 			sb.append(body.getLeg().setType(target, LegType.HORSE_MORPH));
-			if(target!=null) {
-				sb.append(target.setLegConfiguration(LegConfiguration.QUADRUPEDAL, true));
+			if(target!=null && target.getBody()!=null) {
+				sb.append(target.setLegConfiguration(LegType.HORSE_MORPH, LegConfiguration.QUADRUPEDAL, true));
 			} else {
 				LegType.HORSE_MORPH.applyLegConfigurationTransformation(body, LegConfiguration.QUADRUPEDAL, true);
 			}

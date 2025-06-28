@@ -11,6 +11,13 @@ import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
  */
 public interface BodyPartInterface {
 
+	/**
+	 * Checks for null character and also if the character's body is null (which indicates that it hasn't finished initialisation yet)
+	 */
+	default boolean isCharacterInitialised(GameCharacter gc) {
+		return gc!=null && gc.getBody()!=null;
+	}
+	
 	public abstract BodyPartTypeInterface getType();
 
 	public abstract String getDeterminer(GameCharacter gc);

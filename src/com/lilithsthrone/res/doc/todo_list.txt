@@ -43,6 +43,9 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[x] FAF email
 	
 	
+	[] fix for prone bone:
+		[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax, and, leaning down on top of [npc2.name], [npc.she] [npc.verb(gaze)] lustfully down into [npc2.her] [npc2.eyes+].
+	
 	[] break out of inventory should go to new dialogue node and continue from that to return to inventory (unless in sex)
 		
 	[] add titanic height up to 16'

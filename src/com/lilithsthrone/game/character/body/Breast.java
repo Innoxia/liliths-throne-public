@@ -88,7 +88,7 @@ public class Breast implements BodyPartInterface {
 
 	public String setShape(GameCharacter owner, BreastShape shape) {
 		if (shape == getShape()) {
-			if(owner==null) {
+			if(!isCharacterInitialised(owner)) {
 				return "";
 			}
 			return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] already [npc.has] "+shape.getDescriptor()+" breasts, so nothing happens...)]</p>");
@@ -171,7 +171,7 @@ public class Breast implements BodyPartInterface {
 	}
 
 	public String setType(GameCharacter owner, AbstractBreastType type) {
-		if(!Main.game.isStarted() || owner==null) {
+		if(!Main.game.isStarted() || !isCharacterInitialised(owner)) {
 			this.type = type;
 			nipples.setType(owner, type.getNippleType());
 			milk.setType(type.getFluidType());
@@ -239,7 +239,7 @@ public class Breast implements BodyPartInterface {
 		int oldSize = this.size;
 		this.size = Math.max(0, Math.min(size, CupSize.getMaximumCupSize().getMeasurement()));
 		int sizeChange = this.size - oldSize;
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			this.size = size;
 			return "";
 		}
@@ -293,7 +293,7 @@ public class Breast implements BodyPartInterface {
 		int oldLactation = this.milkStorage;
 		this.milkStorage = Math.max(0, Math.min(milkStorage, Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue()));
 		int lactationChange = this.milkStorage - oldLactation;
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -338,7 +338,7 @@ public class Breast implements BodyPartInterface {
 		this.milkStored = Math.max(0, (Math.min(milkStored, getRawMilkStorageValue())));
 		float lactationChange = oldStoredMilk - this.milkStored;
 		
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -378,7 +378,7 @@ public class Breast implements BodyPartInterface {
 		this.milkRegeneration = Math.max(0, Math.min(milkRegeneration, FluidRegeneration.FOUR_VERY_RAPID.getMaximumRegenerationValuePerDay()));
 		int regenerationChange = this.milkRegeneration - oldRegeneration;
 
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return "";
 		}
 		
@@ -416,7 +416,7 @@ public class Breast implements BodyPartInterface {
 	public String setRows(GameCharacter owner, int rows) {
 		rows = Math.max(1, Math.min(rows, MAXIMUM_BREAST_ROWS));
 		
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			this.rows = rows;
 			return "";
 		}
@@ -477,7 +477,7 @@ public class Breast implements BodyPartInterface {
 	public String setNippleCountPerBreast(GameCharacter owner, int nippleCountPerBreast) {
 		nippleCountPerBreast = Math.max(1, Math.min(nippleCountPerBreast, MAXIMUM_NIPPLES_PER_BREAST));
 
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			this.nippleCountPerBreast = nippleCountPerBreast;
 			return "";
 		}
@@ -515,7 +515,7 @@ public class Breast implements BodyPartInterface {
 
 	@Override
 	public boolean isFeral(GameCharacter owner) {
-		if(owner==null) {
+		if(!isCharacterInitialised(owner)) {
 			return false;
 		}
 		return owner.isFeral() || (owner.getLegConfiguration().getFeralParts().contains(Breast.class) && getType().getRace().isFeralPartsAvailable());
