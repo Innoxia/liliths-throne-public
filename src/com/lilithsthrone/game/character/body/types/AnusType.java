@@ -114,7 +114,7 @@ public class AnusType {
 	};
 	
 	public static AbstractAnusType WOLF_MORPH = new AbstractAnusType(BodyCoveringType.ANUS,
-			Race.BAT_MORPH,
+			Race.WOLF_MORPH,
 			null,
 			null,
 			Util.newArrayListOfValues(""),
