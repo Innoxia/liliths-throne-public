@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<subspecies>
+	<race>innoxia_panther</race>
+	<colour>innoxia_panther</colour>
+	<secondaryColour>innoxia_panther</secondaryColour>
+	<tertiaryColour>innoxia_panther</tertiaryColour>
+	<mainSubspecies>true</mainSubspecies>
+	<baseSlaveValue>90000</baseSlaveValue>
+	<attributeItemId>innoxia_race_panther_deep_roar</attributeItemId>
+	<transformativeItemId>innoxia_race_panther_panthers_delight</transformativeItemId>
+	<subspeciesOverridePriority>0</subspeciesOverridePriority>
+	<shortStature>false</shortStature>
+	<bipedalSubspecies>true</bipedalSubspecies>
+	<aquatic>false</aquatic>
+	
+	<applySubspeciesChanges><![CDATA[
+		[#targetedBody.setWingType(WING_TYPE_LEATHERY)]
+		[#targetedBody.setTailType(TAIL_TYPE_mintychip_panther_tailManticore)]
+		#IF(targetedBody.getWingSizeValue() < targetedBody.getLegConfiguration().getMinimumWingSizeForFlight(targetedBody).getValue())
+			[#targetedBody.setWingSize(targetedBody.getLegConfiguration().getMinimumWingSizeForFlight(targetedBody).getValue())]
+		#ENDIF
+	]]></applySubspeciesChanges>
+	<subspeciesWeighting><![CDATA[
+		#IF(targetedRace==RACE_innoxia_panther && targetedBody.getTailType() == TAIL_TYPE_mintychip_panther_tailManticore)
+			120
+		#ELSE
+			0
+		#ENDIF
+	]]></subspeciesWeighting>
+	<iconName displaySize="80">icon_manticore</iconName>
+	<backgroundName/>
+	<bookIconName>icon</bookIconName>
+	<bookName>Catty Chimeras</bookName>
+	<basicDescriptionId>CHIMERA_BASIC</basicDescriptionId>
+	<advancedDescriptionId>CHIMERA_ADVANCED</advancedDescriptionId>
+	<defaultPreference>TWO_AVERAGE</defaultPreference>
+	<name><![CDATA[manticore-morph]]></name>
+	<namePlural><![CDATA[manticore-morphs]]></namePlural>
+	<singularMaleName><![CDATA[manticore-boy]]></singularMaleName>
+	<singularFemaleName><![CDATA[manticore-girl]]></singularFemaleName>
+	<pluralMaleName><![CDATA[manticore-boys]]></pluralMaleName>
+	<pluralFemaleName><![CDATA[manticore-girls]]></pluralFemaleName>
+	<description><![CDATA[An anthropomorphic manticore, known as a 'manticore-morph' when bipedal, and a 'manticoretaur' when the lower body is that of a feral manticore. To be identified as a manticore-morph, a character must be a panther with a manticore tail.]]></description>
+	<feralAttributes>
+		<feralName><![CDATA[manticore]]></feralName>
+		<feralNamePlural><![CDATA[manticores]]></feralNamePlural>
+		<feralSingularMaleName><![CDATA[manticore]]></feralSingularMaleName>
+		<feralSingularFemaleName><![CDATA[manticore]]></feralSingularFemaleName>
+		<feralPluralMaleName><![CDATA[manticores]]></feralPluralMaleName>
+		<feralPluralFemaleName><![CDATA[manticores]]></feralPluralFemaleName>
+		<legConfiguration>QUADRUPEDAL</legConfiguration>
+		<sizeHeight>true</sizeHeight>
+		<size>100</size>
+		<breastRowCount>0</breastRowCount>
+		<nipplesPerBreastCount>1</nipplesPerBreastCount>
+		<crotchBreastRowCount>4</crotchBreastRowCount>
+		<nipplesPerCrotchBreastCount>1</nipplesPerCrotchBreastCount>
+		<armsOrWingsPresent>true</armsOrWingsPresent>
+		<fingerActionsAvailable>false</fingerActionsAvailable>
+		<hairPresent>true</hairPresent>
+	</feralAttributes>
+	<statusEffectDescription><![CDATA[
+		[npc.NamePos] body is extremely quick, and [npc.sheIsFull] capable of great feats of strength. [npc.She] also projects a wild sensuality.
+	]]></statusEffectDescription>
+	<statusEffectAttributeModifiers>
+		<attribute value="45">MAJOR_PHYSIQUE</attribute>
+		<attribute value="15">MAJOR_CORRUPTION</attribute>
+		<attribute value="15">DAMAGE_LUST</attribute>
+		<attribute value="30">CRITICAL_DAMAGE</attribute>
+		<attribute value="-5">RESISTANCE_LUST</attribute>
+	</statusEffectAttributeModifiers>
+	<extraEffects/>
+	<perkWeightings>
+		<category masculineWeighting="10" feminineWeighting="5">PHYSICAL</category>
+		<category masculineWeighting="1" feminineWeighting="1">LUST</category>
+		<category masculineWeighting="0" feminineWeighting="0">ARCANE</category>
+	</perkWeightings>
+	<regionLocations>
+		<region rarity="ZERO_EXTREMELY_RARE">VOLCANO</region>
+		<region rarity="ZERO_EXTREMELY_RARE">DESERT</region>
+		<region rarity="ZERO_EXTREMELY_RARE">MOUNTAINS</region>
+	</regionLocations>
+	<worldLocations>
+		<world rarity="ZERO_EXTREMELY_RARE">NIGHTLIFE_CLUB</world>
+	</worldLocations>
+	<flags/>
+</subspecies>
