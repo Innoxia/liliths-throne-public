@@ -26,6 +26,7 @@
 	<defaultOrificeModifiers/>
 	
 	<transformationDescription><![CDATA[
+	[##npc.setGirlcumFlavour(FLUID_FLAVOUR_HONEY)]
 			[npc.She] [npc.verb(let)] out a squeal of excitement as a wave of pleasure runs up through [npc.her] groin, which increases in intensity as [npc.she] [npc.verb(feel)] [npc.her] slit uncontrollably shifting and contracting. Within moments, the feeling fades away, and [npc.she] [npc.verb(discover)] that [npc.her] pussy [npc.has] reformed and puffed up into a distinctly bee-like form. [##npc.getCovering(BODY_COVERING_TYPE_GIRL_CUM).setPrimaryColour(COLOUR_COVERING_AMBER)]
 		</p>
 		<p>

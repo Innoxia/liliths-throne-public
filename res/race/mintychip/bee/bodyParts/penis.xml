@@ -41,6 +41,7 @@
 	<!-- The description which is shown when a character transforms to obtain this penis type.
 	This description immediately follows a brief description of the penis type beginning to transform. -->
 	<transformationDescription><![CDATA[
+	[##npc.setCumFlavour(FLUID_FLAVOUR_HONEY)]
 		Letting out an involuntary moan, [npc.name] [npc.verb(feel)] [npc.her] penis shifting into a new form, and [npc.sheIs] hit by a wave of overwhelming arousal as a thick sheath suddenly grows around the base of [npc.her] shaft. As [npc.she] [npc.verb(pant)] and [npc.verb(gasp)] for air, the tip of [npc.her] cock narrows down as it tapers into its new form. [##npc.getCovering(BODY_COVERING_TYPE_CUM).setPrimaryColour(COLOUR_COVERING_AMBER)]
 		<br/>[npc.She] now [npc.has] a [style.boldBee(bee-like penis)], [npc.materialDescriptor] [npc.penisFullDescription(true)].
 		<br/>[npc.She] [npc.has] [style.boldBee([npc.ballsCount]#IF(npc.isInternalTesticles()) internal#ENDIF balls)], [npc.materialDescriptor] [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldBee(bee honey)].

@@ -30,6 +30,7 @@
 	
 	
 	<transformationDescription><![CDATA[ [##npc.getCovering(BODY_COVERING_TYPE_MILK).setPrimaryColour(COLOUR_COVERING_AMBER)]
+	[##npc.setMilkFlavour(FLUID_FLAVOUR_HONEY)]
 		[npc.She] now [npc.has] [style.boldBee(surprisingly humanoid)], [npc.nipplesFullDescription], and when lactating, [npc.she] will produce [style.boldBee(bee-like honey)].
 	]]></transformationDescription>
 	
@@ -40,6 +41,7 @@
 	
 	
 	<crotchBoobsTransformationDescription><![CDATA[ [##npc.getCovering(BODY_COVERING_TYPE_MILK).setPrimaryColour(COLOUR_COVERING_AMBER)]
+	[##npc.setMilkCrotchFlavour(FLUID_FLAVOUR_HONEY)]
 		[npc.She] now [npc.has] [style.boldBee(mammal-like)], [npc.crotchNipplesFullDescription], and when lactating, [npc.she] will produce [style.boldBee(bee honey)].
 	]]></crotchBoobsTransformationDescription>
 	
