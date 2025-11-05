@@ -54,10 +54,10 @@
 
 	<useDescriptions>
 		<selfUse><![CDATA[
-		[npc.Name] [npc.verb(pop)] the cap off the bottle of Honey Mead, before tilting [npc.her] head back and gulping down the golden brown liquid. Quickly finishing off the entire bottle, [npc.name] [npc.verb(savours)] the faint, sweet aftertaste that remains.
+		[npc.Name] [npc.verb(pop)] the cap off the bottle of Honey Mead, before tilting [npc.her] head back and gulping down the golden brown liquid. Quickly finishing off the entire bottle, [npc.name] [npc.verb(savour)] the faint, sweet aftertaste that remains.
 		]]></selfUse>
 		<otherUse><![CDATA[
-		[npc.Name] [npc.verb(pop)] the cap off the bottle of Honey Mead, before bringing it up to [npc2.namePos] [npc2.lips] and making [npc2.herHim] gulp down the golden brown liquid. Quickly finishing off the entire bottle, [npc2.name] [npc.verb(savours)] the faint, sweet aftertaste that remains.
+		[npc.Name] [npc.verb(pop)] the cap off the bottle of Honey Mead, before bringing it up to [npc2.namePos] [npc2.lips] and making [npc2.herHim] gulp down the golden brown liquid. Quickly finishing off the entire bottle, [npc2.name] [npc.verb(savour)] the faint, sweet aftertaste that remains.
 		]]></otherUse>
 	</useDescriptions>
 

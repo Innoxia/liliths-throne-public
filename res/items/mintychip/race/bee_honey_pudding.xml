@@ -53,10 +53,10 @@
 
 	<useDescriptions>
 		<selfUse><![CDATA[
-		[npc.Name] [npc.verb(pull)] the lid off of the brown plastic cup and [npc.verb(unwrap)] the attached spoon. After taking a sniff of the sweet smelling dessert, [npc.she] [npc.verb(start)] digging in, savouring eash spoonfull. In a matter of moments, [npc.she] has devoured the entire cup.
+		[npc.Name] [npc.verb(pull)] the lid off of the brown plastic cup and [npc.verb(unwrap)] the attached spoon. After taking a sniff of the sweet smelling dessert, [npc.she] [npc.verb(start)] digging in, savouring each spoonful. In a matter of moments, [npc.she] [npc.has] devoured the entire cup.
 		]]></selfUse>
 		<otherUse><![CDATA[
-		[npc.Name] [npc.verb(pull)] the lid off of the brown plastic cup and [npc.verb(unwrap)] the attached spoon before holding it out to [npc2.name]. After taking a sniff of the sweet smelling dessert, [npc2.she] [npc2.verb(start)] digging in, savouring eash spoonfull. In a matter of moments, [npc2.she] has devoured the entire cup.
+		[npc.Name] [npc.verb(pull)] the lid off of the brown plastic cup and [npc.verb(unwrap)] the attached spoon before holding it out to [npc2.name]. After taking a sniff of the sweet smelling dessert, [npc2.she] [npc2.verb(start)] digging in, savouring each spoonful. In a matter of moments, [npc2.she] [npc.has] devoured the entire cup.
 		]]></otherUse>
 	</useDescriptions>
 
