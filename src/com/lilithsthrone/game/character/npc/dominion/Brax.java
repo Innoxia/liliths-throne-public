@@ -412,7 +412,7 @@ public class Brax extends NPC {
 	}
 
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 			if(this.isFeminine()) {
 				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {

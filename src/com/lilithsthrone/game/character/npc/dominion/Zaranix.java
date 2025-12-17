@@ -236,7 +236,7 @@ public class Zaranix extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		if(this.isFeminine()) {
 			return "#EB82ED";
 		} else {

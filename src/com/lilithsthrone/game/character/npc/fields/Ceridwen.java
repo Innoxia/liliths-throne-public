@@ -213,7 +213,7 @@ public class Ceridwen extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		return PresetColour.BASE_PINK_SALMON.toWebHexString();
 	}
 	

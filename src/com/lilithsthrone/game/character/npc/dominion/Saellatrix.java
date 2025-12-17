@@ -376,7 +376,7 @@ public class Saellatrix extends NPC {
 	}
 
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		return "#eb6a91";
 	}
 	

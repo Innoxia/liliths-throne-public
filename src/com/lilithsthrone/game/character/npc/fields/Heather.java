@@ -294,7 +294,7 @@ public class Heather extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		return "#d6a5e6";
 	}
 	

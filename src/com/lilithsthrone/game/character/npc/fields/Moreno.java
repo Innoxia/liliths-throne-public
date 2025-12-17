@@ -207,7 +207,7 @@ public class Moreno extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		return "#808fff";
 	}
 

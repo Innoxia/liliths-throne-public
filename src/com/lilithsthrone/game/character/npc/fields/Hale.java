@@ -230,7 +230,7 @@ public class Hale extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		return "#d1c084";
 	}
 	

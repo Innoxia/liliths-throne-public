@@ -405,7 +405,7 @@ public class DarkSiren extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 			return "#7E0094";
 		}//

@@ -228,7 +228,7 @@ public class SupplierLeader extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		return "#d2ab77";
 	}
 	

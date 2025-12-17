@@ -407,7 +407,7 @@ public class Lilaya extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		return "#ff66a3";
 	}
 	

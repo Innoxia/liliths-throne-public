@@ -332,7 +332,7 @@ public class Lyssieth extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 			return "#71009E";
 		}

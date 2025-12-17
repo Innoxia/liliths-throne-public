@@ -261,7 +261,7 @@ public class Hammer extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		if(Main.game.isLightTheme()) {
 			return "#3b3e4e";
 		}

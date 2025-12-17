@@ -340,7 +340,7 @@ public class Minotallys extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		if(this.getTorsoType().getRace()==Race.DEMON) {
 			if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 				return "#872f91";

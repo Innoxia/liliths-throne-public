@@ -261,7 +261,7 @@ public class Ghost extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		if(Main.game.isLightTheme()) {
 			return "#48372b";
 		}

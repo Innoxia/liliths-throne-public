@@ -198,7 +198,7 @@ public class HazmatRat extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		return PresetColour.BASE_GREEN_LIME.toWebHexString();
 	}
 	
