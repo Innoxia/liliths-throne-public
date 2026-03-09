@@ -3,6 +3,7 @@ package com.lilithsthrone.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.lilithsthrone.utils.Util;
 import org.w3c.dom.events.EventTarget;
 
 import com.lilithsthrone.controller.eventListeners.InventorySelectedItemEventListener;
@@ -26,6 +27,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Pattern;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.colours.Colour;
+import org.w3c.dom.events.MouseEvent;
 
 /**
  * @since 0.4.6.4
@@ -110,12 +112,16 @@ public class InventoryController {
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 				if (Main.game.getPlayer().getMoney()>0 && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.FULL_MANAGEMENT) {
-					if (InventoryDialogue.getInventoryNPC() == null) {
-						Main.game.getPlayerCell().getInventory().incrementMoney((long) Math.max(1, Main.game.getPlayer().getMoney()*0.01f));
-					} else {
-						InventoryDialogue.getInventoryNPC().incrementMoney((long) Math.max(1, Main.game.getPlayer().getMoney()*0.01f));
+					long transferAmount = (long)Math.max(1, Main.game.getPlayer().getMoney()*0.01f);
+					if (e instanceof MouseEvent && ((MouseEvent)e).getShiftKey()) {
+						transferAmount = Util.getRoundedFlamesTransferAmount(transferAmount);
 					}
-					Main.game.getPlayer().incrementMoney((long) -Math.max(1, Main.game.getPlayer().getMoney()*0.01f));
+					if (InventoryDialogue.getInventoryNPC() == null) {
+						Main.game.getPlayerCell().getInventory().incrementMoney(transferAmount);
+					} else {
+						InventoryDialogue.getInventoryNPC().incrementMoney(transferAmount);
+					}
+					Main.game.getPlayer().incrementMoney(-transferAmount);
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}
 			}, false);
@@ -125,12 +131,16 @@ public class InventoryController {
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 				if (Main.game.getPlayer().getMoney()>0 && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.FULL_MANAGEMENT) {
-					if (InventoryDialogue.getInventoryNPC() == null) {
-						Main.game.getPlayerCell().getInventory().incrementMoney((long) Math.max(1, Main.game.getPlayer().getMoney()*0.1f));
-					} else {
-						InventoryDialogue.getInventoryNPC().incrementMoney((long) Math.max(1, Main.game.getPlayer().getMoney()*0.1f));
+					long transferAmount = (long)Math.max(1, Main.game.getPlayer().getMoney()*0.1f);
+					if (e instanceof MouseEvent && ((MouseEvent)e).getShiftKey()) {
+						transferAmount = Util.getRoundedFlamesTransferAmount(transferAmount);
 					}
-					Main.game.getPlayer().incrementMoney((long) -Math.max(1, Main.game.getPlayer().getMoney()*0.1f));
+					if (InventoryDialogue.getInventoryNPC() == null) {
+						Main.game.getPlayerCell().getInventory().incrementMoney(transferAmount);
+					} else {
+						InventoryDialogue.getInventoryNPC().incrementMoney(transferAmount);
+					}
+					Main.game.getPlayer().incrementMoney(-transferAmount);
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}
 			}, false);
@@ -140,12 +150,16 @@ public class InventoryController {
 		if (MainController.document.getElementById(id) != null) {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 				if (Main.game.getPlayer().getMoney()>0 && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.FULL_MANAGEMENT) {
-					if (InventoryDialogue.getInventoryNPC() == null) {
-						Main.game.getPlayerCell().getInventory().incrementMoney(Math.max(1, Main.game.getPlayer().getMoney()));
-					} else {
-						InventoryDialogue.getInventoryNPC().incrementMoney(Math.max(1, Main.game.getPlayer().getMoney()));
+					long transferAmount = (long)Math.max(1, Main.game.getPlayer().getMoney()*1f);
+					if (e instanceof MouseEvent && ((MouseEvent)e).getShiftKey()) {
+						transferAmount = Util.getRoundedFlamesTransferAmount(transferAmount);
 					}
-					Main.game.getPlayer().incrementMoney(-Math.max(1, Main.game.getPlayer().getMoney()));
+					if (InventoryDialogue.getInventoryNPC() == null) {
+						Main.game.getPlayerCell().getInventory().incrementMoney(transferAmount);
+					} else {
+						InventoryDialogue.getInventoryNPC().incrementMoney(transferAmount);
+					}
+					Main.game.getPlayer().incrementMoney(-transferAmount);
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}
 			}, false);
@@ -185,8 +199,12 @@ public class InventoryController {
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 					if (InventoryDialogue.getInventoryNPC().getMoney()>0 && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.FULL_MANAGEMENT) {
-						Main.game.getPlayer().incrementMoney((long) Math.max(1, InventoryDialogue.getInventoryNPC().getMoney()*0.01f));
-						InventoryDialogue.getInventoryNPC().incrementMoney((long) -Math.max(1, InventoryDialogue.getInventoryNPC().getMoney()*0.01f));
+						long transferAmount = (long)Math.max(1, InventoryDialogue.getInventoryNPC().getMoney()*0.01f);
+						if (e instanceof MouseEvent && ((MouseEvent)e).getShiftKey()) {
+							transferAmount = Util.getRoundedFlamesTransferAmount(transferAmount);
+						}
+						Main.game.getPlayer().incrementMoney(transferAmount);
+						InventoryDialogue.getInventoryNPC().incrementMoney(-transferAmount);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}
 				}, false);
@@ -196,8 +214,12 @@ public class InventoryController {
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 					if (InventoryDialogue.getInventoryNPC().getMoney()>0 && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.FULL_MANAGEMENT) {
-						Main.game.getPlayer().incrementMoney((long) Math.max(1, InventoryDialogue.getInventoryNPC().getMoney()*0.1f));
-						InventoryDialogue.getInventoryNPC().incrementMoney((long) -Math.max(1, InventoryDialogue.getInventoryNPC().getMoney()*0.1f));
+						long transferAmount = (long)Math.max(1, InventoryDialogue.getInventoryNPC().getMoney()*0.1f);
+						if (e instanceof MouseEvent && ((MouseEvent)e).getShiftKey()) {
+							transferAmount = Util.getRoundedFlamesTransferAmount(transferAmount);
+						}
+						Main.game.getPlayer().incrementMoney(transferAmount);
+						InventoryDialogue.getInventoryNPC().incrementMoney(-transferAmount);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}
 				}, false);
@@ -207,8 +229,12 @@ public class InventoryController {
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 					if (InventoryDialogue.getInventoryNPC().getMoney()>0 && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.FULL_MANAGEMENT) {
-						Main.game.getPlayer().incrementMoney(Math.max(1, InventoryDialogue.getInventoryNPC().getMoney()));
-						InventoryDialogue.getInventoryNPC().incrementMoney(-Math.max(1, InventoryDialogue.getInventoryNPC().getMoney()));
+						long transferAmount = (long)Math.max(1, InventoryDialogue.getInventoryNPC().getMoney()*1f);
+						if (e instanceof MouseEvent && ((MouseEvent)e).getShiftKey()) {
+							transferAmount = Util.getRoundedFlamesTransferAmount(transferAmount);
+						}
+						Main.game.getPlayer().incrementMoney(transferAmount);
+						InventoryDialogue.getInventoryNPC().incrementMoney(-transferAmount);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}
 				}, false);
@@ -248,8 +274,12 @@ public class InventoryController {
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 					if (Main.game.getPlayerCell().getInventory().getMoney()>0 && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.FULL_MANAGEMENT) {
-						Main.game.getPlayer().incrementMoney((long) Math.max(1, Main.game.getPlayerCell().getInventory().getMoney()*0.01f));
-						Main.game.getPlayerCell().getInventory().incrementMoney((long) -Math.max(1, Main.game.getPlayerCell().getInventory().getMoney()*0.01f));
+						long transferAmount = (long)Math.max(1, Main.game.getPlayerCell().getInventory().getMoney()*0.01f);
+						if (e instanceof MouseEvent && ((MouseEvent)e).getShiftKey()) {
+							transferAmount = Util.getRoundedFlamesTransferAmount(transferAmount);
+						}
+						Main.game.getPlayer().incrementMoney(transferAmount);
+						Main.game.getPlayerCell().getInventory().incrementMoney(-transferAmount);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}
 				}, false);
@@ -259,8 +289,12 @@ public class InventoryController {
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 					if (Main.game.getPlayerCell().getInventory().getMoney()>0 && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.FULL_MANAGEMENT) {
-						Main.game.getPlayer().incrementMoney((long) Math.max(1, Main.game.getPlayerCell().getInventory().getMoney()*0.1f));
-						Main.game.getPlayerCell().getInventory().incrementMoney((long) -Math.max(1, Main.game.getPlayerCell().getInventory().getMoney()*0.1f));
+						long transferAmount = (long)Math.max(1, Main.game.getPlayerCell().getInventory().getMoney()*0.1f);
+						if (e instanceof MouseEvent && ((MouseEvent)e).getShiftKey()) {
+							transferAmount = Util.getRoundedFlamesTransferAmount(transferAmount);
+						}
+						Main.game.getPlayer().incrementMoney(transferAmount);
+						Main.game.getPlayerCell().getInventory().incrementMoney(-transferAmount);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}
 				}, false);
@@ -270,8 +304,12 @@ public class InventoryController {
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 					if (Main.game.getPlayerCell().getInventory().getMoney()>0 && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.FULL_MANAGEMENT) {
-						Main.game.getPlayer().incrementMoney(Math.max(1, Main.game.getPlayerCell().getInventory().getMoney()));
-						Main.game.getPlayerCell().getInventory().incrementMoney(-Math.max(1, Main.game.getPlayerCell().getInventory().getMoney()));
+						long transferAmount = (long)Math.max(1, Main.game.getPlayerCell().getInventory().getMoney()*1f);
+						if (e instanceof MouseEvent && ((MouseEvent)e).getShiftKey()) {
+							transferAmount = Util.getRoundedFlamesTransferAmount(transferAmount);
+						}
+						Main.game.getPlayer().incrementMoney(transferAmount);
+						Main.game.getPlayerCell().getInventory().incrementMoney(-transferAmount);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}
 				}, false);

@@ -1677,7 +1677,7 @@ public class TooltipInformationEventListener implements EventListener {
 			
 			if(InventoryDialogue.getNPCInventoryInteraction()==InventoryInteraction.FULL_MANAGEMENT
 					&& owner!=null?owner.getMoney()>0:Main.game.getPlayerCell().getInventory().getMoney()>0) {
-				Main.mainController.setTooltipSize(360, 112);
+				Main.mainController.setTooltipSize(360, 144);
 			} else {
 				Main.mainController.setTooltipSize(360, 96);
 			}
@@ -1704,16 +1704,20 @@ public class TooltipInformationEventListener implements EventListener {
 				
 			} else if(owner==null) {
 				transferAmount = (long) Math.max(1, Main.game.getPlayerCell().getInventory().getMoney()*(moneyTransferPercentage/100f));
+				long transferAmountB = Util.getRoundedFlamesTransferAmount(transferAmount);
 				tooltipSB.append("<div class='subtitle'>"
 						+ (Main.game.getPlayerCell().getInventory().getMoney()==0
 								?"[style.italicsBad(There are no flames in this area...)]"
 								:UtilText.parse(moneyTransferTarget,
 									"Pick up "+percentageTransfer+" of the flames in this area:<br/> ")
-									+ UtilText.formatAsMoney(transferAmount, "i"))
+									+ UtilText.formatAsMoney(transferAmount, "i") + "<br/> "
+									+ "Or hold shift to transfer a rounded amount:<br/> "
+									+ UtilText.formatAsMoney(transferAmountB, "i"))
 						+"</div>");
 				
 			} else if(owner.isPlayer()) {
 				transferAmount = (long) Math.max(1, owner.getMoney()*(moneyTransferPercentage/100f));
+				long transferAmountB = Util.getRoundedFlamesTransferAmount(transferAmount);
 				tooltipSB.append("<div class='subtitle'>"
 						+ (owner.getMoney()==0
 								?"[style.italicsBad(You do not have any flames, so cannot transfer any money...)]"
@@ -1723,17 +1727,22 @@ public class TooltipInformationEventListener implements EventListener {
 											:"[style.colourGood(Safely store)] "+percentageTransfer+" of your flames in this area:<br/> ")
 									:UtilText.parse(moneyTransferTarget,
 											"Transfer "+percentageTransfer+" of your flames to [npc.name]:<br/> "))
-									+UtilText.formatAsMoney(transferAmount, "i")))
+									+UtilText.formatAsMoney(transferAmount, "i") + "<br/> "
+									+ "Or hold shift to transfer a rounded amount:<br/> "
+									+ UtilText.formatAsMoney(transferAmountB, "i")))
 						+"</div>");
 				
 			} else {
 				transferAmount = (long) Math.max(1, owner.getMoney()*(moneyTransferPercentage/100f));
+				long transferAmountB = Util.getRoundedFlamesTransferAmount(transferAmount);
 				tooltipSB.append("<div class='subtitle'>"
 						+ UtilText.parse(owner,
 								(owner.getMoney()==0
 									?"[style.italicsBad([npc.Name] does not have any flames...)]"
 									:"Take "+percentageTransfer+" of [npc.namePos] flames:<br/> "
-										+ UtilText.formatAsMoney(transferAmount, "i")))
+										+ UtilText.formatAsMoney(transferAmount, "i") + "<br/> "
+										+ "Or hold shift to transfer a rounded amount:<br/> "
+										+ UtilText.formatAsMoney(transferAmountB, "i")))
 						+"</div>");
 			}
 
