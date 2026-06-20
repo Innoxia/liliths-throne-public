@@ -340,7 +340,10 @@ public abstract class AbstractRace {
 	public String applyRaceChanges(Body body) {
 		if(this.isFromExternalFile()) {
 			UtilText.setBodyForParsing("targetedBody", body);
-			return UtilText.parse(raceChangeString);
+			String returnString = UtilText.parse(raceChangeString);
+			// Try to catch and remove unwanted text being returned from methods:
+			returnString = returnString.replaceAll("(?<=\\s|^)(null|true|false)(?=\\s|$)", "");
+			return returnString;
 		}
 		return "";
 	}

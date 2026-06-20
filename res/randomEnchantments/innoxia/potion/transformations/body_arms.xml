@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<potionEnchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	
+	<spawnWeighting><![CDATA[
+		#IF(npc.getArmRows()<3)
+			100
+		#ELSE
+			0
+		#ENDIF
+	]]></spawnWeighting>
+	
+	<conditionalPreParsing><![CDATA[
+		#IF(npc.getArmRows()==2)
+			[#flags.setInt('extremeTF', 100)]
+		#ELSE
+			[#flags.setInt('extremeTF', RND.nextInt(100))]
+		#ENDIF
+	]]></conditionalPreParsing>
+	
+	<name defaultPrepend="true"><![CDATA[Limb-multiplication]]></name>
+	
+	<applicationSpeechStart replaceAll="false"><![CDATA[
+		Wouldn't it be so much fun to have more arms?!
+	]]></applicationSpeechStart>
+	
+	<applicationSpeechEnd replaceAll="false"><![CDATA[
+		Brilliant! Have fun with your new limbs!
+	]]></applicationSpeechEnd>
+	
+	<!-- 66% chance of normal TF -->
+	<potionEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('extremeTF')<66]
+		]]></conditional>
+		<effect><![CDATA[
+			[#npc.setArmRows(2)]
+		]]></effect>
+	</potionEffects>
+	
+	<!-- 33% chance of extreme TF -->
+	<potionEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('extremeTF')>=66]
+		]]></conditional>
+		<effect><![CDATA[
+			[#npc.setArmRows(3)]
+		]]></effect>
+	</potionEffects>
+	
+</potionEnchantment>

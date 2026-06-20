@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character.body;
 
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
@@ -15,7 +16,7 @@ public interface BodyPartInterface {
 	 * Checks for null character and also if the character's body is null (which indicates that it hasn't finished initialisation yet)
 	 */
 	default boolean isCharacterInitialised(GameCharacter gc) {
-		return gc!=null && gc.getBody()!=null;
+		return gc!=null && gc.getBody()!=null && !CharacterUtils.isGeneratingOwnerlessBody();
 	}
 	
 	public abstract BodyPartTypeInterface getType();

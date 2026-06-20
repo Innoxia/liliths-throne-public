@@ -444,7 +444,7 @@ public class MainController implements Initializable {
 	 * Sets up buttons and hotkeys.
 	 */
 	public List<KeyCode> buttonsPressed = new ArrayList<>();
-
+	
 	private void setUpButtons() {
 		// HOTKEYS:
 		actionKeyPressed = new EventHandler<KeyEvent>() {
@@ -513,6 +513,48 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
+
+//							private static List<AbstractSubspecies> subspeciesToDrawFrom;
+//							if(subspeciesToDrawFrom==null) {
+//								subspeciesToDrawFrom = new ArrayList<>(Subspecies.getAllSubspecies());
+//							}
+//							if(!subspeciesToDrawFrom.isEmpty()) {
+//								AbstractSubspecies sub = subspeciesToDrawFrom.get(0);
+//								subspeciesToDrawFrom.remove(0);
+//								
+//								Main.game.getDialogueFlags().setObject("potionSubspecies", sub);
+//								System.out.println("Set subspecies: "+sub.getName(null));
+//							}
+//							Main.game.getPlayer().setBodyUsingSubspeciesPreference(Gender.F_P_V_B_FUTANARI, Subspecies.HUMAN);
+//
+//							Main.game.appendToTextEndStringBuilder(Main.game.getPlayer().useItem(Main.game.getItemGen().generateItem("innoxia_potions_youko_potion"), Main.game.getPlayer(), false, true));
+//							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode() ) {
+//								@Override
+//								public boolean isStripContent() {
+//									return true;
+//								}
+//							});
+							
+//							for(AbstractSubspecies subspecies : Subspecies.getAllSubspecies()) {
+//								System.out.println("################################");
+//								System.out.println(subspecies.getName(null));
+//								try {
+//									NPC npc = new GenericSexualPartner();
+//									npc.setBody(Gender.F_V_B_FEMALE, subspecies, RaceStage.GREATER, true);
+//									Main.game.addNPC(npc, false);
+//								} catch (Exception e) {
+//									e.printStackTrace();
+//								}
+//								try {
+//									NPC npc = new GenericSexualPartner();
+//									npc.setBody(Gender.M_P_MALE, subspecies, RaceStage.GREATER, true);
+//									Main.game.addNPC(npc, false);
+//								} catch (Exception e) {
+//									e.printStackTrace();
+//								}
+//							}
+							
+//							System.out.println("null	null	true	null hello	null	nullify	null false".replaceAll("(?<=\\s|^)(null|true|false)(?=\\s|$)", ""));
 							
 //							RandomEnchantment.initAllRandomEnchantments();
 //							for(RandomEnchantment enchantment : RandomEnchantment.getAllNegativeClothingEnchantments()) {
@@ -1727,6 +1769,12 @@ public class MainController implements Initializable {
 			DebugController.initSpawnSetListeners();
 		} else if (currentNode.equals(DebugDialogue.OUTFIT_VIEWER)) {
 			DebugController.initApplyOutfitListeners();
+		} else if(currentNode.equals(DebugDialogue.RANDOM_ENCHANTMENT_CLOTHING)) {
+			DebugController.initApplyRandomClothingEnchantmentListeners();
+		} else if(currentNode.equals(DebugDialogue.RANDOM_ENCHANTMENT_POTIONS)) {
+			DebugController.initApplyRandomPotionEnchantmentListeners();
+		} else if (currentNode.equals(DebugDialogue.ENCOUNTER_MENU)) {
+			DebugController.initEncounterListeners();
 		} else if (currentNode.equals(ElementalDialogue.ELEMENTAL_FETISHES)
 				|| currentNode.equals(PhoneDialogue.CHARACTER_FETISHES)) {
 			MiscController.initFetishListeners();

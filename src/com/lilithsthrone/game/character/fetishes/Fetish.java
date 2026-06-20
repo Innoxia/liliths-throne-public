@@ -712,7 +712,7 @@ public class Fetish {
 	
 	public static AbstractFetish FETISH_PENIS_GIVING = new AbstractFetish(60,
 			"cock stud",
-			"using their cock",
+			"using [npc.her] cock",
 			"fetish_dick_dealer",
 			FetishExperience.BASE_EXPERIENCE_GAIN,
 			PresetColour.GENERIC_ARCANE,

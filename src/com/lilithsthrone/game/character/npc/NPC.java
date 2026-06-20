@@ -101,6 +101,7 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.item.TransformativePotion;
 import com.lilithsthrone.game.occupantManagement.slave.SlaveJob;
 import com.lilithsthrone.game.settings.ForcedTFTendency;
+import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexControl;
@@ -1151,7 +1152,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	@Override
 	public boolean isAbleToBeEgged() {
 		return (!this.isUnique() || (this.isSlave() && this.getOwner().isPlayer()))
-				&& !this.hasPerkAnywhereInTree(Perk.DOLL_PHYSICAL_2);
+				&& !this.hasPerkAnywhereInTree(Perk.DOLL_PHYSICAL_2)
+				&& !this.isElemental();
 	}
 
 	public boolean isReadyToBeDeleted() {
@@ -3103,42 +3105,47 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				
 				for(AbstractClothing clothing : availableClothingInInventory.keySet()) {
 					boolean wantsToEquip = false;
+					// BDSM:
+					if((clothing.getClothingType().getClothingSet()==SetBonus.getSetBonusFromId("innoxia_bdsm") || clothing.getClothingType().getClothingSet()==SetBonus.getSetBonusFromId("sage_ltxset"))) {
+						wantsToEquip = this.getFetishDesire(Fetish.FETISH_BONDAGE_APPLIER).isPositive();
+					}
+					// Chastity cages are only equipped if NPC has like or love attitude towards denier fetish:
+					if(clothing.getItemTags().contains(ItemTag.CHASTITY)) {
+						wantsToEquip = this.getFetishDesire(Fetish.FETISH_DENIAL).isPositive() || this.getFetishDesire(Fetish.FETISH_BONDAGE_APPLIER).isPositive();
+					}
+					
+					// Sex toys (NPC will not equip sex toys that block the areas they're interested in using):
 					if(clothing.getClothingType().getDefaultItemTags().contains(ItemTag.ENABLE_SEX_EQUIP)) {
-						// Sex toys (NPC will not equip sex toys that block the areas they're interested in):
 						if(clothing.getBlockedPartsMap(partner, clothing.getClothingType().getEquipSlots().get(0)).stream().anyMatch(bp->bp.blockedBodyParts.contains(CoverableArea.PENIS)) && partner.hasPenisIgnoreDildo()) {
-							if((this.getMainSexPreference(partner)!=null && this.getMainSexPreference(partner).getTargetedSexArea()==SexAreaPenetration.PENIS)) {
+							if(wantsToUseAreaDuringSex(SexAreaPenetration.PENIS, partner)) {
+								wantsToEquip = false;
 								continue;
 							}
 							wantsToEquip = true;
 						} else if(clothing.getBlockedPartsMap(partner, clothing.getClothingType().getEquipSlots().get(0)).stream().anyMatch(bp->bp.blockedBodyParts.contains(CoverableArea.VAGINA)) && partner.hasVagina()) {
-							if((this.getMainSexPreference(partner)!=null && this.getMainSexPreference(partner).getTargetedSexArea()==SexAreaOrifice.VAGINA)) {
+							if(wantsToUseAreaDuringSex(SexAreaOrifice.VAGINA, partner)) {
+								wantsToEquip = false;
 								continue;
 							}
 							wantsToEquip = true;
 						} else if(clothing.getBlockedPartsMap(partner, clothing.getClothingType().getEquipSlots().get(0)).stream().anyMatch(bp->bp.blockedBodyParts.contains(CoverableArea.ANUS)) && Main.game.isAnalContentEnabled()) {
-							if((this.getMainSexPreference(partner)!=null && this.getMainSexPreference(partner).getTargetedSexArea()==SexAreaOrifice.ANUS)) {
+							if(wantsToUseAreaDuringSex(SexAreaOrifice.ANUS, partner)) {
+								wantsToEquip = false;
 								continue;
 							}
 							wantsToEquip = true;
 						} else if(clothing.getBlockedPartsMap(partner, clothing.getClothingType().getEquipSlots().get(0)).stream().anyMatch(bp->bp.blockedBodyParts.contains(CoverableArea.NIPPLES))) {
-							if((this.getMainSexPreference(partner)!=null && this.getMainSexPreference(partner).getTargetedSexArea()==SexAreaOrifice.NIPPLE)) {
+							if(wantsToUseAreaDuringSex(SexAreaOrifice.NIPPLE, partner)) {
+								wantsToEquip = false;
 								continue;
 							}
 							wantsToEquip = true;
 						} else if(clothing.getBlockedPartsMap(partner, clothing.getClothingType().getEquipSlots().get(0)).stream().anyMatch(bp->bp.blockedBodyParts.contains(CoverableArea.MOUTH))) {
-							if((this.getMainSexPreference(partner)!=null && this.getMainSexPreference(partner).getTargetedSexArea()==SexAreaOrifice.MOUTH)) {
+							if(wantsToUseAreaDuringSex(SexAreaOrifice.MOUTH, partner)) {
+								wantsToEquip = false;
 								continue;
 							}
 							wantsToEquip = true;
-						}
-						
-						// BDSM:
-						if((clothing.getClothingType().getClothingSet()==SetBonus.getSetBonusFromId("innoxia_bdsm") || clothing.getClothingType().getClothingSet()==SetBonus.getSetBonusFromId("sage_ltxset"))) {
-							wantsToEquip = this.getFetishDesire(Fetish.FETISH_BONDAGE_APPLIER).isPositive();
-						}
-						// Chastity cages are only equipped if NPC has like or love attitude towards denier fetish:
-						if(clothing.getItemTags().contains(ItemTag.CHASTITY)) {
-							wantsToEquip = this.getFetishDesire(Fetish.FETISH_DENIAL).isPositive();
 						}
 					}
 					// Always auto manage clothing, as NPCs use clothing removal methods in SexManagerDefault, so clothing additions should take place after removals.
@@ -3156,6 +3163,23 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * @return true if any character in the current sex scene wants to use the area during sex.
+	 */
+	private boolean wantsToUseAreaDuringSex(SexAreaInterface area, GameCharacter partner) {
+		List<GameCharacter> sexParticipants = Main.sex.getAllParticipants();
+		sexParticipants.remove(partner);
+		// Check both current desire and main sex desire, to make sure that foreplay is accounted for:
+		for(GameCharacter participant : sexParticipants) {
+			SexType currentPreference = Main.sex.isInForeplay(participant)?participant.getForeplayPreference(partner):participant.getMainSexPreference(partner);
+			SexType mainPreference = participant.getMainSexPreference(partner);
+			if((currentPreference!=null && currentPreference.getTargetedSexArea()==area) || (mainPreference!=null && mainPreference.getTargetedSexArea()==area)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public Value<AbstractItem, String> getSexItemToUse(GameCharacter partner) {

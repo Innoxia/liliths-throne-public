@@ -56,7 +56,7 @@
 			</p>
 		#ELSE
 			<p>
-				As [npc.she] steps out from the shadows, you see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she]
+				As [npc.she] steps out from the shadows, you see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly #IF(npc.isTaur())gestures towards#ELSEstrokes#ENDIF [npc.her] swollen bump as [npc.she]
 				#IF(npc.isMute())
 					 gives you a smug smirk and a condescending glare.
 					#IF(npc.isAttractedTo(pc))
@@ -225,7 +225,7 @@
 			</p>
 		#ELSE
 			<p>
-				You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she]
+				You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly #IF(npc.isTaur())gestures towards#ELSEstrokes#ENDIF [npc.her] swollen bump as [npc.she]
 				#IF(npc.isMute())
 					 gives you a menacing glare. Unlike your previous encounters with [npc.herHim], [npc.name] doesn't seem interested in your money, and instead strikes an intimidating pose and prepares to demand something else.
 				#ELSE
@@ -329,7 +329,7 @@
 			</p>
 		#ELSE
 			<p>
-				You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she]
+				You see that [npc.sheIs] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly #IF(npc.isTaur())gestures towards#ELSEstrokes#ENDIF [npc.her] swollen bump as [npc.she]
 				#IF(npc.isMute())
 					 gives you a menacing glare.
 					#IF(npc.isAttractedTo(pc))
@@ -424,7 +424,18 @@
 	#IF(npc.isVisiblyPregnant() && npc.getPregnantLitter().isFatherId(pc.getId()))
 		#IF(!npc.isCharacterReactedToPregnancy(pc))
 			<p>
-				As you [pc.step] forwards and start to say hello, you immediately notice that there's something very different about [npc.name]. [npc.SheIs] cradling [npc.her] stomach with both [npc.hands], and as you look down, you see the consequence of ejaculating inside of [npc.herHim], as [npc.sheIs] now sporting a [style.colourSex(pregnant belly)].
+				As you [pc.step] forwards and start to say hello, you immediately notice that there's something very different about [npc.name].
+				#IF(npc.isTaur())
+					 As [npc.she] turns to one side, you look down to see the consequence of
+				#ELSE
+					 [npc.SheIs] cradling [npc.her] stomach with both [npc.hands], and you look down to see the consequence of
+				#ENDIF
+				#IF(npc.isPregnancyFertilisationNormal())
+					 giving [npc.herHim] a creampie,
+				#ELSE
+					 having risky sex with [npc.herHim],
+				#ENDIF
+				 for [npc.sheIs] quite clearly sporting a [style.colourSex(pregnant belly)].
 			</p>
 			<p>
 				#IF(npc.isMute())
@@ -454,7 +465,7 @@
 			</p>
 		#ELSE
 			<p>
-				As you step forwards and start to say hello, you see that [npc.name] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she]
+				As you step forwards and start to say hello, you see that [npc.name] still sporting a round, [style.colourSex(pregnant belly)], and [npc.she] absent-mindedly #IF(npc.isTaur())gestures towards#ELSEstrokes#ENDIF [npc.her] swollen bump as [npc.she]
 				#IF(npc.isMute())
 					 watches you approach.
 					#IF(npc.isAttractedTo(pc))

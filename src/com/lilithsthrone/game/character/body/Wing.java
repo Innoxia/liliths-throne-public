@@ -187,7 +187,7 @@ public class Wing implements BodyPartInterface {
 		}
 		sb.append("</p>");
 		
-		return sb.toString();
+		return UtilText.parse(owner, sb.toString());
 	}
 
 	@Override

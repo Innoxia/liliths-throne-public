@@ -14,6 +14,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.SvgUtil;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
@@ -151,7 +152,10 @@ public abstract class AbstractFetish {
 	}
 	
 	public String getShortDescriptor(GameCharacter target) {
-		return shortDescriptor;
+		if(target==null || !Main.game.isStarted()) {
+			return shortDescriptor;
+		}
+		return UtilText.parse(target, shortDescriptor);
 	}
 
 	public abstract String getDescription(GameCharacter target);

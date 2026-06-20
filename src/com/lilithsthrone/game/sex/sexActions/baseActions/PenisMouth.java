@@ -1445,18 +1445,14 @@ public class PenisMouth {
 
 		@Override
 		public String getDescription() {
-			GameCharacter performer = Main.sex.getCharacterPerformingAction();
-			GameCharacter target = Main.sex.getCharacterTargetedForSexAction(this);
-
-			return UtilText.parse(performer, target,
-					UtilText.returnStringAtRandom(
+			return UtilText.returnStringAtRandom(
 						"Letting out a muffled [npc.moan], [npc.name] [npc.verb(concentrate)] on squeezing the extra internal muscles within [npc.her] throat down around [npc2.namePos] [npc2.cock+].",
 						(!isTargetedCharacterInanimate()
 							?"[npc.Name] [npc.verb(let)] out a muffled [npc.moan] as [npc.she] [npc.verb(focus)] on controlling the extra muscles lining the insides of [npc.her] throat."
 								+ " Gripping and squeezing them down around the [npc2.cock+] in [npc.her] mouth, [npc.name] [npc.verb(cause)] [npc2.name] to let out an involuntary cry of pleasure."
 							:""),
 						"[npc.Name] [npc.verb(find)] [npc.her] letting out a series of muffled [npc.moans] as [npc.she] [npc.verb(concentrate)] on squeezing the extra muscles within [npc.her] throat down around [npc2.namePos] [npc2.cock+].",
-						"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on controlling the extra muscles deep within [npc.her] throat, gripping them down and massaging [npc2.namePos] [npc2.cock+]."));
+						"With a muffled [npc.moan], [npc.name] [npc.verb(focus)] on controlling the extra muscles deep within [npc.her] throat, gripping them down and massaging [npc2.namePos] [npc2.cock+].");
 		}
 	};
 	
@@ -1671,7 +1667,8 @@ public class PenisMouth {
 			return PenisMouth.getOngoingCharacters(Main.sex.getCharacterPerformingAction());
 		}
 
-		private List<GameCharacter> getCharactersForParsing() {
+		@Override
+		public List<GameCharacter> getCharactersForParsing() {
 			return PenisMouth.getCharactersForParsing(Main.sex.getCharacterPerformingAction());
 		}
 		
@@ -2640,8 +2637,9 @@ public class PenisMouth {
 		private List<GameCharacter> getOngoingCharacters() {
 			return PenisMouth.getOngoingCharacters(Main.sex.getCharacterTargetedForSexAction(this));
 		}
-
-		private List<GameCharacter> getCharactersForParsing() {
+		
+		@Override
+		public List<GameCharacter> getCharactersForParsing() {
 			return PenisMouth.getCharactersForParsing(Main.sex.getCharacterTargetedForSexAction(this));
 		}
 		

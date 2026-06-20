@@ -31,6 +31,7 @@ import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
 import com.lilithsthrone.game.character.npc.misc.GenericAndrogynousNPC;
+import com.lilithsthrone.game.character.npc.misc.GenericSexualPartner;
 import com.lilithsthrone.game.character.persona.PersonalityTrait;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -784,7 +785,29 @@ public abstract class AbstractSubspecies {
 		if(this.isFromExternalFile()) {
 			try {
 				UtilText.setBodyForParsing("targetedBody", body);
-				return UtilText.parse(target, applySubspeciesChanges);
+				String returnString = "";
+				
+				try {
+					returnString = UtilText.parseNoExceptionHandling(target, applySubspeciesChanges);
+				} catch(Exception ex) {
+					System.err.println("WARNING: Error in applySpeciesChanges() for subspecies '"+this.getName(body)+"'");
+					if(target==null) {
+						System.err.println("CATCH: Attempting to apply applySpeciesChanges() with a temporary NPC to account for null npc variable.");
+						System.err.println("Please add a null check for npc in your 'applySpeciesChanges' element to fix this error!");
+						GameCharacter tempCharacter = new GenericSexualPartner();
+						tempCharacter.setBody(body, false);
+						target = tempCharacter;
+						returnString = UtilText.parse(target, applySubspeciesChanges);
+						target.setBody(new Body(body), false);
+						System.err.println("END: temporary NPC used for applySpeciesChanges.");
+					}
+					ex.printStackTrace();
+				}
+				
+				// Try to catch and remove unwanted text being returned from methods:
+				returnString = returnString.replaceAll("(?<=\\s|^)(null|true|false)+(?=\\s|$)", "");
+				return returnString;
+				
 			} catch(Exception ex) {
 				ex.printStackTrace();
 			}

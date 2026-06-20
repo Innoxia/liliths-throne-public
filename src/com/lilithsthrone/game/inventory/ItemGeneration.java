@@ -59,7 +59,10 @@ public class ItemGeneration {
 	public String applyRandomPotionEffect(GameCharacter target) {
 		return RandomPotionEnchantment.applyRandomPotionEffect(target);
 	}
-	
+
+	public String applyPotionEffect(String effectId, GameCharacter target) {
+		return RandomPotionEnchantment.applyPotionEffect(effectId, target);
+	}
 	
 	// Weapon generation:
 	

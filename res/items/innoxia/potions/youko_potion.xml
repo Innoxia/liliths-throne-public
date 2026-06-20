@@ -3,11 +3,11 @@
 	<coreAttributes>
 		<value>100</value>
 		<determiner><![CDATA[a bottle of]]></determiner>
-		<name><![CDATA[Cultist's Mystery Potion]]></name>
-		<namePlural pluralByDefault="false"><![CDATA[Cultist's Mystery Potions]]></namePlural>
+		<name><![CDATA[Youko's Mystery Potion]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Youko's Mystery Potions]]></namePlural>
 		<description><![CDATA[
 			An ornate glass bottle, filled with a considerable amount of rainbow-coloured liquid. A label attached to the neck of the bottle reads:
-			<br/>[style.italicsArcane(Accept this gift from the Cult of Lilith! Your queen demands your transformation, so drink it all and praise Lilith!)]
+			<br/>[style.italicsArcane(Please accept this gift from a friendly Youko! I promise that it'll do nothing but make you a stronger, better version of yourself!)]
 		]]></description>
 		<useDescriptor>drink</useDescriptor>
 		<sexUse>true</sexUse>
@@ -18,7 +18,7 @@
 		
 		<rarity>JINXED</rarity>
 		
-		<imageName>cultist_potion.svg</imageName>
+		<imageName>youko_potion.svg</imageName>
 		<colourPrimary>CLOTHING_PINK_HOT</colourPrimary>
 		<colourSecondary/>
 		<colourTertiary/>

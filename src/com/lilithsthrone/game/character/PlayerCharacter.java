@@ -1540,6 +1540,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				sb.append(GenericOrgasms.getGenericOrgasmDescription(sexAction, this, target));
 			}
 			
+			boolean cameInsideLilaya = false;
 			// Penis cumming inside reaction:
 			if(target==OrgasmCumTarget.INSIDE
 					&& this.getCurrentPenisRawCumStorageValue()>0
@@ -1548,11 +1549,13 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					if(sexAction.getCondomFailure(this, Main.game.getNpc(Lilaya.class))!=CondomFailure.NONE) {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.lilayaCondomBroke, true);
 						sb.append(UtilText.parseFromXMLFile("characters/dominion/lilaya", "ORGASM_REACTION_CREAMPIE_CONDOM_BROKE"));
+						cameInsideLilaya = true;
 					} else {
 						sb.append(UtilText.parseFromXMLFile("characters/dominion/lilaya", "ORGASM_REACTION_CREAMPIE_CONDOM"));
 					}
 				} else {
 					sb.append(UtilText.parseFromXMLFile("characters/dominion/lilaya", "ORGASM_REACTION_CREAMPIE"));
+					cameInsideLilaya = true;
 				}
 				triggerEndScene = true;
 				
@@ -1571,6 +1574,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			}
 			
 			if(triggerEndScene) {
+				boolean cameInsideLilayaCopy = cameInsideLilaya;
 				return new SexActionOrgasmOverride(false) {
 					@Override
 					public String getDescription() {
@@ -1581,7 +1585,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 					}
 					@Override
 					public boolean isEndsSex() {
-						return Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.PREGNANT_0)
+						return (Main.game.getNpc(Lilaya.class).hasStatusEffect(StatusEffect.PREGNANT_0) || cameInsideLilayaCopy)
 								&& Main.game.getNpc(Lilaya.class).getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative();
 					}
 				};

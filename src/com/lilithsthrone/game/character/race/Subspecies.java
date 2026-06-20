@@ -820,7 +820,7 @@ public class Subspecies {
 		public String applySpeciesChanges(GameCharacter target, Body body) {
 			StringBuilder sb = new StringBuilder();
 			
-			if(target!=null) {
+			if(target!=null && target.getBody()!=null) {
 				sb.append(target.setHeight(Height.NEGATIVE_TWO_MINIMUM.getRandomValue()));
 			} else {
 				body.setHeight(Height.NEGATIVE_TWO_MINIMUM.getRandomValue());
@@ -912,7 +912,7 @@ public class Subspecies {
 		public String applySpeciesChanges(GameCharacter target, Body body) {
 			StringBuilder sb = new StringBuilder();
 
-			if(target!=null) {
+			if(target!=null && target.getBody()!=null) {
 				sb.append(target.setHeight(Height.NEGATIVE_ONE_TINY.getRandomValue()));
 			} else {
 				body.setHeight(Height.NEGATIVE_ONE_TINY.getRandomValue());
@@ -1196,7 +1196,7 @@ public class Subspecies {
 		public String applySpeciesChanges(GameCharacter target, Body body) {
 			StringBuilder sb = new StringBuilder();
 			
-			body.getCoverings().put(BodyCoveringType.CANINE_FUR, new Covering(BodyCoveringType.CANINE_FUR, CoveringPattern.MARKED, CoveringModifier.FLUFFY, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_WHITE, false));
+			sb.append(body.setCovering(target, BodyCoveringType.CANINE_FUR, new Covering(BodyCoveringType.CANINE_FUR, CoveringPattern.MARKED, CoveringModifier.FLUFFY, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_WHITE, false)));
 			if(body.getEar().getType()==EarType.DOG_MORPH) {
 				if(Math.random()<0.5f) {
 					sb.append(body.getEar().setType(target, EarType.DOG_MORPH_POINTED));
@@ -1319,12 +1319,12 @@ public class Subspecies {
 			} else if(rand<0.6f) {
 				secondaryColour = PresetColour.COVERING_BROWN_DARK;
 			}
-			body.getCoverings().put(BodyCoveringType.CANINE_FUR, new Covering(BodyCoveringType.CANINE_FUR, CoveringPattern.MARKED, CoveringModifier.SHORT, PresetColour.COVERING_BLACK, false, secondaryColour, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_CANINE_FUR, new Covering(BodyCoveringType.HAIR_CANINE_FUR, CoveringPattern.NONE, PresetColour.COVERING_BLACK, false, secondaryColour, false));
-			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_EBONY, false, PresetColour.SKIN_EBONY, false));
+			sb.append(body.setCovering(target, BodyCoveringType.CANINE_FUR, new Covering(BodyCoveringType.CANINE_FUR, CoveringPattern.MARKED, CoveringModifier.SHORT, PresetColour.COVERING_BLACK, false, secondaryColour, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_CANINE_FUR, new Covering(BodyCoveringType.HAIR_CANINE_FUR, CoveringPattern.NONE, PresetColour.COVERING_BLACK, false, secondaryColour, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_EBONY, false, PresetColour.SKIN_EBONY, false)));
 			body.updateCoverings(true, true, true, true);
 			if(body.getPenis().getType()==PenisType.DOG_MORPH) {
-				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED));
+				sb.append(body.setCovering(target, BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED)));
 			}
 			if(body.getEar().getType()==EarType.DOG_MORPH) {
 				sb.append(body.getEar().setType(target, EarType.DOG_MORPH_POINTED));
@@ -1440,8 +1440,8 @@ public class Subspecies {
 		public String applySpeciesChanges(GameCharacter target, Body body) {
 			StringBuilder sb = new StringBuilder();
 			
-			body.getCoverings().put(BodyCoveringType.CANINE_FUR, new Covering(BodyCoveringType.CANINE_FUR, CoveringPattern.MARKED, CoveringModifier.FLUFFY, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_TAN, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_CANINE_FUR, new Covering(BodyCoveringType.HAIR_CANINE_FUR, CoveringPattern.NONE, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_TAN, false));
+			sb.append(body.setCovering(target, BodyCoveringType.CANINE_FUR, new Covering(BodyCoveringType.CANINE_FUR, CoveringPattern.MARKED, CoveringModifier.FLUFFY, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_TAN, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_CANINE_FUR, new Covering(BodyCoveringType.HAIR_CANINE_FUR, CoveringPattern.NONE, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_TAN, false)));
 
 			if(body.getEar().getType()==EarType.DOG_MORPH) {
 				sb.append(body.getEar().setType(target, EarType.DOG_MORPH_POINTED));
@@ -1577,17 +1577,19 @@ public class Subspecies {
 		}
 		@Override
 		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
 			List<Colour> naturalWolfFurColours = Util.newArrayListOfValues(
 					PresetColour.COVERING_GREY,
 					PresetColour.COVERING_BLACK,
 					PresetColour.COVERING_JET_BLACK);
 			
 			Colour c = Util.randomItemFrom(naturalWolfFurColours);
-			body.getCoverings().put(BodyCoveringType.LYCAN_FUR, new Covering(BodyCoveringType.LYCAN_FUR, c));
-			body.getCoverings().put(BodyCoveringType.HAIR_LYCAN_FUR, new Covering(BodyCoveringType.HAIR_LYCAN_FUR, c));
-			body.getCoverings().put(BodyCoveringType.BODY_HAIR_LYCAN_FUR, new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, c));
 			
-			return "";
+			sb.append(body.setCovering(target, BodyCoveringType.LYCAN_FUR, new Covering(BodyCoveringType.LYCAN_FUR, c)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_LYCAN_FUR, new Covering(BodyCoveringType.HAIR_LYCAN_FUR, c)));
+			sb.append(body.setCovering(target, BodyCoveringType.BODY_HAIR_LYCAN_FUR, new Covering(BodyCoveringType.BODY_HAIR_LYCAN_FUR, c)));
+			
+			return sb.toString();
 		}
 		public String[] getHalfDemonName(Body body) {
 			String[] names = new String[] {
@@ -1749,12 +1751,13 @@ public class Subspecies {
 				new Value<>(WorldType.NIGHTLIFE_CLUB, SubspeciesSpawnRarity.THREE)), null, null) {
 		@Override
 		public String applySpeciesChanges(GameCharacter target, Body body) {
-			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_PALE, false, PresetColour.SKIN_PALE, true));
-			body.getCoverings().put(BodyCoveringType.FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_FOX_FUR, new Covering(BodyCoveringType.HAIR_FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
-			body.getCoverings().put(BodyCoveringType.BODY_HAIR_FOX_FUR, new Covering(BodyCoveringType.BODY_HAIR_FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
+			StringBuilder sb = new StringBuilder();
+			sb.append(body.setCovering(target, BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_PALE, false, PresetColour.SKIN_PALE, true)));
+			sb.append(body.setCovering(target, BodyCoveringType.FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_FOX_FUR, new Covering(BodyCoveringType.HAIR_FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.BODY_HAIR_FOX_FUR, new Covering(BodyCoveringType.BODY_HAIR_FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false)));
 			body.updateCoverings(false, false, true, true);
-			return "";
+			return sb.toString();
 		}
 		@Override
 		public int getSubspeciesWeighting(Body body, AbstractRace race) {
@@ -1837,12 +1840,12 @@ public class Subspecies {
 			
 			Colour fennecColour = Util.randomItemFrom(Util.newArrayListOfValues(PresetColour.COVERING_DIRTY_BLONDE, PresetColour.COVERING_BLEACH_BLONDE, PresetColour.COVERING_TAN));
 			
-			body.getCoverings().put(BodyCoveringType.FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, fennecColour, false, fennecColour, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, fennecColour, false, fennecColour, false));
-			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_OLIVE, false, PresetColour.SKIN_OLIVE, false));
+			sb.append(body.setCovering(target, BodyCoveringType.FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, fennecColour, false, fennecColour, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, fennecColour, false, fennecColour, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_OLIVE, false, PresetColour.SKIN_OLIVE, false)));
 			body.updateCoverings(true, true, true, true);
 			if(body.getPenis().getType()==PenisType.FOX_MORPH) {
-				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED));
+				sb.append(body.setCovering(target, BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED)));
 			}
 			if(body.getEar().getType()==EarType.FOX_MORPH) {
 				sb.append(body.getEar().setType(target, EarType.FOX_MORPH_BIG));
@@ -2082,10 +2085,10 @@ public class Subspecies {
 		@Override
 		public String applySpeciesChanges(GameCharacter target, Body body) {
 			StringBuilder sb = new StringBuilder();
-			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_PALE, false, PresetColour.SKIN_PALE, true));
-			body.getCoverings().put(BodyCoveringType.FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_FOX_FUR, new Covering(BodyCoveringType.HAIR_FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
-			body.getCoverings().put(BodyCoveringType.BODY_HAIR_FOX_FUR, new Covering(BodyCoveringType.BODY_HAIR_FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
+			sb.append(body.setCovering(target, BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_PALE, false, PresetColour.SKIN_PALE, true)));
+			sb.append(body.setCovering(target, BodyCoveringType.FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_FOX_FUR, new Covering(BodyCoveringType.HAIR_FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.BODY_HAIR_FOX_FUR, new Covering(BodyCoveringType.BODY_HAIR_FOX_FUR, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false)));
 			if(body.getTail().getType()==TailType.FOX_MORPH) {
 				sb.append(body.getTail().setType(target, TailType.FOX_MORPH_MAGIC));
 			}
@@ -2223,12 +2226,12 @@ public class Subspecies {
 			if(rand<0.5f) {
 				fennecColour = PresetColour.COVERING_DIRTY_BLONDE;
 			}
-			body.getCoverings().put(BodyCoveringType.FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, fennecColour, false, fennecColour, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, fennecColour, false, fennecColour, false));
-			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_OLIVE, false, PresetColour.SKIN_OLIVE, false));
+			sb.append(body.setCovering(target, BodyCoveringType.FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, fennecColour, false, fennecColour, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_FOX_FUR, new Covering(BodyCoveringType.FOX_FUR, CoveringPattern.NONE, fennecColour, false, fennecColour, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_OLIVE, false, PresetColour.SKIN_OLIVE, false)));
 			body.updateCoverings(true, true, true, true);
 			if(body.getPenis().getType()==PenisType.FOX_MORPH) {
-				body.getCoverings().put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED));
+				sb.append(body.setCovering(target, BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, PresetColour.SKIN_RED)));
 			}
 			if(body.getEar().getType()==EarType.FOX_MORPH) {
 				sb.append(body.getEar().setType(target, EarType.FOX_MORPH_BIG));
@@ -2458,8 +2461,8 @@ public class Subspecies {
 			} else if(rand<0.6f) {
 				primaryColor = PresetColour.COVERING_BROWN_DARK;
 			}
-			body.getCoverings().put(BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.SPOTTED, CoveringModifier.FLUFFY, primaryColor, false, PresetColour.COVERING_BLACK, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, PresetColour.COVERING_BLACK, false));
+			sb.append(body.setCovering(target, BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.SPOTTED, CoveringModifier.FLUFFY, primaryColor, false, PresetColour.COVERING_BLACK, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, PresetColour.COVERING_BLACK, false)));
 			body.updateCoverings(true, true, true, true);
 			if(body.getEar().getType().getRace()==Race.CAT_MORPH) {
 				sb.append(body.getEar().setType(target, EarType.CAT_MORPH_TUFTED));
@@ -2556,8 +2559,8 @@ public class Subspecies {
 				primaryColor = PresetColour.COVERING_TAN;
 			}
 			Colour secondaryColor = PresetColour.COVERING_BLACK;
-			body.getCoverings().put(BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.SPOTTED, CoveringModifier.SHORT, primaryColor, false, secondaryColor, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
+			sb.append(body.setCovering(target, BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.SPOTTED, CoveringModifier.SHORT, primaryColor, false, secondaryColor, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false)));
 			body.updateCoverings(true, true, true, true);
 			if(body.getTail().getType().getRace()==Race.CAT_MORPH) {
 				sb.append(body.getTail().setType(target, TailType.CAT_MORPH));
@@ -2575,7 +2578,7 @@ public class Subspecies {
 				}
 			}
 			
-			if(target!=null) {
+			if(target!=null && target.getBody()!=null) {
 				sb.append(target.setBodySize(BodySize.ZERO_SKINNY.getMedianValue()));
 				sb.append(target.setMuscle(Muscle.FOUR_RIPPED.getMedianValue()));
 				
@@ -2755,8 +2758,8 @@ public class Subspecies {
 //			} else if(rand<0.65f) {
 //				primaryColor = PresetColour.COVERING_BLACK;
 //			}
-//			body.getCoverings().put(BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.SPOTTED, CoveringModifier.FLUFFY, primaryColor, false, secondaryColor, false));
-//			body.getCoverings().put(BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
+//			sb.append(body.setCovering(target, BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.SPOTTED, CoveringModifier.FLUFFY, primaryColor, false, secondaryColor, false));
+//			sb.append(body.setCovering(target, BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
 //			body.updateCoverings(true, true, true, true);
 //			if(body.getFace().getType()==FaceType.CAT_MORPH) {
 //				body.getFace().setType(null, FaceType.CAT_MORPH_PANTHER);
@@ -2856,8 +2859,8 @@ public class Subspecies {
 //			if(rand<0.05f) {
 //				primaryColor = PresetColour.COVERING_BLACK;
 //			}
-//			body.getCoverings().put(BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.SPOTTED, CoveringModifier.SHORT, primaryColor, false, secondaryColor, false));
-//			body.getCoverings().put(BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
+//			sb.append(body.setCovering(target, BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.SPOTTED, CoveringModifier.SHORT, primaryColor, false, secondaryColor, false));
+//			sb.append(body.setCovering(target, BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
 //			body.updateCoverings(true, true, true, true);
 //			if(body.getFace().getType()==FaceType.CAT_MORPH) {
 //				body.getFace().setType(null, FaceType.CAT_MORPH_PANTHER);
@@ -2956,8 +2959,8 @@ public class Subspecies {
 //			else if(rand<0.1f) {
 //				primaryColor = PresetColour.COVERING_WHITE;
 //			}
-//			body.getCoverings().put(BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, CoveringModifier.SHORT, primaryColor, false, secondaryColor, false));
-//			body.getCoverings().put(BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
+//			sb.append(body.setCovering(target, BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, CoveringModifier.SHORT, primaryColor, false, secondaryColor, false));
+//			sb.append(body.setCovering(target, BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
 //			body.updateCoverings(true, true, true, true);
 //			if(body.getFace().getType()==FaceType.CAT_MORPH) {
 //				body.getFace().setType(null, FaceType.CAT_MORPH_PANTHER);
@@ -3054,8 +3057,8 @@ public class Subspecies {
 //			} else if(rand<0.16f) {
 //				primaryColor = PresetColour.COVERING_BLACK;
 //			}
-//			body.getCoverings().put(BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.STRIPED, CoveringModifier.SHORT, primaryColor, false, secondaryColor, false));
-//			body.getCoverings().put(BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
+//			sb.append(body.setCovering(target, BodyCoveringType.FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.STRIPED, CoveringModifier.SHORT, primaryColor, false, secondaryColor, false));
+//			sb.append(body.setCovering(target, BodyCoveringType.HAIR_FELINE_FUR, new Covering(BodyCoveringType.FELINE_FUR, CoveringPattern.NONE, primaryColor, false, secondaryColor, false));
 //			body.updateCoverings(true, true, true, true);
 //			if(body.getFace().getType()==FaceType.CAT_MORPH) {
 //				body.getFace().setType(null, FaceType.CAT_MORPH_PANTHER);
@@ -3964,9 +3967,9 @@ public class Subspecies {
 			sb.append(body.getHorn().setType(target, HornType.NONE));
 			sb.append(body.getWing().setType(target, WingType.NONE));
 			
-			body.getCoverings().put(BodyCoveringType.HORSE_HAIR, new Covering(BodyCoveringType.HORSE_HAIR, CoveringPattern.STRIPED, CoveringModifier.SHORT, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_WHITE, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_HORSE_HAIR, new Covering(BodyCoveringType.HAIR_HORSE_HAIR, CoveringPattern.NONE, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_WHITE, false));
-			body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_EBONY, false, PresetColour.SKIN_EBONY, false));
+			sb.append(body.setCovering(target, BodyCoveringType.HORSE_HAIR, new Covering(BodyCoveringType.HORSE_HAIR, CoveringPattern.STRIPED, CoveringModifier.SHORT, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_WHITE, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_HORSE_HAIR, new Covering(BodyCoveringType.HAIR_HORSE_HAIR, CoveringPattern.NONE, PresetColour.COVERING_BLACK, false, PresetColour.COVERING_WHITE, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_EBONY, false, PresetColour.SKIN_EBONY, false)));
 			body.updateCoverings(true, true, true, true);
 			
 			if(body.getTail().getType()==TailType.HORSE_MORPH) {
@@ -4090,9 +4093,9 @@ public class Subspecies {
 			sb.append(body.getWing().setType(target, WingType.NONE));
 			
 			if(Math.random()<0.75f) { // 75% of donkey morphs are the classic brown with white markings:
-				body.getCoverings().put(BodyCoveringType.HORSE_HAIR, new Covering(BodyCoveringType.HORSE_HAIR, CoveringPattern.MARKED, CoveringModifier.SHORT, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_WHITE, false));
-				body.getCoverings().put(BodyCoveringType.HAIR_HORSE_HAIR, new Covering(BodyCoveringType.HAIR_HORSE_HAIR, CoveringPattern.NONE, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_WHITE, false));
-				body.getCoverings().put(BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_DARK, false, PresetColour.SKIN_DARK, false));
+				sb.append(body.setCovering(target, BodyCoveringType.HORSE_HAIR, new Covering(BodyCoveringType.HORSE_HAIR, CoveringPattern.MARKED, CoveringModifier.SHORT, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_WHITE, false)));
+				sb.append(body.setCovering(target, BodyCoveringType.HAIR_HORSE_HAIR, new Covering(BodyCoveringType.HAIR_HORSE_HAIR, CoveringPattern.NONE, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_WHITE, false)));
+				sb.append(body.setCovering(target, BodyCoveringType.HUMAN, new Covering(BodyCoveringType.HUMAN, CoveringPattern.NONE, PresetColour.SKIN_DARK, false, PresetColour.SKIN_DARK, false)));
 			}
 			body.updateCoverings(true, true, true, true);
 			
@@ -4865,16 +4868,17 @@ public class Subspecies {
 				SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
 		@Override
 		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
 			Colour ravenColour = PresetColour.COVERING_BLACK;
 			if(Math.random()<0.5f) {
 				ravenColour = PresetColour.COVERING_JET_BLACK;
 			}
-			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, ravenColour, false, ravenColour, false));
-			body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, ravenColour, false, ravenColour, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_HARPY, new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, ravenColour, false, ravenColour, false));
-			body.getCoverings().put(BodyCoveringType.HARPY_SKIN, new Covering(BodyCoveringType.HARPY_SKIN, CoveringPattern.NONE, PresetColour.SKIN_EBONY, false, PresetColour.SKIN_EBONY, false));
+			sb.append(body.setCovering(target, BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, ravenColour, false, ravenColour, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, ravenColour, false, ravenColour, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_HARPY, new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, ravenColour, false, ravenColour, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HARPY_SKIN, new Covering(BodyCoveringType.HARPY_SKIN, CoveringPattern.NONE, PresetColour.SKIN_EBONY, false, PresetColour.SKIN_EBONY, false)));
 			
-			return "";
+			return sb.toString();
 		}
 		@Override
 		public String[] getHalfDemonName(Body body) {
@@ -4976,12 +4980,13 @@ public class Subspecies {
 				SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
 		@Override
 		public String applySpeciesChanges(GameCharacter target, Body body) {
-			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
-			body.getCoverings().put(BodyCoveringType.HAIR_HARPY, new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
-			body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
-			body.getCoverings().put(BodyCoveringType.HARPY_SKIN, new Covering(BodyCoveringType.HARPY_SKIN, CoveringPattern.NONE, PresetColour.SKIN_EBONY, false, PresetColour.SKIN_EBONY, false));
+			StringBuilder sb = new StringBuilder();
+			sb.append(body.setCovering(target, BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_HARPY, new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false)));
+			sb.append(body.setCovering(target, BodyCoveringType.HARPY_SKIN, new Covering(BodyCoveringType.HARPY_SKIN, CoveringPattern.NONE, PresetColour.SKIN_EBONY, false, PresetColour.SKIN_EBONY, false)));
 			
-			return "";
+			return sb.toString();
 		}
 		@Override
 		public String[] getHalfDemonName(Body body) {
@@ -5086,10 +5091,10 @@ public class Subspecies {
 //					SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
 //		@Override
 //		public String applySpeciesChanges(GameCharacter target, Body body) {
-//			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_BROWN_DARK, false));
-//			body.getCoverings().put(BodyCoveringType.HAIR_HARPY, new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
-//			body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_BROWN_DARK, false));
-//			body.getCoverings().put(BodyCoveringType.HARPY_SKIN, new Covering(BodyCoveringType.HARPY_SKIN, CoveringPattern.NONE, PresetColour.SKIN_YELLOW, false, PresetColour.SKIN_YELLOW, false));
+//			sb.append(body.setCovering(target, BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, CoveringPattern.NONE, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_BROWN_DARK, false));
+//			sb.append(body.setCovering(target, BodyCoveringType.HAIR_HARPY, new Covering(BodyCoveringType.HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_WHITE, false, PresetColour.COVERING_WHITE, false));
+//			sb.append(body.setCovering(target, BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_BROWN_DARK, false, PresetColour.COVERING_BROWN_DARK, false));
+//			sb.append(body.setCovering(target, BodyCoveringType.HARPY_SKIN, new Covering(BodyCoveringType.HARPY_SKIN, CoveringPattern.NONE, PresetColour.SKIN_YELLOW, false, PresetColour.SKIN_YELLOW, false));
 //		}
 //		@Override
 //		public String[] getHalfDemonName(GameCharacter character) {
@@ -5202,16 +5207,17 @@ public class Subspecies {
 					SubspeciesFlag.DISABLE_FURRY_PREFERENCE)) {
 		@Override
 		public String applySpeciesChanges(GameCharacter target, Body body) {
+			StringBuilder sb = new StringBuilder();
 			CoveringPattern pattern = CoveringPattern.OMBRE;
 			if(Math.random()<0.5f) {
 				pattern = CoveringPattern.HIGHLIGHTS;
 			}
-			body.getCoverings().put(BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, pattern, PresetColour.COVERING_ORANGE, true, PresetColour.COVERING_YELLOW, true));
-			body.getCoverings().put(BodyCoveringType.HAIR_HARPY, new Covering(BodyCoveringType.HAIR_HARPY, pattern, PresetColour.COVERING_RED, true, PresetColour.COVERING_ORANGE, true));
-			body.getCoverings().put(BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_RED, true, PresetColour.COVERING_RED, true));
-			body.getCoverings().put(BodyCoveringType.HARPY_SKIN, new Covering(BodyCoveringType.HARPY_SKIN, CoveringPattern.NONE, PresetColour.SKIN_ORANGE, false, PresetColour.SKIN_ORANGE, false));
+			sb.append(body.setCovering(target, BodyCoveringType.FEATHERS, new Covering(BodyCoveringType.FEATHERS, pattern, PresetColour.COVERING_ORANGE, true, PresetColour.COVERING_YELLOW, true)));
+			sb.append(body.setCovering(target, BodyCoveringType.HAIR_HARPY, new Covering(BodyCoveringType.HAIR_HARPY, pattern, PresetColour.COVERING_RED, true, PresetColour.COVERING_ORANGE, true)));
+			sb.append(body.setCovering(target, BodyCoveringType.BODY_HAIR_HARPY, new Covering(BodyCoveringType.BODY_HAIR_HARPY, CoveringPattern.NONE, PresetColour.COVERING_RED, true, PresetColour.COVERING_RED, true)));
+			sb.append(body.setCovering(target, BodyCoveringType.HARPY_SKIN, new Covering(BodyCoveringType.HARPY_SKIN, CoveringPattern.NONE, PresetColour.SKIN_ORANGE, false, PresetColour.SKIN_ORANGE, false)));
 			
-			return "";
+			return sb.toString();
 		}
 		@Override
 		public String[] getHalfDemonName(Body body) {
@@ -6298,7 +6304,8 @@ public class Subspecies {
 	}
 
 	/**
-	 * @return All Subspecies which do not have an override, cannot self transform, and which spawn in Dominion, Submission, or Elis
+	 * @return All Subspecies which do not have an override, cannot self transform, and which spawn in Dominion, Submission, or Elis.
+	 * <br/><b>NOTE:</b> This should be updated in the future to include common races for all areas of the game.
 	 */
 	public static List<AbstractSubspecies> getCommonSubspecies(Collection<AbstractSubspecies> subspeciesToExclude) {
 		List<AbstractSubspecies> commonSubspecies = new ArrayList<>();

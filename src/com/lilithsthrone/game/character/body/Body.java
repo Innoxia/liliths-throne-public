@@ -3837,6 +3837,10 @@ public class Body implements XMLSaving {
 		return getHorn().getType().isGeneric();
 	}
 	
+	public List<AbstractHornType> getAvailableHornTypes(boolean retainNone) {
+		return HornType.getHornTypes(this.getRace(), retainNone);
+	}
+	
 	public Leg getLeg() {
 		return leg;
 	}
@@ -3945,6 +3949,10 @@ public class Body implements XMLSaving {
 		return wing.getType();
 	}
 
+	public List<AbstractWingType> getAvailableWingTypes() {
+		return WingType.getWingTypes(this.getRace());
+	}
+	
 	public void setAntenna(Antenna antenna) {
 		this.antenna = antenna;
 	}
@@ -6680,12 +6688,48 @@ public class Body implements XMLSaving {
 		this.coverings = coverings;
 	}
 	
-	public void setCovering(AbstractBodyCoveringType coveringType, CoveringPattern pattern, CoveringModifier modifier, Colour primaryColor, boolean primaryGlow, Colour secondaryColor, boolean secondaryGlow) {
-		coverings.put(coveringType, new Covering(coveringType, pattern, modifier, primaryColor, primaryGlow, secondaryColor, secondaryGlow));
+	public String setCovering(AbstractBodyCoveringType coveringType, Covering newCovering) {
+		return setCovering(null, coveringType, newCovering);
+	}
+	public String setCovering(GameCharacter target, AbstractBodyCoveringType coveringType, Covering newCovering) {
+		StringBuilder sb = new StringBuilder();
+		try {
+			if(Main.game.isStarted() && target!=null) {
+				Covering initialCovering = target.getCovering(coveringType);
+				if(!initialCovering.equals(newCovering)) {
+					sb.append("<p>");
+						sb.append(UtilText.parse(target,
+								"[npc.NamePos] body begins to itch, and [npc.she] [npc.verb(let)] out a startled cry as [npc.her] "+coveringType.getName(target)+" rapidly "+(coveringType.isDefaultPlural()?"change":"changes")+" colour.<br/>"
+									+ "[npc.She] now [npc.has] "+newCovering.getFullDescription(target, true)+"."));
+					sb.append("</p>");
+				}
+			}
+		} catch(Exception ex) {
+			// Safely catch an exception that can be thrown when  creating a new GameCharacter - the character will call this method before initialisation of the Body is finished, which results in the following errors:
+			/*
+			Exception in thread "JavaFX Application Thread" java.lang.NullPointerException
+				at com.lilithsthrone.game.character.GameCharacter.getBodyMaterial(GameCharacter.java:28013)
+				at com.lilithsthrone.game.character.GameCharacter.getCovering(GameCharacter.java:31010)
+				at com.lilithsthrone.game.character.body.Body.setCovering(Body.java:6697)
+			*/
+		}
+		coverings.put(coveringType, newCovering);
+		
+		return sb.toString();
+	}
+	
+	public String setCovering(AbstractBodyCoveringType coveringType, CoveringPattern pattern, CoveringModifier modifier, Colour primaryColor, boolean primaryGlow, Colour secondaryColor, boolean secondaryGlow) {
+		return setCovering(null, coveringType, pattern, modifier, primaryColor, primaryGlow, secondaryColor, secondaryGlow);
+	}
+	public String setCovering(GameCharacter target, AbstractBodyCoveringType coveringType, CoveringPattern pattern, CoveringModifier modifier, Colour primaryColor, boolean primaryGlow, Colour secondaryColor, boolean secondaryGlow) {
+		return setCovering(target, coveringType, new Covering(coveringType, pattern, modifier, primaryColor, primaryGlow, secondaryColor, secondaryGlow));
 	}
 
-	public void setCovering(AbstractBodyCoveringType coveringType, CoveringPattern pattern, Colour primaryColor, boolean primaryGlow, Colour secondaryColor, boolean secondaryGlow) {
-		coverings.put(coveringType, new Covering(coveringType, pattern, primaryColor, primaryGlow, secondaryColor, secondaryGlow));
+	public String setCovering(AbstractBodyCoveringType coveringType, CoveringPattern pattern, Colour primaryColor, boolean primaryGlow, Colour secondaryColor, boolean secondaryGlow) {
+		return setCovering(null, coveringType, pattern, primaryColor, primaryGlow, secondaryColor, secondaryGlow);
+	}
+	public String setCovering(GameCharacter target, AbstractBodyCoveringType coveringType, CoveringPattern pattern, Colour primaryColor, boolean primaryGlow, Colour secondaryColor, boolean secondaryGlow) {
+		return setCovering(target, coveringType, new Covering(coveringType, pattern, primaryColor, primaryGlow, secondaryColor, secondaryGlow));
 	}
 
 	public AbstractBodyCoveringType getCoveringType(BodyPartInterface bodyPart) {

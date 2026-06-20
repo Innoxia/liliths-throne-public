@@ -23,7 +23,7 @@
 	]]></spawnWeighting>
 	
 	
-	<!-- The contents of this block are parsed before the 'applicationSpeechStart' and 'applicationSpeechEnd' elements are parsed, and before any of the conditional checks in the 'potionEffects' element are parsed.
+	<!-- The contents of this block are parsed before the 'name', 'applicationSpeechStart', and 'applicationSpeechEnd' elements are parsed, and before any of the conditional checks in the 'potionEffects' element are parsed.
 		As such, this can be used for setting up variables which need to be referenced in multiple 'conditional' elements.
 		You can omit this field or leave it blank; it's just an optional extra for if you want to set up more complex conditional checks.
 		I've used an int and a boolean here for demonstration purposes, but you can set whatever you like in this section.
@@ -35,10 +35,22 @@
 	]]></conditionalPreParsing>
 	
 	
+	<!-- The name which this potion should have.
+		This name is useful for debugging and is also displayed to the player when the player consumes it.
+		By default it will be appended to "Youko's potion of ", and it's recommended to use something that fits the theme of the transformation.
+			You can disable the default addition of "Youko's potion of " by setting the optional attribute, 'defaultPrepend' to false.
+			e.g.
+				The example below will grant the potion the name "Youko's potion of the Milky Cow"
+				Instead, if you defined defaultPrepend="false", then the name would simply be "the Milky Cow" -->
+	<name defaultPrepend="true"><![CDATA[the Milky Cow]]></name>
+	
+	
 	<!-- When a character consumes the 'Cultist's Mystery Potion' item, they can hear a ghostly voice in their head.
 		This section defines the speech which the character hears before any of the effects are applied.
-		It can be left blank or omitted entirely if you don't want the character to hear anything. -->
-	<applicationSpeechStart><![CDATA[
+		It can be left blank or omitted entirely if you don't want the character to hear anything.
+		You can define the 'replaceAll' to be true if you want this section to completely replace the default text that's generated when drinking a potion.
+			If you do this, please use html formatting (i.e. wrapping paragraphs in <p> tags)-->
+	<applicationSpeechStart replaceAll="false"><![CDATA[
 		#IF(game.isLactationContentEnabled())
 			One milky cow, coming right up!
 		#ELSE
@@ -47,8 +59,10 @@
 	]]></applicationSpeechStart>
 	
 	<!-- This section defines the speech which the character hears after all of the effects have been applied.
-		It can be left blank or omitted entirely if you don't want the character to hear anything. -->
-	<applicationSpeechEnd/>
+		It can be left blank or omitted entirely if you don't want the character to hear anything.
+		You can define the 'replaceAll' to be true if you want this section to completely replace the default text that's generated when drinking a potion.
+			If you do this, please use html formatting (i.e. wrapping paragraphs in <p> tags)-->
+	<applicationSpeechEnd replaceAll="false"/>
 	
 	
 	<!-- The 'potionEffects' elements, of which there can be multiple, define which effects should be applied when the potion is consumed.
@@ -96,7 +110,7 @@
 	<!-- The 'extremeTF' variable which was set in the 'conditionalPreParsing' element above is now used to give a 66% chance of a less severe transformation. -->
 	<potionEffects>
 		<conditional><![CDATA[
-			[#game.isLactationContentEnabled() && flags.getInt('extremeTF')<=66]
+			[#game.isLactationContentEnabled() && flags.getInt('extremeTF')<66]
 		]]></conditional>
 		<effect><![CDATA[
 			#IF(npc.getBreastSize().getValue()<CUP_SIZE_HH.getValue())
@@ -126,7 +140,7 @@
 	<!-- There's a 33% chance of a more severe transformation. -->
 	<potionEffects>
 		<conditional><![CDATA[
-			[#game.isLactationContentEnabled() && flags.getInt('extremeTF')>66]
+			[#game.isLactationContentEnabled() && flags.getInt('extremeTF')>=66]
 		]]></conditional>
 		<effect><![CDATA[
 			#IF(npc.getBreastSize().getValue()<CUP_SIZE_N.getValue())

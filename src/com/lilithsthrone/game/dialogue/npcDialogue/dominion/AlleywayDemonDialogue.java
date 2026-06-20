@@ -58,7 +58,7 @@ public class AlleywayDemonDialogue {
 	}
 	
 	private static boolean isWantsToFight() {
-		return getDemon().getAffectionLevel(Main.game.getPlayer()).isWillFightPlayer();
+		return getDemon().isAffectionAggressionTrigger(Main.game.getPlayer());
 	}
 
 	private static boolean isCompanionDialogue() {
@@ -92,6 +92,9 @@ public class AlleywayDemonDialogue {
 	public static final DialogueNode DEMON_ATTACK = new DialogueNode("Assaulted!", "A figure jumps out from the shadows!", true) {
 		@Override
 		public void applyPreParsingEffects() {
+			if(!isWantsToFight()) { // Catch for if the player has somehow raised this npc's affection without using the talk option. Should be impossible but someone managed it somehow (maybe with mods)
+				getDemon().setPlayerKnowsName(true);
+			}
 			talked = false;
 			getDemon().generatePostCombatPotions();
 			transformationsApplied = false;

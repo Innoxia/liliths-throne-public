@@ -2879,9 +2879,23 @@ public class Game implements XMLSaving {
 				character.setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 			}
 		}
-
+		
 		if(loopDebug) {
 			System.out.println("companions done");
+		}
+		
+		// If a place type has been modified, need to recalculate availability of slave jobs before running occupancyUtil.performHourlyUpdate()
+		if(occupancyUtil.isSlaveJobsRecalculationRequired()) {
+			System.out.println(":3");
+			for(String slaveId : occupancyUtil.getAllCharacters()) {
+				try {
+					GameCharacter occupant = Main.game.getNPCById(slaveId);
+					occupant.recalculateSlaveJobs();
+					System.out.println("reset: "+occupant.getName());
+				} catch (Exception e) {
+				}
+			}
+			occupancyUtil.setSlaveJobsRecalculationRequired(false);
 		}
 		
 		// Occupancy:
@@ -4432,7 +4446,7 @@ public class Game implements XMLSaving {
 								: "")
 					+ "</div>"
 				+ "</div>"
-				+"<p style='text-align:center;font-size:0.6em;color:#777;'>Dialogue written by "+currentDialogueNode.getAuthor()+" for <i>"+Main.GAME_NAME+" v"+Main.VERSION_NUMBER+"</i></p>"
+				+"<p style='text-align:center;font-size:0.6em;color:#777;'>Dialogue written by "+currentDialogueNode.getAuthor()+" for <i>"+Main.NAME_OF_GAME+" v"+Main.VERSION_NUMBER+"</i></p>"
 				+ "</body>";
 	}
 

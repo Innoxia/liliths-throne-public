@@ -3,18 +3,20 @@
 	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
 	
 	<spawnWeighting><![CDATA[
-		50
+		100
 	]]></spawnWeighting>
 	
 	<conditionalPreParsing><![CDATA[
 		[#flags.setInt('extremeTF', RND.nextInt(100))]
 	]]></conditionalPreParsing>
 	
-	<applicationSpeechStart><![CDATA[
+	<name defaultPrepend="true"><![CDATA[the Bimbo Femboy]]></name>
+	
+	<applicationSpeechStart replaceAll="false"><![CDATA[
 		Dominion needs more bimbo femboys!
 	]]></applicationSpeechStart>
 	
-	<applicationSpeechEnd><![CDATA[
+	<applicationSpeechEnd replaceAll="false"><![CDATA[
 		#IF(game.isAnalContentEnabled())
 			Now get out there and use your hot ass to milk some big, throbbing cocks!
 		#ELSE
@@ -33,7 +35,7 @@
 	<!-- 66% chance of normal TF -->
 	<potionEffects>
 		<conditional><![CDATA[
-			[#flags.getInt('extremeTF')>=33]
+			[#flags.getInt('extremeTF')<66]
 		]]></conditional>
 		<effect><![CDATA[
 			#IF(npc.getLipSizeValue()<LIP_SIZE_FIVE_MASSIVE.getValue())
@@ -60,7 +62,7 @@
 	<!-- 33% chance of extreme TF -->
 	<potionEffects>
 		<conditional><![CDATA[
-			[#flags.getInt('extremeTF')<33]
+			[#flags.getInt('extremeTF')>=66]
 		]]></conditional>
 		<effect><![CDATA[
 			[#npc.setLipSize(LIP_SIZE_SEVEN_ABSURD)]
