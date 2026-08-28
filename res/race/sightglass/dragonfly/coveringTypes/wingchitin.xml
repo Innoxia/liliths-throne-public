@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<coveringType>
+	<category>MAIN_CHITIN</category>
+	<nameTransformation><![CDATA[chitin]]></nameTransformation>
+	<determiner><![CDATA[a layer of]]></determiner>
+	<name><![CDATA[wing chitin]]></name>
+	<namePlural pluralByDefault="false"><![CDATA[chitin]]></namePlural> 
+	<naturalCoveringModifiers>
+		<modifier>SMOOTH</modifier>
+	</naturalCoveringModifiers>
+	<extraCoveringModifiers/>
+	<naturalPatterns>
+		<pattern weighting="8">NONE</pattern>
+		<pattern weighting="2">MARKED</pattern>	
+		<pattern weighting="1">STRIPED</pattern>
+		<pattern weighting="1">SPOTTED</pattern>
+	</naturalPatterns>
+	<extraPatterns>
+		<pattern weighting="1">SPOTTED</pattern>
+		<pattern weighting="1">MOTTLED</pattern>
+		<pattern weighting="1">MARKED</pattern>		
+	</extraPatterns>
+	<naturalColoursPrimary>
+		<colour>COVERING_CLEAR</colour>
+	</naturalColoursPrimary> 
+	<extraColoursPrimary values="allCoveringColours"/>
+	<naturalColoursSecondary values="allCoveringColours"/>
+	<extraColoursSecondary values="allCoveringColours"/>
+</coveringType>

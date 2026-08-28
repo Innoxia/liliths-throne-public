@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<colour>
+	<metallic>false</metallic>
+	<name><![CDATA[Dark Teal]]></name>
+	<colour>0BA1BF</colour>
+	<lightColour>0BA1BF</lightColour>
+	<formattingNames>
+		<name><![CDATA[darkTeal]]></name>
+		<name><![CDATA[DarkTeal]]></name>
+	</formattingNames>
+</colour>

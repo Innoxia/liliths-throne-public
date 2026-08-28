@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tail>
+	<race>sightglass_dragonfly</race>
+	<transformationName><![CDATA[dragonfly]]></transformationName>
+	<coveringType>sightglass_dragonfly_chitin</coveringType>
+	<spinneret>false</spinneret>
+	<defaultGirth>2</defaultGirth>
+	<defaultLengthAsPercentageOfHeight>1.3</defaultLengthAsPercentageOfHeight>
+	<tags>
+		<tag>TAIL_TYPE_GENERIC</tag>
+		<tag>TAIL_TAPERING_NONE</tag>
+		<tag>TAIL_NEVER_SUITABLE_FOR_PENETRATION</tag>
+	</tags>
+	<determiner><![CDATA[]]></determiner>
+	<determinerPlural><![CDATA[]]></determinerPlural> 
+	<name><![CDATA[tail]]></name>
+	<namePlural><![CDATA[tails]]></namePlural> 
+	<descriptorsMasculine>
+		<descriptor>dragonfly-like</descriptor>
+		<descriptor>chitinous</descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor>dragonfly-like</descriptor>
+		<descriptor>chitinous</descriptor>
+	</descriptorsFeminine>
+	<tipName><![CDATA[tip]]></tipName>
+	<tipNamePlural><![CDATA[tips]]></tipNamePlural>
+	<tipDescriptorsMasculine>
+		<descriptor>hook-equiped</descriptor>
+	</tipDescriptorsMasculine>
+	<tipDescriptorsFeminine>
+		<descriptor>hook-equiped</descriptor>
+	</tipDescriptorsFeminine>
+	<transformationDescription><![CDATA[
+		#IF(npc.getTailCount()==1)
+			A chitinous, dragonfly-like abdomen sprouts from just above [npc.her] ass, rapidly growing in size until it's about [npc.tailLength] long. [npc.She] then [npc.verb(realise)] that the transformation isn't done, as after a tingling sensation has run up from the tip of [npc.her] new abdomen, [npc.she] instinctively [npc.verb(know)] that [npc.she] now [npc.has] a set of hooks at the end.
+			<br/>[npc.Name] now [npc.has] a [style.boldDarkTeal(dragonfly-like abdomen)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
+		#ELSE
+			Chitinous, dragonfly-like abdomens sprout from just above [npc.her] ass, rapidly growing in size until they're about [npc.tailLength] long. [npc.She] then [npc.verb(realise)] that the transformation isn't done, as after tingling sensations have run up from the tip of [npc.her] new abdomens, [npc.she] instinctively [npc.verb(know)] that [npc.she] now [npc.has] multiple sets of hooks at the end of [npc.her] tails.
+			<br/>[npc.Name] now [npc.has] [npc.tailCount] [style.boldDarkTeal(dragonfly-like abdomens)], [npc.materialDescriptor] [npc.tailFullDescription(true)].
+		#ENDIF
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		Growing out from just above [npc.her] ass, [npc.sheHasFull]
+		#IF(npc.getTailCount()==1)
+			 a #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] dragonfly abdomen, which is narrow and far longer than [npc.her] torso.
+		#ELSE
+			 [npc.tailCount] #IF(npc.isTailFeral()) [style.colourFeral(feral)],#ENDIF [npc.tailColour(true)] dragonfly abdomens, which are a very long and narrow.
+		#ENDIF
+	]]></bodyDescription>
+</tail>
