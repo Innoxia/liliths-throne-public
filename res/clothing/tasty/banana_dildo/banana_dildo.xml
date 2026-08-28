@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<clothing>
+	<coreAttributes>
+		<authorTag><![CDATA[At the base of the banana dildo, there is a small blue label that reads "Cajun Creations by Tasty's Priest Sauce LLC."]]></authorTag>
+		<value>400</value>
+		<determiner><![CDATA[an]]></determiner>
+		<name><![CDATA[banana dildo]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[banana dildos]]></namePlural>
+		<description><![CDATA[A banana-shaped sex toy, designed to be fruitfully inserted into the vagina.]]></description>
+		<physicalResistance>0</physicalResistance>
+		<femininity>ANDROGYNOUS</femininity>
+		<equipSlots>
+			<slot>VAGINA</slot>
+			<slot>ANUS</slot>
+			<slot>MOUTH</slot>
+		</equipSlots>
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>banana_dildo_inv.svg</imageName>
+		<imageEquippedName slot="VAGINA">banana_dildo.svg</imageEquippedName>
+		<imageEquippedName slot="ANUS">banana_dildo.svg</imageEquippedName>
+		<imageEquippedName slot="MOUTH">banana_dildo.svg</imageEquippedName>
+		<enchantmentLimit/>
+		<effects/>
+		
+		<blockedPartsList slot="VAGINA">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>GROIN</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+				  <bodyPart>VAGINA</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		<blockedPartsList slot="ANUS">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>ANUS</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+				  <bodyPart>ANUS</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		<blockedPartsList slot="MOUTH">
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>MOUTH</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+				  <bodyPart>MOUTH</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked/>
+				<concealedSlots/>
+			</blockedParts>
+		</blockedPartsList>
+		
+		<incompatibleSlots slot="VAGINA"/>
+		<incompatibleSlots slot="ANUS"/>
+		<incompatibleSlots slot="MOUTH"/>
+		
+		<primaryColours>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_WHITE</colour>
+			<colour>CLOTHING_PINK_LIGHT</colour>
+			<colour>CLOTHING_PINK</colour>
+			<colour>CLOTHING_PURPLE_LIGHT</colour>
+			<colour>CLOTHING_PURPLE</colour>
+		</primaryColours>
+		<primaryColoursDye values="ALL"/>
+		<secondaryColours>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_WHITE</colour>
+			<colour>CLOTHING_PINK_LIGHT</colour>
+			<colour>CLOTHING_PINK</colour>
+			<colour>CLOTHING_PURPLE_LIGHT</colour>
+			<colour>CLOTHING_PURPLE</colour>
+		</secondaryColours>
+		<secondaryColoursDye values="ALL"/>
+		<tertiaryColours>
+			<colour>CLOTHING_BLACK</colour>
+			<colour>CLOTHING_WHITE</colour>
+			<colour>CLOTHING_PINK_LIGHT</colour>
+			<colour>CLOTHING_PINK</colour>
+			<colour>CLOTHING_PURPLE_LIGHT</colour>
+			<colour>CLOTHING_PURPLE</colour>
+		</tertiaryColours>
+		<tertiaryColoursDye values="ALL"/>
+	
+		<itemTags> 
+			<tag>SOLD_BY_FINCH</tag>
+		</itemTags>
+		<itemTags slot="VAGINA"> <!-- itemTags with a 'slot' defined will have these tags applied ONLY when the clothing is equipped into that slot. In this example, equipping the socks onto your hands hinders arm movement. This is not entirely logical, and I added this just for demonstration purposes. -->
+			<tag>ENABLE_SEX_EQUIP</tag>
+			<tag>PLUGS_VAGINA</tag>
+		</itemTags>
+		<itemTags slot="ANUS">
+			<tag>ENABLE_SEX_EQUIP</tag>
+			<tag>PLUGS_ANUS</tag>
+		</itemTags>
+		<itemTags slot="MOUTH">
+			<tag>ENABLE_SEX_EQUIP</tag>
+			<tag>MUFFLES_SPEECH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<sexAttributesSelf>
+		<penetration>
+			<length>15</length>
+			<girth>4</girth>
+			<modifiers>
+				<mod>RIBBED</mod>
+			</modifiers>
+		</penetration>
+		<orifice/>
+	</sexAttributesSelf>
+	
+	<replacementText slot="VAGINA" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(push)] the banana into [npc.her] [npc.pussy+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(push)] the banana into [npc2.namePos] [npc2.pussy+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] firmly [npc.verb(hold)] [npc2.name] still as [npc.she] roughly [npc.verb(shove)] the banana into [npc2.her] [npc2.pussy+].]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText slot="VAGINA" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the banana out from [npc.her] [npc.pussy+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the banana out from [npc2.namePos] [npc2.pussy+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.namePos] banana and [npc.verb(yank)] it out of [npc2.her] [npc2.pussy+].]]>
+		</otherRough>
+	</displacementText>
+	
+	<replacementText slot="ANUS" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(push)] the banana into [npc.her] [npc.anus+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(push)] the banana into [npc2.namePos] [npc2.anus+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] firmly [npc.verb(hold)] [npc2.name] still as [npc.she] roughly [npc.verb(force)] the banana into [npc2.her] [npc2.anus+].]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText slot="ANUS" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the banana out from [npc.her] [npc.anus+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the banana out from [npc2.namePos] [npc2.anus+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.namePos] banana and [npc.verb(yank)] it out of [npc2.her] [npc2.anus+].]]>
+		</otherRough>
+	</displacementText>
+	
+	<replacementText slot="MOUTH" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(slide)] the banana into [npc.her] [npc.mouth+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(shove)] the banana into [npc2.namePos] [npc2.mouth+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] firmly [npc.verb(hold)] [npc2.name] still as [npc.she] roughly [npc.verb(force)] the banana into [npc2.her] [npc2.mouth+].]]>
+		</otherRough>
+	</replacementText>
+
+	<displacementText slot="MOUTH" type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the banana out from [npc.her] [npc.mouth+].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the banana out from [npc2.namePos] [npc2.mouth+].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] firmly [npc.verb(grab)] [npc2.namePos] banana and [npc.verb(yank)] it out of [npc2.her] [npc2.mouth+].]]>
+		</otherRough>
+	</displacementText>
+	
+</clothing>
