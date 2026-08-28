@@ -417,6 +417,7 @@ public class Game implements XMLSaving {
 	// Slavery:
 	private OccupancyUtil occupancyUtil = new OccupancyUtil();
 
+	
 	public Game() {
 		// Surely this will work as a unique id (unless someone creates two new games within the same second, but surely that will never happen...)
 		id = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
