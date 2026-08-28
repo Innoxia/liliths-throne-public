@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<breast>
+	<race>sightglass_beaver</race>
+	<transformationName><![CDATA[beaver]]></transformationName>
+	<coveringType>sightglass_beaver_fur</coveringType>
+	<nippleType>sightglass_beaver_nipple</nippleType>
+	<fluidType>sightglass_beaver_milk</fluidType>
+	<names/>
+	<namesPlural/>
+	<descriptors/>
+	<namesFlat/>
+	<namesPluralFlat/>
+	<descriptorsFlat/>
+	<transformationDescription><![CDATA[
+		[npc.She] now [npc.has] [style.bolddarkBrown(beaver-like)], [npc.nipplesFullDescription], and when lactating, [npc.she] will produce [style.bolddarkBrown(beaver milk)].
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		On each of [npc.her] [npc.breastSize] [npc.breasts], [npc.she] [npc.has] [npc.nipplesPerBreast] beaver-like, [npc.nipplesFullDescription].
+	]]></bodyDescription>
+	<crotchBoobsTransformationDescription><![CDATA[
+		[npc.She] now [npc.has] [style.bolddarkBrown(beaver-like)], [npc.crotchNipplesFullDescription], and when lactating, [npc.she] will produce [style.bolddarkBrown(beaver milk)].
+	]]></crotchBoobsTransformationDescription>
+	<crotchBoobsBodyDescription><![CDATA[
+		On each of [npc.her] [npc.crotchBoobSize] [npc.crotchBoobs], [npc.she] [npc.has] [npc.crotchNipplesPerBreast] beaver-like, [npc.crotchNipplesFullDescription].
+	]]></crotchBoobsBodyDescription>
+</breast>

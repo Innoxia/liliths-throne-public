@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testicle>
+	<race>sightglass_beaver</race>
+	<coveringType>sightglass_beaver_fur</coveringType>
+	<fluidType>sightglass_beaver_cum</fluidType>
+	<internal>false</internal>
+	<names/>
+	<namesPlural/>
+	<descriptors/>
+</testicle>

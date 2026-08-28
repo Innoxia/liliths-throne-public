@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<authorTag><![CDATA[A faint inscription underneath the cup lid reads 'S.G.C. Provisions']]></authorTag>
+		<value>100</value> 
+		<determiner><![CDATA[a cup of]]></determiner>
+		<name><![CDATA[Maple Mocha]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Maple Mochas]]></namePlural>
+		<description><![CDATA[A large, insulated cup filled with a hot coffee. Rich cocoa powder and a double dose of maple sugar is balanced against a double shot of cream, yet overall the flavors don't overpower the robust dark roast coffee. Beaver-morphs are commonly seen happily sipping cups of this brew on their way to work.]]></description> 
+		<useDescriptor>drink</useDescriptor>
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		<rarity>UNCOMMON</rarity> 
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="-15" imageSize="70">beaver_latte.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		<colourPrimary>ATTRIBUTE_ARCANE</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_ARCANE</enchantmentEffectId>
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 5% [style.boldMana([#ATTRIBUTE_MANA_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MANA_MAXIMUM.getFormattedValue(2)] to 'potion effects']]></line>
+			<line><![CDATA[[#ATTRIBUTE_RESISTANCE_ICE.getFormattedValue(2)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		<applyEffects><![CDATA[
+			[##npc.incrementMana(npc.getAttributeValue(ATTRIBUTE_MANA_MAXIMUM)/20)]
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				An uplifting wave of arcane energy washes over [npc.name]...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MANA_MAXIMUM, 2)]
+			[#npc.addPotionEffect(ATTRIBUTE_RESISTANCE_ICE, 2)]
+		]]></applyEffects>
+		<itemTags>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>DRINK</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(open)] the lid of the cup and, upon discovering that the coffee within is still at a nice temperature, [npc.verb(take)] a deep swig of the calming liquid.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(open)] the lid of the cup and, upon discovering that the coffee within is still at a nice temperature, [npc.name] [npc.verb(bring)] it up to [npc2.namePos] waiting [npc2.lips] so [npc2.she] can take a deep swig of the calming liquid.
+		]]></otherUse>
+	</useDescriptions>
+</item>

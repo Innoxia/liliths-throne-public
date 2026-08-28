@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<coveringType>
+	<category>MAIN_FUR</category>
+	<determiner><![CDATA[a layer of]]></determiner>
+	<name><![CDATA[fur]]></name>
+	<namePlural pluralByDefault="false"><![CDATA[fur]]></namePlural>
+	<naturalCoveringModifiers>
+		<modifier>COARSE</modifier>
+	</naturalCoveringModifiers>
+	<extraCoveringModifiers/>
+	<naturalPatterns>
+		<pattern weighting="1">NONE</pattern> 
+	</naturalPatterns>
+	<extraPatterns/>
+	<naturalColoursPrimary>
+		<colour>COVERING_BROWN</colour>
+		<colour>COVERING_BROWN_DARK</colour>
+	</naturalColoursPrimary>
+	<extraColoursPrimary values="allCoveringColours"/>
+	<naturalColoursSecondary>
+		<colour>COVERING_BLACK</colour>
+	</naturalColoursSecondary>
+	<extraColoursSecondary values="allCoveringColours"/>
+</coveringType>
