@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<authorTag><![CDATA[An inscription written in crayon on the label reads 'Packed tight by Tasty's Secret Priest Sauce LLC']]></authorTag>
+		
+		<value>250</value> 
+		<determiner><![CDATA[a jar of]]></determiner>
+		<name><![CDATA[Peanut Butter]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Peanut Butter]]></namePlural>
+		<description><![CDATA[A jar of homemade, sticky, nut-packed peanut butter. A logo stuck to the side of the jar shows a buxom gorilla-girl in a skimpy chef's outfit with no back, smiling and winking behind her at the consumer, her ass on display while sucking on her finger.]]></description> 
+		
+		<useDescriptor>eat</useDescriptor>
+		
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		
+		<rarity>RARE</rarity> 
+		
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="0" imageSize="90" target1='stroke="#000"' replacement1='stroke="#ff5555"' target2='#ff8080' replacement2='#ff5555'>res/mods/tasty/race/ape/subspecies/chimpicon.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="85">ape_peanut_butter.svg</imageName>
+		<imageName zLayer="3" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		
+		<colourPrimary>tasty_ape</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		
+		<potionDescriptor><![CDATA[monkey]]></potionDescriptor>
+		<associatedRace>tasty_ape</associatedRace>
+		<enchantmentItemTypeId>ELIXIR</enchantmentItemTypeId>
+		<enchantmentEffectId>RACE</enchantmentEffectId>
+		
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 5% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_PHYSIQUE.getFormattedValue(1)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/10)]
+			
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				[npc.Name] [npc.verb(start)] to feel stronger...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_PHYSIQUE, 2)]
+		]]></applyEffects>
+		
+		<itemTags>
+			<tag>RACIAL_TF_ITEM</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<useDescriptions>
+		<selfUse><![CDATA[
+		[npc.Name] [npc.verb(open)] the jar and [npc.verb(breathe)] in the scent of sweet sticky peanut butter. Unable to resist the nutty nectar inside, [npc.she] [npc.verb(start)] shoveling the butter into [npc.her] mouth until nothing but sweet satisfaction is left behind.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(open)] the jar and [npc.verb(hold)] it out to [npc2.name], allowing [npc2.herHim] to breathe in the scent of sweet sticky peanut butter. Unable to resist the nutty nectar inside, [npc2.she] [npc2.verb(start)] shoveling the butter into [npc2.her] mouth until nothing but sweet satisfaction is left behind.
+		]]></otherUse>
+	</useDescriptions>
+
+	
+</item>

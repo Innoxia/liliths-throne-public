@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wing>
+	<!-- GENERAL INFORMATION: If you are unsure of anything, please use the LT Discord to ask for help! -->
+	
+	<!-- IMPORTANT!!!
+	Instead of making a new wing type, you should almost certainly be using the pre-defined wing types FEATHERED or LEATHERY
+	These can be seen here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/types/WingType.java -->
+	
+	<!-- If you want to see the part of the code where this type is defined, then please look here:
+	https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/abstractTypes/AbstractWingType.java -->
+	
+	<!-- The id of the race which this wing belongs to.
+	This will almost always be the id of the race in which this type is found (in this case hyena). -->
+	<race>tasty_monkey</race>
+	
+	<!-- The name that will be used when referring to transformations related to this type (such as when changing body parts in the self-TF menu). -->
+	<transformationName><![CDATA[monkey]]></transformationName>
+	
+	<!-- The id of the material covering this wing.
+	The id will typically take the form of 'innoxia_hyena_fur'.
+	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
+	<coveringType>tasty_monkey_fur</coveringType>
+	
+	<!-- Whether this wing type grants the ability to fly. -->
+	<allowsFlight>true</allowsFlight>
+	
+	<!-- The minimum and maximum size that this wing type can be transformed into.
+	Default values are ZERO_TINY and FOUR_HUGE.
+	Values for wing sizes can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/valueEnums/WingSize.java -->
+	<minimumSize>ZERO_TINY</minimumSize>
+	<maximumSize>FOUR_HUGE</maximumSize>
+	
+	<!-- The singular and plural names of this wing. -->
+	<name><![CDATA[wing]]></name>
+	<namePlural><![CDATA[wings]]></namePlural>
+	
+	<!-- The descriptors which should be drawn upon when describing a masculine character's wing of this type.
+	Can be left blank. -->
+	<descriptorsMasculine>
+		<descriptor><![CDATA[feathered]]></descriptor>
+	</descriptorsMasculine>
+	<!-- Same as above, but for feminine characters. -->
+	<descriptorsFeminine>
+		<descriptor><![CDATA[feathered]]></descriptor>
+	</descriptorsFeminine>
+	
+	<!-- The description which is shown when a character transforms to obtain this wing type.
+	This description immediately follows a brief description of the wing type beginning to transform. -->
+	<transformationDescription><![CDATA[
+		#IF(npc.getLegConfiguration().isWingsOnLegConfiguration())
+			[npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of [npc.wingSize], feathered wings push out from the sides of [npc.her] [npc.legConfiguration] body.
+		#ELSE
+			[npc.She] [npc.verb(bite)] [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of [npc.wingSize], feathered wings push out from [npc.her] shoulder blades.
+		#ENDIF
+		<br/>[npc.Name] now [npc.has] [style.boldTfGeneric(feathered wings)].
+	]]></transformationDescription>
+	
+	<!-- How this wing is described in a character's description page. -->
+	<bodyDescription><![CDATA[
+		[npc.sheHasFull] a pair of [npc.wingSize], feathered wings, which are [npc.materialDescriptor] [npc.wingFullDescription(true)].
+	]]></bodyDescription>
+	
+</wing>
