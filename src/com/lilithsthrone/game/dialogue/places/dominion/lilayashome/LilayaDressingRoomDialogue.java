@@ -18,6 +18,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import com.lilithsthrone.threading.DocBuilders;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -561,7 +562,7 @@ public class LilayaDressingRoomDialogue {
 
 			if(file.exists()) {
 				try {
-					Document doc = Main.getDocBuilder().parse(file);
+					Document doc = DocBuilders.parseDoc(file);
 					
 					// Cast magic:
 					doc.getDocumentElement().normalize();

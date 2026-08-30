@@ -18,6 +18,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import com.lilithsthrone.threading.DocBuilders;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -720,7 +721,7 @@ public class Properties {
 		if (new File("data/properties.xml").exists())
 			try {
 				File propertiesXML = new File("data/properties.xml");
-				Document doc = Main.getDocBuilder().parse(propertiesXML);
+				Document doc = DocBuilders.parseDoc(propertiesXML);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();

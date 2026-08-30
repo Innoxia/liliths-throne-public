@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 
+import com.lilithsthrone.threading.DocBuilders;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -59,7 +60,7 @@ public class RandomEnchantment {
 	public RandomEnchantment(File file) {
 		if (file.exists()) {
 			try {
-				Document doc = Main.getDocBuilder().parse(file);
+				Document doc = DocBuilders.parseDoc(file);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();

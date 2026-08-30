@@ -40,6 +40,7 @@ import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.MapTravelType;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.threading.PreInitializationThread;
 import com.lilithsthrone.utils.CreditsSlot;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.PresetColour;
@@ -68,6 +69,8 @@ import javafx.stage.Stage;
  * @author Innoxia
  */
 public class Main extends Application {
+	public static Thread currentThread;
+	public static Main instance;
 
 	public static Game game;
 	public static Sex sex;
@@ -500,6 +503,9 @@ public class Main extends Application {
 		mainController = loader.getController();
 		Main.primaryStage.setScene(mainScene);
 		Main.primaryStage.show();
+		currentThread = Thread.currentThread();
+		currentThread.setName("Main Thread");
+		instance = this;
 		Main.game = new Game();
 		Main.sex = new Sex();
 		Main.combat = new Combat();
@@ -722,6 +728,7 @@ public class Main extends Application {
 			properties.savePropertiesAsXML();
 		}
 
+		PreInitializationThread.preload();
 		launch(args);
 	}
 	
@@ -1129,5 +1136,10 @@ public class Main extends Application {
 
 	public static void saveProperties() {
 		properties.savePropertiesAsXML();
+	}
+
+	public void resetContent() {
+		System.out.println(Thread.currentThread().getName() + " is resetting content.");
+		Main.game.setContent(new Response("", "", OptionsDialogue.MENU));
 	}
 }

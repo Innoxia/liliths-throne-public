@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.threading.DocBuilders;
 import org.w3c.dom.Document;
 
 import com.lilithsthrone.controller.xmlParsing.Element;
@@ -389,7 +390,7 @@ public abstract class AbstractSubspecies {
 	public AbstractSubspecies(File XMLFile, String author, boolean mod) {
 		if (XMLFile.exists()) {
 			try {
-				Document doc = Main.getDocBuilder().parse(XMLFile);
+				Document doc = DocBuilders.parseDoc(XMLFile);
 				
 				// Cast magic:
 				doc.getDocumentElement().normalize();
@@ -1410,7 +1411,7 @@ public abstract class AbstractSubspecies {
 		}
 		if(bookFile.exists()) {
 			try {
-				Document doc = Main.getDocBuilder().parse(bookFile);
+				Document doc = DocBuilders.parseDoc(bookFile);
 				// Cast magic:
 				doc.getDocumentElement().normalize();
 				Element coreElement = Element.getDocumentRootElement(bookFile); // Loads the document and returns the root element
