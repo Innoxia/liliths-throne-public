@@ -52,9 +52,12 @@
 		
 		<primaryColours>
 			<colour>CLOTHING_BLACK</colour>
-			<colour>CLOTHING_BROWN</colour>
-			<colour>CLOTHING_BROWN_DARK</colour>
-			<colour>CLOTHING_TAN</colour>
+			<colour>CLOTHING_GREY_DARK</colour>
+			<colour>CLOTHING_DESATURATED_BROWN</colour>
+			<colour>CLOTHING_DESATURATED_BROWN_DARK</colour>
+			<colour>CLOTHING_DESATURATED_BROWN_DESAT</colour>
+			<colour>CLOTHING_KHAKI</colour>
+			<colour>CLOTHING_KHAKI_DESAT</colour>
 		</primaryColours>
 		<primaryColoursDye values="ALL"/>
 		<secondaryColours/>

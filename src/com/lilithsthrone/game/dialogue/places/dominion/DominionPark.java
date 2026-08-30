@@ -511,7 +511,7 @@ public class DominionPark {
 		}
 	};
 	
-	// Filly:
+	// Mule:
 
 	public static final DialogueNode AFTER_FILLY_SEX_ANAL = new DialogueNode("Finished", "Mistress Natalya has finished with you for now.", true) {
 		@Override

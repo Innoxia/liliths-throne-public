@@ -43,7 +43,7 @@ public class DominionClubNPC extends NPC {
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3,
 				null, null, null,
-				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_CLUB_HOLDING_CELL, false);
+				new CharacterInventory(false, 10), WorldType.EMPTY, PlaceType.GENERIC_CLUB_HOLDING_CELL, false);
 		
 		if(!isImported) {
 			this.setLocation(Main.game.getPlayer(), false);

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tattoo>
+	<coreAttributes>
+		<value>500</value> 
+		
+		<name><![CDATA[hermaphroditic glyph]]></name>
+		
+		<description><![CDATA[This glyph represents the combination of both male and female sex and gender.]]></description> 
+		<bodyOverviewDescription><![CDATA[a tattoo which depicts a hermaphroditic symbol]]></bodyOverviewDescription> 
+		
+		<imageName>gender_herm.svg</imageName> 
+		
+		<slotAvailability/>
+		
+		<primaryColours values="ALL" defaultColour="CLOTHING_PURPLE"/> 
+		<secondaryColours/> 
+		<tertiaryColours/> 
+		
+	</coreAttributes>
+	
+</tattoo>

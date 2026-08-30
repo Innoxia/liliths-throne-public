@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<enchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	<applyDefaultSeal><![CDATA[false]]></applyDefaultSeal>
+	
+	<spawnWeighting><![CDATA[
+		100
+	]]></spawnWeighting>
+	
+	<namePrefix/>
+	<namePostfix/>
+	<nameOverride><![CDATA[Binding of the bimbo femboy]]></nameOverride>
+	
+	<conditionalPreParsing><![CDATA[
+		[#flags.setInt('bimboSeal', RND.nextInt(100))]
+		[#flags.setInt('rapidTF', RND.nextInt(100))]
+	]]></conditionalPreParsing>
+	
+	<!-- 80% chance of big seal -->
+	<itemEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('bimboSeal')<80]
+		]]></conditional>
+		<effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="DRAIN" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	<!-- 20% chance of huge seal -->
+	<itemEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('bimboSeal')>=80]
+		]]></conditional>
+		<effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	<!-- 66% chance of normal TF speed (daily TFs) -->
+	<itemEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('rapidTF')>=33]
+		]]></conditional>
+		<effect limit="100" mod1="TF_CORE" mod2="TF_MOD_FEMININITY" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="4" mod1="TF_FACE" mod2="TF_MOD_SIZE" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_FACE" mod2="TF_MOD_ORIFICE_PUFFY" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="75" mod1="TF_HAIR" mod2="TF_MOD_SIZE" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="7" mod1="TF_ASS" mod2="TF_MOD_SIZE" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="7" mod1="TF_ASS" mod2="TF_MOD_SIZE_SECONDARY" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="25" mod1="TF_BREASTS" mod2="TF_MOD_SIZE" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="4" mod1="TF_BREASTS" mod2="TF_MOD_SIZE_SECONDARY" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="4" mod1="TF_BREASTS" mod2="TF_MOD_SIZE_TERTIARY" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_BREASTS" mod2="TF_MOD_ORIFICE_PUFFY" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_VAGINA" mod2="REMOVAL" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_PENIS" mod2="TF_TYPE_1" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="6" mod1="TF_PENIS" mod2="TF_MOD_SIZE" potency="DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="1" mod1="TF_PENIS" mod2="TF_MOD_SIZE_TERTIARY" potency="DRAIN" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	<!-- 33% chance of rapid TF (hourly instead of daily) -->
+	<itemEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('rapidTF')<33]
+		]]></conditional>
+		<effect limit="100" mod1="TF_CORE" mod2="TF_MOD_FEMININITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="4" mod1="TF_FACE" mod2="TF_MOD_SIZE" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_FACE" mod2="TF_MOD_ORIFICE_PUFFY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="75" mod1="TF_HAIR" mod2="TF_MOD_SIZE" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="7" mod1="TF_ASS" mod2="TF_MOD_SIZE" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="7" mod1="TF_ASS" mod2="TF_MOD_SIZE_SECONDARY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="25" mod1="TF_BREASTS" mod2="TF_MOD_SIZE" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="4" mod1="TF_BREASTS" mod2="TF_MOD_SIZE_SECONDARY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="4" mod1="TF_BREASTS" mod2="TF_MOD_SIZE_TERTIARY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_BREASTS" mod2="TF_MOD_ORIFICE_PUFFY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_VAGINA" mod2="REMOVAL" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_PENIS" mod2="TF_TYPE_1" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="6" mod1="TF_PENIS" mod2="TF_MOD_SIZE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="1" mod1="TF_PENIS" mod2="TF_MOD_SIZE_TERTIARY" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	<itemEffects>
+		<effect limit="0" mod1="TF_MOD_FETISH_BEHAVIOUR" mod2="TF_MOD_FETISH_BIMBO" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_MAJOR_ATTRIBUTE" mod2="CORRUPTION" potency="BOOST" timer="0" type="CLOTHING"/>
+		
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_LUST" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_LUST" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_LUST" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_LUST" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_LUST" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_LUST" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_LUST" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_LUST" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="DAMAGE_LUST" potency="MINOR_BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	
+</enchantment>

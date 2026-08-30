@@ -86,7 +86,7 @@ public class Hammer extends NPC {
 				69, Month.DECEMBER, 1,
 				40,
 				Gender.M_P_MALE, Subspecies.WOLF_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_elis_enforcer_station"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_enforcer_station_sword"),
 				true);
 		if(!isImported) {
@@ -100,6 +100,9 @@ public class Hammer extends NPC {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.8.10")) {
 			this.setupPerks(true);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.10.12")) {
+			this.setStartingBody(false);
 		}
 	}
 
@@ -154,7 +157,7 @@ public class Hammer extends NPC {
 		
 		// Coverings:
 		this.setEyeCovering(new Covering(BodyCoveringType.EYE_LYCAN, CoveringPattern.EYE_IRISES_HETEROCHROMATIC, CoveringModifier.EYE, PresetColour.EYE_YELLOW, false, PresetColour.EYE_WHITE, false));
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_PUPILS, CoveringPattern.EYE_IRISES_HETEROCHROMATIC, CoveringModifier.EYE, PresetColour.EYE_BLACK, false, PresetColour.EYE_GREY, false));
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_PUPILS, CoveringPattern.EYE_PUPILS_HETEROCHROMATIC, CoveringModifier.EYE, PresetColour.EYE_BLACK, false, PresetColour.EYE_GREY, false));
 		
 		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, PresetColour.SKIN_PALE), true);
 		body.getCoverings().put(BodyCoveringType.LYCAN_FUR, new Covering(BodyCoveringType.LYCAN_FUR, CoveringPattern.HIGHLIGHTS, CoveringModifier.SHORT, PresetColour.COVERING_GREY, false, PresetColour.COVERING_WHITE, false));

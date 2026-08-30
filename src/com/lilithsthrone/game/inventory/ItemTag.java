@@ -15,7 +15,9 @@ public enum ItemTag {
 
 	CHEAT_ITEM, // Cheat items are hidden in the debug spawner, and are also not added to the Encyclopedia.
 	SILLY_MODE, // Silly mode items only appear in shopkeepers inventories when silly mode is on.
+	FILLY_NAMING(Util.newArrayListOfValues("Replaces Natalya's 'mule' references to 'filly'"), false), // Special tag used for the mule/filly choker
 	
+	REMOVE_FROM_DRESSING_ROOM_OUTFITS,
 	REMOVE_FROM_DEBUG_SPAWNER,
 	NOT_FOR_SALE,
 	
@@ -137,6 +139,11 @@ public enum ItemTag {
 	
 	DRESS, // For helping to generate clothing in CharacterUtils
 	SWIMWEAR, // For helping to generate clothing in CharacterUtils
+	
+	PRESCRIPTION_GLASSES(  // Negates the blurry vision status effect
+			Util.newArrayListOfValues(
+					"[style.colourGood(Enchanted prescription lenses enhance the wearer's vision)]"),
+			false),
 
 	PROVIDES_KEY( // The person who equips this clothing will get an unlock key, making the unsealing cost 0
 			Util.newArrayListOfValues(
@@ -148,6 +155,12 @@ public enum ItemTag {
 					"[style.colourBad(Unenchantable)]"),
 			false),
 
+	// If clothing has these tags, then it will act as though the associated bodyPart is added to the blockedBodyParts list
+	// This is mainly useful for stickers, as normally you should be using the blockedBodyParts list to define blocked areas
+	// Look at the innoxia_latex_hood clothing item to see these in use
+	APPLIES_BLOCKED_BODY_PART_EYES(Util.newArrayListOfValues("[style.colourBad(Blocks eyes)]"), false),
+	APPLIES_BLOCKED_BODY_PART_MOUTH(Util.newArrayListOfValues("[style.colourBad(Blocks mouth)]"), false),
+	
 	SPREADS_FEET( // Prevents double foot actions, like wrap-around footjobs
 			Util.newArrayListOfValues(
 					"[style.colourBad(Restricts sex actions)]"),
@@ -274,6 +287,10 @@ public enum ItemTag {
 	FITS_NON_BIPED_BODY_HUMANOID(
 			Util.newArrayListOfValues(
 					"[style.colourHuman(Fits humanoid parts of non-biped bodies)]"),
+			false),
+	FITS_BIPEDS(
+			Util.newArrayListOfValues(
+					"[style.colourTfGeneric(Only fits bipedal bodies)]"),
 			false),
 	FITS_TAUR_BODY(
 			Util.newArrayListOfValues(

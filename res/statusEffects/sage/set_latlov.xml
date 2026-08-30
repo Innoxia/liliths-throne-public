@@ -8,7 +8,7 @@
 	<sexEffect>false</sexEffect>
 	<name><![CDATA[Latex Lover]]></name>
 	<description><![CDATA[
-		[npc.NameIsFull] currently wearing items of clothing made from skin tight latex; the shiny, buttery-smooth material serves to enhance [npc.her] features and increase lust damage. However, due to its tightness it's also making [npc.name] more horny...
+		[npc.NameIsFull] currently wearing items of clothing made from skin-tight latex; the shiny, buttery-smooth material serves to enhance [npc.her] features and increase lust damage. However, due to its tightness, it's also making [npc.name] more horny...
 	]]></description>
 	<imageName>set_latlov.svg</imageName>
 	<colourPrimary>CLOTHING_RED</colourPrimary> 

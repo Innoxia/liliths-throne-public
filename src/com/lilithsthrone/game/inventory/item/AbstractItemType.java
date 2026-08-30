@@ -55,6 +55,7 @@ public abstract class AbstractItemType extends AbstractCoreType {
 	private boolean combatUseAllies;
 	private boolean combatUseEnemies;
 	private boolean consumedOnUse;
+	private boolean breakOutOfInventory;
 	
 	private Rarity rarity;
 	
@@ -144,6 +145,7 @@ public abstract class AbstractItemType extends AbstractCoreType {
 		this.combatUseAllies = true;
 		this.combatUseEnemies = false;
 		this.consumedOnUse = true;
+		this.breakOutOfInventory = false;
 		
 		this.value = value;
 		this.rarity = rarity;
@@ -237,6 +239,11 @@ public abstract class AbstractItemType extends AbstractCoreType {
 			this.combatUseAllies = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("combatUseAllies").getTextContent());
 			this.combatUseEnemies = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("combatUseEnemies").getTextContent());
 			this.consumedOnUse = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("consumedOnUse").getTextContent());
+			
+			this.breakOutOfInventory = false;
+			if(coreAttributes.getOptionalFirstOf("breakOutOfInventory").isPresent()) {
+				this.breakOutOfInventory = Boolean.valueOf(coreAttributes.getMandatoryFirstOf("breakOutOfInventory").getTextContent());
+			}
 			
 			this.svgPathInformation = new ArrayList<>();
 			
@@ -765,6 +772,10 @@ public abstract class AbstractItemType extends AbstractCoreType {
 	
 	public boolean isConsumedOnUse() {
 		return consumedOnUse;
+	}
+	
+	public boolean isBreakOutOfInventory() {
+		return breakOutOfInventory;
 	}
 	
 	public boolean isTransformative() {

@@ -177,7 +177,8 @@ public enum SpellUpgrade {
 			"Deep Freeze",
 			"When the crystals in freezing fog detonate, they instantly entomb any objects nearby in a case of thin ice, momentarily locking them in place.",
 			null, Util.newArrayListOfValues(
-					"When Ice Shard [style.boldExcellent(critically hits)] a target affected by Freezing Fog, that target suffers [style.colourTerrible(-1)] [style.colourActionPoints(action points)]")),
+					"When Ice Shard [style.boldExcellent(critically hits)] a target affected by Freezing Fog,",
+					"that target suffers [style.colourTerrible(-1)] [style.colourActionPoints(action points)]")),
 
 	RAIN_CLOUD_1(true,
 			1,
@@ -200,7 +201,9 @@ public enum SpellUpgrade {
 			"Cloud Burst",
 			"The anger and annoyance of the rain cloud's target is harnessed as energy, and each time they are hit by a critical attack, the cloud grows in strength and size.",
 			null, Util.newArrayListOfValues(
-					"If Rain Cloud's target is hit by a critical attack, the duration is set to [style.colourGood(6 turns)], and "+Attribute.SPELL_COST_MODIFIER.getColouredName("b")+" debuff is increased to -50")),
+					"If Rain Cloud's target is hit by any critical attack:",
+					"The duration is reset to [style.colourGood(6 turns)]",
+					"<b>and</b> "+Attribute.SPELL_COST_MODIFIER.getColouredName("b")+" debuff is increased to -50")),
 
 	SOOTHING_WATERS_1_CLEAN(true,
 			2,

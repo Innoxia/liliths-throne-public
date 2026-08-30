@@ -987,7 +987,7 @@ public class HelenaHotel {
 		}
 	};
 	
-	public static final DialogueNode DATE_RESTAURANT_GIFT = new DialogueNode("", "", true, true) {
+	public static final DialogueNode DATE_RESTAURANT_GIFT = new DialogueNode("Give gift", "", true, true) {
 		@Override
 		public int getSecondsPassed() {
 			return 2*60;

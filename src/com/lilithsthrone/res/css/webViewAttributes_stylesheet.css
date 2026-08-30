@@ -520,6 +520,17 @@ h6{
 .overlay-inventory.no-pointer{
 	cursor:default;
 }
+.overlay-inventory.disabled {
+	cursor:default;
+	opacity:0.33;
+	background: repeating-linear-gradient(
+	  135deg,
+	  #333,
+	  #333 10px,
+	  #222 10px,
+	  #222 20px
+	);
+}
 
 .femininityIcon{
 	position:absolute;

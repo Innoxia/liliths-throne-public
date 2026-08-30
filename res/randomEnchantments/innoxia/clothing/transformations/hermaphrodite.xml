@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<enchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	<applyDefaultSeal><![CDATA[true]]></applyDefaultSeal>
+	
+	<spawnWeighting><![CDATA[
+		100
+	]]></spawnWeighting>
+	
+	<namePrefix><![CDATA[Hermaphrodite's]]></namePrefix>
+	<namePostfix/>
+	<nameOverride/>
+	
+	<conditionalPreParsing><![CDATA[
+		[#flags.setInt('rapidTF', RND.nextInt(100))]
+	]]></conditionalPreParsing>
+	
+	<!-- 66% chance of normal TF speed (daily TFs) -->
+	<itemEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('rapidTF')>=33]
+		]]></conditional>
+		<effect limit="0" mod1="TF_PENIS" mod2="TF_TYPE_1" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="20" mod1="TF_PENIS" mod2="TF_MOD_SIZE" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="3" mod1="TF_PENIS" mod2="TF_MOD_SIZE_SECONDARY" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_VAGINA" mod2="TF_TYPE_1" potency="BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	<!-- 33% chance of rapid TF (hourly instead of daily) -->
+	<itemEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('rapidTF')<33]
+		]]></conditional>
+		<effect limit="0" mod1="TF_PENIS" mod2="TF_TYPE_1" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="20" mod1="TF_PENIS" mod2="TF_MOD_SIZE" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="3" mod1="TF_PENIS" mod2="TF_MOD_SIZE_SECONDARY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_VAGINA" mod2="TF_TYPE_1" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+</enchantment>

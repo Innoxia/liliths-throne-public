@@ -5,9 +5,11 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
+import com.lilithsthrone.game.character.body.coverings.Covering;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.BodyPartClothingBlock;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.colours.Colour;
 
 /**
  * @since 0.1.0
@@ -25,6 +27,10 @@ public enum InventorySlot {
 		protected String getNameForParsing(GameCharacter character) {
 			return "head";
 		}
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return character.getCovering(character.getFaceCovering());
+		}
 	},
 
 	/** Clothing slot "eyes". Used for glasses.<br/>
@@ -33,6 +39,11 @@ public enum InventorySlot {
 		@Override
 		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.eyes]";
+		}
+
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return character.getCovering(character.getFaceCovering());
 		}
 	},
 
@@ -50,6 +61,10 @@ public enum InventorySlot {
 		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.hair(true)]";
 		}
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return character.getCovering(character.getEarCovering());
+		}
 	},
 
 	/** Clothing slot "mouth". Used for ballgags.<br/>
@@ -59,6 +74,11 @@ public enum InventorySlot {
 		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.mouth]";
 		}
+
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return character.getCovering(character.getFaceCovering());
+		}
 	},
 
 	/** Clothing slot "neck". Used for necklaces and scarfs.<br/>
@@ -67,6 +87,11 @@ public enum InventorySlot {
 		@Override
 		protected String getNameForParsing(GameCharacter character) {
 			return "neck";
+		}
+
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return character.getCovering(character.getFaceCovering());
 		}
 	},
 	
@@ -80,6 +105,11 @@ public enum InventorySlot {
 		protected String getNameForParsing(GameCharacter character) {
 			return "over-torso";
 		}
+
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return character.getCovering(character.getTorsoCovering());
+		}
 	},
 
 	/** Clothing slot "torso". Used for shirts.<br/>
@@ -88,6 +118,11 @@ public enum InventorySlot {
 		@Override
 		protected String getNameForParsing(GameCharacter character) {
 			return "torso";
+		}
+
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return character.getCovering(character.getTorsoCovering());
 		}
 	},
 
@@ -101,6 +136,10 @@ public enum InventorySlot {
 		@Override
 		public boolean isPlural(GameCharacter character) {
 			return character.hasBreasts();
+		}
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return character.getCovering(character.getBreastCovering());
 		}
 	},
 
@@ -122,6 +161,10 @@ public enum InventorySlot {
 			}
 			return "[npc.nipples]";
 		}
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return character.getCovering(character.getNippleCovering());
+		}
 	},
 
 	/** Clothing slot "stomach". Used for corsets.<br/>
@@ -130,6 +173,11 @@ public enum InventorySlot {
 		@Override
 		protected String getNameForParsing(GameCharacter character) {
 			return "stomach";
+		}
+
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return character.getCovering(character.getTorsoCovering());
 		}
 	},
 
@@ -150,6 +198,10 @@ public enum InventorySlot {
 		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.hands]";
 		}
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return character.getCovering(character.getArmCovering());
+		}
 	},
 
 	/** Clothing slot "wrists". Used for bracelets.<br/>
@@ -165,6 +217,10 @@ public enum InventorySlot {
 		@Override
 		protected String getNameForParsing(GameCharacter character) {
 			return "wrists";
+		}
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return character.getCovering(character.getArmCovering());
 		}
 	},
 
@@ -182,6 +238,10 @@ public enum InventorySlot {
 		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.fingers]";
 		}
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return character.getCovering(character.getArmCovering());
+		}
 	},
 
 	/** Clothing slot "hips". Used for belts.<br/>
@@ -190,6 +250,11 @@ public enum InventorySlot {
 		@Override
 		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.hips]";
+		}
+
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return character.getCovering(character.getTorsoCovering());
 		}
 	},
 
@@ -204,6 +269,11 @@ public enum InventorySlot {
 		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.asshole]";
 		}
+
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return character.getCovering(character.getAssCovering());
+		}
 	},
 
 	
@@ -216,6 +286,11 @@ public enum InventorySlot {
 		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.legs]";
 		}
+
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return character.getCovering(character.getLegCovering());
+		}
 	},
 
 	/** Clothing slot "groin". Used for underwear.<br/>
@@ -224,6 +299,11 @@ public enum InventorySlot {
 		@Override
 		protected String getNameForParsing(GameCharacter character) {
 			return "groin";
+		}
+
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return character.getCovering(character.getTorsoCovering());
 		}
 	},
 
@@ -241,6 +321,10 @@ public enum InventorySlot {
 		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.feet]";
 		}
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return character.getCovering(character.getLegCovering());
+		}
 	},
 
 	/** Clothing slot "calves". Used for socks.<br/>
@@ -257,6 +341,10 @@ public enum InventorySlot {
 		protected String getNameForParsing(GameCharacter character) {
 			return "calves";
 		}
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return character.getCovering(character.getLegCovering());
+		}
 	},
 
 	/** Clothing slot "ankles". Used for bracelets.<br/>
@@ -272,6 +360,10 @@ public enum InventorySlot {
 		@Override
 		protected String getNameForParsing(GameCharacter character) {
 			return "ankles";
+		}
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return character.getCovering(character.getLegCovering());
 		}
 	},
 	
@@ -292,6 +384,10 @@ public enum InventorySlot {
 		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.horns]";
 		}
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return character.getCovering(character.getHornCovering());
+		}
 	},
 
 	/** Clothing slot "wings". Used for wing decorations.<br/>
@@ -308,6 +404,10 @@ public enum InventorySlot {
 		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.wings]";
 		}
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return character.getCovering(character.getWingCovering());
+		}
 	},
 
 	/** Clothing slot "tail". Used for tail decorations.<br/>
@@ -323,6 +423,10 @@ public enum InventorySlot {
 		@Override
 		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.tail]";
+		}
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return character.getCovering(character.getTailCovering());
 		}
 	},
 
@@ -372,6 +476,10 @@ public enum InventorySlot {
 		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.cock]";
 		}
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return character.getCovering(character.getPenisCovering());
+		}
 	},
 
 	/** Clothing slot "vagina". Used for plugs.<br/>
@@ -420,6 +528,10 @@ public enum InventorySlot {
 		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.pussy]";
 		}
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return character.getCovering(character.getVaginaCovering());
+		}
 	},
 
 	// PIERCING:
@@ -428,11 +540,21 @@ public enum InventorySlot {
 		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.ears]";
 		}
+
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return null;
+		}
 	},
 	PIERCING_NOSE(0, "nose piercing", false, false, true, null) {
 		@Override
 		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.nose]";
+		}
+
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return null;
 		}
 	},
 	PIERCING_TONGUE(0, "tongue piercing", false, false, true, null) {
@@ -440,11 +562,21 @@ public enum InventorySlot {
 		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.tongue]";
 		}
+
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return null;
+		}
 	},
 	PIERCING_LIP(0, "lip piercing", false, false, true, null) {
 		@Override
 		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.lips]";
+		}
+
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return null;
 		}
 	},
 	PIERCING_STOMACH(0, "navel piercing", false, false, true, null) {
@@ -452,11 +584,21 @@ public enum InventorySlot {
 		protected String getNameForParsing(GameCharacter character) {
 			return "navel";
 		}
+
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return null;
+		}
 	},
 	PIERCING_NIPPLE(0, "nipple piercing", false, false, true, null) {
 		@Override
 		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.nipples]";
+		}
+
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return null;
 		}
 	},
 	PIERCING_VAGINA(0, "vaginal piercing", false, false, true, null) {
@@ -471,6 +613,10 @@ public enum InventorySlot {
 		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.pussy]";
 		}
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return null;
+		}
 	},
 	PIERCING_PENIS(0, "cock piercing", false, false, true, null) {
 		@Override
@@ -484,6 +630,10 @@ public enum InventorySlot {
 		protected String getNameForParsing(GameCharacter character) {
 			return "[npc.cock]";
 		}
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return null;
+		}
 	},
 
 	// EQUIPPABLE:
@@ -496,6 +646,10 @@ public enum InventorySlot {
 		public boolean isWeapon() {
 			return true;
 		}
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return null;
+		}
 	},
 	WEAPON_MAIN_2(0, "primary weapon (2nd)", false, false, false, null) {
 		@Override
@@ -506,6 +660,10 @@ public enum InventorySlot {
 		public boolean isWeapon() {
 			return true;
 		}
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return null;
+		}
 	},
 	WEAPON_MAIN_3(0, "primary weapon (3rd)", false, false, false, null) {
 		@Override
@@ -515,6 +673,10 @@ public enum InventorySlot {
 		@Override
 		public boolean isWeapon() {
 			return true;
+		}
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return null;
 		}
 	},
 	
@@ -527,6 +689,10 @@ public enum InventorySlot {
 		public boolean isWeapon() {
 			return true;
 		}
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return null;
+		}
 	},
 	WEAPON_OFFHAND_2(0, "secondary weapon (2nd)", false, false, false, null) {
 		@Override
@@ -537,6 +703,10 @@ public enum InventorySlot {
 		public boolean isWeapon() {
 			return true;
 		}
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return null;
+		}
 	},
 	WEAPON_OFFHAND_3(0, "secondary weapon (3rd)", false, false, false, null) {
 		@Override
@@ -546,6 +716,10 @@ public enum InventorySlot {
 		@Override
 		public boolean isWeapon() {
 			return true;
+		}
+		@Override
+		protected Covering getAssociatedCoveringForTattoo(GameCharacter character) {
+			return null;
 		}
 	};
 
@@ -703,6 +877,16 @@ public enum InventorySlot {
 	
 	protected abstract String getNameForParsing(GameCharacter character);
 
+	protected abstract Covering getAssociatedCoveringForTattoo(GameCharacter character);
+
+	public Colour getAssociatedColourForTattoo(GameCharacter character) {
+		Covering covering = getAssociatedCoveringForTattoo(character);
+		if(covering==null || !isPhysicallyAvailable(character)) {
+			return null;
+		}
+		return covering.getPrimaryColour();
+	}
+	
 	public boolean isPlural(GameCharacter character) {
 		return plural;
 	}

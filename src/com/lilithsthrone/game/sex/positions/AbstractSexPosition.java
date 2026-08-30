@@ -50,8 +50,10 @@ public abstract class AbstractSexPosition {
 	private List<Class<?>> positioningClasses;
 	private List<Class<?>> specialClasses;
 	
-	public static List<SexAreaOrifice> genericGroinForceCreampieAreas = Util.newArrayListOfValues(SexAreaOrifice.ANUS, SexAreaOrifice.VAGINA, SexAreaOrifice.URETHRA_VAGINA, SexAreaOrifice.URETHRA_PENIS, SexAreaOrifice.SPINNERET);
-	public static List<SexAreaOrifice> genericFaceForceCreampieAreas = Util.newArrayListOfValues(SexAreaOrifice.MOUTH);
+	public static List<SexAreaInterface> genericGroinForceCreampieAreas = Util.newArrayListOfValues(
+			SexAreaOrifice.ANUS, SexAreaOrifice.VAGINA, SexAreaOrifice.URETHRA_VAGINA, SexAreaOrifice.URETHRA_PENIS, SexAreaOrifice.SPINNERET, SexAreaPenetration.PENIS);
+	
+	public static List<SexAreaInterface> genericFaceForceCreampieAreas = Util.newArrayListOfValues(SexAreaOrifice.MOUTH);
 	
 	public AbstractSexPosition(String name,
 			int maximumSlots,
@@ -275,7 +277,7 @@ public abstract class AbstractSexPosition {
 	 * @return A map containing keys of body parts, which then map to lists of orifices.
 	 * The key represents the body part that can be used by the cumTarget in order to force the cumProvider to cum inside any of the orifices in the value list.
 	 */
-	protected Map<Class<? extends BodyPartInterface>, List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
+	protected Map<Class<? extends BodyPartInterface>, List<SexAreaInterface>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
 		return null;
 	}
 	
@@ -294,7 +296,7 @@ public abstract class AbstractSexPosition {
 	 * @param cumProvider The one who is being forced to cum inside the cumTarget.
 	 * @return True if the orifice can be forcibly creampied by the supplied body part.
 	 */
-	public boolean isForcedCreampieEnabled(Class<? extends BodyPartInterface> bodyPartUsed, SexAreaOrifice orifice, GameCharacter cumTarget, GameCharacter cumProvider) {
+	public boolean isForcedCreampieEnabled(Class<? extends BodyPartInterface> bodyPartUsed, SexAreaInterface orifice, GameCharacter cumTarget, GameCharacter cumProvider) {
 		if(getForcedCreampieMap(cumTarget, cumProvider)!=null && getForcedCreampieMap(cumTarget, cumProvider).containsKey(bodyPartUsed)) {
 			return getForcedCreampieMap(cumTarget, cumProvider).get(bodyPartUsed).contains(orifice);
 		}

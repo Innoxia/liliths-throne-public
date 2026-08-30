@@ -1,10 +1,12 @@
 package com.lilithsthrone.game.sex.positions.slots;
 
+import com.lilithsthrone.game.character.GameCharacter;
+
 /**
  * All SexSlots that are used in the LYING_DOWN position.
  * 
  * @since 0.3.4
- * @version 0.3.8.8
+ * @version 0.4.11.2
  * @author Innoxia
  */
 public class SexSlotLyingDown {
@@ -34,6 +36,31 @@ public class SexSlotLyingDown {
 		}
 	};
 
+	public static final SexSlot LYING_DOWN_FRONT = new SexSlot(
+			"Lying on front",
+			"lying on front",
+			"Continuing to lie down on [npc.her] stomach, [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.",
+			false,
+			SexSlotTag.LYING_DOWN_ON_FRONT);
+	public static final SexSlot LYING_DOWN_FRONT_TWO = new SexSlot(LYING_DOWN_FRONT) {
+		@Override
+		public String getDescription() {
+			return "lying on front (2nd)";
+		}
+	};
+	public static final SexSlot LYING_DOWN_FRONT_THREE = new SexSlot(LYING_DOWN_FRONT) {
+		@Override
+		public String getDescription() {
+			return "lying on front (3rd)";
+		}
+	};
+	public static final SexSlot LYING_DOWN_FRONT_FOUR = new SexSlot(LYING_DOWN_FRONT) {
+		@Override
+		public String getDescription() {
+			return "lying on front (4th)";
+		}
+	};
+	
 	
 	public static final SexSlot COWGIRL = new SexSlot(
 			"Cowgirl",
@@ -117,8 +144,6 @@ public class SexSlotLyingDown {
 			false,
 			SexSlotTag.FACE_SITTING);
 
-	
-
 	/** Sitting looking down at the person's lower body. */
 	public static final SexSlot FACE_SITTING_REVERSE = new SexSlot(
 			"Reverse face-sitting",
@@ -147,6 +172,32 @@ public class SexSlotLyingDown {
 			"With trembling [npc.legs], [npc.name] [npc.verb(sink)] down onto [npc2.namePos] face, letting out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.",
 			false,
 			SexSlotTag.FACE_SITTING_REVERSE);
+
+	/** Oral slots for if the targeted character is lying down on their front. */
+	public static final SexSlot RECEIVING_ORAL = new SexSlot(
+			"In front",
+			"in front",
+			"[npc.Name] [npc.verb(push)] [npc.her] groin into [npc2.namePos] face and [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.",
+			false,
+			SexSlotTag.RECEIVING_ORAL_FROM_PRONE_PARTNER);
+	public static final SexSlot RECEIVING_ORAL_TWO = new SexSlot(
+			"In front",
+			"in front (2nd)",
+			"[npc.Name] [npc.verb(push)] [npc.her] groin into [npc2.namePos] face and [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.",
+			false,
+			SexSlotTag.RECEIVING_ORAL_FROM_PRONE_PARTNER);
+	public static final SexSlot RECEIVING_ORAL_THREE = new SexSlot(
+			"In front",
+			"in front (3rd)",
+			"[npc.Name] [npc.verb(push)] [npc.her] groin into [npc2.namePos] face and [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.",
+			false,
+			SexSlotTag.RECEIVING_ORAL_FROM_PRONE_PARTNER);
+	public static final SexSlot RECEIVING_ORAL_FOUR = new SexSlot(
+			"In front",
+			"in front (4th)",
+			"[npc.Name] [npc.verb(push)] [npc.her] groin into [npc2.namePos] face and [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.",
+			false,
+			SexSlotTag.RECEIVING_ORAL_FROM_PRONE_PARTNER);
 	
 	
 	public static final SexSlot LAP_PILLOW = new SexSlot(
@@ -212,11 +263,28 @@ public class SexSlotLyingDown {
 			"between legs",
 			"[npc.Name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax, and, leaning down on top of [npc2.name], [npc.she] [npc.verb(gaze)] lustfully down into [npc2.her] [npc2.eyes+].",
 			false,
-			SexSlotTag.MISSIONARY);
+			SexSlotTag.MISSIONARY) {
+		@Override
+		public String getName(GameCharacter target) {
+			GameCharacter partner = getCharacterInSlot(LYING_DOWN_FRONT);
+			if(partner==null) {
+				return super.getName(target);
+			}
+			return "Prone bone";
+		}
+	};
 	public static final SexSlot MISSIONARY_TWO = new SexSlot(MISSIONARY) {
 		@Override
 		public String getDescription() {
 			return "between legs (2nd)";
+		}
+		@Override
+		public String getName(GameCharacter target) {
+			GameCharacter partner = getCharacterInSlot(LYING_DOWN_FRONT_TWO);
+			if(partner==null) {
+				return super.getName(target);
+			}
+			return "Prone bone";
 		}
 	};
 	public static final SexSlot MISSIONARY_THREE = new SexSlot(MISSIONARY) {
@@ -224,11 +292,27 @@ public class SexSlotLyingDown {
 		public String getDescription() {
 			return "between legs (3rd)";
 		}
+		@Override
+		public String getName(GameCharacter target) {
+			GameCharacter partner = getCharacterInSlot(LYING_DOWN_FRONT_THREE);
+			if(partner==null) {
+				return super.getName(target);
+			}
+			return "Prone bone";
+		}
 	};
 	public static final SexSlot MISSIONARY_FOUR = new SexSlot(MISSIONARY) {
 		@Override
 		public String getDescription() {
 			return "between legs (4th)";
+		}
+		@Override
+		public String getName(GameCharacter target) {
+			GameCharacter partner = getCharacterInSlot(LYING_DOWN_FRONT_FOUR);
+			if(partner==null) {
+				return super.getName(target);
+			}
+			return "Prone bone";
 		}
 	};
 	
@@ -323,8 +407,7 @@ public class SexSlotLyingDown {
 			"Beside",
 			"beside",
 			"With a buck of [npc.her] [npc.hips], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(reach)] [npc.her] climax.",
-			false,
-			SexSlotTag.LYING_DOWN);
+			false); // SexSlotTag.LYING_DOWN Removed in v0.4.11.2
 	public static final SexSlot BESIDE_TWO = new SexSlot(BESIDE) {
 		@Override
 		public String getDescription() {

@@ -249,7 +249,7 @@ public class TongueArmpit {
 					"Eagerly sliding [npc.her] [npc.tongue+] over [npc2.namePos] [npc2.underarm+],"
 							+ " [npc.name] [npc.verb(press)] [npc.her] [npc.lips+] up against [npc2.her] [npc2.armpit+] and [npc.verb(let)] out a muffled [npc.moan].",
 
-					"Pulling [npc.her] [npc.tongue+] back into [npc.her] mouth, [npc.name] [npc.verb(start)] to eagerly kiss and lick [npc2.namePos] [npc2.underarm+],"
+					"Pulling [npc.her] [npc.tongue+] back into [npc.her] mouth, [npc.name] [npc.verb(start)] to eagerly kiss [npc2.namePos] [npc2.underarm+],"
 							+ " before pressing forwards and greedily sliding [npc.her] [npc.tongue] over [npc2.her] [npc2.armpit+] once more.",
 
 					"Sliding [npc.her] [npc.tongue+] back into [npc.her] mouth, [npc.name] [npc.verb(start)] happily kissing and nuzzling against [npc2.namePos] [npc2.underarm+],"
@@ -285,7 +285,7 @@ public class TongueArmpit {
 					"Roughly sliding [npc.her] [npc.tongue+] over [npc2.namePos] [npc2.underarm+],"
 							+ " [npc.name] [npc.verb(grind)] [npc.her] [npc.lips+] up against [npc2.her] [npc2.armpit+] and [npc.verb(let)] out a muffled [npc.moan].",
 
-					"Pulling [npc.her] [npc.tongue+] back into [npc.her] mouth, [npc.name] [npc.verb(start)] to roughly kiss and lick [npc2.namePos] [npc2.underarm+],"
+					"Pulling [npc.her] [npc.tongue+] back into [npc.her] mouth, [npc.name] [npc.verb(start)] to roughly kiss [npc2.namePos] [npc2.underarm+],"
 							+ " before pressing forwards and forcefully sliding [npc.her] [npc.tongue] over [npc2.her] [npc2.armpit+] once more.",
 
 					"Sliding [npc.her] [npc.tongue+] back into [npc.her] mouth, [npc.name] [npc.verb(start)] forcefully kissing and licking [npc2.namePos] [npc2.underarm+],"
@@ -381,7 +381,7 @@ public class TongueArmpit {
 					"Running [npc.her] [npc.tongue+] over [npc2.namePos] [npc2.underarm+],"
 							+ " [npc.name] [npc.verb(press)] [npc.her] [npc.lips+] up against [npc2.her] [npc2.armpit+] and [npc.verb(let)] out a muffled [npc.moan].",
 
-					"Pulling [npc.her] [npc.tongue+] back into [npc.her] mouth, [npc.name] [npc.verb(start)] to kiss and lick [npc2.namePos] [npc2.underarm+],"
+					"Pulling [npc.her] [npc.tongue+] back into [npc.her] mouth, [npc.name] [npc.verb(start)] to kiss [npc2.namePos] [npc2.underarm+],"
 							+ " before pressing forwards and sliding [npc.her] [npc.tongue] over [npc2.her] [npc2.armpit+] once more.",
 
 					"Sliding [npc.her] [npc.tongue+] back into [npc.her] mouth, [npc.name] [npc.verb(start)] kissing and nuzzling against [npc2.namePos] [npc2.underarm+],"
@@ -417,7 +417,7 @@ public class TongueArmpit {
 					"Eagerly sliding [npc.her] [npc.tongue+] over [npc2.namePos] [npc2.underarm+],"
 							+ " [npc.name] [npc.verb(press)] [npc.her] [npc.lips+] up against [npc2.her] [npc2.armpit+] and [npc.verb(let)] out a muffled [npc.moan].",
 
-					"Pulling [npc.her] [npc.tongue+] back into [npc.her] mouth, [npc.name] [npc.verb(start)] to eagerly kiss and lick [npc2.namePos] [npc2.underarm+],"
+					"Pulling [npc.her] [npc.tongue+] back into [npc.her] mouth, [npc.name] [npc.verb(start)] to eagerly kiss [npc2.namePos] [npc2.underarm+],"
 							+ " before pressing forwards and greedily sliding [npc.her] [npc.tongue] over [npc2.her] [npc2.armpit+] once more.",
 
 					"Sliding [npc.her] [npc.tongue+] back into [npc.her] mouth, [npc.name] [npc.verb(start)] happily kissing and nuzzling against [npc2.namePos] [npc2.underarm+],"

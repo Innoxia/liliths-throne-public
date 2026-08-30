@@ -1103,14 +1103,14 @@
 	#IF(hannah.isVisiblyPregnant())
 		#IF(!hannah.isCharacterReactedToPregnancy(pc))
 			<p>
-				You thought that it was odd to see Hannah cleaning instead of working out, but as she turns to face you the reason for this immediately becomes clear. Her toned six-pack has vanished, and in its place she's now sporting a swollen, [style.colourSex(pregnant belly)]. Seeing what it is you're looking at, the [hannah.race] reveals, [hannah.speech(Yeah, you got me pregnant. I guess it's kind of my fault for getting drunk and horny... Anyway, I'm not going to be able to train until after I've given birth. Want a feel?)]
+				You thought that it was odd to see Hannah cleaning instead of working out, but as she turns to face you the reason for this immediately becomes clear. Her toned six-pack has vanished, and in its place, she's now sporting a swollen, [style.colourSex(pregnant belly)]. Seeing what it is you're looking at, the [hannah.race] reveals, [hannah.speech(Yeah, you got me pregnant. I guess it's kind of my fault for getting drunk and horny... Anyway, I'm not going to be able to train until after I've given birth. Want a feel?)]
 			</p>
 			<p>
 				Replying in the affirmative, you [pc.step] forwards and place your [pc.hands] on her furry tummy. Giving her swollen bump a few loving strokes, you ask Hannah if there's anything you can do for her, to which she waves you off and lets out another of her bark-like laughs, [hannah.speech(I'm fine, don't worry about me! So, what is it you're here for?)]
 			</p>
 		#ELSE
 			<p>
-				Having seen that Hannah was cleaning instead of working out, you assumed that she must still be pregnant, and as she turns to face you this assumption is confirmed. Her toned six-pack has vanished, and in its place she's sporting a swollen, [style.colourSex(pregnant belly)]. Seeing what it is you're looking at, the [hannah.race] says, [hannah.speech(Yeah, I'm still pregnant, thanks to you. I guess it's kind of my fault for getting drunk and horny... Anyway, I'm not going to be able to train until after I've given birth. Want to have another feel?)]
+				Having seen that Hannah was cleaning instead of working out, you assumed that she must still be pregnant, and as she turns to face you this assumption is confirmed. Her toned six-pack has vanished, and in its place, she's sporting a swollen, [style.colourSex(pregnant belly)]. Seeing what it is you're looking at, the [hannah.race] says, [hannah.speech(Yeah, I'm still pregnant, thanks to you. I guess it's kind of my fault for getting drunk and horny... Anyway, I'm not going to be able to train until after I've given birth. Want to have another feel?)]
 			</p>
 			<p>
 				Replying in the affirmative, you [pc.step] forwards and place your [pc.hands] on her furry tummy. Giving her swollen bump a few loving strokes, you ask Hannah if there's anything you can do for her, to which she waves you off and lets out another of her bark-like laughs, [hannah.speech(I'm fine, don't worry about me! So, what is it you're here for?)]

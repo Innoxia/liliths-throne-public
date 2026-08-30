@@ -16,6 +16,10 @@
 	Hard-coded values can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/character/body/coverings/BodyCoveringType.java -->
 	<coveringType>dsg_gryphon_eye</coveringType>
 	
+	<tags>
+		<tag>EYE_PERFECT_VISION</tag>
+	</tags>
+	
 	<!-- The default number of pairs that this eye type should have (should most likely be 1). -->
 	<defaultPairCount>1</defaultPairCount>
 	

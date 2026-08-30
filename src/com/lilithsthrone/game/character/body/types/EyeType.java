@@ -54,6 +54,10 @@ public class EyeType {
 				+ "<br/>"
 				+ "[npc.Name] now [npc.has] [style.boldAngel(angelic eyes)] with [style.boldGenericTF([npc.irisShape])], [npc.irisFullDescription(true)] and [style.boldGenericTF([npc.pupilShape])], [npc.pupilFullDescription(true)].",
 			"[npc.SheHasFull] [npc.eyePairs] angelic eyes, with [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
+		@Override
+		public List<BodyPartTag> getTags() {
+			return Util.newArrayListOfValues(BodyPartTag.EYE_PERFECT_VISION);
+		}
 	};
 
 	public static AbstractEyeType DEMON_COMMON = new AbstractEyeType(BodyCoveringType.EYE_DEMON_COMMON,
@@ -78,7 +82,9 @@ public class EyeType {
 			"[npc.SheHasFull] [npc.eyePairs] #IF(npc.isShortStature())impish#ELSEdemonic#ENDIF eyes, with [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
 		@Override
 		public List<BodyPartTag> getTags() {
-			return Util.newArrayListOfValues(BodyPartTag.NIGHT_VISION);
+			return Util.newArrayListOfValues(
+					BodyPartTag.NIGHT_VISION,
+					BodyPartTag.EYE_PERFECT_VISION);
 		}
 	};
 
@@ -97,7 +103,9 @@ public class EyeType {
 			"[npc.SheHasFull] [npc.eyePairs] demonic-owl eyes, with [npc.irisShape], [npc.irisColour(true)] irises, [npc.pupilShape], [npc.pupilColour(true)] pupils, and [npc.scleraColour(true)] sclerae.") {
 		@Override
 		public List<BodyPartTag> getTags() {
-			return Util.newArrayListOfValues(BodyPartTag.NIGHT_VISION);
+			return Util.newArrayListOfValues(
+					BodyPartTag.NIGHT_VISION,
+					BodyPartTag.EYE_PERFECT_VISION);
 		}
 	};
 

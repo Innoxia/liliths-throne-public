@@ -45,7 +45,18 @@ public class SexSlotUnique {
 			"performing oral",
 			"[npc1.Name] [npc1.verb(reach)] up and [npc1.verb(place)] a [npc1.hand] on one of [npc2.namePos] [npc2.legs], before letting out [npc1.a_moan+] as [npc1.she] [npc1.verb(prepare)] to reach [npc1.her] climax.",
 			false);
+
+	public static final SexSlot RALPH_DOM_SEX = new SexSlot(
+			"Standing behind",
+			"standing behind",
+			"[npc1.Name] [npc1.verb(grab)] [npc2.namePos] hips and [npc.verb(let)] out [npc1.a_moan+] as [npc1.she] [npc1.verb(reach)] [npc1.her] climax.",
+			true);
 	
+	public static final SexSlot RALPH_SUB_SEX = new SexSlot(
+			"Over desk",
+			"over desk",
+			"[npc.Name] [npc.verb(collapse)] down onto the [pc.desk], before letting out [npc.a_moan+] as [npc.she] [npc.verb(prepare)] to reach [npc.her] climax.",
+			false);
 	
 	public static final SexSlot FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX = new SexSlot(
 			"Facing wall",

@@ -80,7 +80,7 @@ public class Ralph extends NPC {
 				"Ralph is the owner of the shop 'Ralph's Snacks'. There's an air of confidence in the way he holds himself, and he behaves in a professional manner at all times.",
 				34, Month.MAY, 17,
 				10, Gender.M_P_MALE, Subspecies.HORSE_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_RALPHS_SHOP, true);
+				new CharacterInventory(false, 10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_RALPHS_SHOP, true);
 		
 		if(!isImported) {
 			dailyUpdate();
@@ -110,6 +110,10 @@ public class Ralph extends NPC {
 					PersonalityTrait.CONFIDENT,
 					PersonalityTrait.SELFISH,
 					PersonalityTrait.LEWD);
+		}
+		if(Main.isVersionOlderThan(Game.loadingVersion, "0.4.11.1")) { // For some reason my test save didn't have Ralph as having these fetishes, so I made sure to re-add them in
+			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_IMPREGNATION);
 		}
 	}
 
@@ -286,7 +290,7 @@ public class Ralph extends NPC {
 					}
 					
 				} else {
-					this.addClothing(Main.game.getItemGen().generateClothing(clothing), false);
+					this.addClothing(Main.game.getItemGen().generateClothing(clothing, false), false);
 				}
 			}
 		}

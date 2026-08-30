@@ -600,10 +600,12 @@ public interface SexActionInterface {
 			}
 		}
 		
-		if(Main.sex.isCharacterImmobilised(performingCharacter)) {
-			if(!isAvailableDuringImmobilisation(Main.sex.getImmobilisationTypes(performingCharacter).keySet())) {
+		// If the performing character is immobilised in a way which prevents this action from being used, then it's disabled, unless it ends sex
+		// The logic being: if the character has enough control to ordinarily end sex, immobilisation shouldn't prevent it
+		if(Main.sex.isCharacterImmobilised(performingCharacter)
+				&& !this.isAvailableDuringImmobilisation(Main.sex.getImmobilisationTypes(performingCharacter).keySet())
+				&& !this.endsSex()) {
 				return false;
-			}
 		}
 		
 		boolean analAllowed = Main.game.isAnalContentEnabled() || (!this.getPerformingCharacterOrifices().contains(SexAreaOrifice.ANUS) && !this.getTargetedCharacterOrifices().contains(SexAreaOrifice.ANUS));
@@ -781,6 +783,7 @@ public interface SexActionInterface {
 			// Forbid self actions if control is limited to NONE:
 			if(this.getParticipantType()==SexParticipantType.SELF
 					&& !this.getActionType().isOrgasmOption()
+					&& !this.endsSex() // Still allow action if it's an 'end sex' action (otherwise being immobilised as a dom makes it so nobody can end sex)
 					&& Main.sex.getSexControl(Main.sex.getCharacterPerformingAction()).getValue()<SexControl.SELF.getValue()) {
 				return null;
 			}
@@ -1936,6 +1939,7 @@ public interface SexActionInterface {
 							return CondomFailure.CUM_OVERLOAD;
 						}
 						break;
+					case SPECIAL:
 					case MAJOR_BOOST:
 						break;
 					case MAJOR_DRAIN:

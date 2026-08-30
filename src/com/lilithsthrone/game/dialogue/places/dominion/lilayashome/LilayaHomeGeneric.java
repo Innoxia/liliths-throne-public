@@ -955,7 +955,13 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "ROOM_ROSE");
+			if(!Main.game.isExtendedWorkTime()
+					&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.dressingRoomLyssiethsWardrobeActivated)
+					&& (!Main.game.getDialogueFlags().hasSavedLong("innoxia_lilaya_kitty_time_seen")
+							|| (Main.game.getSecondsPassed() - Main.game.getDialogueFlags().getSavedLong("innoxia_lilaya_kitty_time_seen") > 60*60*24*7))) {
+				return UtilText.parseFromXMLFile("places/dominion/lilayasHome/room_rose", "ROOM_ROSE_KITTY");
+			}
+			return UtilText.parseFromXMLFile("places/dominion/lilayasHome/room_rose", "ROOM_ROSE");
 		}
 
 		@Override
@@ -976,18 +982,33 @@ public class LilayaHomeGeneric {
 				return new Response("Call for Rose", "Lilaya's slave, Rose, is always close at hand. If you were to ring the little bell beside her bedroom's door, she'd be sure to come running.", AUNT_HOME_ROSE){
 					@Override
 					public void effects() {
-						roseContent = UtilText.parseFromXMLFile("places/dominion/lilayasHome/generic", "ROOM_ROSE_INITIAL_CALL");
+						roseContent = UtilText.parseFromXMLFile("places/dominion/lilayasHome/room_rose", "ROOM_ROSE_INITIAL_CALL");
 						
 						Main.game.getDialogueFlags().values.remove(DialogueFlagValue.auntHomeJustEntered);
 						Main.game.getNpc(Rose.class).setLocation(Main.game.getActiveWorld().getWorldType(), Main.game.getPlayer().getLocation(), false);
 					}
 				};
-				
-			} else {
-				return null;
 			}
+			
+			if(index==2
+					&& !Main.game.isExtendedWorkTime()
+					&& Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.dressingRoomLyssiethsWardrobeActivated)
+					&& (!Main.game.getDialogueFlags().hasSavedLong("innoxia_lilaya_kitty_time_seen")
+							|| (Main.game.getSecondsPassed() - Main.game.getDialogueFlags().getSavedLong("innoxia_lilaya_kitty_time_seen") > 60*60*24*7))) {
+				return new Response("Keyhole",
+						"Look through the keyhole to see if you can identify the source of the loud meowing.",
+						DialogueManager.getDialogueFromId("innoxia_places_dominion_lilayas_home_room_rose_lilaya_kitty")) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setSavedLong("innoxia_lilaya_kitty_time_seen", Main.game.getSecondsPassed());
+					}
+				};
+			}
+			
+			return null;
 		}
 	};
+	
 	
 	private static String roseContent = "";
 	private static boolean giftedRose = false;
@@ -1116,7 +1137,9 @@ public class LilayaHomeGeneric {
 						new SMRoseHands(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.HAND_SEX_DOM_ROSE)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Rose.class), SexSlotUnique.HAND_SEX_SUB_ROSE))),
-						null, null, Rose.END_HAND_SEX);
+						null,
+						null,
+						END_HAND_SEX);
 
 			} else {
 				return null;
@@ -1126,6 +1149,37 @@ public class LilayaHomeGeneric {
 		@Override
 		public boolean isInventoryDisabled() {
 			return true;
+		}
+	};
+	
+	public static final DialogueNode END_HAND_SEX = new DialogueNode("Recover", "Both you and Rose and exhausted from your hand-holding session.", true) {
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "Rose staggers over and retrieves her little feather-duster, casting a sultry look back your way before biting her lip and hurrying off to another part of the house, no doubt to recover from your extreme hand-holding session."
+					+ "</p>"
+					+ "<p>"
+						+ "With an exhausted sigh, you collapse down onto the room's bed, your thoughts dwelling on the amazing experience you've just had."
+					+ "</p>";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue", "You've finally recovered from your intense hand-holding session with Rose.", RoomPlayer.ROOM){
+					@Override
+					public void effects() {
+						Main.game.getNpc(Rose.class).setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
+					}
+					
+					@Override
+					public DialogueNode getNextDialogue() {
+						return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getDialogue(true);
+					}
+				};
+			} else {
+				return null;
+			}
 		}
 	};
 	

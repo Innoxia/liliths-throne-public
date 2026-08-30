@@ -19,6 +19,12 @@
 		[#npc.isPlayer() && pc.hasPenisIgnoresDildo() && pc.isSexAreaExposed(PENETRATION_PENIS) && pc.getPenisRawOrgasmCumQuantity()>0]
 	]]></actionConditional>
 	
+	<!-- This element defines the category which this action should be assigned to, which is responsible for determining which response tab this action will be placed in (i.e. 'Misc. Actions', 'Self Actions', 'Sex Actions', or 'Positioning').
+		This should probably be left blank in order for default behaviour to be used, but if you want to force this action to appear in a specific tab, then this is how you set it:
+		<category>MISCELLANEOUS</category>
+		Values, along with their descriptions, can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/sexActions/SexActionCategory.java -->
+	<category/>
+	
 	<!-- This element defines the type of action this is, and thereby influences the type of behaviour it has.
 		Values, along with their descriptions, can be found here: https://github.com/Innoxia/liliths-throne-public/blob/dev/src/com/lilithsthrone/game/sex/sexActions/SexActionType.java -->
 	<type>ORGASM</type>

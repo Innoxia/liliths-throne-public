@@ -14,7 +14,7 @@ import com.lilithsthrone.utils.colours.Colour;
  * @version 0.4
  * @author Innoxia
  */
-public abstract class AbstractAttribute {
+public abstract class AbstractAttribute implements Comparable<AbstractAttribute>{
 
 	private boolean percentage;
 	private int baseValue;
@@ -73,6 +73,16 @@ public abstract class AbstractAttribute {
 		return Attribute.getIdFromAttribute(this);
 	}
 	
+	@Override
+	public int compareTo(AbstractAttribute other) {
+	    return getOrderPriority()-other.getOrderPriority();
+	}
+	
+	/**
+	 * The lower the returned int, the closer to the front of the list it is when sorted.
+	 */
+	public abstract int getOrderPriority();
+	
 	public boolean hasStatusEffect() {
 		return false;
 	}
@@ -111,7 +121,7 @@ public abstract class AbstractAttribute {
 	public String getColouredName(String tag) {
 		return "<"+tag+" style='color:"+this.getColour().toWebHexString()+";'>"+name+"</"+tag+">";
 	}
-
+	
 	public String getFormattedValue(float value) {
 		return getFormattedValue(value, null);
 	}

@@ -413,7 +413,6 @@
 		Knowing from experience that it's best to just do as you're told when your [lilaya.relation(pc)]'s like this, you walk over to the chair next to Arthur and sit down. Looking up at Lilaya's flat stomach, you see that you didn't end up getting her pregnant after all, and, seeing what it is you're glancing at, she firmly says, [lilaya.speech(Yes, luckily for you, I'm not pregnant. You'd have been in so much trouble if I was!)]
 	</p>
 	<p>
-	<p>
 		Taking a step back, Lilaya doesn't pause for a moment, and angrily continues, [lilaya.speech(As we only ever give birth to imps, it's extremely embarrassing and shameful for half-demons to get pregnant. Even those who know that I'm the recognised daughter of Lyssieth herself would call me 'imp-breeder' or 'imp-fucker' behind my back... I <i>hate</i> being pregnant!)]
 	</p>
 	]]>
@@ -1365,7 +1364,7 @@
 		[pc.speech(So if someone beats me up, my own arcane aura is going to make me want to have sex with them?!)] you ask.
 	</p>
 	<p>
-		[lilaya.speech(Well, you'll still be able to summon some resistance, but it's unlikely that you'll be able to put up much of a fight at that stage... Oh, and it'll also happen if you cast too many spells and get mentally fatigued. Anyway, enough of that for now, I need to tell you what I've discovered!)]
+		[lilaya.speech(Well, you'll still be able to summon some resistance, but it's unlikely that you'll be able to put up much of a fight at that stage... Anyway, enough of that for now, I need to tell you what I've discovered!)]
 	</p>
 	]]>
 	</htmlContent>

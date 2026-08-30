@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tattoo>
+	<coreAttributes>
+		<value>500</value> 
+		
+		<name><![CDATA[penetration ruler]]></name>
+		
+		<description><![CDATA[A simple depiction of a ruler, with markings showing how much pleasure the owner is receiving from being penetrated to that depth.]]></description> 
+		
+		<bodyOverviewDescription><![CDATA[a simple depiction of a ruler, with markings showing how much pleasure the owner is receiving from being penetrated to that depth]]></bodyOverviewDescription> 
+		
+		<availabilityRequirements unique="false"/>
+		
+		<imageName>penetration_ruler.svg</imageName> 
+		
+		<slotAvailability> 
+			<slot>GROIN</slot>
+		</slotAvailability> 
+		
+		<primaryColours values="ALL" defaultColour="CLOTHING_BLACK"/>
+		<secondaryColours values="ALL" defaultColour="CLOTHING_PINK_HOT"/>
+		<tertiaryColours values="ALL" defaultColour="CLOTHING_PINK_DARK"/>
+	</coreAttributes>
+</tattoo>

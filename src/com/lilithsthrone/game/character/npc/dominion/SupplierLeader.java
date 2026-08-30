@@ -69,7 +69,7 @@ public class SupplierLeader extends NPC {
 				30, Month.DECEMBER, 4,
 				12,
 				null, null, null,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.TEXTILES_WAREHOUSE,
 				PlaceType.TEXTILE_WAREHOUSE_OVERSEER_STATION,
 				true);

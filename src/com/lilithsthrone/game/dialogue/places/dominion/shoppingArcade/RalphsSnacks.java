@@ -24,7 +24,7 @@ import com.lilithsthrone.game.sex.SexControl;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.managers.OrgasmBehaviour;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.managers.dominion.SexManagerRalphDiscount;
+import com.lilithsthrone.game.sex.managers.dominion.SMRalphDiscount;
 import com.lilithsthrone.game.sex.positions.SexPosition;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotDesk;
 import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
@@ -186,8 +186,6 @@ public class RalphsSnacks {
 	};
 	
 	public static final DialogueNode INTERIOR_ASK_FOR_DISCOUNT = new DialogueNode("Ralph's Snacks", "-", true, true) {
-
-
 		@Override
 		public String getContent() {
 			if(Main.game.getDialogueFlags().getSavedLong(Ralph.RALPH_DISCOUNT_TIMER_ID)>0){
@@ -241,7 +239,7 @@ public class RalphsSnacks {
 							+ " Glancing down, you see a distinctive bulge forming between his legs, but before you can react to the sight of Ralph's growing erection, he steps forwards, pinning you back against the wall."
 						+ "</p>"
 						+ "<p>"
-							+ "[ralph.speech(Fancy another taste?)] he slyly asks, before grinning deviously at you and leaning in a little closer."
+							+ "[ralph.speech(Fancy a taste?)] he slyly asks, before grinning deviously at you and leaning in a little closer."
 							+ " As you feel his hot breath on your face, the horse-boy continues, "
 							+ "[ralph.speech(Let me blow a load down that pretty little throat of yours, and I'll give you twenty-five percent off everything I have in stock for a few days.)]"
 						+ "</p>"
@@ -258,7 +256,7 @@ public class RalphsSnacks {
 				return new ResponseSex("Agree", "Agree to do as Ralph says and suck his cock.", Util.newArrayListOfValues(Fetish.FETISH_ORAL_GIVING),
 						null, CorruptionLevel.TWO_HORNY, null, null, null,
 						true, true,
-						new SexManagerRalphDiscount(
+						new SMRalphDiscount(
 								Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Ralph.class), SexSlotUnique.RALPH_DOM)),
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.RALPH_SUB))),
 						null,

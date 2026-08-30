@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.markings.Tattoo;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.companions.CompanionManagement;
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHall;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaDressingRoomDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
@@ -30,6 +31,8 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.enchanting.ItemEffect;
 import com.lilithsthrone.game.inventory.enchanting.LoadedEnchantment;
+import com.lilithsthrone.game.inventory.outfit.Outfit;
+import com.lilithsthrone.game.inventory.outfit.OutfitSource;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.utils.Util;
@@ -630,6 +633,88 @@ public class FileController {
 			id = "LOADED_BODY_"+entry.getKey();
 			if (MainController.document.getElementById(id) != null) {
 				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setLoadedBody(entry.getValue().getValue(), BodyChanging.getTarget()));
+			}
+		}
+	}
+	
+	public static void initOutfitListeners() {
+		String id;
+		for (File f : LilayaDressingRoomDialogue.getSavedOutfits()) {
+			String fileIdentifier = Util.getFileIdentifier(f);
+			String fileName = Util.getFileName(f);
+			
+			
+			id = "LOADED_OUTFIT_"+fileIdentifier;
+			if (MainController.document.getElementById(id) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+					String name = Util.getFileIdentifier(f);
+					Outfit loadedOutfit = LilayaDressingRoomDialogue.loadOutfit(name);
+					LilayaDressingRoomDialogue.setActiveOutfit(loadedOutfit);
+					Main.game.setContent(new Response("", "", LilayaDressingRoomDialogue.OUTFIT_EDITOR));
+					
+				}, false);
+				String name = Util.getFileIdentifier(f);
+				Outfit loadedOutfit = LilayaDressingRoomDialogue.loadOutfit(name);
+				int availabeOutfits = LilayaDressingRoomDialogue.getOutfitAvailabilityFromTile(loadedOutfit);
+				int essenceCost = loadedOutfit.getEssenceCost();
+				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(
+						Util.capitaliseSentence(loadedOutfit.getName()),
+						"Total clothing in this outfit: "+loadedOutfit.getClothing().size()
+							+ "<br/>Total weapons in this outfit: "+loadedOutfit.getWeapons().size()
+							+ "<br/>Available from items stored in area: "+availabeOutfits//Math.max(0, availabeOutfits)
+							+ "<br/>Cost to purchase full outfit: "
+								+UtilText.formatAsMoney(loadedOutfit.getCost(), "b")
+								+", "
+								+(essenceCost==0
+									?UtilText.formatAsEssencesUncoloured(essenceCost, "b", false)
+									:UtilText.formatAsEssences(essenceCost, "b", false))
+							+"</div>",
+						72));
+			}
+			
+			id = "WEAR_OUTFIT_"+fileIdentifier;
+			if (MainController.document.getElementById(id) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+					
+					String name = Util.getFileIdentifier(f);
+					Outfit loadedOutfit = LilayaDressingRoomDialogue.loadOutfit(name);
+					Main.game.getPlayer().loadOutfit(loadedOutfit, OutfitSource.CELL, OutfitSource.NOWHERE);
+					Main.game.setContent(new Response("", "", LilayaDressingRoomDialogue.OUTFITS));
+					
+				}, false);
+				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation(
+						"Equip",
+						"Your character will equip all clothing and weapons as defined by this outfit."
+							+ " Any clothing and weapons which you currently have equipped will be placed in your Dressing Room if they're unequipped when applying this outfit."));
+			}
+			
+			id = "EDIT_OUTFIT_"+fileIdentifier;
+			if (MainController.document.getElementById(id) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+					
+					String name = Util.getFileIdentifier(f);
+					Outfit loadedOutfit = LilayaDressingRoomDialogue.loadOutfit(name);
+					LilayaDressingRoomDialogue.setActiveOutfit(loadedOutfit);
+					Main.game.setContent(new Response("", "", LilayaDressingRoomDialogue.OUTFIT_EDITOR));
+					
+				}, false);
+//				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("View", ""));
+			}
+			
+			id = "DELETE_OUTFIT_"+fileIdentifier;
+			if (MainController.document.getElementById(id) != null) {
+				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+					if (!Main.getProperties().hasValue(PropertyValue.overwriteWarning) || LilayaDressingRoomDialogue.deleteConfirmationName.equals(f.getName())) {
+						LilayaDressingRoomDialogue.deleteConfirmationName = "";
+						LilayaDressingRoomDialogue.deleteOutfit(fileName);
+						Main.game.setContent(new Response("", "", LilayaDressingRoomDialogue.OUTFITS));
+						
+					} else {
+						LilayaDressingRoomDialogue.deleteConfirmationName = f.getName();
+						Main.game.setContent(new Response("", "", LilayaDressingRoomDialogue.OUTFITS));
+					}
+				}, false);
+//				MainController.addTooltipListeners(id, new TooltipInformationEventListener().setInformation("Delete", ""));
 			}
 		}
 	}

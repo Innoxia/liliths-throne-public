@@ -110,7 +110,7 @@ public class SMDominionExpressEncounter extends SexManagerDefault {
 								"A group of centaur slaves take a moment to stop and comment on your performance, before continuing on their way to the stables.",
 								"You hear a centauress letting out an amused laugh from somewhere behind you.",
 								"You hear a centaur letting out an amused grunt from somewhere behind you.",
-								"You glance across to see a bronze-ranked filly curiously watching to see how you service centaurs.",
+								"You glance across to see a bronze-ranked [style.mule] curiously watching to see how you service centaurs.",
 								"A muscular centaur slave pauses to comment on your lewd display, before trotting off on his way to work.",
 								"A busty centauress slave pauses to comment on your lewd display, before trotting off on her way to work."))
 					+"</p>";

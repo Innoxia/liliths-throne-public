@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<enchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	<applyDefaultSeal><![CDATA[true]]></applyDefaultSeal>
+	
+	<spawnWeighting><![CDATA[
+		100
+	]]></spawnWeighting>
+	
+	<namePrefix/>
+	<namePostfix/>
+	<nameOverride><![CDATA[Breeder's Desperation]]></nameOverride>
+	
+	<conditionalPreParsing/>
+	
+	<itemEffects>
+    <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="FERTILITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+    <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="FERTILITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+    <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="FERTILITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+    <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="FERTILITY" potency="MINOR_BOOST" timer="0" type="CLOTHING"/>
+	
+    <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="VIRILITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+    <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="VIRILITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+    <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="VIRILITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+    <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="VIRILITY" potency="MINOR_BOOST" timer="0" type="CLOTHING"/>
+	
+    <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_LUST" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+    <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_LUST" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+    <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_LUST" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+    <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_LUST" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+    <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_LUST" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+    <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_LUST" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+    <effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="RESISTANCE_LUST" potency="DRAIN" timer="0" type="CLOTHING"/>
+	
+    <effect limit="0" mod1="TF_MOD_FETISH_BEHAVIOUR" mod2="TF_MOD_FETISH_IMPREGNATION" potency="BOOST" timer="0" type="CLOTHING"/>
+    <effect limit="0" mod1="TF_MOD_FETISH_BEHAVIOUR" mod2="TF_MOD_FETISH_PREGNANCY" potency="BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+</enchantment>

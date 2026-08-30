@@ -19,6 +19,7 @@ import com.lilithsthrone.game.character.body.Tentacle;
 import com.lilithsthrone.game.character.body.Torso;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.SexActionInteractions;
+import com.lilithsthrone.game.sex.SexAreaInterface;
 import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexParticipantType;
@@ -44,7 +45,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PlayerTalk;
 import com.lilithsthrone.game.sex.sexActions.dominion.MasturbationPanties;
 import com.lilithsthrone.game.sex.sexActions.universal.ChairSex;
 import com.lilithsthrone.game.sex.sexActions.universal.Cowgirl;
-import com.lilithsthrone.game.sex.sexActions.universal.DoggyStyle;
+import com.lilithsthrone.game.sex.sexActions.universal.DoggyStyleAndProneBone;
 import com.lilithsthrone.game.sex.sexActions.universal.FaceSitting;
 import com.lilithsthrone.game.sex.sexActions.universal.GloryHole;
 import com.lilithsthrone.game.sex.sexActions.universal.KneelingOral;
@@ -588,7 +589,7 @@ public class SexPosition {
 			return generateSlotTargetsMap(interactions);
 		}
 		@Override
-		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
+		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaInterface>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
 			// The character sucking cock can use their arms to force a creampie:
 			if((Main.sex.getSexPositionSlot(cumTarget)==SexSlotStanding.PERFORMING_ORAL
 					|| Main.sex.getSexPositionSlot(cumTarget)==SexSlotStanding.PERFORMING_ORAL_TWO
@@ -889,7 +890,7 @@ public class SexPosition {
 			return generateSlotTargetsMap(interactions);
 		}
 		@Override
-		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
+		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaInterface>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
 			// The character sucking cock can use their arms to force a creampie:
 			if((Main.sex.getSexPositionSlot(cumTarget)==SexSlotAgainstWall.PERFORMING_ORAL_WALL
 					|| Main.sex.getSexPositionSlot(cumTarget)==SexSlotAgainstWall.PERFORMING_ORAL_WALL_TWO
@@ -1408,7 +1409,7 @@ public class SexPosition {
 			return generateSlotTargetsMap(interactions);
 		}
 		@Override
-		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
+		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaInterface>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
 			// The character lying back can use their legs, tails, or tentacles to force a facial creampie on characters performing oral on them:
 			if((Main.sex.getSexPositionSlot(cumTarget)==SexSlotDesk.OVER_DESK_ON_BACK
 					|| Main.sex.getSexPositionSlot(cumTarget)==SexSlotDesk.OVER_DESK_ON_BACK_TWO
@@ -1851,7 +1852,7 @@ public class SexPosition {
 			return super.isActionBlocked(performer, target, action);
 		}
 		@Override
-		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
+		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaInterface>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
 			// The character in the stocks can use their tails or tentacles to force a creampie on characters fucking them:
 			if((Main.sex.getSexPositionSlot(cumProvider).hasTag(SexSlotTag.BEHIND_STOCKS)
 					|| Main.sex.getSexPositionSlot(cumProvider).hasTag(SexSlotTag.HUMPING_STOCKS))
@@ -2251,7 +2252,7 @@ public class SexPosition {
 			return super.isActionBlocked(performer, target, action);
 		}
 		@Override
-		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
+		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaInterface>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
 			// The character in the stocks can use their tails or tentacles to force a creampie on characters fucking them:
 			if((Main.sex.getSexPositionSlot(cumProvider).hasTag(SexSlotTag.BEHIND_STOCKS)
 					|| Main.sex.getSexPositionSlot(cumProvider).hasTag(SexSlotTag.HUMPING_STOCKS))
@@ -2293,7 +2294,7 @@ public class SexPosition {
 			8,
 			true,
 			SexActionPresets.positioningActionsNew,
-			Util.newArrayListOfValues(DoggyStyle.class)) {
+			Util.newArrayListOfValues(DoggyStyleAndProneBone.class)) {
 		@Override
 		public Value<Boolean, String> isSlotUnlocked(GameCharacter characterToTakeSlot, SexSlot slot, Map<GameCharacter, SexSlot> positioningSlots) {
 			List<List<SexSlot>> mutuallyExclusiveSlots = new ArrayList<>();
@@ -2634,7 +2635,7 @@ public class SexPosition {
 			return generateSlotTargetsMap(interactions);
 		}
 		@Override
-		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
+		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaInterface>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
 			// The character being fucked can use their tails or tentacles to force a creampie:
 			if((Main.sex.getSexPositionSlot(cumTarget)==SexSlotAllFours.ALL_FOURS
 					|| Main.sex.getSexPositionSlot(cumTarget)==SexSlotAllFours.ALL_FOURS_TWO
@@ -2702,7 +2703,7 @@ public class SexPosition {
 	};
 	
 	
-	//TODO sitting on top for piazuri
+	//TODO cowgirl piazuri?
 	/**
 	 * Contains support for:<br/>
 	 * <b>Face-sitting</b><br/>
@@ -2717,28 +2718,37 @@ public class SexPosition {
 			8,
 			true,
 			SexActionPresets.positioningActionsNew,
-			Util.newArrayListOfValues(Cowgirl.class, FaceSitting.class, MatingPress.class, Missionary.class, SixtyNine.class)) {
+			Util.newArrayListOfValues(Cowgirl.class, FaceSitting.class, MatingPress.class, Missionary.class, SixtyNine.class, DoggyStyleAndProneBone.class)) {
 		
 		private List<SexSlot> position1 = Util.newArrayListOfValues(
-				SexSlotLyingDown.LYING_DOWN, //0
-				SexSlotLyingDown.COWGIRL, SexSlotLyingDown.COWGIRL_REVERSE, SexSlotLyingDown.MISSIONARY, SexSlotLyingDown.MATING_PRESS, SexSlotLyingDown.SCISSORING, //1-5
-				SexSlotLyingDown.FACE_SITTING, SexSlotLyingDown.FACE_SITTING_REVERSE, SexSlotLyingDown.SIXTY_NINE, SexSlotLyingDown.LAP_PILLOW, SexSlotLyingDown.MISSIONARY_ORAL, SexSlotLyingDown.BESIDE); //6-11
+				SexSlotLyingDown.LYING_DOWN, SexSlotLyingDown.LYING_DOWN_FRONT, //0-1
+				SexSlotLyingDown.COWGIRL, SexSlotLyingDown.COWGIRL_REVERSE, SexSlotLyingDown.MISSIONARY, SexSlotLyingDown.MATING_PRESS, SexSlotLyingDown.SCISSORING, //2-6
+				SexSlotLyingDown.FACE_SITTING, SexSlotLyingDown.FACE_SITTING_REVERSE, SexSlotLyingDown.SIXTY_NINE, SexSlotLyingDown.RECEIVING_ORAL, //7-10
+				SexSlotLyingDown.LAP_PILLOW, SexSlotLyingDown.MISSIONARY_ORAL, SexSlotLyingDown.BESIDE); //11-13
 		private List<SexSlot> position2 = Util.newArrayListOfValues(
-				SexSlotLyingDown.LYING_DOWN_TWO, //0
-				SexSlotLyingDown.COWGIRL_TWO, SexSlotLyingDown.COWGIRL_REVERSE_TWO, SexSlotLyingDown.MISSIONARY_TWO, SexSlotLyingDown.MATING_PRESS_TWO, SexSlotLyingDown.SCISSORING_TWO, //1-5
-				SexSlotLyingDown.FACE_SITTING_TWO, SexSlotLyingDown.FACE_SITTING_REVERSE_TWO, SexSlotLyingDown.SIXTY_NINE_TWO, SexSlotLyingDown.LAP_PILLOW_TWO, SexSlotLyingDown.MISSIONARY_ORAL_TWO, SexSlotLyingDown.BESIDE_TWO); //6-11
+				SexSlotLyingDown.LYING_DOWN_TWO, SexSlotLyingDown.LYING_DOWN_FRONT_TWO, //0-1
+				SexSlotLyingDown.COWGIRL_TWO, SexSlotLyingDown.COWGIRL_REVERSE_TWO, SexSlotLyingDown.MISSIONARY_TWO, SexSlotLyingDown.MATING_PRESS_TWO, SexSlotLyingDown.SCISSORING_TWO, //2-6
+				SexSlotLyingDown.FACE_SITTING_TWO, SexSlotLyingDown.FACE_SITTING_REVERSE_TWO, SexSlotLyingDown.SIXTY_NINE_TWO, SexSlotLyingDown.RECEIVING_ORAL_TWO, //7-10
+				SexSlotLyingDown.LAP_PILLOW_TWO, SexSlotLyingDown.MISSIONARY_ORAL_TWO, SexSlotLyingDown.BESIDE_TWO); //11-13
 		private List<SexSlot> position3 = Util.newArrayListOfValues(
-				SexSlotLyingDown.LYING_DOWN_THREE, //0
-				SexSlotLyingDown.COWGIRL_THREE, SexSlotLyingDown.COWGIRL_REVERSE_THREE, SexSlotLyingDown.MISSIONARY_THREE, SexSlotLyingDown.MATING_PRESS_THREE, SexSlotLyingDown.SCISSORING_THREE, //1-5
-				SexSlotLyingDown.FACE_SITTING_THREE, SexSlotLyingDown.FACE_SITTING_REVERSE_THREE, SexSlotLyingDown.SIXTY_NINE_THREE, SexSlotLyingDown.LAP_PILLOW_THREE, SexSlotLyingDown.MISSIONARY_ORAL_THREE, SexSlotLyingDown.BESIDE_THREE); //6-11
+				SexSlotLyingDown.LYING_DOWN_THREE, SexSlotLyingDown.LYING_DOWN_FRONT_THREE, //0-1
+				SexSlotLyingDown.COWGIRL_THREE, SexSlotLyingDown.COWGIRL_REVERSE_THREE, SexSlotLyingDown.MISSIONARY_THREE, SexSlotLyingDown.MATING_PRESS_THREE, SexSlotLyingDown.SCISSORING_THREE, //2-6
+				SexSlotLyingDown.FACE_SITTING_THREE, SexSlotLyingDown.FACE_SITTING_REVERSE_THREE, SexSlotLyingDown.SIXTY_NINE_THREE, SexSlotLyingDown.RECEIVING_ORAL_THREE, //7-10
+				SexSlotLyingDown.LAP_PILLOW_THREE, SexSlotLyingDown.MISSIONARY_ORAL_THREE, SexSlotLyingDown.BESIDE_THREE); //11-13
 		private List<SexSlot> position4 = Util.newArrayListOfValues(
-				SexSlotLyingDown.LYING_DOWN_FOUR, //0
-				SexSlotLyingDown.COWGIRL_FOUR, SexSlotLyingDown.COWGIRL_REVERSE_FOUR, SexSlotLyingDown.MISSIONARY_FOUR, SexSlotLyingDown.MATING_PRESS_FOUR, SexSlotLyingDown.SCISSORING_FOUR, //1-5
-				SexSlotLyingDown.FACE_SITTING_FOUR, SexSlotLyingDown.FACE_SITTING_REVERSE_FOUR, SexSlotLyingDown.SIXTY_NINE_FOUR, SexSlotLyingDown.LAP_PILLOW_FOUR, SexSlotLyingDown.MISSIONARY_ORAL_FOUR, SexSlotLyingDown.BESIDE_FOUR); //6-11
+				SexSlotLyingDown.LYING_DOWN_FOUR, SexSlotLyingDown.LYING_DOWN_FRONT_FOUR, //0-1
+				SexSlotLyingDown.COWGIRL_FOUR, SexSlotLyingDown.COWGIRL_REVERSE_FOUR, SexSlotLyingDown.MISSIONARY_FOUR, SexSlotLyingDown.MATING_PRESS_FOUR, SexSlotLyingDown.SCISSORING_FOUR, //2-6
+				SexSlotLyingDown.FACE_SITTING_FOUR, SexSlotLyingDown.FACE_SITTING_REVERSE_FOUR, SexSlotLyingDown.SIXTY_NINE_FOUR, SexSlotLyingDown.RECEIVING_ORAL_FOUR, //7-10
+				SexSlotLyingDown.LAP_PILLOW_FOUR, SexSlotLyingDown.MISSIONARY_ORAL_FOUR, SexSlotLyingDown.BESIDE_FOUR); //11-13
 		
 		@Override
 		public Value<Boolean, String> isSlotUnlocked(GameCharacter characterToTakeSlot, SexSlot slot, Map<GameCharacter, SexSlot> positioningSlots) {
 			List<List<SexSlot>> mutuallyExclusiveSlots = new ArrayList<>();
+			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN, SexSlotLyingDown.LYING_DOWN_FRONT));
+			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN_TWO, SexSlotLyingDown.LYING_DOWN_FRONT_TWO));
+			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN_THREE, SexSlotLyingDown.LYING_DOWN_FRONT_THREE));
+			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(SexSlotLyingDown.LYING_DOWN_FOUR, SexSlotLyingDown.LYING_DOWN_FRONT_FOUR));
+			
 			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(SexSlotLyingDown.COWGIRL, SexSlotLyingDown.COWGIRL_REVERSE, SexSlotLyingDown.SCISSORING));
 			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(SexSlotLyingDown.COWGIRL_TWO, SexSlotLyingDown.COWGIRL_REVERSE_TWO, SexSlotLyingDown.SCISSORING_TWO));
 			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(SexSlotLyingDown.COWGIRL_THREE, SexSlotLyingDown.COWGIRL_REVERSE_THREE, SexSlotLyingDown.SCISSORING_THREE));
@@ -2811,6 +2821,50 @@ public class SexPosition {
 					}
 				}
 			}
+
+			// Frontal lying down positions are only compatible with "missionary" (between legs) and both oral positions:
+			mutuallyExclusiveSlots.clear();
+			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(
+					SexSlotLyingDown.LYING_DOWN_FRONT, SexSlotLyingDown.MATING_PRESS, SexSlotLyingDown.COWGIRL, SexSlotLyingDown.COWGIRL_REVERSE, SexSlotLyingDown.FACE_SITTING_REVERSE,
+					SexSlotLyingDown.FACE_SITTING, SexSlotLyingDown.LAP_PILLOW, SexSlotLyingDown.SCISSORING, SexSlotLyingDown.SIXTY_NINE));
+			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(
+					SexSlotLyingDown.LYING_DOWN_FRONT_TWO, SexSlotLyingDown.MATING_PRESS_TWO, SexSlotLyingDown.COWGIRL_TWO, SexSlotLyingDown.COWGIRL_REVERSE_TWO, SexSlotLyingDown.FACE_SITTING_REVERSE_TWO,
+					SexSlotLyingDown.FACE_SITTING_TWO, SexSlotLyingDown.LAP_PILLOW_TWO, SexSlotLyingDown.SCISSORING_TWO, SexSlotLyingDown.SIXTY_NINE_TWO));
+			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(
+					SexSlotLyingDown.LYING_DOWN_FRONT_THREE, SexSlotLyingDown.MATING_PRESS_THREE, SexSlotLyingDown.COWGIRL_THREE, SexSlotLyingDown.COWGIRL_REVERSE_THREE, SexSlotLyingDown.FACE_SITTING_REVERSE_THREE,
+					SexSlotLyingDown.FACE_SITTING_THREE, SexSlotLyingDown.LAP_PILLOW_THREE, SexSlotLyingDown.SCISSORING_THREE, SexSlotLyingDown.SIXTY_NINE_THREE));
+			mutuallyExclusiveSlots.add(Util.newArrayListOfValues(
+					SexSlotLyingDown.LYING_DOWN_FRONT_FOUR, SexSlotLyingDown.MATING_PRESS_FOUR, SexSlotLyingDown.COWGIRL_FOUR, SexSlotLyingDown.COWGIRL_REVERSE_FOUR, SexSlotLyingDown.FACE_SITTING_REVERSE_FOUR,
+					SexSlotLyingDown.FACE_SITTING_FOUR, SexSlotLyingDown.LAP_PILLOW_FOUR, SexSlotLyingDown.SCISSORING_FOUR, SexSlotLyingDown.SIXTY_NINE_FOUR));
+
+			for(List<SexSlot> entry : mutuallyExclusiveSlots) {
+				SexSlot frontalLyingDownSlot = entry.get(0);
+				for(SexSlot s : entry) {
+					if(s==slot) {
+						if(s==frontalLyingDownSlot) {
+							for(Entry<GameCharacter, SexSlot> e : positioningSlots.entrySet()) {
+								if(entry.contains(e.getValue()) && e.getValue()!=slot && !e.getKey().equals(characterToTakeSlot)) {
+									return new Value<Boolean, String>(
+											false,
+											"The slot '"+Util.capitaliseSentence(slot.getDescription())+"' cannot be used while the slot"
+													+ " '"+Util.capitaliseSentence(e.getValue().getDescription())+"' is already assigned to "+(UtilText.parse(e.getKey(), "[npc.name]"))+".");
+								}
+							}
+							
+						} else {
+							for(Entry<GameCharacter, SexSlot> e : positioningSlots.entrySet()) {
+								if(e.getValue()==frontalLyingDownSlot && e.getValue()!=slot && !e.getKey().equals(characterToTakeSlot)) {
+									return new Value<Boolean, String>(
+											false,
+											"The slot '"+Util.capitaliseSentence(slot.getDescription())+"' cannot be used while the slot"
+													+ " '"+Util.capitaliseSentence(e.getValue().getDescription())+"' is already assigned to "+(UtilText.parse(e.getKey(), "[npc.name]"))+".");
+								}
+							}
+						}
+					}
+				}
+			}
+			
 			
 			if(characterToTakeSlot.isTaur()
 					&& (slot==SexSlotLyingDown.SCISSORING
@@ -2834,8 +2888,6 @@ public class SexPosition {
 							|| slot==SexSlotLyingDown.FACE_SITTING_REVERSE
 							|| slot==SexSlotLyingDown.LAP_PILLOW
 							|| slot==SexSlotLyingDown.MATING_PRESS
-							|| slot==SexSlotLyingDown.MISSIONARY
-							|| slot==SexSlotLyingDown.MISSIONARY_ORAL
 							|| slot==SexSlotLyingDown.SCISSORING
 							|| slot==SexSlotLyingDown.SIXTY_NINE)) {
 				return new Value<Boolean, String>(
@@ -2849,8 +2901,6 @@ public class SexPosition {
 							|| slot==SexSlotLyingDown.FACE_SITTING_REVERSE_TWO
 							|| slot==SexSlotLyingDown.LAP_PILLOW_TWO
 							|| slot==SexSlotLyingDown.MATING_PRESS_TWO
-							|| slot==SexSlotLyingDown.MISSIONARY_TWO
-							|| slot==SexSlotLyingDown.MISSIONARY_ORAL_TWO
 							|| slot==SexSlotLyingDown.SCISSORING_TWO
 							|| slot==SexSlotLyingDown.SIXTY_NINE_TWO)) {
 				return new Value<Boolean, String>(
@@ -2864,8 +2914,6 @@ public class SexPosition {
 							|| slot==SexSlotLyingDown.FACE_SITTING_REVERSE_THREE
 							|| slot==SexSlotLyingDown.LAP_PILLOW_THREE
 							|| slot==SexSlotLyingDown.MATING_PRESS_THREE
-							|| slot==SexSlotLyingDown.MISSIONARY_THREE
-							|| slot==SexSlotLyingDown.MISSIONARY_ORAL_THREE
 							|| slot==SexSlotLyingDown.SCISSORING_THREE
 							|| slot==SexSlotLyingDown.SIXTY_NINE_THREE)) {
 				return new Value<Boolean, String>(
@@ -2879,13 +2927,75 @@ public class SexPosition {
 							|| slot==SexSlotLyingDown.FACE_SITTING_REVERSE_FOUR
 							|| slot==SexSlotLyingDown.LAP_PILLOW_FOUR
 							|| slot==SexSlotLyingDown.MATING_PRESS_FOUR
-							|| slot==SexSlotLyingDown.MISSIONARY_FOUR
-							|| slot==SexSlotLyingDown.MISSIONARY_ORAL_FOUR
 							|| slot==SexSlotLyingDown.SCISSORING_FOUR
 							|| slot==SexSlotLyingDown.SIXTY_NINE_FOUR)) {
 				return new Value<Boolean, String>(
 						false,
 						"The slot '"+Util.capitaliseSentence(slot.getDescription())+"' cannot be used unless there is a character assigned to the '"+Util.capitaliseSentence(SexSlotLyingDown.LYING_DOWN_FOUR.getDescription())+"' slot.");
+			}
+			
+
+			if((!positioningSlots.values().contains(SexSlotLyingDown.LYING_DOWN_FRONT) || positioningSlots.get(characterToTakeSlot)==SexSlotLyingDown.LYING_DOWN_FRONT)
+					&& (slot==SexSlotLyingDown.RECEIVING_ORAL)) {
+				return new Value<Boolean, String>(
+						false,
+						"The slot '"+Util.capitaliseSentence(slot.getDescription())+"' cannot be used unless there is a character assigned to the '"+Util.capitaliseSentence(SexSlotLyingDown.LYING_DOWN_FRONT.getDescription())+"' slot.");
+			}
+			if((!positioningSlots.values().contains(SexSlotLyingDown.LYING_DOWN_FRONT_TWO) || positioningSlots.get(characterToTakeSlot)==SexSlotLyingDown.LYING_DOWN_FRONT_TWO)
+					&& (slot==SexSlotLyingDown.RECEIVING_ORAL_TWO)) {
+				return new Value<Boolean, String>(
+						false,
+						"The slot '"+Util.capitaliseSentence(slot.getDescription())+"' cannot be used unless there is a character assigned to the '"+Util.capitaliseSentence(SexSlotLyingDown.LYING_DOWN_FRONT_TWO.getDescription())+"' slot.");
+			}
+			if((!positioningSlots.values().contains(SexSlotLyingDown.LYING_DOWN_FRONT_THREE) || positioningSlots.get(characterToTakeSlot)==SexSlotLyingDown.LYING_DOWN_FRONT_THREE)
+					&& (slot==SexSlotLyingDown.RECEIVING_ORAL_THREE)) {
+				return new Value<Boolean, String>(
+						false,
+						"The slot '"+Util.capitaliseSentence(slot.getDescription())+"' cannot be used unless there is a character assigned to the '"+Util.capitaliseSentence(SexSlotLyingDown.LYING_DOWN_FRONT_THREE.getDescription())+"' slot.");
+			}
+			if((!positioningSlots.values().contains(SexSlotLyingDown.LYING_DOWN_FRONT_FOUR) || positioningSlots.get(characterToTakeSlot)==SexSlotLyingDown.LYING_DOWN_FRONT_FOUR)
+					&& (slot==SexSlotLyingDown.RECEIVING_ORAL_FOUR)) {
+				return new Value<Boolean, String>(
+						false,
+						"The slot '"+Util.capitaliseSentence(slot.getDescription())+"' cannot be used unless there is a character assigned to the '"+Util.capitaliseSentence(SexSlotLyingDown.LYING_DOWN_FRONT_FOUR.getDescription())+"' slot.");
+			}
+			
+			
+			if((!positioningSlots.values().contains(SexSlotLyingDown.LYING_DOWN) || positioningSlots.get(characterToTakeSlot)==SexSlotLyingDown.LYING_DOWN)
+					&& (!positioningSlots.values().contains(SexSlotLyingDown.LYING_DOWN_FRONT) || positioningSlots.get(characterToTakeSlot)==SexSlotLyingDown.LYING_DOWN_FRONT)
+					&& (slot==SexSlotLyingDown.MISSIONARY
+							|| slot==SexSlotLyingDown.MISSIONARY_ORAL)) {
+				return new Value<Boolean, String>(
+						false,
+						"The slot '"+Util.capitaliseSentence(slot.getDescription())+"' cannot be used unless there is a character assigned to either the"
+								+ " '"+Util.capitaliseSentence(SexSlotLyingDown.LYING_DOWN.getDescription())+"' or '"+Util.capitaliseSentence(SexSlotLyingDown.LYING_DOWN_FRONT.getDescription())+"' slot.");
+			}
+			if((!positioningSlots.values().contains(SexSlotLyingDown.LYING_DOWN_TWO) || positioningSlots.get(characterToTakeSlot)==SexSlotLyingDown.LYING_DOWN_TWO)
+					&& (!positioningSlots.values().contains(SexSlotLyingDown.LYING_DOWN_FRONT_TWO) || positioningSlots.get(characterToTakeSlot)==SexSlotLyingDown.LYING_DOWN_FRONT_TWO)
+					&& (slot==SexSlotLyingDown.MISSIONARY_TWO
+							|| slot==SexSlotLyingDown.MISSIONARY_ORAL_TWO)) {
+				return new Value<Boolean, String>(
+						false,
+						"The slot '"+Util.capitaliseSentence(slot.getDescription())+"' cannot be used unless there is a character assigned to either the"
+								+ " '"+Util.capitaliseSentence(SexSlotLyingDown.LYING_DOWN_TWO.getDescription())+"' or '"+Util.capitaliseSentence(SexSlotLyingDown.LYING_DOWN_FRONT_TWO.getDescription())+"' slot.");
+			}
+			if((!positioningSlots.values().contains(SexSlotLyingDown.LYING_DOWN_THREE) || positioningSlots.get(characterToTakeSlot)==SexSlotLyingDown.LYING_DOWN_THREE)
+					&& (!positioningSlots.values().contains(SexSlotLyingDown.LYING_DOWN_FRONT_THREE) || positioningSlots.get(characterToTakeSlot)==SexSlotLyingDown.LYING_DOWN_FRONT_THREE)
+					&& (slot==SexSlotLyingDown.MISSIONARY_THREE
+							|| slot==SexSlotLyingDown.MISSIONARY_ORAL_THREE)) {
+				return new Value<Boolean, String>(
+						false,
+						"The slot '"+Util.capitaliseSentence(slot.getDescription())+"' cannot be used unless there is a character assigned to either the"
+								+ " '"+Util.capitaliseSentence(SexSlotLyingDown.LYING_DOWN_THREE.getDescription())+"' or '"+Util.capitaliseSentence(SexSlotLyingDown.LYING_DOWN_FRONT_THREE.getDescription())+"' slot.");
+			}
+			if((!positioningSlots.values().contains(SexSlotLyingDown.LYING_DOWN_FOUR) || positioningSlots.get(characterToTakeSlot)==SexSlotLyingDown.LYING_DOWN_FOUR)
+					&& (!positioningSlots.values().contains(SexSlotLyingDown.LYING_DOWN_FRONT_FOUR) || positioningSlots.get(characterToTakeSlot)==SexSlotLyingDown.LYING_DOWN_FRONT_FOUR)
+					&& (slot==SexSlotLyingDown.MISSIONARY_FOUR
+							|| slot==SexSlotLyingDown.MISSIONARY_ORAL_FOUR)) {
+				return new Value<Boolean, String>(
+						false,
+						"The slot '"+Util.capitaliseSentence(slot.getDescription())+"' cannot be used unless there is a character assigned to either the"
+								+ " '"+Util.capitaliseSentence(SexSlotLyingDown.LYING_DOWN_FOUR.getDescription())+"' or '"+Util.capitaliseSentence(SexSlotLyingDown.LYING_DOWN_FRONT_FOUR.getDescription())+"' slot.");
 			}
 			
 			return new Value<Boolean, String>(true, "");
@@ -2897,7 +3007,11 @@ public class SexPosition {
 				if(e.getValue()==SexSlotLyingDown.LYING_DOWN
 						|| e.getValue()==SexSlotLyingDown.LYING_DOWN_TWO
 						|| e.getValue()==SexSlotLyingDown.LYING_DOWN_THREE
-						|| e.getValue()==SexSlotLyingDown.LYING_DOWN_FOUR) {
+						|| e.getValue()==SexSlotLyingDown.LYING_DOWN_FOUR
+						|| e.getValue()==SexSlotLyingDown.LYING_DOWN_FRONT
+						|| e.getValue()==SexSlotLyingDown.LYING_DOWN_FRONT_TWO
+						|| e.getValue()==SexSlotLyingDown.LYING_DOWN_FRONT_THREE
+						|| e.getValue()==SexSlotLyingDown.LYING_DOWN_FRONT_FOUR) {
 					suitablePosition = true;
 				}
 			}
@@ -2923,7 +3037,8 @@ public class SexPosition {
 
 			List<GameCharacter> lyingDownCharacters = new ArrayList<>();
 			for(Entry<GameCharacter, SexSlot> e : occupiedSlots.entrySet()) {
-				if(e.getValue().hasTag(SexSlotTag.LYING_DOWN)) {
+				if(e.getValue().hasTag(SexSlotTag.LYING_DOWN)
+						|| e.getValue().hasTag(SexSlotTag.LYING_DOWN_ON_FRONT)) {
 					lyingDownCharacters.add(e.getKey());
 				}
 			}
@@ -2931,6 +3046,7 @@ public class SexPosition {
 			int count=0;
 			for(List<SexSlot> positions : positionLists) {
 				GameCharacter lyingDown = null;
+				GameCharacter lyingDownFront = null;
 				GameCharacter cowgirl = null;
 				GameCharacter cowgirlReverse = null;
 				GameCharacter missionary = null;
@@ -2939,6 +3055,7 @@ public class SexPosition {
 				GameCharacter faceSitting = null;
 				GameCharacter faceSittingReverse = null;
 				GameCharacter sixtyNine = null;
+				GameCharacter receivingOral = null;
 				GameCharacter lapPillow = null;
 				GameCharacter performingOral = null;
 				
@@ -2947,36 +3064,42 @@ public class SexPosition {
 						lyingDown = e.getKey();
 					}
 					if(e.getValue()==positions.get(1)) {
-						cowgirl = e.getKey();
+						lyingDownFront = e.getKey();
 					}
 					if(e.getValue()==positions.get(2)) {
-						cowgirlReverse = e.getKey();
+						cowgirl = e.getKey();
 					}
 					if(e.getValue()==positions.get(3)) {
-						missionary = e.getKey();
+						cowgirlReverse = e.getKey();
 					}
 					if(e.getValue()==positions.get(4)) {
-						matingPress = e.getKey();
+						missionary = e.getKey();
 					}
 					if(e.getValue()==positions.get(5)) {
-						scissoring = e.getKey();
+						matingPress = e.getKey();
 					}
 					if(e.getValue()==positions.get(6)) {
-						faceSitting = e.getKey();
+						scissoring = e.getKey();
 					}
 					if(e.getValue()==positions.get(7)) {
-						faceSittingReverse = e.getKey();
+						faceSitting = e.getKey();
 					}
 					if(e.getValue()==positions.get(8)) {
-						sixtyNine = e.getKey();
+						faceSittingReverse = e.getKey();
 					}
 					if(e.getValue()==positions.get(9)) {
-						lapPillow = e.getKey();
+						sixtyNine = e.getKey();
 					}
 					if(e.getValue()==positions.get(10)) {
-						performingOral = e.getKey();
+						receivingOral = e.getKey();
 					}
 					if(e.getValue()==positions.get(11)) {
+						lapPillow = e.getKey();
+					}
+					if(e.getValue()==positions.get(12)) {
+						performingOral = e.getKey();
+					}
+					if(e.getValue()==positions.get(13)) {
 						if(mainBeside==null) {
 							mainBeside = e.getKey();
 						}
@@ -2996,145 +3119,210 @@ public class SexPosition {
 				
 				boolean skipLyingdown = count >= lyingDownCharacters.size();
 				if(!skipLyingdown) {
+					GameCharacter targetedCharacter1, targetedCharacter2, targetedCharacter3, targetedCharacter4;
 					switch(count) {
 						case 0:
-							sb.append(UtilText.parse(lyingDownCharacters.get(0),
-									(!lyingDownCharacters.get(0).isTaur()
-										?"[npc.NameIsFull] lying down on [npc.her] back, submissively exposing [npc.her] stomach, [npc.face], and groin. "
-										:"[npc.NameHasFull] lain down on [npc.her] feral [npc.legRace]'s body, before rolling over onto [npc.her] back in order to submissively expose [npc.her] stomach. ")));
+							targetedCharacter1 = lyingDownCharacters.get(0);
+							if(occupiedSlots.get(targetedCharacter1).hasTag(SexSlotTag.LYING_DOWN_ON_FRONT)) {
+								sb.append(UtilText.parse(targetedCharacter1,
+										(!targetedCharacter1.isTaur()
+											?" [npc.NameIsFull] lying down on [npc.her] front, "
+											:" [npc.NameIsFull] lying down flat and stretched out on [npc.her] feral [npc.legRace]'s body, ")
+										+"submissively exposing [npc.her] back, ass, and groin. "));
+							} else {
+								sb.append(UtilText.parse(lyingDownCharacters.get(0),
+										(!lyingDownCharacters.get(0).isTaur()
+											?" [npc.NameIsFull] lying down on [npc.her] back, submissively exposing [npc.her] stomach, [npc.face], and groin. "
+											:" [npc.NameHasFull] lain down on [npc.her] feral [npc.legRace]'s body, before rolling over onto [npc.her] back in order to submissively expose [npc.her] stomach. ")));
+							}
 							break;
 						case 1:
-							sb.append(UtilText.parse(lyingDownCharacters.get(1), lyingDownCharacters.get(0),
-									(!lyingDownCharacters.get(0).isTaur()
-										?" In a similar manner to [npc2.name], [npc.nameHasFull] dropped down to lie on [npc.her] back. "
-										:" In a similar manner to [npc2.name], [npc.nameHasFull] knelt down onto [npc.her] feral [npc.legRace]'s body, before rolling over and presenting [npc.her] underside. ")));
+							targetedCharacter1 = lyingDownCharacters.get(0);
+							targetedCharacter2 = lyingDownCharacters.get(1);
+							if(occupiedSlots.get(targetedCharacter1).hasTag(SexSlotTag.LYING_DOWN_ON_FRONT)) {
+								sb.append(UtilText.parse(targetedCharacter2, targetedCharacter1,
+										(!targetedCharacter2.isTaur()
+											?" Joining [npc2.name] on the floor, [npc.nameIsFull] lying down on [npc.her] front, "
+											:" Joining [npc2.name] on the floor, [npc.nameIsFull] lying down on [npc.her] feral [npc.legRace]'s body, ")
+										+"ready to be submissively fucked. "));
+							} else {
+								sb.append(UtilText.parse(targetedCharacter2, targetedCharacter1,
+										(!targetedCharacter2.isTaur()
+											?" Joining [npc2.name] on the floor, [npc.nameHasFull] dropped down to lie on [npc.her] back. "
+											:" Joining [npc2.name] on the floor, [npc.nameHasFull] knelt down onto [npc.her] feral [npc.legRace]'s body, before rolling over and presenting [npc.her] underside. ")));
+							}
 							break;
 						case 2:
-							sb.append(UtilText.parse(Util.newArrayListOfValues(lyingDownCharacters.get(2), lyingDownCharacters.get(1), lyingDownCharacters.get(0)),
-									(!lyingDownCharacters.get(0).isTaur()
-										?" Just like [npc2.name] and [npc3.name], [npc.nameHasFull] sunk down onto the floor, before lying down on [npc.her] back. "
-										:" Just like [npc2.name] and [npc3.name], [npc.nameHasFull] sunk down onto [npc.her] feral [npc.legRace]'s body, before rolling over onto [npc.her] back and presenting [npc.herself]. ")));
+							targetedCharacter1 = lyingDownCharacters.get(0);
+							targetedCharacter2 = lyingDownCharacters.get(1);
+							targetedCharacter3 = lyingDownCharacters.get(2);
+							if(occupiedSlots.get(targetedCharacter1).hasTag(SexSlotTag.LYING_DOWN_ON_FRONT)) {
+								sb.append(UtilText.parse(Util.newArrayListOfValues(targetedCharacter3, targetedCharacter2, targetedCharacter1),
+										(!targetedCharacter3.isTaur()
+											?" Just like [npc2.name] and [npc3.name], [npc.nameHasFull] sunk down onto the floor and [npc.is] lying down on [npc.her] front, "
+											:" Just like [npc2.name] and [npc3.name], [npc.nameHasFull] sunk down onto the floor and [npc.is] lying down on [npc.her] feral [npc.legRace]'s body, ")
+										+"ready to be submissively fucked. "));
+							} else {
+								sb.append(UtilText.parse(Util.newArrayListOfValues(targetedCharacter3, targetedCharacter2, targetedCharacter1),
+										(!targetedCharacter3.isTaur()
+											?" Just like [npc2.name] and [npc3.name], [npc.nameHasFull] sunk down onto the floor, before lying down on [npc.her] back. "
+											:" Just like [npc2.name] and [npc3.name], [npc.nameHasFull] sunk down onto [npc.her] feral [npc.legRace]'s body, before rolling over onto [npc.her] back and presenting [npc.herself]. ")));
+							}
 							break;
 						case 3:
-							sb.append(UtilText.parse(Util.newArrayListOfValues(lyingDownCharacters.get(3), lyingDownCharacters.get(2), lyingDownCharacters.get(1), lyingDownCharacters.get(0)),
-									(!lyingDownCharacters.get(0).isTaur()
-										?" Finishing off the group of four, [npc.nameIsFull] lying down on [npc.her] back beside [npc2.name], [npc3.name], and [npc4.name]. "
-										:" Finishing off the group of four, [npc.nameIsFull] lying down beside [npc2.name], [npc3.name], and [npc4.name], and [npc.has] rolled over to present the underside of [npc.her] feral [npc.legRace]'s body. ")));
+							targetedCharacter1 = lyingDownCharacters.get(0);
+							targetedCharacter2 = lyingDownCharacters.get(1);
+							targetedCharacter3 = lyingDownCharacters.get(2);
+							targetedCharacter4 = lyingDownCharacters.get(3);
+							if(occupiedSlots.get(targetedCharacter1).hasTag(SexSlotTag.LYING_DOWN_ON_FRONT)) {
+								sb.append(UtilText.parse(Util.newArrayListOfValues(targetedCharacter4, targetedCharacter3, targetedCharacter2, targetedCharacter1),
+										(!targetedCharacter4.isTaur()
+											?" Finishing off the group of four, [npc.nameIsFull] lying down on [npc.her] front beside [npc2.name], [npc3.name], and [npc4.name]. "
+											:" Finishing off the group of four, [npc.nameIsFull] lying down on [npc.her] front beside [npc2.name], [npc3.name], and [npc4.name]. ")));
+							} else {
+								sb.append(UtilText.parse(Util.newArrayListOfValues(targetedCharacter4, targetedCharacter3, targetedCharacter2, targetedCharacter1),
+										(!targetedCharacter4.isTaur()
+											?" Finishing off the group of four, [npc.nameIsFull] lying down on [npc.her] back beside [npc2.name], [npc3.name], and [npc4.name]. "
+											:" Finishing off the group of four, [npc.nameIsFull] lying down beside [npc2.name], [npc3.name], and [npc4.name], and [npc.has] rolled over to present the underside of [npc.her] feral [npc.legRace]'s body. ")));
+							}
 							break;
 					}
 					count++;
 				}
 				
 				boolean continuation = false;
-				// These four slots are mutually exclusive:
-				if(cowgirl!=null) {
-					if(!cowgirl.isTaur()) {
-						sb.append(UtilText.parse(cowgirl, lyingDown,
-								" [npc.NameHasFull] stepped over the top of [npc2.name], before lowering [npc.herself] down and straddling [npc2.her] groin, ready to start riding [npc2.herHim] in the cowgirl position."));
-					} else {
-						sb.append(UtilText.parse(cowgirl, lyingDown,
-								" [npc.NameHasFull] stepped over the top of [npc2.name], before dropping the rear-half of [npc.her] feral [npc.legRace]'s body down in order to plant [npc.her] groin firmly against [npc2.hers]."));
-					}
-					continuation = true;
-				}
-				if(cowgirlReverse!=null) {
-					if(!cowgirlReverse.isTaur()) {
-						sb.append(UtilText.parse(cowgirlReverse, lyingDown,
-								" [npc.NameHasFull] stepped over the top of [npc2.name], before turning around and lowering [npc.herself] down and straddling [npc2.her] groin, ready to start riding [npc2.herHim] in the reverse cowgirl position."));
-					} else {
-						sb.append(UtilText.parse(cowgirlReverse, lyingDown,
-								" [npc.NameHasFull] stepped over the top of [npc2.name], before turning around and dropping the rear-half of [npc.her] feral [npc.legRace]'s body down in order to plant [npc.her] groin firmly against [npc2.hers]."));
-					}
-					continuation = true;
-				}
-				if(matingPress!=null) {
-					if(!matingPress.hasLegs()) {
-						sb.append(UtilText.parse(matingPress, lyingDown,
-								" [npc.NameHasFull] pushed [npc2.namePos] down onto [npc2.her] back, before lying down on top of [npc2.herHim] with [npc.her] groin hovering just over [npc2.hers]."
-									+ " [npc.SheIs] dominantly using [npc.her] [npc.hands] to pin [npc2.namePos] wrists to the floor on either side of [npc2.her] head,"
-										+ " thereby fully locking [npc2.herHim] down beneath [npc.herHim] in a position suitable for being bred."));
-						
-					} else if(!matingPress.isTaur()) {
-						sb.append(UtilText.parse(matingPress, lyingDown,
-								" [npc.NameHasFull] pushed [npc2.namePos] [npc2.legs] apart and back up towards [npc2.her] head, before lying down on top of [npc2.herHim] with [npc.her] groin hovering just over [npc2.hers]."
-									+ " [npc.SheIs] dominantly using [npc.her] [npc.hands] to pin [npc2.namePos] wrists to the floor on either side of [npc2.her] head,"
-										+ " thereby fully locking [npc2.herHim] down beneath [npc.herHim] in a position suitable for being bred."));
-						
-					} else {
-						sb.append(UtilText.parse(matingPress, lyingDown,
-								" [npc.NameHasFull] pushed [npc2.namePos] [npc2.legs] apart and back up towards [npc2.her] head, before dropping [npc.her] feral [npc.legRace]'s body down on top of [npc2.herHim],"
-										+ " with [npc.her] animalistic groin hovering just over [npc2.hers]."
-									+ " [npc.SheIs] dominantly using [npc.her] front [npc.legs] to pin [npc2.name] wrists to the floor on either side of [npc2.her] head,"
-										+ " thereby fully locking [npc2.herHim] down beneath [npc.herHim] in a position suitable for being bred."));
-					}
-					continuation = true;
-				}
-				if(scissoring!=null) {
-					sb.append(UtilText.parse(scissoring, lyingDown,
-							" [npc.NameHasFull] laid down on [npc.her] back, and by [npc.spreadingHerLegs] and shuffling forwards,"
-									+ " [npc.has] brought [npc.her] groin into contact with [npc2.hers], ready to start scissoring [npc2.herHim]."));
-					continuation = true;
-				}
-
-				if(missionary!=null) {
-					if(!missionary.isTaur()) {
-						sb.append(UtilText.parse(missionary, lyingDown,
-								" [npc.NameHasFull] dropped down between [npc2.namePos] [npc2.legs], ready to fuck [npc2.herHim] in the missionary position."));
-					} else {
-						sb.append(UtilText.parse(missionary, lyingDown,
-								" [npc.NameHasFull] lowered [npc.her] feral [npc.legRace]'s body down over the top of [npc2.name], and [npc.is] ready to start rutting [npc2.herHim] in the missionary position."));
-					}
-					continuation = true;
-				}
 				
-				if(faceSitting!=null) {
-					if(!faceSitting.isTaur()) {
-						sb.append(UtilText.parse(faceSitting, lyingDown,
+				if(lyingDownFront!=null) {
+					if(missionary!=null) {
+						if(!missionary.isTaur()) {
+							sb.append(UtilText.parse(missionary, lyingDownFront,
+									" [npc.NameHasFull] dropped down behind [npc2.name] and positioned [npc.herself] between [npc2.her] [npc2.legs], ready to fuck [npc2.herHim] in the prone bone position."));
+						} else {
+							sb.append(UtilText.parse(missionary, lyingDownFront,
+									" [npc.NameHasFull] lowered [npc.her] feral [npc.legRace]'s body down over the top of [npc2.name], and [npc.is] ready to start rutting [npc2.herHim] in the prone bone position."));
+						}
+						continuation = true;
+					}
+					if(performingOral!=null) {
+						sb.append(UtilText.parse(performingOral, lyingDownFront,
+								" Wanting to perform oral on [npc2.name], [npc.nameHasFull] laid down between [npc2.her] [npc2.legs], bringing [npc.her] [npc.face] right down to [npc2.her] groin."));
+					}
+					if(receivingOral!=null) {
+						sb.append(UtilText.parse(receivingOral, lyingDownFront,
+								" Wanting to receive oral from [npc2.name], [npc.nameHasFull] dropped down in front of [npc2.herHim], bringing [npc.her] groin right down to [npc2.her] [npc2.face]."));
+					}
+					
+					
+				} else {
+					// These four slots are mutually exclusive:
+					if(cowgirl!=null) {
+						if(!cowgirl.isTaur()) {
+							sb.append(UtilText.parse(cowgirl, lyingDown,
+									" [npc.NameHasFull] stepped over the top of [npc2.name], before lowering [npc.herself] down and straddling [npc2.her] groin, ready to start riding [npc2.herHim] in the cowgirl position."));
+						} else {
+							sb.append(UtilText.parse(cowgirl, lyingDown,
+									" [npc.NameHasFull] stepped over the top of [npc2.name], before dropping the rear-half of [npc.her] feral [npc.legRace]'s body down in order to plant [npc.her] groin firmly against [npc2.hers]."));
+						}
+						continuation = true;
+					}
+					if(cowgirlReverse!=null) {
+						if(!cowgirlReverse.isTaur()) {
+							sb.append(UtilText.parse(cowgirlReverse, lyingDown,
+									" [npc.NameHasFull] stepped over the top of [npc2.name], before turning around and lowering [npc.herself] down and straddling [npc2.her] groin, ready to start riding [npc2.herHim] in the reverse cowgirl position."));
+						} else {
+							sb.append(UtilText.parse(cowgirlReverse, lyingDown,
+									" [npc.NameHasFull] stepped over the top of [npc2.name], before turning around and dropping the rear-half of [npc.her] feral [npc.legRace]'s body down in order to plant [npc.her] groin firmly against [npc2.hers]."));
+						}
+						continuation = true;
+					}
+					if(matingPress!=null) {
+						if(!matingPress.hasLegs()) {
+							sb.append(UtilText.parse(matingPress, lyingDown,
+									" [npc.NameHasFull] pushed [npc2.namePos] down onto [npc2.her] back, before lying down on top of [npc2.herHim] with [npc.her] groin hovering just over [npc2.hers]."
+										+ " [npc.SheIs] dominantly using [npc.her] [npc.hands] to pin [npc2.namePos] wrists to the floor on either side of [npc2.her] head,"
+											+ " thereby fully locking [npc2.herHim] down beneath [npc.herHim] in a position suitable for being bred."));
+							
+						} else if(!matingPress.isTaur()) {
+							sb.append(UtilText.parse(matingPress, lyingDown,
+									" [npc.NameHasFull] pushed [npc2.namePos] [npc2.legs] apart and back up towards [npc2.her] head, before lying down on top of [npc2.herHim] with [npc.her] groin hovering just over [npc2.hers]."
+										+ " [npc.SheIs] dominantly using [npc.her] [npc.hands] to pin [npc2.namePos] wrists to the floor on either side of [npc2.her] head,"
+											+ " thereby fully locking [npc2.herHim] down beneath [npc.herHim] in a position suitable for being bred."));
+							
+						} else {
+							sb.append(UtilText.parse(matingPress, lyingDown,
+									" [npc.NameHasFull] pushed [npc2.namePos] [npc2.legs] apart and back up towards [npc2.her] head, before dropping [npc.her] feral [npc.legRace]'s body down on top of [npc2.herHim],"
+											+ " with [npc.her] animalistic groin hovering just over [npc2.hers]."
+										+ " [npc.SheIs] dominantly using [npc.her] front [npc.legs] to pin [npc2.name] wrists to the floor on either side of [npc2.her] head,"
+											+ " thereby fully locking [npc2.herHim] down beneath [npc.herHim] in a position suitable for being bred."));
+						}
+						continuation = true;
+					}
+					if(scissoring!=null) {
+						sb.append(UtilText.parse(scissoring, lyingDown,
+								" [npc.NameHasFull] laid down on [npc.her] back, and by [npc.spreadingHerLegs] and shuffling forwards,"
+										+ " [npc.has] brought [npc.her] groin into contact with [npc2.hers], ready to start scissoring [npc2.herHim]."));
+						continuation = true;
+					}
+	
+					if(missionary!=null) {
+						if(!missionary.isTaur()) {
+							sb.append(UtilText.parse(missionary, lyingDown,
+									" [npc.NameHasFull] dropped down between [npc2.namePos] [npc2.legs], ready to fuck [npc2.herHim] in the missionary position."));
+						} else {
+							sb.append(UtilText.parse(missionary, lyingDown,
+									" [npc.NameHasFull] lowered [npc.her] feral [npc.legRace]'s body down over the top of [npc2.name], and [npc.is] ready to start rutting [npc2.herHim] in the missionary position."));
+						}
+						continuation = true;
+					}
+					
+					if(faceSitting!=null) {
+						if(!faceSitting.isTaur()) {
+							sb.append(UtilText.parse(faceSitting, lyingDown,
+									continuation
+									?" Meanwhile, eager for some face-sitting action, [npc.nameHasFull] stepped over the top of [npc2.name], before lowering [npc.herself] down and planting [npc.her] groin firmly over [npc2.her] [npc2.face]."
+									:" Eager for some face-sitting action, [npc.nameHasFull] stepped over the top of [npc2.name], before lowering [npc.herself] down and planting [npc.her] groin firmly over [npc2.her] [npc2.face]."));
+						} else {
+							sb.append(UtilText.parse(faceSitting, lyingDown,
+									continuation
+									?" Meanwhile, eager for some face-sitting action, [npc.nameHasFull] stepped over the top of [npc2.name],"
+											+ " before lowering [npc.her] feral [npc.legRace]'s body down and planting [npc.her] animalistic groin firmly over [npc2.her] [npc2.face]."
+									:" Eager for some face-sitting action, [npc.nameHasFull] stepped over the top of [npc2.name],"
+											+ " before lowering [npc.her] feral [npc.legRace]'s body down and planting [npc.her] animalistic groin firmly over [npc2.her] [npc2.face]."));
+						}
+					}
+					if(faceSittingReverse!=null) {
+						if(!faceSittingReverse.isTaur()) {
+							sb.append(UtilText.parse(faceSittingReverse, lyingDown,
+									continuation
+									?" Meanwhile, [npc.nameHasFull] stepped over the top of [npc2.name], before turning around to face [npc2.her] lower body and then lowering [npc.herself] down in order to assume the reverse face-sitting position."
+									:" [npc.NameHasFull] stepped over the top of [npc2.name], before turning around to face [npc2.her] lower body and then lowering [npc.herself] down in order to assume the reverse face-sitting position."));
+						} else {
+							sb.append(UtilText.parse(faceSittingReverse, lyingDown,
+									continuation
+									?" Meanwhile, [npc.nameHasFull] stepped over the top of [npc2.name],"
+											+ " before turning around to face [npc2.her] lower body and then lowering [npc.her] feral [npc.legRace]'s body down in order to assume the reverse face-sitting position."
+									:" [npc.NameHasFull] stepped over the top of [npc2.name],"
+											+ " before turning around to face [npc2.her] lower body and then lowering [npc.her] feral [npc.legRace]'s body down in order to assume the reverse face-sitting position."));
+						}
+					}
+					if(sixtyNine!=null) {
+						sb.append(UtilText.parse(sixtyNine, lyingDown,
 								continuation
-								?" Meanwhile, eager for some face-sitting action, [npc.nameHasFull] stepped over the top of [npc2.name], before lowering [npc.herself] down and planting [npc.her] groin firmly over [npc2.her] [npc2.face]."
-								:" Eager for some face-sitting action, [npc.nameHasFull] stepped over the top of [npc2.name], before lowering [npc.herself] down and planting [npc.her] groin firmly over [npc2.her] [npc2.face]."));
-					} else {
-						sb.append(UtilText.parse(faceSitting, lyingDown,
+								?" Meanwhile, eager for some oral action, [npc.nameHasFull] stepped over the top of [npc2.name], before turning around and lowering [npc.herself] over [npc2.herHim] in the sixty-nine position."
+								:" Eager for some oral action, [npc.nameHasFull] stepped over the top of [npc2.name], before turning around and lowering [npc.herself] over [npc2.herHim] in the sixty-nine position."));
+					}
+					if(lapPillow!=null) {
+						sb.append(UtilText.parse(lapPillow, lyingDown,
 								continuation
-								?" Meanwhile, eager for some face-sitting action, [npc.nameHasFull] stepped over the top of [npc2.name],"
-										+ " before lowering [npc.her] feral [npc.legRace]'s body down and planting [npc.her] animalistic groin firmly over [npc2.her] [npc2.face]."
-								:" Eager for some face-sitting action, [npc.nameHasFull] stepped over the top of [npc2.name],"
-										+ " before lowering [npc.her] feral [npc.legRace]'s body down and planting [npc.her] animalistic groin firmly over [npc2.her] [npc2.face]."));
+								?" Meanwhile, eager to fuss over [npc2.herHim], [npc.nameHasFull] knelt down beside [npc2.namePos] [npc2.face], before lifting [npc2.her] head and resting it on [npc.her] lap."
+								:" Eager to fuss over [npc2.herHim], [npc.nameHasFull] knelt down beside [npc2.namePos] [npc2.face], before lifting [npc2.her] head and resting it on [npc.her] lap."));
+					}
+	
+					if(performingOral!=null) {
+						sb.append(UtilText.parse(performingOral, lyingDown,
+								" Wanting to perform oral on [npc2.name], [npc.nameHasFull] laid down between [npc2.her] [npc2.legs], bringing [npc.her] [npc.face] right down to [npc2.her] groin."));
 					}
 				}
-				if(faceSittingReverse!=null) {
-					if(!faceSittingReverse.isTaur()) {
-						sb.append(UtilText.parse(faceSittingReverse, lyingDown,
-								continuation
-								?" Meanwhile, [npc.nameHasFull] stepped over the top of [npc2.name], before turning around to face [npc2.her] lower body and then lowering [npc.herself] down in order to assume the reverse face-sitting position."
-								:" [npc.NameHasFull] stepped over the top of [npc2.name], before turning around to face [npc2.her] lower body and then lowering [npc.herself] down in order to assume the reverse face-sitting position."));
-					} else {
-						sb.append(UtilText.parse(faceSittingReverse, lyingDown,
-								continuation
-								?" Meanwhile, [npc.nameHasFull] stepped over the top of [npc2.name],"
-										+ " before turning around to face [npc2.her] lower body and then lowering [npc.her] feral [npc.legRace]'s body down in order to assume the reverse face-sitting position."
-								:" [npc.NameHasFull] stepped over the top of [npc2.name],"
-										+ " before turning around to face [npc2.her] lower body and then lowering [npc.her] feral [npc.legRace]'s body down in order to assume the reverse face-sitting position."));
-					}
-				}
-				if(sixtyNine!=null) {
-					sb.append(UtilText.parse(sixtyNine, lyingDown,
-							continuation
-							?" Meanwhile, eager for some oral action, [npc.nameHasFull] stepped over the top of [npc2.name], before turning around and lowering [npc.herself] over [npc2.herHim] in the sixty-nine position."
-							:" Eager for some oral action, [npc.nameHasFull] stepped over the top of [npc2.name], before turning around and lowering [npc.herself] over [npc2.herHim] in the sixty-nine position."));
-				}
-				if(lapPillow!=null) {
-					sb.append(UtilText.parse(lapPillow, lyingDown,
-							continuation
-							?" Meanwhile, eager to fuss over [npc2.herHim], [npc.nameHasFull] knelt down beside [npc2.namePos] [npc2.face], before lifting [npc2.her] head and resting it on [npc.her] lap."
-							:" Eager to fuss over [npc2.herHim], [npc.nameHasFull] knelt down beside [npc2.namePos] [npc2.face], before lifting [npc2.her] head and resting it on [npc.her] lap."));
-				}
-
-				if(performingOral!=null) {
-					sb.append(UtilText.parse(performingOral, lyingDown,
-							" Wanting to perform oral on [npc2.name], [npc.nameHasFull] laid down between [npc2.her] [npc2.legs], bringing [npc.her] [npc.face] right down to [npc2.her] groin."));
-				}
-				
 			}
 			
 			if(besideNames.size()>=2) {
@@ -3166,16 +3354,27 @@ public class SexPosition {
 				List<SexSlot> positions = positionLists.get(i);
 				
 				SexSlot lyingDown = positions.get(0);
-				SexSlot cowgirl = positions.get(1);
-				SexSlot cowgirlReverse = positions.get(2);
-				SexSlot missionary = positions.get(3);
-				SexSlot matingPress = positions.get(4);
-				SexSlot scissoring = positions.get(5);
-				SexSlot faceSitting = positions.get(6);
-				SexSlot faceSittingReverse = positions.get(7);
-				SexSlot sixtyNine = positions.get(8);
-				SexSlot lapPillow = positions.get(9);
-				SexSlot performingOral = positions.get(10);
+				SexSlot lyingDownFront = positions.get(1);
+				SexSlot cowgirl = positions.get(2);
+				SexSlot cowgirlReverse = positions.get(3);
+				SexSlot missionary = positions.get(4);
+				SexSlot matingPress = positions.get(5);
+				SexSlot scissoring = positions.get(6);
+				SexSlot faceSitting = positions.get(7);
+				SexSlot faceSittingReverse = positions.get(8);
+				SexSlot sixtyNine = positions.get(9);
+				SexSlot receivingOral = positions.get(10);
+				SexSlot lapPillow = positions.get(11);
+				SexSlot performingOral = positions.get(12);
+				
+				// Lying on front:
+
+				interactions.add(StandardSexActionInteractions.allFoursBehind.getSexActionInteractions(missionary, lyingDownFront));
+				interactions.add(StandardSexActionInteractions.performingOralToLyingDown.getSexActionInteractions(performingOral, lyingDownFront));
+				interactions.add(StandardSexActionInteractions.faceSittingRiding.getSexActionInteractions(receivingOral, lyingDownFront)); // Use same interactions as face sitting
+				interactions.add(StandardSexActionInteractions.allFoursCharacterBehindToCharactersFront.getSexActionInteractions(receivingOral, missionary)); // Use same interaction as all fours in front/behind
+				
+				// Lying on back:
 				
 				interactions.add(StandardSexActionInteractions.cowgirlRiding.getSexActionInteractions(cowgirl, lyingDown));
 				interactions.add(StandardSexActionInteractions.cowgirlReverseRiding.getSexActionInteractions(cowgirlReverse, lyingDown));
@@ -3226,14 +3425,15 @@ public class SexPosition {
 
 				// Those beside can interact with all lying down and kneeling:
 				for(SexSlot beside : besideSlots) {
-					interactions.add(StandardSexActionInteractions.besideLyingDown.getSexActionInteractions(beside, lyingDown));
-					interactions.add(StandardSexActionInteractions.besideKneeling.getSexActionInteractions(beside, cowgirl));
-					interactions.add(StandardSexActionInteractions.besideKneeling.getSexActionInteractions(beside, cowgirlReverse));
-					interactions.add(StandardSexActionInteractions.besideKneeling.getSexActionInteractions(beside, missionary));
-					interactions.add(StandardSexActionInteractions.besideKneeling.getSexActionInteractions(beside, scissoring));
-					interactions.add(StandardSexActionInteractions.besideKneeling.getSexActionInteractions(beside, faceSitting));
-					interactions.add(StandardSexActionInteractions.besideKneeling.getSexActionInteractions(beside, faceSittingReverse));
-					interactions.add(StandardSexActionInteractions.besideKneeling.getSexActionInteractions(beside, lapPillow));
+					interactions.add(StandardSexActionInteractions.besideKneeling.getSexActionInteractions(beside, lyingDown));
+					interactions.add(StandardSexActionInteractions.besideKneeling.getSexActionInteractions(beside, lyingDownFront));
+					interactions.add(StandardSexActionInteractions.kneelingBeside.getSexActionInteractions(beside, cowgirl));
+					interactions.add(StandardSexActionInteractions.kneelingBeside.getSexActionInteractions(beside, cowgirlReverse));
+					interactions.add(StandardSexActionInteractions.kneelingBeside.getSexActionInteractions(beside, missionary));
+					interactions.add(StandardSexActionInteractions.kneelingBeside.getSexActionInteractions(beside, scissoring));
+					interactions.add(StandardSexActionInteractions.kneelingBeside.getSexActionInteractions(beside, faceSitting));
+					interactions.add(StandardSexActionInteractions.kneelingBeside.getSexActionInteractions(beside, faceSittingReverse));
+					interactions.add(StandardSexActionInteractions.kneelingBeside.getSexActionInteractions(beside, lapPillow));
 				}
 			}
 			
@@ -3250,7 +3450,7 @@ public class SexPosition {
 			return generateSlotTargetsMap(interactions);
 		}
 		@Override
-		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
+		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaInterface>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
 			// Characters riding the one lying down can use their bodyweight to force a creampie:
 			if(Main.sex.getSexPositionSlot(cumProvider)==SexSlotLyingDown.LYING_DOWN
 					|| Main.sex.getSexPositionSlot(cumProvider)==SexSlotLyingDown.LYING_DOWN_TWO
@@ -3911,7 +4111,7 @@ public class SexPosition {
 			return generateSlotTargetsMap(interactions);
 		}
 		@Override
-		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
+		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaInterface>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
 			// The character sucking cock can use their arms to force a creampie:
 			if((Main.sex.getSexPositionSlot(cumTarget)==SexSlotSitting.PERFORMING_ORAL
 					|| Main.sex.getSexPositionSlot(cumTarget)==SexSlotSitting.PERFORMING_ORAL_TWO
@@ -4058,7 +4258,7 @@ public class SexPosition {
 			return super.isActionBlocked(performer, target, action);
 		}
 		@Override
-		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaOrifice>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
+		protected Map<Class<? extends BodyPartInterface>,  List<SexAreaInterface>> getForcedCreampieMap(GameCharacter cumTarget, GameCharacter cumProvider) {
 			if(Main.sex.getSexPositionSlot(cumTarget)==SexSlotBreedingStall.BREEDING_STALL_BACK
 					&& Main.sex.getSexPositionSlot(cumProvider)==SexSlotBreedingStall.BREEDING_STALL_FUCKING) {
 				return Util.newHashMapOfValues(

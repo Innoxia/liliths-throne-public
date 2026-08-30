@@ -3484,7 +3484,7 @@ public class Body implements XMLSaving {
 				Tattoo tattoo = tattoEntry.getValue();
 				if(tattoo.getBodyOverviewDescription().isEmpty()) { // Old version support
 					tattooSB.append("<span style='color:"+tattoo.getPrimaryColour().toWebHexString()+";'>"+Util.capitaliseSentence(tattooSlot.getTattooSlotName())+":</span> ");
-					tattooSB.append(tattoo.getDescription());
+					tattooSB.append(tattoo.getDescription(owner));
 					tattooSB.append(".");
 					
 				} else {
@@ -6567,6 +6567,8 @@ public class Body implements XMLSaving {
 	 * @param subspecies Pass in the AbstractSubspecies to which this character should be transformed into a feral version of. Pass in null to transform back from feral to a standard anthro.
 	 */
 	public void setFeral(GameCharacter target, AbstractSubspecies subspecies) {
+		LegConfiguration initialLegConfiguration = target.getLegConfiguration(); // For use in pregnant feral reversion (into taur)
+		
 		AbstractSubspecies targetSubspecies = subspecies == null ? getSubspecies() : subspecies;
 		FeralAttributes attributes = targetSubspecies.getFeralAttributes(this);
 		if(attributes==null) {
@@ -6585,6 +6587,11 @@ public class Body implements XMLSaving {
 				false);
 		
 		if (subspecies == null) {
+			// If the target is pregnant as a feral, then feral reversion should always go into the tauric (or equivalent) lower body to better handle taur offspring
+			if(target.isPregnant() && target.getLegConfiguration()!=initialLegConfiguration) {
+				target.setLegConfiguration(initialLegConfiguration, true);
+			}
+			
 			return; 
 		}
 		

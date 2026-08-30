@@ -74,10 +74,15 @@ public enum BodyMaterial {
 		}
 		@Override
 		public List<String> getExtraEffects(GameCharacter target) {
-			return Util.newArrayListOfValues(
-					"<b>[style.boldBad(-75%)] base [style.colourUnarmed(unarmed damage)]</b>",
-					"<b style='color: "+ PresetColour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'>Can morph body at will</b>",
-					"<b style='color: "+ PresetColour.GENERIC_SEX.toWebHexString()+ ";'>Impregnated through any orifice</b>");
+			List<String> extraEffectsLsit = new ArrayList<>();
+			extraEffectsLsit.add("[style.colourBad(-75%)] base [style.colourUnarmed(unarmed damage)]");
+			extraEffectsLsit.add("[style.colourTfGeneric(Can morph body at will*)]");
+			if(target!=null && target.isPlayer()) {
+				extraEffectsLsit.add("[style.colourTfGeneric(*)][style.colourMinorBad(Requires having encountered races)]");
+				extraEffectsLsit.add("[style.colourMinorBad(to be able to transform into them)]");
+			}
+			extraEffectsLsit.add("[style.colourSex(Impregnated through any orifice)]");
+			return extraEffectsLsit;
 		}
 	},
 

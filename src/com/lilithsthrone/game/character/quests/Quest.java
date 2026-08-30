@@ -390,7 +390,7 @@ public enum Quest {
 				Main.game.getPlayer().removeItem(Main.game.getItemGen().generateItem(ItemType.LYSSIETHS_RING));
 			}
 			if(!Main.game.getPlayer().hasClothingType(ClothingType.FINGER_LYSSIETHS_RING, true)) {
-				Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(ClothingType.FINGER_LYSSIETHS_RING), false);
+				Main.game.getPlayer().addClothing(Main.game.getItemGen().generateClothing(ClothingType.FINGER_LYSSIETHS_RING, false), false);
 			}
 		}
 	},
@@ -500,7 +500,8 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "You agreed to travel to Themiscyra with Meraxis and find out whether or not the town is being threatened by Lunette's army.";
+			return "You agreed to travel to Themiscyra with Meraxis and find out whether or not the town is being threatened by Lunette's army."
+					+ " When you're ready, you need to meet with Meraxis and have her guide you there.";
 		}
 
 		@Override
@@ -2618,22 +2619,22 @@ public enum Quest {
 		}
 		@Override
 		public String getDescription() {
-			return "Natalya, the Stable Mistress at the company Dominion Express, has offered you the opportunity to be interviewed for the position of 'filly'.";
+			return "Natalya, the Stable Mistress at the company Dominion Express, has offered you the opportunity to be interviewed for the position of '[style.mule]'.";
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "You accepted Natalya's offer of an interview for the position of 'filly' at Dominion Express.";
+			return "You accepted Natalya's offer of an interview for the position of '[style.mule]' at Dominion Express.";
 		}
 	},
 
 	ROMANCE_NATALYA_2_CONTRACT_SIGNED(QuestType.RELATIONSHIP, 1, 5) {
 		@Override
 		public String getName() {
-			return "Natalya's Filly";
+			return "Natalya's [style.Mule]";
 		}
 		@Override
 		public String getDescription() {
-			return "Having accepted the offer of an interview for the position of 'filly', you now need to successfully pass it and sign the contract.";
+			return "Having accepted the offer of an interview for the position of '[style.mule]', you now need to successfully pass it and sign the contract.";
 		}
 		@Override
 		public String getCompletedDescription() {
@@ -2644,7 +2645,7 @@ public enum Quest {
 	ROMANCE_NATALYA_3_TRAINING_1(QuestType.RELATIONSHIP, 1, 5) {
 		@Override
 		public String getName() {
-			return "Filly Training";
+			return "[style.Mule] Training";
 		}
 		@Override
 		public String getDescription() {
@@ -2652,7 +2653,7 @@ public enum Quest {
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "After being transformed into [style.a_shemale] taur, you began your filly training by sucking the cock of one of Dominion Express's more unruly centaur slaves.";
+			return "After being transformed into [style.a_shemale] taur, you began your [style.mule] training by sucking the cock of one of Dominion Express's more unruly centaur slaves.";
 		}
 	},
 
@@ -2682,7 +2683,7 @@ public enum Quest {
 		}
 		@Override
 		public String getCompletedDescription() {
-			return "After performing anilingus on a centaur slave and then being mounted and anally fucked by them, Natalya declared that your filly training is complete.";
+			return "After performing anilingus on a centaur slave and then being mounted and anally fucked by them, Natalya declared that your [style.mule] training is complete.";
 		}
 	},
 

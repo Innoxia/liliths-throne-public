@@ -49,10 +49,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.DominionPlaces;
 import com.lilithsthrone.game.dialogue.places.submission.ratWarrens.VengarCaptiveDialogue;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ItemTag;
-import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
@@ -479,22 +476,27 @@ public class Encounter {
 				return DominionEncounterDialogue.ALLEY_FIND_ITEM;
 				
 			} else if(node == EncounterType.DOMINION_FIND_CLOTHING) {
-				if(Math.random()<0.01f) {
-					randomItem = Main.game.getItemGen().generateClothing(ClothingType.MEGA_MILK);
-					Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
-					
-				} else {
-					List<AbstractClothingType> randomClothingList = new ArrayList<>(ClothingType.getAllClothing());
-					randomClothingList.removeIf((clothing) ->
-							(!clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_KATE)
-								&& !clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_NYAN)
-								&& !clothing.getDefaultItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN))
-							|| clothing.getDefaultItemTags().contains(ItemTag.NO_RANDOM_SPAWN)
-							|| clothing.getRarity()==Rarity.EPIC
-							|| clothing.getRarity()==Rarity.LEGENDARY);
-					randomItem = Main.game.getItemGen().generateClothing(randomClothingList.get(Util.random.nextInt(randomClothingList.size())));
-					Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
-				}
+//				if(Math.random()<0.01f) {
+//					randomItem = Main.game.getItemGen().generateClothing(ClothingType.MEGA_MILK);
+//					Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
+//					
+//				} else {
+//					List<AbstractClothingType> randomClothingList = new ArrayList<>(ClothingType.getAllClothing());
+//					randomClothingList.removeIf((clothing) ->
+//							(!clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_KATE)
+//								&& !clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_NYAN)
+//								&& !clothing.getDefaultItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN))
+//							|| clothing.getDefaultItemTags().contains(ItemTag.NO_RANDOM_SPAWN)
+////							|| clothing.getRarity()==Rarity.EPIC
+//							|| clothing.getRarity()==Rarity.LEGENDARY);
+//					randomItem = Main.game.getItemGen().generateClothing(randomClothingList.get(Util.random.nextInt(randomClothingList.size())));
+//					
+//					Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
+//				}
+
+				Main.game.generateAlleywayClothing();
+				randomItem = Main.game.getAlleywayClothing();
+				Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
 				return DominionEncounterDialogue.ALLEY_FIND_ITEM;
 				
 			} else if(node == EncounterType.DOMINION_FIND_WEAPON) {
@@ -627,22 +629,26 @@ public class Encounter {
 				return DominionEncounterDialogue.ALLEY_FIND_ITEM;
 				
 			} else if(node == EncounterType.DOMINION_FIND_CLOTHING) {
-				if(Math.random()<0.01f) {
-					randomItem = Main.game.getItemGen().generateClothing(ClothingType.MEGA_MILK);
-					Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
-					
-				} else {
-					List<AbstractClothingType> randomClothingList = new ArrayList<>(ClothingType.getAllClothing());
-					randomClothingList.removeIf((clothing) ->
-							(!clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_KATE)
-								&& !clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_NYAN)
-								&& !clothing.getDefaultItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN))
-							|| clothing.getDefaultItemTags().contains(ItemTag.NO_RANDOM_SPAWN)
-							|| clothing.getRarity()==Rarity.EPIC
-							|| clothing.getRarity()==Rarity.LEGENDARY);
-					randomItem = Main.game.getItemGen().generateClothing(randomClothingList.get(Util.random.nextInt(randomClothingList.size())));
-					Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
-				}
+//				if(Math.random()<0.01f) {
+//					randomItem = Main.game.getItemGen().generateClothing(ClothingType.MEGA_MILK);
+//					Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
+//					
+//				} else {
+//					List<AbstractClothingType> randomClothingList = new ArrayList<>(ClothingType.getAllClothing());
+//					randomClothingList.removeIf((clothing) ->
+//							(!clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_KATE)
+//								&& !clothing.getDefaultItemTags().contains(ItemTag.SOLD_BY_NYAN)
+//								&& !clothing.getDefaultItemTags().contains(ItemTag.DOMINION_ALLEYWAY_SPAWN))
+//							|| clothing.getDefaultItemTags().contains(ItemTag.NO_RANDOM_SPAWN)
+////							|| clothing.getRarity()==Rarity.EPIC
+//							|| clothing.getRarity()==Rarity.LEGENDARY);
+//					randomItem = Main.game.getItemGen().generateClothing(randomClothingList.get(Util.random.nextInt(randomClothingList.size())));
+//					Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
+//				}
+
+				Main.game.generateAlleywayClothing();
+				randomItem = Main.game.getAlleywayClothing();
+				Main.game.getPlayerCell().getInventory().addClothing((AbstractClothing) randomItem);
 				return DominionEncounterDialogue.ALLEY_FIND_ITEM;
 				
 			} else if(node == EncounterType.DOMINION_FIND_WEAPON) {

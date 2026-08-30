@@ -1,16 +1,17 @@
 package com.lilithsthrone.game.inventory;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TreeMap;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AbstractAttribute;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.enchanting.AbstractItemEffectType;
@@ -67,7 +68,7 @@ public abstract class AbstractCoreItem implements XMLSaving {
 		this.rarity = rarity;
 		this.SVGString = SVGString;
 
-		this.attributeModifiers = new HashMap<>();
+		this.attributeModifiers = new TreeMap<>();
 		this.itemTags = new HashSet<>();
 		
 		if (attributeModifiers != null) {
@@ -158,7 +159,7 @@ public abstract class AbstractCoreItem implements XMLSaving {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getNamePlural() {
 		return namePlural;
 	}
@@ -179,7 +180,11 @@ public abstract class AbstractCoreItem implements XMLSaving {
 		this.SVGString = SVGString;
 	}
 
-	public abstract String getDescription();
+	public String getDescription() {
+		return getDescription(null);
+	}
+
+	public abstract String getDescription(GameCharacter characterEquippedOn);
 
 	public abstract int getValue();
 	
@@ -223,7 +228,7 @@ public abstract class AbstractCoreItem implements XMLSaving {
 	}
 
 	public void setAttributeModifiers(Map<AbstractAttribute, Integer> attributeModifiers) {
-		this.attributeModifiers = attributeModifiers;
+		this.attributeModifiers = new TreeMap<>(attributeModifiers);
 	}
 	
 	public List<ItemEffect> getEffects() {

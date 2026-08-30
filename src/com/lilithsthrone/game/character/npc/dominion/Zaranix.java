@@ -84,7 +84,7 @@ public class Zaranix extends NPC {
 				204, Month.JULY, 3,
 				15,
 				null, null, null,
-				new CharacterInventory(10), WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_OFFICE, true);
+				new CharacterInventory(false, 10), WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_OFFICE, true);
 		
 	}
 	

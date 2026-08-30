@@ -1303,7 +1303,8 @@ public class CMBasicAttack {
             false,
             null){
 
-        protected int getBaseDamage(GameCharacter source) {
+    	@Override
+        public int getBaseDamage(GameCharacter source) {
             return 7;
         }
 
@@ -1456,8 +1457,9 @@ public class CMBasicAttack {
     	public DamageType getDamageType(int turnIndex, GameCharacter source) {
             return DamageType.LUST;
     	}
-    	
-        protected int getBaseDamage(GameCharacter source) {
+
+    	@Override
+        public int getBaseDamage(GameCharacter source) {
             return (int) Math.max(1, getManaGain(source)*0.1f);
         }
 

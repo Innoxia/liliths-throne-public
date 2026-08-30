@@ -68,12 +68,6 @@
 		</names>
 	</nameAnthro>
 	<description><![CDATA[An anthropomorphic spider, known as a 'spider-morph' when bipedal, and a 'drider' when the lower body is that of a typically-oversized feral spider.]]></description>
-	<nameHalfDemon><![CDATA[jorogumo]]></nameHalfDemon>
-	<namePluralHalfDemon><![CDATA[jorogumos]]></namePluralHalfDemon>
-	<singularMaleNameHalfDemon><![CDATA[jorogumo]]></singularMaleNameHalfDemon>
-	<singularFemaleNameHalfDemon><![CDATA[jorogumo]]></singularFemaleNameHalfDemon>
-	<pluralMaleNameHalfDemon><![CDATA[jorogumos]]></pluralMaleNameHalfDemon>
-	<pluralFemaleNameHalfDemon><![CDATA[jorogumos]]></pluralFemaleNameHalfDemon>
 	<nameHalfDemon>
 		<namesDefault> 
 			<name><![CDATA[jorogumo]]></name>
@@ -83,7 +77,7 @@
 			<pluralMaleName><![CDATA[jorogumos]]></pluralMaleName>
 			<pluralFemaleName><![CDATA[jorogumos]]></pluralFemaleName>
 		</namesDefault>
-		<names legConfiguration="TAIL">
+		<names legConfiguration="ARACHNID">
 			<name><![CDATA[arachne]]></name>
 			<namePlural><![CDATA[arachnes]]></namePlural>
 			<singularMaleName><![CDATA[arachne]]></singularMaleName>

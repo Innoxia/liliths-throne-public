@@ -556,7 +556,12 @@ public class SexActionUtility {
 
 		@Override
 		public String getDescription() {
-			return "";
+			try {
+				return PositioningMenu.positioningSB.toString();
+			} catch(Exception ex) {
+				System.err.println("POSITION_SELECTION: positioningSB does not exist!");
+				return "";
+			}
 		}
 		
 		@Override

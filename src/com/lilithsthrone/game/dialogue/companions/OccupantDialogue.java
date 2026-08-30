@@ -1402,7 +1402,7 @@ public class OccupantDialogue {
 		@Override
 		public String getContent() {
 			if(Main.sex.getAllParticipants().size()>2) {
-				return UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX_THREESOME", occupant(), Main.game.getPlayer().getCompanions().get(0));
+				return UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX_THREESOME", occupant(), characterForSexSecondary);
 				
 			} else if(Main.sex.getNumberOfOrgasms(occupant()) >= occupant().getOrgasmsBeforeSatisfied()) {
 				return UtilText.parseFromXMLFile(getTextFilePath(), "AFTER_SEX", occupant());

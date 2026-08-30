@@ -40,6 +40,16 @@
 			<flag dailyReset="true">vicky_apartment</flag>
 			<flag dailyReset="true">vicky_daily_sex</flag>
 			
+		<!-- Callie: -->
+		<!-- (Most Callie flags are in Nnxx's folder) -->
+			<flag dailyReset="false">callie_natalya_encountered</flag>
+			<flag dailyReset="true">callie_natalya_icing_white</flag>
+			<flag dailyReset="true">callie_natalya_icing_pink</flag>
+			<flag dailyReset="true">callie_natalya_sprinkles_chocolate</flag>
+			<flag dailyReset="true">callie_natalya_sprinkles_multi</flag>
+			<flag dailyReset="true">callie_natalya_sprinkles_stars</flag>
+			<flag dailyReset="true">callie_natalya_decoration_finished</flag>
+			
 		<!-- Nightlife: -->
 			<flag dailyReset="false">lights_out_visited</flag>
 			<flag dailyReset="false">lights_out_free_drink</flag>
@@ -203,6 +213,7 @@
 			<flag dailyReset="false">vronti_sex_given</flag>
 			<flag dailyReset="false">vronti_anilingus_given</flag>
 			<flag dailyReset="false">vronti_anal_sex_given</flag>
+			<flag dailyReset="false">vronti_ass_fucked</flag>
 			<flag dailyReset="false">astrapi_not_shaving</flag>
 			<flag dailyReset="false">astrapi_impregnation_talk</flag>
 			
@@ -362,6 +373,18 @@
 		<flag dailyReset="false">elis_market_ziva_kissed</flag>
 		<flag dailyReset="false">elis_market_ziva_strip_offered</flag>
 		
+		<!-- Yui special scenes -->
+		<flag dailyReset="false">yui_dungeon_unlocked</flag>
+		<flag resetHour="00">yui_dungeon_unavailable_today</flag>
+		<flag dailyReset="false">yui_dungeon_refused</flag>
+		<flag dailyReset="false">yui_dungeon_completed_stage_1</flag>
+		<flag dailyReset="false">yui_public_toy_unlocked</flag>
+		<flag resetHour="00">yui_public_toy_unavailable_today</flag>
+		<flag resetHour="12">yui_alleyway_gang_present</flag>
+		<flag resetHour="12">yui_alleyway_gang_victim_cleaned</flag>
+		<flag dailyReset="false">yui_public_toy_completed</flag>
+		
+		
 		<!-- Minotallys -->
 		<flag dailyReset="false">minotallys_arion_talk_introduced</flag>
 		<flag dailyReset="false">minotallys_arion_talk_duties</flag>
@@ -476,12 +499,13 @@
 			
 			
 			
-			
-		
-	
 	<!-- You can ignore this section, I just use it to track the ids of saved long values (using [#flags.setSavedLong(id, value)] calls)
 	
+	innoxia_lilaya_kitty_time_seen (the time in seconds when Lilaya's kitty scene in Ro'se room was last seen)
+	
 	slaver_alley_slaves_freed_time (the time in seconds at which slaves were set free from the stocks in Slaver Alley)
+	
+	callie_natalya_encounter_time (the time in seconds when Natalya was last encountered in Callie's Bakey)
 	
 	meraxis_duel_player_wins (Meraxis duel player wins)
 	meraxis_duel_player_losses (Meraxis duel player losses)

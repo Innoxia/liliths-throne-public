@@ -86,7 +86,7 @@ public class Elle extends NPC {
 				44, Month.FEBRUARY, 5,
 				15,
 				Gender.F_V_B_FEMALE, Subspecies.HORSE_MORPH_UNICORN, RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_OFFICE_QUARTERMASTER,
 				true);
 		

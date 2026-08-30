@@ -86,7 +86,7 @@ public class Shadow extends NPC {
 				"",
 				23, Month.DECEMBER, 29,
 				15, Gender.F_V_B_FEMALE, Subspecies.RAT_MORPH, RaceStage.GREATER,
-				new CharacterInventory(30), WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL, true);
+				new CharacterInventory(false, 30), WorldType.RAT_WARRENS, PlaceType.RAT_WARRENS_VENGARS_HALL, true);
 	}
 
 	@Override
@@ -323,17 +323,7 @@ public class Shadow extends NPC {
 	
 	@Override
 	public String getArtworkFolderName() {
-		if(this.getBreastRows()>1) {
-			if(this.isVisiblyPregnant()) {
-				return "ShadowMultiBoobPregnant";
-			}
-			return "ShadowMultiBoob";
-		} else {
-			if(this.isVisiblyPregnant()) {
-				return "ShadowPregnant";
-			}
-			return "Shadow";
-		}
+		return "Shadow";
 	}
 	
 	@Override

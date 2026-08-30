@@ -154,7 +154,13 @@
 		#ENDIF
 	</p>
 	<p>
-		[pc.speech(Mmm, yeah,)] you reply, happily stroking your belly as you smile back at [npc.name]. [pc.speech(You just make sure to get along nicely with them, ok?)]
+		[pc.speech(Mmm, yeah,)]
+		#IF(pc.isTaur())
+			 you reply as you stand still and let [npc.name] get a good feel of how swollen your [pc.legRace]'s belly is.
+		#ELSE
+			 you reply, happily stroking your belly as you smile back at [npc.name].
+		#ENDIF
+		 [pc.speech(You just make sure to get along nicely with them, ok?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -164,7 +170,11 @@
 		#IF (pc.getPregnantLitter()!=null && pc.getPregnantLitter().isFatherId(npc.getId()))
 			As you step forwards into [npc.her] room, [npc.name] immediately notices from your swollen, pregnant belly that you're still dealing with the result of your incestuous union.
 		#ELSE
-			As you step forwards into [npc.her] room, [npc.name] notices that you're still cradling your pregnant belly in both [pc.hands].
+			#IF(pc.isTaur())
+				As you step forwards into [npc.her] room, [npc.name] notices that your [pc.legRace]'s lower body is still sporting a swollen, pregnant belly.
+			#ELSE
+				As you step forwards into [npc.her] room, [npc.name] notices that you're still cradling your pregnant belly in both [pc.hands].
+			#ENDIF
 		#ENDIF
 		 Smiling warmly at you, [npc.she] reminds you to take good care of yourself.
 	</p>
@@ -1019,7 +1029,7 @@
 	</p>
 	<p>
 		#IF(npc.isShy())
-			Casting [npc.her] gaze to the floor, [npc.name] shyly shuffles [npc.her] [npc.feet] as [npc.she] replies, [npc.speech(Well, if you think that a job change would be good for me, [pc.name... I'll start looking for whatever you suggest right away...)]
+			Casting [npc.her] gaze to the floor, [npc.name] shyly shuffles [npc.her] [npc.feet] as [npc.she] replies, [npc.speech(Well, if you think that a job change would be good for me, [pc.name]... I'll start looking for whatever you suggest right away...)]
 		#ELSE
 			Letting out a contemplative hum, [npc.name] replies, [npc.speech(You know, [pc.name], I <i>had</i> been thinking about a change of job... I'll start looking for whatever you suggest right away!)]
 		#ENDIF
@@ -1377,14 +1387,25 @@
 		#ENDIF
 	</p>
 	<p>
-		[pc.speech(Mmm, yeah,)] you reply, happily stroking your belly as you smile back at [npc.name]. [pc.speech(I'll make sure to take it easy until I'm ready to give birth.)]
+		[pc.speech(Mmm, yeah,)]
+		#IF(pc.isTaur())
+			 you reply as you stand still and let [npc.name] get a good feel of how swollen your [pc.legRace]'s belly is.
+		#ELSE
+			 you reply, happily stroking your belly as you smile back at [npc.name].
+		#ENDIF
+		 [pc.speech(I'll make sure to take it easy until I'm ready to give birth.)]
 	</p>
 	]]>
 	</htmlContent>
 	
 	<htmlContent tag="OCCUPANT_APARTMENT_START_CONTINUED_PLAYER_PREGNANCY"><![CDATA[
 	<p>
-		As you stand there before [npc.name], [npc.she] notices that you're still cradling your pregnant belly in both [pc.hands]. Smiling warmly at you, [npc.she] reminds you to take good care of yourself.
+		#IF(pc.isTaur())
+			As you stand there before [npc.name], [npc.she] notices that your [pc.legRace]'s lower body is still sporting a swollen, pregnant belly.
+		#ELSE
+			As you stand there before [npc.name], [npc.she] notices that you're still cradling your pregnant belly in both [pc.hands].
+		#ENDIF
+		 Smiling warmly at you, [npc.she] reminds you to take good care of yourself.
 	</p>
 	]]>
 	</htmlContent>

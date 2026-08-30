@@ -29,12 +29,14 @@ import com.lilithsthrone.utils.colours.Colour;
 
 /**
  * @since 0.4.6.4
- * @version 0.4.6.4
+ * @version 0.4.10.8
  * @author Maxis010, Innoxia
  */
 public class InventoryController {
 	
 	public static void initInventoryListeners() {
+		
+		// Pages:
 		for (int i = 0; i<RenderingEngine.INVENTORY_PAGES; i++) {
 			MainController.setInventoryPageLeft(i);
 			MainController.setInventoryPageRight(i);
@@ -43,8 +45,43 @@ public class InventoryController {
 		MainController.setInventoryPageLeft(5);
 		MainController.setInventoryPageRight(5);
 		
+		// Floor pages:
+		//SCROLL_LEFT_DOUBLE
+		String id = "FLOOR_SCROLL_LEFT_DOUBLE";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				RenderingEngine.setPageRight(RenderingEngine.getPageRight()-5);
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+//				System.out.println("<<");
+			}, false);
+		}
+		id = "FLOOR_SCROLL_LEFT";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				RenderingEngine.setPageRight(RenderingEngine.getPageRight()-1);
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+//				System.out.println("<");
+			}, false);
+		}
+		id = "FLOOR_SCROLL_RIGHT";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				RenderingEngine.setPageRight(Math.min(RenderingEngine.getPageRight()+1, RenderingEngine.getMaximumFloorPageIndex()));
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+//				System.out.println(">");
+			}, false);
+		}
+		id = "FLOOR_SCROLL_RIGHT_DOUBLE";
+		if (MainController.document.getElementById(id) != null) {
+			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
+				RenderingEngine.setPageRight(Math.min(RenderingEngine.getPageRight()+5, RenderingEngine.getMaximumFloorPageIndex()));
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+//				System.out.println(">>");
+			}, false);
+		}
+		
+		
 		// Player:
-		String id;
 		for (Map.Entry<AbstractWeapon, Integer> entry : Main.game.getPlayer().getAllWeaponsInInventory().entrySet()) {
 			id = "PLAYER_WEAPON_"+entry.getKey().hashCode();
 			if (MainController.document.getElementById(id) != null) {
@@ -74,11 +111,11 @@ public class InventoryController {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 				if (Main.game.getPlayer().getMoney()>0 && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.FULL_MANAGEMENT) {
 					if (InventoryDialogue.getInventoryNPC() == null) {
-						Main.game.getPlayerCell().getInventory().incrementMoney((int) Math.max(1, Main.game.getPlayer().getMoney()*0.01f));
+						Main.game.getPlayerCell().getInventory().incrementMoney((long) Math.max(1, Main.game.getPlayer().getMoney()*0.01f));
 					} else {
-						InventoryDialogue.getInventoryNPC().incrementMoney((int) Math.max(1, Main.game.getPlayer().getMoney()*0.01f));
+						InventoryDialogue.getInventoryNPC().incrementMoney((long) Math.max(1, Main.game.getPlayer().getMoney()*0.01f));
 					}
-					Main.game.getPlayer().incrementMoney((int) -Math.max(1, Main.game.getPlayer().getMoney()*0.01f));
+					Main.game.getPlayer().incrementMoney((long) -Math.max(1, Main.game.getPlayer().getMoney()*0.01f));
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}
 			}, false);
@@ -89,11 +126,11 @@ public class InventoryController {
 			((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 				if (Main.game.getPlayer().getMoney()>0 && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.FULL_MANAGEMENT) {
 					if (InventoryDialogue.getInventoryNPC() == null) {
-						Main.game.getPlayerCell().getInventory().incrementMoney((int) Math.max(1, Main.game.getPlayer().getMoney()*0.1f));
+						Main.game.getPlayerCell().getInventory().incrementMoney((long) Math.max(1, Main.game.getPlayer().getMoney()*0.1f));
 					} else {
-						InventoryDialogue.getInventoryNPC().incrementMoney((int) Math.max(1, Main.game.getPlayer().getMoney()*0.1f));
+						InventoryDialogue.getInventoryNPC().incrementMoney((long) Math.max(1, Main.game.getPlayer().getMoney()*0.1f));
 					}
-					Main.game.getPlayer().incrementMoney((int) -Math.max(1, Main.game.getPlayer().getMoney()*0.1f));
+					Main.game.getPlayer().incrementMoney((long) -Math.max(1, Main.game.getPlayer().getMoney()*0.1f));
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}
 			}, false);
@@ -148,8 +185,8 @@ public class InventoryController {
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 					if (InventoryDialogue.getInventoryNPC().getMoney()>0 && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.FULL_MANAGEMENT) {
-						Main.game.getPlayer().incrementMoney((int) Math.max(1, InventoryDialogue.getInventoryNPC().getMoney()*0.01f));
-						InventoryDialogue.getInventoryNPC().incrementMoney((int) -Math.max(1, InventoryDialogue.getInventoryNPC().getMoney()*0.01f));
+						Main.game.getPlayer().incrementMoney((long) Math.max(1, InventoryDialogue.getInventoryNPC().getMoney()*0.01f));
+						InventoryDialogue.getInventoryNPC().incrementMoney((long) -Math.max(1, InventoryDialogue.getInventoryNPC().getMoney()*0.01f));
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}
 				}, false);
@@ -159,8 +196,8 @@ public class InventoryController {
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 					if (InventoryDialogue.getInventoryNPC().getMoney()>0 && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.FULL_MANAGEMENT) {
-						Main.game.getPlayer().incrementMoney((int) Math.max(1, InventoryDialogue.getInventoryNPC().getMoney()*0.1f));
-						InventoryDialogue.getInventoryNPC().incrementMoney((int) -Math.max(1, InventoryDialogue.getInventoryNPC().getMoney()*0.1f));
+						Main.game.getPlayer().incrementMoney((long) Math.max(1, InventoryDialogue.getInventoryNPC().getMoney()*0.1f));
+						InventoryDialogue.getInventoryNPC().incrementMoney((long) -Math.max(1, InventoryDialogue.getInventoryNPC().getMoney()*0.1f));
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}
 				}, false);
@@ -211,8 +248,8 @@ public class InventoryController {
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 					if (Main.game.getPlayerCell().getInventory().getMoney()>0 && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.FULL_MANAGEMENT) {
-						Main.game.getPlayer().incrementMoney((int) Math.max(1, Main.game.getPlayerCell().getInventory().getMoney()*0.01f));
-						Main.game.getPlayerCell().getInventory().incrementMoney((int) -Math.max(1, Main.game.getPlayerCell().getInventory().getMoney()*0.01f));
+						Main.game.getPlayer().incrementMoney((long) Math.max(1, Main.game.getPlayerCell().getInventory().getMoney()*0.01f));
+						Main.game.getPlayerCell().getInventory().incrementMoney((long) -Math.max(1, Main.game.getPlayerCell().getInventory().getMoney()*0.01f));
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}
 				}, false);
@@ -222,8 +259,8 @@ public class InventoryController {
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
 					if (Main.game.getPlayerCell().getInventory().getMoney()>0 && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.FULL_MANAGEMENT) {
-						Main.game.getPlayer().incrementMoney((int) Math.max(1, Main.game.getPlayerCell().getInventory().getMoney()*0.1f));
-						Main.game.getPlayerCell().getInventory().incrementMoney((int) -Math.max(1, Main.game.getPlayerCell().getInventory().getMoney()*0.1f));
+						Main.game.getPlayer().incrementMoney((long) Math.max(1, Main.game.getPlayerCell().getInventory().getMoney()*0.1f));
+						Main.game.getPlayerCell().getInventory().incrementMoney((long) -Math.max(1, Main.game.getPlayerCell().getInventory().getMoney()*0.1f));
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}
 				}, false);

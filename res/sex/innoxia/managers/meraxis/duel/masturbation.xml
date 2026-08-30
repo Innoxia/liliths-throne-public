@@ -433,7 +433,7 @@
 				Note: You can define the optional boolean attribute 'copyForMain' in the 'foreplay' element, which when set to true will make this character use the defined foreplay preferences as their main sex preference as well, allowing you to omit the 'mainSex' element entirely.
 					e.g.: <foreplay copyForMain="true">
 				OPTIONAL: Default is that preferences are calculated from available areas, fetishes, and the player's content options
-				PARSER: Initial -->
+				PARSER: Every check -->
 			<preferences/>
 			
 			<!-- You can define unique sex actions for this character to have available to them here.

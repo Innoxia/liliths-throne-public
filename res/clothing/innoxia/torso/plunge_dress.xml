@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- For a version without all of the comments, see "rental_daddy.xml". -->
+<clothing>
+	<coreAttributes>
+		<value>600</value> 
+		<determiner><![CDATA[a]]></determiner>
+		<name><![CDATA[plunge dress]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[plunge dresses]]></namePlural>
+		<description><![CDATA[An elegant dress with a plunging v-neckline, perfect for showing off its wearer's cleavage.]]></description>
+		<physicalResistance>0</physicalResistance> 
+		<femininity>FEMININE</femininity>
+		<slot>TORSO_UNDER</slot> 
+		<rarity>COMMON</rarity>
+		<clothingSet/>
+		<imageName>plunge_dress.svg</imageName>
+		<imageEquippedName/>
+		<effects/>
+		
+		<blockedPartsList>
+			<blockedParts>
+				<displacementType>REMOVE_OR_EQUIP</displacementType>
+				<clothingAccessRequired>
+					<clothingAccess>ARMS_UP_TO_SHOULDER</clothingAccess>
+				</clothingAccessRequired>
+				<blockedBodyParts>
+					<bodyPart>NIPPLES</bodyPart>
+					<bodyPart>STOMACH</bodyPart>
+					<bodyPart>BACK</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+					<clothingAccess>WAIST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO"/>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>PULLS_DOWN</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>BREASTS</bodyPart>
+					<bodyPart>NIPPLES</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>CHEST</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_PARTIAL_TORSO_STOMACH_VISIBLE"/>
+			</blockedParts>
+			
+			<blockedParts>
+				<displacementType>PULLS_UP</displacementType>
+				<clothingAccessRequired/>
+				<blockedBodyParts>
+					<bodyPart>ANUS</bodyPart>
+					<bodyPart>PENIS</bodyPart>
+					<bodyPart>VAGINA</bodyPart>
+				</blockedBodyParts>
+				<clothingAccessBlocked>
+					<clothingAccess>GROIN</clothingAccess>
+					<clothingAccess>ANUS</clothingAccess>
+				</clothingAccessBlocked>
+				<concealedSlots values="CONCEALED_GROIN"/>
+			</blockedParts>
+			
+		</blockedPartsList>
+		
+		<incompatibleSlots/> 
+		
+		<primaryColours values="ALL"/>
+		<primaryColoursDye/>
+		<secondaryColours/>
+		<secondaryColoursDye/>
+		<tertiaryColours/>
+		<tertiaryColoursDye/>
+		
+		<itemTags>
+			<tag>SOLD_BY_NYAN</tag>
+			<tag>FITS_ARM_WINGS</tag>
+			<tag>DRESS</tag>
+		</itemTags>
+	</coreAttributes>
+
+	<replacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(step)] into the plunge dress, before pulling it up around [npc.her] torso. Once in place, [npc.she] [npc.verb(reach)] back to zip [npc.herself] up.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(guide)] the plunge dress up around [npc2.namePos] [npc2.legs], before pulling it up around [npc2.her] torso. Once it's in place, [npc.she] zips [npc2.name] up at the back.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(pull)] the plunge dress up around [npc2.namePos] [npc2.legs], before yanking it up around [npc2.her] torso. Once it's in place, [npc.she] quickly zips [npc2.name] up at the back.]]>
+	  </otherRough>
+	</replacementText>
+
+	<displacementText type="REMOVE_OR_EQUIP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(unzip)] [npc.her] plunge dress and [npc.verb(wriggle)] out of it as it drops to [npc.her] [npc.feet].]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(unzip)] [npc2.namePos] plunge dress and [npc.verb(pull)] it down off [npc2.her] body and past [npc2.her] [npc2.feet].]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] hastily [npc.verb(unzip)] [npc2.namePos] plunge dress and roughly [npc.verb(pull)] it down off [npc2.her] body and past [npc2.her] [npc2.feet].]]>
+		</otherRough>
+	</displacementText>
+
+	<replacementText type="PULLS_UP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the lower half of [npc.her] plunge dress back down into the proper position.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the lower half of [npc2.namePos] plunge dress back down into the proper position.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(pull)] the lower half of [npc2.namePos] plunge dress back down into the proper position.]]>
+	  </otherRough>
+	</replacementText>
+
+	<displacementText type="PULLS_UP">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] up the lower half of [npc.her] plunge dress.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] up the lower half of [npc2.namePos] plunge dress.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] [npc.verb(grab)] hold of the lower half of [npc2.namePos] plunge dress, before roughly pulling it up.]]>
+		</otherRough>
+	</displacementText>
+
+	<displacementText type="PULLS_DOWN">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(shrug)] off the shoulder straps of [npc.her] plunge dress and [npc.verb(allow)] the top half to fall down around [npc.her] waist.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(slide)] the straps of [npc2.namePos] plunge dress down off [npc2.her] shoulders, before tugging it down around [npc.her] waist.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(pull)] the straps of [npc2.namePos] plunge dress down off [npc2.her] shoulders, before forcefully yanking it down around [npc.her] waist.]]>
+	  </otherRough>
+	</displacementText>
+
+	<replacementText type="PULLS_DOWN">
+		<self>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the top half of [npc.her] plunge dress back up into its proper position.]]>
+		</self>
+		<other>
+			<![CDATA[[npc.Name] [npc.verb(pull)] the top half of [npc2.namePos] plunge dress back up into its proper position.]]>
+		</other>
+		<otherRough>
+			<![CDATA[[npc.Name] roughly [npc.verb(yank)] the top half of [npc2.namePos] plunge dress back up into its proper position.]]>
+		</otherRough>
+	</replacementText>
+	
+</clothing>

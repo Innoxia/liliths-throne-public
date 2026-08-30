@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<enchantment>
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	<applyDefaultSeal><![CDATA[true]]></applyDefaultSeal>
+	
+	<spawnWeighting><![CDATA[
+		100
+	]]></spawnWeighting>
+	
+	<namePrefix/>
+	<namePostfix><![CDATA[of oral expertise]]></namePostfix>
+	<nameOverride/>
+	
+	<conditionalPreParsing><![CDATA[
+		[#flags.setInt('rapidTF', RND.nextInt(100))]
+	]]></conditionalPreParsing>
+	
+	<!-- 66% chance of normal TF speed (daily TFs) -->
+	<itemEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('rapidTF')>=33]
+		]]></conditional>
+		<effect limit="3" mod1="TF_FACE" mod2="TF_MOD_SIZE" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="30" mod1="TF_FACE" mod2="TF_MOD_SIZE_SECONDARY" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="15" mod1="TF_FACE" mod2="TF_MOD_CAPACITY" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="6" mod1="TF_FACE" mod2="TF_MOD_DEPTH" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_FACE" mod2="TF_MOD_ORIFICE_PUFFY" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_FACE" mod2="TF_MOD_TONGUE_BIFURCATED" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_FACE" mod2="TF_MOD_ORIFICE_MUSCLED" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="7" mod1="TF_FACE" mod2="TF_MOD_WETNESS" potency="BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	<!-- 33% chance of rapid TF (hourly instead of daily) -->
+	<itemEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('rapidTF')<33]
+		]]></conditional>
+		<effect limit="3" mod1="TF_FACE" mod2="TF_MOD_SIZE" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="30" mod1="TF_FACE" mod2="TF_MOD_SIZE_SECONDARY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="15" mod1="TF_FACE" mod2="TF_MOD_CAPACITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="6" mod1="TF_FACE" mod2="TF_MOD_DEPTH" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_FACE" mod2="TF_MOD_ORIFICE_PUFFY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_FACE" mod2="TF_MOD_TONGUE_BIFURCATED" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_FACE" mod2="TF_MOD_ORIFICE_MUSCLED" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="7" mod1="TF_FACE" mod2="TF_MOD_WETNESS" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	<itemEffects>
+		<effect limit="0" mod1="TF_MOD_FETISH_BODY_PART" mod2="TF_MOD_FETISH_ORAL_GIVING" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_MOD_FETISH_BODY_PART" mod2="TF_MOD_FETISH_VAGINAL_GIVING" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_MOD_FETISH_BODY_PART" mod2="TF_MOD_FETISH_PENIS_RECEIVING" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	<itemEffects>
+		<conditional><![CDATA[
+			[#game.isAnalContentEnabled()]
+		]]></conditional>
+		<effect limit="0" mod1="TF_MOD_FETISH_BODY_PART" mod2="TF_MOD_FETISH_ANAL_GIVING" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+</enchantment>

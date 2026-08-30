@@ -73,7 +73,7 @@ public class EnforcerPatrol extends NPC {
 		super(isImported, null, null, "",
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				5, gender, null, null,
-				new CharacterInventory(10), WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_CELLS_OFFICE, false,
+				new CharacterInventory(false, 10), WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_CELLS_OFFICE, false,
 				generationFlags);
 
 		if(!isImported) {

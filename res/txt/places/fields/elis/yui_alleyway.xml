@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogue>
+	
+	<htmlContent tag="MEETING"><![CDATA[
+	<p>
+		Although you know that you're in the right place at the right time, there's no sign of Mistress Yui anywhere in the courtyard. Looking up, you hope to see the [yui.race] waiting on a nearby rooftop to abseil down and ambush you, but once again you fail to locate the demonic spider-girl. Suddenly, two chitinous hands are being placed on your shoulders, another two seize your wrists, and a final pair reach down around your waist to dominantly grope your groin. Pressing into your back, Yui teases, [yui.speech(You really are too easy to sneak up on...)]
+	</p>
+	#IF(flags.hasFlag(FLAG_innoxia_yui_public_toy_completed))
+		<p>
+			You begin to turn around in order to face the sneaky [yui.race], but she uses all six of her arms to keep you held in place. Laughing into your [pc.ear+(true)], she teases, [yui.speech(You really love being a cock-sleeve for a bunch of rough thugs, don't you, toy?)]
+		</p>
+		<p>
+			Letting out a submissive whine, you obediently reply, [pc.speech(Yes, Mistress.)]
+		</p>
+		<p>
+			[yui.speech(Good toy,)] she replies in an approving tone. Using one of her four hands to stroke your cheek, she continues, [yui.speech(It'll be the same deal as last time. You'll be an eager, horny little fuck-toy for the gang, and you'll be abused and fucked hard all night. Is that what you want?)]
+		</p>
+		<p>
+			Liking the sound of this, you meekly whimper, [pc.speech(Yes, Mistress...)]
+		</p>
+	#ELSE
+		<p>
+			You begin to turn around in order to face the sneaky [yui.race], but she uses all six of her arms to keep you held in place. Tutting into your [pc.ear+(true)], she hisses, [yui.speech(Stay still, toy, and answer my questions with a simple 'Yes, Mistress' or 'No, Mistress'. Now, are you interested in becoming a cock-sleeve for a bunch of rough thugs?)]
+		</p>
+		<p>
+			As that's the whole reason why you came to meet Yui, you quickly answer, [pc.speech(Yes, Mistress.)]
+		</p>
+		<p>
+			[yui.speech(Good toy,)] she replies in an approving tone. Using one of her four hands to stroke your cheek, she continues, [yui.speech(This gang pays me well to deliver submissive, obedient little masochistic sluts to them. They'll expect you to be an eager, horny little fuck-toy who loves to be abused and fucked hard. Are you still interested?)]
+		</p>
+		<p>
+			Liking the sound of this, you meekly whimper, [pc.speech(Yes, Mistress...)]
+		</p>
+	#ENDIF
+	<p>
+		[yui.speech(I'm going to encase you in latex, tie you up in that alleyway over there, and leave your
+		#IF(pc.hasVagina())
+			 pussy
+		#ELSE
+			 asshole
+		#ENDIF
+		 on display,)] she reveals. There's a noticeably horny tone in her voice now, and the [yui.race] fails to suppress a soft moan as she continues, [yui.speech(Before the gang finds you, there's a good chance that you'll be discovered by a passing stranger. You'd love to be fucked by a horny member of the public, wouldn't you? Then you can be roughly pounded all night long by the mean gang-members who've ordered a submissive cock-sleeve. Does that all sound good?)]
+	</p>
+	<p>
+		Your masochist nature takes over, and as you imagine yourself being tied up and used as a fuck-toy by a gang of thugs, you excitedly [pc.moan], [pc.speech(Yes, Mistress!)]
+	</p>
+	<p>
+		[yui.speech(Excellent. So, are you ready to submit? Are you willing to be fucked and abused by a group of lowly criminals just because I ask it of you?)] she asks. Before you can answer, one of her chitinous hands clamps down over your mouth. Having silenced you, she says in a serious tone, [yui.speech(Don't rush into this, toy. I understand if you don't want to do this, and my offer will remain open to you if you later change your mind. I take my toys' consent very seriously, so only say yes if you truly wish to be put in that situation.)]
+	</p>
+	<p>
+		Taking her hand off your mouth, Mistress Yui waits to hear what your response will be...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="MEETING_REFUSE"><![CDATA[
+	<p>
+		You really aren't sure if you want to be tied up and left at the mercy of a gang of thugs, and so although you want to please Mistress Yui, you reluctantly sigh and tell her that you don't want to do this.
+	</p>
+	<p>
+		[yui.speech(I understand. This sort of thing isn't for everyone,)] she says, [yui.speech(You were a good toy to be honest with me. If you change your mind, I'll be here at the same time next Friday.)]
+	</p>
+	<p>
+		Releasing you, the [yui.race] takes a step back, and as you turn to face her, she smirks and asks, [yui.speech(Will I see you at the tower on Monday evening? I hope so. My clients are very eager to spend some time with you in my basement again.)]
+	</p>
+	<p>
+		You reply by saying that you'll try to be there, but you also have other things you're busy with. Simply nodding in understanding, the demonic spider-girl struts past you and quickly disappears out of sight into the gloom of the nearby alleyways. Left alone outside of The Crossed Blades, you wonder whether to head inside the tavern or to go somewhere else...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="START"><![CDATA[
+	<p>
+		[pc.speech(Yes, Mistress!)] you eagerly declare. Feeling a rush of masochistic lust as you anticipate being tied up and roughly fucked by strangers, you [pc.moan], [pc.speech(Please, Mistress, I want to be a cock-sleeve!)]
+	</p>
+	<p>
+		[yui.speech(You will be,)] she happily giggles into your [pc.ear(true)]. Releasing you, she struts past you and heads towards the gloom of the nearby alleyways, calling out behind her as she goes, [yui.speech(Follow me, toy!)]
+	</p>
+	<p>
+		Eagerly doing as you're told, you follow Mistress Yui into the alleyways. Walking behind her for several minutes in silence, you turn dozens of corners and quickly find yourself lost in the maze-like network of narrow passages which populate northern Elis. Eventually, after turning one last corner, the [yui.race] comes to a sudden stop, causing you to bump into her huge, spider-like abdomen of a tail.
+	</p>
+	<p>
+		[yui.speech(Careful, toy,)] your Mistress teases, before gesturing to the alleyway ahead and stating, [yui.speech(This is where you'll be spending the night.)]
+	</p>
+	<p>
+		Looking past the demonic spider-girl, you see that
+		#IF(game.isDayTime())
+			 the gloomy passageway 
+		#ELSE
+			 the dark passageway
+		#ENDIF
+		 is illuminated by a single light that's fixed high up on the crumbling, moss-covered brick wall. Lit up by this dim glow, you see a battered, discoloured dumpster that's missing one wheel, and beside that, a dozen pallets have been stacked up and stuck together with spider webbing to form a crude mattress. Above this, the same white, sticky fibres have been used to adhere a cardboard sign to the wall, and you feel a flutter of excitement rush through your body as you read; <i>'Delivered by Mistress Yui. Be rough with this filthy slut!'</i>
+	</p>
+	<p>
+		Reaching around behind the dumpster, Mistress Yui produces a large, yet slim, cardboard box, and out of this she takes a collection of bright pink latex clothes. Turning to grin at you, she orders, [yui.speech(Strip naked, toy! We want you to look good for your lovers, so let's get you into your outfit!)]
+	</p>
+	<p>
+		Doing as you're told, you strip completely naked, before handing your belongings over to Mistress Yui. Assuring you that she'll take good care of your belongings and return them to you in the morning, she places them to one side and holds up the first item of clothing that you're expected to wear. Bright pink, and made entirely of smooth, stretchy latex, the catsuit in Yui's arms is quickly being forced upon you, and after you've submissively slid your legs and arms into the fetishistic suit, you look down to discover that a large hole in the latex between your legs leaves your genitals #IF(game.isAnalContentEnabled())and asshole#ENDIF completely exposed. After that, Yui uses her six arms to quickly pull a latex hood down over your head while simultaneously guiding your arms into a pair of latex gloves. Finally, she fastens a choker around your neck and asks, [yui.speech(Are you ready to be a dirty little fuck-toy, slut?)]
+	</p>
+	<p>
+		[pc.speech(Yes, Mistress!)] you eagerly reply. Now dressed up and looking like a bright pink fuck-toy, you can't help but let out [pc.a_moan+] as Mistress Yui runs her six hands over your latex-encased body.
+	</p>
+	<p>
+		#IF(pc.hasPenis())
+			[yui.speech(You won't be needing this tonight,)] she teases as her hands drop down to your groin, and you gasp as a chastity cage is suddenly locked into place over your [pc.cock+]. Letting out a delighted laugh, the [yui.race] happily declares, [yui.speech(Now let's get you tied up!)]
+		#ELSE
+			[yui.speech(Now let's get you tied up!)] the [yui.race] happily declares.
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="TIED_UP"><![CDATA[
+	<p>
+		You're quickly pushed down onto your back onto the makeshift mattress beside the dumpster, and by using a combination of rope and sticky webbing freshly secreted from her spider-like abdomen, the [yui.race] expertly immobilises your arms and torso.
+		#IF(pc.hasPerkAnywhereInTree(PERK_HYPERMOBILITY))
+			 Pulling your legs apart, Mistress Yui quickly discovers how flexible you are, and with a delighted grin on her face, she bends your limbs all the way back behind your head and ties them in place.
+		#ELSE
+			 Taking a hold of your ankles, Mistress Yui spreads your legs wide and ties them in place.
+		#ENDIF
+		#IF(pc.hasVagina())
+			 Looking down at your groin, she delivers a quick slap to your exposed pussy, before
+			#IF(game.isAnalContentEnabled())
+				 running her fingers around the rim of your asshole and
+			#ENDIF
+			 teasing,
+		#ELSE
+			 Looking down at your exposed ass, she runs her fingers around the rim of your asshole and teases,
+		#ENDIF
+		 [yui.speech(Try to escape, toy!)]
+	</p>
+	<p>
+		Doing as you're told, you try your hardest to break free from your bonds, but once again Mistress Yui's expertise at bondage proves to be too great. No matter how hard you struggle and wriggle around, you're barely able to move at all, and with a defeated sigh you quickly give up. Letting out a delighted laugh, Mistress Yui declares, [yui.speech(Now let's get you ready to be fucked!)]
+	</p>
+	<p>
+		With that, the demonic spider-girl produces a couple of bottles of Succubus's Kiss and a round lozenge that you immediately recognise as a lube pill. After feeding you this pill, and then making you drink both bottles of the arousing liquid, Mistress Yui holds up a bright pink blindfold and a ballgag. Smirking down at you, she explains, [yui.speech(Once again, my clients value their anonymity, and we don't want you asking them questions and ruining the mood, so you'll be kept silent as well!)]
+	</p>
+	<p>
+		Letting out an excited moan, you obediently open your mouth to allow Mistress Yui to secure your ballgag into place, and after that your world goes black as she fastens your blindfold into its proper position. As your vision is obscured, you suddenly realise that you were relying heavily on the movement of Mistress Yui's lips to make out what she was saying. With your ears covered by your latex hood, you're barely able to hear what she's saying, and have to remain completely still in order to concentrate as she speaks down to you, [yui.speech(Now you really look ready for a night of fun.)]
+	</p>
+	<p>
+		You suddenly moan into your ballgag as you feel your Mistress's fingers press down against your exposed
+		#IF(pc.hasVagina())
+			 pussy.
+		#ELSE
+			 asshole.
+		#ENDIF
+		 You can't believe how wet her digits feel as they slide up and down over your horny orifice, before suddenly realising that the pill which you were made to swallow has made you
+		#IF(pc.hasVagina())
+			 get sopping wet and ready to be penetrated.
+		#ELSE
+			 secrete natural lubrication from your inviting asshole.
+		#ENDIF
+		 You then start to feel the Succubus's Kiss taking effect, and although the [yui.race] is only teasing you, you instantly feel like you're on the verge of orgasming. You try to buck your hips into your Mistress's hand, but her bindings are too tight, and so all you can do is pathetically squirm about as she continues to play with you.
+	</p>
+	<p>
+		[yui.speech(The gang should be arriving soon, and I'd prefer not to meet them in a place like this, so I'll leave you now,)] Yui's words are once again muffled and hard to make out as she suddenly stops stroking your
+		#IF(pc.hasVagina())
+			 pussy.
+		#ELSE
+			 asshole.
+		#ENDIF
+		 Playfully sliding her hands over your latex-encased body one last time, she giggles, [yui.speech(Have fun tonight, toy! I'll return to free you in the morning.)]
+	</p>
+	<p>
+		With that, you no longer sense Mistress Yui's presence, and so you find yourself immobilised, blinded, and completely alone in this gloomy alleyway...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CORE"><![CDATA[
+	<p>
+		You lustfully moan and pathetically squirm about as a desperate need to have your
+		#IF(pc.hasVagina())
+			 pussy
+		#ELSE
+			 ass
+		#ENDIF
+		 fucked hard grows to consume all of your thoughts. You imagine how good it's going to feel to have a big, throbbing cock stuffed deep into your needy hole, and frantically try to buck your hips as your overwhelming lust threatens to drive you mad.
+	</p>
+	<p>
+		[client.speech(What's this? Some slut who wants to be fucked?)] the voice of a stranger suddenly interrupts your thoughts. With your [pc.ears] covered by latex, you didn't hear this person approach, and can barely make out what [client.sheIs] saying. Pausing to read the sign that's stuck to the wall above you, this stranger laughs, [client.speech(Mistress Yui? Is that your owner? She wants me to be rough with you...)]
+	</p>
+	<p>
+		Your moans are muffled by your ballgag as you feel the stranger's hands roaming all over your latex-encased body. Quickly moving down to the obvious area of interest, [client.her] fingers tease over your juicy
+		#IF(pc.hasVagina())
+			 pussy,
+		#ELSE
+			 asshole,
+		#ENDIF
+		 which causes your body to involuntarily quiver in anticipation of what's to come. You're pretty sure that this stranger is simply a passing member of the public, and not a member of the gang which you were expecting. Nevertheless, whether due to the sign's instructions or simply [client.her] own preferences, [client.she] proves to be just as rough as the thugs who've paid to have you delivered here.
+	</p>
+	<p>
+		[client.speech(You're a filthy slut, aren't you?!)] the stranger teases, before delivering a series of sharp slaps to your exposed
+		#IF(pc.hasVagina())
+			 pussy.
+		#ELSE
+			 ass.
+		#ENDIF
+		 You squirm and moan in masochistic delight, and then make a muffled gasping noise as you suddenly feel [client.herHim] drop down between your legs and get ready to fuck you...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_START_VAGINAL"><![CDATA[
+	<p>
+		The [client.cockHead+] of the stranger's cock is suddenly pressing at the entrance to your dripping-wet pussy, but as you're completely immobilised, muted, and blinded, all you can do is weakly squirm about and make muffled moaning noises to encourage [client.herHim] to penetrate you. Teasing you for a moment longer, the stranger slides their erect dick up and down over your [pc.labia+], before playfully rubbing your [pc.clit+].
+	</p>
+	<p>
+		#IF(client.hasFetish(FETISH_IMPREGNATION))
+			[client.speech(I'm going to breed you, bitch!)]
+		#ELSE
+			[client.speech(I'm going to fuck you hard, bitch!)]
+		#ENDIF
+		 [client.her] muffled voice calls out. With that, [client.she] forcefully thrusts forwards, and you let out a desperate, shuddering squeal as you finally get what you want. [client.Her] [client.cock+] slams deep into your hungry cunt, and [client.she] lets out a desperate [client.moan] of [client.her] own as [client.she] eagerly penetrates you.
+	</p>
+	<p>
+		#IF(client.hasFetish(FETISH_FOOT_RECEIVING))
+			Clearly being a foot fetishist, [client.name] grabs your ankle, and then you feel [client.her] [client.tongue+] sliding over your exposed [pc.feet] as [client.she] starts roughly fucking your squelching pussy...
+		#ELSEIF(flags.hasFlag(FLAG_innoxia_yui_alleyway_gang_present))
+			Seeing you as little more than a fuck-toy to be used by [client.herHim] and [client.her] companions, this gang member enthusiastically drops down over the top of you and starts roughly fucking your squelching pussy...
+		#ELSE
+			Clearly loving the fact that [client.sheHas] stumbled across a public fuck-toy, the stranger enthusiastically drops down over the top of you and starts roughly fucking your squelching pussy...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_START_ANAL"><![CDATA[
+	<p>
+		The [client.cockHead+] of the stranger's cock is suddenly pressing at the entrance to your naturally-lubricated asshole, but as you're completely immobilised, muted, and blinded, all you can do is weakly squirm about and make muffled moaning noises to encourage [client.herHim] to penetrate you. Teasing you for a moment longer, the stranger slides their erect dick up and down over your [pc.ass+], before playfully
+		#IF(pc.hasPenis())
+			 slapping your caged cock.
+		#ELSEIF(pc.hasVagina())
+			 slapping your [pc.pussy+].
+		#ELSE
+			 slapping your genderless mound.
+		#ENDIF
+	</p>
+	<p>
+		[client.speech(I'm going to fuck you hard, bitch!)] [client.her] muffled voice calls out. With that, [client.she] forcefully thrusts forwards, and you let out a desperate, shuddering squeal as you finally get what you want. [client.Her] [client.cock+] slams deep into your hungry asshole, and [client.she] lets out a desperate [client.moan] of [client.her] own as [client.she] eagerly penetrates you.
+	</p>
+	<p>
+		#IF(client.hasFetish(FETISH_FOOT_RECEIVING))
+			Clearly being a foot fetishist, [client.name] grabs your ankle, and then you feel [client.her] [client.tongue+] sliding over your exposed [pc.feet] as [client.she] starts roughly fucking your [pc.asshole+]...
+		#ELSEIF(flags.hasFlag(FLAG_innoxia_yui_alleyway_gang_present))
+			Seeing you as little more than a fuck-toy to be used by [client.herHim] and [client.her] companions, this gang member enthusiastically drops down over the top of you and starts roughly fucking your [pc.asshole+]...
+		#ELSE
+			Clearly loving the fact that [client.sheHas] stumbled across a public fuck-toy, the stranger enthusiastically drops down over the top of you and starts roughly fucking your [pc.asshole+]...
+		#ENDIF
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_START_CUNNILINGUS"><![CDATA[
+	<p>
+		Although [client.she] may not like this as much as you, the gang's victim seems happy enough to eat you out, and slowly drags [client.her] [client.tongue+] over your well-fucked cunt. Licking the freshly-deposited cum from your sloppy twat, [client.she] moans, [client.speech(You like this, toy? Let me clean you up...)]
+	</p>
+	<p>
+		With the gang watching and loudly encouraging their victim to clean the cum from your [pc.pussy+], you moan into your ballgag and enjoy the feeling of [client.her] [client.tongue+] delving deep into your horny pussy...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="SEX_START_ANILINGUS"><![CDATA[
+	<p>
+		Although [client.she] may not like this as much as you, the gang's victim seems happy enough to perform anilingus on you, and slowly drags [client.her] [client.tongue+] over your well-fucked asshole. Licking the freshly-deposited cum from your sloppy rear-entrance, [client.she] moans, [client.speech(You like this, toy? Let me clean you up...)]
+	</p>
+	<p>
+		With the gang watching and loudly encouraging their victim to clean the cum from your [pc.asshole+], you moan into your ballgag and enjoy the feeling of [client.her] [client.tongue+] delving deep into your horny ass...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="CORE_REPEAT"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_yui_alleyway_gang_present))
+		#IF(client.hasFetish(FETISH_ORAL_GIVING))
+			<p>
+				As you catch your breath, the gang stops arguing and suddenly falls silent. One of them steps over to you, but instead of declaring that they're going to be the next one to fuck you, they deliver a sharp kick to your side and snap, [style.speechMasculineHeavy(Stop moaning and be silent, you dumb cunt!)]
+			</p>
+			<p>
+				You're dissuaded from making any more muffled moans by being given another sharp kick, and although you love being subjected to this kind of abuse, you also want to be a good, obedient slut for the gang that's laid claim to you. As such, you freeze in place and stop making noises of any kind.
+			</p>
+			<p>
+				The reason for the gang's sudden change in behaviour is quickly revealed, for you suddenly hear them ambushing an innocent traveller and shouting, [style.speechMasculineHeavy(Stop right there! Hand over your flames, bitch!)]
+			</p>
+			<p>
+				[client.speech(Hey! Wait! I-I don't have any money!)] the gang's victim cries out. Not taking this for an answer, you hear the thugs pounce upon the stranger, but after a moment in which they're clearly searching for any valuables, it sounds like the victim was telling the truth.
+			</p>
+			#IF(game.isNonConEnabled())
+				<p>
+					#IF(client.isFeminine())
+						[style.speechMasculineHeavy(If [client.she] can't pay, then [client.she] can clean our toy!)]
+					#ELSE
+						[style.speechFeminine(If [client.she] can't pay, then [client.she] can clean our toy!)]
+					#ENDIF
+					 one of the gang members laughs. The other thugs all loudly agree with this suggestion, and so a moment later the victim is being pushed down between your legs.
+				</p>
+				<p>
+					[client.speech(Fuck... Do I really have to do this?)] the victim whines. Quickly realising that [client.sheHas] got no choice in the matter, [client.she] lets out a resigned sigh and shuffles forwards to do as [client.sheIs] told, and you eagerly buck your hips as you feel [client.her] hot breath falling on your
+					#IF(client.hasFetish(FETISH_VAGINAL_GIVING))
+						 [pc.pussy+]...
+					#ELSE
+						 [pc.asshole+]...
+					#ENDIF
+				</p>
+			#ELSE
+				<p>
+					[client.speech(I-I can pay in a different way!)] the gang's victim cries out, [client.speech(How about I clean your toy for you?)]
+				</p>
+				<p>
+					The group of thugs laugh and loudly agree with this suggestion, and so a moment later the victim is being pushed down between your legs. Clearly not averse to performing oral, [client.she] lets out an excited little [client.moan], and you eagerly buck your hips as you feel [client.her] hot breath falling on your exposed
+					#IF(client.hasFetish(FETISH_VAGINAL_GIVING))
+						 [pc.pussy]...
+					#ELSE
+						 [pc.asshole]...
+					#ENDIF
+				</p>
+			#ENDIF
+		#ELSE
+			#IF(client.hasFetish(FETISH_VAGINAL_GIVING))
+				<p>
+					One of the gang members soon resorts to force in order to win the argument, and after some angry shouts and a brief sound of violence being carried out, someone drops down between your legs. Your exposed pussy is immediately slapped hard, and you squeal in masochistic pleasure as this thug then roughly gropes your [pc.breasts+] and pinches your [pc.nipples+]
+				</p>
+				<p>
+					[client.speech(That's it, bitch, squeal for me!)] the gang member grunts. Flicking and pinching your [pc.clit+], [client.she] delights in making you squirm, and teases, [client.speech(I'm going to fuck you good and hard!)]
+				</p>
+			#ELSE
+				<p>
+					One of the gang members soon resorts to force in order to win the argument, and after some angry shouts and a brief sound of violence being carried out, someone drops down between your legs. Your exposed asshole is immediately slapped hard, and you squeal in masochistic pleasure as this thug then roughly gropes your [pc.breasts+] and pinches your [pc.nipples+]
+				</p>
+				<p>
+					[client.speech(That's it, bitch, squeal for me!)] the gang member grunts.
+					#IF(pc.hasPenis())
+						 Slapping your caged cock,
+					#ELSEIF(pc.hasVagina())
+						 Flicking and pinching your [pc.clit+],
+					#ELSE
+						 Flicking and pinching your genderless mound,
+					#ENDIF
+					[client.she] delights in making you squirm, and teases, [client.speech(I'm going to fuck your ass good and hard!)]
+				</p>
+			#ENDIF
+		#ENDIF
+	#ELSE
+		<p>
+			Finding yourself completely alone in the alleyway, you're able to take a minute in which to catch your breath and recover from your first fuck of the night. Still desperately horny and loving the degrading situation you're in, you eagerly anticipate being discovered and fucked again. Thankfully, you don't have to wait long, for after just a few minutes you hear loud voices drawing near.
+		</p>
+		<p>
+			#IF(client.getFemininity()==FEMININITY_MASCULINE_STRONG)
+				[style.speechMasculine(Hey, look at this!)] a nasally, masculine voice shouts, [style.speechMasculine(It's the slut we ordered!)]
+			#ELSE
+				[style.speechMasculineHeavy(Hey, look at this!)] a deep, gruff voice shouts, [style.speechMasculineHeavy(Someone's left us a present!)]
+			#ENDIF
+		</p>
+		<p>
+			#IF(client.getFemininity()==FEMININITY_FEMININE_STRONG)
+				 [style.speechFeminine(What's that say on the wall?)]
+			#ELSE
+				 [style.speechFeminineStrong(What's that say on the wall?)]
+			#ENDIF
+			 a sneering female voice asks. Stepping forwards, this stranger places the heel of her heavy boot down on your stomach and evilly cackles as she pushes down and makes you squirm and gasp in distress. Reading the sign on the wall, she dictates to her companions,
+			#IF(client.getFemininity()==FEMININITY_FEMININE_STRONG)
+				 [style.speechFeminine(<i>'Delivered by Mistress Yui... Be rough with this filthy slut!'</i>)]
+			#ELSE
+				 [style.speechFeminineStrong(<i>'Delivered by Mistress Yui... Be rough with this filthy slut!'</i>)]
+			#ENDIF
+		</p>
+		<p>
+			[client.speech(That freaky spider bitch never lets us down. These sluts of hers are worth every last flame,)] a third voice chimes in. The boot is removed from your stomach, and then a moment later you feel this third stranger dropping down between your legs. [client.She] immediately grabs your [pc.breasts+], before painfully pinching your [pc.nipples+] through your skin-tight pink latex catsuit. Sadistically laughing as your squeals are muffled by your ballgag, your tormentor looks down between your legs and grunts, [client.speech(Someone's already fucked this bitch! I told you we were going to be late! Ah, whatever, sloppy seconds is better than no hole at all...)]
+		</p>
+		<p>
+			You moan in masochistic pleasure as this gang-member gives your [pc.breasts+] several sharp slaps, and then you feel [client.herHim] shuffling forwards between your legs as [client.she] prepares to fuck you...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="POST_SEX"><![CDATA[
+	#IF(flags.hasFlag(FLAG_innoxia_yui_alleyway_gang_present))
+		#IF(client.hasFetish(FETISH_ORAL_GIVING))
+			<p>
+				#IF(client.isFeminine())
+					[style.speechMasculineHeavy(The slut looks clean enough!)]
+				#ELSE
+					[style.speechFeminine(The slut looks clean enough!)]
+				#ENDIF
+				 one of the gang members declares, before kicking their victim away from your crotch. With your oral session now at an end, you let out a horny whine as you hear the gang member growl to your lover,
+				#IF(client.isFeminine())
+					 [style.speechMasculineHeavy(Get out of here, bitch! And if you even <i>think</i> of reporting us to the Enforcers, we'll track you down and turn you into a fuck-toy like this slut here!)]
+				#ELSE
+					 [style.speechFeminine(Get out of here, bitch! And if you even <i>think</i> of reporting us to the Enforcers, we'll track you down and turn you into a fuck-toy like this slut here!)]
+				#ENDIF
+			</p>
+			<p>
+				[client.speech(I won't, I promise!)] the victim declares, before running off down the alleyway.
+			</p>
+			<p>
+				#IF(client.hasFetish(FETISH_VAGINAL_GIVING))
+					#IF(pc.getTotalFluidInArea(ORIFICE_VAGINA)>0)
+						Although there's still cum leaking out of your cunt,
+					#ELSE
+						Now that your cunt has been cleaned,
+					#ENDIF
+					 the gang members are eager to fuck you, and once again start arguing about whose cock is going to be stuffed into your pussy next.
+				#ELSE
+					#IF(pc.getTotalFluidInArea(ORIFICE_ANUS)>0)
+						Although there's still cum leaking out of your asshole,
+					#ELSE
+						Now that your ass has been cleaned,
+					#ENDIF
+					 the gang members are eager to fuck you, and once again start arguing about whose cock is going to be stuffed into your [pc.ass+] next.
+				#ENDIF
+				 As your owners bicker amongst themselves, you're able to take a moment in which to get ready for your next fuck...
+			</p>
+		#ELSE
+			<p>
+				The gang member brings your rough fuck session to an end by delivering a sharp slap across your face. Loving the abuse, you happily squeal in masochistic ecstasy as your thuggish lover stands up and takes a step back.
+			</p>
+			<p>
+				Spitting down onto your
+				#IF(client.hasFetish(FETISH_VAGINAL_GIVING))
+					 [pc.pussy+],
+				#ELSE
+					 [pc.asshole+],
+				#ENDIF
+				 [client.she] laughs, [client.speech(This fuck-toy hasn't had enough yet! Whose turn is it now?)]
+			</p>
+			<p>
+				Although your latex hood makes it hard to make out how many gang members are gathered around you, there's definitely more than a few, and a heated argument breaks out as they vie to be the next one to have a turn with you. As they fight amongst themselves, you're given a moment in which to recover...
+			</p>
+		#ENDIF
+	#ELSE
+		<p>
+			Having had [client.her] fun, the stranger pulls [client.her] [client.cock+] out of your well-fucked
+			#IF(client.hasFetish(FETISH_VAGINAL_GIVING))
+				 cunt.
+			#ELSE
+				 asshole.
+			#ENDIF
+			 Wanting to leave you something to remember [client.herHim] by, [client.she] swings [client.her] hand down and delivers a wickedly-sharp slap to your
+			#IF(pc.hasVagina())
+				 sopping wet twat.
+			#ELSE
+				 sopping wet rear-entrance.
+			#ENDIF
+			 Your alarmed squeal is muffled into your ballgag, and you pathetically squirm about as the stranger stands up and laughs, [client.speech(Dumb bitch!)]
+		</p>
+		<p>
+			With that, [client.she] walks off, leaving you whimpering on your makeshift mattress in the gloomy, dirty alleyway...
+		</p>
+	#ENDIF
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="NIGHT_OF_SEX"><![CDATA[
+	<p>
+		The gang lays claim to you for the rest of the night, and you soon lose count of how many different strangers drop down between your legs to roughly pound your wet, cum-stuffed
+		#IF(pc.hasVagina())
+			#IF(game.isAnalContentEnabled())
+				 cunt and asshole.
+			#ELSE
+				 cunt.
+			#ENDIF
+		#ELSE
+			 asshole.
+		#ENDIF
+		 Spat on, slapped, pinched and kicked, you're treated exactly like the worthless fuck-toy you wish to be. Loving every moment of this sadistic treatment, you moan and squirm about as you're insulted, degraded, and used as the gang's cock-sleeve.
+	</p>
+	<p>
+		Eventually, as the night sky begins to lighten, the gang decides to leave, and after giving you some parting slaps and verbal abuse, you're abandoned without a second thought. Still completely immobilised, blinded, and silenced, all you can do is wait for Mistress Yui to arrive in order to set you free.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="GANG_LEAVES"><![CDATA[
+	<p>
+		Although you can't see it the night sky is beginning to lighten, and so after exchanging a few words, the gang decides to leave. After giving you some parting slaps and a final torrent of verbal abuse, you're abandoned without a second thought. Still completely immobilised, blinded, and silenced, all you can do is wait for Mistress Yui to arrive in order to set you free.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="NIGHT_OF_SEX_END"><![CDATA[
+	<p>
+		Before that happens, however, one last stranger stumbles upon you. Looking down at your cum-covered body,
+		#IF(pc.hasVagina())
+			#IF(game.isAnalContentEnabled())
+				 with massive creampies drooling out of your pussy and asshole to merge into a huge pool of slimy jizz on the floor,
+			#ELSE
+				 with a massive creampie drooling out of your pussy to form a huge pool of slimy jizz on the floor,
+			#ENDIF
+		#ELSE
+			 with a massive creampie drooling out of your asshole to form a huge pool of slimy jizz on the floor,
+		#ENDIF
+		 they make a disgusted tutting noise and declare, [style.speechFeminineStrong(Eww... What a nasty slut... I'm not touching that...)]
+	</p>
+	<p>
+		Experiencing one last rush of masochistic pleasure as you're rejected by this stranger, you softly moan into your ballgag as you hear them walk off down the alleyway. Less than a minute later, you hear the familiar voice of Mistress Yui as she steps up to you and remarks, [yui.speech(Well, you look like you had a good night, toy.)]
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+	<htmlContent tag="END"><![CDATA[
+	<p>
+		For the first time in many hours, you're suddenly able to see your surroundings as Mistress Yui bends down and takes off your blindfold. This is swiftly followed by the removal of your ballgag, and as you look down at the cum splattered all over your pink latex outfit, you can't help but let out a long, horny moan.
+	</p>
+	<p>
+		[yui.speech(You did very well, toy. I was watching for most of the night from the rooftops up above,)] the [yui.race] reveals. Sliding the slender fingers of one of her six hands down over your stomach, she plunges them into your cum-filled 
+		#IF(pc.hasVagina())
+			 pussy,
+		#ELSE
+			 asshole,
+		#ENDIF
+		 and after collecting a good deal of slimy jizz on her digits, she brings them up to your face and pushes them into your mouth. You submissively whine and look up into your Mistress's glowing red eyes as you obediently suck the salty cream from her fingers, and listen intently as she praises you, [yui.speech(You've proven to be a perfect little masochistic sub. You'll come back and do this again for me, won't you?)]
+	</p>
+	<p>
+		You're so stupefied by lust that the moment your Mistress slides her fingers out of your mouth you eagerly moan, [pc.speech(Yes, Mistress!)]
+	</p>
+	<p>
+		Letting out a triumphant laugh, the [yui.race]'s hands dance over your rope bindings, and within a matter of seconds you're released from your bonds. Having spent so much time locked into one position, your limbs feel like jelly, and all you can manage to do is weakly push yourself up onto your knees. Looking over at Mistress Yui's feet, you see that your belongings are neatly stacked beside her, and with a snap of her fingers she commands, [yui.speech(Strip naked, toy.)]
+	</p>
+	<p>
+		Doing as you're told, you pull off your latex outfit and hand it over to Mistress Yui, before retrieving your own clothes and getting dressed. Smirking at you, the demonic spider-girl states, [yui.speech(If you want to act as a submissive slut for me again, then meet me at the tower on a Monday or Wednesday, or back here on a Friday. I'm sure that I'll see you again soon...)]
+	</p>
+	<p>
+		With that, your Mistress struts off down the alleyway, leaving you to finish getting dressed all alone...
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="DRESSED"><![CDATA[
+	<p>
+		Quickly finishing getting dressed, you set off down the narrow, gloomy alleyway. The only thing on your mind as you set off is when you'll next work for Mistress Yui...
+	</p>
+	]]>
+	</htmlContent>
+	
+	
+</dialogue>

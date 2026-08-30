@@ -122,7 +122,7 @@ public class Lyssieth extends NPC {
 				7734, Month.OCTOBER, 13,
 				1000,
 				Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.LYSSIETH_PALACE, PlaceType.LYSSIETH_PALACE_OFFICE,
 				true);
 		
@@ -347,6 +347,11 @@ public class Lyssieth extends NPC {
 		return true;
 	}
 	
+	@Override
+	public int getLevel() {
+		return 1000;
+	}
+	
 //	@Override
 //	public void turnUpdate() {
 //		if(!Main.game.getCharactersPresent().contains(this)) {
@@ -370,15 +375,9 @@ public class Lyssieth extends NPC {
 	@Override
 	public String getArtworkFolderName() {
 		if(this.getTorsoType().getRace()==Race.HUMAN) {
-			if(this.isVisiblyPregnant()) {
-				return "LyssiethHumanPregnant";
-			}
 			return "LyssiethHuman";
 			
 		} else {
-			if(this.isVisiblyPregnant()) {
-				return "LyssiethDemonPregnant";
-			}
 			return "LyssiethDemon";
 		}
 	}

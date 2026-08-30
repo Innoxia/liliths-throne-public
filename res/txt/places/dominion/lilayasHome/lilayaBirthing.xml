@@ -6,7 +6,13 @@
 	<htmlContent tag="LILAYA_ASSISTS_PREGNANCY_START"><![CDATA[
 	#IF(pc.isShy())
 		<p>
-			Stepping forwards, you smile at your demonic [lilaya.relation(pc)], before looking down and pointedly rubbing your belly. Glancing back up into your [lilaya.relation(pc)]'s eyes, you mumble, [pc.speech(Erm... Lilaya...)]
+			Stepping forwards, you smile at your demonic [lilaya.relation(pc)],
+			#IF(pc.isTaur())
+				 before haltingly turning to one side and nervously revealing your [pc.legRace]'s swollen belly.
+			#ELSE
+				 before looking down and pointedly rubbing your belly.
+			#ENDIF
+			 Glancing back up into your [lilaya.relation(pc)]'s eyes, you mumble, [pc.speech(Erm... Lilaya...)]
 		</p>
 		<p>
 			[lilaya.speech(Wait... Are you <i>pregnant</i>?!)] she asks.
@@ -16,7 +22,13 @@
 		</p>
 	#ELSE
 		<p>
-			Stepping forwards, you smile at your demonic [lilaya.relation(pc)], before glancing down and pointedly rubbing your belly. Looking back up into your [lilaya.relation(pc)]'s eyes, you smile and announce, [pc.speech(Hey, Lilaya, I've gone and got pregnant. What should I do now?)]
+			Stepping forwards, you smile at Lilaya,
+			#IF(pc.isTaur())
+				 before turning to one side and showing off your [pc.legRace]'s swollen belly.
+			#ELSE
+				 before glancing down and pointedly rubbing your belly.
+			#ENDIF
+			 Looking back up into your demonic [lilaya.relation(pc)]'s eyes, you smile and announce, [pc.speech(Hey, Lilaya, I've gone and got pregnant. What should I do now?)]
 		</p>
 		<p>
 			[lilaya.speech(You really should have thought of that before you had unprotected sex,)] she scolds, before stepping up before you and running her hands over your swollen belly. Letting out a sigh, she looks up into your eyes and says, [lilaya.speech(I can help you with this, don't worry...)]
@@ -156,7 +168,13 @@
 	<htmlContent tag="LILAYA_ASSISTS_PREGNANCY_REPEAT"><![CDATA[
 	#IF(pc.isShy())
 		<p>
-			Stepping forwards, you nervously smile at your demonic [lilaya.relation(pc)], before looking down and rubbing your belly, muttering, [pc.speech(Erm... Lilaya...)]
+			Stepping forwards, you nervously smile at your demonic [lilaya.relation(pc)],
+			#IF(pc.isTaur())
+				 before turning to one side and showing off your [pc.legRace]'s swollen belly.
+			#ELSE
+				 before looking down and rubbing your belly.
+			#ENDIF
+			 With your shyness getting the better of you, you quietly mutter, [pc.speech(Erm... Lilaya...)]
 		</p>
 		<p>
 			#IF(pc.isVisiblyPregnant() && !game.getDialogueFlags().hasFlag(FLAG_reactedToPregnancyLilaya))
@@ -166,7 +184,7 @@
 			#ENDIF
 		</p>
 		<p>
-			You aren't quite sure what to say, and look sheepishly at the floor as you hear Lilaya's footsteps drawing near. Before you know what's happening, her hands are rubbing all over your belly, and you let out a little gasp at the sudden feeling of someone else touching your pregnant bump.
+			You aren't quite sure what to say, and continue to look sheepishly at the floor as you hear Lilaya's footsteps drawing near. Before you know what's happening, her hands are rubbing all over your belly, and you let out a little gasp at the sudden feeling of someone else touching your pregnant bump.
 		</p>
 		<p>
 			#IF(pc.hasStatusEffect(SE_PREGNANT_3))
@@ -177,7 +195,13 @@
 		</p>
 	#ELSE
 		<p>
-			Stepping forwards, you smile at your demonic [lilaya.relation(pc)], before looking down and rubbing your belly, saying, [pc.speech(Look, Lilaya, I got pregnant again!)]
+			Stepping forwards, you approach Lilaya and 
+			#IF(pc.isTaur())
+				 turn to one side to show off your [pc.legRace]'s swollen belly.
+			#ELSE
+				 start draw her attention to your swollen belly by rubbing your [pc.hands] over it.
+			#ENDIF
+			 Smiling at your demonic [lilaya.relation(pc)] [pc.speech(Look, Lilaya, I got pregnant again!)]
 		</p>
 		<p>
 			#IF(pc.isVisiblyPregnant() && !game.getDialogueFlags().hasFlag(FLAG_reactedToPregnancyLilaya))
@@ -222,7 +246,12 @@
 	
 	<htmlContent tag="LILAYA_DETECTS_BIRTHING_TYPE"><![CDATA[
 	<p>
-		Cradling your swollen belly with both hands, you look up at Lilaya and say, [pc.speech(I'm ready to give birth now.)]
+		#IF(pc.isTaur())
+			Turning to one side to present Lilya with your [pc.legRace]'s massively swollen belly, you say,
+		#ELSE
+			Cradling your huge, swollen belly with both hands, you look up at Lilaya and say,
+		#ENDIF
+		 [pc.speech(I'm ready to give birth now.)]
 	</p>
 	#IF(!pc.isQuestCompleted(QUEST_LINE_SIDE_FIRST_TIME_PREGNANCY))
 		<p>
@@ -271,17 +300,22 @@
 		You glance across worriedly at Lilaya as she says this, but she squeezes your hand in hers and reassures you, [lilaya.speech(Don't worry, you don't need to stay conscious during this. Now, after I've delivered your children, they're going to grow pretty quickly, so don't be alarmed! They're also going to be pretty hungry, but don't worry if you're not producing any milk, we've got everything they'll need in that cabinet there. Oh, and also, they're probably going to want to leave straight away. All children are born with a strong desire to go out and become independent as soon as possible, so don't take it personally if they've already left by the time you wake up.)]
 	</p>
 	<p>
-		#IF(player.isCoverableAreaExposed(CA_VAGINA))
+		#IF(pc.isCoverableAreaExposed(CA_VAGINA))
 			As she's speaking, Lilaya starts stripping off your clothes, and as she gets access to your vagina, she gently pushes you down onto the bed.
 		#ELSE
-			Your vagina is already exposed, so Lilaya starts by gently pushing you back onto the bed.
+			Your vagina is already exposed, so Lilaya starts by gently pushing you down onto the bed.
 		#ENDIF
-		 After following a few more of her instructions, you find yourself
-		 #IF(pc.hasLegs())
-		 	 lying back with your legs held up and spread apart by a pair of sturdy metal supports. Giving you a reassuring smile, Lilaya asks, [lilaya.speech(Ok, all set?)]
-		 #ELSE
-		 	 lying back with your [pc.pussy+] fully on display to your demonic [lilaya.relation(pc)]. Giving you a reassuring smile, she asks, [lilaya.speech(Ok, all set?)]
-		 #ENDIF
+		#IF(pc.isTaur())
+			 Walking around behind your [pc.legRace]'s lower body, your demonic [lilaya.relation(pc)] positions herself so that she's right next to your [pc.pussy+].
+		#ELSE
+			 After following a few more of her instructions, you find yourself
+			 #IF(pc.hasLegs())
+				 lying back with your legs spread wide and your [pc.pussy+] fully on display to your demonic [lilaya.relation(pc)].
+			 #ELSE
+				 lying back with your [pc.pussy+] fully on display to your demonic [lilaya.relation(pc)].
+			 #ENDIF
+		#ENDIF
+		 Giving you a reassuring smile, Lilaya asks, [lilaya.speech(Ok, all set?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -338,15 +372,24 @@
 	<p>
 		[lilaya.speech(Right, here we go!)] she says, and you see sparks of purple energy start to run down her arms.
 	</p>
-	#IF(pc.getBodyMaterial()==BODY_MATERIAL_SLIME)
-		<p>
-			You strain your neck to look down, and see Lilaya bring her hands up to hover over your pregnant belly. A huge wave of exhaustion crashes over you, and you remember what she said about how she was going to draw out your aura for this. You struggle to keep your eyes open, but as you feel an intense pushing sensation deep with your slimy body, you're almost glad that you can't see what's happening. You start to slip in and out of consciousness, and you find yourself having a strange dream.
-		</p>
-	#ELSE
-		<p>
-			You strain your neck to look down, and see Lilaya bring her hands up to hover over your pregnant belly. A huge wave of exhaustion crashes over you, and you remember what she said about how she was going to draw out your aura for this. You struggle to keep your eyes open, but as you feel an intense pushing sensation deep within your vagina, you're almost glad that you can't see what's happening. You start to slip in and out of consciousness, and you find yourself having a strange dream.
-		</p>
-	#ENDIF
+	<p>
+		#IF(pc.isTaur())
+			You turn your head and look back over your shoulder to
+		#ELSE
+			You look down
+			#IF(pc.hasLegs())
+				 between your [pc.legs] and
+			#ELSE
+				 to your groin and
+			#ENDIF
+		#ENDIF
+		 see Lilaya holding her hands over your [pc.pussy+], before lifting them to hover over your pregnant belly. A huge wave of exhaustion crashes over you, and you remember what she said about how she was going to draw out your aura for this.
+		#IF(pc.getBodyMaterial()==BODY_MATERIAL_SLIME)
+			 You struggle to keep your eyes open, but as you feel an intense pushing sensation deep with your slimy body, you're almost glad that you can't see what's happening. You start to slip in and out of consciousness, and you find yourself having a strange dream.
+		#ELSE
+			 You struggle to keep your eyes open, but as you feel an intense pushing sensation deep within your vagina, you're almost glad that you can't see what's happening. You start to slip in and out of consciousness, and you find yourself having a strange dream.
+		#ENDIF
+	</p>
 	]]>
 	</htmlContent>
 	
@@ -440,7 +483,7 @@
 			Looking down, you see the tip of your egg peeking out from your vagina, and with a determined cry, you push with all your might. You feel the egg stretching you out as you continue to apply pressure, but just as you feel that you can't keep going any longer, the egg pops free and slides out onto the bed beneath you.
 		</p>
 		<p>
-			[pc.speech(I did it...)] you sigh, looking down at the egg you've just laid. It looks to be about the same size as an emu's egg, and as you marvel at its pale pink colouring and smooth shell, you feel yourself subconsciously reaching out to pick it up and cradle in your arms.
+			[pc.speech(I did it...)] you sigh, looking down at the egg you've just laid. It looks to be about the same size as an emu's egg, and as you marvel at its pale pink colouring and smooth shell, you feel yourself subconsciously reaching out to pick it up and cradle it in your arms.
 		</p>
 		<p>
 			[lilaya.speech(Good [pc.girl], [pc.name]!)] Lilaya exclaims, but as she does so, a strange feeling suddenly washes over you, and it takes all of your willpower to prevent yourself from pushing her away and attempting to grab your egg. Almost as though she sensed what you were thinking, Lilaya reminds you that your maternal instincts are about to take hold...
@@ -547,7 +590,12 @@
 	</p>
 	#IF(pc.hasVagina())
 		<p>
-			The first thing you notice is how easy it is to move, and you let out a little gasp as you start running your hands over your now-flat stomach. As you do so, an unexpected twinge of sadness runs through you, and for a moment you find yourself deeply missing the reassuring feeling of having a big swollen belly.
+			#IF(pc.isTaur())
+				The first thing you notice is how easy it is to move, and you let out a little gasp as you look back at your now-flat [pc.legRace]'s stomach.
+			#ELSE
+				The first thing you notice is how easy it is to move, and you let out a little gasp as you start running your hands over your now-flat stomach.
+			#ENDIF
+			 As you do so, an unexpected twinge of sadness runs through you, and for a moment you find yourself deeply missing the reassuring feeling of having a big, swollen belly.
 		</p>
 		<p>
 			As you move, you discover the second thing that's changed, and you let out a surprised gasp at the feeling #IF(pc.hasLegs())between your legs#ELSEin your groin#ENDIF. Quickly moving your fingers down to your groin, you discover that your vagina has been stretched out considerably, and you let out an uncomfortable groan as you become aware of the dull ache within your [pc.vaginaCapacity] pussy.
@@ -557,7 +605,12 @@
 		</p>
 	#ELSE
 		<p>
-			You notice how easy it is to move, and you let out a little gasp as you start running your hands over your now-flat stomach. As you do so, an unexpected twinge of sadness runs through you, and for a moment you find yourself deeply missing the reassuring feeling of having a big swollen belly.
+			#IF(pc.isTaur())
+				You notice how easy it is to move, and you let out a little gasp as you look back at your now-flat [pc.legRace]'s stomach.
+			#ELSE
+				You notice how easy it is to move, and you let out a little gasp as you start running your hands over your now-flat stomach.
+			#ENDIF
+			 As you do so, an unexpected twinge of sadness runs through you, and for a moment you find yourself deeply missing the reassuring feeling of having a big, swollen belly.
 		</p>
 		<p>
 			Glancing across to your bedside cabinet, you discover a note from Lilaya. Picking it up, you glance over the contents:

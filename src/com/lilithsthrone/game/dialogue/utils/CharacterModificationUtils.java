@@ -627,70 +627,98 @@ public class CharacterModificationUtils {
 		contentSB.setLength(0);
 		
 		contentSB.append("<div class='container-full-width'>"
-							+ "<div class='container-full-width' style='text-align:center;'><b>Sex Actions Performed</b></div>");
+							+ "<div class='container-full-width' style='text-align:center;'><b>Sex Actions [style.colourSex(Performed)]</b></div>");
 		
 			contentSB.append(
-							getSexExperienceEntry("HANDJOBS_GIVEN", "Handjobs Given",
+							getSexExperienceEntry("HANDJOBS_GIVEN",
+									"Handjobs",
+									"you've jerked someone off",
 									new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaPenetration.PENIS))
 							
-							+ getSexExperienceEntry("FINGERINGS_GIVEN", "Fingerings Performed",
+							+ getSexExperienceEntry("FINGERINGS_GIVEN",
+									"Fingerings",
+									"you've fingered someone",
 									new SexType(SexParticipantType.NORMAL, SexAreaPenetration.FINGER, SexAreaOrifice.VAGINA))
 							
-							+ getSexExperienceEntry("BLOWJOBS_GIVEN", "Blowjobs Given",
+							+ getSexExperienceEntry("BLOWJOBS_GIVEN",
+									"Blowjobs",
+									"you've sucked someone's cock",
 									new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS))
 							
-							+ getSexExperienceEntry("CUNNILINGUS_GIVEN", "Cunnilingus Performed",
+							+ getSexExperienceEntry("CUNNILINGUS_GIVEN",
+									"Cunnilingus",
+									"you've eaten someone out",
 									new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.VAGINA))
 
 							+ (Main.game.isAnalContentEnabled()
-									?getSexExperienceEntry("ANILINGUS_GIVEN", "Anilingus Performed",
+									?getSexExperienceEntry("ANILINGUS_GIVEN",
+										"Anilingus",
+										"you've orally pleasured someone's asshole",
 										new SexType(SexParticipantType.NORMAL, SexAreaPenetration.TONGUE, SexAreaOrifice.ANUS))
 									:"")
 			
-							+ getSexExperienceEntry("VAGINAL_GIVEN", "Vaginal Sex Performed",
+							+ getSexExperienceEntry("VAGINAL_GIVEN",
+									"Vaginal Sex",
+									"you've fucked someone's pussy",
 									new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.VAGINA))
 							
 							+ (Main.game.isAnalContentEnabled()
-									?getSexExperienceEntry("ANAL_GIVEN", "Anal Sex Performed",
+									?getSexExperienceEntry("ANAL_GIVEN",
+										"Anal Sex",
+										"you've fucked someone's ass",
 										new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.ANUS))
 									:""));
 		contentSB.append("</div>");
 
 		contentSB.append("<div class='container-full-width'>"
-							+ "<div class='container-full-width' style='text-align:center;'><b>Sex Actions Received</b></div>");
+							+ "<div class='container-full-width' style='text-align:center;'><b>Sex Actions [style.colourSexDom(Received)]</b></div>");
 			contentSB.append(
 							(BodyChanging.getTarget().hasPenis()
-									?getSexExperienceEntry("HANDJOBS_TAKEN", "Handjobs Received",
+									?getSexExperienceEntry("HANDJOBS_TAKEN",
+										"Handjobs",
+										"someone's jerked you off",
 										new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaPenetration.FINGER))
 									:"")
 							
 							+ (BodyChanging.getTarget().hasVagina()
-									?getSexExperienceEntry("FINGERINGS_TAKEN", "Fingerings Received",
+									?getSexExperienceEntry("FINGERINGS_TAKEN",
+										"Fingerings",
+										"you've been fingered by someone",
 										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.FINGER))
 									:"")
 							
 							+ (BodyChanging.getTarget().hasPenis()
-									?getSexExperienceEntry("BLOWJOBS_TAKEN", "Blowjobs Received",
+									?getSexExperienceEntry("BLOWJOBS_TAKEN",
+										"Blowjobs",
+										"someone's sucked your cock",
 										new SexType(SexParticipantType.NORMAL, SexAreaPenetration.PENIS, SexAreaOrifice.MOUTH))
 									:"")
 							
 							+ (BodyChanging.getTarget().hasVagina()
-									?getSexExperienceEntry("CUNNILINGUS_TAKEN", "Cunnilingus Received",
+									?getSexExperienceEntry("CUNNILINGUS_TAKEN",
+										"Cunnilingus",
+										"you've been eaten out",
 										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.TONGUE))
 									:"")
 							
 							+ (Main.game.isAnalContentEnabled()
-									?getSexExperienceEntry("ANILINGUS_TAKEN", "Anilingus Received",
+									?getSexExperienceEntry("ANILINGUS_TAKEN",
+										"Anilingus",
+										"someone's orally pleasured your asshole",
 										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.TONGUE))
 									:"")
 							
 							+ (BodyChanging.getTarget().hasVagina()
-									?getSexExperienceEntry("VAGINAL_TAKEN", "Vaginal Sex Received",
+									?getSexExperienceEntry("VAGINAL_TAKEN",
+										"Vaginal Sex",
+										"your pussy has been fucked",
 										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS))
 									:"")
 
 							+ (Main.game.isAnalContentEnabled()
-									?getSexExperienceEntry("ANAL_TAKEN", "Anal Sex Received",
+									?getSexExperienceEntry("ANAL_TAKEN",
+										"Anal Sex",
+										"your ass has been fucked",
 										new SexType(SexParticipantType.NORMAL, SexAreaOrifice.ANUS, SexAreaPenetration.PENIS))
 									:""));
 		contentSB.append("</div>");
@@ -810,7 +838,7 @@ public class CharacterModificationUtils {
 		return index;
 	}
 	
-	private static String getSexExperienceEntry(String id, String title, SexType associatedSexType) {
+	private static String getSexExperienceEntry(String id, String title, String description, SexType associatedSexType) {
 		int index = getSexExperienceIndex(associatedSexType);
 		
 		String[] names = BodyChanging.getTarget().isFeminine()?feminineNames:masculineNames;
@@ -818,34 +846,45 @@ public class CharacterModificationUtils {
 		int sexCount = BodyChanging.getTarget().getTotalSexCount(associatedSexType);
 		boolean decreaseDisabled = sexCount<=0;
 		boolean increaseDisabled = sexCount>=maxSexExperience;
-		int minorStep = 1;
-		int majorStep = 10;
+		int singleStep = 1;
+		int minorStep = 10;
+		int majorStep = 100;
 		
 		return "<div class='container-full-width inner'>"
-					+ "<div class='container-full-width inner' style='width:calc(30%);margin:0;padding:0;'>"
+					+ "<div class='container-full-width inner' style='width:25%;margin:0;padding:0; font-weight:bold; text-align:center;'>"
 						+ title
 					+ "</div>"
-					+ "<div class='container-full-width inner' style='width:calc(70%);margin:0;padding:0;'>"
-						+ "<div class='container-full-width' style='width:15%; text-align:center; float:left; position:relative; padding:0; margin:0;'>"
-							+ "<div id='"+id+"_DECREASE_LARGE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:48%; margin:1%; padding:0;'>"
+					+ "<div class='container-full-width inner' style='width:75%;margin:0;padding:0;text-align:center;'>"
+						+ "<i>The number of times "+description+".</i>"
+					+ "</div>"
+					
+					+ "<div class='container-full-width' style='width:100%;margin:0;padding:0; display:flex; align-items:baseline;'>"
+						+ "<div class='container-full-width' style='width:25%; text-align:center; float:left; position:relative; padding:0; margin:0;'>"
+							+ "<div id='"+id+"_DECREASE_LARGE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:30%; margin:1%; padding:0;'>"
 								+ (decreaseDisabled?"[style.boldDisabled(-"+majorStep+")]":"[style.boldBad(-"+majorStep+")]")
 							+ "</div>"
-							+ "<div id='"+id+"_DECREASE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:48%; margin:1%; padding:0;'>"
-								+ (decreaseDisabled?"[style.boldDisabled(-"+minorStep+")]":"[style.boldBadMinor(-"+minorStep+")]")
+							+ "<div id='"+id+"_DECREASE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:30%; margin:1%; padding:0;'>"
+								+ (decreaseDisabled?"[style.boldDisabled(-"+minorStep+")]":"[style.boldBad(-"+minorStep+")]")
+							+ "</div>"
+							+ "<div id='"+id+"_DECREASE_SMALL' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:30%; margin:1%; padding:0;'>"
+								+ (decreaseDisabled?"[style.boldDisabled(-"+singleStep+")]":"[style.boldBadMinor(-"+singleStep+")]")
 							+ "</div>"
 						+ "</div>"
-						+ "<div class='container-full-width' style='width:18%; margin:1%; padding:0; text-align:center; float:left; position:relative;'>"
-							+ sexCount
+						+ "<div class='container-full-width' style='width:8%; margin:1%; padding:0; text-align:center; float:left; position:relative;'>"
+							+"<span style='color:"+sexColours[index].toWebHexString()+";'>"+sexCount+"</span>"
 						+ "</div>"
-						+ "<div class='container-full-width' style='width:15%; text-align:center; float:left; position:relative; padding:0; margin:0;'>"
-							+ "<div id='"+id+"_INCREASE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:48%; margin:1%; padding:0;'>"
+						+ "<div class='container-full-width' style='width:25%; text-align:center; float:left; position:relative; padding:0; margin:0;'>"
+							+ "<div id='"+id+"_INCREASE_SMALL' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:30%; margin:1%; padding:0;'>"
+								+ (increaseDisabled?"[style.boldDisabled(+"+singleStep+")]":"[style.boldGoodMinor(+"+singleStep+")]")
+							+ "</div>"
+							+ "<div id='"+id+"_INCREASE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:30%; margin:1%; padding:0;'>"
 								+ (increaseDisabled?"[style.boldDisabled(+"+minorStep+")]":"[style.boldGoodMinor(+"+minorStep+")]")
 							+ "</div>"
-							+ "<div id='"+id+"_INCREASE_LARGE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:48%; margin:1%; padding:0;'>"
+							+ "<div id='"+id+"_INCREASE_LARGE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:30%; margin:1%; padding:0;'>"
 								+ (increaseDisabled?"[style.boldDisabled(+"+majorStep+")]":"[style.boldGood(+"+majorStep+")]")
 							+ "</div>"
 						+ "</div>"
-						+ "<div class='container-full-width inner' style='width:50%; margin:0;padding:0;text-align:center;'>"
+						+ "<div class='container-full-width inner' style='width:40%; margin:0;padding:0;text-align:center;'>"
 							+"<span style='color:"+sexColours[index].toWebHexString()+";'>"+names[index]+"</span>"
 							+" ([style.colourCorruption(+"+sexExperienceCorruption[index]+" corruption)])"
 						+ "</div>"
@@ -1117,12 +1156,15 @@ public class CharacterModificationUtils {
 				if(tail.getRace() != null) {
 					c = tail.getRace().getColour();
 				}
+
+				boolean suitableForPenetration = (tail.getTags().contains(BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION) || Main.game.isFurryTailPenetrationContentEnabled())
+						&& !tail.getTags().contains(BodyPartTag.TAIL_NEVER_SUITABLE_FOR_PENETRATION);
 				
 				if(BodyChanging.getTarget().getTailType() == tail) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
 								+ "<span style='color:"+c.toWebHexString()+";'>"
-									+Util.capitaliseSentence(tail.getTransformName())+(tail.getTags().contains(BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION) || Main.game.isFurryTailPenetrationContentEnabled()?"*":"")
+									+Util.capitaliseSentence(tail.getTransformName())+(suitableForPenetration?"*":"")
 									+(tail.isPrehensile()?"&#8314;":"")
 									+(tail.isOvipositor()?"&deg;":"")
 								+"</span>"
@@ -1132,7 +1174,7 @@ public class CharacterModificationUtils {
 					contentSB.append(
 							"<div id='TAIL_"+TailType.getIdFromTailType(tail)+"' class='cosmetics-button'>"
 								+ "<span style='color:"+c.getShades()[0]+";'>"
-									+Util.capitaliseSentence(tail.getTransformName())+(tail.getTags().contains(BodyPartTag.TAIL_SUITABLE_FOR_PENETRATION) || Main.game.isFurryTailPenetrationContentEnabled()?"*":"")
+									+Util.capitaliseSentence(tail.getTransformName())+(suitableForPenetration?"*":"")
 									+(tail.isPrehensile()?"&#8314;":"")
 									+(tail.isOvipositor()?"&deg;":"")
 								+"</span>"
@@ -2158,7 +2200,7 @@ public class CharacterModificationUtils {
 								+ "<span style='color:"+ear.getRace().getColour().toWebHexString()+";'>"
 									+Util.capitaliseSentence(ear.getTransformName())
 									+(ear.isAbleToBeUsedAsHandlesInSex()?"*":"")
-									+(ear.getTags().contains(BodyPartTag.ECHO_LOCATION)?"+":"")
+									+(ear.getTags().contains(BodyPartTag.ECHO_LOCATION)?"&#8314;":"")
 								+"</span>"
 							+ "</div>");
 					
@@ -2168,7 +2210,7 @@ public class CharacterModificationUtils {
 								+ "<span style='color:"+ear.getRace().getColour().getShades()[0]+";'>"
 									+Util.capitaliseSentence(ear.getTransformName())
 									+(ear.isAbleToBeUsedAsHandlesInSex()?"*":"")
-									+(ear.getTags().contains(BodyPartTag.ECHO_LOCATION)?"+":"")
+									+(ear.getTags().contains(BodyPartTag.ECHO_LOCATION)?"&#8314;":"")
 								+"</span>"
 							+ "</div>");
 				}
@@ -2177,7 +2219,7 @@ public class CharacterModificationUtils {
 
 		return applyWrapper("Ears",
 				UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] ear type."
-						+ "<br/><i>Ear type helps to determine subspecies identification. Some are long enough to be pulled during sex (marked by an asterisk), or can grant echo-location (marked by a plus).</i>"),
+						+ "<br/><i>Ear type helps to determine subspecies identification. Some are long enough to be pulled during sex (*), or can grant echo-location (&#8314;).</i>"),
 				"EAR_TYPE",
 				contentSB.toString(),
 				false);
@@ -2191,13 +2233,21 @@ public class CharacterModificationUtils {
 				if(BodyChanging.getTarget().getEyeType() == eye) {
 					contentSB.append(
 							"<div class='cosmetics-button active'>"
-								+ "<span style='color:"+eye.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(eye.getTransformName())+(eye.getTags().contains(BodyPartTag.NIGHT_VISION)?"*":"")+"</span>"
+								+ "<span style='color:"+eye.getRace().getColour().toWebHexString()+";'>"
+									+Util.capitaliseSentence(eye.getTransformName())
+									+(eye.getTags().contains(BodyPartTag.NIGHT_VISION)?"*":"")
+									+(eye.getTags().contains(BodyPartTag.EYE_PERFECT_VISION)?"&#8314;":"")
+								+"</span>"
 							+ "</div>");
 					
 				} else {
 					contentSB.append(
 							"<div id='EYE_"+EyeType.getIdFromEyeType(eye)+"' class='cosmetics-button'>"
-								+ "<span style='color:"+eye.getRace().getColour().getShades()[0]+";'>"+Util.capitaliseSentence(eye.getTransformName())+(eye.getTags().contains(BodyPartTag.NIGHT_VISION)?"*":"")+"</span>"
+								+ "<span style='color:"+eye.getRace().getColour().getShades()[0]+";'>"
+									+Util.capitaliseSentence(eye.getTransformName())
+									+(eye.getTags().contains(BodyPartTag.NIGHT_VISION)?"*":"")
+									+(eye.getTags().contains(BodyPartTag.EYE_PERFECT_VISION)?"&#8314;":"")
+								+"</span>"
 							+ "</div>");
 				}
 			}
@@ -2205,7 +2255,8 @@ public class CharacterModificationUtils {
 
 		return applyWrapper("Eyes",
 				UtilText.parse(BodyChanging.getTarget(), "Change [npc.namePos] eye type."
-						+ "<br/><i>Eye type determines what iris and pupil shape characters spawn with, is used for subspecies identification, and can grant night vision capabilities (marked by an asterisk).</i>"),
+						+ "<br/><i>Eye type determines what iris and pupil shape characters spawn with, is used for subspecies identification,"
+						+ " and can grant night vision capabilities (*), or perfect vision (&#8314;).</i>"),
 				"EYE_TYPE",
 				contentSB.toString(),
 				true);
@@ -6633,13 +6684,13 @@ public class CharacterModificationUtils {
 		
 				for(AbstractTattooType type : TattooType.getConditionalTattooTypes(BodyChanging.getTarget())) {
 					if(type.getSlotAvailability().contains(tattooInventorySlot)) {
-						contentSB.append("<div style='width:18%; margin:1%; padding:0; display:inline-block;'>"
+						contentSB.append("<div style='width:23%; margin:1%; padding:0; display:inline-block;'>"
 											+ "<div class='normal-button"+(tattoo.getType()==type?" selected":"")+"' id='TATTOO_TYPE_"+type.getId()+"'"
 													+ " style='width:100%; margin:0; color:"+(tattoo.getType()==type?PresetColour.GENERIC_GOOD:PresetColour.TEXT_HALF_GREY).toWebHexString()+";'>"+Util.capitaliseSentence(type.getName())+"</div>"
 										+ "</div>");
 						
 					} else {
-						contentSB.append("<div style='width:18%; margin:1%; padding:0; display:inline-block;'>"
+						contentSB.append("<div style='width:23%; margin:1%; padding:0; display:inline-block;'>"
 								+ "<div class='normal-button disabled' id='TATTOO_TYPE_"+type.getId()+"'"
 										+ " style='width:100%; margin:0;'>"+Util.capitaliseSentence(type.getName())+"</div>"
 							+ "</div>");
@@ -6647,6 +6698,8 @@ public class CharacterModificationUtils {
 				}
 				contentSB.append("</div>"
 						+ "<div class='container-full-width' style='width:25%; margin:0;'>");
+
+//				background-color:"+Main.game.getPlayer().getCovering(Main.game.getPlayer().getTorsoCovering()).getPrimaryColour().toWebHexString()+";
 				
 				contentSB.append("<div class='modifier-icon' style='float:left; width:100%; margin:0; text-align:center;'>"
 									+ "<div class='modifier-icon-content'>"+tattoo.getSVGImage(BodyChanging.getTarget())+"</div>"

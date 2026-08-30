@@ -1,0 +1,76 @@
+<h2>v0.4.11.3</h2>
+
+<h3>Engine/Modding:</h3>
+<ul>
+	<li>Added 'PRESCRIPTION_GLASSES' as an ItemTag, which grants any wearer a small status effect buff ('enhanced vision'), and also negates the 'impaired vision' effect which affects characers with the 'visual impairment' perk.</li>
+	<li>Added 'EYE_PERFECT_VISION' as a BodyPartTag, which makes the character immune to the negative effects of the 'impaired vision' perk. (Demon, angel, dragon, gryphon, and raptor eyes have this tag.)</li>
+	<li>Added 'breakOutOfInventory' element to item types, which is false by default, but when true it causes the inventory to close when using the item (commented element in 'res/items/innoxia/pills/fertility.xml').</li>
+	<li>Converted money from integer values to longs (in case the player manages to somehow earn more than 2.1 billion flames).</li>
+	<li>Added a new TFPotency, 'SPECIAL', which when used as the potency on an item of clothing's sealed item effect will make it impossible to unseal. See the 'game/inventory/enchanting/TFPotency.java' file for comments on this and application details. (This will not be present nor available in a normal game; it's been added for use on special modded clothing.)</li>
+	<li>Added support to combat moves for hitting multiple targets and improved the formatting for several elements (the old formatting still works, so there's no need to update moves to the new format); a fully commented example is in 'res/combatMove/innoxia/quadruped_kick.xml'.</li>
+</ul>
+
+<h3>UI:</h3>
+<ul>
+	<li>Improved the appearance of the race page in the encyclopedia and added ability to click on race entries to open their subspecies info page.</li>
+	<li>Additional descriptions in clothing tooltips (things like 'sex equip enabled' or 'fits arm-wings') now continue to be shown when the clothing is equipped.</li>
+	<li>Improved character's quick overview tooltip (when hovering over your race icon or an NPC's race icon in the 'Characters present' panel) to show femininity, body shape, and height at the top underneath their race's name, and also neatly cut off text overflow with an ellipsis.</li>
+</ul>
+
+<h3>Gameplay:</h3>
+<ul>
+	<li>Slime and elemental transformations now require advanced knowledge of races (obtained from race books) in order to transform into them.</li>
+	<li>The subspecies which newly-spawned slimes decide to mimic are now limited to the subspecies found within their region (e.g. slimes spawned in Submission will spawn as subspecies which can ordinarily be found in the region of Dominion, which encompasses all of Dominion and Submission).</li>
+</ul>
+
+<h3>Impaired vision:</h3>
+<ul>
+	<li>Added 'visual impairment' as a new unique perk, which gives a negative status effect while not wearing clothing with the 'PRESCRIPTION_GLASSES' tag (i.e. glasses).</li>
+	<li>randomly-spawned NPCs having a 2.5% chance to have it (there is no way for the player to get this perk at the moment but I might add a way to get it later on).</li>
+	<li>Nizhoni, Vanessa (Ms. Cunningham), and Ziva (Ms. Levine) now have the 'visual impairment' perk.</li>
+	<li>If a character has the 'visual impairment' perk, any clothing with the 'PRESCRIPTION_GLASSES' tag (i.e. glasses), will not be removed at the start of sex if 'Automatic stripping' is enabled, and selecting 'unequip all' in their inventory will also ignore any clothing with the 'PRESCRIPTION_GLASSES' tag.</li>
+</ul>
+
+<h3>Items:</h3>
+<ul>
+	<li>Using the 'bioslime canister' now breaks out of your inventory, making it easier to see the full transformation text.</li>
+</ul>
+
+<h3>Sex:</h3>
+<ul>
+	<li>Added 'lying on front' as an alternative slot to 'lying on back' in the 'Lying down' sex position, which allows partners to perform oral, receive oral, or have sex in the 'prone bone' position.</li>
+	<li>The 'beside' slots in the 'Lying down' sex position now have correct interaction availability with characters lying down and those in non-lying-down slots.</li>
+	<li>Added the new 'prone bone' position as an option to switch to during sleep sex.</li>
+	<li>Improved dirty talk lines and positioning descriptions for when used in sleep sex.</li>
+	<li>Removed the Hypermobility perk's non-taur requirement for being able to perform autofellatio & autocunnilingus (so taurs can now perform those actions if they have the hypermobility perk).</li>
+</ul>
+
+<h3>Other:</h3>
+<ul>
+	<li>Added 'Craft x5' and 'Craft all' options to the enchantment menu to make bulk enchanting a little less tedious.</li>
+	<li>Increased the threshold for additional inventory slots being dirtied by cum when a character orgasms onto their partner; additional slots being dirtied now starts at 30ml of cum instead of 16ml, and not as many slots are dirtied (but the maximum cum bracket of 1,000-10,000ml is unchanged at 8 slots dirtied).</li>
+	<li>Slaves assigned to your bedroom, who are attracted to you, and who have permission to sue you, will now engage in sleep sex with you (if you have the heavy sleeper perk) at least once in each block of bedroom work they're assigned to (a block being any number of consecutive hourly slots).</li>
+	<li>Increased maximum height in character creation screen from 200cm to 215cm (so you can start as 7 feet tall).</li>
+</ul>
+
+<h3>Bugs:</h3>
+<ul>
+	<li>Parsing and typo fixes.</li>
+	<li>Removed the 'Back' button from the initial dialogue when starting a new game, as returning to the main menu and then trying to resume from there would throw errors.</li>
+	<li>You can no longer unequip/equip/unseal clothing nor use items in a sex scene in which you are immobilised.</li>
+	<li>Fixed bug with frotting, where if you were targeting a different character to the one you were frotting with and selected the 'Frotting orgasm', the cum effects would be applied to the targeted character instead of the one you were frotting with.</li>
+	<li>Fixed bug in the encyclopedia, where if the horse shoes were discovered, the 'feet' clothing section would display an error message (if this bug was occurring in other pages, they all should be fixed now).</li>
+	<li>Fixed job selection perk tooltips displaying the player's currently selected occupation instead of the perk's associated occupation.</li>
+	<li>Fixed bug where you could get stuck in an infinitely-looping menu if you opened your phone while in the Enchantment save/load dialogue.</li>
+	<li>Fixed incorrect orgasm description in group sex which occurred when character_A gave character_B a creampie while targeting character_C.</li>
+	<li>Fixed game-breaking bug where the game would lock up if any sex actions were started with a character who had an ovipositor penis or an ovipositor clit.</li>
+	<li>Fixed bug where NPCs who transform you after sex would alternate between shrinking and growing your breasts and/or crotch-boobs.</li>
+	<li>When setting an unemployed friendly occupant to a job within the manor, the occupant/slave overview list will now show the same income information which is in their job dialogue, instead of always showing 0/day.</li>
+	<li>Fixed bug where opening a friendly occupant's inventory via the overview menu's inventory button would sometimes cause the inventory to get stuck, soft-lock your game, and throw background errors.</li>
+	<li>Fixed clothing tooltips not displaying all of the clothing's extra information.</li>
+	<li>Fixed the 'slaves' in Slaver Alley's cafes not actually being set to being slaves, and having incorrect descriptions as a result.</li>
+	<li>Corrected multiple inconsistent pregnancy descriptions for if you're a taur.</li>
+	<li>Fixed bug where dolls (including the player) would have their aura set to NaN (also fixed the same bug for health values).</li>
+	<li>Fixed some formatting bugs in the newly updated tooltips.</li>
+	<li>Fixed nipple and crotch-nipple creampie retention enchantments not working.</li>
+</ul>

@@ -62,13 +62,14 @@
 		</secondaryColours> 
 		<secondaryColoursDye values="ALL"/>
 		
-		<itemTags/>
-		
+		<itemTags> 
+			<tag>REMOVE_FROM_DRESSING_ROOM_OUTFITS</tag>
+		</itemTags>
 	</coreAttributes>
 	
 	<hitDescriptions>
 		<hitText><![CDATA[
-		[npc.Name] [npc.verb(swing)] [npc.her] sword at [npc2.name]! The edge of the mighty cardboardium blade makes contact with [npc2.namePos] aura, draining a miniscule amount of energy.
+		[npc.Name] [npc.verb(swing)] [npc.her] sword at [npc2.name]! The edge of the mighty cardboardium blade makes contact with [npc2.namePos] aura, draining a minuscule amount of energy.
 		]]></hitText>
 	</hitDescriptions>
 

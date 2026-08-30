@@ -100,6 +100,7 @@ public class PresetColour {
 	public static Colour BACKGROUND_DARK = new Colour(false, Util.newColour(0x19191a), Util.newColour(0xf0f0f0), "grey") {};
 	public static Colour BACKGROUND = new Colour(false, Util.newColour(0x222222), Util.newColour(0xcccccc), "grey") {};
 	public static Colour BACKGROUND_ALT = new Colour(false, Util.newColour(0x292929), Util.newColour(0xbbbbbb), "grey") {};
+	public static Colour BACKGROUND_LIGHT = new Colour(false, Util.newColour(0x666666), Util.newColour(0xeeeeee), "grey") {};
 	
 	public static Colour BACKGROUND_DAY = new Colour(false, Util.newColour(0x222222), Util.newColour(0xcccccc), "grey") {};
 	public static Colour BACKGROUND_TWILIGHT = new Colour(false, Util.newColour(0x191919), Util.newColour(0xbbbbbb), "black") {};

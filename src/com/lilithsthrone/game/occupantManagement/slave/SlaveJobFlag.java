@@ -18,7 +18,9 @@ public enum SlaveJobFlag {
 	
 	GUEST_CAN_WORK(PresetColour.GENERIC_NEUTRAL, "Guest worker", "Guests can be assigned to this job."),
 
-	CLEANING_UNAVAILABLE(PresetColour.DIRTY, "Cleaning unavailable", "Slaves will be unable to clean themselves while working this job.");
+	CLEANING_UNAVAILABLE(PresetColour.DIRTY, "Cleaning unavailable", "Slaves will be unable to clean themselves while working this job."),
+
+	SPECIAL_UNIFORM(PresetColour.GENERIC_MINOR_BAD, "Special uniform", "Slaves cannot be outfitted via the dressing room while working this job.");
 	
 	private Colour colour;
 	private String name;

@@ -36,6 +36,7 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.DominionExpressCentaur;
 import com.lilithsthrone.game.character.npc.dominion.Natalya;
 import com.lilithsthrone.game.character.persona.NameTriplet;
+import com.lilithsthrone.game.character.persona.PersonalityCategory;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
@@ -87,12 +88,12 @@ public class DominionExpress {
 	private static int slavePointsReward = 1;
 	private static GameCharacter activeSlave;
 
-	private static List<FillyReward> fillyRewards;
+	private static List<MuleReward> muleRewards;
 	static {
-		fillyRewards = new ArrayList<>();
-		// Basic filly: Add horse-morph penis/ass, feminine++, boobs++:
-		fillyRewards.add(
-				new FillyReward("Basic Filly", "Get rid of your pussy and gain a horse-morph cock and ass, as well as big boobs and a feminine figure!", 5) {
+		muleRewards = new ArrayList<>();
+		// Basic mule: Add horse-morph penis/ass, feminine++, boobs++:
+		muleRewards.add(
+				new MuleReward("Basic [style.Mule]", "Get rid of your pussy and gain a horse-morph cock and ass, as well as big boobs and a feminine figure!", 5) {
 					@Override
 					public Value<Boolean, String> isAvailable() {
 						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
@@ -125,8 +126,8 @@ public class DominionExpress {
 					}
 				});
 		// Taur: Makes lower body taur:
-		fillyRewards.add(
-				new FillyReward("Taurrific", "Become a centaur and finally get that feral horse body you've always dreamed of!", 5) {
+		muleRewards.add(
+				new MuleReward("Taurrific", "Become a centaur and finally get that feral horse body you've always dreamed of!", 5) {
 					@Override
 					public Value<Boolean, String> isAvailable() {
 						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
@@ -158,8 +159,8 @@ public class DominionExpress {
 					}
 				});
 		// Ass-pussy: Lubrication, puffy, depth, muscles.
-		fillyRewards.add(
-				new FillyReward("Ass-pussy", "Have your ass turned into the perfect sexual orifice!", 15) {
+		muleRewards.add(
+				new MuleReward("Ass-pussy", "Have your ass turned into the perfect sexual orifice!", 15) {
 					@Override
 					public Value<Boolean, String> isAvailable() {
 						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
@@ -181,8 +182,8 @@ public class DominionExpress {
 					}
 				});
 		// Throat-pussy: Bigger lips, wetter throat, depth, muscles.
-		fillyRewards.add(
-				new FillyReward("Throat-pussy", "Sucking horse-cock will never be the same again after this!", 15) {
+		muleRewards.add(
+				new MuleReward("Throat-pussy", "Sucking horse-cock will never be the same again after this!", 15) {
 					@Override
 					public Value<Boolean, String> isAvailable() {
 						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
@@ -205,8 +206,8 @@ public class DominionExpress {
 					}
 				});
 		// Ass-licker: Bigger lips, wetter tongue, longer tongue.
-		fillyRewards.add(
-				new FillyReward("Ass-licker", "Big, puffy lips and a long, strong tongue are just what you need to give all those horse-asses the love they deserve!", 15) {
+		muleRewards.add(
+				new MuleReward("Ass-licker", "Big, puffy lips and a long, strong tongue are just what you need to give all those horse-asses the love they deserve!", 15) {
 					@Override
 					public Value<Boolean, String> isAvailable() {
 						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
@@ -229,8 +230,8 @@ public class DominionExpress {
 					}
 				});
 		// Hung: Penis size+, more cum, bigger balls.
-		fillyRewards.add(
-				new FillyReward("Hung like a Horse", "You'll love the feeling of having a big, thick cock swinging back and forth while you're getting rutted!", 25) {
+		muleRewards.add(
+				new MuleReward("Hung like a Horse", "You'll love the feeling of having a big, thick cock swinging back and forth while you're getting rutted!", 25) {
 					@Override
 					public Value<Boolean, String> isAvailable() {
 						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
@@ -258,9 +259,9 @@ public class DominionExpress {
 						return sb.toString();
 					}
 				});
-		// Sissy filly: Penis size-, smaller balls.
-		fillyRewards.add(
-				new FillyReward("Sissy-filly", "Show your partners what a submissive little sissy-filly you are by having a pathetically-tiny cock between your legs!", 25) {
+		// Sissy mule: Penis size-, smaller balls.
+		muleRewards.add(
+				new MuleReward("Sissy-[style.mule]", "Show your partners what a submissive little sissy-[style.mule] you are by having a pathetically-tiny cock between your legs!", 25) {
 					@Override
 					public Value<Boolean, String> isAvailable() {
 						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
@@ -294,8 +295,8 @@ public class DominionExpress {
 					}
 				});
 		// Top-heavy: Breast size+, puffy nipples, nipple size+
-		fillyRewards.add(
-				new FillyReward("Top-heavy", "Boost the size of your breasts and give those centaur slaves something to stare at (and squeeze)!", 25) {
+		muleRewards.add(
+				new MuleReward("Top-heavy", "Boost the size of your breasts and give those centaur slaves something to stare at (and squeeze)!", 25) {
 					@Override
 					public Value<Boolean, String> isAvailable() {
 						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
@@ -317,8 +318,8 @@ public class DominionExpress {
 					}
 				});
 		// Subby slut: submissive, oral giving, anal giving, penis receiving, anal receiving
-		fillyRewards.add(
-				new FillyReward("Subby Slut", "Let us help you to remember what a dirty little filly slut you are!", 50) {
+		muleRewards.add(
+				new MuleReward("Subby Slut", "Let us help you to remember what a dirty little [style.mule] slut you are!", 50) {
 					@Override
 					public Value<Boolean, String> isAvailable() {
 						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
@@ -341,8 +342,8 @@ public class DominionExpress {
 					}
 				});
 		// Bimbo: Add bimbo fetish, big lips, bleach-blonde hair, breast size+
-		fillyRewards.add(
-				new FillyReward("Bimbolicious", "Thinking about stuff other than submitting to horse-cock and horse-ass is, like, totally annoying, isn't it?", 50) {
+		muleRewards.add(
+				new MuleReward("Bimbolicious", "Thinking about stuff other than submitting to horse-cock and horse-ass is, like, totally annoying, isn't it?", 50) {
 					@Override
 					public Value<Boolean, String> isAvailable() {
 						if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
@@ -381,8 +382,8 @@ public class DominionExpress {
 					}
 				});
 		
-		fillyRewards.add(
-				new FillyReward("Silver collar", "Get that shiny upgrade! With this, you'll be permitted to service Mistress Natalya once per day!", 100) {
+		muleRewards.add(
+				new MuleReward("Silver collar", "Get that shiny upgrade! With this, you'll be permitted to service Mistress Natalya once per day!", 100) {
 					@Override
 					public Value<Boolean, String> isAvailable() {
 						if(getPlayerCollar().getColour(0)!=PresetColour.CLOTHING_BRONZE) {
@@ -399,8 +400,8 @@ public class DominionExpress {
 					}
 				});
 		
-		fillyRewards.add(
-				new FillyReward("Gold collar", "Mistress Natalya has promised to let any gold filly dominate her, but let's be real here; there's no way you're ever going to be able to afford this!", 1000) {
+		muleRewards.add(
+				new MuleReward("Gold collar", "Mistress Natalya has promised to let any gold [style.mule] dominate her, but let's be real here; there's no way you're ever going to be able to afford this!", 1000) {
 					@Override
 					public Value<Boolean, String> isAvailable() {
 						if(getPlayerCollar().getColour(0)==PresetColour.CLOTHING_GOLD) {
@@ -426,7 +427,7 @@ public class DominionExpress {
 		return Main.game.getPlayer().getClothingInSlot(InventorySlot.NECK);
 	}
 	
-	private static boolean wearingFillyCollar() {
+	private static boolean wearingMuleCollar() {
 		return getPlayerCollar()!=null && getPlayerCollar().getClothingType().getId().equals("innoxia_neck_filly_choker");
 	}
 	
@@ -500,6 +501,8 @@ public class DominionExpress {
 	
 	public static void applySadistSlave(GameCharacter slave) {
 		slave.addFetish(Fetish.FETISH_SADIST);
+		
+		slave.removePersonalityTraits(PersonalityCategory.SPEECH);
 		
 		slave.setName(new NameTriplet("Thunder"));
 		slave.setPlayerKnowsName(true);
@@ -644,7 +647,7 @@ public class DominionExpress {
 		}
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(wearingFillyCollar()) {
+			if(wearingMuleCollar()) {
 				if(index==1) {
 					if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
 						return new Response("Attract attention", "As you are unable to access your mouth, you cannot service any centaur slaves, so there's no point in trying to attract their attention...", null);
@@ -652,7 +655,7 @@ public class DominionExpress {
 					} else {
 						return new ResponseEffectsOnly(
 								"Look for partner",
-								"With your filly choker on display, you know that you'll easily be able to attract the attention of a passing centaur slave..."){
+								"With your [style.mule] choker on display, you know that you'll easily be able to attract the attention of a passing centaur slave..."){
 								@Override
 								public int getSecondsPassed() {
 									return 5*60;
@@ -750,7 +753,7 @@ public class DominionExpress {
 
 			sb.append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/dominionExpress", "FILLY_STATION_MACHINE"));
 			
-			if(!wearingFillyCollar()) {
+			if(!wearingMuleCollar()) {
 				sb.append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/dominionExpress", "FILLY_STATION_MACHINE_REJECTED"));
 				
 			} else {
@@ -760,12 +763,12 @@ public class DominionExpress {
 				sb.append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/dominionExpress", "FILLY_STATION_MACHINE_ACCEPTED"));
 				
 				sb.append("<div class='container-full-width'>");
-					for(FillyReward fr : fillyRewards) {
+					for(MuleReward fr : muleRewards) {
 						int points = Main.game.getDialogueFlags().getNatalyaPoints();
 						Value<Boolean, String> available = fr.isAvailable();
 						sb.append("<div class='container-full-width inner' style='margin-bottom:4px;'>");
 							sb.append((available.getKey()?"[style.boldPink(":"[style.boldBad(")+fr.getName()+":)] ");
-							sb.append((points<fr.getCost()?"[style.colourBad(":"[style.colourPinkLight(")+fr.getCost()+")] [style.colourPinkLight(Filly Points)]<br/>");
+							sb.append((points<fr.getCost()?"[style.colourBad(":"[style.colourPinkLight(")+fr.getCost()+")] [style.colourPinkLight([style.Mule] Points)]<br/>");
 							sb.append(fr.getDescription());
 							if(!available.getKey()) {
 								sb.append("<br/>[style.italicsBad("+available.getValue()+")]");
@@ -782,19 +785,19 @@ public class DominionExpress {
 			if(index==0) {
 				return new Response("Step back", "Step away from the machine...", FILLY_STATION);
 			}
-			if(wearingFillyCollar()) {
+			if(wearingMuleCollar()) {
 				List<Response> responses = new ArrayList<>();
-				for(FillyReward fr : fillyRewards) {
+				for(MuleReward fr : muleRewards) {
 					int points = Main.game.getDialogueFlags().getNatalyaPoints();
 					Value<Boolean, String> available = fr.isAvailable();
 					if(!available.getKey()) {
 						responses.add(new Response(fr.getName()+" ("+fr.getCost()+")", fr.getDescription()+"<br/>[style.italicsBad("+available.getValue()+")]", null));
 						
 					} else if(points<fr.getCost()) {
-						responses.add(new Response(fr.getName()+" ("+fr.getCost()+")", fr.getDescription()+"<br/>[style.italicsBad(You "+(points==0?"have no":"only have "+points)+" filly points, so cannot afford the cost of "+fr.getCost()+"!)]", null));
+						responses.add(new Response(fr.getName()+" ("+fr.getCost()+")", fr.getDescription()+"<br/>[style.italicsBad(You "+(points==0?"have no":"only have "+points)+" [style.mule] points, so cannot afford the cost of "+fr.getCost()+"!)]", null));
 						
 					} else {
-						responses.add(new Response(fr.getName()+" ("+fr.getCost()+")", fr.getDescription()+"<br/>[style.italicsPinkLight(You have "+points+" filly points, and this will cost you "+fr.getCost()+"!)]", FILLY_STATION_REWARD) {
+						responses.add(new Response(fr.getName()+" ("+fr.getCost()+")", fr.getDescription()+"<br/>[style.italicsPinkLight(You have "+points+" [style.mule] points, and this will cost you "+fr.getCost()+"!)]", FILLY_STATION_REWARD) {
 							@Override
 							public void effects() {
 								Main.game.getTextStartStringBuilder().append(fr.applyEffect());
@@ -823,7 +826,7 @@ public class DominionExpress {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Continue", "Continue interacting with the filly reward station.", FILLY_STATION_MACHINE);
+				return new Response("Continue", "Continue interacting with the [style.mule] reward station.", FILLY_STATION_MACHINE);
 			}
 			return null;
 		}
@@ -839,7 +842,7 @@ public class DominionExpress {
 		public String getContent() {
 			StringBuilder sb = new StringBuilder();
 			sb.append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/dominionExpress", "STABLES"));
-			if(!wearingFillyCollar()) {
+			if(!wearingMuleCollar()) {
 				sb.append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/dominionExpress", "STABLES_NO_COLLAR"));
 			} else if(!isPlayerBodyCorrect()) {
 				sb.append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/dominionExpress", "STABLES_WRONG_BODY"));
@@ -852,8 +855,8 @@ public class DominionExpress {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				if(Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_NATALYA)) {
-					if(!wearingFillyCollar()) {
-						return new Response("Enter", "You cannot see Mistress Natalya without wearing your filly choker!", null);
+					if(!wearingMuleCollar()) {
+						return new Response("Enter", "You cannot see Mistress Natalya without wearing your [style.mule] choker!", null);
 					} else if(!isPlayerBodyCorrect()) {
 						return new Response("Enter", "You cannot see Mistress Natalya without being a busty [style.shemale]!", null);
 					}
@@ -865,7 +868,7 @@ public class DominionExpress {
 					};
 					
 				} else {
-					return new Response("Enter", "As you are not a slave or qualified filly, you cannot enter the stables...", null);
+					return new Response("Enter", "As you are not a slave or qualified [style.mule], you cannot enter the stables...", null);
 				}
 			}
 			return null;
@@ -1438,7 +1441,7 @@ public class DominionExpress {
 	};
 	
 	private static boolean isOfficeEntryDenied() {
-		return (Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_NATALYA) && (!isPlayerBodyCorrect() || !wearingFillyCollar()))
+		return (Main.game.getPlayer().isQuestCompleted(QuestLine.ROMANCE_NATALYA) && (!isPlayerBodyCorrect() || !wearingMuleCollar()))
 				|| Main.game.getPlayer().isPregnant()
 				|| Main.game.getPlayer().hasIncubationLitter(SexAreaOrifice.VAGINA)
 				|| Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.natalyaBusy);
@@ -1486,7 +1489,7 @@ public class DominionExpress {
 				} else if(Main.game.getPlayer().getQuest(QuestLine.ROMANCE_NATALYA)==Quest.ROMANCE_NATALYA_5_TRAINING_3) {
 					sb.append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/dominionExpress", "OFFICE_STABLE_ENTRY_TRAINING_3", getSadistSlave()));
 					
-				} else { // Qualified filly:
+				} else { // Qualified mule:
 					if(getPlayerCollar().getColour(0)!=Main.game.getDialogueFlags().getNatalyaCollarColour()) {
 						sb.append(UtilText.parseFromXMLFile("places/dominion/warehouseDistrict/dominionExpress", "OFFICE_STABLE_ENTRY_COLLAR_UPGRADED"));
 						
@@ -1569,7 +1572,7 @@ public class DominionExpress {
 							return new Response("Kneel", "Do as Mistress Natalya says and [pc.step] over to kneel down beside her...", OFFICE_STABLE_TRAINING_3);
 						}
 							
-					} else { // Qualified filly:
+					} else { // Qualified mule:
 						AbstractClothing collar = getPlayerCollar();
 						
 						if(index==0) {
@@ -1588,14 +1591,14 @@ public class DominionExpress {
 								
 							} else if(collar.getColour(0)!=PresetColour.CLOTHING_SILVER && collar.getColour(0)!=PresetColour.CLOTHING_GOLD) {
 								return new Response("Suck cock",
-										"You do not have a high enough filly ranking for this!<br/>[style.italics(Requires a ranking of at least 'silver', and you are only '"+collar.getColour(0).getName()+"'...)]",
+										"You do not have a high enough [style.mule] ranking for this!<br/>[style.italics(Requires a ranking of at least 'silver', and you are only '"+collar.getColour(0).getName()+"'...)]",
 										null);
 								
 							} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
 								return new Response("Suck cock", "As you cannot gain access to your mouth, you cannot suck Mistress Natalya's cock!", null);
 								
 							} else {
-								return new Response("Suck cock", "Tell Natalya that you'd like to make use of your filly ranking's benefit and suck her cock.", OFFICE_STABLE_FILLY_GIVE_BLOWJOB) {
+								return new Response("Suck cock", "Tell Natalya that you'd like to make use of your [style.mule] ranking's benefit and suck her cock.", OFFICE_STABLE_FILLY_GIVE_BLOWJOB) {
 									@Override
 									public boolean isSexHighlight() {
 										return true;
@@ -1614,14 +1617,14 @@ public class DominionExpress {
 								
 							} else if(collar.getColour(0)!=PresetColour.CLOTHING_SILVER && collar.getColour(0)!=PresetColour.CLOTHING_GOLD) {
 								return new Response("Give rimjob",
-										"You do not have a high enough filly ranking for this!<br/>[style.italics(Requires a ranking of at least 'silver', and you are only '"+collar.getColour(0).getName()+"'...)]",
+										"You do not have a high enough [style.mule] ranking for this!<br/>[style.italics(Requires a ranking of at least 'silver', and you are only '"+collar.getColour(0).getName()+"'...)]",
 										null);
 								
 							} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
 								return new Response("Give rimjob", "As you cannot gain access to your mouth, you cannot give Mistress Natalya a rimjob!", null);
 								
 							} else {
-								return new Response("Give rimjob", "Tell Natalya that you'd like to make use of your filly ranking's benefit and eat her ass.", OFFICE_STABLE_FILLY_GIVE_RIMJOB) {
+								return new Response("Give rimjob", "Tell Natalya that you'd like to make use of your [style.mule] ranking's benefit and eat her ass.", OFFICE_STABLE_FILLY_GIVE_RIMJOB) {
 									@Override
 									public boolean isSexHighlight() {
 										return true;
@@ -1640,14 +1643,14 @@ public class DominionExpress {
 								
 							} else if(collar.getColour(0)!=PresetColour.CLOTHING_SILVER && collar.getColour(0)!=PresetColour.CLOTHING_GOLD) {
 								return new Response("Get mounted",
-										"You do not have a high enough filly ranking for this!<br/>[style.italics(Requires a ranking of at least 'silver', and you are only '"+collar.getColour(0).getName()+"'...)]",
+										"You do not have a high enough [style.mule] ranking for this!<br/>[style.italics(Requires a ranking of at least 'silver', and you are only '"+collar.getColour(0).getName()+"'...)]",
 										null);
 								
 							} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
 								return new Response("Get mounted", "As you cannot gain access to your asshole, Natalya cannot mount you!", null);
 								
 							} else {
-								return new Response("Get mounted", "Tell Natalya that you'd like to make use of your filly ranking's benefit and get mounted by her.", OFFICE_STABLE_FILLY_GET_MOUNTED) {
+								return new Response("Get mounted", "Tell Natalya that you'd like to make use of your [style.mule] ranking's benefit and get mounted by her.", OFFICE_STABLE_FILLY_GET_MOUNTED) {
 									@Override
 									public boolean isSexHighlight() {
 										return true;
@@ -1667,7 +1670,7 @@ public class DominionExpress {
 								
 							} else if(collar.getColour(0)!=PresetColour.CLOTHING_GOLD) {
 								return new Response("Receive blowjob",
-										"You do not have a high enough filly ranking for this!<br/>[style.italics(Requires a ranking of at least 'gold', and you are only '"+collar.getColour(0).getName()+"'...)]",
+										"You do not have a high enough [style.mule] ranking for this!<br/>[style.italics(Requires a ranking of at least 'gold', and you are only '"+collar.getColour(0).getName()+"'...)]",
 										null);
 								
 							} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
@@ -1693,7 +1696,7 @@ public class DominionExpress {
 								
 							} else if(collar.getColour(0)!=PresetColour.CLOTHING_GOLD) {
 								return new Response("Receive rimjob",
-										"You do not have a high enough filly ranking for this!<br/>[style.italics(Requires a ranking of at least 'gold', and you are only '"+collar.getColour(0).getName()+"'...)]",
+										"You do not have a high enough [style.mule] ranking for this!<br/>[style.italics(Requires a ranking of at least 'gold', and you are only '"+collar.getColour(0).getName()+"'...)]",
 										null);
 								
 							} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
@@ -1719,7 +1722,7 @@ public class DominionExpress {
 								
 							} else if(collar.getColour(0)!=PresetColour.CLOTHING_GOLD) {
 								return new Response("Mount her",
-										"You do not have a high enough filly ranking for this!<br/>[style.italics(Requires a ranking of at least 'gold', and you are only '"+collar.getColour(0).getName()+"'...)]",
+										"You do not have a high enough [style.mule] ranking for this!<br/>[style.italics(Requires a ranking of at least 'gold', and you are only '"+collar.getColour(0).getName()+"'...)]",
 										null);
 								
 							} else if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
@@ -2100,7 +2103,7 @@ public class DominionExpress {
 				
 			} else {
 				if(index==1) {
-					return new Response("Drink potion", "Drink the potion and transform into [style.a_shemale] filly.", OFFICE_STABLE_TRANSFORMED){
+					return new Response("Drink potion", "Drink the potion and be transformed into one of Mistress Natalya's [style.shemale] [style.mules].", OFFICE_STABLE_TRANSFORMED){
 						@Override
 						public Colour getHighlightColour() {
 							return PresetColour.TRANSFORMATION_GENERIC;
@@ -2273,7 +2276,7 @@ public class DominionExpress {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Obey", UtilText.parse(getSadistSlave(), "Tell Mistress Natalya that you're a slutty filly who loves horse-ass and horse-cock, before following [npc.name] out of the office..."), OFFICE_STABLE_EXIT_NO_CONTENT) {
+				return new Response("Obey", UtilText.parse(getSadistSlave(), "Tell Mistress Natalya that you're a slutty [style.mule] who loves horse-ass and horse-cock, before following [npc.name] out of the office..."), OFFICE_STABLE_EXIT_NO_CONTENT) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().equipAllClothingFromHoldingInventory();
@@ -2703,7 +2706,7 @@ public class DominionExpress {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				if(index==1) {
-					return new Response("Filly choker", "Let Natalya strap your new choker around your neck...", OFFICE_STABLE_TRAINING_3_CHOKER_EQUIPPED){
+					return new Response("[style.Mule] choker", "Let Natalya strap your new choker around your neck...", OFFICE_STABLE_TRAINING_3_CHOKER_EQUIPPED){
 						@Override
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().equipClothingFromNowhere(generateCollar(), true, Main.game.getNpc(Natalya.class)));

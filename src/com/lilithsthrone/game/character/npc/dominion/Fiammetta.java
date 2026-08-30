@@ -80,7 +80,7 @@ public class Fiammetta extends NPC {
 				"Fiammetta is a human reporter who works for Dominion's only newspaper; The Octogram Herald.",
 				23, Month.JULY, 14,
 				15, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN,
-				new CharacterInventory(30),
+				new CharacterInventory(false, 30),
 				WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL,
 				true);
 

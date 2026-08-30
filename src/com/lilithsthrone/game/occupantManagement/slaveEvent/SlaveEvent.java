@@ -24,6 +24,8 @@ public enum SlaveEvent {
 			character.calculateStatusEffects(0);
 		}
 	},
+
+	MIDDAY_UPDATE(SlaveEventType.MISCELLANEOUS, "Midday Update", ""),
 	
 	DAILY_UPDATE(SlaveEventType.MISCELLANEOUS, "Daily Update", ""),
 

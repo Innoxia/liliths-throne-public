@@ -1444,7 +1444,7 @@ public class Perk {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "You have a natural amount of physical fitness.";
+			return UtilText.parse(owner, "[npc.Name] [npc.has] a natural amount of physical fitness.");
 		}
 	};
 
@@ -1648,7 +1648,7 @@ public class Perk {
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.CRITICAL_DAMAGE, 15)),
 			Util.newArrayListOfValues(
-					"[style.colourExcellent(Unlocks)] autofellatio and autocunnilingus [style.colourSex(sex actions)] while in a non-taur form")) {
+					"[style.colourExcellent(Unlocks)] autofellatio and autocunnilingus [style.colourSex(sex actions)]")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -2067,7 +2067,8 @@ public class Perk {
 			Util.newHashMapOfValues(
 					new Value<>(Attribute.MANA_MAXIMUM, -25)),
 			Util.newArrayListOfValues(
-					"[style.colourExcellent(Absorb 50%)] of any combatant's remaining [style.colourMana("+Attribute.MANA_MAXIMUM.getName()+")] when they are defeated")) {
+					"[style.colourExcellent(Absorb 50%)] of any combatant's remaining [style.colourMana("+Attribute.MANA_MAXIMUM.getName()+")]",
+					 "when they are defeated")) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -2126,6 +2127,7 @@ public class Perk {
 			}
 		}
 	};
+	
 
 	public static AbstractPerk HEAVY_SLEEPER = new AbstractPerk(60,
 			true,
@@ -2536,10 +2538,8 @@ public class Perk {
 			Util.newArrayListOfValues(
 					"[style.boldTerrible(-95% to all)] [style.boldExperience(experience gains)]",
 					"In all [style.boldSex(sex scenes)]:",
-					"Can choose to [style.boldTerrible(drain 1 level)]",
-					"from orgasming partners",
-					"You gain [style.boldExcellent(50%)] [style.boldExperience(experience)]",
-					"value of levels drained"),
+					"Can choose to [style.boldTerrible(drain 1 level)] from orgasming partners",
+					"You gain [style.boldExcellent(5)] [style.boldExperience(experience)] multiplied by the level drained"),
 			null, null, null) {
 
 		@Override
@@ -3077,6 +3077,47 @@ public class Perk {
 			return true;
 		}
 	};
+
+	public static AbstractPerk SPECIAL_SHORT_SIGHTED = new AbstractPerk(60,
+			false,
+			"visual impairment",
+			PerkCategory.PHYSICAL,
+			"statusEffects/short_sighted",
+			Util.newArrayListOfValues(
+					PresetColour.BASE_BLACK,
+					PresetColour.GENERIC_BAD,
+					PresetColour.GENERIC_BAD),
+			Util.newHashMapOfValues(),
+			Util.newArrayListOfValues(
+					"While [style.colourMinorBad(not wearing prescription glasses)], suffer from [style.colourTerrible(blurry vision)]"),
+			null, null, null) {
+		@Override
+		public String applyPerkGained(GameCharacter character) {
+			return UtilText.parsePlayerThought("");
+		}
+		@Override
+		public String applyPerkLost(GameCharacter character) {
+			return UtilText.parsePlayerThought("");
+		}
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if(owner.isPerfectVision()) {
+				return UtilText.parse(owner,
+						"[npc.Name] would ordinarily suffer from visual impairment, but thanks to [npc.her] [npc.eyeRace] [npc.eyes], [npc.she] can see perfectly without needing prescription glasses.");
+			}
+			return UtilText.parse(owner,
+					"[npc.Name] [npc.verb(suffer)] from visual impairment, and as a result [npc.she] [npc.verb(struggle)] to see without wearing prescription glasses."
+					+ " When [npc.she] [npc.is] wearing corrective eyewear, however, [npc.her] vision is nothing less than perfect.");
+		}
+		@Override
+		public boolean isHiddenPerk() {
+			return true;
+		}
+		@Override
+		public boolean isBackgroundPerk() {
+			return true;
+		}
+	};
 	
 	public static AbstractPerk SPECIAL_MELEE_EXPERT = new AbstractPerk(20,
 			false,
@@ -3270,7 +3311,9 @@ public class Perk {
 		}
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return UtilText.parse(owner, "<i>The skies, the fountains, every region near seem'd all one mutual cry: I never heard so musical a discord, such sweet thunder.</i>");
+			return "<i>The skies, the fountains, every region near"
+					+ "<br/>Seem'd all one mutual cry: I never heard"
+					+ "<br/>So musical a discord, such sweet thunder.</i>";
 		}
 		@Override
 		public boolean isHiddenPerk() {

@@ -84,6 +84,7 @@ public abstract class AbstractStatusEffect {
 	private List<ItemTag> tags;
 
 	protected String SVGString;
+	protected String pathNameUsedForRender;
 
 	protected List<String> extraEffects;
 
@@ -142,7 +143,8 @@ public abstract class AbstractStatusEffect {
 		this.description = ""; // As all new status effects should be added via xml files, this shouldn't be an issue.
 		
 		this.pathName = pathName;
-		SVGString = null;
+		this.SVGString = null;
+		this.pathNameUsedForRender = null;
 		
 		this.colourShades = Util.newArrayListOfValues(colourShade, colourShadeSecondary, colourShadeTertiary);
 		
@@ -225,7 +227,8 @@ public abstract class AbstractStatusEffect {
 				this.description = coreElement.getMandatoryFirstOf("description").getTextContent();
 
 				this.pathName = XMLFile.getParentFile().getAbsolutePath() + "/" + coreElement.getMandatoryFirstOf("imageName").getTextContent();
-				SVGString = null;
+				this.SVGString = null;
+				this.pathNameUsedForRender = null;
 				
 				Colour colourShade = PresetColour.getColourFromId(coreElement.getMandatoryFirstOf("colourPrimary").getTextContent());
 				Colour colourShadeSecondary = null;
@@ -334,7 +337,7 @@ public abstract class AbstractStatusEffect {
 				
 			} else {
 				try {
-					return UtilText.evaluateConditional(Util.newArrayListOfValues(target), applicationCondition, true);
+					return UtilText.evaluateConditional(Util.newArrayListOfValues(target), null, applicationCondition, true);
 				} catch (ScriptException e) {
 					System.err.println("Conditional parsing (from status effect) error: "+applicationCondition);
 					e.printStackTrace();
@@ -539,13 +542,17 @@ public abstract class AbstractStatusEffect {
 	public List<String> getExtraEffects(GameCharacter target) {
 		return extraEffects;
 	}
-
+	
+	public String getPathName(GameCharacter owner) {
+		return pathName;
+	}
+	
 	public String getSVGString(GameCharacter owner) {
-		if(SVGString==null) {
-			if(pathName!=null && !pathName.isEmpty()) {
+		if(SVGString==null || pathNameUsedForRender!=getPathName(owner)) {
+			if(getPathName(owner)!=null && !getPathName(owner).isEmpty()) {
 				try {
 					if(isFromExternalFile()) {
-						List<String> lines = Files.readAllLines(Paths.get(pathName));
+						List<String> lines = Files.readAllLines(Paths.get(getPathName(owner)));
 						StringBuilder sb = new StringBuilder();
 						for(String line : lines) {
 							sb.append(line);
@@ -554,17 +561,19 @@ public abstract class AbstractStatusEffect {
 						SVGString = SvgUtil.colourReplacement(this.getId(), colourShades, null, SVGString);
 						
 					} else {
-						String path = "/com/lilithsthrone/res/statusEffects/" + pathName + ".svg";
-						if(pathName.startsWith("res/")) {
-							path = "/com/lilithsthrone/"+pathName+".svg";
+						String path = "/com/lilithsthrone/res/statusEffects/" + getPathName(owner) + ".svg";
+						if(getPathName(owner).startsWith("res/")) {
+							path = "/com/lilithsthrone/"+getPathName(owner)+".svg";
 						}
 						InputStream is = this.getClass().getResourceAsStream(path);
 						if(is==null) {
-							System.err.println("Error! StatusEffect icon file does not exist (Trying to read from '"+pathName+"')!");
+							System.err.println("Error! StatusEffect icon file does not exist (Trying to read from '"+getPathName(owner)+"')!");
 						}
 						SVGString = SvgUtil.colourReplacement(this.getId(), colourShades, null, Util.inputStreamToString(is));
 						is.close();
 					}
+					pathNameUsedForRender = getPathName(owner);
+					
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -606,6 +615,40 @@ public abstract class AbstractStatusEffect {
 	public List<String> getPenetrationModifiersAsStringList(GameCharacter target, SexAreaPenetration penetration) {
 		List<String> modifiersList = new ArrayList<>();
 
+		String penetrationName = UtilText.parse(target, "[npc.NamePos] ")+penetration.getName(target);
+		
+		if(!Main.sex.hasLubricationTypeFromAnyone(target, penetration)) {
+			modifiersList.add(penetrationName+" "+(penetration.isPlural()?"are":"is")+" [style.boldWetness1(dry)]!");
+			
+		} else {
+			modifiersList.add(penetrationName+" "+(penetration.isPlural()?"have":"has")+" been [style.boldWetness(lubricated)] by:");
+			int i=0;
+			List<String> lubricants = new ArrayList<>();
+			for(GameCharacter lubricantProvider : Main.sex.getAllParticipants()) {
+				for(LubricationType lt : Main.sex.getWetAreas(target).get(penetration).get(lubricantProvider)) {
+					if(i==0) {
+						lubricants.add(lubricantProvider==null
+								?Util.capitaliseSentence(lt.getName(lubricantProvider))
+								:UtilText.parse(lubricantProvider, "[npc.NamePos] "+lt.getName(lubricantProvider, true)));
+					} else {
+						lubricants.add(lubricantProvider==null
+								?lt.getName(lubricantProvider)
+								:UtilText.parse(lubricantProvider, "[npc.namePos] "+lt.getName(lubricantProvider, true)));
+					}
+					i++;
+				}
+			}
+			for(LubricationType lt : Main.sex.getWetAreas(target).get(penetration).get(null)) {
+				if(i==0) {
+					lubricants.add(Util.capitaliseSentence(lt.getName(null)));
+				} else {
+					lubricants.add(lt.getName(null));
+				}
+				i++;
+			}
+			modifiersList.add(Util.stringsToStringList(lubricants, false)+".");
+		}
+		
 		if(!Main.sex.getOngoingSexAreas(target, penetration).isEmpty()
 				&& !Collections.disjoint(Main.sex.getOngoingSexAreas(target, penetration).get(Main.sex.getCharacterOngoingSexArea(target, penetration).get(0)), Util.newArrayListOfValues(SexAreaPenetration.values()))) {
 
@@ -617,9 +660,6 @@ public abstract class AbstractStatusEffect {
 			if(!Main.sex.hasLubricationTypeFromAnyone(target, penetration)) {
 				modifiersList.add(penetration.getArousalChangePenetratingDry()+ " <b style='color:"+target.getFemininity().getColour().toWebHexString()+";'>("+targetName+"</b> - [style.boldBad(Dry)])");
 			}
-			
-		} else {
-			modifiersList.add("[style.colourDisabled(No bonuses)]");
 		}
 		return modifiersList;
 	}
@@ -692,11 +732,82 @@ public abstract class AbstractStatusEffect {
 	public List<String> getOrificeModifiersAsStringList(GameCharacter target, SexAreaOrifice orifice) {
 		List<String> modifiersList = new ArrayList<>();
 		
-		modifiersList.add("[style.boldSex(Arousal/turn:)]");
-
 		String targetName = target.isPlayer()?"You":UtilText.parse(target, "[npc.Name]");
+
+		boolean orificePlural = orifice.isPlural();
+		String orificeName = UtilText.parse(target, "[npc.NamePos] ")+orifice.getName(target);
+
+		// Stretching:
+		if(Main.sex.getAreasCurrentlyStretching(target).contains(orifice)) {
+			if(Main.sex.getFirstOngoingSexAreaPenetration(target, orifice)==null) {
+				modifiersList.add(orificeName+" "+(orificePlural?"have":"has")+" been <b style='color:"+PresetColour.BASE_PINK_DEEP.toWebHexString()+";'>stretched</b>!");
+				
+			} else {
+				modifiersList.add(orificeName+" "+(orificePlural?"are":"is")+" being <b style='color:"+PresetColour.BASE_PINK_DEEP.toWebHexString()+";'>stretched</b>!");
+			}
+			
+		} else if(Main.sex.getAreasTooLoose(target).contains(orifice)) {
+			modifiersList.add(orificeName+" "+(orificePlural?"are":"is")+" <b style='color:"+PresetColour.BASE_RED.toWebHexString()+";'>too loose</b>!");
+			
+		} else if(Main.sex.getAreasStretched(target).contains(orifice)) {
+			modifiersList.add(orificeName+" "+(orificePlural?"have":"has")+" been <b style='color:"+PresetColour.BASE_PINK_DEEP.toWebHexString()+";'>stretched</b>!");
+			
+		}
+//		else {
+//			modifiersList.add("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No stretch effect.</b>");
+//		}
 		
+		// Penetration depth:
+		if(Main.game.isPenetrationLimitationsEnabled() && orifice.isInternalOrifice()) {
+			if(!Main.sex.getCharactersPenetratingTooDeep(target, orifice).isEmpty()) {
+				if(target.hasFetish(Fetish.FETISH_MASOCHIST) || target.hasFetish(Fetish.FETISH_SIZE_QUEEN)) {
+					modifiersList.add(orificeName+" "+(orificePlural?"are":"is")+" being penetrated [style.boldSex(too deeply)]!");
+				} else {
+					modifiersList.add(orificeName+" "+(orificePlural?"are":"is")+" being penetrated [style.boldTerrible(too deeply)]!");
+				}
+				
+			} else if(!Main.sex.getCharactersPenetratingFarTooShallow(target, orifice).isEmpty()) {
+				modifiersList.add(orificeName+" "+(orificePlural?"are":"is")+" being penetrated [style.boldPinkLight(too shallowly)]!");//[style.boldPinkLight(not being penetrated deep enough)]!");
+			}
+		}
+		
+		// Lubrication:
+		if(!Main.sex.hasLubricationTypeFromAnyone(target, orifice)) {
+			modifiersList.add(orificeName+" "+(orificePlural?"are":"is")+" [style.boldWetness1(dry)]!");
+			
+		} else {
+			modifiersList.add(orificeName+" "+(orificePlural?"have":"has")+" been [style.boldWetness(lubricated)] by:");
+			int i=0;
+			List<String> lubricants = new ArrayList<>();
+			for(GameCharacter lubricantProvider : Main.sex.getAllParticipants()) {
+				for(LubricationType lt : Main.sex.getWetAreas(target).get(orifice).get(lubricantProvider)) {
+					if(i==0) {
+						lubricants.add(lubricantProvider==null
+								?Util.capitaliseSentence(lt.getName(lubricantProvider))
+								:UtilText.parse(lubricantProvider, "[npc.NamePos] "+lt.getName(lubricantProvider, true)));
+					} else {
+						lubricants.add(lubricantProvider==null
+								?lt.getName(lubricantProvider)
+								:UtilText.parse(lubricantProvider, "[npc.namePos] "+lt.getName(lubricantProvider, true)));
+					}
+					i++;
+				}
+			}
+			for(LubricationType lt : Main.sex.getWetAreas(target).get(orifice).get(null)) {
+				if(i==0) {
+					lubricants.add(Util.capitaliseSentence(lt.getName(null)));
+				} else {
+					lubricants.add(lt.getName(null));
+				}
+				i++;
+			}
+			modifiersList.add(Util.stringsToStringList(lubricants, false)+".");
+		}
+		
+		// Arousal:
 		if(!Main.sex.getOngoingSexAreas(target, orifice).isEmpty()) {
+			modifiersList.add("[style.boldSex(Arousal/turn:)]");
+
 			modifiersList.add("+"+orifice.getBaseArousalWhenPenetrated()+" (<b style='color:"+target.getFemininity().getColour().toWebHexString()+";'>"+targetName+"</b> - [style.boldSex(Sex)])");
 			
 			if(Main.sex.getAreasCurrentlyStretching(target).contains(orifice)) {
@@ -753,9 +864,6 @@ public abstract class AbstractStatusEffect {
 					}
 				}
 			}
-			
-		} else {
-			modifiersList.add("[style.colourDisabled(No bonuses)]");
 		}
 		return modifiersList;
 	}
@@ -770,25 +878,26 @@ public abstract class AbstractStatusEffect {
 		
 		List<Value<Integer, String>> additionalDescriptions = new ArrayList<>();
 		
-		additionalDescriptions.add(
-				new Value<>(4,
-						Main.sex.formatPenetration(
-						target.getPenetrationDescription(false,
-								partner,
-								(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
-								target,
-								orifice))));
+//		additionalDescriptions.add(
+//				new Value<>(4,
+//						Main.sex.formatPenetration(
+//						target.getPenetrationDescription(false,
+//								partner,
+//								(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
+//								target,
+//								orifice))));
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append(UtilText.parse(target,
-				"<p style='text-align:center; margin:0; padding:0;'>"
-					+ "<b style='color:"+target.getFemininity().getColour().toWebHexString()+";'>[npc.NamePos]</b> [style.boldSex("+Util.capitaliseSentence(orifice.getName(target, true))+")]:"
+//				"<p style='text-align:center; margin:0; padding:0;'>"
+					"<b style='color:"+target.getFemininity().getColour().toWebHexString()+";'>[npc.NamePos]</b> [style.boldSex("+Util.capitaliseSentence(orifice.getName(target, true))+")]:"
 					+ "<br/>Capacity: "+Units.size(Units.round(orifice.getCapacity(target, true), 1))
 					+ (Main.game.isPenetrationLimitationsEnabled()
 						?"<br/>Depth Comfortable / Uncomfortable: "+Units.size(Units.round(orifice.getMaximumPenetrationDepthComfortable(target), 1))+" / "+Units.size(Units.round(orifice.getMaximumPenetrationDepthUncomfortable(target), 1))
 						:"")
-				+ "</p>"));
-		additionalDescriptions.add(new Value<>(3, sb.toString()));
+//				+ "</p>"
+				));
+		additionalDescriptions.add(new Value<>(Main.game.isPenetrationLimitationsEnabled()?3:2, sb.toString()));
 		
 		for(GameCharacter character : ongoingCharacters) {
 			SexAreaPenetration penetration = (SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next();
@@ -798,123 +907,49 @@ public abstract class AbstractStatusEffect {
 				int length = (int) character.getPenetrationLengthInserted(penetration, target, orifice);
 				boolean knotting = Objects.equals(Main.sex.getCharacterKnotting(character), target) && penetration==SexAreaPenetration.PENIS;
 				sb.append(UtilText.parse(character,
-						"<p style='text-align:center; margin:0; padding:0;'>"//TODO toy length/diameter
-							+ "<b style='color:"+character.getFemininity().getColour().toWebHexString()+";'>[npc.NamePos]</b> [style.boldSex("+Util.capitaliseSentence(penetration.getName(character, true))+")]:"
+//						"<p style='text-align:center; margin:0; padding:0;'>"//TODO toy length/diameter
+							"<b style='color:"+character.getFemininity().getColour().toWebHexString()+";'>[npc.NamePos]</b> [style.boldSex("+Util.capitaliseSentence(penetration.getName(character, true))+")]:"
 							+ "<br/>Diameter"+(knotting?"[style.boldSex(*2 from swollen knot)]":"")+": "+Units.size(Units.round(penetration.getDiameter(character, (penetration.getLength(character, true))-length)*(knotting?2:1), 1))
 							+ (Main.game.isPenetrationLimitationsEnabled()
 									?"<br/>Inserted / Total length: "+Units.size(length)+" / "+Units.size(penetration.getLength(character, true))
 									:"")
-						+ "</p>"));
-				additionalDescriptions.add(new Value<>(3, sb.toString()));
+//						+ "</p>"
+						));
+				additionalDescriptions.add(new Value<>(Main.game.isPenetrationLimitationsEnabled()?3:2, sb.toString()));
 			}
 		}
+		
 		
 		return additionalDescriptions;
 	
 	}
 	
 	public void appendPenetrationAdditionGenericDescriptions(GameCharacter owner, SexAreaPenetration penetration, String penetrationName, StringBuilder stringBuilderToAppendTo) {
-		if(!Main.sex.hasLubricationTypeFromAnyone(owner, penetration)) {
-			stringBuilderToAppendTo.append("<br/>"+penetrationName+" "+(penetration.isPlural()?"are":"is")+" [style.boldBad(dry)]!");
-			
-		} else {
-			stringBuilderToAppendTo.append("<br/>"+penetrationName+" "+(penetration.isPlural()?"have":"has")+" been [style.boldSex(lubricated)] by:<br/>");
-			int i=0;
-			List<String> lubricants = new ArrayList<>();
-			for(GameCharacter lubricantProvider : Main.sex.getAllParticipants()) {
-				for(LubricationType lt : Main.sex.getWetAreas(owner).get(penetration).get(lubricantProvider)) {
-					if(i==0) {
-						lubricants.add(lubricantProvider==null
-								?Util.capitaliseSentence(lt.getName(lubricantProvider))
-								:UtilText.parse(lubricantProvider, "[npc.NamePos] <span style='"+lt.getColour().toWebHexString()+"'>"+lt.getName(lubricantProvider)+"</span>"));
-					} else {
-						lubricants.add(lubricantProvider==null
-								?lt.getName(lubricantProvider)
-								:UtilText.parse(lubricantProvider, "[npc.namePos] <span style='"+lt.getColour().toWebHexString()+"'>"+lt.getName(lubricantProvider)+"</span>"));
-					}
-					i++;
-				}
-			}
-			for(LubricationType lt : Main.sex.getWetAreas(owner).get(penetration).get(null)) {
-				if(i==0) {
-					lubricants.add(Util.capitaliseSentence(lt.getName(null)));
-				} else {
-					lubricants.add(lt.getName(null));
-				}
-				i++;
-			}
-			stringBuilderToAppendTo.append(Util.stringsToStringList(lubricants, false)+".");
+		List<GameCharacter> ongoingCharacters = Main.sex.getCharactersHavingOngoingActionWith(owner, penetration);
+		if(!ongoingCharacters.isEmpty()) {
+			GameCharacter partner = ongoingCharacters.get(Util.random.nextInt(ongoingCharacters.size()));
+			stringBuilderToAppendTo.append("<br/>"
+					+Main.sex.formatPenetration(owner.getPenetrationDescription(
+						false,
+						owner,
+						penetration,
+						partner,
+						Main.sex.getOngoingActionsMap(owner).get(penetration).get(partner).iterator().next())));
 		}
-		
-		stringBuilderToAppendTo.append("</p>");
 	}
 	
 	public void appendOrificeAdditionGenericDescriptions(GameCharacter owner, SexAreaOrifice orificeType, String orificeName, StringBuilder stringBuilderToAppendTo) {
-		boolean orificePlural = orificeType.isPlural();
-		
-		if(Main.sex.getAreasCurrentlyStretching(owner).contains(orificeType)) {
-			if(Main.sex.getFirstOngoingSexAreaPenetration(owner, orificeType)==null) {
-				stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificePlural?"have":"has")+" been <b style='color:"+PresetColour.BASE_PINK_DEEP.toWebHexString()+";'>stretched</b>!");
-				
-			} else {
-				stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificePlural?"are":"is")+" being <b style='color:"+PresetColour.BASE_PINK_DEEP.toWebHexString()+";'>stretched</b>!");
-			}
-			
-		} else if(Main.sex.getAreasTooLoose(owner).contains(orificeType)) {
-			stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificePlural?"are":"is")+" <b style='color:"+PresetColour.BASE_RED.toWebHexString()+";'>too loose</b>!");
-			
-		} else if(Main.sex.getAreasStretched(owner).contains(orificeType)) {
-			stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificePlural?"have":"has")+" been <b style='color:"+PresetColour.BASE_PINK_DEEP.toWebHexString()+";'>stretched</b>!");
-			
-		} else {
-			stringBuilderToAppendTo.append("<br/><b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No stretch effect.</b>");
+		List<GameCharacter> ongoingCharacters = Main.sex.getCharactersHavingOngoingActionWith(owner, orificeType);
+		if(!ongoingCharacters.isEmpty()) {
+			GameCharacter partner = ongoingCharacters.get(Util.random.nextInt(ongoingCharacters.size()));
+			stringBuilderToAppendTo.append("<br/>"
+					+Main.sex.formatPenetration(
+							owner.getPenetrationDescription(false,
+								partner,
+								(SexAreaPenetration)Main.sex.getOngoingActionsMap(owner).get(orificeType).get(partner).iterator().next(),
+								owner,
+								orificeType)));
 		}
-		
-		if(Main.game.isPenetrationLimitationsEnabled() && orificeType.isInternalOrifice()) {
-			if(!Main.sex.getCharactersPenetratingTooDeep(owner, orificeType).isEmpty()) {
-				if(owner.hasFetish(Fetish.FETISH_MASOCHIST) || owner.hasFetish(Fetish.FETISH_SIZE_QUEEN)) {
-					stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificePlural?"are":"is")+" being penetrated [style.boldSex(too deeply)]!");
-				} else {
-					stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificePlural?"are":"is")+" being penetrated [style.boldTerrible(too deeply)]!");
-				}
-				
-			} else if(!Main.sex.getCharactersPenetratingFarTooShallow(owner, orificeType).isEmpty()) {
-				stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificePlural?"are":"is")+" being penetrated [style.boldPinkLight(too shallowly)]!");//[style.boldPinkLight(not being penetrated deep enough)]!");
-			}
-		}
-		
-		if(!Main.sex.hasLubricationTypeFromAnyone(owner, orificeType)) {
-			stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificePlural?"are":"is")+" [style.boldBad(dry)]!");
-			
-		} else {
-			stringBuilderToAppendTo.append("<br/>"+orificeName+" "+(orificePlural?"have":"has")+" been [style.boldSex(lubricated)] by:<br/>");
-			int i=0;
-			List<String> lubricants = new ArrayList<>();
-			for(GameCharacter lubricantProvider : Main.sex.getAllParticipants()) {
-				for(LubricationType lt : Main.sex.getWetAreas(owner).get(orificeType).get(lubricantProvider)) {
-					if(i==0) {
-						lubricants.add(lubricantProvider==null
-								?Util.capitaliseSentence(lt.getName(lubricantProvider))
-								:UtilText.parse(lubricantProvider, "[npc.NamePos] "+lt.getName(lubricantProvider)));
-					} else {
-						lubricants.add(lubricantProvider==null
-								?lt.getName(lubricantProvider)
-								:UtilText.parse(lubricantProvider, "[npc.namePos] "+lt.getName(lubricantProvider)));
-					}
-					i++;
-				}
-			}
-			for(LubricationType lt : Main.sex.getWetAreas(owner).get(orificeType).get(null)) {
-				if(i==0) {
-					lubricants.add(Util.capitaliseSentence(lt.getName(null)));
-				} else {
-					lubricants.add(lt.getName(null));
-				}
-				i++;
-			}
-			stringBuilderToAppendTo.append(Util.stringsToStringList(lubricants, false)+".");
-		}
-		stringBuilderToAppendTo.append("</p>");
 	}
 	
 	public String getPenetrationSVGString(GameCharacter owner, SexAreaInterface penetration, String baseSVG) {

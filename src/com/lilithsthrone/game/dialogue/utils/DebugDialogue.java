@@ -14,10 +14,14 @@ import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.coverings.AbstractBodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartType;
+import com.lilithsthrone.game.character.body.types.HornType;
+import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.LegConfiguration;
 import com.lilithsthrone.game.character.effects.AbstractPerk;
 import com.lilithsthrone.game.character.effects.Perk;
@@ -78,8 +82,10 @@ import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
+ * What a mess...
+ * 
  * @since 0.1.0
- * @version 0.4
+ * @version 0.4.10.10
  * @author Innoxia
  */
 public class DebugDialogue {
@@ -87,6 +93,8 @@ public class DebugDialogue {
 	private static String dollID;
 	
 	private static Femininity filterFemininity = Femininity.ANDROGYNOUS;
+	
+	private static GameCharacter targetedCharacter;
 	
 	public static final DialogueNode DEBUG_MENU = new DialogueNode("A powerful tool", "Open debug menu.", false) {
 		
@@ -531,6 +539,7 @@ public class DebugDialogue {
 					return new Response("Brax's revenge", "Brax cums in your vagina!", DEBUG_MENU){
 						@Override
 						public void effects() {
+							Main.game.getPlayer().guaranteePregnancyOnNextRoll();
 							if(Main.game.getPlayer().hasHymen()) {
 								Main.game.getPlayer().setVaginaVirgin(false);
 								SexType sexType = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS);
@@ -544,6 +553,7 @@ public class DebugDialogue {
 					return new Response("Lilaya's hypocrisy", "Lilaya cums in your vagina!", DEBUG_MENU){
 						@Override
 						public void effects() {
+							Main.game.getPlayer().guaranteePregnancyOnNextRoll();
 							if(Main.game.getPlayer().hasHymen()) {
 								Main.game.getPlayer().setVaginaVirgin(false);
 								SexType sexType = new SexType(SexParticipantType.NORMAL, SexAreaOrifice.VAGINA, SexAreaPenetration.PENIS);
@@ -634,7 +644,7 @@ public class DebugDialogue {
 						};
 						
 				} else if (index == 14) {
-					return new Response("+1000 filly points", "Gives you the maximum amount of filly points (can be used after qualifying as a filly in Dominion Express).", DEBUG_MENU){
+					return new Response("+1000 [style.mule] points", "Gives you the maximum amount of [style.mule] points (can be used after qualifying as a [style.mule] in Dominion Express).", DEBUG_MENU){
 						@Override
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(Main.game.getDialogueFlags().incrementNatalyaPoints(1000));
@@ -949,6 +959,22 @@ public class DebugDialogue {
 							}
 							doll.setBody(Gender.F_P_V_B_FUTANARI, Subspecies.HUMAN, RaceStage.GREATER, true);
 							doll.setBodyMaterial(BodyMaterial.SILICONE);
+							doll.setTailType(TailType.DEMON_COMMON);
+							doll.setWingType(WingType.DEMON_COMMON);
+							doll.setHornType(HornType.STRAIGHT);
+							doll.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
+							doll.setArmRows(3);
+							
+							doll.setPiercedEar(true);
+							doll.setPiercedLip(true);
+							doll.setPiercedNavel(true);
+							doll.setPiercedNipples(true);
+							doll.setPiercedNipplesCrotch(true);
+							doll.setPiercedNose(true);
+							doll.setPiercedPenis(true);
+							doll.setPiercedTongue(true);
+							doll.setPiercedVagina(true);
+							
 							doll.setName("Dress-up doll");
 							doll.setLocation(Main.game.getPlayer());
 							Main.game.setActiveNPC(doll);
@@ -1071,6 +1097,8 @@ public class DebugDialogue {
 				}
 				
 				UtilText.nodeContentSB.append("<span style='color:"+os.getFemininity().getColour().toWebHexString()+";'>"+os.getName()+" "+os.getSurname()+"</span>");
+				
+				UtilText.nodeContentSB.append(" (<i style='color:"+os.getGender().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(os.getGender().getName())+"</i>)");
 				
 				UtilText.nodeContentSB.append(" ("+os.getSubspecies().getName(os.getBody()));
 				if(os.getSubspecies()==Subspecies.HALF_DEMON) {
@@ -1494,7 +1522,7 @@ public class DebugDialogue {
 							inventorySB.append("<br/>");
 							inventorySB.append("Femininity: <span style='color:"+outfit.getFemininity().getColour().toWebHexString()+";'>"+outfit.getFemininity().toString()+"</span>");
 							inventorySB.append("<br/>");
-							inventorySB.append("Conditional: <span style='font-family:monospace; font-size:0.75em;'>"+outfit.getConditional()+"</span>");
+							inventorySB.append("Conditional: <span style='font-family:monospace; font-size:0.85em; background:"+PresetColour.BACKGROUND_DARK.toWebHexString()+"; padding:2px;'>"+outfit.getConditional()+"</span>");
 							
 							inventorySB.append("<br/>");
 							inventorySB.append("Leg configurations: ");
@@ -1774,12 +1802,19 @@ public class DebugDialogue {
 	};
 	
 	public static final DialogueNode BODY_PART_RACE_RESET = new DialogueNode("Reset body", "Set race.", false) {
-
+		@Override
+		public void applyPreParsingEffects() {
+			// Just in case this dialogue node is accessed before initialising targetedCharacter, or if targetedCharacter is no longer present:
+			if(targetedCharacter==null
+					|| (!targetedCharacter.isPlayer() && !Main.game.getCharactersPresent().contains(targetedCharacter))) {
+				targetedCharacter = Main.game.getPlayer();
+			}
+		}
 		@Override
 		public String getContent() {
 			StringBuilder sb = new StringBuilder();
 			sb.append("<p>"
-						+ "Select one of the races to reset your body to the default values of that race. (i.e. Regenerate your current body as that of a different race.)"
+						+ UtilText.parse(targetedCharacter, "Select one of the races to reset [npc.namePos] body to the default values of that race. (i.e. Regenerate [npc.her] current body as that of a different race.)")
 					+ "</p>"
 					+ "<p>"
 						+ "[style.colourTfPartial(Partial)]: Sets body to human, with selected race's antennae, eyes, ears, hair, horns, tail, and wings.</br>"
@@ -1790,7 +1825,7 @@ public class DebugDialogue {
 					+ "<p>"
 					+ "<b>IDs:</b><br/>");
 			for(AbstractSubspecies sub : Subspecies.getAllSubspecies()) {
-				sb.append("<span style='color:"+sub.getColour(Main.game.getPlayer()).toWebHexString()+";'>"+Util.capitaliseSentence(sub.getName(Main.game.getPlayer().getBody()))+"</span>: "+Subspecies.getIdFromSubspecies(sub));
+				sb.append("<span style='color:"+sub.getColour(targetedCharacter).toWebHexString()+";'>"+Util.capitaliseSentence(sub.getName(targetedCharacter.getBody()))+"</span>: "+Subspecies.getIdFromSubspecies(sub));
 				sb.append("</br>");
 			}
 			
@@ -1798,7 +1833,6 @@ public class DebugDialogue {
 			
 			return sb.toString();
 		}
-		
 		@Override
 		public String getResponseTabTitle(int index) {
 			if(index == 0) {
@@ -1812,12 +1846,51 @@ public class DebugDialogue {
 				
 			} else if(index == 3) {
 				return "[style.colourTfGreater(Greater)]";
+				
+			} else if (index == 4) {
+				return "Target";
 			}
 			return null;
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			if(responseTab==4) {
+				if (index == 1) {
+					if (targetedCharacter == Main.game.getPlayer()) {
+						return new Response(Main.game.getPlayer().getName(), "You are the current target.", null);
+					} else {
+						return new Response(Main.game.getPlayer().getName(), "Target yourself.", BODY_PART_RACE_RESET) {
+							@Override
+							public void effects() {
+								targetedCharacter = Main.game.getPlayer();
+							}
+						};
+					}
+					
+				} else {
+					index-=2;
+				}
+
+				if (index >= Main.game.getCharactersPresent().size() || index<0) {
+					return null;
+				}
+				GameCharacter gc = Main.game.getCharactersPresent().get(index);
+				if (!gc.isUnique()) {
+					if (targetedCharacter == gc) {
+						return new Response(gc.getName(), gc.getName()+" is the current target.", null);
+					} else {
+						return new Response(gc.getName(), "Change target to "+gc.getName(), BODY_PART_RACE_RESET) {
+							@Override
+							public void effects() {
+								targetedCharacter = gc;
+							}
+						};
+					}
+				}
+			
+			}
+			
 			List<AbstractSubspecies> availableSubspecies = new ArrayList<>();
 			availableSubspecies.addAll(Subspecies.getAllSubspecies());
 			availableSubspecies.removeIf(s->s.getRace()==Race.ELEMENTAL);
@@ -1833,14 +1906,14 @@ public class DebugDialogue {
 					@Override
 					public void effects() {
 						if(subspecies==Subspecies.HALF_DEMON) {
-							Main.game.getPlayer().setSubspeciesOverride(null);
-							Main.game.getPlayer().setBody(
-									Main.game.getCharacterUtils().generateHalfDemonBody(Main.game.getPlayer(), Main.game.getPlayer().getGender(), Subspecies.HUMAN, false),
+							targetedCharacter.setSubspeciesOverride(null);
+							targetedCharacter.setBody(
+									Main.game.getCharacterUtils().generateHalfDemonBody(targetedCharacter, targetedCharacter.getGender(), Subspecies.HUMAN, false),
 									false);
-//							System.out.println("Subspecies override: "+Main.game.getPlayer().getSubspeciesOverride());
+//							System.out.println("Subspecies override: "+targetedCharacter.getSubspeciesOverride());
 							
 						} else {
-							Main.game.getPlayer().setSubspeciesOverride(null);
+							targetedCharacter.setSubspeciesOverride(null);
 							RaceStage stage = responseTab==0
 									?RaceStage.PARTIAL
 									:(responseTab==1
@@ -1866,9 +1939,9 @@ public class DebugDialogue {
 							}
 							
 							Main.game.getCharacterUtils().reassignBody(
-									Main.game.getPlayer(),
-									Main.game.getPlayer().getBody(),
-									Main.game.getPlayer().getGender(),
+									targetedCharacter,
+									targetedCharacter.getBody(),
+									targetedCharacter.getGender(),
 									subspecies,
 									stage,
 									false);

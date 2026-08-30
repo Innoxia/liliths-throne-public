@@ -143,6 +143,10 @@ public class ItemGeneration {
 	
 	// Clothing generation:
 	
+	public AbstractClothing generateClothing(AbstractClothing clothingToCopy) {
+		return new AbstractClothing(clothingToCopy) {};
+	}
+	
 	public AbstractClothing generateClothing(String clothingTypeId, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour, boolean allowRandomEnchantment) {
 		return this.generateClothing(ClothingType.getClothingTypeFromId(clothingTypeId), primaryColour, secondaryColour, tertiaryColour, allowRandomEnchantment);
 	}
@@ -192,7 +196,9 @@ public class ItemGeneration {
 		return this.generateClothing(ClothingType.getClothingTypeFromId(clothingTypeId), colourShade, null, null, allowRandomEnchantment);
 	}
 
-	/** Uses random colour.*/
+	/** Uses random colour.
+	 * <br/><b>Should not be used, as random enchantment is true by default which may not be intended behaviour.</b> */
+	@Deprecated
 	public AbstractClothing generateClothing(AbstractClothingType clothingType) {
 		return this.generateClothing(clothingType, null, true);
 	}

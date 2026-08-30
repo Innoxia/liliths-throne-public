@@ -72,6 +72,7 @@ import com.lilithsthrone.game.dialogue.npcDialogue.offspring.GenericOffspringDia
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHall;
 import com.lilithsthrone.game.dialogue.places.dominion.cityHall.CityHallDemographics;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaDressingRoomDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaMilkingRoomDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.places.dominion.nightlife.NightlifeDistrict;
@@ -303,6 +304,10 @@ public class MainController implements Initializable {
 	}
 
 	public boolean isInventoryDisabled() {
+		if(Main.game.isBadEnd()) {
+			return false;
+		}
+		
 		if(!Main.game.isInNewWorld() && !Main.game.isInSex()) {
 			return true;
 		}
@@ -511,7 +516,41 @@ public class MainController implements Initializable {
 						checkLastKeys();
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
-
+							
+//							RandomEnchantment.initAllRandomEnchantments();
+//							for(RandomEnchantment enchantment : RandomEnchantment.getAllNegativeClothingEnchantments()) {
+//								AbstractClothing ring = Main.game.getItemGen().generateClothing("innoxia_japanese_kanzashi", false);
+//								enchantment.applyEffects(ring);
+//								ring.setEnchantmentKnown(null, true);
+//								Main.game.getPlayerCell().getInventory().addClothing(ring);
+//							}
+							
+//							Main.game.getPlayerCell().getInventory().addClothing(Main.game.getItemGen().generateClothing("innoxia_bdsm_ornate_chastity_cage", true));
+//							Main.game.getPlayerCell().getInventory().addClothing(Main.game.getItemGen().generateClothing("innoxia_neck_cuff_choker_necklace_triple", true));
+							
+							
+//							Main.game.getNpc(Kate.class).addLipstickMarking(Main.game.getPlayer(), InventorySlot.STOMACH, PresetColour.COVERING_BLACK);
+//							Main.game.getNpc(Kate.class).addLipstickMarking(Main.game.getPlayer(), InventorySlot.TORSO_OVER, PresetColour.COVERING_PINK);
+//							Main.game.getNpc(Kate.class).addLipstickMarking(Main.game.getPlayer(), InventorySlot.MOUTH, PresetColour.COVERING_RED);
+//							Main.game.getNpc(Kate.class).addLipstickMarking(Main.game.getPlayer(), InventorySlot.GROIN, PresetColour.COVERING_BLUE);
+//							Main.game.getNpc(Kate.class).addLipstickMarking(Main.game.getPlayer(), InventorySlot.GROIN, PresetColour.COVERING_GOLD);
+//							Main.game.getNpc(Kate.class).addLipstickMarking(Main.game.getPlayer(), InventorySlot.GROIN, PresetColour.COVERING_WHITE);
+							
+//							int[] ints = new int[] {105, 159, 1090, 1792, 10_050, 10_995};
+//							for(int i : ints) {
+//								System.out.println(i+": "+Util.intToString(i));
+//							}
+							
+//							for(int i=0; i<100; i++) {
+//								GenericSexualPartner npc = new GenericSexualPartner();
+//								try {
+//									Main.game.addNPC(npc, false);
+//									npc.setRandomLocation(WorldType.getWorldTypeFromId("innoxia_fields_elis_tavern_taur"), PlaceType.getPlaceTypeFromId("innoxia_fields_elis_tavern_taur_tables"));
+//								} catch (Exception e) {
+//									e.printStackTrace();
+//								}
+//							}
+							
 //							int rndInt = Util.random.nextInt();
 //							System.out.println(rndInt+ " = " +Util.intToIndividualNumbersString(rndInt));
 							
@@ -622,7 +661,7 @@ public class MainController implements Initializable {
 //								if(npc.isUnique() && !npc.hasArtwork()
 ////										&& (npc.getWorldLocation().getWorldRegion()==WorldRegion.DOMINION)
 ////										&& npc.isFeminine()
-////										&& npc.getFaceType().getBodyCoveringType(npc).getCategory()==BodyCoveringCategory.MAIN_SKIN
+//										&& npc.getFaceType().getBodyCoveringType(npc).getCategory()==BodyCoveringCategory.MAIN_SKIN
 ////										&& npc.isAbleToBeImpregnated()
 ////										&& npc.isFeminine()
 ////										&& (npc.getClass().getName().contains("dominion.") || npc.getClass().getName().contains("submission."))
@@ -983,7 +1022,6 @@ public class MainController implements Initializable {
 							}
 						}
 						
-						
 						if(((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('offspringPetNameInput') === document.activeElement"))) {
 							allowInput = false;
 							if (event.getCode() == KeyCode.ENTER) {
@@ -1012,6 +1050,29 @@ public class MainController implements Initializable {
 										Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()));
 									}
 									
+								}
+							}
+						}
+
+						if(Main.game.getCurrentDialogueNode() == LilayaDressingRoomDialogue.OUTFIT_EDITOR){
+							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('outfit_name') === document.activeElement")) {
+								allowInput = false;
+								if (event.getCode() == KeyCode.ENTER) {
+									enterConsumed = true;
+									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('outfit_name').value;");
+									LilayaDressingRoomDialogue.setOutfitName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+									Main.game.setContent(new Response("Outfit editor", "", Main.game.getCurrentDialogueNode()));
+								}
+							}
+						}
+						if(Main.game.getCurrentDialogueNode() == LilayaDressingRoomDialogue.OUTFIT_EDITOR_ITEM_ENCHANT){
+							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('output_name') === document.activeElement")) {
+								allowInput = false;
+								if (event.getCode() == KeyCode.ENTER) {
+									enterConsumed = true;
+									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('output_name').value;");
+									LilayaDressingRoomDialogue.setOutputName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+									Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 								}
 							}
 						}
@@ -1550,6 +1611,15 @@ public class MainController implements Initializable {
 			}
 		} else if (currentNode.equals(BodyChanging.BODY_CHANGING_SAVE_LOAD)) {
 			FileController.initBodySaveLoadListeners();
+		} else if(currentNode.equals(LilayaDressingRoomDialogue.OUTFITS)) {
+			FileController.initOutfitListeners();
+		} else if(currentNode.equals(LilayaDressingRoomDialogue.OUTFIT_EDITOR)
+				|| currentNode.equals(LilayaDressingRoomDialogue.OUTFIT_EDITOR_ITEM_CHOICE)) {
+			MiscController.initDressingRoomListeners();
+		} else if(currentNode.equals(LilayaDressingRoomDialogue.OUTFIT_EDITOR_ITEM_DYE)) {
+			MiscController.initDressingRoomDyeListeners();
+		} else if(currentNode.equals(LilayaDressingRoomDialogue.OUTFIT_EDITOR_ITEM_ENCHANT)) {
+			MiscController.initDressingRoomEnchantmentListeners();
 		} else if (currentNode.equals(CharacterCreation.BACKGROUND_SELECTION_MENU)) {
 			CreationController.initBackgroundSelectionListeners();
 		} else if (currentNode.equals(CompanionManagement.SLAVE_MANAGEMENT_COSMETICS_OTHER)) {
@@ -1663,6 +1733,8 @@ public class MainController implements Initializable {
 		} else if (currentNode.equals(ElementalDialogue.ELEMENTAL_FETISHES)
 				|| currentNode.equals(PhoneDialogue.CHARACTER_FETISHES)) {
 			MiscController.initFetishListeners();
+		} else if(currentNode.equals(PhoneDialogue.RACES)) {
+			MiscController.initEncyclopediaRaceListeners();
 		} else if (currentNode.equals(EnchantmentDialogue.ENCHANTMENT_MENU)) {
 			EnchantmentController.initEnchantmentMenuListeners();
 		} else if (currentNode.equals(EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD)) {
@@ -2071,18 +2143,6 @@ public class MainController implements Initializable {
 					+" Your limit is calculated from: <i>10 + (level) + (perk gains)</i>");
 			addEventListener(documentAttributes, id, "mouseenter", el2, false);
 		}
-		
-		id = "INVENTORY_ENCHANTMENT_LIMIT_NPC";
-		if (((EventTarget) documentAttributes.getElementById(id)) != null) {
-			addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
-			addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
-			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation(
-					Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName()),
-					UtilText.parse(RenderingEngine.getCharacterToRender(),
-							"The total amount of weapon, clothing, and tattoo attribute enchantments you're able to handle without incurring massive penalties."
-								+" [npc.Her] maximum is calculated from: <i>10 + (level) + (perk gains)</i>"));
-			addEventListener(documentAttributes, id, "mouseenter", el2, false);
-		}
 
 		boolean dateKnown = Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.knowsDate) || !Main.game.isInNewWorld();
 		
@@ -2376,7 +2436,7 @@ public class MainController implements Initializable {
 					addEventListener(documentAttributes, "FETISH_"+idModifier + Fetish.getIdFromFetish(f), "mousemove", moveTooltipListener, false);
 					addEventListener(documentAttributes, "FETISH_"+idModifier + Fetish.getIdFromFetish(f), "mouseleave", hideTooltipListener, false);
 
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setFetish(f, character);
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setFetish(f, character, false);
 					addEventListener(documentAttributes, "FETISH_"+idModifier + Fetish.getIdFromFetish(f), "mouseenter", el, false);
 				}
 			}
@@ -2488,6 +2548,18 @@ public class MainController implements Initializable {
 			addEventListener(documentRight, id, "mouseenter", el2, false);
 		}
 		
+		id = "INVENTORY_ENCHANTMENT_LIMIT_NPC";
+		if (((EventTarget) documentRight.getElementById(id)) != null) {
+			addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
+			addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
+			TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation(
+					Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName()),
+					UtilText.parse(RenderingEngine.getCharacterToRender(),
+							"The total amount of weapon, clothing, and tattoo attribute enchantments [npc.nameIsFull] able to handle without incurring massive penalties."
+								+" [npc.Her] maximum is calculated from: <i>10 + (level) + (perk gains)</i>"));
+			addEventListener(documentRight, id, "mouseenter", el2, false);
+		}
+		
 		if(Main.game.getPlayer()!=null) {
 			// Money on floor:
 			id = "MONEY_ON_FLOOR";
@@ -2587,10 +2659,15 @@ public class MainController implements Initializable {
 						
 						Set<AbstractSubspecies> subspecies = new HashSet<>();
 						subspecies.addAll(pop.getSpecies().keySet());
-						TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(
-								"Races Present",
-								Util.subspeciesToStringList(subspecies, true)+".",
-								16 + ((subspecies.size()/3)*16));
+						TooltipInformationEventListener el;
+						if(subspecies.isEmpty()) {
+							el = new TooltipInformationEventListener().setInformation("Races Present", "[style.colourDisabled(Unknown)]");
+						} else {
+							el = new TooltipInformationEventListener().setInformation(
+									"Races Present",
+									Util.subspeciesToStringList(subspecies, true)+".",
+									16 + ((subspecies.size()/3)*16));
+						}
 						addEventListener(documentRight, id, "mouseenter", el, false);
 					}
 					i++;
@@ -2734,7 +2811,7 @@ public class MainController implements Initializable {
 						addEventListener(documentRight, "FETISH_NPC_"+idModifier + Fetish.getIdFromFetish(f), "mousemove", moveTooltipListener, false);
 						addEventListener(documentRight, "FETISH_NPC_"+idModifier + Fetish.getIdFromFetish(f), "mouseleave", hideTooltipListener, false);
 	
-						TooltipInformationEventListener el = new TooltipInformationEventListener().setFetish(f, character);
+						TooltipInformationEventListener el = new TooltipInformationEventListener().setFetish(f, character, false);
 						addEventListener(documentRight, "FETISH_NPC_"+idModifier + Fetish.getIdFromFetish(f), "mouseenter", el, false);
 					}
 				}
@@ -3220,8 +3297,11 @@ public class MainController implements Initializable {
 	public void setTooltipSize(int width, int height) {
 		webviewTooltip.setMaxWidth(width);
 		webviewTooltip.setMaxHeight(height);
+		webviewTooltip.setPrefHeight(height);
 		tooltip.setMaxWidth(width);
+		tooltip.setPrefWidth(width);
 		tooltip.setMaxHeight(height);
+		tooltip.setPrefHeight(height);
 		tooltipWidth = width;
 		tooltipHeight = height;
 	}

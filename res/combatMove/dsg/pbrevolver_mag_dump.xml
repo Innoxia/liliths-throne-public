@@ -43,10 +43,12 @@
 	The parsing target of 'npc' corresponds to the character who is performing the move. -->
 	<baseDamage><![CDATA[
 		[##var hits = 0]
-		#IF(npc.getEssenceCount() < 6)
-			[##hits = (RND.nextInt(npc.getEssenceCount()))]
-		#ELSE
-			[##hits = (RND.nextInt(6))]			
+		#IF(npc.getEssenceCount()>0)
+			#IF(npc.getEssenceCount() < 6)
+				[##hits = (RND.nextInt(npc.getEssenceCount()))]
+			#ELSE
+				[##hits = (RND.nextInt(6))]			
+			#ENDIF
 		#ENDIF
 		[#hits * 20]
 	]]></baseDamage>
@@ -153,7 +155,7 @@
 	-->
 	<movePredictionDescriptionWithTarget><![CDATA[
 		#IF(npc.getEssenceCount() < 6)
-			Fire [style.colorArcane([#npc.getEssenceCount])]
+			Fire [style.colorArcane([#npc.getEssenceCount()])]
 		#ELSE
 			Fire all [style.colorArcane(6)]
 		#ENDIF
@@ -163,7 +165,7 @@
 	<!-- This is almost identical to the defined description above, with the difference being that there is no targeted character. As such, the description cannot use any 'npc2' parsing. -->
 	<movePredictionDescriptionNoTarget><![CDATA[
 		#IF(npc.getEssenceCount() < 6)
-			Fire [style.colorArcane([#npc.getEssenceCount])]
+			Fire [style.colorArcane([#npc.getEssenceCount()])]
 		#ELSE
 			Fire all [style.colorArcane(6)]
 		#ENDIF
@@ -189,7 +191,7 @@
 			formattedHealthDamage
 			Expending so much ammo costs [npc.herHim] 
 			#IF(npc.getEssenceCount() < 6)
-				[style.colorArcane([#npc.getEssenceCount])] essences.
+				[style.colorArcane([#npc.getEssenceCount()])] essences.
 				[##npc.setEssenceCount(0)]
 			#ELSE
 				[style.colorArcane(6)] essences.

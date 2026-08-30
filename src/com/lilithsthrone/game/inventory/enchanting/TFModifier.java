@@ -129,7 +129,7 @@ public enum TFModifier {
 	 * It is simply defined so that modded clothing can add this as a secondary TFModifier (to the primary TFModifier 'CLOTHING_MAJOR_ATTRIBUTE') to increase enchantment capacity of the wearer. */
 	ENCHANTMENT_LIMIT(AttributeCategory.CORRUPTION,
 			Attribute.ENCHANTMENT_LIMIT,
-			"Applies an effect related to the secondary attribute 'Enchantment Capacity'.",
+			"Applies an effect related to the secondary attribute 'Enchantment Instability'.",
 			"modifier_circle_corruption",
 			Rarity.LEGENDARY),
 	
@@ -286,6 +286,13 @@ public enum TFModifier {
 			PresetColour.BASE_TEAL,
 			Rarity.LEGENDARY),
 
+	CLOTHING_SEXUAL("sexual effects",
+			"Applies a sexual effect.",
+			"sexual",
+			"modifier_circle_sexual",
+			PresetColour.BASE_PINK_LIGHT,
+			Rarity.EPIC),
+	
 	CLOTHING_ENSLAVEMENT("enslavement",
 			"Makes this piece of clothing enslave the wearer.",
 			"enslavement",

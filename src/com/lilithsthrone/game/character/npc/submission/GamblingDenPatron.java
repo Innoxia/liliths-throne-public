@@ -65,7 +65,7 @@ public class GamblingDenPatron extends NPC {
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				3,
 				null, null, null,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				worldType, placeType,
 				false);
 		

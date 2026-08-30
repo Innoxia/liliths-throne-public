@@ -60,16 +60,16 @@ public class SelfFingerAnus {
                 return UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()),
                         UtilText.returnStringAtRandom(
                                 "Reaching back with one [npc.hand], [npc.name] [npc.verb(grab)] [npc.her] [npc.ass+] and [npc.verb(pull)] to one side, letting out [npc.a_moan+] as [npc.she] [npc.verb(present)] [npc.her] [npc.asshole+] to [npc2.name].",
-                                "[npc.Name] reaches back with one [npc.hand], moaning softly as [npc.she] [npc.verb(grab)] hold of [npc.her] [npc.ass+], before invitingly [npc.verb(pull)] to one side and [npc.verb(present)] [npc.her] [npc.asshole+] to [npc2.name].",
-                                "Sliding [npc.her] fingertips over [npc.her] [npc.asshole+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(grab)] one of [npc.her] [npc.assSize] ass cheeks and [npc.verb(pull)] to one side in order to [npc.verb(present)] [npc.her] [npc.asshole+] to [npc2.name].",
-                                "[npc.Name] eagerly [npc.verb(slide)] [npc.her] [npc.fingers] over [npc.her] needy [npc.asshole], [npc.moaning+] as [npc.she] [npc.verb(use)] [npc.her] [npc.hand] to [npc.verb(pull)] [npc.her] ass cheek to one side and [npc.verb(present)] [npc.herself] for anal penetration."));
+                                "[npc.Name] reaches back with one [npc.hand], moaning softly as [npc.she] [npc.verb(grab)] hold of [npc.her] [npc.ass+], before invitingly pulling to one side and presenting [npc.her] [npc.asshole+] to [npc2.name].",
+                                "Sliding [npc.her] fingertips over [npc.her] [npc.asshole+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(grab)] one of [npc.her] [npc.assSize] ass cheeks and [npc.verb(pull)] to one side in order to present [npc.her] [npc.asshole+] to [npc2.name].",
+                                "[npc.Name] eagerly [npc.verb(slide)] [npc.her] [npc.fingers] over [npc.her] needy [npc.asshole], [npc.moaning+] as [npc.she] [npc.verb(use)] [npc.her] [npc.hand] to pull [npc.her] ass cheek to one side and [npc.verb(present)] [npc.herself] for anal penetration."));
             } else {
                 return UtilText.parse(Main.sex.getCharacterPerformingAction(), Main.sex.getTargetedPartner(Main.sex.getCharacterPerformingAction()),
                         UtilText.returnStringAtRandom(
                                 "Reaching back with both [npc.hands], [npc.name] [npc.verb(grab)] [npc.her] [npc.assSize] ass cheeks and [npc.verb(pull)] them apart, letting out [npc.a_moan+] as [npc.she] [npc.verb(present)] [npc.her] [npc.asshole+] to [npc2.name].",
                                 "[npc.Name] reaches back with both [npc.hands], moaning softly as [npc.she] invitingly [npc.verb(pull)] [npc.her] [npc.assSize] ass cheeks apart and [npc.verb(present)] [npc.her] [npc.asshole+] to [npc2.name].",
-                                "Sliding [npc.her] fingertips over [npc.her] [npc.asshole+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(grab)] [npc.her] [npc.assSize] ass cheeks and [npc.verb(pull)] them apart in order to [npc.verb(present)] [npc.her] [npc.asshole+] to [npc2.name].",
-                                "[npc.Name] eagerly [npc.verb(slide)] [npc.her] [npc.fingers] over [npc.her] needy [npc.asshole], [npc.moaning+] as [npc.she] [npc.verb(use)] [npc.her] [npc.hands] to [npc.verb(pull)] [npc.her] ass cheeks aside and [npc.verb(present)] [npc.herself] for anal penetration."));
+                                "Sliding [npc.her] fingertips over [npc.her] [npc.asshole+], [npc.name] [npc.verb(let)] out [npc.a_moan+] as [npc.she] [npc.verb(grab)] [npc.her] [npc.assSize] ass cheeks and [npc.verb(pull)] them apart in order to present [npc.her] [npc.asshole+] to [npc2.name].",
+                                "[npc.Name] eagerly [npc.verb(slide)] [npc.her] [npc.fingers] over [npc.her] needy [npc.asshole], [npc.moaning+] as [npc.she] [npc.verb(use)] [npc.her] [npc.hands] to pull [npc.her] ass cheeks aside and [npc.verb(present)] [npc.herself] for anal penetration."));
             }
         }
     };

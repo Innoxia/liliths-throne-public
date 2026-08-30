@@ -18,7 +18,7 @@
 		
 		<imageName>pill_plus.svg</imageName> 
 		
-		<colourPrimary>CLOTHING_PINK</colourPrimary>
+		<colourPrimary>CLOTHING_PINK_DARK</colourPrimary>
 		<colourSecondary/>
 		<colourTertiary/>
 		
@@ -39,14 +39,14 @@
 			<p>
 				#IF(npc.hasVagina())
 					[npc.Name] [npc.verb(feel)] [npc.her] ovaries kick into overdrive as eggs begin to cascade towards [npc.her] womb. As the discomfort fades, [npc.she] [npc.verb(realise)] that [npc.sheIs] now able to be impregnated with far more children than [npc.she] would normally be able to
-					#IF(pc.hasFetish(FETISH_PREGNANCY))
+					#IF(npc.hasFetish(FETISH_PREGNANCY))
 						 carry, and the thought that [npc.she] could get so heavily pregnant with so little work makes a happy smile settle on [npc.her] face.
 					#ELSE
 						 carry.
 					#ENDIF
 					#IF(npc.hasPenisIgnoreDildo())
 						 The feeling doesn't stop there, however, as the cramp quickly moves down into [npc.her] groin. [npc.She] [npc.verb(feel)] [npc.her] testes churning as they produce sperm at a supernatural rate. The discomfort eventually fades, and [npc.she] [npc.verb(realise)] that any womb that [npc.her] semen finds its way into will be able to carry far more children than it normally
-						#IF(pc.hasFetish(FETISH_PREGNANCY))
+						#IF(npc.hasFetish(FETISH_PREGNANCY))
 							 would, and [npc.she] can't help but grin at the thought of someone's belly being swollen to bursting point with [npc.her] numerous offspring.
 						#ELSE
 							 would.
@@ -54,7 +54,7 @@
 					#ENDIF
 				#ELSEIF(npc.hasPenisIgnoreDildo())
 					The feeling doesn't stop there, however, as the cramp quickly moves down into [npc.her] groin. [npc.She] [npc.verb(feel)] [npc.her] testes churning as they produce sperm at a supernatural rate. The discomfort eventually fades, and [npc.she] [npc.verb(realise)] that any womb that [npc.her] semen finds its way into will be able to carry far more children than it normally
-					#IF(pc.hasFetish(FETISH_PREGNANCY))
+					#IF(npc.hasFetish(FETISH_PREGNANCY))
 						 would, and [npc.she] can't help but grin at the thought of someone's belly being swollen to bursting point with [npc.her] numerous offspring.
 					#ELSE
 						 would.
@@ -75,10 +75,10 @@
 
 	<useDescriptions>
 		<selfUse><![CDATA[
-		[npc.Name] [npc.verb(pop)] a broodmother's pill out of its little foil wrapper, before quickly placing it in [npc.her] mouth and swallowing it down.
+		[npc.Name] [npc.verb(pop)] the broodmother's pill out of its little foil wrapper, before quickly placing it in [npc.her] mouth and swallowing it down.
 		]]></selfUse>
 		<otherUse><![CDATA[
-		[npc.Name] [npc.verb(pop)] a broodmother's pill out of its little foil wrapper, before bringing it up to [npc2.namePos] [npc2.lips], forcing it into [npc2.her] mouth, and making sure that [npc2.she] [npc2.verb(swallow)] it down.
+		[npc.Name] [npc.verb(pop)] the broodmother's pill out of its little foil wrapper, before bringing it up to [npc2.namePos] [npc2.lips], forcing it into [npc2.her] mouth, and making sure that [npc2.she] [npc2.verb(swallow)] it down.
 		]]></otherUse>
 	</useDescriptions>
 

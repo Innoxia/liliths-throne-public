@@ -18,7 +18,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.79
- * @version 0.3.4.5
+ * @version 0.4.11.2
  * @author Innoxia
  */
 public class PartnerTalk {
@@ -99,6 +99,13 @@ public class PartnerTalk {
 								"Wanting to let [npc2.name] know that [npc.she] desires to be released, but having [npc.her] mouth blocked, [npc.name] [npc.verb(make)] do with letting out a series of distressed sobs and muffled cries.",
 								"Although [npc.her] mouth is blocked, [npc.nameIsFull] still able to let out a series of distressed whines and muffled sobs, letting [npc2.name] know that [npc.she] [npc.verb(want)] this to stop.");
 				}
+			}
+
+			if(Main.sex.getCharacterTargetedForSexAction(this).isAsleep()) {
+				return UtilText.returnStringAtRandom(
+						"Not wanting to wake [npc2.name] up, [npc.name] quietly [npc.verb(tease)], ",
+						"Making sure to keep [npc.her] voice down so as to not wake [npc2.name] up, [npc.name] [npc.verb(whisper)], ")
+						+ Main.sex.getDirtyTalk(Main.sex.getCharacterPerformingAction());
 			}
 			
 			if(Main.sex.getSexPositionSlot(Main.sex.getCharacterPerformingAction()).hasTag(SexSlotTag.ALL_FOURS)) {

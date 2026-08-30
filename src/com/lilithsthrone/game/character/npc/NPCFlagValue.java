@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * @since 0.1.89
- * @version 0.4
+ * @version 0.4.11.2
  * @author Innoxia
  */
 public enum NPCFlagValue {
@@ -28,6 +28,8 @@ public enum NPCFlagValue {
 	flagSlaveInspect,
 	flagSlaveSpanking,
 	flagSlaveMolest,
+	
+	slaveBedroomHadSleepSex,
 	
 	occupantTalkLife,
 	occupantTalkJob,

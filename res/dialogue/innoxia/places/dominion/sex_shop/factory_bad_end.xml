@@ -30,11 +30,12 @@
 	
 	<scene id="start_transformed">
 		<preParsingEffects><![CDATA[
-				[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'START_TRANSFORMED'))]
+			[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/dominion/sex_shop/factory_bad_end', 'START_TRANSFORMED'))]
 			#IF(pc.isFeminine())
 				[#flags.setFlag(FLAG_innoxia_doll_factory_pre_dollification_feminine, true)]
 			#ENDIF
 			
+			[#pc.setObedience(0)]
 			[#saellatrix.initBodyForDollification(pc)]
 		]]></preParsingEffects>
 		<content/>

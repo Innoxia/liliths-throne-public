@@ -65,7 +65,7 @@ public class Vronti extends NPC {
 				"The older brother of the only two centaurs brave enough to keep their Dominion-to-Elis transport business running, Vronti has the body of a Greek god, and a stern, stoic personality to match.",
 				29, Month.AUGUST, 15,
 				20, Gender.M_P_MALE, Subspecies.CENTAUR, RaceStage.PARTIAL_FULL,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL,
 				true);
 		

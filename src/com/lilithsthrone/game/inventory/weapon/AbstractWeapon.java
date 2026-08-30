@@ -87,46 +87,46 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 				if(effect.getSecondaryModifier()==TFModifier.DAMAGE_WEAPON) {
 					switch(damageType) {
 						case FIRE:
-							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_FIRE, TFPotency.MAJOR_BOOST, 0));
+							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_FIRE, effect.getPotency(), 0));
 							break;
 						case ICE:
-							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_ICE, TFPotency.MAJOR_BOOST, 0));
+							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_ICE, effect.getPotency(), 0));
 							break;
 						case LUST:
-							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0));
+							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, effect.getPotency(), 0));
 							break;
 						case MISC:
 						case UNARMED:
 						case HEALTH:
 							break;
 						case PHYSICAL:
-							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.MAJOR_BOOST, 0));
+							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, effect.getPotency(), 0));
 							break;
 						case POISON:
-							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_POISON, TFPotency.MAJOR_BOOST, 0));
+							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_POISON, effect.getPotency(), 0));
 							break;
 					}
 					
 				} else if(effect.getSecondaryModifier()==TFModifier.RESISTANCE_WEAPON) {
 					switch(damageType) {
 						case FIRE:
-							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_FIRE, TFPotency.MAJOR_BOOST, 0));
+							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_FIRE, effect.getPotency(), 0));
 							break;
 						case ICE:
-							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_ICE, TFPotency.MAJOR_BOOST, 0));
+							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_ICE, effect.getPotency(), 0));
 							break;
 						case LUST:
-							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, TFPotency.MAJOR_BOOST, 0));
+							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_LUST, effect.getPotency(), 0));
 							break;
 						case MISC:
 						case UNARMED:
 						case HEALTH:
 							break;
 						case PHYSICAL:
-							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_PHYSICAL, TFPotency.MAJOR_BOOST, 0));
+							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_PHYSICAL, effect.getPotency(), 0));
 							break;
 						case POISON:
-							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_POISON, TFPotency.MAJOR_BOOST, 0));
+							this.effects.add(new ItemEffect(ItemEffectType.WEAPON, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.RESISTANCE_POISON, effect.getPotency(), 0));
 							break;
 					}
 					
@@ -386,11 +386,16 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 
 	public abstract String onUnequip(GameCharacter character);
 
-	@Override
-	public String getDescription() {
-		return getDescription(null);
+	/**
+	 * @return A basic, parsed, description of this clothing's type. (To be used in tooltips.)
+	 */
+	public String getTypeDescription(GameCharacter characterEquippedOn) {
+		String description = this.getWeaponType().getDescription();
+		
+		return UtilText.parse(characterEquippedOn, this, description);
 	}
 	
+	@Override
 	public String getDescription(GameCharacter character) {
 		StringBuilder descriptionSB = new StringBuilder();
 		
@@ -399,9 +404,9 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		}
 		
 		int essenceCost = this.getWeaponType().getArcaneCost();
-		String damageName = "<b style='color:"+ damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>Damage</b>";
+		String damageName = "<span style='color:"+ damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>Damage</span>";
 		
-		descriptionSB.append("<p><b>");
+		descriptionSB.append("<p>");
 			descriptionSB.append("<span style='color:" + this.getRarity().getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(this.getRarity().getName())+"</span>"
 								+" | "
 								+(this.getWeaponType().isUsingUnarmedCalculation()
@@ -427,9 +432,9 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 				int aoeChance = aoe.getKey();
 				String position = Util.intToPosition(targetNumber);
 				descriptionSB.append("[style.boldAqua(AoE)]: "
-						+ "<b style='color:"+(aoeChance<=25?PresetColour.GENERIC_BAD:(aoeChance<=50?PresetColour.GENERIC_MINOR_BAD:(aoeChance<=75?PresetColour.GENERIC_MINOR_GOOD:PresetColour.GENERIC_GOOD))).toWebHexString()+";'>"+aoeChance+"%</b>"
+						+ "<span style='color:"+(aoeChance<=25?PresetColour.GENERIC_BAD:(aoeChance<=50?PresetColour.GENERIC_MINOR_BAD:(aoeChance<=75?PresetColour.GENERIC_MINOR_GOOD:PresetColour.GENERIC_GOOD))).toWebHexString()+";'>"+aoeChance+"%</span>"
 						+ " chance to deal "
-						+ "<b>"+ Attack.getMinimumDamage(character, null, Attack.MAIN, this, aoe.getValue())+" - "+Attack.getMaximumDamage(character, null, Attack.MAIN, this, aoe.getValue())+ "</b> "
+						+  Attack.getMinimumDamage(character, null, Attack.MAIN, this, aoe.getValue())+" - "+Attack.getMaximumDamage(character, null, Attack.MAIN, this, aoe.getValue())+ " "
 						+ damageName+" to "+UtilText.generateSingularDeterminer(position)+" "+position+" enemy!<br/>");
 				targetNumber++;
 			}
@@ -445,11 +450,21 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 						+(chanceToRecoverCombat<=25?PresetColour.GENERIC_BAD:(chanceToRecoverCombat<=50?PresetColour.GENERIC_MINOR_BAD:(chanceToRecoverCombat<=75?PresetColour.GENERIC_MINOR_GOOD:PresetColour.GENERIC_GOOD))).toWebHexString()
 						+";'>"+chanceToRecoverCombat+"%</span> chance to recover [style.colourCombat(after combat)]<br/>");
 			}
-		descriptionSB.append("</b></p>");
+		descriptionSB.append("</p>");
 
 		descriptionSB.append("<p>");
-			descriptionSB.append(weaponType.getDescription());
-			descriptionSB.append("<br/>"+(getWeaponType().isPlural()?"They have":"It has")+" a value of: "+UtilText.formatAsMoney(getValue()));
+			descriptionSB.append(getTypeDescription(character));
+			descriptionSB.append("<br/>");
+			descriptionSB.append((getWeaponType().isPlural()?"They have":"It has")+" a value of: "+UtilText.formatAsMoney(getValue()));
+			if(Main.game.isEnchantmentCapacityEnabled()) {
+				descriptionSB.append("<br/>");
+				descriptionSB.append((getWeaponType().isPlural()?"They have":"It has")+" "+UtilText.addDeterminer(Attribute.ENCHANTMENT_LIMIT.getName())+" of: ");
+				if(this.getEnchantmentCapacityCost()==0) {
+					descriptionSB.append("[style.colourDisabled("+UtilText.formatAsEnchantmentCapacityUncoloured(this.getEnchantmentCapacityCost(), "span")+")]");
+				} else {
+					descriptionSB.append(UtilText.formatAsEnchantmentCapacity(this.getEnchantmentCapacityCost(), "span"));
+				}
+			}
 		descriptionSB.append("</p>");
 		
 
@@ -459,7 +474,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 							+ (getWeaponType().isPlural()
 									? "They are armoured, and provide "
 									: "It is armoured, and provides ")
-								+ " <b>" + getWeaponType().getPhysicalResistance() + "</b> [style.colourResPhysical(" + Attribute.RESISTANCE_PHYSICAL.getName() + ")]."
+								+ " " + getWeaponType().getPhysicalResistance() + " [style.colourResPhysical(" + Attribute.RESISTANCE_PHYSICAL.getName() + ")]."
 							+ "</p>");
 		}
 		
@@ -478,7 +493,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 				descriptionSB.append("<br/>"+ s);
 			}
 			for(Entry<AbstractAttribute, Integer> entry : this.getAttributeModifiers().entrySet()) {
-				descriptionSB.append("<br/><b>"+entry.getKey().getFormattedValue(entry.getValue())+"</b>");
+				descriptionSB.append("<br/>"+entry.getKey().getFormattedValue(entry.getValue()));
 			}
 			descriptionSB.append("</p>");
 		}
@@ -494,7 +509,7 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 						descriptionSB.append(", ");
 				}
 
-				descriptionSB.append("<b style='color:" + s.getSpellSchool().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(s.getName()) + "</b>");
+				descriptionSB.append("<span style='color:" + s.getSpellSchool().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(s.getName()) + "</span>");
 				i++;
 			}
 			descriptionSB.append(".</p>");
@@ -513,11 +528,11 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 		}
 
 		if (getWeaponType().getClothingSet() != null) {
-			descriptionSB.append("<p>" + (getWeaponType().isPlural() ? "They are" : "It is") + " part of the <b style='color:" + PresetColour.RARITY_EPIC.toWebHexString() + ";'>"
-					+ getWeaponType().getClothingSet().getName() + "</b> set." + "</p>");
+			descriptionSB.append("<p>" + (getWeaponType().isPlural() ? "They are" : "It is") + " part of the <span style='color:" + PresetColour.RARITY_EPIC.toWebHexString() + ";'>"
+					+ getWeaponType().getClothingSet().getName() + "</span> set." + "</p>");
 		}
-		
-		return descriptionSB.toString();
+
+		return UtilText.parse(this, descriptionSB.toString());
 	}
 
 	@Override
@@ -608,7 +623,8 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 	}
 
 	public String getName(boolean withDeterminer, boolean withRarityColour) {
-		return (withDeterminer
+		return UtilText.parse(this,
+				(withDeterminer
 					?(!weaponType.getDeterminer().equalsIgnoreCase("a") && !weaponType.getDeterminer().equalsIgnoreCase("an")
 							? weaponType.getDeterminer()
 							: UtilText.generateSingularDeterminer(getWeaponType().isAppendDamageName()?damageType.getWeaponDescriptor():name))
@@ -621,23 +637,25 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements XMLSavi
 						:"")
 				+ (withRarityColour
 						? (" <span style='color: "+rarity.getColour().toWebHexString()+";'>"+name+"</span>")
-						: " "+name);
+						: " "+name));
 	}
 
 	@Override
 	public String getDisplayName(boolean withRarityColour) {
-		return (getWeaponType().isAppendDamageName()
+		return UtilText.parse(this,
+				(getWeaponType().isAppendDamageName()
 					?"<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(damageType.getWeaponDescriptor()) + "</span> "
 					:"")
-				+ (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name);
+				+ (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name));
 	}
 	
 	@Override
 	public String getDisplayNamePlural(boolean withRarityColour) {
-		return (getWeaponType().isAppendDamageName()
+		return UtilText.parse(this,
+				(getWeaponType().isAppendDamageName()
 					?"<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(damageType.getWeaponDescriptor()) + "</span> "
 					:"")
-				+ (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + namePlural + "</span>") : namePlural);
+				+ (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + namePlural + "</span>") : namePlural));
 	}
 
 	@Override

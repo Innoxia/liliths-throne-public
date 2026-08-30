@@ -522,6 +522,17 @@ public class AbstractPlaceType {
 		return backgroundColour;
 	}
 	
+	/**
+	 * @return The core encounter type which this place type has. <b>If you want to generate an Encounter, you should be using getEncounterType() instead.</b> 
+	 */
+	public AbstractEncounter getCoreEncounterType() {
+		return encounterType;
+	}
+	
+	/**
+	 * @return A randomly-selected encounter from all possible encounters which can be triggered in this area.
+	 * <br/>If you want this place type's core encounter, use getCoreEncounterType().
+	 */
 	public AbstractEncounter getEncounterType() {
 		Map<AbstractEncounter, Float> possibleEncountersMap = new HashMap<>();
 		

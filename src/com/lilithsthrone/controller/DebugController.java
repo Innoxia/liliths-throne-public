@@ -34,7 +34,7 @@ public class DebugController {
 			id = clothingType.getId()+"_SPAWN";
 			if (MainController.document.getElementById(id) != null) {
 				((EventTarget) MainController.document.getElementById(id)).addEventListener("click", e->{
-					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addClothing(Main.game.getItemGen().generateClothing(clothingType));
+					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addClothing(Main.game.getItemGen().generateClothing(clothingType, true));
 					MainController.updateUIRightPanel();
 				}, false);
 				MainController.addTooltipListeners(id, new TooltipInventoryEventListener().setGenericClothing(clothingType, clothingType.getColourReplacement(0).getFirstOfDefaultColours()));
@@ -134,7 +134,7 @@ public class DebugController {
 					}
 					if(ClothingType.getAllClothingInSet(sb)!=null) {
 						for (AbstractClothingType ct : ClothingType.getAllClothingInSet(sb)) {
-							Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addClothing(Main.game.getItemGen().generateClothing(ct));
+							Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addClothing(Main.game.getItemGen().generateClothing(ct, false));
 						}
 					}
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <subspecies>
 	<race>innoxia_raptor</race>
-	<colour>BASE_WHITE</colour>
-	<secondaryColour>innoxia_raptor</secondaryColour>
+	<colour>BASE_BROWN_DARK</colour>
+	<secondaryColour>BASE_BROWN_LIGHT</secondaryColour>
 	<tertiaryColour>innoxia_raptor</tertiaryColour>
 	<mainSubspecies>false</mainSubspecies>
 	<baseSlaveValue>18000</baseSlaveValue>

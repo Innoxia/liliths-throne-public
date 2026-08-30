@@ -114,7 +114,7 @@
 			#ENDIF
 		</p>
 		#IF(flags.hasFlag(FLAG_innoxia_evelyx_work_started))
-			#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(dale))
+			#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().isFather(dale))
 				#IF(!pc.isCharacterReactedToPregnancy(dale))
 					<p>
 						[pc.Stepping] forwards, you present your swollen belly to the donkey-boy, and upon seeing that you're pregnant, he very quickly realises that he must be the father. Tentatively reaching out to gently rub his strong hands over your distended stomach, he marvels, [dale.speech(I really got you pregnant? Wow... Just let me know if there's anything I can do to help! I'll try to make time for you if you need it.)]
@@ -1477,7 +1477,7 @@
 	<p>
 		[evelyx.speech(Hurry up and get over here. My cunt's not going to lick itself,)] Evelyx impatiently snaps. As you approach her desk, you take a good look at the owner of this farm. The flawless skin covering her body is a light shade of blue, and while her face has a youthful appearance, the cynical, penetrating gaze from her orange eyes suggests that she's far older than she looks. Her orange nail polish and lipstick matches not only the same shade as her eyes, but also the orange hue that tips the ends of her four small, swept-back horns. Her long, black hair is tied up into a ponytail by means of an orange scrunchie, and a pair of large, [evelyx.cupSize]-cup breasts swell out beneath the succubus's smart, black feminine suit. A gap at the base of her desk allows you to see that instead of humanoid feet, Evelyx has a pair of hard hoofs.
 	</p>
-	#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(evelyx))
+	#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().isFather(evelyx))
 		#IF(!pc.isCharacterReactedToPregnancy(evelyx))
 			<p>
 				Glancing down at your swollen belly, Evelyx realises that she's the one who got you pregnant, but with a wave of her hand she dismissively states, [evelyx.speech(Don't even think of sending any of those bastards you're carrying to me; I don't owe them anything.)] 
@@ -1491,7 +1491,7 @@
 	<p>
 		Pushing her chair back so that you can look down over the top of her desk to see her groin, Evelyx pulls up her pencil skirt and slides her lacy orange thong all the way down her legs, before kicking it off to one side. Leaning back in her chair, she spreads her legs and presents herself to you, allowing you to see that both her cunt and asshole are the same orange hue as her eyes and horns. Teasing her light blue fingers down over her tiny, exotic-looking labia, she uses them to part her folds and show you how vice-tight her already-wet twat is.
 	</p>
-	#IF(evelyx.isVisiblyPregnant() && evelyx.getPregnantLitter().getFather().equals(pc))
+	#IF(evelyx.isVisiblyPregnant() && evelyx.getPregnantLitter().isFather(pc))
 		#IF(!evelyx.isCharacterReactedToPregnancy(pc))
 			<p>
 				From this angle, you're also able to see that Evelyx has a visibly pregnant belly. Seeing what it is you're looking at, she tuts in annoyance, [evelyx.speech(Yes, you got me pregnant. It's incredibly inconvenient, so don't ever do it again...)]
@@ -1651,7 +1651,7 @@
 	
 	<htmlContent tag="DORMITORY"><![CDATA[
 	<p>
-		At one end of the farm's long corridor, a sign reading 'Dormitories' is fixed to the wall above two large doors, each of which has a round glass window fixed into it at head height. The door on the left bears a sign reading 'Non-cow Employees Only', and after taking a brief glance through its window, you see that the room beyond is very small and cramped, and there are only a handful of shabby-looking bunk beds in there.
+		At one end of the farm's long corridor, a sign reading 'Dormitories' is fixed to the wall above two large doors, each of which has a round glass window fixed into it at head height. The door on the left bears a sign reading 'Non-cow Employees Only', and after taking a brief glance through its window, you see that the room beyond is very small and cramped, and there are only a few shabby-looking bunk beds in there.
 		#IF(game.getCharactersPresent().contains(dale))
 			 As you scan over the room's interior, you see the unmistakable form of Dale sleeping on the bottom bunk of one of these beds.
 			#IF(dale.getTotalTimesHadSex(pc)>0)
@@ -1838,7 +1838,7 @@
 	<p>
 		Wanting to give him a nice surprise, you stealthily slip in under the sheets and nuzzle up against Dale. Although he rolls over to press his hot, furry body against yours, the donkey-boy remains deeply asleep, and while you enjoy the feeling of having him snuggle up against you, you're here for something a little more than that. Knowing how to wake him up, you tease your [pc.hand] down over his muscular, furry stomach, before stroking your [pc.fingers+] over his cock's thick, hot sheath. Just as you'd hoped, his dark, animalistic donkey-cock starts to push out and rise to attention, and as you wrap your [pc.hand] around his thick shaft, Dale lets out a deep grunt and slowly begins to wake up.
 	</p>
-	#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(dale))
+	#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().isFather(dale))
 		<p>
 			#IF(!pc.isCharacterReactedToPregnancy(dale))
 				[dale.speech(~Mmm!~ That's it, [pc.name]... Wait, [pc.name]?!)] he exclaims as he suddenly realises what's going on, but after this initial shock of finding you in his bed, Dale immediately notices your swollen belly pressing against him and realises that he's the father. Tentatively reaching out to gently rub his strong hands over your distended stomach, he marvels, [dale.speech(I got you pregnant? Wow... Just let me know if there's anything I can do to help! I'll try to make time for you if you need it. That's why you're here at this hour, right?)]
@@ -1872,7 +1872,7 @@
 		#ENDIF
 		 Dropping down at the end of his bed, you lift the sheets and slip in under the covers, letting out an excited [pc.moan] as you work your way up between the donkey-boy's legs. Despite the fact that you have to pull his boxers down to gain access to his groin, Dale remains deeply asleep, allowing you to tease your [pc.fingers+] over his cock's thick, hot sheath. Just as you'd hoped, his dark, animalistic donkey-dick starts to push out and rise to attention, and as you deliver a slow, wet lick to his thick shaft, Dale lets out a deep grunt and slowly begins to wake up.
 	</p>
-	#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(dale))
+	#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().isFather(dale))
 		<p>
 			#IF(!pc.isCharacterReactedToPregnancy(dale))
 				[dale.speech(~Mmm!~ That's it, [pc.name]... Wait, [pc.name]?!)] he exclaims as he lifts the covers to see you planting a loving kiss on his [dale.ballSize] balls. After this initial shock of finding you in his bed, Dale immediately notices your swollen belly and realises that he's the father. Gazing down at your distended stomach, he marvels, [dale.speech(I got you pregnant? Wow... Just let me know if there's anything I can do to help! I'll try to make time for you if you need it. That's why you're here at this hour, right?)]
@@ -1922,7 +1922,7 @@
 		#ENDIF
 		 Taking hold of the edge of his sheets, you slowly pull them down, letting out an excited [pc.moan] as you fully reveal the donkey-boy's furry, muscular body. Despite the fact that you have to pull his boxers down to gain access to his groin, Dale remains deeply asleep, allowing you to tease your [pc.fingers+] over his cock's thick, hot sheath. Just as you'd hoped, his dark, animalistic donkey-dick starts to push out and rise to attention, and as you climb up onto his bed to straddle him, Dale lets out a deep grunt and slowly begins to wake up.
 	</p>
-	#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(dale))
+	#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().isFather(dale))
 		<p>
 			#IF(!pc.isCharacterReactedToPregnancy(dale))
 				[dale.speech(~Mmm!~ That's it, [pc.name]... Wait, [pc.name]?!)] he exclaims as he suddenly realises what's going on, but after this initial shock of waking to you climbing on top of him, Dale immediately notices your swollen belly and realises that he's the father. Tentatively reaching out to gently rub his strong hands over your distended stomach, he marvels, [dale.speech(I got you pregnant? Wow... Just let me know if there's anything I can do to help! I'll try to make time for you if you need it. That's why you're here at this hour, right?)]
@@ -1977,7 +1977,7 @@
 		#ENDIF
 		 Taking hold of the edge of his sheets, you slowly pull them down, letting out an excited [pc.moan] as you fully reveal the donkey-boy's furry, muscular body. Despite the fact that you have to pull his boxers down to gain access to his groin, Dale remains deeply asleep, allowing you to tease your [pc.fingers+] over his cock's thick, hot sheath. Just as you'd hoped, his dark, animalistic donkey-dick starts to push out and rise to attention, and as you climb up onto his bed to straddle him, Dale lets out a deep grunt and slowly begins to wake up.
 	</p>
-	#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(dale))
+	#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().isFather(dale))
 		<p>
 			#IF(!pc.isCharacterReactedToPregnancy(dale))
 				[dale.speech(~Mmm!~ That's it, [pc.name]... Wait, [pc.name]?!)] he exclaims as he suddenly realises what's going on, but after this initial shock of waking to you climbing on top of him, Dale immediately notices your swollen belly and realises that he's the father. Tentatively reaching out to gently rub his strong hands over your distended stomach, he marvels, [dale.speech(I got you pregnant? Wow... Just let me know if there's anything I can do to help! I'll try to make time for you if you need it. That's why you're here at this hour, right?)]
@@ -2177,7 +2177,7 @@
 	<p>
 		[evelyx.speech(Ready for a good, hard rutting, my dirty little whore?)] Evelyx asks. Taking a quick look at the succubus, you once again note how flawless the light blue skin is which covers her body, and while her face has a youthful appearance, the cynical, penetrating gaze from her orange eyes suggests that she's far older than she looks. Her orange nail polish and lipstick matches not only the same shade as her eyes, but also the orange hue that tips the ends of her four small, swept-back horns. Her long, black hair is tied up into a ponytail by means of an orange scrunchie, and a pair of large, [evelyx.cupSize]-cup breasts swell out beneath the succubus's smart, black feminine suit. A gap at the base of her desk allows you to see that instead of humanoid feet, Evelyx has a pair of hard hoofs.
 	</p>
-	#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(evelyx))
+	#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().isFather(evelyx))
 		#IF(!pc.isCharacterReactedToPregnancy(evelyx))
 			<p>
 				Glancing down at your swollen belly, Evelyx realises that she's the one who got you pregnant, but with a wave of her hand she dismissively states, [evelyx.speech(Don't even think of sending any of those bastards you're carrying to me; I don't owe them anything.)]
@@ -2188,7 +2188,7 @@
 			</p>
 		#ENDIF
 	#ENDIF
-	#IF(evelyx.isVisiblyPregnant() && evelyx.getPregnantLitter().getFather().equals(pc))
+	#IF(evelyx.isVisiblyPregnant() && evelyx.getPregnantLitter().isFather(pc))
 		#IF(!evelyx.isCharacterReactedToPregnancy(pc))
 			<p>
 				As she stands up from behind her desk, you see that Evelyx has a visibly pregnant belly. Seeing what it is you're looking at, she tuts in annoyance, [evelyx.speech(Yes, you got me pregnant. It's incredibly inconvenient, so don't ever do it again...)]
@@ -2519,7 +2519,7 @@
 	
 	<htmlContent tag="BARN_WORK_NO_MILK"><![CDATA[
 	<p>
-		Telling yourself that it's time to get down to work, you look around at the nearby milking stalls and quickly choose one of them. Deciding to do a four-hour shift, you approach your selected stall and sink down into the half-standing, half-prone position which its padded surfaces support. Once in this position, you find yourself looking down at a small arcane device that's positioned just in front of you. Consisting of a flat screen and a primitive keyboard with a dozen well-worn buttons, this arcane device resembles a form of very simple computer, and as it detects that you're in the stall, its screen lights up and starts impatiently flashing a red warning, reading:
+		Telling yourself that it's time to get down to work, you look around at the nearby milking stalls and quickly choose one of them. Deciding to do a four-hour shift, you approach your selected stall and sink down into the half-standing, half-prone position which the padded surfaces support. Once in this position, you find yourself looking down at a small arcane device that's positioned just in front of you. Consisting of a flat screen and a primitive keyboard with a dozen well-worn buttons, this arcane device resembles a form of very simple computer, and as it detects that you're in the stall, its screen lights up and starts impatiently flashing a red warning, reading:
 	</p>
 	<p style='text-align:center;'>
 		<i>
@@ -2971,7 +2971,7 @@
 	
 	<htmlContent tag="BARN_WORK_INITIAL_START"><![CDATA[
 	<p>
-		Telling yourself that it's time to get down to work, you look around at the nearby milking stalls and quickly choose one of them. Deciding to do a four-hour shift, you approach your selected stall and sink down into the half-standing, half-prone position which its padded surfaces support. Once in this position, you find yourself looking down at a small arcane device that's positioned just in front of you. Consisting of a flat screen and a primitive keyboard with a dozen well-worn buttons, this arcane device resembles a form of very simple computer, and as it detects that you're in the stall, its screen lights up and displays some text for you to read:
+		Telling yourself that it's time to get down to work, you look around at the nearby milking stalls and quickly choose one of them. Deciding to do a four-hour shift, you approach your selected stall and sink down into the half-standing, half-prone position which the padded surfaces support. Once in this position, you find yourself looking down at a small arcane device that's positioned just in front of you. Consisting of a flat screen and a primitive keyboard with a dozen well-worn buttons, this arcane device resembles a form of very simple computer, and as it detects that you're in the stall, its screen lights up and displays some text for you to read:
 	</p>
 	<p style='text-align:center;'>
 		<i>
@@ -2987,7 +2987,7 @@
 	<p>
 		Realising that you're unable to attach the milking machine's breast pumps to yourself while in this position, you do as the arcane device says and press one of the buttons. A ringing bell can be heard off in the distance, and an orange arcane light attached to the top of your stall starts flashing. A few moments later and you hear the door to the barn open, and you turn your head to see Dale hurrying over to your stall. Within a few moments he's by your side, and flashes you a warm smile as he sees that you require assistance in getting your pumps attached.
 	</p>
-	#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(dale))
+	#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().isFather(dale))
 		#IF(!pc.isCharacterReactedToPregnancy(dale))
 			<p>
 				The donkey-boy's eyes then suddenly widen as he notices your swollen belly, and as you give him a knowing glance, he realises that he's the father. Tentatively reaching out to gently rub his strong hands over your distended stomach, he marvels, [dale.speech(I really got you pregnant? Wow... Just let me know if there's anything I can do to help! I'll try to make time for you if you need it.)]
@@ -3438,7 +3438,7 @@
 		</i>
 	</p>
 	<p>
-		Following the machine's instructions, you quickly place the tube in your mouth and start to suck out the sickly-sweet potion. After greedily swallowing down every last drop, you can't help but let out a deeply erotic [pc.moan] as you feel your body start to transform. As the transformative effects begin to manifest themselves, your mind starts to spin, and you dip in and out of conciousness as your body undergoes some radical transformations to turn you into a lesser cow-girl...
+		Following the machine's instructions, you quickly place the tube in your mouth and start to suck out the sickly-sweet potion. After greedily swallowing down every last drop, you can't help but let out a deeply erotic [pc.moan] as you feel your body start to transform. As the transformative effects begin to manifest themselves, your mind starts to spin, and you dip in and out of consciousness as your body undergoes some radical transformations to turn you into a lesser cow-girl...
 	</p>
 	]]>
 	</htmlContent>
@@ -3465,7 +3465,7 @@
 		</i>
 	</p>
 	<p>
-		Following the machine's instructions, you quickly place the tube in your mouth and start to suck out the sickly-sweet potion. After greedily swallowing down every last drop, you can't help but let out a deeply erotic [pc.moan] as you feel your body start to transform. As the transformative effects begin to manifest themselves, your mind starts to spin, and you dip in and out of conciousness as your body undergoes some radical transformations to turn you into a greater cow-girl...
+		Following the machine's instructions, you quickly place the tube in your mouth and start to suck out the sickly-sweet potion. After greedily swallowing down every last drop, you can't help but let out a deeply erotic [pc.moan] as you feel your body start to transform. As the transformative effects begin to manifest themselves, your mind starts to spin, and you dip in and out of consciousness as your body undergoes some radical transformations to turn you into a greater cow-girl...
 	</p>
 	]]>
 	</htmlContent>
@@ -3492,7 +3492,7 @@
 		</i>
 	</p>
 	<p>
-		Following the machine's instructions, you quickly place the tube in your mouth and start to suck out the sickly-sweet potion. After greedily swallowing down every last drop, you can't help but let out a deeply erotic [pc.moan] as you feel your body start to transform. As the transformative effects begin to manifest themselves, your mind starts to spin, and you dip in and out of conciousness as your body undergoes some radical transformations to turn your lower body into that of a feral cow...
+		Following the machine's instructions, you quickly place the tube in your mouth and start to suck out the sickly-sweet potion. After greedily swallowing down every last drop, you can't help but let out a deeply erotic [pc.moan] as you feel your body start to transform. As the transformative effects begin to manifest themselves, your mind starts to spin, and you dip in and out of consciousness as your body undergoes some radical transformations to turn your lower body into that of a feral cow...
 	</p>
 	]]>
 	</htmlContent>

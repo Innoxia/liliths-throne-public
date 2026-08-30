@@ -328,7 +328,7 @@ public class FingerFinger {
 
 		@Override
 		public String getActionDescription() {
-			return "Try to pull your [npc.hand] away from [npc2.namePos].";
+			return "Try to pull your [npc.hand] away from [npc2.nameHers].";
 		}
 
 		@Override

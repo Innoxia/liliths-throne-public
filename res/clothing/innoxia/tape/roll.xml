@@ -6,7 +6,22 @@
 		<determiner><![CDATA[a roll of]]></determiner>
 		<name><![CDATA[electrical tape]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[electrical tapes]]></namePlural>
-		<description><![CDATA[This shiny tape is of the sort that's typically used by electricians. Although it holds enough adhesive to stick to most surfaces, it isn't particularly strong, and could comfortably be stuck to skin, fur, or hair without fear of a painful removal.]]></description>
+		<description><![CDATA[
+			This shiny tape is of the sort that's typically used by electricians. Although it holds enough adhesive to stick to most surfaces, it isn't particularly strong, and could comfortably be stuck to skin, fur, or hair without fear of a painful removal.
+			#IF(thisItem.getSlotEquippedTo()!=null)
+				<i>This particular length of tape has been
+				#IF(thisItem.getSlotEquippedTo()==IS_NIPPLE)
+					 stuck over [npc.namePos] [npc.nipples]!
+				#ELSEIF(thisItem.getSlotEquippedTo()==IS_VAGINA)
+					 stuck over [npc.namePos] [npc.pussy]!
+				#ELSEIF(thisItem.getSlotEquippedTo()==IS_ANUS)
+					 stuck over [npc.namePos] [npc.asshole]!
+				#ELSEIF(thisItem.getSlotEquippedTo()==IS_MOUTH)
+					 stuck over [npc.namePos] mouth, preventing [npc.herHim] from speaking!
+				#ENDIF
+				</i>
+			#ENDIF
+		]]></description>
 		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
 		<equipSlots>

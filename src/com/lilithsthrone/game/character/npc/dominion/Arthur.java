@@ -74,7 +74,7 @@ public class Arthur extends NPC {
 				41, Month.DECEMBER, 9,
 				10,
 				Gender.M_P_MALE,
-				Subspecies.HUMAN, RaceStage.HUMAN, new CharacterInventory(10),
+				Subspecies.HUMAN, RaceStage.HUMAN, new CharacterInventory(false, 10),
 				WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_OFFICE, true);
 		
 	}

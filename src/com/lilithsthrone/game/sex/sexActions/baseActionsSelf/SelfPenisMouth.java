@@ -30,8 +30,7 @@ public class SelfPenisMouth {
 			SexParticipantType.SELF) {
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Main.sex.getCharacterPerformingAction().isTaur()
-					&& Main.sex.getPosition().isSelfOralAvailable(Main.sex.getCharacterPerformingAction())
+			return Main.sex.getPosition().isSelfOralAvailable(Main.sex.getCharacterPerformingAction())
 					&& (Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.HYPERMOBILITY)
 							|| Main.sex.getCharacterPerformingAction().hasPerkAnywhereInTree(Perk.DOLL_PHYSICAL_1));
 		}

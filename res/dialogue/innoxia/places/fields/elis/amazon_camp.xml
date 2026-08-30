@@ -299,7 +299,7 @@
 				<responseTabIndex><![CDATA[0]]></responseTabIndex>
 				<index><![CDATA[3]]></index>
 				<responseTitle><![CDATA[Bow]]></responseTitle>
-				<responseTooltip><![CDATA[Decide to use the Amazons' preferred ranged weapon, a compound bow.]]></responseTooltip>
+				<responseTooltip><![CDATA[Decide to use the Amazons' preferred ranged weapon, a recurve bow.]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_places_fields_elis_amazon_camp_trader_aurokaris_sparring_practice]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.appendToTextStartStringBuilder(game.parseFromFile('txt/places/fields/elis/amazon_camp', 'TRADER_AUROKARIS_SPARRING_START_RANGED'))]

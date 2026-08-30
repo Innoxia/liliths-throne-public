@@ -153,7 +153,7 @@
       <![CDATA[[npc.Name] [npc.verb(wince)] as the clover clamps bite into [npc.her] [npc.vaginaColourSecondary] [npc.vagina].]]>
     </self>
     <other>
-      <![CDATA[[npc2.Name] [npc2.verb(wince)] as the clover clamps bite into [npc.her] [npc.vaginaColourSecondary] [npc.vagina].]]>
+      <![CDATA[[npc2.Name] [npc2.verb(wince)] as the clover clamps bite into [npc2.her] [npc2.vaginaColourSecondary] [npc2.vagina].]]>
     </other>
     <otherRough>
       <![CDATA[[npc2.Name] [npc2.verb(yelp)] as [npc.name] [npc.verb(tug)] the clover clamps on [npc2.her] [npc2.vaginaColourSecondary] [npc2.vagina] before letting them hang free.]]>

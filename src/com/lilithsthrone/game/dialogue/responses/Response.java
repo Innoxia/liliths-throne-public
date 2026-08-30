@@ -374,6 +374,13 @@ public class Response {
 	public void setForceContinue(boolean forceContinue) {
 		this.forceContinue = forceContinue;
 	}
+
+	/**
+	 * @return true if this Response should never keep the scroll bar in the same relative position when loaded. Will almost always be {@code false}.
+	 */
+	public boolean isIgnoreContentScroll() {
+		return false;
+	}
 	
 	public final void applyEffects() {
 		effects();

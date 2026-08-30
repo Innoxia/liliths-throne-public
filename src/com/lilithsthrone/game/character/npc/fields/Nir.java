@@ -71,7 +71,7 @@ public class Nir extends NPC {
 				"Nir is one of two nightmare bodyguards who protect Angelixx at all times.",
 				28, Month.SEPTEMBER, 9,
 				20, Gender.M_P_MALE, Subspecies.HORSE_MORPH, RaceStage.GREATER,
-				new CharacterInventory(30),
+				new CharacterInventory(false, 30),
 				WorldType.getWorldTypeFromId("innoxia_dominion_angelixx_apartment"), PlaceType.getPlaceTypeFromId("innoxia_dominion_angelixx_apartment_bedroom"),
 				true);
 		if(!isImported) {

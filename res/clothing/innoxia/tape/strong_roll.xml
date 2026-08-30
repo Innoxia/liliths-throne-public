@@ -6,7 +6,22 @@
 		<determiner><![CDATA[a roll of]]></determiner>
 		<name><![CDATA[duct tape]]></name>
 		<namePlural pluralByDefault="false"><![CDATA[duct tape]]></namePlural>
-		<description><![CDATA[Backed with woven fabric and covered in plastic, this highly adhesive tape is easily strong enough to keep a person's arms, legs, or lips bound together...]]></description>
+		<description><![CDATA[
+			Backed with woven fabric and covered in plastic, this highly adhesive tape is known as 'duct tape', or sometimes 'duck tape'.
+			#IF(thisItem.getSlotEquippedTo()==null)
+				 It's easily strong enough to keep a person's wrists, ankles, or lips bound together...
+			#ELSE
+				 <i>This particular length of duct tape has been
+				#IF(thisItem.getSlotEquippedTo()==IS_WRIST)
+					 wrapped around [npc.namePos] wrists, keeping them tightly bound together!
+				#ELSEIF(thisItem.getSlotEquippedTo()==IS_ANKLE)
+					 wrapped around [npc.namePos] ankles, keeping them tightly bound together!
+				#ELSEIF(thisItem.getSlotEquippedTo()==IS_MOUTH)
+					 stuck over [npc.namePos] mouth, preventing [npc.herHim] from speaking!
+				#ENDIF
+				</i>
+			#ENDIF
+		]]></description>
 		<physicalResistance>0</physicalResistance>
 		<femininity>ANDROGYNOUS</femininity>
 		<equipSlots>

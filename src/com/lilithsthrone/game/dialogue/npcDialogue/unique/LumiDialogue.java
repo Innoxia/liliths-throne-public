@@ -62,7 +62,7 @@ public class LumiDialogue {
 		}
 	};
 	
-	private static int moneyStolen = 0;
+	private static long moneyStolen = 0;
 	
 	public static final DialogueNode LUMI_APPEARS_FIRST_ENCOUNTER = new DialogueNode("Alleyways", "", true, true) {
 

@@ -587,15 +587,27 @@ public class SlaveDialogue {
 						switch(ObedienceLevelBasic.getObedienceLevelFromValue(getSlave().getObedienceValue())) {
 							case DISOBEDIENT:
 								sb.append(" sighing,"
-										+ " [npc.speech(Hi, [npc.pcName]. "+(father==null?"I ended up getting pregnant":father.getName("A")+" got me pregnant")+", so I'm going to take it easy for a while. Get one of the other slaves to cover for me, ok?)]");
+										+ " [npc.speech(Hi, [npc.pcName]. "
+											+(father==null || father.equals(getSlave())
+												?"I ended up getting pregnant"
+												:father.getName("A")+" got me pregnant")
+											+", so I'm going to take it easy for a while. Get one of the other slaves to cover for me, ok?)]");
 								break;
 							case NEUTRAL:
 								sb.append(" sighing,"
-										+ " [npc.speech(Hi, [npc.pcName]. "+(father==null?"I ended up getting pregnant":father.getName("A")+" got me pregnant")+", so I'm going to need to take it easy for a while, ok?)]");
+										+ " [npc.speech(Hi, [npc.pcName]. "
+											+(father==null || father.equals(getSlave())
+												?"I ended up getting pregnant"
+												:father.getName("A")+" got me pregnant")
+											+", so I'm going to need to take it easy for a while, ok?)]");
 								break;
 							case OBEDIENT:
 								sb.append(" obediently informing you of what happened,"
-										+ " [npc.speech(Hello, [npc.pcName]. "+(father==null?"I ended up getting pregnant":father.getName("A")+" got me pregnant")+", but I won't let it get in the way of my duties!)]");
+										+ " [npc.speech(Hello, [npc.pcName]. "
+											+(father==null || father.equals(getSlave())
+												?"I ended up getting pregnant"
+												:father.getName("A")+" got me pregnant")
+											+", but I won't let it get in the way of my duties!)]");
 								break;
 						}
 						sb.append("</p>");
@@ -834,14 +846,14 @@ public class SlaveDialogue {
 					}
 				}
 			UtilText.nodeContentSB.append("</p>");
-
+			
 			if(!getSlave().isAsleep() && !isDollStatue()) {
 				UtilText.nodeContentSB.append(getSlaveStartCoreContent());
 			}
 			
 			return UtilText.parse(getSlave(), UtilText.nodeContentSB.toString());
 		}
-
+		
 		@Override
 		public String getResponseTabTitle(int index) {
 			if(index == 0) {
@@ -1193,7 +1205,7 @@ public class SlaveDialogue {
 	
 									if(!isDoll()) {
 										if(getSlave().isAttractedTo(Main.game.getPlayer())
-												&& (getSlave().getFetishDesire(Fetish.FETISH_SUBMISSIVE).isPositive() || getSlave().getFetishDesire(Fetish.FETISH_NON_CON_SUB).isPositive())) {
+												&& (getSlave().hasFetish(Fetish.FETISH_SUBMISSIVE) || getSlave().hasFetish(Fetish.FETISH_NON_CON_SUB))) {
 											Main.game.getTextEndStringBuilder().append(getSlave().incrementAffection(Main.game.getPlayer(), 10));
 											
 										} else if(!getSlave().isAttractedTo(Main.game.getPlayer()) && !getSlave().hasFetish(Fetish.FETISH_SUBMISSIVE) && !getSlave().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
@@ -2077,11 +2089,12 @@ public class SlaveDialogue {
 		if(isDoll()) {
 			return "";
 		}
-		return "<p><i>"
-				+ (getSlave().isAttractedTo(Main.game.getPlayer())
+		return UtilText.parse(getSlave(),
+				"<p><i>"
+					+ (getSlave().isAttractedTo(Main.game.getPlayer())
 						?"From the way [npc.she] keeps on glancing hungrily at your body, you can tell that [npc.sheIs] attracted to you..."
 						:"[npc.She] doesn't seem to be attracted to you...")
-					+ "</i></p>";
+				+ "</i></p>");
 	}
 	
 	public static final DialogueNode SLAVE_PROGRESSION = new DialogueNode("", "", true) {

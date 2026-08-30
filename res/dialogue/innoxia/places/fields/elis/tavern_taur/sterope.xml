@@ -179,7 +179,7 @@
 				<responseTitle><![CDATA[
 					[centaur_potential1.Race(true)]
 				]]></responseTitle>
-				<responseTooltip><![CDATA[Lead the [centaur_potential1.femininity(true)] [centaur_potential1.race(true)] back to Sterope and get [centaur_potential1.herHim] to dominantly fuck the two of you.]]></responseTooltip>
+				<responseTooltip><![CDATA[Lead the [centaur_potential1.raceStage(true)] [centaur_potential1.femininity(true)] [centaur_potential1.race(true)] back to Sterope and get [centaur_potential1.herHim] to dominantly fuck the two of you.]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_sterope_centaur_submit]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.setParserTarget('centaur', centaur_potential1)]
@@ -215,7 +215,7 @@
 				<responseTitle><![CDATA[
 					[centaur_potential1.Race(true)]
 				]]></responseTitle>
-				<responseTooltip><![CDATA[Lead the [centaur_potential1.femininity(true)] [centaur_potential1.race(true)] back to Sterope and get [centaur_potential1.herHim] to dominantly fuck the two of you.]]></responseTooltip>
+				<responseTooltip><![CDATA[Lead the [centaur_potential1.raceStage(true)] [centaur_potential1.femininity(true)] [centaur_potential1.race(true)] back to Sterope and get [centaur_potential1.herHim] to dominantly fuck the two of you.]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_sterope_centaur_submit]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.banishNPC(centaur_potential2)]
@@ -229,7 +229,7 @@
 				<responseTitle><![CDATA[
 					[centaur_potential2.Race(true)]
 				]]></responseTitle>
-				<responseTooltip><![CDATA[Lead the [centaur_potential2.femininity(true)] [centaur_potential2.race(true)] back to Sterope and get [centaur_potential2.herHim] to dominantly fuck the two of you.]]></responseTooltip>
+				<responseTooltip><![CDATA[Lead the [centaur_potential2.raceStage(true)] [centaur_potential2.femininity(true)] [centaur_potential2.race(true)] back to Sterope and get [centaur_potential2.herHim] to dominantly fuck the two of you.]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_sterope_centaur_submit]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.banishNPC(centaur_potential1)]
@@ -265,7 +265,7 @@
 				<responseTitle><![CDATA[
 					[centaur_potential1.Race(true)]
 				]]></responseTitle>
-				<responseTooltip><![CDATA[Lead the [centaur_potential1.femininity(true)] [centaur_potential1.race(true)] back to Sterope and get [centaur_potential1.herHim] to dominantly fuck the two of you.]]></responseTooltip>
+				<responseTooltip><![CDATA[Lead the [centaur_potential1.raceStage(true)] [centaur_potential1.femininity(true)] [centaur_potential1.race(true)] back to Sterope and get [centaur_potential1.herHim] to dominantly fuck the two of you.]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_sterope_centaur_submit]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.banishNPC(centaur_potential2)]
@@ -280,7 +280,7 @@
 				<responseTitle><![CDATA[
 					[centaur_potential2.Race(true)]
 				]]></responseTitle>
-				<responseTooltip><![CDATA[Lead the [centaur_potential2.femininity(true)] [centaur_potential2.race(true)] back to Sterope and get [centaur_potential2.herHim] to dominantly fuck the two of you.]]></responseTooltip>
+				<responseTooltip><![CDATA[Lead the [centaur_potential2.raceStage(true)] [centaur_potential2.femininity(true)] [centaur_potential2.race(true)] back to Sterope and get [centaur_potential2.herHim] to dominantly fuck the two of you.]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_sterope_centaur_submit]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.banishNPC(centaur_potential1)]
@@ -295,7 +295,7 @@
 				<responseTitle><![CDATA[
 					[centaur_potential3.Race(true)]
 				]]></responseTitle>
-				<responseTooltip><![CDATA[Lead the [centaur_potential3.femininity(true)] [centaur_potential3.race(true)] back to Sterope and get [centaur_potential3.herHim] to dominantly fuck the two of you.]]></responseTooltip>
+				<responseTooltip><![CDATA[Lead the [centaur_potential3.raceStage(true)] [centaur_potential3.femininity(true)] [centaur_potential3.race(true)] back to Sterope and get [centaur_potential3.herHim] to dominantly fuck the two of you.]]></responseTooltip>
 				<nextDialogue><![CDATA[innoxia_places_fields_elis_tavern_taur_sterope_centaur_submit]]></nextDialogue>
 				<effects><![CDATA[
 					[#game.banishNPC(centaur_potential1)]
@@ -931,7 +931,11 @@
 				]]></responseTitle>
 				<responseTooltip><![CDATA[
 					#IF((flags.hasFlag(FLAG_innoxia_sterope_fully_furry) && game.isFeralContentEnabled() && (pc.getTrueRace()==RACE_HORSE_MORPH || pc.isAbleToHaveRaceTransformed())) || (pc.getTrueRace()!=RACE_HORSE_MORPH && pc.isAbleToHaveRaceTransformed()))
-						Don't drink the transformation potion and instead simply submit to be tied up so that you're bent over the table.
+						#IF(flags.hasFlag(FLAG_innoxia_sterope_fully_furry) && game.isFeralContentEnabled())
+							Refuse to transform into a feral mare and instead simply submit to be tied up so that you're bent over the table.
+						#ELSE
+							Don't drink the transformation potion and instead simply submit to be tied up so that you're bent over the table.
+						#ENDIF
 					#ELSE
 						Submit and allow yourself to be tied up so that you're bent over the table.
 					#ENDIF
@@ -956,7 +960,7 @@
 							Drink the transformation potion, turning you into a greater horse-girl.
 						#ENDIF
 					#ELSEIF(pc.getTrueRace()==RACE_HORSE_MORPH)
-						As you are already a [pc.race], there's no need for you to drink the transformative potion.
+						As you are already a [pc.race], there's no need for you to drink a transformation potion.
 					#ELSE
 						As you cannot have your race transformed, the potion is useless.
 					#ENDIF
@@ -1500,6 +1504,9 @@
 	<scene id="centaur_feral_after_sex_final">
 		<preParsingEffects><![CDATA[
 			[#game.addSpecialParsingString(ITEM_EFFECT_TYPE_PREGNANCY_TEST.applyEffect(null, null, null, 0, sterope, sterope, null), true)]
+			#IF(!sterope.isPregnant())
+				[#sterope.clearFluidsStored(ORIFICE_VAGINA)]
+			#ENDIF
 		]]></preParsingEffects>
 		<title><![CDATA[Finished]]></title>
 		<tooltip><![CDATA[The [centaur.race] has had [centaur.her] fun, and so brings an end to the sex...]]></tooltip>

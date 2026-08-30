@@ -81,6 +81,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Weather;
 import com.lilithsthrone.world.WorldRegion;
 import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -1548,21 +1549,26 @@ public class StatusEffect {
 				sb.append(" As an arcane-powered sex doll, [npc.nameIsFull] filled with a colossal amount of energy!");
 				
 			} else {
-				if(!target.isVulnerableToArcaneStorm()) {
-					sb.append(" [npc.NamePos] affinity with the arcane has rendered [npc.herHim] almost completely immune to the arousing effects of arcane storms, with the only effect being feeling a little hornier than usual.");
+				if(target.getWorldLocation().getWorldRegion()!=WorldRegion.DOMINION && target.getWorldLocation().getWorldRegion()!=WorldRegion.HARPY_NESTS) {
+					sb.append(" [npc.NameIsFull] far enough away from the storm's epicentre to be rendered all but immune to its arousing effects.");
 				} else {
-					sb.append(" [npc.NameIsFull] far enough away from the storm's epicentre to be rendered all but immune to its arousing effects!");
+					sb.append(" [npc.NamePos] affinity with the arcane has rendered [npc.herHim] almost completely immune to the arousing effects of arcane storms.");
 				}
 			}
 			return UtilText.parse(target, sb.toString());
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
+			GenericPlace targetPlace =
+					(target.isElemental() && ((Elemental)target).getSummoner()!=null)
+						?((Elemental)target).getSummoner().getLocationPlace()
+						:target.getLocationPlace();
+			
 			return Main.game.getCurrentWeather()==Weather.MAGIC_STORM
 					&& Main.game.isInNewWorld()
 					&& Main.game.isStarted()
-					&& ((!target.isVulnerableToArcaneStorm() && !(target.isElemental() && ((Elemental)target).getSummoner()!=null?((Elemental)target).getSummoner().getLocationPlace():target.getLocationPlace()).isStormImmune())
-							|| (target.getWorldLocation().getWorldRegion()!=WorldRegion.DOMINION && target.getWorldLocation().getWorldRegion()!=WorldRegion.HARPY_NESTS));
+					&& !targetPlace.isStormImmune()
+					&& (!target.isVulnerableToArcaneStorm() || (target.getWorldLocation().getWorldRegion()!=WorldRegion.DOMINION && target.getWorldLocation().getWorldRegion()!=WorldRegion.HARPY_NESTS));
 		}
 		@Override
 		public String getSVGString(GameCharacter owner) {
@@ -1641,11 +1647,16 @@ public class StatusEffect {
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
+			GenericPlace targetPlace =
+					(target.isElemental() && ((Elemental)target).getSummoner()!=null)
+						?((Elemental)target).getSummoner().getLocationPlace()
+						:target.getLocationPlace();
+			
 			return Main.game.getCurrentWeather()==Weather.MAGIC_STORM
 					&& Main.game.isInNewWorld()
 					&& Main.game.isStarted()
 					&& target.isVulnerableToArcaneStorm()
-					&& (!(target.isElemental() && ((Elemental)target).getSummoner()!=null?((Elemental)target).getSummoner().getLocationPlace():target.getLocationPlace()).isStormImmune() && !target.isProtectedFromArcaneStorm())
+					&& (!targetPlace.isStormImmune() && !target.isProtectedFromArcaneStorm())
 					&& (target.getWorldLocation().getWorldRegion()==WorldRegion.DOMINION || target.getWorldLocation().getWorldRegion()==WorldRegion.HARPY_NESTS);
 		}
 		@Override
@@ -1726,11 +1737,15 @@ public class StatusEffect {
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
+			GenericPlace targetPlace =
+					(target.isElemental() && ((Elemental)target).getSummoner()!=null)
+						?((Elemental)target).getSummoner().getLocationPlace()
+						:target.getLocationPlace();
+			
 			return Main.game.getCurrentWeather()==Weather.MAGIC_STORM
 					&& Main.game.isInNewWorld()
 					&& Main.game.isStarted()
-					&& ((target.isElemental() && ((Elemental)target).getSummoner()!=null?((Elemental)target).getSummoner().getLocationPlace():target.getLocationPlace()).isStormImmune() || target.isProtectedFromArcaneStorm())
-					&& (target.getWorldLocation().getWorldRegion()==WorldRegion.DOMINION || target.getWorldLocation().getWorldRegion()==WorldRegion.HARPY_NESTS);
+					&& (targetPlace.isStormImmune() || target.isProtectedFromArcaneStorm());
 		}
 		@Override
 		public String getSVGString(GameCharacter owner) {
@@ -1864,7 +1879,64 @@ public class StatusEffect {
 			return target.getCell().isDark() && !target.isInDarkness();
 		}
 	};
-	
+
+
+	public static AbstractStatusEffect SHORT_SIGHTED = new AbstractStatusEffect(90,
+			"impaired vision",
+			"short_sighted",
+			PresetColour.BASE_BLACK,
+			PresetColour.GENERIC_TERRIBLE,
+			PresetColour.GENERIC_TERRIBLE,
+			false,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.ACTION_POINTS, -1f),
+					new Value<>(Attribute.CRITICAL_DAMAGE, -50f),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, -50f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				return UtilText.parse(target,
+						"[npc.Name] can't see very well without wearing prescription glasses...");
+			}
+			return "";
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.hasPerkAnywhereInTree(Perk.SPECIAL_SHORT_SIGHTED)
+					&& !target.isDoll()
+					&& !target.isPerfectVision()
+					&& !target.hasClothingWithTag(ItemTag.PRESCRIPTION_GLASSES, true, false);
+		}
+	};
+	public static AbstractStatusEffect ENCHANCED_VISION = new AbstractStatusEffect(90,
+			"enhanced vision",
+			"perfect_vision",
+			PresetColour.BASE_BLACK,
+			PresetColour.GENERIC_EXCELLENT,
+			PresetColour.GENERIC_EXCELLENT,
+			true,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.CRITICAL_DAMAGE, 5f),
+					new Value<>(Attribute.DAMAGE_RANGED_WEAPON, 5f)),
+			Util.newArrayListOfValues()) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				if(target.hasPerkAnywhereInTree(Perk.SPECIAL_SHORT_SIGHTED)) {
+					return UtilText.parse(target,
+							"Thanks to the enchanted prescription lenses in [npc.her] glasses, not only is [npc.namePos] visual impairment no longer an issue, but [npc.she] [npc.is] also benefiting from enhanced eyesight!");
+				}
+				return UtilText.parse(target,
+						"Although [npc.she] [npc.do]n't suffer from any kind of visual impairment, the enchanted prescription lenses in [npc.namePos] glasses are enhancing [npc.her] eyesight!");
+			}
+			return "";
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.hasClothingWithTag(ItemTag.PRESCRIPTION_GLASSES, true, false);
+		}
+	};
 	
 	// RACES:
 	// HUMAN:
@@ -1931,11 +2003,12 @@ public class StatusEffect {
 			if(target.getSubspeciesOverride()!=null && target.getSubspeciesOverride()!=target.getSubspecies()) {
 				String subspeciesName = target.getSubspecies().getName(target.getBody());
 				additionalDescriptions.add(
-						new Value<>(2,
+						new Value<>(1,
 								UtilText.parse(target,
-						"<i style='color:"+target.getSubspecies().getColour(target).toWebHexString()+";'>"
-							+ "[npc.Name] [npc.verb(appear)] to be "+UtilText.generateSingularDeterminer(subspeciesName) + " " +subspeciesName+", and will be treated by people [npc.she] [npc.verb(meet)] as being one!"
-						+ "</i>")));
+										"[npc.NameIsFull] "
+										+"<span style='color:"+target.getSubspeciesOverride().getColour(target).toWebHexString()+";'>"+UtilText.addDeterminer(target.getSubspeciesOverride().getName(null))+"</span>"
+										+ " but [npc.she] [npc.verb(appear)] to be "
+										+"<span style='color:"+target.getSubspecies().getColour(target).toWebHexString()+";'>"+UtilText.addDeterminer(subspeciesName)+"</span>!")));
 			}
 
 			// Add body material modifiers:
@@ -2199,10 +2272,12 @@ public class StatusEffect {
 			PresetColour.MASCULINE,
 			true,
 			null,
-			Util.newArrayListOfValues("<b>-50%</b> <b style='color:"+ PresetColour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>Lust damage</b> both to and from <b style='color:"+ PresetColour.FEMININE.toWebHexString()+ ";'>feminine opponents</b>")) {
+			Util.newArrayListOfValues(
+					"[style.colourGood(-50%)] [style.colourDmgLust(Lust damage)] taken from [style.colourFeminine(feminine opponents)]",
+					"[style.colourBad(-50%)] [style.colourDmgLust(Lust damage)] dealt to [style.colourFeminine(feminine opponents)]")) {
 		@Override
 		public String getDescription(GameCharacter target) {
-			return UtilText.parse(target, "[npc.NameIsFull] sexually attracted to masculine individuals, and finds feminine people to be a huge turn-off.");
+			return UtilText.parse(target, "[npc.NameIsFull] sexually attracted to masculine individuals, and [npc.verb(find)] feminine people to be a huge turn-off.");
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -2220,10 +2295,12 @@ public class StatusEffect {
 			PresetColour.FEMININE,
 			true,
 			null,
-			Util.newArrayListOfValues("<b>-50%</b> <b style='color:"+ PresetColour.DAMAGE_TYPE_LUST.toWebHexString()+ ";'>Lust damage</b> both to and from <b style='color:"+ PresetColour.MASCULINE.toWebHexString()+ ";'>masculine opponents</b>")) {
+			Util.newArrayListOfValues(
+					"[style.colourGood(-50%)] [style.colourDmgLust(Lust damage)] taken from [style.colourMasculine(masculine opponents)]",
+					"[style.colourBad(-50%)] [style.colourDmgLust(Lust damage)] dealt to [style.colourMasculine(masculine opponents)]")) {
 		@Override
 		public String getDescription(GameCharacter target) {
-			return UtilText.parse(target, "[npc.NameIsFull] sexually attracted to feminine individuals, and finds masculine people to be a huge turn-off.");
+			return UtilText.parse(target, "[npc.NameIsFull] sexually attracted to feminine individuals, and [npc.verb(find)] masculine people to be a huge turn-off.");
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -2243,7 +2320,7 @@ public class StatusEffect {
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
-			return UtilText.parse(target, "[npc.NameIsFull] sexually attracted to both masculine and feminine individuals, and doesn't find any level of femininity to be a turn-off.");
+			return UtilText.parse(target, "[npc.NameIsFull] sexually attracted to both masculine and feminine individuals, and [npc.do]n't find any level of femininity to be a turn-off.");
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -2429,6 +2506,9 @@ public class StatusEffect {
 					if(clothing.getSlotEquippedTo()==InventorySlot.ANUS && (tags.contains(ItemTag.SEALS_ANUS) || tags.contains(ItemTag.PLUGS_ANUS))
 							|| clothing.getSlotEquippedTo()==InventorySlot.VAGINA && (tags.contains(ItemTag.SEALS_VAGINA) || tags.contains(ItemTag.PLUGS_VAGINA))
 							|| clothing.getSlotEquippedTo()==InventorySlot.NIPPLE && (tags.contains(ItemTag.SEALS_NIPPLES) || tags.contains(ItemTag.PLUGS_NIPPLES))) {
+						if(sb.length()>0) {
+							sb.append("<br/>");
+						}
 						sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getSlotEquippedTo().getName()
 								+(seals
 										?" as you equip "+(clothing.getClothingType().isPlural()?"them":"it")
@@ -2547,13 +2627,13 @@ public class StatusEffect {
 						"[npc.NameHasFull] been marked by a heady musk, and [npc.verb(find)] [npc.herself] getting turned on by the distinctive scent [npc.she] now [npc.verb(carry)].");
 			} else {
 				return UtilText.parse(target,
-						"[npc.NameHasFull] been marked by the musk of "+Util.charactersToStringListOfNames(target.getMuskMarkerCharacters())
+						"[npc.NameHasFull] been marked by the musk of "+Util.charactersToStringListOfNames(target.getMuskMarkerCharacters(), true)
 							+", and [npc.verb(find)] [npc.herself] getting turned on by the distinctive scent [npc.she] now [npc.verb(carry)].");
 			}
 		}
 		@Override
 		protected Value<Integer, String> getAdditionalDescription(GameCharacter target) {
-			return new Value<>(2, "[style.italicsAqua(Only a bath, a spa soak, or arcane wet wipes will remove this odour.)]");
+			return new Value<>(1, "[style.italicsAqua(Only a bath, a spa soak, or arcane wet wipes will remove this odour.)]");
 		}
 		@Override
 		public boolean isSexEffect() {
@@ -4088,14 +4168,20 @@ public class StatusEffect {
 				target.loadImages(true); // Reload images for pregnant versions
 				
 				if (target.isPlayer() && !((PlayerCharacter) target).isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
+					sb.append("<p>");
+						if(Main.game.getPlayer().isTaur()) {
+							sb.append("For the last few hours, you've been feeling a mild discomfort in your [pc.legRace]'s body, which has been accompanied by a gradual swelling in your lower half's belly."
+								+ " You tried to dismiss it as indigestion at first, but as you look back and glance down at your tauric body, you can no longer deny what you instinctively know to be the truth."
+								+ " You're pregnant.");
+						} else {
+							sb.append("For the last few hours, your belly has been gradually swelling."
+									+ " The progress was so slow that you didn't realise anything was happening at first, but as you glance down at your stomach, there's no mistaking it."
+									+ " You're pregnant."
+									+ " You experimentally start stroking your abdomen, making soft little gasps as the realisation of what's happening starts to sink in.");
+						}
+					sb.append("</p>");
 					if(target.hasFetish(Fetish.FETISH_PREGNANCY)) {
 						sb.append("<p>"
-								+ "For the last few hours, your belly has been gradually swelling."
-								+ " The progress was so slow that you didn't even realise anything was happening, but as you glance down at your stomach, there's no mistaking it."
-								+ " You're pregnant."
-								+ " You experimentally start stroking your abdomen, making soft little gasps as the realisation of what's happening starts to sink in."
-							+ "</p>"
-							+ "<p>"
 								+ "[pc.thought(I-I'm pregnant?"
 									+ "<br/>"
 									+ "..."
@@ -4104,38 +4190,47 @@ public class StatusEffect {
 							+ "</p>"
 							+ "<p>"
 								+ "The overwhelming happiness you feel at not only discovering that you're pregnant, but also that you're showing physical signs after only a few hours, washes over you like a crashing wave of pure ecstasy."
-								+ " You feel tears of joy welling up in your eyes as you lovingly cradle your swollen belly."
+								+ (Main.game.getPlayer().isTaur()
+									?" You feel tears of joy welling up in your eyes as you gaze down over your shoulder at what is undeniably the swollen belly of a pregnant [pc.legRace]."
+									:" You feel tears of joy welling up in your eyes as you lovingly cradle your swollen belly.")
 							+ "</p>"
 							+ "<p>"
 								+ "[pc.thought(This is the best feeling ever!"
 										+ "<br/>"
-										+ "If only aunt Lily were here, I bet she'd be so proud!"
+										+ (Main.game.isPlotDiscovered()
+											?"What should I do now?!"
+											:"If only aunt Lily were here, I bet she'd be so proud!")
 										+ "<br/>"
 										+ "Wait! Of course! <b>Lilaya!</b> She'll want to see this too!)]"
-							+ "</p>"
-							+ "<p>"
-								+ (target.getBodyMaterial()==BodyMaterial.SLIME
-									?"Taking a closer look at your swollen, slimy stomach, you suddenly realise that you can see "
-											+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing in "
-											+ (target.hasVagina()?"the place where your womb should be.":"your belly.")
-										+ " You can't help but let out a delighted squeal of happiness as you see your "
-											+(target.getPregnantLitter().getTotalLitterCount()==1?"child":"children")+" growing inside of you, and spend the next few minutes stroking and rubbing your wonderfully-swollen abdomen in a state of absolute bliss."
-										+ " Eventually, however, you decide that you should probably go and see Lilaya, so that she can help you figure out all the details of giving birth."
-									:"After a little while of stroking and rubbing your wonderfully-swollen abdomen, you start to calm down a little."
-										+ " You decide that you should probably go and see Lilaya, so that she can help you figure out all the details of giving birth.")
-							+ "</p>"
-							+ "<p style='text-align:center;'>"
-								+ "<b style='color:"+ PresetColour.GENERIC_SEX.toWebHexString() + ";'>You're pregnant!</b>"
 							+ "</p>");
+						
+						sb.append("<p>");
+							if(target.getBodyMaterial()==BodyMaterial.SLIME) {
+								sb.append("Taking a closer look at your swollen, slimy stomach, you suddenly realise that you can see "
+											+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing in "
+											+ (target.hasVagina()
+												?"the place where your womb should be."
+												:"your belly.")
+										+ " You can't help but let out a delighted squeal of happiness as you see your "
+											+(target.getPregnantLitter().getTotalLitterCount()==1?"child":"children")+" growing inside of you,"
+													+ " and spend the next few minutes"
+													+ (Main.game.getPlayer().isTaur()
+														?" reaching back to stroke and rub"
+														:" stroking and rubbing")
+													+" your wonderfully-swollen abdomen in a state of absolute bliss."
+										+ " Eventually, however, you decide that you should probably go and see Lilaya, so that she can help you figure out all the details of giving birth.");
+							} else {
+								sb.append("After a little while of "
+										+(Main.game.getPlayer().isTaur()
+											?" reaching back to stroke and rub"
+											:" stroking and rubbing")
+										+" your wonderfully-swollen abdomen, you start to calm down a little."
+										+ " You decide that you should probably go and see Lilaya, so that she can help you figure out all the details of giving birth.");
+							}
+						sb.append("</p>");
 						
 					} else {
 						sb.append("<p>"
-									+ "For the last few hours, your belly has been gradually swelling."
-									+ " The progress was so slow that you didn't even realise anything was happening, but as you glance down at your stomach, there's no mistaking it."
-									+ " You're pregnant."
-									+ " You experimentally start stroking your abdomen, making soft little gasps as the realisation of what's happening starts to sink in."
-								+ "</p>"
-								+ "<p>"
 									+ "[pc.thought(I-I'm pregnant?"
 										+ "<br/>"
 										+ "..."
@@ -4144,60 +4239,97 @@ public class StatusEffect {
 								+ "</p>"
 								+ "<p>"
 									+ "The sudden shock of not only discovering that you're pregnant, but also that you're showing physical signs after only a few hours, hits you like a sledgehammer."
-									+ " Despite your best efforts, you feel yourself starting to hyperventilate as you walk around in little circles, alternating between cradling your head and stomach."
+									+ " Despite your best efforts, you feel yourself starting to hyperventilate as you walk around in little circles"
+									+ (Main.game.getPlayer().isTaur()
+											?" with your head in your [pc.hands]."
+											:", alternating between cradling your head and stomach.")
 								+ "</p>"
 								+ "<p>"
 									+ "[pc.thought(What do I do? What do I do? What do I do?"
 											+ "<br/>"
-											+ "If only aunt Lily were here!"
+											+ (Main.game.isPlotDiscovered()
+												?"What should I do now?!"
+												:"If only aunt Lily were here, I bet she'd be so proud!")
 											+ "<br/>"
 											+ "Wait! Of course! <b>Lilaya!</b> She'll know what to do!)]"
-								+ "</p>"
-								+ "<p>"
-									+ (target.getBodyMaterial()==BodyMaterial.SLIME
-										?"As you take one last look at your swollen, slimy stomach, you suddenly realise that you can see "
+								+ "</p>");
+						
+						sb.append("<p>");
+							if(target.getBodyMaterial()==BodyMaterial.SLIME) {
+								sb.append("As you take one last look at your swollen, slimy stomach, you suddenly realise that you can see "
 												+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing in "
 												+ (target.hasVagina()?"the place where your womb should be.":"your belly.")
 											+ " You can't help but let out a shocked cry as you see your "+(target.getPregnantLitter().getTotalLitterCount()==1?"child":"children")
-												+" growing inside of you, and spend the next few minutes stroking and rubbing your swollen abdomen in a state of panic."
-											+ " Eventually, however, you start to calm down a little, and decide that you should probably go and see Lilaya as soon as possible."
-										:"You start to calm down a little as the initial shock starts to wear off."
-											+ " If anyone knows what to do, it'll be Lilaya.")
-								+ "</p>"
-								+ "<p style='text-align:center;'>"
-									+ "<b style='color:"+ PresetColour.GENERIC_SEX.toWebHexString() + ";'>You're pregnant!</b>"
-								+ "</p>");
+												+" growing inside of you, and spend the next few minutes "
+													+ (Main.game.getPlayer().isTaur()
+														?" reaching back to stroke and rub"
+														:" stroking and rubbing")
+												+" your swollen abdomen in a state of dazed panic."
+											+ " Eventually, however, you start to calm down a little, and decide that you should probably go and see Lilaya as soon as possible.");
+							} else {
+								sb.append("You start to calm down a little as the initial shock starts to wear off."
+											+ " If anyone knows what to do, it'll be Lilaya.");
+							}
+						sb.append("</p>");
 					}
 					
 				} else {
-					sb.append("<p>"
-							+ "For the last couple of hours, your belly has been gradually swelling."
-							+ " The progress was so slow that you didn't even realise anything was happening, but as you glance down at your stomach, there's no mistaking it."
-							+ " You're pregnant again."
-							+ " You start stroking your abdomen, making soft little gasps as the familiar feeling of being knocked up returns to you."
-							+ (target.getBodyMaterial()==BodyMaterial.SLIME
-								?"</p>"
-								+ "<p>"
-									+ "Looking a little closer at your swollen, slimy stomach, you see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
-										+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing in "+ (target.hasVagina()?"the place where your womb should be.":"your belly.")
-									+ " You can't help but let out a happy little sigh as you see your "+(target.getPregnantLitter().getTotalLitterCount()==1?"child":"children")
-									+" growing inside of you, and spend the next few minutes stroking and rubbing your swollen abdomen in a state of motherly bliss."
-								:"")
-						+ "</p>"
-						+ "<p>"
-							+ (target.hasFetish(Fetish.FETISH_PREGNANCY)
-									?"[pc.thought(Haha! Yes! I got pregnant again! This is the best feeling ever...)]"
-									:"[pc.thought(Mmm... Looks like I got pregnant again...)]")
-						+ "</p>"
-						+ "<p>"
-							+ (target.hasFetish(Fetish.FETISH_PREGNANCY)
-								?"Knowing what you're in for, you let out a delighted laugh before carrying on your way."
-								:"Knowing what you're in for, you let out a contented sigh and start carrying on your way.")
-						+ "</p>"
-						+ "<p style='text-align:center;'>"
-							+ "<b style='color:" + PresetColour.GENERIC_SEX.toWebHexString()+ ";'>You're pregnant!</b>"
-						+ "</p>");
+					sb.append("<p>");
+						if(Main.game.getPlayer().isTaur()) {
+							sb.append("For the last few hours, you've been feeling a familiar sensation of mild discomfort in your [pc.legRace]'s body, which has been accompanied by a gradual swelling in your lower half's belly."
+								+ " You weren't completely sure what was causing this discomfort at first, but as you look back and glance down at your tauric body, you instinctively know exactly what the cause is."
+								+ " You're pregnant again.");
+						} else {
+							sb.append("For the last few hours, your belly has been gradually swelling."
+									+ " The progress was so slow that you didn't realise anything was happening at first, but as you glance down at your stomach, there's no mistaking it."
+									+ " You're pregnant again."
+									+ " You experimentally start stroking your abdomen, making soft little gasps as the realisation of what's happening starts to sink in.");
+						}
+					sb.append("</p>");
+					
+					if(target.getBodyMaterial()==BodyMaterial.SLIME) {
+						sb.append("<p>");
+							sb.append("Looking a little closer at your swollen, slimy stomach, you see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
+											+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing in "+ (target.hasVagina()?"the place where your womb should be.":"your belly."));
+							if(!target.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
+								sb.append(" You can't help but let out a happy little sigh as you see your "+(target.getPregnantLitter().getTotalLitterCount()==1?"child":"children")
+											+" growing inside of you, and spend the next few minutes "
+												+(Main.game.getPlayer().isTaur()
+													?" reaching back to stroke and rub"
+													:" stroking and rubbing")
+											+" your swollen abdomen in a state of motherly bliss.");
+							}
+						sb.append("</p>");
+					}
+					
+					if(target.hasFetish(Fetish.FETISH_PREGNANCY)) {
+						sb.append("<p>"
+								+ "[pc.thought(Haha! Yes! I got pregnant again! This is the best feeling ever...)]"
+							+ "</p>"
+							+ "<p>"
+								+ "Knowing what you're in for, you let out a delighted laugh before carrying on your way."
+							+ "</p>");
+					} else if(target.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
+						sb.append("<p>"
+								+ "[pc.thought(No! I can't believe that I got pregnant again... I <b>hate</b> this...)]"
+							+ "</p>"
+							+ "<p>"
+								+ "Knowing what you're in for, you let out an annoyed tut and curse the fact that you're pregnant, before carrying on your way."
+							+ "</p>");
+					} else {
+						sb.append("<p>"
+								+ "[pc.thought(Mmm... Looks like I got pregnant again...)]"
+							+ "</p>"
+							+ "<p>"
+								+ "Knowing what you're in for, you let out a contented sigh and start carrying on your way."
+							+ "</p>");
+					}
+					
 				}
+				
+				sb.append( "<p style='text-align:center;'>"
+						+ "<b style='color:"+ PresetColour.GENERIC_SEX.toWebHexString() + ";'>You're pregnant!</b>"
+					+ "</p>");
 				
 				// Remove cum inflation:
 				StringBuilder sbFluidDrain = new StringBuilder();
@@ -4357,64 +4489,56 @@ public class StatusEffect {
 				return "";
 			}
 			
+			StringBuilder sb = new StringBuilder();
 			if (!((PlayerCharacter) target).isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
-				return "<p>"
+				sb.append("<p>"
 							+ "Even though the change has been gradual, you're suddenly hit by the realisation that your belly has swollen to a massive size."
-							+ " You can't resist rubbing your hands over the huge bump in your abdomen, and you wonder just how big it's going to get."
+							+ (target.isTaur()
+								?" You look back over your shoulder and gaze at the huge bump in your [pc.legRace]'s abdomen as you wonder just how big it's going to get."
+								:" You can't resist rubbing your hands over the huge bump in your abdomen, and you wonder just how big it's going to get.")
 							+ " As this is your first time getting pregnant, you're not quite sure what to expect, but you're reassured as you remember that Lilaya's always there to help."
-						+ "</p>"
-						+ (target.getBodyMaterial()==BodyMaterial.SLIME
-								?"<p>"
-									+ "Clearly visible through the translucent slime which your body is made up of, you see that the "
-										+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" slime core"+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of you have gotten a lot larger..."
-								+ "</p>"
-								:"")
-						+ "<p style='text-align:center;'>"
-							+ "<b style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>You're now heavily pregnant!</b>"
-						+ "</p>"
-						+(breastGrowth
-								? "<p><i>"
-										+"Your breasts have swollen and grown larger as your body prepares to start lactating."
-										+ " You now have [style.boldSex([pc.breastSize]"  + (target.getBreastRawSizeValue()>CupSize.AA.getMeasurement()?", "+target.getBreastSize().getCupSizeName()+"-cup":"") + " breasts)]!"
-									+ "</i></p>"
-								:"")
-						+(udderGrowth
-								? "<p><i>"
-										+"Your [pc.udders] have swollen and grown larger as your body prepares to start lactating."
-										+ " You now have [style.boldSex([pc.udderSize]"  + (target.getBreastCrotchRawSizeValue()>CupSize.AA.getMeasurement()?", "+target.getBreastCrotchSize().getCupSizeName()+"-cup":"") + " [pc.udders])]!"
-									+ "</i></p>"
-								:"");
+						+ "</p>");
 			} else {
-				return "<p>"
-							+ "Even though the change has been gradual, you're suddenly hit by the familiar realisation that your belly has swollen to a massive size."
-							+ " You can't resist rubbing your hands over the huge bump in your abdomen, smiling fondly at the comforting feeling."
-							+ " Having been through all this before, you know that you've still got a way to go before you're ready to give birth."
-						+ "</p>"
-						+ (target.getBodyMaterial()==BodyMaterial.SLIME
-							?"<p>"
-								+ "Clearly visible through the translucent slime which your body is made up of, you see that the "
-									+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" slime core"+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of you have gotten a lot larger..."
-							+ "</p>"
-							:"")
-						+ "<p style='text-align:center;'>"
-							+ "<b style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>You're now heavily pregnant!</b>"
-						+ "</p>"
-						+(breastGrowth
-								? "<p><i>"
-										+"Your breasts have swollen and grown larger as your body prepares to start lactating."
-										+ " You now have [style.boldSex([pc.breastSize]"  + (target.getBreastRawSizeValue()>CupSize.AA.getMeasurement()?", "+target.getBreastSize().getCupSizeName()+"-cup":"") + " breasts)]!"
-									+ "</i></p>"
-								:"")
-						+(udderGrowth
-								? "<p><i>"
-										+"Your [pc.udders] have swollen and grown larger as your body prepares to start lactating."
-										+ " You now have [style.boldSex([pc.udderSize]"  + (target.getBreastCrotchRawSizeValue()>CupSize.AA.getMeasurement()?", "+target.getBreastCrotchSize().getCupSizeName()+"-cup":"") + " [pc.udders])]!"
-									+ "</i></p>"
-								:"");
+				sb.append("<p>"
+							+ "Even though the change has been gradual, you're suddenly hit by the familiar realisation that your belly has swollen to a massive size.");
+							if(target.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
+								sb.append((target.isTaur()
+										?" You look back over your shoulder and scowl in disgust at the huge bump in your [pc.legRace]'s abdomen as you curse yourself for getting pregnant."
+										:" With an disgusted scowl on your face, you gently prod the huge bump in your abdomen and curse yourself for getting pregnant."));
+							} else {
+								sb.append((target.isTaur()
+										?" You look back over your shoulder and gaze at the huge bump in your [pc.legRace]'s abdomen as you smile fondly at the comforting feeling of being pregnant."
+										:" You can't resist rubbing your hands over the huge bump in your abdomen, smiling fondly at the comforting feeling."));
+							}
+							sb.append(" Having been through all this before, you know that you've still got a way to go before you're ready to give birth."
+						+ "</p>");
 			}
-		}
 
-		
+			if(target.getBodyMaterial()==BodyMaterial.SLIME) {
+				sb.append("<p>"
+						+ "Clearly visible through the translucent slime which your body is made up of, you see that the "
+						+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" slime core"+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of you have gotten a lot larger..."
+				+ "</p>");
+			}
+			sb.append("<p style='text-align:center;'>"
+							+ "<b style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>You're now heavily pregnant!</b>"
+						+ "</p>");
+			
+			if(breastGrowth) {
+				sb.append("<p><i>"
+							+"Your breasts have swollen and grown larger as your body prepares to start lactating."
+							+ " You now have [style.boldSex([pc.breastSize]"  + (target.getBreastRawSizeValue()>CupSize.AA.getMeasurement()?", "+target.getBreastSize().getCupSizeName()+"-cup":"") + " breasts)]!"
+						+ "</i></p>");
+			}
+			if(udderGrowth) {
+				sb.append("<p><i>"
+							+"Your [pc.udders] have swollen and grown larger as your body prepares to start lactating."
+							+ " You now have [style.boldSex([pc.udderSize]"  + (target.getBreastCrotchRawSizeValue()>CupSize.AA.getMeasurement()?", "+target.getBreastCrotchSize().getCupSizeName()+"-cup":"") + " [pc.udders])]!"
+						+ "</i></p>");
+			}
+			
+			return sb.toString();
+		}
 		@Override
 		public boolean isSexEffect() {
 			return true;
@@ -4472,73 +4596,65 @@ public class StatusEffect {
 				return "";
 			}
 			
-			if (!((PlayerCharacter) target).isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
-				return "<p>"
-							+ "By now, your stomach has completely ballooned out in front of you, and you're having to arch your back and support yourself with one hand as you walk around."
-							+ (target.getBodyMaterial()==BodyMaterial.SLIME
-								?" Clearly visible through the translucent slime which your body is made up of, you see that the "
-										+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" slime core"
-										+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of you "+(target.getPregnantLitter().getTotalLitterCount()==1?"has":"have")
-										+" grown to be just as large as your own, and you know that you're now ready to give birth."
-								:(target.isVaginaEggLayer()
-									?" Although you can feel the hard shells of your clutch of eggs pressing out against the inner walls of your womb, you don't find the sensation to be in any way uncomfortable."
-										+ " If anything, the feeling only seems to be boosting your maternal instincts, and you often catch yourself daydreaming about laying and incubating your eggs."
-									:" Some time in the last couple of hours, you felt a strange rumble in your pregnant bump, and after panicking for a little while, you realised that it was your offspring kicking about in your womb."
-										+ " You keep feeling another kick every now and then, and you know that you're ready to give birth."))
-						+ "</p>"
-						+ "<p>"
-							+ UtilText.parseThought("I really should go and see Lilaya...", Main.game.getPlayer())
-						+ "</p>"
-						+(lactationIncrease
-								? "<p><i>"
-										+"Your breasts have gotten noticeably heavier, and as you softly stroke the round bump in your belly, you feel droplets of [pc.milk] beading up on your engorged teats."
-										+ " You are now able to produce [style.boldSex(" + target.getBreastMilkStorage().getDescriptor() + " [pc.milk] ("+ Units.fluid(target.getBreastRawMilkStorageValue(), Units.UnitType.LONG)+"))]!"
-									+ "</i></p>"
-								:"")
-						+(lactationUddersIncrease
-								? "<p><i>"
-										+"Your [pc.udders] have gotten noticeably heavier, and as you walk, you feel droplets of [pc.crotchMilk] beading up on your engorged teats."
-										+ " You are now able to produce [style.boldSex(" + target.getBreastMilkStorage().getDescriptor() + " [pc.crotchMilk] ("+ Units.fluid(target.getBreastRawMilkStorageValue(), Units.UnitType.LONG)+"))]!"
-									+ "</i></p>"
-								:"")
-						+ "<p style='text-align:center;'>"
-							+ "<b style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>You're now ready to give birth!</b>" 
-						+ "</p>";
-			} else {
-				return "<p>"
-							+ "By now, your stomach has completely ballooned out in front of you, and you're having to arch your back and support yourself with one hand as you walk around."
-							+ (target.getBodyMaterial()==BodyMaterial.SLIME
-								?" Clearly visible through the translucent slime which your body is made up of, you see that the "
-										+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" slime core"+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of you "
-										+(target.getPregnantLitter().getTotalLitterCount()==1?"has":"have")+" grown to be just as large as your own, and you know that you're now ready to give birth."
-								:(target.isVaginaEggLayer()
-									?" Although you can feel the hard shells of your clutch of eggs pressing out against the inner walls of your womb, you don't find the sensation to be in any way uncomfortable."
-										+ " If anything, the feeling only seems to be boosting your maternal instincts, and you often catch yourself daydreaming about laying and incubating your eggs."
-									:" Some time in the last couple of hours, you felt a familiar rumble in your pregnant bump, and from experience, you instantly recognised that it was your offspring kicking about in your womb."
-										+ " You keep feeling another kick every now and then, and you know that you're ready to give birth."))
-						+ "</p>"
-						+ "<p>"
-							+ UtilText.parseThought("I really should go and see Lilaya... Or maybe I'll stay like this for a little while!", Main.game.getPlayer())
-						+ "</p>"
-						+(lactationIncrease
-								? "<p><i>"
-										+"Your breasts have gotten noticeably heavier, and as you softly stroke the round bump in your belly, you feel droplets of [pc.milk] beading up on your engorged teats."
-										+ " You are now able to produce [style.boldSex(" + target.getBreastMilkStorage().getDescriptor() + " [pc.milk] ("+Units.fluid(target.getBreastRawMilkStorageValue(), Units.UnitType.LONG)+"))]!"
-									+ "</i></p>"
-								:"")
-						+(lactationUddersIncrease
-								? "<p><i>"
-										+"Your [pc.udders] have gotten noticeably heavier, and as you walk, you feel droplets of [pc.crotchMilk] beading up on your engorged teats."
-										+ " You are now able to produce [style.boldSex(" + target.getBreastMilkStorage().getDescriptor() + " [pc.crotchMilk] ("+ Units.fluid(target.getBreastRawMilkStorageValue(), Units.UnitType.LONG)+"))]!"
-									+ "</i></p>"
-								:"")
-						+ "<p style='text-align:center;'>"
-							+ "<b style='color:" + PresetColour.GENERIC_SEX.toWebHexString()+ ";'>You're now ready to give birth!</b>"
-						+ "</p>";
+			StringBuilder sb = new StringBuilder();
+			boolean firstTimePregnancy = !((PlayerCharacter) target).isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY);
+			sb.append("<p>");
+				if(target.isTaur()) {
+					sb.append("By now, your [pc.legRace]'s pregnant belly has ballooned out to a massive size, and you can really feel the extra weight in your lower half as you [pc.walk] around.");
+				} else {
+					sb.append("By now, your stomach has completely ballooned out in front of you, and you're having to arch your back and support yourself with one hand as you [pc.walk] around.");
+				}
+				
+				if(target.getBodyMaterial()==BodyMaterial.SLIME) {
+					sb.append(" Clearly visible through the translucent slime which your body is made up of, you see that the "
+								+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" slime core"
+								+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of you "+(target.getPregnantLitter().getTotalLitterCount()==1?"has":"have")
+								+" grown to be just as large as your own, and you know that you're now ready to give birth.");
+					
+				} else if(target.isVaginaEggLayer()) {
+					sb.append(" Although you can feel the hard shells of your clutch of eggs pressing out against the inner walls of your womb, you don't find the sensation to be in any way uncomfortable."
+							+ " If anything, the feeling only seems to be boosting your maternal instincts, and you often catch yourself daydreaming about laying and incubating your eggs.");
+					
+				} else {
+					if(firstTimePregnancy) {
+						sb.append(" Some time in the last couple of hours, you felt a strange rumble in your pregnant bump, and after panicking for a little while, you realised that it was your offspring kicking about in your womb."
+								+ " You keep feeling another kick every now and then, and you know that you're ready to give birth.");
+					} else {
+						sb.append(" Some time in the last couple of hours, you felt a familiar rumble in your pregnant bump, and from experience, you instantly recognised that it was your offspring kicking about in your womb."
+									+ " You keep feeling another kick every now and then, and you know that you're ready to give birth.");
+					}
+				}
+			sb.append("</p>");
+			
+			sb.append("<p>");
+				if(target.hasFetish(Fetish.FETISH_PREGNANCY)) {
+					sb.append("[pc.thought(I really should go and see Lilaya... Or maybe I'll stay like this for a little while!)]");
+				} else if(target.getFetishDesire(Fetish.FETISH_PREGNANCY).isNegative()) {
+					sb.append("[pc.thought(Finally! I can go and see Lilaya and get "+(target.getPregnantLitter().getTotalLitterCount()==1?"this brat":"these brats")+" out of me! I <b>hate</b> being pregnant!)]");
+				} else {
+					sb.append("[pc.thought(I really should go and see Lilaya...)]");
+				}
+			sb.append("</p>");
+			
+			if(lactationIncrease) {
+				sb.append("<p><i>");
+					sb.append("Your breasts have gotten noticeably heavier, and as you softly stroke the round bump in your belly, you feel droplets of [pc.milk] beading up on your engorged teats."
+								+ " You are now able to produce [style.boldSex(" + target.getBreastMilkStorage().getDescriptor() + " [pc.milk] ("+ Units.fluid(target.getBreastRawMilkStorageValue(), Units.UnitType.LONG)+"))]!");
+				sb.append("</i></p>");
 			}
+			if(lactationUddersIncrease) {
+				sb.append("<p><i>");
+					sb.append("Your [pc.udders] have gotten noticeably heavier, and as you walk, you feel droplets of [pc.crotchMilk] beading up on your engorged teats."
+							+ " You are now able to produce [style.boldSex(" + target.getBreastMilkStorage().getDescriptor() + " [pc.crotchMilk] ("+ Units.fluid(target.getBreastRawMilkStorageValue(), Units.UnitType.LONG)+"))]!");
+				sb.append("</i></p>");
+			}
+			
+			sb.append("<p style='text-align:center;'>"
+						+ "<b style='color:" + PresetColour.GENERIC_SEX.toWebHexString() + ";'>You're now ready to give birth!</b>" 
+					+ "</p>");
+			
+			return sb.toString();
 		}
-
-		
 		@Override
 		public boolean isSexEffect() {
 			return true;
@@ -5273,13 +5389,32 @@ public class StatusEffect {
 			"promiscuityPill",
 			PresetColour.GENERIC_SEX,
 			true,
-			Util.newHashMapOfValues(new Value<>(Attribute.FERTILITY, -100f),
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.FERTILITY, -100f),
 					new Value<>(Attribute.VIRILITY, -100f)),
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
 			return UtilText.parse(target, "After consuming a '[#ITEM_innoxia_pills_sterility.getName(false)]', [npc.namePos] fertility and virility have been greatly reduced."
 							+ " This is a <b>preventative</b> measure, and will not alter the outcome of any unprotected sex [npc.she] had before taking the pill!");
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	};
+
+	public static AbstractStatusEffect PROMISCUITY_PILL_PROLOGUE = new AbstractStatusEffect(80,
+			"On the pill",
+			"promiscuityPill",
+			PresetColour.GENERIC_SEX,
+			true,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.FERTILITY, -100f)),
+			null) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			return UtilText.parse(target, "[npc.NameIsFull] under the effects of a combined oral contraceptive pill, and so is unable to get pregnant.");
 		}
 		@Override
 		public boolean isSexEffect() {
@@ -5302,6 +5437,38 @@ public class StatusEffect {
 			return UtilText.parse(target,
 					"After consuming a '[#ITEM_innoxia_pills_broodmother.getName(false)]', [npc.namePos] fertility and virility have been temporarily boosted,"
 							+ " and if [npc.she] impregnates someone or becomes impregnated [npc.herself], [npc.she] will conceive far more offspring than usual!");
+		}
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	};
+
+	public static AbstractStatusEffect LUBE_PILL = new AbstractStatusEffect(80,
+			"lubricated body",
+			"lube_pill",
+			PresetColour.WETNESS,
+			PresetColour.GENERIC_EXCELLENT,
+			PresetColour.GENERIC_EXCELLENT,
+			true,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.RESTING_LUST, 5f)),
+			Util.newArrayListOfValues(
+					"[style.colourSex(During sex:)]",
+					"[style.colourWetness(Instantly lubricates)] orifices",
+					"[style.colourWetness(Instantly produces)] precum")) {
+		@Override
+		public String getDescription(GameCharacter target) {
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append("[npc.NameHasFull] consumed a '[#ITEM_innoxia_pills_lubrication.getName(false)]', and now during sexual situations ");
+			if(target.hasPenisIgnoreDildo()) {
+				sb.append("[npc.her] cock will instantly start producing precum, while [npc.her] orifices will drip with natural lubrication.");
+			} else {
+				sb.append("[npc.her] orifices will drip with natural lubrication.");
+			}
+			
+			return UtilText.parse(target, sb.toString());
 		}
 		@Override
 		public boolean isSexEffect() {
@@ -5420,7 +5587,7 @@ public class StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			float milkRegenRate = target.getLactationRegenerationPerSecond(false) * 60;
-		
+			//milkRegenRate+" |"+
 			return UtilText.parse(target,
 					"[npc.NamePos] [npc.breasts] are filled with "+Units.fluid(target.getBreastRawMilkStorageValue())+" of [npc.milk].<br/>"
 						+ "They produce more [npc.milk] at an individual rate of "+Units.fluid(milkRegenRate)+"/minute,"
@@ -5935,7 +6102,6 @@ public class StatusEffect {
 			}
 			if (target.getFaceRawCapacityValue()!=target.getFaceStretchedCapacity()){
 				orificesRecovering.add("[style.boldMouth(throat)]");
-				plural = true;
 			}
 			if (target.getNippleRawCapacityValue()!=target.getNippleStretchedCapacity()){
 				orificesRecovering.add("[style.boldNipple(nipples)]");
@@ -7381,6 +7547,9 @@ public class StatusEffect {
 			null) {
 		@Override
 		public String getDescription(GameCharacter target) {
+			if(target.hasTrait(Perk.NYMPHOMANIAC, true)) {
+				return UtilText.parse(target, "As [npc.sheIs] a nymphomaniac, [npc.name] [npc.is] feeling extremely pent-up after not having had any sexual contact for over four hours...");
+			}
 			return UtilText.parse(target, "[npc.Name] [npc.has]n't had any sexual relief for over a day now, and [npc.is] feeling extremely pent-up...");
 		}
 		@Override
@@ -7391,8 +7560,9 @@ public class StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			int hoursToPentUp = 24;
 			if(target.hasTrait(Perk.NYMPHOMANIAC, true)) {
-				hoursToPentUp = 8;
+				hoursToPentUp = 4;
 			}
+			
 			return !target.isPlayer()
 					&& target.isSlave()
 					&& !target.isDoll()
@@ -8153,7 +8323,7 @@ public class StatusEffect {
 		public String getDescription(GameCharacter target) {
 			return UtilText.parse(target,
 					"Losing [npc.her] precious virginity has hit [npc.name] hard, and [npc.she] now [npc.verb(see)] [npc.herself] as nothing but a dirty slut."
-						+ " [npc.She] now often fantasises about big, thick cocks slamming deep into [npc.her] worthless cunt, before defiling [npc.her] womb with their foul cum...");
+						+ " [npc.She] now often [npc.verb(fantasise)] about big, thick cocks slamming deep into [npc.her] worthless cunt, before defiling [npc.her] womb with their foul cum...");
 		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
@@ -9124,10 +9294,10 @@ public class StatusEffect {
 			PresetColour.ATTRIBUTE_LUST,
 			false,
 			null,
-			Util.newArrayListOfValues("Incoming <b style='color:"+PresetColour.ATTRIBUTE_LUST.toWebHexString()+";'>Lust damage</b> dealt as"
-							+ " <b style='color:"+PresetColour.ATTRIBUTE_HEALTH.toWebHexString()+";'>2*Energy damage</b>"
-							+ " and <b style='color:"+PresetColour.ATTRIBUTE_MANA.toWebHexString()+";'>1*Aura damage</b>",
-					"<b style='color: " + PresetColour.GENERIC_TERRIBLE.toWebHexString() + "'>Incoming damage ignores all shielding</b>")) {
+			Util.newArrayListOfValues(
+					"[style.colourTerrible(Incoming damage ignores all shielding)]",
+					"Incoming [style.colourLust(Lust damage)] converted to:",
+					"[style.colourHealth(2*"+Attribute.HEALTH_MAXIMUM.getName()+" damage)] and [style.colourMana(1*"+Attribute.MANA_MAXIMUM.getName()+" damage)]")) {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
@@ -11992,29 +12162,29 @@ public class StatusEffect {
 			if(target.isPlayer()) {
 				return "Your fetishes and desires affect how much arousal you gain from performing related sex actions. Selecting an action with an associated fetish that you own will also not increase your corruption.";
 				
-			} else if(Main.game.isInSex()) {
-				GameCharacter targetedCharacter = Main.sex.getTargetedPartner(target);
-				SexType foreplayPreference = Main.sex.getForeplayPreference((NPC) target, targetedCharacter);
-				SexType mainPreference = Main.sex.getMainSexPreference((NPC) target, targetedCharacter);
-				
-				return UtilText.parse(target, targetedCharacter,
-						(Main.game.isInNewWorld()
-								?"The power of your arcane aura allows you to sense [npc.namePos] sexual preferences:"
-								:"Somehow, you're able to instinctively sense what [npc.namePos] sexual preferences are:")
-						+ "<br/>[style.italics"+(Main.sex.isInForeplay(target)?"PinkLight(<b>Foreplay</b>: ":"Disabled(Foreplay: ")
-							+ (foreplayPreference!=null
-									?"[npc.Her] "+foreplayPreference.getPerformingSexArea().getName(target, true)+" and [npc2.namePos] "+foreplayPreference.getTargetedSexArea().getName(targetedCharacter, true)+"."
-									:"[npc.She] [npc.has] no preference...")
-							+ ")]"
-						+ "<br/>[style.italics"+(!Main.sex.isInForeplay(target)?"Pink(<b>Sex</b>: ":"Disabled(Sex: ")
-						+ (mainPreference!=null
-								?"[npc.Her] "+mainPreference.getPerformingSexArea().getName(target, true)+" and [npc2.namePos] "+mainPreference.getTargetedSexArea().getName(targetedCharacter, true)+"."
-								:"[npc.She] [npc.has] no preference...")
-						+ ")]")
-						+ (Main.sex.isCharacterObeyingTarget(target, Main.game.getPlayer())
-							?"<br/>[style.italicsMinorGood([npc.She] will listen to your requests.)]"
-							:"<br/>[style.italicsMinorBad([npc.She] will ignore all of your requests.)]");
-				
+//			} else if(Main.game.isInSex()) {
+//				GameCharacter targetedCharacter = Main.sex.getTargetedPartner(target);
+//				SexType foreplayPreference = Main.sex.getForeplayPreference((NPC) target, targetedCharacter);
+//				SexType mainPreference = Main.sex.getMainSexPreference((NPC) target, targetedCharacter);
+//				
+//				return UtilText.parse(target, targetedCharacter,
+//						(Main.game.isInNewWorld()
+//								?"The power of your arcane aura allows you to sense [npc.namePos] sexual preferences:"
+//								:"Somehow, you're able to instinctively sense what [npc.namePos] sexual preferences are:")
+//						+ "<br/>[style.italics"+(Main.sex.isInForeplay(target)?"PinkLight(<b>Foreplay</b>: ":"Disabled(Foreplay: ")
+//							+ (foreplayPreference!=null
+//									?"[npc.Her] "+foreplayPreference.getPerformingSexArea().getName(target, true)+" and [npc2.namePos] "+foreplayPreference.getTargetedSexArea().getName(targetedCharacter, true)+"."
+//									:"[npc.She] [npc.has] no preference...")
+//							+ ")]"
+//						+ "<br/>[style.italics"+(!Main.sex.isInForeplay(target)?"Pink(<b>Sex</b>: ":"Disabled(Sex: ")
+//						+ (mainPreference!=null
+//								?"[npc.Her] "+mainPreference.getPerformingSexArea().getName(target, true)+" and [npc2.namePos] "+mainPreference.getTargetedSexArea().getName(targetedCharacter, true)+"."
+//								:"[npc.She] [npc.has] no preference...")
+//						+ ")]")
+//						+ (Main.sex.isCharacterObeyingTarget(target, Main.game.getPlayer())
+//							?"<br/>[style.italicsMinorGood([npc.She] will listen to your requests.)]"
+//							:"<br/>[style.italicsMinorBad([npc.She] will ignore all of your requests.)]");
+//				
 			} else {
 				return UtilText.parse(target,
 						(Main.game.isInNewWorld()
@@ -12027,6 +12197,37 @@ public class StatusEffect {
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
 			List<String> modList = new ArrayList<>();
+			
+			if(Main.game.isInSex()) {
+				GameCharacter targetedCharacter = Main.sex.getTargetedPartner(target);
+				SexType foreplayPreference = Main.sex.getForeplayPreference(target, targetedCharacter);
+				SexType mainPreference = Main.sex.getMainSexPreference(target, targetedCharacter);
+				
+//				modList.add(UtilText.parse(target, "<b>[npc.NamePos] Preferences:</b>"));
+				
+				modList.add(UtilText.parse(target, targetedCharacter,
+										"[style.italics"+(Main.sex.isInForeplay(target)?"PinkLight(<b>Foreplay</b>: ":"Disabled(Foreplay: ")
+											+ (foreplayPreference!=null
+													?"[npc.Her] "+foreplayPreference.getPerformingSexArea().getName(target, true)+" and [npc2.namePos] "+foreplayPreference.getTargetedSexArea().getName(targetedCharacter, true)+"."
+													:"[npc.She] [npc.has] no preference...")
+											+ ")]"));
+				modList.add(UtilText.parse(target, targetedCharacter,
+										"[style.italics"+(!Main.sex.isInForeplay(target)?"Pink(<b>Sex</b>: ":"Disabled(Sex: ")
+											+ (mainPreference!=null
+													?"[npc.Her] "+mainPreference.getPerformingSexArea().getName(target, true)+" and [npc2.namePos] "+mainPreference.getTargetedSexArea().getName(targetedCharacter, true)+"."
+													:"[npc.She] [npc.has] no preference...")
+											+ ")]"));
+				modList.add(UtilText.parse(target, targetedCharacter,
+										Main.sex.isCharacterObeyingTarget(target, Main.game.getPlayer())
+										?"[style.italicsMinorGood([npc.She] will listen to your requests.)]"
+										:"[style.italicsMinorBad([npc.She] will ignore all of your requests.)]"));
+			}
+			
+			return modList;
+		}
+		@Override
+		public List<Value<Integer, String>> getAdditionalDescriptions(GameCharacter target) {
+			List<Value<Integer, String>> additionalDescriptions = new ArrayList<>();
 			List<AbstractFetish> orderedFetishList = new ArrayList<>();
 			
 			for(AbstractFetish f : Fetish.getAllFetishes()) {
@@ -12039,15 +12240,11 @@ public class StatusEffect {
 
 			for(AbstractFetish f : orderedFetishList) {
 				FetishDesire desire = target.getFetishDesire(f);
-				modList.add("<b style='color:"+desire.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(desire.getNameAsVerb())+"</b>: "+Util.capitaliseSentence(f.getShortDescriptor(target)));
+				additionalDescriptions.add(new Value<>(1, "<b style='color:"+desire.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(desire.getNameAsVerb())+"</b>: "+Util.capitaliseSentence(f.getShortDescriptor(target))));
 			}
 			
-			return modList;
+			return additionalDescriptions;
 		}
-//		@Override
-//		public List<Value<Integer, String>> getAdditionalDescriptions(GameCharacter target) {
-//			return Util.newArrayListOfValues(new Value<>(1, ""));
-//		}
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
 			return "";
@@ -12080,27 +12277,40 @@ public class StatusEffect {
 			}
 			
 			sb.append("<br/>[npc.Name] [npc.verb(need)] to orgasm [style.boldSex(" + Util.intToCount(target.getOrgasmsBeforeSatisfied()) + ")] before [npc.sheIs] satisfied.");
+
 			
 			return UtilText.parse(target, sb.toString());
 		}
 		@Override
 		public List<Value<Integer, String>> getAdditionalDescriptions(GameCharacter target) {
-			int bonus = Main.sex.getNumberOfAdditionalOrgasms(target);
-			if(!target.isPlayer() && bonus != 0) {
-				List<Value<Integer, String>> additionalDescriptions = new ArrayList<>();
-				
-				if(bonus>0) {
-					additionalDescriptions.add(
-							new Value<>(2, "[npc.Her] desire has been [style.boldExcellent(boosted)], and so this goal is [style.boldGood(" + Util.intToString(bonus) + " orgasm" + (bonus==1?"":"s") + ")] higher than normal!"));
-				} else {
-					additionalDescriptions.add(
-							new Value<>(2, "[npc.Her] desire has been [style.boldTerrible(suppressed)], and so this goal is [style.boldBad(" + Util.intToString(-bonus) + " orgasm" + (bonus==-1?"":"s") + ")] lower than normal!"));
-				}
-				
-				return additionalDescriptions;
+			List<Value<Integer, String>> additionalDescriptions = new ArrayList<>();
+			
+			if(Main.sex.getNumberOfOrgasms(target)>=target.getOrgasmsBeforeSatisfied()) {
+				additionalDescriptions.add(new Value<>(1, UtilText.parse(target, "[npc.NameIsFull] [style.colourExcellent(satisfied)].")));
+			} else {
+				additionalDescriptions.add(new Value<>(1, UtilText.parse(target, "[npc.NameIsFull] [style.colourTerrible(not satisfied yet)]!")));
 			}
 			
-			return super.getAdditionalDescriptions(target);
+			if(!target.isAbleToOrgasm()) {
+				additionalDescriptions.add(new Value<>(1, UtilText.parse(target, "[npc.NameIsFull] [style.colourTerrible(not able to orgasm)]!")));
+			}
+			
+			int bonus = Main.sex.getNumberOfAdditionalOrgasms(target);
+			if(!target.isPlayer() && bonus != 0) {
+				if(bonus>0) {
+					additionalDescriptions.add(
+							new Value<>(2,
+									UtilText.parse(target,
+											"[npc.Her] desire has been [style.boldExcellent(boosted)], and so this goal is [style.boldGood(" + Util.intToString(bonus) + " orgasm" + (bonus==1?"":"s") + ")] higher than normal!")));
+				} else {
+					additionalDescriptions.add(
+							new Value<>(2,
+									UtilText.parse(target,
+											"[npc.Her] desire has been [style.boldTerrible(suppressed)], and so this goal is [style.boldBad(" + Util.intToString(-bonus) + " orgasm" + (bonus==-1?"":"s") + ")] lower than normal!")));
+				}
+			}
+
+			return additionalDescriptions;
 		}
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
@@ -12133,6 +12343,13 @@ public class StatusEffect {
 				}
 			}
 			return modList;
+		}
+		@Override
+		public String getPathName(GameCharacter owner) {
+			if(Main.sex.getNumberOfOrgasms(owner)>=owner.getOrgasmsBeforeSatisfied()) {
+				return "sexEffects/orgasmsSatisfied";
+			}
+			return super.getPathName(owner);
 		}
 		@Override
 		public String getSVGString(GameCharacter owner) {
@@ -12191,7 +12408,7 @@ public class StatusEffect {
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
 			return 0;
 		}
-				@Override
+		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
 			return getPenetrationModifiersAsStringList(target, SexAreaPenetration.PENIS);
 		}
@@ -12261,7 +12478,7 @@ public class StatusEffect {
 			}
 			
 			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
-				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No ongoing action.</b>");
+				descriptionSB.append("[style.colourDisabled(No ongoing action...)]");
 			}
 
 			appendPenetrationAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.penis]"), descriptionSB);
@@ -12270,22 +12487,22 @@ public class StatusEffect {
 			
 			return descriptionSB.toString();
 		}
-		@Override
-		protected Value<Integer, String> getAdditionalDescription(GameCharacter target) {
-			if(Main.sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.PENIS).isEmpty()) {
-				return null;
-			}
-			
-			GameCharacter partner = Main.sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.PENIS).get(0);
-			
-			return new Value<>(3,
-					Main.sex.formatPenetration(
-					target.getPenetrationDescription(false,
-							target,
-							SexAreaPenetration.PENIS,
-							partner,
-							Main.sex.getOngoingActionsMap(target).get(SexAreaPenetration.PENIS).get(partner).iterator().next())));
-		}
+//		@Override
+//		protected Value<Integer, String> getAdditionalDescription(GameCharacter target) {
+//			if(Main.sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.PENIS).isEmpty()) {
+//				return null;
+//			}
+//			
+//			GameCharacter partner = Main.sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.PENIS).get(0);
+//			
+//			return new Value<>(3,
+//					Main.sex.formatPenetration(
+//					target.getPenetrationDescription(false,
+//							target,
+//							SexAreaPenetration.PENIS,
+//							partner,
+//							Main.sex.getOngoingActionsMap(target).get(SexAreaPenetration.PENIS).get(partner).iterator().next())));
+//		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return Main.game.isInSex()
@@ -12392,7 +12609,7 @@ public class StatusEffect {
 			}
 			
 			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
-				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No ongoing action.</b>");
+				descriptionSB.append("[style.colourDisabled(No ongoing action...)]");
 			}
 
 			appendPenetrationAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.clit]"), descriptionSB);
@@ -12401,22 +12618,22 @@ public class StatusEffect {
 			
 			return descriptionSB.toString();
 		}
-		@Override
-		protected Value<Integer, String> getAdditionalDescription(GameCharacter target) {
-			if(Main.sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.CLIT).isEmpty()) {
-				return null;
-			}
-			
-			GameCharacter partner = Main.sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.CLIT).get(0);
-			
-			return new Value<>(3,
-					Main.sex.formatPenetration(
-					target.getPenetrationDescription(false,
-							target,
-							SexAreaPenetration.CLIT,
-							partner,
-							Main.sex.getOngoingActionsMap(target).get(SexAreaPenetration.CLIT).get(partner).iterator().next())));
-		}
+//		@Override
+//		protected Value<Integer, String> getAdditionalDescription(GameCharacter target) {
+//			if(Main.sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.CLIT).isEmpty()) {
+//				return null;
+//			}
+//			
+//			GameCharacter partner = Main.sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.CLIT).get(0);
+//			
+//			return new Value<>(3,
+//					Main.sex.formatPenetration(
+//					target.getPenetrationDescription(false,
+//							target,
+//							SexAreaPenetration.CLIT,
+//							partner,
+//							Main.sex.getOngoingActionsMap(target).get(SexAreaPenetration.CLIT).get(partner).iterator().next())));
+//		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return Main.game.isInSex()
@@ -12596,7 +12813,7 @@ public class StatusEffect {
 			}
 			
 			if(!descriptionAdded) {
-				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+				descriptionSB.append("[style.colourDisabled(No ongoing action...)]");
 			}
 
 			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.Her] [npc.asshole]"), descriptionSB);
@@ -12743,7 +12960,7 @@ public class StatusEffect {
 				}
 			}
 			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
-				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+				descriptionSB.append("[style.colourDisabled(No ongoing action...)]");
 			}
 
 			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.Her] [npc.ass]"), descriptionSB);
@@ -12753,23 +12970,23 @@ public class StatusEffect {
 			
 			return descriptionSB.toString();
 		}
-		@Override
-		protected Value<Integer, String> getAdditionalDescription(GameCharacter target) {
-			SexAreaOrifice orifice = SexAreaOrifice.ASS;
-			if(Main.sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
-				return null;
-			}
-			
-			GameCharacter partner = Main.sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
-			
-			return new Value<>(3,
-					Main.sex.formatPenetration(
-					target.getPenetrationDescription(false,
-							partner,
-							(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
-							target,
-							orifice)));
-		}
+//		@Override
+//		protected Value<Integer, String> getAdditionalDescription(GameCharacter target) {
+//			SexAreaOrifice orifice = SexAreaOrifice.ASS;
+//			if(Main.sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
+//				return null;
+//			}
+//			
+//			GameCharacter partner = Main.sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
+//			
+//			return new Value<>(3,
+//					Main.sex.formatPenetration(
+//					target.getPenetrationDescription(false,
+//							partner,
+//							(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
+//							target,
+//							orifice)));
+//		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return Main.game.isInSex()
@@ -12800,7 +13017,7 @@ public class StatusEffect {
 		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
 			return getOrificeArousalPerTurnPartner(self, target, SexAreaOrifice.MOUTH);
 		}
-				@Override
+		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
 			return getOrificeModifiersAsStringList(target, SexAreaOrifice.MOUTH);
 		}
@@ -12964,7 +13181,7 @@ public class StatusEffect {
 				}
 			}
 			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
-				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+				descriptionSB.append("[style.colourDisabled(No ongoing action...)]");
 			}
 
 			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.Her] mouth"), descriptionSB);
@@ -13118,7 +13335,7 @@ public class StatusEffect {
 				}
 			}
 			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
-				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+				descriptionSB.append("[style.colourDisabled(No ongoing action...)]");
 			}
 			
 			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.Her] [npc.breasts]"), descriptionSB);
@@ -13127,23 +13344,23 @@ public class StatusEffect {
 			
 			return descriptionSB.toString();
 		}
-		@Override
-		protected Value<Integer, String> getAdditionalDescription(GameCharacter target) {
-			SexAreaOrifice orifice = SexAreaOrifice.BREAST;
-			if(Main.sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
-				return null;
-			}
-			
-			GameCharacter partner = Main.sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
-			
-			return new Value<>(3,
-					Main.sex.formatPenetration(
-					target.getPenetrationDescription(false,
-							partner,
-							(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
-							target,
-							orifice)));
-		}
+//		@Override
+//		protected Value<Integer, String> getAdditionalDescription(GameCharacter target) {
+//			SexAreaOrifice orifice = SexAreaOrifice.BREAST;
+//			if(Main.sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
+//				return null;
+//			}
+//			
+//			GameCharacter partner = Main.sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
+//			
+//			return new Value<>(3,
+//					Main.sex.formatPenetration(
+//					target.getPenetrationDescription(false,
+//							partner,
+//							(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
+//							target,
+//							orifice)));
+//		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return Main.game.isInSex()
@@ -13278,7 +13495,7 @@ public class StatusEffect {
 				}
 			}
 			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
-				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+				descriptionSB.append("[style.colourDisabled(No ongoing action...)]");
 			}
 
 			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.Her] [npc.nipples]"), descriptionSB);
@@ -13436,7 +13653,7 @@ public class StatusEffect {
 				}
 			}
 			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
-				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+				descriptionSB.append("[style.colourDisabled(No ongoing action...)]");
 			}
 			
 			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.Her] [npc.crotchBoobs]"), descriptionSB);
@@ -13445,23 +13662,23 @@ public class StatusEffect {
 			
 			return descriptionSB.toString();
 		}
-		@Override
-		protected Value<Integer, String> getAdditionalDescription(GameCharacter target) {
-			SexAreaOrifice orifice = SexAreaOrifice.BREAST_CROTCH;
-			if(Main.sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
-				return null;
-			}
-			
-			GameCharacter partner = Main.sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
-			
-			return new Value<>(3,
-					Main.sex.formatPenetration(
-					target.getPenetrationDescription(false,
-							partner,
-							(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
-							target,
-							orifice)));
-		}
+//		@Override
+//		protected Value<Integer, String> getAdditionalDescription(GameCharacter target) {
+//			SexAreaOrifice orifice = SexAreaOrifice.BREAST_CROTCH;
+//			if(Main.sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
+//				return null;
+//			}
+//			
+//			GameCharacter partner = Main.sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
+//			
+//			return new Value<>(3,
+//					Main.sex.formatPenetration(
+//					target.getPenetrationDescription(false,
+//							partner,
+//							(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
+//							target,
+//							orifice)));
+//		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return Main.game.isInSex()
@@ -13607,7 +13824,7 @@ public class StatusEffect {
 				}
 			}
 			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
-				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+				descriptionSB.append("[style.colourDisabled(No ongoing action...)]");
 			}
 
 			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.Her] [npc.crotchNipples]"), descriptionSB);
@@ -13757,7 +13974,7 @@ public class StatusEffect {
 				}
 			}
 			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
-				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+				descriptionSB.append("[style.colourDisabled(No ongoing action...)]");
 			}
 			
 			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.Her] [npc.urethraPenis]"), descriptionSB);
@@ -13906,7 +14123,7 @@ public class StatusEffect {
 				}
 			}
 			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
-				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+				descriptionSB.append("[style.colourDisabled(No ongoing action...)]");
 			}
 			
 			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.Her] [npc.urethraVagina]"), descriptionSB);
@@ -14461,7 +14678,7 @@ public class StatusEffect {
 				}
 			}
 			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
-				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+				descriptionSB.append("[style.colourDisabled(No ongoing action...)]");
 			}
 
 			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.Her] thighs"), descriptionSB);
@@ -14470,23 +14687,23 @@ public class StatusEffect {
 			
 			return descriptionSB.toString();
 		}
-		@Override
-		protected Value<Integer, String> getAdditionalDescription(GameCharacter target) {
-			SexAreaOrifice orifice = SexAreaOrifice.THIGHS;
-			if(Main.sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
-				return null;
-			}
-			
-			GameCharacter partner = Main.sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
-			
-			return new Value<>(3,
-					Main.sex.formatPenetration(
-					target.getPenetrationDescription(false,
-							partner,
-							(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
-							target,
-							orifice)));
-		}
+//		@Override
+//		protected Value<Integer, String> getAdditionalDescription(GameCharacter target) {
+//			SexAreaOrifice orifice = SexAreaOrifice.THIGHS;
+//			if(Main.sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
+//				return null;
+//			}
+//			
+//			GameCharacter partner = Main.sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
+//			
+//			return new Value<>(3,
+//					Main.sex.formatPenetration(
+//					target.getPenetrationDescription(false,
+//							partner,
+//							(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
+//							target,
+//							orifice)));
+//		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return Main.game.isInSex()
@@ -14618,7 +14835,7 @@ public class StatusEffect {
 				}
 			}
 			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
-				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
+				descriptionSB.append("[style.colourDisabled(No ongoing action...)]");
 			}
 
 			appendOrificeAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.Her] armpits"), descriptionSB);
@@ -14627,23 +14844,23 @@ public class StatusEffect {
 			
 			return descriptionSB.toString();
 		}
-		@Override
-		protected Value<Integer, String> getAdditionalDescription(GameCharacter target) {
-			SexAreaOrifice orifice = SexAreaOrifice.ARMPITS;
-			if(Main.sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
-				return null;
-			}
-			
-			GameCharacter partner = Main.sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
-			
-			return new Value<>(3,
-					Main.sex.formatPenetration(
-					target.getPenetrationDescription(false,
-							partner,
-							(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
-							target,
-							orifice)));
-		}
+//		@Override
+//		protected Value<Integer, String> getAdditionalDescription(GameCharacter target) {
+//			SexAreaOrifice orifice = SexAreaOrifice.ARMPITS;
+//			if(Main.sex.getCharactersHavingOngoingActionWith(target, orifice).isEmpty()) {
+//				return null;
+//			}
+//			
+//			GameCharacter partner = Main.sex.getCharactersHavingOngoingActionWith(target, orifice).get(0);
+//			
+//			return new Value<>(3,
+//					Main.sex.formatPenetration(
+//					target.getPenetrationDescription(false,
+//							partner,
+//							(SexAreaPenetration)Main.sex.getOngoingActionsMap(target).get(orifice).get(partner).iterator().next(),
+//							target,
+//							orifice)));
+//		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return Main.game.isInSex()
@@ -14716,7 +14933,7 @@ public class StatusEffect {
 			}
 			
 			if(Main.sex.getOngoingSexAreas(target, type).isEmpty()) {
-				descriptionSB.append("<b style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No ongoing action.</b>");
+				descriptionSB.append("[style.colourDisabled(No ongoing action...)]");
 			}
 
 			appendPenetrationAdditionGenericDescriptions(target, type, UtilText.parse(target, "[npc.NamePos] [npc.hands]"), descriptionSB);
@@ -14725,22 +14942,22 @@ public class StatusEffect {
 			
 			return descriptionSB.toString();
 		}
-		@Override
-		protected Value<Integer, String> getAdditionalDescription(GameCharacter target) {
-			if(Main.sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.FINGER).isEmpty()) {
-				return null;
-			}
-			
-			GameCharacter partner = Main.sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.FINGER).get(0);
-			
-			return new Value<>(3,
-					Main.sex.formatPenetration(
-					target.getPenetrationDescription(false,
-							target,
-							SexAreaPenetration.FINGER,
-							partner,
-							Main.sex.getOngoingActionsMap(target).get(SexAreaPenetration.FINGER).get(partner).iterator().next())));
-		}
+//		@Override
+//		protected Value<Integer, String> getAdditionalDescription(GameCharacter target) {
+//			if(Main.sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.FINGER).isEmpty()) {
+//				return null;
+//			}
+//			
+//			GameCharacter partner = Main.sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.FINGER).get(0);
+//			
+//			return new Value<>(3,
+//					Main.sex.formatPenetration(
+//					target.getPenetrationDescription(false,
+//							target,
+//							SexAreaPenetration.FINGER,
+//							partner,
+//							Main.sex.getOngoingActionsMap(target).get(SexAreaPenetration.FINGER).get(partner).iterator().next())));
+//		}
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			if(!Main.game.isInSex() || !Main.sex.getAllParticipants(true).contains(target) || Main.sex.getCharactersHavingOngoingActionWith(target, SexAreaPenetration.FINGER).isEmpty()) {

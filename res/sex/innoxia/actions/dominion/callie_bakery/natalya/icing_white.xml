@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#!flags.hasFlag(FLAG_innoxia_callie_natalya_icing_white) && !flags.hasFlag(FLAG_innoxia_callie_natalya_icing_pink)]
+	]]></actionConditional>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>
+	<associatedFetishes/>
+	<performingArea/>
+	<targetedArea/>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+		[##flags.setFlag(FLAG_innoxia_callie_natalya_icing_white, true)]
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[White]]></title>
+	<tooltip><![CDATA[
+		#IF(npc2==natalya)
+			Cover Mistress Natalya's puffy asshole in white icing, and use the pink icing for Callie.
+		#ELSE
+			Cover Callie's puffy asshole in white icing, and use the pink icing for Mistress Natalya.
+		#ENDIF
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<text><![CDATA[
+				#IF(npc2==natalya)
+					Deciding to start with Mistress Natalya, you shuffle over behind her and lift the piping bag up to her big, puffy asshole. Gently squeezing the bag, you run the first line of white icing over the top of her equine anus.
+					
+					<br/><br/>
+					
+					[natalya.speechNoEffects(Make sure to do a good job, [style.mule]!)] the centauress snaps as she feels the icing begin to cover her rear entrance. Not wanting to disappoint your Mistress, you make sure to carefully paint every last part of her round asshole in icing, turning it from ebony to brilliant white in the process. As you finish and discard the now-empty piping bag to one side, you tell her that her anus now looks exactly like an iced doughnut.
+					
+					<br/><br/>
+					
+					[callie.speechNoEffects(Great job, [pc.name]! I'm going to be pink then, huh?)] Callie asks as she takes a quick peek at the centauress's freshly-iced hole. Leaning back down over the counter, she pushes her butt back towards you as set about covering her own puffy asshole in icing. Layering the shiny pink goo over her back door, you quickly turn Callie's anus into a delicious-looking iced doughnut.
+					
+					<br/><br/>
+					
+					[natalya.speechNoEffects(All done?)] Mistress Natalya asks, before impatiently demanding, [natalya.speechNoEffects(Then decorate our doughnuts, [style.mule]!)]
+					
+				#ELSE
+					Deciding to start with Callie, you lift the piping bag up to her big, puffy asshole. Gently squeezing the bag, you run the first line of white icing over the top of her equine anus.
+					
+					<br/><br/>
+					
+					[callie.speechNoEffects(That feels kind of nice!)] the horse-girl happily giggles the icing begins to cover her rear entrance. Determined to do a good job of this, you make sure to carefully paint every last part of her round asshole in icing, turning it from ebony to brilliant white in the process. As you finish and discard the now-empty piping bag to one side, you tell Callie that her anus now looks exactly like an iced doughnut.
+					
+					<br/><br/>
+					
+					[natalya.speechNoEffects(Now it's my turn, [style.mule]! Paint my asshole pink!)] Mistress Natalya impatiently demands as she paws at the ground with one of her hoofs. Pushing her big, feral ass back towards you, she lets out an approving hum as you set about covering her big, puffy asshole in icing. Layering the shiny pink goo over her back door, you quickly turn your Mistress's anus into a delicious-looking iced doughnut.
+					
+					<br/><br/>
+					
+					[callie.speechNoEffects(All done, [pc.name]?)] callie asks, before enthusiastically declaring, [callie.speechNoEffects(Then it's time to decorate our doughnuts!)]
+				#ENDIF
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

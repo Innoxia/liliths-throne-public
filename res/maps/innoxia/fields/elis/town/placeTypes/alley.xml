@@ -21,6 +21,12 @@
 				<subspeciesToRemove>HUMAN</subspeciesToRemove>
 			</subspeciesPresent>
 		</population>
+		<!-- For use in Yui's alleyway sex scene: -->
+		<population>
+			<conditional><![CDATA[[#flags.hasFlag(FLAG_innoxia_yui_alleyway_gang_present)]]]></conditional>
+			<populationType plural="true" density="SEVERAL">GANG_MEMBER</populationType>
+			<subspeciesPresent/>
+		</population>
 	</populationPresent>
 	<furniturePresent>false</furniturePresent>
 	<loiteringEnabled>true</loiteringEnabled>

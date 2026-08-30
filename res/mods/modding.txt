@@ -35,8 +35,8 @@ Dialogue:
 Encounters:
 	res/encounters/elis/woodland.xml for encounters
 Maps:
-	res/maps/fields/elis/town/worldType.xml folder for new maps
-	res/maps/fields/elis/town/placeTypes/entry_east.xml for place types
+	res/maps/innoxia/fields/elis/town/worldType.xml folder for new maps
+	res/maps/innoxia/fields/elis/town/placeTypes/entry_east.xml for place types
 Sex:
 	res/sex/innoxia/managers/meraxis/duel/masturbation.xml for sex managers
 	res/sex/innoxia/actions/meraxis/duel/orgasm_panties_cum.xml for sex actions

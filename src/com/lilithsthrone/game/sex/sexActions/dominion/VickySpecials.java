@@ -33,7 +33,7 @@ public class VickySpecials {
 		}
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return GenericOrgasms.isCumTargetRequirementsMet(OrgasmCumTarget.FACE)
+			return GenericOrgasms.isCumTargetRequirementsMet(this, OrgasmCumTarget.FACE)
 					&& Main.game.isMuskContentEnabled()
 					&& (Main.sex.getCharacterPerformingAction() instanceof Vicky);
 		}

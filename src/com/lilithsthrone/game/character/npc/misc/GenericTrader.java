@@ -41,7 +41,7 @@ public class GenericTrader extends NPC {
 		super(isImported, new NameTriplet("Someone"), null, "A trader.",
 				25, Month.JUNE, 15,
 				1, Gender.N_P_V_HERMAPHRODITE, Subspecies.HUMAN, RaceStage.HUMAN,
-				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
+				new CharacterInventory(false, 0), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
 		
 		this.setFemininity(50);
 	}

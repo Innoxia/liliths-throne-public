@@ -58,7 +58,7 @@ public class FieldsBandit extends NPC {
 				Util.random.nextInt(28)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				5,
 				null, null, null,
-				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false,
+				new CharacterInventory(false, 10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false,
 				generationFlags);
 
 		if(!isImported) {
@@ -150,7 +150,7 @@ public class FieldsBandit extends NPC {
 
 	@Override
 	public void equipClothing(List<EquipClothingSetting> settings) {
-		this.incrementMoney((int) (this.getInventory().getNonEquippedValue() * 2.5f));
+		this.incrementMoney((long) (this.getInventory().getNonEquippedValue() * 2.5f));
 		this.clearNonEquippedInventory(false);
 		Main.game.getCharacterUtils().generateItemsInInventory(this, true, true, true);
 		String outfitId = "innoxia_genericMugger_dominion_masculine";
@@ -216,7 +216,7 @@ public class FieldsBandit extends NPC {
 	
 	// Misc.:
 	
-	public int getPaymentDemand() {
+	public long getPaymentDemand() {
 		return (Math.max(2500, Math.min(Main.game.getPlayer().getMoney()/10, 10000))/500) * 500; // Round to nearest 500
 	}
 }

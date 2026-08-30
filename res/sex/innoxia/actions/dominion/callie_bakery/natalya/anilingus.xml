@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+	<buttonPriority>-1</buttonPriority>
+	<actionConditional><![CDATA[
+		[#flags.hasFlag(FLAG_innoxia_callie_natalya_decoration_finished)]
+	]]></actionConditional>
+	<category>MISCELLANEOUS</category>
+	<type>ONGOING</type>
+	<pace/>
+	<endsSex><![CDATA[false]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>ZERO_PURE</associatedCorruption>
+	<associatedFetishes/>
+	<performingArea>PENETRATION_TONGUE</performingArea>
+	<targetedArea>ORIFICE_ANUS</targetedArea>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	<title><![CDATA[Anilingus]]></title>
+	<tooltip><![CDATA[
+		Keep performing oral on the two doughnuts before you.
+	]]></tooltip>
+	<descriptions>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#npc2==natalya]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				You slide your [pc.tongue] over Mistress Natalya's [npc2.asshole+] several times, before planting a big, wet kiss on it. Moving over to Callie, you repeat the same moves on her ebony asshole, before returning to the centauress and burying your face in her feral horse's ass.
+			]]></text>
+			<text><![CDATA[
+				Pressing your [pc.lips+] against Mistress Natalya's puffy, ebony anus, you passionately kiss and lick it. After making out with her butt for a while, you move over to Callie and give her some oral attention, but after a short while you find yourself drawn back to your Mistress's rear end, and are once again performing anilingus on her.
+			]]></text>
+			<text><![CDATA[
+				Kissing, licking, and nuzzling into Mistress Natalya's [natalya.asshole+], you passionately perform anilingus on her, before moving over to Callie and giving her ebony doughnut some of your love. After making out with the horse-girl's ass for a while, you return to your Mistress, and passionately press your [pc.lips+] against her asshole as you focus your attention on her.
+			]]></text>
+		</description>
+		<description>
+			<descriptionConditional><![CDATA[
+				[#npc2==callie]
+			]]></descriptionConditional>
+			<text><![CDATA[
+				You slide your [pc.tongue] over Callie's [npc2.asshole+] several times, before planting a big, wet kiss on it. Moving over to Mistress Natalya, you repeat the same moves on her ebony asshole, before returning to the horse-girl and burying your face in her ass.
+			]]></text>
+			<text><![CDATA[
+				Pressing your [pc.lips+] against Callie's puffy, ebony anus, you passionately kiss and lick it. After making out with her butt for a while, you move over to Mistress Natalya and give her some oral attention, but after a short while you find yourself drawn back to the horse-girl's rear end, and are once again performing anilingus on her.
+			]]></text>
+			<text><![CDATA[
+				Kissing, licking, and nuzzling into Callie's [callie.asshole+], you passionately perform anilingus on her, before moving over to Mistress Natalya and giving her ebony doughnut some of your love. After making out with the centauress's ass for a while, you return to Callie, and passionately press your [pc.lips+] against her asshole as you focus your attention on her.
+			]]></text>
+		</description>
+	</descriptions>
+</sexAction>

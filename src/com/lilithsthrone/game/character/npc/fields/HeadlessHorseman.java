@@ -64,7 +64,7 @@ public class HeadlessHorseman extends NPC {
 				"During the month of October, this menace prowls the Foloi Fields at night, searching for his next victim to give him head...",
 				36, Month.OCTOBER, 31,
 				25, Gender.M_P_MALE, Subspecies.HORSE_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL,
 				true);
 		

@@ -77,7 +77,7 @@ public class Dale extends NPC {
 				28, Month.JANUARY, 2,
 				15,
 				Gender.M_P_MALE, Subspecies.HORSE_MORPH_DONKEY, RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.getWorldTypeFromId("innoxia_fields_dairyFarm"), PlaceType.getPlaceTypeFromId("innoxia_fields_dairyFarm_reception"),
 				true);
 		if(!isImported) {

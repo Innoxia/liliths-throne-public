@@ -1487,7 +1487,7 @@ public class EnforcerAlleywayDialogue {
 							:"Continue",
 						UtilText.parse(getCriminalInTile(),
 							Main.game.getPlayer().isHasSlaverLicense()
-								?"Tell the Enforcers that you're not interested in gaining [npc.name] as your slave, leaving them to enslave [npc.herHim] by themselves."
+								?"Tell the Enforcers that you're not interested in gaining [npc.name] as your slave and leave them to go and enslave [npc.herHim] by themselves."
 								:"Leave the Enforcers to track down and enslave [npc.name] and continue on your way..."),
 						Main.game.getDefaultDialogue(false)) {
 					@Override
@@ -1675,7 +1675,7 @@ public class EnforcerAlleywayDialogue {
 					} else {
 						return new ResponseSex(
 								UtilText.parse(getEnforcerSubordinate(), "Sex ([npc.Surname])"),
-								UtilText.parse(getEnforcers(), "If it's sex that [npc.nameIs] after, then you're more than happy to give it to [npc.herHim]!"),
+								UtilText.parse(getEnforcerSubordinate(), "If it's sex that [npc.nameIs] after, then you're more than happy to give it to [npc.herHim]!"),
 								true, false,
 								new SMGeneric(
 										Util.newArrayListOfValues(Main.game.getPlayer()),

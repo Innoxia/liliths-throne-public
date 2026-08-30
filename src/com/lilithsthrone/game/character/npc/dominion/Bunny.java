@@ -75,7 +75,7 @@ public class Bunny extends NPC {
 						+ " Just like her older sister, Loppy, Bunny is a rabbit-morph, and seems to genuinely love her line of work.",
 				19, Month.FEBRUARY, 13,
 				10, Gender.F_V_B_FEMALE, Subspecies.RABBIT_MORPH, RaceStage.PARTIAL,
-				new CharacterInventory(30), WorldType.ANGELS_KISS_FIRST_FLOOR, PlaceType.ANGELS_KISS_BEDROOM_BUNNY, true);
+				new CharacterInventory(false, 30), WorldType.ANGELS_KISS_FIRST_FLOOR, PlaceType.ANGELS_KISS_BEDROOM_BUNNY, true);
 	}
 	
 	@Override
@@ -215,7 +215,7 @@ public class Bunny extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 		
 		if(this.isVisiblyPregnant()) {
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_cami_straps", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_micro_skirt_pleated", PresetColour.CLOTHING_PINK_LIGHT, false), true, this);
 		} else {
 			AbstractClothing bodysuit = Main.game.getItemGen().generateClothing("innoxia_stomach_lowback_body", PresetColour.CLOTHING_PINK_LIGHT, false);
@@ -246,7 +246,7 @@ public class Bunny extends NPC {
 				this.setPendingClothingDressing(true);
 			}
 		} else {
-			if(this.getClothingInSlot(InventorySlot.TORSO_UNDER)!=null && this.getClothingInSlot(InventorySlot.TORSO_UNDER).getClothingType()==ClothingType.TORSO_CAMITOP_STRAPS) {
+			if(this.getClothingInSlot(InventorySlot.TORSO_UNDER)!=null && this.getClothingInSlot(InventorySlot.TORSO_UNDER).getClothingType()==ClothingType.getClothingTypeFromId("innoxia_torso_cami_straps")) {
 				this.setPendingClothingDressing(true);
 			}
 		}

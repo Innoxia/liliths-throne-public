@@ -351,14 +351,14 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				}
 				
 			} else {
-				if(partner.getMainSexPreference(targetedCharacter)!=null) {
-					SexParticipantType participantType = partner.getMainSexPreference(targetedCharacter).getAsParticipant();
+				if(Main.sex.getMainSexPreference(partner, targetedCharacter)!=null) {
+					SexParticipantType participantType = Main.sex.getMainSexPreference(partner, targetedCharacter).getAsParticipant();
 					
-					partnerAreasToBeExposed.add(partner.getMainSexPreference(targetedCharacter).getPerformingSexArea().getRelatedCoverableArea(partner));
+					partnerAreasToBeExposed.add(Main.sex.getMainSexPreference(partner, targetedCharacter).getPerformingSexArea().getRelatedCoverableArea(partner));
 					if(participantType==SexParticipantType.SELF) {
-						partnerAreasToBeExposed.add(partner.getMainSexPreference(targetedCharacter).getTargetedSexArea().getRelatedCoverableArea(partner));
+						partnerAreasToBeExposed.add(Main.sex.getMainSexPreference(partner, targetedCharacter).getTargetedSexArea().getRelatedCoverableArea(partner));
 					} else {
-						targetAreasToBeExposed.add(partner.getMainSexPreference(targetedCharacter).getTargetedSexArea().getRelatedCoverableArea(targetedCharacter));
+						targetAreasToBeExposed.add(Main.sex.getMainSexPreference(partner, targetedCharacter).getTargetedSexArea().getRelatedCoverableArea(targetedCharacter));
 					}
 					
 				} else {
@@ -402,7 +402,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				if(exposeArea==CoverableArea.MOUND) {
 					exposeArea = CoverableArea.VAGINA;
 				}
-				SexType preference = partner.getCurrentSexPreference(targetedCharacter);
+				SexType preference = Main.sex.getCurrentSexPreference(partner, targetedCharacter);
 				// Only displace clothing if its the desired area, or if the clothing to be displaced is not a sex toy:
 				SimpleEntry<AbstractClothing, DisplacementType> clothingToRemove = partner.getNextClothingToRemoveForCoverableAreaAccess(exposeArea);
 				if((preference!=null && preference.getPerformingSexArea().getRelatedCoverableArea(partner)==exposeArea) //TODO
@@ -426,7 +426,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 					if(exposeArea==CoverableArea.MOUND) {
 						exposeArea = CoverableArea.VAGINA;
 					}
-					SexType preference = partner.getCurrentSexPreference(targetedCharacter);
+					SexType preference = Main.sex.getCurrentSexPreference(partner, targetedCharacter);
 					// Only displace clothing if its the desired area, or if the clothing to be displaced is not a sex toy:
 					SimpleEntry<AbstractClothing, DisplacementType> clothingToRemove = targetedCharacter.getNextClothingToRemoveForCoverableAreaAccess(exposeArea);
 					if((preference!=null && preference.getTargetedSexArea().getRelatedCoverableArea(targetedCharacter)==exposeArea)

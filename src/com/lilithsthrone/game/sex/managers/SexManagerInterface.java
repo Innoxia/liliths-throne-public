@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -41,12 +42,16 @@ import com.lilithsthrone.world.population.PopulationType;
 
 /**
  * @since 0.1.0
- * @version 0.3.9.1
+ * @version 0.4.10.10
  * @author Innoxia
  */
 public interface SexManagerInterface {
 
 	public default String getSexTitle() {
+		return getDefaultSexTitle();
+	}
+
+	public default String getDefaultSexTitle() {
 		return (!Main.sex.isConsensual() && Main.getProperties().hasValue(PropertyValue.nonConContent)?"Non-consensual ":"")
 				+(Main.sex.isPublicSex()?"Public ":"")
 				+(getPosition().getName().isEmpty()
@@ -199,6 +204,10 @@ public interface SexManagerInterface {
 	
 	public default boolean isSlotAvailable(GameCharacter character, SexSlot slot) {
 		if(character.isAsleep()) {
+			if((Main.sex.getSexPositionSlot(character).hasTag(SexSlotTag.LYING_DOWN) && slot.hasTag(SexSlotTag.LYING_DOWN_ON_FRONT))
+					|| Main.sex.getSexPositionSlot(character).hasTag(SexSlotTag.LYING_DOWN_ON_FRONT) && slot.hasTag(SexSlotTag.LYING_DOWN)) {
+				return true;
+			}
 			return slot==Main.sex.getSexPositionSlot(character); // If asleep, do not allow changing out of current slot
 		}
 		if(slot.hasTag(SexSlotTag.MATING_PRESS) && Main.sex.getAllParticipants(false).stream().anyMatch(c->c.isAsleep())) {
@@ -528,7 +537,7 @@ public interface SexManagerInterface {
 		if(!subspeciesSet.isEmpty()) {
 			List<AbstractRace> racesPresent = new ArrayList<>();
 			for(AbstractSubspecies species : subspeciesSet) {
-				if(!racesPresent.contains(species.getRace())) {
+				if(!racesPresent.contains(species.getRace()) && species!=Subspecies.HALF_DEMON) { // Exclude half-demons as they're most likely going to be a half-demon of a specific race which can't be represented here
 					racesPresent.add(species.getRace());
 				}
 			}

@@ -101,8 +101,8 @@ public class FluidGirlCum implements FluidInterface {
 		
 
 		Element girlcumModifiersElement = (Element)girlcum.getElementsByTagName("girlcumModifiers").item(0);
+		fluidGirlcum.fluidModifiers.clear();
 		if(girlcumModifiersElement!=null) {
-			fluidGirlcum.fluidModifiers.clear();
 			if(girlcumModifiersElement!=null) {
 				Collection<FluidModifier> girlcumFluidModifiers = fluidGirlcum.fluidModifiers;
 				Body.handleLoadingOfModifiers(FluidModifier.values(), null, girlcumModifiersElement, girlcumFluidModifiers);

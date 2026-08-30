@@ -17,7 +17,7 @@
 		<effects/>
 		
 		<stickers>
-			<category id="face_appearance" priority="1">
+			<category id="Face" priority="1">
 				<sticker id="creepy" priority="1" defaultSticker="true" zLayer="1" colourDisabled="" colourSelected="">
 					<stickerName><![CDATA[Creepy]]></stickerName>
 					<namePrefix priority="1"><![CDATA[Creepy]]></namePrefix>

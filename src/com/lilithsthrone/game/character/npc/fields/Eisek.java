@@ -79,7 +79,7 @@ public class Eisek extends NPC {
 			25, Month.FEBRUARY, 9,
 			20,
 			Gender.M_P_MALE, Subspecies.getSubspeciesFromId("dsg_dragon_subspecies_dragon"), RaceStage.GREATER,
-			new CharacterInventory(10),
+			new CharacterInventory(false, 10),
 			WorldType.getWorldTypeFromId("innoxia_fields_elis_market"),
 			PlaceType.getPlaceTypeFromId("dsg_fields_elis_market_produce"),
 			true);
@@ -223,10 +223,10 @@ public class Eisek extends NPC {
     @Override
     public String getDescription() {
 	    if(this.isPlayerKnowsName() == false && !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_banished"))) {
-		    return "You found this dragon-boy being harrassed by a mob while manning a stall at The Farmer's Market in Elis.";
+		    return "You found this dragon-boy being harassed by a mob while manning a stall at The Farmer's Market in Elis.";
 		    
 	    } else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_banished"))) {
-		    return "You found this dragon-boy being harrassed by a mob while manning a stall at The Farmer's Market in Elis. Intentionally or not, you sided with the mob and drove him off.";
+		    return "You found this dragon-boy being harassed by a mob while manning a stall at The Farmer's Market in Elis. Intentionally or not, you sided with the mob and drove him off.";
 		    
 	    } else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.getDialogueFlagValueFromId("dsg_elis_eisek_asked_himself"))) {
 		    return "Eisek is a produce merchant at The Farmer's Market in Elis. As a dragon, [npc.he] is often unwelcome in civilised areas, a fact that he is well aware of."

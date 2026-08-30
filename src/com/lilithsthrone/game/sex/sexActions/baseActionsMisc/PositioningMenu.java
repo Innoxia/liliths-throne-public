@@ -52,7 +52,7 @@ public class PositioningMenu {
 	private static GameCharacter targetedCharacter;
 	private static List<SexSlot> availableSlots;
 	
-	private static StringBuilder positioningSB = new StringBuilder();
+	public static StringBuilder positioningSB = new StringBuilder();
 	
 	public static void setNewSexManager() {
 		Map<GameCharacter, SexSlot> dominants = new HashMap<>();
@@ -329,6 +329,7 @@ public class PositioningMenu {
 			switch(sizeSlots) {
 				case 4: case 5: case 6: case 7: case 8:
 					slotsOne.add(SexSlotLyingDown.LYING_DOWN_FOUR);
+					slotsOne.add(SexSlotLyingDown.LYING_DOWN_FRONT_FOUR);
 					slotsTwo.add(SexSlotLyingDown.COWGIRL_FOUR);
 					slotsThree.add(SexSlotLyingDown.COWGIRL_REVERSE_FOUR);
 					slotsFour.add(SexSlotLyingDown.FACE_SITTING_FOUR);
@@ -338,10 +339,12 @@ public class PositioningMenu {
 					slotsEight.add(SexSlotLyingDown.MISSIONARY_FOUR);
 					slotsNine.add(SexSlotLyingDown.SCISSORING_FOUR);
 					slotsTen.add(SexSlotLyingDown.SIXTY_NINE_FOUR);
+					slotsTen.add(SexSlotLyingDown.RECEIVING_ORAL_THREE);
 					slotsEleven.add(SexSlotLyingDown.BESIDE_FOUR);
 					slotsTwelve.add(SexSlotLyingDown.MISSIONARY_ORAL_FOUR);
 				case 3: 
 					slotsOne.add(SexSlotLyingDown.LYING_DOWN_THREE);
+					slotsOne.add(SexSlotLyingDown.LYING_DOWN_FRONT_THREE);
 					slotsTwo.add(SexSlotLyingDown.COWGIRL_THREE);
 					slotsThree.add(SexSlotLyingDown.COWGIRL_REVERSE_THREE);
 					slotsFour.add(SexSlotLyingDown.FACE_SITTING_THREE);
@@ -351,10 +354,12 @@ public class PositioningMenu {
 					slotsEight.add(SexSlotLyingDown.MISSIONARY_THREE);
 					slotsNine.add(SexSlotLyingDown.SCISSORING_THREE);
 					slotsTen.add(SexSlotLyingDown.SIXTY_NINE_THREE);
+					slotsTen.add(SexSlotLyingDown.RECEIVING_ORAL_THREE);
 					slotsEleven.add(SexSlotLyingDown.BESIDE_THREE);
 					slotsTwelve.add(SexSlotLyingDown.MISSIONARY_ORAL_THREE);
 				case 2:
 					slotsOne.add(SexSlotLyingDown.LYING_DOWN_TWO);
+					slotsOne.add(SexSlotLyingDown.LYING_DOWN_FRONT_TWO);
 					slotsTwo.add(SexSlotLyingDown.COWGIRL_TWO);
 					slotsThree.add(SexSlotLyingDown.COWGIRL_REVERSE_TWO);
 					slotsFour.add(SexSlotLyingDown.FACE_SITTING_TWO);
@@ -364,10 +369,12 @@ public class PositioningMenu {
 					slotsEight.add(SexSlotLyingDown.MISSIONARY_TWO);
 					slotsNine.add(SexSlotLyingDown.SCISSORING_TWO);
 					slotsTen.add(SexSlotLyingDown.SIXTY_NINE_TWO);
+					slotsTen.add(SexSlotLyingDown.RECEIVING_ORAL_TWO);
 					slotsEleven.add(SexSlotLyingDown.BESIDE_TWO);
 					slotsTwelve.add(SexSlotLyingDown.MISSIONARY_ORAL_TWO);
 				default:
 					slotsOne.add(SexSlotLyingDown.LYING_DOWN);
+					slotsOne.add(SexSlotLyingDown.LYING_DOWN_FRONT);
 					slotsTwo.add(SexSlotLyingDown.COWGIRL);
 					slotsThree.add(SexSlotLyingDown.COWGIRL_REVERSE);
 					slotsFour.add(SexSlotLyingDown.FACE_SITTING);
@@ -377,6 +384,7 @@ public class PositioningMenu {
 					slotsEight.add(SexSlotLyingDown.MISSIONARY);
 					slotsNine.add(SexSlotLyingDown.SCISSORING);
 					slotsTen.add(SexSlotLyingDown.SIXTY_NINE);
+					slotsTen.add(SexSlotLyingDown.RECEIVING_ORAL);
 					slotsEleven.add(SexSlotLyingDown.BESIDE);
 					slotsTwelve.add(SexSlotLyingDown.MISSIONARY_ORAL);
 			}
@@ -583,9 +591,8 @@ public class PositioningMenu {
 									+(Main.sex.isMasturbation()
 										?"you move around until you've assumed the posture you had in mind..."
 										:(Main.sex.getAllParticipants(false).size()==2
-											?UtilText.parse(Main.sex.getTargetedPartner(Main.game.getPlayer()), "you manoeuvre [npc.name] into [npc.her] new place")
-											:"you manoeuvre your partners into their new places")
-										+", before assuming the posture you had in mind..."));
+											?UtilText.parse(Main.sex.getTargetedPartner(Main.game.getPlayer()), "you manoeuvre [npc.name] into [npc.her] new place...")
+											:"you manoeuvre your partners into their new places...")));
 
 						SexActionUtility.POSITION_SELECTION.applyEffects();
 						Main.sex.endSexTurn(SexActionUtility.POSITION_SELECTION);

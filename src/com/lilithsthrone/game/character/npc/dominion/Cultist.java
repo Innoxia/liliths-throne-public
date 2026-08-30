@@ -73,7 +73,7 @@ public class Cultist extends NPC {
 				Gender.F_P_V_B_FUTANARI,
 				Subspecies.DEMON,
 				RaceStage.GREATER,
-				new CharacterInventory(10),
+				new CharacterInventory(false, 10),
 				WorldType.DOMINION,
 				PlaceType.DOMINION_BACK_ALLEYS,
 				false);

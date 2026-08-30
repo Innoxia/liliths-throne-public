@@ -329,7 +329,7 @@
 	
 	<htmlContent tag="TRADER_AUROKARIS_SPARRING_START_RANGED"><![CDATA[
 	<p>
-		Deciding that you'd like to use a ranged weapon, you tell Aurokaris that spending some time on the archery range would suit you. Happily nodding at your choice, the cow-girl grabs a couple of compound bows from a nearby weapon rack, and after throwing one your way, she leads you onto the sandy ground of the sparring field. Instructing you on how to assume the correct stances and how your shots will be scored, she makes sure that she's happy with your position before giving the signal to start. With that, an hour of exertion begins, in which the two of you use your weapons to compete against one another to score the most bullseyes on the distant archery targets.
+		Deciding that you'd like to use a ranged weapon, you tell Aurokaris that spending some time on the archery range would suit you. Happily nodding at your choice, the cow-girl grabs a couple of recurve bows from a nearby weapon rack, and after throwing one your way, she leads you onto the sandy ground of the sparring field. Instructing you on how to assume the correct stances and how your shots will be scored, she makes sure that she's happy with your position before giving the signal to start. With that, an hour of exertion begins, in which the two of you use your weapons to compete against one another to score the most bullseyes on the distant archery targets.
 	</p>
 	<p>
 		Your time practising archery with the cow-girl flies by, and as the hour comes to an end, you find yourself panting for breath and
@@ -540,7 +540,7 @@
 		Wanting to see Aurokaris, you approach the entrance to her tent and call out to her. A few moments later, you hear sounds of movement within, before the canvas flap is hastily untied and opened before you.
 	</p>
 	<p>
-		[aurokaris.speech([pc.Name]! Please, come on in,)] the Amazon happily exclaims. [pc.Stepping] forwards into the tent, you look around to see that it's surprisingly spacious inside, granting both you and Aurokaris plenty of room in which to move around. Turing to face the cow-girl after she's tied the entrance flap back into place, you see that 
+		[aurokaris.speech([pc.Name]! Please, come on in,)] the Amazon happily exclaims. [pc.Stepping] forwards into the tent, you look around to see that it's surprisingly spacious inside, granting both you and Aurokaris plenty of room in which to move around. Turning to face the cow-girl after she's tied the entrance flap back into place, you see that 
 		#IF(aurokaris.isVisiblyPregnant())
 			#IF(!aurokaris.isCharacterReactedToPregnancy(pc))
 				 she's sporting a [style.colourSex(pregnant belly)]. Blushing as she smiles at you, she reveals, [aurokaris.speech(I haven't been with anyone else, so it was you who got me pregnant... Oh, don't worry about having to do anything to help; I can manage it just fine!)]
@@ -740,7 +740,7 @@
 		Following the bear-girl back out into the walled compound, you're amazed to discover that the moment you [pc.step] over the entrance's boundary, Lunexis's loud, obnoxious cursing is completely silenced. Looking back through the open flap, you see that her lips are still moving, but the tent's enchantment prevents any noise whatsoever from escaping the interior.
 	</p>
 	<p>
-		[ursa.speech(The enchantment was Aurokaris's idea,)] Lunexis reveals as she turns to face you. With an amused grin on her face, she recalls, [ursa.speech(Lunexis was screeching and shouting all the way as we went down that escape passage from Minotallys's office. Aurokaris ended up having to gag her, and pointed out that the entire of Elis would soon know of Lunexis's whereabouts if we didn't find a way to keep her silent.)]
+		[ursa.speech(The enchantment was Aurokaris's idea,)] Ursa reveals as she turns to face you. With an amused grin on her face, she recalls, [ursa.speech(Lunexis was screeching and shouting all the way as we went down that escape passage from Minotallys's office. Aurokaris ended up having to gag her, and pointed out that the entire of Elis would soon know of Lunexis's whereabouts if we didn't find a way to keep her silent.)]
 	</p>
 	<p>
 		Remarking on how effective the silencing enchantment is, you ask Ursa what she's planning on doing with her prisoner. Gesturing for you to follow her back into her grand, purple tent, she speaks over her shoulder as walks, [ursa.speech(We're going to keep her here for now, then after Lunette is dealt with we'll decide what to do with her. We've tried interrogating her to get some more information about her mother, but she's far too stubborn to reveal anything to us. You can come back and try at any time, but I doubt you'll succeed in finding anything out.)]
@@ -867,6 +867,7 @@
 	<p>
 		Wanting to hear more about this 'royal tournament', you ask Ursa what that entails, and how it's related to her becoming the queen.
 	</p>
+	<p>
 		[ursa.speech(The tournament is how we decide who's going to rule us,)] Ursa reveals, [ursa.speech(it's held every two years, and involves tests of strength, martial prowess, intelligence, and leadership abilities. I've won the past ten contests, and in doing so have earned the Amazons' respect, love, and devotion. Anyone can enter the tournament to try and unseat the ruling queen, but there haven't been any serious entrants for the past four times it's been held. Of course, after what's happened to our home town, I'm sure that there will be many who'll want to try and remove me from power at the next tournament...)]
 	</p>
 	<p>
@@ -1213,7 +1214,7 @@
 	<p>
 		Giving her what she wants, you move forwards and plant several passionate kisses on her [lunexis.ass+], before burying your face between her cheeks and thrusting your tongue into her asshole.
 		#IF(pc.getClothingInSlot(IS_NECK)!=null && pc.getClothingInSlot(IS_NECK).getClothingType().getId().equals('innoxia_neck_filly_choker'))
-			 Thanks to your training as one of Natalya's fillies, your skills quickly cause the centauress to let out a series of incredibly lewd moans, before panting, [lunexis.speech(Fuck... ~Mmm!~ Oh, fuck! You're so good at this! Oh yeah... Tongue my asshole, you dirty slut!)]
+			 Thanks to your training as one of Natalya's [style.mules], your skills quickly cause the centauress to let out a series of incredibly lewd moans, before panting, [lunexis.speech(Fuck... ~Mmm!~ Oh, fuck! You're so good at this! Oh yeah... Tongue my asshole, you dirty slut!)]
 		#ELSE
 			 Letting out a desperate moan, she demands, [lunexis.speech(Oh yeah, keep going! Tongue my asshole, you dirty slut!)]
 		#ENDIF

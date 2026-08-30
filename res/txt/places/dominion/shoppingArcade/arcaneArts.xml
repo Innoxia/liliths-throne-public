@@ -91,7 +91,7 @@
 				Replying in the affirmative, you rub Vicky's tummy for a few more moments, before the wolf-girl orders you to step back.
 			</p>
 		#ENDIF
-		#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(vicky))
+		#IF(pc.isVisiblyPregnant() && pc.getPregnantLitter().isFather(vicky))
 			<p>
 				#IF(flags.hasFlag(FLAG_innoxia_vicky_claimed))
 					#IF(!pc.isCharacterReactedToPregnancy(vicky))
@@ -112,7 +112,7 @@
 			</p>
 		#ENDIF
 		<p>
-			#IF(vicky.isVisiblyPregnant() || (pc.isVisiblyPregnant() && pc.getPregnantLitter().getFather().equals(vicky)))
+			#IF(vicky.isVisiblyPregnant() || (pc.isVisiblyPregnant() && pc.getPregnantLitter().isFather(vicky)))
 				With Vicky's yellow eyes locked onto yours, and her mouth turned up into an unsettling predatory grin, she grunts, [vicky.speech(So, why are you back? You want to take a look at what I've got for sale?)]
 			#ELSE
 				As the door swings shut behind you, Vicky's yellow eyes lock onto yours, and her mouth turns up into an unsettling predatory grin. Even though she's only a few [unit.lSizes] away, and you're the only person in the shop, she doesn't utter a single word of greeting, and you find that the shop's already-gloomy atmosphere has quickly become extremely oppressive. As you step forwards to say hello, the wolf-girl suddenly cuts you off,

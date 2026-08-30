@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<enchantment>
+
+	<positiveEnchantment><![CDATA[false]]></positiveEnchantment>
+	<applyDefaultSeal><![CDATA[false]]></applyDefaultSeal>
+	
+	<!-- More likely to spawn on a chastity device -->
+	<spawnWeighting><![CDATA[
+		#IF(clothing.getItemTags(null).contains(ITEM_TAG_CHASTITY))
+			300
+		#ELSE
+			#IF(pc.hasPenisIgnoreDildo())
+				#IF(pc.isFeminine())
+					20
+				#ELSE
+					100
+				#ENDIF
+			#ELSE
+				0
+			#ENDIF
+		#ENDIF
+	]]></spawnWeighting>
+	
+	<namePrefix><![CDATA[Sissy's]]></namePrefix>
+	<namePostfix/>
+	<nameOverride/>
+	
+	<conditionalPreParsing><![CDATA[
+		[#flags.setInt('sissySeal', RND.nextInt(100))]
+		[#flags.setInt('rapidTF', RND.nextInt(100))]
+	]]></conditionalPreParsing>
+	
+	<!-- 1% chance, or if clothing is a chastity device, then add a large seal -->
+	<itemEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('sissySeal')<1 || clothing.getItemTags(null).contains(ITEM_TAG_CHASTITY)]
+		]]></conditional>
+		<effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="DRAIN" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	<!-- 99% chance, and if clothing is not a chastity device, then add a normal seal -->
+	<itemEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('sissySeal')>=1 && !clothing.getItemTags(null).contains(ITEM_TAG_CHASTITY)]
+		]]></conditional>
+		<effect limit="0" mod1="CLOTHING_SPECIAL" mod2="CLOTHING_SEALING" potency="MINOR_BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	<!-- 66% chance of normal TF speed (daily TFs) -->
+	<itemEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('rapidTF')>=33]
+		]]></conditional>
+		<effect limit="2" mod1="TF_PENIS" mod2="TF_MOD_SIZE" potency="DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="3" mod1="TF_PENIS" mod2="TF_MOD_SIZE_SECONDARY" potency="DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_PENIS" mod2="TF_MOD_SIZE_TERTIARY" potency="DRAIN" timer="0" type="CLOTHING"/>
+		
+		<effect limit="50" mod1="TF_CORE" mod2="TF_MOD_FEMININITY" potency="BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="30" mod1="TF_CORE" mod2="TF_MOD_SIZE" potency="DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="30" mod1="TF_CORE" mod2="TF_MOD_SIZE_TERTIARY" potency="DRAIN" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	<!-- 33% chance of rapid TF (hourly instead of daily) -->
+	<itemEffects>
+		<conditional><![CDATA[
+			[#flags.getInt('rapidTF')<33]
+		]]></conditional>
+		<effect limit="2" mod1="TF_PENIS" mod2="TF_MOD_SIZE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="3" mod1="TF_PENIS" mod2="TF_MOD_SIZE_SECONDARY" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_PENIS" mod2="TF_MOD_SIZE_TERTIARY" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		
+		<effect limit="50" mod1="TF_CORE" mod2="TF_MOD_FEMININITY" potency="MAJOR_BOOST" timer="0" type="CLOTHING"/>
+		<effect limit="30" mod1="TF_CORE" mod2="TF_MOD_SIZE" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="30" mod1="TF_CORE" mod2="TF_MOD_SIZE_TERTIARY" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	<itemEffects>
+		<effect limit="0" mod1="TF_MOD_FETISH_BEHAVIOUR" mod2="TF_MOD_FETISH_DOMINANT" potency="DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="TF_MOD_FETISH_BEHAVIOUR" mod2="TF_MOD_FETISH_SUBMISSIVE" potency="BOOST" timer="0" type="CLOTHING"/>
+		
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="VIRILITY" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="VIRILITY" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="VIRILITY" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="VIRILITY" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="VIRILITY" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="VIRILITY" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="VIRILITY" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="VIRILITY" potency="MAJOR_DRAIN" timer="0" type="CLOTHING"/>
+		<effect limit="0" mod1="CLOTHING_ATTRIBUTE" mod2="VIRILITY" potency="MINOR_DRAIN" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+	<itemEffects>
+		<conditional><![CDATA[
+			[#game.isAnalContentEnabled()]
+		]]></conditional>
+		<effect limit="0" mod1="TF_MOD_FETISH_BODY_PART" mod2="TF_MOD_FETISH_ANAL_RECEIVING" potency="BOOST" timer="0" type="CLOTHING"/>
+	</itemEffects>
+	
+</enchantment>

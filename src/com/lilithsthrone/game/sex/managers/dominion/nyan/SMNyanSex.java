@@ -80,7 +80,7 @@ public class SMNyanSex extends SexManagerDefault {
 				&& !partner.isPlayer()
 				&& getSexControl(Main.game.getPlayer())!=SexControl.FULL) {
 			if(getForeplayPreference(partner, Main.game.getPlayer()).equals(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.MOUTH, SexAreaPenetration.PENIS))
-					&& !Main.sex.getCharactersHavingOngoingActionWith(Main.game.getPlayer(), SexAreaPenetration.PENIS).isEmpty()) {
+					&& Main.sex.getCharactersHavingOngoingActionWith(Main.game.getPlayer(), SexAreaPenetration.PENIS).isEmpty()) {
 				return PenisMouth.GIVING_BLOWJOB_START;
 			}
 			if(getForeplayPreference(partner, Main.game.getPlayer()).equals(new SexType(SexParticipantType.NORMAL, SexAreaOrifice.BREAST, SexAreaPenetration.PENIS))

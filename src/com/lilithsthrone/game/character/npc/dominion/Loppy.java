@@ -79,7 +79,7 @@ public class Loppy extends NPC {
 						+ " Just like her younger sister, Bunny, Loppy is a rabbit-morph, and seems to genuinely love her line of work.",
 				22, Month.JANUARY, 7,
 				10, Gender.F_P_V_B_FUTANARI, Subspecies.RABBIT_MORPH_LOP, RaceStage.PARTIAL,
-				new CharacterInventory(30), WorldType.ANGELS_KISS_FIRST_FLOOR, PlaceType.ANGELS_KISS_BEDROOM_LOPPY, true);
+				new CharacterInventory(false, 30), WorldType.ANGELS_KISS_FIRST_FLOOR, PlaceType.ANGELS_KISS_BEDROOM_LOPPY, true);
 	}
 
 	@Override
@@ -228,7 +228,7 @@ public class Loppy extends NPC {
 		this.unequipAllClothingIntoVoid(true, true);
 		
 		if(this.isVisiblyPregnant()) {
-			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, PresetColour.CLOTHING_PURPLE, false), true, this);
+			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_torso_cami_straps", PresetColour.CLOTHING_PURPLE, false), true, this);
 			this.equipClothingFromNowhere(Main.game.getItemGen().generateClothing("innoxia_leg_micro_skirt_pleated", PresetColour.CLOTHING_PURPLE, false), true, this);
 		} else {
 			AbstractClothing bodysuit = Main.game.getItemGen().generateClothing("innoxia_stomach_lowback_body", PresetColour.CLOTHING_PURPLE, false);
@@ -259,7 +259,7 @@ public class Loppy extends NPC {
 				this.setPendingClothingDressing(true);
 			}
 		} else {
-			if(this.getClothingInSlot(InventorySlot.TORSO_UNDER)!=null && this.getClothingInSlot(InventorySlot.TORSO_UNDER).getClothingType()==ClothingType.TORSO_CAMITOP_STRAPS) {
+			if(this.getClothingInSlot(InventorySlot.TORSO_UNDER)!=null && this.getClothingInSlot(InventorySlot.TORSO_UNDER).getClothingType()==ClothingType.getClothingTypeFromId("innoxia_torso_cami_straps")) {
 				this.setPendingClothingDressing(true);
 			}
 		}

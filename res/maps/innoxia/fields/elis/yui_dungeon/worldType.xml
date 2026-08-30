@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<worldType>
+	<worldRegion>FIELD_CITY</worldRegion>
+	<name><![CDATA[Yui's Dungeon]]></name>
+	<colour>BASE_CRIMSON</colour>
+	<sexBlockedReason/> 
+	<furniturePresent>true</furniturePresent>
+	<wallsPresent>true</wallsPresent>
+	<loiteringEnabled>false</loiteringEnabled>
+	<flightEnabled>false</flightEnabled>
+	<visibleFromStart>true</visibleFromStart>
+	<fullyRevealedFromStart>true</fullyRevealedFromStart>
+	<globalMapLocation>WORLD_MAP_FIELDS_CITY</globalMapLocation>
+	<standardPlace>innoxia_fields_elis_yui_dungeon_bondage</standardPlace>
+	<entryFromGlobalMapLocation>innoxia_fields_elis_yui_dungeon_stairs</entryFromGlobalMapLocation>
+	<teleportPermissions>OUTGOING_ONLY</teleportPermissions>
+	<places>
+		<place colour="#ffffff">GENERIC_IMPASSABLE</place>
+		
+		<place colour="#00ff00">innoxia_fields_elis_yui_dungeon_stairs</place>
+		<place colour="#ff0000">innoxia_fields_elis_yui_dungeon_toys</place>
+		<place colour="#0000ff">innoxia_fields_elis_yui_dungeon_bondage</place>
+	</places>
+</worldType>

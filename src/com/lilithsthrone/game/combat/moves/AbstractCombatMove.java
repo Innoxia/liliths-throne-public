@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 
 import org.w3c.dom.Document;
@@ -20,6 +21,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.effects.AbstractStatusEffect;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.combat.AoEData;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.CombatBehaviour;
 import com.lilithsthrone.game.combat.DamageType;
@@ -38,7 +40,7 @@ import com.lilithsthrone.utils.colours.PresetColour;
  * A class containing logic for Combat Moves.
  * 
  * @since 0.4
- * @version 0.4
+ * @version 0.4.11.2
  * @author Irbynx, Innoxia
  */
 public abstract class AbstractCombatMove {
@@ -56,6 +58,8 @@ public abstract class AbstractCombatMove {
     private String baseDamageString = "";
     private String cooldownString = "";
     private String APCostString = "";
+    
+    private String blockDamageTypeString = "";
     private String blockString = "";
 
     private String availabilityCondition = "";
@@ -76,6 +80,7 @@ public abstract class AbstractCombatMove {
     private DamageType damageType;
     private int baseDamage;
 	private DamageVariance damageVariance;
+	protected List<AoEData> aoeDamage;
     
     private int cooldown;
     private int APcost;
@@ -175,6 +180,7 @@ public abstract class AbstractCombatMove {
         this.baseDamage = 0;
         this.damageType = damageType;
 		this.damageVariance = damageVariance;
+		this.aoeDamage = new ArrayList<>();
         this.canTargetEnemies = canTargetEnemies;
         this.canTargetAllies = canTargetAllies;
         this.canTargetSelf = canTargetSelf;
@@ -235,25 +241,135 @@ public abstract class AbstractCombatMove {
 					}
 				}
 				
-				this.damageVariance = DamageVariance.NONE;
-				if(coreElement.getOptionalFirstOf("damageVariance").isPresent()) {
-					try {
-						String variance = coreElement.getMandatoryFirstOf("damageVariance").getTextContent();
-						if (!variance.isEmpty()) {
-							this.damageVariance = DamageVariance.valueOf(variance);
-						}
-					} catch(Exception ex) {
-						System.err.println("CombatMove loading error in '"+XMLFile.getName()+"': variance not recognised! (Set to NONE)");
-					}
-				}
-				
 				this.equipWeighting = Integer.valueOf(coreElement.getMandatoryFirstOf("equipWeighting").getTextContent().trim());
 
 				this.name = coreElement.getMandatoryFirstOf("name").getTextContent();
 				this.description = coreElement.getMandatoryFirstOf("description").getTextContent();
-				this.damageTypeString = coreElement.getMandatoryFirstOf("damageType").getTextContent();
-				this.baseDamageString = coreElement.getMandatoryFirstOf("baseDamage").getTextContent();
-				this.blockString = coreElement.getMandatoryFirstOf("blockAmount").getTextContent();
+				
+				// Primary damage parsing:
+
+				if(coreElement.getOptionalFirstOf("primaryDamage").isPresent()) { // New formatting:
+					Element primaryDamageElement = coreElement.getMandatoryFirstOf("primaryDamage");
+					this.damageTypeString = primaryDamageElement.getMandatoryFirstOf("damageType").getTextContent();
+					this.baseDamageString = primaryDamageElement.getMandatoryFirstOf("damage").getTextContent();
+					
+					this.damageVariance = DamageVariance.NONE;
+					if(primaryDamageElement.getOptionalFirstOf("damageVariance").isPresent()) {
+						try {
+							String variance = coreElement.getMandatoryFirstOf("damageVariance").getTextContent();
+							if (!variance.isEmpty()) {
+								this.damageVariance = DamageVariance.valueOf(variance);
+							}
+						} catch(Exception ex) {
+							System.err.println("CombatMove loading error in '"+XMLFile.getName()+"': variance not recognised! (Set to NONE)");
+						}
+					}
+					this.statusEffects = new HashMap<>();
+					this.statusEffectsCritical = new HashMap<>();
+					for(Element e : primaryDamageElement.getAllOf("effect")) {
+						try {
+							int length = Integer.valueOf(e.getAttribute("turnLength"));
+							AbstractStatusEffect se = StatusEffect.getStatusEffectFromId(e.getTextContent());
+							if(Boolean.valueOf(e.getAttribute("onCrit"))) {
+								statusEffectsCritical.put(se, length);
+							} else {
+								statusEffects.put(se, length);
+							}
+						} catch (Exception ex) {
+				            ex.printStackTrace();
+				        }
+					}
+					
+				} else { // Old formatting:
+					this.damageTypeString = coreElement.getMandatoryFirstOf("damageType").getTextContent();
+					this.baseDamageString = coreElement.getMandatoryFirstOf("baseDamage").getTextContent();
+					this.damageVariance = DamageVariance.NONE;
+					if(coreElement.getOptionalFirstOf("damageVariance").isPresent()) {
+						try {
+							String variance = coreElement.getMandatoryFirstOf("damageVariance").getTextContent();
+							if (!variance.isEmpty()) {
+								this.damageVariance = DamageVariance.valueOf(variance);
+							}
+						} catch(Exception ex) {
+							System.err.println("CombatMove loading error in '"+XMLFile.getName()+"': variance not recognised! (Set to NONE)");
+						}
+					}
+					this.statusEffects = new HashMap<>();
+					this.statusEffectsCritical = new HashMap<>();
+					if(coreElement.getOptionalFirstOf("statusEffects").isPresent()) {
+						for(Element e : coreElement.getMandatoryFirstOf("statusEffects").getAllOf("effect")) {
+							try {
+								int length = Integer.valueOf(e.getAttribute("turnLength"));
+								AbstractStatusEffect se = StatusEffect.getStatusEffectFromId(e.getTextContent());
+								if(Boolean.valueOf(e.getAttribute("onCrit"))) {
+									statusEffectsCritical.put(se, length);
+								} else {
+									statusEffects.put(se, length);
+								}
+							} catch (Exception ex) {
+					            ex.printStackTrace();
+					        }
+						}
+					}
+				}
+				
+
+				this.aoeDamage = new ArrayList<>();
+				if(coreElement.getOptionalFirstOf("aoe").isPresent()) {
+					for(Element aoeElement : coreElement.getAllOf("aoe")) {
+						int chance = Integer.valueOf(aoeElement.getAttribute("chance"));
+						
+						String damageTypeString = aoeElement.getMandatoryFirstOf("damageType").getTextContent();
+						String baseDamageString = aoeElement.getMandatoryFirstOf("damage").getTextContent();
+						
+						DamageVariance aoeDamageVariance = DamageVariance.NONE;
+						if(aoeElement.getOptionalFirstOf("damageVariance").isPresent()) {
+							try {
+								String variance = coreElement.getMandatoryFirstOf("damageVariance").getTextContent();
+								if (!variance.isEmpty()) {
+									aoeDamageVariance = DamageVariance.valueOf(variance);
+								}
+							} catch(Exception ex) {
+								System.err.println("CombatMove loading error in '"+XMLFile.getName()+"': variance not recognised! (Set to NONE)");
+							}
+						}
+						Map<AbstractStatusEffect, Integer> aoeStatusEffects = new HashMap<>();
+						Map<AbstractStatusEffect, Integer> aoeStatusEffectsCritical = new HashMap<>();
+						for(Element effectElement : aoeElement.getAllOf("effect")) {
+							try {
+								int length = Integer.valueOf(effectElement.getAttribute("turnLength"));
+								AbstractStatusEffect se = StatusEffect.getStatusEffectFromId(effectElement.getTextContent());
+								if(Boolean.valueOf(effectElement.getAttribute("onCrit"))) {
+									aoeStatusEffectsCritical.put(se, length);
+								} else {
+									aoeStatusEffects.put(se, length);
+								}
+							} catch (Exception ex) {
+					            ex.printStackTrace();
+					        }
+						}
+						aoeDamage.add(new AoEData(chance, damageTypeString, baseDamageString, aoeDamageVariance, aoeStatusEffects, aoeStatusEffectsCritical));
+					}
+				}
+				
+//				this.aoeDamage = new ArrayList<>();
+//				if(coreElement.getOptionalFirstOf("aoe").isPresent()) {
+//					for(Element e : coreElement.getAllOf("aoe")) {
+//						boolean seApplication = Boolean.valueOf(e.getAttribute("appliesStatusEffects"));
+//						int chance = Integer.valueOf(e.getAttribute("chance"));
+//						aoeDamage.add(new AoEData(chance, e.getTextContent(), seApplication));
+//					}
+//				}
+				
+				// Blocking:
+				if(coreElement.getOptionalFirstOf("shielding").isPresent()) { // New formatting:
+					this.blockDamageTypeString = coreElement.getMandatoryFirstOf("shielding").getMandatoryFirstOf("damageType").getTextContent();
+					this.blockString = coreElement.getMandatoryFirstOf("shielding").getMandatoryFirstOf("blockAmount").getTextContent();
+					
+				} else if(coreElement.getOptionalFirstOf("blockAmount").isPresent()) { // Old formatting:
+					this.blockString = coreElement.getMandatoryFirstOf("blockAmount").getTextContent();
+				}
+				
 				this.cooldown = 1; // Backup in case cooldownString fails to load
 				this.cooldownString = coreElement.getMandatoryFirstOf("cooldown").getTextContent();
 				this.APcost = 1; // Backup in case APCostString fails to load
@@ -292,23 +408,6 @@ public abstract class AbstractCombatMove {
 		            e.printStackTrace();
 		        }
 				
-				this.statusEffects = new HashMap<>();
-				this.statusEffectsCritical = new HashMap<>();
-				if(coreElement.getOptionalFirstOf("statusEffects").isPresent()) {
-					for(Element e : coreElement.getMandatoryFirstOf("statusEffects").getAllOf("effect")) {
-						try {
-							int length = Integer.valueOf(e.getAttribute("turnLength"));
-							AbstractStatusEffect se = StatusEffect.getStatusEffectFromId(e.getTextContent());
-							if(Boolean.valueOf(e.getAttribute("onCrit"))) {
-								statusEffectsCritical.put(se, length);
-							} else {
-								statusEffects.put(se, length);
-							}
-						} catch (Exception ex) {
-				            ex.printStackTrace();
-				        }
-					}
-				}
 				
 				this.availabilityCondition = coreElement.getMandatoryFirstOf("availabilityCondition").getTextContent();
 				this.availabilityDescription = coreElement.getMandatoryFirstOf("availabilityDescription").getTextContent();
@@ -388,6 +487,7 @@ public abstract class AbstractCombatMove {
 		return UtilText.parse(source, target, sb.toString());
 	}
     
+	//FIXME this doesn't work. Setting spells to return a ridiculous weight still doesn't make characters use spells, even when the blunder check is removed.
     /**
      * Returns weight of the action.
      *  Used in calculations for AI to pick certain actions.
@@ -464,7 +564,7 @@ public abstract class AbstractCombatMove {
 
             case SPELL:
             	if(source.getCombatBehaviour()==CombatBehaviour.SPELLS) {
-            		behaviourMultiplier=10;
+            		behaviourMultiplier=100000;
             	}
                 return behaviourMultiplier;
                 
@@ -598,7 +698,9 @@ public abstract class AbstractCombatMove {
 	    	parseText = parseText.replaceAll("formattedDamageInflicted", getFormattedDamage(damageType, damageValue.getValue(), target, true, maxLust));
 	    	parseText = parseText.replaceAll("formattedHealthDamage", damageValue.getKey());
 	    	
-            return formatAttackOutcome(source, target,
+            StringBuilder sb = new StringBuilder();
+            
+            sb.append(formatAttackOutcome(source, target,
             		parseText,
             		damageValue.getValue()>0
             			?"[npc2.Name] took " + getFormattedDamage(damageType, damageValue.getValue(), target, true, maxLust) + " damage!"
@@ -606,7 +708,47 @@ public abstract class AbstractCombatMove {
             		crit
 	            		?performingCritDescText
 	            		:null,
-            		performingCritText);
+            		performingCritText));
+            
+            if(!this.getAoeDamage().isEmpty()) {
+	            List<GameCharacter> aoeAvailableTargets = new ArrayList<>(enemies);
+				aoeAvailableTargets.remove(target);
+				for(AoEData aoe : this.getAoeDamage()) {
+					if(aoeAvailableTargets.isEmpty()) {
+						break;
+					}
+					GameCharacter aoeTarget = Util.randomItemFrom(aoeAvailableTargets);
+					if(Math.random()*100<=aoe.getChance()) {
+						DamageType aoeDamageType = aoe.getDamageType(source, target);
+						DamageVariance damageVariance = aoe.getDamageVariance();
+	    				maxLust = isTargetAtMaximumLust(aoeTarget);
+	    	            damageValue = aoeDamageType.damageTarget(source, aoeTarget, Attack.calculateSpecialAttackDamage(source, aoeTarget, getType(), aoeDamageType, aoe.getDamage(source), damageVariance, crit));
+	    				
+	    	            sb.append(formatAttackOutcome(source, aoeTarget,
+	    	            		"",
+	    	            		damageValue.getValue()>0
+	    	            			?"[style.colourAqua(AoE)]: [npc2.Name] took " + getFormattedDamage(aoeDamageType, damageValue.getValue(), target, true, maxLust) + " damage!"
+	    	            			:"",
+	    	            		null,
+	    	            		null));
+	    	            
+	    	            for(Entry<AbstractStatusEffect, Integer> entry : aoe.getStatusEffects(source, aoeTarget, crit).entrySet()) {
+							int duration = entry.getValue();
+							if(crit) {
+								duration = (int) (duration*this.getCritStatusEffectDurationMultiplier());
+							}
+							Main.combat.addStatusEffectToApply(aoeTarget, entry.getKey(), duration);
+							sb.append(UtilText.parse(aoeTarget,
+									"<br/>[npc.NameIsFull] now affected by <b style='color:"+entry.getKey().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getName(aoeTarget))+"</b>"
+											+ " for <b>"+Util.intToString(duration)+(duration==1?" turn":" turns")+"</b>!"));
+						}
+	    	            
+						aoeAvailableTargets.remove(aoeTarget);
+					}
+				}
+            }
+            
+            return sb.toString();
     	}
     	
         return UtilText.parse(source, target, parseText);
@@ -621,8 +763,12 @@ public abstract class AbstractCombatMove {
      * @return The string that describes the action that has been performed.
      */
     public void performOnSelection(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-        // Nothing. Override it.
-    }
+		//Support for blockAmount in modded combatActions
+		DamageType dt = this.getBlockDamageType(turnIndex, source);
+		if(isFromExternalFile() && this.getBlock(source, false)>0) {
+			source.setShields(dt, source.getShields(dt) + getBlock(source, canCrit(turnIndex, source, target, enemies, allies)));
+		}
+	}
     
     /**
      * Applies the reverse of the performOnSelection() method. Override whenever performOnSelection() is overridden. This is performed during deselection of the action and not during the turn.
@@ -633,7 +779,12 @@ public abstract class AbstractCombatMove {
      * @return The string that describes the action that has been performed.
      */
     public void performOnDeselection(int turnIndex, GameCharacter source, GameCharacter target, List<GameCharacter> enemies, List<GameCharacter> allies) {
-        // Nothing. Override it.
+		//Support for blockAmount in modded combatActions
+		DamageType dt = this.getBlockDamageType(turnIndex, source);
+		if(isFromExternalFile() && this.getBlock(source, false)>0) {
+			source.setShields(dt, source.getShields(dt) - getBlock(source, canCrit(turnIndex, source, target, enemies, allies)));
+		}
+
     }
 
     //TODO is this needed when the performOnDeselection() method above exists?
@@ -737,6 +888,24 @@ public abstract class AbstractCombatMove {
         return derivedCooldown;
     }
 
+	public DamageType getBlockDamageType(int turnIndex, GameCharacter source) {
+    	if(fromExternalFile
+    			&& blockDamageTypeString!=null
+    			&& !blockDamageTypeString.isEmpty()) {
+    		DamageType dt = DamageType.PHYSICAL;
+    		try{
+    			dt = DamageType.valueOf(UtilText.parse(source, blockDamageTypeString).trim());
+    		} catch(Exception ex) {
+				System.err.println("CombatMove getBlockDamageType() loading error: DamageType parsing not recognised! (Set to PHYSICAL)");
+    		}
+    		if(dt==DamageType.UNARMED) {
+    			return DamageType.UNARMED.getParentDamageType(source, null);
+    		}
+    		return dt;
+    	}
+		return getDamageType(turnIndex, source);
+	}
+	
     public int getBlock(GameCharacter source, boolean isCrit) {
 		int block = 0;
     	if(fromExternalFile) {
@@ -761,7 +930,7 @@ public abstract class AbstractCombatMove {
     		try{
     			dt = DamageType.valueOf(UtilText.parse(source, damageTypeString).trim());
     		} catch(Exception ex) {
-				System.err.println("CombatMove loading error: DamageType parsing not recognised! (Set to PHYSICAL)");
+				System.err.println("CombatMove getDamageType() loading error: DamageType parsing not recognised! (Set to PHYSICAL)");
     		}
     		if(dt==DamageType.UNARMED) {
     			return DamageType.UNARMED.getParentDamageType(source, null);
@@ -771,7 +940,7 @@ public abstract class AbstractCombatMove {
 		return damageType;
 	}
 
-    protected int getBaseDamage(GameCharacter source) {
+    public int getBaseDamage(GameCharacter source) {
     	if(fromExternalFile) {
     		float damage = 1;
     		try{
@@ -798,6 +967,10 @@ public abstract class AbstractCombatMove {
 		return damageVariance;
 	}
 
+	public List<AoEData> getAoeDamage() {
+		return aoeDamage;
+	}
+	
 	public Spell getAssociatedSpell() {
         return associatedSpell;
     }
@@ -908,6 +1081,10 @@ public abstract class AbstractCombatMove {
 		return type.getColour();
 	}
 
+	public boolean isFromExternalFile() {
+		return fromExternalFile;
+	}
+	
 	public boolean isMod() {
 		return mod;
 	}

@@ -99,17 +99,17 @@ public class EnchantmentDialogue {
 		
 		ItemEffect effect = getCurrentEffect();
 		
-		int displaySlots = Math.max(32, 8*(int)Math.ceil(Math.max(ingredient.getEnchantmentEffect().getPrimaryModifiers().size(), ingredient.getEnchantmentEffect().getSecondaryModifiers(ingredient, primaryMod).size())/8f));
+		int displaySlots = Math.max(32, 8*(int)Math.ceil(Math.max(ingredient.getEnchantmentEffect().getPrimaryModifiers(ingredient).size(), ingredient.getEnchantmentEffect().getSecondaryModifiers(ingredient, primaryMod).size())/8f));
 		
 		// Primary mods:
 		inventorySB.append("<div class='container-half-width' style='padding-bottom:0;'>");
-		for (TFModifier tfMod : ingredient.getEnchantmentEffect().getPrimaryModifiers()) {
+		for (TFModifier tfMod : ingredient.getEnchantmentEffect().getPrimaryModifiers(ingredient)) {
 			inventorySB.append("<div class='modifier-icon' style='width:11.5%; background-color:"+tfMod.getRarity().getBackgroundColour().toWebHexString()+";'>"
 					+ "<div class='modifier-icon-content'>"+tfMod.getSVGString()+"</div>"
 					+ "<div class='overlay' id='MOD_PRIMARY_"+tfMod.hashCode()+"'></div>"
 					+ "</div>");
 		}
-		for (int i = displaySlots; i > ingredient.getEnchantmentEffect().getPrimaryModifiers().size(); i--) {
+		for (int i = displaySlots; i > ingredient.getEnchantmentEffect().getPrimaryModifiers(ingredient).size(); i--) {
 			inventorySB.append("<div class='modifier-icon empty' style='width:11.5%;'></div>");
 		}
 		
@@ -171,8 +171,9 @@ public class EnchantmentDialogue {
 		// Potency:
 		inventorySB.append("<div class='container-full-width' style='text-align:center; padding:8px 0; margin-top:0;'>");
 		
-		for(TFPotency potency : TFPotency.values()) {
-			inventorySB.append("<div class='normal-button"+(ingredient.getEnchantmentEffect().getPotencyModifiers(primaryMod, secondaryMod).contains(potency)?"":" disabled")+(EnchantmentDialogue.potency==potency?" selected":"")+"' id='POTENCY_"+potency+"'"
+		for(TFPotency potency : TFPotency.getAllPotencies()) {
+			inventorySB.append("<div class='normal-button"+(ingredient.getEnchantmentEffect().getPotencyModifiers(primaryMod, secondaryMod).contains(potency)?"":" disabled")+(EnchantmentDialogue.potency==potency?" selected":"")
+					+"' id='POTENCY_"+potency+"'"
 					+ " style='"+(EnchantmentDialogue.potency==potency?"color:"+potency.getColour().toWebHexString()+";":"")+" margin:0 1%; width:14%;'>"+potency.getName()+"</div>");
 		}
 		
@@ -249,8 +250,8 @@ public class EnchantmentDialogue {
 								}
 								inventorySB.append("<br/>"
 										+ (cost>0
-												?"[style.colourEnchantment("+Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+" cost)]: [style.boldBad("+cost+")]"
-												:Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+" cost: [style.boldDisabled(0)]"));
+												?"[style.colourEnchantment("+Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+")]: "+UtilText.formatAsEnchantmentCapacity(cost, "b")
+												:Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+": [style.colourDisabled("+UtilText.formatAsEnchantmentCapacityUncoloured(cost, "b")+")]"));
 							}
 						}
 					}
@@ -311,15 +312,21 @@ public class EnchantmentDialogue {
 
 			// Effects:
 			inventorySB.append("<div class='container-half-width' style='width:58%; margin:0 1%;'>");
+//			inventorySB.append("<form style='padding:0; margin:0 0 4px 0; text-align:center;'><input type='text' id='output_name' value='" +UtilText.parseForHTMLDisplay(outputName)+"' style='padding:0;margin:0;width:80%; text-align:center;'></form>");
+
+				inventorySB.append("<form style='padding:0; margin:0 0 4px 0; float:left; width:90%; text-align:center;'>");
+					inventorySB.append("<input type='text' id='output_name' value='" +UtilText.parseForHTMLDisplay(outputName)+"' style='padding:0;margin:0;width:100%;text-align:center;'>");
+				inventorySB.append("</form>");
+				inventorySB.append("<div class='normal-button' id='apply_enchanted_item_name' style='float:left; width:9.5%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>");
+					inventorySB.append("&#10003;");
+				inventorySB.append("</div>");
+			
 				inventorySB.append("<b>Effects (</b>"
 									+ (effects.size()>=ingredient.getEnchantmentLimit()?"<b style='color:"+PresetColour.GENERIC_BAD.toWebHexString()+";'>":"<b>")+""
 											+ effects.size()+"/"+ingredient.getEnchantmentLimit()+"</b><b>)</b> | Cost: "
 												+ (ingredient instanceof Tattoo
 														?UtilText.formatAsMoney(EnchantingUtils.getCost(ingredient, effects)*EnchantingUtils.FLAME_COST_MODIFER, "b")
-														:UtilText.formatAsEssences(EnchantingUtils.getCost(ingredient, effects), "b", false))
-												+"<br/>"
-											+"<form style='padding:0; margin:0 0 4px 0; text-align:center;'><input type='text' id='output_name' value='" +UtilText.parseForHTMLDisplay(outputName)+"' style='padding:0;margin:0;width:80%;'></form>"
-								);
+														:UtilText.formatAsEssences(EnchantingUtils.getCost(ingredient, effects), "b", false)));
 			
 				if(effects.isEmpty()) {
 					inventorySB.append("<br/><span style='color:"+PresetColour.TEXT_GREY.toWebHexString()+";'>No effects added</span>");
@@ -378,8 +385,8 @@ public class EnchantmentDialogue {
 								|| (ingredient instanceof Tattoo)) {
 							inventorySB.append("<br/>"
 									+ (cost>0
-											?"[style.colourEnchantment("+Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+" cost)]: [style.boldBad("+cost+")]"
-											:Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+" cost: [style.boldDisabled(0)]"));
+											?"[style.colourEnchantment("+Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+")]: "+UtilText.formatAsEnchantmentCapacity(cost, "b")
+											:Util.capitaliseSentence(Attribute.ENCHANTMENT_LIMIT.getName())+": [style.colourDisabled("+UtilText.formatAsEnchantmentCapacityUncoloured(cost, "b")+")]"));
 						}
 					}
 				}
@@ -510,84 +517,109 @@ public class EnchantmentDialogue {
 					}
 				};
 				
-			// Ingredients:
-			} else if (index == 1) {
-				int price = EnchantingUtils.getCost(ingredient, effects)*EnchantingUtils.FLAME_COST_MODIFER;
+			}
+			
+			try {
+				int essenceCost = EnchantingUtils.getCost(ingredient, effects);
+				int price = essenceCost*EnchantingUtils.FLAME_COST_MODIFER;
+				int ingredientCount = ingredient instanceof AbstractItem
+						?Main.game.getPlayer().getItemCount((AbstractItem)ingredient)
+						:(ingredient instanceof AbstractClothing
+								?Main.game.getPlayer().getClothingCount((AbstractClothing)ingredient)
+								:(ingredient instanceof AbstractWeapon
+									?Main.game.getPlayer().getWeaponCount((AbstractWeapon)ingredient)
+									:1));
 				
-				if((effects.equals(ingredient.getEffects())
-						|| (effects.isEmpty() && ingredient instanceof AbstractItem))
-//						 && outputName.equals(ingredient.getName())
-						 ) {
-					return new Response("Craft", "You need to add at least one effect before you can craft something!", null);
-					
-				} else if(canAffordCost(ingredient, effects)) {
-					return new ResponseEffectsOnly((ingredient instanceof Tattoo
-																?"Enchant ("+UtilText.formatAsMoney(price, "span")+")"
-																:"Craft"),
-													((ingredient instanceof Tattoo)
-																	?"Enchant this tattoo with the specified effects. This will cost "+UtilText.formatAsMoney(price, "span")+"."
-																	:"Craft '"+EnchantingUtils.getPotionName(ingredient, effects)+"'. This will cost [style.boldArcane("+EnchantingUtils.getCost(ingredient, effects)+")] arcane essences.")){
+				if (index == 1) {
+					if((effects.equals(ingredient.getEffects())
+							|| (effects.isEmpty() && ingredient instanceof AbstractItem))) {
+						return new Response("Craft", "You need to add at least one effect before you can craft something!", null);
+						
+					} else if(!canAffordCost(ingredient, effects, 1)) {
+						return new Response(
+								(ingredient instanceof Tattoo
+										?"Enchant ("+UtilText.formatAsMoneyUncoloured(price, "span")+")"
+										:"Craft ("+UtilText.formatAsEssencesUncoloured(essenceCost, "span", false)+")"),
+								"You can't afford to craft this right now!", null);
+						
+					} else  {
+						return new ResponseEffectsOnly(
+								(ingredient instanceof Tattoo
+									?"Enchant ("+UtilText.formatAsMoney(price, "span")+")"
+									:"Craft ("+UtilText.formatAsEssences(essenceCost, "span", false)+")"),
+								((ingredient instanceof Tattoo)
+									?"Enchant this tattoo with the specified effects. This will cost "+UtilText.formatAsMoney(price, "span")+"."
+									:"Craft '"+EnchantingUtils.getPotionName(ingredient, effects)+"'. This will cost [style.boldArcane("+essenceCost+")] arcane essences.")){
+							@Override
+							public void effects() {
+								applyEnchantingEffect(1);
+							}
+						};
+					}
+	
+				} else if (index == 2 && !(ingredient instanceof Tattoo)) {
+					if((effects.equals(ingredient.getEffects())
+							|| (effects.isEmpty() && ingredient instanceof AbstractItem))) {
+						return new Response("Craft x5", "You need to add at least one effect before you can craft something!", null);
+						
+					} else if(ingredientCount<5) {
+						return new Response(
+								"Craft x5 ("+UtilText.formatAsEssencesUncoloured(essenceCost*5, "span", false)+")",
+								"You don't have five "+ingredient.getNamePlural()+", so you can't craft five of these right now...",
+								null);
+						
+					} else if(!canAffordCost(ingredient, effects, 5)) {
+						return new Response(
+								"Craft x5 ("+UtilText.formatAsEssencesUncoloured(essenceCost*5, "span", false)+")",
+								"You can't afford to craft five of these right now!",
+								null);
+						
+					} else {
+						return new ResponseEffectsOnly(
+								"Craft x5 ("+UtilText.formatAsEssences(essenceCost*5, "span", false)+")",
+								"Craft five '"+EnchantingUtils.getPotionName(ingredient, effects)+"'. This will cost [style.boldArcane("+essenceCost*5+")] arcane essences."){
+							@Override
+							public void effects() {
+								applyEnchantingEffect(5);
+							}
+						};
+					}
+	
+				} else if (index == 3 && !(ingredient instanceof Tattoo)) {
+					if((effects.equals(ingredient.getEffects())
+							|| (effects.isEmpty() && ingredient instanceof AbstractItem))) {
+						return new Response("Craft all (x"+ingredientCount+")", "You need to add at least one effect before you can craft something!", null);
+						
+					} else if(!canAffordCost(ingredient, effects, ingredientCount)) {
+						return new Response(
+								"Craft all (x"+ingredientCount+") ("+UtilText.formatAsEssencesUncoloured(essenceCost*ingredientCount, "span", false)+")",
+								"You can't afford to craft five of these right now!",
+								null);
+						
+					} else {
+						return new ResponseEffectsOnly(
+								"Craft all (x"+ingredientCount+") ("+UtilText.formatAsEssences(essenceCost*ingredientCount, "span", false)+")",
+								"Craft "+Util.intToString(ingredientCount)+" '"+EnchantingUtils.getPotionName(ingredient, effects)+"'. This will cost [style.boldArcane("+essenceCost*ingredientCount+")] arcane essences."){
+							@Override
+							public void effects() {
+								applyEnchantingEffect(ingredientCount);
+							}
+						};
+					}
+	
+				} else if (index == 6) {
+					return new Response("Save/Load", "Save/Load enchantment recipes.", ENCHANTMENT_SAVE_LOAD) {
 						@Override
 						public void effects() {
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('output_name').value;");
 							EnchantmentDialogue.setOutputName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
-							
-							craftAndApplyFullInventoryEffects(ingredient, effects);
-							
-							if((previousIngredient instanceof AbstractItem && Main.game.getPlayer().hasItem((AbstractItem) previousIngredient))
-									|| (previousIngredient instanceof AbstractClothing && Main.game.getPlayer().hasClothing((AbstractClothing) previousIngredient))
-									|| (previousIngredient instanceof AbstractWeapon && Main.game.getPlayer().hasWeapon((AbstractWeapon) previousIngredient))) {
-								ingredient = previousIngredient;
-								effects = new ArrayList<>(previousEffects);
-								Main.game.setContent(new Response("", "", ENCHANTMENT_MENU));
-								
-							} else if(previousIngredient instanceof Tattoo) {
-								if(BodyChanging.getTarget().isPlayer()) {
-									if(Main.game.getPlayer().getLocationPlaceType()==PlaceType.SHOPPING_ARCADE_KATES_SHOP) {
-										Main.game.setContent(new Response("", "", SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS));
-									} else {
-										Main.game.setContent(new Response("", "", CosmeticsDialogue.BEAUTICIAN_TATTOOS));
-									}
-								} else {
-									Main.game.setContent(new Response("", "", CompanionManagement.SLAVE_MANAGEMENT_TATTOOS));
-								}
-								
-							} else {
-								Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU) {
-									@Override
-									public void effects() {
-										Main.game.setResponseTab(0);
-										EnchantmentDialogue.resetEnchantmentVariables();
-										InventoryDialogue.resetItems();
-										InventoryDialogue.setNPCInventoryInteraction(interactionInit);
-									}
-								});
-							}
-							
 						}
 					};
-					
-				} else {
-					return new Response(
-							(ingredient instanceof Tattoo
-									?"Enchant ("+UtilText.formatAsMoneyUncoloured(price, "span")+")"
-									:"Craft"),
-							"You can't afford to craft this right now!", null);
+				
 				}
-
-			// Save/load
-			} else if (index == 2) {
-				return new Response("Save/Load", "Save/Load enchantment recipes.", ENCHANTMENT_SAVE_LOAD) {
-					@Override
-					public void effects() {
-						Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('output_name').value;");
-						EnchantmentDialogue.setOutputName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
-					}
-				};
-			
-			} else {
-				return null;
+			} catch(Exception ex) {
 			}
+			return null;
 		}
 
 		@Override
@@ -596,11 +628,50 @@ public class EnchantmentDialogue {
 		}
 	};
 	
-	public static boolean canAffordCost(AbstractCoreItem ingredient, List<ItemEffect> itemEffects) {
-		if(ingredient instanceof Tattoo) {
-			return Main.game.getPlayer().getMoney()  >= EnchantingUtils.getCost(ingredient, itemEffects)*EnchantingUtils.FLAME_COST_MODIFER;
+	private static void applyEnchantingEffect(int count) {
+		Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('output_name').value;");
+		EnchantmentDialogue.setOutputName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent());
+		
+		for(int i=0; i<count; i++) {
+			craftAndApplyFullInventoryEffectsStack(ingredient, effects, i==count-1);
 		}
-		return Main.game.getPlayer().getEssenceCount() >= EnchantingUtils.getCost(ingredient, itemEffects);
+		
+		if((previousIngredient instanceof AbstractItem && Main.game.getPlayer().hasItem((AbstractItem) previousIngredient))
+				|| (previousIngredient instanceof AbstractClothing && Main.game.getPlayer().hasClothing((AbstractClothing) previousIngredient))
+				|| (previousIngredient instanceof AbstractWeapon && Main.game.getPlayer().hasWeapon((AbstractWeapon) previousIngredient))) {
+			ingredient = previousIngredient;
+			effects = new ArrayList<>(previousEffects);
+			Main.game.setContent(new Response("", "", ENCHANTMENT_MENU));
+			
+		} else if(previousIngredient instanceof Tattoo) {
+			if(BodyChanging.getTarget().isPlayer()) {
+				if(Main.game.getPlayer().getLocationPlaceType()==PlaceType.SHOPPING_ARCADE_KATES_SHOP) {
+					Main.game.setContent(new Response("", "", SuccubisSecrets.SHOP_BEAUTY_SALON_TATTOOS));
+				} else {
+					Main.game.setContent(new Response("", "", CosmeticsDialogue.BEAUTICIAN_TATTOOS));
+				}
+			} else {
+				Main.game.setContent(new Response("", "", CompanionManagement.SLAVE_MANAGEMENT_TATTOOS));
+			}
+			
+		} else {
+			Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU) {
+				@Override
+				public void effects() {
+					Main.game.setResponseTab(0);
+					EnchantmentDialogue.resetEnchantmentVariables();
+					InventoryDialogue.resetItems();
+					InventoryDialogue.setNPCInventoryInteraction(interactionInit);
+				}
+			});
+		}
+	}
+	
+	public static boolean canAffordCost(AbstractCoreItem ingredient, List<ItemEffect> itemEffects, int count) {
+		if(ingredient instanceof Tattoo) {
+			return Main.game.getPlayer().getMoney()  >= EnchantingUtils.getCost(ingredient, itemEffects) * count * EnchantingUtils.FLAME_COST_MODIFER;
+		}
+		return Main.game.getPlayer().getEssenceCount() >= EnchantingUtils.getCost(ingredient, itemEffects) * count;
 	}
 
 	public static AbstractCoreItem craftAndApplyFullInventoryEffects(AbstractCoreItem ingredient, List<ItemEffect> effects) {
@@ -608,12 +679,25 @@ public class EnchantmentDialogue {
 	}
 	
 	public static AbstractCoreItem craftAndApplyFullInventoryEffects(AbstractCoreItem ingredient, List<ItemEffect> effects, boolean applyCost) {
+		return craftAndApplyFullInventoryEffectsStack(ingredient, effects, applyCost, true);
+	}
+
+	public static AbstractCoreItem craftAndApplyFullInventoryEffectsStack(AbstractCoreItem ingredient, List<ItemEffect> effects, boolean finalCraftInStack) {
+		return craftAndApplyFullInventoryEffectsStack(ingredient, effects, true, finalCraftInStack);
+	}
+	
+	public static AbstractCoreItem craftAndApplyFullInventoryEffectsStack(AbstractCoreItem ingredient, List<ItemEffect> effects, boolean applyCost, boolean finalCraftInStack) {
 		if(ingredient instanceof AbstractItem) {
 			Main.game.getPlayer().removeItem((AbstractItem) ingredient);
 			AbstractItem craftedItem = EnchantingUtils.craftItem(ingredient, effects);
 			Main.game.getPlayer().addItem(craftedItem, false);
 			Main.game.addEvent(new EventLogEntry("[style.colourExcellent(Item Enchanted)]", Util.capitaliseSentence(craftedItem.getName(false, true))), false);
-			finaliseCrafting(ingredient, effects, applyCost);
+			if(applyCost) {
+				Main.game.getPlayer().incrementEssenceCount(-EnchantingUtils.getCost(ingredient, effects), false);
+			}
+			if(finalCraftInStack) {
+				finaliseCrafting(ingredient, effects);
+			}
 			return craftedItem;
 			
 		} else if(ingredient instanceof AbstractClothing) {
@@ -621,7 +705,12 @@ public class EnchantmentDialogue {
 			AbstractClothing craftedClothing = EnchantingUtils.craftClothing(ingredient, effects);
 			Main.game.getPlayer().addClothing(craftedClothing, false);
 			Main.game.addEvent(new EventLogEntry("[style.colourExcellent(Clothing Enchanted)]", Util.capitaliseSentence(craftedClothing.getName(false, true))), false);
-			finaliseCrafting(ingredient, effects, applyCost);
+			if(applyCost) {
+				Main.game.getPlayer().incrementEssenceCount(-EnchantingUtils.getCost(ingredient, effects), false);
+			}
+			if(finalCraftInStack) {
+				finaliseCrafting(ingredient, effects);
+			}
 			return craftedClothing;
 			
 		} else if(ingredient instanceof AbstractWeapon) {
@@ -629,7 +718,12 @@ public class EnchantmentDialogue {
 			AbstractWeapon craftedWeapon = EnchantingUtils.craftWeapon(ingredient, effects);
 			Main.game.getPlayer().addWeapon(craftedWeapon, false);
 			Main.game.addEvent(new EventLogEntry("[style.colourExcellent(Weapon Enchanted)]", Util.capitaliseSentence(craftedWeapon.getName(false, true))), false);
-			finaliseCrafting(ingredient, effects, applyCost);
+			if(applyCost) {
+				Main.game.getPlayer().incrementEssenceCount(-EnchantingUtils.getCost(ingredient, effects), false);
+			}
+			if(finalCraftInStack) {
+				finaliseCrafting(ingredient, effects);
+			}
 			return craftedWeapon;
 			
 		} else if(ingredient instanceof Tattoo) {
@@ -646,18 +740,16 @@ public class EnchantmentDialogue {
 				tattoo = EnchantingUtils.craftTattoo(ingredient, effects);
 			}
 			Main.game.addEvent(new EventLogEntry("[style.colourExcellent(Tattoo Enchanted)]", Util.capitaliseSentence(((Tattoo)ingredient).getName())), false);
-			finaliseCrafting(ingredient, effects, applyCost);
+			if(finalCraftInStack) {
+				finaliseCrafting(ingredient, effects);
+			}
 			return tattoo;
 		}
 		
 		return null;
 	}
 	
-	private static void finaliseCrafting(AbstractCoreItem ingredient, List<ItemEffect> effects, boolean applyCost) {
-		if(!(ingredient instanceof Tattoo) && applyCost) {
-			Main.game.getPlayer().incrementEssenceCount(-EnchantingUtils.getCost(ingredient, effects), false);
-		}
-		
+	private static void finaliseCrafting(AbstractCoreItem ingredient, List<ItemEffect> effects) {
 		previousIngredient = ingredient;
 		previousPrimaryMod = primaryMod;
 		previousSecondaryMod = secondaryMod;
@@ -718,8 +810,8 @@ public class EnchantmentDialogue {
 			EnchantmentDialogue.effects = new ArrayList<>();
 		}
 		
-		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getPrimaryModifiers().contains(EnchantmentDialogue.primaryMod)) {
-			EnchantmentDialogue.primaryMod = EnchantmentDialogue.ingredient.getEnchantmentEffect().getPrimaryModifiers().get(0);
+		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getPrimaryModifiers(ingredient).contains(EnchantmentDialogue.primaryMod)) {
+			EnchantmentDialogue.primaryMod = EnchantmentDialogue.ingredient.getEnchantmentEffect().getPrimaryModifiers(ingredient).get(0);
 		}
 		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.ingredient, EnchantmentDialogue.primaryMod).contains(EnchantmentDialogue.secondaryMod)) {
 			EnchantmentDialogue.secondaryMod = EnchantmentDialogue.ingredient.getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.ingredient, EnchantmentDialogue.primaryMod).get(0);
@@ -822,6 +914,11 @@ public class EnchantmentDialogue {
 			} else {
 				return null;
 			}
+		}
+		
+		@Override
+		public DialogueNodeType getDialogueNodeType() {
+			return DialogueNodeType.INVENTORY;
 		}
 	};
 	
@@ -1038,7 +1135,7 @@ public class EnchantmentDialogue {
 	}
 
 	public static LoadedEnchantment loadEnchant(String name) {
-		if (isLoadEnchantAvailable(name)) {
+		if (isLoadEnchantAvailable(name)) { // ????????????? you just repeat the check below immediately afterwards...
 			File file = new File("data/enchantments/"+name+".xml");
 
 			if (file.exists()) {

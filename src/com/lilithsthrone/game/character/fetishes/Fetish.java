@@ -197,9 +197,6 @@ public class Fetish {
 		
 		@Override
 		public AbstractFetish getOpposite() { return Fetish.FETISH_VAGINAL_GIVING; }
-		
-		@Override
-		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_ORAL_RECEIVING = new AbstractFetish(60,
@@ -456,8 +453,6 @@ public class Fetish {
 		@Override
 		public AbstractFetish getOpposite() { return Fetish.FETISH_LACTATION_OTHERS; }
 		
-		@Override
-		public boolean isTopFetish() { return true; }
 	};
 	
 	public static AbstractFetish FETISH_LEG_LOVER = new AbstractFetish(60,

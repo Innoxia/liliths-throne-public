@@ -24,6 +24,7 @@ import com.lilithsthrone.game.character.attributes.ObedienceLevelBasic;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.persona.SexualOrientation;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -1237,7 +1238,7 @@ public class RoomPlayer {
 				if(slave.getSlaveJob(hour)==SlaveJob.BEDROOM
 						&& slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_PLAYER)
 						&& slave.isAttractedTo(Main.game.getPlayer())
-						&& slave.hasStatusEffect(StatusEffect.PENT_UP_SLAVE)) {
+						&& (slave.hasStatusEffect(StatusEffect.PENT_UP_SLAVE) || !((NPC)slave).hasFlag(NPCFlagValue.slaveBedroomHadSleepSex))) {
 					charactersPresent.add(slave);
 				}
 				
@@ -1792,6 +1793,9 @@ public class RoomPlayer {
 							@Override
 							public void effects() {
 								Main.game.getPlayer().addStatusEffect(StatusEffect.SLEEPING_HEAVY, -1);
+								for(GameCharacter slave : hornySlaves) {
+									((NPC)slave).addFlag(NPCFlagValue.slaveBedroomHadSleepSex);
+								}
 							}
 						};
 						

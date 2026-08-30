@@ -2355,7 +2355,10 @@ public class CMFetishAttack {
             if(source.isVisiblyPregnant()) {
 				attackText = UtilText.parse(source, target,
 						(UtilText.returnStringAtRandom(
-						"Running [npc.her] [npc.hands] over [npc.her] pregnant belly, [npc.name] [npc.verb(wink)] at [npc2.name], "
+							(source.isTaur()
+								?"Turning to one side to show off the swollen, pregnant bump in [npc.her] [npc.legRace]'s body,"
+								:"Running [npc.her] [npc.hands] over [npc.her] pregnant belly,")
+							+" [npc.name] [npc.verb(wink)] at [npc2.name] and [npc.moansVerb], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(Let me tell you the best ways to get knocked up!)]"
 									:"[npc.speech(Ever wanted to fuck a pregnant [npc.girl]?)]"),
@@ -2363,11 +2366,13 @@ public class CMFetishAttack {
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(I'll tell you all about how I got knocked up!)]"
 									:"[npc.speech(Fucking pregnant [npc.girls] is the best thing ever! Come on, I'll show you!)]"),
-						"Sliding [npc.her] [npc.hands] over [npc.her] pregnant bump, [npc.name] [npc.verb(pout)] at [npc2.name], "
+						(source.isTaur()
+								?"Presenting [npc.her] lower [npc.legRace]'s body to [npc2.name], [npc.name] [npc.verb(show)] off [npc.her] pregnant belly and [npc.moansVerb], "
+								:"Sliding [npc.her] [npc.hands] over [npc.her] pregnant bump,  [npc.name] [npc.verb(pout)] at [npc2.name] and [npc.verb(giggle)], ")
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(Come have a feel!)]"
 									:"[npc.speech(Pregnant [npc.girls] are the best fucks around!)]"),
-						"Posturing so as to draw attention to [npc.her] pregnant bump, [npc.name] [npc.verb(bite)] [npc.her] lip at [npc2.name], "
+						"Posturing so as to draw attention to [npc.her] pregnant bump, [npc.name] [npc.verb(bite)] [npc.her] lip at [npc2.name] and [npc.moansVerb], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(Come on, why don't we have some fun?!)]"
 									:"[npc.speech(Want to find out how good it feels to fuck a pregnant [npc.girl]?)]"))));
@@ -2375,19 +2380,31 @@ public class CMFetishAttack {
 			} else {
 				attackText = UtilText.parse(source, target,
 						(UtilText.returnStringAtRandom(
-						"Rubbing [npc.her] [npc.hands] over [npc.her] flat stomach, [npc.name] [npc.verb(bite)] [npc.her] [npc.lip] at [npc2.name], "
+						(source.isTaur()
+							?"Showing off how flat [npc.her] stomach is,"
+							:"Rubbing [npc.her] [npc.hands] over [npc.her] flat stomach,")
+							+" [npc.name] [npc.verb(bite)] [npc.her] [npc.lip] at [npc2.name] and [npc.verb(whine)], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(Aww... I wish I were pregnant so bad!)]"
 									:"[npc.speech(I need to get pregnant so bad! Come fill me your cum already!)]"),
-						"Sliding [npc.her] [npc.hands] over [npc.her] flat stomach, [npc.name] [npc.verb(pout)] at [npc2.name], "
+						(source.isTaur()
+							?"Drawing attention to [npc.her] flat stomach,"
+							:"Sliding [npc.her] [npc.hands] over [npc.her] flat stomach,")
+							+ " [npc.name] [npc.verb(pout)] at [npc2.name] and [npc.moansVerb], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(Aww... I wish I were pregnant...)]"
 									:"[npc.speech(Come put some kids in my belly already!)]"),
-						"Sliding [npc.her] [npc.hands] over [npc.her] flat stomach, [npc.name] [npc.verb(pout)] at [npc2.name], "
+						(source.isTaur()
+							?"Showing off how flat [npc.her] stomach is,"
+							:"Sliding [npc.her] [npc.hands] over [npc.her] flat stomach,")
+							+" [npc.name] [npc.verb(pout)] at [npc2.name] and [npc.moansVerb], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(I wish I were pregnant...)]"
 									:"[npc.speech(Come fill my womb your yummy cum! I want to get pregnant already!)]"),
-						"Rubbing [npc.her] [npc.hands] over [npc.her] flat stomach, [npc.name] [npc.verb(bite)] [npc.her] [npc.lip] at [npc2.name], "
+						(source.isTaur()
+								?"Drawing attention to [npc.her] flat stomach,"
+								:"Rubbing [npc.her] [npc.hands] over [npc.her] flat stomach,")
+							+" [npc.name] [npc.verb(bite)] [npc.her] [npc.lip] at [npc2.name] and [npc.verb(whine)], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(I wish I were pregnant...)]"
 									:"[npc.speech(Come breed me already! My womb's waiting for your seed!)]"))));

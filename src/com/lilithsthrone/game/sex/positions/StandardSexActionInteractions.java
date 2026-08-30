@@ -911,6 +911,8 @@ public class StandardSexActionInteractions {
 									SexActionPresets.breastsToMouth,
 									SexActionPresets.mouthToBreasts,
 									SexActionPresets.vaginaToPenis,
+									SexActionPresets.vaginaToVagina,
+									SexActionPresets.penisToPenis,
 									SexActionPresets.assToGroin),
 							Util.newArrayListOfValues(
 									OrgasmCumTarget.LEGS,
@@ -933,6 +935,7 @@ public class StandardSexActionInteractions {
 							Util.mergeMaps(
 									SexActionPresets.vaginaToPenis,
 									SexActionPresets.vaginaToVagina,
+									SexActionPresets.penisToPenis,
 									SexActionPresets.assToGroin),
 							Util.newArrayListOfValues(
 									OrgasmCumTarget.SELF_LEGS,
@@ -958,7 +961,9 @@ public class StandardSexActionInteractions {
 								SexActionPresets.kissing,
 								SexActionPresets.appendagesToAllAreas,
 								SexActionPresets.allAreasToAppendages,
-								SexActionPresets.vaginaToPenis),
+								SexActionPresets.vaginaToPenis,
+								SexActionPresets.vaginaToVagina,
+								SexActionPresets.penisToPenis),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.LEGS,
 								OrgasmCumTarget.GROIN,
@@ -1023,6 +1028,8 @@ public class StandardSexActionInteractions {
 								SexActionPresets.allAreasToAppendages,
 								SexActionPresets.thighsToPenis,
 								SexActionPresets.vaginaToPenis,
+								SexActionPresets.vaginaToVagina,
+								SexActionPresets.penisToPenis,
 								SexActionPresets.assToGroin,
 								SexActionPresets.penisToBreasts,
 								SexActionPresets.feetToMouth),
@@ -1047,6 +1054,7 @@ public class StandardSexActionInteractions {
 						Util.mergeMaps(
 								SexActionPresets.vaginaToPenis,
 								SexActionPresets.vaginaToVagina,
+								SexActionPresets.penisToPenis,
 								SexActionPresets.assToGroin),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.STOMACH,
@@ -1078,6 +1086,8 @@ public class StandardSexActionInteractions {
 								SexActionPresets.allAreasToAppendages,
 								SexActionPresets.thighsToPenis,
 								SexActionPresets.vaginaToPenis,
+								SexActionPresets.vaginaToVagina,
+								SexActionPresets.penisToPenis,
 								SexActionPresets.assToGroin),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.LEGS,
@@ -1098,6 +1108,7 @@ public class StandardSexActionInteractions {
 						Util.mergeMaps(
 								SexActionPresets.vaginaToPenis,
 								SexActionPresets.vaginaToVagina,
+								SexActionPresets.penisToPenis,
 								SexActionPresets.assToGroin),
 						Util.newArrayListOfValues(
 								OrgasmCumTarget.LEGS,

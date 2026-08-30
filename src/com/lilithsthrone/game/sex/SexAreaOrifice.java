@@ -7,11 +7,836 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.main.Main;
 
 /**
+ * Natural ordering is roughly in assumed order of severity of penetration, with associated areas next to one another (but all urethras and the spinneret are at the end as they're exceptional orifices).
+ * 
+ * 
  * @since 0.1.78
- * @version 0.4
+ * @version 0.4.10.12
  * @author Innoxia
  */
 public enum SexAreaOrifice implements SexAreaInterface {
+
+	VAGINA(4,
+			-0.5f, -0.5f, -1f,
+			0.5f, -0.5f , 0.5f,
+			4/60f, 2/60f,
+			true) {
+		@Override
+		public String getName(GameCharacter owner, boolean standardName) {
+			if(standardName) {
+				return "pussy";
+			}
+			return owner.getVaginaName(false);
+		}
+		@Override
+		public boolean isFree(GameCharacter owner) {
+			return Main.sex.isOrificeFree(owner, this);
+		}
+		@Override
+		public CoverableArea getRelatedCoverableArea(GameCharacter owner) {
+			return CoverableArea.VAGINA;
+		}
+		@Override
+		public InventorySlot getRelatedInventorySlot(GameCharacter owner) {
+			return InventorySlot.VAGINA;
+		}
+		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			if(currentlyStretchedValue) {
+				return owner.getVaginaStretchedCapacity();
+			}
+			return owner.getVaginaRawCapacityValue();
+		}
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return target.getVaginaMaximumPenetrationDepthComfortable();
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return target.getVaginaMaximumPenetrationDepthUncomfortable();
+		}
+		@Override
+		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
+			StringBuilder sb = new StringBuilder();
+			if(performer==target) {
+				//TODO Improve
+				if(targetArea.isPenetration()) {
+					if(pastTense) {
+						sb.append("[npc.Name] [npc.sexPaceVerb] used [npc.her] own "+targetArea.getName(performer)+" to fuck [npc.her] [npc.pussy+].");
+					} else {
+						sb.append("[npc.NameIs] [npc.sexPaceVerb] using [npc.her] own "+targetArea.getName(performer)+" to fuck [npc.her] [npc.pussy+].");
+					}
+				}
+				if(targetArea.isOrifice()) {
+					if(pastTense) {
+						sb.append("[npc.Name] [npc.sexPaceVerb] pressed [npc.her] [npc.pussy+] against [npc.her] own "+targetArea.getName(performer)+".");
+					} else {
+						sb.append("[npc.NameIs] [npc.sexPaceVerb] pressing [npc.her] [npc.pussy+] against [npc.her] own "+targetArea.getName(performer)+".");
+					}
+				}
+			}
+			
+			if(targetArea.isPenetration()) {
+				switch((SexAreaPenetration)targetArea) {
+					case CLIT:
+						if(pastTense) {
+							if(isCharacterInanimate(performer)) {
+								sb.append("Remaining "+(performer.isAsleep()?"asleep":"motionless")+", [npc.name] didn't react at all as [npc2.namePos] [npc2.clit+] thrust into [npc.her] [npc.pussy+].");
+							} else {
+								switch(performerPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append("Rubbing [npc.her] [npc.labia+] over the [npc2.clitTip+] of [npc2.namePos] [npc2.clit],"
+												+ " [npc.name] [npc.sexPaceVerb] bucked [npc.her] [npc.hips] and forced [npc2.herHim] to penetrate [npc.her] [npc.pussy+].");
+										break;
+									case SUB_RESISTING:
+										sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.clit+] into [npc.her] [npc.pussy+] and start fucking [npc.herHim].");
+										break;
+								}
+							}
+							if(isCharacterInanimate(target)) {
+								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"continued to act like an inanimate sex toy")
+										+", and remained totally motionless while keeping [npc2.her] [npc2.clit] hilted in [npc.namePos] [npc.pussy+].");
+							} else {
+								switch(targetPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append(" [npc2.SexPaceVerb] thrusting [npc2.her] [npc2.clit+] into [npc.namePos] [npc.pussy+], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] fucked [npc.herHim].");
+										break;
+									case SUB_RESISTING:
+										sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.clit] out of [npc.namePos] [npc.pussy], and could do nothing but cry as [npc2.she] had [npc2.her] [npc2.clit] used against [npc2.her] will.");
+										break;
+								}
+							}
+							
+						} else {
+							sb.append("[npc.NameIs] [npc.sexPaceVerb] being clit-fucked by [npc2.name].");
+						}
+						break;
+					case FINGER:
+						if(pastTense) {
+							if(isCharacterInanimate(performer)) {
+								sb.append("Remaining "+(performer.isAsleep()?"asleep":"motionless")+", [npc.name] didn't react at all as [npc2.namePos] pushed [npc2.her] [npc2.fingers+] deep into [npc.her] [npc.pussy+].");
+							} else {
+								switch(performerPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append("Taking hold of [npc2.namePos] [npc2.hand+],"
+												+ " [npc.name] rubbed [npc2.her] [npc2.fingers+] up and down over [npc.her] [npc.labia+] before making [npc2.herHim] slip them inside and start fingering [npc.her] [npc.pussy+].");
+										break;
+									case SUB_RESISTING:
+										sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.fingers+] into [npc.her] [npc.pussy+] and start fingering [npc.herHim].");
+										break;
+								}
+							}
+							if(isCharacterInanimate(target)) {
+								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"continued to act like an inanimate sex toy")
+										+", and remained totally motionless while keeping [npc2.her] [npc2.fingers] shoved deep in [npc.namePos] [npc.pussy+].");
+							} else {
+								switch(targetPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append(" [npc2.SexPaceVerb] curling [npc2.her] [npc2.fingers] up inside [npc.namePos] [npc.pussy], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] fingered [npc.herHim].");
+										break;
+									case SUB_RESISTING:
+										sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.fingers] out of [npc.namePos] [npc.pussy],"
+												+ " and could do nothing but cry as [npc2.she] was forced to finger [npc.herHim] against [npc2.her] will.");
+										break;
+								}
+							}
+							
+						} else {
+							sb.append("[npc2.NameIs] [npc2.sexPaceVerb] fingering [npc.name].");
+						}
+						break;
+					case FOOT:
+						break;
+					case PENIS:
+						if(pastTense) {
+							if(isCharacterInanimate(performer)) {
+								sb.append("Remaining "+(performer.isAsleep()?"asleep":"motionless")+", [npc.name] didn't react at all as [npc2.namePos] [npc2.cock+] thrust deep into [npc.her] [npc.pussy+].");
+							} else {
+								switch(performerPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append("Rubbing [npc.her] [npc.labia+] over the [npc2.cockHead+] of [npc2.namePos] [npc2.cock],"
+												+ " [npc.name] [npc.sexPaceVerb] bucked [npc.her] [npc.hips] and forced [npc2.herHim] to penetrate [npc.her] [npc.pussy+].");
+										break;
+									case SUB_RESISTING:
+										sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.cock] into [npc.her] [npc.pussy+] and start fucking [npc.herHim].");
+										break;
+								}
+							}
+							if(isCharacterInanimate(target)) {
+								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"continued to act like an inanimate sex toy")
+										+", and remained totally motionless while keeping [npc2.her] [npc2.cock] hilted in [npc.namePos] [npc.pussy+].");
+							} else {
+								switch(targetPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append(" [npc2.SexPaceVerb] thrusting [npc2.her] [npc2.cock+] into [npc.namePos] [npc.pussy+], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] fucked [npc.herHim].");
+										break;
+									case SUB_RESISTING:
+										sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.cock] out of [npc.namePos] [npc.pussy], and could do nothing but cry as [npc2.she] had [npc2.her] [npc2.cock] used against [npc2.her] will.");
+										break;
+								}
+							}
+							
+						} else {
+							sb.append("[npc.NameIs] [npc.sexPaceVerb] being fucked by [npc2.name].");
+						}
+						break;
+					case TAIL:
+						if(pastTense) {
+							if(isCharacterInanimate(performer)) {
+								sb.append("Remaining "+(performer.isAsleep()?"asleep":"motionless")+", [npc.name] didn't react at all as [npc2.namePos] [npc2.tail+] thrust deep into [npc.her] [npc.pussy+].");
+							} else {
+								switch(performerPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append("Taking hold of [npc2.namePos] [npc2.tail+], [npc.name] rubbed it up and down over [npc.her] [npc.labia+] before making [npc2.herHim] penetrate and start tail-fucking [npc.her] [npc.pussy+].");
+										break;
+									case SUB_RESISTING:
+										sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.tail+] into [npc.her] [npc.pussy+] and start tail-fucking [npc.herHim].");
+										break;
+								}
+							}
+							if(isCharacterInanimate(target)) {
+								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"continued to act like an inanimate sex toy")
+										+", and remained totally motionless while keeping [npc2.her] [npc2.tail] hilted in [npc.namePos] [npc.pussy+].");
+							} else {
+								switch(targetPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append(" [npc2.SexPaceVerb] thrusting [npc2.her] [npc2.tail] into [npc.namePos] [npc.pussy], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] tail-fucked [npc.name].");
+										break;
+									case SUB_RESISTING:
+										sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.tail] out of [npc.namePos] [npc.pussy], and could do nothing but cry as [npc2.she] had it used against [npc2.her] will.");
+										break;
+								}
+							}
+							
+						} else {
+							sb.append("[npc.NameIs] [npc.sexPaceVerb] being tail-fucked by [npc2.name].");
+						}
+						break;
+					case TENTACLE:
+						if(pastTense) {
+							if(isCharacterInanimate(performer)) {
+								sb.append("Remaining "+(performer.isAsleep()?"asleep":"motionless")+", [npc.name] didn't react at all as [npc2.namePos] [npc2.tentacle+] thrust deep into [npc.her] [npc.pussy+].");
+							} else {
+								switch(performerPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append("Taking hold of [npc2.namePos] [npc2.tentacle+], [npc.name] rubbed it up and down over [npc.her] [npc.labia+] before making [npc2.herHim] penetrate and start tentacle-fucking [npc.her] [npc.pussy+].");
+										break;
+									case SUB_RESISTING:
+										sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.tentacle+] into [npc.her] [npc.pussy+] and start tentacle-fucking [npc.herHim].");
+										break;
+								}
+							}
+							if(isCharacterInanimate(target)) {
+								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"continued to act like an inanimate sex toy")
+										+", and remained totally motionless while keeping [npc2.her] [npc2.tentacle] hilted in [npc.namePos] [npc.pussy+].");
+							} else {
+								switch(targetPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append(" [npc2.SexPaceVerb] thrusting [npc2.her] [npc2.tentacle] into [npc.namePos] [npc.pussy], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] tentacle-fucked [npc.name].");
+										break;
+									case SUB_RESISTING:
+										sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.tentacle] out of [npc.namePos] [npc.pussy], and could do nothing but cry as [npc2.she] had it used against [npc2.her] will.");
+										break;
+								}
+							}
+							
+						} else {
+							sb.append("[npc.NameIs] [npc.sexPaceVerb] being tentacle-fucked by [npc2.name].");
+						}
+						break;
+					case TONGUE:
+						if(pastTense) {
+							if(isCharacterInanimate(performer)) {
+								sb.append((performer.isAsleep()?"Remaining deeply asleep, [npc.name] showed no sign of being close to waking up":"Continuing to act like an inanimate sex doll, [npc.name] kept perfectly still ")
+											+" while [npc2.name] performed cunnilingus on [npc.herHim].");
+							} else {
+								switch(performerPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append("[npc.Name] pushed [npc.her] [npc.labia+] against [npc2.namePos] [npc2.face], before [npc.sexPaceVerb] making [npc2.herHim] start eating [npc.herHim] out.");
+										break;
+									case SUB_RESISTING:
+										sb.append("[npc.Name] tried to resist,"
+												+ " but [npc.was] unable to stop [npc2.name] from pressing [npc2.her] [npc2.face] against [npc.her] [npc.pussy] and then start eating [npc.herHim] out.");
+										break;
+								}
+							}
+							if(isCharacterInanimate(target)) {
+								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"remained totally motionless")+" while keeping [npc2.her] [npc2.tongue] thrust into [npc.namePos] [npc.pussy+].");
+							} else {
+								switch(targetPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append(" Letting out a series of [npc2.moans+], [npc2.name] [npc2.sexPaceVerb] pressed [npc2.her] [npc2.lips+] against [npc.namePos] [npc.pussy+] and continued performing cunnilingus on [npc.herHim].");
+										break;
+									case SUB_RESISTING:
+										sb.append(" [npc2.Name] tried to resist,"
+												+ " but [npc2.was] unable to stop [npc.name] from planting [npc.her] [npc.pussy+] over [npc2.her] [npc2.face] and [npc.sexPaceVerb] forcing [npc2.herHim] to perform cunnilingus on [npc.herHim].");
+										break;
+								}
+							}
+							
+						} else {
+							sb.append("[npc2.NameIs] [npc2.sexPaceVerb] performing cunnilingus on [npc.name].");
+						}
+						break;
+				}
+			}
+			return UtilText.parse(performer, target, sb.toString());
+		}
+	},
+
+	ANUS(2,
+			-0.5f, -0.5f, -1f,
+			0.5f, -0.5f , 0.5f,
+			4/60f, 4/60f,
+			true) {
+		@Override
+		public String getName(GameCharacter owner, boolean standardName) {
+			if(standardName) {
+				return "asshole";
+			}
+			return owner.getAnusName(false);
+		}
+		@Override
+		public boolean isFree(GameCharacter owner) {
+			return Main.sex.isOrificeFree(owner, this);
+		}
+		@Override
+		public CoverableArea getRelatedCoverableArea(GameCharacter owner) {
+			return CoverableArea.ANUS;
+		}
+		@Override
+		public InventorySlot getRelatedInventorySlot(GameCharacter owner) {
+			return InventorySlot.ANUS;
+		}
+		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			if(currentlyStretchedValue) {
+				return owner.getAssStretchedCapacity();
+			}
+			return owner.getAssRawCapacityValue();
+		}
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return target.getAssMaximumPenetrationDepthComfortable();
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return target.getAssMaximumPenetrationDepthUncomfortable();
+		}
+		@Override
+		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
+			StringBuilder sb = new StringBuilder();
+			if(performer==target) {
+				//TODO Improve
+				if(targetArea.isPenetration()) {
+					if(pastTense) {
+						sb.append("[npc.Name] [npc.sexPaceVerb] used [npc.her] own "+targetArea.getName(performer)+" to fuck [npc.her] [npc.asshole+].");
+					} else {
+						sb.append("[npc.NameIs] [npc.sexPaceVerb] using [npc.her] own "+targetArea.getName(performer)+" to fuck [npc.her] [npc.asshole+].");
+					}
+				}
+				if(targetArea.isOrifice()) {
+					if(pastTense) {
+						sb.append("[npc.Name] [npc.sexPaceVerb] pressed [npc.her] [npc.asshole+] against [npc.her] own "+targetArea.getName(performer)+".");
+					} else {
+						sb.append("[npc.NameIs] [npc.sexPaceVerb] pressing [npc.her] [npc.asshole+] against [npc.her] own "+targetArea.getName(performer)+".");
+					}
+				}
+			}
+
+			if(targetArea.isPenetration()) {
+				switch((SexAreaPenetration)targetArea) {
+					case CLIT:
+						if(pastTense) {
+							if(isCharacterInanimate(performer)) {
+								sb.append("Remaining "+(performer.isAsleep()?"asleep":"motionless")+", [npc.name] didn't react at all as [npc2.namePos] [npc2.clit+] thrust into [npc.her] [npc.asshole+].");
+							} else {
+								switch(performerPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append("Lining [npc.her] [npc.ass] up to [npc2.namePos] groin, [npc.name] [npc.sexPaceVerb] pushed back against [npc2.her] [npc2.clit+] and made [npc2.herHim] penetrate [npc.her] [npc.asshole+].");
+										break;
+									case SUB_RESISTING:
+										sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.clit+] into [npc.her] [npc.asshole+] and start anally fucking [npc.herHim].");
+										break;
+								}
+							}
+							if(isCharacterInanimate(target)) {
+								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"continued to act like an inanimate sex toy")
+										+", and remained totally motionless while keeping [npc2.her] [npc2.clit] hilted in [npc.namePos] [npc.asshole+].");
+							} else {
+								switch(targetPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append(" [npc2.SexPaceVerb] bucking [npc2.her] [npc2.hips] into [npc.namePos] [npc.ass], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] clit-fucked [npc.namePos] [npc.asshole+].");
+										break;
+									case SUB_RESISTING:
+										sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.clit] out of [npc.namePos] [npc.asshole], and could do nothing but cry as [npc2.she] had [npc2.her] [npc2.clit] used against [npc2.her] will.");
+										break;
+								}
+							}
+							
+						} else {
+							sb.append("[npc.NameIs] being [npc.sexPaceVerb] clit-fucked in the ass by [npc2.name].");
+						}
+						break;
+					case FINGER:
+						if(pastTense) {
+							if(isCharacterInanimate(performer)) {
+								sb.append("Remaining "+(performer.isAsleep()?"asleep":"motionless")+", [npc.name] didn't react at all as [npc2.namePos] pushed [npc2.her] [npc2.fingers+] deep into [npc.her] [npc.asshole+].");
+							} else {
+								switch(performerPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append("Grabbing [npc2.namePos] [npc2.hand], [npc.name] [npc.sexPaceVerb] pushed [npc2.her] [npc2.fingers] into [npc.her] [npc.asshole] and made [npc2.herHim] anally finger [npc.herHim].");
+										break;
+									case SUB_RESISTING:
+										sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.fingers] into [npc.her] [npc.asshole+] and start anally fingering [npc.herHim].");
+										break;
+								}
+							}
+							if(isCharacterInanimate(target)) {
+								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"continued to act like an inanimate sex toy")
+										+", and remained totally motionless while keeping [npc2.her] [npc2.fingers] shoved deep in [npc.namePos] [npc.asshole+].");
+							} else {
+								switch(targetPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append(" [npc2.SexPaceVerb] pushing [npc2.her] [npc2.fingers] into [npc.namePos] [npc.asshole], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] fingered [npc.namePos] [npc.asshole+].");
+										break;
+									case SUB_RESISTING:
+										sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.fingers] out of [npc.namePos] [npc.asshole], and could do nothing but cry as [npc2.she] was forced to finger [npc.namePos] [npc.asshole+].");
+										break;
+								}
+							}
+							
+						} else {
+							sb.append("[npc.NameIs] being [npc.sexPaceVerb] anally fingered by [npc2.name].");
+						}
+						break;
+					case FOOT:
+						break;
+					case PENIS:
+						if(pastTense) {
+							if(isCharacterInanimate(performer)) {
+								sb.append("Remaining "+(performer.isAsleep()?"asleep":"motionless")+", [npc.name] didn't react at all as [npc2.namePos] [npc2.cock+] thrust deep into [npc.her] [npc.asshole+].");
+							} else {
+								switch(performerPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append("Lining [npc.her] [npc.ass] up to [npc2.namePos] groin, [npc.name] [npc.sexPaceVerb] pushed back against [npc2.her] [npc2.cock] and made [npc2.herHim] penetrate [npc.her] [npc.asshole+].");
+										break;
+									case SUB_RESISTING:
+										sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.cock] into [npc.her] [npc.asshole+] and start anally fucking [npc.herHim].");
+										break;
+								}
+							}
+							if(isCharacterInanimate(target)) {
+								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"continued to act like an inanimate sex toy")
+										+", and remained totally motionless while keeping [npc2.her] [npc2.cock] hilted in [npc.namePos] [npc.asshole+].");
+							} else {
+								switch(targetPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append(" [npc2.SexPaceVerb] bucking [npc2.her] [npc2.hips] into [npc.namePos] [npc.ass], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] fucked [npc.namePos] [npc.asshole+].");
+										break;
+									case SUB_RESISTING:
+										sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.cock] out of [npc.namePos] [npc.asshole], and could do nothing but cry as [npc2.she] had [npc2.her] [npc2.cock] used against [npc2.her] will.");
+										break;
+								}
+							}
+							
+						} else {
+							sb.append("[npc.NameIs] being [npc.sexPaceVerb] fucked in the ass by [npc2.name].");
+						}
+						break;
+					case TAIL:
+						if(pastTense) {
+							if(isCharacterInanimate(performer)) {
+								sb.append("Remaining "+(performer.isAsleep()?"asleep":"motionless")+", [npc.name] didn't react at all as [npc2.namePos] [npc2.tail+] thrust deep into [npc.her] [npc.asshole+].");
+							} else {
+								switch(performerPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append("Taking hold of [npc2.namePos] [npc2.tail+], [npc.name] lined it up to [npc.her] [npc.ass+] and made [npc2.herHim] penetrate [npc.her] [npc.asshole+].");
+										break;
+									case SUB_RESISTING:
+										sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.tail+] into [npc.her] [npc.asshole+] and start anally tail-fucking [npc.herHim].");
+										break;
+								}
+							}
+							if(isCharacterInanimate(target)) {
+								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"continued to act like an inanimate sex toy")
+										+", and remained totally motionless while keeping [npc2.her] [npc2.tail] hilted in [npc.namePos] [npc.asshole+].");
+							} else {
+								switch(targetPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append(" [npc2.SexPaceVerb] thrusting [npc2.her] [npc2.tail] into [npc.namePos] [npc.asshole], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] anally tail-fucked [npc.name].");
+										break;
+									case SUB_RESISTING:
+										sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.tail] out of [npc.namePos] [npc.asshole], and could do nothing but cry as [npc2.she] had it used against [npc2.her] will.");
+										break;
+								}
+							}
+							
+						} else {
+							sb.append("[npc.NameIs] [npc.sexPaceVerb] being anally tail-fucked by [npc2.name].");
+						}
+						break;
+					case TENTACLE:
+						if(pastTense) {
+							if(isCharacterInanimate(performer)) {
+								sb.append("Remaining "+(performer.isAsleep()?"asleep":"motionless")+", [npc.name] didn't react at all as [npc2.namePos] [npc2.tentacle+] thrust deep into [npc.her] [npc.asshole+].");
+							} else {
+								switch(performerPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append("Taking hold of [npc2.namePos] [npc2.tentacle+], [npc.name] lined it up to [npc.her] [npc.ass+] and made [npc2.herHim] penetrate [npc.her] [npc.asshole+].");
+										break;
+									case SUB_RESISTING:
+										sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.tentacle+] into [npc.her] [npc.asshole+] and start anally tentacle-fucking [npc.herHim].");
+										break;
+								}
+							}
+							if(isCharacterInanimate(target)) {
+								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"continued to act like an inanimate sex toy")
+										+", and remained totally motionless while keeping [npc2.her] [npc2.tentacle] hilted in [npc.namePos] [npc.asshole+].");
+							} else {
+								switch(targetPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append(" [npc2.SexPaceVerb] thrusting [npc2.her] [npc2.tentacle] into [npc.namePos] [npc.asshole], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] anally tentacle-fucked [npc.name].");
+										break;
+									case SUB_RESISTING:
+										sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.tentacle] out of [npc.namePos] [npc.asshole], and could do nothing but cry as [npc2.she] had it used against [npc2.her] will.");
+										break;
+								}
+							}
+							
+						} else {
+							sb.append("[npc.NameIs] [npc.sexPaceVerb] being anally tentacle-fucked by [npc2.name].");
+						}
+						break;
+					case TONGUE:
+						if(pastTense) {
+							if(isCharacterInanimate(performer)) {
+								sb.append((performer.isAsleep()?"Remaining deeply asleep, [npc.name] showed no sign of being close to waking up":"Continuing to act like an inanimate sex doll, [npc.name] kept perfectly still ")
+											+" while [npc2.name] tongued [npc.her] [npc.asshole+].");
+							} else {
+								switch(performerPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append("[npc.Name] pushed [npc.her] [npc.ass+] back against [npc2.namePos] [npc2.face], before [npc.sexPaceVerb] making [npc2.herHim] start tonguing [npc.her] [npc.asshole+].");
+										break;
+									case SUB_RESISTING:
+										sb.append("[npc.Name] tried to resist,"
+												+ " but [npc.was] unable to stop [npc2.name] from pressing [npc2.her] [npc2.face] against [npc.her] [npc.ass] and then tonguing [npc.her] [npc.asshole+].");
+										break;
+								}
+							}
+							if(isCharacterInanimate(target)) {
+								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"remained totally motionless")+" while keeping [npc2.her] [npc2.tongue] thrust into [npc.namePos] [npc.asshole+].");
+							} else {
+								switch(targetPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append(" Letting out a series of [npc2.moans+], [npc2.name] [npc2.sexPaceVerb] pressed [npc2.her] [npc2.lips+] against [npc.namePos] [npc.asshole+] and continued performing anilingus on [npc.herHim].");
+										break;
+									case SUB_RESISTING:
+										sb.append("[npc2.Name] tried to resist,"
+												+ " but [npc2.was] unable to stop [npc.name] from planting [npc.her] [npc.ass] over [npc2.her] [npc2.face] and [npc.sexPaceVerb] forcing [npc2.herHim] to perform anilingus on [npc.herHim].");
+										break;
+								}
+							}
+							
+						} else {
+							sb.append("[npc2.NameIs] [npc2.sexPaceVerb] performing anilingus on [npc.name].");
+						}
+						break;
+				}
+			}
+			return UtilText.parse(performer, target, sb.toString());
+		}
+	},
+
+	ASS(1,
+			-0.5f, -0.5f, -1f,
+			0.5f, -0.5f , 0f,
+			25/60f, 0,
+			false) {
+		@Override
+		public String getName(GameCharacter owner, boolean standardName) {
+			// Changed from "ass cheeks" to "ass" in v0.4.10.8
+			if(standardName) {
+				return "ass";
+			}
+			return "ass";
+//			return owner.getAssName(false);
+		}
+		@Override
+		public boolean isFree(GameCharacter owner) {
+			return Main.sex.isOrificeFree(owner, this);
+		}
+		@Override
+		public CoverableArea getRelatedCoverableArea(GameCharacter owner) {
+			return CoverableArea.ASS;
+		}
+		@Override
+		public InventorySlot getRelatedInventorySlot(GameCharacter owner) {
+			return InventorySlot.LEG;
+		}
+		@Override
+		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
+			return 10_000;
+		}
+		@Override
+		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
+			return 10_000;
+		}
+		@Override
+		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
+			return 10_000;
+		}
+		@Override
+		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
+			StringBuilder sb = new StringBuilder();
+			if(performer==target) {
+				//TODO Improve
+				if(targetArea.isPenetration()) {
+					if(pastTense) {
+						sb.append("[npc.Name] [npc.sexPaceVerb] used [npc.her] own "+targetArea.getName(performer)+" to molest [npc.her] [npc.ass+].");
+					} else {
+						sb.append("[npc.NameIs] [npc.sexPaceVerb] using [npc.her] own "+targetArea.getName(performer)+" to molest [npc.her] [npc.ass+].");
+					}
+				}
+				if(targetArea.isOrifice()) {
+					if(pastTense) {
+						sb.append("[npc.Name] [npc.sexPaceVerb] pressed [npc.her] [npc.ass+] against [npc.her] own "+targetArea.getName(performer)+".");
+					} else {
+						sb.append("[npc.NameIs] [npc.sexPaceVerb] pressing [npc.her] [npc.ass+] against [npc.her] own "+targetArea.getName(performer)+".");
+					}
+				}
+			}
+			
+			if(targetArea.isPenetration()) {
+				switch((SexAreaPenetration)targetArea) {
+					case CLIT:
+						break;
+					case FINGER:
+						if(pastTense) {
+							if(isCharacterInanimate(performer)) {
+								sb.append("Remaining "+(performer.isAsleep()?"asleep":"motionless")+", [npc.name] didn't react at all as [npc2.name] groped [npc.her] [npc.ass+].");
+							} else {
+								switch(performerPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append("Pushing out [npc.her] [npc.ass+], [npc.name] [npc.sexPaceVerb] made [npc2.name] grope and squeeze it.");
+										break;
+									case SUB_RESISTING:
+										sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from groping and squeezing [npc.her] [npc.ass+].");
+										break;
+								}
+							}
+							if(isCharacterInanimate(target)) {
+								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"continued to act like an inanimate sex toy")+", and kept [npc.namePos] [npc.ass+] gripped in [npc2.her] [npc2.hands] without moving.");
+							} else {
+								switch(targetPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append(" Letting out [npc2.a_moan+], [npc2.name] pressed [npc2.her] [npc2.hands] into [npc.namePos] [npc.ass] and [npc2.sexPaceVerb] continued playing with it.");
+										break;
+									case SUB_RESISTING:
+										sb.append(" [npc2.Name] tried, and failed, to pull away from [npc.name], and could do nothing but cry as [npc2.she] [npc2.was] forced to play with [npc.her] [npc.ass+].");
+										break;
+								}
+							}
+							
+						} else {
+							sb.append("[npc2.NameIs] [npc2.sexPaceVerb] groping and squeezing [npc.namePos] [npc.ass+].");
+						}
+						break;
+					case FOOT:
+						break;
+					case PENIS:
+						if(pastTense) {
+							if(isCharacterInanimate(performer)) {
+								sb.append((performer.isAsleep()?"Remaining deeply asleep, [npc.name] showed no sign of being close to waking up":"Acting like a lifeless sex toy, [npc.name] remained totally motionless")
+											+" while [npc2.namePos] [npc2.cock+] slid up and down between [npc.her] ass cheeks.");
+							} else {
+								switch(performerPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append("Pushing [npc.her] ass cheeks together, [npc.name] got [npc2.name] to slide [npc2.her] [npc2.cock+] up and down between the crevice that was formed.");
+										break;
+									case SUB_RESISTING:
+										sb.append("Although [npc.she] tried to resist, [npc.name] had [npc.her] ass cheeks pushed together and was then hotdogged by [npc2.namePos] [npc2.cock+].");
+										break;
+								}
+							}
+							if(isCharacterInanimate(target)) {
+								sb.append(" [npc2.Name] "+(target.isAsleep()?"showed no sign of waking up":"remained totally inanimate")+" as [npc2.she] kept [npc2.her] [npc2.cock] thrust between [npc.namePos] ass cheeks.");
+							} else {
+								switch(targetPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append(" Letting out [npc2.a_moan+], [npc2.name] [npc2.sexPaceVerb] thrust [npc2.her] [npc2.cock+] up and over [npc.namePos] [npc.asshole+].");
+										break;
+									case SUB_RESISTING:
+										sb.append(" Sobbing and crying, [npc2.name] did [npc2.her] best to pull away from [npc.name], but ended up being held in place and having [npc2.her] [npc2.cock] used against [npc2.her] will.");
+										break;
+								}
+							}
+							
+						} else {
+							sb.append("[npc2.NameIs] [npc2.sexPaceVerb] hotdogging [npc.namePos] ass.");
+						}
+						break;
+					case TAIL:
+						break;
+					case TENTACLE:
+						break;
+					case TONGUE:
+						if(pastTense) {
+							if(isCharacterInanimate(performer)) {
+								sb.append((performer.isAsleep()?"Remaining deeply asleep, [npc.name] showed no sign of being close to waking up":"Continuing to act like an inanimate sex doll, [npc.name] kept perfectly still ")
+											+" while [npc2.name] kissed and licked [npc.her] [npc.ass+].");
+							} else {
+								switch(performerPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append("[npc.Name] [npc.sexPaceVerb] pushed [npc.her] [npc.ass+] into [npc2.namePos] [npc2.face], before getting [npc2.herHim] to start kissing and licking it.");
+										break;
+									case SUB_RESISTING:
+										sb.append("[npc.Name] tried to resist, but was unable to stop [npc2.name] from pressing [npc2.her] [npc2.lips] against [npc.her] [npc.ass+] and starting to kiss and lick it.");
+										break;
+								}
+							}
+							if(isCharacterInanimate(target)) {
+								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"remained totally motionless")+" while keeping [npc2.her] [npc2.lips+] pressed against [npc.namePos] [npc.ass].");
+							} else {
+								switch(targetPace) {
+									case DOM_GENTLE:
+									case DOM_NORMAL:
+									case SUB_EAGER:
+									case SUB_NORMAL:
+									case DOM_ROUGH:
+										sb.append(" Letting out muffled [npc2.moans], [npc2.name] pressed [npc2.her] [npc2.lips+] against [npc.namePos] [npc.ass+] and continued to [npc2.sexPaceVerb] kiss it.");
+										break;
+									case SUB_RESISTING:
+										sb.append(" [npc2.Name] tried to resist, but [npc2.was] unable to stop [npc.name] from pushing [npc.her] [npc.ass+] against [npc2.her] [npc2.lips+].");
+										break;
+								}
+							}
+							
+						} else {
+							sb.append("[npc2.NameIs] [npc2.sexPaceVerb] kissing [npc.namePos] [npc.ass+].");
+						}
+						break;
+				}
+			}
+			return UtilText.parse(performer, target, sb.toString());
+		}
+	},
 	
 	MOUTH(2,
 			-0.5f, -0.5f, -1f,
@@ -1328,826 +2153,7 @@ public enum SexAreaOrifice implements SexAreaInterface {
 		}
 	},
 	
-	ASS(1,
-			-0.5f, -0.5f, -1f,
-			0.5f, -0.5f , 0f,
-			25/60f, 0,
-			false) {
-		@Override
-		public String getName(GameCharacter owner, boolean standardName) {
-			if(standardName) {
-				return "ass cheeks";
-			}
-			return "ass cheeks";
-//			return owner.getAssName(false);
-		}
-		@Override
-		public boolean isFree(GameCharacter owner) {
-			return Main.sex.isOrificeFree(owner, this);
-		}
-		@Override
-		public CoverableArea getRelatedCoverableArea(GameCharacter owner) {
-			return CoverableArea.ASS;
-		}
-		@Override
-		public InventorySlot getRelatedInventorySlot(GameCharacter owner) {
-			return InventorySlot.LEG;
-		}
-		@Override
-		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
-			return 10_000;
-		}
-		@Override
-		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
-			return 10_000;
-		}
-		@Override
-		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
-			return 10_000;
-		}
-		@Override
-		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
-			StringBuilder sb = new StringBuilder();
-			if(performer==target) {
-				//TODO Improve
-				if(targetArea.isPenetration()) {
-					if(pastTense) {
-						sb.append("[npc.Name] [npc.sexPaceVerb] used [npc.her] own "+targetArea.getName(performer)+" to molest [npc.her] [npc.ass+].");
-					} else {
-						sb.append("[npc.NameIs] [npc.sexPaceVerb] using [npc.her] own "+targetArea.getName(performer)+" to molest [npc.her] [npc.ass+].");
-					}
-				}
-				if(targetArea.isOrifice()) {
-					if(pastTense) {
-						sb.append("[npc.Name] [npc.sexPaceVerb] pressed [npc.her] [npc.ass+] against [npc.her] own "+targetArea.getName(performer)+".");
-					} else {
-						sb.append("[npc.NameIs] [npc.sexPaceVerb] pressing [npc.her] [npc.ass+] against [npc.her] own "+targetArea.getName(performer)+".");
-					}
-				}
-			}
-			
-			if(targetArea.isPenetration()) {
-				switch((SexAreaPenetration)targetArea) {
-					case CLIT:
-						break;
-					case FINGER:
-						if(pastTense) {
-							if(isCharacterInanimate(performer)) {
-								sb.append("Remaining "+(performer.isAsleep()?"asleep":"motionless")+", [npc.name] didn't react at all as [npc2.name] groped [npc.her] [npc.ass+].");
-							} else {
-								switch(performerPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append("Pushing out [npc.her] [npc.ass+], [npc.name] [npc.sexPaceVerb] made [npc2.name] grope and squeeze it.");
-										break;
-									case SUB_RESISTING:
-										sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from groping and squeezing [npc.her] [npc.ass+].");
-										break;
-								}
-							}
-							if(isCharacterInanimate(target)) {
-								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"continued to act like an inanimate sex toy")+", and kept [npc.namePos] [npc.ass+] gripped in [npc2.her] [npc2.hands] without moving.");
-							} else {
-								switch(targetPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append(" Letting out [npc2.a_moan+], [npc2.name] pressed [npc2.her] [npc2.hands] into [npc.namePos] [npc.ass] and [npc2.sexPaceVerb] continued playing with it.");
-										break;
-									case SUB_RESISTING:
-										sb.append(" [npc2.Name] tried, and failed, to pull away from [npc.name], and could do nothing but cry as [npc2.she] [npc2.was] forced to play with [npc.her] [npc.ass+].");
-										break;
-								}
-							}
-							
-						} else {
-							sb.append("[npc2.NameIs] [npc2.sexPaceVerb] groping and squeezing [npc.namePos] [npc.ass+].");
-						}
-						break;
-					case FOOT:
-						break;
-					case PENIS:
-						if(pastTense) {
-							if(isCharacterInanimate(performer)) {
-								sb.append((performer.isAsleep()?"Remaining deeply asleep, [npc.name] showed no sign of being close to waking up":"Acting like a lifeless sex toy, [npc.name] remained totally motionless")
-											+" while [npc2.namePos] [npc2.cock+] slid up and down between [npc.her] ass cheeks.");
-							} else {
-								switch(performerPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append("Pushing [npc.her] ass cheeks together, [npc.name] got [npc2.name] to slide [npc2.her] [npc2.cock+] up and down between the crevice that was formed.");
-										break;
-									case SUB_RESISTING:
-										sb.append("Although [npc.she] tried to resist, [npc.name] had [npc.her] ass cheeks pushed together and was then hotdogged by [npc2.namePos] [npc2.cock+].");
-										break;
-								}
-							}
-							if(isCharacterInanimate(target)) {
-								sb.append(" [npc2.Name] "+(target.isAsleep()?"showed no sign of waking up":"remained totally inanimate")+" as [npc2.she] kept [npc2.her] [npc2.cock] thrust between [npc.namePos] ass cheeks.");
-							} else {
-								switch(targetPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append(" Letting out [npc2.a_moan+], [npc2.name] [npc2.sexPaceVerb] thrust [npc2.her] [npc2.cock+] up and over [npc.namePos] [npc.asshole+].");
-										break;
-									case SUB_RESISTING:
-										sb.append(" Sobbing and crying, [npc2.name] did [npc2.her] best to pull away from [npc.name], but ended up being held in place and having [npc2.her] [npc2.cock] used against [npc2.her] will.");
-										break;
-								}
-							}
-							
-						} else {
-							sb.append("[npc2.NameIs] [npc2.sexPaceVerb] hotdogging [npc.namePos] ass.");
-						}
-						break;
-					case TAIL:
-						break;
-					case TENTACLE:
-						break;
-					case TONGUE:
-						if(pastTense) {
-							if(isCharacterInanimate(performer)) {
-								sb.append((performer.isAsleep()?"Remaining deeply asleep, [npc.name] showed no sign of being close to waking up":"Continuing to act like an inanimate sex doll, [npc.name] kept perfectly still ")
-											+" while [npc2.name] kissed and licked [npc.her] [npc.ass+].");
-							} else {
-								switch(performerPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append("[npc.Name] [npc.sexPaceVerb] pushed [npc.her] [npc.ass+] into [npc2.namePos] [npc2.face], before getting [npc2.herHim] to start kissing and licking it.");
-										break;
-									case SUB_RESISTING:
-										sb.append("[npc.Name] tried to resist, but was unable to stop [npc2.name] from pressing [npc2.her] [npc2.lips] against [npc.her] [npc.ass+] and starting to kiss and lick it.");
-										break;
-								}
-							}
-							if(isCharacterInanimate(target)) {
-								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"remained totally motionless")+" while keeping [npc2.her] [npc2.lips+] pressed against [npc.namePos] [npc.ass].");
-							} else {
-								switch(targetPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append(" Letting out muffled [npc2.moans], [npc2.name] pressed [npc2.her] [npc2.lips+] against [npc.namePos] [npc.ass+] and continued to [npc2.sexPaceVerb] kiss it.");
-										break;
-									case SUB_RESISTING:
-										sb.append(" [npc2.Name] tried to resist, but [npc2.was] unable to stop [npc.name] from pushing [npc.her] [npc.ass+] against [npc2.her] [npc2.lips+].");
-										break;
-								}
-							}
-							
-						} else {
-							sb.append("[npc2.NameIs] [npc2.sexPaceVerb] kissing [npc.namePos] [npc.ass+].");
-						}
-						break;
-				}
-			}
-			return UtilText.parse(performer, target, sb.toString());
-		}
-	},
 	
-	ANUS(2,
-			-0.5f, -0.5f, -1f,
-			0.5f, -0.5f , 0.5f,
-			4/60f, 4/60f,
-			true) {
-		@Override
-		public String getName(GameCharacter owner, boolean standardName) {
-			if(standardName) {
-				return "asshole";
-			}
-			return owner.getAnusName(false);
-		}
-		@Override
-		public boolean isFree(GameCharacter owner) {
-			return Main.sex.isOrificeFree(owner, this);
-		}
-		@Override
-		public CoverableArea getRelatedCoverableArea(GameCharacter owner) {
-			return CoverableArea.ANUS;
-		}
-		@Override
-		public InventorySlot getRelatedInventorySlot(GameCharacter owner) {
-			return InventorySlot.ANUS;
-		}
-		@Override
-		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
-			if(currentlyStretchedValue) {
-				return owner.getAssStretchedCapacity();
-			}
-			return owner.getAssRawCapacityValue();
-		}
-		@Override
-		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
-			return target.getAssMaximumPenetrationDepthComfortable();
-		}
-		@Override
-		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
-			return target.getAssMaximumPenetrationDepthUncomfortable();
-		}
-		@Override
-		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
-			StringBuilder sb = new StringBuilder();
-			if(performer==target) {
-				//TODO Improve
-				if(targetArea.isPenetration()) {
-					if(pastTense) {
-						sb.append("[npc.Name] [npc.sexPaceVerb] used [npc.her] own "+targetArea.getName(performer)+" to fuck [npc.her] [npc.asshole+].");
-					} else {
-						sb.append("[npc.NameIs] [npc.sexPaceVerb] using [npc.her] own "+targetArea.getName(performer)+" to fuck [npc.her] [npc.asshole+].");
-					}
-				}
-				if(targetArea.isOrifice()) {
-					if(pastTense) {
-						sb.append("[npc.Name] [npc.sexPaceVerb] pressed [npc.her] [npc.asshole+] against [npc.her] own "+targetArea.getName(performer)+".");
-					} else {
-						sb.append("[npc.NameIs] [npc.sexPaceVerb] pressing [npc.her] [npc.asshole+] against [npc.her] own "+targetArea.getName(performer)+".");
-					}
-				}
-			}
-
-			if(targetArea.isPenetration()) {
-				switch((SexAreaPenetration)targetArea) {
-					case CLIT:
-						if(pastTense) {
-							if(isCharacterInanimate(performer)) {
-								sb.append("Remaining "+(performer.isAsleep()?"asleep":"motionless")+", [npc.name] didn't react at all as [npc2.namePos] [npc2.clit+] thrust into [npc.her] [npc.asshole+].");
-							} else {
-								switch(performerPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append("Lining [npc.her] [npc.ass] up to [npc2.namePos] groin, [npc.name] [npc.sexPaceVerb] pushed back against [npc2.her] [npc2.clit+] and made [npc2.herHim] penetrate [npc.her] [npc.asshole+].");
-										break;
-									case SUB_RESISTING:
-										sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.clit+] into [npc.her] [npc.asshole+] and start anally fucking [npc.herHim].");
-										break;
-								}
-							}
-							if(isCharacterInanimate(target)) {
-								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"continued to act like an inanimate sex toy")
-										+", and remained totally motionless while keeping [npc2.her] [npc2.clit] hilted in [npc.namePos] [npc.asshole+].");
-							} else {
-								switch(targetPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append(" [npc2.SexPaceVerb] bucking [npc2.her] [npc2.hips] into [npc.namePos] [npc.ass], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] clit-fucked [npc.namePos] [npc.asshole+].");
-										break;
-									case SUB_RESISTING:
-										sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.clit] out of [npc.namePos] [npc.asshole], and could do nothing but cry as [npc2.she] had [npc2.her] [npc2.clit] used against [npc2.her] will.");
-										break;
-								}
-							}
-							
-						} else {
-							sb.append("[npc.NameIs] being [npc.sexPaceVerb] clit-fucked in the ass by [npc2.name].");
-						}
-						break;
-					case FINGER:
-						if(pastTense) {
-							if(isCharacterInanimate(performer)) {
-								sb.append("Remaining "+(performer.isAsleep()?"asleep":"motionless")+", [npc.name] didn't react at all as [npc2.namePos] pushed [npc2.her] [npc2.fingers+] deep into [npc.her] [npc.asshole+].");
-							} else {
-								switch(performerPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append("Grabbing [npc2.namePos] [npc2.hand], [npc.name] [npc.sexPaceVerb] pushed [npc2.her] [npc2.fingers] into [npc.her] [npc.asshole] and made [npc2.herHim] anally finger [npc.herHim].");
-										break;
-									case SUB_RESISTING:
-										sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.fingers] into [npc.her] [npc.asshole+] and start anally fingering [npc.herHim].");
-										break;
-								}
-							}
-							if(isCharacterInanimate(target)) {
-								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"continued to act like an inanimate sex toy")
-										+", and remained totally motionless while keeping [npc2.her] [npc2.fingers] shoved deep in [npc.namePos] [npc.asshole+].");
-							} else {
-								switch(targetPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append(" [npc2.SexPaceVerb] pushing [npc2.her] [npc2.fingers] into [npc.namePos] [npc.asshole], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] fingered [npc.namePos] [npc.asshole+].");
-										break;
-									case SUB_RESISTING:
-										sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.fingers] out of [npc.namePos] [npc.asshole], and could do nothing but cry as [npc2.she] was forced to finger [npc.namePos] [npc.asshole+].");
-										break;
-								}
-							}
-							
-						} else {
-							sb.append("[npc.NameIs] being [npc.sexPaceVerb] anally fingered by [npc2.name].");
-						}
-						break;
-					case FOOT:
-						break;
-					case PENIS:
-						if(pastTense) {
-							if(isCharacterInanimate(performer)) {
-								sb.append("Remaining "+(performer.isAsleep()?"asleep":"motionless")+", [npc.name] didn't react at all as [npc2.namePos] [npc2.cock+] thrust deep into [npc.her] [npc.asshole+].");
-							} else {
-								switch(performerPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append("Lining [npc.her] [npc.ass] up to [npc2.namePos] groin, [npc.name] [npc.sexPaceVerb] pushed back against [npc2.her] [npc2.cock] and made [npc2.herHim] penetrate [npc.her] [npc.asshole+].");
-										break;
-									case SUB_RESISTING:
-										sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.cock] into [npc.her] [npc.asshole+] and start anally fucking [npc.herHim].");
-										break;
-								}
-							}
-							if(isCharacterInanimate(target)) {
-								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"continued to act like an inanimate sex toy")
-										+", and remained totally motionless while keeping [npc2.her] [npc2.cock] hilted in [npc.namePos] [npc.asshole+].");
-							} else {
-								switch(targetPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append(" [npc2.SexPaceVerb] bucking [npc2.her] [npc2.hips] into [npc.namePos] [npc.ass], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] fucked [npc.namePos] [npc.asshole+].");
-										break;
-									case SUB_RESISTING:
-										sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.cock] out of [npc.namePos] [npc.asshole], and could do nothing but cry as [npc2.she] had [npc2.her] [npc2.cock] used against [npc2.her] will.");
-										break;
-								}
-							}
-							
-						} else {
-							sb.append("[npc.NameIs] being [npc.sexPaceVerb] fucked in the ass by [npc2.name].");
-						}
-						break;
-					case TAIL:
-						if(pastTense) {
-							if(isCharacterInanimate(performer)) {
-								sb.append("Remaining "+(performer.isAsleep()?"asleep":"motionless")+", [npc.name] didn't react at all as [npc2.namePos] [npc2.tail+] thrust deep into [npc.her] [npc.asshole+].");
-							} else {
-								switch(performerPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append("Taking hold of [npc2.namePos] [npc2.tail+], [npc.name] lined it up to [npc.her] [npc.ass+] and made [npc2.herHim] penetrate [npc.her] [npc.asshole+].");
-										break;
-									case SUB_RESISTING:
-										sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.tail+] into [npc.her] [npc.asshole+] and start anally tail-fucking [npc.herHim].");
-										break;
-								}
-							}
-							if(isCharacterInanimate(target)) {
-								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"continued to act like an inanimate sex toy")
-										+", and remained totally motionless while keeping [npc2.her] [npc2.tail] hilted in [npc.namePos] [npc.asshole+].");
-							} else {
-								switch(targetPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append(" [npc2.SexPaceVerb] thrusting [npc2.her] [npc2.tail] into [npc.namePos] [npc.asshole], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] anally tail-fucked [npc.name].");
-										break;
-									case SUB_RESISTING:
-										sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.tail] out of [npc.namePos] [npc.asshole], and could do nothing but cry as [npc2.she] had it used against [npc2.her] will.");
-										break;
-								}
-							}
-							
-						} else {
-							sb.append("[npc.NameIs] [npc.sexPaceVerb] being anally tail-fucked by [npc2.name].");
-						}
-						break;
-					case TENTACLE:
-						if(pastTense) {
-							if(isCharacterInanimate(performer)) {
-								sb.append("Remaining "+(performer.isAsleep()?"asleep":"motionless")+", [npc.name] didn't react at all as [npc2.namePos] [npc2.tentacle+] thrust deep into [npc.her] [npc.asshole+].");
-							} else {
-								switch(performerPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append("Taking hold of [npc2.namePos] [npc2.tentacle+], [npc.name] lined it up to [npc.her] [npc.ass+] and made [npc2.herHim] penetrate [npc.her] [npc.asshole+].");
-										break;
-									case SUB_RESISTING:
-										sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.tentacle+] into [npc.her] [npc.asshole+] and start anally tentacle-fucking [npc.herHim].");
-										break;
-								}
-							}
-							if(isCharacterInanimate(target)) {
-								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"continued to act like an inanimate sex toy")
-										+", and remained totally motionless while keeping [npc2.her] [npc2.tentacle] hilted in [npc.namePos] [npc.asshole+].");
-							} else {
-								switch(targetPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append(" [npc2.SexPaceVerb] thrusting [npc2.her] [npc2.tentacle] into [npc.namePos] [npc.asshole], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] anally tentacle-fucked [npc.name].");
-										break;
-									case SUB_RESISTING:
-										sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.tentacle] out of [npc.namePos] [npc.asshole], and could do nothing but cry as [npc2.she] had it used against [npc2.her] will.");
-										break;
-								}
-							}
-							
-						} else {
-							sb.append("[npc.NameIs] [npc.sexPaceVerb] being anally tentacle-fucked by [npc2.name].");
-						}
-						break;
-					case TONGUE:
-						if(pastTense) {
-							if(isCharacterInanimate(performer)) {
-								sb.append((performer.isAsleep()?"Remaining deeply asleep, [npc.name] showed no sign of being close to waking up":"Continuing to act like an inanimate sex doll, [npc.name] kept perfectly still ")
-											+" while [npc2.name] tongued [npc.her] [npc.asshole+].");
-							} else {
-								switch(performerPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append("[npc.Name] pushed [npc.her] [npc.ass+] back against [npc2.namePos] [npc2.face], before [npc.sexPaceVerb] making [npc2.herHim] start tonguing [npc.her] [npc.asshole+].");
-										break;
-									case SUB_RESISTING:
-										sb.append("[npc.Name] tried to resist,"
-												+ " but [npc.was] unable to stop [npc2.name] from pressing [npc2.her] [npc2.face] against [npc.her] [npc.ass] and then tonguing [npc.her] [npc.asshole+].");
-										break;
-								}
-							}
-							if(isCharacterInanimate(target)) {
-								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"remained totally motionless")+" while keeping [npc2.her] [npc2.tongue] thrust into [npc.namePos] [npc.asshole+].");
-							} else {
-								switch(targetPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append(" Letting out a series of [npc2.moans+], [npc2.name] [npc2.sexPaceVerb] pressed [npc2.her] [npc2.lips+] against [npc.namePos] [npc.asshole+] and continued performing anilingus on [npc.herHim].");
-										break;
-									case SUB_RESISTING:
-										sb.append("[npc2.Name] tried to resist,"
-												+ " but [npc2.was] unable to stop [npc.name] from planting [npc.her] [npc.ass] over [npc2.her] [npc2.face] and [npc.sexPaceVerb] forcing [npc2.herHim] to perform anilingus on [npc.herHim].");
-										break;
-								}
-							}
-							
-						} else {
-							sb.append("[npc2.NameIs] [npc2.sexPaceVerb] performing anilingus on [npc.name].");
-						}
-						break;
-				}
-			}
-			return UtilText.parse(performer, target, sb.toString());
-		}
-	},
-	
-	VAGINA(4,
-			-0.5f, -0.5f, -1f,
-			0.5f, -0.5f , 0.5f,
-			4/60f, 2/60f,
-			true) {
-		@Override
-		public String getName(GameCharacter owner, boolean standardName) {
-			if(standardName) {
-				return "pussy";
-			}
-			return owner.getVaginaName(false);
-		}
-		@Override
-		public boolean isFree(GameCharacter owner) {
-			return Main.sex.isOrificeFree(owner, this);
-		}
-		@Override
-		public CoverableArea getRelatedCoverableArea(GameCharacter owner) {
-			return CoverableArea.VAGINA;
-		}
-		@Override
-		public InventorySlot getRelatedInventorySlot(GameCharacter owner) {
-			return InventorySlot.VAGINA;
-		}
-		@Override
-		public float getCapacity(GameCharacter owner, boolean currentlyStretchedValue) {
-			if(currentlyStretchedValue) {
-				return owner.getVaginaStretchedCapacity();
-			}
-			return owner.getVaginaRawCapacityValue();
-		}
-		@Override
-		public int getMaximumPenetrationDepthComfortable(GameCharacter target) {
-			return target.getVaginaMaximumPenetrationDepthComfortable();
-		}
-		@Override
-		public int getMaximumPenetrationDepthUncomfortable(GameCharacter target) {
-			return target.getVaginaMaximumPenetrationDepthUncomfortable();
-		}
-		@Override
-		public String getSexDescription(boolean pastTense, GameCharacter performer, SexPace performerPace, GameCharacter target, SexPace targetPace, SexAreaInterface targetArea) {
-			StringBuilder sb = new StringBuilder();
-			if(performer==target) {
-				//TODO Improve
-				if(targetArea.isPenetration()) {
-					if(pastTense) {
-						sb.append("[npc.Name] [npc.sexPaceVerb] used [npc.her] own "+targetArea.getName(performer)+" to fuck [npc.her] [npc.pussy+].");
-					} else {
-						sb.append("[npc.NameIs] [npc.sexPaceVerb] using [npc.her] own "+targetArea.getName(performer)+" to fuck [npc.her] [npc.pussy+].");
-					}
-				}
-				if(targetArea.isOrifice()) {
-					if(pastTense) {
-						sb.append("[npc.Name] [npc.sexPaceVerb] pressed [npc.her] [npc.pussy+] against [npc.her] own "+targetArea.getName(performer)+".");
-					} else {
-						sb.append("[npc.NameIs] [npc.sexPaceVerb] pressing [npc.her] [npc.pussy+] against [npc.her] own "+targetArea.getName(performer)+".");
-					}
-				}
-			}
-			
-			if(targetArea.isPenetration()) {
-				switch((SexAreaPenetration)targetArea) {
-					case CLIT:
-						if(pastTense) {
-							if(isCharacterInanimate(performer)) {
-								sb.append("Remaining "+(performer.isAsleep()?"asleep":"motionless")+", [npc.name] didn't react at all as [npc2.namePos] [npc2.clit+] thrust into [npc.her] [npc.pussy+].");
-							} else {
-								switch(performerPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append("Rubbing [npc.her] [npc.labia+] over the [npc2.clitTip+] of [npc2.namePos] [npc2.clit],"
-												+ " [npc.name] [npc.sexPaceVerb] bucked [npc.her] [npc.hips] and forced [npc2.herHim] to penetrate [npc.her] [npc.pussy+].");
-										break;
-									case SUB_RESISTING:
-										sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.clit+] into [npc.her] [npc.pussy+] and start fucking [npc.herHim].");
-										break;
-								}
-							}
-							if(isCharacterInanimate(target)) {
-								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"continued to act like an inanimate sex toy")
-										+", and remained totally motionless while keeping [npc2.her] [npc2.clit] hilted in [npc.namePos] [npc.pussy+].");
-							} else {
-								switch(targetPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append(" [npc2.SexPaceVerb] thrusting [npc2.her] [npc2.clit+] into [npc.namePos] [npc.pussy+], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] fucked [npc.herHim].");
-										break;
-									case SUB_RESISTING:
-										sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.clit] out of [npc.namePos] [npc.pussy], and could do nothing but cry as [npc2.she] had [npc2.her] [npc2.clit] used against [npc2.her] will.");
-										break;
-								}
-							}
-							
-						} else {
-							sb.append("[npc.NameIs] [npc.sexPaceVerb] being clit-fucked by [npc2.name].");
-						}
-						break;
-					case FINGER:
-						if(pastTense) {
-							if(isCharacterInanimate(performer)) {
-								sb.append("Remaining "+(performer.isAsleep()?"asleep":"motionless")+", [npc.name] didn't react at all as [npc2.namePos] pushed [npc2.her] [npc2.fingers+] deep into [npc.her] [npc.pussy+].");
-							} else {
-								switch(performerPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append("Taking hold of [npc2.namePos] [npc2.hand+],"
-												+ " [npc.name] rubbed [npc2.her] [npc2.fingers+] up and down over [npc.her] [npc.labia+] before making [npc2.herHim] slip them inside and start fingering [npc.her] [npc.pussy+].");
-										break;
-									case SUB_RESISTING:
-										sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.fingers+] into [npc.her] [npc.pussy+] and start fingering [npc.herHim].");
-										break;
-								}
-							}
-							if(isCharacterInanimate(target)) {
-								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"continued to act like an inanimate sex toy")
-										+", and remained totally motionless while keeping [npc2.her] [npc2.fingers] shoved deep in [npc.namePos] [npc.pussy+].");
-							} else {
-								switch(targetPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append(" [npc2.SexPaceVerb] curling [npc2.her] [npc2.fingers] up inside [npc.namePos] [npc.pussy], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] fingered [npc.herHim].");
-										break;
-									case SUB_RESISTING:
-										sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.fingers] out of [npc.namePos] [npc.pussy],"
-												+ " and could do nothing but cry as [npc2.she] was forced to finger [npc.herHim] against [npc2.her] will.");
-										break;
-								}
-							}
-							
-						} else {
-							sb.append("[npc2.NameIs] [npc2.sexPaceVerb] fingering [npc.name].");
-						}
-						break;
-					case FOOT:
-						break;
-					case PENIS:
-						if(pastTense) {
-							if(isCharacterInanimate(performer)) {
-								sb.append("Remaining "+(performer.isAsleep()?"asleep":"motionless")+", [npc.name] didn't react at all as [npc2.namePos] [npc2.cock+] thrust deep into [npc.her] [npc.pussy+].");
-							} else {
-								switch(performerPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append("Rubbing [npc.her] [npc.labia+] over the [npc2.cockHead+] of [npc2.namePos] [npc2.cock],"
-												+ " [npc.name] [npc.sexPaceVerb] bucked [npc.her] [npc.hips] and forced [npc2.herHim] to penetrate [npc.her] [npc.pussy+].");
-										break;
-									case SUB_RESISTING:
-										sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.cock] into [npc.her] [npc.pussy+] and start fucking [npc.herHim].");
-										break;
-								}
-							}
-							if(isCharacterInanimate(target)) {
-								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"continued to act like an inanimate sex toy")
-										+", and remained totally motionless while keeping [npc2.her] [npc2.cock] hilted in [npc.namePos] [npc.pussy+].");
-							} else {
-								switch(targetPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append(" [npc2.SexPaceVerb] thrusting [npc2.her] [npc2.cock+] into [npc.namePos] [npc.pussy+], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] fucked [npc.herHim].");
-										break;
-									case SUB_RESISTING:
-										sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.cock] out of [npc.namePos] [npc.pussy], and could do nothing but cry as [npc2.she] had [npc2.her] [npc2.cock] used against [npc2.her] will.");
-										break;
-								}
-							}
-							
-						} else {
-							sb.append("[npc.NameIs] [npc.sexPaceVerb] being fucked by [npc2.name].");
-						}
-						break;
-					case TAIL:
-						if(pastTense) {
-							if(isCharacterInanimate(performer)) {
-								sb.append("Remaining "+(performer.isAsleep()?"asleep":"motionless")+", [npc.name] didn't react at all as [npc2.namePos] [npc2.tail+] thrust deep into [npc.her] [npc.pussy+].");
-							} else {
-								switch(performerPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append("Taking hold of [npc2.namePos] [npc2.tail+], [npc.name] rubbed it up and down over [npc.her] [npc.labia+] before making [npc2.herHim] penetrate and start tail-fucking [npc.her] [npc.pussy+].");
-										break;
-									case SUB_RESISTING:
-										sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.tail+] into [npc.her] [npc.pussy+] and start tail-fucking [npc.herHim].");
-										break;
-								}
-							}
-							if(isCharacterInanimate(target)) {
-								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"continued to act like an inanimate sex toy")
-										+", and remained totally motionless while keeping [npc2.her] [npc2.tail] hilted in [npc.namePos] [npc.pussy+].");
-							} else {
-								switch(targetPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append(" [npc2.SexPaceVerb] thrusting [npc2.her] [npc2.tail] into [npc.namePos] [npc.pussy], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] tail-fucked [npc.name].");
-										break;
-									case SUB_RESISTING:
-										sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.tail] out of [npc.namePos] [npc.pussy], and could do nothing but cry as [npc2.she] had it used against [npc2.her] will.");
-										break;
-								}
-							}
-							
-						} else {
-							sb.append("[npc.NameIs] [npc.sexPaceVerb] being tail-fucked by [npc2.name].");
-						}
-						break;
-					case TENTACLE:
-						if(pastTense) {
-							if(isCharacterInanimate(performer)) {
-								sb.append("Remaining "+(performer.isAsleep()?"asleep":"motionless")+", [npc.name] didn't react at all as [npc2.namePos] [npc2.tentacle+] thrust deep into [npc.her] [npc.pussy+].");
-							} else {
-								switch(performerPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append("Taking hold of [npc2.namePos] [npc2.tentacle+], [npc.name] rubbed it up and down over [npc.her] [npc.labia+] before making [npc2.herHim] penetrate and start tentacle-fucking [npc.her] [npc.pussy+].");
-										break;
-									case SUB_RESISTING:
-										sb.append("[npc.Name] tried to struggle free, but was unable to stop [npc2.name] from pushing [npc2.her] [npc2.tentacle+] into [npc.her] [npc.pussy+] and start tentacle-fucking [npc.herHim].");
-										break;
-								}
-							}
-							if(isCharacterInanimate(target)) {
-								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"continued to act like an inanimate sex toy")
-										+", and remained totally motionless while keeping [npc2.her] [npc2.tentacle] hilted in [npc.namePos] [npc.pussy+].");
-							} else {
-								switch(targetPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append(" [npc2.SexPaceVerb] thrusting [npc2.her] [npc2.tentacle] into [npc.namePos] [npc.pussy], [npc2.name] [npc2.was] soon [npc2.moaning] in delight as [npc2.she] tentacle-fucked [npc.name].");
-										break;
-									case SUB_RESISTING:
-										sb.append(" [npc2.Name] tried, and failed, to pull [npc2.her] [npc2.tentacle] out of [npc.namePos] [npc.pussy], and could do nothing but cry as [npc2.she] had it used against [npc2.her] will.");
-										break;
-								}
-							}
-							
-						} else {
-							sb.append("[npc.NameIs] [npc.sexPaceVerb] being tentacle-fucked by [npc2.name].");
-						}
-						break;
-					case TONGUE:
-						if(pastTense) {
-							if(isCharacterInanimate(performer)) {
-								sb.append((performer.isAsleep()?"Remaining deeply asleep, [npc.name] showed no sign of being close to waking up":"Continuing to act like an inanimate sex doll, [npc.name] kept perfectly still ")
-											+" while [npc2.name] performed cunnilingus on [npc.herHim].");
-							} else {
-								switch(performerPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append("[npc.Name] pushed [npc.her] [npc.labia+] against [npc2.namePos] [npc2.face], before [npc.sexPaceVerb] making [npc2.herHim] start eating [npc.herHim] out.");
-										break;
-									case SUB_RESISTING:
-										sb.append("[npc.Name] tried to resist,"
-												+ " but [npc.was] unable to stop [npc2.name] from pressing [npc2.her] [npc2.face] against [npc.her] [npc.pussy] and then start eating [npc.herHim] out.");
-										break;
-								}
-							}
-							if(isCharacterInanimate(target)) {
-								sb.append(" [npc2.Name] "+(target.isAsleep()?"remained deeply asleep":"remained totally motionless")+" while keeping [npc2.her] [npc2.tongue] thrust into [npc.namePos] [npc.pussy+].");
-							} else {
-								switch(targetPace) {
-									case DOM_GENTLE:
-									case DOM_NORMAL:
-									case SUB_EAGER:
-									case SUB_NORMAL:
-									case DOM_ROUGH:
-										sb.append(" Letting out a series of [npc2.moans+], [npc2.name] [npc2.sexPaceVerb] pressed [npc2.her] [npc2.lips+] against [npc.namePos] [npc.pussy+] and continued performing cunnilingus on [npc.herHim].");
-										break;
-									case SUB_RESISTING:
-										sb.append(" [npc2.Name] tried to resist,"
-												+ " but [npc2.was] unable to stop [npc.name] from planting [npc.her] [npc.pussy+] over [npc2.her] [npc2.face] and [npc.sexPaceVerb] forcing [npc2.herHim] to perform cunnilingus on [npc.herHim].");
-										break;
-								}
-							}
-							
-						} else {
-							sb.append("[npc2.NameIs] [npc2.sexPaceVerb] performing cunnilingus on [npc.name].");
-						}
-						break;
-				}
-			}
-			return UtilText.parse(performer, target, sb.toString());
-		}
-	},
 	
 	THIGHS(1,
 			-0.5f, -0.5f, -1f,

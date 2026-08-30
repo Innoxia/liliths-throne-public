@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.fetishes.AbstractFetish;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Ralph;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.sex.ArousalIncrease;
@@ -25,6 +26,8 @@ import com.lilithsthrone.game.sex.SexAreaOrifice;
 import com.lilithsthrone.game.sex.SexAreaPenetration;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.managers.dominion.SMRalphDiscountBig;
+import com.lilithsthrone.game.sex.positions.slots.SexSlotUnique;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionLimitation;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
@@ -1218,7 +1221,7 @@ public class RalphOral {
 						+ "<br/><br/>");
 			}
 				
-			UtilText.nodeContentSB.append("Ralph steps back, and, not even bothering to pull his trousers up, walks off to the front of the shop."
+			UtilText.nodeContentSB.append("Ralph steps back, and after kicking off his trousers, walks over to the front of the shop."
 					+ " As you hear him locking the front door and pulling down the shop's blinds, you realise that the last customer must have left some time ago."
 					+ " Wanting to see what's going on, you shuffle your way out from beneath the counter and try to stand up."
 					+ "<br/><br/>"
@@ -1253,8 +1256,20 @@ public class RalphOral {
 		}
 
 		@Override
+		public String applyPreParsingEffects() {
+			Main.sex.setSexManager(
+					new SMRalphDiscountBig(
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Ralph.class), SexSlotUnique.RALPH_DOM_SEX)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.RALPH_SUB_SEX))));
+			return "";
+		}
+		@Override
 		public void applyEffects() {
 			Main.game.getPlayer().displaceClothingForAccess(CoverableArea.VAGINA, new ArrayList<>());
+			AbstractClothing trousers = Main.game.getNpc(Ralph.class).getClothingInSlot(InventorySlot.LEG);
+			if(trousers!=null) {
+				Main.game.getNpc(Ralph.class).unequipClothingOntoFloor(trousers, true, Main.game.getNpc(Ralph.class));
+			}
 			
 			SexFlags.customerAtCounter = false;
 			if(SexFlags.alertedCustomer) {
@@ -1320,7 +1335,7 @@ public class RalphOral {
 						+ "<br/><br/>");
 			}
 			
-			UtilText.nodeContentSB.append("Ralph steps back, and, not even bothering to pull his trousers up, walks off to the front of the shop."
+			UtilText.nodeContentSB.append("Ralph steps back, and after kicking off his trousers, walks over to the front of the shop."
 					+ " As you hear him locking the front door and pulling down the shop's blinds, you realise that the last customer must have left some time ago."
 					+ " Before you have time to get out from under the counter, however, the imposing figure of Ralph moves back into view, blocking your way."
 					+ "<br/><br/>"
@@ -1348,10 +1363,21 @@ public class RalphOral {
 			
 			return UtilText.nodeContentSB.toString();
 		}
-
+		@Override
+		public String applyPreParsingEffects() {
+			Main.sex.setSexManager(
+					new SMRalphDiscountBig(
+							Util.newHashMapOfValues(new Value<>(Main.game.getNpc(Ralph.class), SexSlotUnique.RALPH_DOM_SEX)),
+							Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexSlotUnique.RALPH_SUB_SEX))));
+			return "";
+		}
 		@Override
 		public void applyEffects() {
 			Main.game.getPlayer().displaceClothingForAccess(CoverableArea.ANUS, new ArrayList<>());
+			AbstractClothing trousers = Main.game.getNpc(Ralph.class).getClothingInSlot(InventorySlot.LEG);
+			if(trousers!=null) {
+				Main.game.getNpc(Ralph.class).unequipClothingOntoFloor(trousers, true, Main.game.getNpc(Ralph.class));
+			}
 			
 			SexFlags.customerAtCounter = false;
 			if(SexFlags.alertedCustomer) {

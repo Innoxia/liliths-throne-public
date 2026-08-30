@@ -104,7 +104,16 @@ public class TattooType {
 	public static List<AbstractTattooType> getAllTattooTypes() {
 		List<AbstractTattooType> allTattoos = new ArrayList<>(tattooToIdMap.keySet());
 		
-		allTattoos.sort((t1, t2) -> t1.equals(TattooType.getTattooTypeFromId("innoxia_misc_none"))?-1:(t1.getName().compareTo(t2.getName())));
+		AbstractTattooType typeNone = TattooType.getTattooTypeFromId("innoxia_misc_none");
+		
+		allTattoos.sort((t1, t2) ->
+		t1.equals(t2)
+			?0
+			:t1.equals(typeNone)
+				?-1
+				:(t2.equals(typeNone)
+					?1
+					:(t1.getId().compareTo(t2.getId()))));
 		
 		return allTattoos;
 	}
