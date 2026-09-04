@@ -599,7 +599,7 @@ public class Game implements XMLSaving {
 						CharacterImportSetting.CLEAR_FAMILY_ID);
 				try {
 					if(((Element)((Element)((Element)characterElement.getElementsByTagName("character").item(0)).getElementsByTagName("core").item(0)).getElementsByTagName("id").item(0)).getAttribute("value").equals("PlayerCharacter")) {
-						importedSlave.setBirthday(importedSlave.getBirthday().plusYears(18)); // If the imported character is a player character, they need to have their age adjusted to fit with the fact that NPCs start at age 18
+						importedSlave.setBirthday(importedSlave.getBirthday().plusYears(GameCharacter.MINIMUM_AGE)); // If the imported character is a player character, they need to have their age adjusted to fit with the fact that NPCs start at age 18
 					}
 				} catch(Exception ex) {	
 				}
@@ -684,7 +684,7 @@ public class Game implements XMLSaving {
 						CharacterImportSetting.CLEAR_FAMILY_ID);
 				try {
 					if(((Element)((Element)((Element)characterElement.getElementsByTagName("character").item(0)).getElementsByTagName("core").item(0)).getElementsByTagName("id").item(0)).getAttribute("value").equals("PlayerCharacter")) {
-						importedLodger.setBirthday(importedLodger.getBirthday().plusYears(18)); // If the imported character is a player character, they need to have their age adjusted to fit with the fact that NPCs start at age 18
+						importedLodger.setBirthday(importedLodger.getBirthday().plusYears(GameCharacter.MINIMUM_AGE)); // If the imported character is a player character, they need to have their age adjusted to fit with the fact that NPCs start at age 18
 					}
 				} catch(Exception ex) {
 				}
@@ -731,7 +731,7 @@ public class Game implements XMLSaving {
 						CharacterImportSetting.CLEAR_FAMILY_ID);
 				try {
 					if(((Element)((Element)((Element)characterElement.getElementsByTagName("character").item(0)).getElementsByTagName("core").item(0)).getElementsByTagName("id").item(0)).getAttribute("value").equals("PlayerCharacter")) {
-						importedClubber.setBirthday(importedClubber.getBirthday().plusYears(18)); // If the imported character is a player character, they need to have their age adjusted to fit with the fact that NPCs start at age 18
+						importedClubber.setBirthday(importedClubber.getBirthday().plusYears(GameCharacter.MINIMUM_AGE)); // If the imported character is a player character, they need to have their age adjusted to fit with the fact that NPCs start at age 18
 					}
 				} catch(Exception ex) {
 				}

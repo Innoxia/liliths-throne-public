@@ -71,7 +71,7 @@ public class RebelBaseInsaneSurvivor extends NPC {
     
     public RebelBaseInsaneSurvivor(Gender gender, boolean isImported) {
         super(isImported, null, null, "",
-				(Main.game.getDateNow().getYear() - RECRUITMENT_YEAR) + 18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				(Main.game.getDateNow().getYear() - RECRUITMENT_YEAR) + GameCharacter.MINIMUM_AGE, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				5,
 				gender, Subspecies.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(false, 10), WorldType.REBEL_BASE, PlaceType.REBEL_BASE_SLEEPING_AREA, false);

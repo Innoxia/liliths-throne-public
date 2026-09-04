@@ -320,7 +320,7 @@ public abstract class GameCharacter implements XMLSaving {
 	public static final int MAX_COMBAT_MOVES = 8;
 	public static final int DEFAULT_COMBAT_AP = 3;
 
-	public static final int MINIMUM_AGE = 18;
+	public static final int MINIMUM_AGE = 18;// Todo, unlock to non-final to allow setting between 18-25 for CYOA reasons
 	
 	public static final int DEFAULT_TIME_START_VALUE = -1;
 	
@@ -2839,18 +2839,18 @@ public abstract class GameCharacter implements XMLSaving {
 				character.setConceptionDate(LocalDateTime.of(year, month, day, 12, 0));
 				
 				if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.4") && !character.isPlayer()) { // Birthdays prior to v0.3.7.4 are loaded based on conception date, as a bug introduced in v0.3.7.3 caused birthdays to regress by 18 years:
-					if(year+18<=Main.game.getDateNow().getYear()) {
-						character.setBirthday(LocalDateTime.of(year+18, character.getBirthMonth(), character.getDayOfBirth(), 12, 0));
-						character.setConceptionDate(LocalDateTime.of(year+18, character.getBirthMonth(), character.getDayOfBirth(), 12, 0).minusDays(15+Util.random.nextInt(30)));
+					if(year+GameCharacter.MINIMUM_AGE<=Main.game.getDateNow().getYear()) {
+						character.setBirthday(LocalDateTime.of(year+GameCharacter.MINIMUM_AGE, character.getBirthMonth(), character.getDayOfBirth(), 12, 0));
+						character.setConceptionDate(LocalDateTime.of(year+GameCharacter.MINIMUM_AGE, character.getBirthMonth(), character.getDayOfBirth(), 12, 0).minusDays(15+Util.random.nextInt(30)));
 					} else {
 						character.setBirthday(LocalDateTime.of(year, character.getBirthMonth(), character.getDayOfBirth(), 12, 0));
 					}
 					
 				} else if(Main.isVersionOlderThan(Game.loadingVersion, "0.3.7.7") && character.isPlayer()) { // Reverting the above change for player characters
 					int age = (int) ChronoUnit.YEARS.between(character.getBirthday(), Main.game.getDateNow());
-					if(age<18) {
-						character.setBirthday(LocalDateTime.of(character.getBirthday().getYear()-18, character.getBirthMonth(), character.getDayOfBirth(), 12, 0));
-						character.setConceptionDate(LocalDateTime.of(year-18, month, day, 12, 0));
+					if(age<GameCharacter.MINIMUM_AGE) {
+						character.setBirthday(LocalDateTime.of(character.getBirthday().getYear()-GameCharacter.MINIMUM_AGE, character.getBirthMonth(), character.getDayOfBirth(), 12, 0));
+						character.setConceptionDate(LocalDateTime.of(year-GameCharacter.MINIMUM_AGE, month, day, 12, 0));
 					}
 				}
 				
@@ -3799,7 +3799,7 @@ public abstract class GameCharacter implements XMLSaving {
 					infoScreenSB.append(UtilText.parse(this,
 							", which"
 							+ (!this.isPlayer()
-								?", due to the fact that everyone in this world starts out as being 18 from the date of their birth,"
+								?", due to the fact that everyone in this world starts out as being " + GameCharacter.MINIMUM_AGE + " from the date of their birth,"
 								:"")
 							+ " makes [npc.herHim] <span style='color:"+this.getAge().getColour().toWebHexString()+";'>"+Util.intToString(this.getAgeValue())+"</span> years old."));
 				}
@@ -4312,7 +4312,7 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		// This is the same as the age setting in CharacterUtil.randomiseBody()
 		if(Main.game.isStarted() && startingSpeciesType.isDoesNotAge() && this.getAgeAppearanceAbsolute()==0) {
-			this.setAgeAppearanceAbsolute(Math.min(this.getAgeValue(), 18+Util.random.nextInt(19))); // Range of real age to 36
+			this.setAgeAppearanceAbsolute(Math.min(this.getAgeValue(), GameCharacter.MINIMUM_AGE+Util.random.nextInt(19))); // Range of real age to 36
 			//System.out.println("Setup: "+this.getAgeAppearanceAbsolute()+", "+this.getAgeValue());
 		}
 	}

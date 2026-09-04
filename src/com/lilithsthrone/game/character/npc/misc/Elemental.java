@@ -75,7 +75,7 @@ public class Elemental extends NPC {
 	public Elemental(Gender gender, GameCharacter summoner, boolean isImported) {
 		super(isImported, null, null, "",
 				summoner==null
-					?18
+					?GameCharacter.MINIMUM_AGE
 					:summoner.getAgeValue(),
 				summoner==null
 					?Month.JANUARY

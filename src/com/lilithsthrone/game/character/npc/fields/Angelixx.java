@@ -214,7 +214,7 @@ public class Angelixx extends NPC {
 		
 		
 		// Body:
-		this.setAgeAppearanceAbsolute(18);
+		this.setAgeAppearanceAbsolute(GameCharacter.MINIMUM_AGE);
 		this.setTailType(TailType.NONE);
 		this.setWingType(WingType.DEMON_FEATHERED);
 		this.setWingSize(WingSize.ZERO_TINY.getValue());

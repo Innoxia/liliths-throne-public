@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.npc.misc;
 import java.time.Month;
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -50,7 +51,7 @@ public class BasicDoll extends NPC {
 		super(isImported,
 				new NameTriplet("Doll"), "",
 				"",
-				18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(27),
+				GameCharacter.MINIMUM_AGE, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(27),
 				1,
 				null, null, null,
 				new CharacterInventory(false, 0),

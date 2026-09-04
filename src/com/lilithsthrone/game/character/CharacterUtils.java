@@ -2061,10 +2061,10 @@ public class CharacterUtils {
 			character.setConceptionDate(character.getBirthday().minusDays(15+Util.random.nextInt(30)));
 			
 			if(character.getRace()==Race.HARPY) {
-				character.setAgeAppearanceDifferenceToAppearAsAge(Math.min(character.getAgeValue(), 18+Util.random.nextInt(9)));
+				character.setAgeAppearanceDifferenceToAppearAsAge(Math.min(character.getAgeValue(), GameCharacter.MINIMUM_AGE+Util.random.nextInt(9)));
 			}
 			if(character.getSubspeciesOverride()!=null && character.getSubspeciesOverride().isDoesNotAge()) {
-				character.setAgeAppearanceAbsolute(Math.min(character.getAgeValue(), 18+Util.random.nextInt(19))); // Range of real age to 36
+				character.setAgeAppearanceAbsolute(Math.min(character.getAgeValue(), GameCharacter.MINIMUM_AGE+Util.random.nextInt(19))); // Range of real age to 36
 				//System.out.println("Override: "+character.getAgeAppearanceAbsolute()+", "+character.getAgeValue());
 			}
 		}
@@ -2299,7 +2299,7 @@ public class CharacterUtils {
 			if(character.hasFetish(Fetish.FETISH_PURE_VIRGIN)
 					&& character.getHistory()!=Occupation.NPC_PROSTITUTE
 					&& !character.hasPersonalityTrait(PersonalityTrait.LEWD)
-					&& (!character.getHistory().isLowlife() || character.getAgeValue()==18)) {
+					&& (!character.getHistory().isLowlife() || character.getAgeValue()==GameCharacter.MINIMUM_AGE)) {
 				character.setVaginaVirgin(true);
 				if(Math.random()<0.33f) {
 					character.addPersonalityTrait(PersonalityTrait.INNOCENT);

@@ -46,7 +46,7 @@ public class NPCOffspring extends NPC {
 	
 	public NPCOffspring(boolean isImported) {
 		super(isImported, null, null, "",
-				18, Month.JUNE, 15,
+				GameCharacter.MINIMUM_AGE, Month.JUNE, 15,
 				3, Gender.F_V_B_FEMALE, Subspecies.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(false, 10), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, true);
 	}
 	
