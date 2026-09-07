@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogueNodes>
+
+	<scene id="start">
+		<preParsingEffects><![CDATA[
+			#IF(!meraxis.isPregnant())
+				[#pc.setLocation(WORLD_TYPE_WORLD_MAP, PLACE_TYPE_WORLD_MAP_FIELDS_CITY)]
+				[#meraxis.setLocation(pc)]
+			#ELSE
+				[#meraxis.setLocation(lyssieth)]
+			#ENDIF
+		]]></preParsingEffects>
+		<content folderPath="txt/quests/main/travelToHideout">START</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+                <availabilityConditional><![CDATA[[#!meraxis.isPregnant()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[To the hideout]]></responseTitle>
+				<responseTooltip><![CDATA[Travel through the Shinrin Highlands to reach Meraxis's hideout.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_quests_main_travelToHideout_world_map]]></nextDialogue>
+			</response>
+			<response>
+                <availabilityConditional><![CDATA[[#meraxis.isPregnant()]]]></availabilityConditional>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Wait]]></responseTitle>
+				<responseTooltip><![CDATA[Wait for Meraxis to return.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_quests_main_travelToHideout_start_pregnancy_sorted]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="start_pregnancy_sorted">
+		<preParsingEffects><![CDATA[
+			[#meraxis.endPregnancy(true)]
+			[#pc.setLocation(WORLD_TYPE_WORLD_MAP, PLACE_TYPE_WORLD_MAP_FIELDS_CITY)]
+			[#meraxis.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/quests/main/travelToHideout">START_PREGNANCY_SORTED</content>
+		<secondsPassed minutes="true"><![CDATA[60]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[To the hideout]]></responseTitle>
+				<responseTooltip><![CDATA[Travel through the Shinrin Highlands to reach Meraxis's hideout.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_quests_main_travelToHideout_world_map]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="world_map">
+		<preParsingEffects><![CDATA[
+			#IF(game.getWorlds().get(WORLD_TYPE_WORLD_MAP).getCell(PLACE_TYPE_innoxia_shinrin_highlands_hideout)==null)
+				[#game.getWorlds().get(WORLD_TYPE_WORLD_MAP).getCell(5, 24).getPlace().setPlaceType(PLACE_TYPE_innoxia_shinrin_highlands_hideout)]
+			#ENDIF
+			[#pc.walkPathNoEffects(PLACE_TYPE_innoxia_shinrin_highlands_hideout, true, 1)]
+			[#meraxis.setLocation(pc)]
+		]]></preParsingEffects>
+		<content folderPath="txt/quests/main/travelToHideout">WORLD_MAP</content>
+		<secondsPassed minutes="true"><![CDATA[320]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Voice]]></responseTitle>
+				<responseTooltip><![CDATA[Tell this mysterious person to show themselves.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_quests_main_travelToHideout_meeting]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="meeting">
+		<content folderPath="txt/quests/main/travelToHideout">MEETING</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Continue]]></responseTitle>
+				<responseTooltip><![CDATA[Continue on to Meraxis's hideout.]]></responseTooltip>
+				<nextDialogue><![CDATA[innoxia_quests_main_travelToHideout_hideout]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+	<scene id="hideout">
+		<preParsingEffects><![CDATA[
+			[#pc.setRandomLocation(WORLD_TYPE_innoxia_shinrin_highlands_shiranuisTrap, PLACE_TYPE_innoxia_shinrin_highlands_shiranuisTrap_path)]
+			[#meraxis.setLocation(WORLD_TYPE_innoxia_shinrin_highlands_shiranuisTrap, PLACE_TYPE_innoxia_shinrin_highlands_shiranuisTrap_hideout)]
+			[#flags.setSavedLong('shiranuis_trap_fires_extinguished', 0)]
+		]]></preParsingEffects>
+		<content folderPath="txt/quests/main/travelToHideout">HIDEOUT</content>
+		<secondsPassed minutes="true"><![CDATA[2]]></secondsPassed>
+		<continuesDialogue>false</continuesDialogue>
+		<travelDisabled>true</travelDisabled>
+		<responses>
+			<response>
+				<responseTabIndex><![CDATA[0]]></responseTabIndex>
+				<index><![CDATA[1]]></index>
+				<responseTitle><![CDATA[Alone]]></responseTitle>
+				<responseTooltip><![CDATA[Suddenly finding yourself alone in this mist-clad landscape, you need to find the flames which Meraxis mentioned in order to break the youko's spell.]]></responseTooltip>
+				<nextDialogue><![CDATA[default]]></nextDialogue>
+			</response>
+		</responses>
+	</scene>
+	
+</dialogueNodes>

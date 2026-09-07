@@ -124,6 +124,15 @@ public class CharacterInventory implements XMLSaving {
 		this.maxInventorySpace = maxInventorySpace;
 	}
 	
+	public CharacterInventory duplicateInventory() {
+		Document doc = Main.getDocBuilder().newDocument();
+		Element mainNode = doc.createElement("mainNode");
+		this.saveAsXML(mainNode, doc);
+		CharacterInventory newInventory = loadFromXML(mainNode, doc);
+		
+		return newInventory;
+	}
+	
 	public static CharacterInventory getCopyOfInventory(CharacterInventory inventoryToCopy) {
 		Document doc = Main.getDocBuilder().newDocument();
 		Element mainNode = doc.createElement("mainNode");

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>YOUKO_FOREST</worldRegion>
+	<name><![CDATA[main room]]></name>
+	<tooltipDescription><![CDATA[Meraxis's hideout is a rather small building, and as such this space serves as a combined living room, potions lab, kitchen, and dining room.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in Meraxis's hideout]]></virginityLossDescription>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<colour>BASE_GREY</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_shinrin_highlands_hideout_floor</dialogue>
+	<populationPresent/>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[false]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions/>
+	<weatherImmunities/>
+	<applyInventoryInit/>
+</placeType>

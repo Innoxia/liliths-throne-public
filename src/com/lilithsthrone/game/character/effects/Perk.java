@@ -1037,6 +1037,25 @@ public class Perk {
 		}
 	};
 
+	public static AbstractPerk JOB_YOUKO = new AbstractPerk(20,
+			true,
+			"Bewitching Fox",
+			PerkCategory.JOB,
+			"perks/jobs/npc_youko",
+			PresetColour.RACE_FOX_MORPH,
+			Util.newHashMapOfValues(
+					new Value<>(Attribute.MAJOR_ARCANE, 15),
+					new Value<>(Attribute.DAMAGE_SPELLS, 25),
+					new Value<>(Attribute.CRITICAL_DAMAGE, 5)),
+			null,
+			null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return UtilText.parse(owner,
+					"[npc.NameIsFull] a Youko, hailing from the Shinrin Highlands. [npc.SheHasFull] spent most of [npc.her] life practicing with the arcane, and as such [npc.her] spells are particularly potent.");
+		}
+	};
+	
 	public static AbstractPerk JOB_PUGILIST = new AbstractPerk(20,
 			true,
 			"pugalist",

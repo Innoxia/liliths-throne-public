@@ -1669,7 +1669,8 @@ public class Subspecies {
 					new Value<>(PerkCategory.PHYSICAL, 6),
 					new Value<>(PerkCategory.LUST, 1),
 					new Value<>(PerkCategory.ARCANE, 1)),
-			PresetColour.RACE_FOX_MORPH, SubspeciesPreference.FOUR_ABUNDANT,
+			PresetColour.RACE_FOX_MORPH,
+			SubspeciesPreference.FOUR_ABUNDANT,
 			"An anthropomorphic fox, known as a 'fox-morph' when bipedal, and a 'foxtaur' when the lower body is that of a typically-oversized feral fox.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.DOMINION, SubspeciesSpawnRarity.TEN),
@@ -1918,7 +1919,7 @@ public class Subspecies {
 					new Value<>(PerkCategory.ARCANE, 5)),
 			PresetColour.RACE_FOX_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"A fox-morph, empowered by the gifts of a Lilin.",
+			"An anthropomorphic fox, which one of the two youko lilin has transformed so as to have arcane-imbued tails.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.THREE)),
 			Util.newHashMapOfValues(), null, Util.newArrayListOfValues(
@@ -1926,6 +1927,10 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesOverridePriority() {
 			return 40;
+		}
+		@Override
+		public float getChanceForMaleOffspring() {
+			return 0.1f; // same as demons
 		}
 		@Override
 		public int getBaseSlaveValue(GameCharacter character) {
@@ -2061,7 +2066,7 @@ public class Subspecies {
 					new Value<>(PerkCategory.ARCANE, 5)),
 			PresetColour.RACE_FOX_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"An arctic fox-morph, empowered by the gifts of a Lilin.",
+			"An anthropomorphic arctic fox, which one of the two youko lilin has transformed so as to have arcane-imbued tails.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.TWO)),
 			Util.newHashMapOfValues(), null, Util.newArrayListOfValues(
@@ -2069,6 +2074,10 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesOverridePriority() {
 			return 40;
+		}
+		@Override
+		public float getChanceForMaleOffspring() {
+			return 0.1f; // same as demons
 		}
 		@Override
 		public int getBaseSlaveValue(GameCharacter character) {
@@ -2197,7 +2206,7 @@ public class Subspecies {
 					new Value<>(PerkCategory.ARCANE, 5)),
 			PresetColour.RACE_FOX_MORPH,
 			SubspeciesPreference.FOUR_ABUNDANT,
-			"A fennec-morph, empowered by the gifts of a Lilin.",
+			"An anthropomorphic fennec fox, which one of the two youko lilin has transformed so as to have arcane-imbued tails.",
 			Util.newHashMapOfValues(
 					new Value<>(WorldRegion.YOUKO_FOREST, SubspeciesSpawnRarity.ONE)),
 			Util.newHashMapOfValues(), null, Util.newArrayListOfValues(
@@ -2205,6 +2214,10 @@ public class Subspecies {
 		@Override
 		public int getSubspeciesOverridePriority() {
 			return 40;
+		}
+		@Override
+		public float getChanceForMaleOffspring() {
+			return 0.1f; // same as demons
 		}
 		@Override
 		public int getBaseSlaveValue(GameCharacter character) {

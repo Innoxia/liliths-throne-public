@@ -139,7 +139,7 @@
 		[meraxis.speech(And what about those two?)] Meraxis asks, pointing to the pair of doors which are on the opposite side of the room to Minotally's office.
 	</p>
 	<p>
-		[arion.speech(Ah, well those used to be archive rooms as well, but due to the increased workload caused by the recent influx of refugees from the Foloi Fields, Minotallys and I have temporarily converted them into our living quarters,)] the alicorn-boy states, [arion.speech(By moving here, we've cut out the time we were spending on the daily commute, and if there's an emergency situation, we can respond very quickly. There have been quite a few of those recently, typically following news of another village being burned down by Lunette's marauders...)]
+		[arion.speech(Ah, well those used to be archive rooms as well, but due to the increased workload caused by the recent influx of refugees from the Foloi Fields, Minotallys and I have temporarily converted them into our living quarters,)] the alicorn-boy states, [arion.speech(By moving here, we've cut out the time we were spending on the daily commute, and if there's an emergency situation, we can respond very quickly. There have been quite a few of those recently, typically following news of another village being burned down by Lunette's daughters...)]
 	</p>
 	]]>
 	</htmlContent>
@@ -204,7 +204,7 @@
 	
 	<htmlContent tag="MINOTALLYS_START_DRINK_END"><![CDATA[
 	<p>
-		Clearing his throat, Arion steps around to the side of Minotallys's desk and says to his superior, [arion.speech(We really should get down to business. As Meraxis told us before, she and [pc.name] are here from Lyssieth, and I've just learned that they're here to discuss the matter of Lunette's marauders.)]
+		Clearing his throat, Arion steps around to the side of Minotallys's desk and says to his superior, [arion.speech(We really should get down to business. As Meraxis told us before, she and [pc.name] are here from Lyssieth, and I've just learned that they're here to discuss the matter of Lunette's daughters.)]
 	</p>
 	<p>
 		[meraxis.speech(That's right,)] Meraxis states as she sits down on one of the two chairs positioned in front of the desk. As you join the [meraxis.race] in taking a seat, she momentarily drops her chuuni mannerisms to seriously state, [meraxis.speech(It's real bad out there in Foloi Fields. The whole place is completely devastated, and the villages I remember seeing years ago when I was travelling about have all been burned to the ground... [pc.Name] and I have been sent by Lyssieth to help you to put an end to Lunette's tyranny.)]
@@ -248,7 +248,7 @@
 		[minotallys.speech(That's only if Lunette is even acting like you're saying she is,)] Minotallys objects, before turning her head to one side in order to avoid the severe gaze which Arion flashes her.
 	</p>
 	<p>
-		[arion.speech(If I could be so bold as to make a suggestion, what if [pc.name] and Meraxis were to travel to Themiscyra and find out what their situation is,)] Arion says, [arion.speech(If all is well, then the issue of Lunette can be left for another day. If, however, they're having trouble with Lunette's marauders, then you'll agree to take action.)]
+		[arion.speech(If I could be so bold as to make a suggestion, what if [pc.name] and Meraxis were to travel to Themiscyra and find out what their situation is,)] Arion says, [arion.speech(If all is well, then the issue of Lunette can be left for another day. If, however, they're having trouble with Lunette's daughters, then you'll agree to take action.)]
 	</p>
 	<p>
 		Letting out a sigh and rolling her eyes, the stubborn lilin relents, [minotallys.speech(Fine, I suppose... So long as these two are willing to do this...)]

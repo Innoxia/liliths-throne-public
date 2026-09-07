@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>YOUKO_FOREST</worldRegion>
+	<name><![CDATA[hallway]]></name>
+	<tooltipDescription><![CDATA[The only way in and out of Meraxis's hideout is via this small hallway.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in Meraxis's hideout]]></virginityLossDescription>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<colour>BASE_RED</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_shinrin_highlands_hideout_exit</dialogue>
+	<populationPresent/>
+	<furniturePresent/>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[false]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions/>
+	<weatherImmunities/>
+	<applyInventoryInit/>
+</placeType>

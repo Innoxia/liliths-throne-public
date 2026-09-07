@@ -21,7 +21,7 @@
 		</population>
 		<population>
 			<conditional><![CDATA[
-				[#game.getCharactersPresent(WORLD_TYPE_innoxia_fields_elis_tavern_f0, PLACE_TYPE_innoxia_fields_elis_tavern_f0_meraxis).contains(meraxis)]
+				[#!pc.isQuestProgressGreaterThan(QUEST_LINE_MAIN, QUEST_MAIN_3_I_ELIS_DEFENCE_PLAN) && game.getCharactersPresent(WORLD_TYPE_innoxia_fields_elis_tavern_f0, PLACE_TYPE_innoxia_fields_elis_tavern_f0_meraxis).contains(meraxis)]
 			]]></conditional>
 			<populationType plural="true" density="SEVERAL">succubi</populationType>
 			<subspeciesPresent>

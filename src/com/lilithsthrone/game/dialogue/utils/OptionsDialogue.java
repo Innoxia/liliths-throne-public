@@ -96,7 +96,7 @@ public class OptionsDialogue {
 			
 			sb.append("<p>This game is a text-based erotic RPG, and contains a lot of graphic sexual content. You must agree to the game's disclaimer before playing this game!</p>")
 					.append("<p>You can visit my blog (https://lilithsthrone.blogspot.co.uk) to check on development progress (use the 'Blog' button below to open the blog in your default browser).")
-					.append(" [style.italicsMinorBad(<b>Note:</b> Intrusive age verification is being rolled out on blogspot, so I will likely create a new blog soon.)]</p>")
+					//.append(" [style.italicsMinorBad(<b>Note:</b> Intrusive age verification is being rolled out on blogspot, so I will likely create a new blog soon.)]</p>")
 					.append("<p style='text-align:center'><b>Please use either my blog or github to get the latest official version of Lilith's Throne!</b></p>")
 					.append("<p style='text-align:center'><i>Copy over the contents of your 'data' folder to use your old saves in this version!</i></p>");
 			

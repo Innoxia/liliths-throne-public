@@ -12,6 +12,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		Added a new ItemTag, 'USED_BY_BONDAGE_APPLIERS', which when added to a clothing type, makes it so that the clothing can spawn in bondage appliers' inventories (currently used for the latex catsuit and the latex hood).
 		For modded races, added better error handling for if a null npc is detected while parsing the 'applySpeciesChanges' element.
 	
+	Gameplay:
+		Added the next stage of the main quest.
+		Added Meraxis's hideout in the Shinrin Highlands (unlocked after completing the next stage of the main quest).
+	
 	Youko's Mystery Potion:
 		Added 'Youko's Mystery Potion' item, which can spawn in any tile where items can be randomly found.
 		This item has a variety of effects, one of which will be randomly selected at the moment of consuming the item (so reloading your game and drinking the same potion a second time will have a newly-generated effect).
@@ -20,14 +24,18 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	UI:
 		The character's quick overview tooltip (when hovering over your race icon or an NPC's race icon in the 'Characters present' panel) now also shows the character's age appearance.
 	
+	Bodies:
+		Added 'blue-grey' as an iris colour.
+	
 	Other:
 		Added a new 'Encounters' screen to the debug menu (button 13 in the 'Main' tab), which displays a list of all encounters that can occur in your current tile, and from that menu each encounter can be triggered via pressing a button.
-		Adjusted the spawn rates of bondage-related clothing items in bondage appliers' inentories, so that they no longer spawn with latex clothing (except for latex catsuits and latex hoods) and they can now spawn with metal collars.
+		Adjusted the spawn rates of bondage-related clothing items in bondage appliers' inventories, so that they no longer spawn with latex clothing (except for latex catsuits and latex hoods) and they can now spawn with metal collars.
 		Bondage fetishists will now sometimes spawn with chastity clothing and will equip this clothing onto their partners during sex.
 		NPCs will no longer equip clothing onto their partners during sex if doing so would block an area that either they or any other character is interested in using (e.g. an NPC who's carrying a ballgag and wants to receive a blowjob during foreplay will now only equip the ballgag onto their partner after foreplay has finished).
 		Denial fetishists will now spawn carrying chastity gear 50% of the time, which they will apply to their partners during sex.
 		Yui now stocks 1-3 instances of each clothing type instead of only 1, and the metal collars she sells no longer have the enslavement enchantment.
 		Adjusted the bonuses gained from the 'Arcane potential' and 'Arcane proficiency' effects (the tier 1 and 2 bonuses gained from your arcane being 10-30 and 30-50) from both giving +10/+10 spell damage/spell efficiency to +10/+5 and +15/+10.
+		Themiscyra is now described as being occupied by Lunette's daughters instead of abandoned.
 	
 	Bugs:
 		Typo and parsing fixes.
@@ -162,8 +170,7 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	[x] make bondage fetishist application block account for foreplay or main sex
 	[x] change so bondage appliers will use chastity and so will deniers
 	[x] NPC sex clothing equip shouldn't block areas other characters want to use...
-	
-	[] bug reports
+	[x] bug reports
 		[x] fix all-out strike when unarmed
 		[x] if an item has the breakOutOfInventory element set to true, and it is used during a scene that is part of an encounter (for example if you use a Biojuice Canister to transform an alleyway attacker),
 			 then it also breaks out of the encounter scene
@@ -218,21 +225,478 @@ Not everything in this file is up-to-date, and everything is subject to change a
 		[x] demons that you turn into slimes can't transform parts into those of other races
 			[x] if it isn't intended then you can load saved slime types onto them and bypass it
 		[x] test half-demon slimes...
+	[x] add blue-grey as an eye colour 
 		
-	[] add blue-grey as an eye colour 
 		
-	[] get main quest framework finished
+	[x] Quest
+	[x] GameCharacters
+		[x] 7 tailed futa Youko
+		[x] add method for turning into Meraxis
+	[x] Maps
+		[x] shinrin highlands
+			[x] when at edge of map, move to other edge
+			[x] 3 flames
+		[x] hideout
+	[x] Get the quest framework completed
+		[x] meeting
+			[x] dialogue
+			[x] txt
+			[x] test
+				[x] split wall's end initial dialogue into two
+					[x] make succubi leave
+					[x] make crowd leave after posing
+		[x] journey to Shinrin Highlands
+			[x] add hideout to world map
+			[x] dialogue
+			[x] txt
+			[x] test
+		[x] Shiranui's trap
+			[x] path & exits
+				[x] dialogue
+				[x] txt
+					[x] make appearance change based on fires extinguished
+			[x] flame1
+				[x] dialogue
+				[x] txt
+			[x] flame2
+				[x] dialogue
+				[x] txt
+			[x] flame3
+				[x] dialogue
+				[x] txt
+			[x] ending
+				[x] dialogue
+				[x] txt
+		[x] hideout
+			[x] dialogue
+				[x] meraxis says that the spells she placed on this area will keep it hidden, now that Shiranui's spell is gone
+			[x] txt
+			[x] takahashi schedule
+	[x] improve quest description
+	[x] add variation to Meraxis in tavern dialogue for when the succubi are gone
+		[x] Takahashi and Flash and other dialogue also needs changing
 		
-	[] add a field in clothing/weapon mods to set enchantment instability cost
-		[] add parsing command to get default cost
+	[x] Main story continuation:
 	
-	[] add titanic height up to 16'
+	[x] mention youko lilin names
+		[x] Kazuha - benevolent
+		[x] Kayo - trickster
+	[x] Tell Minotallys
+		[x] she gets you to fetch Meraxis while Arion fetches the Enforcers and she goes to get Ursa
+		[x] Meraxis can't be found in the tavern
+		[x] Flash says he overheard her saying that they were going to Wall's End
+		[x] around the fountain there's a crowd
+		[x] sounds like fighting in the middle? feminine voice cries out, then another, then Meraxis
+		[x] push through crowd (if demon then people hurry to make way)
+		[x] Meraxis is teaching her followers how to strike chuuni poses
+		[x] they seem extremely embarrassed at being watched
+		[x] one asks if this will help her get a meeting with Lyssieth?
+		[x] the others say that this is too embarrassing, they're going to find another way to get into contact with a lilin
+		[x] the one succubus calls Meraxis cringe and they all walk off, laughing
+		[x] Meraxis is completely unfazed, smirks at you and says that they are weak - she's been through thousands of followers, and only her lieutenants in submission passed the test
+			[x] says they'll be at her side again one day, but for now she's teaming up with you!
+	[x] SWORD Enforcers have analysed situation:
+		(They say that if they'd realised the situation was so dire, they wouldn't have asked for your help with Angelixx first and would have immediately started planning)
+		- Teleportation isn't an issue - Lunette's daughters have never been into the town so they can't teleport into here, and we hope that teleporting in for a sneak attack isn't Lunette's style
+		- Lilith is unwilling to stop her daughter (petitions have gone unanswered), so there's no higher authority to turn to
+		- Lunette is likely to attack by breaching walls
+		- But she could attack at any time, there's no way to force her into a battle
+	[x] Reveal that you're holding Lunexis hostage, can spread that info and Lunette is sure to immediately attack
+	[x] Preparation for battle:
+		- The SWORD Enforcers can train willing citizens to fight, but they have no weapons
+		- There are also not enough demons in Elis willing to fight Lunette to counter their spells
+	[x] Meraxis says she knows how to fix both problems!
+		Meraxis says she stole a huge cache of guns from Lyssieth, who was planning on having her daughters wear them and some funny red uniforms and march around
+			Instead Meraxis thought her army of imps could use them! They were too big for the imps though, and so she teleported them to her secret hideout in the Shinrin highlands
+			Lyssieth was pissed when she found out, and when Meraxis found out that the guns had vanished, Lyssieth made her serve as her secretary for an entire year...
+			She later heard from Takahasi that the guns were taken by a nine-tailed youko! So... Yeah... a nine-tailed youko... I mean, we can easily beat one of those!	
+	[x] And what about Lunette's spells?
+		The Youko!
+	[x] Nobody is convinced that the youko will help; they keep to themselves in their homeland, and are just as likely to join Lunette as they are to assist you
+		Meraxis says her friend, Takahashi, will help!
+		They used to spend a lot of time together in her hideout, and Meraxis is convinced that she'll find her there
+		She should have contacted Meraxis by now...
+		She's a trickster youko, so the others don't trust her at all, but Meraxis says that she has a special bond with her so she'll help
+	[x] Quest update
+	[x] Meraxis needs no demons in the tavern now
+		[x] test
+	[x] Elis meeting dialogue:
+		[x] need to make Themiscyra a no-go area after it's fallen
+			[x] Lunette's army needs to be there
+			[x] check scenes after Themiscyra
+			[x] fix references to "Lunette's marauders"
+		[x] writing
+			[x] write all scenes
+			[x] need to check past reference to Lyssieth coming to subdue Lunette
+			[x] check Ursa's casualty reports form post-Themiscyra scenes
+			[x] check Hammer/Ghost Commissioner background
+			[x] how long were they in Elis? 2+ years needed for HLF weapons cache mention
+	[x] fix "chuuni demon" -> "chuuni half-demon" references
+	[x] Journey to the hideout dialogue
+	[x] shiranui speech colour
+	[x] standardise capitalisation of The Red Dragon
+	[x] Shiranui's trap writing
+		[x] check points below
+			[x] add comments on transformation and latex gear being equipped
+		[x] basic tiles
+		[x] fire1
+		[x] fire2
+		[x] fire3
+			[x] add special virginity loss dialogue
+		[x] final scene
+			[x] in lead-up, add description where you hear explosions
+			[-] incorrect pick should be a fight instead of instant loss
+				[x] revert as otherwise no way to broadcast combat without ruining guessing dialogues
+		[x] sex scenes
+			[x] sub
+			[x] remove meraxis hat
+			[x] dom
+		[x] sex action descriptions for cock worship scene
+			[x] Shiranui
+			[x] player/meraxis
+			
+	[] hideout writing
+		[x] places
+			[x] add spare bedroom for player
+			[x] need corridor tile change description
+		[x] Meraxis interactions
+			[x] add duel to hideout
+				[x] check Meraxis duel oral scenes as she might have lost oral virginity to Shiranui
+				[x] move to world map tile
+				[x] test
+			[x] add sex
+				[x] use sex conditional for threesome description
+				[x] test
+				[x] add bathroom use
+		[x] add bedroom sleep
+		[x] add bathroom use
+		[x] add toilets use
+		[] Takahashi interactions
+			[-] don't use a separate action to initiate, just display all
+				need it for when choker game is added later
+			[x] talking
+			[x] potions
+			[] sex
+				[x] oral (if feminine)
+					[x] need a sex manager to limit actions
+					[x] limit to once per day
+					[x] remove fox-morph requirement
+				### for next update
+				[] after done oral, Takahashi says you can serve her in her bedroom
+				[] after bedroom sex, Takahashi says you can call her Hitomi
+				[] after this, requires no cock
+					[] can get Takahashi to eat you out in her bedroom
+					[] ask about choker again
+						[] she says that she might be convinced to wear it again; she sometimes thinks about Shiranui and has conflicted feelings about it
+					[] choker sex
+						[] she gives you potion to grow a cock
+						[] can dominantly fuck her in her bedroom
+					[] can convince her to have a threesome with Meraxis (if choker unlocked, can do choker sex threesome, otherwise have to be female)
+			[x] youko potions 1 per day
+		[] writing
+			[x] Meraxis
+			[] Takahashi
+
+	[x] need mouth access check for potion
+
+	[x] writing for Shinrin Highlands dialogue
+		[x] main tile
+		[x] river
 	
-	[] REPLY TO MESSAGES
+	[x] before going to Shinrin Highlands, make Meraxis give birth if pregnant
+		[x] she teleports to Lyssieth's palace, returns in an hour
+		[-] update pregnancy completion reactions
+	
+	[] meraxis needs pregnancy reactions...
+	
+	[] improve Youko race description
+		FOX_MORPH_BASIC
+		FOX_MORPH_ADVANCED
+		90% chance for feminine offspring, do not age
+		
+	[x] world map
+	
+	[x] make sure Meraxis's scythe is removed while relaxing
+	
+	## lots of pregnancy issues to fix, disable Shiranui pregnancy for now
+	
+	[] Check youko pregnancy
+		[] they make fox-morphs?
+			[] mother should birth youko, otherwise whatever
+	
+		[#takahashi.guaranteePregnancyOnNextRoll()]
+		[#takahashi.rollForPregnancy(pc, pc.getBody(), 100, true, FERTILISATION_NORMAL, ATTRIBUTE_VIRILITY)]
+		[#takahashi.endPregnancy(true)]
+		
+		[] error with setting tail upon birth
+		
+		java.lang.NullPointerException
+		at com.lilithsthrone.game.character.GameCharacter.getCovering(GameCharacter.java:31109)
+		at com.lilithsthrone.game.dialogue.utils.UtilText$409.parse(UtilText.java:10792)
+		at com.lilithsthrone.game.dialogue.utils.UtilText.parseSyntaxNew(UtilText.java:9966)
+		at com.lilithsthrone.game.dialogue.utils.UtilText.applyParsing(UtilText.java:1455)
+		at com.lilithsthrone.game.dialogue.utils.UtilText.parse(UtilText.java:1133)
+		at com.lilithsthrone.game.dialogue.utils.UtilText.parseConditionalSyntaxNew(UtilText.java:10601)
+		at com.lilithsthrone.game.dialogue.utils.UtilText.applyParsing(UtilText.java:1453)
+		at com.lilithsthrone.game.dialogue.utils.UtilText.parse(UtilText.java:1133)
+		at com.lilithsthrone.game.dialogue.utils.UtilText.parse(UtilText.java:1097)
+		at com.lilithsthrone.game.dialogue.utils.UtilText.parse(UtilText.java:1089)
+		at com.lilithsthrone.game.dialogue.utils.UtilText.parse(UtilText.java:1077)
+		at com.lilithsthrone.game.dialogue.utils.UtilText.parse(UtilText.java:1058)
+		at com.lilithsthrone.game.character.body.abstractTypes.AbstractTailType.getTransformationDescription(AbstractTailType.java:315)
+		at com.lilithsthrone.game.character.body.Tail.setType(Tail.java:145)
+		at com.lilithsthrone.game.character.race.Subspecies$18.applySpeciesChanges(Subspecies.java:1952)
+		at com.lilithsthrone.game.character.CharacterUtils.generateBody(CharacterUtils.java:399)
+		at com.lilithsthrone.game.character.npc.misc.OffspringSeed.<init>(OffspringSeed.java:216)
+		at com.lilithsthrone.game.character.GameCharacter.rollForPregnancy(GameCharacter.java:21204)
+		at com.lilithsthrone.game.character.GameCharacter.rollForPregnancy(GameCharacter.java:21067)
+			
+		
+		[x] Shiranui should have litter changed after TF back from Meraxis body
+		[] test
+		
+		[] once youko pregnancies are sorted, re-enable Shiranui pregnancy
+	
+	[x] Set Takahashi's description after meeting her
+	
+	[x] give youko gender ratio like demons
+	
+	[x] need Shinrin Highlands to be traversable
+		[x] add dialogue to make it work
+	
+	[] improve sex action descriptions
+	[] improve Meraxis dialogue
+	[] improve Takahashi dialogue
+	
+	[] Minotallys needs to change Lilith dialogue after Lunexis is captured, as at that point she knows Lilith isn't caring about the town
+	
+	[] quick sex with an orgasm denies (aka Takahashi) allows you to orgasm
+	
+	[] encounters
+		[] shinrin highlands
+			[] trickster encounter
+				[] 1/2/3-tailed trickster fox
+					[] can avoid fight even if fall into trap
+					[] offers gift or sex if beaten
+					[] if wins, steals money, curses clothing, sex
+				[] 4/5/6 trickster fox
+					[] results in fight if fall into trap and refuse to surrender
+				[] 7/8 trickster
+					[] can get trapped in illusion realm
+				[] 9 tail trickster
+					[] give warning that something powerful is near
+						[] can leave money as offering to escape
+					[] bad end if lose "youko's slave"
+						[] trapped in her illusions, she keeps you as a slave in her mansion
+			[] benevolent encounter
+				[] 1/2/3-tailed
+					[] gives gift
+					[] if refused, they curse you
+				[] 4/5/6
+					[] same, but they fight if you refuse
+				[] 7/8
+					[] they offer rest in their home
+					[] if refuse, they curse + fight
+				[] 9-tail
+					[] if refuse, they fight
+					[] bad end "youko's pet"
+						[] TF into fox-girl, made to serve youko in her mansion
+	
+	[] Split up main quest into acts
+	
+	[] fix exit icons in the red dragon (looks like the way is blocked)
 	
 	
+	Meraxis's hideout
+		Shinrin highlands
+		
+		[] Cannot teleport into or out of the Shinrin Highlands
+		When approaching the area of Meraxis's hideout, a two-tailed friendly youko appears
+		Warns them that a 7-tailed trickster youko called Shiranui Aya has claimed the area up ahead
+		Shiranui-sama will not take kindly to your presence, so turn back
+		She vanishes
+		
+		7-tailed trickster youko has imprisoned Takahashi
+		
+		[x] A thick fog descends
+		[x] Meraxis says that this is a trickster youko's dimension
+		[x] You need to extinguish the flames to escape, but the flames will be guarded by traps, so be care-
+		[x] Meraxis vanishes
+		[] Series of encounters at the fires
+			[x] TF drink - either smash or drink
+				If not a demon, TF into fox-girl
+				If a demon, lewd TFs
+			[x] Red ribbon tied up into a spool and held in place with a paper seal, with scissors next to it
+				[x] Cut ribbon, safe - it tries to tie you up, but as it's in pieces it harmlessly flutters around before falling to the floor
+				[-] Cut seal - get tied up and blindfolded, feminine hands grope you before pushing a fox-tail buttplug into your ass
+				[x] Need to move Shiranui and conceal her
+			[x] Mirror cage closes in around you
+				in each mirror, your reflection is getting fingered/eaten out/jerked off/sucked off by a shadowy futa feminine figure with 7 fox tails, you feel madly aroused if you watch any of them
+				Smash or watch
+					Smash - safe
+					Watch - as the reflections orgasm, you orgasm too
+						Shiranui pulls out ("my turn!") and your mirror version submissively moves into a new position
+						Shiranui's voice echoes from the mist, "submit to me..."
+						Choose a scene to focus on
+							Smash mirror!
+							!vagina, Oral kneeling, feel a ghostly cock pressing against your lips
+							!vagina, Anal doggy, same but anal
+							Vagina doggy, same but vaginal
+							Vagina missionary, same but vaginal
+							Vagina mating press, same but vaginal
+						Continue watching, the cock slams into you, and you suddenly find yourself in the position that the mirror version of you was in, with Shiranui fucking you
+							special sex scene
+								while getting fucked, mirrors are fucked as well, like you're the focal point of an orgy consisting of just you and Shiranui
+							get creampied
+								she says she's not satisfied yet, so she'll see you again for more soon
+			[x] pussy depth
+		[x] Final scene, two of Meraxis!
+			[x] change central tile to be Meraxis, but she can't see you and when you try to get closer she keeps getting further away
+				[x] flames extinguished:
+					1- she thinks she can hear you
+					2- she can hear you
+					3- final scene
+			[x] Naked apart from hat, says the youko stole her clothes and weapon!
+				[x] Reflect any changes made to Meraxis from duel wins
+			[x] The other one says that the youko tricked her into stripping and was wearing her hat to taunt her!
+			Have to question them to find the real one
+			Ask them to do the most impressive display they can
+			The clone (who believes that Meraxis is truly awesome) does an incredibly impressive display of magic
+			Meraxis says some cringe stuff (the fake Meraxis cringes)
+			Choice:
+				Correct
+					Fake Meraxis reveals as 7-tailed youko, says it was just a joke!
+					Meraxis retrieves her belongings, gets flustered when youko offers to eat her out/let her fuck her "ever wanted to fuck yourself?" (if has cock)
+					Can fuck her or convince Meraxis to do it (don't want 7-tail to be insulted and come back to get you again)
+					She's still in Meraxis form, so it's like fucking Meraxis
+						If had sex with Meraxis, can convince her to join in a threesome
+				Incorrect
+					7-tailed youko gets the drop on the two of you as you fight
+					Binds you with ribbon so that you're kneeling, kissing each other
+					Says you can go after you've made up after fighting
+						Get in the mood! (pink mist envelops you both, have to breathe it in. Get extremely aroused; Meraxis's cheeks flush red, and she experimentally tastes your lips)
+					Takes Meraxis's hat and holds it in front of her groin
+						That's more like it!
+						Now she's got another trick to show you!
+						Takes her hands away and the hat remains in front of her groin
+						Pulls it away to reveal a huge canine cock
+						Spins around, and in a whirl of sparkling lights, transforms into a beautiful 7-tailed youko
+						Says you can go after you've let her join in with your little make-up session
+					Slides her cock between your mouths and makes you worship her cock
+						if fucked player's pussy at flame3, she asks Meraxis if she can taste your pussy on her cock
+							if took virginity, gloats about how she was your first time
+							tells her to get a better taste, turns her head to the side and fucks her mouth
+								your lips squishing against Meraxis's face, you feel the bulge of Shiranui's thick cock pushing Meraxis's cheek out
+						Custom sex scene
+							need dirty talk overrides
+							need sex action overrides
+							Tag for kissing cock or kissing Meraxis
+							Tag for prepared to orgasm
+							Meraxis
+								Kiss
+								Use tongue
+								Stay still
+							Cock
+								Lick
+								Worship
+								Stay still
+							Orgasm:
+								ACTION BEFORE ORGASM
+									The red ribbon twists and contorts itself, forcing you and Meraxis to turn your heads to the side so that you're looking up at [npc.name].
+									With your cheeks squishing into one another, you and the chuuni demon can do nothing but stare, wide-eyed, as the youko points her massive fox-cock directly at your faces.
+									Her slender fingers dart up and down the pulsating length of her saliva-coated member as her mouth turns up into a devious, toothy grin.
+									[npc.speech(Open wide, idiots!)] she gleefully cries out as her cock throbs and prepares to spurt out its load.
+								PREP
+									Close mouth
+										Unwilling to humiliate yourself for the youko's pleasure, you refuse to obey her command and instead keep your mouth closed.
+										Noticing your refusal to cooperate, Meraxis follows your lead and also seals her lips.
+									Open wide
+										Deciding that obedience is the best course of action, you part your [pc.lips+] and present your open mouth to the youko.
+										Noticing that you're choosing to obey, Meraxis lets out a little whine and follows your lead, opening her mouth wide beside yours.
+								ACTION
+									Open
+										[npc.speech(That's it... ~Mmm!~ I'm cumming!)] [npc.name] happily squeals as she finally reaches her climax.
+										 Pointing her [npc.cock+] at your face, she lets out a series of lewd moans as thick, slimy streams of hot cum spurt out of the tapered tip of her bestial shaft.
+										 The first blast, aimed directly at your mouth, shoots past your parted [pc.lips] and covers your [pc.tongue+] in salty jizz.
+										 The next couple of shots are not as well aimed, and within a couple of seconds, your face is covered in the youko's hot cum.
+										 Shifting her aim to the side, the youko's next few blasts are delivered to Meraxis, who similarly receives a mouthful of a cum and a slimy facial.
+										 With her orgasm not yet finished, [npc.name] moves her aim down, and the next few thick, slimy loads are shot out to cover Meraxis's [meraxis.breasts+].
+										 Finally, with one last groan, the youko shifts her aim once more, and a couple of loads of her slimy cum are shot out to cover your [pc.breasts+].
+									Closed
+										
+					Cums all over your faces and breasts
+			Youko reveals that she's been keeping Takahashi as her prisoner, but she's bored of having a pet
+			She vanishes into the fog, which then lifts
+			See hideout nearby
+				It's a Japanese-style building, which isn't exactly hidden...
+				Meraxis says that illusion spells are what kept it hidden, but the 7-tail was powerful enough to see through it.
+					She quickly casts a spell on two stone statues of youko
+					The concealment spells will now work again on anyone who hasn't seen it, so you, Takahashi, and Meraxis can see it fine.
+					Shiranui and any other 7-tail or above could as well, but it's unusual for them to intrude on another youko's territory so it should be safe
+		Takahashi
+			Naked, wearing karada, blindfold, ribbon in tail
+			Says "Welcome home, Mistress! Would you like a bath, dinner... or maybe, me?"
+			Meraxis says she wants all three
+			Calls her Hitomi
+			Takahashi calls Meraxis "Axy"
+			Takahashi rips the blindfold off and rushes forwards to hug Meraxis
+				Says she's been tormented by that 7-tailed bitch ever since arriving here
+				If pc is masculine, she blushes at her current situation
+				leaves to get dressed
+			Meraxis gives a brief tour
+			Takahashi returns wearing her kimono
+			Meraxis explains all that's happened
+			Takahashi says she can arrange a meeting with the youko lilin
+		Free movement in hideout
+			Open area, with potion lab in one corner, sofas in another
+				toilets in an adjoining space
+				bedrooms down a short corridor
+			Talk to Meraxis
+				Teleport pads will be set up to her room so she can be both here and in Elis
+			Talk to Takahashi - lounging on sofa
+				TF talk - she says you'd be better as a cute fox-girl
+				Youko talk
+				Meraxis talk
+			Potion lab
+				Youko potions - Takahashi says making those potions is fun! Lots of youko do it as a hobby and leave them lying around all over the Realm - if you see a fox-morph, it might be a youko in disguise on a mission to plant potions!
+				
+	//From todo_list : "Whenever I make a character the age always changes after re loading a save - I make it 18 and it changes to 24"
+
+// When changing age via character customization it never changes the Conception Date, and save loading loads birthdate, sets it, then loads conception date and sets that AND birthdate
+// 3 issues there, 1 conception date overriding birth date, 2 when conception date sets birth date it causes characters to be concieved after they are born, 3 conception date isn't updated when age is
+// My fix for that is, unify all the birthdate = parameter; functions to all use setBirthdate(), and inside setBirthdate(parameter) to also setConceptionDate(parameter) 
+
+	public void setConceptionDateByBirthday(LocalDateTime birthdate) {
+	  conceptionDate = birthdate;
+	  conceptionDate.plusDays(isPlayer() ? -280, -60); // as per what's in the constructor for GameCharacter
+	}
 	
+	I would recommend 3 changes to the code
+	if (!character.isPlayer()) before loading ConceptionDate as that's unimportant to player
+	In that same section of code a sanity check
+	if (conceptionDate.isAfter(birthday)) { setConceptionDate(birthday); }
+	and in GameCharacter adding the previous message's method
+		
 	
+	[] silly mode: if chef background then after combat you do a chef's kiss
+		
+	[] add the outskirts areas of Elis
+		[] pond
+		[] lake
+		[] hut
+	
+	[] inventory overflow needs to go into an overflow inventory, not dropped on ground
+	
+	[] orgasmic level drain reduces the EXP you get from taking virginities
+		[] shouldn't be affected by the 95% reduction?
+	
+	[x] delete all recorder quest content and revert back
+		[x] copy over old main story files
+			[x] fix errors
+				[x] don't revert again, just fix them and delete it
+				[x] comment out the remnants of the sex scene recording and check for bugs
+			
+	RIP 
 	############# Recorder functionality
 	
 	[] Video recorder
@@ -257,14 +721,19 @@ Not everything in this file is up-to-date, and everything is subject to change a
 									[x] also tongue-vagina
 								[x] make sure that it's also used for getActionDescription() and getActionTitle()
 								[] go through all actions and make sure that parsed variations are handled so that the sex class is ultimately responsible for all parsing
+									[] need to handle Main.game.getPlayer() checks?
 							[] NEW: make a copy of the player character and all participants, run a duplicate sex scene alongside and append using that
 								[] won't need to run any of the selection methods or anything, just action parsing
 								[] what about inventory manipulation?
 							[] issue with npcs transforming and modifying clothing mid-sex
 								[] variable text not going to be possible, just save text output and don't parse any name, her, she, herHim.
 									[] issue with second-person parsing for player not being applicable for other save files
-									[] need to refactor to remove internal parsing from all getDescription() methods...
+									[-] what about handling Sex methods? e.g. Main.sex.hasLubricationTypeFromAnyone - those should all be fine unless they're directly linked to the npc tag parsing
+									[] need to refactor all UtilText.parse() methods to remove internal parsing from all getDescription() methods...
 										[] baseActions
+											[x] FingerVagina (acceptable internal parsing)
+											[x] PenisAnus
+											[] PenisMouth
 										[] baseActionsMisc
 										[] baseActionsSelf
 										[] dominion
@@ -272,6 +741,51 @@ Not everything in this file is up-to-date, and everything is subject to change a
 										[] universal
 										[] utility
 										[] Sex class
+								[] INSTEAD
+									[x] why not first save the text as-is presented and get the recording system working
+										then can re-parse instances of 'you' 'your' etc. if needed?
+										if it's a little janky then come back to this
+									[x] save to xml
+										[x] new internal folder
+										[x] save name to use system time append underscore if duplicate
+									[] parsing will need to be fixed after all...
+										[] instead, maybe add a recording description to keep it brief and handle parsing at the same time?
+											**** THIS IS THE ONLY PRACTICAL SOLUTION ****
+											[] getBriefDescription()
+												keep it to one short sentence so that multiple can be displayed sequentially in one turn
+										[] can add other recording-specific descriptions to pad it out, like describing body parts or reactions
+										
+									[-] get parsing fixed in all baseActions files
+									[] get xml saving done
+										[x] sex action
+											[x] implement
+										[x] sex scene
+											[x] implement
+										[x] test
+											[x] PenisAnus broken - FORCE_PENIS_OVER_ANUS
+												java.util.NoSuchElementException
+													at java.util.LinkedHashMap$LinkedHashIterator.nextNode(LinkedHashMap.java:721)
+													at java.util.LinkedHashMap$LinkedKeyIterator.next(LinkedHashMap.java:742)
+													at com.lilithsthrone.game.sex.sexActions.baseActions.PenisAnus.getPrimaryDPPerformer(PenisAnus.java:48)
+											[x] Lay eggs (anal) broken
+											[x] PenisMouth broken - cock slap sex action parsing broken
+												Quickly pulling his narrow hips back, Ulysses draws his dark equine-cock out from your mouth, before starting to slap his slimy length against your cheeks.
+												​ Before Error: parserTarget.​getCharacter() not found! (npc3) can react, Ulysses suddenly pushes his hips forwards, ramming his throbbing equine-dick down Error: parserTarget.​getCharacter() not found! (npc3) throat.​
+											[] Check FingerMouth as well
+												[] oral performers need to be able to interact with each other via hands & tails
+											[] doggystyle climax "weight down on top" should only be for humping
+										[] handle quick sex
+											
+									[] need to give the participants unique IDs
+										[] copy of participants
+											[] copy body & personality but remove other info?
+										[] make new NPC class for it
+											[] handle before export
+												[] new NPC
+													[] in constructor init as a copy with important details
+													[] modify ids based on argument of map of id replacements
+									[] need to delete imported characters after recorded scene is finished
+										
 			[] game save files have a list of sex scene ids
 				[] can import sex scenes at the cinema
 			[] Write to tape (editing) (500 flames in cinema)
@@ -490,6 +1004,10 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	###################################
 			
 	
+	[] add a field in clothing/weapon mods to set enchantment instability cost
+		[] add parsing command to get default cost
+	
+	[] add titanic height up to 16'
 	
 	[] demonstone & arcane feather lore talk with Lilaya
 		[] Lyssieth demonstone creation
@@ -509,9 +1027,6 @@ Not everything in this file is up-to-date, and everything is subject to change a
 	
 	[] temp variables, but no saved ones?
 		[] option to make temp variables persist
-	
-	[] Main quest (txt file)
-	
 	
 	[] unfertilised egg laying
 		[] need menstrual/ovulation cycle

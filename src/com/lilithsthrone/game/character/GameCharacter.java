@@ -21158,7 +21158,7 @@ public abstract class GameCharacter implements XMLSaving {
 		String pregnancyDescription = PregnancyDescriptor.getPregnancyDescriptorBasedOnProbability(pregnancyChance).getDescriptor(this, partner, directSexInsemination);
 		
 		// Now roll for pregnancy:
-		if (!this.isPregnant()) {
+		if(!this.isPregnant()) {
 			if (!this.hasStatusEffect(StatusEffect.PREGNANT_0) && !this.isDoll()) {
 				this.addStatusEffect(StatusEffect.PREGNANT_0, (60 * 60) * (4 + Util.random.nextInt(5)));
 			}
@@ -21166,10 +21166,10 @@ public abstract class GameCharacter implements XMLSaving {
 			if(isSilentlyInfertile()) {
 				rollResult = 100; // If silenty infertile, always fail to get pregnant
 			}
-			if (pregnancyChance>0 && rollResult<=pregnancyChance) {
+			if(pregnancyChance>0 && rollResult<=pregnancyChance) {
 				AbstractRace litterSizeBasedOn = null;
 				
-				if (this.getBodyMaterial() == BodyMaterial.SLIME) {
+				if(this.getBodyMaterial() == BodyMaterial.SLIME) {
 					litterSizeBasedOn = Race.SLIME;
 				} else {
 					AbstractVaginaType vaginaType = this.getVaginaType();
@@ -21200,7 +21200,7 @@ public abstract class GameCharacter implements XMLSaving {
 				}
 				
 				List<OffspringSeed> offspring = new ArrayList<>(numberOfChildren);
-				for (int i = 0; i < numberOfChildren; i++) { // Add children here:
+				for(int i = 0; i < numberOfChildren; i++) { // Add children here:
 					OffspringSeed os = new OffspringSeed(this, partner, partnerBody);
 					offspring.add(os);
 					try {
@@ -22368,6 +22368,18 @@ public abstract class GameCharacter implements XMLSaving {
 	
 	public void setNearestLocation(AbstractWorldType worldType, AbstractPlaceType placeType, boolean setAsHomeLocation) {
 		setLocation(worldType, Main.game.getWorlds().get(worldType).getClosestCell(this.getLocation(), placeType).getLocation(), setAsHomeLocation);
+	}
+
+	public void setFurthestLocation(AbstractPlaceType placeType) {
+		setFurthestLocation(this.getWorldLocation(), placeType, false);
+	}
+	
+	public void setFurthestLocation(AbstractWorldType worldType, AbstractPlaceType placeType) {
+		setFurthestLocation(worldType, placeType, false);
+	}
+	
+	public void setFurthestLocation(AbstractWorldType worldType, AbstractPlaceType placeType, boolean setAsHomeLocation) {
+		setLocation(worldType, Main.game.getWorlds().get(worldType).getFurthestCell(this.getLocation(), placeType).getLocation(), setAsHomeLocation);
 	}
 	
 	public void setLocation(Cell cell) {
@@ -25048,6 +25060,12 @@ public abstract class GameCharacter implements XMLSaving {
 	public void unequipAllClothingIntoVoid(boolean removeSeals, boolean includeWeapons) {
 		unequipAllClothingIntoVoid(removeSeals, includeWeapons, new HashSet<>());
 	}
+
+	public void unequipAllClothingIntoVoid(boolean removeSeals, boolean includeWeapons, InventorySlot... slotsToIgnore) {
+		Set<InventorySlot> slotsSet =  new HashSet<>();
+		Collections.addAll(slotsSet, slotsToIgnore);
+		unequipAllClothingIntoVoid(removeSeals, includeWeapons, slotsSet);
+	}
 	
 	public void unequipAllClothingIntoVoid(boolean removeSeals, boolean includeWeapons, Set<InventorySlot> slotsToIgnore) {
 		List<AbstractClothing> clothingEquipped = new ArrayList<>(this.getClothingCurrentlyEquipped());
@@ -25069,11 +25087,47 @@ public abstract class GameCharacter implements XMLSaving {
 		
 		if(includeWeapons) {
 			for(int i=0; i<this.inventory.getMainWeaponArray().length; i++) {
-				if(!slotsToIgnore.contains(InventorySlot.mainWeaponSlots[i])) {					
+				if(!slotsToIgnore.contains(InventorySlot.mainWeaponSlots[i])) {
 					this.unequipMainWeaponIntoVoid(i, false);
 				}
 				if(!slotsToIgnore.contains(InventorySlot.offhandWeaponSlots[i])) {		
 					this.unequipOffhandWeaponIntoVoid(i, false);
+				}
+			}
+		}
+	}
+
+	public void unequipAllClothingOntoFloor(boolean removeSeals, boolean includeWeapons, InventorySlot... slotsToIgnore) {
+		Set<InventorySlot> slotsSet =  new HashSet<>();
+		Collections.addAll(slotsSet, slotsToIgnore);
+		unequipAllClothingOntoFloor(removeSeals, includeWeapons, slotsSet);
+	}
+	
+	public void unequipAllClothingOntoFloor(boolean removeSeals, boolean includeWeapons, Set<InventorySlot> slotsToIgnore) {
+		List<AbstractClothing> clothingEquipped = new ArrayList<>(this.getClothingCurrentlyEquipped());
+		if(slotsToIgnore==null) {
+			slotsToIgnore = new HashSet<>();
+		}
+		if(removeSeals) {
+			for(AbstractClothing clothing : clothingEquipped) {
+				if(!slotsToIgnore.contains(clothing.getSlotEquippedTo())) {
+					clothing.setSealed(false);
+				}
+			}
+		}
+		for(AbstractClothing clothing : clothingEquipped) {
+			if(!slotsToIgnore.contains(clothing.getSlotEquippedTo())) {
+				this.unequipClothingOntoFloor(clothing, true, this);
+			}
+		}
+		
+		if(includeWeapons) {
+			for(int i=0; i<this.inventory.getMainWeaponArray().length; i++) {
+				if(!slotsToIgnore.contains(InventorySlot.mainWeaponSlots[i])) {
+					this.unequipMainWeapon(i, true, false);
+				}
+				if(!slotsToIgnore.contains(InventorySlot.offhandWeaponSlots[i])) {		
+					this.unequipOffhandWeapon(i, true, false);
 				}
 			}
 		}

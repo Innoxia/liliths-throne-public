@@ -155,13 +155,16 @@
 
 	<htmlContent tag="EXTERIOR"><![CDATA[
 	<p>
-		A short distance away from your current position lies the home of the Amazons; the town of Themiscyra. Having been attacked and mostly destroyed by the army commanded by Lunexis, the settlement now lies abandoned and in a state of ruin. The section of main road upon which you're standing is positioned upon a small hill, and from this elevated vantage point you're able to get a good view over the surrounding landscape.
+		A short distance away from your current position lies the home of the Amazons; the town of Themiscyra. Having been attacked and mostly destroyed by the army commanded by Lunexis, the settlement now lies in a state of ruin. You're currently standing upon a small, wooded hill which overlooks the town, and from this elevated vantage point you're able to get a good view over the surrounding landscape.
 	</p>
 	<p>
-		The road's paved surface snakes its way down the hill and then through dozens of fields, before ending at the huge pile of rubble which was once the town's triumphal arch that straddled the town's main entrance. The fields which lie between you and the town have been scarred by Lunexis's attack, and are thoroughly trampled, scorched, and blasted full of smoking craters. Casting your gaze over this battleground, you look at the town itself, which appears to be almost as large as Elis, although with buildings constructed in a classical Greek style instead of medieval European architecture. On the far side of the town, you see a large, rocky outcropping, with a classical palace perched upon the top. Almost all of the buildings have been significantly damaged, either by fire or from the blasts of arcane spells.
+		A paved road snakes its way around the hill which you're currently on and then cuts through dozens of fields, before ending at the huge pile of rubble which was once a triumphal arch that spanned the town's main entrance. The fields which lie between you and the town have been scarred by Lunexis's attack, and are thoroughly trampled, scorched, and blasted full of smoking craters. Casting your gaze over this battleground, you look at the town itself, which appears to be almost as large as Elis, although with buildings constructed in a classical Greek style instead of medieval European architecture. On the far side of the town, you see a large, rocky outcropping, with a classical palace perched upon the top. Almost all of the buildings have been significantly damaged, either by fire or from the blasts of arcane spells.
 	</p>
 	<p>
-		Having been picked clean first by Lunette's daughters and then by daring scavengers, you know that there's nothing of value left in the town. With nothing to be gained from wandering through the desolate streets, you decide to continue on your way elsewhere...
+		Dozens of wispy smoke trails rise from the ruins of Themiscyra, letting you know that Lunexis's forces must have remained within the town. Now and again, groups of demonic centauresses trot out from the ruins, or appear from the surrounding countryside to make their way back into what is now their base of operations. They sometimes cast their gaze over their surroundings, and although you're fully concealed behind the foliage which covers this hill, you still feel a chill running down your spine as you imagine what would happen if you were spotted.
+	</p>
+	<p>
+		Thinking that it would be best not to linger in this place for too long, you take one last look at the ruins of Themiscyra, before turning away and sneaking back down the far side of the hill...
 	</p>
 	]]>
 	</htmlContent>
@@ -1316,7 +1319,7 @@
 		[meraxis.speech(If they're so good, why aren't they working in Dominion? That's where all the top Enforcers end up,)] Meraxis asks in a weak voice.
 	</p>
 	<p>
-		[minotallys.speech(Politics,)] Minotallys explains in a single word. Waving her hand in a gesture to imply that she finds such things tiresome, she goes on to explain, [minotallys.speech(They got on the wrong side of an elder lilin, and as they couldn't be dealt with by other means without a terrible scandal, they were demoted and assigned here to Elis.)]
+		[minotallys.speech(Politics,)] Minotallys explains in a single word. Waving her hand in a gesture to imply that she finds such things tiresome, she goes on to reveal, [minotallys.speech(They got on the wrong side of an elder lilin, and as they couldn't be dealt with by other means without a terrible scandal, they were demoted and assigned here to Elis.)]
 	</p>
 	<p>
 		[meraxis.speech(So we need to get the help of these Enforcers, then they can advise us on how to defend this town against Lunette?)] Meraxis asks.

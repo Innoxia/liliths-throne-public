@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<placeType>
+	<worldRegion>YOUKO_FOREST</worldRegion>
+	<name><![CDATA[potion lab]]></name>
+	<tooltipDescription><![CDATA[Takahashi's potion lab occupies one corner of the hideout's main living area, and somewhat-worryingly doubles up as the kitchen.]]></tooltipDescription>
+	<virginityLossDescription><![CDATA[in Meraxis's hideout]]></virginityLossDescription>
+	<sexBlockedFromCharacterPresent>true</sexBlockedFromCharacterPresent>
+	<colour>BASE_GREEN_LIME</colour>
+	<backgroundColour>MAP_BACKGROUND</backgroundColour>
+	<encounterType>null</encounterType>
+	<dialogue>innoxia_places_shinrin_highlands_hideout_potion_lab</dialogue>
+	<populationPresent/>
+	<furniturePresent deskName="table">true</furniturePresent>
+	<wallsPresent wallName="wall">true</wallsPresent>
+	<globalMapTile>false</globalMapTile>
+	<dangerous><![CDATA[false]]></dangerous>
+	<itemsDisappear><![CDATA[false]]></itemsDisappear>
+	<aquatic><![CDATA[LAND]]></aquatic>
+	<darkness><![CDATA[ALWAYS_LIGHT]]></darkness>
+	<teleportPermissions/>
+	<weatherImmunities/>
+	<applyInventoryInit/>
+</placeType>

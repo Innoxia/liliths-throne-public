@@ -3157,7 +3157,7 @@ public class GenericOrgasms {
 									" As [npc2.namePos] face is right in front of [npc.namePos] [npc.pussy+], [npc.namePos] fluids squirt out both into [npc2.her] mouth, as well as all over [npc2.her] [npc2.face]."));
 						} else {
 							genericOrgasmSB.append(UtilText.parse(characterOrgasming, character,
-									" As [npc2.nameIsFull] eating [npc.herHim] out, [npc.namePos] fluids squirt out both into [npc2.her] mouth, as well as all over [npc2.her] [npc2.face]."));
+									" As [npc2.nameIs] eating [npc.herHim] out, [npc.namePos] fluids squirt out both into [npc2.her] mouth, as well as all over [npc2.her] [npc2.face]."));
 						}
 					}
 				}

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sexAction>
+
+	<buttonPriority>0</buttonPriority>
+	<actionConditional><![CDATA[true]]></actionConditional>
+	<type>ORGASM</type>
+	<pace/>
+	<endsSex><![CDATA[true]]></endsSex>
+	<participantType>NORMAL</participantType>
+	<priority><![CDATA[UNIQUE_MAX]]></priority>
+	<arousalPerformer>THREE_NORMAL</arousalPerformer>
+	<arousalTarget>THREE_NORMAL</arousalTarget>
+	<associatedCorruption>TWO_HORNY</associatedCorruption>
+	<associatedFetishes>
+		<performer>
+			<fetish>FETISH_CUM_STUD</fetish>
+		</performer>
+		<target>
+			<fetish>FETISH_CUM_ADDICT</fetish>
+		</target>
+	</associatedFetishes>
+	<performingArea>PENETRATION_PENIS</performingArea>
+	<targetedArea>ORIFICE_MOUTH</targetedArea>
+	<applyStartEffects><![CDATA[
+	]]></applyStartEffects>
+	<applyEffects><![CDATA[
+		[##sex.applyCummedOnEffects(CA_MOUTH, shiranui, pc)]
+		[##sex.applyCummedOnEffects(CA_MOUTH, shiranui, meraxis)]
+		[##sex.applyCummedOnEffects(CA_BREASTS, shiranui, pc)]
+		[##sex.applyCummedOnEffects(CA_BREASTS, shiranui, meraxis)]
+	]]></applyEffects>
+	<applyEndEffects><![CDATA[
+		[#pc.ingestFluid(shiranui, shiranui.getCum(), ORIFICE_MOUTH, 10)]
+		[#angelixx.ingestFluid(shiranui, shiranui.getCum(), ORIFICE_MOUTH, 10)]
+	]]></applyEndEffects>
+	<areasCummedIn/>
+	<areasCummedOn/>
+	
+	<!-- Information displayed to the player: -->
+	
+	<title><![CDATA[
+		Double facial
+	]]></title>
+	<tooltip><![CDATA[Cum all over these idiots' faces.]]></tooltip>
+	
+	<descriptions>
+		<description>
+			<text><![CDATA[
+				[shiranui.speechNoEffects(~Ooh!~ I'm cumming!)] Shiranui pants, before pulling back and pointing her [shiranui.cock+] at your faces. With a click of her fingers, teh leather bindings force you and Meraxis to turn your heads to face her, and in-between her horny moans, she giggles, [shiranui.speechNoEffects(Open wide!)]
+				<br/><br/>
+				Still stupefied from all of the arcane arousal spells which the youko cast on you, both you and Meraxis do as you're told, and open your mouths as Shiranui furiously jerks herself off. Using your saliva as lubricant, her slender fingers dart up and down the length of her [shiranui.cockGirth] shaft, and then suddenly she lets out a shuddering squeal and reaches her climax.
+				<br/><br/>
+				A huge amount of thick, slimy jizz shoots out from her vulpine dick to splatter all over Meraxis's face. Moving her cock to one side, Shiranui's next blast hits you, and you involunatrily blink as her hot cum coats your [pc.face+]. Directing a couple more blasts of her cum onto your and Meraxis's faces, she then points her cock down at your chest, and giggles in orgasmic bliss as she sends a jet of her sticky cum to splatter all over your [pc.breasts+]. Finally, she aims at Meraxis's chest, and her final, slimy load is blasted all over the [meraxis.race]'s [meraxis.breasts+].
+				<br/><br/>
+				With a big, happy smile now plastered over her beautiful face, Shiranui sighs, [shiranui.speechNoEffects(Fuck... ~Mmm!~ That was good... I think that'll be all for today...)]
+			]]></text>
+		</description>
+	</descriptions>
+	
+</sexAction>

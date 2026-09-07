@@ -90,6 +90,7 @@ import com.lilithsthrone.game.character.npc.fields.Nir;
 import com.lilithsthrone.game.character.npc.fields.Nizhoni;
 import com.lilithsthrone.game.character.npc.fields.Oglix;
 import com.lilithsthrone.game.character.npc.fields.Penelope;
+import com.lilithsthrone.game.character.npc.fields.Shiranui;
 import com.lilithsthrone.game.character.npc.fields.Silvia;
 import com.lilithsthrone.game.character.npc.fields.Sleip;
 import com.lilithsthrone.game.character.npc.fields.Sterope;
@@ -1566,6 +1567,16 @@ public class ParserTarget {
 		@Override
 		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
 			return Main.game.getNpc(Fiammetta.class);
+		}
+	};
+
+	public static AbstractParserTarget SHIRANUI = new AbstractParserTarget(Util.newArrayListOfValues("shiranui"), "") {
+		public String getDescription() {
+			return Main.game.getNpc(Shiranui.class).getDescription();
+		}
+		@Override
+		public GameCharacter getCharacter(String tag, List<GameCharacter> specialNPCList) {
+			return Main.game.getNpc(Shiranui.class);
 		}
 	};
 	

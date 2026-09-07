@@ -140,9 +140,22 @@ public interface SexActionInterface {
 	public abstract String getActionTitle();
 
 	public abstract String getActionDescription();
+
+//	/**
+//	 * @return A short, one-sentence description of this action, mainly to be used in recorded sex scene playbacks.
+//	 */
+//	public abstract String getBriefDescription();
+//
+//	@Override
+//	public String getBriefDescription() {
+//		return UtilText.returnStringAtRandom(
+//				"",
+//				"",
+//				"");
+//	}
 	
 	public abstract String getDescription();
-	
+
 	public default Colour getHighlightColour() {
 		return null;
 	}

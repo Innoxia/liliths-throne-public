@@ -511,9 +511,16 @@ public class MainController implements Initializable {
 						System.arraycopy(lastKeys, 0, lastKeys, 1, 4);
 						lastKeys[0] = event.getCode();
 						checkLastKeys();
+
+//						if(event.getCode()==KeyCode.HOME && Main.DEBUG){
+//							((Shiranui)Main.game.getNpc(Shiranui.class)).setBodyToMeraxis(((Shiranui)Main.game.getNpc(Shiranui.class)).getSubspecies()==Subspecies.FOX_ASCENDANT);
+//							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+//						}
 						
 						if(event.getCode()==KeyCode.END && Main.DEBUG){
-
+//							Main.game.getNpc(Shiranui.class).setLocation(Main.game.getPlayerCell());
+//							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							
 //							private static List<AbstractSubspecies> subspeciesToDrawFrom;
 //							if(subspeciesToDrawFrom==null) {
 //								subspeciesToDrawFrom = new ArrayList<>(Subspecies.getAllSubspecies());

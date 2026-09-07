@@ -5943,7 +5943,10 @@ public class PlaceType {
 			"river Hubur (wild)",
 			null,
 			"Far from Dominion, the river Hubur is a dangerous place in which to swim, as it is home to many wild freshwater races.",
-			new Colour(Util.newColour(0xc1f1ee)), null, null, "at the river Huber") {
+			new Colour(Util.newColour(0xc1f1ee)),
+			DialogueManager.getDialogueFromId("innoxia_places_shinrin_highlands_global_river"),
+			null,
+			"at the river Huber") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
@@ -5955,11 +5958,18 @@ public class PlaceType {
 			WorldRegion.YOUKO_FOREST,
 			"Shinrin highlands",
 			null,
-			"The Shinrin highlands are a range of low, forest-covered hills, which steadily increase in elevation the further west you go. The elusive youko live here.",
-			new Colour(Util.newColour(0x6ccc74)), null, null, "in the Shinrin highlands") {
+			"The Shinrin highlands are a range of low, forest-covered hills, which steadily increase in elevation the further west you go. The elusive youko live here, and have cast spells over the land to prevent teleportation from working.",
+			PresetColour.MAP_BACKGROUND_SHINRIN_HIGHLANDS,
+			DialogueManager.getDialogueFromId("innoxia_places_shinrin_highlands_global_shinrin_highlands"),
+			null,
+			"in the Shinrin highlands") {
 				@Override
 				public AbstractWorldType getGlobalLinkedWorldType() {
 					return null;
+				}
+				@Override
+				public TeleportPermissions getTeleportPermissions() {
+					return TeleportPermissions.NONE;
 				}
 	}.initDangerous();
 

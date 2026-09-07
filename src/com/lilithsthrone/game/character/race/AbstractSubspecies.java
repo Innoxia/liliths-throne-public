@@ -1477,6 +1477,10 @@ public abstract class AbstractSubspecies {
 		return race;
 	}
 
+	public float getChanceForMaleOffspring() {
+		return getRace().getChanceForMaleOffspring();
+	}
+	
 	public Affinity getAffinity() {
 		return affinity;
 	}

@@ -4137,7 +4137,7 @@ public class PhoneDialogue {
 			} else if(index==1) {
 				return "Submission";
 			} else if(index==2) {
-				return "Elis";
+				return "Foloi Fields";
 			}
 			return null;
 		}
@@ -4154,7 +4154,7 @@ public class PhoneDialogue {
 				boolean correctRegion = false;
 				if(world.getWorldRegion()==WorldRegion.SUBMISSION) {
 					correctRegion = responseTab==1;
-				} else if(world.getWorldRegion()==WorldRegion.FIELD_CITY || world.getWorldRegion()==WorldRegion.FIELDS) {
+				} else if(world.getWorldRegion()==WorldRegion.FIELD_CITY || world.getWorldRegion()==WorldRegion.FIELDS || world.getWorldRegion()==WorldRegion.YOUKO_FOREST) {
 					correctRegion = responseTab==2;
 				} else {
 					correctRegion = responseTab==0;
