@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<item>
+	<coreAttributes>
+		<value>250</value> 
+		<determiner><![CDATA[a bottle of]]></determiner>
+		<name><![CDATA[Roach "Milk"]]></name>
+		<namePlural pluralByDefault="false"><![CDATA[Roach "Milks"]]></namePlural>
+		<description><![CDATA[A sealed bottle of some sort of off-white, pale yellow goop. It sounds like something grainy is sliding back and forth when the bottle is tipped.]]></description> 
+		<useDescriptor>drink</useDescriptor>
+		<sexUse>true</sexUse>
+		<combatUseAllies>true</combatUseAllies>
+		<combatUseEnemies>false</combatUseEnemies>
+		<consumedOnUse>true</consumedOnUse>
+		<rarity>UNCOMMON</rarity> 
+		<imageName zLayer="0" imageRotation="0" imageSize="100">background_bottom.svg</imageName>
+		<imageName zLayer="1" imageRotation="-15" imageSize="80">roach_milk.svg</imageName>
+		<imageName zLayer="2" imageRotation="0" imageSize="100">background_top.svg</imageName>
+		<colourPrimary>ATTRIBUTE_ARCANE</colourPrimary>
+		<colourSecondary/>
+		<colourTertiary/>
+		<enchantmentItemTypeId>POTION</enchantmentItemTypeId>
+		<enchantmentEffectId>ATTRIBUTE_ARCANE</enchantmentEffectId>
+		<effectTooltipLines>
+			<line><![CDATA[[style.boldGood(Restores)] 8% [style.boldHealth([#ATTRIBUTE_HEALTH_MAXIMUM.getName()])]]]></line>
+			<line><![CDATA[[#ATTRIBUTE_MAJOR_ARCANE.getFormattedValue(2)] to 'potion effects']]></line>
+		</effectTooltipLines>
+		<applyEffects><![CDATA[
+			[##npc.incrementHealth(npc.getAttributeValue(ATTRIBUTE_HEALTH_MAXIMUM)/12.5)]
+			<p style='margin-bottom:0; padding-bottom:0;'>
+				A powerful wave of arcane energy washes over [npc.name]...
+			</p>
+			[#npc.addPotionEffect(ATTRIBUTE_MAJOR_ARCANE, 2)]
+		]]></applyEffects>
+		<itemTags>
+			<tag>ATTRIBUTE_TF_ITEM</tag>
+			<tag>DRINK</tag>
+			<tag>SOLD_BY_RALPH</tag>
+		</itemTags>
+	</coreAttributes>
+	<useDescriptions>
+		<selfUse><![CDATA[
+		Working up [npc.her] nerve, [npc.name] [npc.verb(pop)] open the bottle cap and [npc.verb(chug)] the strange liquid before [npc.name] [npc.verb(decide)] otherwise. It tastes... strangely bland.
+		]]></selfUse>
+		<otherUse><![CDATA[
+		[npc.Name] [npc.verb(offer)] the bottle to [npc2.name]. As [npc2.verb(drink)] the strange liquid, [npc2.she] [npc2.verb(pause)] and [npc2.verb(give)] [npc.name] a confused look. [npc2.Name] probably expected milk, some sort of smoothie, or even cum, but probably not the bland... something in the bottle.
+		]]></otherUse>
+	</useDescriptions>
+</item>

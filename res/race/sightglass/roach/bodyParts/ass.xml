@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ass>
+	<race>sightglass_roach</race>
+	<transformationName><![CDATA[roach]]></transformationName>
+	<coveringType>sightglass_roach_chitin</coveringType>
+	<anusType>sightglass_roach_anus</anusType>
+	<names/>
+	<namesPlural/>
+	<descriptorsMasculine/>
+	<descriptorsFeminine/>
+	<transformationDescription><![CDATA[
+		[npc.She] now [npc.has] a [style.boldBrownDark(roach-like)], [npc.assholeFullDescription].
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		[npc.SheHasFull] a roach-like, [npc.anusFullDescription(true)]
+	]]></bodyDescription>
+</ass>

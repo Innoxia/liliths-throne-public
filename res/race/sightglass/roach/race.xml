@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<race>
+	<racialBody>sightglass_roach</racialBody>
+	<applyRaceChanges><![CDATA[
+		#IF(RND.nextInt(100)<20 || targetedBody.getRaceStage()==RACE_STAGE_GREATER)
+			[#targetedBody.getArm().setArmRows(null, 2)]
+		#ENDIF
+	]]></applyRaceChanges>
+	<name><![CDATA[roach-morph]]></name>
+	<namePlural><![CDATA[roach-morphs]]></namePlural>
+	<nameFeral>
+		<name legConfiguration="BIPEDAL"><![CDATA[roach]]></name>
+	</nameFeral>
+	<nameFeralPlural>
+		<name legConfiguration="BIPEDAL"><![CDATA[roaches]]></name>
+	</nameFeralPlural>
+	<defaultTransformName><![CDATA[roach]]></defaultTransformName>
+	<colour>sightglass_umber</colour>
+	<disposition>UNPREDICTABLE</disposition>
+	<racialClass>INSECT</racialClass>
+	<feralPartsAvailable>true</feralPartsAvailable>
+	<ableToSelfTransform>false</ableToSelfTransform>
+	<flyingRace>TRUE</flyingRace>
+	<combatBehaviour>BALANCED</combatBehaviour>
+	<chanceForMaleOffspring>0.5</chanceForMaleOffspring>
+	<numberOfOffspringLow>4</numberOfOffspringLow>
+	<numberOfOffspringHigh>6</numberOfOffspringHigh>
+	<defaultFemininePreference>NORMAL</defaultFemininePreference>
+	<defaultMasculinePreference>NORMAL</defaultMasculinePreference>
+	<affectedByFurryPreference>true</affectedByFurryPreference>
+</race>

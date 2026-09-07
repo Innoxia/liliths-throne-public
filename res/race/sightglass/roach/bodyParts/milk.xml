@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fluid>
+	<race>sightglass_roach</race>
+	<transformationName><![CDATA[roach]]></transformationName>
+	<baseFluidType>MILK</baseFluidType>
+	<flavour>MILK</flavour>
+	<namesMasculine/>
+	<namesFeminine/>
+	<descriptorsMasculine>
+		<name><![CDATA[roach]]></name>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<name><![CDATA[roach]]></name>
+	</descriptorsFeminine>
+	<defaultFluidModifiers values="STICKY"/>
+</fluid>

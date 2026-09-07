@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ear>
+	<race>sightglass_roach</race>
+	<transformationName><![CDATA[roach]]></transformationName>
+	<coveringType>sightglass_roach_chitin</coveringType>
+	<tags/>
+	<name><![CDATA[ear]]></name>
+	<namePlural><![CDATA[ears]]></namePlural>
+	<descriptorsMasculine>
+		<descriptor>chitinous</descriptor>
+		<descriptor>roach-like</descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor>feminine</descriptor>
+		<descriptor>chitinous</descriptor>
+		<descriptor>roach-like</descriptor>
+	</descriptorsFeminine>
+	<transformationDescription><![CDATA[
+		[npc.Her] ears quickly begin to shrink back into [npc.her] head until only a hole is left.
+		#IF(npc.getBodyMaterial()==BODY_MATERIAL_FLESH)
+		 A layer of [npc.earFullDescriptionColour] quickly grows to cover them,
+		#ELSE
+		 Just like the rest of [npc.her] body, they're made out of [npc.earFullDescription],
+		#ENDIF
+		 and as the transformation finishes, [npc.she] [npc.verb(notice)] [npc.her] hearing hasn't been affected at all.
+		<br/>[npc.Name] now [npc.has] [style.boldBrownDark(internal, roach-like ears)], which are [npc.materialCompositionDescriptor] [npc.earFullDescription].
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		[npc.She] [npc.has] a pair of internal,#IF(npc.isPiercedEar()) pierced,#ENDIF roach-like ears, which are [npc.materialCompositionDescriptor] [npc.earFullDescription(true)].
+	]]></bodyDescription>
+</ear>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<leg>
+	<race>sightglass_roach</race>
+	<transformationName><![CDATA[roach]]></transformationName>
+	<coveringType>sightglass_roach_chitin</coveringType>
+	<defaultFootStructure>PLANTIGRADE</defaultFootStructure>
+	<footType>TALONS</footType>
+	<spinneret>false</spinneret>
+	<tentacleType>NONE</tentacleType>
+	<tentacleCount>0</tentacleCount>
+	<allowedLegConfigurations>
+		<configuration>BIPEDAL</configuration>
+	</allowedLegConfigurations>
+	<name><![CDATA[leg]]></name>
+	<namePlural><![CDATA[legs]]></namePlural> 
+	<descriptorsMasculine>
+		<descriptor>roach-like</descriptor>
+		<descriptor>armoured</descriptor>
+		<descriptor>chitinous</descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor>roach-like</descriptor>
+		<descriptor>armoured</descriptor>
+		<descriptor>chitinous</descriptor>
+	</descriptorsFeminine>
+	<footDescriptorsMasculine>
+		<descriptor>roach-like</descriptor>
+	</footDescriptorsMasculine>
+	<footDescriptorsFeminine>
+		<descriptor>roach-like</descriptor>
+	</footDescriptorsFeminine>
+	<toeDescriptorsMasculine>
+		<descriptor>roach-like</descriptor>
+	</toeDescriptorsMasculine>
+	<toeDescriptorsFeminine>
+		<descriptor>roach-like</descriptor>
+	</toeDescriptorsFeminine>
+	<transformationDescription><![CDATA[ 
+		A layer of roach-like chitin quickly grows over [npc.her] legs as they shift into a new form. As [npc.her] new chitin spreads down to the ends of [npc.her] toes, it splits around the joints leaving an almost doll or gauntlet-like appearance to them, leaving [npc.him] with plantigrade, roach-like talons. As the transformation ends, [npc.she] [npc.verb(see)] that [npc.her] new chitin plates sharply transition into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.
+		<br/>[npc.Name] now [npc.has] plantigrade, [style.boldBrownDark(roach-like legs and talons)], which are [npc.materialDescriptor] [npc.legFullDescription].
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		[npc.Her] legs are [npc.materialCompositionDescriptor] [npc.legFullDescription(true)], and [npc.her] feet are covered small chitin plates splitting at the joints. [npc.Her] toes are curved to easily grasp narrow perches.
+	]]></bodyDescription>
+</leg>

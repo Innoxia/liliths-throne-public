@@ -1,0 +1,228 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="linearGradient2340">
+            <stop offset="0" stop-color="#b6f0e7" stop-opacity=".902"/>
+            <stop offset=".5" stop-color="#fff"/>
+            <stop offset="1" stop-color="#d4e9e0"/>
+        </linearGradient>
+        <linearGradient id="linearGradient1475">
+            <stop offset="0" stop-color="#fe7c91"/>
+            <stop offset="1" stop-color="#fe3530"/>
+        </linearGradient>
+        <linearGradient id="linearGradient1174">
+            <stop offset="0" stop-color="#b41b01"/>
+            <stop offset="1" stop-color="#b80b0b"/>
+        </linearGradient>
+        <linearGradient id="linearGradient1161">
+            <stop offset="0" stop-color="#8a3301"/>
+            <stop offset=".354" stop-color="#fea374"/>
+            <stop offset=".608" stop-color="#cd4b01"/>
+            <stop offset=".831" stop-color="#feba8f"/>
+            <stop offset="1" stop-color="#ad2f01"/>
+        </linearGradient>
+        <linearGradient id="linearGradient1093">
+            <stop offset="0" stop-color="#f34202"/>
+            <stop offset="1" stop-color="#990202"/>
+        </linearGradient>
+        <linearGradient id="linearGradient1000" x1="20.018" x2="236.75" y1="147.108" y2="147.108" gradientTransform="matrix(.24146 0 0 .2489 1.002 3.613)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient2340"/>
+        <linearGradient id="innoGrad2">
+            <stop offset="0" stop-color="#dd851c"/>
+            <stop offset="1" stop-color="#674229"/>
+        </linearGradient>
+        <linearGradient id="innoGrad3">
+            <stop offset="0" stop-color="#e20100"/>
+            <stop offset="1" stop-color="#b50100"/>
+        </linearGradient>
+        <linearGradient id="innoGrad4">
+            <stop offset="0" stop-color="#ee4401"/>
+            <stop offset="1" stop-color="#d63d01"/>
+        </linearGradient>
+        <filter id="filter14493" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14499" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14505" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14511" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14517" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14523" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14529" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14535" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14541" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14547" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14553" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14559" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14565" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14571" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14577" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14583" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14589" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14595" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14601" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14607" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14613" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14619" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14625" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14631" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14637" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14643" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14649" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14655" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14661" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14667" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14673" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14679" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14685" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14691" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14697" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+        <filter id="filter14703" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+            <feColorMatrix result="color1" type="hueRotate" values="31"/>
+            <feColorMatrix result="color2" type="saturate" values="1"/>
+        </filter>
+    </defs>
+    <path fill="url(#linearGradient1000)" stroke="#000" stroke-miterlimit="10" d="M5.959 31.234l52.088.35s.223 17.64-26.318 17.64c-26.542 0-25.77-17.99-25.77-17.99z"/>
+    <ellipse cx="32" cy="31.546" fill="#dbf8f3" fill-opacity=".902" stroke="#000" stroke-miterlimit="10" rx="26.053" ry="15.162"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="#ff6621" d="M6.884 27.368h5.61v5.61h-5.61z" filter="url(#filter14493)" paint-order="stroke fill markers"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="#b41919" d="M12.494 27.368h5.61v5.61h-5.61z" filter="url(#filter14499)" paint-order="stroke fill markers"/>
+    <path fill="#f55" d="M12.494 32.977h5.61v5.61h-5.61z" filter="url(#filter14673)" paint-order="stroke fill markers"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="#b41919" d="M18.104 32.977h5.61v5.61h-5.61z" filter="url(#filter14667)" paint-order="stroke fill markers"/>
+    <path fill="#f55" d="M23.713 32.977h5.61v5.61h-5.61z" filter="url(#filter14661)" paint-order="stroke fill markers"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="#b41919" d="M29.323 32.977h5.61v5.61h-5.61z" filter="url(#filter14655)" paint-order="stroke fill markers"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="#c41b1b" d="M34.932 32.977h5.61v5.61h-5.61z" filter="url(#filter14649)" paint-order="stroke fill markers"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="#843011" d="M40.542 32.977h5.61v5.61h-5.61z" filter="url(#filter14643)" paint-order="stroke fill markers"/>
+    <path fill="#f55" fill-opacity=".5" d="M46.151 32.977h5.61v5.61h-5.61z" filter="url(#filter14637)" paint-order="stroke fill markers"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="#843011" d="M18.104 27.368h5.61v5.61h-5.61z" filter="url(#filter14505)" paint-order="stroke fill markers"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="#b41919" d="M23.713 27.368h5.61v5.61h-5.61z" filter="url(#filter14511)" paint-order="stroke fill markers"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="#ff6621" d="M29.323 27.368h5.61v5.61h-5.61z" filter="url(#filter14517)" paint-order="stroke fill markers"/>
+    <path fill="#f55" d="M34.932 27.368h5.61v5.61h-5.61z" filter="url(#filter14523)" paint-order="stroke fill markers"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="#ff6621" d="M40.542 27.368h5.61v5.61h-5.61z" filter="url(#filter14529)" paint-order="stroke fill markers"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="#b41919" d="M46.151 27.368h5.61v5.61h-5.61z" filter="url(#filter14535)" paint-order="stroke fill markers"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="#b41919" fill-opacity=".5" d="M51.761 27.368h5.61v5.61h-5.61z" filter="url(#filter14541)" paint-order="stroke fill markers"/>
+    <path fill="#ff6621" d="M18.104 38.587h5.61v5.61h-5.61z" filter="url(#filter14679)" paint-order="stroke fill markers"/>
+    <path fill="#b41919" d="M23.713 38.587h5.61v5.61h-5.61z" filter="url(#filter14685)" paint-order="stroke fill markers"/>
+    <path fill="#843011" d="M29.323 38.587h5.61v5.61h-5.61z" filter="url(#filter14691)" paint-order="stroke fill markers"/>
+    <path fill="#f55" d="M34.932 38.587h5.61v5.61h-5.61z" filter="url(#filter14697)" paint-order="stroke fill markers"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="#b41919" fill-opacity=".75" d="M40.542 38.587h5.61v5.61h-5.61z" filter="url(#filter14703)" paint-order="stroke fill markers"/>
+    <path fill="#f55" fill-opacity=".75" d="M12.494 21.758h5.61v5.61h-5.61z" filter="url(#filter14547)" paint-order="stroke fill markers"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="#ff6621" d="M18.104 21.758h5.61v5.61h-5.61z" filter="url(#filter14553)" paint-order="stroke fill markers"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="#c81c1c" d="M23.713 21.758h5.61v5.61h-5.61z" filter="url(#filter14559)" paint-order="stroke fill markers"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="#b41919" d="M29.323 21.758h5.61v5.61h-5.61z" filter="url(#filter14565)" paint-order="stroke fill markers"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="#843011" d="M34.932 21.758h5.61v5.61h-5.61z" filter="url(#filter14571)" paint-order="stroke fill markers"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="#b41919" d="M40.542 21.758h5.61v5.61h-5.61z" filter="url(#filter14577)" paint-order="stroke fill markers"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="#b41919" fill-opacity=".5" d="M46.151 21.758h5.61v5.61h-5.61z" filter="url(#filter14583)" paint-order="stroke fill markers"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="#b41919" fill-opacity=".5" d="M18.104 16.149h5.61v5.61h-5.61z" filter="url(#filter14589)" paint-order="stroke fill markers"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="#843011" d="M23.713 16.149h5.61v5.61h-5.61z" filter="url(#filter14595)" paint-order="stroke fill markers"/>
+    <path fill="#f55" d="M29.323 16.149h5.61v5.61h-5.61z" filter="url(#filter14601)" paint-order="stroke fill markers"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="#b41919" d="M34.932 16.149h5.61v5.61h-5.61z" filter="url(#filter14607)" paint-order="stroke fill markers"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="#b41919" fill-opacity=".5" d="M40.542 16.149h5.61v5.61h-5.61z" filter="url(#filter14613)" paint-order="stroke fill markers"/>
+    <path fill="#f55" fill-opacity=".75" d="M23.713 10.539h5.61v5.61h-5.61z" filter="url(#filter14619)" paint-order="stroke fill markers"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="#b41919" fill-opacity=".717" d="M34.932 10.539h5.61v5.61h-5.61z" filter="url(#filter14625)" paint-order="stroke fill markers"/>
+    <path style="font-variation-settings:normal;-inkscape-stroke:none" fill="#b41919" d="M29.323 10.539h5.61v5.61h-5.61z" filter="url(#filter14631)" paint-order="stroke fill markers"/>
+    <g transform="matrix(.86813 0 0 .86813 31.674 -6.037)">
+        <path fill="#ff341e" stroke="#000" stroke-width=".288" d="M4.08 51.548h15.893c0 .943-.064 6.318-8.095 6.311C4.9 57.853 3.91 53.34 4.08 51.55z"/>
+        <ellipse style="font-variation-settings:normal" cx="12.027" cy="51.548" fill="#ff511e" stroke="#000" stroke-width=".576" paint-order="stroke fill markers" rx="7.947" ry="2.337"/>
+        <path fill="#ff8032" d="M11.3 49.64l.808 1.998 1.656-1.998zm4.845.34l-2.125 1.742 4.42-.936zm-7.861.127s-2.763.488-2.55.488c.212 0 4.886 1.043 4.886 1.043zm10.208 1.84l-5.067.455 1.572.722zm-12.822-.31l3.803 1.403 1.02-.043.596-.425zm6.5.85l-.636.745h1.508z"/>
+    </g>
+</svg>

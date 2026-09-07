@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wing>
+	<race>sightglass_roach</race>
+	<transformationName><![CDATA[roach]]></transformationName>
+	<coveringType>sightglass_roach_chitin</coveringType>
+	<allowsFlight>true</allowsFlight>
+	<minimumSize>ZERO_TINY</minimumSize>
+	<maximumSize>FOUR_HUGE</maximumSize>
+	<name><![CDATA[roach wing]]></name>
+	<namePlural><![CDATA[roach wings]]></namePlural>
+	<descriptorsMasculine>
+		<descriptor><![CDATA[shield-like]]></descriptor>
+		<descriptor><![CDATA[sturdy]]></descriptor>
+		<descriptor><![CDATA[roach-like]]></descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor><![CDATA[shield-like]]></descriptor>
+		<descriptor><![CDATA[sturdy]]></descriptor>
+		<descriptor><![CDATA[roach-like]]></descriptor>
+	</descriptorsFeminine>
+	<transformationDescription><![CDATA[
+		#IF(npc.getLegConfiguration().isWingsOnLegConfiguration())
+			[npc.She] [npc.verb(let)] out a gasp as a sting of pain heralds a pair of [npc.wingSize], transparent, chitinous wings as they push out from the sides of [npc.her] [npc.legConfiguration] body.
+		#ELSE
+			[npc.She] [npc.verb(let)] out a gasp as a sting of pain heralds a pair of [npc.wingSize], transparent, chitnous wings as they push out from [npc.her] shoulder blades.
+		#ENDIF
+		<br/>[npc.Name] now [npc.has] [style.boldBrownDark(roach-like wings)].
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+		[npc.sheHasFull] a pair of [npc.wingSize], transparent wings, which are [npc.materialDescriptor] [npc.wingFullDescription(true)] and kept tucked close to [npc.her] body.
+	]]></bodyDescription>
+</wing>

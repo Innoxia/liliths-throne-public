@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<antenna>
+	<race>sightglass_roach</race>
+	<transformationName><![CDATA[roach]]></transformationName>
+	<coveringType>ANTENNA</coveringType>
+	<defaultAntennaePerRow>2</defaultAntennaePerRow>
+	<name><![CDATA[antenna]]></name>
+	<namePlural><![CDATA[antennae]]></namePlural> 
+	<descriptorsMasculine>
+		<descriptor>insect-like</descriptor>
+		<descriptor>narrow</descriptor>
+	</descriptorsMasculine>
+	<descriptorsFeminine>
+		<descriptor>insect-like</descriptor>
+		<descriptor>narrow</descriptor>
+	</descriptorsFeminine>
+	<transformationDescription><![CDATA[
+	[style.boldBrownDark(sleek, roach-like [npc.antennae])].
+	<br/>[npc.Name] now [npc.has] [npc.antennaeDeterminer] [style.boldBrownDark(roach-like [npc.antennae])].
+	]]></transformationDescription>
+	<bodyDescription><![CDATA[
+	[npc.AntennaeDeterminer] [npc.antennaSize], [npc.antennaColour(true)] [npc.antennae] #IF(npc.getTotalHorns()==1)grows#ELSEgrow#ENDIF out of the #IF(npc.getHornsPerRow()==1)middle#ELSEsides#ENDIF of [npc.her] forehead.
+	]]></bodyDescription>
+</antenna>
