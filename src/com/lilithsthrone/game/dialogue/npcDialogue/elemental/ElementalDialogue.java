@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue.npcDialogue.elemental;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.effects.PerkManager;
@@ -10,6 +11,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.npc.misc.Elemental;
+import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -568,7 +570,7 @@ public class ElementalDialogue {
 			UtilText.nodeContentSB.append(UtilText.parse(getElemental(), 
 				"<p>"
 					+ "At the moment, [npc.nameIsFull] calling you '[npc.pcName]', and you wonder if you should get [npc.herHim] to call you by a different name or title."
-					+ " As [npc.sheIs] your slave, you could also change [npc.her] name to whatever you'd like it to be..."
+					+ " As [npc.sheIs] your elemental, you could also change [npc.her] name to whatever you'd like it to be..."
 				+ "</p>"));
 			
 			UtilText.nodeContentSB.append(
@@ -601,21 +603,20 @@ public class ElementalDialogue {
 						+ "&#127922;"
 					+ "</div>"
 					
-					+ "<form style='float:left; width:20%; margin:0; padding:0;'><input type='text' id='slaveToPlayerNameInput' value='"+ UtilText.parseForHTMLDisplay(getElemental().getPetName(Main.game.getPlayer()))
-						+ "' style='width:100%; margin:0; padding:0;'></form>"
+					+ "<form style='float:left; width:20%; margin:0; padding:0;'><input type='text' id='slaveToPlayerNameInputFeminine' value='"
+						+ UtilText.parseForHTMLDisplay(Optional.ofNullable(getElemental().getPetNameTriplet(Main.game.getPlayer())).orElse(NameTriplet.EMPTY).getFeminine())
+						+ "' style='width:100%; margin:0; padding:0; color:" + PresetColour.FEMININE.toWebHexString() + ";'><input type='text' id='slaveToPlayerNameInputMasculine' value='"
+						+ UtilText.parseForHTMLDisplay(Optional.ofNullable(getElemental().getPetNameTriplet(Main.game.getPlayer())).orElse(NameTriplet.EMPTY).getMasculine())
+						+ "' style='width:100%; margin:0; padding:0; color:" + PresetColour.MASCULINE.toWebHexString() + ";'></form>"
 					+ "<div class='normal-button' id='"+getElemental().getId()+"_CALLS_PLAYER' style='float:left; width:5%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>"
 						+ "&#10003;"
 					+ "</div>"
 					+ " <div class='normal-button' id='GLOBAL_CALLS_PLAYER' style='float:left; width:12%; height:28px; line-height:28px; margin:0 0 0 0.5%; padding:0; text-align:center;'>"
 						+ "All Slaves"
-					+ "</div>");
+					+ "</div>"
+				+ "</div>");
 			
-			UtilText.nodeContentSB.append(UtilText.parse(getElemental(), 
-						"<p style='text-align:center; margin-top:4px;'>"
-							+ "<i>If [npc.name] is told to call you 'Mom' or 'Dad', 'Mommy' or 'Daddy', 'Mistress' or 'Master', or 'Ma'am' or 'Sir',"
-							+ " then [npc.she] will automatically switch to the appropriate paired name depending on the femininity of your character.</i>"
-						+ "</p>"
-					+ "</div>"));
+			UtilText.nodeContentSB.append(UtilText.parse(getElemental(), GameCharacter.getPetNameInstructions()));
 			
 			UtilText.nodeContentSB.append("<p id='hiddenFieldName' style='display:none;'></p>");
 			

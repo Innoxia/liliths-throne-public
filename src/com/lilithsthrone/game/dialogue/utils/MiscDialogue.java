@@ -30,6 +30,7 @@ import com.lilithsthrone.game.character.npc.dominion.Fiammetta;
 import com.lilithsthrone.game.character.npc.dominion.Saellatrix;
 import com.lilithsthrone.game.character.npc.fields.Angelixx;
 import com.lilithsthrone.game.character.npc.misc.BasicDoll;
+import com.lilithsthrone.game.character.persona.NameTriplet;
 import com.lilithsthrone.game.character.race.AbstractRace;
 import com.lilithsthrone.game.character.race.AbstractSubspecies;
 import com.lilithsthrone.game.character.race.Race;
@@ -1170,7 +1171,7 @@ public class MiscDialogue {
 			doll.setDescription("This doll was created in Lovienne's Luxuries.");
 		}
 		
-		doll.setPetName(Main.game.getPlayer(), "master");
+		doll.setPetName(Main.game.getPlayer(), new NameTriplet("master", "", "mistress"));
 		
 		doll.setLocation(WorldType.getWorldTypeFromId("innoxia_dominion_sex_shop"), PlaceType.getPlaceTypeFromId("innoxia_dominion_sex_shop_dolls"), true);
 

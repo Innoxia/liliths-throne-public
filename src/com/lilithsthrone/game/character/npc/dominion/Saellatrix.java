@@ -578,7 +578,7 @@ public class Saellatrix extends NPC {
 
 			doll.setBirthday(doll.getBirthday().minusDays((365*4) + Util.random.nextInt(365))); // Creation date is 4-5 years before encounter
 			
-			doll.setPetName(Main.game.getPlayer(), "master");
+			doll.setPetName(Main.game.getPlayer(), new NameTriplet("master", "", "mistress"));
 			
 			doll.completeVirginityLoss();
 			
@@ -1668,7 +1668,7 @@ public class Saellatrix extends NPC {
 		// Birthday is set to TF time, and just leave it as that
 //		doll.setBirthday(doll.getBirthday().minusDays((365*4) + Util.random.nextInt(365)));
 		
-		doll.setPetName(Main.game.getPlayer(), "master");
+		doll.setPetName(Main.game.getPlayer(), new NameTriplet("master", "", "mistress"));
 		
 		doll.completeVirginityLoss();
 
