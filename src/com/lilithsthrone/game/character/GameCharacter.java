@@ -30503,20 +30503,41 @@ public abstract class GameCharacter implements XMLSaving {
 			return null;
 		}
 		
-		if(body.getPenis().getType()==PenisType.NONE) {
-			for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
-				if(c.getItemTags().contains(ItemTag.DILDO_OTHER)) {
-					return new Penis(
-							PenisType.DILDO,
-							c.getClothingType().getPenetrationOtherLength(),
-							false,
-							c.getClothingType().getPenetrationOtherGirth(),
-							TesticleSize.ZERO_VESTIGIAL.getValue(),
-							0,
-							2);
-				}
-			}
-		}
+    for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
+      boolean isDildo    = false;
+      boolean isChastity = false;
+      boolean doesBlock  = false;
+
+      for(ItemTag itemTag : c.getItemTags()) {
+        switch(itemTag) {
+          case DILDO_OTHER:
+            isDildo = true;
+            break;
+
+          case CHASTITY:
+            isChastity = true;
+            break;
+
+          case PREVENTS_ERECTION_PHYSICAL:
+            doesBlock = true;
+            break;
+
+          default:
+            break;
+        }
+      }
+
+      if(isDildo && (body.getPenis().getType() == PenisType.NONE || (isChastity && doesBlock))) {
+        return new Penis(
+            PenisType.DILDO,
+            c.getClothingType().getPenetrationOtherLength(),
+            false,
+            c.getClothingType().getPenetrationOtherGirth(),
+            TesticleSize.ZERO_VESTIGIAL.getValue(),
+            0,
+            2);
+      }
+    }
 		
 		return body.getPenis();
 	}
