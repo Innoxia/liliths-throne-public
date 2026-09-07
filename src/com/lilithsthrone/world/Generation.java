@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.places.GenericPlace;
+import com.lilithsthrone.world.places.PlaceType;
 import javafx.concurrent.Task;
 
 /**
@@ -83,7 +84,15 @@ public class Generation extends Task<Boolean> {
 				
 				for(int w = 0 ; w < img.getWidth(); w++) {
 					for(int h = 0 ; h < img.getHeight(); h++) {
-						grid[w][img.getHeight()-1-h].setPlace(new GenericPlace(worldType.getPlacesMap().get(new Color(img.getRGB(w, h)))), true);
+						Color pixelColour = new Color(img.getRGB(w, h) | 0xff000000); // enforce no transparency by ignoring the alpha channel
+						if(worldType.getPlacesMap().containsKey(pixelColour)) {
+							grid[w][img.getHeight() - 1 - h].setPlace(new GenericPlace(worldType.getPlacesMap().get(pixelColour)), true);
+						} else {
+							String webHex = String.format("#%06x", pixelColour.getRGB() & 0x00ffffff); // format color without the alpha channel (to match the xml)
+							System.err.println("Error: Colour " + webHex + " for pixel at (x=" + w + ",y=" + h + ") "
+									+ "does not match any place type defined in " + worldType.getFileLocation() + "!");
+							grid[w][img.getHeight() - 1 - h].setPlace(new GenericPlace(PlaceType.GENERIC_IMPASSABLE), true);
+						}
 					}
 				}
 
