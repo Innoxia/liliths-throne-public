@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<coveringType>
+	<category>EYE_IRIS</category>
+	<determiner><![CDATA[a pair of]]></determiner>
+	<name><![CDATA[eye]]></name>
+	<namePlural pluralByDefault="true"><![CDATA[eyes]]></namePlural> 
+	<naturalCoveringModifiers>
+		<modifier>EYE</modifier>
+	</naturalCoveringModifiers>
+	<extraCoveringModifiers/>
+	<naturalPatterns>
+		<pattern weighting="1">EYE_IRISES</pattern>
+	</naturalPatterns>
+	<extraPatterns>
+		<pattern weighting="1">EYE_IRISES_HETEROCHROMATIC</pattern>
+	</extraPatterns>
+	
+	
+	<naturalColoursPrimary> 
+		<colour>EYE_PITCH_BLACK</colour>
+		<colour>EYE_BLACK</colour>
+	</naturalColoursPrimary> 
+	<extraColoursPrimary>
+		<colour>EYE_BROWN</colour>
+		<colour>EYE_AMBER</colour>
+		<colour>EYE_HAZEL</colour>
+		<colour>EYE_BLUE_DARK</colour>
+		<colour>EYE_BLUE</colour>
+		<colour>EYE_BLUE_LIGHT</colour>
+		<colour>EYE_AQUA</colour>
+		<colour>EYE_GREEN</colour>
+		<colour>EYE_GREY_GREEN</colour>
+		<colour>EYE_GREY</colour>
+		<colour>EYE_SILVER</colour>
+		<colour>EYE_YELLOW</colour>
+		<colour>EYE_GOLD</colour>
+		<colour>EYE_RED</colour>
+		<colour>EYE_CRIMSON</colour>
+		<colour>EYE_ORANGE</colour>
+		<colour>EYE_PINK</colour>
+		<colour>EYE_PINK_SALMON</colour>
+		<colour>EYE_PERIWINKLE</colour>
+		<colour>EYE_LILAC</colour>
+		<colour>EYE_INDIGO</colour>
+		<colour>EYE_PURPLE</colour>
+		<colour>EYE_VIOLET</colour>
+		<colour>COVERING_RAINBOW</colour>
+		<colour>COVERING_RAINBOW_PASTEL</colour>
+	</extraColoursPrimary>
+	
+	<naturalColoursSecondary> 
+		<colour>EYE_PITCH_BLACK</colour>
+		<colour>EYE_BLACK</colour>
+	</naturalColoursSecondary> 
+	<extraColoursSecondary>
+		<colour>EYE_BROWN</colour>
+		<colour>EYE_AMBER</colour>
+		<colour>EYE_HAZEL</colour>
+		<colour>EYE_BLUE_DARK</colour>
+		<colour>EYE_BLUE</colour>
+		<colour>EYE_BLUE_LIGHT</colour>
+		<colour>EYE_AQUA</colour>
+		<colour>EYE_GREEN</colour>
+		<colour>EYE_GREY_GREEN</colour>
+		<colour>EYE_GREY</colour>
+		<colour>EYE_SILVER</colour>
+		<colour>EYE_YELLOW</colour>
+		<colour>EYE_GOLD</colour>
+		<colour>EYE_RED</colour>
+		<colour>EYE_CRIMSON</colour>
+		<colour>EYE_ORANGE</colour>
+		<colour>EYE_PINK</colour>
+		<colour>EYE_PINK_SALMON</colour>
+		<colour>EYE_PERIWINKLE</colour>
+		<colour>EYE_LILAC</colour>
+		<colour>EYE_INDIGO</colour>
+		<colour>EYE_PURPLE</colour>
+		<colour>EYE_VIOLET</colour>
+		<colour>COVERING_RAINBOW</colour>
+		<colour>COVERING_RAINBOW_PASTEL</colour>
+	</extraColoursSecondary>
+</coveringType>
