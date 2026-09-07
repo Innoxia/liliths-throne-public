@@ -159,7 +159,19 @@ public class Util {
 	public static Color newColour(int hex) {
 		return newColour((hex & 0xFF0000) >> 16, (hex & 0xFF00) >> 8, (hex & 0xFF));
 	}
-	
+
+	/**
+	 * Rounds down to the nearest power of 10
+	 * @param input
+	 * @return the largest power of 10 less than input
+	 */
+	public static long getRoundedFlamesTransferAmount(double input) {
+		double magnitude = Math.floor(Math.log10(input));
+		long output = (long)Math.pow(10, magnitude);
+		//System.out.println(input + " -> " + magnitude + " -> " + output);
+		return output;
+	}
+
 	/**
 	 * Takes an input, and a maximum value, and returns LT's universal "dropoff" formula to it.
 	 * @param input
