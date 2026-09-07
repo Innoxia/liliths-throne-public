@@ -780,7 +780,9 @@ public class MiscDialogue {
 
 			if(Main.getProperties().hasValue(PropertyValue.ageContent)) {
 				sb.append(startWrapper("Age Appearance"));
-					sb.append(applyWrapperDiscounted("18", "Our default model has the appearance of an 18 year old.", PresetColour.AGE_TEENS, "DOLL_AGE_0", "Select", ageOption==0, getAgeCost(0), true));
+					sb.append(applyWrapperDiscounted("" + GameCharacter.MINIMUM_AGE, "Our default model has the appearance of an " + GameCharacter.MINIMUM_AGE + " year old.",
+							PresetColour.AGE_TEENS, "DOLL_AGE_0", "Select",
+							ageOption==0, getAgeCost(0), true));
 					sb.append(applyWrapperDiscounted("20's", "We're able to age your doll a little if you like.", PresetColour.AGE_TWENTIES, "DOLL_AGE_1", "Select", ageOption==1, getAgeCost(1), true));
 					sb.append(applyWrapperDiscounted("30's", "Or we can double their age from the default, if you prefer.", PresetColour.AGE_THIRTIES, "DOLL_AGE_2", "Select", ageOption==2, getAgeCost(2), true));
 					sb.append(applyWrapperDiscounted("40's", "Want your doll to look like a MILF? We can do that too.", PresetColour.AGE_FORTIES, "DOLL_AGE_3", "Select", ageOption==3, getAgeCost(3), true));

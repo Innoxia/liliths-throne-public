@@ -192,7 +192,7 @@ public class Evelyx extends NPC {
 		
 		
 		// Body:
-		this.setAgeAppearanceAbsolute(18);
+		this.setAgeAppearanceAbsolute(GameCharacter.MINIMUM_AGE);
 		this.setTailType(TailType.DEMON_COMMON);
 		this.setWingType(WingType.NONE);
 		this.setLegType(LegType.DEMON_HOOFED);

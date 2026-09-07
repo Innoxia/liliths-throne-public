@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.npc.misc;
 import java.time.Month;
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -36,7 +37,7 @@ public class SlaveImport extends NPC {
 	
 	public SlaveImport(boolean isImported) {
 		super(isImported, new NameTriplet("Slave"), "", "-",
-				18, Month.JUNE, 10,
+				GameCharacter.MINIMUM_AGE, Month.JUNE, 10,
 				1, Gender.F_V_B_FEMALE, Subspecies.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(false, 0), WorldType.EMPTY, PlaceType.GENERIC_HOLDING_CELL, false);
 	}

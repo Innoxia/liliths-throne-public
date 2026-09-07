@@ -59,7 +59,7 @@ public class DominionSuccubusAttacker extends NPC {
 	
 	public DominionSuccubusAttacker(boolean isImported) {
 		super(isImported, null, null, "",
-				Util.random.nextInt(50)+18, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
+				Util.random.nextInt(50)+GameCharacter.MINIMUM_AGE, Util.randomItemFrom(Month.values()), 1+Util.random.nextInt(25),
 				5, Gender.getGenderFromUserPreferences(Femininity.FEMININE), Subspecies.DEMON, RaceStage.GREATER,
 				new CharacterInventory(false, 10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
 
@@ -89,7 +89,7 @@ public class DominionSuccubusAttacker extends NPC {
 
 			setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
-			this.setAgeAppearanceAbsolute(18+Util.random.nextInt(10));
+			this.setAgeAppearanceAbsolute(GameCharacter.MINIMUM_AGE+Util.random.nextInt(10));
 			
 			this.setVaginaVirgin(false);
 			this.setAssVirgin(false);
@@ -140,7 +140,7 @@ public class DominionSuccubusAttacker extends NPC {
 			this.setFetishDesire(Fetish.FETISH_NON_CON_DOM, FetishDesire.TWO_NEUTRAL);
 		}
 		if(Main.isVersionOlderThan(Game.loadingVersion, "0.2.11")) {
-			this.setAgeAppearanceAbsolute(18+Util.random.nextInt(10));
+			this.setAgeAppearanceAbsolute(GameCharacter.MINIMUM_AGE+Util.random.nextInt(10));
 		}
 	}
 
