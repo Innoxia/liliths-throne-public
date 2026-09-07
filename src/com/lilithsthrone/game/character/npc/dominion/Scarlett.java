@@ -309,7 +309,7 @@ public class Scarlett extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		if(this.hasVagina()) {
 			if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 				return "#fa2ca7";

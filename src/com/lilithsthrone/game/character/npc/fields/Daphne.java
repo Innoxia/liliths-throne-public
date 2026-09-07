@@ -242,7 +242,7 @@ public class Daphne extends NPC {
 	}
 
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		return PresetColour.BASE_PINK_LIGHT.toWebHexString();
 	}
 	

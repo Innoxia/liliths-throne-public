@@ -257,7 +257,7 @@ public class Silvia extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		return "#ffb3ff";
 	}
 	

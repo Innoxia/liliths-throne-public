@@ -238,7 +238,7 @@ public class Ziva extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		return "#ee4078";
 	}
 	

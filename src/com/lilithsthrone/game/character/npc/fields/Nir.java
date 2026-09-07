@@ -307,7 +307,7 @@ public class Nir extends NPC {
 	}
 
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		if(Main.game.isLightTheme()) {
 			return "#2f2b27";
 		}

@@ -4147,10 +4147,33 @@ public abstract class GameCharacter implements XMLSaving {
 		return null;
 	}
 	
+	/**
+	 * Returns a web hex string representing the colour of this character's speech text. To get the
+	 * underlying colour object instead, use getSpeechColourAsColour.
+	 * <p>
+	 * If a subclass needs to return a hex colour that is not derived from a Colour object, override
+	 * the getDefaultSpeechColour method instead of this one.
+	 * 
+	 * @return this character's speech colour seen in-game, as a web hex string
+	 */
 	public String getSpeechColour() {
 		if(speechColour!=null) {
 			return speechColour.toWebHexString();
 		}
+		return getDefaultSpeechColour();
+	}
+	
+	/**
+	 * Returns a web hex string representing the colour of this character's speech text if no
+	 * speechColour is defined. Unless overridden, the result is based on the character's femininity.
+	 * <p>
+	 * If a subclass needs to return a hex colour that is not derived from a Colour object, override
+	 * this method instead of getSpeechColour, so that the function of the speechColour variable
+	 * will be preserved.
+	 * 
+	 * @return this character's speech colour if no other is defined, as a web hex string
+	 */
+	protected String getDefaultSpeechColour() {
 		if(this.isPlayer()) {
 			switch(Femininity.valueOf(getFemininityValue())) {
 				case ANDROGYNOUS:
@@ -4181,8 +4204,24 @@ public abstract class GameCharacter implements XMLSaving {
 		return null;
 	}
 	
+	/**
+	 * Sets the Colour to be used for this character's speech text. Pass speechColour=null to revert
+	 * to using getDefaultSpeechColour instead.
+	 * 
+	 * @param speechColour the new Colour for this character's speech, or null for the default 
+	 */
 	public void setSpeechColour(Colour speechColour) {
 		this.speechColour = speechColour;
+	}
+	
+	/**
+	 * Returns the underlying Colour object for this character's speech colour, which will be null
+	 * when relying on getDefaultSpeechColour to define their speech colour.
+	 * 
+	 * @return this character's speech colour as a Colour object
+	 */
+	public Colour getSpeechColourAsColour() {
+		return speechColour;
 	}
 
 	public void updateAttributeListeners(boolean requiresStatusEffectUpdate) {

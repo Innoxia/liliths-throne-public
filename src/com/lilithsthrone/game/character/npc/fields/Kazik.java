@@ -259,7 +259,7 @@ public class Kazik extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		return "#94b0ff";
 	}
 	

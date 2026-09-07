@@ -318,7 +318,7 @@ public class Natalya extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		return "#e4a1e0";
 	}
 	

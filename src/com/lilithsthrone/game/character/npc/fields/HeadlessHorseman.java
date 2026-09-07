@@ -232,7 +232,7 @@ public class HeadlessHorseman extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		return PresetColour.BASE_RED.toWebHexString();
 	}
 	

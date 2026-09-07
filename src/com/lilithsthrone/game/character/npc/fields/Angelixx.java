@@ -364,7 +364,7 @@ public class Angelixx extends NPC {
 	}
 
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		if(Main.game.isLightTheme()) {
 			return PresetColour.BASE_YELLOW_LIGHT.toWebHexString();
 		}

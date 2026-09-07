@@ -395,7 +395,7 @@ public class Murk extends NPC {
 	}
 
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		if(this.isFeminine()) {
 			return PresetColour.BASE_TAN.toWebHexString();
 		}

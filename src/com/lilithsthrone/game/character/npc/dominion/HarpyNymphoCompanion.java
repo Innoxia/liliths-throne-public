@@ -211,7 +211,7 @@ public class HarpyNymphoCompanion extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		if(Main.getProperties().hasValue(PropertyValue.lightTheme)) {
 			return "#BE09A3";
 			

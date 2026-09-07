@@ -255,7 +255,7 @@ public class Jess extends NPC {
 	}
 
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		if(Main.game.isLightTheme()) {
 			return "#cb3138";
 		}

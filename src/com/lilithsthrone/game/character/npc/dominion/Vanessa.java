@@ -263,7 +263,7 @@ public class Vanessa extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		return "#E7CAE6";
 	}
 	

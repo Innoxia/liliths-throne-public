@@ -379,7 +379,7 @@ public class Monica extends NPC {
 	}
 	
 	@Override
-	public String getSpeechColour() {
+	protected String getDefaultSpeechColour() {
 		return "#ffb8a3";
 	}
 
