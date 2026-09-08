@@ -35,12 +35,14 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
 import com.lilithsthrone.game.dialogue.utils.MapTravelType;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.utils.CreditsSlot;
+import com.lilithsthrone.utils.ErrorStream;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.PresetColour;
 import com.lilithsthrone.world.Generation;
@@ -680,33 +682,30 @@ public class Main extends Application {
 		
 		// Open error log
 		if(!DEBUG) {
+			File errorLog = new File("data/error.log");
+			if (errorLog.exists() && ErrorStream.getLogLengthSafe(errorLog) > ErrorStream.ERR_LOG_INFO_LENGTH) {
+				ErrorStream.newErrorLog = true;
+				errorLog.renameTo(new File("data/error_log_" + errorLog.lastModified() + ".log"));
+			}
 			System.out.println("Printing to error.log");
 			try {
-				PrintStream stream = new PrintStream("data/error.log");
+				ErrorStream stream = new ErrorStream("data/error.log");
 				System.setErr(stream);
-				System.err.println("Game Version: "+VERSION_NUMBER+" ("+System.getProperty("build.type", "jar")+")");
-				System.err.println("Java: "+System.getProperty("java.version")+" ("+System.getProperty("java.vendor")+")");
-				System.err.println("OS: "+System.getProperty("os.name")+" ("+System.getProperty("os.arch")+")");
-				if (new File("res/mods").exists()) {
-					System.err.print("Mod folders present: ");
-					int i=0;
-					for(File f : new File("res/mods").listFiles()) {
-						if(f.isDirectory()) {
-							if(i>0) {
-								System.err.print(", ");
-							}
-							System.err.print(f.getName());
-						}
-						i++;
-					}
-					System.err.println();
-				}
-				
-				
-//				System.err.println("OS: "+System.getProperty("os.name"));
-				
+				stream.printData();
 			} catch (FileNotFoundException e) {
-				e.printStackTrace();
+				Alert a = new Alert(AlertType.ERROR,
+						"Unable to create or modify error.log ("+ (new File("./data/error.log")).getAbsolutePath()+")."
+								+ "\nMake sure that data exists, and that the file has write permissions."
+								+ "\n(Please do not extract the game into protected folders [C:\\, Desktop, OneDrive, etc...])"
+								+ "\nContinue?",
+						ButtonType.YES, ButtonType.NO);
+				System.err.println("Failed to create/modify error.log");
+				a.showAndWait().ifPresent(response -> {
+					if (response == ButtonType.NO) {
+						System.exit(1);
+					}
+				});
+
 			}
 		}
 		// Load properties:

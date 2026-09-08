@@ -37,6 +37,7 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.character.race.SubspeciesPreference;
 import com.lilithsthrone.game.dialogue.DialogueNode;
 import com.lilithsthrone.game.dialogue.DialogueNodeType;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Library;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
@@ -52,6 +53,7 @@ import com.lilithsthrone.rendering.ArtistWebsite;
 import com.lilithsthrone.rendering.Artwork;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.CreditsSlot;
+import com.lilithsthrone.utils.ErrorStream;
 import com.lilithsthrone.utils.Units;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.colours.Colour;
@@ -99,7 +101,7 @@ public class OptionsDialogue {
 					//.append(" [style.italicsMinorBad(<b>Note:</b> Intrusive age verification is being rolled out on blogspot, so I will likely create a new blog soon.)]</p>")
 					.append("<p style='text-align:center'><b>Please use either my blog or github to get the latest official version of Lilith's Throne!</b></p>")
 					.append("<p style='text-align:center'><i>Copy over the contents of your 'data' folder to use your old saves in this version!</i></p>");
-			
+			sb.append((ErrorStream.newErrorLog ? "<p style='text-align:center;color:#F44';>You have a new error log file in /data/ </p>" : ""));
 			sb.append(getJavaVersionInformation());
 			
 			if(Toolkit.getDefaultToolkit().getScreenSize().getHeight()<800) {
